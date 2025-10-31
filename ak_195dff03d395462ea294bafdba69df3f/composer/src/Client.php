@@ -29,6 +29,8 @@ use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\AuthAntchainAtoFundFlowR
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\AuthAntchainAtoFundFlowResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\AuthAntchainAtoSignFlowRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\AuthAntchainAtoSignFlowResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\BindAntchainAtoMerchantexpandSettlecardRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\BindAntchainAtoMerchantexpandSettlecardResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CallbackAntchainAtoFundNotifyRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CallbackAntchainAtoFundNotifyResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CancelAntchainAtoFundPlanRequest;
@@ -85,6 +87,8 @@ use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoTradeMerch
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoTradeMerchantperformanceResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoTradeOrderfinanceinfoRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoTradeOrderfinanceinfoResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoTradeOrderfullinfoRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoTradeOrderfullinfoResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoTradeRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoTradeResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoTradeUserperformanceRequest;
@@ -169,6 +173,8 @@ use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoTradeIndi
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoTradeIndirectorderResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoTradePromoorderinfoRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoTradePromoorderinfoResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoTradeReceiptorderfullinfoRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoTradeReceiptorderfullinfoResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoTradeRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoTradeResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoTradeUserpromisedelayRequest;
@@ -344,7 +350,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.6.3',
+                    'sdk_version'      => '1.6.4',
                     '_prod_code'       => 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel'    => 'saas',
                 ];
@@ -1571,8 +1577,8 @@ class Client
     }
 
     /**
-     * Description: 资方查询订单详情
-     * Summary: 资方查询订单详情.
+     * Description: 资方调用、订单详情获取
+     * Summary: 资方调用、订单详情获取.
      *
      * @param GetAntchainAtoFundOrderfullinfoRequest $request
      *
@@ -1587,8 +1593,8 @@ class Client
     }
 
     /**
-     * Description: 资方查询订单详情
-     * Summary: 资方查询订单详情.
+     * Description: 资方调用、订单详情获取
+     * Summary: 资方调用、订单详情获取.
      *
      * @param GetAntchainAtoFundOrderfullinfoRequest $request
      * @param string[]                               $headers
@@ -3491,6 +3497,105 @@ class Client
         Utils::validateModel($request);
 
         return SyncAntchainAtoTradePromoorderinfoResponse::fromMap($this->doRequest('1.0', 'antchain.ato.trade.promoorderinfo.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 二级户进件绑定结算卡信息
+     * Summary: 二级户进件绑定结算卡信息.
+     *
+     * @param BindAntchainAtoMerchantexpandSettlecardRequest $request
+     *
+     * @return BindAntchainAtoMerchantexpandSettlecardResponse
+     */
+    public function bindAntchainAtoMerchantexpandSettlecard($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->bindAntchainAtoMerchantexpandSettlecardEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 二级户进件绑定结算卡信息
+     * Summary: 二级户进件绑定结算卡信息.
+     *
+     * @param BindAntchainAtoMerchantexpandSettlecardRequest $request
+     * @param string[]                                       $headers
+     * @param RuntimeOptions                                 $runtime
+     *
+     * @return BindAntchainAtoMerchantexpandSettlecardResponse
+     */
+    public function bindAntchainAtoMerchantexpandSettlecardEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BindAntchainAtoMerchantexpandSettlecardResponse::fromMap($this->doRequest('1.0', 'antchain.ato.merchantexpand.settlecard.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 资产订单同步
+     * Summary: 资产订单同步.
+     *
+     * @param SyncAntchainAtoTradeReceiptorderfullinfoRequest $request
+     *
+     * @return SyncAntchainAtoTradeReceiptorderfullinfoResponse
+     */
+    public function syncAntchainAtoTradeReceiptorderfullinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->syncAntchainAtoTradeReceiptorderfullinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 资产订单同步
+     * Summary: 资产订单同步.
+     *
+     * @param SyncAntchainAtoTradeReceiptorderfullinfoRequest $request
+     * @param string[]                                        $headers
+     * @param RuntimeOptions                                  $runtime
+     *
+     * @return SyncAntchainAtoTradeReceiptorderfullinfoResponse
+     */
+    public function syncAntchainAtoTradeReceiptorderfullinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SyncAntchainAtoTradeReceiptorderfullinfoResponse::fromMap($this->doRequest('1.0', 'antchain.ato.trade.receiptorderfullinfo.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 订单信息查询（新）
+     * Summary: 订单获取.
+     *
+     * @param GetAntchainAtoTradeOrderfullinfoRequest $request
+     *
+     * @return GetAntchainAtoTradeOrderfullinfoResponse
+     */
+    public function getAntchainAtoTradeOrderfullinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getAntchainAtoTradeOrderfullinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 订单信息查询（新）
+     * Summary: 订单获取.
+     *
+     * @param GetAntchainAtoTradeOrderfullinfoRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return GetAntchainAtoTradeOrderfullinfoResponse
+     */
+    public function getAntchainAtoTradeOrderfullinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetAntchainAtoTradeOrderfullinfoResponse::fromMap($this->doRequest('1.0', 'antchain.ato.trade.orderfullinfo.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
