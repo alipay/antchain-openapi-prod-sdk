@@ -906,6 +906,246 @@ func (s *DataAdDataExportExperimentResponse) SetSuccess(v bool) *DataAdDataExpor
 	return s
 }
 
+type ConversionAdDataRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 投放项目
+	Project *string `json:"project,omitempty" xml:"project,omitempty" require:"true"`
+	// 转化发生的unix事件戳,单位秒
+	EventTime *int64 `json:"event_time,omitempty" xml:"event_time,omitempty" require:"true"`
+	// 事件类型编码
+	EventCode *string `json:"event_code,omitempty" xml:"event_code,omitempty" require:"true"`
+	// 转化所属用户在客户系统中的用户id
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+	// 转化对应的产品id，如用户购买保险对应的保险产品id，没有可不填
+	ProductId *string `json:"product_id,omitempty" xml:"product_id,omitempty"`
+	// 唯一标识当前转化事件的一个业务id，如保险下单的订单id，没有可不填
+	EventId *string `json:"event_id,omitempty" xml:"event_id,omitempty"`
+	// json字段， {"xxx": xxx, "yyyy":"yyyy"}， 包含转化对应的媒体侧信息，如click_id, gdt_vid，跳转链接等，数科侧会依据该id与自行收集到的点击进行匹配归因
+	TrackInfo *string `json:"track_info,omitempty" xml:"track_info,omitempty" require:"true"`
+	// json扩展字段
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
+}
+
+func (s ConversionAdDataRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ConversionAdDataRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ConversionAdDataRequest) SetAuthToken(v string) *ConversionAdDataRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ConversionAdDataRequest) SetProject(v string) *ConversionAdDataRequest {
+	s.Project = &v
+	return s
+}
+
+func (s *ConversionAdDataRequest) SetEventTime(v int64) *ConversionAdDataRequest {
+	s.EventTime = &v
+	return s
+}
+
+func (s *ConversionAdDataRequest) SetEventCode(v string) *ConversionAdDataRequest {
+	s.EventCode = &v
+	return s
+}
+
+func (s *ConversionAdDataRequest) SetUserId(v string) *ConversionAdDataRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *ConversionAdDataRequest) SetProductId(v string) *ConversionAdDataRequest {
+	s.ProductId = &v
+	return s
+}
+
+func (s *ConversionAdDataRequest) SetEventId(v string) *ConversionAdDataRequest {
+	s.EventId = &v
+	return s
+}
+
+func (s *ConversionAdDataRequest) SetTrackInfo(v string) *ConversionAdDataRequest {
+	s.TrackInfo = &v
+	return s
+}
+
+func (s *ConversionAdDataRequest) SetExtInfo(v string) *ConversionAdDataRequest {
+	s.ExtInfo = &v
+	return s
+}
+
+type ConversionAdDataResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+}
+
+func (s ConversionAdDataResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ConversionAdDataResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ConversionAdDataResponse) SetReqMsgId(v string) *ConversionAdDataResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ConversionAdDataResponse) SetResultCode(v string) *ConversionAdDataResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ConversionAdDataResponse) SetResultMsg(v string) *ConversionAdDataResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ConversionAdDataResponse) SetSuccess(v bool) *ConversionAdDataResponse {
+	s.Success = &v
+	return s
+}
+
+type ConversionAdDataAttributedRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 广告账户id，如9471147
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
+	// 转化归因到的媒体渠道
+	MediaType *string `json:"media_type,omitempty" xml:"media_type,omitempty" require:"true"`
+	// 转化发生的unix事件戳，单位秒
+	EventTime *int64 `json:"event_time,omitempty" xml:"event_time,omitempty" require:"true"`
+	// 事件类型编码
+	EventCode *string `json:"event_code,omitempty" xml:"event_code,omitempty" require:"true"`
+	// 转化所属用户在客户系统中的用户id
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+	// 转化对应的产品id，如用户购买保险对应的保险产品id，没有可不填
+	ProductId *string `json:"product_id,omitempty" xml:"product_id,omitempty"`
+	// 唯一标识当前转化事件的一个业务id，如保险下单的订单id，没有可不填
+	EventId *string `json:"event_id,omitempty" xml:"event_id,omitempty"`
+	// json字段，包含转化归因到的点击的完整必要信息，如用户设备信息等
+	ClickData *string `json:"click_data,omitempty" xml:"click_data,omitempty" require:"true"`
+	// 投放项目
+	Project *string `json:"project,omitempty" xml:"project,omitempty" require:"true"`
+}
+
+func (s ConversionAdDataAttributedRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ConversionAdDataAttributedRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ConversionAdDataAttributedRequest) SetAuthToken(v string) *ConversionAdDataAttributedRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ConversionAdDataAttributedRequest) SetAccountId(v string) *ConversionAdDataAttributedRequest {
+	s.AccountId = &v
+	return s
+}
+
+func (s *ConversionAdDataAttributedRequest) SetMediaType(v string) *ConversionAdDataAttributedRequest {
+	s.MediaType = &v
+	return s
+}
+
+func (s *ConversionAdDataAttributedRequest) SetEventTime(v int64) *ConversionAdDataAttributedRequest {
+	s.EventTime = &v
+	return s
+}
+
+func (s *ConversionAdDataAttributedRequest) SetEventCode(v string) *ConversionAdDataAttributedRequest {
+	s.EventCode = &v
+	return s
+}
+
+func (s *ConversionAdDataAttributedRequest) SetUserId(v string) *ConversionAdDataAttributedRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *ConversionAdDataAttributedRequest) SetProductId(v string) *ConversionAdDataAttributedRequest {
+	s.ProductId = &v
+	return s
+}
+
+func (s *ConversionAdDataAttributedRequest) SetEventId(v string) *ConversionAdDataAttributedRequest {
+	s.EventId = &v
+	return s
+}
+
+func (s *ConversionAdDataAttributedRequest) SetClickData(v string) *ConversionAdDataAttributedRequest {
+	s.ClickData = &v
+	return s
+}
+
+func (s *ConversionAdDataAttributedRequest) SetProject(v string) *ConversionAdDataAttributedRequest {
+	s.Project = &v
+	return s
+}
+
+type ConversionAdDataAttributedResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 处理是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 是否需要回传媒体
+	Callback *int64 `json:"callback,omitempty" xml:"callback,omitempty"`
+}
+
+func (s ConversionAdDataAttributedResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ConversionAdDataAttributedResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ConversionAdDataAttributedResponse) SetReqMsgId(v string) *ConversionAdDataAttributedResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ConversionAdDataAttributedResponse) SetResultCode(v string) *ConversionAdDataAttributedResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ConversionAdDataAttributedResponse) SetResultMsg(v string) *ConversionAdDataAttributedResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ConversionAdDataAttributedResponse) SetSuccess(v bool) *ConversionAdDataAttributedResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *ConversionAdDataAttributedResponse) SetCallback(v int64) *ConversionAdDataAttributedResponse {
+	s.Callback = &v
+	return s
+}
+
 type FeedbackReportDataRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -1106,7 +1346,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("6.0.0"),
+				"sdk_version":      tea.String("6.1.1"),
 				"_prod_code":       tea.String("MORSERTA"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -1327,6 +1567,74 @@ func (client *Client) DataAdDataExportExperimentEx(request *DataAdDataExportExpe
 	}
 	_result = &DataAdDataExportExperimentResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.morserta.ad.data.export.experiment.data"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 接收未归因的转化数据
+ * Summary: 接收未归因的转化数据
+ */
+func (client *Client) ConversionAdData(request *ConversionAdDataRequest) (_result *ConversionAdDataResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ConversionAdDataResponse{}
+	_body, _err := client.ConversionAdDataEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 接收未归因的转化数据
+ * Summary: 接收未归因的转化数据
+ */
+func (client *Client) ConversionAdDataEx(request *ConversionAdDataRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ConversionAdDataResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ConversionAdDataResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.morserta.ad.data.conversion"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 接收客户已归因转化事件
+ * Summary: 接收客户已归因转化事件
+ */
+func (client *Client) ConversionAdDataAttributed(request *ConversionAdDataAttributedRequest) (_result *ConversionAdDataAttributedResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ConversionAdDataAttributedResponse{}
+	_body, _err := client.ConversionAdDataAttributedEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 接收客户已归因转化事件
+ * Summary: 接收客户已归因转化事件
+ */
+func (client *Client) ConversionAdDataAttributedEx(request *ConversionAdDataAttributedRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ConversionAdDataAttributedResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ConversionAdDataAttributedResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.morserta.ad.data.attributed.conversion"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
