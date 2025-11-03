@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class ImageAuditResult extends TeaModel {
     // 任务ID
+    /**
+     * <strong>example:</strong>
+     * <p>任务ID</p>
+     */
     @NameInMap("task_id")
     @Validation(required = true)
     public String taskId;
 
     // 数据ID
+    /**
+     * <strong>example:</strong>
+     * <p>数据ID</p>
+     */
     @NameInMap("data_id")
     @Validation(required = true)
     public String dataId;

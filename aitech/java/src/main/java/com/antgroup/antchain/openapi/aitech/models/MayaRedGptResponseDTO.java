@@ -5,36 +5,64 @@ import com.aliyun.tea.*;
 
 public class MayaRedGptResponseDTO extends TeaModel {
     // 消息的ID
+    /**
+     * <strong>example:</strong>
+     * <p>123123</p>
+     */
     @NameInMap("message_id")
     @Validation(required = true)
     public String messageId;
 
     // 请求ID
+    /**
+     * <strong>example:</strong>
+     * <p>4564546</p>
+     */
     @NameInMap("request_id")
     @Validation(required = true)
     public String requestId;
 
     // 会话ID
+    /**
+     * <strong>example:</strong>
+     * <p>312414124</p>
+     */
     @NameInMap("session_id")
     @Validation(required = true)
     public String sessionId;
 
     // 应答内容
+    /**
+     * <strong>example:</strong>
+     * <p>你可以问我信息安全的问题</p>
+     */
     @NameInMap("answer")
     @Validation(required = true)
     public String answer;
 
     // 应答内容格式
+    /**
+     * <strong>example:</strong>
+     * <p>PLAINTEXT</p>
+     */
     @NameInMap("answer_format")
     @Validation(required = true)
     public String answerFormat;
 
     // 是否回答结束
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
     @NameInMap("answer_end")
     @Validation(required = true)
     public Boolean answerEnd;
 
     // 是否问题有风险
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
     @NameInMap("safe")
     @Validation(required = true)
     public Boolean safe;

@@ -21,6 +21,10 @@ public class QueryMeiyouAudittopicRequest extends TeaModel {
     @Validation(required = true)
     public String topicState;
 
+    // 数据来源
+    @NameInMap("source")
+    public String source;
+
     public static QueryMeiyouAudittopicRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryMeiyouAudittopicRequest self = new QueryMeiyouAudittopicRequest();
         return TeaModel.build(map, self);
@@ -56,6 +60,14 @@ public class QueryMeiyouAudittopicRequest extends TeaModel {
     }
     public String getTopicState() {
         return this.topicState;
+    }
+
+    public QueryMeiyouAudittopicRequest setSource(String source) {
+        this.source = source;
+        return this;
+    }
+    public String getSource() {
+        return this.source;
     }
 
 }

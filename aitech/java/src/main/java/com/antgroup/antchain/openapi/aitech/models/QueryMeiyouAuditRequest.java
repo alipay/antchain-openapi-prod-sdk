@@ -13,13 +13,30 @@ public class QueryMeiyouAuditRequest extends TeaModel {
 
     // 审核记录ID
     @NameInMap("audit_ids")
-    @Validation(required = true)
     public java.util.List<Long> auditIds;
 
     // 美柚itag关联状态
     @NameInMap("audit_state")
     @Validation(required = true)
     public String auditState;
+
+    // 开始时间
+    @NameInMap("gmt_create_start")
+    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
+    public String gmtCreateStart;
+
+    // 结束时间
+    @NameInMap("gmt_create_end")
+    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
+    public String gmtCreateEnd;
+
+    // 最大条数
+    @NameInMap("max_num")
+    public Long maxNum;
+
+    // 数据来源
+    @NameInMap("source")
+    public String source;
 
     public static QueryMeiyouAuditRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryMeiyouAuditRequest self = new QueryMeiyouAuditRequest();
@@ -56,6 +73,38 @@ public class QueryMeiyouAuditRequest extends TeaModel {
     }
     public String getAuditState() {
         return this.auditState;
+    }
+
+    public QueryMeiyouAuditRequest setGmtCreateStart(String gmtCreateStart) {
+        this.gmtCreateStart = gmtCreateStart;
+        return this;
+    }
+    public String getGmtCreateStart() {
+        return this.gmtCreateStart;
+    }
+
+    public QueryMeiyouAuditRequest setGmtCreateEnd(String gmtCreateEnd) {
+        this.gmtCreateEnd = gmtCreateEnd;
+        return this;
+    }
+    public String getGmtCreateEnd() {
+        return this.gmtCreateEnd;
+    }
+
+    public QueryMeiyouAuditRequest setMaxNum(Long maxNum) {
+        this.maxNum = maxNum;
+        return this;
+    }
+    public Long getMaxNum() {
+        return this.maxNum;
+    }
+
+    public QueryMeiyouAuditRequest setSource(String source) {
+        this.source = source;
+        return this;
+    }
+    public String getSource() {
+        return this.source;
     }
 
 }

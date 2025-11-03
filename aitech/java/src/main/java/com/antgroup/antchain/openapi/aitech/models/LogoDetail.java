@@ -10,11 +10,19 @@ public class LogoDetail extends TeaModel {
     public java.util.List<Long> location;
 
     // 类型
+    /**
+     * <strong>example:</strong>
+     * <p>LOGO类型</p>
+     */
     @NameInMap("type")
     @Validation(required = true)
     public String type;
 
     // 置信度
+    /**
+     * <strong>example:</strong>
+     * <p>置信度</p>
+     */
     @NameInMap("probability")
     @Validation(required = true)
     public String probability;

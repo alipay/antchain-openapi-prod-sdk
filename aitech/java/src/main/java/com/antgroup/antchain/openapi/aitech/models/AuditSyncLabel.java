@@ -5,20 +5,36 @@ import com.aliyun.tea.*;
 
 public class AuditSyncLabel extends TeaModel {
     // 标签名：sex-色情
+    /**
+     * <strong>example:</strong>
+     * <p>sex</p>
+     */
     @NameInMap("label")
     @Validation(required = true)
     public String label;
 
     // 检测到单个风险标签的置信度：66.25
+    /**
+     * <strong>example:</strong>
+     * <p>66.25</p>
+     */
     @NameInMap("probability")
     @Validation(required = true)
     public Long probability;
 
     // 风险标签说明
+    /**
+     * <strong>example:</strong>
+     * <p>疑似色情内容</p>
+     */
     @NameInMap("description")
     public String description;
 
     // 检测到的敏感词，多个词用逗号分隔，部分标签不会返回敏感词：AA,BB,CC
+    /**
+     * <strong>example:</strong>
+     * <p>AA,BB,CC</p>
+     */
     @NameInMap("risk_words")
     @Validation(required = true)
     public String riskWords;

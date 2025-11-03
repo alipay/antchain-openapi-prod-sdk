@@ -10,6 +10,10 @@ public class AntCloudProdProviderHttpResponse extends TeaModel {
     public MayaStreamResult response;
 
     // 签名
+    /**
+     * <strong>example:</strong>
+     * <p>5Okl4F2SNc9L2zrWCF8xZ+QPUyA=</p>
+     */
     @NameInMap("sign")
     @Validation(required = true)
     public String sign;

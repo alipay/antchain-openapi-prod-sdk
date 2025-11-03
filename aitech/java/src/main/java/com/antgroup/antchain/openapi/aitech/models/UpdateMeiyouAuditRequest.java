@@ -13,23 +13,31 @@ public class UpdateMeiyouAuditRequest extends TeaModel {
 
     // 主题ID
     @NameInMap("topic_ids")
-    @Validation(required = true)
     public java.util.List<Long> topicIds;
 
     // 美柚itag关联状态
     @NameInMap("topic_state")
-    @Validation(required = true)
     public String topicState;
 
     // 审核记录ID
     @NameInMap("audit_ids")
-    @Validation(required = true)
     public java.util.List<Long> auditIds;
 
     // 美柚itag关联状态
     @NameInMap("audit_state")
-    @Validation(required = true)
     public String auditState;
+
+    // itag任务ID
+    @NameInMap("itag_task_id")
+    public Long itagTaskId;
+
+    // itag数据集ID
+    @NameInMap("itag_dataset_id")
+    public Long itagDatasetId;
+
+    // 数据来源
+    @NameInMap("source")
+    public String source;
 
     public static UpdateMeiyouAuditRequest build(java.util.Map<String, ?> map) throws Exception {
         UpdateMeiyouAuditRequest self = new UpdateMeiyouAuditRequest();
@@ -82,6 +90,30 @@ public class UpdateMeiyouAuditRequest extends TeaModel {
     }
     public String getAuditState() {
         return this.auditState;
+    }
+
+    public UpdateMeiyouAuditRequest setItagTaskId(Long itagTaskId) {
+        this.itagTaskId = itagTaskId;
+        return this;
+    }
+    public Long getItagTaskId() {
+        return this.itagTaskId;
+    }
+
+    public UpdateMeiyouAuditRequest setItagDatasetId(Long itagDatasetId) {
+        this.itagDatasetId = itagDatasetId;
+        return this;
+    }
+    public Long getItagDatasetId() {
+        return this.itagDatasetId;
+    }
+
+    public UpdateMeiyouAuditRequest setSource(String source) {
+        this.source = source;
+        return this;
+    }
+    public String getSource() {
+        return this.source;
     }
 
 }

@@ -3,7 +3,15 @@ package com.antgroup.antchain.openapi.aitech.models;
 
 import com.aliyun.tea.*;
 
-public class MeiyouAuditSaveWebInfo extends TeaModel {
+public class MeiyouAuditSaveWebRequest extends TeaModel {
+    // 审核记录ID
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
+    @NameInMap("audit_id")
+    public Long auditId;
+
     // 主题ID
     /**
      * <strong>example:</strong>
@@ -12,24 +20,19 @@ public class MeiyouAuditSaveWebInfo extends TeaModel {
     @NameInMap("topic_id")
     public Long topicId;
 
-    // 审核记录ID
-    /**
-     * <strong>example:</strong>
-     * <p>1</p>
-     */
-    @NameInMap("audit_id")
-    @Validation(required = true)
-    public Long auditId;
-
     // 内容文本
     /**
      * <strong>example:</strong>
-     * <p>小蜜</p>
+     * <p>test</p>
      */
     @NameInMap("content")
     public String content;
 
     // 发布时间戳(毫秒)
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("publish_time")
     public Long publishTime;
 
@@ -44,7 +47,7 @@ public class MeiyouAuditSaveWebInfo extends TeaModel {
     // 一级业务
     /**
      * <strong>example:</strong>
-     * <p>一级业务</p>
+     * <p>test</p>
      */
     @NameInMap("primary_business")
     public String primaryBusiness;
@@ -52,7 +55,7 @@ public class MeiyouAuditSaveWebInfo extends TeaModel {
     // 二级业务
     /**
      * <strong>example:</strong>
-     * <p>二级业务</p>
+     * <p>1</p>
      */
     @NameInMap("secondary_business")
     public String secondaryBusiness;
@@ -60,7 +63,7 @@ public class MeiyouAuditSaveWebInfo extends TeaModel {
     // 用户昵称
     /**
      * <strong>example:</strong>
-     * <p>用户昵称</p>
+     * <p>小蜜</p>
      */
     @NameInMap("user_nickname")
     public String userNickname;
@@ -68,16 +71,15 @@ public class MeiyouAuditSaveWebInfo extends TeaModel {
     // 用户ID
     /**
      * <strong>example:</strong>
-     * <p>用户ID</p>
+     * <p>1</p>
      */
     @NameInMap("user_id")
     public String userId;
 
     // 用户类型
-    // 
     /**
      * <strong>example:</strong>
-     * <p>用户类型</p>
+     * <p>INIT</p>
      */
     @NameInMap("user_type")
     public String userType;
@@ -85,33 +87,49 @@ public class MeiyouAuditSaveWebInfo extends TeaModel {
     // 用户头像URL
     /**
      * <strong>example:</strong>
-     * <p>http://</p>
+     * <p><a href="http://test">http://test</a></p>
      */
     @NameInMap("user_avatar")
     public String userAvatar;
 
-    //  主题信息
+    // 操作人
     /**
      * <strong>example:</strong>
-     * <p> 主题信息</p>
+     * <p>小蜜</p>
+     */
+    @NameInMap("audit_operator")
+    public String auditOperator;
+
+    // 审核楼
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
+    @NameInMap("audit_floor")
+    public Long auditFloor;
+
+    // 版本
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
+    @NameInMap("version")
+    public String version;
+
+    // 主题信息
+    /**
+     * <strong>example:</strong>
+     * <p>{}</p>
      */
     @NameInMap("topic_infos")
-    public MeiyouTopicWebInfo topicInfos;
+    public java.util.List<MeiyouTopicWebInfo> topicInfos;
 
-    public static MeiyouAuditSaveWebInfo build(java.util.Map<String, ?> map) throws Exception {
-        MeiyouAuditSaveWebInfo self = new MeiyouAuditSaveWebInfo();
+    public static MeiyouAuditSaveWebRequest build(java.util.Map<String, ?> map) throws Exception {
+        MeiyouAuditSaveWebRequest self = new MeiyouAuditSaveWebRequest();
         return TeaModel.build(map, self);
     }
 
-    public MeiyouAuditSaveWebInfo setTopicId(Long topicId) {
-        this.topicId = topicId;
-        return this;
-    }
-    public Long getTopicId() {
-        return this.topicId;
-    }
-
-    public MeiyouAuditSaveWebInfo setAuditId(Long auditId) {
+    public MeiyouAuditSaveWebRequest setAuditId(Long auditId) {
         this.auditId = auditId;
         return this;
     }
@@ -119,7 +137,15 @@ public class MeiyouAuditSaveWebInfo extends TeaModel {
         return this.auditId;
     }
 
-    public MeiyouAuditSaveWebInfo setContent(String content) {
+    public MeiyouAuditSaveWebRequest setTopicId(Long topicId) {
+        this.topicId = topicId;
+        return this;
+    }
+    public Long getTopicId() {
+        return this.topicId;
+    }
+
+    public MeiyouAuditSaveWebRequest setContent(String content) {
         this.content = content;
         return this;
     }
@@ -127,7 +153,7 @@ public class MeiyouAuditSaveWebInfo extends TeaModel {
         return this.content;
     }
 
-    public MeiyouAuditSaveWebInfo setPublishTime(Long publishTime) {
+    public MeiyouAuditSaveWebRequest setPublishTime(Long publishTime) {
         this.publishTime = publishTime;
         return this;
     }
@@ -135,7 +161,7 @@ public class MeiyouAuditSaveWebInfo extends TeaModel {
         return this.publishTime;
     }
 
-    public MeiyouAuditSaveWebInfo setImages(String images) {
+    public MeiyouAuditSaveWebRequest setImages(String images) {
         this.images = images;
         return this;
     }
@@ -143,7 +169,7 @@ public class MeiyouAuditSaveWebInfo extends TeaModel {
         return this.images;
     }
 
-    public MeiyouAuditSaveWebInfo setPrimaryBusiness(String primaryBusiness) {
+    public MeiyouAuditSaveWebRequest setPrimaryBusiness(String primaryBusiness) {
         this.primaryBusiness = primaryBusiness;
         return this;
     }
@@ -151,7 +177,7 @@ public class MeiyouAuditSaveWebInfo extends TeaModel {
         return this.primaryBusiness;
     }
 
-    public MeiyouAuditSaveWebInfo setSecondaryBusiness(String secondaryBusiness) {
+    public MeiyouAuditSaveWebRequest setSecondaryBusiness(String secondaryBusiness) {
         this.secondaryBusiness = secondaryBusiness;
         return this;
     }
@@ -159,7 +185,7 @@ public class MeiyouAuditSaveWebInfo extends TeaModel {
         return this.secondaryBusiness;
     }
 
-    public MeiyouAuditSaveWebInfo setUserNickname(String userNickname) {
+    public MeiyouAuditSaveWebRequest setUserNickname(String userNickname) {
         this.userNickname = userNickname;
         return this;
     }
@@ -167,7 +193,7 @@ public class MeiyouAuditSaveWebInfo extends TeaModel {
         return this.userNickname;
     }
 
-    public MeiyouAuditSaveWebInfo setUserId(String userId) {
+    public MeiyouAuditSaveWebRequest setUserId(String userId) {
         this.userId = userId;
         return this;
     }
@@ -175,7 +201,7 @@ public class MeiyouAuditSaveWebInfo extends TeaModel {
         return this.userId;
     }
 
-    public MeiyouAuditSaveWebInfo setUserType(String userType) {
+    public MeiyouAuditSaveWebRequest setUserType(String userType) {
         this.userType = userType;
         return this;
     }
@@ -183,7 +209,7 @@ public class MeiyouAuditSaveWebInfo extends TeaModel {
         return this.userType;
     }
 
-    public MeiyouAuditSaveWebInfo setUserAvatar(String userAvatar) {
+    public MeiyouAuditSaveWebRequest setUserAvatar(String userAvatar) {
         this.userAvatar = userAvatar;
         return this;
     }
@@ -191,11 +217,35 @@ public class MeiyouAuditSaveWebInfo extends TeaModel {
         return this.userAvatar;
     }
 
-    public MeiyouAuditSaveWebInfo setTopicInfos(MeiyouTopicWebInfo topicInfos) {
+    public MeiyouAuditSaveWebRequest setAuditOperator(String auditOperator) {
+        this.auditOperator = auditOperator;
+        return this;
+    }
+    public String getAuditOperator() {
+        return this.auditOperator;
+    }
+
+    public MeiyouAuditSaveWebRequest setAuditFloor(Long auditFloor) {
+        this.auditFloor = auditFloor;
+        return this;
+    }
+    public Long getAuditFloor() {
+        return this.auditFloor;
+    }
+
+    public MeiyouAuditSaveWebRequest setVersion(String version) {
+        this.version = version;
+        return this;
+    }
+    public String getVersion() {
+        return this.version;
+    }
+
+    public MeiyouAuditSaveWebRequest setTopicInfos(java.util.List<MeiyouTopicWebInfo> topicInfos) {
         this.topicInfos = topicInfos;
         return this;
     }
-    public MeiyouTopicWebInfo getTopicInfos() {
+    public java.util.List<MeiyouTopicWebInfo> getTopicInfos() {
         return this.topicInfos;
     }
 

@@ -10,16 +10,28 @@ public class QRCodeDetail extends TeaModel {
     public java.util.List<Long> location;
 
     // 二维码类型
+    /**
+     * <strong>example:</strong>
+     * <p>二维码类型</p>
+     */
     @NameInMap("type")
     @Validation(required = true)
     public String type;
 
     // 二维码内容
+    /**
+     * <strong>example:</strong>
+     * <p>二维码内容</p>
+     */
     @NameInMap("content")
     @Validation(required = true)
     public String content;
 
     // 置信度
+    /**
+     * <strong>example:</strong>
+     * <p>置信度</p>
+     */
     @NameInMap("probability")
     @Validation(required = true)
     public String probability;
