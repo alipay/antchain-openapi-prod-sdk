@@ -184,39 +184,6 @@ export class MayaRedGptResponseDTO extends $tea.Model {
   }
 }
 
-// maya流式响应结果
-export class MayaStreamResult extends $tea.Model {
-  // maya响应数据
-  data: MayaRedGptResponseDTO;
-  // 是否成功
-  success: boolean;
-  // 错误码
-  errorCode: string;
-  // 错误信息
-  errorMsg: string;
-  static names(): { [key: string]: string } {
-    return {
-      data: 'data',
-      success: 'success',
-      errorCode: 'error_code',
-      errorMsg: 'error_msg',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      data: MayaRedGptResponseDTO,
-      success: 'boolean',
-      errorCode: 'string',
-      errorMsg: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // 审核同步标签列表
 export class AuditSyncLabel extends $tea.Model {
   // 标签名：sex-色情
@@ -275,6 +242,106 @@ export class QRCodeAuditResult extends $tea.Model {
   }
 }
 
+// 主题信息
+export class MeiyouTopicWebInfo extends $tea.Model {
+  // 内容文本
+  content?: string;
+  // 当前楼层
+  currentFloor?: number;
+  // 回复楼层
+  callBackFloor?: number;
+  // 发布时间戳(毫秒)
+  // 
+  publishTime?: number;
+  // 图片URL数组(JSON字符串)
+  images?: string;
+  // 用户昵称
+  userNickname?: string;
+  // 用户ID
+  userId?: string;
+  // 用户类型
+  // 
+  userType?: string;
+  // 用户头像URL
+  userAvatar?: string;
+  // 主题ID
+  topicId?: number;
+  // 回复楼信息
+  callBackFloorContent?: string;
+  // oss存储地址
+  ossImages?: string;
+  static names(): { [key: string]: string } {
+    return {
+      content: 'content',
+      currentFloor: 'current_floor',
+      callBackFloor: 'call_back_floor',
+      publishTime: 'publish_time',
+      images: 'images',
+      userNickname: 'user_nickname',
+      userId: 'user_id',
+      userType: 'user_type',
+      userAvatar: 'user_avatar',
+      topicId: 'topic_id',
+      callBackFloorContent: 'call_back_floor_content',
+      ossImages: 'oss_images',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      content: 'string',
+      currentFloor: 'number',
+      callBackFloor: 'number',
+      publishTime: 'number',
+      images: 'string',
+      userNickname: 'string',
+      userId: 'string',
+      userType: 'string',
+      userAvatar: 'string',
+      topicId: 'number',
+      callBackFloorContent: 'string',
+      ossImages: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// maya流式响应结果
+export class MayaStreamResult extends $tea.Model {
+  // maya响应数据
+  data: MayaRedGptResponseDTO;
+  // 是否成功
+  success: boolean;
+  // 错误码
+  errorCode: string;
+  // 错误信息
+  errorMsg: string;
+  static names(): { [key: string]: string } {
+    return {
+      data: 'data',
+      success: 'success',
+      errorCode: 'error_code',
+      errorMsg: 'error_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      data: MayaRedGptResponseDTO,
+      success: 'boolean',
+      errorCode: 'string',
+      errorMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // logo审核结果
 export class LogoAuditResult extends $tea.Model {
   // 检测到LOGO个数
@@ -300,53 +367,75 @@ export class LogoAuditResult extends $tea.Model {
   }
 }
 
-// 主题信息
-export class MeiyouTopicWebInfo extends $tea.Model {
+// 美柚审核信息存储请求
+export class MeiyouAuditSaveWebRequest extends $tea.Model {
+  // 审核记录ID
+  auditId?: number;
+  // 主题ID
+  topicId?: number;
   // 内容文本
   content?: string;
-  // 当前楼层
-  currentFloor?: number;
-  // 回复楼层
-  callBackFloor?: number;
   // 发布时间戳(毫秒)
-  // 
   publishTime?: number;
   // 图片URL数组(JSON字符串)
   images?: string;
+  // 一级业务
+  primaryBusiness?: string;
+  // 二级业务
+  secondaryBusiness?: string;
   // 用户昵称
   userNickname?: string;
   // 用户ID
   userId?: string;
   // 用户类型
-  // 
   userType?: string;
   // 用户头像URL
   userAvatar?: string;
+  // 操作人
+  auditOperator?: string;
+  // 审核楼
+  auditFloor?: number;
+  // 版本
+  version?: string;
+  // 主题信息
+  topicInfos?: MeiyouTopicWebInfo[];
   static names(): { [key: string]: string } {
     return {
+      auditId: 'audit_id',
+      topicId: 'topic_id',
       content: 'content',
-      currentFloor: 'current_floor',
-      callBackFloor: 'call_back_floor',
       publishTime: 'publish_time',
       images: 'images',
+      primaryBusiness: 'primary_business',
+      secondaryBusiness: 'secondary_business',
       userNickname: 'user_nickname',
       userId: 'user_id',
       userType: 'user_type',
       userAvatar: 'user_avatar',
+      auditOperator: 'audit_operator',
+      auditFloor: 'audit_floor',
+      version: 'version',
+      topicInfos: 'topic_infos',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
+      auditId: 'number',
+      topicId: 'number',
       content: 'string',
-      currentFloor: 'number',
-      callBackFloor: 'number',
       publishTime: 'number',
       images: 'string',
+      primaryBusiness: 'string',
+      secondaryBusiness: 'string',
       userNickname: 'string',
       userId: 'string',
       userType: 'string',
       userAvatar: 'string',
+      auditOperator: 'string',
+      auditFloor: 'number',
+      version: 'string',
+      topicInfos: { 'type': 'array', 'itemType': MeiyouTopicWebInfo },
     };
   }
 
@@ -372,39 +461,6 @@ export class AntCloudProdProviderHttpResponse extends $tea.Model {
     return {
       response: MayaStreamResult,
       sign: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 图片审核结果
-export class ImageAuditResult extends $tea.Model {
-  // 任务ID
-  taskId: string;
-  // 数据ID
-  dataId: string;
-  // LOGO审核结果
-  logoAuditResult: LogoAuditResult;
-  // QRCode审核结果
-  qrCodeAuditResult: QRCodeAuditResult;
-  static names(): { [key: string]: string } {
-    return {
-      taskId: 'task_id',
-      dataId: 'data_id',
-      logoAuditResult: 'logo_audit_result',
-      qrCodeAuditResult: 'qr_code_audit_result',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      taskId: 'string',
-      dataId: 'string',
-      logoAuditResult: LogoAuditResult,
-      qrCodeAuditResult: QRCodeAuditResult,
     };
   }
 
@@ -508,6 +564,185 @@ export class MeiyouAuditSaveWebInfo extends $tea.Model {
       userType: 'string',
       userAvatar: 'string',
       topicInfos: MeiyouTopicWebInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 图片审核结果
+export class ImageAuditResult extends $tea.Model {
+  // 任务ID
+  taskId: string;
+  // 数据ID
+  dataId: string;
+  // LOGO审核结果
+  logoAuditResult: LogoAuditResult;
+  // QRCode审核结果
+  qrCodeAuditResult: QRCodeAuditResult;
+  static names(): { [key: string]: string } {
+    return {
+      taskId: 'task_id',
+      dataId: 'data_id',
+      logoAuditResult: 'logo_audit_result',
+      qrCodeAuditResult: 'qr_code_audit_result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      taskId: 'string',
+      dataId: 'string',
+      logoAuditResult: LogoAuditResult,
+      qrCodeAuditResult: QRCodeAuditResult,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 美柚审核信息
+export class MeiyouAuditInfo extends $tea.Model {
+  // 主键id
+  id: number;
+  // 审核记录ID
+  auditId: number;
+  // 主题ID
+  topicId?: number;
+  // 内容文本
+  content?: string;
+  // 发布时间戳
+  publishTime?: string;
+  // 图片URL数组(JSON字符串)
+  images?: string;
+  // 一级业务
+  primaryBusiness?: string;
+  // 二级业务
+  secondaryBusiness?: string;
+  // 用户昵称
+  userNickname?: string;
+  // 用户ID
+  userId?: string;
+  // 用户类型
+  userType?: string;
+  // 用户头像URL
+  userAvatar?: string;
+  // 审核结果
+  auditResult?: string;
+  // 审核原因
+  auditReason?: string;
+  // 审核原因
+  auditReasonMsg?: string;
+  // 操作人
+  auditOperator?: string;
+  // 操作时间戳
+  auditTime?: string;
+  // oss 转存后的图像地址
+  ossImages?: string;
+  // 创建时间
+  gmtCreate?: string;
+  // 更新时间
+  gmtModified?: string;
+  static names(): { [key: string]: string } {
+    return {
+      id: 'id',
+      auditId: 'audit_id',
+      topicId: 'topic_id',
+      content: 'content',
+      publishTime: 'publish_time',
+      images: 'images',
+      primaryBusiness: 'primary_business',
+      secondaryBusiness: 'secondary_business',
+      userNickname: 'user_nickname',
+      userId: 'user_id',
+      userType: 'user_type',
+      userAvatar: 'user_avatar',
+      auditResult: 'audit_result',
+      auditReason: 'audit_reason',
+      auditReasonMsg: 'audit_reason_msg',
+      auditOperator: 'audit_operator',
+      auditTime: 'audit_time',
+      ossImages: 'oss_images',
+      gmtCreate: 'gmt_create',
+      gmtModified: 'gmt_modified',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      id: 'number',
+      auditId: 'number',
+      topicId: 'number',
+      content: 'string',
+      publishTime: 'string',
+      images: 'string',
+      primaryBusiness: 'string',
+      secondaryBusiness: 'string',
+      userNickname: 'string',
+      userId: 'string',
+      userType: 'string',
+      userAvatar: 'string',
+      auditResult: 'string',
+      auditReason: 'string',
+      auditReasonMsg: 'string',
+      auditOperator: 'string',
+      auditTime: 'string',
+      ossImages: 'string',
+      gmtCreate: 'string',
+      gmtModified: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 更新美柚itag关系信息
+export class UpdateMeiyouItagRelationWebInfo extends $tea.Model {
+  // 主键id
+  id: number;
+  // 审核记录ID
+  auditId?: string;
+  // itag数据ID
+  itagDataId?: number;
+  // 美柚任务审核结果推送状态
+  meiyouAuditState?: string;
+  // 审核不通过原因
+  refuseReson?: string;
+  // 美柚itag关联状态
+  auditState?: string;
+  // 美柚itag关联状态
+  topicState?: string;
+  // 审核结果
+  auditResult?: string;
+  static names(): { [key: string]: string } {
+    return {
+      id: 'id',
+      auditId: 'audit_id',
+      itagDataId: 'itag_data_id',
+      meiyouAuditState: 'meiyou_audit_state',
+      refuseReson: 'refuse_reson',
+      auditState: 'audit_state',
+      topicState: 'topic_state',
+      auditResult: 'audit_result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      id: 'number',
+      auditId: 'string',
+      itagDataId: 'number',
+      meiyouAuditState: 'string',
+      refuseReson: 'string',
+      auditState: 'string',
+      topicState: 'string',
+      auditResult: 'string',
     };
   }
 
@@ -2110,15 +2345,27 @@ export class QueryMeiyouAuditRequest extends $tea.Model {
   authToken?: string;
   productInstanceId?: string;
   // 审核记录ID
-  auditIds: number[];
+  auditIds?: number[];
   // 美柚itag关联状态
   auditState: string;
+  // 开始时间
+  gmtCreateStart?: string;
+  // 结束时间
+  gmtCreateEnd?: string;
+  // 最大条数
+  maxNum?: number;
+  // 数据来源
+  source?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       auditIds: 'audit_ids',
       auditState: 'audit_state',
+      gmtCreateStart: 'gmt_create_start',
+      gmtCreateEnd: 'gmt_create_end',
+      maxNum: 'max_num',
+      source: 'source',
     };
   }
 
@@ -2128,6 +2375,10 @@ export class QueryMeiyouAuditRequest extends $tea.Model {
       productInstanceId: 'string',
       auditIds: { 'type': 'array', 'itemType': 'number' },
       auditState: 'string',
+      gmtCreateStart: 'string',
+      gmtCreateEnd: 'string',
+      maxNum: 'number',
+      source: 'string',
     };
   }
 
@@ -2176,12 +2427,15 @@ export class QueryMeiyouAudittopicRequest extends $tea.Model {
   topicIds: number[];
   // 美柚itag关联状态
   topicState: string;
+  // 数据来源
+  source?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       topicIds: 'topic_ids',
       topicState: 'topic_state',
+      source: 'source',
     };
   }
 
@@ -2191,6 +2445,7 @@ export class QueryMeiyouAudittopicRequest extends $tea.Model {
       productInstanceId: 'string',
       topicIds: { 'type': 'array', 'itemType': 'number' },
       topicState: 'string',
+      source: 'string',
     };
   }
 
@@ -2236,13 +2491,19 @@ export class UpdateMeiyouAuditRequest extends $tea.Model {
   authToken?: string;
   productInstanceId?: string;
   // 主题ID
-  topicIds: number[];
+  topicIds?: number[];
   // 美柚itag关联状态
-  topicState: string;
+  topicState?: string;
   // 审核记录ID
-  auditIds: number[];
+  auditIds?: number[];
   // 美柚itag关联状态
-  auditState: string;
+  auditState?: string;
+  // itag任务ID
+  itagTaskId?: number;
+  // itag数据集ID
+  itagDatasetId?: number;
+  // 数据来源
+  source?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -2251,6 +2512,9 @@ export class UpdateMeiyouAuditRequest extends $tea.Model {
       topicState: 'topic_state',
       auditIds: 'audit_ids',
       auditState: 'audit_state',
+      itagTaskId: 'itag_task_id',
+      itagDatasetId: 'itag_dataset_id',
+      source: 'source',
     };
   }
 
@@ -2262,6 +2526,9 @@ export class UpdateMeiyouAuditRequest extends $tea.Model {
       topicState: 'string',
       auditIds: { 'type': 'array', 'itemType': 'number' },
       auditState: 'string',
+      itagTaskId: 'number',
+      itagDatasetId: 'number',
+      source: 'string',
     };
   }
 
@@ -2278,6 +2545,433 @@ export class UpdateMeiyouAuditResponse extends $tea.Model {
   // 异常信息的文本描述
   resultMsg?: string;
   // 接口响应
+  result?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryMeiyouItagrelationRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 主键id
+  id?: number;
+  // 审核记录ID
+  auditId?: number;
+  // 主题ID
+  topicId?: number;
+  // itag任务ID
+  itagTaskId?: number;
+  // itag数据集ID
+  itagDatasetId?: number;
+  // itag数据ID
+  itagDataId?: number;
+  // 美柚任务审核结果推送状态
+  meiyouAuditState?: string;
+  // 审核记录状态
+  auditState?: string;
+  // 主题记录状态
+  topicState?: string;
+  // 更新时间-start
+  gmtModifiedStart?: string;
+  // 更新时间-end 
+  gmtModifiedEnd?: string;
+  // 操作人
+  auditOperator?: string;
+  // 数据来源
+  source?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      id: 'id',
+      auditId: 'audit_id',
+      topicId: 'topic_id',
+      itagTaskId: 'itag_task_id',
+      itagDatasetId: 'itag_dataset_id',
+      itagDataId: 'itag_data_id',
+      meiyouAuditState: 'meiyou_audit_state',
+      auditState: 'audit_state',
+      topicState: 'topic_state',
+      gmtModifiedStart: 'gmt_modified_start',
+      gmtModifiedEnd: 'gmt_modified_end',
+      auditOperator: 'audit_operator',
+      source: 'source',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      id: 'number',
+      auditId: 'number',
+      topicId: 'number',
+      itagTaskId: 'number',
+      itagDatasetId: 'number',
+      itagDataId: 'number',
+      meiyouAuditState: 'string',
+      auditState: 'string',
+      topicState: 'string',
+      gmtModifiedStart: 'string',
+      gmtModifiedEnd: 'string',
+      auditOperator: 'string',
+      source: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryMeiyouItagrelationResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 响应
+  result?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateMeiyouItagrelationRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 更新关系信息
+  relationInfoList?: UpdateMeiyouItagRelationWebInfo[];
+  // 是否更新审核记录信息
+  updateAuditFlag: boolean;
+  // 数据来源
+  source?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      relationInfoList: 'relation_info_list',
+      updateAuditFlag: 'update_audit_flag',
+      source: 'source',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      relationInfoList: { 'type': 'array', 'itemType': UpdateMeiyouItagRelationWebInfo },
+      updateAuditFlag: 'boolean',
+      source: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateMeiyouItagrelationResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 响应结果
+  result?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryMeiyouAuditresultRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 审核ID
+  auditIds?: number[];
+  // 美柚任务审核结果推送状态
+  meiyouAuditState?: string;
+  // 审核记录状态
+  auditState?: string[];
+  // 主题记录状态
+  topicState?: string;
+  // 开始时间点
+  createStart?: string;
+  // 结束时间点
+  createEnd?: string;
+  // 数据来源
+  source?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      auditIds: 'audit_ids',
+      meiyouAuditState: 'meiyou_audit_state',
+      auditState: 'audit_state',
+      topicState: 'topic_state',
+      createStart: 'create_start',
+      createEnd: 'create_end',
+      source: 'source',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      auditIds: { 'type': 'array', 'itemType': 'number' },
+      meiyouAuditState: 'string',
+      auditState: { 'type': 'array', 'itemType': 'string' },
+      topicState: 'string',
+      createStart: 'string',
+      createEnd: 'string',
+      source: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryMeiyouAuditresultResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 响应信息
+  result?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PagequeryMeiyouAuditRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 主键id
+  id?: number;
+  // 页面
+  pageNum: number;
+  // 审核记录ID
+  auditId?: number;
+  // 大小
+  pageSize: number;
+  // 主题ID
+  topicId?: number;
+  // 内容文本
+  content?: string;
+  // 一级业务
+  primaryBusiness?: string;
+  // 二级业务
+  secondaryBusiness?: string;
+  // 审核结果
+  auditResult?: string;
+  // 审核原因
+  auditReason?: string;
+  // 创建时间-start
+  gmtCreateStart?: string;
+  // 创建时间-end
+  gmtCreateEnd?: string;
+  // 数据来源
+  source?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      id: 'id',
+      pageNum: 'page_num',
+      auditId: 'audit_id',
+      pageSize: 'page_size',
+      topicId: 'topic_id',
+      content: 'content',
+      primaryBusiness: 'primary_business',
+      secondaryBusiness: 'secondary_business',
+      auditResult: 'audit_result',
+      auditReason: 'audit_reason',
+      gmtCreateStart: 'gmt_create_start',
+      gmtCreateEnd: 'gmt_create_end',
+      source: 'source',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      id: 'number',
+      pageNum: 'number',
+      auditId: 'number',
+      pageSize: 'number',
+      topicId: 'number',
+      content: 'string',
+      primaryBusiness: 'string',
+      secondaryBusiness: 'string',
+      auditResult: 'string',
+      auditReason: 'string',
+      gmtCreateStart: 'string',
+      gmtCreateEnd: 'string',
+      source: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PagequeryMeiyouAuditResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 响应信息
+  result?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SubmitAuditMeiyouRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 数据来源
+  source: string;
+  // 美柚审核信息存储请求
+  saveInfo?: MeiyouAuditSaveWebRequest[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      source: 'source',
+      saveInfo: 'save_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      source: 'string',
+      saveInfo: { 'type': 'array', 'itemType': MeiyouAuditSaveWebRequest },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SubmitAuditMeiyouResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 响应
   result?: string;
   static names(): { [key: string]: string } {
     return {
@@ -3980,6 +4674,395 @@ export class CheckGuardAnswerResponse extends $tea.Model {
   }
 }
 
+export class SubmitMeiyouAuditRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 数据Id
+  dataId: string;
+  // 模态
+  modal: string;
+  // 场景
+  sceneCode: string;
+  // 扩展信息
+  extInfo?: string;
+  // 美柚审核记录信息
+  auditInfo: string;
+  // 回调函数
+  callback: string;
+  // 租户
+  tenantCode: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      dataId: 'data_id',
+      modal: 'modal',
+      sceneCode: 'scene_code',
+      extInfo: 'ext_info',
+      auditInfo: 'audit_info',
+      callback: 'callback',
+      tenantCode: 'tenant_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      dataId: 'string',
+      modal: 'string',
+      sceneCode: 'string',
+      extInfo: 'string',
+      auditInfo: 'string',
+      callback: 'string',
+      tenantCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SubmitMeiyouAuditResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 响应结果
+  result?: string;
+  // 码值
+  errorCode?: string;
+  // 错误信息
+  errorMessage?: string;
+  // 请求ID
+  requestId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+      errorCode: 'error_code',
+      errorMessage: 'error_message',
+      requestId: 'request_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: 'string',
+      errorCode: 'string',
+      errorMessage: 'string',
+      requestId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryMeiyouAgentauditRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 数据创建时间-开始时间点
+  gmtCreateStart: string;
+  // 数据创建时间-结束时间点
+  gmtCreateEnd: string;
+  // 所属
+  owner?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      gmtCreateStart: 'gmt_create_start',
+      gmtCreateEnd: 'gmt_create_end',
+      owner: 'owner',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      gmtCreateStart: 'string',
+      gmtCreateEnd: 'string',
+      owner: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryMeiyouAgentauditResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 响应结果
+  result?: string;
+  // 码值
+  errorCode?: string;
+  // 错误信息
+  errorMessage?: string;
+  // 请求ID
+  requestId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+      errorCode: 'error_code',
+      errorMessage: 'error_message',
+      requestId: 'request_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: 'string',
+      errorCode: 'string',
+      errorMessage: 'string',
+      requestId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateAicoguardcoreMeiyouRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 更新信息
+  resultInfo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      resultInfo: 'result_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      resultInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateAicoguardcoreMeiyouResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 响应码值
+  errorCode?: string;
+  // 响应描述
+  errorMessage?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      errorCode: 'error_code',
+      errorMessage: 'error_message',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      errorCode: 'string',
+      errorMessage: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SubmitGuardDocumentRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 待检测对象的URL，请确保该URL能通过公网访问到，且URL地址长度不超过2048个字符
+  // 说明 ：
+  // URL地址中不能包含中文，且一次请求请确保仅传入1条URL
+  url: string;
+  // 审核场景码
+  sceneCode: string;
+  // 检测对象对应的数据ID。
+  // 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+  dataId: string;
+  // 标识上游应用来源，字符串长度不能超过 128
+  appCode?: string;
+  // 客户业务ID。
+  // 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+  businessId?: string;
+  // 结果通知地址，不指定时需要调用方主动查询结果
+  callback?: string;
+  // 传callback时必须指定，tenant + seed + auditResult做SHA256生成checksum，保证结果未被篡改（即数科官网控制台-账户信息中的「用户code」）
+  seed?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      url: 'url',
+      sceneCode: 'scene_code',
+      dataId: 'data_id',
+      appCode: 'app_code',
+      businessId: 'business_id',
+      callback: 'callback',
+      seed: 'seed',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      url: 'string',
+      sceneCode: 'string',
+      dataId: 'string',
+      appCode: 'string',
+      businessId: 'string',
+      callback: 'string',
+      seed: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SubmitGuardDocumentResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 任务ID
+  taskId?: string;
+  // 检测对象对应的数据ID。
+  // 说明：
+  // 如果在提交审核任务的请求参数中传入了dataId，则此处返回对应dataId
+  dataId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      taskId: 'task_id',
+      dataId: 'data_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      taskId: 'string',
+      dataId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryGuardDocumentRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 任务ID
+  taskId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      taskId: 'task_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      taskId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryGuardDocumentResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 文档审核结果
+  result?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -4093,7 +5176,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.20",
+          sdk_version: "1.1.48",
           _prod_code: "AITECH",
           _prod_channel: "default",
         };
@@ -4617,6 +5700,101 @@ export default class Client {
   }
 
   /**
+   * Description: 查询美柚itag关联信息
+   * Summary: 查询美柚itag关联信息
+   */
+  async queryMeiyouItagrelation(request: QueryMeiyouItagrelationRequest): Promise<QueryMeiyouItagrelationResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryMeiyouItagrelationEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询美柚itag关联信息
+   * Summary: 查询美柚itag关联信息
+   */
+  async queryMeiyouItagrelationEx(request: QueryMeiyouItagrelationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryMeiyouItagrelationResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryMeiyouItagrelationResponse>(await this.doRequest("1.0", "aitech.comm.meiyou.itagrelation.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryMeiyouItagrelationResponse({}));
+  }
+
+  /**
+   * Description: 更新美柚itag关联信息
+   * Summary: 更新美柚itag关联信息
+   */
+  async updateMeiyouItagrelation(request: UpdateMeiyouItagrelationRequest): Promise<UpdateMeiyouItagrelationResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.updateMeiyouItagrelationEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 更新美柚itag关联信息
+   * Summary: 更新美柚itag关联信息
+   */
+  async updateMeiyouItagrelationEx(request: UpdateMeiyouItagrelationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdateMeiyouItagrelationResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UpdateMeiyouItagrelationResponse>(await this.doRequest("1.0", "aitech.comm.meiyou.itagrelation.update", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UpdateMeiyouItagrelationResponse({}));
+  }
+
+  /**
+   * Description: 美柚审核结果查询
+   * Summary: 美柚审核结果查询
+   */
+  async queryMeiyouAuditresult(request: QueryMeiyouAuditresultRequest): Promise<QueryMeiyouAuditresultResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryMeiyouAuditresultEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 美柚审核结果查询
+   * Summary: 美柚审核结果查询
+   */
+  async queryMeiyouAuditresultEx(request: QueryMeiyouAuditresultRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryMeiyouAuditresultResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryMeiyouAuditresultResponse>(await this.doRequest("1.0", "aitech.comm.meiyou.auditresult.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryMeiyouAuditresultResponse({}));
+  }
+
+  /**
+   * Description: 分页查询美柚审核信息接口
+   * Summary: 分页查询美柚审核信息接口
+   */
+  async pagequeryMeiyouAudit(request: PagequeryMeiyouAuditRequest): Promise<PagequeryMeiyouAuditResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pagequeryMeiyouAuditEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 分页查询美柚审核信息接口
+   * Summary: 分页查询美柚审核信息接口
+   */
+  async pagequeryMeiyouAuditEx(request: PagequeryMeiyouAuditRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PagequeryMeiyouAuditResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PagequeryMeiyouAuditResponse>(await this.doRequest("1.0", "aitech.comm.meiyou.audit.pagequery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PagequeryMeiyouAuditResponse({}));
+  }
+
+  /**
+   * Description: 美柚审核信息存储（仅itask）
+   * Summary: 美柚审核信息存储（仅itask）
+   */
+  async submitAuditMeiyou(request: SubmitAuditMeiyouRequest): Promise<SubmitAuditMeiyouResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.submitAuditMeiyouEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 美柚审核信息存储（仅itask）
+   * Summary: 美柚审核信息存储（仅itask）
+   */
+  async submitAuditMeiyouEx(request: SubmitAuditMeiyouRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SubmitAuditMeiyouResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SubmitAuditMeiyouResponse>(await this.doRequest("1.0", "aitech.comm.audit.meiyou.submit", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SubmitAuditMeiyouResponse({}));
+  }
+
+  /**
    * Description: 阿里云ADB调用接口
    * Summary: 阿里云ADB调用接口
    */
@@ -5032,6 +6210,101 @@ export default class Client {
   async checkGuardAnswerEx(request: CheckGuardAnswerRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CheckGuardAnswerResponse> {
     Util.validateModel(request);
     return $tea.cast<CheckGuardAnswerResponse>(await this.doRequest("1.0", "aitech.comm.guard.answer.check", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CheckGuardAnswerResponse({}));
+  }
+
+  /**
+   * Description: 美柚待审核信息提交
+   * Summary: 美柚待审核信息提交
+   */
+  async submitMeiyouAudit(request: SubmitMeiyouAuditRequest): Promise<SubmitMeiyouAuditResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.submitMeiyouAuditEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 美柚待审核信息提交
+   * Summary: 美柚待审核信息提交
+   */
+  async submitMeiyouAuditEx(request: SubmitMeiyouAuditRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SubmitMeiyouAuditResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SubmitMeiyouAuditResponse>(await this.doRequest("1.0", "aitech.comm.meiyou.audit.submit", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SubmitMeiyouAuditResponse({}));
+  }
+
+  /**
+   * Description: 查询美柚审核Agent节点信息
+   * Summary: 查询美柚审核Agent节点信息
+   */
+  async queryMeiyouAgentaudit(request: QueryMeiyouAgentauditRequest): Promise<QueryMeiyouAgentauditResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryMeiyouAgentauditEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询美柚审核Agent节点信息
+   * Summary: 查询美柚审核Agent节点信息
+   */
+  async queryMeiyouAgentauditEx(request: QueryMeiyouAgentauditRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryMeiyouAgentauditResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryMeiyouAgentauditResponse>(await this.doRequest("1.0", "aitech.comm.meiyou.agentaudit.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryMeiyouAgentauditResponse({}));
+  }
+
+  /**
+   * Description: 更新美柚审核Agent审核结果
+   * Summary: 更新美柚审核Agent审核结果
+   */
+  async updateAicoguardcoreMeiyou(request: UpdateAicoguardcoreMeiyouRequest): Promise<UpdateAicoguardcoreMeiyouResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.updateAicoguardcoreMeiyouEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 更新美柚审核Agent审核结果
+   * Summary: 更新美柚审核Agent审核结果
+   */
+  async updateAicoguardcoreMeiyouEx(request: UpdateAicoguardcoreMeiyouRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdateAicoguardcoreMeiyouResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UpdateAicoguardcoreMeiyouResponse>(await this.doRequest("1.0", "aitech.comm.aicoguardcore.meiyou.update", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UpdateAicoguardcoreMeiyouResponse({}));
+  }
+
+  /**
+   * Description: 文档人审入审
+   * Summary: 文档人审入审
+   */
+  async submitGuardDocument(request: SubmitGuardDocumentRequest): Promise<SubmitGuardDocumentResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.submitGuardDocumentEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 文档人审入审
+   * Summary: 文档人审入审
+   */
+  async submitGuardDocumentEx(request: SubmitGuardDocumentRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SubmitGuardDocumentResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SubmitGuardDocumentResponse>(await this.doRequest("1.0", "aitech.comm.guard.document.submit", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SubmitGuardDocumentResponse({}));
+  }
+
+  /**
+   * Description: 文档人审查询
+   * Summary: 文档人审查询
+   */
+  async queryGuardDocument(request: QueryGuardDocumentRequest): Promise<QueryGuardDocumentResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryGuardDocumentEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 文档人审查询
+   * Summary: 文档人审查询
+   */
+  async queryGuardDocumentEx(request: QueryGuardDocumentRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryGuardDocumentResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryGuardDocumentResponse>(await this.doRequest("1.0", "aitech.comm.guard.document.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryGuardDocumentResponse({}));
   }
 
 }
