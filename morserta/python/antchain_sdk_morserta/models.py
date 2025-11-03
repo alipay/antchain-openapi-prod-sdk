@@ -1040,6 +1040,294 @@ class DataAdDataExportExperimentResponse(TeaModel):
         return self
 
 
+class ConversionAdDataRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        project: str = None,
+        event_time: int = None,
+        event_code: str = None,
+        user_id: str = None,
+        product_id: str = None,
+        event_id: str = None,
+        track_info: str = None,
+        ext_info: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 投放项目
+        self.project = project
+        # 转化发生的unix事件戳,单位秒
+        self.event_time = event_time
+        # 事件类型编码
+        self.event_code = event_code
+        # 转化所属用户在客户系统中的用户id
+        self.user_id = user_id
+        # 转化对应的产品id，如用户购买保险对应的保险产品id，没有可不填
+        self.product_id = product_id
+        # 唯一标识当前转化事件的一个业务id，如保险下单的订单id，没有可不填
+        self.event_id = event_id
+        # json字段， {"xxx": xxx, "yyyy":"yyyy"}， 包含转化对应的媒体侧信息，如click_id, gdt_vid，跳转链接等，数科侧会依据该id与自行收集到的点击进行匹配归因
+        self.track_info = track_info
+        # json扩展字段
+        self.ext_info = ext_info
+
+    def validate(self):
+        self.validate_required(self.project, 'project')
+        self.validate_required(self.event_time, 'event_time')
+        self.validate_required(self.event_code, 'event_code')
+        self.validate_required(self.track_info, 'track_info')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.project is not None:
+            result['project'] = self.project
+        if self.event_time is not None:
+            result['event_time'] = self.event_time
+        if self.event_code is not None:
+            result['event_code'] = self.event_code
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        if self.product_id is not None:
+            result['product_id'] = self.product_id
+        if self.event_id is not None:
+            result['event_id'] = self.event_id
+        if self.track_info is not None:
+            result['track_info'] = self.track_info
+        if self.ext_info is not None:
+            result['ext_info'] = self.ext_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('project') is not None:
+            self.project = m.get('project')
+        if m.get('event_time') is not None:
+            self.event_time = m.get('event_time')
+        if m.get('event_code') is not None:
+            self.event_code = m.get('event_code')
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        if m.get('product_id') is not None:
+            self.product_id = m.get('product_id')
+        if m.get('event_id') is not None:
+            self.event_id = m.get('event_id')
+        if m.get('track_info') is not None:
+            self.track_info = m.get('track_info')
+        if m.get('ext_info') is not None:
+            self.ext_info = m.get('ext_info')
+        return self
+
+
+class ConversionAdDataResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        success: bool = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 是否成功
+        self.success = success
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.success is not None:
+            result['success'] = self.success
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        return self
+
+
+class ConversionAdDataAttributedRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        account_id: str = None,
+        media_type: str = None,
+        event_time: int = None,
+        event_code: str = None,
+        user_id: str = None,
+        product_id: str = None,
+        event_id: str = None,
+        click_data: str = None,
+        project: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 广告账户id，如9471147
+        self.account_id = account_id
+        # 转化归因到的媒体渠道
+        self.media_type = media_type
+        # 转化发生的unix事件戳，单位秒
+        self.event_time = event_time
+        # 事件类型编码
+        self.event_code = event_code
+        # 转化所属用户在客户系统中的用户id
+        self.user_id = user_id
+        # 转化对应的产品id，如用户购买保险对应的保险产品id，没有可不填
+        self.product_id = product_id
+        # 唯一标识当前转化事件的一个业务id，如保险下单的订单id，没有可不填
+        self.event_id = event_id
+        # json字段，包含转化归因到的点击的完整必要信息，如用户设备信息等
+        self.click_data = click_data
+        # 投放项目
+        self.project = project
+
+    def validate(self):
+        self.validate_required(self.account_id, 'account_id')
+        self.validate_required(self.media_type, 'media_type')
+        self.validate_required(self.event_time, 'event_time')
+        self.validate_required(self.event_code, 'event_code')
+        self.validate_required(self.click_data, 'click_data')
+        self.validate_required(self.project, 'project')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.account_id is not None:
+            result['account_id'] = self.account_id
+        if self.media_type is not None:
+            result['media_type'] = self.media_type
+        if self.event_time is not None:
+            result['event_time'] = self.event_time
+        if self.event_code is not None:
+            result['event_code'] = self.event_code
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        if self.product_id is not None:
+            result['product_id'] = self.product_id
+        if self.event_id is not None:
+            result['event_id'] = self.event_id
+        if self.click_data is not None:
+            result['click_data'] = self.click_data
+        if self.project is not None:
+            result['project'] = self.project
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('account_id') is not None:
+            self.account_id = m.get('account_id')
+        if m.get('media_type') is not None:
+            self.media_type = m.get('media_type')
+        if m.get('event_time') is not None:
+            self.event_time = m.get('event_time')
+        if m.get('event_code') is not None:
+            self.event_code = m.get('event_code')
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        if m.get('product_id') is not None:
+            self.product_id = m.get('product_id')
+        if m.get('event_id') is not None:
+            self.event_id = m.get('event_id')
+        if m.get('click_data') is not None:
+            self.click_data = m.get('click_data')
+        if m.get('project') is not None:
+            self.project = m.get('project')
+        return self
+
+
+class ConversionAdDataAttributedResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        success: bool = None,
+        callback: int = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 处理是否成功
+        self.success = success
+        # 是否需要回传媒体
+        self.callback = callback
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.success is not None:
+            result['success'] = self.success
+        if self.callback is not None:
+            result['callback'] = self.callback
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('callback') is not None:
+            self.callback = m.get('callback')
+        return self
+
+
 class FeedbackReportDataRequest(TeaModel):
     def __init__(
         self,

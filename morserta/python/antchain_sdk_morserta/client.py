@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '6.0.0',
+                    'sdk_version': '6.1.1',
                     '_prod_code': 'MORSERTA',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '6.0.0',
+                    'sdk_version': '6.1.1',
                     '_prod_code': 'MORSERTA',
                     '_prod_channel': 'default'
                 }
@@ -553,6 +553,118 @@ class Client:
         return TeaCore.from_map(
             morserta_models.DataAdDataExportExperimentResponse(),
             await self.do_request_async('1.0', 'antcloud.morserta.ad.data.export.experiment.data', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def conversion_ad_data(
+        self,
+        request: morserta_models.ConversionAdDataRequest,
+    ) -> morserta_models.ConversionAdDataResponse:
+        """
+        Description: 接收未归因的转化数据
+        Summary: 接收未归因的转化数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.conversion_ad_data_ex(request, headers, runtime)
+
+    async def conversion_ad_data_async(
+        self,
+        request: morserta_models.ConversionAdDataRequest,
+    ) -> morserta_models.ConversionAdDataResponse:
+        """
+        Description: 接收未归因的转化数据
+        Summary: 接收未归因的转化数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.conversion_ad_data_ex_async(request, headers, runtime)
+
+    def conversion_ad_data_ex(
+        self,
+        request: morserta_models.ConversionAdDataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> morserta_models.ConversionAdDataResponse:
+        """
+        Description: 接收未归因的转化数据
+        Summary: 接收未归因的转化数据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            morserta_models.ConversionAdDataResponse(),
+            self.do_request('1.0', 'antcloud.morserta.ad.data.conversion', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def conversion_ad_data_ex_async(
+        self,
+        request: morserta_models.ConversionAdDataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> morserta_models.ConversionAdDataResponse:
+        """
+        Description: 接收未归因的转化数据
+        Summary: 接收未归因的转化数据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            morserta_models.ConversionAdDataResponse(),
+            await self.do_request_async('1.0', 'antcloud.morserta.ad.data.conversion', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def conversion_ad_data_attributed(
+        self,
+        request: morserta_models.ConversionAdDataAttributedRequest,
+    ) -> morserta_models.ConversionAdDataAttributedResponse:
+        """
+        Description: 接收客户已归因转化事件
+        Summary: 接收客户已归因转化事件
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.conversion_ad_data_attributed_ex(request, headers, runtime)
+
+    async def conversion_ad_data_attributed_async(
+        self,
+        request: morserta_models.ConversionAdDataAttributedRequest,
+    ) -> morserta_models.ConversionAdDataAttributedResponse:
+        """
+        Description: 接收客户已归因转化事件
+        Summary: 接收客户已归因转化事件
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.conversion_ad_data_attributed_ex_async(request, headers, runtime)
+
+    def conversion_ad_data_attributed_ex(
+        self,
+        request: morserta_models.ConversionAdDataAttributedRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> morserta_models.ConversionAdDataAttributedResponse:
+        """
+        Description: 接收客户已归因转化事件
+        Summary: 接收客户已归因转化事件
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            morserta_models.ConversionAdDataAttributedResponse(),
+            self.do_request('1.0', 'antcloud.morserta.ad.data.attributed.conversion', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def conversion_ad_data_attributed_ex_async(
+        self,
+        request: morserta_models.ConversionAdDataAttributedRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> morserta_models.ConversionAdDataAttributedResponse:
+        """
+        Description: 接收客户已归因转化事件
+        Summary: 接收客户已归因转化事件
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            morserta_models.ConversionAdDataAttributedResponse(),
+            await self.do_request_async('1.0', 'antcloud.morserta.ad.data.attributed.conversion', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def feedback_report_data(
