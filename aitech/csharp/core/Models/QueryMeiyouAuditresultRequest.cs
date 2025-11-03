@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.AITECH.Models
 {
-    public class UpdateMeiyouAuditRequest : TeaModel {
+    public class QueryMeiyouAuditresultRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,35 +18,35 @@ namespace AntChain.SDK.AITECH.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 主题ID
-        [NameInMap("topic_ids")]
-        [Validation(Required=false)]
-        public List<long?> TopicIds { get; set; }
-
-        // 美柚itag关联状态
-        [NameInMap("topic_state")]
-        [Validation(Required=false)]
-        public string TopicState { get; set; }
-
-        // 审核记录ID
+        // 审核ID
         [NameInMap("audit_ids")]
         [Validation(Required=false)]
         public List<long?> AuditIds { get; set; }
 
-        // 美柚itag关联状态
+        // 美柚任务审核结果推送状态
+        [NameInMap("meiyou_audit_state")]
+        [Validation(Required=false)]
+        public string MeiyouAuditState { get; set; }
+
+        // 审核记录状态
         [NameInMap("audit_state")]
         [Validation(Required=false)]
-        public string AuditState { get; set; }
+        public List<string> AuditState { get; set; }
 
-        // itag任务ID
-        [NameInMap("itag_task_id")]
+        // 主题记录状态
+        [NameInMap("topic_state")]
         [Validation(Required=false)]
-        public long? ItagTaskId { get; set; }
+        public string TopicState { get; set; }
 
-        // itag数据集ID
-        [NameInMap("itag_dataset_id")]
+        // 开始时间点
+        [NameInMap("create_start")]
         [Validation(Required=false)]
-        public long? ItagDatasetId { get; set; }
+        public string CreateStart { get; set; }
+
+        // 结束时间点
+        [NameInMap("create_end")]
+        [Validation(Required=false)]
+        public string CreateEnd { get; set; }
 
         // 数据来源
         [NameInMap("source")]

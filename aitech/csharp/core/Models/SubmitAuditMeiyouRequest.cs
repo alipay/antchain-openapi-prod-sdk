@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.AITECH.Models
 {
-    public class QueryMeiyouAudittopicRequest : TeaModel {
+    public class SubmitAuditMeiyouRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,20 +18,15 @@ namespace AntChain.SDK.AITECH.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 主题ID
-        [NameInMap("topic_ids")]
-        [Validation(Required=true)]
-        public List<long?> TopicIds { get; set; }
-
-        // 美柚itag关联状态
-        [NameInMap("topic_state")]
-        [Validation(Required=true)]
-        public string TopicState { get; set; }
-
         // 数据来源
         [NameInMap("source")]
-        [Validation(Required=false)]
+        [Validation(Required=true)]
         public string Source { get; set; }
+
+        // 美柚审核信息存储请求
+        [NameInMap("save_info")]
+        [Validation(Required=false)]
+        public List<MeiyouAuditSaveWebRequest> SaveInfo { get; set; }
 
     }
 

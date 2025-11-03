@@ -8,25 +8,24 @@ using Tea;
 
 namespace AntChain.SDK.AITECH.Models
 {
-    // 主题信息
-    public class MeiyouTopicWebInfo : TeaModel {
+    // 美柚审核信息存储请求
+    public class MeiyouAuditSaveWebRequest : TeaModel {
+        // 审核记录ID
+        [NameInMap("audit_id")]
+        [Validation(Required=false)]
+        public long? AuditId { get; set; }
+
+        // 主题ID
+        [NameInMap("topic_id")]
+        [Validation(Required=false)]
+        public long? TopicId { get; set; }
+
         // 内容文本
         [NameInMap("content")]
         [Validation(Required=false)]
         public string Content { get; set; }
 
-        // 当前楼层
-        [NameInMap("current_floor")]
-        [Validation(Required=false)]
-        public long? CurrentFloor { get; set; }
-
-        // 回复楼层
-        [NameInMap("call_back_floor")]
-        [Validation(Required=false)]
-        public long? CallBackFloor { get; set; }
-
         // 发布时间戳(毫秒)
-        // 
         [NameInMap("publish_time")]
         [Validation(Required=false)]
         public long? PublishTime { get; set; }
@@ -35,6 +34,16 @@ namespace AntChain.SDK.AITECH.Models
         [NameInMap("images")]
         [Validation(Required=false)]
         public string Images { get; set; }
+
+        // 一级业务
+        [NameInMap("primary_business")]
+        [Validation(Required=false)]
+        public string PrimaryBusiness { get; set; }
+
+        // 二级业务
+        [NameInMap("secondary_business")]
+        [Validation(Required=false)]
+        public string SecondaryBusiness { get; set; }
 
         // 用户昵称
         [NameInMap("user_nickname")]
@@ -47,7 +56,6 @@ namespace AntChain.SDK.AITECH.Models
         public string UserId { get; set; }
 
         // 用户类型
-        // 
         [NameInMap("user_type")]
         [Validation(Required=false)]
         public string UserType { get; set; }
@@ -57,20 +65,25 @@ namespace AntChain.SDK.AITECH.Models
         [Validation(Required=false)]
         public string UserAvatar { get; set; }
 
-        // 主题ID
-        [NameInMap("topic_id")]
+        // 操作人
+        [NameInMap("audit_operator")]
         [Validation(Required=false)]
-        public long? TopicId { get; set; }
+        public string AuditOperator { get; set; }
 
-        // 回复楼信息
-        [NameInMap("call_back_floor_content")]
+        // 审核楼
+        [NameInMap("audit_floor")]
         [Validation(Required=false)]
-        public string CallBackFloorContent { get; set; }
+        public long? AuditFloor { get; set; }
 
-        // oss存储地址
-        [NameInMap("oss_images")]
+        // 版本
+        [NameInMap("version")]
         [Validation(Required=false)]
-        public string OssImages { get; set; }
+        public string Version { get; set; }
+
+        // 主题信息
+        [NameInMap("topic_infos")]
+        [Validation(Required=false)]
+        public List<MeiyouTopicWebInfo> TopicInfos { get; set; }
 
     }
 
