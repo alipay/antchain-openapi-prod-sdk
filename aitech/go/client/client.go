@@ -282,46 +282,6 @@ func (s *MayaRedGptResponseDTO) SetSafe(v bool) *MayaRedGptResponseDTO {
 	return s
 }
 
-// maya流式响应结果
-type MayaStreamResult struct {
-	// maya响应数据
-	Data *MayaRedGptResponseDTO `json:"data,omitempty" xml:"data,omitempty" require:"true"`
-	// 是否成功
-	Success *bool `json:"success,omitempty" xml:"success,omitempty" require:"true"`
-	// 错误码
-	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty" require:"true"`
-	// 错误信息
-	ErrorMsg *string `json:"error_msg,omitempty" xml:"error_msg,omitempty" require:"true"`
-}
-
-func (s MayaStreamResult) String() string {
-	return tea.Prettify(s)
-}
-
-func (s MayaStreamResult) GoString() string {
-	return s.String()
-}
-
-func (s *MayaStreamResult) SetData(v *MayaRedGptResponseDTO) *MayaStreamResult {
-	s.Data = v
-	return s
-}
-
-func (s *MayaStreamResult) SetSuccess(v bool) *MayaStreamResult {
-	s.Success = &v
-	return s
-}
-
-func (s *MayaStreamResult) SetErrorCode(v string) *MayaStreamResult {
-	s.ErrorCode = &v
-	return s
-}
-
-func (s *MayaStreamResult) SetErrorMsg(v string) *MayaStreamResult {
-	s.ErrorMsg = &v
-	return s
-}
-
 // 审核同步标签列表
 type AuditSyncLabel struct {
 	// 标签名：sex-色情
@@ -388,32 +348,6 @@ func (s *QRCodeAuditResult) SetDetails(v []*QRCodeDetail) *QRCodeAuditResult {
 	return s
 }
 
-// logo审核结果
-type LogoAuditResult struct {
-	// 检测到LOGO个数
-	DetectNum *int64 `json:"detect_num,omitempty" xml:"detect_num,omitempty" require:"true"`
-	// LOGO详情
-	Details []*LogoDetail `json:"details,omitempty" xml:"details,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s LogoAuditResult) String() string {
-	return tea.Prettify(s)
-}
-
-func (s LogoAuditResult) GoString() string {
-	return s.String()
-}
-
-func (s *LogoAuditResult) SetDetectNum(v int64) *LogoAuditResult {
-	s.DetectNum = &v
-	return s
-}
-
-func (s *LogoAuditResult) SetDetails(v []*LogoDetail) *LogoAuditResult {
-	s.Details = v
-	return s
-}
-
 // 主题信息
 type MeiyouTopicWebInfo struct {
 	// 内容文本
@@ -436,6 +370,12 @@ type MeiyouTopicWebInfo struct {
 	UserType *string `json:"user_type,omitempty" xml:"user_type,omitempty"`
 	// 用户头像URL
 	UserAvatar *string `json:"user_avatar,omitempty" xml:"user_avatar,omitempty"`
+	// 主题ID
+	TopicId *int64 `json:"topic_id,omitempty" xml:"topic_id,omitempty"`
+	// 回复楼信息
+	CallBackFloorContent *string `json:"call_back_floor_content,omitempty" xml:"call_back_floor_content,omitempty"`
+	// oss存储地址
+	OssImages *string `json:"oss_images,omitempty" xml:"oss_images,omitempty"`
 }
 
 func (s MeiyouTopicWebInfo) String() string {
@@ -491,6 +431,204 @@ func (s *MeiyouTopicWebInfo) SetUserAvatar(v string) *MeiyouTopicWebInfo {
 	return s
 }
 
+func (s *MeiyouTopicWebInfo) SetTopicId(v int64) *MeiyouTopicWebInfo {
+	s.TopicId = &v
+	return s
+}
+
+func (s *MeiyouTopicWebInfo) SetCallBackFloorContent(v string) *MeiyouTopicWebInfo {
+	s.CallBackFloorContent = &v
+	return s
+}
+
+func (s *MeiyouTopicWebInfo) SetOssImages(v string) *MeiyouTopicWebInfo {
+	s.OssImages = &v
+	return s
+}
+
+// maya流式响应结果
+type MayaStreamResult struct {
+	// maya响应数据
+	Data *MayaRedGptResponseDTO `json:"data,omitempty" xml:"data,omitempty" require:"true"`
+	// 是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty" require:"true"`
+	// 错误码
+	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty" require:"true"`
+	// 错误信息
+	ErrorMsg *string `json:"error_msg,omitempty" xml:"error_msg,omitempty" require:"true"`
+}
+
+func (s MayaStreamResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s MayaStreamResult) GoString() string {
+	return s.String()
+}
+
+func (s *MayaStreamResult) SetData(v *MayaRedGptResponseDTO) *MayaStreamResult {
+	s.Data = v
+	return s
+}
+
+func (s *MayaStreamResult) SetSuccess(v bool) *MayaStreamResult {
+	s.Success = &v
+	return s
+}
+
+func (s *MayaStreamResult) SetErrorCode(v string) *MayaStreamResult {
+	s.ErrorCode = &v
+	return s
+}
+
+func (s *MayaStreamResult) SetErrorMsg(v string) *MayaStreamResult {
+	s.ErrorMsg = &v
+	return s
+}
+
+// logo审核结果
+type LogoAuditResult struct {
+	// 检测到LOGO个数
+	DetectNum *int64 `json:"detect_num,omitempty" xml:"detect_num,omitempty" require:"true"`
+	// LOGO详情
+	Details []*LogoDetail `json:"details,omitempty" xml:"details,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s LogoAuditResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s LogoAuditResult) GoString() string {
+	return s.String()
+}
+
+func (s *LogoAuditResult) SetDetectNum(v int64) *LogoAuditResult {
+	s.DetectNum = &v
+	return s
+}
+
+func (s *LogoAuditResult) SetDetails(v []*LogoDetail) *LogoAuditResult {
+	s.Details = v
+	return s
+}
+
+// 美柚审核信息存储请求
+type MeiyouAuditSaveWebRequest struct {
+	// 审核记录ID
+	AuditId *int64 `json:"audit_id,omitempty" xml:"audit_id,omitempty"`
+	// 主题ID
+	TopicId *int64 `json:"topic_id,omitempty" xml:"topic_id,omitempty"`
+	// 内容文本
+	Content *string `json:"content,omitempty" xml:"content,omitempty"`
+	// 发布时间戳(毫秒)
+	PublishTime *int64 `json:"publish_time,omitempty" xml:"publish_time,omitempty"`
+	// 图片URL数组(JSON字符串)
+	Images *string `json:"images,omitempty" xml:"images,omitempty"`
+	// 一级业务
+	PrimaryBusiness *string `json:"primary_business,omitempty" xml:"primary_business,omitempty"`
+	// 二级业务
+	SecondaryBusiness *string `json:"secondary_business,omitempty" xml:"secondary_business,omitempty"`
+	// 用户昵称
+	UserNickname *string `json:"user_nickname,omitempty" xml:"user_nickname,omitempty"`
+	// 用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+	// 用户类型
+	UserType *string `json:"user_type,omitempty" xml:"user_type,omitempty"`
+	// 用户头像URL
+	UserAvatar *string `json:"user_avatar,omitempty" xml:"user_avatar,omitempty"`
+	// 操作人
+	AuditOperator *string `json:"audit_operator,omitempty" xml:"audit_operator,omitempty"`
+	// 审核楼
+	AuditFloor *int64 `json:"audit_floor,omitempty" xml:"audit_floor,omitempty"`
+	// 版本
+	Version *string `json:"version,omitempty" xml:"version,omitempty"`
+	// 主题信息
+	TopicInfos []*MeiyouTopicWebInfo `json:"topic_infos,omitempty" xml:"topic_infos,omitempty" type:"Repeated"`
+}
+
+func (s MeiyouAuditSaveWebRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s MeiyouAuditSaveWebRequest) GoString() string {
+	return s.String()
+}
+
+func (s *MeiyouAuditSaveWebRequest) SetAuditId(v int64) *MeiyouAuditSaveWebRequest {
+	s.AuditId = &v
+	return s
+}
+
+func (s *MeiyouAuditSaveWebRequest) SetTopicId(v int64) *MeiyouAuditSaveWebRequest {
+	s.TopicId = &v
+	return s
+}
+
+func (s *MeiyouAuditSaveWebRequest) SetContent(v string) *MeiyouAuditSaveWebRequest {
+	s.Content = &v
+	return s
+}
+
+func (s *MeiyouAuditSaveWebRequest) SetPublishTime(v int64) *MeiyouAuditSaveWebRequest {
+	s.PublishTime = &v
+	return s
+}
+
+func (s *MeiyouAuditSaveWebRequest) SetImages(v string) *MeiyouAuditSaveWebRequest {
+	s.Images = &v
+	return s
+}
+
+func (s *MeiyouAuditSaveWebRequest) SetPrimaryBusiness(v string) *MeiyouAuditSaveWebRequest {
+	s.PrimaryBusiness = &v
+	return s
+}
+
+func (s *MeiyouAuditSaveWebRequest) SetSecondaryBusiness(v string) *MeiyouAuditSaveWebRequest {
+	s.SecondaryBusiness = &v
+	return s
+}
+
+func (s *MeiyouAuditSaveWebRequest) SetUserNickname(v string) *MeiyouAuditSaveWebRequest {
+	s.UserNickname = &v
+	return s
+}
+
+func (s *MeiyouAuditSaveWebRequest) SetUserId(v string) *MeiyouAuditSaveWebRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *MeiyouAuditSaveWebRequest) SetUserType(v string) *MeiyouAuditSaveWebRequest {
+	s.UserType = &v
+	return s
+}
+
+func (s *MeiyouAuditSaveWebRequest) SetUserAvatar(v string) *MeiyouAuditSaveWebRequest {
+	s.UserAvatar = &v
+	return s
+}
+
+func (s *MeiyouAuditSaveWebRequest) SetAuditOperator(v string) *MeiyouAuditSaveWebRequest {
+	s.AuditOperator = &v
+	return s
+}
+
+func (s *MeiyouAuditSaveWebRequest) SetAuditFloor(v int64) *MeiyouAuditSaveWebRequest {
+	s.AuditFloor = &v
+	return s
+}
+
+func (s *MeiyouAuditSaveWebRequest) SetVersion(v string) *MeiyouAuditSaveWebRequest {
+	s.Version = &v
+	return s
+}
+
+func (s *MeiyouAuditSaveWebRequest) SetTopicInfos(v []*MeiyouTopicWebInfo) *MeiyouAuditSaveWebRequest {
+	s.TopicInfos = v
+	return s
+}
+
 // 网关响应模型
 type AntCloudProdProviderHttpResponse struct {
 	// maya返回结果
@@ -514,46 +652,6 @@ func (s *AntCloudProdProviderHttpResponse) SetResponse(v *MayaStreamResult) *Ant
 
 func (s *AntCloudProdProviderHttpResponse) SetSign(v string) *AntCloudProdProviderHttpResponse {
 	s.Sign = &v
-	return s
-}
-
-// 图片审核结果
-type ImageAuditResult struct {
-	// 任务ID
-	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
-	// 数据ID
-	DataId *string `json:"data_id,omitempty" xml:"data_id,omitempty" require:"true"`
-	// LOGO审核结果
-	LogoAuditResult *LogoAuditResult `json:"logo_audit_result,omitempty" xml:"logo_audit_result,omitempty" require:"true"`
-	// QRCode审核结果
-	QrCodeAuditResult *QRCodeAuditResult `json:"qr_code_audit_result,omitempty" xml:"qr_code_audit_result,omitempty" require:"true"`
-}
-
-func (s ImageAuditResult) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ImageAuditResult) GoString() string {
-	return s.String()
-}
-
-func (s *ImageAuditResult) SetTaskId(v string) *ImageAuditResult {
-	s.TaskId = &v
-	return s
-}
-
-func (s *ImageAuditResult) SetDataId(v string) *ImageAuditResult {
-	s.DataId = &v
-	return s
-}
-
-func (s *ImageAuditResult) SetLogoAuditResult(v *LogoAuditResult) *ImageAuditResult {
-	s.LogoAuditResult = v
-	return s
-}
-
-func (s *ImageAuditResult) SetQrCodeAuditResult(v *QRCodeAuditResult) *ImageAuditResult {
-	s.QrCodeAuditResult = v
 	return s
 }
 
@@ -698,6 +796,266 @@ func (s *MeiyouAuditSaveWebInfo) SetUserAvatar(v string) *MeiyouAuditSaveWebInfo
 
 func (s *MeiyouAuditSaveWebInfo) SetTopicInfos(v *MeiyouTopicWebInfo) *MeiyouAuditSaveWebInfo {
 	s.TopicInfos = v
+	return s
+}
+
+// 图片审核结果
+type ImageAuditResult struct {
+	// 任务ID
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
+	// 数据ID
+	DataId *string `json:"data_id,omitempty" xml:"data_id,omitempty" require:"true"`
+	// LOGO审核结果
+	LogoAuditResult *LogoAuditResult `json:"logo_audit_result,omitempty" xml:"logo_audit_result,omitempty" require:"true"`
+	// QRCode审核结果
+	QrCodeAuditResult *QRCodeAuditResult `json:"qr_code_audit_result,omitempty" xml:"qr_code_audit_result,omitempty" require:"true"`
+}
+
+func (s ImageAuditResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ImageAuditResult) GoString() string {
+	return s.String()
+}
+
+func (s *ImageAuditResult) SetTaskId(v string) *ImageAuditResult {
+	s.TaskId = &v
+	return s
+}
+
+func (s *ImageAuditResult) SetDataId(v string) *ImageAuditResult {
+	s.DataId = &v
+	return s
+}
+
+func (s *ImageAuditResult) SetLogoAuditResult(v *LogoAuditResult) *ImageAuditResult {
+	s.LogoAuditResult = v
+	return s
+}
+
+func (s *ImageAuditResult) SetQrCodeAuditResult(v *QRCodeAuditResult) *ImageAuditResult {
+	s.QrCodeAuditResult = v
+	return s
+}
+
+// 美柚审核信息
+type MeiyouAuditInfo struct {
+	// 主键id
+	Id *int64 `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// 审核记录ID
+	AuditId *int64 `json:"audit_id,omitempty" xml:"audit_id,omitempty" require:"true"`
+	// 主题ID
+	TopicId *int64 `json:"topic_id,omitempty" xml:"topic_id,omitempty"`
+	// 内容文本
+	Content *string `json:"content,omitempty" xml:"content,omitempty"`
+	// 发布时间戳
+	PublishTime *string `json:"publish_time,omitempty" xml:"publish_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 图片URL数组(JSON字符串)
+	Images *string `json:"images,omitempty" xml:"images,omitempty"`
+	// 一级业务
+	PrimaryBusiness *string `json:"primary_business,omitempty" xml:"primary_business,omitempty"`
+	// 二级业务
+	SecondaryBusiness *string `json:"secondary_business,omitempty" xml:"secondary_business,omitempty"`
+	// 用户昵称
+	UserNickname *string `json:"user_nickname,omitempty" xml:"user_nickname,omitempty"`
+	// 用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+	// 用户类型
+	UserType *string `json:"user_type,omitempty" xml:"user_type,omitempty"`
+	// 用户头像URL
+	UserAvatar *string `json:"user_avatar,omitempty" xml:"user_avatar,omitempty"`
+	// 审核结果
+	AuditResult *string `json:"audit_result,omitempty" xml:"audit_result,omitempty"`
+	// 审核原因
+	AuditReason *string `json:"audit_reason,omitempty" xml:"audit_reason,omitempty"`
+	// 审核原因
+	AuditReasonMsg *string `json:"audit_reason_msg,omitempty" xml:"audit_reason_msg,omitempty"`
+	// 操作人
+	AuditOperator *string `json:"audit_operator,omitempty" xml:"audit_operator,omitempty"`
+	// 操作时间戳
+	AuditTime *string `json:"audit_time,omitempty" xml:"audit_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// oss 转存后的图像地址
+	OssImages *string `json:"oss_images,omitempty" xml:"oss_images,omitempty"`
+	// 创建时间
+	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 更新时间
+	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s MeiyouAuditInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s MeiyouAuditInfo) GoString() string {
+	return s.String()
+}
+
+func (s *MeiyouAuditInfo) SetId(v int64) *MeiyouAuditInfo {
+	s.Id = &v
+	return s
+}
+
+func (s *MeiyouAuditInfo) SetAuditId(v int64) *MeiyouAuditInfo {
+	s.AuditId = &v
+	return s
+}
+
+func (s *MeiyouAuditInfo) SetTopicId(v int64) *MeiyouAuditInfo {
+	s.TopicId = &v
+	return s
+}
+
+func (s *MeiyouAuditInfo) SetContent(v string) *MeiyouAuditInfo {
+	s.Content = &v
+	return s
+}
+
+func (s *MeiyouAuditInfo) SetPublishTime(v string) *MeiyouAuditInfo {
+	s.PublishTime = &v
+	return s
+}
+
+func (s *MeiyouAuditInfo) SetImages(v string) *MeiyouAuditInfo {
+	s.Images = &v
+	return s
+}
+
+func (s *MeiyouAuditInfo) SetPrimaryBusiness(v string) *MeiyouAuditInfo {
+	s.PrimaryBusiness = &v
+	return s
+}
+
+func (s *MeiyouAuditInfo) SetSecondaryBusiness(v string) *MeiyouAuditInfo {
+	s.SecondaryBusiness = &v
+	return s
+}
+
+func (s *MeiyouAuditInfo) SetUserNickname(v string) *MeiyouAuditInfo {
+	s.UserNickname = &v
+	return s
+}
+
+func (s *MeiyouAuditInfo) SetUserId(v string) *MeiyouAuditInfo {
+	s.UserId = &v
+	return s
+}
+
+func (s *MeiyouAuditInfo) SetUserType(v string) *MeiyouAuditInfo {
+	s.UserType = &v
+	return s
+}
+
+func (s *MeiyouAuditInfo) SetUserAvatar(v string) *MeiyouAuditInfo {
+	s.UserAvatar = &v
+	return s
+}
+
+func (s *MeiyouAuditInfo) SetAuditResult(v string) *MeiyouAuditInfo {
+	s.AuditResult = &v
+	return s
+}
+
+func (s *MeiyouAuditInfo) SetAuditReason(v string) *MeiyouAuditInfo {
+	s.AuditReason = &v
+	return s
+}
+
+func (s *MeiyouAuditInfo) SetAuditReasonMsg(v string) *MeiyouAuditInfo {
+	s.AuditReasonMsg = &v
+	return s
+}
+
+func (s *MeiyouAuditInfo) SetAuditOperator(v string) *MeiyouAuditInfo {
+	s.AuditOperator = &v
+	return s
+}
+
+func (s *MeiyouAuditInfo) SetAuditTime(v string) *MeiyouAuditInfo {
+	s.AuditTime = &v
+	return s
+}
+
+func (s *MeiyouAuditInfo) SetOssImages(v string) *MeiyouAuditInfo {
+	s.OssImages = &v
+	return s
+}
+
+func (s *MeiyouAuditInfo) SetGmtCreate(v string) *MeiyouAuditInfo {
+	s.GmtCreate = &v
+	return s
+}
+
+func (s *MeiyouAuditInfo) SetGmtModified(v string) *MeiyouAuditInfo {
+	s.GmtModified = &v
+	return s
+}
+
+// 更新美柚itag关系信息
+type UpdateMeiyouItagRelationWebInfo struct {
+	// 主键id
+	Id *int64 `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// 审核记录ID
+	AuditId *string `json:"audit_id,omitempty" xml:"audit_id,omitempty"`
+	// itag数据ID
+	ItagDataId *int64 `json:"itag_data_id,omitempty" xml:"itag_data_id,omitempty"`
+	// 美柚任务审核结果推送状态
+	MeiyouAuditState *string `json:"meiyou_audit_state,omitempty" xml:"meiyou_audit_state,omitempty"`
+	// 审核不通过原因
+	RefuseReson *string `json:"refuse_reson,omitempty" xml:"refuse_reson,omitempty"`
+	// 美柚itag关联状态
+	AuditState *string `json:"audit_state,omitempty" xml:"audit_state,omitempty"`
+	// 美柚itag关联状态
+	TopicState *string `json:"topic_state,omitempty" xml:"topic_state,omitempty"`
+	// 审核结果
+	AuditResult *string `json:"audit_result,omitempty" xml:"audit_result,omitempty"`
+}
+
+func (s UpdateMeiyouItagRelationWebInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateMeiyouItagRelationWebInfo) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateMeiyouItagRelationWebInfo) SetId(v int64) *UpdateMeiyouItagRelationWebInfo {
+	s.Id = &v
+	return s
+}
+
+func (s *UpdateMeiyouItagRelationWebInfo) SetAuditId(v string) *UpdateMeiyouItagRelationWebInfo {
+	s.AuditId = &v
+	return s
+}
+
+func (s *UpdateMeiyouItagRelationWebInfo) SetItagDataId(v int64) *UpdateMeiyouItagRelationWebInfo {
+	s.ItagDataId = &v
+	return s
+}
+
+func (s *UpdateMeiyouItagRelationWebInfo) SetMeiyouAuditState(v string) *UpdateMeiyouItagRelationWebInfo {
+	s.MeiyouAuditState = &v
+	return s
+}
+
+func (s *UpdateMeiyouItagRelationWebInfo) SetRefuseReson(v string) *UpdateMeiyouItagRelationWebInfo {
+	s.RefuseReson = &v
+	return s
+}
+
+func (s *UpdateMeiyouItagRelationWebInfo) SetAuditState(v string) *UpdateMeiyouItagRelationWebInfo {
+	s.AuditState = &v
+	return s
+}
+
+func (s *UpdateMeiyouItagRelationWebInfo) SetTopicState(v string) *UpdateMeiyouItagRelationWebInfo {
+	s.TopicState = &v
+	return s
+}
+
+func (s *UpdateMeiyouItagRelationWebInfo) SetAuditResult(v string) *UpdateMeiyouItagRelationWebInfo {
+	s.AuditResult = &v
 	return s
 }
 
@@ -2732,9 +3090,17 @@ type QueryMeiyouAuditRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 审核记录ID
-	AuditIds []*int64 `json:"audit_ids,omitempty" xml:"audit_ids,omitempty" require:"true" type:"Repeated"`
+	AuditIds []*int64 `json:"audit_ids,omitempty" xml:"audit_ids,omitempty" type:"Repeated"`
 	// 美柚itag关联状态
 	AuditState *string `json:"audit_state,omitempty" xml:"audit_state,omitempty" require:"true"`
+	// 开始时间
+	GmtCreateStart *string `json:"gmt_create_start,omitempty" xml:"gmt_create_start,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 结束时间
+	GmtCreateEnd *string `json:"gmt_create_end,omitempty" xml:"gmt_create_end,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 最大条数
+	MaxNum *int64 `json:"max_num,omitempty" xml:"max_num,omitempty"`
+	// 数据来源
+	Source *string `json:"source,omitempty" xml:"source,omitempty"`
 }
 
 func (s QueryMeiyouAuditRequest) String() string {
@@ -2762,6 +3128,26 @@ func (s *QueryMeiyouAuditRequest) SetAuditIds(v []*int64) *QueryMeiyouAuditReque
 
 func (s *QueryMeiyouAuditRequest) SetAuditState(v string) *QueryMeiyouAuditRequest {
 	s.AuditState = &v
+	return s
+}
+
+func (s *QueryMeiyouAuditRequest) SetGmtCreateStart(v string) *QueryMeiyouAuditRequest {
+	s.GmtCreateStart = &v
+	return s
+}
+
+func (s *QueryMeiyouAuditRequest) SetGmtCreateEnd(v string) *QueryMeiyouAuditRequest {
+	s.GmtCreateEnd = &v
+	return s
+}
+
+func (s *QueryMeiyouAuditRequest) SetMaxNum(v int64) *QueryMeiyouAuditRequest {
+	s.MaxNum = &v
+	return s
+}
+
+func (s *QueryMeiyouAuditRequest) SetSource(v string) *QueryMeiyouAuditRequest {
+	s.Source = &v
 	return s
 }
 
@@ -2812,6 +3198,8 @@ type QueryMeiyouAudittopicRequest struct {
 	TopicIds []*int64 `json:"topic_ids,omitempty" xml:"topic_ids,omitempty" require:"true" type:"Repeated"`
 	// 美柚itag关联状态
 	TopicState *string `json:"topic_state,omitempty" xml:"topic_state,omitempty" require:"true"`
+	// 数据来源
+	Source *string `json:"source,omitempty" xml:"source,omitempty"`
 }
 
 func (s QueryMeiyouAudittopicRequest) String() string {
@@ -2839,6 +3227,11 @@ func (s *QueryMeiyouAudittopicRequest) SetTopicIds(v []*int64) *QueryMeiyouAudit
 
 func (s *QueryMeiyouAudittopicRequest) SetTopicState(v string) *QueryMeiyouAudittopicRequest {
 	s.TopicState = &v
+	return s
+}
+
+func (s *QueryMeiyouAudittopicRequest) SetSource(v string) *QueryMeiyouAudittopicRequest {
+	s.Source = &v
 	return s
 }
 
@@ -2886,13 +3279,19 @@ type UpdateMeiyouAuditRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 主题ID
-	TopicIds []*int64 `json:"topic_ids,omitempty" xml:"topic_ids,omitempty" require:"true" type:"Repeated"`
+	TopicIds []*int64 `json:"topic_ids,omitempty" xml:"topic_ids,omitempty" type:"Repeated"`
 	// 美柚itag关联状态
-	TopicState *string `json:"topic_state,omitempty" xml:"topic_state,omitempty" require:"true"`
+	TopicState *string `json:"topic_state,omitempty" xml:"topic_state,omitempty"`
 	// 审核记录ID
-	AuditIds []*int64 `json:"audit_ids,omitempty" xml:"audit_ids,omitempty" require:"true" type:"Repeated"`
+	AuditIds []*int64 `json:"audit_ids,omitempty" xml:"audit_ids,omitempty" type:"Repeated"`
 	// 美柚itag关联状态
-	AuditState *string `json:"audit_state,omitempty" xml:"audit_state,omitempty" require:"true"`
+	AuditState *string `json:"audit_state,omitempty" xml:"audit_state,omitempty"`
+	// itag任务ID
+	ItagTaskId *int64 `json:"itag_task_id,omitempty" xml:"itag_task_id,omitempty"`
+	// itag数据集ID
+	ItagDatasetId *int64 `json:"itag_dataset_id,omitempty" xml:"itag_dataset_id,omitempty"`
+	// 数据来源
+	Source *string `json:"source,omitempty" xml:"source,omitempty"`
 }
 
 func (s UpdateMeiyouAuditRequest) String() string {
@@ -2933,6 +3332,21 @@ func (s *UpdateMeiyouAuditRequest) SetAuditState(v string) *UpdateMeiyouAuditReq
 	return s
 }
 
+func (s *UpdateMeiyouAuditRequest) SetItagTaskId(v int64) *UpdateMeiyouAuditRequest {
+	s.ItagTaskId = &v
+	return s
+}
+
+func (s *UpdateMeiyouAuditRequest) SetItagDatasetId(v int64) *UpdateMeiyouAuditRequest {
+	s.ItagDatasetId = &v
+	return s
+}
+
+func (s *UpdateMeiyouAuditRequest) SetSource(v string) *UpdateMeiyouAuditRequest {
+	s.Source = &v
+	return s
+}
+
 type UpdateMeiyouAuditResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -2968,6 +3382,587 @@ func (s *UpdateMeiyouAuditResponse) SetResultMsg(v string) *UpdateMeiyouAuditRes
 }
 
 func (s *UpdateMeiyouAuditResponse) SetResult(v string) *UpdateMeiyouAuditResponse {
+	s.Result = &v
+	return s
+}
+
+type QueryMeiyouItagrelationRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 主键id
+	Id *int64 `json:"id,omitempty" xml:"id,omitempty"`
+	// 审核记录ID
+	AuditId *int64 `json:"audit_id,omitempty" xml:"audit_id,omitempty"`
+	// 主题ID
+	TopicId *int64 `json:"topic_id,omitempty" xml:"topic_id,omitempty"`
+	// itag任务ID
+	ItagTaskId *int64 `json:"itag_task_id,omitempty" xml:"itag_task_id,omitempty"`
+	// itag数据集ID
+	ItagDatasetId *int64 `json:"itag_dataset_id,omitempty" xml:"itag_dataset_id,omitempty"`
+	// itag数据ID
+	ItagDataId *int64 `json:"itag_data_id,omitempty" xml:"itag_data_id,omitempty"`
+	// 美柚任务审核结果推送状态
+	MeiyouAuditState *string `json:"meiyou_audit_state,omitempty" xml:"meiyou_audit_state,omitempty"`
+	// 审核记录状态
+	AuditState *string `json:"audit_state,omitempty" xml:"audit_state,omitempty"`
+	// 主题记录状态
+	TopicState *string `json:"topic_state,omitempty" xml:"topic_state,omitempty"`
+	// 更新时间-start
+	GmtModifiedStart *string `json:"gmt_modified_start,omitempty" xml:"gmt_modified_start,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 更新时间-end
+	GmtModifiedEnd *string `json:"gmt_modified_end,omitempty" xml:"gmt_modified_end,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 操作人
+	AuditOperator *string `json:"audit_operator,omitempty" xml:"audit_operator,omitempty"`
+	// 数据来源
+	Source *string `json:"source,omitempty" xml:"source,omitempty"`
+}
+
+func (s QueryMeiyouItagrelationRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryMeiyouItagrelationRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryMeiyouItagrelationRequest) SetAuthToken(v string) *QueryMeiyouItagrelationRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryMeiyouItagrelationRequest) SetProductInstanceId(v string) *QueryMeiyouItagrelationRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryMeiyouItagrelationRequest) SetId(v int64) *QueryMeiyouItagrelationRequest {
+	s.Id = &v
+	return s
+}
+
+func (s *QueryMeiyouItagrelationRequest) SetAuditId(v int64) *QueryMeiyouItagrelationRequest {
+	s.AuditId = &v
+	return s
+}
+
+func (s *QueryMeiyouItagrelationRequest) SetTopicId(v int64) *QueryMeiyouItagrelationRequest {
+	s.TopicId = &v
+	return s
+}
+
+func (s *QueryMeiyouItagrelationRequest) SetItagTaskId(v int64) *QueryMeiyouItagrelationRequest {
+	s.ItagTaskId = &v
+	return s
+}
+
+func (s *QueryMeiyouItagrelationRequest) SetItagDatasetId(v int64) *QueryMeiyouItagrelationRequest {
+	s.ItagDatasetId = &v
+	return s
+}
+
+func (s *QueryMeiyouItagrelationRequest) SetItagDataId(v int64) *QueryMeiyouItagrelationRequest {
+	s.ItagDataId = &v
+	return s
+}
+
+func (s *QueryMeiyouItagrelationRequest) SetMeiyouAuditState(v string) *QueryMeiyouItagrelationRequest {
+	s.MeiyouAuditState = &v
+	return s
+}
+
+func (s *QueryMeiyouItagrelationRequest) SetAuditState(v string) *QueryMeiyouItagrelationRequest {
+	s.AuditState = &v
+	return s
+}
+
+func (s *QueryMeiyouItagrelationRequest) SetTopicState(v string) *QueryMeiyouItagrelationRequest {
+	s.TopicState = &v
+	return s
+}
+
+func (s *QueryMeiyouItagrelationRequest) SetGmtModifiedStart(v string) *QueryMeiyouItagrelationRequest {
+	s.GmtModifiedStart = &v
+	return s
+}
+
+func (s *QueryMeiyouItagrelationRequest) SetGmtModifiedEnd(v string) *QueryMeiyouItagrelationRequest {
+	s.GmtModifiedEnd = &v
+	return s
+}
+
+func (s *QueryMeiyouItagrelationRequest) SetAuditOperator(v string) *QueryMeiyouItagrelationRequest {
+	s.AuditOperator = &v
+	return s
+}
+
+func (s *QueryMeiyouItagrelationRequest) SetSource(v string) *QueryMeiyouItagrelationRequest {
+	s.Source = &v
+	return s
+}
+
+type QueryMeiyouItagrelationResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 响应
+	Result *string `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s QueryMeiyouItagrelationResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryMeiyouItagrelationResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryMeiyouItagrelationResponse) SetReqMsgId(v string) *QueryMeiyouItagrelationResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryMeiyouItagrelationResponse) SetResultCode(v string) *QueryMeiyouItagrelationResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryMeiyouItagrelationResponse) SetResultMsg(v string) *QueryMeiyouItagrelationResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryMeiyouItagrelationResponse) SetResult(v string) *QueryMeiyouItagrelationResponse {
+	s.Result = &v
+	return s
+}
+
+type UpdateMeiyouItagrelationRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 更新关系信息
+	RelationInfoList []*UpdateMeiyouItagRelationWebInfo `json:"relation_info_list,omitempty" xml:"relation_info_list,omitempty" type:"Repeated"`
+	// 是否更新审核记录信息
+	UpdateAuditFlag *bool `json:"update_audit_flag,omitempty" xml:"update_audit_flag,omitempty" require:"true"`
+	// 数据来源
+	Source *string `json:"source,omitempty" xml:"source,omitempty"`
+}
+
+func (s UpdateMeiyouItagrelationRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateMeiyouItagrelationRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateMeiyouItagrelationRequest) SetAuthToken(v string) *UpdateMeiyouItagrelationRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateMeiyouItagrelationRequest) SetProductInstanceId(v string) *UpdateMeiyouItagrelationRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UpdateMeiyouItagrelationRequest) SetRelationInfoList(v []*UpdateMeiyouItagRelationWebInfo) *UpdateMeiyouItagrelationRequest {
+	s.RelationInfoList = v
+	return s
+}
+
+func (s *UpdateMeiyouItagrelationRequest) SetUpdateAuditFlag(v bool) *UpdateMeiyouItagrelationRequest {
+	s.UpdateAuditFlag = &v
+	return s
+}
+
+func (s *UpdateMeiyouItagrelationRequest) SetSource(v string) *UpdateMeiyouItagrelationRequest {
+	s.Source = &v
+	return s
+}
+
+type UpdateMeiyouItagrelationResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 响应结果
+	Result *string `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s UpdateMeiyouItagrelationResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateMeiyouItagrelationResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateMeiyouItagrelationResponse) SetReqMsgId(v string) *UpdateMeiyouItagrelationResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UpdateMeiyouItagrelationResponse) SetResultCode(v string) *UpdateMeiyouItagrelationResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UpdateMeiyouItagrelationResponse) SetResultMsg(v string) *UpdateMeiyouItagrelationResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UpdateMeiyouItagrelationResponse) SetResult(v string) *UpdateMeiyouItagrelationResponse {
+	s.Result = &v
+	return s
+}
+
+type QueryMeiyouAuditresultRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 审核ID
+	AuditIds []*int64 `json:"audit_ids,omitempty" xml:"audit_ids,omitempty" type:"Repeated"`
+	// 美柚任务审核结果推送状态
+	MeiyouAuditState *string `json:"meiyou_audit_state,omitempty" xml:"meiyou_audit_state,omitempty"`
+	// 审核记录状态
+	AuditState []*string `json:"audit_state,omitempty" xml:"audit_state,omitempty" type:"Repeated"`
+	// 主题记录状态
+	TopicState *string `json:"topic_state,omitempty" xml:"topic_state,omitempty"`
+	// 开始时间点
+	CreateStart *string `json:"create_start,omitempty" xml:"create_start,omitempty"`
+	// 结束时间点
+	CreateEnd *string `json:"create_end,omitempty" xml:"create_end,omitempty"`
+	// 数据来源
+	Source *string `json:"source,omitempty" xml:"source,omitempty"`
+}
+
+func (s QueryMeiyouAuditresultRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryMeiyouAuditresultRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryMeiyouAuditresultRequest) SetAuthToken(v string) *QueryMeiyouAuditresultRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryMeiyouAuditresultRequest) SetProductInstanceId(v string) *QueryMeiyouAuditresultRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryMeiyouAuditresultRequest) SetAuditIds(v []*int64) *QueryMeiyouAuditresultRequest {
+	s.AuditIds = v
+	return s
+}
+
+func (s *QueryMeiyouAuditresultRequest) SetMeiyouAuditState(v string) *QueryMeiyouAuditresultRequest {
+	s.MeiyouAuditState = &v
+	return s
+}
+
+func (s *QueryMeiyouAuditresultRequest) SetAuditState(v []*string) *QueryMeiyouAuditresultRequest {
+	s.AuditState = v
+	return s
+}
+
+func (s *QueryMeiyouAuditresultRequest) SetTopicState(v string) *QueryMeiyouAuditresultRequest {
+	s.TopicState = &v
+	return s
+}
+
+func (s *QueryMeiyouAuditresultRequest) SetCreateStart(v string) *QueryMeiyouAuditresultRequest {
+	s.CreateStart = &v
+	return s
+}
+
+func (s *QueryMeiyouAuditresultRequest) SetCreateEnd(v string) *QueryMeiyouAuditresultRequest {
+	s.CreateEnd = &v
+	return s
+}
+
+func (s *QueryMeiyouAuditresultRequest) SetSource(v string) *QueryMeiyouAuditresultRequest {
+	s.Source = &v
+	return s
+}
+
+type QueryMeiyouAuditresultResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 响应信息
+	Result *string `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s QueryMeiyouAuditresultResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryMeiyouAuditresultResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryMeiyouAuditresultResponse) SetReqMsgId(v string) *QueryMeiyouAuditresultResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryMeiyouAuditresultResponse) SetResultCode(v string) *QueryMeiyouAuditresultResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryMeiyouAuditresultResponse) SetResultMsg(v string) *QueryMeiyouAuditresultResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryMeiyouAuditresultResponse) SetResult(v string) *QueryMeiyouAuditresultResponse {
+	s.Result = &v
+	return s
+}
+
+type PagequeryMeiyouAuditRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 主键id
+	Id *int64 `json:"id,omitempty" xml:"id,omitempty"`
+	// 页面
+	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty" require:"true"`
+	// 审核记录ID
+	AuditId *int64 `json:"audit_id,omitempty" xml:"audit_id,omitempty"`
+	// 大小
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+	// 主题ID
+	TopicId *int64 `json:"topic_id,omitempty" xml:"topic_id,omitempty"`
+	// 内容文本
+	Content *string `json:"content,omitempty" xml:"content,omitempty"`
+	// 一级业务
+	PrimaryBusiness *string `json:"primary_business,omitempty" xml:"primary_business,omitempty"`
+	// 二级业务
+	SecondaryBusiness *string `json:"secondary_business,omitempty" xml:"secondary_business,omitempty"`
+	// 审核结果
+	AuditResult *string `json:"audit_result,omitempty" xml:"audit_result,omitempty"`
+	// 审核原因
+	AuditReason *string `json:"audit_reason,omitempty" xml:"audit_reason,omitempty"`
+	// 创建时间-start
+	GmtCreateStart *string `json:"gmt_create_start,omitempty" xml:"gmt_create_start,omitempty"`
+	// 创建时间-end
+	GmtCreateEnd *string `json:"gmt_create_end,omitempty" xml:"gmt_create_end,omitempty"`
+	// 数据来源
+	Source *string `json:"source,omitempty" xml:"source,omitempty"`
+}
+
+func (s PagequeryMeiyouAuditRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryMeiyouAuditRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryMeiyouAuditRequest) SetAuthToken(v string) *PagequeryMeiyouAuditRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PagequeryMeiyouAuditRequest) SetProductInstanceId(v string) *PagequeryMeiyouAuditRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PagequeryMeiyouAuditRequest) SetId(v int64) *PagequeryMeiyouAuditRequest {
+	s.Id = &v
+	return s
+}
+
+func (s *PagequeryMeiyouAuditRequest) SetPageNum(v int64) *PagequeryMeiyouAuditRequest {
+	s.PageNum = &v
+	return s
+}
+
+func (s *PagequeryMeiyouAuditRequest) SetAuditId(v int64) *PagequeryMeiyouAuditRequest {
+	s.AuditId = &v
+	return s
+}
+
+func (s *PagequeryMeiyouAuditRequest) SetPageSize(v int64) *PagequeryMeiyouAuditRequest {
+	s.PageSize = &v
+	return s
+}
+
+func (s *PagequeryMeiyouAuditRequest) SetTopicId(v int64) *PagequeryMeiyouAuditRequest {
+	s.TopicId = &v
+	return s
+}
+
+func (s *PagequeryMeiyouAuditRequest) SetContent(v string) *PagequeryMeiyouAuditRequest {
+	s.Content = &v
+	return s
+}
+
+func (s *PagequeryMeiyouAuditRequest) SetPrimaryBusiness(v string) *PagequeryMeiyouAuditRequest {
+	s.PrimaryBusiness = &v
+	return s
+}
+
+func (s *PagequeryMeiyouAuditRequest) SetSecondaryBusiness(v string) *PagequeryMeiyouAuditRequest {
+	s.SecondaryBusiness = &v
+	return s
+}
+
+func (s *PagequeryMeiyouAuditRequest) SetAuditResult(v string) *PagequeryMeiyouAuditRequest {
+	s.AuditResult = &v
+	return s
+}
+
+func (s *PagequeryMeiyouAuditRequest) SetAuditReason(v string) *PagequeryMeiyouAuditRequest {
+	s.AuditReason = &v
+	return s
+}
+
+func (s *PagequeryMeiyouAuditRequest) SetGmtCreateStart(v string) *PagequeryMeiyouAuditRequest {
+	s.GmtCreateStart = &v
+	return s
+}
+
+func (s *PagequeryMeiyouAuditRequest) SetGmtCreateEnd(v string) *PagequeryMeiyouAuditRequest {
+	s.GmtCreateEnd = &v
+	return s
+}
+
+func (s *PagequeryMeiyouAuditRequest) SetSource(v string) *PagequeryMeiyouAuditRequest {
+	s.Source = &v
+	return s
+}
+
+type PagequeryMeiyouAuditResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 响应信息
+	Result *string `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s PagequeryMeiyouAuditResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryMeiyouAuditResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryMeiyouAuditResponse) SetReqMsgId(v string) *PagequeryMeiyouAuditResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PagequeryMeiyouAuditResponse) SetResultCode(v string) *PagequeryMeiyouAuditResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PagequeryMeiyouAuditResponse) SetResultMsg(v string) *PagequeryMeiyouAuditResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PagequeryMeiyouAuditResponse) SetResult(v string) *PagequeryMeiyouAuditResponse {
+	s.Result = &v
+	return s
+}
+
+type SubmitAuditMeiyouRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 数据来源
+	Source *string `json:"source,omitempty" xml:"source,omitempty" require:"true"`
+	// 美柚审核信息存储请求
+	SaveInfo []*MeiyouAuditSaveWebRequest `json:"save_info,omitempty" xml:"save_info,omitempty" type:"Repeated"`
+}
+
+func (s SubmitAuditMeiyouRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitAuditMeiyouRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitAuditMeiyouRequest) SetAuthToken(v string) *SubmitAuditMeiyouRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SubmitAuditMeiyouRequest) SetProductInstanceId(v string) *SubmitAuditMeiyouRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SubmitAuditMeiyouRequest) SetSource(v string) *SubmitAuditMeiyouRequest {
+	s.Source = &v
+	return s
+}
+
+func (s *SubmitAuditMeiyouRequest) SetSaveInfo(v []*MeiyouAuditSaveWebRequest) *SubmitAuditMeiyouRequest {
+	s.SaveInfo = v
+	return s
+}
+
+type SubmitAuditMeiyouResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 响应
+	Result *string `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s SubmitAuditMeiyouResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitAuditMeiyouResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitAuditMeiyouResponse) SetReqMsgId(v string) *SubmitAuditMeiyouResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SubmitAuditMeiyouResponse) SetResultCode(v string) *SubmitAuditMeiyouResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SubmitAuditMeiyouResponse) SetResultMsg(v string) *SubmitAuditMeiyouResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SubmitAuditMeiyouResponse) SetResult(v string) *SubmitAuditMeiyouResponse {
 	s.Result = &v
 	return s
 }
@@ -5171,6 +6166,516 @@ func (s *CheckGuardAnswerResponse) SetResult(v string) *CheckGuardAnswerResponse
 	return s
 }
 
+type SubmitMeiyouAuditRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 数据Id
+	DataId *string `json:"data_id,omitempty" xml:"data_id,omitempty" require:"true"`
+	// 模态
+	Modal *string `json:"modal,omitempty" xml:"modal,omitempty" require:"true"`
+	// 场景
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+	// 扩展信息
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
+	// 美柚审核记录信息
+	AuditInfo *string `json:"audit_info,omitempty" xml:"audit_info,omitempty" require:"true"`
+	// 回调函数
+	Callback *string `json:"callback,omitempty" xml:"callback,omitempty" require:"true"`
+	// 租户
+	TenantCode *string `json:"tenant_code,omitempty" xml:"tenant_code,omitempty" require:"true"`
+}
+
+func (s SubmitMeiyouAuditRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitMeiyouAuditRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitMeiyouAuditRequest) SetAuthToken(v string) *SubmitMeiyouAuditRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SubmitMeiyouAuditRequest) SetProductInstanceId(v string) *SubmitMeiyouAuditRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SubmitMeiyouAuditRequest) SetDataId(v string) *SubmitMeiyouAuditRequest {
+	s.DataId = &v
+	return s
+}
+
+func (s *SubmitMeiyouAuditRequest) SetModal(v string) *SubmitMeiyouAuditRequest {
+	s.Modal = &v
+	return s
+}
+
+func (s *SubmitMeiyouAuditRequest) SetSceneCode(v string) *SubmitMeiyouAuditRequest {
+	s.SceneCode = &v
+	return s
+}
+
+func (s *SubmitMeiyouAuditRequest) SetExtInfo(v string) *SubmitMeiyouAuditRequest {
+	s.ExtInfo = &v
+	return s
+}
+
+func (s *SubmitMeiyouAuditRequest) SetAuditInfo(v string) *SubmitMeiyouAuditRequest {
+	s.AuditInfo = &v
+	return s
+}
+
+func (s *SubmitMeiyouAuditRequest) SetCallback(v string) *SubmitMeiyouAuditRequest {
+	s.Callback = &v
+	return s
+}
+
+func (s *SubmitMeiyouAuditRequest) SetTenantCode(v string) *SubmitMeiyouAuditRequest {
+	s.TenantCode = &v
+	return s
+}
+
+type SubmitMeiyouAuditResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 响应结果
+	Result *string `json:"result,omitempty" xml:"result,omitempty"`
+	// 码值
+	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty"`
+	// 错误信息
+	ErrorMessage *string `json:"error_message,omitempty" xml:"error_message,omitempty"`
+	// 请求ID
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
+}
+
+func (s SubmitMeiyouAuditResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitMeiyouAuditResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitMeiyouAuditResponse) SetReqMsgId(v string) *SubmitMeiyouAuditResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SubmitMeiyouAuditResponse) SetResultCode(v string) *SubmitMeiyouAuditResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SubmitMeiyouAuditResponse) SetResultMsg(v string) *SubmitMeiyouAuditResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SubmitMeiyouAuditResponse) SetResult(v string) *SubmitMeiyouAuditResponse {
+	s.Result = &v
+	return s
+}
+
+func (s *SubmitMeiyouAuditResponse) SetErrorCode(v string) *SubmitMeiyouAuditResponse {
+	s.ErrorCode = &v
+	return s
+}
+
+func (s *SubmitMeiyouAuditResponse) SetErrorMessage(v string) *SubmitMeiyouAuditResponse {
+	s.ErrorMessage = &v
+	return s
+}
+
+func (s *SubmitMeiyouAuditResponse) SetRequestId(v string) *SubmitMeiyouAuditResponse {
+	s.RequestId = &v
+	return s
+}
+
+type QueryMeiyouAgentauditRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 数据创建时间-开始时间点
+	GmtCreateStart *string `json:"gmt_create_start,omitempty" xml:"gmt_create_start,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 数据创建时间-结束时间点
+	GmtCreateEnd *string `json:"gmt_create_end,omitempty" xml:"gmt_create_end,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 所属
+	Owner *string `json:"owner,omitempty" xml:"owner,omitempty"`
+}
+
+func (s QueryMeiyouAgentauditRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryMeiyouAgentauditRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryMeiyouAgentauditRequest) SetAuthToken(v string) *QueryMeiyouAgentauditRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryMeiyouAgentauditRequest) SetProductInstanceId(v string) *QueryMeiyouAgentauditRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryMeiyouAgentauditRequest) SetGmtCreateStart(v string) *QueryMeiyouAgentauditRequest {
+	s.GmtCreateStart = &v
+	return s
+}
+
+func (s *QueryMeiyouAgentauditRequest) SetGmtCreateEnd(v string) *QueryMeiyouAgentauditRequest {
+	s.GmtCreateEnd = &v
+	return s
+}
+
+func (s *QueryMeiyouAgentauditRequest) SetOwner(v string) *QueryMeiyouAgentauditRequest {
+	s.Owner = &v
+	return s
+}
+
+type QueryMeiyouAgentauditResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 响应结果
+	Result *string `json:"result,omitempty" xml:"result,omitempty"`
+	// 码值
+	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty"`
+	// 错误信息
+	ErrorMessage *string `json:"error_message,omitempty" xml:"error_message,omitempty"`
+	// 请求ID
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
+}
+
+func (s QueryMeiyouAgentauditResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryMeiyouAgentauditResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryMeiyouAgentauditResponse) SetReqMsgId(v string) *QueryMeiyouAgentauditResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryMeiyouAgentauditResponse) SetResultCode(v string) *QueryMeiyouAgentauditResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryMeiyouAgentauditResponse) SetResultMsg(v string) *QueryMeiyouAgentauditResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryMeiyouAgentauditResponse) SetResult(v string) *QueryMeiyouAgentauditResponse {
+	s.Result = &v
+	return s
+}
+
+func (s *QueryMeiyouAgentauditResponse) SetErrorCode(v string) *QueryMeiyouAgentauditResponse {
+	s.ErrorCode = &v
+	return s
+}
+
+func (s *QueryMeiyouAgentauditResponse) SetErrorMessage(v string) *QueryMeiyouAgentauditResponse {
+	s.ErrorMessage = &v
+	return s
+}
+
+func (s *QueryMeiyouAgentauditResponse) SetRequestId(v string) *QueryMeiyouAgentauditResponse {
+	s.RequestId = &v
+	return s
+}
+
+type UpdateAicoguardcoreMeiyouRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 更新信息
+	ResultInfo *string `json:"result_info,omitempty" xml:"result_info,omitempty" require:"true"`
+}
+
+func (s UpdateAicoguardcoreMeiyouRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateAicoguardcoreMeiyouRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateAicoguardcoreMeiyouRequest) SetAuthToken(v string) *UpdateAicoguardcoreMeiyouRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateAicoguardcoreMeiyouRequest) SetProductInstanceId(v string) *UpdateAicoguardcoreMeiyouRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UpdateAicoguardcoreMeiyouRequest) SetResultInfo(v string) *UpdateAicoguardcoreMeiyouRequest {
+	s.ResultInfo = &v
+	return s
+}
+
+type UpdateAicoguardcoreMeiyouResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 响应码值
+	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty"`
+	// 响应描述
+	ErrorMessage *string `json:"error_message,omitempty" xml:"error_message,omitempty"`
+}
+
+func (s UpdateAicoguardcoreMeiyouResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateAicoguardcoreMeiyouResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateAicoguardcoreMeiyouResponse) SetReqMsgId(v string) *UpdateAicoguardcoreMeiyouResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UpdateAicoguardcoreMeiyouResponse) SetResultCode(v string) *UpdateAicoguardcoreMeiyouResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UpdateAicoguardcoreMeiyouResponse) SetResultMsg(v string) *UpdateAicoguardcoreMeiyouResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UpdateAicoguardcoreMeiyouResponse) SetErrorCode(v string) *UpdateAicoguardcoreMeiyouResponse {
+	s.ErrorCode = &v
+	return s
+}
+
+func (s *UpdateAicoguardcoreMeiyouResponse) SetErrorMessage(v string) *UpdateAicoguardcoreMeiyouResponse {
+	s.ErrorMessage = &v
+	return s
+}
+
+type SubmitGuardDocumentRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 待检测对象的URL，请确保该URL能通过公网访问到，且URL地址长度不超过2048个字符
+	// 说明 ：
+	// URL地址中不能包含中文，且一次请求请确保仅传入1条URL
+	Url *string `json:"url,omitempty" xml:"url,omitempty" require:"true"`
+	// 审核场景码
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+	// 检测对象对应的数据ID。
+	// 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+	DataId *string `json:"data_id,omitempty" xml:"data_id,omitempty" require:"true"`
+	// 标识上游应用来源，字符串长度不能超过 128
+	AppCode *string `json:"app_code,omitempty" xml:"app_code,omitempty"`
+	// 客户业务ID。
+	// 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+	BusinessId *string `json:"business_id,omitempty" xml:"business_id,omitempty"`
+	// 结果通知地址，不指定时需要调用方主动查询结果
+	Callback *string `json:"callback,omitempty" xml:"callback,omitempty"`
+	// 传callback时必须指定，tenant + seed + auditResult做SHA256生成checksum，保证结果未被篡改（即数科官网控制台-账户信息中的「用户code」）
+	Seed *string `json:"seed,omitempty" xml:"seed,omitempty"`
+}
+
+func (s SubmitGuardDocumentRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitGuardDocumentRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitGuardDocumentRequest) SetAuthToken(v string) *SubmitGuardDocumentRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SubmitGuardDocumentRequest) SetProductInstanceId(v string) *SubmitGuardDocumentRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SubmitGuardDocumentRequest) SetUrl(v string) *SubmitGuardDocumentRequest {
+	s.Url = &v
+	return s
+}
+
+func (s *SubmitGuardDocumentRequest) SetSceneCode(v string) *SubmitGuardDocumentRequest {
+	s.SceneCode = &v
+	return s
+}
+
+func (s *SubmitGuardDocumentRequest) SetDataId(v string) *SubmitGuardDocumentRequest {
+	s.DataId = &v
+	return s
+}
+
+func (s *SubmitGuardDocumentRequest) SetAppCode(v string) *SubmitGuardDocumentRequest {
+	s.AppCode = &v
+	return s
+}
+
+func (s *SubmitGuardDocumentRequest) SetBusinessId(v string) *SubmitGuardDocumentRequest {
+	s.BusinessId = &v
+	return s
+}
+
+func (s *SubmitGuardDocumentRequest) SetCallback(v string) *SubmitGuardDocumentRequest {
+	s.Callback = &v
+	return s
+}
+
+func (s *SubmitGuardDocumentRequest) SetSeed(v string) *SubmitGuardDocumentRequest {
+	s.Seed = &v
+	return s
+}
+
+type SubmitGuardDocumentResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 任务ID
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty"`
+	// 检测对象对应的数据ID。
+	// 说明：
+	// 如果在提交审核任务的请求参数中传入了dataId，则此处返回对应dataId
+	DataId *string `json:"data_id,omitempty" xml:"data_id,omitempty"`
+}
+
+func (s SubmitGuardDocumentResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitGuardDocumentResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitGuardDocumentResponse) SetReqMsgId(v string) *SubmitGuardDocumentResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SubmitGuardDocumentResponse) SetResultCode(v string) *SubmitGuardDocumentResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SubmitGuardDocumentResponse) SetResultMsg(v string) *SubmitGuardDocumentResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SubmitGuardDocumentResponse) SetTaskId(v string) *SubmitGuardDocumentResponse {
+	s.TaskId = &v
+	return s
+}
+
+func (s *SubmitGuardDocumentResponse) SetDataId(v string) *SubmitGuardDocumentResponse {
+	s.DataId = &v
+	return s
+}
+
+type QueryGuardDocumentRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 任务ID
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
+}
+
+func (s QueryGuardDocumentRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryGuardDocumentRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryGuardDocumentRequest) SetAuthToken(v string) *QueryGuardDocumentRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryGuardDocumentRequest) SetProductInstanceId(v string) *QueryGuardDocumentRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryGuardDocumentRequest) SetTaskId(v string) *QueryGuardDocumentRequest {
+	s.TaskId = &v
+	return s
+}
+
+type QueryGuardDocumentResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 文档审核结果
+	Result *string `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s QueryGuardDocumentResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryGuardDocumentResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryGuardDocumentResponse) SetReqMsgId(v string) *QueryGuardDocumentResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryGuardDocumentResponse) SetResultCode(v string) *QueryGuardDocumentResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryGuardDocumentResponse) SetResultMsg(v string) *QueryGuardDocumentResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryGuardDocumentResponse) SetResult(v string) *QueryGuardDocumentResponse {
+	s.Result = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -5293,7 +6798,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.20"),
+				"sdk_version":      tea.String("1.1.48"),
 				"_prod_code":       tea.String("AITECH"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -6202,6 +7707,176 @@ func (client *Client) UpdateMeiyouAuditEx(request *UpdateMeiyouAuditRequest, hea
 }
 
 /**
+ * Description: 查询美柚itag关联信息
+ * Summary: 查询美柚itag关联信息
+ */
+func (client *Client) QueryMeiyouItagrelation(request *QueryMeiyouItagrelationRequest) (_result *QueryMeiyouItagrelationResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryMeiyouItagrelationResponse{}
+	_body, _err := client.QueryMeiyouItagrelationEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询美柚itag关联信息
+ * Summary: 查询美柚itag关联信息
+ */
+func (client *Client) QueryMeiyouItagrelationEx(request *QueryMeiyouItagrelationRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryMeiyouItagrelationResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryMeiyouItagrelationResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("aitech.comm.meiyou.itagrelation.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 更新美柚itag关联信息
+ * Summary: 更新美柚itag关联信息
+ */
+func (client *Client) UpdateMeiyouItagrelation(request *UpdateMeiyouItagrelationRequest) (_result *UpdateMeiyouItagrelationResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UpdateMeiyouItagrelationResponse{}
+	_body, _err := client.UpdateMeiyouItagrelationEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 更新美柚itag关联信息
+ * Summary: 更新美柚itag关联信息
+ */
+func (client *Client) UpdateMeiyouItagrelationEx(request *UpdateMeiyouItagrelationRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UpdateMeiyouItagrelationResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UpdateMeiyouItagrelationResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("aitech.comm.meiyou.itagrelation.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 美柚审核结果查询
+ * Summary: 美柚审核结果查询
+ */
+func (client *Client) QueryMeiyouAuditresult(request *QueryMeiyouAuditresultRequest) (_result *QueryMeiyouAuditresultResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryMeiyouAuditresultResponse{}
+	_body, _err := client.QueryMeiyouAuditresultEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 美柚审核结果查询
+ * Summary: 美柚审核结果查询
+ */
+func (client *Client) QueryMeiyouAuditresultEx(request *QueryMeiyouAuditresultRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryMeiyouAuditresultResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryMeiyouAuditresultResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("aitech.comm.meiyou.auditresult.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 分页查询美柚审核信息接口
+ * Summary: 分页查询美柚审核信息接口
+ */
+func (client *Client) PagequeryMeiyouAudit(request *PagequeryMeiyouAuditRequest) (_result *PagequeryMeiyouAuditResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PagequeryMeiyouAuditResponse{}
+	_body, _err := client.PagequeryMeiyouAuditEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 分页查询美柚审核信息接口
+ * Summary: 分页查询美柚审核信息接口
+ */
+func (client *Client) PagequeryMeiyouAuditEx(request *PagequeryMeiyouAuditRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PagequeryMeiyouAuditResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PagequeryMeiyouAuditResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("aitech.comm.meiyou.audit.pagequery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 美柚审核信息存储（仅itask）
+ * Summary: 美柚审核信息存储（仅itask）
+ */
+func (client *Client) SubmitAuditMeiyou(request *SubmitAuditMeiyouRequest) (_result *SubmitAuditMeiyouResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SubmitAuditMeiyouResponse{}
+	_body, _err := client.SubmitAuditMeiyouEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 美柚审核信息存储（仅itask）
+ * Summary: 美柚审核信息存储（仅itask）
+ */
+func (client *Client) SubmitAuditMeiyouEx(request *SubmitAuditMeiyouRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SubmitAuditMeiyouResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SubmitAuditMeiyouResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("aitech.comm.audit.meiyou.submit"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
  * Description: 阿里云ADB调用接口
  * Summary: 阿里云ADB调用接口
  */
@@ -6942,6 +8617,176 @@ func (client *Client) CheckGuardAnswerEx(request *CheckGuardAnswerRequest, heade
 	}
 	_result = &CheckGuardAnswerResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("aitech.comm.guard.answer.check"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 美柚待审核信息提交
+ * Summary: 美柚待审核信息提交
+ */
+func (client *Client) SubmitMeiyouAudit(request *SubmitMeiyouAuditRequest) (_result *SubmitMeiyouAuditResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SubmitMeiyouAuditResponse{}
+	_body, _err := client.SubmitMeiyouAuditEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 美柚待审核信息提交
+ * Summary: 美柚待审核信息提交
+ */
+func (client *Client) SubmitMeiyouAuditEx(request *SubmitMeiyouAuditRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SubmitMeiyouAuditResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SubmitMeiyouAuditResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("aitech.comm.meiyou.audit.submit"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询美柚审核Agent节点信息
+ * Summary: 查询美柚审核Agent节点信息
+ */
+func (client *Client) QueryMeiyouAgentaudit(request *QueryMeiyouAgentauditRequest) (_result *QueryMeiyouAgentauditResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryMeiyouAgentauditResponse{}
+	_body, _err := client.QueryMeiyouAgentauditEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询美柚审核Agent节点信息
+ * Summary: 查询美柚审核Agent节点信息
+ */
+func (client *Client) QueryMeiyouAgentauditEx(request *QueryMeiyouAgentauditRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryMeiyouAgentauditResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryMeiyouAgentauditResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("aitech.comm.meiyou.agentaudit.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 更新美柚审核Agent审核结果
+ * Summary: 更新美柚审核Agent审核结果
+ */
+func (client *Client) UpdateAicoguardcoreMeiyou(request *UpdateAicoguardcoreMeiyouRequest) (_result *UpdateAicoguardcoreMeiyouResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UpdateAicoguardcoreMeiyouResponse{}
+	_body, _err := client.UpdateAicoguardcoreMeiyouEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 更新美柚审核Agent审核结果
+ * Summary: 更新美柚审核Agent审核结果
+ */
+func (client *Client) UpdateAicoguardcoreMeiyouEx(request *UpdateAicoguardcoreMeiyouRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UpdateAicoguardcoreMeiyouResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UpdateAicoguardcoreMeiyouResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("aitech.comm.aicoguardcore.meiyou.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 文档人审入审
+ * Summary: 文档人审入审
+ */
+func (client *Client) SubmitGuardDocument(request *SubmitGuardDocumentRequest) (_result *SubmitGuardDocumentResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SubmitGuardDocumentResponse{}
+	_body, _err := client.SubmitGuardDocumentEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 文档人审入审
+ * Summary: 文档人审入审
+ */
+func (client *Client) SubmitGuardDocumentEx(request *SubmitGuardDocumentRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SubmitGuardDocumentResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SubmitGuardDocumentResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("aitech.comm.guard.document.submit"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 文档人审查询
+ * Summary: 文档人审查询
+ */
+func (client *Client) QueryGuardDocument(request *QueryGuardDocumentRequest) (_result *QueryGuardDocumentResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryGuardDocumentResponse{}
+	_body, _err := client.QueryGuardDocumentEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 文档人审查询
+ * Summary: 文档人审查询
+ */
+func (client *Client) QueryGuardDocumentEx(request *QueryGuardDocumentRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryGuardDocumentResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryGuardDocumentResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("aitech.comm.guard.document.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
