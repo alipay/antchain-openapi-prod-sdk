@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "6.0.0"),
+                    new TeaPair("sdk_version", "6.1.2"),
                     new TeaPair("_prod_code", "MORSERTA"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -291,6 +291,48 @@ public class Client {
     public DataAdDataExportExperimentResponse dataAdDataExportExperimentEx(DataAdDataExportExperimentRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.morserta.ad.data.export.experiment.data", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DataAdDataExportExperimentResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 接收未归因的转化数据
+     * Summary: 接收未归因的转化数据</p>
+     */
+    public ConversionAdDataResponse conversionAdData(ConversionAdDataRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.conversionAdDataEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 接收未归因的转化数据
+     * Summary: 接收未归因的转化数据</p>
+     */
+    public ConversionAdDataResponse conversionAdDataEx(ConversionAdDataRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.morserta.ad.data.conversion", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ConversionAdDataResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 接收客户已归因转化事件
+     * Summary: 接收客户已归因转化事件</p>
+     */
+    public ConversionAdDataAttributedResponse conversionAdDataAttributed(ConversionAdDataAttributedRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.conversionAdDataAttributedEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 接收客户已归因转化事件
+     * Summary: 接收客户已归因转化事件</p>
+     */
+    public ConversionAdDataAttributedResponse conversionAdDataAttributedEx(ConversionAdDataAttributedRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.morserta.ad.data.attributed.conversion", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ConversionAdDataAttributedResponse());
     }
 
     /**
