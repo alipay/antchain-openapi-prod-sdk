@@ -620,6 +620,182 @@ export class DataAdDataExportExperimentResponse extends $tea.Model {
   }
 }
 
+export class ConversionAdDataRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 投放项目
+  project: string;
+  // 转化发生的unix事件戳,单位秒
+  eventTime: number;
+  // 事件类型编码
+  eventCode: string;
+  // 转化所属用户在客户系统中的用户id
+  userId?: string;
+  // 转化对应的产品id，如用户购买保险对应的保险产品id，没有可不填
+  productId?: string;
+  // 唯一标识当前转化事件的一个业务id，如保险下单的订单id，没有可不填
+  eventId?: string;
+  // json字段， {"xxx": xxx, "yyyy":"yyyy"}， 包含转化对应的媒体侧信息，如click_id, gdt_vid，跳转链接等，数科侧会依据该id与自行收集到的点击进行匹配归因
+  trackInfo: string;
+  // json扩展字段
+  extInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      project: 'project',
+      eventTime: 'event_time',
+      eventCode: 'event_code',
+      userId: 'user_id',
+      productId: 'product_id',
+      eventId: 'event_id',
+      trackInfo: 'track_info',
+      extInfo: 'ext_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      project: 'string',
+      eventTime: 'number',
+      eventCode: 'string',
+      userId: 'string',
+      productId: 'string',
+      eventId: 'string',
+      trackInfo: 'string',
+      extInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ConversionAdDataResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否成功
+  success?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ConversionAdDataAttributedRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 广告账户id，如9471147
+  accountId: string;
+  // 转化归因到的媒体渠道
+  mediaType: string;
+  // 转化发生的unix事件戳，单位秒
+  eventTime: number;
+  // 事件类型编码
+  eventCode: string;
+  // 转化所属用户在客户系统中的用户id
+  userId?: string;
+  // 转化对应的产品id，如用户购买保险对应的保险产品id，没有可不填
+  productId?: string;
+  // 唯一标识当前转化事件的一个业务id，如保险下单的订单id，没有可不填
+  eventId?: string;
+  // json字段，包含转化归因到的点击的完整必要信息，如用户设备信息等
+  clickData: string;
+  // 投放项目
+  project: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      accountId: 'account_id',
+      mediaType: 'media_type',
+      eventTime: 'event_time',
+      eventCode: 'event_code',
+      userId: 'user_id',
+      productId: 'product_id',
+      eventId: 'event_id',
+      clickData: 'click_data',
+      project: 'project',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      accountId: 'string',
+      mediaType: 'string',
+      eventTime: 'number',
+      eventCode: 'string',
+      userId: 'string',
+      productId: 'string',
+      eventId: 'string',
+      clickData: 'string',
+      project: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ConversionAdDataAttributedResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 处理是否成功
+  success?: boolean;
+  // 是否需要回传媒体
+  callback?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      callback: 'callback',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      callback: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class FeedbackReportDataRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -797,7 +973,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "6.0.0",
+          sdk_version: "6.1.1",
           _prod_code: "MORSERTA",
           _prod_channel: "default",
         };
@@ -938,6 +1114,44 @@ export default class Client {
   async dataAdDataExportExperimentEx(request: DataAdDataExportExperimentRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DataAdDataExportExperimentResponse> {
     Util.validateModel(request);
     return $tea.cast<DataAdDataExportExperimentResponse>(await this.doRequest("1.0", "antcloud.morserta.ad.data.export.experiment.data", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new DataAdDataExportExperimentResponse({}));
+  }
+
+  /**
+   * Description: 接收未归因的转化数据
+   * Summary: 接收未归因的转化数据
+   */
+  async conversionAdData(request: ConversionAdDataRequest): Promise<ConversionAdDataResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.conversionAdDataEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 接收未归因的转化数据
+   * Summary: 接收未归因的转化数据
+   */
+  async conversionAdDataEx(request: ConversionAdDataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ConversionAdDataResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ConversionAdDataResponse>(await this.doRequest("1.0", "antcloud.morserta.ad.data.conversion", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ConversionAdDataResponse({}));
+  }
+
+  /**
+   * Description: 接收客户已归因转化事件
+   * Summary: 接收客户已归因转化事件
+   */
+  async conversionAdDataAttributed(request: ConversionAdDataAttributedRequest): Promise<ConversionAdDataAttributedResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.conversionAdDataAttributedEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 接收客户已归因转化事件
+   * Summary: 接收客户已归因转化事件
+   */
+  async conversionAdDataAttributedEx(request: ConversionAdDataAttributedRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ConversionAdDataAttributedResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ConversionAdDataAttributedResponse>(await this.doRequest("1.0", "antcloud.morserta.ad.data.attributed.conversion", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ConversionAdDataAttributedResponse({}));
   }
 
   /**
