@@ -6,7 +6,7 @@ namespace AntChain\AITECH\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryMeiyouAudittopicRequest extends Model
+class UpdateMeiyouItagrelationRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,17 +19,17 @@ class QueryMeiyouAudittopicRequest extends Model
      */
     public $productInstanceId;
 
-    // 主题ID
+    // 更新关系信息
     /**
-     * @var int[]
+     * @var UpdateMeiyouItagRelationWebInfo[]
      */
-    public $topicIds;
+    public $relationInfoList;
 
-    // 美柚itag关联状态
+    // 是否更新审核记录信息
     /**
-     * @var string
+     * @var bool
      */
-    public $topicState;
+    public $updateAuditFlag;
 
     // 数据来源
     /**
@@ -39,15 +39,14 @@ class QueryMeiyouAudittopicRequest extends Model
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'topicIds'          => 'topic_ids',
-        'topicState'        => 'topic_state',
+        'relationInfoList'  => 'relation_info_list',
+        'updateAuditFlag'   => 'update_audit_flag',
         'source'            => 'source',
     ];
 
     public function validate()
     {
-        Model::validateRequired('topicIds', $this->topicIds, true);
-        Model::validateRequired('topicState', $this->topicState, true);
+        Model::validateRequired('updateAuditFlag', $this->updateAuditFlag, true);
     }
 
     public function toMap()
@@ -59,11 +58,17 @@ class QueryMeiyouAudittopicRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->topicIds) {
-            $res['topic_ids'] = $this->topicIds;
+        if (null !== $this->relationInfoList) {
+            $res['relation_info_list'] = [];
+            if (null !== $this->relationInfoList && \is_array($this->relationInfoList)) {
+                $n = 0;
+                foreach ($this->relationInfoList as $item) {
+                    $res['relation_info_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
-        if (null !== $this->topicState) {
-            $res['topic_state'] = $this->topicState;
+        if (null !== $this->updateAuditFlag) {
+            $res['update_audit_flag'] = $this->updateAuditFlag;
         }
         if (null !== $this->source) {
             $res['source'] = $this->source;
@@ -75,7 +80,7 @@ class QueryMeiyouAudittopicRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryMeiyouAudittopicRequest
+     * @return UpdateMeiyouItagrelationRequest
      */
     public static function fromMap($map = [])
     {
@@ -86,13 +91,17 @@ class QueryMeiyouAudittopicRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['topic_ids'])) {
-            if (!empty($map['topic_ids'])) {
-                $model->topicIds = $map['topic_ids'];
+        if (isset($map['relation_info_list'])) {
+            if (!empty($map['relation_info_list'])) {
+                $model->relationInfoList = [];
+                $n                       = 0;
+                foreach ($map['relation_info_list'] as $item) {
+                    $model->relationInfoList[$n++] = null !== $item ? UpdateMeiyouItagRelationWebInfo::fromMap($item) : $item;
+                }
             }
         }
-        if (isset($map['topic_state'])) {
-            $model->topicState = $map['topic_state'];
+        if (isset($map['update_audit_flag'])) {
+            $model->updateAuditFlag = $map['update_audit_flag'];
         }
         if (isset($map['source'])) {
             $model->source = $map['source'];

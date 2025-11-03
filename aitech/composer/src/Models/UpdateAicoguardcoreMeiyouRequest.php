@@ -6,7 +6,7 @@ namespace AntChain\AITECH\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryMeiyouAudittopicRequest extends Model
+class UpdateAicoguardcoreMeiyouRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,35 +19,20 @@ class QueryMeiyouAudittopicRequest extends Model
      */
     public $productInstanceId;
 
-    // 主题ID
-    /**
-     * @var int[]
-     */
-    public $topicIds;
-
-    // 美柚itag关联状态
+    // 更新信息
     /**
      * @var string
      */
-    public $topicState;
-
-    // 数据来源
-    /**
-     * @var string
-     */
-    public $source;
+    public $resultInfo;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'topicIds'          => 'topic_ids',
-        'topicState'        => 'topic_state',
-        'source'            => 'source',
+        'resultInfo'        => 'result_info',
     ];
 
     public function validate()
     {
-        Model::validateRequired('topicIds', $this->topicIds, true);
-        Model::validateRequired('topicState', $this->topicState, true);
+        Model::validateRequired('resultInfo', $this->resultInfo, true);
     }
 
     public function toMap()
@@ -59,14 +44,8 @@ class QueryMeiyouAudittopicRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->topicIds) {
-            $res['topic_ids'] = $this->topicIds;
-        }
-        if (null !== $this->topicState) {
-            $res['topic_state'] = $this->topicState;
-        }
-        if (null !== $this->source) {
-            $res['source'] = $this->source;
+        if (null !== $this->resultInfo) {
+            $res['result_info'] = $this->resultInfo;
         }
 
         return $res;
@@ -75,7 +54,7 @@ class QueryMeiyouAudittopicRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryMeiyouAudittopicRequest
+     * @return UpdateAicoguardcoreMeiyouRequest
      */
     public static function fromMap($map = [])
     {
@@ -86,16 +65,8 @@ class QueryMeiyouAudittopicRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['topic_ids'])) {
-            if (!empty($map['topic_ids'])) {
-                $model->topicIds = $map['topic_ids'];
-            }
-        }
-        if (isset($map['topic_state'])) {
-            $model->topicState = $map['topic_state'];
-        }
-        if (isset($map['source'])) {
-            $model->source = $map['source'];
+        if (isset($map['result_info'])) {
+            $model->resultInfo = $map['result_info'];
         }
 
         return $model;

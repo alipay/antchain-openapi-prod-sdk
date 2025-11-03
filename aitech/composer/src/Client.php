@@ -39,6 +39,8 @@ use AntChain\AITECH\Models\CheckGuardAnswerRequest;
 use AntChain\AITECH\Models\CheckGuardAnswerResponse;
 use AntChain\AITECH\Models\DownloadAuditFileRequest;
 use AntChain\AITECH\Models\DownloadAuditFileResponse;
+use AntChain\AITECH\Models\PagequeryMeiyouAuditRequest;
+use AntChain\AITECH\Models\PagequeryMeiyouAuditResponse;
 use AntChain\AITECH\Models\QueryAicoguardAdbsinkRequest;
 use AntChain\AITECH\Models\QueryAicoguardAdbsinkResponse;
 use AntChain\AITECH\Models\QueryAicoguardcloudAdbsinkRequest;
@@ -61,6 +63,8 @@ use AntChain\AITECH\Models\QueryGuardAudioRequest;
 use AntChain\AITECH\Models\QueryGuardAudioResponse;
 use AntChain\AITECH\Models\QueryGuardcoreRedgptRequest;
 use AntChain\AITECH\Models\QueryGuardcoreRedgptResponse;
+use AntChain\AITECH\Models\QueryGuardDocumentRequest;
+use AntChain\AITECH\Models\QueryGuardDocumentResponse;
 use AntChain\AITECH\Models\QueryGuardImageRequest;
 use AntChain\AITECH\Models\QueryGuardImageResponse;
 use AntChain\AITECH\Models\QueryGuardTextRequest;
@@ -69,10 +73,16 @@ use AntChain\AITECH\Models\QueryGuardVideobaseRequest;
 use AntChain\AITECH\Models\QueryGuardVideobaseResponse;
 use AntChain\AITECH\Models\QueryGuardVideoRequest;
 use AntChain\AITECH\Models\QueryGuardVideoResponse;
+use AntChain\AITECH\Models\QueryMeiyouAgentauditRequest;
+use AntChain\AITECH\Models\QueryMeiyouAgentauditResponse;
 use AntChain\AITECH\Models\QueryMeiyouAuditRequest;
 use AntChain\AITECH\Models\QueryMeiyouAuditResponse;
+use AntChain\AITECH\Models\QueryMeiyouAuditresultRequest;
+use AntChain\AITECH\Models\QueryMeiyouAuditresultResponse;
 use AntChain\AITECH\Models\QueryMeiyouAudittopicRequest;
 use AntChain\AITECH\Models\QueryMeiyouAudittopicResponse;
+use AntChain\AITECH\Models\QueryMeiyouItagrelationRequest;
+use AntChain\AITECH\Models\QueryMeiyouItagrelationResponse;
 use AntChain\AITECH\Models\SaveAuditMeiyouRequest;
 use AntChain\AITECH\Models\SaveAuditMeiyouResponse;
 use AntChain\AITECH\Models\SubmitAuditAudiobaseRequest;
@@ -81,6 +91,8 @@ use AntChain\AITECH\Models\SubmitAuditAudioRequest;
 use AntChain\AITECH\Models\SubmitAuditAudioResponse;
 use AntChain\AITECH\Models\SubmitAuditImageRequest;
 use AntChain\AITECH\Models\SubmitAuditImageResponse;
+use AntChain\AITECH\Models\SubmitAuditMeiyouRequest;
+use AntChain\AITECH\Models\SubmitAuditMeiyouResponse;
 use AntChain\AITECH\Models\SubmitAuditTextRequest;
 use AntChain\AITECH\Models\SubmitAuditTextResponse;
 use AntChain\AITECH\Models\SubmitAuditVideobaseRequest;
@@ -91,6 +103,8 @@ use AntChain\AITECH\Models\SubmitGuardAudiobaseRequest;
 use AntChain\AITECH\Models\SubmitGuardAudiobaseResponse;
 use AntChain\AITECH\Models\SubmitGuardAudioRequest;
 use AntChain\AITECH\Models\SubmitGuardAudioResponse;
+use AntChain\AITECH\Models\SubmitGuardDocumentRequest;
+use AntChain\AITECH\Models\SubmitGuardDocumentResponse;
 use AntChain\AITECH\Models\SubmitGuardImageRequest;
 use AntChain\AITECH\Models\SubmitGuardImageResponse;
 use AntChain\AITECH\Models\SubmitGuardTextRequest;
@@ -99,12 +113,18 @@ use AntChain\AITECH\Models\SubmitGuardVideobaseRequest;
 use AntChain\AITECH\Models\SubmitGuardVideobaseResponse;
 use AntChain\AITECH\Models\SubmitGuardVideoRequest;
 use AntChain\AITECH\Models\SubmitGuardVideoResponse;
+use AntChain\AITECH\Models\SubmitMeiyouAuditRequest;
+use AntChain\AITECH\Models\SubmitMeiyouAuditResponse;
 use AntChain\AITECH\Models\TransferAuditFileRequest;
 use AntChain\AITECH\Models\TransferAuditFileResponse;
+use AntChain\AITECH\Models\UpdateAicoguardcoreMeiyouRequest;
+use AntChain\AITECH\Models\UpdateAicoguardcoreMeiyouResponse;
 use AntChain\AITECH\Models\UpdateAuditMeiyouRequest;
 use AntChain\AITECH\Models\UpdateAuditMeiyouResponse;
 use AntChain\AITECH\Models\UpdateMeiyouAuditRequest;
 use AntChain\AITECH\Models\UpdateMeiyouAuditResponse;
+use AntChain\AITECH\Models\UpdateMeiyouItagrelationRequest;
+use AntChain\AITECH\Models\UpdateMeiyouItagrelationResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -252,7 +272,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.20',
+                    'sdk_version'      => '1.1.48',
                     '_prod_code'       => 'AITECH',
                     '_prod_channel'    => 'default',
                 ];
@@ -1126,6 +1146,171 @@ class Client
     }
 
     /**
+     * Description: 查询美柚itag关联信息
+     * Summary: 查询美柚itag关联信息.
+     *
+     * @param QueryMeiyouItagrelationRequest $request
+     *
+     * @return QueryMeiyouItagrelationResponse
+     */
+    public function queryMeiyouItagrelation($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryMeiyouItagrelationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询美柚itag关联信息
+     * Summary: 查询美柚itag关联信息.
+     *
+     * @param QueryMeiyouItagrelationRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return QueryMeiyouItagrelationResponse
+     */
+    public function queryMeiyouItagrelationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryMeiyouItagrelationResponse::fromMap($this->doRequest('1.0', 'aitech.comm.meiyou.itagrelation.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 更新美柚itag关联信息
+     * Summary: 更新美柚itag关联信息.
+     *
+     * @param UpdateMeiyouItagrelationRequest $request
+     *
+     * @return UpdateMeiyouItagrelationResponse
+     */
+    public function updateMeiyouItagrelation($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateMeiyouItagrelationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 更新美柚itag关联信息
+     * Summary: 更新美柚itag关联信息.
+     *
+     * @param UpdateMeiyouItagrelationRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return UpdateMeiyouItagrelationResponse
+     */
+    public function updateMeiyouItagrelationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateMeiyouItagrelationResponse::fromMap($this->doRequest('1.0', 'aitech.comm.meiyou.itagrelation.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 美柚审核结果查询
+     * Summary: 美柚审核结果查询.
+     *
+     * @param QueryMeiyouAuditresultRequest $request
+     *
+     * @return QueryMeiyouAuditresultResponse
+     */
+    public function queryMeiyouAuditresult($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryMeiyouAuditresultEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 美柚审核结果查询
+     * Summary: 美柚审核结果查询.
+     *
+     * @param QueryMeiyouAuditresultRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return QueryMeiyouAuditresultResponse
+     */
+    public function queryMeiyouAuditresultEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryMeiyouAuditresultResponse::fromMap($this->doRequest('1.0', 'aitech.comm.meiyou.auditresult.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 分页查询美柚审核信息接口
+     * Summary: 分页查询美柚审核信息接口.
+     *
+     * @param PagequeryMeiyouAuditRequest $request
+     *
+     * @return PagequeryMeiyouAuditResponse
+     */
+    public function pagequeryMeiyouAudit($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pagequeryMeiyouAuditEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 分页查询美柚审核信息接口
+     * Summary: 分页查询美柚审核信息接口.
+     *
+     * @param PagequeryMeiyouAuditRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return PagequeryMeiyouAuditResponse
+     */
+    public function pagequeryMeiyouAuditEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PagequeryMeiyouAuditResponse::fromMap($this->doRequest('1.0', 'aitech.comm.meiyou.audit.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 美柚审核信息存储（仅itask）
+     * Summary: 美柚审核信息存储（仅itask）.
+     *
+     * @param SubmitAuditMeiyouRequest $request
+     *
+     * @return SubmitAuditMeiyouResponse
+     */
+    public function submitAuditMeiyou($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->submitAuditMeiyouEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 美柚审核信息存储（仅itask）
+     * Summary: 美柚审核信息存储（仅itask）.
+     *
+     * @param SubmitAuditMeiyouRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return SubmitAuditMeiyouResponse
+     */
+    public function submitAuditMeiyouEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SubmitAuditMeiyouResponse::fromMap($this->doRequest('1.0', 'aitech.comm.audit.meiyou.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 阿里云ADB调用接口
      * Summary: 阿里云ADB调用接口.
      *
@@ -1849,5 +2034,170 @@ class Client
         Utils::validateModel($request);
 
         return CheckGuardAnswerResponse::fromMap($this->doRequest('1.0', 'aitech.comm.guard.answer.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 美柚待审核信息提交
+     * Summary: 美柚待审核信息提交.
+     *
+     * @param SubmitMeiyouAuditRequest $request
+     *
+     * @return SubmitMeiyouAuditResponse
+     */
+    public function submitMeiyouAudit($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->submitMeiyouAuditEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 美柚待审核信息提交
+     * Summary: 美柚待审核信息提交.
+     *
+     * @param SubmitMeiyouAuditRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return SubmitMeiyouAuditResponse
+     */
+    public function submitMeiyouAuditEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SubmitMeiyouAuditResponse::fromMap($this->doRequest('1.0', 'aitech.comm.meiyou.audit.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询美柚审核Agent节点信息
+     * Summary: 查询美柚审核Agent节点信息.
+     *
+     * @param QueryMeiyouAgentauditRequest $request
+     *
+     * @return QueryMeiyouAgentauditResponse
+     */
+    public function queryMeiyouAgentaudit($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryMeiyouAgentauditEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询美柚审核Agent节点信息
+     * Summary: 查询美柚审核Agent节点信息.
+     *
+     * @param QueryMeiyouAgentauditRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return QueryMeiyouAgentauditResponse
+     */
+    public function queryMeiyouAgentauditEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryMeiyouAgentauditResponse::fromMap($this->doRequest('1.0', 'aitech.comm.meiyou.agentaudit.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 更新美柚审核Agent审核结果
+     * Summary: 更新美柚审核Agent审核结果.
+     *
+     * @param UpdateAicoguardcoreMeiyouRequest $request
+     *
+     * @return UpdateAicoguardcoreMeiyouResponse
+     */
+    public function updateAicoguardcoreMeiyou($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateAicoguardcoreMeiyouEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 更新美柚审核Agent审核结果
+     * Summary: 更新美柚审核Agent审核结果.
+     *
+     * @param UpdateAicoguardcoreMeiyouRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return UpdateAicoguardcoreMeiyouResponse
+     */
+    public function updateAicoguardcoreMeiyouEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateAicoguardcoreMeiyouResponse::fromMap($this->doRequest('1.0', 'aitech.comm.aicoguardcore.meiyou.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 文档人审入审
+     * Summary: 文档人审入审
+     *
+     * @param SubmitGuardDocumentRequest $request
+     *
+     * @return SubmitGuardDocumentResponse
+     */
+    public function submitGuardDocument($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->submitGuardDocumentEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 文档人审入审
+     * Summary: 文档人审入审
+     *
+     * @param SubmitGuardDocumentRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return SubmitGuardDocumentResponse
+     */
+    public function submitGuardDocumentEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SubmitGuardDocumentResponse::fromMap($this->doRequest('1.0', 'aitech.comm.guard.document.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 文档人审查询
+     * Summary: 文档人审查询.
+     *
+     * @param QueryGuardDocumentRequest $request
+     *
+     * @return QueryGuardDocumentResponse
+     */
+    public function queryGuardDocument($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryGuardDocumentEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 文档人审查询
+     * Summary: 文档人审查询.
+     *
+     * @param QueryGuardDocumentRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return QueryGuardDocumentResponse
+     */
+    public function queryGuardDocumentEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryGuardDocumentResponse::fromMap($this->doRequest('1.0', 'aitech.comm.guard.document.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

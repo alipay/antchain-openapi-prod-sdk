@@ -81,16 +81,43 @@ class MeiyouTopicWebInfo extends Model
      * @var string
      */
     public $userAvatar;
+
+    // 主题ID
+    /**
+     * @example 1
+     *
+     * @var int
+     */
+    public $topicId;
+
+    // 回复楼信息
+    /**
+     * @example test
+     *
+     * @var string
+     */
+    public $callBackFloorContent;
+
+    // oss存储地址
+    /**
+     * @example {}
+     *
+     * @var string
+     */
+    public $ossImages;
     protected $_name = [
-        'content'       => 'content',
-        'currentFloor'  => 'current_floor',
-        'callBackFloor' => 'call_back_floor',
-        'publishTime'   => 'publish_time',
-        'images'        => 'images',
-        'userNickname'  => 'user_nickname',
-        'userId'        => 'user_id',
-        'userType'      => 'user_type',
-        'userAvatar'    => 'user_avatar',
+        'content'              => 'content',
+        'currentFloor'         => 'current_floor',
+        'callBackFloor'        => 'call_back_floor',
+        'publishTime'          => 'publish_time',
+        'images'               => 'images',
+        'userNickname'         => 'user_nickname',
+        'userId'               => 'user_id',
+        'userType'             => 'user_type',
+        'userAvatar'           => 'user_avatar',
+        'topicId'              => 'topic_id',
+        'callBackFloorContent' => 'call_back_floor_content',
+        'ossImages'            => 'oss_images',
     ];
 
     public function validate()
@@ -126,6 +153,15 @@ class MeiyouTopicWebInfo extends Model
         }
         if (null !== $this->userAvatar) {
             $res['user_avatar'] = $this->userAvatar;
+        }
+        if (null !== $this->topicId) {
+            $res['topic_id'] = $this->topicId;
+        }
+        if (null !== $this->callBackFloorContent) {
+            $res['call_back_floor_content'] = $this->callBackFloorContent;
+        }
+        if (null !== $this->ossImages) {
+            $res['oss_images'] = $this->ossImages;
         }
 
         return $res;
@@ -165,6 +201,15 @@ class MeiyouTopicWebInfo extends Model
         }
         if (isset($map['user_avatar'])) {
             $model->userAvatar = $map['user_avatar'];
+        }
+        if (isset($map['topic_id'])) {
+            $model->topicId = $map['topic_id'];
+        }
+        if (isset($map['call_back_floor_content'])) {
+            $model->callBackFloorContent = $map['call_back_floor_content'];
+        }
+        if (isset($map['oss_images'])) {
+            $model->ossImages = $map['oss_images'];
         }
 
         return $model;

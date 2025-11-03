@@ -6,7 +6,7 @@ namespace AntChain\AITECH\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryMeiyouAuditRequest extends Model
+class QueryMeiyouAuditresultRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,35 +19,41 @@ class QueryMeiyouAuditRequest extends Model
      */
     public $productInstanceId;
 
-    // 审核记录ID
+    // 审核ID
     /**
      * @var int[]
      */
     public $auditIds;
 
-    // 美柚itag关联状态
+    // 美柚任务审核结果推送状态
     /**
      * @var string
+     */
+    public $meiyouAuditState;
+
+    // 审核记录状态
+    /**
+     * @var string[]
      */
     public $auditState;
 
-    // 开始时间
+    // 主题记录状态
     /**
      * @var string
      */
-    public $gmtCreateStart;
+    public $topicState;
 
-    // 结束时间
+    // 开始时间点
     /**
      * @var string
      */
-    public $gmtCreateEnd;
+    public $createStart;
 
-    // 最大条数
+    // 结束时间点
     /**
-     * @var int
+     * @var string
      */
-    public $maxNum;
+    public $createEnd;
 
     // 数据来源
     /**
@@ -58,18 +64,16 @@ class QueryMeiyouAuditRequest extends Model
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'auditIds'          => 'audit_ids',
+        'meiyouAuditState'  => 'meiyou_audit_state',
         'auditState'        => 'audit_state',
-        'gmtCreateStart'    => 'gmt_create_start',
-        'gmtCreateEnd'      => 'gmt_create_end',
-        'maxNum'            => 'max_num',
+        'topicState'        => 'topic_state',
+        'createStart'       => 'create_start',
+        'createEnd'         => 'create_end',
         'source'            => 'source',
     ];
 
     public function validate()
     {
-        Model::validateRequired('auditState', $this->auditState, true);
-        Model::validatePattern('gmtCreateStart', $this->gmtCreateStart, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
-        Model::validatePattern('gmtCreateEnd', $this->gmtCreateEnd, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
     }
 
     public function toMap()
@@ -84,17 +88,20 @@ class QueryMeiyouAuditRequest extends Model
         if (null !== $this->auditIds) {
             $res['audit_ids'] = $this->auditIds;
         }
+        if (null !== $this->meiyouAuditState) {
+            $res['meiyou_audit_state'] = $this->meiyouAuditState;
+        }
         if (null !== $this->auditState) {
             $res['audit_state'] = $this->auditState;
         }
-        if (null !== $this->gmtCreateStart) {
-            $res['gmt_create_start'] = $this->gmtCreateStart;
+        if (null !== $this->topicState) {
+            $res['topic_state'] = $this->topicState;
         }
-        if (null !== $this->gmtCreateEnd) {
-            $res['gmt_create_end'] = $this->gmtCreateEnd;
+        if (null !== $this->createStart) {
+            $res['create_start'] = $this->createStart;
         }
-        if (null !== $this->maxNum) {
-            $res['max_num'] = $this->maxNum;
+        if (null !== $this->createEnd) {
+            $res['create_end'] = $this->createEnd;
         }
         if (null !== $this->source) {
             $res['source'] = $this->source;
@@ -106,7 +113,7 @@ class QueryMeiyouAuditRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryMeiyouAuditRequest
+     * @return QueryMeiyouAuditresultRequest
      */
     public static function fromMap($map = [])
     {
@@ -122,17 +129,22 @@ class QueryMeiyouAuditRequest extends Model
                 $model->auditIds = $map['audit_ids'];
             }
         }
+        if (isset($map['meiyou_audit_state'])) {
+            $model->meiyouAuditState = $map['meiyou_audit_state'];
+        }
         if (isset($map['audit_state'])) {
-            $model->auditState = $map['audit_state'];
+            if (!empty($map['audit_state'])) {
+                $model->auditState = $map['audit_state'];
+            }
         }
-        if (isset($map['gmt_create_start'])) {
-            $model->gmtCreateStart = $map['gmt_create_start'];
+        if (isset($map['topic_state'])) {
+            $model->topicState = $map['topic_state'];
         }
-        if (isset($map['gmt_create_end'])) {
-            $model->gmtCreateEnd = $map['gmt_create_end'];
+        if (isset($map['create_start'])) {
+            $model->createStart = $map['create_start'];
         }
-        if (isset($map['max_num'])) {
-            $model->maxNum = $map['max_num'];
+        if (isset($map['create_end'])) {
+            $model->createEnd = $map['create_end'];
         }
         if (isset($map['source'])) {
             $model->source = $map['source'];

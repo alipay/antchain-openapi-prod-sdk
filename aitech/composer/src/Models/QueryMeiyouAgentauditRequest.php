@@ -6,7 +6,7 @@ namespace AntChain\AITECH\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryMeiyouAuditRequest extends Model
+class QueryMeiyouAgentauditRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,55 +19,35 @@ class QueryMeiyouAuditRequest extends Model
      */
     public $productInstanceId;
 
-    // 审核记录ID
-    /**
-     * @var int[]
-     */
-    public $auditIds;
-
-    // 美柚itag关联状态
-    /**
-     * @var string
-     */
-    public $auditState;
-
-    // 开始时间
+    // 数据创建时间-开始时间点
     /**
      * @var string
      */
     public $gmtCreateStart;
 
-    // 结束时间
+    // 数据创建时间-结束时间点
     /**
      * @var string
      */
     public $gmtCreateEnd;
 
-    // 最大条数
-    /**
-     * @var int
-     */
-    public $maxNum;
-
-    // 数据来源
+    // 所属
     /**
      * @var string
      */
-    public $source;
+    public $owner;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'auditIds'          => 'audit_ids',
-        'auditState'        => 'audit_state',
         'gmtCreateStart'    => 'gmt_create_start',
         'gmtCreateEnd'      => 'gmt_create_end',
-        'maxNum'            => 'max_num',
-        'source'            => 'source',
+        'owner'             => 'owner',
     ];
 
     public function validate()
     {
-        Model::validateRequired('auditState', $this->auditState, true);
+        Model::validateRequired('gmtCreateStart', $this->gmtCreateStart, true);
+        Model::validateRequired('gmtCreateEnd', $this->gmtCreateEnd, true);
         Model::validatePattern('gmtCreateStart', $this->gmtCreateStart, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
         Model::validatePattern('gmtCreateEnd', $this->gmtCreateEnd, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
     }
@@ -81,23 +61,14 @@ class QueryMeiyouAuditRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->auditIds) {
-            $res['audit_ids'] = $this->auditIds;
-        }
-        if (null !== $this->auditState) {
-            $res['audit_state'] = $this->auditState;
-        }
         if (null !== $this->gmtCreateStart) {
             $res['gmt_create_start'] = $this->gmtCreateStart;
         }
         if (null !== $this->gmtCreateEnd) {
             $res['gmt_create_end'] = $this->gmtCreateEnd;
         }
-        if (null !== $this->maxNum) {
-            $res['max_num'] = $this->maxNum;
-        }
-        if (null !== $this->source) {
-            $res['source'] = $this->source;
+        if (null !== $this->owner) {
+            $res['owner'] = $this->owner;
         }
 
         return $res;
@@ -106,7 +77,7 @@ class QueryMeiyouAuditRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryMeiyouAuditRequest
+     * @return QueryMeiyouAgentauditRequest
      */
     public static function fromMap($map = [])
     {
@@ -117,25 +88,14 @@ class QueryMeiyouAuditRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['audit_ids'])) {
-            if (!empty($map['audit_ids'])) {
-                $model->auditIds = $map['audit_ids'];
-            }
-        }
-        if (isset($map['audit_state'])) {
-            $model->auditState = $map['audit_state'];
-        }
         if (isset($map['gmt_create_start'])) {
             $model->gmtCreateStart = $map['gmt_create_start'];
         }
         if (isset($map['gmt_create_end'])) {
             $model->gmtCreateEnd = $map['gmt_create_end'];
         }
-        if (isset($map['max_num'])) {
-            $model->maxNum = $map['max_num'];
-        }
-        if (isset($map['source'])) {
-            $model->source = $map['source'];
+        if (isset($map['owner'])) {
+            $model->owner = $map['owner'];
         }
 
         return $model;

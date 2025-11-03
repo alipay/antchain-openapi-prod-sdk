@@ -42,6 +42,24 @@ class UpdateMeiyouAuditRequest extends Model
      * @var string
      */
     public $auditState;
+
+    // itag任务ID
+    /**
+     * @var int
+     */
+    public $itagTaskId;
+
+    // itag数据集ID
+    /**
+     * @var int
+     */
+    public $itagDatasetId;
+
+    // 数据来源
+    /**
+     * @var string
+     */
+    public $source;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -49,14 +67,13 @@ class UpdateMeiyouAuditRequest extends Model
         'topicState'        => 'topic_state',
         'auditIds'          => 'audit_ids',
         'auditState'        => 'audit_state',
+        'itagTaskId'        => 'itag_task_id',
+        'itagDatasetId'     => 'itag_dataset_id',
+        'source'            => 'source',
     ];
 
     public function validate()
     {
-        Model::validateRequired('topicIds', $this->topicIds, true);
-        Model::validateRequired('topicState', $this->topicState, true);
-        Model::validateRequired('auditIds', $this->auditIds, true);
-        Model::validateRequired('auditState', $this->auditState, true);
     }
 
     public function toMap()
@@ -79,6 +96,15 @@ class UpdateMeiyouAuditRequest extends Model
         }
         if (null !== $this->auditState) {
             $res['audit_state'] = $this->auditState;
+        }
+        if (null !== $this->itagTaskId) {
+            $res['itag_task_id'] = $this->itagTaskId;
+        }
+        if (null !== $this->itagDatasetId) {
+            $res['itag_dataset_id'] = $this->itagDatasetId;
+        }
+        if (null !== $this->source) {
+            $res['source'] = $this->source;
         }
 
         return $res;
@@ -113,6 +139,15 @@ class UpdateMeiyouAuditRequest extends Model
         }
         if (isset($map['audit_state'])) {
             $model->auditState = $map['audit_state'];
+        }
+        if (isset($map['itag_task_id'])) {
+            $model->itagTaskId = $map['itag_task_id'];
+        }
+        if (isset($map['itag_dataset_id'])) {
+            $model->itagDatasetId = $map['itag_dataset_id'];
+        }
+        if (isset($map['source'])) {
+            $model->source = $map['source'];
         }
 
         return $model;

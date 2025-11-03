@@ -6,7 +6,7 @@ namespace AntChain\AITECH\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryMeiyouAudittopicRequest extends Model
+class SubmitAuditMeiyouRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,35 +19,27 @@ class QueryMeiyouAudittopicRequest extends Model
      */
     public $productInstanceId;
 
-    // 主题ID
-    /**
-     * @var int[]
-     */
-    public $topicIds;
-
-    // 美柚itag关联状态
-    /**
-     * @var string
-     */
-    public $topicState;
-
     // 数据来源
     /**
      * @var string
      */
     public $source;
+
+    // 美柚审核信息存储请求
+    /**
+     * @var MeiyouAuditSaveWebRequest[]
+     */
+    public $saveInfo;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'topicIds'          => 'topic_ids',
-        'topicState'        => 'topic_state',
         'source'            => 'source',
+        'saveInfo'          => 'save_info',
     ];
 
     public function validate()
     {
-        Model::validateRequired('topicIds', $this->topicIds, true);
-        Model::validateRequired('topicState', $this->topicState, true);
+        Model::validateRequired('source', $this->source, true);
     }
 
     public function toMap()
@@ -59,14 +51,17 @@ class QueryMeiyouAudittopicRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->topicIds) {
-            $res['topic_ids'] = $this->topicIds;
-        }
-        if (null !== $this->topicState) {
-            $res['topic_state'] = $this->topicState;
-        }
         if (null !== $this->source) {
             $res['source'] = $this->source;
+        }
+        if (null !== $this->saveInfo) {
+            $res['save_info'] = [];
+            if (null !== $this->saveInfo && \is_array($this->saveInfo)) {
+                $n = 0;
+                foreach ($this->saveInfo as $item) {
+                    $res['save_info'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -75,7 +70,7 @@ class QueryMeiyouAudittopicRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryMeiyouAudittopicRequest
+     * @return SubmitAuditMeiyouRequest
      */
     public static function fromMap($map = [])
     {
@@ -86,16 +81,17 @@ class QueryMeiyouAudittopicRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['topic_ids'])) {
-            if (!empty($map['topic_ids'])) {
-                $model->topicIds = $map['topic_ids'];
-            }
-        }
-        if (isset($map['topic_state'])) {
-            $model->topicState = $map['topic_state'];
-        }
         if (isset($map['source'])) {
             $model->source = $map['source'];
+        }
+        if (isset($map['save_info'])) {
+            if (!empty($map['save_info'])) {
+                $model->saveInfo = [];
+                $n               = 0;
+                foreach ($map['save_info'] as $item) {
+                    $model->saveInfo[$n++] = null !== $item ? MeiyouAuditSaveWebRequest::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;
