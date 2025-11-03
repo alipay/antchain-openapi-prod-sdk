@@ -137,7 +137,7 @@ namespace AntChain.SDK.MORSERTA
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "6.0.0"},
+                        {"sdk_version", "6.1.1"},
                         {"_prod_code", "MORSERTA"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.MORSERTA
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "6.0.0"},
+                        {"sdk_version", "6.1.1"},
                         {"_prod_code", "MORSERTA"},
                         {"_prod_channel", "default"},
                     };
@@ -529,6 +529,90 @@ namespace AntChain.SDK.MORSERTA
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<DataAdDataExportExperimentResponse>(await DoRequestAsync("1.0", "antcloud.morserta.ad.data.export.experiment.data", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 接收未归因的转化数据
+         * Summary: 接收未归因的转化数据
+         */
+        public ConversionAdDataResponse ConversionAdData(ConversionAdDataRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ConversionAdDataEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 接收未归因的转化数据
+         * Summary: 接收未归因的转化数据
+         */
+        public async Task<ConversionAdDataResponse> ConversionAdDataAsync(ConversionAdDataRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ConversionAdDataExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 接收未归因的转化数据
+         * Summary: 接收未归因的转化数据
+         */
+        public ConversionAdDataResponse ConversionAdDataEx(ConversionAdDataRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ConversionAdDataResponse>(DoRequest("1.0", "antcloud.morserta.ad.data.conversion", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 接收未归因的转化数据
+         * Summary: 接收未归因的转化数据
+         */
+        public async Task<ConversionAdDataResponse> ConversionAdDataExAsync(ConversionAdDataRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ConversionAdDataResponse>(await DoRequestAsync("1.0", "antcloud.morserta.ad.data.conversion", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 接收客户已归因转化事件
+         * Summary: 接收客户已归因转化事件
+         */
+        public ConversionAdDataAttributedResponse ConversionAdDataAttributed(ConversionAdDataAttributedRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ConversionAdDataAttributedEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 接收客户已归因转化事件
+         * Summary: 接收客户已归因转化事件
+         */
+        public async Task<ConversionAdDataAttributedResponse> ConversionAdDataAttributedAsync(ConversionAdDataAttributedRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ConversionAdDataAttributedExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 接收客户已归因转化事件
+         * Summary: 接收客户已归因转化事件
+         */
+        public ConversionAdDataAttributedResponse ConversionAdDataAttributedEx(ConversionAdDataAttributedRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ConversionAdDataAttributedResponse>(DoRequest("1.0", "antcloud.morserta.ad.data.attributed.conversion", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 接收客户已归因转化事件
+         * Summary: 接收客户已归因转化事件
+         */
+        public async Task<ConversionAdDataAttributedResponse> ConversionAdDataAttributedExAsync(ConversionAdDataAttributedRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ConversionAdDataAttributedResponse>(await DoRequestAsync("1.0", "antcloud.morserta.ad.data.attributed.conversion", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
