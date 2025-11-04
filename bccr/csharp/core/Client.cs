@@ -137,7 +137,7 @@ namespace AntChain.SDK.BCCR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.19.74"},
+                        {"sdk_version", "1.19.75"},
                         {"_prod_code", "BCCR"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.BCCR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.19.74"},
+                        {"sdk_version", "1.19.75"},
                         {"_prod_code", "BCCR"},
                         {"_prod_channel", "undefined"},
                     };
@@ -3721,6 +3721,90 @@ namespace AntChain.SDK.BCCR
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<NotifyCyclinginsuranceMidchangeserviceorderauditResponse>(await DoRequestAsync("1.0", "blockchain.bccr.cyclinginsurance.midchangeserviceorderaudit.notify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 数登初审
+         * Summary: 数登初审
+         */
+        public SubmitDigregPreliminaryreviewResponse SubmitDigregPreliminaryreview(SubmitDigregPreliminaryreviewRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SubmitDigregPreliminaryreviewEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 数登初审
+         * Summary: 数登初审
+         */
+        public async Task<SubmitDigregPreliminaryreviewResponse> SubmitDigregPreliminaryreviewAsync(SubmitDigregPreliminaryreviewRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SubmitDigregPreliminaryreviewExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 数登初审
+         * Summary: 数登初审
+         */
+        public SubmitDigregPreliminaryreviewResponse SubmitDigregPreliminaryreviewEx(SubmitDigregPreliminaryreviewRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitDigregPreliminaryreviewResponse>(DoRequest("1.0", "blockchain.bccr.digreg.preliminaryreview.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 数登初审
+         * Summary: 数登初审
+         */
+        public async Task<SubmitDigregPreliminaryreviewResponse> SubmitDigregPreliminaryreviewExAsync(SubmitDigregPreliminaryreviewRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitDigregPreliminaryreviewResponse>(await DoRequestAsync("1.0", "blockchain.bccr.digreg.preliminaryreview.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 数登复审
+         * Summary: 数登复审
+         */
+        public SubmitDigregReviewResponse SubmitDigregReview(SubmitDigregReviewRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SubmitDigregReviewEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 数登复审
+         * Summary: 数登复审
+         */
+        public async Task<SubmitDigregReviewResponse> SubmitDigregReviewAsync(SubmitDigregReviewRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SubmitDigregReviewExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 数登复审
+         * Summary: 数登复审
+         */
+        public SubmitDigregReviewResponse SubmitDigregReviewEx(SubmitDigregReviewRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitDigregReviewResponse>(DoRequest("1.0", "blockchain.bccr.digreg.review.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 数登复审
+         * Summary: 数登复审
+         */
+        public async Task<SubmitDigregReviewResponse> SubmitDigregReviewExAsync(SubmitDigregReviewRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitDigregReviewResponse>(await DoRequestAsync("1.0", "blockchain.bccr.digreg.review.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
