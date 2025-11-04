@@ -181,6 +181,10 @@ use AntChain\BCCR\Models\StopMonitorTaskRequest;
 use AntChain\BCCR\Models\StopMonitorTaskResponse;
 use AntChain\BCCR\Models\SubmitDciFeedbackRequest;
 use AntChain\BCCR\Models\SubmitDciFeedbackResponse;
+use AntChain\BCCR\Models\SubmitDigregPreliminaryreviewRequest;
+use AntChain\BCCR\Models\SubmitDigregPreliminaryreviewResponse;
+use AntChain\BCCR\Models\SubmitDigregReviewRequest;
+use AntChain\BCCR\Models\SubmitDigregReviewResponse;
 use AntChain\BCCR\Models\UpdateDciUserRequest;
 use AntChain\BCCR\Models\UpdateDciUserResponse;
 use AntChain\BCCR\Models\UpdateGoodsRequest;
@@ -336,7 +340,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.19.74',
+                    'sdk_version'      => '1.19.75',
                     '_prod_code'       => 'BCCR',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -3055,6 +3059,72 @@ class Client
         Utils::validateModel($request);
 
         return NotifyCyclinginsuranceMidchangeserviceorderauditResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.cyclinginsurance.midchangeserviceorderaudit.notify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数登初审
+     * Summary: 数登初审
+     *
+     * @param SubmitDigregPreliminaryreviewRequest $request
+     *
+     * @return SubmitDigregPreliminaryreviewResponse
+     */
+    public function submitDigregPreliminaryreview($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->submitDigregPreliminaryreviewEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数登初审
+     * Summary: 数登初审
+     *
+     * @param SubmitDigregPreliminaryreviewRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return SubmitDigregPreliminaryreviewResponse
+     */
+    public function submitDigregPreliminaryreviewEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SubmitDigregPreliminaryreviewResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.digreg.preliminaryreview.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数登复审
+     * Summary: 数登复审
+     *
+     * @param SubmitDigregReviewRequest $request
+     *
+     * @return SubmitDigregReviewResponse
+     */
+    public function submitDigregReview($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->submitDigregReviewEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数登复审
+     * Summary: 数登复审
+     *
+     * @param SubmitDigregReviewRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return SubmitDigregReviewResponse
+     */
+    public function submitDigregReviewEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SubmitDigregReviewResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.digreg.review.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
