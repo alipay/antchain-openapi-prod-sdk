@@ -14363,6 +14363,156 @@ func (s *NotifyCyclinginsuranceMidchangeserviceorderauditResponse) SetSuccess(v 
 	return s
 }
 
+type SubmitDigregPreliminaryreviewRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 数登初审
+	DigRegId *string `json:"dig_reg_id,omitempty" xml:"dig_reg_id,omitempty" require:"true"`
+	// 审核状态
+	AuditStatus *string `json:"audit_status,omitempty" xml:"audit_status,omitempty" require:"true"`
+	// 审核结果
+	AuditResult *bool `json:"audit_result,omitempty" xml:"audit_result,omitempty" require:"true"`
+}
+
+func (s SubmitDigregPreliminaryreviewRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitDigregPreliminaryreviewRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitDigregPreliminaryreviewRequest) SetAuthToken(v string) *SubmitDigregPreliminaryreviewRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SubmitDigregPreliminaryreviewRequest) SetProductInstanceId(v string) *SubmitDigregPreliminaryreviewRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SubmitDigregPreliminaryreviewRequest) SetDigRegId(v string) *SubmitDigregPreliminaryreviewRequest {
+	s.DigRegId = &v
+	return s
+}
+
+func (s *SubmitDigregPreliminaryreviewRequest) SetAuditStatus(v string) *SubmitDigregPreliminaryreviewRequest {
+	s.AuditStatus = &v
+	return s
+}
+
+func (s *SubmitDigregPreliminaryreviewRequest) SetAuditResult(v bool) *SubmitDigregPreliminaryreviewRequest {
+	s.AuditResult = &v
+	return s
+}
+
+type SubmitDigregPreliminaryreviewResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s SubmitDigregPreliminaryreviewResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitDigregPreliminaryreviewResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitDigregPreliminaryreviewResponse) SetReqMsgId(v string) *SubmitDigregPreliminaryreviewResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SubmitDigregPreliminaryreviewResponse) SetResultCode(v string) *SubmitDigregPreliminaryreviewResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SubmitDigregPreliminaryreviewResponse) SetResultMsg(v string) *SubmitDigregPreliminaryreviewResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type SubmitDigregReviewRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 数登ID
+	DigRegId *string `json:"dig_reg_id,omitempty" xml:"dig_reg_id,omitempty" require:"true"`
+	// 复审结果：
+	// REPLACE_DCI（复审不通过，补正需要替换DCI作品）
+	// NO_NEED_REPLACE_DCI（复审不通过，补正不需要替换DCI作品）
+	// PASS（复审通过）
+	AuditResult *string `json:"audit_result,omitempty" xml:"audit_result,omitempty" require:"true"`
+}
+
+func (s SubmitDigregReviewRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitDigregReviewRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitDigregReviewRequest) SetAuthToken(v string) *SubmitDigregReviewRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SubmitDigregReviewRequest) SetProductInstanceId(v string) *SubmitDigregReviewRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SubmitDigregReviewRequest) SetDigRegId(v string) *SubmitDigregReviewRequest {
+	s.DigRegId = &v
+	return s
+}
+
+func (s *SubmitDigregReviewRequest) SetAuditResult(v string) *SubmitDigregReviewRequest {
+	s.AuditResult = &v
+	return s
+}
+
+type SubmitDigregReviewResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s SubmitDigregReviewResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitDigregReviewResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitDigregReviewResponse) SetReqMsgId(v string) *SubmitDigregReviewResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SubmitDigregReviewResponse) SetResultCode(v string) *SubmitDigregReviewResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SubmitDigregReviewResponse) SetResultMsg(v string) *SubmitDigregReviewResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type AddContentRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -15325,7 +15475,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.19.74"),
+				"sdk_version":      tea.String("1.19.75"),
 				"_prod_code":       tea.String("BCCR"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -18130,6 +18280,74 @@ func (client *Client) NotifyCyclinginsuranceMidchangeserviceorderauditEx(request
 	}
 	_result = &NotifyCyclinginsuranceMidchangeserviceorderauditResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bccr.cyclinginsurance.midchangeserviceorderaudit.notify"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 数登初审
+ * Summary: 数登初审
+ */
+func (client *Client) SubmitDigregPreliminaryreview(request *SubmitDigregPreliminaryreviewRequest) (_result *SubmitDigregPreliminaryreviewResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SubmitDigregPreliminaryreviewResponse{}
+	_body, _err := client.SubmitDigregPreliminaryreviewEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 数登初审
+ * Summary: 数登初审
+ */
+func (client *Client) SubmitDigregPreliminaryreviewEx(request *SubmitDigregPreliminaryreviewRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SubmitDigregPreliminaryreviewResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SubmitDigregPreliminaryreviewResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bccr.digreg.preliminaryreview.submit"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 数登复审
+ * Summary: 数登复审
+ */
+func (client *Client) SubmitDigregReview(request *SubmitDigregReviewRequest) (_result *SubmitDigregReviewResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SubmitDigregReviewResponse{}
+	_body, _err := client.SubmitDigregReviewEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 数登复审
+ * Summary: 数登复审
+ */
+func (client *Client) SubmitDigregReviewEx(request *SubmitDigregReviewRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SubmitDigregReviewResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SubmitDigregReviewResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bccr.digreg.review.submit"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
