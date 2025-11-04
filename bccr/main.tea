@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.19.74',
+    sdk_version = '1.19.75',
     _prod_code = 'BCCR',
     _prod_channel = 'undefined'
   };
@@ -5821,6 +5821,87 @@ async function notifyCyclinginsuranceMidchangeserviceorderaudit(request: NotifyC
 async function notifyCyclinginsuranceMidchangeserviceorderauditEx(request: NotifyCyclinginsuranceMidchangeserviceorderauditRequest, headers: map[string]string, runtime: Util.RuntimeOptions): NotifyCyclinginsuranceMidchangeserviceorderauditResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bccr.cyclinginsurance.midchangeserviceorderaudit.notify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SubmitDigregPreliminaryreviewRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 数登初审
+  digRegId: string(name='dig_reg_id'),
+  // 审核状态
+  auditStatus: string(name='audit_status'),
+  // 审核结果
+  auditResult: boolean(name='audit_result'),
+}
+
+model SubmitDigregPreliminaryreviewResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 数登初审
+ * Summary: 数登初审
+ */
+async function submitDigregPreliminaryreview(request: SubmitDigregPreliminaryreviewRequest): SubmitDigregPreliminaryreviewResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return submitDigregPreliminaryreviewEx(request, headers, runtime);
+}
+
+/**
+ * Description: 数登初审
+ * Summary: 数登初审
+ */
+async function submitDigregPreliminaryreviewEx(request: SubmitDigregPreliminaryreviewRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitDigregPreliminaryreviewResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.digreg.preliminaryreview.submit', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SubmitDigregReviewRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 数登ID
+  digRegId: string(name='dig_reg_id'),
+  // 复审结果：
+  // REPLACE_DCI（复审不通过，补正需要替换DCI作品）
+  // NO_NEED_REPLACE_DCI（复审不通过，补正不需要替换DCI作品）
+  // PASS（复审通过）
+  auditResult: string(name='audit_result'),
+}
+
+model SubmitDigregReviewResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 数登复审
+ * Summary: 数登复审
+ */
+async function submitDigregReview(request: SubmitDigregReviewRequest): SubmitDigregReviewResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return submitDigregReviewEx(request, headers, runtime);
+}
+
+/**
+ * Description: 数登复审
+ * Summary: 数登复审
+ */
+async function submitDigregReviewEx(request: SubmitDigregReviewRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitDigregReviewResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.digreg.review.submit', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model AddContentRequest = {
