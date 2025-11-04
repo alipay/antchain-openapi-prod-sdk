@@ -17687,6 +17687,199 @@ class NotifyCyclinginsuranceMidchangeserviceorderauditResponse(TeaModel):
         return self
 
 
+class SubmitDigregPreliminaryreviewRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        dig_reg_id: str = None,
+        audit_status: str = None,
+        audit_result: bool = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 数登初审
+        self.dig_reg_id = dig_reg_id
+        # 审核状态
+        self.audit_status = audit_status
+        # 审核结果
+        self.audit_result = audit_result
+
+    def validate(self):
+        self.validate_required(self.dig_reg_id, 'dig_reg_id')
+        self.validate_required(self.audit_status, 'audit_status')
+        self.validate_required(self.audit_result, 'audit_result')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.dig_reg_id is not None:
+            result['dig_reg_id'] = self.dig_reg_id
+        if self.audit_status is not None:
+            result['audit_status'] = self.audit_status
+        if self.audit_result is not None:
+            result['audit_result'] = self.audit_result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('dig_reg_id') is not None:
+            self.dig_reg_id = m.get('dig_reg_id')
+        if m.get('audit_status') is not None:
+            self.audit_status = m.get('audit_status')
+        if m.get('audit_result') is not None:
+            self.audit_result = m.get('audit_result')
+        return self
+
+
+class SubmitDigregPreliminaryreviewResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class SubmitDigregReviewRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        dig_reg_id: str = None,
+        audit_result: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 数登ID
+        self.dig_reg_id = dig_reg_id
+        # 复审结果：
+        # REPLACE_DCI（复审不通过，补正需要替换DCI作品）
+        # NO_NEED_REPLACE_DCI（复审不通过，补正不需要替换DCI作品）
+        # PASS（复审通过）
+        self.audit_result = audit_result
+
+    def validate(self):
+        self.validate_required(self.dig_reg_id, 'dig_reg_id')
+        self.validate_required(self.audit_result, 'audit_result')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.dig_reg_id is not None:
+            result['dig_reg_id'] = self.dig_reg_id
+        if self.audit_result is not None:
+            result['audit_result'] = self.audit_result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('dig_reg_id') is not None:
+            self.dig_reg_id = m.get('dig_reg_id')
+        if m.get('audit_result') is not None:
+            self.audit_result = m.get('audit_result')
+        return self
+
+
+class SubmitDigregReviewResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
 class AddContentRequest(TeaModel):
     def __init__(
         self,

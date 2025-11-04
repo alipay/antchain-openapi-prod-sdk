@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.19.74',
+                    'sdk_version': '1.19.75',
                     '_prod_code': 'BCCR',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.19.74',
+                    'sdk_version': '1.19.75',
                     '_prod_code': 'BCCR',
                     '_prod_channel': 'undefined'
                 }
@@ -4809,6 +4809,118 @@ class Client:
         return TeaCore.from_map(
             bccr_models.NotifyCyclinginsuranceMidchangeserviceorderauditResponse(),
             await self.do_request_async('1.0', 'blockchain.bccr.cyclinginsurance.midchangeserviceorderaudit.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def submit_digreg_preliminaryreview(
+        self,
+        request: bccr_models.SubmitDigregPreliminaryreviewRequest,
+    ) -> bccr_models.SubmitDigregPreliminaryreviewResponse:
+        """
+        Description: 数登初审
+        Summary: 数登初审
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.submit_digreg_preliminaryreview_ex(request, headers, runtime)
+
+    async def submit_digreg_preliminaryreview_async(
+        self,
+        request: bccr_models.SubmitDigregPreliminaryreviewRequest,
+    ) -> bccr_models.SubmitDigregPreliminaryreviewResponse:
+        """
+        Description: 数登初审
+        Summary: 数登初审
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.submit_digreg_preliminaryreview_ex_async(request, headers, runtime)
+
+    def submit_digreg_preliminaryreview_ex(
+        self,
+        request: bccr_models.SubmitDigregPreliminaryreviewRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.SubmitDigregPreliminaryreviewResponse:
+        """
+        Description: 数登初审
+        Summary: 数登初审
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.SubmitDigregPreliminaryreviewResponse(),
+            self.do_request('1.0', 'blockchain.bccr.digreg.preliminaryreview.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def submit_digreg_preliminaryreview_ex_async(
+        self,
+        request: bccr_models.SubmitDigregPreliminaryreviewRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.SubmitDigregPreliminaryreviewResponse:
+        """
+        Description: 数登初审
+        Summary: 数登初审
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.SubmitDigregPreliminaryreviewResponse(),
+            await self.do_request_async('1.0', 'blockchain.bccr.digreg.preliminaryreview.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def submit_digreg_review(
+        self,
+        request: bccr_models.SubmitDigregReviewRequest,
+    ) -> bccr_models.SubmitDigregReviewResponse:
+        """
+        Description: 数登复审
+        Summary: 数登复审
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.submit_digreg_review_ex(request, headers, runtime)
+
+    async def submit_digreg_review_async(
+        self,
+        request: bccr_models.SubmitDigregReviewRequest,
+    ) -> bccr_models.SubmitDigregReviewResponse:
+        """
+        Description: 数登复审
+        Summary: 数登复审
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.submit_digreg_review_ex_async(request, headers, runtime)
+
+    def submit_digreg_review_ex(
+        self,
+        request: bccr_models.SubmitDigregReviewRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.SubmitDigregReviewResponse:
+        """
+        Description: 数登复审
+        Summary: 数登复审
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.SubmitDigregReviewResponse(),
+            self.do_request('1.0', 'blockchain.bccr.digreg.review.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def submit_digreg_review_ex_async(
+        self,
+        request: bccr_models.SubmitDigregReviewRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.SubmitDigregReviewResponse:
+        """
+        Description: 数登复审
+        Summary: 数登复审
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.SubmitDigregReviewResponse(),
+            await self.do_request_async('1.0', 'blockchain.bccr.digreg.review.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def add_content(
