@@ -10628,6 +10628,131 @@ export class NotifyCyclinginsuranceMidchangeserviceorderauditResponse extends $t
   }
 }
 
+export class SubmitDigregPreliminaryreviewRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 数登初审
+  digRegId: string;
+  // 审核状态
+  auditStatus: string;
+  // 审核结果
+  auditResult: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      digRegId: 'dig_reg_id',
+      auditStatus: 'audit_status',
+      auditResult: 'audit_result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      digRegId: 'string',
+      auditStatus: 'string',
+      auditResult: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SubmitDigregPreliminaryreviewResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SubmitDigregReviewRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 数登ID
+  digRegId: string;
+  // 复审结果：
+  // REPLACE_DCI（复审不通过，补正需要替换DCI作品）
+  // NO_NEED_REPLACE_DCI（复审不通过，补正不需要替换DCI作品）
+  // PASS（复审通过）
+  auditResult: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      digRegId: 'dig_reg_id',
+      auditResult: 'audit_result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      digRegId: 'string',
+      auditResult: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SubmitDigregReviewResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class AddContentRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -11373,7 +11498,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.19.74",
+          sdk_version: "1.19.75",
           _prod_code: "BCCR",
           _prod_channel: "undefined",
         };
@@ -12958,6 +13083,44 @@ export default class Client {
   async notifyCyclinginsuranceMidchangeserviceorderauditEx(request: NotifyCyclinginsuranceMidchangeserviceorderauditRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<NotifyCyclinginsuranceMidchangeserviceorderauditResponse> {
     Util.validateModel(request);
     return $tea.cast<NotifyCyclinginsuranceMidchangeserviceorderauditResponse>(await this.doRequest("1.0", "blockchain.bccr.cyclinginsurance.midchangeserviceorderaudit.notify", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new NotifyCyclinginsuranceMidchangeserviceorderauditResponse({}));
+  }
+
+  /**
+   * Description: 数登初审
+   * Summary: 数登初审
+   */
+  async submitDigregPreliminaryreview(request: SubmitDigregPreliminaryreviewRequest): Promise<SubmitDigregPreliminaryreviewResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.submitDigregPreliminaryreviewEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 数登初审
+   * Summary: 数登初审
+   */
+  async submitDigregPreliminaryreviewEx(request: SubmitDigregPreliminaryreviewRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SubmitDigregPreliminaryreviewResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SubmitDigregPreliminaryreviewResponse>(await this.doRequest("1.0", "blockchain.bccr.digreg.preliminaryreview.submit", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SubmitDigregPreliminaryreviewResponse({}));
+  }
+
+  /**
+   * Description: 数登复审
+   * Summary: 数登复审
+   */
+  async submitDigregReview(request: SubmitDigregReviewRequest): Promise<SubmitDigregReviewResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.submitDigregReviewEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 数登复审
+   * Summary: 数登复审
+   */
+  async submitDigregReviewEx(request: SubmitDigregReviewRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SubmitDigregReviewResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SubmitDigregReviewResponse>(await this.doRequest("1.0", "blockchain.bccr.digreg.review.submit", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SubmitDigregReviewResponse({}));
   }
 
   /**
