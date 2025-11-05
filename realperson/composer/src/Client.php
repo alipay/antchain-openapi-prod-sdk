@@ -91,6 +91,10 @@ use AntChain\REALPERSON\Models\QueryCarinfoBriefRequest;
 use AntChain\REALPERSON\Models\QueryCarinfoBriefResponse;
 use AntChain\REALPERSON\Models\QueryCarinfoDetailRequest;
 use AntChain\REALPERSON\Models\QueryCarinfoDetailResponse;
+use AntChain\REALPERSON\Models\QueryCarinfoPlusRequest;
+use AntChain\REALPERSON\Models\QueryCarinfoPlusResponse;
+use AntChain\REALPERSON\Models\QueryCarinfoUltimateRequest;
+use AntChain\REALPERSON\Models\QueryCarinfoUltimateResponse;
 use AntChain\REALPERSON\Models\QueryCarrierNetstatusRequest;
 use AntChain\REALPERSON\Models\QueryCarrierNetstatusResponse;
 use AntChain\REALPERSON\Models\QueryCarrierRepairmobileRequest;
@@ -294,7 +298,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.22.6',
+                    'sdk_version'      => '1.22.10',
                     '_prod_code'       => 'REALPERSON',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -2684,6 +2688,72 @@ class Client
         Utils::validateModel($request);
 
         return ExecFaceThreemetaResponse::fromMap($this->doRequest('1.0', 'di.realperson.face.threemeta.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用户资产验证-车辆资产验证旗舰版
+     * Summary: 用户资产验证-车辆资产验证旗舰版.
+     *
+     * @param QueryCarinfoUltimateRequest $request
+     *
+     * @return QueryCarinfoUltimateResponse
+     */
+    public function queryCarinfoUltimate($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryCarinfoUltimateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用户资产验证-车辆资产验证旗舰版
+     * Summary: 用户资产验证-车辆资产验证旗舰版.
+     *
+     * @param QueryCarinfoUltimateRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return QueryCarinfoUltimateResponse
+     */
+    public function queryCarinfoUltimateEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryCarinfoUltimateResponse::fromMap($this->doRequest('1.0', 'di.realperson.carinfo.ultimate.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用户资产验证-车辆资产验证增强版
+     * Summary: 用户资产验证-车辆资产验证增强版.
+     *
+     * @param QueryCarinfoPlusRequest $request
+     *
+     * @return QueryCarinfoPlusResponse
+     */
+    public function queryCarinfoPlus($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryCarinfoPlusEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用户资产验证-车辆资产验证增强版
+     * Summary: 用户资产验证-车辆资产验证增强版.
+     *
+     * @param QueryCarinfoPlusRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return QueryCarinfoPlusResponse
+     */
+    public function queryCarinfoPlusEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryCarinfoPlusResponse::fromMap($this->doRequest('1.0', 'di.realperson.carinfo.plus.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

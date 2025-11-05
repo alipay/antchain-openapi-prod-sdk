@@ -90,7 +90,7 @@ class ApplyCutpaymentPaymentRequest extends Model
 
     // 分账信息
     /**
-     * @var ShareInfo[]
+     * @var string
      */
     public $shareInfo;
     protected $_name = [
@@ -164,13 +164,7 @@ class ApplyCutpaymentPaymentRequest extends Model
             $res['valid_date'] = $this->validDate;
         }
         if (null !== $this->shareInfo) {
-            $res['share_info'] = [];
-            if (null !== $this->shareInfo && \is_array($this->shareInfo)) {
-                $n = 0;
-                foreach ($this->shareInfo as $item) {
-                    $res['share_info'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
+            $res['share_info'] = $this->shareInfo;
         }
 
         return $res;
@@ -224,13 +218,7 @@ class ApplyCutpaymentPaymentRequest extends Model
             $model->validDate = $map['valid_date'];
         }
         if (isset($map['share_info'])) {
-            if (!empty($map['share_info'])) {
-                $model->shareInfo = [];
-                $n                = 0;
-                foreach ($map['share_info'] as $item) {
-                    $model->shareInfo[$n++] = null !== $item ? ShareInfo::fromMap($item) : $item;
-                }
-            }
+            $model->shareInfo = $map['share_info'];
         }
 
         return $model;

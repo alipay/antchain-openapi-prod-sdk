@@ -84,7 +84,7 @@ class ApplyCutpaymentRefundRequest extends Model
 
     // 分账退款信息
     /**
-     * @var ShareRefundInfo[]
+     * @var string
      */
     public $shareRefundInfo;
     protected $_name = [
@@ -155,13 +155,7 @@ class ApplyCutpaymentRefundRequest extends Model
             $res['refund_amt'] = $this->refundAmt;
         }
         if (null !== $this->shareRefundInfo) {
-            $res['share_refund_info'] = [];
-            if (null !== $this->shareRefundInfo && \is_array($this->shareRefundInfo)) {
-                $n = 0;
-                foreach ($this->shareRefundInfo as $item) {
-                    $res['share_refund_info'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
+            $res['share_refund_info'] = $this->shareRefundInfo;
         }
 
         return $res;
@@ -212,13 +206,7 @@ class ApplyCutpaymentRefundRequest extends Model
             $model->refundAmt = $map['refund_amt'];
         }
         if (isset($map['share_refund_info'])) {
-            if (!empty($map['share_refund_info'])) {
-                $model->shareRefundInfo = [];
-                $n                      = 0;
-                foreach ($map['share_refund_info'] as $item) {
-                    $model->shareRefundInfo[$n++] = null !== $item ? ShareRefundInfo::fromMap($item) : $item;
-                }
-            }
+            $model->shareRefundInfo = $map['share_refund_info'];
         }
 
         return $model;
