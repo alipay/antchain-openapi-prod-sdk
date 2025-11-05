@@ -770,6 +770,39 @@ func (s *OcrInfo) SetChipNum(v string) *OcrInfo {
 	return s
 }
 
+// 车辆资产验证增强版车辆信息
+type CarInfoPlus struct {
+	// 车牌号
+	PlateNo *string `json:"plate_no,omitempty" xml:"plate_no,omitempty"`
+	// 车辆型号，格式：1，2，3...
+	Model *string `json:"model,omitempty" xml:"model,omitempty"`
+	// 车辆颜色，格式：1，2，3
+	Color *string `json:"color,omitempty" xml:"color,omitempty"`
+}
+
+func (s CarInfoPlus) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CarInfoPlus) GoString() string {
+	return s.String()
+}
+
+func (s *CarInfoPlus) SetPlateNo(v string) *CarInfoPlus {
+	s.PlateNo = &v
+	return s
+}
+
+func (s *CarInfoPlus) SetModel(v string) *CarInfoPlus {
+	s.Model = &v
+	return s
+}
+
+func (s *CarInfoPlus) SetColor(v string) *CarInfoPlus {
+	s.Color = &v
+	return s
+}
+
 // 车辆资产验证详版车辆信息
 type CarInfoDetail struct {
 	// 车辆型号
@@ -1085,6 +1118,39 @@ func (s *CarInfoBrief) SetAxesNumber(v string) *CarInfoBrief {
 
 func (s *CarInfoBrief) SetWheelBase(v string) *CarInfoBrief {
 	s.WheelBase = &v
+	return s
+}
+
+// 车辆资产验证旗舰版车辆信息
+type CarInfo struct {
+	// 是否高频使用，格式：YES/NO
+	HighFrequency *string `json:"high_frequency,omitempty" xml:"high_frequency,omitempty"`
+	// 车辆价值区间，格式：1，2，3...
+	Value *string `json:"value,omitempty" xml:"value,omitempty"`
+	// 车辆类型，格式：1，2，3
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+}
+
+func (s CarInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CarInfo) GoString() string {
+	return s.String()
+}
+
+func (s *CarInfo) SetHighFrequency(v string) *CarInfo {
+	s.HighFrequency = &v
+	return s
+}
+
+func (s *CarInfo) SetValue(v string) *CarInfo {
+	s.Value = &v
+	return s
+}
+
+func (s *CarInfo) SetType(v string) *CarInfo {
+	s.Type = &v
 	return s
 }
 
@@ -8701,7 +8767,7 @@ type ApplyCutpaymentPaymentRequest struct {
 	// 有效期
 	ValidDate *string `json:"valid_date,omitempty" xml:"valid_date,omitempty"`
 	// 分账信息
-	ShareInfo []*ShareInfo `json:"share_info,omitempty" xml:"share_info,omitempty" type:"Repeated"`
+	ShareInfo *string `json:"share_info,omitempty" xml:"share_info,omitempty"`
 }
 
 func (s ApplyCutpaymentPaymentRequest) String() string {
@@ -8777,8 +8843,8 @@ func (s *ApplyCutpaymentPaymentRequest) SetValidDate(v string) *ApplyCutpaymentP
 	return s
 }
 
-func (s *ApplyCutpaymentPaymentRequest) SetShareInfo(v []*ShareInfo) *ApplyCutpaymentPaymentRequest {
-	s.ShareInfo = v
+func (s *ApplyCutpaymentPaymentRequest) SetShareInfo(v string) *ApplyCutpaymentPaymentRequest {
+	s.ShareInfo = &v
 	return s
 }
 
@@ -9020,7 +9086,7 @@ type ApplyCutpaymentRefundRequest struct {
 	// 退款金额，整数，单位:分
 	RefundAmt *string `json:"refund_amt,omitempty" xml:"refund_amt,omitempty" require:"true"`
 	// 分账退款信息
-	ShareRefundInfo []*ShareRefundInfo `json:"share_refund_info,omitempty" xml:"share_refund_info,omitempty" type:"Repeated"`
+	ShareRefundInfo *string `json:"share_refund_info,omitempty" xml:"share_refund_info,omitempty"`
 }
 
 func (s ApplyCutpaymentRefundRequest) String() string {
@@ -9091,8 +9157,8 @@ func (s *ApplyCutpaymentRefundRequest) SetRefundAmt(v string) *ApplyCutpaymentRe
 	return s
 }
 
-func (s *ApplyCutpaymentRefundRequest) SetShareRefundInfo(v []*ShareRefundInfo) *ApplyCutpaymentRefundRequest {
-	s.ShareRefundInfo = v
+func (s *ApplyCutpaymentRefundRequest) SetShareRefundInfo(v string) *ApplyCutpaymentRefundRequest {
+	s.ShareRefundInfo = &v
 	return s
 }
 
@@ -9441,6 +9507,224 @@ func (s *ExecFaceThreemetaResponse) SetScore(v string) *ExecFaceThreemetaRespons
 	return s
 }
 
+type QueryCarinfoUltimateRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 入参加密模式：
+	// NONE：不加密；
+	// MD5：手机号码字段以MD5加密后的字符串传输
+	ReqEncType *string `json:"req_enc_type,omitempty" xml:"req_enc_type,omitempty"`
+	// 手机号支持明文和 MD5
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty" require:"true"`
+	// 扩展信息，预留字段
+	//
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s QueryCarinfoUltimateRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCarinfoUltimateRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCarinfoUltimateRequest) SetAuthToken(v string) *QueryCarinfoUltimateRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryCarinfoUltimateRequest) SetProductInstanceId(v string) *QueryCarinfoUltimateRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryCarinfoUltimateRequest) SetOuterOrderNo(v string) *QueryCarinfoUltimateRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *QueryCarinfoUltimateRequest) SetReqEncType(v string) *QueryCarinfoUltimateRequest {
+	s.ReqEncType = &v
+	return s
+}
+
+func (s *QueryCarinfoUltimateRequest) SetMobile(v string) *QueryCarinfoUltimateRequest {
+	s.Mobile = &v
+	return s
+}
+
+func (s *QueryCarinfoUltimateRequest) SetExternInfo(v string) *QueryCarinfoUltimateRequest {
+	s.ExternInfo = &v
+	return s
+}
+
+type QueryCarinfoUltimateResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 扩展信息，为JSONObject。
+	//
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+	//  用户名下车辆数量，格式：1，2，3...
+	Amont *string `json:"amont,omitempty" xml:"amont,omitempty"`
+	// 车辆信息
+	CarInfos []*CarInfo `json:"car_infos,omitempty" xml:"car_infos,omitempty" type:"Repeated"`
+}
+
+func (s QueryCarinfoUltimateResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCarinfoUltimateResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCarinfoUltimateResponse) SetReqMsgId(v string) *QueryCarinfoUltimateResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryCarinfoUltimateResponse) SetResultCode(v string) *QueryCarinfoUltimateResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryCarinfoUltimateResponse) SetResultMsg(v string) *QueryCarinfoUltimateResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryCarinfoUltimateResponse) SetExternInfo(v string) *QueryCarinfoUltimateResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+func (s *QueryCarinfoUltimateResponse) SetAmont(v string) *QueryCarinfoUltimateResponse {
+	s.Amont = &v
+	return s
+}
+
+func (s *QueryCarinfoUltimateResponse) SetCarInfos(v []*CarInfo) *QueryCarinfoUltimateResponse {
+	s.CarInfos = v
+	return s
+}
+
+type QueryCarinfoPlusRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 入参加密模式：
+	// NONE：不加密；
+	// MD5：手机号码字段以MD5加密后的字符串传输
+	ReqEncType *string `json:"req_enc_type,omitempty" xml:"req_enc_type,omitempty"`
+	// 身份证号
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
+	// 扩展信息，预留字段
+	//
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s QueryCarinfoPlusRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCarinfoPlusRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCarinfoPlusRequest) SetAuthToken(v string) *QueryCarinfoPlusRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryCarinfoPlusRequest) SetProductInstanceId(v string) *QueryCarinfoPlusRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryCarinfoPlusRequest) SetOuterOrderNo(v string) *QueryCarinfoPlusRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *QueryCarinfoPlusRequest) SetReqEncType(v string) *QueryCarinfoPlusRequest {
+	s.ReqEncType = &v
+	return s
+}
+
+func (s *QueryCarinfoPlusRequest) SetCertNo(v string) *QueryCarinfoPlusRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *QueryCarinfoPlusRequest) SetExternInfo(v string) *QueryCarinfoPlusRequest {
+	s.ExternInfo = &v
+	return s
+}
+
+type QueryCarinfoPlusResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 扩展信息，为JSONObject。
+	//
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+	// 用户名下车辆数量，格式：1，2，3...
+	Amont *string `json:"amont,omitempty" xml:"amont,omitempty"`
+	// 车辆信息
+	CarInfos []*CarInfoPlus `json:"car_infos,omitempty" xml:"car_infos,omitempty" type:"Repeated"`
+}
+
+func (s QueryCarinfoPlusResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCarinfoPlusResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCarinfoPlusResponse) SetReqMsgId(v string) *QueryCarinfoPlusResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryCarinfoPlusResponse) SetResultCode(v string) *QueryCarinfoPlusResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryCarinfoPlusResponse) SetResultMsg(v string) *QueryCarinfoPlusResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryCarinfoPlusResponse) SetExternInfo(v string) *QueryCarinfoPlusResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+func (s *QueryCarinfoPlusResponse) SetAmont(v string) *QueryCarinfoPlusResponse {
+	s.Amont = &v
+	return s
+}
+
+func (s *QueryCarinfoPlusResponse) SetCarInfos(v []*CarInfoPlus) *QueryCarinfoPlusResponse {
+	s.CarInfos = v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -9683,7 +9967,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.22.6"),
+				"sdk_version":      tea.String("1.22.10"),
 				"_prod_code":       tea.String("REALPERSON"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -12222,6 +12506,74 @@ func (client *Client) ExecFaceThreemetaEx(request *ExecFaceThreemetaRequest, hea
 	}
 	_result = &ExecFaceThreemetaResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.face.threemeta.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 用户资产验证-车辆资产验证旗舰版
+ * Summary: 用户资产验证-车辆资产验证旗舰版
+ */
+func (client *Client) QueryCarinfoUltimate(request *QueryCarinfoUltimateRequest) (_result *QueryCarinfoUltimateResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryCarinfoUltimateResponse{}
+	_body, _err := client.QueryCarinfoUltimateEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 用户资产验证-车辆资产验证旗舰版
+ * Summary: 用户资产验证-车辆资产验证旗舰版
+ */
+func (client *Client) QueryCarinfoUltimateEx(request *QueryCarinfoUltimateRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryCarinfoUltimateResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryCarinfoUltimateResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.carinfo.ultimate.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 用户资产验证-车辆资产验证增强版
+ * Summary: 用户资产验证-车辆资产验证增强版
+ */
+func (client *Client) QueryCarinfoPlus(request *QueryCarinfoPlusRequest) (_result *QueryCarinfoPlusResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryCarinfoPlusResponse{}
+	_body, _err := client.QueryCarinfoPlusEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 用户资产验证-车辆资产验证增强版
+ * Summary: 用户资产验证-车辆资产验证增强版
+ */
+func (client *Client) QueryCarinfoPlusEx(request *QueryCarinfoPlusRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryCarinfoPlusResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryCarinfoPlusResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.carinfo.plus.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
