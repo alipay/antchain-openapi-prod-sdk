@@ -64,7 +64,7 @@ public class ApplyCutpaymentRefundRequest extends TeaModel {
 
     // 分账退款信息
     @NameInMap("share_refund_info")
-    public java.util.List<ShareRefundInfo> shareRefundInfo;
+    public String shareRefundInfo;
 
     public static ApplyCutpaymentRefundRequest build(java.util.Map<String, ?> map) throws Exception {
         ApplyCutpaymentRefundRequest self = new ApplyCutpaymentRefundRequest();
@@ -167,11 +167,11 @@ public class ApplyCutpaymentRefundRequest extends TeaModel {
         return this.refundAmt;
     }
 
-    public ApplyCutpaymentRefundRequest setShareRefundInfo(java.util.List<ShareRefundInfo> shareRefundInfo) {
+    public ApplyCutpaymentRefundRequest setShareRefundInfo(String shareRefundInfo) {
         this.shareRefundInfo = shareRefundInfo;
         return this;
     }
-    public java.util.List<ShareRefundInfo> getShareRefundInfo() {
+    public String getShareRefundInfo() {
         return this.shareRefundInfo;
     }
 

@@ -67,7 +67,7 @@ public class ApplyCutpaymentPaymentRequest extends TeaModel {
 
     // 分账信息
     @NameInMap("share_info")
-    public java.util.List<ShareInfo> shareInfo;
+    public String shareInfo;
 
     public static ApplyCutpaymentPaymentRequest build(java.util.Map<String, ?> map) throws Exception {
         ApplyCutpaymentPaymentRequest self = new ApplyCutpaymentPaymentRequest();
@@ -178,11 +178,11 @@ public class ApplyCutpaymentPaymentRequest extends TeaModel {
         return this.validDate;
     }
 
-    public ApplyCutpaymentPaymentRequest setShareInfo(java.util.List<ShareInfo> shareInfo) {
+    public ApplyCutpaymentPaymentRequest setShareInfo(String shareInfo) {
         this.shareInfo = shareInfo;
         return this;
     }
-    public java.util.List<ShareInfo> getShareInfo() {
+    public String getShareInfo() {
         return this.shareInfo;
     }
 
