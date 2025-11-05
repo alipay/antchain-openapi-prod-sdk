@@ -523,6 +523,35 @@ export class OcrInfo extends $tea.Model {
   }
 }
 
+// 车辆资产验证增强版车辆信息
+export class CarInfoPlus extends $tea.Model {
+  // 车牌号
+  plateNo?: string;
+  // 车辆型号，格式：1，2，3...
+  model?: string;
+  // 车辆颜色，格式：1，2，3
+  color?: string;
+  static names(): { [key: string]: string } {
+    return {
+      plateNo: 'plate_no',
+      model: 'model',
+      color: 'color',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      plateNo: 'string',
+      model: 'string',
+      color: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 车辆资产验证详版车辆信息
 export class CarInfoDetail extends $tea.Model {
   // 车辆型号
@@ -717,6 +746,35 @@ export class CarInfoBrief extends $tea.Model {
       fuelType: 'string',
       axesNumber: 'string',
       wheelBase: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 车辆资产验证旗舰版车辆信息
+export class CarInfo extends $tea.Model {
+  // 是否高频使用，格式：YES/NO
+  highFrequency?: string;
+  // 车辆价值区间，格式：1，2，3...
+  value?: string;
+  // 车辆类型，格式：1，2，3
+  type?: string;
+  static names(): { [key: string]: string } {
+    return {
+      highFrequency: 'high_frequency',
+      value: 'value',
+      type: 'type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      highFrequency: 'string',
+      value: 'string',
+      type: 'string',
     };
   }
 
@@ -6284,7 +6342,7 @@ export class ApplyCutpaymentPaymentRequest extends $tea.Model {
   // 有效期
   validDate?: string;
   // 分账信息
-  shareInfo?: ShareInfo[];
+  shareInfo?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -6319,7 +6377,7 @@ export class ApplyCutpaymentPaymentRequest extends $tea.Model {
       userId: 'string',
       securityCode: 'string',
       validDate: 'string',
-      shareInfo: { 'type': 'array', 'itemType': ShareInfo },
+      shareInfo: 'string',
     };
   }
 
@@ -6506,7 +6564,7 @@ export class ApplyCutpaymentRefundRequest extends $tea.Model {
   // 退款金额，整数，单位:分
   refundAmt: string;
   // 分账退款信息
-  shareRefundInfo?: ShareRefundInfo[];
+  shareRefundInfo?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -6539,7 +6597,7 @@ export class ApplyCutpaymentRefundRequest extends $tea.Model {
       refundSerialNo: 'string',
       refundReason: 'string',
       refundAmt: 'string',
-      shareRefundInfo: { 'type': 'array', 'itemType': ShareRefundInfo },
+      shareRefundInfo: 'string',
     };
   }
 
@@ -6814,6 +6872,172 @@ export class ExecFaceThreemetaResponse extends $tea.Model {
   }
 }
 
+export class QueryCarinfoUltimateRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+  outerOrderNo: string;
+  // 入参加密模式：
+  // NONE：不加密；
+  // MD5：手机号码字段以MD5加密后的字符串传输
+  reqEncType?: string;
+  // 手机号支持明文和 MD5
+  mobile: string;
+  // 扩展信息，预留字段
+  // 
+  externInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      outerOrderNo: 'outer_order_no',
+      reqEncType: 'req_enc_type',
+      mobile: 'mobile',
+      externInfo: 'extern_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      outerOrderNo: 'string',
+      reqEncType: 'string',
+      mobile: 'string',
+      externInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryCarinfoUltimateResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 扩展信息，为JSONObject。
+  // 
+  externInfo?: string;
+  //  用户名下车辆数量，格式：1，2，3...
+  amont?: string;
+  // 车辆信息
+  carInfos?: CarInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      externInfo: 'extern_info',
+      amont: 'amont',
+      carInfos: 'car_infos',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      externInfo: 'string',
+      amont: 'string',
+      carInfos: { 'type': 'array', 'itemType': CarInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryCarinfoPlusRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+  outerOrderNo: string;
+  // 入参加密模式：
+  // NONE：不加密；
+  // MD5：手机号码字段以MD5加密后的字符串传输
+  reqEncType?: string;
+  // 身份证号
+  certNo: string;
+  // 扩展信息，预留字段
+  // 
+  externInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      outerOrderNo: 'outer_order_no',
+      reqEncType: 'req_enc_type',
+      certNo: 'cert_no',
+      externInfo: 'extern_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      outerOrderNo: 'string',
+      reqEncType: 'string',
+      certNo: 'string',
+      externInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryCarinfoPlusResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 扩展信息，为JSONObject。
+  // 
+  externInfo?: string;
+  // 用户名下车辆数量，格式：1，2，3...
+  amont?: string;
+  // 车辆信息
+  carInfos?: CarInfoPlus[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      externInfo: 'extern_info',
+      amont: 'amont',
+      carInfos: 'car_infos',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      externInfo: 'string',
+      amont: 'string',
+      carInfos: { 'type': 'array', 'itemType': CarInfoPlus },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -7015,7 +7239,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.22.6",
+          sdk_version: "1.22.10",
           _prod_code: "REALPERSON",
           _prod_channel: "undefined",
         };
@@ -8488,6 +8712,44 @@ export default class Client {
   async execFaceThreemetaEx(request: ExecFaceThreemetaRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ExecFaceThreemetaResponse> {
     Util.validateModel(request);
     return $tea.cast<ExecFaceThreemetaResponse>(await this.doRequest("1.0", "di.realperson.face.threemeta.exec", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ExecFaceThreemetaResponse({}));
+  }
+
+  /**
+   * Description: 用户资产验证-车辆资产验证旗舰版
+   * Summary: 用户资产验证-车辆资产验证旗舰版
+   */
+  async queryCarinfoUltimate(request: QueryCarinfoUltimateRequest): Promise<QueryCarinfoUltimateResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryCarinfoUltimateEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 用户资产验证-车辆资产验证旗舰版
+   * Summary: 用户资产验证-车辆资产验证旗舰版
+   */
+  async queryCarinfoUltimateEx(request: QueryCarinfoUltimateRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryCarinfoUltimateResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryCarinfoUltimateResponse>(await this.doRequest("1.0", "di.realperson.carinfo.ultimate.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryCarinfoUltimateResponse({}));
+  }
+
+  /**
+   * Description: 用户资产验证-车辆资产验证增强版
+   * Summary: 用户资产验证-车辆资产验证增强版
+   */
+  async queryCarinfoPlus(request: QueryCarinfoPlusRequest): Promise<QueryCarinfoPlusResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryCarinfoPlusEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 用户资产验证-车辆资产验证增强版
+   * Summary: 用户资产验证-车辆资产验证增强版
+   */
+  async queryCarinfoPlusEx(request: QueryCarinfoPlusRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryCarinfoPlusResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryCarinfoPlusResponse>(await this.doRequest("1.0", "di.realperson.carinfo.plus.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryCarinfoPlusResponse({}));
   }
 
   /**
