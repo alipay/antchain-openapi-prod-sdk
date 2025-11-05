@@ -137,7 +137,7 @@ namespace AntChain.SDK.REALPERSON
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.22.6"},
+                        {"sdk_version", "1.22.10"},
                         {"_prod_code", "REALPERSON"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.REALPERSON
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.22.6"},
+                        {"sdk_version", "1.22.10"},
                         {"_prod_code", "REALPERSON"},
                         {"_prod_channel", "undefined"},
                     };
@@ -3469,6 +3469,90 @@ namespace AntChain.SDK.REALPERSON
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ExecFaceThreemetaResponse>(await DoRequestAsync("1.0", "di.realperson.face.threemeta.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用户资产验证-车辆资产验证旗舰版
+         * Summary: 用户资产验证-车辆资产验证旗舰版
+         */
+        public QueryCarinfoUltimateResponse QueryCarinfoUltimate(QueryCarinfoUltimateRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryCarinfoUltimateEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用户资产验证-车辆资产验证旗舰版
+         * Summary: 用户资产验证-车辆资产验证旗舰版
+         */
+        public async Task<QueryCarinfoUltimateResponse> QueryCarinfoUltimateAsync(QueryCarinfoUltimateRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryCarinfoUltimateExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用户资产验证-车辆资产验证旗舰版
+         * Summary: 用户资产验证-车辆资产验证旗舰版
+         */
+        public QueryCarinfoUltimateResponse QueryCarinfoUltimateEx(QueryCarinfoUltimateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCarinfoUltimateResponse>(DoRequest("1.0", "di.realperson.carinfo.ultimate.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用户资产验证-车辆资产验证旗舰版
+         * Summary: 用户资产验证-车辆资产验证旗舰版
+         */
+        public async Task<QueryCarinfoUltimateResponse> QueryCarinfoUltimateExAsync(QueryCarinfoUltimateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCarinfoUltimateResponse>(await DoRequestAsync("1.0", "di.realperson.carinfo.ultimate.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用户资产验证-车辆资产验证增强版
+         * Summary: 用户资产验证-车辆资产验证增强版
+         */
+        public QueryCarinfoPlusResponse QueryCarinfoPlus(QueryCarinfoPlusRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryCarinfoPlusEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用户资产验证-车辆资产验证增强版
+         * Summary: 用户资产验证-车辆资产验证增强版
+         */
+        public async Task<QueryCarinfoPlusResponse> QueryCarinfoPlusAsync(QueryCarinfoPlusRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryCarinfoPlusExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用户资产验证-车辆资产验证增强版
+         * Summary: 用户资产验证-车辆资产验证增强版
+         */
+        public QueryCarinfoPlusResponse QueryCarinfoPlusEx(QueryCarinfoPlusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCarinfoPlusResponse>(DoRequest("1.0", "di.realperson.carinfo.plus.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用户资产验证-车辆资产验证增强版
+         * Summary: 用户资产验证-车辆资产验证增强版
+         */
+        public async Task<QueryCarinfoPlusResponse> QueryCarinfoPlusExAsync(QueryCarinfoPlusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCarinfoPlusResponse>(await DoRequestAsync("1.0", "di.realperson.carinfo.plus.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

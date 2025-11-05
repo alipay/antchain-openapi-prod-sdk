@@ -74,7 +74,7 @@ namespace AntChain.SDK.REALPERSON.Models
         // 分账退款信息
         [NameInMap("share_refund_info")]
         [Validation(Required=false)]
-        public List<ShareRefundInfo> ShareRefundInfo { get; set; }
+        public string ShareRefundInfo { get; set; }
 
     }
 

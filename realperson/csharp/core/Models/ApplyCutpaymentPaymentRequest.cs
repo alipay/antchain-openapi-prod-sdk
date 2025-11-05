@@ -79,7 +79,7 @@ namespace AntChain.SDK.REALPERSON.Models
         // 分账信息
         [NameInMap("share_info")]
         [Validation(Required=false)]
-        public List<ShareInfo> ShareInfo { get; set; }
+        public string ShareInfo { get; set; }
 
     }
 
