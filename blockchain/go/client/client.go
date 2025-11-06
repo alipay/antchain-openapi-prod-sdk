@@ -7585,6 +7585,32 @@ func (s *ALiYunChainExecuteOrder) SetSynchro(v bool) *ALiYunChainExecuteOrder {
 	return s
 }
 
+// 授权服务产品
+type AuthProduct struct {
+	// 产品code
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
+	// 产品简称
+	ProductAbbr *string `json:"product_abbr,omitempty" xml:"product_abbr,omitempty" require:"true"`
+}
+
+func (s AuthProduct) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AuthProduct) GoString() string {
+	return s.String()
+}
+
+func (s *AuthProduct) SetProductCode(v string) *AuthProduct {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *AuthProduct) SetProductAbbr(v string) *AuthProduct {
+	s.ProductAbbr = &v
+	return s
+}
+
 // 账户映射的具体信息
 type AccountMap struct {
 	// 要映射的链对应的唯一id
@@ -9380,6 +9406,53 @@ func (s *CrowdTagEnumResp) SetCrowdTag(v string) *CrowdTagEnumResp {
 
 func (s *CrowdTagEnumResp) SetCrowTagEnumItemList(v []*CrowdTagEnumItemDTO) *CrowdTagEnumResp {
 	s.CrowTagEnumItemList = v
+	return s
+}
+
+// 协议模板信息
+type Agreement struct {
+	// 协议名称
+	AgreementName *string `json:"agreement_name,omitempty" xml:"agreement_name,omitempty" require:"true"`
+	// 协议类型
+	AgreementType *string `json:"agreement_type,omitempty" xml:"agreement_type,omitempty" require:"true"`
+	// 第三方原始协议链接
+	AgreementUrl *string `json:"agreement_url,omitempty" xml:"agreement_url,omitempty" require:"true"`
+	// 协议文件上传目录
+	AgreementFileOssKey *string `json:"agreement_file_oss_key,omitempty" xml:"agreement_file_oss_key,omitempty" require:"true"`
+	// 上传时的协议原始文件名
+	AgreementFileOriginalName *string `json:"agreement_file_original_name,omitempty" xml:"agreement_file_original_name,omitempty" require:"true"`
+}
+
+func (s Agreement) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Agreement) GoString() string {
+	return s.String()
+}
+
+func (s *Agreement) SetAgreementName(v string) *Agreement {
+	s.AgreementName = &v
+	return s
+}
+
+func (s *Agreement) SetAgreementType(v string) *Agreement {
+	s.AgreementType = &v
+	return s
+}
+
+func (s *Agreement) SetAgreementUrl(v string) *Agreement {
+	s.AgreementUrl = &v
+	return s
+}
+
+func (s *Agreement) SetAgreementFileOssKey(v string) *Agreement {
+	s.AgreementFileOssKey = &v
+	return s
+}
+
+func (s *Agreement) SetAgreementFileOriginalName(v string) *Agreement {
+	s.AgreementFileOriginalName = &v
 	return s
 }
 
@@ -41270,6 +41343,216 @@ func (s *StartDataauthorizationSyncDataResponse) SetTaskId(v string) *StartDataa
 	return s
 }
 
+type GetDataAuthConfigRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 授权场景码
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+	// 企业信用代码
+	EnterpriseCode *string `json:"enterprise_code,omitempty" xml:"enterprise_code,omitempty" require:"true"`
+}
+
+func (s GetDataAuthConfigRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetDataAuthConfigRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetDataAuthConfigRequest) SetAuthToken(v string) *GetDataAuthConfigRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GetDataAuthConfigRequest) SetProductInstanceId(v string) *GetDataAuthConfigRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *GetDataAuthConfigRequest) SetSceneCode(v string) *GetDataAuthConfigRequest {
+	s.SceneCode = &v
+	return s
+}
+
+func (s *GetDataAuthConfigRequest) SetEnterpriseCode(v string) *GetDataAuthConfigRequest {
+	s.EnterpriseCode = &v
+	return s
+}
+
+type GetDataAuthConfigResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 场景码
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty"`
+	// 数据源连接器空间id
+	SourceSpaceId *string `json:"source_space_id,omitempty" xml:"source_space_id,omitempty"`
+	// 被授权方企业信用代码
+	EnterpriseCode *string `json:"enterprise_code,omitempty" xml:"enterprise_code,omitempty"`
+	// 接入方客户名称
+	TargetName *string `json:"target_name,omitempty" xml:"target_name,omitempty"`
+	// 被授权应用名称
+	AuthAppName *string `json:"auth_app_name,omitempty" xml:"auth_app_name,omitempty"`
+	// 客户应用logo
+	EnterpriseLogo *string `json:"enterprise_logo,omitempty" xml:"enterprise_logo,omitempty"`
+	// 客户应用logo访问链接
+	EnterpriseLogoUrl *string `json:"enterprise_logo_url,omitempty" xml:"enterprise_logo_url,omitempty"`
+	// 用途说明
+	AuthPurpose *string `json:"auth_purpose,omitempty" xml:"auth_purpose,omitempty"`
+	// 场景描述
+	AuthDesc *string `json:"auth_desc,omitempty" xml:"auth_desc,omitempty"`
+	// 授权形式
+	AuthType *string `json:"auth_type,omitempty" xml:"auth_type,omitempty"`
+	// 用户表示类型
+	UserType *string `json:"user_type,omitempty" xml:"user_type,omitempty"`
+	// 使用刷脸识别
+	UseFacialRecognition *bool `json:"use_facial_recognition,omitempty" xml:"use_facial_recognition,omitempty"`
+	// 授权服务产品列表
+	AuthProductList []*AuthProduct `json:"auth_product_list,omitempty" xml:"auth_product_list,omitempty" type:"Repeated"`
+	// 协议模板列表
+	AgreementList []*Agreement `json:"agreement_list,omitempty" xml:"agreement_list,omitempty" type:"Repeated"`
+	// 背景颜色
+	BackgroundColor *string `json:"background_color,omitempty" xml:"background_color,omitempty"`
+	// 授权页面使用范围
+	UseScopeList []*string `json:"use_scope_list,omitempty" xml:"use_scope_list,omitempty" type:"Repeated"`
+	// 场景授权状态
+	AuthStatus *bool `json:"auth_status,omitempty" xml:"auth_status,omitempty"`
+	// c端发起授权页面的url链接
+	StartAuthUrl *string `json:"start_auth_url,omitempty" xml:"start_auth_url,omitempty"`
+	// C端是否显示凭证数据
+	EnableShowProofVc *bool `json:"enable_show_proof_vc,omitempty" xml:"enable_show_proof_vc,omitempty"`
+	// C端是否显示授权记录
+	EnableShowAuthRecord *bool `json:"enable_show_auth_record,omitempty" xml:"enable_show_auth_record,omitempty"`
+}
+
+func (s GetDataAuthConfigResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetDataAuthConfigResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetDataAuthConfigResponse) SetReqMsgId(v string) *GetDataAuthConfigResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GetDataAuthConfigResponse) SetResultCode(v string) *GetDataAuthConfigResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GetDataAuthConfigResponse) SetResultMsg(v string) *GetDataAuthConfigResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GetDataAuthConfigResponse) SetSceneCode(v string) *GetDataAuthConfigResponse {
+	s.SceneCode = &v
+	return s
+}
+
+func (s *GetDataAuthConfigResponse) SetSourceSpaceId(v string) *GetDataAuthConfigResponse {
+	s.SourceSpaceId = &v
+	return s
+}
+
+func (s *GetDataAuthConfigResponse) SetEnterpriseCode(v string) *GetDataAuthConfigResponse {
+	s.EnterpriseCode = &v
+	return s
+}
+
+func (s *GetDataAuthConfigResponse) SetTargetName(v string) *GetDataAuthConfigResponse {
+	s.TargetName = &v
+	return s
+}
+
+func (s *GetDataAuthConfigResponse) SetAuthAppName(v string) *GetDataAuthConfigResponse {
+	s.AuthAppName = &v
+	return s
+}
+
+func (s *GetDataAuthConfigResponse) SetEnterpriseLogo(v string) *GetDataAuthConfigResponse {
+	s.EnterpriseLogo = &v
+	return s
+}
+
+func (s *GetDataAuthConfigResponse) SetEnterpriseLogoUrl(v string) *GetDataAuthConfigResponse {
+	s.EnterpriseLogoUrl = &v
+	return s
+}
+
+func (s *GetDataAuthConfigResponse) SetAuthPurpose(v string) *GetDataAuthConfigResponse {
+	s.AuthPurpose = &v
+	return s
+}
+
+func (s *GetDataAuthConfigResponse) SetAuthDesc(v string) *GetDataAuthConfigResponse {
+	s.AuthDesc = &v
+	return s
+}
+
+func (s *GetDataAuthConfigResponse) SetAuthType(v string) *GetDataAuthConfigResponse {
+	s.AuthType = &v
+	return s
+}
+
+func (s *GetDataAuthConfigResponse) SetUserType(v string) *GetDataAuthConfigResponse {
+	s.UserType = &v
+	return s
+}
+
+func (s *GetDataAuthConfigResponse) SetUseFacialRecognition(v bool) *GetDataAuthConfigResponse {
+	s.UseFacialRecognition = &v
+	return s
+}
+
+func (s *GetDataAuthConfigResponse) SetAuthProductList(v []*AuthProduct) *GetDataAuthConfigResponse {
+	s.AuthProductList = v
+	return s
+}
+
+func (s *GetDataAuthConfigResponse) SetAgreementList(v []*Agreement) *GetDataAuthConfigResponse {
+	s.AgreementList = v
+	return s
+}
+
+func (s *GetDataAuthConfigResponse) SetBackgroundColor(v string) *GetDataAuthConfigResponse {
+	s.BackgroundColor = &v
+	return s
+}
+
+func (s *GetDataAuthConfigResponse) SetUseScopeList(v []*string) *GetDataAuthConfigResponse {
+	s.UseScopeList = v
+	return s
+}
+
+func (s *GetDataAuthConfigResponse) SetAuthStatus(v bool) *GetDataAuthConfigResponse {
+	s.AuthStatus = &v
+	return s
+}
+
+func (s *GetDataAuthConfigResponse) SetStartAuthUrl(v string) *GetDataAuthConfigResponse {
+	s.StartAuthUrl = &v
+	return s
+}
+
+func (s *GetDataAuthConfigResponse) SetEnableShowProofVc(v bool) *GetDataAuthConfigResponse {
+	s.EnableShowProofVc = &v
+	return s
+}
+
+func (s *GetDataAuthConfigResponse) SetEnableShowAuthRecord(v bool) *GetDataAuthConfigResponse {
+	s.EnableShowAuthRecord = &v
+	return s
+}
+
 type QueryTraceabilityTxCheckRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -52472,6 +52755,90 @@ func (s *BatchcreateAuthNewcarResponse) SetResultMsg(v string) *BatchcreateAuthN
 
 func (s *BatchcreateAuthNewcarResponse) SetBatchSubmitCarResult(v []*BatchSubmitCarResult) *BatchcreateAuthNewcarResponse {
 	s.BatchSubmitCarResult = v
+	return s
+}
+
+type PushAuthCarloanRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 车信息
+	BasicCarInfo *BasicCarInfo `json:"basic_car_info,omitempty" xml:"basic_car_info,omitempty" require:"true"`
+	// 用户信息
+	UserInfo *CarUserInfo `json:"user_info,omitempty" xml:"user_info,omitempty" require:"true"`
+	// 场景码
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+}
+
+func (s PushAuthCarloanRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushAuthCarloanRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PushAuthCarloanRequest) SetAuthToken(v string) *PushAuthCarloanRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PushAuthCarloanRequest) SetProductInstanceId(v string) *PushAuthCarloanRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PushAuthCarloanRequest) SetBasicCarInfo(v *BasicCarInfo) *PushAuthCarloanRequest {
+	s.BasicCarInfo = v
+	return s
+}
+
+func (s *PushAuthCarloanRequest) SetUserInfo(v *CarUserInfo) *PushAuthCarloanRequest {
+	s.UserInfo = v
+	return s
+}
+
+func (s *PushAuthCarloanRequest) SetSceneCode(v string) *PushAuthCarloanRequest {
+	s.SceneCode = &v
+	return s
+}
+
+type PushAuthCarloanResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否推送成功
+	PushSuccess *bool `json:"push_success,omitempty" xml:"push_success,omitempty"`
+}
+
+func (s PushAuthCarloanResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushAuthCarloanResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PushAuthCarloanResponse) SetReqMsgId(v string) *PushAuthCarloanResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PushAuthCarloanResponse) SetResultCode(v string) *PushAuthCarloanResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PushAuthCarloanResponse) SetResultMsg(v string) *PushAuthCarloanResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PushAuthCarloanResponse) SetPushSuccess(v bool) *PushAuthCarloanResponse {
+	s.PushSuccess = &v
 	return s
 }
 
@@ -71773,7 +72140,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.28.60"),
+				"sdk_version":      tea.String("1.28.61"),
 				"_prod_code":       tea.String("BLOCKCHAIN"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -82488,6 +82855,40 @@ func (client *Client) StartDataauthorizationSyncDataEx(request *StartDataauthori
 }
 
 /**
+ * Description: 获取数据授权配置详情
+ * Summary: 获取数据授权配置详情
+ */
+func (client *Client) GetDataAuthConfig(request *GetDataAuthConfigRequest) (_result *GetDataAuthConfigResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GetDataAuthConfigResponse{}
+	_body, _err := client.GetDataAuthConfigEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 获取数据授权配置详情
+ * Summary: 获取数据授权配置详情
+ */
+func (client *Client) GetDataAuthConfigEx(request *GetDataAuthConfigRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetDataAuthConfigResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GetDataAuthConfigResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.data.auth.config.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
  * Description: 通过额交易hash查询，返回hash对应区块链上信息。
  * Summary: 溯源区块查证接口
  */
@@ -86422,6 +86823,40 @@ func (client *Client) BatchcreateAuthNewcarEx(request *BatchcreateAuthNewcarRequ
 	}
 	_result = &BatchcreateAuthNewcarResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.auth.newcar.batchcreate"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 推送星贷车信息
+ * Summary: 推送星贷车信息
+ */
+func (client *Client) PushAuthCarloan(request *PushAuthCarloanRequest) (_result *PushAuthCarloanResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PushAuthCarloanResponse{}
+	_body, _err := client.PushAuthCarloanEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 推送星贷车信息
+ * Summary: 推送星贷车信息
+ */
+func (client *Client) PushAuthCarloanEx(request *PushAuthCarloanRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PushAuthCarloanResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PushAuthCarloanResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.auth.carloan.push"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
