@@ -187,6 +187,12 @@ type RepayStrategy struct {
 	// 经营分账收入方列表
 	// 当operateDivideFlag 为Y时必填
 	OperateDivideTransInList []*OperateDivideTransInModel `json:"operate_divide_trans_in_list,omitempty" xml:"operate_divide_trans_in_list,omitempty" type:"Repeated"`
+	// 是否停止数科代扣自动执行
+	//
+	// Y：停止；由商户调用接口「支付相关接入 - 代扣计划重试」触发代扣；否则代扣不会被执行、到逾期时间后会被逾期
+	//
+	// N : 不停止；保持数科自动代扣（默认）
+	NoNeedAutoDeduction *string `json:"no_need_auto_deduction,omitempty" xml:"no_need_auto_deduction,omitempty"`
 }
 
 func (s RepayStrategy) String() string {
@@ -219,6 +225,11 @@ func (s *RepayStrategy) SetOperateDivideFlag(v string) *RepayStrategy {
 
 func (s *RepayStrategy) SetOperateDivideTransInList(v []*OperateDivideTransInModel) *RepayStrategy {
 	s.OperateDivideTransInList = v
+	return s
+}
+
+func (s *RepayStrategy) SetNoNeedAutoDeduction(v string) *RepayStrategy {
+	s.NoNeedAutoDeduction = &v
 	return s
 }
 
@@ -1005,7 +1016,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.2.6"),
+				"sdk_version":      tea.String("1.2.7"),
 				"_prod_code":       tea.String("GESAAS"),
 				"_prod_channel":    tea.String("default"),
 			}
