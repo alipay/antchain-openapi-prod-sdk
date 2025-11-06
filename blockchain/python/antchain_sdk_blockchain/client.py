@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.28.60',
+                    'sdk_version': '1.28.61',
                     '_prod_code': 'BLOCKCHAIN',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.28.60',
+                    'sdk_version': '1.28.61',
                     '_prod_code': 'BLOCKCHAIN',
                     '_prod_channel': 'undefined'
                 }
@@ -17819,6 +17819,62 @@ class Client:
             await self.do_request_async('1.0', 'baas.dataauthorization.sync.data.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def get_data_auth_config(
+        self,
+        request: blockchain_models.GetDataAuthConfigRequest,
+    ) -> blockchain_models.GetDataAuthConfigResponse:
+        """
+        Description: 获取数据授权配置详情
+        Summary: 获取数据授权配置详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_data_auth_config_ex(request, headers, runtime)
+
+    async def get_data_auth_config_async(
+        self,
+        request: blockchain_models.GetDataAuthConfigRequest,
+    ) -> blockchain_models.GetDataAuthConfigResponse:
+        """
+        Description: 获取数据授权配置详情
+        Summary: 获取数据授权配置详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_data_auth_config_ex_async(request, headers, runtime)
+
+    def get_data_auth_config_ex(
+        self,
+        request: blockchain_models.GetDataAuthConfigRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.GetDataAuthConfigResponse:
+        """
+        Description: 获取数据授权配置详情
+        Summary: 获取数据授权配置详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.GetDataAuthConfigResponse(),
+            self.do_request('1.0', 'baas.data.auth.config.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_data_auth_config_ex_async(
+        self,
+        request: blockchain_models.GetDataAuthConfigRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.GetDataAuthConfigResponse:
+        """
+        Description: 获取数据授权配置详情
+        Summary: 获取数据授权配置详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.GetDataAuthConfigResponse(),
+            await self.do_request_async('1.0', 'baas.data.auth.config.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def query_traceability_tx_check(
         self,
         request: blockchain_models.QueryTraceabilityTxCheckRequest,
@@ -24297,6 +24353,62 @@ class Client:
         return TeaCore.from_map(
             blockchain_models.BatchcreateAuthNewcarResponse(),
             await self.do_request_async('1.0', 'baas.auth.newcar.batchcreate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def push_auth_carloan(
+        self,
+        request: blockchain_models.PushAuthCarloanRequest,
+    ) -> blockchain_models.PushAuthCarloanResponse:
+        """
+        Description: 推送星贷车信息
+        Summary: 推送星贷车信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.push_auth_carloan_ex(request, headers, runtime)
+
+    async def push_auth_carloan_async(
+        self,
+        request: blockchain_models.PushAuthCarloanRequest,
+    ) -> blockchain_models.PushAuthCarloanResponse:
+        """
+        Description: 推送星贷车信息
+        Summary: 推送星贷车信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.push_auth_carloan_ex_async(request, headers, runtime)
+
+    def push_auth_carloan_ex(
+        self,
+        request: blockchain_models.PushAuthCarloanRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.PushAuthCarloanResponse:
+        """
+        Description: 推送星贷车信息
+        Summary: 推送星贷车信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.PushAuthCarloanResponse(),
+            self.do_request('1.0', 'baas.auth.carloan.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def push_auth_carloan_ex_async(
+        self,
+        request: blockchain_models.PushAuthCarloanRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.PushAuthCarloanResponse:
+        """
+        Description: 推送星贷车信息
+        Summary: 推送星贷车信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.PushAuthCarloanResponse(),
+            await self.do_request_async('1.0', 'baas.auth.carloan.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def start_did_corporate_agentcreate(
