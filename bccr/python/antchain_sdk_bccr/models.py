@@ -17695,6 +17695,7 @@ class SubmitDigregPreliminaryreviewRequest(TeaModel):
         dig_reg_id: str = None,
         audit_status: str = None,
         audit_result: bool = None,
+        comments: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -17705,6 +17706,8 @@ class SubmitDigregPreliminaryreviewRequest(TeaModel):
         self.audit_status = audit_status
         # 审核结果
         self.audit_result = audit_result
+        # 审批意见
+        self.comments = comments
 
     def validate(self):
         self.validate_required(self.dig_reg_id, 'dig_reg_id')
@@ -17727,6 +17730,8 @@ class SubmitDigregPreliminaryreviewRequest(TeaModel):
             result['audit_status'] = self.audit_status
         if self.audit_result is not None:
             result['audit_result'] = self.audit_result
+        if self.comments is not None:
+            result['comments'] = self.comments
         return result
 
     def from_map(self, m: dict = None):
@@ -17741,6 +17746,8 @@ class SubmitDigregPreliminaryreviewRequest(TeaModel):
             self.audit_status = m.get('audit_status')
         if m.get('audit_result') is not None:
             self.audit_result = m.get('audit_result')
+        if m.get('comments') is not None:
+            self.comments = m.get('comments')
         return self
 
 
@@ -17793,6 +17800,7 @@ class SubmitDigregReviewRequest(TeaModel):
         product_instance_id: str = None,
         dig_reg_id: str = None,
         audit_result: str = None,
+        fail_reason: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -17804,6 +17812,8 @@ class SubmitDigregReviewRequest(TeaModel):
         # NO_NEED_REPLACE_DCI（复审不通过，补正不需要替换DCI作品）
         # PASS（复审通过）
         self.audit_result = audit_result
+        # 复审不通过原因
+        self.fail_reason = fail_reason
 
     def validate(self):
         self.validate_required(self.dig_reg_id, 'dig_reg_id')
@@ -17823,6 +17833,8 @@ class SubmitDigregReviewRequest(TeaModel):
             result['dig_reg_id'] = self.dig_reg_id
         if self.audit_result is not None:
             result['audit_result'] = self.audit_result
+        if self.fail_reason is not None:
+            result['fail_reason'] = self.fail_reason
         return result
 
     def from_map(self, m: dict = None):
@@ -17835,6 +17847,8 @@ class SubmitDigregReviewRequest(TeaModel):
             self.dig_reg_id = m.get('dig_reg_id')
         if m.get('audit_result') is not None:
             self.audit_result = m.get('audit_result')
+        if m.get('fail_reason') is not None:
+            self.fail_reason = m.get('fail_reason')
         return self
 
 
