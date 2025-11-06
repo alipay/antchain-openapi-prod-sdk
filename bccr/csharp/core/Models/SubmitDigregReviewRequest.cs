@@ -31,6 +31,11 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=true)]
         public string AuditResult { get; set; }
 
+        // 复审不通过原因
+        [NameInMap("fail_reason")]
+        [Validation(Required=false)]
+        public string FailReason { get; set; }
+
     }
 
 }

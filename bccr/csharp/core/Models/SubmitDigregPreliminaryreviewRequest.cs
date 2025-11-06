@@ -33,6 +33,11 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=true)]
         public bool? AuditResult { get; set; }
 
+        // 审批意见
+        [NameInMap("comments")]
+        [Validation(Required=false)]
+        public string Comments { get; set; }
+
     }
 
 }
