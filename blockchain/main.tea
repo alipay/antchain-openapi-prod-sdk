@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.28.60',
+    sdk_version = '1.28.61',
     _prod_code = 'BLOCKCHAIN',
     _prod_channel = 'undefined'
   };
@@ -2376,6 +2376,14 @@ model ALiYunChainExecuteOrder {
   synchro?: boolean(name='synchro', example='true, false'),
 }
 
+// 授权服务产品
+model AuthProduct {
+  // 产品code
+  productCode: string(name='product_code', example='SOCIAL_INSURANCE'),
+  // 产品简称
+  productAbbr: string(name='product_abbr', example='社保'),
+}
+
 // 账户映射的具体信息
 model AccountMap {
   // 要映射的链对应的唯一id
@@ -2911,6 +2919,20 @@ model CrowdTagEnumResp {
   crowdTag: string(name='crowd_tag', example='P0010GC6'),
   // 人群标签枚举列表对象
   crowTagEnumItemList: [ CrowdTagEnumItemDTO ](name='crow_tag_enum_item_list', example=''),
+}
+
+// 协议模板信息
+model Agreement {
+  // 协议名称
+  agreementName: string(name='agreement_name', example='-'),
+  // 协议类型
+  agreementType: string(name='agreement_type', example='USER_SERVICE_AUTH'),
+  // 第三方原始协议链接
+  agreementUrl: string(name='agreement_url', example='-'),
+  // 协议文件上传目录
+  agreementFileOssKey: string(name='agreement_file_oss_key', example='-'),
+  // 上传时的协议原始文件名
+  agreementFileOriginalName: string(name='agreement_file_original_name', example='-'),
 }
 
 // 阿里云最新区块列表查询的单元信息
@@ -17739,6 +17761,84 @@ async function startDataauthorizationSyncDataEx(request: StartDataauthorizationS
   return doRequest('1.0' ,'baas.dataauthorization.sync.data.start', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model GetDataAuthConfigRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 授权场景码
+  sceneCode: string(name='scene_code'),
+  // 企业信用代码
+  enterpriseCode: string(name='enterprise_code'),
+}
+
+model GetDataAuthConfigResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 场景码
+  sceneCode?: string(name='scene_code'),
+  // 数据源连接器空间id
+  sourceSpaceId?: string(name='source_space_id'),
+  // 被授权方企业信用代码
+  enterpriseCode?: string(name='enterprise_code'),
+  // 接入方客户名称
+  targetName?: string(name='target_name'),
+  // 被授权应用名称
+  authAppName?: string(name='auth_app_name'),
+  // 客户应用logo
+  enterpriseLogo?: string(name='enterprise_logo'),
+  // 客户应用logo访问链接
+  enterpriseLogoUrl?: string(name='enterprise_logo_url'),
+  // 用途说明
+  authPurpose?: string(name='auth_purpose'),
+  // 场景描述
+  authDesc?: string(name='auth_desc'),
+  // 授权形式
+  authType?: string(name='auth_type'),
+  // 用户表示类型
+  userType?: string(name='user_type'),
+  // 使用刷脸识别
+  useFacialRecognition?: boolean(name='use_facial_recognition'),
+  // 授权服务产品列表
+  authProductList?: [ AuthProduct ](name='auth_product_list'),
+  // 协议模板列表
+  agreementList?: [ Agreement ](name='agreement_list'),
+  // 背景颜色
+  backgroundColor?: string(name='background_color'),
+  // 授权页面使用范围
+  useScopeList?: [ string ](name='use_scope_list'),
+  // 场景授权状态
+  authStatus?: boolean(name='auth_status'),
+  // c端发起授权页面的url链接
+  startAuthUrl?: string(name='start_auth_url'),
+  // C端是否显示凭证数据
+  enableShowProofVc?: boolean(name='enable_show_proof_vc'),
+  // C端是否显示授权记录
+  enableShowAuthRecord?: boolean(name='enable_show_auth_record'),
+}
+
+/**
+ * Description: 获取数据授权配置详情
+ * Summary: 获取数据授权配置详情
+ */
+async function getDataAuthConfig(request: GetDataAuthConfigRequest): GetDataAuthConfigResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getDataAuthConfigEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取数据授权配置详情
+ * Summary: 获取数据授权配置详情
+ */
+async function getDataAuthConfigEx(request: GetDataAuthConfigRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetDataAuthConfigResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.data.auth.config.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model QueryTraceabilityTxCheckRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -23097,6 +23197,48 @@ async function batchcreateAuthNewcar(request: BatchcreateAuthNewcarRequest): Bat
 async function batchcreateAuthNewcarEx(request: BatchcreateAuthNewcarRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BatchcreateAuthNewcarResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'baas.auth.newcar.batchcreate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PushAuthCarloanRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 车信息
+  basicCarInfo: BasicCarInfo(name='basic_car_info'),
+  // 用户信息
+  userInfo: CarUserInfo(name='user_info'),
+  // 场景码
+  sceneCode: string(name='scene_code'),
+}
+
+model PushAuthCarloanResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否推送成功
+  pushSuccess?: boolean(name='push_success'),
+}
+
+/**
+ * Description: 推送星贷车信息
+ * Summary: 推送星贷车信息
+ */
+async function pushAuthCarloan(request: PushAuthCarloanRequest): PushAuthCarloanResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pushAuthCarloanEx(request, headers, runtime);
+}
+
+/**
+ * Description: 推送星贷车信息
+ * Summary: 推送星贷车信息
+ */
+async function pushAuthCarloanEx(request: PushAuthCarloanRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PushAuthCarloanResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.auth.carloan.push', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model StartDidCorporateAgentcreateRequest = {
