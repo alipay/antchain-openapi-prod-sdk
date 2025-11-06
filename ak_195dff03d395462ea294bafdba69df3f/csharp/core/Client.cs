@@ -137,7 +137,7 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.6.4"},
+                        {"sdk_version", "1.6.5"},
                         {"_prod_code", "ak_195dff03d395462ea294bafdba69df3f"},
                         {"_prod_channel", "saas"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.6.4"},
+                        {"sdk_version", "1.6.5"},
                         {"_prod_code", "ak_195dff03d395462ea294bafdba69df3f"},
                         {"_prod_channel", "saas"},
                     };
@@ -1218,8 +1218,8 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
         }
 
         /**
-         * Description: 资方调用，授权通过e签宝进行落签
-         * Summary: 资方e签宝落签接口
+         * Description: 资方合同落签
+         * Summary: 资方合同落签
          */
         public AuthAntchainAtoFundFlowResponse AuthAntchainAtoFundFlow(AuthAntchainAtoFundFlowRequest request)
         {
@@ -1229,8 +1229,8 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
         }
 
         /**
-         * Description: 资方调用，授权通过e签宝进行落签
-         * Summary: 资方e签宝落签接口
+         * Description: 资方合同落签
+         * Summary: 资方合同落签
          */
         public async Task<AuthAntchainAtoFundFlowResponse> AuthAntchainAtoFundFlowAsync(AuthAntchainAtoFundFlowRequest request)
         {
@@ -1240,8 +1240,8 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
         }
 
         /**
-         * Description: 资方调用，授权通过e签宝进行落签
-         * Summary: 资方e签宝落签接口
+         * Description: 资方合同落签
+         * Summary: 资方合同落签
          */
         public AuthAntchainAtoFundFlowResponse AuthAntchainAtoFundFlowEx(AuthAntchainAtoFundFlowRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -1250,8 +1250,8 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
         }
 
         /**
-         * Description: 资方调用，授权通过e签宝进行落签
-         * Summary: 资方e签宝落签接口
+         * Description: 资方合同落签
+         * Summary: 资方合同落签
          */
         public async Task<AuthAntchainAtoFundFlowResponse> AuthAntchainAtoFundFlowExAsync(AuthAntchainAtoFundFlowRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -4469,6 +4469,90 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<GetAntchainAtoTradeOrderfullinfoResponse>(await DoRequestAsync("1.0", "antchain.ato.trade.orderfullinfo.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 资方提交合同签署
+         * Summary: 资方提交合同签署
+         */
+        public SubmitAntchainAtoFundFlowResponse SubmitAntchainAtoFundFlow(SubmitAntchainAtoFundFlowRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SubmitAntchainAtoFundFlowEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 资方提交合同签署
+         * Summary: 资方提交合同签署
+         */
+        public async Task<SubmitAntchainAtoFundFlowResponse> SubmitAntchainAtoFundFlowAsync(SubmitAntchainAtoFundFlowRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SubmitAntchainAtoFundFlowExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 资方提交合同签署
+         * Summary: 资方提交合同签署
+         */
+        public SubmitAntchainAtoFundFlowResponse SubmitAntchainAtoFundFlowEx(SubmitAntchainAtoFundFlowRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitAntchainAtoFundFlowResponse>(DoRequest("1.0", "antchain.ato.fund.flow.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 资方提交合同签署
+         * Summary: 资方提交合同签署
+         */
+        public async Task<SubmitAntchainAtoFundFlowResponse> SubmitAntchainAtoFundFlowExAsync(SubmitAntchainAtoFundFlowRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitAntchainAtoFundFlowResponse>(await DoRequestAsync("1.0", "antchain.ato.fund.flow.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 资方合同流程撤销
+         * Summary: 资方合同流程撤销
+         */
+        public CancelAntchainAtoFundFlowResponse CancelAntchainAtoFundFlow(CancelAntchainAtoFundFlowRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CancelAntchainAtoFundFlowEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 资方合同流程撤销
+         * Summary: 资方合同流程撤销
+         */
+        public async Task<CancelAntchainAtoFundFlowResponse> CancelAntchainAtoFundFlowAsync(CancelAntchainAtoFundFlowRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CancelAntchainAtoFundFlowExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 资方合同流程撤销
+         * Summary: 资方合同流程撤销
+         */
+        public CancelAntchainAtoFundFlowResponse CancelAntchainAtoFundFlowEx(CancelAntchainAtoFundFlowRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CancelAntchainAtoFundFlowResponse>(DoRequest("1.0", "antchain.ato.fund.flow.cancel", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 资方合同流程撤销
+         * Summary: 资方合同流程撤销
+         */
+        public async Task<CancelAntchainAtoFundFlowResponse> CancelAntchainAtoFundFlowExAsync(CancelAntchainAtoFundFlowRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CancelAntchainAtoFundFlowResponse>(await DoRequestAsync("1.0", "antchain.ato.fund.flow.cancel", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
