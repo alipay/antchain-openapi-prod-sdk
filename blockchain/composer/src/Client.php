@@ -453,6 +453,8 @@ use AntChain\BLOCKCHAIN\Models\GetContractConfigChainRequest;
 use AntChain\BLOCKCHAIN\Models\GetContractConfigChainResponse;
 use AntChain\BLOCKCHAIN\Models\GetContractRecordRequest;
 use AntChain\BLOCKCHAIN\Models\GetContractRecordResponse;
+use AntChain\BLOCKCHAIN\Models\GetDataAuthConfigRequest;
+use AntChain\BLOCKCHAIN\Models\GetDataAuthConfigResponse;
 use AntChain\BLOCKCHAIN\Models\GetMydidcommunTaskTaskresultRequest;
 use AntChain\BLOCKCHAIN\Models\GetMydidcommunTaskTaskresultResponse;
 use AntChain\BLOCKCHAIN\Models\GetMydidcommunWorkergroupPodRequest;
@@ -585,6 +587,8 @@ use AntChain\BLOCKCHAIN\Models\PullAuthWebpageUrlRequest;
 use AntChain\BLOCKCHAIN\Models\PullAuthWebpageUrlResponse;
 use AntChain\BLOCKCHAIN\Models\PullAuthWebpageVcRequest;
 use AntChain\BLOCKCHAIN\Models\PullAuthWebpageVcResponse;
+use AntChain\BLOCKCHAIN\Models\PushAuthCarloanRequest;
+use AntChain\BLOCKCHAIN\Models\PushAuthCarloanResponse;
 use AntChain\BLOCKCHAIN\Models\PushAuthClaimVcRequest;
 use AntChain\BLOCKCHAIN\Models\PushAuthClaimVcResponse;
 use AntChain\BLOCKCHAIN\Models\PushAuthInsurancePolicyRequest;
@@ -1406,7 +1410,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.28.60',
+                    'sdk_version'      => '1.28.61',
                     '_prod_code'       => 'BLOCKCHAIN',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -11788,6 +11792,39 @@ class Client
     }
 
     /**
+     * Description: 获取数据授权配置详情
+     * Summary: 获取数据授权配置详情.
+     *
+     * @param GetDataAuthConfigRequest $request
+     *
+     * @return GetDataAuthConfigResponse
+     */
+    public function getDataAuthConfig($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getDataAuthConfigEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取数据授权配置详情
+     * Summary: 获取数据授权配置详情.
+     *
+     * @param GetDataAuthConfigRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return GetDataAuthConfigResponse
+     */
+    public function getDataAuthConfigEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetDataAuthConfigResponse::fromMap($this->doRequest('1.0', 'baas.data.auth.config.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 通过额交易hash查询，返回hash对应区块链上信息。
      * Summary: 溯源区块查证接口.
      *
@@ -15601,6 +15638,39 @@ class Client
         Utils::validateModel($request);
 
         return BatchcreateAuthNewcarResponse::fromMap($this->doRequest('1.0', 'baas.auth.newcar.batchcreate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 推送星贷车信息
+     * Summary: 推送星贷车信息.
+     *
+     * @param PushAuthCarloanRequest $request
+     *
+     * @return PushAuthCarloanResponse
+     */
+    public function pushAuthCarloan($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pushAuthCarloanEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 推送星贷车信息
+     * Summary: 推送星贷车信息.
+     *
+     * @param PushAuthCarloanRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return PushAuthCarloanResponse
+     */
+    public function pushAuthCarloanEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PushAuthCarloanResponse::fromMap($this->doRequest('1.0', 'baas.auth.carloan.push', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
