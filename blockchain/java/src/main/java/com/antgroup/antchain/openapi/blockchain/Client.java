@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.28.60"),
+                    new TeaPair("sdk_version", "1.28.61"),
                     new TeaPair("_prod_code", "BLOCKCHAIN"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -6782,6 +6782,27 @@ public class Client {
 
     /**
      * <b>description</b> :
+     * <p>Description: 获取数据授权配置详情
+     * Summary: 获取数据授权配置详情</p>
+     */
+    public GetDataAuthConfigResponse getDataAuthConfig(GetDataAuthConfigRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getDataAuthConfigEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 获取数据授权配置详情
+     * Summary: 获取数据授权配置详情</p>
+     */
+    public GetDataAuthConfigResponse getDataAuthConfigEx(GetDataAuthConfigRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.data.auth.config.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetDataAuthConfigResponse());
+    }
+
+    /**
+     * <b>description</b> :
      * <p>Description: 通过额交易hash查询，返回hash对应区块链上信息。
      * Summary: 溯源区块查证接口</p>
      */
@@ -9217,6 +9238,27 @@ public class Client {
     public BatchcreateAuthNewcarResponse batchcreateAuthNewcarEx(BatchcreateAuthNewcarRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "baas.auth.newcar.batchcreate", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BatchcreateAuthNewcarResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 推送星贷车信息
+     * Summary: 推送星贷车信息</p>
+     */
+    public PushAuthCarloanResponse pushAuthCarloan(PushAuthCarloanRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pushAuthCarloanEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 推送星贷车信息
+     * Summary: 推送星贷车信息</p>
+     */
+    public PushAuthCarloanResponse pushAuthCarloanEx(PushAuthCarloanRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.auth.carloan.push", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PushAuthCarloanResponse());
     }
 
     /**
