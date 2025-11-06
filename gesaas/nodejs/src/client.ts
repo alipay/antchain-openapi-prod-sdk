@@ -115,6 +115,12 @@ export class RepayStrategy extends $tea.Model {
   // 经营分账收入方列表
   // 当operateDivideFlag 为Y时必填
   operateDivideTransInList?: OperateDivideTransInModel[];
+  // 是否停止数科代扣自动执行
+  // 
+  // Y：停止；由商户调用接口「支付相关接入 - 代扣计划重试」触发代扣；否则代扣不会被执行、到逾期时间后会被逾期
+  // 
+  // N : 不停止；保持数科自动代扣（默认）
+  noNeedAutoDeduction?: string;
   static names(): { [key: string]: string } {
     return {
       payDay: 'pay_day',
@@ -122,6 +128,7 @@ export class RepayStrategy extends $tea.Model {
       rentalMoney: 'rental_money',
       operateDivideFlag: 'operate_divide_flag',
       operateDivideTransInList: 'operate_divide_trans_in_list',
+      noNeedAutoDeduction: 'no_need_auto_deduction',
     };
   }
 
@@ -132,6 +139,7 @@ export class RepayStrategy extends $tea.Model {
       rentalMoney: 'number',
       operateDivideFlag: 'string',
       operateDivideTransInList: { 'type': 'array', 'itemType': OperateDivideTransInModel },
+      noNeedAutoDeduction: 'string',
     };
   }
 
@@ -761,7 +769,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.2.6",
+          sdk_version: "1.2.7",
           _prod_code: "GESAAS",
           _prod_channel: "default",
         };
