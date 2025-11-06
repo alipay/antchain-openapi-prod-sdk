@@ -36,6 +36,15 @@ namespace AntChain.SDK.GESAAS.Models
         [Validation(Required=false)]
         public List<OperateDivideTransInModel> OperateDivideTransInList { get; set; }
 
+        // 是否停止数科代扣自动执行
+        // 
+        // Y：停止；由商户调用接口「支付相关接入 - 代扣计划重试」触发代扣；否则代扣不会被执行、到逾期时间后会被逾期
+        // 
+        // N : 不停止；保持数科自动代扣（默认）
+        [NameInMap("no_need_auto_deduction")]
+        [Validation(Required=false)]
+        public string NoNeedAutoDeduction { get; set; }
+
     }
 
 }
