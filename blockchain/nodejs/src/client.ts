@@ -5822,6 +5822,31 @@ export class ALiYunChainExecuteOrder extends $tea.Model {
   }
 }
 
+// 授权服务产品
+export class AuthProduct extends $tea.Model {
+  // 产品code
+  productCode: string;
+  // 产品简称
+  productAbbr: string;
+  static names(): { [key: string]: string } {
+    return {
+      productCode: 'product_code',
+      productAbbr: 'product_abbr',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      productCode: 'string',
+      productAbbr: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 账户映射的具体信息
 export class AccountMap extends $tea.Model {
   // 要映射的链对应的唯一id
@@ -7218,6 +7243,43 @@ export class CrowdTagEnumResp extends $tea.Model {
     return {
       crowdTag: 'string',
       crowTagEnumItemList: { 'type': 'array', 'itemType': CrowdTagEnumItemDTO },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 协议模板信息
+export class Agreement extends $tea.Model {
+  // 协议名称
+  agreementName: string;
+  // 协议类型
+  agreementType: string;
+  // 第三方原始协议链接
+  agreementUrl: string;
+  // 协议文件上传目录
+  agreementFileOssKey: string;
+  // 上传时的协议原始文件名
+  agreementFileOriginalName: string;
+  static names(): { [key: string]: string } {
+    return {
+      agreementName: 'agreement_name',
+      agreementType: 'agreement_type',
+      agreementUrl: 'agreement_url',
+      agreementFileOssKey: 'agreement_file_oss_key',
+      agreementFileOriginalName: 'agreement_file_original_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      agreementName: 'string',
+      agreementType: 'string',
+      agreementUrl: 'string',
+      agreementFileOssKey: 'string',
+      agreementFileOriginalName: 'string',
     };
   }
 
@@ -31764,6 +31826,145 @@ export class StartDataauthorizationSyncDataResponse extends $tea.Model {
   }
 }
 
+export class GetDataAuthConfigRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 授权场景码
+  sceneCode: string;
+  // 企业信用代码
+  enterpriseCode: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      sceneCode: 'scene_code',
+      enterpriseCode: 'enterprise_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      sceneCode: 'string',
+      enterpriseCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetDataAuthConfigResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 场景码
+  sceneCode?: string;
+  // 数据源连接器空间id
+  sourceSpaceId?: string;
+  // 被授权方企业信用代码
+  enterpriseCode?: string;
+  // 接入方客户名称
+  targetName?: string;
+  // 被授权应用名称
+  authAppName?: string;
+  // 客户应用logo
+  enterpriseLogo?: string;
+  // 客户应用logo访问链接
+  enterpriseLogoUrl?: string;
+  // 用途说明
+  authPurpose?: string;
+  // 场景描述
+  authDesc?: string;
+  // 授权形式
+  authType?: string;
+  // 用户表示类型
+  userType?: string;
+  // 使用刷脸识别
+  useFacialRecognition?: boolean;
+  // 授权服务产品列表
+  authProductList?: AuthProduct[];
+  // 协议模板列表
+  agreementList?: Agreement[];
+  // 背景颜色
+  backgroundColor?: string;
+  // 授权页面使用范围
+  useScopeList?: string[];
+  // 场景授权状态
+  authStatus?: boolean;
+  // c端发起授权页面的url链接
+  startAuthUrl?: string;
+  // C端是否显示凭证数据
+  enableShowProofVc?: boolean;
+  // C端是否显示授权记录
+  enableShowAuthRecord?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      sceneCode: 'scene_code',
+      sourceSpaceId: 'source_space_id',
+      enterpriseCode: 'enterprise_code',
+      targetName: 'target_name',
+      authAppName: 'auth_app_name',
+      enterpriseLogo: 'enterprise_logo',
+      enterpriseLogoUrl: 'enterprise_logo_url',
+      authPurpose: 'auth_purpose',
+      authDesc: 'auth_desc',
+      authType: 'auth_type',
+      userType: 'user_type',
+      useFacialRecognition: 'use_facial_recognition',
+      authProductList: 'auth_product_list',
+      agreementList: 'agreement_list',
+      backgroundColor: 'background_color',
+      useScopeList: 'use_scope_list',
+      authStatus: 'auth_status',
+      startAuthUrl: 'start_auth_url',
+      enableShowProofVc: 'enable_show_proof_vc',
+      enableShowAuthRecord: 'enable_show_auth_record',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      sceneCode: 'string',
+      sourceSpaceId: 'string',
+      enterpriseCode: 'string',
+      targetName: 'string',
+      authAppName: 'string',
+      enterpriseLogo: 'string',
+      enterpriseLogoUrl: 'string',
+      authPurpose: 'string',
+      authDesc: 'string',
+      authType: 'string',
+      userType: 'string',
+      useFacialRecognition: 'boolean',
+      authProductList: { 'type': 'array', 'itemType': AuthProduct },
+      agreementList: { 'type': 'array', 'itemType': Agreement },
+      backgroundColor: 'string',
+      useScopeList: { 'type': 'array', 'itemType': 'string' },
+      authStatus: 'boolean',
+      startAuthUrl: 'string',
+      enableShowProofVc: 'boolean',
+      enableShowAuthRecord: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryTraceabilityTxCheckRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -40383,6 +40584,73 @@ export class BatchcreateAuthNewcarResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       batchSubmitCarResult: { 'type': 'array', 'itemType': BatchSubmitCarResult },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PushAuthCarloanRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 车信息
+  basicCarInfo: BasicCarInfo;
+  // 用户信息
+  userInfo: CarUserInfo;
+  // 场景码
+  sceneCode: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      basicCarInfo: 'basic_car_info',
+      userInfo: 'user_info',
+      sceneCode: 'scene_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      basicCarInfo: BasicCarInfo,
+      userInfo: CarUserInfo,
+      sceneCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PushAuthCarloanResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否推送成功
+  pushSuccess?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      pushSuccess: 'push_success',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      pushSuccess: 'boolean',
     };
   }
 
@@ -55269,7 +55537,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.28.60",
+          sdk_version: "1.28.61",
           _prod_code: "BLOCKCHAIN",
           _prod_channel: "undefined",
         };
@@ -61286,6 +61554,25 @@ export default class Client {
   }
 
   /**
+   * Description: 获取数据授权配置详情
+   * Summary: 获取数据授权配置详情
+   */
+  async getDataAuthConfig(request: GetDataAuthConfigRequest): Promise<GetDataAuthConfigResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getDataAuthConfigEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 获取数据授权配置详情
+   * Summary: 获取数据授权配置详情
+   */
+  async getDataAuthConfigEx(request: GetDataAuthConfigRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetDataAuthConfigResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetDataAuthConfigResponse>(await this.doRequest("1.0", "baas.data.auth.config.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetDataAuthConfigResponse({}));
+  }
+
+  /**
    * Description: 通过额交易hash查询，返回hash对应区块链上信息。
    * Summary: 溯源区块查证接口
    */
@@ -63492,6 +63779,25 @@ export default class Client {
   async batchcreateAuthNewcarEx(request: BatchcreateAuthNewcarRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BatchcreateAuthNewcarResponse> {
     Util.validateModel(request);
     return $tea.cast<BatchcreateAuthNewcarResponse>(await this.doRequest("1.0", "baas.auth.newcar.batchcreate", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BatchcreateAuthNewcarResponse({}));
+  }
+
+  /**
+   * Description: 推送星贷车信息
+   * Summary: 推送星贷车信息
+   */
+  async pushAuthCarloan(request: PushAuthCarloanRequest): Promise<PushAuthCarloanResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pushAuthCarloanEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 推送星贷车信息
+   * Summary: 推送星贷车信息
+   */
+  async pushAuthCarloanEx(request: PushAuthCarloanRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PushAuthCarloanResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PushAuthCarloanResponse>(await this.doRequest("1.0", "baas.auth.carloan.push", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PushAuthCarloanResponse({}));
   }
 
   /**
