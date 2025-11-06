@@ -198,6 +198,7 @@ class RepayStrategy(TeaModel):
         rental_money: int = None,
         operate_divide_flag: str = None,
         operate_divide_trans_in_list: List[OperateDivideTransInModel] = None,
+        no_need_auto_deduction: str = None,
     ):
         # 应付租金时间，精确到天 格式为yyyy-MM-dd
         self.pay_day = pay_day
@@ -210,6 +211,12 @@ class RepayStrategy(TeaModel):
         # 经营分账收入方列表
         # 当operateDivideFlag 为Y时必填
         self.operate_divide_trans_in_list = operate_divide_trans_in_list
+        # 是否停止数科代扣自动执行
+        # 
+        # Y：停止；由商户调用接口「支付相关接入 - 代扣计划重试」触发代扣；否则代扣不会被执行、到逾期时间后会被逾期
+        # 
+        # N : 不停止；保持数科自动代扣（默认）
+        self.no_need_auto_deduction = no_need_auto_deduction
 
     def validate(self):
         self.validate_required(self.pay_day, 'pay_day')
@@ -238,6 +245,8 @@ class RepayStrategy(TeaModel):
         if self.operate_divide_trans_in_list is not None:
             for k in self.operate_divide_trans_in_list:
                 result['operate_divide_trans_in_list'].append(k.to_map() if k else None)
+        if self.no_need_auto_deduction is not None:
+            result['no_need_auto_deduction'] = self.no_need_auto_deduction
         return result
 
     def from_map(self, m: dict = None):
@@ -255,6 +264,8 @@ class RepayStrategy(TeaModel):
             for k in m.get('operate_divide_trans_in_list'):
                 temp_model = OperateDivideTransInModel()
                 self.operate_divide_trans_in_list.append(temp_model.from_map(k))
+        if m.get('no_need_auto_deduction') is not None:
+            self.no_need_auto_deduction = m.get('no_need_auto_deduction')
         return self
 
 
