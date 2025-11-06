@@ -14373,6 +14373,8 @@ type SubmitDigregPreliminaryreviewRequest struct {
 	AuditStatus *string `json:"audit_status,omitempty" xml:"audit_status,omitempty" require:"true"`
 	// 审核结果
 	AuditResult *bool `json:"audit_result,omitempty" xml:"audit_result,omitempty" require:"true"`
+	// 审批意见
+	Comments *string `json:"comments,omitempty" xml:"comments,omitempty"`
 }
 
 func (s SubmitDigregPreliminaryreviewRequest) String() string {
@@ -14405,6 +14407,11 @@ func (s *SubmitDigregPreliminaryreviewRequest) SetAuditStatus(v string) *SubmitD
 
 func (s *SubmitDigregPreliminaryreviewRequest) SetAuditResult(v bool) *SubmitDigregPreliminaryreviewRequest {
 	s.AuditResult = &v
+	return s
+}
+
+func (s *SubmitDigregPreliminaryreviewRequest) SetComments(v string) *SubmitDigregPreliminaryreviewRequest {
+	s.Comments = &v
 	return s
 }
 
@@ -14451,6 +14458,8 @@ type SubmitDigregReviewRequest struct {
 	// NO_NEED_REPLACE_DCI（复审不通过，补正不需要替换DCI作品）
 	// PASS（复审通过）
 	AuditResult *string `json:"audit_result,omitempty" xml:"audit_result,omitempty" require:"true"`
+	// 复审不通过原因
+	FailReason *string `json:"fail_reason,omitempty" xml:"fail_reason,omitempty"`
 }
 
 func (s SubmitDigregReviewRequest) String() string {
@@ -14478,6 +14487,11 @@ func (s *SubmitDigregReviewRequest) SetDigRegId(v string) *SubmitDigregReviewReq
 
 func (s *SubmitDigregReviewRequest) SetAuditResult(v string) *SubmitDigregReviewRequest {
 	s.AuditResult = &v
+	return s
+}
+
+func (s *SubmitDigregReviewRequest) SetFailReason(v string) *SubmitDigregReviewRequest {
+	s.FailReason = &v
 	return s
 }
 
@@ -15475,7 +15489,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.19.76"),
+				"sdk_version":      tea.String("1.19.77"),
 				"_prod_code":       tea.String("BCCR"),
 				"_prod_channel":    tea.String("undefined"),
 			}
