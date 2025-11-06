@@ -48,12 +48,25 @@ class RepayStrategy extends Model
      * @var OperateDivideTransInModel[]
      */
     public $operateDivideTransInList;
+
+    // 是否停止数科代扣自动执行
+    //
+    // Y：停止；由商户调用接口「支付相关接入 - 代扣计划重试」触发代扣；否则代扣不会被执行、到逾期时间后会被逾期
+    //
+    // N : 不停止；保持数科自动代扣（默认）
+    /**
+     * @example N
+     *
+     * @var string
+     */
+    public $noNeedAutoDeduction;
     protected $_name = [
         'payDay'                   => 'pay_day',
         'termIndex'                => 'term_index',
         'rentalMoney'              => 'rental_money',
         'operateDivideFlag'        => 'operate_divide_flag',
         'operateDivideTransInList' => 'operate_divide_trans_in_list',
+        'noNeedAutoDeduction'      => 'no_need_auto_deduction',
     ];
 
     public function validate()
@@ -87,6 +100,9 @@ class RepayStrategy extends Model
                 }
             }
         }
+        if (null !== $this->noNeedAutoDeduction) {
+            $res['no_need_auto_deduction'] = $this->noNeedAutoDeduction;
+        }
 
         return $res;
     }
@@ -119,6 +135,9 @@ class RepayStrategy extends Model
                     $model->operateDivideTransInList[$n++] = null !== $item ? OperateDivideTransInModel::fromMap($item) : $item;
                 }
             }
+        }
+        if (isset($map['no_need_auto_deduction'])) {
+            $model->noNeedAutoDeduction = $map['no_need_auto_deduction'];
         }
 
         return $model;
