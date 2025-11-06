@@ -137,7 +137,7 @@ namespace AntChain.SDK.BLOCKCHAIN
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.28.60"},
+                        {"sdk_version", "1.28.61"},
                         {"_prod_code", "BLOCKCHAIN"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.BLOCKCHAIN
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.28.60"},
+                        {"sdk_version", "1.28.61"},
                         {"_prod_code", "BLOCKCHAIN"},
                         {"_prod_channel", "undefined"},
                     };
@@ -13510,6 +13510,48 @@ namespace AntChain.SDK.BLOCKCHAIN
         }
 
         /**
+         * Description: 获取数据授权配置详情
+         * Summary: 获取数据授权配置详情
+         */
+        public GetDataAuthConfigResponse GetDataAuthConfig(GetDataAuthConfigRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return GetDataAuthConfigEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取数据授权配置详情
+         * Summary: 获取数据授权配置详情
+         */
+        public async Task<GetDataAuthConfigResponse> GetDataAuthConfigAsync(GetDataAuthConfigRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await GetDataAuthConfigExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取数据授权配置详情
+         * Summary: 获取数据授权配置详情
+         */
+        public GetDataAuthConfigResponse GetDataAuthConfigEx(GetDataAuthConfigRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetDataAuthConfigResponse>(DoRequest("1.0", "baas.data.auth.config.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取数据授权配置详情
+         * Summary: 获取数据授权配置详情
+         */
+        public async Task<GetDataAuthConfigResponse> GetDataAuthConfigExAsync(GetDataAuthConfigRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetDataAuthConfigResponse>(await DoRequestAsync("1.0", "baas.data.auth.config.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
          * Description: 通过额交易hash查询，返回hash对应区块链上信息。
          * Summary: 溯源区块查证接口
          */
@@ -18389,6 +18431,48 @@ namespace AntChain.SDK.BLOCKCHAIN
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<BatchcreateAuthNewcarResponse>(await DoRequestAsync("1.0", "baas.auth.newcar.batchcreate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 推送星贷车信息
+         * Summary: 推送星贷车信息
+         */
+        public PushAuthCarloanResponse PushAuthCarloan(PushAuthCarloanRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PushAuthCarloanEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 推送星贷车信息
+         * Summary: 推送星贷车信息
+         */
+        public async Task<PushAuthCarloanResponse> PushAuthCarloanAsync(PushAuthCarloanRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PushAuthCarloanExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 推送星贷车信息
+         * Summary: 推送星贷车信息
+         */
+        public PushAuthCarloanResponse PushAuthCarloanEx(PushAuthCarloanRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushAuthCarloanResponse>(DoRequest("1.0", "baas.auth.carloan.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 推送星贷车信息
+         * Summary: 推送星贷车信息
+         */
+        public async Task<PushAuthCarloanResponse> PushAuthCarloanExAsync(PushAuthCarloanRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushAuthCarloanResponse>(await DoRequestAsync("1.0", "baas.auth.carloan.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
