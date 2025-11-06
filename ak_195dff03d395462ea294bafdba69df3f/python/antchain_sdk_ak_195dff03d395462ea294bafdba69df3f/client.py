@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.6.4',
+                    'sdk_version': '1.6.5',
                     '_prod_code': 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel': 'saas'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.6.4',
+                    'sdk_version': '1.6.5',
                     '_prod_code': 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel': 'saas'
                 }
@@ -1444,8 +1444,8 @@ class Client:
         request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.AuthAntchainAtoFundFlowRequest,
     ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.AuthAntchainAtoFundFlowResponse:
         """
-        Description: 资方调用，授权通过e签宝进行落签
-        Summary: 资方e签宝落签接口
+        Description: 资方合同落签
+        Summary: 资方合同落签
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -1456,8 +1456,8 @@ class Client:
         request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.AuthAntchainAtoFundFlowRequest,
     ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.AuthAntchainAtoFundFlowResponse:
         """
-        Description: 资方调用，授权通过e签宝进行落签
-        Summary: 资方e签宝落签接口
+        Description: 资方合同落签
+        Summary: 资方合同落签
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -1470,8 +1470,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.AuthAntchainAtoFundFlowResponse:
         """
-        Description: 资方调用，授权通过e签宝进行落签
-        Summary: 资方e签宝落签接口
+        Description: 资方合同落签
+        Summary: 资方合同落签
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -1486,8 +1486,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.AuthAntchainAtoFundFlowResponse:
         """
-        Description: 资方调用，授权通过e签宝进行落签
-        Summary: 资方e签宝落签接口
+        Description: 资方合同落签
+        Summary: 资方合同落签
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -5717,6 +5717,118 @@ class Client:
         return TeaCore.from_map(
             ak__195dff_03d_395462ea_294bafdba_69df_3f_models.GetAntchainAtoTradeOrderfullinfoResponse(),
             await self.do_request_async('1.0', 'antchain.ato.trade.orderfullinfo.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def submit_antchain_ato_fund_flow(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SubmitAntchainAtoFundFlowRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SubmitAntchainAtoFundFlowResponse:
+        """
+        Description: 资方提交合同签署
+        Summary: 资方提交合同签署
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.submit_antchain_ato_fund_flow_ex(request, headers, runtime)
+
+    async def submit_antchain_ato_fund_flow_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SubmitAntchainAtoFundFlowRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SubmitAntchainAtoFundFlowResponse:
+        """
+        Description: 资方提交合同签署
+        Summary: 资方提交合同签署
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.submit_antchain_ato_fund_flow_ex_async(request, headers, runtime)
+
+    def submit_antchain_ato_fund_flow_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SubmitAntchainAtoFundFlowRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SubmitAntchainAtoFundFlowResponse:
+        """
+        Description: 资方提交合同签署
+        Summary: 资方提交合同签署
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SubmitAntchainAtoFundFlowResponse(),
+            self.do_request('1.0', 'antchain.ato.fund.flow.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def submit_antchain_ato_fund_flow_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SubmitAntchainAtoFundFlowRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SubmitAntchainAtoFundFlowResponse:
+        """
+        Description: 资方提交合同签署
+        Summary: 资方提交合同签署
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SubmitAntchainAtoFundFlowResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.fund.flow.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def cancel_antchain_ato_fund_flow(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CancelAntchainAtoFundFlowRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CancelAntchainAtoFundFlowResponse:
+        """
+        Description: 资方合同流程撤销
+        Summary: 资方合同流程撤销
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.cancel_antchain_ato_fund_flow_ex(request, headers, runtime)
+
+    async def cancel_antchain_ato_fund_flow_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CancelAntchainAtoFundFlowRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CancelAntchainAtoFundFlowResponse:
+        """
+        Description: 资方合同流程撤销
+        Summary: 资方合同流程撤销
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.cancel_antchain_ato_fund_flow_ex_async(request, headers, runtime)
+
+    def cancel_antchain_ato_fund_flow_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CancelAntchainAtoFundFlowRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CancelAntchainAtoFundFlowResponse:
+        """
+        Description: 资方合同流程撤销
+        Summary: 资方合同流程撤销
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CancelAntchainAtoFundFlowResponse(),
+            self.do_request('1.0', 'antchain.ato.fund.flow.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def cancel_antchain_ato_fund_flow_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CancelAntchainAtoFundFlowRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CancelAntchainAtoFundFlowResponse:
+        """
+        Description: 资方合同流程撤销
+        Summary: 资方合同流程撤销
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CancelAntchainAtoFundFlowResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.fund.flow.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(

@@ -1203,6 +1203,48 @@ class SingleCancelModel(TeaModel):
         return self
 
 
+class TemplateArgs(TeaModel):
+    def __init__(
+        self,
+        template_id: str = None,
+        template_version: str = None,
+        template_args: str = None,
+    ):
+        # 模板id
+        self.template_id = template_id
+        # 模板版本
+        self.template_version = template_version
+        # 模板参数，JSON格式，其中key对应模板中的名称，value对应其要渲染的值
+        self.template_args = template_args
+
+    def validate(self):
+        self.validate_required(self.template_id, 'template_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.template_id is not None:
+            result['template_id'] = self.template_id
+        if self.template_version is not None:
+            result['template_version'] = self.template_version
+        if self.template_args is not None:
+            result['template_args'] = self.template_args
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('template_id') is not None:
+            self.template_id = m.get('template_id')
+        if m.get('template_version') is not None:
+            self.template_version = m.get('template_version')
+        if m.get('template_args') is not None:
+            self.template_args = m.get('template_args')
+        return self
+
+
 class LegalInfoUpdate(TeaModel):
     def __init__(
         self,
@@ -13234,6 +13276,259 @@ class GetAntchainAtoTradeOrderfullinfoResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('response_data') is not None:
             self.response_data = m.get('response_data')
+        return self
+
+
+class SubmitAntchainAtoFundFlowRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tenant_id: str = None,
+        order_id: str = None,
+        merchant_id: str = None,
+        merchant_sign_tag: str = None,
+        fund_id: str = None,
+        fund_sign_tag: str = None,
+        fund_auto_sign: bool = None,
+        template_list: List[TemplateArgs] = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 商户租户id
+        self.tenant_id = tenant_id
+        # 订单id
+        self.order_id = order_id
+        # 商户id
+        self.merchant_id = merchant_id
+        # 商家签署tag
+        self.merchant_sign_tag = merchant_sign_tag
+        # 资方id
+        self.fund_id = fund_id
+        # 资方签署tag
+        self.fund_sign_tag = fund_sign_tag
+        # 资方是否自动签署，true则会在商户签署完成后自动归档，false则需要资方调用auth接口后完成归档
+        self.fund_auto_sign = fund_auto_sign
+        # 模板参数列表，需要传入模板id和对应的渲染参数，如果有多个文件则传入多个值
+        self.template_list = template_list
+
+    def validate(self):
+        self.validate_required(self.tenant_id, 'tenant_id')
+        self.validate_required(self.order_id, 'order_id')
+        self.validate_required(self.merchant_id, 'merchant_id')
+        self.validate_required(self.merchant_sign_tag, 'merchant_sign_tag')
+        self.validate_required(self.fund_id, 'fund_id')
+        self.validate_required(self.fund_sign_tag, 'fund_sign_tag')
+        self.validate_required(self.fund_auto_sign, 'fund_auto_sign')
+        self.validate_required(self.template_list, 'template_list')
+        if self.template_list:
+            for k in self.template_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.merchant_id is not None:
+            result['merchant_id'] = self.merchant_id
+        if self.merchant_sign_tag is not None:
+            result['merchant_sign_tag'] = self.merchant_sign_tag
+        if self.fund_id is not None:
+            result['fund_id'] = self.fund_id
+        if self.fund_sign_tag is not None:
+            result['fund_sign_tag'] = self.fund_sign_tag
+        if self.fund_auto_sign is not None:
+            result['fund_auto_sign'] = self.fund_auto_sign
+        result['template_list'] = []
+        if self.template_list is not None:
+            for k in self.template_list:
+                result['template_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('merchant_id') is not None:
+            self.merchant_id = m.get('merchant_id')
+        if m.get('merchant_sign_tag') is not None:
+            self.merchant_sign_tag = m.get('merchant_sign_tag')
+        if m.get('fund_id') is not None:
+            self.fund_id = m.get('fund_id')
+        if m.get('fund_sign_tag') is not None:
+            self.fund_sign_tag = m.get('fund_sign_tag')
+        if m.get('fund_auto_sign') is not None:
+            self.fund_auto_sign = m.get('fund_auto_sign')
+        self.template_list = []
+        if m.get('template_list') is not None:
+            for k in m.get('template_list'):
+                temp_model = TemplateArgs()
+                self.template_list.append(temp_model.from_map(k))
+        return self
+
+
+class SubmitAntchainAtoFundFlowResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        sign_no: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 签署编号
+        self.sign_no = sign_no
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.sign_no is not None:
+            result['sign_no'] = self.sign_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('sign_no') is not None:
+            self.sign_no = m.get('sign_no')
+        return self
+
+
+class CancelAntchainAtoFundFlowRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        sign_no: str = None,
+        fund_id: str = None,
+        revoke_reason: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 签署合同单号
+        self.sign_no = sign_no
+        # 资方统一社会信用代码
+        self.fund_id = fund_id
+        # 撤销原因
+        self.revoke_reason = revoke_reason
+
+    def validate(self):
+        self.validate_required(self.sign_no, 'sign_no')
+        self.validate_required(self.fund_id, 'fund_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.sign_no is not None:
+            result['sign_no'] = self.sign_no
+        if self.fund_id is not None:
+            result['fund_id'] = self.fund_id
+        if self.revoke_reason is not None:
+            result['revoke_reason'] = self.revoke_reason
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('sign_no') is not None:
+            self.sign_no = m.get('sign_no')
+        if m.get('fund_id') is not None:
+            self.fund_id = m.get('fund_id')
+        if m.get('revoke_reason') is not None:
+            self.revoke_reason = m.get('revoke_reason')
+        return self
+
+
+class CancelAntchainAtoFundFlowResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
         return self
 
 
