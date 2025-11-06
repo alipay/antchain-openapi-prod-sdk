@@ -33,6 +33,8 @@ use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\BindAntchainAtoMerchante
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\BindAntchainAtoMerchantexpandSettlecardResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CallbackAntchainAtoFundNotifyRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CallbackAntchainAtoFundNotifyResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CancelAntchainAtoFundFlowRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CancelAntchainAtoFundFlowResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CancelAntchainAtoFundPlanRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CancelAntchainAtoFundPlanResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CancelAntchainAtoSignFlowRequest;
@@ -153,6 +155,8 @@ use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SaveAntchainAtoInnerTemp
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SaveAntchainAtoInnerTemplateResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SubmitAntchainAtoFrontSignRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SubmitAntchainAtoFrontSignResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SubmitAntchainAtoFundFlowRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SubmitAntchainAtoFundFlowResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SubmitAntchainAtoSignFlowRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SubmitAntchainAtoSignFlowResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoFrontIndirectorderRequest;
@@ -350,7 +354,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.6.4',
+                    'sdk_version'      => '1.6.5',
                     '_prod_code'       => 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel'    => 'saas',
                 ];
@@ -1082,8 +1086,8 @@ class Client
     }
 
     /**
-     * Description: 资方调用，授权通过e签宝进行落签
-     * Summary: 资方e签宝落签接口.
+     * Description: 资方合同落签
+     * Summary: 资方合同落签.
      *
      * @param AuthAntchainAtoFundFlowRequest $request
      *
@@ -1098,8 +1102,8 @@ class Client
     }
 
     /**
-     * Description: 资方调用，授权通过e签宝进行落签
-     * Summary: 资方e签宝落签接口.
+     * Description: 资方合同落签
+     * Summary: 资方合同落签.
      *
      * @param AuthAntchainAtoFundFlowRequest $request
      * @param string[]                       $headers
@@ -3596,6 +3600,72 @@ class Client
         Utils::validateModel($request);
 
         return GetAntchainAtoTradeOrderfullinfoResponse::fromMap($this->doRequest('1.0', 'antchain.ato.trade.orderfullinfo.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 资方提交合同签署
+     * Summary: 资方提交合同签署.
+     *
+     * @param SubmitAntchainAtoFundFlowRequest $request
+     *
+     * @return SubmitAntchainAtoFundFlowResponse
+     */
+    public function submitAntchainAtoFundFlow($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->submitAntchainAtoFundFlowEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 资方提交合同签署
+     * Summary: 资方提交合同签署.
+     *
+     * @param SubmitAntchainAtoFundFlowRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return SubmitAntchainAtoFundFlowResponse
+     */
+    public function submitAntchainAtoFundFlowEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SubmitAntchainAtoFundFlowResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.flow.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 资方合同流程撤销
+     * Summary: 资方合同流程撤销
+     *
+     * @param CancelAntchainAtoFundFlowRequest $request
+     *
+     * @return CancelAntchainAtoFundFlowResponse
+     */
+    public function cancelAntchainAtoFundFlow($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->cancelAntchainAtoFundFlowEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 资方合同流程撤销
+     * Summary: 资方合同流程撤销
+     *
+     * @param CancelAntchainAtoFundFlowRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return CancelAntchainAtoFundFlowResponse
+     */
+    public function cancelAntchainAtoFundFlowEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CancelAntchainAtoFundFlowResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.flow.cancel', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
