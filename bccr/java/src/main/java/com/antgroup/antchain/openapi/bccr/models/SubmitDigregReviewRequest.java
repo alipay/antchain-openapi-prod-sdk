@@ -24,6 +24,10 @@ public class SubmitDigregReviewRequest extends TeaModel {
     @Validation(required = true)
     public String auditResult;
 
+    // 复审不通过原因
+    @NameInMap("fail_reason")
+    public String failReason;
+
     public static SubmitDigregReviewRequest build(java.util.Map<String, ?> map) throws Exception {
         SubmitDigregReviewRequest self = new SubmitDigregReviewRequest();
         return TeaModel.build(map, self);
@@ -59,6 +63,14 @@ public class SubmitDigregReviewRequest extends TeaModel {
     }
     public String getAuditResult() {
         return this.auditResult;
+    }
+
+    public SubmitDigregReviewRequest setFailReason(String failReason) {
+        this.failReason = failReason;
+        return this;
+    }
+    public String getFailReason() {
+        return this.failReason;
     }
 
 }

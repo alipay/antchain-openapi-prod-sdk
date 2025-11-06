@@ -26,6 +26,10 @@ public class SubmitDigregPreliminaryreviewRequest extends TeaModel {
     @Validation(required = true)
     public Boolean auditResult;
 
+    // 审批意见
+    @NameInMap("comments")
+    public String comments;
+
     public static SubmitDigregPreliminaryreviewRequest build(java.util.Map<String, ?> map) throws Exception {
         SubmitDigregPreliminaryreviewRequest self = new SubmitDigregPreliminaryreviewRequest();
         return TeaModel.build(map, self);
@@ -69,6 +73,14 @@ public class SubmitDigregPreliminaryreviewRequest extends TeaModel {
     }
     public Boolean getAuditResult() {
         return this.auditResult;
+    }
+
+    public SubmitDigregPreliminaryreviewRequest setComments(String comments) {
+        this.comments = comments;
+        return this;
+    }
+    public String getComments() {
+        return this.comments;
     }
 
 }
