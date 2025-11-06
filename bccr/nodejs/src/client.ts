@@ -10638,6 +10638,8 @@ export class SubmitDigregPreliminaryreviewRequest extends $tea.Model {
   auditStatus: string;
   // 审核结果
   auditResult: boolean;
+  // 审批意见
+  comments?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -10645,6 +10647,7 @@ export class SubmitDigregPreliminaryreviewRequest extends $tea.Model {
       digRegId: 'dig_reg_id',
       auditStatus: 'audit_status',
       auditResult: 'audit_result',
+      comments: 'comments',
     };
   }
 
@@ -10655,6 +10658,7 @@ export class SubmitDigregPreliminaryreviewRequest extends $tea.Model {
       digRegId: 'string',
       auditStatus: 'string',
       auditResult: 'boolean',
+      comments: 'string',
     };
   }
 
@@ -10702,12 +10706,15 @@ export class SubmitDigregReviewRequest extends $tea.Model {
   // NO_NEED_REPLACE_DCI（复审不通过，补正不需要替换DCI作品）
   // PASS（复审通过）
   auditResult: string;
+  // 复审不通过原因
+  failReason?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       digRegId: 'dig_reg_id',
       auditResult: 'audit_result',
+      failReason: 'fail_reason',
     };
   }
 
@@ -10717,6 +10724,7 @@ export class SubmitDigregReviewRequest extends $tea.Model {
       productInstanceId: 'string',
       digRegId: 'string',
       auditResult: 'string',
+      failReason: 'string',
     };
   }
 
@@ -11498,7 +11506,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.19.76",
+          sdk_version: "1.19.77",
           _prod_code: "BCCR",
           _prod_channel: "undefined",
         };
