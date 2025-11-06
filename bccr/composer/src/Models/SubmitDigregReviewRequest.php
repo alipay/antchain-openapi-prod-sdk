@@ -33,11 +33,18 @@ class SubmitDigregReviewRequest extends Model
      * @var string
      */
     public $auditResult;
+
+    // 复审不通过原因
+    /**
+     * @var string
+     */
+    public $failReason;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'digRegId'          => 'dig_reg_id',
         'auditResult'       => 'audit_result',
+        'failReason'        => 'fail_reason',
     ];
 
     public function validate()
@@ -60,6 +67,9 @@ class SubmitDigregReviewRequest extends Model
         }
         if (null !== $this->auditResult) {
             $res['audit_result'] = $this->auditResult;
+        }
+        if (null !== $this->failReason) {
+            $res['fail_reason'] = $this->failReason;
         }
 
         return $res;
@@ -84,6 +94,9 @@ class SubmitDigregReviewRequest extends Model
         }
         if (isset($map['audit_result'])) {
             $model->auditResult = $map['audit_result'];
+        }
+        if (isset($map['fail_reason'])) {
+            $model->failReason = $map['fail_reason'];
         }
 
         return $model;

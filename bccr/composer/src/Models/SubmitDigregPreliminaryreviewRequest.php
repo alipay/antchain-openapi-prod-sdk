@@ -36,12 +36,19 @@ class SubmitDigregPreliminaryreviewRequest extends Model
      * @var bool
      */
     public $auditResult;
+
+    // 审批意见
+    /**
+     * @var string
+     */
+    public $comments;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'digRegId'          => 'dig_reg_id',
         'auditStatus'       => 'audit_status',
         'auditResult'       => 'audit_result',
+        'comments'          => 'comments',
     ];
 
     public function validate()
@@ -69,6 +76,9 @@ class SubmitDigregPreliminaryreviewRequest extends Model
         if (null !== $this->auditResult) {
             $res['audit_result'] = $this->auditResult;
         }
+        if (null !== $this->comments) {
+            $res['comments'] = $this->comments;
+        }
 
         return $res;
     }
@@ -95,6 +105,9 @@ class SubmitDigregPreliminaryreviewRequest extends Model
         }
         if (isset($map['audit_result'])) {
             $model->auditResult = $map['audit_result'];
+        }
+        if (isset($map['comments'])) {
+            $model->comments = $map['comments'];
         }
 
         return $model;
