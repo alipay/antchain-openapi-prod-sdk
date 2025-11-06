@@ -44,6 +44,18 @@ public class RepayStrategy extends TeaModel {
     @NameInMap("operate_divide_trans_in_list")
     public java.util.List<OperateDivideTransInModel> operateDivideTransInList;
 
+    // 是否停止数科代扣自动执行
+    // 
+    // Y：停止；由商户调用接口「支付相关接入 - 代扣计划重试」触发代扣；否则代扣不会被执行、到逾期时间后会被逾期
+    // 
+    // N : 不停止；保持数科自动代扣（默认）
+    /**
+     * <strong>example:</strong>
+     * <p>N</p>
+     */
+    @NameInMap("no_need_auto_deduction")
+    public String noNeedAutoDeduction;
+
     public static RepayStrategy build(java.util.Map<String, ?> map) throws Exception {
         RepayStrategy self = new RepayStrategy();
         return TeaModel.build(map, self);
@@ -87,6 +99,14 @@ public class RepayStrategy extends TeaModel {
     }
     public java.util.List<OperateDivideTransInModel> getOperateDivideTransInList() {
         return this.operateDivideTransInList;
+    }
+
+    public RepayStrategy setNoNeedAutoDeduction(String noNeedAutoDeduction) {
+        this.noNeedAutoDeduction = noNeedAutoDeduction;
+        return this;
+    }
+    public String getNoNeedAutoDeduction() {
+        return this.noNeedAutoDeduction;
     }
 
 }
