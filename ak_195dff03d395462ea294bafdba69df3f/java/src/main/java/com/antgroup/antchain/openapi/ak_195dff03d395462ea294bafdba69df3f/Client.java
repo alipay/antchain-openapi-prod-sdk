@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.6.4"),
+                    new TeaPair("sdk_version", "1.6.5"),
                     new TeaPair("_prod_code", "ak_195dff03d395462ea294bafdba69df3f"),
                     new TeaPair("_prod_channel", "saas")
                 );
@@ -636,8 +636,8 @@ public class Client {
 
     /**
      * <b>description</b> :
-     * <p>Description: 资方调用，授权通过e签宝进行落签
-     * Summary: 资方e签宝落签接口</p>
+     * <p>Description: 资方合同落签
+     * Summary: 资方合同落签</p>
      */
     public AuthAntchainAtoFundFlowResponse authAntchainAtoFundFlow(AuthAntchainAtoFundFlowRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -647,8 +647,8 @@ public class Client {
 
     /**
      * <b>description</b> :
-     * <p>Description: 资方调用，授权通过e签宝进行落签
-     * Summary: 资方e签宝落签接口</p>
+     * <p>Description: 资方合同落签
+     * Summary: 资方合同落签</p>
      */
     public AuthAntchainAtoFundFlowResponse authAntchainAtoFundFlowEx(AuthAntchainAtoFundFlowRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -2255,6 +2255,48 @@ public class Client {
     public GetAntchainAtoTradeOrderfullinfoResponse getAntchainAtoTradeOrderfullinfoEx(GetAntchainAtoTradeOrderfullinfoRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.trade.orderfullinfo.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetAntchainAtoTradeOrderfullinfoResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 资方提交合同签署
+     * Summary: 资方提交合同签署</p>
+     */
+    public SubmitAntchainAtoFundFlowResponse submitAntchainAtoFundFlow(SubmitAntchainAtoFundFlowRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.submitAntchainAtoFundFlowEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 资方提交合同签署
+     * Summary: 资方提交合同签署</p>
+     */
+    public SubmitAntchainAtoFundFlowResponse submitAntchainAtoFundFlowEx(SubmitAntchainAtoFundFlowRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.fund.flow.submit", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SubmitAntchainAtoFundFlowResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 资方合同流程撤销
+     * Summary: 资方合同流程撤销</p>
+     */
+    public CancelAntchainAtoFundFlowResponse cancelAntchainAtoFundFlow(CancelAntchainAtoFundFlowRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.cancelAntchainAtoFundFlowEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 资方合同流程撤销
+     * Summary: 资方合同流程撤销</p>
+     */
+    public CancelAntchainAtoFundFlowResponse cancelAntchainAtoFundFlowEx(CancelAntchainAtoFundFlowRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.fund.flow.cancel", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CancelAntchainAtoFundFlowResponse());
     }
 
     /**
