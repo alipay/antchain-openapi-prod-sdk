@@ -145,30 +145,72 @@ class GetDataAuthConfigResponse extends Model
      * @var bool
      */
     public $enableShowAuthRecord;
+
+    // 授权成功端内跳回页的url链接
+    /**
+     * @var string
+     */
+    public $innerSuccessCallbackUrl;
+
+    // 授权成功端外跳回页的url链接
+    /**
+     * @var string
+     */
+    public $outsideSuccessCallbackUrl;
+
+    // 待授权数量
+    /**
+     * @var int
+     */
+    public $pendingAuthCount;
+
+    // 已授权数量
+    /**
+     * @var int
+     */
+    public $haveAuthedCount;
+
+    // 已取消授权数量
+    /**
+     * @var int
+     */
+    public $cancelAuthCount;
+
+    // 授权成功率
+    /**
+     * @var int
+     */
+    public $successRate;
     protected $_name = [
-        'reqMsgId'             => 'req_msg_id',
-        'resultCode'           => 'result_code',
-        'resultMsg'            => 'result_msg',
-        'sceneCode'            => 'scene_code',
-        'sourceSpaceId'        => 'source_space_id',
-        'enterpriseCode'       => 'enterprise_code',
-        'targetName'           => 'target_name',
-        'authAppName'          => 'auth_app_name',
-        'enterpriseLogo'       => 'enterprise_logo',
-        'enterpriseLogoUrl'    => 'enterprise_logo_url',
-        'authPurpose'          => 'auth_purpose',
-        'authDesc'             => 'auth_desc',
-        'authType'             => 'auth_type',
-        'userType'             => 'user_type',
-        'useFacialRecognition' => 'use_facial_recognition',
-        'authProductList'      => 'auth_product_list',
-        'agreementList'        => 'agreement_list',
-        'backgroundColor'      => 'background_color',
-        'useScopeList'         => 'use_scope_list',
-        'authStatus'           => 'auth_status',
-        'startAuthUrl'         => 'start_auth_url',
-        'enableShowProofVc'    => 'enable_show_proof_vc',
-        'enableShowAuthRecord' => 'enable_show_auth_record',
+        'reqMsgId'                  => 'req_msg_id',
+        'resultCode'                => 'result_code',
+        'resultMsg'                 => 'result_msg',
+        'sceneCode'                 => 'scene_code',
+        'sourceSpaceId'             => 'source_space_id',
+        'enterpriseCode'            => 'enterprise_code',
+        'targetName'                => 'target_name',
+        'authAppName'               => 'auth_app_name',
+        'enterpriseLogo'            => 'enterprise_logo',
+        'enterpriseLogoUrl'         => 'enterprise_logo_url',
+        'authPurpose'               => 'auth_purpose',
+        'authDesc'                  => 'auth_desc',
+        'authType'                  => 'auth_type',
+        'userType'                  => 'user_type',
+        'useFacialRecognition'      => 'use_facial_recognition',
+        'authProductList'           => 'auth_product_list',
+        'agreementList'             => 'agreement_list',
+        'backgroundColor'           => 'background_color',
+        'useScopeList'              => 'use_scope_list',
+        'authStatus'                => 'auth_status',
+        'startAuthUrl'              => 'start_auth_url',
+        'enableShowProofVc'         => 'enable_show_proof_vc',
+        'enableShowAuthRecord'      => 'enable_show_auth_record',
+        'innerSuccessCallbackUrl'   => 'inner_success_callback_url',
+        'outsideSuccessCallbackUrl' => 'outside_success_callback_url',
+        'pendingAuthCount'          => 'pending_auth_count',
+        'haveAuthedCount'           => 'have_authed_count',
+        'cancelAuthCount'           => 'cancel_auth_count',
+        'successRate'               => 'success_rate',
     ];
 
     public function validate()
@@ -258,6 +300,24 @@ class GetDataAuthConfigResponse extends Model
         }
         if (null !== $this->enableShowAuthRecord) {
             $res['enable_show_auth_record'] = $this->enableShowAuthRecord;
+        }
+        if (null !== $this->innerSuccessCallbackUrl) {
+            $res['inner_success_callback_url'] = $this->innerSuccessCallbackUrl;
+        }
+        if (null !== $this->outsideSuccessCallbackUrl) {
+            $res['outside_success_callback_url'] = $this->outsideSuccessCallbackUrl;
+        }
+        if (null !== $this->pendingAuthCount) {
+            $res['pending_auth_count'] = $this->pendingAuthCount;
+        }
+        if (null !== $this->haveAuthedCount) {
+            $res['have_authed_count'] = $this->haveAuthedCount;
+        }
+        if (null !== $this->cancelAuthCount) {
+            $res['cancel_auth_count'] = $this->cancelAuthCount;
+        }
+        if (null !== $this->successRate) {
+            $res['success_rate'] = $this->successRate;
         }
 
         return $res;
@@ -353,6 +413,24 @@ class GetDataAuthConfigResponse extends Model
         }
         if (isset($map['enable_show_auth_record'])) {
             $model->enableShowAuthRecord = $map['enable_show_auth_record'];
+        }
+        if (isset($map['inner_success_callback_url'])) {
+            $model->innerSuccessCallbackUrl = $map['inner_success_callback_url'];
+        }
+        if (isset($map['outside_success_callback_url'])) {
+            $model->outsideSuccessCallbackUrl = $map['outside_success_callback_url'];
+        }
+        if (isset($map['pending_auth_count'])) {
+            $model->pendingAuthCount = $map['pending_auth_count'];
+        }
+        if (isset($map['have_authed_count'])) {
+            $model->haveAuthedCount = $map['have_authed_count'];
+        }
+        if (isset($map['cancel_auth_count'])) {
+            $model->cancelAuthCount = $map['cancel_auth_count'];
+        }
+        if (isset($map['success_rate'])) {
+            $model->successRate = $map['success_rate'];
         }
 
         return $model;
