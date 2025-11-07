@@ -51876,6 +51876,12 @@ class GetDataAuthConfigResponse(TeaModel):
         start_auth_url: str = None,
         enable_show_proof_vc: bool = None,
         enable_show_auth_record: bool = None,
+        inner_success_callback_url: str = None,
+        outside_success_callback_url: str = None,
+        pending_auth_count: int = None,
+        have_authed_count: int = None,
+        cancel_auth_count: int = None,
+        success_rate: int = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -51923,6 +51929,18 @@ class GetDataAuthConfigResponse(TeaModel):
         self.enable_show_proof_vc = enable_show_proof_vc
         # C端是否显示授权记录
         self.enable_show_auth_record = enable_show_auth_record
+        # 授权成功端内跳回页的url链接
+        self.inner_success_callback_url = inner_success_callback_url
+        # 授权成功端外跳回页的url链接
+        self.outside_success_callback_url = outside_success_callback_url
+        # 待授权数量
+        self.pending_auth_count = pending_auth_count
+        # 已授权数量
+        self.have_authed_count = have_authed_count
+        # 已取消授权数量
+        self.cancel_auth_count = cancel_auth_count
+        # 授权成功率
+        self.success_rate = success_rate
 
     def validate(self):
         if self.auth_product_list:
@@ -51990,6 +52008,18 @@ class GetDataAuthConfigResponse(TeaModel):
             result['enable_show_proof_vc'] = self.enable_show_proof_vc
         if self.enable_show_auth_record is not None:
             result['enable_show_auth_record'] = self.enable_show_auth_record
+        if self.inner_success_callback_url is not None:
+            result['inner_success_callback_url'] = self.inner_success_callback_url
+        if self.outside_success_callback_url is not None:
+            result['outside_success_callback_url'] = self.outside_success_callback_url
+        if self.pending_auth_count is not None:
+            result['pending_auth_count'] = self.pending_auth_count
+        if self.have_authed_count is not None:
+            result['have_authed_count'] = self.have_authed_count
+        if self.cancel_auth_count is not None:
+            result['cancel_auth_count'] = self.cancel_auth_count
+        if self.success_rate is not None:
+            result['success_rate'] = self.success_rate
         return result
 
     def from_map(self, m: dict = None):
@@ -52046,6 +52076,18 @@ class GetDataAuthConfigResponse(TeaModel):
             self.enable_show_proof_vc = m.get('enable_show_proof_vc')
         if m.get('enable_show_auth_record') is not None:
             self.enable_show_auth_record = m.get('enable_show_auth_record')
+        if m.get('inner_success_callback_url') is not None:
+            self.inner_success_callback_url = m.get('inner_success_callback_url')
+        if m.get('outside_success_callback_url') is not None:
+            self.outside_success_callback_url = m.get('outside_success_callback_url')
+        if m.get('pending_auth_count') is not None:
+            self.pending_auth_count = m.get('pending_auth_count')
+        if m.get('have_authed_count') is not None:
+            self.have_authed_count = m.get('have_authed_count')
+        if m.get('cancel_auth_count') is not None:
+            self.cancel_auth_count = m.get('cancel_auth_count')
+        if m.get('success_rate') is not None:
+            self.success_rate = m.get('success_rate')
         return self
 
 
