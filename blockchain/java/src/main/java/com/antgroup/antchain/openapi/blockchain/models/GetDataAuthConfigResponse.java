@@ -96,6 +96,30 @@ public class GetDataAuthConfigResponse extends TeaModel {
     @NameInMap("enable_show_auth_record")
     public Boolean enableShowAuthRecord;
 
+    // 授权成功端内跳回页的url链接
+    @NameInMap("inner_success_callback_url")
+    public String innerSuccessCallbackUrl;
+
+    // 授权成功端外跳回页的url链接
+    @NameInMap("outside_success_callback_url")
+    public String outsideSuccessCallbackUrl;
+
+    // 待授权数量
+    @NameInMap("pending_auth_count")
+    public Long pendingAuthCount;
+
+    // 已授权数量
+    @NameInMap("have_authed_count")
+    public Long haveAuthedCount;
+
+    // 已取消授权数量
+    @NameInMap("cancel_auth_count")
+    public Long cancelAuthCount;
+
+    // 授权成功率
+    @NameInMap("success_rate")
+    public Long successRate;
+
     public static GetDataAuthConfigResponse build(java.util.Map<String, ?> map) throws Exception {
         GetDataAuthConfigResponse self = new GetDataAuthConfigResponse();
         return TeaModel.build(map, self);
@@ -283,6 +307,54 @@ public class GetDataAuthConfigResponse extends TeaModel {
     }
     public Boolean getEnableShowAuthRecord() {
         return this.enableShowAuthRecord;
+    }
+
+    public GetDataAuthConfigResponse setInnerSuccessCallbackUrl(String innerSuccessCallbackUrl) {
+        this.innerSuccessCallbackUrl = innerSuccessCallbackUrl;
+        return this;
+    }
+    public String getInnerSuccessCallbackUrl() {
+        return this.innerSuccessCallbackUrl;
+    }
+
+    public GetDataAuthConfigResponse setOutsideSuccessCallbackUrl(String outsideSuccessCallbackUrl) {
+        this.outsideSuccessCallbackUrl = outsideSuccessCallbackUrl;
+        return this;
+    }
+    public String getOutsideSuccessCallbackUrl() {
+        return this.outsideSuccessCallbackUrl;
+    }
+
+    public GetDataAuthConfigResponse setPendingAuthCount(Long pendingAuthCount) {
+        this.pendingAuthCount = pendingAuthCount;
+        return this;
+    }
+    public Long getPendingAuthCount() {
+        return this.pendingAuthCount;
+    }
+
+    public GetDataAuthConfigResponse setHaveAuthedCount(Long haveAuthedCount) {
+        this.haveAuthedCount = haveAuthedCount;
+        return this;
+    }
+    public Long getHaveAuthedCount() {
+        return this.haveAuthedCount;
+    }
+
+    public GetDataAuthConfigResponse setCancelAuthCount(Long cancelAuthCount) {
+        this.cancelAuthCount = cancelAuthCount;
+        return this;
+    }
+    public Long getCancelAuthCount() {
+        return this.cancelAuthCount;
+    }
+
+    public GetDataAuthConfigResponse setSuccessRate(Long successRate) {
+        this.successRate = successRate;
+        return this;
+    }
+    public Long getSuccessRate() {
+        return this.successRate;
     }
 
 }
