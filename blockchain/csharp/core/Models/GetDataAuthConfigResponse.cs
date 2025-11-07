@@ -124,6 +124,36 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
         [Validation(Required=false)]
         public bool? EnableShowAuthRecord { get; set; }
 
+        // 授权成功端内跳回页的url链接
+        [NameInMap("inner_success_callback_url")]
+        [Validation(Required=false)]
+        public string InnerSuccessCallbackUrl { get; set; }
+
+        // 授权成功端外跳回页的url链接
+        [NameInMap("outside_success_callback_url")]
+        [Validation(Required=false)]
+        public string OutsideSuccessCallbackUrl { get; set; }
+
+        // 待授权数量
+        [NameInMap("pending_auth_count")]
+        [Validation(Required=false)]
+        public long? PendingAuthCount { get; set; }
+
+        // 已授权数量
+        [NameInMap("have_authed_count")]
+        [Validation(Required=false)]
+        public long? HaveAuthedCount { get; set; }
+
+        // 已取消授权数量
+        [NameInMap("cancel_auth_count")]
+        [Validation(Required=false)]
+        public long? CancelAuthCount { get; set; }
+
+        // 授权成功率
+        [NameInMap("success_rate")]
+        [Validation(Required=false)]
+        public long? SuccessRate { get; set; }
+
     }
 
 }
