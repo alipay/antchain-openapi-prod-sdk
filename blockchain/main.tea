@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.28.61',
+    sdk_version = '1.28.62',
     _prod_code = 'BLOCKCHAIN',
     _prod_channel = 'undefined'
   };
@@ -17818,6 +17818,18 @@ model GetDataAuthConfigResponse = {
   enableShowProofVc?: boolean(name='enable_show_proof_vc'),
   // C端是否显示授权记录
   enableShowAuthRecord?: boolean(name='enable_show_auth_record'),
+  // 授权成功端内跳回页的url链接
+  innerSuccessCallbackUrl?: string(name='inner_success_callback_url'),
+  // 授权成功端外跳回页的url链接
+  outsideSuccessCallbackUrl?: string(name='outside_success_callback_url'),
+  // 待授权数量
+  pendingAuthCount?: long(name='pending_auth_count'),
+  // 已授权数量
+  haveAuthedCount?: long(name='have_authed_count'),
+  // 已取消授权数量
+  cancelAuthCount?: long(name='cancel_auth_count'),
+  // 授权成功率
+  successRate?: long(name='success_rate'),
 }
 
 /**
