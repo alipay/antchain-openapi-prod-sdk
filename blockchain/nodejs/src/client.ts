@@ -31904,6 +31904,18 @@ export class GetDataAuthConfigResponse extends $tea.Model {
   enableShowProofVc?: boolean;
   // C端是否显示授权记录
   enableShowAuthRecord?: boolean;
+  // 授权成功端内跳回页的url链接
+  innerSuccessCallbackUrl?: string;
+  // 授权成功端外跳回页的url链接
+  outsideSuccessCallbackUrl?: string;
+  // 待授权数量
+  pendingAuthCount?: number;
+  // 已授权数量
+  haveAuthedCount?: number;
+  // 已取消授权数量
+  cancelAuthCount?: number;
+  // 授权成功率
+  successRate?: number;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -31929,6 +31941,12 @@ export class GetDataAuthConfigResponse extends $tea.Model {
       startAuthUrl: 'start_auth_url',
       enableShowProofVc: 'enable_show_proof_vc',
       enableShowAuthRecord: 'enable_show_auth_record',
+      innerSuccessCallbackUrl: 'inner_success_callback_url',
+      outsideSuccessCallbackUrl: 'outside_success_callback_url',
+      pendingAuthCount: 'pending_auth_count',
+      haveAuthedCount: 'have_authed_count',
+      cancelAuthCount: 'cancel_auth_count',
+      successRate: 'success_rate',
     };
   }
 
@@ -31957,6 +31975,12 @@ export class GetDataAuthConfigResponse extends $tea.Model {
       startAuthUrl: 'string',
       enableShowProofVc: 'boolean',
       enableShowAuthRecord: 'boolean',
+      innerSuccessCallbackUrl: 'string',
+      outsideSuccessCallbackUrl: 'string',
+      pendingAuthCount: 'number',
+      haveAuthedCount: 'number',
+      cancelAuthCount: 'number',
+      successRate: 'number',
     };
   }
 
@@ -55537,7 +55561,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.28.61",
+          sdk_version: "1.28.62",
           _prod_code: "BLOCKCHAIN",
           _prod_channel: "undefined",
         };
