@@ -41428,6 +41428,18 @@ type GetDataAuthConfigResponse struct {
 	EnableShowProofVc *bool `json:"enable_show_proof_vc,omitempty" xml:"enable_show_proof_vc,omitempty"`
 	// C端是否显示授权记录
 	EnableShowAuthRecord *bool `json:"enable_show_auth_record,omitempty" xml:"enable_show_auth_record,omitempty"`
+	// 授权成功端内跳回页的url链接
+	InnerSuccessCallbackUrl *string `json:"inner_success_callback_url,omitempty" xml:"inner_success_callback_url,omitempty"`
+	// 授权成功端外跳回页的url链接
+	OutsideSuccessCallbackUrl *string `json:"outside_success_callback_url,omitempty" xml:"outside_success_callback_url,omitempty"`
+	// 待授权数量
+	PendingAuthCount *int64 `json:"pending_auth_count,omitempty" xml:"pending_auth_count,omitempty"`
+	// 已授权数量
+	HaveAuthedCount *int64 `json:"have_authed_count,omitempty" xml:"have_authed_count,omitempty"`
+	// 已取消授权数量
+	CancelAuthCount *int64 `json:"cancel_auth_count,omitempty" xml:"cancel_auth_count,omitempty"`
+	// 授权成功率
+	SuccessRate *int64 `json:"success_rate,omitempty" xml:"success_rate,omitempty"`
 }
 
 func (s GetDataAuthConfigResponse) String() string {
@@ -41550,6 +41562,36 @@ func (s *GetDataAuthConfigResponse) SetEnableShowProofVc(v bool) *GetDataAuthCon
 
 func (s *GetDataAuthConfigResponse) SetEnableShowAuthRecord(v bool) *GetDataAuthConfigResponse {
 	s.EnableShowAuthRecord = &v
+	return s
+}
+
+func (s *GetDataAuthConfigResponse) SetInnerSuccessCallbackUrl(v string) *GetDataAuthConfigResponse {
+	s.InnerSuccessCallbackUrl = &v
+	return s
+}
+
+func (s *GetDataAuthConfigResponse) SetOutsideSuccessCallbackUrl(v string) *GetDataAuthConfigResponse {
+	s.OutsideSuccessCallbackUrl = &v
+	return s
+}
+
+func (s *GetDataAuthConfigResponse) SetPendingAuthCount(v int64) *GetDataAuthConfigResponse {
+	s.PendingAuthCount = &v
+	return s
+}
+
+func (s *GetDataAuthConfigResponse) SetHaveAuthedCount(v int64) *GetDataAuthConfigResponse {
+	s.HaveAuthedCount = &v
+	return s
+}
+
+func (s *GetDataAuthConfigResponse) SetCancelAuthCount(v int64) *GetDataAuthConfigResponse {
+	s.CancelAuthCount = &v
+	return s
+}
+
+func (s *GetDataAuthConfigResponse) SetSuccessRate(v int64) *GetDataAuthConfigResponse {
+	s.SuccessRate = &v
 	return s
 }
 
@@ -72140,7 +72182,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.28.61"),
+				"sdk_version":      tea.String("1.28.62"),
 				"_prod_code":       tea.String("BLOCKCHAIN"),
 				"_prod_channel":    tea.String("undefined"),
 			}
