@@ -188,17 +188,17 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string LoginDate { get; set; }
 
-        // 结算支付宝账户，交易资金结算的具体支付宝账号，商户入驻时需填写
+        // 结算支付宝账户，交易资金结算的具体支付宝账号，商户入驻时必填
         [NameInMap("alipay_logon_id")]
         [Validation(Required=false)]
         public string AlipayLogonId { get; set; }
 
-        // 支付宝openId，商户入驻时（非必填）
+        // 支付宝openId
         [NameInMap("info_source_open_id")]
         [Validation(Required=false)]
         public string InfoSourceOpenId { get; set; }
 
-        // 签约支付宝账户，商户入驻时（非必填）
+        // 签约支付宝账户，商户入驻时必填（接收支付宝下发的签约协议）
         [NameInMap("binding_alipay_logon_id")]
         [Validation(Required=false)]
         public string BindingAlipayLogonId { get; set; }

@@ -137,7 +137,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.26.9"},
+                        {"sdk_version", "1.28.7"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.26.9"},
+                        {"sdk_version", "1.28.7"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -4063,6 +4063,216 @@ namespace AntChain.SDK.RISKPLUS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CreateDubbridgeAlipayTradeResponse>(await DoRequestAsync("1.0", "riskplus.dubbridge.alipay.trade.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 二级商户交易取消
+         * Summary: 天枢系统-二级商户交易取消-分期付
+         */
+        public CancelDubbridgeAlipayTradeResponse CancelDubbridgeAlipayTrade(CancelDubbridgeAlipayTradeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CancelDubbridgeAlipayTradeEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 二级商户交易取消
+         * Summary: 天枢系统-二级商户交易取消-分期付
+         */
+        public async Task<CancelDubbridgeAlipayTradeResponse> CancelDubbridgeAlipayTradeAsync(CancelDubbridgeAlipayTradeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CancelDubbridgeAlipayTradeExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 二级商户交易取消
+         * Summary: 天枢系统-二级商户交易取消-分期付
+         */
+        public CancelDubbridgeAlipayTradeResponse CancelDubbridgeAlipayTradeEx(CancelDubbridgeAlipayTradeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CancelDubbridgeAlipayTradeResponse>(DoRequest("1.0", "riskplus.dubbridge.alipay.trade.cancel", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 二级商户交易取消
+         * Summary: 天枢系统-二级商户交易取消-分期付
+         */
+        public async Task<CancelDubbridgeAlipayTradeResponse> CancelDubbridgeAlipayTradeExAsync(CancelDubbridgeAlipayTradeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CancelDubbridgeAlipayTradeResponse>(await DoRequestAsync("1.0", "riskplus.dubbridge.alipay.trade.cancel", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 二级商户交易查询
+         * Summary: 天枢系统-二级商户交易查询-分期付
+         */
+        public QueryDubbridgeAlipayTradeResponse QueryDubbridgeAlipayTrade(QueryDubbridgeAlipayTradeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryDubbridgeAlipayTradeEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 二级商户交易查询
+         * Summary: 天枢系统-二级商户交易查询-分期付
+         */
+        public async Task<QueryDubbridgeAlipayTradeResponse> QueryDubbridgeAlipayTradeAsync(QueryDubbridgeAlipayTradeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryDubbridgeAlipayTradeExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 二级商户交易查询
+         * Summary: 天枢系统-二级商户交易查询-分期付
+         */
+        public QueryDubbridgeAlipayTradeResponse QueryDubbridgeAlipayTradeEx(QueryDubbridgeAlipayTradeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDubbridgeAlipayTradeResponse>(DoRequest("1.0", "riskplus.dubbridge.alipay.trade.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 二级商户交易查询
+         * Summary: 天枢系统-二级商户交易查询-分期付
+         */
+        public async Task<QueryDubbridgeAlipayTradeResponse> QueryDubbridgeAlipayTradeExAsync(QueryDubbridgeAlipayTradeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDubbridgeAlipayTradeResponse>(await DoRequestAsync("1.0", "riskplus.dubbridge.alipay.trade.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 天枢系统-二级商户交易退款-分期付
+         * Summary: 天枢系统-二级商户交易退款-分期付
+         */
+        public RefundDubbridgeAlipayTradeResponse RefundDubbridgeAlipayTrade(RefundDubbridgeAlipayTradeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return RefundDubbridgeAlipayTradeEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 天枢系统-二级商户交易退款-分期付
+         * Summary: 天枢系统-二级商户交易退款-分期付
+         */
+        public async Task<RefundDubbridgeAlipayTradeResponse> RefundDubbridgeAlipayTradeAsync(RefundDubbridgeAlipayTradeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await RefundDubbridgeAlipayTradeExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 天枢系统-二级商户交易退款-分期付
+         * Summary: 天枢系统-二级商户交易退款-分期付
+         */
+        public RefundDubbridgeAlipayTradeResponse RefundDubbridgeAlipayTradeEx(RefundDubbridgeAlipayTradeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RefundDubbridgeAlipayTradeResponse>(DoRequest("1.0", "riskplus.dubbridge.alipay.trade.refund", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 天枢系统-二级商户交易退款-分期付
+         * Summary: 天枢系统-二级商户交易退款-分期付
+         */
+        public async Task<RefundDubbridgeAlipayTradeResponse> RefundDubbridgeAlipayTradeExAsync(RefundDubbridgeAlipayTradeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RefundDubbridgeAlipayTradeResponse>(await DoRequestAsync("1.0", "riskplus.dubbridge.alipay.trade.refund", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 天枢系统-二级商户交易关闭-分期付
+         * Summary: 天枢系统-二级商户交易关闭-分期付
+         */
+        public CloseDubbridgeAlipayTradeResponse CloseDubbridgeAlipayTrade(CloseDubbridgeAlipayTradeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CloseDubbridgeAlipayTradeEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 天枢系统-二级商户交易关闭-分期付
+         * Summary: 天枢系统-二级商户交易关闭-分期付
+         */
+        public async Task<CloseDubbridgeAlipayTradeResponse> CloseDubbridgeAlipayTradeAsync(CloseDubbridgeAlipayTradeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CloseDubbridgeAlipayTradeExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 天枢系统-二级商户交易关闭-分期付
+         * Summary: 天枢系统-二级商户交易关闭-分期付
+         */
+        public CloseDubbridgeAlipayTradeResponse CloseDubbridgeAlipayTradeEx(CloseDubbridgeAlipayTradeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CloseDubbridgeAlipayTradeResponse>(DoRequest("1.0", "riskplus.dubbridge.alipay.trade.close", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 天枢系统-二级商户交易关闭-分期付
+         * Summary: 天枢系统-二级商户交易关闭-分期付
+         */
+        public async Task<CloseDubbridgeAlipayTradeResponse> CloseDubbridgeAlipayTradeExAsync(CloseDubbridgeAlipayTradeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CloseDubbridgeAlipayTradeResponse>(await DoRequestAsync("1.0", "riskplus.dubbridge.alipay.trade.close", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 天枢系统-二级商户交易退款查询-分期付
+         * Summary: 天枢系统-二级商户交易退款查询-分期付
+         */
+        public QueryDubbridgeAlipayRefundResponse QueryDubbridgeAlipayRefund(QueryDubbridgeAlipayRefundRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryDubbridgeAlipayRefundEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 天枢系统-二级商户交易退款查询-分期付
+         * Summary: 天枢系统-二级商户交易退款查询-分期付
+         */
+        public async Task<QueryDubbridgeAlipayRefundResponse> QueryDubbridgeAlipayRefundAsync(QueryDubbridgeAlipayRefundRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryDubbridgeAlipayRefundExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 天枢系统-二级商户交易退款查询-分期付
+         * Summary: 天枢系统-二级商户交易退款查询-分期付
+         */
+        public QueryDubbridgeAlipayRefundResponse QueryDubbridgeAlipayRefundEx(QueryDubbridgeAlipayRefundRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDubbridgeAlipayRefundResponse>(DoRequest("1.0", "riskplus.dubbridge.alipay.refund.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 天枢系统-二级商户交易退款查询-分期付
+         * Summary: 天枢系统-二级商户交易退款查询-分期付
+         */
+        public async Task<QueryDubbridgeAlipayRefundResponse> QueryDubbridgeAlipayRefundExAsync(QueryDubbridgeAlipayRefundRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDubbridgeAlipayRefundResponse>(await DoRequestAsync("1.0", "riskplus.dubbridge.alipay.refund.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -9155,6 +9365,48 @@ namespace AntChain.SDK.RISKPLUS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryAirsaasSecurityPolicyResponse>(await DoRequestAsync("1.0", "riskplus.airsaas.security.policy.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: saas风险咨询，决策流模式
+         * Summary: saas风险咨询-air引擎
+         */
+        public QueryTdisaasairSecurityPolicyResponse QueryTdisaasairSecurityPolicy(QueryTdisaasairSecurityPolicyRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryTdisaasairSecurityPolicyEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: saas风险咨询，决策流模式
+         * Summary: saas风险咨询-air引擎
+         */
+        public async Task<QueryTdisaasairSecurityPolicyResponse> QueryTdisaasairSecurityPolicyAsync(QueryTdisaasairSecurityPolicyRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryTdisaasairSecurityPolicyExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: saas风险咨询，决策流模式
+         * Summary: saas风险咨询-air引擎
+         */
+        public QueryTdisaasairSecurityPolicyResponse QueryTdisaasairSecurityPolicyEx(QueryTdisaasairSecurityPolicyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryTdisaasairSecurityPolicyResponse>(DoRequest("1.0", "riskplus.tdisaasair.security.policy.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: saas风险咨询，决策流模式
+         * Summary: saas风险咨询-air引擎
+         */
+        public async Task<QueryTdisaasairSecurityPolicyResponse> QueryTdisaasairSecurityPolicyExAsync(QueryTdisaasairSecurityPolicyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryTdisaasairSecurityPolicyResponse>(await DoRequestAsync("1.0", "riskplus.tdisaasair.security.policy.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

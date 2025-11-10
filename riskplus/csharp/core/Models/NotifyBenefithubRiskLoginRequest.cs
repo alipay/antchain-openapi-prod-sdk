@@ -44,6 +44,11 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string SceneConfig { get; set; }
 
+        // 区分流量来源
+        [NameInMap("traffic_source")]
+        [Validation(Required=false)]
+        public string TrafficSource { get; set; }
+
     }
 
 }
