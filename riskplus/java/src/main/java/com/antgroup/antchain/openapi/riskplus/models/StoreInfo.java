@@ -299,7 +299,7 @@ public class StoreInfo extends TeaModel {
     @NameInMap("login_date")
     public String loginDate;
 
-    // 结算支付宝账户，交易资金结算的具体支付宝账号，商户入驻时需填写
+    // 结算支付宝账户，交易资金结算的具体支付宝账号，商户入驻时必填
     /**
      * <strong>example:</strong>
      * <p><a href="mailto:xxxx@126.com">xxxx@126.com</a></p>
@@ -307,7 +307,7 @@ public class StoreInfo extends TeaModel {
     @NameInMap("alipay_logon_id")
     public String alipayLogonId;
 
-    // 支付宝openId，商户入驻时（非必填）
+    // 支付宝openId
     /**
      * <strong>example:</strong>
      * <p>xxxx</p>
@@ -315,7 +315,7 @@ public class StoreInfo extends TeaModel {
     @NameInMap("info_source_open_id")
     public String infoSourceOpenId;
 
-    // 签约支付宝账户，商户入驻时（非必填）
+    // 签约支付宝账户，商户入驻时必填（接收支付宝下发的签约协议）
     /**
      * <strong>example:</strong>
      * <p>xxx</p>

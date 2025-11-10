@@ -35,6 +35,10 @@ public class NotifyBenefithubRiskLoginRequest extends TeaModel {
     @NameInMap("scene_config")
     public String sceneConfig;
 
+    // 区分流量来源
+    @NameInMap("traffic_source")
+    public String trafficSource;
+
     public static NotifyBenefithubRiskLoginRequest build(java.util.Map<String, ?> map) throws Exception {
         NotifyBenefithubRiskLoginRequest self = new NotifyBenefithubRiskLoginRequest();
         return TeaModel.build(map, self);
@@ -94,6 +98,14 @@ public class NotifyBenefithubRiskLoginRequest extends TeaModel {
     }
     public String getSceneConfig() {
         return this.sceneConfig;
+    }
+
+    public NotifyBenefithubRiskLoginRequest setTrafficSource(String trafficSource) {
+        this.trafficSource = trafficSource;
+        return this;
+    }
+    public String getTrafficSource() {
+        return this.trafficSource;
     }
 
 }

@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.26.9"),
+                    new TeaPair("sdk_version", "1.28.7"),
                     new TeaPair("_prod_code", "RISKPLUS"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -2056,6 +2056,111 @@ public class Client {
     public CreateDubbridgeAlipayTradeResponse createDubbridgeAlipayTradeEx(CreateDubbridgeAlipayTradeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "riskplus.dubbridge.alipay.trade.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateDubbridgeAlipayTradeResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 二级商户交易取消
+     * Summary: 天枢系统-二级商户交易取消-分期付</p>
+     */
+    public CancelDubbridgeAlipayTradeResponse cancelDubbridgeAlipayTrade(CancelDubbridgeAlipayTradeRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.cancelDubbridgeAlipayTradeEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 二级商户交易取消
+     * Summary: 天枢系统-二级商户交易取消-分期付</p>
+     */
+    public CancelDubbridgeAlipayTradeResponse cancelDubbridgeAlipayTradeEx(CancelDubbridgeAlipayTradeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.dubbridge.alipay.trade.cancel", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CancelDubbridgeAlipayTradeResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 二级商户交易查询
+     * Summary: 天枢系统-二级商户交易查询-分期付</p>
+     */
+    public QueryDubbridgeAlipayTradeResponse queryDubbridgeAlipayTrade(QueryDubbridgeAlipayTradeRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDubbridgeAlipayTradeEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 二级商户交易查询
+     * Summary: 天枢系统-二级商户交易查询-分期付</p>
+     */
+    public QueryDubbridgeAlipayTradeResponse queryDubbridgeAlipayTradeEx(QueryDubbridgeAlipayTradeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.dubbridge.alipay.trade.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDubbridgeAlipayTradeResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 天枢系统-二级商户交易退款-分期付
+     * Summary: 天枢系统-二级商户交易退款-分期付</p>
+     */
+    public RefundDubbridgeAlipayTradeResponse refundDubbridgeAlipayTrade(RefundDubbridgeAlipayTradeRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.refundDubbridgeAlipayTradeEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 天枢系统-二级商户交易退款-分期付
+     * Summary: 天枢系统-二级商户交易退款-分期付</p>
+     */
+    public RefundDubbridgeAlipayTradeResponse refundDubbridgeAlipayTradeEx(RefundDubbridgeAlipayTradeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.dubbridge.alipay.trade.refund", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RefundDubbridgeAlipayTradeResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 天枢系统-二级商户交易关闭-分期付
+     * Summary: 天枢系统-二级商户交易关闭-分期付</p>
+     */
+    public CloseDubbridgeAlipayTradeResponse closeDubbridgeAlipayTrade(CloseDubbridgeAlipayTradeRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.closeDubbridgeAlipayTradeEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 天枢系统-二级商户交易关闭-分期付
+     * Summary: 天枢系统-二级商户交易关闭-分期付</p>
+     */
+    public CloseDubbridgeAlipayTradeResponse closeDubbridgeAlipayTradeEx(CloseDubbridgeAlipayTradeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.dubbridge.alipay.trade.close", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CloseDubbridgeAlipayTradeResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 天枢系统-二级商户交易退款查询-分期付
+     * Summary: 天枢系统-二级商户交易退款查询-分期付</p>
+     */
+    public QueryDubbridgeAlipayRefundResponse queryDubbridgeAlipayRefund(QueryDubbridgeAlipayRefundRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDubbridgeAlipayRefundEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 天枢系统-二级商户交易退款查询-分期付
+     * Summary: 天枢系统-二级商户交易退款查询-分期付</p>
+     */
+    public QueryDubbridgeAlipayRefundResponse queryDubbridgeAlipayRefundEx(QueryDubbridgeAlipayRefundRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.dubbridge.alipay.refund.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDubbridgeAlipayRefundResponse());
     }
 
     /**
@@ -4584,6 +4689,27 @@ public class Client {
     public QueryAirsaasSecurityPolicyResponse queryAirsaasSecurityPolicyEx(QueryAirsaasSecurityPolicyRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "riskplus.airsaas.security.policy.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAirsaasSecurityPolicyResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: saas风险咨询，决策流模式
+     * Summary: saas风险咨询-air引擎</p>
+     */
+    public QueryTdisaasairSecurityPolicyResponse queryTdisaasairSecurityPolicy(QueryTdisaasairSecurityPolicyRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryTdisaasairSecurityPolicyEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: saas风险咨询，决策流模式
+     * Summary: saas风险咨询-air引擎</p>
+     */
+    public QueryTdisaasairSecurityPolicyResponse queryTdisaasairSecurityPolicyEx(QueryTdisaasairSecurityPolicyRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.tdisaasair.security.policy.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTdisaasairSecurityPolicyResponse());
     }
 
     /**
