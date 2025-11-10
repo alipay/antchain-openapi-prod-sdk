@@ -49,6 +49,12 @@ class NotifyBenefithubRiskLoginRequest extends Model
      * @var string
      */
     public $sceneConfig;
+
+    // 区分流量来源
+    /**
+     * @var string
+     */
+    public $trafficSource;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -57,6 +63,7 @@ class NotifyBenefithubRiskLoginRequest extends Model
         'mobile'            => 'mobile',
         'productCode'       => 'product_code',
         'sceneConfig'       => 'scene_config',
+        'trafficSource'     => 'traffic_source',
     ];
 
     public function validate()
@@ -90,6 +97,9 @@ class NotifyBenefithubRiskLoginRequest extends Model
         if (null !== $this->sceneConfig) {
             $res['scene_config'] = $this->sceneConfig;
         }
+        if (null !== $this->trafficSource) {
+            $res['traffic_source'] = $this->trafficSource;
+        }
 
         return $res;
     }
@@ -122,6 +132,9 @@ class NotifyBenefithubRiskLoginRequest extends Model
         }
         if (isset($map['scene_config'])) {
             $model->sceneConfig = $map['scene_config'];
+        }
+        if (isset($map['traffic_source'])) {
+            $model->trafficSource = $map['traffic_source'];
         }
 
         return $model;

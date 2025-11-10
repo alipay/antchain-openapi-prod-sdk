@@ -95,6 +95,8 @@ use AntChain\RISKPLUS\Models\CallbackUmktSmsReportRequest;
 use AntChain\RISKPLUS\Models\CallbackUmktSmsReportResponse;
 use AntChain\RISKPLUS\Models\CallbackUmktSmsUpRequest;
 use AntChain\RISKPLUS\Models\CallbackUmktSmsUpResponse;
+use AntChain\RISKPLUS\Models\CancelDubbridgeAlipayTradeRequest;
+use AntChain\RISKPLUS\Models\CancelDubbridgeAlipayTradeResponse;
 use AntChain\RISKPLUS\Models\CancelDubbridgeInstallmentOrderRequest;
 use AntChain\RISKPLUS\Models\CancelDubbridgeInstallmentOrderResponse;
 use AntChain\RISKPLUS\Models\CancelUmktDataaccessOfflinetaskRequest;
@@ -103,6 +105,8 @@ use AntChain\RISKPLUS\Models\CheckSecurityDataRequest;
 use AntChain\RISKPLUS\Models\CheckSecurityDataResponse;
 use AntChain\RISKPLUS\Models\CheckSecurityRdsRequest;
 use AntChain\RISKPLUS\Models\CheckSecurityRdsResponse;
+use AntChain\RISKPLUS\Models\CloseDubbridgeAlipayTradeRequest;
+use AntChain\RISKPLUS\Models\CloseDubbridgeAlipayTradeResponse;
 use AntChain\RISKPLUS\Models\ConfirmSecurityPolicyRequest;
 use AntChain\RISKPLUS\Models\ConfirmSecurityPolicyResponse;
 use AntChain\RISKPLUS\Models\CountDubbridgeRepayReftrialRequest;
@@ -231,6 +235,10 @@ use AntChain\RISKPLUS\Models\QueryDubbridgeAgreementPreviewRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeAgreementPreviewResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeAlipayMerchantRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeAlipayMerchantResponse;
+use AntChain\RISKPLUS\Models\QueryDubbridgeAlipayRefundRequest;
+use AntChain\RISKPLUS\Models\QueryDubbridgeAlipayRefundResponse;
+use AntChain\RISKPLUS\Models\QueryDubbridgeAlipayTradeRequest;
+use AntChain\RISKPLUS\Models\QueryDubbridgeAlipayTradeResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeCreditPermitRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeCreditPermitResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeCreditStatusRequest;
@@ -391,6 +399,8 @@ use AntChain\RISKPLUS\Models\QuerySnapshotEventRequest;
 use AntChain\RISKPLUS\Models\QuerySnapshotEventResponse;
 use AntChain\RISKPLUS\Models\QueryTdiquickmsgRobotcallStatisticinfoRequest;
 use AntChain\RISKPLUS\Models\QueryTdiquickmsgRobotcallStatisticinfoResponse;
+use AntChain\RISKPLUS\Models\QueryTdisaasairSecurityPolicyRequest;
+use AntChain\RISKPLUS\Models\QueryTdisaasairSecurityPolicyResponse;
 use AntChain\RISKPLUS\Models\QueryTdisaasSecurityPolicyRequest;
 use AntChain\RISKPLUS\Models\QueryTdisaasSecurityPolicyResponse;
 use AntChain\RISKPLUS\Models\QueryUmktCardsmsAnalysisRequest;
@@ -427,6 +437,8 @@ use AntChain\RISKPLUS\Models\ReceiveRbbParamsFileRequest;
 use AntChain\RISKPLUS\Models\ReceiveRbbParamsFileResponse;
 use AntChain\RISKPLUS\Models\ReceiveRfcParamsFileRequest;
 use AntChain\RISKPLUS\Models\ReceiveRfcParamsFileResponse;
+use AntChain\RISKPLUS\Models\RefundDubbridgeAlipayTradeRequest;
+use AntChain\RISKPLUS\Models\RefundDubbridgeAlipayTradeResponse;
 use AntChain\RISKPLUS\Models\RegisterRpgwUserEinvoiceRequest;
 use AntChain\RISKPLUS\Models\RegisterRpgwUserEinvoiceResponse;
 use AntChain\RISKPLUS\Models\RepayDubbridgeRepayCheckstandRequest;
@@ -644,7 +656,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.26.9',
+                    'sdk_version'      => '1.28.7',
                     '_prod_code'       => 'RISKPLUS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -3613,6 +3625,171 @@ class Client
         Utils::validateModel($request);
 
         return CreateDubbridgeAlipayTradeResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.alipay.trade.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 二级商户交易取消
+     * Summary: 天枢系统-二级商户交易取消-分期付.
+     *
+     * @param CancelDubbridgeAlipayTradeRequest $request
+     *
+     * @return CancelDubbridgeAlipayTradeResponse
+     */
+    public function cancelDubbridgeAlipayTrade($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->cancelDubbridgeAlipayTradeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 二级商户交易取消
+     * Summary: 天枢系统-二级商户交易取消-分期付.
+     *
+     * @param CancelDubbridgeAlipayTradeRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return CancelDubbridgeAlipayTradeResponse
+     */
+    public function cancelDubbridgeAlipayTradeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CancelDubbridgeAlipayTradeResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.alipay.trade.cancel', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 二级商户交易查询
+     * Summary: 天枢系统-二级商户交易查询-分期付.
+     *
+     * @param QueryDubbridgeAlipayTradeRequest $request
+     *
+     * @return QueryDubbridgeAlipayTradeResponse
+     */
+    public function queryDubbridgeAlipayTrade($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDubbridgeAlipayTradeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 二级商户交易查询
+     * Summary: 天枢系统-二级商户交易查询-分期付.
+     *
+     * @param QueryDubbridgeAlipayTradeRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return QueryDubbridgeAlipayTradeResponse
+     */
+    public function queryDubbridgeAlipayTradeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDubbridgeAlipayTradeResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.alipay.trade.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 天枢系统-二级商户交易退款-分期付
+     * Summary: 天枢系统-二级商户交易退款-分期付.
+     *
+     * @param RefundDubbridgeAlipayTradeRequest $request
+     *
+     * @return RefundDubbridgeAlipayTradeResponse
+     */
+    public function refundDubbridgeAlipayTrade($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->refundDubbridgeAlipayTradeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 天枢系统-二级商户交易退款-分期付
+     * Summary: 天枢系统-二级商户交易退款-分期付.
+     *
+     * @param RefundDubbridgeAlipayTradeRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return RefundDubbridgeAlipayTradeResponse
+     */
+    public function refundDubbridgeAlipayTradeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RefundDubbridgeAlipayTradeResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.alipay.trade.refund', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 天枢系统-二级商户交易关闭-分期付
+     * Summary: 天枢系统-二级商户交易关闭-分期付.
+     *
+     * @param CloseDubbridgeAlipayTradeRequest $request
+     *
+     * @return CloseDubbridgeAlipayTradeResponse
+     */
+    public function closeDubbridgeAlipayTrade($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->closeDubbridgeAlipayTradeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 天枢系统-二级商户交易关闭-分期付
+     * Summary: 天枢系统-二级商户交易关闭-分期付.
+     *
+     * @param CloseDubbridgeAlipayTradeRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return CloseDubbridgeAlipayTradeResponse
+     */
+    public function closeDubbridgeAlipayTradeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CloseDubbridgeAlipayTradeResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.alipay.trade.close', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 天枢系统-二级商户交易退款查询-分期付
+     * Summary: 天枢系统-二级商户交易退款查询-分期付.
+     *
+     * @param QueryDubbridgeAlipayRefundRequest $request
+     *
+     * @return QueryDubbridgeAlipayRefundResponse
+     */
+    public function queryDubbridgeAlipayRefund($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDubbridgeAlipayRefundEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 天枢系统-二级商户交易退款查询-分期付
+     * Summary: 天枢系统-二级商户交易退款查询-分期付.
+     *
+     * @param QueryDubbridgeAlipayRefundRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return QueryDubbridgeAlipayRefundResponse
+     */
+    public function queryDubbridgeAlipayRefundEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDubbridgeAlipayRefundResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.alipay.refund.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -7463,6 +7640,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryAirsaasSecurityPolicyResponse::fromMap($this->doRequest('1.0', 'riskplus.airsaas.security.policy.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: saas风险咨询，决策流模式
+     * Summary: saas风险咨询-air引擎.
+     *
+     * @param QueryTdisaasairSecurityPolicyRequest $request
+     *
+     * @return QueryTdisaasairSecurityPolicyResponse
+     */
+    public function queryTdisaasairSecurityPolicy($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryTdisaasairSecurityPolicyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: saas风险咨询，决策流模式
+     * Summary: saas风险咨询-air引擎.
+     *
+     * @param QueryTdisaasairSecurityPolicyRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return QueryTdisaasairSecurityPolicyResponse
+     */
+    public function queryTdisaasairSecurityPolicyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryTdisaasairSecurityPolicyResponse::fromMap($this->doRequest('1.0', 'riskplus.tdisaasair.security.policy.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
