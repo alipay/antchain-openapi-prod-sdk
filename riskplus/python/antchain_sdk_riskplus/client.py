@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.26.9',
+                    'sdk_version': '1.28.7',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.26.9',
+                    'sdk_version': '1.28.7',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -5237,6 +5237,286 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.CreateDubbridgeAlipayTradeResponse(),
             await self.do_request_async('1.0', 'riskplus.dubbridge.alipay.trade.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def cancel_dubbridge_alipay_trade(
+        self,
+        request: riskplus_models.CancelDubbridgeAlipayTradeRequest,
+    ) -> riskplus_models.CancelDubbridgeAlipayTradeResponse:
+        """
+        Description: 二级商户交易取消
+        Summary: 天枢系统-二级商户交易取消-分期付
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.cancel_dubbridge_alipay_trade_ex(request, headers, runtime)
+
+    async def cancel_dubbridge_alipay_trade_async(
+        self,
+        request: riskplus_models.CancelDubbridgeAlipayTradeRequest,
+    ) -> riskplus_models.CancelDubbridgeAlipayTradeResponse:
+        """
+        Description: 二级商户交易取消
+        Summary: 天枢系统-二级商户交易取消-分期付
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.cancel_dubbridge_alipay_trade_ex_async(request, headers, runtime)
+
+    def cancel_dubbridge_alipay_trade_ex(
+        self,
+        request: riskplus_models.CancelDubbridgeAlipayTradeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.CancelDubbridgeAlipayTradeResponse:
+        """
+        Description: 二级商户交易取消
+        Summary: 天枢系统-二级商户交易取消-分期付
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.CancelDubbridgeAlipayTradeResponse(),
+            self.do_request('1.0', 'riskplus.dubbridge.alipay.trade.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def cancel_dubbridge_alipay_trade_ex_async(
+        self,
+        request: riskplus_models.CancelDubbridgeAlipayTradeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.CancelDubbridgeAlipayTradeResponse:
+        """
+        Description: 二级商户交易取消
+        Summary: 天枢系统-二级商户交易取消-分期付
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.CancelDubbridgeAlipayTradeResponse(),
+            await self.do_request_async('1.0', 'riskplus.dubbridge.alipay.trade.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_dubbridge_alipay_trade(
+        self,
+        request: riskplus_models.QueryDubbridgeAlipayTradeRequest,
+    ) -> riskplus_models.QueryDubbridgeAlipayTradeResponse:
+        """
+        Description: 二级商户交易查询
+        Summary: 天枢系统-二级商户交易查询-分期付
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_dubbridge_alipay_trade_ex(request, headers, runtime)
+
+    async def query_dubbridge_alipay_trade_async(
+        self,
+        request: riskplus_models.QueryDubbridgeAlipayTradeRequest,
+    ) -> riskplus_models.QueryDubbridgeAlipayTradeResponse:
+        """
+        Description: 二级商户交易查询
+        Summary: 天枢系统-二级商户交易查询-分期付
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_dubbridge_alipay_trade_ex_async(request, headers, runtime)
+
+    def query_dubbridge_alipay_trade_ex(
+        self,
+        request: riskplus_models.QueryDubbridgeAlipayTradeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeAlipayTradeResponse:
+        """
+        Description: 二级商户交易查询
+        Summary: 天枢系统-二级商户交易查询-分期付
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeAlipayTradeResponse(),
+            self.do_request('1.0', 'riskplus.dubbridge.alipay.trade.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_dubbridge_alipay_trade_ex_async(
+        self,
+        request: riskplus_models.QueryDubbridgeAlipayTradeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeAlipayTradeResponse:
+        """
+        Description: 二级商户交易查询
+        Summary: 天枢系统-二级商户交易查询-分期付
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeAlipayTradeResponse(),
+            await self.do_request_async('1.0', 'riskplus.dubbridge.alipay.trade.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def refund_dubbridge_alipay_trade(
+        self,
+        request: riskplus_models.RefundDubbridgeAlipayTradeRequest,
+    ) -> riskplus_models.RefundDubbridgeAlipayTradeResponse:
+        """
+        Description: 天枢系统-二级商户交易退款-分期付
+        Summary: 天枢系统-二级商户交易退款-分期付
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.refund_dubbridge_alipay_trade_ex(request, headers, runtime)
+
+    async def refund_dubbridge_alipay_trade_async(
+        self,
+        request: riskplus_models.RefundDubbridgeAlipayTradeRequest,
+    ) -> riskplus_models.RefundDubbridgeAlipayTradeResponse:
+        """
+        Description: 天枢系统-二级商户交易退款-分期付
+        Summary: 天枢系统-二级商户交易退款-分期付
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.refund_dubbridge_alipay_trade_ex_async(request, headers, runtime)
+
+    def refund_dubbridge_alipay_trade_ex(
+        self,
+        request: riskplus_models.RefundDubbridgeAlipayTradeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.RefundDubbridgeAlipayTradeResponse:
+        """
+        Description: 天枢系统-二级商户交易退款-分期付
+        Summary: 天枢系统-二级商户交易退款-分期付
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.RefundDubbridgeAlipayTradeResponse(),
+            self.do_request('1.0', 'riskplus.dubbridge.alipay.trade.refund', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def refund_dubbridge_alipay_trade_ex_async(
+        self,
+        request: riskplus_models.RefundDubbridgeAlipayTradeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.RefundDubbridgeAlipayTradeResponse:
+        """
+        Description: 天枢系统-二级商户交易退款-分期付
+        Summary: 天枢系统-二级商户交易退款-分期付
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.RefundDubbridgeAlipayTradeResponse(),
+            await self.do_request_async('1.0', 'riskplus.dubbridge.alipay.trade.refund', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def close_dubbridge_alipay_trade(
+        self,
+        request: riskplus_models.CloseDubbridgeAlipayTradeRequest,
+    ) -> riskplus_models.CloseDubbridgeAlipayTradeResponse:
+        """
+        Description: 天枢系统-二级商户交易关闭-分期付
+        Summary: 天枢系统-二级商户交易关闭-分期付
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.close_dubbridge_alipay_trade_ex(request, headers, runtime)
+
+    async def close_dubbridge_alipay_trade_async(
+        self,
+        request: riskplus_models.CloseDubbridgeAlipayTradeRequest,
+    ) -> riskplus_models.CloseDubbridgeAlipayTradeResponse:
+        """
+        Description: 天枢系统-二级商户交易关闭-分期付
+        Summary: 天枢系统-二级商户交易关闭-分期付
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.close_dubbridge_alipay_trade_ex_async(request, headers, runtime)
+
+    def close_dubbridge_alipay_trade_ex(
+        self,
+        request: riskplus_models.CloseDubbridgeAlipayTradeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.CloseDubbridgeAlipayTradeResponse:
+        """
+        Description: 天枢系统-二级商户交易关闭-分期付
+        Summary: 天枢系统-二级商户交易关闭-分期付
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.CloseDubbridgeAlipayTradeResponse(),
+            self.do_request('1.0', 'riskplus.dubbridge.alipay.trade.close', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def close_dubbridge_alipay_trade_ex_async(
+        self,
+        request: riskplus_models.CloseDubbridgeAlipayTradeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.CloseDubbridgeAlipayTradeResponse:
+        """
+        Description: 天枢系统-二级商户交易关闭-分期付
+        Summary: 天枢系统-二级商户交易关闭-分期付
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.CloseDubbridgeAlipayTradeResponse(),
+            await self.do_request_async('1.0', 'riskplus.dubbridge.alipay.trade.close', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_dubbridge_alipay_refund(
+        self,
+        request: riskplus_models.QueryDubbridgeAlipayRefundRequest,
+    ) -> riskplus_models.QueryDubbridgeAlipayRefundResponse:
+        """
+        Description: 天枢系统-二级商户交易退款查询-分期付
+        Summary: 天枢系统-二级商户交易退款查询-分期付
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_dubbridge_alipay_refund_ex(request, headers, runtime)
+
+    async def query_dubbridge_alipay_refund_async(
+        self,
+        request: riskplus_models.QueryDubbridgeAlipayRefundRequest,
+    ) -> riskplus_models.QueryDubbridgeAlipayRefundResponse:
+        """
+        Description: 天枢系统-二级商户交易退款查询-分期付
+        Summary: 天枢系统-二级商户交易退款查询-分期付
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_dubbridge_alipay_refund_ex_async(request, headers, runtime)
+
+    def query_dubbridge_alipay_refund_ex(
+        self,
+        request: riskplus_models.QueryDubbridgeAlipayRefundRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeAlipayRefundResponse:
+        """
+        Description: 天枢系统-二级商户交易退款查询-分期付
+        Summary: 天枢系统-二级商户交易退款查询-分期付
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeAlipayRefundResponse(),
+            self.do_request('1.0', 'riskplus.dubbridge.alipay.refund.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_dubbridge_alipay_refund_ex_async(
+        self,
+        request: riskplus_models.QueryDubbridgeAlipayRefundRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeAlipayRefundResponse:
+        """
+        Description: 天枢系统-二级商户交易退款查询-分期付
+        Summary: 天枢系统-二级商户交易退款查询-分期付
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeAlipayRefundResponse(),
+            await self.do_request_async('1.0', 'riskplus.dubbridge.alipay.refund.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def verify_finservice_zhima_identify(
@@ -11801,6 +12081,62 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.QueryAirsaasSecurityPolicyResponse(),
             await self.do_request_async('1.0', 'riskplus.airsaas.security.policy.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_tdisaasair_security_policy(
+        self,
+        request: riskplus_models.QueryTdisaasairSecurityPolicyRequest,
+    ) -> riskplus_models.QueryTdisaasairSecurityPolicyResponse:
+        """
+        Description: saas风险咨询，决策流模式
+        Summary: saas风险咨询-air引擎
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_tdisaasair_security_policy_ex(request, headers, runtime)
+
+    async def query_tdisaasair_security_policy_async(
+        self,
+        request: riskplus_models.QueryTdisaasairSecurityPolicyRequest,
+    ) -> riskplus_models.QueryTdisaasairSecurityPolicyResponse:
+        """
+        Description: saas风险咨询，决策流模式
+        Summary: saas风险咨询-air引擎
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_tdisaasair_security_policy_ex_async(request, headers, runtime)
+
+    def query_tdisaasair_security_policy_ex(
+        self,
+        request: riskplus_models.QueryTdisaasairSecurityPolicyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryTdisaasairSecurityPolicyResponse:
+        """
+        Description: saas风险咨询，决策流模式
+        Summary: saas风险咨询-air引擎
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryTdisaasairSecurityPolicyResponse(),
+            self.do_request('1.0', 'riskplus.tdisaasair.security.policy.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_tdisaasair_security_policy_ex_async(
+        self,
+        request: riskplus_models.QueryTdisaasairSecurityPolicyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryTdisaasairSecurityPolicyResponse:
+        """
+        Description: saas风险咨询，决策流模式
+        Summary: saas风险咨询-air引擎
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryTdisaasairSecurityPolicyResponse(),
+            await self.do_request_async('1.0', 'riskplus.tdisaasair.security.policy.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def upload_umkt_params_file(

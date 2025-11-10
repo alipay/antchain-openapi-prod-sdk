@@ -7351,11 +7351,11 @@ class StoreInfo(TeaModel):
         self.login_tenant = login_tenant
         # 入驻时间
         self.login_date = login_date
-        # 结算支付宝账户，交易资金结算的具体支付宝账号，商户入驻时需填写
+        # 结算支付宝账户，交易资金结算的具体支付宝账号，商户入驻时必填
         self.alipay_logon_id = alipay_logon_id
-        # 支付宝openId，商户入驻时（非必填）
+        # 支付宝openId
         self.info_source_open_id = info_source_open_id
-        # 签约支付宝账户，商户入驻时（非必填）
+        # 签约支付宝账户，商户入驻时必填（接收支付宝下发的签约协议）
         self.binding_alipay_logon_id = binding_alipay_logon_id
 
     def validate(self):
@@ -8305,6 +8305,66 @@ class RtopCompanyAlarm(TeaModel):
             self.alarm_date = m.get('alarm_date')
         if m.get('alarm_flag') is not None:
             self.alarm_flag = m.get('alarm_flag')
+        return self
+
+
+class TradeRefundResult(TeaModel):
+    def __init__(
+        self,
+        request_no: str = None,
+        refund_amount: int = None,
+        refund_reason: str = None,
+        refund_status: str = None,
+        refund_fail_reason: str = None,
+    ):
+        # 退款请求编号
+        self.request_no = request_no
+        # 退款金额
+        self.refund_amount = refund_amount
+        # 退款原因
+        self.refund_reason = refund_reason
+        # 退款状态
+        self.refund_status = refund_status
+        # 退款失败原因
+        self.refund_fail_reason = refund_fail_reason
+
+    def validate(self):
+        self.validate_required(self.request_no, 'request_no')
+        self.validate_required(self.refund_amount, 'refund_amount')
+        self.validate_required(self.refund_reason, 'refund_reason')
+        self.validate_required(self.refund_status, 'refund_status')
+        self.validate_required(self.refund_fail_reason, 'refund_fail_reason')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_no is not None:
+            result['request_no'] = self.request_no
+        if self.refund_amount is not None:
+            result['refund_amount'] = self.refund_amount
+        if self.refund_reason is not None:
+            result['refund_reason'] = self.refund_reason
+        if self.refund_status is not None:
+            result['refund_status'] = self.refund_status
+        if self.refund_fail_reason is not None:
+            result['refund_fail_reason'] = self.refund_fail_reason
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('request_no') is not None:
+            self.request_no = m.get('request_no')
+        if m.get('refund_amount') is not None:
+            self.refund_amount = m.get('refund_amount')
+        if m.get('refund_reason') is not None:
+            self.refund_reason = m.get('refund_reason')
+        if m.get('refund_status') is not None:
+            self.refund_status = m.get('refund_status')
+        if m.get('refund_fail_reason') is not None:
+            self.refund_fail_reason = m.get('refund_fail_reason')
         return self
 
 
@@ -9768,6 +9828,7 @@ class NotifyBenefithubRiskLoginRequest(TeaModel):
         mobile: str = None,
         product_code: str = None,
         scene_config: str = None,
+        traffic_source: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -9783,6 +9844,8 @@ class NotifyBenefithubRiskLoginRequest(TeaModel):
         self.product_code = product_code
         # 场景配置信息字符串，用于透传
         self.scene_config = scene_config
+        # 区分流量来源
+        self.traffic_source = traffic_source
 
     def validate(self):
         self.validate_required(self.platform_code, 'platform_code')
@@ -9809,6 +9872,8 @@ class NotifyBenefithubRiskLoginRequest(TeaModel):
             result['product_code'] = self.product_code
         if self.scene_config is not None:
             result['scene_config'] = self.scene_config
+        if self.traffic_source is not None:
+            result['traffic_source'] = self.traffic_source
         return result
 
     def from_map(self, m: dict = None):
@@ -9827,6 +9892,8 @@ class NotifyBenefithubRiskLoginRequest(TeaModel):
             self.product_code = m.get('product_code')
         if m.get('scene_config') is not None:
             self.scene_config = m.get('scene_config')
+        if m.get('traffic_source') is not None:
+            self.traffic_source = m.get('traffic_source')
         return self
 
 
@@ -21871,6 +21938,623 @@ class CreateDubbridgeAlipayTradeResponse(TeaModel):
             self.biz_order_no = m.get('biz_order_no')
         if m.get('qr_code') is not None:
             self.qr_code = m.get('qr_code')
+        return self
+
+
+class CancelDubbridgeAlipayTradeRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        biz_order_no: str = None,
+        traffic_platform: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 订单号
+        self.biz_order_no = biz_order_no
+        # 导流平台
+        self.traffic_platform = traffic_platform
+
+    def validate(self):
+        self.validate_required(self.biz_order_no, 'biz_order_no')
+        self.validate_required(self.traffic_platform, 'traffic_platform')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.biz_order_no is not None:
+            result['biz_order_no'] = self.biz_order_no
+        if self.traffic_platform is not None:
+            result['traffic_platform'] = self.traffic_platform
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('biz_order_no') is not None:
+            self.biz_order_no = m.get('biz_order_no')
+        if m.get('traffic_platform') is not None:
+            self.traffic_platform = m.get('traffic_platform')
+        return self
+
+
+class CancelDubbridgeAlipayTradeResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        biz_order_no: str = None,
+        trade_status: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 订单号
+        self.biz_order_no = biz_order_no
+        # 订单状态
+        # TRADE_WAIT_PAY（交易待支付）、
+        # TRADE_CANCELED（未付款交易超时关闭）、
+        # TRADE_SUCCESS（交易支付成功）、
+        # TRADE_REFUND_SUCCESS（交易退款成功）
+        # 
+        self.trade_status = trade_status
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.biz_order_no is not None:
+            result['biz_order_no'] = self.biz_order_no
+        if self.trade_status is not None:
+            result['trade_status'] = self.trade_status
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('biz_order_no') is not None:
+            self.biz_order_no = m.get('biz_order_no')
+        if m.get('trade_status') is not None:
+            self.trade_status = m.get('trade_status')
+        return self
+
+
+class QueryDubbridgeAlipayTradeRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        biz_order_no: str = None,
+        traffic_platform: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 订单号
+        self.biz_order_no = biz_order_no
+        # 导流平台
+        self.traffic_platform = traffic_platform
+
+    def validate(self):
+        self.validate_required(self.biz_order_no, 'biz_order_no')
+        self.validate_required(self.traffic_platform, 'traffic_platform')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.biz_order_no is not None:
+            result['biz_order_no'] = self.biz_order_no
+        if self.traffic_platform is not None:
+            result['traffic_platform'] = self.traffic_platform
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('biz_order_no') is not None:
+            self.biz_order_no = m.get('biz_order_no')
+        if m.get('traffic_platform') is not None:
+            self.traffic_platform = m.get('traffic_platform')
+        return self
+
+
+class QueryDubbridgeAlipayTradeResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        trade_status: str = None,
+        trade_no: str = None,
+        buyer_logon_id: str = None,
+        pay_amount: str = None,
+        pay_date: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 订单状态
+        # WAIT_BUYER_PAY（等待买家付款）、
+        # TRADE_CLOSED（未付款交易超时关闭，或支付完成后全额退款）、
+        # TRADE_SUCCESS（交易支付成功）、
+        # TRADE_FINISHED（交易结束，不可退款）
+        self.trade_status = trade_status
+        # 支付宝交易号
+        self.trade_no = trade_no
+        # 买家支付宝账号
+        self.buyer_logon_id = buyer_logon_id
+        # 支付金额
+        self.pay_amount = pay_amount
+        # 支付时间
+        self.pay_date = pay_date
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.trade_status is not None:
+            result['trade_status'] = self.trade_status
+        if self.trade_no is not None:
+            result['trade_no'] = self.trade_no
+        if self.buyer_logon_id is not None:
+            result['buyer_logon_id'] = self.buyer_logon_id
+        if self.pay_amount is not None:
+            result['pay_amount'] = self.pay_amount
+        if self.pay_date is not None:
+            result['pay_date'] = self.pay_date
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('trade_status') is not None:
+            self.trade_status = m.get('trade_status')
+        if m.get('trade_no') is not None:
+            self.trade_no = m.get('trade_no')
+        if m.get('buyer_logon_id') is not None:
+            self.buyer_logon_id = m.get('buyer_logon_id')
+        if m.get('pay_amount') is not None:
+            self.pay_amount = m.get('pay_amount')
+        if m.get('pay_date') is not None:
+            self.pay_date = m.get('pay_date')
+        return self
+
+
+class RefundDubbridgeAlipayTradeRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        request_no: str = None,
+        biz_order_no: str = None,
+        traffic_platform: str = None,
+        trade_no: str = None,
+        refund_amount: str = None,
+        refund_reason: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 请求编号
+        self.request_no = request_no
+        # 订单号
+        self.biz_order_no = biz_order_no
+        # 导流平台
+        self.traffic_platform = traffic_platform
+        # 支付宝交易号
+        self.trade_no = trade_no
+        # 退款金额
+        self.refund_amount = refund_amount
+        # 退款原因
+        self.refund_reason = refund_reason
+
+    def validate(self):
+        self.validate_required(self.request_no, 'request_no')
+        self.validate_required(self.biz_order_no, 'biz_order_no')
+        self.validate_required(self.traffic_platform, 'traffic_platform')
+        self.validate_required(self.refund_amount, 'refund_amount')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.request_no is not None:
+            result['request_no'] = self.request_no
+        if self.biz_order_no is not None:
+            result['biz_order_no'] = self.biz_order_no
+        if self.traffic_platform is not None:
+            result['traffic_platform'] = self.traffic_platform
+        if self.trade_no is not None:
+            result['trade_no'] = self.trade_no
+        if self.refund_amount is not None:
+            result['refund_amount'] = self.refund_amount
+        if self.refund_reason is not None:
+            result['refund_reason'] = self.refund_reason
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('request_no') is not None:
+            self.request_no = m.get('request_no')
+        if m.get('biz_order_no') is not None:
+            self.biz_order_no = m.get('biz_order_no')
+        if m.get('traffic_platform') is not None:
+            self.traffic_platform = m.get('traffic_platform')
+        if m.get('trade_no') is not None:
+            self.trade_no = m.get('trade_no')
+        if m.get('refund_amount') is not None:
+            self.refund_amount = m.get('refund_amount')
+        if m.get('refund_reason') is not None:
+            self.refund_reason = m.get('refund_reason')
+        return self
+
+
+class RefundDubbridgeAlipayTradeResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        refund_status: str = None,
+        refund_fail_reason: str = None,
+        refund_date: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 订单状态
+        # REFUNDING（交易退款中）、
+        # REFUND_SUCCESS（交易退款成功）、
+        # REFUND_FAIL（交易退款失败）
+        self.refund_status = refund_status
+        # 退款失败原因
+        self.refund_fail_reason = refund_fail_reason
+        # 退款时间
+        self.refund_date = refund_date
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.refund_status is not None:
+            result['refund_status'] = self.refund_status
+        if self.refund_fail_reason is not None:
+            result['refund_fail_reason'] = self.refund_fail_reason
+        if self.refund_date is not None:
+            result['refund_date'] = self.refund_date
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('refund_status') is not None:
+            self.refund_status = m.get('refund_status')
+        if m.get('refund_fail_reason') is not None:
+            self.refund_fail_reason = m.get('refund_fail_reason')
+        if m.get('refund_date') is not None:
+            self.refund_date = m.get('refund_date')
+        return self
+
+
+class CloseDubbridgeAlipayTradeRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        biz_order_no: str = None,
+        traffic_platform: str = None,
+        operator_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 资产方购物订单号
+        self.biz_order_no = biz_order_no
+        # 导流平台
+        self.traffic_platform = traffic_platform
+        # 操作人id
+        self.operator_id = operator_id
+
+    def validate(self):
+        self.validate_required(self.biz_order_no, 'biz_order_no')
+        self.validate_required(self.traffic_platform, 'traffic_platform')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.biz_order_no is not None:
+            result['biz_order_no'] = self.biz_order_no
+        if self.traffic_platform is not None:
+            result['traffic_platform'] = self.traffic_platform
+        if self.operator_id is not None:
+            result['operator_id'] = self.operator_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('biz_order_no') is not None:
+            self.biz_order_no = m.get('biz_order_no')
+        if m.get('traffic_platform') is not None:
+            self.traffic_platform = m.get('traffic_platform')
+        if m.get('operator_id') is not None:
+            self.operator_id = m.get('operator_id')
+        return self
+
+
+class CloseDubbridgeAlipayTradeResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        trade_status: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 订单交易状态
+        self.trade_status = trade_status
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.trade_status is not None:
+            result['trade_status'] = self.trade_status
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('trade_status') is not None:
+            self.trade_status = m.get('trade_status')
+        return self
+
+
+class QueryDubbridgeAlipayRefundRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        request_no: str = None,
+        biz_order_no: str = None,
+        traffic_platform: str = None,
+        trade_no: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 退款请求编号
+        self.request_no = request_no
+        # 商家订单编号
+        self.biz_order_no = biz_order_no
+        # 导流平台
+        self.traffic_platform = traffic_platform
+        # 支付宝交易号
+        self.trade_no = trade_no
+
+    def validate(self):
+        self.validate_required(self.request_no, 'request_no')
+        self.validate_required(self.biz_order_no, 'biz_order_no')
+        self.validate_required(self.traffic_platform, 'traffic_platform')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.request_no is not None:
+            result['request_no'] = self.request_no
+        if self.biz_order_no is not None:
+            result['biz_order_no'] = self.biz_order_no
+        if self.traffic_platform is not None:
+            result['traffic_platform'] = self.traffic_platform
+        if self.trade_no is not None:
+            result['trade_no'] = self.trade_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('request_no') is not None:
+            self.request_no = m.get('request_no')
+        if m.get('biz_order_no') is not None:
+            self.biz_order_no = m.get('biz_order_no')
+        if m.get('traffic_platform') is not None:
+            self.traffic_platform = m.get('traffic_platform')
+        if m.get('trade_no') is not None:
+            self.trade_no = m.get('trade_no')
+        return self
+
+
+class QueryDubbridgeAlipayRefundResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        refund_status: str = None,
+        refund_fail_reason: str = None,
+        refund_date: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 退款状态 REFUNDING（交易退款中）、 REFUND_SUCCESS（交易退款成功）、 REFUND_FAIL（交易退款失败）
+        self.refund_status = refund_status
+        # 退款失败原因
+        self.refund_fail_reason = refund_fail_reason
+        # 退款时间
+        self.refund_date = refund_date
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.refund_status is not None:
+            result['refund_status'] = self.refund_status
+        if self.refund_fail_reason is not None:
+            result['refund_fail_reason'] = self.refund_fail_reason
+        if self.refund_date is not None:
+            result['refund_date'] = self.refund_date
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('refund_status') is not None:
+            self.refund_status = m.get('refund_status')
+        if m.get('refund_fail_reason') is not None:
+            self.refund_fail_reason = m.get('refund_fail_reason')
+        if m.get('refund_date') is not None:
+            self.refund_date = m.get('refund_date')
         return self
 
 
@@ -36686,6 +37370,166 @@ class QueryAirsaasSecurityPolicyResponse(TeaModel):
         # 策略结果详情
         self.strategy_details = strategy_details
         # 决策流信息
+        self.df_scene_infos = df_scene_infos
+
+    def validate(self):
+        if self.model_details:
+            for k in self.model_details:
+                if k:
+                    k.validate()
+        if self.strategy_details:
+            for k in self.strategy_details:
+                if k:
+                    k.validate()
+        if self.df_scene_infos:
+            for k in self.df_scene_infos:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['model_details'] = []
+        if self.model_details is not None:
+            for k in self.model_details:
+                result['model_details'].append(k.to_map() if k else None)
+        if self.security_id is not None:
+            result['security_id'] = self.security_id
+        if self.security_result is not None:
+            result['security_result'] = self.security_result
+        result['strategy_details'] = []
+        if self.strategy_details is not None:
+            for k in self.strategy_details:
+                result['strategy_details'].append(k.to_map() if k else None)
+        result['df_scene_infos'] = []
+        if self.df_scene_infos is not None:
+            for k in self.df_scene_infos:
+                result['df_scene_infos'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.model_details = []
+        if m.get('model_details') is not None:
+            for k in m.get('model_details'):
+                temp_model = ModelDetails()
+                self.model_details.append(temp_model.from_map(k))
+        if m.get('security_id') is not None:
+            self.security_id = m.get('security_id')
+        if m.get('security_result') is not None:
+            self.security_result = m.get('security_result')
+        self.strategy_details = []
+        if m.get('strategy_details') is not None:
+            for k in m.get('strategy_details'):
+                temp_model = StrategyDetails()
+                self.strategy_details.append(temp_model.from_map(k))
+        self.df_scene_infos = []
+        if m.get('df_scene_infos') is not None:
+            for k in m.get('df_scene_infos'):
+                temp_model = DfSceneInfos()
+                self.df_scene_infos.append(temp_model.from_map(k))
+        return self
+
+
+class QueryTdisaasairSecurityPolicyRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        event_info: EventInfo = None,
+        risk_type: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 风控事件咨询查询入参
+        self.event_info = event_info
+        # 请求处理方式
+        # 
+        self.risk_type = risk_type
+
+    def validate(self):
+        self.validate_required(self.event_info, 'event_info')
+        if self.event_info:
+            self.event_info.validate()
+        self.validate_required(self.risk_type, 'risk_type')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.event_info is not None:
+            result['event_info'] = self.event_info.to_map()
+        if self.risk_type is not None:
+            result['risk_type'] = self.risk_type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('event_info') is not None:
+            temp_model = EventInfo()
+            self.event_info = temp_model.from_map(m['event_info'])
+        if m.get('risk_type') is not None:
+            self.risk_type = m.get('risk_type')
+        return self
+
+
+class QueryTdisaasairSecurityPolicyResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        model_details: List[ModelDetails] = None,
+        security_id: str = None,
+        security_result: str = None,
+        strategy_details: List[StrategyDetails] = None,
+        df_scene_infos: List[DfSceneInfos] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 场景分
+        self.model_details = model_details
+        # 安全请求id
+        # 
+        self.security_id = security_id
+        # 策略结果
+        # 
+        self.security_result = security_result
+        # 策略结果详情
+        # 
+        self.strategy_details = strategy_details
+        # 决策流信息
+        # 
         self.df_scene_infos = df_scene_infos
 
     def validate(self):
