@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.26.9',
+    sdk_version = '1.28.7',
     _prod_code = 'RISKPLUS',
     _prod_channel = 'undefined'
   };
@@ -1997,11 +1997,11 @@ model StoreInfo {
   loginTenant?: string(name='login_tenant', example='xxxx'),
   // 入驻时间
   loginDate?: string(name='login_date', example='yyyy-MM-dd'),
-  // 结算支付宝账户，交易资金结算的具体支付宝账号，商户入驻时需填写
+  // 结算支付宝账户，交易资金结算的具体支付宝账号，商户入驻时必填
   alipayLogonId?: string(name='alipay_logon_id', example='xxxx@126.com'),
-  // 支付宝openId，商户入驻时（非必填）
+  // 支付宝openId
   infoSourceOpenId?: string(name='info_source_open_id', example='xxxx'),
-  // 签约支付宝账户，商户入驻时（非必填）
+  // 签约支付宝账户，商户入驻时必填（接收支付宝下发的签约协议）
   bindingAlipayLogonId?: string(name='binding_alipay_logon_id', example='xxx'),
 }
 
@@ -2196,6 +2196,20 @@ model RtopCompanyAlarm {
   alarmDate: string(name='alarm_date', example='1'),
   // 预警标识，是否需要预警
   alarmFlag: string(name='alarm_flag', example='1'),
+}
+
+// 天枢系统-二级商户交易退款查询结果-分期付
+model TradeRefundResult {
+  // 退款请求编号
+  requestNo: string(name='request_no', example='20880002000001'),
+  // 退款金额
+  refundAmount: long(name='refund_amount', example='30'),
+  // 退款原因
+  refundReason: string(name='refund_reason', example='不想要了'),
+  // 退款状态
+  refundStatus: string(name='refund_status', example='REFUND_SUCCESS'),
+  // 退款失败原因
+  refundFailReason: string(name='refund_fail_reason', example='参数异常'),
 }
 
 // 企业影响人数性别分布统计
@@ -2578,6 +2592,8 @@ model NotifyBenefithubRiskLoginRequest = {
   productCode?: string(name='product_code'),
   // 场景配置信息字符串，用于透传
   sceneConfig?: string(name='scene_config'),
+  // 区分流量来源
+  trafficSource?: string(name='traffic_source'),
 }
 
 model NotifyBenefithubRiskLoginResponse = {
@@ -6985,6 +7001,250 @@ async function createDubbridgeAlipayTrade(request: CreateDubbridgeAlipayTradeReq
 async function createDubbridgeAlipayTradeEx(request: CreateDubbridgeAlipayTradeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateDubbridgeAlipayTradeResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.dubbridge.alipay.trade.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CancelDubbridgeAlipayTradeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 订单号
+  bizOrderNo: string(name='biz_order_no'),
+  // 导流平台
+  trafficPlatform: string(name='traffic_platform'),
+}
+
+model CancelDubbridgeAlipayTradeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 订单号
+  bizOrderNo?: string(name='biz_order_no'),
+  // 订单状态 
+  // TRADE_WAIT_PAY（交易待支付）、
+  // TRADE_CANCELED（未付款交易超时关闭）、
+  // TRADE_SUCCESS（交易支付成功）、
+  // TRADE_REFUND_SUCCESS（交易退款成功）
+  // 
+  tradeStatus?: string(name='trade_status'),
+}
+
+/**
+ * Description: 二级商户交易取消
+ * Summary: 天枢系统-二级商户交易取消-分期付
+ */
+async function cancelDubbridgeAlipayTrade(request: CancelDubbridgeAlipayTradeRequest): CancelDubbridgeAlipayTradeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return cancelDubbridgeAlipayTradeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 二级商户交易取消
+ * Summary: 天枢系统-二级商户交易取消-分期付
+ */
+async function cancelDubbridgeAlipayTradeEx(request: CancelDubbridgeAlipayTradeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CancelDubbridgeAlipayTradeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.alipay.trade.cancel', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDubbridgeAlipayTradeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 订单号
+  bizOrderNo: string(name='biz_order_no'),
+  // 导流平台
+  trafficPlatform: string(name='traffic_platform'),
+}
+
+model QueryDubbridgeAlipayTradeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 订单状态
+  // WAIT_BUYER_PAY（等待买家付款）、
+  // TRADE_CLOSED（未付款交易超时关闭，或支付完成后全额退款）、
+  // TRADE_SUCCESS（交易支付成功）、
+  // TRADE_FINISHED（交易结束，不可退款）
+  tradeStatus?: string(name='trade_status'),
+  // 支付宝交易号
+  tradeNo?: string(name='trade_no'),
+  // 买家支付宝账号
+  buyerLogonId?: string(name='buyer_logon_id'),
+  // 支付金额
+  payAmount?: string(name='pay_amount'),
+  // 支付时间
+  payDate?: string(name='pay_date'),
+}
+
+/**
+ * Description: 二级商户交易查询
+ * Summary: 天枢系统-二级商户交易查询-分期付
+ */
+async function queryDubbridgeAlipayTrade(request: QueryDubbridgeAlipayTradeRequest): QueryDubbridgeAlipayTradeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDubbridgeAlipayTradeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 二级商户交易查询
+ * Summary: 天枢系统-二级商户交易查询-分期付
+ */
+async function queryDubbridgeAlipayTradeEx(request: QueryDubbridgeAlipayTradeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubbridgeAlipayTradeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.alipay.trade.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RefundDubbridgeAlipayTradeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 请求编号
+  requestNo: string(name='request_no'),
+  // 订单号
+  bizOrderNo: string(name='biz_order_no'),
+  // 导流平台
+  trafficPlatform: string(name='traffic_platform'),
+  // 支付宝交易号
+  tradeNo?: string(name='trade_no'),
+  // 退款金额
+  refundAmount: string(name='refund_amount'),
+  // 退款原因
+  refundReason?: string(name='refund_reason'),
+}
+
+model RefundDubbridgeAlipayTradeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 订单状态
+  // REFUNDING（交易退款中）、
+  // REFUND_SUCCESS（交易退款成功）、
+  // REFUND_FAIL（交易退款失败）
+  refundStatus?: string(name='refund_status'),
+  // 退款失败原因
+  refundFailReason?: string(name='refund_fail_reason'),
+  // 退款时间
+  refundDate?: string(name='refund_date'),
+}
+
+/**
+ * Description: 天枢系统-二级商户交易退款-分期付
+ * Summary: 天枢系统-二级商户交易退款-分期付
+ */
+async function refundDubbridgeAlipayTrade(request: RefundDubbridgeAlipayTradeRequest): RefundDubbridgeAlipayTradeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return refundDubbridgeAlipayTradeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 天枢系统-二级商户交易退款-分期付
+ * Summary: 天枢系统-二级商户交易退款-分期付
+ */
+async function refundDubbridgeAlipayTradeEx(request: RefundDubbridgeAlipayTradeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RefundDubbridgeAlipayTradeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.alipay.trade.refund', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CloseDubbridgeAlipayTradeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 资产方购物订单号
+  bizOrderNo: string(name='biz_order_no'),
+  // 导流平台
+  trafficPlatform: string(name='traffic_platform'),
+  // 操作人id
+  operatorId?: string(name='operator_id'),
+}
+
+model CloseDubbridgeAlipayTradeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 订单交易状态
+  tradeStatus?: string(name='trade_status'),
+}
+
+/**
+ * Description: 天枢系统-二级商户交易关闭-分期付
+ * Summary: 天枢系统-二级商户交易关闭-分期付
+ */
+async function closeDubbridgeAlipayTrade(request: CloseDubbridgeAlipayTradeRequest): CloseDubbridgeAlipayTradeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return closeDubbridgeAlipayTradeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 天枢系统-二级商户交易关闭-分期付
+ * Summary: 天枢系统-二级商户交易关闭-分期付
+ */
+async function closeDubbridgeAlipayTradeEx(request: CloseDubbridgeAlipayTradeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CloseDubbridgeAlipayTradeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.alipay.trade.close', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDubbridgeAlipayRefundRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 退款请求编号
+  requestNo: string(name='request_no'),
+  // 商家订单编号
+  bizOrderNo: string(name='biz_order_no'),
+  // 导流平台
+  trafficPlatform: string(name='traffic_platform'),
+  // 支付宝交易号
+  tradeNo?: string(name='trade_no'),
+}
+
+model QueryDubbridgeAlipayRefundResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 退款状态 REFUNDING（交易退款中）、 REFUND_SUCCESS（交易退款成功）、 REFUND_FAIL（交易退款失败）
+  refundStatus?: string(name='refund_status'),
+  // 退款失败原因
+  refundFailReason?: string(name='refund_fail_reason'),
+  // 退款时间
+  refundDate?: string(name='refund_date'),
+}
+
+/**
+ * Description: 天枢系统-二级商户交易退款查询-分期付
+ * Summary: 天枢系统-二级商户交易退款查询-分期付
+ */
+async function queryDubbridgeAlipayRefund(request: QueryDubbridgeAlipayRefundRequest): QueryDubbridgeAlipayRefundResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDubbridgeAlipayRefundEx(request, headers, runtime);
+}
+
+/**
+ * Description: 天枢系统-二级商户交易退款查询-分期付
+ * Summary: 天枢系统-二级商户交易退款查询-分期付
+ */
+async function queryDubbridgeAlipayRefundEx(request: QueryDubbridgeAlipayRefundRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubbridgeAlipayRefundResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.alipay.refund.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model VerifyFinserviceZhimaIdentifyRequest = {
@@ -12544,6 +12804,59 @@ async function queryAirsaasSecurityPolicy(request: QueryAirsaasSecurityPolicyReq
 async function queryAirsaasSecurityPolicyEx(request: QueryAirsaasSecurityPolicyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAirsaasSecurityPolicyResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.airsaas.security.policy.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryTdisaasairSecurityPolicyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 风控事件咨询查询入参
+  eventInfo: EventInfo(name='event_info'),
+  // 请求处理方式
+  // 
+  riskType: string(name='risk_type'),
+}
+
+model QueryTdisaasairSecurityPolicyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 场景分
+  modelDetails?: [ ModelDetails ](name='model_details'),
+  // 安全请求id
+  // 
+  securityId?: string(name='security_id'),
+  // 策略结果
+  // 
+  securityResult?: string(name='security_result'),
+  // 策略结果详情
+  // 
+  strategyDetails?: [ StrategyDetails ](name='strategy_details'),
+  // 决策流信息
+  // 
+  dfSceneInfos?: [ DfSceneInfos ](name='df_scene_infos'),
+}
+
+/**
+ * Description: saas风险咨询，决策流模式
+ * Summary: saas风险咨询-air引擎
+ */
+async function queryTdisaasairSecurityPolicy(request: QueryTdisaasairSecurityPolicyRequest): QueryTdisaasairSecurityPolicyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryTdisaasairSecurityPolicyEx(request, headers, runtime);
+}
+
+/**
+ * Description: saas风险咨询，决策流模式
+ * Summary: saas风险咨询-air引擎
+ */
+async function queryTdisaasairSecurityPolicyEx(request: QueryTdisaasairSecurityPolicyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryTdisaasairSecurityPolicyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.tdisaasair.security.policy.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model UploadUmktParamsFileRequest = {
