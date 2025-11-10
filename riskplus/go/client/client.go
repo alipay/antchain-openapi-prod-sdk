@@ -5946,11 +5946,11 @@ type StoreInfo struct {
 	LoginTenant *string `json:"login_tenant,omitempty" xml:"login_tenant,omitempty"`
 	// 入驻时间
 	LoginDate *string `json:"login_date,omitempty" xml:"login_date,omitempty"`
-	// 结算支付宝账户，交易资金结算的具体支付宝账号，商户入驻时需填写
+	// 结算支付宝账户，交易资金结算的具体支付宝账号，商户入驻时必填
 	AlipayLogonId *string `json:"alipay_logon_id,omitempty" xml:"alipay_logon_id,omitempty"`
-	// 支付宝openId，商户入驻时（非必填）
+	// 支付宝openId
 	InfoSourceOpenId *string `json:"info_source_open_id,omitempty" xml:"info_source_open_id,omitempty"`
-	// 签约支付宝账户，商户入驻时（非必填）
+	// 签约支付宝账户，商户入驻时必填（接收支付宝下发的签约协议）
 	BindingAlipayLogonId *string `json:"binding_alipay_logon_id,omitempty" xml:"binding_alipay_logon_id,omitempty"`
 }
 
@@ -6800,6 +6800,53 @@ func (s *RtopCompanyAlarm) SetAlarmDate(v string) *RtopCompanyAlarm {
 
 func (s *RtopCompanyAlarm) SetAlarmFlag(v string) *RtopCompanyAlarm {
 	s.AlarmFlag = &v
+	return s
+}
+
+// 天枢系统-二级商户交易退款查询结果-分期付
+type TradeRefundResult struct {
+	// 退款请求编号
+	RequestNo *string `json:"request_no,omitempty" xml:"request_no,omitempty" require:"true"`
+	// 退款金额
+	RefundAmount *int64 `json:"refund_amount,omitempty" xml:"refund_amount,omitempty" require:"true"`
+	// 退款原因
+	RefundReason *string `json:"refund_reason,omitempty" xml:"refund_reason,omitempty" require:"true"`
+	// 退款状态
+	RefundStatus *string `json:"refund_status,omitempty" xml:"refund_status,omitempty" require:"true"`
+	// 退款失败原因
+	RefundFailReason *string `json:"refund_fail_reason,omitempty" xml:"refund_fail_reason,omitempty" require:"true"`
+}
+
+func (s TradeRefundResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TradeRefundResult) GoString() string {
+	return s.String()
+}
+
+func (s *TradeRefundResult) SetRequestNo(v string) *TradeRefundResult {
+	s.RequestNo = &v
+	return s
+}
+
+func (s *TradeRefundResult) SetRefundAmount(v int64) *TradeRefundResult {
+	s.RefundAmount = &v
+	return s
+}
+
+func (s *TradeRefundResult) SetRefundReason(v string) *TradeRefundResult {
+	s.RefundReason = &v
+	return s
+}
+
+func (s *TradeRefundResult) SetRefundStatus(v string) *TradeRefundResult {
+	s.RefundStatus = &v
+	return s
+}
+
+func (s *TradeRefundResult) SetRefundFailReason(v string) *TradeRefundResult {
+	s.RefundFailReason = &v
 	return s
 }
 
@@ -7968,6 +8015,8 @@ type NotifyBenefithubRiskLoginRequest struct {
 	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty"`
 	// 场景配置信息字符串，用于透传
 	SceneConfig *string `json:"scene_config,omitempty" xml:"scene_config,omitempty"`
+	// 区分流量来源
+	TrafficSource *string `json:"traffic_source,omitempty" xml:"traffic_source,omitempty"`
 }
 
 func (s NotifyBenefithubRiskLoginRequest) String() string {
@@ -8010,6 +8059,11 @@ func (s *NotifyBenefithubRiskLoginRequest) SetProductCode(v string) *NotifyBenef
 
 func (s *NotifyBenefithubRiskLoginRequest) SetSceneConfig(v string) *NotifyBenefithubRiskLoginRequest {
 	s.SceneConfig = &v
+	return s
+}
+
+func (s *NotifyBenefithubRiskLoginRequest) SetTrafficSource(v string) *NotifyBenefithubRiskLoginRequest {
+	s.TrafficSource = &v
 	return s
 }
 
@@ -17745,6 +17799,515 @@ func (s *CreateDubbridgeAlipayTradeResponse) SetBizOrderNo(v string) *CreateDubb
 
 func (s *CreateDubbridgeAlipayTradeResponse) SetQrCode(v string) *CreateDubbridgeAlipayTradeResponse {
 	s.QrCode = &v
+	return s
+}
+
+type CancelDubbridgeAlipayTradeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 订单号
+	BizOrderNo *string `json:"biz_order_no,omitempty" xml:"biz_order_no,omitempty" require:"true"`
+	// 导流平台
+	TrafficPlatform *string `json:"traffic_platform,omitempty" xml:"traffic_platform,omitempty" require:"true"`
+}
+
+func (s CancelDubbridgeAlipayTradeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CancelDubbridgeAlipayTradeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CancelDubbridgeAlipayTradeRequest) SetAuthToken(v string) *CancelDubbridgeAlipayTradeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CancelDubbridgeAlipayTradeRequest) SetProductInstanceId(v string) *CancelDubbridgeAlipayTradeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CancelDubbridgeAlipayTradeRequest) SetBizOrderNo(v string) *CancelDubbridgeAlipayTradeRequest {
+	s.BizOrderNo = &v
+	return s
+}
+
+func (s *CancelDubbridgeAlipayTradeRequest) SetTrafficPlatform(v string) *CancelDubbridgeAlipayTradeRequest {
+	s.TrafficPlatform = &v
+	return s
+}
+
+type CancelDubbridgeAlipayTradeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 订单号
+	BizOrderNo *string `json:"biz_order_no,omitempty" xml:"biz_order_no,omitempty"`
+	// 订单状态
+	// TRADE_WAIT_PAY（交易待支付）、
+	// TRADE_CANCELED（未付款交易超时关闭）、
+	// TRADE_SUCCESS（交易支付成功）、
+	// TRADE_REFUND_SUCCESS（交易退款成功）
+	//
+	TradeStatus *string `json:"trade_status,omitempty" xml:"trade_status,omitempty"`
+}
+
+func (s CancelDubbridgeAlipayTradeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CancelDubbridgeAlipayTradeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CancelDubbridgeAlipayTradeResponse) SetReqMsgId(v string) *CancelDubbridgeAlipayTradeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CancelDubbridgeAlipayTradeResponse) SetResultCode(v string) *CancelDubbridgeAlipayTradeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CancelDubbridgeAlipayTradeResponse) SetResultMsg(v string) *CancelDubbridgeAlipayTradeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CancelDubbridgeAlipayTradeResponse) SetBizOrderNo(v string) *CancelDubbridgeAlipayTradeResponse {
+	s.BizOrderNo = &v
+	return s
+}
+
+func (s *CancelDubbridgeAlipayTradeResponse) SetTradeStatus(v string) *CancelDubbridgeAlipayTradeResponse {
+	s.TradeStatus = &v
+	return s
+}
+
+type QueryDubbridgeAlipayTradeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 订单号
+	BizOrderNo *string `json:"biz_order_no,omitempty" xml:"biz_order_no,omitempty" require:"true"`
+	// 导流平台
+	TrafficPlatform *string `json:"traffic_platform,omitempty" xml:"traffic_platform,omitempty" require:"true"`
+}
+
+func (s QueryDubbridgeAlipayTradeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDubbridgeAlipayTradeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDubbridgeAlipayTradeRequest) SetAuthToken(v string) *QueryDubbridgeAlipayTradeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDubbridgeAlipayTradeRequest) SetProductInstanceId(v string) *QueryDubbridgeAlipayTradeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryDubbridgeAlipayTradeRequest) SetBizOrderNo(v string) *QueryDubbridgeAlipayTradeRequest {
+	s.BizOrderNo = &v
+	return s
+}
+
+func (s *QueryDubbridgeAlipayTradeRequest) SetTrafficPlatform(v string) *QueryDubbridgeAlipayTradeRequest {
+	s.TrafficPlatform = &v
+	return s
+}
+
+type QueryDubbridgeAlipayTradeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 订单状态
+	// WAIT_BUYER_PAY（等待买家付款）、
+	// TRADE_CLOSED（未付款交易超时关闭，或支付完成后全额退款）、
+	// TRADE_SUCCESS（交易支付成功）、
+	// TRADE_FINISHED（交易结束，不可退款）
+	TradeStatus *string `json:"trade_status,omitempty" xml:"trade_status,omitempty"`
+	// 支付宝交易号
+	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty"`
+	// 买家支付宝账号
+	BuyerLogonId *string `json:"buyer_logon_id,omitempty" xml:"buyer_logon_id,omitempty"`
+	// 支付金额
+	PayAmount *string `json:"pay_amount,omitempty" xml:"pay_amount,omitempty"`
+	// 支付时间
+	PayDate *string `json:"pay_date,omitempty" xml:"pay_date,omitempty"`
+}
+
+func (s QueryDubbridgeAlipayTradeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDubbridgeAlipayTradeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDubbridgeAlipayTradeResponse) SetReqMsgId(v string) *QueryDubbridgeAlipayTradeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDubbridgeAlipayTradeResponse) SetResultCode(v string) *QueryDubbridgeAlipayTradeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDubbridgeAlipayTradeResponse) SetResultMsg(v string) *QueryDubbridgeAlipayTradeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryDubbridgeAlipayTradeResponse) SetTradeStatus(v string) *QueryDubbridgeAlipayTradeResponse {
+	s.TradeStatus = &v
+	return s
+}
+
+func (s *QueryDubbridgeAlipayTradeResponse) SetTradeNo(v string) *QueryDubbridgeAlipayTradeResponse {
+	s.TradeNo = &v
+	return s
+}
+
+func (s *QueryDubbridgeAlipayTradeResponse) SetBuyerLogonId(v string) *QueryDubbridgeAlipayTradeResponse {
+	s.BuyerLogonId = &v
+	return s
+}
+
+func (s *QueryDubbridgeAlipayTradeResponse) SetPayAmount(v string) *QueryDubbridgeAlipayTradeResponse {
+	s.PayAmount = &v
+	return s
+}
+
+func (s *QueryDubbridgeAlipayTradeResponse) SetPayDate(v string) *QueryDubbridgeAlipayTradeResponse {
+	s.PayDate = &v
+	return s
+}
+
+type RefundDubbridgeAlipayTradeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求编号
+	RequestNo *string `json:"request_no,omitempty" xml:"request_no,omitempty" require:"true"`
+	// 订单号
+	BizOrderNo *string `json:"biz_order_no,omitempty" xml:"biz_order_no,omitempty" require:"true"`
+	// 导流平台
+	TrafficPlatform *string `json:"traffic_platform,omitempty" xml:"traffic_platform,omitempty" require:"true"`
+	// 支付宝交易号
+	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty"`
+	// 退款金额
+	RefundAmount *string `json:"refund_amount,omitempty" xml:"refund_amount,omitempty" require:"true"`
+	// 退款原因
+	RefundReason *string `json:"refund_reason,omitempty" xml:"refund_reason,omitempty"`
+}
+
+func (s RefundDubbridgeAlipayTradeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RefundDubbridgeAlipayTradeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *RefundDubbridgeAlipayTradeRequest) SetAuthToken(v string) *RefundDubbridgeAlipayTradeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *RefundDubbridgeAlipayTradeRequest) SetProductInstanceId(v string) *RefundDubbridgeAlipayTradeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *RefundDubbridgeAlipayTradeRequest) SetRequestNo(v string) *RefundDubbridgeAlipayTradeRequest {
+	s.RequestNo = &v
+	return s
+}
+
+func (s *RefundDubbridgeAlipayTradeRequest) SetBizOrderNo(v string) *RefundDubbridgeAlipayTradeRequest {
+	s.BizOrderNo = &v
+	return s
+}
+
+func (s *RefundDubbridgeAlipayTradeRequest) SetTrafficPlatform(v string) *RefundDubbridgeAlipayTradeRequest {
+	s.TrafficPlatform = &v
+	return s
+}
+
+func (s *RefundDubbridgeAlipayTradeRequest) SetTradeNo(v string) *RefundDubbridgeAlipayTradeRequest {
+	s.TradeNo = &v
+	return s
+}
+
+func (s *RefundDubbridgeAlipayTradeRequest) SetRefundAmount(v string) *RefundDubbridgeAlipayTradeRequest {
+	s.RefundAmount = &v
+	return s
+}
+
+func (s *RefundDubbridgeAlipayTradeRequest) SetRefundReason(v string) *RefundDubbridgeAlipayTradeRequest {
+	s.RefundReason = &v
+	return s
+}
+
+type RefundDubbridgeAlipayTradeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 订单状态
+	// REFUNDING（交易退款中）、
+	// REFUND_SUCCESS（交易退款成功）、
+	// REFUND_FAIL（交易退款失败）
+	RefundStatus *string `json:"refund_status,omitempty" xml:"refund_status,omitempty"`
+	// 退款失败原因
+	RefundFailReason *string `json:"refund_fail_reason,omitempty" xml:"refund_fail_reason,omitempty"`
+	// 退款时间
+	RefundDate *string `json:"refund_date,omitempty" xml:"refund_date,omitempty"`
+}
+
+func (s RefundDubbridgeAlipayTradeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RefundDubbridgeAlipayTradeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *RefundDubbridgeAlipayTradeResponse) SetReqMsgId(v string) *RefundDubbridgeAlipayTradeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *RefundDubbridgeAlipayTradeResponse) SetResultCode(v string) *RefundDubbridgeAlipayTradeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *RefundDubbridgeAlipayTradeResponse) SetResultMsg(v string) *RefundDubbridgeAlipayTradeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *RefundDubbridgeAlipayTradeResponse) SetRefundStatus(v string) *RefundDubbridgeAlipayTradeResponse {
+	s.RefundStatus = &v
+	return s
+}
+
+func (s *RefundDubbridgeAlipayTradeResponse) SetRefundFailReason(v string) *RefundDubbridgeAlipayTradeResponse {
+	s.RefundFailReason = &v
+	return s
+}
+
+func (s *RefundDubbridgeAlipayTradeResponse) SetRefundDate(v string) *RefundDubbridgeAlipayTradeResponse {
+	s.RefundDate = &v
+	return s
+}
+
+type CloseDubbridgeAlipayTradeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 资产方购物订单号
+	BizOrderNo *string `json:"biz_order_no,omitempty" xml:"biz_order_no,omitempty" require:"true"`
+	// 导流平台
+	TrafficPlatform *string `json:"traffic_platform,omitempty" xml:"traffic_platform,omitempty" require:"true"`
+	// 操作人id
+	OperatorId *string `json:"operator_id,omitempty" xml:"operator_id,omitempty"`
+}
+
+func (s CloseDubbridgeAlipayTradeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CloseDubbridgeAlipayTradeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CloseDubbridgeAlipayTradeRequest) SetAuthToken(v string) *CloseDubbridgeAlipayTradeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CloseDubbridgeAlipayTradeRequest) SetProductInstanceId(v string) *CloseDubbridgeAlipayTradeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CloseDubbridgeAlipayTradeRequest) SetBizOrderNo(v string) *CloseDubbridgeAlipayTradeRequest {
+	s.BizOrderNo = &v
+	return s
+}
+
+func (s *CloseDubbridgeAlipayTradeRequest) SetTrafficPlatform(v string) *CloseDubbridgeAlipayTradeRequest {
+	s.TrafficPlatform = &v
+	return s
+}
+
+func (s *CloseDubbridgeAlipayTradeRequest) SetOperatorId(v string) *CloseDubbridgeAlipayTradeRequest {
+	s.OperatorId = &v
+	return s
+}
+
+type CloseDubbridgeAlipayTradeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 订单交易状态
+	TradeStatus *string `json:"trade_status,omitempty" xml:"trade_status,omitempty"`
+}
+
+func (s CloseDubbridgeAlipayTradeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CloseDubbridgeAlipayTradeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CloseDubbridgeAlipayTradeResponse) SetReqMsgId(v string) *CloseDubbridgeAlipayTradeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CloseDubbridgeAlipayTradeResponse) SetResultCode(v string) *CloseDubbridgeAlipayTradeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CloseDubbridgeAlipayTradeResponse) SetResultMsg(v string) *CloseDubbridgeAlipayTradeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CloseDubbridgeAlipayTradeResponse) SetTradeStatus(v string) *CloseDubbridgeAlipayTradeResponse {
+	s.TradeStatus = &v
+	return s
+}
+
+type QueryDubbridgeAlipayRefundRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 退款请求编号
+	RequestNo *string `json:"request_no,omitempty" xml:"request_no,omitempty" require:"true"`
+	// 商家订单编号
+	BizOrderNo *string `json:"biz_order_no,omitempty" xml:"biz_order_no,omitempty" require:"true"`
+	// 导流平台
+	TrafficPlatform *string `json:"traffic_platform,omitempty" xml:"traffic_platform,omitempty" require:"true"`
+	// 支付宝交易号
+	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty"`
+}
+
+func (s QueryDubbridgeAlipayRefundRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDubbridgeAlipayRefundRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDubbridgeAlipayRefundRequest) SetAuthToken(v string) *QueryDubbridgeAlipayRefundRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDubbridgeAlipayRefundRequest) SetProductInstanceId(v string) *QueryDubbridgeAlipayRefundRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryDubbridgeAlipayRefundRequest) SetRequestNo(v string) *QueryDubbridgeAlipayRefundRequest {
+	s.RequestNo = &v
+	return s
+}
+
+func (s *QueryDubbridgeAlipayRefundRequest) SetBizOrderNo(v string) *QueryDubbridgeAlipayRefundRequest {
+	s.BizOrderNo = &v
+	return s
+}
+
+func (s *QueryDubbridgeAlipayRefundRequest) SetTrafficPlatform(v string) *QueryDubbridgeAlipayRefundRequest {
+	s.TrafficPlatform = &v
+	return s
+}
+
+func (s *QueryDubbridgeAlipayRefundRequest) SetTradeNo(v string) *QueryDubbridgeAlipayRefundRequest {
+	s.TradeNo = &v
+	return s
+}
+
+type QueryDubbridgeAlipayRefundResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 退款状态 REFUNDING（交易退款中）、 REFUND_SUCCESS（交易退款成功）、 REFUND_FAIL（交易退款失败）
+	RefundStatus *string `json:"refund_status,omitempty" xml:"refund_status,omitempty"`
+	// 退款失败原因
+	RefundFailReason *string `json:"refund_fail_reason,omitempty" xml:"refund_fail_reason,omitempty"`
+	// 退款时间
+	RefundDate *string `json:"refund_date,omitempty" xml:"refund_date,omitempty"`
+}
+
+func (s QueryDubbridgeAlipayRefundResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDubbridgeAlipayRefundResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDubbridgeAlipayRefundResponse) SetReqMsgId(v string) *QueryDubbridgeAlipayRefundResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDubbridgeAlipayRefundResponse) SetResultCode(v string) *QueryDubbridgeAlipayRefundResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDubbridgeAlipayRefundResponse) SetResultMsg(v string) *QueryDubbridgeAlipayRefundResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryDubbridgeAlipayRefundResponse) SetRefundStatus(v string) *QueryDubbridgeAlipayRefundResponse {
+	s.RefundStatus = &v
+	return s
+}
+
+func (s *QueryDubbridgeAlipayRefundResponse) SetRefundFailReason(v string) *QueryDubbridgeAlipayRefundResponse {
+	s.RefundFailReason = &v
+	return s
+}
+
+func (s *QueryDubbridgeAlipayRefundResponse) SetRefundDate(v string) *QueryDubbridgeAlipayRefundResponse {
+	s.RefundDate = &v
 	return s
 }
 
@@ -29610,6 +30173,116 @@ func (s *QueryAirsaasSecurityPolicyResponse) SetDfSceneInfos(v []*DfSceneInfos) 
 	return s
 }
 
+type QueryTdisaasairSecurityPolicyRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 风控事件咨询查询入参
+	EventInfo *EventInfo `json:"event_info,omitempty" xml:"event_info,omitempty" require:"true"`
+	// 请求处理方式
+	//
+	RiskType *string `json:"risk_type,omitempty" xml:"risk_type,omitempty" require:"true"`
+}
+
+func (s QueryTdisaasairSecurityPolicyRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryTdisaasairSecurityPolicyRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryTdisaasairSecurityPolicyRequest) SetAuthToken(v string) *QueryTdisaasairSecurityPolicyRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryTdisaasairSecurityPolicyRequest) SetProductInstanceId(v string) *QueryTdisaasairSecurityPolicyRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryTdisaasairSecurityPolicyRequest) SetEventInfo(v *EventInfo) *QueryTdisaasairSecurityPolicyRequest {
+	s.EventInfo = v
+	return s
+}
+
+func (s *QueryTdisaasairSecurityPolicyRequest) SetRiskType(v string) *QueryTdisaasairSecurityPolicyRequest {
+	s.RiskType = &v
+	return s
+}
+
+type QueryTdisaasairSecurityPolicyResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 场景分
+	ModelDetails []*ModelDetails `json:"model_details,omitempty" xml:"model_details,omitempty" type:"Repeated"`
+	// 安全请求id
+	//
+	SecurityId *string `json:"security_id,omitempty" xml:"security_id,omitempty"`
+	// 策略结果
+	//
+	SecurityResult *string `json:"security_result,omitempty" xml:"security_result,omitempty"`
+	// 策略结果详情
+	//
+	StrategyDetails []*StrategyDetails `json:"strategy_details,omitempty" xml:"strategy_details,omitempty" type:"Repeated"`
+	// 决策流信息
+	//
+	DfSceneInfos []*DfSceneInfos `json:"df_scene_infos,omitempty" xml:"df_scene_infos,omitempty" type:"Repeated"`
+}
+
+func (s QueryTdisaasairSecurityPolicyResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryTdisaasairSecurityPolicyResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryTdisaasairSecurityPolicyResponse) SetReqMsgId(v string) *QueryTdisaasairSecurityPolicyResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryTdisaasairSecurityPolicyResponse) SetResultCode(v string) *QueryTdisaasairSecurityPolicyResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryTdisaasairSecurityPolicyResponse) SetResultMsg(v string) *QueryTdisaasairSecurityPolicyResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryTdisaasairSecurityPolicyResponse) SetModelDetails(v []*ModelDetails) *QueryTdisaasairSecurityPolicyResponse {
+	s.ModelDetails = v
+	return s
+}
+
+func (s *QueryTdisaasairSecurityPolicyResponse) SetSecurityId(v string) *QueryTdisaasairSecurityPolicyResponse {
+	s.SecurityId = &v
+	return s
+}
+
+func (s *QueryTdisaasairSecurityPolicyResponse) SetSecurityResult(v string) *QueryTdisaasairSecurityPolicyResponse {
+	s.SecurityResult = &v
+	return s
+}
+
+func (s *QueryTdisaasairSecurityPolicyResponse) SetStrategyDetails(v []*StrategyDetails) *QueryTdisaasairSecurityPolicyResponse {
+	s.StrategyDetails = v
+	return s
+}
+
+func (s *QueryTdisaasairSecurityPolicyResponse) SetDfSceneInfos(v []*DfSceneInfos) *QueryTdisaasairSecurityPolicyResponse {
+	s.DfSceneInfos = v
+	return s
+}
+
 type UploadUmktParamsFileRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -34262,7 +34935,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.26.9"),
+				"sdk_version":      tea.String("1.28.7"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -37335,6 +38008,176 @@ func (client *Client) CreateDubbridgeAlipayTradeEx(request *CreateDubbridgeAlipa
 	}
 	_result = &CreateDubbridgeAlipayTradeResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.dubbridge.alipay.trade.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 二级商户交易取消
+ * Summary: 天枢系统-二级商户交易取消-分期付
+ */
+func (client *Client) CancelDubbridgeAlipayTrade(request *CancelDubbridgeAlipayTradeRequest) (_result *CancelDubbridgeAlipayTradeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CancelDubbridgeAlipayTradeResponse{}
+	_body, _err := client.CancelDubbridgeAlipayTradeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 二级商户交易取消
+ * Summary: 天枢系统-二级商户交易取消-分期付
+ */
+func (client *Client) CancelDubbridgeAlipayTradeEx(request *CancelDubbridgeAlipayTradeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CancelDubbridgeAlipayTradeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CancelDubbridgeAlipayTradeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.dubbridge.alipay.trade.cancel"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 二级商户交易查询
+ * Summary: 天枢系统-二级商户交易查询-分期付
+ */
+func (client *Client) QueryDubbridgeAlipayTrade(request *QueryDubbridgeAlipayTradeRequest) (_result *QueryDubbridgeAlipayTradeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDubbridgeAlipayTradeResponse{}
+	_body, _err := client.QueryDubbridgeAlipayTradeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 二级商户交易查询
+ * Summary: 天枢系统-二级商户交易查询-分期付
+ */
+func (client *Client) QueryDubbridgeAlipayTradeEx(request *QueryDubbridgeAlipayTradeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDubbridgeAlipayTradeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDubbridgeAlipayTradeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.dubbridge.alipay.trade.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 天枢系统-二级商户交易退款-分期付
+ * Summary: 天枢系统-二级商户交易退款-分期付
+ */
+func (client *Client) RefundDubbridgeAlipayTrade(request *RefundDubbridgeAlipayTradeRequest) (_result *RefundDubbridgeAlipayTradeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &RefundDubbridgeAlipayTradeResponse{}
+	_body, _err := client.RefundDubbridgeAlipayTradeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 天枢系统-二级商户交易退款-分期付
+ * Summary: 天枢系统-二级商户交易退款-分期付
+ */
+func (client *Client) RefundDubbridgeAlipayTradeEx(request *RefundDubbridgeAlipayTradeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *RefundDubbridgeAlipayTradeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &RefundDubbridgeAlipayTradeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.dubbridge.alipay.trade.refund"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 天枢系统-二级商户交易关闭-分期付
+ * Summary: 天枢系统-二级商户交易关闭-分期付
+ */
+func (client *Client) CloseDubbridgeAlipayTrade(request *CloseDubbridgeAlipayTradeRequest) (_result *CloseDubbridgeAlipayTradeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CloseDubbridgeAlipayTradeResponse{}
+	_body, _err := client.CloseDubbridgeAlipayTradeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 天枢系统-二级商户交易关闭-分期付
+ * Summary: 天枢系统-二级商户交易关闭-分期付
+ */
+func (client *Client) CloseDubbridgeAlipayTradeEx(request *CloseDubbridgeAlipayTradeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CloseDubbridgeAlipayTradeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CloseDubbridgeAlipayTradeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.dubbridge.alipay.trade.close"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 天枢系统-二级商户交易退款查询-分期付
+ * Summary: 天枢系统-二级商户交易退款查询-分期付
+ */
+func (client *Client) QueryDubbridgeAlipayRefund(request *QueryDubbridgeAlipayRefundRequest) (_result *QueryDubbridgeAlipayRefundResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDubbridgeAlipayRefundResponse{}
+	_body, _err := client.QueryDubbridgeAlipayRefundEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 天枢系统-二级商户交易退款查询-分期付
+ * Summary: 天枢系统-二级商户交易退款查询-分期付
+ */
+func (client *Client) QueryDubbridgeAlipayRefundEx(request *QueryDubbridgeAlipayRefundRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDubbridgeAlipayRefundResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDubbridgeAlipayRefundResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.dubbridge.alipay.refund.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -41385,6 +42228,40 @@ func (client *Client) QueryAirsaasSecurityPolicyEx(request *QueryAirsaasSecurity
 	}
 	_result = &QueryAirsaasSecurityPolicyResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.airsaas.security.policy.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: saas风险咨询，决策流模式
+ * Summary: saas风险咨询-air引擎
+ */
+func (client *Client) QueryTdisaasairSecurityPolicy(request *QueryTdisaasairSecurityPolicyRequest) (_result *QueryTdisaasairSecurityPolicyResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryTdisaasairSecurityPolicyResponse{}
+	_body, _err := client.QueryTdisaasairSecurityPolicyEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: saas风险咨询，决策流模式
+ * Summary: saas风险咨询-air引擎
+ */
+func (client *Client) QueryTdisaasairSecurityPolicyEx(request *QueryTdisaasairSecurityPolicyRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryTdisaasairSecurityPolicyResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryTdisaasairSecurityPolicyResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.tdisaasair.security.policy.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
