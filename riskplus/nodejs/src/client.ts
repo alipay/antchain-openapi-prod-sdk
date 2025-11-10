@@ -4449,11 +4449,11 @@ export class StoreInfo extends $tea.Model {
   loginTenant?: string;
   // 入驻时间
   loginDate?: string;
-  // 结算支付宝账户，交易资金结算的具体支付宝账号，商户入驻时需填写
+  // 结算支付宝账户，交易资金结算的具体支付宝账号，商户入驻时必填
   alipayLogonId?: string;
-  // 支付宝openId，商户入驻时（非必填）
+  // 支付宝openId
   infoSourceOpenId?: string;
-  // 签约支付宝账户，商户入驻时（非必填）
+  // 签约支付宝账户，商户入驻时必填（接收支付宝下发的签约协议）
   bindingAlipayLogonId?: string;
   static names(): { [key: string]: string } {
     return {
@@ -4973,6 +4973,43 @@ export class RtopCompanyAlarm extends $tea.Model {
       alarmIdx: 'string',
       alarmDate: 'string',
       alarmFlag: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 天枢系统-二级商户交易退款查询结果-分期付
+export class TradeRefundResult extends $tea.Model {
+  // 退款请求编号
+  requestNo: string;
+  // 退款金额
+  refundAmount: number;
+  // 退款原因
+  refundReason: string;
+  // 退款状态
+  refundStatus: string;
+  // 退款失败原因
+  refundFailReason: string;
+  static names(): { [key: string]: string } {
+    return {
+      requestNo: 'request_no',
+      refundAmount: 'refund_amount',
+      refundReason: 'refund_reason',
+      refundStatus: 'refund_status',
+      refundFailReason: 'refund_fail_reason',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      requestNo: 'string',
+      refundAmount: 'number',
+      refundReason: 'string',
+      refundStatus: 'string',
+      refundFailReason: 'string',
     };
   }
 
@@ -5889,6 +5926,8 @@ export class NotifyBenefithubRiskLoginRequest extends $tea.Model {
   productCode?: string;
   // 场景配置信息字符串，用于透传
   sceneConfig?: string;
+  // 区分流量来源
+  trafficSource?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -5898,6 +5937,7 @@ export class NotifyBenefithubRiskLoginRequest extends $tea.Model {
       mobile: 'mobile',
       productCode: 'product_code',
       sceneConfig: 'scene_config',
+      trafficSource: 'traffic_source',
     };
   }
 
@@ -5910,6 +5950,7 @@ export class NotifyBenefithubRiskLoginRequest extends $tea.Model {
       mobile: 'string',
       productCode: 'string',
       sceneConfig: 'string',
+      trafficSource: 'string',
     };
   }
 
@@ -13139,6 +13180,397 @@ export class CreateDubbridgeAlipayTradeResponse extends $tea.Model {
       resultMsg: 'string',
       bizOrderNo: 'string',
       qrCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CancelDubbridgeAlipayTradeRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 订单号
+  bizOrderNo: string;
+  // 导流平台
+  trafficPlatform: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizOrderNo: 'biz_order_no',
+      trafficPlatform: 'traffic_platform',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizOrderNo: 'string',
+      trafficPlatform: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CancelDubbridgeAlipayTradeResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 订单号
+  bizOrderNo?: string;
+  // 订单状态 
+  // TRADE_WAIT_PAY（交易待支付）、
+  // TRADE_CANCELED（未付款交易超时关闭）、
+  // TRADE_SUCCESS（交易支付成功）、
+  // TRADE_REFUND_SUCCESS（交易退款成功）
+  // 
+  tradeStatus?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      bizOrderNo: 'biz_order_no',
+      tradeStatus: 'trade_status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      bizOrderNo: 'string',
+      tradeStatus: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgeAlipayTradeRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 订单号
+  bizOrderNo: string;
+  // 导流平台
+  trafficPlatform: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizOrderNo: 'biz_order_no',
+      trafficPlatform: 'traffic_platform',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizOrderNo: 'string',
+      trafficPlatform: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgeAlipayTradeResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 订单状态
+  // WAIT_BUYER_PAY（等待买家付款）、
+  // TRADE_CLOSED（未付款交易超时关闭，或支付完成后全额退款）、
+  // TRADE_SUCCESS（交易支付成功）、
+  // TRADE_FINISHED（交易结束，不可退款）
+  tradeStatus?: string;
+  // 支付宝交易号
+  tradeNo?: string;
+  // 买家支付宝账号
+  buyerLogonId?: string;
+  // 支付金额
+  payAmount?: string;
+  // 支付时间
+  payDate?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      tradeStatus: 'trade_status',
+      tradeNo: 'trade_no',
+      buyerLogonId: 'buyer_logon_id',
+      payAmount: 'pay_amount',
+      payDate: 'pay_date',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      tradeStatus: 'string',
+      tradeNo: 'string',
+      buyerLogonId: 'string',
+      payAmount: 'string',
+      payDate: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RefundDubbridgeAlipayTradeRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求编号
+  requestNo: string;
+  // 订单号
+  bizOrderNo: string;
+  // 导流平台
+  trafficPlatform: string;
+  // 支付宝交易号
+  tradeNo?: string;
+  // 退款金额
+  refundAmount: string;
+  // 退款原因
+  refundReason?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      requestNo: 'request_no',
+      bizOrderNo: 'biz_order_no',
+      trafficPlatform: 'traffic_platform',
+      tradeNo: 'trade_no',
+      refundAmount: 'refund_amount',
+      refundReason: 'refund_reason',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      requestNo: 'string',
+      bizOrderNo: 'string',
+      trafficPlatform: 'string',
+      tradeNo: 'string',
+      refundAmount: 'string',
+      refundReason: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RefundDubbridgeAlipayTradeResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 订单状态
+  // REFUNDING（交易退款中）、
+  // REFUND_SUCCESS（交易退款成功）、
+  // REFUND_FAIL（交易退款失败）
+  refundStatus?: string;
+  // 退款失败原因
+  refundFailReason?: string;
+  // 退款时间
+  refundDate?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      refundStatus: 'refund_status',
+      refundFailReason: 'refund_fail_reason',
+      refundDate: 'refund_date',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      refundStatus: 'string',
+      refundFailReason: 'string',
+      refundDate: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CloseDubbridgeAlipayTradeRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 资产方购物订单号
+  bizOrderNo: string;
+  // 导流平台
+  trafficPlatform: string;
+  // 操作人id
+  operatorId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizOrderNo: 'biz_order_no',
+      trafficPlatform: 'traffic_platform',
+      operatorId: 'operator_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizOrderNo: 'string',
+      trafficPlatform: 'string',
+      operatorId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CloseDubbridgeAlipayTradeResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 订单交易状态
+  tradeStatus?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      tradeStatus: 'trade_status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      tradeStatus: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgeAlipayRefundRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 退款请求编号
+  requestNo: string;
+  // 商家订单编号
+  bizOrderNo: string;
+  // 导流平台
+  trafficPlatform: string;
+  // 支付宝交易号
+  tradeNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      requestNo: 'request_no',
+      bizOrderNo: 'biz_order_no',
+      trafficPlatform: 'traffic_platform',
+      tradeNo: 'trade_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      requestNo: 'string',
+      bizOrderNo: 'string',
+      trafficPlatform: 'string',
+      tradeNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgeAlipayRefundResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 退款状态 REFUNDING（交易退款中）、 REFUND_SUCCESS（交易退款成功）、 REFUND_FAIL（交易退款失败）
+  refundStatus?: string;
+  // 退款失败原因
+  refundFailReason?: string;
+  // 退款时间
+  refundDate?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      refundStatus: 'refund_status',
+      refundFailReason: 'refund_fail_reason',
+      refundDate: 'refund_date',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      refundStatus: 'string',
+      refundFailReason: 'string',
+      refundDate: 'string',
     };
   }
 
@@ -22042,6 +22474,90 @@ export class QueryAirsaasSecurityPolicyResponse extends $tea.Model {
   }
 }
 
+export class QueryTdisaasairSecurityPolicyRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 风控事件咨询查询入参
+  eventInfo: EventInfo;
+  // 请求处理方式
+  // 
+  riskType: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      eventInfo: 'event_info',
+      riskType: 'risk_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      eventInfo: EventInfo,
+      riskType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryTdisaasairSecurityPolicyResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 场景分
+  modelDetails?: ModelDetails[];
+  // 安全请求id
+  // 
+  securityId?: string;
+  // 策略结果
+  // 
+  securityResult?: string;
+  // 策略结果详情
+  // 
+  strategyDetails?: StrategyDetails[];
+  // 决策流信息
+  // 
+  dfSceneInfos?: DfSceneInfos[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      modelDetails: 'model_details',
+      securityId: 'security_id',
+      securityResult: 'security_result',
+      strategyDetails: 'strategy_details',
+      dfSceneInfos: 'df_scene_infos',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      modelDetails: { 'type': 'array', 'itemType': ModelDetails },
+      securityId: 'string',
+      securityResult: 'string',
+      strategyDetails: { 'type': 'array', 'itemType': StrategyDetails },
+      dfSceneInfos: { 'type': 'array', 'itemType': DfSceneInfos },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class UploadUmktParamsFileRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -25564,7 +26080,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.26.9",
+          sdk_version: "1.28.7",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
@@ -27304,6 +27820,101 @@ export default class Client {
   async createDubbridgeAlipayTradeEx(request: CreateDubbridgeAlipayTradeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateDubbridgeAlipayTradeResponse> {
     Util.validateModel(request);
     return $tea.cast<CreateDubbridgeAlipayTradeResponse>(await this.doRequest("1.0", "riskplus.dubbridge.alipay.trade.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateDubbridgeAlipayTradeResponse({}));
+  }
+
+  /**
+   * Description: 二级商户交易取消
+   * Summary: 天枢系统-二级商户交易取消-分期付
+   */
+  async cancelDubbridgeAlipayTrade(request: CancelDubbridgeAlipayTradeRequest): Promise<CancelDubbridgeAlipayTradeResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.cancelDubbridgeAlipayTradeEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 二级商户交易取消
+   * Summary: 天枢系统-二级商户交易取消-分期付
+   */
+  async cancelDubbridgeAlipayTradeEx(request: CancelDubbridgeAlipayTradeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CancelDubbridgeAlipayTradeResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CancelDubbridgeAlipayTradeResponse>(await this.doRequest("1.0", "riskplus.dubbridge.alipay.trade.cancel", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CancelDubbridgeAlipayTradeResponse({}));
+  }
+
+  /**
+   * Description: 二级商户交易查询
+   * Summary: 天枢系统-二级商户交易查询-分期付
+   */
+  async queryDubbridgeAlipayTrade(request: QueryDubbridgeAlipayTradeRequest): Promise<QueryDubbridgeAlipayTradeResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDubbridgeAlipayTradeEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 二级商户交易查询
+   * Summary: 天枢系统-二级商户交易查询-分期付
+   */
+  async queryDubbridgeAlipayTradeEx(request: QueryDubbridgeAlipayTradeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDubbridgeAlipayTradeResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDubbridgeAlipayTradeResponse>(await this.doRequest("1.0", "riskplus.dubbridge.alipay.trade.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDubbridgeAlipayTradeResponse({}));
+  }
+
+  /**
+   * Description: 天枢系统-二级商户交易退款-分期付
+   * Summary: 天枢系统-二级商户交易退款-分期付
+   */
+  async refundDubbridgeAlipayTrade(request: RefundDubbridgeAlipayTradeRequest): Promise<RefundDubbridgeAlipayTradeResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.refundDubbridgeAlipayTradeEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 天枢系统-二级商户交易退款-分期付
+   * Summary: 天枢系统-二级商户交易退款-分期付
+   */
+  async refundDubbridgeAlipayTradeEx(request: RefundDubbridgeAlipayTradeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RefundDubbridgeAlipayTradeResponse> {
+    Util.validateModel(request);
+    return $tea.cast<RefundDubbridgeAlipayTradeResponse>(await this.doRequest("1.0", "riskplus.dubbridge.alipay.trade.refund", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RefundDubbridgeAlipayTradeResponse({}));
+  }
+
+  /**
+   * Description: 天枢系统-二级商户交易关闭-分期付
+   * Summary: 天枢系统-二级商户交易关闭-分期付
+   */
+  async closeDubbridgeAlipayTrade(request: CloseDubbridgeAlipayTradeRequest): Promise<CloseDubbridgeAlipayTradeResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.closeDubbridgeAlipayTradeEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 天枢系统-二级商户交易关闭-分期付
+   * Summary: 天枢系统-二级商户交易关闭-分期付
+   */
+  async closeDubbridgeAlipayTradeEx(request: CloseDubbridgeAlipayTradeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CloseDubbridgeAlipayTradeResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CloseDubbridgeAlipayTradeResponse>(await this.doRequest("1.0", "riskplus.dubbridge.alipay.trade.close", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CloseDubbridgeAlipayTradeResponse({}));
+  }
+
+  /**
+   * Description: 天枢系统-二级商户交易退款查询-分期付
+   * Summary: 天枢系统-二级商户交易退款查询-分期付
+   */
+  async queryDubbridgeAlipayRefund(request: QueryDubbridgeAlipayRefundRequest): Promise<QueryDubbridgeAlipayRefundResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDubbridgeAlipayRefundEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 天枢系统-二级商户交易退款查询-分期付
+   * Summary: 天枢系统-二级商户交易退款查询-分期付
+   */
+  async queryDubbridgeAlipayRefundEx(request: QueryDubbridgeAlipayRefundRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDubbridgeAlipayRefundResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDubbridgeAlipayRefundResponse>(await this.doRequest("1.0", "riskplus.dubbridge.alipay.refund.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDubbridgeAlipayRefundResponse({}));
   }
 
   /**
@@ -29610,6 +30221,25 @@ export default class Client {
   async queryAirsaasSecurityPolicyEx(request: QueryAirsaasSecurityPolicyRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAirsaasSecurityPolicyResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryAirsaasSecurityPolicyResponse>(await this.doRequest("1.0", "riskplus.airsaas.security.policy.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAirsaasSecurityPolicyResponse({}));
+  }
+
+  /**
+   * Description: saas风险咨询，决策流模式
+   * Summary: saas风险咨询-air引擎
+   */
+  async queryTdisaasairSecurityPolicy(request: QueryTdisaasairSecurityPolicyRequest): Promise<QueryTdisaasairSecurityPolicyResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryTdisaasairSecurityPolicyEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: saas风险咨询，决策流模式
+   * Summary: saas风险咨询-air引擎
+   */
+  async queryTdisaasairSecurityPolicyEx(request: QueryTdisaasairSecurityPolicyRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryTdisaasairSecurityPolicyResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryTdisaasairSecurityPolicyResponse>(await this.doRequest("1.0", "riskplus.tdisaasair.security.policy.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryTdisaasairSecurityPolicyResponse({}));
   }
 
   /**
