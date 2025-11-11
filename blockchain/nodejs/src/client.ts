@@ -7207,10 +7207,15 @@ export class BatchSubmitCarResult extends $tea.Model {
   submitId: string;
   // 是否成功
   isSuccess: boolean;
+  // OK
+  // NO_DEMAND 无线索需求，需要重试
+  // INVALID 无效，不要重试
+  pushResultCode: string;
   static names(): { [key: string]: string } {
     return {
       submitId: 'submit_id',
       isSuccess: 'is_success',
+      pushResultCode: 'push_result_code',
     };
   }
 
@@ -7218,6 +7223,7 @@ export class BatchSubmitCarResult extends $tea.Model {
     return {
       submitId: 'string',
       isSuccess: 'boolean',
+      pushResultCode: 'string',
     };
   }
 
@@ -7792,6 +7798,10 @@ export class NewCarInfo extends $tea.Model {
   purcharseTime?: string;
   // 用户信息
   userInfo: CarUserInfo;
+  // 懂车帝或者汽车之家
+  matchSource: string;
+  // 汽车之家车型id
+  qcCarModelId?: string;
   static names(): { [key: string]: string } {
     return {
       carSeries: 'car_series',
@@ -7800,6 +7810,8 @@ export class NewCarInfo extends $tea.Model {
       submitId: 'submit_id',
       purcharseTime: 'purcharse_time',
       userInfo: 'user_info',
+      matchSource: 'match_source',
+      qcCarModelId: 'qc_car_model_id',
     };
   }
 
@@ -7811,6 +7823,8 @@ export class NewCarInfo extends $tea.Model {
       submitId: 'string',
       purcharseTime: 'string',
       userInfo: CarUserInfo,
+      matchSource: 'string',
+      qcCarModelId: 'string',
     };
   }
 
@@ -40128,6 +40142,10 @@ export class SubmitAuthNewcarRequest extends $tea.Model {
   carSeriesId?: string;
   // 提交线索的唯一id
   submitId?: string;
+  // 汽车之家车型id
+  qcCarModelId: string;
+  // 匹配源
+  matchSource: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -40139,6 +40157,8 @@ export class SubmitAuthNewcarRequest extends $tea.Model {
       purcharseTime: 'purcharse_time',
       carSeriesId: 'car_series_id',
       submitId: 'submit_id',
+      qcCarModelId: 'qc_car_model_id',
+      matchSource: 'match_source',
     };
   }
 
@@ -40153,6 +40173,8 @@ export class SubmitAuthNewcarRequest extends $tea.Model {
       purcharseTime: 'string',
       carSeriesId: 'string',
       submitId: 'string',
+      qcCarModelId: 'string',
+      matchSource: 'string',
     };
   }
 
@@ -40168,8 +40190,10 @@ export class SubmitAuthNewcarResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 提交是否成功
-  pushSuccess?: boolean;
+  // OK
+  // NO_DEMAND 无线索需求，需要重试
+  // INVALID 无效，不要重试
+  pushSuccess?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -40184,7 +40208,7 @@ export class SubmitAuthNewcarResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      pushSuccess: 'boolean',
+      pushSuccess: 'string',
     };
   }
 
@@ -55561,7 +55585,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.28.65",
+          sdk_version: "1.28.66",
           _prod_code: "BLOCKCHAIN",
           _prod_channel: "undefined",
         };
