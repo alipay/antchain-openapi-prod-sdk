@@ -46,9 +46,9 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
         public string MatchSource { get; set; }
 
         // 汽车之家车型id
-        [NameInMap("qc_car_model_id")]
+        [NameInMap("qc_car_series_id")]
         [Validation(Required=false)]
-        public string QcCarModelId { get; set; }
+        public string QcCarSeriesId { get; set; }
 
     }
 
