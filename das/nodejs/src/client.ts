@@ -565,6 +565,55 @@ export class VehicleLicenseInfo extends $tea.Model {
   }
 }
 
+// 授权配置列表响应
+export class DataAuthConfigListResponse extends $tea.Model {
+  // 场景码
+  sceneCode: string;
+  // 数据源连接器空间id
+  sourceSpaceId: string;
+  // 被授权方企业信用代码
+  authEnterpriseCode: string;
+  // 接入方企业名称
+  targetName: string;
+  // 被授权应用名称
+  authAppName: string;
+  // 数据产品服务简称列表
+  productAbbrList: string[];
+  // 授权次数
+  authCount: number;
+  // 授权状态
+  authStatus: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      sceneCode: 'scene_code',
+      sourceSpaceId: 'source_space_id',
+      authEnterpriseCode: 'auth_enterprise_code',
+      targetName: 'target_name',
+      authAppName: 'auth_app_name',
+      productAbbrList: 'product_abbr_list',
+      authCount: 'auth_count',
+      authStatus: 'auth_status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      sceneCode: 'string',
+      sourceSpaceId: 'string',
+      authEnterpriseCode: 'string',
+      targetName: 'string',
+      authAppName: 'string',
+      productAbbrList: { 'type': 'array', 'itemType': 'string' },
+      authCount: 'number',
+      authStatus: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 教育经历信息
 export class EducationExperiencesInfo extends $tea.Model {
   // 学历
@@ -643,6 +692,39 @@ export class EducationInfo extends $tea.Model {
       project211: 'boolean',
       project985: 'boolean',
       doubleFirstClass: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 车辆用户信息
+export class CarUserInfo extends $tea.Model {
+  // 唯一标识用户的id
+  userId: string;
+  // 手机号
+  phoneNum: string;
+  // 姓名
+  userCertName?: string;
+  // 证件号码
+  userCertNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      userId: 'user_id',
+      phoneNum: 'phone_num',
+      userCertName: 'user_cert_name',
+      userCertNo: 'user_cert_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      userId: 'string',
+      phoneNum: 'string',
+      userCertName: 'string',
+      userCertNo: 'string',
     };
   }
 
@@ -742,6 +824,84 @@ export class VehicleLicenseCertResult extends $tea.Model {
       plateNumber: 'boolean',
       plateType: 'boolean',
       owner: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 协议模板信息
+export class Agreement extends $tea.Model {
+  // 协议名称
+  agreementName: string;
+  // 协议类型
+  agreementType: string;
+  // 第三方原始协议链接
+  agreementUrl: string;
+  // 协议文件上传目录
+  agreementFileOssKey: string;
+  // 上传时的协议原始文件名
+  agreementFileOriginalName: string;
+  static names(): { [key: string]: string } {
+    return {
+      agreementName: 'agreement_name',
+      agreementType: 'agreement_type',
+      agreementUrl: 'agreement_url',
+      agreementFileOssKey: 'agreement_file_oss_key',
+      agreementFileOriginalName: 'agreement_file_original_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      agreementName: 'string',
+      agreementType: 'string',
+      agreementUrl: 'string',
+      agreementFileOssKey: 'string',
+      agreementFileOriginalName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 部分车辆信息
+export class PartialCarInfo extends $tea.Model {
+  // 车牌号码
+  licenseNo: string;
+  // 车架号
+  vin: string;
+  // 发动机号
+  engineNo: string;
+  // 初登日期
+  registerDate: string;
+  // 车辆型号
+  modelCode: string;
+  // 营运性质
+  useNatureCode: string;
+  static names(): { [key: string]: string } {
+    return {
+      licenseNo: 'license_no',
+      vin: 'vin',
+      engineNo: 'engine_no',
+      registerDate: 'register_date',
+      modelCode: 'model_code',
+      useNatureCode: 'use_nature_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      licenseNo: 'string',
+      vin: 'string',
+      engineNo: 'string',
+      registerDate: 'string',
+      modelCode: 'string',
+      useNatureCode: 'string',
     };
   }
 
@@ -3406,6 +3566,258 @@ export class GetApplicationProxysignResponse extends $tea.Model {
   }
 }
 
+export class QueryApplicationChannelunifiedentranceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 授权文件ID
+  fileIndex?: string;
+  // 整个需求的入参，map json
+  params: string;
+  // 是否授权
+  userAuthed?: boolean;
+  // 数据集服务id
+  serviceId: string;
+  // token授权场景码
+  sceneCode?: string;
+  // 	
+  // 授权token
+  token?: string;
+  // 客户ID
+  customerId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      fileIndex: 'file_index',
+      params: 'params',
+      userAuthed: 'user_authed',
+      serviceId: 'service_id',
+      sceneCode: 'scene_code',
+      token: 'token',
+      customerId: 'customer_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      fileIndex: 'string',
+      params: 'string',
+      userAuthed: 'boolean',
+      serviceId: 'string',
+      sceneCode: 'string',
+      token: 'string',
+      customerId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryApplicationChannelunifiedentranceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 具体返回，map json
+  data?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadApplicationChannelauthfileRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 服务id，开发者提供
+  serviceId: string;
+  // 文件md5
+  fileMd5: string;
+  // 文件ID
+  fileObject?: Readable;
+  fileObjectName?: string;
+  fileId: string;
+  // 协议名称
+  fileName: string;
+  // 授权协议文件版本号
+  fileVersion: string;
+  // 客户ID
+  customerId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      serviceId: 'service_id',
+      fileMd5: 'file_md5',
+      fileObject: 'fileObject',
+      fileObjectName: 'fileObjectName',
+      fileId: 'file_id',
+      fileName: 'file_name',
+      fileVersion: 'file_version',
+      customerId: 'customer_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      serviceId: 'string',
+      fileMd5: 'string',
+      fileObject: 'Readable',
+      fileObjectName: 'string',
+      fileId: 'string',
+      fileName: 'string',
+      fileVersion: 'string',
+      customerId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadApplicationChannelauthfileResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 授权协议索引号
+  fileIndex?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      fileIndex: 'file_index',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      fileIndex: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryApplicationMarriageRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求参数json
+  bizParam: string;
+  // 产品code
+  productCode: string;
+  // 调用的方法
+  methodCode: string;
+  // 租户编码
+  instCode?: string;
+  // RSA-DESede 代表数字信封：采用 rsa 非对称算法，DESede 对称算法
+  algorithm?: string;
+  // 是否采用加密算法
+  encryption?: boolean;
+  // 对称秘钥加密后的数据
+  encryptionKey?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizParam: 'biz_param',
+      productCode: 'product_code',
+      methodCode: 'method_code',
+      instCode: 'inst_code',
+      algorithm: 'algorithm',
+      encryption: 'encryption',
+      encryptionKey: 'encryption_key',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizParam: 'string',
+      productCode: 'string',
+      methodCode: 'string',
+      instCode: 'string',
+      algorithm: 'string',
+      encryption: 'boolean',
+      encryptionKey: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryApplicationMarriageResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 返回数据
+  data?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class GetDasLinkRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -4301,6 +4713,600 @@ export class AuthDasAuthresultResponse extends $tea.Model {
   }
 }
 
+export class AddAuthConfigRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 复用的场景码
+  parentSceneCode?: string;
+  // 数据源连接器空间id
+  sourceSpaceId: string;
+  // 被授权方企业信用代码
+  authEnterpriseCode: string;
+  // 被授权方名称
+  targetName: string;
+  // 业务应用名称
+  authAppName: string;
+  // 客户应用logo的oss key
+  enterpriseLogo: string;
+  // 用途说明
+  authPurpose: string;
+  // 授权描述
+  authDesc?: string;
+  // 授权形式
+  authType: string;
+  // C端是否显示凭证数据
+  enableShowProofVc?: boolean;
+  // C端是否显示授权记录
+  enableShowAuthRecord?: boolean;
+  // 授权服务产品列表
+  authProductList?: string[];
+  // 用户类型
+  userType?: string;
+  // 授权协议
+  agreementList?: Agreement[];
+  // 主题颜色
+  backgroundColor?: string;
+  // 使用刷脸识别
+  useFacialRecognition?: boolean;
+  // 页面使用范围列表
+  useScopeList?: string[];
+  // 授权成功端内跳转地址
+  innerSuccessCallbackUrl?: string;
+  // 授权成功端外跳转地址
+  outsideSuccessCallbackUrl?: string;
+  // 公钥
+  publicKey?: string;
+  // 发起授权页面的链接
+  startAuthUrl?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      parentSceneCode: 'parent_scene_code',
+      sourceSpaceId: 'source_space_id',
+      authEnterpriseCode: 'auth_enterprise_code',
+      targetName: 'target_name',
+      authAppName: 'auth_app_name',
+      enterpriseLogo: 'enterprise_logo',
+      authPurpose: 'auth_purpose',
+      authDesc: 'auth_desc',
+      authType: 'auth_type',
+      enableShowProofVc: 'enable_show_proof_vc',
+      enableShowAuthRecord: 'enable_show_auth_record',
+      authProductList: 'auth_product_list',
+      userType: 'user_type',
+      agreementList: 'agreement_list',
+      backgroundColor: 'background_color',
+      useFacialRecognition: 'use_facial_recognition',
+      useScopeList: 'use_scope_list',
+      innerSuccessCallbackUrl: 'inner_success_callback_url',
+      outsideSuccessCallbackUrl: 'outside_success_callback_url',
+      publicKey: 'public_key',
+      startAuthUrl: 'start_auth_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      parentSceneCode: 'string',
+      sourceSpaceId: 'string',
+      authEnterpriseCode: 'string',
+      targetName: 'string',
+      authAppName: 'string',
+      enterpriseLogo: 'string',
+      authPurpose: 'string',
+      authDesc: 'string',
+      authType: 'string',
+      enableShowProofVc: 'boolean',
+      enableShowAuthRecord: 'boolean',
+      authProductList: { 'type': 'array', 'itemType': 'string' },
+      userType: 'string',
+      agreementList: { 'type': 'array', 'itemType': Agreement },
+      backgroundColor: 'string',
+      useFacialRecognition: 'boolean',
+      useScopeList: { 'type': 'array', 'itemType': 'string' },
+      innerSuccessCallbackUrl: 'string',
+      outsideSuccessCallbackUrl: 'string',
+      publicKey: 'string',
+      startAuthUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AddAuthConfigResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 场景码
+  sceneCode?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      sceneCode: 'scene_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      sceneCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateAuthConfigRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 场景码
+  sceneCode: string;
+  // 复用的场景码
+  parentSceneCode?: string;
+  // 数据源连接器空间id
+  sourceSpaceId: string;
+  // 被授权方企业信用代码
+  authEnterpriseCode: string;
+  // 被授权方名称
+  targetName: string;
+  // 业务应用名称
+  authAppName: string;
+  // 客户应用logo的oss key
+  enterpriseLogo: string;
+  // 用途说明
+  authPurpose: string;
+  // 授权描述
+  authDesc?: string;
+  // 授权形式
+  authType: string;
+  // C端是否显示凭证数据
+  enableShowProofVc?: boolean;
+  // C端是否显示授权记录
+  enableShowAuthRecord?: boolean;
+  // 授权服务产品列表
+  authProductList?: string[];
+  // 用户类型
+  userType?: string;
+  // 授权协议
+  agreementList?: Agreement[];
+  // 主题颜色
+  backgroundColor?: string;
+  // 使用刷脸识别
+  useFacialRecognition?: boolean;
+  // 页面使用范围列表
+  useScopeList?: string[];
+  // 授权成功端内跳转地址
+  innerSuccessCallbackUrl?: string;
+  // 授权成功端外跳转地址
+  outsideSuccessCallbackUrl?: string;
+  // 公钥
+  publicKey?: string;
+  // 发起授权页面的链接
+  startAuthUrl?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      sceneCode: 'scene_code',
+      parentSceneCode: 'parent_scene_code',
+      sourceSpaceId: 'source_space_id',
+      authEnterpriseCode: 'auth_enterprise_code',
+      targetName: 'target_name',
+      authAppName: 'auth_app_name',
+      enterpriseLogo: 'enterprise_logo',
+      authPurpose: 'auth_purpose',
+      authDesc: 'auth_desc',
+      authType: 'auth_type',
+      enableShowProofVc: 'enable_show_proof_vc',
+      enableShowAuthRecord: 'enable_show_auth_record',
+      authProductList: 'auth_product_list',
+      userType: 'user_type',
+      agreementList: 'agreement_list',
+      backgroundColor: 'background_color',
+      useFacialRecognition: 'use_facial_recognition',
+      useScopeList: 'use_scope_list',
+      innerSuccessCallbackUrl: 'inner_success_callback_url',
+      outsideSuccessCallbackUrl: 'outside_success_callback_url',
+      publicKey: 'public_key',
+      startAuthUrl: 'start_auth_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      sceneCode: 'string',
+      parentSceneCode: 'string',
+      sourceSpaceId: 'string',
+      authEnterpriseCode: 'string',
+      targetName: 'string',
+      authAppName: 'string',
+      enterpriseLogo: 'string',
+      authPurpose: 'string',
+      authDesc: 'string',
+      authType: 'string',
+      enableShowProofVc: 'boolean',
+      enableShowAuthRecord: 'boolean',
+      authProductList: { 'type': 'array', 'itemType': 'string' },
+      userType: 'string',
+      agreementList: { 'type': 'array', 'itemType': Agreement },
+      backgroundColor: 'string',
+      useFacialRecognition: 'boolean',
+      useScopeList: { 'type': 'array', 'itemType': 'string' },
+      innerSuccessCallbackUrl: 'string',
+      outsideSuccessCallbackUrl: 'string',
+      publicKey: 'string',
+      startAuthUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateAuthConfigResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadAuthAgreementRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 文件类型
+  fileType: string;
+  // 被授权方企业信用代码
+  authEnterpriseCode: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      fileType: 'file_type',
+      authEnterpriseCode: 'auth_enterprise_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      fileType: 'string',
+      authEnterpriseCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadAuthAgreementResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 访问id
+  accessId?: string;
+  // 策略
+  policy?: string;
+  // 签名
+  signature?: string;
+  // 目录
+  dir?: string;
+  // 主机
+  host?: string;
+  // 过期时间
+  expire?: string;
+  // 回调地址
+  callback?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      accessId: 'access_id',
+      policy: 'policy',
+      signature: 'signature',
+      dir: 'dir',
+      host: 'host',
+      expire: 'expire',
+      callback: 'callback',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      accessId: 'string',
+      policy: 'string',
+      signature: 'string',
+      dir: 'string',
+      host: 'string',
+      expire: 'string',
+      callback: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadAuthPictureRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 文件类型
+  fileType: string;
+  // 被授权方企业信用代码
+  authEnterpriseCode: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      fileType: 'file_type',
+      authEnterpriseCode: 'auth_enterprise_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      fileType: 'string',
+      authEnterpriseCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadAuthPictureResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 访问id
+  accessId?: string;
+  // 策略
+  policy?: string;
+  // 签名
+  signature?: string;
+  // 目录
+  dir?: string;
+  // 主机
+  host?: string;
+  // 过期时间
+  expire?: string;
+  // 回调地址
+  callback?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      accessId: 'access_id',
+      policy: 'policy',
+      signature: 'signature',
+      dir: 'dir',
+      host: 'host',
+      expire: 'expire',
+      callback: 'callback',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      accessId: 'string',
+      policy: 'string',
+      signature: 'string',
+      dir: 'string',
+      host: 'string',
+      expire: 'string',
+      callback: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListAuthProductRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListAuthProductResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 产品code
+  productCode?: string;
+  // 产品简称
+  productAbbr?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      productCode: 'product_code',
+      productAbbr: 'product_abbr',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      productCode: 'string',
+      productAbbr: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListAuthConfigRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 授权企业信用代码
+  enterpriseCode?: string;
+  // 业务应用名称
+  authAppName?: string;
+  // 产品code列表
+  productCodeList?: string[];
+  // 页码
+  pageNum: number;
+  // 每页数量
+  pageSize: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      enterpriseCode: 'enterprise_code',
+      authAppName: 'auth_app_name',
+      productCodeList: 'product_code_list',
+      pageNum: 'page_num',
+      pageSize: 'page_size',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      enterpriseCode: 'string',
+      authAppName: 'string',
+      productCodeList: { 'type': 'array', 'itemType': 'string' },
+      pageNum: 'number',
+      pageSize: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListAuthConfigResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 总条数
+  count?: number;
+  // 总页数
+  totalPages?: number;
+  // 列表记录
+  dataList?: DataAuthConfigListResponse[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      count: 'count',
+      totalPages: 'total_pages',
+      dataList: 'data_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      count: 'number',
+      totalPages: 'number',
+      dataList: { 'type': 'array', 'itemType': DataAuthConfigListResponse },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -4502,7 +5508,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.67",
+          sdk_version: "1.1.74",
           _prod_code: "DAS",
           _prod_channel: "undefined",
         };
@@ -5130,6 +6136,85 @@ export default class Client {
   }
 
   /**
+   * Description: 数据服务内部渠道统一查询入口
+   * Summary: 数据服务内部渠道统一查询入口
+   */
+  async queryApplicationChannelunifiedentrance(request: QueryApplicationChannelunifiedentranceRequest): Promise<QueryApplicationChannelunifiedentranceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryApplicationChannelunifiedentranceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 数据服务内部渠道统一查询入口
+   * Summary: 数据服务内部渠道统一查询入口
+   */
+  async queryApplicationChannelunifiedentranceEx(request: QueryApplicationChannelunifiedentranceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryApplicationChannelunifiedentranceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryApplicationChannelunifiedentranceResponse>(await this.doRequest("1.0", "antchain.das.application.channelunifiedentrance.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryApplicationChannelunifiedentranceResponse({}));
+  }
+
+  /**
+   * Description: 渠道调用上传授权协议文件
+   * Summary: 渠道调用上传授权协议文件
+   */
+  async uploadApplicationChannelauthfile(request: UploadApplicationChannelauthfileRequest): Promise<UploadApplicationChannelauthfileResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.uploadApplicationChannelauthfileEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 渠道调用上传授权协议文件
+   * Summary: 渠道调用上传授权协议文件
+   */
+  async uploadApplicationChannelauthfileEx(request: UploadApplicationChannelauthfileRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UploadApplicationChannelauthfileResponse> {
+    if (!Util.isUnset(request.fileObject)) {
+      let uploadReq = new CreateAntcloudGatewayxFileUploadRequest({
+        authToken: request.authToken,
+        apiCode: "antchain.das.application.channelauthfile.upload",
+        fileName: request.fileObjectName,
+      });
+      let uploadResp = await this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+      if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+        let uploadApplicationChannelauthfileResponse = new UploadApplicationChannelauthfileResponse({
+          reqMsgId: uploadResp.reqMsgId,
+          resultCode: uploadResp.resultCode,
+          resultMsg: uploadResp.resultMsg,
+        });
+        return uploadApplicationChannelauthfileResponse;
+      }
+
+      let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+      await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+      request.fileId = uploadResp.fileId;
+      request.fileObject = null;
+    }
+
+    Util.validateModel(request);
+    return $tea.cast<UploadApplicationChannelauthfileResponse>(await this.doRequest("1.0", "antchain.das.application.channelauthfile.upload", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UploadApplicationChannelauthfileResponse({}));
+  }
+
+  /**
+   * Description: 核婚的查询
+   * Summary: 核婚的查询
+   */
+  async queryApplicationMarriage(request: QueryApplicationMarriageRequest): Promise<QueryApplicationMarriageResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryApplicationMarriageEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 核婚的查询
+   * Summary: 核婚的查询
+   */
+  async queryApplicationMarriageEx(request: QueryApplicationMarriageRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryApplicationMarriageResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryApplicationMarriageResponse>(await this.doRequest("1.0", "antchain.das.application.marriage.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryApplicationMarriageResponse({}));
+  }
+
+  /**
    * Description: 获取授权H5页面链接
    * Summary: 获取授权H5页面链接
    */
@@ -5374,6 +6459,120 @@ export default class Client {
   async authDasAuthresultEx(request: AuthDasAuthresultRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<AuthDasAuthresultResponse> {
     Util.validateModel(request);
     return $tea.cast<AuthDasAuthresultResponse>(await this.doRequest("1.0", "antchain.das.das.authresult.auth", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new AuthDasAuthresultResponse({}));
+  }
+
+  /**
+   * Description: 新增数据授权配置
+   * Summary: 新增数据授权配置
+   */
+  async addAuthConfig(request: AddAuthConfigRequest): Promise<AddAuthConfigResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.addAuthConfigEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 新增数据授权配置
+   * Summary: 新增数据授权配置
+   */
+  async addAuthConfigEx(request: AddAuthConfigRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<AddAuthConfigResponse> {
+    Util.validateModel(request);
+    return $tea.cast<AddAuthConfigResponse>(await this.doRequest("1.0", "antchain.das.auth.config.add", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new AddAuthConfigResponse({}));
+  }
+
+  /**
+   * Description: 编辑数据授权配置
+   * Summary: 编辑数据授权配置
+   */
+  async updateAuthConfig(request: UpdateAuthConfigRequest): Promise<UpdateAuthConfigResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.updateAuthConfigEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 编辑数据授权配置
+   * Summary: 编辑数据授权配置
+   */
+  async updateAuthConfigEx(request: UpdateAuthConfigRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdateAuthConfigResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UpdateAuthConfigResponse>(await this.doRequest("1.0", "antchain.das.auth.config.update", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UpdateAuthConfigResponse({}));
+  }
+
+  /**
+   * Description: 上传授权协议
+   * Summary: 上传授权协议
+   */
+  async uploadAuthAgreement(request: UploadAuthAgreementRequest): Promise<UploadAuthAgreementResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.uploadAuthAgreementEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 上传授权协议
+   * Summary: 上传授权协议
+   */
+  async uploadAuthAgreementEx(request: UploadAuthAgreementRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UploadAuthAgreementResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UploadAuthAgreementResponse>(await this.doRequest("1.0", "antchain.das.auth.agreement.upload", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UploadAuthAgreementResponse({}));
+  }
+
+  /**
+   * Description: 上传图片
+   * Summary: 上传图片
+   */
+  async uploadAuthPicture(request: UploadAuthPictureRequest): Promise<UploadAuthPictureResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.uploadAuthPictureEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 上传图片
+   * Summary: 上传图片
+   */
+  async uploadAuthPictureEx(request: UploadAuthPictureRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UploadAuthPictureResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UploadAuthPictureResponse>(await this.doRequest("1.0", "antchain.das.auth.picture.upload", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UploadAuthPictureResponse({}));
+  }
+
+  /**
+   * Description: 查询授权产品列表
+   * Summary: 查询授权产品列表
+   */
+  async listAuthProduct(request: ListAuthProductRequest): Promise<ListAuthProductResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.listAuthProductEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询授权产品列表
+   * Summary: 查询授权产品列表
+   */
+  async listAuthProductEx(request: ListAuthProductRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ListAuthProductResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ListAuthProductResponse>(await this.doRequest("1.0", "antchain.das.auth.product.list", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ListAuthProductResponse({}));
+  }
+
+  /**
+   * Description: 查询数据授权配置列表
+   * Summary: 查询数据授权配置列表
+   */
+  async listAuthConfig(request: ListAuthConfigRequest): Promise<ListAuthConfigResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.listAuthConfigEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询数据授权配置列表
+   * Summary: 查询数据授权配置列表
+   */
+  async listAuthConfigEx(request: ListAuthConfigRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ListAuthConfigResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ListAuthConfigResponse>(await this.doRequest("1.0", "antchain.das.auth.config.list", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ListAuthConfigResponse({}));
   }
 
   /**
