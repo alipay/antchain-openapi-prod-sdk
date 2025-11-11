@@ -965,6 +965,90 @@ class VehicleLicenseInfo(TeaModel):
         return self
 
 
+class DataAuthConfigListResponse(TeaModel):
+    def __init__(
+        self,
+        scene_code: str = None,
+        source_space_id: str = None,
+        auth_enterprise_code: str = None,
+        target_name: str = None,
+        auth_app_name: str = None,
+        product_abbr_list: List[str] = None,
+        auth_count: int = None,
+        auth_status: bool = None,
+    ):
+        # 场景码
+        self.scene_code = scene_code
+        # 数据源连接器空间id
+        self.source_space_id = source_space_id
+        # 被授权方企业信用代码
+        self.auth_enterprise_code = auth_enterprise_code
+        # 接入方企业名称
+        self.target_name = target_name
+        # 被授权应用名称
+        self.auth_app_name = auth_app_name
+        # 数据产品服务简称列表
+        self.product_abbr_list = product_abbr_list
+        # 授权次数
+        self.auth_count = auth_count
+        # 授权状态
+        self.auth_status = auth_status
+
+    def validate(self):
+        self.validate_required(self.scene_code, 'scene_code')
+        self.validate_required(self.source_space_id, 'source_space_id')
+        self.validate_required(self.auth_enterprise_code, 'auth_enterprise_code')
+        self.validate_required(self.target_name, 'target_name')
+        self.validate_required(self.auth_app_name, 'auth_app_name')
+        self.validate_required(self.product_abbr_list, 'product_abbr_list')
+        self.validate_required(self.auth_count, 'auth_count')
+        self.validate_required(self.auth_status, 'auth_status')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.scene_code is not None:
+            result['scene_code'] = self.scene_code
+        if self.source_space_id is not None:
+            result['source_space_id'] = self.source_space_id
+        if self.auth_enterprise_code is not None:
+            result['auth_enterprise_code'] = self.auth_enterprise_code
+        if self.target_name is not None:
+            result['target_name'] = self.target_name
+        if self.auth_app_name is not None:
+            result['auth_app_name'] = self.auth_app_name
+        if self.product_abbr_list is not None:
+            result['product_abbr_list'] = self.product_abbr_list
+        if self.auth_count is not None:
+            result['auth_count'] = self.auth_count
+        if self.auth_status is not None:
+            result['auth_status'] = self.auth_status
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('scene_code') is not None:
+            self.scene_code = m.get('scene_code')
+        if m.get('source_space_id') is not None:
+            self.source_space_id = m.get('source_space_id')
+        if m.get('auth_enterprise_code') is not None:
+            self.auth_enterprise_code = m.get('auth_enterprise_code')
+        if m.get('target_name') is not None:
+            self.target_name = m.get('target_name')
+        if m.get('auth_app_name') is not None:
+            self.auth_app_name = m.get('auth_app_name')
+        if m.get('product_abbr_list') is not None:
+            self.product_abbr_list = m.get('product_abbr_list')
+        if m.get('auth_count') is not None:
+            self.auth_count = m.get('auth_count')
+        if m.get('auth_status') is not None:
+            self.auth_status = m.get('auth_status')
+        return self
+
+
 class EducationExperiencesInfo(TeaModel):
     def __init__(
         self,
@@ -1106,6 +1190,56 @@ class EducationInfo(TeaModel):
             self.project_985 = m.get('project985')
         if m.get('double_first_class') is not None:
             self.double_first_class = m.get('double_first_class')
+        return self
+
+
+class CarUserInfo(TeaModel):
+    def __init__(
+        self,
+        user_id: str = None,
+        phone_num: str = None,
+        user_cert_name: str = None,
+        user_cert_no: str = None,
+    ):
+        # 唯一标识用户的id
+        self.user_id = user_id
+        # 手机号
+        self.phone_num = phone_num
+        # 姓名
+        self.user_cert_name = user_cert_name
+        # 证件号码
+        self.user_cert_no = user_cert_no
+
+    def validate(self):
+        self.validate_required(self.user_id, 'user_id')
+        self.validate_required(self.phone_num, 'phone_num')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        if self.phone_num is not None:
+            result['phone_num'] = self.phone_num
+        if self.user_cert_name is not None:
+            result['user_cert_name'] = self.user_cert_name
+        if self.user_cert_no is not None:
+            result['user_cert_no'] = self.user_cert_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        if m.get('phone_num') is not None:
+            self.phone_num = m.get('phone_num')
+        if m.get('user_cert_name') is not None:
+            self.user_cert_name = m.get('user_cert_name')
+        if m.get('user_cert_no') is not None:
+            self.user_cert_no = m.get('user_cert_no')
         return self
 
 
@@ -1262,6 +1396,134 @@ class VehicleLicenseCertResult(TeaModel):
             self.plate_type = m.get('plate_type')
         if m.get('owner') is not None:
             self.owner = m.get('owner')
+        return self
+
+
+class Agreement(TeaModel):
+    def __init__(
+        self,
+        agreement_name: str = None,
+        agreement_type: str = None,
+        agreement_url: str = None,
+        agreement_file_oss_key: str = None,
+        agreement_file_original_name: str = None,
+    ):
+        # 协议名称
+        self.agreement_name = agreement_name
+        # 协议类型
+        self.agreement_type = agreement_type
+        # 第三方原始协议链接
+        self.agreement_url = agreement_url
+        # 协议文件上传目录
+        self.agreement_file_oss_key = agreement_file_oss_key
+        # 上传时的协议原始文件名
+        self.agreement_file_original_name = agreement_file_original_name
+
+    def validate(self):
+        self.validate_required(self.agreement_name, 'agreement_name')
+        self.validate_required(self.agreement_type, 'agreement_type')
+        self.validate_required(self.agreement_url, 'agreement_url')
+        self.validate_required(self.agreement_file_oss_key, 'agreement_file_oss_key')
+        self.validate_required(self.agreement_file_original_name, 'agreement_file_original_name')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.agreement_name is not None:
+            result['agreement_name'] = self.agreement_name
+        if self.agreement_type is not None:
+            result['agreement_type'] = self.agreement_type
+        if self.agreement_url is not None:
+            result['agreement_url'] = self.agreement_url
+        if self.agreement_file_oss_key is not None:
+            result['agreement_file_oss_key'] = self.agreement_file_oss_key
+        if self.agreement_file_original_name is not None:
+            result['agreement_file_original_name'] = self.agreement_file_original_name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('agreement_name') is not None:
+            self.agreement_name = m.get('agreement_name')
+        if m.get('agreement_type') is not None:
+            self.agreement_type = m.get('agreement_type')
+        if m.get('agreement_url') is not None:
+            self.agreement_url = m.get('agreement_url')
+        if m.get('agreement_file_oss_key') is not None:
+            self.agreement_file_oss_key = m.get('agreement_file_oss_key')
+        if m.get('agreement_file_original_name') is not None:
+            self.agreement_file_original_name = m.get('agreement_file_original_name')
+        return self
+
+
+class PartialCarInfo(TeaModel):
+    def __init__(
+        self,
+        license_no: str = None,
+        vin: str = None,
+        engine_no: str = None,
+        register_date: str = None,
+        model_code: str = None,
+        use_nature_code: str = None,
+    ):
+        # 车牌号码
+        self.license_no = license_no
+        # 车架号
+        self.vin = vin
+        # 发动机号
+        self.engine_no = engine_no
+        # 初登日期
+        self.register_date = register_date
+        # 车辆型号
+        self.model_code = model_code
+        # 营运性质
+        self.use_nature_code = use_nature_code
+
+    def validate(self):
+        self.validate_required(self.license_no, 'license_no')
+        self.validate_required(self.vin, 'vin')
+        self.validate_required(self.engine_no, 'engine_no')
+        self.validate_required(self.register_date, 'register_date')
+        self.validate_required(self.model_code, 'model_code')
+        self.validate_required(self.use_nature_code, 'use_nature_code')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.license_no is not None:
+            result['license_no'] = self.license_no
+        if self.vin is not None:
+            result['vin'] = self.vin
+        if self.engine_no is not None:
+            result['engine_no'] = self.engine_no
+        if self.register_date is not None:
+            result['register_date'] = self.register_date
+        if self.model_code is not None:
+            result['model_code'] = self.model_code
+        if self.use_nature_code is not None:
+            result['use_nature_code'] = self.use_nature_code
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('license_no') is not None:
+            self.license_no = m.get('license_no')
+        if m.get('vin') is not None:
+            self.vin = m.get('vin')
+        if m.get('engine_no') is not None:
+            self.engine_no = m.get('engine_no')
+        if m.get('register_date') is not None:
+            self.register_date = m.get('register_date')
+        if m.get('model_code') is not None:
+            self.model_code = m.get('model_code')
+        if m.get('use_nature_code') is not None:
+            self.use_nature_code = m.get('use_nature_code')
         return self
 
 
@@ -5605,6 +5867,419 @@ class GetApplicationProxysignResponse(TeaModel):
         return self
 
 
+class QueryApplicationChannelunifiedentranceRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        file_index: str = None,
+        params: str = None,
+        user_authed: bool = None,
+        service_id: str = None,
+        scene_code: str = None,
+        token: str = None,
+        customer_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 授权文件ID
+        self.file_index = file_index
+        # 整个需求的入参，map json
+        self.params = params
+        # 是否授权
+        self.user_authed = user_authed
+        # 数据集服务id
+        self.service_id = service_id
+        # token授权场景码
+        self.scene_code = scene_code
+        # 
+        # 授权token
+        self.token = token
+        # 客户ID
+        self.customer_id = customer_id
+
+    def validate(self):
+        self.validate_required(self.params, 'params')
+        self.validate_required(self.service_id, 'service_id')
+        self.validate_required(self.customer_id, 'customer_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.file_index is not None:
+            result['file_index'] = self.file_index
+        if self.params is not None:
+            result['params'] = self.params
+        if self.user_authed is not None:
+            result['user_authed'] = self.user_authed
+        if self.service_id is not None:
+            result['service_id'] = self.service_id
+        if self.scene_code is not None:
+            result['scene_code'] = self.scene_code
+        if self.token is not None:
+            result['token'] = self.token
+        if self.customer_id is not None:
+            result['customer_id'] = self.customer_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('file_index') is not None:
+            self.file_index = m.get('file_index')
+        if m.get('params') is not None:
+            self.params = m.get('params')
+        if m.get('user_authed') is not None:
+            self.user_authed = m.get('user_authed')
+        if m.get('service_id') is not None:
+            self.service_id = m.get('service_id')
+        if m.get('scene_code') is not None:
+            self.scene_code = m.get('scene_code')
+        if m.get('token') is not None:
+            self.token = m.get('token')
+        if m.get('customer_id') is not None:
+            self.customer_id = m.get('customer_id')
+        return self
+
+
+class QueryApplicationChannelunifiedentranceResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 具体返回，map json
+        self.data = data
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.data is not None:
+            result['data'] = self.data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('data') is not None:
+            self.data = m.get('data')
+        return self
+
+
+class UploadApplicationChannelauthfileRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        service_id: str = None,
+        file_md_5: str = None,
+        file_object: BinaryIO = None,
+        file_object_name: str = None,
+        file_id: str = None,
+        file_name: str = None,
+        file_version: str = None,
+        customer_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 服务id，开发者提供
+        self.service_id = service_id
+        # 文件md5
+        self.file_md_5 = file_md_5
+        # 文件ID
+        # 待上传文件
+        self.file_object = file_object
+        # 待上传文件名
+        self.file_object_name = file_object_name
+        self.file_id = file_id
+        # 协议名称
+        self.file_name = file_name
+        # 授权协议文件版本号
+        self.file_version = file_version
+        # 客户ID
+        self.customer_id = customer_id
+
+    def validate(self):
+        self.validate_required(self.service_id, 'service_id')
+        self.validate_required(self.file_md_5, 'file_md_5')
+        self.validate_required(self.file_id, 'file_id')
+        self.validate_required(self.file_name, 'file_name')
+        self.validate_required(self.file_version, 'file_version')
+        self.validate_required(self.customer_id, 'customer_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.service_id is not None:
+            result['service_id'] = self.service_id
+        if self.file_md_5 is not None:
+            result['file_md5'] = self.file_md_5
+        if self.file_object is not None:
+            result['fileObject'] = self.file_object
+        if self.file_object_name is not None:
+            result['fileObjectName'] = self.file_object_name
+        if self.file_id is not None:
+            result['file_id'] = self.file_id
+        if self.file_name is not None:
+            result['file_name'] = self.file_name
+        if self.file_version is not None:
+            result['file_version'] = self.file_version
+        if self.customer_id is not None:
+            result['customer_id'] = self.customer_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('service_id') is not None:
+            self.service_id = m.get('service_id')
+        if m.get('file_md5') is not None:
+            self.file_md_5 = m.get('file_md5')
+        if m.get('fileObject') is not None:
+            self.file_object = m.get('fileObject')
+        if m.get('fileObjectName') is not None:
+            self.file_object_name = m.get('fileObjectName')
+        if m.get('file_id') is not None:
+            self.file_id = m.get('file_id')
+        if m.get('file_name') is not None:
+            self.file_name = m.get('file_name')
+        if m.get('file_version') is not None:
+            self.file_version = m.get('file_version')
+        if m.get('customer_id') is not None:
+            self.customer_id = m.get('customer_id')
+        return self
+
+
+class UploadApplicationChannelauthfileResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        file_index: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 授权协议索引号
+        self.file_index = file_index
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.file_index is not None:
+            result['file_index'] = self.file_index
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('file_index') is not None:
+            self.file_index = m.get('file_index')
+        return self
+
+
+class QueryApplicationMarriageRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        biz_param: str = None,
+        product_code: str = None,
+        method_code: str = None,
+        inst_code: str = None,
+        algorithm: str = None,
+        encryption: bool = None,
+        encryption_key: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 请求参数json
+        self.biz_param = biz_param
+        # 产品code
+        self.product_code = product_code
+        # 调用的方法
+        self.method_code = method_code
+        # 租户编码
+        self.inst_code = inst_code
+        # RSA-DESede 代表数字信封：采用 rsa 非对称算法，DESede 对称算法
+        self.algorithm = algorithm
+        # 是否采用加密算法
+        self.encryption = encryption
+        # 对称秘钥加密后的数据
+        self.encryption_key = encryption_key
+
+    def validate(self):
+        self.validate_required(self.biz_param, 'biz_param')
+        self.validate_required(self.product_code, 'product_code')
+        self.validate_required(self.method_code, 'method_code')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.biz_param is not None:
+            result['biz_param'] = self.biz_param
+        if self.product_code is not None:
+            result['product_code'] = self.product_code
+        if self.method_code is not None:
+            result['method_code'] = self.method_code
+        if self.inst_code is not None:
+            result['inst_code'] = self.inst_code
+        if self.algorithm is not None:
+            result['algorithm'] = self.algorithm
+        if self.encryption is not None:
+            result['encryption'] = self.encryption
+        if self.encryption_key is not None:
+            result['encryption_key'] = self.encryption_key
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('biz_param') is not None:
+            self.biz_param = m.get('biz_param')
+        if m.get('product_code') is not None:
+            self.product_code = m.get('product_code')
+        if m.get('method_code') is not None:
+            self.method_code = m.get('method_code')
+        if m.get('inst_code') is not None:
+            self.inst_code = m.get('inst_code')
+        if m.get('algorithm') is not None:
+            self.algorithm = m.get('algorithm')
+        if m.get('encryption') is not None:
+            self.encryption = m.get('encryption')
+        if m.get('encryption_key') is not None:
+            self.encryption_key = m.get('encryption_key')
+        return self
+
+
+class QueryApplicationMarriageResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 返回数据
+        self.data = data
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.data is not None:
+            result['data'] = self.data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('data') is not None:
+            self.data = m.get('data')
+        return self
+
+
 class GetDasLinkRequest(TeaModel):
     def __init__(
         self,
@@ -7094,6 +7769,1008 @@ class AuthDasAuthresultResponse(TeaModel):
             self.auth_result_biz_uuid = m.get('auth_result_biz_uuid')
         if m.get('vc') is not None:
             self.vc = m.get('vc')
+        return self
+
+
+class AddAuthConfigRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        parent_scene_code: str = None,
+        source_space_id: str = None,
+        auth_enterprise_code: str = None,
+        target_name: str = None,
+        auth_app_name: str = None,
+        enterprise_logo: str = None,
+        auth_purpose: str = None,
+        auth_desc: str = None,
+        auth_type: str = None,
+        enable_show_proof_vc: bool = None,
+        enable_show_auth_record: bool = None,
+        auth_product_list: List[str] = None,
+        user_type: str = None,
+        agreement_list: List[Agreement] = None,
+        background_color: str = None,
+        use_facial_recognition: bool = None,
+        use_scope_list: List[str] = None,
+        inner_success_callback_url: str = None,
+        outside_success_callback_url: str = None,
+        public_key: str = None,
+        start_auth_url: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 复用的场景码
+        self.parent_scene_code = parent_scene_code
+        # 数据源连接器空间id
+        self.source_space_id = source_space_id
+        # 被授权方企业信用代码
+        self.auth_enterprise_code = auth_enterprise_code
+        # 被授权方名称
+        self.target_name = target_name
+        # 业务应用名称
+        self.auth_app_name = auth_app_name
+        # 客户应用logo的oss key
+        self.enterprise_logo = enterprise_logo
+        # 用途说明
+        self.auth_purpose = auth_purpose
+        # 授权描述
+        self.auth_desc = auth_desc
+        # 授权形式
+        self.auth_type = auth_type
+        # C端是否显示凭证数据
+        self.enable_show_proof_vc = enable_show_proof_vc
+        # C端是否显示授权记录
+        self.enable_show_auth_record = enable_show_auth_record
+        # 授权服务产品列表
+        self.auth_product_list = auth_product_list
+        # 用户类型
+        self.user_type = user_type
+        # 授权协议
+        self.agreement_list = agreement_list
+        # 主题颜色
+        self.background_color = background_color
+        # 使用刷脸识别
+        self.use_facial_recognition = use_facial_recognition
+        # 页面使用范围列表
+        self.use_scope_list = use_scope_list
+        # 授权成功端内跳转地址
+        self.inner_success_callback_url = inner_success_callback_url
+        # 授权成功端外跳转地址
+        self.outside_success_callback_url = outside_success_callback_url
+        # 公钥
+        self.public_key = public_key
+        # 发起授权页面的链接
+        self.start_auth_url = start_auth_url
+
+    def validate(self):
+        self.validate_required(self.source_space_id, 'source_space_id')
+        self.validate_required(self.auth_enterprise_code, 'auth_enterprise_code')
+        self.validate_required(self.target_name, 'target_name')
+        self.validate_required(self.auth_app_name, 'auth_app_name')
+        self.validate_required(self.enterprise_logo, 'enterprise_logo')
+        self.validate_required(self.auth_purpose, 'auth_purpose')
+        self.validate_required(self.auth_type, 'auth_type')
+        if self.agreement_list:
+            for k in self.agreement_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.parent_scene_code is not None:
+            result['parent_scene_code'] = self.parent_scene_code
+        if self.source_space_id is not None:
+            result['source_space_id'] = self.source_space_id
+        if self.auth_enterprise_code is not None:
+            result['auth_enterprise_code'] = self.auth_enterprise_code
+        if self.target_name is not None:
+            result['target_name'] = self.target_name
+        if self.auth_app_name is not None:
+            result['auth_app_name'] = self.auth_app_name
+        if self.enterprise_logo is not None:
+            result['enterprise_logo'] = self.enterprise_logo
+        if self.auth_purpose is not None:
+            result['auth_purpose'] = self.auth_purpose
+        if self.auth_desc is not None:
+            result['auth_desc'] = self.auth_desc
+        if self.auth_type is not None:
+            result['auth_type'] = self.auth_type
+        if self.enable_show_proof_vc is not None:
+            result['enable_show_proof_vc'] = self.enable_show_proof_vc
+        if self.enable_show_auth_record is not None:
+            result['enable_show_auth_record'] = self.enable_show_auth_record
+        if self.auth_product_list is not None:
+            result['auth_product_list'] = self.auth_product_list
+        if self.user_type is not None:
+            result['user_type'] = self.user_type
+        result['agreement_list'] = []
+        if self.agreement_list is not None:
+            for k in self.agreement_list:
+                result['agreement_list'].append(k.to_map() if k else None)
+        if self.background_color is not None:
+            result['background_color'] = self.background_color
+        if self.use_facial_recognition is not None:
+            result['use_facial_recognition'] = self.use_facial_recognition
+        if self.use_scope_list is not None:
+            result['use_scope_list'] = self.use_scope_list
+        if self.inner_success_callback_url is not None:
+            result['inner_success_callback_url'] = self.inner_success_callback_url
+        if self.outside_success_callback_url is not None:
+            result['outside_success_callback_url'] = self.outside_success_callback_url
+        if self.public_key is not None:
+            result['public_key'] = self.public_key
+        if self.start_auth_url is not None:
+            result['start_auth_url'] = self.start_auth_url
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('parent_scene_code') is not None:
+            self.parent_scene_code = m.get('parent_scene_code')
+        if m.get('source_space_id') is not None:
+            self.source_space_id = m.get('source_space_id')
+        if m.get('auth_enterprise_code') is not None:
+            self.auth_enterprise_code = m.get('auth_enterprise_code')
+        if m.get('target_name') is not None:
+            self.target_name = m.get('target_name')
+        if m.get('auth_app_name') is not None:
+            self.auth_app_name = m.get('auth_app_name')
+        if m.get('enterprise_logo') is not None:
+            self.enterprise_logo = m.get('enterprise_logo')
+        if m.get('auth_purpose') is not None:
+            self.auth_purpose = m.get('auth_purpose')
+        if m.get('auth_desc') is not None:
+            self.auth_desc = m.get('auth_desc')
+        if m.get('auth_type') is not None:
+            self.auth_type = m.get('auth_type')
+        if m.get('enable_show_proof_vc') is not None:
+            self.enable_show_proof_vc = m.get('enable_show_proof_vc')
+        if m.get('enable_show_auth_record') is not None:
+            self.enable_show_auth_record = m.get('enable_show_auth_record')
+        if m.get('auth_product_list') is not None:
+            self.auth_product_list = m.get('auth_product_list')
+        if m.get('user_type') is not None:
+            self.user_type = m.get('user_type')
+        self.agreement_list = []
+        if m.get('agreement_list') is not None:
+            for k in m.get('agreement_list'):
+                temp_model = Agreement()
+                self.agreement_list.append(temp_model.from_map(k))
+        if m.get('background_color') is not None:
+            self.background_color = m.get('background_color')
+        if m.get('use_facial_recognition') is not None:
+            self.use_facial_recognition = m.get('use_facial_recognition')
+        if m.get('use_scope_list') is not None:
+            self.use_scope_list = m.get('use_scope_list')
+        if m.get('inner_success_callback_url') is not None:
+            self.inner_success_callback_url = m.get('inner_success_callback_url')
+        if m.get('outside_success_callback_url') is not None:
+            self.outside_success_callback_url = m.get('outside_success_callback_url')
+        if m.get('public_key') is not None:
+            self.public_key = m.get('public_key')
+        if m.get('start_auth_url') is not None:
+            self.start_auth_url = m.get('start_auth_url')
+        return self
+
+
+class AddAuthConfigResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        scene_code: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 场景码
+        self.scene_code = scene_code
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.scene_code is not None:
+            result['scene_code'] = self.scene_code
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('scene_code') is not None:
+            self.scene_code = m.get('scene_code')
+        return self
+
+
+class UpdateAuthConfigRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        scene_code: str = None,
+        parent_scene_code: str = None,
+        source_space_id: str = None,
+        auth_enterprise_code: str = None,
+        target_name: str = None,
+        auth_app_name: str = None,
+        enterprise_logo: str = None,
+        auth_purpose: str = None,
+        auth_desc: str = None,
+        auth_type: str = None,
+        enable_show_proof_vc: bool = None,
+        enable_show_auth_record: bool = None,
+        auth_product_list: List[str] = None,
+        user_type: str = None,
+        agreement_list: List[Agreement] = None,
+        background_color: str = None,
+        use_facial_recognition: bool = None,
+        use_scope_list: List[str] = None,
+        inner_success_callback_url: str = None,
+        outside_success_callback_url: str = None,
+        public_key: str = None,
+        start_auth_url: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 场景码
+        self.scene_code = scene_code
+        # 复用的场景码
+        self.parent_scene_code = parent_scene_code
+        # 数据源连接器空间id
+        self.source_space_id = source_space_id
+        # 被授权方企业信用代码
+        self.auth_enterprise_code = auth_enterprise_code
+        # 被授权方名称
+        self.target_name = target_name
+        # 业务应用名称
+        self.auth_app_name = auth_app_name
+        # 客户应用logo的oss key
+        self.enterprise_logo = enterprise_logo
+        # 用途说明
+        self.auth_purpose = auth_purpose
+        # 授权描述
+        self.auth_desc = auth_desc
+        # 授权形式
+        self.auth_type = auth_type
+        # C端是否显示凭证数据
+        self.enable_show_proof_vc = enable_show_proof_vc
+        # C端是否显示授权记录
+        self.enable_show_auth_record = enable_show_auth_record
+        # 授权服务产品列表
+        self.auth_product_list = auth_product_list
+        # 用户类型
+        self.user_type = user_type
+        # 授权协议
+        self.agreement_list = agreement_list
+        # 主题颜色
+        self.background_color = background_color
+        # 使用刷脸识别
+        self.use_facial_recognition = use_facial_recognition
+        # 页面使用范围列表
+        self.use_scope_list = use_scope_list
+        # 授权成功端内跳转地址
+        self.inner_success_callback_url = inner_success_callback_url
+        # 授权成功端外跳转地址
+        self.outside_success_callback_url = outside_success_callback_url
+        # 公钥
+        self.public_key = public_key
+        # 发起授权页面的链接
+        self.start_auth_url = start_auth_url
+
+    def validate(self):
+        self.validate_required(self.scene_code, 'scene_code')
+        self.validate_required(self.source_space_id, 'source_space_id')
+        self.validate_required(self.auth_enterprise_code, 'auth_enterprise_code')
+        self.validate_required(self.target_name, 'target_name')
+        self.validate_required(self.auth_app_name, 'auth_app_name')
+        self.validate_required(self.enterprise_logo, 'enterprise_logo')
+        self.validate_required(self.auth_purpose, 'auth_purpose')
+        self.validate_required(self.auth_type, 'auth_type')
+        if self.agreement_list:
+            for k in self.agreement_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.scene_code is not None:
+            result['scene_code'] = self.scene_code
+        if self.parent_scene_code is not None:
+            result['parent_scene_code'] = self.parent_scene_code
+        if self.source_space_id is not None:
+            result['source_space_id'] = self.source_space_id
+        if self.auth_enterprise_code is not None:
+            result['auth_enterprise_code'] = self.auth_enterprise_code
+        if self.target_name is not None:
+            result['target_name'] = self.target_name
+        if self.auth_app_name is not None:
+            result['auth_app_name'] = self.auth_app_name
+        if self.enterprise_logo is not None:
+            result['enterprise_logo'] = self.enterprise_logo
+        if self.auth_purpose is not None:
+            result['auth_purpose'] = self.auth_purpose
+        if self.auth_desc is not None:
+            result['auth_desc'] = self.auth_desc
+        if self.auth_type is not None:
+            result['auth_type'] = self.auth_type
+        if self.enable_show_proof_vc is not None:
+            result['enable_show_proof_vc'] = self.enable_show_proof_vc
+        if self.enable_show_auth_record is not None:
+            result['enable_show_auth_record'] = self.enable_show_auth_record
+        if self.auth_product_list is not None:
+            result['auth_product_list'] = self.auth_product_list
+        if self.user_type is not None:
+            result['user_type'] = self.user_type
+        result['agreement_list'] = []
+        if self.agreement_list is not None:
+            for k in self.agreement_list:
+                result['agreement_list'].append(k.to_map() if k else None)
+        if self.background_color is not None:
+            result['background_color'] = self.background_color
+        if self.use_facial_recognition is not None:
+            result['use_facial_recognition'] = self.use_facial_recognition
+        if self.use_scope_list is not None:
+            result['use_scope_list'] = self.use_scope_list
+        if self.inner_success_callback_url is not None:
+            result['inner_success_callback_url'] = self.inner_success_callback_url
+        if self.outside_success_callback_url is not None:
+            result['outside_success_callback_url'] = self.outside_success_callback_url
+        if self.public_key is not None:
+            result['public_key'] = self.public_key
+        if self.start_auth_url is not None:
+            result['start_auth_url'] = self.start_auth_url
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('scene_code') is not None:
+            self.scene_code = m.get('scene_code')
+        if m.get('parent_scene_code') is not None:
+            self.parent_scene_code = m.get('parent_scene_code')
+        if m.get('source_space_id') is not None:
+            self.source_space_id = m.get('source_space_id')
+        if m.get('auth_enterprise_code') is not None:
+            self.auth_enterprise_code = m.get('auth_enterprise_code')
+        if m.get('target_name') is not None:
+            self.target_name = m.get('target_name')
+        if m.get('auth_app_name') is not None:
+            self.auth_app_name = m.get('auth_app_name')
+        if m.get('enterprise_logo') is not None:
+            self.enterprise_logo = m.get('enterprise_logo')
+        if m.get('auth_purpose') is not None:
+            self.auth_purpose = m.get('auth_purpose')
+        if m.get('auth_desc') is not None:
+            self.auth_desc = m.get('auth_desc')
+        if m.get('auth_type') is not None:
+            self.auth_type = m.get('auth_type')
+        if m.get('enable_show_proof_vc') is not None:
+            self.enable_show_proof_vc = m.get('enable_show_proof_vc')
+        if m.get('enable_show_auth_record') is not None:
+            self.enable_show_auth_record = m.get('enable_show_auth_record')
+        if m.get('auth_product_list') is not None:
+            self.auth_product_list = m.get('auth_product_list')
+        if m.get('user_type') is not None:
+            self.user_type = m.get('user_type')
+        self.agreement_list = []
+        if m.get('agreement_list') is not None:
+            for k in m.get('agreement_list'):
+                temp_model = Agreement()
+                self.agreement_list.append(temp_model.from_map(k))
+        if m.get('background_color') is not None:
+            self.background_color = m.get('background_color')
+        if m.get('use_facial_recognition') is not None:
+            self.use_facial_recognition = m.get('use_facial_recognition')
+        if m.get('use_scope_list') is not None:
+            self.use_scope_list = m.get('use_scope_list')
+        if m.get('inner_success_callback_url') is not None:
+            self.inner_success_callback_url = m.get('inner_success_callback_url')
+        if m.get('outside_success_callback_url') is not None:
+            self.outside_success_callback_url = m.get('outside_success_callback_url')
+        if m.get('public_key') is not None:
+            self.public_key = m.get('public_key')
+        if m.get('start_auth_url') is not None:
+            self.start_auth_url = m.get('start_auth_url')
+        return self
+
+
+class UpdateAuthConfigResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class UploadAuthAgreementRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        file_type: str = None,
+        auth_enterprise_code: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 文件类型
+        self.file_type = file_type
+        # 被授权方企业信用代码
+        self.auth_enterprise_code = auth_enterprise_code
+
+    def validate(self):
+        self.validate_required(self.file_type, 'file_type')
+        self.validate_required(self.auth_enterprise_code, 'auth_enterprise_code')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.file_type is not None:
+            result['file_type'] = self.file_type
+        if self.auth_enterprise_code is not None:
+            result['auth_enterprise_code'] = self.auth_enterprise_code
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('file_type') is not None:
+            self.file_type = m.get('file_type')
+        if m.get('auth_enterprise_code') is not None:
+            self.auth_enterprise_code = m.get('auth_enterprise_code')
+        return self
+
+
+class UploadAuthAgreementResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        access_id: str = None,
+        policy: str = None,
+        signature: str = None,
+        dir: str = None,
+        host: str = None,
+        expire: str = None,
+        callback: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 访问id
+        self.access_id = access_id
+        # 策略
+        self.policy = policy
+        # 签名
+        self.signature = signature
+        # 目录
+        self.dir = dir
+        # 主机
+        self.host = host
+        # 过期时间
+        self.expire = expire
+        # 回调地址
+        self.callback = callback
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.access_id is not None:
+            result['access_id'] = self.access_id
+        if self.policy is not None:
+            result['policy'] = self.policy
+        if self.signature is not None:
+            result['signature'] = self.signature
+        if self.dir is not None:
+            result['dir'] = self.dir
+        if self.host is not None:
+            result['host'] = self.host
+        if self.expire is not None:
+            result['expire'] = self.expire
+        if self.callback is not None:
+            result['callback'] = self.callback
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('access_id') is not None:
+            self.access_id = m.get('access_id')
+        if m.get('policy') is not None:
+            self.policy = m.get('policy')
+        if m.get('signature') is not None:
+            self.signature = m.get('signature')
+        if m.get('dir') is not None:
+            self.dir = m.get('dir')
+        if m.get('host') is not None:
+            self.host = m.get('host')
+        if m.get('expire') is not None:
+            self.expire = m.get('expire')
+        if m.get('callback') is not None:
+            self.callback = m.get('callback')
+        return self
+
+
+class UploadAuthPictureRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        file_type: str = None,
+        auth_enterprise_code: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 文件类型
+        self.file_type = file_type
+        # 被授权方企业信用代码
+        self.auth_enterprise_code = auth_enterprise_code
+
+    def validate(self):
+        self.validate_required(self.file_type, 'file_type')
+        self.validate_required(self.auth_enterprise_code, 'auth_enterprise_code')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.file_type is not None:
+            result['file_type'] = self.file_type
+        if self.auth_enterprise_code is not None:
+            result['auth_enterprise_code'] = self.auth_enterprise_code
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('file_type') is not None:
+            self.file_type = m.get('file_type')
+        if m.get('auth_enterprise_code') is not None:
+            self.auth_enterprise_code = m.get('auth_enterprise_code')
+        return self
+
+
+class UploadAuthPictureResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        access_id: str = None,
+        policy: str = None,
+        signature: str = None,
+        dir: str = None,
+        host: str = None,
+        expire: str = None,
+        callback: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 访问id
+        self.access_id = access_id
+        # 策略
+        self.policy = policy
+        # 签名
+        self.signature = signature
+        # 目录
+        self.dir = dir
+        # 主机
+        self.host = host
+        # 过期时间
+        self.expire = expire
+        # 回调地址
+        self.callback = callback
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.access_id is not None:
+            result['access_id'] = self.access_id
+        if self.policy is not None:
+            result['policy'] = self.policy
+        if self.signature is not None:
+            result['signature'] = self.signature
+        if self.dir is not None:
+            result['dir'] = self.dir
+        if self.host is not None:
+            result['host'] = self.host
+        if self.expire is not None:
+            result['expire'] = self.expire
+        if self.callback is not None:
+            result['callback'] = self.callback
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('access_id') is not None:
+            self.access_id = m.get('access_id')
+        if m.get('policy') is not None:
+            self.policy = m.get('policy')
+        if m.get('signature') is not None:
+            self.signature = m.get('signature')
+        if m.get('dir') is not None:
+            self.dir = m.get('dir')
+        if m.get('host') is not None:
+            self.host = m.get('host')
+        if m.get('expire') is not None:
+            self.expire = m.get('expire')
+        if m.get('callback') is not None:
+            self.callback = m.get('callback')
+        return self
+
+
+class ListAuthProductRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        return self
+
+
+class ListAuthProductResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        product_code: str = None,
+        product_abbr: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 产品code
+        self.product_code = product_code
+        # 产品简称
+        self.product_abbr = product_abbr
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.product_code is not None:
+            result['product_code'] = self.product_code
+        if self.product_abbr is not None:
+            result['product_abbr'] = self.product_abbr
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('product_code') is not None:
+            self.product_code = m.get('product_code')
+        if m.get('product_abbr') is not None:
+            self.product_abbr = m.get('product_abbr')
+        return self
+
+
+class ListAuthConfigRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        enterprise_code: str = None,
+        auth_app_name: str = None,
+        product_code_list: List[str] = None,
+        page_num: int = None,
+        page_size: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 授权企业信用代码
+        self.enterprise_code = enterprise_code
+        # 业务应用名称
+        self.auth_app_name = auth_app_name
+        # 产品code列表
+        self.product_code_list = product_code_list
+        # 页码
+        self.page_num = page_num
+        # 每页数量
+        self.page_size = page_size
+
+    def validate(self):
+        self.validate_required(self.page_num, 'page_num')
+        self.validate_required(self.page_size, 'page_size')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.enterprise_code is not None:
+            result['enterprise_code'] = self.enterprise_code
+        if self.auth_app_name is not None:
+            result['auth_app_name'] = self.auth_app_name
+        if self.product_code_list is not None:
+            result['product_code_list'] = self.product_code_list
+        if self.page_num is not None:
+            result['page_num'] = self.page_num
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('enterprise_code') is not None:
+            self.enterprise_code = m.get('enterprise_code')
+        if m.get('auth_app_name') is not None:
+            self.auth_app_name = m.get('auth_app_name')
+        if m.get('product_code_list') is not None:
+            self.product_code_list = m.get('product_code_list')
+        if m.get('page_num') is not None:
+            self.page_num = m.get('page_num')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        return self
+
+
+class ListAuthConfigResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        count: int = None,
+        total_pages: int = None,
+        data_list: List[DataAuthConfigListResponse] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 总条数
+        self.count = count
+        # 总页数
+        self.total_pages = total_pages
+        # 列表记录
+        self.data_list = data_list
+
+    def validate(self):
+        if self.data_list:
+            for k in self.data_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.count is not None:
+            result['count'] = self.count
+        if self.total_pages is not None:
+            result['total_pages'] = self.total_pages
+        result['data_list'] = []
+        if self.data_list is not None:
+            for k in self.data_list:
+                result['data_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('count') is not None:
+            self.count = m.get('count')
+        if m.get('total_pages') is not None:
+            self.total_pages = m.get('total_pages')
+        self.data_list = []
+        if m.get('data_list') is not None:
+            for k in m.get('data_list'):
+                temp_model = DataAuthConfigListResponse()
+                self.data_list.append(temp_model.from_map(k))
         return self
 
 
