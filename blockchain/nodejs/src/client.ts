@@ -7801,7 +7801,7 @@ export class NewCarInfo extends $tea.Model {
   // 懂车帝或者汽车之家
   matchSource: string;
   // 汽车之家车型id
-  qcCarModelId?: string;
+  qcCarSeriesId?: string;
   static names(): { [key: string]: string } {
     return {
       carSeries: 'car_series',
@@ -7811,7 +7811,7 @@ export class NewCarInfo extends $tea.Model {
       purcharseTime: 'purcharse_time',
       userInfo: 'user_info',
       matchSource: 'match_source',
-      qcCarModelId: 'qc_car_model_id',
+      qcCarSeriesId: 'qc_car_series_id',
     };
   }
 
@@ -7824,7 +7824,7 @@ export class NewCarInfo extends $tea.Model {
       purcharseTime: 'string',
       userInfo: CarUserInfo,
       matchSource: 'string',
-      qcCarModelId: 'string',
+      qcCarSeriesId: 'string',
     };
   }
 
@@ -40142,8 +40142,8 @@ export class SubmitAuthNewcarRequest extends $tea.Model {
   carSeriesId?: string;
   // 提交线索的唯一id
   submitId?: string;
-  // 汽车之家车型id
-  qcCarModelId: string;
+  // 汽车之家车系id
+  qcCarSeriesId: string;
   // 匹配源
   matchSource: string;
   static names(): { [key: string]: string } {
@@ -40157,7 +40157,7 @@ export class SubmitAuthNewcarRequest extends $tea.Model {
       purcharseTime: 'purcharse_time',
       carSeriesId: 'car_series_id',
       submitId: 'submit_id',
-      qcCarModelId: 'qc_car_model_id',
+      qcCarSeriesId: 'qc_car_series_id',
       matchSource: 'match_source',
     };
   }
@@ -40173,7 +40173,7 @@ export class SubmitAuthNewcarRequest extends $tea.Model {
       purcharseTime: 'string',
       carSeriesId: 'string',
       submitId: 'string',
-      qcCarModelId: 'string',
+      qcCarSeriesId: 'string',
       matchSource: 'string',
     };
   }
@@ -55585,7 +55585,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.28.66",
+          sdk_version: "1.28.67",
           _prod_code: "BLOCKCHAIN",
           _prod_channel: "undefined",
         };
