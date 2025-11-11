@@ -11,6 +11,8 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\DAS\Models\AddAuthConfigRequest;
+use AntChain\DAS\Models\AddAuthConfigResponse;
 use AntChain\DAS\Models\AuthDasAuthresultRequest;
 use AntChain\DAS\Models\AuthDasAuthresultResponse;
 use AntChain\DAS\Models\AuthDasSmsRequest;
@@ -37,10 +39,16 @@ use AntChain\DAS\Models\GetDomesticTrademarklogoRequest;
 use AntChain\DAS\Models\GetDomesticTrademarklogoResponse;
 use AntChain\DAS\Models\InitUnifiedentranceAsyncRequest;
 use AntChain\DAS\Models\InitUnifiedentranceAsyncResponse;
+use AntChain\DAS\Models\ListAuthConfigRequest;
+use AntChain\DAS\Models\ListAuthConfigResponse;
+use AntChain\DAS\Models\ListAuthProductRequest;
+use AntChain\DAS\Models\ListAuthProductResponse;
 use AntChain\DAS\Models\QueryApplicationBasecarinfoRequest;
 use AntChain\DAS\Models\QueryApplicationBasecarinfoResponse;
 use AntChain\DAS\Models\QueryApplicationBatchqueryresultRequest;
 use AntChain\DAS\Models\QueryApplicationBatchqueryresultResponse;
+use AntChain\DAS\Models\QueryApplicationChannelunifiedentranceRequest;
+use AntChain\DAS\Models\QueryApplicationChannelunifiedentranceResponse;
 use AntChain\DAS\Models\QueryApplicationDataRequest;
 use AntChain\DAS\Models\QueryApplicationDataResponse;
 use AntChain\DAS\Models\QueryApplicationDetailcarinfoRequest;
@@ -51,6 +59,8 @@ use AntChain\DAS\Models\QueryApplicationEducationstatusRequest;
 use AntChain\DAS\Models\QueryApplicationEducationstatusResponse;
 use AntChain\DAS\Models\QueryApplicationIpeRequest;
 use AntChain\DAS\Models\QueryApplicationIpeResponse;
+use AntChain\DAS\Models\QueryApplicationMarriageRequest;
+use AntChain\DAS\Models\QueryApplicationMarriageResponse;
 use AntChain\DAS\Models\QueryApplicationResumeRequest;
 use AntChain\DAS\Models\QueryApplicationResumeResponse;
 use AntChain\DAS\Models\QueryApplicationUnifiedentranceRequest;
@@ -79,12 +89,20 @@ use AntChain\DAS\Models\SendDasSmsRequest;
 use AntChain\DAS\Models\SendDasSmsResponse;
 use AntChain\DAS\Models\SignApplicationResumeRequest;
 use AntChain\DAS\Models\SignApplicationResumeResponse;
+use AntChain\DAS\Models\UpdateAuthConfigRequest;
+use AntChain\DAS\Models\UpdateAuthConfigResponse;
 use AntChain\DAS\Models\UpdateDasDatasourceRequest;
 use AntChain\DAS\Models\UpdateDasDatasourceResponse;
 use AntChain\DAS\Models\UploadApplicationAuthfileRequest;
 use AntChain\DAS\Models\UploadApplicationAuthfileResponse;
 use AntChain\DAS\Models\UploadApplicationBatchqueryfileRequest;
 use AntChain\DAS\Models\UploadApplicationBatchqueryfileResponse;
+use AntChain\DAS\Models\UploadApplicationChannelauthfileRequest;
+use AntChain\DAS\Models\UploadApplicationChannelauthfileResponse;
+use AntChain\DAS\Models\UploadAuthAgreementRequest;
+use AntChain\DAS\Models\UploadAuthAgreementResponse;
+use AntChain\DAS\Models\UploadAuthPictureRequest;
+use AntChain\DAS\Models\UploadAuthPictureResponse;
 use AntChain\DAS\Models\UploadServiceAuthfileRequest;
 use AntChain\DAS\Models\UploadServiceAuthfileResponse;
 use AntChain\DAS\Models\VerifyDasAuthresultRequest;
@@ -240,7 +258,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.67',
+                    'sdk_version'      => '1.1.74',
                     '_prod_code'       => 'DAS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1237,6 +1255,124 @@ class Client
     }
 
     /**
+     * Description: 数据服务内部渠道统一查询入口
+     * Summary: 数据服务内部渠道统一查询入口.
+     *
+     * @param QueryApplicationChannelunifiedentranceRequest $request
+     *
+     * @return QueryApplicationChannelunifiedentranceResponse
+     */
+    public function queryApplicationChannelunifiedentrance($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryApplicationChannelunifiedentranceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数据服务内部渠道统一查询入口
+     * Summary: 数据服务内部渠道统一查询入口.
+     *
+     * @param QueryApplicationChannelunifiedentranceRequest $request
+     * @param string[]                                      $headers
+     * @param RuntimeOptions                                $runtime
+     *
+     * @return QueryApplicationChannelunifiedentranceResponse
+     */
+    public function queryApplicationChannelunifiedentranceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryApplicationChannelunifiedentranceResponse::fromMap($this->doRequest('1.0', 'antchain.das.application.channelunifiedentrance.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 渠道调用上传授权协议文件
+     * Summary: 渠道调用上传授权协议文件.
+     *
+     * @param UploadApplicationChannelauthfileRequest $request
+     *
+     * @return UploadApplicationChannelauthfileResponse
+     */
+    public function uploadApplicationChannelauthfile($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->uploadApplicationChannelauthfileEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 渠道调用上传授权协议文件
+     * Summary: 渠道调用上传授权协议文件.
+     *
+     * @param UploadApplicationChannelauthfileRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return UploadApplicationChannelauthfileResponse
+     */
+    public function uploadApplicationChannelauthfileEx($request, $headers, $runtime)
+    {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'antchain.das.application.channelauthfile.upload',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
+                return new UploadApplicationChannelauthfileResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
+        }
+        Utils::validateModel($request);
+
+        return UploadApplicationChannelauthfileResponse::fromMap($this->doRequest('1.0', 'antchain.das.application.channelauthfile.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 核婚的查询
+     * Summary: 核婚的查询.
+     *
+     * @param QueryApplicationMarriageRequest $request
+     *
+     * @return QueryApplicationMarriageResponse
+     */
+    public function queryApplicationMarriage($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryApplicationMarriageEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 核婚的查询
+     * Summary: 核婚的查询.
+     *
+     * @param QueryApplicationMarriageRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return QueryApplicationMarriageResponse
+     */
+    public function queryApplicationMarriageEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryApplicationMarriageResponse::fromMap($this->doRequest('1.0', 'antchain.das.application.marriage.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 获取授权H5页面链接
      * Summary: 获取授权H5页面链接.
      *
@@ -1663,6 +1799,204 @@ class Client
         Utils::validateModel($request);
 
         return AuthDasAuthresultResponse::fromMap($this->doRequest('1.0', 'antchain.das.das.authresult.auth', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 新增数据授权配置
+     * Summary: 新增数据授权配置.
+     *
+     * @param AddAuthConfigRequest $request
+     *
+     * @return AddAuthConfigResponse
+     */
+    public function addAuthConfig($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->addAuthConfigEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 新增数据授权配置
+     * Summary: 新增数据授权配置.
+     *
+     * @param AddAuthConfigRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return AddAuthConfigResponse
+     */
+    public function addAuthConfigEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AddAuthConfigResponse::fromMap($this->doRequest('1.0', 'antchain.das.auth.config.add', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 编辑数据授权配置
+     * Summary: 编辑数据授权配置.
+     *
+     * @param UpdateAuthConfigRequest $request
+     *
+     * @return UpdateAuthConfigResponse
+     */
+    public function updateAuthConfig($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateAuthConfigEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 编辑数据授权配置
+     * Summary: 编辑数据授权配置.
+     *
+     * @param UpdateAuthConfigRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return UpdateAuthConfigResponse
+     */
+    public function updateAuthConfigEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateAuthConfigResponse::fromMap($this->doRequest('1.0', 'antchain.das.auth.config.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 上传授权协议
+     * Summary: 上传授权协议.
+     *
+     * @param UploadAuthAgreementRequest $request
+     *
+     * @return UploadAuthAgreementResponse
+     */
+    public function uploadAuthAgreement($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->uploadAuthAgreementEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 上传授权协议
+     * Summary: 上传授权协议.
+     *
+     * @param UploadAuthAgreementRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return UploadAuthAgreementResponse
+     */
+    public function uploadAuthAgreementEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UploadAuthAgreementResponse::fromMap($this->doRequest('1.0', 'antchain.das.auth.agreement.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 上传图片
+     * Summary: 上传图片.
+     *
+     * @param UploadAuthPictureRequest $request
+     *
+     * @return UploadAuthPictureResponse
+     */
+    public function uploadAuthPicture($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->uploadAuthPictureEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 上传图片
+     * Summary: 上传图片.
+     *
+     * @param UploadAuthPictureRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return UploadAuthPictureResponse
+     */
+    public function uploadAuthPictureEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UploadAuthPictureResponse::fromMap($this->doRequest('1.0', 'antchain.das.auth.picture.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询授权产品列表
+     * Summary: 查询授权产品列表.
+     *
+     * @param ListAuthProductRequest $request
+     *
+     * @return ListAuthProductResponse
+     */
+    public function listAuthProduct($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listAuthProductEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询授权产品列表
+     * Summary: 查询授权产品列表.
+     *
+     * @param ListAuthProductRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return ListAuthProductResponse
+     */
+    public function listAuthProductEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListAuthProductResponse::fromMap($this->doRequest('1.0', 'antchain.das.auth.product.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询数据授权配置列表
+     * Summary: 查询数据授权配置列表.
+     *
+     * @param ListAuthConfigRequest $request
+     *
+     * @return ListAuthConfigResponse
+     */
+    public function listAuthConfig($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listAuthConfigEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询数据授权配置列表
+     * Summary: 查询数据授权配置列表.
+     *
+     * @param ListAuthConfigRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return ListAuthConfigResponse
+     */
+    public function listAuthConfigEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListAuthConfigResponse::fromMap($this->doRequest('1.0', 'antchain.das.auth.config.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
