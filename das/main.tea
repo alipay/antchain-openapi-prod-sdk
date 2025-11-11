@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.67',
+    sdk_version = '1.1.74',
     _prod_code = 'DAS',
     _prod_channel = 'undefined'
   };
@@ -355,6 +355,26 @@ model VehicleLicenseInfo {
   inspectionDate?: string(name='inspection_date', example='2099-12-31 00:00:00'),
 }
 
+// 授权配置列表响应
+model DataAuthConfigListResponse {
+  // 场景码
+  sceneCode: string(name='scene_code', example='-'),
+  // 数据源连接器空间id
+  sourceSpaceId: string(name='source_space_id', example='-'),
+  // 被授权方企业信用代码
+  authEnterpriseCode: string(name='auth_enterprise_code', example='-'),
+  // 接入方企业名称
+  targetName: string(name='target_name', example='-'),
+  // 被授权应用名称
+  authAppName: string(name='auth_app_name', example='-'),
+  // 数据产品服务简称列表
+  productAbbrList: [ string ](name='product_abbr_list', example='-'),
+  // 授权次数
+  authCount: long(name='auth_count', example='-'),
+  // 授权状态
+  authStatus: boolean(name='auth_status', example='true, false'),
+}
+
 // 教育经历信息
 model EducationExperiencesInfo {
   // 学历
@@ -387,6 +407,18 @@ model EducationInfo {
   project985?: boolean(name='project985', example='true, false'),
   // 是否双一流
   doubleFirstClass?: boolean(name='double_first_class', example='true'),
+}
+
+// 车辆用户信息
+model CarUserInfo {
+  // 唯一标识用户的id
+  userId: string(name='user_id', example='433434224'),
+  // 手机号
+  phoneNum: string(name='phone_num', example='138xxxxxxx'),
+  // 姓名
+  userCertName?: string(name='user_cert_name', example='张三'),
+  // 证件号码
+  userCertNo?: string(name='user_cert_no', example='xxxxx'),
 }
 
 // 授权人企业信息
@@ -423,6 +455,36 @@ model VehicleLicenseCertResult {
   plateType?: boolean(name='plate_type', example='true'),
   // 与车辆所有人是否一致
   owner?: boolean(name='owner', example='true'),
+}
+
+// 协议模板信息
+model Agreement {
+  // 协议名称
+  agreementName: string(name='agreement_name', example='-'),
+  // 协议类型
+  agreementType: string(name='agreement_type', example='USER_SERVICE_AUTH'),
+  // 第三方原始协议链接
+  agreementUrl: string(name='agreement_url', example='-'),
+  // 协议文件上传目录
+  agreementFileOssKey: string(name='agreement_file_oss_key', example='-'),
+  // 上传时的协议原始文件名
+  agreementFileOriginalName: string(name='agreement_file_original_name', example='-'),
+}
+
+// 部分车辆信息
+model PartialCarInfo {
+  // 车牌号码
+  licenseNo: string(name='license_no', example='京Axxxxx'),
+  // 车架号
+  vin: string(name='vin', example='xxxx'),
+  // 发动机号
+  engineNo: string(name='engine_no', example='xxxxx'),
+  // 初登日期
+  registerDate: string(name='register_date', example='2021-12-21'),
+  // 车辆型号
+  modelCode: string(name='model_code', example='xxxxx'),
+  // 营运性质
+  useNatureCode: string(name='use_nature_code', example='xxxxx'),
 }
 
 // 企业基本信息
@@ -1980,6 +2042,177 @@ async function getApplicationProxysignEx(request: GetApplicationProxysignRequest
   return doRequest('1.0' ,'antchain.das.application.proxysign.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model QueryApplicationChannelunifiedentranceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 授权文件ID
+  fileIndex?: string(name='file_index'),
+  // 整个需求的入参，map json
+  params: string(name='params'),
+  // 是否授权
+  userAuthed?: boolean(name='user_authed'),
+  // 数据集服务id
+  serviceId: string(name='service_id'),
+  // token授权场景码
+  sceneCode?: string(name='scene_code'),
+  // 	
+  // 授权token
+  token?: string(name='token'),
+  // 客户ID
+  customerId: string(name='customer_id'),
+}
+
+model QueryApplicationChannelunifiedentranceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 具体返回，map json
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 数据服务内部渠道统一查询入口
+ * Summary: 数据服务内部渠道统一查询入口
+ */
+async function queryApplicationChannelunifiedentrance(request: QueryApplicationChannelunifiedentranceRequest): QueryApplicationChannelunifiedentranceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryApplicationChannelunifiedentranceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 数据服务内部渠道统一查询入口
+ * Summary: 数据服务内部渠道统一查询入口
+ */
+async function queryApplicationChannelunifiedentranceEx(request: QueryApplicationChannelunifiedentranceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryApplicationChannelunifiedentranceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.das.application.channelunifiedentrance.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UploadApplicationChannelauthfileRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 服务id，开发者提供
+  serviceId: string(name='service_id'),
+  // 文件md5
+  fileMd5: string(name='file_md5'),
+  // 文件ID
+  fileObject?: readable(description='待上传文件', ignore='true'),
+  fileObjectName?: string(description='待上传文件名', ignore='true'),
+  fileId: string(name='file_id'),
+  // 协议名称
+  fileName: string(name='file_name'),
+  // 授权协议文件版本号
+  fileVersion: string(name='file_version'),
+  // 客户ID
+  customerId: string(name='customer_id'),
+}
+
+model UploadApplicationChannelauthfileResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 授权协议索引号
+  fileIndex?: string(name='file_index'),
+}
+
+/**
+ * Description: 渠道调用上传授权协议文件
+ * Summary: 渠道调用上传授权协议文件
+ */
+async function uploadApplicationChannelauthfile(request: UploadApplicationChannelauthfileRequest): UploadApplicationChannelauthfileResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return uploadApplicationChannelauthfileEx(request, headers, runtime);
+}
+
+/**
+ * Description: 渠道调用上传授权协议文件
+ * Summary: 渠道调用上传授权协议文件
+ */
+async function uploadApplicationChannelauthfileEx(request: UploadApplicationChannelauthfileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadApplicationChannelauthfileResponse {
+  if (!Util.isUnset(request.fileObject)) {
+    var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
+      authToken = request.authToken,
+      apiCode = 'antchain.das.application.channelauthfile.upload',
+      fileName = request.fileObjectName,
+    };
+    var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+    if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+      var uploadApplicationChannelauthfileResponse = new UploadApplicationChannelauthfileResponse{
+        reqMsgId = uploadResp.reqMsgId,
+        resultCode = uploadResp.resultCode,
+        resultMsg = uploadResp.resultMsg,
+      };
+      return uploadApplicationChannelauthfileResponse;
+    }
+    var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+    AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+    request.fileId = uploadResp.fileId;
+    request.fileObject = null;
+  }
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.das.application.channelauthfile.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryApplicationMarriageRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 请求参数json
+  bizParam: string(name='biz_param'),
+  // 产品code
+  productCode: string(name='product_code'),
+  // 调用的方法
+  methodCode: string(name='method_code'),
+  // 租户编码
+  instCode?: string(name='inst_code'),
+  // RSA-DESede 代表数字信封：采用 rsa 非对称算法，DESede 对称算法
+  algorithm?: string(name='algorithm'),
+  // 是否采用加密算法
+  encryption?: boolean(name='encryption'),
+  // 对称秘钥加密后的数据
+  encryptionKey?: string(name='encryption_key'),
+}
+
+model QueryApplicationMarriageResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回数据
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 核婚的查询
+ * Summary: 核婚的查询
+ */
+async function queryApplicationMarriage(request: QueryApplicationMarriageRequest): QueryApplicationMarriageResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryApplicationMarriageEx(request, headers, runtime);
+}
+
+/**
+ * Description: 核婚的查询
+ * Summary: 核婚的查询
+ */
+async function queryApplicationMarriageEx(request: QueryApplicationMarriageRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryApplicationMarriageResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.das.application.marriage.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model GetDasLinkRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -2536,6 +2769,354 @@ async function authDasAuthresult(request: AuthDasAuthresultRequest): AuthDasAuth
 async function authDasAuthresultEx(request: AuthDasAuthresultRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AuthDasAuthresultResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.das.das.authresult.auth', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AddAuthConfigRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 复用的场景码
+  parentSceneCode?: string(name='parent_scene_code'),
+  // 数据源连接器空间id
+  sourceSpaceId: string(name='source_space_id'),
+  // 被授权方企业信用代码
+  authEnterpriseCode: string(name='auth_enterprise_code'),
+  // 被授权方名称
+  targetName: string(name='target_name'),
+  // 业务应用名称
+  authAppName: string(name='auth_app_name'),
+  // 客户应用logo的oss key
+  enterpriseLogo: string(name='enterprise_logo'),
+  // 用途说明
+  authPurpose: string(name='auth_purpose'),
+  // 授权描述
+  authDesc?: string(name='auth_desc'),
+  // 授权形式
+  authType: string(name='auth_type'),
+  // C端是否显示凭证数据
+  enableShowProofVc?: boolean(name='enable_show_proof_vc'),
+  // C端是否显示授权记录
+  enableShowAuthRecord?: boolean(name='enable_show_auth_record'),
+  // 授权服务产品列表
+  authProductList?: [ string ](name='auth_product_list'),
+  // 用户类型
+  userType?: string(name='user_type'),
+  // 授权协议
+  agreementList?: [ Agreement ](name='agreement_list'),
+  // 主题颜色
+  backgroundColor?: string(name='background_color'),
+  // 使用刷脸识别
+  useFacialRecognition?: boolean(name='use_facial_recognition'),
+  // 页面使用范围列表
+  useScopeList?: [ string ](name='use_scope_list'),
+  // 授权成功端内跳转地址
+  innerSuccessCallbackUrl?: string(name='inner_success_callback_url'),
+  // 授权成功端外跳转地址
+  outsideSuccessCallbackUrl?: string(name='outside_success_callback_url'),
+  // 公钥
+  publicKey?: string(name='public_key'),
+  // 发起授权页面的链接
+  startAuthUrl?: string(name='start_auth_url'),
+}
+
+model AddAuthConfigResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 场景码
+  sceneCode?: string(name='scene_code'),
+}
+
+/**
+ * Description: 新增数据授权配置
+ * Summary: 新增数据授权配置
+ */
+async function addAuthConfig(request: AddAuthConfigRequest): AddAuthConfigResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return addAuthConfigEx(request, headers, runtime);
+}
+
+/**
+ * Description: 新增数据授权配置
+ * Summary: 新增数据授权配置
+ */
+async function addAuthConfigEx(request: AddAuthConfigRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AddAuthConfigResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.das.auth.config.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateAuthConfigRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 场景码
+  sceneCode: string(name='scene_code'),
+  // 复用的场景码
+  parentSceneCode?: string(name='parent_scene_code'),
+  // 数据源连接器空间id
+  sourceSpaceId: string(name='source_space_id'),
+  // 被授权方企业信用代码
+  authEnterpriseCode: string(name='auth_enterprise_code'),
+  // 被授权方名称
+  targetName: string(name='target_name'),
+  // 业务应用名称
+  authAppName: string(name='auth_app_name'),
+  // 客户应用logo的oss key
+  enterpriseLogo: string(name='enterprise_logo'),
+  // 用途说明
+  authPurpose: string(name='auth_purpose'),
+  // 授权描述
+  authDesc?: string(name='auth_desc'),
+  // 授权形式
+  authType: string(name='auth_type'),
+  // C端是否显示凭证数据
+  enableShowProofVc?: boolean(name='enable_show_proof_vc'),
+  // C端是否显示授权记录
+  enableShowAuthRecord?: boolean(name='enable_show_auth_record'),
+  // 授权服务产品列表
+  authProductList?: [ string ](name='auth_product_list'),
+  // 用户类型
+  userType?: string(name='user_type'),
+  // 授权协议
+  agreementList?: [ Agreement ](name='agreement_list'),
+  // 主题颜色
+  backgroundColor?: string(name='background_color'),
+  // 使用刷脸识别
+  useFacialRecognition?: boolean(name='use_facial_recognition'),
+  // 页面使用范围列表
+  useScopeList?: [ string ](name='use_scope_list'),
+  // 授权成功端内跳转地址
+  innerSuccessCallbackUrl?: string(name='inner_success_callback_url'),
+  // 授权成功端外跳转地址
+  outsideSuccessCallbackUrl?: string(name='outside_success_callback_url'),
+  // 公钥
+  publicKey?: string(name='public_key'),
+  // 发起授权页面的链接
+  startAuthUrl?: string(name='start_auth_url'),
+}
+
+model UpdateAuthConfigResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 编辑数据授权配置
+ * Summary: 编辑数据授权配置
+ */
+async function updateAuthConfig(request: UpdateAuthConfigRequest): UpdateAuthConfigResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateAuthConfigEx(request, headers, runtime);
+}
+
+/**
+ * Description: 编辑数据授权配置
+ * Summary: 编辑数据授权配置
+ */
+async function updateAuthConfigEx(request: UpdateAuthConfigRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateAuthConfigResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.das.auth.config.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UploadAuthAgreementRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 文件类型
+  fileType: string(name='file_type'),
+  // 被授权方企业信用代码
+  authEnterpriseCode: string(name='auth_enterprise_code'),
+}
+
+model UploadAuthAgreementResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 访问id
+  accessId?: string(name='access_id'),
+  // 策略
+  policy?: string(name='policy'),
+  // 签名
+  signature?: string(name='signature'),
+  // 目录
+  dir?: string(name='dir'),
+  // 主机
+  host?: string(name='host'),
+  // 过期时间
+  expire?: string(name='expire'),
+  // 回调地址
+  callback?: string(name='callback'),
+}
+
+/**
+ * Description: 上传授权协议
+ * Summary: 上传授权协议
+ */
+async function uploadAuthAgreement(request: UploadAuthAgreementRequest): UploadAuthAgreementResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return uploadAuthAgreementEx(request, headers, runtime);
+}
+
+/**
+ * Description: 上传授权协议
+ * Summary: 上传授权协议
+ */
+async function uploadAuthAgreementEx(request: UploadAuthAgreementRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadAuthAgreementResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.das.auth.agreement.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UploadAuthPictureRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 文件类型
+  fileType: string(name='file_type'),
+  // 被授权方企业信用代码
+  authEnterpriseCode: string(name='auth_enterprise_code'),
+}
+
+model UploadAuthPictureResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 访问id
+  accessId?: string(name='access_id'),
+  // 策略
+  policy?: string(name='policy'),
+  // 签名
+  signature?: string(name='signature'),
+  // 目录
+  dir?: string(name='dir'),
+  // 主机
+  host?: string(name='host'),
+  // 过期时间
+  expire?: string(name='expire'),
+  // 回调地址
+  callback?: string(name='callback'),
+}
+
+/**
+ * Description: 上传图片
+ * Summary: 上传图片
+ */
+async function uploadAuthPicture(request: UploadAuthPictureRequest): UploadAuthPictureResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return uploadAuthPictureEx(request, headers, runtime);
+}
+
+/**
+ * Description: 上传图片
+ * Summary: 上传图片
+ */
+async function uploadAuthPictureEx(request: UploadAuthPictureRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadAuthPictureResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.das.auth.picture.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListAuthProductRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model ListAuthProductResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 产品code
+  productCode?: string(name='product_code'),
+  // 产品简称
+  productAbbr?: string(name='product_abbr'),
+}
+
+/**
+ * Description: 查询授权产品列表
+ * Summary: 查询授权产品列表
+ */
+async function listAuthProduct(request: ListAuthProductRequest): ListAuthProductResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listAuthProductEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询授权产品列表
+ * Summary: 查询授权产品列表
+ */
+async function listAuthProductEx(request: ListAuthProductRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListAuthProductResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.das.auth.product.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListAuthConfigRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 授权企业信用代码
+  enterpriseCode?: string(name='enterprise_code'),
+  // 业务应用名称
+  authAppName?: string(name='auth_app_name'),
+  // 产品code列表
+  productCodeList?: [ string ](name='product_code_list'),
+  // 页码
+  pageNum: long(name='page_num'),
+  // 每页数量
+  pageSize: long(name='page_size'),
+}
+
+model ListAuthConfigResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 总条数
+  count?: long(name='count'),
+  // 总页数
+  totalPages?: long(name='total_pages'),
+  // 列表记录
+  dataList?: [ DataAuthConfigListResponse ](name='data_list'),
+}
+
+/**
+ * Description: 查询数据授权配置列表
+ * Summary: 查询数据授权配置列表
+ */
+async function listAuthConfig(request: ListAuthConfigRequest): ListAuthConfigResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listAuthConfigEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询数据授权配置列表
+ * Summary: 查询数据授权配置列表
+ */
+async function listAuthConfigEx(request: ListAuthConfigRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListAuthConfigResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.das.auth.config.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateAntcloudGatewayxFileUploadRequest = {
