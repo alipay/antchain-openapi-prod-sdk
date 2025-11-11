@@ -70,7 +70,7 @@ class NewCarInfo extends Model
      *
      * @var string
      */
-    public $qcCarModelId;
+    public $qcCarSeriesId;
     protected $_name = [
         'carSeries'     => 'car_series',
         'finaicalPlan'  => 'finaical_plan',
@@ -79,7 +79,7 @@ class NewCarInfo extends Model
         'purcharseTime' => 'purcharse_time',
         'userInfo'      => 'user_info',
         'matchSource'   => 'match_source',
-        'qcCarModelId'  => 'qc_car_model_id',
+        'qcCarSeriesId' => 'qc_car_series_id',
     ];
 
     public function validate()
@@ -113,8 +113,8 @@ class NewCarInfo extends Model
         if (null !== $this->matchSource) {
             $res['match_source'] = $this->matchSource;
         }
-        if (null !== $this->qcCarModelId) {
-            $res['qc_car_model_id'] = $this->qcCarModelId;
+        if (null !== $this->qcCarSeriesId) {
+            $res['qc_car_series_id'] = $this->qcCarSeriesId;
         }
 
         return $res;
@@ -149,8 +149,8 @@ class NewCarInfo extends Model
         if (isset($map['match_source'])) {
             $model->matchSource = $map['match_source'];
         }
-        if (isset($map['qc_car_model_id'])) {
-            $model->qcCarModelId = $map['qc_car_model_id'];
+        if (isset($map['qc_car_series_id'])) {
+            $model->qcCarSeriesId = $map['qc_car_series_id'];
         }
 
         return $model;

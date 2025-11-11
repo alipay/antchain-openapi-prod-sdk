@@ -61,11 +61,11 @@ class SubmitAuthNewcarRequest extends Model
      */
     public $submitId;
 
-    // 汽车之家车型id
+    // 汽车之家车系id
     /**
      * @var string
      */
-    public $qcCarModelId;
+    public $qcCarSeriesId;
 
     // 匹配源
     /**
@@ -82,7 +82,7 @@ class SubmitAuthNewcarRequest extends Model
         'purcharseTime'     => 'purcharse_time',
         'carSeriesId'       => 'car_series_id',
         'submitId'          => 'submit_id',
-        'qcCarModelId'      => 'qc_car_model_id',
+        'qcCarSeriesId'     => 'qc_car_series_id',
         'matchSource'       => 'match_source',
     ];
 
@@ -91,7 +91,7 @@ class SubmitAuthNewcarRequest extends Model
         Model::validateRequired('sceneCode', $this->sceneCode, true);
         Model::validateRequired('userInfo', $this->userInfo, true);
         Model::validateRequired('carSeries', $this->carSeries, true);
-        Model::validateRequired('qcCarModelId', $this->qcCarModelId, true);
+        Model::validateRequired('qcCarSeriesId', $this->qcCarSeriesId, true);
         Model::validateRequired('matchSource', $this->matchSource, true);
     }
 
@@ -125,8 +125,8 @@ class SubmitAuthNewcarRequest extends Model
         if (null !== $this->submitId) {
             $res['submit_id'] = $this->submitId;
         }
-        if (null !== $this->qcCarModelId) {
-            $res['qc_car_model_id'] = $this->qcCarModelId;
+        if (null !== $this->qcCarSeriesId) {
+            $res['qc_car_series_id'] = $this->qcCarSeriesId;
         }
         if (null !== $this->matchSource) {
             $res['match_source'] = $this->matchSource;
@@ -170,8 +170,8 @@ class SubmitAuthNewcarRequest extends Model
         if (isset($map['submit_id'])) {
             $model->submitId = $map['submit_id'];
         }
-        if (isset($map['qc_car_model_id'])) {
-            $model->qcCarModelId = $map['qc_car_model_id'];
+        if (isset($map['qc_car_series_id'])) {
+            $model->qcCarSeriesId = $map['qc_car_series_id'];
         }
         if (isset($map['match_source'])) {
             $model->matchSource = $map['match_source'];
