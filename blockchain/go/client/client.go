@@ -9363,6 +9363,10 @@ type BatchSubmitCarResult struct {
 	SubmitId *string `json:"submit_id,omitempty" xml:"submit_id,omitempty" require:"true"`
 	// 是否成功
 	IsSuccess *bool `json:"is_success,omitempty" xml:"is_success,omitempty" require:"true"`
+	// OK
+	// NO_DEMAND 无线索需求，需要重试
+	// INVALID 无效，不要重试
+	PushResultCode *string `json:"push_result_code,omitempty" xml:"push_result_code,omitempty" require:"true"`
 }
 
 func (s BatchSubmitCarResult) String() string {
@@ -9380,6 +9384,11 @@ func (s *BatchSubmitCarResult) SetSubmitId(v string) *BatchSubmitCarResult {
 
 func (s *BatchSubmitCarResult) SetIsSuccess(v bool) *BatchSubmitCarResult {
 	s.IsSuccess = &v
+	return s
+}
+
+func (s *BatchSubmitCarResult) SetPushResultCode(v string) *BatchSubmitCarResult {
+	s.PushResultCode = &v
 	return s
 }
 
@@ -10096,6 +10105,10 @@ type NewCarInfo struct {
 	PurcharseTime *string `json:"purcharse_time,omitempty" xml:"purcharse_time,omitempty"`
 	// 用户信息
 	UserInfo *CarUserInfo `json:"user_info,omitempty" xml:"user_info,omitempty" require:"true"`
+	// 懂车帝或者汽车之家
+	MatchSource *string `json:"match_source,omitempty" xml:"match_source,omitempty" require:"true"`
+	// 汽车之家车型id
+	QcCarModelId *string `json:"qc_car_model_id,omitempty" xml:"qc_car_model_id,omitempty"`
 }
 
 func (s NewCarInfo) String() string {
@@ -10133,6 +10146,16 @@ func (s *NewCarInfo) SetPurcharseTime(v string) *NewCarInfo {
 
 func (s *NewCarInfo) SetUserInfo(v *CarUserInfo) *NewCarInfo {
 	s.UserInfo = v
+	return s
+}
+
+func (s *NewCarInfo) SetMatchSource(v string) *NewCarInfo {
+	s.MatchSource = &v
+	return s
+}
+
+func (s *NewCarInfo) SetQcCarModelId(v string) *NewCarInfo {
+	s.QcCarModelId = &v
 	return s
 }
 
@@ -52166,6 +52189,10 @@ type SubmitAuthNewcarRequest struct {
 	CarSeriesId *string `json:"car_series_id,omitempty" xml:"car_series_id,omitempty"`
 	// 提交线索的唯一id
 	SubmitId *string `json:"submit_id,omitempty" xml:"submit_id,omitempty"`
+	// 汽车之家车型id
+	QcCarModelId *string `json:"qc_car_model_id,omitempty" xml:"qc_car_model_id,omitempty" require:"true"`
+	// 匹配源
+	MatchSource *string `json:"match_source,omitempty" xml:"match_source,omitempty" require:"true"`
 }
 
 func (s SubmitAuthNewcarRequest) String() string {
@@ -52221,6 +52248,16 @@ func (s *SubmitAuthNewcarRequest) SetSubmitId(v string) *SubmitAuthNewcarRequest
 	return s
 }
 
+func (s *SubmitAuthNewcarRequest) SetQcCarModelId(v string) *SubmitAuthNewcarRequest {
+	s.QcCarModelId = &v
+	return s
+}
+
+func (s *SubmitAuthNewcarRequest) SetMatchSource(v string) *SubmitAuthNewcarRequest {
+	s.MatchSource = &v
+	return s
+}
+
 type SubmitAuthNewcarResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -52228,8 +52265,10 @@ type SubmitAuthNewcarResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 提交是否成功
-	PushSuccess *bool `json:"push_success,omitempty" xml:"push_success,omitempty"`
+	// OK
+	// NO_DEMAND 无线索需求，需要重试
+	// INVALID 无效，不要重试
+	PushSuccess *string `json:"push_success,omitempty" xml:"push_success,omitempty"`
 }
 
 func (s SubmitAuthNewcarResponse) String() string {
@@ -52255,7 +52294,7 @@ func (s *SubmitAuthNewcarResponse) SetResultMsg(v string) *SubmitAuthNewcarRespo
 	return s
 }
 
-func (s *SubmitAuthNewcarResponse) SetPushSuccess(v bool) *SubmitAuthNewcarResponse {
+func (s *SubmitAuthNewcarResponse) SetPushSuccess(v string) *SubmitAuthNewcarResponse {
 	s.PushSuccess = &v
 	return s
 }
@@ -72182,7 +72221,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.28.65"),
+				"sdk_version":      tea.String("1.28.66"),
 				"_prod_code":       tea.String("BLOCKCHAIN"),
 				"_prod_channel":    tea.String("undefined"),
 			}
