@@ -118,7 +118,7 @@ public class GetDataAuthConfigResponse extends TeaModel {
 
     // 授权成功率
     @NameInMap("success_rate")
-    public Long successRate;
+    public String successRate;
 
     public static GetDataAuthConfigResponse build(java.util.Map<String, ?> map) throws Exception {
         GetDataAuthConfigResponse self = new GetDataAuthConfigResponse();
@@ -349,11 +349,11 @@ public class GetDataAuthConfigResponse extends TeaModel {
         return this.cancelAuthCount;
     }
 
-    public GetDataAuthConfigResponse setSuccessRate(Long successRate) {
+    public GetDataAuthConfigResponse setSuccessRate(String successRate) {
         this.successRate = successRate;
         return this;
     }
-    public Long getSuccessRate() {
+    public String getSuccessRate() {
         return this.successRate;
     }
 
