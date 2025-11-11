@@ -10,7 +10,7 @@ class SubUserBonusAccountDetailVO extends Model
 {
     // 明细ID
     /**
-     * @example 明细ID
+     * @example 1
      *
      * @var string
      */
@@ -18,7 +18,7 @@ class SubUserBonusAccountDetailVO extends Model
 
     // 交易链上Hash
     /**
-     * @example 交易链上Hash
+     * @example 0x9fe688e456d3c4b15edceff3c23380300d71b48649ae8d61c6a9e513bb095262
      *
      * @var string
      */
@@ -26,7 +26,7 @@ class SubUserBonusAccountDetailVO extends Model
 
     // 交易前余额
     /**
-     * @example 交易前余额
+     * @example 1.0
      *
      * @var string
      */
@@ -34,7 +34,7 @@ class SubUserBonusAccountDetailVO extends Model
 
     // 交易数量
     /**
-     * @example 交易数量
+     * @example 1
      *
      * @var string
      */
@@ -42,7 +42,7 @@ class SubUserBonusAccountDetailVO extends Model
 
     // 交易后余额
     /**
-     * @example 交易后余额
+     * @example 1.0
      *
      * @var string
      */
@@ -50,7 +50,7 @@ class SubUserBonusAccountDetailVO extends Model
 
     // 交易类别
     /**
-     * @example 交易类别
+     * @example ISSUE
      *
      * @var string
      */
@@ -58,7 +58,7 @@ class SubUserBonusAccountDetailVO extends Model
 
     // 对手地址
     /**
-     * @example 对手地址
+     * @example 0x9f6a540f4079d29ff5a9c5985e9ee87f3b713117
      *
      * @var string
      */
@@ -66,7 +66,7 @@ class SubUserBonusAccountDetailVO extends Model
 
     // 创建时间
     /**
-     * @example 创建时间
+     * @example 1755754919690
      *
      * @var int
      */
@@ -74,7 +74,7 @@ class SubUserBonusAccountDetailVO extends Model
 
     // 更新时间
     /**
-     * @example 更新时间
+     * @example 1755754919690
      *
      * @var int
      */

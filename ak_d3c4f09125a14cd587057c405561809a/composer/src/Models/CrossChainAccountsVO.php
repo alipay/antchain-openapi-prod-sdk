@@ -10,7 +10,7 @@ class CrossChainAccountsVO extends Model
 {
     // 对侧链用户地址
     /**
-     * @example 对侧链用户地址
+     * @example 0xce81adcd4b9b78293c73caed55840c81b4c3b8f5
      *
      * @var string
      */
@@ -18,7 +18,7 @@ class CrossChainAccountsVO extends Model
 
     // 对侧链账户ID
     /**
-     * @example 对侧链账户ID
+     * @example 1938129653756694529
      *
      * @var string
      */
@@ -26,7 +26,7 @@ class CrossChainAccountsVO extends Model
 
     // 对侧链红利账户ID
     /**
-     * @example 对侧链红利账户ID
+     * @example 1928364866666541058
      *
      * @var string
      */

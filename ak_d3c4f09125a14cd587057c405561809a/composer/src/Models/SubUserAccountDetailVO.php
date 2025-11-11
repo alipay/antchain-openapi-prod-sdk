@@ -10,7 +10,7 @@ class SubUserAccountDetailVO extends Model
 {
     // 项目ID
     /**
-     * @example 项目ID
+     * @example 1000
      *
      * @var string
      */
@@ -18,7 +18,7 @@ class SubUserAccountDetailVO extends Model
 
     // 资产项目合约地址
     /**
-     * @example 资产项目合约地址
+     * @example 0x44b2c05769202f0001ab5beb5d583bb8a630677e
      *
      * @var string
      */
@@ -26,7 +26,7 @@ class SubUserAccountDetailVO extends Model
 
     // 红利合约地址
     /**
-     * @example 红利合约地址
+     * @example 0x6dd8c1ab208dd3d2b20ff28fe97babb6154ff9db
      *
      * @var string
      */
@@ -34,7 +34,7 @@ class SubUserAccountDetailVO extends Model
 
     // 用户ID
     /**
-     * @example 用户ID
+     * @example 1
      *
      * @var string
      */
@@ -42,7 +42,7 @@ class SubUserAccountDetailVO extends Model
 
     // 代销机构ID
     /**
-     * @example 代销机构ID
+     * @example 1000
      *
      * @var string
      */
@@ -50,7 +50,7 @@ class SubUserAccountDetailVO extends Model
 
     // 发行链名称
     /**
-     * @example 发行链名称
+     * @example ANTCHAIN
      *
      * @var string
      */
@@ -58,7 +58,7 @@ class SubUserAccountDetailVO extends Model
 
     // 投资者用户账户ID
     /**
-     * @example 投资者用户账户ID
+     * @example 1
      *
      * @var string
      */
@@ -66,7 +66,7 @@ class SubUserAccountDetailVO extends Model
 
     // 投资者用户红利账户ID
     /**
-     * @example 投资者用户红利账户ID
+     * @example 11
      *
      * @var string
      */

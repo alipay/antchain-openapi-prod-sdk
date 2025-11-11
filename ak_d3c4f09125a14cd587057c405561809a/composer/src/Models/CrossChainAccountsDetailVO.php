@@ -10,7 +10,7 @@ class CrossChainAccountsDetailVO extends Model
 {
     // 明细ID
     /**
-     * @example 明细ID
+     * @example 0ef1c7f82ffb44989e8b6e6b6360a3a7
      *
      * @var string
      */
@@ -18,7 +18,7 @@ class CrossChainAccountsDetailVO extends Model
 
     // 交易链上Hash
     /**
-     * @example 交易链上Hash
+     * @example 0xf1ada29c07fd95444030d9001ad09b7fd2111aed063ee0753e181fb2a3f53057
      *
      * @var string
      */
@@ -26,7 +26,7 @@ class CrossChainAccountsDetailVO extends Model
 
     // 交易前余额
     /**
-     * @example 交易前余额
+     * @example 1000.000000000
      *
      * @var string
      */
@@ -34,7 +34,7 @@ class CrossChainAccountsDetailVO extends Model
 
     // 交易数量
     /**
-     * @example 交易数量
+     * @example 1000.000000000
      *
      * @var string
      */
@@ -42,15 +42,15 @@ class CrossChainAccountsDetailVO extends Model
 
     // 交易后余额
     /**
-     * @example 交易后余额
+     * @example 2000.000000000
      *
      * @var string
      */
     public $postBalance;
 
-    // 交易类别
+    // 交易类别(LOCK_MINT/BURN_RETRIEVE/INNER_TRANSFER/OTC_TRANSFER)
     /**
-     * @example 交易类别(LOCK_MINT/BURN_RETRIEVE/INNER_TRANSFER/OTC_TRANSFER)
+     * @example LOCK_MINT
      *
      * @var string
      */
@@ -58,7 +58,7 @@ class CrossChainAccountsDetailVO extends Model
 
     // 对手地址
     /**
-     * @example 对手地址
+     * @example 0x5639ede048dc910b917b518ae8d3cbb184fc749d
      *
      * @var string
      */

@@ -19,43 +19,43 @@ class QueryAntdigitalWebtrwatradeDistributorRequest extends Model
      */
     public $productInstanceId;
 
-    // 资产项目ID
+    // 资产项目ID（资产项目ID、资产项目合约地址+所在链  二选一必填）
     /**
      * @var string
      */
     public $assetProjectId;
 
-    // 资产项目合约地址
+    // 资产项目合约地址（资产项目ID、资产项目合约地址+所在链  二选一必填）
     /**
      * @var string
      */
     public $assetProjectAddress;
 
-    // 项目所在链
+    // 项目所在链（资产项目ID、资产项目合约地址+所在链  二选一必填）
     /**
      * @var string
      */
     public $chainName;
 
-    // 用户ID
+    // 用户ID（用户ID、用户地址、登录名+登录名类型，三组信息任选一组输入）
     /**
      * @var string
      */
     public $userId;
 
-    // 用户地址
+    // 用户地址（用户ID、用户地址、登录名+登录名类型，三组信息任选一组输入）
     /**
      * @var string
      */
     public $userAddress;
 
-    // 登录名
+    // 登录名（用户ID、用户地址、登录名+登录名类型，三组信息任选一组输入）
     /**
      * @var string
      */
     public $loginName;
 
-    // 登录名类型(EMAIL)
+    // 登录名类型(EMAIL)（用户ID、用户地址、登录名+登录名类型，三组信息任选一组输入）
     /**
      * @var string
      */

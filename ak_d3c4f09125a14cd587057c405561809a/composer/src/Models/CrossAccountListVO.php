@@ -10,7 +10,7 @@ class CrossAccountListVO extends Model
 {
     // 项目ID
     /**
-     * @example 项目ID
+     * @example 02aa0864b0e347b780f82769d7665baf
      *
      * @var string
      */
@@ -18,7 +18,7 @@ class CrossAccountListVO extends Model
 
     // 资产项目合约地址
     /**
-     * @example 资产项目合约地址
+     * @example 0xc60c23aec15324cd51bf6c291c2768bc7287ada1
      *
      * @var string
      */
@@ -26,7 +26,7 @@ class CrossAccountListVO extends Model
 
     // 红利合约地址
     /**
-     * @example 红利合约地址
+     * @example 0xb75dd55da39f778f759493a04d5955ba7435f102
      *
      * @var string
      */
@@ -34,7 +34,7 @@ class CrossAccountListVO extends Model
 
     // 用户ID
     /**
-     * @example 用户ID
+     * @example 8a18b4fc7c8341238bd7eac27f63025a
      *
      * @var string
      */
@@ -42,7 +42,7 @@ class CrossAccountListVO extends Model
 
     // 代销机构ID
     /**
-     * @example 代销机构ID
+     * @example d9becf0366ff471eb2f3879e5e2f9eb7
      *
      * @var string
      */
@@ -50,7 +50,7 @@ class CrossAccountListVO extends Model
 
     // 发行链名称
     /**
-     * @example 发行链名称
+     * @example ANTCHAIN
      *
      * @var string
      */
@@ -58,7 +58,7 @@ class CrossAccountListVO extends Model
 
     // 投资者用户账户ID
     /**
-     * @example 投资者用户账户ID
+     * @example 40809209519a47179b7110ef0b8e9dff
      *
      * @var string
      */
@@ -66,7 +66,7 @@ class CrossAccountListVO extends Model
 
     // 投资者用户红利账户ID
     /**
-     * @example 投资者用户红利账户ID
+     * @example 043bb2fbcd2947ea8ddea4087eae233f
      *
      * @var string
      */
@@ -74,7 +74,7 @@ class CrossAccountListVO extends Model
 
     // 目标链名称
     /**
-     * @example 目标链名称
+     * @example CONFLUX_TEST_NET
      *
      * @var string
      */
@@ -82,7 +82,7 @@ class CrossAccountListVO extends Model
 
     // 目标链资产合约地址
     /**
-     * @example 目标链资产合约地址
+     * @example 0x77038f22e1b3210d455662fe0071dae5d5ad0c97
      *
      * @var string
      */
@@ -90,7 +90,7 @@ class CrossAccountListVO extends Model
 
     // 目标链红利合约地址
     /**
-     * @example 目标链红利合约地址
+     * @example 0x89b7556c61fa90185ab32a99727b2ccdad9fcd36
      *
      * @var string
      */

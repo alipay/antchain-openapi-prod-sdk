@@ -19,37 +19,43 @@ class QueryAntdigitalWebtrwatradeIssuerRequest extends Model
      */
     public $productInstanceId;
 
-    // 资产项目ID
+    // 资产项目ID（资产项目ID、资产项目合约地址+所在链 二选一必填）
     /**
      * @var string
      */
     public $assetProjectId;
 
-    // 资产项目合约地址
+    // 资产项目合约地址（资产项目ID、资产项目合约地址+所在链 二选一必填）
     /**
      * @var string
      */
     public $assetProjectAddress;
 
-    // 用户ID
+    // 项目所在链（资产项目ID、资产项目合约地址+所在链 二选一必填）
+    /**
+     * @var string
+     */
+    public $chainName;
+
+    // 用户ID（用户ID、用户地址、登录名+登录名类型，三组信息任选一组输入）
     /**
      * @var string
      */
     public $userId;
 
-    // 用户地址
+    // 用户地址（用户ID、用户地址、登录名+登录名类型，三组信息任选一组输入）
     /**
      * @var string
      */
     public $userAddress;
 
-    // 登录名
+    // 登录名（用户ID、用户地址、登录名+登录名类型，三组信息任选一组输入）
     /**
      * @var string
      */
     public $loginName;
 
-    // 登录名类型(EMAIL)
+    // 登录名类型(EMAIL)（用户ID、用户地址、登录名+登录名类型，三组信息任选一组输入）
     /**
      * @var string
      */
@@ -66,24 +72,18 @@ class QueryAntdigitalWebtrwatradeIssuerRequest extends Model
      * @var int
      */
     public $endTimeMills;
-
-    // 项目所在链
-    /**
-     * @var string
-     */
-    public $chainName;
     protected $_name = [
         'authToken'           => 'auth_token',
         'productInstanceId'   => 'product_instance_id',
         'assetProjectId'      => 'asset_project_id',
         'assetProjectAddress' => 'asset_project_address',
+        'chainName'           => 'chain_name',
         'userId'              => 'user_id',
         'userAddress'         => 'user_address',
         'loginName'           => 'login_name',
         'loginAccoutType'     => 'login_accout_type',
         'startTimeMills'      => 'start_time_mills',
         'endTimeMills'        => 'end_time_mills',
-        'chainName'           => 'chain_name',
     ];
 
     public function validate()
@@ -107,6 +107,9 @@ class QueryAntdigitalWebtrwatradeIssuerRequest extends Model
         if (null !== $this->assetProjectAddress) {
             $res['asset_project_address'] = $this->assetProjectAddress;
         }
+        if (null !== $this->chainName) {
+            $res['chain_name'] = $this->chainName;
+        }
         if (null !== $this->userId) {
             $res['user_id'] = $this->userId;
         }
@@ -124,9 +127,6 @@ class QueryAntdigitalWebtrwatradeIssuerRequest extends Model
         }
         if (null !== $this->endTimeMills) {
             $res['end_time_mills'] = $this->endTimeMills;
-        }
-        if (null !== $this->chainName) {
-            $res['chain_name'] = $this->chainName;
         }
 
         return $res;
@@ -152,6 +152,9 @@ class QueryAntdigitalWebtrwatradeIssuerRequest extends Model
         if (isset($map['asset_project_address'])) {
             $model->assetProjectAddress = $map['asset_project_address'];
         }
+        if (isset($map['chain_name'])) {
+            $model->chainName = $map['chain_name'];
+        }
         if (isset($map['user_id'])) {
             $model->userId = $map['user_id'];
         }
@@ -169,9 +172,6 @@ class QueryAntdigitalWebtrwatradeIssuerRequest extends Model
         }
         if (isset($map['end_time_mills'])) {
             $model->endTimeMills = $map['end_time_mills'];
-        }
-        if (isset($map['chain_name'])) {
-            $model->chainName = $map['chain_name'];
         }
 
         return $model;
