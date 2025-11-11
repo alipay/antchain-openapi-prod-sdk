@@ -40,6 +40,16 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
         [Validation(Required=true)]
         public CarUserInfo UserInfo { get; set; }
 
+        // 懂车帝或者汽车之家
+        [NameInMap("match_source")]
+        [Validation(Required=true)]
+        public string MatchSource { get; set; }
+
+        // 汽车之家车型id
+        [NameInMap("qc_car_model_id")]
+        [Validation(Required=false)]
+        public string QcCarModelId { get; set; }
+
     }
 
 }
