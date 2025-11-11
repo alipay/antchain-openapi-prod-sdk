@@ -55,7 +55,7 @@ class SubmitAntchainAtoFundFlowRequest extends Model
      */
     public $fundSignTag;
 
-    // 资方是否自动签署，true则会在商户签署完成后自动归档，false则需要资方调用auth接口后完成归档
+    // 资方是否自动签署
     /**
      * @var bool
      */
@@ -66,6 +66,12 @@ class SubmitAntchainAtoFundFlowRequest extends Model
      * @var TemplateArgs[]
      */
     public $templateList;
+
+    // xxx合同
+    /**
+     * @var string
+     */
+    public $businessScene;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -77,6 +83,7 @@ class SubmitAntchainAtoFundFlowRequest extends Model
         'fundSignTag'       => 'fund_sign_tag',
         'fundAutoSign'      => 'fund_auto_sign',
         'templateList'      => 'template_list',
+        'businessScene'     => 'business_scene',
     ];
 
     public function validate()
@@ -87,8 +94,8 @@ class SubmitAntchainAtoFundFlowRequest extends Model
         Model::validateRequired('merchantSignTag', $this->merchantSignTag, true);
         Model::validateRequired('fundId', $this->fundId, true);
         Model::validateRequired('fundSignTag', $this->fundSignTag, true);
-        Model::validateRequired('fundAutoSign', $this->fundAutoSign, true);
         Model::validateRequired('templateList', $this->templateList, true);
+        Model::validateRequired('businessScene', $this->businessScene, true);
     }
 
     public function toMap()
@@ -129,6 +136,9 @@ class SubmitAntchainAtoFundFlowRequest extends Model
                     $res['template_list'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
+        }
+        if (null !== $this->businessScene) {
+            $res['business_scene'] = $this->businessScene;
         }
 
         return $res;
@@ -177,6 +187,9 @@ class SubmitAntchainAtoFundFlowRequest extends Model
                     $model->templateList[$n++] = null !== $item ? TemplateArgs::fromMap($item) : $item;
                 }
             }
+        }
+        if (isset($map['business_scene'])) {
+            $model->businessScene = $map['business_scene'];
         }
 
         return $model;

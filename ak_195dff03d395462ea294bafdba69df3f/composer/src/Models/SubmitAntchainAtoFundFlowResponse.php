@@ -31,11 +31,18 @@ class SubmitAntchainAtoFundFlowResponse extends Model
      * @var string
      */
     public $signNo;
+
+    // 签署信息，包括短链接、长链接、小程序链接等。
+    /**
+     * @var string
+     */
+    public $signInfo;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
         'signNo'     => 'sign_no',
+        'signInfo'   => 'sign_info',
     ];
 
     public function validate()
@@ -56,6 +63,9 @@ class SubmitAntchainAtoFundFlowResponse extends Model
         }
         if (null !== $this->signNo) {
             $res['sign_no'] = $this->signNo;
+        }
+        if (null !== $this->signInfo) {
+            $res['sign_info'] = $this->signInfo;
         }
 
         return $res;
@@ -80,6 +90,9 @@ class SubmitAntchainAtoFundFlowResponse extends Model
         }
         if (isset($map['sign_no'])) {
             $model->signNo = $map['sign_no'];
+        }
+        if (isset($map['sign_info'])) {
+            $model->signInfo = $map['sign_info'];
         }
 
         return $model;
