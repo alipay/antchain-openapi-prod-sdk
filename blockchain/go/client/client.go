@@ -10108,7 +10108,7 @@ type NewCarInfo struct {
 	// 懂车帝或者汽车之家
 	MatchSource *string `json:"match_source,omitempty" xml:"match_source,omitempty" require:"true"`
 	// 汽车之家车型id
-	QcCarModelId *string `json:"qc_car_model_id,omitempty" xml:"qc_car_model_id,omitempty"`
+	QcCarSeriesId *string `json:"qc_car_series_id,omitempty" xml:"qc_car_series_id,omitempty"`
 }
 
 func (s NewCarInfo) String() string {
@@ -10154,8 +10154,8 @@ func (s *NewCarInfo) SetMatchSource(v string) *NewCarInfo {
 	return s
 }
 
-func (s *NewCarInfo) SetQcCarModelId(v string) *NewCarInfo {
-	s.QcCarModelId = &v
+func (s *NewCarInfo) SetQcCarSeriesId(v string) *NewCarInfo {
+	s.QcCarSeriesId = &v
 	return s
 }
 
@@ -52189,8 +52189,8 @@ type SubmitAuthNewcarRequest struct {
 	CarSeriesId *string `json:"car_series_id,omitempty" xml:"car_series_id,omitempty"`
 	// 提交线索的唯一id
 	SubmitId *string `json:"submit_id,omitempty" xml:"submit_id,omitempty"`
-	// 汽车之家车型id
-	QcCarModelId *string `json:"qc_car_model_id,omitempty" xml:"qc_car_model_id,omitempty" require:"true"`
+	// 汽车之家车系id
+	QcCarSeriesId *string `json:"qc_car_series_id,omitempty" xml:"qc_car_series_id,omitempty" require:"true"`
 	// 匹配源
 	MatchSource *string `json:"match_source,omitempty" xml:"match_source,omitempty" require:"true"`
 }
@@ -52248,8 +52248,8 @@ func (s *SubmitAuthNewcarRequest) SetSubmitId(v string) *SubmitAuthNewcarRequest
 	return s
 }
 
-func (s *SubmitAuthNewcarRequest) SetQcCarModelId(v string) *SubmitAuthNewcarRequest {
-	s.QcCarModelId = &v
+func (s *SubmitAuthNewcarRequest) SetQcCarSeriesId(v string) *SubmitAuthNewcarRequest {
+	s.QcCarSeriesId = &v
 	return s
 }
 
@@ -72221,7 +72221,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.28.66"),
+				"sdk_version":      tea.String("1.28.67"),
 				"_prod_code":       tea.String("BLOCKCHAIN"),
 				"_prod_channel":    tea.String("undefined"),
 			}
