@@ -31915,7 +31915,7 @@ export class GetDataAuthConfigResponse extends $tea.Model {
   // 已取消授权数量
   cancelAuthCount?: number;
   // 授权成功率
-  successRate?: number;
+  successRate?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -31980,7 +31980,7 @@ export class GetDataAuthConfigResponse extends $tea.Model {
       pendingAuthCount: 'number',
       haveAuthedCount: 'number',
       cancelAuthCount: 'number',
-      successRate: 'number',
+      successRate: 'string',
     };
   }
 
@@ -55561,7 +55561,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.28.62",
+          sdk_version: "1.28.65",
           _prod_code: "BLOCKCHAIN",
           _prod_channel: "undefined",
         };
