@@ -42,10 +42,10 @@ public class SubmitAuthNewcarRequest extends TeaModel {
     @NameInMap("submit_id")
     public String submitId;
 
-    // 汽车之家车型id
-    @NameInMap("qc_car_model_id")
+    // 汽车之家车系id
+    @NameInMap("qc_car_series_id")
     @Validation(required = true)
-    public String qcCarModelId;
+    public String qcCarSeriesId;
 
     // 匹配源
     @NameInMap("match_source")
@@ -129,12 +129,12 @@ public class SubmitAuthNewcarRequest extends TeaModel {
         return this.submitId;
     }
 
-    public SubmitAuthNewcarRequest setQcCarModelId(String qcCarModelId) {
-        this.qcCarModelId = qcCarModelId;
+    public SubmitAuthNewcarRequest setQcCarSeriesId(String qcCarSeriesId) {
+        this.qcCarSeriesId = qcCarSeriesId;
         return this;
     }
-    public String getQcCarModelId() {
-        return this.qcCarModelId;
+    public String getQcCarSeriesId() {
+        return this.qcCarSeriesId;
     }
 
     public SubmitAuthNewcarRequest setMatchSource(String matchSource) {

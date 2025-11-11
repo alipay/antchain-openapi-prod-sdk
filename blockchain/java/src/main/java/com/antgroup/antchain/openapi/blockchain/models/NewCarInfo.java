@@ -64,8 +64,8 @@ public class NewCarInfo extends TeaModel {
      * <strong>example:</strong>
      * <p>123</p>
      */
-    @NameInMap("qc_car_model_id")
-    public String qcCarModelId;
+    @NameInMap("qc_car_series_id")
+    public String qcCarSeriesId;
 
     public static NewCarInfo build(java.util.Map<String, ?> map) throws Exception {
         NewCarInfo self = new NewCarInfo();
@@ -128,12 +128,12 @@ public class NewCarInfo extends TeaModel {
         return this.matchSource;
     }
 
-    public NewCarInfo setQcCarModelId(String qcCarModelId) {
-        this.qcCarModelId = qcCarModelId;
+    public NewCarInfo setQcCarSeriesId(String qcCarSeriesId) {
+        this.qcCarSeriesId = qcCarSeriesId;
         return this;
     }
-    public String getQcCarModelId() {
-        return this.qcCarModelId;
+    public String getQcCarSeriesId() {
+        return this.qcCarSeriesId;
     }
 
 }
