@@ -51881,7 +51881,7 @@ class GetDataAuthConfigResponse(TeaModel):
         pending_auth_count: int = None,
         have_authed_count: int = None,
         cancel_auth_count: int = None,
-        success_rate: int = None,
+        success_rate: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
