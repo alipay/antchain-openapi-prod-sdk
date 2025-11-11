@@ -41439,7 +41439,7 @@ type GetDataAuthConfigResponse struct {
 	// 已取消授权数量
 	CancelAuthCount *int64 `json:"cancel_auth_count,omitempty" xml:"cancel_auth_count,omitempty"`
 	// 授权成功率
-	SuccessRate *int64 `json:"success_rate,omitempty" xml:"success_rate,omitempty"`
+	SuccessRate *string `json:"success_rate,omitempty" xml:"success_rate,omitempty"`
 }
 
 func (s GetDataAuthConfigResponse) String() string {
@@ -41590,7 +41590,7 @@ func (s *GetDataAuthConfigResponse) SetCancelAuthCount(v int64) *GetDataAuthConf
 	return s
 }
 
-func (s *GetDataAuthConfigResponse) SetSuccessRate(v int64) *GetDataAuthConfigResponse {
+func (s *GetDataAuthConfigResponse) SetSuccessRate(v string) *GetDataAuthConfigResponse {
 	s.SuccessRate = &v
 	return s
 }
@@ -72182,7 +72182,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.28.62"),
+				"sdk_version":      tea.String("1.28.65"),
 				"_prod_code":       tea.String("BLOCKCHAIN"),
 				"_prod_channel":    tea.String("undefined"),
 			}
