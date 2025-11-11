@@ -152,7 +152,7 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
         // 授权成功率
         [NameInMap("success_rate")]
         [Validation(Required=false)]
-        public long? SuccessRate { get; set; }
+        public string SuccessRate { get; set; }
 
     }
 
