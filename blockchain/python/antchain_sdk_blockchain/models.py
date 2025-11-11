@@ -12642,7 +12642,7 @@ class NewCarInfo(TeaModel):
         purcharse_time: str = None,
         user_info: CarUserInfo = None,
         match_source: str = None,
-        qc_car_model_id: str = None,
+        qc_car_series_id: str = None,
     ):
         # 车系
         self.car_series = car_series
@@ -12659,7 +12659,7 @@ class NewCarInfo(TeaModel):
         # 懂车帝或者汽车之家
         self.match_source = match_source
         # 汽车之家车型id
-        self.qc_car_model_id = qc_car_model_id
+        self.qc_car_series_id = qc_car_series_id
 
     def validate(self):
         self.validate_required(self.car_series, 'car_series')
@@ -12688,8 +12688,8 @@ class NewCarInfo(TeaModel):
             result['user_info'] = self.user_info.to_map()
         if self.match_source is not None:
             result['match_source'] = self.match_source
-        if self.qc_car_model_id is not None:
-            result['qc_car_model_id'] = self.qc_car_model_id
+        if self.qc_car_series_id is not None:
+            result['qc_car_series_id'] = self.qc_car_series_id
         return result
 
     def from_map(self, m: dict = None):
@@ -12709,8 +12709,8 @@ class NewCarInfo(TeaModel):
             self.user_info = temp_model.from_map(m['user_info'])
         if m.get('match_source') is not None:
             self.match_source = m.get('match_source')
-        if m.get('qc_car_model_id') is not None:
-            self.qc_car_model_id = m.get('qc_car_model_id')
+        if m.get('qc_car_series_id') is not None:
+            self.qc_car_series_id = m.get('qc_car_series_id')
         return self
 
 
@@ -65304,7 +65304,7 @@ class SubmitAuthNewcarRequest(TeaModel):
         purcharse_time: str = None,
         car_series_id: str = None,
         submit_id: str = None,
-        qc_car_model_id: str = None,
+        qc_car_series_id: str = None,
         match_source: str = None,
     ):
         # OAuth模式下的授权token
@@ -65324,8 +65324,8 @@ class SubmitAuthNewcarRequest(TeaModel):
         self.car_series_id = car_series_id
         # 提交线索的唯一id
         self.submit_id = submit_id
-        # 汽车之家车型id
-        self.qc_car_model_id = qc_car_model_id
+        # 汽车之家车系id
+        self.qc_car_series_id = qc_car_series_id
         # 匹配源
         self.match_source = match_source
 
@@ -65335,7 +65335,7 @@ class SubmitAuthNewcarRequest(TeaModel):
         if self.user_info:
             self.user_info.validate()
         self.validate_required(self.car_series, 'car_series')
-        self.validate_required(self.qc_car_model_id, 'qc_car_model_id')
+        self.validate_required(self.qc_car_series_id, 'qc_car_series_id')
         self.validate_required(self.match_source, 'match_source')
 
     def to_map(self):
@@ -65362,8 +65362,8 @@ class SubmitAuthNewcarRequest(TeaModel):
             result['car_series_id'] = self.car_series_id
         if self.submit_id is not None:
             result['submit_id'] = self.submit_id
-        if self.qc_car_model_id is not None:
-            result['qc_car_model_id'] = self.qc_car_model_id
+        if self.qc_car_series_id is not None:
+            result['qc_car_series_id'] = self.qc_car_series_id
         if self.match_source is not None:
             result['match_source'] = self.match_source
         return result
@@ -65389,8 +65389,8 @@ class SubmitAuthNewcarRequest(TeaModel):
             self.car_series_id = m.get('car_series_id')
         if m.get('submit_id') is not None:
             self.submit_id = m.get('submit_id')
-        if m.get('qc_car_model_id') is not None:
-            self.qc_car_model_id = m.get('qc_car_model_id')
+        if m.get('qc_car_series_id') is not None:
+            self.qc_car_series_id = m.get('qc_car_series_id')
         if m.get('match_source') is not None:
             self.match_source = m.get('match_source')
         return self
