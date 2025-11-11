@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.28.66',
+    sdk_version = '1.28.67',
     _prod_code = 'BLOCKCHAIN',
     _prod_channel = 'undefined'
   };
@@ -3143,7 +3143,7 @@ model NewCarInfo {
   // 懂车帝或者汽车之家
   matchSource: string(name='match_source', example='DCD/QC'),
   // 汽车之家车型id
-  qcCarModelId?: string(name='qc_car_model_id', example='123'),
+  qcCarSeriesId?: string(name='qc_car_series_id', example='123'),
 }
 
 // 阿里云合约工程信息查询
@@ -22924,8 +22924,8 @@ model SubmitAuthNewcarRequest = {
   carSeriesId?: string(name='car_series_id'),
   // 提交线索的唯一id
   submitId?: string(name='submit_id'),
-  // 汽车之家车型id
-  qcCarModelId: string(name='qc_car_model_id'),
+  // 汽车之家车系id
+  qcCarSeriesId: string(name='qc_car_series_id'),
   // 匹配源
   matchSource: string(name='match_source'),
 }
