@@ -60,6 +60,18 @@ class SubmitAuthNewcarRequest extends Model
      * @var string
      */
     public $submitId;
+
+    // 汽车之家车型id
+    /**
+     * @var string
+     */
+    public $qcCarModelId;
+
+    // 匹配源
+    /**
+     * @var string
+     */
+    public $matchSource;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -70,6 +82,8 @@ class SubmitAuthNewcarRequest extends Model
         'purcharseTime'     => 'purcharse_time',
         'carSeriesId'       => 'car_series_id',
         'submitId'          => 'submit_id',
+        'qcCarModelId'      => 'qc_car_model_id',
+        'matchSource'       => 'match_source',
     ];
 
     public function validate()
@@ -77,6 +91,8 @@ class SubmitAuthNewcarRequest extends Model
         Model::validateRequired('sceneCode', $this->sceneCode, true);
         Model::validateRequired('userInfo', $this->userInfo, true);
         Model::validateRequired('carSeries', $this->carSeries, true);
+        Model::validateRequired('qcCarModelId', $this->qcCarModelId, true);
+        Model::validateRequired('matchSource', $this->matchSource, true);
     }
 
     public function toMap()
@@ -108,6 +124,12 @@ class SubmitAuthNewcarRequest extends Model
         }
         if (null !== $this->submitId) {
             $res['submit_id'] = $this->submitId;
+        }
+        if (null !== $this->qcCarModelId) {
+            $res['qc_car_model_id'] = $this->qcCarModelId;
+        }
+        if (null !== $this->matchSource) {
+            $res['match_source'] = $this->matchSource;
         }
 
         return $res;
@@ -147,6 +169,12 @@ class SubmitAuthNewcarRequest extends Model
         }
         if (isset($map['submit_id'])) {
             $model->submitId = $map['submit_id'];
+        }
+        if (isset($map['qc_car_model_id'])) {
+            $model->qcCarModelId = $map['qc_car_model_id'];
+        }
+        if (isset($map['match_source'])) {
+            $model->matchSource = $map['match_source'];
         }
 
         return $model;

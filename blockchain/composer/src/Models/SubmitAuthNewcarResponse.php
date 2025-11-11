@@ -26,9 +26,11 @@ class SubmitAuthNewcarResponse extends Model
      */
     public $resultMsg;
 
-    // 提交是否成功
+    // OK
+    // NO_DEMAND 无线索需求，需要重试
+    // INVALID 无效，不要重试
     /**
-     * @var bool
+     * @var string
      */
     public $pushSuccess;
     protected $_name = [

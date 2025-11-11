@@ -55,6 +55,22 @@ class NewCarInfo extends Model
      * @var CarUserInfo
      */
     public $userInfo;
+
+    // 懂车帝或者汽车之家
+    /**
+     * @example DCD/QC
+     *
+     * @var string
+     */
+    public $matchSource;
+
+    // 汽车之家车型id
+    /**
+     * @example 123
+     *
+     * @var string
+     */
+    public $qcCarModelId;
     protected $_name = [
         'carSeries'     => 'car_series',
         'finaicalPlan'  => 'finaical_plan',
@@ -62,12 +78,15 @@ class NewCarInfo extends Model
         'submitId'      => 'submit_id',
         'purcharseTime' => 'purcharse_time',
         'userInfo'      => 'user_info',
+        'matchSource'   => 'match_source',
+        'qcCarModelId'  => 'qc_car_model_id',
     ];
 
     public function validate()
     {
         Model::validateRequired('carSeries', $this->carSeries, true);
         Model::validateRequired('userInfo', $this->userInfo, true);
+        Model::validateRequired('matchSource', $this->matchSource, true);
     }
 
     public function toMap()
@@ -90,6 +109,12 @@ class NewCarInfo extends Model
         }
         if (null !== $this->userInfo) {
             $res['user_info'] = null !== $this->userInfo ? $this->userInfo->toMap() : null;
+        }
+        if (null !== $this->matchSource) {
+            $res['match_source'] = $this->matchSource;
+        }
+        if (null !== $this->qcCarModelId) {
+            $res['qc_car_model_id'] = $this->qcCarModelId;
         }
 
         return $res;
@@ -120,6 +145,12 @@ class NewCarInfo extends Model
         }
         if (isset($map['user_info'])) {
             $model->userInfo = CarUserInfo::fromMap($map['user_info']);
+        }
+        if (isset($map['match_source'])) {
+            $model->matchSource = $map['match_source'];
+        }
+        if (isset($map['qc_car_model_id'])) {
+            $model->qcCarModelId = $map['qc_car_model_id'];
         }
 
         return $model;
