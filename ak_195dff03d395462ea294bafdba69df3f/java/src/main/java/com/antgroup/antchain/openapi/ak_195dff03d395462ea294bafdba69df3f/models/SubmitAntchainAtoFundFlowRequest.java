@@ -41,15 +41,19 @@ public class SubmitAntchainAtoFundFlowRequest extends TeaModel {
     @Validation(required = true)
     public String fundSignTag;
 
-    // 资方是否自动签署，true则会在商户签署完成后自动归档，false则需要资方调用auth接口后完成归档
+    // 资方是否自动签署
     @NameInMap("fund_auto_sign")
-    @Validation(required = true)
     public Boolean fundAutoSign;
 
     // 模板参数列表，需要传入模板id和对应的渲染参数，如果有多个文件则传入多个值
     @NameInMap("template_list")
     @Validation(required = true)
     public java.util.List<TemplateArgs> templateList;
+
+    // xxx合同
+    @NameInMap("business_scene")
+    @Validation(required = true)
+    public String businessScene;
 
     public static SubmitAntchainAtoFundFlowRequest build(java.util.Map<String, ?> map) throws Exception {
         SubmitAntchainAtoFundFlowRequest self = new SubmitAntchainAtoFundFlowRequest();
@@ -134,6 +138,14 @@ public class SubmitAntchainAtoFundFlowRequest extends TeaModel {
     }
     public java.util.List<TemplateArgs> getTemplateList() {
         return this.templateList;
+    }
+
+    public SubmitAntchainAtoFundFlowRequest setBusinessScene(String businessScene) {
+        this.businessScene = businessScene;
+        return this;
+    }
+    public String getBusinessScene() {
+        return this.businessScene;
     }
 
 }

@@ -20,6 +20,10 @@ public class SubmitAntchainAtoFundFlowResponse extends TeaModel {
     @NameInMap("sign_no")
     public String signNo;
 
+    // 签署信息，包括短链接、长链接、小程序链接等。
+    @NameInMap("sign_info")
+    public String signInfo;
+
     public static SubmitAntchainAtoFundFlowResponse build(java.util.Map<String, ?> map) throws Exception {
         SubmitAntchainAtoFundFlowResponse self = new SubmitAntchainAtoFundFlowResponse();
         return TeaModel.build(map, self);
@@ -55,6 +59,14 @@ public class SubmitAntchainAtoFundFlowResponse extends TeaModel {
     }
     public String getSignNo() {
         return this.signNo;
+    }
+
+    public SubmitAntchainAtoFundFlowResponse setSignInfo(String signInfo) {
+        this.signInfo = signInfo;
+        return this;
+    }
+    public String getSignInfo() {
+        return this.signInfo;
     }
 
 }
