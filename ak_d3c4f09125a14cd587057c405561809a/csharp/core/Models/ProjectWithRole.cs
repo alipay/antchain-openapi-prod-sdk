@@ -40,7 +40,7 @@ namespace AntChain.SDK.Ak_d3c4f09125a14cd587057c405561809a.Models
         [Validation(Required=false)]
         public string NetValue { get; set; }
 
-        // 价格类型
+        // 价格类型：PROJECT_NAV 项目净值 TOKEN_PRICE token
         [NameInMap("price_type")]
         [Validation(Required=false)]
         public string PriceType { get; set; }

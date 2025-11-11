@@ -10,7 +10,7 @@ namespace AntChain.SDK.Ak_d3c4f09125a14cd587057c405561809a.Models
 {
     // 登录类型
     public class LoginAccountTypeBO : TeaModel {
-        // 登录类型
+        // 登录类型：EMAIL-邮箱
         [NameInMap("user_login_type")]
         [Validation(Required=false)]
         public string UserLoginType { get; set; }

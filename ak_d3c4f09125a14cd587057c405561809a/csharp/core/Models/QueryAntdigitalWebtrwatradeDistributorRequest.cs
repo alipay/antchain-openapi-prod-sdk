@@ -18,37 +18,37 @@ namespace AntChain.SDK.Ak_d3c4f09125a14cd587057c405561809a.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 资产项目ID
+        // 资产项目ID（资产项目ID、资产项目合约地址+所在链  二选一必填）
         [NameInMap("asset_project_id")]
         [Validation(Required=false)]
         public string AssetProjectId { get; set; }
 
-        // 资产项目合约地址
+        // 资产项目合约地址（资产项目ID、资产项目合约地址+所在链  二选一必填）
         [NameInMap("asset_project_address")]
         [Validation(Required=false)]
         public string AssetProjectAddress { get; set; }
 
-        // 项目所在链
+        // 项目所在链（资产项目ID、资产项目合约地址+所在链  二选一必填）
         [NameInMap("chain_name")]
         [Validation(Required=false)]
         public string ChainName { get; set; }
 
-        // 用户ID
+        // 用户ID（用户ID、用户地址、登录名+登录名类型，三组信息任选一组输入）
         [NameInMap("user_id")]
         [Validation(Required=false)]
         public string UserId { get; set; }
 
-        // 用户地址
+        // 用户地址（用户ID、用户地址、登录名+登录名类型，三组信息任选一组输入）
         [NameInMap("user_address")]
         [Validation(Required=false)]
         public string UserAddress { get; set; }
 
-        // 登录名
+        // 登录名（用户ID、用户地址、登录名+登录名类型，三组信息任选一组输入）
         [NameInMap("login_name")]
         [Validation(Required=false)]
         public string LoginName { get; set; }
 
-        // 登录名类型(EMAIL)
+        // 登录名类型(EMAIL)（用户ID、用户地址、登录名+登录名类型，三组信息任选一组输入）
         [NameInMap("login_accout_type")]
         [Validation(Required=false)]
         public string LoginAccoutType { get; set; }
