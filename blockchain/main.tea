@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.28.65',
+    sdk_version = '1.28.66',
     _prod_code = 'BLOCKCHAIN',
     _prod_channel = 'undefined'
   };
@@ -2911,6 +2911,10 @@ model BatchSubmitCarResult {
   submitId: string(name='submit_id', example='xxx'),
   // 是否成功
   isSuccess: boolean(name='is_success', example='true, false'),
+  // OK
+  // NO_DEMAND 无线索需求，需要重试
+  // INVALID 无效，不要重试
+  pushResultCode: string(name='push_result_code', example='OK/INVALID/NO_DEMAND'),
 }
 
 // 人群标签枚举集合对象
@@ -3136,6 +3140,10 @@ model NewCarInfo {
   purcharseTime?: string(name='purcharse_time', example='1'),
   // 用户信息
   userInfo: CarUserInfo(name='user_info', example=''),
+  // 懂车帝或者汽车之家
+  matchSource: string(name='match_source', example='DCD/QC'),
+  // 汽车之家车型id
+  qcCarModelId?: string(name='qc_car_model_id', example='123'),
 }
 
 // 阿里云合约工程信息查询
@@ -22916,6 +22924,10 @@ model SubmitAuthNewcarRequest = {
   carSeriesId?: string(name='car_series_id'),
   // 提交线索的唯一id
   submitId?: string(name='submit_id'),
+  // 汽车之家车型id
+  qcCarModelId: string(name='qc_car_model_id'),
+  // 匹配源
+  matchSource: string(name='match_source'),
 }
 
 model SubmitAuthNewcarResponse = {
@@ -22925,8 +22937,10 @@ model SubmitAuthNewcarResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 提交是否成功
-  pushSuccess?: boolean(name='push_success'),
+  // OK
+  // NO_DEMAND 无线索需求，需要重试
+  // INVALID 无效，不要重试
+  pushSuccess?: string(name='push_success'),
 }
 
 /**
