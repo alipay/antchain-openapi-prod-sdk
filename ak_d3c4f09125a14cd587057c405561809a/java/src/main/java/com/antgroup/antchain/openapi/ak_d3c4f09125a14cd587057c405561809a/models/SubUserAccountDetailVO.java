@@ -7,7 +7,7 @@ public class SubUserAccountDetailVO extends TeaModel {
     // 项目ID
     /**
      * <strong>example:</strong>
-     * <p>项目ID</p>
+     * <p>1000</p>
      */
     @NameInMap("project_id")
     @Validation(required = true)
@@ -16,7 +16,7 @@ public class SubUserAccountDetailVO extends TeaModel {
     // 资产项目合约地址
     /**
      * <strong>example:</strong>
-     * <p>资产项目合约地址</p>
+     * <p>0x44b2c05769202f0001ab5beb5d583bb8a630677e</p>
      */
     @NameInMap("asset_project_address")
     public String assetProjectAddress;
@@ -24,7 +24,7 @@ public class SubUserAccountDetailVO extends TeaModel {
     // 红利合约地址
     /**
      * <strong>example:</strong>
-     * <p>红利合约地址</p>
+     * <p>0x6dd8c1ab208dd3d2b20ff28fe97babb6154ff9db</p>
      */
     @NameInMap("bonus_address")
     public String bonusAddress;
@@ -32,7 +32,7 @@ public class SubUserAccountDetailVO extends TeaModel {
     // 用户ID
     /**
      * <strong>example:</strong>
-     * <p>用户ID</p>
+     * <p>1</p>
      */
     @NameInMap("user_id")
     public String userId;
@@ -40,7 +40,7 @@ public class SubUserAccountDetailVO extends TeaModel {
     // 代销机构ID
     /**
      * <strong>example:</strong>
-     * <p>代销机构ID</p>
+     * <p>1000</p>
      */
     @NameInMap("distributor_institution_id")
     public String distributorInstitutionId;
@@ -48,7 +48,7 @@ public class SubUserAccountDetailVO extends TeaModel {
     // 发行链名称
     /**
      * <strong>example:</strong>
-     * <p>发行链名称</p>
+     * <p>ANTCHAIN</p>
      */
     @NameInMap("chain_name")
     public String chainName;
@@ -56,7 +56,7 @@ public class SubUserAccountDetailVO extends TeaModel {
     // 投资者用户账户ID
     /**
      * <strong>example:</strong>
-     * <p>投资者用户账户ID</p>
+     * <p>1</p>
      */
     @NameInMap("sub_user_account_id")
     public String subUserAccountId;
@@ -64,7 +64,7 @@ public class SubUserAccountDetailVO extends TeaModel {
     // 投资者用户红利账户ID
     /**
      * <strong>example:</strong>
-     * <p>投资者用户红利账户ID</p>
+     * <p>11</p>
      */
     @NameInMap("sub_user_bonus_account_id")
     public String subUserBonusAccountId;

@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.1"),
+                    new TeaPair("sdk_version", "1.1.0"),
                     new TeaPair("_prod_code", "ak_d3c4f09125a14cd587057c405561809a"),
                     new TeaPair("_prod_channel", "saas")
                 );
@@ -186,6 +186,27 @@ public class Client {
 
     public void addResponseInterceptor(ResponseInterceptor interceptor) {
         interceptorChain.addResponseInterceptor(interceptor);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 更新项目净值
+     * Summary: 更新项目净值</p>
+     */
+    public UpdateAntdigitalWebtrwatradeIssuerPriceResponse updateAntdigitalWebtrwatradeIssuerPrice(UpdateAntdigitalWebtrwatradeIssuerPriceRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateAntdigitalWebtrwatradeIssuerPriceEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 更新项目净值
+     * Summary: 更新项目净值</p>
+     */
+    public UpdateAntdigitalWebtrwatradeIssuerPriceResponse updateAntdigitalWebtrwatradeIssuerPriceEx(UpdateAntdigitalWebtrwatradeIssuerPriceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.webtrwatrade.issuer.price.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateAntdigitalWebtrwatradeIssuerPriceResponse());
     }
 
     /**
@@ -333,5 +354,131 @@ public class Client {
     public DetailAntdigitalWebtrwatradeIssuerProjectwithroleResponse detailAntdigitalWebtrwatradeIssuerProjectwithroleEx(DetailAntdigitalWebtrwatradeIssuerProjectwithroleRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antdigital.webtrwatrade.issuer.projectwithrole.detail", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DetailAntdigitalWebtrwatradeIssuerProjectwithroleResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 发行机构查询所有操作员的操作日志
+     * Summary: 发行机构查询所有操作员的操作日志</p>
+     */
+    public ListAntdigitalWebtrwatradeIssuerAlloperationlogResponse listAntdigitalWebtrwatradeIssuerAlloperationlog(ListAntdigitalWebtrwatradeIssuerAlloperationlogRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.listAntdigitalWebtrwatradeIssuerAlloperationlogEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 发行机构查询所有操作员的操作日志
+     * Summary: 发行机构查询所有操作员的操作日志</p>
+     */
+    public ListAntdigitalWebtrwatradeIssuerAlloperationlogResponse listAntdigitalWebtrwatradeIssuerAlloperationlogEx(ListAntdigitalWebtrwatradeIssuerAlloperationlogRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.webtrwatrade.issuer.alloperationlog.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListAntdigitalWebtrwatradeIssuerAlloperationlogResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 代销机构查询所有操作员的操作日志
+     * Summary: 代销机构查询所有操作员的操作日志</p>
+     */
+    public ListAntdigitalWebtrwatradeDistributorAlloperationlogResponse listAntdigitalWebtrwatradeDistributorAlloperationlog(ListAntdigitalWebtrwatradeDistributorAlloperationlogRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.listAntdigitalWebtrwatradeDistributorAlloperationlogEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 代销机构查询所有操作员的操作日志
+     * Summary: 代销机构查询所有操作员的操作日志</p>
+     */
+    public ListAntdigitalWebtrwatradeDistributorAlloperationlogResponse listAntdigitalWebtrwatradeDistributorAlloperationlogEx(ListAntdigitalWebtrwatradeDistributorAlloperationlogRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.webtrwatrade.distributor.alloperationlog.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListAntdigitalWebtrwatradeDistributorAlloperationlogResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询发行机构下所有的项目
+     * Summary: 查询发行机构下所有的项目</p>
+     */
+    public ListAntdigitalWebtrwatradeIssuerProjectResponse listAntdigitalWebtrwatradeIssuerProject(ListAntdigitalWebtrwatradeIssuerProjectRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.listAntdigitalWebtrwatradeIssuerProjectEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询发行机构下所有的项目
+     * Summary: 查询发行机构下所有的项目</p>
+     */
+    public ListAntdigitalWebtrwatradeIssuerProjectResponse listAntdigitalWebtrwatradeIssuerProjectEx(ListAntdigitalWebtrwatradeIssuerProjectRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.webtrwatrade.issuer.project.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListAntdigitalWebtrwatradeIssuerProjectResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询代销机构下所有的项目
+     * Summary: 查询代销机构下所有的项目</p>
+     */
+    public ListAntdigitalWebtrwatradeDistributorProjectResponse listAntdigitalWebtrwatradeDistributorProject(ListAntdigitalWebtrwatradeDistributorProjectRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.listAntdigitalWebtrwatradeDistributorProjectEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询代销机构下所有的项目
+     * Summary: 查询代销机构下所有的项目</p>
+     */
+    public ListAntdigitalWebtrwatradeDistributorProjectResponse listAntdigitalWebtrwatradeDistributorProjectEx(ListAntdigitalWebtrwatradeDistributorProjectRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.webtrwatrade.distributor.project.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListAntdigitalWebtrwatradeDistributorProjectResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询发行机构和项目下所有关联的二级用户信息
+     * Summary: 查询机构和项目下所有关联的二级用户信息</p>
+     */
+    public ListAntdigitalWebtrwatradeIssuerSubuserResponse listAntdigitalWebtrwatradeIssuerSubuser(ListAntdigitalWebtrwatradeIssuerSubuserRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.listAntdigitalWebtrwatradeIssuerSubuserEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询发行机构和项目下所有关联的二级用户信息
+     * Summary: 查询机构和项目下所有关联的二级用户信息</p>
+     */
+    public ListAntdigitalWebtrwatradeIssuerSubuserResponse listAntdigitalWebtrwatradeIssuerSubuserEx(ListAntdigitalWebtrwatradeIssuerSubuserRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.webtrwatrade.issuer.subuser.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListAntdigitalWebtrwatradeIssuerSubuserResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询代销机构和项目下所有关联的二级用户信息
+     * Summary: 查询机构和项目下所有关联的二级用户信息</p>
+     */
+    public ListAntdigitalWebtrwatradeDistributorSubuserResponse listAntdigitalWebtrwatradeDistributorSubuser(ListAntdigitalWebtrwatradeDistributorSubuserRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.listAntdigitalWebtrwatradeDistributorSubuserEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询代销机构和项目下所有关联的二级用户信息
+     * Summary: 查询机构和项目下所有关联的二级用户信息</p>
+     */
+    public ListAntdigitalWebtrwatradeDistributorSubuserResponse listAntdigitalWebtrwatradeDistributorSubuserEx(ListAntdigitalWebtrwatradeDistributorSubuserRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.webtrwatrade.distributor.subuser.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListAntdigitalWebtrwatradeDistributorSubuserResponse());
     }
 }

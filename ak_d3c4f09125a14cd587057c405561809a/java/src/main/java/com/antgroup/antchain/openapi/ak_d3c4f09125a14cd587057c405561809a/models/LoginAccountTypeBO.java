@@ -4,10 +4,10 @@ package com.antgroup.antchain.openapi.ak_d3c4f09125a14cd587057c405561809a.models
 import com.aliyun.tea.*;
 
 public class LoginAccountTypeBO extends TeaModel {
-    // 登录类型
+    // 登录类型：EMAIL-邮箱
     /**
      * <strong>example:</strong>
-     * <p>1</p>
+     * <p>EMAIL</p>
      */
     @NameInMap("user_login_type")
     public String userLoginType;
@@ -15,7 +15,7 @@ public class LoginAccountTypeBO extends TeaModel {
     // 登录名称
     /**
      * <strong>example:</strong>
-     * <p>1</p>
+     * <p><a href="mailto:123@qq.com">123@qq.com</a></p>
      */
     @NameInMap("login_name")
     public String loginName;

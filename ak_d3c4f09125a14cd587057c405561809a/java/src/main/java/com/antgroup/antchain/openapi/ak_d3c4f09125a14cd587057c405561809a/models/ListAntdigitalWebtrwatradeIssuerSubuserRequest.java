@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.ak_d3c4f09125a14cd587057c405561809a.models
 
 import com.aliyun.tea.*;
 
-public class DetailAntdigitalWebtrwatradeIssuerProjectwithroleRequest extends TeaModel {
+public class ListAntdigitalWebtrwatradeIssuerSubuserRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -11,27 +11,24 @@ public class DetailAntdigitalWebtrwatradeIssuerProjectwithroleRequest extends Te
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 项目id - 项目id和
-    // 项目合约地址+所在链组合 二选一
+    // 资产项目ID（资产项目ID、资产项目合约地址+所在链 二选一必填）
     @NameInMap("asset_project_id")
     public String assetProjectId;
 
-    // 资产项目合约地址，项目id和
-    // 项目合约地址+所在链组合 二选一
+    // 资产项目合约地址（资产项目ID、资产项目合约地址+所在链 二选一必填）
     @NameInMap("asset_project_address")
     public String assetProjectAddress;
 
-    // 所在链，项目资产ID和
-    // 项目合约地址+所在链组合 二选一
+    // 项目所在链（资产项目ID、资产项目合约地址+所在链 二选一必填）
     @NameInMap("chain_name")
     public String chainName;
 
-    public static DetailAntdigitalWebtrwatradeIssuerProjectwithroleRequest build(java.util.Map<String, ?> map) throws Exception {
-        DetailAntdigitalWebtrwatradeIssuerProjectwithroleRequest self = new DetailAntdigitalWebtrwatradeIssuerProjectwithroleRequest();
+    public static ListAntdigitalWebtrwatradeIssuerSubuserRequest build(java.util.Map<String, ?> map) throws Exception {
+        ListAntdigitalWebtrwatradeIssuerSubuserRequest self = new ListAntdigitalWebtrwatradeIssuerSubuserRequest();
         return TeaModel.build(map, self);
     }
 
-    public DetailAntdigitalWebtrwatradeIssuerProjectwithroleRequest setAuthToken(String authToken) {
+    public ListAntdigitalWebtrwatradeIssuerSubuserRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -39,7 +36,7 @@ public class DetailAntdigitalWebtrwatradeIssuerProjectwithroleRequest extends Te
         return this.authToken;
     }
 
-    public DetailAntdigitalWebtrwatradeIssuerProjectwithroleRequest setProductInstanceId(String productInstanceId) {
+    public ListAntdigitalWebtrwatradeIssuerSubuserRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -47,7 +44,7 @@ public class DetailAntdigitalWebtrwatradeIssuerProjectwithroleRequest extends Te
         return this.productInstanceId;
     }
 
-    public DetailAntdigitalWebtrwatradeIssuerProjectwithroleRequest setAssetProjectId(String assetProjectId) {
+    public ListAntdigitalWebtrwatradeIssuerSubuserRequest setAssetProjectId(String assetProjectId) {
         this.assetProjectId = assetProjectId;
         return this;
     }
@@ -55,7 +52,7 @@ public class DetailAntdigitalWebtrwatradeIssuerProjectwithroleRequest extends Te
         return this.assetProjectId;
     }
 
-    public DetailAntdigitalWebtrwatradeIssuerProjectwithroleRequest setAssetProjectAddress(String assetProjectAddress) {
+    public ListAntdigitalWebtrwatradeIssuerSubuserRequest setAssetProjectAddress(String assetProjectAddress) {
         this.assetProjectAddress = assetProjectAddress;
         return this;
     }
@@ -63,7 +60,7 @@ public class DetailAntdigitalWebtrwatradeIssuerProjectwithroleRequest extends Te
         return this.assetProjectAddress;
     }
 
-    public DetailAntdigitalWebtrwatradeIssuerProjectwithroleRequest setChainName(String chainName) {
+    public ListAntdigitalWebtrwatradeIssuerSubuserRequest setChainName(String chainName) {
         this.chainName = chainName;
         return this;
     }

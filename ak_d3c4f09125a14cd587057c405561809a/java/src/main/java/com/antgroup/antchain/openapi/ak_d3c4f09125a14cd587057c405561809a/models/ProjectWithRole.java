@@ -7,7 +7,7 @@ public class ProjectWithRole extends TeaModel {
     // 项目id
     /**
      * <strong>example:</strong>
-     * <p>1</p>
+     * <p>0628455d41d044ed97783db554149d4b</p>
      */
     @NameInMap("project_id")
     public String projectId;
@@ -15,7 +15,7 @@ public class ProjectWithRole extends TeaModel {
     // 项目名称
     /**
      * <strong>example:</strong>
-     * <p>1</p>
+     * <p>测试项目</p>
      */
     @NameInMap("projcet_name")
     public String projcetName;
@@ -23,7 +23,7 @@ public class ProjectWithRole extends TeaModel {
     // 描述
     /**
      * <strong>example:</strong>
-     * <p>1</p>
+     * <p>测试</p>
      */
     @NameInMap("description")
     public String description;
@@ -31,7 +31,7 @@ public class ProjectWithRole extends TeaModel {
     // token名称
     /**
      * <strong>example:</strong>
-     * <p>1</p>
+     * <p>token</p>
      */
     @NameInMap("token_name")
     public String tokenName;
@@ -39,7 +39,7 @@ public class ProjectWithRole extends TeaModel {
     // 最大供应量
     /**
      * <strong>example:</strong>
-     * <p>1</p>
+     * <p>1000000</p>
      */
     @NameInMap("capacity")
     public String capacity;
@@ -52,10 +52,10 @@ public class ProjectWithRole extends TeaModel {
     @NameInMap("net_value")
     public String netValue;
 
-    // 价格类型
+    // 价格类型：PROJECT_NAV 项目净值 TOKEN_PRICE token
     /**
      * <strong>example:</strong>
-     * <p>1</p>
+     * <p>TOKEN_PRICE</p>
      */
     @NameInMap("price_type")
     public String priceType;
@@ -71,7 +71,7 @@ public class ProjectWithRole extends TeaModel {
     // 最大限额
     /**
      * <strong>example:</strong>
-     * <p>1</p>
+     * <p>10000</p>
      */
     @NameInMap("max_subscription_amount")
     public String maxSubscriptionAmount;
@@ -79,7 +79,7 @@ public class ProjectWithRole extends TeaModel {
     // 部署类型 DIRECT_PUBLIC_CHAIN 直发公链，NORMAL 普通模式
     /**
      * <strong>example:</strong>
-     * <p>1</p>
+     * <p>NORMAL</p>
      */
     @NameInMap("deployment_type")
     public String deploymentType;
@@ -87,24 +87,16 @@ public class ProjectWithRole extends TeaModel {
     // 项目所在链
     /**
      * <strong>example:</strong>
-     * <p>1</p>
+     * <p>ANTCHAIN</p>
      */
     @NameInMap("chain_type")
     public String chainType;
 
     // 操作角色列表
-    /**
-     * <strong>example:</strong>
-     * <p>1</p>
-     */
     @NameInMap("user_operator_list")
     public java.util.List<UserOperatorInfoBO> userOperatorList;
 
     // 代销者机构集合
-    /**
-     * <strong>example:</strong>
-     * <p>1</p>
-     */
     @NameInMap("participant_infos")
     public java.util.List<ParticipantInfo> participantInfos;
 

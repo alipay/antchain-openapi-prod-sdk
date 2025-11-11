@@ -7,7 +7,7 @@ public class CrossChainAccountsDetailVO extends TeaModel {
     // 明细ID
     /**
      * <strong>example:</strong>
-     * <p>明细ID</p>
+     * <p>0ef1c7f82ffb44989e8b6e6b6360a3a7</p>
      */
     @NameInMap("id")
     public String id;
@@ -15,7 +15,7 @@ public class CrossChainAccountsDetailVO extends TeaModel {
     // 交易链上Hash
     /**
      * <strong>example:</strong>
-     * <p>交易链上Hash</p>
+     * <p>0xf1ada29c07fd95444030d9001ad09b7fd2111aed063ee0753e181fb2a3f53057</p>
      */
     @NameInMap("transaction_hash")
     public String transactionHash;
@@ -23,7 +23,7 @@ public class CrossChainAccountsDetailVO extends TeaModel {
     // 交易前余额
     /**
      * <strong>example:</strong>
-     * <p>交易前余额</p>
+     * <p>1000.000000000</p>
      */
     @NameInMap("pre_balance")
     public String preBalance;
@@ -31,7 +31,7 @@ public class CrossChainAccountsDetailVO extends TeaModel {
     // 交易数量
     /**
      * <strong>example:</strong>
-     * <p>交易数量</p>
+     * <p>1000.000000000</p>
      */
     @NameInMap("transaction_amount")
     public String transactionAmount;
@@ -39,15 +39,15 @@ public class CrossChainAccountsDetailVO extends TeaModel {
     // 交易后余额
     /**
      * <strong>example:</strong>
-     * <p>交易后余额</p>
+     * <p>2000.000000000</p>
      */
     @NameInMap("post_balance")
     public String postBalance;
 
-    // 交易类别
+    // 交易类别(LOCK_MINT/BURN_RETRIEVE/INNER_TRANSFER/OTC_TRANSFER)
     /**
      * <strong>example:</strong>
-     * <p>交易类别(LOCK_MINT/BURN_RETRIEVE/INNER_TRANSFER/OTC_TRANSFER)</p>
+     * <p>LOCK_MINT</p>
      */
     @NameInMap("transaction_type")
     public String transactionType;
@@ -55,7 +55,7 @@ public class CrossChainAccountsDetailVO extends TeaModel {
     // 对手地址
     /**
      * <strong>example:</strong>
-     * <p>对手地址</p>
+     * <p>0x5639ede048dc910b917b518ae8d3cbb184fc749d</p>
      */
     @NameInMap("counter_address")
     public String counterAddress;

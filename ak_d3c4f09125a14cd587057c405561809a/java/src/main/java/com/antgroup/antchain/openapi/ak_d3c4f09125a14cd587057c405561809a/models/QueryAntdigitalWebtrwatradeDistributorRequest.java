@@ -11,31 +11,31 @@ public class QueryAntdigitalWebtrwatradeDistributorRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 资产项目ID
+    // 资产项目ID（资产项目ID、资产项目合约地址+所在链  二选一必填）
     @NameInMap("asset_project_id")
     public String assetProjectId;
 
-    // 资产项目合约地址
+    // 资产项目合约地址（资产项目ID、资产项目合约地址+所在链  二选一必填）
     @NameInMap("asset_project_address")
     public String assetProjectAddress;
 
-    // 项目所在链
+    // 项目所在链（资产项目ID、资产项目合约地址+所在链  二选一必填）
     @NameInMap("chain_name")
     public String chainName;
 
-    // 用户ID
+    // 用户ID（用户ID、用户地址、登录名+登录名类型，三组信息任选一组输入）
     @NameInMap("user_id")
     public String userId;
 
-    // 用户地址
+    // 用户地址（用户ID、用户地址、登录名+登录名类型，三组信息任选一组输入）
     @NameInMap("user_address")
     public String userAddress;
 
-    // 登录名
+    // 登录名（用户ID、用户地址、登录名+登录名类型，三组信息任选一组输入）
     @NameInMap("login_name")
     public String loginName;
 
-    // 登录名类型(EMAIL)
+    // 登录名类型(EMAIL)（用户ID、用户地址、登录名+登录名类型，三组信息任选一组输入）
     @NameInMap("login_accout_type")
     public String loginAccoutType;
 

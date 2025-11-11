@@ -7,7 +7,7 @@ public class SubUserBonusAccountDetailVO extends TeaModel {
     // 明细ID
     /**
      * <strong>example:</strong>
-     * <p>明细ID</p>
+     * <p>1</p>
      */
     @NameInMap("id")
     @Validation(required = true)
@@ -16,7 +16,7 @@ public class SubUserBonusAccountDetailVO extends TeaModel {
     // 交易链上Hash
     /**
      * <strong>example:</strong>
-     * <p>交易链上Hash</p>
+     * <p>0x9fe688e456d3c4b15edceff3c23380300d71b48649ae8d61c6a9e513bb095262</p>
      */
     @NameInMap("transaction_hash")
     @Validation(required = true)
@@ -25,7 +25,7 @@ public class SubUserBonusAccountDetailVO extends TeaModel {
     // 交易前余额
     /**
      * <strong>example:</strong>
-     * <p>交易前余额</p>
+     * <p>1.0</p>
      */
     @NameInMap("pre_balance")
     @Validation(required = true)
@@ -34,7 +34,7 @@ public class SubUserBonusAccountDetailVO extends TeaModel {
     // 交易数量
     /**
      * <strong>example:</strong>
-     * <p>交易数量</p>
+     * <p>1</p>
      */
     @NameInMap("transaction_amount")
     @Validation(required = true)
@@ -43,7 +43,7 @@ public class SubUserBonusAccountDetailVO extends TeaModel {
     // 交易后余额
     /**
      * <strong>example:</strong>
-     * <p>交易后余额</p>
+     * <p>1.0</p>
      */
     @NameInMap("post_balance")
     @Validation(required = true)
@@ -52,7 +52,7 @@ public class SubUserBonusAccountDetailVO extends TeaModel {
     // 交易类别
     /**
      * <strong>example:</strong>
-     * <p>交易类别</p>
+     * <p>ISSUE</p>
      */
     @NameInMap("transaction_type")
     @Validation(required = true)
@@ -61,7 +61,7 @@ public class SubUserBonusAccountDetailVO extends TeaModel {
     // 对手地址
     /**
      * <strong>example:</strong>
-     * <p>对手地址</p>
+     * <p>0x9f6a540f4079d29ff5a9c5985e9ee87f3b713117</p>
      */
     @NameInMap("counter_address")
     @Validation(required = true)
@@ -70,7 +70,7 @@ public class SubUserBonusAccountDetailVO extends TeaModel {
     // 创建时间
     /**
      * <strong>example:</strong>
-     * <p>创建时间</p>
+     * <p>1755754919690</p>
      */
     @NameInMap("gmt_created")
     @Validation(required = true)
@@ -79,7 +79,7 @@ public class SubUserBonusAccountDetailVO extends TeaModel {
     // 更新时间
     /**
      * <strong>example:</strong>
-     * <p>更新时间</p>
+     * <p>1755754919690</p>
      */
     @NameInMap("gmt_modified")
     @Validation(required = true)
