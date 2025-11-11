@@ -5,35 +5,67 @@ import com.aliyun.tea.*;
 
 public class EducationTagInfo extends TeaModel {
     // 专业名称
+    /**
+     * <strong>example:</strong>
+     * <p>软件工程</p>
+     */
     @NameInMap("major")
     public String major;
 
     // 学历等级代码
+    /**
+     * <strong>example:</strong>
+     * <p>01</p>
+     */
     @NameInMap("education_level")
     public String educationLevel;
 
     // 	
     // 毕业日期
+    /**
+     * <strong>example:</strong>
+     * <p>2020/06</p>
+     */
     @NameInMap("graduation_date")
     public String graduationDate;
 
     // 学习形式
+    /**
+     * <strong>example:</strong>
+     * <p>全日制</p>
+     */
     @NameInMap("education_type")
     public String educationType;
 
     // 入学时间
+    /**
+     * <strong>example:</strong>
+     * <p>202109</p>
+     */
     @NameInMap("admission_date")
     public String admissionDate;
 
     // 学校类型
+    /**
+     * <strong>example:</strong>
+     * <p>985学校</p>
+     */
     @NameInMap("school_type")
     public String schoolType;
 
     // 学习形式字典code
+    /**
+     * <strong>example:</strong>
+     * <p>01</p>
+     */
     @NameInMap("education_type_code")
     public String educationTypeCode;
 
     // 学校名称
+    /**
+     * <strong>example:</strong>
+     * <p>北京大学</p>
+     */
     @NameInMap("school_name")
     public String schoolName;
 

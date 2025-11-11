@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class DataSourceInterface extends TeaModel {
     // 数据源接口访问地址
+    /**
+     * <strong>example:</strong>
+     * <p>https://******</p>
+     */
     @NameInMap("address")
     @Validation(required = true, maxLength = 100)
     public String address;
 
     // 数据源接口请求方法类型
+    /**
+     * <strong>example:</strong>
+     * <p>POST</p>
+     */
     @NameInMap("interface_request_method")
     @Validation(required = true, maxLength = 50)
     public String interfaceRequestMethod;

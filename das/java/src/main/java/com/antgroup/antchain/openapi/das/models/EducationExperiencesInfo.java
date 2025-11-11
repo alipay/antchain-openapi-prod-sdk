@@ -5,31 +5,55 @@ import com.aliyun.tea.*;
 
 public class EducationExperiencesInfo extends TeaModel {
     // 学历
+    /**
+     * <strong>example:</strong>
+     * <p>BACHELOR</p>
+     */
     @NameInMap("degree")
     @Validation(maxLength = 32)
     public String degree;
 
     // 受教育地点
+    /**
+     * <strong>example:</strong>
+     * <p>受教育地点</p>
+     */
     @NameInMap("location")
     @Validation(maxLength = 128)
     public String location;
 
     // 学校名称
+    /**
+     * <strong>example:</strong>
+     * <p>北京大学</p>
+     */
     @NameInMap("school_name")
     @Validation(maxLength = 128)
     public String schoolName;
 
     // 教育状态
+    /**
+     * <strong>example:</strong>
+     * <p>FINISH_SCHOOL</p>
+     */
     @NameInMap("education_status")
     @Validation(maxLength = 128)
     public String educationStatus;
 
     // 年
+    /**
+     * <strong>example:</strong>
+     * <p>2022</p>
+     */
     @NameInMap("year")
     @Validation(maximum = 6)
     public Long year;
 
     // 月
+    /**
+     * <strong>example:</strong>
+     * <p>5</p>
+     */
     @NameInMap("month")
     @Validation(maximum = 5)
     public Long month;

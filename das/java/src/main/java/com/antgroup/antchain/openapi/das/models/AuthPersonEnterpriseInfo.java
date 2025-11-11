@@ -5,26 +5,46 @@ import com.aliyun.tea.*;
 
 public class AuthPersonEnterpriseInfo extends TeaModel {
     // 企业名称
+    /**
+     * <strong>example:</strong>
+     * <p>***有限公司</p>
+     */
     @NameInMap("enterprise_name")
     @Validation(required = true)
     public String enterpriseName;
 
     // 企业统一社会信用码
+    /**
+     * <strong>example:</strong>
+     * <p>9144*****</p>
+     */
     @NameInMap("enterprise_credit_num")
     @Validation(required = true)
     public String enterpriseCreditNum;
 
     // 企业法人姓名
+    /**
+     * <strong>example:</strong>
+     * <p>张**</p>
+     */
     @NameInMap("enterprise_legal_person_name")
     @Validation(required = true)
     public String enterpriseLegalPersonName;
 
     // 企业法人身份证号
+    /**
+     * <strong>example:</strong>
+     * <p>110***** </p>
+     */
     @NameInMap("enterprise_legal_person_id")
     @Validation(required = true)
     public String enterpriseLegalPersonId;
 
     // 企业法人电话号码
+    /**
+     * <strong>example:</strong>
+     * <p>138********</p>
+     */
     @NameInMap("enterprise_legal_person_phone_num")
     @Validation(required = true)
     public Long enterpriseLegalPersonPhoneNum;

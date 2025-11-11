@@ -5,31 +5,59 @@ import com.aliyun.tea.*;
 
 public class DomesticTmInfo extends TeaModel {
     // 商标名称
+    /**
+     * <strong>example:</strong>
+     * <p>商标名称</p>
+     */
     @NameInMap("tm_name")
     public String tmName;
 
     // 注册证号
+    /**
+     * <strong>example:</strong>
+     * <p>123456789</p>
+     */
     @NameInMap("tm_reg_num")
     public String tmRegNum;
 
     // 国际分类
+    /**
+     * <strong>example:</strong>
+     * <p>16</p>
+     */
     @NameInMap("int_cls")
     public String intCls;
 
     // 商标状态
+    /**
+     * <strong>example:</strong>
+     * <p>status</p>
+     */
     @NameInMap("tm_status")
     public String tmStatus;
 
     // 专用期开始时间
+    /**
+     * <strong>example:</strong>
+     * <p>2021-10-07T00:00:00</p>
+     */
     @NameInMap("property_bgn_date")
     public String propertyBgnDate;
 
     // 注册日期
     // 
+    /**
+     * <strong>example:</strong>
+     * <p>2022-08-28T00:00:00</p>
+     */
     @NameInMap("reg_date")
     public String regDate;
 
     // 是否共有商标
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
     @NameInMap("is_share")
     public Boolean isShare;
 
@@ -38,50 +66,98 @@ public class DomesticTmInfo extends TeaModel {
     public java.util.List<TmCoownerInfo> coownerInfos;
 
     // 专用期结束时间
+    /**
+     * <strong>example:</strong>
+     * <p>2031-10-06T00:00:00</p>
+     */
     @NameInMap("property_end_date")
     public String propertyEndDate;
 
     // 商标类别
+    /**
+     * <strong>example:</strong>
+     * <p>0001</p>
+     */
     @NameInMap("form_type")
     public String formType;
 
     // 权利人中文名称
+    /**
+     * <strong>example:</strong>
+     * <p>张三</p>
+     */
     @NameInMap("owner_name_cn")
     public String ownerNameCn;
 
     // 权利人中文地址
+    /**
+     * <strong>example:</strong>
+     * <p>中文地址信息</p>
+     */
     @NameInMap("owner_addr_cn")
     public String ownerAddrCn;
 
     // 权利人英文名称
+    /**
+     * <strong>example:</strong>
+     * <p>Bob</p>
+     */
     @NameInMap("owner_name_en")
     public String ownerNameEn;
 
     // 权利人英文地址
+    /**
+     * <strong>example:</strong>
+     * <p>英文地址信息</p>
+     */
     @NameInMap("owner_addr_en")
     public String ownerAddrEn;
 
     // 申请人中文名称
+    /**
+     * <strong>example:</strong>
+     * <p>张*</p>
+     */
     @NameInMap("applicant_name_cn")
     public String applicantNameCn;
 
     // 申请人中文地址
+    /**
+     * <strong>example:</strong>
+     * <p>中文地址信息</p>
+     */
     @NameInMap("applicant_addr_cn")
     public String applicantAddrCn;
 
     // 申请人外文名称
+    /**
+     * <strong>example:</strong>
+     * <p>Bob</p>
+     */
     @NameInMap("applicant_name_en")
     public String applicantNameEn;
 
     // 申请人英文地址
+    /**
+     * <strong>example:</strong>
+     * <p>英文地址信息</p>
+     */
     @NameInMap("applicant_addr_en")
     public String applicantAddrEn;
 
     // 权利人社会信用统一代码
+    /**
+     * <strong>example:</strong>
+     * <p>1234567W</p>
+     */
     @NameInMap("owner_uscc")
     public String ownerUscc;
 
     // 商标唯一标识码
+    /**
+     * <strong>example:</strong>
+     * <p>123456</p>
+     */
     @NameInMap("tid")
     public String tid;
 

@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class CertificatesInfo extends TeaModel {
     // 证书名称
+    /**
+     * <strong>example:</strong>
+     * <p>证书名称</p>
+     */
     @NameInMap("certificate_name")
     @Validation(maxLength = 128)
     public String certificateName;

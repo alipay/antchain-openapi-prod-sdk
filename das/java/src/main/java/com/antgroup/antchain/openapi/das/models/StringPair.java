@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class StringPair extends TeaModel {
     // key
+    /**
+     * <strong>example:</strong>
+     * <p>appid</p>
+     */
     @NameInMap("key")
     @Validation(required = true)
     public String key;
 
     // 对应key的具体value
+    /**
+     * <strong>example:</strong>
+     * <p>12312312</p>
+     */
     @NameInMap("value")
     @Validation(required = true)
     public String value;

@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class ResumeSkillInfo extends TeaModel {
     // 技能标签名字
+    /**
+     * <strong>example:</strong>
+     * <p>技能标签名字</p>
+     */
     @NameInMap("skill_name")
     @Validation(maxLength = 128)
     public String skillName;

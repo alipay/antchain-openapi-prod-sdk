@@ -5,10 +5,18 @@ import com.aliyun.tea.*;
 
 public class DomesticTmGoodsInfo extends TeaModel {
     // 商品中文名称
+    /**
+     * <strong>example:</strong>
+     * <p>汽车</p>
+     */
     @NameInMap("goods_cn_name")
     public String goodsCnName;
 
     // 类似群编码
+    /**
+     * <strong>example:</strong>
+     * <p>1210</p>
+     */
     @NameInMap("similar_code")
     public String similarCode;
 

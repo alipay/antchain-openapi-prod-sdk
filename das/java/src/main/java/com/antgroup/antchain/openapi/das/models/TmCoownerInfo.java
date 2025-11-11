@@ -5,18 +5,34 @@ import com.aliyun.tea.*;
 
 public class TmCoownerInfo extends TeaModel {
     // 共有人中文名称
+    /**
+     * <strong>example:</strong>
+     * <p>张三</p>
+     */
     @NameInMap("coowner_name_cn")
     public String coownerNameCn;
 
     // 共有人中文地址
+    /**
+     * <strong>example:</strong>
+     * <p>中文地址信息</p>
+     */
     @NameInMap("coowner_addr_cn")
     public String coownerAddrCn;
 
     // 共有人英文名称
+    /**
+     * <strong>example:</strong>
+     * <p>Bob</p>
+     */
     @NameInMap("coowner_name_en")
     public String coownerNameEn;
 
     // 共有人英文地址
+    /**
+     * <strong>example:</strong>
+     * <p>英文地址信息</p>
+     */
     @NameInMap("coowner_addr_en")
     public String coownerAddrEn;
 

@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class EnterprisePersonInfo extends TeaModel {
     // 查询人对应企业名
+    /**
+     * <strong>example:</strong>
+     * <p>**公司</p>
+     */
     @NameInMap("org_name")
     public String orgName;
 

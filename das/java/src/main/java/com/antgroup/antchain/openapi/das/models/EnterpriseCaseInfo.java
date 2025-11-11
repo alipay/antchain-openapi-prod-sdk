@@ -5,46 +5,90 @@ import com.aliyun.tea.*;
 
 public class EnterpriseCaseInfo extends TeaModel {
     // 立案信息
+    /**
+     * <strong>example:</strong>
+     * <p>立案信息</p>
+     */
     @NameInMap("case_info")
     public String caseInfo;
 
     // 案件号
+    /**
+     * <strong>example:</strong>
+     * <p>案件号</p>
+     */
     @NameInMap("case_code")
     public String caseCode;
 
     // 立案时间
+    /**
+     * <strong>example:</strong>
+     * <p>2021-12-09</p>
+     */
     @NameInMap("case_create_time")
     public String caseCreateTime;
 
     // 案件状态
+    /**
+     * <strong>example:</strong>
+     * <p>案件状态</p>
+     */
     @NameInMap("case_status")
     public String caseStatus;
 
     // 公示状态
+    /**
+     * <strong>example:</strong>
+     * <p>公示状态</p>
+     */
     @NameInMap("publish_status")
     public String publishStatus;
 
     // 被执行人姓名
+    /**
+     * <strong>example:</strong>
+     * <p>被执行人姓名</p>
+     */
     @NameInMap("exec_name")
     public String execName;
 
     // 执行法院
+    /**
+     * <strong>example:</strong>
+     * <p>执行法院</p>
+     */
     @NameInMap("exec_court_name")
     public String execCourtName;
 
     // 执行标的(元)
+    /**
+     * <strong>example:</strong>
+     * <p>执行标的(元)</p>
+     */
     @NameInMap("exec_money")
     public String execMoney;
 
     // 关联裁判文书
+    /**
+     * <strong>example:</strong>
+     * <p>关联裁判文书</p>
+     */
     @NameInMap("gist_id")
     public String gistId;
 
     // 案由
+    /**
+     * <strong>example:</strong>
+     * <p>案由</p>
+     */
     @NameInMap("case_type")
     public String caseType;
 
     // 创建时间
+    /**
+     * <strong>example:</strong>
+     * <p>2021-12-09</p>
+     */
     @NameInMap("create_time")
     public String createTime;
 

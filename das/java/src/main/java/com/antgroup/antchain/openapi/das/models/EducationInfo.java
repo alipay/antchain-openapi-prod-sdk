@@ -5,30 +5,58 @@ import com.aliyun.tea.*;
 
 public class EducationInfo extends TeaModel {
     // 专业
+    /**
+     * <strong>example:</strong>
+     * <p>计算机</p>
+     */
     @NameInMap("major")
     public String major;
 
     // 学历等级代码
+    /**
+     * <strong>example:</strong>
+     * <p>01</p>
+     */
     @NameInMap("education_level")
     public String educationLevel;
 
     // 毕业日期
+    /**
+     * <strong>example:</strong>
+     * <p>202006</p>
+     */
     @NameInMap("graduation_date")
     public String graduationDate;
 
     // 学习形式
+    /**
+     * <strong>example:</strong>
+     * <p>全日制</p>
+     */
     @NameInMap("education_type")
     public String educationType;
 
     // 是否211
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
     @NameInMap("project211")
     public Boolean project211;
 
     // 是否985
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
     @NameInMap("project985")
     public Boolean project985;
 
     // 是否双一流
+    /**
+     * <strong>example:</strong>
+     * <p>true</p>
+     */
     @NameInMap("double_first_class")
     public Boolean doubleFirstClass;
 

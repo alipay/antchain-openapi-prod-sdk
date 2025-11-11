@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class AuthPersonIndividualInfo extends TeaModel {
     // 姓名
+    /**
+     * <strong>example:</strong>
+     * <p>张**</p>
+     */
     @NameInMap("individual_name")
     @Validation(required = true)
     public String individualName;
 
     // 身份证号
+    /**
+     * <strong>example:</strong>
+     * <p>110*****</p>
+     */
     @NameInMap("individual_id")
     @Validation(required = true)
     public String individualId;
 
     // 电话号码
+    /**
+     * <strong>example:</strong>
+     * <p>138********</p>
+     */
     @NameInMap("individual_phone_num")
     @Validation(required = true)
     public Long individualPhoneNum;

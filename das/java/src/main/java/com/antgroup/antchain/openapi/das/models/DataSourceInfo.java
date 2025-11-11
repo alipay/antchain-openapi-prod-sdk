@@ -5,21 +5,37 @@ import com.aliyun.tea.*;
 
 public class DataSourceInfo extends TeaModel {
     // 数据源biz_uuid
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("biz_uuid")
     @Validation(required = true)
     public String bizUuid;
 
     // 数据源名称
+    /**
+     * <strong>example:</strong>
+     * <p>**数据</p>
+     */
     @NameInMap("name")
     @Validation(required = true, maxLength = 20)
     public String name;
 
     // 数据提供方
+    /**
+     * <strong>example:</strong>
+     * <p>***有限公司</p>
+     */
     @NameInMap("provider")
     @Validation(required = true, maxLength = 30)
     public String provider;
 
     // 枚举值：ENTERPRISE、INDIVIDUAL
+    /**
+     * <strong>example:</strong>
+     * <p>ENTERPRISE</p>
+     */
     @NameInMap("data_owner_type")
     @Validation(required = true)
     public String dataOwnerType;

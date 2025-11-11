@@ -5,14 +5,26 @@ import com.aliyun.tea.*;
 
 public class VehicleLicenseCertResult extends TeaModel {
     // 与车辆的车牌号是否一致
+    /**
+     * <strong>example:</strong>
+     * <p>true</p>
+     */
     @NameInMap("plate_number")
     public Boolean plateNumber;
 
     // 与车辆对应号牌种类是否一致
+    /**
+     * <strong>example:</strong>
+     * <p>true</p>
+     */
     @NameInMap("plate_type")
     public Boolean plateType;
 
     // 与车辆所有人是否一致
+    /**
+     * <strong>example:</strong>
+     * <p>true</p>
+     */
     @NameInMap("owner")
     public Boolean owner;
 

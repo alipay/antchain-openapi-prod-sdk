@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class DomesticTmExtensionInfo extends TeaModel {
     // 商标logo URL地址
+    /**
+     * <strong>example:</strong>
+     * <p><a href="http://logo.png">http://logo.png</a></p>
+     */
     @NameInMap("tm_logo_url")
     public String tmLogoUrl;
 

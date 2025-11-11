@@ -5,25 +5,45 @@ import com.aliyun.tea.*;
 
 public class EnterpriseBaseInfo extends TeaModel {
     // 机构名称
+    /**
+     * <strong>example:</strong>
+     * <p>机构名称</p>
+     */
     @NameInMap("org_name")
     @Validation(required = true)
     public String orgName;
 
     // 统一社会信用代码
+    /**
+     * <strong>example:</strong>
+     * <p>统一社会信用代码</p>
+     */
     @NameInMap("credit_code")
     @Validation(required = true)
     public String creditCode;
 
     // 企业公司注册证号
+    /**
+     * <strong>example:</strong>
+     * <p>企业公司注册证号</p>
+     */
     @NameInMap("reg_number")
     @Validation(required = true)
     public String regNumber;
 
     // 持股比例
+    /**
+     * <strong>example:</strong>
+     * <p>持股比例</p>
+     */
     @NameInMap("invest_rate")
     public String investRate;
 
     // 查询人与这家企业的关联
+    /**
+     * <strong>example:</strong>
+     * <p>sh;lp;tm</p>
+     */
     @NameInMap("relationship")
     public String relationship;
 

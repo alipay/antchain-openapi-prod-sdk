@@ -5,31 +5,55 @@ import com.aliyun.tea.*;
 
 public class WorkExperiencesInfo extends TeaModel {
     // 工作开始日期
+    /**
+     * <strong>example:</strong>
+     * <p>12</p>
+     */
     @NameInMap("work_start_time")
     @Validation(maximum = 32)
     public Long workStartTime;
 
     // 工作结束日期
+    /**
+     * <strong>example:</strong>
+     * <p>12</p>
+     */
     @NameInMap("work_end_time")
     @Validation(maximum = 32)
     public Long workEndTime;
 
     // 公司名称
+    /**
+     * <strong>example:</strong>
+     * <p>xxx有限公司</p>
+     */
     @NameInMap("company_name")
     @Validation(maxLength = 128)
     public String companyName;
 
     // 工作描述
+    /**
+     * <strong>example:</strong>
+     * <p>工作描述</p>
+     */
     @NameInMap("work_desc")
     @Validation(maxLength = 1024)
     public String workDesc;
 
     // 职业
+    /**
+     * <strong>example:</strong>
+     * <p>职业</p>
+     */
     @NameInMap("job_name")
     @Validation(maxLength = 128)
     public String jobName;
 
     // 行业名称
+    /**
+     * <strong>example:</strong>
+     * <p>行业名称</p>
+     */
     @NameInMap("profession_name")
     @Validation(maxLength = 128)
     public String professionName;

@@ -5,21 +5,37 @@ import com.aliyun.tea.*;
 
 public class BasicCarInfo extends TeaModel {
     // 号牌号码
+    /**
+     * <strong>example:</strong>
+     * <p>京Axxxxx</p>
+     */
     @NameInMap("license_no")
     @Validation(required = true)
     public String licenseNo;
 
     // 号牌种类，枚举值
+    /**
+     * <strong>example:</strong>
+     * <p>01</p>
+     */
     @NameInMap("license_type")
     @Validation(required = true)
     public String licenseType;
 
     // 车架号
+    /**
+     * <strong>example:</strong>
+     * <p>xxxxxx</p>
+     */
     @NameInMap("vin")
     @Validation(required = true)
     public String vin;
 
     // 发动机号
+    /**
+     * <strong>example:</strong>
+     * <p>xxxxxx</p>
+     */
     @NameInMap("engine_no")
     @Validation(required = true)
     public String engineNo;

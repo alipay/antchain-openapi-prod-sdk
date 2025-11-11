@@ -5,22 +5,42 @@ import com.aliyun.tea.*;
 
 public class StockHolder extends TeaModel {
     // 股东类型
+    /**
+     * <strong>example:</strong>
+     * <p>自然人</p>
+     */
     @NameInMap("org_holder_type")
     public String orgHolderType;
 
     // 出资时间
+    /**
+     * <strong>example:</strong>
+     * <p>2047-04-19</p>
+     */
     @NameInMap("invest_date")
     public String investDate;
 
     // 占比
+    /**
+     * <strong>example:</strong>
+     * <p>100.00%</p>
+     */
     @NameInMap("invest_rate")
     public String investRate;
 
     // 出资金额
+    /**
+     * <strong>example:</strong>
+     * <p>1000</p>
+     */
     @NameInMap("subscript_amt")
     public String subscriptAmt;
 
     // 股东名
+    /**
+     * <strong>example:</strong>
+     * <p>xxx</p>
+     */
     @NameInMap("or_holder_name")
     public String orHolderName;
 

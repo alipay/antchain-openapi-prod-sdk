@@ -5,34 +5,66 @@ import com.aliyun.tea.*;
 
 public class DriverLicenseInfo extends TeaModel {
     // 性别，字典
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("gender")
     public String gender;
 
     // 驾驶证发证日期,当前日期减去实际日期的天数所在区间
+    /**
+     * <strong>example:</strong>
+     * <p>A/-A</p>
+     */
     @NameInMap("issue_date")
     public String issueDate;
 
     // 驾驶证有效终止日期
+    /**
+     * <strong>example:</strong>
+     * <p>A/-A</p>
+     */
     @NameInMap("valid_end_date")
     public String validEndDate;
 
     // 驾驶证有效起始日期
+    /**
+     * <strong>example:</strong>
+     * <p>A/-A</p>
+     */
     @NameInMap("valid_start_date")
     public String validStartDate;
 
     // 驾驶证状态，字典
+    /**
+     * <strong>example:</strong>
+     * <p>A</p>
+     */
     @NameInMap("driver_license_status")
     public String driverLicenseStatus;
 
     // 初次领证时间
+    /**
+     * <strong>example:</strong>
+     * <p>A/-A</p>
+     */
     @NameInMap("first_issue_date")
     public String firstIssueDate;
 
     // 准驾车型，字典
+    /**
+     * <strong>example:</strong>
+     * <p>A1</p>
+     */
     @NameInMap("allow_drive_car")
     public String allowDriveCar;
 
     // 驾驶证种类，字典
+    /**
+     * <strong>example:</strong>
+     * <p>A</p>
+     */
     @NameInMap("driver_license_type")
     public String driverLicenseType;
 
