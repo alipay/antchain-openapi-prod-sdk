@@ -11714,15 +11714,21 @@ class BatchSubmitCarResult(TeaModel):
         self,
         submit_id: str = None,
         is_success: bool = None,
+        push_result_code: str = None,
     ):
         # 提交线索唯一请求id
         self.submit_id = submit_id
         # 是否成功
         self.is_success = is_success
+        # OK
+        # NO_DEMAND 无线索需求，需要重试
+        # INVALID 无效，不要重试
+        self.push_result_code = push_result_code
 
     def validate(self):
         self.validate_required(self.submit_id, 'submit_id')
         self.validate_required(self.is_success, 'is_success')
+        self.validate_required(self.push_result_code, 'push_result_code')
 
     def to_map(self):
         _map = super().to_map()
@@ -11734,6 +11740,8 @@ class BatchSubmitCarResult(TeaModel):
             result['submit_id'] = self.submit_id
         if self.is_success is not None:
             result['is_success'] = self.is_success
+        if self.push_result_code is not None:
+            result['push_result_code'] = self.push_result_code
         return result
 
     def from_map(self, m: dict = None):
@@ -11742,6 +11750,8 @@ class BatchSubmitCarResult(TeaModel):
             self.submit_id = m.get('submit_id')
         if m.get('is_success') is not None:
             self.is_success = m.get('is_success')
+        if m.get('push_result_code') is not None:
+            self.push_result_code = m.get('push_result_code')
         return self
 
 
@@ -12631,6 +12641,8 @@ class NewCarInfo(TeaModel):
         submit_id: str = None,
         purcharse_time: str = None,
         user_info: CarUserInfo = None,
+        match_source: str = None,
+        qc_car_model_id: str = None,
     ):
         # 车系
         self.car_series = car_series
@@ -12644,12 +12656,17 @@ class NewCarInfo(TeaModel):
         self.purcharse_time = purcharse_time
         # 用户信息
         self.user_info = user_info
+        # 懂车帝或者汽车之家
+        self.match_source = match_source
+        # 汽车之家车型id
+        self.qc_car_model_id = qc_car_model_id
 
     def validate(self):
         self.validate_required(self.car_series, 'car_series')
         self.validate_required(self.user_info, 'user_info')
         if self.user_info:
             self.user_info.validate()
+        self.validate_required(self.match_source, 'match_source')
 
     def to_map(self):
         _map = super().to_map()
@@ -12669,6 +12686,10 @@ class NewCarInfo(TeaModel):
             result['purcharse_time'] = self.purcharse_time
         if self.user_info is not None:
             result['user_info'] = self.user_info.to_map()
+        if self.match_source is not None:
+            result['match_source'] = self.match_source
+        if self.qc_car_model_id is not None:
+            result['qc_car_model_id'] = self.qc_car_model_id
         return result
 
     def from_map(self, m: dict = None):
@@ -12686,6 +12707,10 @@ class NewCarInfo(TeaModel):
         if m.get('user_info') is not None:
             temp_model = CarUserInfo()
             self.user_info = temp_model.from_map(m['user_info'])
+        if m.get('match_source') is not None:
+            self.match_source = m.get('match_source')
+        if m.get('qc_car_model_id') is not None:
+            self.qc_car_model_id = m.get('qc_car_model_id')
         return self
 
 
@@ -65279,6 +65304,8 @@ class SubmitAuthNewcarRequest(TeaModel):
         purcharse_time: str = None,
         car_series_id: str = None,
         submit_id: str = None,
+        qc_car_model_id: str = None,
+        match_source: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -65297,6 +65324,10 @@ class SubmitAuthNewcarRequest(TeaModel):
         self.car_series_id = car_series_id
         # 提交线索的唯一id
         self.submit_id = submit_id
+        # 汽车之家车型id
+        self.qc_car_model_id = qc_car_model_id
+        # 匹配源
+        self.match_source = match_source
 
     def validate(self):
         self.validate_required(self.scene_code, 'scene_code')
@@ -65304,6 +65335,8 @@ class SubmitAuthNewcarRequest(TeaModel):
         if self.user_info:
             self.user_info.validate()
         self.validate_required(self.car_series, 'car_series')
+        self.validate_required(self.qc_car_model_id, 'qc_car_model_id')
+        self.validate_required(self.match_source, 'match_source')
 
     def to_map(self):
         _map = super().to_map()
@@ -65329,6 +65362,10 @@ class SubmitAuthNewcarRequest(TeaModel):
             result['car_series_id'] = self.car_series_id
         if self.submit_id is not None:
             result['submit_id'] = self.submit_id
+        if self.qc_car_model_id is not None:
+            result['qc_car_model_id'] = self.qc_car_model_id
+        if self.match_source is not None:
+            result['match_source'] = self.match_source
         return result
 
     def from_map(self, m: dict = None):
@@ -65352,6 +65389,10 @@ class SubmitAuthNewcarRequest(TeaModel):
             self.car_series_id = m.get('car_series_id')
         if m.get('submit_id') is not None:
             self.submit_id = m.get('submit_id')
+        if m.get('qc_car_model_id') is not None:
+            self.qc_car_model_id = m.get('qc_car_model_id')
+        if m.get('match_source') is not None:
+            self.match_source = m.get('match_source')
         return self
 
 
@@ -65361,7 +65402,7 @@ class SubmitAuthNewcarResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        push_success: bool = None,
+        push_success: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -65369,7 +65410,9 @@ class SubmitAuthNewcarResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 提交是否成功
+        # OK
+        # NO_DEMAND 无线索需求，需要重试
+        # INVALID 无效，不要重试
         self.push_success = push_success
 
     def validate(self):

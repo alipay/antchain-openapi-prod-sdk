@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.28.65',
+                    'sdk_version': '1.28.66',
                     '_prod_code': 'BLOCKCHAIN',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.28.65',
+                    'sdk_version': '1.28.66',
                     '_prod_code': 'BLOCKCHAIN',
                     '_prod_channel': 'undefined'
                 }
