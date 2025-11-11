@@ -178,7 +178,7 @@ class GetDataAuthConfigResponse extends Model
 
     // 授权成功率
     /**
-     * @var int
+     * @var string
      */
     public $successRate;
     protected $_name = [
