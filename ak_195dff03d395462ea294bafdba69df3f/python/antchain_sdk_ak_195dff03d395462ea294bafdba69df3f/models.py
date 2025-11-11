@@ -13292,6 +13292,7 @@ class SubmitAntchainAtoFundFlowRequest(TeaModel):
         fund_sign_tag: str = None,
         fund_auto_sign: bool = None,
         template_list: List[TemplateArgs] = None,
+        business_scene: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -13308,10 +13309,12 @@ class SubmitAntchainAtoFundFlowRequest(TeaModel):
         self.fund_id = fund_id
         # 资方签署tag
         self.fund_sign_tag = fund_sign_tag
-        # 资方是否自动签署，true则会在商户签署完成后自动归档，false则需要资方调用auth接口后完成归档
+        # 资方是否自动签署
         self.fund_auto_sign = fund_auto_sign
         # 模板参数列表，需要传入模板id和对应的渲染参数，如果有多个文件则传入多个值
         self.template_list = template_list
+        # xxx合同
+        self.business_scene = business_scene
 
     def validate(self):
         self.validate_required(self.tenant_id, 'tenant_id')
@@ -13320,12 +13323,12 @@ class SubmitAntchainAtoFundFlowRequest(TeaModel):
         self.validate_required(self.merchant_sign_tag, 'merchant_sign_tag')
         self.validate_required(self.fund_id, 'fund_id')
         self.validate_required(self.fund_sign_tag, 'fund_sign_tag')
-        self.validate_required(self.fund_auto_sign, 'fund_auto_sign')
         self.validate_required(self.template_list, 'template_list')
         if self.template_list:
             for k in self.template_list:
                 if k:
                     k.validate()
+        self.validate_required(self.business_scene, 'business_scene')
 
     def to_map(self):
         _map = super().to_map()
@@ -13355,6 +13358,8 @@ class SubmitAntchainAtoFundFlowRequest(TeaModel):
         if self.template_list is not None:
             for k in self.template_list:
                 result['template_list'].append(k.to_map() if k else None)
+        if self.business_scene is not None:
+            result['business_scene'] = self.business_scene
         return result
 
     def from_map(self, m: dict = None):
@@ -13382,6 +13387,8 @@ class SubmitAntchainAtoFundFlowRequest(TeaModel):
             for k in m.get('template_list'):
                 temp_model = TemplateArgs()
                 self.template_list.append(temp_model.from_map(k))
+        if m.get('business_scene') is not None:
+            self.business_scene = m.get('business_scene')
         return self
 
 
@@ -13392,6 +13399,7 @@ class SubmitAntchainAtoFundFlowResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
         sign_no: str = None,
+        sign_info: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -13401,6 +13409,8 @@ class SubmitAntchainAtoFundFlowResponse(TeaModel):
         self.result_msg = result_msg
         # 签署编号
         self.sign_no = sign_no
+        # 签署信息，包括短链接、长链接、小程序链接等。
+        self.sign_info = sign_info
 
     def validate(self):
         pass
@@ -13419,6 +13429,8 @@ class SubmitAntchainAtoFundFlowResponse(TeaModel):
             result['result_msg'] = self.result_msg
         if self.sign_no is not None:
             result['sign_no'] = self.sign_no
+        if self.sign_info is not None:
+            result['sign_info'] = self.sign_info
         return result
 
     def from_map(self, m: dict = None):
@@ -13431,6 +13443,8 @@ class SubmitAntchainAtoFundFlowResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('sign_no') is not None:
             self.sign_no = m.get('sign_no')
+        if m.get('sign_info') is not None:
+            self.sign_info = m.get('sign_info')
         return self
 
 
