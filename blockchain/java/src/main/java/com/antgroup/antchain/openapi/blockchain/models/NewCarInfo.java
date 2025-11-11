@@ -50,6 +50,23 @@ public class NewCarInfo extends TeaModel {
     @Validation(required = true)
     public CarUserInfo userInfo;
 
+    // 懂车帝或者汽车之家
+    /**
+     * <strong>example:</strong>
+     * <p>DCD/QC</p>
+     */
+    @NameInMap("match_source")
+    @Validation(required = true)
+    public String matchSource;
+
+    // 汽车之家车型id
+    /**
+     * <strong>example:</strong>
+     * <p>123</p>
+     */
+    @NameInMap("qc_car_model_id")
+    public String qcCarModelId;
+
     public static NewCarInfo build(java.util.Map<String, ?> map) throws Exception {
         NewCarInfo self = new NewCarInfo();
         return TeaModel.build(map, self);
@@ -101,6 +118,22 @@ public class NewCarInfo extends TeaModel {
     }
     public CarUserInfo getUserInfo() {
         return this.userInfo;
+    }
+
+    public NewCarInfo setMatchSource(String matchSource) {
+        this.matchSource = matchSource;
+        return this;
+    }
+    public String getMatchSource() {
+        return this.matchSource;
+    }
+
+    public NewCarInfo setQcCarModelId(String qcCarModelId) {
+        this.qcCarModelId = qcCarModelId;
+        return this;
+    }
+    public String getQcCarModelId() {
+        return this.qcCarModelId;
     }
 
 }

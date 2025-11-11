@@ -42,6 +42,16 @@ public class SubmitAuthNewcarRequest extends TeaModel {
     @NameInMap("submit_id")
     public String submitId;
 
+    // 汽车之家车型id
+    @NameInMap("qc_car_model_id")
+    @Validation(required = true)
+    public String qcCarModelId;
+
+    // 匹配源
+    @NameInMap("match_source")
+    @Validation(required = true)
+    public String matchSource;
+
     public static SubmitAuthNewcarRequest build(java.util.Map<String, ?> map) throws Exception {
         SubmitAuthNewcarRequest self = new SubmitAuthNewcarRequest();
         return TeaModel.build(map, self);
@@ -117,6 +127,22 @@ public class SubmitAuthNewcarRequest extends TeaModel {
     }
     public String getSubmitId() {
         return this.submitId;
+    }
+
+    public SubmitAuthNewcarRequest setQcCarModelId(String qcCarModelId) {
+        this.qcCarModelId = qcCarModelId;
+        return this;
+    }
+    public String getQcCarModelId() {
+        return this.qcCarModelId;
+    }
+
+    public SubmitAuthNewcarRequest setMatchSource(String matchSource) {
+        this.matchSource = matchSource;
+        return this;
+    }
+    public String getMatchSource() {
+        return this.matchSource;
     }
 
 }

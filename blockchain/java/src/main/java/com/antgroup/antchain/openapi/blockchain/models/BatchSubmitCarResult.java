@@ -22,6 +22,17 @@ public class BatchSubmitCarResult extends TeaModel {
     @Validation(required = true)
     public Boolean isSuccess;
 
+    // OK
+    // NO_DEMAND 无线索需求，需要重试
+    // INVALID 无效，不要重试
+    /**
+     * <strong>example:</strong>
+     * <p>OK/INVALID/NO_DEMAND</p>
+     */
+    @NameInMap("push_result_code")
+    @Validation(required = true)
+    public String pushResultCode;
+
     public static BatchSubmitCarResult build(java.util.Map<String, ?> map) throws Exception {
         BatchSubmitCarResult self = new BatchSubmitCarResult();
         return TeaModel.build(map, self);
@@ -41,6 +52,14 @@ public class BatchSubmitCarResult extends TeaModel {
     }
     public Boolean getIsSuccess() {
         return this.isSuccess;
+    }
+
+    public BatchSubmitCarResult setPushResultCode(String pushResultCode) {
+        this.pushResultCode = pushResultCode;
+        return this;
+    }
+    public String getPushResultCode() {
+        return this.pushResultCode;
     }
 
 }
