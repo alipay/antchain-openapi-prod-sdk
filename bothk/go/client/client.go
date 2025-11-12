@@ -1226,6 +1226,8 @@ type SyncAssetelementProjectRequest struct {
 	AttachmentList *string `json:"attachment_list,omitempty" xml:"attachment_list,omitempty"`
 	// 产品Owner
 	PdOwner *string `json:"pd_owner,omitempty" xml:"pd_owner,omitempty"`
+	// 要素项目标签
+	Tag *string `json:"tag,omitempty" xml:"tag,omitempty"`
 	// 要素列表
 	AssetElementInfoList []*AssetElementInfo `json:"asset_element_info_list,omitempty" xml:"asset_element_info_list,omitempty" type:"Repeated"`
 	// 要素关系列表
@@ -1292,6 +1294,11 @@ func (s *SyncAssetelementProjectRequest) SetAttachmentList(v string) *SyncAssete
 
 func (s *SyncAssetelementProjectRequest) SetPdOwner(v string) *SyncAssetelementProjectRequest {
 	s.PdOwner = &v
+	return s
+}
+
+func (s *SyncAssetelementProjectRequest) SetTag(v string) *SyncAssetelementProjectRequest {
+	s.Tag = &v
 	return s
 }
 
@@ -1466,7 +1473,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.5"),
+				"sdk_version":      tea.String("1.0.6"),
 				"_prod_code":       tea.String("BOTHK"),
 				"_prod_channel":    tea.String("default"),
 			}
