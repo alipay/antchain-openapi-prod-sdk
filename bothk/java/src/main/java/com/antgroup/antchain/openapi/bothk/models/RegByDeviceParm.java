@@ -5,65 +5,121 @@ import com.aliyun.tea.*;
 
 public class RegByDeviceParm extends TeaModel {
     // 一般是业务上唯一的设备ID/资产编码
+    /**
+     * <strong>example:</strong>
+     * <p>1122</p>
+     */
     @NameInMap("device_id")
     @Validation(required = true)
     public String deviceId;
 
     // 物模型事件ID
+    /**
+     * <strong>example:</strong>
+     * <p>7033986596836630528</p>
+     */
     @NameInMap("device_data_model_id")
     public String deviceDataModelId;
 
     // 设备端经过蚂蚁SDK或模组初始化得到的注册信息
+    /**
+     * <strong>example:</strong>
+     * <p>73546f6b656e323031323131313332393235303230303033</p>
+     */
     @NameInMap("device_reg_content")
     @Validation(required = true)
     public String deviceRegContent;
 
     // 蚂蚁侧SDK或模组对device_reg_content的签名
+    /**
+     * <strong>example:</strong>
+     * <p>a573546f6b656e323031323131313332393235303230303033</p>
+     */
     @NameInMap("device_reg_signature")
     @Validation(required = true)
     public String deviceRegSignature;
 
     // sdk版本号，由蚂蚁侧提供
+    /**
+     * <strong>example:</strong>
+     * <p>ma1-t1-0.1.1-00.04.54</p>
+     */
     @NameInMap("sdk_id")
     @Validation(required = true)
     public String sdkId;
 
     // 设备类型编码，联系蚂蚁侧获取设备类型编码
+    /**
+     * <strong>example:</strong>
+     * <p>1001</p>
+     */
     @NameInMap("device_type_code")
     @Validation(required = true)
     public Long deviceTypeCode;
 
     // 设备单价 单位：分
+    /**
+     * <strong>example:</strong>
+     * <p>1000</p>
+     */
     @NameInMap("initial_price")
     public Long initialPrice;
 
     // 出厂时间
+    /**
+     * <strong>example:</strong>
+     * <p>2018-10-10T10:10:00Z</p>
+     */
     @NameInMap("factory_time")
     @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String factoryTime;
 
     // 投放时间
+    /**
+     * <strong>example:</strong>
+     * <p>2018-10-10T10:10:00Z</p>
+     */
     @NameInMap("release_time")
     @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String releaseTime;
 
     // 额外信息，联系蚂蚁侧获取参数格式
+    /**
+     * <strong>example:</strong>
+     * <p>{...}</p>
+     */
     @NameInMap("extra_info")
     public String extraInfo;
 
     // 资产所有人标识（统一社会信用代码）
+    /**
+     * <strong>example:</strong>
+     * <p>91310101MA1FPCXA3G</p>
+     */
     @NameInMap("owner")
     public String owner;
 
     // 资产所有人名称
+    /**
+     * <strong>example:</strong>
+     * <p>蚂蚁区块链科技（上海）有限公司</p>
+     */
     @NameInMap("owner_name")
     public String ownerName;
 
     // 设备名称/型号
+    /**
+     * <strong>example:</strong>
+     * <p>64.0V30AH</p>
+     */
     @NameInMap("device_name")
     public String deviceName;
 
     // 设备IMEI
+    /**
+     * <strong>example:</strong>
+     * <p>823456712312345</p>
+     */
     @NameInMap("device_imei")
     public String deviceImei;
 

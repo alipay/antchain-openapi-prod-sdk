@@ -5,81 +5,149 @@ import com.aliyun.tea.*;
 
 public class Device extends TeaModel {
     // 设备ID，一般是设备的出厂编码或业务上的资产ID
+    /**
+     * <strong>example:</strong>
+     * <p>123ABC</p>
+     */
     @NameInMap("device_id")
     @Validation(required = true)
     public String deviceId;
 
     // 物模型事件ID
+    /**
+     * <strong>example:</strong>
+     * <p>112233</p>
+     */
     @NameInMap("device_data_model_id")
     @Validation(required = true)
     public String deviceDataModelId;
 
     // 场景码
+    /**
+     * <strong>example:</strong>
+     * <p>SCENE1</p>
+     */
     @NameInMap("scene")
     @Validation(required = true)
     public String scene;
 
     // imei号
+    /**
+     * <strong>example:</strong>
+     * <p>223344</p>
+     */
     @NameInMap("device_imei")
     @Validation(required = true)
     public String deviceImei;
 
     // 设备名称
+    /**
+     * <strong>example:</strong>
+     * <p>设备1号</p>
+     */
     @NameInMap("device_name")
     public String deviceName;
 
     // 设备厂商名称
+    /**
+     * <strong>example:</strong>
+     * <p>浙江一厂</p>
+     */
     @NameInMap("corp_name")
     public String corpName;
 
     // 设备ICCID
+    /**
+     * <strong>example:</strong>
+     * <p>a1234</p>
+     */
     @NameInMap("device_iccid")
     public String deviceIccid;
 
     // 设备扩展信息
+    /**
+     * <strong>example:</strong>
+     * <p>{“”:&quot;&quot;}</p>
+     */
     @NameInMap("extra_info")
     public String extraInfo;
 
     // 设备类型编码
+    /**
+     * <strong>example:</strong>
+     * <p>5000</p>
+     */
     @NameInMap("device_type_code")
     @Validation(required = true)
     public String deviceTypeCode;
 
     // 单价
+    /**
+     * <strong>example:</strong>
+     * <p>1000</p>
+     */
     @NameInMap("initial_price")
     @Validation(required = true)
     public Long initialPrice;
 
     // 投放时间
+    /**
+     * <strong>example:</strong>
+     * <p>2018-10-10T10:10:00Z</p>
+     */
     @NameInMap("release_time")
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String releaseTime;
 
     // 出厂时间
+    /**
+     * <strong>example:</strong>
+     * <p>2018-10-10T10:10:00Z</p>
+     */
     @NameInMap("factory_time")
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String factoryTime;
 
     // 设备状态，取值范围：NORMAL、OFFLINE、UNREGISTER
+    /**
+     * <strong>example:</strong>
+     * <p>NORMAL</p>
+     */
     @NameInMap("device_status")
     public String deviceStatus;
 
     // 可信设备ID
+    /**
+     * <strong>example:</strong>
+     * <p>7006071575276187649</p>
+     */
     @NameInMap("trustiot_device_id")
     @Validation(required = true)
     public Long trustiotDeviceId;
 
     // 设备链上Id
     // 
+    /**
+     * <strong>example:</strong>
+     * <p>223344</p>
+     */
     @NameInMap("chain_device_id")
     public String chainDeviceId;
 
     // 上链哈希
     // 
+    /**
+     * <strong>example:</strong>
+     * <p>3344</p>
+     */
     @NameInMap("tx_hash")
     public String txHash;
 
     // 上链时间
+    /**
+     * <strong>example:</strong>
+     * <p>224455</p>
+     */
     @NameInMap("tx_time")
     public Long txTime;
 

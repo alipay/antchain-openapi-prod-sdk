@@ -32,7 +32,9 @@ public class Client {
     public Number _maxRequests;
     public Number _maxRequestsPerHost;
     /**
-     * Init client with Config
+     * <b>description</b> :
+     * <p>Init client with Config</p>
+     * 
      * @param config config contains the necessary information to create a client
      */
     public Client(Config config) throws Exception {
@@ -64,7 +66,9 @@ public class Client {
     }
 
     /**
-     * Encapsulate the request and invoke the network
+     * <b>description</b> :
+     * <p>Encapsulate the request and invoke the network</p>
+     * 
      * @param action api name
      * @param protocol http or https
      * @param method e.g. GET
@@ -122,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.5"),
+                    new TeaPair("sdk_version", "1.0.6"),
                     new TeaPair("_prod_code", "BOTHK"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -185,8 +189,9 @@ public class Client {
     }
 
     /**
-     * Description: 通过设备ID异步批量发行设备
-     * Summary: 通过设备ID异步批量发行设备
+     * <b>description</b> :
+     * <p>Description: 通过设备ID异步批量发行设备
+     * Summary: 通过设备ID异步批量发行设备</p>
      */
     public CreateDistributedeviceBydeviceidmulResponse createDistributedeviceBydeviceidmul(CreateDistributedeviceBydeviceidmulRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -195,8 +200,9 @@ public class Client {
     }
 
     /**
-     * Description: 通过设备ID异步批量发行设备
-     * Summary: 通过设备ID异步批量发行设备
+     * <b>description</b> :
+     * <p>Description: 通过设备ID异步批量发行设备
+     * Summary: 通过设备ID异步批量发行设备</p>
      */
     public CreateDistributedeviceBydeviceidmulResponse createDistributedeviceBydeviceidmulEx(CreateDistributedeviceBydeviceidmulRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -204,8 +210,9 @@ public class Client {
     }
 
     /**
-     * Description: 通过设备异步批量发行设备
-     * Summary: 通过设备异步批量发行设备
+     * <b>description</b> :
+     * <p>Description: 通过设备异步批量发行设备
+     * Summary: 通过设备异步批量发行设备</p>
      */
     public CreateDistributedeviceBydevicemulResponse createDistributedeviceBydevicemul(CreateDistributedeviceBydevicemulRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -214,8 +221,9 @@ public class Client {
     }
 
     /**
-     * Description: 通过设备异步批量发行设备
-     * Summary: 通过设备异步批量发行设备
+     * <b>description</b> :
+     * <p>Description: 通过设备异步批量发行设备
+     * Summary: 通过设备异步批量发行设备</p>
      */
     public CreateDistributedeviceBydevicemulResponse createDistributedeviceBydevicemulEx(CreateDistributedeviceBydevicemulRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -223,8 +231,9 @@ public class Client {
     }
 
     /**
-     * Description: 事件数据上报整合接口
-     * Summary: 事件数据上报整合接口
+     * <b>description</b> :
+     * <p>Description: 事件数据上报整合接口
+     * Summary: 事件数据上报整合接口</p>
      */
     public SendEventDataResponse sendEventData(SendEventDataRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -233,8 +242,9 @@ public class Client {
     }
 
     /**
-     * Description: 事件数据上报整合接口
-     * Summary: 事件数据上报整合接口
+     * <b>description</b> :
+     * <p>Description: 事件数据上报整合接口
+     * Summary: 事件数据上报整合接口</p>
      */
     public SendEventDataResponse sendEventDataEx(SendEventDataRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -242,8 +252,9 @@ public class Client {
     }
 
     /**
-     * Description: 通过deviceId获取设备详情
-     * Summary: 通过deviceId获取设备详情
+     * <b>description</b> :
+     * <p>Description: 通过deviceId获取设备详情
+     * Summary: 通过deviceId获取设备详情</p>
      */
     public GetDeviceBydeviceidResponse getDeviceBydeviceid(GetDeviceBydeviceidRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -252,8 +263,9 @@ public class Client {
     }
 
     /**
-     * Description: 通过deviceId获取设备详情
-     * Summary: 通过deviceId获取设备详情
+     * <b>description</b> :
+     * <p>Description: 通过deviceId获取设备详情
+     * Summary: 通过deviceId获取设备详情</p>
      */
     public GetDeviceBydeviceidResponse getDeviceBydeviceidEx(GetDeviceBydeviceidRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -261,8 +273,9 @@ public class Client {
     }
 
     /**
-     * Description: 要素项目同步
-     * Summary: 要素项目同步
+     * <b>description</b> :
+     * <p>Description: 要素项目同步
+     * Summary: 要素项目同步</p>
      */
     public SyncAssetelementProjectResponse syncAssetelementProject(SyncAssetelementProjectRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -271,8 +284,9 @@ public class Client {
     }
 
     /**
-     * Description: 要素项目同步
-     * Summary: 要素项目同步
+     * <b>description</b> :
+     * <p>Description: 要素项目同步
+     * Summary: 要素项目同步</p>
      */
     public SyncAssetelementProjectResponse syncAssetelementProjectEx(SyncAssetelementProjectRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);

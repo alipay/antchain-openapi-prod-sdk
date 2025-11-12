@@ -52,6 +52,10 @@ public class SyncAssetelementProjectRequest extends TeaModel {
     @NameInMap("pd_owner")
     public String pdOwner;
 
+    // 要素项目标签
+    @NameInMap("tag")
+    public String tag;
+
     // 要素列表
     @NameInMap("asset_element_info_list")
     public java.util.List<AssetElementInfo> assetElementInfoList;
@@ -151,6 +155,14 @@ public class SyncAssetelementProjectRequest extends TeaModel {
     }
     public String getPdOwner() {
         return this.pdOwner;
+    }
+
+    public SyncAssetelementProjectRequest setTag(String tag) {
+        this.tag = tag;
+        return this;
+    }
+    public String getTag() {
+        return this.tag;
     }
 
     public SyncAssetelementProjectRequest setAssetElementInfoList(java.util.List<AssetElementInfo> assetElementInfoList) {
