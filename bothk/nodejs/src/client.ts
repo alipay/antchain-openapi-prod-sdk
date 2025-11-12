@@ -871,6 +871,8 @@ export class SyncAssetelementProjectRequest extends $tea.Model {
   attachmentList?: string;
   // 产品Owner
   pdOwner?: string;
+  // 要素项目标签
+  tag?: string;
   // 要素列表
   assetElementInfoList?: AssetElementInfo[];
   // 要素关系列表
@@ -888,6 +890,7 @@ export class SyncAssetelementProjectRequest extends $tea.Model {
       remark: 'remark',
       attachmentList: 'attachment_list',
       pdOwner: 'pd_owner',
+      tag: 'tag',
       assetElementInfoList: 'asset_element_info_list',
       assetElementRelationInfoList: 'asset_element_relation_info_list',
     };
@@ -906,6 +909,7 @@ export class SyncAssetelementProjectRequest extends $tea.Model {
       remark: 'string',
       attachmentList: 'string',
       pdOwner: 'string',
+      tag: 'string',
       assetElementInfoList: { 'type': 'array', 'itemType': AssetElementInfo },
       assetElementRelationInfoList: { 'type': 'array', 'itemType': AssetElementRelationInfo },
     };
@@ -1061,7 +1065,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.5",
+          sdk_version: "1.0.6",
           _prod_code: "BOTHK",
           _prod_channel: "default",
         };
