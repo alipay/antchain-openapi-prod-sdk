@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.5',
+    sdk_version = '1.0.6',
     _prod_code = 'BOTHK',
     _prod_channel = 'default'
   };
@@ -564,6 +564,8 @@ model SyncAssetelementProjectRequest = {
   attachmentList?: string(name='attachment_list'),
   // 产品Owner
   pdOwner?: string(name='pd_owner'),
+  // 要素项目标签
+  tag?: string(name='tag'),
   // 要素列表
   assetElementInfoList?: [ AssetElementInfo ](name='asset_element_info_list'),
   // 要素关系列表
