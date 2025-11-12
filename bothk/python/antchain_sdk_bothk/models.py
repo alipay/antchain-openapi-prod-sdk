@@ -1487,6 +1487,7 @@ class SyncAssetelementProjectRequest(TeaModel):
         remark: str = None,
         attachment_list: str = None,
         pd_owner: str = None,
+        tag: str = None,
         asset_element_info_list: List[AssetElementInfo] = None,
         asset_element_relation_info_list: List[AssetElementRelationInfo] = None,
     ):
@@ -1511,6 +1512,8 @@ class SyncAssetelementProjectRequest(TeaModel):
         self.attachment_list = attachment_list
         # 产品Owner
         self.pd_owner = pd_owner
+        # 要素项目标签
+        self.tag = tag
         # 要素列表
         self.asset_element_info_list = asset_element_info_list
         # 要素关系列表
@@ -1559,6 +1562,8 @@ class SyncAssetelementProjectRequest(TeaModel):
             result['attachment_list'] = self.attachment_list
         if self.pd_owner is not None:
             result['pd_owner'] = self.pd_owner
+        if self.tag is not None:
+            result['tag'] = self.tag
         result['asset_element_info_list'] = []
         if self.asset_element_info_list is not None:
             for k in self.asset_element_info_list:
@@ -1593,6 +1598,8 @@ class SyncAssetelementProjectRequest(TeaModel):
             self.attachment_list = m.get('attachment_list')
         if m.get('pd_owner') is not None:
             self.pd_owner = m.get('pd_owner')
+        if m.get('tag') is not None:
+            self.tag = m.get('tag')
         self.asset_element_info_list = []
         if m.get('asset_element_info_list') is not None:
             for k in m.get('asset_element_info_list'):
