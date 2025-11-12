@@ -63,6 +63,11 @@ namespace AntChain.SDK.BOTHK.Models
         [Validation(Required=false)]
         public string PdOwner { get; set; }
 
+        // 要素项目标签
+        [NameInMap("tag")]
+        [Validation(Required=false)]
+        public string Tag { get; set; }
+
         // 要素列表
         [NameInMap("asset_element_info_list")]
         [Validation(Required=false)]
