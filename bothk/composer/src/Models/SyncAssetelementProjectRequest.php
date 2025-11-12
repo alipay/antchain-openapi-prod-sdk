@@ -73,6 +73,12 @@ class SyncAssetelementProjectRequest extends Model
      */
     public $pdOwner;
 
+    // 要素项目标签
+    /**
+     * @var string
+     */
+    public $tag;
+
     // 要素列表
     /**
      * @var AssetElementInfo[]
@@ -96,6 +102,7 @@ class SyncAssetelementProjectRequest extends Model
         'remark'                       => 'remark',
         'attachmentList'               => 'attachment_list',
         'pdOwner'                      => 'pd_owner',
+        'tag'                          => 'tag',
         'assetElementInfoList'         => 'asset_element_info_list',
         'assetElementRelationInfoList' => 'asset_element_relation_info_list',
     ];
@@ -144,6 +151,9 @@ class SyncAssetelementProjectRequest extends Model
         }
         if (null !== $this->pdOwner) {
             $res['pd_owner'] = $this->pdOwner;
+        }
+        if (null !== $this->tag) {
+            $res['tag'] = $this->tag;
         }
         if (null !== $this->assetElementInfoList) {
             $res['asset_element_info_list'] = [];
@@ -207,6 +217,9 @@ class SyncAssetelementProjectRequest extends Model
         }
         if (isset($map['pd_owner'])) {
             $model->pdOwner = $map['pd_owner'];
+        }
+        if (isset($map['tag'])) {
+            $model->tag = $map['tag'];
         }
         if (isset($map['asset_element_info_list'])) {
             if (!empty($map['asset_element_info_list'])) {
