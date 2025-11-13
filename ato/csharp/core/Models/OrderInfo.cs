@@ -99,6 +99,12 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string PromotionId { get; set; }
 
+        // 融资类型
+        // SUPPLY_CHAIN_FINANCE
+        [NameInMap("fund_mode")]
+        [Validation(Required=false)]
+        public string FundMode { get; set; }
+
     }
 
 }

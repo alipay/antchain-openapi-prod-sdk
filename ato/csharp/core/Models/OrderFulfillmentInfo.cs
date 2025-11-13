@@ -45,6 +45,11 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string ReturnVoucherSerial { get; set; }
 
+        // 支付宝协议号
+        [NameInMap("alipay_trade_no")]
+        [Validation(Required=false)]
+        public string AlipayTradeNo { get; set; }
+
     }
 
 }

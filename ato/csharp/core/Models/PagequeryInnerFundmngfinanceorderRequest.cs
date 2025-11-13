@@ -73,6 +73,20 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public bool? IsLoanApplyFail { get; set; }
 
+        // 融资模式
+        // 供应链金融:
+        // SUPPLY_CHAIN_FINANCE
+        // 自定义还款:
+        // DEFAULT
+        [NameInMap("fund_mode")]
+        [Validation(Required=false)]
+        public string FundMode { get; set; }
+
+        // 页面调用traceid
+        [NameInMap("trace_id")]
+        [Validation(Required=true)]
+        public string TraceId { get; set; }
+
         //  分页
         [NameInMap("page_info")]
         [Validation(Required=true)]

@@ -33,6 +33,11 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=true, MaxLength=64)]
         public string FundId { get; set; }
 
+        // 123
+        [NameInMap("biz_type")]
+        [Validation(Required=false)]
+        public string BizType { get; set; }
+
     }
 
 }

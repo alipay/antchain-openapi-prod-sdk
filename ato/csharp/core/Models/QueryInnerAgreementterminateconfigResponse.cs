@@ -34,6 +34,11 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string TimeoutDay { get; set; }
 
+        // 商户侧需要判断是否为间连二级户或者为特殊直连下级商户（如果满足条件则隐藏交易管理下商品以及订单列表）
+        [NameInMap("hide_terminate_order")]
+        [Validation(Required=false)]
+        public bool? HideTerminateOrder { get; set; }
+
     }
 
 }

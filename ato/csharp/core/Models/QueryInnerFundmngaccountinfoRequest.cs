@@ -25,8 +25,13 @@ namespace AntChain.SDK.ATO.Models
 
         // 资方的社会统一信用代码
         [NameInMap("fund_id")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string FundId { get; set; }
+
+        // 页面调用traceid
+        [NameInMap("trace_id")]
+        [Validation(Required=true)]
+        public string TraceId { get; set; }
 
     }
 

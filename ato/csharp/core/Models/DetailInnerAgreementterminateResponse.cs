@@ -74,6 +74,16 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string HandleStatus { get; set; }
 
+        // 商家处理超时类型
+        [NameInMap("merchant_handle_duration_type")]
+        [Validation(Required=false)]
+        public string MerchantHandleDurationType { get; set; }
+
+        // 商家处理超时时长
+        [NameInMap("merchant_handle_duration")]
+        [Validation(Required=false)]
+        public string MerchantHandleDuration { get; set; }
+
     }
 
 }

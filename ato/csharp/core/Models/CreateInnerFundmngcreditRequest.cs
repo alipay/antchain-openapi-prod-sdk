@@ -68,6 +68,11 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string CreditContent { get; set; }
 
+        // 页面调用traceid
+        [NameInMap("trace_id")]
+        [Validation(Required=true)]
+        public string TraceId { get; set; }
+
     }
 
 }

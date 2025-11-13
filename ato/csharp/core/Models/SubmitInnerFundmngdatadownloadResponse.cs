@@ -24,6 +24,28 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
+        // 是否提交成功
+        [NameInMap("is_submit_download")]
+        [Validation(Required=false)]
+        public bool? IsSubmitDownload { get; set; }
+
+        // 线上；线下
+        [NameInMap("download_type")]
+        [Validation(Required=false)]
+        public string DownloadType { get; set; }
+
+        // 下载链接
+        [NameInMap("download_url")]
+        [Validation(Required=false)]
+        public string DownloadUrl { get; set; }
+
+        // 状态
+        // TODO 待处理
+        // FINISH 完成
+        [NameInMap("status")]
+        [Validation(Required=false)]
+        public string Status { get; set; }
+
     }
 
 }

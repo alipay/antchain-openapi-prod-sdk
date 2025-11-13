@@ -30,6 +30,16 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string ToCompensateDate { get; set; }
 
+        // 资方社会统一信用代码
+        [NameInMap("fund_id")]
+        [Validation(Required=false)]
+        public string FundId { get; set; }
+
+        // 资方公司名称
+        [NameInMap("fund_company_name")]
+        [Validation(Required=false)]
+        public string FundCompanyName { get; set; }
+
     }
 
 }

@@ -43,6 +43,11 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=true)]
         public long? DivideStartTermIndex { get; set; }
 
+        // 融资模式
+        [NameInMap("fund_mode")]
+        [Validation(Required=false)]
+        public string FundMode { get; set; }
+
     }
 
 }

@@ -35,7 +35,7 @@ namespace AntChain.SDK.ATO.Models
 
         // 商品版本
         [NameInMap("product_version")]
-        [Validation(Required=true, MaxLength=10)]
+        [Validation(Required=true, MaxLength=32)]
         public string ProductVersion { get; set; }
 
     }

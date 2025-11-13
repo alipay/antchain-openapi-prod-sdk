@@ -94,6 +94,16 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public FundMngLoanApplyResult FundMngLoanApplayResult { get; set; }
 
+        // 商户履约赎回信息
+        [NameInMap("merchant_performance_redeem_info")]
+        [Validation(Required=false)]
+        public MerchantPerformanceRedeemInfo MerchantPerformanceRedeemInfo { get; set; }
+
+        // 商户履约还款取消信息
+        [NameInMap("merchant_performance_repay_support_info")]
+        [Validation(Required=false)]
+        public List<MerchantPerformanceRepaySupportInfo> MerchantPerformanceRepaySupportInfo { get; set; }
+
     }
 
 }

@@ -51,6 +51,15 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=true)]
         public string Type { get; set; }
 
+        // 融资模式
+        // 供应链金融：
+        // SUPPLY_CHAIN_FINANCE
+        // 自定义还款：
+        // DEFAULT
+        [NameInMap("fund_mode")]
+        [Validation(Required=true)]
+        public string FundMode { get; set; }
+
         // 融资放款结果，FinanceLoanResults
         [NameInMap("finance_loan_results")]
         [Validation(Required=false)]
@@ -65,6 +74,36 @@ namespace AntChain.SDK.ATO.Models
         [NameInMap("promotion_id")]
         [Validation(Required=false)]
         public string PromotionId { get; set; }
+
+        // 商户起始还款期数
+        [NameInMap("pay_start_term_index")]
+        [Validation(Required=false)]
+        public long? PayStartTermIndex { get; set; }
+
+        // 分账支付宝账号uid
+        [NameInMap("divide_alipay_user_id")]
+        [Validation(Required=false)]
+        public string DivideAlipayUserId { get; set; }
+
+        // 分账支付宝登录账号
+        [NameInMap("divide_alipay_login_id")]
+        [Validation(Required=false)]
+        public string DivideAlipayLoginId { get; set; }
+
+        // 代偿支付宝账号uid
+        [NameInMap("compensate_alipay_user_id")]
+        [Validation(Required=false)]
+        public string CompensateAlipayUserId { get; set; }
+
+        // 代偿支付宝登录账号
+        [NameInMap("compensate_alipay_login_id")]
+        [Validation(Required=false)]
+        public string CompensateAlipayLoginId { get; set; }
+
+        // traceid
+        [NameInMap("trace_id")]
+        [Validation(Required=true)]
+        public string TraceId { get; set; }
 
     }
 

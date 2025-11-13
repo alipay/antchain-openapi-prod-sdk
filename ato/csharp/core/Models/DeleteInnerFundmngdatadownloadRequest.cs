@@ -28,6 +28,11 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=true)]
         public string BizNo { get; set; }
 
+        // 页面traceid
+        [NameInMap("trace_id")]
+        [Validation(Required=true)]
+        public string TraceId { get; set; }
+
     }
 
 }

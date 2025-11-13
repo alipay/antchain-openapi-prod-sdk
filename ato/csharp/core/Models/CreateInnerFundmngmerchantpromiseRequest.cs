@@ -43,19 +43,19 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=true)]
         public string FundId { get; set; }
 
-        // 商家还款方式
-        // FULL_REPAYMENT_PER_INSTALLMENT
-        // (每期全额还款)
+        // 融资模式
+        // SUPPLY_CHAIN_FINANCE
+        // (供应链金融)
         [NameInMap("merchant_pay_type")]
         [Validation(Required=true)]
         public string MerchantPayType { get; set; }
 
-        // 商户代偿开始时间
+        // 商户代偿开始天数
         [NameInMap("merchant_compensate_start_day")]
         [Validation(Required=true)]
         public long? MerchantCompensateStartDay { get; set; }
 
-        // 商户还款开始期数
+        // 商户起始还款期数
         [NameInMap("pay_start_term_index")]
         [Validation(Required=true)]
         public long? PayStartTermIndex { get; set; }
@@ -79,6 +79,11 @@ namespace AntChain.SDK.ATO.Models
         [NameInMap("compensate_alipay_login_id")]
         [Validation(Required=true)]
         public string CompensateAlipayLoginId { get; set; }
+
+        // traceid
+        [NameInMap("trace_id")]
+        [Validation(Required=true)]
+        public string TraceId { get; set; }
 
     }
 

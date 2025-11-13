@@ -45,15 +45,25 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string ReturnTime { get; set; }
 
-        // 交易流水号
+        // 外部交易流水号
         [NameInMap("return_voucher_serial")]
         [Validation(Required=false)]
         public string ReturnVoucherSerial { get; set; }
+
+        // 支付宝交易流水号
+        [NameInMap("alipay_trade_no")]
+        [Validation(Required=false)]
+        public string AlipayTradeNo { get; set; }
 
         // 资方公司名称
         [NameInMap("fund_company_name")]
         [Validation(Required=false)]
         public string FundCompanyName { get; set; }
+
+        // 支付描述
+        [NameInMap("payment_description")]
+        [Validation(Required=false)]
+        public string PaymentDescription { get; set; }
 
     }
 
