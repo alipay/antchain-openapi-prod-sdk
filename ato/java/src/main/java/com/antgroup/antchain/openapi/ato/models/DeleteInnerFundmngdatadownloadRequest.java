@@ -21,6 +21,11 @@ public class DeleteInnerFundmngdatadownloadRequest extends TeaModel {
     @Validation(required = true)
     public String bizNo;
 
+    // 页面traceid
+    @NameInMap("trace_id")
+    @Validation(required = true)
+    public String traceId;
+
     public static DeleteInnerFundmngdatadownloadRequest build(java.util.Map<String, ?> map) throws Exception {
         DeleteInnerFundmngdatadownloadRequest self = new DeleteInnerFundmngdatadownloadRequest();
         return TeaModel.build(map, self);
@@ -56,6 +61,14 @@ public class DeleteInnerFundmngdatadownloadRequest extends TeaModel {
     }
     public String getBizNo() {
         return this.bizNo;
+    }
+
+    public DeleteInnerFundmngdatadownloadRequest setTraceId(String traceId) {
+        this.traceId = traceId;
+        return this;
+    }
+    public String getTraceId() {
+        return this.traceId;
     }
 
 }

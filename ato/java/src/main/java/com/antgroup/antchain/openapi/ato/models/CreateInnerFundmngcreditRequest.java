@@ -59,6 +59,11 @@ public class CreateInnerFundmngcreditRequest extends TeaModel {
     @NameInMap("credit_content")
     public String creditContent;
 
+    // 页面调用traceid
+    @NameInMap("trace_id")
+    @Validation(required = true)
+    public String traceId;
+
     public static CreateInnerFundmngcreditRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateInnerFundmngcreditRequest self = new CreateInnerFundmngcreditRequest();
         return TeaModel.build(map, self);
@@ -158,6 +163,14 @@ public class CreateInnerFundmngcreditRequest extends TeaModel {
     }
     public String getCreditContent() {
         return this.creditContent;
+    }
+
+    public CreateInnerFundmngcreditRequest setTraceId(String traceId) {
+        this.traceId = traceId;
+        return this;
+    }
+    public String getTraceId() {
+        return this.traceId;
     }
 
 }

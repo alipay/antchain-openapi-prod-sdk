@@ -18,8 +18,12 @@ public class QueryInnerFundmngaccountinfoRequest extends TeaModel {
 
     // 资方的社会统一信用代码
     @NameInMap("fund_id")
-    @Validation(required = true)
     public String fundId;
+
+    // 页面调用traceid
+    @NameInMap("trace_id")
+    @Validation(required = true)
+    public String traceId;
 
     public static QueryInnerFundmngaccountinfoRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryInnerFundmngaccountinfoRequest self = new QueryInnerFundmngaccountinfoRequest();
@@ -56,6 +60,14 @@ public class QueryInnerFundmngaccountinfoRequest extends TeaModel {
     }
     public String getFundId() {
         return this.fundId;
+    }
+
+    public QueryInnerFundmngaccountinfoRequest setTraceId(String traceId) {
+        this.traceId = traceId;
+        return this;
+    }
+    public String getTraceId() {
+        return this.traceId;
     }
 
 }

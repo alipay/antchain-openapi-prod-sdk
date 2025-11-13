@@ -36,19 +36,19 @@ public class CreateInnerFundmngmerchantpromiseRequest extends TeaModel {
     @Validation(required = true)
     public String fundId;
 
-    // 商家还款方式
-    // FULL_REPAYMENT_PER_INSTALLMENT
-    // (每期全额还款)
+    // 融资模式
+    // SUPPLY_CHAIN_FINANCE
+    // (供应链金融)
     @NameInMap("merchant_pay_type")
     @Validation(required = true)
     public String merchantPayType;
 
-    // 商户代偿开始时间
+    // 商户代偿开始天数
     @NameInMap("merchant_compensate_start_day")
     @Validation(required = true)
     public Long merchantCompensateStartDay;
 
-    // 商户还款开始期数
+    // 商户起始还款期数
     @NameInMap("pay_start_term_index")
     @Validation(required = true)
     public Long payStartTermIndex;
@@ -72,6 +72,11 @@ public class CreateInnerFundmngmerchantpromiseRequest extends TeaModel {
     @NameInMap("compensate_alipay_login_id")
     @Validation(required = true)
     public String compensateAlipayLoginId;
+
+    // traceid
+    @NameInMap("trace_id")
+    @Validation(required = true)
+    public String traceId;
 
     public static CreateInnerFundmngmerchantpromiseRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateInnerFundmngmerchantpromiseRequest self = new CreateInnerFundmngmerchantpromiseRequest();
@@ -188,6 +193,14 @@ public class CreateInnerFundmngmerchantpromiseRequest extends TeaModel {
     }
     public String getCompensateAlipayLoginId() {
         return this.compensateAlipayLoginId;
+    }
+
+    public CreateInnerFundmngmerchantpromiseRequest setTraceId(String traceId) {
+        this.traceId = traceId;
+        return this;
+    }
+    public String getTraceId() {
+        return this.traceId;
     }
 
 }

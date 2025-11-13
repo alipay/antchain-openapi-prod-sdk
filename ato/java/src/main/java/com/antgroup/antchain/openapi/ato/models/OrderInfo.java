@@ -144,6 +144,15 @@ public class OrderInfo extends TeaModel {
     @NameInMap("promotion_id")
     public String promotionId;
 
+    // 融资类型
+    // SUPPLY_CHAIN_FINANCE
+    /**
+     * <strong>example:</strong>
+     * <p>SUPPLY_CHAIN_FINANCE</p>
+     */
+    @NameInMap("fund_mode")
+    public String fundMode;
+
     public static OrderInfo build(java.util.Map<String, ?> map) throws Exception {
         OrderInfo self = new OrderInfo();
         return TeaModel.build(map, self);
@@ -283,6 +292,14 @@ public class OrderInfo extends TeaModel {
     }
     public String getPromotionId() {
         return this.promotionId;
+    }
+
+    public OrderInfo setFundMode(String fundMode) {
+        this.fundMode = fundMode;
+        return this;
+    }
+    public String getFundMode() {
+        return this.fundMode;
     }
 
 }

@@ -41,6 +41,11 @@ public class QueryInnerFundmngcreditRequest extends TeaModel {
     @Validation(required = true)
     public String orderNo;
 
+    // traceid
+    @NameInMap("trace_id")
+    @Validation(required = true)
+    public String traceId;
+
     public static QueryInnerFundmngcreditRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryInnerFundmngcreditRequest self = new QueryInnerFundmngcreditRequest();
         return TeaModel.build(map, self);
@@ -108,6 +113,14 @@ public class QueryInnerFundmngcreditRequest extends TeaModel {
     }
     public String getOrderNo() {
         return this.orderNo;
+    }
+
+    public QueryInnerFundmngcreditRequest setTraceId(String traceId) {
+        this.traceId = traceId;
+        return this;
+    }
+    public String getTraceId() {
+        return this.traceId;
     }
 
 }

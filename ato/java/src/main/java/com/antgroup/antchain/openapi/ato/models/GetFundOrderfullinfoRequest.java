@@ -26,6 +26,10 @@ public class GetFundOrderfullinfoRequest extends TeaModel {
     @Validation(required = true, maxLength = 64, minLength = 1)
     public String fundId;
 
+    // 123
+    @NameInMap("biz_type")
+    public String bizType;
+
     public static GetFundOrderfullinfoRequest build(java.util.Map<String, ?> map) throws Exception {
         GetFundOrderfullinfoRequest self = new GetFundOrderfullinfoRequest();
         return TeaModel.build(map, self);
@@ -69,6 +73,14 @@ public class GetFundOrderfullinfoRequest extends TeaModel {
     }
     public String getFundId() {
         return this.fundId;
+    }
+
+    public GetFundOrderfullinfoRequest setBizType(String bizType) {
+        this.bizType = bizType;
+        return this;
+    }
+    public String getBizType() {
+        return this.bizType;
     }
 
 }

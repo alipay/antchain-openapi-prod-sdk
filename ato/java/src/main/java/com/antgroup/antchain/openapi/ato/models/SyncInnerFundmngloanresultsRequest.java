@@ -44,6 +44,15 @@ public class SyncInnerFundmngloanresultsRequest extends TeaModel {
     @Validation(required = true)
     public String type;
 
+    // 融资模式
+    // 供应链金融：
+    // SUPPLY_CHAIN_FINANCE
+    // 自定义还款：
+    // DEFAULT
+    @NameInMap("fund_mode")
+    @Validation(required = true)
+    public String fundMode;
+
     // 融资放款结果，FinanceLoanResults
     @NameInMap("finance_loan_results")
     public String financeLoanResults;
@@ -55,6 +64,31 @@ public class SyncInnerFundmngloanresultsRequest extends TeaModel {
     // 推广id
     @NameInMap("promotion_id")
     public String promotionId;
+
+    // 商户起始还款期数
+    @NameInMap("pay_start_term_index")
+    public Long payStartTermIndex;
+
+    // 分账支付宝账号uid
+    @NameInMap("divide_alipay_user_id")
+    public String divideAlipayUserId;
+
+    // 分账支付宝登录账号
+    @NameInMap("divide_alipay_login_id")
+    public String divideAlipayLoginId;
+
+    // 代偿支付宝账号uid
+    @NameInMap("compensate_alipay_user_id")
+    public String compensateAlipayUserId;
+
+    // 代偿支付宝登录账号
+    @NameInMap("compensate_alipay_login_id")
+    public String compensateAlipayLoginId;
+
+    // traceid
+    @NameInMap("trace_id")
+    @Validation(required = true)
+    public String traceId;
 
     public static SyncInnerFundmngloanresultsRequest build(java.util.Map<String, ?> map) throws Exception {
         SyncInnerFundmngloanresultsRequest self = new SyncInnerFundmngloanresultsRequest();
@@ -125,6 +159,14 @@ public class SyncInnerFundmngloanresultsRequest extends TeaModel {
         return this.type;
     }
 
+    public SyncInnerFundmngloanresultsRequest setFundMode(String fundMode) {
+        this.fundMode = fundMode;
+        return this;
+    }
+    public String getFundMode() {
+        return this.fundMode;
+    }
+
     public SyncInnerFundmngloanresultsRequest setFinanceLoanResults(String financeLoanResults) {
         this.financeLoanResults = financeLoanResults;
         return this;
@@ -147,6 +189,54 @@ public class SyncInnerFundmngloanresultsRequest extends TeaModel {
     }
     public String getPromotionId() {
         return this.promotionId;
+    }
+
+    public SyncInnerFundmngloanresultsRequest setPayStartTermIndex(Long payStartTermIndex) {
+        this.payStartTermIndex = payStartTermIndex;
+        return this;
+    }
+    public Long getPayStartTermIndex() {
+        return this.payStartTermIndex;
+    }
+
+    public SyncInnerFundmngloanresultsRequest setDivideAlipayUserId(String divideAlipayUserId) {
+        this.divideAlipayUserId = divideAlipayUserId;
+        return this;
+    }
+    public String getDivideAlipayUserId() {
+        return this.divideAlipayUserId;
+    }
+
+    public SyncInnerFundmngloanresultsRequest setDivideAlipayLoginId(String divideAlipayLoginId) {
+        this.divideAlipayLoginId = divideAlipayLoginId;
+        return this;
+    }
+    public String getDivideAlipayLoginId() {
+        return this.divideAlipayLoginId;
+    }
+
+    public SyncInnerFundmngloanresultsRequest setCompensateAlipayUserId(String compensateAlipayUserId) {
+        this.compensateAlipayUserId = compensateAlipayUserId;
+        return this;
+    }
+    public String getCompensateAlipayUserId() {
+        return this.compensateAlipayUserId;
+    }
+
+    public SyncInnerFundmngloanresultsRequest setCompensateAlipayLoginId(String compensateAlipayLoginId) {
+        this.compensateAlipayLoginId = compensateAlipayLoginId;
+        return this;
+    }
+    public String getCompensateAlipayLoginId() {
+        return this.compensateAlipayLoginId;
+    }
+
+    public SyncInnerFundmngloanresultsRequest setTraceId(String traceId) {
+        this.traceId = traceId;
+        return this;
+    }
+    public String getTraceId() {
+        return this.traceId;
     }
 
 }

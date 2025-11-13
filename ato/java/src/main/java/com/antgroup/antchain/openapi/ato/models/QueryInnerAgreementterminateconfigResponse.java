@@ -24,6 +24,10 @@ public class QueryInnerAgreementterminateconfigResponse extends TeaModel {
     @NameInMap("timeout_day")
     public String timeoutDay;
 
+    // 商户侧需要判断是否为间连二级户或者为特殊直连下级商户（如果满足条件则隐藏交易管理下商品以及订单列表）
+    @NameInMap("hide_terminate_order")
+    public Boolean hideTerminateOrder;
+
     public static QueryInnerAgreementterminateconfigResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryInnerAgreementterminateconfigResponse self = new QueryInnerAgreementterminateconfigResponse();
         return TeaModel.build(map, self);
@@ -67,6 +71,14 @@ public class QueryInnerAgreementterminateconfigResponse extends TeaModel {
     }
     public String getTimeoutDay() {
         return this.timeoutDay;
+    }
+
+    public QueryInnerAgreementterminateconfigResponse setHideTerminateOrder(Boolean hideTerminateOrder) {
+        this.hideTerminateOrder = hideTerminateOrder;
+        return this;
+    }
+    public Boolean getHideTerminateOrder() {
+        return this.hideTerminateOrder;
     }
 
 }

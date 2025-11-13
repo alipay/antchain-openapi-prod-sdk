@@ -37,6 +37,11 @@ public class DetailInnerFundmngorderRequest extends TeaModel {
     @Validation(required = true)
     public String orderId;
 
+    // traceid
+    @NameInMap("trace_id")
+    @Validation(required = true)
+    public String traceId;
+
     public static DetailInnerFundmngorderRequest build(java.util.Map<String, ?> map) throws Exception {
         DetailInnerFundmngorderRequest self = new DetailInnerFundmngorderRequest();
         return TeaModel.build(map, self);
@@ -96,6 +101,14 @@ public class DetailInnerFundmngorderRequest extends TeaModel {
     }
     public String getOrderId() {
         return this.orderId;
+    }
+
+    public DetailInnerFundmngorderRequest setTraceId(String traceId) {
+        this.traceId = traceId;
+        return this;
+    }
+    public String getTraceId() {
+        return this.traceId;
     }
 
 }

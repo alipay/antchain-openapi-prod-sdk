@@ -56,6 +56,14 @@ public class DetailInnerAgreementterminateResponse extends TeaModel {
     @NameInMap("handle_status")
     public String handleStatus;
 
+    // 商家处理超时类型
+    @NameInMap("merchant_handle_duration_type")
+    public String merchantHandleDurationType;
+
+    // 商家处理超时时长
+    @NameInMap("merchant_handle_duration")
+    public String merchantHandleDuration;
+
     public static DetailInnerAgreementterminateResponse build(java.util.Map<String, ?> map) throws Exception {
         DetailInnerAgreementterminateResponse self = new DetailInnerAgreementterminateResponse();
         return TeaModel.build(map, self);
@@ -163,6 +171,22 @@ public class DetailInnerAgreementterminateResponse extends TeaModel {
     }
     public String getHandleStatus() {
         return this.handleStatus;
+    }
+
+    public DetailInnerAgreementterminateResponse setMerchantHandleDurationType(String merchantHandleDurationType) {
+        this.merchantHandleDurationType = merchantHandleDurationType;
+        return this;
+    }
+    public String getMerchantHandleDurationType() {
+        return this.merchantHandleDurationType;
+    }
+
+    public DetailInnerAgreementterminateResponse setMerchantHandleDuration(String merchantHandleDuration) {
+        this.merchantHandleDuration = merchantHandleDuration;
+        return this;
+    }
+    public String getMerchantHandleDuration() {
+        return this.merchantHandleDuration;
     }
 
 }

@@ -28,6 +28,15 @@ public class PagequeryInnerFundmngdatadownloadRequest extends TeaModel {
     @Validation(required = true)
     public PageQuery pageInfo;
 
+    // 数据类型
+    @NameInMap("type")
+    public java.util.List<String> type;
+
+    // traceid
+    @NameInMap("trace_id")
+    @Validation(required = true)
+    public String traceId;
+
     public static PagequeryInnerFundmngdatadownloadRequest build(java.util.Map<String, ?> map) throws Exception {
         PagequeryInnerFundmngdatadownloadRequest self = new PagequeryInnerFundmngdatadownloadRequest();
         return TeaModel.build(map, self);
@@ -71,6 +80,22 @@ public class PagequeryInnerFundmngdatadownloadRequest extends TeaModel {
     }
     public PageQuery getPageInfo() {
         return this.pageInfo;
+    }
+
+    public PagequeryInnerFundmngdatadownloadRequest setType(java.util.List<String> type) {
+        this.type = type;
+        return this;
+    }
+    public java.util.List<String> getType() {
+        return this.type;
+    }
+
+    public PagequeryInnerFundmngdatadownloadRequest setTraceId(String traceId) {
+        this.traceId = traceId;
+        return this;
+    }
+    public String getTraceId() {
+        return this.traceId;
     }
 
 }

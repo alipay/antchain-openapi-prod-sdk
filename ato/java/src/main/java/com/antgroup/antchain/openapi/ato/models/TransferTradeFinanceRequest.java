@@ -36,6 +36,10 @@ public class TransferTradeFinanceRequest extends TeaModel {
     @Validation(required = true, minimum = 1)
     public Long divideStartTermIndex;
 
+    // 融资模式
+    @NameInMap("fund_mode")
+    public String fundMode;
+
     public static TransferTradeFinanceRequest build(java.util.Map<String, ?> map) throws Exception {
         TransferTradeFinanceRequest self = new TransferTradeFinanceRequest();
         return TeaModel.build(map, self);
@@ -95,6 +99,14 @@ public class TransferTradeFinanceRequest extends TeaModel {
     }
     public Long getDivideStartTermIndex() {
         return this.divideStartTermIndex;
+    }
+
+    public TransferTradeFinanceRequest setFundMode(String fundMode) {
+        this.fundMode = fundMode;
+        return this;
+    }
+    public String getFundMode() {
+        return this.fundMode;
     }
 
 }

@@ -56,6 +56,19 @@ public class PagequeryInnerFundmngfinanceorderRequest extends TeaModel {
     @NameInMap("is_loan_apply_fail")
     public Boolean isLoanApplyFail;
 
+    // 融资模式
+    // 供应链金融:
+    // SUPPLY_CHAIN_FINANCE
+    // 自定义还款:
+    // DEFAULT
+    @NameInMap("fund_mode")
+    public String fundMode;
+
+    // 页面调用traceid
+    @NameInMap("trace_id")
+    @Validation(required = true)
+    public String traceId;
+
     //  分页
     @NameInMap("page_info")
     @Validation(required = true)
@@ -168,6 +181,22 @@ public class PagequeryInnerFundmngfinanceorderRequest extends TeaModel {
     }
     public Boolean getIsLoanApplyFail() {
         return this.isLoanApplyFail;
+    }
+
+    public PagequeryInnerFundmngfinanceorderRequest setFundMode(String fundMode) {
+        this.fundMode = fundMode;
+        return this;
+    }
+    public String getFundMode() {
+        return this.fundMode;
+    }
+
+    public PagequeryInnerFundmngfinanceorderRequest setTraceId(String traceId) {
+        this.traceId = traceId;
+        return this;
+    }
+    public String getTraceId() {
+        return this.traceId;
     }
 
     public PagequeryInnerFundmngfinanceorderRequest setPageInfo(PageQuery pageInfo) {

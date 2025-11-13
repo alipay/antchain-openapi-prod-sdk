@@ -60,6 +60,14 @@ public class OrderFulfillmentInfo extends TeaModel {
     @NameInMap("return_voucher_serial")
     public String returnVoucherSerial;
 
+    // 支付宝协议号
+    /**
+     * <strong>example:</strong>
+     * <p>123123122134</p>
+     */
+    @NameInMap("alipay_trade_no")
+    public String alipayTradeNo;
+
     public static OrderFulfillmentInfo build(java.util.Map<String, ?> map) throws Exception {
         OrderFulfillmentInfo self = new OrderFulfillmentInfo();
         return TeaModel.build(map, self);
@@ -119,6 +127,14 @@ public class OrderFulfillmentInfo extends TeaModel {
     }
     public String getReturnVoucherSerial() {
         return this.returnVoucherSerial;
+    }
+
+    public OrderFulfillmentInfo setAlipayTradeNo(String alipayTradeNo) {
+        this.alipayTradeNo = alipayTradeNo;
+        return this;
+    }
+    public String getAlipayTradeNo() {
+        return this.alipayTradeNo;
     }
 
 }

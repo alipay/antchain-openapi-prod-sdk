@@ -72,6 +72,14 @@ public class DetailInnerFundmngorderResponse extends TeaModel {
     @NameInMap("fund_mng_loan_applay_result")
     public FundMngLoanApplyResult fundMngLoanApplayResult;
 
+    // 商户履约赎回信息
+    @NameInMap("merchant_performance_redeem_info")
+    public MerchantPerformanceRedeemInfo merchantPerformanceRedeemInfo;
+
+    // 商户履约还款取消信息
+    @NameInMap("merchant_performance_repay_support_info")
+    public java.util.List<MerchantPerformanceRepaySupportInfo> merchantPerformanceRepaySupportInfo;
+
     public static DetailInnerFundmngorderResponse build(java.util.Map<String, ?> map) throws Exception {
         DetailInnerFundmngorderResponse self = new DetailInnerFundmngorderResponse();
         return TeaModel.build(map, self);
@@ -211,6 +219,22 @@ public class DetailInnerFundmngorderResponse extends TeaModel {
     }
     public FundMngLoanApplyResult getFundMngLoanApplayResult() {
         return this.fundMngLoanApplayResult;
+    }
+
+    public DetailInnerFundmngorderResponse setMerchantPerformanceRedeemInfo(MerchantPerformanceRedeemInfo merchantPerformanceRedeemInfo) {
+        this.merchantPerformanceRedeemInfo = merchantPerformanceRedeemInfo;
+        return this;
+    }
+    public MerchantPerformanceRedeemInfo getMerchantPerformanceRedeemInfo() {
+        return this.merchantPerformanceRedeemInfo;
+    }
+
+    public DetailInnerFundmngorderResponse setMerchantPerformanceRepaySupportInfo(java.util.List<MerchantPerformanceRepaySupportInfo> merchantPerformanceRepaySupportInfo) {
+        this.merchantPerformanceRepaySupportInfo = merchantPerformanceRepaySupportInfo;
+        return this;
+    }
+    public java.util.List<MerchantPerformanceRepaySupportInfo> getMerchantPerformanceRepaySupportInfo() {
+        return this.merchantPerformanceRepaySupportInfo;
     }
 
 }

@@ -28,7 +28,7 @@ public class GetInnerProductRequest extends TeaModel {
 
     // 商品版本
     @NameInMap("product_version")
-    @Validation(required = true, maxLength = 10, minLength = 1)
+    @Validation(required = true, maxLength = 32, minLength = 1)
     public String productVersion;
 
     public static GetInnerProductRequest build(java.util.Map<String, ?> map) throws Exception {

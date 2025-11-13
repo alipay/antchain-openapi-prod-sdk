@@ -16,6 +16,24 @@ public class SubmitInnerFundmngdatadownloadResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
+    // 是否提交成功
+    @NameInMap("is_submit_download")
+    public Boolean isSubmitDownload;
+
+    // 线上；线下
+    @NameInMap("download_type")
+    public String downloadType;
+
+    // 下载链接
+    @NameInMap("download_url")
+    public String downloadUrl;
+
+    // 状态
+    // TODO 待处理
+    // FINISH 完成
+    @NameInMap("status")
+    public String status;
+
     public static SubmitInnerFundmngdatadownloadResponse build(java.util.Map<String, ?> map) throws Exception {
         SubmitInnerFundmngdatadownloadResponse self = new SubmitInnerFundmngdatadownloadResponse();
         return TeaModel.build(map, self);
@@ -43,6 +61,38 @@ public class SubmitInnerFundmngdatadownloadResponse extends TeaModel {
     }
     public String getResultMsg() {
         return this.resultMsg;
+    }
+
+    public SubmitInnerFundmngdatadownloadResponse setIsSubmitDownload(Boolean isSubmitDownload) {
+        this.isSubmitDownload = isSubmitDownload;
+        return this;
+    }
+    public Boolean getIsSubmitDownload() {
+        return this.isSubmitDownload;
+    }
+
+    public SubmitInnerFundmngdatadownloadResponse setDownloadType(String downloadType) {
+        this.downloadType = downloadType;
+        return this;
+    }
+    public String getDownloadType() {
+        return this.downloadType;
+    }
+
+    public SubmitInnerFundmngdatadownloadResponse setDownloadUrl(String downloadUrl) {
+        this.downloadUrl = downloadUrl;
+        return this;
+    }
+    public String getDownloadUrl() {
+        return this.downloadUrl;
+    }
+
+    public SubmitInnerFundmngdatadownloadResponse setStatus(String status) {
+        this.status = status;
+        return this;
+    }
+    public String getStatus() {
+        return this.status;
     }
 
 }

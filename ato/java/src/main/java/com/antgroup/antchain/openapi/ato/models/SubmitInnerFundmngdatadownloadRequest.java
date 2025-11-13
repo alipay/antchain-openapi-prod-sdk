@@ -27,12 +27,33 @@ public class SubmitInnerFundmngdatadownloadRequest extends TeaModel {
     public String endTime;
 
     // 任务类型
-    //  FINANCE_ORDER_TRADE_PROMISE_DETAIL：融资订单交易履约明细
-    // FINANCE_ORDER_LOAN_DETAIL：融资订单放款信息
+    // DATAPHIN_FUND_MNG_DOWNLOAD_USER_PROIMSE：融资订单用户履约信息
+    // DATAPHIN_FUND_MNG_DOWNLOAD_FINANCE_ORDER：融资订单交易履约明细
+    // DATAPHIN_FUND_MNG_DOWNLOAD_FINANCE:融资订单放款信息
     // 
     @NameInMap("type")
     @Validation(required = true)
     public String type;
+
+    // 商户社会统一信用代码
+    @NameInMap("merchant_id")
+    public String merchantId;
+
+    // 融资类型
+    // SUPPLY_CHAIN_FINANCE:供应链金融
+    @NameInMap("fund_mode")
+    public String fundMode;
+
+    // 放款渠道（根据枚举返回对应的excel模版，不作为数据筛选项）
+    // ALIPAY；
+    // BANK；
+    @NameInMap("loan_channel")
+    public String loanChannel;
+
+    // traceid
+    @NameInMap("trace_id")
+    @Validation(required = true)
+    public String traceId;
 
     public static SubmitInnerFundmngdatadownloadRequest build(java.util.Map<String, ?> map) throws Exception {
         SubmitInnerFundmngdatadownloadRequest self = new SubmitInnerFundmngdatadownloadRequest();
@@ -85,6 +106,38 @@ public class SubmitInnerFundmngdatadownloadRequest extends TeaModel {
     }
     public String getType() {
         return this.type;
+    }
+
+    public SubmitInnerFundmngdatadownloadRequest setMerchantId(String merchantId) {
+        this.merchantId = merchantId;
+        return this;
+    }
+    public String getMerchantId() {
+        return this.merchantId;
+    }
+
+    public SubmitInnerFundmngdatadownloadRequest setFundMode(String fundMode) {
+        this.fundMode = fundMode;
+        return this;
+    }
+    public String getFundMode() {
+        return this.fundMode;
+    }
+
+    public SubmitInnerFundmngdatadownloadRequest setLoanChannel(String loanChannel) {
+        this.loanChannel = loanChannel;
+        return this;
+    }
+    public String getLoanChannel() {
+        return this.loanChannel;
+    }
+
+    public SubmitInnerFundmngdatadownloadRequest setTraceId(String traceId) {
+        this.traceId = traceId;
+        return this;
+    }
+    public String getTraceId() {
+        return this.traceId;
     }
 
 }

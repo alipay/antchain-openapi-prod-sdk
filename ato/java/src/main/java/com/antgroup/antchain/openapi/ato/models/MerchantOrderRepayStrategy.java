@@ -36,6 +36,22 @@ public class MerchantOrderRepayStrategy extends TeaModel {
     @NameInMap("to_compensate_date")
     public String toCompensateDate;
 
+    // 资方社会统一信用代码
+    /**
+     * <strong>example:</strong>
+     * <p>91301010101010101A</p>
+     */
+    @NameInMap("fund_id")
+    public String fundId;
+
+    // 资方公司名称
+    /**
+     * <strong>example:</strong>
+     * <p>xxx公司</p>
+     */
+    @NameInMap("fund_company_name")
+    public String fundCompanyName;
+
     public static MerchantOrderRepayStrategy build(java.util.Map<String, ?> map) throws Exception {
         MerchantOrderRepayStrategy self = new MerchantOrderRepayStrategy();
         return TeaModel.build(map, self);
@@ -71,6 +87,22 @@ public class MerchantOrderRepayStrategy extends TeaModel {
     }
     public String getToCompensateDate() {
         return this.toCompensateDate;
+    }
+
+    public MerchantOrderRepayStrategy setFundId(String fundId) {
+        this.fundId = fundId;
+        return this;
+    }
+    public String getFundId() {
+        return this.fundId;
+    }
+
+    public MerchantOrderRepayStrategy setFundCompanyName(String fundCompanyName) {
+        this.fundCompanyName = fundCompanyName;
+        return this;
+    }
+    public String getFundCompanyName() {
+        return this.fundCompanyName;
     }
 
 }
