@@ -54,6 +54,12 @@ class QueryInnerFundmngcreditRequest extends Model
      * @var string
      */
     public $orderNo;
+
+    // traceid
+    /**
+     * @var string
+     */
+    public $traceId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -63,6 +69,7 @@ class QueryInnerFundmngcreditRequest extends Model
         'fundId'            => 'fund_id',
         'orderNoType'       => 'order_no_type',
         'orderNo'           => 'order_no',
+        'traceId'           => 'trace_id',
     ];
 
     public function validate()
@@ -73,6 +80,7 @@ class QueryInnerFundmngcreditRequest extends Model
         Model::validateRequired('fundId', $this->fundId, true);
         Model::validateRequired('orderNoType', $this->orderNoType, true);
         Model::validateRequired('orderNo', $this->orderNo, true);
+        Model::validateRequired('traceId', $this->traceId, true);
     }
 
     public function toMap()
@@ -101,6 +109,9 @@ class QueryInnerFundmngcreditRequest extends Model
         }
         if (null !== $this->orderNo) {
             $res['order_no'] = $this->orderNo;
+        }
+        if (null !== $this->traceId) {
+            $res['trace_id'] = $this->traceId;
         }
 
         return $res;
@@ -137,6 +148,9 @@ class QueryInnerFundmngcreditRequest extends Model
         }
         if (isset($map['order_no'])) {
             $model->orderNo = $map['order_no'];
+        }
+        if (isset($map['trace_id'])) {
+            $model->traceId = $map['trace_id'];
         }
 
         return $model;

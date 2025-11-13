@@ -49,6 +49,12 @@ class DetailInnerFundmngorderRequest extends Model
      * @var string
      */
     public $orderId;
+
+    // traceid
+    /**
+     * @var string
+     */
+    public $traceId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -57,6 +63,7 @@ class DetailInnerFundmngorderRequest extends Model
         'tenantId'          => 'tenant_id',
         'merchantId'        => 'merchant_id',
         'orderId'           => 'order_id',
+        'traceId'           => 'trace_id',
     ];
 
     public function validate()
@@ -66,6 +73,7 @@ class DetailInnerFundmngorderRequest extends Model
         Model::validateRequired('tenantId', $this->tenantId, true);
         Model::validateRequired('merchantId', $this->merchantId, true);
         Model::validateRequired('orderId', $this->orderId, true);
+        Model::validateRequired('traceId', $this->traceId, true);
     }
 
     public function toMap()
@@ -91,6 +99,9 @@ class DetailInnerFundmngorderRequest extends Model
         }
         if (null !== $this->orderId) {
             $res['order_id'] = $this->orderId;
+        }
+        if (null !== $this->traceId) {
+            $res['trace_id'] = $this->traceId;
         }
 
         return $res;
@@ -124,6 +135,9 @@ class DetailInnerFundmngorderRequest extends Model
         }
         if (isset($map['order_id'])) {
             $model->orderId = $map['order_id'];
+        }
+        if (isset($map['trace_id'])) {
+            $model->traceId = $map['trace_id'];
         }
 
         return $model;

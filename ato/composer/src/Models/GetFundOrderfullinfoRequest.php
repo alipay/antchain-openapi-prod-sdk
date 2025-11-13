@@ -36,12 +36,19 @@ class GetFundOrderfullinfoRequest extends Model
      * @var string
      */
     public $fundId;
+
+    // 123
+    /**
+     * @var string
+     */
+    public $bizType;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'orderId'           => 'order_id',
         'merchantId'        => 'merchant_id',
         'fundId'            => 'fund_id',
+        'bizType'           => 'biz_type',
     ];
 
     public function validate()
@@ -75,6 +82,9 @@ class GetFundOrderfullinfoRequest extends Model
         if (null !== $this->fundId) {
             $res['fund_id'] = $this->fundId;
         }
+        if (null !== $this->bizType) {
+            $res['biz_type'] = $this->bizType;
+        }
 
         return $res;
     }
@@ -101,6 +111,9 @@ class GetFundOrderfullinfoRequest extends Model
         }
         if (isset($map['fund_id'])) {
             $model->fundId = $map['fund_id'];
+        }
+        if (isset($map['biz_type'])) {
+            $model->bizType = $map['biz_type'];
         }
 
         return $model;

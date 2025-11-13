@@ -39,18 +39,33 @@ class PagequeryInnerFundmngdatadownloadRequest extends Model
      * @var PageQuery
      */
     public $pageInfo;
+
+    // 数据类型
+    /**
+     * @var string[]
+     */
+    public $type;
+
+    // traceid
+    /**
+     * @var string
+     */
+    public $traceId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'fundTenantId'      => 'fund_tenant_id',
         'status'            => 'status',
         'pageInfo'          => 'page_info',
+        'type'              => 'type',
+        'traceId'           => 'trace_id',
     ];
 
     public function validate()
     {
         Model::validateRequired('fundTenantId', $this->fundTenantId, true);
         Model::validateRequired('pageInfo', $this->pageInfo, true);
+        Model::validateRequired('traceId', $this->traceId, true);
     }
 
     public function toMap()
@@ -70,6 +85,12 @@ class PagequeryInnerFundmngdatadownloadRequest extends Model
         }
         if (null !== $this->pageInfo) {
             $res['page_info'] = null !== $this->pageInfo ? $this->pageInfo->toMap() : null;
+        }
+        if (null !== $this->type) {
+            $res['type'] = $this->type;
+        }
+        if (null !== $this->traceId) {
+            $res['trace_id'] = $this->traceId;
         }
 
         return $res;
@@ -97,6 +118,14 @@ class PagequeryInnerFundmngdatadownloadRequest extends Model
         }
         if (isset($map['page_info'])) {
             $model->pageInfo = PageQuery::fromMap($map['page_info']);
+        }
+        if (isset($map['type'])) {
+            if (!empty($map['type'])) {
+                $model->type = $map['type'];
+            }
+        }
+        if (isset($map['trace_id'])) {
+            $model->traceId = $map['trace_id'];
         }
 
         return $model;

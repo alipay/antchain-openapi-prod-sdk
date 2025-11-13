@@ -49,21 +49,21 @@ class CreateInnerFundmngmerchantpromiseRequest extends Model
      */
     public $fundId;
 
-    // 商家还款方式
-    // FULL_REPAYMENT_PER_INSTALLMENT
-    // (每期全额还款)
+    // 融资模式
+    // SUPPLY_CHAIN_FINANCE
+    // (供应链金融)
     /**
      * @var string
      */
     public $merchantPayType;
 
-    // 商户代偿开始时间
+    // 商户代偿开始天数
     /**
      * @var int
      */
     public $merchantCompensateStartDay;
 
-    // 商户还款开始期数
+    // 商户起始还款期数
     /**
      * @var int
      */
@@ -92,6 +92,12 @@ class CreateInnerFundmngmerchantpromiseRequest extends Model
      * @var string
      */
     public $compensateAlipayLoginId;
+
+    // traceid
+    /**
+     * @var string
+     */
+    public $traceId;
     protected $_name = [
         'authToken'                  => 'auth_token',
         'productInstanceId'          => 'product_instance_id',
@@ -107,6 +113,7 @@ class CreateInnerFundmngmerchantpromiseRequest extends Model
         'divideAlipayLoginId'        => 'divide_alipay_login_id',
         'compensateAlipayUserId'     => 'compensate_alipay_user_id',
         'compensateAlipayLoginId'    => 'compensate_alipay_login_id',
+        'traceId'                    => 'trace_id',
     ];
 
     public function validate()
@@ -123,6 +130,7 @@ class CreateInnerFundmngmerchantpromiseRequest extends Model
         Model::validateRequired('divideAlipayLoginId', $this->divideAlipayLoginId, true);
         Model::validateRequired('compensateAlipayUserId', $this->compensateAlipayUserId, true);
         Model::validateRequired('compensateAlipayLoginId', $this->compensateAlipayLoginId, true);
+        Model::validateRequired('traceId', $this->traceId, true);
     }
 
     public function toMap()
@@ -169,6 +177,9 @@ class CreateInnerFundmngmerchantpromiseRequest extends Model
         }
         if (null !== $this->compensateAlipayLoginId) {
             $res['compensate_alipay_login_id'] = $this->compensateAlipayLoginId;
+        }
+        if (null !== $this->traceId) {
+            $res['trace_id'] = $this->traceId;
         }
 
         return $res;
@@ -223,6 +234,9 @@ class CreateInnerFundmngmerchantpromiseRequest extends Model
         }
         if (isset($map['compensate_alipay_login_id'])) {
             $model->compensateAlipayLoginId = $map['compensate_alipay_login_id'];
+        }
+        if (isset($map['trace_id'])) {
+            $model->traceId = $map['trace_id'];
         }
 
         return $model;

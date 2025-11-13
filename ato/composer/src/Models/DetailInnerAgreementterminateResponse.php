@@ -85,6 +85,18 @@ class DetailInnerAgreementterminateResponse extends Model
      * @var string
      */
     public $handleStatus;
+
+    // 商家处理超时类型
+    /**
+     * @var string
+     */
+    public $merchantHandleDurationType;
+
+    // 商家处理超时时长
+    /**
+     * @var string
+     */
+    public $merchantHandleDuration;
     protected $_name = [
         'reqMsgId'                    => 'req_msg_id',
         'resultCode'                  => 'result_code',
@@ -99,6 +111,8 @@ class DetailInnerAgreementterminateResponse extends Model
         'externalAgreementNo'         => 'external_agreement_no',
         'agreementNo'                 => 'agreement_no',
         'handleStatus'                => 'handle_status',
+        'merchantHandleDurationType'  => 'merchant_handle_duration_type',
+        'merchantHandleDuration'      => 'merchant_handle_duration',
     ];
 
     public function validate()
@@ -158,6 +172,12 @@ class DetailInnerAgreementterminateResponse extends Model
         }
         if (null !== $this->handleStatus) {
             $res['handle_status'] = $this->handleStatus;
+        }
+        if (null !== $this->merchantHandleDurationType) {
+            $res['merchant_handle_duration_type'] = $this->merchantHandleDurationType;
+        }
+        if (null !== $this->merchantHandleDuration) {
+            $res['merchant_handle_duration'] = $this->merchantHandleDuration;
         }
 
         return $res;
@@ -221,6 +241,12 @@ class DetailInnerAgreementterminateResponse extends Model
         }
         if (isset($map['handle_status'])) {
             $model->handleStatus = $map['handle_status'];
+        }
+        if (isset($map['merchant_handle_duration_type'])) {
+            $model->merchantHandleDurationType = $map['merchant_handle_duration_type'];
+        }
+        if (isset($map['merchant_handle_duration'])) {
+            $model->merchantHandleDuration = $map['merchant_handle_duration'];
         }
 
         return $model;

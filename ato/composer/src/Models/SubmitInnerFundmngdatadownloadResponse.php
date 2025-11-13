@@ -25,10 +25,40 @@ class SubmitInnerFundmngdatadownloadResponse extends Model
      * @var string
      */
     public $resultMsg;
+
+    // 是否提交成功
+    /**
+     * @var bool
+     */
+    public $isSubmitDownload;
+
+    // 线上；线下
+    /**
+     * @var string
+     */
+    public $downloadType;
+
+    // 下载链接
+    /**
+     * @var string
+     */
+    public $downloadUrl;
+
+    // 状态
+    // TODO 待处理
+    // FINISH 完成
+    /**
+     * @var string
+     */
+    public $status;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
+        'reqMsgId'         => 'req_msg_id',
+        'resultCode'       => 'result_code',
+        'resultMsg'        => 'result_msg',
+        'isSubmitDownload' => 'is_submit_download',
+        'downloadType'     => 'download_type',
+        'downloadUrl'      => 'download_url',
+        'status'           => 'status',
     ];
 
     public function validate()
@@ -46,6 +76,18 @@ class SubmitInnerFundmngdatadownloadResponse extends Model
         }
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
+        }
+        if (null !== $this->isSubmitDownload) {
+            $res['is_submit_download'] = $this->isSubmitDownload;
+        }
+        if (null !== $this->downloadType) {
+            $res['download_type'] = $this->downloadType;
+        }
+        if (null !== $this->downloadUrl) {
+            $res['download_url'] = $this->downloadUrl;
+        }
+        if (null !== $this->status) {
+            $res['status'] = $this->status;
         }
 
         return $res;
@@ -67,6 +109,18 @@ class SubmitInnerFundmngdatadownloadResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
+        }
+        if (isset($map['is_submit_download'])) {
+            $model->isSubmitDownload = $map['is_submit_download'];
+        }
+        if (isset($map['download_type'])) {
+            $model->downloadType = $map['download_type'];
+        }
+        if (isset($map['download_url'])) {
+            $model->downloadUrl = $map['download_url'];
+        }
+        if (isset($map['status'])) {
+            $model->status = $map['status'];
         }
 
         return $model;

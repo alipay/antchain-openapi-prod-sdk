@@ -109,24 +109,38 @@ class DetailInnerFundmngorderResponse extends Model
      * @var FundMngLoanApplyResult
      */
     public $fundMngLoanApplayResult;
+
+    // 商户履约赎回信息
+    /**
+     * @var MerchantPerformanceRedeemInfo
+     */
+    public $merchantPerformanceRedeemInfo;
+
+    // 商户履约还款取消信息
+    /**
+     * @var MerchantPerformanceRepaySupportInfo[]
+     */
+    public $merchantPerformanceRepaySupportInfo;
     protected $_name = [
-        'reqMsgId'                     => 'req_msg_id',
-        'resultCode'                   => 'result_code',
-        'resultMsg'                    => 'result_msg',
-        'orderId'                      => 'order_id',
-        'orderInfo'                    => 'order_info',
-        'orderLogisticInfoList'        => 'order_logistic_info_list',
-        'orderUserInfo'                => 'order_user_info',
-        'orderFinanceInfo'             => 'order_finance_info',
-        'orderFulfillmentInfoList'     => 'order_fulfillment_info_list',
-        'orderPromiseInfo'             => 'order_promise_info',
-        'orderProductInfoList'         => 'order_product_info_list',
-        'orderContractInfoList'        => 'order_contract_info_list',
-        'orderWithholdContractInfo'    => 'order_withhold_contract_info',
-        'orderCreditInfo'              => 'order_credit_info',
-        'merchantOrderRepayStrategy'   => 'merchant_order_repay_strategy',
-        'merchantOrderFulfillmentInfo' => 'merchant_order_fulfillment_info',
-        'fundMngLoanApplayResult'      => 'fund_mng_loan_applay_result',
+        'reqMsgId'                            => 'req_msg_id',
+        'resultCode'                          => 'result_code',
+        'resultMsg'                           => 'result_msg',
+        'orderId'                             => 'order_id',
+        'orderInfo'                           => 'order_info',
+        'orderLogisticInfoList'               => 'order_logistic_info_list',
+        'orderUserInfo'                       => 'order_user_info',
+        'orderFinanceInfo'                    => 'order_finance_info',
+        'orderFulfillmentInfoList'            => 'order_fulfillment_info_list',
+        'orderPromiseInfo'                    => 'order_promise_info',
+        'orderProductInfoList'                => 'order_product_info_list',
+        'orderContractInfoList'               => 'order_contract_info_list',
+        'orderWithholdContractInfo'           => 'order_withhold_contract_info',
+        'orderCreditInfo'                     => 'order_credit_info',
+        'merchantOrderRepayStrategy'          => 'merchant_order_repay_strategy',
+        'merchantOrderFulfillmentInfo'        => 'merchant_order_fulfillment_info',
+        'fundMngLoanApplayResult'             => 'fund_mng_loan_applay_result',
+        'merchantPerformanceRedeemInfo'       => 'merchant_performance_redeem_info',
+        'merchantPerformanceRepaySupportInfo' => 'merchant_performance_repay_support_info',
     ];
 
     public function validate()
@@ -234,6 +248,18 @@ class DetailInnerFundmngorderResponse extends Model
         }
         if (null !== $this->fundMngLoanApplayResult) {
             $res['fund_mng_loan_applay_result'] = null !== $this->fundMngLoanApplayResult ? $this->fundMngLoanApplayResult->toMap() : null;
+        }
+        if (null !== $this->merchantPerformanceRedeemInfo) {
+            $res['merchant_performance_redeem_info'] = null !== $this->merchantPerformanceRedeemInfo ? $this->merchantPerformanceRedeemInfo->toMap() : null;
+        }
+        if (null !== $this->merchantPerformanceRepaySupportInfo) {
+            $res['merchant_performance_repay_support_info'] = [];
+            if (null !== $this->merchantPerformanceRepaySupportInfo && \is_array($this->merchantPerformanceRepaySupportInfo)) {
+                $n = 0;
+                foreach ($this->merchantPerformanceRepaySupportInfo as $item) {
+                    $res['merchant_performance_repay_support_info'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -345,6 +371,18 @@ class DetailInnerFundmngorderResponse extends Model
         }
         if (isset($map['fund_mng_loan_applay_result'])) {
             $model->fundMngLoanApplayResult = FundMngLoanApplyResult::fromMap($map['fund_mng_loan_applay_result']);
+        }
+        if (isset($map['merchant_performance_redeem_info'])) {
+            $model->merchantPerformanceRedeemInfo = MerchantPerformanceRedeemInfo::fromMap($map['merchant_performance_redeem_info']);
+        }
+        if (isset($map['merchant_performance_repay_support_info'])) {
+            if (!empty($map['merchant_performance_repay_support_info'])) {
+                $model->merchantPerformanceRepaySupportInfo = [];
+                $n                                          = 0;
+                foreach ($map['merchant_performance_repay_support_info'] as $item) {
+                    $model->merchantPerformanceRepaySupportInfo[$n++] = null !== $item ? MerchantPerformanceRepaySupportInfo::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;

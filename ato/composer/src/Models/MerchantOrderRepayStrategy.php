@@ -39,11 +39,29 @@ class MerchantOrderRepayStrategy extends Model
      * @var string
      */
     public $toCompensateDate;
+
+    // 资方社会统一信用代码
+    /**
+     * @example 91301010101010101A
+     *
+     * @var string
+     */
+    public $fundId;
+
+    // 资方公司名称
+    /**
+     * @example xxx公司
+     *
+     * @var string
+     */
+    public $fundCompanyName;
     protected $_name = [
         'termIndex'        => 'term_index',
         'leaseTermIndex'   => 'lease_term_index',
         'payMoney'         => 'pay_money',
         'toCompensateDate' => 'to_compensate_date',
+        'fundId'           => 'fund_id',
+        'fundCompanyName'  => 'fund_company_name',
     ];
 
     public function validate()
@@ -64,6 +82,12 @@ class MerchantOrderRepayStrategy extends Model
         }
         if (null !== $this->toCompensateDate) {
             $res['to_compensate_date'] = $this->toCompensateDate;
+        }
+        if (null !== $this->fundId) {
+            $res['fund_id'] = $this->fundId;
+        }
+        if (null !== $this->fundCompanyName) {
+            $res['fund_company_name'] = $this->fundCompanyName;
         }
 
         return $res;
@@ -88,6 +112,12 @@ class MerchantOrderRepayStrategy extends Model
         }
         if (isset($map['to_compensate_date'])) {
             $model->toCompensateDate = $map['to_compensate_date'];
+        }
+        if (isset($map['fund_id'])) {
+            $model->fundId = $map['fund_id'];
+        }
+        if (isset($map['fund_company_name'])) {
+            $model->fundCompanyName = $map['fund_company_name'];
         }
 
         return $model;

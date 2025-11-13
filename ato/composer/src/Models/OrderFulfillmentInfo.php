@@ -63,6 +63,14 @@ class OrderFulfillmentInfo extends Model
      * @var string
      */
     public $returnVoucherSerial;
+
+    // 支付宝协议号
+    /**
+     * @example 123123122134
+     *
+     * @var string
+     */
+    public $alipayTradeNo;
     protected $_name = [
         'leaseTermIndex'      => 'lease_term_index',
         'rentalReturnState'   => 'rental_return_state',
@@ -71,6 +79,7 @@ class OrderFulfillmentInfo extends Model
         'returnTime'          => 'return_time',
         'returnWay'           => 'return_way',
         'returnVoucherSerial' => 'return_voucher_serial',
+        'alipayTradeNo'       => 'alipay_trade_no',
     ];
 
     public function validate()
@@ -100,6 +109,9 @@ class OrderFulfillmentInfo extends Model
         }
         if (null !== $this->returnVoucherSerial) {
             $res['return_voucher_serial'] = $this->returnVoucherSerial;
+        }
+        if (null !== $this->alipayTradeNo) {
+            $res['alipay_trade_no'] = $this->alipayTradeNo;
         }
 
         return $res;
@@ -133,6 +145,9 @@ class OrderFulfillmentInfo extends Model
         }
         if (isset($map['return_voucher_serial'])) {
             $model->returnVoucherSerial = $map['return_voucher_serial'];
+        }
+        if (isset($map['alipay_trade_no'])) {
+            $model->alipayTradeNo = $map['alipay_trade_no'];
         }
 
         return $model;

@@ -48,6 +48,12 @@ class TransferTradeFinanceRequest extends Model
      * @var int
      */
     public $divideStartTermIndex;
+
+    // 融资模式
+    /**
+     * @var string
+     */
+    public $fundMode;
     protected $_name = [
         'authToken'            => 'auth_token',
         'productInstanceId'    => 'product_instance_id',
@@ -56,6 +62,7 @@ class TransferTradeFinanceRequest extends Model
         'fundIdList'           => 'fund_id_list',
         'fundSignMode'         => 'fund_sign_mode',
         'divideStartTermIndex' => 'divide_start_term_index',
+        'fundMode'             => 'fund_mode',
     ];
 
     public function validate()
@@ -95,6 +102,9 @@ class TransferTradeFinanceRequest extends Model
         if (null !== $this->divideStartTermIndex) {
             $res['divide_start_term_index'] = $this->divideStartTermIndex;
         }
+        if (null !== $this->fundMode) {
+            $res['fund_mode'] = $this->fundMode;
+        }
 
         return $res;
     }
@@ -129,6 +139,9 @@ class TransferTradeFinanceRequest extends Model
         }
         if (isset($map['divide_start_term_index'])) {
             $model->divideStartTermIndex = $map['divide_start_term_index'];
+        }
+        if (isset($map['fund_mode'])) {
+            $model->fundMode = $map['fund_mode'];
         }
 
         return $model;

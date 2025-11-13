@@ -58,6 +58,16 @@ class SyncInnerFundmngloanresultsRequest extends Model
      */
     public $type;
 
+    // 融资模式
+    // 供应链金融：
+    // SUPPLY_CHAIN_FINANCE
+    // 自定义还款：
+    // DEFAULT
+    /**
+     * @var string
+     */
+    public $fundMode;
+
     // 融资放款结果，FinanceLoanResults
     /**
      * @var string
@@ -75,18 +85,61 @@ class SyncInnerFundmngloanresultsRequest extends Model
      * @var string
      */
     public $promotionId;
+
+    // 商户起始还款期数
+    /**
+     * @var int
+     */
+    public $payStartTermIndex;
+
+    // 分账支付宝账号uid
+    /**
+     * @var string
+     */
+    public $divideAlipayUserId;
+
+    // 分账支付宝登录账号
+    /**
+     * @var string
+     */
+    public $divideAlipayLoginId;
+
+    // 代偿支付宝账号uid
+    /**
+     * @var string
+     */
+    public $compensateAlipayUserId;
+
+    // 代偿支付宝登录账号
+    /**
+     * @var string
+     */
+    public $compensateAlipayLoginId;
+
+    // traceid
+    /**
+     * @var string
+     */
+    public $traceId;
     protected $_name = [
-        'authToken'           => 'auth_token',
-        'productInstanceId'   => 'product_instance_id',
-        'fundTenantId'        => 'fund_tenant_id',
-        'tenantId'            => 'tenant_id',
-        'orderId'             => 'order_id',
-        'merchantId'          => 'merchant_id',
-        'fundId'              => 'fund_id',
-        'type'                => 'type',
-        'financeLoanResults'  => 'finance_loan_results',
-        'merchantPromiseInfo' => 'merchant_promise_info',
-        'promotionId'         => 'promotion_id',
+        'authToken'               => 'auth_token',
+        'productInstanceId'       => 'product_instance_id',
+        'fundTenantId'            => 'fund_tenant_id',
+        'tenantId'                => 'tenant_id',
+        'orderId'                 => 'order_id',
+        'merchantId'              => 'merchant_id',
+        'fundId'                  => 'fund_id',
+        'type'                    => 'type',
+        'fundMode'                => 'fund_mode',
+        'financeLoanResults'      => 'finance_loan_results',
+        'merchantPromiseInfo'     => 'merchant_promise_info',
+        'promotionId'             => 'promotion_id',
+        'payStartTermIndex'       => 'pay_start_term_index',
+        'divideAlipayUserId'      => 'divide_alipay_user_id',
+        'divideAlipayLoginId'     => 'divide_alipay_login_id',
+        'compensateAlipayUserId'  => 'compensate_alipay_user_id',
+        'compensateAlipayLoginId' => 'compensate_alipay_login_id',
+        'traceId'                 => 'trace_id',
     ];
 
     public function validate()
@@ -97,6 +150,8 @@ class SyncInnerFundmngloanresultsRequest extends Model
         Model::validateRequired('merchantId', $this->merchantId, true);
         Model::validateRequired('fundId', $this->fundId, true);
         Model::validateRequired('type', $this->type, true);
+        Model::validateRequired('fundMode', $this->fundMode, true);
+        Model::validateRequired('traceId', $this->traceId, true);
     }
 
     public function toMap()
@@ -126,6 +181,9 @@ class SyncInnerFundmngloanresultsRequest extends Model
         if (null !== $this->type) {
             $res['type'] = $this->type;
         }
+        if (null !== $this->fundMode) {
+            $res['fund_mode'] = $this->fundMode;
+        }
         if (null !== $this->financeLoanResults) {
             $res['finance_loan_results'] = $this->financeLoanResults;
         }
@@ -134,6 +192,24 @@ class SyncInnerFundmngloanresultsRequest extends Model
         }
         if (null !== $this->promotionId) {
             $res['promotion_id'] = $this->promotionId;
+        }
+        if (null !== $this->payStartTermIndex) {
+            $res['pay_start_term_index'] = $this->payStartTermIndex;
+        }
+        if (null !== $this->divideAlipayUserId) {
+            $res['divide_alipay_user_id'] = $this->divideAlipayUserId;
+        }
+        if (null !== $this->divideAlipayLoginId) {
+            $res['divide_alipay_login_id'] = $this->divideAlipayLoginId;
+        }
+        if (null !== $this->compensateAlipayUserId) {
+            $res['compensate_alipay_user_id'] = $this->compensateAlipayUserId;
+        }
+        if (null !== $this->compensateAlipayLoginId) {
+            $res['compensate_alipay_login_id'] = $this->compensateAlipayLoginId;
+        }
+        if (null !== $this->traceId) {
+            $res['trace_id'] = $this->traceId;
         }
 
         return $res;
@@ -171,6 +247,9 @@ class SyncInnerFundmngloanresultsRequest extends Model
         if (isset($map['type'])) {
             $model->type = $map['type'];
         }
+        if (isset($map['fund_mode'])) {
+            $model->fundMode = $map['fund_mode'];
+        }
         if (isset($map['finance_loan_results'])) {
             $model->financeLoanResults = $map['finance_loan_results'];
         }
@@ -179,6 +258,24 @@ class SyncInnerFundmngloanresultsRequest extends Model
         }
         if (isset($map['promotion_id'])) {
             $model->promotionId = $map['promotion_id'];
+        }
+        if (isset($map['pay_start_term_index'])) {
+            $model->payStartTermIndex = $map['pay_start_term_index'];
+        }
+        if (isset($map['divide_alipay_user_id'])) {
+            $model->divideAlipayUserId = $map['divide_alipay_user_id'];
+        }
+        if (isset($map['divide_alipay_login_id'])) {
+            $model->divideAlipayLoginId = $map['divide_alipay_login_id'];
+        }
+        if (isset($map['compensate_alipay_user_id'])) {
+            $model->compensateAlipayUserId = $map['compensate_alipay_user_id'];
+        }
+        if (isset($map['compensate_alipay_login_id'])) {
+            $model->compensateAlipayLoginId = $map['compensate_alipay_login_id'];
+        }
+        if (isset($map['trace_id'])) {
+            $model->traceId = $map['trace_id'];
         }
 
         return $model;

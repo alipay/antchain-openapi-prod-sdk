@@ -30,17 +30,25 @@ class DeleteInnerFundmngdatadownloadRequest extends Model
      * @var string
      */
     public $bizNo;
+
+    // 页面traceid
+    /**
+     * @var string
+     */
+    public $traceId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'fundTenantId'      => 'fund_tenant_id',
         'bizNo'             => 'biz_no',
+        'traceId'           => 'trace_id',
     ];
 
     public function validate()
     {
         Model::validateRequired('fundTenantId', $this->fundTenantId, true);
         Model::validateRequired('bizNo', $this->bizNo, true);
+        Model::validateRequired('traceId', $this->traceId, true);
     }
 
     public function toMap()
@@ -57,6 +65,9 @@ class DeleteInnerFundmngdatadownloadRequest extends Model
         }
         if (null !== $this->bizNo) {
             $res['biz_no'] = $this->bizNo;
+        }
+        if (null !== $this->traceId) {
+            $res['trace_id'] = $this->traceId;
         }
 
         return $res;
@@ -81,6 +92,9 @@ class DeleteInnerFundmngdatadownloadRequest extends Model
         }
         if (isset($map['biz_no'])) {
             $model->bizNo = $map['biz_no'];
+        }
+        if (isset($map['trace_id'])) {
+            $model->traceId = $map['trace_id'];
         }
 
         return $model;

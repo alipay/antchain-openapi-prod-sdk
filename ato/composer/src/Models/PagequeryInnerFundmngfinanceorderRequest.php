@@ -85,6 +85,22 @@ class PagequeryInnerFundmngfinanceorderRequest extends Model
      */
     public $isLoanApplyFail;
 
+    // 融资模式
+    // 供应链金融:
+    // SUPPLY_CHAIN_FINANCE
+    // 自定义还款:
+    // DEFAULT
+    /**
+     * @var string
+     */
+    public $fundMode;
+
+    // 页面调用traceid
+    /**
+     * @var string
+     */
+    public $traceId;
+
     // 分页
     /**
      * @var PageQuery
@@ -104,12 +120,15 @@ class PagequeryInnerFundmngfinanceorderRequest extends Model
         'loanStatus'            => 'loan_status',
         'fundName'              => 'fund_name',
         'isLoanApplyFail'       => 'is_loan_apply_fail',
+        'fundMode'              => 'fund_mode',
+        'traceId'               => 'trace_id',
         'pageInfo'              => 'page_info',
     ];
 
     public function validate()
     {
         Model::validateRequired('fundTenantId', $this->fundTenantId, true);
+        Model::validateRequired('traceId', $this->traceId, true);
         Model::validateRequired('pageInfo', $this->pageInfo, true);
     }
 
@@ -154,6 +173,12 @@ class PagequeryInnerFundmngfinanceorderRequest extends Model
         }
         if (null !== $this->isLoanApplyFail) {
             $res['is_loan_apply_fail'] = $this->isLoanApplyFail;
+        }
+        if (null !== $this->fundMode) {
+            $res['fund_mode'] = $this->fundMode;
+        }
+        if (null !== $this->traceId) {
+            $res['trace_id'] = $this->traceId;
         }
         if (null !== $this->pageInfo) {
             $res['page_info'] = null !== $this->pageInfo ? $this->pageInfo->toMap() : null;
@@ -208,6 +233,12 @@ class PagequeryInnerFundmngfinanceorderRequest extends Model
         }
         if (isset($map['is_loan_apply_fail'])) {
             $model->isLoanApplyFail = $map['is_loan_apply_fail'];
+        }
+        if (isset($map['fund_mode'])) {
+            $model->fundMode = $map['fund_mode'];
+        }
+        if (isset($map['trace_id'])) {
+            $model->traceId = $map['trace_id'];
         }
         if (isset($map['page_info'])) {
             $model->pageInfo = PageQuery::fromMap($map['page_info']);

@@ -30,17 +30,24 @@ class QueryInnerFundmngaccountinfoRequest extends Model
      * @var string
      */
     public $fundId;
+
+    // 页面调用traceid
+    /**
+     * @var string
+     */
+    public $traceId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'fundTenantId'      => 'fund_tenant_id',
         'fundId'            => 'fund_id',
+        'traceId'           => 'trace_id',
     ];
 
     public function validate()
     {
         Model::validateRequired('fundTenantId', $this->fundTenantId, true);
-        Model::validateRequired('fundId', $this->fundId, true);
+        Model::validateRequired('traceId', $this->traceId, true);
     }
 
     public function toMap()
@@ -57,6 +64,9 @@ class QueryInnerFundmngaccountinfoRequest extends Model
         }
         if (null !== $this->fundId) {
             $res['fund_id'] = $this->fundId;
+        }
+        if (null !== $this->traceId) {
+            $res['trace_id'] = $this->traceId;
         }
 
         return $res;
@@ -81,6 +91,9 @@ class QueryInnerFundmngaccountinfoRequest extends Model
         }
         if (isset($map['fund_id'])) {
             $model->fundId = $map['fund_id'];
+        }
+        if (isset($map['trace_id'])) {
+            $model->traceId = $map['trace_id'];
         }
 
         return $model;

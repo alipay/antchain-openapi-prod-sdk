@@ -147,6 +147,15 @@ class OrderInfo extends Model
      * @var string
      */
     public $promotionId;
+
+    // 融资类型
+    // SUPPLY_CHAIN_FINANCE
+    /**
+     * @example SUPPLY_CHAIN_FINANCE
+     *
+     * @var string
+     */
+    public $fundMode;
     protected $_name = [
         'orderId'              => 'order_id',
         'orderCreateTime'      => 'order_create_time',
@@ -165,6 +174,7 @@ class OrderInfo extends Model
         'merchantName'         => 'merchant_name',
         'divideStartTermIndex' => 'divide_start_term_index',
         'promotionId'          => 'promotion_id',
+        'fundMode'             => 'fund_mode',
     ];
 
     public function validate()
@@ -224,6 +234,9 @@ class OrderInfo extends Model
         }
         if (null !== $this->promotionId) {
             $res['promotion_id'] = $this->promotionId;
+        }
+        if (null !== $this->fundMode) {
+            $res['fund_mode'] = $this->fundMode;
         }
 
         return $res;
@@ -287,6 +300,9 @@ class OrderInfo extends Model
         }
         if (isset($map['promotion_id'])) {
             $model->promotionId = $map['promotion_id'];
+        }
+        if (isset($map['fund_mode'])) {
+            $model->fundMode = $map['fund_mode'];
         }
 
         return $model;

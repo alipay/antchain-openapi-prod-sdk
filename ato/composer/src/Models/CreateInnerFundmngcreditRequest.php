@@ -78,6 +78,12 @@ class CreateInnerFundmngcreditRequest extends Model
      * @var string
      */
     public $creditContent;
+
+    // 页面调用traceid
+    /**
+     * @var string
+     */
+    public $traceId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -91,6 +97,7 @@ class CreateInnerFundmngcreditRequest extends Model
         'creditName'        => 'credit_name',
         'creditFileKey'     => 'credit_file_key',
         'creditContent'     => 'credit_content',
+        'traceId'           => 'trace_id',
     ];
 
     public function validate()
@@ -103,6 +110,7 @@ class CreateInnerFundmngcreditRequest extends Model
         Model::validateRequired('orderNo', $this->orderNo, true);
         Model::validateRequired('contentType', $this->contentType, true);
         Model::validateRequired('creditName', $this->creditName, true);
+        Model::validateRequired('traceId', $this->traceId, true);
     }
 
     public function toMap()
@@ -143,6 +151,9 @@ class CreateInnerFundmngcreditRequest extends Model
         }
         if (null !== $this->creditContent) {
             $res['credit_content'] = $this->creditContent;
+        }
+        if (null !== $this->traceId) {
+            $res['trace_id'] = $this->traceId;
         }
 
         return $res;
@@ -191,6 +202,9 @@ class CreateInnerFundmngcreditRequest extends Model
         }
         if (isset($map['credit_content'])) {
             $model->creditContent = $map['credit_content'];
+        }
+        if (isset($map['trace_id'])) {
+            $model->traceId = $map['trace_id'];
         }
 
         return $model;

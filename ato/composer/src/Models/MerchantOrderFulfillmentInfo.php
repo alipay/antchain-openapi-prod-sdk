@@ -64,13 +64,21 @@ class MerchantOrderFulfillmentInfo extends Model
      */
     public $returnTime;
 
-    // 交易流水号
+    // 外部交易流水号
     /**
-     * @example xxx
+     * @example ATO_xxxx
      *
      * @var string
      */
     public $returnVoucherSerial;
+
+    // 支付宝交易流水号
+    /**
+     * @example 2024082622001472691457627
+     *
+     * @var string
+     */
+    public $alipayTradeNo;
 
     // 资方公司名称
     /**
@@ -79,6 +87,14 @@ class MerchantOrderFulfillmentInfo extends Model
      * @var string
      */
     public $fundCompanyName;
+
+    // 支付描述
+    /**
+     * @example 单期取消
+     *
+     * @var string
+     */
+    public $paymentDescription;
     protected $_name = [
         'termIndex'           => 'term_index',
         'leaseTermIndex'      => 'lease_term_index',
@@ -88,7 +104,9 @@ class MerchantOrderFulfillmentInfo extends Model
         'totalMoney'          => 'total_money',
         'returnTime'          => 'return_time',
         'returnVoucherSerial' => 'return_voucher_serial',
+        'alipayTradeNo'       => 'alipay_trade_no',
         'fundCompanyName'     => 'fund_company_name',
+        'paymentDescription'  => 'payment_description',
     ];
 
     public function validate()
@@ -122,8 +140,14 @@ class MerchantOrderFulfillmentInfo extends Model
         if (null !== $this->returnVoucherSerial) {
             $res['return_voucher_serial'] = $this->returnVoucherSerial;
         }
+        if (null !== $this->alipayTradeNo) {
+            $res['alipay_trade_no'] = $this->alipayTradeNo;
+        }
         if (null !== $this->fundCompanyName) {
             $res['fund_company_name'] = $this->fundCompanyName;
+        }
+        if (null !== $this->paymentDescription) {
+            $res['payment_description'] = $this->paymentDescription;
         }
 
         return $res;
@@ -161,8 +185,14 @@ class MerchantOrderFulfillmentInfo extends Model
         if (isset($map['return_voucher_serial'])) {
             $model->returnVoucherSerial = $map['return_voucher_serial'];
         }
+        if (isset($map['alipay_trade_no'])) {
+            $model->alipayTradeNo = $map['alipay_trade_no'];
+        }
         if (isset($map['fund_company_name'])) {
             $model->fundCompanyName = $map['fund_company_name'];
+        }
+        if (isset($map['payment_description'])) {
+            $model->paymentDescription = $map['payment_description'];
         }
 
         return $model;

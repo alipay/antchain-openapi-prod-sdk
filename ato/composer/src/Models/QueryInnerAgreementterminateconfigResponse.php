@@ -37,12 +37,19 @@ class QueryInnerAgreementterminateconfigResponse extends Model
      * @var string
      */
     public $timeoutDay;
+
+    // 商户侧需要判断是否为间连二级户或者为特殊直连下级商户（如果满足条件则隐藏交易管理下商品以及订单列表）
+    /**
+     * @var bool
+     */
+    public $hideTerminateOrder;
     protected $_name = [
-        'reqMsgId'    => 'req_msg_id',
-        'resultCode'  => 'result_code',
-        'resultMsg'   => 'result_msg',
-        'timeoutHour' => 'timeout_hour',
-        'timeoutDay'  => 'timeout_day',
+        'reqMsgId'           => 'req_msg_id',
+        'resultCode'         => 'result_code',
+        'resultMsg'          => 'result_msg',
+        'timeoutHour'        => 'timeout_hour',
+        'timeoutDay'         => 'timeout_day',
+        'hideTerminateOrder' => 'hide_terminate_order',
     ];
 
     public function validate()
@@ -66,6 +73,9 @@ class QueryInnerAgreementterminateconfigResponse extends Model
         }
         if (null !== $this->timeoutDay) {
             $res['timeout_day'] = $this->timeoutDay;
+        }
+        if (null !== $this->hideTerminateOrder) {
+            $res['hide_terminate_order'] = $this->hideTerminateOrder;
         }
 
         return $res;
@@ -93,6 +103,9 @@ class QueryInnerAgreementterminateconfigResponse extends Model
         }
         if (isset($map['timeout_day'])) {
             $model->timeoutDay = $map['timeout_day'];
+        }
+        if (isset($map['hide_terminate_order'])) {
+            $model->hideTerminateOrder = $map['hide_terminate_order'];
         }
 
         return $model;

@@ -60,7 +60,7 @@ class GetInnerProductRequest extends Model
         Model::validateMaxLength('merchantTenantId', $this->merchantTenantId, 32);
         Model::validateMaxLength('merchantId', $this->merchantId, 199);
         Model::validateMaxLength('productId', $this->productId, 32);
-        Model::validateMaxLength('productVersion', $this->productVersion, 10);
+        Model::validateMaxLength('productVersion', $this->productVersion, 32);
         Model::validateMinLength('merchantTenantId', $this->merchantTenantId, 1);
         Model::validateMinLength('merchantId', $this->merchantId, 1);
         Model::validateMinLength('productId', $this->productId, 1);
