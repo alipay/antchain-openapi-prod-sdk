@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.10.2',
+                    'sdk_version': '1.10.4',
                     '_prod_code': 'INSURANCE_SAAS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.10.2',
+                    'sdk_version': '1.10.4',
                     '_prod_code': 'INSURANCE_SAAS',
                     '_prod_channel': 'undefined'
                 }
@@ -2065,4 +2065,60 @@ class Client:
         return TeaCore.from_map(
             insurance__saas_models.NotifyInterestSupplierorderResponse(),
             await self.do_request_async('1.0', 'antcloud.insurance.interest.supplierorder.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def receive_lead_market(
+        self,
+        request: insurance__saas_models.ReceiveLeadMarketRequest,
+    ) -> insurance__saas_models.ReceiveLeadMarketResponse:
+        """
+        Description: 车险线索营销结果接收
+        Summary: 车险线索营销结果接收
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.receive_lead_market_ex(request, headers, runtime)
+
+    async def receive_lead_market_async(
+        self,
+        request: insurance__saas_models.ReceiveLeadMarketRequest,
+    ) -> insurance__saas_models.ReceiveLeadMarketResponse:
+        """
+        Description: 车险线索营销结果接收
+        Summary: 车险线索营销结果接收
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.receive_lead_market_ex_async(request, headers, runtime)
+
+    def receive_lead_market_ex(
+        self,
+        request: insurance__saas_models.ReceiveLeadMarketRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.ReceiveLeadMarketResponse:
+        """
+        Description: 车险线索营销结果接收
+        Summary: 车险线索营销结果接收
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.ReceiveLeadMarketResponse(),
+            self.do_request('1.0', 'antcloud.insurance.lead.market.receive', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def receive_lead_market_ex_async(
+        self,
+        request: insurance__saas_models.ReceiveLeadMarketRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.ReceiveLeadMarketResponse:
+        """
+        Description: 车险线索营销结果接收
+        Summary: 车险线索营销结果接收
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.ReceiveLeadMarketResponse(),
+            await self.do_request_async('1.0', 'antcloud.insurance.lead.market.receive', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
