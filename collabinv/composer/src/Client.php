@@ -11,6 +11,8 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\COLLABINV\Models\AddCaruserUsersRequest;
+use AntChain\COLLABINV\Models\AddCaruserUsersResponse;
 use AntChain\COLLABINV\Models\BatchdeleteAgentConversationRequest;
 use AntChain\COLLABINV\Models\BatchdeleteAgentConversationResponse;
 use AntChain\COLLABINV\Models\BatchqueryCarloanUsersRequest;
@@ -41,6 +43,8 @@ use AntChain\COLLABINV\Models\QueryAgentCompletionRequest;
 use AntChain\COLLABINV\Models\QueryAgentCompletionResponse;
 use AntChain\COLLABINV\Models\QueryAgentSseRequest;
 use AntChain\COLLABINV\Models\QueryAgentSseResponse;
+use AntChain\COLLABINV\Models\QueryCarloanUsersRequest;
+use AntChain\COLLABINV\Models\QueryCarloanUsersResponse;
 use AntChain\COLLABINV\Models\QueryIndexresearchBrandindexRequest;
 use AntChain\COLLABINV\Models\QueryIndexresearchBrandindexResponse;
 use AntChain\COLLABINV\Models\QueryIndexresearchBrandRequest;
@@ -218,7 +222,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.52',
+                    'sdk_version'      => '1.0.53',
                     '_prod_code'       => 'COLLABINV',
                     '_prod_channel'    => 'default',
                 ];
@@ -613,6 +617,72 @@ class Client
         Utils::validateModel($request);
 
         return ImportCarloanUsersResponse::fromMap($this->doRequest('1.0', 'antchain.zkcollabinv.carloan.users.import', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 添加用户
+     * Summary: 添加天猫用户.
+     *
+     * @param AddCaruserUsersRequest $request
+     *
+     * @return AddCaruserUsersResponse
+     */
+    public function addCaruserUsers($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->addCaruserUsersEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 添加用户
+     * Summary: 添加天猫用户.
+     *
+     * @param AddCaruserUsersRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return AddCaruserUsersResponse
+     */
+    public function addCaruserUsersEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AddCaruserUsersResponse::fromMap($this->doRequest('1.0', 'antchain.zkcollabinv.caruser.users.add', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询匹配结果
+     * Summary: 查询结果.
+     *
+     * @param QueryCarloanUsersRequest $request
+     *
+     * @return QueryCarloanUsersResponse
+     */
+    public function queryCarloanUsers($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryCarloanUsersEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询匹配结果
+     * Summary: 查询结果.
+     *
+     * @param QueryCarloanUsersRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return QueryCarloanUsersResponse
+     */
+    public function queryCarloanUsersEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryCarloanUsersResponse::fromMap($this->doRequest('1.0', 'antchain.zkcollabinv.carloan.users.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
