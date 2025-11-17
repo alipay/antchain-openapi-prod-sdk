@@ -1096,6 +1096,136 @@ export class ImportCarloanUsersResponse extends $tea.Model {
   }
 }
 
+export class AddCaruserUsersRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 业务的id
+  businessId: string[];
+  // 数据的唯一code
+  dataUniqloCode: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      businessId: 'business_id',
+      dataUniqloCode: 'data_uniqlo_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      businessId: { 'type': 'array', 'itemType': 'string' },
+      dataUniqloCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AddCaruserUsersResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 处理结果
+  processResult?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      processResult: 'process_result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      processResult: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryCarloanUsersRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 日期
+  date: string;
+  // 分页
+  pageInfo: PageInfo;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      date: 'date',
+      pageInfo: 'page_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      date: 'string',
+      pageInfo: PageInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryCarloanUsersResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 业务id
+  data?: string[];
+  // 分页
+  pageInfo?: PageInfo;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+      pageInfo: 'page_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: { 'type': 'array', 'itemType': 'string' },
+      pageInfo: PageInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class ImportIdmapSamplefileRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -2810,7 +2940,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.52",
+          sdk_version: "1.0.53",
           _prod_code: "COLLABINV",
           _prod_channel: "default",
         };
@@ -3068,6 +3198,44 @@ export default class Client {
 
     Util.validateModel(request);
     return $tea.cast<ImportCarloanUsersResponse>(await this.doRequest("1.0", "antchain.zkcollabinv.carloan.users.import", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ImportCarloanUsersResponse({}));
+  }
+
+  /**
+   * Description: 添加用户
+   * Summary: 添加天猫用户
+   */
+  async addCaruserUsers(request: AddCaruserUsersRequest): Promise<AddCaruserUsersResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.addCaruserUsersEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 添加用户
+   * Summary: 添加天猫用户
+   */
+  async addCaruserUsersEx(request: AddCaruserUsersRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<AddCaruserUsersResponse> {
+    Util.validateModel(request);
+    return $tea.cast<AddCaruserUsersResponse>(await this.doRequest("1.0", "antchain.zkcollabinv.caruser.users.add", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new AddCaruserUsersResponse({}));
+  }
+
+  /**
+   * Description: 查询匹配结果
+   * Summary: 查询结果
+   */
+  async queryCarloanUsers(request: QueryCarloanUsersRequest): Promise<QueryCarloanUsersResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryCarloanUsersEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询匹配结果
+   * Summary: 查询结果
+   */
+  async queryCarloanUsersEx(request: QueryCarloanUsersRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryCarloanUsersResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryCarloanUsersResponse>(await this.doRequest("1.0", "antchain.zkcollabinv.carloan.users.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryCarloanUsersResponse({}));
   }
 
   /**
