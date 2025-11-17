@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.52"),
+                    new TeaPair("sdk_version", "1.0.53"),
                     new TeaPair("_prod_code", "COLLABINV"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -418,6 +418,48 @@ public class Client {
 
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.zkcollabinv.carloan.users.import", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ImportCarloanUsersResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 添加用户
+     * Summary: 添加天猫用户</p>
+     */
+    public AddCaruserUsersResponse addCaruserUsers(AddCaruserUsersRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.addCaruserUsersEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 添加用户
+     * Summary: 添加天猫用户</p>
+     */
+    public AddCaruserUsersResponse addCaruserUsersEx(AddCaruserUsersRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.zkcollabinv.caruser.users.add", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AddCaruserUsersResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询匹配结果
+     * Summary: 查询结果</p>
+     */
+    public QueryCarloanUsersResponse queryCarloanUsers(QueryCarloanUsersRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryCarloanUsersEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询匹配结果
+     * Summary: 查询结果</p>
+     */
+    public QueryCarloanUsersResponse queryCarloanUsersEx(QueryCarloanUsersRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.zkcollabinv.carloan.users.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCarloanUsersResponse());
     }
 
     /**
