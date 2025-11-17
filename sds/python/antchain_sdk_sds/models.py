@@ -160,6 +160,7 @@ class BatchResult(TeaModel):
         biz_no: str = None,
         biz_no_type: str = None,
         result: str = None,
+        result_code: str = None,
     ):
         # 业务号
         self.biz_no = biz_no
@@ -167,6 +168,8 @@ class BatchResult(TeaModel):
         self.biz_no_type = biz_no_type
         # 结果
         self.result = result
+        # 结果码
+        self.result_code = result_code
 
     def validate(self):
         self.validate_required(self.biz_no, 'biz_no')
@@ -175,7 +178,6 @@ class BatchResult(TeaModel):
         self.validate_required(self.biz_no_type, 'biz_no_type')
         if self.biz_no_type is not None:
             self.validate_max_length(self.biz_no_type, 'biz_no_type', 32)
-        self.validate_required(self.result, 'result')
 
     def to_map(self):
         _map = super().to_map()
@@ -189,6 +191,8 @@ class BatchResult(TeaModel):
             result['biz_no_type'] = self.biz_no_type
         if self.result is not None:
             result['result'] = self.result
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
         return result
 
     def from_map(self, m: dict = None):
@@ -199,6 +203,8 @@ class BatchResult(TeaModel):
             self.biz_no_type = m.get('biz_no_type')
         if m.get('result') is not None:
             self.result = m.get('result')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
         return self
 
 
