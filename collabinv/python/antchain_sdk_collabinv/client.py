@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.52',
+                    'sdk_version': '1.0.53',
                     '_prod_code': 'COLLABINV',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.52',
+                    'sdk_version': '1.0.53',
                     '_prod_code': 'COLLABINV',
                     '_prod_channel': 'default'
                 }
@@ -869,6 +869,118 @@ class Client:
         return TeaCore.from_map(
             collabinv_models.ImportCarloanUsersResponse(),
             await self.do_request_async('1.0', 'antchain.zkcollabinv.carloan.users.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def add_caruser_users(
+        self,
+        request: collabinv_models.AddCaruserUsersRequest,
+    ) -> collabinv_models.AddCaruserUsersResponse:
+        """
+        Description: 添加用户
+        Summary: 添加天猫用户
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.add_caruser_users_ex(request, headers, runtime)
+
+    async def add_caruser_users_async(
+        self,
+        request: collabinv_models.AddCaruserUsersRequest,
+    ) -> collabinv_models.AddCaruserUsersResponse:
+        """
+        Description: 添加用户
+        Summary: 添加天猫用户
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.add_caruser_users_ex_async(request, headers, runtime)
+
+    def add_caruser_users_ex(
+        self,
+        request: collabinv_models.AddCaruserUsersRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> collabinv_models.AddCaruserUsersResponse:
+        """
+        Description: 添加用户
+        Summary: 添加天猫用户
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            collabinv_models.AddCaruserUsersResponse(),
+            self.do_request('1.0', 'antchain.zkcollabinv.caruser.users.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def add_caruser_users_ex_async(
+        self,
+        request: collabinv_models.AddCaruserUsersRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> collabinv_models.AddCaruserUsersResponse:
+        """
+        Description: 添加用户
+        Summary: 添加天猫用户
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            collabinv_models.AddCaruserUsersResponse(),
+            await self.do_request_async('1.0', 'antchain.zkcollabinv.caruser.users.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_carloan_users(
+        self,
+        request: collabinv_models.QueryCarloanUsersRequest,
+    ) -> collabinv_models.QueryCarloanUsersResponse:
+        """
+        Description: 查询匹配结果
+        Summary: 查询结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_carloan_users_ex(request, headers, runtime)
+
+    async def query_carloan_users_async(
+        self,
+        request: collabinv_models.QueryCarloanUsersRequest,
+    ) -> collabinv_models.QueryCarloanUsersResponse:
+        """
+        Description: 查询匹配结果
+        Summary: 查询结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_carloan_users_ex_async(request, headers, runtime)
+
+    def query_carloan_users_ex(
+        self,
+        request: collabinv_models.QueryCarloanUsersRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> collabinv_models.QueryCarloanUsersResponse:
+        """
+        Description: 查询匹配结果
+        Summary: 查询结果
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            collabinv_models.QueryCarloanUsersResponse(),
+            self.do_request('1.0', 'antchain.zkcollabinv.carloan.users.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_carloan_users_ex_async(
+        self,
+        request: collabinv_models.QueryCarloanUsersRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> collabinv_models.QueryCarloanUsersResponse:
+        """
+        Description: 查询匹配结果
+        Summary: 查询结果
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            collabinv_models.QueryCarloanUsersResponse(),
+            await self.do_request_async('1.0', 'antchain.zkcollabinv.carloan.users.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def import_idmap_samplefile(

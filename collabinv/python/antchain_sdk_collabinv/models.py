@@ -1811,6 +1811,214 @@ class ImportCarloanUsersResponse(TeaModel):
         return self
 
 
+class AddCaruserUsersRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        business_id: List[str] = None,
+        data_uniqlo_code: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 业务的id
+        self.business_id = business_id
+        # 数据的唯一code
+        self.data_uniqlo_code = data_uniqlo_code
+
+    def validate(self):
+        self.validate_required(self.business_id, 'business_id')
+        self.validate_required(self.data_uniqlo_code, 'data_uniqlo_code')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.business_id is not None:
+            result['business_id'] = self.business_id
+        if self.data_uniqlo_code is not None:
+            result['data_uniqlo_code'] = self.data_uniqlo_code
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('business_id') is not None:
+            self.business_id = m.get('business_id')
+        if m.get('data_uniqlo_code') is not None:
+            self.data_uniqlo_code = m.get('data_uniqlo_code')
+        return self
+
+
+class AddCaruserUsersResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        process_result: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 处理结果
+        self.process_result = process_result
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.process_result is not None:
+            result['process_result'] = self.process_result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('process_result') is not None:
+            self.process_result = m.get('process_result')
+        return self
+
+
+class QueryCarloanUsersRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        date: str = None,
+        page_info: PageInfo = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 日期
+        self.date = date
+        # 分页
+        self.page_info = page_info
+
+    def validate(self):
+        self.validate_required(self.date, 'date')
+        self.validate_required(self.page_info, 'page_info')
+        if self.page_info:
+            self.page_info.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.date is not None:
+            result['date'] = self.date
+        if self.page_info is not None:
+            result['page_info'] = self.page_info.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('date') is not None:
+            self.date = m.get('date')
+        if m.get('page_info') is not None:
+            temp_model = PageInfo()
+            self.page_info = temp_model.from_map(m['page_info'])
+        return self
+
+
+class QueryCarloanUsersResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: List[str] = None,
+        page_info: PageInfo = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 业务id
+        self.data = data
+        # 分页
+        self.page_info = page_info
+
+    def validate(self):
+        if self.page_info:
+            self.page_info.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.data is not None:
+            result['data'] = self.data
+        if self.page_info is not None:
+            result['page_info'] = self.page_info.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('data') is not None:
+            self.data = m.get('data')
+        if m.get('page_info') is not None:
+            temp_model = PageInfo()
+            self.page_info = temp_model.from_map(m['page_info'])
+        return self
+
+
 class ImportIdmapSamplefileRequest(TeaModel):
     def __init__(
         self,
