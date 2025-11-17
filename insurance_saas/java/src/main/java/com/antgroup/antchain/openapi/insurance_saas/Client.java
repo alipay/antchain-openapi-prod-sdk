@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.10.2"),
+                    new TeaPair("sdk_version", "1.10.4"),
                     new TeaPair("_prod_code", "INSURANCE_SAAS"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -858,5 +858,26 @@ public class Client {
     public NotifyInterestSupplierorderResponse notifyInterestSupplierorderEx(NotifyInterestSupplierorderRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.insurance.interest.supplierorder.notify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new NotifyInterestSupplierorderResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 车险线索营销结果接收
+     * Summary: 车险线索营销结果接收</p>
+     */
+    public ReceiveLeadMarketResponse receiveLeadMarket(ReceiveLeadMarketRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.receiveLeadMarketEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 车险线索营销结果接收
+     * Summary: 车险线索营销结果接收</p>
+     */
+    public ReceiveLeadMarketResponse receiveLeadMarketEx(ReceiveLeadMarketRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.insurance.lead.market.receive", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ReceiveLeadMarketResponse());
     }
 }
