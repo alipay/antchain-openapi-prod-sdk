@@ -1,6 +1,6 @@
 {
   "name": "@antchain/sds",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "",
   "main": "dist/client.js",
   "scripts": {

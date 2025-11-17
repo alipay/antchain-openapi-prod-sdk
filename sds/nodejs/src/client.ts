@@ -85,12 +85,15 @@ export class BatchResult extends $tea.Model {
   // 业务号类型
   bizNoType: string;
   // 结果
-  result: string;
+  result?: string;
+  // 结果码
+  resultCode?: string;
   static names(): { [key: string]: string } {
     return {
       bizNo: 'biz_no',
       bizNoType: 'biz_no_type',
       result: 'result',
+      resultCode: 'result_code',
     };
   }
 
@@ -99,6 +102,7 @@ export class BatchResult extends $tea.Model {
       bizNo: 'string',
       bizNoType: 'string',
       result: 'string',
+      resultCode: 'string',
     };
   }
 
@@ -879,7 +883,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.4.0",
+          sdk_version: "1.4.1",
           _prod_code: "SDS",
           _prod_channel: "default",
         };
