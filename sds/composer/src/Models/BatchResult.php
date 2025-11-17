@@ -31,17 +31,25 @@ class BatchResult extends Model
      * @var string
      */
     public $result;
+
+    // 结果码
+    /**
+     * @example rights_rights-config-not-exist
+     *
+     * @var string
+     */
+    public $resultCode;
     protected $_name = [
-        'bizNo'     => 'biz_no',
-        'bizNoType' => 'biz_no_type',
-        'result'    => 'result',
+        'bizNo'      => 'biz_no',
+        'bizNoType'  => 'biz_no_type',
+        'result'     => 'result',
+        'resultCode' => 'result_code',
     ];
 
     public function validate()
     {
         Model::validateRequired('bizNo', $this->bizNo, true);
         Model::validateRequired('bizNoType', $this->bizNoType, true);
-        Model::validateRequired('result', $this->result, true);
         Model::validateMaxLength('bizNo', $this->bizNo, 64);
         Model::validateMaxLength('bizNoType', $this->bizNoType, 32);
     }
@@ -57,6 +65,9 @@ class BatchResult extends Model
         }
         if (null !== $this->result) {
             $res['result'] = $this->result;
+        }
+        if (null !== $this->resultCode) {
+            $res['result_code'] = $this->resultCode;
         }
 
         return $res;
@@ -78,6 +89,9 @@ class BatchResult extends Model
         }
         if (isset($map['result'])) {
             $model->result = $map['result'];
+        }
+        if (isset($map['result_code'])) {
+            $model->resultCode = $map['result_code'];
         }
 
         return $model;
