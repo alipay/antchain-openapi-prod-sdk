@@ -156,7 +156,9 @@ type BatchResult struct {
 	// 业务号类型
 	BizNoType *string `json:"biz_no_type,omitempty" xml:"biz_no_type,omitempty" require:"true" maxLength:"32"`
 	// 结果
-	Result *string `json:"result,omitempty" xml:"result,omitempty" require:"true"`
+	Result *string `json:"result,omitempty" xml:"result,omitempty"`
+	// 结果码
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 }
 
 func (s BatchResult) String() string {
@@ -179,6 +181,11 @@ func (s *BatchResult) SetBizNoType(v string) *BatchResult {
 
 func (s *BatchResult) SetResult(v string) *BatchResult {
 	s.Result = &v
+	return s
+}
+
+func (s *BatchResult) SetResultCode(v string) *BatchResult {
+	s.ResultCode = &v
 	return s
 }
 
@@ -1148,7 +1155,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.4.0"),
+				"sdk_version":      tea.String("1.4.1"),
 				"_prod_code":       tea.String("SDS"),
 				"_prod_channel":    tea.String("default"),
 			}
