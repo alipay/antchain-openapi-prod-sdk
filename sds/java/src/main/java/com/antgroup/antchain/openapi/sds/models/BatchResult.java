@@ -28,8 +28,15 @@ public class BatchResult extends TeaModel {
      * <p>Y</p>
      */
     @NameInMap("result")
-    @Validation(required = true)
     public String result;
+
+    // 结果码
+    /**
+     * <strong>example:</strong>
+     * <p>rights_rights-config-not-exist </p>
+     */
+    @NameInMap("result_code")
+    public String resultCode;
 
     public static BatchResult build(java.util.Map<String, ?> map) throws Exception {
         BatchResult self = new BatchResult();
@@ -58,6 +65,14 @@ public class BatchResult extends TeaModel {
     }
     public String getResult() {
         return this.result;
+    }
+
+    public BatchResult setResultCode(String resultCode) {
+        this.resultCode = resultCode;
+        return this;
+    }
+    public String getResultCode() {
+        return this.resultCode;
     }
 
 }
