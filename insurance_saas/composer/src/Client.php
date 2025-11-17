@@ -63,6 +63,8 @@ use AntChain\INSURANCE_SAAS\Models\QueryReverseCommissionRequest;
 use AntChain\INSURANCE_SAAS\Models\QueryReverseCommissionResponse;
 use AntChain\INSURANCE_SAAS\Models\QueryUnderwritingRequest;
 use AntChain\INSURANCE_SAAS\Models\QueryUnderwritingResponse;
+use AntChain\INSURANCE_SAAS\Models\ReceiveLeadMarketRequest;
+use AntChain\INSURANCE_SAAS\Models\ReceiveLeadMarketResponse;
 use AntChain\INSURANCE_SAAS\Models\SubmitInquiryRequest;
 use AntChain\INSURANCE_SAAS\Models\SubmitInquiryResponse;
 use AntChain\INSURANCE_SAAS\Models\SubmitInvestigateCaseRequest;
@@ -222,7 +224,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.10.2',
+                    'sdk_version'      => '1.10.4',
                     '_prod_code'       => 'INSURANCE_SAAS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1324,5 +1326,38 @@ class Client
         Utils::validateModel($request);
 
         return NotifyInterestSupplierorderResponse::fromMap($this->doRequest('1.0', 'antcloud.insurance.interest.supplierorder.notify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 车险线索营销结果接收
+     * Summary: 车险线索营销结果接收.
+     *
+     * @param ReceiveLeadMarketRequest $request
+     *
+     * @return ReceiveLeadMarketResponse
+     */
+    public function receiveLeadMarket($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->receiveLeadMarketEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 车险线索营销结果接收
+     * Summary: 车险线索营销结果接收.
+     *
+     * @param ReceiveLeadMarketRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return ReceiveLeadMarketResponse
+     */
+    public function receiveLeadMarketEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ReceiveLeadMarketResponse::fromMap($this->doRequest('1.0', 'antcloud.insurance.lead.market.receive', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
