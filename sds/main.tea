@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.4.0',
+    sdk_version = '1.4.1',
     _prod_code = 'SDS',
     _prod_channel = 'default'
   };
@@ -168,7 +168,9 @@ model BatchResult {
   // 业务号类型
   bizNoType: string(maxLength=32, name='biz_no_type', example='PHONE_SHA1'),
   // 结果
-  result: string(name='result', example='Y'),
+  result?: string(name='result', example='Y'),
+  // 结果码
+  resultCode?: string(name='result_code', example='rights_rights-config-not-exist '),
 }
 
 // 任务详细结果包含任务的统计数据信息
