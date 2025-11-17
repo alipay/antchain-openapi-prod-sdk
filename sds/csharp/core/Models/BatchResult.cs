@@ -22,8 +22,13 @@ namespace AntChain.SDK.SDS.Models
 
         // 结果
         [NameInMap("result")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string Result { get; set; }
+
+        // 结果码
+        [NameInMap("result_code")]
+        [Validation(Required=false)]
+        public string ResultCode { get; set; }
 
     }
 
