@@ -4039,6 +4039,84 @@ func (s *NotifyInterestSupplierorderResponse) SetBizResult(v string) *NotifyInte
 	return s
 }
 
+type ReceiveLeadMarketRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 线索唯一id
+	LeadId *string `json:"lead_id,omitempty" xml:"lead_id,omitempty" require:"true"`
+	// 本次固定传LMKT_LEADS_TRANSFER
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
+	// 业务参数，json
+	BizContent *string `json:"biz_content,omitempty" xml:"biz_content,omitempty" require:"true"`
+}
+
+func (s ReceiveLeadMarketRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ReceiveLeadMarketRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ReceiveLeadMarketRequest) SetAuthToken(v string) *ReceiveLeadMarketRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ReceiveLeadMarketRequest) SetLeadId(v string) *ReceiveLeadMarketRequest {
+	s.LeadId = &v
+	return s
+}
+
+func (s *ReceiveLeadMarketRequest) SetProductCode(v string) *ReceiveLeadMarketRequest {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *ReceiveLeadMarketRequest) SetBizContent(v string) *ReceiveLeadMarketRequest {
+	s.BizContent = &v
+	return s
+}
+
+type ReceiveLeadMarketResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回结果
+	BizResult *string `json:"biz_result,omitempty" xml:"biz_result,omitempty"`
+}
+
+func (s ReceiveLeadMarketResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ReceiveLeadMarketResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ReceiveLeadMarketResponse) SetReqMsgId(v string) *ReceiveLeadMarketResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ReceiveLeadMarketResponse) SetResultCode(v string) *ReceiveLeadMarketResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ReceiveLeadMarketResponse) SetResultMsg(v string) *ReceiveLeadMarketResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ReceiveLeadMarketResponse) SetBizResult(v string) *ReceiveLeadMarketResponse {
+	s.BizResult = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -4161,7 +4239,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.10.2"),
+				"sdk_version":      tea.String("1.10.4"),
 				"_prod_code":       tea.String("INSURANCE_SAAS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -5300,6 +5378,40 @@ func (client *Client) NotifyInterestSupplierorderEx(request *NotifyInterestSuppl
 	}
 	_result = &NotifyInterestSupplierorderResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.insurance.interest.supplierorder.notify"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 车险线索营销结果接收
+ * Summary: 车险线索营销结果接收
+ */
+func (client *Client) ReceiveLeadMarket(request *ReceiveLeadMarketRequest) (_result *ReceiveLeadMarketResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ReceiveLeadMarketResponse{}
+	_body, _err := client.ReceiveLeadMarketEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 车险线索营销结果接收
+ * Summary: 车险线索营销结果接收
+ */
+func (client *Client) ReceiveLeadMarketEx(request *ReceiveLeadMarketRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ReceiveLeadMarketResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ReceiveLeadMarketResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.insurance.lead.market.receive"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
