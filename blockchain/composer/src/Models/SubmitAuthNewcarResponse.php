@@ -32,12 +32,12 @@ class SubmitAuthNewcarResponse extends Model
     /**
      * @var string
      */
-    public $pushSuccess;
+    public $pushResultCode;
     protected $_name = [
-        'reqMsgId'    => 'req_msg_id',
-        'resultCode'  => 'result_code',
-        'resultMsg'   => 'result_msg',
-        'pushSuccess' => 'push_success',
+        'reqMsgId'       => 'req_msg_id',
+        'resultCode'     => 'result_code',
+        'resultMsg'      => 'result_msg',
+        'pushResultCode' => 'push_result_code',
     ];
 
     public function validate()
@@ -56,8 +56,8 @@ class SubmitAuthNewcarResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->pushSuccess) {
-            $res['push_success'] = $this->pushSuccess;
+        if (null !== $this->pushResultCode) {
+            $res['push_result_code'] = $this->pushResultCode;
         }
 
         return $res;
@@ -80,8 +80,8 @@ class SubmitAuthNewcarResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['push_success'])) {
-            $model->pushSuccess = $map['push_success'];
+        if (isset($map['push_result_code'])) {
+            $model->pushResultCode = $map['push_result_code'];
         }
 
         return $model;
