@@ -65399,7 +65399,7 @@ class SubmitAuthNewcarResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        push_success: str = None,
+        push_result_code: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -65410,7 +65410,7 @@ class SubmitAuthNewcarResponse(TeaModel):
         # OK
         # NO_DEMAND 无线索需求，需要重试
         # INVALID 无效，不要重试
-        self.push_success = push_success
+        self.push_result_code = push_result_code
 
     def validate(self):
         pass
@@ -65427,8 +65427,8 @@ class SubmitAuthNewcarResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
-        if self.push_success is not None:
-            result['push_success'] = self.push_success
+        if self.push_result_code is not None:
+            result['push_result_code'] = self.push_result_code
         return result
 
     def from_map(self, m: dict = None):
@@ -65439,8 +65439,8 @@ class SubmitAuthNewcarResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
-        if m.get('push_success') is not None:
-            self.push_success = m.get('push_success')
+        if m.get('push_result_code') is not None:
+            self.push_result_code = m.get('push_result_code')
         return self
 
 
