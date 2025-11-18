@@ -86,7 +86,6 @@ class NewCarInfo extends Model
     {
         Model::validateRequired('carSeries', $this->carSeries, true);
         Model::validateRequired('userInfo', $this->userInfo, true);
-        Model::validateRequired('matchSource', $this->matchSource, true);
     }
 
     public function toMap()

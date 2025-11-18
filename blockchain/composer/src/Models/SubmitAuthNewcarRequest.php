@@ -91,8 +91,6 @@ class SubmitAuthNewcarRequest extends Model
         Model::validateRequired('sceneCode', $this->sceneCode, true);
         Model::validateRequired('userInfo', $this->userInfo, true);
         Model::validateRequired('carSeries', $this->carSeries, true);
-        Model::validateRequired('qcCarSeriesId', $this->qcCarSeriesId, true);
-        Model::validateRequired('matchSource', $this->matchSource, true);
     }
 
     public function toMap()
