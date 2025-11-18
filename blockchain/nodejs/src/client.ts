@@ -7799,7 +7799,7 @@ export class NewCarInfo extends $tea.Model {
   // 用户信息
   userInfo: CarUserInfo;
   // 懂车帝或者汽车之家
-  matchSource: string;
+  matchSource?: string;
   // 汽车之家车型id
   qcCarSeriesId?: string;
   static names(): { [key: string]: string } {
@@ -40143,9 +40143,9 @@ export class SubmitAuthNewcarRequest extends $tea.Model {
   // 提交线索的唯一id
   submitId?: string;
   // 汽车之家车系id
-  qcCarSeriesId: string;
+  qcCarSeriesId?: string;
   // 匹配源
-  matchSource: string;
+  matchSource?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -55585,7 +55585,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.28.68",
+          sdk_version: "1.28.69",
           _prod_code: "BLOCKCHAIN",
           _prod_channel: "undefined",
         };
