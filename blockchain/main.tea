@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.28.68',
+    sdk_version = '1.28.69',
     _prod_code = 'BLOCKCHAIN',
     _prod_channel = 'undefined'
   };
@@ -3141,7 +3141,7 @@ model NewCarInfo {
   // 用户信息
   userInfo: CarUserInfo(name='user_info', example=''),
   // 懂车帝或者汽车之家
-  matchSource: string(name='match_source', example='DCD/QC'),
+  matchSource?: string(name='match_source', example='DCD/QC'),
   // 汽车之家车型id
   qcCarSeriesId?: string(name='qc_car_series_id', example='123'),
 }
@@ -22925,9 +22925,9 @@ model SubmitAuthNewcarRequest = {
   // 提交线索的唯一id
   submitId?: string(name='submit_id'),
   // 汽车之家车系id
-  qcCarSeriesId: string(name='qc_car_series_id'),
+  qcCarSeriesId?: string(name='qc_car_series_id'),
   // 匹配源
-  matchSource: string(name='match_source'),
+  matchSource?: string(name='match_source'),
 }
 
 model SubmitAuthNewcarResponse = {
