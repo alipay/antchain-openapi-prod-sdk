@@ -10106,7 +10106,7 @@ type NewCarInfo struct {
 	// 用户信息
 	UserInfo *CarUserInfo `json:"user_info,omitempty" xml:"user_info,omitempty" require:"true"`
 	// 懂车帝或者汽车之家
-	MatchSource *string `json:"match_source,omitempty" xml:"match_source,omitempty" require:"true"`
+	MatchSource *string `json:"match_source,omitempty" xml:"match_source,omitempty"`
 	// 汽车之家车型id
 	QcCarSeriesId *string `json:"qc_car_series_id,omitempty" xml:"qc_car_series_id,omitempty"`
 }
@@ -52190,9 +52190,9 @@ type SubmitAuthNewcarRequest struct {
 	// 提交线索的唯一id
 	SubmitId *string `json:"submit_id,omitempty" xml:"submit_id,omitempty"`
 	// 汽车之家车系id
-	QcCarSeriesId *string `json:"qc_car_series_id,omitempty" xml:"qc_car_series_id,omitempty" require:"true"`
+	QcCarSeriesId *string `json:"qc_car_series_id,omitempty" xml:"qc_car_series_id,omitempty"`
 	// 匹配源
-	MatchSource *string `json:"match_source,omitempty" xml:"match_source,omitempty" require:"true"`
+	MatchSource *string `json:"match_source,omitempty" xml:"match_source,omitempty"`
 }
 
 func (s SubmitAuthNewcarRequest) String() string {
@@ -72221,7 +72221,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.28.68"),
+				"sdk_version":      tea.String("1.28.69"),
 				"_prod_code":       tea.String("BLOCKCHAIN"),
 				"_prod_channel":    tea.String("undefined"),
 			}
