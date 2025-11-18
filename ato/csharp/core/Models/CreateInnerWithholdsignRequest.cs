@@ -33,6 +33,11 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false, MaxLength=64)]
         public string AlipayUserId { get; set; }
 
+        // 合并签署的flowid
+        [NameInMap("flow_id")]
+        [Validation(Required=false)]
+        public string FlowId { get; set; }
+
     }
 
 }

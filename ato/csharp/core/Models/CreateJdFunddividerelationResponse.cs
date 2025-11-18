@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.ATO.Models
 {
-    public class SubmitInnerFundmngdatadownloadResponse : TeaModel {
+    public class CreateJdFunddividerelationResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,22 +24,10 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 线上；线下
-        [NameInMap("download_type")]
+        // 分账关系id
+        [NameInMap("relation_id")]
         [Validation(Required=false)]
-        public string DownloadType { get; set; }
-
-        // 下载链接
-        [NameInMap("download_url")]
-        [Validation(Required=false)]
-        public string DownloadUrl { get; set; }
-
-        // 状态
-        // TODO 待处理
-        // FINISH 完成
-        [NameInMap("status")]
-        [Validation(Required=false)]
-        public string Status { get; set; }
+        public string RelationId { get; set; }
 
     }
 

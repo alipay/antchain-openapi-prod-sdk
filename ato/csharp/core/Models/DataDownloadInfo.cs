@@ -50,6 +50,16 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string ResultInfo { get; set; }
 
+        // 融资类型
+        [NameInMap("fund_mode")]
+        [Validation(Required=false)]
+        public string FundMode { get; set; }
+
+        // 放款渠道
+        [NameInMap("loan_channel")]
+        [Validation(Required=false)]
+        public string LoanChannel { get; set; }
+
     }
 
 }

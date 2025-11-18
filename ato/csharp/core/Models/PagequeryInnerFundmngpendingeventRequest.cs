@@ -42,6 +42,11 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=true)]
         public PageQuery PageInfo { get; set; }
 
+        // 页面traceId
+        [NameInMap("trace_id")]
+        [Validation(Required=true)]
+        public string TraceId { get; set; }
+
     }
 
 }

@@ -30,6 +30,11 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public List<PaymentItem> PaymentItemList { get; set; }
 
+        // 是否无需履约
+        [NameInMap("no_performance")]
+        [Validation(Required=false)]
+        public string NoPerformance { get; set; }
+
     }
 
 }

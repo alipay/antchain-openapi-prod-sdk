@@ -137,7 +137,7 @@ namespace AntChain.SDK.ATO
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.16.27"},
+                        {"sdk_version", "1.16.35"},
                         {"_prod_code", "ATO"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.ATO
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.16.27"},
+                        {"sdk_version", "1.16.35"},
                         {"_prod_code", "ATO"},
                         {"_prod_channel", "undefined"},
                     };
@@ -361,6 +361,48 @@ namespace AntChain.SDK.ATO
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<TransferBrokerUserdataResponse>(await DoRequestAsync("1.0", "antchain.ato.broker.userdata.transfer", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 京东分账关系绑定
+         * Summary: 京东分账关系绑定
+         */
+        public CreateJdFunddividerelationResponse CreateJdFunddividerelation(CreateJdFunddividerelationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateJdFunddividerelationEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 京东分账关系绑定
+         * Summary: 京东分账关系绑定
+         */
+        public async Task<CreateJdFunddividerelationResponse> CreateJdFunddividerelationAsync(CreateJdFunddividerelationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateJdFunddividerelationExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 京东分账关系绑定
+         * Summary: 京东分账关系绑定
+         */
+        public CreateJdFunddividerelationResponse CreateJdFunddividerelationEx(CreateJdFunddividerelationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateJdFunddividerelationResponse>(DoRequest("1.0", "antchain.ato.jd.funddividerelation.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 京东分账关系绑定
+         * Summary: 京东分账关系绑定
+         */
+        public async Task<CreateJdFunddividerelationResponse> CreateJdFunddividerelationExAsync(CreateJdFunddividerelationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateJdFunddividerelationResponse>(await DoRequestAsync("1.0", "antchain.ato.jd.funddividerelation.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
