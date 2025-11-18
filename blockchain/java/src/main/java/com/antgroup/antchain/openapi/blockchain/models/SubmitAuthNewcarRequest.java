@@ -44,12 +44,10 @@ public class SubmitAuthNewcarRequest extends TeaModel {
 
     // 汽车之家车系id
     @NameInMap("qc_car_series_id")
-    @Validation(required = true)
     public String qcCarSeriesId;
 
     // 匹配源
     @NameInMap("match_source")
-    @Validation(required = true)
     public String matchSource;
 
     public static SubmitAuthNewcarRequest build(java.util.Map<String, ?> map) throws Exception {

@@ -56,7 +56,6 @@ public class NewCarInfo extends TeaModel {
      * <p>DCD/QC</p>
      */
     @NameInMap("match_source")
-    @Validation(required = true)
     public String matchSource;
 
     // 汽车之家车型id
