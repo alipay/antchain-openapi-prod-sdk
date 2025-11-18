@@ -46,6 +46,12 @@ class PagequeryInnerFundmngpendingeventRequest extends Model
      * @var PageQuery
      */
     public $pageInfo;
+
+    // 页面traceId
+    /**
+     * @var string
+     */
+    public $traceId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -53,6 +59,7 @@ class PagequeryInnerFundmngpendingeventRequest extends Model
         'statusList'        => 'status_list',
         'pendingCode'       => 'pending_code',
         'pageInfo'          => 'page_info',
+        'traceId'           => 'trace_id',
     ];
 
     public function validate()
@@ -61,6 +68,7 @@ class PagequeryInnerFundmngpendingeventRequest extends Model
         Model::validateRequired('statusList', $this->statusList, true);
         Model::validateRequired('pendingCode', $this->pendingCode, true);
         Model::validateRequired('pageInfo', $this->pageInfo, true);
+        Model::validateRequired('traceId', $this->traceId, true);
     }
 
     public function toMap()
@@ -83,6 +91,9 @@ class PagequeryInnerFundmngpendingeventRequest extends Model
         }
         if (null !== $this->pageInfo) {
             $res['page_info'] = null !== $this->pageInfo ? $this->pageInfo->toMap() : null;
+        }
+        if (null !== $this->traceId) {
+            $res['trace_id'] = $this->traceId;
         }
 
         return $res;
@@ -115,6 +126,9 @@ class PagequeryInnerFundmngpendingeventRequest extends Model
         }
         if (isset($map['page_info'])) {
             $model->pageInfo = PageQuery::fromMap($map['page_info']);
+        }
+        if (isset($map['trace_id'])) {
+            $model->traceId = $map['trace_id'];
         }
 
         return $model;

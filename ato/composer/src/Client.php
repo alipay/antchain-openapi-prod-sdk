@@ -107,6 +107,8 @@ use AntChain\ATO\Models\CreateInnerWithholdsignRequest;
 use AntChain\ATO\Models\CreateInnerWithholdsignResponse;
 use AntChain\ATO\Models\CreateInsureRequest;
 use AntChain\ATO\Models\CreateInsureResponse;
+use AntChain\ATO\Models\CreateJdFunddividerelationRequest;
+use AntChain\ATO\Models\CreateJdFunddividerelationResponse;
 use AntChain\ATO\Models\CreateKnowledgeCategoryRequest;
 use AntChain\ATO\Models\CreateKnowledgeCategoryResponse;
 use AntChain\ATO\Models\CreateRealpersonFacevrfRequest;
@@ -664,7 +666,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.16.27',
+                    'sdk_version'      => '1.16.35',
                     '_prod_code'       => 'ATO',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -743,6 +745,39 @@ class Client
         Utils::validateModel($request);
 
         return TransferBrokerUserdataResponse::fromMap($this->doRequest('1.0', 'antchain.ato.broker.userdata.transfer', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 京东分账关系绑定
+     * Summary: 京东分账关系绑定.
+     *
+     * @param CreateJdFunddividerelationRequest $request
+     *
+     * @return CreateJdFunddividerelationResponse
+     */
+    public function createJdFunddividerelation($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createJdFunddividerelationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 京东分账关系绑定
+     * Summary: 京东分账关系绑定.
+     *
+     * @param CreateJdFunddividerelationRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return CreateJdFunddividerelationResponse
+     */
+    public function createJdFunddividerelationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateJdFunddividerelationResponse::fromMap($this->doRequest('1.0', 'antchain.ato.jd.funddividerelation.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

@@ -71,15 +71,33 @@ class DataDownloadInfo extends Model
      * @var string
      */
     public $resultInfo;
+
+    // 融资类型
+    /**
+     * @example SUPPLY_CHAIN_FINANCE
+     *
+     * @var string
+     */
+    public $fundMode;
+
+    // 放款渠道
+    /**
+     * @example BANK
+     *
+     * @var string
+     */
+    public $loanChannel;
     protected $_name = [
-        'merchantId' => 'merchant_id',
-        'bizNo'      => 'biz_no',
-        'status'     => 'status',
-        'type'       => 'type',
-        'startTime'  => 'start_time',
-        'endTime'    => 'end_time',
-        'createTime' => 'create_time',
-        'resultInfo' => 'result_info',
+        'merchantId'  => 'merchant_id',
+        'bizNo'       => 'biz_no',
+        'status'      => 'status',
+        'type'        => 'type',
+        'startTime'   => 'start_time',
+        'endTime'     => 'end_time',
+        'createTime'  => 'create_time',
+        'resultInfo'  => 'result_info',
+        'fundMode'    => 'fund_mode',
+        'loanChannel' => 'loan_channel',
     ];
 
     public function validate()
@@ -112,6 +130,12 @@ class DataDownloadInfo extends Model
         }
         if (null !== $this->resultInfo) {
             $res['result_info'] = $this->resultInfo;
+        }
+        if (null !== $this->fundMode) {
+            $res['fund_mode'] = $this->fundMode;
+        }
+        if (null !== $this->loanChannel) {
+            $res['loan_channel'] = $this->loanChannel;
         }
 
         return $res;
@@ -148,6 +172,12 @@ class DataDownloadInfo extends Model
         }
         if (isset($map['result_info'])) {
             $model->resultInfo = $map['result_info'];
+        }
+        if (isset($map['fund_mode'])) {
+            $model->fundMode = $map['fund_mode'];
+        }
+        if (isset($map['loan_channel'])) {
+            $model->loanChannel = $map['loan_channel'];
         }
 
         return $model;

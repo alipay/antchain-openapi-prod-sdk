@@ -38,12 +38,19 @@ class SubmitInnerFundmngpendingeventRequest extends Model
      * @var string
      */
     public $action;
+
+    // 页面traceId
+    /**
+     * @var string
+     */
+    public $traceId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'fundTenantId'      => 'fund_tenant_id',
         'eventId'           => 'event_id',
         'action'            => 'action',
+        'traceId'           => 'trace_id',
     ];
 
     public function validate()
@@ -51,6 +58,7 @@ class SubmitInnerFundmngpendingeventRequest extends Model
         Model::validateRequired('fundTenantId', $this->fundTenantId, true);
         Model::validateRequired('eventId', $this->eventId, true);
         Model::validateRequired('action', $this->action, true);
+        Model::validateRequired('traceId', $this->traceId, true);
     }
 
     public function toMap()
@@ -70,6 +78,9 @@ class SubmitInnerFundmngpendingeventRequest extends Model
         }
         if (null !== $this->action) {
             $res['action'] = $this->action;
+        }
+        if (null !== $this->traceId) {
+            $res['trace_id'] = $this->traceId;
         }
 
         return $res;
@@ -97,6 +108,9 @@ class SubmitInnerFundmngpendingeventRequest extends Model
         }
         if (isset($map['action'])) {
             $model->action = $map['action'];
+        }
+        if (isset($map['trace_id'])) {
+            $model->traceId = $map['trace_id'];
         }
 
         return $model;

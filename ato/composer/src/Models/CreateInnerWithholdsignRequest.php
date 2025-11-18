@@ -36,12 +36,19 @@ class CreateInnerWithholdsignRequest extends Model
      * @var string
      */
     public $alipayUserId;
+
+    // 合并签署的flowid
+    /**
+     * @var string
+     */
+    public $flowId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'merchantTenantId'  => 'merchant_tenant_id',
         'orderId'           => 'order_id',
         'alipayUserId'      => 'alipay_user_id',
+        'flowId'            => 'flow_id',
     ];
 
     public function validate()
@@ -71,6 +78,9 @@ class CreateInnerWithholdsignRequest extends Model
         if (null !== $this->alipayUserId) {
             $res['alipay_user_id'] = $this->alipayUserId;
         }
+        if (null !== $this->flowId) {
+            $res['flow_id'] = $this->flowId;
+        }
 
         return $res;
     }
@@ -97,6 +107,9 @@ class CreateInnerWithholdsignRequest extends Model
         }
         if (isset($map['alipay_user_id'])) {
             $model->alipayUserId = $map['alipay_user_id'];
+        }
+        if (isset($map['flow_id'])) {
+            $model->flowId = $map['flow_id'];
         }
 
         return $model;

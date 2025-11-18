@@ -6,7 +6,7 @@ namespace AntChain\ATO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class SubmitInnerFundmngdatadownloadResponse extends Model
+class CreateJdFunddividerelationResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,32 +26,16 @@ class SubmitInnerFundmngdatadownloadResponse extends Model
      */
     public $resultMsg;
 
-    // 线上；线下
+    // 分账关系id
     /**
      * @var string
      */
-    public $downloadType;
-
-    // 下载链接
-    /**
-     * @var string
-     */
-    public $downloadUrl;
-
-    // 状态
-    // TODO 待处理
-    // FINISH 完成
-    /**
-     * @var string
-     */
-    public $status;
+    public $relationId;
     protected $_name = [
-        'reqMsgId'     => 'req_msg_id',
-        'resultCode'   => 'result_code',
-        'resultMsg'    => 'result_msg',
-        'downloadType' => 'download_type',
-        'downloadUrl'  => 'download_url',
-        'status'       => 'status',
+        'reqMsgId'   => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg'  => 'result_msg',
+        'relationId' => 'relation_id',
     ];
 
     public function validate()
@@ -70,14 +54,8 @@ class SubmitInnerFundmngdatadownloadResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->downloadType) {
-            $res['download_type'] = $this->downloadType;
-        }
-        if (null !== $this->downloadUrl) {
-            $res['download_url'] = $this->downloadUrl;
-        }
-        if (null !== $this->status) {
-            $res['status'] = $this->status;
+        if (null !== $this->relationId) {
+            $res['relation_id'] = $this->relationId;
         }
 
         return $res;
@@ -86,7 +64,7 @@ class SubmitInnerFundmngdatadownloadResponse extends Model
     /**
      * @param array $map
      *
-     * @return SubmitInnerFundmngdatadownloadResponse
+     * @return CreateJdFunddividerelationResponse
      */
     public static function fromMap($map = [])
     {
@@ -100,14 +78,8 @@ class SubmitInnerFundmngdatadownloadResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['download_type'])) {
-            $model->downloadType = $map['download_type'];
-        }
-        if (isset($map['download_url'])) {
-            $model->downloadUrl = $map['download_url'];
-        }
-        if (isset($map['status'])) {
-            $model->status = $map['status'];
+        if (isset($map['relation_id'])) {
+            $model->relationId = $map['relation_id'];
         }
 
         return $model;

@@ -39,11 +39,20 @@ class OrderRepayStrategy extends Model
      * @var PaymentItem[]
      */
     public $paymentItemList;
+
+    // 是否无需履约
+    /**
+     * @example Y
+     *
+     * @var string
+     */
+    public $noPerformance;
     protected $_name = [
         'termIndex'       => 'term_index',
         'rentalMoney'     => 'rental_money',
         'payDay'          => 'pay_day',
         'paymentItemList' => 'payment_item_list',
+        'noPerformance'   => 'no_performance',
     ];
 
     public function validate()
@@ -70,6 +79,9 @@ class OrderRepayStrategy extends Model
                     $res['payment_item_list'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
+        }
+        if (null !== $this->noPerformance) {
+            $res['no_performance'] = $this->noPerformance;
         }
 
         return $res;
@@ -100,6 +112,9 @@ class OrderRepayStrategy extends Model
                     $model->paymentItemList[$n++] = null !== $item ? PaymentItem::fromMap($item) : $item;
                 }
             }
+        }
+        if (isset($map['no_performance'])) {
+            $model->noPerformance = $map['no_performance'];
         }
 
         return $model;
