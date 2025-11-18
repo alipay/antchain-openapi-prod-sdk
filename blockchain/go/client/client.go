@@ -52268,7 +52268,7 @@ type SubmitAuthNewcarResponse struct {
 	// OK
 	// NO_DEMAND 无线索需求，需要重试
 	// INVALID 无效，不要重试
-	PushSuccess *string `json:"push_success,omitempty" xml:"push_success,omitempty"`
+	PushResultCode *string `json:"push_result_code,omitempty" xml:"push_result_code,omitempty"`
 }
 
 func (s SubmitAuthNewcarResponse) String() string {
@@ -52294,8 +52294,8 @@ func (s *SubmitAuthNewcarResponse) SetResultMsg(v string) *SubmitAuthNewcarRespo
 	return s
 }
 
-func (s *SubmitAuthNewcarResponse) SetPushSuccess(v string) *SubmitAuthNewcarResponse {
-	s.PushSuccess = &v
+func (s *SubmitAuthNewcarResponse) SetPushResultCode(v string) *SubmitAuthNewcarResponse {
+	s.PushResultCode = &v
 	return s
 }
 
@@ -72221,7 +72221,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.28.69"),
+				"sdk_version":      tea.String("1.28.70"),
 				"_prod_code":       tea.String("BLOCKCHAIN"),
 				"_prod_channel":    tea.String("undefined"),
 			}
