@@ -32,6 +32,14 @@ public class OrderRepayStrategy extends TeaModel {
     @NameInMap("payment_item_list")
     public java.util.List<PaymentItem> paymentItemList;
 
+    // 是否无需履约
+    /**
+     * <strong>example:</strong>
+     * <p>Y</p>
+     */
+    @NameInMap("no_performance")
+    public String noPerformance;
+
     public static OrderRepayStrategy build(java.util.Map<String, ?> map) throws Exception {
         OrderRepayStrategy self = new OrderRepayStrategy();
         return TeaModel.build(map, self);
@@ -67,6 +75,14 @@ public class OrderRepayStrategy extends TeaModel {
     }
     public java.util.List<PaymentItem> getPaymentItemList() {
         return this.paymentItemList;
+    }
+
+    public OrderRepayStrategy setNoPerformance(String noPerformance) {
+        this.noPerformance = noPerformance;
+        return this;
+    }
+    public String getNoPerformance() {
+        return this.noPerformance;
     }
 
 }

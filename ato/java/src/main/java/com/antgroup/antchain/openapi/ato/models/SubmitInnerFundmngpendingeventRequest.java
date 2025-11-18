@@ -28,6 +28,11 @@ public class SubmitInnerFundmngpendingeventRequest extends TeaModel {
     @Validation(required = true)
     public String action;
 
+    // 页面traceId
+    @NameInMap("trace_id")
+    @Validation(required = true)
+    public String traceId;
+
     public static SubmitInnerFundmngpendingeventRequest build(java.util.Map<String, ?> map) throws Exception {
         SubmitInnerFundmngpendingeventRequest self = new SubmitInnerFundmngpendingeventRequest();
         return TeaModel.build(map, self);
@@ -71,6 +76,14 @@ public class SubmitInnerFundmngpendingeventRequest extends TeaModel {
     }
     public String getAction() {
         return this.action;
+    }
+
+    public SubmitInnerFundmngpendingeventRequest setTraceId(String traceId) {
+        this.traceId = traceId;
+        return this;
+    }
+    public String getTraceId() {
+        return this.traceId;
     }
 
 }

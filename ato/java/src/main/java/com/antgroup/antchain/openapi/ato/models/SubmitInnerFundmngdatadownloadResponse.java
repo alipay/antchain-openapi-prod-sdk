@@ -16,10 +16,6 @@ public class SubmitInnerFundmngdatadownloadResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 是否提交成功
-    @NameInMap("is_submit_download")
-    public Boolean isSubmitDownload;
-
     // 线上；线下
     @NameInMap("download_type")
     public String downloadType;
@@ -61,14 +57,6 @@ public class SubmitInnerFundmngdatadownloadResponse extends TeaModel {
     }
     public String getResultMsg() {
         return this.resultMsg;
-    }
-
-    public SubmitInnerFundmngdatadownloadResponse setIsSubmitDownload(Boolean isSubmitDownload) {
-        this.isSubmitDownload = isSubmitDownload;
-        return this;
-    }
-    public Boolean getIsSubmitDownload() {
-        return this.isSubmitDownload;
     }
 
     public SubmitInnerFundmngdatadownloadResponse setDownloadType(String downloadType) {

@@ -68,6 +68,22 @@ public class DataDownloadInfo extends TeaModel {
     @NameInMap("result_info")
     public String resultInfo;
 
+    // 融资类型
+    /**
+     * <strong>example:</strong>
+     * <p>SUPPLY_CHAIN_FINANCE</p>
+     */
+    @NameInMap("fund_mode")
+    public String fundMode;
+
+    // 放款渠道
+    /**
+     * <strong>example:</strong>
+     * <p>BANK</p>
+     */
+    @NameInMap("loan_channel")
+    public String loanChannel;
+
     public static DataDownloadInfo build(java.util.Map<String, ?> map) throws Exception {
         DataDownloadInfo self = new DataDownloadInfo();
         return TeaModel.build(map, self);
@@ -135,6 +151,22 @@ public class DataDownloadInfo extends TeaModel {
     }
     public String getResultInfo() {
         return this.resultInfo;
+    }
+
+    public DataDownloadInfo setFundMode(String fundMode) {
+        this.fundMode = fundMode;
+        return this;
+    }
+    public String getFundMode() {
+        return this.fundMode;
+    }
+
+    public DataDownloadInfo setLoanChannel(String loanChannel) {
+        this.loanChannel = loanChannel;
+        return this;
+    }
+    public String getLoanChannel() {
+        return this.loanChannel;
     }
 
 }

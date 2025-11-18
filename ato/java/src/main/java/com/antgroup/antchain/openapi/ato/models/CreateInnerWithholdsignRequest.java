@@ -26,6 +26,10 @@ public class CreateInnerWithholdsignRequest extends TeaModel {
     @Validation(maxLength = 64)
     public String alipayUserId;
 
+    // 合并签署的flowid
+    @NameInMap("flow_id")
+    public String flowId;
+
     public static CreateInnerWithholdsignRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateInnerWithholdsignRequest self = new CreateInnerWithholdsignRequest();
         return TeaModel.build(map, self);
@@ -69,6 +73,14 @@ public class CreateInnerWithholdsignRequest extends TeaModel {
     }
     public String getAlipayUserId() {
         return this.alipayUserId;
+    }
+
+    public CreateInnerWithholdsignRequest setFlowId(String flowId) {
+        this.flowId = flowId;
+        return this;
+    }
+    public String getFlowId() {
+        return this.flowId;
     }
 
 }

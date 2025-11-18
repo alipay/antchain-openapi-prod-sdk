@@ -35,6 +35,11 @@ public class PagequeryInnerFundmngpendingeventRequest extends TeaModel {
     @Validation(required = true)
     public PageQuery pageInfo;
 
+    // 页面traceId
+    @NameInMap("trace_id")
+    @Validation(required = true)
+    public String traceId;
+
     public static PagequeryInnerFundmngpendingeventRequest build(java.util.Map<String, ?> map) throws Exception {
         PagequeryInnerFundmngpendingeventRequest self = new PagequeryInnerFundmngpendingeventRequest();
         return TeaModel.build(map, self);
@@ -86,6 +91,14 @@ public class PagequeryInnerFundmngpendingeventRequest extends TeaModel {
     }
     public PageQuery getPageInfo() {
         return this.pageInfo;
+    }
+
+    public PagequeryInnerFundmngpendingeventRequest setTraceId(String traceId) {
+        this.traceId = traceId;
+        return this;
+    }
+    public String getTraceId() {
+        return this.traceId;
     }
 
 }
