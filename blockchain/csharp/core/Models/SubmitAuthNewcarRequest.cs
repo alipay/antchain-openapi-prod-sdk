@@ -55,12 +55,12 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
 
         // 汽车之家车系id
         [NameInMap("qc_car_series_id")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string QcCarSeriesId { get; set; }
 
         // 匹配源
         [NameInMap("match_source")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string MatchSource { get; set; }
 
     }

@@ -42,7 +42,7 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
 
         // 懂车帝或者汽车之家
         [NameInMap("match_source")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string MatchSource { get; set; }
 
         // 汽车之家车型id
