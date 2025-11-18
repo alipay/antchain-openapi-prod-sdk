@@ -19,8 +19,8 @@ public class SubmitAuthNewcarResponse extends TeaModel {
     // OK
     // NO_DEMAND 无线索需求，需要重试
     // INVALID 无效，不要重试
-    @NameInMap("push_success")
-    public String pushSuccess;
+    @NameInMap("push_result_code")
+    public String pushResultCode;
 
     public static SubmitAuthNewcarResponse build(java.util.Map<String, ?> map) throws Exception {
         SubmitAuthNewcarResponse self = new SubmitAuthNewcarResponse();
@@ -51,12 +51,12 @@ public class SubmitAuthNewcarResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public SubmitAuthNewcarResponse setPushSuccess(String pushSuccess) {
-        this.pushSuccess = pushSuccess;
+    public SubmitAuthNewcarResponse setPushResultCode(String pushResultCode) {
+        this.pushResultCode = pushResultCode;
         return this;
     }
-    public String getPushSuccess() {
-        return this.pushSuccess;
+    public String getPushResultCode() {
+        return this.pushResultCode;
     }
 
 }
