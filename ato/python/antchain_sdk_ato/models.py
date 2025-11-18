@@ -746,6 +746,7 @@ class OrderRepayStrategy(TeaModel):
         rental_money: int = None,
         pay_day: str = None,
         payment_item_list: List[PaymentItem] = None,
+        no_performance: str = None,
     ):
         # 还款期数
         self.term_index = term_index
@@ -755,6 +756,8 @@ class OrderRepayStrategy(TeaModel):
         self.pay_day = pay_day
         # 付款项目列表
         self.payment_item_list = payment_item_list
+        # 是否无需履约
+        self.no_performance = no_performance
 
     def validate(self):
         if self.payment_item_list:
@@ -778,6 +781,8 @@ class OrderRepayStrategy(TeaModel):
         if self.payment_item_list is not None:
             for k in self.payment_item_list:
                 result['payment_item_list'].append(k.to_map() if k else None)
+        if self.no_performance is not None:
+            result['no_performance'] = self.no_performance
         return result
 
     def from_map(self, m: dict = None):
@@ -793,6 +798,8 @@ class OrderRepayStrategy(TeaModel):
             for k in m.get('payment_item_list'):
                 temp_model = PaymentItem()
                 self.payment_item_list.append(temp_model.from_map(k))
+        if m.get('no_performance') is not None:
+            self.no_performance = m.get('no_performance')
         return self
 
 
@@ -4771,6 +4778,8 @@ class DataDownloadInfo(TeaModel):
         end_time: str = None,
         create_time: str = None,
         result_info: str = None,
+        fund_mode: str = None,
+        loan_channel: str = None,
     ):
         # 商户社会统一信用代码
         self.merchant_id = merchant_id
@@ -4788,6 +4797,10 @@ class DataDownloadInfo(TeaModel):
         self.create_time = create_time
         # 下载结果
         self.result_info = result_info
+        # 融资类型
+        self.fund_mode = fund_mode
+        # 放款渠道
+        self.loan_channel = loan_channel
 
     def validate(self):
         pass
@@ -4814,6 +4827,10 @@ class DataDownloadInfo(TeaModel):
             result['create_time'] = self.create_time
         if self.result_info is not None:
             result['result_info'] = self.result_info
+        if self.fund_mode is not None:
+            result['fund_mode'] = self.fund_mode
+        if self.loan_channel is not None:
+            result['loan_channel'] = self.loan_channel
         return result
 
     def from_map(self, m: dict = None):
@@ -4834,6 +4851,10 @@ class DataDownloadInfo(TeaModel):
             self.create_time = m.get('create_time')
         if m.get('result_info') is not None:
             self.result_info = m.get('result_info')
+        if m.get('fund_mode') is not None:
+            self.fund_mode = m.get('fund_mode')
+        if m.get('loan_channel') is not None:
+            self.loan_channel = m.get('loan_channel')
         return self
 
 
@@ -6511,6 +6532,135 @@ class TransferBrokerUserdataResponse(TeaModel):
         return self
 
 
+class CreateJdFunddividerelationRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        subject_merchant_id: str = None,
+        devide_tenant_id: str = None,
+        devide_merchant_id: str = None,
+        contract_files: List[FileInfo] = None,
+        desc: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 被分账方商户公司社会统一信用代码
+        self.subject_merchant_id = subject_merchant_id
+        # 分账方租户8位id
+        self.devide_tenant_id = devide_tenant_id
+        # 分账公司社会信用代码
+        self.devide_merchant_id = devide_merchant_id
+        # 分账合同或协议
+        self.contract_files = contract_files
+        # 分账关系说明
+        self.desc = desc
+
+    def validate(self):
+        self.validate_required(self.subject_merchant_id, 'subject_merchant_id')
+        self.validate_required(self.devide_tenant_id, 'devide_tenant_id')
+        self.validate_required(self.devide_merchant_id, 'devide_merchant_id')
+        if self.contract_files:
+            for k in self.contract_files:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.subject_merchant_id is not None:
+            result['subject_merchant_id'] = self.subject_merchant_id
+        if self.devide_tenant_id is not None:
+            result['devide_tenant_id'] = self.devide_tenant_id
+        if self.devide_merchant_id is not None:
+            result['devide_merchant_id'] = self.devide_merchant_id
+        result['contract_files'] = []
+        if self.contract_files is not None:
+            for k in self.contract_files:
+                result['contract_files'].append(k.to_map() if k else None)
+        if self.desc is not None:
+            result['desc'] = self.desc
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('subject_merchant_id') is not None:
+            self.subject_merchant_id = m.get('subject_merchant_id')
+        if m.get('devide_tenant_id') is not None:
+            self.devide_tenant_id = m.get('devide_tenant_id')
+        if m.get('devide_merchant_id') is not None:
+            self.devide_merchant_id = m.get('devide_merchant_id')
+        self.contract_files = []
+        if m.get('contract_files') is not None:
+            for k in m.get('contract_files'):
+                temp_model = FileInfo()
+                self.contract_files.append(temp_model.from_map(k))
+        if m.get('desc') is not None:
+            self.desc = m.get('desc')
+        return self
+
+
+class CreateJdFunddividerelationResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        relation_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 分账关系id
+        self.relation_id = relation_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.relation_id is not None:
+            result['relation_id'] = self.relation_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('relation_id') is not None:
+            self.relation_id = m.get('relation_id')
+        return self
+
+
 class QueryInnerFundmngdemoRequest(TeaModel):
     def __init__(
         self,
@@ -6912,7 +7062,6 @@ class SubmitInnerFundmngdatadownloadResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        is_submit_download: bool = None,
         download_type: str = None,
         download_url: str = None,
         status: str = None,
@@ -6923,8 +7072,6 @@ class SubmitInnerFundmngdatadownloadResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 是否提交成功
-        self.is_submit_download = is_submit_download
         # 线上；线下
         self.download_type = download_type
         # 下载链接
@@ -6949,8 +7096,6 @@ class SubmitInnerFundmngdatadownloadResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
-        if self.is_submit_download is not None:
-            result['is_submit_download'] = self.is_submit_download
         if self.download_type is not None:
             result['download_type'] = self.download_type
         if self.download_url is not None:
@@ -6967,8 +7112,6 @@ class SubmitInnerFundmngdatadownloadResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
-        if m.get('is_submit_download') is not None:
-            self.is_submit_download = m.get('is_submit_download')
         if m.get('download_type') is not None:
             self.download_type = m.get('download_type')
         if m.get('download_url') is not None:
@@ -9892,6 +10035,7 @@ class SubmitInnerFundmngpendingeventRequest(TeaModel):
         fund_tenant_id: str = None,
         event_id: str = None,
         action: str = None,
+        trace_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -9904,11 +10048,14 @@ class SubmitInnerFundmngpendingeventRequest(TeaModel):
         # REJECT 拒绝，
         # CONFIRM 确认
         self.action = action
+        # 页面traceId
+        self.trace_id = trace_id
 
     def validate(self):
         self.validate_required(self.fund_tenant_id, 'fund_tenant_id')
         self.validate_required(self.event_id, 'event_id')
         self.validate_required(self.action, 'action')
+        self.validate_required(self.trace_id, 'trace_id')
 
     def to_map(self):
         _map = super().to_map()
@@ -9926,6 +10073,8 @@ class SubmitInnerFundmngpendingeventRequest(TeaModel):
             result['event_id'] = self.event_id
         if self.action is not None:
             result['action'] = self.action
+        if self.trace_id is not None:
+            result['trace_id'] = self.trace_id
         return result
 
     def from_map(self, m: dict = None):
@@ -9940,6 +10089,8 @@ class SubmitInnerFundmngpendingeventRequest(TeaModel):
             self.event_id = m.get('event_id')
         if m.get('action') is not None:
             self.action = m.get('action')
+        if m.get('trace_id') is not None:
+            self.trace_id = m.get('trace_id')
         return self
 
 
@@ -9994,6 +10145,7 @@ class PagequeryInnerFundmngpendingeventRequest(TeaModel):
         status_list: List[str] = None,
         pending_code: str = None,
         page_info: PageQuery = None,
+        trace_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -10010,6 +10162,8 @@ class PagequeryInnerFundmngpendingeventRequest(TeaModel):
         self.pending_code = pending_code
         # 分页参数
         self.page_info = page_info
+        # 页面traceId
+        self.trace_id = trace_id
 
     def validate(self):
         self.validate_required(self.fund_tenant_id, 'fund_tenant_id')
@@ -10018,6 +10172,7 @@ class PagequeryInnerFundmngpendingeventRequest(TeaModel):
         self.validate_required(self.page_info, 'page_info')
         if self.page_info:
             self.page_info.validate()
+        self.validate_required(self.trace_id, 'trace_id')
 
     def to_map(self):
         _map = super().to_map()
@@ -10037,6 +10192,8 @@ class PagequeryInnerFundmngpendingeventRequest(TeaModel):
             result['pending_code'] = self.pending_code
         if self.page_info is not None:
             result['page_info'] = self.page_info.to_map()
+        if self.trace_id is not None:
+            result['trace_id'] = self.trace_id
         return result
 
     def from_map(self, m: dict = None):
@@ -10054,6 +10211,8 @@ class PagequeryInnerFundmngpendingeventRequest(TeaModel):
         if m.get('page_info') is not None:
             temp_model = PageQuery()
             self.page_info = temp_model.from_map(m['page_info'])
+        if m.get('trace_id') is not None:
+            self.trace_id = m.get('trace_id')
         return self
 
 
@@ -20694,6 +20853,7 @@ class CreateInnerWithholdsignRequest(TeaModel):
         merchant_tenant_id: str = None,
         order_id: str = None,
         alipay_user_id: str = None,
+        flow_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -20704,6 +20864,8 @@ class CreateInnerWithholdsignRequest(TeaModel):
         self.order_id = order_id
         # 用户支付宝2088uid
         self.alipay_user_id = alipay_user_id
+        # 合并签署的flowid
+        self.flow_id = flow_id
 
     def validate(self):
         self.validate_required(self.merchant_tenant_id, 'merchant_tenant_id')
@@ -20731,6 +20893,8 @@ class CreateInnerWithholdsignRequest(TeaModel):
             result['order_id'] = self.order_id
         if self.alipay_user_id is not None:
             result['alipay_user_id'] = self.alipay_user_id
+        if self.flow_id is not None:
+            result['flow_id'] = self.flow_id
         return result
 
     def from_map(self, m: dict = None):
@@ -20745,6 +20909,8 @@ class CreateInnerWithholdsignRequest(TeaModel):
             self.order_id = m.get('order_id')
         if m.get('alipay_user_id') is not None:
             self.alipay_user_id = m.get('alipay_user_id')
+        if m.get('flow_id') is not None:
+            self.flow_id = m.get('flow_id')
         return self
 
 

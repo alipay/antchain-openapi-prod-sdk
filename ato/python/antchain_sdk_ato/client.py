@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.16.27',
+                    'sdk_version': '1.16.35',
                     '_prod_code': 'ATO',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.16.27',
+                    'sdk_version': '1.16.35',
                     '_prod_code': 'ATO',
                     '_prod_channel': 'undefined'
                 }
@@ -329,6 +329,62 @@ class Client:
         return TeaCore.from_map(
             ato_models.TransferBrokerUserdataResponse(),
             await self.do_request_async('1.0', 'antchain.ato.broker.userdata.transfer', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_jd_funddividerelation(
+        self,
+        request: ato_models.CreateJdFunddividerelationRequest,
+    ) -> ato_models.CreateJdFunddividerelationResponse:
+        """
+        Description: 京东分账关系绑定
+        Summary: 京东分账关系绑定
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_jd_funddividerelation_ex(request, headers, runtime)
+
+    async def create_jd_funddividerelation_async(
+        self,
+        request: ato_models.CreateJdFunddividerelationRequest,
+    ) -> ato_models.CreateJdFunddividerelationResponse:
+        """
+        Description: 京东分账关系绑定
+        Summary: 京东分账关系绑定
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_jd_funddividerelation_ex_async(request, headers, runtime)
+
+    def create_jd_funddividerelation_ex(
+        self,
+        request: ato_models.CreateJdFunddividerelationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.CreateJdFunddividerelationResponse:
+        """
+        Description: 京东分账关系绑定
+        Summary: 京东分账关系绑定
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.CreateJdFunddividerelationResponse(),
+            self.do_request('1.0', 'antchain.ato.jd.funddividerelation.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_jd_funddividerelation_ex_async(
+        self,
+        request: ato_models.CreateJdFunddividerelationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.CreateJdFunddividerelationResponse:
+        """
+        Description: 京东分账关系绑定
+        Summary: 京东分账关系绑定
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.CreateJdFunddividerelationResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.jd.funddividerelation.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_inner_fundmngdemo(
