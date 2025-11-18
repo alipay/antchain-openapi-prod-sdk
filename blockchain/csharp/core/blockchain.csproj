@@ -7,7 +7,7 @@
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <AssemblyName>AntChain.SDK.BLOCKCHAIN</AssemblyName>
-    <Version>1.28.69</Version>
+    <Version>1.28.70</Version>
     <LangVersion>5</LangVersion>
     <Authors>Ant Chain, Inc</Authors>
     <Description>Ant Chain BLOCKCHAIN SDK Library for .NET</Description>

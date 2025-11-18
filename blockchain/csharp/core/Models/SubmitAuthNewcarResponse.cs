@@ -27,9 +27,9 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
         // OK
         // NO_DEMAND 无线索需求，需要重试
         // INVALID 无效，不要重试
-        [NameInMap("push_success")]
+        [NameInMap("push_result_code")]
         [Validation(Required=false)]
-        public string PushSuccess { get; set; }
+        public string PushResultCode { get; set; }
 
     }
 
