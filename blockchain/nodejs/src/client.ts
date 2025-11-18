@@ -40193,13 +40193,13 @@ export class SubmitAuthNewcarResponse extends $tea.Model {
   // OK
   // NO_DEMAND 无线索需求，需要重试
   // INVALID 无效，不要重试
-  pushSuccess?: string;
+  pushResultCode?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      pushSuccess: 'push_success',
+      pushResultCode: 'push_result_code',
     };
   }
 
@@ -40208,7 +40208,7 @@ export class SubmitAuthNewcarResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      pushSuccess: 'string',
+      pushResultCode: 'string',
     };
   }
 
@@ -55585,7 +55585,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.28.69",
+          sdk_version: "1.28.70",
           _prod_code: "BLOCKCHAIN",
           _prod_channel: "undefined",
         };
