@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.28.69',
+    sdk_version = '1.28.70',
     _prod_code = 'BLOCKCHAIN',
     _prod_channel = 'undefined'
   };
@@ -22940,7 +22940,7 @@ model SubmitAuthNewcarResponse = {
   // OK
   // NO_DEMAND 无线索需求，需要重试
   // INVALID 无效，不要重试
-  pushSuccess?: string(name='push_success'),
+  pushResultCode?: string(name='push_result_code'),
 }
 
 /**
