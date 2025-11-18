@@ -12666,7 +12666,6 @@ class NewCarInfo(TeaModel):
         self.validate_required(self.user_info, 'user_info')
         if self.user_info:
             self.user_info.validate()
-        self.validate_required(self.match_source, 'match_source')
 
     def to_map(self):
         _map = super().to_map()
@@ -65335,8 +65334,6 @@ class SubmitAuthNewcarRequest(TeaModel):
         if self.user_info:
             self.user_info.validate()
         self.validate_required(self.car_series, 'car_series')
-        self.validate_required(self.qc_car_series_id, 'qc_car_series_id')
-        self.validate_required(self.match_source, 'match_source')
 
     def to_map(self):
         _map = super().to_map()
