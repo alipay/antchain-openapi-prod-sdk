@@ -23,7 +23,6 @@ public class QueryDciUserRequest extends TeaModel {
 
     // 手机号
     @NameInMap("phone")
-    @Validation(required = true)
     public String phone;
 
     // 版权认证方式:UGC-用户生成内容，AIGC-AI生成内容，SOFTWARE_WORKS：软件作品认证，如果不传默认为UGC
