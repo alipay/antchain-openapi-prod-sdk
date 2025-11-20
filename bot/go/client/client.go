@@ -23325,6 +23325,139 @@ func (s *CreateElectrocarApplycarkeycertificateResponse) SetSuccess(v bool) *Cre
 	return s
 }
 
+type PushDeviceAudioRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 设备序列化
+	DeviceSn *string `json:"device_sn,omitempty" xml:"device_sn,omitempty"`
+	// 设备厂商
+	DeviceCorp *string `json:"device_corp,omitempty" xml:"device_corp,omitempty"`
+	// 推送消息主题
+	TopicIdentifer *string `json:"topic_identifer,omitempty" xml:"topic_identifer,omitempty" require:"true"`
+	// 推送消息类型
+	MesageType *string `json:"mesage_type,omitempty" xml:"mesage_type,omitempty" require:"true"`
+	// 消息内容
+	MessageContent *string `json:"message_content,omitempty" xml:"message_content,omitempty" require:"true"`
+	// 业务场景-项目
+	BizScene *string `json:"biz_scene,omitempty" xml:"biz_scene,omitempty" require:"true"`
+	// 设备唯一ID
+	DeviceDid *string `json:"device_did,omitempty" xml:"device_did,omitempty"`
+	// kyt硬件唯一ID
+	Tuid *string `json:"tuid,omitempty" xml:"tuid,omitempty"`
+}
+
+func (s PushDeviceAudioRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushDeviceAudioRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PushDeviceAudioRequest) SetAuthToken(v string) *PushDeviceAudioRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PushDeviceAudioRequest) SetProductInstanceId(v string) *PushDeviceAudioRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PushDeviceAudioRequest) SetDeviceSn(v string) *PushDeviceAudioRequest {
+	s.DeviceSn = &v
+	return s
+}
+
+func (s *PushDeviceAudioRequest) SetDeviceCorp(v string) *PushDeviceAudioRequest {
+	s.DeviceCorp = &v
+	return s
+}
+
+func (s *PushDeviceAudioRequest) SetTopicIdentifer(v string) *PushDeviceAudioRequest {
+	s.TopicIdentifer = &v
+	return s
+}
+
+func (s *PushDeviceAudioRequest) SetMesageType(v string) *PushDeviceAudioRequest {
+	s.MesageType = &v
+	return s
+}
+
+func (s *PushDeviceAudioRequest) SetMessageContent(v string) *PushDeviceAudioRequest {
+	s.MessageContent = &v
+	return s
+}
+
+func (s *PushDeviceAudioRequest) SetBizScene(v string) *PushDeviceAudioRequest {
+	s.BizScene = &v
+	return s
+}
+
+func (s *PushDeviceAudioRequest) SetDeviceDid(v string) *PushDeviceAudioRequest {
+	s.DeviceDid = &v
+	return s
+}
+
+func (s *PushDeviceAudioRequest) SetTuid(v string) *PushDeviceAudioRequest {
+	s.Tuid = &v
+	return s
+}
+
+type PushDeviceAudioResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 调用结果
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 云端向设备下发服务调用的消息ID
+	MessageId *string `json:"message_id,omitempty" xml:"message_id,omitempty"`
+	// 指令执行 响应结果
+	Result *string `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s PushDeviceAudioResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushDeviceAudioResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PushDeviceAudioResponse) SetReqMsgId(v string) *PushDeviceAudioResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PushDeviceAudioResponse) SetResultCode(v string) *PushDeviceAudioResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PushDeviceAudioResponse) SetResultMsg(v string) *PushDeviceAudioResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PushDeviceAudioResponse) SetSuccess(v bool) *PushDeviceAudioResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *PushDeviceAudioResponse) SetMessageId(v string) *PushDeviceAudioResponse {
+	s.MessageId = &v
+	return s
+}
+
+func (s *PushDeviceAudioResponse) SetResult(v string) *PushDeviceAudioResponse {
+	s.Result = &v
+	return s
+}
+
 type QueryIotplatformPurchaseorderRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -24705,10 +24838,12 @@ type GetDeviceBydeviceidRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 设备id集合
-	DeviceIdList []*string `json:"device_id_list,omitempty" xml:"device_id_list,omitempty" require:"true" type:"Repeated"`
 	// 场景码
 	Scene *string `json:"scene,omitempty" xml:"scene,omitempty" require:"true"`
+	// 设备id列表（推荐使用该参数，deviceIdList不为空时，componentIdList不用填）
+	DeviceIdList []*string `json:"device_id_list,omitempty" xml:"device_id_list,omitempty" type:"Repeated"`
+	// 模组ID(IMEI/SN/MAC)列表，当没有设备id时，可以用该字段查询设备
+	ComponentIdList []*string `json:"component_id_list,omitempty" xml:"component_id_list,omitempty" type:"Repeated"`
 }
 
 func (s GetDeviceBydeviceidRequest) String() string {
@@ -24729,13 +24864,18 @@ func (s *GetDeviceBydeviceidRequest) SetProductInstanceId(v string) *GetDeviceBy
 	return s
 }
 
+func (s *GetDeviceBydeviceidRequest) SetScene(v string) *GetDeviceBydeviceidRequest {
+	s.Scene = &v
+	return s
+}
+
 func (s *GetDeviceBydeviceidRequest) SetDeviceIdList(v []*string) *GetDeviceBydeviceidRequest {
 	s.DeviceIdList = v
 	return s
 }
 
-func (s *GetDeviceBydeviceidRequest) SetScene(v string) *GetDeviceBydeviceidRequest {
-	s.Scene = &v
+func (s *GetDeviceBydeviceidRequest) SetComponentIdList(v []*string) *GetDeviceBydeviceidRequest {
+	s.ComponentIdList = v
 	return s
 }
 
@@ -24748,10 +24888,14 @@ type GetDeviceBydeviceidResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 设备详情
 	DeviceList []*Device `json:"device_list,omitempty" xml:"device_list,omitempty" type:"Repeated"`
-	// 设备信息不存在的deviceid集合
+	// 设备信息不存在的deviceid列表
 	MissDeviceIdList []*string `json:"miss_device_id_list,omitempty" xml:"miss_device_id_list,omitempty" type:"Repeated"`
-	// 成功获取到设备信息的deviceid集合
+	// 成功获取到设备信息的deviceid列表
 	SuccessDeviceIdList []*string `json:"success_device_id_list,omitempty" xml:"success_device_id_list,omitempty" type:"Repeated"`
+	// 设备信息不存在的模组ID列表
+	MissComponentIdList []*string `json:"miss_component_id_list,omitempty" xml:"miss_component_id_list,omitempty" type:"Repeated"`
+	// 成功获取到设备信息的模组ID列表
+	SuccessComponentIdList []*string `json:"success_component_id_list,omitempty" xml:"success_component_id_list,omitempty" type:"Repeated"`
 }
 
 func (s GetDeviceBydeviceidResponse) String() string {
@@ -24789,6 +24933,16 @@ func (s *GetDeviceBydeviceidResponse) SetMissDeviceIdList(v []*string) *GetDevic
 
 func (s *GetDeviceBydeviceidResponse) SetSuccessDeviceIdList(v []*string) *GetDeviceBydeviceidResponse {
 	s.SuccessDeviceIdList = v
+	return s
+}
+
+func (s *GetDeviceBydeviceidResponse) SetMissComponentIdList(v []*string) *GetDeviceBydeviceidResponse {
+	s.MissComponentIdList = v
+	return s
+}
+
+func (s *GetDeviceBydeviceidResponse) SetSuccessComponentIdList(v []*string) *GetDeviceBydeviceidResponse {
+	s.SuccessComponentIdList = v
 	return s
 }
 
@@ -37076,7 +37230,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.12.35"),
+				"sdk_version":      tea.String("1.12.40"),
 				"_prod_code":       tea.String("BOT"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -41913,6 +42067,40 @@ func (client *Client) CreateElectrocarApplycarkeycertificateEx(request *CreateEl
 	}
 	_result = &CreateElectrocarApplycarkeycertificateResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.electrocar.applycarkeycertificate.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 二轮车设备下发音频
+ * Summary: 二轮车设备下发音频
+ */
+func (client *Client) PushDeviceAudio(request *PushDeviceAudioRequest) (_result *PushDeviceAudioResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PushDeviceAudioResponse{}
+	_body, _err := client.PushDeviceAudioEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 二轮车设备下发音频
+ * Summary: 二轮车设备下发音频
+ */
+func (client *Client) PushDeviceAudioEx(request *PushDeviceAudioRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PushDeviceAudioResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PushDeviceAudioResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.device.audio.push"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
