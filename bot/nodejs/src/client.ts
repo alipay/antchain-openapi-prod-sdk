@@ -17764,6 +17764,101 @@ export class CreateElectrocarApplycarkeycertificateResponse extends $tea.Model {
   }
 }
 
+export class PushDeviceAudioRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 设备序列化
+  deviceSn?: string;
+  // 设备厂商
+  deviceCorp?: string;
+  // 推送消息主题
+  topicIdentifer: string;
+  // 推送消息类型
+  mesageType: string;
+  // 消息内容
+  messageContent: string;
+  // 业务场景-项目
+  bizScene: string;
+  // 设备唯一ID
+  deviceDid?: string;
+  // kyt硬件唯一ID
+  tuid?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      deviceSn: 'device_sn',
+      deviceCorp: 'device_corp',
+      topicIdentifer: 'topic_identifer',
+      mesageType: 'mesage_type',
+      messageContent: 'message_content',
+      bizScene: 'biz_scene',
+      deviceDid: 'device_did',
+      tuid: 'tuid',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      deviceSn: 'string',
+      deviceCorp: 'string',
+      topicIdentifer: 'string',
+      mesageType: 'string',
+      messageContent: 'string',
+      bizScene: 'string',
+      deviceDid: 'string',
+      tuid: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PushDeviceAudioResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 调用结果
+  success?: boolean;
+  // 云端向设备下发服务调用的消息ID
+  messageId?: string;
+  // 指令执行 响应结果
+  result?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      messageId: 'message_id',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      messageId: 'string',
+      result: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryIotplatformPurchaseorderRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -18821,16 +18916,19 @@ export class GetDeviceBydeviceidRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 设备id集合
-  deviceIdList: string[];
   // 场景码
   scene: string;
+  // 设备id列表（推荐使用该参数，deviceIdList不为空时，componentIdList不用填）
+  deviceIdList?: string[];
+  // 模组ID(IMEI/SN/MAC)列表，当没有设备id时，可以用该字段查询设备
+  componentIdList?: string[];
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      deviceIdList: 'device_id_list',
       scene: 'scene',
+      deviceIdList: 'device_id_list',
+      componentIdList: 'component_id_list',
     };
   }
 
@@ -18838,8 +18936,9 @@ export class GetDeviceBydeviceidRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      deviceIdList: { 'type': 'array', 'itemType': 'string' },
       scene: 'string',
+      deviceIdList: { 'type': 'array', 'itemType': 'string' },
+      componentIdList: { 'type': 'array', 'itemType': 'string' },
     };
   }
 
@@ -18857,10 +18956,14 @@ export class GetDeviceBydeviceidResponse extends $tea.Model {
   resultMsg?: string;
   // 设备详情
   deviceList?: Device[];
-  // 设备信息不存在的deviceid集合
+  // 设备信息不存在的deviceid列表
   missDeviceIdList?: string[];
-  // 成功获取到设备信息的deviceid集合
+  // 成功获取到设备信息的deviceid列表
   successDeviceIdList?: string[];
+  // 设备信息不存在的模组ID列表
+  missComponentIdList?: string[];
+  // 成功获取到设备信息的模组ID列表
+  successComponentIdList?: string[];
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -18869,6 +18972,8 @@ export class GetDeviceBydeviceidResponse extends $tea.Model {
       deviceList: 'device_list',
       missDeviceIdList: 'miss_device_id_list',
       successDeviceIdList: 'success_device_id_list',
+      missComponentIdList: 'miss_component_id_list',
+      successComponentIdList: 'success_component_id_list',
     };
   }
 
@@ -18880,6 +18985,8 @@ export class GetDeviceBydeviceidResponse extends $tea.Model {
       deviceList: { 'type': 'array', 'itemType': Device },
       missDeviceIdList: { 'type': 'array', 'itemType': 'string' },
       successDeviceIdList: { 'type': 'array', 'itemType': 'string' },
+      missComponentIdList: { 'type': 'array', 'itemType': 'string' },
+      successComponentIdList: { 'type': 'array', 'itemType': 'string' },
     };
   }
 
@@ -28438,7 +28545,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.12.35",
+          sdk_version: "1.12.40",
           _prod_code: "BOT",
           _prod_channel: "undefined",
         };
@@ -31169,6 +31276,25 @@ export default class Client {
   async createElectrocarApplycarkeycertificateEx(request: CreateElectrocarApplycarkeycertificateRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateElectrocarApplycarkeycertificateResponse> {
     Util.validateModel(request);
     return $tea.cast<CreateElectrocarApplycarkeycertificateResponse>(await this.doRequest("1.0", "blockchain.bot.electrocar.applycarkeycertificate.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateElectrocarApplycarkeycertificateResponse({}));
+  }
+
+  /**
+   * Description: 二轮车设备下发音频
+   * Summary: 二轮车设备下发音频
+   */
+  async pushDeviceAudio(request: PushDeviceAudioRequest): Promise<PushDeviceAudioResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pushDeviceAudioEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 二轮车设备下发音频
+   * Summary: 二轮车设备下发音频
+   */
+  async pushDeviceAudioEx(request: PushDeviceAudioRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PushDeviceAudioResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PushDeviceAudioResponse>(await this.doRequest("1.0", "blockchain.bot.device.audio.push", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PushDeviceAudioResponse({}));
   }
 
   /**
