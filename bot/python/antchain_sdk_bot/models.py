@@ -29129,6 +29129,162 @@ class CreateElectrocarApplycarkeycertificateResponse(TeaModel):
         return self
 
 
+class PushDeviceAudioRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        device_sn: str = None,
+        device_corp: str = None,
+        topic_identifer: str = None,
+        mesage_type: str = None,
+        message_content: str = None,
+        biz_scene: str = None,
+        device_did: str = None,
+        tuid: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 设备序列化
+        self.device_sn = device_sn
+        # 设备厂商
+        self.device_corp = device_corp
+        # 推送消息主题
+        self.topic_identifer = topic_identifer
+        # 推送消息类型
+        self.mesage_type = mesage_type
+        # 消息内容
+        self.message_content = message_content
+        # 业务场景-项目
+        self.biz_scene = biz_scene
+        # 设备唯一ID
+        self.device_did = device_did
+        # kyt硬件唯一ID
+        self.tuid = tuid
+
+    def validate(self):
+        self.validate_required(self.topic_identifer, 'topic_identifer')
+        self.validate_required(self.mesage_type, 'mesage_type')
+        self.validate_required(self.message_content, 'message_content')
+        self.validate_required(self.biz_scene, 'biz_scene')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.device_sn is not None:
+            result['device_sn'] = self.device_sn
+        if self.device_corp is not None:
+            result['device_corp'] = self.device_corp
+        if self.topic_identifer is not None:
+            result['topic_identifer'] = self.topic_identifer
+        if self.mesage_type is not None:
+            result['mesage_type'] = self.mesage_type
+        if self.message_content is not None:
+            result['message_content'] = self.message_content
+        if self.biz_scene is not None:
+            result['biz_scene'] = self.biz_scene
+        if self.device_did is not None:
+            result['device_did'] = self.device_did
+        if self.tuid is not None:
+            result['tuid'] = self.tuid
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('device_sn') is not None:
+            self.device_sn = m.get('device_sn')
+        if m.get('device_corp') is not None:
+            self.device_corp = m.get('device_corp')
+        if m.get('topic_identifer') is not None:
+            self.topic_identifer = m.get('topic_identifer')
+        if m.get('mesage_type') is not None:
+            self.mesage_type = m.get('mesage_type')
+        if m.get('message_content') is not None:
+            self.message_content = m.get('message_content')
+        if m.get('biz_scene') is not None:
+            self.biz_scene = m.get('biz_scene')
+        if m.get('device_did') is not None:
+            self.device_did = m.get('device_did')
+        if m.get('tuid') is not None:
+            self.tuid = m.get('tuid')
+        return self
+
+
+class PushDeviceAudioResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        success: bool = None,
+        message_id: str = None,
+        result: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 调用结果
+        self.success = success
+        # 云端向设备下发服务调用的消息ID
+        self.message_id = message_id
+        # 指令执行 响应结果
+        self.result = result
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.success is not None:
+            result['success'] = self.success
+        if self.message_id is not None:
+            result['message_id'] = self.message_id
+        if self.result is not None:
+            result['result'] = self.result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('message_id') is not None:
+            self.message_id = m.get('message_id')
+        if m.get('result') is not None:
+            self.result = m.get('result')
+        return self
+
+
 class QueryIotplatformPurchaseorderRequest(TeaModel):
     def __init__(
         self,
@@ -30843,19 +30999,21 @@ class GetDeviceBydeviceidRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
-        device_id_list: List[str] = None,
         scene: str = None,
+        device_id_list: List[str] = None,
+        component_id_list: List[str] = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # 设备id集合
-        self.device_id_list = device_id_list
         # 场景码
         self.scene = scene
+        # 设备id列表（推荐使用该参数，deviceIdList不为空时，componentIdList不用填）
+        self.device_id_list = device_id_list
+        # 模组ID(IMEI/SN/MAC)列表，当没有设备id时，可以用该字段查询设备
+        self.component_id_list = component_id_list
 
     def validate(self):
-        self.validate_required(self.device_id_list, 'device_id_list')
         self.validate_required(self.scene, 'scene')
 
     def to_map(self):
@@ -30868,10 +31026,12 @@ class GetDeviceBydeviceidRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
-        if self.device_id_list is not None:
-            result['device_id_list'] = self.device_id_list
         if self.scene is not None:
             result['scene'] = self.scene
+        if self.device_id_list is not None:
+            result['device_id_list'] = self.device_id_list
+        if self.component_id_list is not None:
+            result['component_id_list'] = self.component_id_list
         return result
 
     def from_map(self, m: dict = None):
@@ -30880,10 +31040,12 @@ class GetDeviceBydeviceidRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
-        if m.get('device_id_list') is not None:
-            self.device_id_list = m.get('device_id_list')
         if m.get('scene') is not None:
             self.scene = m.get('scene')
+        if m.get('device_id_list') is not None:
+            self.device_id_list = m.get('device_id_list')
+        if m.get('component_id_list') is not None:
+            self.component_id_list = m.get('component_id_list')
         return self
 
 
@@ -30896,6 +31058,8 @@ class GetDeviceBydeviceidResponse(TeaModel):
         device_list: List[Device] = None,
         miss_device_id_list: List[str] = None,
         success_device_id_list: List[str] = None,
+        miss_component_id_list: List[str] = None,
+        success_component_id_list: List[str] = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -30905,10 +31069,14 @@ class GetDeviceBydeviceidResponse(TeaModel):
         self.result_msg = result_msg
         # 设备详情
         self.device_list = device_list
-        # 设备信息不存在的deviceid集合
+        # 设备信息不存在的deviceid列表
         self.miss_device_id_list = miss_device_id_list
-        # 成功获取到设备信息的deviceid集合
+        # 成功获取到设备信息的deviceid列表
         self.success_device_id_list = success_device_id_list
+        # 设备信息不存在的模组ID列表
+        self.miss_component_id_list = miss_component_id_list
+        # 成功获取到设备信息的模组ID列表
+        self.success_component_id_list = success_component_id_list
 
     def validate(self):
         if self.device_list:
@@ -30936,6 +31104,10 @@ class GetDeviceBydeviceidResponse(TeaModel):
             result['miss_device_id_list'] = self.miss_device_id_list
         if self.success_device_id_list is not None:
             result['success_device_id_list'] = self.success_device_id_list
+        if self.miss_component_id_list is not None:
+            result['miss_component_id_list'] = self.miss_component_id_list
+        if self.success_component_id_list is not None:
+            result['success_component_id_list'] = self.success_component_id_list
         return result
 
     def from_map(self, m: dict = None):
@@ -30955,6 +31127,10 @@ class GetDeviceBydeviceidResponse(TeaModel):
             self.miss_device_id_list = m.get('miss_device_id_list')
         if m.get('success_device_id_list') is not None:
             self.success_device_id_list = m.get('success_device_id_list')
+        if m.get('miss_component_id_list') is not None:
+            self.miss_component_id_list = m.get('miss_component_id_list')
+        if m.get('success_component_id_list') is not None:
+            self.success_component_id_list = m.get('success_component_id_list')
         return self
 
 

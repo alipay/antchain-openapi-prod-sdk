@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.35',
+                    'sdk_version': '1.12.40',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.35',
+                    'sdk_version': '1.12.40',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -8129,6 +8129,62 @@ class Client:
         return TeaCore.from_map(
             bot_models.CreateElectrocarApplycarkeycertificateResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.electrocar.applycarkeycertificate.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def push_device_audio(
+        self,
+        request: bot_models.PushDeviceAudioRequest,
+    ) -> bot_models.PushDeviceAudioResponse:
+        """
+        Description: 二轮车设备下发音频
+        Summary: 二轮车设备下发音频
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.push_device_audio_ex(request, headers, runtime)
+
+    async def push_device_audio_async(
+        self,
+        request: bot_models.PushDeviceAudioRequest,
+    ) -> bot_models.PushDeviceAudioResponse:
+        """
+        Description: 二轮车设备下发音频
+        Summary: 二轮车设备下发音频
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.push_device_audio_ex_async(request, headers, runtime)
+
+    def push_device_audio_ex(
+        self,
+        request: bot_models.PushDeviceAudioRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.PushDeviceAudioResponse:
+        """
+        Description: 二轮车设备下发音频
+        Summary: 二轮车设备下发音频
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.PushDeviceAudioResponse(),
+            self.do_request('1.0', 'blockchain.bot.device.audio.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def push_device_audio_ex_async(
+        self,
+        request: bot_models.PushDeviceAudioRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.PushDeviceAudioResponse:
+        """
+        Description: 二轮车设备下发音频
+        Summary: 二轮车设备下发音频
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.PushDeviceAudioResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.device.audio.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_iotplatform_purchaseorder(
