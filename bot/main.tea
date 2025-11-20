@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.12.35',
+    sdk_version = '1.12.40',
     _prod_code = 'BOT',
     _prod_channel = 'undefined'
   };
@@ -9684,6 +9684,62 @@ async function createElectrocarApplycarkeycertificateEx(request: CreateElectroca
   return doRequest('1.0' ,'blockchain.bot.electrocar.applycarkeycertificate.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model PushDeviceAudioRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 设备序列化
+  deviceSn?: string(name='device_sn'),
+  // 设备厂商
+  deviceCorp?: string(name='device_corp'),
+  // 推送消息主题
+  topicIdentifer: string(name='topic_identifer'),
+  // 推送消息类型
+  mesageType: string(name='mesage_type'),
+  // 消息内容
+  messageContent: string(name='message_content'),
+  // 业务场景-项目
+  bizScene: string(name='biz_scene'),
+  // 设备唯一ID
+  deviceDid?: string(name='device_did'),
+  // kyt硬件唯一ID
+  tuid?: string(name='tuid'),
+}
+
+model PushDeviceAudioResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 调用结果
+  success?: boolean(name='success'),
+  // 云端向设备下发服务调用的消息ID
+  messageId?: string(name='message_id'),
+  // 指令执行 响应结果
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 二轮车设备下发音频
+ * Summary: 二轮车设备下发音频
+ */
+async function pushDeviceAudio(request: PushDeviceAudioRequest): PushDeviceAudioResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pushDeviceAudioEx(request, headers, runtime);
+}
+
+/**
+ * Description: 二轮车设备下发音频
+ * Summary: 二轮车设备下发音频
+ */
+async function pushDeviceAudioEx(request: PushDeviceAudioRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PushDeviceAudioResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.device.audio.push', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model QueryIotplatformPurchaseorderRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -10348,10 +10404,12 @@ model GetDeviceBydeviceidRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 设备id集合
-  deviceIdList: [ string ](name='device_id_list'),
   // 场景码
   scene: string(name='scene'),
+  // 设备id列表（推荐使用该参数，deviceIdList不为空时，componentIdList不用填）
+  deviceIdList?: [ string ](name='device_id_list'),
+  // 模组ID(IMEI/SN/MAC)列表，当没有设备id时，可以用该字段查询设备
+  componentIdList?: [ string ](name='component_id_list'),
 }
 
 model GetDeviceBydeviceidResponse = {
@@ -10363,10 +10421,14 @@ model GetDeviceBydeviceidResponse = {
   resultMsg?: string(name='result_msg'),
   // 设备详情
   deviceList?: [ Device ](name='device_list'),
-  // 设备信息不存在的deviceid集合
+  // 设备信息不存在的deviceid列表
   missDeviceIdList?: [ string ](name='miss_device_id_list'),
-  // 成功获取到设备信息的deviceid集合
+  // 成功获取到设备信息的deviceid列表
   successDeviceIdList?: [ string ](name='success_device_id_list'),
+  // 设备信息不存在的模组ID列表
+  missComponentIdList?: [ string ](name='miss_component_id_list'),
+  // 成功获取到设备信息的模组ID列表
+  successComponentIdList?: [ string ](name='success_component_id_list'),
 }
 
 /**
