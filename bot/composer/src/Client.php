@@ -319,6 +319,8 @@ use AntChain\BOT\Models\PullConsumerDatasourceRequest;
 use AntChain\BOT\Models\PullConsumerDatasourceResponse;
 use AntChain\BOT\Models\PushCollectotBychainidRequest;
 use AntChain\BOT\Models\PushCollectotBychainidResponse;
+use AntChain\BOT\Models\PushDeviceAudioRequest;
+use AntChain\BOT\Models\PushDeviceAudioResponse;
 use AntChain\BOT\Models\PushDeviceMessageRequest;
 use AntChain\BOT\Models\PushDeviceMessageResponse;
 use AntChain\BOT\Models\PushIotbasicMeterdataRequest;
@@ -714,7 +716,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.12.35',
+                    'sdk_version'      => '1.12.40',
                     '_prod_code'       => 'BOT',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -5385,6 +5387,39 @@ class Client
         Utils::validateModel($request);
 
         return CreateElectrocarApplycarkeycertificateResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.electrocar.applycarkeycertificate.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 二轮车设备下发音频
+     * Summary: 二轮车设备下发音频.
+     *
+     * @param PushDeviceAudioRequest $request
+     *
+     * @return PushDeviceAudioResponse
+     */
+    public function pushDeviceAudio($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pushDeviceAudioEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 二轮车设备下发音频
+     * Summary: 二轮车设备下发音频.
+     *
+     * @param PushDeviceAudioRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return PushDeviceAudioResponse
+     */
+    public function pushDeviceAudioEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PushDeviceAudioResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.device.audio.push', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

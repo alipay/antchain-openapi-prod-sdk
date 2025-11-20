@@ -19,27 +19,33 @@ class GetDeviceBydeviceidRequest extends Model
      */
     public $productInstanceId;
 
-    // 设备id集合
-    /**
-     * @var string[]
-     */
-    public $deviceIdList;
-
     // 场景码
     /**
      * @var string
      */
     public $scene;
+
+    // 设备id列表（推荐使用该参数，deviceIdList不为空时，componentIdList不用填）
+    /**
+     * @var string[]
+     */
+    public $deviceIdList;
+
+    // 模组ID(IMEI/SN/MAC)列表，当没有设备id时，可以用该字段查询设备
+    /**
+     * @var string[]
+     */
+    public $componentIdList;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'deviceIdList'      => 'device_id_list',
         'scene'             => 'scene',
+        'deviceIdList'      => 'device_id_list',
+        'componentIdList'   => 'component_id_list',
     ];
 
     public function validate()
     {
-        Model::validateRequired('deviceIdList', $this->deviceIdList, true);
         Model::validateRequired('scene', $this->scene, true);
     }
 
@@ -52,11 +58,14 @@ class GetDeviceBydeviceidRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
+        if (null !== $this->scene) {
+            $res['scene'] = $this->scene;
+        }
         if (null !== $this->deviceIdList) {
             $res['device_id_list'] = $this->deviceIdList;
         }
-        if (null !== $this->scene) {
-            $res['scene'] = $this->scene;
+        if (null !== $this->componentIdList) {
+            $res['component_id_list'] = $this->componentIdList;
         }
 
         return $res;
@@ -76,13 +85,18 @@ class GetDeviceBydeviceidRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
+        if (isset($map['scene'])) {
+            $model->scene = $map['scene'];
+        }
         if (isset($map['device_id_list'])) {
             if (!empty($map['device_id_list'])) {
                 $model->deviceIdList = $map['device_id_list'];
             }
         }
-        if (isset($map['scene'])) {
-            $model->scene = $map['scene'];
+        if (isset($map['component_id_list'])) {
+            if (!empty($map['component_id_list'])) {
+                $model->componentIdList = $map['component_id_list'];
+            }
         }
 
         return $model;

@@ -32,24 +32,38 @@ class GetDeviceBydeviceidResponse extends Model
      */
     public $deviceList;
 
-    // 设备信息不存在的deviceid集合
+    // 设备信息不存在的deviceid列表
     /**
      * @var string[]
      */
     public $missDeviceIdList;
 
-    // 成功获取到设备信息的deviceid集合
+    // 成功获取到设备信息的deviceid列表
     /**
      * @var string[]
      */
     public $successDeviceIdList;
+
+    // 设备信息不存在的模组ID列表
+    /**
+     * @var string[]
+     */
+    public $missComponentIdList;
+
+    // 成功获取到设备信息的模组ID列表
+    /**
+     * @var string[]
+     */
+    public $successComponentIdList;
     protected $_name = [
-        'reqMsgId'            => 'req_msg_id',
-        'resultCode'          => 'result_code',
-        'resultMsg'           => 'result_msg',
-        'deviceList'          => 'device_list',
-        'missDeviceIdList'    => 'miss_device_id_list',
-        'successDeviceIdList' => 'success_device_id_list',
+        'reqMsgId'               => 'req_msg_id',
+        'resultCode'             => 'result_code',
+        'resultMsg'              => 'result_msg',
+        'deviceList'             => 'device_list',
+        'missDeviceIdList'       => 'miss_device_id_list',
+        'successDeviceIdList'    => 'success_device_id_list',
+        'missComponentIdList'    => 'miss_component_id_list',
+        'successComponentIdList' => 'success_component_id_list',
     ];
 
     public function validate()
@@ -82,6 +96,12 @@ class GetDeviceBydeviceidResponse extends Model
         }
         if (null !== $this->successDeviceIdList) {
             $res['success_device_id_list'] = $this->successDeviceIdList;
+        }
+        if (null !== $this->missComponentIdList) {
+            $res['miss_component_id_list'] = $this->missComponentIdList;
+        }
+        if (null !== $this->successComponentIdList) {
+            $res['success_component_id_list'] = $this->successComponentIdList;
         }
 
         return $res;
@@ -121,6 +141,16 @@ class GetDeviceBydeviceidResponse extends Model
         if (isset($map['success_device_id_list'])) {
             if (!empty($map['success_device_id_list'])) {
                 $model->successDeviceIdList = $map['success_device_id_list'];
+            }
+        }
+        if (isset($map['miss_component_id_list'])) {
+            if (!empty($map['miss_component_id_list'])) {
+                $model->missComponentIdList = $map['miss_component_id_list'];
+            }
+        }
+        if (isset($map['success_component_id_list'])) {
+            if (!empty($map['success_component_id_list'])) {
+                $model->successComponentIdList = $map['success_component_id_list'];
             }
         }
 
