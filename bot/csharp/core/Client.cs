@@ -137,7 +137,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.12.35"},
+                        {"sdk_version", "1.12.40"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.12.35"},
+                        {"sdk_version", "1.12.40"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -6253,6 +6253,48 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CreateElectrocarApplycarkeycertificateResponse>(await DoRequestAsync("1.0", "blockchain.bot.electrocar.applycarkeycertificate.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 二轮车设备下发音频
+         * Summary: 二轮车设备下发音频
+         */
+        public PushDeviceAudioResponse PushDeviceAudio(PushDeviceAudioRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PushDeviceAudioEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 二轮车设备下发音频
+         * Summary: 二轮车设备下发音频
+         */
+        public async Task<PushDeviceAudioResponse> PushDeviceAudioAsync(PushDeviceAudioRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PushDeviceAudioExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 二轮车设备下发音频
+         * Summary: 二轮车设备下发音频
+         */
+        public PushDeviceAudioResponse PushDeviceAudioEx(PushDeviceAudioRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushDeviceAudioResponse>(DoRequest("1.0", "blockchain.bot.device.audio.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 二轮车设备下发音频
+         * Summary: 二轮车设备下发音频
+         */
+        public async Task<PushDeviceAudioResponse> PushDeviceAudioExAsync(PushDeviceAudioRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushDeviceAudioResponse>(await DoRequestAsync("1.0", "blockchain.bot.device.audio.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

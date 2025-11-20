@@ -29,15 +29,25 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public List<Device> DeviceList { get; set; }
 
-        // 设备信息不存在的deviceid集合
+        // 设备信息不存在的deviceid列表
         [NameInMap("miss_device_id_list")]
         [Validation(Required=false)]
         public List<string> MissDeviceIdList { get; set; }
 
-        // 成功获取到设备信息的deviceid集合
+        // 成功获取到设备信息的deviceid列表
         [NameInMap("success_device_id_list")]
         [Validation(Required=false)]
         public List<string> SuccessDeviceIdList { get; set; }
+
+        // 设备信息不存在的模组ID列表
+        [NameInMap("miss_component_id_list")]
+        [Validation(Required=false)]
+        public List<string> MissComponentIdList { get; set; }
+
+        // 成功获取到设备信息的模组ID列表
+        [NameInMap("success_component_id_list")]
+        [Validation(Required=false)]
+        public List<string> SuccessComponentIdList { get; set; }
 
     }
 
