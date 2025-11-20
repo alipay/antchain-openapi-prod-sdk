@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.12.35"),
+                    new TeaPair("sdk_version", "1.12.40"),
                     new TeaPair("_prod_code", "BOT"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -3149,6 +3149,27 @@ public class Client {
     public CreateElectrocarApplycarkeycertificateResponse createElectrocarApplycarkeycertificateEx(CreateElectrocarApplycarkeycertificateRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.electrocar.applycarkeycertificate.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateElectrocarApplycarkeycertificateResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 二轮车设备下发音频
+     * Summary: 二轮车设备下发音频</p>
+     */
+    public PushDeviceAudioResponse pushDeviceAudio(PushDeviceAudioRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pushDeviceAudioEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 二轮车设备下发音频
+     * Summary: 二轮车设备下发音频</p>
+     */
+    public PushDeviceAudioResponse pushDeviceAudioEx(PushDeviceAudioRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.device.audio.push", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PushDeviceAudioResponse());
     }
 
     /**

@@ -20,13 +20,21 @@ public class GetDeviceBydeviceidResponse extends TeaModel {
     @NameInMap("device_list")
     public java.util.List<Device> deviceList;
 
-    // 设备信息不存在的deviceid集合
+    // 设备信息不存在的deviceid列表
     @NameInMap("miss_device_id_list")
     public java.util.List<String> missDeviceIdList;
 
-    // 成功获取到设备信息的deviceid集合
+    // 成功获取到设备信息的deviceid列表
     @NameInMap("success_device_id_list")
     public java.util.List<String> successDeviceIdList;
+
+    // 设备信息不存在的模组ID列表
+    @NameInMap("miss_component_id_list")
+    public java.util.List<String> missComponentIdList;
+
+    // 成功获取到设备信息的模组ID列表
+    @NameInMap("success_component_id_list")
+    public java.util.List<String> successComponentIdList;
 
     public static GetDeviceBydeviceidResponse build(java.util.Map<String, ?> map) throws Exception {
         GetDeviceBydeviceidResponse self = new GetDeviceBydeviceidResponse();
@@ -79,6 +87,22 @@ public class GetDeviceBydeviceidResponse extends TeaModel {
     }
     public java.util.List<String> getSuccessDeviceIdList() {
         return this.successDeviceIdList;
+    }
+
+    public GetDeviceBydeviceidResponse setMissComponentIdList(java.util.List<String> missComponentIdList) {
+        this.missComponentIdList = missComponentIdList;
+        return this;
+    }
+    public java.util.List<String> getMissComponentIdList() {
+        return this.missComponentIdList;
+    }
+
+    public GetDeviceBydeviceidResponse setSuccessComponentIdList(java.util.List<String> successComponentIdList) {
+        this.successComponentIdList = successComponentIdList;
+        return this;
+    }
+    public java.util.List<String> getSuccessComponentIdList() {
+        return this.successComponentIdList;
     }
 
 }
