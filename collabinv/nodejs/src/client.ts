@@ -1104,12 +1104,18 @@ export class AddCaruserUsersRequest extends $tea.Model {
   businessId: string[];
   // 数据的唯一code
   dataUniqloCode: string;
+  // 批次数据编号
+  datPhaseCode: string;
+  // 批次的数据量
+  dataNum: number;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       businessId: 'business_id',
       dataUniqloCode: 'data_uniqlo_code',
+      datPhaseCode: 'dat_phase_code',
+      dataNum: 'data_num',
     };
   }
 
@@ -1119,6 +1125,8 @@ export class AddCaruserUsersRequest extends $tea.Model {
       productInstanceId: 'string',
       businessId: { 'type': 'array', 'itemType': 'string' },
       dataUniqloCode: 'string',
+      datPhaseCode: 'string',
+      dataNum: 'number',
     };
   }
 
@@ -2940,7 +2948,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.53",
+          sdk_version: "1.0.55",
           _prod_code: "COLLABINV",
           _prod_channel: "default",
         };
