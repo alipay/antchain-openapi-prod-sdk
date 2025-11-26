@@ -21,6 +21,16 @@ public class AddCaruserUsersRequest extends TeaModel {
     @Validation(required = true)
     public String dataUniqloCode;
 
+    // 批次数据编号
+    @NameInMap("dat_phase_code")
+    @Validation(required = true)
+    public String datPhaseCode;
+
+    // 批次的数据量
+    @NameInMap("data_num")
+    @Validation(required = true)
+    public Long dataNum;
+
     public static AddCaruserUsersRequest build(java.util.Map<String, ?> map) throws Exception {
         AddCaruserUsersRequest self = new AddCaruserUsersRequest();
         return TeaModel.build(map, self);
@@ -56,6 +66,22 @@ public class AddCaruserUsersRequest extends TeaModel {
     }
     public String getDataUniqloCode() {
         return this.dataUniqloCode;
+    }
+
+    public AddCaruserUsersRequest setDatPhaseCode(String datPhaseCode) {
+        this.datPhaseCode = datPhaseCode;
+        return this;
+    }
+    public String getDatPhaseCode() {
+        return this.datPhaseCode;
+    }
+
+    public AddCaruserUsersRequest setDataNum(Long dataNum) {
+        this.dataNum = dataNum;
+        return this;
+    }
+    public Long getDataNum() {
+        return this.dataNum;
     }
 
 }
