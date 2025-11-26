@@ -28,6 +28,16 @@ namespace AntChain.SDK.COLLABINV.Models
         [Validation(Required=true)]
         public string DataUniqloCode { get; set; }
 
+        // 批次数据编号
+        [NameInMap("dat_phase_code")]
+        [Validation(Required=true)]
+        public string DatPhaseCode { get; set; }
+
+        // 批次的数据量
+        [NameInMap("data_num")]
+        [Validation(Required=true)]
+        public long? DataNum { get; set; }
+
     }
 
 }
