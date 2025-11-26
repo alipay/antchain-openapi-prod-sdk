@@ -30,17 +30,33 @@ class AddCaruserUsersRequest extends Model
      * @var string
      */
     public $dataUniqloCode;
+
+    // 批次数据编号
+    /**
+     * @var string
+     */
+    public $datPhaseCode;
+
+    // 批次的数据量
+    /**
+     * @var int
+     */
+    public $dataNum;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'businessId'        => 'business_id',
         'dataUniqloCode'    => 'data_uniqlo_code',
+        'datPhaseCode'      => 'dat_phase_code',
+        'dataNum'           => 'data_num',
     ];
 
     public function validate()
     {
         Model::validateRequired('businessId', $this->businessId, true);
         Model::validateRequired('dataUniqloCode', $this->dataUniqloCode, true);
+        Model::validateRequired('datPhaseCode', $this->datPhaseCode, true);
+        Model::validateRequired('dataNum', $this->dataNum, true);
     }
 
     public function toMap()
@@ -57,6 +73,12 @@ class AddCaruserUsersRequest extends Model
         }
         if (null !== $this->dataUniqloCode) {
             $res['data_uniqlo_code'] = $this->dataUniqloCode;
+        }
+        if (null !== $this->datPhaseCode) {
+            $res['dat_phase_code'] = $this->datPhaseCode;
+        }
+        if (null !== $this->dataNum) {
+            $res['data_num'] = $this->dataNum;
         }
 
         return $res;
@@ -83,6 +105,12 @@ class AddCaruserUsersRequest extends Model
         }
         if (isset($map['data_uniqlo_code'])) {
             $model->dataUniqloCode = $map['data_uniqlo_code'];
+        }
+        if (isset($map['dat_phase_code'])) {
+            $model->datPhaseCode = $map['dat_phase_code'];
+        }
+        if (isset($map['data_num'])) {
+            $model->dataNum = $map['data_num'];
         }
 
         return $model;
