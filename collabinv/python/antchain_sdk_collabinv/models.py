@@ -1818,6 +1818,8 @@ class AddCaruserUsersRequest(TeaModel):
         product_instance_id: str = None,
         business_id: List[str] = None,
         data_uniqlo_code: str = None,
+        dat_phase_code: str = None,
+        data_num: int = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -1826,10 +1828,16 @@ class AddCaruserUsersRequest(TeaModel):
         self.business_id = business_id
         # 数据的唯一code
         self.data_uniqlo_code = data_uniqlo_code
+        # 批次数据编号
+        self.dat_phase_code = dat_phase_code
+        # 批次的数据量
+        self.data_num = data_num
 
     def validate(self):
         self.validate_required(self.business_id, 'business_id')
         self.validate_required(self.data_uniqlo_code, 'data_uniqlo_code')
+        self.validate_required(self.dat_phase_code, 'dat_phase_code')
+        self.validate_required(self.data_num, 'data_num')
 
     def to_map(self):
         _map = super().to_map()
@@ -1845,6 +1853,10 @@ class AddCaruserUsersRequest(TeaModel):
             result['business_id'] = self.business_id
         if self.data_uniqlo_code is not None:
             result['data_uniqlo_code'] = self.data_uniqlo_code
+        if self.dat_phase_code is not None:
+            result['dat_phase_code'] = self.dat_phase_code
+        if self.data_num is not None:
+            result['data_num'] = self.data_num
         return result
 
     def from_map(self, m: dict = None):
@@ -1857,6 +1869,10 @@ class AddCaruserUsersRequest(TeaModel):
             self.business_id = m.get('business_id')
         if m.get('data_uniqlo_code') is not None:
             self.data_uniqlo_code = m.get('data_uniqlo_code')
+        if m.get('dat_phase_code') is not None:
+            self.dat_phase_code = m.get('dat_phase_code')
+        if m.get('data_num') is not None:
+            self.data_num = m.get('data_num')
         return self
 
 
