@@ -1449,6 +1449,10 @@ type AddCaruserUsersRequest struct {
 	BusinessId []*string `json:"business_id,omitempty" xml:"business_id,omitempty" require:"true" type:"Repeated"`
 	// 数据的唯一code
 	DataUniqloCode *string `json:"data_uniqlo_code,omitempty" xml:"data_uniqlo_code,omitempty" require:"true"`
+	// 批次数据编号
+	DatPhaseCode *string `json:"dat_phase_code,omitempty" xml:"dat_phase_code,omitempty" require:"true"`
+	// 批次的数据量
+	DataNum *int64 `json:"data_num,omitempty" xml:"data_num,omitempty" require:"true"`
 }
 
 func (s AddCaruserUsersRequest) String() string {
@@ -1476,6 +1480,16 @@ func (s *AddCaruserUsersRequest) SetBusinessId(v []*string) *AddCaruserUsersRequ
 
 func (s *AddCaruserUsersRequest) SetDataUniqloCode(v string) *AddCaruserUsersRequest {
 	s.DataUniqloCode = &v
+	return s
+}
+
+func (s *AddCaruserUsersRequest) SetDatPhaseCode(v string) *AddCaruserUsersRequest {
+	s.DatPhaseCode = &v
+	return s
+}
+
+func (s *AddCaruserUsersRequest) SetDataNum(v int64) *AddCaruserUsersRequest {
+	s.DataNum = &v
 	return s
 }
 
@@ -3854,7 +3868,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.53"),
+				"sdk_version":      tea.String("1.0.55"),
 				"_prod_code":       tea.String("COLLABINV"),
 				"_prod_channel":    tea.String("default"),
 			}
