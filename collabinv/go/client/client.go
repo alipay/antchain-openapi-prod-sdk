@@ -1450,9 +1450,11 @@ type AddCaruserUsersRequest struct {
 	// 数据的唯一code
 	DataUniqloCode *string `json:"data_uniqlo_code,omitempty" xml:"data_uniqlo_code,omitempty" require:"true"`
 	// 批次数据编号
-	DatPhaseCode *string `json:"dat_phase_code,omitempty" xml:"dat_phase_code,omitempty" require:"true"`
+	DataPhaseCode *string `json:"data_phase_code,omitempty" xml:"data_phase_code,omitempty" require:"true"`
 	// 批次的数据量
-	DataNum *int64 `json:"data_num,omitempty" xml:"data_num,omitempty" require:"true"`
+	PhaseDataNum *int64 `json:"phase_data_num,omitempty" xml:"phase_data_num,omitempty" require:"true"`
+	// 整体数据量
+	UniqloDataNum *string `json:"uniqlo_data_num,omitempty" xml:"uniqlo_data_num,omitempty" require:"true"`
 }
 
 func (s AddCaruserUsersRequest) String() string {
@@ -1483,13 +1485,18 @@ func (s *AddCaruserUsersRequest) SetDataUniqloCode(v string) *AddCaruserUsersReq
 	return s
 }
 
-func (s *AddCaruserUsersRequest) SetDatPhaseCode(v string) *AddCaruserUsersRequest {
-	s.DatPhaseCode = &v
+func (s *AddCaruserUsersRequest) SetDataPhaseCode(v string) *AddCaruserUsersRequest {
+	s.DataPhaseCode = &v
 	return s
 }
 
-func (s *AddCaruserUsersRequest) SetDataNum(v int64) *AddCaruserUsersRequest {
-	s.DataNum = &v
+func (s *AddCaruserUsersRequest) SetPhaseDataNum(v int64) *AddCaruserUsersRequest {
+	s.PhaseDataNum = &v
+	return s
+}
+
+func (s *AddCaruserUsersRequest) SetUniqloDataNum(v string) *AddCaruserUsersRequest {
+	s.UniqloDataNum = &v
 	return s
 }
 
@@ -1613,6 +1620,356 @@ func (s *QueryCarloanUsersResponse) SetData(v []*string) *QueryCarloanUsersRespo
 
 func (s *QueryCarloanUsersResponse) SetPageInfo(v *PageInfo) *QueryCarloanUsersResponse {
 	s.PageInfo = v
+	return s
+}
+
+type AddCaruserTestRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 业务的id
+	BusinessId []*string `json:"business_id,omitempty" xml:"business_id,omitempty" require:"true" type:"Repeated"`
+	// 数据的唯一code
+	DataUniqloCode *string `json:"data_uniqlo_code,omitempty" xml:"data_uniqlo_code,omitempty" require:"true"`
+	// 批次数据编号
+	DatPhaseCode *string `json:"dat_phase_code,omitempty" xml:"dat_phase_code,omitempty" require:"true"`
+	// 批次的数据量
+	DataNum *int64 `json:"data_num,omitempty" xml:"data_num,omitempty" require:"true"`
+	// 业务类型
+	BusinessType *string `json:"business_type,omitempty" xml:"business_type,omitempty" require:"true"`
+}
+
+func (s AddCaruserTestRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AddCaruserTestRequest) GoString() string {
+	return s.String()
+}
+
+func (s *AddCaruserTestRequest) SetAuthToken(v string) *AddCaruserTestRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *AddCaruserTestRequest) SetProductInstanceId(v string) *AddCaruserTestRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *AddCaruserTestRequest) SetBusinessId(v []*string) *AddCaruserTestRequest {
+	s.BusinessId = v
+	return s
+}
+
+func (s *AddCaruserTestRequest) SetDataUniqloCode(v string) *AddCaruserTestRequest {
+	s.DataUniqloCode = &v
+	return s
+}
+
+func (s *AddCaruserTestRequest) SetDatPhaseCode(v string) *AddCaruserTestRequest {
+	s.DatPhaseCode = &v
+	return s
+}
+
+func (s *AddCaruserTestRequest) SetDataNum(v int64) *AddCaruserTestRequest {
+	s.DataNum = &v
+	return s
+}
+
+func (s *AddCaruserTestRequest) SetBusinessType(v string) *AddCaruserTestRequest {
+	s.BusinessType = &v
+	return s
+}
+
+type AddCaruserTestResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 处理结果
+	ProcessResult *string `json:"process_result,omitempty" xml:"process_result,omitempty"`
+}
+
+func (s AddCaruserTestResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AddCaruserTestResponse) GoString() string {
+	return s.String()
+}
+
+func (s *AddCaruserTestResponse) SetReqMsgId(v string) *AddCaruserTestResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *AddCaruserTestResponse) SetResultCode(v string) *AddCaruserTestResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *AddCaruserTestResponse) SetResultMsg(v string) *AddCaruserTestResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *AddCaruserTestResponse) SetProcessResult(v string) *AddCaruserTestResponse {
+	s.ProcessResult = &v
+	return s
+}
+
+type AddCaruserPrdRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 业务的id
+	BusinessId []*string `json:"business_id,omitempty" xml:"business_id,omitempty" require:"true" type:"Repeated"`
+	// 数据的唯一code
+	DataUniqloCode *string `json:"data_uniqlo_code,omitempty" xml:"data_uniqlo_code,omitempty" require:"true"`
+	// 批次数据编号
+	DatPhaseCode *string `json:"dat_phase_code,omitempty" xml:"dat_phase_code,omitempty" require:"true"`
+	// 批次的数据量
+	DataNum *int64 `json:"data_num,omitempty" xml:"data_num,omitempty" require:"true"`
+	// 业务类型
+	BusinessType *string `json:"business_type,omitempty" xml:"business_type,omitempty" require:"true"`
+}
+
+func (s AddCaruserPrdRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AddCaruserPrdRequest) GoString() string {
+	return s.String()
+}
+
+func (s *AddCaruserPrdRequest) SetAuthToken(v string) *AddCaruserPrdRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *AddCaruserPrdRequest) SetProductInstanceId(v string) *AddCaruserPrdRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *AddCaruserPrdRequest) SetBusinessId(v []*string) *AddCaruserPrdRequest {
+	s.BusinessId = v
+	return s
+}
+
+func (s *AddCaruserPrdRequest) SetDataUniqloCode(v string) *AddCaruserPrdRequest {
+	s.DataUniqloCode = &v
+	return s
+}
+
+func (s *AddCaruserPrdRequest) SetDatPhaseCode(v string) *AddCaruserPrdRequest {
+	s.DatPhaseCode = &v
+	return s
+}
+
+func (s *AddCaruserPrdRequest) SetDataNum(v int64) *AddCaruserPrdRequest {
+	s.DataNum = &v
+	return s
+}
+
+func (s *AddCaruserPrdRequest) SetBusinessType(v string) *AddCaruserPrdRequest {
+	s.BusinessType = &v
+	return s
+}
+
+type AddCaruserPrdResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 处理结果
+	ProcessResult *string `json:"process_result,omitempty" xml:"process_result,omitempty"`
+}
+
+func (s AddCaruserPrdResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AddCaruserPrdResponse) GoString() string {
+	return s.String()
+}
+
+func (s *AddCaruserPrdResponse) SetReqMsgId(v string) *AddCaruserPrdResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *AddCaruserPrdResponse) SetResultCode(v string) *AddCaruserPrdResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *AddCaruserPrdResponse) SetResultMsg(v string) *AddCaruserPrdResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *AddCaruserPrdResponse) SetProcessResult(v string) *AddCaruserPrdResponse {
+	s.ProcessResult = &v
+	return s
+}
+
+type BatchqueryCarloanTestRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 日期
+	Date *string `json:"date,omitempty" xml:"date,omitempty" require:"true"`
+	// 查询条数
+	DataNum *string `json:"data_num,omitempty" xml:"data_num,omitempty" require:"true"`
+}
+
+func (s BatchqueryCarloanTestRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BatchqueryCarloanTestRequest) GoString() string {
+	return s.String()
+}
+
+func (s *BatchqueryCarloanTestRequest) SetAuthToken(v string) *BatchqueryCarloanTestRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *BatchqueryCarloanTestRequest) SetProductInstanceId(v string) *BatchqueryCarloanTestRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *BatchqueryCarloanTestRequest) SetDate(v string) *BatchqueryCarloanTestRequest {
+	s.Date = &v
+	return s
+}
+
+func (s *BatchqueryCarloanTestRequest) SetDataNum(v string) *BatchqueryCarloanTestRequest {
+	s.DataNum = &v
+	return s
+}
+
+type BatchqueryCarloanTestResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 业务id
+	BusinessIds []*string `json:"business_ids,omitempty" xml:"business_ids,omitempty" type:"Repeated"`
+}
+
+func (s BatchqueryCarloanTestResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BatchqueryCarloanTestResponse) GoString() string {
+	return s.String()
+}
+
+func (s *BatchqueryCarloanTestResponse) SetReqMsgId(v string) *BatchqueryCarloanTestResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *BatchqueryCarloanTestResponse) SetResultCode(v string) *BatchqueryCarloanTestResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *BatchqueryCarloanTestResponse) SetResultMsg(v string) *BatchqueryCarloanTestResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *BatchqueryCarloanTestResponse) SetBusinessIds(v []*string) *BatchqueryCarloanTestResponse {
+	s.BusinessIds = v
+	return s
+}
+
+type BatchqueryCarloanPrdRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 日期
+	Date *string `json:"date,omitempty" xml:"date,omitempty" require:"true"`
+	// 查询条数
+	DataNum *string `json:"data_num,omitempty" xml:"data_num,omitempty" require:"true"`
+}
+
+func (s BatchqueryCarloanPrdRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BatchqueryCarloanPrdRequest) GoString() string {
+	return s.String()
+}
+
+func (s *BatchqueryCarloanPrdRequest) SetAuthToken(v string) *BatchqueryCarloanPrdRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *BatchqueryCarloanPrdRequest) SetProductInstanceId(v string) *BatchqueryCarloanPrdRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *BatchqueryCarloanPrdRequest) SetDate(v string) *BatchqueryCarloanPrdRequest {
+	s.Date = &v
+	return s
+}
+
+func (s *BatchqueryCarloanPrdRequest) SetDataNum(v string) *BatchqueryCarloanPrdRequest {
+	s.DataNum = &v
+	return s
+}
+
+type BatchqueryCarloanPrdResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 业务id
+	BusinessIds []*string `json:"business_ids,omitempty" xml:"business_ids,omitempty" type:"Repeated"`
+}
+
+func (s BatchqueryCarloanPrdResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BatchqueryCarloanPrdResponse) GoString() string {
+	return s.String()
+}
+
+func (s *BatchqueryCarloanPrdResponse) SetReqMsgId(v string) *BatchqueryCarloanPrdResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *BatchqueryCarloanPrdResponse) SetResultCode(v string) *BatchqueryCarloanPrdResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *BatchqueryCarloanPrdResponse) SetResultMsg(v string) *BatchqueryCarloanPrdResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *BatchqueryCarloanPrdResponse) SetBusinessIds(v []*string) *BatchqueryCarloanPrdResponse {
+	s.BusinessIds = v
 	return s
 }
 
@@ -3868,7 +4225,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.55"),
+				"sdk_version":      tea.String("1.0.57"),
 				"_prod_code":       tea.String("COLLABINV"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -4357,6 +4714,142 @@ func (client *Client) QueryCarloanUsersEx(request *QueryCarloanUsersRequest, hea
 	}
 	_result = &QueryCarloanUsersResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.zkcollabinv.carloan.users.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 测试接口添加用户
+ * Summary: 测试接口添加用户
+ */
+func (client *Client) AddCaruserTest(request *AddCaruserTestRequest) (_result *AddCaruserTestResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &AddCaruserTestResponse{}
+	_body, _err := client.AddCaruserTestEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 测试接口添加用户
+ * Summary: 测试接口添加用户
+ */
+func (client *Client) AddCaruserTestEx(request *AddCaruserTestRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *AddCaruserTestResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &AddCaruserTestResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.zkcollabinv.caruser.test.add"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 生产接口增加人群
+ * Summary: 生产接口增加人群
+ */
+func (client *Client) AddCaruserPrd(request *AddCaruserPrdRequest) (_result *AddCaruserPrdResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &AddCaruserPrdResponse{}
+	_body, _err := client.AddCaruserPrdEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 生产接口增加人群
+ * Summary: 生产接口增加人群
+ */
+func (client *Client) AddCaruserPrdEx(request *AddCaruserPrdRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *AddCaruserPrdResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &AddCaruserPrdResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.zkcollabinv.caruser.prd.add"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 碰撞人群数据测试接口碰撞人群数据
+ * Summary: 测试接口碰撞人群数据
+ */
+func (client *Client) BatchqueryCarloanTest(request *BatchqueryCarloanTestRequest) (_result *BatchqueryCarloanTestResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &BatchqueryCarloanTestResponse{}
+	_body, _err := client.BatchqueryCarloanTestEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 碰撞人群数据测试接口碰撞人群数据
+ * Summary: 测试接口碰撞人群数据
+ */
+func (client *Client) BatchqueryCarloanTestEx(request *BatchqueryCarloanTestRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BatchqueryCarloanTestResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &BatchqueryCarloanTestResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.zkcollabinv.carloan.test.batchquery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 生产接口碰撞人群数据
+ * Summary: 生产接口碰撞人群数据
+ */
+func (client *Client) BatchqueryCarloanPrd(request *BatchqueryCarloanPrdRequest) (_result *BatchqueryCarloanPrdResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &BatchqueryCarloanPrdResponse{}
+	_body, _err := client.BatchqueryCarloanPrdEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 生产接口碰撞人群数据
+ * Summary: 生产接口碰撞人群数据
+ */
+func (client *Client) BatchqueryCarloanPrdEx(request *BatchqueryCarloanPrdRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BatchqueryCarloanPrdResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &BatchqueryCarloanPrdResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.zkcollabinv.carloan.prd.batchquery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
