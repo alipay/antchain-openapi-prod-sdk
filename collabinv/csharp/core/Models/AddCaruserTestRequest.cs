@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.COLLABINV.Models
 {
-    public class AddCaruserUsersRequest : TeaModel {
+    public class AddCaruserTestRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -29,19 +29,19 @@ namespace AntChain.SDK.COLLABINV.Models
         public string DataUniqloCode { get; set; }
 
         // 批次数据编号
-        [NameInMap("data_phase_code")]
+        [NameInMap("dat_phase_code")]
         [Validation(Required=true)]
-        public string DataPhaseCode { get; set; }
+        public string DatPhaseCode { get; set; }
 
         // 批次的数据量
-        [NameInMap("phase_data_num")]
+        [NameInMap("data_num")]
         [Validation(Required=true)]
-        public long? PhaseDataNum { get; set; }
+        public long? DataNum { get; set; }
 
-        // 整体数据量
-        [NameInMap("uniqlo_data_num")]
+        // 业务类型
+        [NameInMap("business_type")]
         [Validation(Required=true)]
-        public string UniqloDataNum { get; set; }
+        public string BusinessType { get; set; }
 
     }
 

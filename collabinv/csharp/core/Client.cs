@@ -137,7 +137,7 @@ namespace AntChain.SDK.COLLABINV
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.55"},
+                        {"sdk_version", "1.0.57"},
                         {"_prod_code", "COLLABINV"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.COLLABINV
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.55"},
+                        {"sdk_version", "1.0.57"},
                         {"_prod_code", "COLLABINV"},
                         {"_prod_channel", "default"},
                     };
@@ -871,6 +871,174 @@ namespace AntChain.SDK.COLLABINV
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryCarloanUsersResponse>(await DoRequestAsync("1.0", "antchain.zkcollabinv.carloan.users.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 测试接口添加用户
+         * Summary: 测试接口添加用户
+         */
+        public AddCaruserTestResponse AddCaruserTest(AddCaruserTestRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return AddCaruserTestEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 测试接口添加用户
+         * Summary: 测试接口添加用户
+         */
+        public async Task<AddCaruserTestResponse> AddCaruserTestAsync(AddCaruserTestRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await AddCaruserTestExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 测试接口添加用户
+         * Summary: 测试接口添加用户
+         */
+        public AddCaruserTestResponse AddCaruserTestEx(AddCaruserTestRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AddCaruserTestResponse>(DoRequest("1.0", "antchain.zkcollabinv.caruser.test.add", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 测试接口添加用户
+         * Summary: 测试接口添加用户
+         */
+        public async Task<AddCaruserTestResponse> AddCaruserTestExAsync(AddCaruserTestRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AddCaruserTestResponse>(await DoRequestAsync("1.0", "antchain.zkcollabinv.caruser.test.add", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 生产接口增加人群
+         * Summary: 生产接口增加人群
+         */
+        public AddCaruserPrdResponse AddCaruserPrd(AddCaruserPrdRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return AddCaruserPrdEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 生产接口增加人群
+         * Summary: 生产接口增加人群
+         */
+        public async Task<AddCaruserPrdResponse> AddCaruserPrdAsync(AddCaruserPrdRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await AddCaruserPrdExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 生产接口增加人群
+         * Summary: 生产接口增加人群
+         */
+        public AddCaruserPrdResponse AddCaruserPrdEx(AddCaruserPrdRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AddCaruserPrdResponse>(DoRequest("1.0", "antchain.zkcollabinv.caruser.prd.add", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 生产接口增加人群
+         * Summary: 生产接口增加人群
+         */
+        public async Task<AddCaruserPrdResponse> AddCaruserPrdExAsync(AddCaruserPrdRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AddCaruserPrdResponse>(await DoRequestAsync("1.0", "antchain.zkcollabinv.caruser.prd.add", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 碰撞人群数据测试接口碰撞人群数据
+         * Summary: 测试接口碰撞人群数据
+         */
+        public BatchqueryCarloanTestResponse BatchqueryCarloanTest(BatchqueryCarloanTestRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return BatchqueryCarloanTestEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 碰撞人群数据测试接口碰撞人群数据
+         * Summary: 测试接口碰撞人群数据
+         */
+        public async Task<BatchqueryCarloanTestResponse> BatchqueryCarloanTestAsync(BatchqueryCarloanTestRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await BatchqueryCarloanTestExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 碰撞人群数据测试接口碰撞人群数据
+         * Summary: 测试接口碰撞人群数据
+         */
+        public BatchqueryCarloanTestResponse BatchqueryCarloanTestEx(BatchqueryCarloanTestRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BatchqueryCarloanTestResponse>(DoRequest("1.0", "antchain.zkcollabinv.carloan.test.batchquery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 碰撞人群数据测试接口碰撞人群数据
+         * Summary: 测试接口碰撞人群数据
+         */
+        public async Task<BatchqueryCarloanTestResponse> BatchqueryCarloanTestExAsync(BatchqueryCarloanTestRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BatchqueryCarloanTestResponse>(await DoRequestAsync("1.0", "antchain.zkcollabinv.carloan.test.batchquery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 生产接口碰撞人群数据
+         * Summary: 生产接口碰撞人群数据
+         */
+        public BatchqueryCarloanPrdResponse BatchqueryCarloanPrd(BatchqueryCarloanPrdRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return BatchqueryCarloanPrdEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 生产接口碰撞人群数据
+         * Summary: 生产接口碰撞人群数据
+         */
+        public async Task<BatchqueryCarloanPrdResponse> BatchqueryCarloanPrdAsync(BatchqueryCarloanPrdRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await BatchqueryCarloanPrdExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 生产接口碰撞人群数据
+         * Summary: 生产接口碰撞人群数据
+         */
+        public BatchqueryCarloanPrdResponse BatchqueryCarloanPrdEx(BatchqueryCarloanPrdRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BatchqueryCarloanPrdResponse>(DoRequest("1.0", "antchain.zkcollabinv.carloan.prd.batchquery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 生产接口碰撞人群数据
+         * Summary: 生产接口碰撞人群数据
+         */
+        public async Task<BatchqueryCarloanPrdResponse> BatchqueryCarloanPrdExAsync(BatchqueryCarloanPrdRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BatchqueryCarloanPrdResponse>(await DoRequestAsync("1.0", "antchain.zkcollabinv.carloan.prd.batchquery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
