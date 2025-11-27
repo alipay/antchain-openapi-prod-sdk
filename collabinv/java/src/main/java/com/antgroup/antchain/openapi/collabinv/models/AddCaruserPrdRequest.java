@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.collabinv.models;
 
 import com.aliyun.tea.*;
 
-public class AddCaruserUsersRequest extends TeaModel {
+public class AddCaruserPrdRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -22,26 +22,26 @@ public class AddCaruserUsersRequest extends TeaModel {
     public String dataUniqloCode;
 
     // 批次数据编号
-    @NameInMap("data_phase_code")
+    @NameInMap("dat_phase_code")
     @Validation(required = true)
-    public String dataPhaseCode;
+    public String datPhaseCode;
 
     // 批次的数据量
-    @NameInMap("phase_data_num")
+    @NameInMap("data_num")
     @Validation(required = true)
-    public Long phaseDataNum;
+    public Long dataNum;
 
-    // 整体数据量
-    @NameInMap("uniqlo_data_num")
+    // 业务类型
+    @NameInMap("business_type")
     @Validation(required = true)
-    public String uniqloDataNum;
+    public String businessType;
 
-    public static AddCaruserUsersRequest build(java.util.Map<String, ?> map) throws Exception {
-        AddCaruserUsersRequest self = new AddCaruserUsersRequest();
+    public static AddCaruserPrdRequest build(java.util.Map<String, ?> map) throws Exception {
+        AddCaruserPrdRequest self = new AddCaruserPrdRequest();
         return TeaModel.build(map, self);
     }
 
-    public AddCaruserUsersRequest setAuthToken(String authToken) {
+    public AddCaruserPrdRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -49,7 +49,7 @@ public class AddCaruserUsersRequest extends TeaModel {
         return this.authToken;
     }
 
-    public AddCaruserUsersRequest setProductInstanceId(String productInstanceId) {
+    public AddCaruserPrdRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -57,7 +57,7 @@ public class AddCaruserUsersRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public AddCaruserUsersRequest setBusinessId(java.util.List<String> businessId) {
+    public AddCaruserPrdRequest setBusinessId(java.util.List<String> businessId) {
         this.businessId = businessId;
         return this;
     }
@@ -65,7 +65,7 @@ public class AddCaruserUsersRequest extends TeaModel {
         return this.businessId;
     }
 
-    public AddCaruserUsersRequest setDataUniqloCode(String dataUniqloCode) {
+    public AddCaruserPrdRequest setDataUniqloCode(String dataUniqloCode) {
         this.dataUniqloCode = dataUniqloCode;
         return this;
     }
@@ -73,28 +73,28 @@ public class AddCaruserUsersRequest extends TeaModel {
         return this.dataUniqloCode;
     }
 
-    public AddCaruserUsersRequest setDataPhaseCode(String dataPhaseCode) {
-        this.dataPhaseCode = dataPhaseCode;
+    public AddCaruserPrdRequest setDatPhaseCode(String datPhaseCode) {
+        this.datPhaseCode = datPhaseCode;
         return this;
     }
-    public String getDataPhaseCode() {
-        return this.dataPhaseCode;
+    public String getDatPhaseCode() {
+        return this.datPhaseCode;
     }
 
-    public AddCaruserUsersRequest setPhaseDataNum(Long phaseDataNum) {
-        this.phaseDataNum = phaseDataNum;
+    public AddCaruserPrdRequest setDataNum(Long dataNum) {
+        this.dataNum = dataNum;
         return this;
     }
-    public Long getPhaseDataNum() {
-        return this.phaseDataNum;
+    public Long getDataNum() {
+        return this.dataNum;
     }
 
-    public AddCaruserUsersRequest setUniqloDataNum(String uniqloDataNum) {
-        this.uniqloDataNum = uniqloDataNum;
+    public AddCaruserPrdRequest setBusinessType(String businessType) {
+        this.businessType = businessType;
         return this;
     }
-    public String getUniqloDataNum() {
-        return this.uniqloDataNum;
+    public String getBusinessType() {
+        return this.businessType;
     }
 
 }

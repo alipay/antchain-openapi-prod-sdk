@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.55"),
+                    new TeaPair("sdk_version", "1.0.57"),
                     new TeaPair("_prod_code", "COLLABINV"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -460,6 +460,90 @@ public class Client {
     public QueryCarloanUsersResponse queryCarloanUsersEx(QueryCarloanUsersRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.zkcollabinv.carloan.users.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCarloanUsersResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 测试接口添加用户
+     * Summary: 测试接口添加用户</p>
+     */
+    public AddCaruserTestResponse addCaruserTest(AddCaruserTestRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.addCaruserTestEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 测试接口添加用户
+     * Summary: 测试接口添加用户</p>
+     */
+    public AddCaruserTestResponse addCaruserTestEx(AddCaruserTestRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.zkcollabinv.caruser.test.add", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AddCaruserTestResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 生产接口增加人群
+     * Summary: 生产接口增加人群</p>
+     */
+    public AddCaruserPrdResponse addCaruserPrd(AddCaruserPrdRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.addCaruserPrdEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 生产接口增加人群
+     * Summary: 生产接口增加人群</p>
+     */
+    public AddCaruserPrdResponse addCaruserPrdEx(AddCaruserPrdRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.zkcollabinv.caruser.prd.add", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AddCaruserPrdResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 碰撞人群数据测试接口碰撞人群数据
+     * Summary: 测试接口碰撞人群数据</p>
+     */
+    public BatchqueryCarloanTestResponse batchqueryCarloanTest(BatchqueryCarloanTestRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.batchqueryCarloanTestEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 碰撞人群数据测试接口碰撞人群数据
+     * Summary: 测试接口碰撞人群数据</p>
+     */
+    public BatchqueryCarloanTestResponse batchqueryCarloanTestEx(BatchqueryCarloanTestRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.zkcollabinv.carloan.test.batchquery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BatchqueryCarloanTestResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 生产接口碰撞人群数据
+     * Summary: 生产接口碰撞人群数据</p>
+     */
+    public BatchqueryCarloanPrdResponse batchqueryCarloanPrd(BatchqueryCarloanPrdRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.batchqueryCarloanPrdEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 生产接口碰撞人群数据
+     * Summary: 生产接口碰撞人群数据</p>
+     */
+    public BatchqueryCarloanPrdResponse batchqueryCarloanPrdEx(BatchqueryCarloanPrdRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.zkcollabinv.carloan.prd.batchquery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BatchqueryCarloanPrdResponse());
     }
 
     /**
