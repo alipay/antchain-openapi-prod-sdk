@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.55',
+                    'sdk_version': '1.0.57',
                     '_prod_code': 'COLLABINV',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.55',
+                    'sdk_version': '1.0.57',
                     '_prod_code': 'COLLABINV',
                     '_prod_channel': 'default'
                 }
@@ -981,6 +981,230 @@ class Client:
         return TeaCore.from_map(
             collabinv_models.QueryCarloanUsersResponse(),
             await self.do_request_async('1.0', 'antchain.zkcollabinv.carloan.users.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def add_caruser_test(
+        self,
+        request: collabinv_models.AddCaruserTestRequest,
+    ) -> collabinv_models.AddCaruserTestResponse:
+        """
+        Description: 测试接口添加用户
+        Summary: 测试接口添加用户
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.add_caruser_test_ex(request, headers, runtime)
+
+    async def add_caruser_test_async(
+        self,
+        request: collabinv_models.AddCaruserTestRequest,
+    ) -> collabinv_models.AddCaruserTestResponse:
+        """
+        Description: 测试接口添加用户
+        Summary: 测试接口添加用户
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.add_caruser_test_ex_async(request, headers, runtime)
+
+    def add_caruser_test_ex(
+        self,
+        request: collabinv_models.AddCaruserTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> collabinv_models.AddCaruserTestResponse:
+        """
+        Description: 测试接口添加用户
+        Summary: 测试接口添加用户
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            collabinv_models.AddCaruserTestResponse(),
+            self.do_request('1.0', 'antchain.zkcollabinv.caruser.test.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def add_caruser_test_ex_async(
+        self,
+        request: collabinv_models.AddCaruserTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> collabinv_models.AddCaruserTestResponse:
+        """
+        Description: 测试接口添加用户
+        Summary: 测试接口添加用户
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            collabinv_models.AddCaruserTestResponse(),
+            await self.do_request_async('1.0', 'antchain.zkcollabinv.caruser.test.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def add_caruser_prd(
+        self,
+        request: collabinv_models.AddCaruserPrdRequest,
+    ) -> collabinv_models.AddCaruserPrdResponse:
+        """
+        Description: 生产接口增加人群
+        Summary: 生产接口增加人群
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.add_caruser_prd_ex(request, headers, runtime)
+
+    async def add_caruser_prd_async(
+        self,
+        request: collabinv_models.AddCaruserPrdRequest,
+    ) -> collabinv_models.AddCaruserPrdResponse:
+        """
+        Description: 生产接口增加人群
+        Summary: 生产接口增加人群
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.add_caruser_prd_ex_async(request, headers, runtime)
+
+    def add_caruser_prd_ex(
+        self,
+        request: collabinv_models.AddCaruserPrdRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> collabinv_models.AddCaruserPrdResponse:
+        """
+        Description: 生产接口增加人群
+        Summary: 生产接口增加人群
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            collabinv_models.AddCaruserPrdResponse(),
+            self.do_request('1.0', 'antchain.zkcollabinv.caruser.prd.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def add_caruser_prd_ex_async(
+        self,
+        request: collabinv_models.AddCaruserPrdRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> collabinv_models.AddCaruserPrdResponse:
+        """
+        Description: 生产接口增加人群
+        Summary: 生产接口增加人群
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            collabinv_models.AddCaruserPrdResponse(),
+            await self.do_request_async('1.0', 'antchain.zkcollabinv.caruser.prd.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def batchquery_carloan_test(
+        self,
+        request: collabinv_models.BatchqueryCarloanTestRequest,
+    ) -> collabinv_models.BatchqueryCarloanTestResponse:
+        """
+        Description: 碰撞人群数据测试接口碰撞人群数据
+        Summary: 测试接口碰撞人群数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.batchquery_carloan_test_ex(request, headers, runtime)
+
+    async def batchquery_carloan_test_async(
+        self,
+        request: collabinv_models.BatchqueryCarloanTestRequest,
+    ) -> collabinv_models.BatchqueryCarloanTestResponse:
+        """
+        Description: 碰撞人群数据测试接口碰撞人群数据
+        Summary: 测试接口碰撞人群数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.batchquery_carloan_test_ex_async(request, headers, runtime)
+
+    def batchquery_carloan_test_ex(
+        self,
+        request: collabinv_models.BatchqueryCarloanTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> collabinv_models.BatchqueryCarloanTestResponse:
+        """
+        Description: 碰撞人群数据测试接口碰撞人群数据
+        Summary: 测试接口碰撞人群数据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            collabinv_models.BatchqueryCarloanTestResponse(),
+            self.do_request('1.0', 'antchain.zkcollabinv.carloan.test.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def batchquery_carloan_test_ex_async(
+        self,
+        request: collabinv_models.BatchqueryCarloanTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> collabinv_models.BatchqueryCarloanTestResponse:
+        """
+        Description: 碰撞人群数据测试接口碰撞人群数据
+        Summary: 测试接口碰撞人群数据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            collabinv_models.BatchqueryCarloanTestResponse(),
+            await self.do_request_async('1.0', 'antchain.zkcollabinv.carloan.test.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def batchquery_carloan_prd(
+        self,
+        request: collabinv_models.BatchqueryCarloanPrdRequest,
+    ) -> collabinv_models.BatchqueryCarloanPrdResponse:
+        """
+        Description: 生产接口碰撞人群数据
+        Summary: 生产接口碰撞人群数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.batchquery_carloan_prd_ex(request, headers, runtime)
+
+    async def batchquery_carloan_prd_async(
+        self,
+        request: collabinv_models.BatchqueryCarloanPrdRequest,
+    ) -> collabinv_models.BatchqueryCarloanPrdResponse:
+        """
+        Description: 生产接口碰撞人群数据
+        Summary: 生产接口碰撞人群数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.batchquery_carloan_prd_ex_async(request, headers, runtime)
+
+    def batchquery_carloan_prd_ex(
+        self,
+        request: collabinv_models.BatchqueryCarloanPrdRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> collabinv_models.BatchqueryCarloanPrdResponse:
+        """
+        Description: 生产接口碰撞人群数据
+        Summary: 生产接口碰撞人群数据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            collabinv_models.BatchqueryCarloanPrdResponse(),
+            self.do_request('1.0', 'antchain.zkcollabinv.carloan.prd.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def batchquery_carloan_prd_ex_async(
+        self,
+        request: collabinv_models.BatchqueryCarloanPrdRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> collabinv_models.BatchqueryCarloanPrdResponse:
+        """
+        Description: 生产接口碰撞人群数据
+        Summary: 生产接口碰撞人群数据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            collabinv_models.BatchqueryCarloanPrdResponse(),
+            await self.do_request_async('1.0', 'antchain.zkcollabinv.carloan.prd.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def import_idmap_samplefile(

@@ -1818,8 +1818,9 @@ class AddCaruserUsersRequest(TeaModel):
         product_instance_id: str = None,
         business_id: List[str] = None,
         data_uniqlo_code: str = None,
-        dat_phase_code: str = None,
-        data_num: int = None,
+        data_phase_code: str = None,
+        phase_data_num: int = None,
+        uniqlo_data_num: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -1829,15 +1830,18 @@ class AddCaruserUsersRequest(TeaModel):
         # 数据的唯一code
         self.data_uniqlo_code = data_uniqlo_code
         # 批次数据编号
-        self.dat_phase_code = dat_phase_code
+        self.data_phase_code = data_phase_code
         # 批次的数据量
-        self.data_num = data_num
+        self.phase_data_num = phase_data_num
+        # 整体数据量
+        self.uniqlo_data_num = uniqlo_data_num
 
     def validate(self):
         self.validate_required(self.business_id, 'business_id')
         self.validate_required(self.data_uniqlo_code, 'data_uniqlo_code')
-        self.validate_required(self.dat_phase_code, 'dat_phase_code')
-        self.validate_required(self.data_num, 'data_num')
+        self.validate_required(self.data_phase_code, 'data_phase_code')
+        self.validate_required(self.phase_data_num, 'phase_data_num')
+        self.validate_required(self.uniqlo_data_num, 'uniqlo_data_num')
 
     def to_map(self):
         _map = super().to_map()
@@ -1853,10 +1857,12 @@ class AddCaruserUsersRequest(TeaModel):
             result['business_id'] = self.business_id
         if self.data_uniqlo_code is not None:
             result['data_uniqlo_code'] = self.data_uniqlo_code
-        if self.dat_phase_code is not None:
-            result['dat_phase_code'] = self.dat_phase_code
-        if self.data_num is not None:
-            result['data_num'] = self.data_num
+        if self.data_phase_code is not None:
+            result['data_phase_code'] = self.data_phase_code
+        if self.phase_data_num is not None:
+            result['phase_data_num'] = self.phase_data_num
+        if self.uniqlo_data_num is not None:
+            result['uniqlo_data_num'] = self.uniqlo_data_num
         return result
 
     def from_map(self, m: dict = None):
@@ -1869,10 +1875,12 @@ class AddCaruserUsersRequest(TeaModel):
             self.business_id = m.get('business_id')
         if m.get('data_uniqlo_code') is not None:
             self.data_uniqlo_code = m.get('data_uniqlo_code')
-        if m.get('dat_phase_code') is not None:
-            self.dat_phase_code = m.get('dat_phase_code')
-        if m.get('data_num') is not None:
-            self.data_num = m.get('data_num')
+        if m.get('data_phase_code') is not None:
+            self.data_phase_code = m.get('data_phase_code')
+        if m.get('phase_data_num') is not None:
+            self.phase_data_num = m.get('phase_data_num')
+        if m.get('uniqlo_data_num') is not None:
+            self.uniqlo_data_num = m.get('uniqlo_data_num')
         return self
 
 
@@ -2032,6 +2040,446 @@ class QueryCarloanUsersResponse(TeaModel):
         if m.get('page_info') is not None:
             temp_model = PageInfo()
             self.page_info = temp_model.from_map(m['page_info'])
+        return self
+
+
+class AddCaruserTestRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        business_id: List[str] = None,
+        data_uniqlo_code: str = None,
+        dat_phase_code: str = None,
+        data_num: int = None,
+        business_type: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 业务的id
+        self.business_id = business_id
+        # 数据的唯一code
+        self.data_uniqlo_code = data_uniqlo_code
+        # 批次数据编号
+        self.dat_phase_code = dat_phase_code
+        # 批次的数据量
+        self.data_num = data_num
+        # 业务类型
+        self.business_type = business_type
+
+    def validate(self):
+        self.validate_required(self.business_id, 'business_id')
+        self.validate_required(self.data_uniqlo_code, 'data_uniqlo_code')
+        self.validate_required(self.dat_phase_code, 'dat_phase_code')
+        self.validate_required(self.data_num, 'data_num')
+        self.validate_required(self.business_type, 'business_type')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.business_id is not None:
+            result['business_id'] = self.business_id
+        if self.data_uniqlo_code is not None:
+            result['data_uniqlo_code'] = self.data_uniqlo_code
+        if self.dat_phase_code is not None:
+            result['dat_phase_code'] = self.dat_phase_code
+        if self.data_num is not None:
+            result['data_num'] = self.data_num
+        if self.business_type is not None:
+            result['business_type'] = self.business_type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('business_id') is not None:
+            self.business_id = m.get('business_id')
+        if m.get('data_uniqlo_code') is not None:
+            self.data_uniqlo_code = m.get('data_uniqlo_code')
+        if m.get('dat_phase_code') is not None:
+            self.dat_phase_code = m.get('dat_phase_code')
+        if m.get('data_num') is not None:
+            self.data_num = m.get('data_num')
+        if m.get('business_type') is not None:
+            self.business_type = m.get('business_type')
+        return self
+
+
+class AddCaruserTestResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        process_result: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 处理结果
+        self.process_result = process_result
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.process_result is not None:
+            result['process_result'] = self.process_result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('process_result') is not None:
+            self.process_result = m.get('process_result')
+        return self
+
+
+class AddCaruserPrdRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        business_id: List[str] = None,
+        data_uniqlo_code: str = None,
+        dat_phase_code: str = None,
+        data_num: int = None,
+        business_type: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 业务的id
+        self.business_id = business_id
+        # 数据的唯一code
+        self.data_uniqlo_code = data_uniqlo_code
+        # 批次数据编号
+        self.dat_phase_code = dat_phase_code
+        # 批次的数据量
+        self.data_num = data_num
+        # 业务类型
+        self.business_type = business_type
+
+    def validate(self):
+        self.validate_required(self.business_id, 'business_id')
+        self.validate_required(self.data_uniqlo_code, 'data_uniqlo_code')
+        self.validate_required(self.dat_phase_code, 'dat_phase_code')
+        self.validate_required(self.data_num, 'data_num')
+        self.validate_required(self.business_type, 'business_type')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.business_id is not None:
+            result['business_id'] = self.business_id
+        if self.data_uniqlo_code is not None:
+            result['data_uniqlo_code'] = self.data_uniqlo_code
+        if self.dat_phase_code is not None:
+            result['dat_phase_code'] = self.dat_phase_code
+        if self.data_num is not None:
+            result['data_num'] = self.data_num
+        if self.business_type is not None:
+            result['business_type'] = self.business_type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('business_id') is not None:
+            self.business_id = m.get('business_id')
+        if m.get('data_uniqlo_code') is not None:
+            self.data_uniqlo_code = m.get('data_uniqlo_code')
+        if m.get('dat_phase_code') is not None:
+            self.dat_phase_code = m.get('dat_phase_code')
+        if m.get('data_num') is not None:
+            self.data_num = m.get('data_num')
+        if m.get('business_type') is not None:
+            self.business_type = m.get('business_type')
+        return self
+
+
+class AddCaruserPrdResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        process_result: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 处理结果
+        self.process_result = process_result
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.process_result is not None:
+            result['process_result'] = self.process_result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('process_result') is not None:
+            self.process_result = m.get('process_result')
+        return self
+
+
+class BatchqueryCarloanTestRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        date: str = None,
+        data_num: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 日期
+        self.date = date
+        # 查询条数
+        self.data_num = data_num
+
+    def validate(self):
+        self.validate_required(self.date, 'date')
+        self.validate_required(self.data_num, 'data_num')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.date is not None:
+            result['date'] = self.date
+        if self.data_num is not None:
+            result['data_num'] = self.data_num
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('date') is not None:
+            self.date = m.get('date')
+        if m.get('data_num') is not None:
+            self.data_num = m.get('data_num')
+        return self
+
+
+class BatchqueryCarloanTestResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        business_ids: List[str] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 业务id
+        self.business_ids = business_ids
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.business_ids is not None:
+            result['business_ids'] = self.business_ids
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('business_ids') is not None:
+            self.business_ids = m.get('business_ids')
+        return self
+
+
+class BatchqueryCarloanPrdRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        date: str = None,
+        data_num: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 日期
+        self.date = date
+        # 查询条数
+        self.data_num = data_num
+
+    def validate(self):
+        self.validate_required(self.date, 'date')
+        self.validate_required(self.data_num, 'data_num')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.date is not None:
+            result['date'] = self.date
+        if self.data_num is not None:
+            result['data_num'] = self.data_num
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('date') is not None:
+            self.date = m.get('date')
+        if m.get('data_num') is not None:
+            self.data_num = m.get('data_num')
+        return self
+
+
+class BatchqueryCarloanPrdResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        business_ids: List[str] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 业务id
+        self.business_ids = business_ids
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.business_ids is not None:
+            result['business_ids'] = self.business_ids
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('business_ids') is not None:
+            self.business_ids = m.get('business_ids')
         return self
 
 
