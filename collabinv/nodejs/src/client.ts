@@ -1105,17 +1105,20 @@ export class AddCaruserUsersRequest extends $tea.Model {
   // 数据的唯一code
   dataUniqloCode: string;
   // 批次数据编号
-  datPhaseCode: string;
+  dataPhaseCode: string;
   // 批次的数据量
-  dataNum: number;
+  phaseDataNum: number;
+  // 整体数据量
+  uniqloDataNum: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       businessId: 'business_id',
       dataUniqloCode: 'data_uniqlo_code',
-      datPhaseCode: 'dat_phase_code',
-      dataNum: 'data_num',
+      dataPhaseCode: 'data_phase_code',
+      phaseDataNum: 'phase_data_num',
+      uniqloDataNum: 'uniqlo_data_num',
     };
   }
 
@@ -1125,8 +1128,9 @@ export class AddCaruserUsersRequest extends $tea.Model {
       productInstanceId: 'string',
       businessId: { 'type': 'array', 'itemType': 'string' },
       dataUniqloCode: 'string',
-      datPhaseCode: 'string',
-      dataNum: 'number',
+      dataPhaseCode: 'string',
+      phaseDataNum: 'number',
+      uniqloDataNum: 'string',
     };
   }
 
@@ -1226,6 +1230,282 @@ export class QueryCarloanUsersResponse extends $tea.Model {
       resultMsg: 'string',
       data: { 'type': 'array', 'itemType': 'string' },
       pageInfo: PageInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AddCaruserTestRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 业务的id
+  businessId: string[];
+  // 数据的唯一code
+  dataUniqloCode: string;
+  // 批次数据编号
+  datPhaseCode: string;
+  // 批次的数据量
+  dataNum: number;
+  // 业务类型
+  businessType: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      businessId: 'business_id',
+      dataUniqloCode: 'data_uniqlo_code',
+      datPhaseCode: 'dat_phase_code',
+      dataNum: 'data_num',
+      businessType: 'business_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      businessId: { 'type': 'array', 'itemType': 'string' },
+      dataUniqloCode: 'string',
+      datPhaseCode: 'string',
+      dataNum: 'number',
+      businessType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AddCaruserTestResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 处理结果
+  processResult?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      processResult: 'process_result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      processResult: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AddCaruserPrdRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 业务的id
+  businessId: string[];
+  // 数据的唯一code
+  dataUniqloCode: string;
+  // 批次数据编号
+  datPhaseCode: string;
+  // 批次的数据量
+  dataNum: number;
+  // 业务类型
+  businessType: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      businessId: 'business_id',
+      dataUniqloCode: 'data_uniqlo_code',
+      datPhaseCode: 'dat_phase_code',
+      dataNum: 'data_num',
+      businessType: 'business_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      businessId: { 'type': 'array', 'itemType': 'string' },
+      dataUniqloCode: 'string',
+      datPhaseCode: 'string',
+      dataNum: 'number',
+      businessType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AddCaruserPrdResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 处理结果
+  processResult?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      processResult: 'process_result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      processResult: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BatchqueryCarloanTestRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 日期
+  date: string;
+  // 查询条数
+  dataNum: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      date: 'date',
+      dataNum: 'data_num',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      date: 'string',
+      dataNum: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BatchqueryCarloanTestResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 业务id
+  businessIds?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      businessIds: 'business_ids',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      businessIds: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BatchqueryCarloanPrdRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 日期
+  date: string;
+  // 查询条数
+  dataNum: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      date: 'date',
+      dataNum: 'data_num',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      date: 'string',
+      dataNum: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BatchqueryCarloanPrdResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 业务id
+  businessIds?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      businessIds: 'business_ids',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      businessIds: { 'type': 'array', 'itemType': 'string' },
     };
   }
 
@@ -2948,7 +3228,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.55",
+          sdk_version: "1.0.57",
           _prod_code: "COLLABINV",
           _prod_channel: "default",
         };
@@ -3244,6 +3524,82 @@ export default class Client {
   async queryCarloanUsersEx(request: QueryCarloanUsersRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryCarloanUsersResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryCarloanUsersResponse>(await this.doRequest("1.0", "antchain.zkcollabinv.carloan.users.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryCarloanUsersResponse({}));
+  }
+
+  /**
+   * Description: 测试接口添加用户
+   * Summary: 测试接口添加用户
+   */
+  async addCaruserTest(request: AddCaruserTestRequest): Promise<AddCaruserTestResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.addCaruserTestEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 测试接口添加用户
+   * Summary: 测试接口添加用户
+   */
+  async addCaruserTestEx(request: AddCaruserTestRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<AddCaruserTestResponse> {
+    Util.validateModel(request);
+    return $tea.cast<AddCaruserTestResponse>(await this.doRequest("1.0", "antchain.zkcollabinv.caruser.test.add", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new AddCaruserTestResponse({}));
+  }
+
+  /**
+   * Description: 生产接口增加人群
+   * Summary: 生产接口增加人群
+   */
+  async addCaruserPrd(request: AddCaruserPrdRequest): Promise<AddCaruserPrdResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.addCaruserPrdEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 生产接口增加人群
+   * Summary: 生产接口增加人群
+   */
+  async addCaruserPrdEx(request: AddCaruserPrdRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<AddCaruserPrdResponse> {
+    Util.validateModel(request);
+    return $tea.cast<AddCaruserPrdResponse>(await this.doRequest("1.0", "antchain.zkcollabinv.caruser.prd.add", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new AddCaruserPrdResponse({}));
+  }
+
+  /**
+   * Description: 碰撞人群数据测试接口碰撞人群数据
+   * Summary: 测试接口碰撞人群数据
+   */
+  async batchqueryCarloanTest(request: BatchqueryCarloanTestRequest): Promise<BatchqueryCarloanTestResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.batchqueryCarloanTestEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 碰撞人群数据测试接口碰撞人群数据
+   * Summary: 测试接口碰撞人群数据
+   */
+  async batchqueryCarloanTestEx(request: BatchqueryCarloanTestRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BatchqueryCarloanTestResponse> {
+    Util.validateModel(request);
+    return $tea.cast<BatchqueryCarloanTestResponse>(await this.doRequest("1.0", "antchain.zkcollabinv.carloan.test.batchquery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BatchqueryCarloanTestResponse({}));
+  }
+
+  /**
+   * Description: 生产接口碰撞人群数据
+   * Summary: 生产接口碰撞人群数据
+   */
+  async batchqueryCarloanPrd(request: BatchqueryCarloanPrdRequest): Promise<BatchqueryCarloanPrdResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.batchqueryCarloanPrdEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 生产接口碰撞人群数据
+   * Summary: 生产接口碰撞人群数据
+   */
+  async batchqueryCarloanPrdEx(request: BatchqueryCarloanPrdRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BatchqueryCarloanPrdResponse> {
+    Util.validateModel(request);
+    return $tea.cast<BatchqueryCarloanPrdResponse>(await this.doRequest("1.0", "antchain.zkcollabinv.carloan.prd.batchquery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BatchqueryCarloanPrdResponse({}));
   }
 
   /**
