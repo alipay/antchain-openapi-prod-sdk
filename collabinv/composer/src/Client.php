@@ -11,10 +11,18 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\COLLABINV\Models\AddCaruserPrdRequest;
+use AntChain\COLLABINV\Models\AddCaruserPrdResponse;
+use AntChain\COLLABINV\Models\AddCaruserTestRequest;
+use AntChain\COLLABINV\Models\AddCaruserTestResponse;
 use AntChain\COLLABINV\Models\AddCaruserUsersRequest;
 use AntChain\COLLABINV\Models\AddCaruserUsersResponse;
 use AntChain\COLLABINV\Models\BatchdeleteAgentConversationRequest;
 use AntChain\COLLABINV\Models\BatchdeleteAgentConversationResponse;
+use AntChain\COLLABINV\Models\BatchqueryCarloanPrdRequest;
+use AntChain\COLLABINV\Models\BatchqueryCarloanPrdResponse;
+use AntChain\COLLABINV\Models\BatchqueryCarloanTestRequest;
+use AntChain\COLLABINV\Models\BatchqueryCarloanTestResponse;
 use AntChain\COLLABINV\Models\BatchqueryCarloanUsersRequest;
 use AntChain\COLLABINV\Models\BatchqueryCarloanUsersResponse;
 use AntChain\COLLABINV\Models\BatchqueryModelCommonscoreRequest;
@@ -222,7 +230,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.55',
+                    'sdk_version'      => '1.0.57',
                     '_prod_code'       => 'COLLABINV',
                     '_prod_channel'    => 'default',
                 ];
@@ -683,6 +691,138 @@ class Client
         Utils::validateModel($request);
 
         return QueryCarloanUsersResponse::fromMap($this->doRequest('1.0', 'antchain.zkcollabinv.carloan.users.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 测试接口添加用户
+     * Summary: 测试接口添加用户.
+     *
+     * @param AddCaruserTestRequest $request
+     *
+     * @return AddCaruserTestResponse
+     */
+    public function addCaruserTest($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->addCaruserTestEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 测试接口添加用户
+     * Summary: 测试接口添加用户.
+     *
+     * @param AddCaruserTestRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return AddCaruserTestResponse
+     */
+    public function addCaruserTestEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AddCaruserTestResponse::fromMap($this->doRequest('1.0', 'antchain.zkcollabinv.caruser.test.add', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 生产接口增加人群
+     * Summary: 生产接口增加人群.
+     *
+     * @param AddCaruserPrdRequest $request
+     *
+     * @return AddCaruserPrdResponse
+     */
+    public function addCaruserPrd($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->addCaruserPrdEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 生产接口增加人群
+     * Summary: 生产接口增加人群.
+     *
+     * @param AddCaruserPrdRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return AddCaruserPrdResponse
+     */
+    public function addCaruserPrdEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AddCaruserPrdResponse::fromMap($this->doRequest('1.0', 'antchain.zkcollabinv.caruser.prd.add', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 碰撞人群数据测试接口碰撞人群数据
+     * Summary: 测试接口碰撞人群数据.
+     *
+     * @param BatchqueryCarloanTestRequest $request
+     *
+     * @return BatchqueryCarloanTestResponse
+     */
+    public function batchqueryCarloanTest($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->batchqueryCarloanTestEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 碰撞人群数据测试接口碰撞人群数据
+     * Summary: 测试接口碰撞人群数据.
+     *
+     * @param BatchqueryCarloanTestRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return BatchqueryCarloanTestResponse
+     */
+    public function batchqueryCarloanTestEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BatchqueryCarloanTestResponse::fromMap($this->doRequest('1.0', 'antchain.zkcollabinv.carloan.test.batchquery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 生产接口碰撞人群数据
+     * Summary: 生产接口碰撞人群数据.
+     *
+     * @param BatchqueryCarloanPrdRequest $request
+     *
+     * @return BatchqueryCarloanPrdResponse
+     */
+    public function batchqueryCarloanPrd($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->batchqueryCarloanPrdEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 生产接口碰撞人群数据
+     * Summary: 生产接口碰撞人群数据.
+     *
+     * @param BatchqueryCarloanPrdRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return BatchqueryCarloanPrdResponse
+     */
+    public function batchqueryCarloanPrdEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BatchqueryCarloanPrdResponse::fromMap($this->doRequest('1.0', 'antchain.zkcollabinv.carloan.prd.batchquery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
