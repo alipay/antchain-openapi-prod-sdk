@@ -45,7 +45,7 @@ class AddCaruserUsersRequest extends Model
 
     // 整体数据量
     /**
-     * @var string
+     * @var int
      */
     public $uniqloDataNum;
     protected $_name = [
