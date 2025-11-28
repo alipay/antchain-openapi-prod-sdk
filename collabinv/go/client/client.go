@@ -1454,7 +1454,7 @@ type AddCaruserUsersRequest struct {
 	// 批次的数据量
 	PhaseDataNum *int64 `json:"phase_data_num,omitempty" xml:"phase_data_num,omitempty" require:"true"`
 	// 整体数据量
-	UniqloDataNum *string `json:"uniqlo_data_num,omitempty" xml:"uniqlo_data_num,omitempty" require:"true"`
+	UniqloDataNum *int64 `json:"uniqlo_data_num,omitempty" xml:"uniqlo_data_num,omitempty" require:"true"`
 }
 
 func (s AddCaruserUsersRequest) String() string {
@@ -1495,7 +1495,7 @@ func (s *AddCaruserUsersRequest) SetPhaseDataNum(v int64) *AddCaruserUsersReques
 	return s
 }
 
-func (s *AddCaruserUsersRequest) SetUniqloDataNum(v string) *AddCaruserUsersRequest {
+func (s *AddCaruserUsersRequest) SetUniqloDataNum(v int64) *AddCaruserUsersRequest {
 	s.UniqloDataNum = &v
 	return s
 }
@@ -4225,7 +4225,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.57"),
+				"sdk_version":      tea.String("1.0.58"),
 				"_prod_code":       tea.String("COLLABINV"),
 				"_prod_channel":    tea.String("default"),
 			}
