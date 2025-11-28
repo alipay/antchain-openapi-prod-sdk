@@ -1109,7 +1109,7 @@ export class AddCaruserUsersRequest extends $tea.Model {
   // 批次的数据量
   phaseDataNum: number;
   // 整体数据量
-  uniqloDataNum: string;
+  uniqloDataNum: number;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -1130,7 +1130,7 @@ export class AddCaruserUsersRequest extends $tea.Model {
       dataUniqloCode: 'string',
       dataPhaseCode: 'string',
       phaseDataNum: 'number',
-      uniqloDataNum: 'string',
+      uniqloDataNum: 'number',
     };
   }
 
@@ -3228,7 +3228,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.57",
+          sdk_version: "1.0.58",
           _prod_code: "COLLABINV",
           _prod_channel: "default",
         };
