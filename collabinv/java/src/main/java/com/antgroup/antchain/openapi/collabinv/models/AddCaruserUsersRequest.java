@@ -34,7 +34,7 @@ public class AddCaruserUsersRequest extends TeaModel {
     // 整体数据量
     @NameInMap("uniqlo_data_num")
     @Validation(required = true)
-    public String uniqloDataNum;
+    public Long uniqloDataNum;
 
     public static AddCaruserUsersRequest build(java.util.Map<String, ?> map) throws Exception {
         AddCaruserUsersRequest self = new AddCaruserUsersRequest();
@@ -89,11 +89,11 @@ public class AddCaruserUsersRequest extends TeaModel {
         return this.phaseDataNum;
     }
 
-    public AddCaruserUsersRequest setUniqloDataNum(String uniqloDataNum) {
+    public AddCaruserUsersRequest setUniqloDataNum(Long uniqloDataNum) {
         this.uniqloDataNum = uniqloDataNum;
         return this;
     }
-    public String getUniqloDataNum() {
+    public Long getUniqloDataNum() {
         return this.uniqloDataNum;
     }
 
