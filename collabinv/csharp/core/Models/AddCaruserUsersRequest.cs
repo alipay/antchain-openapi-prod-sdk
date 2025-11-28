@@ -41,7 +41,7 @@ namespace AntChain.SDK.COLLABINV.Models
         // 整体数据量
         [NameInMap("uniqlo_data_num")]
         [Validation(Required=true)]
-        public string UniqloDataNum { get; set; }
+        public long? UniqloDataNum { get; set; }
 
     }
 
