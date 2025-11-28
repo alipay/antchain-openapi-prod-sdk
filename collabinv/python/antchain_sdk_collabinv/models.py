@@ -1820,7 +1820,7 @@ class AddCaruserUsersRequest(TeaModel):
         data_uniqlo_code: str = None,
         data_phase_code: str = None,
         phase_data_num: int = None,
-        uniqlo_data_num: str = None,
+        uniqlo_data_num: int = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
