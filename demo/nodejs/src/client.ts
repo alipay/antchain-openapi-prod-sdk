@@ -2304,10 +2304,20 @@ export class QueryTestTestTestRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
+  // 超时时间
+  timeout: string;
+  // aaa
+  fileObject?: Readable;
+  fileObjectName?: string;
+  fileId: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
+      timeout: 'timeout',
+      fileObject: 'fileObject',
+      fileObjectName: 'fileObjectName',
+      fileId: 'file_id',
     };
   }
 
@@ -2315,6 +2325,10 @@ export class QueryTestTestTestRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
+      timeout: 'string',
+      fileObject: 'Readable',
+      fileObjectName: 'string',
+      fileId: 'string',
     };
   }
 
@@ -2330,11 +2344,17 @@ export class QueryTestTestTestResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
+  // 1
+  stauts?: string;
+  // 1
+  msg?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
+      stauts: 'stauts',
+      msg: 'msg',
     };
   }
 
@@ -2343,6 +2363,8 @@ export class QueryTestTestTestResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
+      stauts: 'string',
+      msg: 'string',
     };
   }
 
@@ -2465,10 +2487,13 @@ export class QueryAasSaSaRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
+  // aa
+  notBlankVerify: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
+      notBlankVerify: 'not_blank_verify',
     };
   }
 
@@ -2476,6 +2501,7 @@ export class QueryAasSaSaRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
+      notBlankVerify: 'string',
     };
   }
 
@@ -3402,6 +3428,57 @@ export class QueryAgentFinancialRiskResponse extends $tea.Model {
   }
 }
 
+export class QueryAaaMultiCccRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAaaMultiCccResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryStreamTestmethodRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -4307,6 +4384,57 @@ export class BindAaaBbbCcdResponse extends $tea.Model {
   }
 }
 
+export class QueryAutoTestRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAutoTestResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -4508,7 +4636,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.52",
+          sdk_version: "1.1.85",
           _prod_code: "DEMO",
           _prod_channel: "undefined",
         };
@@ -4935,6 +5063,28 @@ export default class Client {
    * Summary: test
    */
   async queryTestTestTestEx(request: QueryTestTestTestRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryTestTestTestResponse> {
+    if (!Util.isUnset(request.fileObject)) {
+      let uploadReq = new CreateAntcloudGatewayxFileUploadRequest({
+        authToken: request.authToken,
+        apiCode: "demo.test.test.test.query",
+        fileName: request.fileObjectName,
+      });
+      let uploadResp = await this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+      if (!AntchainUtil.isSuccess(uploadResp.resultCode, "OK")) {
+        let queryTestTestTestResponse = new QueryTestTestTestResponse({
+          reqMsgId: uploadResp.reqMsgId,
+          resultCode: uploadResp.resultCode,
+          resultMsg: uploadResp.resultMsg,
+        });
+        return queryTestTestTestResponse;
+      }
+
+      let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+      await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+      request.fileId = uploadResp.fileId;
+      request.fileObject = null;
+    }
+
     Util.validateModel(request);
     return $tea.cast<QueryTestTestTestResponse>(await this.doRequest("1.0", "demo.test.test.test.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryTestTestTestResponse({}));
   }
@@ -5263,6 +5413,25 @@ export default class Client {
   }
 
   /**
+   * Description: 测试用
+   * Summary: 测试用
+   */
+  async queryAaaMultiCcc(request: QueryAaaMultiCccRequest): Promise<QueryAaaMultiCccResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAaaMultiCccEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 测试用
+   * Summary: 测试用
+   */
+  async queryAaaMultiCccEx(request: QueryAaaMultiCccRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAaaMultiCccResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAaaMultiCccResponse>(await this.doRequest("1.0", "demo.aaa.multi.ccc.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAaaMultiCccResponse({}));
+  }
+
+  /**
    * Description: 流式处理
    * Summary: 流式处理
    */
@@ -5545,6 +5714,25 @@ export default class Client {
   async bindAaaBbbCcdEx(request: BindAaaBbbCcdRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BindAaaBbbCcdResponse> {
     Util.validateModel(request);
     return $tea.cast<BindAaaBbbCcdResponse>(await this.doRequest("1.0", "demo.aaa.bbb.ccd.bind", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BindAaaBbbCcdResponse({}));
+  }
+
+  /**
+   * Description: 测试
+   * Summary: test
+   */
+  async queryAutoTest(request: QueryAutoTestRequest): Promise<QueryAutoTestResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAutoTestEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 测试
+   * Summary: test
+   */
+  async queryAutoTestEx(request: QueryAutoTestRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAutoTestResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAutoTestResponse>(await this.doRequest("1.0", "demo.auto.test.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAutoTestResponse({}));
   }
 
   /**
