@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.52',
+    sdk_version = '1.1.85',
     _prod_code = 'DEMO',
     _prod_channel = 'undefined'
   };
@@ -1277,6 +1277,12 @@ model QueryTestTestTestRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
+  // 超时时间
+  timeout: string(name='timeout'),
+  // aaa
+  fileObject?: readable(description='待上传文件', ignore='true'),
+  fileObjectName?: string(description='待上传文件名', ignore='true'),
+  fileId: string(name='file_id'),
 }
 
 model QueryTestTestTestResponse = {
@@ -1286,6 +1292,10 @@ model QueryTestTestTestResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
+  // 1
+  stauts?: string(name='stauts'),
+  // 1
+  msg?: string(name='msg'),
 }
 
 /**
@@ -1303,6 +1313,26 @@ async function queryTestTestTest(request: QueryTestTestTestRequest): QueryTestTe
  * Summary: test
  */
 async function queryTestTestTestEx(request: QueryTestTestTestRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryTestTestTestResponse {
+  if (!Util.isUnset(request.fileObject)) {
+    var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
+      authToken = request.authToken,
+      apiCode = 'demo.test.test.test.query',
+      fileName = request.fileObjectName,
+    };
+    var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+    if (!AntchainUtil.isSuccess(uploadResp.resultCode, "OK")) {
+      var queryTestTestTestResponse = new QueryTestTestTestResponse{
+        reqMsgId = uploadResp.reqMsgId,
+        resultCode = uploadResp.resultCode,
+        resultMsg = uploadResp.resultMsg,
+      };
+      return queryTestTestTestResponse;
+    }
+    var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+    AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+    request.fileId = uploadResp.fileId;
+    request.fileObject = null;
+  }
   Util.validateModel(request);
   return doRequest('1.0' ,'demo.test.test.test.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
@@ -1383,6 +1413,8 @@ model QueryAasSaSaRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
+  // aa
+  notBlankVerify: string(name='not_blank_verify'),
 }
 
 model QueryAasSaSaResponse = {
@@ -1977,6 +2009,40 @@ async function queryAgentFinancialRiskEx(request: QueryAgentFinancialRiskRequest
   return doRequest('1.0' ,'demo.agent.financial.risk.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model QueryAaaMultiCccRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model QueryAaaMultiCccResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 测试用
+ * Summary: 测试用
+ */
+async function queryAaaMultiCcc(request: QueryAaaMultiCccRequest): QueryAaaMultiCccResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAaaMultiCccEx(request, headers, runtime);
+}
+
+/**
+ * Description: 测试用
+ * Summary: 测试用
+ */
+async function queryAaaMultiCccEx(request: QueryAaaMultiCccRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAaaMultiCccResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.aaa.multi.ccc.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model QueryStreamTestmethodRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -2555,6 +2621,40 @@ async function bindAaaBbbCcd(request: BindAaaBbbCcdRequest): BindAaaBbbCcdRespon
 async function bindAaaBbbCcdEx(request: BindAaaBbbCcdRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BindAaaBbbCcdResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'demo.aaa.bbb.ccd.bind', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAutoTestRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model QueryAutoTestResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 测试
+ * Summary: test
+ */
+async function queryAutoTest(request: QueryAutoTestRequest): QueryAutoTestResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAutoTestEx(request, headers, runtime);
+}
+
+/**
+ * Description: 测试
+ * Summary: test
+ */
+async function queryAutoTestEx(request: QueryAutoTestRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAutoTestResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.auto.test.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateAntcloudGatewayxFileUploadRequest = {
