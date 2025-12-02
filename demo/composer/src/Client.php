@@ -29,6 +29,8 @@ use AntChain\DEMO\Models\MatchBusinessAndInstanceRequest;
 use AntChain\DEMO\Models\MatchBusinessAndInstanceResponse;
 use AntChain\DEMO\Models\QueryAaaBbbCccRequest;
 use AntChain\DEMO\Models\QueryAaaBbbCccResponse;
+use AntChain\DEMO\Models\QueryAaaMultiCccRequest;
+use AntChain\DEMO\Models\QueryAaaMultiCccResponse;
 use AntChain\DEMO\Models\QueryAasSaSaRequest;
 use AntChain\DEMO\Models\QueryAasSaSaResponse;
 use AntChain\DEMO\Models\QueryAbcAbcAbcRequest;
@@ -43,6 +45,8 @@ use AntChain\DEMO\Models\QueryApiBlackListRequest;
 use AntChain\DEMO\Models\QueryApiBlackListResponse;
 use AntChain\DEMO\Models\QueryApiWhiteListRequest;
 use AntChain\DEMO\Models\QueryApiWhiteListResponse;
+use AntChain\DEMO\Models\QueryAutoTestRequest;
+use AntChain\DEMO\Models\QueryAutoTestResponse;
 use AntChain\DEMO\Models\QueryGatewayCheckEchotenRequest;
 use AntChain\DEMO\Models\QueryGatewayCheckEchotenResponse;
 use AntChain\DEMO\Models\QueryGatewayCheckEchotimeoutokRequest;
@@ -262,7 +266,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.52',
+                    'sdk_version'      => '1.1.85',
                     '_prod_code'       => 'DEMO',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -951,6 +955,25 @@ class Client
      */
     public function queryTestTestTestEx($request, $headers, $runtime)
     {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'demo.test.test.test.query',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'OK')) {
+                return new QueryTestTestTestResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
+        }
         Utils::validateModel($request);
 
         return QueryTestTestTestResponse::fromMap($this->doRequest('1.0', 'demo.test.test.test.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
@@ -1518,6 +1541,39 @@ class Client
     }
 
     /**
+     * Description: 测试用
+     * Summary: 测试用.
+     *
+     * @param QueryAaaMultiCccRequest $request
+     *
+     * @return QueryAaaMultiCccResponse
+     */
+    public function queryAaaMultiCcc($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAaaMultiCccEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 测试用
+     * Summary: 测试用.
+     *
+     * @param QueryAaaMultiCccRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return QueryAaaMultiCccResponse
+     */
+    public function queryAaaMultiCccEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAaaMultiCccResponse::fromMap($this->doRequest('1.0', 'demo.aaa.multi.ccc.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 流式处理
      * Summary: 流式处理.
      *
@@ -2010,6 +2066,39 @@ class Client
         Utils::validateModel($request);
 
         return BindAaaBbbCcdResponse::fromMap($this->doRequest('1.0', 'demo.aaa.bbb.ccd.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 测试
+     * Summary: test.
+     *
+     * @param QueryAutoTestRequest $request
+     *
+     * @return QueryAutoTestResponse
+     */
+    public function queryAutoTest($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAutoTestEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 测试
+     * Summary: test.
+     *
+     * @param QueryAutoTestRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return QueryAutoTestResponse
+     */
+    public function queryAutoTestEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAutoTestResponse::fromMap($this->doRequest('1.0', 'demo.auto.test.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

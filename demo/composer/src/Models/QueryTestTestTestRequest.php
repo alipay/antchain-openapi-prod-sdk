@@ -5,6 +5,7 @@
 namespace AntChain\DEMO\Models;
 
 use AlibabaCloud\Tea\Model;
+use GuzzleHttp\Psr7\Stream;
 
 class QueryTestTestTestRequest extends Model
 {
@@ -18,13 +19,43 @@ class QueryTestTestTestRequest extends Model
      * @var string
      */
     public $productInstanceId;
+
+    // 超时时间
+    /**
+     * @var string
+     */
+    public $timeout;
+
+    // aaa
+    /**
+     * @description 待上传文件
+     *
+     * @var Stream
+     */
+    public $fileObject;
+
+    /**
+     * @description 待上传文件名
+     *
+     * @var string
+     */
+    public $fileObjectName;
+
+    /**
+     * @var string
+     */
+    public $fileId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
+        'timeout'           => 'timeout',
+        'fileId'            => 'file_id',
     ];
 
     public function validate()
     {
+        Model::validateRequired('timeout', $this->timeout, true);
+        Model::validateRequired('fileId', $this->fileId, true);
     }
 
     public function toMap()
@@ -35,6 +66,18 @@ class QueryTestTestTestRequest extends Model
         }
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->timeout) {
+            $res['timeout'] = $this->timeout;
+        }
+        if (null !== $this->fileObject) {
+            $res['fileObject'] = $this->fileObject;
+        }
+        if (null !== $this->fileObjectName) {
+            $res['fileObjectName'] = $this->fileObjectName;
+        }
+        if (null !== $this->fileId) {
+            $res['file_id'] = $this->fileId;
         }
 
         return $res;
@@ -53,6 +96,18 @@ class QueryTestTestTestRequest extends Model
         }
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
+        }
+        if (isset($map['timeout'])) {
+            $model->timeout = $map['timeout'];
+        }
+        if (isset($map['fileObject'])) {
+            $model->fileObject = $map['fileObject'];
+        }
+        if (isset($map['fileObjectName'])) {
+            $model->fileObjectName = $map['fileObjectName'];
+        }
+        if (isset($map['file_id'])) {
+            $model->fileId = $map['file_id'];
         }
 
         return $model;
