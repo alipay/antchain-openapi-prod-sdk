@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.52',
+                    'sdk_version': '1.1.85',
                     '_prod_code': 'DEMO',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.52',
+                    'sdk_version': '1.1.85',
                     '_prod_code': 'DEMO',
                     '_prod_channel': 'undefined'
                 }
@@ -1353,6 +1353,24 @@ class Client:
         Description: test
         Summary: test
         """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = demo_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='demo.test.test.test.query',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'OK'):
+                query_test_test_test_response = demo_models.QueryTestTestTestResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return query_test_test_test_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             demo_models.QueryTestTestTestResponse(),
@@ -1369,6 +1387,24 @@ class Client:
         Description: test
         Summary: test
         """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = demo_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='demo.test.test.test.query',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'OK'):
+                query_test_test_test_response = demo_models.QueryTestTestTestResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return query_test_test_test_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             demo_models.QueryTestTestTestResponse(),
@@ -2327,6 +2363,62 @@ class Client:
             await self.do_request_async('1.0', 'demo.agent.financial.risk.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def query_aaa_multi_ccc(
+        self,
+        request: demo_models.QueryAaaMultiCccRequest,
+    ) -> demo_models.QueryAaaMultiCccResponse:
+        """
+        Description: 测试用
+        Summary: 测试用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_aaa_multi_ccc_ex(request, headers, runtime)
+
+    async def query_aaa_multi_ccc_async(
+        self,
+        request: demo_models.QueryAaaMultiCccRequest,
+    ) -> demo_models.QueryAaaMultiCccResponse:
+        """
+        Description: 测试用
+        Summary: 测试用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_aaa_multi_ccc_ex_async(request, headers, runtime)
+
+    def query_aaa_multi_ccc_ex(
+        self,
+        request: demo_models.QueryAaaMultiCccRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.QueryAaaMultiCccResponse:
+        """
+        Description: 测试用
+        Summary: 测试用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.QueryAaaMultiCccResponse(),
+            self.do_request('1.0', 'demo.aaa.multi.ccc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_aaa_multi_ccc_ex_async(
+        self,
+        request: demo_models.QueryAaaMultiCccRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.QueryAaaMultiCccResponse:
+        """
+        Description: 测试用
+        Summary: 测试用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.QueryAaaMultiCccResponse(),
+            await self.do_request_async('1.0', 'demo.aaa.multi.ccc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def query_stream_testmethod(
         self,
         request: demo_models.QueryStreamTestmethodRequest,
@@ -3165,6 +3257,62 @@ class Client:
         return TeaCore.from_map(
             demo_models.BindAaaBbbCcdResponse(),
             await self.do_request_async('1.0', 'demo.aaa.bbb.ccd.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_auto_test(
+        self,
+        request: demo_models.QueryAutoTestRequest,
+    ) -> demo_models.QueryAutoTestResponse:
+        """
+        Description: 测试
+        Summary: test
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_auto_test_ex(request, headers, runtime)
+
+    async def query_auto_test_async(
+        self,
+        request: demo_models.QueryAutoTestRequest,
+    ) -> demo_models.QueryAutoTestResponse:
+        """
+        Description: 测试
+        Summary: test
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_auto_test_ex_async(request, headers, runtime)
+
+    def query_auto_test_ex(
+        self,
+        request: demo_models.QueryAutoTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.QueryAutoTestResponse:
+        """
+        Description: 测试
+        Summary: test
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.QueryAutoTestResponse(),
+            self.do_request('1.0', 'demo.auto.test.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_auto_test_ex_async(
+        self,
+        request: demo_models.QueryAutoTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.QueryAutoTestResponse:
+        """
+        Description: 测试
+        Summary: test
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.QueryAutoTestResponse(),
+            await self.do_request_async('1.0', 'demo.auto.test.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
