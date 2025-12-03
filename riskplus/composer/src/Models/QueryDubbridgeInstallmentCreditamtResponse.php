@@ -93,20 +93,28 @@ class QueryDubbridgeInstallmentCreditamtResponse extends Model
      * @var string
      */
     public $prodType;
+
+    // Y- 可用
+    // N- 不可用
+    /**
+     * @var string
+     */
+    public $installmentStatus;
     protected $_name = [
-        'reqMsgId'      => 'req_msg_id',
-        'resultCode'    => 'result_code',
-        'resultMsg'     => 'result_msg',
-        'applyStatus'   => 'apply_status',
-        'creditStatus'  => 'credit_status',
-        'creditAmount'  => 'credit_amount',
-        'restAmount'    => 'rest_amount',
-        'payDate'       => 'pay_date',
-        'expireDate'    => 'expire_date',
-        'rateValue'     => 'rate_value',
-        'fundCode'      => 'fund_code',
-        'abbreFundName' => 'abbre_fund_name',
-        'prodType'      => 'prod_type',
+        'reqMsgId'          => 'req_msg_id',
+        'resultCode'        => 'result_code',
+        'resultMsg'         => 'result_msg',
+        'applyStatus'       => 'apply_status',
+        'creditStatus'      => 'credit_status',
+        'creditAmount'      => 'credit_amount',
+        'restAmount'        => 'rest_amount',
+        'payDate'           => 'pay_date',
+        'expireDate'        => 'expire_date',
+        'rateValue'         => 'rate_value',
+        'fundCode'          => 'fund_code',
+        'abbreFundName'     => 'abbre_fund_name',
+        'prodType'          => 'prod_type',
+        'installmentStatus' => 'installment_status',
     ];
 
     public function validate()
@@ -154,6 +162,9 @@ class QueryDubbridgeInstallmentCreditamtResponse extends Model
         }
         if (null !== $this->prodType) {
             $res['prod_type'] = $this->prodType;
+        }
+        if (null !== $this->installmentStatus) {
+            $res['installment_status'] = $this->installmentStatus;
         }
 
         return $res;
@@ -205,6 +216,9 @@ class QueryDubbridgeInstallmentCreditamtResponse extends Model
         }
         if (isset($map['prod_type'])) {
             $model->prodType = $map['prod_type'];
+        }
+        if (isset($map['installment_status'])) {
+            $model->installmentStatus = $map['installment_status'];
         }
 
         return $model;

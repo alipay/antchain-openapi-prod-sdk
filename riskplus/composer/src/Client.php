@@ -321,6 +321,8 @@ use AntChain\RISKPLUS\Models\QueryQmpDataaccessStatisticRequest;
 use AntChain\RISKPLUS\Models\QueryQmpDataaccessStatisticResponse;
 use AntChain\RISKPLUS\Models\QueryQmpOfflinehostplanDecisionresultRequest;
 use AntChain\RISKPLUS\Models\QueryQmpOfflinehostplanDecisionresultResponse;
+use AntChain\RISKPLUS\Models\QueryQmpOfflinehostplanDecisionresultsRequest;
+use AntChain\RISKPLUS\Models\QueryQmpOfflinehostplanDecisionresultsResponse;
 use AntChain\RISKPLUS\Models\QueryQmpRobotcallDetailRequest;
 use AntChain\RISKPLUS\Models\QueryQmpRobotcallDetailResponse;
 use AntChain\RISKPLUS\Models\QueryQmpRobotcallStatisticinfoRequest;
@@ -656,7 +658,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.28.7',
+                    'sdk_version'      => '1.29.2',
                     '_prod_code'       => 'RISKPLUS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -4936,6 +4938,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryQmpOfflinehostplanDecisionresultResponse::fromMap($this->doRequest('1.0', 'riskplus.qmp.offlinehostplan.decisionresult.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: qmp分层结果查询v2
+     * Summary: qmp分层结果查询v2.
+     *
+     * @param QueryQmpOfflinehostplanDecisionresultsRequest $request
+     *
+     * @return QueryQmpOfflinehostplanDecisionresultsResponse
+     */
+    public function queryQmpOfflinehostplanDecisionresults($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryQmpOfflinehostplanDecisionresultsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: qmp分层结果查询v2
+     * Summary: qmp分层结果查询v2.
+     *
+     * @param QueryQmpOfflinehostplanDecisionresultsRequest $request
+     * @param string[]                                      $headers
+     * @param RuntimeOptions                                $runtime
+     *
+     * @return QueryQmpOfflinehostplanDecisionresultsResponse
+     */
+    public function queryQmpOfflinehostplanDecisionresultsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryQmpOfflinehostplanDecisionresultsResponse::fromMap($this->doRequest('1.0', 'riskplus.qmp.offlinehostplan.decisionresults.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

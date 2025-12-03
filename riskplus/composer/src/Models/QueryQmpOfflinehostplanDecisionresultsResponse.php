@@ -6,7 +6,7 @@ namespace AntChain\RISKPLUS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class UploadQmpOfflinehostplanResponse extends Model
+class QueryQmpOfflinehostplanDecisionresultsResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,23 +26,23 @@ class UploadQmpOfflinehostplanResponse extends Model
      */
     public $resultMsg;
 
-    // 导入id，可以用该id来查询分层结果
-    /**
-     * @var int
-     */
-    public $importId;
-
-    // 任务id
+    // 托管计划编码
     /**
      * @var string
      */
-    public $taskUuid;
+    public $planCode;
+
+    // 分层结果信息
+    /**
+     * @var DecisionInfo[]
+     */
+    public $decisionInfo;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
-        'importId'   => 'import_id',
-        'taskUuid'   => 'task_uuid',
+        'reqMsgId'     => 'req_msg_id',
+        'resultCode'   => 'result_code',
+        'resultMsg'    => 'result_msg',
+        'planCode'     => 'plan_code',
+        'decisionInfo' => 'decision_info',
     ];
 
     public function validate()
@@ -61,11 +61,17 @@ class UploadQmpOfflinehostplanResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->importId) {
-            $res['import_id'] = $this->importId;
+        if (null !== $this->planCode) {
+            $res['plan_code'] = $this->planCode;
         }
-        if (null !== $this->taskUuid) {
-            $res['task_uuid'] = $this->taskUuid;
+        if (null !== $this->decisionInfo) {
+            $res['decision_info'] = [];
+            if (null !== $this->decisionInfo && \is_array($this->decisionInfo)) {
+                $n = 0;
+                foreach ($this->decisionInfo as $item) {
+                    $res['decision_info'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -74,7 +80,7 @@ class UploadQmpOfflinehostplanResponse extends Model
     /**
      * @param array $map
      *
-     * @return UploadQmpOfflinehostplanResponse
+     * @return QueryQmpOfflinehostplanDecisionresultsResponse
      */
     public static function fromMap($map = [])
     {
@@ -88,11 +94,17 @@ class UploadQmpOfflinehostplanResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['import_id'])) {
-            $model->importId = $map['import_id'];
+        if (isset($map['plan_code'])) {
+            $model->planCode = $map['plan_code'];
         }
-        if (isset($map['task_uuid'])) {
-            $model->taskUuid = $map['task_uuid'];
+        if (isset($map['decision_info'])) {
+            if (!empty($map['decision_info'])) {
+                $model->decisionInfo = [];
+                $n                   = 0;
+                foreach ($map['decision_info'] as $item) {
+                    $model->decisionInfo[$n++] = null !== $item ? DecisionInfo::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;
