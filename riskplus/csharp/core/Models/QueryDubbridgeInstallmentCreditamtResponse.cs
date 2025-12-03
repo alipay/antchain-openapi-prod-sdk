@@ -82,6 +82,12 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ProdType { get; set; }
 
+        // Y- 可用
+        // N- 不可用
+        [NameInMap("installment_status")]
+        [Validation(Required=false)]
+        public string InstallmentStatus { get; set; }
+
     }
 
 }

@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.RISKPLUS.Models
 {
-    public class UploadQmpOfflinehostplanResponse : TeaModel {
+    public class QueryQmpOfflinehostplanDecisionresultsResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,15 +24,15 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 导入id，可以用该id来查询分层结果
-        [NameInMap("import_id")]
+        // 托管计划编码
+        [NameInMap("plan_code")]
         [Validation(Required=false)]
-        public long? ImportId { get; set; }
+        public string PlanCode { get; set; }
 
-        // 任务id
-        [NameInMap("task_uuid")]
+        // 分层结果信息
+        [NameInMap("decision_info")]
         [Validation(Required=false)]
-        public string TaskUuid { get; set; }
+        public List<DecisionInfo> DecisionInfo { get; set; }
 
     }
 

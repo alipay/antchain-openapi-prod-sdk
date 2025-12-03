@@ -137,7 +137,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.28.7"},
+                        {"sdk_version", "1.29.2"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.28.7"},
+                        {"sdk_version", "1.29.2"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -5803,6 +5803,48 @@ namespace AntChain.SDK.RISKPLUS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryQmpOfflinehostplanDecisionresultResponse>(await DoRequestAsync("1.0", "riskplus.qmp.offlinehostplan.decisionresult.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: qmp分层结果查询v2
+         * Summary: qmp分层结果查询v2
+         */
+        public QueryQmpOfflinehostplanDecisionresultsResponse QueryQmpOfflinehostplanDecisionresults(QueryQmpOfflinehostplanDecisionresultsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryQmpOfflinehostplanDecisionresultsEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: qmp分层结果查询v2
+         * Summary: qmp分层结果查询v2
+         */
+        public async Task<QueryQmpOfflinehostplanDecisionresultsResponse> QueryQmpOfflinehostplanDecisionresultsAsync(QueryQmpOfflinehostplanDecisionresultsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryQmpOfflinehostplanDecisionresultsExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: qmp分层结果查询v2
+         * Summary: qmp分层结果查询v2
+         */
+        public QueryQmpOfflinehostplanDecisionresultsResponse QueryQmpOfflinehostplanDecisionresultsEx(QueryQmpOfflinehostplanDecisionresultsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryQmpOfflinehostplanDecisionresultsResponse>(DoRequest("1.0", "riskplus.qmp.offlinehostplan.decisionresults.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: qmp分层结果查询v2
+         * Summary: qmp分层结果查询v2
+         */
+        public async Task<QueryQmpOfflinehostplanDecisionresultsResponse> QueryQmpOfflinehostplanDecisionresultsExAsync(QueryQmpOfflinehostplanDecisionresultsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryQmpOfflinehostplanDecisionresultsResponse>(await DoRequestAsync("1.0", "riskplus.qmp.offlinehostplan.decisionresults.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
