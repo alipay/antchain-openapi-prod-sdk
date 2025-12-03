@@ -1760,6 +1760,43 @@ export class RuntimeResult extends $tea.Model {
   }
 }
 
+// qmp分层信息
+export class DecisionInfo extends $tea.Model {
+  // 状态
+  status: string;
+  // 计划配置ID
+  offlineDecisionPlanId: number;
+  // 总数量
+  totalNum: number;
+  // 分层结果数
+  decisionNum: number;
+  // 文件路径
+  fileUrl: string;
+  static names(): { [key: string]: string } {
+    return {
+      status: 'status',
+      offlineDecisionPlanId: 'offline_decision_plan_id',
+      totalNum: 'total_num',
+      decisionNum: 'decision_num',
+      fileUrl: 'file_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      status: 'string',
+      offlineDecisionPlanId: 'number',
+      totalNum: 'number',
+      decisionNum: 'number',
+      fileUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 监测企业的特征信息
 export class RtopMonitorCompanyFeature extends $tea.Model {
   // 特征的描述
@@ -12577,6 +12614,9 @@ export class QueryDubbridgeInstallmentCreditamtResponse extends $tea.Model {
   abbreFundName?: string;
   // 1：现金贷、2：分期付
   prodType?: string;
+  // Y- 可用
+  // N- 不可用
+  installmentStatus?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -12592,6 +12632,7 @@ export class QueryDubbridgeInstallmentCreditamtResponse extends $tea.Model {
       fundCode: 'fund_code',
       abbreFundName: 'abbre_fund_name',
       prodType: 'prod_type',
+      installmentStatus: 'installment_status',
     };
   }
 
@@ -12610,6 +12651,7 @@ export class QueryDubbridgeInstallmentCreditamtResponse extends $tea.Model {
       fundCode: 'string',
       abbreFundName: 'string',
       prodType: 'string',
+      installmentStatus: 'string',
     };
   }
 
@@ -12899,9 +12941,9 @@ export class UploadDubbridgeAlipayImageRequest extends $tea.Model {
   // 20: 门头照
   // 21: 内景照
   imageCategory: string;
-  // 文件base64字符串，最大10M；（建议）
+  // 文件base64字符串，最大10M
   imageContent?: string;
-  // 图片文件路径
+  // 图片文件路径，（建议），http、https为前缀
   imagePath?: string;
   // 图片格式，
   // 支持格式：bmp、jpg、jpeg、png、gif
@@ -16109,12 +16151,15 @@ export class UploadQmpOfflinehostplanResponse extends $tea.Model {
   resultMsg?: string;
   // 导入id，可以用该id来查询分层结果
   importId?: number;
+  // 任务id
+  taskUuid?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
       importId: 'import_id',
+      taskUuid: 'task_uuid',
     };
   }
 
@@ -16124,6 +16169,7 @@ export class UploadQmpOfflinehostplanResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       importId: 'number',
+      taskUuid: 'string',
     };
   }
 
@@ -16207,6 +16253,69 @@ export class QueryQmpOfflinehostplanDecisionresultResponse extends $tea.Model {
       fileUrl: 'string',
       actionConfirmStatus: 'string',
       actionTime: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryQmpOfflinehostplanDecisionresultsRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 任务串联任务id
+  taskUuid: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      taskUuid: 'task_uuid',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      taskUuid: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryQmpOfflinehostplanDecisionresultsResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 托管计划编码
+  planCode?: string;
+  // 分层结果信息
+  decisionInfo?: DecisionInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      planCode: 'plan_code',
+      decisionInfo: 'decision_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      planCode: 'string',
+      decisionInfo: { 'type': 'array', 'itemType': DecisionInfo },
     };
   }
 
@@ -26080,7 +26189,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.28.7",
+          sdk_version: "1.29.2",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
@@ -28608,6 +28717,25 @@ export default class Client {
   async queryQmpOfflinehostplanDecisionresultEx(request: QueryQmpOfflinehostplanDecisionresultRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryQmpOfflinehostplanDecisionresultResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryQmpOfflinehostplanDecisionresultResponse>(await this.doRequest("1.0", "riskplus.qmp.offlinehostplan.decisionresult.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryQmpOfflinehostplanDecisionresultResponse({}));
+  }
+
+  /**
+   * Description: qmp分层结果查询v2
+   * Summary: qmp分层结果查询v2
+   */
+  async queryQmpOfflinehostplanDecisionresults(request: QueryQmpOfflinehostplanDecisionresultsRequest): Promise<QueryQmpOfflinehostplanDecisionresultsResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryQmpOfflinehostplanDecisionresultsEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: qmp分层结果查询v2
+   * Summary: qmp分层结果查询v2
+   */
+  async queryQmpOfflinehostplanDecisionresultsEx(request: QueryQmpOfflinehostplanDecisionresultsRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryQmpOfflinehostplanDecisionresultsResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryQmpOfflinehostplanDecisionresultsResponse>(await this.doRequest("1.0", "riskplus.qmp.offlinehostplan.decisionresults.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryQmpOfflinehostplanDecisionresultsResponse({}));
   }
 
   /**
