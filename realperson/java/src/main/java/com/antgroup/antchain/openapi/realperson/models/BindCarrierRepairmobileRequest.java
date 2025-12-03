@@ -41,6 +41,14 @@ public class BindCarrierRepairmobileRequest extends TeaModel {
     @NameInMap("mobile_type")
     public String mobileType;
 
+    // 场景值
+    @NameInMap("scene")
+    public String scene;
+
+    // 扩展信息，预留字段
+    @NameInMap("extern_param")
+    public String externParam;
+
     public static BindCarrierRepairmobileRequest build(java.util.Map<String, ?> map) throws Exception {
         BindCarrierRepairmobileRequest self = new BindCarrierRepairmobileRequest();
         return TeaModel.build(map, self);
@@ -108,6 +116,22 @@ public class BindCarrierRepairmobileRequest extends TeaModel {
     }
     public String getMobileType() {
         return this.mobileType;
+    }
+
+    public BindCarrierRepairmobileRequest setScene(String scene) {
+        this.scene = scene;
+        return this;
+    }
+    public String getScene() {
+        return this.scene;
+    }
+
+    public BindCarrierRepairmobileRequest setExternParam(String externParam) {
+        this.externParam = externParam;
+        return this;
+    }
+    public String getExternParam() {
+        return this.externParam;
     }
 
 }

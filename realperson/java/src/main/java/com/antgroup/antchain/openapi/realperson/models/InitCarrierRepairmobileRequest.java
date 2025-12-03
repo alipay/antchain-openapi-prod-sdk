@@ -50,6 +50,14 @@ public class InitCarrierRepairmobileRequest extends TeaModel {
     @NameInMap("mobile")
     public String mobile;
 
+    // 场景值
+    @NameInMap("scene")
+    public String scene;
+
+    // 扩展信息，预留字段
+    @NameInMap("extern_param")
+    public String externParam;
+
     public static InitCarrierRepairmobileRequest build(java.util.Map<String, ?> map) throws Exception {
         InitCarrierRepairmobileRequest self = new InitCarrierRepairmobileRequest();
         return TeaModel.build(map, self);
@@ -125,6 +133,22 @@ public class InitCarrierRepairmobileRequest extends TeaModel {
     }
     public String getMobile() {
         return this.mobile;
+    }
+
+    public InitCarrierRepairmobileRequest setScene(String scene) {
+        this.scene = scene;
+        return this;
+    }
+    public String getScene() {
+        return this.scene;
+    }
+
+    public InitCarrierRepairmobileRequest setExternParam(String externParam) {
+        this.externParam = externParam;
+        return this;
+    }
+    public String getExternParam() {
+        return this.externParam;
     }
 
 }

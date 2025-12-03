@@ -21,6 +21,14 @@ public class QueryCarrierRepairmobileRequest extends TeaModel {
     @Validation(required = true)
     public String processId;
 
+    // 场景值
+    @NameInMap("scene")
+    public String scene;
+
+    // 扩展信息，预留字段
+    @NameInMap("extern_param")
+    public String externParam;
+
     public static QueryCarrierRepairmobileRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryCarrierRepairmobileRequest self = new QueryCarrierRepairmobileRequest();
         return TeaModel.build(map, self);
@@ -56,6 +64,22 @@ public class QueryCarrierRepairmobileRequest extends TeaModel {
     }
     public String getProcessId() {
         return this.processId;
+    }
+
+    public QueryCarrierRepairmobileRequest setScene(String scene) {
+        this.scene = scene;
+        return this;
+    }
+    public String getScene() {
+        return this.scene;
+    }
+
+    public QueryCarrierRepairmobileRequest setExternParam(String externParam) {
+        this.externParam = externParam;
+        return this;
+    }
+    public String getExternParam() {
+        return this.externParam;
     }
 
 }
