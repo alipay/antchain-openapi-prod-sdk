@@ -55,6 +55,18 @@ class BindCarrierRepairmobileRequest extends Model
      * @var string
      */
     public $mobileType;
+
+    // 场景值
+    /**
+     * @var string
+     */
+    public $scene;
+
+    // 扩展信息，预留字段
+    /**
+     * @var string
+     */
+    public $externParam;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -64,6 +76,8 @@ class BindCarrierRepairmobileRequest extends Model
         'mobileNum'         => 'mobile_num',
         'mobileA'           => 'mobile_a',
         'mobileType'        => 'mobile_type',
+        'scene'             => 'scene',
+        'externParam'       => 'extern_param',
     ];
 
     public function validate()
@@ -102,6 +116,12 @@ class BindCarrierRepairmobileRequest extends Model
         if (null !== $this->mobileType) {
             $res['mobile_type'] = $this->mobileType;
         }
+        if (null !== $this->scene) {
+            $res['scene'] = $this->scene;
+        }
+        if (null !== $this->externParam) {
+            $res['extern_param'] = $this->externParam;
+        }
 
         return $res;
     }
@@ -137,6 +157,12 @@ class BindCarrierRepairmobileRequest extends Model
         }
         if (isset($map['mobile_type'])) {
             $model->mobileType = $map['mobile_type'];
+        }
+        if (isset($map['scene'])) {
+            $model->scene = $map['scene'];
+        }
+        if (isset($map['extern_param'])) {
+            $model->externParam = $map['extern_param'];
         }
 
         return $model;

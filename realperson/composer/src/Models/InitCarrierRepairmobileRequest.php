@@ -66,6 +66,18 @@ class InitCarrierRepairmobileRequest extends Model
      * @var string
      */
     public $mobile;
+
+    // 场景值
+    /**
+     * @var string
+     */
+    public $scene;
+
+    // 扩展信息，预留字段
+    /**
+     * @var string
+     */
+    public $externParam;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -76,6 +88,8 @@ class InitCarrierRepairmobileRequest extends Model
         'certNo'            => 'cert_no',
         'name'              => 'name',
         'mobile'            => 'mobile',
+        'scene'             => 'scene',
+        'externParam'       => 'extern_param',
     ];
 
     public function validate()
@@ -117,6 +131,12 @@ class InitCarrierRepairmobileRequest extends Model
         if (null !== $this->mobile) {
             $res['mobile'] = $this->mobile;
         }
+        if (null !== $this->scene) {
+            $res['scene'] = $this->scene;
+        }
+        if (null !== $this->externParam) {
+            $res['extern_param'] = $this->externParam;
+        }
 
         return $res;
     }
@@ -155,6 +175,12 @@ class InitCarrierRepairmobileRequest extends Model
         }
         if (isset($map['mobile'])) {
             $model->mobile = $map['mobile'];
+        }
+        if (isset($map['scene'])) {
+            $model->scene = $map['scene'];
+        }
+        if (isset($map['extern_param'])) {
+            $model->externParam = $map['extern_param'];
         }
 
         return $model;

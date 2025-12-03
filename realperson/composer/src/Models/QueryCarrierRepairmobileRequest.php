@@ -30,11 +30,25 @@ class QueryCarrierRepairmobileRequest extends Model
      * @var string
      */
     public $processId;
+
+    // 场景值
+    /**
+     * @var string
+     */
+    public $scene;
+
+    // 扩展信息，预留字段
+    /**
+     * @var string
+     */
+    public $externParam;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'outerOrderNo'      => 'outer_order_no',
         'processId'         => 'process_id',
+        'scene'             => 'scene',
+        'externParam'       => 'extern_param',
     ];
 
     public function validate()
@@ -57,6 +71,12 @@ class QueryCarrierRepairmobileRequest extends Model
         }
         if (null !== $this->processId) {
             $res['process_id'] = $this->processId;
+        }
+        if (null !== $this->scene) {
+            $res['scene'] = $this->scene;
+        }
+        if (null !== $this->externParam) {
+            $res['extern_param'] = $this->externParam;
         }
 
         return $res;
@@ -81,6 +101,12 @@ class QueryCarrierRepairmobileRequest extends Model
         }
         if (isset($map['process_id'])) {
             $model->processId = $map['process_id'];
+        }
+        if (isset($map['scene'])) {
+            $model->scene = $map['scene'];
+        }
+        if (isset($map['extern_param'])) {
+            $model->externParam = $map['extern_param'];
         }
 
         return $model;
