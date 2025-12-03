@@ -4240,6 +4240,10 @@ export class InitCarrierRepairmobileRequest extends $tea.Model {
   name: string;
   // 曾用手机号码，使用入参加密模式加密
   mobile?: string;
+  // 场景值
+  scene?: string;
+  // 扩展信息，预留字段
+  externParam?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -4251,6 +4255,8 @@ export class InitCarrierRepairmobileRequest extends $tea.Model {
       certNo: 'cert_no',
       name: 'name',
       mobile: 'mobile',
+      scene: 'scene',
+      externParam: 'extern_param',
     };
   }
 
@@ -4265,6 +4271,8 @@ export class InitCarrierRepairmobileRequest extends $tea.Model {
       certNo: 'string',
       name: 'string',
       mobile: 'string',
+      scene: 'string',
+      externParam: 'string',
     };
   }
 
@@ -4313,12 +4321,18 @@ export class QueryCarrierRepairmobileRequest extends $tea.Model {
   outerOrderNo: string;
   // 失联修复初始化的流程ID
   processId: string;
+  // 场景值
+  scene?: string;
+  // 扩展信息，预留字段
+  externParam?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       outerOrderNo: 'outer_order_no',
       processId: 'process_id',
+      scene: 'scene',
+      externParam: 'extern_param',
     };
   }
 
@@ -4328,6 +4342,8 @@ export class QueryCarrierRepairmobileRequest extends $tea.Model {
       productInstanceId: 'string',
       outerOrderNo: 'string',
       processId: 'string',
+      scene: 'string',
+      externParam: 'string',
     };
   }
 
@@ -4385,6 +4401,10 @@ export class BindCarrierRepairmobileRequest extends $tea.Model {
   // 主叫类型1-手机号码 2-固话
   // 默认为1
   mobileType?: string;
+  // 场景值
+  scene?: string;
+  // 扩展信息，预留字段
+  externParam?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -4395,6 +4415,8 @@ export class BindCarrierRepairmobileRequest extends $tea.Model {
       mobileNum: 'mobile_num',
       mobileA: 'mobile_a',
       mobileType: 'mobile_type',
+      scene: 'scene',
+      externParam: 'extern_param',
     };
   }
 
@@ -4408,6 +4430,8 @@ export class BindCarrierRepairmobileRequest extends $tea.Model {
       mobileNum: 'string',
       mobileA: 'string',
       mobileType: 'string',
+      scene: 'string',
+      externParam: 'string',
     };
   }
 
@@ -7239,7 +7263,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.22.10",
+          sdk_version: "1.22.11",
           _prod_code: "REALPERSON",
           _prod_channel: "undefined",
         };
