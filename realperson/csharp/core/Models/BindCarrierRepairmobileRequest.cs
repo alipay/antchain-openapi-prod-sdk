@@ -49,6 +49,16 @@ namespace AntChain.SDK.REALPERSON.Models
         [Validation(Required=false)]
         public string MobileType { get; set; }
 
+        // 场景值
+        [NameInMap("scene")]
+        [Validation(Required=false)]
+        public string Scene { get; set; }
+
+        // 扩展信息，预留字段
+        [NameInMap("extern_param")]
+        [Validation(Required=false)]
+        public string ExternParam { get; set; }
+
     }
 
 }
