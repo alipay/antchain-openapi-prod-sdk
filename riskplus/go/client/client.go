@@ -2304,6 +2304,53 @@ func (s *RuntimeResult) SetData(v string) *RuntimeResult {
 	return s
 }
 
+// qmp分层信息
+type DecisionInfo struct {
+	// 状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 计划配置ID
+	OfflineDecisionPlanId *int64 `json:"offline_decision_plan_id,omitempty" xml:"offline_decision_plan_id,omitempty" require:"true"`
+	// 总数量
+	TotalNum *int64 `json:"total_num,omitempty" xml:"total_num,omitempty" require:"true"`
+	// 分层结果数
+	DecisionNum *int64 `json:"decision_num,omitempty" xml:"decision_num,omitempty" require:"true"`
+	// 文件路径
+	FileUrl *string `json:"file_url,omitempty" xml:"file_url,omitempty" require:"true"`
+}
+
+func (s DecisionInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DecisionInfo) GoString() string {
+	return s.String()
+}
+
+func (s *DecisionInfo) SetStatus(v string) *DecisionInfo {
+	s.Status = &v
+	return s
+}
+
+func (s *DecisionInfo) SetOfflineDecisionPlanId(v int64) *DecisionInfo {
+	s.OfflineDecisionPlanId = &v
+	return s
+}
+
+func (s *DecisionInfo) SetTotalNum(v int64) *DecisionInfo {
+	s.TotalNum = &v
+	return s
+}
+
+func (s *DecisionInfo) SetDecisionNum(v int64) *DecisionInfo {
+	s.DecisionNum = &v
+	return s
+}
+
+func (s *DecisionInfo) SetFileUrl(v string) *DecisionInfo {
+	s.FileUrl = &v
+	return s
+}
+
 // 监测企业的特征信息
 type RtopMonitorCompanyFeature struct {
 	// 特征的描述
@@ -16972,6 +17019,9 @@ type QueryDubbridgeInstallmentCreditamtResponse struct {
 	AbbreFundName *string `json:"abbre_fund_name,omitempty" xml:"abbre_fund_name,omitempty"`
 	// 1：现金贷、2：分期付
 	ProdType *string `json:"prod_type,omitempty" xml:"prod_type,omitempty"`
+	// Y- 可用
+	// N- 不可用
+	InstallmentStatus *string `json:"installment_status,omitempty" xml:"installment_status,omitempty"`
 }
 
 func (s QueryDubbridgeInstallmentCreditamtResponse) String() string {
@@ -17044,6 +17094,11 @@ func (s *QueryDubbridgeInstallmentCreditamtResponse) SetAbbreFundName(v string) 
 
 func (s *QueryDubbridgeInstallmentCreditamtResponse) SetProdType(v string) *QueryDubbridgeInstallmentCreditamtResponse {
 	s.ProdType = &v
+	return s
+}
+
+func (s *QueryDubbridgeInstallmentCreditamtResponse) SetInstallmentStatus(v string) *QueryDubbridgeInstallmentCreditamtResponse {
+	s.InstallmentStatus = &v
 	return s
 }
 
@@ -17421,9 +17476,9 @@ type UploadDubbridgeAlipayImageRequest struct {
 	// 20: 门头照
 	// 21: 内景照
 	ImageCategory *string `json:"image_category,omitempty" xml:"image_category,omitempty" require:"true"`
-	// 文件base64字符串，最大10M；（建议）
+	// 文件base64字符串，最大10M
 	ImageContent *string `json:"image_content,omitempty" xml:"image_content,omitempty"`
-	// 图片文件路径
+	// 图片文件路径，（建议），http、https为前缀
 	ImagePath *string `json:"image_path,omitempty" xml:"image_path,omitempty"`
 	// 图片格式，
 	// 支持格式：bmp、jpg、jpeg、png、gif
@@ -21693,6 +21748,8 @@ type UploadQmpOfflinehostplanResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 导入id，可以用该id来查询分层结果
 	ImportId *int64 `json:"import_id,omitempty" xml:"import_id,omitempty"`
+	// 任务id
+	TaskUuid *string `json:"task_uuid,omitempty" xml:"task_uuid,omitempty"`
 }
 
 func (s UploadQmpOfflinehostplanResponse) String() string {
@@ -21720,6 +21777,11 @@ func (s *UploadQmpOfflinehostplanResponse) SetResultMsg(v string) *UploadQmpOffl
 
 func (s *UploadQmpOfflinehostplanResponse) SetImportId(v int64) *UploadQmpOfflinehostplanResponse {
 	s.ImportId = &v
+	return s
+}
+
+func (s *UploadQmpOfflinehostplanResponse) SetTaskUuid(v string) *UploadQmpOfflinehostplanResponse {
+	s.TaskUuid = &v
 	return s
 }
 
@@ -21832,6 +21894,83 @@ func (s *QueryQmpOfflinehostplanDecisionresultResponse) SetActionConfirmStatus(v
 
 func (s *QueryQmpOfflinehostplanDecisionresultResponse) SetActionTime(v string) *QueryQmpOfflinehostplanDecisionresultResponse {
 	s.ActionTime = &v
+	return s
+}
+
+type QueryQmpOfflinehostplanDecisionresultsRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 任务串联任务id
+	TaskUuid *string `json:"task_uuid,omitempty" xml:"task_uuid,omitempty" require:"true"`
+}
+
+func (s QueryQmpOfflinehostplanDecisionresultsRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryQmpOfflinehostplanDecisionresultsRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryQmpOfflinehostplanDecisionresultsRequest) SetAuthToken(v string) *QueryQmpOfflinehostplanDecisionresultsRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryQmpOfflinehostplanDecisionresultsRequest) SetProductInstanceId(v string) *QueryQmpOfflinehostplanDecisionresultsRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryQmpOfflinehostplanDecisionresultsRequest) SetTaskUuid(v string) *QueryQmpOfflinehostplanDecisionresultsRequest {
+	s.TaskUuid = &v
+	return s
+}
+
+type QueryQmpOfflinehostplanDecisionresultsResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 托管计划编码
+	PlanCode *string `json:"plan_code,omitempty" xml:"plan_code,omitempty"`
+	// 分层结果信息
+	DecisionInfo []*DecisionInfo `json:"decision_info,omitempty" xml:"decision_info,omitempty" type:"Repeated"`
+}
+
+func (s QueryQmpOfflinehostplanDecisionresultsResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryQmpOfflinehostplanDecisionresultsResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryQmpOfflinehostplanDecisionresultsResponse) SetReqMsgId(v string) *QueryQmpOfflinehostplanDecisionresultsResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryQmpOfflinehostplanDecisionresultsResponse) SetResultCode(v string) *QueryQmpOfflinehostplanDecisionresultsResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryQmpOfflinehostplanDecisionresultsResponse) SetResultMsg(v string) *QueryQmpOfflinehostplanDecisionresultsResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryQmpOfflinehostplanDecisionresultsResponse) SetPlanCode(v string) *QueryQmpOfflinehostplanDecisionresultsResponse {
+	s.PlanCode = &v
+	return s
+}
+
+func (s *QueryQmpOfflinehostplanDecisionresultsResponse) SetDecisionInfo(v []*DecisionInfo) *QueryQmpOfflinehostplanDecisionresultsResponse {
+	s.DecisionInfo = v
 	return s
 }
 
@@ -34935,7 +35074,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.28.7"),
+				"sdk_version":      tea.String("1.29.2"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -39390,6 +39529,40 @@ func (client *Client) QueryQmpOfflinehostplanDecisionresultEx(request *QueryQmpO
 	}
 	_result = &QueryQmpOfflinehostplanDecisionresultResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.qmp.offlinehostplan.decisionresult.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: qmp分层结果查询v2
+ * Summary: qmp分层结果查询v2
+ */
+func (client *Client) QueryQmpOfflinehostplanDecisionresults(request *QueryQmpOfflinehostplanDecisionresultsRequest) (_result *QueryQmpOfflinehostplanDecisionresultsResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryQmpOfflinehostplanDecisionresultsResponse{}
+	_body, _err := client.QueryQmpOfflinehostplanDecisionresultsEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: qmp分层结果查询v2
+ * Summary: qmp分层结果查询v2
+ */
+func (client *Client) QueryQmpOfflinehostplanDecisionresultsEx(request *QueryQmpOfflinehostplanDecisionresultsRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryQmpOfflinehostplanDecisionresultsResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryQmpOfflinehostplanDecisionresultsResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.qmp.offlinehostplan.decisionresults.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
