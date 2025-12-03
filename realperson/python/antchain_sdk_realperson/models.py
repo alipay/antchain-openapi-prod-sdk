@@ -6842,6 +6842,8 @@ class InitCarrierRepairmobileRequest(TeaModel):
         cert_no: str = None,
         name: str = None,
         mobile: str = None,
+        scene: str = None,
+        extern_param: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -6866,6 +6868,10 @@ class InitCarrierRepairmobileRequest(TeaModel):
         self.name = name
         # 曾用手机号码，使用入参加密模式加密
         self.mobile = mobile
+        # 场景值
+        self.scene = scene
+        # 扩展信息，预留字段
+        self.extern_param = extern_param
 
     def validate(self):
         self.validate_required(self.outer_order_no, 'outer_order_no')
@@ -6898,6 +6904,10 @@ class InitCarrierRepairmobileRequest(TeaModel):
             result['name'] = self.name
         if self.mobile is not None:
             result['mobile'] = self.mobile
+        if self.scene is not None:
+            result['scene'] = self.scene
+        if self.extern_param is not None:
+            result['extern_param'] = self.extern_param
         return result
 
     def from_map(self, m: dict = None):
@@ -6920,6 +6930,10 @@ class InitCarrierRepairmobileRequest(TeaModel):
             self.name = m.get('name')
         if m.get('mobile') is not None:
             self.mobile = m.get('mobile')
+        if m.get('scene') is not None:
+            self.scene = m.get('scene')
+        if m.get('extern_param') is not None:
+            self.extern_param = m.get('extern_param')
         return self
 
 
@@ -6979,6 +6993,8 @@ class QueryCarrierRepairmobileRequest(TeaModel):
         product_instance_id: str = None,
         outer_order_no: str = None,
         process_id: str = None,
+        scene: str = None,
+        extern_param: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -6987,6 +7003,10 @@ class QueryCarrierRepairmobileRequest(TeaModel):
         self.outer_order_no = outer_order_no
         # 失联修复初始化的流程ID
         self.process_id = process_id
+        # 场景值
+        self.scene = scene
+        # 扩展信息，预留字段
+        self.extern_param = extern_param
 
     def validate(self):
         self.validate_required(self.outer_order_no, 'outer_order_no')
@@ -7006,6 +7026,10 @@ class QueryCarrierRepairmobileRequest(TeaModel):
             result['outer_order_no'] = self.outer_order_no
         if self.process_id is not None:
             result['process_id'] = self.process_id
+        if self.scene is not None:
+            result['scene'] = self.scene
+        if self.extern_param is not None:
+            result['extern_param'] = self.extern_param
         return result
 
     def from_map(self, m: dict = None):
@@ -7018,6 +7042,10 @@ class QueryCarrierRepairmobileRequest(TeaModel):
             self.outer_order_no = m.get('outer_order_no')
         if m.get('process_id') is not None:
             self.process_id = m.get('process_id')
+        if m.get('scene') is not None:
+            self.scene = m.get('scene')
+        if m.get('extern_param') is not None:
+            self.extern_param = m.get('extern_param')
         return self
 
 
@@ -7081,6 +7109,8 @@ class BindCarrierRepairmobileRequest(TeaModel):
         mobile_num: str = None,
         mobile_a: str = None,
         mobile_type: str = None,
+        scene: str = None,
+        extern_param: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -7098,6 +7128,10 @@ class BindCarrierRepairmobileRequest(TeaModel):
         # 主叫类型1-手机号码 2-固话
         # 默认为1
         self.mobile_type = mobile_type
+        # 场景值
+        self.scene = scene
+        # 扩展信息，预留字段
+        self.extern_param = extern_param
 
     def validate(self):
         self.validate_required(self.outer_order_no, 'outer_order_no')
@@ -7128,6 +7162,10 @@ class BindCarrierRepairmobileRequest(TeaModel):
             result['mobile_a'] = self.mobile_a
         if self.mobile_type is not None:
             result['mobile_type'] = self.mobile_type
+        if self.scene is not None:
+            result['scene'] = self.scene
+        if self.extern_param is not None:
+            result['extern_param'] = self.extern_param
         return result
 
     def from_map(self, m: dict = None):
@@ -7148,6 +7186,10 @@ class BindCarrierRepairmobileRequest(TeaModel):
             self.mobile_a = m.get('mobile_a')
         if m.get('mobile_type') is not None:
             self.mobile_type = m.get('mobile_type')
+        if m.get('scene') is not None:
+            self.scene = m.get('scene')
+        if m.get('extern_param') is not None:
+            self.extern_param = m.get('extern_param')
         return self
 
 
