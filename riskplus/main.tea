@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.28.7',
+    sdk_version = '1.29.2',
     _prod_code = 'RISKPLUS',
     _prod_channel = 'undefined'
   };
@@ -856,6 +856,20 @@ model RuntimeResult {
   resultmsg: string(name='resultmsg', example='OK'),
   // 文件上传结果
   data: string(name='data', example='[fileInfoReceive api success!]'),
+}
+
+// qmp分层信息
+model DecisionInfo {
+  // 状态
+  status: string(name='status', example='DECISION_SUCCESS'),
+  // 计划配置ID
+  offlineDecisionPlanId: long(name='offline_decision_plan_id', example='1'),
+  // 总数量
+  totalNum: long(name='total_num', example='111'),
+  // 分层结果数
+  decisionNum: long(name='decision_num', example='12'),
+  // 文件路径
+  fileUrl: string(name='file_url', example='https://test-oss.oss-cn-shang'),
 }
 
 // 监测企业的特征信息
@@ -6631,6 +6645,9 @@ model QueryDubbridgeInstallmentCreditamtResponse = {
   abbreFundName?: string(name='abbre_fund_name'),
   // 1：现金贷、2：分期付
   prodType?: string(name='prod_type'),
+  // Y- 可用
+  // N- 不可用
+  installmentStatus?: string(name='installment_status'),
 }
 
 /**
@@ -6830,9 +6847,9 @@ model UploadDubbridgeAlipayImageRequest = {
   // 20: 门头照
   // 21: 内景照
   imageCategory: string(name='image_category'),
-  // 文件base64字符串，最大10M；（建议）
+  // 文件base64字符串，最大10M
   imageContent?: string(name='image_content'),
-  // 图片文件路径
+  // 图片文件路径，（建议），http、https为前缀
   imagePath?: string(name='image_path'),
   // 图片格式，
   // 支持格式：bmp、jpg、jpeg、png、gif
@@ -8813,6 +8830,8 @@ model UploadQmpOfflinehostplanResponse = {
   resultMsg?: string(name='result_msg'),
   // 导入id，可以用该id来查询分层结果
   importId?: long(name='import_id'),
+  // 任务id
+  taskUuid?: string(name='task_uuid'),
 }
 
 /**
@@ -8902,6 +8921,46 @@ async function queryQmpOfflinehostplanDecisionresult(request: QueryQmpOfflinehos
 async function queryQmpOfflinehostplanDecisionresultEx(request: QueryQmpOfflinehostplanDecisionresultRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryQmpOfflinehostplanDecisionresultResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.qmp.offlinehostplan.decisionresult.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryQmpOfflinehostplanDecisionresultsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 任务串联任务id
+  taskUuid: string(name='task_uuid'),
+}
+
+model QueryQmpOfflinehostplanDecisionresultsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 托管计划编码
+  planCode?: string(name='plan_code'),
+  // 分层结果信息
+  decisionInfo?: [ DecisionInfo ](name='decision_info'),
+}
+
+/**
+ * Description: qmp分层结果查询v2
+ * Summary: qmp分层结果查询v2
+ */
+async function queryQmpOfflinehostplanDecisionresults(request: QueryQmpOfflinehostplanDecisionresultsRequest): QueryQmpOfflinehostplanDecisionresultsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryQmpOfflinehostplanDecisionresultsEx(request, headers, runtime);
+}
+
+/**
+ * Description: qmp分层结果查询v2
+ * Summary: qmp分层结果查询v2
+ */
+async function queryQmpOfflinehostplanDecisionresultsEx(request: QueryQmpOfflinehostplanDecisionresultsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryQmpOfflinehostplanDecisionresultsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.qmp.offlinehostplan.decisionresults.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model SyncRdaasTaxAuthinfoRequest = {
