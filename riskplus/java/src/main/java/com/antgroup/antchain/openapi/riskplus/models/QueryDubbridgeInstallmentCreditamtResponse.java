@@ -64,6 +64,11 @@ public class QueryDubbridgeInstallmentCreditamtResponse extends TeaModel {
     @NameInMap("prod_type")
     public String prodType;
 
+    // Y- 可用
+    // N- 不可用
+    @NameInMap("installment_status")
+    public String installmentStatus;
+
     public static QueryDubbridgeInstallmentCreditamtResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryDubbridgeInstallmentCreditamtResponse self = new QueryDubbridgeInstallmentCreditamtResponse();
         return TeaModel.build(map, self);
@@ -171,6 +176,14 @@ public class QueryDubbridgeInstallmentCreditamtResponse extends TeaModel {
     }
     public String getProdType() {
         return this.prodType;
+    }
+
+    public QueryDubbridgeInstallmentCreditamtResponse setInstallmentStatus(String installmentStatus) {
+        this.installmentStatus = installmentStatus;
+        return this;
+    }
+    public String getInstallmentStatus() {
+        return this.installmentStatus;
     }
 
 }

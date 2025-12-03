@@ -20,6 +20,10 @@ public class UploadQmpOfflinehostplanResponse extends TeaModel {
     @NameInMap("import_id")
     public Long importId;
 
+    // 任务id
+    @NameInMap("task_uuid")
+    public String taskUuid;
+
     public static UploadQmpOfflinehostplanResponse build(java.util.Map<String, ?> map) throws Exception {
         UploadQmpOfflinehostplanResponse self = new UploadQmpOfflinehostplanResponse();
         return TeaModel.build(map, self);
@@ -55,6 +59,14 @@ public class UploadQmpOfflinehostplanResponse extends TeaModel {
     }
     public Long getImportId() {
         return this.importId;
+    }
+
+    public UploadQmpOfflinehostplanResponse setTaskUuid(String taskUuid) {
+        this.taskUuid = taskUuid;
+        return this;
+    }
+    public String getTaskUuid() {
+        return this.taskUuid;
     }
 
 }
