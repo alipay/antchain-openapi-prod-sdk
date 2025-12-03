@@ -5870,6 +5870,10 @@ type InitCarrierRepairmobileRequest struct {
 	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
 	// 曾用手机号码，使用入参加密模式加密
 	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty"`
+	// 场景值
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty"`
+	// 扩展信息，预留字段
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
 }
 
 func (s InitCarrierRepairmobileRequest) String() string {
@@ -5925,6 +5929,16 @@ func (s *InitCarrierRepairmobileRequest) SetMobile(v string) *InitCarrierRepairm
 	return s
 }
 
+func (s *InitCarrierRepairmobileRequest) SetScene(v string) *InitCarrierRepairmobileRequest {
+	s.Scene = &v
+	return s
+}
+
+func (s *InitCarrierRepairmobileRequest) SetExternParam(v string) *InitCarrierRepairmobileRequest {
+	s.ExternParam = &v
+	return s
+}
+
 type InitCarrierRepairmobileResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -5972,6 +5986,10 @@ type QueryCarrierRepairmobileRequest struct {
 	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
 	// 失联修复初始化的流程ID
 	ProcessId *string `json:"process_id,omitempty" xml:"process_id,omitempty" require:"true"`
+	// 场景值
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty"`
+	// 扩展信息，预留字段
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
 }
 
 func (s QueryCarrierRepairmobileRequest) String() string {
@@ -5999,6 +6017,16 @@ func (s *QueryCarrierRepairmobileRequest) SetOuterOrderNo(v string) *QueryCarrie
 
 func (s *QueryCarrierRepairmobileRequest) SetProcessId(v string) *QueryCarrierRepairmobileRequest {
 	s.ProcessId = &v
+	return s
+}
+
+func (s *QueryCarrierRepairmobileRequest) SetScene(v string) *QueryCarrierRepairmobileRequest {
+	s.Scene = &v
+	return s
+}
+
+func (s *QueryCarrierRepairmobileRequest) SetExternParam(v string) *QueryCarrierRepairmobileRequest {
+	s.ExternParam = &v
 	return s
 }
 
@@ -6058,6 +6086,10 @@ type BindCarrierRepairmobileRequest struct {
 	// 主叫类型1-手机号码 2-固话
 	// 默认为1
 	MobileType *string `json:"mobile_type,omitempty" xml:"mobile_type,omitempty"`
+	// 场景值
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty"`
+	// 扩展信息，预留字段
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
 }
 
 func (s BindCarrierRepairmobileRequest) String() string {
@@ -6105,6 +6137,16 @@ func (s *BindCarrierRepairmobileRequest) SetMobileA(v string) *BindCarrierRepair
 
 func (s *BindCarrierRepairmobileRequest) SetMobileType(v string) *BindCarrierRepairmobileRequest {
 	s.MobileType = &v
+	return s
+}
+
+func (s *BindCarrierRepairmobileRequest) SetScene(v string) *BindCarrierRepairmobileRequest {
+	s.Scene = &v
+	return s
+}
+
+func (s *BindCarrierRepairmobileRequest) SetExternParam(v string) *BindCarrierRepairmobileRequest {
+	s.ExternParam = &v
 	return s
 }
 
@@ -9967,7 +10009,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.22.10"),
+				"sdk_version":      tea.String("1.22.11"),
 				"_prod_code":       tea.String("REALPERSON"),
 				"_prod_channel":    tea.String("undefined"),
 			}
