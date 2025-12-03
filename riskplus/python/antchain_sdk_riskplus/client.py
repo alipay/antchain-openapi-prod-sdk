@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.28.7',
+                    'sdk_version': '1.29.2',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.28.7',
+                    'sdk_version': '1.29.2',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -7473,6 +7473,62 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.QueryQmpOfflinehostplanDecisionresultResponse(),
             await self.do_request_async('1.0', 'riskplus.qmp.offlinehostplan.decisionresult.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_qmp_offlinehostplan_decisionresults(
+        self,
+        request: riskplus_models.QueryQmpOfflinehostplanDecisionresultsRequest,
+    ) -> riskplus_models.QueryQmpOfflinehostplanDecisionresultsResponse:
+        """
+        Description: qmp分层结果查询v2
+        Summary: qmp分层结果查询v2
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_qmp_offlinehostplan_decisionresults_ex(request, headers, runtime)
+
+    async def query_qmp_offlinehostplan_decisionresults_async(
+        self,
+        request: riskplus_models.QueryQmpOfflinehostplanDecisionresultsRequest,
+    ) -> riskplus_models.QueryQmpOfflinehostplanDecisionresultsResponse:
+        """
+        Description: qmp分层结果查询v2
+        Summary: qmp分层结果查询v2
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_qmp_offlinehostplan_decisionresults_ex_async(request, headers, runtime)
+
+    def query_qmp_offlinehostplan_decisionresults_ex(
+        self,
+        request: riskplus_models.QueryQmpOfflinehostplanDecisionresultsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryQmpOfflinehostplanDecisionresultsResponse:
+        """
+        Description: qmp分层结果查询v2
+        Summary: qmp分层结果查询v2
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryQmpOfflinehostplanDecisionresultsResponse(),
+            self.do_request('1.0', 'riskplus.qmp.offlinehostplan.decisionresults.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_qmp_offlinehostplan_decisionresults_ex_async(
+        self,
+        request: riskplus_models.QueryQmpOfflinehostplanDecisionresultsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryQmpOfflinehostplanDecisionresultsResponse:
+        """
+        Description: qmp分层结果查询v2
+        Summary: qmp分层结果查询v2
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryQmpOfflinehostplanDecisionresultsResponse(),
+            await self.do_request_async('1.0', 'riskplus.qmp.offlinehostplan.decisionresults.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def sync_rdaas_tax_authinfo(
