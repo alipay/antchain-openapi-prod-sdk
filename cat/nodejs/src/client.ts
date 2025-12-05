@@ -82,10 +82,13 @@ export class GetAgeRequest extends $tea.Model {
   authToken?: string;
   // 猫猫的id
   id: string;
+  // a a a
+  time?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       id: 'id',
+      time: 'time',
     };
   }
 
@@ -93,6 +96,7 @@ export class GetAgeRequest extends $tea.Model {
     return {
       authToken: 'string',
       id: 'string',
+      time: 'string',
     };
   }
 
@@ -133,6 +137,302 @@ export class GetAgeResponse extends $tea.Model {
   }
 }
 
+export class WithdrawLoadtestTestRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class WithdrawLoadtestTestResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BindHuanyuRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // huanyu
+  operator: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      operator: 'operator',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      operator: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BindHuanyuResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // huanyu
+  yunyou?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      yunyou: 'yunyou',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      yunyou: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BindTestRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BindTestResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryTestCccRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryTestCccResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ImportAbcdRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ImportAbcdResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryTestaTestbRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryTestaTestbResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -160,7 +460,7 @@ export default class Client {
    * @param config config contains the necessary information to create a client
    */
   constructor(config: Config) {
-    if (Util.isUnset($tea.toMap(config))) {
+    if (Util.isUnset(config)) {
       throw $tea.newError({
         code: "ParameterMissing",
         message: "'config' can not be unset",
@@ -207,7 +507,7 @@ export default class Client {
       noProxy: Util.defaultString(runtime.noProxy, this._noProxy),
       maxIdleConns: Util.defaultNumber(runtime.maxIdleConns, this._maxIdleConns),
       maxIdleTimeMillis: this._maxIdleTimeMillis,
-      keepAliveDurationMillis: this._keepAliveDurationMillis,
+      keepAliveDuration: this._keepAliveDurationMillis,
       maxRequests: this._maxRequests,
       maxRequestsPerHost: this._maxRequestsPerHost,
       retry: {
@@ -246,7 +546,9 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.0",
+          sdk_version: "1.0.2",
+          _prod_code: "CAT",
+          _prod_channel: "undefined",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -309,6 +611,120 @@ export default class Client {
   async getAgeEx(request: GetAgeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetAgeResponse> {
     Util.validateModel(request);
     return $tea.cast<GetAgeResponse>(await this.doRequest("1.0", "antcloud.cat.age.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetAgeResponse({}));
+  }
+
+  /**
+   * Description: s d
+   * Summary: s d f
+   */
+  async withdrawLoadtestTest(request: WithdrawLoadtestTestRequest): Promise<WithdrawLoadtestTestResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.withdrawLoadtestTestEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: s d
+   * Summary: s d f
+   */
+  async withdrawLoadtestTestEx(request: WithdrawLoadtestTestRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<WithdrawLoadtestTestResponse> {
+    Util.validateModel(request);
+    return $tea.cast<WithdrawLoadtestTestResponse>(await this.doRequest("1.0", "antcloud.cat.loadtest.test.withdraw", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new WithdrawLoadtestTestResponse({}));
+  }
+
+  /**
+   * Description: huanyue
+   * Summary: huanyu
+   */
+  async bindHuanyu(request: BindHuanyuRequest): Promise<BindHuanyuResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.bindHuanyuEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: huanyue
+   * Summary: huanyu
+   */
+  async bindHuanyuEx(request: BindHuanyuRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BindHuanyuResponse> {
+    Util.validateModel(request);
+    return $tea.cast<BindHuanyuResponse>(await this.doRequest("1.0", "antcloud.cat.huanyu.bind", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BindHuanyuResponse({}));
+  }
+
+  /**
+   * Description: tests
+   * Summary: test
+   */
+  async bindTest(request: BindTestRequest): Promise<BindTestResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.bindTestEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: tests
+   * Summary: test
+   */
+  async bindTestEx(request: BindTestRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BindTestResponse> {
+    Util.validateModel(request);
+    return $tea.cast<BindTestResponse>(await this.doRequest("1.0", "antcloud.cat.test.bind", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BindTestResponse({}));
+  }
+
+  /**
+   * Description: testt
+   * Summary: testt
+   */
+  async queryTestCcc(request: QueryTestCccRequest): Promise<QueryTestCccResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryTestCccEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: testt
+   * Summary: testt
+   */
+  async queryTestCccEx(request: QueryTestCccRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryTestCccResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryTestCccResponse>(await this.doRequest("1.0", "antcloud.cat.test.ccc.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryTestCccResponse({}));
+  }
+
+  /**
+   * Description: 1234
+   * Summary: 1234
+   */
+  async importAbcd(request: ImportAbcdRequest): Promise<ImportAbcdResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.importAbcdEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 1234
+   * Summary: 1234
+   */
+  async importAbcdEx(request: ImportAbcdRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ImportAbcdResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ImportAbcdResponse>(await this.doRequest("1.0", "antcloud.cat.abcd.import", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ImportAbcdResponse({}));
+  }
+
+  /**
+   * Description: cat测试适用，包含能力中心九期打标功能测试1
+   * Summary: cat测试1
+   */
+  async queryTestaTestb(request: QueryTestaTestbRequest): Promise<QueryTestaTestbResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryTestaTestbEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: cat测试适用，包含能力中心九期打标功能测试1
+   * Summary: cat测试1
+   */
+  async queryTestaTestbEx(request: QueryTestaTestbRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryTestaTestbResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryTestaTestbResponse>(await this.doRequest("1.0", "antcloud.cat.testa.testb.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryTestaTestbResponse({}));
   }
 
 }
