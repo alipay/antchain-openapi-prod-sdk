@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.das.models;
 
 import com.aliyun.tea.*;
 
-public class DataAuthConfigListResponse extends TeaModel {
+public class AuthConfigListResponse extends TeaModel {
     // 场景码
     /**
      * <strong>example:</strong>
@@ -59,16 +59,16 @@ public class DataAuthConfigListResponse extends TeaModel {
     @Validation(required = true)
     public String authAppName;
 
-    // 数据产品服务简称列表
+    // 授权内容列表
     /**
      * <strong>example:</strong>
      * <ul>
      * <li></li>
      * </ul>
      */
-    @NameInMap("product_abbr_list")
+    @NameInMap("auth_content_list")
     @Validation(required = true)
-    public java.util.List<String> productAbbrList;
+    public java.util.List<AuthContent> authContentList;
 
     // 授权次数
     /**
@@ -90,12 +90,12 @@ public class DataAuthConfigListResponse extends TeaModel {
     @Validation(required = true)
     public Boolean authStatus;
 
-    public static DataAuthConfigListResponse build(java.util.Map<String, ?> map) throws Exception {
-        DataAuthConfigListResponse self = new DataAuthConfigListResponse();
+    public static AuthConfigListResponse build(java.util.Map<String, ?> map) throws Exception {
+        AuthConfigListResponse self = new AuthConfigListResponse();
         return TeaModel.build(map, self);
     }
 
-    public DataAuthConfigListResponse setSceneCode(String sceneCode) {
+    public AuthConfigListResponse setSceneCode(String sceneCode) {
         this.sceneCode = sceneCode;
         return this;
     }
@@ -103,7 +103,7 @@ public class DataAuthConfigListResponse extends TeaModel {
         return this.sceneCode;
     }
 
-    public DataAuthConfigListResponse setSourceSpaceId(String sourceSpaceId) {
+    public AuthConfigListResponse setSourceSpaceId(String sourceSpaceId) {
         this.sourceSpaceId = sourceSpaceId;
         return this;
     }
@@ -111,7 +111,7 @@ public class DataAuthConfigListResponse extends TeaModel {
         return this.sourceSpaceId;
     }
 
-    public DataAuthConfigListResponse setAuthEnterpriseCode(String authEnterpriseCode) {
+    public AuthConfigListResponse setAuthEnterpriseCode(String authEnterpriseCode) {
         this.authEnterpriseCode = authEnterpriseCode;
         return this;
     }
@@ -119,7 +119,7 @@ public class DataAuthConfigListResponse extends TeaModel {
         return this.authEnterpriseCode;
     }
 
-    public DataAuthConfigListResponse setTargetName(String targetName) {
+    public AuthConfigListResponse setTargetName(String targetName) {
         this.targetName = targetName;
         return this;
     }
@@ -127,7 +127,7 @@ public class DataAuthConfigListResponse extends TeaModel {
         return this.targetName;
     }
 
-    public DataAuthConfigListResponse setAuthAppName(String authAppName) {
+    public AuthConfigListResponse setAuthAppName(String authAppName) {
         this.authAppName = authAppName;
         return this;
     }
@@ -135,15 +135,15 @@ public class DataAuthConfigListResponse extends TeaModel {
         return this.authAppName;
     }
 
-    public DataAuthConfigListResponse setProductAbbrList(java.util.List<String> productAbbrList) {
-        this.productAbbrList = productAbbrList;
+    public AuthConfigListResponse setAuthContentList(java.util.List<AuthContent> authContentList) {
+        this.authContentList = authContentList;
         return this;
     }
-    public java.util.List<String> getProductAbbrList() {
-        return this.productAbbrList;
+    public java.util.List<AuthContent> getAuthContentList() {
+        return this.authContentList;
     }
 
-    public DataAuthConfigListResponse setAuthCount(Long authCount) {
+    public AuthConfigListResponse setAuthCount(Long authCount) {
         this.authCount = authCount;
         return this;
     }
@@ -151,7 +151,7 @@ public class DataAuthConfigListResponse extends TeaModel {
         return this.authCount;
     }
 
-    public DataAuthConfigListResponse setAuthStatus(Boolean authStatus) {
+    public AuthConfigListResponse setAuthStatus(Boolean authStatus) {
         this.authStatus = authStatus;
         return this;
     }

@@ -4,6 +4,17 @@ package com.antgroup.antchain.openapi.das.models;
 import com.aliyun.tea.*;
 
 public class Agreement extends TeaModel {
+    // 协议编码
+    /**
+     * <strong>example:</strong>
+     * <ul>
+     * <li></li>
+     * </ul>
+     */
+    @NameInMap("agreement_code")
+    @Validation(required = true)
+    public String agreementCode;
+
     // 协议名称
     /**
      * <strong>example:</strong>
@@ -57,9 +68,28 @@ public class Agreement extends TeaModel {
     @Validation(required = true)
     public String agreementFileOriginalName;
 
+    // 下载链接
+    /**
+     * <strong>example:</strong>
+     * <ul>
+     * <li></li>
+     * </ul>
+     */
+    @NameInMap("download_url")
+    @Validation(required = true)
+    public String downloadUrl;
+
     public static Agreement build(java.util.Map<String, ?> map) throws Exception {
         Agreement self = new Agreement();
         return TeaModel.build(map, self);
+    }
+
+    public Agreement setAgreementCode(String agreementCode) {
+        this.agreementCode = agreementCode;
+        return this;
+    }
+    public String getAgreementCode() {
+        return this.agreementCode;
     }
 
     public Agreement setAgreementName(String agreementName) {
@@ -100,6 +130,14 @@ public class Agreement extends TeaModel {
     }
     public String getAgreementFileOriginalName() {
         return this.agreementFileOriginalName;
+    }
+
+    public Agreement setDownloadUrl(String downloadUrl) {
+        this.downloadUrl = downloadUrl;
+        return this;
+    }
+    public String getDownloadUrl() {
+        return this.downloadUrl;
     }
 
 }

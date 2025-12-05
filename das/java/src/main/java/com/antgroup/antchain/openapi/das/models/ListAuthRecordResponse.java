@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.das.models;
 
 import com.aliyun.tea.*;
 
-public class ListAuthConfigResponse extends TeaModel {
+public class ListAuthRecordResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -26,14 +26,14 @@ public class ListAuthConfigResponse extends TeaModel {
 
     // 列表记录
     @NameInMap("data_list")
-    public java.util.List<AuthConfigListResponse> dataList;
+    public java.util.List<AuthRecordListResponse> dataList;
 
-    public static ListAuthConfigResponse build(java.util.Map<String, ?> map) throws Exception {
-        ListAuthConfigResponse self = new ListAuthConfigResponse();
+    public static ListAuthRecordResponse build(java.util.Map<String, ?> map) throws Exception {
+        ListAuthRecordResponse self = new ListAuthRecordResponse();
         return TeaModel.build(map, self);
     }
 
-    public ListAuthConfigResponse setReqMsgId(String reqMsgId) {
+    public ListAuthRecordResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -41,7 +41,7 @@ public class ListAuthConfigResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public ListAuthConfigResponse setResultCode(String resultCode) {
+    public ListAuthRecordResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -49,7 +49,7 @@ public class ListAuthConfigResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public ListAuthConfigResponse setResultMsg(String resultMsg) {
+    public ListAuthRecordResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -57,7 +57,7 @@ public class ListAuthConfigResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public ListAuthConfigResponse setCount(Long count) {
+    public ListAuthRecordResponse setCount(Long count) {
         this.count = count;
         return this;
     }
@@ -65,7 +65,7 @@ public class ListAuthConfigResponse extends TeaModel {
         return this.count;
     }
 
-    public ListAuthConfigResponse setTotalPages(Long totalPages) {
+    public ListAuthRecordResponse setTotalPages(Long totalPages) {
         this.totalPages = totalPages;
         return this;
     }
@@ -73,11 +73,11 @@ public class ListAuthConfigResponse extends TeaModel {
         return this.totalPages;
     }
 
-    public ListAuthConfigResponse setDataList(java.util.List<AuthConfigListResponse> dataList) {
+    public ListAuthRecordResponse setDataList(java.util.List<AuthRecordListResponse> dataList) {
         this.dataList = dataList;
         return this;
     }
-    public java.util.List<AuthConfigListResponse> getDataList() {
+    public java.util.List<AuthRecordListResponse> getDataList() {
         return this.dataList;
     }
 

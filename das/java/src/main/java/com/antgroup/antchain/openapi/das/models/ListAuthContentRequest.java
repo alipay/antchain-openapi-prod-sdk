@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.das.models;
 
 import com.aliyun.tea.*;
 
-public class ListAuthProductRequest extends TeaModel {
+public class ListAuthContentRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -11,12 +11,12 @@ public class ListAuthProductRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    public static ListAuthProductRequest build(java.util.Map<String, ?> map) throws Exception {
-        ListAuthProductRequest self = new ListAuthProductRequest();
+    public static ListAuthContentRequest build(java.util.Map<String, ?> map) throws Exception {
+        ListAuthContentRequest self = new ListAuthContentRequest();
         return TeaModel.build(map, self);
     }
 
-    public ListAuthProductRequest setAuthToken(String authToken) {
+    public ListAuthContentRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -24,7 +24,7 @@ public class ListAuthProductRequest extends TeaModel {
         return this.authToken;
     }
 
-    public ListAuthProductRequest setProductInstanceId(String productInstanceId) {
+    public ListAuthContentRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }

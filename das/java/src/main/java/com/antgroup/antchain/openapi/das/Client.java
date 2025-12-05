@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.1.74"),
+                    new TeaPair("sdk_version", "1.1.102"),
                     new TeaPair("_prod_code", "DAS"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -1265,23 +1265,23 @@ public class Client {
 
     /**
      * <b>description</b> :
-     * <p>Description: 查询授权产品列表
-     * Summary: 查询授权产品列表</p>
+     * <p>Description: 查询授权内容列表
+     * Summary: 查询授权内容列表</p>
      */
-    public ListAuthProductResponse listAuthProduct(ListAuthProductRequest request) throws Exception {
+    public ListAuthContentResponse listAuthContent(ListAuthContentRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.listAuthProductEx(request, headers, runtime);
+        return this.listAuthContentEx(request, headers, runtime);
     }
 
     /**
      * <b>description</b> :
-     * <p>Description: 查询授权产品列表
-     * Summary: 查询授权产品列表</p>
+     * <p>Description: 查询授权内容列表
+     * Summary: 查询授权内容列表</p>
      */
-    public ListAuthProductResponse listAuthProductEx(ListAuthProductRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+    public ListAuthContentResponse listAuthContentEx(ListAuthContentRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antchain.das.auth.product.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListAuthProductResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.das.auth.content.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListAuthContentResponse());
     }
 
     /**
@@ -1303,6 +1303,174 @@ public class Client {
     public ListAuthConfigResponse listAuthConfigEx(ListAuthConfigRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.das.auth.config.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListAuthConfigResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 更新授权配置状态
+     * Summary: 更新授权配置状态</p>
+     */
+    public UpdateAuthStatusResponse updateAuthStatus(UpdateAuthStatusRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateAuthStatusEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 更新授权配置状态
+     * Summary: 更新授权配置状态</p>
+     */
+    public UpdateAuthStatusResponse updateAuthStatusEx(UpdateAuthStatusRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.das.auth.status.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateAuthStatusResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询授权配置详情
+     * Summary: 查询授权配置详情</p>
+     */
+    public DetailAuthConfigResponse detailAuthConfig(DetailAuthConfigRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.detailAuthConfigEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询授权配置详情
+     * Summary: 查询授权配置详情</p>
+     */
+    public DetailAuthConfigResponse detailAuthConfigEx(DetailAuthConfigRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.das.auth.config.detail", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DetailAuthConfigResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询用户授权记录列表
+     * Summary: 查询用户授权记录列表</p>
+     */
+    public ListAuthRecordResponse listAuthRecord(ListAuthRecordRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.listAuthRecordEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询用户授权记录列表
+     * Summary: 查询用户授权记录列表</p>
+     */
+    public ListAuthRecordResponse listAuthRecordEx(ListAuthRecordRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.das.auth.record.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListAuthRecordResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 下载用户授权协议
+     * Summary: 下载用户授权协议</p>
+     */
+    public DownloadAuthAgreementResponse downloadAuthAgreement(DownloadAuthAgreementRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.downloadAuthAgreementEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 下载用户授权协议
+     * Summary: 下载用户授权协议</p>
+     */
+    public DownloadAuthAgreementResponse downloadAuthAgreementEx(DownloadAuthAgreementRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.das.auth.agreement.download", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DownloadAuthAgreementResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 数据授权核验
+     * Summary: 数据授权核验</p>
+     */
+    public VerifyDataAuthResponse verifyDataAuth(VerifyDataAuthRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.verifyDataAuthEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 数据授权核验
+     * Summary: 数据授权核验</p>
+     */
+    public VerifyDataAuthResponse verifyDataAuthEx(VerifyDataAuthRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.das.data.auth.verify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new VerifyDataAuthResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询产品参数信息
+     * Summary: 查询产品参数信息</p>
+     */
+    public QueryProductParamResponse queryProductParam(QueryProductParamRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryProductParamEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询产品参数信息
+     * Summary: 查询产品参数信息</p>
+     */
+    public QueryProductParamResponse queryProductParamEx(QueryProductParamRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.das.product.param.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryProductParamResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 授权数据回调
+     * Summary: 授权数据回调</p>
+     */
+    public CallbackAuthDataResponse callbackAuthData(CallbackAuthDataRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.callbackAuthDataEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 授权数据回调
+     * Summary: 授权数据回调</p>
+     */
+    public CallbackAuthDataResponse callbackAuthDataEx(CallbackAuthDataRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.das.auth.data.callback", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CallbackAuthDataResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 授权记录回调
+     * Summary: 授权记录回调</p>
+     */
+    public CallbackAuthRecordResponse callbackAuthRecord(CallbackAuthRecordRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.callbackAuthRecordEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 授权记录回调
+     * Summary: 授权记录回调</p>
+     */
+    public CallbackAuthRecordResponse callbackAuthRecordEx(CallbackAuthRecordRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.das.auth.record.callback", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CallbackAuthRecordResponse());
     }
 
     /**
