@@ -100,7 +100,9 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.0',
+    sdk_version = '1.0.2',
+    _prod_code = 'CAT',
+    _prod_channel = 'undefined'
   };
 
   if (!Util.empty(@securityToken)) {
@@ -145,7 +147,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   noProxy = Util.defaultString(runtime.noProxy, @noProxy),
   maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
   maxIdleTimeMillis = @maxIdleTimeMillis,
-  keepAliveDurationMillis = @keepAliveDurationMillis,
+  keepAliveDuration = @keepAliveDurationMillis,
   maxRequests = @maxRequests,
   maxRequestsPerHost = @maxRequestsPerHost,
   retry = {
@@ -164,6 +166,8 @@ model GetAgeRequest = {
   authToken?: string(name='auth_token'),
   // 猫猫的id
   id: string(name='id'),
+  // a a a
+  time?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='time'),
 }
 
 model GetAgeResponse = {
@@ -194,5 +198,207 @@ async function getAge(request: GetAgeRequest): GetAgeResponse {
 async function getAgeEx(request: GetAgeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetAgeResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antcloud.cat.age.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model WithdrawLoadtestTestRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+}
+
+model WithdrawLoadtestTestResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: s d
+ * Summary: s d f
+ */
+async function withdrawLoadtestTest(request: WithdrawLoadtestTestRequest): WithdrawLoadtestTestResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return withdrawLoadtestTestEx(request, headers, runtime);
+}
+
+/**
+ * Description: s d
+ * Summary: s d f
+ */
+async function withdrawLoadtestTestEx(request: WithdrawLoadtestTestRequest, headers: map[string]string, runtime: Util.RuntimeOptions): WithdrawLoadtestTestResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cat.loadtest.test.withdraw', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BindHuanyuRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // huanyu
+  operator: string(name='operator'),
+}
+
+model BindHuanyuResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // huanyu
+  yunyou?: string(name='yunyou'),
+}
+
+/**
+ * Description: huanyue
+ * Summary: huanyu
+ */
+async function bindHuanyu(request: BindHuanyuRequest): BindHuanyuResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return bindHuanyuEx(request, headers, runtime);
+}
+
+/**
+ * Description: huanyue
+ * Summary: huanyu
+ */
+async function bindHuanyuEx(request: BindHuanyuRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BindHuanyuResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cat.huanyu.bind', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BindTestRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+}
+
+model BindTestResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: tests
+ * Summary: test
+ */
+async function bindTest(request: BindTestRequest): BindTestResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return bindTestEx(request, headers, runtime);
+}
+
+/**
+ * Description: tests
+ * Summary: test
+ */
+async function bindTestEx(request: BindTestRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BindTestResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cat.test.bind', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryTestCccRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+}
+
+model QueryTestCccResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: testt
+ * Summary: testt
+ */
+async function queryTestCcc(request: QueryTestCccRequest): QueryTestCccResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryTestCccEx(request, headers, runtime);
+}
+
+/**
+ * Description: testt
+ * Summary: testt
+ */
+async function queryTestCccEx(request: QueryTestCccRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryTestCccResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cat.test.ccc.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ImportAbcdRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+}
+
+model ImportAbcdResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 1234
+ * Summary: 1234
+ */
+async function importAbcd(request: ImportAbcdRequest): ImportAbcdResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return importAbcdEx(request, headers, runtime);
+}
+
+/**
+ * Description: 1234
+ * Summary: 1234
+ */
+async function importAbcdEx(request: ImportAbcdRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ImportAbcdResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cat.abcd.import', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryTestaTestbRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+}
+
+model QueryTestaTestbResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: cat测试适用，包含能力中心九期打标功能测试1
+ * Summary: cat测试1
+ */
+async function queryTestaTestb(request: QueryTestaTestbRequest): QueryTestaTestbResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryTestaTestbEx(request, headers, runtime);
+}
+
+/**
+ * Description: cat测试适用，包含能力中心九期打标功能测试1
+ * Summary: cat测试1
+ */
+async function queryTestaTestbEx(request: QueryTestaTestbRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryTestaTestbResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cat.testa.testb.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
