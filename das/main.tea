@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.74',
+    sdk_version = '1.1.102',
     _prod_code = 'DAS',
     _prod_channel = 'undefined'
   };
@@ -193,6 +193,24 @@ model InterfaceOutput {
   description?: string(maxLength=100, name='description', example='描述'),
 }
 
+// 协议模板信息
+model Agreement {
+  // 协议编码
+  agreementCode: string(name='agreement_code', example='-'),
+  // 协议名称
+  agreementName: string(name='agreement_name', example='-'),
+  // 协议类型
+  agreementType: string(name='agreement_type', example='USER_SERVICE_AUTH'),
+  // 第三方原始协议链接
+  agreementUrl: string(name='agreement_url', example='-'),
+  // 协议文件上传目录
+  agreementFileOssKey: string(name='agreement_file_oss_key', example='-'),
+  // 上传时的协议原始文件名
+  agreementFileOriginalName: string(name='agreement_file_original_name', example='-'),
+  // 下载链接
+  downloadUrl: string(name='download_url', example='-'),
+}
+
 // 商标共有人信息
 model TmCoownerInfo {
   // 共有人中文名称
@@ -203,6 +221,18 @@ model TmCoownerInfo {
   coownerNameEn?: string(name='coowner_name_en', example='Bob'),
   // 共有人英文地址
   coownerAddrEn?: string(name='coowner_addr_en', example='英文地址信息'),
+}
+
+// C端展示授权内容
+model AuthContent {
+  // 产品code列表
+  productCodeList: [ string ](name='product_code_list', example=''),
+  // 数据产品入参,JSON数组
+  productParam: string(name='product_param', example='-'),
+  // C端展示授权内容code
+  authContentCode: string(name='auth_content_code', example='SOCIAL_INSURANCE'),
+  // C端展示授权内容名称
+  authContentName: string(name='auth_content_name', example='社保'),
 }
 
 // 查询人持股信息
@@ -285,6 +315,20 @@ model WorkExperiencesInfo {
   professionName?: string(maxLength=128, name='profession_name', example='行业名称'),
 }
 
+// 产品参数信息
+model ProductParamInfo {
+  // 产品码
+  productCode: string(name='product_code', example='-'),
+  // 参数key
+  paramKey: string(name='param_key', example='-'),
+  // 参数类型
+  paramType: string(name='param_type', example='-'),
+  // 参数描述
+  paramDesc: string(name='param_desc', example='-'),
+  // 是否可空
+  nullable: boolean(name='nullable', example='true, false'),
+}
+
 // 车辆基础信息
 model BasicCarInfo {
   // 号牌号码
@@ -353,26 +397,6 @@ model VehicleLicenseInfo {
   plateType?: string(name='plate_type', example='01'),
   // 检车日期
   inspectionDate?: string(name='inspection_date', example='2099-12-31 00:00:00'),
-}
-
-// 授权配置列表响应
-model DataAuthConfigListResponse {
-  // 场景码
-  sceneCode: string(name='scene_code', example='-'),
-  // 数据源连接器空间id
-  sourceSpaceId: string(name='source_space_id', example='-'),
-  // 被授权方企业信用代码
-  authEnterpriseCode: string(name='auth_enterprise_code', example='-'),
-  // 接入方企业名称
-  targetName: string(name='target_name', example='-'),
-  // 被授权应用名称
-  authAppName: string(name='auth_app_name', example='-'),
-  // 数据产品服务简称列表
-  productAbbrList: [ string ](name='product_abbr_list', example='-'),
-  // 授权次数
-  authCount: long(name='auth_count', example='-'),
-  // 授权状态
-  authStatus: boolean(name='auth_status', example='true, false'),
 }
 
 // 教育经历信息
@@ -455,20 +479,6 @@ model VehicleLicenseCertResult {
   plateType?: boolean(name='plate_type', example='true'),
   // 与车辆所有人是否一致
   owner?: boolean(name='owner', example='true'),
-}
-
-// 协议模板信息
-model Agreement {
-  // 协议名称
-  agreementName: string(name='agreement_name', example='-'),
-  // 协议类型
-  agreementType: string(name='agreement_type', example='USER_SERVICE_AUTH'),
-  // 第三方原始协议链接
-  agreementUrl: string(name='agreement_url', example='-'),
-  // 协议文件上传目录
-  agreementFileOssKey: string(name='agreement_file_oss_key', example='-'),
-  // 上传时的协议原始文件名
-  agreementFileOriginalName: string(name='agreement_file_original_name', example='-'),
 }
 
 // 部分车辆信息
@@ -573,6 +583,26 @@ model DetailCarInfo {
   displacement: string(name='displacement', example='10'),
 }
 
+// 授权配置列表响应
+model AuthConfigListResponse {
+  // 场景码
+  sceneCode: string(name='scene_code', example='-'),
+  // 数据源连接器空间id
+  sourceSpaceId: string(name='source_space_id', example='-'),
+  // 被授权方企业信用代码
+  authEnterpriseCode: string(name='auth_enterprise_code', example='-'),
+  // 接入方企业名称
+  targetName: string(name='target_name', example='-'),
+  // 被授权应用名称
+  authAppName: string(name='auth_app_name', example='-'),
+  // 授权内容列表
+  authContentList: [ AuthContent ](name='auth_content_list', example='-'),
+  // 授权次数
+  authCount: long(name='auth_count', example='-'),
+  // 授权状态
+  authStatus: boolean(name='auth_status', example='true, false'),
+}
+
 // Das平台自定义pair，key和value只能为String类型
 model StringPair {
   // key
@@ -587,6 +617,24 @@ model DomesticTmExtensionInfo {
   tmLogoUrl?: string(name='tm_logo_url', example='http://logo.png'),
   // 商品与服务信息列表
   goodsInfo?: [ DomesticTmGoodsInfo ](name='goods_info', example=''),
+}
+
+// 授权记录列表响应
+model AuthRecordListResponse {
+  // 授权请求id
+  requestId: string(name='request_id', example='-'),
+  // 授权用户did
+  userDid: string(name='user_did', example='-'),
+  // 授权用户信息
+  userInfo: string(name='user_info', example='{"name":"zhangsan","certNo":"42xx1234"}'),
+  // 授权内容
+  authContent: AuthContent(name='auth_content', example='社保'),
+  // 授权结果
+  authResult: boolean(name='auth_result', example='true, false'),
+  // 授权请求时间
+  requestTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='request_time', example='2018-10-10T10:10:00Z'),
+  // 协议列表
+  agreementList: [ Agreement ](name='agreement_list', example=''),
 }
 
 // 简历技能信息
@@ -700,6 +748,16 @@ model EnterpriseCaseInfo {
   caseType?: string(name='case_type', example='案由'),
   // 创建时间
   createTime?: string(name='create_time', example='2021-12-09'),
+}
+
+// 授权服务产品
+model AuthProductGroup {
+  // 产品code列表
+  productCodeList: [ string ](name='product_code_list', example='-'),
+  // 数据产品入参,JSON数组
+  productParam: string(name='product_param', example='-'),
+  // C端展示授权内容code
+  authContentCode: string(name='auth_content_code', example='-'),
 }
 
 // 学籍信息
@@ -2798,7 +2856,7 @@ model AddAuthConfigRequest = {
   // C端是否显示授权记录
   enableShowAuthRecord?: boolean(name='enable_show_auth_record'),
   // 授权服务产品列表
-  authProductList?: [ string ](name='auth_product_list'),
+  productGroupList?: [ AuthProductGroup ](name='product_group_list'),
   // 用户类型
   userType?: string(name='user_type'),
   // 授权协议
@@ -2878,7 +2936,7 @@ model UpdateAuthConfigRequest = {
   // C端是否显示授权记录
   enableShowAuthRecord?: boolean(name='enable_show_auth_record'),
   // 授权服务产品列表
-  authProductList?: [ string ](name='auth_product_list'),
+  productGroupList?: [ AuthProductGroup ](name='product_group_list'),
   // 用户类型
   userType?: string(name='user_type'),
   // 授权协议
@@ -3031,54 +3089,54 @@ async function uploadAuthPictureEx(request: UploadAuthPictureRequest, headers: m
   return doRequest('1.0' ,'antchain.das.auth.picture.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model ListAuthProductRequest = {
+model ListAuthContentRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
 }
 
-model ListAuthProductResponse = {
+model ListAuthContentResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
   // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 产品code
-  productCode?: string(name='product_code'),
-  // 产品简称
-  productAbbr?: string(name='product_abbr'),
+  // 授权内容列表
+  dataList?: [ AuthContent ](name='data_list'),
 }
 
 /**
- * Description: 查询授权产品列表
- * Summary: 查询授权产品列表
+ * Description: 查询授权内容列表
+ * Summary: 查询授权内容列表
  */
-async function listAuthProduct(request: ListAuthProductRequest): ListAuthProductResponse {
+async function listAuthContent(request: ListAuthContentRequest): ListAuthContentResponse {
   var runtime = new Util.RuntimeOptions{};
   var headers : map[string]string= {};
-  return listAuthProductEx(request, headers, runtime);
+  return listAuthContentEx(request, headers, runtime);
 }
 
 /**
- * Description: 查询授权产品列表
- * Summary: 查询授权产品列表
+ * Description: 查询授权内容列表
+ * Summary: 查询授权内容列表
  */
-async function listAuthProductEx(request: ListAuthProductRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListAuthProductResponse {
+async function listAuthContentEx(request: ListAuthContentRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListAuthContentResponse {
   Util.validateModel(request);
-  return doRequest('1.0' ,'antchain.das.auth.product.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+  return doRequest('1.0' ,'antchain.das.auth.content.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model ListAuthConfigRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 授权企业信用代码
-  enterpriseCode?: string(name='enterprise_code'),
+  // 连接器空间id
+  sourceSpaceId: string(name='source_space_id'),
+  // 客户名称
+  targetName?: string(name='target_name'),
   // 业务应用名称
   authAppName?: string(name='auth_app_name'),
-  // 产品code列表
-  productCodeList?: [ string ](name='product_code_list'),
+  // 授权内容code列表
+  authContentCodeList?: [ string ](name='auth_content_code_list'),
   // 页码
   pageNum: long(name='page_num'),
   // 每页数量
@@ -3097,7 +3155,7 @@ model ListAuthConfigResponse = {
   // 总页数
   totalPages?: long(name='total_pages'),
   // 列表记录
-  dataList?: [ DataAuthConfigListResponse ](name='data_list'),
+  dataList?: [ AuthConfigListResponse ](name='data_list'),
 }
 
 /**
@@ -3117,6 +3175,394 @@ async function listAuthConfig(request: ListAuthConfigRequest): ListAuthConfigRes
 async function listAuthConfigEx(request: ListAuthConfigRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListAuthConfigResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.das.auth.config.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateAuthStatusRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 被授权方企业信用代码
+  authEnterpriseCode: string(name='auth_enterprise_code'),
+  // 场景码
+  sceneCode: string(name='scene_code'),
+  // 授权状态
+  authStatus: boolean(name='auth_status'),
+}
+
+model UpdateAuthStatusResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 更新授权配置状态
+ * Summary: 更新授权配置状态
+ */
+async function updateAuthStatus(request: UpdateAuthStatusRequest): UpdateAuthStatusResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateAuthStatusEx(request, headers, runtime);
+}
+
+/**
+ * Description: 更新授权配置状态
+ * Summary: 更新授权配置状态
+ */
+async function updateAuthStatusEx(request: UpdateAuthStatusRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateAuthStatusResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.das.auth.status.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DetailAuthConfigRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 企业信用代码
+  enterpriseCode: string(name='enterprise_code'),
+  // 场景码
+  sceneCode: string(name='scene_code'),
+}
+
+model DetailAuthConfigResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 授权状态
+  authStatus?: boolean(name='auth_status'),
+  // 场景码
+  sceneCode?: string(name='scene_code'),
+  // 发起授权页面的url链接
+  startAuthUrl?: string(name='start_auth_url'),
+  // 数据源连接器空间id
+  sourceSpaceId?: string(name='source_space_id'),
+  // 公钥
+  publicKey?: string(name='public_key'),
+  // 被授权方企业信用代码
+  enterpriseCode?: string(name='enterprise_code'),
+  // 主题颜色
+  backgroundColor?: string(name='background_color'),
+  // 接入方企业名称
+  targetName?: string(name='target_name'),
+  // 被授权应用名称
+  authAppName?: string(name='auth_app_name'),
+  // 已授权数量
+  haveAuthedCount?: long(name='have_authed_count'),
+  // 公司logo
+  enterpriseLogo?: string(name='enterprise_logo'),
+  // 已取消授权数量
+  cancelAuthCount?: long(name='cancel_auth_count'),
+  // 公司logo访问链接
+  enterpriseLogoUrl?: string(name='enterprise_logo_url'),
+  // 用途说明
+  authPurpose?: string(name='auth_purpose'),
+  // 场景描述
+  authDesc?: string(name='auth_desc'),
+  // 授权类型
+  authType?: string(name='auth_type'),
+  // 用户类型
+  userType?: string(name='user_type'),
+  // 页面使用范围列表
+  useScopeList?: [ string ](name='use_scope_list'),
+  // 授权内容列表
+  authContentList?: [ AuthContent ](name='auth_content_list'),
+  // 协议列表
+  agreementList?: [ Agreement ](name='agreement_list'),
+  // 是否使用人脸识别
+  useFacialRecognition?: boolean(name='use_facial_recognition'),
+  // C端是否显示凭证数据
+  enableShowProofVc?: boolean(name='enable_show_proof_vc'),
+  // C端是否显示授权记录
+  enableShowAuthRecord?: boolean(name='enable_show_auth_record'),
+  // 授权成功端内跳转地址
+  innerSuccessCallbackUrl?: string(name='inner_success_callback_url'),
+  // 授权成功端外跳转地址
+  outsideSuccessCallbackUrl?: string(name='outside_success_callback_url'),
+}
+
+/**
+ * Description: 查询授权配置详情
+ * Summary: 查询授权配置详情
+ */
+async function detailAuthConfig(request: DetailAuthConfigRequest): DetailAuthConfigResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return detailAuthConfigEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询授权配置详情
+ * Summary: 查询授权配置详情
+ */
+async function detailAuthConfigEx(request: DetailAuthConfigRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DetailAuthConfigResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.das.auth.config.detail', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListAuthRecordRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 场景码
+  sceneCode: string(name='scene_code'),
+  // 用户信息
+  userInfo?: string(name='user_info'),
+  // 页码
+  pageNum: long(name='page_num'),
+  // 分页大小
+  pageSize: long(name='page_size'),
+}
+
+model ListAuthRecordResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 总条数
+  count?: long(name='count'),
+  // 总页数
+  totalPages?: long(name='total_pages'),
+  // 列表记录
+  dataList?: [ AuthRecordListResponse ](name='data_list'),
+}
+
+/**
+ * Description: 查询用户授权记录列表
+ * Summary: 查询用户授权记录列表
+ */
+async function listAuthRecord(request: ListAuthRecordRequest): ListAuthRecordResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listAuthRecordEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询用户授权记录列表
+ * Summary: 查询用户授权记录列表
+ */
+async function listAuthRecordEx(request: ListAuthRecordRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListAuthRecordResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.das.auth.record.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DownloadAuthAgreementRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 请求id
+  requestId: string(name='request_id'),
+  // 协议code
+  agreementCode: string(name='agreement_code'),
+}
+
+model DownloadAuthAgreementResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 下载链接
+  downloadUrl?: string(name='download_url'),
+}
+
+/**
+ * Description: 下载用户授权协议
+ * Summary: 下载用户授权协议
+ */
+async function downloadAuthAgreement(request: DownloadAuthAgreementRequest): DownloadAuthAgreementResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return downloadAuthAgreementEx(request, headers, runtime);
+}
+
+/**
+ * Description: 下载用户授权协议
+ * Summary: 下载用户授权协议
+ */
+async function downloadAuthAgreementEx(request: DownloadAuthAgreementRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DownloadAuthAgreementResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.das.auth.agreement.download', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model VerifyDataAuthRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户id
+  userId: string(name='user_id'),
+  // 用户表示类型
+  userType: string(name='user_type'),
+  // 场景码
+  sceneCode: string(name='scene_code'),
+  // 数据源连接器空间id
+  sourceSpaceId: string(name='source_space_id'),
+  // 企业信用代码
+  enterpriseCode: string(name='enterprise_code'),
+  // 授权token
+  authorizedToken: string(name='authorized_token'),
+}
+
+model VerifyDataAuthResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 核验结果
+  verifyResult?: boolean(name='verify_result'),
+}
+
+/**
+ * Description: 数据授权核验
+ * Summary: 数据授权核验
+ */
+async function verifyDataAuth(request: VerifyDataAuthRequest): VerifyDataAuthResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return verifyDataAuthEx(request, headers, runtime);
+}
+
+/**
+ * Description: 数据授权核验
+ * Summary: 数据授权核验
+ */
+async function verifyDataAuthEx(request: VerifyDataAuthRequest, headers: map[string]string, runtime: Util.RuntimeOptions): VerifyDataAuthResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.das.data.auth.verify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryProductParamRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 场景码
+  sceneCode: string(name='scene_code'),
+  // 产品code
+  productCode: string(name='product_code'),
+}
+
+model QueryProductParamResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否需要授权
+  needAuth?: boolean(name='need_auth'),
+  // 产品参数信息列表
+  paramInfoList?: [ ProductParamInfo ](name='param_info_list'),
+}
+
+/**
+ * Description: 查询产品参数信息
+ * Summary: 查询产品参数信息
+ */
+async function queryProductParam(request: QueryProductParamRequest): QueryProductParamResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryProductParamEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询产品参数信息
+ * Summary: 查询产品参数信息
+ */
+async function queryProductParamEx(request: QueryProductParamRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryProductParamResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.das.product.param.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CallbackAuthDataRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 授权token
+  authorizedToken: string(name='authorized_token'),
+  // 数据详情 JSONObject
+  dataDetail: string(name='data_detail'),
+  // 授权内容/数据类型
+  dataType: string(name='data_type'),
+}
+
+model CallbackAuthDataResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 授权数据回调
+ * Summary: 授权数据回调
+ */
+async function callbackAuthData(request: CallbackAuthDataRequest): CallbackAuthDataResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return callbackAuthDataEx(request, headers, runtime);
+}
+
+/**
+ * Description: 授权数据回调
+ * Summary: 授权数据回调
+ */
+async function callbackAuthDataEx(request: CallbackAuthDataRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CallbackAuthDataResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.das.auth.data.callback', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CallbackAuthRecordRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 蚂蚁统一会员ID
+  alipayUserId: string(name='alipay_user_id'),
+  // 授权场景码
+  sceneCode: string(name='scene_code'),
+  // 授权的用户信息JSON字符串，根据场景码配置的用户类型传不同的JSON字符串，二要素传{"name":"张三","certNo":"1101111111"}，证件号类型传{"certNo":"1101111111"}
+  userInfo: string(name='user_info'),
+}
+
+model CallbackAuthRecordResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 授权token
+  authToken?: string(name='auth_token'),
+}
+
+/**
+ * Description: 授权记录回调
+ * Summary: 授权记录回调
+ */
+async function callbackAuthRecord(request: CallbackAuthRecordRequest): CallbackAuthRecordResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return callbackAuthRecordEx(request, headers, runtime);
+}
+
+/**
+ * Description: 授权记录回调
+ * Summary: 授权记录回调
+ */
+async function callbackAuthRecordEx(request: CallbackAuthRecordRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CallbackAuthRecordResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.das.auth.record.callback', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateAntcloudGatewayxFileUploadRequest = {
