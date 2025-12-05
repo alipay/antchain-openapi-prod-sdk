@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.DAS.Models
 {
-    public class ListAuthConfigResponse : TeaModel {
+    public class ListAuthRecordResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -37,7 +37,7 @@ namespace AntChain.SDK.DAS.Models
         // 列表记录
         [NameInMap("data_list")]
         [Validation(Required=false)]
-        public List<AuthConfigListResponse> DataList { get; set; }
+        public List<AuthRecordListResponse> DataList { get; set; }
 
     }
 

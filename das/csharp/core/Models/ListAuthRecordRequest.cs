@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.DAS.Models
 {
-    public class ListAuthConfigRequest : TeaModel {
+    public class ListAuthRecordRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,32 +18,22 @@ namespace AntChain.SDK.DAS.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 连接器空间id
-        [NameInMap("source_space_id")]
+        // 场景码
+        [NameInMap("scene_code")]
         [Validation(Required=true)]
-        public string SourceSpaceId { get; set; }
+        public string SceneCode { get; set; }
 
-        // 客户名称
-        [NameInMap("target_name")]
+        // 用户信息
+        [NameInMap("user_info")]
         [Validation(Required=false)]
-        public string TargetName { get; set; }
-
-        // 业务应用名称
-        [NameInMap("auth_app_name")]
-        [Validation(Required=false)]
-        public string AuthAppName { get; set; }
-
-        // 授权内容code列表
-        [NameInMap("auth_content_code_list")]
-        [Validation(Required=false)]
-        public List<string> AuthContentCodeList { get; set; }
+        public string UserInfo { get; set; }
 
         // 页码
         [NameInMap("page_num")]
         [Validation(Required=true)]
         public long? PageNum { get; set; }
 
-        // 每页数量
+        // 分页大小
         [NameInMap("page_size")]
         [Validation(Required=true)]
         public long? PageSize { get; set; }

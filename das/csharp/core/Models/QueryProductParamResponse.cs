@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.DAS.Models
 {
-    public class ListAuthConfigResponse : TeaModel {
+    public class QueryProductParamResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,20 +24,15 @@ namespace AntChain.SDK.DAS.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 总条数
-        [NameInMap("count")]
+        // 是否需要授权
+        [NameInMap("need_auth")]
         [Validation(Required=false)]
-        public long? Count { get; set; }
+        public bool? NeedAuth { get; set; }
 
-        // 总页数
-        [NameInMap("total_pages")]
+        // 产品参数信息列表
+        [NameInMap("param_info_list")]
         [Validation(Required=false)]
-        public long? TotalPages { get; set; }
-
-        // 列表记录
-        [NameInMap("data_list")]
-        [Validation(Required=false)]
-        public List<AuthConfigListResponse> DataList { get; set; }
+        public List<ProductParamInfo> ParamInfoList { get; set; }
 
     }
 

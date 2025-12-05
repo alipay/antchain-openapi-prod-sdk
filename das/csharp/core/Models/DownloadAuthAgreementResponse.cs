@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.DAS.Models
 {
-    public class ListAuthProductResponse : TeaModel {
+    public class DownloadAuthAgreementResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,15 +24,10 @@ namespace AntChain.SDK.DAS.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 产品code
-        [NameInMap("product_code")]
+        // 下载链接
+        [NameInMap("download_url")]
         [Validation(Required=false)]
-        public string ProductCode { get; set; }
-
-        // 产品简称
-        [NameInMap("product_abbr")]
-        [Validation(Required=false)]
-        public string ProductAbbr { get; set; }
+        public string DownloadUrl { get; set; }
 
     }
 

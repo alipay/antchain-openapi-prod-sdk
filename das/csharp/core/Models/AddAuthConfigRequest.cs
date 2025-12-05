@@ -74,9 +74,9 @@ namespace AntChain.SDK.DAS.Models
         public bool? EnableShowAuthRecord { get; set; }
 
         // 授权服务产品列表
-        [NameInMap("auth_product_list")]
+        [NameInMap("product_group_list")]
         [Validation(Required=false)]
-        public List<string> AuthProductList { get; set; }
+        public List<AuthProductGroup> ProductGroupList { get; set; }
 
         // 用户类型
         [NameInMap("user_type")]

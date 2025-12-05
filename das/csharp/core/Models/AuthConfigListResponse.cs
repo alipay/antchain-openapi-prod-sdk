@@ -9,7 +9,7 @@ using Tea;
 namespace AntChain.SDK.DAS.Models
 {
     // 授权配置列表响应
-    public class DataAuthConfigListResponse : TeaModel {
+    public class AuthConfigListResponse : TeaModel {
         // 场景码
         [NameInMap("scene_code")]
         [Validation(Required=true)]
@@ -35,10 +35,10 @@ namespace AntChain.SDK.DAS.Models
         [Validation(Required=true)]
         public string AuthAppName { get; set; }
 
-        // 数据产品服务简称列表
-        [NameInMap("product_abbr_list")]
+        // 授权内容列表
+        [NameInMap("auth_content_list")]
         [Validation(Required=true)]
-        public List<string> ProductAbbrList { get; set; }
+        public List<AuthContent> AuthContentList { get; set; }
 
         // 授权次数
         [NameInMap("auth_count")]
