@@ -17,6 +17,10 @@ use AntChain\DAS\Models\AuthDasAuthresultRequest;
 use AntChain\DAS\Models\AuthDasAuthresultResponse;
 use AntChain\DAS\Models\AuthDasSmsRequest;
 use AntChain\DAS\Models\AuthDasSmsResponse;
+use AntChain\DAS\Models\CallbackAuthDataRequest;
+use AntChain\DAS\Models\CallbackAuthDataResponse;
+use AntChain\DAS\Models\CallbackAuthRecordRequest;
+use AntChain\DAS\Models\CallbackAuthRecordResponse;
 use AntChain\DAS\Models\CheckApplicationHascarRequest;
 use AntChain\DAS\Models\CheckApplicationHascarResponse;
 use AntChain\DAS\Models\CreateAntcloudGatewayxFileUploadRequest;
@@ -25,6 +29,10 @@ use AntChain\DAS\Models\CreateDasDatasourceRequest;
 use AntChain\DAS\Models\CreateDasDatasourceResponse;
 use AntChain\DAS\Models\DeleteDasDatasourceRequest;
 use AntChain\DAS\Models\DeleteDasDatasourceResponse;
+use AntChain\DAS\Models\DetailAuthConfigRequest;
+use AntChain\DAS\Models\DetailAuthConfigResponse;
+use AntChain\DAS\Models\DownloadAuthAgreementRequest;
+use AntChain\DAS\Models\DownloadAuthAgreementResponse;
 use AntChain\DAS\Models\GetApplicationFileentranceRequest;
 use AntChain\DAS\Models\GetApplicationFileentranceResponse;
 use AntChain\DAS\Models\GetApplicationProxysignRequest;
@@ -41,8 +49,10 @@ use AntChain\DAS\Models\InitUnifiedentranceAsyncRequest;
 use AntChain\DAS\Models\InitUnifiedentranceAsyncResponse;
 use AntChain\DAS\Models\ListAuthConfigRequest;
 use AntChain\DAS\Models\ListAuthConfigResponse;
-use AntChain\DAS\Models\ListAuthProductRequest;
-use AntChain\DAS\Models\ListAuthProductResponse;
+use AntChain\DAS\Models\ListAuthContentRequest;
+use AntChain\DAS\Models\ListAuthContentResponse;
+use AntChain\DAS\Models\ListAuthRecordRequest;
+use AntChain\DAS\Models\ListAuthRecordResponse;
 use AntChain\DAS\Models\QueryApplicationBasecarinfoRequest;
 use AntChain\DAS\Models\QueryApplicationBasecarinfoResponse;
 use AntChain\DAS\Models\QueryApplicationBatchqueryresultRequest;
@@ -83,6 +93,8 @@ use AntChain\DAS\Models\QueryMainsiteUnifiedentranceRequest;
 use AntChain\DAS\Models\QueryMainsiteUnifiedentranceResponse;
 use AntChain\DAS\Models\QueryPhonenumberEducationinfoRequest;
 use AntChain\DAS\Models\QueryPhonenumberEducationinfoResponse;
+use AntChain\DAS\Models\QueryProductParamRequest;
+use AntChain\DAS\Models\QueryProductParamResponse;
 use AntChain\DAS\Models\QueryUnifiedentranceAsyncRequest;
 use AntChain\DAS\Models\QueryUnifiedentranceAsyncResponse;
 use AntChain\DAS\Models\SendDasSmsRequest;
@@ -91,6 +103,8 @@ use AntChain\DAS\Models\SignApplicationResumeRequest;
 use AntChain\DAS\Models\SignApplicationResumeResponse;
 use AntChain\DAS\Models\UpdateAuthConfigRequest;
 use AntChain\DAS\Models\UpdateAuthConfigResponse;
+use AntChain\DAS\Models\UpdateAuthStatusRequest;
+use AntChain\DAS\Models\UpdateAuthStatusResponse;
 use AntChain\DAS\Models\UpdateDasDatasourceRequest;
 use AntChain\DAS\Models\UpdateDasDatasourceResponse;
 use AntChain\DAS\Models\UploadApplicationAuthfileRequest;
@@ -111,6 +125,8 @@ use AntChain\DAS\Models\VerifyDasEnterpriseRequest;
 use AntChain\DAS\Models\VerifyDasEnterpriseResponse;
 use AntChain\DAS\Models\VerifyDasIndividualRequest;
 use AntChain\DAS\Models\VerifyDasIndividualResponse;
+use AntChain\DAS\Models\VerifyDataAuthRequest;
+use AntChain\DAS\Models\VerifyDataAuthResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -258,7 +274,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.74',
+                    'sdk_version'      => '1.1.102',
                     '_prod_code'       => 'DAS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1934,36 +1950,36 @@ class Client
     }
 
     /**
-     * Description: 查询授权产品列表
-     * Summary: 查询授权产品列表.
+     * Description: 查询授权内容列表
+     * Summary: 查询授权内容列表.
      *
-     * @param ListAuthProductRequest $request
+     * @param ListAuthContentRequest $request
      *
-     * @return ListAuthProductResponse
+     * @return ListAuthContentResponse
      */
-    public function listAuthProduct($request)
+    public function listAuthContent($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->listAuthProductEx($request, $headers, $runtime);
+        return $this->listAuthContentEx($request, $headers, $runtime);
     }
 
     /**
-     * Description: 查询授权产品列表
-     * Summary: 查询授权产品列表.
+     * Description: 查询授权内容列表
+     * Summary: 查询授权内容列表.
      *
-     * @param ListAuthProductRequest $request
+     * @param ListAuthContentRequest $request
      * @param string[]               $headers
      * @param RuntimeOptions         $runtime
      *
-     * @return ListAuthProductResponse
+     * @return ListAuthContentResponse
      */
-    public function listAuthProductEx($request, $headers, $runtime)
+    public function listAuthContentEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return ListAuthProductResponse::fromMap($this->doRequest('1.0', 'antchain.das.auth.product.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return ListAuthContentResponse::fromMap($this->doRequest('1.0', 'antchain.das.auth.content.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -1997,6 +2013,270 @@ class Client
         Utils::validateModel($request);
 
         return ListAuthConfigResponse::fromMap($this->doRequest('1.0', 'antchain.das.auth.config.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 更新授权配置状态
+     * Summary: 更新授权配置状态
+     *
+     * @param UpdateAuthStatusRequest $request
+     *
+     * @return UpdateAuthStatusResponse
+     */
+    public function updateAuthStatus($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateAuthStatusEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 更新授权配置状态
+     * Summary: 更新授权配置状态
+     *
+     * @param UpdateAuthStatusRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return UpdateAuthStatusResponse
+     */
+    public function updateAuthStatusEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateAuthStatusResponse::fromMap($this->doRequest('1.0', 'antchain.das.auth.status.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询授权配置详情
+     * Summary: 查询授权配置详情.
+     *
+     * @param DetailAuthConfigRequest $request
+     *
+     * @return DetailAuthConfigResponse
+     */
+    public function detailAuthConfig($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->detailAuthConfigEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询授权配置详情
+     * Summary: 查询授权配置详情.
+     *
+     * @param DetailAuthConfigRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return DetailAuthConfigResponse
+     */
+    public function detailAuthConfigEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DetailAuthConfigResponse::fromMap($this->doRequest('1.0', 'antchain.das.auth.config.detail', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询用户授权记录列表
+     * Summary: 查询用户授权记录列表.
+     *
+     * @param ListAuthRecordRequest $request
+     *
+     * @return ListAuthRecordResponse
+     */
+    public function listAuthRecord($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listAuthRecordEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询用户授权记录列表
+     * Summary: 查询用户授权记录列表.
+     *
+     * @param ListAuthRecordRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return ListAuthRecordResponse
+     */
+    public function listAuthRecordEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListAuthRecordResponse::fromMap($this->doRequest('1.0', 'antchain.das.auth.record.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 下载用户授权协议
+     * Summary: 下载用户授权协议.
+     *
+     * @param DownloadAuthAgreementRequest $request
+     *
+     * @return DownloadAuthAgreementResponse
+     */
+    public function downloadAuthAgreement($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->downloadAuthAgreementEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 下载用户授权协议
+     * Summary: 下载用户授权协议.
+     *
+     * @param DownloadAuthAgreementRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return DownloadAuthAgreementResponse
+     */
+    public function downloadAuthAgreementEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DownloadAuthAgreementResponse::fromMap($this->doRequest('1.0', 'antchain.das.auth.agreement.download', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数据授权核验
+     * Summary: 数据授权核验.
+     *
+     * @param VerifyDataAuthRequest $request
+     *
+     * @return VerifyDataAuthResponse
+     */
+    public function verifyDataAuth($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->verifyDataAuthEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数据授权核验
+     * Summary: 数据授权核验.
+     *
+     * @param VerifyDataAuthRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return VerifyDataAuthResponse
+     */
+    public function verifyDataAuthEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return VerifyDataAuthResponse::fromMap($this->doRequest('1.0', 'antchain.das.data.auth.verify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询产品参数信息
+     * Summary: 查询产品参数信息.
+     *
+     * @param QueryProductParamRequest $request
+     *
+     * @return QueryProductParamResponse
+     */
+    public function queryProductParam($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryProductParamEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询产品参数信息
+     * Summary: 查询产品参数信息.
+     *
+     * @param QueryProductParamRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return QueryProductParamResponse
+     */
+    public function queryProductParamEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryProductParamResponse::fromMap($this->doRequest('1.0', 'antchain.das.product.param.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 授权数据回调
+     * Summary: 授权数据回调.
+     *
+     * @param CallbackAuthDataRequest $request
+     *
+     * @return CallbackAuthDataResponse
+     */
+    public function callbackAuthData($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->callbackAuthDataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 授权数据回调
+     * Summary: 授权数据回调.
+     *
+     * @param CallbackAuthDataRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return CallbackAuthDataResponse
+     */
+    public function callbackAuthDataEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CallbackAuthDataResponse::fromMap($this->doRequest('1.0', 'antchain.das.auth.data.callback', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 授权记录回调
+     * Summary: 授权记录回调.
+     *
+     * @param CallbackAuthRecordRequest $request
+     *
+     * @return CallbackAuthRecordResponse
+     */
+    public function callbackAuthRecord($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->callbackAuthRecordEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 授权记录回调
+     * Summary: 授权记录回调.
+     *
+     * @param CallbackAuthRecordRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return CallbackAuthRecordResponse
+     */
+    public function callbackAuthRecordEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CallbackAuthRecordResponse::fromMap($this->doRequest('1.0', 'antchain.das.auth.record.callback', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

@@ -6,7 +6,7 @@ namespace AntChain\DAS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ListAuthConfigResponse extends Model
+class QueryProductParamResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,30 +26,23 @@ class ListAuthConfigResponse extends Model
      */
     public $resultMsg;
 
-    // 总条数
+    // 是否需要授权
     /**
-     * @var int
+     * @var bool
      */
-    public $count;
+    public $needAuth;
 
-    // 总页数
+    // 产品参数信息列表
     /**
-     * @var int
+     * @var ProductParamInfo[]
      */
-    public $totalPages;
-
-    // 列表记录
-    /**
-     * @var AuthConfigListResponse[]
-     */
-    public $dataList;
+    public $paramInfoList;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
-        'count'      => 'count',
-        'totalPages' => 'total_pages',
-        'dataList'   => 'data_list',
+        'reqMsgId'      => 'req_msg_id',
+        'resultCode'    => 'result_code',
+        'resultMsg'     => 'result_msg',
+        'needAuth'      => 'need_auth',
+        'paramInfoList' => 'param_info_list',
     ];
 
     public function validate()
@@ -68,18 +61,15 @@ class ListAuthConfigResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->count) {
-            $res['count'] = $this->count;
+        if (null !== $this->needAuth) {
+            $res['need_auth'] = $this->needAuth;
         }
-        if (null !== $this->totalPages) {
-            $res['total_pages'] = $this->totalPages;
-        }
-        if (null !== $this->dataList) {
-            $res['data_list'] = [];
-            if (null !== $this->dataList && \is_array($this->dataList)) {
+        if (null !== $this->paramInfoList) {
+            $res['param_info_list'] = [];
+            if (null !== $this->paramInfoList && \is_array($this->paramInfoList)) {
                 $n = 0;
-                foreach ($this->dataList as $item) {
-                    $res['data_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                foreach ($this->paramInfoList as $item) {
+                    $res['param_info_list'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
         }
@@ -90,7 +80,7 @@ class ListAuthConfigResponse extends Model
     /**
      * @param array $map
      *
-     * @return ListAuthConfigResponse
+     * @return QueryProductParamResponse
      */
     public static function fromMap($map = [])
     {
@@ -104,18 +94,15 @@ class ListAuthConfigResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['count'])) {
-            $model->count = $map['count'];
+        if (isset($map['need_auth'])) {
+            $model->needAuth = $map['need_auth'];
         }
-        if (isset($map['total_pages'])) {
-            $model->totalPages = $map['total_pages'];
-        }
-        if (isset($map['data_list'])) {
-            if (!empty($map['data_list'])) {
-                $model->dataList = [];
-                $n               = 0;
-                foreach ($map['data_list'] as $item) {
-                    $model->dataList[$n++] = null !== $item ? AuthConfigListResponse::fromMap($item) : $item;
+        if (isset($map['param_info_list'])) {
+            if (!empty($map['param_info_list'])) {
+                $model->paramInfoList = [];
+                $n                    = 0;
+                foreach ($map['param_info_list'] as $item) {
+                    $model->paramInfoList[$n++] = null !== $item ? ProductParamInfo::fromMap($item) : $item;
                 }
             }
         }

@@ -8,6 +8,14 @@ use AlibabaCloud\Tea\Model;
 
 class Agreement extends Model
 {
+    // 协议编码
+    /**
+     * @example -
+     *
+     * @var string
+     */
+    public $agreementCode;
+
     // 协议名称
     /**
      * @example -
@@ -47,26 +55,41 @@ class Agreement extends Model
      * @var string
      */
     public $agreementFileOriginalName;
+
+    // 下载链接
+    /**
+     * @example -
+     *
+     * @var string
+     */
+    public $downloadUrl;
     protected $_name = [
+        'agreementCode'             => 'agreement_code',
         'agreementName'             => 'agreement_name',
         'agreementType'             => 'agreement_type',
         'agreementUrl'              => 'agreement_url',
         'agreementFileOssKey'       => 'agreement_file_oss_key',
         'agreementFileOriginalName' => 'agreement_file_original_name',
+        'downloadUrl'               => 'download_url',
     ];
 
     public function validate()
     {
+        Model::validateRequired('agreementCode', $this->agreementCode, true);
         Model::validateRequired('agreementName', $this->agreementName, true);
         Model::validateRequired('agreementType', $this->agreementType, true);
         Model::validateRequired('agreementUrl', $this->agreementUrl, true);
         Model::validateRequired('agreementFileOssKey', $this->agreementFileOssKey, true);
         Model::validateRequired('agreementFileOriginalName', $this->agreementFileOriginalName, true);
+        Model::validateRequired('downloadUrl', $this->downloadUrl, true);
     }
 
     public function toMap()
     {
         $res = [];
+        if (null !== $this->agreementCode) {
+            $res['agreement_code'] = $this->agreementCode;
+        }
         if (null !== $this->agreementName) {
             $res['agreement_name'] = $this->agreementName;
         }
@@ -82,6 +105,9 @@ class Agreement extends Model
         if (null !== $this->agreementFileOriginalName) {
             $res['agreement_file_original_name'] = $this->agreementFileOriginalName;
         }
+        if (null !== $this->downloadUrl) {
+            $res['download_url'] = $this->downloadUrl;
+        }
 
         return $res;
     }
@@ -94,6 +120,9 @@ class Agreement extends Model
     public static function fromMap($map = [])
     {
         $model = new self();
+        if (isset($map['agreement_code'])) {
+            $model->agreementCode = $map['agreement_code'];
+        }
         if (isset($map['agreement_name'])) {
             $model->agreementName = $map['agreement_name'];
         }
@@ -108,6 +137,9 @@ class Agreement extends Model
         }
         if (isset($map['agreement_file_original_name'])) {
             $model->agreementFileOriginalName = $map['agreement_file_original_name'];
+        }
+        if (isset($map['download_url'])) {
+            $model->downloadUrl = $map['download_url'];
         }
 
         return $model;

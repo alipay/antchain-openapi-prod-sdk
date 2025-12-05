@@ -6,7 +6,7 @@ namespace AntChain\DAS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ListAuthConfigResponse extends Model
+class ListAuthRecordResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -40,7 +40,7 @@ class ListAuthConfigResponse extends Model
 
     // 列表记录
     /**
-     * @var AuthConfigListResponse[]
+     * @var AuthRecordListResponse[]
      */
     public $dataList;
     protected $_name = [
@@ -90,7 +90,7 @@ class ListAuthConfigResponse extends Model
     /**
      * @param array $map
      *
-     * @return ListAuthConfigResponse
+     * @return ListAuthRecordResponse
      */
     public static function fromMap($map = [])
     {
@@ -115,7 +115,7 @@ class ListAuthConfigResponse extends Model
                 $model->dataList = [];
                 $n               = 0;
                 foreach ($map['data_list'] as $item) {
-                    $model->dataList[$n++] = null !== $item ? AuthConfigListResponse::fromMap($item) : $item;
+                    $model->dataList[$n++] = null !== $item ? AuthRecordListResponse::fromMap($item) : $item;
                 }
             }
         }

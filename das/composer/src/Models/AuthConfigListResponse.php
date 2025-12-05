@@ -6,7 +6,7 @@ namespace AntChain\DAS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class DataAuthConfigListResponse extends Model
+class AuthConfigListResponse extends Model
 {
     // 场景码
     /**
@@ -48,13 +48,13 @@ class DataAuthConfigListResponse extends Model
      */
     public $authAppName;
 
-    // 数据产品服务简称列表
+    // 授权内容列表
     /**
      * @example -
      *
-     * @var string[]
+     * @var AuthContent[]
      */
-    public $productAbbrList;
+    public $authContentList;
 
     // 授权次数
     /**
@@ -77,7 +77,7 @@ class DataAuthConfigListResponse extends Model
         'authEnterpriseCode' => 'auth_enterprise_code',
         'targetName'         => 'target_name',
         'authAppName'        => 'auth_app_name',
-        'productAbbrList'    => 'product_abbr_list',
+        'authContentList'    => 'auth_content_list',
         'authCount'          => 'auth_count',
         'authStatus'         => 'auth_status',
     ];
@@ -89,7 +89,7 @@ class DataAuthConfigListResponse extends Model
         Model::validateRequired('authEnterpriseCode', $this->authEnterpriseCode, true);
         Model::validateRequired('targetName', $this->targetName, true);
         Model::validateRequired('authAppName', $this->authAppName, true);
-        Model::validateRequired('productAbbrList', $this->productAbbrList, true);
+        Model::validateRequired('authContentList', $this->authContentList, true);
         Model::validateRequired('authCount', $this->authCount, true);
         Model::validateRequired('authStatus', $this->authStatus, true);
     }
@@ -112,8 +112,14 @@ class DataAuthConfigListResponse extends Model
         if (null !== $this->authAppName) {
             $res['auth_app_name'] = $this->authAppName;
         }
-        if (null !== $this->productAbbrList) {
-            $res['product_abbr_list'] = $this->productAbbrList;
+        if (null !== $this->authContentList) {
+            $res['auth_content_list'] = [];
+            if (null !== $this->authContentList && \is_array($this->authContentList)) {
+                $n = 0;
+                foreach ($this->authContentList as $item) {
+                    $res['auth_content_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
         if (null !== $this->authCount) {
             $res['auth_count'] = $this->authCount;
@@ -128,7 +134,7 @@ class DataAuthConfigListResponse extends Model
     /**
      * @param array $map
      *
-     * @return DataAuthConfigListResponse
+     * @return AuthConfigListResponse
      */
     public static function fromMap($map = [])
     {
@@ -148,9 +154,13 @@ class DataAuthConfigListResponse extends Model
         if (isset($map['auth_app_name'])) {
             $model->authAppName = $map['auth_app_name'];
         }
-        if (isset($map['product_abbr_list'])) {
-            if (!empty($map['product_abbr_list'])) {
-                $model->productAbbrList = $map['product_abbr_list'];
+        if (isset($map['auth_content_list'])) {
+            if (!empty($map['auth_content_list'])) {
+                $model->authContentList = [];
+                $n                      = 0;
+                foreach ($map['auth_content_list'] as $item) {
+                    $model->authContentList[$n++] = null !== $item ? AuthContent::fromMap($item) : $item;
+                }
             }
         }
         if (isset($map['auth_count'])) {

@@ -19,11 +19,17 @@ class ListAuthConfigRequest extends Model
      */
     public $productInstanceId;
 
-    // 授权企业信用代码
+    // 连接器空间id
     /**
      * @var string
      */
-    public $enterpriseCode;
+    public $sourceSpaceId;
+
+    // 客户名称
+    /**
+     * @var string
+     */
+    public $targetName;
 
     // 业务应用名称
     /**
@@ -31,11 +37,11 @@ class ListAuthConfigRequest extends Model
      */
     public $authAppName;
 
-    // 产品code列表
+    // 授权内容code列表
     /**
      * @var string[]
      */
-    public $productCodeList;
+    public $authContentCodeList;
 
     // 页码
     /**
@@ -49,17 +55,19 @@ class ListAuthConfigRequest extends Model
      */
     public $pageSize;
     protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'enterpriseCode'    => 'enterprise_code',
-        'authAppName'       => 'auth_app_name',
-        'productCodeList'   => 'product_code_list',
-        'pageNum'           => 'page_num',
-        'pageSize'          => 'page_size',
+        'authToken'           => 'auth_token',
+        'productInstanceId'   => 'product_instance_id',
+        'sourceSpaceId'       => 'source_space_id',
+        'targetName'          => 'target_name',
+        'authAppName'         => 'auth_app_name',
+        'authContentCodeList' => 'auth_content_code_list',
+        'pageNum'             => 'page_num',
+        'pageSize'            => 'page_size',
     ];
 
     public function validate()
     {
+        Model::validateRequired('sourceSpaceId', $this->sourceSpaceId, true);
         Model::validateRequired('pageNum', $this->pageNum, true);
         Model::validateRequired('pageSize', $this->pageSize, true);
     }
@@ -73,14 +81,17 @@ class ListAuthConfigRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->enterpriseCode) {
-            $res['enterprise_code'] = $this->enterpriseCode;
+        if (null !== $this->sourceSpaceId) {
+            $res['source_space_id'] = $this->sourceSpaceId;
+        }
+        if (null !== $this->targetName) {
+            $res['target_name'] = $this->targetName;
         }
         if (null !== $this->authAppName) {
             $res['auth_app_name'] = $this->authAppName;
         }
-        if (null !== $this->productCodeList) {
-            $res['product_code_list'] = $this->productCodeList;
+        if (null !== $this->authContentCodeList) {
+            $res['auth_content_code_list'] = $this->authContentCodeList;
         }
         if (null !== $this->pageNum) {
             $res['page_num'] = $this->pageNum;
@@ -106,15 +117,18 @@ class ListAuthConfigRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['enterprise_code'])) {
-            $model->enterpriseCode = $map['enterprise_code'];
+        if (isset($map['source_space_id'])) {
+            $model->sourceSpaceId = $map['source_space_id'];
+        }
+        if (isset($map['target_name'])) {
+            $model->targetName = $map['target_name'];
         }
         if (isset($map['auth_app_name'])) {
             $model->authAppName = $map['auth_app_name'];
         }
-        if (isset($map['product_code_list'])) {
-            if (!empty($map['product_code_list'])) {
-                $model->productCodeList = $map['product_code_list'];
+        if (isset($map['auth_content_code_list'])) {
+            if (!empty($map['auth_content_code_list'])) {
+                $model->authContentCodeList = $map['auth_content_code_list'];
             }
         }
         if (isset($map['page_num'])) {

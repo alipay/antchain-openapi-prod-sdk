@@ -6,7 +6,7 @@ namespace AntChain\DAS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ListAuthConfigResponse extends Model
+class ListAuthContentResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,29 +26,15 @@ class ListAuthConfigResponse extends Model
      */
     public $resultMsg;
 
-    // 总条数
+    // 授权内容列表
     /**
-     * @var int
-     */
-    public $count;
-
-    // 总页数
-    /**
-     * @var int
-     */
-    public $totalPages;
-
-    // 列表记录
-    /**
-     * @var AuthConfigListResponse[]
+     * @var AuthContent[]
      */
     public $dataList;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'count'      => 'count',
-        'totalPages' => 'total_pages',
         'dataList'   => 'data_list',
     ];
 
@@ -68,12 +54,6 @@ class ListAuthConfigResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->count) {
-            $res['count'] = $this->count;
-        }
-        if (null !== $this->totalPages) {
-            $res['total_pages'] = $this->totalPages;
-        }
         if (null !== $this->dataList) {
             $res['data_list'] = [];
             if (null !== $this->dataList && \is_array($this->dataList)) {
@@ -90,7 +70,7 @@ class ListAuthConfigResponse extends Model
     /**
      * @param array $map
      *
-     * @return ListAuthConfigResponse
+     * @return ListAuthContentResponse
      */
     public static function fromMap($map = [])
     {
@@ -104,18 +84,12 @@ class ListAuthConfigResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['count'])) {
-            $model->count = $map['count'];
-        }
-        if (isset($map['total_pages'])) {
-            $model->totalPages = $map['total_pages'];
-        }
         if (isset($map['data_list'])) {
             if (!empty($map['data_list'])) {
                 $model->dataList = [];
                 $n               = 0;
                 foreach ($map['data_list'] as $item) {
-                    $model->dataList[$n++] = null !== $item ? AuthConfigListResponse::fromMap($item) : $item;
+                    $model->dataList[$n++] = null !== $item ? AuthContent::fromMap($item) : $item;
                 }
             }
         }

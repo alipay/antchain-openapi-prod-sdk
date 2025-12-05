@@ -6,7 +6,7 @@ namespace AntChain\DAS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ListAuthProductResponse extends Model
+class DownloadAuthAgreementResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,23 +26,16 @@ class ListAuthProductResponse extends Model
      */
     public $resultMsg;
 
-    // 产品code
+    // 下载链接
     /**
      * @var string
      */
-    public $productCode;
-
-    // 产品简称
-    /**
-     * @var string
-     */
-    public $productAbbr;
+    public $downloadUrl;
     protected $_name = [
         'reqMsgId'    => 'req_msg_id',
         'resultCode'  => 'result_code',
         'resultMsg'   => 'result_msg',
-        'productCode' => 'product_code',
-        'productAbbr' => 'product_abbr',
+        'downloadUrl' => 'download_url',
     ];
 
     public function validate()
@@ -61,11 +54,8 @@ class ListAuthProductResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->productCode) {
-            $res['product_code'] = $this->productCode;
-        }
-        if (null !== $this->productAbbr) {
-            $res['product_abbr'] = $this->productAbbr;
+        if (null !== $this->downloadUrl) {
+            $res['download_url'] = $this->downloadUrl;
         }
 
         return $res;
@@ -74,7 +64,7 @@ class ListAuthProductResponse extends Model
     /**
      * @param array $map
      *
-     * @return ListAuthProductResponse
+     * @return DownloadAuthAgreementResponse
      */
     public static function fromMap($map = [])
     {
@@ -88,11 +78,8 @@ class ListAuthProductResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['product_code'])) {
-            $model->productCode = $map['product_code'];
-        }
-        if (isset($map['product_abbr'])) {
-            $model->productAbbr = $map['product_abbr'];
+        if (isset($map['download_url'])) {
+            $model->downloadUrl = $map['download_url'];
         }
 
         return $model;

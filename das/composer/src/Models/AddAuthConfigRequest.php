@@ -87,9 +87,9 @@ class AddAuthConfigRequest extends Model
 
     // 授权服务产品列表
     /**
-     * @var string[]
+     * @var AuthProductGroup[]
      */
-    public $authProductList;
+    public $productGroupList;
 
     // 用户类型
     /**
@@ -158,7 +158,7 @@ class AddAuthConfigRequest extends Model
         'authType'                  => 'auth_type',
         'enableShowProofVc'         => 'enable_show_proof_vc',
         'enableShowAuthRecord'      => 'enable_show_auth_record',
-        'authProductList'           => 'auth_product_list',
+        'productGroupList'          => 'product_group_list',
         'userType'                  => 'user_type',
         'agreementList'             => 'agreement_list',
         'backgroundColor'           => 'background_color',
@@ -223,8 +223,14 @@ class AddAuthConfigRequest extends Model
         if (null !== $this->enableShowAuthRecord) {
             $res['enable_show_auth_record'] = $this->enableShowAuthRecord;
         }
-        if (null !== $this->authProductList) {
-            $res['auth_product_list'] = $this->authProductList;
+        if (null !== $this->productGroupList) {
+            $res['product_group_list'] = [];
+            if (null !== $this->productGroupList && \is_array($this->productGroupList)) {
+                $n = 0;
+                foreach ($this->productGroupList as $item) {
+                    $res['product_group_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
         if (null !== $this->userType) {
             $res['user_type'] = $this->userType;
@@ -310,9 +316,13 @@ class AddAuthConfigRequest extends Model
         if (isset($map['enable_show_auth_record'])) {
             $model->enableShowAuthRecord = $map['enable_show_auth_record'];
         }
-        if (isset($map['auth_product_list'])) {
-            if (!empty($map['auth_product_list'])) {
-                $model->authProductList = $map['auth_product_list'];
+        if (isset($map['product_group_list'])) {
+            if (!empty($map['product_group_list'])) {
+                $model->productGroupList = [];
+                $n                       = 0;
+                foreach ($map['product_group_list'] as $item) {
+                    $model->productGroupList[$n++] = null !== $item ? AuthProductGroup::fromMap($item) : $item;
+                }
             }
         }
         if (isset($map['user_type'])) {
