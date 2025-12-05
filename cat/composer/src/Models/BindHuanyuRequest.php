@@ -6,7 +6,7 @@ namespace AntChain\CAT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class GetAgeRequest extends Model
+class BindHuanyuRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -14,27 +14,19 @@ class GetAgeRequest extends Model
      */
     public $authToken;
 
-    // 猫猫的id
+    // huanyu
     /**
      * @var string
      */
-    public $id;
-
-    // a a a
-    /**
-     * @var string
-     */
-    public $time;
+    public $operator;
     protected $_name = [
         'authToken' => 'auth_token',
-        'id'        => 'id',
-        'time'      => 'time',
+        'operator'  => 'operator',
     ];
 
     public function validate()
     {
-        Model::validateRequired('id', $this->id, true);
-        Model::validatePattern('time', $this->time, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
+        Model::validateRequired('operator', $this->operator, true);
     }
 
     public function toMap()
@@ -43,11 +35,8 @@ class GetAgeRequest extends Model
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
         }
-        if (null !== $this->id) {
-            $res['id'] = $this->id;
-        }
-        if (null !== $this->time) {
-            $res['time'] = $this->time;
+        if (null !== $this->operator) {
+            $res['operator'] = $this->operator;
         }
 
         return $res;
@@ -56,7 +45,7 @@ class GetAgeRequest extends Model
     /**
      * @param array $map
      *
-     * @return GetAgeRequest
+     * @return BindHuanyuRequest
      */
     public static function fromMap($map = [])
     {
@@ -64,11 +53,8 @@ class GetAgeRequest extends Model
         if (isset($map['auth_token'])) {
             $model->authToken = $map['auth_token'];
         }
-        if (isset($map['id'])) {
-            $model->id = $map['id'];
-        }
-        if (isset($map['time'])) {
-            $model->time = $map['time'];
+        if (isset($map['operator'])) {
+            $model->operator = $map['operator'];
         }
 
         return $model;
