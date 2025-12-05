@@ -98,7 +98,7 @@ class Client:
             'noProxy': UtilClient.default_string(runtime.no_proxy, self._no_proxy),
             'maxIdleConns': UtilClient.default_number(runtime.max_idle_conns, self._max_idle_conns),
             'maxIdleTimeMillis': self._max_idle_time_millis,
-            'keepAliveDurationMillis': self._keep_alive_duration_millis,
+            'keepAliveDuration': self._keep_alive_duration_millis,
             'maxRequests': self._max_requests,
             'maxRequestsPerHost': self._max_requests_per_host,
             'retry': {
@@ -134,7 +134,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0'
+                    'sdk_version': '1.0.2',
+                    '_prod_code': 'CAT',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -199,7 +201,7 @@ class Client:
             'noProxy': UtilClient.default_string(runtime.no_proxy, self._no_proxy),
             'maxIdleConns': UtilClient.default_number(runtime.max_idle_conns, self._max_idle_conns),
             'maxIdleTimeMillis': self._max_idle_time_millis,
-            'keepAliveDurationMillis': self._keep_alive_duration_millis,
+            'keepAliveDuration': self._keep_alive_duration_millis,
             'maxRequests': self._max_requests,
             'maxRequestsPerHost': self._max_requests_per_host,
             'retry': {
@@ -235,7 +237,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0'
+                    'sdk_version': '1.0.2',
+                    '_prod_code': 'CAT',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -304,7 +308,8 @@ class Client:
         Summary: 获取猫猫的年龄
         """
         UtilClient.validate_model(request)
-        return cat_models.GetAgeResponse().from_map(
+        return TeaCore.from_map(
+            cat_models.GetAgeResponse(),
             self.do_request('1.0', 'antcloud.cat.age.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -319,6 +324,343 @@ class Client:
         Summary: 获取猫猫的年龄
         """
         UtilClient.validate_model(request)
-        return cat_models.GetAgeResponse().from_map(
+        return TeaCore.from_map(
+            cat_models.GetAgeResponse(),
             await self.do_request_async('1.0', 'antcloud.cat.age.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def withdraw_loadtest_test(
+        self,
+        request: cat_models.WithdrawLoadtestTestRequest,
+    ) -> cat_models.WithdrawLoadtestTestResponse:
+        """
+        Description: s d
+        Summary: s d f
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.withdraw_loadtest_test_ex(request, headers, runtime)
+
+    async def withdraw_loadtest_test_async(
+        self,
+        request: cat_models.WithdrawLoadtestTestRequest,
+    ) -> cat_models.WithdrawLoadtestTestResponse:
+        """
+        Description: s d
+        Summary: s d f
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.withdraw_loadtest_test_ex_async(request, headers, runtime)
+
+    def withdraw_loadtest_test_ex(
+        self,
+        request: cat_models.WithdrawLoadtestTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cat_models.WithdrawLoadtestTestResponse:
+        """
+        Description: s d
+        Summary: s d f
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            cat_models.WithdrawLoadtestTestResponse(),
+            self.do_request('1.0', 'antcloud.cat.loadtest.test.withdraw', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def withdraw_loadtest_test_ex_async(
+        self,
+        request: cat_models.WithdrawLoadtestTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cat_models.WithdrawLoadtestTestResponse:
+        """
+        Description: s d
+        Summary: s d f
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            cat_models.WithdrawLoadtestTestResponse(),
+            await self.do_request_async('1.0', 'antcloud.cat.loadtest.test.withdraw', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def bind_huanyu(
+        self,
+        request: cat_models.BindHuanyuRequest,
+    ) -> cat_models.BindHuanyuResponse:
+        """
+        Description: huanyue
+        Summary: huanyu
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.bind_huanyu_ex(request, headers, runtime)
+
+    async def bind_huanyu_async(
+        self,
+        request: cat_models.BindHuanyuRequest,
+    ) -> cat_models.BindHuanyuResponse:
+        """
+        Description: huanyue
+        Summary: huanyu
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.bind_huanyu_ex_async(request, headers, runtime)
+
+    def bind_huanyu_ex(
+        self,
+        request: cat_models.BindHuanyuRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cat_models.BindHuanyuResponse:
+        """
+        Description: huanyue
+        Summary: huanyu
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            cat_models.BindHuanyuResponse(),
+            self.do_request('1.0', 'antcloud.cat.huanyu.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def bind_huanyu_ex_async(
+        self,
+        request: cat_models.BindHuanyuRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cat_models.BindHuanyuResponse:
+        """
+        Description: huanyue
+        Summary: huanyu
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            cat_models.BindHuanyuResponse(),
+            await self.do_request_async('1.0', 'antcloud.cat.huanyu.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def bind_test(
+        self,
+        request: cat_models.BindTestRequest,
+    ) -> cat_models.BindTestResponse:
+        """
+        Description: tests
+        Summary: test
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.bind_test_ex(request, headers, runtime)
+
+    async def bind_test_async(
+        self,
+        request: cat_models.BindTestRequest,
+    ) -> cat_models.BindTestResponse:
+        """
+        Description: tests
+        Summary: test
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.bind_test_ex_async(request, headers, runtime)
+
+    def bind_test_ex(
+        self,
+        request: cat_models.BindTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cat_models.BindTestResponse:
+        """
+        Description: tests
+        Summary: test
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            cat_models.BindTestResponse(),
+            self.do_request('1.0', 'antcloud.cat.test.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def bind_test_ex_async(
+        self,
+        request: cat_models.BindTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cat_models.BindTestResponse:
+        """
+        Description: tests
+        Summary: test
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            cat_models.BindTestResponse(),
+            await self.do_request_async('1.0', 'antcloud.cat.test.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_test_ccc(
+        self,
+        request: cat_models.QueryTestCccRequest,
+    ) -> cat_models.QueryTestCccResponse:
+        """
+        Description: testt
+        Summary: testt
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_test_ccc_ex(request, headers, runtime)
+
+    async def query_test_ccc_async(
+        self,
+        request: cat_models.QueryTestCccRequest,
+    ) -> cat_models.QueryTestCccResponse:
+        """
+        Description: testt
+        Summary: testt
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_test_ccc_ex_async(request, headers, runtime)
+
+    def query_test_ccc_ex(
+        self,
+        request: cat_models.QueryTestCccRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cat_models.QueryTestCccResponse:
+        """
+        Description: testt
+        Summary: testt
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            cat_models.QueryTestCccResponse(),
+            self.do_request('1.0', 'antcloud.cat.test.ccc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_test_ccc_ex_async(
+        self,
+        request: cat_models.QueryTestCccRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cat_models.QueryTestCccResponse:
+        """
+        Description: testt
+        Summary: testt
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            cat_models.QueryTestCccResponse(),
+            await self.do_request_async('1.0', 'antcloud.cat.test.ccc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def import_abcd(
+        self,
+        request: cat_models.ImportAbcdRequest,
+    ) -> cat_models.ImportAbcdResponse:
+        """
+        Description: 1234
+        Summary: 1234
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.import_abcd_ex(request, headers, runtime)
+
+    async def import_abcd_async(
+        self,
+        request: cat_models.ImportAbcdRequest,
+    ) -> cat_models.ImportAbcdResponse:
+        """
+        Description: 1234
+        Summary: 1234
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.import_abcd_ex_async(request, headers, runtime)
+
+    def import_abcd_ex(
+        self,
+        request: cat_models.ImportAbcdRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cat_models.ImportAbcdResponse:
+        """
+        Description: 1234
+        Summary: 1234
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            cat_models.ImportAbcdResponse(),
+            self.do_request('1.0', 'antcloud.cat.abcd.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def import_abcd_ex_async(
+        self,
+        request: cat_models.ImportAbcdRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cat_models.ImportAbcdResponse:
+        """
+        Description: 1234
+        Summary: 1234
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            cat_models.ImportAbcdResponse(),
+            await self.do_request_async('1.0', 'antcloud.cat.abcd.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_testa_testb(
+        self,
+        request: cat_models.QueryTestaTestbRequest,
+    ) -> cat_models.QueryTestaTestbResponse:
+        """
+        Description: cat测试适用，包含能力中心九期打标功能测试1
+        Summary: cat测试1
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_testa_testb_ex(request, headers, runtime)
+
+    async def query_testa_testb_async(
+        self,
+        request: cat_models.QueryTestaTestbRequest,
+    ) -> cat_models.QueryTestaTestbResponse:
+        """
+        Description: cat测试适用，包含能力中心九期打标功能测试1
+        Summary: cat测试1
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_testa_testb_ex_async(request, headers, runtime)
+
+    def query_testa_testb_ex(
+        self,
+        request: cat_models.QueryTestaTestbRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cat_models.QueryTestaTestbResponse:
+        """
+        Description: cat测试适用，包含能力中心九期打标功能测试1
+        Summary: cat测试1
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            cat_models.QueryTestaTestbResponse(),
+            self.do_request('1.0', 'antcloud.cat.testa.testb.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_testa_testb_ex_async(
+        self,
+        request: cat_models.QueryTestaTestbRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cat_models.QueryTestaTestbResponse:
+        """
+        Description: cat测试适用，包含能力中心九期打标功能测试1
+        Summary: cat测试1
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            cat_models.QueryTestaTestbResponse(),
+            await self.do_request_async('1.0', 'antcloud.cat.testa.testb.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
