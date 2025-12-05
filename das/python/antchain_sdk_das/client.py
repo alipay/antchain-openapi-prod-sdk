@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.74',
+                    'sdk_version': '1.1.102',
                     '_prod_code': 'DAS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.74',
+                    'sdk_version': '1.1.102',
                     '_prod_code': 'DAS',
                     '_prod_channel': 'undefined'
                 }
@@ -3051,60 +3051,60 @@ class Client:
             await self.do_request_async('1.0', 'antchain.das.auth.picture.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def list_auth_product(
+    def list_auth_content(
         self,
-        request: das_models.ListAuthProductRequest,
-    ) -> das_models.ListAuthProductResponse:
+        request: das_models.ListAuthContentRequest,
+    ) -> das_models.ListAuthContentResponse:
         """
-        Description: 查询授权产品列表
-        Summary: 查询授权产品列表
+        Description: 查询授权内容列表
+        Summary: 查询授权内容列表
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_auth_product_ex(request, headers, runtime)
+        return self.list_auth_content_ex(request, headers, runtime)
 
-    async def list_auth_product_async(
+    async def list_auth_content_async(
         self,
-        request: das_models.ListAuthProductRequest,
-    ) -> das_models.ListAuthProductResponse:
+        request: das_models.ListAuthContentRequest,
+    ) -> das_models.ListAuthContentResponse:
         """
-        Description: 查询授权产品列表
-        Summary: 查询授权产品列表
+        Description: 查询授权内容列表
+        Summary: 查询授权内容列表
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.list_auth_product_ex_async(request, headers, runtime)
+        return await self.list_auth_content_ex_async(request, headers, runtime)
 
-    def list_auth_product_ex(
+    def list_auth_content_ex(
         self,
-        request: das_models.ListAuthProductRequest,
+        request: das_models.ListAuthContentRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> das_models.ListAuthProductResponse:
+    ) -> das_models.ListAuthContentResponse:
         """
-        Description: 查询授权产品列表
-        Summary: 查询授权产品列表
+        Description: 查询授权内容列表
+        Summary: 查询授权内容列表
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            das_models.ListAuthProductResponse(),
-            self.do_request('1.0', 'antchain.das.auth.product.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            das_models.ListAuthContentResponse(),
+            self.do_request('1.0', 'antchain.das.auth.content.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def list_auth_product_ex_async(
+    async def list_auth_content_ex_async(
         self,
-        request: das_models.ListAuthProductRequest,
+        request: das_models.ListAuthContentRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> das_models.ListAuthProductResponse:
+    ) -> das_models.ListAuthContentResponse:
         """
-        Description: 查询授权产品列表
-        Summary: 查询授权产品列表
+        Description: 查询授权内容列表
+        Summary: 查询授权内容列表
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            das_models.ListAuthProductResponse(),
-            await self.do_request_async('1.0', 'antchain.das.auth.product.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            das_models.ListAuthContentResponse(),
+            await self.do_request_async('1.0', 'antchain.das.auth.content.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def list_auth_config(
@@ -3161,6 +3161,454 @@ class Client:
         return TeaCore.from_map(
             das_models.ListAuthConfigResponse(),
             await self.do_request_async('1.0', 'antchain.das.auth.config.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_auth_status(
+        self,
+        request: das_models.UpdateAuthStatusRequest,
+    ) -> das_models.UpdateAuthStatusResponse:
+        """
+        Description: 更新授权配置状态
+        Summary: 更新授权配置状态
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_auth_status_ex(request, headers, runtime)
+
+    async def update_auth_status_async(
+        self,
+        request: das_models.UpdateAuthStatusRequest,
+    ) -> das_models.UpdateAuthStatusResponse:
+        """
+        Description: 更新授权配置状态
+        Summary: 更新授权配置状态
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_auth_status_ex_async(request, headers, runtime)
+
+    def update_auth_status_ex(
+        self,
+        request: das_models.UpdateAuthStatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> das_models.UpdateAuthStatusResponse:
+        """
+        Description: 更新授权配置状态
+        Summary: 更新授权配置状态
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            das_models.UpdateAuthStatusResponse(),
+            self.do_request('1.0', 'antchain.das.auth.status.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_auth_status_ex_async(
+        self,
+        request: das_models.UpdateAuthStatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> das_models.UpdateAuthStatusResponse:
+        """
+        Description: 更新授权配置状态
+        Summary: 更新授权配置状态
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            das_models.UpdateAuthStatusResponse(),
+            await self.do_request_async('1.0', 'antchain.das.auth.status.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def detail_auth_config(
+        self,
+        request: das_models.DetailAuthConfigRequest,
+    ) -> das_models.DetailAuthConfigResponse:
+        """
+        Description: 查询授权配置详情
+        Summary: 查询授权配置详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.detail_auth_config_ex(request, headers, runtime)
+
+    async def detail_auth_config_async(
+        self,
+        request: das_models.DetailAuthConfigRequest,
+    ) -> das_models.DetailAuthConfigResponse:
+        """
+        Description: 查询授权配置详情
+        Summary: 查询授权配置详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.detail_auth_config_ex_async(request, headers, runtime)
+
+    def detail_auth_config_ex(
+        self,
+        request: das_models.DetailAuthConfigRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> das_models.DetailAuthConfigResponse:
+        """
+        Description: 查询授权配置详情
+        Summary: 查询授权配置详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            das_models.DetailAuthConfigResponse(),
+            self.do_request('1.0', 'antchain.das.auth.config.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def detail_auth_config_ex_async(
+        self,
+        request: das_models.DetailAuthConfigRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> das_models.DetailAuthConfigResponse:
+        """
+        Description: 查询授权配置详情
+        Summary: 查询授权配置详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            das_models.DetailAuthConfigResponse(),
+            await self.do_request_async('1.0', 'antchain.das.auth.config.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def list_auth_record(
+        self,
+        request: das_models.ListAuthRecordRequest,
+    ) -> das_models.ListAuthRecordResponse:
+        """
+        Description: 查询用户授权记录列表
+        Summary: 查询用户授权记录列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_auth_record_ex(request, headers, runtime)
+
+    async def list_auth_record_async(
+        self,
+        request: das_models.ListAuthRecordRequest,
+    ) -> das_models.ListAuthRecordResponse:
+        """
+        Description: 查询用户授权记录列表
+        Summary: 查询用户授权记录列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.list_auth_record_ex_async(request, headers, runtime)
+
+    def list_auth_record_ex(
+        self,
+        request: das_models.ListAuthRecordRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> das_models.ListAuthRecordResponse:
+        """
+        Description: 查询用户授权记录列表
+        Summary: 查询用户授权记录列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            das_models.ListAuthRecordResponse(),
+            self.do_request('1.0', 'antchain.das.auth.record.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def list_auth_record_ex_async(
+        self,
+        request: das_models.ListAuthRecordRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> das_models.ListAuthRecordResponse:
+        """
+        Description: 查询用户授权记录列表
+        Summary: 查询用户授权记录列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            das_models.ListAuthRecordResponse(),
+            await self.do_request_async('1.0', 'antchain.das.auth.record.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def download_auth_agreement(
+        self,
+        request: das_models.DownloadAuthAgreementRequest,
+    ) -> das_models.DownloadAuthAgreementResponse:
+        """
+        Description: 下载用户授权协议
+        Summary: 下载用户授权协议
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.download_auth_agreement_ex(request, headers, runtime)
+
+    async def download_auth_agreement_async(
+        self,
+        request: das_models.DownloadAuthAgreementRequest,
+    ) -> das_models.DownloadAuthAgreementResponse:
+        """
+        Description: 下载用户授权协议
+        Summary: 下载用户授权协议
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.download_auth_agreement_ex_async(request, headers, runtime)
+
+    def download_auth_agreement_ex(
+        self,
+        request: das_models.DownloadAuthAgreementRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> das_models.DownloadAuthAgreementResponse:
+        """
+        Description: 下载用户授权协议
+        Summary: 下载用户授权协议
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            das_models.DownloadAuthAgreementResponse(),
+            self.do_request('1.0', 'antchain.das.auth.agreement.download', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def download_auth_agreement_ex_async(
+        self,
+        request: das_models.DownloadAuthAgreementRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> das_models.DownloadAuthAgreementResponse:
+        """
+        Description: 下载用户授权协议
+        Summary: 下载用户授权协议
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            das_models.DownloadAuthAgreementResponse(),
+            await self.do_request_async('1.0', 'antchain.das.auth.agreement.download', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def verify_data_auth(
+        self,
+        request: das_models.VerifyDataAuthRequest,
+    ) -> das_models.VerifyDataAuthResponse:
+        """
+        Description: 数据授权核验
+        Summary: 数据授权核验
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.verify_data_auth_ex(request, headers, runtime)
+
+    async def verify_data_auth_async(
+        self,
+        request: das_models.VerifyDataAuthRequest,
+    ) -> das_models.VerifyDataAuthResponse:
+        """
+        Description: 数据授权核验
+        Summary: 数据授权核验
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.verify_data_auth_ex_async(request, headers, runtime)
+
+    def verify_data_auth_ex(
+        self,
+        request: das_models.VerifyDataAuthRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> das_models.VerifyDataAuthResponse:
+        """
+        Description: 数据授权核验
+        Summary: 数据授权核验
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            das_models.VerifyDataAuthResponse(),
+            self.do_request('1.0', 'antchain.das.data.auth.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def verify_data_auth_ex_async(
+        self,
+        request: das_models.VerifyDataAuthRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> das_models.VerifyDataAuthResponse:
+        """
+        Description: 数据授权核验
+        Summary: 数据授权核验
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            das_models.VerifyDataAuthResponse(),
+            await self.do_request_async('1.0', 'antchain.das.data.auth.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_product_param(
+        self,
+        request: das_models.QueryProductParamRequest,
+    ) -> das_models.QueryProductParamResponse:
+        """
+        Description: 查询产品参数信息
+        Summary: 查询产品参数信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_product_param_ex(request, headers, runtime)
+
+    async def query_product_param_async(
+        self,
+        request: das_models.QueryProductParamRequest,
+    ) -> das_models.QueryProductParamResponse:
+        """
+        Description: 查询产品参数信息
+        Summary: 查询产品参数信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_product_param_ex_async(request, headers, runtime)
+
+    def query_product_param_ex(
+        self,
+        request: das_models.QueryProductParamRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> das_models.QueryProductParamResponse:
+        """
+        Description: 查询产品参数信息
+        Summary: 查询产品参数信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            das_models.QueryProductParamResponse(),
+            self.do_request('1.0', 'antchain.das.product.param.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_product_param_ex_async(
+        self,
+        request: das_models.QueryProductParamRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> das_models.QueryProductParamResponse:
+        """
+        Description: 查询产品参数信息
+        Summary: 查询产品参数信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            das_models.QueryProductParamResponse(),
+            await self.do_request_async('1.0', 'antchain.das.product.param.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def callback_auth_data(
+        self,
+        request: das_models.CallbackAuthDataRequest,
+    ) -> das_models.CallbackAuthDataResponse:
+        """
+        Description: 授权数据回调
+        Summary: 授权数据回调
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.callback_auth_data_ex(request, headers, runtime)
+
+    async def callback_auth_data_async(
+        self,
+        request: das_models.CallbackAuthDataRequest,
+    ) -> das_models.CallbackAuthDataResponse:
+        """
+        Description: 授权数据回调
+        Summary: 授权数据回调
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.callback_auth_data_ex_async(request, headers, runtime)
+
+    def callback_auth_data_ex(
+        self,
+        request: das_models.CallbackAuthDataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> das_models.CallbackAuthDataResponse:
+        """
+        Description: 授权数据回调
+        Summary: 授权数据回调
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            das_models.CallbackAuthDataResponse(),
+            self.do_request('1.0', 'antchain.das.auth.data.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def callback_auth_data_ex_async(
+        self,
+        request: das_models.CallbackAuthDataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> das_models.CallbackAuthDataResponse:
+        """
+        Description: 授权数据回调
+        Summary: 授权数据回调
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            das_models.CallbackAuthDataResponse(),
+            await self.do_request_async('1.0', 'antchain.das.auth.data.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def callback_auth_record(
+        self,
+        request: das_models.CallbackAuthRecordRequest,
+    ) -> das_models.CallbackAuthRecordResponse:
+        """
+        Description: 授权记录回调
+        Summary: 授权记录回调
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.callback_auth_record_ex(request, headers, runtime)
+
+    async def callback_auth_record_async(
+        self,
+        request: das_models.CallbackAuthRecordRequest,
+    ) -> das_models.CallbackAuthRecordResponse:
+        """
+        Description: 授权记录回调
+        Summary: 授权记录回调
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.callback_auth_record_ex_async(request, headers, runtime)
+
+    def callback_auth_record_ex(
+        self,
+        request: das_models.CallbackAuthRecordRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> das_models.CallbackAuthRecordResponse:
+        """
+        Description: 授权记录回调
+        Summary: 授权记录回调
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            das_models.CallbackAuthRecordResponse(),
+            self.do_request('1.0', 'antchain.das.auth.record.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def callback_auth_record_ex_async(
+        self,
+        request: das_models.CallbackAuthRecordRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> das_models.CallbackAuthRecordResponse:
+        """
+        Description: 授权记录回调
+        Summary: 授权记录回调
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            das_models.CallbackAuthRecordResponse(),
+            await self.do_request_async('1.0', 'antchain.das.auth.record.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
