@@ -8022,6 +8022,8 @@ type ReceiveBenefithubRiskPayResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 响应的业务数据字段
+	ResultData *string `json:"result_data,omitempty" xml:"result_data,omitempty"`
 }
 
 func (s ReceiveBenefithubRiskPayResponse) String() string {
@@ -8047,6 +8049,11 @@ func (s *ReceiveBenefithubRiskPayResponse) SetResultMsg(v string) *ReceiveBenefi
 	return s
 }
 
+func (s *ReceiveBenefithubRiskPayResponse) SetResultData(v string) *ReceiveBenefithubRiskPayResponse {
+	s.ResultData = &v
+	return s
+}
+
 type NotifyBenefithubRiskLoginRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -8064,6 +8071,8 @@ type NotifyBenefithubRiskLoginRequest struct {
 	SceneConfig *string `json:"scene_config,omitempty" xml:"scene_config,omitempty"`
 	// 区分流量来源
 	TrafficSource *string `json:"traffic_source,omitempty" xml:"traffic_source,omitempty"`
+	// json字符串包含姓名md5、手机号md5、身份证md5，（非必传，针对可当-萨摩耶 必传）
+	ExtraInfo *string `json:"extra_info,omitempty" xml:"extra_info,omitempty"`
 }
 
 func (s NotifyBenefithubRiskLoginRequest) String() string {
@@ -8111,6 +8120,11 @@ func (s *NotifyBenefithubRiskLoginRequest) SetSceneConfig(v string) *NotifyBenef
 
 func (s *NotifyBenefithubRiskLoginRequest) SetTrafficSource(v string) *NotifyBenefithubRiskLoginRequest {
 	s.TrafficSource = &v
+	return s
+}
+
+func (s *NotifyBenefithubRiskLoginRequest) SetExtraInfo(v string) *NotifyBenefithubRiskLoginRequest {
+	s.ExtraInfo = &v
 	return s
 }
 
@@ -35074,7 +35088,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.29.2"),
+				"sdk_version":      tea.String("1.29.3"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
