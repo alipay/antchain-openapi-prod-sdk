@@ -5927,11 +5927,14 @@ export class ReceiveBenefithubRiskPayResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
+  // 响应的业务数据字段
+  resultData?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
+      resultData: 'result_data',
     };
   }
 
@@ -5940,6 +5943,7 @@ export class ReceiveBenefithubRiskPayResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
+      resultData: 'string',
     };
   }
 
@@ -5965,6 +5969,8 @@ export class NotifyBenefithubRiskLoginRequest extends $tea.Model {
   sceneConfig?: string;
   // 区分流量来源
   trafficSource?: string;
+  // json字符串包含姓名md5、手机号md5、身份证md5，（非必传，针对可当-萨摩耶 必传）
+  extraInfo?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -5975,6 +5981,7 @@ export class NotifyBenefithubRiskLoginRequest extends $tea.Model {
       productCode: 'product_code',
       sceneConfig: 'scene_config',
       trafficSource: 'traffic_source',
+      extraInfo: 'extra_info',
     };
   }
 
@@ -5988,6 +5995,7 @@ export class NotifyBenefithubRiskLoginRequest extends $tea.Model {
       productCode: 'string',
       sceneConfig: 'string',
       trafficSource: 'string',
+      extraInfo: 'string',
     };
   }
 
@@ -26189,7 +26197,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.29.2",
+          sdk_version: "1.29.3",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
