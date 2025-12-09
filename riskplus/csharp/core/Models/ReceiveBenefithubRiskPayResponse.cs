@@ -24,6 +24,11 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
+        // 响应的业务数据字段
+        [NameInMap("result_data")]
+        [Validation(Required=false)]
+        public string ResultData { get; set; }
+
     }
 
 }
