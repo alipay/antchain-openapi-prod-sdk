@@ -16,6 +16,10 @@ public class ReceiveBenefithubRiskPayResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
+    // 响应的业务数据字段
+    @NameInMap("result_data")
+    public String resultData;
+
     public static ReceiveBenefithubRiskPayResponse build(java.util.Map<String, ?> map) throws Exception {
         ReceiveBenefithubRiskPayResponse self = new ReceiveBenefithubRiskPayResponse();
         return TeaModel.build(map, self);
@@ -43,6 +47,14 @@ public class ReceiveBenefithubRiskPayResponse extends TeaModel {
     }
     public String getResultMsg() {
         return this.resultMsg;
+    }
+
+    public ReceiveBenefithubRiskPayResponse setResultData(String resultData) {
+        this.resultData = resultData;
+        return this;
+    }
+    public String getResultData() {
+        return this.resultData;
     }
 
 }

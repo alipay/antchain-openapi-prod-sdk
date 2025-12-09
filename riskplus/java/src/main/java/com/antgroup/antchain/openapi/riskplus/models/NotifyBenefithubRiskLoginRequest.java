@@ -39,6 +39,10 @@ public class NotifyBenefithubRiskLoginRequest extends TeaModel {
     @NameInMap("traffic_source")
     public String trafficSource;
 
+    // json字符串包含姓名md5、手机号md5、身份证md5，（非必传，针对可当-萨摩耶 必传）
+    @NameInMap("extra_info")
+    public String extraInfo;
+
     public static NotifyBenefithubRiskLoginRequest build(java.util.Map<String, ?> map) throws Exception {
         NotifyBenefithubRiskLoginRequest self = new NotifyBenefithubRiskLoginRequest();
         return TeaModel.build(map, self);
@@ -106,6 +110,14 @@ public class NotifyBenefithubRiskLoginRequest extends TeaModel {
     }
     public String getTrafficSource() {
         return this.trafficSource;
+    }
+
+    public NotifyBenefithubRiskLoginRequest setExtraInfo(String extraInfo) {
+        this.extraInfo = extraInfo;
+        return this;
+    }
+    public String getExtraInfo() {
+        return this.extraInfo;
     }
 
 }
