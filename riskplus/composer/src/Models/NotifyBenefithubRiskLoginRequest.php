@@ -55,6 +55,12 @@ class NotifyBenefithubRiskLoginRequest extends Model
      * @var string
      */
     public $trafficSource;
+
+    // json字符串包含姓名md5、手机号md5、身份证md5，（非必传，针对可当-萨摩耶 必传）
+    /**
+     * @var string
+     */
+    public $extraInfo;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -64,6 +70,7 @@ class NotifyBenefithubRiskLoginRequest extends Model
         'productCode'       => 'product_code',
         'sceneConfig'       => 'scene_config',
         'trafficSource'     => 'traffic_source',
+        'extraInfo'         => 'extra_info',
     ];
 
     public function validate()
@@ -100,6 +107,9 @@ class NotifyBenefithubRiskLoginRequest extends Model
         if (null !== $this->trafficSource) {
             $res['traffic_source'] = $this->trafficSource;
         }
+        if (null !== $this->extraInfo) {
+            $res['extra_info'] = $this->extraInfo;
+        }
 
         return $res;
     }
@@ -135,6 +145,9 @@ class NotifyBenefithubRiskLoginRequest extends Model
         }
         if (isset($map['traffic_source'])) {
             $model->trafficSource = $map['traffic_source'];
+        }
+        if (isset($map['extra_info'])) {
+            $model->extraInfo = $map['extra_info'];
         }
 
         return $model;
