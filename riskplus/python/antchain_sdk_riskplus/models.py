@@ -9842,6 +9842,7 @@ class ReceiveBenefithubRiskPayResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
+        result_data: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -9849,6 +9850,8 @@ class ReceiveBenefithubRiskPayResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
+        # 响应的业务数据字段
+        self.result_data = result_data
 
     def validate(self):
         pass
@@ -9865,6 +9868,8 @@ class ReceiveBenefithubRiskPayResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
+        if self.result_data is not None:
+            result['result_data'] = self.result_data
         return result
 
     def from_map(self, m: dict = None):
@@ -9875,6 +9880,8 @@ class ReceiveBenefithubRiskPayResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
+        if m.get('result_data') is not None:
+            self.result_data = m.get('result_data')
         return self
 
 
@@ -9889,6 +9896,7 @@ class NotifyBenefithubRiskLoginRequest(TeaModel):
         product_code: str = None,
         scene_config: str = None,
         traffic_source: str = None,
+        extra_info: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -9906,6 +9914,8 @@ class NotifyBenefithubRiskLoginRequest(TeaModel):
         self.scene_config = scene_config
         # 区分流量来源
         self.traffic_source = traffic_source
+        # json字符串包含姓名md5、手机号md5、身份证md5，（非必传，针对可当-萨摩耶 必传）
+        self.extra_info = extra_info
 
     def validate(self):
         self.validate_required(self.platform_code, 'platform_code')
@@ -9934,6 +9944,8 @@ class NotifyBenefithubRiskLoginRequest(TeaModel):
             result['scene_config'] = self.scene_config
         if self.traffic_source is not None:
             result['traffic_source'] = self.traffic_source
+        if self.extra_info is not None:
+            result['extra_info'] = self.extra_info
         return result
 
     def from_map(self, m: dict = None):
@@ -9954,6 +9966,8 @@ class NotifyBenefithubRiskLoginRequest(TeaModel):
             self.scene_config = m.get('scene_config')
         if m.get('traffic_source') is not None:
             self.traffic_source = m.get('traffic_source')
+        if m.get('extra_info') is not None:
+            self.extra_info = m.get('extra_info')
         return self
 
 
