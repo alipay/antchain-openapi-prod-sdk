@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.0',
+    sdk_version = '1.1.1',
     _prod_code = 'ak_d3c4f09125a14cd587057c405561809a',
     _prod_channel = 'saas'
   };
@@ -226,13 +226,15 @@ model SubUserAccountDetailsVO {
   // 交易后余额
   postBalance: string(name='post_balance', example='1.0'),
   // 交易类别
-  transactionType: string(name='transaction_type', example='ISSUE'),
+  transactionType: string(name='transaction_type', example='ISSUE/REDEEM/TRANSFER/LOCK/UNLOCK/WITHDRAW/OTC_TRANSFER/TRANSFER_TO_VIRTUAL/WITHDRAW_FROM_VIRTUAL'),
   // 对手地址
   counterAddress: string(name='counter_address', example='0x9f6a540f4079d29ff5a9c5985e9ee87f3b713117'),
   // 创建时间
   gmtCreated: long(name='gmt_created', example='1755754919690'),
   // 更新时间
-  gmtModified: string(name='gmt_modified', example='1755754919690'),
+  gmtModified: long(name='gmt_modified', example='1755754919690'),
+  // 交易状态
+  transactionStatus: string(name='transaction_status', example='PENDING/CONFIRMED/INVALID'),
 }
 
 // 红利账户明细
@@ -247,14 +249,28 @@ model SubUserBonusAccountDetailVO {
   transactionAmount: string(name='transaction_amount', example='1'),
   // 交易后余额
   postBalance: string(name='post_balance', example='1.0'),
-  // 交易类别
-  transactionType: string(name='transaction_type', example='ISSUE'),
+  // 交易类别（REPAY/TRANSFER/LOCK/UNLOCK/WITHDRAW/OTC_TRANSFER/TRANSFER_TO_VIRTUAL/WITHDRAW_FROM_VIRTUAL）
+  transactionType: string(name='transaction_type', example='REPAY'),
   // 对手地址
   counterAddress: string(name='counter_address', example='0x9f6a540f4079d29ff5a9c5985e9ee87f3b713117'),
   // 创建时间
   gmtCreated: long(name='gmt_created', example='1755754919690'),
   // 更新时间
   gmtModified: long(name='gmt_modified', example='1755754919690'),
+  // 交易状态（PENDING/CONFIRMED/INVALID）
+  transactionStatus: string(name='transaction_status', example='PENDING'),
+}
+
+// 虚拟子账号信息
+model SubUserVirtualAccountInfoBO {
+  // 虚拟子账户ID
+  subUserVirtualAccountId?: string(name='sub_user_virtual_account_id', example='34814bfc9b2a40d3889222013228dd02'),
+  // 虚拟子账号对应用户ID
+  virtualAccountUserId?: string(name='virtual_account_user_id', example='8fa693da457449cf9bce00ef207d7407'),
+  // 虚拟子账户邮箱
+  email?: string(name='email', example='test@gamil.com'),
+  // 别名
+  alias?: string(name='alias', example='alias'),
 }
 
 // 项目参与者信息
@@ -270,7 +286,7 @@ model ParticipantInfo {
 // 跨链账户信息
 model CrossChainAccountsVO {
   // 对侧链用户地址
-  crossChainUserAddress?: string(name='cross_chain_user_address', example='0xce81adcd4b9b78293c73caed55840c81b4c3b8f5'),
+  targetUserAddress?: string(name='target_user_address', example='0xce81adcd4b9b78293c73caed55840c81b4c3b8f5'),
   // 对侧链账户ID
   crossChainUserAccountId?: string(name='cross_chain_user_account_id', example='1938129653756694529'),
   // 对侧链红利账户ID
@@ -279,6 +295,16 @@ model CrossChainAccountsVO {
   crossChainUserAccountsDetails?: [ CrossChainAccountsDetailVO ](name='cross_chain_user_accounts_details', example='对侧链资产账户明细'),
   // 对侧链账户信息
   crossChainBonusAccountsDetails?: [ CrossChainBonusAccountsDetailVO ](name='cross_chain_bonus_accounts_details', example='对侧链账户信息'),
+}
+
+// 跨链账号信息
+model CrossChainSubUserAccountInfoBO {
+  // 跨链账号Id
+  crossChainUserAccountId?: string(name='cross_chain_user_account_id', example='34814bfc9b2a40d3889222013228dd02'),
+  // 跨链账号地址
+  targetUserAddress?: string(name='target_user_address', example='0x9f18be920360500f216495cd589895d3917cd9f2'),
+  // 目标链所在链
+  targetChainName?: string(name='target_chain_name', example='CONFLUX_TEST_NET'),
 }
 
 // 操作角色
@@ -347,6 +373,14 @@ model SubUserAccountBaseVO {
   contact?: string(name='contact', example='test@gamil.com'),
   // 用户昵称
   alias?: string(name='alias', example='Alice'),
+  // 项目ID
+  assetProjectId: string(name='asset_project_id', example='00d00c02fb314212b73a23a0c95df0c7'),
+  // 链名称
+  chainName: string(name='chain_name', example='ANTCHAIN'),
+  // 虚拟子账号信息
+  subUserVirtualAccountsInfo?: [ SubUserVirtualAccountInfoBO ](name='sub_user_virtual_accounts_info', example=''),
+  // 跨链账号信息
+  crossChainSubUserAccountsInfo?: [ CrossChainSubUserAccountInfoBO ](name='cross_chain_sub_user_accounts_info', example=''),
 }
 
 // 项目角色信息
@@ -391,6 +425,10 @@ model CrossAccountListVO {
   userId?: string(name='user_id', example='8a18b4fc7c8341238bd7eac27f63025a'),
   // 代销机构ID
   distributorInstitutionId?: string(name='distributor_institution_id', example='d9becf0366ff471eb2f3879e5e2f9eb7'),
+  // 项目代币名称
+  tokenName?: string(name='token_name', example='etf'),
+  // 项目代币符号
+  tokenSymbol?: string(name='token_symbol', example='Token-S'),
   // 发行链名称
   chainName?: string(name='chain_name', example='ANTCHAIN'),
   // 投资者用户账户ID
@@ -437,6 +475,10 @@ model SubUserAccountDetailVO {
   userId?: string(name='user_id', example='1'),
   // 代销机构ID
   distributorInstitutionId?: string(name='distributor_institution_id', example='1000'),
+  // 项目代币名称
+  tokenName?: string(name='token_name', example='etf'),
+  // 项目代币符号
+  tokenSymbol?: string(name='token_symbol', example='Token-S'),
   // 发行链名称
   chainName?: string(name='chain_name', example='ANTCHAIN'),
   // 投资者用户账户ID
@@ -450,20 +492,30 @@ model SubUserAccountDetailVO {
 }
 
 // 项目基础信息
-model ProjectBaseInfoVo {
+model ProjectBaseInfoVO {
   // 项目id
   projectId: string(name='project_id', example='0628455d41d044ed97783db554149d4b'),
   // 资产项目合约地址
   // （Launch Network/Shares token ）
   assetProjectAddress?: string(name='asset_project_address', example='0xf7d48f098440a166e9785ced7073baa6964acc80'),
   // 项目名称
-  projcetName?: string(name='projcet_name', example='测试项目'),
+  projectName?: string(name='project_name', example='测试项目'),
   // 描述
   description?: string(name='description', example='测试'),
   // 项目状态
   projectStatus?: string(name='project_status', example='Active'),
   // 项目所在链（Launch Network）
   chainType?: string(name='chain_type', example='ANTCHAIN'),
+  // 代币名称
+  tokenName?: string(name='token_name', example='OKB'),
+  // 项目代币符号
+  tokenSymbol?: string(name='token_symbol', example='Token-S'),
+  // 总发行量
+  capacity?: string(name='capacity', example='100'),
+  // 单钱包最大可持有份额
+  maxSubscriptionAmount?: string(name='max_subscription_amount', example='100'),
+  // 创建时间戳（毫秒）
+  gmtCreated?: long(name='gmt_created', example='1755754919690'),
 }
 
 model UpdateAntdigitalWebtrwatradeIssuerPriceRequest = {
@@ -508,7 +560,7 @@ async function updateAntdigitalWebtrwatradeIssuerPriceEx(request: UpdateAntdigit
   return doRequest('1.0' ,'antdigital.webtrwatrade.issuer.price.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model ListAntdigitalWebtrwatradeIssuerOperationlogRequest = {
+model ListAntdigitalWebtrwatradeIssuerOperationloglogininfoRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
@@ -518,7 +570,7 @@ model ListAntdigitalWebtrwatradeIssuerOperationlogRequest = {
   endTimeMills: long(name='end_time_mills'),
 }
 
-model ListAntdigitalWebtrwatradeIssuerOperationlogResponse = {
+model ListAntdigitalWebtrwatradeIssuerOperationloglogininfoResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
   // 结果码，一般OK表示调用成功
@@ -533,22 +585,22 @@ model ListAntdigitalWebtrwatradeIssuerOperationlogResponse = {
  * Description: 发行机构查询登录登出操作日志
  * Summary: 发行机构查询登录登出操作日志
  */
-async function listAntdigitalWebtrwatradeIssuerOperationlog(request: ListAntdigitalWebtrwatradeIssuerOperationlogRequest): ListAntdigitalWebtrwatradeIssuerOperationlogResponse {
+async function listAntdigitalWebtrwatradeIssuerOperationloglogininfo(request: ListAntdigitalWebtrwatradeIssuerOperationloglogininfoRequest): ListAntdigitalWebtrwatradeIssuerOperationloglogininfoResponse {
   var runtime = new Util.RuntimeOptions{};
   var headers : map[string]string= {};
-  return listAntdigitalWebtrwatradeIssuerOperationlogEx(request, headers, runtime);
+  return listAntdigitalWebtrwatradeIssuerOperationloglogininfoEx(request, headers, runtime);
 }
 
 /**
  * Description: 发行机构查询登录登出操作日志
  * Summary: 发行机构查询登录登出操作日志
  */
-async function listAntdigitalWebtrwatradeIssuerOperationlogEx(request: ListAntdigitalWebtrwatradeIssuerOperationlogRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListAntdigitalWebtrwatradeIssuerOperationlogResponse {
+async function listAntdigitalWebtrwatradeIssuerOperationloglogininfoEx(request: ListAntdigitalWebtrwatradeIssuerOperationloglogininfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListAntdigitalWebtrwatradeIssuerOperationloglogininfoResponse {
   Util.validateModel(request);
-  return doRequest('1.0' ,'antdigital.webtrwatrade.issuer.operationlog.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+  return doRequest('1.0' ,'antdigital.webtrwatrade.issuer.operationloglogininfo.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model ListAntdigitalWebtrwatradeDistributorOperationlogRequest = {
+model ListAntdigitalWebtrwatradeDistributorOperationloglogininfoRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
@@ -558,7 +610,7 @@ model ListAntdigitalWebtrwatradeDistributorOperationlogRequest = {
   endTimeMills: long(name='end_time_mills'),
 }
 
-model ListAntdigitalWebtrwatradeDistributorOperationlogResponse = {
+model ListAntdigitalWebtrwatradeDistributorOperationloglogininfoResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
   // 结果码，一般OK表示调用成功
@@ -573,22 +625,22 @@ model ListAntdigitalWebtrwatradeDistributorOperationlogResponse = {
  * Description: 代销机构查询登录登出操作日志
  * Summary: 代销机构查询登录登出操作日志
  */
-async function listAntdigitalWebtrwatradeDistributorOperationlog(request: ListAntdigitalWebtrwatradeDistributorOperationlogRequest): ListAntdigitalWebtrwatradeDistributorOperationlogResponse {
+async function listAntdigitalWebtrwatradeDistributorOperationloglogininfo(request: ListAntdigitalWebtrwatradeDistributorOperationloglogininfoRequest): ListAntdigitalWebtrwatradeDistributorOperationloglogininfoResponse {
   var runtime = new Util.RuntimeOptions{};
   var headers : map[string]string= {};
-  return listAntdigitalWebtrwatradeDistributorOperationlogEx(request, headers, runtime);
+  return listAntdigitalWebtrwatradeDistributorOperationloglogininfoEx(request, headers, runtime);
 }
 
 /**
  * Description: 代销机构查询登录登出操作日志
  * Summary: 代销机构查询登录登出操作日志
  */
-async function listAntdigitalWebtrwatradeDistributorOperationlogEx(request: ListAntdigitalWebtrwatradeDistributorOperationlogRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListAntdigitalWebtrwatradeDistributorOperationlogResponse {
+async function listAntdigitalWebtrwatradeDistributorOperationloglogininfoEx(request: ListAntdigitalWebtrwatradeDistributorOperationloglogininfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListAntdigitalWebtrwatradeDistributorOperationloglogininfoResponse {
   Util.validateModel(request);
-  return doRequest('1.0' ,'antdigital.webtrwatrade.distributor.operationlog.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+  return doRequest('1.0' ,'antdigital.webtrwatrade.distributor.operationloglogininfo.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model QueryAntdigitalWebtrwatradeIssuerRequest = {
+model QueryAntdigitalWebtrwatradeIssuerSubuserdetailRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
@@ -605,14 +657,14 @@ model QueryAntdigitalWebtrwatradeIssuerRequest = {
   // 登录名（用户ID、用户地址、登录名+登录名类型，三组信息任选一组输入）
   loginName?: string(name='login_name'),
   // 登录名类型(EMAIL)（用户ID、用户地址、登录名+登录名类型，三组信息任选一组输入）
-  loginAccoutType?: string(name='login_accout_type'),
+  loginAccountType?: string(name='login_account_type'),
   // 开始时间 (时间戳)
   startTimeMills: long(name='start_time_mills'),
   // 结束时间 (时间戳)
   endTimeMills: long(name='end_time_mills'),
 }
 
-model QueryAntdigitalWebtrwatradeIssuerResponse = {
+model QueryAntdigitalWebtrwatradeIssuerSubuserdetailResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
   // 结果码，一般OK表示调用成功
@@ -627,22 +679,22 @@ model QueryAntdigitalWebtrwatradeIssuerResponse = {
  * Description: 发行机构获取二级用户详情数据
  * Summary: 发行机构获取二级用户详情数据
  */
-async function queryAntdigitalWebtrwatradeIssuer(request: QueryAntdigitalWebtrwatradeIssuerRequest): QueryAntdigitalWebtrwatradeIssuerResponse {
+async function queryAntdigitalWebtrwatradeIssuerSubuserdetail(request: QueryAntdigitalWebtrwatradeIssuerSubuserdetailRequest): QueryAntdigitalWebtrwatradeIssuerSubuserdetailResponse {
   var runtime = new Util.RuntimeOptions{};
   var headers : map[string]string= {};
-  return queryAntdigitalWebtrwatradeIssuerEx(request, headers, runtime);
+  return queryAntdigitalWebtrwatradeIssuerSubuserdetailEx(request, headers, runtime);
 }
 
 /**
  * Description: 发行机构获取二级用户详情数据
  * Summary: 发行机构获取二级用户详情数据
  */
-async function queryAntdigitalWebtrwatradeIssuerEx(request: QueryAntdigitalWebtrwatradeIssuerRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAntdigitalWebtrwatradeIssuerResponse {
+async function queryAntdigitalWebtrwatradeIssuerSubuserdetailEx(request: QueryAntdigitalWebtrwatradeIssuerSubuserdetailRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAntdigitalWebtrwatradeIssuerSubuserdetailResponse {
   Util.validateModel(request);
-  return doRequest('1.0' ,'antdigital.webtrwatrade.issuer.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+  return doRequest('1.0' ,'antdigital.webtrwatrade.issuer.subuserdetail.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model QueryAntdigitalWebtrwatradeDistributorRequest = {
+model QueryAntdigitalWebtrwatradeDistributorSubuserdetailRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
@@ -659,14 +711,14 @@ model QueryAntdigitalWebtrwatradeDistributorRequest = {
   // 登录名（用户ID、用户地址、登录名+登录名类型，三组信息任选一组输入）
   loginName?: string(name='login_name'),
   // 登录名类型(EMAIL)（用户ID、用户地址、登录名+登录名类型，三组信息任选一组输入）
-  loginAccoutType?: string(name='login_accout_type'),
+  loginAccountType?: string(name='login_account_type'),
   // 开始时间 (时间戳)
   startTimeMills: long(name='start_time_mills'),
   // 结束时间 (时间戳)
   endTimeMills: long(name='end_time_mills'),
 }
 
-model QueryAntdigitalWebtrwatradeDistributorResponse = {
+model QueryAntdigitalWebtrwatradeDistributorSubuserdetailResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
   // 结果码，一般OK表示调用成功
@@ -681,22 +733,22 @@ model QueryAntdigitalWebtrwatradeDistributorResponse = {
  * Description: 代销机构获取二级用户详情数据
  * Summary: 代销机构获取二级用户详情数据
  */
-async function queryAntdigitalWebtrwatradeDistributor(request: QueryAntdigitalWebtrwatradeDistributorRequest): QueryAntdigitalWebtrwatradeDistributorResponse {
+async function queryAntdigitalWebtrwatradeDistributorSubuserdetail(request: QueryAntdigitalWebtrwatradeDistributorSubuserdetailRequest): QueryAntdigitalWebtrwatradeDistributorSubuserdetailResponse {
   var runtime = new Util.RuntimeOptions{};
   var headers : map[string]string= {};
-  return queryAntdigitalWebtrwatradeDistributorEx(request, headers, runtime);
+  return queryAntdigitalWebtrwatradeDistributorSubuserdetailEx(request, headers, runtime);
 }
 
 /**
  * Description: 代销机构获取二级用户详情数据
  * Summary: 代销机构获取二级用户详情数据
  */
-async function queryAntdigitalWebtrwatradeDistributorEx(request: QueryAntdigitalWebtrwatradeDistributorRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAntdigitalWebtrwatradeDistributorResponse {
+async function queryAntdigitalWebtrwatradeDistributorSubuserdetailEx(request: QueryAntdigitalWebtrwatradeDistributorSubuserdetailRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAntdigitalWebtrwatradeDistributorSubuserdetailResponse {
   Util.validateModel(request);
-  return doRequest('1.0' ,'antdigital.webtrwatrade.distributor.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+  return doRequest('1.0' ,'antdigital.webtrwatrade.distributor.subuserdetail.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model ListAntdigitalWebtrwatradeIssuerCrossaccountRequest = {
+model ListAntdigitalWebtrwatradeIssuerCrosschainaccountRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
@@ -715,14 +767,14 @@ model ListAntdigitalWebtrwatradeIssuerCrossaccountRequest = {
   // 登录名类型(EMAIL) - 用户ID & 本侧链用户地址 & 登录名+登录名类型(EMAIL) 三选一
   loginAccountType?: string(name='login_account_type'),
   // 对侧链用户地址
-  crossChainUserAddress?: string(name='cross_chain_user_address'),
+  targetUserAddress?: string(name='target_user_address'),
   // 开始时间 (时间戳)
   startTimeMills: long(name='start_time_mills'),
   // 结束时间 (时间戳)
   endTimeMills: long(name='end_time_mills'),
 }
 
-model ListAntdigitalWebtrwatradeIssuerCrossaccountResponse = {
+model ListAntdigitalWebtrwatradeIssuerCrosschainaccountResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
   // 结果码，一般OK表示调用成功
@@ -737,22 +789,22 @@ model ListAntdigitalWebtrwatradeIssuerCrossaccountResponse = {
  * Description: 发行机构跨链账号明细
  * Summary: 发行机构跨链账号明细
  */
-async function listAntdigitalWebtrwatradeIssuerCrossaccount(request: ListAntdigitalWebtrwatradeIssuerCrossaccountRequest): ListAntdigitalWebtrwatradeIssuerCrossaccountResponse {
+async function listAntdigitalWebtrwatradeIssuerCrosschainaccount(request: ListAntdigitalWebtrwatradeIssuerCrosschainaccountRequest): ListAntdigitalWebtrwatradeIssuerCrosschainaccountResponse {
   var runtime = new Util.RuntimeOptions{};
   var headers : map[string]string= {};
-  return listAntdigitalWebtrwatradeIssuerCrossaccountEx(request, headers, runtime);
+  return listAntdigitalWebtrwatradeIssuerCrosschainaccountEx(request, headers, runtime);
 }
 
 /**
  * Description: 发行机构跨链账号明细
  * Summary: 发行机构跨链账号明细
  */
-async function listAntdigitalWebtrwatradeIssuerCrossaccountEx(request: ListAntdigitalWebtrwatradeIssuerCrossaccountRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListAntdigitalWebtrwatradeIssuerCrossaccountResponse {
+async function listAntdigitalWebtrwatradeIssuerCrosschainaccountEx(request: ListAntdigitalWebtrwatradeIssuerCrosschainaccountRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListAntdigitalWebtrwatradeIssuerCrosschainaccountResponse {
   Util.validateModel(request);
-  return doRequest('1.0' ,'antdigital.webtrwatrade.issuer.crossaccount.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+  return doRequest('1.0' ,'antdigital.webtrwatrade.issuer.crosschainaccount.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model ListAntdigitalWebtrwatradeDistributorCrossaccountRequest = {
+model ListAntdigitalWebtrwatradeDistributorCrosschainaccountRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
@@ -771,14 +823,14 @@ model ListAntdigitalWebtrwatradeDistributorCrossaccountRequest = {
   // 登录名类型(EMAIL) - 用户ID & 本侧链用户地址 & 登录名+登录名类型(EMAIL) 三选一
   loginAccountType?: string(name='login_account_type'),
   // 对侧链用户地址
-  crossChainUserAddress?: string(name='cross_chain_user_address'),
+  targetUserAddress?: string(name='target_user_address'),
   // 开始时间 (时间戳)
   startTimeMills: long(name='start_time_mills'),
   // 结束时间 (时间戳)
   endTimeMills: long(name='end_time_mills'),
 }
 
-model ListAntdigitalWebtrwatradeDistributorCrossaccountResponse = {
+model ListAntdigitalWebtrwatradeDistributorCrosschainaccountResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
   // 结果码，一般OK表示调用成功
@@ -793,19 +845,19 @@ model ListAntdigitalWebtrwatradeDistributorCrossaccountResponse = {
  * Description: 代销机构跨链账号明细
  * Summary: 代销机构跨链账号明细
  */
-async function listAntdigitalWebtrwatradeDistributorCrossaccount(request: ListAntdigitalWebtrwatradeDistributorCrossaccountRequest): ListAntdigitalWebtrwatradeDistributorCrossaccountResponse {
+async function listAntdigitalWebtrwatradeDistributorCrosschainaccount(request: ListAntdigitalWebtrwatradeDistributorCrosschainaccountRequest): ListAntdigitalWebtrwatradeDistributorCrosschainaccountResponse {
   var runtime = new Util.RuntimeOptions{};
   var headers : map[string]string= {};
-  return listAntdigitalWebtrwatradeDistributorCrossaccountEx(request, headers, runtime);
+  return listAntdigitalWebtrwatradeDistributorCrosschainaccountEx(request, headers, runtime);
 }
 
 /**
  * Description: 代销机构跨链账号明细
  * Summary: 代销机构跨链账号明细
  */
-async function listAntdigitalWebtrwatradeDistributorCrossaccountEx(request: ListAntdigitalWebtrwatradeDistributorCrossaccountRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListAntdigitalWebtrwatradeDistributorCrossaccountResponse {
+async function listAntdigitalWebtrwatradeDistributorCrosschainaccountEx(request: ListAntdigitalWebtrwatradeDistributorCrosschainaccountRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListAntdigitalWebtrwatradeDistributorCrosschainaccountResponse {
   Util.validateModel(request);
-  return doRequest('1.0' ,'antdigital.webtrwatrade.distributor.crossaccount.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+  return doRequest('1.0' ,'antdigital.webtrwatrade.distributor.crosschainaccount.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model DetailAntdigitalWebtrwatradeIssuerProjectwithroleRequest = {
@@ -853,7 +905,7 @@ async function detailAntdigitalWebtrwatradeIssuerProjectwithroleEx(request: Deta
   return doRequest('1.0' ,'antdigital.webtrwatrade.issuer.projectwithrole.detail', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model ListAntdigitalWebtrwatradeIssuerAlloperationlogRequest = {
+model ListAntdigitalWebtrwatradeIssuerOperationlogRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
@@ -871,7 +923,7 @@ model ListAntdigitalWebtrwatradeIssuerAlloperationlogRequest = {
   endTimeMills?: long(name='end_time_mills'),
 }
 
-model ListAntdigitalWebtrwatradeIssuerAlloperationlogResponse = {
+model ListAntdigitalWebtrwatradeIssuerOperationlogResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
   // 结果码，一般OK表示调用成功
@@ -886,22 +938,22 @@ model ListAntdigitalWebtrwatradeIssuerAlloperationlogResponse = {
  * Description: 发行机构查询所有操作员的操作日志
  * Summary: 发行机构查询所有操作员的操作日志
  */
-async function listAntdigitalWebtrwatradeIssuerAlloperationlog(request: ListAntdigitalWebtrwatradeIssuerAlloperationlogRequest): ListAntdigitalWebtrwatradeIssuerAlloperationlogResponse {
+async function listAntdigitalWebtrwatradeIssuerOperationlog(request: ListAntdigitalWebtrwatradeIssuerOperationlogRequest): ListAntdigitalWebtrwatradeIssuerOperationlogResponse {
   var runtime = new Util.RuntimeOptions{};
   var headers : map[string]string= {};
-  return listAntdigitalWebtrwatradeIssuerAlloperationlogEx(request, headers, runtime);
+  return listAntdigitalWebtrwatradeIssuerOperationlogEx(request, headers, runtime);
 }
 
 /**
  * Description: 发行机构查询所有操作员的操作日志
  * Summary: 发行机构查询所有操作员的操作日志
  */
-async function listAntdigitalWebtrwatradeIssuerAlloperationlogEx(request: ListAntdigitalWebtrwatradeIssuerAlloperationlogRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListAntdigitalWebtrwatradeIssuerAlloperationlogResponse {
+async function listAntdigitalWebtrwatradeIssuerOperationlogEx(request: ListAntdigitalWebtrwatradeIssuerOperationlogRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListAntdigitalWebtrwatradeIssuerOperationlogResponse {
   Util.validateModel(request);
-  return doRequest('1.0' ,'antdigital.webtrwatrade.issuer.alloperationlog.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+  return doRequest('1.0' ,'antdigital.webtrwatrade.issuer.operationlog.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model ListAntdigitalWebtrwatradeDistributorAlloperationlogRequest = {
+model ListAntdigitalWebtrwatradeDistributorOperationlogRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
@@ -919,7 +971,7 @@ model ListAntdigitalWebtrwatradeDistributorAlloperationlogRequest = {
   endTimeMills?: long(name='end_time_mills'),
 }
 
-model ListAntdigitalWebtrwatradeDistributorAlloperationlogResponse = {
+model ListAntdigitalWebtrwatradeDistributorOperationlogResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
   // 结果码，一般OK表示调用成功
@@ -934,19 +986,19 @@ model ListAntdigitalWebtrwatradeDistributorAlloperationlogResponse = {
  * Description: 代销机构查询所有操作员的操作日志
  * Summary: 代销机构查询所有操作员的操作日志
  */
-async function listAntdigitalWebtrwatradeDistributorAlloperationlog(request: ListAntdigitalWebtrwatradeDistributorAlloperationlogRequest): ListAntdigitalWebtrwatradeDistributorAlloperationlogResponse {
+async function listAntdigitalWebtrwatradeDistributorOperationlog(request: ListAntdigitalWebtrwatradeDistributorOperationlogRequest): ListAntdigitalWebtrwatradeDistributorOperationlogResponse {
   var runtime = new Util.RuntimeOptions{};
   var headers : map[string]string= {};
-  return listAntdigitalWebtrwatradeDistributorAlloperationlogEx(request, headers, runtime);
+  return listAntdigitalWebtrwatradeDistributorOperationlogEx(request, headers, runtime);
 }
 
 /**
  * Description: 代销机构查询所有操作员的操作日志
  * Summary: 代销机构查询所有操作员的操作日志
  */
-async function listAntdigitalWebtrwatradeDistributorAlloperationlogEx(request: ListAntdigitalWebtrwatradeDistributorAlloperationlogRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListAntdigitalWebtrwatradeDistributorAlloperationlogResponse {
+async function listAntdigitalWebtrwatradeDistributorOperationlogEx(request: ListAntdigitalWebtrwatradeDistributorOperationlogRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListAntdigitalWebtrwatradeDistributorOperationlogResponse {
   Util.validateModel(request);
-  return doRequest('1.0' ,'antdigital.webtrwatrade.distributor.alloperationlog.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+  return doRequest('1.0' ,'antdigital.webtrwatrade.distributor.operationlog.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model ListAntdigitalWebtrwatradeIssuerProjectRequest = {
@@ -967,7 +1019,7 @@ model ListAntdigitalWebtrwatradeIssuerProjectResponse = {
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 项目基础信息
-  data?: [ ProjectBaseInfoVo ](name='data'),
+  data?: [ ProjectBaseInfoVO ](name='data'),
 }
 
 /**
@@ -1007,7 +1059,7 @@ model ListAntdigitalWebtrwatradeDistributorProjectResponse = {
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 项目基础信息
-  data?: [ ProjectBaseInfoVo ](name='data'),
+  data?: [ ProjectBaseInfoVO ](name='data'),
 }
 
 /**
