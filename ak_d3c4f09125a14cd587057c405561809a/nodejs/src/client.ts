@@ -227,7 +227,9 @@ export class SubUserAccountDetailsVO extends $tea.Model {
   // 创建时间
   gmtCreated: number;
   // 更新时间
-  gmtModified: string;
+  gmtModified: number;
+  // 交易状态
+  transactionStatus: string;
   static names(): { [key: string]: string } {
     return {
       id: 'id',
@@ -239,6 +241,7 @@ export class SubUserAccountDetailsVO extends $tea.Model {
       counterAddress: 'counter_address',
       gmtCreated: 'gmt_created',
       gmtModified: 'gmt_modified',
+      transactionStatus: 'transaction_status',
     };
   }
 
@@ -252,7 +255,8 @@ export class SubUserAccountDetailsVO extends $tea.Model {
       transactionType: 'string',
       counterAddress: 'string',
       gmtCreated: 'number',
-      gmtModified: 'string',
+      gmtModified: 'number',
+      transactionStatus: 'string',
     };
   }
 
@@ -273,7 +277,7 @@ export class SubUserBonusAccountDetailVO extends $tea.Model {
   transactionAmount: string;
   // 交易后余额
   postBalance: string;
-  // 交易类别
+  // 交易类别（REPAY/TRANSFER/LOCK/UNLOCK/WITHDRAW/OTC_TRANSFER/TRANSFER_TO_VIRTUAL/WITHDRAW_FROM_VIRTUAL）
   transactionType: string;
   // 对手地址
   counterAddress: string;
@@ -281,6 +285,8 @@ export class SubUserBonusAccountDetailVO extends $tea.Model {
   gmtCreated: number;
   // 更新时间
   gmtModified: number;
+  // 交易状态（PENDING/CONFIRMED/INVALID）
+  transactionStatus: string;
   static names(): { [key: string]: string } {
     return {
       id: 'id',
@@ -292,6 +298,7 @@ export class SubUserBonusAccountDetailVO extends $tea.Model {
       counterAddress: 'counter_address',
       gmtCreated: 'gmt_created',
       gmtModified: 'gmt_modified',
+      transactionStatus: 'transaction_status',
     };
   }
 
@@ -306,6 +313,40 @@ export class SubUserBonusAccountDetailVO extends $tea.Model {
       counterAddress: 'string',
       gmtCreated: 'number',
       gmtModified: 'number',
+      transactionStatus: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 虚拟子账号信息
+export class SubUserVirtualAccountInfoBO extends $tea.Model {
+  // 虚拟子账户ID
+  subUserVirtualAccountId?: string;
+  // 虚拟子账号对应用户ID
+  virtualAccountUserId?: string;
+  // 虚拟子账户邮箱
+  email?: string;
+  // 别名
+  alias?: string;
+  static names(): { [key: string]: string } {
+    return {
+      subUserVirtualAccountId: 'sub_user_virtual_account_id',
+      virtualAccountUserId: 'virtual_account_user_id',
+      email: 'email',
+      alias: 'alias',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      subUserVirtualAccountId: 'string',
+      virtualAccountUserId: 'string',
+      email: 'string',
+      alias: 'string',
     };
   }
 
@@ -346,7 +387,7 @@ export class ParticipantInfo extends $tea.Model {
 // 跨链账户信息
 export class CrossChainAccountsVO extends $tea.Model {
   // 对侧链用户地址
-  crossChainUserAddress?: string;
+  targetUserAddress?: string;
   // 对侧链账户ID
   crossChainUserAccountId?: string;
   // 对侧链红利账户ID
@@ -357,7 +398,7 @@ export class CrossChainAccountsVO extends $tea.Model {
   crossChainBonusAccountsDetails?: CrossChainBonusAccountsDetailVO[];
   static names(): { [key: string]: string } {
     return {
-      crossChainUserAddress: 'cross_chain_user_address',
+      targetUserAddress: 'target_user_address',
       crossChainUserAccountId: 'cross_chain_user_account_id',
       crossChainUserBonusAccountId: 'cross_chain_user_bonus_account_id',
       crossChainUserAccountsDetails: 'cross_chain_user_accounts_details',
@@ -367,11 +408,40 @@ export class CrossChainAccountsVO extends $tea.Model {
 
   static types(): { [key: string]: any } {
     return {
-      crossChainUserAddress: 'string',
+      targetUserAddress: 'string',
       crossChainUserAccountId: 'string',
       crossChainUserBonusAccountId: 'string',
       crossChainUserAccountsDetails: { 'type': 'array', 'itemType': CrossChainAccountsDetailVO },
       crossChainBonusAccountsDetails: { 'type': 'array', 'itemType': CrossChainBonusAccountsDetailVO },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 跨链账号信息
+export class CrossChainSubUserAccountInfoBO extends $tea.Model {
+  // 跨链账号Id
+  crossChainUserAccountId?: string;
+  // 跨链账号地址
+  targetUserAddress?: string;
+  // 目标链所在链
+  targetChainName?: string;
+  static names(): { [key: string]: string } {
+    return {
+      crossChainUserAccountId: 'cross_chain_user_account_id',
+      targetUserAddress: 'target_user_address',
+      targetChainName: 'target_chain_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      crossChainUserAccountId: 'string',
+      targetUserAddress: 'string',
+      targetChainName: 'string',
     };
   }
 
@@ -520,12 +590,24 @@ export class SubUserAccountBaseVO extends $tea.Model {
   contact?: string;
   // 用户昵称
   alias?: string;
+  // 项目ID
+  assetProjectId: string;
+  // 链名称
+  chainName: string;
+  // 虚拟子账号信息
+  subUserVirtualAccountsInfo?: SubUserVirtualAccountInfoBO[];
+  // 跨链账号信息
+  crossChainSubUserAccountsInfo?: CrossChainSubUserAccountInfoBO[];
   static names(): { [key: string]: string } {
     return {
       subUserAccountId: 'sub_user_account_id',
       userAddress: 'user_address',
       contact: 'contact',
       alias: 'alias',
+      assetProjectId: 'asset_project_id',
+      chainName: 'chain_name',
+      subUserVirtualAccountsInfo: 'sub_user_virtual_accounts_info',
+      crossChainSubUserAccountsInfo: 'cross_chain_sub_user_accounts_info',
     };
   }
 
@@ -535,6 +617,10 @@ export class SubUserAccountBaseVO extends $tea.Model {
       userAddress: 'string',
       contact: 'string',
       alias: 'string',
+      assetProjectId: 'string',
+      chainName: 'string',
+      subUserVirtualAccountsInfo: { 'type': 'array', 'itemType': SubUserVirtualAccountInfoBO },
+      crossChainSubUserAccountsInfo: { 'type': 'array', 'itemType': CrossChainSubUserAccountInfoBO },
     };
   }
 
@@ -624,6 +710,10 @@ export class CrossAccountListVO extends $tea.Model {
   userId?: string;
   // 代销机构ID
   distributorInstitutionId?: string;
+  // 项目代币名称
+  tokenName?: string;
+  // 项目代币符号
+  tokenSymbol?: string;
   // 发行链名称
   chainName?: string;
   // 投资者用户账户ID
@@ -645,6 +735,8 @@ export class CrossAccountListVO extends $tea.Model {
       bonusAddress: 'bonus_address',
       userId: 'user_id',
       distributorInstitutionId: 'distributor_institution_id',
+      tokenName: 'token_name',
+      tokenSymbol: 'token_symbol',
       chainName: 'chain_name',
       subUserAccountId: 'sub_user_account_id',
       subUserBonusAccountId: 'sub_user_bonus_account_id',
@@ -662,6 +754,8 @@ export class CrossAccountListVO extends $tea.Model {
       bonusAddress: 'string',
       userId: 'string',
       distributorInstitutionId: 'string',
+      tokenName: 'string',
+      tokenSymbol: 'string',
       chainName: 'string',
       subUserAccountId: 'string',
       subUserBonusAccountId: 'string',
@@ -734,6 +828,10 @@ export class SubUserAccountDetailVO extends $tea.Model {
   userId?: string;
   // 代销机构ID
   distributorInstitutionId?: string;
+  // 项目代币名称
+  tokenName?: string;
+  // 项目代币符号
+  tokenSymbol?: string;
   // 发行链名称
   chainName?: string;
   // 投资者用户账户ID
@@ -751,6 +849,8 @@ export class SubUserAccountDetailVO extends $tea.Model {
       bonusAddress: 'bonus_address',
       userId: 'user_id',
       distributorInstitutionId: 'distributor_institution_id',
+      tokenName: 'token_name',
+      tokenSymbol: 'token_symbol',
       chainName: 'chain_name',
       subUserAccountId: 'sub_user_account_id',
       subUserBonusAccountId: 'sub_user_bonus_account_id',
@@ -766,6 +866,8 @@ export class SubUserAccountDetailVO extends $tea.Model {
       bonusAddress: 'string',
       userId: 'string',
       distributorInstitutionId: 'string',
+      tokenName: 'string',
+      tokenSymbol: 'string',
       chainName: 'string',
       subUserAccountId: 'string',
       subUserBonusAccountId: 'string',
@@ -780,28 +882,43 @@ export class SubUserAccountDetailVO extends $tea.Model {
 }
 
 // 项目基础信息
-export class ProjectBaseInfoVo extends $tea.Model {
+export class ProjectBaseInfoVO extends $tea.Model {
   // 项目id
   projectId: string;
   // 资产项目合约地址
   // （Launch Network/Shares token ）
   assetProjectAddress?: string;
   // 项目名称
-  projcetName?: string;
+  projectName?: string;
   // 描述
   description?: string;
   // 项目状态
   projectStatus?: string;
   // 项目所在链（Launch Network）
   chainType?: string;
+  // 代币名称
+  tokenName?: string;
+  // 项目代币符号
+  tokenSymbol?: string;
+  // 总发行量
+  capacity?: string;
+  // 单钱包最大可持有份额
+  maxSubscriptionAmount?: string;
+  // 创建时间戳（毫秒）
+  gmtCreated?: number;
   static names(): { [key: string]: string } {
     return {
       projectId: 'project_id',
       assetProjectAddress: 'asset_project_address',
-      projcetName: 'projcet_name',
+      projectName: 'project_name',
       description: 'description',
       projectStatus: 'project_status',
       chainType: 'chain_type',
+      tokenName: 'token_name',
+      tokenSymbol: 'token_symbol',
+      capacity: 'capacity',
+      maxSubscriptionAmount: 'max_subscription_amount',
+      gmtCreated: 'gmt_created',
     };
   }
 
@@ -809,10 +926,15 @@ export class ProjectBaseInfoVo extends $tea.Model {
     return {
       projectId: 'string',
       assetProjectAddress: 'string',
-      projcetName: 'string',
+      projectName: 'string',
       description: 'string',
       projectStatus: 'string',
       chainType: 'string',
+      tokenName: 'string',
+      tokenSymbol: 'string',
+      capacity: 'string',
+      maxSubscriptionAmount: 'string',
+      gmtCreated: 'number',
     };
   }
 
@@ -888,7 +1010,7 @@ export class UpdateAntdigitalWebtrwatradeIssuerPriceResponse extends $tea.Model 
   }
 }
 
-export class ListAntdigitalWebtrwatradeIssuerOperationlogRequest extends $tea.Model {
+export class ListAntdigitalWebtrwatradeIssuerOperationloglogininfoRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
@@ -919,7 +1041,7 @@ export class ListAntdigitalWebtrwatradeIssuerOperationlogRequest extends $tea.Mo
   }
 }
 
-export class ListAntdigitalWebtrwatradeIssuerOperationlogResponse extends $tea.Model {
+export class ListAntdigitalWebtrwatradeIssuerOperationloglogininfoResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -951,7 +1073,7 @@ export class ListAntdigitalWebtrwatradeIssuerOperationlogResponse extends $tea.M
   }
 }
 
-export class ListAntdigitalWebtrwatradeDistributorOperationlogRequest extends $tea.Model {
+export class ListAntdigitalWebtrwatradeDistributorOperationloglogininfoRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
@@ -982,7 +1104,7 @@ export class ListAntdigitalWebtrwatradeDistributorOperationlogRequest extends $t
   }
 }
 
-export class ListAntdigitalWebtrwatradeDistributorOperationlogResponse extends $tea.Model {
+export class ListAntdigitalWebtrwatradeDistributorOperationloglogininfoResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -1014,7 +1136,7 @@ export class ListAntdigitalWebtrwatradeDistributorOperationlogResponse extends $
   }
 }
 
-export class QueryAntdigitalWebtrwatradeIssuerRequest extends $tea.Model {
+export class QueryAntdigitalWebtrwatradeIssuerSubuserdetailRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
@@ -1031,7 +1153,7 @@ export class QueryAntdigitalWebtrwatradeIssuerRequest extends $tea.Model {
   // 登录名（用户ID、用户地址、登录名+登录名类型，三组信息任选一组输入）
   loginName?: string;
   // 登录名类型(EMAIL)（用户ID、用户地址、登录名+登录名类型，三组信息任选一组输入）
-  loginAccoutType?: string;
+  loginAccountType?: string;
   // 开始时间 (时间戳)
   startTimeMills: number;
   // 结束时间 (时间戳)
@@ -1046,7 +1168,7 @@ export class QueryAntdigitalWebtrwatradeIssuerRequest extends $tea.Model {
       userId: 'user_id',
       userAddress: 'user_address',
       loginName: 'login_name',
-      loginAccoutType: 'login_accout_type',
+      loginAccountType: 'login_account_type',
       startTimeMills: 'start_time_mills',
       endTimeMills: 'end_time_mills',
     };
@@ -1062,7 +1184,7 @@ export class QueryAntdigitalWebtrwatradeIssuerRequest extends $tea.Model {
       userId: 'string',
       userAddress: 'string',
       loginName: 'string',
-      loginAccoutType: 'string',
+      loginAccountType: 'string',
       startTimeMills: 'number',
       endTimeMills: 'number',
     };
@@ -1073,7 +1195,7 @@ export class QueryAntdigitalWebtrwatradeIssuerRequest extends $tea.Model {
   }
 }
 
-export class QueryAntdigitalWebtrwatradeIssuerResponse extends $tea.Model {
+export class QueryAntdigitalWebtrwatradeIssuerSubuserdetailResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -1105,7 +1227,7 @@ export class QueryAntdigitalWebtrwatradeIssuerResponse extends $tea.Model {
   }
 }
 
-export class QueryAntdigitalWebtrwatradeDistributorRequest extends $tea.Model {
+export class QueryAntdigitalWebtrwatradeDistributorSubuserdetailRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
@@ -1122,7 +1244,7 @@ export class QueryAntdigitalWebtrwatradeDistributorRequest extends $tea.Model {
   // 登录名（用户ID、用户地址、登录名+登录名类型，三组信息任选一组输入）
   loginName?: string;
   // 登录名类型(EMAIL)（用户ID、用户地址、登录名+登录名类型，三组信息任选一组输入）
-  loginAccoutType?: string;
+  loginAccountType?: string;
   // 开始时间 (时间戳)
   startTimeMills: number;
   // 结束时间 (时间戳)
@@ -1137,7 +1259,7 @@ export class QueryAntdigitalWebtrwatradeDistributorRequest extends $tea.Model {
       userId: 'user_id',
       userAddress: 'user_address',
       loginName: 'login_name',
-      loginAccoutType: 'login_accout_type',
+      loginAccountType: 'login_account_type',
       startTimeMills: 'start_time_mills',
       endTimeMills: 'end_time_mills',
     };
@@ -1153,7 +1275,7 @@ export class QueryAntdigitalWebtrwatradeDistributorRequest extends $tea.Model {
       userId: 'string',
       userAddress: 'string',
       loginName: 'string',
-      loginAccoutType: 'string',
+      loginAccountType: 'string',
       startTimeMills: 'number',
       endTimeMills: 'number',
     };
@@ -1164,7 +1286,7 @@ export class QueryAntdigitalWebtrwatradeDistributorRequest extends $tea.Model {
   }
 }
 
-export class QueryAntdigitalWebtrwatradeDistributorResponse extends $tea.Model {
+export class QueryAntdigitalWebtrwatradeDistributorSubuserdetailResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -1196,7 +1318,7 @@ export class QueryAntdigitalWebtrwatradeDistributorResponse extends $tea.Model {
   }
 }
 
-export class ListAntdigitalWebtrwatradeIssuerCrossaccountRequest extends $tea.Model {
+export class ListAntdigitalWebtrwatradeIssuerCrosschainaccountRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
@@ -1215,7 +1337,7 @@ export class ListAntdigitalWebtrwatradeIssuerCrossaccountRequest extends $tea.Mo
   // 登录名类型(EMAIL) - 用户ID & 本侧链用户地址 & 登录名+登录名类型(EMAIL) 三选一
   loginAccountType?: string;
   // 对侧链用户地址
-  crossChainUserAddress?: string;
+  targetUserAddress?: string;
   // 开始时间 (时间戳)
   startTimeMills: number;
   // 结束时间 (时间戳)
@@ -1231,7 +1353,7 @@ export class ListAntdigitalWebtrwatradeIssuerCrossaccountRequest extends $tea.Mo
       userAddress: 'user_address',
       loginName: 'login_name',
       loginAccountType: 'login_account_type',
-      crossChainUserAddress: 'cross_chain_user_address',
+      targetUserAddress: 'target_user_address',
       startTimeMills: 'start_time_mills',
       endTimeMills: 'end_time_mills',
     };
@@ -1248,7 +1370,7 @@ export class ListAntdigitalWebtrwatradeIssuerCrossaccountRequest extends $tea.Mo
       userAddress: 'string',
       loginName: 'string',
       loginAccountType: 'string',
-      crossChainUserAddress: 'string',
+      targetUserAddress: 'string',
       startTimeMills: 'number',
       endTimeMills: 'number',
     };
@@ -1259,7 +1381,7 @@ export class ListAntdigitalWebtrwatradeIssuerCrossaccountRequest extends $tea.Mo
   }
 }
 
-export class ListAntdigitalWebtrwatradeIssuerCrossaccountResponse extends $tea.Model {
+export class ListAntdigitalWebtrwatradeIssuerCrosschainaccountResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -1291,7 +1413,7 @@ export class ListAntdigitalWebtrwatradeIssuerCrossaccountResponse extends $tea.M
   }
 }
 
-export class ListAntdigitalWebtrwatradeDistributorCrossaccountRequest extends $tea.Model {
+export class ListAntdigitalWebtrwatradeDistributorCrosschainaccountRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
@@ -1310,7 +1432,7 @@ export class ListAntdigitalWebtrwatradeDistributorCrossaccountRequest extends $t
   // 登录名类型(EMAIL) - 用户ID & 本侧链用户地址 & 登录名+登录名类型(EMAIL) 三选一
   loginAccountType?: string;
   // 对侧链用户地址
-  crossChainUserAddress?: string;
+  targetUserAddress?: string;
   // 开始时间 (时间戳)
   startTimeMills: number;
   // 结束时间 (时间戳)
@@ -1326,7 +1448,7 @@ export class ListAntdigitalWebtrwatradeDistributorCrossaccountRequest extends $t
       userAddress: 'user_address',
       loginName: 'login_name',
       loginAccountType: 'login_account_type',
-      crossChainUserAddress: 'cross_chain_user_address',
+      targetUserAddress: 'target_user_address',
       startTimeMills: 'start_time_mills',
       endTimeMills: 'end_time_mills',
     };
@@ -1343,7 +1465,7 @@ export class ListAntdigitalWebtrwatradeDistributorCrossaccountRequest extends $t
       userAddress: 'string',
       loginName: 'string',
       loginAccountType: 'string',
-      crossChainUserAddress: 'string',
+      targetUserAddress: 'string',
       startTimeMills: 'number',
       endTimeMills: 'number',
     };
@@ -1354,7 +1476,7 @@ export class ListAntdigitalWebtrwatradeDistributorCrossaccountRequest extends $t
   }
 }
 
-export class ListAntdigitalWebtrwatradeDistributorCrossaccountResponse extends $tea.Model {
+export class ListAntdigitalWebtrwatradeDistributorCrosschainaccountResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -1456,7 +1578,7 @@ export class DetailAntdigitalWebtrwatradeIssuerProjectwithroleResponse extends $
   }
 }
 
-export class ListAntdigitalWebtrwatradeIssuerAlloperationlogRequest extends $tea.Model {
+export class ListAntdigitalWebtrwatradeIssuerOperationlogRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
@@ -1503,7 +1625,7 @@ export class ListAntdigitalWebtrwatradeIssuerAlloperationlogRequest extends $tea
   }
 }
 
-export class ListAntdigitalWebtrwatradeIssuerAlloperationlogResponse extends $tea.Model {
+export class ListAntdigitalWebtrwatradeIssuerOperationlogResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -1535,7 +1657,7 @@ export class ListAntdigitalWebtrwatradeIssuerAlloperationlogResponse extends $te
   }
 }
 
-export class ListAntdigitalWebtrwatradeDistributorAlloperationlogRequest extends $tea.Model {
+export class ListAntdigitalWebtrwatradeDistributorOperationlogRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
@@ -1582,7 +1704,7 @@ export class ListAntdigitalWebtrwatradeDistributorAlloperationlogRequest extends
   }
 }
 
-export class ListAntdigitalWebtrwatradeDistributorAlloperationlogResponse extends $tea.Model {
+export class ListAntdigitalWebtrwatradeDistributorOperationlogResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -1653,7 +1775,7 @@ export class ListAntdigitalWebtrwatradeIssuerProjectResponse extends $tea.Model 
   // 异常信息的文本描述
   resultMsg?: string;
   // 项目基础信息
-  data?: ProjectBaseInfoVo[];
+  data?: ProjectBaseInfoVO[];
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -1668,7 +1790,7 @@ export class ListAntdigitalWebtrwatradeIssuerProjectResponse extends $tea.Model 
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      data: { 'type': 'array', 'itemType': ProjectBaseInfoVo },
+      data: { 'type': 'array', 'itemType': ProjectBaseInfoVO },
     };
   }
 
@@ -1716,7 +1838,7 @@ export class ListAntdigitalWebtrwatradeDistributorProjectResponse extends $tea.M
   // 异常信息的文本描述
   resultMsg?: string;
   // 项目基础信息
-  data?: ProjectBaseInfoVo[];
+  data?: ProjectBaseInfoVO[];
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -1731,7 +1853,7 @@ export class ListAntdigitalWebtrwatradeDistributorProjectResponse extends $tea.M
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      data: { 'type': 'array', 'itemType': ProjectBaseInfoVo },
+      data: { 'type': 'array', 'itemType': ProjectBaseInfoVO },
     };
   }
 
@@ -1987,7 +2109,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.0",
+          sdk_version: "1.1.1",
           _prod_code: "ak_d3c4f09125a14cd587057c405561809a",
           _prod_channel: "saas",
         };
@@ -2058,114 +2180,114 @@ export default class Client {
    * Description: 发行机构查询登录登出操作日志
    * Summary: 发行机构查询登录登出操作日志
    */
-  async listAntdigitalWebtrwatradeIssuerOperationlog(request: ListAntdigitalWebtrwatradeIssuerOperationlogRequest): Promise<ListAntdigitalWebtrwatradeIssuerOperationlogResponse> {
+  async listAntdigitalWebtrwatradeIssuerOperationloglogininfo(request: ListAntdigitalWebtrwatradeIssuerOperationloglogininfoRequest): Promise<ListAntdigitalWebtrwatradeIssuerOperationloglogininfoResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.listAntdigitalWebtrwatradeIssuerOperationlogEx(request, headers, runtime);
+    return await this.listAntdigitalWebtrwatradeIssuerOperationloglogininfoEx(request, headers, runtime);
   }
 
   /**
    * Description: 发行机构查询登录登出操作日志
    * Summary: 发行机构查询登录登出操作日志
    */
-  async listAntdigitalWebtrwatradeIssuerOperationlogEx(request: ListAntdigitalWebtrwatradeIssuerOperationlogRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ListAntdigitalWebtrwatradeIssuerOperationlogResponse> {
+  async listAntdigitalWebtrwatradeIssuerOperationloglogininfoEx(request: ListAntdigitalWebtrwatradeIssuerOperationloglogininfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ListAntdigitalWebtrwatradeIssuerOperationloglogininfoResponse> {
     Util.validateModel(request);
-    return $tea.cast<ListAntdigitalWebtrwatradeIssuerOperationlogResponse>(await this.doRequest("1.0", "antdigital.webtrwatrade.issuer.operationlog.list", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ListAntdigitalWebtrwatradeIssuerOperationlogResponse({}));
+    return $tea.cast<ListAntdigitalWebtrwatradeIssuerOperationloglogininfoResponse>(await this.doRequest("1.0", "antdigital.webtrwatrade.issuer.operationloglogininfo.list", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ListAntdigitalWebtrwatradeIssuerOperationloglogininfoResponse({}));
   }
 
   /**
    * Description: 代销机构查询登录登出操作日志
    * Summary: 代销机构查询登录登出操作日志
    */
-  async listAntdigitalWebtrwatradeDistributorOperationlog(request: ListAntdigitalWebtrwatradeDistributorOperationlogRequest): Promise<ListAntdigitalWebtrwatradeDistributorOperationlogResponse> {
+  async listAntdigitalWebtrwatradeDistributorOperationloglogininfo(request: ListAntdigitalWebtrwatradeDistributorOperationloglogininfoRequest): Promise<ListAntdigitalWebtrwatradeDistributorOperationloglogininfoResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.listAntdigitalWebtrwatradeDistributorOperationlogEx(request, headers, runtime);
+    return await this.listAntdigitalWebtrwatradeDistributorOperationloglogininfoEx(request, headers, runtime);
   }
 
   /**
    * Description: 代销机构查询登录登出操作日志
    * Summary: 代销机构查询登录登出操作日志
    */
-  async listAntdigitalWebtrwatradeDistributorOperationlogEx(request: ListAntdigitalWebtrwatradeDistributorOperationlogRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ListAntdigitalWebtrwatradeDistributorOperationlogResponse> {
+  async listAntdigitalWebtrwatradeDistributorOperationloglogininfoEx(request: ListAntdigitalWebtrwatradeDistributorOperationloglogininfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ListAntdigitalWebtrwatradeDistributorOperationloglogininfoResponse> {
     Util.validateModel(request);
-    return $tea.cast<ListAntdigitalWebtrwatradeDistributorOperationlogResponse>(await this.doRequest("1.0", "antdigital.webtrwatrade.distributor.operationlog.list", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ListAntdigitalWebtrwatradeDistributorOperationlogResponse({}));
+    return $tea.cast<ListAntdigitalWebtrwatradeDistributorOperationloglogininfoResponse>(await this.doRequest("1.0", "antdigital.webtrwatrade.distributor.operationloglogininfo.list", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ListAntdigitalWebtrwatradeDistributorOperationloglogininfoResponse({}));
   }
 
   /**
    * Description: 发行机构获取二级用户详情数据
    * Summary: 发行机构获取二级用户详情数据
    */
-  async queryAntdigitalWebtrwatradeIssuer(request: QueryAntdigitalWebtrwatradeIssuerRequest): Promise<QueryAntdigitalWebtrwatradeIssuerResponse> {
+  async queryAntdigitalWebtrwatradeIssuerSubuserdetail(request: QueryAntdigitalWebtrwatradeIssuerSubuserdetailRequest): Promise<QueryAntdigitalWebtrwatradeIssuerSubuserdetailResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.queryAntdigitalWebtrwatradeIssuerEx(request, headers, runtime);
+    return await this.queryAntdigitalWebtrwatradeIssuerSubuserdetailEx(request, headers, runtime);
   }
 
   /**
    * Description: 发行机构获取二级用户详情数据
    * Summary: 发行机构获取二级用户详情数据
    */
-  async queryAntdigitalWebtrwatradeIssuerEx(request: QueryAntdigitalWebtrwatradeIssuerRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAntdigitalWebtrwatradeIssuerResponse> {
+  async queryAntdigitalWebtrwatradeIssuerSubuserdetailEx(request: QueryAntdigitalWebtrwatradeIssuerSubuserdetailRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAntdigitalWebtrwatradeIssuerSubuserdetailResponse> {
     Util.validateModel(request);
-    return $tea.cast<QueryAntdigitalWebtrwatradeIssuerResponse>(await this.doRequest("1.0", "antdigital.webtrwatrade.issuer.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAntdigitalWebtrwatradeIssuerResponse({}));
+    return $tea.cast<QueryAntdigitalWebtrwatradeIssuerSubuserdetailResponse>(await this.doRequest("1.0", "antdigital.webtrwatrade.issuer.subuserdetail.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAntdigitalWebtrwatradeIssuerSubuserdetailResponse({}));
   }
 
   /**
    * Description: 代销机构获取二级用户详情数据
    * Summary: 代销机构获取二级用户详情数据
    */
-  async queryAntdigitalWebtrwatradeDistributor(request: QueryAntdigitalWebtrwatradeDistributorRequest): Promise<QueryAntdigitalWebtrwatradeDistributorResponse> {
+  async queryAntdigitalWebtrwatradeDistributorSubuserdetail(request: QueryAntdigitalWebtrwatradeDistributorSubuserdetailRequest): Promise<QueryAntdigitalWebtrwatradeDistributorSubuserdetailResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.queryAntdigitalWebtrwatradeDistributorEx(request, headers, runtime);
+    return await this.queryAntdigitalWebtrwatradeDistributorSubuserdetailEx(request, headers, runtime);
   }
 
   /**
    * Description: 代销机构获取二级用户详情数据
    * Summary: 代销机构获取二级用户详情数据
    */
-  async queryAntdigitalWebtrwatradeDistributorEx(request: QueryAntdigitalWebtrwatradeDistributorRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAntdigitalWebtrwatradeDistributorResponse> {
+  async queryAntdigitalWebtrwatradeDistributorSubuserdetailEx(request: QueryAntdigitalWebtrwatradeDistributorSubuserdetailRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAntdigitalWebtrwatradeDistributorSubuserdetailResponse> {
     Util.validateModel(request);
-    return $tea.cast<QueryAntdigitalWebtrwatradeDistributorResponse>(await this.doRequest("1.0", "antdigital.webtrwatrade.distributor.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAntdigitalWebtrwatradeDistributorResponse({}));
+    return $tea.cast<QueryAntdigitalWebtrwatradeDistributorSubuserdetailResponse>(await this.doRequest("1.0", "antdigital.webtrwatrade.distributor.subuserdetail.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAntdigitalWebtrwatradeDistributorSubuserdetailResponse({}));
   }
 
   /**
    * Description: 发行机构跨链账号明细
    * Summary: 发行机构跨链账号明细
    */
-  async listAntdigitalWebtrwatradeIssuerCrossaccount(request: ListAntdigitalWebtrwatradeIssuerCrossaccountRequest): Promise<ListAntdigitalWebtrwatradeIssuerCrossaccountResponse> {
+  async listAntdigitalWebtrwatradeIssuerCrosschainaccount(request: ListAntdigitalWebtrwatradeIssuerCrosschainaccountRequest): Promise<ListAntdigitalWebtrwatradeIssuerCrosschainaccountResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.listAntdigitalWebtrwatradeIssuerCrossaccountEx(request, headers, runtime);
+    return await this.listAntdigitalWebtrwatradeIssuerCrosschainaccountEx(request, headers, runtime);
   }
 
   /**
    * Description: 发行机构跨链账号明细
    * Summary: 发行机构跨链账号明细
    */
-  async listAntdigitalWebtrwatradeIssuerCrossaccountEx(request: ListAntdigitalWebtrwatradeIssuerCrossaccountRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ListAntdigitalWebtrwatradeIssuerCrossaccountResponse> {
+  async listAntdigitalWebtrwatradeIssuerCrosschainaccountEx(request: ListAntdigitalWebtrwatradeIssuerCrosschainaccountRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ListAntdigitalWebtrwatradeIssuerCrosschainaccountResponse> {
     Util.validateModel(request);
-    return $tea.cast<ListAntdigitalWebtrwatradeIssuerCrossaccountResponse>(await this.doRequest("1.0", "antdigital.webtrwatrade.issuer.crossaccount.list", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ListAntdigitalWebtrwatradeIssuerCrossaccountResponse({}));
+    return $tea.cast<ListAntdigitalWebtrwatradeIssuerCrosschainaccountResponse>(await this.doRequest("1.0", "antdigital.webtrwatrade.issuer.crosschainaccount.list", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ListAntdigitalWebtrwatradeIssuerCrosschainaccountResponse({}));
   }
 
   /**
    * Description: 代销机构跨链账号明细
    * Summary: 代销机构跨链账号明细
    */
-  async listAntdigitalWebtrwatradeDistributorCrossaccount(request: ListAntdigitalWebtrwatradeDistributorCrossaccountRequest): Promise<ListAntdigitalWebtrwatradeDistributorCrossaccountResponse> {
+  async listAntdigitalWebtrwatradeDistributorCrosschainaccount(request: ListAntdigitalWebtrwatradeDistributorCrosschainaccountRequest): Promise<ListAntdigitalWebtrwatradeDistributorCrosschainaccountResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.listAntdigitalWebtrwatradeDistributorCrossaccountEx(request, headers, runtime);
+    return await this.listAntdigitalWebtrwatradeDistributorCrosschainaccountEx(request, headers, runtime);
   }
 
   /**
    * Description: 代销机构跨链账号明细
    * Summary: 代销机构跨链账号明细
    */
-  async listAntdigitalWebtrwatradeDistributorCrossaccountEx(request: ListAntdigitalWebtrwatradeDistributorCrossaccountRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ListAntdigitalWebtrwatradeDistributorCrossaccountResponse> {
+  async listAntdigitalWebtrwatradeDistributorCrosschainaccountEx(request: ListAntdigitalWebtrwatradeDistributorCrosschainaccountRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ListAntdigitalWebtrwatradeDistributorCrosschainaccountResponse> {
     Util.validateModel(request);
-    return $tea.cast<ListAntdigitalWebtrwatradeDistributorCrossaccountResponse>(await this.doRequest("1.0", "antdigital.webtrwatrade.distributor.crossaccount.list", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ListAntdigitalWebtrwatradeDistributorCrossaccountResponse({}));
+    return $tea.cast<ListAntdigitalWebtrwatradeDistributorCrosschainaccountResponse>(await this.doRequest("1.0", "antdigital.webtrwatrade.distributor.crosschainaccount.list", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ListAntdigitalWebtrwatradeDistributorCrosschainaccountResponse({}));
   }
 
   /**
@@ -2191,38 +2313,38 @@ export default class Client {
    * Description: 发行机构查询所有操作员的操作日志
    * Summary: 发行机构查询所有操作员的操作日志
    */
-  async listAntdigitalWebtrwatradeIssuerAlloperationlog(request: ListAntdigitalWebtrwatradeIssuerAlloperationlogRequest): Promise<ListAntdigitalWebtrwatradeIssuerAlloperationlogResponse> {
+  async listAntdigitalWebtrwatradeIssuerOperationlog(request: ListAntdigitalWebtrwatradeIssuerOperationlogRequest): Promise<ListAntdigitalWebtrwatradeIssuerOperationlogResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.listAntdigitalWebtrwatradeIssuerAlloperationlogEx(request, headers, runtime);
+    return await this.listAntdigitalWebtrwatradeIssuerOperationlogEx(request, headers, runtime);
   }
 
   /**
    * Description: 发行机构查询所有操作员的操作日志
    * Summary: 发行机构查询所有操作员的操作日志
    */
-  async listAntdigitalWebtrwatradeIssuerAlloperationlogEx(request: ListAntdigitalWebtrwatradeIssuerAlloperationlogRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ListAntdigitalWebtrwatradeIssuerAlloperationlogResponse> {
+  async listAntdigitalWebtrwatradeIssuerOperationlogEx(request: ListAntdigitalWebtrwatradeIssuerOperationlogRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ListAntdigitalWebtrwatradeIssuerOperationlogResponse> {
     Util.validateModel(request);
-    return $tea.cast<ListAntdigitalWebtrwatradeIssuerAlloperationlogResponse>(await this.doRequest("1.0", "antdigital.webtrwatrade.issuer.alloperationlog.list", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ListAntdigitalWebtrwatradeIssuerAlloperationlogResponse({}));
+    return $tea.cast<ListAntdigitalWebtrwatradeIssuerOperationlogResponse>(await this.doRequest("1.0", "antdigital.webtrwatrade.issuer.operationlog.list", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ListAntdigitalWebtrwatradeIssuerOperationlogResponse({}));
   }
 
   /**
    * Description: 代销机构查询所有操作员的操作日志
    * Summary: 代销机构查询所有操作员的操作日志
    */
-  async listAntdigitalWebtrwatradeDistributorAlloperationlog(request: ListAntdigitalWebtrwatradeDistributorAlloperationlogRequest): Promise<ListAntdigitalWebtrwatradeDistributorAlloperationlogResponse> {
+  async listAntdigitalWebtrwatradeDistributorOperationlog(request: ListAntdigitalWebtrwatradeDistributorOperationlogRequest): Promise<ListAntdigitalWebtrwatradeDistributorOperationlogResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.listAntdigitalWebtrwatradeDistributorAlloperationlogEx(request, headers, runtime);
+    return await this.listAntdigitalWebtrwatradeDistributorOperationlogEx(request, headers, runtime);
   }
 
   /**
    * Description: 代销机构查询所有操作员的操作日志
    * Summary: 代销机构查询所有操作员的操作日志
    */
-  async listAntdigitalWebtrwatradeDistributorAlloperationlogEx(request: ListAntdigitalWebtrwatradeDistributorAlloperationlogRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ListAntdigitalWebtrwatradeDistributorAlloperationlogResponse> {
+  async listAntdigitalWebtrwatradeDistributorOperationlogEx(request: ListAntdigitalWebtrwatradeDistributorOperationlogRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ListAntdigitalWebtrwatradeDistributorOperationlogResponse> {
     Util.validateModel(request);
-    return $tea.cast<ListAntdigitalWebtrwatradeDistributorAlloperationlogResponse>(await this.doRequest("1.0", "antdigital.webtrwatrade.distributor.alloperationlog.list", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ListAntdigitalWebtrwatradeDistributorAlloperationlogResponse({}));
+    return $tea.cast<ListAntdigitalWebtrwatradeDistributorOperationlogResponse>(await this.doRequest("1.0", "antdigital.webtrwatrade.distributor.operationlog.list", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ListAntdigitalWebtrwatradeDistributorOperationlogResponse({}));
   }
 
   /**
