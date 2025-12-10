@@ -52,6 +52,11 @@ namespace AntChain.SDK.AITECH.Models
         [Validation(Required=false)]
         public string Seed { get; set; }
 
+        // 审核时输入的额外信息
+        [NameInMap("extend_info")]
+        [Validation(Required=false)]
+        public string ExtendInfo { get; set; }
+
     }
 
 }
