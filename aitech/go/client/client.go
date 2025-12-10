@@ -1271,6 +1271,8 @@ type SubmitAuditTextRequest struct {
 	Callback *string `json:"callback,omitempty" xml:"callback,omitempty"`
 	// 传callback时必须指定，tenant + seed + auditResult做SHA256生成checksum，保证结果未被篡改（即数科官网控制台-账户信息中的「用户code」）
 	Seed *string `json:"seed,omitempty" xml:"seed,omitempty"`
+	// 审核时输入的额外信息
+	ExtendInfo *string `json:"extend_info,omitempty" xml:"extend_info,omitempty"`
 }
 
 func (s SubmitAuditTextRequest) String() string {
@@ -1318,6 +1320,11 @@ func (s *SubmitAuditTextRequest) SetCallback(v string) *SubmitAuditTextRequest {
 
 func (s *SubmitAuditTextRequest) SetSeed(v string) *SubmitAuditTextRequest {
 	s.Seed = &v
+	return s
+}
+
+func (s *SubmitAuditTextRequest) SetExtendInfo(v string) *SubmitAuditTextRequest {
+	s.ExtendInfo = &v
 	return s
 }
 
@@ -1456,6 +1463,8 @@ type SubmitAuditImageRequest struct {
 	Callback *string `json:"callback,omitempty" xml:"callback,omitempty"`
 	// 传callback时必须指定，tenant + seed + auditResult做SHA256生成checksum，保证结果未被篡改（即数科官网控制台-账户信息中的「用户code」）
 	Seed *string `json:"seed,omitempty" xml:"seed,omitempty"`
+	// 审核时输入的额外信息
+	ExtendInfo *string `json:"extend_info,omitempty" xml:"extend_info,omitempty"`
 }
 
 func (s SubmitAuditImageRequest) String() string {
@@ -1503,6 +1512,11 @@ func (s *SubmitAuditImageRequest) SetCallback(v string) *SubmitAuditImageRequest
 
 func (s *SubmitAuditImageRequest) SetSeed(v string) *SubmitAuditImageRequest {
 	s.Seed = &v
+	return s
+}
+
+func (s *SubmitAuditImageRequest) SetExtendInfo(v string) *SubmitAuditImageRequest {
+	s.ExtendInfo = &v
 	return s
 }
 
@@ -1643,6 +1657,8 @@ type SubmitAuditAudioRequest struct {
 	Callback *string `json:"callback,omitempty" xml:"callback,omitempty"`
 	// 传callback时必须指定，tenant + seed + auditResult做SHA256生成checksum，保证结果未被篡改（即数科官网控制台-账户信息中的「用户code」）
 	Seed *string `json:"seed,omitempty" xml:"seed,omitempty"`
+	// 审核时输入的额外信息
+	ExtendInfo *string `json:"extend_info,omitempty" xml:"extend_info,omitempty"`
 }
 
 func (s SubmitAuditAudioRequest) String() string {
@@ -1690,6 +1706,11 @@ func (s *SubmitAuditAudioRequest) SetCallback(v string) *SubmitAuditAudioRequest
 
 func (s *SubmitAuditAudioRequest) SetSeed(v string) *SubmitAuditAudioRequest {
 	s.Seed = &v
+	return s
+}
+
+func (s *SubmitAuditAudioRequest) SetExtendInfo(v string) *SubmitAuditAudioRequest {
+	s.ExtendInfo = &v
 	return s
 }
 
@@ -1829,6 +1850,8 @@ type SubmitAuditVideoRequest struct {
 	Callback *string `json:"callback,omitempty" xml:"callback,omitempty"`
 	// 传callback时必须指定，tenant + seed + auditResult做SHA256生成checksum，保证结果未被篡改（即数科官网控制台-账户信息中的「用户code」）
 	Seed *string `json:"seed,omitempty" xml:"seed,omitempty"`
+	// 审核时输入的额外信息
+	ExtendInfo *string `json:"extend_info,omitempty" xml:"extend_info,omitempty"`
 }
 
 func (s SubmitAuditVideoRequest) String() string {
@@ -1876,6 +1899,11 @@ func (s *SubmitAuditVideoRequest) SetCallback(v string) *SubmitAuditVideoRequest
 
 func (s *SubmitAuditVideoRequest) SetSeed(v string) *SubmitAuditVideoRequest {
 	s.Seed = &v
+	return s
+}
+
+func (s *SubmitAuditVideoRequest) SetExtendInfo(v string) *SubmitAuditVideoRequest {
+	s.ExtendInfo = &v
 	return s
 }
 
@@ -6798,7 +6826,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.48"),
+				"sdk_version":      tea.String("1.1.50"),
 				"_prod_code":       tea.String("AITECH"),
 				"_prod_channel":    tea.String("default"),
 			}
