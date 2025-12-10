@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.0',
+                    'sdk_version': '1.1.1',
                     '_prod_code': 'ak_d3c4f09125a14cd587057c405561809a',
                     '_prod_channel': 'saas'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.0',
+                    'sdk_version': '1.1.1',
                     '_prod_code': 'ak_d3c4f09125a14cd587057c405561809a',
                     '_prod_channel': 'saas'
                 }
@@ -331,340 +331,340 @@ class Client:
             await self.do_request_async('1.0', 'antdigital.webtrwatrade.issuer.price.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def list_antdigital_webtrwatrade_issuer_operationlog(
+    def list_antdigital_webtrwatrade_issuer_operationloglogininfo(
         self,
-        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeIssuerOperationlogRequest,
-    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeIssuerOperationlogResponse:
+        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeIssuerOperationloglogininfoRequest,
+    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeIssuerOperationloglogininfoResponse:
         """
         Description: 发行机构查询登录登出操作日志
         Summary: 发行机构查询登录登出操作日志
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_antdigital_webtrwatrade_issuer_operationlog_ex(request, headers, runtime)
+        return self.list_antdigital_webtrwatrade_issuer_operationloglogininfo_ex(request, headers, runtime)
 
-    async def list_antdigital_webtrwatrade_issuer_operationlog_async(
+    async def list_antdigital_webtrwatrade_issuer_operationloglogininfo_async(
         self,
-        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeIssuerOperationlogRequest,
-    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeIssuerOperationlogResponse:
+        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeIssuerOperationloglogininfoRequest,
+    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeIssuerOperationloglogininfoResponse:
         """
         Description: 发行机构查询登录登出操作日志
         Summary: 发行机构查询登录登出操作日志
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.list_antdigital_webtrwatrade_issuer_operationlog_ex_async(request, headers, runtime)
+        return await self.list_antdigital_webtrwatrade_issuer_operationloglogininfo_ex_async(request, headers, runtime)
 
-    def list_antdigital_webtrwatrade_issuer_operationlog_ex(
+    def list_antdigital_webtrwatrade_issuer_operationloglogininfo_ex(
         self,
-        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeIssuerOperationlogRequest,
+        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeIssuerOperationloglogininfoRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeIssuerOperationlogResponse:
+    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeIssuerOperationloglogininfoResponse:
         """
         Description: 发行机构查询登录登出操作日志
         Summary: 发行机构查询登录登出操作日志
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeIssuerOperationlogResponse(),
-            self.do_request('1.0', 'antdigital.webtrwatrade.issuer.operationlog.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeIssuerOperationloglogininfoResponse(),
+            self.do_request('1.0', 'antdigital.webtrwatrade.issuer.operationloglogininfo.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def list_antdigital_webtrwatrade_issuer_operationlog_ex_async(
+    async def list_antdigital_webtrwatrade_issuer_operationloglogininfo_ex_async(
         self,
-        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeIssuerOperationlogRequest,
+        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeIssuerOperationloglogininfoRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeIssuerOperationlogResponse:
+    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeIssuerOperationloglogininfoResponse:
         """
         Description: 发行机构查询登录登出操作日志
         Summary: 发行机构查询登录登出操作日志
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeIssuerOperationlogResponse(),
-            await self.do_request_async('1.0', 'antdigital.webtrwatrade.issuer.operationlog.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeIssuerOperationloglogininfoResponse(),
+            await self.do_request_async('1.0', 'antdigital.webtrwatrade.issuer.operationloglogininfo.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def list_antdigital_webtrwatrade_distributor_operationlog(
+    def list_antdigital_webtrwatrade_distributor_operationloglogininfo(
         self,
-        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeDistributorOperationlogRequest,
-    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeDistributorOperationlogResponse:
+        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeDistributorOperationloglogininfoRequest,
+    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeDistributorOperationloglogininfoResponse:
         """
         Description: 代销机构查询登录登出操作日志
         Summary: 代销机构查询登录登出操作日志
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_antdigital_webtrwatrade_distributor_operationlog_ex(request, headers, runtime)
+        return self.list_antdigital_webtrwatrade_distributor_operationloglogininfo_ex(request, headers, runtime)
 
-    async def list_antdigital_webtrwatrade_distributor_operationlog_async(
+    async def list_antdigital_webtrwatrade_distributor_operationloglogininfo_async(
         self,
-        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeDistributorOperationlogRequest,
-    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeDistributorOperationlogResponse:
+        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeDistributorOperationloglogininfoRequest,
+    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeDistributorOperationloglogininfoResponse:
         """
         Description: 代销机构查询登录登出操作日志
         Summary: 代销机构查询登录登出操作日志
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.list_antdigital_webtrwatrade_distributor_operationlog_ex_async(request, headers, runtime)
+        return await self.list_antdigital_webtrwatrade_distributor_operationloglogininfo_ex_async(request, headers, runtime)
 
-    def list_antdigital_webtrwatrade_distributor_operationlog_ex(
+    def list_antdigital_webtrwatrade_distributor_operationloglogininfo_ex(
         self,
-        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeDistributorOperationlogRequest,
+        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeDistributorOperationloglogininfoRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeDistributorOperationlogResponse:
+    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeDistributorOperationloglogininfoResponse:
         """
         Description: 代销机构查询登录登出操作日志
         Summary: 代销机构查询登录登出操作日志
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeDistributorOperationlogResponse(),
-            self.do_request('1.0', 'antdigital.webtrwatrade.distributor.operationlog.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeDistributorOperationloglogininfoResponse(),
+            self.do_request('1.0', 'antdigital.webtrwatrade.distributor.operationloglogininfo.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def list_antdigital_webtrwatrade_distributor_operationlog_ex_async(
+    async def list_antdigital_webtrwatrade_distributor_operationloglogininfo_ex_async(
         self,
-        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeDistributorOperationlogRequest,
+        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeDistributorOperationloglogininfoRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeDistributorOperationlogResponse:
+    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeDistributorOperationloglogininfoResponse:
         """
         Description: 代销机构查询登录登出操作日志
         Summary: 代销机构查询登录登出操作日志
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeDistributorOperationlogResponse(),
-            await self.do_request_async('1.0', 'antdigital.webtrwatrade.distributor.operationlog.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeDistributorOperationloglogininfoResponse(),
+            await self.do_request_async('1.0', 'antdigital.webtrwatrade.distributor.operationloglogininfo.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def query_antdigital_webtrwatrade_issuer(
+    def query_antdigital_webtrwatrade_issuer_subuserdetail(
         self,
-        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeIssuerRequest,
-    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeIssuerResponse:
+        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeIssuerSubuserdetailRequest,
+    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeIssuerSubuserdetailResponse:
         """
         Description: 发行机构获取二级用户详情数据
         Summary: 发行机构获取二级用户详情数据
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.query_antdigital_webtrwatrade_issuer_ex(request, headers, runtime)
+        return self.query_antdigital_webtrwatrade_issuer_subuserdetail_ex(request, headers, runtime)
 
-    async def query_antdigital_webtrwatrade_issuer_async(
+    async def query_antdigital_webtrwatrade_issuer_subuserdetail_async(
         self,
-        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeIssuerRequest,
-    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeIssuerResponse:
+        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeIssuerSubuserdetailRequest,
+    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeIssuerSubuserdetailResponse:
         """
         Description: 发行机构获取二级用户详情数据
         Summary: 发行机构获取二级用户详情数据
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.query_antdigital_webtrwatrade_issuer_ex_async(request, headers, runtime)
+        return await self.query_antdigital_webtrwatrade_issuer_subuserdetail_ex_async(request, headers, runtime)
 
-    def query_antdigital_webtrwatrade_issuer_ex(
+    def query_antdigital_webtrwatrade_issuer_subuserdetail_ex(
         self,
-        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeIssuerRequest,
+        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeIssuerSubuserdetailRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeIssuerResponse:
+    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeIssuerSubuserdetailResponse:
         """
         Description: 发行机构获取二级用户详情数据
         Summary: 发行机构获取二级用户详情数据
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeIssuerResponse(),
-            self.do_request('1.0', 'antdigital.webtrwatrade.issuer.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeIssuerSubuserdetailResponse(),
+            self.do_request('1.0', 'antdigital.webtrwatrade.issuer.subuserdetail.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def query_antdigital_webtrwatrade_issuer_ex_async(
+    async def query_antdigital_webtrwatrade_issuer_subuserdetail_ex_async(
         self,
-        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeIssuerRequest,
+        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeIssuerSubuserdetailRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeIssuerResponse:
+    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeIssuerSubuserdetailResponse:
         """
         Description: 发行机构获取二级用户详情数据
         Summary: 发行机构获取二级用户详情数据
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeIssuerResponse(),
-            await self.do_request_async('1.0', 'antdigital.webtrwatrade.issuer.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeIssuerSubuserdetailResponse(),
+            await self.do_request_async('1.0', 'antdigital.webtrwatrade.issuer.subuserdetail.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def query_antdigital_webtrwatrade_distributor(
+    def query_antdigital_webtrwatrade_distributor_subuserdetail(
         self,
-        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeDistributorRequest,
-    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeDistributorResponse:
+        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeDistributorSubuserdetailRequest,
+    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeDistributorSubuserdetailResponse:
         """
         Description: 代销机构获取二级用户详情数据
         Summary: 代销机构获取二级用户详情数据
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.query_antdigital_webtrwatrade_distributor_ex(request, headers, runtime)
+        return self.query_antdigital_webtrwatrade_distributor_subuserdetail_ex(request, headers, runtime)
 
-    async def query_antdigital_webtrwatrade_distributor_async(
+    async def query_antdigital_webtrwatrade_distributor_subuserdetail_async(
         self,
-        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeDistributorRequest,
-    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeDistributorResponse:
+        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeDistributorSubuserdetailRequest,
+    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeDistributorSubuserdetailResponse:
         """
         Description: 代销机构获取二级用户详情数据
         Summary: 代销机构获取二级用户详情数据
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.query_antdigital_webtrwatrade_distributor_ex_async(request, headers, runtime)
+        return await self.query_antdigital_webtrwatrade_distributor_subuserdetail_ex_async(request, headers, runtime)
 
-    def query_antdigital_webtrwatrade_distributor_ex(
+    def query_antdigital_webtrwatrade_distributor_subuserdetail_ex(
         self,
-        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeDistributorRequest,
+        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeDistributorSubuserdetailRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeDistributorResponse:
+    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeDistributorSubuserdetailResponse:
         """
         Description: 代销机构获取二级用户详情数据
         Summary: 代销机构获取二级用户详情数据
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeDistributorResponse(),
-            self.do_request('1.0', 'antdigital.webtrwatrade.distributor.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeDistributorSubuserdetailResponse(),
+            self.do_request('1.0', 'antdigital.webtrwatrade.distributor.subuserdetail.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def query_antdigital_webtrwatrade_distributor_ex_async(
+    async def query_antdigital_webtrwatrade_distributor_subuserdetail_ex_async(
         self,
-        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeDistributorRequest,
+        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeDistributorSubuserdetailRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeDistributorResponse:
+    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeDistributorSubuserdetailResponse:
         """
         Description: 代销机构获取二级用户详情数据
         Summary: 代销机构获取二级用户详情数据
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeDistributorResponse(),
-            await self.do_request_async('1.0', 'antdigital.webtrwatrade.distributor.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeDistributorSubuserdetailResponse(),
+            await self.do_request_async('1.0', 'antdigital.webtrwatrade.distributor.subuserdetail.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def list_antdigital_webtrwatrade_issuer_crossaccount(
+    def list_antdigital_webtrwatrade_issuer_crosschainaccount(
         self,
-        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeIssuerCrossaccountRequest,
-    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeIssuerCrossaccountResponse:
+        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeIssuerCrosschainaccountRequest,
+    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeIssuerCrosschainaccountResponse:
         """
         Description: 发行机构跨链账号明细
         Summary: 发行机构跨链账号明细
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_antdigital_webtrwatrade_issuer_crossaccount_ex(request, headers, runtime)
+        return self.list_antdigital_webtrwatrade_issuer_crosschainaccount_ex(request, headers, runtime)
 
-    async def list_antdigital_webtrwatrade_issuer_crossaccount_async(
+    async def list_antdigital_webtrwatrade_issuer_crosschainaccount_async(
         self,
-        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeIssuerCrossaccountRequest,
-    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeIssuerCrossaccountResponse:
+        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeIssuerCrosschainaccountRequest,
+    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeIssuerCrosschainaccountResponse:
         """
         Description: 发行机构跨链账号明细
         Summary: 发行机构跨链账号明细
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.list_antdigital_webtrwatrade_issuer_crossaccount_ex_async(request, headers, runtime)
+        return await self.list_antdigital_webtrwatrade_issuer_crosschainaccount_ex_async(request, headers, runtime)
 
-    def list_antdigital_webtrwatrade_issuer_crossaccount_ex(
+    def list_antdigital_webtrwatrade_issuer_crosschainaccount_ex(
         self,
-        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeIssuerCrossaccountRequest,
+        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeIssuerCrosschainaccountRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeIssuerCrossaccountResponse:
+    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeIssuerCrosschainaccountResponse:
         """
         Description: 发行机构跨链账号明细
         Summary: 发行机构跨链账号明细
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeIssuerCrossaccountResponse(),
-            self.do_request('1.0', 'antdigital.webtrwatrade.issuer.crossaccount.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeIssuerCrosschainaccountResponse(),
+            self.do_request('1.0', 'antdigital.webtrwatrade.issuer.crosschainaccount.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def list_antdigital_webtrwatrade_issuer_crossaccount_ex_async(
+    async def list_antdigital_webtrwatrade_issuer_crosschainaccount_ex_async(
         self,
-        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeIssuerCrossaccountRequest,
+        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeIssuerCrosschainaccountRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeIssuerCrossaccountResponse:
+    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeIssuerCrosschainaccountResponse:
         """
         Description: 发行机构跨链账号明细
         Summary: 发行机构跨链账号明细
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeIssuerCrossaccountResponse(),
-            await self.do_request_async('1.0', 'antdigital.webtrwatrade.issuer.crossaccount.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeIssuerCrosschainaccountResponse(),
+            await self.do_request_async('1.0', 'antdigital.webtrwatrade.issuer.crosschainaccount.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def list_antdigital_webtrwatrade_distributor_crossaccount(
+    def list_antdigital_webtrwatrade_distributor_crosschainaccount(
         self,
-        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeDistributorCrossaccountRequest,
-    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeDistributorCrossaccountResponse:
+        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeDistributorCrosschainaccountRequest,
+    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeDistributorCrosschainaccountResponse:
         """
         Description: 代销机构跨链账号明细
         Summary: 代销机构跨链账号明细
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_antdigital_webtrwatrade_distributor_crossaccount_ex(request, headers, runtime)
+        return self.list_antdigital_webtrwatrade_distributor_crosschainaccount_ex(request, headers, runtime)
 
-    async def list_antdigital_webtrwatrade_distributor_crossaccount_async(
+    async def list_antdigital_webtrwatrade_distributor_crosschainaccount_async(
         self,
-        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeDistributorCrossaccountRequest,
-    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeDistributorCrossaccountResponse:
+        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeDistributorCrosschainaccountRequest,
+    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeDistributorCrosschainaccountResponse:
         """
         Description: 代销机构跨链账号明细
         Summary: 代销机构跨链账号明细
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.list_antdigital_webtrwatrade_distributor_crossaccount_ex_async(request, headers, runtime)
+        return await self.list_antdigital_webtrwatrade_distributor_crosschainaccount_ex_async(request, headers, runtime)
 
-    def list_antdigital_webtrwatrade_distributor_crossaccount_ex(
+    def list_antdigital_webtrwatrade_distributor_crosschainaccount_ex(
         self,
-        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeDistributorCrossaccountRequest,
+        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeDistributorCrosschainaccountRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeDistributorCrossaccountResponse:
+    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeDistributorCrosschainaccountResponse:
         """
         Description: 代销机构跨链账号明细
         Summary: 代销机构跨链账号明细
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeDistributorCrossaccountResponse(),
-            self.do_request('1.0', 'antdigital.webtrwatrade.distributor.crossaccount.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeDistributorCrosschainaccountResponse(),
+            self.do_request('1.0', 'antdigital.webtrwatrade.distributor.crosschainaccount.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def list_antdigital_webtrwatrade_distributor_crossaccount_ex_async(
+    async def list_antdigital_webtrwatrade_distributor_crosschainaccount_ex_async(
         self,
-        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeDistributorCrossaccountRequest,
+        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeDistributorCrosschainaccountRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeDistributorCrossaccountResponse:
+    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeDistributorCrosschainaccountResponse:
         """
         Description: 代销机构跨链账号明细
         Summary: 代销机构跨链账号明细
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeDistributorCrossaccountResponse(),
-            await self.do_request_async('1.0', 'antdigital.webtrwatrade.distributor.crossaccount.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeDistributorCrosschainaccountResponse(),
+            await self.do_request_async('1.0', 'antdigital.webtrwatrade.distributor.crosschainaccount.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def detail_antdigital_webtrwatrade_issuer_projectwithrole(
@@ -723,116 +723,116 @@ class Client:
             await self.do_request_async('1.0', 'antdigital.webtrwatrade.issuer.projectwithrole.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def list_antdigital_webtrwatrade_issuer_alloperationlog(
+    def list_antdigital_webtrwatrade_issuer_operationlog(
         self,
-        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeIssuerAlloperationlogRequest,
-    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeIssuerAlloperationlogResponse:
+        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeIssuerOperationlogRequest,
+    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeIssuerOperationlogResponse:
         """
         Description: 发行机构查询所有操作员的操作日志
         Summary: 发行机构查询所有操作员的操作日志
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_antdigital_webtrwatrade_issuer_alloperationlog_ex(request, headers, runtime)
+        return self.list_antdigital_webtrwatrade_issuer_operationlog_ex(request, headers, runtime)
 
-    async def list_antdigital_webtrwatrade_issuer_alloperationlog_async(
+    async def list_antdigital_webtrwatrade_issuer_operationlog_async(
         self,
-        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeIssuerAlloperationlogRequest,
-    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeIssuerAlloperationlogResponse:
+        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeIssuerOperationlogRequest,
+    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeIssuerOperationlogResponse:
         """
         Description: 发行机构查询所有操作员的操作日志
         Summary: 发行机构查询所有操作员的操作日志
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.list_antdigital_webtrwatrade_issuer_alloperationlog_ex_async(request, headers, runtime)
+        return await self.list_antdigital_webtrwatrade_issuer_operationlog_ex_async(request, headers, runtime)
 
-    def list_antdigital_webtrwatrade_issuer_alloperationlog_ex(
+    def list_antdigital_webtrwatrade_issuer_operationlog_ex(
         self,
-        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeIssuerAlloperationlogRequest,
+        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeIssuerOperationlogRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeIssuerAlloperationlogResponse:
+    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeIssuerOperationlogResponse:
         """
         Description: 发行机构查询所有操作员的操作日志
         Summary: 发行机构查询所有操作员的操作日志
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeIssuerAlloperationlogResponse(),
-            self.do_request('1.0', 'antdigital.webtrwatrade.issuer.alloperationlog.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeIssuerOperationlogResponse(),
+            self.do_request('1.0', 'antdigital.webtrwatrade.issuer.operationlog.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def list_antdigital_webtrwatrade_issuer_alloperationlog_ex_async(
+    async def list_antdigital_webtrwatrade_issuer_operationlog_ex_async(
         self,
-        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeIssuerAlloperationlogRequest,
+        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeIssuerOperationlogRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeIssuerAlloperationlogResponse:
+    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeIssuerOperationlogResponse:
         """
         Description: 发行机构查询所有操作员的操作日志
         Summary: 发行机构查询所有操作员的操作日志
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeIssuerAlloperationlogResponse(),
-            await self.do_request_async('1.0', 'antdigital.webtrwatrade.issuer.alloperationlog.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeIssuerOperationlogResponse(),
+            await self.do_request_async('1.0', 'antdigital.webtrwatrade.issuer.operationlog.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def list_antdigital_webtrwatrade_distributor_alloperationlog(
+    def list_antdigital_webtrwatrade_distributor_operationlog(
         self,
-        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeDistributorAlloperationlogRequest,
-    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeDistributorAlloperationlogResponse:
+        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeDistributorOperationlogRequest,
+    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeDistributorOperationlogResponse:
         """
         Description: 代销机构查询所有操作员的操作日志
         Summary: 代销机构查询所有操作员的操作日志
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_antdigital_webtrwatrade_distributor_alloperationlog_ex(request, headers, runtime)
+        return self.list_antdigital_webtrwatrade_distributor_operationlog_ex(request, headers, runtime)
 
-    async def list_antdigital_webtrwatrade_distributor_alloperationlog_async(
+    async def list_antdigital_webtrwatrade_distributor_operationlog_async(
         self,
-        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeDistributorAlloperationlogRequest,
-    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeDistributorAlloperationlogResponse:
+        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeDistributorOperationlogRequest,
+    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeDistributorOperationlogResponse:
         """
         Description: 代销机构查询所有操作员的操作日志
         Summary: 代销机构查询所有操作员的操作日志
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.list_antdigital_webtrwatrade_distributor_alloperationlog_ex_async(request, headers, runtime)
+        return await self.list_antdigital_webtrwatrade_distributor_operationlog_ex_async(request, headers, runtime)
 
-    def list_antdigital_webtrwatrade_distributor_alloperationlog_ex(
+    def list_antdigital_webtrwatrade_distributor_operationlog_ex(
         self,
-        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeDistributorAlloperationlogRequest,
+        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeDistributorOperationlogRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeDistributorAlloperationlogResponse:
+    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeDistributorOperationlogResponse:
         """
         Description: 代销机构查询所有操作员的操作日志
         Summary: 代销机构查询所有操作员的操作日志
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeDistributorAlloperationlogResponse(),
-            self.do_request('1.0', 'antdigital.webtrwatrade.distributor.alloperationlog.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeDistributorOperationlogResponse(),
+            self.do_request('1.0', 'antdigital.webtrwatrade.distributor.operationlog.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def list_antdigital_webtrwatrade_distributor_alloperationlog_ex_async(
+    async def list_antdigital_webtrwatrade_distributor_operationlog_ex_async(
         self,
-        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeDistributorAlloperationlogRequest,
+        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeDistributorOperationlogRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeDistributorAlloperationlogResponse:
+    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeDistributorOperationlogResponse:
         """
         Description: 代销机构查询所有操作员的操作日志
         Summary: 代销机构查询所有操作员的操作日志
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeDistributorAlloperationlogResponse(),
-            await self.do_request_async('1.0', 'antdigital.webtrwatrade.distributor.alloperationlog.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeDistributorOperationlogResponse(),
+            await self.do_request_async('1.0', 'antdigital.webtrwatrade.distributor.operationlog.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def list_antdigital_webtrwatrade_issuer_project(
