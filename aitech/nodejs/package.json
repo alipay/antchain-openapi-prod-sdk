@@ -1,6 +1,6 @@
 {
   "name": "@antchain/aitech",
-  "version": "1.1.48",
+  "version": "1.1.50",
   "description": "",
   "main": "dist/client.js",
   "scripts": {

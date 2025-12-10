@@ -917,6 +917,8 @@ export class SubmitAuditTextRequest extends $tea.Model {
   callback?: string;
   // 传callback时必须指定，tenant + seed + auditResult做SHA256生成checksum，保证结果未被篡改（即数科官网控制台-账户信息中的「用户code」）
   seed?: string;
+  // 审核时输入的额外信息
+  extendInfo?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -927,6 +929,7 @@ export class SubmitAuditTextRequest extends $tea.Model {
       businessId: 'business_id',
       callback: 'callback',
       seed: 'seed',
+      extendInfo: 'extend_info',
     };
   }
 
@@ -940,6 +943,7 @@ export class SubmitAuditTextRequest extends $tea.Model {
       businessId: 'string',
       callback: 'string',
       seed: 'string',
+      extendInfo: 'string',
     };
   }
 
@@ -1062,6 +1066,8 @@ export class SubmitAuditImageRequest extends $tea.Model {
   callback?: string;
   // 传callback时必须指定，tenant + seed + auditResult做SHA256生成checksum，保证结果未被篡改（即数科官网控制台-账户信息中的「用户code」）
   seed?: string;
+  // 审核时输入的额外信息
+  extendInfo?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -1072,6 +1078,7 @@ export class SubmitAuditImageRequest extends $tea.Model {
       businessId: 'business_id',
       callback: 'callback',
       seed: 'seed',
+      extendInfo: 'extend_info',
     };
   }
 
@@ -1085,6 +1092,7 @@ export class SubmitAuditImageRequest extends $tea.Model {
       businessId: 'string',
       callback: 'string',
       seed: 'string',
+      extendInfo: 'string',
     };
   }
 
@@ -1209,6 +1217,8 @@ export class SubmitAuditAudioRequest extends $tea.Model {
   callback?: string;
   // 传callback时必须指定，tenant + seed + auditResult做SHA256生成checksum，保证结果未被篡改（即数科官网控制台-账户信息中的「用户code」）
   seed?: string;
+  // 审核时输入的额外信息
+  extendInfo?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -1219,6 +1229,7 @@ export class SubmitAuditAudioRequest extends $tea.Model {
       businessId: 'business_id',
       callback: 'callback',
       seed: 'seed',
+      extendInfo: 'extend_info',
     };
   }
 
@@ -1232,6 +1243,7 @@ export class SubmitAuditAudioRequest extends $tea.Model {
       businessId: 'string',
       callback: 'string',
       seed: 'string',
+      extendInfo: 'string',
     };
   }
 
@@ -1355,6 +1367,8 @@ export class SubmitAuditVideoRequest extends $tea.Model {
   callback?: string;
   // 传callback时必须指定，tenant + seed + auditResult做SHA256生成checksum，保证结果未被篡改（即数科官网控制台-账户信息中的「用户code」）
   seed?: string;
+  // 审核时输入的额外信息
+  extendInfo?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -1365,6 +1379,7 @@ export class SubmitAuditVideoRequest extends $tea.Model {
       businessId: 'business_id',
       callback: 'callback',
       seed: 'seed',
+      extendInfo: 'extend_info',
     };
   }
 
@@ -1378,6 +1393,7 @@ export class SubmitAuditVideoRequest extends $tea.Model {
       businessId: 'string',
       callback: 'string',
       seed: 'string',
+      extendInfo: 'string',
     };
   }
 
@@ -5176,7 +5192,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.48",
+          sdk_version: "1.1.50",
           _prod_code: "AITECH",
           _prod_channel: "default",
         };
