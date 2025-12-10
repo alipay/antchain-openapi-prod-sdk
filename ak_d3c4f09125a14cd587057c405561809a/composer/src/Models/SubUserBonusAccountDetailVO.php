@@ -48,9 +48,9 @@ class SubUserBonusAccountDetailVO extends Model
      */
     public $postBalance;
 
-    // 交易类别
+    // 交易类别（REPAY/TRANSFER/LOCK/UNLOCK/WITHDRAW/OTC_TRANSFER/TRANSFER_TO_VIRTUAL/WITHDRAW_FROM_VIRTUAL）
     /**
-     * @example ISSUE
+     * @example REPAY
      *
      * @var string
      */
@@ -79,6 +79,14 @@ class SubUserBonusAccountDetailVO extends Model
      * @var int
      */
     public $gmtModified;
+
+    // 交易状态（PENDING/CONFIRMED/INVALID）
+    /**
+     * @example PENDING
+     *
+     * @var string
+     */
+    public $transactionStatus;
     protected $_name = [
         'id'                => 'id',
         'transactionHash'   => 'transaction_hash',
@@ -89,6 +97,7 @@ class SubUserBonusAccountDetailVO extends Model
         'counterAddress'    => 'counter_address',
         'gmtCreated'        => 'gmt_created',
         'gmtModified'       => 'gmt_modified',
+        'transactionStatus' => 'transaction_status',
     ];
 
     public function validate()
@@ -102,6 +111,7 @@ class SubUserBonusAccountDetailVO extends Model
         Model::validateRequired('counterAddress', $this->counterAddress, true);
         Model::validateRequired('gmtCreated', $this->gmtCreated, true);
         Model::validateRequired('gmtModified', $this->gmtModified, true);
+        Model::validateRequired('transactionStatus', $this->transactionStatus, true);
     }
 
     public function toMap()
@@ -133,6 +143,9 @@ class SubUserBonusAccountDetailVO extends Model
         }
         if (null !== $this->gmtModified) {
             $res['gmt_modified'] = $this->gmtModified;
+        }
+        if (null !== $this->transactionStatus) {
+            $res['transaction_status'] = $this->transactionStatus;
         }
 
         return $res;
@@ -172,6 +185,9 @@ class SubUserBonusAccountDetailVO extends Model
         }
         if (isset($map['gmt_modified'])) {
             $model->gmtModified = $map['gmt_modified'];
+        }
+        if (isset($map['transaction_status'])) {
+            $model->transactionStatus = $map['transaction_status'];
         }
 
         return $model;

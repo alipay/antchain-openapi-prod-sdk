@@ -48,6 +48,22 @@ class CrossAccountListVO extends Model
      */
     public $distributorInstitutionId;
 
+    // 项目代币名称
+    /**
+     * @example etf
+     *
+     * @var string
+     */
+    public $tokenName;
+
+    // 项目代币符号
+    /**
+     * @example Token-S
+     *
+     * @var string
+     */
+    public $tokenSymbol;
+
     // 发行链名称
     /**
      * @example ANTCHAIN
@@ -109,6 +125,8 @@ class CrossAccountListVO extends Model
         'bonusAddress'                 => 'bonus_address',
         'userId'                       => 'user_id',
         'distributorInstitutionId'     => 'distributor_institution_id',
+        'tokenName'                    => 'token_name',
+        'tokenSymbol'                  => 'token_symbol',
         'chainName'                    => 'chain_name',
         'subUserAccountId'             => 'sub_user_account_id',
         'subUserBonusAccountId'        => 'sub_user_bonus_account_id',
@@ -139,6 +157,12 @@ class CrossAccountListVO extends Model
         }
         if (null !== $this->distributorInstitutionId) {
             $res['distributor_institution_id'] = $this->distributorInstitutionId;
+        }
+        if (null !== $this->tokenName) {
+            $res['token_name'] = $this->tokenName;
+        }
+        if (null !== $this->tokenSymbol) {
+            $res['token_symbol'] = $this->tokenSymbol;
         }
         if (null !== $this->chainName) {
             $res['chain_name'] = $this->chainName;
@@ -193,6 +217,12 @@ class CrossAccountListVO extends Model
         }
         if (isset($map['distributor_institution_id'])) {
             $model->distributorInstitutionId = $map['distributor_institution_id'];
+        }
+        if (isset($map['token_name'])) {
+            $model->tokenName = $map['token_name'];
+        }
+        if (isset($map['token_symbol'])) {
+            $model->tokenSymbol = $map['token_symbol'];
         }
         if (isset($map['chain_name'])) {
             $model->chainName = $map['chain_name'];

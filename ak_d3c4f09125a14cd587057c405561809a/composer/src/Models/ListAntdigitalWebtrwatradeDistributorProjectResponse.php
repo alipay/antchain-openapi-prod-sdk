@@ -28,7 +28,7 @@ class ListAntdigitalWebtrwatradeDistributorProjectResponse extends Model
 
     // 项目基础信息
     /**
-     * @var ProjectBaseInfoVo[]
+     * @var ProjectBaseInfoVO[]
      */
     public $data;
     protected $_name = [
@@ -89,7 +89,7 @@ class ListAntdigitalWebtrwatradeDistributorProjectResponse extends Model
                 $model->data = [];
                 $n           = 0;
                 foreach ($map['data'] as $item) {
-                    $model->data[$n++] = null !== $item ? ProjectBaseInfoVo::fromMap($item) : $item;
+                    $model->data[$n++] = null !== $item ? ProjectBaseInfoVO::fromMap($item) : $item;
                 }
             }
         }

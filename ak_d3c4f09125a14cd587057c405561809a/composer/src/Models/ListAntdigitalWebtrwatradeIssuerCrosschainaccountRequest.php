@@ -6,7 +6,7 @@ namespace AntChain\Ak_d3c4f09125a14cd587057c405561809a\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ListAntdigitalWebtrwatradeIssuerCrossaccountRequest extends Model
+class ListAntdigitalWebtrwatradeIssuerCrosschainaccountRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -65,7 +65,7 @@ class ListAntdigitalWebtrwatradeIssuerCrossaccountRequest extends Model
     /**
      * @var string
      */
-    public $crossChainUserAddress;
+    public $targetUserAddress;
 
     // 开始时间 (时间戳)
     /**
@@ -79,18 +79,18 @@ class ListAntdigitalWebtrwatradeIssuerCrossaccountRequest extends Model
      */
     public $endTimeMills;
     protected $_name = [
-        'authToken'             => 'auth_token',
-        'productInstanceId'     => 'product_instance_id',
-        'assetProjectId'        => 'asset_project_id',
-        'assetProjectAddress'   => 'asset_project_address',
-        'chainName'             => 'chain_name',
-        'userId'                => 'user_id',
-        'userAddress'           => 'user_address',
-        'loginName'             => 'login_name',
-        'loginAccountType'      => 'login_account_type',
-        'crossChainUserAddress' => 'cross_chain_user_address',
-        'startTimeMills'        => 'start_time_mills',
-        'endTimeMills'          => 'end_time_mills',
+        'authToken'           => 'auth_token',
+        'productInstanceId'   => 'product_instance_id',
+        'assetProjectId'      => 'asset_project_id',
+        'assetProjectAddress' => 'asset_project_address',
+        'chainName'           => 'chain_name',
+        'userId'              => 'user_id',
+        'userAddress'         => 'user_address',
+        'loginName'           => 'login_name',
+        'loginAccountType'    => 'login_account_type',
+        'targetUserAddress'   => 'target_user_address',
+        'startTimeMills'      => 'start_time_mills',
+        'endTimeMills'        => 'end_time_mills',
     ];
 
     public function validate()
@@ -129,8 +129,8 @@ class ListAntdigitalWebtrwatradeIssuerCrossaccountRequest extends Model
         if (null !== $this->loginAccountType) {
             $res['login_account_type'] = $this->loginAccountType;
         }
-        if (null !== $this->crossChainUserAddress) {
-            $res['cross_chain_user_address'] = $this->crossChainUserAddress;
+        if (null !== $this->targetUserAddress) {
+            $res['target_user_address'] = $this->targetUserAddress;
         }
         if (null !== $this->startTimeMills) {
             $res['start_time_mills'] = $this->startTimeMills;
@@ -145,7 +145,7 @@ class ListAntdigitalWebtrwatradeIssuerCrossaccountRequest extends Model
     /**
      * @param array $map
      *
-     * @return ListAntdigitalWebtrwatradeIssuerCrossaccountRequest
+     * @return ListAntdigitalWebtrwatradeIssuerCrosschainaccountRequest
      */
     public static function fromMap($map = [])
     {
@@ -177,8 +177,8 @@ class ListAntdigitalWebtrwatradeIssuerCrossaccountRequest extends Model
         if (isset($map['login_account_type'])) {
             $model->loginAccountType = $map['login_account_type'];
         }
-        if (isset($map['cross_chain_user_address'])) {
-            $model->crossChainUserAddress = $map['cross_chain_user_address'];
+        if (isset($map['target_user_address'])) {
+            $model->targetUserAddress = $map['target_user_address'];
         }
         if (isset($map['start_time_mills'])) {
             $model->startTimeMills = $map['start_time_mills'];

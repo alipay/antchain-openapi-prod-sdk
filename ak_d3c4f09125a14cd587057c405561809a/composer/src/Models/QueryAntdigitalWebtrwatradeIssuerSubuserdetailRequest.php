@@ -6,7 +6,7 @@ namespace AntChain\Ak_d3c4f09125a14cd587057c405561809a\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryAntdigitalWebtrwatradeDistributorRequest extends Model
+class QueryAntdigitalWebtrwatradeIssuerSubuserdetailRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,19 +19,19 @@ class QueryAntdigitalWebtrwatradeDistributorRequest extends Model
      */
     public $productInstanceId;
 
-    // 资产项目ID（资产项目ID、资产项目合约地址+所在链  二选一必填）
+    // 资产项目ID（资产项目ID、资产项目合约地址+所在链 二选一必填）
     /**
      * @var string
      */
     public $assetProjectId;
 
-    // 资产项目合约地址（资产项目ID、资产项目合约地址+所在链  二选一必填）
+    // 资产项目合约地址（资产项目ID、资产项目合约地址+所在链 二选一必填）
     /**
      * @var string
      */
     public $assetProjectAddress;
 
-    // 项目所在链（资产项目ID、资产项目合约地址+所在链  二选一必填）
+    // 项目所在链（资产项目ID、资产项目合约地址+所在链 二选一必填）
     /**
      * @var string
      */
@@ -59,7 +59,7 @@ class QueryAntdigitalWebtrwatradeDistributorRequest extends Model
     /**
      * @var string
      */
-    public $loginAccoutType;
+    public $loginAccountType;
 
     // 开始时间 (时间戳)
     /**
@@ -81,7 +81,7 @@ class QueryAntdigitalWebtrwatradeDistributorRequest extends Model
         'userId'              => 'user_id',
         'userAddress'         => 'user_address',
         'loginName'           => 'login_name',
-        'loginAccoutType'     => 'login_accout_type',
+        'loginAccountType'    => 'login_account_type',
         'startTimeMills'      => 'start_time_mills',
         'endTimeMills'        => 'end_time_mills',
     ];
@@ -119,8 +119,8 @@ class QueryAntdigitalWebtrwatradeDistributorRequest extends Model
         if (null !== $this->loginName) {
             $res['login_name'] = $this->loginName;
         }
-        if (null !== $this->loginAccoutType) {
-            $res['login_accout_type'] = $this->loginAccoutType;
+        if (null !== $this->loginAccountType) {
+            $res['login_account_type'] = $this->loginAccountType;
         }
         if (null !== $this->startTimeMills) {
             $res['start_time_mills'] = $this->startTimeMills;
@@ -135,7 +135,7 @@ class QueryAntdigitalWebtrwatradeDistributorRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryAntdigitalWebtrwatradeDistributorRequest
+     * @return QueryAntdigitalWebtrwatradeIssuerSubuserdetailRequest
      */
     public static function fromMap($map = [])
     {
@@ -164,8 +164,8 @@ class QueryAntdigitalWebtrwatradeDistributorRequest extends Model
         if (isset($map['login_name'])) {
             $model->loginName = $map['login_name'];
         }
-        if (isset($map['login_accout_type'])) {
-            $model->loginAccoutType = $map['login_accout_type'];
+        if (isset($map['login_account_type'])) {
+            $model->loginAccountType = $map['login_account_type'];
         }
         if (isset($map['start_time_mills'])) {
             $model->startTimeMills = $map['start_time_mills'];

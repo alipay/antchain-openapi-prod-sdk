@@ -6,7 +6,7 @@ namespace AntChain\Ak_d3c4f09125a14cd587057c405561809a\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryAntdigitalWebtrwatradeIssuerResponse extends Model
+class QueryAntdigitalWebtrwatradeDistributorSubuserdetailResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -70,7 +70,7 @@ class QueryAntdigitalWebtrwatradeIssuerResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryAntdigitalWebtrwatradeIssuerResponse
+     * @return QueryAntdigitalWebtrwatradeDistributorSubuserdetailResponse
      */
     public static function fromMap($map = [])
     {

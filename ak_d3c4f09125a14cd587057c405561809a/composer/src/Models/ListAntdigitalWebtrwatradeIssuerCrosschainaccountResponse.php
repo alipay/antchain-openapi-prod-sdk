@@ -6,7 +6,7 @@ namespace AntChain\Ak_d3c4f09125a14cd587057c405561809a\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ListAntdigitalWebtrwatradeIssuerAlloperationlogResponse extends Model
+class ListAntdigitalWebtrwatradeIssuerCrosschainaccountResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,9 +26,9 @@ class ListAntdigitalWebtrwatradeIssuerAlloperationlogResponse extends Model
      */
     public $resultMsg;
 
-    // 所有操作日志
+    // 跨链账号明细
     /**
-     * @var OperationLogVO[]
+     * @var CrossAccountListVO[]
      */
     public $data;
     protected $_name = [
@@ -70,7 +70,7 @@ class ListAntdigitalWebtrwatradeIssuerAlloperationlogResponse extends Model
     /**
      * @param array $map
      *
-     * @return ListAntdigitalWebtrwatradeIssuerAlloperationlogResponse
+     * @return ListAntdigitalWebtrwatradeIssuerCrosschainaccountResponse
      */
     public static function fromMap($map = [])
     {
@@ -89,7 +89,7 @@ class ListAntdigitalWebtrwatradeIssuerAlloperationlogResponse extends Model
                 $model->data = [];
                 $n           = 0;
                 foreach ($map['data'] as $item) {
-                    $model->data[$n++] = null !== $item ? OperationLogVO::fromMap($item) : $item;
+                    $model->data[$n++] = null !== $item ? CrossAccountListVO::fromMap($item) : $item;
                 }
             }
         }

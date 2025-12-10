@@ -6,7 +6,7 @@ namespace AntChain\Ak_d3c4f09125a14cd587057c405561809a\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryAntdigitalWebtrwatradeIssuerRequest extends Model
+class ListAntdigitalWebtrwatradeDistributorCrosschainaccountRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,47 +19,53 @@ class QueryAntdigitalWebtrwatradeIssuerRequest extends Model
      */
     public $productInstanceId;
 
-    // 资产项目ID（资产项目ID、资产项目合约地址+所在链 二选一必填）
+    // 资产项目ID - 资产项目ID & 资产项目合约地址+项目所在链  二选一
     /**
      * @var string
      */
     public $assetProjectId;
 
-    // 资产项目合约地址（资产项目ID、资产项目合约地址+所在链 二选一必填）
+    // 资产项目合约地址 - 资产项目ID & 资产项目合约地址+项目所在链  二选一
     /**
      * @var string
      */
     public $assetProjectAddress;
 
-    // 项目所在链（资产项目ID、资产项目合约地址+所在链 二选一必填）
+    // 项目所在链 - 资产项目ID & 资产项目合约地址+项目所在链  二选一
     /**
      * @var string
      */
     public $chainName;
 
-    // 用户ID（用户ID、用户地址、登录名+登录名类型，三组信息任选一组输入）
+    // 用户ID - 用户ID & 本侧链用户地址 & 登录名+登录名类型(EMAIL) 三选一
     /**
      * @var string
      */
     public $userId;
 
-    // 用户地址（用户ID、用户地址、登录名+登录名类型，三组信息任选一组输入）
+    // 本侧链用户地址 - 用户ID & 本侧链用户地址 & 登录名+登录名类型(EMAIL) 三选一
     /**
      * @var string
      */
     public $userAddress;
 
-    // 登录名（用户ID、用户地址、登录名+登录名类型，三组信息任选一组输入）
+    // 登录名 - 用户ID & 本侧链用户地址 & 登录名+登录名类型(EMAIL) 三选一
     /**
      * @var string
      */
     public $loginName;
 
-    // 登录名类型(EMAIL)（用户ID、用户地址、登录名+登录名类型，三组信息任选一组输入）
+    // 登录名类型(EMAIL) - 用户ID & 本侧链用户地址 & 登录名+登录名类型(EMAIL) 三选一
     /**
      * @var string
      */
-    public $loginAccoutType;
+    public $loginAccountType;
+
+    // 对侧链用户地址
+    /**
+     * @var string
+     */
+    public $targetUserAddress;
 
     // 开始时间 (时间戳)
     /**
@@ -81,7 +87,8 @@ class QueryAntdigitalWebtrwatradeIssuerRequest extends Model
         'userId'              => 'user_id',
         'userAddress'         => 'user_address',
         'loginName'           => 'login_name',
-        'loginAccoutType'     => 'login_accout_type',
+        'loginAccountType'    => 'login_account_type',
+        'targetUserAddress'   => 'target_user_address',
         'startTimeMills'      => 'start_time_mills',
         'endTimeMills'        => 'end_time_mills',
     ];
@@ -119,8 +126,11 @@ class QueryAntdigitalWebtrwatradeIssuerRequest extends Model
         if (null !== $this->loginName) {
             $res['login_name'] = $this->loginName;
         }
-        if (null !== $this->loginAccoutType) {
-            $res['login_accout_type'] = $this->loginAccoutType;
+        if (null !== $this->loginAccountType) {
+            $res['login_account_type'] = $this->loginAccountType;
+        }
+        if (null !== $this->targetUserAddress) {
+            $res['target_user_address'] = $this->targetUserAddress;
         }
         if (null !== $this->startTimeMills) {
             $res['start_time_mills'] = $this->startTimeMills;
@@ -135,7 +145,7 @@ class QueryAntdigitalWebtrwatradeIssuerRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryAntdigitalWebtrwatradeIssuerRequest
+     * @return ListAntdigitalWebtrwatradeDistributorCrosschainaccountRequest
      */
     public static function fromMap($map = [])
     {
@@ -164,8 +174,11 @@ class QueryAntdigitalWebtrwatradeIssuerRequest extends Model
         if (isset($map['login_name'])) {
             $model->loginName = $map['login_name'];
         }
-        if (isset($map['login_accout_type'])) {
-            $model->loginAccoutType = $map['login_accout_type'];
+        if (isset($map['login_account_type'])) {
+            $model->loginAccountType = $map['login_account_type'];
+        }
+        if (isset($map['target_user_address'])) {
+            $model->targetUserAddress = $map['target_user_address'];
         }
         if (isset($map['start_time_mills'])) {
             $model->startTimeMills = $map['start_time_mills'];

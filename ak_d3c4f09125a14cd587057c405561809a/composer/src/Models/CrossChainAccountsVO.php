@@ -14,7 +14,7 @@ class CrossChainAccountsVO extends Model
      *
      * @var string
      */
-    public $crossChainUserAddress;
+    public $targetUserAddress;
 
     // 对侧链账户ID
     /**
@@ -48,7 +48,7 @@ class CrossChainAccountsVO extends Model
      */
     public $crossChainBonusAccountsDetails;
     protected $_name = [
-        'crossChainUserAddress'          => 'cross_chain_user_address',
+        'targetUserAddress'              => 'target_user_address',
         'crossChainUserAccountId'        => 'cross_chain_user_account_id',
         'crossChainUserBonusAccountId'   => 'cross_chain_user_bonus_account_id',
         'crossChainUserAccountsDetails'  => 'cross_chain_user_accounts_details',
@@ -62,8 +62,8 @@ class CrossChainAccountsVO extends Model
     public function toMap()
     {
         $res = [];
-        if (null !== $this->crossChainUserAddress) {
-            $res['cross_chain_user_address'] = $this->crossChainUserAddress;
+        if (null !== $this->targetUserAddress) {
+            $res['target_user_address'] = $this->targetUserAddress;
         }
         if (null !== $this->crossChainUserAccountId) {
             $res['cross_chain_user_account_id'] = $this->crossChainUserAccountId;
@@ -101,8 +101,8 @@ class CrossChainAccountsVO extends Model
     public static function fromMap($map = [])
     {
         $model = new self();
-        if (isset($map['cross_chain_user_address'])) {
-            $model->crossChainUserAddress = $map['cross_chain_user_address'];
+        if (isset($map['target_user_address'])) {
+            $model->targetUserAddress = $map['target_user_address'];
         }
         if (isset($map['cross_chain_user_account_id'])) {
             $model->crossChainUserAccountId = $map['cross_chain_user_account_id'];

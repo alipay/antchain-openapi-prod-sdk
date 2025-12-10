@@ -26,9 +26,9 @@ class ListAntdigitalWebtrwatradeIssuerOperationlogResponse extends Model
      */
     public $resultMsg;
 
-    // 回参
+    // 所有操作日志
     /**
-     * @var LoginOperationLogVO[]
+     * @var OperationLogVO[]
      */
     public $data;
     protected $_name = [
@@ -89,7 +89,7 @@ class ListAntdigitalWebtrwatradeIssuerOperationlogResponse extends Model
                 $model->data = [];
                 $n           = 0;
                 foreach ($map['data'] as $item) {
-                    $model->data[$n++] = null !== $item ? LoginOperationLogVO::fromMap($item) : $item;
+                    $model->data[$n++] = null !== $item ? OperationLogVO::fromMap($item) : $item;
                 }
             }
         }
