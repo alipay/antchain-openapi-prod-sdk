@@ -1536,6 +1536,7 @@ class SubmitAuditTextRequest(TeaModel):
         business_id: str = None,
         callback: str = None,
         seed: str = None,
+        extend_info: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -1552,6 +1553,8 @@ class SubmitAuditTextRequest(TeaModel):
         self.callback = callback
         # 传callback时必须指定，tenant + seed + auditResult做SHA256生成checksum，保证结果未被篡改（即数科官网控制台-账户信息中的「用户code」）
         self.seed = seed
+        # 审核时输入的额外信息
+        self.extend_info = extend_info
 
     def validate(self):
         self.validate_required(self.content, 'content')
@@ -1580,6 +1583,8 @@ class SubmitAuditTextRequest(TeaModel):
             result['callback'] = self.callback
         if self.seed is not None:
             result['seed'] = self.seed
+        if self.extend_info is not None:
+            result['extend_info'] = self.extend_info
         return result
 
     def from_map(self, m: dict = None):
@@ -1600,6 +1605,8 @@ class SubmitAuditTextRequest(TeaModel):
             self.callback = m.get('callback')
         if m.get('seed') is not None:
             self.seed = m.get('seed')
+        if m.get('extend_info') is not None:
+            self.extend_info = m.get('extend_info')
         return self
 
 
@@ -1760,6 +1767,7 @@ class SubmitAuditImageRequest(TeaModel):
         business_id: str = None,
         callback: str = None,
         seed: str = None,
+        extend_info: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -1779,6 +1787,8 @@ class SubmitAuditImageRequest(TeaModel):
         self.callback = callback
         # 传callback时必须指定，tenant + seed + auditResult做SHA256生成checksum，保证结果未被篡改（即数科官网控制台-账户信息中的「用户code」）
         self.seed = seed
+        # 审核时输入的额外信息
+        self.extend_info = extend_info
 
     def validate(self):
         self.validate_required(self.url, 'url')
@@ -1807,6 +1817,8 @@ class SubmitAuditImageRequest(TeaModel):
             result['callback'] = self.callback
         if self.seed is not None:
             result['seed'] = self.seed
+        if self.extend_info is not None:
+            result['extend_info'] = self.extend_info
         return result
 
     def from_map(self, m: dict = None):
@@ -1827,6 +1839,8 @@ class SubmitAuditImageRequest(TeaModel):
             self.callback = m.get('callback')
         if m.get('seed') is not None:
             self.seed = m.get('seed')
+        if m.get('extend_info') is not None:
+            self.extend_info = m.get('extend_info')
         return self
 
 
@@ -1988,6 +2002,7 @@ class SubmitAuditAudioRequest(TeaModel):
         business_id: str = None,
         callback: str = None,
         seed: str = None,
+        extend_info: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -2008,6 +2023,8 @@ class SubmitAuditAudioRequest(TeaModel):
         self.callback = callback
         # 传callback时必须指定，tenant + seed + auditResult做SHA256生成checksum，保证结果未被篡改（即数科官网控制台-账户信息中的「用户code」）
         self.seed = seed
+        # 审核时输入的额外信息
+        self.extend_info = extend_info
 
     def validate(self):
         self.validate_required(self.url, 'url')
@@ -2036,6 +2053,8 @@ class SubmitAuditAudioRequest(TeaModel):
             result['callback'] = self.callback
         if self.seed is not None:
             result['seed'] = self.seed
+        if self.extend_info is not None:
+            result['extend_info'] = self.extend_info
         return result
 
     def from_map(self, m: dict = None):
@@ -2056,6 +2075,8 @@ class SubmitAuditAudioRequest(TeaModel):
             self.callback = m.get('callback')
         if m.get('seed') is not None:
             self.seed = m.get('seed')
+        if m.get('extend_info') is not None:
+            self.extend_info = m.get('extend_info')
         return self
 
 
@@ -2217,6 +2238,7 @@ class SubmitAuditVideoRequest(TeaModel):
         business_id: str = None,
         callback: str = None,
         seed: str = None,
+        extend_info: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -2236,6 +2258,8 @@ class SubmitAuditVideoRequest(TeaModel):
         self.callback = callback
         # 传callback时必须指定，tenant + seed + auditResult做SHA256生成checksum，保证结果未被篡改（即数科官网控制台-账户信息中的「用户code」）
         self.seed = seed
+        # 审核时输入的额外信息
+        self.extend_info = extend_info
 
     def validate(self):
         self.validate_required(self.url, 'url')
@@ -2264,6 +2288,8 @@ class SubmitAuditVideoRequest(TeaModel):
             result['callback'] = self.callback
         if self.seed is not None:
             result['seed'] = self.seed
+        if self.extend_info is not None:
+            result['extend_info'] = self.extend_info
         return result
 
     def from_map(self, m: dict = None):
@@ -2284,6 +2310,8 @@ class SubmitAuditVideoRequest(TeaModel):
             self.callback = m.get('callback')
         if m.get('seed') is not None:
             self.seed = m.get('seed')
+        if m.get('extend_info') is not None:
+            self.extend_info = m.get('extend_info')
         return self
 
 
