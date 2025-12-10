@@ -38,6 +38,10 @@ public class SubmitAuditTextRequest extends TeaModel {
     @NameInMap("seed")
     public String seed;
 
+    // 审核时输入的额外信息
+    @NameInMap("extend_info")
+    public String extendInfo;
+
     public static SubmitAuditTextRequest build(java.util.Map<String, ?> map) throws Exception {
         SubmitAuditTextRequest self = new SubmitAuditTextRequest();
         return TeaModel.build(map, self);
@@ -105,6 +109,14 @@ public class SubmitAuditTextRequest extends TeaModel {
     }
     public String getSeed() {
         return this.seed;
+    }
+
+    public SubmitAuditTextRequest setExtendInfo(String extendInfo) {
+        this.extendInfo = extendInfo;
+        return this;
+    }
+    public String getExtendInfo() {
+        return this.extendInfo;
     }
 
 }

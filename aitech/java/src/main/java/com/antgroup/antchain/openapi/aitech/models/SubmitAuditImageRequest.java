@@ -41,6 +41,10 @@ public class SubmitAuditImageRequest extends TeaModel {
     @NameInMap("seed")
     public String seed;
 
+    // 审核时输入的额外信息
+    @NameInMap("extend_info")
+    public String extendInfo;
+
     public static SubmitAuditImageRequest build(java.util.Map<String, ?> map) throws Exception {
         SubmitAuditImageRequest self = new SubmitAuditImageRequest();
         return TeaModel.build(map, self);
@@ -108,6 +112,14 @@ public class SubmitAuditImageRequest extends TeaModel {
     }
     public String getSeed() {
         return this.seed;
+    }
+
+    public SubmitAuditImageRequest setExtendInfo(String extendInfo) {
+        this.extendInfo = extendInfo;
+        return this;
+    }
+    public String getExtendInfo() {
+        return this.extendInfo;
     }
 
 }
