@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.48',
+    sdk_version = '1.1.50',
     _prod_code = 'AITECH',
     _prod_channel = 'default'
   };
@@ -540,6 +540,8 @@ model SubmitAuditTextRequest = {
   callback?: string(name='callback'),
   // 传callback时必须指定，tenant + seed + auditResult做SHA256生成checksum，保证结果未被篡改（即数科官网控制台-账户信息中的「用户code」）
   seed?: string(name='seed'),
+  // 审核时输入的额外信息
+  extendInfo?: string(name='extend_info'),
 }
 
 model SubmitAuditTextResponse = {
@@ -631,6 +633,8 @@ model SubmitAuditImageRequest = {
   callback?: string(name='callback'),
   // 传callback时必须指定，tenant + seed + auditResult做SHA256生成checksum，保证结果未被篡改（即数科官网控制台-账户信息中的「用户code」）
   seed?: string(name='seed'),
+  // 审核时输入的额外信息
+  extendInfo?: string(name='extend_info'),
 }
 
 model SubmitAuditImageResponse = {
@@ -724,6 +728,8 @@ model SubmitAuditAudioRequest = {
   callback?: string(name='callback'),
   // 传callback时必须指定，tenant + seed + auditResult做SHA256生成checksum，保证结果未被篡改（即数科官网控制台-账户信息中的「用户code」）
   seed?: string(name='seed'),
+  // 审核时输入的额外信息
+  extendInfo?: string(name='extend_info'),
 }
 
 model SubmitAuditAudioResponse = {
@@ -816,6 +822,8 @@ model SubmitAuditVideoRequest = {
   callback?: string(name='callback'),
   // 传callback时必须指定，tenant + seed + auditResult做SHA256生成checksum，保证结果未被篡改（即数科官网控制台-账户信息中的「用户code」）
   seed?: string(name='seed'),
+  // 审核时输入的额外信息
+  extendInfo?: string(name='extend_info'),
 }
 
 model SubmitAuditVideoResponse = {
