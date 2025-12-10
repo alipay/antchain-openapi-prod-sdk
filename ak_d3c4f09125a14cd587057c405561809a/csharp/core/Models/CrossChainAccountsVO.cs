@@ -11,9 +11,9 @@ namespace AntChain.SDK.Ak_d3c4f09125a14cd587057c405561809a.Models
     // 跨链账户信息
     public class CrossChainAccountsVO : TeaModel {
         // 对侧链用户地址
-        [NameInMap("cross_chain_user_address")]
+        [NameInMap("target_user_address")]
         [Validation(Required=false)]
-        public string CrossChainUserAddress { get; set; }
+        public string TargetUserAddress { get; set; }
 
         // 对侧链账户ID
         [NameInMap("cross_chain_user_account_id")]

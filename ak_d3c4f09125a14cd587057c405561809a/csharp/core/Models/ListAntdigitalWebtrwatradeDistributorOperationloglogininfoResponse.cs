@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.Ak_d3c4f09125a14cd587057c405561809a.Models
 {
-    public class QueryAntdigitalWebtrwatradeIssuerResponse : TeaModel {
+    public class ListAntdigitalWebtrwatradeDistributorOperationloglogininfoResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,10 +24,10 @@ namespace AntChain.SDK.Ak_d3c4f09125a14cd587057c405561809a.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 账户明细列表
+        // 回参
         [NameInMap("data")]
         [Validation(Required=false)]
-        public List<SubUserAccountDetailVO> Data { get; set; }
+        public List<LoginOperationLogVO> Data { get; set; }
 
     }
 

@@ -24,10 +24,10 @@ namespace AntChain.SDK.Ak_d3c4f09125a14cd587057c405561809a.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 回参
+        // 所有操作日志
         [NameInMap("data")]
         [Validation(Required=false)]
-        public List<LoginOperationLogVO> Data { get; set; }
+        public List<OperationLogVO> Data { get; set; }
 
     }
 

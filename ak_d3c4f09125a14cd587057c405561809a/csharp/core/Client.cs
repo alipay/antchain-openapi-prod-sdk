@@ -137,7 +137,7 @@ namespace AntChain.SDK.Ak_d3c4f09125a14cd587057c405561809a
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.0"},
+                        {"sdk_version", "1.1.1"},
                         {"_prod_code", "ak_d3c4f09125a14cd587057c405561809a"},
                         {"_prod_channel", "saas"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.Ak_d3c4f09125a14cd587057c405561809a
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.0"},
+                        {"sdk_version", "1.1.1"},
                         {"_prod_code", "ak_d3c4f09125a14cd587057c405561809a"},
                         {"_prod_channel", "saas"},
                     };
@@ -367,252 +367,252 @@ namespace AntChain.SDK.Ak_d3c4f09125a14cd587057c405561809a
          * Description: 发行机构查询登录登出操作日志
          * Summary: 发行机构查询登录登出操作日志
          */
-        public ListAntdigitalWebtrwatradeIssuerOperationlogResponse ListAntdigitalWebtrwatradeIssuerOperationlog(ListAntdigitalWebtrwatradeIssuerOperationlogRequest request)
+        public ListAntdigitalWebtrwatradeIssuerOperationloglogininfoResponse ListAntdigitalWebtrwatradeIssuerOperationloglogininfo(ListAntdigitalWebtrwatradeIssuerOperationloglogininfoRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return ListAntdigitalWebtrwatradeIssuerOperationlogEx(request, headers, runtime);
+            return ListAntdigitalWebtrwatradeIssuerOperationloglogininfoEx(request, headers, runtime);
         }
 
         /**
          * Description: 发行机构查询登录登出操作日志
          * Summary: 发行机构查询登录登出操作日志
          */
-        public async Task<ListAntdigitalWebtrwatradeIssuerOperationlogResponse> ListAntdigitalWebtrwatradeIssuerOperationlogAsync(ListAntdigitalWebtrwatradeIssuerOperationlogRequest request)
+        public async Task<ListAntdigitalWebtrwatradeIssuerOperationloglogininfoResponse> ListAntdigitalWebtrwatradeIssuerOperationloglogininfoAsync(ListAntdigitalWebtrwatradeIssuerOperationloglogininfoRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await ListAntdigitalWebtrwatradeIssuerOperationlogExAsync(request, headers, runtime);
+            return await ListAntdigitalWebtrwatradeIssuerOperationloglogininfoExAsync(request, headers, runtime);
         }
 
         /**
          * Description: 发行机构查询登录登出操作日志
          * Summary: 发行机构查询登录登出操作日志
          */
-        public ListAntdigitalWebtrwatradeIssuerOperationlogResponse ListAntdigitalWebtrwatradeIssuerOperationlogEx(ListAntdigitalWebtrwatradeIssuerOperationlogRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public ListAntdigitalWebtrwatradeIssuerOperationloglogininfoResponse ListAntdigitalWebtrwatradeIssuerOperationloglogininfoEx(ListAntdigitalWebtrwatradeIssuerOperationloglogininfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<ListAntdigitalWebtrwatradeIssuerOperationlogResponse>(DoRequest("1.0", "antdigital.webtrwatrade.issuer.operationlog.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<ListAntdigitalWebtrwatradeIssuerOperationloglogininfoResponse>(DoRequest("1.0", "antdigital.webtrwatrade.issuer.operationloglogininfo.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
          * Description: 发行机构查询登录登出操作日志
          * Summary: 发行机构查询登录登出操作日志
          */
-        public async Task<ListAntdigitalWebtrwatradeIssuerOperationlogResponse> ListAntdigitalWebtrwatradeIssuerOperationlogExAsync(ListAntdigitalWebtrwatradeIssuerOperationlogRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public async Task<ListAntdigitalWebtrwatradeIssuerOperationloglogininfoResponse> ListAntdigitalWebtrwatradeIssuerOperationloglogininfoExAsync(ListAntdigitalWebtrwatradeIssuerOperationloglogininfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<ListAntdigitalWebtrwatradeIssuerOperationlogResponse>(await DoRequestAsync("1.0", "antdigital.webtrwatrade.issuer.operationlog.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<ListAntdigitalWebtrwatradeIssuerOperationloglogininfoResponse>(await DoRequestAsync("1.0", "antdigital.webtrwatrade.issuer.operationloglogininfo.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
          * Description: 代销机构查询登录登出操作日志
          * Summary: 代销机构查询登录登出操作日志
          */
-        public ListAntdigitalWebtrwatradeDistributorOperationlogResponse ListAntdigitalWebtrwatradeDistributorOperationlog(ListAntdigitalWebtrwatradeDistributorOperationlogRequest request)
+        public ListAntdigitalWebtrwatradeDistributorOperationloglogininfoResponse ListAntdigitalWebtrwatradeDistributorOperationloglogininfo(ListAntdigitalWebtrwatradeDistributorOperationloglogininfoRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return ListAntdigitalWebtrwatradeDistributorOperationlogEx(request, headers, runtime);
+            return ListAntdigitalWebtrwatradeDistributorOperationloglogininfoEx(request, headers, runtime);
         }
 
         /**
          * Description: 代销机构查询登录登出操作日志
          * Summary: 代销机构查询登录登出操作日志
          */
-        public async Task<ListAntdigitalWebtrwatradeDistributorOperationlogResponse> ListAntdigitalWebtrwatradeDistributorOperationlogAsync(ListAntdigitalWebtrwatradeDistributorOperationlogRequest request)
+        public async Task<ListAntdigitalWebtrwatradeDistributorOperationloglogininfoResponse> ListAntdigitalWebtrwatradeDistributorOperationloglogininfoAsync(ListAntdigitalWebtrwatradeDistributorOperationloglogininfoRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await ListAntdigitalWebtrwatradeDistributorOperationlogExAsync(request, headers, runtime);
+            return await ListAntdigitalWebtrwatradeDistributorOperationloglogininfoExAsync(request, headers, runtime);
         }
 
         /**
          * Description: 代销机构查询登录登出操作日志
          * Summary: 代销机构查询登录登出操作日志
          */
-        public ListAntdigitalWebtrwatradeDistributorOperationlogResponse ListAntdigitalWebtrwatradeDistributorOperationlogEx(ListAntdigitalWebtrwatradeDistributorOperationlogRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public ListAntdigitalWebtrwatradeDistributorOperationloglogininfoResponse ListAntdigitalWebtrwatradeDistributorOperationloglogininfoEx(ListAntdigitalWebtrwatradeDistributorOperationloglogininfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<ListAntdigitalWebtrwatradeDistributorOperationlogResponse>(DoRequest("1.0", "antdigital.webtrwatrade.distributor.operationlog.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<ListAntdigitalWebtrwatradeDistributorOperationloglogininfoResponse>(DoRequest("1.0", "antdigital.webtrwatrade.distributor.operationloglogininfo.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
          * Description: 代销机构查询登录登出操作日志
          * Summary: 代销机构查询登录登出操作日志
          */
-        public async Task<ListAntdigitalWebtrwatradeDistributorOperationlogResponse> ListAntdigitalWebtrwatradeDistributorOperationlogExAsync(ListAntdigitalWebtrwatradeDistributorOperationlogRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public async Task<ListAntdigitalWebtrwatradeDistributorOperationloglogininfoResponse> ListAntdigitalWebtrwatradeDistributorOperationloglogininfoExAsync(ListAntdigitalWebtrwatradeDistributorOperationloglogininfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<ListAntdigitalWebtrwatradeDistributorOperationlogResponse>(await DoRequestAsync("1.0", "antdigital.webtrwatrade.distributor.operationlog.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<ListAntdigitalWebtrwatradeDistributorOperationloglogininfoResponse>(await DoRequestAsync("1.0", "antdigital.webtrwatrade.distributor.operationloglogininfo.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
          * Description: 发行机构获取二级用户详情数据
          * Summary: 发行机构获取二级用户详情数据
          */
-        public QueryAntdigitalWebtrwatradeIssuerResponse QueryAntdigitalWebtrwatradeIssuer(QueryAntdigitalWebtrwatradeIssuerRequest request)
+        public QueryAntdigitalWebtrwatradeIssuerSubuserdetailResponse QueryAntdigitalWebtrwatradeIssuerSubuserdetail(QueryAntdigitalWebtrwatradeIssuerSubuserdetailRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return QueryAntdigitalWebtrwatradeIssuerEx(request, headers, runtime);
+            return QueryAntdigitalWebtrwatradeIssuerSubuserdetailEx(request, headers, runtime);
         }
 
         /**
          * Description: 发行机构获取二级用户详情数据
          * Summary: 发行机构获取二级用户详情数据
          */
-        public async Task<QueryAntdigitalWebtrwatradeIssuerResponse> QueryAntdigitalWebtrwatradeIssuerAsync(QueryAntdigitalWebtrwatradeIssuerRequest request)
+        public async Task<QueryAntdigitalWebtrwatradeIssuerSubuserdetailResponse> QueryAntdigitalWebtrwatradeIssuerSubuserdetailAsync(QueryAntdigitalWebtrwatradeIssuerSubuserdetailRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await QueryAntdigitalWebtrwatradeIssuerExAsync(request, headers, runtime);
+            return await QueryAntdigitalWebtrwatradeIssuerSubuserdetailExAsync(request, headers, runtime);
         }
 
         /**
          * Description: 发行机构获取二级用户详情数据
          * Summary: 发行机构获取二级用户详情数据
          */
-        public QueryAntdigitalWebtrwatradeIssuerResponse QueryAntdigitalWebtrwatradeIssuerEx(QueryAntdigitalWebtrwatradeIssuerRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public QueryAntdigitalWebtrwatradeIssuerSubuserdetailResponse QueryAntdigitalWebtrwatradeIssuerSubuserdetailEx(QueryAntdigitalWebtrwatradeIssuerSubuserdetailRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<QueryAntdigitalWebtrwatradeIssuerResponse>(DoRequest("1.0", "antdigital.webtrwatrade.issuer.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<QueryAntdigitalWebtrwatradeIssuerSubuserdetailResponse>(DoRequest("1.0", "antdigital.webtrwatrade.issuer.subuserdetail.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
          * Description: 发行机构获取二级用户详情数据
          * Summary: 发行机构获取二级用户详情数据
          */
-        public async Task<QueryAntdigitalWebtrwatradeIssuerResponse> QueryAntdigitalWebtrwatradeIssuerExAsync(QueryAntdigitalWebtrwatradeIssuerRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public async Task<QueryAntdigitalWebtrwatradeIssuerSubuserdetailResponse> QueryAntdigitalWebtrwatradeIssuerSubuserdetailExAsync(QueryAntdigitalWebtrwatradeIssuerSubuserdetailRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<QueryAntdigitalWebtrwatradeIssuerResponse>(await DoRequestAsync("1.0", "antdigital.webtrwatrade.issuer.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<QueryAntdigitalWebtrwatradeIssuerSubuserdetailResponse>(await DoRequestAsync("1.0", "antdigital.webtrwatrade.issuer.subuserdetail.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
          * Description: 代销机构获取二级用户详情数据
          * Summary: 代销机构获取二级用户详情数据
          */
-        public QueryAntdigitalWebtrwatradeDistributorResponse QueryAntdigitalWebtrwatradeDistributor(QueryAntdigitalWebtrwatradeDistributorRequest request)
+        public QueryAntdigitalWebtrwatradeDistributorSubuserdetailResponse QueryAntdigitalWebtrwatradeDistributorSubuserdetail(QueryAntdigitalWebtrwatradeDistributorSubuserdetailRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return QueryAntdigitalWebtrwatradeDistributorEx(request, headers, runtime);
+            return QueryAntdigitalWebtrwatradeDistributorSubuserdetailEx(request, headers, runtime);
         }
 
         /**
          * Description: 代销机构获取二级用户详情数据
          * Summary: 代销机构获取二级用户详情数据
          */
-        public async Task<QueryAntdigitalWebtrwatradeDistributorResponse> QueryAntdigitalWebtrwatradeDistributorAsync(QueryAntdigitalWebtrwatradeDistributorRequest request)
+        public async Task<QueryAntdigitalWebtrwatradeDistributorSubuserdetailResponse> QueryAntdigitalWebtrwatradeDistributorSubuserdetailAsync(QueryAntdigitalWebtrwatradeDistributorSubuserdetailRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await QueryAntdigitalWebtrwatradeDistributorExAsync(request, headers, runtime);
+            return await QueryAntdigitalWebtrwatradeDistributorSubuserdetailExAsync(request, headers, runtime);
         }
 
         /**
          * Description: 代销机构获取二级用户详情数据
          * Summary: 代销机构获取二级用户详情数据
          */
-        public QueryAntdigitalWebtrwatradeDistributorResponse QueryAntdigitalWebtrwatradeDistributorEx(QueryAntdigitalWebtrwatradeDistributorRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public QueryAntdigitalWebtrwatradeDistributorSubuserdetailResponse QueryAntdigitalWebtrwatradeDistributorSubuserdetailEx(QueryAntdigitalWebtrwatradeDistributorSubuserdetailRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<QueryAntdigitalWebtrwatradeDistributorResponse>(DoRequest("1.0", "antdigital.webtrwatrade.distributor.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<QueryAntdigitalWebtrwatradeDistributorSubuserdetailResponse>(DoRequest("1.0", "antdigital.webtrwatrade.distributor.subuserdetail.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
          * Description: 代销机构获取二级用户详情数据
          * Summary: 代销机构获取二级用户详情数据
          */
-        public async Task<QueryAntdigitalWebtrwatradeDistributorResponse> QueryAntdigitalWebtrwatradeDistributorExAsync(QueryAntdigitalWebtrwatradeDistributorRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public async Task<QueryAntdigitalWebtrwatradeDistributorSubuserdetailResponse> QueryAntdigitalWebtrwatradeDistributorSubuserdetailExAsync(QueryAntdigitalWebtrwatradeDistributorSubuserdetailRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<QueryAntdigitalWebtrwatradeDistributorResponse>(await DoRequestAsync("1.0", "antdigital.webtrwatrade.distributor.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<QueryAntdigitalWebtrwatradeDistributorSubuserdetailResponse>(await DoRequestAsync("1.0", "antdigital.webtrwatrade.distributor.subuserdetail.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
          * Description: 发行机构跨链账号明细
          * Summary: 发行机构跨链账号明细
          */
-        public ListAntdigitalWebtrwatradeIssuerCrossaccountResponse ListAntdigitalWebtrwatradeIssuerCrossaccount(ListAntdigitalWebtrwatradeIssuerCrossaccountRequest request)
+        public ListAntdigitalWebtrwatradeIssuerCrosschainaccountResponse ListAntdigitalWebtrwatradeIssuerCrosschainaccount(ListAntdigitalWebtrwatradeIssuerCrosschainaccountRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return ListAntdigitalWebtrwatradeIssuerCrossaccountEx(request, headers, runtime);
+            return ListAntdigitalWebtrwatradeIssuerCrosschainaccountEx(request, headers, runtime);
         }
 
         /**
          * Description: 发行机构跨链账号明细
          * Summary: 发行机构跨链账号明细
          */
-        public async Task<ListAntdigitalWebtrwatradeIssuerCrossaccountResponse> ListAntdigitalWebtrwatradeIssuerCrossaccountAsync(ListAntdigitalWebtrwatradeIssuerCrossaccountRequest request)
+        public async Task<ListAntdigitalWebtrwatradeIssuerCrosschainaccountResponse> ListAntdigitalWebtrwatradeIssuerCrosschainaccountAsync(ListAntdigitalWebtrwatradeIssuerCrosschainaccountRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await ListAntdigitalWebtrwatradeIssuerCrossaccountExAsync(request, headers, runtime);
+            return await ListAntdigitalWebtrwatradeIssuerCrosschainaccountExAsync(request, headers, runtime);
         }
 
         /**
          * Description: 发行机构跨链账号明细
          * Summary: 发行机构跨链账号明细
          */
-        public ListAntdigitalWebtrwatradeIssuerCrossaccountResponse ListAntdigitalWebtrwatradeIssuerCrossaccountEx(ListAntdigitalWebtrwatradeIssuerCrossaccountRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public ListAntdigitalWebtrwatradeIssuerCrosschainaccountResponse ListAntdigitalWebtrwatradeIssuerCrosschainaccountEx(ListAntdigitalWebtrwatradeIssuerCrosschainaccountRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<ListAntdigitalWebtrwatradeIssuerCrossaccountResponse>(DoRequest("1.0", "antdigital.webtrwatrade.issuer.crossaccount.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<ListAntdigitalWebtrwatradeIssuerCrosschainaccountResponse>(DoRequest("1.0", "antdigital.webtrwatrade.issuer.crosschainaccount.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
          * Description: 发行机构跨链账号明细
          * Summary: 发行机构跨链账号明细
          */
-        public async Task<ListAntdigitalWebtrwatradeIssuerCrossaccountResponse> ListAntdigitalWebtrwatradeIssuerCrossaccountExAsync(ListAntdigitalWebtrwatradeIssuerCrossaccountRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public async Task<ListAntdigitalWebtrwatradeIssuerCrosschainaccountResponse> ListAntdigitalWebtrwatradeIssuerCrosschainaccountExAsync(ListAntdigitalWebtrwatradeIssuerCrosschainaccountRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<ListAntdigitalWebtrwatradeIssuerCrossaccountResponse>(await DoRequestAsync("1.0", "antdigital.webtrwatrade.issuer.crossaccount.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<ListAntdigitalWebtrwatradeIssuerCrosschainaccountResponse>(await DoRequestAsync("1.0", "antdigital.webtrwatrade.issuer.crosschainaccount.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
          * Description: 代销机构跨链账号明细
          * Summary: 代销机构跨链账号明细
          */
-        public ListAntdigitalWebtrwatradeDistributorCrossaccountResponse ListAntdigitalWebtrwatradeDistributorCrossaccount(ListAntdigitalWebtrwatradeDistributorCrossaccountRequest request)
+        public ListAntdigitalWebtrwatradeDistributorCrosschainaccountResponse ListAntdigitalWebtrwatradeDistributorCrosschainaccount(ListAntdigitalWebtrwatradeDistributorCrosschainaccountRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return ListAntdigitalWebtrwatradeDistributorCrossaccountEx(request, headers, runtime);
+            return ListAntdigitalWebtrwatradeDistributorCrosschainaccountEx(request, headers, runtime);
         }
 
         /**
          * Description: 代销机构跨链账号明细
          * Summary: 代销机构跨链账号明细
          */
-        public async Task<ListAntdigitalWebtrwatradeDistributorCrossaccountResponse> ListAntdigitalWebtrwatradeDistributorCrossaccountAsync(ListAntdigitalWebtrwatradeDistributorCrossaccountRequest request)
+        public async Task<ListAntdigitalWebtrwatradeDistributorCrosschainaccountResponse> ListAntdigitalWebtrwatradeDistributorCrosschainaccountAsync(ListAntdigitalWebtrwatradeDistributorCrosschainaccountRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await ListAntdigitalWebtrwatradeDistributorCrossaccountExAsync(request, headers, runtime);
+            return await ListAntdigitalWebtrwatradeDistributorCrosschainaccountExAsync(request, headers, runtime);
         }
 
         /**
          * Description: 代销机构跨链账号明细
          * Summary: 代销机构跨链账号明细
          */
-        public ListAntdigitalWebtrwatradeDistributorCrossaccountResponse ListAntdigitalWebtrwatradeDistributorCrossaccountEx(ListAntdigitalWebtrwatradeDistributorCrossaccountRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public ListAntdigitalWebtrwatradeDistributorCrosschainaccountResponse ListAntdigitalWebtrwatradeDistributorCrosschainaccountEx(ListAntdigitalWebtrwatradeDistributorCrosschainaccountRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<ListAntdigitalWebtrwatradeDistributorCrossaccountResponse>(DoRequest("1.0", "antdigital.webtrwatrade.distributor.crossaccount.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<ListAntdigitalWebtrwatradeDistributorCrosschainaccountResponse>(DoRequest("1.0", "antdigital.webtrwatrade.distributor.crosschainaccount.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
          * Description: 代销机构跨链账号明细
          * Summary: 代销机构跨链账号明细
          */
-        public async Task<ListAntdigitalWebtrwatradeDistributorCrossaccountResponse> ListAntdigitalWebtrwatradeDistributorCrossaccountExAsync(ListAntdigitalWebtrwatradeDistributorCrossaccountRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public async Task<ListAntdigitalWebtrwatradeDistributorCrosschainaccountResponse> ListAntdigitalWebtrwatradeDistributorCrosschainaccountExAsync(ListAntdigitalWebtrwatradeDistributorCrosschainaccountRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<ListAntdigitalWebtrwatradeDistributorCrossaccountResponse>(await DoRequestAsync("1.0", "antdigital.webtrwatrade.distributor.crossaccount.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<ListAntdigitalWebtrwatradeDistributorCrosschainaccountResponse>(await DoRequestAsync("1.0", "antdigital.webtrwatrade.distributor.crosschainaccount.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -661,84 +661,84 @@ namespace AntChain.SDK.Ak_d3c4f09125a14cd587057c405561809a
          * Description: 发行机构查询所有操作员的操作日志
          * Summary: 发行机构查询所有操作员的操作日志
          */
-        public ListAntdigitalWebtrwatradeIssuerAlloperationlogResponse ListAntdigitalWebtrwatradeIssuerAlloperationlog(ListAntdigitalWebtrwatradeIssuerAlloperationlogRequest request)
+        public ListAntdigitalWebtrwatradeIssuerOperationlogResponse ListAntdigitalWebtrwatradeIssuerOperationlog(ListAntdigitalWebtrwatradeIssuerOperationlogRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return ListAntdigitalWebtrwatradeIssuerAlloperationlogEx(request, headers, runtime);
+            return ListAntdigitalWebtrwatradeIssuerOperationlogEx(request, headers, runtime);
         }
 
         /**
          * Description: 发行机构查询所有操作员的操作日志
          * Summary: 发行机构查询所有操作员的操作日志
          */
-        public async Task<ListAntdigitalWebtrwatradeIssuerAlloperationlogResponse> ListAntdigitalWebtrwatradeIssuerAlloperationlogAsync(ListAntdigitalWebtrwatradeIssuerAlloperationlogRequest request)
+        public async Task<ListAntdigitalWebtrwatradeIssuerOperationlogResponse> ListAntdigitalWebtrwatradeIssuerOperationlogAsync(ListAntdigitalWebtrwatradeIssuerOperationlogRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await ListAntdigitalWebtrwatradeIssuerAlloperationlogExAsync(request, headers, runtime);
+            return await ListAntdigitalWebtrwatradeIssuerOperationlogExAsync(request, headers, runtime);
         }
 
         /**
          * Description: 发行机构查询所有操作员的操作日志
          * Summary: 发行机构查询所有操作员的操作日志
          */
-        public ListAntdigitalWebtrwatradeIssuerAlloperationlogResponse ListAntdigitalWebtrwatradeIssuerAlloperationlogEx(ListAntdigitalWebtrwatradeIssuerAlloperationlogRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public ListAntdigitalWebtrwatradeIssuerOperationlogResponse ListAntdigitalWebtrwatradeIssuerOperationlogEx(ListAntdigitalWebtrwatradeIssuerOperationlogRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<ListAntdigitalWebtrwatradeIssuerAlloperationlogResponse>(DoRequest("1.0", "antdigital.webtrwatrade.issuer.alloperationlog.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<ListAntdigitalWebtrwatradeIssuerOperationlogResponse>(DoRequest("1.0", "antdigital.webtrwatrade.issuer.operationlog.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
          * Description: 发行机构查询所有操作员的操作日志
          * Summary: 发行机构查询所有操作员的操作日志
          */
-        public async Task<ListAntdigitalWebtrwatradeIssuerAlloperationlogResponse> ListAntdigitalWebtrwatradeIssuerAlloperationlogExAsync(ListAntdigitalWebtrwatradeIssuerAlloperationlogRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public async Task<ListAntdigitalWebtrwatradeIssuerOperationlogResponse> ListAntdigitalWebtrwatradeIssuerOperationlogExAsync(ListAntdigitalWebtrwatradeIssuerOperationlogRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<ListAntdigitalWebtrwatradeIssuerAlloperationlogResponse>(await DoRequestAsync("1.0", "antdigital.webtrwatrade.issuer.alloperationlog.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<ListAntdigitalWebtrwatradeIssuerOperationlogResponse>(await DoRequestAsync("1.0", "antdigital.webtrwatrade.issuer.operationlog.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
          * Description: 代销机构查询所有操作员的操作日志
          * Summary: 代销机构查询所有操作员的操作日志
          */
-        public ListAntdigitalWebtrwatradeDistributorAlloperationlogResponse ListAntdigitalWebtrwatradeDistributorAlloperationlog(ListAntdigitalWebtrwatradeDistributorAlloperationlogRequest request)
+        public ListAntdigitalWebtrwatradeDistributorOperationlogResponse ListAntdigitalWebtrwatradeDistributorOperationlog(ListAntdigitalWebtrwatradeDistributorOperationlogRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return ListAntdigitalWebtrwatradeDistributorAlloperationlogEx(request, headers, runtime);
+            return ListAntdigitalWebtrwatradeDistributorOperationlogEx(request, headers, runtime);
         }
 
         /**
          * Description: 代销机构查询所有操作员的操作日志
          * Summary: 代销机构查询所有操作员的操作日志
          */
-        public async Task<ListAntdigitalWebtrwatradeDistributorAlloperationlogResponse> ListAntdigitalWebtrwatradeDistributorAlloperationlogAsync(ListAntdigitalWebtrwatradeDistributorAlloperationlogRequest request)
+        public async Task<ListAntdigitalWebtrwatradeDistributorOperationlogResponse> ListAntdigitalWebtrwatradeDistributorOperationlogAsync(ListAntdigitalWebtrwatradeDistributorOperationlogRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await ListAntdigitalWebtrwatradeDistributorAlloperationlogExAsync(request, headers, runtime);
+            return await ListAntdigitalWebtrwatradeDistributorOperationlogExAsync(request, headers, runtime);
         }
 
         /**
          * Description: 代销机构查询所有操作员的操作日志
          * Summary: 代销机构查询所有操作员的操作日志
          */
-        public ListAntdigitalWebtrwatradeDistributorAlloperationlogResponse ListAntdigitalWebtrwatradeDistributorAlloperationlogEx(ListAntdigitalWebtrwatradeDistributorAlloperationlogRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public ListAntdigitalWebtrwatradeDistributorOperationlogResponse ListAntdigitalWebtrwatradeDistributorOperationlogEx(ListAntdigitalWebtrwatradeDistributorOperationlogRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<ListAntdigitalWebtrwatradeDistributorAlloperationlogResponse>(DoRequest("1.0", "antdigital.webtrwatrade.distributor.alloperationlog.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<ListAntdigitalWebtrwatradeDistributorOperationlogResponse>(DoRequest("1.0", "antdigital.webtrwatrade.distributor.operationlog.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
          * Description: 代销机构查询所有操作员的操作日志
          * Summary: 代销机构查询所有操作员的操作日志
          */
-        public async Task<ListAntdigitalWebtrwatradeDistributorAlloperationlogResponse> ListAntdigitalWebtrwatradeDistributorAlloperationlogExAsync(ListAntdigitalWebtrwatradeDistributorAlloperationlogRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public async Task<ListAntdigitalWebtrwatradeDistributorOperationlogResponse> ListAntdigitalWebtrwatradeDistributorOperationlogExAsync(ListAntdigitalWebtrwatradeDistributorOperationlogRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<ListAntdigitalWebtrwatradeDistributorAlloperationlogResponse>(await DoRequestAsync("1.0", "antdigital.webtrwatrade.distributor.alloperationlog.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<ListAntdigitalWebtrwatradeDistributorOperationlogResponse>(await DoRequestAsync("1.0", "antdigital.webtrwatrade.distributor.operationlog.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

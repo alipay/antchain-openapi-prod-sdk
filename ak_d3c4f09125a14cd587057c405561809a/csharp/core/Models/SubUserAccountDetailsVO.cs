@@ -53,7 +53,12 @@ namespace AntChain.SDK.Ak_d3c4f09125a14cd587057c405561809a.Models
         // 更新时间
         [NameInMap("gmt_modified")]
         [Validation(Required=true)]
-        public string GmtModified { get; set; }
+        public long? GmtModified { get; set; }
+
+        // 交易状态
+        [NameInMap("transaction_status")]
+        [Validation(Required=true)]
+        public string TransactionStatus { get; set; }
 
     }
 

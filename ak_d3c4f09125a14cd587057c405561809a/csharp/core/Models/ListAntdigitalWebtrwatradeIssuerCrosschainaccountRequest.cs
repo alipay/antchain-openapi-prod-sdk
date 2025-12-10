@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.Ak_d3c4f09125a14cd587057c405561809a.Models
 {
-    public class ListAntdigitalWebtrwatradeDistributorCrossaccountRequest : TeaModel {
+    public class ListAntdigitalWebtrwatradeIssuerCrosschainaccountRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,17 +18,17 @@ namespace AntChain.SDK.Ak_d3c4f09125a14cd587057c405561809a.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 资产项目ID - 资产项目ID & 资产项目合约地址+项目所在链  二选一
+        // 资产项目ID - 资产项目ID & 资产项目合约地址+项目所在链 二选一
         [NameInMap("asset_project_id")]
         [Validation(Required=false)]
         public string AssetProjectId { get; set; }
 
-        // 资产项目合约地址 - 资产项目ID & 资产项目合约地址+项目所在链  二选一
+        // 资产项目ID - 资产项目ID & 资产项目合约地址+项目所在链 二选一
         [NameInMap("asset_project_address")]
         [Validation(Required=false)]
         public string AssetProjectAddress { get; set; }
 
-        // 项目所在链 - 资产项目ID & 资产项目合约地址+项目所在链  二选一
+        // 项目所在链 - 资产项目ID & 资产项目合约地址+项目所在链 二选一
         [NameInMap("chain_name")]
         [Validation(Required=false)]
         public string ChainName { get; set; }
@@ -43,7 +43,7 @@ namespace AntChain.SDK.Ak_d3c4f09125a14cd587057c405561809a.Models
         [Validation(Required=false)]
         public string UserAddress { get; set; }
 
-        // 登录名 - 用户ID & 本侧链用户地址 & 登录名+登录名类型(EMAIL) 三选一
+        // 本侧链用户地址 - 用户ID & 本侧链用户地址 & 登录名+登录名类型(EMAIL) 三选一
         [NameInMap("login_name")]
         [Validation(Required=false)]
         public string LoginName { get; set; }
@@ -54,9 +54,9 @@ namespace AntChain.SDK.Ak_d3c4f09125a14cd587057c405561809a.Models
         public string LoginAccountType { get; set; }
 
         // 对侧链用户地址
-        [NameInMap("cross_chain_user_address")]
+        [NameInMap("target_user_address")]
         [Validation(Required=false)]
-        public string CrossChainUserAddress { get; set; }
+        public string TargetUserAddress { get; set; }
 
         // 开始时间 (时间戳)
         [NameInMap("start_time_mills")]

@@ -35,6 +35,16 @@ namespace AntChain.SDK.Ak_d3c4f09125a14cd587057c405561809a.Models
         [Validation(Required=false)]
         public string DistributorInstitutionId { get; set; }
 
+        // 项目代币名称
+        [NameInMap("token_name")]
+        [Validation(Required=false)]
+        public string TokenName { get; set; }
+
+        // 项目代币符号
+        [NameInMap("token_symbol")]
+        [Validation(Required=false)]
+        public string TokenSymbol { get; set; }
+
         // 发行链名称
         [NameInMap("chain_name")]
         [Validation(Required=false)]

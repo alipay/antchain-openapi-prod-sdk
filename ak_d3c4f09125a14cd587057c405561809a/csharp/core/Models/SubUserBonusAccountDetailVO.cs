@@ -35,7 +35,7 @@ namespace AntChain.SDK.Ak_d3c4f09125a14cd587057c405561809a.Models
         [Validation(Required=true)]
         public string PostBalance { get; set; }
 
-        // 交易类别
+        // 交易类别（REPAY/TRANSFER/LOCK/UNLOCK/WITHDRAW/OTC_TRANSFER/TRANSFER_TO_VIRTUAL/WITHDRAW_FROM_VIRTUAL）
         [NameInMap("transaction_type")]
         [Validation(Required=true)]
         public string TransactionType { get; set; }
@@ -54,6 +54,11 @@ namespace AntChain.SDK.Ak_d3c4f09125a14cd587057c405561809a.Models
         [NameInMap("gmt_modified")]
         [Validation(Required=true)]
         public long? GmtModified { get; set; }
+
+        // 交易状态（PENDING/CONFIRMED/INVALID）
+        [NameInMap("transaction_status")]
+        [Validation(Required=true)]
+        public string TransactionStatus { get; set; }
 
     }
 

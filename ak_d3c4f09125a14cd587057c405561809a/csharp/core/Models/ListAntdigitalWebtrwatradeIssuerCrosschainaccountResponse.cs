@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.Ak_d3c4f09125a14cd587057c405561809a.Models
 {
-    public class ListAntdigitalWebtrwatradeIssuerCrossaccountResponse : TeaModel {
+    public class ListAntdigitalWebtrwatradeIssuerCrosschainaccountResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]

@@ -30,6 +30,26 @@ namespace AntChain.SDK.Ak_d3c4f09125a14cd587057c405561809a.Models
         [Validation(Required=false)]
         public string Alias { get; set; }
 
+        // 项目ID
+        [NameInMap("asset_project_id")]
+        [Validation(Required=true)]
+        public string AssetProjectId { get; set; }
+
+        // 链名称
+        [NameInMap("chain_name")]
+        [Validation(Required=true)]
+        public string ChainName { get; set; }
+
+        // 虚拟子账号信息
+        [NameInMap("sub_user_virtual_accounts_info")]
+        [Validation(Required=false)]
+        public List<SubUserVirtualAccountInfoBO> SubUserVirtualAccountsInfo { get; set; }
+
+        // 跨链账号信息
+        [NameInMap("cross_chain_sub_user_accounts_info")]
+        [Validation(Required=false)]
+        public List<CrossChainSubUserAccountInfoBO> CrossChainSubUserAccountsInfo { get; set; }
+
     }
 
 }

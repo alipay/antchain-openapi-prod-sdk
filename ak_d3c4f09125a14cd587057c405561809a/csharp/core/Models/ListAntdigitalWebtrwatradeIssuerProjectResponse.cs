@@ -27,7 +27,7 @@ namespace AntChain.SDK.Ak_d3c4f09125a14cd587057c405561809a.Models
         // 项目基础信息
         [NameInMap("data")]
         [Validation(Required=false)]
-        public List<ProjectBaseInfoVo> Data { get; set; }
+        public List<ProjectBaseInfoVO> Data { get; set; }
 
     }
 
