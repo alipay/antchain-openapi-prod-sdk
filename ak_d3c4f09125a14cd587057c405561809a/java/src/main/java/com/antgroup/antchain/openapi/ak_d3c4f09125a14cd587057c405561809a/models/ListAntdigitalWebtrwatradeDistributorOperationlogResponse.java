@@ -16,9 +16,9 @@ public class ListAntdigitalWebtrwatradeDistributorOperationlogResponse extends T
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 回参
+    // 所有操作日志
     @NameInMap("data")
-    public java.util.List<LoginOperationLogVO> data;
+    public java.util.List<OperationLogVO> data;
 
     public static ListAntdigitalWebtrwatradeDistributorOperationlogResponse build(java.util.Map<String, ?> map) throws Exception {
         ListAntdigitalWebtrwatradeDistributorOperationlogResponse self = new ListAntdigitalWebtrwatradeDistributorOperationlogResponse();
@@ -49,11 +49,11 @@ public class ListAntdigitalWebtrwatradeDistributorOperationlogResponse extends T
         return this.resultMsg;
     }
 
-    public ListAntdigitalWebtrwatradeDistributorOperationlogResponse setData(java.util.List<LoginOperationLogVO> data) {
+    public ListAntdigitalWebtrwatradeDistributorOperationlogResponse setData(java.util.List<OperationLogVO> data) {
         this.data = data;
         return this;
     }
-    public java.util.List<LoginOperationLogVO> getData() {
+    public java.util.List<OperationLogVO> getData() {
         return this.data;
     }
 

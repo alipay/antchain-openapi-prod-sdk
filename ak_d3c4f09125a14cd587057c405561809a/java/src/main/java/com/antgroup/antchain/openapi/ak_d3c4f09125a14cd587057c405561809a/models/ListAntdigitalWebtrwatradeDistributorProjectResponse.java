@@ -18,7 +18,7 @@ public class ListAntdigitalWebtrwatradeDistributorProjectResponse extends TeaMod
 
     // 项目基础信息
     @NameInMap("data")
-    public java.util.List<ProjectBaseInfoVo> data;
+    public java.util.List<ProjectBaseInfoVO> data;
 
     public static ListAntdigitalWebtrwatradeDistributorProjectResponse build(java.util.Map<String, ?> map) throws Exception {
         ListAntdigitalWebtrwatradeDistributorProjectResponse self = new ListAntdigitalWebtrwatradeDistributorProjectResponse();
@@ -49,11 +49,11 @@ public class ListAntdigitalWebtrwatradeDistributorProjectResponse extends TeaMod
         return this.resultMsg;
     }
 
-    public ListAntdigitalWebtrwatradeDistributorProjectResponse setData(java.util.List<ProjectBaseInfoVo> data) {
+    public ListAntdigitalWebtrwatradeDistributorProjectResponse setData(java.util.List<ProjectBaseInfoVO> data) {
         this.data = data;
         return this;
     }
-    public java.util.List<ProjectBaseInfoVo> getData() {
+    public java.util.List<ProjectBaseInfoVO> getData() {
         return this.data;
     }
 

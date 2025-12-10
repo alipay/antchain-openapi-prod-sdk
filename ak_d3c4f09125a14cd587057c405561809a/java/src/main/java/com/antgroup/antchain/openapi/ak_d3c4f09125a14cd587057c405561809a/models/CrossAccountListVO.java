@@ -44,6 +44,22 @@ public class CrossAccountListVO extends TeaModel {
     @NameInMap("distributor_institution_id")
     public String distributorInstitutionId;
 
+    // 项目代币名称
+    /**
+     * <strong>example:</strong>
+     * <p>etf</p>
+     */
+    @NameInMap("token_name")
+    public String tokenName;
+
+    // 项目代币符号
+    /**
+     * <strong>example:</strong>
+     * <p>Token-S</p>
+     */
+    @NameInMap("token_symbol")
+    public String tokenSymbol;
+
     // 发行链名称
     /**
      * <strong>example:</strong>
@@ -143,6 +159,22 @@ public class CrossAccountListVO extends TeaModel {
     }
     public String getDistributorInstitutionId() {
         return this.distributorInstitutionId;
+    }
+
+    public CrossAccountListVO setTokenName(String tokenName) {
+        this.tokenName = tokenName;
+        return this;
+    }
+    public String getTokenName() {
+        return this.tokenName;
+    }
+
+    public CrossAccountListVO setTokenSymbol(String tokenSymbol) {
+        this.tokenSymbol = tokenSymbol;
+        return this;
+    }
+    public String getTokenSymbol() {
+        return this.tokenSymbol;
     }
 
     public CrossAccountListVO setChainName(String chainName) {

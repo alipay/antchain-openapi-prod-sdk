@@ -37,6 +37,32 @@ public class SubUserAccountBaseVO extends TeaModel {
     @NameInMap("alias")
     public String alias;
 
+    // 项目ID
+    /**
+     * <strong>example:</strong>
+     * <p>00d00c02fb314212b73a23a0c95df0c7</p>
+     */
+    @NameInMap("asset_project_id")
+    @Validation(required = true)
+    public String assetProjectId;
+
+    // 链名称
+    /**
+     * <strong>example:</strong>
+     * <p>ANTCHAIN</p>
+     */
+    @NameInMap("chain_name")
+    @Validation(required = true)
+    public String chainName;
+
+    // 虚拟子账号信息
+    @NameInMap("sub_user_virtual_accounts_info")
+    public java.util.List<SubUserVirtualAccountInfoBO> subUserVirtualAccountsInfo;
+
+    // 跨链账号信息
+    @NameInMap("cross_chain_sub_user_accounts_info")
+    public java.util.List<CrossChainSubUserAccountInfoBO> crossChainSubUserAccountsInfo;
+
     public static SubUserAccountBaseVO build(java.util.Map<String, ?> map) throws Exception {
         SubUserAccountBaseVO self = new SubUserAccountBaseVO();
         return TeaModel.build(map, self);
@@ -72,6 +98,38 @@ public class SubUserAccountBaseVO extends TeaModel {
     }
     public String getAlias() {
         return this.alias;
+    }
+
+    public SubUserAccountBaseVO setAssetProjectId(String assetProjectId) {
+        this.assetProjectId = assetProjectId;
+        return this;
+    }
+    public String getAssetProjectId() {
+        return this.assetProjectId;
+    }
+
+    public SubUserAccountBaseVO setChainName(String chainName) {
+        this.chainName = chainName;
+        return this;
+    }
+    public String getChainName() {
+        return this.chainName;
+    }
+
+    public SubUserAccountBaseVO setSubUserVirtualAccountsInfo(java.util.List<SubUserVirtualAccountInfoBO> subUserVirtualAccountsInfo) {
+        this.subUserVirtualAccountsInfo = subUserVirtualAccountsInfo;
+        return this;
+    }
+    public java.util.List<SubUserVirtualAccountInfoBO> getSubUserVirtualAccountsInfo() {
+        return this.subUserVirtualAccountsInfo;
+    }
+
+    public SubUserAccountBaseVO setCrossChainSubUserAccountsInfo(java.util.List<CrossChainSubUserAccountInfoBO> crossChainSubUserAccountsInfo) {
+        this.crossChainSubUserAccountsInfo = crossChainSubUserAccountsInfo;
+        return this;
+    }
+    public java.util.List<CrossChainSubUserAccountInfoBO> getCrossChainSubUserAccountsInfo() {
+        return this.crossChainSubUserAccountsInfo;
     }
 
 }

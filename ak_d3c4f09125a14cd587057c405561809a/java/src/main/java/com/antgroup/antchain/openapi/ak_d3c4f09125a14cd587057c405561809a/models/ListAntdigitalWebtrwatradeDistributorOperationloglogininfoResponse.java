@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.ak_d3c4f09125a14cd587057c405561809a.models
 
 import com.aliyun.tea.*;
 
-public class ListAntdigitalWebtrwatradeIssuerCrossaccountResponse extends TeaModel {
+public class ListAntdigitalWebtrwatradeDistributorOperationloglogininfoResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,16 @@ public class ListAntdigitalWebtrwatradeIssuerCrossaccountResponse extends TeaMod
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 跨链账号明细
+    // 回参
     @NameInMap("data")
-    public java.util.List<CrossAccountListVO> data;
+    public java.util.List<LoginOperationLogVO> data;
 
-    public static ListAntdigitalWebtrwatradeIssuerCrossaccountResponse build(java.util.Map<String, ?> map) throws Exception {
-        ListAntdigitalWebtrwatradeIssuerCrossaccountResponse self = new ListAntdigitalWebtrwatradeIssuerCrossaccountResponse();
+    public static ListAntdigitalWebtrwatradeDistributorOperationloglogininfoResponse build(java.util.Map<String, ?> map) throws Exception {
+        ListAntdigitalWebtrwatradeDistributorOperationloglogininfoResponse self = new ListAntdigitalWebtrwatradeDistributorOperationloglogininfoResponse();
         return TeaModel.build(map, self);
     }
 
-    public ListAntdigitalWebtrwatradeIssuerCrossaccountResponse setReqMsgId(String reqMsgId) {
+    public ListAntdigitalWebtrwatradeDistributorOperationloglogininfoResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class ListAntdigitalWebtrwatradeIssuerCrossaccountResponse extends TeaMod
         return this.reqMsgId;
     }
 
-    public ListAntdigitalWebtrwatradeIssuerCrossaccountResponse setResultCode(String resultCode) {
+    public ListAntdigitalWebtrwatradeDistributorOperationloglogininfoResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class ListAntdigitalWebtrwatradeIssuerCrossaccountResponse extends TeaMod
         return this.resultCode;
     }
 
-    public ListAntdigitalWebtrwatradeIssuerCrossaccountResponse setResultMsg(String resultMsg) {
+    public ListAntdigitalWebtrwatradeDistributorOperationloglogininfoResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,11 +49,11 @@ public class ListAntdigitalWebtrwatradeIssuerCrossaccountResponse extends TeaMod
         return this.resultMsg;
     }
 
-    public ListAntdigitalWebtrwatradeIssuerCrossaccountResponse setData(java.util.List<CrossAccountListVO> data) {
+    public ListAntdigitalWebtrwatradeDistributorOperationloglogininfoResponse setData(java.util.List<LoginOperationLogVO> data) {
         this.data = data;
         return this;
     }
-    public java.util.List<CrossAccountListVO> getData() {
+    public java.util.List<LoginOperationLogVO> getData() {
         return this.data;
     }
 

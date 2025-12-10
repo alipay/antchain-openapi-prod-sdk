@@ -9,8 +9,8 @@ public class CrossChainAccountsVO extends TeaModel {
      * <strong>example:</strong>
      * <p>0xce81adcd4b9b78293c73caed55840c81b4c3b8f5</p>
      */
-    @NameInMap("cross_chain_user_address")
-    public String crossChainUserAddress;
+    @NameInMap("target_user_address")
+    public String targetUserAddress;
 
     // 对侧链账户ID
     /**
@@ -49,12 +49,12 @@ public class CrossChainAccountsVO extends TeaModel {
         return TeaModel.build(map, self);
     }
 
-    public CrossChainAccountsVO setCrossChainUserAddress(String crossChainUserAddress) {
-        this.crossChainUserAddress = crossChainUserAddress;
+    public CrossChainAccountsVO setTargetUserAddress(String targetUserAddress) {
+        this.targetUserAddress = targetUserAddress;
         return this;
     }
-    public String getCrossChainUserAddress() {
-        return this.crossChainUserAddress;
+    public String getTargetUserAddress() {
+        return this.targetUserAddress;
     }
 
     public CrossChainAccountsVO setCrossChainUserAccountId(String crossChainUserAccountId) {

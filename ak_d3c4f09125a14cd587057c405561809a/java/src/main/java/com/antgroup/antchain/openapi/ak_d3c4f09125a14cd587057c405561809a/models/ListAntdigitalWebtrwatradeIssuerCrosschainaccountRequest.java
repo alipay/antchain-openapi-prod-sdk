@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.ak_d3c4f09125a14cd587057c405561809a.models
 
 import com.aliyun.tea.*;
 
-public class ListAntdigitalWebtrwatradeIssuerCrossaccountRequest extends TeaModel {
+public class ListAntdigitalWebtrwatradeIssuerCrosschainaccountRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -40,8 +40,8 @@ public class ListAntdigitalWebtrwatradeIssuerCrossaccountRequest extends TeaMode
     public String loginAccountType;
 
     // 对侧链用户地址
-    @NameInMap("cross_chain_user_address")
-    public String crossChainUserAddress;
+    @NameInMap("target_user_address")
+    public String targetUserAddress;
 
     // 开始时间 (时间戳)
     @NameInMap("start_time_mills")
@@ -53,12 +53,12 @@ public class ListAntdigitalWebtrwatradeIssuerCrossaccountRequest extends TeaMode
     @Validation(required = true)
     public Long endTimeMills;
 
-    public static ListAntdigitalWebtrwatradeIssuerCrossaccountRequest build(java.util.Map<String, ?> map) throws Exception {
-        ListAntdigitalWebtrwatradeIssuerCrossaccountRequest self = new ListAntdigitalWebtrwatradeIssuerCrossaccountRequest();
+    public static ListAntdigitalWebtrwatradeIssuerCrosschainaccountRequest build(java.util.Map<String, ?> map) throws Exception {
+        ListAntdigitalWebtrwatradeIssuerCrosschainaccountRequest self = new ListAntdigitalWebtrwatradeIssuerCrosschainaccountRequest();
         return TeaModel.build(map, self);
     }
 
-    public ListAntdigitalWebtrwatradeIssuerCrossaccountRequest setAuthToken(String authToken) {
+    public ListAntdigitalWebtrwatradeIssuerCrosschainaccountRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -66,7 +66,7 @@ public class ListAntdigitalWebtrwatradeIssuerCrossaccountRequest extends TeaMode
         return this.authToken;
     }
 
-    public ListAntdigitalWebtrwatradeIssuerCrossaccountRequest setProductInstanceId(String productInstanceId) {
+    public ListAntdigitalWebtrwatradeIssuerCrosschainaccountRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -74,7 +74,7 @@ public class ListAntdigitalWebtrwatradeIssuerCrossaccountRequest extends TeaMode
         return this.productInstanceId;
     }
 
-    public ListAntdigitalWebtrwatradeIssuerCrossaccountRequest setAssetProjectId(String assetProjectId) {
+    public ListAntdigitalWebtrwatradeIssuerCrosschainaccountRequest setAssetProjectId(String assetProjectId) {
         this.assetProjectId = assetProjectId;
         return this;
     }
@@ -82,7 +82,7 @@ public class ListAntdigitalWebtrwatradeIssuerCrossaccountRequest extends TeaMode
         return this.assetProjectId;
     }
 
-    public ListAntdigitalWebtrwatradeIssuerCrossaccountRequest setAssetProjectAddress(String assetProjectAddress) {
+    public ListAntdigitalWebtrwatradeIssuerCrosschainaccountRequest setAssetProjectAddress(String assetProjectAddress) {
         this.assetProjectAddress = assetProjectAddress;
         return this;
     }
@@ -90,7 +90,7 @@ public class ListAntdigitalWebtrwatradeIssuerCrossaccountRequest extends TeaMode
         return this.assetProjectAddress;
     }
 
-    public ListAntdigitalWebtrwatradeIssuerCrossaccountRequest setChainName(String chainName) {
+    public ListAntdigitalWebtrwatradeIssuerCrosschainaccountRequest setChainName(String chainName) {
         this.chainName = chainName;
         return this;
     }
@@ -98,7 +98,7 @@ public class ListAntdigitalWebtrwatradeIssuerCrossaccountRequest extends TeaMode
         return this.chainName;
     }
 
-    public ListAntdigitalWebtrwatradeIssuerCrossaccountRequest setUserId(String userId) {
+    public ListAntdigitalWebtrwatradeIssuerCrosschainaccountRequest setUserId(String userId) {
         this.userId = userId;
         return this;
     }
@@ -106,7 +106,7 @@ public class ListAntdigitalWebtrwatradeIssuerCrossaccountRequest extends TeaMode
         return this.userId;
     }
 
-    public ListAntdigitalWebtrwatradeIssuerCrossaccountRequest setUserAddress(String userAddress) {
+    public ListAntdigitalWebtrwatradeIssuerCrosschainaccountRequest setUserAddress(String userAddress) {
         this.userAddress = userAddress;
         return this;
     }
@@ -114,7 +114,7 @@ public class ListAntdigitalWebtrwatradeIssuerCrossaccountRequest extends TeaMode
         return this.userAddress;
     }
 
-    public ListAntdigitalWebtrwatradeIssuerCrossaccountRequest setLoginName(String loginName) {
+    public ListAntdigitalWebtrwatradeIssuerCrosschainaccountRequest setLoginName(String loginName) {
         this.loginName = loginName;
         return this;
     }
@@ -122,7 +122,7 @@ public class ListAntdigitalWebtrwatradeIssuerCrossaccountRequest extends TeaMode
         return this.loginName;
     }
 
-    public ListAntdigitalWebtrwatradeIssuerCrossaccountRequest setLoginAccountType(String loginAccountType) {
+    public ListAntdigitalWebtrwatradeIssuerCrosschainaccountRequest setLoginAccountType(String loginAccountType) {
         this.loginAccountType = loginAccountType;
         return this;
     }
@@ -130,15 +130,15 @@ public class ListAntdigitalWebtrwatradeIssuerCrossaccountRequest extends TeaMode
         return this.loginAccountType;
     }
 
-    public ListAntdigitalWebtrwatradeIssuerCrossaccountRequest setCrossChainUserAddress(String crossChainUserAddress) {
-        this.crossChainUserAddress = crossChainUserAddress;
+    public ListAntdigitalWebtrwatradeIssuerCrosschainaccountRequest setTargetUserAddress(String targetUserAddress) {
+        this.targetUserAddress = targetUserAddress;
         return this;
     }
-    public String getCrossChainUserAddress() {
-        return this.crossChainUserAddress;
+    public String getTargetUserAddress() {
+        return this.targetUserAddress;
     }
 
-    public ListAntdigitalWebtrwatradeIssuerCrossaccountRequest setStartTimeMills(Long startTimeMills) {
+    public ListAntdigitalWebtrwatradeIssuerCrosschainaccountRequest setStartTimeMills(Long startTimeMills) {
         this.startTimeMills = startTimeMills;
         return this;
     }
@@ -146,7 +146,7 @@ public class ListAntdigitalWebtrwatradeIssuerCrossaccountRequest extends TeaMode
         return this.startTimeMills;
     }
 
-    public ListAntdigitalWebtrwatradeIssuerCrossaccountRequest setEndTimeMills(Long endTimeMills) {
+    public ListAntdigitalWebtrwatradeIssuerCrosschainaccountRequest setEndTimeMills(Long endTimeMills) {
         this.endTimeMills = endTimeMills;
         return this;
     }

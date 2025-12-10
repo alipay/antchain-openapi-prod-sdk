@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.1.0"),
+                    new TeaPair("sdk_version", "1.1.1"),
                     new TeaPair("_prod_code", "ak_d3c4f09125a14cd587057c405561809a"),
                     new TeaPair("_prod_channel", "saas")
                 );
@@ -214,10 +214,10 @@ public class Client {
      * <p>Description: 发行机构查询登录登出操作日志
      * Summary: 发行机构查询登录登出操作日志</p>
      */
-    public ListAntdigitalWebtrwatradeIssuerOperationlogResponse listAntdigitalWebtrwatradeIssuerOperationlog(ListAntdigitalWebtrwatradeIssuerOperationlogRequest request) throws Exception {
+    public ListAntdigitalWebtrwatradeIssuerOperationloglogininfoResponse listAntdigitalWebtrwatradeIssuerOperationloglogininfo(ListAntdigitalWebtrwatradeIssuerOperationloglogininfoRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.listAntdigitalWebtrwatradeIssuerOperationlogEx(request, headers, runtime);
+        return this.listAntdigitalWebtrwatradeIssuerOperationloglogininfoEx(request, headers, runtime);
     }
 
     /**
@@ -225,9 +225,9 @@ public class Client {
      * <p>Description: 发行机构查询登录登出操作日志
      * Summary: 发行机构查询登录登出操作日志</p>
      */
-    public ListAntdigitalWebtrwatradeIssuerOperationlogResponse listAntdigitalWebtrwatradeIssuerOperationlogEx(ListAntdigitalWebtrwatradeIssuerOperationlogRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+    public ListAntdigitalWebtrwatradeIssuerOperationloglogininfoResponse listAntdigitalWebtrwatradeIssuerOperationloglogininfoEx(ListAntdigitalWebtrwatradeIssuerOperationloglogininfoRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antdigital.webtrwatrade.issuer.operationlog.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListAntdigitalWebtrwatradeIssuerOperationlogResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.webtrwatrade.issuer.operationloglogininfo.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListAntdigitalWebtrwatradeIssuerOperationloglogininfoResponse());
     }
 
     /**
@@ -235,10 +235,10 @@ public class Client {
      * <p>Description: 代销机构查询登录登出操作日志
      * Summary: 代销机构查询登录登出操作日志</p>
      */
-    public ListAntdigitalWebtrwatradeDistributorOperationlogResponse listAntdigitalWebtrwatradeDistributorOperationlog(ListAntdigitalWebtrwatradeDistributorOperationlogRequest request) throws Exception {
+    public ListAntdigitalWebtrwatradeDistributorOperationloglogininfoResponse listAntdigitalWebtrwatradeDistributorOperationloglogininfo(ListAntdigitalWebtrwatradeDistributorOperationloglogininfoRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.listAntdigitalWebtrwatradeDistributorOperationlogEx(request, headers, runtime);
+        return this.listAntdigitalWebtrwatradeDistributorOperationloglogininfoEx(request, headers, runtime);
     }
 
     /**
@@ -246,9 +246,9 @@ public class Client {
      * <p>Description: 代销机构查询登录登出操作日志
      * Summary: 代销机构查询登录登出操作日志</p>
      */
-    public ListAntdigitalWebtrwatradeDistributorOperationlogResponse listAntdigitalWebtrwatradeDistributorOperationlogEx(ListAntdigitalWebtrwatradeDistributorOperationlogRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+    public ListAntdigitalWebtrwatradeDistributorOperationloglogininfoResponse listAntdigitalWebtrwatradeDistributorOperationloglogininfoEx(ListAntdigitalWebtrwatradeDistributorOperationloglogininfoRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antdigital.webtrwatrade.distributor.operationlog.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListAntdigitalWebtrwatradeDistributorOperationlogResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.webtrwatrade.distributor.operationloglogininfo.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListAntdigitalWebtrwatradeDistributorOperationloglogininfoResponse());
     }
 
     /**
@@ -256,10 +256,10 @@ public class Client {
      * <p>Description: 发行机构获取二级用户详情数据
      * Summary: 发行机构获取二级用户详情数据</p>
      */
-    public QueryAntdigitalWebtrwatradeIssuerResponse queryAntdigitalWebtrwatradeIssuer(QueryAntdigitalWebtrwatradeIssuerRequest request) throws Exception {
+    public QueryAntdigitalWebtrwatradeIssuerSubuserdetailResponse queryAntdigitalWebtrwatradeIssuerSubuserdetail(QueryAntdigitalWebtrwatradeIssuerSubuserdetailRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.queryAntdigitalWebtrwatradeIssuerEx(request, headers, runtime);
+        return this.queryAntdigitalWebtrwatradeIssuerSubuserdetailEx(request, headers, runtime);
     }
 
     /**
@@ -267,9 +267,9 @@ public class Client {
      * <p>Description: 发行机构获取二级用户详情数据
      * Summary: 发行机构获取二级用户详情数据</p>
      */
-    public QueryAntdigitalWebtrwatradeIssuerResponse queryAntdigitalWebtrwatradeIssuerEx(QueryAntdigitalWebtrwatradeIssuerRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+    public QueryAntdigitalWebtrwatradeIssuerSubuserdetailResponse queryAntdigitalWebtrwatradeIssuerSubuserdetailEx(QueryAntdigitalWebtrwatradeIssuerSubuserdetailRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antdigital.webtrwatrade.issuer.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAntdigitalWebtrwatradeIssuerResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.webtrwatrade.issuer.subuserdetail.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAntdigitalWebtrwatradeIssuerSubuserdetailResponse());
     }
 
     /**
@@ -277,10 +277,10 @@ public class Client {
      * <p>Description: 代销机构获取二级用户详情数据
      * Summary: 代销机构获取二级用户详情数据</p>
      */
-    public QueryAntdigitalWebtrwatradeDistributorResponse queryAntdigitalWebtrwatradeDistributor(QueryAntdigitalWebtrwatradeDistributorRequest request) throws Exception {
+    public QueryAntdigitalWebtrwatradeDistributorSubuserdetailResponse queryAntdigitalWebtrwatradeDistributorSubuserdetail(QueryAntdigitalWebtrwatradeDistributorSubuserdetailRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.queryAntdigitalWebtrwatradeDistributorEx(request, headers, runtime);
+        return this.queryAntdigitalWebtrwatradeDistributorSubuserdetailEx(request, headers, runtime);
     }
 
     /**
@@ -288,9 +288,9 @@ public class Client {
      * <p>Description: 代销机构获取二级用户详情数据
      * Summary: 代销机构获取二级用户详情数据</p>
      */
-    public QueryAntdigitalWebtrwatradeDistributorResponse queryAntdigitalWebtrwatradeDistributorEx(QueryAntdigitalWebtrwatradeDistributorRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+    public QueryAntdigitalWebtrwatradeDistributorSubuserdetailResponse queryAntdigitalWebtrwatradeDistributorSubuserdetailEx(QueryAntdigitalWebtrwatradeDistributorSubuserdetailRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antdigital.webtrwatrade.distributor.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAntdigitalWebtrwatradeDistributorResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.webtrwatrade.distributor.subuserdetail.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAntdigitalWebtrwatradeDistributorSubuserdetailResponse());
     }
 
     /**
@@ -298,10 +298,10 @@ public class Client {
      * <p>Description: 发行机构跨链账号明细
      * Summary: 发行机构跨链账号明细</p>
      */
-    public ListAntdigitalWebtrwatradeIssuerCrossaccountResponse listAntdigitalWebtrwatradeIssuerCrossaccount(ListAntdigitalWebtrwatradeIssuerCrossaccountRequest request) throws Exception {
+    public ListAntdigitalWebtrwatradeIssuerCrosschainaccountResponse listAntdigitalWebtrwatradeIssuerCrosschainaccount(ListAntdigitalWebtrwatradeIssuerCrosschainaccountRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.listAntdigitalWebtrwatradeIssuerCrossaccountEx(request, headers, runtime);
+        return this.listAntdigitalWebtrwatradeIssuerCrosschainaccountEx(request, headers, runtime);
     }
 
     /**
@@ -309,9 +309,9 @@ public class Client {
      * <p>Description: 发行机构跨链账号明细
      * Summary: 发行机构跨链账号明细</p>
      */
-    public ListAntdigitalWebtrwatradeIssuerCrossaccountResponse listAntdigitalWebtrwatradeIssuerCrossaccountEx(ListAntdigitalWebtrwatradeIssuerCrossaccountRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+    public ListAntdigitalWebtrwatradeIssuerCrosschainaccountResponse listAntdigitalWebtrwatradeIssuerCrosschainaccountEx(ListAntdigitalWebtrwatradeIssuerCrosschainaccountRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antdigital.webtrwatrade.issuer.crossaccount.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListAntdigitalWebtrwatradeIssuerCrossaccountResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.webtrwatrade.issuer.crosschainaccount.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListAntdigitalWebtrwatradeIssuerCrosschainaccountResponse());
     }
 
     /**
@@ -319,10 +319,10 @@ public class Client {
      * <p>Description: 代销机构跨链账号明细
      * Summary: 代销机构跨链账号明细</p>
      */
-    public ListAntdigitalWebtrwatradeDistributorCrossaccountResponse listAntdigitalWebtrwatradeDistributorCrossaccount(ListAntdigitalWebtrwatradeDistributorCrossaccountRequest request) throws Exception {
+    public ListAntdigitalWebtrwatradeDistributorCrosschainaccountResponse listAntdigitalWebtrwatradeDistributorCrosschainaccount(ListAntdigitalWebtrwatradeDistributorCrosschainaccountRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.listAntdigitalWebtrwatradeDistributorCrossaccountEx(request, headers, runtime);
+        return this.listAntdigitalWebtrwatradeDistributorCrosschainaccountEx(request, headers, runtime);
     }
 
     /**
@@ -330,9 +330,9 @@ public class Client {
      * <p>Description: 代销机构跨链账号明细
      * Summary: 代销机构跨链账号明细</p>
      */
-    public ListAntdigitalWebtrwatradeDistributorCrossaccountResponse listAntdigitalWebtrwatradeDistributorCrossaccountEx(ListAntdigitalWebtrwatradeDistributorCrossaccountRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+    public ListAntdigitalWebtrwatradeDistributorCrosschainaccountResponse listAntdigitalWebtrwatradeDistributorCrosschainaccountEx(ListAntdigitalWebtrwatradeDistributorCrosschainaccountRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antdigital.webtrwatrade.distributor.crossaccount.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListAntdigitalWebtrwatradeDistributorCrossaccountResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.webtrwatrade.distributor.crosschainaccount.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListAntdigitalWebtrwatradeDistributorCrosschainaccountResponse());
     }
 
     /**
@@ -361,10 +361,10 @@ public class Client {
      * <p>Description: 发行机构查询所有操作员的操作日志
      * Summary: 发行机构查询所有操作员的操作日志</p>
      */
-    public ListAntdigitalWebtrwatradeIssuerAlloperationlogResponse listAntdigitalWebtrwatradeIssuerAlloperationlog(ListAntdigitalWebtrwatradeIssuerAlloperationlogRequest request) throws Exception {
+    public ListAntdigitalWebtrwatradeIssuerOperationlogResponse listAntdigitalWebtrwatradeIssuerOperationlog(ListAntdigitalWebtrwatradeIssuerOperationlogRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.listAntdigitalWebtrwatradeIssuerAlloperationlogEx(request, headers, runtime);
+        return this.listAntdigitalWebtrwatradeIssuerOperationlogEx(request, headers, runtime);
     }
 
     /**
@@ -372,9 +372,9 @@ public class Client {
      * <p>Description: 发行机构查询所有操作员的操作日志
      * Summary: 发行机构查询所有操作员的操作日志</p>
      */
-    public ListAntdigitalWebtrwatradeIssuerAlloperationlogResponse listAntdigitalWebtrwatradeIssuerAlloperationlogEx(ListAntdigitalWebtrwatradeIssuerAlloperationlogRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+    public ListAntdigitalWebtrwatradeIssuerOperationlogResponse listAntdigitalWebtrwatradeIssuerOperationlogEx(ListAntdigitalWebtrwatradeIssuerOperationlogRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antdigital.webtrwatrade.issuer.alloperationlog.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListAntdigitalWebtrwatradeIssuerAlloperationlogResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.webtrwatrade.issuer.operationlog.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListAntdigitalWebtrwatradeIssuerOperationlogResponse());
     }
 
     /**
@@ -382,10 +382,10 @@ public class Client {
      * <p>Description: 代销机构查询所有操作员的操作日志
      * Summary: 代销机构查询所有操作员的操作日志</p>
      */
-    public ListAntdigitalWebtrwatradeDistributorAlloperationlogResponse listAntdigitalWebtrwatradeDistributorAlloperationlog(ListAntdigitalWebtrwatradeDistributorAlloperationlogRequest request) throws Exception {
+    public ListAntdigitalWebtrwatradeDistributorOperationlogResponse listAntdigitalWebtrwatradeDistributorOperationlog(ListAntdigitalWebtrwatradeDistributorOperationlogRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.listAntdigitalWebtrwatradeDistributorAlloperationlogEx(request, headers, runtime);
+        return this.listAntdigitalWebtrwatradeDistributorOperationlogEx(request, headers, runtime);
     }
 
     /**
@@ -393,9 +393,9 @@ public class Client {
      * <p>Description: 代销机构查询所有操作员的操作日志
      * Summary: 代销机构查询所有操作员的操作日志</p>
      */
-    public ListAntdigitalWebtrwatradeDistributorAlloperationlogResponse listAntdigitalWebtrwatradeDistributorAlloperationlogEx(ListAntdigitalWebtrwatradeDistributorAlloperationlogRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+    public ListAntdigitalWebtrwatradeDistributorOperationlogResponse listAntdigitalWebtrwatradeDistributorOperationlogEx(ListAntdigitalWebtrwatradeDistributorOperationlogRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antdigital.webtrwatrade.distributor.alloperationlog.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListAntdigitalWebtrwatradeDistributorAlloperationlogResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.webtrwatrade.distributor.operationlog.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListAntdigitalWebtrwatradeDistributorOperationlogResponse());
     }
 
     /**

@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.ak_d3c4f09125a14cd587057c405561809a.models
 
 import com.aliyun.tea.*;
 
-public class QueryAntdigitalWebtrwatradeIssuerResponse extends TeaModel {
+public class QueryAntdigitalWebtrwatradeDistributorSubuserdetailResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -20,12 +20,12 @@ public class QueryAntdigitalWebtrwatradeIssuerResponse extends TeaModel {
     @NameInMap("data")
     public java.util.List<SubUserAccountDetailVO> data;
 
-    public static QueryAntdigitalWebtrwatradeIssuerResponse build(java.util.Map<String, ?> map) throws Exception {
-        QueryAntdigitalWebtrwatradeIssuerResponse self = new QueryAntdigitalWebtrwatradeIssuerResponse();
+    public static QueryAntdigitalWebtrwatradeDistributorSubuserdetailResponse build(java.util.Map<String, ?> map) throws Exception {
+        QueryAntdigitalWebtrwatradeDistributorSubuserdetailResponse self = new QueryAntdigitalWebtrwatradeDistributorSubuserdetailResponse();
         return TeaModel.build(map, self);
     }
 
-    public QueryAntdigitalWebtrwatradeIssuerResponse setReqMsgId(String reqMsgId) {
+    public QueryAntdigitalWebtrwatradeDistributorSubuserdetailResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class QueryAntdigitalWebtrwatradeIssuerResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public QueryAntdigitalWebtrwatradeIssuerResponse setResultCode(String resultCode) {
+    public QueryAntdigitalWebtrwatradeDistributorSubuserdetailResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class QueryAntdigitalWebtrwatradeIssuerResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public QueryAntdigitalWebtrwatradeIssuerResponse setResultMsg(String resultMsg) {
+    public QueryAntdigitalWebtrwatradeDistributorSubuserdetailResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,7 +49,7 @@ public class QueryAntdigitalWebtrwatradeIssuerResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryAntdigitalWebtrwatradeIssuerResponse setData(java.util.List<SubUserAccountDetailVO> data) {
+    public QueryAntdigitalWebtrwatradeDistributorSubuserdetailResponse setData(java.util.List<SubUserAccountDetailVO> data) {
         this.data = data;
         return this;
     }

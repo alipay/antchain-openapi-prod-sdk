@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.ak_d3c4f09125a14cd587057c405561809a.models
 
 import com.aliyun.tea.*;
 
-public class ListAntdigitalWebtrwatradeIssuerAlloperationlogResponse extends TeaModel {
+public class QueryAntdigitalWebtrwatradeIssuerSubuserdetailResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,16 @@ public class ListAntdigitalWebtrwatradeIssuerAlloperationlogResponse extends Tea
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 所有操作日志
+    // 账户明细列表
     @NameInMap("data")
-    public java.util.List<OperationLogVO> data;
+    public java.util.List<SubUserAccountDetailVO> data;
 
-    public static ListAntdigitalWebtrwatradeIssuerAlloperationlogResponse build(java.util.Map<String, ?> map) throws Exception {
-        ListAntdigitalWebtrwatradeIssuerAlloperationlogResponse self = new ListAntdigitalWebtrwatradeIssuerAlloperationlogResponse();
+    public static QueryAntdigitalWebtrwatradeIssuerSubuserdetailResponse build(java.util.Map<String, ?> map) throws Exception {
+        QueryAntdigitalWebtrwatradeIssuerSubuserdetailResponse self = new QueryAntdigitalWebtrwatradeIssuerSubuserdetailResponse();
         return TeaModel.build(map, self);
     }
 
-    public ListAntdigitalWebtrwatradeIssuerAlloperationlogResponse setReqMsgId(String reqMsgId) {
+    public QueryAntdigitalWebtrwatradeIssuerSubuserdetailResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class ListAntdigitalWebtrwatradeIssuerAlloperationlogResponse extends Tea
         return this.reqMsgId;
     }
 
-    public ListAntdigitalWebtrwatradeIssuerAlloperationlogResponse setResultCode(String resultCode) {
+    public QueryAntdigitalWebtrwatradeIssuerSubuserdetailResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class ListAntdigitalWebtrwatradeIssuerAlloperationlogResponse extends Tea
         return this.resultCode;
     }
 
-    public ListAntdigitalWebtrwatradeIssuerAlloperationlogResponse setResultMsg(String resultMsg) {
+    public QueryAntdigitalWebtrwatradeIssuerSubuserdetailResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,11 +49,11 @@ public class ListAntdigitalWebtrwatradeIssuerAlloperationlogResponse extends Tea
         return this.resultMsg;
     }
 
-    public ListAntdigitalWebtrwatradeIssuerAlloperationlogResponse setData(java.util.List<OperationLogVO> data) {
+    public QueryAntdigitalWebtrwatradeIssuerSubuserdetailResponse setData(java.util.List<SubUserAccountDetailVO> data) {
         this.data = data;
         return this;
     }
-    public java.util.List<OperationLogVO> getData() {
+    public java.util.List<SubUserAccountDetailVO> getData() {
         return this.data;
     }
 

@@ -52,7 +52,7 @@ public class SubUserAccountDetailsVO extends TeaModel {
     // 交易类别
     /**
      * <strong>example:</strong>
-     * <p>ISSUE</p>
+     * <p>ISSUE/REDEEM/TRANSFER/LOCK/UNLOCK/WITHDRAW/OTC_TRANSFER/TRANSFER_TO_VIRTUAL/WITHDRAW_FROM_VIRTUAL</p>
      */
     @NameInMap("transaction_type")
     @Validation(required = true)
@@ -83,7 +83,16 @@ public class SubUserAccountDetailsVO extends TeaModel {
      */
     @NameInMap("gmt_modified")
     @Validation(required = true)
-    public String gmtModified;
+    public Long gmtModified;
+
+    // 交易状态
+    /**
+     * <strong>example:</strong>
+     * <p>PENDING/CONFIRMED/INVALID</p>
+     */
+    @NameInMap("transaction_status")
+    @Validation(required = true)
+    public String transactionStatus;
 
     public static SubUserAccountDetailsVO build(java.util.Map<String, ?> map) throws Exception {
         SubUserAccountDetailsVO self = new SubUserAccountDetailsVO();
@@ -154,12 +163,20 @@ public class SubUserAccountDetailsVO extends TeaModel {
         return this.gmtCreated;
     }
 
-    public SubUserAccountDetailsVO setGmtModified(String gmtModified) {
+    public SubUserAccountDetailsVO setGmtModified(Long gmtModified) {
         this.gmtModified = gmtModified;
         return this;
     }
-    public String getGmtModified() {
+    public Long getGmtModified() {
         return this.gmtModified;
+    }
+
+    public SubUserAccountDetailsVO setTransactionStatus(String transactionStatus) {
+        this.transactionStatus = transactionStatus;
+        return this;
+    }
+    public String getTransactionStatus() {
+        return this.transactionStatus;
     }
 
 }

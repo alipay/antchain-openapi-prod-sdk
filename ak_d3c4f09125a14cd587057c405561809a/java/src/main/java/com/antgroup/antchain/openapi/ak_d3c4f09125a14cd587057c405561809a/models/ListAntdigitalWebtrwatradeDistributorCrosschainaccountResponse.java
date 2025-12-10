@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.ak_d3c4f09125a14cd587057c405561809a.models
 
 import com.aliyun.tea.*;
 
-public class QueryAntdigitalWebtrwatradeDistributorResponse extends TeaModel {
+public class ListAntdigitalWebtrwatradeDistributorCrosschainaccountResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,16 @@ public class QueryAntdigitalWebtrwatradeDistributorResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 账户明细列表
+    // 跨链账号明细
     @NameInMap("data")
-    public java.util.List<SubUserAccountDetailVO> data;
+    public java.util.List<CrossAccountListVO> data;
 
-    public static QueryAntdigitalWebtrwatradeDistributorResponse build(java.util.Map<String, ?> map) throws Exception {
-        QueryAntdigitalWebtrwatradeDistributorResponse self = new QueryAntdigitalWebtrwatradeDistributorResponse();
+    public static ListAntdigitalWebtrwatradeDistributorCrosschainaccountResponse build(java.util.Map<String, ?> map) throws Exception {
+        ListAntdigitalWebtrwatradeDistributorCrosschainaccountResponse self = new ListAntdigitalWebtrwatradeDistributorCrosschainaccountResponse();
         return TeaModel.build(map, self);
     }
 
-    public QueryAntdigitalWebtrwatradeDistributorResponse setReqMsgId(String reqMsgId) {
+    public ListAntdigitalWebtrwatradeDistributorCrosschainaccountResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class QueryAntdigitalWebtrwatradeDistributorResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public QueryAntdigitalWebtrwatradeDistributorResponse setResultCode(String resultCode) {
+    public ListAntdigitalWebtrwatradeDistributorCrosschainaccountResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class QueryAntdigitalWebtrwatradeDistributorResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public QueryAntdigitalWebtrwatradeDistributorResponse setResultMsg(String resultMsg) {
+    public ListAntdigitalWebtrwatradeDistributorCrosschainaccountResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,11 +49,11 @@ public class QueryAntdigitalWebtrwatradeDistributorResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryAntdigitalWebtrwatradeDistributorResponse setData(java.util.List<SubUserAccountDetailVO> data) {
+    public ListAntdigitalWebtrwatradeDistributorCrosschainaccountResponse setData(java.util.List<CrossAccountListVO> data) {
         this.data = data;
         return this;
     }
-    public java.util.List<SubUserAccountDetailVO> getData() {
+    public java.util.List<CrossAccountListVO> getData() {
         return this.data;
     }
 

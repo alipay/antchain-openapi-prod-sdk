@@ -49,10 +49,10 @@ public class SubUserBonusAccountDetailVO extends TeaModel {
     @Validation(required = true)
     public String postBalance;
 
-    // 交易类别
+    // 交易类别（REPAY/TRANSFER/LOCK/UNLOCK/WITHDRAW/OTC_TRANSFER/TRANSFER_TO_VIRTUAL/WITHDRAW_FROM_VIRTUAL）
     /**
      * <strong>example:</strong>
-     * <p>ISSUE</p>
+     * <p>REPAY</p>
      */
     @NameInMap("transaction_type")
     @Validation(required = true)
@@ -84,6 +84,15 @@ public class SubUserBonusAccountDetailVO extends TeaModel {
     @NameInMap("gmt_modified")
     @Validation(required = true)
     public Long gmtModified;
+
+    // 交易状态（PENDING/CONFIRMED/INVALID）
+    /**
+     * <strong>example:</strong>
+     * <p>PENDING</p>
+     */
+    @NameInMap("transaction_status")
+    @Validation(required = true)
+    public String transactionStatus;
 
     public static SubUserBonusAccountDetailVO build(java.util.Map<String, ?> map) throws Exception {
         SubUserBonusAccountDetailVO self = new SubUserBonusAccountDetailVO();
@@ -160,6 +169,14 @@ public class SubUserBonusAccountDetailVO extends TeaModel {
     }
     public Long getGmtModified() {
         return this.gmtModified;
+    }
+
+    public SubUserBonusAccountDetailVO setTransactionStatus(String transactionStatus) {
+        this.transactionStatus = transactionStatus;
+        return this;
+    }
+    public String getTransactionStatus() {
+        return this.transactionStatus;
     }
 
 }

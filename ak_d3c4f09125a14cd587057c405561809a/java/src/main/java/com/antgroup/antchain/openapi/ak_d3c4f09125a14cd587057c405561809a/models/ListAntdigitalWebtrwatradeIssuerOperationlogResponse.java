@@ -16,9 +16,9 @@ public class ListAntdigitalWebtrwatradeIssuerOperationlogResponse extends TeaMod
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 回参
+    // 所有操作日志
     @NameInMap("data")
-    public java.util.List<LoginOperationLogVO> data;
+    public java.util.List<OperationLogVO> data;
 
     public static ListAntdigitalWebtrwatradeIssuerOperationlogResponse build(java.util.Map<String, ?> map) throws Exception {
         ListAntdigitalWebtrwatradeIssuerOperationlogResponse self = new ListAntdigitalWebtrwatradeIssuerOperationlogResponse();
@@ -49,11 +49,11 @@ public class ListAntdigitalWebtrwatradeIssuerOperationlogResponse extends TeaMod
         return this.resultMsg;
     }
 
-    public ListAntdigitalWebtrwatradeIssuerOperationlogResponse setData(java.util.List<LoginOperationLogVO> data) {
+    public ListAntdigitalWebtrwatradeIssuerOperationlogResponse setData(java.util.List<OperationLogVO> data) {
         this.data = data;
         return this;
     }
-    public java.util.List<LoginOperationLogVO> getData() {
+    public java.util.List<OperationLogVO> getData() {
         return this.data;
     }
 

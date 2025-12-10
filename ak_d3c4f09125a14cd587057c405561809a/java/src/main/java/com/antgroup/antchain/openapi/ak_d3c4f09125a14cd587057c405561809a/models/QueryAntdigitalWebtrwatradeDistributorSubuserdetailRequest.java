@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.ak_d3c4f09125a14cd587057c405561809a.models
 
 import com.aliyun.tea.*;
 
-public class QueryAntdigitalWebtrwatradeIssuerRequest extends TeaModel {
+public class QueryAntdigitalWebtrwatradeDistributorSubuserdetailRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -11,15 +11,15 @@ public class QueryAntdigitalWebtrwatradeIssuerRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 资产项目ID（资产项目ID、资产项目合约地址+所在链 二选一必填）
+    // 资产项目ID（资产项目ID、资产项目合约地址+所在链  二选一必填）
     @NameInMap("asset_project_id")
     public String assetProjectId;
 
-    // 资产项目合约地址（资产项目ID、资产项目合约地址+所在链 二选一必填）
+    // 资产项目合约地址（资产项目ID、资产项目合约地址+所在链  二选一必填）
     @NameInMap("asset_project_address")
     public String assetProjectAddress;
 
-    // 项目所在链（资产项目ID、资产项目合约地址+所在链 二选一必填）
+    // 项目所在链（资产项目ID、资产项目合约地址+所在链  二选一必填）
     @NameInMap("chain_name")
     public String chainName;
 
@@ -36,8 +36,8 @@ public class QueryAntdigitalWebtrwatradeIssuerRequest extends TeaModel {
     public String loginName;
 
     // 登录名类型(EMAIL)（用户ID、用户地址、登录名+登录名类型，三组信息任选一组输入）
-    @NameInMap("login_accout_type")
-    public String loginAccoutType;
+    @NameInMap("login_account_type")
+    public String loginAccountType;
 
     // 开始时间 (时间戳)
     @NameInMap("start_time_mills")
@@ -49,12 +49,12 @@ public class QueryAntdigitalWebtrwatradeIssuerRequest extends TeaModel {
     @Validation(required = true)
     public Long endTimeMills;
 
-    public static QueryAntdigitalWebtrwatradeIssuerRequest build(java.util.Map<String, ?> map) throws Exception {
-        QueryAntdigitalWebtrwatradeIssuerRequest self = new QueryAntdigitalWebtrwatradeIssuerRequest();
+    public static QueryAntdigitalWebtrwatradeDistributorSubuserdetailRequest build(java.util.Map<String, ?> map) throws Exception {
+        QueryAntdigitalWebtrwatradeDistributorSubuserdetailRequest self = new QueryAntdigitalWebtrwatradeDistributorSubuserdetailRequest();
         return TeaModel.build(map, self);
     }
 
-    public QueryAntdigitalWebtrwatradeIssuerRequest setAuthToken(String authToken) {
+    public QueryAntdigitalWebtrwatradeDistributorSubuserdetailRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -62,7 +62,7 @@ public class QueryAntdigitalWebtrwatradeIssuerRequest extends TeaModel {
         return this.authToken;
     }
 
-    public QueryAntdigitalWebtrwatradeIssuerRequest setProductInstanceId(String productInstanceId) {
+    public QueryAntdigitalWebtrwatradeDistributorSubuserdetailRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -70,7 +70,7 @@ public class QueryAntdigitalWebtrwatradeIssuerRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public QueryAntdigitalWebtrwatradeIssuerRequest setAssetProjectId(String assetProjectId) {
+    public QueryAntdigitalWebtrwatradeDistributorSubuserdetailRequest setAssetProjectId(String assetProjectId) {
         this.assetProjectId = assetProjectId;
         return this;
     }
@@ -78,7 +78,7 @@ public class QueryAntdigitalWebtrwatradeIssuerRequest extends TeaModel {
         return this.assetProjectId;
     }
 
-    public QueryAntdigitalWebtrwatradeIssuerRequest setAssetProjectAddress(String assetProjectAddress) {
+    public QueryAntdigitalWebtrwatradeDistributorSubuserdetailRequest setAssetProjectAddress(String assetProjectAddress) {
         this.assetProjectAddress = assetProjectAddress;
         return this;
     }
@@ -86,7 +86,7 @@ public class QueryAntdigitalWebtrwatradeIssuerRequest extends TeaModel {
         return this.assetProjectAddress;
     }
 
-    public QueryAntdigitalWebtrwatradeIssuerRequest setChainName(String chainName) {
+    public QueryAntdigitalWebtrwatradeDistributorSubuserdetailRequest setChainName(String chainName) {
         this.chainName = chainName;
         return this;
     }
@@ -94,7 +94,7 @@ public class QueryAntdigitalWebtrwatradeIssuerRequest extends TeaModel {
         return this.chainName;
     }
 
-    public QueryAntdigitalWebtrwatradeIssuerRequest setUserId(String userId) {
+    public QueryAntdigitalWebtrwatradeDistributorSubuserdetailRequest setUserId(String userId) {
         this.userId = userId;
         return this;
     }
@@ -102,7 +102,7 @@ public class QueryAntdigitalWebtrwatradeIssuerRequest extends TeaModel {
         return this.userId;
     }
 
-    public QueryAntdigitalWebtrwatradeIssuerRequest setUserAddress(String userAddress) {
+    public QueryAntdigitalWebtrwatradeDistributorSubuserdetailRequest setUserAddress(String userAddress) {
         this.userAddress = userAddress;
         return this;
     }
@@ -110,7 +110,7 @@ public class QueryAntdigitalWebtrwatradeIssuerRequest extends TeaModel {
         return this.userAddress;
     }
 
-    public QueryAntdigitalWebtrwatradeIssuerRequest setLoginName(String loginName) {
+    public QueryAntdigitalWebtrwatradeDistributorSubuserdetailRequest setLoginName(String loginName) {
         this.loginName = loginName;
         return this;
     }
@@ -118,15 +118,15 @@ public class QueryAntdigitalWebtrwatradeIssuerRequest extends TeaModel {
         return this.loginName;
     }
 
-    public QueryAntdigitalWebtrwatradeIssuerRequest setLoginAccoutType(String loginAccoutType) {
-        this.loginAccoutType = loginAccoutType;
+    public QueryAntdigitalWebtrwatradeDistributorSubuserdetailRequest setLoginAccountType(String loginAccountType) {
+        this.loginAccountType = loginAccountType;
         return this;
     }
-    public String getLoginAccoutType() {
-        return this.loginAccoutType;
+    public String getLoginAccountType() {
+        return this.loginAccountType;
     }
 
-    public QueryAntdigitalWebtrwatradeIssuerRequest setStartTimeMills(Long startTimeMills) {
+    public QueryAntdigitalWebtrwatradeDistributorSubuserdetailRequest setStartTimeMills(Long startTimeMills) {
         this.startTimeMills = startTimeMills;
         return this;
     }
@@ -134,7 +134,7 @@ public class QueryAntdigitalWebtrwatradeIssuerRequest extends TeaModel {
         return this.startTimeMills;
     }
 
-    public QueryAntdigitalWebtrwatradeIssuerRequest setEndTimeMills(Long endTimeMills) {
+    public QueryAntdigitalWebtrwatradeDistributorSubuserdetailRequest setEndTimeMills(Long endTimeMills) {
         this.endTimeMills = endTimeMills;
         return this;
     }
