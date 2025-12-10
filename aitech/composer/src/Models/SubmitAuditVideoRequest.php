@@ -57,6 +57,12 @@ class SubmitAuditVideoRequest extends Model
      * @var string
      */
     public $seed;
+
+    // 审核时输入的额外信息
+    /**
+     * @var string
+     */
+    public $extendInfo;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -66,6 +72,7 @@ class SubmitAuditVideoRequest extends Model
         'businessId'        => 'business_id',
         'callback'          => 'callback',
         'seed'              => 'seed',
+        'extendInfo'        => 'extend_info',
     ];
 
     public function validate()
@@ -102,6 +109,9 @@ class SubmitAuditVideoRequest extends Model
         if (null !== $this->seed) {
             $res['seed'] = $this->seed;
         }
+        if (null !== $this->extendInfo) {
+            $res['extend_info'] = $this->extendInfo;
+        }
 
         return $res;
     }
@@ -137,6 +147,9 @@ class SubmitAuditVideoRequest extends Model
         }
         if (isset($map['seed'])) {
             $model->seed = $map['seed'];
+        }
+        if (isset($map['extend_info'])) {
+            $model->extendInfo = $map['extend_info'];
         }
 
         return $model;
