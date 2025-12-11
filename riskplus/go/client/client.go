@@ -16884,24 +16884,26 @@ type QueryDubbridgeInstallmentCreditamtRequest struct {
 	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
 	// 1：现金贷、2：分期付
 	ProdType *string `json:"prod_type,omitempty" xml:"prod_type,omitempty" require:"true"`
+	// 导流平台
+	TrafficPlatform *string `json:"traffic_platform,omitempty" xml:"traffic_platform,omitempty" require:"true"`
+	// 流量来源名称，导流平台背后具体的流量名称
+	TrafficSourceName *string `json:"traffic_source_name,omitempty" xml:"traffic_source_name,omitempty"`
 	// 资产方用户唯一标识
 	OpenId *string `json:"open_id,omitempty" xml:"open_id,omitempty" require:"true"`
 	// 手机号
 	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty" require:"true"`
-	// 项目编号
+	// 项目编号（天枢侧提前约定）
 	ProjectCode *string `json:"project_code,omitempty" xml:"project_code,omitempty" require:"true"`
+	// 交易金额，单位：元，如199.88（用于筛选额度充足的机构）
+	TradeAmount *string `json:"trade_amount,omitempty" xml:"trade_amount,omitempty"`
+	// 分期金额，单位：元，如99.88（用于筛选额度充足的机构）,分期金额由天枢加工的渠道可不传递
+	InstallmentAmount *string `json:"installment_amount,omitempty" xml:"installment_amount,omitempty"`
 	// 资产方购物订单号，如二轮车/摩托车订单号
 	BizOrderNo *string `json:"biz_order_no,omitempty" xml:"biz_order_no,omitempty"`
 	// 身份证号
 	CardNo *string `json:"card_no,omitempty" xml:"card_no,omitempty"`
-	// 交易金额，单位：元，如199.88（用于筛选额度充足的机构）
-	TradeAmount *string `json:"trade_amount,omitempty" xml:"trade_amount,omitempty"`
 	// 客户姓名
 	CustomerName *string `json:"customer_name,omitempty" xml:"customer_name,omitempty"`
-	// 导流平台
-	TrafficPlatform *string `json:"traffic_platform,omitempty" xml:"traffic_platform,omitempty"`
-	// 流量来源名称，导流平台背后具体的流量名称
-	TrafficSourceName *string `json:"traffic_source_name,omitempty" xml:"traffic_source_name,omitempty"`
 	// 广告位id，流量来源内各广告位标志
 	TrafficAdId *string `json:"traffic_ad_id,omitempty" xml:"traffic_ad_id,omitempty"`
 	// 营销活动编号
@@ -16938,6 +16940,16 @@ func (s *QueryDubbridgeInstallmentCreditamtRequest) SetProdType(v string) *Query
 	return s
 }
 
+func (s *QueryDubbridgeInstallmentCreditamtRequest) SetTrafficPlatform(v string) *QueryDubbridgeInstallmentCreditamtRequest {
+	s.TrafficPlatform = &v
+	return s
+}
+
+func (s *QueryDubbridgeInstallmentCreditamtRequest) SetTrafficSourceName(v string) *QueryDubbridgeInstallmentCreditamtRequest {
+	s.TrafficSourceName = &v
+	return s
+}
+
 func (s *QueryDubbridgeInstallmentCreditamtRequest) SetOpenId(v string) *QueryDubbridgeInstallmentCreditamtRequest {
 	s.OpenId = &v
 	return s
@@ -16953,6 +16965,16 @@ func (s *QueryDubbridgeInstallmentCreditamtRequest) SetProjectCode(v string) *Qu
 	return s
 }
 
+func (s *QueryDubbridgeInstallmentCreditamtRequest) SetTradeAmount(v string) *QueryDubbridgeInstallmentCreditamtRequest {
+	s.TradeAmount = &v
+	return s
+}
+
+func (s *QueryDubbridgeInstallmentCreditamtRequest) SetInstallmentAmount(v string) *QueryDubbridgeInstallmentCreditamtRequest {
+	s.InstallmentAmount = &v
+	return s
+}
+
 func (s *QueryDubbridgeInstallmentCreditamtRequest) SetBizOrderNo(v string) *QueryDubbridgeInstallmentCreditamtRequest {
 	s.BizOrderNo = &v
 	return s
@@ -16963,23 +16985,8 @@ func (s *QueryDubbridgeInstallmentCreditamtRequest) SetCardNo(v string) *QueryDu
 	return s
 }
 
-func (s *QueryDubbridgeInstallmentCreditamtRequest) SetTradeAmount(v string) *QueryDubbridgeInstallmentCreditamtRequest {
-	s.TradeAmount = &v
-	return s
-}
-
 func (s *QueryDubbridgeInstallmentCreditamtRequest) SetCustomerName(v string) *QueryDubbridgeInstallmentCreditamtRequest {
 	s.CustomerName = &v
-	return s
-}
-
-func (s *QueryDubbridgeInstallmentCreditamtRequest) SetTrafficPlatform(v string) *QueryDubbridgeInstallmentCreditamtRequest {
-	s.TrafficPlatform = &v
-	return s
-}
-
-func (s *QueryDubbridgeInstallmentCreditamtRequest) SetTrafficSourceName(v string) *QueryDubbridgeInstallmentCreditamtRequest {
-	s.TrafficSourceName = &v
 	return s
 }
 
@@ -17005,6 +17012,23 @@ type QueryDubbridgeInstallmentCreditamtResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 1：现金贷、2：分期付
+	ProdType *string `json:"prod_type,omitempty" xml:"prod_type,omitempty"`
+	// CREDIT_APPROVING : 授信中，用户还有没有完结的授信单，需等待天枢授信终态
+	// CAN_APPLY : 可申请授信，用户已有授信单的额度不满足期望分期金额/或无额度，使用mobile初步预筛有资方承接，触发去授信链路
+	// LOAN_AVAILABLE : 可支用，用户已有额度满足期望分期金额，使用 fund_code 触发去支用链路
+	// NO_FUNDER : 无资方，用户已有授信单的额度不满足期望分期金额/或无额度，且使用mobile初步预筛没有资方承接，可流转到其他支付方式
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 资金方编号，去支用联登时的默认资金方
+	FundCode *string `json:"fund_code,omitempty" xml:"fund_code,omitempty"`
+	// 资金方简称
+	AbbreFundName *string `json:"abbre_fund_name,omitempty" xml:"abbre_fund_name,omitempty"`
+	// 可用余额
+	RestAmount *int64 `json:"rest_amount,omitempty" xml:"rest_amount,omitempty"`
+	// 授信总额度，单位：元
+	CreditAmount *int64 `json:"credit_amount,omitempty" xml:"credit_amount,omitempty"`
+	// 授信年利率。精确到小数点后四位0.1250，表示年利率为12.5%
+	RateValue *int64 `json:"rate_value,omitempty" xml:"rate_value,omitempty"`
 	// 授信申请状态：
 	// 0- 通过
 	// 1- 拒绝
@@ -17017,25 +17041,10 @@ type QueryDubbridgeInstallmentCreditamtResponse struct {
 	// 1- 冻结
 	// 2- 过期
 	CreditStatus *string `json:"credit_status,omitempty" xml:"credit_status,omitempty"`
-	// 授信总额度，单位：元
-	CreditAmount *int64 `json:"credit_amount,omitempty" xml:"credit_amount,omitempty"`
-	// 可用余额
-	RestAmount *int64 `json:"rest_amount,omitempty" xml:"rest_amount,omitempty"`
 	// 发放日期，yyyy-MM-dd
 	PayDate *string `json:"pay_date,omitempty" xml:"pay_date,omitempty"`
 	// 到期日期，yyyy-MM-dd
 	ExpireDate *string `json:"expire_date,omitempty" xml:"expire_date,omitempty"`
-	// 授信年利率。精确到小数点后四位0.1250，表示年利率为12.5%
-	RateValue *int64 `json:"rate_value,omitempty" xml:"rate_value,omitempty"`
-	// 资金方编号
-	FundCode *string `json:"fund_code,omitempty" xml:"fund_code,omitempty"`
-	// 资金方简称
-	AbbreFundName *string `json:"abbre_fund_name,omitempty" xml:"abbre_fund_name,omitempty"`
-	// 1：现金贷、2：分期付
-	ProdType *string `json:"prod_type,omitempty" xml:"prod_type,omitempty"`
-	// Y- 可用
-	// N- 不可用
-	InstallmentStatus *string `json:"installment_status,omitempty" xml:"installment_status,omitempty"`
 }
 
 func (s QueryDubbridgeInstallmentCreditamtResponse) String() string {
@@ -17061,38 +17070,13 @@ func (s *QueryDubbridgeInstallmentCreditamtResponse) SetResultMsg(v string) *Que
 	return s
 }
 
-func (s *QueryDubbridgeInstallmentCreditamtResponse) SetApplyStatus(v string) *QueryDubbridgeInstallmentCreditamtResponse {
-	s.ApplyStatus = &v
+func (s *QueryDubbridgeInstallmentCreditamtResponse) SetProdType(v string) *QueryDubbridgeInstallmentCreditamtResponse {
+	s.ProdType = &v
 	return s
 }
 
-func (s *QueryDubbridgeInstallmentCreditamtResponse) SetCreditStatus(v string) *QueryDubbridgeInstallmentCreditamtResponse {
-	s.CreditStatus = &v
-	return s
-}
-
-func (s *QueryDubbridgeInstallmentCreditamtResponse) SetCreditAmount(v int64) *QueryDubbridgeInstallmentCreditamtResponse {
-	s.CreditAmount = &v
-	return s
-}
-
-func (s *QueryDubbridgeInstallmentCreditamtResponse) SetRestAmount(v int64) *QueryDubbridgeInstallmentCreditamtResponse {
-	s.RestAmount = &v
-	return s
-}
-
-func (s *QueryDubbridgeInstallmentCreditamtResponse) SetPayDate(v string) *QueryDubbridgeInstallmentCreditamtResponse {
-	s.PayDate = &v
-	return s
-}
-
-func (s *QueryDubbridgeInstallmentCreditamtResponse) SetExpireDate(v string) *QueryDubbridgeInstallmentCreditamtResponse {
-	s.ExpireDate = &v
-	return s
-}
-
-func (s *QueryDubbridgeInstallmentCreditamtResponse) SetRateValue(v int64) *QueryDubbridgeInstallmentCreditamtResponse {
-	s.RateValue = &v
+func (s *QueryDubbridgeInstallmentCreditamtResponse) SetStatus(v string) *QueryDubbridgeInstallmentCreditamtResponse {
+	s.Status = &v
 	return s
 }
 
@@ -17106,13 +17090,38 @@ func (s *QueryDubbridgeInstallmentCreditamtResponse) SetAbbreFundName(v string) 
 	return s
 }
 
-func (s *QueryDubbridgeInstallmentCreditamtResponse) SetProdType(v string) *QueryDubbridgeInstallmentCreditamtResponse {
-	s.ProdType = &v
+func (s *QueryDubbridgeInstallmentCreditamtResponse) SetRestAmount(v int64) *QueryDubbridgeInstallmentCreditamtResponse {
+	s.RestAmount = &v
 	return s
 }
 
-func (s *QueryDubbridgeInstallmentCreditamtResponse) SetInstallmentStatus(v string) *QueryDubbridgeInstallmentCreditamtResponse {
-	s.InstallmentStatus = &v
+func (s *QueryDubbridgeInstallmentCreditamtResponse) SetCreditAmount(v int64) *QueryDubbridgeInstallmentCreditamtResponse {
+	s.CreditAmount = &v
+	return s
+}
+
+func (s *QueryDubbridgeInstallmentCreditamtResponse) SetRateValue(v int64) *QueryDubbridgeInstallmentCreditamtResponse {
+	s.RateValue = &v
+	return s
+}
+
+func (s *QueryDubbridgeInstallmentCreditamtResponse) SetApplyStatus(v string) *QueryDubbridgeInstallmentCreditamtResponse {
+	s.ApplyStatus = &v
+	return s
+}
+
+func (s *QueryDubbridgeInstallmentCreditamtResponse) SetCreditStatus(v string) *QueryDubbridgeInstallmentCreditamtResponse {
+	s.CreditStatus = &v
+	return s
+}
+
+func (s *QueryDubbridgeInstallmentCreditamtResponse) SetPayDate(v string) *QueryDubbridgeInstallmentCreditamtResponse {
+	s.PayDate = &v
+	return s
+}
+
+func (s *QueryDubbridgeInstallmentCreditamtResponse) SetExpireDate(v string) *QueryDubbridgeInstallmentCreditamtResponse {
+	s.ExpireDate = &v
 	return s
 }
 
@@ -18377,6 +18386,120 @@ func (s *QueryDubbridgeAlipayRefundResponse) SetRefundFailReason(v string) *Quer
 
 func (s *QueryDubbridgeAlipayRefundResponse) SetRefundDate(v string) *QueryDubbridgeAlipayRefundResponse {
 	s.RefundDate = &v
+	return s
+}
+
+type NotifyDubbridgeInterestResultRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求流水号
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
+	// 权益流水号
+	InterestNo *string `json:"interest_no,omitempty" xml:"interest_no,omitempty" require:"true"`
+	// 权益订单状态：NOT_CREATE 订单未创建
+	// PAYED： 支付成功
+	// APPLY： 已投保
+	// REFUND：已注销（退款)
+	// CANCEL: 已取消
+	// REFUND_FAIL： 退款失败
+	OrderStatus *string `json:"order_status,omitempty" xml:"order_status,omitempty" require:"true"`
+	// 用户授权状态：AGREE 同意
+	// DISAGREE 不同意
+	UserPermitStatus *string `json:"user_permit_status,omitempty" xml:"user_permit_status,omitempty" require:"true"`
+	// 公证状态：当需要公正时才返回公证结果
+	// FINISH 已完成
+	// UN_FINISH 未完成
+	// PROCESSING 进行中
+	NotaryStatus *string `json:"notary_status,omitempty" xml:"notary_status,omitempty"`
+	// 权益价格，单位：元
+	InterestPrice *string `json:"interest_price,omitempty" xml:"interest_price,omitempty"`
+}
+
+func (s NotifyDubbridgeInterestResultRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s NotifyDubbridgeInterestResultRequest) GoString() string {
+	return s.String()
+}
+
+func (s *NotifyDubbridgeInterestResultRequest) SetAuthToken(v string) *NotifyDubbridgeInterestResultRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *NotifyDubbridgeInterestResultRequest) SetProductInstanceId(v string) *NotifyDubbridgeInterestResultRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *NotifyDubbridgeInterestResultRequest) SetRequestId(v string) *NotifyDubbridgeInterestResultRequest {
+	s.RequestId = &v
+	return s
+}
+
+func (s *NotifyDubbridgeInterestResultRequest) SetInterestNo(v string) *NotifyDubbridgeInterestResultRequest {
+	s.InterestNo = &v
+	return s
+}
+
+func (s *NotifyDubbridgeInterestResultRequest) SetOrderStatus(v string) *NotifyDubbridgeInterestResultRequest {
+	s.OrderStatus = &v
+	return s
+}
+
+func (s *NotifyDubbridgeInterestResultRequest) SetUserPermitStatus(v string) *NotifyDubbridgeInterestResultRequest {
+	s.UserPermitStatus = &v
+	return s
+}
+
+func (s *NotifyDubbridgeInterestResultRequest) SetNotaryStatus(v string) *NotifyDubbridgeInterestResultRequest {
+	s.NotaryStatus = &v
+	return s
+}
+
+func (s *NotifyDubbridgeInterestResultRequest) SetInterestPrice(v string) *NotifyDubbridgeInterestResultRequest {
+	s.InterestPrice = &v
+	return s
+}
+
+type NotifyDubbridgeInterestResultResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 处理结果： success：成功，fail：失败
+	Result *string `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s NotifyDubbridgeInterestResultResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s NotifyDubbridgeInterestResultResponse) GoString() string {
+	return s.String()
+}
+
+func (s *NotifyDubbridgeInterestResultResponse) SetReqMsgId(v string) *NotifyDubbridgeInterestResultResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *NotifyDubbridgeInterestResultResponse) SetResultCode(v string) *NotifyDubbridgeInterestResultResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *NotifyDubbridgeInterestResultResponse) SetResultMsg(v string) *NotifyDubbridgeInterestResultResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *NotifyDubbridgeInterestResultResponse) SetResult(v string) *NotifyDubbridgeInterestResultResponse {
+	s.Result = &v
 	return s
 }
 
@@ -35088,7 +35211,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.29.3"),
+				"sdk_version":      tea.String("1.30.0"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -38331,6 +38454,40 @@ func (client *Client) QueryDubbridgeAlipayRefundEx(request *QueryDubbridgeAlipay
 	}
 	_result = &QueryDubbridgeAlipayRefundResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.dubbridge.alipay.refund.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 天枢系统-权益购买结果通知，用户购买权益后通知到天枢系统进行业务处理，自动提交用信申请
+ * Summary: 天枢系统-权益购买结果通知
+ */
+func (client *Client) NotifyDubbridgeInterestResult(request *NotifyDubbridgeInterestResultRequest) (_result *NotifyDubbridgeInterestResultResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &NotifyDubbridgeInterestResultResponse{}
+	_body, _err := client.NotifyDubbridgeInterestResultEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 天枢系统-权益购买结果通知，用户购买权益后通知到天枢系统进行业务处理，自动提交用信申请
+ * Summary: 天枢系统-权益购买结果通知
+ */
+func (client *Client) NotifyDubbridgeInterestResultEx(request *NotifyDubbridgeInterestResultRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *NotifyDubbridgeInterestResultResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &NotifyDubbridgeInterestResultResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.dubbridge.interest.result.notify"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
