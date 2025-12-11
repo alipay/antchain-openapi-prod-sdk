@@ -1247,9 +1247,11 @@ export class AddCaruserTestRequest extends $tea.Model {
   // 数据的唯一code
   dataUniqloCode: string;
   // 批次数据编号
-  datPhaseCode: string;
+  dataPhaseCode: string;
   // 批次的数据量
-  dataNum: number;
+  phaseDataNum: number;
+  // 整体数据量
+  uniqloDataNum: number;
   // 业务类型
   businessType: string;
   static names(): { [key: string]: string } {
@@ -1258,8 +1260,9 @@ export class AddCaruserTestRequest extends $tea.Model {
       productInstanceId: 'product_instance_id',
       businessId: 'business_id',
       dataUniqloCode: 'data_uniqlo_code',
-      datPhaseCode: 'dat_phase_code',
-      dataNum: 'data_num',
+      dataPhaseCode: 'data_phase_code',
+      phaseDataNum: 'phase_data_num',
+      uniqloDataNum: 'uniqlo_data_num',
       businessType: 'business_type',
     };
   }
@@ -1270,8 +1273,9 @@ export class AddCaruserTestRequest extends $tea.Model {
       productInstanceId: 'string',
       businessId: { 'type': 'array', 'itemType': 'string' },
       dataUniqloCode: 'string',
-      datPhaseCode: 'string',
-      dataNum: 'number',
+      dataPhaseCode: 'string',
+      phaseDataNum: 'number',
+      uniqloDataNum: 'number',
       businessType: 'string',
     };
   }
@@ -1322,9 +1326,11 @@ export class AddCaruserPrdRequest extends $tea.Model {
   // 数据的唯一code
   dataUniqloCode: string;
   // 批次数据编号
-  datPhaseCode: string;
+  dataPhaseCode: string;
   // 批次的数据量
-  dataNum: number;
+  phaseDataNum: number;
+  // 整体数据量
+  uniqloDataNum: number;
   // 业务类型
   businessType: string;
   static names(): { [key: string]: string } {
@@ -1333,8 +1339,9 @@ export class AddCaruserPrdRequest extends $tea.Model {
       productInstanceId: 'product_instance_id',
       businessId: 'business_id',
       dataUniqloCode: 'data_uniqlo_code',
-      datPhaseCode: 'dat_phase_code',
-      dataNum: 'data_num',
+      dataPhaseCode: 'data_phase_code',
+      phaseDataNum: 'phase_data_num',
+      uniqloDataNum: 'uniqlo_data_num',
       businessType: 'business_type',
     };
   }
@@ -1345,8 +1352,9 @@ export class AddCaruserPrdRequest extends $tea.Model {
       productInstanceId: 'string',
       businessId: { 'type': 'array', 'itemType': 'string' },
       dataUniqloCode: 'string',
-      datPhaseCode: 'string',
-      dataNum: 'number',
+      dataPhaseCode: 'string',
+      phaseDataNum: 'number',
+      uniqloDataNum: 'number',
       businessType: 'string',
     };
   }
@@ -1395,7 +1403,7 @@ export class BatchqueryCarloanTestRequest extends $tea.Model {
   // 日期
   date: string;
   // 查询条数
-  dataNum: string;
+  dataNum: number;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -1410,7 +1418,7 @@ export class BatchqueryCarloanTestRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       date: 'string',
-      dataNum: 'string',
+      dataNum: 'number',
     };
   }
 
@@ -1458,7 +1466,7 @@ export class BatchqueryCarloanPrdRequest extends $tea.Model {
   // 日期
   date: string;
   // 查询条数
-  dataNum: string;
+  dataNum: number;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -1473,7 +1481,7 @@ export class BatchqueryCarloanPrdRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       date: 'string',
-      dataNum: 'string',
+      dataNum: 'number',
     };
   }
 
@@ -3228,7 +3236,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.58",
+          sdk_version: "1.0.61",
           _prod_code: "COLLABINV",
           _prod_channel: "default",
         };
