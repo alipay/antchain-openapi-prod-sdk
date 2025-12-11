@@ -22,14 +22,19 @@ public class AddCaruserTestRequest extends TeaModel {
     public String dataUniqloCode;
 
     // 批次数据编号
-    @NameInMap("dat_phase_code")
+    @NameInMap("data_phase_code")
     @Validation(required = true)
-    public String datPhaseCode;
+    public String dataPhaseCode;
 
     // 批次的数据量
-    @NameInMap("data_num")
+    @NameInMap("phase_data_num")
     @Validation(required = true)
-    public Long dataNum;
+    public Long phaseDataNum;
+
+    // 整体数据量
+    @NameInMap("uniqlo_data_num")
+    @Validation(required = true)
+    public Long uniqloDataNum;
 
     // 业务类型
     @NameInMap("business_type")
@@ -73,20 +78,28 @@ public class AddCaruserTestRequest extends TeaModel {
         return this.dataUniqloCode;
     }
 
-    public AddCaruserTestRequest setDatPhaseCode(String datPhaseCode) {
-        this.datPhaseCode = datPhaseCode;
+    public AddCaruserTestRequest setDataPhaseCode(String dataPhaseCode) {
+        this.dataPhaseCode = dataPhaseCode;
         return this;
     }
-    public String getDatPhaseCode() {
-        return this.datPhaseCode;
+    public String getDataPhaseCode() {
+        return this.dataPhaseCode;
     }
 
-    public AddCaruserTestRequest setDataNum(Long dataNum) {
-        this.dataNum = dataNum;
+    public AddCaruserTestRequest setPhaseDataNum(Long phaseDataNum) {
+        this.phaseDataNum = phaseDataNum;
         return this;
     }
-    public Long getDataNum() {
-        return this.dataNum;
+    public Long getPhaseDataNum() {
+        return this.phaseDataNum;
+    }
+
+    public AddCaruserTestRequest setUniqloDataNum(Long uniqloDataNum) {
+        this.uniqloDataNum = uniqloDataNum;
+        return this;
+    }
+    public Long getUniqloDataNum() {
+        return this.uniqloDataNum;
     }
 
     public AddCaruserTestRequest setBusinessType(String businessType) {

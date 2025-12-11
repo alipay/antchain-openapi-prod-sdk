@@ -19,7 +19,7 @@ public class BatchqueryCarloanPrdRequest extends TeaModel {
     // 查询条数
     @NameInMap("data_num")
     @Validation(required = true)
-    public String dataNum;
+    public Long dataNum;
 
     public static BatchqueryCarloanPrdRequest build(java.util.Map<String, ?> map) throws Exception {
         BatchqueryCarloanPrdRequest self = new BatchqueryCarloanPrdRequest();
@@ -50,11 +50,11 @@ public class BatchqueryCarloanPrdRequest extends TeaModel {
         return this.date;
     }
 
-    public BatchqueryCarloanPrdRequest setDataNum(String dataNum) {
+    public BatchqueryCarloanPrdRequest setDataNum(Long dataNum) {
         this.dataNum = dataNum;
         return this;
     }
-    public String getDataNum() {
+    public Long getDataNum() {
         return this.dataNum;
     }
 
