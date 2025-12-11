@@ -16,6 +16,37 @@ public class QueryDubbridgeInstallmentCreditamtResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
+    // 1：现金贷、2：分期付
+    @NameInMap("prod_type")
+    public String prodType;
+
+    // CREDIT_APPROVING : 授信中，用户还有没有完结的授信单，需等待天枢授信终态
+    // CAN_APPLY : 可申请授信，用户已有授信单的额度不满足期望分期金额/或无额度，使用mobile初步预筛有资方承接，触发去授信链路
+    // LOAN_AVAILABLE : 可支用，用户已有额度满足期望分期金额，使用 fund_code 触发去支用链路
+    // NO_FUNDER : 无资方，用户已有授信单的额度不满足期望分期金额/或无额度，且使用mobile初步预筛没有资方承接，可流转到其他支付方式
+    @NameInMap("status")
+    public String status;
+
+    // 资金方编号，去支用联登时的默认资金方
+    @NameInMap("fund_code")
+    public String fundCode;
+
+    // 资金方简称
+    @NameInMap("abbre_fund_name")
+    public String abbreFundName;
+
+    // 可用余额
+    @NameInMap("rest_amount")
+    public Long restAmount;
+
+    // 授信总额度，单位：元
+    @NameInMap("credit_amount")
+    public Long creditAmount;
+
+    // 授信年利率。精确到小数点后四位0.1250，表示年利率为12.5%
+    @NameInMap("rate_value")
+    public Long rateValue;
+
     // 授信申请状态：
     // 0- 通过 
     // 1- 拒绝 
@@ -32,14 +63,6 @@ public class QueryDubbridgeInstallmentCreditamtResponse extends TeaModel {
     @NameInMap("credit_status")
     public String creditStatus;
 
-    // 授信总额度，单位：元
-    @NameInMap("credit_amount")
-    public Long creditAmount;
-
-    // 可用余额
-    @NameInMap("rest_amount")
-    public Long restAmount;
-
     // 发放日期，yyyy-MM-dd
     @NameInMap("pay_date")
     public String payDate;
@@ -47,27 +70,6 @@ public class QueryDubbridgeInstallmentCreditamtResponse extends TeaModel {
     // 到期日期，yyyy-MM-dd
     @NameInMap("expire_date")
     public String expireDate;
-
-    // 授信年利率。精确到小数点后四位0.1250，表示年利率为12.5%
-    @NameInMap("rate_value")
-    public Long rateValue;
-
-    // 资金方编号
-    @NameInMap("fund_code")
-    public String fundCode;
-
-    // 资金方简称
-    @NameInMap("abbre_fund_name")
-    public String abbreFundName;
-
-    // 1：现金贷、2：分期付
-    @NameInMap("prod_type")
-    public String prodType;
-
-    // Y- 可用
-    // N- 不可用
-    @NameInMap("installment_status")
-    public String installmentStatus;
 
     public static QueryDubbridgeInstallmentCreditamtResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryDubbridgeInstallmentCreditamtResponse self = new QueryDubbridgeInstallmentCreditamtResponse();
@@ -98,60 +100,20 @@ public class QueryDubbridgeInstallmentCreditamtResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryDubbridgeInstallmentCreditamtResponse setApplyStatus(String applyStatus) {
-        this.applyStatus = applyStatus;
+    public QueryDubbridgeInstallmentCreditamtResponse setProdType(String prodType) {
+        this.prodType = prodType;
         return this;
     }
-    public String getApplyStatus() {
-        return this.applyStatus;
+    public String getProdType() {
+        return this.prodType;
     }
 
-    public QueryDubbridgeInstallmentCreditamtResponse setCreditStatus(String creditStatus) {
-        this.creditStatus = creditStatus;
+    public QueryDubbridgeInstallmentCreditamtResponse setStatus(String status) {
+        this.status = status;
         return this;
     }
-    public String getCreditStatus() {
-        return this.creditStatus;
-    }
-
-    public QueryDubbridgeInstallmentCreditamtResponse setCreditAmount(Long creditAmount) {
-        this.creditAmount = creditAmount;
-        return this;
-    }
-    public Long getCreditAmount() {
-        return this.creditAmount;
-    }
-
-    public QueryDubbridgeInstallmentCreditamtResponse setRestAmount(Long restAmount) {
-        this.restAmount = restAmount;
-        return this;
-    }
-    public Long getRestAmount() {
-        return this.restAmount;
-    }
-
-    public QueryDubbridgeInstallmentCreditamtResponse setPayDate(String payDate) {
-        this.payDate = payDate;
-        return this;
-    }
-    public String getPayDate() {
-        return this.payDate;
-    }
-
-    public QueryDubbridgeInstallmentCreditamtResponse setExpireDate(String expireDate) {
-        this.expireDate = expireDate;
-        return this;
-    }
-    public String getExpireDate() {
-        return this.expireDate;
-    }
-
-    public QueryDubbridgeInstallmentCreditamtResponse setRateValue(Long rateValue) {
-        this.rateValue = rateValue;
-        return this;
-    }
-    public Long getRateValue() {
-        return this.rateValue;
+    public String getStatus() {
+        return this.status;
     }
 
     public QueryDubbridgeInstallmentCreditamtResponse setFundCode(String fundCode) {
@@ -170,20 +132,60 @@ public class QueryDubbridgeInstallmentCreditamtResponse extends TeaModel {
         return this.abbreFundName;
     }
 
-    public QueryDubbridgeInstallmentCreditamtResponse setProdType(String prodType) {
-        this.prodType = prodType;
+    public QueryDubbridgeInstallmentCreditamtResponse setRestAmount(Long restAmount) {
+        this.restAmount = restAmount;
         return this;
     }
-    public String getProdType() {
-        return this.prodType;
+    public Long getRestAmount() {
+        return this.restAmount;
     }
 
-    public QueryDubbridgeInstallmentCreditamtResponse setInstallmentStatus(String installmentStatus) {
-        this.installmentStatus = installmentStatus;
+    public QueryDubbridgeInstallmentCreditamtResponse setCreditAmount(Long creditAmount) {
+        this.creditAmount = creditAmount;
         return this;
     }
-    public String getInstallmentStatus() {
-        return this.installmentStatus;
+    public Long getCreditAmount() {
+        return this.creditAmount;
+    }
+
+    public QueryDubbridgeInstallmentCreditamtResponse setRateValue(Long rateValue) {
+        this.rateValue = rateValue;
+        return this;
+    }
+    public Long getRateValue() {
+        return this.rateValue;
+    }
+
+    public QueryDubbridgeInstallmentCreditamtResponse setApplyStatus(String applyStatus) {
+        this.applyStatus = applyStatus;
+        return this;
+    }
+    public String getApplyStatus() {
+        return this.applyStatus;
+    }
+
+    public QueryDubbridgeInstallmentCreditamtResponse setCreditStatus(String creditStatus) {
+        this.creditStatus = creditStatus;
+        return this;
+    }
+    public String getCreditStatus() {
+        return this.creditStatus;
+    }
+
+    public QueryDubbridgeInstallmentCreditamtResponse setPayDate(String payDate) {
+        this.payDate = payDate;
+        return this;
+    }
+    public String getPayDate() {
+        return this.payDate;
+    }
+
+    public QueryDubbridgeInstallmentCreditamtResponse setExpireDate(String expireDate) {
+        this.expireDate = expireDate;
+        return this;
+    }
+    public String getExpireDate() {
+        return this.expireDate;
     }
 
 }

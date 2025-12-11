@@ -21,6 +21,15 @@ public class QueryDubbridgeInstallmentCreditamtRequest extends TeaModel {
     @Validation(required = true)
     public String prodType;
 
+    // 导流平台
+    @NameInMap("traffic_platform")
+    @Validation(required = true)
+    public String trafficPlatform;
+
+    // 流量来源名称，导流平台背后具体的流量名称
+    @NameInMap("traffic_source_name")
+    public String trafficSourceName;
+
     // 资产方用户唯一标识
     @NameInMap("open_id")
     @Validation(required = true)
@@ -31,10 +40,18 @@ public class QueryDubbridgeInstallmentCreditamtRequest extends TeaModel {
     @Validation(required = true)
     public String mobile;
 
-    // 项目编号
+    // 项目编号（天枢侧提前约定）
     @NameInMap("project_code")
     @Validation(required = true)
     public String projectCode;
+
+    // 交易金额，单位：元，如199.88（用于筛选额度充足的机构）
+    @NameInMap("trade_amount")
+    public String tradeAmount;
+
+    // 分期金额，单位：元，如99.88（用于筛选额度充足的机构）,分期金额由天枢加工的渠道可不传递
+    @NameInMap("installment_amount")
+    public String installmentAmount;
 
     // 资产方购物订单号，如二轮车/摩托车订单号
     @NameInMap("biz_order_no")
@@ -44,21 +61,9 @@ public class QueryDubbridgeInstallmentCreditamtRequest extends TeaModel {
     @NameInMap("card_no")
     public String cardNo;
 
-    // 交易金额，单位：元，如199.88（用于筛选额度充足的机构）
-    @NameInMap("trade_amount")
-    public String tradeAmount;
-
     // 客户姓名
     @NameInMap("customer_name")
     public String customerName;
-
-    // 导流平台
-    @NameInMap("traffic_platform")
-    public String trafficPlatform;
-
-    // 流量来源名称，导流平台背后具体的流量名称
-    @NameInMap("traffic_source_name")
-    public String trafficSourceName;
 
     // 广告位id，流量来源内各广告位标志
     @NameInMap("traffic_ad_id")
@@ -109,6 +114,22 @@ public class QueryDubbridgeInstallmentCreditamtRequest extends TeaModel {
         return this.prodType;
     }
 
+    public QueryDubbridgeInstallmentCreditamtRequest setTrafficPlatform(String trafficPlatform) {
+        this.trafficPlatform = trafficPlatform;
+        return this;
+    }
+    public String getTrafficPlatform() {
+        return this.trafficPlatform;
+    }
+
+    public QueryDubbridgeInstallmentCreditamtRequest setTrafficSourceName(String trafficSourceName) {
+        this.trafficSourceName = trafficSourceName;
+        return this;
+    }
+    public String getTrafficSourceName() {
+        return this.trafficSourceName;
+    }
+
     public QueryDubbridgeInstallmentCreditamtRequest setOpenId(String openId) {
         this.openId = openId;
         return this;
@@ -133,6 +154,22 @@ public class QueryDubbridgeInstallmentCreditamtRequest extends TeaModel {
         return this.projectCode;
     }
 
+    public QueryDubbridgeInstallmentCreditamtRequest setTradeAmount(String tradeAmount) {
+        this.tradeAmount = tradeAmount;
+        return this;
+    }
+    public String getTradeAmount() {
+        return this.tradeAmount;
+    }
+
+    public QueryDubbridgeInstallmentCreditamtRequest setInstallmentAmount(String installmentAmount) {
+        this.installmentAmount = installmentAmount;
+        return this;
+    }
+    public String getInstallmentAmount() {
+        return this.installmentAmount;
+    }
+
     public QueryDubbridgeInstallmentCreditamtRequest setBizOrderNo(String bizOrderNo) {
         this.bizOrderNo = bizOrderNo;
         return this;
@@ -149,36 +186,12 @@ public class QueryDubbridgeInstallmentCreditamtRequest extends TeaModel {
         return this.cardNo;
     }
 
-    public QueryDubbridgeInstallmentCreditamtRequest setTradeAmount(String tradeAmount) {
-        this.tradeAmount = tradeAmount;
-        return this;
-    }
-    public String getTradeAmount() {
-        return this.tradeAmount;
-    }
-
     public QueryDubbridgeInstallmentCreditamtRequest setCustomerName(String customerName) {
         this.customerName = customerName;
         return this;
     }
     public String getCustomerName() {
         return this.customerName;
-    }
-
-    public QueryDubbridgeInstallmentCreditamtRequest setTrafficPlatform(String trafficPlatform) {
-        this.trafficPlatform = trafficPlatform;
-        return this;
-    }
-    public String getTrafficPlatform() {
-        return this.trafficPlatform;
-    }
-
-    public QueryDubbridgeInstallmentCreditamtRequest setTrafficSourceName(String trafficSourceName) {
-        this.trafficSourceName = trafficSourceName;
-        return this;
-    }
-    public String getTrafficSourceName() {
-        return this.trafficSourceName;
     }
 
     public QueryDubbridgeInstallmentCreditamtRequest setTrafficAdId(String trafficAdId) {
