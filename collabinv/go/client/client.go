@@ -1632,9 +1632,11 @@ type AddCaruserTestRequest struct {
 	// 数据的唯一code
 	DataUniqloCode *string `json:"data_uniqlo_code,omitempty" xml:"data_uniqlo_code,omitempty" require:"true"`
 	// 批次数据编号
-	DatPhaseCode *string `json:"dat_phase_code,omitempty" xml:"dat_phase_code,omitempty" require:"true"`
+	DataPhaseCode *string `json:"data_phase_code,omitempty" xml:"data_phase_code,omitempty" require:"true"`
 	// 批次的数据量
-	DataNum *int64 `json:"data_num,omitempty" xml:"data_num,omitempty" require:"true"`
+	PhaseDataNum *int64 `json:"phase_data_num,omitempty" xml:"phase_data_num,omitempty" require:"true"`
+	// 整体数据量
+	UniqloDataNum *int64 `json:"uniqlo_data_num,omitempty" xml:"uniqlo_data_num,omitempty" require:"true"`
 	// 业务类型
 	BusinessType *string `json:"business_type,omitempty" xml:"business_type,omitempty" require:"true"`
 }
@@ -1667,13 +1669,18 @@ func (s *AddCaruserTestRequest) SetDataUniqloCode(v string) *AddCaruserTestReque
 	return s
 }
 
-func (s *AddCaruserTestRequest) SetDatPhaseCode(v string) *AddCaruserTestRequest {
-	s.DatPhaseCode = &v
+func (s *AddCaruserTestRequest) SetDataPhaseCode(v string) *AddCaruserTestRequest {
+	s.DataPhaseCode = &v
 	return s
 }
 
-func (s *AddCaruserTestRequest) SetDataNum(v int64) *AddCaruserTestRequest {
-	s.DataNum = &v
+func (s *AddCaruserTestRequest) SetPhaseDataNum(v int64) *AddCaruserTestRequest {
+	s.PhaseDataNum = &v
+	return s
+}
+
+func (s *AddCaruserTestRequest) SetUniqloDataNum(v int64) *AddCaruserTestRequest {
+	s.UniqloDataNum = &v
 	return s
 }
 
@@ -1730,9 +1737,11 @@ type AddCaruserPrdRequest struct {
 	// 数据的唯一code
 	DataUniqloCode *string `json:"data_uniqlo_code,omitempty" xml:"data_uniqlo_code,omitempty" require:"true"`
 	// 批次数据编号
-	DatPhaseCode *string `json:"dat_phase_code,omitempty" xml:"dat_phase_code,omitempty" require:"true"`
+	DataPhaseCode *string `json:"data_phase_code,omitempty" xml:"data_phase_code,omitempty" require:"true"`
 	// 批次的数据量
-	DataNum *int64 `json:"data_num,omitempty" xml:"data_num,omitempty" require:"true"`
+	PhaseDataNum *int64 `json:"phase_data_num,omitempty" xml:"phase_data_num,omitempty" require:"true"`
+	// 整体数据量
+	UniqloDataNum *int64 `json:"uniqlo_data_num,omitempty" xml:"uniqlo_data_num,omitempty" require:"true"`
 	// 业务类型
 	BusinessType *string `json:"business_type,omitempty" xml:"business_type,omitempty" require:"true"`
 }
@@ -1765,13 +1774,18 @@ func (s *AddCaruserPrdRequest) SetDataUniqloCode(v string) *AddCaruserPrdRequest
 	return s
 }
 
-func (s *AddCaruserPrdRequest) SetDatPhaseCode(v string) *AddCaruserPrdRequest {
-	s.DatPhaseCode = &v
+func (s *AddCaruserPrdRequest) SetDataPhaseCode(v string) *AddCaruserPrdRequest {
+	s.DataPhaseCode = &v
 	return s
 }
 
-func (s *AddCaruserPrdRequest) SetDataNum(v int64) *AddCaruserPrdRequest {
-	s.DataNum = &v
+func (s *AddCaruserPrdRequest) SetPhaseDataNum(v int64) *AddCaruserPrdRequest {
+	s.PhaseDataNum = &v
+	return s
+}
+
+func (s *AddCaruserPrdRequest) SetUniqloDataNum(v int64) *AddCaruserPrdRequest {
+	s.UniqloDataNum = &v
 	return s
 }
 
@@ -1826,7 +1840,7 @@ type BatchqueryCarloanTestRequest struct {
 	// 日期
 	Date *string `json:"date,omitempty" xml:"date,omitempty" require:"true"`
 	// 查询条数
-	DataNum *string `json:"data_num,omitempty" xml:"data_num,omitempty" require:"true"`
+	DataNum *int64 `json:"data_num,omitempty" xml:"data_num,omitempty" require:"true"`
 }
 
 func (s BatchqueryCarloanTestRequest) String() string {
@@ -1852,7 +1866,7 @@ func (s *BatchqueryCarloanTestRequest) SetDate(v string) *BatchqueryCarloanTestR
 	return s
 }
 
-func (s *BatchqueryCarloanTestRequest) SetDataNum(v string) *BatchqueryCarloanTestRequest {
+func (s *BatchqueryCarloanTestRequest) SetDataNum(v int64) *BatchqueryCarloanTestRequest {
 	s.DataNum = &v
 	return s
 }
@@ -1903,7 +1917,7 @@ type BatchqueryCarloanPrdRequest struct {
 	// 日期
 	Date *string `json:"date,omitempty" xml:"date,omitempty" require:"true"`
 	// 查询条数
-	DataNum *string `json:"data_num,omitempty" xml:"data_num,omitempty" require:"true"`
+	DataNum *int64 `json:"data_num,omitempty" xml:"data_num,omitempty" require:"true"`
 }
 
 func (s BatchqueryCarloanPrdRequest) String() string {
@@ -1929,7 +1943,7 @@ func (s *BatchqueryCarloanPrdRequest) SetDate(v string) *BatchqueryCarloanPrdReq
 	return s
 }
 
-func (s *BatchqueryCarloanPrdRequest) SetDataNum(v string) *BatchqueryCarloanPrdRequest {
+func (s *BatchqueryCarloanPrdRequest) SetDataNum(v int64) *BatchqueryCarloanPrdRequest {
 	s.DataNum = &v
 	return s
 }
@@ -4225,7 +4239,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.58"),
+				"sdk_version":      tea.String("1.0.61"),
 				"_prod_code":       tea.String("COLLABINV"),
 				"_prod_channel":    tea.String("default"),
 			}
