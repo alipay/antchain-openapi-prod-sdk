@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.29.3',
+    sdk_version = '1.30.0',
     _prod_code = 'RISKPLUS',
     _prod_channel = 'undefined'
   };
@@ -6588,24 +6588,26 @@ model QueryDubbridgeInstallmentCreditamtRequest = {
   orderNo: string(name='order_no'),
   // 1：现金贷、2：分期付
   prodType: string(name='prod_type'),
+  // 导流平台
+  trafficPlatform: string(name='traffic_platform'),
+  // 流量来源名称，导流平台背后具体的流量名称
+  trafficSourceName?: string(name='traffic_source_name'),
   // 资产方用户唯一标识
   openId: string(name='open_id'),
   // 手机号
   mobile: string(name='mobile'),
-  // 项目编号
+  // 项目编号（天枢侧提前约定）
   projectCode: string(name='project_code'),
+  // 交易金额，单位：元，如199.88（用于筛选额度充足的机构）
+  tradeAmount?: string(name='trade_amount'),
+  // 分期金额，单位：元，如99.88（用于筛选额度充足的机构）,分期金额由天枢加工的渠道可不传递
+  installmentAmount?: string(name='installment_amount'),
   // 资产方购物订单号，如二轮车/摩托车订单号
   bizOrderNo?: string(name='biz_order_no'),
   // 身份证号
   cardNo?: string(name='card_no'),
-  // 交易金额，单位：元，如199.88（用于筛选额度充足的机构）
-  tradeAmount?: string(name='trade_amount'),
   // 客户姓名
   customerName?: string(name='customer_name'),
-  // 导流平台
-  trafficPlatform?: string(name='traffic_platform'),
-  // 流量来源名称，导流平台背后具体的流量名称
-  trafficSourceName?: string(name='traffic_source_name'),
   // 广告位id，流量来源内各广告位标志
   trafficAdId?: string(name='traffic_ad_id'),
   // 营销活动编号
@@ -6621,6 +6623,23 @@ model QueryDubbridgeInstallmentCreditamtResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
+  // 1：现金贷、2：分期付
+  prodType?: string(name='prod_type'),
+  // CREDIT_APPROVING : 授信中，用户还有没有完结的授信单，需等待天枢授信终态
+  // CAN_APPLY : 可申请授信，用户已有授信单的额度不满足期望分期金额/或无额度，使用mobile初步预筛有资方承接，触发去授信链路
+  // LOAN_AVAILABLE : 可支用，用户已有额度满足期望分期金额，使用 fund_code 触发去支用链路
+  // NO_FUNDER : 无资方，用户已有授信单的额度不满足期望分期金额/或无额度，且使用mobile初步预筛没有资方承接，可流转到其他支付方式
+  status?: string(name='status'),
+  // 资金方编号，去支用联登时的默认资金方
+  fundCode?: string(name='fund_code'),
+  // 资金方简称
+  abbreFundName?: string(name='abbre_fund_name'),
+  // 可用余额
+  restAmount?: long(name='rest_amount'),
+  // 授信总额度，单位：元
+  creditAmount?: long(name='credit_amount'),
+  // 授信年利率。精确到小数点后四位0.1250，表示年利率为12.5%
+  rateValue?: long(name='rate_value'),
   // 授信申请状态：
   // 0- 通过 
   // 1- 拒绝 
@@ -6633,25 +6652,10 @@ model QueryDubbridgeInstallmentCreditamtResponse = {
   // 1- 冻结 
   // 2- 过期
   creditStatus?: string(name='credit_status'),
-  // 授信总额度，单位：元
-  creditAmount?: long(name='credit_amount'),
-  // 可用余额
-  restAmount?: long(name='rest_amount'),
   // 发放日期，yyyy-MM-dd
   payDate?: string(name='pay_date'),
   // 到期日期，yyyy-MM-dd
   expireDate?: string(name='expire_date'),
-  // 授信年利率。精确到小数点后四位0.1250，表示年利率为12.5%
-  rateValue?: long(name='rate_value'),
-  // 资金方编号
-  fundCode?: string(name='fund_code'),
-  // 资金方简称
-  abbreFundName?: string(name='abbre_fund_name'),
-  // 1：现金贷、2：分期付
-  prodType?: string(name='prod_type'),
-  // Y- 可用
-  // N- 不可用
-  installmentStatus?: string(name='installment_status'),
 }
 
 /**
@@ -7266,6 +7270,63 @@ async function queryDubbridgeAlipayRefund(request: QueryDubbridgeAlipayRefundReq
 async function queryDubbridgeAlipayRefundEx(request: QueryDubbridgeAlipayRefundRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubbridgeAlipayRefundResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.dubbridge.alipay.refund.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model NotifyDubbridgeInterestResultRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 请求流水号
+  requestId: string(name='request_id'),
+  // 权益流水号
+  interestNo: string(name='interest_no'),
+  // 权益订单状态：NOT_CREATE 订单未创建
+  // PAYED： 支付成功
+  // APPLY： 已投保
+  // REFUND：已注销（退款)
+  // CANCEL: 已取消
+  // REFUND_FAIL： 退款失败
+  orderStatus: string(name='order_status'),
+  // 用户授权状态：AGREE 同意
+  // DISAGREE 不同意
+  userPermitStatus: string(name='user_permit_status'),
+  // 公证状态：当需要公正时才返回公证结果
+  // FINISH 已完成
+  // UN_FINISH 未完成
+  // PROCESSING 进行中
+  notaryStatus?: string(name='notary_status'),
+  // 权益价格，单位：元
+  interestPrice?: string(name='interest_price'),
+}
+
+model NotifyDubbridgeInterestResultResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 处理结果： success：成功，fail：失败
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 天枢系统-权益购买结果通知，用户购买权益后通知到天枢系统进行业务处理，自动提交用信申请
+ * Summary: 天枢系统-权益购买结果通知
+ */
+async function notifyDubbridgeInterestResult(request: NotifyDubbridgeInterestResultRequest): NotifyDubbridgeInterestResultResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return notifyDubbridgeInterestResultEx(request, headers, runtime);
+}
+
+/**
+ * Description: 天枢系统-权益购买结果通知，用户购买权益后通知到天枢系统进行业务处理，自动提交用信申请
+ * Summary: 天枢系统-权益购买结果通知
+ */
+async function notifyDubbridgeInterestResultEx(request: NotifyDubbridgeInterestResultRequest, headers: map[string]string, runtime: Util.RuntimeOptions): NotifyDubbridgeInterestResultResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.interest.result.notify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model VerifyFinserviceZhimaIdentifyRequest = {
