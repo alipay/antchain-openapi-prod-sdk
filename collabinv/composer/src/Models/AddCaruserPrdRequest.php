@@ -35,13 +35,19 @@ class AddCaruserPrdRequest extends Model
     /**
      * @var string
      */
-    public $datPhaseCode;
+    public $dataPhaseCode;
 
     // 批次的数据量
     /**
      * @var int
      */
-    public $dataNum;
+    public $phaseDataNum;
+
+    // 整体数据量
+    /**
+     * @var int
+     */
+    public $uniqloDataNum;
 
     // 业务类型
     /**
@@ -53,8 +59,9 @@ class AddCaruserPrdRequest extends Model
         'productInstanceId' => 'product_instance_id',
         'businessId'        => 'business_id',
         'dataUniqloCode'    => 'data_uniqlo_code',
-        'datPhaseCode'      => 'dat_phase_code',
-        'dataNum'           => 'data_num',
+        'dataPhaseCode'     => 'data_phase_code',
+        'phaseDataNum'      => 'phase_data_num',
+        'uniqloDataNum'     => 'uniqlo_data_num',
         'businessType'      => 'business_type',
     ];
 
@@ -62,8 +69,9 @@ class AddCaruserPrdRequest extends Model
     {
         Model::validateRequired('businessId', $this->businessId, true);
         Model::validateRequired('dataUniqloCode', $this->dataUniqloCode, true);
-        Model::validateRequired('datPhaseCode', $this->datPhaseCode, true);
-        Model::validateRequired('dataNum', $this->dataNum, true);
+        Model::validateRequired('dataPhaseCode', $this->dataPhaseCode, true);
+        Model::validateRequired('phaseDataNum', $this->phaseDataNum, true);
+        Model::validateRequired('uniqloDataNum', $this->uniqloDataNum, true);
         Model::validateRequired('businessType', $this->businessType, true);
     }
 
@@ -82,11 +90,14 @@ class AddCaruserPrdRequest extends Model
         if (null !== $this->dataUniqloCode) {
             $res['data_uniqlo_code'] = $this->dataUniqloCode;
         }
-        if (null !== $this->datPhaseCode) {
-            $res['dat_phase_code'] = $this->datPhaseCode;
+        if (null !== $this->dataPhaseCode) {
+            $res['data_phase_code'] = $this->dataPhaseCode;
         }
-        if (null !== $this->dataNum) {
-            $res['data_num'] = $this->dataNum;
+        if (null !== $this->phaseDataNum) {
+            $res['phase_data_num'] = $this->phaseDataNum;
+        }
+        if (null !== $this->uniqloDataNum) {
+            $res['uniqlo_data_num'] = $this->uniqloDataNum;
         }
         if (null !== $this->businessType) {
             $res['business_type'] = $this->businessType;
@@ -117,11 +128,14 @@ class AddCaruserPrdRequest extends Model
         if (isset($map['data_uniqlo_code'])) {
             $model->dataUniqloCode = $map['data_uniqlo_code'];
         }
-        if (isset($map['dat_phase_code'])) {
-            $model->datPhaseCode = $map['dat_phase_code'];
+        if (isset($map['data_phase_code'])) {
+            $model->dataPhaseCode = $map['data_phase_code'];
         }
-        if (isset($map['data_num'])) {
-            $model->dataNum = $map['data_num'];
+        if (isset($map['phase_data_num'])) {
+            $model->phaseDataNum = $map['phase_data_num'];
+        }
+        if (isset($map['uniqlo_data_num'])) {
+            $model->uniqloDataNum = $map['uniqlo_data_num'];
         }
         if (isset($map['business_type'])) {
             $model->businessType = $map['business_type'];

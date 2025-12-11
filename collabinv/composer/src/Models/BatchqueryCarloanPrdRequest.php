@@ -27,7 +27,7 @@ class BatchqueryCarloanPrdRequest extends Model
 
     // 查询条数
     /**
-     * @var string
+     * @var int
      */
     public $dataNum;
     protected $_name = [
