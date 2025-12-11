@@ -12516,24 +12516,26 @@ export class QueryDubbridgeInstallmentCreditamtRequest extends $tea.Model {
   orderNo: string;
   // 1：现金贷、2：分期付
   prodType: string;
+  // 导流平台
+  trafficPlatform: string;
+  // 流量来源名称，导流平台背后具体的流量名称
+  trafficSourceName?: string;
   // 资产方用户唯一标识
   openId: string;
   // 手机号
   mobile: string;
-  // 项目编号
+  // 项目编号（天枢侧提前约定）
   projectCode: string;
+  // 交易金额，单位：元，如199.88（用于筛选额度充足的机构）
+  tradeAmount?: string;
+  // 分期金额，单位：元，如99.88（用于筛选额度充足的机构）,分期金额由天枢加工的渠道可不传递
+  installmentAmount?: string;
   // 资产方购物订单号，如二轮车/摩托车订单号
   bizOrderNo?: string;
   // 身份证号
   cardNo?: string;
-  // 交易金额，单位：元，如199.88（用于筛选额度充足的机构）
-  tradeAmount?: string;
   // 客户姓名
   customerName?: string;
-  // 导流平台
-  trafficPlatform?: string;
-  // 流量来源名称，导流平台背后具体的流量名称
-  trafficSourceName?: string;
   // 广告位id，流量来源内各广告位标志
   trafficAdId?: string;
   // 营销活动编号
@@ -12546,15 +12548,16 @@ export class QueryDubbridgeInstallmentCreditamtRequest extends $tea.Model {
       productInstanceId: 'product_instance_id',
       orderNo: 'order_no',
       prodType: 'prod_type',
+      trafficPlatform: 'traffic_platform',
+      trafficSourceName: 'traffic_source_name',
       openId: 'open_id',
       mobile: 'mobile',
       projectCode: 'project_code',
+      tradeAmount: 'trade_amount',
+      installmentAmount: 'installment_amount',
       bizOrderNo: 'biz_order_no',
       cardNo: 'card_no',
-      tradeAmount: 'trade_amount',
       customerName: 'customer_name',
-      trafficPlatform: 'traffic_platform',
-      trafficSourceName: 'traffic_source_name',
       trafficAdId: 'traffic_ad_id',
       trafficMktId: 'traffic_mkt_id',
       clickId: 'click_id',
@@ -12567,15 +12570,16 @@ export class QueryDubbridgeInstallmentCreditamtRequest extends $tea.Model {
       productInstanceId: 'string',
       orderNo: 'string',
       prodType: 'string',
+      trafficPlatform: 'string',
+      trafficSourceName: 'string',
       openId: 'string',
       mobile: 'string',
       projectCode: 'string',
+      tradeAmount: 'string',
+      installmentAmount: 'string',
       bizOrderNo: 'string',
       cardNo: 'string',
-      tradeAmount: 'string',
       customerName: 'string',
-      trafficPlatform: 'string',
-      trafficSourceName: 'string',
       trafficAdId: 'string',
       trafficMktId: 'string',
       clickId: 'string',
@@ -12594,6 +12598,23 @@ export class QueryDubbridgeInstallmentCreditamtResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
+  // 1：现金贷、2：分期付
+  prodType?: string;
+  // CREDIT_APPROVING : 授信中，用户还有没有完结的授信单，需等待天枢授信终态
+  // CAN_APPLY : 可申请授信，用户已有授信单的额度不满足期望分期金额/或无额度，使用mobile初步预筛有资方承接，触发去授信链路
+  // LOAN_AVAILABLE : 可支用，用户已有额度满足期望分期金额，使用 fund_code 触发去支用链路
+  // NO_FUNDER : 无资方，用户已有授信单的额度不满足期望分期金额/或无额度，且使用mobile初步预筛没有资方承接，可流转到其他支付方式
+  status?: string;
+  // 资金方编号，去支用联登时的默认资金方
+  fundCode?: string;
+  // 资金方简称
+  abbreFundName?: string;
+  // 可用余额
+  restAmount?: number;
+  // 授信总额度，单位：元
+  creditAmount?: number;
+  // 授信年利率。精确到小数点后四位0.1250，表示年利率为12.5%
+  rateValue?: number;
   // 授信申请状态：
   // 0- 通过 
   // 1- 拒绝 
@@ -12606,41 +12627,26 @@ export class QueryDubbridgeInstallmentCreditamtResponse extends $tea.Model {
   // 1- 冻结 
   // 2- 过期
   creditStatus?: string;
-  // 授信总额度，单位：元
-  creditAmount?: number;
-  // 可用余额
-  restAmount?: number;
   // 发放日期，yyyy-MM-dd
   payDate?: string;
   // 到期日期，yyyy-MM-dd
   expireDate?: string;
-  // 授信年利率。精确到小数点后四位0.1250，表示年利率为12.5%
-  rateValue?: number;
-  // 资金方编号
-  fundCode?: string;
-  // 资金方简称
-  abbreFundName?: string;
-  // 1：现金贷、2：分期付
-  prodType?: string;
-  // Y- 可用
-  // N- 不可用
-  installmentStatus?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      applyStatus: 'apply_status',
-      creditStatus: 'credit_status',
-      creditAmount: 'credit_amount',
-      restAmount: 'rest_amount',
-      payDate: 'pay_date',
-      expireDate: 'expire_date',
-      rateValue: 'rate_value',
+      prodType: 'prod_type',
+      status: 'status',
       fundCode: 'fund_code',
       abbreFundName: 'abbre_fund_name',
-      prodType: 'prod_type',
-      installmentStatus: 'installment_status',
+      restAmount: 'rest_amount',
+      creditAmount: 'credit_amount',
+      rateValue: 'rate_value',
+      applyStatus: 'apply_status',
+      creditStatus: 'credit_status',
+      payDate: 'pay_date',
+      expireDate: 'expire_date',
     };
   }
 
@@ -12649,17 +12655,17 @@ export class QueryDubbridgeInstallmentCreditamtResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      applyStatus: 'string',
-      creditStatus: 'string',
-      creditAmount: 'number',
-      restAmount: 'number',
-      payDate: 'string',
-      expireDate: 'string',
-      rateValue: 'number',
+      prodType: 'string',
+      status: 'string',
       fundCode: 'string',
       abbreFundName: 'string',
-      prodType: 'string',
-      installmentStatus: 'string',
+      restAmount: 'number',
+      creditAmount: 'number',
+      rateValue: 'number',
+      applyStatus: 'string',
+      creditStatus: 'string',
+      payDate: 'string',
+      expireDate: 'string',
     };
   }
 
@@ -13621,6 +13627,94 @@ export class QueryDubbridgeAlipayRefundResponse extends $tea.Model {
       refundStatus: 'string',
       refundFailReason: 'string',
       refundDate: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class NotifyDubbridgeInterestResultRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求流水号
+  requestId: string;
+  // 权益流水号
+  interestNo: string;
+  // 权益订单状态：NOT_CREATE 订单未创建
+  // PAYED： 支付成功
+  // APPLY： 已投保
+  // REFUND：已注销（退款)
+  // CANCEL: 已取消
+  // REFUND_FAIL： 退款失败
+  orderStatus: string;
+  // 用户授权状态：AGREE 同意
+  // DISAGREE 不同意
+  userPermitStatus: string;
+  // 公证状态：当需要公正时才返回公证结果
+  // FINISH 已完成
+  // UN_FINISH 未完成
+  // PROCESSING 进行中
+  notaryStatus?: string;
+  // 权益价格，单位：元
+  interestPrice?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      requestId: 'request_id',
+      interestNo: 'interest_no',
+      orderStatus: 'order_status',
+      userPermitStatus: 'user_permit_status',
+      notaryStatus: 'notary_status',
+      interestPrice: 'interest_price',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      requestId: 'string',
+      interestNo: 'string',
+      orderStatus: 'string',
+      userPermitStatus: 'string',
+      notaryStatus: 'string',
+      interestPrice: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class NotifyDubbridgeInterestResultResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 处理结果： success：成功，fail：失败
+  result?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: 'string',
     };
   }
 
@@ -26197,7 +26291,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.29.3",
+          sdk_version: "1.30.0",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
@@ -28032,6 +28126,25 @@ export default class Client {
   async queryDubbridgeAlipayRefundEx(request: QueryDubbridgeAlipayRefundRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDubbridgeAlipayRefundResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryDubbridgeAlipayRefundResponse>(await this.doRequest("1.0", "riskplus.dubbridge.alipay.refund.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDubbridgeAlipayRefundResponse({}));
+  }
+
+  /**
+   * Description: 天枢系统-权益购买结果通知，用户购买权益后通知到天枢系统进行业务处理，自动提交用信申请
+   * Summary: 天枢系统-权益购买结果通知
+   */
+  async notifyDubbridgeInterestResult(request: NotifyDubbridgeInterestResultRequest): Promise<NotifyDubbridgeInterestResultResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.notifyDubbridgeInterestResultEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 天枢系统-权益购买结果通知，用户购买权益后通知到天枢系统进行业务处理，自动提交用信申请
+   * Summary: 天枢系统-权益购买结果通知
+   */
+  async notifyDubbridgeInterestResultEx(request: NotifyDubbridgeInterestResultRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<NotifyDubbridgeInterestResultResponse> {
+    Util.validateModel(request);
+    return $tea.cast<NotifyDubbridgeInterestResultResponse>(await this.doRequest("1.0", "riskplus.dubbridge.interest.result.notify", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new NotifyDubbridgeInterestResultResponse({}));
   }
 
   /**
