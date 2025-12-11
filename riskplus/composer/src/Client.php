@@ -173,6 +173,8 @@ use AntChain\RISKPLUS\Models\NotifyDubbridgeCallbackRequest;
 use AntChain\RISKPLUS\Models\NotifyDubbridgeCallbackResponse;
 use AntChain\RISKPLUS\Models\NotifyDubbridgeDefininnerchannelRequest;
 use AntChain\RISKPLUS\Models\NotifyDubbridgeDefininnerchannelResponse;
+use AntChain\RISKPLUS\Models\NotifyDubbridgeInterestResultRequest;
+use AntChain\RISKPLUS\Models\NotifyDubbridgeInterestResultResponse;
 use AntChain\RISKPLUS\Models\NotifyRdaasTaxCallbackRequest;
 use AntChain\RISKPLUS\Models\NotifyRdaasTaxCallbackResponse;
 use AntChain\RISKPLUS\Models\NotifyRpgwUserSignresultRequest;
@@ -658,7 +660,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.29.3',
+                    'sdk_version'      => '1.30.0',
                     '_prod_code'       => 'RISKPLUS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -3792,6 +3794,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryDubbridgeAlipayRefundResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.alipay.refund.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 天枢系统-权益购买结果通知，用户购买权益后通知到天枢系统进行业务处理，自动提交用信申请
+     * Summary: 天枢系统-权益购买结果通知.
+     *
+     * @param NotifyDubbridgeInterestResultRequest $request
+     *
+     * @return NotifyDubbridgeInterestResultResponse
+     */
+    public function notifyDubbridgeInterestResult($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->notifyDubbridgeInterestResultEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 天枢系统-权益购买结果通知，用户购买权益后通知到天枢系统进行业务处理，自动提交用信申请
+     * Summary: 天枢系统-权益购买结果通知.
+     *
+     * @param NotifyDubbridgeInterestResultRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return NotifyDubbridgeInterestResultResponse
+     */
+    public function notifyDubbridgeInterestResultEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return NotifyDubbridgeInterestResultResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.interest.result.notify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
