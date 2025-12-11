@@ -137,7 +137,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.29.3"},
+                        {"sdk_version", "1.30.0"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.29.3"},
+                        {"sdk_version", "1.30.0"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -4273,6 +4273,48 @@ namespace AntChain.SDK.RISKPLUS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryDubbridgeAlipayRefundResponse>(await DoRequestAsync("1.0", "riskplus.dubbridge.alipay.refund.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 天枢系统-权益购买结果通知，用户购买权益后通知到天枢系统进行业务处理，自动提交用信申请
+         * Summary: 天枢系统-权益购买结果通知
+         */
+        public NotifyDubbridgeInterestResultResponse NotifyDubbridgeInterestResult(NotifyDubbridgeInterestResultRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return NotifyDubbridgeInterestResultEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 天枢系统-权益购买结果通知，用户购买权益后通知到天枢系统进行业务处理，自动提交用信申请
+         * Summary: 天枢系统-权益购买结果通知
+         */
+        public async Task<NotifyDubbridgeInterestResultResponse> NotifyDubbridgeInterestResultAsync(NotifyDubbridgeInterestResultRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await NotifyDubbridgeInterestResultExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 天枢系统-权益购买结果通知，用户购买权益后通知到天枢系统进行业务处理，自动提交用信申请
+         * Summary: 天枢系统-权益购买结果通知
+         */
+        public NotifyDubbridgeInterestResultResponse NotifyDubbridgeInterestResultEx(NotifyDubbridgeInterestResultRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<NotifyDubbridgeInterestResultResponse>(DoRequest("1.0", "riskplus.dubbridge.interest.result.notify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 天枢系统-权益购买结果通知，用户购买权益后通知到天枢系统进行业务处理，自动提交用信申请
+         * Summary: 天枢系统-权益购买结果通知
+         */
+        public async Task<NotifyDubbridgeInterestResultResponse> NotifyDubbridgeInterestResultExAsync(NotifyDubbridgeInterestResultRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<NotifyDubbridgeInterestResultResponse>(await DoRequestAsync("1.0", "riskplus.dubbridge.interest.result.notify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

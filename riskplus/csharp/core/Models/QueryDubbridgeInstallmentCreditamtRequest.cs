@@ -28,6 +28,16 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=true)]
         public string ProdType { get; set; }
 
+        // 导流平台
+        [NameInMap("traffic_platform")]
+        [Validation(Required=true)]
+        public string TrafficPlatform { get; set; }
+
+        // 流量来源名称，导流平台背后具体的流量名称
+        [NameInMap("traffic_source_name")]
+        [Validation(Required=false)]
+        public string TrafficSourceName { get; set; }
+
         // 资产方用户唯一标识
         [NameInMap("open_id")]
         [Validation(Required=true)]
@@ -38,10 +48,20 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=true)]
         public string Mobile { get; set; }
 
-        // 项目编号
+        // 项目编号（天枢侧提前约定）
         [NameInMap("project_code")]
         [Validation(Required=true)]
         public string ProjectCode { get; set; }
+
+        // 交易金额，单位：元，如199.88（用于筛选额度充足的机构）
+        [NameInMap("trade_amount")]
+        [Validation(Required=false)]
+        public string TradeAmount { get; set; }
+
+        // 分期金额，单位：元，如99.88（用于筛选额度充足的机构）,分期金额由天枢加工的渠道可不传递
+        [NameInMap("installment_amount")]
+        [Validation(Required=false)]
+        public string InstallmentAmount { get; set; }
 
         // 资产方购物订单号，如二轮车/摩托车订单号
         [NameInMap("biz_order_no")]
@@ -53,25 +73,10 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string CardNo { get; set; }
 
-        // 交易金额，单位：元，如199.88（用于筛选额度充足的机构）
-        [NameInMap("trade_amount")]
-        [Validation(Required=false)]
-        public string TradeAmount { get; set; }
-
         // 客户姓名
         [NameInMap("customer_name")]
         [Validation(Required=false)]
         public string CustomerName { get; set; }
-
-        // 导流平台
-        [NameInMap("traffic_platform")]
-        [Validation(Required=false)]
-        public string TrafficPlatform { get; set; }
-
-        // 流量来源名称，导流平台背后具体的流量名称
-        [NameInMap("traffic_source_name")]
-        [Validation(Required=false)]
-        public string TrafficSourceName { get; set; }
 
         // 广告位id，流量来源内各广告位标志
         [NameInMap("traffic_ad_id")]

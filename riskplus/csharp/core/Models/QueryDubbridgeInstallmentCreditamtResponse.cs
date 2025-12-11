@@ -24,6 +24,44 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
+        // 1：现金贷、2：分期付
+        [NameInMap("prod_type")]
+        [Validation(Required=false)]
+        public string ProdType { get; set; }
+
+        // CREDIT_APPROVING : 授信中，用户还有没有完结的授信单，需等待天枢授信终态
+        // CAN_APPLY : 可申请授信，用户已有授信单的额度不满足期望分期金额/或无额度，使用mobile初步预筛有资方承接，触发去授信链路
+        // LOAN_AVAILABLE : 可支用，用户已有额度满足期望分期金额，使用 fund_code 触发去支用链路
+        // NO_FUNDER : 无资方，用户已有授信单的额度不满足期望分期金额/或无额度，且使用mobile初步预筛没有资方承接，可流转到其他支付方式
+        [NameInMap("status")]
+        [Validation(Required=false)]
+        public string Status { get; set; }
+
+        // 资金方编号，去支用联登时的默认资金方
+        [NameInMap("fund_code")]
+        [Validation(Required=false)]
+        public string FundCode { get; set; }
+
+        // 资金方简称
+        [NameInMap("abbre_fund_name")]
+        [Validation(Required=false)]
+        public string AbbreFundName { get; set; }
+
+        // 可用余额
+        [NameInMap("rest_amount")]
+        [Validation(Required=false)]
+        public long? RestAmount { get; set; }
+
+        // 授信总额度，单位：元
+        [NameInMap("credit_amount")]
+        [Validation(Required=false)]
+        public long? CreditAmount { get; set; }
+
+        // 授信年利率。精确到小数点后四位0.1250，表示年利率为12.5%
+        [NameInMap("rate_value")]
+        [Validation(Required=false)]
+        public long? RateValue { get; set; }
+
         // 授信申请状态：
         // 0- 通过 
         // 1- 拒绝 
@@ -42,16 +80,6 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string CreditStatus { get; set; }
 
-        // 授信总额度，单位：元
-        [NameInMap("credit_amount")]
-        [Validation(Required=false)]
-        public long? CreditAmount { get; set; }
-
-        // 可用余额
-        [NameInMap("rest_amount")]
-        [Validation(Required=false)]
-        public long? RestAmount { get; set; }
-
         // 发放日期，yyyy-MM-dd
         [NameInMap("pay_date")]
         [Validation(Required=false)]
@@ -61,32 +89,6 @@ namespace AntChain.SDK.RISKPLUS.Models
         [NameInMap("expire_date")]
         [Validation(Required=false)]
         public string ExpireDate { get; set; }
-
-        // 授信年利率。精确到小数点后四位0.1250，表示年利率为12.5%
-        [NameInMap("rate_value")]
-        [Validation(Required=false)]
-        public long? RateValue { get; set; }
-
-        // 资金方编号
-        [NameInMap("fund_code")]
-        [Validation(Required=false)]
-        public string FundCode { get; set; }
-
-        // 资金方简称
-        [NameInMap("abbre_fund_name")]
-        [Validation(Required=false)]
-        public string AbbreFundName { get; set; }
-
-        // 1：现金贷、2：分期付
-        [NameInMap("prod_type")]
-        [Validation(Required=false)]
-        public string ProdType { get; set; }
-
-        // Y- 可用
-        // N- 不可用
-        [NameInMap("installment_status")]
-        [Validation(Required=false)]
-        public string InstallmentStatus { get; set; }
 
     }
 
