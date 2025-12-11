@@ -26,7 +26,7 @@ namespace AntChain.SDK.COLLABINV.Models
         // 查询条数
         [NameInMap("data_num")]
         [Validation(Required=true)]
-        public string DataNum { get; set; }
+        public long? DataNum { get; set; }
 
     }
 

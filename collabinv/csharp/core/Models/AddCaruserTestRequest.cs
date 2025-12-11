@@ -29,14 +29,19 @@ namespace AntChain.SDK.COLLABINV.Models
         public string DataUniqloCode { get; set; }
 
         // 批次数据编号
-        [NameInMap("dat_phase_code")]
+        [NameInMap("data_phase_code")]
         [Validation(Required=true)]
-        public string DatPhaseCode { get; set; }
+        public string DataPhaseCode { get; set; }
 
         // 批次的数据量
-        [NameInMap("data_num")]
+        [NameInMap("phase_data_num")]
         [Validation(Required=true)]
-        public long? DataNum { get; set; }
+        public long? PhaseDataNum { get; set; }
+
+        // 整体数据量
+        [NameInMap("uniqlo_data_num")]
+        [Validation(Required=true)]
+        public long? UniqloDataNum { get; set; }
 
         // 业务类型
         [NameInMap("business_type")]
