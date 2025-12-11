@@ -20821,15 +20821,16 @@ class QueryDubbridgeInstallmentCreditamtRequest(TeaModel):
         product_instance_id: str = None,
         order_no: str = None,
         prod_type: str = None,
+        traffic_platform: str = None,
+        traffic_source_name: str = None,
         open_id: str = None,
         mobile: str = None,
         project_code: str = None,
+        trade_amount: str = None,
+        installment_amount: str = None,
         biz_order_no: str = None,
         card_no: str = None,
-        trade_amount: str = None,
         customer_name: str = None,
-        traffic_platform: str = None,
-        traffic_source_name: str = None,
         traffic_ad_id: str = None,
         traffic_mkt_id: str = None,
         click_id: str = None,
@@ -20841,24 +20842,26 @@ class QueryDubbridgeInstallmentCreditamtRequest(TeaModel):
         self.order_no = order_no
         # 1：现金贷、2：分期付
         self.prod_type = prod_type
-        # 资产方用户唯一标识
-        self.open_id = open_id
-        # 手机号
-        self.mobile = mobile
-        # 项目编号
-        self.project_code = project_code
-        # 资产方购物订单号，如二轮车/摩托车订单号
-        self.biz_order_no = biz_order_no
-        # 身份证号
-        self.card_no = card_no
-        # 交易金额，单位：元，如199.88（用于筛选额度充足的机构）
-        self.trade_amount = trade_amount
-        # 客户姓名
-        self.customer_name = customer_name
         # 导流平台
         self.traffic_platform = traffic_platform
         # 流量来源名称，导流平台背后具体的流量名称
         self.traffic_source_name = traffic_source_name
+        # 资产方用户唯一标识
+        self.open_id = open_id
+        # 手机号
+        self.mobile = mobile
+        # 项目编号（天枢侧提前约定）
+        self.project_code = project_code
+        # 交易金额，单位：元，如199.88（用于筛选额度充足的机构）
+        self.trade_amount = trade_amount
+        # 分期金额，单位：元，如99.88（用于筛选额度充足的机构）,分期金额由天枢加工的渠道可不传递
+        self.installment_amount = installment_amount
+        # 资产方购物订单号，如二轮车/摩托车订单号
+        self.biz_order_no = biz_order_no
+        # 身份证号
+        self.card_no = card_no
+        # 客户姓名
+        self.customer_name = customer_name
         # 广告位id，流量来源内各广告位标志
         self.traffic_ad_id = traffic_ad_id
         # 营销活动编号
@@ -20869,6 +20872,7 @@ class QueryDubbridgeInstallmentCreditamtRequest(TeaModel):
     def validate(self):
         self.validate_required(self.order_no, 'order_no')
         self.validate_required(self.prod_type, 'prod_type')
+        self.validate_required(self.traffic_platform, 'traffic_platform')
         self.validate_required(self.open_id, 'open_id')
         self.validate_required(self.mobile, 'mobile')
         self.validate_required(self.project_code, 'project_code')
@@ -20887,24 +20891,26 @@ class QueryDubbridgeInstallmentCreditamtRequest(TeaModel):
             result['order_no'] = self.order_no
         if self.prod_type is not None:
             result['prod_type'] = self.prod_type
+        if self.traffic_platform is not None:
+            result['traffic_platform'] = self.traffic_platform
+        if self.traffic_source_name is not None:
+            result['traffic_source_name'] = self.traffic_source_name
         if self.open_id is not None:
             result['open_id'] = self.open_id
         if self.mobile is not None:
             result['mobile'] = self.mobile
         if self.project_code is not None:
             result['project_code'] = self.project_code
+        if self.trade_amount is not None:
+            result['trade_amount'] = self.trade_amount
+        if self.installment_amount is not None:
+            result['installment_amount'] = self.installment_amount
         if self.biz_order_no is not None:
             result['biz_order_no'] = self.biz_order_no
         if self.card_no is not None:
             result['card_no'] = self.card_no
-        if self.trade_amount is not None:
-            result['trade_amount'] = self.trade_amount
         if self.customer_name is not None:
             result['customer_name'] = self.customer_name
-        if self.traffic_platform is not None:
-            result['traffic_platform'] = self.traffic_platform
-        if self.traffic_source_name is not None:
-            result['traffic_source_name'] = self.traffic_source_name
         if self.traffic_ad_id is not None:
             result['traffic_ad_id'] = self.traffic_ad_id
         if self.traffic_mkt_id is not None:
@@ -20923,24 +20929,26 @@ class QueryDubbridgeInstallmentCreditamtRequest(TeaModel):
             self.order_no = m.get('order_no')
         if m.get('prod_type') is not None:
             self.prod_type = m.get('prod_type')
+        if m.get('traffic_platform') is not None:
+            self.traffic_platform = m.get('traffic_platform')
+        if m.get('traffic_source_name') is not None:
+            self.traffic_source_name = m.get('traffic_source_name')
         if m.get('open_id') is not None:
             self.open_id = m.get('open_id')
         if m.get('mobile') is not None:
             self.mobile = m.get('mobile')
         if m.get('project_code') is not None:
             self.project_code = m.get('project_code')
+        if m.get('trade_amount') is not None:
+            self.trade_amount = m.get('trade_amount')
+        if m.get('installment_amount') is not None:
+            self.installment_amount = m.get('installment_amount')
         if m.get('biz_order_no') is not None:
             self.biz_order_no = m.get('biz_order_no')
         if m.get('card_no') is not None:
             self.card_no = m.get('card_no')
-        if m.get('trade_amount') is not None:
-            self.trade_amount = m.get('trade_amount')
         if m.get('customer_name') is not None:
             self.customer_name = m.get('customer_name')
-        if m.get('traffic_platform') is not None:
-            self.traffic_platform = m.get('traffic_platform')
-        if m.get('traffic_source_name') is not None:
-            self.traffic_source_name = m.get('traffic_source_name')
         if m.get('traffic_ad_id') is not None:
             self.traffic_ad_id = m.get('traffic_ad_id')
         if m.get('traffic_mkt_id') is not None:
@@ -20956,17 +20964,17 @@ class QueryDubbridgeInstallmentCreditamtResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        apply_status: str = None,
-        credit_status: str = None,
-        credit_amount: int = None,
-        rest_amount: int = None,
-        pay_date: str = None,
-        expire_date: str = None,
-        rate_value: int = None,
+        prod_type: str = None,
+        status: str = None,
         fund_code: str = None,
         abbre_fund_name: str = None,
-        prod_type: str = None,
-        installment_status: str = None,
+        rest_amount: int = None,
+        credit_amount: int = None,
+        rate_value: int = None,
+        apply_status: str = None,
+        credit_status: str = None,
+        pay_date: str = None,
+        expire_date: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -20974,6 +20982,23 @@ class QueryDubbridgeInstallmentCreditamtResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
+        # 1：现金贷、2：分期付
+        self.prod_type = prod_type
+        # CREDIT_APPROVING : 授信中，用户还有没有完结的授信单，需等待天枢授信终态
+        # CAN_APPLY : 可申请授信，用户已有授信单的额度不满足期望分期金额/或无额度，使用mobile初步预筛有资方承接，触发去授信链路
+        # LOAN_AVAILABLE : 可支用，用户已有额度满足期望分期金额，使用 fund_code 触发去支用链路
+        # NO_FUNDER : 无资方，用户已有授信单的额度不满足期望分期金额/或无额度，且使用mobile初步预筛没有资方承接，可流转到其他支付方式
+        self.status = status
+        # 资金方编号，去支用联登时的默认资金方
+        self.fund_code = fund_code
+        # 资金方简称
+        self.abbre_fund_name = abbre_fund_name
+        # 可用余额
+        self.rest_amount = rest_amount
+        # 授信总额度，单位：元
+        self.credit_amount = credit_amount
+        # 授信年利率。精确到小数点后四位0.1250，表示年利率为12.5%\
+        self.rate_value = rate_value
         # 授信申请状态：
         # 0- 通过
         # 1- 拒绝
@@ -20986,25 +21011,10 @@ class QueryDubbridgeInstallmentCreditamtResponse(TeaModel):
         # 1- 冻结
         # 2- 过期
         self.credit_status = credit_status
-        # 授信总额度，单位：元
-        self.credit_amount = credit_amount
-        # 可用余额
-        self.rest_amount = rest_amount
         # 发放日期，yyyy-MM-dd
         self.pay_date = pay_date
         # 到期日期，yyyy-MM-dd
         self.expire_date = expire_date
-        # 授信年利率。精确到小数点后四位0.1250，表示年利率为12.5%\
-        self.rate_value = rate_value
-        # 资金方编号
-        self.fund_code = fund_code
-        # 资金方简称
-        self.abbre_fund_name = abbre_fund_name
-        # 1：现金贷、2：分期付
-        self.prod_type = prod_type
-        # Y- 可用
-        # N- 不可用
-        self.installment_status = installment_status
 
     def validate(self):
         pass
@@ -21021,28 +21031,28 @@ class QueryDubbridgeInstallmentCreditamtResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
-        if self.apply_status is not None:
-            result['apply_status'] = self.apply_status
-        if self.credit_status is not None:
-            result['credit_status'] = self.credit_status
-        if self.credit_amount is not None:
-            result['credit_amount'] = self.credit_amount
-        if self.rest_amount is not None:
-            result['rest_amount'] = self.rest_amount
-        if self.pay_date is not None:
-            result['pay_date'] = self.pay_date
-        if self.expire_date is not None:
-            result['expire_date'] = self.expire_date
-        if self.rate_value is not None:
-            result['rate_value'] = self.rate_value
+        if self.prod_type is not None:
+            result['prod_type'] = self.prod_type
+        if self.status is not None:
+            result['status'] = self.status
         if self.fund_code is not None:
             result['fund_code'] = self.fund_code
         if self.abbre_fund_name is not None:
             result['abbre_fund_name'] = self.abbre_fund_name
-        if self.prod_type is not None:
-            result['prod_type'] = self.prod_type
-        if self.installment_status is not None:
-            result['installment_status'] = self.installment_status
+        if self.rest_amount is not None:
+            result['rest_amount'] = self.rest_amount
+        if self.credit_amount is not None:
+            result['credit_amount'] = self.credit_amount
+        if self.rate_value is not None:
+            result['rate_value'] = self.rate_value
+        if self.apply_status is not None:
+            result['apply_status'] = self.apply_status
+        if self.credit_status is not None:
+            result['credit_status'] = self.credit_status
+        if self.pay_date is not None:
+            result['pay_date'] = self.pay_date
+        if self.expire_date is not None:
+            result['expire_date'] = self.expire_date
         return result
 
     def from_map(self, m: dict = None):
@@ -21053,28 +21063,28 @@ class QueryDubbridgeInstallmentCreditamtResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
-        if m.get('apply_status') is not None:
-            self.apply_status = m.get('apply_status')
-        if m.get('credit_status') is not None:
-            self.credit_status = m.get('credit_status')
-        if m.get('credit_amount') is not None:
-            self.credit_amount = m.get('credit_amount')
-        if m.get('rest_amount') is not None:
-            self.rest_amount = m.get('rest_amount')
-        if m.get('pay_date') is not None:
-            self.pay_date = m.get('pay_date')
-        if m.get('expire_date') is not None:
-            self.expire_date = m.get('expire_date')
-        if m.get('rate_value') is not None:
-            self.rate_value = m.get('rate_value')
+        if m.get('prod_type') is not None:
+            self.prod_type = m.get('prod_type')
+        if m.get('status') is not None:
+            self.status = m.get('status')
         if m.get('fund_code') is not None:
             self.fund_code = m.get('fund_code')
         if m.get('abbre_fund_name') is not None:
             self.abbre_fund_name = m.get('abbre_fund_name')
-        if m.get('prod_type') is not None:
-            self.prod_type = m.get('prod_type')
-        if m.get('installment_status') is not None:
-            self.installment_status = m.get('installment_status')
+        if m.get('rest_amount') is not None:
+            self.rest_amount = m.get('rest_amount')
+        if m.get('credit_amount') is not None:
+            self.credit_amount = m.get('credit_amount')
+        if m.get('rate_value') is not None:
+            self.rate_value = m.get('rate_value')
+        if m.get('apply_status') is not None:
+            self.apply_status = m.get('apply_status')
+        if m.get('credit_status') is not None:
+            self.credit_status = m.get('credit_status')
+        if m.get('pay_date') is not None:
+            self.pay_date = m.get('pay_date')
+        if m.get('expire_date') is not None:
+            self.expire_date = m.get('expire_date')
         return self
 
 
@@ -22637,6 +22647,143 @@ class QueryDubbridgeAlipayRefundResponse(TeaModel):
             self.refund_fail_reason = m.get('refund_fail_reason')
         if m.get('refund_date') is not None:
             self.refund_date = m.get('refund_date')
+        return self
+
+
+class NotifyDubbridgeInterestResultRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        request_id: str = None,
+        interest_no: str = None,
+        order_status: str = None,
+        user_permit_status: str = None,
+        notary_status: str = None,
+        interest_price: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 请求流水号
+        self.request_id = request_id
+        # 权益流水号
+        self.interest_no = interest_no
+        # 权益订单状态：NOT_CREATE 订单未创建
+        # PAYED： 支付成功
+        # APPLY： 已投保
+        # REFUND：已注销（退款)
+        # CANCEL: 已取消
+        # REFUND_FAIL： 退款失败
+        self.order_status = order_status
+        # 用户授权状态：AGREE 同意
+        # DISAGREE 不同意
+        self.user_permit_status = user_permit_status
+        # 公证状态：当需要公正时才返回公证结果
+        # FINISH 已完成
+        # UN_FINISH 未完成
+        # PROCESSING 进行中
+        self.notary_status = notary_status
+        # 权益价格，单位：元
+        self.interest_price = interest_price
+
+    def validate(self):
+        self.validate_required(self.request_id, 'request_id')
+        self.validate_required(self.interest_no, 'interest_no')
+        self.validate_required(self.order_status, 'order_status')
+        self.validate_required(self.user_permit_status, 'user_permit_status')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.interest_no is not None:
+            result['interest_no'] = self.interest_no
+        if self.order_status is not None:
+            result['order_status'] = self.order_status
+        if self.user_permit_status is not None:
+            result['user_permit_status'] = self.user_permit_status
+        if self.notary_status is not None:
+            result['notary_status'] = self.notary_status
+        if self.interest_price is not None:
+            result['interest_price'] = self.interest_price
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('interest_no') is not None:
+            self.interest_no = m.get('interest_no')
+        if m.get('order_status') is not None:
+            self.order_status = m.get('order_status')
+        if m.get('user_permit_status') is not None:
+            self.user_permit_status = m.get('user_permit_status')
+        if m.get('notary_status') is not None:
+            self.notary_status = m.get('notary_status')
+        if m.get('interest_price') is not None:
+            self.interest_price = m.get('interest_price')
+        return self
+
+
+class NotifyDubbridgeInterestResultResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 处理结果： success：成功，fail：失败
+        self.result = result
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result is not None:
+            result['result'] = self.result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result') is not None:
+            self.result = m.get('result')
         return self
 
 

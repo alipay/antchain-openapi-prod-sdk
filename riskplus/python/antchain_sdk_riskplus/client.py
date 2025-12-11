@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.29.3',
+                    'sdk_version': '1.30.0',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.29.3',
+                    'sdk_version': '1.30.0',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -5517,6 +5517,62 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.QueryDubbridgeAlipayRefundResponse(),
             await self.do_request_async('1.0', 'riskplus.dubbridge.alipay.refund.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def notify_dubbridge_interest_result(
+        self,
+        request: riskplus_models.NotifyDubbridgeInterestResultRequest,
+    ) -> riskplus_models.NotifyDubbridgeInterestResultResponse:
+        """
+        Description: 天枢系统-权益购买结果通知，用户购买权益后通知到天枢系统进行业务处理，自动提交用信申请
+        Summary: 天枢系统-权益购买结果通知
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.notify_dubbridge_interest_result_ex(request, headers, runtime)
+
+    async def notify_dubbridge_interest_result_async(
+        self,
+        request: riskplus_models.NotifyDubbridgeInterestResultRequest,
+    ) -> riskplus_models.NotifyDubbridgeInterestResultResponse:
+        """
+        Description: 天枢系统-权益购买结果通知，用户购买权益后通知到天枢系统进行业务处理，自动提交用信申请
+        Summary: 天枢系统-权益购买结果通知
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.notify_dubbridge_interest_result_ex_async(request, headers, runtime)
+
+    def notify_dubbridge_interest_result_ex(
+        self,
+        request: riskplus_models.NotifyDubbridgeInterestResultRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.NotifyDubbridgeInterestResultResponse:
+        """
+        Description: 天枢系统-权益购买结果通知，用户购买权益后通知到天枢系统进行业务处理，自动提交用信申请
+        Summary: 天枢系统-权益购买结果通知
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.NotifyDubbridgeInterestResultResponse(),
+            self.do_request('1.0', 'riskplus.dubbridge.interest.result.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def notify_dubbridge_interest_result_ex_async(
+        self,
+        request: riskplus_models.NotifyDubbridgeInterestResultRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.NotifyDubbridgeInterestResultResponse:
+        """
+        Description: 天枢系统-权益购买结果通知，用户购买权益后通知到天枢系统进行业务处理，自动提交用信申请
+        Summary: 天枢系统-权益购买结果通知
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.NotifyDubbridgeInterestResultResponse(),
+            await self.do_request_async('1.0', 'riskplus.dubbridge.interest.result.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def verify_finservice_zhima_identify(
