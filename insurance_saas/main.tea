@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.10.4',
+    sdk_version = '1.10.8',
     _prod_code = 'INSURANCE_SAAS',
     _prod_channel = 'undefined'
   };
@@ -1849,6 +1849,10 @@ model NotifyInterestSupplierorderRequest = {
   refundTime?: string(name='refund_time'),
   // 公证状态
   notaryStatus?: string(name='notary_status'),
+  // 支付成功时间
+  paymentSuccessTime?: string(name='payment_success_time'),
+  // 版本号
+  interestVersion?: string(name='interest_version'),
 }
 
 model NotifyInterestSupplierorderResponse = {
@@ -1920,5 +1924,193 @@ async function receiveLeadMarket(request: ReceiveLeadMarketRequest): ReceiveLead
 async function receiveLeadMarketEx(request: ReceiveLeadMarketRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ReceiveLeadMarketResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antcloud.insurance.lead.market.receive', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetMarketingInsureurlRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 调用方生成的唯一编码，参考格式： yyyyMMdd_xxxxx，已接口请求的当前日期开头；
+  requestId: string(maxLength=128, name='request_id'),
+  // 产品编码
+  productCode: string(maxLength=128, name='product_code'),
+  // 保司编码
+  channelCode: string(maxLength=64, name='channel_code'),
+  // 保司出单机构编码
+  issueOrg: string(maxLength=64, name='issue_org'),
+  // 保司产品编码（保司提供）
+  channelProductCode: string(maxLength=64, name='channel_product_code'),
+  // 保险产品类型，枚举：
+  // STANDARD（均分）
+  // PREMIUM（大小均分）
+  // GIFT_TRANSFER（赠转商）
+  channelProductType: string(maxLength=64, name='channel_product_type'),
+  // 保险方案
+  insurancePlan: string(maxLength=20, name='insurance_plan'),
+  // 一级渠道，固定值"antdigital"
+  firstChannel: string(maxLength=64, name='first_channel'),
+  // 二级渠道
+  secondChannel?: string(maxLength=64, name='second_channel'),
+  // 三级渠道/广告版位
+  advertisingPosition?: string(maxLength=64, name='advertising_position'),
+  // 设备类型/用户类型，枚举：
+  // muid
+  // oaid
+  // caid
+  // imei
+  // idfa
+  // userid
+  deviceType: string(maxLength=64, name='device_type'),
+  // 设备编号/用户编号
+  deviceId: string(maxLength=64, name='device_id'),
+  // 点击时间 yyyy-MM-dd HH:mm:ss
+  clickTime: string(maxLength=20, name='click_time'),
+  // 订单编号
+  sceneOrderNo: string(maxLength=64, name='scene_order_no'),
+  // 投保人姓名
+  applicantName?: string(maxLength=64, name='applicant_name'),
+  // 投保人证件号
+  applicantCertNo?: string(maxLength=64, name='applicant_cert_no'),
+  // 投保人联系方式
+  applicantPhone?: string(maxLength=64, name='applicant_phone'),
+}
+
+model GetMarketingInsureurlResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 请求id
+  requestId?: string(name='request_id'),
+  // 一级渠道
+  firstChannel?: string(name='first_channel'),
+  // 二级渠道
+  secondChannel?: string(name='second_channel'),
+  // 订单号
+  sceneOrderNo?: string(name='scene_order_no'),
+  // 特征编码
+  clickId?: string(name='click_id'),
+  // 投保页面URL?bizOrigin={渠道参数}&bizContent={加密参数}
+  insureUrl?: string(name='insure_url'),
+}
+
+/**
+ * Description: 非标营销投保短链获取
+ * Summary: 非标营销投保短链获取
+ */
+async function getMarketingInsureurl(request: GetMarketingInsureurlRequest): GetMarketingInsureurlResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getMarketingInsureurlEx(request, headers, runtime);
+}
+
+/**
+ * Description: 非标营销投保短链获取
+ * Summary: 非标营销投保短链获取
+ */
+async function getMarketingInsureurlEx(request: GetMarketingInsureurlRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetMarketingInsureurlResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.insurance.marketing.insureurl.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CallbackMarketingEventRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 调用方生成的唯一编码
+  requestId: string(maxLength=128, name='request_id'),
+  // 特征编码
+  clickId: string(maxLength=64, name='click_id'),
+  // 点击时间
+  clickTime: string(maxLength=20, name='click_time'),
+  // 事件类型，枚举：
+  // RESERVATION_CHECK（留资）；
+  // FIRST_PICK_FREE（领增）；
+  // LOW_INSURANCE（低价险）；
+  // HIGH_INSURANCE（高价险）；
+  eventCode: string(maxLength=20, name='event_code'),
+  // 事件完成时间（yyyy-MM-dd  HH:mm:ss）
+  eventTime: string(maxLength=20, name='event_time'),
+  // 固定式，蚂蚁数科
+  firstChannel: string(maxLength=64, name='first_channel'),
+  // 二级渠道编码
+  secondChannel: string(maxLength=64, name='second_channel'),
+  // 三级渠道/广告版位
+  advertisingPosition: string(maxLength=64, name='advertising_position'),
+  // 业务字段，json格式
+  eventInfo: string(name='event_info'),
+}
+
+model CallbackMarketingEventResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 请求id
+  requestId?: string(name='request_id'),
+}
+
+/**
+ * Description: 众安回传接口，获取保单信息保存。
+ * Summary: 非标营销保单信息事件回传；
+ */
+async function callbackMarketingEvent(request: CallbackMarketingEventRequest): CallbackMarketingEventResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return callbackMarketingEventEx(request, headers, runtime);
+}
+
+/**
+ * Description: 众安回传接口，获取保单信息保存。
+ * Summary: 非标营销保单信息事件回传；
+ */
+async function callbackMarketingEventEx(request: CallbackMarketingEventRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CallbackMarketingEventResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.insurance.marketing.event.callback', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CallbackMarketingPolicycancelRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 请求 id
+  requestId: string(name='request_id'),
+  // 保单号（可脱敏处理）
+  policyNo: string(name='policy_no'),
+  // 退保时间（yyyy-MM-dd  HH:mm:ss）
+  cancelTime: string(name='cancel_time'),
+  // 保险止期（yyyy-MM-dd  HH:mm:ss）
+  endTime: string(name='end_time'),
+}
+
+model CallbackMarketingPolicycancelResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 请求id
+  requestId?: string(name='request_id'),
+}
+
+/**
+ * Description: 众安退保信息回传
+ * Summary: 非标营销退保事件回传；
+ */
+async function callbackMarketingPolicycancel(request: CallbackMarketingPolicycancelRequest): CallbackMarketingPolicycancelResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return callbackMarketingPolicycancelEx(request, headers, runtime);
+}
+
+/**
+ * Description: 众安退保信息回传
+ * Summary: 非标营销退保事件回传；
+ */
+async function callbackMarketingPolicycancelEx(request: CallbackMarketingPolicycancelRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CallbackMarketingPolicycancelResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.insurance.marketing.policycancel.callback', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
