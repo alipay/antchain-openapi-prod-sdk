@@ -61,16 +61,30 @@ class NotifyInterestSupplierorderRequest extends Model
      * @var string
      */
     public $notaryStatus;
+
+    // 支付成功时间
+    /**
+     * @var string
+     */
+    public $paymentSuccessTime;
+
+    // 版本号
+    /**
+     * @var string
+     */
+    public $interestVersion;
     protected $_name = [
-        'authToken'        => 'auth_token',
-        'requestNo'        => 'request_no',
-        'orderNo'          => 'order_no',
-        'interestNo'       => 'interest_no',
-        'userPermitStatus' => 'user_permit_status',
-        'orderStatus'      => 'order_status',
-        'refundAmount'     => 'refund_amount',
-        'refundTime'       => 'refund_time',
-        'notaryStatus'     => 'notary_status',
+        'authToken'          => 'auth_token',
+        'requestNo'          => 'request_no',
+        'orderNo'            => 'order_no',
+        'interestNo'         => 'interest_no',
+        'userPermitStatus'   => 'user_permit_status',
+        'orderStatus'        => 'order_status',
+        'refundAmount'       => 'refund_amount',
+        'refundTime'         => 'refund_time',
+        'notaryStatus'       => 'notary_status',
+        'paymentSuccessTime' => 'payment_success_time',
+        'interestVersion'    => 'interest_version',
     ];
 
     public function validate()
@@ -112,6 +126,12 @@ class NotifyInterestSupplierorderRequest extends Model
         if (null !== $this->notaryStatus) {
             $res['notary_status'] = $this->notaryStatus;
         }
+        if (null !== $this->paymentSuccessTime) {
+            $res['payment_success_time'] = $this->paymentSuccessTime;
+        }
+        if (null !== $this->interestVersion) {
+            $res['interest_version'] = $this->interestVersion;
+        }
 
         return $res;
     }
@@ -150,6 +170,12 @@ class NotifyInterestSupplierorderRequest extends Model
         }
         if (isset($map['notary_status'])) {
             $model->notaryStatus = $map['notary_status'];
+        }
+        if (isset($map['payment_success_time'])) {
+            $model->paymentSuccessTime = $map['payment_success_time'];
+        }
+        if (isset($map['interest_version'])) {
+            $model->interestVersion = $map['interest_version'];
         }
 
         return $model;

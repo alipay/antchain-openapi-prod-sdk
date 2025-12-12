@@ -21,6 +21,10 @@ use AntChain\INSURANCE_SAAS\Models\ApplyInsureTestRequest;
 use AntChain\INSURANCE_SAAS\Models\ApplyInsureTestResponse;
 use AntChain\INSURANCE_SAAS\Models\ApplyUnderwritingRequest;
 use AntChain\INSURANCE_SAAS\Models\ApplyUnderwritingResponse;
+use AntChain\INSURANCE_SAAS\Models\CallbackMarketingEventRequest;
+use AntChain\INSURANCE_SAAS\Models\CallbackMarketingEventResponse;
+use AntChain\INSURANCE_SAAS\Models\CallbackMarketingPolicycancelRequest;
+use AntChain\INSURANCE_SAAS\Models\CallbackMarketingPolicycancelResponse;
 use AntChain\INSURANCE_SAAS\Models\CancelClaimRequest;
 use AntChain\INSURANCE_SAAS\Models\CancelClaimResponse;
 use AntChain\INSURANCE_SAAS\Models\ConfirmClaimSettleRequest;
@@ -33,6 +37,8 @@ use AntChain\INSURANCE_SAAS\Models\GetEmbedoemautoinsuranceUrlRequest;
 use AntChain\INSURANCE_SAAS\Models\GetEmbedoemautoinsuranceUrlResponse;
 use AntChain\INSURANCE_SAAS\Models\GetInterestUrlRequest;
 use AntChain\INSURANCE_SAAS\Models\GetInterestUrlResponse;
+use AntChain\INSURANCE_SAAS\Models\GetMarketingInsureurlRequest;
+use AntChain\INSURANCE_SAAS\Models\GetMarketingInsureurlResponse;
 use AntChain\INSURANCE_SAAS\Models\GetRightplatformUrlRequest;
 use AntChain\INSURANCE_SAAS\Models\GetRightplatformUrlResponse;
 use AntChain\INSURANCE_SAAS\Models\IssueEmbedcardPaysucRequest;
@@ -224,7 +230,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.10.4',
+                    'sdk_version'      => '1.10.8',
                     '_prod_code'       => 'INSURANCE_SAAS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1359,5 +1365,104 @@ class Client
         Utils::validateModel($request);
 
         return ReceiveLeadMarketResponse::fromMap($this->doRequest('1.0', 'antcloud.insurance.lead.market.receive', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 非标营销投保短链获取
+     * Summary: 非标营销投保短链获取.
+     *
+     * @param GetMarketingInsureurlRequest $request
+     *
+     * @return GetMarketingInsureurlResponse
+     */
+    public function getMarketingInsureurl($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getMarketingInsureurlEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 非标营销投保短链获取
+     * Summary: 非标营销投保短链获取.
+     *
+     * @param GetMarketingInsureurlRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return GetMarketingInsureurlResponse
+     */
+    public function getMarketingInsureurlEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetMarketingInsureurlResponse::fromMap($this->doRequest('1.0', 'antcloud.insurance.marketing.insureurl.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 众安回传接口，获取保单信息保存。
+     * Summary: 非标营销保单信息事件回传；.
+     *
+     * @param CallbackMarketingEventRequest $request
+     *
+     * @return CallbackMarketingEventResponse
+     */
+    public function callbackMarketingEvent($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->callbackMarketingEventEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 众安回传接口，获取保单信息保存。
+     * Summary: 非标营销保单信息事件回传；.
+     *
+     * @param CallbackMarketingEventRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return CallbackMarketingEventResponse
+     */
+    public function callbackMarketingEventEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CallbackMarketingEventResponse::fromMap($this->doRequest('1.0', 'antcloud.insurance.marketing.event.callback', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 众安退保信息回传
+     * Summary: 非标营销退保事件回传；.
+     *
+     * @param CallbackMarketingPolicycancelRequest $request
+     *
+     * @return CallbackMarketingPolicycancelResponse
+     */
+    public function callbackMarketingPolicycancel($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->callbackMarketingPolicycancelEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 众安退保信息回传
+     * Summary: 非标营销退保事件回传；.
+     *
+     * @param CallbackMarketingPolicycancelRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return CallbackMarketingPolicycancelResponse
+     */
+    public function callbackMarketingPolicycancelEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CallbackMarketingPolicycancelResponse::fromMap($this->doRequest('1.0', 'antcloud.insurance.marketing.policycancel.callback', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
