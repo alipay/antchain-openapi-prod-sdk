@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.10.4"),
+                    new TeaPair("sdk_version", "1.10.8"),
                     new TeaPair("_prod_code", "INSURANCE_SAAS"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -879,5 +879,68 @@ public class Client {
     public ReceiveLeadMarketResponse receiveLeadMarketEx(ReceiveLeadMarketRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.insurance.lead.market.receive", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ReceiveLeadMarketResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 非标营销投保短链获取
+     * Summary: 非标营销投保短链获取</p>
+     */
+    public GetMarketingInsureurlResponse getMarketingInsureurl(GetMarketingInsureurlRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getMarketingInsureurlEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 非标营销投保短链获取
+     * Summary: 非标营销投保短链获取</p>
+     */
+    public GetMarketingInsureurlResponse getMarketingInsureurlEx(GetMarketingInsureurlRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.insurance.marketing.insureurl.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetMarketingInsureurlResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 众安回传接口，获取保单信息保存。
+     * Summary: 非标营销保单信息事件回传；</p>
+     */
+    public CallbackMarketingEventResponse callbackMarketingEvent(CallbackMarketingEventRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.callbackMarketingEventEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 众安回传接口，获取保单信息保存。
+     * Summary: 非标营销保单信息事件回传；</p>
+     */
+    public CallbackMarketingEventResponse callbackMarketingEventEx(CallbackMarketingEventRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.insurance.marketing.event.callback", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CallbackMarketingEventResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 众安退保信息回传
+     * Summary: 非标营销退保事件回传；</p>
+     */
+    public CallbackMarketingPolicycancelResponse callbackMarketingPolicycancel(CallbackMarketingPolicycancelRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.callbackMarketingPolicycancelEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 众安退保信息回传
+     * Summary: 非标营销退保事件回传；</p>
+     */
+    public CallbackMarketingPolicycancelResponse callbackMarketingPolicycancelEx(CallbackMarketingPolicycancelRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.insurance.marketing.policycancel.callback", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CallbackMarketingPolicycancelResponse());
     }
 }
