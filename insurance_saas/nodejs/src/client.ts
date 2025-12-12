@@ -2902,6 +2902,10 @@ export class NotifyInterestSupplierorderRequest extends $tea.Model {
   refundTime?: string;
   // 公证状态
   notaryStatus?: string;
+  // 支付成功时间
+  paymentSuccessTime?: string;
+  // 版本号
+  interestVersion?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -2913,6 +2917,8 @@ export class NotifyInterestSupplierorderRequest extends $tea.Model {
       refundAmount: 'refund_amount',
       refundTime: 'refund_time',
       notaryStatus: 'notary_status',
+      paymentSuccessTime: 'payment_success_time',
+      interestVersion: 'interest_version',
     };
   }
 
@@ -2927,6 +2933,8 @@ export class NotifyInterestSupplierorderRequest extends $tea.Model {
       refundAmount: 'string',
       refundTime: 'string',
       notaryStatus: 'string',
+      paymentSuccessTime: 'string',
+      interestVersion: 'string',
     };
   }
 
@@ -3023,6 +3031,315 @@ export class ReceiveLeadMarketResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       bizResult: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetMarketingInsureurlRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 调用方生成的唯一编码，参考格式： yyyyMMdd_xxxxx，已接口请求的当前日期开头；
+  requestId: string;
+  // 产品编码
+  productCode: string;
+  // 保司编码
+  channelCode: string;
+  // 保司出单机构编码
+  issueOrg: string;
+  // 保司产品编码（保司提供）
+  channelProductCode: string;
+  // 保险产品类型，枚举：
+  // STANDARD（均分）
+  // PREMIUM（大小均分）
+  // GIFT_TRANSFER（赠转商）
+  channelProductType: string;
+  // 保险方案
+  insurancePlan: string;
+  // 一级渠道，固定值"antdigital"
+  firstChannel: string;
+  // 二级渠道
+  secondChannel?: string;
+  // 三级渠道/广告版位
+  advertisingPosition?: string;
+  // 设备类型/用户类型，枚举：
+  // muid
+  // oaid
+  // caid
+  // imei
+  // idfa
+  // userid
+  deviceType: string;
+  // 设备编号/用户编号
+  deviceId: string;
+  // 点击时间 yyyy-MM-dd HH:mm:ss
+  clickTime: string;
+  // 订单编号
+  sceneOrderNo: string;
+  // 投保人姓名
+  applicantName?: string;
+  // 投保人证件号
+  applicantCertNo?: string;
+  // 投保人联系方式
+  applicantPhone?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      requestId: 'request_id',
+      productCode: 'product_code',
+      channelCode: 'channel_code',
+      issueOrg: 'issue_org',
+      channelProductCode: 'channel_product_code',
+      channelProductType: 'channel_product_type',
+      insurancePlan: 'insurance_plan',
+      firstChannel: 'first_channel',
+      secondChannel: 'second_channel',
+      advertisingPosition: 'advertising_position',
+      deviceType: 'device_type',
+      deviceId: 'device_id',
+      clickTime: 'click_time',
+      sceneOrderNo: 'scene_order_no',
+      applicantName: 'applicant_name',
+      applicantCertNo: 'applicant_cert_no',
+      applicantPhone: 'applicant_phone',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      requestId: 'string',
+      productCode: 'string',
+      channelCode: 'string',
+      issueOrg: 'string',
+      channelProductCode: 'string',
+      channelProductType: 'string',
+      insurancePlan: 'string',
+      firstChannel: 'string',
+      secondChannel: 'string',
+      advertisingPosition: 'string',
+      deviceType: 'string',
+      deviceId: 'string',
+      clickTime: 'string',
+      sceneOrderNo: 'string',
+      applicantName: 'string',
+      applicantCertNo: 'string',
+      applicantPhone: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetMarketingInsureurlResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 请求id
+  requestId?: string;
+  // 一级渠道
+  firstChannel?: string;
+  // 二级渠道
+  secondChannel?: string;
+  // 订单号
+  sceneOrderNo?: string;
+  // 特征编码
+  clickId?: string;
+  // 投保页面URL?bizOrigin={渠道参数}&bizContent={加密参数}
+  insureUrl?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      requestId: 'request_id',
+      firstChannel: 'first_channel',
+      secondChannel: 'second_channel',
+      sceneOrderNo: 'scene_order_no',
+      clickId: 'click_id',
+      insureUrl: 'insure_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      requestId: 'string',
+      firstChannel: 'string',
+      secondChannel: 'string',
+      sceneOrderNo: 'string',
+      clickId: 'string',
+      insureUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CallbackMarketingEventRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 调用方生成的唯一编码
+  requestId: string;
+  // 特征编码
+  clickId: string;
+  // 点击时间
+  clickTime: string;
+  // 事件类型，枚举：
+  // RESERVATION_CHECK（留资）；
+  // FIRST_PICK_FREE（领增）；
+  // LOW_INSURANCE（低价险）；
+  // HIGH_INSURANCE（高价险）；
+  eventCode: string;
+  // 事件完成时间（yyyy-MM-dd  HH:mm:ss）
+  eventTime: string;
+  // 固定式，蚂蚁数科
+  firstChannel: string;
+  // 二级渠道编码
+  secondChannel: string;
+  // 三级渠道/广告版位
+  advertisingPosition: string;
+  // 业务字段，json格式
+  eventInfo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      requestId: 'request_id',
+      clickId: 'click_id',
+      clickTime: 'click_time',
+      eventCode: 'event_code',
+      eventTime: 'event_time',
+      firstChannel: 'first_channel',
+      secondChannel: 'second_channel',
+      advertisingPosition: 'advertising_position',
+      eventInfo: 'event_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      requestId: 'string',
+      clickId: 'string',
+      clickTime: 'string',
+      eventCode: 'string',
+      eventTime: 'string',
+      firstChannel: 'string',
+      secondChannel: 'string',
+      advertisingPosition: 'string',
+      eventInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CallbackMarketingEventResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 请求id
+  requestId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      requestId: 'request_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      requestId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CallbackMarketingPolicycancelRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 请求 id
+  requestId: string;
+  // 保单号（可脱敏处理）
+  policyNo: string;
+  // 退保时间（yyyy-MM-dd  HH:mm:ss）
+  cancelTime: string;
+  // 保险止期（yyyy-MM-dd  HH:mm:ss）
+  endTime: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      requestId: 'request_id',
+      policyNo: 'policy_no',
+      cancelTime: 'cancel_time',
+      endTime: 'end_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      requestId: 'string',
+      policyNo: 'string',
+      cancelTime: 'string',
+      endTime: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CallbackMarketingPolicycancelResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 请求id
+  requestId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      requestId: 'request_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      requestId: 'string',
     };
   }
 
@@ -3144,7 +3461,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.10.4",
+          sdk_version: "1.10.8",
           _prod_code: "INSURANCE_SAAS",
           _prod_channel: "undefined",
         };
@@ -3817,6 +4134,63 @@ export default class Client {
   async receiveLeadMarketEx(request: ReceiveLeadMarketRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ReceiveLeadMarketResponse> {
     Util.validateModel(request);
     return $tea.cast<ReceiveLeadMarketResponse>(await this.doRequest("1.0", "antcloud.insurance.lead.market.receive", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ReceiveLeadMarketResponse({}));
+  }
+
+  /**
+   * Description: 非标营销投保短链获取
+   * Summary: 非标营销投保短链获取
+   */
+  async getMarketingInsureurl(request: GetMarketingInsureurlRequest): Promise<GetMarketingInsureurlResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getMarketingInsureurlEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 非标营销投保短链获取
+   * Summary: 非标营销投保短链获取
+   */
+  async getMarketingInsureurlEx(request: GetMarketingInsureurlRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetMarketingInsureurlResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetMarketingInsureurlResponse>(await this.doRequest("1.0", "antcloud.insurance.marketing.insureurl.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetMarketingInsureurlResponse({}));
+  }
+
+  /**
+   * Description: 众安回传接口，获取保单信息保存。
+   * Summary: 非标营销保单信息事件回传；
+   */
+  async callbackMarketingEvent(request: CallbackMarketingEventRequest): Promise<CallbackMarketingEventResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.callbackMarketingEventEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 众安回传接口，获取保单信息保存。
+   * Summary: 非标营销保单信息事件回传；
+   */
+  async callbackMarketingEventEx(request: CallbackMarketingEventRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CallbackMarketingEventResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CallbackMarketingEventResponse>(await this.doRequest("1.0", "antcloud.insurance.marketing.event.callback", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CallbackMarketingEventResponse({}));
+  }
+
+  /**
+   * Description: 众安退保信息回传
+   * Summary: 非标营销退保事件回传；
+   */
+  async callbackMarketingPolicycancel(request: CallbackMarketingPolicycancelRequest): Promise<CallbackMarketingPolicycancelResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.callbackMarketingPolicycancelEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 众安退保信息回传
+   * Summary: 非标营销退保事件回传；
+   */
+  async callbackMarketingPolicycancelEx(request: CallbackMarketingPolicycancelRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CallbackMarketingPolicycancelResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CallbackMarketingPolicycancelResponse>(await this.doRequest("1.0", "antcloud.insurance.marketing.policycancel.callback", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CallbackMarketingPolicycancelResponse({}));
   }
 
 }
