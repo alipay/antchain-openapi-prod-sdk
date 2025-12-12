@@ -3945,6 +3945,10 @@ type NotifyInterestSupplierorderRequest struct {
 	RefundTime *string `json:"refund_time,omitempty" xml:"refund_time,omitempty"`
 	// 公证状态
 	NotaryStatus *string `json:"notary_status,omitempty" xml:"notary_status,omitempty"`
+	// 支付成功时间
+	PaymentSuccessTime *string `json:"payment_success_time,omitempty" xml:"payment_success_time,omitempty"`
+	// 版本号
+	InterestVersion *string `json:"interest_version,omitempty" xml:"interest_version,omitempty"`
 }
 
 func (s NotifyInterestSupplierorderRequest) String() string {
@@ -3997,6 +4001,16 @@ func (s *NotifyInterestSupplierorderRequest) SetRefundTime(v string) *NotifyInte
 
 func (s *NotifyInterestSupplierorderRequest) SetNotaryStatus(v string) *NotifyInterestSupplierorderRequest {
 	s.NotaryStatus = &v
+	return s
+}
+
+func (s *NotifyInterestSupplierorderRequest) SetPaymentSuccessTime(v string) *NotifyInterestSupplierorderRequest {
+	s.PaymentSuccessTime = &v
+	return s
+}
+
+func (s *NotifyInterestSupplierorderRequest) SetInterestVersion(v string) *NotifyInterestSupplierorderRequest {
+	s.InterestVersion = &v
 	return s
 }
 
@@ -4114,6 +4128,435 @@ func (s *ReceiveLeadMarketResponse) SetResultMsg(v string) *ReceiveLeadMarketRes
 
 func (s *ReceiveLeadMarketResponse) SetBizResult(v string) *ReceiveLeadMarketResponse {
 	s.BizResult = &v
+	return s
+}
+
+type GetMarketingInsureurlRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 调用方生成的唯一编码，参考格式： yyyyMMdd_xxxxx，已接口请求的当前日期开头；
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true" maxLength:"128"`
+	// 产品编码
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true" maxLength:"128"`
+	// 保司编码
+	ChannelCode *string `json:"channel_code,omitempty" xml:"channel_code,omitempty" require:"true" maxLength:"64"`
+	// 保司出单机构编码
+	IssueOrg *string `json:"issue_org,omitempty" xml:"issue_org,omitempty" require:"true" maxLength:"64"`
+	// 保司产品编码（保司提供）
+	ChannelProductCode *string `json:"channel_product_code,omitempty" xml:"channel_product_code,omitempty" require:"true" maxLength:"64"`
+	// 保险产品类型，枚举：
+	// STANDARD（均分）
+	// PREMIUM（大小均分）
+	// GIFT_TRANSFER（赠转商）
+	ChannelProductType *string `json:"channel_product_type,omitempty" xml:"channel_product_type,omitempty" require:"true" maxLength:"64"`
+	// 保险方案
+	InsurancePlan *string `json:"insurance_plan,omitempty" xml:"insurance_plan,omitempty" require:"true" maxLength:"20"`
+	// 一级渠道，固定值"antdigital"
+	FirstChannel *string `json:"first_channel,omitempty" xml:"first_channel,omitempty" require:"true" maxLength:"64"`
+	// 二级渠道
+	SecondChannel *string `json:"second_channel,omitempty" xml:"second_channel,omitempty" maxLength:"64"`
+	// 三级渠道/广告版位
+	AdvertisingPosition *string `json:"advertising_position,omitempty" xml:"advertising_position,omitempty" maxLength:"64"`
+	// 设备类型/用户类型，枚举：
+	// muid
+	// oaid
+	// caid
+	// imei
+	// idfa
+	// userid
+	DeviceType *string `json:"device_type,omitempty" xml:"device_type,omitempty" require:"true" maxLength:"64"`
+	// 设备编号/用户编号
+	DeviceId *string `json:"device_id,omitempty" xml:"device_id,omitempty" require:"true" maxLength:"64"`
+	// 点击时间 yyyy-MM-dd HH:mm:ss
+	ClickTime *string `json:"click_time,omitempty" xml:"click_time,omitempty" require:"true" maxLength:"20"`
+	// 订单编号
+	SceneOrderNo *string `json:"scene_order_no,omitempty" xml:"scene_order_no,omitempty" require:"true" maxLength:"64"`
+	// 投保人姓名
+	ApplicantName *string `json:"applicant_name,omitempty" xml:"applicant_name,omitempty" maxLength:"64"`
+	// 投保人证件号
+	ApplicantCertNo *string `json:"applicant_cert_no,omitempty" xml:"applicant_cert_no,omitempty" maxLength:"64"`
+	// 投保人联系方式
+	ApplicantPhone *string `json:"applicant_phone,omitempty" xml:"applicant_phone,omitempty" maxLength:"64"`
+}
+
+func (s GetMarketingInsureurlRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetMarketingInsureurlRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetMarketingInsureurlRequest) SetAuthToken(v string) *GetMarketingInsureurlRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GetMarketingInsureurlRequest) SetRequestId(v string) *GetMarketingInsureurlRequest {
+	s.RequestId = &v
+	return s
+}
+
+func (s *GetMarketingInsureurlRequest) SetProductCode(v string) *GetMarketingInsureurlRequest {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *GetMarketingInsureurlRequest) SetChannelCode(v string) *GetMarketingInsureurlRequest {
+	s.ChannelCode = &v
+	return s
+}
+
+func (s *GetMarketingInsureurlRequest) SetIssueOrg(v string) *GetMarketingInsureurlRequest {
+	s.IssueOrg = &v
+	return s
+}
+
+func (s *GetMarketingInsureurlRequest) SetChannelProductCode(v string) *GetMarketingInsureurlRequest {
+	s.ChannelProductCode = &v
+	return s
+}
+
+func (s *GetMarketingInsureurlRequest) SetChannelProductType(v string) *GetMarketingInsureurlRequest {
+	s.ChannelProductType = &v
+	return s
+}
+
+func (s *GetMarketingInsureurlRequest) SetInsurancePlan(v string) *GetMarketingInsureurlRequest {
+	s.InsurancePlan = &v
+	return s
+}
+
+func (s *GetMarketingInsureurlRequest) SetFirstChannel(v string) *GetMarketingInsureurlRequest {
+	s.FirstChannel = &v
+	return s
+}
+
+func (s *GetMarketingInsureurlRequest) SetSecondChannel(v string) *GetMarketingInsureurlRequest {
+	s.SecondChannel = &v
+	return s
+}
+
+func (s *GetMarketingInsureurlRequest) SetAdvertisingPosition(v string) *GetMarketingInsureurlRequest {
+	s.AdvertisingPosition = &v
+	return s
+}
+
+func (s *GetMarketingInsureurlRequest) SetDeviceType(v string) *GetMarketingInsureurlRequest {
+	s.DeviceType = &v
+	return s
+}
+
+func (s *GetMarketingInsureurlRequest) SetDeviceId(v string) *GetMarketingInsureurlRequest {
+	s.DeviceId = &v
+	return s
+}
+
+func (s *GetMarketingInsureurlRequest) SetClickTime(v string) *GetMarketingInsureurlRequest {
+	s.ClickTime = &v
+	return s
+}
+
+func (s *GetMarketingInsureurlRequest) SetSceneOrderNo(v string) *GetMarketingInsureurlRequest {
+	s.SceneOrderNo = &v
+	return s
+}
+
+func (s *GetMarketingInsureurlRequest) SetApplicantName(v string) *GetMarketingInsureurlRequest {
+	s.ApplicantName = &v
+	return s
+}
+
+func (s *GetMarketingInsureurlRequest) SetApplicantCertNo(v string) *GetMarketingInsureurlRequest {
+	s.ApplicantCertNo = &v
+	return s
+}
+
+func (s *GetMarketingInsureurlRequest) SetApplicantPhone(v string) *GetMarketingInsureurlRequest {
+	s.ApplicantPhone = &v
+	return s
+}
+
+type GetMarketingInsureurlResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 请求id
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
+	// 一级渠道
+	FirstChannel *string `json:"first_channel,omitempty" xml:"first_channel,omitempty"`
+	// 二级渠道
+	SecondChannel *string `json:"second_channel,omitempty" xml:"second_channel,omitempty"`
+	// 订单号
+	SceneOrderNo *string `json:"scene_order_no,omitempty" xml:"scene_order_no,omitempty"`
+	// 特征编码
+	ClickId *string `json:"click_id,omitempty" xml:"click_id,omitempty"`
+	// 投保页面URL?bizOrigin={渠道参数}&bizContent={加密参数}
+	InsureUrl *string `json:"insure_url,omitempty" xml:"insure_url,omitempty"`
+}
+
+func (s GetMarketingInsureurlResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetMarketingInsureurlResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetMarketingInsureurlResponse) SetReqMsgId(v string) *GetMarketingInsureurlResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GetMarketingInsureurlResponse) SetResultCode(v string) *GetMarketingInsureurlResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GetMarketingInsureurlResponse) SetResultMsg(v string) *GetMarketingInsureurlResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GetMarketingInsureurlResponse) SetRequestId(v string) *GetMarketingInsureurlResponse {
+	s.RequestId = &v
+	return s
+}
+
+func (s *GetMarketingInsureurlResponse) SetFirstChannel(v string) *GetMarketingInsureurlResponse {
+	s.FirstChannel = &v
+	return s
+}
+
+func (s *GetMarketingInsureurlResponse) SetSecondChannel(v string) *GetMarketingInsureurlResponse {
+	s.SecondChannel = &v
+	return s
+}
+
+func (s *GetMarketingInsureurlResponse) SetSceneOrderNo(v string) *GetMarketingInsureurlResponse {
+	s.SceneOrderNo = &v
+	return s
+}
+
+func (s *GetMarketingInsureurlResponse) SetClickId(v string) *GetMarketingInsureurlResponse {
+	s.ClickId = &v
+	return s
+}
+
+func (s *GetMarketingInsureurlResponse) SetInsureUrl(v string) *GetMarketingInsureurlResponse {
+	s.InsureUrl = &v
+	return s
+}
+
+type CallbackMarketingEventRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 调用方生成的唯一编码
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true" maxLength:"128"`
+	// 特征编码
+	ClickId *string `json:"click_id,omitempty" xml:"click_id,omitempty" require:"true" maxLength:"64"`
+	// 点击时间
+	ClickTime *string `json:"click_time,omitempty" xml:"click_time,omitempty" require:"true" maxLength:"20"`
+	// 事件类型，枚举：
+	// RESERVATION_CHECK（留资）；
+	// FIRST_PICK_FREE（领增）；
+	// LOW_INSURANCE（低价险）；
+	// HIGH_INSURANCE（高价险）；
+	EventCode *string `json:"event_code,omitempty" xml:"event_code,omitempty" require:"true" maxLength:"20"`
+	// 事件完成时间（yyyy-MM-dd  HH:mm:ss）
+	EventTime *string `json:"event_time,omitempty" xml:"event_time,omitempty" require:"true" maxLength:"20"`
+	// 固定式，蚂蚁数科
+	FirstChannel *string `json:"first_channel,omitempty" xml:"first_channel,omitempty" require:"true" maxLength:"64"`
+	// 二级渠道编码
+	SecondChannel *string `json:"second_channel,omitempty" xml:"second_channel,omitempty" require:"true" maxLength:"64"`
+	// 三级渠道/广告版位
+	AdvertisingPosition *string `json:"advertising_position,omitempty" xml:"advertising_position,omitempty" require:"true" maxLength:"64"`
+	// 业务字段，json格式
+	EventInfo *string `json:"event_info,omitempty" xml:"event_info,omitempty" require:"true"`
+}
+
+func (s CallbackMarketingEventRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CallbackMarketingEventRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CallbackMarketingEventRequest) SetAuthToken(v string) *CallbackMarketingEventRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CallbackMarketingEventRequest) SetRequestId(v string) *CallbackMarketingEventRequest {
+	s.RequestId = &v
+	return s
+}
+
+func (s *CallbackMarketingEventRequest) SetClickId(v string) *CallbackMarketingEventRequest {
+	s.ClickId = &v
+	return s
+}
+
+func (s *CallbackMarketingEventRequest) SetClickTime(v string) *CallbackMarketingEventRequest {
+	s.ClickTime = &v
+	return s
+}
+
+func (s *CallbackMarketingEventRequest) SetEventCode(v string) *CallbackMarketingEventRequest {
+	s.EventCode = &v
+	return s
+}
+
+func (s *CallbackMarketingEventRequest) SetEventTime(v string) *CallbackMarketingEventRequest {
+	s.EventTime = &v
+	return s
+}
+
+func (s *CallbackMarketingEventRequest) SetFirstChannel(v string) *CallbackMarketingEventRequest {
+	s.FirstChannel = &v
+	return s
+}
+
+func (s *CallbackMarketingEventRequest) SetSecondChannel(v string) *CallbackMarketingEventRequest {
+	s.SecondChannel = &v
+	return s
+}
+
+func (s *CallbackMarketingEventRequest) SetAdvertisingPosition(v string) *CallbackMarketingEventRequest {
+	s.AdvertisingPosition = &v
+	return s
+}
+
+func (s *CallbackMarketingEventRequest) SetEventInfo(v string) *CallbackMarketingEventRequest {
+	s.EventInfo = &v
+	return s
+}
+
+type CallbackMarketingEventResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 请求id
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
+}
+
+func (s CallbackMarketingEventResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CallbackMarketingEventResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CallbackMarketingEventResponse) SetReqMsgId(v string) *CallbackMarketingEventResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CallbackMarketingEventResponse) SetResultCode(v string) *CallbackMarketingEventResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CallbackMarketingEventResponse) SetResultMsg(v string) *CallbackMarketingEventResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CallbackMarketingEventResponse) SetRequestId(v string) *CallbackMarketingEventResponse {
+	s.RequestId = &v
+	return s
+}
+
+type CallbackMarketingPolicycancelRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 请求 id
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
+	// 保单号（可脱敏处理）
+	PolicyNo *string `json:"policy_no,omitempty" xml:"policy_no,omitempty" require:"true"`
+	// 退保时间（yyyy-MM-dd  HH:mm:ss）
+	CancelTime *string `json:"cancel_time,omitempty" xml:"cancel_time,omitempty" require:"true"`
+	// 保险止期（yyyy-MM-dd  HH:mm:ss）
+	EndTime *string `json:"end_time,omitempty" xml:"end_time,omitempty" require:"true"`
+}
+
+func (s CallbackMarketingPolicycancelRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CallbackMarketingPolicycancelRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CallbackMarketingPolicycancelRequest) SetAuthToken(v string) *CallbackMarketingPolicycancelRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CallbackMarketingPolicycancelRequest) SetRequestId(v string) *CallbackMarketingPolicycancelRequest {
+	s.RequestId = &v
+	return s
+}
+
+func (s *CallbackMarketingPolicycancelRequest) SetPolicyNo(v string) *CallbackMarketingPolicycancelRequest {
+	s.PolicyNo = &v
+	return s
+}
+
+func (s *CallbackMarketingPolicycancelRequest) SetCancelTime(v string) *CallbackMarketingPolicycancelRequest {
+	s.CancelTime = &v
+	return s
+}
+
+func (s *CallbackMarketingPolicycancelRequest) SetEndTime(v string) *CallbackMarketingPolicycancelRequest {
+	s.EndTime = &v
+	return s
+}
+
+type CallbackMarketingPolicycancelResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 请求id
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
+}
+
+func (s CallbackMarketingPolicycancelResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CallbackMarketingPolicycancelResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CallbackMarketingPolicycancelResponse) SetReqMsgId(v string) *CallbackMarketingPolicycancelResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CallbackMarketingPolicycancelResponse) SetResultCode(v string) *CallbackMarketingPolicycancelResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CallbackMarketingPolicycancelResponse) SetResultMsg(v string) *CallbackMarketingPolicycancelResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CallbackMarketingPolicycancelResponse) SetRequestId(v string) *CallbackMarketingPolicycancelResponse {
+	s.RequestId = &v
 	return s
 }
 
@@ -4239,7 +4682,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.10.4"),
+				"sdk_version":      tea.String("1.10.8"),
 				"_prod_code":       tea.String("INSURANCE_SAAS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -5412,6 +5855,108 @@ func (client *Client) ReceiveLeadMarketEx(request *ReceiveLeadMarketRequest, hea
 	}
 	_result = &ReceiveLeadMarketResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.insurance.lead.market.receive"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 非标营销投保短链获取
+ * Summary: 非标营销投保短链获取
+ */
+func (client *Client) GetMarketingInsureurl(request *GetMarketingInsureurlRequest) (_result *GetMarketingInsureurlResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GetMarketingInsureurlResponse{}
+	_body, _err := client.GetMarketingInsureurlEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 非标营销投保短链获取
+ * Summary: 非标营销投保短链获取
+ */
+func (client *Client) GetMarketingInsureurlEx(request *GetMarketingInsureurlRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetMarketingInsureurlResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GetMarketingInsureurlResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.insurance.marketing.insureurl.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 众安回传接口，获取保单信息保存。
+ * Summary: 非标营销保单信息事件回传；
+ */
+func (client *Client) CallbackMarketingEvent(request *CallbackMarketingEventRequest) (_result *CallbackMarketingEventResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CallbackMarketingEventResponse{}
+	_body, _err := client.CallbackMarketingEventEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 众安回传接口，获取保单信息保存。
+ * Summary: 非标营销保单信息事件回传；
+ */
+func (client *Client) CallbackMarketingEventEx(request *CallbackMarketingEventRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CallbackMarketingEventResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CallbackMarketingEventResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.insurance.marketing.event.callback"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 众安退保信息回传
+ * Summary: 非标营销退保事件回传；
+ */
+func (client *Client) CallbackMarketingPolicycancel(request *CallbackMarketingPolicycancelRequest) (_result *CallbackMarketingPolicycancelResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CallbackMarketingPolicycancelResponse{}
+	_body, _err := client.CallbackMarketingPolicycancelEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 众安退保信息回传
+ * Summary: 非标营销退保事件回传；
+ */
+func (client *Client) CallbackMarketingPolicycancelEx(request *CallbackMarketingPolicycancelRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CallbackMarketingPolicycancelResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CallbackMarketingPolicycancelResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.insurance.marketing.policycancel.callback"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
