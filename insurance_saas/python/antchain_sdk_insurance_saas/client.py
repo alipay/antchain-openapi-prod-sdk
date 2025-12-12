@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.10.4',
+                    'sdk_version': '1.10.8',
                     '_prod_code': 'INSURANCE_SAAS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.10.4',
+                    'sdk_version': '1.10.8',
                     '_prod_code': 'INSURANCE_SAAS',
                     '_prod_channel': 'undefined'
                 }
@@ -2121,4 +2121,172 @@ class Client:
         return TeaCore.from_map(
             insurance__saas_models.ReceiveLeadMarketResponse(),
             await self.do_request_async('1.0', 'antcloud.insurance.lead.market.receive', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_marketing_insureurl(
+        self,
+        request: insurance__saas_models.GetMarketingInsureurlRequest,
+    ) -> insurance__saas_models.GetMarketingInsureurlResponse:
+        """
+        Description: 非标营销投保短链获取
+        Summary: 非标营销投保短链获取
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_marketing_insureurl_ex(request, headers, runtime)
+
+    async def get_marketing_insureurl_async(
+        self,
+        request: insurance__saas_models.GetMarketingInsureurlRequest,
+    ) -> insurance__saas_models.GetMarketingInsureurlResponse:
+        """
+        Description: 非标营销投保短链获取
+        Summary: 非标营销投保短链获取
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_marketing_insureurl_ex_async(request, headers, runtime)
+
+    def get_marketing_insureurl_ex(
+        self,
+        request: insurance__saas_models.GetMarketingInsureurlRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.GetMarketingInsureurlResponse:
+        """
+        Description: 非标营销投保短链获取
+        Summary: 非标营销投保短链获取
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.GetMarketingInsureurlResponse(),
+            self.do_request('1.0', 'antcloud.insurance.marketing.insureurl.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_marketing_insureurl_ex_async(
+        self,
+        request: insurance__saas_models.GetMarketingInsureurlRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.GetMarketingInsureurlResponse:
+        """
+        Description: 非标营销投保短链获取
+        Summary: 非标营销投保短链获取
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.GetMarketingInsureurlResponse(),
+            await self.do_request_async('1.0', 'antcloud.insurance.marketing.insureurl.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def callback_marketing_event(
+        self,
+        request: insurance__saas_models.CallbackMarketingEventRequest,
+    ) -> insurance__saas_models.CallbackMarketingEventResponse:
+        """
+        Description: 众安回传接口，获取保单信息保存。
+        Summary: 非标营销保单信息事件回传；
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.callback_marketing_event_ex(request, headers, runtime)
+
+    async def callback_marketing_event_async(
+        self,
+        request: insurance__saas_models.CallbackMarketingEventRequest,
+    ) -> insurance__saas_models.CallbackMarketingEventResponse:
+        """
+        Description: 众安回传接口，获取保单信息保存。
+        Summary: 非标营销保单信息事件回传；
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.callback_marketing_event_ex_async(request, headers, runtime)
+
+    def callback_marketing_event_ex(
+        self,
+        request: insurance__saas_models.CallbackMarketingEventRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.CallbackMarketingEventResponse:
+        """
+        Description: 众安回传接口，获取保单信息保存。
+        Summary: 非标营销保单信息事件回传；
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.CallbackMarketingEventResponse(),
+            self.do_request('1.0', 'antcloud.insurance.marketing.event.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def callback_marketing_event_ex_async(
+        self,
+        request: insurance__saas_models.CallbackMarketingEventRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.CallbackMarketingEventResponse:
+        """
+        Description: 众安回传接口，获取保单信息保存。
+        Summary: 非标营销保单信息事件回传；
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.CallbackMarketingEventResponse(),
+            await self.do_request_async('1.0', 'antcloud.insurance.marketing.event.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def callback_marketing_policycancel(
+        self,
+        request: insurance__saas_models.CallbackMarketingPolicycancelRequest,
+    ) -> insurance__saas_models.CallbackMarketingPolicycancelResponse:
+        """
+        Description: 众安退保信息回传
+        Summary: 非标营销退保事件回传；
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.callback_marketing_policycancel_ex(request, headers, runtime)
+
+    async def callback_marketing_policycancel_async(
+        self,
+        request: insurance__saas_models.CallbackMarketingPolicycancelRequest,
+    ) -> insurance__saas_models.CallbackMarketingPolicycancelResponse:
+        """
+        Description: 众安退保信息回传
+        Summary: 非标营销退保事件回传；
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.callback_marketing_policycancel_ex_async(request, headers, runtime)
+
+    def callback_marketing_policycancel_ex(
+        self,
+        request: insurance__saas_models.CallbackMarketingPolicycancelRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.CallbackMarketingPolicycancelResponse:
+        """
+        Description: 众安退保信息回传
+        Summary: 非标营销退保事件回传；
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.CallbackMarketingPolicycancelResponse(),
+            self.do_request('1.0', 'antcloud.insurance.marketing.policycancel.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def callback_marketing_policycancel_ex_async(
+        self,
+        request: insurance__saas_models.CallbackMarketingPolicycancelRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.CallbackMarketingPolicycancelResponse:
+        """
+        Description: 众安退保信息回传
+        Summary: 非标营销退保事件回传；
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.CallbackMarketingPolicycancelResponse(),
+            await self.do_request_async('1.0', 'antcloud.insurance.marketing.policycancel.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )

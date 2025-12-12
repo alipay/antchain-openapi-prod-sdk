@@ -4826,6 +4826,8 @@ class NotifyInterestSupplierorderRequest(TeaModel):
         refund_amount: str = None,
         refund_time: str = None,
         notary_status: str = None,
+        payment_success_time: str = None,
+        interest_version: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -4845,6 +4847,10 @@ class NotifyInterestSupplierorderRequest(TeaModel):
         self.refund_time = refund_time
         # 公证状态
         self.notary_status = notary_status
+        # 支付成功时间
+        self.payment_success_time = payment_success_time
+        # 版本号
+        self.interest_version = interest_version
 
     def validate(self):
         self.validate_required(self.request_no, 'request_no')
@@ -4877,6 +4883,10 @@ class NotifyInterestSupplierorderRequest(TeaModel):
             result['refund_time'] = self.refund_time
         if self.notary_status is not None:
             result['notary_status'] = self.notary_status
+        if self.payment_success_time is not None:
+            result['payment_success_time'] = self.payment_success_time
+        if self.interest_version is not None:
+            result['interest_version'] = self.interest_version
         return result
 
     def from_map(self, m: dict = None):
@@ -4899,6 +4909,10 @@ class NotifyInterestSupplierorderRequest(TeaModel):
             self.refund_time = m.get('refund_time')
         if m.get('notary_status') is not None:
             self.notary_status = m.get('notary_status')
+        if m.get('payment_success_time') is not None:
+            self.payment_success_time = m.get('payment_success_time')
+        if m.get('interest_version') is not None:
+            self.interest_version = m.get('interest_version')
         return self
 
 
@@ -5048,6 +5062,567 @@ class ReceiveLeadMarketResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('biz_result') is not None:
             self.biz_result = m.get('biz_result')
+        return self
+
+
+class GetMarketingInsureurlRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        request_id: str = None,
+        product_code: str = None,
+        channel_code: str = None,
+        issue_org: str = None,
+        channel_product_code: str = None,
+        channel_product_type: str = None,
+        insurance_plan: str = None,
+        first_channel: str = None,
+        second_channel: str = None,
+        advertising_position: str = None,
+        device_type: str = None,
+        device_id: str = None,
+        click_time: str = None,
+        scene_order_no: str = None,
+        applicant_name: str = None,
+        applicant_cert_no: str = None,
+        applicant_phone: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 调用方生成的唯一编码，参考格式： yyyyMMdd_xxxxx，已接口请求的当前日期开头；
+        self.request_id = request_id
+        # 产品编码
+        self.product_code = product_code
+        # 保司编码
+        self.channel_code = channel_code
+        # 保司出单机构编码
+        self.issue_org = issue_org
+        # 保司产品编码（保司提供）
+        self.channel_product_code = channel_product_code
+        # 保险产品类型，枚举：
+        # STANDARD（均分）
+        # PREMIUM（大小均分）
+        # GIFT_TRANSFER（赠转商）
+        self.channel_product_type = channel_product_type
+        # 保险方案
+        self.insurance_plan = insurance_plan
+        # 一级渠道，固定值"antdigital"
+        self.first_channel = first_channel
+        # 二级渠道
+        self.second_channel = second_channel
+        # 三级渠道/广告版位
+        self.advertising_position = advertising_position
+        # 设备类型/用户类型，枚举：
+        # muid
+        # oaid
+        # caid
+        # imei
+        # idfa
+        # userid
+        self.device_type = device_type
+        # 设备编号/用户编号
+        self.device_id = device_id
+        # 点击时间 yyyy-MM-dd HH:mm:ss
+        self.click_time = click_time
+        # 订单编号
+        self.scene_order_no = scene_order_no
+        # 投保人姓名
+        self.applicant_name = applicant_name
+        # 投保人证件号
+        self.applicant_cert_no = applicant_cert_no
+        # 投保人联系方式
+        self.applicant_phone = applicant_phone
+
+    def validate(self):
+        self.validate_required(self.request_id, 'request_id')
+        if self.request_id is not None:
+            self.validate_max_length(self.request_id, 'request_id', 128)
+        self.validate_required(self.product_code, 'product_code')
+        if self.product_code is not None:
+            self.validate_max_length(self.product_code, 'product_code', 128)
+        self.validate_required(self.channel_code, 'channel_code')
+        if self.channel_code is not None:
+            self.validate_max_length(self.channel_code, 'channel_code', 64)
+        self.validate_required(self.issue_org, 'issue_org')
+        if self.issue_org is not None:
+            self.validate_max_length(self.issue_org, 'issue_org', 64)
+        self.validate_required(self.channel_product_code, 'channel_product_code')
+        if self.channel_product_code is not None:
+            self.validate_max_length(self.channel_product_code, 'channel_product_code', 64)
+        self.validate_required(self.channel_product_type, 'channel_product_type')
+        if self.channel_product_type is not None:
+            self.validate_max_length(self.channel_product_type, 'channel_product_type', 64)
+        self.validate_required(self.insurance_plan, 'insurance_plan')
+        if self.insurance_plan is not None:
+            self.validate_max_length(self.insurance_plan, 'insurance_plan', 20)
+        self.validate_required(self.first_channel, 'first_channel')
+        if self.first_channel is not None:
+            self.validate_max_length(self.first_channel, 'first_channel', 64)
+        if self.second_channel is not None:
+            self.validate_max_length(self.second_channel, 'second_channel', 64)
+        if self.advertising_position is not None:
+            self.validate_max_length(self.advertising_position, 'advertising_position', 64)
+        self.validate_required(self.device_type, 'device_type')
+        if self.device_type is not None:
+            self.validate_max_length(self.device_type, 'device_type', 64)
+        self.validate_required(self.device_id, 'device_id')
+        if self.device_id is not None:
+            self.validate_max_length(self.device_id, 'device_id', 64)
+        self.validate_required(self.click_time, 'click_time')
+        if self.click_time is not None:
+            self.validate_max_length(self.click_time, 'click_time', 20)
+        self.validate_required(self.scene_order_no, 'scene_order_no')
+        if self.scene_order_no is not None:
+            self.validate_max_length(self.scene_order_no, 'scene_order_no', 64)
+        if self.applicant_name is not None:
+            self.validate_max_length(self.applicant_name, 'applicant_name', 64)
+        if self.applicant_cert_no is not None:
+            self.validate_max_length(self.applicant_cert_no, 'applicant_cert_no', 64)
+        if self.applicant_phone is not None:
+            self.validate_max_length(self.applicant_phone, 'applicant_phone', 64)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.product_code is not None:
+            result['product_code'] = self.product_code
+        if self.channel_code is not None:
+            result['channel_code'] = self.channel_code
+        if self.issue_org is not None:
+            result['issue_org'] = self.issue_org
+        if self.channel_product_code is not None:
+            result['channel_product_code'] = self.channel_product_code
+        if self.channel_product_type is not None:
+            result['channel_product_type'] = self.channel_product_type
+        if self.insurance_plan is not None:
+            result['insurance_plan'] = self.insurance_plan
+        if self.first_channel is not None:
+            result['first_channel'] = self.first_channel
+        if self.second_channel is not None:
+            result['second_channel'] = self.second_channel
+        if self.advertising_position is not None:
+            result['advertising_position'] = self.advertising_position
+        if self.device_type is not None:
+            result['device_type'] = self.device_type
+        if self.device_id is not None:
+            result['device_id'] = self.device_id
+        if self.click_time is not None:
+            result['click_time'] = self.click_time
+        if self.scene_order_no is not None:
+            result['scene_order_no'] = self.scene_order_no
+        if self.applicant_name is not None:
+            result['applicant_name'] = self.applicant_name
+        if self.applicant_cert_no is not None:
+            result['applicant_cert_no'] = self.applicant_cert_no
+        if self.applicant_phone is not None:
+            result['applicant_phone'] = self.applicant_phone
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('product_code') is not None:
+            self.product_code = m.get('product_code')
+        if m.get('channel_code') is not None:
+            self.channel_code = m.get('channel_code')
+        if m.get('issue_org') is not None:
+            self.issue_org = m.get('issue_org')
+        if m.get('channel_product_code') is not None:
+            self.channel_product_code = m.get('channel_product_code')
+        if m.get('channel_product_type') is not None:
+            self.channel_product_type = m.get('channel_product_type')
+        if m.get('insurance_plan') is not None:
+            self.insurance_plan = m.get('insurance_plan')
+        if m.get('first_channel') is not None:
+            self.first_channel = m.get('first_channel')
+        if m.get('second_channel') is not None:
+            self.second_channel = m.get('second_channel')
+        if m.get('advertising_position') is not None:
+            self.advertising_position = m.get('advertising_position')
+        if m.get('device_type') is not None:
+            self.device_type = m.get('device_type')
+        if m.get('device_id') is not None:
+            self.device_id = m.get('device_id')
+        if m.get('click_time') is not None:
+            self.click_time = m.get('click_time')
+        if m.get('scene_order_no') is not None:
+            self.scene_order_no = m.get('scene_order_no')
+        if m.get('applicant_name') is not None:
+            self.applicant_name = m.get('applicant_name')
+        if m.get('applicant_cert_no') is not None:
+            self.applicant_cert_no = m.get('applicant_cert_no')
+        if m.get('applicant_phone') is not None:
+            self.applicant_phone = m.get('applicant_phone')
+        return self
+
+
+class GetMarketingInsureurlResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        request_id: str = None,
+        first_channel: str = None,
+        second_channel: str = None,
+        scene_order_no: str = None,
+        click_id: str = None,
+        insure_url: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 请求id
+        self.request_id = request_id
+        # 一级渠道
+        self.first_channel = first_channel
+        # 二级渠道
+        self.second_channel = second_channel
+        # 订单号
+        self.scene_order_no = scene_order_no
+        # 特征编码
+        self.click_id = click_id
+        # 投保页面URL?bizOrigin={渠道参数}&bizContent={加密参数}
+        self.insure_url = insure_url
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.first_channel is not None:
+            result['first_channel'] = self.first_channel
+        if self.second_channel is not None:
+            result['second_channel'] = self.second_channel
+        if self.scene_order_no is not None:
+            result['scene_order_no'] = self.scene_order_no
+        if self.click_id is not None:
+            result['click_id'] = self.click_id
+        if self.insure_url is not None:
+            result['insure_url'] = self.insure_url
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('first_channel') is not None:
+            self.first_channel = m.get('first_channel')
+        if m.get('second_channel') is not None:
+            self.second_channel = m.get('second_channel')
+        if m.get('scene_order_no') is not None:
+            self.scene_order_no = m.get('scene_order_no')
+        if m.get('click_id') is not None:
+            self.click_id = m.get('click_id')
+        if m.get('insure_url') is not None:
+            self.insure_url = m.get('insure_url')
+        return self
+
+
+class CallbackMarketingEventRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        request_id: str = None,
+        click_id: str = None,
+        click_time: str = None,
+        event_code: str = None,
+        event_time: str = None,
+        first_channel: str = None,
+        second_channel: str = None,
+        advertising_position: str = None,
+        event_info: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 调用方生成的唯一编码
+        self.request_id = request_id
+        # 特征编码
+        self.click_id = click_id
+        # 点击时间
+        self.click_time = click_time
+        # 事件类型，枚举：
+        # RESERVATION_CHECK（留资）；
+        # FIRST_PICK_FREE（领增）；
+        # LOW_INSURANCE（低价险）；
+        # HIGH_INSURANCE（高价险）；
+        self.event_code = event_code
+        # 事件完成时间（yyyy-MM-dd  HH:mm:ss）
+        self.event_time = event_time
+        # 固定式，蚂蚁数科
+        self.first_channel = first_channel
+        # 二级渠道编码
+        self.second_channel = second_channel
+        # 三级渠道/广告版位
+        self.advertising_position = advertising_position
+        # 业务字段，json格式
+        self.event_info = event_info
+
+    def validate(self):
+        self.validate_required(self.request_id, 'request_id')
+        if self.request_id is not None:
+            self.validate_max_length(self.request_id, 'request_id', 128)
+        self.validate_required(self.click_id, 'click_id')
+        if self.click_id is not None:
+            self.validate_max_length(self.click_id, 'click_id', 64)
+        self.validate_required(self.click_time, 'click_time')
+        if self.click_time is not None:
+            self.validate_max_length(self.click_time, 'click_time', 20)
+        self.validate_required(self.event_code, 'event_code')
+        if self.event_code is not None:
+            self.validate_max_length(self.event_code, 'event_code', 20)
+        self.validate_required(self.event_time, 'event_time')
+        if self.event_time is not None:
+            self.validate_max_length(self.event_time, 'event_time', 20)
+        self.validate_required(self.first_channel, 'first_channel')
+        if self.first_channel is not None:
+            self.validate_max_length(self.first_channel, 'first_channel', 64)
+        self.validate_required(self.second_channel, 'second_channel')
+        if self.second_channel is not None:
+            self.validate_max_length(self.second_channel, 'second_channel', 64)
+        self.validate_required(self.advertising_position, 'advertising_position')
+        if self.advertising_position is not None:
+            self.validate_max_length(self.advertising_position, 'advertising_position', 64)
+        self.validate_required(self.event_info, 'event_info')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.click_id is not None:
+            result['click_id'] = self.click_id
+        if self.click_time is not None:
+            result['click_time'] = self.click_time
+        if self.event_code is not None:
+            result['event_code'] = self.event_code
+        if self.event_time is not None:
+            result['event_time'] = self.event_time
+        if self.first_channel is not None:
+            result['first_channel'] = self.first_channel
+        if self.second_channel is not None:
+            result['second_channel'] = self.second_channel
+        if self.advertising_position is not None:
+            result['advertising_position'] = self.advertising_position
+        if self.event_info is not None:
+            result['event_info'] = self.event_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('click_id') is not None:
+            self.click_id = m.get('click_id')
+        if m.get('click_time') is not None:
+            self.click_time = m.get('click_time')
+        if m.get('event_code') is not None:
+            self.event_code = m.get('event_code')
+        if m.get('event_time') is not None:
+            self.event_time = m.get('event_time')
+        if m.get('first_channel') is not None:
+            self.first_channel = m.get('first_channel')
+        if m.get('second_channel') is not None:
+            self.second_channel = m.get('second_channel')
+        if m.get('advertising_position') is not None:
+            self.advertising_position = m.get('advertising_position')
+        if m.get('event_info') is not None:
+            self.event_info = m.get('event_info')
+        return self
+
+
+class CallbackMarketingEventResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        request_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 请求id
+        self.request_id = request_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        return self
+
+
+class CallbackMarketingPolicycancelRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        request_id: str = None,
+        policy_no: str = None,
+        cancel_time: str = None,
+        end_time: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 请求 id
+        self.request_id = request_id
+        # 保单号（可脱敏处理）
+        self.policy_no = policy_no
+        # 退保时间（yyyy-MM-dd  HH:mm:ss）
+        self.cancel_time = cancel_time
+        # 保险止期（yyyy-MM-dd  HH:mm:ss）
+        self.end_time = end_time
+
+    def validate(self):
+        self.validate_required(self.request_id, 'request_id')
+        self.validate_required(self.policy_no, 'policy_no')
+        self.validate_required(self.cancel_time, 'cancel_time')
+        self.validate_required(self.end_time, 'end_time')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.policy_no is not None:
+            result['policy_no'] = self.policy_no
+        if self.cancel_time is not None:
+            result['cancel_time'] = self.cancel_time
+        if self.end_time is not None:
+            result['end_time'] = self.end_time
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('policy_no') is not None:
+            self.policy_no = m.get('policy_no')
+        if m.get('cancel_time') is not None:
+            self.cancel_time = m.get('cancel_time')
+        if m.get('end_time') is not None:
+            self.end_time = m.get('end_time')
+        return self
+
+
+class CallbackMarketingPolicycancelResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        request_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 请求id
+        self.request_id = request_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
         return self
 
 
