@@ -137,7 +137,7 @@ namespace AntChain.SDK.INSURANCE_SAAS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.10.4"},
+                        {"sdk_version", "1.10.8"},
                         {"_prod_code", "INSURANCE_SAAS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.INSURANCE_SAAS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.10.4"},
+                        {"sdk_version", "1.10.8"},
                         {"_prod_code", "INSURANCE_SAAS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1705,6 +1705,132 @@ namespace AntChain.SDK.INSURANCE_SAAS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ReceiveLeadMarketResponse>(await DoRequestAsync("1.0", "antcloud.insurance.lead.market.receive", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 非标营销投保短链获取
+         * Summary: 非标营销投保短链获取
+         */
+        public GetMarketingInsureurlResponse GetMarketingInsureurl(GetMarketingInsureurlRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return GetMarketingInsureurlEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 非标营销投保短链获取
+         * Summary: 非标营销投保短链获取
+         */
+        public async Task<GetMarketingInsureurlResponse> GetMarketingInsureurlAsync(GetMarketingInsureurlRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await GetMarketingInsureurlExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 非标营销投保短链获取
+         * Summary: 非标营销投保短链获取
+         */
+        public GetMarketingInsureurlResponse GetMarketingInsureurlEx(GetMarketingInsureurlRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetMarketingInsureurlResponse>(DoRequest("1.0", "antcloud.insurance.marketing.insureurl.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 非标营销投保短链获取
+         * Summary: 非标营销投保短链获取
+         */
+        public async Task<GetMarketingInsureurlResponse> GetMarketingInsureurlExAsync(GetMarketingInsureurlRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetMarketingInsureurlResponse>(await DoRequestAsync("1.0", "antcloud.insurance.marketing.insureurl.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 众安回传接口，获取保单信息保存。
+         * Summary: 非标营销保单信息事件回传；
+         */
+        public CallbackMarketingEventResponse CallbackMarketingEvent(CallbackMarketingEventRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CallbackMarketingEventEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 众安回传接口，获取保单信息保存。
+         * Summary: 非标营销保单信息事件回传；
+         */
+        public async Task<CallbackMarketingEventResponse> CallbackMarketingEventAsync(CallbackMarketingEventRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CallbackMarketingEventExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 众安回传接口，获取保单信息保存。
+         * Summary: 非标营销保单信息事件回传；
+         */
+        public CallbackMarketingEventResponse CallbackMarketingEventEx(CallbackMarketingEventRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CallbackMarketingEventResponse>(DoRequest("1.0", "antcloud.insurance.marketing.event.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 众安回传接口，获取保单信息保存。
+         * Summary: 非标营销保单信息事件回传；
+         */
+        public async Task<CallbackMarketingEventResponse> CallbackMarketingEventExAsync(CallbackMarketingEventRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CallbackMarketingEventResponse>(await DoRequestAsync("1.0", "antcloud.insurance.marketing.event.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 众安退保信息回传
+         * Summary: 非标营销退保事件回传；
+         */
+        public CallbackMarketingPolicycancelResponse CallbackMarketingPolicycancel(CallbackMarketingPolicycancelRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CallbackMarketingPolicycancelEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 众安退保信息回传
+         * Summary: 非标营销退保事件回传；
+         */
+        public async Task<CallbackMarketingPolicycancelResponse> CallbackMarketingPolicycancelAsync(CallbackMarketingPolicycancelRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CallbackMarketingPolicycancelExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 众安退保信息回传
+         * Summary: 非标营销退保事件回传；
+         */
+        public CallbackMarketingPolicycancelResponse CallbackMarketingPolicycancelEx(CallbackMarketingPolicycancelRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CallbackMarketingPolicycancelResponse>(DoRequest("1.0", "antcloud.insurance.marketing.policycancel.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 众安退保信息回传
+         * Summary: 非标营销退保事件回传；
+         */
+        public async Task<CallbackMarketingPolicycancelResponse> CallbackMarketingPolicycancelExAsync(CallbackMarketingPolicycancelRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CallbackMarketingPolicycancelResponse>(await DoRequestAsync("1.0", "antcloud.insurance.marketing.policycancel.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
