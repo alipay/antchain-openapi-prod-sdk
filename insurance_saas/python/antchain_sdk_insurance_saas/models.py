@@ -4826,7 +4826,7 @@ class NotifyInterestSupplierorderRequest(TeaModel):
         refund_amount: str = None,
         refund_time: str = None,
         notary_status: str = None,
-        payment_success_time: str = None,
+        payment_time: str = None,
         interest_version: str = None,
     ):
         # OAuth模式下的授权token
@@ -4847,8 +4847,8 @@ class NotifyInterestSupplierorderRequest(TeaModel):
         self.refund_time = refund_time
         # 公证状态
         self.notary_status = notary_status
-        # 支付成功时间
-        self.payment_success_time = payment_success_time
+        # 支付时间
+        self.payment_time = payment_time
         # 版本号
         self.interest_version = interest_version
 
@@ -4883,8 +4883,8 @@ class NotifyInterestSupplierorderRequest(TeaModel):
             result['refund_time'] = self.refund_time
         if self.notary_status is not None:
             result['notary_status'] = self.notary_status
-        if self.payment_success_time is not None:
-            result['payment_success_time'] = self.payment_success_time
+        if self.payment_time is not None:
+            result['payment_time'] = self.payment_time
         if self.interest_version is not None:
             result['interest_version'] = self.interest_version
         return result
@@ -4909,8 +4909,8 @@ class NotifyInterestSupplierorderRequest(TeaModel):
             self.refund_time = m.get('refund_time')
         if m.get('notary_status') is not None:
             self.notary_status = m.get('notary_status')
-        if m.get('payment_success_time') is not None:
-            self.payment_success_time = m.get('payment_success_time')
+        if m.get('payment_time') is not None:
+            self.payment_time = m.get('payment_time')
         if m.get('interest_version') is not None:
             self.interest_version = m.get('interest_version')
         return self
