@@ -49,6 +49,8 @@ use AntChain\AITECH\Models\QueryAuditAudiobaseRequest;
 use AntChain\AITECH\Models\QueryAuditAudiobaseResponse;
 use AntChain\AITECH\Models\QueryAuditAudioRequest;
 use AntChain\AITECH\Models\QueryAuditAudioResponse;
+use AntChain\AITECH\Models\QueryAuditDocumentRequest;
+use AntChain\AITECH\Models\QueryAuditDocumentResponse;
 use AntChain\AITECH\Models\QueryAuditImageRequest;
 use AntChain\AITECH\Models\QueryAuditImageResponse;
 use AntChain\AITECH\Models\QueryAuditTextRequest;
@@ -89,6 +91,8 @@ use AntChain\AITECH\Models\SubmitAuditAudiobaseRequest;
 use AntChain\AITECH\Models\SubmitAuditAudiobaseResponse;
 use AntChain\AITECH\Models\SubmitAuditAudioRequest;
 use AntChain\AITECH\Models\SubmitAuditAudioResponse;
+use AntChain\AITECH\Models\SubmitAuditDocumentRequest;
+use AntChain\AITECH\Models\SubmitAuditDocumentResponse;
 use AntChain\AITECH\Models\SubmitAuditImageRequest;
 use AntChain\AITECH\Models\SubmitAuditImageResponse;
 use AntChain\AITECH\Models\SubmitAuditMeiyouRequest;
@@ -272,7 +276,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.50',
+                    'sdk_version'      => '1.1.51',
                     '_prod_code'       => 'AITECH',
                     '_prod_channel'    => 'default',
                 ];
@@ -1308,6 +1312,72 @@ class Client
         Utils::validateModel($request);
 
         return SubmitAuditMeiyouResponse::fromMap($this->doRequest('1.0', 'aitech.comm.audit.meiyou.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 文档人审入审
+     * Summary: 文档人审入审
+     *
+     * @param SubmitAuditDocumentRequest $request
+     *
+     * @return SubmitAuditDocumentResponse
+     */
+    public function submitAuditDocument($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->submitAuditDocumentEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 文档人审入审
+     * Summary: 文档人审入审
+     *
+     * @param SubmitAuditDocumentRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return SubmitAuditDocumentResponse
+     */
+    public function submitAuditDocumentEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SubmitAuditDocumentResponse::fromMap($this->doRequest('1.0', 'aitech.comm.audit.document.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 文档人审查询
+     * Summary: 文档人审查询.
+     *
+     * @param QueryAuditDocumentRequest $request
+     *
+     * @return QueryAuditDocumentResponse
+     */
+    public function queryAuditDocument($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAuditDocumentEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 文档人审查询
+     * Summary: 文档人审查询.
+     *
+     * @param QueryAuditDocumentRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return QueryAuditDocumentResponse
+     */
+    public function queryAuditDocumentEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAuditDocumentResponse::fromMap($this->doRequest('1.0', 'aitech.comm.audit.document.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
