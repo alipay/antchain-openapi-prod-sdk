@@ -4,78 +4,145 @@ package com.antgroup.antchain.openapi.ak_eed2ee0664ac41b78f2c14f3ffa051e7.models
 import com.aliyun.tea.*;
 
 /**
- * Model for initing client
+ * <b>description</b> :
+ * <p>Model for initing client</p>
  */
 public class Config extends TeaModel {
-    // accesskey id
+    /**
+     * <p>accesskey id</p>
+     */
     @NameInMap("accessKeyId")
     public String accessKeyId;
 
-    // accesskey secret
+    /**
+     * <p>accesskey secret</p>
+     */
     @NameInMap("accessKeySecret")
     public String accessKeySecret;
 
-    // security token
+    /**
+     * <p>security token</p>
+     */
     @NameInMap("securityToken")
     public String securityToken;
 
-    // http protocol
+    /**
+     * <p>http protocol</p>
+     * 
+     * <strong>example:</strong>
+     * <p>http</p>
+     */
     @NameInMap("protocol")
     public String protocol;
 
-    // read timeout
+    /**
+     * <p>read timeout</p>
+     * 
+     * <strong>example:</strong>
+     * <p>10</p>
+     */
     @NameInMap("readTimeout")
     public Number readTimeout;
 
-    // connect timeout
+    /**
+     * <p>connect timeout</p>
+     * 
+     * <strong>example:</strong>
+     * <p>10</p>
+     */
     @NameInMap("connectTimeout")
     public Number connectTimeout;
 
-    // http proxy
+    /**
+     * <p>http proxy</p>
+     * 
+     * <strong>example:</strong>
+     * <p><a href="http://localhost">http://localhost</a></p>
+     */
     @NameInMap("httpProxy")
     public String httpProxy;
 
-    // https proxy
+    /**
+     * <p>https proxy</p>
+     * 
+     * <strong>example:</strong>
+     * <p><a href="https://localhost">https://localhost</a></p>
+     */
     @NameInMap("httpsProxy")
     public String httpsProxy;
 
-    // endpoint
+    /**
+     * <p>endpoint</p>
+     * 
+     * <strong>example:</strong>
+     * <p>cs.aliyuncs.com</p>
+     */
     @NameInMap("endpoint")
     public String endpoint;
 
-    // proxy white list
+    /**
+     * <p>proxy white list</p>
+     * 
+     * <strong>example:</strong>
+     * <p><a href="http://localhost">http://localhost</a></p>
+     */
     @NameInMap("noProxy")
     public String noProxy;
 
-    // max idle conns
+    /**
+     * <p>max idle conns</p>
+     * 
+     * <strong>example:</strong>
+     * <p>3</p>
+     */
     @NameInMap("maxIdleConns")
     public Number maxIdleConns;
 
-    // user agent
+    /**
+     * <p>user agent</p>
+     * 
+     * <strong>example:</strong>
+     * <p>Alibabacloud/1</p>
+     */
     @NameInMap("userAgent")
     public String userAgent;
 
-    // socks5 proxy
+    /**
+     * <p>socks5 proxy</p>
+     */
     @NameInMap("socks5Proxy")
     public String socks5Proxy;
 
-    // socks5 network
+    /**
+     * <p>socks5 network</p>
+     * 
+     * <strong>example:</strong>
+     * <p>TCP</p>
+     */
     @NameInMap("socks5NetWork")
     public String socks5NetWork;
 
-    // 长链接最大空闲时长
+    /**
+     * <p>长链接最大空闲时长</p>
+     */
     @NameInMap("maxIdleTimeMillis")
     public Number maxIdleTimeMillis;
 
-    // 长链接最大连接时长
+    /**
+     * <p>长链接最大连接时长</p>
+     */
     @NameInMap("keepAliveDurationMillis")
     public Number keepAliveDurationMillis;
 
-    // 最大连接数（长链接最大总数）
+    /**
+     * <p>最大连接数（长链接最大总数）</p>
+     */
     @NameInMap("maxRequests")
     public Number maxRequests;
 
-    // 每个目标主机的最大连接数（分主机域名的长链接最大总数
+    /**
+     * <p>每个目标主机的最大连接数（分主机域名的长链接最大总数</p>
+     */
     @NameInMap("maxRequestsPerHost")
     public Number maxRequestsPerHost;
 
