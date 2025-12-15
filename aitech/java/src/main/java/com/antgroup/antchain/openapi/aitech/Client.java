@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.1.50"),
+                    new TeaPair("sdk_version", "1.1.51"),
                     new TeaPair("_prod_code", "AITECH"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -816,6 +816,48 @@ public class Client {
     public SubmitAuditMeiyouResponse submitAuditMeiyouEx(SubmitAuditMeiyouRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "aitech.comm.audit.meiyou.submit", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SubmitAuditMeiyouResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 文档人审入审
+     * Summary: 文档人审入审</p>
+     */
+    public SubmitAuditDocumentResponse submitAuditDocument(SubmitAuditDocumentRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.submitAuditDocumentEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 文档人审入审
+     * Summary: 文档人审入审</p>
+     */
+    public SubmitAuditDocumentResponse submitAuditDocumentEx(SubmitAuditDocumentRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "aitech.comm.audit.document.submit", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SubmitAuditDocumentResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 文档人审查询
+     * Summary: 文档人审查询</p>
+     */
+    public QueryAuditDocumentResponse queryAuditDocument(QueryAuditDocumentRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAuditDocumentEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 文档人审查询
+     * Summary: 文档人审查询</p>
+     */
+    public QueryAuditDocumentResponse queryAuditDocumentEx(QueryAuditDocumentRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "aitech.comm.audit.document.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAuditDocumentResponse());
     }
 
     /**
