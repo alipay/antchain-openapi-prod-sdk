@@ -137,7 +137,7 @@ namespace AntChain.SDK.Ak_eed2ee0664ac41b78f2c14f3ffa051e7
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.5"},
+                        {"sdk_version", "1.1.6"},
                         {"_prod_code", "ak_eed2ee0664ac41b78f2c14f3ffa051e7"},
                         {"_prod_channel", "saas"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.Ak_eed2ee0664ac41b78f2c14f3ffa051e7
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.5"},
+                        {"sdk_version", "1.1.6"},
                         {"_prod_code", "ak_eed2ee0664ac41b78f2c14f3ffa051e7"},
                         {"_prod_channel", "saas"},
                     };
@@ -322,45 +322,45 @@ namespace AntChain.SDK.Ak_eed2ee0664ac41b78f2c14f3ffa051e7
         }
 
         /**
-         * Description: 保司用户埋点信息
-         * Summary: 用户登陆页面埋点
+         * Description: a
+         * Summary: abcde
          */
-        public InitDemoBbpInsuranceUserResponse InitDemoBbpInsuranceUser(InitDemoBbpInsuranceUserRequest request)
+        public QueryDemoABCResponse QueryDemoABC(QueryDemoABCRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return InitDemoBbpInsuranceUserEx(request, headers, runtime);
+            return QueryDemoABCEx(request, headers, runtime);
         }
 
         /**
-         * Description: 保司用户埋点信息
-         * Summary: 用户登陆页面埋点
+         * Description: a
+         * Summary: abcde
          */
-        public async Task<InitDemoBbpInsuranceUserResponse> InitDemoBbpInsuranceUserAsync(InitDemoBbpInsuranceUserRequest request)
+        public async Task<QueryDemoABCResponse> QueryDemoABCAsync(QueryDemoABCRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await InitDemoBbpInsuranceUserExAsync(request, headers, runtime);
+            return await QueryDemoABCExAsync(request, headers, runtime);
         }
 
         /**
-         * Description: 保司用户埋点信息
-         * Summary: 用户登陆页面埋点
+         * Description: a
+         * Summary: abcde
          */
-        public InitDemoBbpInsuranceUserResponse InitDemoBbpInsuranceUserEx(InitDemoBbpInsuranceUserRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public QueryDemoABCResponse QueryDemoABCEx(QueryDemoABCRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<InitDemoBbpInsuranceUserResponse>(DoRequest("1.0", "demo.bbp.insurance.user.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<QueryDemoABCResponse>(DoRequest("1.0", "demo.a.b.c.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
-         * Description: 保司用户埋点信息
-         * Summary: 用户登陆页面埋点
+         * Description: a
+         * Summary: abcde
          */
-        public async Task<InitDemoBbpInsuranceUserResponse> InitDemoBbpInsuranceUserExAsync(InitDemoBbpInsuranceUserRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public async Task<QueryDemoABCResponse> QueryDemoABCExAsync(QueryDemoABCRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<InitDemoBbpInsuranceUserResponse>(await DoRequestAsync("1.0", "demo.bbp.insurance.user.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<QueryDemoABCResponse>(await DoRequestAsync("1.0", "demo.a.b.c.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
