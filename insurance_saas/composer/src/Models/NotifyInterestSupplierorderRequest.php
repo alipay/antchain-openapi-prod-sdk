@@ -62,11 +62,11 @@ class NotifyInterestSupplierorderRequest extends Model
      */
     public $notaryStatus;
 
-    // 支付成功时间
+    // 支付时间
     /**
      * @var string
      */
-    public $paymentSuccessTime;
+    public $paymentTime;
 
     // 版本号
     /**
@@ -74,17 +74,17 @@ class NotifyInterestSupplierorderRequest extends Model
      */
     public $interestVersion;
     protected $_name = [
-        'authToken'          => 'auth_token',
-        'requestNo'          => 'request_no',
-        'orderNo'            => 'order_no',
-        'interestNo'         => 'interest_no',
-        'userPermitStatus'   => 'user_permit_status',
-        'orderStatus'        => 'order_status',
-        'refundAmount'       => 'refund_amount',
-        'refundTime'         => 'refund_time',
-        'notaryStatus'       => 'notary_status',
-        'paymentSuccessTime' => 'payment_success_time',
-        'interestVersion'    => 'interest_version',
+        'authToken'        => 'auth_token',
+        'requestNo'        => 'request_no',
+        'orderNo'          => 'order_no',
+        'interestNo'       => 'interest_no',
+        'userPermitStatus' => 'user_permit_status',
+        'orderStatus'      => 'order_status',
+        'refundAmount'     => 'refund_amount',
+        'refundTime'       => 'refund_time',
+        'notaryStatus'     => 'notary_status',
+        'paymentTime'      => 'payment_time',
+        'interestVersion'  => 'interest_version',
     ];
 
     public function validate()
@@ -126,8 +126,8 @@ class NotifyInterestSupplierorderRequest extends Model
         if (null !== $this->notaryStatus) {
             $res['notary_status'] = $this->notaryStatus;
         }
-        if (null !== $this->paymentSuccessTime) {
-            $res['payment_success_time'] = $this->paymentSuccessTime;
+        if (null !== $this->paymentTime) {
+            $res['payment_time'] = $this->paymentTime;
         }
         if (null !== $this->interestVersion) {
             $res['interest_version'] = $this->interestVersion;
@@ -171,8 +171,8 @@ class NotifyInterestSupplierorderRequest extends Model
         if (isset($map['notary_status'])) {
             $model->notaryStatus = $map['notary_status'];
         }
-        if (isset($map['payment_success_time'])) {
-            $model->paymentSuccessTime = $map['payment_success_time'];
+        if (isset($map['payment_time'])) {
+            $model->paymentTime = $map['payment_time'];
         }
         if (isset($map['interest_version'])) {
             $model->interestVersion = $map['interest_version'];
