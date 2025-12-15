@@ -3995,6 +3995,195 @@ func (s *SubmitAuditMeiyouResponse) SetResult(v string) *SubmitAuditMeiyouRespon
 	return s
 }
 
+type SubmitAuditDocumentRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 待检测对象的URL，请确保该URL能通过公网访问到，且URL地址长度不超过2048个字符 URL地址中不能包含中文，且一次请求请确保仅传入1条URL
+	Url *string `json:"url,omitempty" xml:"url,omitempty" require:"true"`
+	// 审核场景码
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty" require:"true"`
+	// 检测对象对应的数据ID。 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+	DataId *string `json:"data_id,omitempty" xml:"data_id,omitempty" require:"true"`
+	// 客户业务ID。 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+	BusinessId *string `json:"business_id,omitempty" xml:"business_id,omitempty"`
+	// 结果通知地址，不指定时需要调用方主动查询结果
+	Callback *string `json:"callback,omitempty" xml:"callback,omitempty"`
+	// 传callback时必须指定，tenant + seed + auditResult做SHA256生成checksum，保证结果未被篡改（即数科官网控制台-账户信息中的「用户code」）
+	Seed *string `json:"seed,omitempty" xml:"seed,omitempty"`
+	// 审核时输入的额外信息
+	ExtendInfo *string `json:"extend_info,omitempty" xml:"extend_info,omitempty"`
+}
+
+func (s SubmitAuditDocumentRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitAuditDocumentRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitAuditDocumentRequest) SetAuthToken(v string) *SubmitAuditDocumentRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SubmitAuditDocumentRequest) SetProductInstanceId(v string) *SubmitAuditDocumentRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SubmitAuditDocumentRequest) SetUrl(v string) *SubmitAuditDocumentRequest {
+	s.Url = &v
+	return s
+}
+
+func (s *SubmitAuditDocumentRequest) SetScene(v string) *SubmitAuditDocumentRequest {
+	s.Scene = &v
+	return s
+}
+
+func (s *SubmitAuditDocumentRequest) SetDataId(v string) *SubmitAuditDocumentRequest {
+	s.DataId = &v
+	return s
+}
+
+func (s *SubmitAuditDocumentRequest) SetBusinessId(v string) *SubmitAuditDocumentRequest {
+	s.BusinessId = &v
+	return s
+}
+
+func (s *SubmitAuditDocumentRequest) SetCallback(v string) *SubmitAuditDocumentRequest {
+	s.Callback = &v
+	return s
+}
+
+func (s *SubmitAuditDocumentRequest) SetSeed(v string) *SubmitAuditDocumentRequest {
+	s.Seed = &v
+	return s
+}
+
+func (s *SubmitAuditDocumentRequest) SetExtendInfo(v string) *SubmitAuditDocumentRequest {
+	s.ExtendInfo = &v
+	return s
+}
+
+type SubmitAuditDocumentResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 任务ID
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty"`
+	// 检测对象对应的数据ID。 如果在提交审核任务的请求参数中传入了dataId，则此处返回对应dataId
+	DataId *string `json:"data_id,omitempty" xml:"data_id,omitempty"`
+}
+
+func (s SubmitAuditDocumentResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitAuditDocumentResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitAuditDocumentResponse) SetReqMsgId(v string) *SubmitAuditDocumentResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SubmitAuditDocumentResponse) SetResultCode(v string) *SubmitAuditDocumentResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SubmitAuditDocumentResponse) SetResultMsg(v string) *SubmitAuditDocumentResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SubmitAuditDocumentResponse) SetTaskId(v string) *SubmitAuditDocumentResponse {
+	s.TaskId = &v
+	return s
+}
+
+func (s *SubmitAuditDocumentResponse) SetDataId(v string) *SubmitAuditDocumentResponse {
+	s.DataId = &v
+	return s
+}
+
+type QueryAuditDocumentRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 任务ID
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
+}
+
+func (s QueryAuditDocumentRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAuditDocumentRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAuditDocumentRequest) SetAuthToken(v string) *QueryAuditDocumentRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAuditDocumentRequest) SetProductInstanceId(v string) *QueryAuditDocumentRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryAuditDocumentRequest) SetTaskId(v string) *QueryAuditDocumentRequest {
+	s.TaskId = &v
+	return s
+}
+
+type QueryAuditDocumentResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 文档审核结果
+	Result *string `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s QueryAuditDocumentResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAuditDocumentResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAuditDocumentResponse) SetReqMsgId(v string) *QueryAuditDocumentResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAuditDocumentResponse) SetResultCode(v string) *QueryAuditDocumentResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAuditDocumentResponse) SetResultMsg(v string) *QueryAuditDocumentResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAuditDocumentResponse) SetResult(v string) *QueryAuditDocumentResponse {
+	s.Result = &v
+	return s
+}
+
 type QueryAicoguardcloudAdbsinkRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -6826,7 +7015,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.50"),
+				"sdk_version":      tea.String("1.1.51"),
 				"_prod_code":       tea.String("AITECH"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -7897,6 +8086,74 @@ func (client *Client) SubmitAuditMeiyouEx(request *SubmitAuditMeiyouRequest, hea
 	}
 	_result = &SubmitAuditMeiyouResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("aitech.comm.audit.meiyou.submit"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 文档人审入审
+ * Summary: 文档人审入审
+ */
+func (client *Client) SubmitAuditDocument(request *SubmitAuditDocumentRequest) (_result *SubmitAuditDocumentResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SubmitAuditDocumentResponse{}
+	_body, _err := client.SubmitAuditDocumentEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 文档人审入审
+ * Summary: 文档人审入审
+ */
+func (client *Client) SubmitAuditDocumentEx(request *SubmitAuditDocumentRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SubmitAuditDocumentResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SubmitAuditDocumentResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("aitech.comm.audit.document.submit"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 文档人审查询
+ * Summary: 文档人审查询
+ */
+func (client *Client) QueryAuditDocument(request *QueryAuditDocumentRequest) (_result *QueryAuditDocumentResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAuditDocumentResponse{}
+	_body, _err := client.QueryAuditDocumentEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 文档人审查询
+ * Summary: 文档人审查询
+ */
+func (client *Client) QueryAuditDocumentEx(request *QueryAuditDocumentRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAuditDocumentResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAuditDocumentResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("aitech.comm.audit.document.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
