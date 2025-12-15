@@ -11,8 +11,8 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
-use AntChain\Ak_eed2ee0664ac41b78f2c14f3ffa051e7\Models\InitDemoBbpInsuranceUserRequest;
-use AntChain\Ak_eed2ee0664ac41b78f2c14f3ffa051e7\Models\InitDemoBbpInsuranceUserResponse;
+use AntChain\Ak_eed2ee0664ac41b78f2c14f3ffa051e7\Models\QueryDemoABCRequest;
+use AntChain\Ak_eed2ee0664ac41b78f2c14f3ffa051e7\Models\QueryDemoABCResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -132,7 +132,6 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 键值对，兼容map用
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -160,7 +159,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.5',
+                    'sdk_version'      => '1.1.6',
                     '_prod_code'       => 'ak_eed2ee0664ac41b78f2c14f3ffa051e7',
                     '_prod_channel'    => 'saas',
                 ];
@@ -209,35 +208,35 @@ class Client
     }
 
     /**
-     * Description: 保司用户埋点信息
-     * Summary: 用户登陆页面埋点.
+     * Description: a
+     * Summary: abcde.
      *
-     * @param InitDemoBbpInsuranceUserRequest $request
+     * @param QueryDemoABCRequest $request
      *
-     * @return InitDemoBbpInsuranceUserResponse
+     * @return QueryDemoABCResponse
      */
-    public function initDemoBbpInsuranceUser($request)
+    public function queryDemoABC($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->initDemoBbpInsuranceUserEx($request, $headers, $runtime);
+        return $this->queryDemoABCEx($request, $headers, $runtime);
     }
 
     /**
-     * Description: 保司用户埋点信息
-     * Summary: 用户登陆页面埋点.
+     * Description: a
+     * Summary: abcde.
      *
-     * @param InitDemoBbpInsuranceUserRequest $request
-     * @param string[]                        $headers
-     * @param RuntimeOptions                  $runtime
+     * @param QueryDemoABCRequest $request
+     * @param string[]            $headers
+     * @param RuntimeOptions      $runtime
      *
-     * @return InitDemoBbpInsuranceUserResponse
+     * @return QueryDemoABCResponse
      */
-    public function initDemoBbpInsuranceUserEx($request, $headers, $runtime)
+    public function queryDemoABCEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return InitDemoBbpInsuranceUserResponse::fromMap($this->doRequest('1.0', 'demo.bbp.insurance.user.init', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return QueryDemoABCResponse::fromMap($this->doRequest('1.0', 'demo.a.b.c.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
