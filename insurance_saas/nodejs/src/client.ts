@@ -2902,8 +2902,8 @@ export class NotifyInterestSupplierorderRequest extends $tea.Model {
   refundTime?: string;
   // 公证状态
   notaryStatus?: string;
-  // 支付成功时间
-  paymentSuccessTime?: string;
+  // 支付时间
+  paymentTime?: string;
   // 版本号
   interestVersion?: string;
   static names(): { [key: string]: string } {
@@ -2917,7 +2917,7 @@ export class NotifyInterestSupplierorderRequest extends $tea.Model {
       refundAmount: 'refund_amount',
       refundTime: 'refund_time',
       notaryStatus: 'notary_status',
-      paymentSuccessTime: 'payment_success_time',
+      paymentTime: 'payment_time',
       interestVersion: 'interest_version',
     };
   }
@@ -2933,7 +2933,7 @@ export class NotifyInterestSupplierorderRequest extends $tea.Model {
       refundAmount: 'string',
       refundTime: 'string',
       notaryStatus: 'string',
-      paymentSuccessTime: 'string',
+      paymentTime: 'string',
       interestVersion: 'string',
     };
   }
@@ -3461,7 +3461,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.10.8",
+          sdk_version: "1.11.0",
           _prod_code: "INSURANCE_SAAS",
           _prod_channel: "undefined",
         };
