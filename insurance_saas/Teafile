@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "INSURANCE_SAAS",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-insurance_saas:1.10.8",
-    "go": "github.com/antchain-openapi-sdk-go/insurance_saas/client:v1.10.8",
-    "csharp": "AntChain.SDK.INSURANCE_SAAS:1.10.8",
+    "java": "com.antgroup.antchain.openapi:openapi-insurance_saas:1.11.0",
+    "go": "github.com/antchain-openapi-sdk-go/insurance_saas/client:v1.11.0",
+    "csharp": "AntChain.SDK.INSURANCE_SAAS:1.11.0",
     "ts": "@antchain/insurance_saas:1.10.4",
-    "php": "antchain/insurance_saas:1.10.8",
-    "python": "antchain_sdk_insurance_saas:1.10.8"
+    "php": "antchain/insurance_saas:1.11.0",
+    "python": "antchain_sdk_insurance_saas:1.11.0"
   },
   "libraries": {
     "Util": "darabonba:Util:*",
