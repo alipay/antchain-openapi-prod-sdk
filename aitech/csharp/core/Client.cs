@@ -137,7 +137,7 @@ namespace AntChain.SDK.AITECH
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.50"},
+                        {"sdk_version", "1.1.51"},
                         {"_prod_code", "AITECH"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.AITECH
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.50"},
+                        {"sdk_version", "1.1.51"},
                         {"_prod_code", "AITECH"},
                         {"_prod_channel", "default"},
                     };
@@ -1579,6 +1579,90 @@ namespace AntChain.SDK.AITECH
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<SubmitAuditMeiyouResponse>(await DoRequestAsync("1.0", "aitech.comm.audit.meiyou.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 文档人审入审
+         * Summary: 文档人审入审
+         */
+        public SubmitAuditDocumentResponse SubmitAuditDocument(SubmitAuditDocumentRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SubmitAuditDocumentEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 文档人审入审
+         * Summary: 文档人审入审
+         */
+        public async Task<SubmitAuditDocumentResponse> SubmitAuditDocumentAsync(SubmitAuditDocumentRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SubmitAuditDocumentExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 文档人审入审
+         * Summary: 文档人审入审
+         */
+        public SubmitAuditDocumentResponse SubmitAuditDocumentEx(SubmitAuditDocumentRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitAuditDocumentResponse>(DoRequest("1.0", "aitech.comm.audit.document.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 文档人审入审
+         * Summary: 文档人审入审
+         */
+        public async Task<SubmitAuditDocumentResponse> SubmitAuditDocumentExAsync(SubmitAuditDocumentRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitAuditDocumentResponse>(await DoRequestAsync("1.0", "aitech.comm.audit.document.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 文档人审查询
+         * Summary: 文档人审查询
+         */
+        public QueryAuditDocumentResponse QueryAuditDocument(QueryAuditDocumentRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAuditDocumentEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 文档人审查询
+         * Summary: 文档人审查询
+         */
+        public async Task<QueryAuditDocumentResponse> QueryAuditDocumentAsync(QueryAuditDocumentRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAuditDocumentExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 文档人审查询
+         * Summary: 文档人审查询
+         */
+        public QueryAuditDocumentResponse QueryAuditDocumentEx(QueryAuditDocumentRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAuditDocumentResponse>(DoRequest("1.0", "aitech.comm.audit.document.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 文档人审查询
+         * Summary: 文档人审查询
+         */
+        public async Task<QueryAuditDocumentResponse> QueryAuditDocumentExAsync(QueryAuditDocumentRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAuditDocumentResponse>(await DoRequestAsync("1.0", "aitech.comm.audit.document.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
