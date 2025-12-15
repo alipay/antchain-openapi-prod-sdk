@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.50',
+                    'sdk_version': '1.1.51',
                     '_prod_code': 'AITECH',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.50',
+                    'sdk_version': '1.1.51',
                     '_prod_code': 'AITECH',
                     '_prod_channel': 'default'
                 }
@@ -1953,6 +1953,118 @@ class Client:
         return TeaCore.from_map(
             aitech_models.SubmitAuditMeiyouResponse(),
             await self.do_request_async('1.0', 'aitech.comm.audit.meiyou.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def submit_audit_document(
+        self,
+        request: aitech_models.SubmitAuditDocumentRequest,
+    ) -> aitech_models.SubmitAuditDocumentResponse:
+        """
+        Description: 文档人审入审
+        Summary: 文档人审入审
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.submit_audit_document_ex(request, headers, runtime)
+
+    async def submit_audit_document_async(
+        self,
+        request: aitech_models.SubmitAuditDocumentRequest,
+    ) -> aitech_models.SubmitAuditDocumentResponse:
+        """
+        Description: 文档人审入审
+        Summary: 文档人审入审
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.submit_audit_document_ex_async(request, headers, runtime)
+
+    def submit_audit_document_ex(
+        self,
+        request: aitech_models.SubmitAuditDocumentRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.SubmitAuditDocumentResponse:
+        """
+        Description: 文档人审入审
+        Summary: 文档人审入审
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.SubmitAuditDocumentResponse(),
+            self.do_request('1.0', 'aitech.comm.audit.document.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def submit_audit_document_ex_async(
+        self,
+        request: aitech_models.SubmitAuditDocumentRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.SubmitAuditDocumentResponse:
+        """
+        Description: 文档人审入审
+        Summary: 文档人审入审
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.SubmitAuditDocumentResponse(),
+            await self.do_request_async('1.0', 'aitech.comm.audit.document.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_audit_document(
+        self,
+        request: aitech_models.QueryAuditDocumentRequest,
+    ) -> aitech_models.QueryAuditDocumentResponse:
+        """
+        Description: 文档人审查询
+        Summary: 文档人审查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_audit_document_ex(request, headers, runtime)
+
+    async def query_audit_document_async(
+        self,
+        request: aitech_models.QueryAuditDocumentRequest,
+    ) -> aitech_models.QueryAuditDocumentResponse:
+        """
+        Description: 文档人审查询
+        Summary: 文档人审查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_audit_document_ex_async(request, headers, runtime)
+
+    def query_audit_document_ex(
+        self,
+        request: aitech_models.QueryAuditDocumentRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.QueryAuditDocumentResponse:
+        """
+        Description: 文档人审查询
+        Summary: 文档人审查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.QueryAuditDocumentResponse(),
+            self.do_request('1.0', 'aitech.comm.audit.document.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_audit_document_ex_async(
+        self,
+        request: aitech_models.QueryAuditDocumentRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.QueryAuditDocumentResponse:
+        """
+        Description: 文档人审查询
+        Summary: 文档人审查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.QueryAuditDocumentResponse(),
+            await self.do_request_async('1.0', 'aitech.comm.audit.document.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_aicoguardcloud_adbsink(
