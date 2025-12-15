@@ -45,9 +45,9 @@ public class NotifyInterestSupplierorderRequest extends TeaModel {
     @NameInMap("notary_status")
     public String notaryStatus;
 
-    // 支付成功时间
-    @NameInMap("payment_success_time")
-    public String paymentSuccessTime;
+    // 支付时间
+    @NameInMap("payment_time")
+    public String paymentTime;
 
     // 版本号
     @NameInMap("interest_version")
@@ -130,12 +130,12 @@ public class NotifyInterestSupplierorderRequest extends TeaModel {
         return this.notaryStatus;
     }
 
-    public NotifyInterestSupplierorderRequest setPaymentSuccessTime(String paymentSuccessTime) {
-        this.paymentSuccessTime = paymentSuccessTime;
+    public NotifyInterestSupplierorderRequest setPaymentTime(String paymentTime) {
+        this.paymentTime = paymentTime;
         return this;
     }
-    public String getPaymentSuccessTime() {
-        return this.paymentSuccessTime;
+    public String getPaymentTime() {
+        return this.paymentTime;
     }
 
     public NotifyInterestSupplierorderRequest setInterestVersion(String interestVersion) {
