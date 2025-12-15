@@ -54,10 +54,10 @@ namespace AntChain.SDK.INSURANCE_SAAS.Models
         [Validation(Required=false)]
         public string NotaryStatus { get; set; }
 
-        // 支付成功时间
-        [NameInMap("payment_success_time")]
+        // 支付时间
+        [NameInMap("payment_time")]
         [Validation(Required=false)]
-        public string PaymentSuccessTime { get; set; }
+        public string PaymentTime { get; set; }
 
         // 版本号
         [NameInMap("interest_version")]
