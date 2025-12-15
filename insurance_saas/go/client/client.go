@@ -3945,8 +3945,8 @@ type NotifyInterestSupplierorderRequest struct {
 	RefundTime *string `json:"refund_time,omitempty" xml:"refund_time,omitempty"`
 	// 公证状态
 	NotaryStatus *string `json:"notary_status,omitempty" xml:"notary_status,omitempty"`
-	// 支付成功时间
-	PaymentSuccessTime *string `json:"payment_success_time,omitempty" xml:"payment_success_time,omitempty"`
+	// 支付时间
+	PaymentTime *string `json:"payment_time,omitempty" xml:"payment_time,omitempty"`
 	// 版本号
 	InterestVersion *string `json:"interest_version,omitempty" xml:"interest_version,omitempty"`
 }
@@ -4004,8 +4004,8 @@ func (s *NotifyInterestSupplierorderRequest) SetNotaryStatus(v string) *NotifyIn
 	return s
 }
 
-func (s *NotifyInterestSupplierorderRequest) SetPaymentSuccessTime(v string) *NotifyInterestSupplierorderRequest {
-	s.PaymentSuccessTime = &v
+func (s *NotifyInterestSupplierorderRequest) SetPaymentTime(v string) *NotifyInterestSupplierorderRequest {
+	s.PaymentTime = &v
 	return s
 }
 
@@ -4682,7 +4682,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.10.8"),
+				"sdk_version":      tea.String("1.11.0"),
 				"_prod_code":       tea.String("INSURANCE_SAAS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
