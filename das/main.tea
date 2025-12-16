@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.102',
+    sdk_version = '1.1.110',
     _prod_code = 'DAS',
     _prod_channel = 'undefined'
   };
@@ -211,6 +211,16 @@ model Agreement {
   downloadUrl: string(name='download_url', example='-'),
 }
 
+// 产品和供应商信息
+model ProductProviderInfo {
+  // 数据产品标识
+  productIdentityId: string(name='product_identity_id', example='-'),
+  // 数据源企业code
+  sourceEnterpriseCode: string(name='source_enterprise_code', example='-'),
+  // 数据源企业名称
+  sourceEnterpriseName: string(name='source_enterprise_name', example='-'),
+}
+
 // 商标共有人信息
 model TmCoownerInfo {
   // 共有人中文名称
@@ -317,16 +327,14 @@ model WorkExperiencesInfo {
 
 // 产品参数信息
 model ProductParamInfo {
-  // 产品码
-  productCode: string(name='product_code', example='-'),
+  // 参数业务类型
+  bizType: string(name='biz_type', example='certNo.身份证 name.姓名'),
   // 参数key
   paramKey: string(name='param_key', example='-'),
   // 参数类型
   paramType: string(name='param_type', example='-'),
   // 参数描述
   paramDesc: string(name='param_desc', example='-'),
-  // 是否可空
-  nullable: boolean(name='nullable', example='true, false'),
 }
 
 // 车辆基础信息
@@ -587,6 +595,8 @@ model DetailCarInfo {
 model AuthConfigListResponse {
   // 场景码
   sceneCode: string(name='scene_code', example='-'),
+  // 授权类型
+  authType: string(name='auth_type', example='CREATE_AUTH_PAGE.新建数智空间授权页面  USE_EXIST_PAGE.使用数智空间已有授权页 RECEIVE_CUSTOMER_CALLBACK.接收客户回传授权信息'),
   // 数据源连接器空间id
   sourceSpaceId: string(name='source_space_id', example='-'),
   // 被授权方企业信用代码
@@ -635,6 +645,16 @@ model AuthRecordListResponse {
   requestTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='request_time', example='2018-10-10T10:10:00Z'),
   // 协议列表
   agreementList: [ Agreement ](name='agreement_list', example=''),
+}
+
+// 服务产品供应商组
+model ProductProviderGroup {
+  // 产品供应商信息
+  productProviderList: [ ProductProviderInfo ](name='product_provider_list', example='-'),
+  // 数据产品入参,JSON数组
+  productParam: string(name='product_param', example='-'),
+  // C端展示授权内容code
+  authContentCode: string(name='auth_content_code', example='-'),
 }
 
 // 简历技能信息
@@ -750,7 +770,7 @@ model EnterpriseCaseInfo {
   createTime?: string(name='create_time', example='2021-12-09'),
 }
 
-// 授权服务产品
+// 授权服务产品组
 model AuthProductGroup {
   // 产品code列表
   productCodeList: [ string ](name='product_code_list', example='-'),
@@ -2856,7 +2876,7 @@ model AddAuthConfigRequest = {
   // C端是否显示授权记录
   enableShowAuthRecord?: boolean(name='enable_show_auth_record'),
   // 授权服务产品列表
-  productGroupList?: [ AuthProductGroup ](name='product_group_list'),
+  productGroupList?: [ ProductProviderGroup ](name='product_group_list'),
   // 用户类型
   userType?: string(name='user_type'),
   // 授权协议
@@ -3221,8 +3241,8 @@ model DetailAuthConfigRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 企业信用代码
-  enterpriseCode: string(name='enterprise_code'),
+  // 空间id
+  sourceSpaceId: string(name='source_space_id'),
   // 场景码
   sceneCode: string(name='scene_code'),
 }
@@ -3400,7 +3420,7 @@ model VerifyDataAuthRequest = {
   // 用户id
   userId: string(name='user_id'),
   // 用户表示类型
-  userType: string(name='user_type'),
+  userType?: string(name='user_type'),
   // 场景码
   sceneCode: string(name='scene_code'),
   // 数据源连接器空间id
@@ -3409,6 +3429,8 @@ model VerifyDataAuthRequest = {
   enterpriseCode: string(name='enterprise_code'),
   // 授权token
   authorizedToken: string(name='authorized_token'),
+  // 国标产品标识码
+  productIdentityId: string(name='product_identity_id'),
 }
 
 model VerifyDataAuthResponse = {
@@ -3445,10 +3467,12 @@ model QueryProductParamRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 场景码
-  sceneCode: string(name='scene_code'),
-  // 产品code
-  productCode: string(name='product_code'),
+  // 空间id
+  sourceSpaceId: string(name='source_space_id'),
+  // 企业代码
+  enterpriseCode: string(name='enterprise_code'),
+  // 国标产品标识码
+  productIdentityId: string(name='product_identity_id'),
 }
 
 model QueryProductParamResponse = {
@@ -3460,6 +3484,8 @@ model QueryProductParamResponse = {
   resultMsg?: string(name='result_msg'),
   // 是否需要授权
   needAuth?: boolean(name='need_auth'),
+  // 用户表示类型
+  userType?: string(name='user_type'),
   // 产品参数信息列表
   paramInfoList?: [ ProductParamInfo ](name='param_info_list'),
 }
@@ -3491,8 +3517,8 @@ model CallbackAuthDataRequest = {
   authorizedToken: string(name='authorized_token'),
   // 数据详情 JSONObject
   dataDetail: string(name='data_detail'),
-  // 授权内容/数据类型
-  dataType: string(name='data_type'),
+  // 国标产品标识码
+  productIdentityId: string(name='product_identity_id'),
 }
 
 model CallbackAuthDataResponse = {
