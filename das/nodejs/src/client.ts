@@ -214,6 +214,35 @@ export class Agreement extends $tea.Model {
   }
 }
 
+// 产品和供应商信息
+export class ProductProviderInfo extends $tea.Model {
+  // 数据产品标识
+  productIdentityId: string;
+  // 数据源企业code
+  sourceEnterpriseCode: string;
+  // 数据源企业名称
+  sourceEnterpriseName: string;
+  static names(): { [key: string]: string } {
+    return {
+      productIdentityId: 'product_identity_id',
+      sourceEnterpriseCode: 'source_enterprise_code',
+      sourceEnterpriseName: 'source_enterprise_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      productIdentityId: 'string',
+      sourceEnterpriseCode: 'string',
+      sourceEnterpriseName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 商标共有人信息
 export class TmCoownerInfo extends $tea.Model {
   // 共有人中文名称
@@ -487,33 +516,29 @@ export class WorkExperiencesInfo extends $tea.Model {
 
 // 产品参数信息
 export class ProductParamInfo extends $tea.Model {
-  // 产品码
-  productCode: string;
+  // 参数业务类型
+  bizType: string;
   // 参数key
   paramKey: string;
   // 参数类型
   paramType: string;
   // 参数描述
   paramDesc: string;
-  // 是否可空
-  nullable: boolean;
   static names(): { [key: string]: string } {
     return {
-      productCode: 'product_code',
+      bizType: 'biz_type',
       paramKey: 'param_key',
       paramType: 'param_type',
       paramDesc: 'param_desc',
-      nullable: 'nullable',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      productCode: 'string',
+      bizType: 'string',
       paramKey: 'string',
       paramType: 'string',
       paramDesc: 'string',
-      nullable: 'boolean',
     };
   }
 
@@ -1158,6 +1183,8 @@ export class DetailCarInfo extends $tea.Model {
 export class AuthConfigListResponse extends $tea.Model {
   // 场景码
   sceneCode: string;
+  // 授权类型
+  authType: string;
   // 数据源连接器空间id
   sourceSpaceId: string;
   // 被授权方企业信用代码
@@ -1175,6 +1202,7 @@ export class AuthConfigListResponse extends $tea.Model {
   static names(): { [key: string]: string } {
     return {
       sceneCode: 'scene_code',
+      authType: 'auth_type',
       sourceSpaceId: 'source_space_id',
       authEnterpriseCode: 'auth_enterprise_code',
       targetName: 'target_name',
@@ -1188,6 +1216,7 @@ export class AuthConfigListResponse extends $tea.Model {
   static types(): { [key: string]: any } {
     return {
       sceneCode: 'string',
+      authType: 'string',
       sourceSpaceId: 'string',
       authEnterpriseCode: 'string',
       targetName: 'string',
@@ -1290,6 +1319,35 @@ export class AuthRecordListResponse extends $tea.Model {
       authResult: 'boolean',
       requestTime: 'string',
       agreementList: { 'type': 'array', 'itemType': Agreement },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 服务产品供应商组
+export class ProductProviderGroup extends $tea.Model {
+  // 产品供应商信息
+  productProviderList: ProductProviderInfo[];
+  // 数据产品入参,JSON数组
+  productParam: string;
+  // C端展示授权内容code
+  authContentCode: string;
+  static names(): { [key: string]: string } {
+    return {
+      productProviderList: 'product_provider_list',
+      productParam: 'product_param',
+      authContentCode: 'auth_content_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      productProviderList: { 'type': 'array', 'itemType': ProductProviderInfo },
+      productParam: 'string',
+      authContentCode: 'string',
     };
   }
 
@@ -1577,7 +1635,7 @@ export class EnterpriseCaseInfo extends $tea.Model {
   }
 }
 
-// 授权服务产品
+// 授权服务产品组
 export class AuthProductGroup extends $tea.Model {
   // 产品code列表
   productCodeList: string[];
@@ -4892,7 +4950,7 @@ export class AddAuthConfigRequest extends $tea.Model {
   // C端是否显示授权记录
   enableShowAuthRecord?: boolean;
   // 授权服务产品列表
-  productGroupList?: AuthProductGroup[];
+  productGroupList?: ProductProviderGroup[];
   // 用户类型
   userType?: string;
   // 授权协议
@@ -4954,7 +5012,7 @@ export class AddAuthConfigRequest extends $tea.Model {
       authType: 'string',
       enableShowProofVc: 'boolean',
       enableShowAuthRecord: 'boolean',
-      productGroupList: { 'type': 'array', 'itemType': AuthProductGroup },
+      productGroupList: { 'type': 'array', 'itemType': ProductProviderGroup },
       userType: 'string',
       agreementList: { 'type': 'array', 'itemType': Agreement },
       backgroundColor: 'string',
@@ -5526,15 +5584,15 @@ export class DetailAuthConfigRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 企业信用代码
-  enterpriseCode: string;
+  // 空间id
+  sourceSpaceId: string;
   // 场景码
   sceneCode: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      enterpriseCode: 'enterprise_code',
+      sourceSpaceId: 'source_space_id',
       sceneCode: 'scene_code',
     };
   }
@@ -5543,7 +5601,7 @@ export class DetailAuthConfigRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      enterpriseCode: 'string',
+      sourceSpaceId: 'string',
       sceneCode: 'string',
     };
   }
@@ -5830,7 +5888,7 @@ export class VerifyDataAuthRequest extends $tea.Model {
   // 用户id
   userId: string;
   // 用户表示类型
-  userType: string;
+  userType?: string;
   // 场景码
   sceneCode: string;
   // 数据源连接器空间id
@@ -5839,6 +5897,8 @@ export class VerifyDataAuthRequest extends $tea.Model {
   enterpriseCode: string;
   // 授权token
   authorizedToken: string;
+  // 国标产品标识码
+  productIdentityId: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -5849,6 +5909,7 @@ export class VerifyDataAuthRequest extends $tea.Model {
       sourceSpaceId: 'source_space_id',
       enterpriseCode: 'enterprise_code',
       authorizedToken: 'authorized_token',
+      productIdentityId: 'product_identity_id',
     };
   }
 
@@ -5862,6 +5923,7 @@ export class VerifyDataAuthRequest extends $tea.Model {
       sourceSpaceId: 'string',
       enterpriseCode: 'string',
       authorizedToken: 'string',
+      productIdentityId: 'string',
     };
   }
 
@@ -5906,16 +5968,19 @@ export class QueryProductParamRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 场景码
-  sceneCode: string;
-  // 产品code
-  productCode: string;
+  // 空间id
+  sourceSpaceId: string;
+  // 企业代码
+  enterpriseCode: string;
+  // 国标产品标识码
+  productIdentityId: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      sceneCode: 'scene_code',
-      productCode: 'product_code',
+      sourceSpaceId: 'source_space_id',
+      enterpriseCode: 'enterprise_code',
+      productIdentityId: 'product_identity_id',
     };
   }
 
@@ -5923,8 +5988,9 @@ export class QueryProductParamRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      sceneCode: 'string',
-      productCode: 'string',
+      sourceSpaceId: 'string',
+      enterpriseCode: 'string',
+      productIdentityId: 'string',
     };
   }
 
@@ -5942,6 +6008,8 @@ export class QueryProductParamResponse extends $tea.Model {
   resultMsg?: string;
   // 是否需要授权
   needAuth?: boolean;
+  // 用户表示类型
+  userType?: string;
   // 产品参数信息列表
   paramInfoList?: ProductParamInfo[];
   static names(): { [key: string]: string } {
@@ -5950,6 +6018,7 @@ export class QueryProductParamResponse extends $tea.Model {
       resultCode: 'result_code',
       resultMsg: 'result_msg',
       needAuth: 'need_auth',
+      userType: 'user_type',
       paramInfoList: 'param_info_list',
     };
   }
@@ -5960,6 +6029,7 @@ export class QueryProductParamResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       needAuth: 'boolean',
+      userType: 'string',
       paramInfoList: { 'type': 'array', 'itemType': ProductParamInfo },
     };
   }
@@ -5977,15 +6047,15 @@ export class CallbackAuthDataRequest extends $tea.Model {
   authorizedToken: string;
   // 数据详情 JSONObject
   dataDetail: string;
-  // 授权内容/数据类型
-  dataType: string;
+  // 国标产品标识码
+  productIdentityId: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       authorizedToken: 'authorized_token',
       dataDetail: 'data_detail',
-      dataType: 'data_type',
+      productIdentityId: 'product_identity_id',
     };
   }
 
@@ -5995,7 +6065,7 @@ export class CallbackAuthDataRequest extends $tea.Model {
       productInstanceId: 'string',
       authorizedToken: 'string',
       dataDetail: 'string',
-      dataType: 'string',
+      productIdentityId: 'string',
     };
   }
 
@@ -6300,7 +6370,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.102",
+          sdk_version: "1.1.110",
           _prod_code: "DAS",
           _prod_channel: "undefined",
         };
