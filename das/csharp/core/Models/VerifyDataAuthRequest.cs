@@ -25,7 +25,7 @@ namespace AntChain.SDK.DAS.Models
 
         // 用户表示类型
         [NameInMap("user_type")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string UserType { get; set; }
 
         // 场景码
@@ -47,6 +47,11 @@ namespace AntChain.SDK.DAS.Models
         [NameInMap("authorized_token")]
         [Validation(Required=true)]
         public string AuthorizedToken { get; set; }
+
+        // 国标产品标识码
+        [NameInMap("product_identity_id")]
+        [Validation(Required=true)]
+        public string ProductIdentityId { get; set; }
 
     }
 

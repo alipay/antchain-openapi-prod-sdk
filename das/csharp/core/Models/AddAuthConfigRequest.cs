@@ -76,7 +76,7 @@ namespace AntChain.SDK.DAS.Models
         // 授权服务产品列表
         [NameInMap("product_group_list")]
         [Validation(Required=false)]
-        public List<AuthProductGroup> ProductGroupList { get; set; }
+        public List<ProductProviderGroup> ProductGroupList { get; set; }
 
         // 用户类型
         [NameInMap("user_type")]

@@ -18,15 +18,20 @@ namespace AntChain.SDK.DAS.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 场景码
-        [NameInMap("scene_code")]
+        // 空间id
+        [NameInMap("source_space_id")]
         [Validation(Required=true)]
-        public string SceneCode { get; set; }
+        public string SourceSpaceId { get; set; }
 
-        // 产品code
-        [NameInMap("product_code")]
+        // 企业代码
+        [NameInMap("enterprise_code")]
         [Validation(Required=true)]
-        public string ProductCode { get; set; }
+        public string EnterpriseCode { get; set; }
+
+        // 国标产品标识码
+        [NameInMap("product_identity_id")]
+        [Validation(Required=true)]
+        public string ProductIdentityId { get; set; }
 
     }
 

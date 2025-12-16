@@ -28,10 +28,10 @@ namespace AntChain.SDK.DAS.Models
         [Validation(Required=true)]
         public string DataDetail { get; set; }
 
-        // 授权内容/数据类型
-        [NameInMap("data_type")]
+        // 国标产品标识码
+        [NameInMap("product_identity_id")]
         [Validation(Required=true)]
-        public string DataType { get; set; }
+        public string ProductIdentityId { get; set; }
 
     }
 

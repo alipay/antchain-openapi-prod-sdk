@@ -29,6 +29,11 @@ namespace AntChain.SDK.DAS.Models
         [Validation(Required=false)]
         public bool? NeedAuth { get; set; }
 
+        // 用户表示类型
+        [NameInMap("user_type")]
+        [Validation(Required=false)]
+        public string UserType { get; set; }
+
         // 产品参数信息列表
         [NameInMap("param_info_list")]
         [Validation(Required=false)]

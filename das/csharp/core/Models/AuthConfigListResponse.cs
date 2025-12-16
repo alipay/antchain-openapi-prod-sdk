@@ -15,6 +15,11 @@ namespace AntChain.SDK.DAS.Models
         [Validation(Required=true)]
         public string SceneCode { get; set; }
 
+        // 授权类型
+        [NameInMap("auth_type")]
+        [Validation(Required=true)]
+        public string AuthType { get; set; }
+
         // 数据源连接器空间id
         [NameInMap("source_space_id")]
         [Validation(Required=true)]
