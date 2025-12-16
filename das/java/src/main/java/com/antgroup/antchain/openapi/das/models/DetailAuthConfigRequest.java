@@ -11,10 +11,10 @@ public class DetailAuthConfigRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 企业信用代码
-    @NameInMap("enterprise_code")
+    // 空间id
+    @NameInMap("source_space_id")
     @Validation(required = true)
-    public String enterpriseCode;
+    public String sourceSpaceId;
 
     // 场景码
     @NameInMap("scene_code")
@@ -42,12 +42,12 @@ public class DetailAuthConfigRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public DetailAuthConfigRequest setEnterpriseCode(String enterpriseCode) {
-        this.enterpriseCode = enterpriseCode;
+    public DetailAuthConfigRequest setSourceSpaceId(String sourceSpaceId) {
+        this.sourceSpaceId = sourceSpaceId;
         return this;
     }
-    public String getEnterpriseCode() {
-        return this.enterpriseCode;
+    public String getSourceSpaceId() {
+        return this.sourceSpaceId;
     }
 
     public DetailAuthConfigRequest setSceneCode(String sceneCode) {

@@ -4,16 +4,14 @@ package com.antgroup.antchain.openapi.das.models;
 import com.aliyun.tea.*;
 
 public class ProductParamInfo extends TeaModel {
-    // 产品码
+    // 参数业务类型
     /**
      * <strong>example:</strong>
-     * <ul>
-     * <li></li>
-     * </ul>
+     * <p>certNo.身份证 name.姓名</p>
      */
-    @NameInMap("product_code")
+    @NameInMap("biz_type")
     @Validation(required = true)
-    public String productCode;
+    public String bizType;
 
     // 参数key
     /**
@@ -48,26 +46,17 @@ public class ProductParamInfo extends TeaModel {
     @Validation(required = true)
     public String paramDesc;
 
-    // 是否可空
-    /**
-     * <strong>example:</strong>
-     * <p>true, false</p>
-     */
-    @NameInMap("nullable")
-    @Validation(required = true)
-    public Boolean nullable;
-
     public static ProductParamInfo build(java.util.Map<String, ?> map) throws Exception {
         ProductParamInfo self = new ProductParamInfo();
         return TeaModel.build(map, self);
     }
 
-    public ProductParamInfo setProductCode(String productCode) {
-        this.productCode = productCode;
+    public ProductParamInfo setBizType(String bizType) {
+        this.bizType = bizType;
         return this;
     }
-    public String getProductCode() {
-        return this.productCode;
+    public String getBizType() {
+        return this.bizType;
     }
 
     public ProductParamInfo setParamKey(String paramKey) {
@@ -92,14 +81,6 @@ public class ProductParamInfo extends TeaModel {
     }
     public String getParamDesc() {
         return this.paramDesc;
-    }
-
-    public ProductParamInfo setNullable(Boolean nullable) {
-        this.nullable = nullable;
-        return this;
-    }
-    public Boolean getNullable() {
-        return this.nullable;
     }
 
 }

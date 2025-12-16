@@ -20,6 +20,10 @@ public class QueryProductParamResponse extends TeaModel {
     @NameInMap("need_auth")
     public Boolean needAuth;
 
+    // 用户表示类型
+    @NameInMap("user_type")
+    public String userType;
+
     // 产品参数信息列表
     @NameInMap("param_info_list")
     public java.util.List<ProductParamInfo> paramInfoList;
@@ -59,6 +63,14 @@ public class QueryProductParamResponse extends TeaModel {
     }
     public Boolean getNeedAuth() {
         return this.needAuth;
+    }
+
+    public QueryProductParamResponse setUserType(String userType) {
+        this.userType = userType;
+        return this;
+    }
+    public String getUserType() {
+        return this.userType;
     }
 
     public QueryProductParamResponse setParamInfoList(java.util.List<ProductParamInfo> paramInfoList) {

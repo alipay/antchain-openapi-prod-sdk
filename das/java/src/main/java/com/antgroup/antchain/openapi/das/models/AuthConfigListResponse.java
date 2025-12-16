@@ -15,6 +15,15 @@ public class AuthConfigListResponse extends TeaModel {
     @Validation(required = true)
     public String sceneCode;
 
+    // 授权类型
+    /**
+     * <strong>example:</strong>
+     * <p>CREATE_AUTH_PAGE.新建数智空间授权页面  USE_EXIST_PAGE.使用数智空间已有授权页 RECEIVE_CUSTOMER_CALLBACK.接收客户回传授权信息</p>
+     */
+    @NameInMap("auth_type")
+    @Validation(required = true)
+    public String authType;
+
     // 数据源连接器空间id
     /**
      * <strong>example:</strong>
@@ -101,6 +110,14 @@ public class AuthConfigListResponse extends TeaModel {
     }
     public String getSceneCode() {
         return this.sceneCode;
+    }
+
+    public AuthConfigListResponse setAuthType(String authType) {
+        this.authType = authType;
+        return this;
+    }
+    public String getAuthType() {
+        return this.authType;
     }
 
     public AuthConfigListResponse setSourceSpaceId(String sourceSpaceId) {

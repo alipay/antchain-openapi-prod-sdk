@@ -21,10 +21,10 @@ public class CallbackAuthDataRequest extends TeaModel {
     @Validation(required = true)
     public String dataDetail;
 
-    // 授权内容/数据类型
-    @NameInMap("data_type")
+    // 国标产品标识码
+    @NameInMap("product_identity_id")
     @Validation(required = true)
-    public String dataType;
+    public String productIdentityId;
 
     public static CallbackAuthDataRequest build(java.util.Map<String, ?> map) throws Exception {
         CallbackAuthDataRequest self = new CallbackAuthDataRequest();
@@ -63,12 +63,12 @@ public class CallbackAuthDataRequest extends TeaModel {
         return this.dataDetail;
     }
 
-    public CallbackAuthDataRequest setDataType(String dataType) {
-        this.dataType = dataType;
+    public CallbackAuthDataRequest setProductIdentityId(String productIdentityId) {
+        this.productIdentityId = productIdentityId;
         return this;
     }
-    public String getDataType() {
-        return this.dataType;
+    public String getProductIdentityId() {
+        return this.productIdentityId;
     }
 
 }

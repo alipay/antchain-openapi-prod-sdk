@@ -18,7 +18,6 @@ public class VerifyDataAuthRequest extends TeaModel {
 
     // 用户表示类型
     @NameInMap("user_type")
-    @Validation(required = true)
     public String userType;
 
     // 场景码
@@ -40,6 +39,11 @@ public class VerifyDataAuthRequest extends TeaModel {
     @NameInMap("authorized_token")
     @Validation(required = true)
     public String authorizedToken;
+
+    // 国标产品标识码
+    @NameInMap("product_identity_id")
+    @Validation(required = true)
+    public String productIdentityId;
 
     public static VerifyDataAuthRequest build(java.util.Map<String, ?> map) throws Exception {
         VerifyDataAuthRequest self = new VerifyDataAuthRequest();
@@ -108,6 +112,14 @@ public class VerifyDataAuthRequest extends TeaModel {
     }
     public String getAuthorizedToken() {
         return this.authorizedToken;
+    }
+
+    public VerifyDataAuthRequest setProductIdentityId(String productIdentityId) {
+        this.productIdentityId = productIdentityId;
+        return this;
+    }
+    public String getProductIdentityId() {
+        return this.productIdentityId;
     }
 
 }

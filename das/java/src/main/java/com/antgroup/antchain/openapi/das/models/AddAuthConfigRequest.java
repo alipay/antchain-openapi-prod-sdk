@@ -64,7 +64,7 @@ public class AddAuthConfigRequest extends TeaModel {
 
     // 授权服务产品列表
     @NameInMap("product_group_list")
-    public java.util.List<AuthProductGroup> productGroupList;
+    public java.util.List<ProductProviderGroup> productGroupList;
 
     // 用户类型
     @NameInMap("user_type")
@@ -211,11 +211,11 @@ public class AddAuthConfigRequest extends TeaModel {
         return this.enableShowAuthRecord;
     }
 
-    public AddAuthConfigRequest setProductGroupList(java.util.List<AuthProductGroup> productGroupList) {
+    public AddAuthConfigRequest setProductGroupList(java.util.List<ProductProviderGroup> productGroupList) {
         this.productGroupList = productGroupList;
         return this;
     }
-    public java.util.List<AuthProductGroup> getProductGroupList() {
+    public java.util.List<ProductProviderGroup> getProductGroupList() {
         return this.productGroupList;
     }
 

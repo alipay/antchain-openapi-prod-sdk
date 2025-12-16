@@ -11,15 +11,20 @@ public class QueryProductParamRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 场景码
-    @NameInMap("scene_code")
+    // 空间id
+    @NameInMap("source_space_id")
     @Validation(required = true)
-    public String sceneCode;
+    public String sourceSpaceId;
 
-    // 产品code
-    @NameInMap("product_code")
+    // 企业代码
+    @NameInMap("enterprise_code")
     @Validation(required = true)
-    public String productCode;
+    public String enterpriseCode;
+
+    // 国标产品标识码
+    @NameInMap("product_identity_id")
+    @Validation(required = true)
+    public String productIdentityId;
 
     public static QueryProductParamRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryProductParamRequest self = new QueryProductParamRequest();
@@ -42,20 +47,28 @@ public class QueryProductParamRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public QueryProductParamRequest setSceneCode(String sceneCode) {
-        this.sceneCode = sceneCode;
+    public QueryProductParamRequest setSourceSpaceId(String sourceSpaceId) {
+        this.sourceSpaceId = sourceSpaceId;
         return this;
     }
-    public String getSceneCode() {
-        return this.sceneCode;
+    public String getSourceSpaceId() {
+        return this.sourceSpaceId;
     }
 
-    public QueryProductParamRequest setProductCode(String productCode) {
-        this.productCode = productCode;
+    public QueryProductParamRequest setEnterpriseCode(String enterpriseCode) {
+        this.enterpriseCode = enterpriseCode;
         return this;
     }
-    public String getProductCode() {
-        return this.productCode;
+    public String getEnterpriseCode() {
+        return this.enterpriseCode;
+    }
+
+    public QueryProductParamRequest setProductIdentityId(String productIdentityId) {
+        this.productIdentityId = productIdentityId;
+        return this;
+    }
+    public String getProductIdentityId() {
+        return this.productIdentityId;
     }
 
 }
