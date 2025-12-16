@@ -16,6 +16,14 @@ class AuthConfigListResponse extends Model
      */
     public $sceneCode;
 
+    // 授权类型
+    /**
+     * @example CREATE_AUTH_PAGE.新建数智空间授权页面  USE_EXIST_PAGE.使用数智空间已有授权页 RECEIVE_CUSTOMER_CALLBACK.接收客户回传授权信息
+     *
+     * @var string
+     */
+    public $authType;
+
     // 数据源连接器空间id
     /**
      * @example -
@@ -73,6 +81,7 @@ class AuthConfigListResponse extends Model
     public $authStatus;
     protected $_name = [
         'sceneCode'          => 'scene_code',
+        'authType'           => 'auth_type',
         'sourceSpaceId'      => 'source_space_id',
         'authEnterpriseCode' => 'auth_enterprise_code',
         'targetName'         => 'target_name',
@@ -85,6 +94,7 @@ class AuthConfigListResponse extends Model
     public function validate()
     {
         Model::validateRequired('sceneCode', $this->sceneCode, true);
+        Model::validateRequired('authType', $this->authType, true);
         Model::validateRequired('sourceSpaceId', $this->sourceSpaceId, true);
         Model::validateRequired('authEnterpriseCode', $this->authEnterpriseCode, true);
         Model::validateRequired('targetName', $this->targetName, true);
@@ -99,6 +109,9 @@ class AuthConfigListResponse extends Model
         $res = [];
         if (null !== $this->sceneCode) {
             $res['scene_code'] = $this->sceneCode;
+        }
+        if (null !== $this->authType) {
+            $res['auth_type'] = $this->authType;
         }
         if (null !== $this->sourceSpaceId) {
             $res['source_space_id'] = $this->sourceSpaceId;
@@ -141,6 +154,9 @@ class AuthConfigListResponse extends Model
         $model = new self();
         if (isset($map['scene_code'])) {
             $model->sceneCode = $map['scene_code'];
+        }
+        if (isset($map['auth_type'])) {
+            $model->authType = $map['auth_type'];
         }
         if (isset($map['source_space_id'])) {
             $model->sourceSpaceId = $map['source_space_id'];

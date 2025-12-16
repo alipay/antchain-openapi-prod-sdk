@@ -87,7 +87,7 @@ class AddAuthConfigRequest extends Model
 
     // 授权服务产品列表
     /**
-     * @var AuthProductGroup[]
+     * @var ProductProviderGroup[]
      */
     public $productGroupList;
 
@@ -321,7 +321,7 @@ class AddAuthConfigRequest extends Model
                 $model->productGroupList = [];
                 $n                       = 0;
                 foreach ($map['product_group_list'] as $item) {
-                    $model->productGroupList[$n++] = null !== $item ? AuthProductGroup::fromMap($item) : $item;
+                    $model->productGroupList[$n++] = null !== $item ? ProductProviderGroup::fromMap($item) : $item;
                 }
             }
         }

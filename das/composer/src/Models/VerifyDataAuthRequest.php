@@ -54,6 +54,12 @@ class VerifyDataAuthRequest extends Model
      * @var string
      */
     public $authorizedToken;
+
+    // 国标产品标识码
+    /**
+     * @var string
+     */
+    public $productIdentityId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -63,16 +69,17 @@ class VerifyDataAuthRequest extends Model
         'sourceSpaceId'     => 'source_space_id',
         'enterpriseCode'    => 'enterprise_code',
         'authorizedToken'   => 'authorized_token',
+        'productIdentityId' => 'product_identity_id',
     ];
 
     public function validate()
     {
         Model::validateRequired('userId', $this->userId, true);
-        Model::validateRequired('userType', $this->userType, true);
         Model::validateRequired('sceneCode', $this->sceneCode, true);
         Model::validateRequired('sourceSpaceId', $this->sourceSpaceId, true);
         Model::validateRequired('enterpriseCode', $this->enterpriseCode, true);
         Model::validateRequired('authorizedToken', $this->authorizedToken, true);
+        Model::validateRequired('productIdentityId', $this->productIdentityId, true);
     }
 
     public function toMap()
@@ -101,6 +108,9 @@ class VerifyDataAuthRequest extends Model
         }
         if (null !== $this->authorizedToken) {
             $res['authorized_token'] = $this->authorizedToken;
+        }
+        if (null !== $this->productIdentityId) {
+            $res['product_identity_id'] = $this->productIdentityId;
         }
 
         return $res;
@@ -137,6 +147,9 @@ class VerifyDataAuthRequest extends Model
         }
         if (isset($map['authorized_token'])) {
             $model->authorizedToken = $map['authorized_token'];
+        }
+        if (isset($map['product_identity_id'])) {
+            $model->productIdentityId = $map['product_identity_id'];
         }
 
         return $model;

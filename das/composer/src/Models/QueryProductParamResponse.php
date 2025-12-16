@@ -32,6 +32,12 @@ class QueryProductParamResponse extends Model
      */
     public $needAuth;
 
+    // 用户表示类型
+    /**
+     * @var string
+     */
+    public $userType;
+
     // 产品参数信息列表
     /**
      * @var ProductParamInfo[]
@@ -42,6 +48,7 @@ class QueryProductParamResponse extends Model
         'resultCode'    => 'result_code',
         'resultMsg'     => 'result_msg',
         'needAuth'      => 'need_auth',
+        'userType'      => 'user_type',
         'paramInfoList' => 'param_info_list',
     ];
 
@@ -63,6 +70,9 @@ class QueryProductParamResponse extends Model
         }
         if (null !== $this->needAuth) {
             $res['need_auth'] = $this->needAuth;
+        }
+        if (null !== $this->userType) {
+            $res['user_type'] = $this->userType;
         }
         if (null !== $this->paramInfoList) {
             $res['param_info_list'] = [];
@@ -96,6 +106,9 @@ class QueryProductParamResponse extends Model
         }
         if (isset($map['need_auth'])) {
             $model->needAuth = $map['need_auth'];
+        }
+        if (isset($map['user_type'])) {
+            $model->userType = $map['user_type'];
         }
         if (isset($map['param_info_list'])) {
             if (!empty($map['param_info_list'])) {

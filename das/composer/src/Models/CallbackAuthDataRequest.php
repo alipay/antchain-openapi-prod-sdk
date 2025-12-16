@@ -31,24 +31,24 @@ class CallbackAuthDataRequest extends Model
      */
     public $dataDetail;
 
-    // 授权内容/数据类型
+    // 国标产品标识码
     /**
      * @var string
      */
-    public $dataType;
+    public $productIdentityId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'authorizedToken'   => 'authorized_token',
         'dataDetail'        => 'data_detail',
-        'dataType'          => 'data_type',
+        'productIdentityId' => 'product_identity_id',
     ];
 
     public function validate()
     {
         Model::validateRequired('authorizedToken', $this->authorizedToken, true);
         Model::validateRequired('dataDetail', $this->dataDetail, true);
-        Model::validateRequired('dataType', $this->dataType, true);
+        Model::validateRequired('productIdentityId', $this->productIdentityId, true);
     }
 
     public function toMap()
@@ -66,8 +66,8 @@ class CallbackAuthDataRequest extends Model
         if (null !== $this->dataDetail) {
             $res['data_detail'] = $this->dataDetail;
         }
-        if (null !== $this->dataType) {
-            $res['data_type'] = $this->dataType;
+        if (null !== $this->productIdentityId) {
+            $res['product_identity_id'] = $this->productIdentityId;
         }
 
         return $res;
@@ -93,8 +93,8 @@ class CallbackAuthDataRequest extends Model
         if (isset($map['data_detail'])) {
             $model->dataDetail = $map['data_detail'];
         }
-        if (isset($map['data_type'])) {
-            $model->dataType = $map['data_type'];
+        if (isset($map['product_identity_id'])) {
+            $model->productIdentityId = $map['product_identity_id'];
         }
 
         return $model;

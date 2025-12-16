@@ -19,11 +19,11 @@ class DetailAuthConfigRequest extends Model
      */
     public $productInstanceId;
 
-    // 企业信用代码
+    // 空间id
     /**
      * @var string
      */
-    public $enterpriseCode;
+    public $sourceSpaceId;
 
     // 场景码
     /**
@@ -33,13 +33,13 @@ class DetailAuthConfigRequest extends Model
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'enterpriseCode'    => 'enterprise_code',
+        'sourceSpaceId'     => 'source_space_id',
         'sceneCode'         => 'scene_code',
     ];
 
     public function validate()
     {
-        Model::validateRequired('enterpriseCode', $this->enterpriseCode, true);
+        Model::validateRequired('sourceSpaceId', $this->sourceSpaceId, true);
         Model::validateRequired('sceneCode', $this->sceneCode, true);
     }
 
@@ -52,8 +52,8 @@ class DetailAuthConfigRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->enterpriseCode) {
-            $res['enterprise_code'] = $this->enterpriseCode;
+        if (null !== $this->sourceSpaceId) {
+            $res['source_space_id'] = $this->sourceSpaceId;
         }
         if (null !== $this->sceneCode) {
             $res['scene_code'] = $this->sceneCode;
@@ -76,8 +76,8 @@ class DetailAuthConfigRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['enterprise_code'])) {
-            $model->enterpriseCode = $map['enterprise_code'];
+        if (isset($map['source_space_id'])) {
+            $model->sourceSpaceId = $map['source_space_id'];
         }
         if (isset($map['scene_code'])) {
             $model->sceneCode = $map['scene_code'];

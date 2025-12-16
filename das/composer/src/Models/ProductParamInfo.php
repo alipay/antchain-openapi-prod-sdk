@@ -8,13 +8,13 @@ use AlibabaCloud\Tea\Model;
 
 class ProductParamInfo extends Model
 {
-    // 产品码
+    // 参数业务类型
     /**
-     * @example -
+     * @example certNo.身份证 name.姓名
      *
      * @var string
      */
-    public $productCode;
+    public $bizType;
 
     // 参数key
     /**
@@ -39,36 +39,26 @@ class ProductParamInfo extends Model
      * @var string
      */
     public $paramDesc;
-
-    // 是否可空
-    /**
-     * @example true, false
-     *
-     * @var bool
-     */
-    public $nullable;
     protected $_name = [
-        'productCode' => 'product_code',
-        'paramKey'    => 'param_key',
-        'paramType'   => 'param_type',
-        'paramDesc'   => 'param_desc',
-        'nullable'    => 'nullable',
+        'bizType'   => 'biz_type',
+        'paramKey'  => 'param_key',
+        'paramType' => 'param_type',
+        'paramDesc' => 'param_desc',
     ];
 
     public function validate()
     {
-        Model::validateRequired('productCode', $this->productCode, true);
+        Model::validateRequired('bizType', $this->bizType, true);
         Model::validateRequired('paramKey', $this->paramKey, true);
         Model::validateRequired('paramType', $this->paramType, true);
         Model::validateRequired('paramDesc', $this->paramDesc, true);
-        Model::validateRequired('nullable', $this->nullable, true);
     }
 
     public function toMap()
     {
         $res = [];
-        if (null !== $this->productCode) {
-            $res['product_code'] = $this->productCode;
+        if (null !== $this->bizType) {
+            $res['biz_type'] = $this->bizType;
         }
         if (null !== $this->paramKey) {
             $res['param_key'] = $this->paramKey;
@@ -78,9 +68,6 @@ class ProductParamInfo extends Model
         }
         if (null !== $this->paramDesc) {
             $res['param_desc'] = $this->paramDesc;
-        }
-        if (null !== $this->nullable) {
-            $res['nullable'] = $this->nullable;
         }
 
         return $res;
@@ -94,8 +81,8 @@ class ProductParamInfo extends Model
     public static function fromMap($map = [])
     {
         $model = new self();
-        if (isset($map['product_code'])) {
-            $model->productCode = $map['product_code'];
+        if (isset($map['biz_type'])) {
+            $model->bizType = $map['biz_type'];
         }
         if (isset($map['param_key'])) {
             $model->paramKey = $map['param_key'];
@@ -105,9 +92,6 @@ class ProductParamInfo extends Model
         }
         if (isset($map['param_desc'])) {
             $model->paramDesc = $map['param_desc'];
-        }
-        if (isset($map['nullable'])) {
-            $model->nullable = $map['nullable'];
         }
 
         return $model;
