@@ -316,6 +316,39 @@ func (s *Agreement) SetDownloadUrl(v string) *Agreement {
 	return s
 }
 
+// 产品和供应商信息
+type ProductProviderInfo struct {
+	// 数据产品标识
+	ProductIdentityId *string `json:"product_identity_id,omitempty" xml:"product_identity_id,omitempty" require:"true"`
+	// 数据源企业code
+	SourceEnterpriseCode *string `json:"source_enterprise_code,omitempty" xml:"source_enterprise_code,omitempty" require:"true"`
+	// 数据源企业名称
+	SourceEnterpriseName *string `json:"source_enterprise_name,omitempty" xml:"source_enterprise_name,omitempty" require:"true"`
+}
+
+func (s ProductProviderInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ProductProviderInfo) GoString() string {
+	return s.String()
+}
+
+func (s *ProductProviderInfo) SetProductIdentityId(v string) *ProductProviderInfo {
+	s.ProductIdentityId = &v
+	return s
+}
+
+func (s *ProductProviderInfo) SetSourceEnterpriseCode(v string) *ProductProviderInfo {
+	s.SourceEnterpriseCode = &v
+	return s
+}
+
+func (s *ProductProviderInfo) SetSourceEnterpriseName(v string) *ProductProviderInfo {
+	s.SourceEnterpriseName = &v
+	return s
+}
+
 // 商标共有人信息
 type TmCoownerInfo struct {
 	// 共有人中文名称
@@ -668,16 +701,14 @@ func (s *WorkExperiencesInfo) SetProfessionName(v string) *WorkExperiencesInfo {
 
 // 产品参数信息
 type ProductParamInfo struct {
-	// 产品码
-	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
+	// 参数业务类型
+	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty" require:"true"`
 	// 参数key
 	ParamKey *string `json:"param_key,omitempty" xml:"param_key,omitempty" require:"true"`
 	// 参数类型
 	ParamType *string `json:"param_type,omitempty" xml:"param_type,omitempty" require:"true"`
 	// 参数描述
 	ParamDesc *string `json:"param_desc,omitempty" xml:"param_desc,omitempty" require:"true"`
-	// 是否可空
-	Nullable *bool `json:"nullable,omitempty" xml:"nullable,omitempty" require:"true"`
 }
 
 func (s ProductParamInfo) String() string {
@@ -688,8 +719,8 @@ func (s ProductParamInfo) GoString() string {
 	return s.String()
 }
 
-func (s *ProductParamInfo) SetProductCode(v string) *ProductParamInfo {
-	s.ProductCode = &v
+func (s *ProductParamInfo) SetBizType(v string) *ProductParamInfo {
+	s.BizType = &v
 	return s
 }
 
@@ -705,11 +736,6 @@ func (s *ProductParamInfo) SetParamType(v string) *ProductParamInfo {
 
 func (s *ProductParamInfo) SetParamDesc(v string) *ProductParamInfo {
 	s.ParamDesc = &v
-	return s
-}
-
-func (s *ProductParamInfo) SetNullable(v bool) *ProductParamInfo {
-	s.Nullable = &v
 	return s
 }
 
@@ -1573,6 +1599,8 @@ func (s *DetailCarInfo) SetDisplacement(v string) *DetailCarInfo {
 type AuthConfigListResponse struct {
 	// 场景码
 	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+	// 授权类型
+	AuthType *string `json:"auth_type,omitempty" xml:"auth_type,omitempty" require:"true"`
 	// 数据源连接器空间id
 	SourceSpaceId *string `json:"source_space_id,omitempty" xml:"source_space_id,omitempty" require:"true"`
 	// 被授权方企业信用代码
@@ -1599,6 +1627,11 @@ func (s AuthConfigListResponse) GoString() string {
 
 func (s *AuthConfigListResponse) SetSceneCode(v string) *AuthConfigListResponse {
 	s.SceneCode = &v
+	return s
+}
+
+func (s *AuthConfigListResponse) SetAuthType(v string) *AuthConfigListResponse {
+	s.AuthType = &v
 	return s
 }
 
@@ -1747,6 +1780,39 @@ func (s *AuthRecordListResponse) SetRequestTime(v string) *AuthRecordListRespons
 
 func (s *AuthRecordListResponse) SetAgreementList(v []*Agreement) *AuthRecordListResponse {
 	s.AgreementList = v
+	return s
+}
+
+// 服务产品供应商组
+type ProductProviderGroup struct {
+	// 产品供应商信息
+	ProductProviderList []*ProductProviderInfo `json:"product_provider_list,omitempty" xml:"product_provider_list,omitempty" require:"true" type:"Repeated"`
+	// 数据产品入参,JSON数组
+	ProductParam *string `json:"product_param,omitempty" xml:"product_param,omitempty" require:"true"`
+	// C端展示授权内容code
+	AuthContentCode *string `json:"auth_content_code,omitempty" xml:"auth_content_code,omitempty" require:"true"`
+}
+
+func (s ProductProviderGroup) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ProductProviderGroup) GoString() string {
+	return s.String()
+}
+
+func (s *ProductProviderGroup) SetProductProviderList(v []*ProductProviderInfo) *ProductProviderGroup {
+	s.ProductProviderList = v
+	return s
+}
+
+func (s *ProductProviderGroup) SetProductParam(v string) *ProductProviderGroup {
+	s.ProductParam = &v
+	return s
+}
+
+func (s *ProductProviderGroup) SetAuthContentCode(v string) *ProductProviderGroup {
+	s.AuthContentCode = &v
 	return s
 }
 
@@ -2131,7 +2197,7 @@ func (s *EnterpriseCaseInfo) SetCreateTime(v string) *EnterpriseCaseInfo {
 	return s
 }
 
-// 授权服务产品
+// 授权服务产品组
 type AuthProductGroup struct {
 	// 产品code列表
 	ProductCodeList []*string `json:"product_code_list,omitempty" xml:"product_code_list,omitempty" require:"true" type:"Repeated"`
@@ -6408,7 +6474,7 @@ type AddAuthConfigRequest struct {
 	// C端是否显示授权记录
 	EnableShowAuthRecord *bool `json:"enable_show_auth_record,omitempty" xml:"enable_show_auth_record,omitempty"`
 	// 授权服务产品列表
-	ProductGroupList []*AuthProductGroup `json:"product_group_list,omitempty" xml:"product_group_list,omitempty" type:"Repeated"`
+	ProductGroupList []*ProductProviderGroup `json:"product_group_list,omitempty" xml:"product_group_list,omitempty" type:"Repeated"`
 	// 用户类型
 	UserType *string `json:"user_type,omitempty" xml:"user_type,omitempty"`
 	// 授权协议
@@ -6502,7 +6568,7 @@ func (s *AddAuthConfigRequest) SetEnableShowAuthRecord(v bool) *AddAuthConfigReq
 	return s
 }
 
-func (s *AddAuthConfigRequest) SetProductGroupList(v []*AuthProductGroup) *AddAuthConfigRequest {
+func (s *AddAuthConfigRequest) SetProductGroupList(v []*ProductProviderGroup) *AddAuthConfigRequest {
 	s.ProductGroupList = v
 	return s
 }
@@ -7302,8 +7368,8 @@ type DetailAuthConfigRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 企业信用代码
-	EnterpriseCode *string `json:"enterprise_code,omitempty" xml:"enterprise_code,omitempty" require:"true"`
+	// 空间id
+	SourceSpaceId *string `json:"source_space_id,omitempty" xml:"source_space_id,omitempty" require:"true"`
 	// 场景码
 	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
 }
@@ -7326,8 +7392,8 @@ func (s *DetailAuthConfigRequest) SetProductInstanceId(v string) *DetailAuthConf
 	return s
 }
 
-func (s *DetailAuthConfigRequest) SetEnterpriseCode(v string) *DetailAuthConfigRequest {
-	s.EnterpriseCode = &v
+func (s *DetailAuthConfigRequest) SetSourceSpaceId(v string) *DetailAuthConfigRequest {
+	s.SourceSpaceId = &v
 	return s
 }
 
@@ -7732,7 +7798,7 @@ type VerifyDataAuthRequest struct {
 	// 用户id
 	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
 	// 用户表示类型
-	UserType *string `json:"user_type,omitempty" xml:"user_type,omitempty" require:"true"`
+	UserType *string `json:"user_type,omitempty" xml:"user_type,omitempty"`
 	// 场景码
 	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
 	// 数据源连接器空间id
@@ -7741,6 +7807,8 @@ type VerifyDataAuthRequest struct {
 	EnterpriseCode *string `json:"enterprise_code,omitempty" xml:"enterprise_code,omitempty" require:"true"`
 	// 授权token
 	AuthorizedToken *string `json:"authorized_token,omitempty" xml:"authorized_token,omitempty" require:"true"`
+	// 国标产品标识码
+	ProductIdentityId *string `json:"product_identity_id,omitempty" xml:"product_identity_id,omitempty" require:"true"`
 }
 
 func (s VerifyDataAuthRequest) String() string {
@@ -7791,6 +7859,11 @@ func (s *VerifyDataAuthRequest) SetAuthorizedToken(v string) *VerifyDataAuthRequ
 	return s
 }
 
+func (s *VerifyDataAuthRequest) SetProductIdentityId(v string) *VerifyDataAuthRequest {
+	s.ProductIdentityId = &v
+	return s
+}
+
 type VerifyDataAuthResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -7834,10 +7907,12 @@ type QueryProductParamRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 场景码
-	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
-	// 产品code
-	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
+	// 空间id
+	SourceSpaceId *string `json:"source_space_id,omitempty" xml:"source_space_id,omitempty" require:"true"`
+	// 企业代码
+	EnterpriseCode *string `json:"enterprise_code,omitempty" xml:"enterprise_code,omitempty" require:"true"`
+	// 国标产品标识码
+	ProductIdentityId *string `json:"product_identity_id,omitempty" xml:"product_identity_id,omitempty" require:"true"`
 }
 
 func (s QueryProductParamRequest) String() string {
@@ -7858,13 +7933,18 @@ func (s *QueryProductParamRequest) SetProductInstanceId(v string) *QueryProductP
 	return s
 }
 
-func (s *QueryProductParamRequest) SetSceneCode(v string) *QueryProductParamRequest {
-	s.SceneCode = &v
+func (s *QueryProductParamRequest) SetSourceSpaceId(v string) *QueryProductParamRequest {
+	s.SourceSpaceId = &v
 	return s
 }
 
-func (s *QueryProductParamRequest) SetProductCode(v string) *QueryProductParamRequest {
-	s.ProductCode = &v
+func (s *QueryProductParamRequest) SetEnterpriseCode(v string) *QueryProductParamRequest {
+	s.EnterpriseCode = &v
+	return s
+}
+
+func (s *QueryProductParamRequest) SetProductIdentityId(v string) *QueryProductParamRequest {
+	s.ProductIdentityId = &v
 	return s
 }
 
@@ -7877,6 +7957,8 @@ type QueryProductParamResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 是否需要授权
 	NeedAuth *bool `json:"need_auth,omitempty" xml:"need_auth,omitempty"`
+	// 用户表示类型
+	UserType *string `json:"user_type,omitempty" xml:"user_type,omitempty"`
 	// 产品参数信息列表
 	ParamInfoList []*ProductParamInfo `json:"param_info_list,omitempty" xml:"param_info_list,omitempty" type:"Repeated"`
 }
@@ -7909,6 +7991,11 @@ func (s *QueryProductParamResponse) SetNeedAuth(v bool) *QueryProductParamRespon
 	return s
 }
 
+func (s *QueryProductParamResponse) SetUserType(v string) *QueryProductParamResponse {
+	s.UserType = &v
+	return s
+}
+
 func (s *QueryProductParamResponse) SetParamInfoList(v []*ProductParamInfo) *QueryProductParamResponse {
 	s.ParamInfoList = v
 	return s
@@ -7922,8 +8009,8 @@ type CallbackAuthDataRequest struct {
 	AuthorizedToken *string `json:"authorized_token,omitempty" xml:"authorized_token,omitempty" require:"true"`
 	// 数据详情 JSONObject
 	DataDetail *string `json:"data_detail,omitempty" xml:"data_detail,omitempty" require:"true"`
-	// 授权内容/数据类型
-	DataType *string `json:"data_type,omitempty" xml:"data_type,omitempty" require:"true"`
+	// 国标产品标识码
+	ProductIdentityId *string `json:"product_identity_id,omitempty" xml:"product_identity_id,omitempty" require:"true"`
 }
 
 func (s CallbackAuthDataRequest) String() string {
@@ -7954,8 +8041,8 @@ func (s *CallbackAuthDataRequest) SetDataDetail(v string) *CallbackAuthDataReque
 	return s
 }
 
-func (s *CallbackAuthDataRequest) SetDataType(v string) *CallbackAuthDataRequest {
-	s.DataType = &v
+func (s *CallbackAuthDataRequest) SetProductIdentityId(v string) *CallbackAuthDataRequest {
+	s.ProductIdentityId = &v
 	return s
 }
 
@@ -8317,7 +8404,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.102"),
+				"sdk_version":      tea.String("1.1.110"),
 				"_prod_code":       tea.String("DAS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
