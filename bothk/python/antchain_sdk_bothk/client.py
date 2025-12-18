@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.6',
+                    'sdk_version': '1.0.7',
                     '_prod_code': 'BOTHK',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.6',
+                    'sdk_version': '1.0.7',
                     '_prod_code': 'BOTHK',
                     '_prod_channel': 'default'
                 }
@@ -553,4 +553,60 @@ class Client:
         return TeaCore.from_map(
             bothk_models.SyncAssetelementProjectResponse(),
             await self.do_request_async('1.0', 'antdigital.bothk.assetelement.project.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_device_infobydevice(
+        self,
+        request: bothk_models.UpdateDeviceInfobydeviceRequest,
+    ) -> bothk_models.UpdateDeviceInfobydeviceResponse:
+        """
+        Description: 设备更新
+        Summary: 设备更新
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_device_infobydevice_ex(request, headers, runtime)
+
+    async def update_device_infobydevice_async(
+        self,
+        request: bothk_models.UpdateDeviceInfobydeviceRequest,
+    ) -> bothk_models.UpdateDeviceInfobydeviceResponse:
+        """
+        Description: 设备更新
+        Summary: 设备更新
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_device_infobydevice_ex_async(request, headers, runtime)
+
+    def update_device_infobydevice_ex(
+        self,
+        request: bothk_models.UpdateDeviceInfobydeviceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bothk_models.UpdateDeviceInfobydeviceResponse:
+        """
+        Description: 设备更新
+        Summary: 设备更新
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bothk_models.UpdateDeviceInfobydeviceResponse(),
+            self.do_request('1.0', 'antdigital.bothk.device.infobydevice.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_device_infobydevice_ex_async(
+        self,
+        request: bothk_models.UpdateDeviceInfobydeviceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bothk_models.UpdateDeviceInfobydeviceResponse:
+        """
+        Description: 设备更新
+        Summary: 设备更新
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bothk_models.UpdateDeviceInfobydeviceResponse(),
+            await self.do_request_async('1.0', 'antdigital.bothk.device.infobydevice.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )

@@ -1662,3 +1662,175 @@ class SyncAssetelementProjectResponse(TeaModel):
         return self
 
 
+class UpdateDeviceInfobydeviceRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        scene: str = None,
+        device_id: str = None,
+        device_imei: str = None,
+        data_model_id: str = None,
+        device_iccid: str = None,
+        device_type_code: int = None,
+        initial_price: int = None,
+        factory_time: str = None,
+        release_time: str = None,
+        device_name: str = None,
+        extra_info: str = None,
+        owner: str = None,
+        owner_name: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 场景码
+        self.scene = scene
+        # 设备ID
+        self.device_id = device_id
+        # 设备imei号
+        self.device_imei = device_imei
+        # 设备数据模型Id
+        self.data_model_id = data_model_id
+        # 设备ICCID
+        self.device_iccid = device_iccid
+        # 设备类型码
+        self.device_type_code = device_type_code
+        # 设备单价 单位：分
+        self.initial_price = initial_price
+        # 出厂时间
+        self.factory_time = factory_time
+        # 投放时间
+        self.release_time = release_time
+        # 设备名称
+        self.device_name = device_name
+        # 拓展信息
+        self.extra_info = extra_info
+        # 资产所有人标识（统一社会信用代码）
+        self.owner = owner
+        # 资产所有人名称
+        self.owner_name = owner_name
+
+    def validate(self):
+        self.validate_required(self.scene, 'scene')
+        self.validate_required(self.device_id, 'device_id')
+        if self.factory_time is not None:
+            self.validate_pattern(self.factory_time, 'factory_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.release_time is not None:
+            self.validate_pattern(self.release_time, 'release_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.scene is not None:
+            result['scene'] = self.scene
+        if self.device_id is not None:
+            result['device_id'] = self.device_id
+        if self.device_imei is not None:
+            result['device_imei'] = self.device_imei
+        if self.data_model_id is not None:
+            result['data_model_id'] = self.data_model_id
+        if self.device_iccid is not None:
+            result['device_iccid'] = self.device_iccid
+        if self.device_type_code is not None:
+            result['device_type_code'] = self.device_type_code
+        if self.initial_price is not None:
+            result['initial_price'] = self.initial_price
+        if self.factory_time is not None:
+            result['factory_time'] = self.factory_time
+        if self.release_time is not None:
+            result['release_time'] = self.release_time
+        if self.device_name is not None:
+            result['device_name'] = self.device_name
+        if self.extra_info is not None:
+            result['extra_info'] = self.extra_info
+        if self.owner is not None:
+            result['owner'] = self.owner
+        if self.owner_name is not None:
+            result['owner_name'] = self.owner_name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('scene') is not None:
+            self.scene = m.get('scene')
+        if m.get('device_id') is not None:
+            self.device_id = m.get('device_id')
+        if m.get('device_imei') is not None:
+            self.device_imei = m.get('device_imei')
+        if m.get('data_model_id') is not None:
+            self.data_model_id = m.get('data_model_id')
+        if m.get('device_iccid') is not None:
+            self.device_iccid = m.get('device_iccid')
+        if m.get('device_type_code') is not None:
+            self.device_type_code = m.get('device_type_code')
+        if m.get('initial_price') is not None:
+            self.initial_price = m.get('initial_price')
+        if m.get('factory_time') is not None:
+            self.factory_time = m.get('factory_time')
+        if m.get('release_time') is not None:
+            self.release_time = m.get('release_time')
+        if m.get('device_name') is not None:
+            self.device_name = m.get('device_name')
+        if m.get('extra_info') is not None:
+            self.extra_info = m.get('extra_info')
+        if m.get('owner') is not None:
+            self.owner = m.get('owner')
+        if m.get('owner_name') is not None:
+            self.owner_name = m.get('owner_name')
+        return self
+
+
+class UpdateDeviceInfobydeviceResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
