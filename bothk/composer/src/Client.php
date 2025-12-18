@@ -21,6 +21,8 @@ use AntChain\BOTHK\Models\SendEventDataRequest;
 use AntChain\BOTHK\Models\SendEventDataResponse;
 use AntChain\BOTHK\Models\SyncAssetelementProjectRequest;
 use AntChain\BOTHK\Models\SyncAssetelementProjectResponse;
+use AntChain\BOTHK\Models\UpdateDeviceInfobydeviceRequest;
+use AntChain\BOTHK\Models\UpdateDeviceInfobydeviceResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -168,7 +170,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.6',
+                    'sdk_version'      => '1.0.7',
                     '_prod_code'       => 'BOTHK',
                     '_prod_channel'    => 'default',
                 ];
@@ -379,5 +381,38 @@ class Client
         Utils::validateModel($request);
 
         return SyncAssetelementProjectResponse::fromMap($this->doRequest('1.0', 'antdigital.bothk.assetelement.project.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 设备更新
+     * Summary: 设备更新.
+     *
+     * @param UpdateDeviceInfobydeviceRequest $request
+     *
+     * @return UpdateDeviceInfobydeviceResponse
+     */
+    public function updateDeviceInfobydevice($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateDeviceInfobydeviceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 设备更新
+     * Summary: 设备更新.
+     *
+     * @param UpdateDeviceInfobydeviceRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return UpdateDeviceInfobydeviceResponse
+     */
+    public function updateDeviceInfobydeviceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateDeviceInfobydeviceResponse::fromMap($this->doRequest('1.0', 'antdigital.bothk.device.infobydevice.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
