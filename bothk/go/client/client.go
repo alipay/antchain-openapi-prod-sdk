@@ -1351,6 +1351,153 @@ func (s *SyncAssetelementProjectResponse) SetSyncStatus(v string) *SyncAssetelem
 	return s
 }
 
+type UpdateDeviceInfobydeviceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 场景码
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty" require:"true"`
+	// 设备ID
+	DeviceId *string `json:"device_id,omitempty" xml:"device_id,omitempty" require:"true"`
+	// 设备imei号
+	DeviceImei *string `json:"device_imei,omitempty" xml:"device_imei,omitempty"`
+	// 设备数据模型Id
+	DataModelId *string `json:"data_model_id,omitempty" xml:"data_model_id,omitempty"`
+	// 设备ICCID
+	DeviceIccid *string `json:"device_iccid,omitempty" xml:"device_iccid,omitempty"`
+	// 设备类型码
+	DeviceTypeCode *int64 `json:"device_type_code,omitempty" xml:"device_type_code,omitempty"`
+	// 设备单价 单位：分
+	InitialPrice *int64 `json:"initial_price,omitempty" xml:"initial_price,omitempty"`
+	// 出厂时间
+	FactoryTime *string `json:"factory_time,omitempty" xml:"factory_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 投放时间
+	ReleaseTime *string `json:"release_time,omitempty" xml:"release_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 设备名称
+	DeviceName *string `json:"device_name,omitempty" xml:"device_name,omitempty"`
+	// 拓展信息
+	ExtraInfo *string `json:"extra_info,omitempty" xml:"extra_info,omitempty"`
+	// 资产所有人标识（统一社会信用代码）
+	Owner *string `json:"owner,omitempty" xml:"owner,omitempty"`
+	// 资产所有人名称
+	OwnerName *string `json:"owner_name,omitempty" xml:"owner_name,omitempty"`
+}
+
+func (s UpdateDeviceInfobydeviceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateDeviceInfobydeviceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateDeviceInfobydeviceRequest) SetAuthToken(v string) *UpdateDeviceInfobydeviceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateDeviceInfobydeviceRequest) SetProductInstanceId(v string) *UpdateDeviceInfobydeviceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UpdateDeviceInfobydeviceRequest) SetScene(v string) *UpdateDeviceInfobydeviceRequest {
+	s.Scene = &v
+	return s
+}
+
+func (s *UpdateDeviceInfobydeviceRequest) SetDeviceId(v string) *UpdateDeviceInfobydeviceRequest {
+	s.DeviceId = &v
+	return s
+}
+
+func (s *UpdateDeviceInfobydeviceRequest) SetDeviceImei(v string) *UpdateDeviceInfobydeviceRequest {
+	s.DeviceImei = &v
+	return s
+}
+
+func (s *UpdateDeviceInfobydeviceRequest) SetDataModelId(v string) *UpdateDeviceInfobydeviceRequest {
+	s.DataModelId = &v
+	return s
+}
+
+func (s *UpdateDeviceInfobydeviceRequest) SetDeviceIccid(v string) *UpdateDeviceInfobydeviceRequest {
+	s.DeviceIccid = &v
+	return s
+}
+
+func (s *UpdateDeviceInfobydeviceRequest) SetDeviceTypeCode(v int64) *UpdateDeviceInfobydeviceRequest {
+	s.DeviceTypeCode = &v
+	return s
+}
+
+func (s *UpdateDeviceInfobydeviceRequest) SetInitialPrice(v int64) *UpdateDeviceInfobydeviceRequest {
+	s.InitialPrice = &v
+	return s
+}
+
+func (s *UpdateDeviceInfobydeviceRequest) SetFactoryTime(v string) *UpdateDeviceInfobydeviceRequest {
+	s.FactoryTime = &v
+	return s
+}
+
+func (s *UpdateDeviceInfobydeviceRequest) SetReleaseTime(v string) *UpdateDeviceInfobydeviceRequest {
+	s.ReleaseTime = &v
+	return s
+}
+
+func (s *UpdateDeviceInfobydeviceRequest) SetDeviceName(v string) *UpdateDeviceInfobydeviceRequest {
+	s.DeviceName = &v
+	return s
+}
+
+func (s *UpdateDeviceInfobydeviceRequest) SetExtraInfo(v string) *UpdateDeviceInfobydeviceRequest {
+	s.ExtraInfo = &v
+	return s
+}
+
+func (s *UpdateDeviceInfobydeviceRequest) SetOwner(v string) *UpdateDeviceInfobydeviceRequest {
+	s.Owner = &v
+	return s
+}
+
+func (s *UpdateDeviceInfobydeviceRequest) SetOwnerName(v string) *UpdateDeviceInfobydeviceRequest {
+	s.OwnerName = &v
+	return s
+}
+
+type UpdateDeviceInfobydeviceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s UpdateDeviceInfobydeviceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateDeviceInfobydeviceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateDeviceInfobydeviceResponse) SetReqMsgId(v string) *UpdateDeviceInfobydeviceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UpdateDeviceInfobydeviceResponse) SetResultCode(v string) *UpdateDeviceInfobydeviceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UpdateDeviceInfobydeviceResponse) SetResultMsg(v string) *UpdateDeviceInfobydeviceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -1473,7 +1620,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.6"),
+				"sdk_version":      tea.String("1.0.7"),
 				"_prod_code":       tea.String("BOTHK"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -1694,6 +1841,40 @@ func (client *Client) SyncAssetelementProjectEx(request *SyncAssetelementProject
 	}
 	_result = &SyncAssetelementProjectResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.bothk.assetelement.project.sync"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 设备更新
+ * Summary: 设备更新
+ */
+func (client *Client) UpdateDeviceInfobydevice(request *UpdateDeviceInfobydeviceRequest) (_result *UpdateDeviceInfobydeviceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UpdateDeviceInfobydeviceResponse{}
+	_body, _err := client.UpdateDeviceInfobydeviceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 设备更新
+ * Summary: 设备更新
+ */
+func (client *Client) UpdateDeviceInfobydeviceEx(request *UpdateDeviceInfobydeviceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UpdateDeviceInfobydeviceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UpdateDeviceInfobydeviceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.bothk.device.infobydevice.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
