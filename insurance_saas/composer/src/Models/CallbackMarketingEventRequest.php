@@ -92,8 +92,6 @@ class CallbackMarketingEventRequest extends Model
         Model::validateRequired('eventCode', $this->eventCode, true);
         Model::validateRequired('eventTime', $this->eventTime, true);
         Model::validateRequired('firstChannel', $this->firstChannel, true);
-        Model::validateRequired('secondChannel', $this->secondChannel, true);
-        Model::validateRequired('advertisingPosition', $this->advertisingPosition, true);
         Model::validateRequired('eventInfo', $this->eventInfo, true);
         Model::validateMaxLength('requestId', $this->requestId, 128);
         Model::validateMaxLength('clickId', $this->clickId, 64);
