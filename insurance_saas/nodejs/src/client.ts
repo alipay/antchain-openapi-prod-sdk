@@ -3208,9 +3208,9 @@ export class CallbackMarketingEventRequest extends $tea.Model {
   // 固定式，蚂蚁数科
   firstChannel: string;
   // 二级渠道编码
-  secondChannel: string;
+  secondChannel?: string;
   // 三级渠道/广告版位
-  advertisingPosition: string;
+  advertisingPosition?: string;
   // 业务字段，json格式
   eventInfo: string;
   static names(): { [key: string]: string } {
@@ -3461,7 +3461,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.11.0",
+          sdk_version: "1.11.1",
           _prod_code: "INSURANCE_SAAS",
           _prod_channel: "undefined",
         };
