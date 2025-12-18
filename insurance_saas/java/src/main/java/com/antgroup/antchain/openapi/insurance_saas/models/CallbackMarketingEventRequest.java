@@ -44,12 +44,12 @@ public class CallbackMarketingEventRequest extends TeaModel {
 
     // 二级渠道编码
     @NameInMap("second_channel")
-    @Validation(required = true, maxLength = 64)
+    @Validation(maxLength = 64)
     public String secondChannel;
 
     // 三级渠道/广告版位
     @NameInMap("advertising_position")
-    @Validation(required = true, maxLength = 64)
+    @Validation(maxLength = 64)
     public String advertisingPosition;
 
     // 业务字段，json格式
