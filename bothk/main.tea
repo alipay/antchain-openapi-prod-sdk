@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.6',
+    sdk_version = '1.0.7',
     _prod_code = 'BOTHK',
     _prod_channel = 'default'
   };
@@ -600,5 +600,65 @@ async function syncAssetelementProject(request: SyncAssetelementProjectRequest):
 async function syncAssetelementProjectEx(request: SyncAssetelementProjectRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SyncAssetelementProjectResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antdigital.bothk.assetelement.project.sync', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateDeviceInfobydeviceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 场景码
+  scene: string(name='scene'),
+  // 设备ID
+  deviceId: string(name='device_id'),
+  // 设备imei号
+  deviceImei?: string(name='device_imei'),
+  // 设备数据模型Id
+  dataModelId?: string(name='data_model_id'),
+  // 设备ICCID
+  deviceIccid?: string(name='device_iccid'),
+  // 设备类型码
+  deviceTypeCode?: long(name='device_type_code'),
+  // 设备单价 单位：分
+  initialPrice?: long(name='initial_price'),
+  // 出厂时间
+  factoryTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='factory_time'),
+  // 投放时间
+  releaseTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='release_time'),
+  // 设备名称
+  deviceName?: string(name='device_name'),
+  // 拓展信息
+  extraInfo?: string(name='extra_info'),
+  // 资产所有人标识（统一社会信用代码）
+  owner?: string(name='owner'),
+  // 资产所有人名称
+  ownerName?: string(name='owner_name'),
+}
+
+model UpdateDeviceInfobydeviceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 设备更新
+ * Summary: 设备更新
+ */
+async function updateDeviceInfobydevice(request: UpdateDeviceInfobydeviceRequest): UpdateDeviceInfobydeviceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateDeviceInfobydeviceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 设备更新
+ * Summary: 设备更新
+ */
+async function updateDeviceInfobydeviceEx(request: UpdateDeviceInfobydeviceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateDeviceInfobydeviceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.bothk.device.infobydevice.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
