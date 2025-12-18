@@ -4371,9 +4371,9 @@ type CallbackMarketingEventRequest struct {
 	// 固定式，蚂蚁数科
 	FirstChannel *string `json:"first_channel,omitempty" xml:"first_channel,omitempty" require:"true" maxLength:"64"`
 	// 二级渠道编码
-	SecondChannel *string `json:"second_channel,omitempty" xml:"second_channel,omitempty" require:"true" maxLength:"64"`
+	SecondChannel *string `json:"second_channel,omitempty" xml:"second_channel,omitempty" maxLength:"64"`
 	// 三级渠道/广告版位
-	AdvertisingPosition *string `json:"advertising_position,omitempty" xml:"advertising_position,omitempty" require:"true" maxLength:"64"`
+	AdvertisingPosition *string `json:"advertising_position,omitempty" xml:"advertising_position,omitempty" maxLength:"64"`
 	// 业务字段，json格式
 	EventInfo *string `json:"event_info,omitempty" xml:"event_info,omitempty" require:"true"`
 }
@@ -4682,7 +4682,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.11.0"),
+				"sdk_version":      tea.String("1.11.1"),
 				"_prod_code":       tea.String("INSURANCE_SAAS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
