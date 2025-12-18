@@ -50,12 +50,12 @@ namespace AntChain.SDK.INSURANCE_SAAS.Models
 
         // 二级渠道编码
         [NameInMap("second_channel")]
-        [Validation(Required=true, MaxLength=64)]
+        [Validation(Required=false, MaxLength=64)]
         public string SecondChannel { get; set; }
 
         // 三级渠道/广告版位
         [NameInMap("advertising_position")]
-        [Validation(Required=true, MaxLength=64)]
+        [Validation(Required=false, MaxLength=64)]
         public string AdvertisingPosition { get; set; }
 
         // 业务字段，json格式
