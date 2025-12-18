@@ -5408,10 +5408,8 @@ class CallbackMarketingEventRequest(TeaModel):
         self.validate_required(self.first_channel, 'first_channel')
         if self.first_channel is not None:
             self.validate_max_length(self.first_channel, 'first_channel', 64)
-        self.validate_required(self.second_channel, 'second_channel')
         if self.second_channel is not None:
             self.validate_max_length(self.second_channel, 'second_channel', 64)
-        self.validate_required(self.advertising_position, 'advertising_position')
         if self.advertising_position is not None:
             self.validate_max_length(self.advertising_position, 'advertising_position', 64)
         self.validate_required(self.event_info, 'event_info')
