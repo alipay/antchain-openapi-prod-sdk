@@ -137,7 +137,7 @@ namespace AntChain.SDK.BOTHK
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.6"},
+                        {"sdk_version", "1.0.7"},
                         {"_prod_code", "BOTHK"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.BOTHK
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.6"},
+                        {"sdk_version", "1.0.7"},
                         {"_prod_code", "BOTHK"},
                         {"_prod_channel", "default"},
                     };
@@ -529,6 +529,48 @@ namespace AntChain.SDK.BOTHK
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<SyncAssetelementProjectResponse>(await DoRequestAsync("1.0", "antdigital.bothk.assetelement.project.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 设备更新
+         * Summary: 设备更新
+         */
+        public UpdateDeviceInfobydeviceResponse UpdateDeviceInfobydevice(UpdateDeviceInfobydeviceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UpdateDeviceInfobydeviceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 设备更新
+         * Summary: 设备更新
+         */
+        public async Task<UpdateDeviceInfobydeviceResponse> UpdateDeviceInfobydeviceAsync(UpdateDeviceInfobydeviceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UpdateDeviceInfobydeviceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 设备更新
+         * Summary: 设备更新
+         */
+        public UpdateDeviceInfobydeviceResponse UpdateDeviceInfobydeviceEx(UpdateDeviceInfobydeviceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateDeviceInfobydeviceResponse>(DoRequest("1.0", "antdigital.bothk.device.infobydevice.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 设备更新
+         * Summary: 设备更新
+         */
+        public async Task<UpdateDeviceInfobydeviceResponse> UpdateDeviceInfobydeviceExAsync(UpdateDeviceInfobydeviceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateDeviceInfobydeviceResponse>(await DoRequestAsync("1.0", "antdigital.bothk.device.infobydevice.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
