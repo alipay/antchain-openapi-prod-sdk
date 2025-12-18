@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.6"),
+                    new TeaPair("sdk_version", "1.0.7"),
                     new TeaPair("_prod_code", "BOTHK"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -291,5 +291,26 @@ public class Client {
     public SyncAssetelementProjectResponse syncAssetelementProjectEx(SyncAssetelementProjectRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antdigital.bothk.assetelement.project.sync", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SyncAssetelementProjectResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 设备更新
+     * Summary: 设备更新</p>
+     */
+    public UpdateDeviceInfobydeviceResponse updateDeviceInfobydevice(UpdateDeviceInfobydeviceRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateDeviceInfobydeviceEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 设备更新
+     * Summary: 设备更新</p>
+     */
+    public UpdateDeviceInfobydeviceResponse updateDeviceInfobydeviceEx(UpdateDeviceInfobydeviceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.bothk.device.infobydevice.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateDeviceInfobydeviceResponse());
     }
 }
