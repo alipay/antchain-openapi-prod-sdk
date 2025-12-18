@@ -952,6 +952,109 @@ export class SyncAssetelementProjectResponse extends $tea.Model {
   }
 }
 
+export class UpdateDeviceInfobydeviceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 场景码
+  scene: string;
+  // 设备ID
+  deviceId: string;
+  // 设备imei号
+  deviceImei?: string;
+  // 设备数据模型Id
+  dataModelId?: string;
+  // 设备ICCID
+  deviceIccid?: string;
+  // 设备类型码
+  deviceTypeCode?: number;
+  // 设备单价 单位：分
+  initialPrice?: number;
+  // 出厂时间
+  factoryTime?: string;
+  // 投放时间
+  releaseTime?: string;
+  // 设备名称
+  deviceName?: string;
+  // 拓展信息
+  extraInfo?: string;
+  // 资产所有人标识（统一社会信用代码）
+  owner?: string;
+  // 资产所有人名称
+  ownerName?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      scene: 'scene',
+      deviceId: 'device_id',
+      deviceImei: 'device_imei',
+      dataModelId: 'data_model_id',
+      deviceIccid: 'device_iccid',
+      deviceTypeCode: 'device_type_code',
+      initialPrice: 'initial_price',
+      factoryTime: 'factory_time',
+      releaseTime: 'release_time',
+      deviceName: 'device_name',
+      extraInfo: 'extra_info',
+      owner: 'owner',
+      ownerName: 'owner_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      scene: 'string',
+      deviceId: 'string',
+      deviceImei: 'string',
+      dataModelId: 'string',
+      deviceIccid: 'string',
+      deviceTypeCode: 'number',
+      initialPrice: 'number',
+      factoryTime: 'string',
+      releaseTime: 'string',
+      deviceName: 'string',
+      extraInfo: 'string',
+      owner: 'string',
+      ownerName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateDeviceInfobydeviceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -1065,7 +1168,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.6",
+          sdk_version: "1.0.7",
           _prod_code: "BOTHK",
           _prod_channel: "default",
         };
@@ -1206,6 +1309,25 @@ export default class Client {
   async syncAssetelementProjectEx(request: SyncAssetelementProjectRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SyncAssetelementProjectResponse> {
     Util.validateModel(request);
     return $tea.cast<SyncAssetelementProjectResponse>(await this.doRequest("1.0", "antdigital.bothk.assetelement.project.sync", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SyncAssetelementProjectResponse({}));
+  }
+
+  /**
+   * Description: 设备更新
+   * Summary: 设备更新
+   */
+  async updateDeviceInfobydevice(request: UpdateDeviceInfobydeviceRequest): Promise<UpdateDeviceInfobydeviceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.updateDeviceInfobydeviceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 设备更新
+   * Summary: 设备更新
+   */
+  async updateDeviceInfobydeviceEx(request: UpdateDeviceInfobydeviceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdateDeviceInfobydeviceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UpdateDeviceInfobydeviceResponse>(await this.doRequest("1.0", "antdigital.bothk.device.infobydevice.update", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UpdateDeviceInfobydeviceResponse({}));
   }
 
 }
