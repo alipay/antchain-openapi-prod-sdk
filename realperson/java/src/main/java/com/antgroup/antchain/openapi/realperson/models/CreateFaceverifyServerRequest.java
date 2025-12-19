@@ -103,6 +103,16 @@ public class CreateFaceverifyServerRequest extends TeaModel {
     @NameInMap("file_id")
     public String fileId;
 
+    // 图片的传入加密模式
+    // 0：明文
+    // 1：AES加密
+    @NameInMap("material_enc_type")
+    public String materialEncType;
+
+    // 公钥加密后的密钥，用于传入的加密图片/视频
+    @NameInMap("material_enc_token")
+    public String materialEncToken;
+
     public static CreateFaceverifyServerRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateFaceverifyServerRequest self = new CreateFaceverifyServerRequest();
         return TeaModel.build(map, self);
@@ -290,6 +300,22 @@ public class CreateFaceverifyServerRequest extends TeaModel {
     }
     public String getFileId() {
         return this.fileId;
+    }
+
+    public CreateFaceverifyServerRequest setMaterialEncType(String materialEncType) {
+        this.materialEncType = materialEncType;
+        return this;
+    }
+    public String getMaterialEncType() {
+        return this.materialEncType;
+    }
+
+    public CreateFaceverifyServerRequest setMaterialEncToken(String materialEncToken) {
+        this.materialEncToken = materialEncToken;
+        return this;
+    }
+    public String getMaterialEncToken() {
+        return this.materialEncToken;
     }
 
 }
