@@ -117,6 +117,18 @@ class ExecFaceverifyServermodeRequest extends Model
      * @var string
      */
     public $fileId;
+
+    // 图片的传入加密模式 0：明文 1：AES加密
+    /**
+     * @var string
+     */
+    public $materialEncType;
+
+    // 公钥加密后的密钥，用于传入的加密图片/视频
+    /**
+     * @var string
+     */
+    public $materialEncToken;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -134,6 +146,8 @@ class ExecFaceverifyServermodeRequest extends Model
         'userMobile'        => 'user_mobile',
         'facialPictureAuth' => 'facial_picture_auth',
         'fileId'            => 'file_id',
+        'materialEncType'   => 'material_enc_type',
+        'materialEncToken'  => 'material_enc_token',
     ];
 
     public function validate()
@@ -200,6 +214,12 @@ class ExecFaceverifyServermodeRequest extends Model
         if (null !== $this->fileId) {
             $res['file_id'] = $this->fileId;
         }
+        if (null !== $this->materialEncType) {
+            $res['material_enc_type'] = $this->materialEncType;
+        }
+        if (null !== $this->materialEncToken) {
+            $res['material_enc_token'] = $this->materialEncToken;
+        }
 
         return $res;
     }
@@ -265,6 +285,12 @@ class ExecFaceverifyServermodeRequest extends Model
         }
         if (isset($map['file_id'])) {
             $model->fileId = $map['file_id'];
+        }
+        if (isset($map['material_enc_type'])) {
+            $model->materialEncType = $map['material_enc_type'];
+        }
+        if (isset($map['material_enc_token'])) {
+            $model->materialEncToken = $map['material_enc_token'];
         }
 
         return $model;

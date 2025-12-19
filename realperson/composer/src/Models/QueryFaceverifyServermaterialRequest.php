@@ -42,6 +42,18 @@ class QueryFaceverifyServermaterialRequest extends Model
      * @var string
      */
     public $externParam;
+
+    // 图片的传入加密模式 0：明文 1：AES加密
+    /**
+     * @var string
+     */
+    public $materialEncType;
+
+    // 公钥加密后的密钥，用于传入的加密图片/视频
+    /**
+     * @var string
+     */
+    public $materialEncToken;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -49,6 +61,8 @@ class QueryFaceverifyServermaterialRequest extends Model
         'outerOrderNo'      => 'outer_order_no',
         'sceneId'           => 'scene_id',
         'externParam'       => 'extern_param',
+        'materialEncType'   => 'material_enc_type',
+        'materialEncToken'  => 'material_enc_token',
     ];
 
     public function validate()
@@ -79,6 +93,12 @@ class QueryFaceverifyServermaterialRequest extends Model
         if (null !== $this->externParam) {
             $res['extern_param'] = $this->externParam;
         }
+        if (null !== $this->materialEncType) {
+            $res['material_enc_type'] = $this->materialEncType;
+        }
+        if (null !== $this->materialEncToken) {
+            $res['material_enc_token'] = $this->materialEncToken;
+        }
 
         return $res;
     }
@@ -108,6 +128,12 @@ class QueryFaceverifyServermaterialRequest extends Model
         }
         if (isset($map['extern_param'])) {
             $model->externParam = $map['extern_param'];
+        }
+        if (isset($map['material_enc_type'])) {
+            $model->materialEncType = $map['material_enc_type'];
+        }
+        if (isset($map['material_enc_token'])) {
+            $model->materialEncToken = $map['material_enc_token'];
         }
 
         return $model;
