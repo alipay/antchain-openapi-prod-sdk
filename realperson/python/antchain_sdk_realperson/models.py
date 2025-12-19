@@ -7392,6 +7392,8 @@ class CreateFaceverifyServerRequest(TeaModel):
         file_object: BinaryIO = None,
         file_object_name: str = None,
         file_id: str = None,
+        material_enc_type: str = None,
+        material_enc_token: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -7438,6 +7440,12 @@ class CreateFaceverifyServerRequest(TeaModel):
         # 待上传文件名
         self.file_object_name = file_object_name
         self.file_id = file_id
+        # 图片的传入加密模式
+        # 0：明文
+        # 1：AES加密
+        self.material_enc_type = material_enc_type
+        # 公钥加密后的密钥，用于传入的加密图片/视频
+        self.material_enc_token = material_enc_token
 
     def validate(self):
         self.validate_required(self.outer_order_no, 'outer_order_no')
@@ -7497,6 +7505,10 @@ class CreateFaceverifyServerRequest(TeaModel):
             result['fileObjectName'] = self.file_object_name
         if self.file_id is not None:
             result['file_id'] = self.file_id
+        if self.material_enc_type is not None:
+            result['material_enc_type'] = self.material_enc_type
+        if self.material_enc_token is not None:
+            result['material_enc_token'] = self.material_enc_token
         return result
 
     def from_map(self, m: dict = None):
@@ -7547,6 +7559,10 @@ class CreateFaceverifyServerRequest(TeaModel):
             self.file_object_name = m.get('fileObjectName')
         if m.get('file_id') is not None:
             self.file_id = m.get('file_id')
+        if m.get('material_enc_type') is not None:
+            self.material_enc_type = m.get('material_enc_type')
+        if m.get('material_enc_token') is not None:
+            self.material_enc_token = m.get('material_enc_token')
         return self
 
 
@@ -7924,6 +7940,8 @@ class ExecFaceverifyServermodeRequest(TeaModel):
         file_object: BinaryIO = None,
         file_object_name: str = None,
         file_id: str = None,
+        material_enc_type: str = None,
+        material_enc_token: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -7960,6 +7978,10 @@ class ExecFaceverifyServermodeRequest(TeaModel):
         # 待上传文件名
         self.file_object_name = file_object_name
         self.file_id = file_id
+        # 图片的传入加密模式 0：明文 1：AES加密
+        self.material_enc_type = material_enc_type
+        # 公钥加密后的密钥，用于传入的加密图片/视频
+        self.material_enc_token = material_enc_token
 
     def validate(self):
         self.validate_required(self.identity_type, 'identity_type')
@@ -8008,6 +8030,10 @@ class ExecFaceverifyServermodeRequest(TeaModel):
             result['fileObjectName'] = self.file_object_name
         if self.file_id is not None:
             result['file_id'] = self.file_id
+        if self.material_enc_type is not None:
+            result['material_enc_type'] = self.material_enc_type
+        if self.material_enc_token is not None:
+            result['material_enc_token'] = self.material_enc_token
         return result
 
     def from_map(self, m: dict = None):
@@ -8048,6 +8074,10 @@ class ExecFaceverifyServermodeRequest(TeaModel):
             self.file_object_name = m.get('fileObjectName')
         if m.get('file_id') is not None:
             self.file_id = m.get('file_id')
+        if m.get('material_enc_type') is not None:
+            self.material_enc_type = m.get('material_enc_type')
+        if m.get('material_enc_token') is not None:
+            self.material_enc_token = m.get('material_enc_token')
         return self
 
 
@@ -8910,6 +8940,8 @@ class QueryFaceverifyServermaterialRequest(TeaModel):
         outer_order_no: str = None,
         scene_id: str = None,
         extern_param: str = None,
+        material_enc_type: str = None,
+        material_enc_token: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -8922,6 +8954,10 @@ class QueryFaceverifyServermaterialRequest(TeaModel):
         self.scene_id = scene_id
         # 预留扩展业务参数
         self.extern_param = extern_param
+        # 图片的传入加密模式 0：明文 1：AES加密
+        self.material_enc_type = material_enc_type
+        # 公钥加密后的密钥，用于传入的加密图片/视频
+        self.material_enc_token = material_enc_token
 
     def validate(self):
         self.validate_required(self.certify_id, 'certify_id')
@@ -8946,6 +8982,10 @@ class QueryFaceverifyServermaterialRequest(TeaModel):
             result['scene_id'] = self.scene_id
         if self.extern_param is not None:
             result['extern_param'] = self.extern_param
+        if self.material_enc_type is not None:
+            result['material_enc_type'] = self.material_enc_type
+        if self.material_enc_token is not None:
+            result['material_enc_token'] = self.material_enc_token
         return result
 
     def from_map(self, m: dict = None):
@@ -8962,6 +9002,10 @@ class QueryFaceverifyServermaterialRequest(TeaModel):
             self.scene_id = m.get('scene_id')
         if m.get('extern_param') is not None:
             self.extern_param = m.get('extern_param')
+        if m.get('material_enc_type') is not None:
+            self.material_enc_type = m.get('material_enc_type')
+        if m.get('material_enc_token') is not None:
+            self.material_enc_token = m.get('material_enc_token')
         return self
 
 
