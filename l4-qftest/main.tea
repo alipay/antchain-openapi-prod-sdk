@@ -1,0 +1,596 @@
+import AntchainUtil;
+import Util;
+import RPCUtil;
+
+type @endpoint = string
+type @regionId = string
+type @accessKeyId = string
+type @accessKeySecret = string
+type @protocol = string
+type @userAgent = string
+type @readTimeout = number
+type @connectTimeout = number
+type @httpProxy = string
+type @httpsProxy = string
+type @socks5Proxy = string
+type @socks5NetWork = string
+type @noProxy = string
+type @maxIdleConns = number
+type @securityToken = string
+type @maxIdleTimeMillis = number
+type @keepAliveDurationMillis = number
+type @maxRequests = number
+type @maxRequestsPerHost = number
+
+/**
+ * Model for initing client
+ */
+model Config {
+  accessKeyId?: string(description='accesskey id',default=''),
+  accessKeySecret?: string(description='accesskey secret',default=''),
+  securityToken?: string(description='security token',default=''),
+  protocol?: string(description='http protocol',example='http',default='http'),
+  readTimeout?: number(description='read timeout',example='10',default=''),
+  connectTimeout?: number(description='connect timeout',example='10',default=''),
+  httpProxy?: string(description='http proxy',example='http://localhost',default=''),
+  httpsProxy?: string(description='https proxy',example='https://localhost',default=''),
+  endpoint?: string(description='endpoint',example='cs.aliyuncs.com',default=''),
+  noProxy?: string(description='proxy white list',example='http://localhost',default=''),
+  maxIdleConns?: number(description='max idle conns',example='3',default=''),
+  userAgent?: string(description='user agent',example='Alibabacloud/1',default=''),
+  socks5Proxy?: string(description='socks5 proxy',default=''),
+  socks5NetWork?: string(description='socks5 network',example='TCP',default=''),
+  maxIdleTimeMillis?: number(description='长链接最大空闲时长',default='60 * 1000L'),
+  keepAliveDurationMillis?: number(description='长链接最大连接时长',default='5000'),
+  maxRequests?: number(description='最大连接数（长链接最大总数）',default='100'),
+  maxRequestsPerHost?: number(description='每个目标主机的最大连接数（分主机域名的长链接最大总数',default='100'),
+}
+
+/**
+ * Init client with Config
+ * @param config config contains the necessary information to create a client
+ */
+init(config: Config) {
+  if (Util.isUnset(config)) {
+    throw {
+      code = 'ParameterMissing',
+      message = '\'config\' can not be unset'
+    };
+  }
+
+  @accessKeyId = config.accessKeyId;
+  @accessKeySecret = config.accessKeySecret;
+  @securityToken = config.securityToken;
+  @endpoint = config.endpoint;
+  @protocol = config.protocol;
+  @userAgent = config.userAgent;
+  @readTimeout = Util.defaultNumber(config.readTimeout, 20000);
+  @connectTimeout = Util.defaultNumber(config.connectTimeout, 20000);
+  @httpProxy = config.httpProxy;
+  @httpsProxy = config.httpsProxy;
+  @noProxy = config.noProxy;
+  @socks5Proxy = config.socks5Proxy;
+  @socks5NetWork = config.socks5NetWork;
+  @maxIdleConns = Util.defaultNumber(config.maxIdleConns, 60000);
+  @maxIdleTimeMillis = Util.defaultNumber(config.maxIdleTimeMillis, 5);
+  @keepAliveDurationMillis = Util.defaultNumber(config.keepAliveDurationMillis, 5000);
+  @maxRequests = Util.defaultNumber(config.maxRequests, 100);
+  @maxRequestsPerHost = Util.defaultNumber(config.maxRequestsPerHost, 100);
+}
+
+/**
+ * Encapsulate the request and invoke the network
+ * @param action api name
+ * @param protocol http or https
+ * @param method e.g. GET
+ * @param pathname pathname of every api
+ * @param request which contains request params
+ * @param runtime which controls some details of call api, such as retry times
+ * @return the response
+ */
+api doRequest(version: string, action: string, protocol: string, method: string, pathname: string, request: object, headers: map[string]string, runtime: Util.RuntimeOptions): object {
+  __request.protocol = Util.defaultString(@protocol, protocol);
+  __request.method = method;
+  __request.pathname = pathname;
+  __request.query = {
+    method = action,
+    version = version,
+    sign_type = 'HmacSHA1',
+    req_time = AntchainUtil.getTimestamp(),
+    req_msg_id = AntchainUtil.getNonce(),
+    access_key = @accessKeyId,
+    base_sdk_version = 'TeaSDK-2.0',
+    sdk_version = '1.0.0',
+    _prod_code = 'QFTEST',
+    _prod_channel = 'default'
+  };
+
+  if (!Util.empty(@securityToken)) {
+    __request.query.security_token = @securityToken;
+  }
+
+  __request.headers = {
+    host = Util.defaultString(@endpoint, 'openapi.antchain.antgroup.com'),
+    user-agent = Util.getUserAgent(@userAgent),
+    ...headers
+  };
+
+  var tmp = Util.anyifyMapValue(RPCUtil.query(request));
+  __request.body = Util.toFormString(tmp);
+  __request.headers.content-type = 'application/x-www-form-urlencoded';
+
+  var signedParam = {
+    ...__request.query,
+    ...RPCUtil.query(request)
+  };
+  __request.query.sign = AntchainUtil.getSignature(signedParam, @accessKeySecret);
+} returns {
+  var raw = Util.readAsString(__response.body);
+  var obj = Util.parseJSON(raw);
+  var res = Util.assertAsMap(obj);
+  var resp = Util.assertAsMap(res.response);
+
+  if (AntchainUtil.hasError(raw, @accessKeySecret)) {
+    throw {
+      message = resp.result_msg,
+      data = resp,
+      code = resp.result_code
+    };
+  }
+  return resp;
+} runtime {
+  timeouted = 'retry',
+  readTimeout = Util.defaultNumber(runtime.readTimeout, @readTimeout),
+  connectTimeout = Util.defaultNumber(runtime.connectTimeout, @connectTimeout),
+  httpProxy = Util.defaultString(runtime.httpProxy, @httpProxy),
+  httpsProxy = Util.defaultString(runtime.httpsProxy, @httpsProxy),
+  noProxy = Util.defaultString(runtime.noProxy, @noProxy),
+  maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
+  maxIdleTimeMillis = @maxIdleTimeMillis,
+  keepAliveDuration = @keepAliveDurationMillis,
+  maxRequests = @maxRequests,
+  maxRequestsPerHost = @maxRequestsPerHost,
+  retry = {
+    retryable = runtime.autoretry,
+    maxAttempts = Util.defaultNumber(runtime.maxAttempts, 3)
+  },
+  backoff = {
+    policy = Util.defaultString(runtime.backoffPolicy, 'no'),
+    period = Util.defaultNumber(runtime.backoffPeriod, 1)
+  },
+  ignoreSSL = runtime.ignoreSSL
+}
+
+// 权益智能体任务步骤对象
+model AgentTaskStepData {
+  // 步骤id
+  stepId: string(name='step_id', example='步骤id'),
+  // 步骤名称
+  stepName: string(name='step_name', example='步骤名称'),
+  //  PENDING,  RUNNING,COMPLETED,TERMINATED,FAILED
+  status: string(name='status', example='FAILED'),
+  // 更新时间
+  updateTime: string(name='update_time', example='2024-10-31 00:00:00'),
+  // 关联的消息id
+  messageId: string(name='message_id', example='关联的消息id'),
+  // 关联的异步任务id
+  jobId: string(name='job_id', example='关联的异步任务id'),
+  // 异步任务结果
+  result: string(name='result', example='异步任务结果'),
+  // 异步任务已读标识
+  messageFlag: boolean(name='message_flag', example='false'),
+}
+
+// 权益智能体任务对象
+model AgentTaskData {
+  // 任务名称
+  taskName: string(name='task_name', example='任务名称'),
+  // 任务类型
+  taskType: string(name='task_type', example='任务类型'),
+  // 任务状态
+  taskStatus: string(name='task_status', example='任务状态'),
+  // 是否有未读的消息
+  messageFlag: boolean(name='message_flag', example='false'),
+  // 最后更新时间
+  updateTime: string(name='update_time', example='2024-10-31 00:00:00'),
+  // 单步骤任务直接关联消息id
+  messageId: string(name='message_id', example='202503060003000000000001'),
+  // 附加信息
+  extInfo: string(name='ext_info', example='附加信息'),
+  // 任务步骤列表
+  stepList: [ AgentTaskStepData ](name='step_list', example='任务步骤列表'),
+}
+
+// 权益智能体对话对象
+model AgentChatData {
+  // 会话id	
+  // 
+  sessionId: string(name='session_id', example='202509230001000000051455'),
+  // 消息id	
+  // 
+  messageId: string(name='message_id', example='202509230003000000046715'),
+  // 是否已完成
+  finished: boolean(name='finished', example='false'),
+  // text: 文本 mage: 图片 stream：流式文本
+  contentType: string(name='content_type', example='card'),
+  // 内容
+  content: string(name='content', example='{"title":"整体数据一览","type":"card","message":[{"task_name":"预算消耗","task_value":"12664.16","meta":{"type":"AreaChart"},"data":[{"title":"2023-08-01","value":"13800.92"}]}]}'),
+}
+
+// 子指标结构体
+model SubMetricData {
+  // 日期
+  date: string(name='date', example='2024-09-11'),
+  // 指标类型:OPERATING_INCOME, REPAY_AMOUNT, REPAY_NUMBER, REPAY_USER_NUMBER, REPAY_AVG_AMOUNT, ALI_DST_AMT,OPERATING_COST, GROSS_PROFIT_MARGIN,VOUCHER_CONVERSION, USER_CONVERSION
+  type: string(name='type', example='OPERATING_INCOME'),
+  // 指标值
+  value: string(name='value', example='891762.89'),
+}
+
+// 交易区间数据
+model TradeRangeData {
+  // 区间开始
+  start: string(name='start', example='0'),
+  // 区间结束
+  end: string(name='end', example='max/500'),
+  // 区间内统计值
+  value: long(name='value', example='100'),
+  // 百分比
+  rate: string(name='rate', example='0.12'),
+}
+
+// 机构趋势数据
+model OrgTrendData {
+  // 日期
+  date: string(name='date', example='20250501'),
+  // 还款金额
+  repaymentAmt: string(name='repayment_amt', example='100'),
+  // 预算金额
+  budgetAmt: string(name='budget_amt', example='100'),
+  // 交易金额
+  tradeAmt: string(name='trade_amt', example='200'),
+}
+
+// 查询数据统计指标结果
+model MetricData {
+  // 租户指标: OPERATING_INCOME, REPAY_AMOUNT, REPAY_NUMBER, REPAY_USER_NUMBER, REPAY_AVG_AMOUNT, ALI_DST_AMT
+  type: string(name='type', example='OPERATING_INCOME'),
+  // 指标值
+  total: string(name='total', example='ds190c968e87a001b951spfinassetopprod'),
+  // 子指标列表
+  subList: [ SubMetricData ](name='sub_list', example='[{"date":"2024-09-11","type":"OPERATING_INCOME","value":"634744.89"},{"date":"2024-09-12","type":"OPERATING_INCOME","value":"891762.89"}]'),
+}
+
+// 转化统计数据
+model ConversionData {
+  // 渠道
+  channel: string(name='channel', example='HUABEI'),
+  // 投放人数
+  sendCnt: long(name='send_cnt', example='10000'),
+  // 核销人数
+  useCnt: long(name='use_cnt', example='10'),
+  // 核销率
+  useRate: string(name='use_rate', example='20.78'),
+}
+
+// 还款回调结果数据
+model RepayCallBackResData {
+  // 状态
+  status: boolean(name='status', example='true'),
+}
+
+// 权益智能体会话消息对象
+model AgentSessionMessageData {
+  // 会话id
+  sessionId: string(name='session_id', example='会话id'),
+  // 消息编号
+  messageId: string(name='message_id', example='消息编号'),
+  // 创建时间
+  gmtCreate: string(name='gmt_create', example='2024-10-31 00:00:00'),
+  // 对话请求内容
+  request: string(name='request', example='对话请求内容'),
+  // 对话响应内容
+  response: string(name='response', example='对话响应内容'),
+  // 对话状态
+  status: string(name='status', example='对话状态'),
+  // 会话结果(错误)信息
+  resultMsg: string(name='result_msg', example='会话结果(错误)信息'),
+  // 卡片编辑的业务数据
+  customData: string(name='custom_data', example='{}'),
+  // 卡片编辑后的内容
+  customResponse: string(name='custom_response', example='{}'),
+  // 是否可编辑
+  editable: boolean(name='editable', example='true, false'),
+}
+
+// 过程转化指标结果
+model ProcessConversionMetricData {
+  // 发放数
+  send: long(name='send', example='24765874'),
+  // 核销数
+  used: long(name='used', example='140302'),
+  // 核销转化率
+  rate: string(name='rate', example='0.005665'),
+}
+
+// 权益智能体会话对象
+model AgentSessionData {
+  // 会话id
+  sessionId: string(name='session_id', example='082bab66-7b04-11ef-9df1-d38fddccce14'),
+  // 会话标题
+  title: string(name='title', example='会话标题'),
+  // 创建时间
+  gmtCreated: string(name='gmt_created', example='2024-10-31 00:00:00'),
+  // VALID("生效"),INVALID("失效"),RUNNING("进行中"),FAILED("失败"),TERMINATED("已终止"), COMPLETED("已完成");
+  status: string(name='status', example='VALID'),
+  // 任务列表
+  taskList?: [ AgentTaskData ](name='task_list', example='任务列表'),
+}
+
+// 人群信息
+model CrowdStrategyData {
+  // 人群编码
+  strategyCode: string(name='strategy_code', example='STRATEGY20251210000001'),
+  // 人群名称
+  strategyName: string(name='strategy_name', example='开发测试人群'),
+  // 状态
+  status: string(name='status', example='valid'),
+  // 人群数量
+  strategyCount: long(name='strategy_count', example='10'),
+  // 用户数量
+  userCount: long(name='user_count', example='7'),
+  // 机构名称
+  instName?: string(name='inst_name', example='测试银行'),
+  // 日期
+  gmtCreate: string(name='gmt_create', example='2018-10-10 10:10:00'),
+}
+
+// 券信息
+model VoucherInfo {
+  // 券id
+  voucherId: string(name='voucher_id', example='20250909000730029301000D462O'),
+  // 2088id
+  userId: string(name='user_id', example='2088502492801939'),
+  // 产品编码
+  productCode: string(name='product_code', example='COUPON'),
+  // 资产编码
+  assetsCode: string(name='assets_code', example='资产编码'),
+  // 券名称
+  name: string(name='name', example='北京银行还款帮扶-满100减20'),
+  // 券模板ID
+  templateId: string(name='template_id', example='2025091500073001149600J6D74N'),
+  // 发行人id
+  publisherUserId: string(name='publisher_user_id', example='2088702238164012'),
+  // 状态
+  status: string(name='status', example='ENABLED'),
+  // 券生效时间
+  gmtActive: string(name='gmt_active', example='2018-10-10 10:10:00'),
+  // 券失效时间
+  gmtExpired: string(name='gmt_expired', example='2018-10-10 10:10:00'),
+  // 展期
+  gmtExtend: string(name='gmt_extend', example='2018-10-10 10:10:00'),
+  // 面额
+  totalAmount: string(name='total_amount', example='20'),
+  // 门槛金额
+  floorAmount: string(name='floor_amount', example='100'),
+  // 总次数
+  totalCount: long(name='total_count', example='1'),
+  // 可用次数
+  availableCount: long(name='available_count', example='1'),
+  // 已使用次数
+  usedCount: long(name='used_count', example='0'),
+  // 券描述
+  voucherDescription: string(name='voucher_description', example='{\"description\":\"1、该帮扶金由机构权益运营发放，仅限在机构权益运营逾期还款场景使用，还款方式仅限于本人银行卡主动还款\"}'),
+  // 券模板扩展信息
+  extendTemplateInfo: string(name='extend_template_info', example='{\"agentId\":\"7428691\"}'),
+  // 扩展信息
+  extendInfo: string(name='extend_info', example='{\"prizeType\":\"VOUCHER_PRIZE\"}'),
+  // 创建时间
+  gmtCreate: string(name='gmt_create', example='2018-10-10 10:10:00'),
+  // 修改时间
+  gmtModified: string(name='gmt_modified', example='2018-10-10 10:10:00'),
+  // 业务类型
+  bizCode: string(name='biz_code', example='REPAY_BJBANK_COUPON'),
+  // 收银台展示分组
+  groupCode: string(name='group_code', example='REPAY_BJBANK'),
+  // 收银台展示分组名称
+  groupCodeName: string(name='group_code_name', example='北京银行还款帮扶'),
+}
+
+// 机构订单交易记录对象
+model OrgTradeData {
+  // 平台优惠金额。单位：元。
+  discountAmount: string(name='discount_amount', example='2000.99'),
+  // 买家实付金额，单位为元，两位小数。
+  buyerPayAmount: string(name='buyer_pay_amount', example='20000.11'),
+  // 买家在支付宝的用户id
+  buyerUserId: string(name='buyer_user_id', example='2088xxx'),
+  // 支付宝交易号，交易单主键id
+  outTradeNo: string(name='out_trade_no', example='202503060003000000000001'),
+  // 支付宝订单号
+  tradeNo: string(name='trade_no', example='2025030622001464011433929526'),
+  // 本次交易打款给卖家的时间
+  sendPayDate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='send_pay_date', example='2024-10-31 00:00:00'),
+  // 交易状态：WAIT_BUYER_PAY（交易创建，等待买家付款）、TRADE_CLOSED（未付款交易超时关闭，或支付完成后全额退款）、TRADE_SUCCESS（交易支付成功）、TRADE_FINISHED（交易结束，不可退款）
+  tradeStatus: string(name='trade_status', example='TRADE_SUCCESS'),
+  // 实收金额，单位为元，两位小数。该金额为本笔交易，商户账户能够实际收到的金额
+  receiptAmount: string(name='receipt_amount', example='20.10'),
+  // 交易的订单金额，单位为元，两位小数。该参数的值为支付时传入的total_amount
+  totalAmount: string(name='total_amount', example='200.11'),
+}
+
+// 供应商打款记录
+model PaymentRecord {
+  // 云上租户id	
+  cloudTenantId: string(name='cloud_tenant_id', example='00000001'),
+  // 打款金额，单位分
+  paymentAmount: long(name='payment_amount', example='1899932'),
+  // 服务商名称 - 即云租户名称，比如南京飞翰
+  supplierName: string(name='supplier_name', example='南京飞翰'),
+  // 打款日期
+  paymentDate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='payment_date', example='2024-10-31 00:00:00'),
+  // 唯一请求id，即payment_record_id
+  requestUniqueId: string(name='request_unique_id', example='082bab66-7b04-11ef-9df1-d38fddccce14'),
+}
+
+// agent对话客户端返回结果
+model AgentChatCustomResponse {
+  // 消息id
+  messageId?: string(name='message_id', example='2025120800001'),
+  // 内容
+  content?: string(name='content', example='好的，接下来...'),
+}
+
+// 机构总览数据
+model OrgOverviewData {
+  // 预算总金额
+  totalBudgetAmt: string(name='total_budget_amt', example='100.01'),
+  // 花呗预算金额
+  huabeiBudgetAmt: string(name='huabei_budget_amt', example='100.01'),
+  // 借呗预算金额
+  jiebeiBudgetAmt: string(name='jiebei_budget_amt', example='100.01'),
+  // 小微预算金额
+  xiaoweiBudgetAmt: string(name='xiaowei_budget_amt', example='100.01'),
+  // 服务费预算金额
+  serviceBudgetAmt: string(name='service_budget_amt', example='100.01'),
+  // 总回款金额
+  totalRepaymentAmt: string(name='total_repayment_amt', example='100.01'),
+  // 花呗回款金额
+  huabeiRepaymentAmt: string(name='huabei_repayment_amt', example='100.01'),
+  // 借呗回款金额
+  jiebeiRepaymentAmt: string(name='jiebei_repayment_amt', example='100.01'),
+  // 小微回款金额
+  xiaoweiRepaymentAmt: string(name='xiaowei_repayment_amt', example='100.01'),
+  // 总交易金额
+  totalTradeAmt: string(name='total_trade_amt', example='100.01'),
+  // 花呗交易金额
+  huabeiTradeAmt: string(name='huabei_trade_amt', example='100.01'),
+  // 借呗交易金额
+  jiebeiTradeAmt: string(name='jiebei_trade_amt', example='100.01'),
+  // 小微交易金额
+  xiaoweiTradeAmt: string(name='xiaowei_trade_amt', example='100.01'),
+  // 内部补贴金额
+  internalSubsidyAmt: string(name='internal_subsidy_amt', example='100.01'),
+  // 净回款额
+  totalNetRepaymentAmt: string(name='total_net_repayment_amt', example='100.01'),
+  // 活动roi
+  activityRoi: string(name='activity_roi', example='2.1'),
+  // 花呗roi
+  huabeiRoi: string(name='huabei_roi', example='2.1'),
+  // 借呗roi
+  jiebeiRoi: string(name='jiebei_roi', example='2.1'),
+  // 小微roi
+  xiaoweiRoi: string(name='xiaowei_roi', example='2.1'),
+}
+
+// 权益智能体对话返回结构体
+model AgentChatResponse {
+  // 是否结束
+  success: boolean(name='success', example='true, false'),
+  // 对话data数据
+  data: AgentChatData(name='data', example=''),
+}
+
+// 券咨询业务上下文
+model VoucherConsultBusinessContext {
+  // 指定资产编码列表
+  assetTypeCodeList: [ string ](name='asset_type_code_list', example='["COUPON"]'),
+  // 订单金额
+  orderAmount: string(name='order_amount', example='120.05'),
+  // 收款账号
+  payeeUserId: string(name='payee_user_id', example='2088502492801939'),
+  // 业务上下文信息
+  bizContext: string(name='biz_context', example='{"tinyAppId":"2088","orgBenefitRepayBJBankTick":"Y"}'),
+}
+
+// 支付宝交易记录
+model OrgAlipayTradeData {
+  // 支付宝订单号
+  alipayOrderNo: string(name='alipay_order_no', example='202503060003000000000001'),
+  // 交易创建时间
+  gmtCreate: string(name='gmt_create', example='2024-10-31 00:00:00'),
+  // 交易支付时间
+  gmtPay: string(name='gmt_pay', example='2024-10-31 00:00:00'),
+  // 交易退款时间
+  gmtRefund: string(name='gmt_refund', example='2024-10-31 00:00:00'),
+  // 商品备注信息
+  goodsMemo?: string(name='goods_memo', example='商品备注信息'),
+  // 机构名称
+  goodsTitle: string(name='goods_title', example='机构名称'),
+  // 商户订单号，创建支付宝交易时传入的信息
+  merchantOrderNo: string(name='merchant_order_no', example='202503060003000000000001'),
+  // 商家优惠金额
+  netMdiscount: string(name='net_mdiscount', example='200'),
+  // 对方账户
+  otherAccount: string(name='other_account', example='对方账户'),
+  // 订单退款金额
+  refundAmount: string(name='refund_amount', example='2000.99'),
+  // 服务费金额
+  serviceFee: string(name='service_fee', example='20000.11'),
+  // 门店名称
+  storeName?: string(name='store_name', example='storeName'),
+  // 门店编号
+  storeNo?: string(name='store_no', example='门店编号'),
+  // 订单金额
+  totalAmount: string(name='total_amount', example='20000.11'),
+  // 订单状态(待付款,成功,关闭,待发货,待确认收货,已预付,进行中)
+  tradeStatus: string(name='trade_status', example='TRADE_SUCCESS'),
+  // 业务类型，帮助商户作为对账参考
+  tradeType: string(name='trade_type', example='业务类型，帮助商户作为对账参考'),
+}
+
+// 核销明细月文件
+model BenefitWriteOffMonthFileData {
+  // 所属月份
+  billingMonth: string(name='billing_month', example='202409'),
+  // AFTS 上传到文件 id
+  fileFiledId: string(name='file_filed_id', example='A*ydC-QapBk8gAAAAAAAAAAAAAT-iRAw'),
+}
+
+model CallbackAntdigitalAssetOrgoperationRepayRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户id
+  tenantId: string(name='tenant_id'),
+  // 还款编号
+  repayRecordNo: string(name='repay_record_no'),
+  // 还款处理状态
+  status: string(name='status'),
+  // 额外的信息
+  extInfo?: string(name='ext_info'),
+  // 请求唯一id，最长32字符	
+  // 
+  requestUniqueId: string(name='request_unique_id'),
+}
+
+model CallbackAntdigitalAssetOrgoperationRepayResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 还款回调结果
+  data?: RepayCallBackResData(name='data'),
+}
+
+/**
+ * Description: 机构权益运营还款回调
+ * Summary: 机构权益运营还款回调
+ */
+async function callbackAntdigitalAssetOrgoperationRepay(request: CallbackAntdigitalAssetOrgoperationRepayRequest): CallbackAntdigitalAssetOrgoperationRepayResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return callbackAntdigitalAssetOrgoperationRepayEx(request, headers, runtime);
+}
+
+/**
+ * Description: 机构权益运营还款回调
+ * Summary: 机构权益运营还款回调
+ */
+async function callbackAntdigitalAssetOrgoperationRepayEx(request: CallbackAntdigitalAssetOrgoperationRepayRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CallbackAntdigitalAssetOrgoperationRepayResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.asset.orgoperation.repay.callback', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
