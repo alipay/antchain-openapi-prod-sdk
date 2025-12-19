@@ -6335,6 +6335,12 @@ type CreateFaceverifyServerRequest struct {
 	// 待上传文件名
 	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
 	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty"`
+	// 图片的传入加密模式
+	// 0：明文
+	// 1：AES加密
+	MaterialEncType *string `json:"material_enc_type,omitempty" xml:"material_enc_type,omitempty"`
+	// 公钥加密后的密钥，用于传入的加密图片/视频
+	MaterialEncToken *string `json:"material_enc_token,omitempty" xml:"material_enc_token,omitempty"`
 }
 
 func (s CreateFaceverifyServerRequest) String() string {
@@ -6457,6 +6463,16 @@ func (s *CreateFaceverifyServerRequest) SetFileObjectName(v string) *CreateFacev
 
 func (s *CreateFaceverifyServerRequest) SetFileId(v string) *CreateFaceverifyServerRequest {
 	s.FileId = &v
+	return s
+}
+
+func (s *CreateFaceverifyServerRequest) SetMaterialEncType(v string) *CreateFaceverifyServerRequest {
+	s.MaterialEncType = &v
+	return s
+}
+
+func (s *CreateFaceverifyServerRequest) SetMaterialEncToken(v string) *CreateFaceverifyServerRequest {
+	s.MaterialEncToken = &v
 	return s
 }
 
@@ -6794,6 +6810,10 @@ type ExecFaceverifyServermodeRequest struct {
 	// 待上传文件名
 	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
 	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty"`
+	// 图片的传入加密模式 0：明文 1：AES加密
+	MaterialEncType *string `json:"material_enc_type,omitempty" xml:"material_enc_type,omitempty"`
+	// 公钥加密后的密钥，用于传入的加密图片/视频
+	MaterialEncToken *string `json:"material_enc_token,omitempty" xml:"material_enc_token,omitempty"`
 }
 
 func (s ExecFaceverifyServermodeRequest) String() string {
@@ -6891,6 +6911,16 @@ func (s *ExecFaceverifyServermodeRequest) SetFileObjectName(v string) *ExecFacev
 
 func (s *ExecFaceverifyServermodeRequest) SetFileId(v string) *ExecFaceverifyServermodeRequest {
 	s.FileId = &v
+	return s
+}
+
+func (s *ExecFaceverifyServermodeRequest) SetMaterialEncType(v string) *ExecFaceverifyServermodeRequest {
+	s.MaterialEncType = &v
+	return s
+}
+
+func (s *ExecFaceverifyServermodeRequest) SetMaterialEncToken(v string) *ExecFaceverifyServermodeRequest {
+	s.MaterialEncToken = &v
 	return s
 }
 
@@ -7629,6 +7659,10 @@ type QueryFaceverifyServermaterialRequest struct {
 	SceneId *string `json:"scene_id,omitempty" xml:"scene_id,omitempty" require:"true"`
 	// 预留扩展业务参数
 	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+	// 图片的传入加密模式 0：明文 1：AES加密
+	MaterialEncType *string `json:"material_enc_type,omitempty" xml:"material_enc_type,omitempty"`
+	// 公钥加密后的密钥，用于传入的加密图片/视频
+	MaterialEncToken *string `json:"material_enc_token,omitempty" xml:"material_enc_token,omitempty"`
 }
 
 func (s QueryFaceverifyServermaterialRequest) String() string {
@@ -7666,6 +7700,16 @@ func (s *QueryFaceverifyServermaterialRequest) SetSceneId(v string) *QueryFaceve
 
 func (s *QueryFaceverifyServermaterialRequest) SetExternParam(v string) *QueryFaceverifyServermaterialRequest {
 	s.ExternParam = &v
+	return s
+}
+
+func (s *QueryFaceverifyServermaterialRequest) SetMaterialEncType(v string) *QueryFaceverifyServermaterialRequest {
+	s.MaterialEncType = &v
+	return s
+}
+
+func (s *QueryFaceverifyServermaterialRequest) SetMaterialEncToken(v string) *QueryFaceverifyServermaterialRequest {
+	s.MaterialEncToken = &v
 	return s
 }
 
@@ -10009,7 +10053,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.22.11"),
+				"sdk_version":      tea.String("1.22.12"),
 				"_prod_code":       tea.String("REALPERSON"),
 				"_prod_channel":    tea.String("undefined"),
 			}
