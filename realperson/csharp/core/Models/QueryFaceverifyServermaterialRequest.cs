@@ -38,6 +38,16 @@ namespace AntChain.SDK.REALPERSON.Models
         [Validation(Required=false)]
         public string ExternParam { get; set; }
 
+        // 图片的传入加密模式 0：明文 1：AES加密
+        [NameInMap("material_enc_type")]
+        [Validation(Required=false)]
+        public string MaterialEncType { get; set; }
+
+        // 公钥加密后的密钥，用于传入的加密图片/视频
+        [NameInMap("material_enc_token")]
+        [Validation(Required=false)]
+        public string MaterialEncToken { get; set; }
+
     }
 
 }
