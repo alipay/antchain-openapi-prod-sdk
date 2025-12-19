@@ -4593,6 +4593,12 @@ export class CreateFaceverifyServerRequest extends $tea.Model {
   fileObject?: Readable;
   fileObjectName?: string;
   fileId?: string;
+  // 图片的传入加密模式
+  // 0：明文
+  // 1：AES加密
+  materialEncType?: string;
+  // 公钥加密后的密钥，用于传入的加密图片/视频
+  materialEncToken?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -4618,6 +4624,8 @@ export class CreateFaceverifyServerRequest extends $tea.Model {
       fileObject: 'fileObject',
       fileObjectName: 'fileObjectName',
       fileId: 'file_id',
+      materialEncType: 'material_enc_type',
+      materialEncToken: 'material_enc_token',
     };
   }
 
@@ -4646,6 +4654,8 @@ export class CreateFaceverifyServerRequest extends $tea.Model {
       fileObject: 'Readable',
       fileObjectName: 'string',
       fileId: 'string',
+      materialEncType: 'string',
+      materialEncToken: 'string',
     };
   }
 
@@ -4906,6 +4916,10 @@ export class ExecFaceverifyServermodeRequest extends $tea.Model {
   fileObject?: Readable;
   fileObjectName?: string;
   fileId?: string;
+  // 图片的传入加密模式 0：明文 1：AES加密
+  materialEncType?: string;
+  // 公钥加密后的密钥，用于传入的加密图片/视频
+  materialEncToken?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -4926,6 +4940,8 @@ export class ExecFaceverifyServermodeRequest extends $tea.Model {
       fileObject: 'fileObject',
       fileObjectName: 'fileObjectName',
       fileId: 'file_id',
+      materialEncType: 'material_enc_type',
+      materialEncToken: 'material_enc_token',
     };
   }
 
@@ -4949,6 +4965,8 @@ export class ExecFaceverifyServermodeRequest extends $tea.Model {
       fileObject: 'Readable',
       fileObjectName: 'string',
       fileId: 'string',
+      materialEncType: 'string',
+      materialEncToken: 'string',
     };
   }
 
@@ -5489,6 +5507,10 @@ export class QueryFaceverifyServermaterialRequest extends $tea.Model {
   sceneId: string;
   // 预留扩展业务参数
   externParam?: string;
+  // 图片的传入加密模式 0：明文 1：AES加密
+  materialEncType?: string;
+  // 公钥加密后的密钥，用于传入的加密图片/视频
+  materialEncToken?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -5497,6 +5519,8 @@ export class QueryFaceverifyServermaterialRequest extends $tea.Model {
       outerOrderNo: 'outer_order_no',
       sceneId: 'scene_id',
       externParam: 'extern_param',
+      materialEncType: 'material_enc_type',
+      materialEncToken: 'material_enc_token',
     };
   }
 
@@ -5508,6 +5532,8 @@ export class QueryFaceverifyServermaterialRequest extends $tea.Model {
       outerOrderNo: 'string',
       sceneId: 'string',
       externParam: 'string',
+      materialEncType: 'string',
+      materialEncToken: 'string',
     };
   }
 
@@ -7263,7 +7289,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.22.11",
+          sdk_version: "1.22.12",
           _prod_code: "REALPERSON",
           _prod_channel: "undefined",
         };
