@@ -43,6 +43,18 @@ class QuerybyappidAntdigitalMdpResponse extends Model
      * @var AppIdQualityScoresDONew[]
      */
     public $scores;
+
+    // 筛选分数的规则，通过规则的返回，否则 scores 内容是空的
+    /**
+     * @var string
+     */
+    public $rule;
+
+    // 规则对应的 md5 值，用来区分当前规则的版本
+    /**
+     * @var string
+     */
+    public $rulemd5;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
@@ -50,6 +62,8 @@ class QuerybyappidAntdigitalMdpResponse extends Model
         'appid'      => 'appid',
         'userid'     => 'userid',
         'scores'     => 'scores',
+        'rule'       => 'rule',
+        'rulemd5'    => 'rulemd5',
     ];
 
     public function validate()
@@ -82,6 +96,12 @@ class QuerybyappidAntdigitalMdpResponse extends Model
                     $res['scores'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
+        }
+        if (null !== $this->rule) {
+            $res['rule'] = $this->rule;
+        }
+        if (null !== $this->rulemd5) {
+            $res['rulemd5'] = $this->rulemd5;
         }
 
         return $res;
@@ -118,6 +138,12 @@ class QuerybyappidAntdigitalMdpResponse extends Model
                     $model->scores[$n++] = null !== $item ? AppIdQualityScoresDONew::fromMap($item) : $item;
                 }
             }
+        }
+        if (isset($map['rule'])) {
+            $model->rule = $map['rule'];
+        }
+        if (isset($map['rulemd5'])) {
+            $model->rulemd5 = $map['rulemd5'];
         }
 
         return $model;
