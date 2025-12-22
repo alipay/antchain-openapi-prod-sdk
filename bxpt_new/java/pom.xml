@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.antgroup.antchain.openapi</groupId>
   <artifactId>openapi-bxpt_new</artifactId>
-  <version>1.2.27</version>
+  <version>1.2.28</version>
   <packaging>jar</packaging>
   <name>openapi-bxpt_new</name>
   <description>Ant Chain BXPT_NEW SDK for Java
