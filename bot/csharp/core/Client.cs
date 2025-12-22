@@ -137,7 +137,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.12.40"},
+                        {"sdk_version", "1.12.48"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.12.40"},
+                        {"sdk_version", "1.12.48"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -6298,6 +6298,174 @@ namespace AntChain.SDK.BOT
         }
 
         /**
+         * Description: iotx二轮车行程统计接口
+         * Summary: iotx二轮车行程统计接口
+         */
+        public QueryElectrocarTripstatisticsResponse QueryElectrocarTripstatistics(QueryElectrocarTripstatisticsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryElectrocarTripstatisticsEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: iotx二轮车行程统计接口
+         * Summary: iotx二轮车行程统计接口
+         */
+        public async Task<QueryElectrocarTripstatisticsResponse> QueryElectrocarTripstatisticsAsync(QueryElectrocarTripstatisticsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryElectrocarTripstatisticsExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: iotx二轮车行程统计接口
+         * Summary: iotx二轮车行程统计接口
+         */
+        public QueryElectrocarTripstatisticsResponse QueryElectrocarTripstatisticsEx(QueryElectrocarTripstatisticsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryElectrocarTripstatisticsResponse>(DoRequest("1.0", "blockchain.bot.electrocar.tripstatistics.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: iotx二轮车行程统计接口
+         * Summary: iotx二轮车行程统计接口
+         */
+        public async Task<QueryElectrocarTripstatisticsResponse> QueryElectrocarTripstatisticsExAsync(QueryElectrocarTripstatisticsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryElectrocarTripstatisticsResponse>(await DoRequestAsync("1.0", "blockchain.bot.electrocar.tripstatistics.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: iotx二轮车行程列表接口
+         * Summary: iotx二轮车行程列表接口
+         */
+        public QueryElectrocarTriplistResponse QueryElectrocarTriplist(QueryElectrocarTriplistRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryElectrocarTriplistEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: iotx二轮车行程列表接口
+         * Summary: iotx二轮车行程列表接口
+         */
+        public async Task<QueryElectrocarTriplistResponse> QueryElectrocarTriplistAsync(QueryElectrocarTriplistRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryElectrocarTriplistExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: iotx二轮车行程列表接口
+         * Summary: iotx二轮车行程列表接口
+         */
+        public QueryElectrocarTriplistResponse QueryElectrocarTriplistEx(QueryElectrocarTriplistRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryElectrocarTriplistResponse>(DoRequest("1.0", "blockchain.bot.electrocar.triplist.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: iotx二轮车行程列表接口
+         * Summary: iotx二轮车行程列表接口
+         */
+        public async Task<QueryElectrocarTriplistResponse> QueryElectrocarTriplistExAsync(QueryElectrocarTriplistRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryElectrocarTriplistResponse>(await DoRequestAsync("1.0", "blockchain.bot.electrocar.triplist.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: iotx二轮车行程定位
+         * Summary: iotx二轮车行程定位
+         */
+        public QueryElectrocarTrippointsResponse QueryElectrocarTrippoints(QueryElectrocarTrippointsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryElectrocarTrippointsEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: iotx二轮车行程定位
+         * Summary: iotx二轮车行程定位
+         */
+        public async Task<QueryElectrocarTrippointsResponse> QueryElectrocarTrippointsAsync(QueryElectrocarTrippointsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryElectrocarTrippointsExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: iotx二轮车行程定位
+         * Summary: iotx二轮车行程定位
+         */
+        public QueryElectrocarTrippointsResponse QueryElectrocarTrippointsEx(QueryElectrocarTrippointsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryElectrocarTrippointsResponse>(DoRequest("1.0", "blockchain.bot.electrocar.trippoints.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: iotx二轮车行程定位
+         * Summary: iotx二轮车行程定位
+         */
+        public async Task<QueryElectrocarTrippointsResponse> QueryElectrocarTrippointsExAsync(QueryElectrocarTrippointsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryElectrocarTrippointsResponse>(await DoRequestAsync("1.0", "blockchain.bot.electrocar.trippoints.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: iotx二轮车最近一段行程查询接口
+         * Summary: iotx二轮车最近一段行程查询接口
+         */
+        public QueryElectrocarTriplastResponse QueryElectrocarTriplast(QueryElectrocarTriplastRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryElectrocarTriplastEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: iotx二轮车最近一段行程查询接口
+         * Summary: iotx二轮车最近一段行程查询接口
+         */
+        public async Task<QueryElectrocarTriplastResponse> QueryElectrocarTriplastAsync(QueryElectrocarTriplastRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryElectrocarTriplastExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: iotx二轮车最近一段行程查询接口
+         * Summary: iotx二轮车最近一段行程查询接口
+         */
+        public QueryElectrocarTriplastResponse QueryElectrocarTriplastEx(QueryElectrocarTriplastRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryElectrocarTriplastResponse>(DoRequest("1.0", "blockchain.bot.electrocar.triplast.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: iotx二轮车最近一段行程查询接口
+         * Summary: iotx二轮车最近一段行程查询接口
+         */
+        public async Task<QueryElectrocarTriplastResponse> QueryElectrocarTriplastExAsync(QueryElectrocarTriplastRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryElectrocarTriplastResponse>(await DoRequestAsync("1.0", "blockchain.bot.electrocar.triplast.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
          * Description: 根据设备串号查询采购设备
          * Summary: 根据设备串号查询采购设备
          */
@@ -11419,6 +11587,48 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<SendTaskalarmResponse>(await DoRequestAsync("1.0", "blockchain.bot.taskalarm.send", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 支付芯非SE方案空发接口
+         * Summary: 支付芯非SE方案空发接口
+         */
+        public ApplyTechintegrationSkushipemptymodelbyuidResponse ApplyTechintegrationSkushipemptymodelbyuid(ApplyTechintegrationSkushipemptymodelbyuidRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ApplyTechintegrationSkushipemptymodelbyuidEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 支付芯非SE方案空发接口
+         * Summary: 支付芯非SE方案空发接口
+         */
+        public async Task<ApplyTechintegrationSkushipemptymodelbyuidResponse> ApplyTechintegrationSkushipemptymodelbyuidAsync(ApplyTechintegrationSkushipemptymodelbyuidRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ApplyTechintegrationSkushipemptymodelbyuidExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 支付芯非SE方案空发接口
+         * Summary: 支付芯非SE方案空发接口
+         */
+        public ApplyTechintegrationSkushipemptymodelbyuidResponse ApplyTechintegrationSkushipemptymodelbyuidEx(ApplyTechintegrationSkushipemptymodelbyuidRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyTechintegrationSkushipemptymodelbyuidResponse>(DoRequest("1.0", "blockchain.bot.techintegration.skushipemptymodelbyuid.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 支付芯非SE方案空发接口
+         * Summary: 支付芯非SE方案空发接口
+         */
+        public async Task<ApplyTechintegrationSkushipemptymodelbyuidResponse> ApplyTechintegrationSkushipemptymodelbyuidExAsync(ApplyTechintegrationSkushipemptymodelbyuidRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyTechintegrationSkushipemptymodelbyuidResponse>(await DoRequestAsync("1.0", "blockchain.bot.techintegration.skushipemptymodelbyuid.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
