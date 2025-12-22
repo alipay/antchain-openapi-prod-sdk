@@ -592,6 +592,32 @@ func (s *DataVerifyFailureData) SetSource(v int64) *DataVerifyFailureData {
 	return s
 }
 
+// iotx时间
+type TripDuration struct {
+	// 时间
+	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+	// 时间单位
+	Unit *string `json:"unit,omitempty" xml:"unit,omitempty" require:"true"`
+}
+
+func (s TripDuration) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TripDuration) GoString() string {
+	return s.String()
+}
+
+func (s *TripDuration) SetValue(v string) *TripDuration {
+	s.Value = &v
+	return s
+}
+
+func (s *TripDuration) SetUnit(v string) *TripDuration {
+	s.Unit = &v
+	return s
+}
+
 // 租户信息
 type PermissionedTenantModel struct {
 	// 主键Id
@@ -4301,6 +4327,95 @@ func (s *IotbasicDeviceModelFixedAttributeInfo) SetDataRangeMax(v int64) *Iotbas
 	return s
 }
 
+// 行程详情
+type TripDetail struct {
+	// 行程id
+	TripId *string `json:"trip_id,omitempty" xml:"trip_id,omitempty" require:"true"`
+	// 开始时间
+	StartTime *int64 `json:"start_time,omitempty" xml:"start_time,omitempty" require:"true"`
+	// 结束时间
+	EndTime *int64 `json:"end_time,omitempty" xml:"end_time,omitempty" require:"true"`
+	// 行驶里程
+	Mileage *string `json:"mileage,omitempty" xml:"mileage,omitempty" require:"true"`
+	// 单次用时
+	Duration *TripDuration `json:"duration,omitempty" xml:"duration,omitempty" require:"true"`
+	// 最高速度
+	MaxSpeed *string `json:"max_speed,omitempty" xml:"max_speed,omitempty" require:"true"`
+	// 平均速度
+	AvgSpeed *string `json:"avg_speed,omitempty" xml:"avg_speed,omitempty" require:"true"`
+	// 开始地址
+	FirstAddress *string `json:"first_address,omitempty" xml:"first_address,omitempty" require:"true"`
+	// 结束地址
+	LastAddress *string `json:"last_address,omitempty" xml:"last_address,omitempty" require:"true"`
+	// 最开始定位时间
+	FirstLocationTime *int64 `json:"first_location_time,omitempty" xml:"first_location_time,omitempty" require:"true"`
+	// 最后结束定位时间
+	LastLocationTime *int64 `json:"last_location_time,omitempty" xml:"last_location_time,omitempty" require:"true"`
+}
+
+func (s TripDetail) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TripDetail) GoString() string {
+	return s.String()
+}
+
+func (s *TripDetail) SetTripId(v string) *TripDetail {
+	s.TripId = &v
+	return s
+}
+
+func (s *TripDetail) SetStartTime(v int64) *TripDetail {
+	s.StartTime = &v
+	return s
+}
+
+func (s *TripDetail) SetEndTime(v int64) *TripDetail {
+	s.EndTime = &v
+	return s
+}
+
+func (s *TripDetail) SetMileage(v string) *TripDetail {
+	s.Mileage = &v
+	return s
+}
+
+func (s *TripDetail) SetDuration(v *TripDuration) *TripDetail {
+	s.Duration = v
+	return s
+}
+
+func (s *TripDetail) SetMaxSpeed(v string) *TripDetail {
+	s.MaxSpeed = &v
+	return s
+}
+
+func (s *TripDetail) SetAvgSpeed(v string) *TripDetail {
+	s.AvgSpeed = &v
+	return s
+}
+
+func (s *TripDetail) SetFirstAddress(v string) *TripDetail {
+	s.FirstAddress = &v
+	return s
+}
+
+func (s *TripDetail) SetLastAddress(v string) *TripDetail {
+	s.LastAddress = &v
+	return s
+}
+
+func (s *TripDetail) SetFirstLocationTime(v int64) *TripDetail {
+	s.FirstLocationTime = &v
+	return s
+}
+
+func (s *TripDetail) SetLastLocationTime(v int64) *TripDetail {
+	s.LastLocationTime = &v
+	return s
+}
+
 // 通行证批量创建失败列表
 type XrTicketPoolFailList struct {
 	// 券名称
@@ -4729,16 +4844,16 @@ func (s *JtMedia) SetMediaType(v string) *JtMedia {
 	return s
 }
 
-// 行程统计 详细列表
+// iotx行程统计
 type TripStatistics struct {
-	// 行驶天数
-	TripDay *string `json:"trip_day,omitempty" xml:"trip_day,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// 总里程
-	TotalDistance *int64 `json:"total_distance,omitempty" xml:"total_distance,omitempty" require:"true"`
-	// 总用时
-	TotalDuration *int64 `json:"total_duration,omitempty" xml:"total_duration,omitempty" require:"true"`
-	// 行驶次数
-	TripCount *int64 `json:"trip_count,omitempty" xml:"trip_count,omitempty" require:"true"`
+	TotalMileage *string `json:"total_mileage,omitempty" xml:"total_mileage,omitempty" require:"true"`
+	// 时间体
+	TotalDuration *TripDuration `json:"total_duration,omitempty" xml:"total_duration,omitempty" require:"true"`
+	// 总次数
+	TotalCount *int64 `json:"total_count,omitempty" xml:"total_count,omitempty" require:"true"`
+	// 时期码
+	PeriodCode *int64 `json:"period_code,omitempty" xml:"period_code,omitempty" require:"true"`
 }
 
 func (s TripStatistics) String() string {
@@ -4749,23 +4864,23 @@ func (s TripStatistics) GoString() string {
 	return s.String()
 }
 
-func (s *TripStatistics) SetTripDay(v string) *TripStatistics {
-	s.TripDay = &v
+func (s *TripStatistics) SetTotalMileage(v string) *TripStatistics {
+	s.TotalMileage = &v
 	return s
 }
 
-func (s *TripStatistics) SetTotalDistance(v int64) *TripStatistics {
-	s.TotalDistance = &v
+func (s *TripStatistics) SetTotalDuration(v *TripDuration) *TripStatistics {
+	s.TotalDuration = v
 	return s
 }
 
-func (s *TripStatistics) SetTotalDuration(v int64) *TripStatistics {
-	s.TotalDuration = &v
+func (s *TripStatistics) SetTotalCount(v int64) *TripStatistics {
+	s.TotalCount = &v
 	return s
 }
 
-func (s *TripStatistics) SetTripCount(v int64) *TripStatistics {
-	s.TripCount = &v
+func (s *TripStatistics) SetPeriodCode(v int64) *TripStatistics {
+	s.PeriodCode = &v
 	return s
 }
 
@@ -23458,6 +23573,416 @@ func (s *PushDeviceAudioResponse) SetResult(v string) *PushDeviceAudioResponse {
 	return s
 }
 
+type QueryElectrocarTripstatisticsRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// tuid
+	Tuid *string `json:"tuid,omitempty" xml:"tuid,omitempty" require:"true"`
+	// String	MONTH（月）
+	// WEEK（周）
+	// DAY（日）
+	TimeDimension *string `json:"time_dimension,omitempty" xml:"time_dimension,omitempty" require:"true"`
+	// 时间戳（每月的第一天00:00， 每周的第一天00:00， 每日的00:00）
+	TimeValue *int64 `json:"time_value,omitempty" xml:"time_value,omitempty" require:"true"`
+	// 前 n 月/周/日， 包含当前月/周/日（默认9）
+	PastDays *int64 `json:"past_days,omitempty" xml:"past_days,omitempty" require:"true"`
+}
+
+func (s QueryElectrocarTripstatisticsRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryElectrocarTripstatisticsRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryElectrocarTripstatisticsRequest) SetAuthToken(v string) *QueryElectrocarTripstatisticsRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryElectrocarTripstatisticsRequest) SetProductInstanceId(v string) *QueryElectrocarTripstatisticsRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryElectrocarTripstatisticsRequest) SetTuid(v string) *QueryElectrocarTripstatisticsRequest {
+	s.Tuid = &v
+	return s
+}
+
+func (s *QueryElectrocarTripstatisticsRequest) SetTimeDimension(v string) *QueryElectrocarTripstatisticsRequest {
+	s.TimeDimension = &v
+	return s
+}
+
+func (s *QueryElectrocarTripstatisticsRequest) SetTimeValue(v int64) *QueryElectrocarTripstatisticsRequest {
+	s.TimeValue = &v
+	return s
+}
+
+func (s *QueryElectrocarTripstatisticsRequest) SetPastDays(v int64) *QueryElectrocarTripstatisticsRequest {
+	s.PastDays = &v
+	return s
+}
+
+type QueryElectrocarTripstatisticsResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 状态
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// [{总里程、总用时、总次数、 时期码}，{总里程、总用时、总次数、 时期码}，......]
+	// 备注：返回前八个加上当前共九个的统计数据（按时间正排）
+	// 时期码说明：
+	// 月维度：
+	// eg1: 12，11，10，9...
+	// eg2: 3, 2, 1, 12（去年12月）, 11...
+	// 周维度：
+	// eg1: 52，51，50，49...
+	// eg2: 3，2，1，52（去年最后一周）， 51...
+	// 日维度：
+	// eg1: 30，29，28，27...
+	// eg2: 3，2，1，30（上个月最后一天），29...
+	TripStatistics []*TripStatistics `json:"trip_statistics,omitempty" xml:"trip_statistics,omitempty" type:"Repeated"`
+}
+
+func (s QueryElectrocarTripstatisticsResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryElectrocarTripstatisticsResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryElectrocarTripstatisticsResponse) SetReqMsgId(v string) *QueryElectrocarTripstatisticsResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryElectrocarTripstatisticsResponse) SetResultCode(v string) *QueryElectrocarTripstatisticsResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryElectrocarTripstatisticsResponse) SetResultMsg(v string) *QueryElectrocarTripstatisticsResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryElectrocarTripstatisticsResponse) SetSuccess(v bool) *QueryElectrocarTripstatisticsResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *QueryElectrocarTripstatisticsResponse) SetTripStatistics(v []*TripStatistics) *QueryElectrocarTripstatisticsResponse {
+	s.TripStatistics = v
+	return s
+}
+
+type QueryElectrocarTriplistRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// tuid
+	Tuid *string `json:"tuid,omitempty" xml:"tuid,omitempty" require:"true"`
+	// MONTH（月）
+	// WEEK（周）
+	// DAY（日）
+	TimeDimension *string `json:"time_dimension,omitempty" xml:"time_dimension,omitempty" require:"true"`
+	// Long	时间戳（每月的第一天00:00， 每周的第一天00:00， 每日的00:00）
+	TimeValue *int64 `json:"time_value,omitempty" xml:"time_value,omitempty" require:"true"`
+	// 分页
+	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty" require:"true"`
+	// 分页
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+}
+
+func (s QueryElectrocarTriplistRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryElectrocarTriplistRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryElectrocarTriplistRequest) SetAuthToken(v string) *QueryElectrocarTriplistRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryElectrocarTriplistRequest) SetProductInstanceId(v string) *QueryElectrocarTriplistRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryElectrocarTriplistRequest) SetTuid(v string) *QueryElectrocarTriplistRequest {
+	s.Tuid = &v
+	return s
+}
+
+func (s *QueryElectrocarTriplistRequest) SetTimeDimension(v string) *QueryElectrocarTriplistRequest {
+	s.TimeDimension = &v
+	return s
+}
+
+func (s *QueryElectrocarTriplistRequest) SetTimeValue(v int64) *QueryElectrocarTriplistRequest {
+	s.TimeValue = &v
+	return s
+}
+
+func (s *QueryElectrocarTriplistRequest) SetPageNum(v int64) *QueryElectrocarTriplistRequest {
+	s.PageNum = &v
+	return s
+}
+
+func (s *QueryElectrocarTriplistRequest) SetPageSize(v int64) *QueryElectrocarTriplistRequest {
+	s.PageSize = &v
+	return s
+}
+
+type QueryElectrocarTriplistResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 状态
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 行程列表
+	TripDetailList []*TripDetail `json:"trip_detail_list,omitempty" xml:"trip_detail_list,omitempty" type:"Repeated"`
+}
+
+func (s QueryElectrocarTriplistResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryElectrocarTriplistResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryElectrocarTriplistResponse) SetReqMsgId(v string) *QueryElectrocarTriplistResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryElectrocarTriplistResponse) SetResultCode(v string) *QueryElectrocarTriplistResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryElectrocarTriplistResponse) SetResultMsg(v string) *QueryElectrocarTriplistResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryElectrocarTriplistResponse) SetSuccess(v bool) *QueryElectrocarTriplistResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *QueryElectrocarTriplistResponse) SetTripDetailList(v []*TripDetail) *QueryElectrocarTriplistResponse {
+	s.TripDetailList = v
+	return s
+}
+
+type QueryElectrocarTrippointsRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// tuid
+	Tuid *string `json:"tuid,omitempty" xml:"tuid,omitempty" require:"true"`
+	// 行程id
+	TripId *string `json:"trip_id,omitempty" xml:"trip_id,omitempty" require:"true"`
+}
+
+func (s QueryElectrocarTrippointsRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryElectrocarTrippointsRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryElectrocarTrippointsRequest) SetAuthToken(v string) *QueryElectrocarTrippointsRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryElectrocarTrippointsRequest) SetProductInstanceId(v string) *QueryElectrocarTrippointsRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryElectrocarTrippointsRequest) SetTuid(v string) *QueryElectrocarTrippointsRequest {
+	s.Tuid = &v
+	return s
+}
+
+func (s *QueryElectrocarTrippointsRequest) SetTripId(v string) *QueryElectrocarTrippointsRequest {
+	s.TripId = &v
+	return s
+}
+
+type QueryElectrocarTrippointsResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 状态
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// List<String>	["123.1223456_12.123456", "123.1223456_12.123456"]
+	TripPoints []*string `json:"trip_points,omitempty" xml:"trip_points,omitempty" type:"Repeated"`
+}
+
+func (s QueryElectrocarTrippointsResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryElectrocarTrippointsResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryElectrocarTrippointsResponse) SetReqMsgId(v string) *QueryElectrocarTrippointsResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryElectrocarTrippointsResponse) SetResultCode(v string) *QueryElectrocarTrippointsResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryElectrocarTrippointsResponse) SetResultMsg(v string) *QueryElectrocarTrippointsResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryElectrocarTrippointsResponse) SetSuccess(v bool) *QueryElectrocarTrippointsResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *QueryElectrocarTrippointsResponse) SetTripPoints(v []*string) *QueryElectrocarTrippointsResponse {
+	s.TripPoints = v
+	return s
+}
+
+type QueryElectrocarTriplastRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// tuid
+	Tuid *string `json:"tuid,omitempty" xml:"tuid,omitempty" require:"true"`
+	// MONTH（月）
+	// WEEK（周）
+	// DAY（日）
+	TimeDimension *string `json:"time_dimension,omitempty" xml:"time_dimension,omitempty" require:"true"`
+	// 时间戳
+	TimeValue *int64 `json:"time_value,omitempty" xml:"time_value,omitempty" require:"true"`
+}
+
+func (s QueryElectrocarTriplastRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryElectrocarTriplastRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryElectrocarTriplastRequest) SetAuthToken(v string) *QueryElectrocarTriplastRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryElectrocarTriplastRequest) SetProductInstanceId(v string) *QueryElectrocarTriplastRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryElectrocarTriplastRequest) SetTuid(v string) *QueryElectrocarTriplastRequest {
+	s.Tuid = &v
+	return s
+}
+
+func (s *QueryElectrocarTriplastRequest) SetTimeDimension(v string) *QueryElectrocarTriplastRequest {
+	s.TimeDimension = &v
+	return s
+}
+
+func (s *QueryElectrocarTriplastRequest) SetTimeValue(v int64) *QueryElectrocarTriplastRequest {
+	s.TimeValue = &v
+	return s
+}
+
+type QueryElectrocarTriplastResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 状态
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// {
+	// "startTime":1733841600000,
+	// "tripId":"T20251210140000001",
+	// "endTime":1733845200000,
+	// "mileage":36.8,
+	// "duration":{
+	// "value":"79",
+	// "unit":"h"
+	// },
+	// "maxSpeed":85.5,
+	// "avgSpeed":36.8,
+	// "firstAddress":"上海市浦东新区张江高科技园区博云路",
+	// "lastAddress":"上海市徐汇区漕河泾开发区桂平路",
+	// "firstLocationTime":1733841605000,
+	// "lastLocationTime":1733845195000
+	// }
+	LastTripDetail *TripDetail `json:"last_trip_detail,omitempty" xml:"last_trip_detail,omitempty"`
+}
+
+func (s QueryElectrocarTriplastResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryElectrocarTriplastResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryElectrocarTriplastResponse) SetReqMsgId(v string) *QueryElectrocarTriplastResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryElectrocarTriplastResponse) SetResultCode(v string) *QueryElectrocarTriplastResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryElectrocarTriplastResponse) SetResultMsg(v string) *QueryElectrocarTriplastResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryElectrocarTriplastResponse) SetSuccess(v bool) *QueryElectrocarTriplastResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *QueryElectrocarTriplastResponse) SetLastTripDetail(v *TripDetail) *QueryElectrocarTriplastResponse {
+	s.LastTripDetail = v
+	return s
+}
+
 type QueryIotplatformPurchaseorderRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -35460,6 +35985,118 @@ func (s *SendTaskalarmResponse) SetAlarmcode(v bool) *SendTaskalarmResponse {
 	return s
 }
 
+type ApplyTechintegrationSkushipemptymodelbyuidRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 场景码
+	VendorId *string `json:"vendor_id,omitempty" xml:"vendor_id,omitempty" require:"true"`
+	// 设备型号
+	ProductId *string `json:"product_id,omitempty" xml:"product_id,omitempty" require:"true"`
+	// 设备SN号
+	DeviceId *string `json:"device_id,omitempty" xml:"device_id,omitempty" require:"true"`
+	// 产品类型
+	ProductType *int64 `json:"product_type,omitempty" xml:"product_type,omitempty"`
+	// 凭证种类，高八位表示是否下发凭证，低八位表示安全方案
+	CertType *int64 `json:"cert_type,omitempty" xml:"cert_type,omitempty"`
+	// id2 authCode
+	Id2 *string `json:"id2,omitempty" xml:"id2,omitempty"`
+}
+
+func (s ApplyTechintegrationSkushipemptymodelbyuidRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyTechintegrationSkushipemptymodelbyuidRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyTechintegrationSkushipemptymodelbyuidRequest) SetAuthToken(v string) *ApplyTechintegrationSkushipemptymodelbyuidRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ApplyTechintegrationSkushipemptymodelbyuidRequest) SetProductInstanceId(v string) *ApplyTechintegrationSkushipemptymodelbyuidRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ApplyTechintegrationSkushipemptymodelbyuidRequest) SetVendorId(v string) *ApplyTechintegrationSkushipemptymodelbyuidRequest {
+	s.VendorId = &v
+	return s
+}
+
+func (s *ApplyTechintegrationSkushipemptymodelbyuidRequest) SetProductId(v string) *ApplyTechintegrationSkushipemptymodelbyuidRequest {
+	s.ProductId = &v
+	return s
+}
+
+func (s *ApplyTechintegrationSkushipemptymodelbyuidRequest) SetDeviceId(v string) *ApplyTechintegrationSkushipemptymodelbyuidRequest {
+	s.DeviceId = &v
+	return s
+}
+
+func (s *ApplyTechintegrationSkushipemptymodelbyuidRequest) SetProductType(v int64) *ApplyTechintegrationSkushipemptymodelbyuidRequest {
+	s.ProductType = &v
+	return s
+}
+
+func (s *ApplyTechintegrationSkushipemptymodelbyuidRequest) SetCertType(v int64) *ApplyTechintegrationSkushipemptymodelbyuidRequest {
+	s.CertType = &v
+	return s
+}
+
+func (s *ApplyTechintegrationSkushipemptymodelbyuidRequest) SetId2(v string) *ApplyTechintegrationSkushipemptymodelbyuidRequest {
+	s.Id2 = &v
+	return s
+}
+
+type ApplyTechintegrationSkushipemptymodelbyuidResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 证书信息
+	Cert *string `json:"cert,omitempty" xml:"cert,omitempty"`
+	// Id2信息
+	Id2 *string `json:"id2,omitempty" xml:"id2,omitempty"`
+}
+
+func (s ApplyTechintegrationSkushipemptymodelbyuidResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyTechintegrationSkushipemptymodelbyuidResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyTechintegrationSkushipemptymodelbyuidResponse) SetReqMsgId(v string) *ApplyTechintegrationSkushipemptymodelbyuidResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ApplyTechintegrationSkushipemptymodelbyuidResponse) SetResultCode(v string) *ApplyTechintegrationSkushipemptymodelbyuidResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ApplyTechintegrationSkushipemptymodelbyuidResponse) SetResultMsg(v string) *ApplyTechintegrationSkushipemptymodelbyuidResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ApplyTechintegrationSkushipemptymodelbyuidResponse) SetCert(v string) *ApplyTechintegrationSkushipemptymodelbyuidResponse {
+	s.Cert = &v
+	return s
+}
+
+func (s *ApplyTechintegrationSkushipemptymodelbyuidResponse) SetId2(v string) *ApplyTechintegrationSkushipemptymodelbyuidResponse {
+	s.Id2 = &v
+	return s
+}
+
 type ExecThingsdidOneapiRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -37230,7 +37867,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.12.40"),
+				"sdk_version":      tea.String("1.12.48"),
 				"_prod_code":       tea.String("BOT"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -42109,6 +42746,142 @@ func (client *Client) PushDeviceAudioEx(request *PushDeviceAudioRequest, headers
 }
 
 /**
+ * Description: iotx二轮车行程统计接口
+ * Summary: iotx二轮车行程统计接口
+ */
+func (client *Client) QueryElectrocarTripstatistics(request *QueryElectrocarTripstatisticsRequest) (_result *QueryElectrocarTripstatisticsResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryElectrocarTripstatisticsResponse{}
+	_body, _err := client.QueryElectrocarTripstatisticsEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: iotx二轮车行程统计接口
+ * Summary: iotx二轮车行程统计接口
+ */
+func (client *Client) QueryElectrocarTripstatisticsEx(request *QueryElectrocarTripstatisticsRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryElectrocarTripstatisticsResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryElectrocarTripstatisticsResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.electrocar.tripstatistics.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: iotx二轮车行程列表接口
+ * Summary: iotx二轮车行程列表接口
+ */
+func (client *Client) QueryElectrocarTriplist(request *QueryElectrocarTriplistRequest) (_result *QueryElectrocarTriplistResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryElectrocarTriplistResponse{}
+	_body, _err := client.QueryElectrocarTriplistEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: iotx二轮车行程列表接口
+ * Summary: iotx二轮车行程列表接口
+ */
+func (client *Client) QueryElectrocarTriplistEx(request *QueryElectrocarTriplistRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryElectrocarTriplistResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryElectrocarTriplistResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.electrocar.triplist.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: iotx二轮车行程定位
+ * Summary: iotx二轮车行程定位
+ */
+func (client *Client) QueryElectrocarTrippoints(request *QueryElectrocarTrippointsRequest) (_result *QueryElectrocarTrippointsResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryElectrocarTrippointsResponse{}
+	_body, _err := client.QueryElectrocarTrippointsEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: iotx二轮车行程定位
+ * Summary: iotx二轮车行程定位
+ */
+func (client *Client) QueryElectrocarTrippointsEx(request *QueryElectrocarTrippointsRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryElectrocarTrippointsResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryElectrocarTrippointsResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.electrocar.trippoints.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: iotx二轮车最近一段行程查询接口
+ * Summary: iotx二轮车最近一段行程查询接口
+ */
+func (client *Client) QueryElectrocarTriplast(request *QueryElectrocarTriplastRequest) (_result *QueryElectrocarTriplastResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryElectrocarTriplastResponse{}
+	_body, _err := client.QueryElectrocarTriplastEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: iotx二轮车最近一段行程查询接口
+ * Summary: iotx二轮车最近一段行程查询接口
+ */
+func (client *Client) QueryElectrocarTriplastEx(request *QueryElectrocarTriplastRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryElectrocarTriplastResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryElectrocarTriplastResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.electrocar.triplast.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
  * Description: 根据设备串号查询采购设备
  * Summary: 根据设备串号查询采购设备
  */
@@ -46249,6 +47022,40 @@ func (client *Client) SendTaskalarmEx(request *SendTaskalarmRequest, headers map
 	}
 	_result = &SendTaskalarmResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.taskalarm.send"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 支付芯非SE方案空发接口
+ * Summary: 支付芯非SE方案空发接口
+ */
+func (client *Client) ApplyTechintegrationSkushipemptymodelbyuid(request *ApplyTechintegrationSkushipemptymodelbyuidRequest) (_result *ApplyTechintegrationSkushipemptymodelbyuidResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ApplyTechintegrationSkushipemptymodelbyuidResponse{}
+	_body, _err := client.ApplyTechintegrationSkushipemptymodelbyuidEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 支付芯非SE方案空发接口
+ * Summary: 支付芯非SE方案空发接口
+ */
+func (client *Client) ApplyTechintegrationSkushipemptymodelbyuidEx(request *ApplyTechintegrationSkushipemptymodelbyuidRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplyTechintegrationSkushipemptymodelbyuidResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ApplyTechintegrationSkushipemptymodelbyuidResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.techintegration.skushipemptymodelbyuid.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
