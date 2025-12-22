@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.2.27',
+    sdk_version = '1.2.28',
     _prod_code = 'BXPT_NEW',
     _prod_channel = 'default'
   };
@@ -586,6 +586,73 @@ async function notifyMultimodalDataprod(request: NotifyMultimodalDataprodRequest
 async function notifyMultimodalDataprodEx(request: NotifyMultimodalDataprodRequest, headers: map[string]string, runtime: Util.RuntimeOptions): NotifyMultimodalDataprodResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antcloud.bxptnew.multimodal.dataprod.notify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ExecSyncmultimodalDataprodRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 文件唯一id
+  fileObject?: readable(description='待上传文件', ignore='true'),
+  fileObjectName?: string(description='待上传文件名', ignore='true'),
+  fileId: string(name='file_id'),
+  // 业务入参的json字符串
+  bizContent?: string(name='biz_content'),
+  // 数据产品编码
+  productCode: string(name='product_code'),
+  // 请求唯一标识
+  requestId: string(name='request_id'),
+}
+
+model ExecSyncmultimodalDataprodResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 业务返回值json
+  bizResult?: string(name='biz_result'),
+  // 是否计费标识
+  chargeFlag?: string(name='charge_flag'),
+}
+
+/**
+ * Description: 提供多模态的数据产品执行，并同步返回验证结果，支持上传文本，图片、视频、音频等格式
+ * Summary: 提供多模态的数据产品执行同步返回
+ */
+async function execSyncmultimodalDataprod(request: ExecSyncmultimodalDataprodRequest): ExecSyncmultimodalDataprodResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return execSyncmultimodalDataprodEx(request, headers, runtime);
+}
+
+/**
+ * Description: 提供多模态的数据产品执行，并同步返回验证结果，支持上传文本，图片、视频、音频等格式
+ * Summary: 提供多模态的数据产品执行同步返回
+ */
+async function execSyncmultimodalDataprodEx(request: ExecSyncmultimodalDataprodRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExecSyncmultimodalDataprodResponse {
+  if (!Util.isUnset(request.fileObject)) {
+    var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
+      authToken = request.authToken,
+      apiCode = 'antcloud.bxptnew.syncmultimodal.dataprod.exec',
+      fileName = request.fileObjectName,
+    };
+    var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+    if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+      var execSyncmultimodalDataprodResponse = new ExecSyncmultimodalDataprodResponse{
+        reqMsgId = uploadResp.reqMsgId,
+        resultCode = uploadResp.resultCode,
+        resultMsg = uploadResp.resultMsg,
+      };
+      return execSyncmultimodalDataprodResponse;
+    }
+    var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+    AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+    request.fileId = uploadResp.fileId;
+    request.fileObject = null;
+  }
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.bxptnew.syncmultimodal.dataprod.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryDatapromotionDecisionRequest = {
