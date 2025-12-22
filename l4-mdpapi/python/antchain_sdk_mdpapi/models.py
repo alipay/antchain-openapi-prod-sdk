@@ -390,6 +390,8 @@ class QuerybyappidAntdigitalMdpResponse(TeaModel):
         appid: str = None,
         userid: str = None,
         scores: List[AppIdQualityScoresDONew] = None,
+        rule: str = None,
+        rulemd_5: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -403,6 +405,10 @@ class QuerybyappidAntdigitalMdpResponse(TeaModel):
         self.userid = userid
         # 分数列表
         self.scores = scores
+        # 筛选分数的规则，通过规则的返回，否则 scores 内容是空的
+        self.rule = rule
+        # 规则对应的 md5 值，用来区分当前规则的版本
+        self.rulemd_5 = rulemd_5
 
     def validate(self):
         if self.scores:
@@ -430,6 +436,10 @@ class QuerybyappidAntdigitalMdpResponse(TeaModel):
         if self.scores is not None:
             for k in self.scores:
                 result['scores'].append(k.to_map() if k else None)
+        if self.rule is not None:
+            result['rule'] = self.rule
+        if self.rulemd_5 is not None:
+            result['rulemd5'] = self.rulemd_5
         return result
 
     def from_map(self, m: dict = None):
@@ -449,6 +459,10 @@ class QuerybyappidAntdigitalMdpResponse(TeaModel):
             for k in m.get('scores'):
                 temp_model = AppIdQualityScoresDONew()
                 self.scores.append(temp_model.from_map(k))
+        if m.get('rule') is not None:
+            self.rule = m.get('rule')
+        if m.get('rulemd5') is not None:
+            self.rulemd_5 = m.get('rulemd5')
         return self
 
 
