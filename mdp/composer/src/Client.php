@@ -11,8 +11,14 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\MDP\Models\BatchqueryscoreRequest;
+use AntChain\MDP\Models\BatchqueryscoreResponse;
 use AntChain\MDP\Models\GetuserscoreRequest;
 use AntChain\MDP\Models\GetuserscoreResponse;
+use AntChain\MDP\Models\QuerybyappidRequest;
+use AntChain\MDP\Models\QuerybyappidResponse;
+use AntChain\MDP\Models\QueryscoreRequest;
+use AntChain\MDP\Models\QueryscoreResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -132,6 +138,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
+            // AppIdQualityScoresDONew
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -159,7 +166,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.0',
+                    'sdk_version'      => '1.0.1',
                     '_prod_code'       => 'MDP',
                     '_prod_channel'    => 'default',
                 ];
@@ -209,7 +216,7 @@ class Client
 
     /**
      * Description: 依据 modelid 和 userid，查询用户分数
-     * Summary: 查询用户分数.
+     * Summary: 依据 modelid 和 userid，查询用户分数.
      *
      * @param GetuserscoreRequest $request
      *
@@ -225,7 +232,7 @@ class Client
 
     /**
      * Description: 依据 modelid 和 userid，查询用户分数
-     * Summary: 查询用户分数.
+     * Summary: 依据 modelid 和 userid，查询用户分数.
      *
      * @param GetuserscoreRequest $request
      * @param string[]            $headers
@@ -238,5 +245,104 @@ class Client
         Utils::validateModel($request);
 
         return GetuserscoreResponse::fromMap($this->doRequest('1.0', 'antdigital.mdp.getuserscore', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 依据 model_id 和 user_id，查询用户分数
+     * Summary: 批量查询用户分数.
+     *
+     * @param QueryscoreRequest $request
+     *
+     * @return QueryscoreResponse
+     */
+    public function queryscore($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryscoreEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 依据 model_id 和 user_id，查询用户分数
+     * Summary: 批量查询用户分数.
+     *
+     * @param QueryscoreRequest $request
+     * @param string[]          $headers
+     * @param RuntimeOptions    $runtime
+     *
+     * @return QueryscoreResponse
+     */
+    public function queryscoreEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryscoreResponse::fromMap($this->doRequest('1.0', 'antdigital.mdp.queryscore', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 使用模型 id 和用户 id 类型，批量查询分数
+     * Summary: 使用模型 id 和用户 id 类型，批量查询分数.
+     *
+     * @param BatchqueryscoreRequest $request
+     *
+     * @return BatchqueryscoreResponse
+     */
+    public function batchqueryscore($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->batchqueryscoreEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 使用模型 id 和用户 id 类型，批量查询分数
+     * Summary: 使用模型 id 和用户 id 类型，批量查询分数.
+     *
+     * @param BatchqueryscoreRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return BatchqueryscoreResponse
+     */
+    public function batchqueryscoreEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BatchqueryscoreResponse::fromMap($this->doRequest('1.0', 'antdigital.mdp.batchqueryscore', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 通过appid和userid查询多个模型的分数
+     * Summary: 通过appid和userid查询多个模型的分数.
+     *
+     * @param QuerybyappidRequest $request
+     *
+     * @return QuerybyappidResponse
+     */
+    public function querybyappid($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->querybyappidEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 通过appid和userid查询多个模型的分数
+     * Summary: 通过appid和userid查询多个模型的分数.
+     *
+     * @param QuerybyappidRequest $request
+     * @param string[]            $headers
+     * @param RuntimeOptions      $runtime
+     *
+     * @return QuerybyappidResponse
+     */
+    public function querybyappidEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QuerybyappidResponse::fromMap($this->doRequest('1.0', 'antdigital.mdp.querybyappid', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
