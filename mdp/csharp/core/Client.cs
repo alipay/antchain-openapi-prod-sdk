@@ -137,7 +137,7 @@ namespace AntChain.SDK.MDP
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.0"},
+                        {"sdk_version", "1.0.1"},
                         {"_prod_code", "MDP"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.MDP
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.0"},
+                        {"sdk_version", "1.0.1"},
                         {"_prod_code", "MDP"},
                         {"_prod_channel", "default"},
                     };
@@ -323,7 +323,7 @@ namespace AntChain.SDK.MDP
 
         /**
          * Description: 依据 modelid 和 userid，查询用户分数
-         * Summary: 查询用户分数
+         * Summary: 依据 modelid 和 userid，查询用户分数
          */
         public GetuserscoreResponse Getuserscore(GetuserscoreRequest request)
         {
@@ -334,7 +334,7 @@ namespace AntChain.SDK.MDP
 
         /**
          * Description: 依据 modelid 和 userid，查询用户分数
-         * Summary: 查询用户分数
+         * Summary: 依据 modelid 和 userid，查询用户分数
          */
         public async Task<GetuserscoreResponse> GetuserscoreAsync(GetuserscoreRequest request)
         {
@@ -345,7 +345,7 @@ namespace AntChain.SDK.MDP
 
         /**
          * Description: 依据 modelid 和 userid，查询用户分数
-         * Summary: 查询用户分数
+         * Summary: 依据 modelid 和 userid，查询用户分数
          */
         public GetuserscoreResponse GetuserscoreEx(GetuserscoreRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -355,12 +355,138 @@ namespace AntChain.SDK.MDP
 
         /**
          * Description: 依据 modelid 和 userid，查询用户分数
-         * Summary: 查询用户分数
+         * Summary: 依据 modelid 和 userid，查询用户分数
          */
         public async Task<GetuserscoreResponse> GetuserscoreExAsync(GetuserscoreRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<GetuserscoreResponse>(await DoRequestAsync("1.0", "antdigital.mdp.getuserscore", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 依据 model_id 和 user_id，查询用户分数
+         * Summary: 批量查询用户分数
+         */
+        public QueryscoreResponse Queryscore(QueryscoreRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryscoreEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 依据 model_id 和 user_id，查询用户分数
+         * Summary: 批量查询用户分数
+         */
+        public async Task<QueryscoreResponse> QueryscoreAsync(QueryscoreRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryscoreExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 依据 model_id 和 user_id，查询用户分数
+         * Summary: 批量查询用户分数
+         */
+        public QueryscoreResponse QueryscoreEx(QueryscoreRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryscoreResponse>(DoRequest("1.0", "antdigital.mdp.queryscore", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 依据 model_id 和 user_id，查询用户分数
+         * Summary: 批量查询用户分数
+         */
+        public async Task<QueryscoreResponse> QueryscoreExAsync(QueryscoreRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryscoreResponse>(await DoRequestAsync("1.0", "antdigital.mdp.queryscore", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 使用模型 id 和用户 id 类型，批量查询分数
+         * Summary: 使用模型 id 和用户 id 类型，批量查询分数
+         */
+        public BatchqueryscoreResponse Batchqueryscore(BatchqueryscoreRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return BatchqueryscoreEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 使用模型 id 和用户 id 类型，批量查询分数
+         * Summary: 使用模型 id 和用户 id 类型，批量查询分数
+         */
+        public async Task<BatchqueryscoreResponse> BatchqueryscoreAsync(BatchqueryscoreRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await BatchqueryscoreExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 使用模型 id 和用户 id 类型，批量查询分数
+         * Summary: 使用模型 id 和用户 id 类型，批量查询分数
+         */
+        public BatchqueryscoreResponse BatchqueryscoreEx(BatchqueryscoreRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BatchqueryscoreResponse>(DoRequest("1.0", "antdigital.mdp.batchqueryscore", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 使用模型 id 和用户 id 类型，批量查询分数
+         * Summary: 使用模型 id 和用户 id 类型，批量查询分数
+         */
+        public async Task<BatchqueryscoreResponse> BatchqueryscoreExAsync(BatchqueryscoreRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BatchqueryscoreResponse>(await DoRequestAsync("1.0", "antdigital.mdp.batchqueryscore", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 通过appid和userid查询多个模型的分数
+         * Summary: 通过appid和userid查询多个模型的分数
+         */
+        public QuerybyappidResponse Querybyappid(QuerybyappidRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QuerybyappidEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 通过appid和userid查询多个模型的分数
+         * Summary: 通过appid和userid查询多个模型的分数
+         */
+        public async Task<QuerybyappidResponse> QuerybyappidAsync(QuerybyappidRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QuerybyappidExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 通过appid和userid查询多个模型的分数
+         * Summary: 通过appid和userid查询多个模型的分数
+         */
+        public QuerybyappidResponse QuerybyappidEx(QuerybyappidRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QuerybyappidResponse>(DoRequest("1.0", "antdigital.mdp.querybyappid", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 通过appid和userid查询多个模型的分数
+         * Summary: 通过appid和userid查询多个模型的分数
+         */
+        public async Task<QuerybyappidResponse> QuerybyappidExAsync(QuerybyappidRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QuerybyappidResponse>(await DoRequestAsync("1.0", "antdigital.mdp.querybyappid", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
