@@ -19,6 +19,8 @@ use AntChain\BXPT_NEW\Models\ExecDataproductRequest;
 use AntChain\BXPT_NEW\Models\ExecDataproductResponse;
 use AntChain\BXPT_NEW\Models\ExecMultimodalDataprodRequest;
 use AntChain\BXPT_NEW\Models\ExecMultimodalDataprodResponse;
+use AntChain\BXPT_NEW\Models\ExecSyncmultimodalDataprodRequest;
+use AntChain\BXPT_NEW\Models\ExecSyncmultimodalDataprodResponse;
 use AntChain\BXPT_NEW\Models\NotifyMultimodalDataprodRequest;
 use AntChain\BXPT_NEW\Models\NotifyMultimodalDataprodResponse;
 use AntChain\BXPT_NEW\Models\PushDatapromotionTrafficRequest;
@@ -180,7 +182,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.2.27',
+                    'sdk_version'      => '1.2.28',
                     '_prod_code'       => 'BXPT_NEW',
                     '_prod_channel'    => 'default',
                 ];
@@ -509,6 +511,58 @@ class Client
         Utils::validateModel($request);
 
         return NotifyMultimodalDataprodResponse::fromMap($this->doRequest('1.0', 'antcloud.bxptnew.multimodal.dataprod.notify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 提供多模态的数据产品执行，并同步返回验证结果，支持上传文本，图片、视频、音频等格式
+     * Summary: 提供多模态的数据产品执行同步返回.
+     *
+     * @param ExecSyncmultimodalDataprodRequest $request
+     *
+     * @return ExecSyncmultimodalDataprodResponse
+     */
+    public function execSyncmultimodalDataprod($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->execSyncmultimodalDataprodEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 提供多模态的数据产品执行，并同步返回验证结果，支持上传文本，图片、视频、音频等格式
+     * Summary: 提供多模态的数据产品执行同步返回.
+     *
+     * @param ExecSyncmultimodalDataprodRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return ExecSyncmultimodalDataprodResponse
+     */
+    public function execSyncmultimodalDataprodEx($request, $headers, $runtime)
+    {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'antcloud.bxptnew.syncmultimodal.dataprod.exec',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
+                return new ExecSyncmultimodalDataprodResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
+        }
+        Utils::validateModel($request);
+
+        return ExecSyncmultimodalDataprodResponse::fromMap($this->doRequest('1.0', 'antcloud.bxptnew.syncmultimodal.dataprod.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
