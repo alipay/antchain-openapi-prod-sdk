@@ -8,67 +8,66 @@ use AlibabaCloud\Tea\Model;
 
 class TripStatistics extends Model
 {
-    // 行驶天数
+    // 总里程
     /**
-     * @example 2018-10-10T10:10:00Z
+     * @example 23
      *
      * @var string
      */
-    public $tripDay;
+    public $totalMileage;
 
-    // 总里程
+    // 时间体
+    /**
+     * @example "totalDuration":{ "value":"79", "unit":"h" }
+     *
+     * @var TripDuration
+     */
+    public $totalDuration;
+
+    // 总次数
     /**
      * @example 12
      *
      * @var int
      */
-    public $totalDistance;
+    public $totalCount;
 
-    // 总用时
+    // 时期码
     /**
      * @example 2
      *
      * @var int
      */
-    public $totalDuration;
-
-    // 行驶次数
-    /**
-     * @example 12
-     *
-     * @var int
-     */
-    public $tripCount;
+    public $periodCode;
     protected $_name = [
-        'tripDay'       => 'trip_day',
-        'totalDistance' => 'total_distance',
+        'totalMileage'  => 'total_mileage',
         'totalDuration' => 'total_duration',
-        'tripCount'     => 'trip_count',
+        'totalCount'    => 'total_count',
+        'periodCode'    => 'period_code',
     ];
 
     public function validate()
     {
-        Model::validateRequired('tripDay', $this->tripDay, true);
-        Model::validateRequired('totalDistance', $this->totalDistance, true);
+        Model::validateRequired('totalMileage', $this->totalMileage, true);
         Model::validateRequired('totalDuration', $this->totalDuration, true);
-        Model::validateRequired('tripCount', $this->tripCount, true);
-        Model::validatePattern('tripDay', $this->tripDay, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
+        Model::validateRequired('totalCount', $this->totalCount, true);
+        Model::validateRequired('periodCode', $this->periodCode, true);
     }
 
     public function toMap()
     {
         $res = [];
-        if (null !== $this->tripDay) {
-            $res['trip_day'] = $this->tripDay;
-        }
-        if (null !== $this->totalDistance) {
-            $res['total_distance'] = $this->totalDistance;
+        if (null !== $this->totalMileage) {
+            $res['total_mileage'] = $this->totalMileage;
         }
         if (null !== $this->totalDuration) {
-            $res['total_duration'] = $this->totalDuration;
+            $res['total_duration'] = null !== $this->totalDuration ? $this->totalDuration->toMap() : null;
         }
-        if (null !== $this->tripCount) {
-            $res['trip_count'] = $this->tripCount;
+        if (null !== $this->totalCount) {
+            $res['total_count'] = $this->totalCount;
+        }
+        if (null !== $this->periodCode) {
+            $res['period_code'] = $this->periodCode;
         }
 
         return $res;
@@ -82,17 +81,17 @@ class TripStatistics extends Model
     public static function fromMap($map = [])
     {
         $model = new self();
-        if (isset($map['trip_day'])) {
-            $model->tripDay = $map['trip_day'];
-        }
-        if (isset($map['total_distance'])) {
-            $model->totalDistance = $map['total_distance'];
+        if (isset($map['total_mileage'])) {
+            $model->totalMileage = $map['total_mileage'];
         }
         if (isset($map['total_duration'])) {
-            $model->totalDuration = $map['total_duration'];
+            $model->totalDuration = TripDuration::fromMap($map['total_duration']);
         }
-        if (isset($map['trip_count'])) {
-            $model->tripCount = $map['trip_count'];
+        if (isset($map['total_count'])) {
+            $model->totalCount = $map['total_count'];
+        }
+        if (isset($map['period_code'])) {
+            $model->periodCode = $map['period_code'];
         }
 
         return $model;

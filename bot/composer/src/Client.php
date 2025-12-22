@@ -37,6 +37,8 @@ use AntChain\BOT\Models\ApplyMqtokenRequest;
 use AntChain\BOT\Models\ApplyMqtokenResponse;
 use AntChain\BOT\Models\ApplyTechintegrationSkushipbyuidRequest;
 use AntChain\BOT\Models\ApplyTechintegrationSkushipbyuidResponse;
+use AntChain\BOT\Models\ApplyTechintegrationSkushipemptymodelbyuidRequest;
+use AntChain\BOT\Models\ApplyTechintegrationSkushipemptymodelbyuidResponse;
 use AntChain\BOT\Models\ApplyTechintegrationSkushipRequest;
 use AntChain\BOT\Models\ApplyTechintegrationSkushipResponse;
 use AntChain\BOT\Models\BatchcreateDevicecorpDeviceRequest;
@@ -385,6 +387,14 @@ use AntChain\BOT\Models\QueryElectrocarRealtimedataRequest;
 use AntChain\BOT\Models\QueryElectrocarRealtimedataResponse;
 use AntChain\BOT\Models\QueryElectrocarTravelRequest;
 use AntChain\BOT\Models\QueryElectrocarTravelResponse;
+use AntChain\BOT\Models\QueryElectrocarTriplastRequest;
+use AntChain\BOT\Models\QueryElectrocarTriplastResponse;
+use AntChain\BOT\Models\QueryElectrocarTriplistRequest;
+use AntChain\BOT\Models\QueryElectrocarTriplistResponse;
+use AntChain\BOT\Models\QueryElectrocarTrippointsRequest;
+use AntChain\BOT\Models\QueryElectrocarTrippointsResponse;
+use AntChain\BOT\Models\QueryElectrocarTripstatisticsRequest;
+use AntChain\BOT\Models\QueryElectrocarTripstatisticsResponse;
 use AntChain\BOT\Models\QueryEntityrelationJtdevicebycarRequest;
 use AntChain\BOT\Models\QueryEntityrelationJtdevicebycarResponse;
 use AntChain\BOT\Models\QueryIotbasicCategorylistRequest;
@@ -716,7 +726,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.12.40',
+                    'sdk_version'      => '1.12.48',
                     '_prod_code'       => 'BOT',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -5423,6 +5433,138 @@ class Client
     }
 
     /**
+     * Description: iotx二轮车行程统计接口
+     * Summary: iotx二轮车行程统计接口.
+     *
+     * @param QueryElectrocarTripstatisticsRequest $request
+     *
+     * @return QueryElectrocarTripstatisticsResponse
+     */
+    public function queryElectrocarTripstatistics($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryElectrocarTripstatisticsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: iotx二轮车行程统计接口
+     * Summary: iotx二轮车行程统计接口.
+     *
+     * @param QueryElectrocarTripstatisticsRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return QueryElectrocarTripstatisticsResponse
+     */
+    public function queryElectrocarTripstatisticsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryElectrocarTripstatisticsResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.electrocar.tripstatistics.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: iotx二轮车行程列表接口
+     * Summary: iotx二轮车行程列表接口.
+     *
+     * @param QueryElectrocarTriplistRequest $request
+     *
+     * @return QueryElectrocarTriplistResponse
+     */
+    public function queryElectrocarTriplist($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryElectrocarTriplistEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: iotx二轮车行程列表接口
+     * Summary: iotx二轮车行程列表接口.
+     *
+     * @param QueryElectrocarTriplistRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return QueryElectrocarTriplistResponse
+     */
+    public function queryElectrocarTriplistEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryElectrocarTriplistResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.electrocar.triplist.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: iotx二轮车行程定位
+     * Summary: iotx二轮车行程定位.
+     *
+     * @param QueryElectrocarTrippointsRequest $request
+     *
+     * @return QueryElectrocarTrippointsResponse
+     */
+    public function queryElectrocarTrippoints($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryElectrocarTrippointsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: iotx二轮车行程定位
+     * Summary: iotx二轮车行程定位.
+     *
+     * @param QueryElectrocarTrippointsRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return QueryElectrocarTrippointsResponse
+     */
+    public function queryElectrocarTrippointsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryElectrocarTrippointsResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.electrocar.trippoints.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: iotx二轮车最近一段行程查询接口
+     * Summary: iotx二轮车最近一段行程查询接口.
+     *
+     * @param QueryElectrocarTriplastRequest $request
+     *
+     * @return QueryElectrocarTriplastResponse
+     */
+    public function queryElectrocarTriplast($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryElectrocarTriplastEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: iotx二轮车最近一段行程查询接口
+     * Summary: iotx二轮车最近一段行程查询接口.
+     *
+     * @param QueryElectrocarTriplastRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return QueryElectrocarTriplastResponse
+     */
+    public function queryElectrocarTriplastEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryElectrocarTriplastResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.electrocar.triplast.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 根据设备串号查询采购设备
      * Summary: 根据设备串号查询采购设备.
      *
@@ -9446,6 +9588,39 @@ class Client
         Utils::validateModel($request);
 
         return SendTaskalarmResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.taskalarm.send', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 支付芯非SE方案空发接口
+     * Summary: 支付芯非SE方案空发接口.
+     *
+     * @param ApplyTechintegrationSkushipemptymodelbyuidRequest $request
+     *
+     * @return ApplyTechintegrationSkushipemptymodelbyuidResponse
+     */
+    public function applyTechintegrationSkushipemptymodelbyuid($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyTechintegrationSkushipemptymodelbyuidEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 支付芯非SE方案空发接口
+     * Summary: 支付芯非SE方案空发接口.
+     *
+     * @param ApplyTechintegrationSkushipemptymodelbyuidRequest $request
+     * @param string[]                                          $headers
+     * @param RuntimeOptions                                    $runtime
+     *
+     * @return ApplyTechintegrationSkushipemptymodelbyuidResponse
+     */
+    public function applyTechintegrationSkushipemptymodelbyuidEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyTechintegrationSkushipemptymodelbyuidResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.techintegration.skushipemptymodelbyuid.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
