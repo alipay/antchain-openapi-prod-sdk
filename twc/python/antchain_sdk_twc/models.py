@@ -154,6 +154,284 @@ class Config(TeaModel):
         return self
 
 
+class CaSystemCrossPageRequest(TeaModel):
+    def __init__(
+        self,
+        pos_page_start: int = None,
+        pos_page_end: int = None,
+        pos_x: int = None,
+        pos_y: int = None,
+        seal_times: int = None,
+        default_cross_page_rule: bool = None,
+        default_cross_page: int = None,
+    ):
+        # 签署开始页码
+        self.pos_page_start = pos_page_start
+        # 签署结束页码
+        self.pos_page_end = pos_page_end
+        # 签署区位置横坐标
+        self.pos_x = pos_x
+        # 签署区位置纵坐标
+        self.pos_y = pos_y
+        # 用印次数
+        self.seal_times = seal_times
+        # 是否采取系统默认骑缝章用印规则
+        self.default_cross_page_rule = default_cross_page_rule
+        # 默认骑缝章页数
+        self.default_cross_page = default_cross_page
+
+    def validate(self):
+        self.validate_required(self.pos_x, 'pos_x')
+        self.validate_required(self.pos_y, 'pos_y')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.pos_page_start is not None:
+            result['pos_page_start'] = self.pos_page_start
+        if self.pos_page_end is not None:
+            result['pos_page_end'] = self.pos_page_end
+        if self.pos_x is not None:
+            result['pos_x'] = self.pos_x
+        if self.pos_y is not None:
+            result['pos_y'] = self.pos_y
+        if self.seal_times is not None:
+            result['seal_times'] = self.seal_times
+        if self.default_cross_page_rule is not None:
+            result['default_cross_page_rule'] = self.default_cross_page_rule
+        if self.default_cross_page is not None:
+            result['default_cross_page'] = self.default_cross_page
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('pos_page_start') is not None:
+            self.pos_page_start = m.get('pos_page_start')
+        if m.get('pos_page_end') is not None:
+            self.pos_page_end = m.get('pos_page_end')
+        if m.get('pos_x') is not None:
+            self.pos_x = m.get('pos_x')
+        if m.get('pos_y') is not None:
+            self.pos_y = m.get('pos_y')
+        if m.get('seal_times') is not None:
+            self.seal_times = m.get('seal_times')
+        if m.get('default_cross_page_rule') is not None:
+            self.default_cross_page_rule = m.get('default_cross_page_rule')
+        if m.get('default_cross_page') is not None:
+            self.default_cross_page = m.get('default_cross_page')
+        return self
+
+
+class CaSystemMainBodyRequest(TeaModel):
+    def __init__(
+        self,
+        main_body_model: str = None,
+        pos_page: int = None,
+        pos_x: int = None,
+        pos_y: int = None,
+        key_word: str = None,
+        key_word_type: int = None,
+        kw_index: int = None,
+        kw_shift_x: int = None,
+        kw_shift_y: int = None,
+    ):
+        # 正文章模式坐标ABSOLUTE_POSITION, 关键字KEY_WORD
+        self.main_body_model = main_body_model
+        # 签署页码
+        self.pos_page = pos_page
+        # 签署区位置横坐标;mainBodyModel为ABSOLUTE_POSITION时必填
+        self.pos_x = pos_x
+        # 签署区位置纵坐标;mainBodyModel为ABSOLUTE_POSITION时必填
+        self.pos_y = pos_y
+        # 关键字：mainBodyModel为KEY_WORD时必填
+        self.key_word = key_word
+        # mainBodyModel为KEY_WORD时必填
+        self.key_word_type = key_word_type
+        # 第几个关键字;mainBodyModel为KEY_WORD时必填
+        self.kw_index = kw_index
+        # x偏移量
+        self.kw_shift_x = kw_shift_x
+        # y偏移量
+        self.kw_shift_y = kw_shift_y
+
+    def validate(self):
+        self.validate_required(self.main_body_model, 'main_body_model')
+        self.validate_required(self.pos_page, 'pos_page')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.main_body_model is not None:
+            result['main_body_model'] = self.main_body_model
+        if self.pos_page is not None:
+            result['pos_page'] = self.pos_page
+        if self.pos_x is not None:
+            result['pos_x'] = self.pos_x
+        if self.pos_y is not None:
+            result['pos_y'] = self.pos_y
+        if self.key_word is not None:
+            result['key_word'] = self.key_word
+        if self.key_word_type is not None:
+            result['key_word_type'] = self.key_word_type
+        if self.kw_index is not None:
+            result['kw_index'] = self.kw_index
+        if self.kw_shift_x is not None:
+            result['kw_shift_x'] = self.kw_shift_x
+        if self.kw_shift_y is not None:
+            result['kw_shift_y'] = self.kw_shift_y
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('main_body_model') is not None:
+            self.main_body_model = m.get('main_body_model')
+        if m.get('pos_page') is not None:
+            self.pos_page = m.get('pos_page')
+        if m.get('pos_x') is not None:
+            self.pos_x = m.get('pos_x')
+        if m.get('pos_y') is not None:
+            self.pos_y = m.get('pos_y')
+        if m.get('key_word') is not None:
+            self.key_word = m.get('key_word')
+        if m.get('key_word_type') is not None:
+            self.key_word_type = m.get('key_word_type')
+        if m.get('kw_index') is not None:
+            self.kw_index = m.get('kw_index')
+        if m.get('kw_shift_x') is not None:
+            self.kw_shift_x = m.get('kw_shift_x')
+        if m.get('kw_shift_y') is not None:
+            self.kw_shift_y = m.get('kw_shift_y')
+        return self
+
+
+class CaSystemSignAreaRequest(TeaModel):
+    def __init__(
+        self,
+        seal_pic_addr: str = None,
+        location_type: str = None,
+        rotate_angle: int = None,
+        position_type: int = None,
+        external_seal_type: str = None,
+        ca_system_cross_page_request: CaSystemCrossPageRequest = None,
+        ca_system_main_body_request: CaSystemMainBodyRequest = None,
+    ):
+        # 印章印模oss-fileKey 或者oss可预览下载地址
+        self.seal_pic_addr = seal_pic_addr
+        # 用印对齐类型
+        self.location_type = location_type
+        # 章的旋转角度
+        self.rotate_angle = rotate_angle
+        # 签署位置类型	1代表正文章，2代表骑缝章
+        self.position_type = position_type
+        # 指定外部印章类型
+        self.external_seal_type = external_seal_type
+        # 骑缝章信息
+        self.ca_system_cross_page_request = ca_system_cross_page_request
+        # 正文章信息
+        self.ca_system_main_body_request = ca_system_main_body_request
+
+    def validate(self):
+        self.validate_required(self.location_type, 'location_type')
+        self.validate_required(self.position_type, 'position_type')
+        if self.ca_system_cross_page_request:
+            self.ca_system_cross_page_request.validate()
+        if self.ca_system_main_body_request:
+            self.ca_system_main_body_request.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.seal_pic_addr is not None:
+            result['seal_pic_addr'] = self.seal_pic_addr
+        if self.location_type is not None:
+            result['location_type'] = self.location_type
+        if self.rotate_angle is not None:
+            result['rotate_angle'] = self.rotate_angle
+        if self.position_type is not None:
+            result['position_type'] = self.position_type
+        if self.external_seal_type is not None:
+            result['external_seal_type'] = self.external_seal_type
+        if self.ca_system_cross_page_request is not None:
+            result['ca_system_cross_page_request'] = self.ca_system_cross_page_request.to_map()
+        if self.ca_system_main_body_request is not None:
+            result['ca_system_main_body_request'] = self.ca_system_main_body_request.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('seal_pic_addr') is not None:
+            self.seal_pic_addr = m.get('seal_pic_addr')
+        if m.get('location_type') is not None:
+            self.location_type = m.get('location_type')
+        if m.get('rotate_angle') is not None:
+            self.rotate_angle = m.get('rotate_angle')
+        if m.get('position_type') is not None:
+            self.position_type = m.get('position_type')
+        if m.get('external_seal_type') is not None:
+            self.external_seal_type = m.get('external_seal_type')
+        if m.get('ca_system_cross_page_request') is not None:
+            temp_model = CaSystemCrossPageRequest()
+            self.ca_system_cross_page_request = temp_model.from_map(m['ca_system_cross_page_request'])
+        if m.get('ca_system_main_body_request') is not None:
+            temp_model = CaSystemMainBodyRequest()
+            self.ca_system_main_body_request = temp_model.from_map(m['ca_system_main_body_request'])
+        return self
+
+
+class CaSystemSignFileRequest(TeaModel):
+    def __init__(
+        self,
+        file_id: str = None,
+        ca_system_sign_area_request_list: List[CaSystemSignAreaRequest] = None,
+    ):
+        # 单次请求文件唯一id，与AntSignFileRequest中的fileId对应
+        self.file_id = file_id
+        # 签署区域信息（包括印模信息）
+        self.ca_system_sign_area_request_list = ca_system_sign_area_request_list
+
+    def validate(self):
+        self.validate_required(self.file_id, 'file_id')
+        self.validate_required(self.ca_system_sign_area_request_list, 'ca_system_sign_area_request_list')
+        if self.ca_system_sign_area_request_list:
+            for k in self.ca_system_sign_area_request_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.file_id is not None:
+            result['file_id'] = self.file_id
+        result['ca_system_sign_area_request_list'] = []
+        if self.ca_system_sign_area_request_list is not None:
+            for k in self.ca_system_sign_area_request_list:
+                result['ca_system_sign_area_request_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('file_id') is not None:
+            self.file_id = m.get('file_id')
+        self.ca_system_sign_area_request_list = []
+        if m.get('ca_system_sign_area_request_list') is not None:
+            for k in m.get('ca_system_sign_area_request_list'):
+                temp_model = CaSystemSignAreaRequest()
+                self.ca_system_sign_area_request_list.append(temp_model.from_map(k))
+        return self
+
+
 class JudicialFileInfo(TeaModel):
     def __init__(
         self,
@@ -779,6 +1057,135 @@ class NotaryUser(TeaModel):
         return self
 
 
+class AntSignUserInfoRequest(TeaModel):
+    def __init__(
+        self,
+        sign_user_id: str = None,
+        our_corp: bool = None,
+        ca_system_sign_file_request_list: List[CaSystemSignFileRequest] = None,
+        sign_user_type: str = None,
+        signer_name: str = None,
+        signer_cert_type: str = None,
+        signer_cert_number: str = None,
+        sign_sub_type: str = None,
+        mobile: str = None,
+        email: str = None,
+        order: int = None,
+        auto_sign: bool = None,
+        seal_source_types: List[str] = None,
+    ):
+        # signUserId
+        self.sign_user_id = sign_user_id
+        # 是否为我方（蚂蚁域）公司
+        self.our_corp = our_corp
+        # 签署文件列表（包含印模和签署区域）
+        self.ca_system_sign_file_request_list = ca_system_sign_file_request_list
+        # 用户类型
+        self.sign_user_type = sign_user_type
+        # 签署人名称
+        self.signer_name = signer_name
+        # 签署人证件类型
+        self.signer_cert_type = signer_cert_type
+        # 签署人证件号码
+        self.signer_cert_number = signer_cert_number
+        # 企业子类型
+        self.sign_sub_type = sign_sub_type
+        # 签署方联系手机号
+        self.mobile = mobile
+        # 邮件联系地址
+        self.email = email
+        # 签署顺序
+        self.order = order
+        # 是否自动签署
+        # true：自动签署需传递坐标信息
+        # false：非自动签署，不需要传递坐标信息，签署文件会发送给签署方签署
+        self.auto_sign = auto_sign
+        # 签署方签署操作人签署时支持的印章来源类型目前支持上传公章(UPLOAD)、手写签名(PERSONAL)
+        self.seal_source_types = seal_source_types
+
+    def validate(self):
+        self.validate_required(self.our_corp, 'our_corp')
+        self.validate_required(self.ca_system_sign_file_request_list, 'ca_system_sign_file_request_list')
+        if self.ca_system_sign_file_request_list:
+            for k in self.ca_system_sign_file_request_list:
+                if k:
+                    k.validate()
+        self.validate_required(self.sign_user_type, 'sign_user_type')
+        self.validate_required(self.signer_name, 'signer_name')
+        self.validate_required(self.signer_cert_type, 'signer_cert_type')
+        self.validate_required(self.signer_cert_number, 'signer_cert_number')
+        self.validate_required(self.auto_sign, 'auto_sign')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.sign_user_id is not None:
+            result['sign_user_id'] = self.sign_user_id
+        if self.our_corp is not None:
+            result['our_corp'] = self.our_corp
+        result['ca_system_sign_file_request_list'] = []
+        if self.ca_system_sign_file_request_list is not None:
+            for k in self.ca_system_sign_file_request_list:
+                result['ca_system_sign_file_request_list'].append(k.to_map() if k else None)
+        if self.sign_user_type is not None:
+            result['sign_user_type'] = self.sign_user_type
+        if self.signer_name is not None:
+            result['signer_name'] = self.signer_name
+        if self.signer_cert_type is not None:
+            result['signer_cert_type'] = self.signer_cert_type
+        if self.signer_cert_number is not None:
+            result['signer_cert_number'] = self.signer_cert_number
+        if self.sign_sub_type is not None:
+            result['sign_sub_type'] = self.sign_sub_type
+        if self.mobile is not None:
+            result['mobile'] = self.mobile
+        if self.email is not None:
+            result['email'] = self.email
+        if self.order is not None:
+            result['order'] = self.order
+        if self.auto_sign is not None:
+            result['auto_sign'] = self.auto_sign
+        if self.seal_source_types is not None:
+            result['seal_source_types'] = self.seal_source_types
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('sign_user_id') is not None:
+            self.sign_user_id = m.get('sign_user_id')
+        if m.get('our_corp') is not None:
+            self.our_corp = m.get('our_corp')
+        self.ca_system_sign_file_request_list = []
+        if m.get('ca_system_sign_file_request_list') is not None:
+            for k in m.get('ca_system_sign_file_request_list'):
+                temp_model = CaSystemSignFileRequest()
+                self.ca_system_sign_file_request_list.append(temp_model.from_map(k))
+        if m.get('sign_user_type') is not None:
+            self.sign_user_type = m.get('sign_user_type')
+        if m.get('signer_name') is not None:
+            self.signer_name = m.get('signer_name')
+        if m.get('signer_cert_type') is not None:
+            self.signer_cert_type = m.get('signer_cert_type')
+        if m.get('signer_cert_number') is not None:
+            self.signer_cert_number = m.get('signer_cert_number')
+        if m.get('sign_sub_type') is not None:
+            self.sign_sub_type = m.get('sign_sub_type')
+        if m.get('mobile') is not None:
+            self.mobile = m.get('mobile')
+        if m.get('email') is not None:
+            self.email = m.get('email')
+        if m.get('order') is not None:
+            self.order = m.get('order')
+        if m.get('auto_sign') is not None:
+            self.auto_sign = m.get('auto_sign')
+        if m.get('seal_source_types') is not None:
+            self.seal_source_types = m.get('seal_source_types')
+        return self
+
+
 class OrderInfo(TeaModel):
     def __init__(
         self,
@@ -1080,6 +1487,157 @@ class BclContractFileInfo(TeaModel):
         return self
 
 
+class AntSignOperatorResult(TeaModel):
+    def __init__(
+        self,
+        sign_user_id: str = None,
+        sign_cert_no: str = None,
+        sign_cert_name: str = None,
+        sign_cert_type: str = None,
+        authorized: int = None,
+        authorize_time: str = None,
+        auth_person_cert_no: str = None,
+        auth_person_cert_name: str = None,
+        auth_person_cert_type: str = None,
+        email_address: str = None,
+        mobile_number: str = None,
+        sign_order: int = None,
+        fail_info: str = None,
+        remark: str = None,
+        our_corp: int = None,
+        status: str = None,
+        sign_time: str = None,
+        sign_sub_type: str = None,
+    ):
+        # 签署方UserId
+        self.sign_user_id = sign_user_id
+        # 签署方证件号
+        self.sign_cert_no = sign_cert_no
+        # 签署方证件名称
+        self.sign_cert_name = sign_cert_name
+        # 签署方证件类型
+        self.sign_cert_type = sign_cert_type
+        # 是否授权
+        self.authorized = authorized
+        # 授权时间
+        self.authorize_time = authorize_time
+        # 授权人证件号码
+        self.auth_person_cert_no = auth_person_cert_no
+        # 授权人证件名称
+        self.auth_person_cert_name = auth_person_cert_name
+        # 授权人证件类型
+        self.auth_person_cert_type = auth_person_cert_type
+        # 邮件联系地址
+        self.email_address = email_address
+        # 电话联系方式
+        self.mobile_number = mobile_number
+        # 签署顺序
+        self.sign_order = sign_order
+        # 签署失败原因
+        self.fail_info = fail_info
+        # 备注
+        self.remark = remark
+        # 是否我方公司
+        self.our_corp = our_corp
+        # 签署状态
+        self.status = status
+        # 签署时间
+        self.sign_time = sign_time
+        # [签署方子类型 企业子类型： BUS：企业 SINGLE：个体工商户 GOV：党政机关 INST：事业单位 COMMON：社会组织 OTHER：其他组织
+        self.sign_sub_type = sign_sub_type
+
+    def validate(self):
+        self.validate_required(self.sign_user_id, 'sign_user_id')
+        self.validate_required(self.sign_cert_no, 'sign_cert_no')
+        self.validate_required(self.sign_cert_name, 'sign_cert_name')
+        self.validate_required(self.sign_cert_type, 'sign_cert_type')
+        self.validate_required(self.authorized, 'authorized')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.sign_user_id is not None:
+            result['sign_user_id'] = self.sign_user_id
+        if self.sign_cert_no is not None:
+            result['sign_cert_no'] = self.sign_cert_no
+        if self.sign_cert_name is not None:
+            result['sign_cert_name'] = self.sign_cert_name
+        if self.sign_cert_type is not None:
+            result['sign_cert_type'] = self.sign_cert_type
+        if self.authorized is not None:
+            result['authorized'] = self.authorized
+        if self.authorize_time is not None:
+            result['authorize_time'] = self.authorize_time
+        if self.auth_person_cert_no is not None:
+            result['auth_person_cert_no'] = self.auth_person_cert_no
+        if self.auth_person_cert_name is not None:
+            result['auth_person_cert_name'] = self.auth_person_cert_name
+        if self.auth_person_cert_type is not None:
+            result['auth_person_cert_type'] = self.auth_person_cert_type
+        if self.email_address is not None:
+            result['email_address'] = self.email_address
+        if self.mobile_number is not None:
+            result['mobile_number'] = self.mobile_number
+        if self.sign_order is not None:
+            result['sign_order'] = self.sign_order
+        if self.fail_info is not None:
+            result['fail_info'] = self.fail_info
+        if self.remark is not None:
+            result['remark'] = self.remark
+        if self.our_corp is not None:
+            result['our_corp'] = self.our_corp
+        if self.status is not None:
+            result['status'] = self.status
+        if self.sign_time is not None:
+            result['sign_time'] = self.sign_time
+        if self.sign_sub_type is not None:
+            result['sign_sub_type'] = self.sign_sub_type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('sign_user_id') is not None:
+            self.sign_user_id = m.get('sign_user_id')
+        if m.get('sign_cert_no') is not None:
+            self.sign_cert_no = m.get('sign_cert_no')
+        if m.get('sign_cert_name') is not None:
+            self.sign_cert_name = m.get('sign_cert_name')
+        if m.get('sign_cert_type') is not None:
+            self.sign_cert_type = m.get('sign_cert_type')
+        if m.get('authorized') is not None:
+            self.authorized = m.get('authorized')
+        if m.get('authorize_time') is not None:
+            self.authorize_time = m.get('authorize_time')
+        if m.get('auth_person_cert_no') is not None:
+            self.auth_person_cert_no = m.get('auth_person_cert_no')
+        if m.get('auth_person_cert_name') is not None:
+            self.auth_person_cert_name = m.get('auth_person_cert_name')
+        if m.get('auth_person_cert_type') is not None:
+            self.auth_person_cert_type = m.get('auth_person_cert_type')
+        if m.get('email_address') is not None:
+            self.email_address = m.get('email_address')
+        if m.get('mobile_number') is not None:
+            self.mobile_number = m.get('mobile_number')
+        if m.get('sign_order') is not None:
+            self.sign_order = m.get('sign_order')
+        if m.get('fail_info') is not None:
+            self.fail_info = m.get('fail_info')
+        if m.get('remark') is not None:
+            self.remark = m.get('remark')
+        if m.get('our_corp') is not None:
+            self.our_corp = m.get('our_corp')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('sign_time') is not None:
+            self.sign_time = m.get('sign_time')
+        if m.get('sign_sub_type') is not None:
+            self.sign_sub_type = m.get('sign_sub_type')
+        return self
+
+
 class PerformanceInfo(TeaModel):
     def __init__(
         self,
@@ -1267,6 +1825,55 @@ class BclPromiseDetailInfo(TeaModel):
             self.pay_time = m.get('pay_time')
         if m.get('way') is not None:
             self.way = m.get('way')
+        return self
+
+
+class AntSignFileResult(TeaModel):
+    def __init__(
+        self,
+        file_name: str = None,
+        file_key: str = None,
+        file_id: str = None,
+        http_file_url: str = None,
+    ):
+        # fileName	文件名称
+        self.file_name = file_name
+        # 文件osskey
+        self.file_key = file_key
+        # 文件id
+        self.file_id = file_id
+        # 文件http链接
+        self.http_file_url = http_file_url
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.file_name is not None:
+            result['file_name'] = self.file_name
+        if self.file_key is not None:
+            result['file_key'] = self.file_key
+        if self.file_id is not None:
+            result['file_id'] = self.file_id
+        if self.http_file_url is not None:
+            result['http_file_url'] = self.http_file_url
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('file_name') is not None:
+            self.file_name = m.get('file_name')
+        if m.get('file_key') is not None:
+            self.file_key = m.get('file_key')
+        if m.get('file_id') is not None:
+            self.file_id = m.get('file_id')
+        if m.get('http_file_url') is not None:
+            self.http_file_url = m.get('http_file_url')
         return self
 
 
@@ -1659,6 +2266,58 @@ class JudicialPersonInfo(TeaModel):
             self.sex = m.get('sex')
         if m.get('email') is not None:
             self.email = m.get('email')
+        return self
+
+
+class AntSignFileRequest(TeaModel):
+    def __init__(
+        self,
+        file_name: str = None,
+        file_http_url: str = None,
+        file_id: str = None,
+        file_type: str = None,
+    ):
+        # 文件名称
+        self.file_name = file_name
+        # 文件httpUrl
+        self.file_http_url = file_http_url
+        # 单次请求文件唯一id，与CaSystemSignFileRequest中的fileId对应
+        self.file_id = file_id
+        # 文件类型（只支持pdf）
+        self.file_type = file_type
+
+    def validate(self):
+        self.validate_required(self.file_name, 'file_name')
+        self.validate_required(self.file_http_url, 'file_http_url')
+        self.validate_required(self.file_id, 'file_id')
+        self.validate_required(self.file_type, 'file_type')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.file_name is not None:
+            result['file_name'] = self.file_name
+        if self.file_http_url is not None:
+            result['file_http_url'] = self.file_http_url
+        if self.file_id is not None:
+            result['file_id'] = self.file_id
+        if self.file_type is not None:
+            result['file_type'] = self.file_type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('file_name') is not None:
+            self.file_name = m.get('file_name')
+        if m.get('file_http_url') is not None:
+            self.file_http_url = m.get('file_http_url')
+        if m.get('file_id') is not None:
+            self.file_id = m.get('file_id')
+        if m.get('file_type') is not None:
+            self.file_type = m.get('file_type')
         return self
 
 
@@ -2097,6 +2756,66 @@ class BclUserInfo(TeaModel):
         return self
 
 
+class AntSignUrlResult(TeaModel):
+    def __init__(
+        self,
+        sign_cert_name: str = None,
+        sign_cert_no: str = None,
+        sign_user_id: str = None,
+        encrypt_sign_cert_no: str = None,
+        sign_url: str = None,
+    ):
+        # 签署方名称
+        self.sign_cert_name = sign_cert_name
+        # 签署方证件号（脱敏）
+        self.sign_cert_no = sign_cert_no
+        # 签署方 id
+        self.sign_user_id = sign_user_id
+        # 加密后的签署方证件号(用来关联签署方的签署链接)
+        self.encrypt_sign_cert_no = encrypt_sign_cert_no
+        # 签署链接：电子签任务为异步任务，请确保已处于签署中（SIGNNING）状态，再给用户发送签署链接，否则用户签署会不成功
+        self.sign_url = sign_url
+
+    def validate(self):
+        self.validate_required(self.sign_cert_name, 'sign_cert_name')
+        self.validate_required(self.sign_cert_no, 'sign_cert_no')
+        self.validate_required(self.sign_user_id, 'sign_user_id')
+        self.validate_required(self.encrypt_sign_cert_no, 'encrypt_sign_cert_no')
+        self.validate_required(self.sign_url, 'sign_url')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.sign_cert_name is not None:
+            result['sign_cert_name'] = self.sign_cert_name
+        if self.sign_cert_no is not None:
+            result['sign_cert_no'] = self.sign_cert_no
+        if self.sign_user_id is not None:
+            result['sign_user_id'] = self.sign_user_id
+        if self.encrypt_sign_cert_no is not None:
+            result['encrypt_sign_cert_no'] = self.encrypt_sign_cert_no
+        if self.sign_url is not None:
+            result['sign_url'] = self.sign_url
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('sign_cert_name') is not None:
+            self.sign_cert_name = m.get('sign_cert_name')
+        if m.get('sign_cert_no') is not None:
+            self.sign_cert_no = m.get('sign_cert_no')
+        if m.get('sign_user_id') is not None:
+            self.sign_user_id = m.get('sign_user_id')
+        if m.get('encrypt_sign_cert_no') is not None:
+            self.encrypt_sign_cert_no = m.get('encrypt_sign_cert_no')
+        if m.get('sign_url') is not None:
+            self.sign_url = m.get('sign_url')
+        return self
+
+
 class LeasePerformanceInfo(TeaModel):
     def __init__(
         self,
@@ -2360,6 +3079,126 @@ class Location(TeaModel):
             self.mac_addr = m.get('mac_addr')
         if m.get('properties') is not None:
             self.properties = m.get('properties')
+        return self
+
+
+class AntSignTaskResult(TeaModel):
+    def __init__(
+        self,
+        sub_biz_no: str = None,
+        sign_task_id: str = None,
+        sign_task_status: str = None,
+        extra_param: str = None,
+        ant_sign_file_result_list: List[AntSignFileResult] = None,
+        ant_sign_operator_result_list: List[AntSignOperatorResult] = None,
+    ):
+        # 子任务流水号
+        self.sub_biz_no = sub_biz_no
+        # 签署子任务id
+        self.sign_task_id = sign_task_id
+        # 签署子任务状态:
+        # INIT-初始化
+        # SIGNING-签署中
+        # SIGNED-已签署
+        # REJECTED-已拒绝
+        self.sign_task_status = sign_task_status
+        # 上下游透传参数
+        self.extra_param = extra_param
+        # 签署子任务完成的文件里表
+        self.ant_sign_file_result_list = ant_sign_file_result_list
+        # 签署人状态列表
+        self.ant_sign_operator_result_list = ant_sign_operator_result_list
+
+    def validate(self):
+        if self.ant_sign_file_result_list:
+            for k in self.ant_sign_file_result_list:
+                if k:
+                    k.validate()
+        if self.ant_sign_operator_result_list:
+            for k in self.ant_sign_operator_result_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.sub_biz_no is not None:
+            result['sub_biz_no'] = self.sub_biz_no
+        if self.sign_task_id is not None:
+            result['sign_task_id'] = self.sign_task_id
+        if self.sign_task_status is not None:
+            result['sign_task_status'] = self.sign_task_status
+        if self.extra_param is not None:
+            result['extra_param'] = self.extra_param
+        result['ant_sign_file_result_list'] = []
+        if self.ant_sign_file_result_list is not None:
+            for k in self.ant_sign_file_result_list:
+                result['ant_sign_file_result_list'].append(k.to_map() if k else None)
+        result['ant_sign_operator_result_list'] = []
+        if self.ant_sign_operator_result_list is not None:
+            for k in self.ant_sign_operator_result_list:
+                result['ant_sign_operator_result_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('sub_biz_no') is not None:
+            self.sub_biz_no = m.get('sub_biz_no')
+        if m.get('sign_task_id') is not None:
+            self.sign_task_id = m.get('sign_task_id')
+        if m.get('sign_task_status') is not None:
+            self.sign_task_status = m.get('sign_task_status')
+        if m.get('extra_param') is not None:
+            self.extra_param = m.get('extra_param')
+        self.ant_sign_file_result_list = []
+        if m.get('ant_sign_file_result_list') is not None:
+            for k in m.get('ant_sign_file_result_list'):
+                temp_model = AntSignFileResult()
+                self.ant_sign_file_result_list.append(temp_model.from_map(k))
+        self.ant_sign_operator_result_list = []
+        if m.get('ant_sign_operator_result_list') is not None:
+            for k in m.get('ant_sign_operator_result_list'):
+                temp_model = AntSignOperatorResult()
+                self.ant_sign_operator_result_list.append(temp_model.from_map(k))
+        return self
+
+
+class PngDetails(TeaModel):
+    def __init__(
+        self,
+        id: str = None,
+        file_key: str = None,
+    ):
+        # 明细唯一id
+        self.id = id
+        # 图片 osskey
+        self.file_key = file_key
+
+    def validate(self):
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.file_key, 'file_key')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.id is not None:
+            result['id'] = self.id
+        if self.file_key is not None:
+            result['file_key'] = self.file_key
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('file_key') is not None:
+            self.file_key = m.get('file_key')
         return self
 
 
@@ -3806,6 +4645,93 @@ class WitnessSignData(TeaModel):
             self.sign_pos_data = m.get('sign_pos_data')
         if m.get('third_doc_id') is not None:
             self.third_doc_id = m.get('third_doc_id')
+        return self
+
+
+class CreatePngDetails(TeaModel):
+    def __init__(
+        self,
+        id: str = None,
+        cert_type: str = None,
+        name: str = None,
+        cert_no: str = None,
+        font_size: int = None,
+        custom_name: str = None,
+        font_color: str = None,
+        with_border: bool = None,
+        border_color: str = None,
+    ):
+        # 明细唯一id，必填（用于标识明细中的唯一键，返回多个图片地址时，根据id去进行匹配）
+        self.id = id
+        # 身份类型，必填，SignUserTypeEnum
+        self.cert_type = cert_type
+        # 名称，个人姓名/公司名称
+        self.name = name
+        # 证件号，个人身份证/公司统一社会信用代码
+        self.cert_no = cert_no
+        # 字体大小，选填，推荐不传（除特殊场景需要），默认40
+        self.font_size = font_size
+        # 自定义名称，选填，不传则默认按照name参数中的值生成文件名。此参数主要用于同一个人需要生成不同样式的签名图片场景
+        self.custom_name = custom_name
+        # 字体颜色，选填，推荐不传（除特殊场景需要），默认黑色
+        self.font_color = font_color
+        # [是否带边框，选填，推荐不传（除特殊场景需要），默认false]": "boolean"
+        self.with_border = with_border
+        # [边框颜色，选填，推荐不传（除特殊场景需要），默认红色]
+        self.border_color = border_color
+
+    def validate(self):
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.cert_type, 'cert_type')
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.cert_no, 'cert_no')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.id is not None:
+            result['id'] = self.id
+        if self.cert_type is not None:
+            result['cert_type'] = self.cert_type
+        if self.name is not None:
+            result['name'] = self.name
+        if self.cert_no is not None:
+            result['cert_no'] = self.cert_no
+        if self.font_size is not None:
+            result['font_size'] = self.font_size
+        if self.custom_name is not None:
+            result['custom_name'] = self.custom_name
+        if self.font_color is not None:
+            result['font_color'] = self.font_color
+        if self.with_border is not None:
+            result['with_border'] = self.with_border
+        if self.border_color is not None:
+            result['border_color'] = self.border_color
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('cert_type') is not None:
+            self.cert_type = m.get('cert_type')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('cert_no') is not None:
+            self.cert_no = m.get('cert_no')
+        if m.get('font_size') is not None:
+            self.font_size = m.get('font_size')
+        if m.get('custom_name') is not None:
+            self.custom_name = m.get('custom_name')
+        if m.get('font_color') is not None:
+            self.font_color = m.get('font_color')
+        if m.get('with_border') is not None:
+            self.with_border = m.get('with_border')
+        if m.get('border_color') is not None:
+            self.border_color = m.get('border_color')
         return self
 
 
@@ -5336,6 +6262,72 @@ class BclCertifyInfo(TeaModel):
             self.result_desc = m.get('result_desc')
         if m.get('status') is not None:
             self.status = m.get('status')
+        return self
+
+
+class SubAntSignResult(TeaModel):
+    def __init__(
+        self,
+        sub_biz_no: str = None,
+        sign_task_id: str = None,
+        our_user_id: str = None,
+        related_business: bool = None,
+        ant_sign_url_result_list: List[AntSignUrlResult] = None,
+    ):
+        # 子业务流水号
+        self.sub_biz_no = sub_biz_no
+        # 子任务流水号
+        self.sign_task_id = sign_task_id
+        # 我方userId
+        self.our_user_id = our_user_id
+        # 是否关联业务
+        self.related_business = related_business
+        # 签署链接
+        self.ant_sign_url_result_list = ant_sign_url_result_list
+
+    def validate(self):
+        self.validate_required(self.sub_biz_no, 'sub_biz_no')
+        self.validate_required(self.ant_sign_url_result_list, 'ant_sign_url_result_list')
+        if self.ant_sign_url_result_list:
+            for k in self.ant_sign_url_result_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.sub_biz_no is not None:
+            result['sub_biz_no'] = self.sub_biz_no
+        if self.sign_task_id is not None:
+            result['sign_task_id'] = self.sign_task_id
+        if self.our_user_id is not None:
+            result['our_user_id'] = self.our_user_id
+        if self.related_business is not None:
+            result['related_business'] = self.related_business
+        result['ant_sign_url_result_list'] = []
+        if self.ant_sign_url_result_list is not None:
+            for k in self.ant_sign_url_result_list:
+                result['ant_sign_url_result_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('sub_biz_no') is not None:
+            self.sub_biz_no = m.get('sub_biz_no')
+        if m.get('sign_task_id') is not None:
+            self.sign_task_id = m.get('sign_task_id')
+        if m.get('our_user_id') is not None:
+            self.our_user_id = m.get('our_user_id')
+        if m.get('related_business') is not None:
+            self.related_business = m.get('related_business')
+        self.ant_sign_url_result_list = []
+        if m.get('ant_sign_url_result_list') is not None:
+            for k in m.get('ant_sign_url_result_list'):
+                temp_model = AntSignUrlResult()
+                self.ant_sign_url_result_list.append(temp_model.from_map(k))
         return self
 
 
@@ -9864,6 +10856,96 @@ class ContractSignFieldSealId(TeaModel):
         return self
 
 
+class AntSignTaskRequest(TeaModel):
+    def __init__(
+        self,
+        ant_sign_user_info_request_list: List[AntSignUserInfoRequest] = None,
+        ant_sign_file_request_list: List[AntSignFileRequest] = None,
+        related_business: bool = None,
+        description: str = None,
+        extra_param: str = None,
+        sub_biz_no: str = None,
+        sign_config_param: str = None,
+    ):
+        # 签署人信息
+        self.ant_sign_user_info_request_list = ant_sign_user_info_request_list
+        # 待签署文件列表
+        self.ant_sign_file_request_list = ant_sign_file_request_list
+        # relatedBusiness	是否关联业务
+        self.related_business = related_business
+        # 任务描述
+        self.description = description
+        # 业务扩展参数
+        self.extra_param = extra_param
+        # 子业务流水号（如果只有单任务，可以跟bizNo填相同的值）
+        self.sub_biz_no = sub_biz_no
+        # 业务配置参数，用于展示或隐藏签署功能 默认不传：false
+        self.sign_config_param = sign_config_param
+
+    def validate(self):
+        self.validate_required(self.ant_sign_user_info_request_list, 'ant_sign_user_info_request_list')
+        if self.ant_sign_user_info_request_list:
+            for k in self.ant_sign_user_info_request_list:
+                if k:
+                    k.validate()
+        self.validate_required(self.ant_sign_file_request_list, 'ant_sign_file_request_list')
+        if self.ant_sign_file_request_list:
+            for k in self.ant_sign_file_request_list:
+                if k:
+                    k.validate()
+        self.validate_required(self.sub_biz_no, 'sub_biz_no')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['ant_sign_user_info_request_list'] = []
+        if self.ant_sign_user_info_request_list is not None:
+            for k in self.ant_sign_user_info_request_list:
+                result['ant_sign_user_info_request_list'].append(k.to_map() if k else None)
+        result['ant_sign_file_request_list'] = []
+        if self.ant_sign_file_request_list is not None:
+            for k in self.ant_sign_file_request_list:
+                result['ant_sign_file_request_list'].append(k.to_map() if k else None)
+        if self.related_business is not None:
+            result['related_business'] = self.related_business
+        if self.description is not None:
+            result['description'] = self.description
+        if self.extra_param is not None:
+            result['extra_param'] = self.extra_param
+        if self.sub_biz_no is not None:
+            result['sub_biz_no'] = self.sub_biz_no
+        if self.sign_config_param is not None:
+            result['sign_config_param'] = self.sign_config_param
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        self.ant_sign_user_info_request_list = []
+        if m.get('ant_sign_user_info_request_list') is not None:
+            for k in m.get('ant_sign_user_info_request_list'):
+                temp_model = AntSignUserInfoRequest()
+                self.ant_sign_user_info_request_list.append(temp_model.from_map(k))
+        self.ant_sign_file_request_list = []
+        if m.get('ant_sign_file_request_list') is not None:
+            for k in m.get('ant_sign_file_request_list'):
+                temp_model = AntSignFileRequest()
+                self.ant_sign_file_request_list.append(temp_model.from_map(k))
+        if m.get('related_business') is not None:
+            self.related_business = m.get('related_business')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('extra_param') is not None:
+            self.extra_param = m.get('extra_param')
+        if m.get('sub_biz_no') is not None:
+            self.sub_biz_no = m.get('sub_biz_no')
+        if m.get('sign_config_param') is not None:
+            self.sign_config_param = m.get('sign_config_param')
+        return self
+
+
 class ReplayDetailInfo(TeaModel):
     def __init__(
         self,
@@ -14387,8 +15469,7 @@ class CreateBclInsuranceRequest(TeaModel):
         self.product_instance_id = product_instance_id
         # bcl订单id
         self.order_id = order_id
-        # 保司code，枚举值
-        # HZRB: 杭州人保
+        # 保司code
         self.insurance_code = insurance_code
         # 投保人信息
         self.holder = holder
@@ -22953,6 +24034,7 @@ class CreateContractOnestepflowRequest(TeaModel):
         sign_validity: int = None,
         combine_sign_model: bool = None,
         need_face: bool = None,
+        seal_type: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -22984,6 +24066,10 @@ class CreateContractOnestepflowRequest(TeaModel):
         # 合并签署是否开启人脸识别(默认true-开启),非合并签署无需设值
         # 
         self.need_face = need_face
+        # 0-手绘签名
+        # 1-模板印章签名
+        # 多种类型时逗号分割，为空不限制
+        self.seal_type = seal_type
 
     def validate(self):
         self.validate_required(self.business_scene, 'business_scene')
@@ -23038,6 +24124,8 @@ class CreateContractOnestepflowRequest(TeaModel):
             result['combine_sign_model'] = self.combine_sign_model
         if self.need_face is not None:
             result['need_face'] = self.need_face
+        if self.seal_type is not None:
+            result['seal_type'] = self.seal_type
         return result
 
     def from_map(self, m: dict = None):
@@ -23079,6 +24167,8 @@ class CreateContractOnestepflowRequest(TeaModel):
             self.combine_sign_model = m.get('combine_sign_model')
         if m.get('need_face') is not None:
             self.need_face = m.get('need_face')
+        if m.get('seal_type') is not None:
+            self.seal_type = m.get('seal_type')
         return self
 
 
@@ -30019,6 +31109,128 @@ class QueryContractDedcutpayinfoResponse(TeaModel):
         return self
 
 
+class UnbindContractZfbagreementRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        alipay_user_id: str = None,
+        agreement_no: str = None,
+        status: str = None,
+        unsign_time: str = None,
+        app_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 用户2088id
+        self.alipay_user_id = alipay_user_id
+        # 外部代扣协议号
+        self.agreement_no = agreement_no
+        # 申请解约-APPLY_UNSIGN
+        self.status = status
+        # 申请解约时间
+        self.unsign_time = unsign_time
+        # appId
+        self.app_id = app_id
+
+    def validate(self):
+        self.validate_required(self.alipay_user_id, 'alipay_user_id')
+        self.validate_required(self.agreement_no, 'agreement_no')
+        self.validate_required(self.status, 'status')
+        self.validate_required(self.unsign_time, 'unsign_time')
+        self.validate_required(self.app_id, 'app_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.alipay_user_id is not None:
+            result['alipay_user_id'] = self.alipay_user_id
+        if self.agreement_no is not None:
+            result['agreement_no'] = self.agreement_no
+        if self.status is not None:
+            result['status'] = self.status
+        if self.unsign_time is not None:
+            result['unsign_time'] = self.unsign_time
+        if self.app_id is not None:
+            result['app_id'] = self.app_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('alipay_user_id') is not None:
+            self.alipay_user_id = m.get('alipay_user_id')
+        if m.get('agreement_no') is not None:
+            self.agreement_no = m.get('agreement_no')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('unsign_time') is not None:
+            self.unsign_time = m.get('unsign_time')
+        if m.get('app_id') is not None:
+            self.app_id = m.get('app_id')
+        return self
+
+
+class UnbindContractZfbagreementResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        unsign_success: bool = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 解约是否成功
+        self.unsign_success = unsign_success
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.unsign_success is not None:
+            result['unsign_success'] = self.unsign_success
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('unsign_success') is not None:
+            self.unsign_success = m.get('unsign_success')
+        return self
+
+
 class PushDigitalcontentUsageRequest(TeaModel):
     def __init__(
         self,
@@ -31708,6 +32920,535 @@ class OperateLeasePetcomparepetsResponse(TeaModel):
             self.nose_similarity = m.get('nose_similarity')
         if m.get('face_similarity') is not None:
             self.face_similarity = m.get('face_similarity')
+        return self
+
+
+class ApplyInnerAntesignRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tenant_name: str = None,
+        business_line_code: str = None,
+        scene_code: str = None,
+        biz_no: str = None,
+        biz_name: str = None,
+        biz_type: str = None,
+        esign_type: str = None,
+        app_name: str = None,
+        ant_sign_task_request_list: List[AntSignTaskRequest] = None,
+        source_url: str = None,
+        biz_desc: str = None,
+        callback_url: str = None,
+        expire_date: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 租户信息
+        self.tenant_name = tenant_name
+        # 业务线
+        self.business_line_code = business_line_code
+        # 场景值
+        self.scene_code = scene_code
+        # 业务流水号
+        self.biz_no = biz_no
+        # 业务名称
+        self.biz_name = biz_name
+        # 业务类型
+        # 1.CONTRACT：合同（默认推荐）
+        # 2.FILE：文件
+        # 3.OTHER：其它
+        self.biz_type = biz_type
+        # 签署任务类型 默认传：MICKLE_SEAL_CA
+        self.esign_type = esign_type
+        # zappinfo应用名
+        self.app_name = app_name
+        # 法务电子签签署任务信息
+        self.ant_sign_task_request_list = ant_sign_task_request_list
+        # 签署业务原地址跳转链接
+        self.source_url = source_url
+        # 业务描述
+        self.biz_desc = biz_desc
+        # 回调通知地址 默认不填
+        self.callback_url = callback_url
+        # 默认不填
+        self.expire_date = expire_date
+
+    def validate(self):
+        self.validate_required(self.tenant_name, 'tenant_name')
+        self.validate_required(self.business_line_code, 'business_line_code')
+        self.validate_required(self.scene_code, 'scene_code')
+        self.validate_required(self.biz_no, 'biz_no')
+        self.validate_required(self.biz_name, 'biz_name')
+        self.validate_required(self.biz_type, 'biz_type')
+        self.validate_required(self.esign_type, 'esign_type')
+        self.validate_required(self.app_name, 'app_name')
+        self.validate_required(self.ant_sign_task_request_list, 'ant_sign_task_request_list')
+        if self.ant_sign_task_request_list:
+            for k in self.ant_sign_task_request_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tenant_name is not None:
+            result['tenant_name'] = self.tenant_name
+        if self.business_line_code is not None:
+            result['business_line_code'] = self.business_line_code
+        if self.scene_code is not None:
+            result['scene_code'] = self.scene_code
+        if self.biz_no is not None:
+            result['biz_no'] = self.biz_no
+        if self.biz_name is not None:
+            result['biz_name'] = self.biz_name
+        if self.biz_type is not None:
+            result['biz_type'] = self.biz_type
+        if self.esign_type is not None:
+            result['esign_type'] = self.esign_type
+        if self.app_name is not None:
+            result['app_name'] = self.app_name
+        result['ant_sign_task_request_list'] = []
+        if self.ant_sign_task_request_list is not None:
+            for k in self.ant_sign_task_request_list:
+                result['ant_sign_task_request_list'].append(k.to_map() if k else None)
+        if self.source_url is not None:
+            result['source_url'] = self.source_url
+        if self.biz_desc is not None:
+            result['biz_desc'] = self.biz_desc
+        if self.callback_url is not None:
+            result['callback_url'] = self.callback_url
+        if self.expire_date is not None:
+            result['expire_date'] = self.expire_date
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tenant_name') is not None:
+            self.tenant_name = m.get('tenant_name')
+        if m.get('business_line_code') is not None:
+            self.business_line_code = m.get('business_line_code')
+        if m.get('scene_code') is not None:
+            self.scene_code = m.get('scene_code')
+        if m.get('biz_no') is not None:
+            self.biz_no = m.get('biz_no')
+        if m.get('biz_name') is not None:
+            self.biz_name = m.get('biz_name')
+        if m.get('biz_type') is not None:
+            self.biz_type = m.get('biz_type')
+        if m.get('esign_type') is not None:
+            self.esign_type = m.get('esign_type')
+        if m.get('app_name') is not None:
+            self.app_name = m.get('app_name')
+        self.ant_sign_task_request_list = []
+        if m.get('ant_sign_task_request_list') is not None:
+            for k in m.get('ant_sign_task_request_list'):
+                temp_model = AntSignTaskRequest()
+                self.ant_sign_task_request_list.append(temp_model.from_map(k))
+        if m.get('source_url') is not None:
+            self.source_url = m.get('source_url')
+        if m.get('biz_desc') is not None:
+            self.biz_desc = m.get('biz_desc')
+        if m.get('callback_url') is not None:
+            self.callback_url = m.get('callback_url')
+        if m.get('expire_date') is not None:
+            self.expire_date = m.get('expire_date')
+        return self
+
+
+class ApplyInnerAntesignResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        sign_flow_id: str = None,
+        biz_no: str = None,
+        sub_ant_sign_result_list: List[SubAntSignResult] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 用印流程受理流水号
+        self.sign_flow_id = sign_flow_id
+        # 业务流水号
+        self.biz_no = biz_no
+        # 子任务信息
+        self.sub_ant_sign_result_list = sub_ant_sign_result_list
+
+    def validate(self):
+        if self.sub_ant_sign_result_list:
+            for k in self.sub_ant_sign_result_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.sign_flow_id is not None:
+            result['sign_flow_id'] = self.sign_flow_id
+        if self.biz_no is not None:
+            result['biz_no'] = self.biz_no
+        result['sub_ant_sign_result_list'] = []
+        if self.sub_ant_sign_result_list is not None:
+            for k in self.sub_ant_sign_result_list:
+                result['sub_ant_sign_result_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('sign_flow_id') is not None:
+            self.sign_flow_id = m.get('sign_flow_id')
+        if m.get('biz_no') is not None:
+            self.biz_no = m.get('biz_no')
+        self.sub_ant_sign_result_list = []
+        if m.get('sub_ant_sign_result_list') is not None:
+            for k in m.get('sub_ant_sign_result_list'):
+                temp_model = SubAntSignResult()
+                self.sub_ant_sign_result_list.append(temp_model.from_map(k))
+        return self
+
+
+class QueryInnerAntesignRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tenant_name: str = None,
+        business_line_code: str = None,
+        scene_code: str = None,
+        sign_flow_id: str = None,
+        sign_task_id: str = None,
+        app_name: str = None,
+        biz_no: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 租户信息
+        self.tenant_name = tenant_name
+        # 业务线
+        self.business_line_code = business_line_code
+        # 场景值
+        self.scene_code = scene_code
+        # 签署合同id 传值默认查询签署流程下全部任务状态
+        self.sign_flow_id = sign_flow_id
+        # 签署任务创建id 默认查signTaskId 单任务状态
+        self.sign_task_id = sign_task_id
+        # 应用方来源信息
+        self.app_name = app_name
+        # 业务流水号
+        self.biz_no = biz_no
+
+    def validate(self):
+        self.validate_required(self.sign_flow_id, 'sign_flow_id')
+        self.validate_required(self.app_name, 'app_name')
+        self.validate_required(self.biz_no, 'biz_no')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tenant_name is not None:
+            result['tenant_name'] = self.tenant_name
+        if self.business_line_code is not None:
+            result['business_line_code'] = self.business_line_code
+        if self.scene_code is not None:
+            result['scene_code'] = self.scene_code
+        if self.sign_flow_id is not None:
+            result['sign_flow_id'] = self.sign_flow_id
+        if self.sign_task_id is not None:
+            result['sign_task_id'] = self.sign_task_id
+        if self.app_name is not None:
+            result['app_name'] = self.app_name
+        if self.biz_no is not None:
+            result['biz_no'] = self.biz_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tenant_name') is not None:
+            self.tenant_name = m.get('tenant_name')
+        if m.get('business_line_code') is not None:
+            self.business_line_code = m.get('business_line_code')
+        if m.get('scene_code') is not None:
+            self.scene_code = m.get('scene_code')
+        if m.get('sign_flow_id') is not None:
+            self.sign_flow_id = m.get('sign_flow_id')
+        if m.get('sign_task_id') is not None:
+            self.sign_task_id = m.get('sign_task_id')
+        if m.get('app_name') is not None:
+            self.app_name = m.get('app_name')
+        if m.get('biz_no') is not None:
+            self.biz_no = m.get('biz_no')
+        return self
+
+
+class QueryInnerAntesignResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        biz_no: str = None,
+        sign_flow_id: str = None,
+        ant_sign_task_result_list: List[AntSignTaskResult] = None,
+        status: str = None,
+        app_name: str = None,
+        tenant_name: str = None,
+        sign_center_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 业务流水号
+        self.biz_no = biz_no
+        # 签署流水id
+        self.sign_flow_id = sign_flow_id
+        # 签署子任务结果
+        self.ant_sign_task_result_list = ant_sign_task_result_list
+        # 总状态INIT-初始化
+        # SIGNING-签署中
+        # FINISH-已完成
+        self.status = status
+        # 应用方来源信息
+        self.app_name = app_name
+        # 租户信息
+        self.tenant_name = tenant_name
+        # 签署中心流程id
+        self.sign_center_id = sign_center_id
+
+    def validate(self):
+        if self.ant_sign_task_result_list:
+            for k in self.ant_sign_task_result_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.biz_no is not None:
+            result['biz_no'] = self.biz_no
+        if self.sign_flow_id is not None:
+            result['sign_flow_id'] = self.sign_flow_id
+        result['ant_sign_task_result_list'] = []
+        if self.ant_sign_task_result_list is not None:
+            for k in self.ant_sign_task_result_list:
+                result['ant_sign_task_result_list'].append(k.to_map() if k else None)
+        if self.status is not None:
+            result['status'] = self.status
+        if self.app_name is not None:
+            result['app_name'] = self.app_name
+        if self.tenant_name is not None:
+            result['tenant_name'] = self.tenant_name
+        if self.sign_center_id is not None:
+            result['sign_center_id'] = self.sign_center_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('biz_no') is not None:
+            self.biz_no = m.get('biz_no')
+        if m.get('sign_flow_id') is not None:
+            self.sign_flow_id = m.get('sign_flow_id')
+        self.ant_sign_task_result_list = []
+        if m.get('ant_sign_task_result_list') is not None:
+            for k in m.get('ant_sign_task_result_list'):
+                temp_model = AntSignTaskResult()
+                self.ant_sign_task_result_list.append(temp_model.from_map(k))
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('app_name') is not None:
+            self.app_name = m.get('app_name')
+        if m.get('tenant_name') is not None:
+            self.tenant_name = m.get('tenant_name')
+        if m.get('sign_center_id') is not None:
+            self.sign_center_id = m.get('sign_center_id')
+        return self
+
+
+class CreateInnerAntesignRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tenant_name: str = None,
+        business_line_code: str = None,
+        scene_code: str = None,
+        app_name: str = None,
+        details: CreatePngDetails = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 调用方租户名
+        self.tenant_name = tenant_name
+        # 业务线
+        self.business_line_code = business_line_code
+        # 场景值
+        self.scene_code = scene_code
+        # 应用名
+        self.app_name = app_name
+        # 生成签名图片明细
+        self.details = details
+
+    def validate(self):
+        self.validate_required(self.tenant_name, 'tenant_name')
+        self.validate_required(self.business_line_code, 'business_line_code')
+        self.validate_required(self.scene_code, 'scene_code')
+        self.validate_required(self.app_name, 'app_name')
+        self.validate_required(self.details, 'details')
+        if self.details:
+            self.details.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tenant_name is not None:
+            result['tenant_name'] = self.tenant_name
+        if self.business_line_code is not None:
+            result['business_line_code'] = self.business_line_code
+        if self.scene_code is not None:
+            result['scene_code'] = self.scene_code
+        if self.app_name is not None:
+            result['app_name'] = self.app_name
+        if self.details is not None:
+            result['details'] = self.details.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tenant_name') is not None:
+            self.tenant_name = m.get('tenant_name')
+        if m.get('business_line_code') is not None:
+            self.business_line_code = m.get('business_line_code')
+        if m.get('scene_code') is not None:
+            self.scene_code = m.get('scene_code')
+        if m.get('app_name') is not None:
+            self.app_name = m.get('app_name')
+        if m.get('details') is not None:
+            temp_model = CreatePngDetails()
+            self.details = temp_model.from_map(m['details'])
+        return self
+
+
+class CreateInnerAntesignResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        sign_png_details: PngDetails = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 法务电子签章图片信息
+        self.sign_png_details = sign_png_details
+
+    def validate(self):
+        if self.sign_png_details:
+            self.sign_png_details.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.sign_png_details is not None:
+            result['sign_png_details'] = self.sign_png_details.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('sign_png_details') is not None:
+            temp_model = PngDetails()
+            self.sign_png_details = temp_model.from_map(m['sign_png_details'])
         return self
 
 

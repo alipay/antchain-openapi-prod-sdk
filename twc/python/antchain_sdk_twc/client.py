@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 司法纠纷平台通用文件信息结构体
+            # 法务电子签骑缝章信息
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.13.8',
+                    'sdk_version': '1.13.16',
                     '_prod_code': 'TWC',
                     '_prod_channel': 'undefined'
                 }
@@ -214,7 +214,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 司法纠纷平台通用文件信息结构体
+            # 法务电子签骑缝章信息
         }
         _last_request = None
         _last_exception = None
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.13.8',
+                    'sdk_version': '1.13.16',
                     '_prod_code': 'TWC',
                     '_prod_channel': 'undefined'
                 }
@@ -8403,6 +8403,62 @@ class Client:
             await self.do_request_async('1.0', 'twc.notary.contract.dedcutpayinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def unbind_contract_zfbagreement(
+        self,
+        request: twc_models.UnbindContractZfbagreementRequest,
+    ) -> twc_models.UnbindContractZfbagreementResponse:
+        """
+        Description: 72h代扣解约代扣协议，未执行成功的代扣会被取消，已执行成功的代扣不变。
+        Summary: 72h代扣解约-twc解约
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.unbind_contract_zfbagreement_ex(request, headers, runtime)
+
+    async def unbind_contract_zfbagreement_async(
+        self,
+        request: twc_models.UnbindContractZfbagreementRequest,
+    ) -> twc_models.UnbindContractZfbagreementResponse:
+        """
+        Description: 72h代扣解约代扣协议，未执行成功的代扣会被取消，已执行成功的代扣不变。
+        Summary: 72h代扣解约-twc解约
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.unbind_contract_zfbagreement_ex_async(request, headers, runtime)
+
+    def unbind_contract_zfbagreement_ex(
+        self,
+        request: twc_models.UnbindContractZfbagreementRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.UnbindContractZfbagreementResponse:
+        """
+        Description: 72h代扣解约代扣协议，未执行成功的代扣会被取消，已执行成功的代扣不变。
+        Summary: 72h代扣解约-twc解约
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.UnbindContractZfbagreementResponse(),
+            self.do_request('1.0', 'twc.notary.contract.zfbagreement.unbind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def unbind_contract_zfbagreement_ex_async(
+        self,
+        request: twc_models.UnbindContractZfbagreementRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.UnbindContractZfbagreementResponse:
+        """
+        Description: 72h代扣解约代扣协议，未执行成功的代扣会被取消，已执行成功的代扣不变。
+        Summary: 72h代扣解约-twc解约
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.UnbindContractZfbagreementResponse(),
+            await self.do_request_async('1.0', 'twc.notary.contract.zfbagreement.unbind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def push_digitalcontent_usage(
         self,
         request: twc_models.PushDigitalcontentUsageRequest,
@@ -9129,6 +9185,174 @@ class Client:
         return TeaCore.from_map(
             twc_models.OperateLeasePetcomparepetsResponse(),
             await self.do_request_async('1.0', 'twc.notary.lease.petcomparepets.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_inner_antesign(
+        self,
+        request: twc_models.ApplyInnerAntesignRequest,
+    ) -> twc_models.ApplyInnerAntesignResponse:
+        """
+        Description: 法务电子签发起签署
+        Summary: 法务电子签发起签署
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_inner_antesign_ex(request, headers, runtime)
+
+    async def apply_inner_antesign_async(
+        self,
+        request: twc_models.ApplyInnerAntesignRequest,
+    ) -> twc_models.ApplyInnerAntesignResponse:
+        """
+        Description: 法务电子签发起签署
+        Summary: 法务电子签发起签署
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_inner_antesign_ex_async(request, headers, runtime)
+
+    def apply_inner_antesign_ex(
+        self,
+        request: twc_models.ApplyInnerAntesignRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.ApplyInnerAntesignResponse:
+        """
+        Description: 法务电子签发起签署
+        Summary: 法务电子签发起签署
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.ApplyInnerAntesignResponse(),
+            self.do_request('1.0', 'twc.notary.inner.antesign.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_inner_antesign_ex_async(
+        self,
+        request: twc_models.ApplyInnerAntesignRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.ApplyInnerAntesignResponse:
+        """
+        Description: 法务电子签发起签署
+        Summary: 法务电子签发起签署
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.ApplyInnerAntesignResponse(),
+            await self.do_request_async('1.0', 'twc.notary.inner.antesign.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_inner_antesign(
+        self,
+        request: twc_models.QueryInnerAntesignRequest,
+    ) -> twc_models.QueryInnerAntesignResponse:
+        """
+        Description: 法务电子签查询签署状态
+        Summary: 法务电子签查询签署状态
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_inner_antesign_ex(request, headers, runtime)
+
+    async def query_inner_antesign_async(
+        self,
+        request: twc_models.QueryInnerAntesignRequest,
+    ) -> twc_models.QueryInnerAntesignResponse:
+        """
+        Description: 法务电子签查询签署状态
+        Summary: 法务电子签查询签署状态
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_inner_antesign_ex_async(request, headers, runtime)
+
+    def query_inner_antesign_ex(
+        self,
+        request: twc_models.QueryInnerAntesignRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryInnerAntesignResponse:
+        """
+        Description: 法务电子签查询签署状态
+        Summary: 法务电子签查询签署状态
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.QueryInnerAntesignResponse(),
+            self.do_request('1.0', 'twc.notary.inner.antesign.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_inner_antesign_ex_async(
+        self,
+        request: twc_models.QueryInnerAntesignRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryInnerAntesignResponse:
+        """
+        Description: 法务电子签查询签署状态
+        Summary: 法务电子签查询签署状态
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.QueryInnerAntesignResponse(),
+            await self.do_request_async('1.0', 'twc.notary.inner.antesign.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_inner_antesign(
+        self,
+        request: twc_models.CreateInnerAntesignRequest,
+    ) -> twc_models.CreateInnerAntesignResponse:
+        """
+        Description: 法务电子签根据公司名称统代生成印章
+        Summary: 法务电子签根据公司名称统代生成印章
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_inner_antesign_ex(request, headers, runtime)
+
+    async def create_inner_antesign_async(
+        self,
+        request: twc_models.CreateInnerAntesignRequest,
+    ) -> twc_models.CreateInnerAntesignResponse:
+        """
+        Description: 法务电子签根据公司名称统代生成印章
+        Summary: 法务电子签根据公司名称统代生成印章
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_inner_antesign_ex_async(request, headers, runtime)
+
+    def create_inner_antesign_ex(
+        self,
+        request: twc_models.CreateInnerAntesignRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateInnerAntesignResponse:
+        """
+        Description: 法务电子签根据公司名称统代生成印章
+        Summary: 法务电子签根据公司名称统代生成印章
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CreateInnerAntesignResponse(),
+            self.do_request('1.0', 'twc.notary.inner.antesign.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_inner_antesign_ex_async(
+        self,
+        request: twc_models.CreateInnerAntesignRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateInnerAntesignResponse:
+        """
+        Description: 法务电子签根据公司名称统代生成印章
+        Summary: 法务电子签根据公司名称统代生成印章
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CreateInnerAntesignResponse(),
+            await self.do_request_async('1.0', 'twc.notary.inner.antesign.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def check_epidentity_twometa(
