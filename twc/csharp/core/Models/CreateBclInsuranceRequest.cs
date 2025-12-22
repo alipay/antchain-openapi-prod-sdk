@@ -23,8 +23,7 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=true, MaxLength=32)]
         public string OrderId { get; set; }
 
-        // 保司code，枚举值
-        // HZRB: 杭州人保
+        // 保司code
         [NameInMap("insurance_code")]
         [Validation(Required=true, MaxLength=32)]
         public string InsuranceCode { get; set; }

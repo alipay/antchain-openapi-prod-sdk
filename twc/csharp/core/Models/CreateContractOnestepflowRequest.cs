@@ -84,6 +84,13 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public bool? NeedFace { get; set; }
 
+        // 0-手绘签名 
+        // 1-模板印章签名
+        // 多种类型时逗号分割，为空不限制
+        [NameInMap("seal_type")]
+        [Validation(Required=false)]
+        public string SealType { get; set; }
+
     }
 
 }

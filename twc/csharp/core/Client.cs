@@ -137,7 +137,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.13.8"},
+                        {"sdk_version", "1.13.16"},
                         {"_prod_code", "TWC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.13.8"},
+                        {"sdk_version", "1.13.16"},
                         {"_prod_code", "TWC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -6420,6 +6420,48 @@ namespace AntChain.SDK.TWC
         }
 
         /**
+         * Description: 72h代扣解约代扣协议，未执行成功的代扣会被取消，已执行成功的代扣不变。
+         * Summary: 72h代扣解约-twc解约
+         */
+        public UnbindContractZfbagreementResponse UnbindContractZfbagreement(UnbindContractZfbagreementRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UnbindContractZfbagreementEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 72h代扣解约代扣协议，未执行成功的代扣会被取消，已执行成功的代扣不变。
+         * Summary: 72h代扣解约-twc解约
+         */
+        public async Task<UnbindContractZfbagreementResponse> UnbindContractZfbagreementAsync(UnbindContractZfbagreementRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UnbindContractZfbagreementExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 72h代扣解约代扣协议，未执行成功的代扣会被取消，已执行成功的代扣不变。
+         * Summary: 72h代扣解约-twc解约
+         */
+        public UnbindContractZfbagreementResponse UnbindContractZfbagreementEx(UnbindContractZfbagreementRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UnbindContractZfbagreementResponse>(DoRequest("1.0", "twc.notary.contract.zfbagreement.unbind", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 72h代扣解约代扣协议，未执行成功的代扣会被取消，已执行成功的代扣不变。
+         * Summary: 72h代扣解约-twc解约
+         */
+        public async Task<UnbindContractZfbagreementResponse> UnbindContractZfbagreementExAsync(UnbindContractZfbagreementRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UnbindContractZfbagreementResponse>(await DoRequestAsync("1.0", "twc.notary.contract.zfbagreement.unbind", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
          * Description: 用户使用mp4内容，集成方通过该openAPI进行使用上报。
          * Summary: 集成方通过该接口进行使用mp4上报
          */
@@ -6963,6 +7005,132 @@ namespace AntChain.SDK.TWC
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<OperateLeasePetcomparepetsResponse>(await DoRequestAsync("1.0", "twc.notary.lease.petcomparepets.operate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 法务电子签发起签署
+         * Summary: 法务电子签发起签署
+         */
+        public ApplyInnerAntesignResponse ApplyInnerAntesign(ApplyInnerAntesignRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ApplyInnerAntesignEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 法务电子签发起签署
+         * Summary: 法务电子签发起签署
+         */
+        public async Task<ApplyInnerAntesignResponse> ApplyInnerAntesignAsync(ApplyInnerAntesignRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ApplyInnerAntesignExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 法务电子签发起签署
+         * Summary: 法务电子签发起签署
+         */
+        public ApplyInnerAntesignResponse ApplyInnerAntesignEx(ApplyInnerAntesignRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyInnerAntesignResponse>(DoRequest("1.0", "twc.notary.inner.antesign.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 法务电子签发起签署
+         * Summary: 法务电子签发起签署
+         */
+        public async Task<ApplyInnerAntesignResponse> ApplyInnerAntesignExAsync(ApplyInnerAntesignRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyInnerAntesignResponse>(await DoRequestAsync("1.0", "twc.notary.inner.antesign.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 法务电子签查询签署状态
+         * Summary: 法务电子签查询签署状态
+         */
+        public QueryInnerAntesignResponse QueryInnerAntesign(QueryInnerAntesignRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryInnerAntesignEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 法务电子签查询签署状态
+         * Summary: 法务电子签查询签署状态
+         */
+        public async Task<QueryInnerAntesignResponse> QueryInnerAntesignAsync(QueryInnerAntesignRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryInnerAntesignExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 法务电子签查询签署状态
+         * Summary: 法务电子签查询签署状态
+         */
+        public QueryInnerAntesignResponse QueryInnerAntesignEx(QueryInnerAntesignRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryInnerAntesignResponse>(DoRequest("1.0", "twc.notary.inner.antesign.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 法务电子签查询签署状态
+         * Summary: 法务电子签查询签署状态
+         */
+        public async Task<QueryInnerAntesignResponse> QueryInnerAntesignExAsync(QueryInnerAntesignRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryInnerAntesignResponse>(await DoRequestAsync("1.0", "twc.notary.inner.antesign.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 法务电子签根据公司名称统代生成印章
+         * Summary: 法务电子签根据公司名称统代生成印章
+         */
+        public CreateInnerAntesignResponse CreateInnerAntesign(CreateInnerAntesignRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateInnerAntesignEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 法务电子签根据公司名称统代生成印章
+         * Summary: 法务电子签根据公司名称统代生成印章
+         */
+        public async Task<CreateInnerAntesignResponse> CreateInnerAntesignAsync(CreateInnerAntesignRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateInnerAntesignExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 法务电子签根据公司名称统代生成印章
+         * Summary: 法务电子签根据公司名称统代生成印章
+         */
+        public CreateInnerAntesignResponse CreateInnerAntesignEx(CreateInnerAntesignRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateInnerAntesignResponse>(DoRequest("1.0", "twc.notary.inner.antesign.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 法务电子签根据公司名称统代生成印章
+         * Summary: 法务电子签根据公司名称统代生成印章
+         */
+        public async Task<CreateInnerAntesignResponse> CreateInnerAntesignExAsync(CreateInnerAntesignRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateInnerAntesignResponse>(await DoRequestAsync("1.0", "twc.notary.inner.antesign.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
