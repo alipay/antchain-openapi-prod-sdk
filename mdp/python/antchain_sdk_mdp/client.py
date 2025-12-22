@@ -109,7 +109,8 @@ class Client:
                 'policy': UtilClient.default_string(runtime.backoff_policy, 'no'),
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
-            'ignoreSSL': runtime.ignore_ssl
+            'ignoreSSL': runtime.ignore_ssl,
+            # AppIdQualityScoresDONew
         }
         _last_request = None
         _last_exception = None
@@ -134,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0',
+                    'sdk_version': '1.0.1',
                     '_prod_code': 'MDP',
                     '_prod_channel': 'default'
                 }
@@ -212,7 +213,8 @@ class Client:
                 'policy': UtilClient.default_string(runtime.backoff_policy, 'no'),
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
-            'ignoreSSL': runtime.ignore_ssl
+            'ignoreSSL': runtime.ignore_ssl,
+            # AppIdQualityScoresDONew
         }
         _last_request = None
         _last_exception = None
@@ -237,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0',
+                    'sdk_version': '1.0.1',
                     '_prod_code': 'MDP',
                     '_prod_channel': 'default'
                 }
@@ -279,7 +281,7 @@ class Client:
     ) -> mdp_models.GetuserscoreResponse:
         """
         Description: 依据 modelid 和 userid，查询用户分数
-        Summary: 查询用户分数
+        Summary: 依据 modelid 和 userid，查询用户分数
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -291,7 +293,7 @@ class Client:
     ) -> mdp_models.GetuserscoreResponse:
         """
         Description: 依据 modelid 和 userid，查询用户分数
-        Summary: 查询用户分数
+        Summary: 依据 modelid 和 userid，查询用户分数
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -305,7 +307,7 @@ class Client:
     ) -> mdp_models.GetuserscoreResponse:
         """
         Description: 依据 modelid 和 userid，查询用户分数
-        Summary: 查询用户分数
+        Summary: 依据 modelid 和 userid，查询用户分数
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -321,10 +323,178 @@ class Client:
     ) -> mdp_models.GetuserscoreResponse:
         """
         Description: 依据 modelid 和 userid，查询用户分数
-        Summary: 查询用户分数
+        Summary: 依据 modelid 和 userid，查询用户分数
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             mdp_models.GetuserscoreResponse(),
             await self.do_request_async('1.0', 'antdigital.mdp.getuserscore', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def queryscore(
+        self,
+        request: mdp_models.QueryscoreRequest,
+    ) -> mdp_models.QueryscoreResponse:
+        """
+        Description: 依据 model_id 和 user_id，查询用户分数
+        Summary: 批量查询用户分数
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.queryscore_ex(request, headers, runtime)
+
+    async def queryscore_async(
+        self,
+        request: mdp_models.QueryscoreRequest,
+    ) -> mdp_models.QueryscoreResponse:
+        """
+        Description: 依据 model_id 和 user_id，查询用户分数
+        Summary: 批量查询用户分数
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.queryscore_ex_async(request, headers, runtime)
+
+    def queryscore_ex(
+        self,
+        request: mdp_models.QueryscoreRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mdp_models.QueryscoreResponse:
+        """
+        Description: 依据 model_id 和 user_id，查询用户分数
+        Summary: 批量查询用户分数
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mdp_models.QueryscoreResponse(),
+            self.do_request('1.0', 'antdigital.mdp.queryscore', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def queryscore_ex_async(
+        self,
+        request: mdp_models.QueryscoreRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mdp_models.QueryscoreResponse:
+        """
+        Description: 依据 model_id 和 user_id，查询用户分数
+        Summary: 批量查询用户分数
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mdp_models.QueryscoreResponse(),
+            await self.do_request_async('1.0', 'antdigital.mdp.queryscore', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def batchqueryscore(
+        self,
+        request: mdp_models.BatchqueryscoreRequest,
+    ) -> mdp_models.BatchqueryscoreResponse:
+        """
+        Description: 使用模型 id 和用户 id 类型，批量查询分数
+        Summary: 使用模型 id 和用户 id 类型，批量查询分数
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.batchqueryscore_ex(request, headers, runtime)
+
+    async def batchqueryscore_async(
+        self,
+        request: mdp_models.BatchqueryscoreRequest,
+    ) -> mdp_models.BatchqueryscoreResponse:
+        """
+        Description: 使用模型 id 和用户 id 类型，批量查询分数
+        Summary: 使用模型 id 和用户 id 类型，批量查询分数
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.batchqueryscore_ex_async(request, headers, runtime)
+
+    def batchqueryscore_ex(
+        self,
+        request: mdp_models.BatchqueryscoreRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mdp_models.BatchqueryscoreResponse:
+        """
+        Description: 使用模型 id 和用户 id 类型，批量查询分数
+        Summary: 使用模型 id 和用户 id 类型，批量查询分数
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mdp_models.BatchqueryscoreResponse(),
+            self.do_request('1.0', 'antdigital.mdp.batchqueryscore', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def batchqueryscore_ex_async(
+        self,
+        request: mdp_models.BatchqueryscoreRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mdp_models.BatchqueryscoreResponse:
+        """
+        Description: 使用模型 id 和用户 id 类型，批量查询分数
+        Summary: 使用模型 id 和用户 id 类型，批量查询分数
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mdp_models.BatchqueryscoreResponse(),
+            await self.do_request_async('1.0', 'antdigital.mdp.batchqueryscore', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def querybyappid(
+        self,
+        request: mdp_models.QuerybyappidRequest,
+    ) -> mdp_models.QuerybyappidResponse:
+        """
+        Description: 通过appid和userid查询多个模型的分数
+        Summary: 通过appid和userid查询多个模型的分数
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.querybyappid_ex(request, headers, runtime)
+
+    async def querybyappid_async(
+        self,
+        request: mdp_models.QuerybyappidRequest,
+    ) -> mdp_models.QuerybyappidResponse:
+        """
+        Description: 通过appid和userid查询多个模型的分数
+        Summary: 通过appid和userid查询多个模型的分数
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.querybyappid_ex_async(request, headers, runtime)
+
+    def querybyappid_ex(
+        self,
+        request: mdp_models.QuerybyappidRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mdp_models.QuerybyappidResponse:
+        """
+        Description: 通过appid和userid查询多个模型的分数
+        Summary: 通过appid和userid查询多个模型的分数
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mdp_models.QuerybyappidResponse(),
+            self.do_request('1.0', 'antdigital.mdp.querybyappid', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def querybyappid_ex_async(
+        self,
+        request: mdp_models.QuerybyappidRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mdp_models.QuerybyappidResponse:
+        """
+        Description: 通过appid和userid查询多个模型的分数
+        Summary: 通过appid和userid查询多个模型的分数
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mdp_models.QuerybyappidResponse(),
+            await self.do_request_async('1.0', 'antdigital.mdp.querybyappid', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
