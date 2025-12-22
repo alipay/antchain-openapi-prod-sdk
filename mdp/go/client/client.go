@@ -148,6 +148,58 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
+// AppIdQualityScoresDONew
+type AppIdQualityScoresDONew struct {
+	// modelId
+	Modelid *string `json:"modelid,omitempty" xml:"modelid,omitempty" require:"true"`
+	// qualityscore
+	Qualityscore *string `json:"qualityscore,omitempty" xml:"qualityscore,omitempty" require:"true"`
+}
+
+func (s AppIdQualityScoresDONew) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AppIdQualityScoresDONew) GoString() string {
+	return s.String()
+}
+
+func (s *AppIdQualityScoresDONew) SetModelid(v string) *AppIdQualityScoresDONew {
+	s.Modelid = &v
+	return s
+}
+
+func (s *AppIdQualityScoresDONew) SetQualityscore(v string) *AppIdQualityScoresDONew {
+	s.Qualityscore = &v
+	return s
+}
+
+// AppIdQualityScoresDO
+type AppIdQualityScoresDO struct {
+	// 模型id
+	Modelid *string `json:"modelid,omitempty" xml:"modelid,omitempty" require:"true"`
+	// 分数
+	Qualityscore *string `json:"qualityscore,omitempty" xml:"qualityscore,omitempty" require:"true"`
+}
+
+func (s AppIdQualityScoresDO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AppIdQualityScoresDO) GoString() string {
+	return s.String()
+}
+
+func (s *AppIdQualityScoresDO) SetModelid(v string) *AppIdQualityScoresDO {
+	s.Modelid = &v
+	return s
+}
+
+func (s *AppIdQualityScoresDO) SetQualityscore(v string) *AppIdQualityScoresDO {
+	s.Qualityscore = &v
+	return s
+}
+
 type GetuserscoreRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -222,6 +274,272 @@ func (s *GetuserscoreResponse) SetResultMsg(v string) *GetuserscoreResponse {
 
 func (s *GetuserscoreResponse) SetScore(v int64) *GetuserscoreResponse {
 	s.Score = &v
+	return s
+}
+
+type QueryscoreRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 模型 id
+	ModelId *string `json:"model_id,omitempty" xml:"model_id,omitempty" require:"true"`
+	// 手机号 md5
+	MobileMd5 *string `json:"mobile_md5,omitempty" xml:"mobile_md5,omitempty" require:"true"`
+}
+
+func (s QueryscoreRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryscoreRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryscoreRequest) SetAuthToken(v string) *QueryscoreRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryscoreRequest) SetProductInstanceId(v string) *QueryscoreRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryscoreRequest) SetModelId(v string) *QueryscoreRequest {
+	s.ModelId = &v
+	return s
+}
+
+func (s *QueryscoreRequest) SetMobileMd5(v string) *QueryscoreRequest {
+	s.MobileMd5 = &v
+	return s
+}
+
+type QueryscoreResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 分数
+	Score *int64 `json:"score,omitempty" xml:"score,omitempty"`
+}
+
+func (s QueryscoreResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryscoreResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryscoreResponse) SetReqMsgId(v string) *QueryscoreResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryscoreResponse) SetResultCode(v string) *QueryscoreResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryscoreResponse) SetResultMsg(v string) *QueryscoreResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryscoreResponse) SetScore(v int64) *QueryscoreResponse {
+	s.Score = &v
+	return s
+}
+
+type BatchqueryscoreRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 模型 id，和具体场景相关
+	ModelId *string `json:"model_id,omitempty" xml:"model_id,omitempty" require:"true"`
+	// 用户 id 的类型，比如 mobile 或者 device
+	IdType *string `json:"id_type,omitempty" xml:"id_type,omitempty" require:"true"`
+}
+
+func (s BatchqueryscoreRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BatchqueryscoreRequest) GoString() string {
+	return s.String()
+}
+
+func (s *BatchqueryscoreRequest) SetAuthToken(v string) *BatchqueryscoreRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *BatchqueryscoreRequest) SetProductInstanceId(v string) *BatchqueryscoreRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *BatchqueryscoreRequest) SetModelId(v string) *BatchqueryscoreRequest {
+	s.ModelId = &v
+	return s
+}
+
+func (s *BatchqueryscoreRequest) SetIdType(v string) *BatchqueryscoreRequest {
+	s.IdType = &v
+	return s
+}
+
+type BatchqueryscoreResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 用户 id 与分数的对应关系
+	Scores []*string `json:"scores,omitempty" xml:"scores,omitempty" type:"Repeated"`
+}
+
+func (s BatchqueryscoreResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BatchqueryscoreResponse) GoString() string {
+	return s.String()
+}
+
+func (s *BatchqueryscoreResponse) SetReqMsgId(v string) *BatchqueryscoreResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *BatchqueryscoreResponse) SetResultCode(v string) *BatchqueryscoreResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *BatchqueryscoreResponse) SetResultMsg(v string) *BatchqueryscoreResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *BatchqueryscoreResponse) SetScores(v []*string) *BatchqueryscoreResponse {
+	s.Scores = v
+	return s
+}
+
+type QuerybyappidRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// appid
+	Appid *string `json:"appid,omitempty" xml:"appid,omitempty" require:"true"`
+	// 手机或者设备md5
+	Userid *string `json:"userid,omitempty" xml:"userid,omitempty" require:"true"`
+	// mobile/device
+	Idtype *string `json:"idtype,omitempty" xml:"idtype,omitempty" require:"true"`
+}
+
+func (s QuerybyappidRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QuerybyappidRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QuerybyappidRequest) SetAuthToken(v string) *QuerybyappidRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QuerybyappidRequest) SetProductInstanceId(v string) *QuerybyappidRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QuerybyappidRequest) SetAppid(v string) *QuerybyappidRequest {
+	s.Appid = &v
+	return s
+}
+
+func (s *QuerybyappidRequest) SetUserid(v string) *QuerybyappidRequest {
+	s.Userid = &v
+	return s
+}
+
+func (s *QuerybyappidRequest) SetIdtype(v string) *QuerybyappidRequest {
+	s.Idtype = &v
+	return s
+}
+
+type QuerybyappidResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// app_id
+	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty"`
+	// 手机号或者设备号md5
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+	// 分数列表
+	Scores []*AppIdQualityScoresDONew `json:"scores,omitempty" xml:"scores,omitempty" type:"Repeated"`
+	// 筛选分数的规则，通过规则的返回，否则 scores 内容是空的
+	Rule *string `json:"rule,omitempty" xml:"rule,omitempty"`
+	// 规则对应的 md5 值，用来区分当前规则的版本
+	RuleMd5 *string `json:"rule_md5,omitempty" xml:"rule_md5,omitempty"`
+}
+
+func (s QuerybyappidResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QuerybyappidResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QuerybyappidResponse) SetReqMsgId(v string) *QuerybyappidResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QuerybyappidResponse) SetResultCode(v string) *QuerybyappidResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QuerybyappidResponse) SetResultMsg(v string) *QuerybyappidResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QuerybyappidResponse) SetAppId(v string) *QuerybyappidResponse {
+	s.AppId = &v
+	return s
+}
+
+func (s *QuerybyappidResponse) SetUserId(v string) *QuerybyappidResponse {
+	s.UserId = &v
+	return s
+}
+
+func (s *QuerybyappidResponse) SetScores(v []*AppIdQualityScoresDONew) *QuerybyappidResponse {
+	s.Scores = v
+	return s
+}
+
+func (s *QuerybyappidResponse) SetRule(v string) *QuerybyappidResponse {
+	s.Rule = &v
+	return s
+}
+
+func (s *QuerybyappidResponse) SetRuleMd5(v string) *QuerybyappidResponse {
+	s.RuleMd5 = &v
 	return s
 }
 
@@ -347,7 +665,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.0"),
+				"sdk_version":      tea.String("1.0.1"),
 				"_prod_code":       tea.String("MDP"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -407,7 +725,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 
 /**
  * Description: 依据 modelid 和 userid，查询用户分数
- * Summary: 查询用户分数
+ * Summary: 依据 modelid 和 userid，查询用户分数
  */
 func (client *Client) Getuserscore(request *GetuserscoreRequest) (_result *GetuserscoreResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -423,7 +741,7 @@ func (client *Client) Getuserscore(request *GetuserscoreRequest) (_result *Getus
 
 /**
  * Description: 依据 modelid 和 userid，查询用户分数
- * Summary: 查询用户分数
+ * Summary: 依据 modelid 和 userid，查询用户分数
  */
 func (client *Client) GetuserscoreEx(request *GetuserscoreRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetuserscoreResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -432,6 +750,108 @@ func (client *Client) GetuserscoreEx(request *GetuserscoreRequest, headers map[s
 	}
 	_result = &GetuserscoreResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.mdp.getuserscore"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 依据 model_id 和 user_id，查询用户分数
+ * Summary: 批量查询用户分数
+ */
+func (client *Client) Queryscore(request *QueryscoreRequest) (_result *QueryscoreResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryscoreResponse{}
+	_body, _err := client.QueryscoreEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 依据 model_id 和 user_id，查询用户分数
+ * Summary: 批量查询用户分数
+ */
+func (client *Client) QueryscoreEx(request *QueryscoreRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryscoreResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryscoreResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.mdp.queryscore"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 使用模型 id 和用户 id 类型，批量查询分数
+ * Summary: 使用模型 id 和用户 id 类型，批量查询分数
+ */
+func (client *Client) Batchqueryscore(request *BatchqueryscoreRequest) (_result *BatchqueryscoreResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &BatchqueryscoreResponse{}
+	_body, _err := client.BatchqueryscoreEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 使用模型 id 和用户 id 类型，批量查询分数
+ * Summary: 使用模型 id 和用户 id 类型，批量查询分数
+ */
+func (client *Client) BatchqueryscoreEx(request *BatchqueryscoreRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BatchqueryscoreResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &BatchqueryscoreResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.mdp.batchqueryscore"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 通过appid和userid查询多个模型的分数
+ * Summary: 通过appid和userid查询多个模型的分数
+ */
+func (client *Client) Querybyappid(request *QuerybyappidRequest) (_result *QuerybyappidResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QuerybyappidResponse{}
+	_body, _err := client.QuerybyappidEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 通过appid和userid查询多个模型的分数
+ * Summary: 通过appid和userid查询多个模型的分数
+ */
+func (client *Client) QuerybyappidEx(request *QuerybyappidRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QuerybyappidResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QuerybyappidResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.mdp.querybyappid"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
