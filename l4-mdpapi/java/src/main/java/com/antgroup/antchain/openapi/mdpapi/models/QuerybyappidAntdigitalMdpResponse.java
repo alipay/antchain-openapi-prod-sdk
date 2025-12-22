@@ -28,6 +28,14 @@ public class QuerybyappidAntdigitalMdpResponse extends TeaModel {
     @NameInMap("scores")
     public java.util.List<AppIdQualityScoresDONew> scores;
 
+    // 筛选分数的规则，通过规则的返回，否则 scores 内容是空的
+    @NameInMap("rule")
+    public String rule;
+
+    // 规则对应的 md5 值，用来区分当前规则的版本
+    @NameInMap("rulemd5")
+    public String rulemd5;
+
     public static QuerybyappidAntdigitalMdpResponse build(java.util.Map<String, ?> map) throws Exception {
         QuerybyappidAntdigitalMdpResponse self = new QuerybyappidAntdigitalMdpResponse();
         return TeaModel.build(map, self);
@@ -79,6 +87,22 @@ public class QuerybyappidAntdigitalMdpResponse extends TeaModel {
     }
     public java.util.List<AppIdQualityScoresDONew> getScores() {
         return this.scores;
+    }
+
+    public QuerybyappidAntdigitalMdpResponse setRule(String rule) {
+        this.rule = rule;
+        return this;
+    }
+    public String getRule() {
+        return this.rule;
+    }
+
+    public QuerybyappidAntdigitalMdpResponse setRulemd5(String rulemd5) {
+        this.rulemd5 = rulemd5;
+        return this;
+    }
+    public String getRulemd5() {
+        return this.rulemd5;
     }
 
 }
