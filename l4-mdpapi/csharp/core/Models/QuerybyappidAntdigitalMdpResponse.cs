@@ -39,6 +39,16 @@ namespace AntChain.SDK.MDPAPI.Models
         [Validation(Required=false)]
         public List<AppIdQualityScoresDONew> Scores { get; set; }
 
+        // 筛选分数的规则，通过规则的返回，否则 scores 内容是空的
+        [NameInMap("rule")]
+        [Validation(Required=false)]
+        public string Rule { get; set; }
+
+        // 规则对应的 md5 值，用来区分当前规则的版本
+        [NameInMap("rulemd5")]
+        [Validation(Required=false)]
+        public string Rulemd5 { get; set; }
+
     }
 
 }
