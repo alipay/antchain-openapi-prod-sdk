@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.27',
+                    'sdk_version': '1.2.28',
                     '_prod_code': 'BXPT_NEW',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.27',
+                    'sdk_version': '1.2.28',
                     '_prod_code': 'BXPT_NEW',
                     '_prod_channel': 'default'
                 }
@@ -757,6 +757,98 @@ class Client:
         return TeaCore.from_map(
             bxpt__new_models.NotifyMultimodalDataprodResponse(),
             await self.do_request_async('1.0', 'antcloud.bxptnew.multimodal.dataprod.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def exec_syncmultimodal_dataprod(
+        self,
+        request: bxpt__new_models.ExecSyncmultimodalDataprodRequest,
+    ) -> bxpt__new_models.ExecSyncmultimodalDataprodResponse:
+        """
+        Description: 提供多模态的数据产品执行，并同步返回验证结果，支持上传文本，图片、视频、音频等格式
+        Summary: 提供多模态的数据产品执行同步返回
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.exec_syncmultimodal_dataprod_ex(request, headers, runtime)
+
+    async def exec_syncmultimodal_dataprod_async(
+        self,
+        request: bxpt__new_models.ExecSyncmultimodalDataprodRequest,
+    ) -> bxpt__new_models.ExecSyncmultimodalDataprodResponse:
+        """
+        Description: 提供多模态的数据产品执行，并同步返回验证结果，支持上传文本，图片、视频、音频等格式
+        Summary: 提供多模态的数据产品执行同步返回
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.exec_syncmultimodal_dataprod_ex_async(request, headers, runtime)
+
+    def exec_syncmultimodal_dataprod_ex(
+        self,
+        request: bxpt__new_models.ExecSyncmultimodalDataprodRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bxpt__new_models.ExecSyncmultimodalDataprodResponse:
+        """
+        Description: 提供多模态的数据产品执行，并同步返回验证结果，支持上传文本，图片、视频、音频等格式
+        Summary: 提供多模态的数据产品执行同步返回
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = bxpt__new_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antcloud.bxptnew.syncmultimodal.dataprod.exec',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                exec_syncmultimodal_dataprod_response = bxpt__new_models.ExecSyncmultimodalDataprodResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return exec_syncmultimodal_dataprod_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bxpt__new_models.ExecSyncmultimodalDataprodResponse(),
+            self.do_request('1.0', 'antcloud.bxptnew.syncmultimodal.dataprod.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def exec_syncmultimodal_dataprod_ex_async(
+        self,
+        request: bxpt__new_models.ExecSyncmultimodalDataprodRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bxpt__new_models.ExecSyncmultimodalDataprodResponse:
+        """
+        Description: 提供多模态的数据产品执行，并同步返回验证结果，支持上传文本，图片、视频、音频等格式
+        Summary: 提供多模态的数据产品执行同步返回
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = bxpt__new_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antcloud.bxptnew.syncmultimodal.dataprod.exec',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                exec_syncmultimodal_dataprod_response = bxpt__new_models.ExecSyncmultimodalDataprodResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return exec_syncmultimodal_dataprod_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bxpt__new_models.ExecSyncmultimodalDataprodResponse(),
+            await self.do_request_async('1.0', 'antcloud.bxptnew.syncmultimodal.dataprod.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_datapromotion_decision(
