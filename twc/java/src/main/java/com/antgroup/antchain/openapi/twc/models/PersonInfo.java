@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class PersonInfo extends TeaModel {
     // 个人证件名称
+    /**
+     * <strong>example:</strong>
+     * <p>张三</p>
+     */
     @NameInMap("cert_name")
     @Validation(required = true)
     public String certName;
 
     // 个人证件号码
+    /**
+     * <strong>example:</strong>
+     * <p>512223********1245</p>
+     */
     @NameInMap("cert_no")
     @Validation(required = true)
     public String certNo;
 
     // 证件类型, 默认身份证 RESIDENT：居民身份证号，PASSPORT：护照，MILITARY：军官证
+    /**
+     * <strong>example:</strong>
+     * <p>RESIDENT</p>
+     */
     @NameInMap("cert_type")
     public String certType;
 

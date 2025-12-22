@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class ApplySupplierOrderProductInput extends TeaModel {
     // 采购商品id
+    /**
+     * <strong>example:</strong>
+     * <p>202024234234</p>
+     */
     @NameInMap("product_id")
     @Validation(required = true)
     public String productId;
 
     // 采购商品数量
+    /**
+     * <strong>example:</strong>
+     * <p>100</p>
+     */
     @NameInMap("product_num")
     @Validation(required = true)
     public Long productNum;

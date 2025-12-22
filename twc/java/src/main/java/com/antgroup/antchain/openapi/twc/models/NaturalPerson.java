@@ -5,29 +5,53 @@ import com.aliyun.tea.*;
 
 public class NaturalPerson extends TeaModel {
     // 自然人姓名
+    /**
+     * <strong>example:</strong>
+     * <p>李四</p>
+     */
     @NameInMap("name")
     @Validation(required = true)
     public String name;
 
     // 自然人手机号码
+    /**
+     * <strong>example:</strong>
+     * <p>13821323232</p>
+     */
     @NameInMap("mobile_number")
     @Validation(required = true)
     public String mobileNumber;
 
     // 自然人身份号码
+    /**
+     * <strong>example:</strong>
+     * <p>412702199812252774</p>
+     */
     @NameInMap("id_number")
     @Validation(required = true)
     public String idNumber;
 
     // 自然人民族
+    /**
+     * <strong>example:</strong>
+     * <p>汉</p>
+     */
     @NameInMap("nation")
     public String nation;
 
     // 自然人身份地址
+    /**
+     * <strong>example:</strong>
+     * <p>北京市朝阳区XX地址</p>
+     */
     @NameInMap("address")
     public String address;
 
     // 自然人电子邮箱
+    /**
+     * <strong>example:</strong>
+     * <p><a href="mailto:323232321@alibba-inc.com">323232321@alibba-inc.com</a></p>
+     */
     @NameInMap("email")
     public String email;
 

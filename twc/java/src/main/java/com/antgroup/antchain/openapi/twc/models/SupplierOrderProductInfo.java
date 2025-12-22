@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class SupplierOrderProductInfo extends TeaModel {
     // 商品id
+    /**
+     * <strong>example:</strong>
+     * <p>product_id_123</p>
+     */
     @NameInMap("product_id")
     @Validation(required = true)
     public String productId;
 
     // 商品采购单价，单位：毫厘
+    /**
+     * <strong>example:</strong>
+     * <p>10000</p>
+     */
     @NameInMap("product_price")
     @Validation(required = true)
     public Long productPrice;
 
     // 商品的sn信息
+    /**
+     * <strong>example:</strong>
+     * <p>[&quot;sn1&quot;,&quot;sn2&quot;]</p>
+     */
     @NameInMap("sn_list")
     @Validation(required = true)
     public java.util.List<String> snList;

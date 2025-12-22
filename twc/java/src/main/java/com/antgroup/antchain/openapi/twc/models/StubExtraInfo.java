@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class StubExtraInfo extends TeaModel {
     // 票面视觉
+    /**
+     * <strong>example:</strong>
+     * <p><a href="https://www.xx.com">https://www.xx.com</a></p>
+     */
     @NameInMap("ticket_vision")
     public String ticketVision;
 

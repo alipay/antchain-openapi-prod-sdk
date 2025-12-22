@@ -13,6 +13,10 @@ public class ContractDocSignVerifyInfo extends TeaModel {
     public ContractDocSignVerifySignatureInfo signature;
 
     // 印章数据
+    /**
+     * <strong>example:</strong>
+     * <p>35058319XXxxxxxx33</p>
+     */
     @NameInMap("seal_data")
     public String sealData;
 

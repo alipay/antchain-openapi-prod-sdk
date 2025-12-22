@@ -13,14 +13,26 @@ public class WitnessSignData extends TeaModel {
     public java.util.List<String> sealIds;
 
     // 待签署文档摘要值，批量签时必传
+    /**
+     * <strong>example:</strong>
+     * <p>04181b49ee5d7eb0099a289ac8a45df6afb5aa2679c5284444698a9790099269</p>
+     */
     @NameInMap("sign_hash")
     public String signHash;
 
     // 签署位置信息
+    /**
+     * <strong>example:</strong>
+     * 
+     */
     @NameInMap("sign_pos_data")
     public String signPosData;
 
     // 第三方文档id，批量签时必传
+    /**
+     * <strong>example:</strong>
+     * 
+     */
     @NameInMap("third_doc_id")
     public String thirdDocId;
 

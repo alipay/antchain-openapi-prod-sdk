@@ -5,29 +5,53 @@ import com.aliyun.tea.*;
 
 public class JudicialOrgInfo extends TeaModel {
     // 企业名称
+    /**
+     * <strong>example:</strong>
+     * <p>某知名有限公司</p>
+     */
     @NameInMap("org_name")
     @Validation(required = true)
     public String orgName;
 
     // 企业或机构社会统一信用代码
+    /**
+     * <strong>example:</strong>
+     * <p>92XXX</p>
+     */
     @NameInMap("org_cert_num")
     @Validation(required = true)
     public String orgCertNum;
 
     // 企业联系电话
+    /**
+     * <strong>example:</strong>
+     * <p>15000000000</p>
+     */
     @NameInMap("org_phone")
     @Validation(required = true)
     public String orgPhone;
 
     // 企业联系邮箱
+    /**
+     * <strong>example:</strong>
+     * <p><a href="mailto:email@org.com">email@org.com</a></p>
+     */
     @NameInMap("org_email")
     public String orgEmail;
 
     // 企业通讯地址
+    /**
+     * <strong>example:</strong>
+     * <p>上海市黄浦区外马路618号</p>
+     */
     @NameInMap("org_address")
     public String orgAddress;
 
     // 企业营业执照地址
+    /**
+     * <strong>example:</strong>
+     * <p>企业营业执照地址</p>
+     */
     @NameInMap("residence_address")
     public String residenceAddress;
 

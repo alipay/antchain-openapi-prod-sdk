@@ -5,22 +5,42 @@ import com.aliyun.tea.*;
 
 public class ContractDocSignVerifyCertInfo extends TeaModel {
     // 证书所有者
+    /**
+     * <strong>example:</strong>
+     * <p>杭州**有限公司</p>
+     */
     @NameInMap("owner")
     public String owner;
 
     // 证书序列号
+    /**
+     * <strong>example:</strong>
+     * <p>536deb6bfce98a9143f143ca</p>
+     */
     @NameInMap("serial")
     public String serial;
 
     // 证书开始日期
+    /**
+     * <strong>example:</strong>
+     * <p>2020-04-13 11:46:18</p>
+     */
     @NameInMap("start_date")
     public String startDate;
 
     // 证书结束日期
+    /**
+     * <strong>example:</strong>
+     * <p>2021-04-13 11:46:18</p>
+     */
     @NameInMap("end_date")
     public String endDate;
 
     // 证书颁发机构
+    /**
+     * <strong>example:</strong>
+     * <p>智慧CA_测试</p>
+     */
     @NameInMap("issuer_cn")
     public String issuerCn;
 

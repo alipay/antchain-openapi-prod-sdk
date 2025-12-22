@@ -5,29 +5,53 @@ import com.aliyun.tea.*;
 
 public class ContractPlatformAccountApplication extends TeaModel {
     // 邮箱地址
+    /**
+     * <strong>example:</strong>
+     * <p><a href="mailto:xx@alipay.com">xx@alipay.com</a></p>
+     */
     @NameInMap("email")
     public String email;
 
     // 证件号
+    /**
+     * <strong>example:</strong>
+     * <p>311111111111111111</p>
+     */
     @NameInMap("id_number")
     @Validation(required = true)
     public String idNumber;
 
     // 证件类型
+    /**
+     * <strong>example:</strong>
+     * <p>CRED_PSN_CH_IDCARD</p>
+     */
     @NameInMap("id_type")
     @Validation(required = true)
     public String idType;
 
     // 手机号码
+    /**
+     * <strong>example:</strong>
+     * <p>15811111111</p>
+     */
     @NameInMap("mobile")
     public String mobile;
 
     // 姓名
+    /**
+     * <strong>example:</strong>
+     * <p>张三</p>
+     */
     @NameInMap("name")
     @Validation(required = true)
     public String name;
 
     // 用户唯一标识，可传入第三方平台的个人用户id等
+    /**
+     * <strong>example:</strong>
+     * <p>A001</p>
+     */
     @NameInMap("user_id")
     @Validation(required = true)
     public String userId;

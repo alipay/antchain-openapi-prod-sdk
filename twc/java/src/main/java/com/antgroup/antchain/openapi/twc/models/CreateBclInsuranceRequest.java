@@ -16,8 +16,7 @@ public class CreateBclInsuranceRequest extends TeaModel {
     @Validation(required = true, maxLength = 32, minLength = 16)
     public String orderId;
 
-    // 保司code，枚举值
-    // HZRB: 杭州人保
+    // 保司code
     @NameInMap("insurance_code")
     @Validation(required = true, maxLength = 32, minLength = 8)
     public String insuranceCode;

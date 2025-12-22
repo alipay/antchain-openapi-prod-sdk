@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class OnestepFlowNotaryInfo extends TeaModel {
     // 全流程模板id，需要提前创建好模板才能获取
+    /**
+     * <strong>example:</strong>
+     * <p>TP_4a605f04-ae9f-48d3-88ba-05c073ad5484</p>
+     */
     @NameInMap("template_id")
     @Validation(required = true)
     public String templateId;
 
     // 流程名称，同一个租户下同一个模板，建议唯一不重复
+    /**
+     * <strong>example:</strong>
+     * <p>员工入职流程_员工xxxxx</p>
+     */
     @NameInMap("flow_name")
     @Validation(required = true)
     public String flowName;
@@ -25,6 +33,10 @@ public class OnestepFlowNotaryInfo extends TeaModel {
     public java.util.List<PhaseNotary> phaseNotaryList;
 
     // 扩展属性
+    /**
+     * <strong>example:</strong>
+     * <p>{&quot;key&quot;:&quot;value&quot;}</p>
+     */
     @NameInMap("properties")
     public String properties;
 

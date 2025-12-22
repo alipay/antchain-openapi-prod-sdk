@@ -5,21 +5,37 @@ import com.aliyun.tea.*;
 
 public class OrderInfo extends TeaModel {
     // 出租方平台名称
+    /**
+     * <strong>example:</strong>
+     * <p>租赁宝</p>
+     */
     @NameInMap("lessor_platform_name")
     @Validation(required = true)
     public String lessorPlatformName;
 
     // 订单号
+    /**
+     * <strong>example:</strong>
+     * <p>232278957595482</p>
+     */
     @NameInMap("order_number")
     @Validation(required = true)
     public String orderNumber;
 
     // 合同编号
+    /**
+     * <strong>example:</strong>
+     * <p>232278957595482</p>
+     */
     @NameInMap("contract_no")
     @Validation(required = true)
     public String contractNo;
 
     // 合同名称
+    /**
+     * <strong>example:</strong>
+     * <p>租赁宝合同</p>
+     */
     @NameInMap("contract_name")
     @Validation(required = true)
     public String contractName;
@@ -30,41 +46,73 @@ public class OrderInfo extends TeaModel {
     public java.util.List<OrderItem> orderItems;
 
     // 设备及配件总价
+    /**
+     * <strong>example:</strong>
+     * <p>123.00</p>
+     */
     @NameInMap("total_device_price")
     @Validation(required = true)
     public String totalDevicePrice;
 
     // 押金金额
+    /**
+     * <strong>example:</strong>
+     * <p>123.00</p>
+     */
     @NameInMap("deposit_amount")
     @Validation(required = true)
     public String depositAmount;
 
     // 免押金额
+    /**
+     * <strong>example:</strong>
+     * <p>1123.00</p>
+     */
     @NameInMap("free_deposit")
     @Validation(required = true)
     public String freeDeposit;
 
     // 签约时间
+    /**
+     * <strong>example:</strong>
+     * <p>2021-05-07 17:13:50</p>
+     */
     @NameInMap("signing_time")
     @Validation(required = true)
     public String signingTime;
 
     // 租期起始时间
+    /**
+     * <strong>example:</strong>
+     * <p>2021-05-07 17:13:50</p>
+     */
     @NameInMap("lease_start_time")
     @Validation(required = true)
     public String leaseStartTime;
 
     // 租期结束时间
+    /**
+     * <strong>example:</strong>
+     * <p>2021-05-07 17:13:50</p>
+     */
     @NameInMap("lease_end_time")
     @Validation(required = true)
     public String leaseEndTime;
 
     // 买断金额计算公式
+    /**
+     * <strong>example:</strong>
+     * <p>到期转售买断款+未还租金-实付押金</p>
+     */
     @NameInMap("buyout_amount_formula_calc")
     @Validation(required = true)
     public String buyoutAmountFormulaCalc;
 
     // 首付款
+    /**
+     * <strong>example:</strong>
+     * <p>123.00</p>
+     */
     @NameInMap("pay_in_advance")
     @Validation(required = true)
     public String payInAdvance;

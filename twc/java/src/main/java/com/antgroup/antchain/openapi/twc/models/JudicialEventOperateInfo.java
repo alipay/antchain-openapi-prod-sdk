@@ -9,6 +9,10 @@ public class JudicialEventOperateInfo extends TeaModel {
     //   延期确认: DELAY_CONFIRM
     //   回款确认: CASH_CONFIRM
     // 
+    /**
+     * <strong>example:</strong>
+     * <p>DELAY_CONFIRM</p>
+     */
     @NameInMap("operate_type")
     @Validation(required = true)
     public String operateType;
@@ -20,15 +24,27 @@ public class JudicialEventOperateInfo extends TeaModel {
     // 回款确认:
     //   确认-CONFIRM
     //   有异议-DISSENT
+    /**
+     * <strong>example:</strong>
+     * <p>CONFIRM</p>
+     */
     @NameInMap("operate_opinion")
     @Validation(required = true)
     public String operateOpinion;
 
     // 当延期申请不同意,回款确认有异议时填写原因
+    /**
+     * <strong>example:</strong>
+     * <p>请求延期,请批准</p>
+     */
     @NameInMap("operate_reason")
     public String operateReason;
 
     // 回款记录编号,回款确认时必填
+    /**
+     * <strong>example:</strong>
+     * <p>202243243234a</p>
+     */
     @NameInMap("req_biz_no")
     public String reqBizNo;
 

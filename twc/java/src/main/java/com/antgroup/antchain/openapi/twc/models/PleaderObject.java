@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class PleaderObject extends TeaModel {
     // 法人或自然人标识，法人为1，自然人为0
+    /**
+     * <strong>example:</strong>
+     * <p>0</p>
+     */
     @NameInMap("party_type")
     @Validation(required = true)
     public Long partyType;

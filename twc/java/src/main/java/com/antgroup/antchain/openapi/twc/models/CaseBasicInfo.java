@@ -5,30 +5,54 @@ import com.aliyun.tea.*;
 
 public class CaseBasicInfo extends TeaModel {
     // 案件租户id
+    /**
+     * <strong>example:</strong>
+     * <p>ORGJC1CN</p>
+     */
     @NameInMap("biz_tenant_id")
     @Validation(required = true)
     public String bizTenantId;
 
     // 案件类型:LEASE：租赁，FINANCIAL：金融，OTHER：其他
+    /**
+     * <strong>example:</strong>
+     * <p>LEASE</p>
+     */
     @NameInMap("case_type")
     @Validation(required = true)
     public String caseType;
 
     // 标的金额（单位元）
+    /**
+     * <strong>example:</strong>
+     * <p>123.00</p>
+     */
     @NameInMap("amount")
     public String amount;
 
     // 业务来源主键
+    /**
+     * <strong>example:</strong>
+     * <p>232278957595482</p>
+     */
     @NameInMap("input_source_id")
     @Validation(required = true)
     public String inputSourceId;
 
     // 案件进件来源 
+    /**
+     * <strong>example:</strong>
+     * <p>租赁宝</p>
+     */
     @NameInMap("input_source")
     @Validation(required = true)
     public String inputSource;
 
     // 根据业务来源主键对应订单号下的租赁事实报告和证据列表页面的嵌入URL
+    /**
+     * <strong>example:</strong>
+     * <p><a href="https://www.aliyun.com">https://www.aliyun.com</a></p>
+     */
     @NameInMap("case_ext")
     public String caseExt;
 

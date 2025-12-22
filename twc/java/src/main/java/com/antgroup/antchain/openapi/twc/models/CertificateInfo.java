@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class CertificateInfo extends TeaModel {
     // 存证证明的证书内容的SHA256哈希值
+    /**
+     * <strong>example:</strong>
+     * <p>6b7966f4a30a7fec43a6b5ca8e4610f63d320f03ee698945014c0bbc13c6beba</p>
+     */
     @NameInMap("hash")
     @Validation(required = true)
     public String hash;
 
     // 存证证明的证书文件名
+    /**
+     * <strong>example:</strong>
+     * <p>resource_name.pdf</p>
+     */
     @NameInMap("resource_name")
     @Validation(required = true)
     public String resourceName;
 
     // 存证证明的证书下载地址
+    /**
+     * <strong>example:</strong>
+     * <p><a href="https://resource_download_adderss">https://resource_download_adderss</a></p>
+     */
     @NameInMap("resource_url")
     @Validation(required = true)
     public String resourceUrl;

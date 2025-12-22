@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class LeaseNotaryRecord extends TeaModel {
     // 存证阶段
+    /**
+     * <strong>example:</strong>
+     * <p>PLACE_ORDER</p>
+     */
     @NameInMap("phase")
     @Validation(required = true)
     public String phase;
 
     // 交易哈希，存证记录唯一标识
+    /**
+     * <strong>example:</strong>
+     * <p>04181b49ee5d7eb0099a289ac8a45df6afb5aa2679c5284444698a9790099269</p>
+     */
     @NameInMap("tx_hash")
     @Validation(required = true)
     public String txHash;

@@ -5,28 +5,52 @@ import com.aliyun.tea.*;
 
 public class LegalPerson extends TeaModel {
     // 被申请人姓名
+    /**
+     * <strong>example:</strong>
+     * <p>李四</p>
+     */
     @NameInMap("name")
     @Validation(required = true)
     public String name;
 
     // 法人统一社会信用编码
+    /**
+     * <strong>example:</strong>
+     * <p>412702199812252774</p>
+     */
     @NameInMap("id_number")
     @Validation(required = true)
     public String idNumber;
 
     // 法定代表人姓名
+    /**
+     * <strong>example:</strong>
+     * <p>李四</p>
+     */
     @NameInMap("representative_name")
     public String representativeName;
 
     // 联系方式
+    /**
+     * <strong>example:</strong>
+     * <p>13812123232</p>
+     */
     @NameInMap("legal_phone_number")
     public String legalPhoneNumber;
 
     // 住所地（同营业执照地址）
+    /**
+     * <strong>example:</strong>
+     * <p>北京市朝阳区XX地址</p>
+     */
     @NameInMap("legal_address")
     public String legalAddress;
 
     // 企业经营地址
+    /**
+     * <strong>example:</strong>
+     * <p>北京市朝阳区XX地址</p>
+     */
     @NameInMap("legal_business_address")
     public String legalBusinessAddress;
 

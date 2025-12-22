@@ -5,26 +5,50 @@ import com.aliyun.tea.*;
 
 public class ContractUserAccountApplication extends TeaModel {
     // 邮箱地址，默认不变
+    /**
+     * <strong>example:</strong>
+     * <p><a href="mailto:xx@alipay.com">xx@alipay.com</a></p>
+     */
     @NameInMap("email")
     public String email;
 
     // 证件号，该字段只有为空才允许修改
+    /**
+     * <strong>example:</strong>
+     * <p>311111111111111111</p>
+     */
     @NameInMap("id_number")
     public String idNumber;
 
     // 证件类型，默认为身份证
+    /**
+     * <strong>example:</strong>
+     * <p>CRED_PSN_CH_IDCARD</p>
+     */
     @NameInMap("id_type")
     public String idType;
 
     // 手机号码，默认不变
+    /**
+     * <strong>example:</strong>
+     * <p>15811111111</p>
+     */
     @NameInMap("mobile")
     public String mobile;
 
     // 姓名，默认不变
+    /**
+     * <strong>example:</strong>
+     * <p>张三</p>
+     */
     @NameInMap("name")
     public String name;
 
     // 用户/经办人账号id
+    /**
+     * <strong>example:</strong>
+     * <p>ORGJC1CN1591674666666</p>
+     */
     @NameInMap("user_id")
     @Validation(required = true)
     public String userId;

@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class ContractSignField extends TeaModel {
     // 电子合同用户ID
+    /**
+     * <strong>example:</strong>
+     * <p>faea8237c61a4fdea864ee8d7621e14f</p>
+     */
     @NameInMap("account_id")
     @Validation(required = true)
     public String accountId;
 
     // 电子合同文档ID
+    /**
+     * <strong>example:</strong>
+     * <p>fe7df2f477d649c18ebcfdfffeba253d</p>
+     */
     @NameInMap("file_id")
     @Validation(required = true)
     public String fileId;
 
     // 电子合同签署区id
+    /**
+     * <strong>example:</strong>
+     * <p>b76b69d5b48d4f689cae997e42809ac4</p>
+     */
     @NameInMap("signfield_id")
     @Validation(required = true)
     public String signfieldId;

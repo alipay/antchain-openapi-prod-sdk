@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class ApplySupplierOrderProductOutput extends TeaModel {
     // 订单id
+    /**
+     * <strong>example:</strong>
+     * <p>2020223123</p>
+     */
     @NameInMap("order_id")
     @Validation(required = true)
     public String orderId;
 
     // 链上采购单id
+    /**
+     * <strong>example:</strong>
+     * <p>23042340234234</p>
+     */
     @NameInMap("pur_order_id")
     @Validation(required = true)
     public String purOrderId;
@@ -19,11 +27,19 @@ public class ApplySupplierOrderProductOutput extends TeaModel {
     // 已拒发：REJECTED
     // 已退货：RETURNED
     // 已取消：CANCELED
+    /**
+     * <strong>example:</strong>
+     * <p>链上采购状态</p>
+     */
     @NameInMap("pur_order_status")
     @Validation(required = true)
     public String purOrderStatus;
 
     // 供应商id
+    /**
+     * <strong>example:</strong>
+     * <p>ABCDEFGH</p>
+     */
     @NameInMap("supplier_id")
     public String supplierId;
 

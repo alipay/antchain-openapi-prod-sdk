@@ -5,39 +5,71 @@ import com.aliyun.tea.*;
 
 public class OrderItem extends TeaModel {
     // 产品名称
+    /**
+     * <strong>example:</strong>
+     * <p>戴尔电脑</p>
+     */
     @NameInMap("product_name")
     @Validation(required = true)
     public String productName;
 
     // 商品品牌
+    /**
+     * <strong>example:</strong>
+     * <p>戴尔</p>
+     */
     @NameInMap("commodity_brand")
     @Validation(required = true)
     public String commodityBrand;
 
     // 商品版本
+    /**
+     * <strong>example:</strong>
+     * <p>戴尔成就3681</p>
+     */
     @NameInMap("commodity_version")
     @Validation(required = true)
     public String commodityVersion;
 
     // 商品规格
+    /**
+     * <strong>example:</strong>
+     * <p>英特尔酷睿i3</p>
+     */
     @NameInMap("commodity_specification")
     @Validation(required = true)
     public String commoditySpecification;
 
     // 商品颜色
+    /**
+     * <strong>example:</strong>
+     * <p>黑色</p>
+     */
     @NameInMap("commodity_color")
     public String commodityColor;
 
     // 商品详情
+    /**
+     * <strong>example:</strong>
+     * <p>戴尔电脑</p>
+     */
     @NameInMap("commodity_details")
     public String commodityDetails;
 
     // 商品官方价格
+    /**
+     * <strong>example:</strong>
+     * <p>6666.00</p>
+     */
     @NameInMap("commodity_official_price")
     @Validation(required = true)
     public String commodityOfficialPrice;
 
     // 租赁物数量
+    /**
+     * <strong>example:</strong>
+     * <p>10</p>
+     */
     @NameInMap("lease_number")
     @Validation(required = true)
     public Long leaseNumber;

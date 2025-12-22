@@ -5,26 +5,46 @@ import com.aliyun.tea.*;
 
 public class LeaseCreditPromiseInfo extends TeaModel {
     // 租期index
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("term")
     @Validation(required = true)
     public Long term;
 
     // 应还金额
+    /**
+     * <strong>example:</strong>
+     * <p>123400</p>
+     */
     @NameInMap("pay_money")
     @Validation(required = true)
     public Long payMoney;
 
     // 应还款时间
+    /**
+     * <strong>example:</strong>
+     * <p>2019-07-31 12:00:00</p>
+     */
     @NameInMap("pay_date")
     @Validation(required = true)
     public String payDate;
 
     // 垫付日
+    /**
+     * <strong>example:</strong>
+     * <p>2019-07-31 12:00:00</p>
+     */
     @NameInMap("pay_in_advance_time")
     @Validation(required = true)
     public String payInAdvanceTime;
 
     // 垫付金额
+    /**
+     * <strong>example:</strong>
+     * <p>123400</p>
+     */
     @NameInMap("pay_in_advance_money")
     @Validation(required = true)
     public Long payInAdvanceMoney;

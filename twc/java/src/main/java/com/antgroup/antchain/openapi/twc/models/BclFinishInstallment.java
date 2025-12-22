@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class BclFinishInstallment extends TeaModel {
     // 期次号
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("term_no")
     @Validation(required = true)
     public Long termNo;

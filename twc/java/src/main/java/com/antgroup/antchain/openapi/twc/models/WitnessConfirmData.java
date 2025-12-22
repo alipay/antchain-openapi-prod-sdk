@@ -5,20 +5,36 @@ import com.aliyun.tea.*;
 
 public class WitnessConfirmData extends TeaModel {
     // 文档fileKey
+    /**
+     * <strong>example:</strong>
+     * 
+     */
     @NameInMap("doc_file_key")
     public String docFileKey;
 
     // 文档摘要算法，SHA256
+    /**
+     * <strong>example:</strong>
+     * <p>SHA256</p>
+     */
     @NameInMap("hash_algorithm")
     @Validation(required = true)
     public String hashAlgorithm;
 
     // 签署后文档摘要值
+    /**
+     * <strong>example:</strong>
+     * <p>04181b49ee5d7eb0099a289ac8a45df6afb5aa2679c5284444698a9790099269</p>
+     */
     @NameInMap("signed_hash")
     @Validation(required = true)
     public String signedHash;
 
     // 第三方文档id
+    /**
+     * <strong>example:</strong>
+     * <p>someId</p>
+     */
     @NameInMap("third_doc_id")
     @Validation(required = true)
     public String thirdDocId;

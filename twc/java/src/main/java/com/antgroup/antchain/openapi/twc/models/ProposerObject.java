@@ -5,24 +5,44 @@ import com.aliyun.tea.*;
 
 public class ProposerObject extends TeaModel {
     // 申请人姓名
+    /**
+     * <strong>example:</strong>
+     * <p>李四</p>
+     */
     @NameInMap("name")
     @Validation(required = true)
     public String name;
 
     // 统一社会信用代码
+    /**
+     * <strong>example:</strong>
+     * <p>412702199812252774</p>
+     */
     @NameInMap("id_number")
     @Validation(required = true)
     public String idNumber;
 
     // 联系电话
+    /**
+     * <strong>example:</strong>
+     * <p>13821212121</p>
+     */
     @NameInMap("phone_number")
     public String phoneNumber;
 
     // 电子邮箱地址
+    /**
+     * <strong>example:</strong>
+     * <p><a href="mailto:323232321@alibba-inc.com">323232321@alibba-inc.com</a></p>
+     */
     @NameInMap("email")
     public String email;
 
     // 经营地址
+    /**
+     * <strong>example:</strong>
+     * <p>北京市朝阳区XX地址</p>
+     */
     @NameInMap("business_address")
     public String businessAddress;
 
@@ -32,19 +52,35 @@ public class ProposerObject extends TeaModel {
     public java.util.List<FileInfo> idNumberFile;
 
     // 法定代表人姓名
+    /**
+     * <strong>example:</strong>
+     * <p>李四</p>
+     */
     @NameInMap("representative_name")
     public String representativeName;
 
     // 法定代表人性别
     // 0: 男 1: 女
+    /**
+     * <strong>example:</strong>
+     * <p>0</p>
+     */
     @NameInMap("representative_sex")
     public Long representativeSex;
 
     // 法定代表人身份证号码
+    /**
+     * <strong>example:</strong>
+     * <p>412702199812252774</p>
+     */
     @NameInMap("representative_id_number")
     public String representativeIdNumber;
 
     // 法定代表人手机号码
+    /**
+     * <strong>example:</strong>
+     * <p>1383312323</p>
+     */
     @NameInMap("representative_mobile_number")
     public String representativeMobileNumber;
 
@@ -54,6 +90,10 @@ public class ProposerObject extends TeaModel {
     public java.util.List<FileInfo> representativeIdNumberFile;
 
     // 法定代表人职务
+    /**
+     * <strong>example:</strong>
+     * <p>经理</p>
+     */
     @NameInMap("representative_post")
     public String representativePost;
 
@@ -63,14 +103,26 @@ public class ProposerObject extends TeaModel {
     public java.util.List<FileInfo> representativePostFile;
 
     // 签章管理员姓名
+    /**
+     * <strong>example:</strong>
+     * <p>李四</p>
+     */
     @NameInMap("signature_manager_name")
     public String signatureManagerName;
 
     // 签章管理员身份证号码
+    /**
+     * <strong>example:</strong>
+     * <p>412702199812252774</p>
+     */
     @NameInMap("signature_manager_id_card")
     public String signatureManagerIdCard;
 
     // 签章管理员手机号码
+    /**
+     * <strong>example:</strong>
+     * <p>13812123232</p>
+     */
     @NameInMap("signature_manager_phone")
     public String signatureManagerPhone;
 

@@ -5,35 +5,63 @@ import com.aliyun.tea.*;
 
 public class SupplierProductInfo extends TeaModel {
     // 产品额外信息
+    /**
+     * <strong>example:</strong>
+     * <p>{}</p>
+     */
     @NameInMap("extra_info")
     public String extraInfo;
 
     // 产品id
+    /**
+     * <strong>example:</strong>
+     * <p>GS2020123</p>
+     */
     @NameInMap("product_id")
     @Validation(required = true)
     public String productId;
 
     // 电子商品唯一标识码
+    /**
+     * <strong>example:</strong>
+     * <p>12323,123123,234234</p>
+     */
     @NameInMap("product_imei_id")
     @Validation(required = true)
     public String productImeiId;
 
     // 产品名称
+    /**
+     * <strong>example:</strong>
+     * <p>IPAD mini 2012</p>
+     */
     @NameInMap("product_name")
     @Validation(required = true, maxLength = 50, minLength = 1)
     public String productName;
 
     // 采购产品的个数
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("product_number")
     @Validation(required = true)
     public Long productNumber;
 
     // 采购产品的价格，精确到毫厘，如12.34元表示为123400
+    /**
+     * <strong>example:</strong>
+     * <p>10000</p>
+     */
     @NameInMap("product_price")
     @Validation(required = true)
     public Long productPrice;
 
     // 产品版本
+    /**
+     * <strong>example:</strong>
+     * <p>0</p>
+     */
     @NameInMap("supplier_version")
     public String supplierVersion;
 

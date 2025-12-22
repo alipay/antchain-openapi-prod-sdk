@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class PerformanceInfo extends TeaModel {
     // 支付租金总额
+    /**
+     * <strong>example:</strong>
+     * <p>10000.00</p>
+     */
     @NameInMap("rent_pay_total")
     @Validation(required = true)
     public String rentPayTotal;
 
     // 买断金额
+    /**
+     * <strong>example:</strong>
+     * <p>10000.00</p>
+     */
     @NameInMap("buyout_amount")
     @Validation(required = true)
     public String buyoutAmount;

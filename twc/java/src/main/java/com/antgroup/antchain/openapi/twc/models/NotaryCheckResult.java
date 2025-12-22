@@ -5,51 +5,91 @@ import com.aliyun.tea.*;
 
 public class NotaryCheckResult extends TeaModel {
     // 存证所在区块高度
+    /**
+     * <strong>example:</strong>
+     * <p>8888</p>
+     */
     @NameInMap("block_height")
     @Validation(required = true)
     public Long blockHeight;
 
     // 核验结果错误码
+    /**
+     * <strong>example:</strong>
+     * <p>错误码</p>
+     */
     @NameInMap("error_code")
     @Validation(required = true)
     public Long errorCode;
 
     // 错误信息
+    /**
+     * <strong>example:</strong>
+     * <p>Permission denied</p>
+     */
     @NameInMap("error_message")
     @Validation(required = true)
     public String errorMessage;
 
     // 存证时间
+    /**
+     * <strong>example:</strong>
+     * <p>2020-01-08 11:48:21</p>
+     */
     @NameInMap("notary_time")
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String notaryTime;
 
     // 存证类型
+    /**
+     * <strong>example:</strong>
+     * <p>FileNotary</p>
+     */
     @NameInMap("notary_type")
     @Validation(required = true)
     public String notaryType;
 
     // 核验是否成功
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
     @NameInMap("result")
     @Validation(required = true)
     public Boolean result;
 
     // 存证事务ID
+    /**
+     * <strong>example:</strong>
+     * <p>1a273ba1-b4c2-4bfe-93fc-c5997f3bcee9</p>
+     */
     @NameInMap("transaction_id")
     @Validation(required = true)
     public String transactionId;
 
     // 交易哈希
+    /**
+     * <strong>example:</strong>
+     * <p>aac0cf38b6072352f6b3be4cc0a3cf3950058472eacdda91e6723d75e2994567</p>
+     */
     @NameInMap("tx_hash")
     @Validation(required = true)
     public String txHash;
 
     // 区块哈希
+    /**
+     * <strong>example:</strong>
+     * <p>c3a50d4a7b521d4de13cefb02e5368b616e619d8fab5469298facacfbb39239b</p>
+     */
     @NameInMap("block_hash")
     @Validation(required = true)
     public String blockHash;
 
     // 存证阶段
+    /**
+     * <strong>example:</strong>
+     * <p>start</p>
+     */
     @NameInMap("phase")
     @Validation(required = true)
     public String phase;

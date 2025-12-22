@@ -5,21 +5,37 @@ import com.aliyun.tea.*;
 
 public class NotaryFlowDetailQueryReq extends TeaModel {
     // 全流程存证模板ID
+    /**
+     * <strong>example:</strong>
+     * <p>someId</p>
+     */
     @NameInMap("template_id")
     @Validation(required = true)
     public String templateId;
 
     // 全流程存证流程id
+    /**
+     * <strong>example:</strong>
+     * <p>someId</p>
+     */
     @NameInMap("flow_id")
     @Validation(required = true)
     public String flowId;
 
     // 链上证据包对应的链上交易Hash
+    /**
+     * <strong>example:</strong>
+     * <p>9d5f26c7469ea9699a6e5f03ecfce24d</p>
+     */
     @NameInMap("chain_pack_tx_hash")
     @Validation(required = true)
     public String chainPackTxHash;
 
     // 链上证据包授权码
+    /**
+     * <strong>example:</strong>
+     * <p>someId</p>
+     */
     @NameInMap("authcode")
     @Validation(required = true)
     public String authcode;

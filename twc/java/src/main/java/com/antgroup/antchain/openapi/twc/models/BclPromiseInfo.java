@@ -6,16 +6,28 @@ import com.aliyun.tea.*;
 public class BclPromiseInfo extends TeaModel {
     // 承诺租期 单位
     // 月 MONTH
+    /**
+     * <strong>example:</strong>
+     * <p>MONTH</p>
+     */
     @NameInMap("rent_unit")
     @Validation(required = true)
     public String rentUnit;
 
     // 总期数
+    /**
+     * <strong>example:</strong>
+     * <p>12</p>
+     */
     @NameInMap("rent_term")
     @Validation(required = true)
     public Long rentTerm;
 
     // 总金额 单位分
+    /**
+     * <strong>example:</strong>
+     * <p>123123</p>
+     */
     @NameInMap("total_rent_money")
     @Validation(required = true)
     public Long totalRentMoney;

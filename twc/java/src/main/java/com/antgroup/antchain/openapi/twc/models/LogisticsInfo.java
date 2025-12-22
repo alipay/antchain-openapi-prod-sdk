@@ -5,21 +5,37 @@ import com.aliyun.tea.*;
 
 public class LogisticsInfo extends TeaModel {
     // 发货时间
+    /**
+     * <strong>example:</strong>
+     * <p>2021-05-07</p>
+     */
     @NameInMap("delivery_time")
     @Validation(required = true)
     public String deliveryTime;
 
     // 快递物流公司
+    /**
+     * <strong>example:</strong>
+     * <p>圆通速递</p>
+     */
     @NameInMap("express_logistics_company")
     @Validation(required = true)
     public String expressLogisticsCompany;
 
     // 快递单号
+    /**
+     * <strong>example:</strong>
+     * <p>127974979371979</p>
+     */
     @NameInMap("courier_number")
     @Validation(required = true)
     public String courierNumber;
 
     // 签收时间
+    /**
+     * <strong>example:</strong>
+     * <p>2021-06-01</p>
+     */
     @NameInMap("sign_time")
     @Validation(required = true)
     public String signTime;

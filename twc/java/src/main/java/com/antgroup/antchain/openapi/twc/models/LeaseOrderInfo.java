@@ -5,19 +5,35 @@ import com.aliyun.tea.*;
 
 public class LeaseOrderInfo extends TeaModel {
     // 出租方平台名称
+    /**
+     * <strong>example:</strong>
+     * <p>租赁宝</p>
+     */
     @NameInMap("lessor_platform_name")
     public String lessorPlatformName;
 
     // 订单号
+    /**
+     * <strong>example:</strong>
+     * <p>232278957595482</p>
+     */
     @NameInMap("order_number")
     @Validation(required = true)
     public String orderNumber;
 
     // 合同编号
+    /**
+     * <strong>example:</strong>
+     * <p>232278957595482</p>
+     */
     @NameInMap("contract_no")
     public String contractNo;
 
     // 合同名称
+    /**
+     * <strong>example:</strong>
+     * <p>租赁合同</p>
+     */
     @NameInMap("contract_name")
     public String contractName;
 
@@ -27,43 +43,83 @@ public class LeaseOrderInfo extends TeaModel {
     public java.util.List<OrderItem> orderItems;
 
     // 设备及配件总价（单位元）
+    /**
+     * <strong>example:</strong>
+     * <p>123.00</p>
+     */
     @NameInMap("total_device_price")
     @Validation(required = true)
     public String totalDevicePrice;
 
     // 押金金额（单位元）
+    /**
+     * <strong>example:</strong>
+     * <p>123.00</p>
+     */
     @NameInMap("deposit_amount")
     public String depositAmount;
 
     // 免押金额
+    /**
+     * <strong>example:</strong>
+     * <p>123.00</p>
+     */
     @NameInMap("free_deposit")
     public String freeDeposit;
 
     // 签约时间
+    /**
+     * <strong>example:</strong>
+     * <p>2021-05-31</p>
+     */
     @NameInMap("sign_time")
     public String signTime;
 
     // 租期起始时间
+    /**
+     * <strong>example:</strong>
+     * <p>2021-06-01</p>
+     */
     @NameInMap("lease_start_time")
     public String leaseStartTime;
 
     // 租期结束时间
+    /**
+     * <strong>example:</strong>
+     * <p>2022-06-01</p>
+     */
     @NameInMap("lease_end_time")
     public String leaseEndTime;
 
     // 买断金额计算公式
+    /**
+     * <strong>example:</strong>
+     * <p>商品官方价-已还租金-实付押金-首付款</p>
+     */
     @NameInMap("buyout_amount_formula_calc")
     public String buyoutAmountFormulaCalc;
 
     // 首付款（单位元）
+    /**
+     * <strong>example:</strong>
+     * <p>1123.00</p>
+     */
     @NameInMap("pay_in_advance")
     public String payInAdvance;
 
     // 创建时间
+    /**
+     * <strong>example:</strong>
+     * <p>2019-12-12</p>
+     */
     @NameInMap("order_create_time")
     public String orderCreateTime;
 
     // 到期买断价 保留两位小数 单位元
+    /**
+     * <strong>example:</strong>
+     * <p>23.33</p>
+     */
     @NameInMap("buy_out_price")
     public String buyOutPrice;
 

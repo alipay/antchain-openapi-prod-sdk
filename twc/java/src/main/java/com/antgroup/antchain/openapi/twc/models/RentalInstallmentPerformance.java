@@ -5,21 +5,37 @@ import com.aliyun.tea.*;
 
 public class RentalInstallmentPerformance extends TeaModel {
     // 被申请人还款期数
+    /**
+     * <strong>example:</strong>
+     * <p>10</p>
+     */
     @NameInMap("repayment_period")
     @Validation(required = true)
     public Long repaymentPeriod;
 
     // 被申请人第几期租金支付方式
+    /**
+     * <strong>example:</strong>
+     * <p>支付宝</p>
+     */
     @NameInMap("rent_payment_type")
     @Validation(required = true)
     public String rentPaymentType;
 
     // 被申请人第几期还款时间
+    /**
+     * <strong>example:</strong>
+     * <p>2021-05-07</p>
+     */
     @NameInMap("applied_repayment_time")
     @Validation(required = true)
     public String appliedRepaymentTime;
 
     // 被申请人第几期还款金额
+    /**
+     * <strong>example:</strong>
+     * <p>123.00</p>
+     */
     @NameInMap("applied_repayment_amount")
     @Validation(required = true)
     public String appliedRepaymentAmount;

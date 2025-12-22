@@ -7,6 +7,10 @@ public class BclContractFlowInfo extends TeaModel {
     // 合同主题
     // 注：名称不支持以下9个字符：/ \ : * " < > | ？
     // 仅当使用合同服务时必填
+    /**
+     * <strong>example:</strong>
+     * <p>主题信息</p>
+     */
     @NameInMap("business_scene")
     @Validation(maxLength = 32)
     public String businessScene;
@@ -19,21 +23,37 @@ public class BclContractFlowInfo extends TeaModel {
 
     // 签署失败时的跳转地址
     // 如果不做单独配置，默认与redirect_url一致
+    /**
+     * <strong>example:</strong>
+     * <p><a href="http://www.xxx.com">http://www.xxx.com</a></p>
+     */
     @NameInMap("redirect_url_on_failure")
     @Validation(maxLength = 512)
     public String redirectUrlOnFailure;
 
     // 流程结束后的默认重定向地址
     // 默认签署完成停在当前页面
+    /**
+     * <strong>example:</strong>
+     * <p><a href="http://www.xxx.com">http://www.xxx.com</a></p>
+     */
     @NameInMap("redirect_url")
     @Validation(maxLength = 512)
     public String redirectUrl;
 
     // 签署平台，ALIPAY（支付宝小程序）或H5，默认H5
+    /**
+     * <strong>example:</strong>
+     * <p>ALIPAY</p>
+     */
     @NameInMap("sign_platform")
     public String signPlatform;
 
     // 收款方的ID，调用创建收款方接口获得
+    /**
+     * <strong>example:</strong>
+     * <p>202308181123XXX</p>
+     */
     @NameInMap("payee_id")
     public String payeeId;
 
@@ -41,6 +61,10 @@ public class BclContractFlowInfo extends TeaModel {
     // 模板签署:TEMPLATE_SIGN,使用同模板流程创建合同信息；
     // 原文签署:ORIGINAL_SIGN，使用原来的流程创建合同信息;
     // 未传值即为(原文签署:ORIGINAL_SIGN)
+    /**
+     * <strong>example:</strong>
+     * <p>TEMPLATE_SIGN</p>
+     */
     @NameInMap("sign_mode")
     public String signMode;
 

@@ -5,14 +5,26 @@ import com.aliyun.tea.*;
 
 public class ContractDocSignVerifySignatureInfo extends TeaModel {
     // 是否篡改
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
     @NameInMap("is_modify")
     public Boolean isModify;
 
     // 签署时间来源
+    /**
+     * <strong>example:</strong>
+     * <p>tsr</p>
+     */
     @NameInMap("time_from")
     public String timeFrom;
 
     // 签署时间
+    /**
+     * <strong>example:</strong>
+     * <p>2020-11-18 20:30:41</p>
+     */
     @NameInMap("sign_date")
     public String signDate;
 

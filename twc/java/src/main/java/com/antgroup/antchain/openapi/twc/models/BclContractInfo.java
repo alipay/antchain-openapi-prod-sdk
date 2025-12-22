@@ -11,6 +11,10 @@ public class BclContractInfo extends TeaModel {
     // 4.代扣拒签：PROXY_REJECT 
     // 5.合同签署失败：SIGN_FAIL 
     // 6.签署完成：FINISH
+    /**
+     * <strong>example:</strong>
+     * <p>SIGNING</p>
+     */
     @NameInMap("sign_status")
     @Validation(required = true)
     public String signStatus;
@@ -21,14 +25,26 @@ public class BclContractInfo extends TeaModel {
     public java.util.List<BclFileInfo> signedFiles;
 
     // 签署链接，使用租赁宝代扣并且发起订单后才可以查询获取
+    /**
+     * <strong>example:</strong>
+     * <p><a href="https://xxxx">https://xxxx</a></p>
+     */
     @NameInMap("sign_url")
     public String signUrl;
 
     // 签署场景
+    /**
+     * <strong>example:</strong>
+     * <p>签署场景</p>
+     */
     @NameInMap("business_scene")
     public String businessScene;
 
     // 合同创建失败原因
+    /**
+     * <strong>example:</strong>
+     * <p>合同创建失败原因</p>
+     */
     @NameInMap("flow_err_msg")
     public String flowErrMsg;
 
@@ -37,12 +53,20 @@ public class BclContractInfo extends TeaModel {
     public java.util.List<BclContractSignFieldInfo> signFieldInfos;
 
     // 签署长链接，使用租赁宝代扣并且发起订单后才可以查询获取
+    /**
+     * <strong>example:</strong>
+     * <p><a href="http://www.xxx.com">http://www.xxx.com</a></p>
+     */
     @NameInMap("dest_url")
     public String destUrl;
 
     // 签署模式：
     // 模板签署:TEMPLATE_SIGN,使用同模板流程创建合同信息；
     // 原文签署:ORIGINAL_SIGN，使用原来的流程创建合同信息
+    /**
+     * <strong>example:</strong>
+     * <p>TEMPLATE_SIGN</p>
+     */
     @NameInMap("sign_mode")
     public String signMode;
 

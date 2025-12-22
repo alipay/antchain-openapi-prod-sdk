@@ -5,21 +5,37 @@ import com.aliyun.tea.*;
 
 public class KeywordsPosition extends TeaModel {
     // 关键字
+    /**
+     * <strong>example:</strong>
+     * <p>keyword1</p>
+     */
     @NameInMap("keyword")
     @Validation(required = true)
     public String keyword;
 
     // 页码
+    /**
+     * <strong>example:</strong>
+     * <p>32</p>
+     */
     @NameInMap("page_index")
     @Validation(required = true)
     public Long pageIndex;
 
     // x坐标
+    /**
+     * <strong>example:</strong>
+     * <p>315.43</p>
+     */
     @NameInMap("pos_x")
     @Validation(required = true)
     public String posX;
 
     // y坐标
+    /**
+     * <strong>example:</strong>
+     * <p>185.65723</p>
+     */
     @NameInMap("pos_y")
     @Validation(required = true)
     public String posY;

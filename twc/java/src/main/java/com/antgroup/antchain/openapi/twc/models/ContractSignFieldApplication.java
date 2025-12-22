@@ -5,46 +5,86 @@ import com.aliyun.tea.*;
 
 public class ContractSignFieldApplication extends TeaModel {
     // 是否添加签署时间戳，默认不添加，时间格式如"2019-03-11 10:12:12"
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
     @NameInMap("add_sign_time")
     public Boolean addSignTime;
 
     // 签约主体账号标识， 将使用该主体账号对应的数字证书完成本次签署，如：当存在签署操作人代某机构签署时，需要传入该机构的账号id
+    /**
+     * <strong>example:</strong>
+     * <p>2c7de24aff3340f5b944ebac49545b8e</p>
+     */
     @NameInMap("authorized_account_id")
     @Validation(required = true)
     public String authorizedAccountId;
 
     // 电子合同文件ID
+    /**
+     * <strong>example:</strong>
+     * <p>fe7df2f477d649c18ebcfdfffeba253d</p>
+     */
     @NameInMap("file_id")
     @Validation(required = true)
     public String fileId;
 
     // 签署区顺序，默认1,且不小于1，顺序越小越先处理
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("order")
     public Long order;
 
     // 页码信息：当签署区signType为2时, 页码可以_-_分割, 例如1到15页，填"1-15"； 其他情况只能是数字
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("pos_page")
     @Validation(required = true)
     public String posPage;
 
     // x坐标转为字符串的值，默认空，页面签章必填，骑缝签章不填写
+    /**
+     * <strong>example:</strong>
+     * <p>158.72531</p>
+     */
     @NameInMap("pos_x")
     public String posX;
 
     // y坐标转为字符串的值
+    /**
+     * <strong>example:</strong>
+     * <p>431.05658</p>
+     */
     @NameInMap("pos_y")
     @Validation(required = true)
     public String posY;
 
     // 印章id ，如不传，则采用账号下的默认印章
+    /**
+     * <strong>example:</strong>
+     * <p>bcd7ffd9-5caf-4342-bd1c-02257229ccd5</p>
+     */
     @NameInMap("seal_id")
     public String sealId;
 
     // 第三方业务流水号id，保证相同签署人、相同签约主体、相同签署顺序的任务，对应的第三方业务流水id唯一，默认空
+    /**
+     * <strong>example:</strong>
+     * <p>someordernumber</p>
+     */
     @NameInMap("third_order_no")
     public String thirdOrderNo;
 
     // 签署区宽，默认印章宽度	
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("width")
     public String width;
 

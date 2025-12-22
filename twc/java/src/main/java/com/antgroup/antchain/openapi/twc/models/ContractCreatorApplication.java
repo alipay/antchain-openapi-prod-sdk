@@ -5,29 +5,53 @@ import com.aliyun.tea.*;
 
 public class ContractCreatorApplication extends TeaModel {
     // 邮箱地址
+    /**
+     * <strong>example:</strong>
+     * <p><a href="mailto:wutest@tsign.com">wutest@tsign.com</a></p>
+     */
     @NameInMap("email")
     public String email;
 
     // 证件号
+    /**
+     * <strong>example:</strong>
+     * <p>311111111111111111</p>
+     */
     @NameInMap("id_number")
     @Validation(required = true)
     public String idNumber;
 
     // 证件类型
+    /**
+     * <strong>example:</strong>
+     * <p>CRED_PSN_CH_IDCARD</p>
+     */
     @NameInMap("id_type")
     @Validation(required = true)
     public String idType;
 
     // 手机号码
+    /**
+     * <strong>example:</strong>
+     * <p>15811111111</p>
+     */
     @NameInMap("mobile")
     public String mobile;
 
     // 姓名
+    /**
+     * <strong>example:</strong>
+     * <p>张三</p>
+     */
     @NameInMap("name")
     @Validation(required = true)
     public String name;
 
     // 创建人ID
+    /**
+     * <strong>example:</strong>
+     * <p>0178c086a740475caf516f37901352b3</p>
+     */
     @NameInMap("creator_id")
     @Validation(required = true)
     public String creatorId;

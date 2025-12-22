@@ -13,6 +13,10 @@ public class WitnessFlowConfig extends TeaModel {
     public java.util.List<Long> personRealnameTypes;
 
     // 是否需要实名认证
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
     @NameInMap("real_name_cert")
     public Boolean realNameCert;
 

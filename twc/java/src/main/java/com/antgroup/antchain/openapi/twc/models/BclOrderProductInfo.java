@@ -5,12 +5,20 @@ import com.aliyun.tea.*;
 
 public class BclOrderProductInfo extends TeaModel {
     // 创建商品后返回的商品id
+    /**
+     * <strong>example:</strong>
+     * <p>PROD1223</p>
+     */
     @NameInMap("product_id")
     @Validation(required = true, maxLength = 32)
     public String productId;
 
     // 商品数量
     // 目前只允许一个商品
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("product_number")
     @Validation(required = true, minimum = 1)
     public Long productNumber;

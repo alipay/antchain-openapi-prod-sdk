@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class CommitmentInfo extends TeaModel {
     // 租金总额
+    /**
+     * <strong>example:</strong>
+     * <p>7890.00</p>
+     */
     @NameInMap("total_rent")
     @Validation(required = true)
     public String totalRent;

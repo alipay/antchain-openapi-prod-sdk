@@ -5,14 +5,26 @@ import com.aliyun.tea.*;
 
 public class WitnessSignResult extends TeaModel {
     // 签名结果，外部用户签署返回
+    /**
+     * <strong>example:</strong>
+     * 
+     */
     @NameInMap("sign_result")
     public String signResult;
 
     // 签署日志id，外部用户签署返回
+    /**
+     * <strong>example:</strong>
+     * 
+     */
     @NameInMap("signlog_id")
     public String signlogId;
 
     // 第三方文档id
+    /**
+     * <strong>example:</strong>
+     * 
+     */
     @NameInMap("third_doc_id")
     public String thirdDocId;
 

@@ -5,22 +5,42 @@ import com.aliyun.tea.*;
 
 public class JudicialPersonInfo extends TeaModel {
     // 姓名
+    /**
+     * <strong>example:</strong>
+     * <p>张三</p>
+     */
     @NameInMap("name")
     public String name;
 
     // 身份证号码
+    /**
+     * <strong>example:</strong>
+     * <p>310101199901010011</p>
+     */
     @NameInMap("cert_number")
     public String certNumber;
 
     // 联系电话
+    /**
+     * <strong>example:</strong>
+     * <p>1350000000</p>
+     */
     @NameInMap("phone")
     public String phone;
 
     // 民族
+    /**
+     * <strong>example:</strong>
+     * <p>汉</p>
+     */
     @NameInMap("nationality")
     public String nationality;
 
     // 通讯地址
+    /**
+     * <strong>example:</strong>
+     * <p>通讯地址</p>
+     */
     @NameInMap("address")
     public String address;
 
@@ -29,6 +49,10 @@ public class JudicialPersonInfo extends TeaModel {
     public JudicialFileInfo identityCertification;
 
     // 职务
+    /**
+     * <strong>example:</strong>
+     * <p>法人代表</p>
+     */
     @NameInMap("job_title")
     public String jobTitle;
 
@@ -37,10 +61,18 @@ public class JudicialPersonInfo extends TeaModel {
     public JudicialFileInfo jobCertification;
 
     // 性别， 0-男，1-女
+    /**
+     * <strong>example:</strong>
+     * <p>0</p>
+     */
     @NameInMap("sex")
     public Long sex;
 
     // 联系邮件地址
+    /**
+     * <strong>example:</strong>
+     * <p><a href="mailto:email@ali.com">email@ali.com</a></p>
+     */
     @NameInMap("email")
     public String email;
 

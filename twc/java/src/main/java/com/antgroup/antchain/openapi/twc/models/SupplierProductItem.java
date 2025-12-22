@@ -5,84 +5,156 @@ import com.aliyun.tea.*;
 
 public class SupplierProductItem extends TeaModel {
     // 供应商名称
+    /**
+     * <strong>example:</strong>
+     * <p>戴尔</p>
+     */
     @NameInMap("supplier_name")
     public String supplierName;
 
     // 商品型号
+    /**
+     * <strong>example:</strong>
+     * <p>商品型号</p>
+     */
     @NameInMap("product_model")
     @Validation(required = true)
     public String productModel;
 
     // 供应商id
+    /**
+     * <strong>example:</strong>
+     * <p>供应商id</p>
+     */
     @NameInMap("supplier_id")
     public String supplierId;
 
     // 商品唯一id
+    /**
+     * <strong>example:</strong>
+     * <p>2023423424</p>
+     */
     @NameInMap("product_id")
     @Validation(required = true)
     public String productId;
 
     // 3C
+    /**
+     * <strong>example:</strong>
+     * <p>一级类目</p>
+     */
     @NameInMap("main_class")
     @Validation(required = true)
     public String mainClass;
 
     // 预计发货量
+    /**
+     * <strong>example:</strong>
+     * <p>100</p>
+     */
     @NameInMap("estimated_shipment")
     public Long estimatedShipment;
 
     // 二级类目
+    /**
+     * <strong>example:</strong>
+     * <p>3C_pc</p>
+     */
     @NameInMap("sub_class")
     @Validation(required = true)
     public String subClass;
 
     // 商品详情
+    /**
+     * <strong>example:</strong>
+     * <p>商品详情</p>
+     */
     @NameInMap("product_detail_info")
     @Validation(required = true)
     public String productDetailInfo;
 
     // 商品品牌
+    /**
+     * <strong>example:</strong>
+     * <p>商品品牌</p>
+     */
     @NameInMap("product_brand")
     @Validation(required = true)
     public String productBrand;
 
     // 商品来源
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("product_origin")
     @Validation(required = true)
     public Long productOrigin;
 
     // 商品名称
+    /**
+     * <strong>example:</strong>
+     * <p>商品名称</p>
+     */
     @NameInMap("product_name")
     @Validation(required = true)
     public String productName;
 
     // 商品版本
+    /**
+     * <strong>example:</strong>
+     * <p>0</p>
+     */
     @NameInMap("product_version")
     @Validation(required = true)
     public Long productVersion;
 
     // 商品安装费用
+    /**
+     * <strong>example:</strong>
+     * <p>100</p>
+     */
     @NameInMap("install_price")
     public Long installPrice;
 
     // 实际库存
+    /**
+     * <strong>example:</strong>
+     * <p>0</p>
+     */
     @NameInMap("real_stock")
     public Long realStock;
 
     // 保证金
+    /**
+     * <strong>example:</strong>
+     * <p>0</p>
+     */
     @NameInMap("deposit_price")
     public Long depositPrice;
 
     // 商品url
+    /**
+     * <strong>example:</strong>
+     * <p><a href="http://www.product.url">http://www.product.url</a></p>
+     */
     @NameInMap("product_url")
     public String productUrl;
 
     // 官网价
+    /**
+     * <strong>example:</strong>
+     * <p>1000</p>
+     */
     @NameInMap("product_price")
     @Validation(required = true)
     public Long productPrice;
 
     // 商品预留字段
+    /**
+     * <strong>example:</strong>
+     * <p>{}</p>
+     */
     @NameInMap("extra_info")
     public String extraInfo;
 

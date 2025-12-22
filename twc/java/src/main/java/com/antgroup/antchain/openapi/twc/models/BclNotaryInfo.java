@@ -7,25 +7,45 @@ public class BclNotaryInfo extends TeaModel {
     // 存证类型
     // 1.文件：FILE
     // 2.文本：TEXT
+    /**
+     * <strong>example:</strong>
+     * <p>FILE</p>
+     */
     @NameInMap("type")
     @Validation(required = true)
     public String type;
 
     // 存证内容
+    /**
+     * <strong>example:</strong>
+     * <p>asd2112123</p>
+     */
     @NameInMap("content")
     public String content;
 
     // 文件下载链接
     // 存证类型为FILE时此参数必填；
+    /**
+     * <strong>example:</strong>
+     * <p><a href="http://oss.com/asdas">http://oss.com/asdas</a></p>
+     */
     @NameInMap("file_url")
     public String fileUrl;
 
     // 存证内容hash
+    /**
+     * <strong>example:</strong>
+     * <p>12321312asdsqwewer12312sd</p>
+     */
     @NameInMap("content_hash")
     @Validation(required = true)
     public String contentHash;
 
     // 存证哈希
+    /**
+     * <strong>example:</strong>
+     * <p>adsawqe12we12312werserqwe</p>
+     */
     @NameInMap("tx_hash")
     @Validation(required = true)
     public String txHash;
@@ -35,6 +55,10 @@ public class BclNotaryInfo extends TeaModel {
     // 2.上传物流信息：UPLOAD_LOGISTIC_INFO
     // 3.合同签署后文件存证：SIGNED_CONTRACT_FILE 
     // 4.租赁订单履约中存证：BCL_ORDER_PROMISING
+    /**
+     * <strong>example:</strong>
+     * <p>UPLOAD_PROMISE_FLOW</p>
+     */
     @NameInMap("phase")
     @Validation(required = true)
     public String phase;

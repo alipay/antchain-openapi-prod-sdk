@@ -5,41 +5,73 @@ import com.aliyun.tea.*;
 
 public class LeaseRentalInfo extends TeaModel {
     // 租期编号
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("term")
     @Validation(required = true)
     public Long term;
 
     // 租金归还状态，1.足额归还2.部分归还3.未归还
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("rental_return_state")
     @Validation(required = true)
     public Long rentalReturnState;
 
     // 租金归还金额,精确到毫厘，即123400表示12.34元
+    /**
+     * <strong>example:</strong>
+     * <p>123400</p>
+     */
     @NameInMap("rental_money")
     @Validation(required = true)
     public Long rentalMoney;
 
     // 归还时间
+    /**
+     * <strong>example:</strong>
+     * <p>2019-07-31 12:00:00</p>
+     */
     @NameInMap("return_time")
     @Validation(required = true)
     public String returnTime;
 
     // 归还方式，1.预授权代扣2.支付宝代扣3.主动还款4.其他，5网商直付通代扣
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("return_way")
     @Validation(required = true)
     public Long returnWay;
 
     // 还款凭证类型，1.支付宝2.平台代收（客户主动还款）3.其他
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("return_voucher_type")
     @Validation(required = true)
     public Long returnVoucherType;
 
     // 还款凭证编号，不超过128字符，支付宝流水号
+    /**
+     * <strong>example:</strong>
+     * <p>20212312312313</p>
+     */
     @NameInMap("return_voucher_serial")
     @Validation(required = true)
     public String returnVoucherSerial;
 
     // 剩余归还期数
+    /**
+     * <strong>example:</strong>
+     * <p>11</p>
+     */
     @NameInMap("remain_term")
     @Validation(required = true)
     public Long remainTerm;

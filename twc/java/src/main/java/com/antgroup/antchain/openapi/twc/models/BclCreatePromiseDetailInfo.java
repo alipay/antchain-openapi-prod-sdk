@@ -5,18 +5,30 @@ import com.aliyun.tea.*;
 
 public class BclCreatePromiseDetailInfo extends TeaModel {
     // 承诺期数，最小值：1
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("period")
     @Validation(required = true, minimum = 1)
     public Long period;
 
     // 承诺金额，单位：分
     // 最小值：1，正整数
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("amount")
     @Validation(required = true, minimum = 1)
     public Long amount;
 
     // 每期应还的日期
     // 示例：格式 2023-06-27T10:50:23+08:00
+    /**
+     * <strong>example:</strong>
+     * <p>2023-06-27T10:50:23+08:00</p>
+     */
     @NameInMap("promise_time")
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String promiseTime;

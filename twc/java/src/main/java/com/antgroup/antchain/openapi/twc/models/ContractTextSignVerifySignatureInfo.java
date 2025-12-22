@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class ContractTextSignVerifySignatureInfo extends TeaModel {
     // 是否被篡改
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
     @NameInMap("is_modify")
     public Boolean isModify;
 

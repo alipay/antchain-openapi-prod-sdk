@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class LeaseOrderExtra extends TeaModel {
     // 额外信息的主键
+    /**
+     * <strong>example:</strong>
+     * <p>&quot;key&quot;</p>
+     */
     @NameInMap("key")
     @Validation(required = true)
     public String key;
 
     // 额外信息的值
+    /**
+     * <strong>example:</strong>
+     * <p>&quot;value&quot;</p>
+     */
     @NameInMap("value")
     @Validation(required = true)
     public String value;

@@ -5,26 +5,46 @@ import com.aliyun.tea.*;
 
 public class RentInfo extends TeaModel {
     // 租金
+    /**
+     * <strong>example:</strong>
+     * <p>2933300</p>
+     */
     @NameInMap("rent_price")
     @Validation(required = true)
     public Long rentPrice;
 
     // 租期
+    /**
+     * <strong>example:</strong>
+     * <p>12</p>
+     */
     @NameInMap("rent_term")
     @Validation(required = true)
     public Long rentTerm;
 
     // 手续费
+    /**
+     * <strong>example:</strong>
+     * <p>1234</p>
+     */
     @NameInMap("commission")
     @Validation(required = true)
     public Long commission;
 
     // 买断价
+    /**
+     * <strong>example:</strong>
+     * <p>0</p>
+     */
     @NameInMap("buyout_price")
     @Validation(required = true)
     public Long buyoutPrice;
 
     // 留购价
+    /**
+     * <strong>example:</strong>
+     * <p>31903 </p>
+     */
     @NameInMap("retained_price")
     @Validation(required = true)
     public Long retainedPrice;

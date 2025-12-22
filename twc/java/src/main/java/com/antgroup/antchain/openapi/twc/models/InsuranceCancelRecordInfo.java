@@ -5,21 +5,37 @@ import com.aliyun.tea.*;
 
 public class InsuranceCancelRecordInfo extends TeaModel {
     // 保单单号
+    /**
+     * <strong>example:</strong>
+     * <p>123123123123213</p>
+     */
     @NameInMap("bcl_insurance_record_id")
     @Validation(required = true)
     public String bclInsuranceRecordId;
 
     // 退保id
+    /**
+     * <strong>example:</strong>
+     * <p>12312312312123</p>
+     */
     @NameInMap("cancel_insurance_id")
     @Validation(required = true)
     public String cancelInsuranceId;
 
     // 退还保费 单位分, 退保成功时返回
+    /**
+     * <strong>example:</strong>
+     * <p>12312</p>
+     */
     @NameInMap("cancel_amount")
     public Long cancelAmount;
 
     // 申请退保时间
     // 格式: yyyy-MM-dd HH:mm:ss
+    /**
+     * <strong>example:</strong>
+     * <p>2023-04-05 12:12:23</p>
+     */
     @NameInMap("cancel_apply_time")
     @Validation(required = true)
     public String cancelApplyTime;
@@ -28,11 +44,19 @@ public class InsuranceCancelRecordInfo extends TeaModel {
     // RECORD_CANCEL_INIT: 退保初始
     // RECORD_CANCEL_SUCC: 退保成功
     // RECORD_CANCEL_FAIL: 退保失败
+    /**
+     * <strong>example:</strong>
+     * <p>RECORD_CANCEL_SUCC</p>
+     */
     @NameInMap("cancel_status")
     @Validation(required = true)
     public String cancelStatus;
 
     // 退保失败原, 退保失败时返回
+    /**
+     * <strong>example:</strong>
+     * <p>退保失败, 保单已失效</p>
+     */
     @NameInMap("remark")
     public String remark;
 

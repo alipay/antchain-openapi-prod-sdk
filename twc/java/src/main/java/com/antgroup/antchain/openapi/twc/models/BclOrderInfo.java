@@ -5,63 +5,115 @@ import com.aliyun.tea.*;
 
 public class BclOrderInfo extends TeaModel {
     // 订单外部id,商户自己定义的订单id
+    /**
+     * <strong>example:</strong>
+     * <p>asdasdqwe123wer</p>
+     */
     @NameInMap("order_outer_id")
     @Validation(required = true)
     public String orderOuterId;
 
     // 订单创建时间
+    /**
+     * <strong>example:</strong>
+     * <p>2023-04-05 12:12:23</p>
+     */
     @NameInMap("order_create_time")
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String orderCreateTime;
 
     // DUE_BUYOUT 到期买断 
     // DUE_RETURN 到期归还
+    /**
+     * <strong>example:</strong>
+     * <p>DUE_BUYOUT</p>
+     */
     @NameInMap("due_mode")
     @Validation(required = true)
     public String dueMode;
 
     // 订单总金额 单位分
+    /**
+     * <strong>example:</strong>
+     * <p>12300</p>
+     */
     @NameInMap("total_money")
     @Validation(required = true)
     public Long totalMoney;
 
     // 到期买断价  单位分，
     // 到期金额，若为买断形式传买断金额，否则传到期归还金额
+    /**
+     * <strong>example:</strong>
+     * <p>12300</p>
+     */
     @NameInMap("buy_out_price")
     public Long buyOutPrice;
 
     // 芝麻信用订单免押金额 单位分
+    /**
+     * <strong>example:</strong>
+     * <p>10035</p>
+     */
     @NameInMap("deposit_free")
     public Long depositFree;
 
     // 芝麻信用 实际预授权金额 单位分
+    /**
+     * <strong>example:</strong>
+     * <p>12322</p>
+     */
     @NameInMap("acutal_pre_auth_free")
     public Long acutalPreAuthFree;
 
     // 网商直付通模式的代扣协议号
+    /**
+     * <strong>example:</strong>
+     * <p>ssdsf23324dfsdfsdf</p>
+     */
     @NameInMap("mybank_agreement_no")
     public String mybankAgreementNo;
 
     // 直付通代扣受理订单号
+    /**
+     * <strong>example:</strong>
+     * <p>asdasdqwewqes223</p>
+     */
     @NameInMap("mybank_agreement_order_id")
     public String mybankAgreementOrderId;
 
     // -网商代扣：MY_BANK_PROXY_WITHHOLDING
     // -合同代扣：CONTRACT_PROXY_WITHHOLDING
+    /**
+     * <strong>example:</strong>
+     * <p>MY_BANK_PROXY_WITHHOLDING</p>
+     */
     @NameInMap("order_withhold_type")
     @Validation(required = true)
     public String orderWithholdType;
 
     // 首付款金额 单位分
+    /**
+     * <strong>example:</strong>
+     * <p>12323</p>
+     */
     @NameInMap("down_payment")
     public Long downPayment;
 
     // 商品列表
+    /**
+     * <strong>example:</strong>
+     * <p>SANDBOX12312</p>
+     */
     @NameInMap("product_infos")
     @Validation(required = true)
     public java.util.List<BclOrderProductInfo> productInfos;
 
     // 物流方式： POST 邮寄 OFFLINE 线下自取
+    /**
+     * <strong>example:</strong>
+     * <p>POST</p>
+     */
     @NameInMap("logistic_type")
     @Validation(required = true)
     public String logisticType;
@@ -81,11 +133,19 @@ public class BclOrderInfo extends TeaModel {
     // 订单异常 ORDER_ERROR
     // 
     // 
+    /**
+     * <strong>example:</strong>
+     * <p>CREATED</p>
+     */
     @NameInMap("status")
     @Validation(required = true)
     public String status;
 
     // 订单状态失败的描述
+    /**
+     * <strong>example:</strong>
+     * <p>核身没有通过</p>
+     */
     @NameInMap("status_remark")
     public String statusRemark;
 

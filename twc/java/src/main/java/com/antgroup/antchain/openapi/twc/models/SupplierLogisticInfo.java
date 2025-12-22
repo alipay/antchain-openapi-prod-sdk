@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class SupplierLogisticInfo extends TeaModel {
     // 采购平台的物流单号
+    /**
+     * <strong>example:</strong>
+     * <p>SF1234567890</p>
+     */
     @NameInMap("logistic_order_id")
     @Validation(required = true)
     public String logisticOrderId;

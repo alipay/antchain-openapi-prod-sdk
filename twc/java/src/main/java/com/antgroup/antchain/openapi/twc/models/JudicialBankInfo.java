@@ -5,21 +5,37 @@ import com.aliyun.tea.*;
 
 public class JudicialBankInfo extends TeaModel {
     // 开户行
+    /**
+     * <strong>example:</strong>
+     * <p>开户银行</p>
+     */
     @NameInMap("account_bank")
     @Validation(required = true)
     public String accountBank;
 
     // 开户账号
+    /**
+     * <strong>example:</strong>
+     * <p>f3232sdj32fl312ksdj</p>
+     */
     @NameInMap("account_number")
     @Validation(required = true)
     public String accountNumber;
 
     // 开户名称
+    /**
+     * <strong>example:</strong>
+     * <p>示例开户名称</p>
+     */
     @NameInMap("account_name")
     @Validation(required = true)
     public String accountName;
 
     // 开户联系电话
+    /**
+     * <strong>example:</strong>
+     * <p>15000000000</p>
+     */
     @NameInMap("account_contact_phone")
     @Validation(required = true)
     public String accountContactPhone;

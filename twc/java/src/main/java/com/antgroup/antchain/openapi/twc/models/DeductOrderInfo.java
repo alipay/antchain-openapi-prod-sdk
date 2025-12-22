@@ -5,44 +5,80 @@ import com.aliyun.tea.*;
 
 public class DeductOrderInfo extends TeaModel {
     // 订单id
+    /**
+     * <strong>example:</strong>
+     * <p>9d3057dfdcad494fb2d9033130</p>
+     */
     @NameInMap("order_id")
     @Validation(required = true)
     public String orderId;
 
     // 商户统一社会信用代码
+    /**
+     * <strong>example:</strong>
+     * <p>91310101MA1FPODA3G</p>
+     */
     @NameInMap("merchant_id")
     @Validation(required = true)
     public String merchantId;
 
     // 租户id
+    /**
+     * <strong>example:</strong>
+     * <p>CYRMAXCZ</p>
+     */
     @NameInMap("tenant_id")
     @Validation(required = true)
     public String tenantId;
 
     // 用户支付宝uid
+    /**
+     * <strong>example:</strong>
+     * <p>2088xxxxxxxx8721</p>
+     */
     @NameInMap("alipay_user_id")
     @Validation(required = true)
     public String alipayUserId;
 
     // 商品名称
+    /**
+     * <strong>example:</strong>
+     * <p>iPhone19 Pro Max</p>
+     */
     @NameInMap("product_name")
     public String productName;
 
     // 订单创建时间
+    /**
+     * <strong>example:</strong>
+     * <p>2024-01-01 00:00:00</p>
+     */
     @NameInMap("order_create_date")
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String orderCreateDate;
 
     // 订单状态
+    /**
+     * <strong>example:</strong>
+     * <p>OPEN</p>
+     */
     @NameInMap("order_status_code")
     public String orderStatusCode;
 
     // 订单子状态,ORDER_FULFILLMENT: 履约中;ORDER_FULFILLMENT_COMPLETED:履约完成;
+    /**
+     * <strong>example:</strong>
+     * <p>ORDER_FULFILLMENT</p>
+     */
     @NameInMap("order_sub_status_code")
     @Validation(required = true)
     public String orderSubStatusCode;
 
     // 总金额，单位为分
+    /**
+     * <strong>example:</strong>
+     * <p>100</p>
+     */
     @NameInMap("total_rent_money")
     @Validation(required = true)
     public Long totalRentMoney;

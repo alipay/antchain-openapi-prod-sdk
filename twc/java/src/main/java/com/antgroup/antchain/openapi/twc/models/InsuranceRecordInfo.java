@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class InsuranceRecordInfo extends TeaModel {
     // bcl订单id
+    /**
+     * <strong>example:</strong>
+     * <p>PROD12312312311232</p>
+     */
     @NameInMap("order_id")
     @Validation(required = true)
     public String orderId;
 
     // 保险单号
+    /**
+     * <strong>example:</strong>
+     * <p>1231234343423423</p>
+     */
     @NameInMap("bcl_insurance_record_id")
     @Validation(required = true)
     public String bclInsuranceRecordId;
@@ -39,37 +47,69 @@ public class InsuranceRecordInfo extends TeaModel {
     // RECORD_CANCEL_INIT: 退保初始
     // RECORD_CANCEL_SUCC: 退保成功
     // RECORD_CANCEL_FAIL: 退保失败
+    /**
+     * <strong>example:</strong>
+     * <p>RECORD_INSURE_SUCC</p>
+     */
     @NameInMap("insurance_status")
     @Validation(required = true)
     public String insuranceStatus;
 
     // 起保时间
     // 格式: yyyy-MM-dd HH:mm:ss
+    /**
+     * <strong>example:</strong>
+     * <p>2023-04-05 12:12:23</p>
+     */
     @NameInMap("insurance_start_time")
     public String insuranceStartTime;
 
     // 终保时间
     // 格式: yyyy-MM-dd HH:mm:ss
+    /**
+     * <strong>example:</strong>
+     * <p>2023-04-05 12:12:23</p>
+     */
     @NameInMap("insurance_end_time")
     public String insuranceEndTime;
 
     // 保额 单位分
+    /**
+     * <strong>example:</strong>
+     * <p>1232</p>
+     */
     @NameInMap("insurance_amount")
     public Long insuranceAmount;
 
     // 保费 单位分
+    /**
+     * <strong>example:</strong>
+     * <p>12312</p>
+     */
     @NameInMap("premium")
     public Long premium;
 
     // riskGo分数
+    /**
+     * <strong>example:</strong>
+     * <p>60</p>
+     */
     @NameInMap("riskgo_score")
     public Long riskgoScore;
 
     // 保险详情地址
+    /**
+     * <strong>example:</strong>
+     * <p><a href="http://xxasd.com">http://xxasd.com</a></p>
+     */
     @NameInMap("insurance_url")
     public String insuranceUrl;
 
     // 投保失败的具体原因, 投保失败时返回
+    /**
+     * <strong>example:</strong>
+     * <p>缴费失败, 费用不足</p>
+     */
     @NameInMap("remark")
     public String remark;
 

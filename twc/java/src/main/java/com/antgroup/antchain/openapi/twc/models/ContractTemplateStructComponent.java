@@ -5,58 +5,114 @@ import com.aliyun.tea.*;
 
 public class ContractTemplateStructComponent extends TeaModel {
     // 填充字体,默认1，1-宋体，2-新宋体,4-黑体，5-楷体
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("font")
     public Long font;
 
     // 填充字体大小,默认12
+    /**
+     * <strong>example:</strong>
+     * <p>11</p>
+     */
     @NameInMap("font_size")
     public String fontSize;
 
     // 输入项组件高度
+    /**
+     * <strong>example:</strong>
+     * <p>11.11</p>
+     */
     @NameInMap("height")
     public String height;
 
     // 输入项组件id，使用时可用id填充，为空时表示添加，不为空时表示修改
+    /**
+     * <strong>example:</strong>
+     * <p>45dd9420690b460c9e5ed55b40d7d0f8</p>
+     */
     @NameInMap("id")
     public String id;
 
     // 模板下输入项组件唯一标识，使用模板时也可用根据key值填充
+    /**
+     * <strong>example:</strong>
+     * <p>key001</p>
+     */
     @NameInMap("key")
     public String key;
 
     // 输入项组件显示名称
+    /**
+     * <strong>example:</strong>
+     * <p>身份证号码</p>
+     */
     @NameInMap("label")
     public String label;
 
     // 输入项组件type=2,type=3时填充格式校验规则;数字格式如：#,#00.0# 日期格式如： yyyy-MM-dd
+    /**
+     * <strong>example:</strong>
+     * <p>yyyy-MM-dd</p>
+     */
     @NameInMap("limit")
     public String limit;
 
     // 页码
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("page")
     public Long page;
 
     // 是否必填，默认true
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
     @NameInMap("required")
     public Boolean required;
 
     // 字体颜色，默认#000000黑色
+    /**
+     * <strong>example:</strong>
+     * <p>#000000</p>
+     */
     @NameInMap("text_color")
     public String textColor;
 
     // 输入项组件类型，1-文本，2-数字,3-日期，6-签约区
+    /**
+     * <strong>example:</strong>
+     * 
+     */
     @NameInMap("type")
     public Long type;
 
     // 输入项组件宽度
+    /**
+     * <strong>example:</strong>
+     * <p>11.11</p>
+     */
     @NameInMap("width")
     public String width;
 
     // x轴坐标，左下角为原点
+    /**
+     * <strong>example:</strong>
+     * <p>11.11</p>
+     */
     @NameInMap("x")
     public String x;
 
     // y轴坐标，左下角为原点
+    /**
+     * <strong>example:</strong>
+     * <p>11.11</p>
+     */
     @NameInMap("y")
     public String y;
 

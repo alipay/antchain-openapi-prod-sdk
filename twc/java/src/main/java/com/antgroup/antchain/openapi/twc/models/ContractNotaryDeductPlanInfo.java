@@ -5,21 +5,37 @@ import com.aliyun.tea.*;
 
 public class ContractNotaryDeductPlanInfo extends TeaModel {
     // PAYERIDNUMBER
+    /**
+     * <strong>example:</strong>
+     * <p>付款方ID</p>
+     */
     @NameInMap("payer_id")
     @Validation(required = true)
     public String payerId;
 
     // “总金额：”+总金额“+”“总期数：”+总期数，“+”每期金额时间（X期金额，时间）
+    /**
+     * <strong>example:</strong>
+     * <p>代扣计划说明</p>
+     */
     @NameInMap("deduct_plan_info")
     @Validation(required = true)
     public String deductPlanInfo;
 
     // AGREEMEND_ID_NUMBER
+    /**
+     * <strong>example:</strong>
+     * <p>代扣协议ID</p>
+     */
     @NameInMap("agreement_no")
     @Validation(required = true)
     public String agreementNo;
 
     // 代扣计划发起时间
+    /**
+     * <strong>example:</strong>
+     * <p>1589198173000</p>
+     */
     @NameInMap("timestamp")
     @Validation(required = true)
     public String timestamp;

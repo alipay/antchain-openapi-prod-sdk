@@ -5,26 +5,50 @@ import com.aliyun.tea.*;
 
 public class ContractUserOrganizationApplication extends TeaModel {
     // 证件号，该字段只有为空才允许修改
+    /**
+     * <strong>example:</strong>
+     * <p>12330100470104939U</p>
+     */
     @NameInMap("id_number")
     public String idNumber;
 
     // 证件类型 ，默认CRED_ORG_USCC
+    /**
+     * <strong>example:</strong>
+     * <p>CRED_ORG_USCC</p>
+     */
     @NameInMap("id_type")
     public String idType;
 
     // 企业法定代表人名称
+    /**
+     * <strong>example:</strong>
+     * <p>测试法人</p>
+     */
     @NameInMap("legal_person")
     public String legalPerson;
 
     // 企业法定代表人证件号
+    /**
+     * <strong>example:</strong>
+     * <p>311111111111111111</p>
+     */
     @NameInMap("legal_person_id")
     public String legalPersonId;
 
     // 机构名称
+    /**
+     * <strong>example:</strong>
+     * <p>测试企业</p>
+     */
     @NameInMap("name")
     public String name;
 
     // 机构账号id
+    /**
+     * <strong>example:</strong>
+     * <p>ORGJC1CN1591666666666</p>
+     */
     @NameInMap("organization_id")
     @Validation(required = true)
     public String organizationId;

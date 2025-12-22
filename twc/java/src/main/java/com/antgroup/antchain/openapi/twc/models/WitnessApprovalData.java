@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class WitnessApprovalData extends TeaModel {
     // 审批流程id
+    /**
+     * <strong>example:</strong>
+     * <p>someId</p>
+     */
     @NameInMap("approval_flow_id")
     public String approvalFlowId;
 

@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class RentalStagingInformation extends TeaModel {
     // 分期期数
+    /**
+     * <strong>example:</strong>
+     * <p>10</p>
+     */
     @NameInMap("installments_number")
     @Validation(required = true)
     public Long installmentsNumber;
 
     // 租金每期应还款时间
+    /**
+     * <strong>example:</strong>
+     * <p>2021-05-31</p>
+     */
     @NameInMap("payment_time_each_cycle")
     @Validation(required = true)
     public String paymentTimeEachCycle;
 
     // 租金每期应还款额
+    /**
+     * <strong>example:</strong>
+     * <p>123.00</p>
+     */
     @NameInMap("payment_each_cycle")
     @Validation(required = true)
     public String paymentEachCycle;
