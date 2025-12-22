@@ -37,6 +37,8 @@ use AntChain\TWC\Models\ApplyFlowCertificateRequest;
 use AntChain\TWC\Models\ApplyFlowCertificateResponse;
 use AntChain\TWC\Models\ApplyFlowEvidenceRequest;
 use AntChain\TWC\Models\ApplyFlowEvidenceResponse;
+use AntChain\TWC\Models\ApplyInnerAntesignRequest;
+use AntChain\TWC\Models\ApplyInnerAntesignResponse;
 use AntChain\TWC\Models\ApplyJusticeMediationRequest;
 use AntChain\TWC\Models\ApplyJusticeMediationResponse;
 use AntChain\TWC\Models\ApplyLeaseSupplierorderRequest;
@@ -191,6 +193,8 @@ use AntChain\TWC\Models\CreateFlowOnestepnotaryRequest;
 use AntChain\TWC\Models\CreateFlowOnestepnotaryResponse;
 use AntChain\TWC\Models\CreateIdentificationRealpersonRequest;
 use AntChain\TWC\Models\CreateIdentificationRealpersonResponse;
+use AntChain\TWC\Models\CreateInnerAntesignRequest;
+use AntChain\TWC\Models\CreateInnerAntesignResponse;
 use AntChain\TWC\Models\CreateInternalContractRequest;
 use AntChain\TWC\Models\CreateInternalContractResponse;
 use AntChain\TWC\Models\CreateInternalFileRequest;
@@ -523,6 +527,8 @@ use AntChain\TWC\Models\QueryIdentificationFaceauthRequest;
 use AntChain\TWC\Models\QueryIdentificationFaceauthResponse;
 use AntChain\TWC\Models\QueryIdentificationRealpersonRequest;
 use AntChain\TWC\Models\QueryIdentificationRealpersonResponse;
+use AntChain\TWC\Models\QueryInnerAntesignRequest;
+use AntChain\TWC\Models\QueryInnerAntesignResponse;
 use AntChain\TWC\Models\QueryJointconstraintBreachrecordRequest;
 use AntChain\TWC\Models\QueryJointconstraintBreachrecordResponse;
 use AntChain\TWC\Models\QueryJusticeBasecaseRequest;
@@ -671,6 +677,8 @@ use AntChain\TWC\Models\TransferInnerShorturlRequest;
 use AntChain\TWC\Models\TransferInnerShorturlResponse;
 use AntChain\TWC\Models\UnbindContractPayRequest;
 use AntChain\TWC\Models\UnbindContractPayResponse;
+use AntChain\TWC\Models\UnbindContractZfbagreementRequest;
+use AntChain\TWC\Models\UnbindContractZfbagreementResponse;
 use AntChain\TWC\Models\UpdateBclPromiserepaymentRequest;
 use AntChain\TWC\Models\UpdateBclPromiserepaymentResponse;
 use AntChain\TWC\Models\UpdateContractMerchantRequest;
@@ -844,7 +852,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 司法纠纷平台通用文件信息结构体
+            // 法务电子签骑缝章信息
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -872,7 +880,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.13.8',
+                    'sdk_version'      => '1.13.16',
                     '_prod_code'       => 'TWC',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -5710,6 +5718,39 @@ class Client
     }
 
     /**
+     * Description: 72h代扣解约代扣协议，未执行成功的代扣会被取消，已执行成功的代扣不变。
+     * Summary: 72h代扣解约-twc解约.
+     *
+     * @param UnbindContractZfbagreementRequest $request
+     *
+     * @return UnbindContractZfbagreementResponse
+     */
+    public function unbindContractZfbagreement($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->unbindContractZfbagreementEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 72h代扣解约代扣协议，未执行成功的代扣会被取消，已执行成功的代扣不变。
+     * Summary: 72h代扣解约-twc解约.
+     *
+     * @param UnbindContractZfbagreementRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return UnbindContractZfbagreementResponse
+     */
+    public function unbindContractZfbagreementEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UnbindContractZfbagreementResponse::fromMap($this->doRequest('1.0', 'twc.notary.contract.zfbagreement.unbind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 用户使用mp4内容，集成方通过该openAPI进行使用上报。
      * Summary: 集成方通过该接口进行使用mp4上报.
      *
@@ -6136,6 +6177,105 @@ class Client
         Utils::validateModel($request);
 
         return OperateLeasePetcomparepetsResponse::fromMap($this->doRequest('1.0', 'twc.notary.lease.petcomparepets.operate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 法务电子签发起签署
+     * Summary: 法务电子签发起签署.
+     *
+     * @param ApplyInnerAntesignRequest $request
+     *
+     * @return ApplyInnerAntesignResponse
+     */
+    public function applyInnerAntesign($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyInnerAntesignEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 法务电子签发起签署
+     * Summary: 法务电子签发起签署.
+     *
+     * @param ApplyInnerAntesignRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return ApplyInnerAntesignResponse
+     */
+    public function applyInnerAntesignEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyInnerAntesignResponse::fromMap($this->doRequest('1.0', 'twc.notary.inner.antesign.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 法务电子签查询签署状态
+     * Summary: 法务电子签查询签署状态
+     *
+     * @param QueryInnerAntesignRequest $request
+     *
+     * @return QueryInnerAntesignResponse
+     */
+    public function queryInnerAntesign($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryInnerAntesignEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 法务电子签查询签署状态
+     * Summary: 法务电子签查询签署状态
+     *
+     * @param QueryInnerAntesignRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return QueryInnerAntesignResponse
+     */
+    public function queryInnerAntesignEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryInnerAntesignResponse::fromMap($this->doRequest('1.0', 'twc.notary.inner.antesign.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 法务电子签根据公司名称统代生成印章
+     * Summary: 法务电子签根据公司名称统代生成印章.
+     *
+     * @param CreateInnerAntesignRequest $request
+     *
+     * @return CreateInnerAntesignResponse
+     */
+    public function createInnerAntesign($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createInnerAntesignEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 法务电子签根据公司名称统代生成印章
+     * Summary: 法务电子签根据公司名称统代生成印章.
+     *
+     * @param CreateInnerAntesignRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return CreateInnerAntesignResponse
+     */
+    public function createInnerAntesignEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateInnerAntesignResponse::fromMap($this->doRequest('1.0', 'twc.notary.inner.antesign.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

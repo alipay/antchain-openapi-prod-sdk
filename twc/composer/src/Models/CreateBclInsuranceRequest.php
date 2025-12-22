@@ -25,8 +25,7 @@ class CreateBclInsuranceRequest extends Model
      */
     public $orderId;
 
-    // 保司code，枚举值
-    // HZRB: 杭州人保
+    // 保司code
     /**
      * @var string
      */
