@@ -4,77 +4,77 @@ package com.antgroup.antchain.openapi.bot.models;
 import com.aliyun.tea.*;
 
 public class TripStatistics extends TeaModel {
-    // 行驶天数
+    // 总里程
     /**
      * <strong>example:</strong>
-     * <p>2018-10-10T10:10:00Z</p>
+     * <p>23</p>
      */
-    @NameInMap("trip_day")
-    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
-    public String tripDay;
+    @NameInMap("total_mileage")
+    @Validation(required = true)
+    public String totalMileage;
 
-    // 总里程
+    // 时间体
+    /**
+     * <strong>example:</strong>
+     * <p>&quot;totalDuration&quot;:{ &quot;value&quot;:&quot;79&quot;, &quot;unit&quot;:&quot;h&quot; }</p>
+     */
+    @NameInMap("total_duration")
+    @Validation(required = true)
+    public TripDuration totalDuration;
+
+    // 总次数
     /**
      * <strong>example:</strong>
      * <p>12</p>
      */
-    @NameInMap("total_distance")
+    @NameInMap("total_count")
     @Validation(required = true)
-    public Long totalDistance;
+    public Long totalCount;
 
-    // 总用时
+    // 时期码
     /**
      * <strong>example:</strong>
      * <p>2</p>
      */
-    @NameInMap("total_duration")
+    @NameInMap("period_code")
     @Validation(required = true)
-    public Long totalDuration;
-
-    // 行驶次数
-    /**
-     * <strong>example:</strong>
-     * <p>12</p>
-     */
-    @NameInMap("trip_count")
-    @Validation(required = true)
-    public Long tripCount;
+    public Long periodCode;
 
     public static TripStatistics build(java.util.Map<String, ?> map) throws Exception {
         TripStatistics self = new TripStatistics();
         return TeaModel.build(map, self);
     }
 
-    public TripStatistics setTripDay(String tripDay) {
-        this.tripDay = tripDay;
+    public TripStatistics setTotalMileage(String totalMileage) {
+        this.totalMileage = totalMileage;
         return this;
     }
-    public String getTripDay() {
-        return this.tripDay;
+    public String getTotalMileage() {
+        return this.totalMileage;
     }
 
-    public TripStatistics setTotalDistance(Long totalDistance) {
-        this.totalDistance = totalDistance;
-        return this;
-    }
-    public Long getTotalDistance() {
-        return this.totalDistance;
-    }
-
-    public TripStatistics setTotalDuration(Long totalDuration) {
+    public TripStatistics setTotalDuration(TripDuration totalDuration) {
         this.totalDuration = totalDuration;
         return this;
     }
-    public Long getTotalDuration() {
+    public TripDuration getTotalDuration() {
         return this.totalDuration;
     }
 
-    public TripStatistics setTripCount(Long tripCount) {
-        this.tripCount = tripCount;
+    public TripStatistics setTotalCount(Long totalCount) {
+        this.totalCount = totalCount;
         return this;
     }
-    public Long getTripCount() {
-        return this.tripCount;
+    public Long getTotalCount() {
+        return this.totalCount;
+    }
+
+    public TripStatistics setPeriodCode(Long periodCode) {
+        this.periodCode = periodCode;
+        return this;
+    }
+    public Long getPeriodCode() {
+        return this.periodCode;
     }
 
 }
