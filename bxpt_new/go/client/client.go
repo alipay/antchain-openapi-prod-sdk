@@ -1012,6 +1012,112 @@ func (s *NotifyMultimodalDataprodResponse) SetResultMsg(v string) *NotifyMultimo
 	return s
 }
 
+type ExecSyncmultimodalDataprodRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 文件唯一id
+	// 待上传文件
+	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
+	// 待上传文件名
+	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+	// 业务入参的json字符串
+	BizContent *string `json:"biz_content,omitempty" xml:"biz_content,omitempty"`
+	// 数据产品编码
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
+	// 请求唯一标识
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
+}
+
+func (s ExecSyncmultimodalDataprodRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecSyncmultimodalDataprodRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ExecSyncmultimodalDataprodRequest) SetAuthToken(v string) *ExecSyncmultimodalDataprodRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ExecSyncmultimodalDataprodRequest) SetFileObject(v io.Reader) *ExecSyncmultimodalDataprodRequest {
+	s.FileObject = v
+	return s
+}
+
+func (s *ExecSyncmultimodalDataprodRequest) SetFileObjectName(v string) *ExecSyncmultimodalDataprodRequest {
+	s.FileObjectName = &v
+	return s
+}
+
+func (s *ExecSyncmultimodalDataprodRequest) SetFileId(v string) *ExecSyncmultimodalDataprodRequest {
+	s.FileId = &v
+	return s
+}
+
+func (s *ExecSyncmultimodalDataprodRequest) SetBizContent(v string) *ExecSyncmultimodalDataprodRequest {
+	s.BizContent = &v
+	return s
+}
+
+func (s *ExecSyncmultimodalDataprodRequest) SetProductCode(v string) *ExecSyncmultimodalDataprodRequest {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *ExecSyncmultimodalDataprodRequest) SetRequestId(v string) *ExecSyncmultimodalDataprodRequest {
+	s.RequestId = &v
+	return s
+}
+
+type ExecSyncmultimodalDataprodResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 业务返回值json
+	BizResult *string `json:"biz_result,omitempty" xml:"biz_result,omitempty"`
+	// 是否计费标识
+	ChargeFlag *string `json:"charge_flag,omitempty" xml:"charge_flag,omitempty"`
+}
+
+func (s ExecSyncmultimodalDataprodResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecSyncmultimodalDataprodResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ExecSyncmultimodalDataprodResponse) SetReqMsgId(v string) *ExecSyncmultimodalDataprodResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ExecSyncmultimodalDataprodResponse) SetResultCode(v string) *ExecSyncmultimodalDataprodResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ExecSyncmultimodalDataprodResponse) SetResultMsg(v string) *ExecSyncmultimodalDataprodResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ExecSyncmultimodalDataprodResponse) SetBizResult(v string) *ExecSyncmultimodalDataprodResponse {
+	s.BizResult = &v
+	return s
+}
+
+func (s *ExecSyncmultimodalDataprodResponse) SetChargeFlag(v string) *ExecSyncmultimodalDataprodResponse {
+	s.ChargeFlag = &v
+	return s
+}
+
 type QueryDatapromotionDecisionRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -1418,7 +1524,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.2.27"),
+				"sdk_version":      tea.String("1.2.28"),
 				"_prod_code":       tea.String("BXPT_NEW"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -1771,6 +1877,70 @@ func (client *Client) NotifyMultimodalDataprodEx(request *NotifyMultimodalDatapr
 	}
 	_result = &NotifyMultimodalDataprodResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.bxptnew.multimodal.dataprod.notify"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 提供多模态的数据产品执行，并同步返回验证结果，支持上传文本，图片、视频、音频等格式
+ * Summary: 提供多模态的数据产品执行同步返回
+ */
+func (client *Client) ExecSyncmultimodalDataprod(request *ExecSyncmultimodalDataprodRequest) (_result *ExecSyncmultimodalDataprodResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ExecSyncmultimodalDataprodResponse{}
+	_body, _err := client.ExecSyncmultimodalDataprodEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 提供多模态的数据产品执行，并同步返回验证结果，支持上传文本，图片、视频、音频等格式
+ * Summary: 提供多模态的数据产品执行同步返回
+ */
+func (client *Client) ExecSyncmultimodalDataprodEx(request *ExecSyncmultimodalDataprodRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ExecSyncmultimodalDataprodResponse, _err error) {
+	if !tea.BoolValue(util.IsUnset(request.FileObject)) {
+		uploadReq := &CreateAntcloudGatewayxFileUploadRequest{
+			AuthToken: request.AuthToken,
+			ApiCode:   tea.String("antcloud.bxptnew.syncmultimodal.dataprod.exec"),
+			FileName:  request.FileObjectName,
+		}
+		uploadResp, _err := client.CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime)
+		if _err != nil {
+			return _result, _err
+		}
+
+		if !tea.BoolValue(antchainutil.IsSuccess(uploadResp.ResultCode, tea.String("ok"))) {
+			execSyncmultimodalDataprodResponse := &ExecSyncmultimodalDataprodResponse{
+				ReqMsgId:   uploadResp.ReqMsgId,
+				ResultCode: uploadResp.ResultCode,
+				ResultMsg:  uploadResp.ResultMsg,
+			}
+			_result = execSyncmultimodalDataprodResponse
+			return _result, _err
+		}
+
+		uploadHeaders := antchainutil.ParseUploadHeaders(uploadResp.UploadHeaders)
+		_err = antchainutil.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl)
+		if _err != nil {
+			return _result, _err
+		}
+		request.FileId = uploadResp.FileId
+		request.FileObject = nil
+	}
+
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ExecSyncmultimodalDataprodResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.bxptnew.syncmultimodal.dataprod.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
