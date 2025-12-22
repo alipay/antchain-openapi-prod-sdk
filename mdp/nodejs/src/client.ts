@@ -77,6 +77,56 @@ export class Config extends $tea.Model {
   }
 }
 
+// AppIdQualityScoresDONew
+export class AppIdQualityScoresDONew extends $tea.Model {
+  // modelId
+  modelid: string;
+  // qualityscore
+  qualityscore: string;
+  static names(): { [key: string]: string } {
+    return {
+      modelid: 'modelid',
+      qualityscore: 'qualityscore',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      modelid: 'string',
+      qualityscore: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// AppIdQualityScoresDO
+export class AppIdQualityScoresDO extends $tea.Model {
+  // 模型id
+  modelid: string;
+  // 分数
+  qualityscore: string;
+  static names(): { [key: string]: string } {
+    return {
+      modelid: 'modelid',
+      qualityscore: 'qualityscore',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      modelid: 'string',
+      qualityscore: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class GetuserscoreRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -132,6 +182,215 @@ export class GetuserscoreResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       score: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryscoreRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 模型 id
+  modelId: string;
+  // 手机号 md5
+  mobileMd5: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      modelId: 'model_id',
+      mobileMd5: 'mobile_md5',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      modelId: 'string',
+      mobileMd5: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryscoreResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 分数
+  score?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      score: 'score',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      score: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BatchqueryscoreRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 模型 id，和具体场景相关
+  modelId: string;
+  // 用户 id 的类型，比如 mobile 或者 device
+  idType: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      modelId: 'model_id',
+      idType: 'id_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      modelId: 'string',
+      idType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BatchqueryscoreResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 用户 id 与分数的对应关系
+  scores?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      scores: 'scores',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      scores: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QuerybyappidRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // appid
+  appid: string;
+  // 手机或者设备md5
+  userid: string;
+  // mobile/device
+  idtype: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      appid: 'appid',
+      userid: 'userid',
+      idtype: 'idtype',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      appid: 'string',
+      userid: 'string',
+      idtype: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QuerybyappidResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // app_id
+  appId?: string;
+  // 手机号或者设备号md5
+  userId?: string;
+  // 分数列表
+  scores?: AppIdQualityScoresDONew[];
+  // 筛选分数的规则，通过规则的返回，否则 scores 内容是空的
+  rule?: string;
+  // 规则对应的 md5 值，用来区分当前规则的版本
+  ruleMd5?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      appId: 'app_id',
+      userId: 'user_id',
+      scores: 'scores',
+      rule: 'rule',
+      ruleMd5: 'rule_md5',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      appId: 'string',
+      userId: 'string',
+      scores: { 'type': 'array', 'itemType': AppIdQualityScoresDONew },
+      rule: 'string',
+      ruleMd5: 'string',
     };
   }
 
@@ -253,7 +512,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.0",
+          sdk_version: "1.0.1",
           _prod_code: "MDP",
           _prod_channel: "default",
         };
@@ -303,7 +562,7 @@ export default class Client {
 
   /**
    * Description: 依据 modelid 和 userid，查询用户分数
-   * Summary: 查询用户分数
+   * Summary: 依据 modelid 和 userid，查询用户分数
    */
   async getuserscore(request: GetuserscoreRequest): Promise<GetuserscoreResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -313,11 +572,68 @@ export default class Client {
 
   /**
    * Description: 依据 modelid 和 userid，查询用户分数
-   * Summary: 查询用户分数
+   * Summary: 依据 modelid 和 userid，查询用户分数
    */
   async getuserscoreEx(request: GetuserscoreRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetuserscoreResponse> {
     Util.validateModel(request);
     return $tea.cast<GetuserscoreResponse>(await this.doRequest("1.0", "antdigital.mdp.getuserscore", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetuserscoreResponse({}));
+  }
+
+  /**
+   * Description: 依据 model_id 和 user_id，查询用户分数
+   * Summary: 批量查询用户分数
+   */
+  async queryscore(request: QueryscoreRequest): Promise<QueryscoreResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryscoreEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 依据 model_id 和 user_id，查询用户分数
+   * Summary: 批量查询用户分数
+   */
+  async queryscoreEx(request: QueryscoreRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryscoreResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryscoreResponse>(await this.doRequest("1.0", "antdigital.mdp.queryscore", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryscoreResponse({}));
+  }
+
+  /**
+   * Description: 使用模型 id 和用户 id 类型，批量查询分数
+   * Summary: 使用模型 id 和用户 id 类型，批量查询分数
+   */
+  async batchqueryscore(request: BatchqueryscoreRequest): Promise<BatchqueryscoreResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.batchqueryscoreEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 使用模型 id 和用户 id 类型，批量查询分数
+   * Summary: 使用模型 id 和用户 id 类型，批量查询分数
+   */
+  async batchqueryscoreEx(request: BatchqueryscoreRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BatchqueryscoreResponse> {
+    Util.validateModel(request);
+    return $tea.cast<BatchqueryscoreResponse>(await this.doRequest("1.0", "antdigital.mdp.batchqueryscore", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BatchqueryscoreResponse({}));
+  }
+
+  /**
+   * Description: 通过appid和userid查询多个模型的分数
+   * Summary: 通过appid和userid查询多个模型的分数
+   */
+  async querybyappid(request: QuerybyappidRequest): Promise<QuerybyappidResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.querybyappidEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 通过appid和userid查询多个模型的分数
+   * Summary: 通过appid和userid查询多个模型的分数
+   */
+  async querybyappidEx(request: QuerybyappidRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QuerybyappidResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QuerybyappidResponse>(await this.doRequest("1.0", "antdigital.mdp.querybyappid", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QuerybyappidResponse({}));
   }
 
 }
