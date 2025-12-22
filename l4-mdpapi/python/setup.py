@@ -24,7 +24,7 @@ from setuptools import setup, find_packages
 """
 setup module for antchain_mdpapi.
 
-Created on 10/07/2025
+Created on 22/12/2025
 
 @author: Ant Chain SDK
 """
