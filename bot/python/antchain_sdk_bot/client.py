@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.40',
+                    'sdk_version': '1.12.48',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.40',
+                    'sdk_version': '1.12.48',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -8187,6 +8187,230 @@ class Client:
             await self.do_request_async('1.0', 'blockchain.bot.device.audio.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def query_electrocar_tripstatistics(
+        self,
+        request: bot_models.QueryElectrocarTripstatisticsRequest,
+    ) -> bot_models.QueryElectrocarTripstatisticsResponse:
+        """
+        Description: iotx二轮车行程统计接口
+        Summary: iotx二轮车行程统计接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_electrocar_tripstatistics_ex(request, headers, runtime)
+
+    async def query_electrocar_tripstatistics_async(
+        self,
+        request: bot_models.QueryElectrocarTripstatisticsRequest,
+    ) -> bot_models.QueryElectrocarTripstatisticsResponse:
+        """
+        Description: iotx二轮车行程统计接口
+        Summary: iotx二轮车行程统计接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_electrocar_tripstatistics_ex_async(request, headers, runtime)
+
+    def query_electrocar_tripstatistics_ex(
+        self,
+        request: bot_models.QueryElectrocarTripstatisticsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryElectrocarTripstatisticsResponse:
+        """
+        Description: iotx二轮车行程统计接口
+        Summary: iotx二轮车行程统计接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryElectrocarTripstatisticsResponse(),
+            self.do_request('1.0', 'blockchain.bot.electrocar.tripstatistics.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_electrocar_tripstatistics_ex_async(
+        self,
+        request: bot_models.QueryElectrocarTripstatisticsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryElectrocarTripstatisticsResponse:
+        """
+        Description: iotx二轮车行程统计接口
+        Summary: iotx二轮车行程统计接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryElectrocarTripstatisticsResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.electrocar.tripstatistics.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_electrocar_triplist(
+        self,
+        request: bot_models.QueryElectrocarTriplistRequest,
+    ) -> bot_models.QueryElectrocarTriplistResponse:
+        """
+        Description: iotx二轮车行程列表接口
+        Summary: iotx二轮车行程列表接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_electrocar_triplist_ex(request, headers, runtime)
+
+    async def query_electrocar_triplist_async(
+        self,
+        request: bot_models.QueryElectrocarTriplistRequest,
+    ) -> bot_models.QueryElectrocarTriplistResponse:
+        """
+        Description: iotx二轮车行程列表接口
+        Summary: iotx二轮车行程列表接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_electrocar_triplist_ex_async(request, headers, runtime)
+
+    def query_electrocar_triplist_ex(
+        self,
+        request: bot_models.QueryElectrocarTriplistRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryElectrocarTriplistResponse:
+        """
+        Description: iotx二轮车行程列表接口
+        Summary: iotx二轮车行程列表接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryElectrocarTriplistResponse(),
+            self.do_request('1.0', 'blockchain.bot.electrocar.triplist.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_electrocar_triplist_ex_async(
+        self,
+        request: bot_models.QueryElectrocarTriplistRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryElectrocarTriplistResponse:
+        """
+        Description: iotx二轮车行程列表接口
+        Summary: iotx二轮车行程列表接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryElectrocarTriplistResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.electrocar.triplist.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_electrocar_trippoints(
+        self,
+        request: bot_models.QueryElectrocarTrippointsRequest,
+    ) -> bot_models.QueryElectrocarTrippointsResponse:
+        """
+        Description: iotx二轮车行程定位
+        Summary: iotx二轮车行程定位
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_electrocar_trippoints_ex(request, headers, runtime)
+
+    async def query_electrocar_trippoints_async(
+        self,
+        request: bot_models.QueryElectrocarTrippointsRequest,
+    ) -> bot_models.QueryElectrocarTrippointsResponse:
+        """
+        Description: iotx二轮车行程定位
+        Summary: iotx二轮车行程定位
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_electrocar_trippoints_ex_async(request, headers, runtime)
+
+    def query_electrocar_trippoints_ex(
+        self,
+        request: bot_models.QueryElectrocarTrippointsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryElectrocarTrippointsResponse:
+        """
+        Description: iotx二轮车行程定位
+        Summary: iotx二轮车行程定位
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryElectrocarTrippointsResponse(),
+            self.do_request('1.0', 'blockchain.bot.electrocar.trippoints.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_electrocar_trippoints_ex_async(
+        self,
+        request: bot_models.QueryElectrocarTrippointsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryElectrocarTrippointsResponse:
+        """
+        Description: iotx二轮车行程定位
+        Summary: iotx二轮车行程定位
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryElectrocarTrippointsResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.electrocar.trippoints.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_electrocar_triplast(
+        self,
+        request: bot_models.QueryElectrocarTriplastRequest,
+    ) -> bot_models.QueryElectrocarTriplastResponse:
+        """
+        Description: iotx二轮车最近一段行程查询接口
+        Summary: iotx二轮车最近一段行程查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_electrocar_triplast_ex(request, headers, runtime)
+
+    async def query_electrocar_triplast_async(
+        self,
+        request: bot_models.QueryElectrocarTriplastRequest,
+    ) -> bot_models.QueryElectrocarTriplastResponse:
+        """
+        Description: iotx二轮车最近一段行程查询接口
+        Summary: iotx二轮车最近一段行程查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_electrocar_triplast_ex_async(request, headers, runtime)
+
+    def query_electrocar_triplast_ex(
+        self,
+        request: bot_models.QueryElectrocarTriplastRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryElectrocarTriplastResponse:
+        """
+        Description: iotx二轮车最近一段行程查询接口
+        Summary: iotx二轮车最近一段行程查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryElectrocarTriplastResponse(),
+            self.do_request('1.0', 'blockchain.bot.electrocar.triplast.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_electrocar_triplast_ex_async(
+        self,
+        request: bot_models.QueryElectrocarTriplastRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryElectrocarTriplastResponse:
+        """
+        Description: iotx二轮车最近一段行程查询接口
+        Summary: iotx二轮车最近一段行程查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryElectrocarTriplastResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.electrocar.triplast.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def query_iotplatform_purchaseorder(
         self,
         request: bot_models.QueryIotplatformPurchaseorderRequest,
@@ -15017,6 +15241,62 @@ class Client:
         return TeaCore.from_map(
             bot_models.SendTaskalarmResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.taskalarm.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_techintegration_skushipemptymodelbyuid(
+        self,
+        request: bot_models.ApplyTechintegrationSkushipemptymodelbyuidRequest,
+    ) -> bot_models.ApplyTechintegrationSkushipemptymodelbyuidResponse:
+        """
+        Description: 支付芯非SE方案空发接口
+        Summary: 支付芯非SE方案空发接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_techintegration_skushipemptymodelbyuid_ex(request, headers, runtime)
+
+    async def apply_techintegration_skushipemptymodelbyuid_async(
+        self,
+        request: bot_models.ApplyTechintegrationSkushipemptymodelbyuidRequest,
+    ) -> bot_models.ApplyTechintegrationSkushipemptymodelbyuidResponse:
+        """
+        Description: 支付芯非SE方案空发接口
+        Summary: 支付芯非SE方案空发接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_techintegration_skushipemptymodelbyuid_ex_async(request, headers, runtime)
+
+    def apply_techintegration_skushipemptymodelbyuid_ex(
+        self,
+        request: bot_models.ApplyTechintegrationSkushipemptymodelbyuidRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ApplyTechintegrationSkushipemptymodelbyuidResponse:
+        """
+        Description: 支付芯非SE方案空发接口
+        Summary: 支付芯非SE方案空发接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ApplyTechintegrationSkushipemptymodelbyuidResponse(),
+            self.do_request('1.0', 'blockchain.bot.techintegration.skushipemptymodelbyuid.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_techintegration_skushipemptymodelbyuid_ex_async(
+        self,
+        request: bot_models.ApplyTechintegrationSkushipemptymodelbyuidRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ApplyTechintegrationSkushipemptymodelbyuidResponse:
+        """
+        Description: 支付芯非SE方案空发接口
+        Summary: 支付芯非SE方案空发接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ApplyTechintegrationSkushipemptymodelbyuidResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.techintegration.skushipemptymodelbyuid.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def exec_thingsdid_oneapi(
