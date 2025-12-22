@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "MDPAPI",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-mdpapi:1.1.0",
-    "go": "github.com/antchain-openapi-sdk-go/l4-mdpapi/client:v1.1.0",
-    "csharp": "AntChain.SDK.MDPAPI:1.1.0",
+    "java": "com.antgroup.antchain.openapi:openapi-mdpapi:1.1.1",
+    "go": "github.com/antchain-openapi-sdk-go/l4-mdpapi/client:v1.1.1",
+    "csharp": "AntChain.SDK.MDPAPI:1.1.1",
     "ts": "@antchain/mdpapi:1.1.0",
-    "php": "antchain/mdpapi:1.1.0",
-    "python": "antchain_sdk_mdpapi:1.1.0"
+    "php": "antchain/mdpapi:1.1.1",
+    "python": "antchain_sdk_mdpapi:1.1.1"
   },
   "libraries": {
     "Util": "darabonba:Util:*",
