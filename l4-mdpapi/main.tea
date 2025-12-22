@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.1',
+    sdk_version = '1.1.2',
     _prod_code = 'MDPAPI',
     _prod_channel = 'default'
   };
@@ -242,6 +242,10 @@ model QuerybyappidAntdigitalMdpResponse = {
   userid?: string(name='userid'),
   // 分数列表
   scores?: [ AppIdQualityScoresDONew ](name='scores'),
+  // 筛选分数的规则，通过规则的返回，否则 scores 内容是空的
+  rule?: string(name='rule'),
+  // 规则对应的 md5 值，用来区分当前规则的版本
+  rulemd5?: string(name='rulemd5'),
 }
 
 /**
