@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.13.8',
+    sdk_version = '1.13.16',
     _prod_code = 'TWC',
     _prod_channel = 'undefined'
   };
@@ -159,6 +159,72 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     period = Util.defaultNumber(runtime.backoffPeriod, 1)
   },
   ignoreSSL = runtime.ignoreSSL
+}
+
+// 法务电子签骑缝章信息
+model CaSystemCrossPageRequest {
+  // 签署开始页码
+  posPageStart?: long(name='pos_page_start', example=''),
+  // 签署结束页码
+  posPageEnd?: long(name='pos_page_end', example=''),
+  // 签署区位置横坐标
+  posX: long(name='pos_x', example=''),
+  // 签署区位置纵坐标
+  posY: long(name='pos_y', example=''),
+  // 用印次数
+  sealTimes?: long(name='seal_times', example=''),
+  // 是否采取系统默认骑缝章用印规则
+  defaultCrossPageRule?: boolean(name='default_cross_page_rule', example='true, false'),
+  // 默认骑缝章页数
+  defaultCrossPage?: long(name='default_cross_page', example=''),
+}
+
+// 正文章信息
+model CaSystemMainBodyRequest {
+  // 正文章模式坐标ABSOLUTE_POSITION, 关键字KEY_WORD
+  mainBodyModel: string(name='main_body_model', example='ABSOLUTE_POSITION, KEY_WORD'),
+  // 签署页码
+  posPage: long(name='pos_page', example=''),
+  // 签署区位置横坐标;mainBodyModel为ABSOLUTE_POSITION时必填
+  posX?: long(name='pos_x', example=''),
+  // 签署区位置纵坐标;mainBodyModel为ABSOLUTE_POSITION时必填
+  posY?: long(name='pos_y', example=''),
+  // 关键字：mainBodyModel为KEY_WORD时必填
+  keyWord?: string(name='key_word', example='关键字'),
+  // mainBodyModel为KEY_WORD时必填
+  keyWordType?: long(name='key_word_type', example='关键字类型'),
+  // 第几个关键字;mainBodyModel为KEY_WORD时必填
+  kwIndex?: long(name='kw_index', example='1'),
+  // x偏移量
+  kwShiftX?: long(name='kw_shift_x', example=''),
+  // y偏移量
+  kwShiftY?: long(name='kw_shift_y', example=''),
+}
+
+// 签署区域信息（包括印模信息）
+model CaSystemSignAreaRequest {
+  // 印章印模oss-fileKey 或者oss可预览下载地址
+  sealPicAddr?: string(name='seal_pic_addr', example='ESIGN/ato/ca_png/ORG/111.png'),
+  // 用印对齐类型
+  locationType: string(name='location_type', example='BOTTOM_LEFT'),
+  // 章的旋转角度
+  rotateAngle?: long(name='rotate_angle', example=''),
+  // 签署位置类型	1代表正文章，2代表骑缝章
+  positionType: long(name='position_type', example='1,2'),
+  // 指定外部印章类型
+  externalSealType?: string(name='external_seal_type', example='目前支持手签(PERSONAL)或公章(OFFICIAL)'),
+  // 骑缝章信息
+  caSystemCrossPageRequest?: CaSystemCrossPageRequest(name='ca_system_cross_page_request', example=''),
+  // 正文章信息
+  caSystemMainBodyRequest?: CaSystemMainBodyRequest(name='ca_system_main_body_request', example=''),
+}
+
+// 法务电子签签署文件列表（包含印模和签署区域）
+model CaSystemSignFileRequest {
+  // 单次请求文件唯一id，与AntSignFileRequest中的fileId对应
+  fileId: string(name='file_id', example='签署文件id'),
+  // 签署区域信息（包括印模信息）
+  caSystemSignAreaRequestList: [ CaSystemSignAreaRequest ](name='ca_system_sign_area_request_list', example=''),
 }
 
 // 司法纠纷平台通用文件信息结构体
@@ -340,6 +406,38 @@ model NotaryUser {
   properties?: string(name='properties', example='{"key":"value"}'),
 }
 
+// 法务电子签签署人信息
+model AntSignUserInfoRequest {
+  // signUserId
+  signUserId?: string(name='sign_user_id', example='signUserId'),
+  // 是否为我方（蚂蚁域）公司
+  ourCorp: boolean(name='our_corp', example='true, false'),
+  // 签署文件列表（包含印模和签署区域）
+  caSystemSignFileRequestList: [ CaSystemSignFileRequest ](name='ca_system_sign_file_request_list', example=''),
+  // 用户类型
+  signUserType: string(name='sign_user_type', example='PERSON：个人 ORG：机构'),
+  // 签署人名称
+  signerName: string(name='signer_name', example='张三'),
+  // 签署人证件类型
+  signerCertType: string(name='signer_cert_type', example='CRED_PSN_CH_IDCARD：大陆身份证 CRED_ORG_USCC：统一社会信用代码'),
+  // 签署人证件号码
+  signerCertNumber: string(name='signer_cert_number', example='4201212121212121'),
+  // 企业子类型
+  signSubType?: string(name='sign_sub_type', example='企业子类型'),
+  // 签署方联系手机号
+  mobile?: string(name='mobile', example='12313124112'),
+  // 邮件联系地址
+  email?: string(name='email', example='1212121@163.com'),
+  // 签署顺序
+  order?: long(name='order', example='-1'),
+  // 是否自动签署
+  // true：自动签署需传递坐标信息
+  // false：非自动签署，不需要传递坐标信息，签署文件会发送给签署方签署
+  autoSign: boolean(name='auto_sign', example='true, false'),
+  // 签署方签署操作人签署时支持的印章来源类型目前支持上传公章(UPLOAD)、手写签名(PERSONAL)
+  sealSourceTypes?: [ string ](name='seal_source_types', example='["UPLOAD","PERSONAL"]'),
+}
+
 // 订单信息
 model OrderInfo {
   // 出租方平台名称
@@ -406,6 +504,46 @@ model BclContractFileInfo {
   simpleFormFields?: string(maxLength=2048, name='simple_form_fields', example='{"甲方":"测试甲方","乙方":"测试乙方"}'),
 }
 
+// 签署人状态
+model AntSignOperatorResult {
+  // 签署方UserId
+  signUserId: string(name='sign_user_id', example='签署方UserId'),
+  // 签署方证件号
+  signCertNo: string(name='sign_cert_no', example='签署方证件号'),
+  // 签署方证件名称
+  signCertName: string(name='sign_cert_name', example='签署方证件名称'),
+  // 签署方证件类型
+  signCertType: string(name='sign_cert_type', example='签署方证件类型'),
+  // 是否授权
+  authorized: long(name='authorized', example='是否授权'),
+  // 授权时间
+  authorizeTime?: string(name='authorize_time', example='授权时间'),
+  // 授权人证件号码
+  authPersonCertNo?: string(name='auth_person_cert_no', example='授权人证件号码'),
+  // 授权人证件名称
+  authPersonCertName?: string(name='auth_person_cert_name', example='授权人证件名称'),
+  // 授权人证件类型
+  authPersonCertType?: string(name='auth_person_cert_type', example='授权人证件类型'),
+  // 邮件联系地址
+  emailAddress?: string(name='email_address', example='邮件联系地址'),
+  // 电话联系方式
+  mobileNumber?: string(name='mobile_number', example='电话联系方式'),
+  // 签署顺序
+  signOrder?: long(name='sign_order', example=''),
+  // 签署失败原因
+  failInfo?: string(name='fail_info', example='签署失败原因'),
+  // 备注
+  remark?: string(name='remark', example='备注'),
+  // 是否我方公司
+  ourCorp?: long(name='our_corp', example='是否我方公司'),
+  // 签署状态
+  status?: string(name='status', example='签署状态'),
+  // 签署时间
+  signTime?: string(name='sign_time', example='签署时间'),
+  // [签署方子类型 企业子类型： BUS：企业 SINGLE：个体工商户 GOV：党政机关 INST：事业单位 COMMON：社会组织 OTHER：其他组织
+  signSubType?: string(name='sign_sub_type', example='[签署方子类型 企业子类型： BUS：企业 SINGLE：个体工商户 GOV：党政机关 INST：事业单位 COMMON：社会组织 OTHER：其他组织'),
+}
+
 // 履约信息
 model PerformanceInfo {
   // 支付租金总额
@@ -453,6 +591,18 @@ model BclPromiseDetailInfo {
   // 3.网商委托代扣：MY_BANK_DIRECT_PAYMENT
   // 4.预授权代扣：PRE_AUTHORIZATION_WITHHOLDING
   way: string(maxLength=32, name='way', example='ACTIVE_REPAYMENT'),
+}
+
+// 签署子任务完成的文件里表
+model AntSignFileResult {
+  // fileName	文件名称
+  fileName?: string(name='file_name', example='111.pdf'),
+  // 文件osskey
+  fileKey?: string(name='file_key', example='key'),
+  // 文件id
+  fileId?: string(name='file_id', example='12313124112'),
+  // 文件http链接
+  httpFileUrl?: string(name='http_file_url', example='http://aaaa'),
 }
 
 // 文件信息
@@ -555,6 +705,18 @@ model JudicialPersonInfo {
   sex?: long(name='sex', example='0'),
   // 联系邮件地址
   email?: string(name='email', example='email@ali.com'),
+}
+
+// 法务电子签待签署文件列表
+model AntSignFileRequest {
+  // 文件名称
+  fileName: string(name='file_name', example='测试文字.pdf'),
+  // 文件httpUrl
+  fileHttpUrl: string(name='file_http_url', example='http://aaaaa'),
+  // 单次请求文件唯一id，与CaSystemSignFileRequest中的fileId对应
+  fileId: string(name='file_id', example='79ffa96040044b49b0fde8c3feb4898'),
+  // 文件类型（只支持pdf）
+  fileType: string(name='file_type', example='pdf'),
 }
 
 // 承诺信息
@@ -660,6 +822,20 @@ model BclUserInfo {
   userCertBackFileId?: string(maxLength=64, name='user_cert_back_file_id', example='342323.jpg'),
 }
 
+// 签署链接
+model AntSignUrlResult {
+  // 签署方名称
+  signCertName: string(name='sign_cert_name', example='某某'),
+  // 签署方证件号（脱敏）
+  signCertNo: string(name='sign_cert_no', example='421011111111111111'),
+  // 签署方 id
+  signUserId: string(name='sign_user_id', example='CA20220920000002'),
+  // 加密后的签署方证件号(用来关联签署方的签署链接)
+  encryptSignCertNo: string(name='encrypt_sign_cert_no', example='9***************3G'),
+  // 签署链接：电子签任务为异步任务，请确保已处于签署中（SIGNNING）状态，再给用户发送签署链接，否则用户签署会不成功
+  signUrl: string(name='sign_url', example='https://p.tb.cn/_5He390eo6NzfmuCzcNhzwO'),
+}
+
 // 自动进件履约信息
 model LeasePerformanceInfo {
   // 支付租金总额
@@ -721,6 +897,34 @@ model Location {
   macAddr?: string(name='mac_addr', example='00-01-6C-06-A6-29'),
   // 扩展属性
   properties?: string(name='properties', example='{"key":"value"}'),
+}
+
+// 签署子任务结果
+model AntSignTaskResult {
+  // 子任务流水号
+  subBizNo?: string(name='sub_biz_no', example='子任务流水号'),
+  // 签署子任务id
+  signTaskId?: string(name='sign_task_id', example='签署子任务id'),
+  // 签署子任务状态:
+  // INIT-初始化
+  // SIGNING-签署中
+  // SIGNED-已签署
+  // REJECTED-已拒绝
+  signTaskStatus?: string(name='sign_task_status', example='INIT'),
+  // 上下游透传参数
+  extraParam?: string(name='extra_param', example='上下游透传参数'),
+  // 签署子任务完成的文件里表
+  antSignFileResultList?: [ AntSignFileResult ](name='ant_sign_file_result_list', example=''),
+  // 签署人状态列表
+  antSignOperatorResultList?: [ AntSignOperatorResult ](name='ant_sign_operator_result_list', example=''),
+}
+
+// 法务电子签章图片信息
+model PngDetails {
+  // 明细唯一id
+  id: string(name='id', example='1'),
+  // 图片 osskey
+  fileKey: string(name='file_key', example='ESIGN/ato/ca_png/ORG/111.png'),
 }
 
 // 自动进件案件基础信息
@@ -1070,6 +1274,28 @@ model WitnessSignData {
   signPosData?: string(name='sign_pos_data', example=' '),
   // 第三方文档id，批量签时必传
   thirdDocId?: string(name='third_doc_id', example=' '),
+}
+
+// 生成签名图片明细
+model CreatePngDetails {
+  // 明细唯一id，必填（用于标识明细中的唯一键，返回多个图片地址时，根据id去进行匹配）
+  id: string(name='id', example='明细唯一id，必填（用于标识明细中的唯一键，返回多个图片地址时，根据id去进行匹配）'),
+  // 身份类型，必填，SignUserTypeEnum
+  certType: string(name='cert_type', example='1、PERSON：个人 2、ORG：公司'),
+  // 名称，个人姓名/公司名称
+  name: string(name='name', example='个人姓名/公司名称'),
+  // 证件号，个人身份证/公司统一社会信用代码
+  certNo: string(name='cert_no', example='个人身份证/公司统一社会信用代码'),
+  // 字体大小，选填，推荐不传（除特殊场景需要），默认40
+  fontSize?: long(name='font_size', example='40'),
+  // 自定义名称，选填，不传则默认按照name参数中的值生成文件名。此参数主要用于同一个人需要生成不同样式的签名图片场景
+  customName?: string(name='custom_name', example='自定义名称'),
+  // 字体颜色，选填，推荐不传（除特殊场景需要），默认黑色
+  fontColor?: string(name='font_color', example='字体颜色，选填，推荐不传（除特殊场景需要），默认黑色'),
+  // [是否带边框，选填，推荐不传（除特殊场景需要），默认false]": "boolean"
+  withBorder?: boolean(name='with_border', example='是否带边框，选填，推荐不传（除特殊场景需要），默认false'),
+  // [边框颜色，选填，推荐不传（除特殊场景需要），默认红色]
+  borderColor?: string(name='border_color', example='[边框颜色，选填，推荐不传（除特殊场景需要），默认红色]'),
 }
 
 // 案件基础信息
@@ -1471,6 +1697,20 @@ model BclCertifyInfo {
   // 2.认证成功：PASS 
   // 3.认证失败：FAIL
   status: string(name='status', example='INIT'),
+}
+
+// 子任务信息
+model SubAntSignResult {
+  // 子业务流水号
+  subBizNo: string(name='sub_biz_no', example='subBizNo12345678901'),
+  // 子任务流水号
+  signTaskId?: string(name='sign_task_id', example='子任务流水号'),
+  // 我方userId
+  ourUserId?: string(name='our_user_id', example='我方userId'),
+  // 是否关联业务
+  relatedBusiness?: boolean(name='related_business', example='true, false'),
+  // 签署链接
+  antSignUrlResultList: [ AntSignUrlResult ](name='ant_sign_url_result_list', example=''),
 }
 
 // 代扣订单信息
@@ -2612,6 +2852,24 @@ model ContractSignFieldSealId {
   sealType?: string(name='seal_type', example='0'),
   // 签署区Id
   signfieldId?: string(name='signfield_id', example='52adb35497b141e3893912b3a2ea4f42'),
+}
+
+// 法务电子签签署任务信息
+model AntSignTaskRequest {
+  // 签署人信息
+  antSignUserInfoRequestList: [ AntSignUserInfoRequest ](name='ant_sign_user_info_request_list', example=''),
+  // 待签署文件列表
+  antSignFileRequestList: [ AntSignFileRequest ](name='ant_sign_file_request_list', example=''),
+  // relatedBusiness	是否关联业务
+  relatedBusiness?: boolean(name='related_business', example='true, false 默认：false '),
+  // 任务描述
+  description?: string(name='description', example='任务描述'),
+  // 业务扩展参数
+  extraParam?: string(name='extra_param', example='业务扩展参数'),
+  // 子业务流水号（如果只有单任务，可以跟bizNo填相同的值）
+  subBizNo: string(name='sub_biz_no', example='子业务流水号'),
+  // 业务配置参数，用于展示或隐藏签署功能 默认不传：false
+  signConfigParam?: string(name='sign_config_param', example='默认不传'),
 }
 
 // 协商记录
@@ -4241,8 +4499,7 @@ model CreateBclInsuranceRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // bcl订单id
   orderId: string(maxLength=32, minLength=16, name='order_id'),
-  // 保司code，枚举值
-  // HZRB: 杭州人保
+  // 保司code
   insuranceCode: string(maxLength=32, minLength=8, name='insurance_code'),
   // 投保人信息
   holder: BclInsuranceUserInfo(name='holder'),
@@ -7388,6 +7645,10 @@ model CreateContractOnestepflowRequest = {
   // 合并签署是否开启人脸识别(默认true-开启),非合并签署无需设值
   // 
   needFace?: boolean(name='need_face'),
+  // 0-手绘签名 
+  // 1-模板印章签名
+  // 多种类型时逗号分割，为空不限制
+  sealType?: string(name='seal_type'),
 }
 
 model CreateContractOnestepflowResponse = {
@@ -10038,6 +10299,52 @@ async function queryContractDedcutpayinfoEx(request: QueryContractDedcutpayinfoR
   return doRequest('1.0' ,'twc.notary.contract.dedcutpayinfo.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model UnbindContractZfbagreementRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户2088id
+  alipayUserId: string(name='alipay_user_id'),
+  // 外部代扣协议号
+  agreementNo: string(name='agreement_no'),
+  // 申请解约-APPLY_UNSIGN
+  status: string(name='status'),
+  // 申请解约时间
+  unsignTime: string(name='unsign_time'),
+  // appId
+  appId: string(name='app_id'),
+}
+
+model UnbindContractZfbagreementResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 解约是否成功
+  unsignSuccess?: boolean(name='unsign_success'),
+}
+
+/**
+ * Description: 72h代扣解约代扣协议，未执行成功的代扣会被取消，已执行成功的代扣不变。
+ * Summary: 72h代扣解约-twc解约
+ */
+async function unbindContractZfbagreement(request: UnbindContractZfbagreementRequest): UnbindContractZfbagreementResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return unbindContractZfbagreementEx(request, headers, runtime);
+}
+
+/**
+ * Description: 72h代扣解约代扣协议，未执行成功的代扣会被取消，已执行成功的代扣不变。
+ * Summary: 72h代扣解约-twc解约
+ */
+async function unbindContractZfbagreementEx(request: UnbindContractZfbagreementRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UnbindContractZfbagreementResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.contract.zfbagreement.unbind', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model PushDigitalcontentUsageRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -10671,6 +10978,185 @@ async function operateLeasePetcomparepets(request: OperateLeasePetcomparepetsReq
 async function operateLeasePetcomparepetsEx(request: OperateLeasePetcomparepetsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): OperateLeasePetcomparepetsResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'twc.notary.lease.petcomparepets.operate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyInnerAntesignRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户信息
+  tenantName: string(name='tenant_name'),
+  // 业务线
+  businessLineCode: string(name='business_line_code'),
+  // 场景值
+  sceneCode: string(name='scene_code'),
+  // 业务流水号
+  bizNo: string(name='biz_no'),
+  // 业务名称
+  bizName: string(name='biz_name'),
+  // 业务类型
+  // 1.CONTRACT：合同（默认推荐）
+  // 2.FILE：文件
+  // 3.OTHER：其它
+  bizType: string(name='biz_type'),
+  // 签署任务类型 默认传：MICKLE_SEAL_CA
+  esignType: string(name='esign_type'),
+  // zappinfo应用名
+  appName: string(name='app_name'),
+  // 法务电子签签署任务信息
+  antSignTaskRequestList: [ AntSignTaskRequest ](name='ant_sign_task_request_list'),
+  // 签署业务原地址跳转链接
+  sourceUrl?: string(name='source_url'),
+  // 业务描述
+  bizDesc?: string(name='biz_desc'),
+  // 回调通知地址 默认不填
+  callbackUrl?: string(name='callback_url'),
+  // 默认不填
+  expireDate?: string(name='expire_date'),
+}
+
+model ApplyInnerAntesignResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 用印流程受理流水号
+  signFlowId?: string(name='sign_flow_id'),
+  // 业务流水号
+  bizNo?: string(name='biz_no'),
+  // 子任务信息
+  subAntSignResultList?: [ SubAntSignResult ](name='sub_ant_sign_result_list'),
+}
+
+/**
+ * Description: 法务电子签发起签署
+ * Summary: 法务电子签发起签署
+ */
+async function applyInnerAntesign(request: ApplyInnerAntesignRequest): ApplyInnerAntesignResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyInnerAntesignEx(request, headers, runtime);
+}
+
+/**
+ * Description: 法务电子签发起签署
+ * Summary: 法务电子签发起签署
+ */
+async function applyInnerAntesignEx(request: ApplyInnerAntesignRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyInnerAntesignResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.inner.antesign.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryInnerAntesignRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户信息
+  tenantName?: string(name='tenant_name'),
+  // 业务线
+  businessLineCode?: string(name='business_line_code'),
+  // 场景值
+  sceneCode?: string(name='scene_code'),
+  // 签署合同id 传值默认查询签署流程下全部任务状态
+  signFlowId: string(name='sign_flow_id'),
+  // 签署任务创建id 默认查signTaskId 单任务状态
+  signTaskId?: string(name='sign_task_id'),
+  // 应用方来源信息
+  appName: string(name='app_name'),
+  // 业务流水号
+  bizNo: string(name='biz_no'),
+}
+
+model QueryInnerAntesignResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 业务流水号
+  bizNo?: string(name='biz_no'),
+  // 签署流水id
+  signFlowId?: string(name='sign_flow_id'),
+  // 签署子任务结果
+  antSignTaskResultList?: [ AntSignTaskResult ](name='ant_sign_task_result_list'),
+  // 总状态INIT-初始化
+  // SIGNING-签署中
+  // FINISH-已完成
+  status?: string(name='status'),
+  // 应用方来源信息
+  appName?: string(name='app_name'),
+  // 租户信息
+  tenantName?: string(name='tenant_name'),
+  // 签署中心流程id
+  signCenterId?: string(name='sign_center_id'),
+}
+
+/**
+ * Description: 法务电子签查询签署状态
+ * Summary: 法务电子签查询签署状态
+ */
+async function queryInnerAntesign(request: QueryInnerAntesignRequest): QueryInnerAntesignResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryInnerAntesignEx(request, headers, runtime);
+}
+
+/**
+ * Description: 法务电子签查询签署状态
+ * Summary: 法务电子签查询签署状态
+ */
+async function queryInnerAntesignEx(request: QueryInnerAntesignRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryInnerAntesignResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.inner.antesign.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateInnerAntesignRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 调用方租户名
+  tenantName: string(name='tenant_name'),
+  // 业务线
+  businessLineCode: string(name='business_line_code'),
+  // 场景值
+  sceneCode: string(name='scene_code'),
+  // 应用名
+  appName: string(name='app_name'),
+  // 生成签名图片明细
+  details: CreatePngDetails(name='details'),
+}
+
+model CreateInnerAntesignResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 法务电子签章图片信息
+  signPngDetails?: PngDetails(name='sign_png_details'),
+}
+
+/**
+ * Description: 法务电子签根据公司名称统代生成印章
+ * Summary: 法务电子签根据公司名称统代生成印章
+ */
+async function createInnerAntesign(request: CreateInnerAntesignRequest): CreateInnerAntesignResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createInnerAntesignEx(request, headers, runtime);
+}
+
+/**
+ * Description: 法务电子签根据公司名称统代生成印章
+ * Summary: 法务电子签根据公司名称统代生成印章
+ */
+async function createInnerAntesignEx(request: CreateInnerAntesignRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateInnerAntesignResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.inner.antesign.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CheckEpidentityTwometaRequest = {
