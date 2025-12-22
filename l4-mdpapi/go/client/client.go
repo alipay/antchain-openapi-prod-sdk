@@ -335,6 +335,10 @@ type QuerybyappidAntdigitalMdpResponse struct {
 	Userid *string `json:"userid,omitempty" xml:"userid,omitempty"`
 	// 分数列表
 	Scores []*AppIdQualityScoresDONew `json:"scores,omitempty" xml:"scores,omitempty" type:"Repeated"`
+	// 筛选分数的规则，通过规则的返回，否则 scores 内容是空的
+	Rule *string `json:"rule,omitempty" xml:"rule,omitempty"`
+	// 规则对应的 md5 值，用来区分当前规则的版本
+	Rulemd5 *string `json:"rulemd5,omitempty" xml:"rulemd5,omitempty"`
 }
 
 func (s QuerybyappidAntdigitalMdpResponse) String() string {
@@ -372,6 +376,16 @@ func (s *QuerybyappidAntdigitalMdpResponse) SetUserid(v string) *QuerybyappidAnt
 
 func (s *QuerybyappidAntdigitalMdpResponse) SetScores(v []*AppIdQualityScoresDONew) *QuerybyappidAntdigitalMdpResponse {
 	s.Scores = v
+	return s
+}
+
+func (s *QuerybyappidAntdigitalMdpResponse) SetRule(v string) *QuerybyappidAntdigitalMdpResponse {
+	s.Rule = &v
+	return s
+}
+
+func (s *QuerybyappidAntdigitalMdpResponse) SetRulemd5(v string) *QuerybyappidAntdigitalMdpResponse {
+	s.Rulemd5 = &v
 	return s
 }
 
@@ -497,7 +511,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.1"),
+				"sdk_version":      tea.String("1.1.2"),
 				"_prod_code":       tea.String("MDPAPI"),
 				"_prod_channel":    tea.String("default"),
 			}
