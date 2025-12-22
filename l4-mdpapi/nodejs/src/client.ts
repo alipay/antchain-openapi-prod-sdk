@@ -238,6 +238,10 @@ export class QuerybyappidAntdigitalMdpResponse extends $tea.Model {
   userid?: string;
   // 分数列表
   scores?: AppIdQualityScoresDONew[];
+  // 筛选分数的规则，通过规则的返回，否则 scores 内容是空的
+  rule?: string;
+  // 规则对应的 md5 值，用来区分当前规则的版本
+  rulemd5?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -246,6 +250,8 @@ export class QuerybyappidAntdigitalMdpResponse extends $tea.Model {
       appid: 'appid',
       userid: 'userid',
       scores: 'scores',
+      rule: 'rule',
+      rulemd5: 'rulemd5',
     };
   }
 
@@ -257,6 +263,8 @@ export class QuerybyappidAntdigitalMdpResponse extends $tea.Model {
       appid: 'string',
       userid: 'string',
       scores: { 'type': 'array', 'itemType': AppIdQualityScoresDONew },
+      rule: 'string',
+      rulemd5: 'string',
     };
   }
 
@@ -378,7 +386,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.1",
+          sdk_version: "1.1.2",
           _prod_code: "MDPAPI",
           _prod_channel: "default",
         };
