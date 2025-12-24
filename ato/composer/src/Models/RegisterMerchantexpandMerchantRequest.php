@@ -48,14 +48,37 @@ class RegisterMerchantexpandMerchantRequest extends Model
      * @var string
      */
     public $subTenantId;
+
+    // 京东商家控股信息
+    /**
+     * @var MerchantHoldingInfo
+     */
+    public $merchantHoldingInfo;
+
+    // 京东商家结算信息
+    /**
+     * @var MerchantSettleInfo
+     */
+    public $merchantSettleInfo;
+
+    // 支付渠道
+    // ALIPAY（默认）
+    // JDPAY
+    /**
+     * @var string
+     */
+    public $payChannel;
     protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'companyInfo'       => 'company_info',
-        'legalInfo'         => 'legal_info',
-        'applicationInfo'   => 'application_info',
-        'expandMode'        => 'expand_mode',
-        'subTenantId'       => 'sub_tenant_id',
+        'authToken'           => 'auth_token',
+        'productInstanceId'   => 'product_instance_id',
+        'companyInfo'         => 'company_info',
+        'legalInfo'           => 'legal_info',
+        'applicationInfo'     => 'application_info',
+        'expandMode'          => 'expand_mode',
+        'subTenantId'         => 'sub_tenant_id',
+        'merchantHoldingInfo' => 'merchant_holding_info',
+        'merchantSettleInfo'  => 'merchant_settle_info',
+        'payChannel'          => 'pay_channel',
     ];
 
     public function validate()
@@ -90,6 +113,15 @@ class RegisterMerchantexpandMerchantRequest extends Model
         if (null !== $this->subTenantId) {
             $res['sub_tenant_id'] = $this->subTenantId;
         }
+        if (null !== $this->merchantHoldingInfo) {
+            $res['merchant_holding_info'] = null !== $this->merchantHoldingInfo ? $this->merchantHoldingInfo->toMap() : null;
+        }
+        if (null !== $this->merchantSettleInfo) {
+            $res['merchant_settle_info'] = null !== $this->merchantSettleInfo ? $this->merchantSettleInfo->toMap() : null;
+        }
+        if (null !== $this->payChannel) {
+            $res['pay_channel'] = $this->payChannel;
+        }
 
         return $res;
     }
@@ -122,6 +154,15 @@ class RegisterMerchantexpandMerchantRequest extends Model
         }
         if (isset($map['sub_tenant_id'])) {
             $model->subTenantId = $map['sub_tenant_id'];
+        }
+        if (isset($map['merchant_holding_info'])) {
+            $model->merchantHoldingInfo = MerchantHoldingInfo::fromMap($map['merchant_holding_info']);
+        }
+        if (isset($map['merchant_settle_info'])) {
+            $model->merchantSettleInfo = MerchantSettleInfo::fromMap($map['merchant_settle_info']);
+        }
+        if (isset($map['pay_channel'])) {
+            $model->payChannel = $map['pay_channel'];
         }
 
         return $model;

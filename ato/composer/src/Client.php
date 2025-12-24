@@ -39,6 +39,8 @@ use AntChain\ATO\Models\AuthFundFlowRequest;
 use AntChain\ATO\Models\AuthFundFlowResponse;
 use AntChain\ATO\Models\AuthSignFlowRequest;
 use AntChain\ATO\Models\AuthSignFlowResponse;
+use AntChain\ATO\Models\BatchcreateInnerSceneproductRequest;
+use AntChain\ATO\Models\BatchcreateInnerSceneproductResponse;
 use AntChain\ATO\Models\BatchcreateInnerTemplatetextareaRequest;
 use AntChain\ATO\Models\BatchcreateInnerTemplatetextareaResponse;
 use AntChain\ATO\Models\BatchdeleteInnerKnowledgecategoryRequest;
@@ -95,6 +97,8 @@ use AntChain\ATO\Models\CreateInnerMerchantagreementRequest;
 use AntChain\ATO\Models\CreateInnerMerchantagreementResponse;
 use AntChain\ATO\Models\CreateInnerMerchantpayexpandRequest;
 use AntChain\ATO\Models\CreateInnerMerchantpayexpandResponse;
+use AntChain\ATO\Models\CreateInnerPromotionsceneRequest;
+use AntChain\ATO\Models\CreateInnerPromotionsceneResponse;
 use AntChain\ATO\Models\CreateInnerSaleschannelRequest;
 use AntChain\ATO\Models\CreateInnerSaleschannelResponse;
 use AntChain\ATO\Models\CreateInnerTemplateRequest;
@@ -123,8 +127,14 @@ use AntChain\ATO\Models\DeleteInnerDatadownloadRequest;
 use AntChain\ATO\Models\DeleteInnerDatadownloadResponse;
 use AntChain\ATO\Models\DeleteInnerFundmngdatadownloadRequest;
 use AntChain\ATO\Models\DeleteInnerFundmngdatadownloadResponse;
+use AntChain\ATO\Models\DeleteInnerPlatformorderleadRequest;
+use AntChain\ATO\Models\DeleteInnerPlatformorderleadResponse;
+use AntChain\ATO\Models\DeleteInnerPromotionsceneRequest;
+use AntChain\ATO\Models\DeleteInnerPromotionsceneResponse;
 use AntChain\ATO\Models\DeleteInnerSaleschannelRequest;
 use AntChain\ATO\Models\DeleteInnerSaleschannelResponse;
+use AntChain\ATO\Models\DeleteInnerSceneproductRequest;
+use AntChain\ATO\Models\DeleteInnerSceneproductResponse;
 use AntChain\ATO\Models\DeleteInnerTemplateRequest;
 use AntChain\ATO\Models\DeleteInnerTemplateResponse;
 use AntChain\ATO\Models\DetailInnerAgreementterminateRequest;
@@ -141,6 +151,8 @@ use AntChain\ATO\Models\DetailInnerPendingeventRequest;
 use AntChain\ATO\Models\DetailInnerPendingeventResponse;
 use AntChain\ATO\Models\DetailInnerPlatformproductRequest;
 use AntChain\ATO\Models\DetailInnerPlatformproductResponse;
+use AntChain\ATO\Models\DetailInnerSceneproductRequest;
+use AntChain\ATO\Models\DetailInnerSceneproductResponse;
 use AntChain\ATO\Models\DetailInnerTemplateRequest;
 use AntChain\ATO\Models\DetailInnerTemplateResponse;
 use AntChain\ATO\Models\DownloadInnerFileRequest;
@@ -195,16 +207,22 @@ use AntChain\ATO\Models\GetTradeUserperformanceRequest;
 use AntChain\ATO\Models\GetTradeUserperformanceResponse;
 use AntChain\ATO\Models\InitInnerFundmngmerchantpromiseRequest;
 use AntChain\ATO\Models\InitInnerFundmngmerchantpromiseResponse;
+use AntChain\ATO\Models\ListInnerSceneproductmerchantRequest;
+use AntChain\ATO\Models\ListInnerSceneproductmerchantResponse;
 use AntChain\ATO\Models\ListInnerTemplateRequest;
 use AntChain\ATO\Models\ListInnerTemplateResponse;
 use AntChain\ATO\Models\NotifyFundFlowRequest;
 use AntChain\ATO\Models\NotifyFundFlowResponse;
+use AntChain\ATO\Models\OnlineInnerSceneproductRequest;
+use AntChain\ATO\Models\OnlineInnerSceneproductResponse;
 use AntChain\ATO\Models\OperateInnerAgreementterminateRequest;
 use AntChain\ATO\Models\OperateInnerAgreementterminateResponse;
 use AntChain\ATO\Models\OperateInnerAgreementterminatezfbdirectRequest;
 use AntChain\ATO\Models\OperateInnerAgreementterminatezfbdirectResponse;
 use AntChain\ATO\Models\OperateInnerKnowledgecategoryRequest;
 use AntChain\ATO\Models\OperateInnerKnowledgecategoryResponse;
+use AntChain\ATO\Models\OperateInnerSceneproductmerchantRequest;
+use AntChain\ATO\Models\OperateInnerSceneproductmerchantResponse;
 use AntChain\ATO\Models\OperateKnowledgeCategoryRequest;
 use AntChain\ATO\Models\OperateKnowledgeCategoryResponse;
 use AntChain\ATO\Models\PagequeryInnerAgreementterminateRequest;
@@ -241,10 +259,16 @@ use AntChain\ATO\Models\PagequeryInnerOrderRequest;
 use AntChain\ATO\Models\PagequeryInnerOrderResponse;
 use AntChain\ATO\Models\PagequeryInnerPendingeventRequest;
 use AntChain\ATO\Models\PagequeryInnerPendingeventResponse;
+use AntChain\ATO\Models\PagequeryInnerPlatformorderleadRequest;
+use AntChain\ATO\Models\PagequeryInnerPlatformorderleadResponse;
 use AntChain\ATO\Models\PagequeryInnerPlatformproductRequest;
 use AntChain\ATO\Models\PagequeryInnerPlatformproductResponse;
 use AntChain\ATO\Models\PagequeryInnerProductRequest;
 use AntChain\ATO\Models\PagequeryInnerProductResponse;
+use AntChain\ATO\Models\PagequeryInnerPromotionsceneRequest;
+use AntChain\ATO\Models\PagequeryInnerPromotionsceneResponse;
+use AntChain\ATO\Models\PagequeryInnerSceneproductRequest;
+use AntChain\ATO\Models\PagequeryInnerSceneproductResponse;
 use AntChain\ATO\Models\PagequeryKnowledgeCategoryRequest;
 use AntChain\ATO\Models\PagequeryKnowledgeCategoryResponse;
 use AntChain\ATO\Models\PauseTradeUserpromiseRequest;
@@ -289,6 +313,8 @@ use AntChain\ATO\Models\QueryInnerFundmngcreditRequest;
 use AntChain\ATO\Models\QueryInnerFundmngcreditResponse;
 use AntChain\ATO\Models\QueryInnerFundmngdemoRequest;
 use AntChain\ATO\Models\QueryInnerFundmngdemoResponse;
+use AntChain\ATO\Models\QueryInnerFundmngguaranteeinfoRequest;
+use AntChain\ATO\Models\QueryInnerFundmngguaranteeinfoResponse;
 use AntChain\ATO\Models\QueryInnerFundmngloanapplyRequest;
 use AntChain\ATO\Models\QueryInnerFundmngloanapplyResponse;
 use AntChain\ATO\Models\QueryInnerFundmngmerchantpayitemRequest;
@@ -333,6 +359,8 @@ use AntChain\ATO\Models\QueryInnerWithholdsignRequest;
 use AntChain\ATO\Models\QueryInnerWithholdsignResponse;
 use AntChain\ATO\Models\QueryInsureRequest;
 use AntChain\ATO\Models\QueryInsureResponse;
+use AntChain\ATO\Models\QueryJdFunddividerelationRequest;
+use AntChain\ATO\Models\QueryJdFunddividerelationResponse;
 use AntChain\ATO\Models\QueryKnowledgeBaseinfoRequest;
 use AntChain\ATO\Models\QueryKnowledgeBaseinfoResponse;
 use AntChain\ATO\Models\QueryKnowledgeCategorylibraryRequest;
@@ -393,6 +421,8 @@ use AntChain\ATO\Models\RetryWithholdPlanRequest;
 use AntChain\ATO\Models\RetryWithholdPlanResponse;
 use AntChain\ATO\Models\SaveInnerAgentcustomerserviceRequest;
 use AntChain\ATO\Models\SaveInnerAgentcustomerserviceResponse;
+use AntChain\ATO\Models\SaveInnerPlatformorderleadRequest;
+use AntChain\ATO\Models\SaveInnerPlatformorderleadResponse;
 use AntChain\ATO\Models\SaveInnerSignfieldsRequest;
 use AntChain\ATO\Models\SaveInnerSignfieldsResponse;
 use AntChain\ATO\Models\SaveInnerTemplateRequest;
@@ -489,6 +519,8 @@ use AntChain\ATO\Models\UpdateInnerKnowledgecategoryRequest;
 use AntChain\ATO\Models\UpdateInnerKnowledgecategoryResponse;
 use AntChain\ATO\Models\UpdateInnerMerchantpayexpandRequest;
 use AntChain\ATO\Models\UpdateInnerMerchantpayexpandResponse;
+use AntChain\ATO\Models\UpdateInnerPromotionsceneRequest;
+use AntChain\ATO\Models\UpdateInnerPromotionsceneResponse;
 use AntChain\ATO\Models\UpdateInnerSaleschannelRequest;
 use AntChain\ATO\Models\UpdateInnerSaleschannelResponse;
 use AntChain\ATO\Models\UpdateInnerTemplateRequest;
@@ -666,7 +698,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.16.35',
+                    'sdk_version'      => '1.16.66',
                     '_prod_code'       => 'ATO',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -748,8 +780,8 @@ class Client
     }
 
     /**
-     * Description: 京东分账关系绑定
-     * Summary: 京东分账关系绑定.
+     * Description: 京东分账关系绑定创建/更新
+     * Summary: 京东分账关系绑定创建/更新.
      *
      * @param CreateJdFunddividerelationRequest $request
      *
@@ -764,8 +796,8 @@ class Client
     }
 
     /**
-     * Description: 京东分账关系绑定
-     * Summary: 京东分账关系绑定.
+     * Description: 京东分账关系绑定创建/更新
+     * Summary: 京东分账关系绑定创建/更新.
      *
      * @param CreateJdFunddividerelationRequest $request
      * @param string[]                          $headers
@@ -778,6 +810,39 @@ class Client
         Utils::validateModel($request);
 
         return CreateJdFunddividerelationResponse::fromMap($this->doRequest('1.0', 'antchain.ato.jd.funddividerelation.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询京东支付分账关系绑定状态
+     * Summary: 查询京东支付分账关系绑定状态
+     *
+     * @param QueryJdFunddividerelationRequest $request
+     *
+     * @return QueryJdFunddividerelationResponse
+     */
+    public function queryJdFunddividerelation($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryJdFunddividerelationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询京东支付分账关系绑定状态
+     * Summary: 查询京东支付分账关系绑定状态
+     *
+     * @param QueryJdFunddividerelationRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return QueryJdFunddividerelationResponse
+     */
+    public function queryJdFunddividerelationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryJdFunddividerelationResponse::fromMap($this->doRequest('1.0', 'antchain.ato.jd.funddividerelation.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -1539,6 +1604,39 @@ class Client
         Utils::validateModel($request);
 
         return PagequeryInnerFundmngpendingeventResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.fundmngpendingevent.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询担保方信息
+     * Summary: 查询担保方信息.
+     *
+     * @param QueryInnerFundmngguaranteeinfoRequest $request
+     *
+     * @return QueryInnerFundmngguaranteeinfoResponse
+     */
+    public function queryInnerFundmngguaranteeinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryInnerFundmngguaranteeinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询担保方信息
+     * Summary: 查询担保方信息.
+     *
+     * @param QueryInnerFundmngguaranteeinfoRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return QueryInnerFundmngguaranteeinfoResponse
+     */
+    public function queryInnerFundmngguaranteeinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryInnerFundmngguaranteeinfoResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.fundmngguaranteeinfo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -6982,6 +7080,468 @@ class Client
         Utils::validateModel($request);
 
         return ConfirmInnerAuthagreementResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.authagreement.confirm', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 随时享-服务商平台场景分页列表
+     * Summary: 随时享-服务商平台场景分页列表.
+     *
+     * @param PagequeryInnerSceneproductRequest $request
+     *
+     * @return PagequeryInnerSceneproductResponse
+     */
+    public function pagequeryInnerSceneproduct($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pagequeryInnerSceneproductEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 随时享-服务商平台场景分页列表
+     * Summary: 随时享-服务商平台场景分页列表.
+     *
+     * @param PagequeryInnerSceneproductRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return PagequeryInnerSceneproductResponse
+     */
+    public function pagequeryInnerSceneproductEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PagequeryInnerSceneproductResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.sceneproduct.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 随时享-服务商平台场景商品详情
+     * Summary: 随时享-服务商平台场景商品详情.
+     *
+     * @param DetailInnerSceneproductRequest $request
+     *
+     * @return DetailInnerSceneproductResponse
+     */
+    public function detailInnerSceneproduct($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->detailInnerSceneproductEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 随时享-服务商平台场景商品详情
+     * Summary: 随时享-服务商平台场景商品详情.
+     *
+     * @param DetailInnerSceneproductRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return DetailInnerSceneproductResponse
+     */
+    public function detailInnerSceneproductEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DetailInnerSceneproductResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.sceneproduct.detail', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 随时享-服务商平台场景商品批量添加
+     * Summary: 随时享-服务商平台场景商品批量添加.
+     *
+     * @param BatchcreateInnerSceneproductRequest $request
+     *
+     * @return BatchcreateInnerSceneproductResponse
+     */
+    public function batchcreateInnerSceneproduct($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->batchcreateInnerSceneproductEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 随时享-服务商平台场景商品批量添加
+     * Summary: 随时享-服务商平台场景商品批量添加.
+     *
+     * @param BatchcreateInnerSceneproductRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return BatchcreateInnerSceneproductResponse
+     */
+    public function batchcreateInnerSceneproductEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BatchcreateInnerSceneproductResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.sceneproduct.batchcreate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 随时享-服务商平台场景商品移除
+     * Summary: 随时享-服务商平台场景商品移除.
+     *
+     * @param DeleteInnerSceneproductRequest $request
+     *
+     * @return DeleteInnerSceneproductResponse
+     */
+    public function deleteInnerSceneproduct($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->deleteInnerSceneproductEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 随时享-服务商平台场景商品移除
+     * Summary: 随时享-服务商平台场景商品移除.
+     *
+     * @param DeleteInnerSceneproductRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return DeleteInnerSceneproductResponse
+     */
+    public function deleteInnerSceneproductEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DeleteInnerSceneproductResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.sceneproduct.delete', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 随时享-服务商平台场景商品适用商家列表
+     * Summary: 随时享-服务商平台场景商品适用商家列表.
+     *
+     * @param ListInnerSceneproductmerchantRequest $request
+     *
+     * @return ListInnerSceneproductmerchantResponse
+     */
+    public function listInnerSceneproductmerchant($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listInnerSceneproductmerchantEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 随时享-服务商平台场景商品适用商家列表
+     * Summary: 随时享-服务商平台场景商品适用商家列表.
+     *
+     * @param ListInnerSceneproductmerchantRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return ListInnerSceneproductmerchantResponse
+     */
+    public function listInnerSceneproductmerchantEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListInnerSceneproductmerchantResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.sceneproductmerchant.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 随时享-服务商平台场景商品适用商家编辑
+     * Summary: 随时享-服务商平台场景商品适用商家编辑.
+     *
+     * @param OperateInnerSceneproductmerchantRequest $request
+     *
+     * @return OperateInnerSceneproductmerchantResponse
+     */
+    public function operateInnerSceneproductmerchant($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->operateInnerSceneproductmerchantEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 随时享-服务商平台场景商品适用商家编辑
+     * Summary: 随时享-服务商平台场景商品适用商家编辑.
+     *
+     * @param OperateInnerSceneproductmerchantRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return OperateInnerSceneproductmerchantResponse
+     */
+    public function operateInnerSceneproductmerchantEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return OperateInnerSceneproductmerchantResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.sceneproductmerchant.operate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 随时享-服务商平台场景商品上下架
+     * Summary: 随时享-服务商平台场景商品上下架.
+     *
+     * @param OnlineInnerSceneproductRequest $request
+     *
+     * @return OnlineInnerSceneproductResponse
+     */
+    public function onlineInnerSceneproduct($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->onlineInnerSceneproductEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 随时享-服务商平台场景商品上下架
+     * Summary: 随时享-服务商平台场景商品上下架.
+     *
+     * @param OnlineInnerSceneproductRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return OnlineInnerSceneproductResponse
+     */
+    public function onlineInnerSceneproductEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return OnlineInnerSceneproductResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.sceneproduct.online', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用户线索跟进中分页查询平台订单、派发和备注信息
+     * Summary: 随时享-服务商平台用户线索跟进.
+     *
+     * @param PagequeryInnerPlatformorderleadRequest $request
+     *
+     * @return PagequeryInnerPlatformorderleadResponse
+     */
+    public function pagequeryInnerPlatformorderlead($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pagequeryInnerPlatformorderleadEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用户线索跟进中分页查询平台订单、派发和备注信息
+     * Summary: 随时享-服务商平台用户线索跟进.
+     *
+     * @param PagequeryInnerPlatformorderleadRequest $request
+     * @param string[]                               $headers
+     * @param RuntimeOptions                         $runtime
+     *
+     * @return PagequeryInnerPlatformorderleadResponse
+     */
+    public function pagequeryInnerPlatformorderleadEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PagequeryInnerPlatformorderleadResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.platformorderlead.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 平台订单用户线索备注保存
+     * Summary: 随时享-服务商平台用户线索跟进备注保存.
+     *
+     * @param SaveInnerPlatformorderleadRequest $request
+     *
+     * @return SaveInnerPlatformorderleadResponse
+     */
+    public function saveInnerPlatformorderlead($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->saveInnerPlatformorderleadEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 平台订单用户线索备注保存
+     * Summary: 随时享-服务商平台用户线索跟进备注保存.
+     *
+     * @param SaveInnerPlatformorderleadRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return SaveInnerPlatformorderleadResponse
+     */
+    public function saveInnerPlatformorderleadEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SaveInnerPlatformorderleadResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.platformorderlead.save', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 随时享-服务商平台-营销场景创建
+     * Summary: 营销场景创建.
+     *
+     * @param CreateInnerPromotionsceneRequest $request
+     *
+     * @return CreateInnerPromotionsceneResponse
+     */
+    public function createInnerPromotionscene($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createInnerPromotionsceneEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 随时享-服务商平台-营销场景创建
+     * Summary: 营销场景创建.
+     *
+     * @param CreateInnerPromotionsceneRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return CreateInnerPromotionsceneResponse
+     */
+    public function createInnerPromotionsceneEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateInnerPromotionsceneResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.promotionscene.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 随时享-服务商平台-营销场景分页查询
+     * Summary: 营销场景分页查询.
+     *
+     * @param PagequeryInnerPromotionsceneRequest $request
+     *
+     * @return PagequeryInnerPromotionsceneResponse
+     */
+    public function pagequeryInnerPromotionscene($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pagequeryInnerPromotionsceneEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 随时享-服务商平台-营销场景分页查询
+     * Summary: 营销场景分页查询.
+     *
+     * @param PagequeryInnerPromotionsceneRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return PagequeryInnerPromotionsceneResponse
+     */
+    public function pagequeryInnerPromotionsceneEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PagequeryInnerPromotionsceneResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.promotionscene.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 随时享-服务商平台-营销场景更新
+     * Summary: 营销场景更新.
+     *
+     * @param UpdateInnerPromotionsceneRequest $request
+     *
+     * @return UpdateInnerPromotionsceneResponse
+     */
+    public function updateInnerPromotionscene($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateInnerPromotionsceneEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 随时享-服务商平台-营销场景更新
+     * Summary: 营销场景更新.
+     *
+     * @param UpdateInnerPromotionsceneRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return UpdateInnerPromotionsceneResponse
+     */
+    public function updateInnerPromotionsceneEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateInnerPromotionsceneResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.promotionscene.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 随时享-服务商平台-营销场景删除
+     * Summary: 营销场景删除.
+     *
+     * @param DeleteInnerPromotionsceneRequest $request
+     *
+     * @return DeleteInnerPromotionsceneResponse
+     */
+    public function deleteInnerPromotionscene($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->deleteInnerPromotionsceneEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 随时享-服务商平台-营销场景删除
+     * Summary: 营销场景删除.
+     *
+     * @param DeleteInnerPromotionsceneRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return DeleteInnerPromotionsceneResponse
+     */
+    public function deleteInnerPromotionsceneEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DeleteInnerPromotionsceneResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.promotionscene.delete', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 平台订单用户线索备注删除
+     * Summary: 随时享-服务商平台用户线索跟进删除备注.
+     *
+     * @param DeleteInnerPlatformorderleadRequest $request
+     *
+     * @return DeleteInnerPlatformorderleadResponse
+     */
+    public function deleteInnerPlatformorderlead($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->deleteInnerPlatformorderleadEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 平台订单用户线索备注删除
+     * Summary: 随时享-服务商平台用户线索跟进删除备注.
+     *
+     * @param DeleteInnerPlatformorderleadRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return DeleteInnerPlatformorderleadResponse
+     */
+    public function deleteInnerPlatformorderleadEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DeleteInnerPlatformorderleadResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.platformorderlead.delete', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

@@ -29,13 +29,13 @@ class CreateJdFunddividerelationRequest extends Model
     /**
      * @var string
      */
-    public $devideTenantId;
+    public $divideTenantId;
 
     // 分账公司社会信用代码
     /**
      * @var string
      */
-    public $devideMerchantId;
+    public $divideMerchantId;
 
     // 分账合同或协议
     /**
@@ -48,21 +48,35 @@ class CreateJdFunddividerelationRequest extends Model
      * @var string
      */
     public $desc;
+
+    // 关系id
+    /**
+     * @var string
+     */
+    public $relationId;
+
+    // 进件模式：DIRECT（直连进件），AGENT（代理进件）
+    /**
+     * @var string
+     */
+    public $expandMode;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'subjectMerchantId' => 'subject_merchant_id',
-        'devideTenantId'    => 'devide_tenant_id',
-        'devideMerchantId'  => 'devide_merchant_id',
+        'divideTenantId'    => 'divide_tenant_id',
+        'divideMerchantId'  => 'divide_merchant_id',
         'contractFiles'     => 'contract_files',
         'desc'              => 'desc',
+        'relationId'        => 'relation_id',
+        'expandMode'        => 'expand_mode',
     ];
 
     public function validate()
     {
         Model::validateRequired('subjectMerchantId', $this->subjectMerchantId, true);
-        Model::validateRequired('devideTenantId', $this->devideTenantId, true);
-        Model::validateRequired('devideMerchantId', $this->devideMerchantId, true);
+        Model::validateRequired('divideTenantId', $this->divideTenantId, true);
+        Model::validateRequired('divideMerchantId', $this->divideMerchantId, true);
     }
 
     public function toMap()
@@ -77,11 +91,11 @@ class CreateJdFunddividerelationRequest extends Model
         if (null !== $this->subjectMerchantId) {
             $res['subject_merchant_id'] = $this->subjectMerchantId;
         }
-        if (null !== $this->devideTenantId) {
-            $res['devide_tenant_id'] = $this->devideTenantId;
+        if (null !== $this->divideTenantId) {
+            $res['divide_tenant_id'] = $this->divideTenantId;
         }
-        if (null !== $this->devideMerchantId) {
-            $res['devide_merchant_id'] = $this->devideMerchantId;
+        if (null !== $this->divideMerchantId) {
+            $res['divide_merchant_id'] = $this->divideMerchantId;
         }
         if (null !== $this->contractFiles) {
             $res['contract_files'] = [];
@@ -94,6 +108,12 @@ class CreateJdFunddividerelationRequest extends Model
         }
         if (null !== $this->desc) {
             $res['desc'] = $this->desc;
+        }
+        if (null !== $this->relationId) {
+            $res['relation_id'] = $this->relationId;
+        }
+        if (null !== $this->expandMode) {
+            $res['expand_mode'] = $this->expandMode;
         }
 
         return $res;
@@ -116,11 +136,11 @@ class CreateJdFunddividerelationRequest extends Model
         if (isset($map['subject_merchant_id'])) {
             $model->subjectMerchantId = $map['subject_merchant_id'];
         }
-        if (isset($map['devide_tenant_id'])) {
-            $model->devideTenantId = $map['devide_tenant_id'];
+        if (isset($map['divide_tenant_id'])) {
+            $model->divideTenantId = $map['divide_tenant_id'];
         }
-        if (isset($map['devide_merchant_id'])) {
-            $model->devideMerchantId = $map['devide_merchant_id'];
+        if (isset($map['divide_merchant_id'])) {
+            $model->divideMerchantId = $map['divide_merchant_id'];
         }
         if (isset($map['contract_files'])) {
             if (!empty($map['contract_files'])) {
@@ -133,6 +153,12 @@ class CreateJdFunddividerelationRequest extends Model
         }
         if (isset($map['desc'])) {
             $model->desc = $map['desc'];
+        }
+        if (isset($map['relation_id'])) {
+            $model->relationId = $map['relation_id'];
+        }
+        if (isset($map['expand_mode'])) {
+            $model->expandMode = $map['expand_mode'];
         }
 
         return $model;

@@ -25,7 +25,24 @@ class PagequeryInnerFundmngfinanceorderRequest extends Model
      */
     public $fundTenantId;
 
-    // 订单id
+    // 租户角色
+    // ROLE_MERCHANT(0, "商户"),
+    // ROLE_FINANCIER(1, "资金方"),
+    // ROLE_MIX(2, "商户资金方"),
+    // DATA_PROVIDER(3, "数据提供者"),
+    // ROLE_GUARANTOR(4, "担保方"),;
+    /**
+     * @var int
+     */
+    public $tenantRole;
+
+    // 资方社会统一信用代码，多个逗号分隔
+    /**
+     * @var string
+     */
+    public $fundId;
+
+    // 订单id,多个逗号分隔
     /**
      * @var string
      */
@@ -49,7 +66,7 @@ class PagequeryInnerFundmngfinanceorderRequest extends Model
      */
     public $merchantName;
 
-    // 商家社会统一信用代码
+    // 商家社会统一信用代码，多个逗号分隔
     /**
      * @var string
      */
@@ -110,6 +127,8 @@ class PagequeryInnerFundmngfinanceorderRequest extends Model
         'authToken'             => 'auth_token',
         'productInstanceId'     => 'product_instance_id',
         'fundTenantId'          => 'fund_tenant_id',
+        'tenantRole'            => 'tenant_role',
+        'fundId'                => 'fund_id',
         'orderId'               => 'order_id',
         'assetPackageId'        => 'asset_package_id',
         'signNo'                => 'sign_no',
@@ -143,6 +162,12 @@ class PagequeryInnerFundmngfinanceorderRequest extends Model
         }
         if (null !== $this->fundTenantId) {
             $res['fund_tenant_id'] = $this->fundTenantId;
+        }
+        if (null !== $this->tenantRole) {
+            $res['tenant_role'] = $this->tenantRole;
+        }
+        if (null !== $this->fundId) {
+            $res['fund_id'] = $this->fundId;
         }
         if (null !== $this->orderId) {
             $res['order_id'] = $this->orderId;
@@ -203,6 +228,12 @@ class PagequeryInnerFundmngfinanceorderRequest extends Model
         }
         if (isset($map['fund_tenant_id'])) {
             $model->fundTenantId = $map['fund_tenant_id'];
+        }
+        if (isset($map['tenant_role'])) {
+            $model->tenantRole = $map['tenant_role'];
+        }
+        if (isset($map['fund_id'])) {
+            $model->fundId = $map['fund_id'];
         }
         if (isset($map['order_id'])) {
             $model->orderId = $map['order_id'];

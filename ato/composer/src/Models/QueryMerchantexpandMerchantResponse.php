@@ -48,6 +48,12 @@ class QueryMerchantexpandMerchantResponse extends Model
      * @var string
      */
     public $pendingEventLink;
+
+    // 京东进件成功二级商户id
+    /**
+     * @var string
+     */
+    public $subMerchantId;
     protected $_name = [
         'reqMsgId'         => 'req_msg_id',
         'resultCode'       => 'result_code',
@@ -55,6 +61,7 @@ class QueryMerchantexpandMerchantResponse extends Model
         'enrollmentStatus' => 'enrollment_status',
         'failReason'       => 'fail_reason',
         'pendingEventLink' => 'pending_event_link',
+        'subMerchantId'    => 'sub_merchant_id',
     ];
 
     public function validate()
@@ -81,6 +88,9 @@ class QueryMerchantexpandMerchantResponse extends Model
         }
         if (null !== $this->pendingEventLink) {
             $res['pending_event_link'] = $this->pendingEventLink;
+        }
+        if (null !== $this->subMerchantId) {
+            $res['sub_merchant_id'] = $this->subMerchantId;
         }
 
         return $res;
@@ -111,6 +121,9 @@ class QueryMerchantexpandMerchantResponse extends Model
         }
         if (isset($map['pending_event_link'])) {
             $model->pendingEventLink = $map['pending_event_link'];
+        }
+        if (isset($map['sub_merchant_id'])) {
+            $model->subMerchantId = $map['sub_merchant_id'];
         }
 
         return $model;

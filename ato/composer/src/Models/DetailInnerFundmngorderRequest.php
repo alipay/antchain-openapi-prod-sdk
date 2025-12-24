@@ -26,6 +26,17 @@ class DetailInnerFundmngorderRequest extends Model
      */
     public $fundTenantId;
 
+    // 登录账号租户的角色
+    // ROLE_MERCHANT(0, "商户"),
+    // ROLE_FINANCIER(1, "资金方"),
+    // ROLE_MIX(2, "商户资金方"),
+    // DATA_PROVIDER(3, "数据提供者"),
+    // ROLE_GUARANTOR(4, "担保方"),;
+    /**
+     * @var int
+     */
+    public $tenantRole;
+
     // 资方的社会统一信用代码
     /**
      * @var string
@@ -59,6 +70,7 @@ class DetailInnerFundmngorderRequest extends Model
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'fundTenantId'      => 'fund_tenant_id',
+        'tenantRole'        => 'tenant_role',
         'fundId'            => 'fund_id',
         'tenantId'          => 'tenant_id',
         'merchantId'        => 'merchant_id',
@@ -87,6 +99,9 @@ class DetailInnerFundmngorderRequest extends Model
         }
         if (null !== $this->fundTenantId) {
             $res['fund_tenant_id'] = $this->fundTenantId;
+        }
+        if (null !== $this->tenantRole) {
+            $res['tenant_role'] = $this->tenantRole;
         }
         if (null !== $this->fundId) {
             $res['fund_id'] = $this->fundId;
@@ -123,6 +138,9 @@ class DetailInnerFundmngorderRequest extends Model
         }
         if (isset($map['fund_tenant_id'])) {
             $model->fundTenantId = $map['fund_tenant_id'];
+        }
+        if (isset($map['tenant_role'])) {
+            $model->tenantRole = $map['tenant_role'];
         }
         if (isset($map['fund_id'])) {
             $model->fundId = $map['fund_id'];

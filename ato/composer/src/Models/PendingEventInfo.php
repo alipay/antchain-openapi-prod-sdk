@@ -58,6 +58,22 @@ class PendingEventInfo extends Model
      * @var string
      */
     public $effectiveEndTime;
+
+    // 待办类型
+    /**
+     * @example text
+     *
+     * @var string
+     */
+    public $contentType;
+
+    // 待办详情，根据content_type可能为下载链接或者富文本
+    /**
+     * @example http://123.docx
+     *
+     * @var string
+     */
+    public $contentDetails;
     protected $_name = [
         'eventId'            => 'event_id',
         'type'               => 'type',
@@ -65,6 +81,8 @@ class PendingEventInfo extends Model
         'contentSubject'     => 'content_subject',
         'effectiveStartTime' => 'effective_start_time',
         'effectiveEndTime'   => 'effective_end_time',
+        'contentType'        => 'content_type',
+        'contentDetails'     => 'content_details',
     ];
 
     public function validate()
@@ -91,6 +109,12 @@ class PendingEventInfo extends Model
         }
         if (null !== $this->effectiveEndTime) {
             $res['effective_end_time'] = $this->effectiveEndTime;
+        }
+        if (null !== $this->contentType) {
+            $res['content_type'] = $this->contentType;
+        }
+        if (null !== $this->contentDetails) {
+            $res['content_details'] = $this->contentDetails;
         }
 
         return $res;
@@ -121,6 +145,12 @@ class PendingEventInfo extends Model
         }
         if (isset($map['effective_end_time'])) {
             $model->effectiveEndTime = $map['effective_end_time'];
+        }
+        if (isset($map['content_type'])) {
+            $model->contentType = $map['content_type'];
+        }
+        if (isset($map['content_details'])) {
+            $model->contentDetails = $map['content_details'];
         }
 
         return $model;

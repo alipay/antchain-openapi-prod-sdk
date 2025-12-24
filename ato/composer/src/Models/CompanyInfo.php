@@ -16,6 +16,35 @@ class CompanyInfo extends Model
      */
     public $businessLicenseFile;
 
+    // 证件是否长期有效
+    // true：长期，false：非长期
+    // payChannel =JDPAY必填
+    /**
+     * @example true, false
+     *
+     * @var bool
+     */
+    public $businessLicenseCertExpireFlag;
+
+    // 证件有效期开始日期(payChannel =JDPAY)
+    // 1.certExpireFlag=false时必填，时间格式:yyyy-MM-dd
+    // 2. 商户为企业个体户时，无论certExpireFlag是否长期，该字段均必填
+    /**
+     * @example 2024-10-17
+     *
+     * @var string
+     */
+    public $businessLicenseCertEffectDate;
+
+    // 证件有效期结束日期（payChannel =JDPAY选填参数）
+    // certExpireFlag为false必填，时间格式：yyyy-MM-dd
+    /**
+     * @example 2024-10-17
+     *
+     * @var string
+     */
+    public $businessLicenseCertExpireDate;
+
     // 业务类型 枚举
     /**
      * @example 业务类型
@@ -97,7 +126,56 @@ class CompanyInfo extends Model
      */
     public $contactMobile;
 
-    // 绑定企业支付宝账号
+    // 联系地址-省份code(payChannel =JDPAY必填)
+    /**
+     * @example 430000
+     *
+     * @var string
+     */
+    public $contactAddressProvinceCode;
+
+    // 联系地址-省份名称（payChannel =JDPAY必填）
+    /**
+     * @example 浙江省
+     *
+     * @var string
+     */
+    public $contactAddressProvinceName;
+
+    // 联系地址-市code（payChannel =JDPAY必填）
+    //
+    /**
+     * @example 403100
+     *
+     * @var string
+     */
+    public $contactAddressCityCode;
+
+    // 联系人地址-市名称（payChannel =JDPAY必填）
+    /**
+     * @example 杭州市
+     *
+     * @var string
+     */
+    public $contactAddressCityName;
+
+    // 联系人详细地址（payChannel =JDPAY必填）
+    /**
+     * @example 杭州市余杭区xxx
+     *
+     * @var string
+     */
+    public $contactAddressDetail;
+
+    // 联系人邮箱（pay_channel=JDPAY必填）
+    /**
+     * @example 123123122134@163.com
+     *
+     * @var string
+     */
+    public $contactEmail;
+
+    // 绑定企业支付宝账号（pay_channel=ALIPAY必填）
     /**
      * @example 绑定企业支付宝账号
      *
@@ -105,7 +183,7 @@ class CompanyInfo extends Model
      */
     public $bindAlipayNo;
 
-    // 结算企业支付宝账号
+    // 结算企业支付宝账号（pay_channel=ALIPAY必填）
     /**
      * @example 结算企业支付宝账号
      *
@@ -113,28 +191,67 @@ class CompanyInfo extends Model
      */
     public $settleAlipayNo;
 
-    // 绑定支付宝uid
+    // 绑定支付宝uid（pay_channel=ALIPAY必填）
     /**
      * @example 绑定支付宝uid
      *
      * @var string
      */
     public $bindAlipayUid;
+
+    // 经营范围
+    // payChannel =JDPAY必填
+    /**
+     * @example 经营租赁等业务
+     *
+     * @var string
+     */
+    public $businessScope;
+
+    // 开户许可证（payChannel =JDPAY必填）
+    //
+    /**
+     * @example
+     *
+     * @var FileInfo
+     */
+    public $bankOpeningLicenseFile;
+
+    // 商户和租赁平台合作协议图片（pay_channel=JDPAY必填）
+    //
+    /**
+     * @example
+     *
+     * @var FileInfo
+     */
+    public $cooperationAgreementFile;
     protected $_name = [
-        'businessLicenseFile' => 'business_license_file',
-        'productMainClass'    => 'product_main_class',
-        'companyName'         => 'company_name',
-        'companyAliasName'    => 'company_alias_name',
-        'tenantId'            => 'tenant_id',
-        'merchantId'          => 'merchant_id',
-        'merchantType'        => 'merchant_type',
-        'companyMobile'       => 'company_mobile',
-        'companyAddress'      => 'company_address',
-        'contactName'         => 'contact_name',
-        'contactMobile'       => 'contact_mobile',
-        'bindAlipayNo'        => 'bind_alipay_no',
-        'settleAlipayNo'      => 'settle_alipay_no',
-        'bindAlipayUid'       => 'bind_alipay_uid',
+        'businessLicenseFile'           => 'business_license_file',
+        'businessLicenseCertExpireFlag' => 'business_license_cert_expire_flag',
+        'businessLicenseCertEffectDate' => 'business_license_cert_effect_date',
+        'businessLicenseCertExpireDate' => 'business_license_cert_expire_date',
+        'productMainClass'              => 'product_main_class',
+        'companyName'                   => 'company_name',
+        'companyAliasName'              => 'company_alias_name',
+        'tenantId'                      => 'tenant_id',
+        'merchantId'                    => 'merchant_id',
+        'merchantType'                  => 'merchant_type',
+        'companyMobile'                 => 'company_mobile',
+        'companyAddress'                => 'company_address',
+        'contactName'                   => 'contact_name',
+        'contactMobile'                 => 'contact_mobile',
+        'contactAddressProvinceCode'    => 'contact_address_province_code',
+        'contactAddressProvinceName'    => 'contact_address_province_name',
+        'contactAddressCityCode'        => 'contact_address_city_code',
+        'contactAddressCityName'        => 'contact_address_city_name',
+        'contactAddressDetail'          => 'contact_address_detail',
+        'contactEmail'                  => 'contact_email',
+        'bindAlipayNo'                  => 'bind_alipay_no',
+        'settleAlipayNo'                => 'settle_alipay_no',
+        'bindAlipayUid'                 => 'bind_alipay_uid',
+        'businessScope'                 => 'business_scope',
+        'bankOpeningLicenseFile'        => 'bank_opening_license_file',
+        'cooperationAgreementFile'      => 'cooperation_agreement_file',
     ];
 
     public function validate()
@@ -148,9 +265,6 @@ class CompanyInfo extends Model
         Model::validateRequired('companyAddress', $this->companyAddress, true);
         Model::validateRequired('contactName', $this->contactName, true);
         Model::validateRequired('contactMobile', $this->contactMobile, true);
-        Model::validateRequired('bindAlipayNo', $this->bindAlipayNo, true);
-        Model::validateRequired('settleAlipayNo', $this->settleAlipayNo, true);
-        Model::validateRequired('bindAlipayUid', $this->bindAlipayUid, true);
     }
 
     public function toMap()
@@ -158,6 +272,15 @@ class CompanyInfo extends Model
         $res = [];
         if (null !== $this->businessLicenseFile) {
             $res['business_license_file'] = null !== $this->businessLicenseFile ? $this->businessLicenseFile->toMap() : null;
+        }
+        if (null !== $this->businessLicenseCertExpireFlag) {
+            $res['business_license_cert_expire_flag'] = $this->businessLicenseCertExpireFlag;
+        }
+        if (null !== $this->businessLicenseCertEffectDate) {
+            $res['business_license_cert_effect_date'] = $this->businessLicenseCertEffectDate;
+        }
+        if (null !== $this->businessLicenseCertExpireDate) {
+            $res['business_license_cert_expire_date'] = $this->businessLicenseCertExpireDate;
         }
         if (null !== $this->productMainClass) {
             $res['product_main_class'] = $this->productMainClass;
@@ -189,6 +312,24 @@ class CompanyInfo extends Model
         if (null !== $this->contactMobile) {
             $res['contact_mobile'] = $this->contactMobile;
         }
+        if (null !== $this->contactAddressProvinceCode) {
+            $res['contact_address_province_code'] = $this->contactAddressProvinceCode;
+        }
+        if (null !== $this->contactAddressProvinceName) {
+            $res['contact_address_province_name'] = $this->contactAddressProvinceName;
+        }
+        if (null !== $this->contactAddressCityCode) {
+            $res['contact_address_city_code'] = $this->contactAddressCityCode;
+        }
+        if (null !== $this->contactAddressCityName) {
+            $res['contact_address_city_name'] = $this->contactAddressCityName;
+        }
+        if (null !== $this->contactAddressDetail) {
+            $res['contact_address_detail'] = $this->contactAddressDetail;
+        }
+        if (null !== $this->contactEmail) {
+            $res['contact_email'] = $this->contactEmail;
+        }
         if (null !== $this->bindAlipayNo) {
             $res['bind_alipay_no'] = $this->bindAlipayNo;
         }
@@ -197,6 +338,15 @@ class CompanyInfo extends Model
         }
         if (null !== $this->bindAlipayUid) {
             $res['bind_alipay_uid'] = $this->bindAlipayUid;
+        }
+        if (null !== $this->businessScope) {
+            $res['business_scope'] = $this->businessScope;
+        }
+        if (null !== $this->bankOpeningLicenseFile) {
+            $res['bank_opening_license_file'] = null !== $this->bankOpeningLicenseFile ? $this->bankOpeningLicenseFile->toMap() : null;
+        }
+        if (null !== $this->cooperationAgreementFile) {
+            $res['cooperation_agreement_file'] = null !== $this->cooperationAgreementFile ? $this->cooperationAgreementFile->toMap() : null;
         }
 
         return $res;
@@ -212,6 +362,15 @@ class CompanyInfo extends Model
         $model = new self();
         if (isset($map['business_license_file'])) {
             $model->businessLicenseFile = FileInfo::fromMap($map['business_license_file']);
+        }
+        if (isset($map['business_license_cert_expire_flag'])) {
+            $model->businessLicenseCertExpireFlag = $map['business_license_cert_expire_flag'];
+        }
+        if (isset($map['business_license_cert_effect_date'])) {
+            $model->businessLicenseCertEffectDate = $map['business_license_cert_effect_date'];
+        }
+        if (isset($map['business_license_cert_expire_date'])) {
+            $model->businessLicenseCertExpireDate = $map['business_license_cert_expire_date'];
         }
         if (isset($map['product_main_class'])) {
             $model->productMainClass = $map['product_main_class'];
@@ -243,6 +402,24 @@ class CompanyInfo extends Model
         if (isset($map['contact_mobile'])) {
             $model->contactMobile = $map['contact_mobile'];
         }
+        if (isset($map['contact_address_province_code'])) {
+            $model->contactAddressProvinceCode = $map['contact_address_province_code'];
+        }
+        if (isset($map['contact_address_province_name'])) {
+            $model->contactAddressProvinceName = $map['contact_address_province_name'];
+        }
+        if (isset($map['contact_address_city_code'])) {
+            $model->contactAddressCityCode = $map['contact_address_city_code'];
+        }
+        if (isset($map['contact_address_city_name'])) {
+            $model->contactAddressCityName = $map['contact_address_city_name'];
+        }
+        if (isset($map['contact_address_detail'])) {
+            $model->contactAddressDetail = $map['contact_address_detail'];
+        }
+        if (isset($map['contact_email'])) {
+            $model->contactEmail = $map['contact_email'];
+        }
         if (isset($map['bind_alipay_no'])) {
             $model->bindAlipayNo = $map['bind_alipay_no'];
         }
@@ -251,6 +428,15 @@ class CompanyInfo extends Model
         }
         if (isset($map['bind_alipay_uid'])) {
             $model->bindAlipayUid = $map['bind_alipay_uid'];
+        }
+        if (isset($map['business_scope'])) {
+            $model->businessScope = $map['business_scope'];
+        }
+        if (isset($map['bank_opening_license_file'])) {
+            $model->bankOpeningLicenseFile = FileInfo::fromMap($map['bank_opening_license_file']);
+        }
+        if (isset($map['cooperation_agreement_file'])) {
+            $model->cooperationAgreementFile = FileInfo::fromMap($map['cooperation_agreement_file']);
         }
 
         return $model;

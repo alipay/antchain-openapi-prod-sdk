@@ -6,7 +6,7 @@ namespace AntChain\ATO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CreateWithholdSignResponse extends Model
+class SaveInnerPlatformorderleadResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -25,24 +25,10 @@ class CreateWithholdSignResponse extends Model
      * @var string
      */
     public $resultMsg;
-
-    // 签约字符串，当sign_str_type的值是H5_SIGN时，sign_str是h5签约地址，可以直接打开页面签约
-    /**
-     * @var string
-     */
-    public $signStr;
-
-    // 签约字符串类型。SIGN_ONLY:仅签约;PAY_SIGN:支付并签约;H5_SIGN h5签约
-    /**
-     * @var string
-     */
-    public $signStrType;
     protected $_name = [
-        'reqMsgId'    => 'req_msg_id',
-        'resultCode'  => 'result_code',
-        'resultMsg'   => 'result_msg',
-        'signStr'     => 'sign_str',
-        'signStrType' => 'sign_str_type',
+        'reqMsgId'   => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg'  => 'result_msg',
     ];
 
     public function validate()
@@ -61,12 +47,6 @@ class CreateWithholdSignResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->signStr) {
-            $res['sign_str'] = $this->signStr;
-        }
-        if (null !== $this->signStrType) {
-            $res['sign_str_type'] = $this->signStrType;
-        }
 
         return $res;
     }
@@ -74,7 +54,7 @@ class CreateWithholdSignResponse extends Model
     /**
      * @param array $map
      *
-     * @return CreateWithholdSignResponse
+     * @return SaveInnerPlatformorderleadResponse
      */
     public static function fromMap($map = [])
     {
@@ -87,12 +67,6 @@ class CreateWithholdSignResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['sign_str'])) {
-            $model->signStr = $map['sign_str'];
-        }
-        if (isset($map['sign_str_type'])) {
-            $model->signStrType = $map['sign_str_type'];
         }
 
         return $model;

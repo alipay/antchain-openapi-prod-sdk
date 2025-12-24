@@ -6,7 +6,7 @@ namespace AntChain\ATO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CreateWithholdSignResponse extends Model
+class PagequeryInnerPlatformorderleadResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,23 +26,23 @@ class CreateWithholdSignResponse extends Model
      */
     public $resultMsg;
 
-    // 签约字符串，当sign_str_type的值是H5_SIGN时，sign_str是h5签约地址，可以直接打开页面签约
+    // 总数量
     /**
-     * @var string
+     * @var int
      */
-    public $signStr;
+    public $totalCount;
 
-    // 签约字符串类型。SIGN_ONLY:仅签约;PAY_SIGN:支付并签约;H5_SIGN h5签约
+    // 平台订单用户线索信息
     /**
-     * @var string
+     * @var PlatformOrderLeadResultInfo[]
      */
-    public $signStrType;
+    public $data;
     protected $_name = [
-        'reqMsgId'    => 'req_msg_id',
-        'resultCode'  => 'result_code',
-        'resultMsg'   => 'result_msg',
-        'signStr'     => 'sign_str',
-        'signStrType' => 'sign_str_type',
+        'reqMsgId'   => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg'  => 'result_msg',
+        'totalCount' => 'total_count',
+        'data'       => 'data',
     ];
 
     public function validate()
@@ -61,11 +61,17 @@ class CreateWithholdSignResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->signStr) {
-            $res['sign_str'] = $this->signStr;
+        if (null !== $this->totalCount) {
+            $res['total_count'] = $this->totalCount;
         }
-        if (null !== $this->signStrType) {
-            $res['sign_str_type'] = $this->signStrType;
+        if (null !== $this->data) {
+            $res['data'] = [];
+            if (null !== $this->data && \is_array($this->data)) {
+                $n = 0;
+                foreach ($this->data as $item) {
+                    $res['data'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -74,7 +80,7 @@ class CreateWithholdSignResponse extends Model
     /**
      * @param array $map
      *
-     * @return CreateWithholdSignResponse
+     * @return PagequeryInnerPlatformorderleadResponse
      */
     public static function fromMap($map = [])
     {
@@ -88,11 +94,17 @@ class CreateWithholdSignResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['sign_str'])) {
-            $model->signStr = $map['sign_str'];
+        if (isset($map['total_count'])) {
+            $model->totalCount = $map['total_count'];
         }
-        if (isset($map['sign_str_type'])) {
-            $model->signStrType = $map['sign_str_type'];
+        if (isset($map['data'])) {
+            if (!empty($map['data'])) {
+                $model->data = [];
+                $n           = 0;
+                foreach ($map['data'] as $item) {
+                    $model->data[$n++] = null !== $item ? PlatformOrderLeadResultInfo::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;
