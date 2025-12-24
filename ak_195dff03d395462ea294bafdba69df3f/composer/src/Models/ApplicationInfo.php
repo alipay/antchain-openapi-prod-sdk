@@ -8,7 +8,7 @@ use AlibabaCloud\Tea\Model;
 
 class ApplicationInfo extends Model
 {
-    // 应用场景
+    // 应用场景（payChannel =JDPAY仅支持MINI_APP）
     // MINI_APP 小程序
     // APP 自有app
     // ALL 两种都有
@@ -35,7 +35,7 @@ class ApplicationInfo extends Model
      */
     public $siteName;
 
-    // 网站地址
+    // 网站地址（pay_channel=ALIPAY必填）
     /**
      * @example http://asdasas.com
      *
@@ -43,8 +43,9 @@ class ApplicationInfo extends Model
      */
     public $sitUrl;
 
-    // 商户名称。
+    // 商户名称。（pay_channel=ALIPAY必填）
     // 修改后的商户名称，将同步支付宝代扣签约页面字段展示
+    //
     /**
      * @example xx商户
      *
@@ -52,7 +53,7 @@ class ApplicationInfo extends Model
      */
     public $merchantName;
 
-    // 商户服务名称。
+    // 商户服务名称。（pay_channel=ALIPAY必填）
     // 修改后的商户服务名称，将同步支付宝代扣签约页面字段展示
     /**
      * @example xx商户服务
@@ -61,7 +62,7 @@ class ApplicationInfo extends Model
      */
     public $merchantServiceName;
 
-    // 商户服务描述。
+    // 商户服务描述。（pay_channel=ALIPAY必填）
     // 修改后的商户服务描述，将同步支付宝代扣签约页面字段展示
     /**
      * @example xx服务描述
@@ -93,10 +94,6 @@ class ApplicationInfo extends Model
         Model::validateRequired('applicationScene', $this->applicationScene, true);
         Model::validateRequired('tinyAppId', $this->tinyAppId, true);
         Model::validateRequired('siteName', $this->siteName, true);
-        Model::validateRequired('sitUrl', $this->sitUrl, true);
-        Model::validateRequired('merchantName', $this->merchantName, true);
-        Model::validateRequired('merchantServiceName', $this->merchantServiceName, true);
-        Model::validateRequired('merchantServiceDesc', $this->merchantServiceDesc, true);
     }
 
     public function toMap()

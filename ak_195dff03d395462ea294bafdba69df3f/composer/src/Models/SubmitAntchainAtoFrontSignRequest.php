@@ -250,8 +250,6 @@ class SubmitAntchainAtoFrontSignRequest extends Model
         Model::validateRequired('businessScene', $this->businessScene, true);
         Model::validateRequired('templateList', $this->templateList, true);
         Model::validateRequired('merchantName', $this->merchantName, true);
-        Model::validateRequired('merchantIdType', $this->merchantIdType, true);
-        Model::validateRequired('merchantIdNumber', $this->merchantIdNumber, true);
         Model::validateMaxLength('orderId', $this->orderId, 64);
         Model::validateMaxLength('userIdType', $this->userIdType, 40);
         Model::validateMaxLength('businessScene', $this->businessScene, 200);
