@@ -5089,15 +5089,16 @@ class GetMarketingInsureurlRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 调用方生成的唯一编码，参考格式： yyyyMMdd_xxxxx，已接口请求的当前日期开头；
+        # 请求 id，做防重校验逻辑
+        # 接口根据 requestId 做防重校验逻辑，若重复会报错
         self.request_id = request_id
         # 产品编码
         self.product_code = product_code
         # 保司编码
         self.channel_code = channel_code
-        # 保司出单机构编码
+        # 保司出单机构编码，若没有同保司编码
         self.issue_org = issue_org
-        # 保司产品编码（保司提供）
+        # 保司产品编码
         self.channel_product_code = channel_product_code
         # 保险产品类型，枚举：
         # STANDARD（均分）
@@ -5106,9 +5107,9 @@ class GetMarketingInsureurlRequest(TeaModel):
         self.channel_product_type = channel_product_type
         # 保险方案
         self.insurance_plan = insurance_plan
-        # 一级渠道，固定值"antdigital"
+        # 一级渠道编码
         self.first_channel = first_channel
-        # 二级渠道
+        # 二级渠道编码
         self.second_channel = second_channel
         # 三级渠道/广告版位
         self.advertising_position = advertising_position
@@ -5275,6 +5276,7 @@ class GetMarketingInsureurlResponse(TeaModel):
         request_id: str = None,
         first_channel: str = None,
         second_channel: str = None,
+        advertising_position: str = None,
         scene_order_no: str = None,
         click_id: str = None,
         insure_url: str = None,
@@ -5285,17 +5287,19 @@ class GetMarketingInsureurlResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 请求id
+        # 请求 id
         self.request_id = request_id
-        # 一级渠道
+        # 一级渠道编码
         self.first_channel = first_channel
-        # 二级渠道
+        # 二级渠道编码
         self.second_channel = second_channel
+        # 三级渠道/广告版位
+        self.advertising_position = advertising_position
         # 订单号
         self.scene_order_no = scene_order_no
         # 特征编码
         self.click_id = click_id
-        # 投保页面URL?bizOrigin={渠道参数}&bizContent={加密参数}
+        # 投保页面URL
         self.insure_url = insure_url
 
     def validate(self):
@@ -5319,6 +5323,8 @@ class GetMarketingInsureurlResponse(TeaModel):
             result['first_channel'] = self.first_channel
         if self.second_channel is not None:
             result['second_channel'] = self.second_channel
+        if self.advertising_position is not None:
+            result['advertising_position'] = self.advertising_position
         if self.scene_order_no is not None:
             result['scene_order_no'] = self.scene_order_no
         if self.click_id is not None:
@@ -5341,6 +5347,8 @@ class GetMarketingInsureurlResponse(TeaModel):
             self.first_channel = m.get('first_channel')
         if m.get('second_channel') is not None:
             self.second_channel = m.get('second_channel')
+        if m.get('advertising_position') is not None:
+            self.advertising_position = m.get('advertising_position')
         if m.get('scene_order_no') is not None:
             self.scene_order_no = m.get('scene_order_no')
         if m.get('click_id') is not None:
@@ -5366,7 +5374,9 @@ class CallbackMarketingEventRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 调用方生成的唯一编码
+        # 请求 id，做防重校验逻辑
+        # 接口根据 requestId 做防重校验逻辑，若重复会报错
+        # 
         self.request_id = request_id
         # 特征编码
         self.click_id = click_id
@@ -5380,7 +5390,7 @@ class CallbackMarketingEventRequest(TeaModel):
         self.event_code = event_code
         # 事件完成时间（yyyy-MM-dd  HH:mm:ss）
         self.event_time = event_time
-        # 固定式，蚂蚁数科
+        # 一级渠道编码
         self.first_channel = first_channel
         # 二级渠道编码
         self.second_channel = second_channel
@@ -5481,7 +5491,7 @@ class CallbackMarketingEventResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 请求id
+        # 请求 id
         self.request_id = request_id
 
     def validate(self):
@@ -5527,7 +5537,8 @@ class CallbackMarketingPolicycancelRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 请求 id
+        # 请求 id，做防重校验逻辑
+        # 接口根据 requestId 做防重校验逻辑，若重复会报错
         self.request_id = request_id
         # 保单号（可脱敏处理）
         self.policy_no = policy_no
@@ -5589,7 +5600,7 @@ class CallbackMarketingPolicycancelResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 请求id
+        # 请求 id
         self.request_id = request_id
 
     def validate(self):

@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.11.1',
+                    'sdk_version': '1.11.2',
                     '_prod_code': 'INSURANCE_SAAS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.11.1',
+                    'sdk_version': '1.11.2',
                     '_prod_code': 'INSURANCE_SAAS',
                     '_prod_channel': 'undefined'
                 }
@@ -2128,8 +2128,8 @@ class Client:
         request: insurance__saas_models.GetMarketingInsureurlRequest,
     ) -> insurance__saas_models.GetMarketingInsureurlResponse:
         """
-        Description: 非标营销投保短链获取
-        Summary: 非标营销投保短链获取
+        Description: 营销投保短链获取
+        Summary: 营销投保短链获取
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -2140,8 +2140,8 @@ class Client:
         request: insurance__saas_models.GetMarketingInsureurlRequest,
     ) -> insurance__saas_models.GetMarketingInsureurlResponse:
         """
-        Description: 非标营销投保短链获取
-        Summary: 非标营销投保短链获取
+        Description: 营销投保短链获取
+        Summary: 营销投保短链获取
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -2154,8 +2154,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> insurance__saas_models.GetMarketingInsureurlResponse:
         """
-        Description: 非标营销投保短链获取
-        Summary: 非标营销投保短链获取
+        Description: 营销投保短链获取
+        Summary: 营销投保短链获取
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -2170,8 +2170,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> insurance__saas_models.GetMarketingInsureurlResponse:
         """
-        Description: 非标营销投保短链获取
-        Summary: 非标营销投保短链获取
+        Description: 营销投保短链获取
+        Summary: 营销投保短链获取
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -2184,8 +2184,8 @@ class Client:
         request: insurance__saas_models.CallbackMarketingEventRequest,
     ) -> insurance__saas_models.CallbackMarketingEventResponse:
         """
-        Description: 众安回传接口，获取保单信息保存。
-        Summary: 非标营销保单信息事件回传；
+        Description: 营销保单出单信息事件回传
+        Summary: 营销保单出单信息事件回传
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -2196,8 +2196,8 @@ class Client:
         request: insurance__saas_models.CallbackMarketingEventRequest,
     ) -> insurance__saas_models.CallbackMarketingEventResponse:
         """
-        Description: 众安回传接口，获取保单信息保存。
-        Summary: 非标营销保单信息事件回传；
+        Description: 营销保单出单信息事件回传
+        Summary: 营销保单出单信息事件回传
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -2210,8 +2210,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> insurance__saas_models.CallbackMarketingEventResponse:
         """
-        Description: 众安回传接口，获取保单信息保存。
-        Summary: 非标营销保单信息事件回传；
+        Description: 营销保单出单信息事件回传
+        Summary: 营销保单出单信息事件回传
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -2226,8 +2226,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> insurance__saas_models.CallbackMarketingEventResponse:
         """
-        Description: 众安回传接口，获取保单信息保存。
-        Summary: 非标营销保单信息事件回传；
+        Description: 营销保单出单信息事件回传
+        Summary: 营销保单出单信息事件回传
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -2240,8 +2240,8 @@ class Client:
         request: insurance__saas_models.CallbackMarketingPolicycancelRequest,
     ) -> insurance__saas_models.CallbackMarketingPolicycancelResponse:
         """
-        Description: 众安退保信息回传
-        Summary: 非标营销退保事件回传；
+        Description: 营销退保信息回传
+        Summary: 营销退保事件回传
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -2252,8 +2252,8 @@ class Client:
         request: insurance__saas_models.CallbackMarketingPolicycancelRequest,
     ) -> insurance__saas_models.CallbackMarketingPolicycancelResponse:
         """
-        Description: 众安退保信息回传
-        Summary: 非标营销退保事件回传；
+        Description: 营销退保信息回传
+        Summary: 营销退保事件回传
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -2266,8 +2266,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> insurance__saas_models.CallbackMarketingPolicycancelResponse:
         """
-        Description: 众安退保信息回传
-        Summary: 非标营销退保事件回传；
+        Description: 营销退保信息回传
+        Summary: 营销退保事件回传
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -2282,8 +2282,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> insurance__saas_models.CallbackMarketingPolicycancelResponse:
         """
-        Description: 众安退保信息回传
-        Summary: 非标营销退保事件回传；
+        Description: 营销退保信息回传
+        Summary: 营销退保事件回传
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
