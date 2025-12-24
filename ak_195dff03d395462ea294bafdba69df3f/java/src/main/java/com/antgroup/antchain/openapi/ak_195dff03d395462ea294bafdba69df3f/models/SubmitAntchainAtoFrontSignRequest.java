@@ -97,12 +97,11 @@ public class SubmitAntchainAtoFrontSignRequest extends TeaModel {
     // CRED_ORG_REGCODE：工商注册号，
     // 只支持这两个值
     @NameInMap("merchant_id_type")
-    @Validation(required = true, maxLength = 32, minLength = 4)
+    @Validation(maxLength = 32, minLength = 4)
     public String merchantIdType;
 
     // 商户证件号，需要采用RSA加密传输
     @NameInMap("merchant_id_number")
-    @Validation(required = true)
     public String merchantIdNumber;
 
     // 法人姓名，需要RSA加密传输

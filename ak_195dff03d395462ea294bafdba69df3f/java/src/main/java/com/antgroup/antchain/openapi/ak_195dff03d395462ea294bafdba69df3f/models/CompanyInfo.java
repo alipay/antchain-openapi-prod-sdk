@@ -9,6 +9,35 @@ public class CompanyInfo extends TeaModel {
     @Validation(required = true)
     public FileInfo businessLicenseFile;
 
+    // 证件是否长期有效  
+    // true：长期，false：非长期
+    // payChannel =JDPAY必填
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
+    @NameInMap("business_license_cert_expire_flag")
+    public Boolean businessLicenseCertExpireFlag;
+
+    // 证件有效期开始日期(payChannel =JDPAY)
+    // 1.certExpireFlag=false时必填，时间格式:yyyy-MM-dd
+    // 2. 商户为企业个体户时，无论certExpireFlag是否长期，该字段均必填
+    /**
+     * <strong>example:</strong>
+     * <p>2024-10-17</p>
+     */
+    @NameInMap("business_license_cert_effect_date")
+    public String businessLicenseCertEffectDate;
+
+    // 证件有效期结束日期（payChannel =JDPAY选填参数）
+    // certExpireFlag为false必填，时间格式：yyyy-MM-dd
+    /**
+     * <strong>example:</strong>
+     * <p>2024-10-17</p>
+     */
+    @NameInMap("business_license_cert_expire_date")
+    public String businessLicenseCertExpireDate;
+
     // 业务类型 枚举
     /**
      * <strong>example:</strong>
@@ -98,32 +127,97 @@ public class CompanyInfo extends TeaModel {
     @Validation(required = true)
     public String contactMobile;
 
-    // 绑定企业支付宝账号
+    // 联系地址-省份code(payChannel =JDPAY必填)
+    /**
+     * <strong>example:</strong>
+     * <p>430000</p>
+     */
+    @NameInMap("contact_address_province_code")
+    public String contactAddressProvinceCode;
+
+    // 联系地址-省份名称（payChannel =JDPAY必填）
+    /**
+     * <strong>example:</strong>
+     * <p>浙江省</p>
+     */
+    @NameInMap("contact_address_province_name")
+    public String contactAddressProvinceName;
+
+    // 联系地址-市code（payChannel =JDPAY必填）
+    // 
+    /**
+     * <strong>example:</strong>
+     * <p>403100</p>
+     */
+    @NameInMap("contact_address_city_code")
+    public String contactAddressCityCode;
+
+    // 联系人地址-市名称（payChannel =JDPAY必填）
+    /**
+     * <strong>example:</strong>
+     * <p>杭州市</p>
+     */
+    @NameInMap("contact_address_city_name")
+    public String contactAddressCityName;
+
+    // 联系人详细地址（payChannel =JDPAY必填）
+    /**
+     * <strong>example:</strong>
+     * <p>杭州市余杭区xxx</p>
+     */
+    @NameInMap("contact_address_detail")
+    public String contactAddressDetail;
+
+    // 联系人邮箱（pay_channel=JDPAY必填）
+    /**
+     * <strong>example:</strong>
+     * <p><a href="mailto:123123122134@163.com">123123122134@163.com</a></p>
+     */
+    @NameInMap("contact_email")
+    public String contactEmail;
+
+    // 绑定企业支付宝账号（pay_channel=ALIPAY必填）
     /**
      * <strong>example:</strong>
      * <p>绑定企业支付宝账号</p>
      */
     @NameInMap("bind_alipay_no")
-    @Validation(required = true)
     public String bindAlipayNo;
 
-    // 结算企业支付宝账号
+    // 结算企业支付宝账号（pay_channel=ALIPAY必填）
     /**
      * <strong>example:</strong>
      * <p>结算企业支付宝账号</p>
      */
     @NameInMap("settle_alipay_no")
-    @Validation(required = true)
     public String settleAlipayNo;
 
-    // 绑定支付宝uid
+    // 绑定支付宝uid（pay_channel=ALIPAY必填）
     /**
      * <strong>example:</strong>
      * <p>绑定支付宝uid</p>
      */
     @NameInMap("bind_alipay_uid")
-    @Validation(required = true)
     public String bindAlipayUid;
+
+    // 经营范围
+    // payChannel =JDPAY必填
+    /**
+     * <strong>example:</strong>
+     * <p>经营租赁等业务</p>
+     */
+    @NameInMap("business_scope")
+    public String businessScope;
+
+    // 开户许可证（payChannel =JDPAY必填）
+    // 
+    @NameInMap("bank_opening_license_file")
+    public FileInfo bankOpeningLicenseFile;
+
+    // 商户和租赁平台合作协议图片（pay_channel=JDPAY必填）
+    // 
+    @NameInMap("cooperation_agreement_file")
+    public FileInfo cooperationAgreementFile;
 
     public static CompanyInfo build(java.util.Map<String, ?> map) throws Exception {
         CompanyInfo self = new CompanyInfo();
@@ -136,6 +230,30 @@ public class CompanyInfo extends TeaModel {
     }
     public FileInfo getBusinessLicenseFile() {
         return this.businessLicenseFile;
+    }
+
+    public CompanyInfo setBusinessLicenseCertExpireFlag(Boolean businessLicenseCertExpireFlag) {
+        this.businessLicenseCertExpireFlag = businessLicenseCertExpireFlag;
+        return this;
+    }
+    public Boolean getBusinessLicenseCertExpireFlag() {
+        return this.businessLicenseCertExpireFlag;
+    }
+
+    public CompanyInfo setBusinessLicenseCertEffectDate(String businessLicenseCertEffectDate) {
+        this.businessLicenseCertEffectDate = businessLicenseCertEffectDate;
+        return this;
+    }
+    public String getBusinessLicenseCertEffectDate() {
+        return this.businessLicenseCertEffectDate;
+    }
+
+    public CompanyInfo setBusinessLicenseCertExpireDate(String businessLicenseCertExpireDate) {
+        this.businessLicenseCertExpireDate = businessLicenseCertExpireDate;
+        return this;
+    }
+    public String getBusinessLicenseCertExpireDate() {
+        return this.businessLicenseCertExpireDate;
     }
 
     public CompanyInfo setProductMainClass(String productMainClass) {
@@ -218,6 +336,54 @@ public class CompanyInfo extends TeaModel {
         return this.contactMobile;
     }
 
+    public CompanyInfo setContactAddressProvinceCode(String contactAddressProvinceCode) {
+        this.contactAddressProvinceCode = contactAddressProvinceCode;
+        return this;
+    }
+    public String getContactAddressProvinceCode() {
+        return this.contactAddressProvinceCode;
+    }
+
+    public CompanyInfo setContactAddressProvinceName(String contactAddressProvinceName) {
+        this.contactAddressProvinceName = contactAddressProvinceName;
+        return this;
+    }
+    public String getContactAddressProvinceName() {
+        return this.contactAddressProvinceName;
+    }
+
+    public CompanyInfo setContactAddressCityCode(String contactAddressCityCode) {
+        this.contactAddressCityCode = contactAddressCityCode;
+        return this;
+    }
+    public String getContactAddressCityCode() {
+        return this.contactAddressCityCode;
+    }
+
+    public CompanyInfo setContactAddressCityName(String contactAddressCityName) {
+        this.contactAddressCityName = contactAddressCityName;
+        return this;
+    }
+    public String getContactAddressCityName() {
+        return this.contactAddressCityName;
+    }
+
+    public CompanyInfo setContactAddressDetail(String contactAddressDetail) {
+        this.contactAddressDetail = contactAddressDetail;
+        return this;
+    }
+    public String getContactAddressDetail() {
+        return this.contactAddressDetail;
+    }
+
+    public CompanyInfo setContactEmail(String contactEmail) {
+        this.contactEmail = contactEmail;
+        return this;
+    }
+    public String getContactEmail() {
+        return this.contactEmail;
+    }
+
     public CompanyInfo setBindAlipayNo(String bindAlipayNo) {
         this.bindAlipayNo = bindAlipayNo;
         return this;
@@ -240,6 +406,30 @@ public class CompanyInfo extends TeaModel {
     }
     public String getBindAlipayUid() {
         return this.bindAlipayUid;
+    }
+
+    public CompanyInfo setBusinessScope(String businessScope) {
+        this.businessScope = businessScope;
+        return this;
+    }
+    public String getBusinessScope() {
+        return this.businessScope;
+    }
+
+    public CompanyInfo setBankOpeningLicenseFile(FileInfo bankOpeningLicenseFile) {
+        this.bankOpeningLicenseFile = bankOpeningLicenseFile;
+        return this;
+    }
+    public FileInfo getBankOpeningLicenseFile() {
+        return this.bankOpeningLicenseFile;
+    }
+
+    public CompanyInfo setCooperationAgreementFile(FileInfo cooperationAgreementFile) {
+        this.cooperationAgreementFile = cooperationAgreementFile;
+        return this;
+    }
+    public FileInfo getCooperationAgreementFile() {
+        return this.cooperationAgreementFile;
     }
 
 }

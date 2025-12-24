@@ -33,6 +33,10 @@ public class QueryAntchainAtoMerchantexpandMerchantResponse extends TeaModel {
     @NameInMap("pending_event_link")
     public String pendingEventLink;
 
+    // 京东进件成功二级商户id
+    @NameInMap("sub_merchant_id")
+    public String subMerchantId;
+
     public static QueryAntchainAtoMerchantexpandMerchantResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryAntchainAtoMerchantexpandMerchantResponse self = new QueryAntchainAtoMerchantexpandMerchantResponse();
         return TeaModel.build(map, self);
@@ -84,6 +88,14 @@ public class QueryAntchainAtoMerchantexpandMerchantResponse extends TeaModel {
     }
     public String getPendingEventLink() {
         return this.pendingEventLink;
+    }
+
+    public QueryAntchainAtoMerchantexpandMerchantResponse setSubMerchantId(String subMerchantId) {
+        this.subMerchantId = subMerchantId;
+        return this;
+    }
+    public String getSubMerchantId() {
+        return this.subMerchantId;
     }
 
 }

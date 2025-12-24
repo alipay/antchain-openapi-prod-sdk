@@ -35,6 +35,20 @@ public class RegisterAntchainAtoMerchantexpandMerchantRequest extends TeaModel {
     @NameInMap("sub_tenant_id")
     public String subTenantId;
 
+    // 京东商家控股信息
+    @NameInMap("merchant_holding_info")
+    public MerchantHoldingInfo merchantHoldingInfo;
+
+    // 京东商家结算信息
+    @NameInMap("merchant_settle_info")
+    public MerchantSettleInfo merchantSettleInfo;
+
+    // 支付渠道
+    // ALIPAY（默认）
+    // JDPAY
+    @NameInMap("pay_channel")
+    public String payChannel;
+
     public static RegisterAntchainAtoMerchantexpandMerchantRequest build(java.util.Map<String, ?> map) throws Exception {
         RegisterAntchainAtoMerchantexpandMerchantRequest self = new RegisterAntchainAtoMerchantexpandMerchantRequest();
         return TeaModel.build(map, self);
@@ -94,6 +108,30 @@ public class RegisterAntchainAtoMerchantexpandMerchantRequest extends TeaModel {
     }
     public String getSubTenantId() {
         return this.subTenantId;
+    }
+
+    public RegisterAntchainAtoMerchantexpandMerchantRequest setMerchantHoldingInfo(MerchantHoldingInfo merchantHoldingInfo) {
+        this.merchantHoldingInfo = merchantHoldingInfo;
+        return this;
+    }
+    public MerchantHoldingInfo getMerchantHoldingInfo() {
+        return this.merchantHoldingInfo;
+    }
+
+    public RegisterAntchainAtoMerchantexpandMerchantRequest setMerchantSettleInfo(MerchantSettleInfo merchantSettleInfo) {
+        this.merchantSettleInfo = merchantSettleInfo;
+        return this;
+    }
+    public MerchantSettleInfo getMerchantSettleInfo() {
+        return this.merchantSettleInfo;
+    }
+
+    public RegisterAntchainAtoMerchantexpandMerchantRequest setPayChannel(String payChannel) {
+        this.payChannel = payChannel;
+        return this;
+    }
+    public String getPayChannel() {
+        return this.payChannel;
     }
 
 }
