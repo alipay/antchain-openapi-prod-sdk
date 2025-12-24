@@ -44,6 +44,11 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f.Models
         [Validation(Required=false)]
         public string PendingEventLink { get; set; }
 
+        // 京东进件成功二级商户id
+        [NameInMap("sub_merchant_id")]
+        [Validation(Required=false)]
+        public string SubMerchantId { get; set; }
+
     }
 
 }
