@@ -26,7 +26,7 @@ class CallbackMarketingEventResponse extends Model
      */
     public $resultMsg;
 
-    // 请求id
+    // 请求 id
     /**
      * @var string
      */

@@ -26,23 +26,29 @@ class GetMarketingInsureurlResponse extends Model
      */
     public $resultMsg;
 
-    // 请求id
+    // 请求 id
     /**
      * @var string
      */
     public $requestId;
 
-    // 一级渠道
+    // 一级渠道编码
     /**
      * @var string
      */
     public $firstChannel;
 
-    // 二级渠道
+    // 二级渠道编码
     /**
      * @var string
      */
     public $secondChannel;
+
+    // 三级渠道/广告版位
+    /**
+     * @var string
+     */
+    public $advertisingPosition;
 
     // 订单号
     /**
@@ -56,21 +62,22 @@ class GetMarketingInsureurlResponse extends Model
      */
     public $clickId;
 
-    // 投保页面URL?bizOrigin={渠道参数}&bizContent={加密参数}
+    // 投保页面URL
     /**
      * @var string
      */
     public $insureUrl;
     protected $_name = [
-        'reqMsgId'      => 'req_msg_id',
-        'resultCode'    => 'result_code',
-        'resultMsg'     => 'result_msg',
-        'requestId'     => 'request_id',
-        'firstChannel'  => 'first_channel',
-        'secondChannel' => 'second_channel',
-        'sceneOrderNo'  => 'scene_order_no',
-        'clickId'       => 'click_id',
-        'insureUrl'     => 'insure_url',
+        'reqMsgId'            => 'req_msg_id',
+        'resultCode'          => 'result_code',
+        'resultMsg'           => 'result_msg',
+        'requestId'           => 'request_id',
+        'firstChannel'        => 'first_channel',
+        'secondChannel'       => 'second_channel',
+        'advertisingPosition' => 'advertising_position',
+        'sceneOrderNo'        => 'scene_order_no',
+        'clickId'             => 'click_id',
+        'insureUrl'           => 'insure_url',
     ];
 
     public function validate()
@@ -97,6 +104,9 @@ class GetMarketingInsureurlResponse extends Model
         }
         if (null !== $this->secondChannel) {
             $res['second_channel'] = $this->secondChannel;
+        }
+        if (null !== $this->advertisingPosition) {
+            $res['advertising_position'] = $this->advertisingPosition;
         }
         if (null !== $this->sceneOrderNo) {
             $res['scene_order_no'] = $this->sceneOrderNo;
@@ -136,6 +146,9 @@ class GetMarketingInsureurlResponse extends Model
         }
         if (isset($map['second_channel'])) {
             $model->secondChannel = $map['second_channel'];
+        }
+        if (isset($map['advertising_position'])) {
+            $model->advertisingPosition = $map['advertising_position'];
         }
         if (isset($map['scene_order_no'])) {
             $model->sceneOrderNo = $map['scene_order_no'];

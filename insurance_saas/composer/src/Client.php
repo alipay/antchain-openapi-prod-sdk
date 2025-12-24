@@ -230,7 +230,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.11.1',
+                    'sdk_version'      => '1.11.2',
                     '_prod_code'       => 'INSURANCE_SAAS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1368,8 +1368,8 @@ class Client
     }
 
     /**
-     * Description: 非标营销投保短链获取
-     * Summary: 非标营销投保短链获取.
+     * Description: 营销投保短链获取
+     * Summary: 营销投保短链获取.
      *
      * @param GetMarketingInsureurlRequest $request
      *
@@ -1384,8 +1384,8 @@ class Client
     }
 
     /**
-     * Description: 非标营销投保短链获取
-     * Summary: 非标营销投保短链获取.
+     * Description: 营销投保短链获取
+     * Summary: 营销投保短链获取.
      *
      * @param GetMarketingInsureurlRequest $request
      * @param string[]                     $headers
@@ -1401,8 +1401,8 @@ class Client
     }
 
     /**
-     * Description: 众安回传接口，获取保单信息保存。
-     * Summary: 非标营销保单信息事件回传；.
+     * Description: 营销保单出单信息事件回传
+     * Summary: 营销保单出单信息事件回传.
      *
      * @param CallbackMarketingEventRequest $request
      *
@@ -1417,8 +1417,8 @@ class Client
     }
 
     /**
-     * Description: 众安回传接口，获取保单信息保存。
-     * Summary: 非标营销保单信息事件回传；.
+     * Description: 营销保单出单信息事件回传
+     * Summary: 营销保单出单信息事件回传.
      *
      * @param CallbackMarketingEventRequest $request
      * @param string[]                      $headers
@@ -1434,8 +1434,8 @@ class Client
     }
 
     /**
-     * Description: 众安退保信息回传
-     * Summary: 非标营销退保事件回传；.
+     * Description: 营销退保信息回传
+     * Summary: 营销退保事件回传.
      *
      * @param CallbackMarketingPolicycancelRequest $request
      *
@@ -1450,8 +1450,8 @@ class Client
     }
 
     /**
-     * Description: 众安退保信息回传
-     * Summary: 非标营销退保事件回传；.
+     * Description: 营销退保信息回传
+     * Summary: 营销退保事件回传.
      *
      * @param CallbackMarketingPolicycancelRequest $request
      * @param string[]                             $headers

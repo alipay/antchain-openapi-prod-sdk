@@ -14,7 +14,8 @@ class GetMarketingInsureurlRequest extends Model
      */
     public $authToken;
 
-    // 调用方生成的唯一编码，参考格式： yyyyMMdd_xxxxx，已接口请求的当前日期开头；
+    // 请求 id，做防重校验逻辑
+    // 接口根据 requestId 做防重校验逻辑，若重复会报错
     /**
      * @var string
      */
@@ -32,13 +33,13 @@ class GetMarketingInsureurlRequest extends Model
      */
     public $channelCode;
 
-    // 保司出单机构编码
+    // 保司出单机构编码，若没有同保司编码
     /**
      * @var string
      */
     public $issueOrg;
 
-    // 保司产品编码（保司提供）
+    // 保司产品编码
     /**
      * @var string
      */
@@ -59,13 +60,13 @@ class GetMarketingInsureurlRequest extends Model
      */
     public $insurancePlan;
 
-    // 一级渠道，固定值"antdigital"
+    // 一级渠道编码
     /**
      * @var string
      */
     public $firstChannel;
 
-    // 二级渠道
+    // 二级渠道编码
     /**
      * @var string
      */

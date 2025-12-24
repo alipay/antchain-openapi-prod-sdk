@@ -14,7 +14,9 @@ class CallbackMarketingEventRequest extends Model
      */
     public $authToken;
 
-    // 调用方生成的唯一编码
+    // 请求 id，做防重校验逻辑
+    // 接口根据 requestId 做防重校验逻辑，若重复会报错
+    //
     /**
      * @var string
      */
@@ -48,7 +50,7 @@ class CallbackMarketingEventRequest extends Model
      */
     public $eventTime;
 
-    // 固定式，蚂蚁数科
+    // 一级渠道编码
     /**
      * @var string
      */
