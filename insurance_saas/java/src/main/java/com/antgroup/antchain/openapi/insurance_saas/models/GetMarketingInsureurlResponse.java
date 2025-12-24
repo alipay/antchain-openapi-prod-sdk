@@ -16,17 +16,21 @@ public class GetMarketingInsureurlResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 请求id
+    // 请求 id
     @NameInMap("request_id")
     public String requestId;
 
-    // 一级渠道
+    // 一级渠道编码
     @NameInMap("first_channel")
     public String firstChannel;
 
-    // 二级渠道
+    // 二级渠道编码
     @NameInMap("second_channel")
     public String secondChannel;
+
+    // 三级渠道/广告版位
+    @NameInMap("advertising_position")
+    public String advertisingPosition;
 
     // 订单号
     @NameInMap("scene_order_no")
@@ -36,7 +40,7 @@ public class GetMarketingInsureurlResponse extends TeaModel {
     @NameInMap("click_id")
     public String clickId;
 
-    // 投保页面URL?bizOrigin={渠道参数}&bizContent={加密参数}
+    // 投保页面URL
     @NameInMap("insure_url")
     public String insureUrl;
 
@@ -91,6 +95,14 @@ public class GetMarketingInsureurlResponse extends TeaModel {
     }
     public String getSecondChannel() {
         return this.secondChannel;
+    }
+
+    public GetMarketingInsureurlResponse setAdvertisingPosition(String advertisingPosition) {
+        this.advertisingPosition = advertisingPosition;
+        return this;
+    }
+    public String getAdvertisingPosition() {
+        return this.advertisingPosition;
     }
 
     public GetMarketingInsureurlResponse setSceneOrderNo(String sceneOrderNo) {

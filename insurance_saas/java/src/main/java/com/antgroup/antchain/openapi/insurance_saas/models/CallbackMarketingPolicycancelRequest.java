@@ -8,7 +8,8 @@ public class CallbackMarketingPolicycancelRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
-    // 请求 id
+    // 请求 id，做防重校验逻辑
+    // 接口根据 requestId 做防重校验逻辑，若重复会报错
     @NameInMap("request_id")
     @Validation(required = true)
     public String requestId;

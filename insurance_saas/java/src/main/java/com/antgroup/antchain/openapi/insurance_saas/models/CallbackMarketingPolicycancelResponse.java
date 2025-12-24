@@ -16,7 +16,7 @@ public class CallbackMarketingPolicycancelResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 请求id
+    // 请求 id
     @NameInMap("request_id")
     public String requestId;
 

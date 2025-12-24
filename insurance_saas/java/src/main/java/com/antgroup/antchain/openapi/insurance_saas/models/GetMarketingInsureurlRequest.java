@@ -8,7 +8,8 @@ public class GetMarketingInsureurlRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
-    // 调用方生成的唯一编码，参考格式： yyyyMMdd_xxxxx，已接口请求的当前日期开头；
+    // 请求 id，做防重校验逻辑
+    // 接口根据 requestId 做防重校验逻辑，若重复会报错
     @NameInMap("request_id")
     @Validation(required = true, maxLength = 128)
     public String requestId;
@@ -23,12 +24,12 @@ public class GetMarketingInsureurlRequest extends TeaModel {
     @Validation(required = true, maxLength = 64)
     public String channelCode;
 
-    // 保司出单机构编码
+    // 保司出单机构编码，若没有同保司编码
     @NameInMap("issue_org")
     @Validation(required = true, maxLength = 64)
     public String issueOrg;
 
-    // 保司产品编码（保司提供）
+    // 保司产品编码
     @NameInMap("channel_product_code")
     @Validation(required = true, maxLength = 64)
     public String channelProductCode;
@@ -46,12 +47,12 @@ public class GetMarketingInsureurlRequest extends TeaModel {
     @Validation(required = true, maxLength = 20)
     public String insurancePlan;
 
-    // 一级渠道，固定值"antdigital"
+    // 一级渠道编码
     @NameInMap("first_channel")
     @Validation(required = true, maxLength = 64)
     public String firstChannel;
 
-    // 二级渠道
+    // 二级渠道编码
     @NameInMap("second_channel")
     @Validation(maxLength = 64)
     public String secondChannel;

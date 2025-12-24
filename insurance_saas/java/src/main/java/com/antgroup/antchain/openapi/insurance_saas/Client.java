@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.11.1"),
+                    new TeaPair("sdk_version", "1.11.2"),
                     new TeaPair("_prod_code", "INSURANCE_SAAS"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -883,8 +883,8 @@ public class Client {
 
     /**
      * <b>description</b> :
-     * <p>Description: 非标营销投保短链获取
-     * Summary: 非标营销投保短链获取</p>
+     * <p>Description: 营销投保短链获取
+     * Summary: 营销投保短链获取</p>
      */
     public GetMarketingInsureurlResponse getMarketingInsureurl(GetMarketingInsureurlRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -894,8 +894,8 @@ public class Client {
 
     /**
      * <b>description</b> :
-     * <p>Description: 非标营销投保短链获取
-     * Summary: 非标营销投保短链获取</p>
+     * <p>Description: 营销投保短链获取
+     * Summary: 营销投保短链获取</p>
      */
     public GetMarketingInsureurlResponse getMarketingInsureurlEx(GetMarketingInsureurlRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -904,8 +904,8 @@ public class Client {
 
     /**
      * <b>description</b> :
-     * <p>Description: 众安回传接口，获取保单信息保存。
-     * Summary: 非标营销保单信息事件回传；</p>
+     * <p>Description: 营销保单出单信息事件回传
+     * Summary: 营销保单出单信息事件回传</p>
      */
     public CallbackMarketingEventResponse callbackMarketingEvent(CallbackMarketingEventRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -915,8 +915,8 @@ public class Client {
 
     /**
      * <b>description</b> :
-     * <p>Description: 众安回传接口，获取保单信息保存。
-     * Summary: 非标营销保单信息事件回传；</p>
+     * <p>Description: 营销保单出单信息事件回传
+     * Summary: 营销保单出单信息事件回传</p>
      */
     public CallbackMarketingEventResponse callbackMarketingEventEx(CallbackMarketingEventRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -925,8 +925,8 @@ public class Client {
 
     /**
      * <b>description</b> :
-     * <p>Description: 众安退保信息回传
-     * Summary: 非标营销退保事件回传；</p>
+     * <p>Description: 营销退保信息回传
+     * Summary: 营销退保事件回传</p>
      */
     public CallbackMarketingPolicycancelResponse callbackMarketingPolicycancel(CallbackMarketingPolicycancelRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -936,8 +936,8 @@ public class Client {
 
     /**
      * <b>description</b> :
-     * <p>Description: 众安退保信息回传
-     * Summary: 非标营销退保事件回传；</p>
+     * <p>Description: 营销退保信息回传
+     * Summary: 营销退保事件回传</p>
      */
     public CallbackMarketingPolicycancelResponse callbackMarketingPolicycancelEx(CallbackMarketingPolicycancelRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);

@@ -8,7 +8,9 @@ public class CallbackMarketingEventRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
-    // 调用方生成的唯一编码
+    // 请求 id，做防重校验逻辑
+    // 接口根据 requestId 做防重校验逻辑，若重复会报错
+    // 
     @NameInMap("request_id")
     @Validation(required = true, maxLength = 128)
     public String requestId;
@@ -37,7 +39,7 @@ public class CallbackMarketingEventRequest extends TeaModel {
     @Validation(required = true, maxLength = 20)
     public String eventTime;
 
-    // 固定式，蚂蚁数科
+    // 一级渠道编码
     @NameInMap("first_channel")
     @Validation(required = true, maxLength = 64)
     public String firstChannel;
