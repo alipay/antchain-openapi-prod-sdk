@@ -300,6 +300,9 @@ class CompanyInfo(TeaModel):
     def __init__(
         self,
         business_license_file: FileInfo = None,
+        business_license_cert_expire_flag: bool = None,
+        business_license_cert_effect_date: str = None,
+        business_license_cert_expire_date: str = None,
         product_main_class: str = None,
         company_name: str = None,
         company_alias_name: str = None,
@@ -310,12 +313,32 @@ class CompanyInfo(TeaModel):
         company_address: str = None,
         contact_name: str = None,
         contact_mobile: str = None,
+        contact_address_province_code: str = None,
+        contact_address_province_name: str = None,
+        contact_address_city_code: str = None,
+        contact_address_city_name: str = None,
+        contact_address_detail: str = None,
+        contact_email: str = None,
         bind_alipay_no: str = None,
         settle_alipay_no: str = None,
         bind_alipay_uid: str = None,
+        business_scope: str = None,
+        bank_opening_license_file: FileInfo = None,
+        cooperation_agreement_file: FileInfo = None,
     ):
         # 营业执照文件信息
         self.business_license_file = business_license_file
+        # 证件是否长期有效
+        # true：长期，false：非长期
+        # payChannel =JDPAY必填
+        self.business_license_cert_expire_flag = business_license_cert_expire_flag
+        # 证件有效期开始日期(payChannel =JDPAY)
+        # 1.certExpireFlag=false时必填，时间格式:yyyy-MM-dd
+        # 2. 商户为企业个体户时，无论certExpireFlag是否长期，该字段均必填
+        self.business_license_cert_effect_date = business_license_cert_effect_date
+        # 证件有效期结束日期（payChannel =JDPAY选填参数）
+        # certExpireFlag为false必填，时间格式：yyyy-MM-dd
+        self.business_license_cert_expire_date = business_license_cert_expire_date
         # 业务类型 枚举
         self.product_main_class = product_main_class
         # 公司名称
@@ -337,12 +360,34 @@ class CompanyInfo(TeaModel):
         self.contact_name = contact_name
         # 联系人手机号码
         self.contact_mobile = contact_mobile
-        # 绑定企业支付宝账号
+        # 联系地址-省份code(payChannel =JDPAY必填)
+        self.contact_address_province_code = contact_address_province_code
+        # 联系地址-省份名称（payChannel =JDPAY必填）
+        self.contact_address_province_name = contact_address_province_name
+        # 联系地址-市code（payChannel =JDPAY必填）
+        # 
+        self.contact_address_city_code = contact_address_city_code
+        # 联系人地址-市名称（payChannel =JDPAY必填）
+        self.contact_address_city_name = contact_address_city_name
+        # 联系人详细地址（payChannel =JDPAY必填）
+        self.contact_address_detail = contact_address_detail
+        # 联系人邮箱（pay_channel=JDPAY必填）
+        self.contact_email = contact_email
+        # 绑定企业支付宝账号（pay_channel=ALIPAY必填）
         self.bind_alipay_no = bind_alipay_no
-        # 结算企业支付宝账号
+        # 结算企业支付宝账号（pay_channel=ALIPAY必填）
         self.settle_alipay_no = settle_alipay_no
-        # 绑定支付宝uid
+        # 绑定支付宝uid（pay_channel=ALIPAY必填）
         self.bind_alipay_uid = bind_alipay_uid
+        # 经营范围
+        # payChannel =JDPAY必填
+        self.business_scope = business_scope
+        # 开户许可证（payChannel =JDPAY必填）
+        # 
+        self.bank_opening_license_file = bank_opening_license_file
+        # 商户和租赁平台合作协议图片（pay_channel=JDPAY必填）
+        # 
+        self.cooperation_agreement_file = cooperation_agreement_file
 
     def validate(self):
         self.validate_required(self.business_license_file, 'business_license_file')
@@ -356,9 +401,10 @@ class CompanyInfo(TeaModel):
         self.validate_required(self.company_address, 'company_address')
         self.validate_required(self.contact_name, 'contact_name')
         self.validate_required(self.contact_mobile, 'contact_mobile')
-        self.validate_required(self.bind_alipay_no, 'bind_alipay_no')
-        self.validate_required(self.settle_alipay_no, 'settle_alipay_no')
-        self.validate_required(self.bind_alipay_uid, 'bind_alipay_uid')
+        if self.bank_opening_license_file:
+            self.bank_opening_license_file.validate()
+        if self.cooperation_agreement_file:
+            self.cooperation_agreement_file.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -368,6 +414,12 @@ class CompanyInfo(TeaModel):
         result = dict()
         if self.business_license_file is not None:
             result['business_license_file'] = self.business_license_file.to_map()
+        if self.business_license_cert_expire_flag is not None:
+            result['business_license_cert_expire_flag'] = self.business_license_cert_expire_flag
+        if self.business_license_cert_effect_date is not None:
+            result['business_license_cert_effect_date'] = self.business_license_cert_effect_date
+        if self.business_license_cert_expire_date is not None:
+            result['business_license_cert_expire_date'] = self.business_license_cert_expire_date
         if self.product_main_class is not None:
             result['product_main_class'] = self.product_main_class
         if self.company_name is not None:
@@ -388,12 +440,30 @@ class CompanyInfo(TeaModel):
             result['contact_name'] = self.contact_name
         if self.contact_mobile is not None:
             result['contact_mobile'] = self.contact_mobile
+        if self.contact_address_province_code is not None:
+            result['contact_address_province_code'] = self.contact_address_province_code
+        if self.contact_address_province_name is not None:
+            result['contact_address_province_name'] = self.contact_address_province_name
+        if self.contact_address_city_code is not None:
+            result['contact_address_city_code'] = self.contact_address_city_code
+        if self.contact_address_city_name is not None:
+            result['contact_address_city_name'] = self.contact_address_city_name
+        if self.contact_address_detail is not None:
+            result['contact_address_detail'] = self.contact_address_detail
+        if self.contact_email is not None:
+            result['contact_email'] = self.contact_email
         if self.bind_alipay_no is not None:
             result['bind_alipay_no'] = self.bind_alipay_no
         if self.settle_alipay_no is not None:
             result['settle_alipay_no'] = self.settle_alipay_no
         if self.bind_alipay_uid is not None:
             result['bind_alipay_uid'] = self.bind_alipay_uid
+        if self.business_scope is not None:
+            result['business_scope'] = self.business_scope
+        if self.bank_opening_license_file is not None:
+            result['bank_opening_license_file'] = self.bank_opening_license_file.to_map()
+        if self.cooperation_agreement_file is not None:
+            result['cooperation_agreement_file'] = self.cooperation_agreement_file.to_map()
         return result
 
     def from_map(self, m: dict = None):
@@ -401,6 +471,12 @@ class CompanyInfo(TeaModel):
         if m.get('business_license_file') is not None:
             temp_model = FileInfo()
             self.business_license_file = temp_model.from_map(m['business_license_file'])
+        if m.get('business_license_cert_expire_flag') is not None:
+            self.business_license_cert_expire_flag = m.get('business_license_cert_expire_flag')
+        if m.get('business_license_cert_effect_date') is not None:
+            self.business_license_cert_effect_date = m.get('business_license_cert_effect_date')
+        if m.get('business_license_cert_expire_date') is not None:
+            self.business_license_cert_expire_date = m.get('business_license_cert_expire_date')
         if m.get('product_main_class') is not None:
             self.product_main_class = m.get('product_main_class')
         if m.get('company_name') is not None:
@@ -421,12 +497,32 @@ class CompanyInfo(TeaModel):
             self.contact_name = m.get('contact_name')
         if m.get('contact_mobile') is not None:
             self.contact_mobile = m.get('contact_mobile')
+        if m.get('contact_address_province_code') is not None:
+            self.contact_address_province_code = m.get('contact_address_province_code')
+        if m.get('contact_address_province_name') is not None:
+            self.contact_address_province_name = m.get('contact_address_province_name')
+        if m.get('contact_address_city_code') is not None:
+            self.contact_address_city_code = m.get('contact_address_city_code')
+        if m.get('contact_address_city_name') is not None:
+            self.contact_address_city_name = m.get('contact_address_city_name')
+        if m.get('contact_address_detail') is not None:
+            self.contact_address_detail = m.get('contact_address_detail')
+        if m.get('contact_email') is not None:
+            self.contact_email = m.get('contact_email')
         if m.get('bind_alipay_no') is not None:
             self.bind_alipay_no = m.get('bind_alipay_no')
         if m.get('settle_alipay_no') is not None:
             self.settle_alipay_no = m.get('settle_alipay_no')
         if m.get('bind_alipay_uid') is not None:
             self.bind_alipay_uid = m.get('bind_alipay_uid')
+        if m.get('business_scope') is not None:
+            self.business_scope = m.get('business_scope')
+        if m.get('bank_opening_license_file') is not None:
+            temp_model = FileInfo()
+            self.bank_opening_license_file = temp_model.from_map(m['bank_opening_license_file'])
+        if m.get('cooperation_agreement_file') is not None:
+            temp_model = FileInfo()
+            self.cooperation_agreement_file = temp_model.from_map(m['cooperation_agreement_file'])
         return self
 
 
@@ -569,6 +665,53 @@ class DivideBindingTransInInfo(TeaModel):
         m = m or dict()
         if m.get('alipay_pid') is not None:
             self.alipay_pid = m.get('alipay_pid')
+        return self
+
+
+class MerchantSettleInfo(TeaModel):
+    def __init__(
+        self,
+        bank_num: str = None,
+        bank_cnap: str = None,
+        bank_account_type: str = None,
+    ):
+        # 结算银行卡账号
+        self.bank_num = bank_num
+        # 联行号
+        self.bank_cnap = bank_cnap
+        # 结算账户类型
+        # merchant_type=01企业时：ENTERPRISE
+        # 03:民办非企业：ENTERPRISE
+        # 07个体工商户时：PERSON或 ENTERPRISE
+        self.bank_account_type = bank_account_type
+
+    def validate(self):
+        self.validate_required(self.bank_num, 'bank_num')
+        self.validate_required(self.bank_cnap, 'bank_cnap')
+        self.validate_required(self.bank_account_type, 'bank_account_type')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.bank_num is not None:
+            result['bank_num'] = self.bank_num
+        if self.bank_cnap is not None:
+            result['bank_cnap'] = self.bank_cnap
+        if self.bank_account_type is not None:
+            result['bank_account_type'] = self.bank_account_type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('bank_num') is not None:
+            self.bank_num = m.get('bank_num')
+        if m.get('bank_cnap') is not None:
+            self.bank_cnap = m.get('bank_cnap')
+        if m.get('bank_account_type') is not None:
+            self.bank_account_type = m.get('bank_account_type')
         return self
 
 
@@ -725,6 +868,70 @@ class CreditUtilizationOrder(TeaModel):
         return self
 
 
+class MerchantHoldingInfo(TeaModel):
+    def __init__(
+        self,
+        holding_type_name: str = None,
+        holding_company: str = None,
+        certificate_number: str = None,
+        long_date: bool = None,
+        expire_date: str = None,
+    ):
+        # 控股类型名称
+        # 企业股东:ENTERPRISE_SHAREHOLDER
+        # 个人股东:PERSONAL_SHAREHOLDER
+        self.holding_type_name = holding_type_name
+        # 控股公司名称
+        self.holding_company = holding_company
+        # 证件号码
+        self.certificate_number = certificate_number
+        # 证件是否长期有效
+        # 长期true，
+        # 否则false
+        self.long_date = long_date
+        # 失效时间
+        # 商户控股信息longdate为true 时，可为空 ，格式YYYY-MM-DD
+        self.expire_date = expire_date
+
+    def validate(self):
+        self.validate_required(self.holding_type_name, 'holding_type_name')
+        self.validate_required(self.holding_company, 'holding_company')
+        self.validate_required(self.certificate_number, 'certificate_number')
+        self.validate_required(self.long_date, 'long_date')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.holding_type_name is not None:
+            result['holding_type_name'] = self.holding_type_name
+        if self.holding_company is not None:
+            result['holding_company'] = self.holding_company
+        if self.certificate_number is not None:
+            result['certificate_number'] = self.certificate_number
+        if self.long_date is not None:
+            result['long_date'] = self.long_date
+        if self.expire_date is not None:
+            result['expire_date'] = self.expire_date
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('holding_type_name') is not None:
+            self.holding_type_name = m.get('holding_type_name')
+        if m.get('holding_company') is not None:
+            self.holding_company = m.get('holding_company')
+        if m.get('certificate_number') is not None:
+            self.certificate_number = m.get('certificate_number')
+        if m.get('long_date') is not None:
+            self.long_date = m.get('long_date')
+        if m.get('expire_date') is not None:
+            self.expire_date = m.get('expire_date')
+        return self
+
+
 class ActivePayOrder(TeaModel):
     def __init__(
         self,
@@ -859,7 +1066,7 @@ class ApplicationInfo(TeaModel):
         merchant_service_desc: str = None,
         site_info: List[SiteInfo] = None,
     ):
-        # 应用场景
+        # 应用场景（payChannel =JDPAY仅支持MINI_APP）
         # MINI_APP 小程序
         # APP 自有app
         # ALL 两种都有
@@ -868,15 +1075,16 @@ class ApplicationInfo(TeaModel):
         self.tiny_app_id = tiny_app_id
         # 小程序名称
         self.site_name = site_name
-        # 网站地址
+        # 网站地址（pay_channel=ALIPAY必填）
         self.sit_url = sit_url
-        # 商户名称。
+        # 商户名称。（pay_channel=ALIPAY必填）
         # 修改后的商户名称，将同步支付宝代扣签约页面字段展示
+        # 
         self.merchant_name = merchant_name
-        # 商户服务名称。
+        # 商户服务名称。（pay_channel=ALIPAY必填）
         # 修改后的商户服务名称，将同步支付宝代扣签约页面字段展示
         self.merchant_service_name = merchant_service_name
-        # 商户服务描述。
+        # 商户服务描述。（pay_channel=ALIPAY必填）
         # 修改后的商户服务描述，将同步支付宝代扣签约页面字段展示
         self.merchant_service_desc = merchant_service_desc
         # 站点信息
@@ -886,10 +1094,6 @@ class ApplicationInfo(TeaModel):
         self.validate_required(self.application_scene, 'application_scene')
         self.validate_required(self.tiny_app_id, 'tiny_app_id')
         self.validate_required(self.site_name, 'site_name')
-        self.validate_required(self.sit_url, 'sit_url')
-        self.validate_required(self.merchant_name, 'merchant_name')
-        self.validate_required(self.merchant_service_name, 'merchant_service_name')
-        self.validate_required(self.merchant_service_desc, 'merchant_service_desc')
         if self.site_info:
             for k in self.site_info:
                 if k:
@@ -1073,15 +1277,31 @@ class LegalInfo(TeaModel):
         legal_cert_no: str = None,
         legal_cert_front_file: FileInfo = None,
         legal_cert_back_file: FileInfo = None,
+        legal_cert_expire_flag: bool = None,
+        legal_mobile: str = None,
+        legal_effect_date: str = None,
+        legal_expire_date: str = None,
     ):
         # 法人名称
         self.legal_name = legal_name
         # 法人证件号
         self.legal_cert_no = legal_cert_no
-        # 法人证件正面
+        # 法人证件正面（人像面）
         self.legal_cert_front_file = legal_cert_front_file
         # 法人证件反面
         self.legal_cert_back_file = legal_cert_back_file
+        # 法人证件是否长期有效（payChannel =JDPAY必填）
+        # true：长期，false：非长期
+        # 
+        self.legal_cert_expire_flag = legal_cert_expire_flag
+        # 法人手机号（payChannel =JDPAY必填）
+        self.legal_mobile = legal_mobile
+        # 证件有效期开始日期（payChannel =JDPAY必填）
+        # legalCertExpireFlag=false/true时都必填，时间格式:yyyy-MM-dd
+        self.legal_effect_date = legal_effect_date
+        # 证件有效期结束（payChannel =JDPAY选填）
+        # legalCertExpireFlag=false时必填，时间格式:yyyy-MM-dd
+        self.legal_expire_date = legal_expire_date
 
     def validate(self):
         self.validate_required(self.legal_name, 'legal_name')
@@ -1107,6 +1327,14 @@ class LegalInfo(TeaModel):
             result['legal_cert_front_file'] = self.legal_cert_front_file.to_map()
         if self.legal_cert_back_file is not None:
             result['legal_cert_back_file'] = self.legal_cert_back_file.to_map()
+        if self.legal_cert_expire_flag is not None:
+            result['legal_cert_expire_flag'] = self.legal_cert_expire_flag
+        if self.legal_mobile is not None:
+            result['legal_mobile'] = self.legal_mobile
+        if self.legal_effect_date is not None:
+            result['legal_effect_date'] = self.legal_effect_date
+        if self.legal_expire_date is not None:
+            result['legal_expire_date'] = self.legal_expire_date
         return result
 
     def from_map(self, m: dict = None):
@@ -1121,6 +1349,14 @@ class LegalInfo(TeaModel):
         if m.get('legal_cert_back_file') is not None:
             temp_model = FileInfo()
             self.legal_cert_back_file = temp_model.from_map(m['legal_cert_back_file'])
+        if m.get('legal_cert_expire_flag') is not None:
+            self.legal_cert_expire_flag = m.get('legal_cert_expire_flag')
+        if m.get('legal_mobile') is not None:
+            self.legal_mobile = m.get('legal_mobile')
+        if m.get('legal_effect_date') is not None:
+            self.legal_effect_date = m.get('legal_effect_date')
+        if m.get('legal_expire_date') is not None:
+            self.legal_expire_date = m.get('legal_expire_date')
         return self
 
 
@@ -2427,13 +2663,13 @@ class CreateAntchainAtoWithholdSignRequest(TeaModel):
         self.alipay_merchant_service_name = alipay_merchant_service_name
         # 支付宝商户服务描述，会展示在支付并签约界面
         self.alipay_merchant_service_description = alipay_merchant_service_description
-        # 支付宝uid，非必填
+        # 支付宝uid，非必填。paychannel=JDPAY此字段无需传入，paychannel=ALIPAY，当订单创建及合同创建未传入时，此字段必填。否则要求此字段与订单创建或合同创建传入的uid一致。
         self.alipay_user_id = alipay_user_id
-        # 签约完成后的跳转地址，注意只有在h5跳转场景下才有意义其他场景通过方法回调处理业务；无需使用此字段。
+        # paychannel=JDPAY时必传，商户跳转的数科h5签约业务地址。paychannel=ALIPAY，签约完成后的跳转地址，注意只有在h5跳转场景下才有意义其他场景通过方法回调处理业务；无需使用此字段。
         self.return_url = return_url
-        # 支付宝用户 open_id，非必填
+        # 支付宝用户 open_id，非必填。paychannel=JDPAY此字段无需传入，paychannel=ALIPAY，当订单创建及合同创建未传入 alipay_user_id 以及 user_open_id 时，代扣阶段必须选择传入有效的alipay_user_id 或者 user_open_id(二选一)。
         self.user_open_id = user_open_id
-        # 商户支付宝应用 id
+        # 商户支付宝应用 id。paychannel=JDPAY此字段无需传入，paychannel=ALIPAY，如果传入了 user_open_id，则此字段必传。
         self.merchant_app_id = merchant_app_id
 
     def validate(self):
@@ -2529,9 +2765,9 @@ class CreateAntchainAtoWithholdSignResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 签约字符串
+        # 签约字符串，当sign_str_type的值是H5_SIGN时，sign_str是h5签约地址，可以直接打开页面签约
         self.sign_str = sign_str
-        # 签约字符串类型。SIGN_ONLY:仅签约;PAY_SIGN:支付并签约
+        # 签约字符串类型。SIGN_ONLY:仅签约;PAY_SIGN:支付并签约;H5_SIGN h5签约
         self.sign_str_type = sign_str_type
 
     def validate(self):
@@ -3300,10 +3536,8 @@ class SubmitAntchainAtoFrontSignRequest(TeaModel):
         self.validate_required(self.merchant_name, 'merchant_name')
         if self.merchant_tag is not None:
             self.validate_max_length(self.merchant_tag, 'merchant_tag', 32)
-        self.validate_required(self.merchant_id_type, 'merchant_id_type')
         if self.merchant_id_type is not None:
             self.validate_max_length(self.merchant_id_type, 'merchant_id_type', 32)
-        self.validate_required(self.merchant_id_number, 'merchant_id_number')
         if self.user_open_id is not None:
             self.validate_max_length(self.user_open_id, 'user_open_id', 64)
         if self.merchant_app_id is not None:
@@ -8239,6 +8473,9 @@ class RegisterAntchainAtoMerchantexpandMerchantRequest(TeaModel):
         application_info: ApplicationInfo = None,
         expand_mode: str = None,
         sub_tenant_id: str = None,
+        merchant_holding_info: MerchantHoldingInfo = None,
+        merchant_settle_info: MerchantSettleInfo = None,
+        pay_channel: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -8253,6 +8490,14 @@ class RegisterAntchainAtoMerchantexpandMerchantRequest(TeaModel):
         self.expand_mode = expand_mode
         # expand_mode=_AGENT_ 必填
         self.sub_tenant_id = sub_tenant_id
+        # 京东商家控股信息
+        self.merchant_holding_info = merchant_holding_info
+        # 京东商家结算信息
+        self.merchant_settle_info = merchant_settle_info
+        # 支付渠道
+        # ALIPAY（默认）
+        # JDPAY
+        self.pay_channel = pay_channel
 
     def validate(self):
         self.validate_required(self.company_info, 'company_info')
@@ -8265,6 +8510,10 @@ class RegisterAntchainAtoMerchantexpandMerchantRequest(TeaModel):
         if self.application_info:
             self.application_info.validate()
         self.validate_required(self.expand_mode, 'expand_mode')
+        if self.merchant_holding_info:
+            self.merchant_holding_info.validate()
+        if self.merchant_settle_info:
+            self.merchant_settle_info.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -8286,6 +8535,12 @@ class RegisterAntchainAtoMerchantexpandMerchantRequest(TeaModel):
             result['expand_mode'] = self.expand_mode
         if self.sub_tenant_id is not None:
             result['sub_tenant_id'] = self.sub_tenant_id
+        if self.merchant_holding_info is not None:
+            result['merchant_holding_info'] = self.merchant_holding_info.to_map()
+        if self.merchant_settle_info is not None:
+            result['merchant_settle_info'] = self.merchant_settle_info.to_map()
+        if self.pay_channel is not None:
+            result['pay_channel'] = self.pay_channel
         return result
 
     def from_map(self, m: dict = None):
@@ -8307,6 +8562,14 @@ class RegisterAntchainAtoMerchantexpandMerchantRequest(TeaModel):
             self.expand_mode = m.get('expand_mode')
         if m.get('sub_tenant_id') is not None:
             self.sub_tenant_id = m.get('sub_tenant_id')
+        if m.get('merchant_holding_info') is not None:
+            temp_model = MerchantHoldingInfo()
+            self.merchant_holding_info = temp_model.from_map(m['merchant_holding_info'])
+        if m.get('merchant_settle_info') is not None:
+            temp_model = MerchantSettleInfo()
+            self.merchant_settle_info = temp_model.from_map(m['merchant_settle_info'])
+        if m.get('pay_channel') is not None:
+            self.pay_channel = m.get('pay_channel')
         return self
 
 
@@ -8514,6 +8777,7 @@ class QueryAntchainAtoMerchantexpandMerchantResponse(TeaModel):
         enrollment_status: str = None,
         fail_reason: str = None,
         pending_event_link: str = None,
+        sub_merchant_id: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -8532,6 +8796,8 @@ class QueryAntchainAtoMerchantexpandMerchantResponse(TeaModel):
         self.fail_reason = fail_reason
         # 商户进件流程待办事件跳转链接
         self.pending_event_link = pending_event_link
+        # 京东进件成功二级商户id
+        self.sub_merchant_id = sub_merchant_id
 
     def validate(self):
         pass
@@ -8554,6 +8820,8 @@ class QueryAntchainAtoMerchantexpandMerchantResponse(TeaModel):
             result['fail_reason'] = self.fail_reason
         if self.pending_event_link is not None:
             result['pending_event_link'] = self.pending_event_link
+        if self.sub_merchant_id is not None:
+            result['sub_merchant_id'] = self.sub_merchant_id
         return result
 
     def from_map(self, m: dict = None):
@@ -8570,6 +8838,8 @@ class QueryAntchainAtoMerchantexpandMerchantResponse(TeaModel):
             self.fail_reason = m.get('fail_reason')
         if m.get('pending_event_link') is not None:
             self.pending_event_link = m.get('pending_event_link')
+        if m.get('sub_merchant_id') is not None:
+            self.sub_merchant_id = m.get('sub_merchant_id')
         return self
 
 
