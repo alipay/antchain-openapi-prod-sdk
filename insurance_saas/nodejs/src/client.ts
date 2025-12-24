@@ -3042,15 +3042,16 @@ export class ReceiveLeadMarketResponse extends $tea.Model {
 export class GetMarketingInsureurlRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 调用方生成的唯一编码，参考格式： yyyyMMdd_xxxxx，已接口请求的当前日期开头；
+  // 请求 id，做防重校验逻辑
+  // 接口根据 requestId 做防重校验逻辑，若重复会报错
   requestId: string;
   // 产品编码
   productCode: string;
   // 保司编码
   channelCode: string;
-  // 保司出单机构编码
+  // 保司出单机构编码，若没有同保司编码
   issueOrg: string;
-  // 保司产品编码（保司提供）
+  // 保司产品编码
   channelProductCode: string;
   // 保险产品类型，枚举：
   // STANDARD（均分）
@@ -3059,9 +3060,9 @@ export class GetMarketingInsureurlRequest extends $tea.Model {
   channelProductType: string;
   // 保险方案
   insurancePlan: string;
-  // 一级渠道，固定值"antdigital"
+  // 一级渠道编码
   firstChannel: string;
-  // 二级渠道
+  // 二级渠道编码
   secondChannel?: string;
   // 三级渠道/广告版位
   advertisingPosition?: string;
@@ -3143,17 +3144,19 @@ export class GetMarketingInsureurlResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 请求id
+  // 请求 id
   requestId?: string;
-  // 一级渠道
+  // 一级渠道编码
   firstChannel?: string;
-  // 二级渠道
+  // 二级渠道编码
   secondChannel?: string;
+  // 三级渠道/广告版位
+  advertisingPosition?: string;
   // 订单号
   sceneOrderNo?: string;
   // 特征编码
   clickId?: string;
-  // 投保页面URL?bizOrigin={渠道参数}&bizContent={加密参数}
+  // 投保页面URL
   insureUrl?: string;
   static names(): { [key: string]: string } {
     return {
@@ -3163,6 +3166,7 @@ export class GetMarketingInsureurlResponse extends $tea.Model {
       requestId: 'request_id',
       firstChannel: 'first_channel',
       secondChannel: 'second_channel',
+      advertisingPosition: 'advertising_position',
       sceneOrderNo: 'scene_order_no',
       clickId: 'click_id',
       insureUrl: 'insure_url',
@@ -3177,6 +3181,7 @@ export class GetMarketingInsureurlResponse extends $tea.Model {
       requestId: 'string',
       firstChannel: 'string',
       secondChannel: 'string',
+      advertisingPosition: 'string',
       sceneOrderNo: 'string',
       clickId: 'string',
       insureUrl: 'string',
@@ -3191,7 +3196,9 @@ export class GetMarketingInsureurlResponse extends $tea.Model {
 export class CallbackMarketingEventRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 调用方生成的唯一编码
+  // 请求 id，做防重校验逻辑
+  // 接口根据 requestId 做防重校验逻辑，若重复会报错
+  // 
   requestId: string;
   // 特征编码
   clickId: string;
@@ -3205,7 +3212,7 @@ export class CallbackMarketingEventRequest extends $tea.Model {
   eventCode: string;
   // 事件完成时间（yyyy-MM-dd  HH:mm:ss）
   eventTime: string;
-  // 固定式，蚂蚁数科
+  // 一级渠道编码
   firstChannel: string;
   // 二级渠道编码
   secondChannel?: string;
@@ -3255,7 +3262,7 @@ export class CallbackMarketingEventResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 请求id
+  // 请求 id
   requestId?: string;
   static names(): { [key: string]: string } {
     return {
@@ -3283,7 +3290,8 @@ export class CallbackMarketingEventResponse extends $tea.Model {
 export class CallbackMarketingPolicycancelRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 请求 id
+  // 请求 id，做防重校验逻辑
+  // 接口根据 requestId 做防重校验逻辑，若重复会报错
   requestId: string;
   // 保单号（可脱敏处理）
   policyNo: string;
@@ -3323,7 +3331,7 @@ export class CallbackMarketingPolicycancelResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 请求id
+  // 请求 id
   requestId?: string;
   static names(): { [key: string]: string } {
     return {
@@ -3461,7 +3469,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.11.1",
+          sdk_version: "1.11.2",
           _prod_code: "INSURANCE_SAAS",
           _prod_channel: "undefined",
         };
@@ -4137,8 +4145,8 @@ export default class Client {
   }
 
   /**
-   * Description: 非标营销投保短链获取
-   * Summary: 非标营销投保短链获取
+   * Description: 营销投保短链获取
+   * Summary: 营销投保短链获取
    */
   async getMarketingInsureurl(request: GetMarketingInsureurlRequest): Promise<GetMarketingInsureurlResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -4147,8 +4155,8 @@ export default class Client {
   }
 
   /**
-   * Description: 非标营销投保短链获取
-   * Summary: 非标营销投保短链获取
+   * Description: 营销投保短链获取
+   * Summary: 营销投保短链获取
    */
   async getMarketingInsureurlEx(request: GetMarketingInsureurlRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetMarketingInsureurlResponse> {
     Util.validateModel(request);
@@ -4156,8 +4164,8 @@ export default class Client {
   }
 
   /**
-   * Description: 众安回传接口，获取保单信息保存。
-   * Summary: 非标营销保单信息事件回传；
+   * Description: 营销保单出单信息事件回传
+   * Summary: 营销保单出单信息事件回传
    */
   async callbackMarketingEvent(request: CallbackMarketingEventRequest): Promise<CallbackMarketingEventResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -4166,8 +4174,8 @@ export default class Client {
   }
 
   /**
-   * Description: 众安回传接口，获取保单信息保存。
-   * Summary: 非标营销保单信息事件回传；
+   * Description: 营销保单出单信息事件回传
+   * Summary: 营销保单出单信息事件回传
    */
   async callbackMarketingEventEx(request: CallbackMarketingEventRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CallbackMarketingEventResponse> {
     Util.validateModel(request);
@@ -4175,8 +4183,8 @@ export default class Client {
   }
 
   /**
-   * Description: 众安退保信息回传
-   * Summary: 非标营销退保事件回传；
+   * Description: 营销退保信息回传
+   * Summary: 营销退保事件回传
    */
   async callbackMarketingPolicycancel(request: CallbackMarketingPolicycancelRequest): Promise<CallbackMarketingPolicycancelResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -4185,8 +4193,8 @@ export default class Client {
   }
 
   /**
-   * Description: 众安退保信息回传
-   * Summary: 非标营销退保事件回传；
+   * Description: 营销退保信息回传
+   * Summary: 营销退保事件回传
    */
   async callbackMarketingPolicycancelEx(request: CallbackMarketingPolicycancelRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CallbackMarketingPolicycancelResponse> {
     Util.validateModel(request);
