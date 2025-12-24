@@ -111,12 +111,12 @@ namespace AntChain.SDK.ATO.Models
         // CRED_ORG_REGCODE：工商注册号，
         // 只支持这两个值
         [NameInMap("merchant_id_type")]
-        [Validation(Required=true, MaxLength=32)]
+        [Validation(Required=false, MaxLength=32)]
         public string MerchantIdType { get; set; }
 
         // 商户证件号，需要采用RSA加密传输
         [NameInMap("merchant_id_number")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string MerchantIdNumber { get; set; }
 
         // 法人姓名，需要RSA加密传输

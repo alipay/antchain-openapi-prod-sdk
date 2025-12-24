@@ -15,6 +15,26 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=true)]
         public FileInfo BusinessLicenseFile { get; set; }
 
+        // 证件是否长期有效  
+        // true：长期，false：非长期
+        // payChannel =JDPAY必填
+        [NameInMap("business_license_cert_expire_flag")]
+        [Validation(Required=false)]
+        public bool? BusinessLicenseCertExpireFlag { get; set; }
+
+        // 证件有效期开始日期(payChannel =JDPAY)
+        // 1.certExpireFlag=false时必填，时间格式:yyyy-MM-dd
+        // 2. 商户为企业个体户时，无论certExpireFlag是否长期，该字段均必填
+        [NameInMap("business_license_cert_effect_date")]
+        [Validation(Required=false)]
+        public string BusinessLicenseCertEffectDate { get; set; }
+
+        // 证件有效期结束日期（payChannel =JDPAY选填参数）
+        // certExpireFlag为false必填，时间格式：yyyy-MM-dd
+        [NameInMap("business_license_cert_expire_date")]
+        [Validation(Required=false)]
+        public string BusinessLicenseCertExpireDate { get; set; }
+
         // 业务类型 枚举
         [NameInMap("product_main_class")]
         [Validation(Required=true)]
@@ -66,20 +86,69 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=true)]
         public string ContactMobile { get; set; }
 
-        // 绑定企业支付宝账号
+        // 联系地址-省份code(payChannel =JDPAY必填)
+        [NameInMap("contact_address_province_code")]
+        [Validation(Required=false)]
+        public string ContactAddressProvinceCode { get; set; }
+
+        // 联系地址-省份名称（payChannel =JDPAY必填）
+        [NameInMap("contact_address_province_name")]
+        [Validation(Required=false)]
+        public string ContactAddressProvinceName { get; set; }
+
+        // 联系地址-市code（payChannel =JDPAY必填）
+        // 
+        [NameInMap("contact_address_city_code")]
+        [Validation(Required=false)]
+        public string ContactAddressCityCode { get; set; }
+
+        // 联系人地址-市名称（payChannel =JDPAY必填）
+        [NameInMap("contact_address_city_name")]
+        [Validation(Required=false)]
+        public string ContactAddressCityName { get; set; }
+
+        // 联系人详细地址（payChannel =JDPAY必填）
+        [NameInMap("contact_address_detail")]
+        [Validation(Required=false)]
+        public string ContactAddressDetail { get; set; }
+
+        // 联系人邮箱（pay_channel=JDPAY必填）
+        [NameInMap("contact_email")]
+        [Validation(Required=false)]
+        public string ContactEmail { get; set; }
+
+        // 绑定企业支付宝账号（pay_channel=ALIPAY必填）
         [NameInMap("bind_alipay_no")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string BindAlipayNo { get; set; }
 
-        // 结算企业支付宝账号
+        // 结算企业支付宝账号（pay_channel=ALIPAY必填）
         [NameInMap("settle_alipay_no")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string SettleAlipayNo { get; set; }
 
-        // 绑定支付宝uid
+        // 绑定支付宝uid（pay_channel=ALIPAY必填）
         [NameInMap("bind_alipay_uid")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string BindAlipayUid { get; set; }
+
+        // 经营范围
+        // payChannel =JDPAY必填
+        [NameInMap("business_scope")]
+        [Validation(Required=false)]
+        public string BusinessScope { get; set; }
+
+        // 开户许可证（payChannel =JDPAY必填）
+        // 
+        [NameInMap("bank_opening_license_file")]
+        [Validation(Required=false)]
+        public FileInfo BankOpeningLicenseFile { get; set; }
+
+        // 商户和租赁平台合作协议图片（pay_channel=JDPAY必填）
+        // 
+        [NameInMap("cooperation_agreement_file")]
+        [Validation(Required=false)]
+        public FileInfo CooperationAgreementFile { get; set; }
 
     }
 

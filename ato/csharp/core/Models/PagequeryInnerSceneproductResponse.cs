@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.ATO.Models
 {
-    public class CreateWithholdSignResponse : TeaModel {
+    public class PagequeryInnerSceneproductResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,15 +24,20 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 签约字符串，当sign_str_type的值是H5_SIGN时，sign_str是h5签约地址，可以直接打开页面签约
-        [NameInMap("sign_str")]
+        // 总条数
+        [NameInMap("total_count")]
         [Validation(Required=false)]
-        public string SignStr { get; set; }
+        public long? TotalCount { get; set; }
 
-        // 签约字符串类型。SIGN_ONLY:仅签约;PAY_SIGN:支付并签约;H5_SIGN h5签约
-        [NameInMap("sign_str_type")]
+        // 场景添加商品数
+        [NameInMap("added_scene_product_count")]
         [Validation(Required=false)]
-        public string SignStrType { get; set; }
+        public long? AddedSceneProductCount { get; set; }
+
+        // 场景产品列表
+        [NameInMap("scene_product_info_list")]
+        [Validation(Required=false)]
+        public List<SceneProductInfoResp> SceneProductInfoList { get; set; }
 
     }
 

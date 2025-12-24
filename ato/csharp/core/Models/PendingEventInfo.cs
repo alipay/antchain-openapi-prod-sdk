@@ -43,6 +43,16 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string EffectiveEndTime { get; set; }
 
+        // 待办类型
+        [NameInMap("content_type")]
+        [Validation(Required=false)]
+        public string ContentType { get; set; }
+
+        // 待办详情，根据content_type可能为下载链接或者富文本
+        [NameInMap("content_details")]
+        [Validation(Required=false)]
+        public string ContentDetails { get; set; }
+
     }
 
 }

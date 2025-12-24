@@ -43,6 +43,23 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string SubTenantId { get; set; }
 
+        // 京东商家控股信息
+        [NameInMap("merchant_holding_info")]
+        [Validation(Required=false)]
+        public MerchantHoldingInfo MerchantHoldingInfo { get; set; }
+
+        // 京东商家结算信息
+        [NameInMap("merchant_settle_info")]
+        [Validation(Required=false)]
+        public MerchantSettleInfo MerchantSettleInfo { get; set; }
+
+        // 支付渠道
+        // ALIPAY（默认）
+        // JDPAY
+        [NameInMap("pay_channel")]
+        [Validation(Required=false)]
+        public string PayChannel { get; set; }
+
     }
 
 }

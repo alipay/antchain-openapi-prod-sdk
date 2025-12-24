@@ -24,14 +24,14 @@ namespace AntChain.SDK.ATO.Models
         public string SubjectMerchantId { get; set; }
 
         // 分账方租户8位id
-        [NameInMap("devide_tenant_id")]
+        [NameInMap("divide_tenant_id")]
         [Validation(Required=true)]
-        public string DevideTenantId { get; set; }
+        public string DivideTenantId { get; set; }
 
         // 分账公司社会信用代码
-        [NameInMap("devide_merchant_id")]
+        [NameInMap("divide_merchant_id")]
         [Validation(Required=true)]
-        public string DevideMerchantId { get; set; }
+        public string DivideMerchantId { get; set; }
 
         // 分账合同或协议
         [NameInMap("contract_files")]
@@ -42,6 +42,16 @@ namespace AntChain.SDK.ATO.Models
         [NameInMap("desc")]
         [Validation(Required=false)]
         public string Desc { get; set; }
+
+        // 关系id
+        [NameInMap("relation_id")]
+        [Validation(Required=false)]
+        public string RelationId { get; set; }
+
+        // 进件模式：DIRECT（直连进件），AGENT（代理进件）
+        [NameInMap("expand_mode")]
+        [Validation(Required=false)]
+        public string ExpandMode { get; set; }
 
     }
 

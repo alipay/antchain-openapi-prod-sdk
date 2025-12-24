@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.ATO.Models
 {
-    public class CreateWithholdSignResponse : TeaModel {
+    public class QueryInnerFundmngguaranteeinfoResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,15 +24,20 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 签约字符串，当sign_str_type的值是H5_SIGN时，sign_str是h5签约地址，可以直接打开页面签约
-        [NameInMap("sign_str")]
+        // 租户角色
+        // ROLE_MERCHANT(0, "商户"),
+        // ROLE_FINANCIER(1, "资金方"),
+        // ROLE_MIX(2, "商户资金方"),
+        // DATA_PROVIDER(3, "数据提供者"),
+        // ROLE_GUARANTOR(4, "担保方"),;
+        [NameInMap("tenant_role")]
         [Validation(Required=false)]
-        public string SignStr { get; set; }
+        public long? TenantRole { get; set; }
 
-        // 签约字符串类型。SIGN_ONLY:仅签约;PAY_SIGN:支付并签约;H5_SIGN h5签约
-        [NameInMap("sign_str_type")]
+        // 担保信息
+        [NameInMap("guarantee_info")]
         [Validation(Required=false)]
-        public string SignStrType { get; set; }
+        public string GuaranteeInfo { get; set; }
 
     }
 
