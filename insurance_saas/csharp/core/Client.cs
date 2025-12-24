@@ -137,7 +137,7 @@ namespace AntChain.SDK.INSURANCE_SAAS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.11.1"},
+                        {"sdk_version", "1.11.2"},
                         {"_prod_code", "INSURANCE_SAAS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.INSURANCE_SAAS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.11.1"},
+                        {"sdk_version", "1.11.2"},
                         {"_prod_code", "INSURANCE_SAAS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1708,8 +1708,8 @@ namespace AntChain.SDK.INSURANCE_SAAS
         }
 
         /**
-         * Description: 非标营销投保短链获取
-         * Summary: 非标营销投保短链获取
+         * Description: 营销投保短链获取
+         * Summary: 营销投保短链获取
          */
         public GetMarketingInsureurlResponse GetMarketingInsureurl(GetMarketingInsureurlRequest request)
         {
@@ -1719,8 +1719,8 @@ namespace AntChain.SDK.INSURANCE_SAAS
         }
 
         /**
-         * Description: 非标营销投保短链获取
-         * Summary: 非标营销投保短链获取
+         * Description: 营销投保短链获取
+         * Summary: 营销投保短链获取
          */
         public async Task<GetMarketingInsureurlResponse> GetMarketingInsureurlAsync(GetMarketingInsureurlRequest request)
         {
@@ -1730,8 +1730,8 @@ namespace AntChain.SDK.INSURANCE_SAAS
         }
 
         /**
-         * Description: 非标营销投保短链获取
-         * Summary: 非标营销投保短链获取
+         * Description: 营销投保短链获取
+         * Summary: 营销投保短链获取
          */
         public GetMarketingInsureurlResponse GetMarketingInsureurlEx(GetMarketingInsureurlRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -1740,8 +1740,8 @@ namespace AntChain.SDK.INSURANCE_SAAS
         }
 
         /**
-         * Description: 非标营销投保短链获取
-         * Summary: 非标营销投保短链获取
+         * Description: 营销投保短链获取
+         * Summary: 营销投保短链获取
          */
         public async Task<GetMarketingInsureurlResponse> GetMarketingInsureurlExAsync(GetMarketingInsureurlRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -1750,8 +1750,8 @@ namespace AntChain.SDK.INSURANCE_SAAS
         }
 
         /**
-         * Description: 众安回传接口，获取保单信息保存。
-         * Summary: 非标营销保单信息事件回传；
+         * Description: 营销保单出单信息事件回传
+         * Summary: 营销保单出单信息事件回传
          */
         public CallbackMarketingEventResponse CallbackMarketingEvent(CallbackMarketingEventRequest request)
         {
@@ -1761,8 +1761,8 @@ namespace AntChain.SDK.INSURANCE_SAAS
         }
 
         /**
-         * Description: 众安回传接口，获取保单信息保存。
-         * Summary: 非标营销保单信息事件回传；
+         * Description: 营销保单出单信息事件回传
+         * Summary: 营销保单出单信息事件回传
          */
         public async Task<CallbackMarketingEventResponse> CallbackMarketingEventAsync(CallbackMarketingEventRequest request)
         {
@@ -1772,8 +1772,8 @@ namespace AntChain.SDK.INSURANCE_SAAS
         }
 
         /**
-         * Description: 众安回传接口，获取保单信息保存。
-         * Summary: 非标营销保单信息事件回传；
+         * Description: 营销保单出单信息事件回传
+         * Summary: 营销保单出单信息事件回传
          */
         public CallbackMarketingEventResponse CallbackMarketingEventEx(CallbackMarketingEventRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -1782,8 +1782,8 @@ namespace AntChain.SDK.INSURANCE_SAAS
         }
 
         /**
-         * Description: 众安回传接口，获取保单信息保存。
-         * Summary: 非标营销保单信息事件回传；
+         * Description: 营销保单出单信息事件回传
+         * Summary: 营销保单出单信息事件回传
          */
         public async Task<CallbackMarketingEventResponse> CallbackMarketingEventExAsync(CallbackMarketingEventRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -1792,8 +1792,8 @@ namespace AntChain.SDK.INSURANCE_SAAS
         }
 
         /**
-         * Description: 众安退保信息回传
-         * Summary: 非标营销退保事件回传；
+         * Description: 营销退保信息回传
+         * Summary: 营销退保事件回传
          */
         public CallbackMarketingPolicycancelResponse CallbackMarketingPolicycancel(CallbackMarketingPolicycancelRequest request)
         {
@@ -1803,8 +1803,8 @@ namespace AntChain.SDK.INSURANCE_SAAS
         }
 
         /**
-         * Description: 众安退保信息回传
-         * Summary: 非标营销退保事件回传；
+         * Description: 营销退保信息回传
+         * Summary: 营销退保事件回传
          */
         public async Task<CallbackMarketingPolicycancelResponse> CallbackMarketingPolicycancelAsync(CallbackMarketingPolicycancelRequest request)
         {
@@ -1814,8 +1814,8 @@ namespace AntChain.SDK.INSURANCE_SAAS
         }
 
         /**
-         * Description: 众安退保信息回传
-         * Summary: 非标营销退保事件回传；
+         * Description: 营销退保信息回传
+         * Summary: 营销退保事件回传
          */
         public CallbackMarketingPolicycancelResponse CallbackMarketingPolicycancelEx(CallbackMarketingPolicycancelRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -1824,8 +1824,8 @@ namespace AntChain.SDK.INSURANCE_SAAS
         }
 
         /**
-         * Description: 众安退保信息回传
-         * Summary: 非标营销退保事件回传；
+         * Description: 营销退保信息回传
+         * Summary: 营销退保事件回传
          */
         public async Task<CallbackMarketingPolicycancelResponse> CallbackMarketingPolicycancelExAsync(CallbackMarketingPolicycancelRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {

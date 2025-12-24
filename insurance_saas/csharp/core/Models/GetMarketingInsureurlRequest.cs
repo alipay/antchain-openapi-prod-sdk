@@ -14,7 +14,8 @@ namespace AntChain.SDK.INSURANCE_SAAS.Models
         [Validation(Required=false)]
         public string AuthToken { get; set; }
 
-        // 调用方生成的唯一编码，参考格式： yyyyMMdd_xxxxx，已接口请求的当前日期开头；
+        // 请求 id，做防重校验逻辑
+        // 接口根据 requestId 做防重校验逻辑，若重复会报错
         [NameInMap("request_id")]
         [Validation(Required=true, MaxLength=128)]
         public string RequestId { get; set; }
@@ -29,12 +30,12 @@ namespace AntChain.SDK.INSURANCE_SAAS.Models
         [Validation(Required=true, MaxLength=64)]
         public string ChannelCode { get; set; }
 
-        // 保司出单机构编码
+        // 保司出单机构编码，若没有同保司编码
         [NameInMap("issue_org")]
         [Validation(Required=true, MaxLength=64)]
         public string IssueOrg { get; set; }
 
-        // 保司产品编码（保司提供）
+        // 保司产品编码
         [NameInMap("channel_product_code")]
         [Validation(Required=true, MaxLength=64)]
         public string ChannelProductCode { get; set; }
@@ -52,12 +53,12 @@ namespace AntChain.SDK.INSURANCE_SAAS.Models
         [Validation(Required=true, MaxLength=20)]
         public string InsurancePlan { get; set; }
 
-        // 一级渠道，固定值"antdigital"
+        // 一级渠道编码
         [NameInMap("first_channel")]
         [Validation(Required=true, MaxLength=64)]
         public string FirstChannel { get; set; }
 
-        // 二级渠道
+        // 二级渠道编码
         [NameInMap("second_channel")]
         [Validation(Required=false, MaxLength=64)]
         public string SecondChannel { get; set; }

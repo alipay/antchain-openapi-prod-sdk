@@ -14,7 +14,9 @@ namespace AntChain.SDK.INSURANCE_SAAS.Models
         [Validation(Required=false)]
         public string AuthToken { get; set; }
 
-        // 调用方生成的唯一编码
+        // 请求 id，做防重校验逻辑
+        // 接口根据 requestId 做防重校验逻辑，若重复会报错
+        // 
         [NameInMap("request_id")]
         [Validation(Required=true, MaxLength=128)]
         public string RequestId { get; set; }
@@ -43,7 +45,7 @@ namespace AntChain.SDK.INSURANCE_SAAS.Models
         [Validation(Required=true, MaxLength=20)]
         public string EventTime { get; set; }
 
-        // 固定式，蚂蚁数科
+        // 一级渠道编码
         [NameInMap("first_channel")]
         [Validation(Required=true, MaxLength=64)]
         public string FirstChannel { get; set; }

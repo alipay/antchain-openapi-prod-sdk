@@ -24,20 +24,25 @@ namespace AntChain.SDK.INSURANCE_SAAS.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 请求id
+        // 请求 id
         [NameInMap("request_id")]
         [Validation(Required=false)]
         public string RequestId { get; set; }
 
-        // 一级渠道
+        // 一级渠道编码
         [NameInMap("first_channel")]
         [Validation(Required=false)]
         public string FirstChannel { get; set; }
 
-        // 二级渠道
+        // 二级渠道编码
         [NameInMap("second_channel")]
         [Validation(Required=false)]
         public string SecondChannel { get; set; }
+
+        // 三级渠道/广告版位
+        [NameInMap("advertising_position")]
+        [Validation(Required=false)]
+        public string AdvertisingPosition { get; set; }
 
         // 订单号
         [NameInMap("scene_order_no")]
@@ -49,7 +54,7 @@ namespace AntChain.SDK.INSURANCE_SAAS.Models
         [Validation(Required=false)]
         public string ClickId { get; set; }
 
-        // 投保页面URL?bizOrigin={渠道参数}&bizContent={加密参数}
+        // 投保页面URL
         [NameInMap("insure_url")]
         [Validation(Required=false)]
         public string InsureUrl { get; set; }
