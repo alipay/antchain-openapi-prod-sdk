@@ -16,7 +16,20 @@ public class PagequeryInnerFundmngfinanceorderRequest extends TeaModel {
     @Validation(required = true)
     public String fundTenantId;
 
-    // 订单id
+    // 租户角色
+    // ROLE_MERCHANT(0, "商户"),
+    // ROLE_FINANCIER(1, "资金方"),
+    // ROLE_MIX(2, "商户资金方"),
+    // DATA_PROVIDER(3, "数据提供者"),
+    // ROLE_GUARANTOR(4, "担保方"),;
+    @NameInMap("tenant_role")
+    public Long tenantRole;
+
+    // 资方社会统一信用代码，多个逗号分隔
+    @NameInMap("fund_id")
+    public String fundId;
+
+    // 订单id,多个逗号分隔
     @NameInMap("order_id")
     public String orderId;
 
@@ -32,7 +45,7 @@ public class PagequeryInnerFundmngfinanceorderRequest extends TeaModel {
     @NameInMap("merchant_name")
     public String merchantName;
 
-    // 商家社会统一信用代码
+    // 商家社会统一信用代码，多个逗号分隔
     @NameInMap("merchant_id")
     public String merchantId;
 
@@ -101,6 +114,22 @@ public class PagequeryInnerFundmngfinanceorderRequest extends TeaModel {
     }
     public String getFundTenantId() {
         return this.fundTenantId;
+    }
+
+    public PagequeryInnerFundmngfinanceorderRequest setTenantRole(Long tenantRole) {
+        this.tenantRole = tenantRole;
+        return this;
+    }
+    public Long getTenantRole() {
+        return this.tenantRole;
+    }
+
+    public PagequeryInnerFundmngfinanceorderRequest setFundId(String fundId) {
+        this.fundId = fundId;
+        return this;
+    }
+    public String getFundId() {
+        return this.fundId;
     }
 
     public PagequeryInnerFundmngfinanceorderRequest setOrderId(String orderId) {

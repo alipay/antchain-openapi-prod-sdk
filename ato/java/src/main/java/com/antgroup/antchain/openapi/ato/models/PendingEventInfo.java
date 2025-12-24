@@ -55,6 +55,22 @@ public class PendingEventInfo extends TeaModel {
     @NameInMap("effective_end_time")
     public String effectiveEndTime;
 
+    // 待办类型
+    /**
+     * <strong>example:</strong>
+     * <p>text</p>
+     */
+    @NameInMap("content_type")
+    public String contentType;
+
+    // 待办详情，根据content_type可能为下载链接或者富文本
+    /**
+     * <strong>example:</strong>
+     * <p><a href="http://123.docx">http://123.docx</a></p>
+     */
+    @NameInMap("content_details")
+    public String contentDetails;
+
     public static PendingEventInfo build(java.util.Map<String, ?> map) throws Exception {
         PendingEventInfo self = new PendingEventInfo();
         return TeaModel.build(map, self);
@@ -106,6 +122,22 @@ public class PendingEventInfo extends TeaModel {
     }
     public String getEffectiveEndTime() {
         return this.effectiveEndTime;
+    }
+
+    public PendingEventInfo setContentType(String contentType) {
+        this.contentType = contentType;
+        return this;
+    }
+    public String getContentType() {
+        return this.contentType;
+    }
+
+    public PendingEventInfo setContentDetails(String contentDetails) {
+        this.contentDetails = contentDetails;
+        return this;
+    }
+    public String getContentDetails() {
+        return this.contentDetails;
     }
 
 }

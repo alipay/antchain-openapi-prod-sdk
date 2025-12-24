@@ -4,7 +4,7 @@ package com.antgroup.antchain.openapi.ato.models;
 import com.aliyun.tea.*;
 
 public class ApplicationInfo extends TeaModel {
-    // 应用场景
+    // 应用场景（payChannel =JDPAY仅支持MINI_APP）
     // MINI_APP 小程序
     // APP 自有app
     // ALL 两种都有
@@ -34,43 +34,40 @@ public class ApplicationInfo extends TeaModel {
     @Validation(required = true)
     public String siteName;
 
-    // 网站地址
+    // 网站地址（pay_channel=ALIPAY必填）
     /**
      * <strong>example:</strong>
      * <p><a href="http://asdasas.com">http://asdasas.com</a></p>
      */
     @NameInMap("sit_url")
-    @Validation(required = true)
     public String sitUrl;
 
-    // 商户名称。
+    // 商户名称。（pay_channel=ALIPAY必填）
     // 修改后的商户名称，将同步支付宝代扣签约页面字段展示
+    // 
     /**
      * <strong>example:</strong>
      * <p>xx商户</p>
      */
     @NameInMap("merchant_name")
-    @Validation(required = true)
     public String merchantName;
 
-    // 商户服务名称。
+    // 商户服务名称。（pay_channel=ALIPAY必填）
     // 修改后的商户服务名称，将同步支付宝代扣签约页面字段展示
     /**
      * <strong>example:</strong>
      * <p>xx商户服务</p>
      */
     @NameInMap("merchant_service_name")
-    @Validation(required = true)
     public String merchantServiceName;
 
-    // 商户服务描述。
+    // 商户服务描述。（pay_channel=ALIPAY必填）
     // 修改后的商户服务描述，将同步支付宝代扣签约页面字段展示
     /**
      * <strong>example:</strong>
      * <p>xx服务描述</p>
      */
     @NameInMap("merchant_service_desc")
-    @Validation(required = true)
     public String merchantServiceDesc;
 
     // 站点信息

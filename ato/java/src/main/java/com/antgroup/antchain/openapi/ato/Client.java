@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.16.35"),
+                    new TeaPair("sdk_version", "1.16.66"),
                     new TeaPair("_prod_code", "ATO"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -211,8 +211,8 @@ public class Client {
 
     /**
      * <b>description</b> :
-     * <p>Description: 京东分账关系绑定
-     * Summary: 京东分账关系绑定</p>
+     * <p>Description: 京东分账关系绑定创建/更新
+     * Summary: 京东分账关系绑定创建/更新</p>
      */
     public CreateJdFunddividerelationResponse createJdFunddividerelation(CreateJdFunddividerelationRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -222,12 +222,33 @@ public class Client {
 
     /**
      * <b>description</b> :
-     * <p>Description: 京东分账关系绑定
-     * Summary: 京东分账关系绑定</p>
+     * <p>Description: 京东分账关系绑定创建/更新
+     * Summary: 京东分账关系绑定创建/更新</p>
      */
     public CreateJdFunddividerelationResponse createJdFunddividerelationEx(CreateJdFunddividerelationRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.jd.funddividerelation.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateJdFunddividerelationResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询京东支付分账关系绑定状态
+     * Summary: 查询京东支付分账关系绑定状态</p>
+     */
+    public QueryJdFunddividerelationResponse queryJdFunddividerelation(QueryJdFunddividerelationRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryJdFunddividerelationEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询京东支付分账关系绑定状态
+     * Summary: 查询京东支付分账关系绑定状态</p>
+     */
+    public QueryJdFunddividerelationResponse queryJdFunddividerelationEx(QueryJdFunddividerelationRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.jd.funddividerelation.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryJdFunddividerelationResponse());
     }
 
     /**
@@ -713,6 +734,27 @@ public class Client {
     public PagequeryInnerFundmngpendingeventResponse pagequeryInnerFundmngpendingeventEx(PagequeryInnerFundmngpendingeventRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.fundmngpendingevent.pagequery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PagequeryInnerFundmngpendingeventResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询担保方信息
+     * Summary: 查询担保方信息</p>
+     */
+    public QueryInnerFundmngguaranteeinfoResponse queryInnerFundmngguaranteeinfo(QueryInnerFundmngguaranteeinfoRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryInnerFundmngguaranteeinfoEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询担保方信息
+     * Summary: 查询担保方信息</p>
+     */
+    public QueryInnerFundmngguaranteeinfoResponse queryInnerFundmngguaranteeinfoEx(QueryInnerFundmngguaranteeinfoRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.fundmngguaranteeinfo.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryInnerFundmngguaranteeinfoResponse());
     }
 
     /**
@@ -4191,6 +4233,300 @@ public class Client {
     public ConfirmInnerAuthagreementResponse confirmInnerAuthagreementEx(ConfirmInnerAuthagreementRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.authagreement.confirm", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ConfirmInnerAuthagreementResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 随时享-服务商平台场景分页列表
+     * Summary: 随时享-服务商平台场景分页列表</p>
+     */
+    public PagequeryInnerSceneproductResponse pagequeryInnerSceneproduct(PagequeryInnerSceneproductRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pagequeryInnerSceneproductEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 随时享-服务商平台场景分页列表
+     * Summary: 随时享-服务商平台场景分页列表</p>
+     */
+    public PagequeryInnerSceneproductResponse pagequeryInnerSceneproductEx(PagequeryInnerSceneproductRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.sceneproduct.pagequery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PagequeryInnerSceneproductResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 随时享-服务商平台场景商品详情
+     * Summary: 随时享-服务商平台场景商品详情</p>
+     */
+    public DetailInnerSceneproductResponse detailInnerSceneproduct(DetailInnerSceneproductRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.detailInnerSceneproductEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 随时享-服务商平台场景商品详情
+     * Summary: 随时享-服务商平台场景商品详情</p>
+     */
+    public DetailInnerSceneproductResponse detailInnerSceneproductEx(DetailInnerSceneproductRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.sceneproduct.detail", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DetailInnerSceneproductResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 随时享-服务商平台场景商品批量添加
+     * Summary: 随时享-服务商平台场景商品批量添加</p>
+     */
+    public BatchcreateInnerSceneproductResponse batchcreateInnerSceneproduct(BatchcreateInnerSceneproductRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.batchcreateInnerSceneproductEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 随时享-服务商平台场景商品批量添加
+     * Summary: 随时享-服务商平台场景商品批量添加</p>
+     */
+    public BatchcreateInnerSceneproductResponse batchcreateInnerSceneproductEx(BatchcreateInnerSceneproductRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.sceneproduct.batchcreate", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BatchcreateInnerSceneproductResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 随时享-服务商平台场景商品移除
+     * Summary: 随时享-服务商平台场景商品移除</p>
+     */
+    public DeleteInnerSceneproductResponse deleteInnerSceneproduct(DeleteInnerSceneproductRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.deleteInnerSceneproductEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 随时享-服务商平台场景商品移除
+     * Summary: 随时享-服务商平台场景商品移除</p>
+     */
+    public DeleteInnerSceneproductResponse deleteInnerSceneproductEx(DeleteInnerSceneproductRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.sceneproduct.delete", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DeleteInnerSceneproductResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 随时享-服务商平台场景商品适用商家列表
+     * Summary: 随时享-服务商平台场景商品适用商家列表</p>
+     */
+    public ListInnerSceneproductmerchantResponse listInnerSceneproductmerchant(ListInnerSceneproductmerchantRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.listInnerSceneproductmerchantEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 随时享-服务商平台场景商品适用商家列表
+     * Summary: 随时享-服务商平台场景商品适用商家列表</p>
+     */
+    public ListInnerSceneproductmerchantResponse listInnerSceneproductmerchantEx(ListInnerSceneproductmerchantRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.sceneproductmerchant.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListInnerSceneproductmerchantResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 随时享-服务商平台场景商品适用商家编辑
+     * Summary: 随时享-服务商平台场景商品适用商家编辑</p>
+     */
+    public OperateInnerSceneproductmerchantResponse operateInnerSceneproductmerchant(OperateInnerSceneproductmerchantRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.operateInnerSceneproductmerchantEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 随时享-服务商平台场景商品适用商家编辑
+     * Summary: 随时享-服务商平台场景商品适用商家编辑</p>
+     */
+    public OperateInnerSceneproductmerchantResponse operateInnerSceneproductmerchantEx(OperateInnerSceneproductmerchantRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.sceneproductmerchant.operate", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new OperateInnerSceneproductmerchantResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 随时享-服务商平台场景商品上下架
+     * Summary: 随时享-服务商平台场景商品上下架</p>
+     */
+    public OnlineInnerSceneproductResponse onlineInnerSceneproduct(OnlineInnerSceneproductRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.onlineInnerSceneproductEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 随时享-服务商平台场景商品上下架
+     * Summary: 随时享-服务商平台场景商品上下架</p>
+     */
+    public OnlineInnerSceneproductResponse onlineInnerSceneproductEx(OnlineInnerSceneproductRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.sceneproduct.online", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new OnlineInnerSceneproductResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 用户线索跟进中分页查询平台订单、派发和备注信息
+     * Summary: 随时享-服务商平台用户线索跟进</p>
+     */
+    public PagequeryInnerPlatformorderleadResponse pagequeryInnerPlatformorderlead(PagequeryInnerPlatformorderleadRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pagequeryInnerPlatformorderleadEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 用户线索跟进中分页查询平台订单、派发和备注信息
+     * Summary: 随时享-服务商平台用户线索跟进</p>
+     */
+    public PagequeryInnerPlatformorderleadResponse pagequeryInnerPlatformorderleadEx(PagequeryInnerPlatformorderleadRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.platformorderlead.pagequery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PagequeryInnerPlatformorderleadResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 平台订单用户线索备注保存
+     * Summary: 随时享-服务商平台用户线索跟进备注保存</p>
+     */
+    public SaveInnerPlatformorderleadResponse saveInnerPlatformorderlead(SaveInnerPlatformorderleadRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.saveInnerPlatformorderleadEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 平台订单用户线索备注保存
+     * Summary: 随时享-服务商平台用户线索跟进备注保存</p>
+     */
+    public SaveInnerPlatformorderleadResponse saveInnerPlatformorderleadEx(SaveInnerPlatformorderleadRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.platformorderlead.save", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SaveInnerPlatformorderleadResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 随时享-服务商平台-营销场景创建
+     * Summary: 营销场景创建</p>
+     */
+    public CreateInnerPromotionsceneResponse createInnerPromotionscene(CreateInnerPromotionsceneRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createInnerPromotionsceneEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 随时享-服务商平台-营销场景创建
+     * Summary: 营销场景创建</p>
+     */
+    public CreateInnerPromotionsceneResponse createInnerPromotionsceneEx(CreateInnerPromotionsceneRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.promotionscene.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateInnerPromotionsceneResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 随时享-服务商平台-营销场景分页查询
+     * Summary: 营销场景分页查询</p>
+     */
+    public PagequeryInnerPromotionsceneResponse pagequeryInnerPromotionscene(PagequeryInnerPromotionsceneRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pagequeryInnerPromotionsceneEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 随时享-服务商平台-营销场景分页查询
+     * Summary: 营销场景分页查询</p>
+     */
+    public PagequeryInnerPromotionsceneResponse pagequeryInnerPromotionsceneEx(PagequeryInnerPromotionsceneRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.promotionscene.pagequery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PagequeryInnerPromotionsceneResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 随时享-服务商平台-营销场景更新
+     * Summary: 营销场景更新</p>
+     */
+    public UpdateInnerPromotionsceneResponse updateInnerPromotionscene(UpdateInnerPromotionsceneRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateInnerPromotionsceneEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 随时享-服务商平台-营销场景更新
+     * Summary: 营销场景更新</p>
+     */
+    public UpdateInnerPromotionsceneResponse updateInnerPromotionsceneEx(UpdateInnerPromotionsceneRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.promotionscene.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateInnerPromotionsceneResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 随时享-服务商平台-营销场景删除
+     * Summary: 营销场景删除</p>
+     */
+    public DeleteInnerPromotionsceneResponse deleteInnerPromotionscene(DeleteInnerPromotionsceneRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.deleteInnerPromotionsceneEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 随时享-服务商平台-营销场景删除
+     * Summary: 营销场景删除</p>
+     */
+    public DeleteInnerPromotionsceneResponse deleteInnerPromotionsceneEx(DeleteInnerPromotionsceneRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.promotionscene.delete", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DeleteInnerPromotionsceneResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 平台订单用户线索备注删除
+     * Summary: 随时享-服务商平台用户线索跟进删除备注</p>
+     */
+    public DeleteInnerPlatformorderleadResponse deleteInnerPlatformorderlead(DeleteInnerPlatformorderleadRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.deleteInnerPlatformorderleadEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 平台订单用户线索备注删除
+     * Summary: 随时享-服务商平台用户线索跟进删除备注</p>
+     */
+    public DeleteInnerPlatformorderleadResponse deleteInnerPlatformorderleadEx(DeleteInnerPlatformorderleadRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.platformorderlead.delete", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DeleteInnerPlatformorderleadResponse());
     }
 
     /**

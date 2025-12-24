@@ -17,14 +17,14 @@ public class CreateJdFunddividerelationRequest extends TeaModel {
     public String subjectMerchantId;
 
     // 分账方租户8位id
-    @NameInMap("devide_tenant_id")
+    @NameInMap("divide_tenant_id")
     @Validation(required = true)
-    public String devideTenantId;
+    public String divideTenantId;
 
     // 分账公司社会信用代码
-    @NameInMap("devide_merchant_id")
+    @NameInMap("divide_merchant_id")
     @Validation(required = true)
-    public String devideMerchantId;
+    public String divideMerchantId;
 
     // 分账合同或协议
     @NameInMap("contract_files")
@@ -33,6 +33,14 @@ public class CreateJdFunddividerelationRequest extends TeaModel {
     // 分账关系说明
     @NameInMap("desc")
     public String desc;
+
+    // 关系id
+    @NameInMap("relation_id")
+    public String relationId;
+
+    // 进件模式：DIRECT（直连进件），AGENT（代理进件）
+    @NameInMap("expand_mode")
+    public String expandMode;
 
     public static CreateJdFunddividerelationRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateJdFunddividerelationRequest self = new CreateJdFunddividerelationRequest();
@@ -63,20 +71,20 @@ public class CreateJdFunddividerelationRequest extends TeaModel {
         return this.subjectMerchantId;
     }
 
-    public CreateJdFunddividerelationRequest setDevideTenantId(String devideTenantId) {
-        this.devideTenantId = devideTenantId;
+    public CreateJdFunddividerelationRequest setDivideTenantId(String divideTenantId) {
+        this.divideTenantId = divideTenantId;
         return this;
     }
-    public String getDevideTenantId() {
-        return this.devideTenantId;
+    public String getDivideTenantId() {
+        return this.divideTenantId;
     }
 
-    public CreateJdFunddividerelationRequest setDevideMerchantId(String devideMerchantId) {
-        this.devideMerchantId = devideMerchantId;
+    public CreateJdFunddividerelationRequest setDivideMerchantId(String divideMerchantId) {
+        this.divideMerchantId = divideMerchantId;
         return this;
     }
-    public String getDevideMerchantId() {
-        return this.devideMerchantId;
+    public String getDivideMerchantId() {
+        return this.divideMerchantId;
     }
 
     public CreateJdFunddividerelationRequest setContractFiles(java.util.List<FileInfo> contractFiles) {
@@ -93,6 +101,22 @@ public class CreateJdFunddividerelationRequest extends TeaModel {
     }
     public String getDesc() {
         return this.desc;
+    }
+
+    public CreateJdFunddividerelationRequest setRelationId(String relationId) {
+        this.relationId = relationId;
+        return this;
+    }
+    public String getRelationId() {
+        return this.relationId;
+    }
+
+    public CreateJdFunddividerelationRequest setExpandMode(String expandMode) {
+        this.expandMode = expandMode;
+        return this;
+    }
+    public String getExpandMode() {
+        return this.expandMode;
     }
 
 }

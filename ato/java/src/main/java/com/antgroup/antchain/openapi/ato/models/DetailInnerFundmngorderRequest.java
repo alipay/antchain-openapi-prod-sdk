@@ -17,6 +17,15 @@ public class DetailInnerFundmngorderRequest extends TeaModel {
     @Validation(required = true)
     public String fundTenantId;
 
+    // 登录账号租户的角色
+    // ROLE_MERCHANT(0, "商户"),
+    // ROLE_FINANCIER(1, "资金方"),
+    // ROLE_MIX(2, "商户资金方"),
+    // DATA_PROVIDER(3, "数据提供者"),
+    // ROLE_GUARANTOR(4, "担保方"),;
+    @NameInMap("tenant_role")
+    public Long tenantRole;
+
     // 资方的社会统一信用代码
     @NameInMap("fund_id")
     @Validation(required = true)
@@ -69,6 +78,14 @@ public class DetailInnerFundmngorderRequest extends TeaModel {
     }
     public String getFundTenantId() {
         return this.fundTenantId;
+    }
+
+    public DetailInnerFundmngorderRequest setTenantRole(Long tenantRole) {
+        this.tenantRole = tenantRole;
+        return this;
+    }
+    public Long getTenantRole() {
+        return this.tenantRole;
     }
 
     public DetailInnerFundmngorderRequest setFundId(String fundId) {

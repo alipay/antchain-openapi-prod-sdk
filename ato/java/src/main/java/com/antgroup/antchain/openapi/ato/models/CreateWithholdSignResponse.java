@@ -16,11 +16,11 @@ public class CreateWithholdSignResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 签约字符串
+    // 签约字符串，当sign_str_type的值是H5_SIGN时，sign_str是h5签约地址，可以直接打开页面签约
     @NameInMap("sign_str")
     public String signStr;
 
-    // 签约字符串类型。SIGN_ONLY:仅签约;PAY_SIGN:支付并签约
+    // 签约字符串类型。SIGN_ONLY:仅签约;PAY_SIGN:支付并签约;H5_SIGN h5签约
     @NameInMap("sign_str_type")
     public String signStrType;
 
