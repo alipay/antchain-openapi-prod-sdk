@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.16.35',
+                    'sdk_version': '1.16.66',
                     '_prod_code': 'ATO',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.16.35',
+                    'sdk_version': '1.16.66',
                     '_prod_code': 'ATO',
                     '_prod_channel': 'undefined'
                 }
@@ -336,8 +336,8 @@ class Client:
         request: ato_models.CreateJdFunddividerelationRequest,
     ) -> ato_models.CreateJdFunddividerelationResponse:
         """
-        Description: 京东分账关系绑定
-        Summary: 京东分账关系绑定
+        Description: 京东分账关系绑定创建/更新
+        Summary: 京东分账关系绑定创建/更新
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -348,8 +348,8 @@ class Client:
         request: ato_models.CreateJdFunddividerelationRequest,
     ) -> ato_models.CreateJdFunddividerelationResponse:
         """
-        Description: 京东分账关系绑定
-        Summary: 京东分账关系绑定
+        Description: 京东分账关系绑定创建/更新
+        Summary: 京东分账关系绑定创建/更新
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -362,8 +362,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> ato_models.CreateJdFunddividerelationResponse:
         """
-        Description: 京东分账关系绑定
-        Summary: 京东分账关系绑定
+        Description: 京东分账关系绑定创建/更新
+        Summary: 京东分账关系绑定创建/更新
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -378,13 +378,69 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> ato_models.CreateJdFunddividerelationResponse:
         """
-        Description: 京东分账关系绑定
-        Summary: 京东分账关系绑定
+        Description: 京东分账关系绑定创建/更新
+        Summary: 京东分账关系绑定创建/更新
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             ato_models.CreateJdFunddividerelationResponse(),
             await self.do_request_async('1.0', 'antchain.ato.jd.funddividerelation.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_jd_funddividerelation(
+        self,
+        request: ato_models.QueryJdFunddividerelationRequest,
+    ) -> ato_models.QueryJdFunddividerelationResponse:
+        """
+        Description: 查询京东支付分账关系绑定状态
+        Summary: 查询京东支付分账关系绑定状态
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_jd_funddividerelation_ex(request, headers, runtime)
+
+    async def query_jd_funddividerelation_async(
+        self,
+        request: ato_models.QueryJdFunddividerelationRequest,
+    ) -> ato_models.QueryJdFunddividerelationResponse:
+        """
+        Description: 查询京东支付分账关系绑定状态
+        Summary: 查询京东支付分账关系绑定状态
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_jd_funddividerelation_ex_async(request, headers, runtime)
+
+    def query_jd_funddividerelation_ex(
+        self,
+        request: ato_models.QueryJdFunddividerelationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryJdFunddividerelationResponse:
+        """
+        Description: 查询京东支付分账关系绑定状态
+        Summary: 查询京东支付分账关系绑定状态
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryJdFunddividerelationResponse(),
+            self.do_request('1.0', 'antchain.ato.jd.funddividerelation.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_jd_funddividerelation_ex_async(
+        self,
+        request: ato_models.QueryJdFunddividerelationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryJdFunddividerelationResponse:
+        """
+        Description: 查询京东支付分账关系绑定状态
+        Summary: 查询京东支付分账关系绑定状态
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryJdFunddividerelationResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.jd.funddividerelation.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_inner_fundmngdemo(
@@ -1677,6 +1733,62 @@ class Client:
         return TeaCore.from_map(
             ato_models.PagequeryInnerFundmngpendingeventResponse(),
             await self.do_request_async('1.0', 'antchain.ato.inner.fundmngpendingevent.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_inner_fundmngguaranteeinfo(
+        self,
+        request: ato_models.QueryInnerFundmngguaranteeinfoRequest,
+    ) -> ato_models.QueryInnerFundmngguaranteeinfoResponse:
+        """
+        Description: 查询担保方信息
+        Summary: 查询担保方信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_inner_fundmngguaranteeinfo_ex(request, headers, runtime)
+
+    async def query_inner_fundmngguaranteeinfo_async(
+        self,
+        request: ato_models.QueryInnerFundmngguaranteeinfoRequest,
+    ) -> ato_models.QueryInnerFundmngguaranteeinfoResponse:
+        """
+        Description: 查询担保方信息
+        Summary: 查询担保方信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_inner_fundmngguaranteeinfo_ex_async(request, headers, runtime)
+
+    def query_inner_fundmngguaranteeinfo_ex(
+        self,
+        request: ato_models.QueryInnerFundmngguaranteeinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryInnerFundmngguaranteeinfoResponse:
+        """
+        Description: 查询担保方信息
+        Summary: 查询担保方信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryInnerFundmngguaranteeinfoResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.fundmngguaranteeinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_inner_fundmngguaranteeinfo_ex_async(
+        self,
+        request: ato_models.QueryInnerFundmngguaranteeinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryInnerFundmngguaranteeinfoResponse:
+        """
+        Description: 查询担保方信息
+        Summary: 查询担保方信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryInnerFundmngguaranteeinfoResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.fundmngguaranteeinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def sync_fund_splitting(
@@ -10921,6 +11033,790 @@ class Client:
         return TeaCore.from_map(
             ato_models.ConfirmInnerAuthagreementResponse(),
             await self.do_request_async('1.0', 'antchain.ato.inner.authagreement.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def pagequery_inner_sceneproduct(
+        self,
+        request: ato_models.PagequeryInnerSceneproductRequest,
+    ) -> ato_models.PagequeryInnerSceneproductResponse:
+        """
+        Description: 随时享-服务商平台场景分页列表
+        Summary: 随时享-服务商平台场景分页列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pagequery_inner_sceneproduct_ex(request, headers, runtime)
+
+    async def pagequery_inner_sceneproduct_async(
+        self,
+        request: ato_models.PagequeryInnerSceneproductRequest,
+    ) -> ato_models.PagequeryInnerSceneproductResponse:
+        """
+        Description: 随时享-服务商平台场景分页列表
+        Summary: 随时享-服务商平台场景分页列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.pagequery_inner_sceneproduct_ex_async(request, headers, runtime)
+
+    def pagequery_inner_sceneproduct_ex(
+        self,
+        request: ato_models.PagequeryInnerSceneproductRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.PagequeryInnerSceneproductResponse:
+        """
+        Description: 随时享-服务商平台场景分页列表
+        Summary: 随时享-服务商平台场景分页列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.PagequeryInnerSceneproductResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.sceneproduct.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def pagequery_inner_sceneproduct_ex_async(
+        self,
+        request: ato_models.PagequeryInnerSceneproductRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.PagequeryInnerSceneproductResponse:
+        """
+        Description: 随时享-服务商平台场景分页列表
+        Summary: 随时享-服务商平台场景分页列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.PagequeryInnerSceneproductResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.sceneproduct.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def detail_inner_sceneproduct(
+        self,
+        request: ato_models.DetailInnerSceneproductRequest,
+    ) -> ato_models.DetailInnerSceneproductResponse:
+        """
+        Description: 随时享-服务商平台场景商品详情
+        Summary: 随时享-服务商平台场景商品详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.detail_inner_sceneproduct_ex(request, headers, runtime)
+
+    async def detail_inner_sceneproduct_async(
+        self,
+        request: ato_models.DetailInnerSceneproductRequest,
+    ) -> ato_models.DetailInnerSceneproductResponse:
+        """
+        Description: 随时享-服务商平台场景商品详情
+        Summary: 随时享-服务商平台场景商品详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.detail_inner_sceneproduct_ex_async(request, headers, runtime)
+
+    def detail_inner_sceneproduct_ex(
+        self,
+        request: ato_models.DetailInnerSceneproductRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.DetailInnerSceneproductResponse:
+        """
+        Description: 随时享-服务商平台场景商品详情
+        Summary: 随时享-服务商平台场景商品详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.DetailInnerSceneproductResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.sceneproduct.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def detail_inner_sceneproduct_ex_async(
+        self,
+        request: ato_models.DetailInnerSceneproductRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.DetailInnerSceneproductResponse:
+        """
+        Description: 随时享-服务商平台场景商品详情
+        Summary: 随时享-服务商平台场景商品详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.DetailInnerSceneproductResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.sceneproduct.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def batchcreate_inner_sceneproduct(
+        self,
+        request: ato_models.BatchcreateInnerSceneproductRequest,
+    ) -> ato_models.BatchcreateInnerSceneproductResponse:
+        """
+        Description: 随时享-服务商平台场景商品批量添加
+        Summary: 随时享-服务商平台场景商品批量添加
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.batchcreate_inner_sceneproduct_ex(request, headers, runtime)
+
+    async def batchcreate_inner_sceneproduct_async(
+        self,
+        request: ato_models.BatchcreateInnerSceneproductRequest,
+    ) -> ato_models.BatchcreateInnerSceneproductResponse:
+        """
+        Description: 随时享-服务商平台场景商品批量添加
+        Summary: 随时享-服务商平台场景商品批量添加
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.batchcreate_inner_sceneproduct_ex_async(request, headers, runtime)
+
+    def batchcreate_inner_sceneproduct_ex(
+        self,
+        request: ato_models.BatchcreateInnerSceneproductRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.BatchcreateInnerSceneproductResponse:
+        """
+        Description: 随时享-服务商平台场景商品批量添加
+        Summary: 随时享-服务商平台场景商品批量添加
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.BatchcreateInnerSceneproductResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.sceneproduct.batchcreate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def batchcreate_inner_sceneproduct_ex_async(
+        self,
+        request: ato_models.BatchcreateInnerSceneproductRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.BatchcreateInnerSceneproductResponse:
+        """
+        Description: 随时享-服务商平台场景商品批量添加
+        Summary: 随时享-服务商平台场景商品批量添加
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.BatchcreateInnerSceneproductResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.sceneproduct.batchcreate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def delete_inner_sceneproduct(
+        self,
+        request: ato_models.DeleteInnerSceneproductRequest,
+    ) -> ato_models.DeleteInnerSceneproductResponse:
+        """
+        Description: 随时享-服务商平台场景商品移除
+        Summary: 随时享-服务商平台场景商品移除
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_inner_sceneproduct_ex(request, headers, runtime)
+
+    async def delete_inner_sceneproduct_async(
+        self,
+        request: ato_models.DeleteInnerSceneproductRequest,
+    ) -> ato_models.DeleteInnerSceneproductResponse:
+        """
+        Description: 随时享-服务商平台场景商品移除
+        Summary: 随时享-服务商平台场景商品移除
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.delete_inner_sceneproduct_ex_async(request, headers, runtime)
+
+    def delete_inner_sceneproduct_ex(
+        self,
+        request: ato_models.DeleteInnerSceneproductRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.DeleteInnerSceneproductResponse:
+        """
+        Description: 随时享-服务商平台场景商品移除
+        Summary: 随时享-服务商平台场景商品移除
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.DeleteInnerSceneproductResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.sceneproduct.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def delete_inner_sceneproduct_ex_async(
+        self,
+        request: ato_models.DeleteInnerSceneproductRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.DeleteInnerSceneproductResponse:
+        """
+        Description: 随时享-服务商平台场景商品移除
+        Summary: 随时享-服务商平台场景商品移除
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.DeleteInnerSceneproductResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.sceneproduct.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def list_inner_sceneproductmerchant(
+        self,
+        request: ato_models.ListInnerSceneproductmerchantRequest,
+    ) -> ato_models.ListInnerSceneproductmerchantResponse:
+        """
+        Description: 随时享-服务商平台场景商品适用商家列表
+        Summary: 随时享-服务商平台场景商品适用商家列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_inner_sceneproductmerchant_ex(request, headers, runtime)
+
+    async def list_inner_sceneproductmerchant_async(
+        self,
+        request: ato_models.ListInnerSceneproductmerchantRequest,
+    ) -> ato_models.ListInnerSceneproductmerchantResponse:
+        """
+        Description: 随时享-服务商平台场景商品适用商家列表
+        Summary: 随时享-服务商平台场景商品适用商家列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.list_inner_sceneproductmerchant_ex_async(request, headers, runtime)
+
+    def list_inner_sceneproductmerchant_ex(
+        self,
+        request: ato_models.ListInnerSceneproductmerchantRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.ListInnerSceneproductmerchantResponse:
+        """
+        Description: 随时享-服务商平台场景商品适用商家列表
+        Summary: 随时享-服务商平台场景商品适用商家列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.ListInnerSceneproductmerchantResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.sceneproductmerchant.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def list_inner_sceneproductmerchant_ex_async(
+        self,
+        request: ato_models.ListInnerSceneproductmerchantRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.ListInnerSceneproductmerchantResponse:
+        """
+        Description: 随时享-服务商平台场景商品适用商家列表
+        Summary: 随时享-服务商平台场景商品适用商家列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.ListInnerSceneproductmerchantResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.sceneproductmerchant.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def operate_inner_sceneproductmerchant(
+        self,
+        request: ato_models.OperateInnerSceneproductmerchantRequest,
+    ) -> ato_models.OperateInnerSceneproductmerchantResponse:
+        """
+        Description: 随时享-服务商平台场景商品适用商家编辑
+        Summary: 随时享-服务商平台场景商品适用商家编辑
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.operate_inner_sceneproductmerchant_ex(request, headers, runtime)
+
+    async def operate_inner_sceneproductmerchant_async(
+        self,
+        request: ato_models.OperateInnerSceneproductmerchantRequest,
+    ) -> ato_models.OperateInnerSceneproductmerchantResponse:
+        """
+        Description: 随时享-服务商平台场景商品适用商家编辑
+        Summary: 随时享-服务商平台场景商品适用商家编辑
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.operate_inner_sceneproductmerchant_ex_async(request, headers, runtime)
+
+    def operate_inner_sceneproductmerchant_ex(
+        self,
+        request: ato_models.OperateInnerSceneproductmerchantRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.OperateInnerSceneproductmerchantResponse:
+        """
+        Description: 随时享-服务商平台场景商品适用商家编辑
+        Summary: 随时享-服务商平台场景商品适用商家编辑
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.OperateInnerSceneproductmerchantResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.sceneproductmerchant.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def operate_inner_sceneproductmerchant_ex_async(
+        self,
+        request: ato_models.OperateInnerSceneproductmerchantRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.OperateInnerSceneproductmerchantResponse:
+        """
+        Description: 随时享-服务商平台场景商品适用商家编辑
+        Summary: 随时享-服务商平台场景商品适用商家编辑
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.OperateInnerSceneproductmerchantResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.sceneproductmerchant.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def online_inner_sceneproduct(
+        self,
+        request: ato_models.OnlineInnerSceneproductRequest,
+    ) -> ato_models.OnlineInnerSceneproductResponse:
+        """
+        Description: 随时享-服务商平台场景商品上下架
+        Summary: 随时享-服务商平台场景商品上下架
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.online_inner_sceneproduct_ex(request, headers, runtime)
+
+    async def online_inner_sceneproduct_async(
+        self,
+        request: ato_models.OnlineInnerSceneproductRequest,
+    ) -> ato_models.OnlineInnerSceneproductResponse:
+        """
+        Description: 随时享-服务商平台场景商品上下架
+        Summary: 随时享-服务商平台场景商品上下架
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.online_inner_sceneproduct_ex_async(request, headers, runtime)
+
+    def online_inner_sceneproduct_ex(
+        self,
+        request: ato_models.OnlineInnerSceneproductRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.OnlineInnerSceneproductResponse:
+        """
+        Description: 随时享-服务商平台场景商品上下架
+        Summary: 随时享-服务商平台场景商品上下架
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.OnlineInnerSceneproductResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.sceneproduct.online', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def online_inner_sceneproduct_ex_async(
+        self,
+        request: ato_models.OnlineInnerSceneproductRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.OnlineInnerSceneproductResponse:
+        """
+        Description: 随时享-服务商平台场景商品上下架
+        Summary: 随时享-服务商平台场景商品上下架
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.OnlineInnerSceneproductResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.sceneproduct.online', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def pagequery_inner_platformorderlead(
+        self,
+        request: ato_models.PagequeryInnerPlatformorderleadRequest,
+    ) -> ato_models.PagequeryInnerPlatformorderleadResponse:
+        """
+        Description: 用户线索跟进中分页查询平台订单、派发和备注信息
+        Summary: 随时享-服务商平台用户线索跟进
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pagequery_inner_platformorderlead_ex(request, headers, runtime)
+
+    async def pagequery_inner_platformorderlead_async(
+        self,
+        request: ato_models.PagequeryInnerPlatformorderleadRequest,
+    ) -> ato_models.PagequeryInnerPlatformorderleadResponse:
+        """
+        Description: 用户线索跟进中分页查询平台订单、派发和备注信息
+        Summary: 随时享-服务商平台用户线索跟进
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.pagequery_inner_platformorderlead_ex_async(request, headers, runtime)
+
+    def pagequery_inner_platformorderlead_ex(
+        self,
+        request: ato_models.PagequeryInnerPlatformorderleadRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.PagequeryInnerPlatformorderleadResponse:
+        """
+        Description: 用户线索跟进中分页查询平台订单、派发和备注信息
+        Summary: 随时享-服务商平台用户线索跟进
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.PagequeryInnerPlatformorderleadResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.platformorderlead.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def pagequery_inner_platformorderlead_ex_async(
+        self,
+        request: ato_models.PagequeryInnerPlatformorderleadRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.PagequeryInnerPlatformorderleadResponse:
+        """
+        Description: 用户线索跟进中分页查询平台订单、派发和备注信息
+        Summary: 随时享-服务商平台用户线索跟进
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.PagequeryInnerPlatformorderleadResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.platformorderlead.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def save_inner_platformorderlead(
+        self,
+        request: ato_models.SaveInnerPlatformorderleadRequest,
+    ) -> ato_models.SaveInnerPlatformorderleadResponse:
+        """
+        Description: 平台订单用户线索备注保存
+        Summary: 随时享-服务商平台用户线索跟进备注保存
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.save_inner_platformorderlead_ex(request, headers, runtime)
+
+    async def save_inner_platformorderlead_async(
+        self,
+        request: ato_models.SaveInnerPlatformorderleadRequest,
+    ) -> ato_models.SaveInnerPlatformorderleadResponse:
+        """
+        Description: 平台订单用户线索备注保存
+        Summary: 随时享-服务商平台用户线索跟进备注保存
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.save_inner_platformorderlead_ex_async(request, headers, runtime)
+
+    def save_inner_platformorderlead_ex(
+        self,
+        request: ato_models.SaveInnerPlatformorderleadRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.SaveInnerPlatformorderleadResponse:
+        """
+        Description: 平台订单用户线索备注保存
+        Summary: 随时享-服务商平台用户线索跟进备注保存
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.SaveInnerPlatformorderleadResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.platformorderlead.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def save_inner_platformorderlead_ex_async(
+        self,
+        request: ato_models.SaveInnerPlatformorderleadRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.SaveInnerPlatformorderleadResponse:
+        """
+        Description: 平台订单用户线索备注保存
+        Summary: 随时享-服务商平台用户线索跟进备注保存
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.SaveInnerPlatformorderleadResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.platformorderlead.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_inner_promotionscene(
+        self,
+        request: ato_models.CreateInnerPromotionsceneRequest,
+    ) -> ato_models.CreateInnerPromotionsceneResponse:
+        """
+        Description: 随时享-服务商平台-营销场景创建
+        Summary: 营销场景创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_inner_promotionscene_ex(request, headers, runtime)
+
+    async def create_inner_promotionscene_async(
+        self,
+        request: ato_models.CreateInnerPromotionsceneRequest,
+    ) -> ato_models.CreateInnerPromotionsceneResponse:
+        """
+        Description: 随时享-服务商平台-营销场景创建
+        Summary: 营销场景创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_inner_promotionscene_ex_async(request, headers, runtime)
+
+    def create_inner_promotionscene_ex(
+        self,
+        request: ato_models.CreateInnerPromotionsceneRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.CreateInnerPromotionsceneResponse:
+        """
+        Description: 随时享-服务商平台-营销场景创建
+        Summary: 营销场景创建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.CreateInnerPromotionsceneResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.promotionscene.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_inner_promotionscene_ex_async(
+        self,
+        request: ato_models.CreateInnerPromotionsceneRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.CreateInnerPromotionsceneResponse:
+        """
+        Description: 随时享-服务商平台-营销场景创建
+        Summary: 营销场景创建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.CreateInnerPromotionsceneResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.promotionscene.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def pagequery_inner_promotionscene(
+        self,
+        request: ato_models.PagequeryInnerPromotionsceneRequest,
+    ) -> ato_models.PagequeryInnerPromotionsceneResponse:
+        """
+        Description: 随时享-服务商平台-营销场景分页查询
+        Summary: 营销场景分页查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pagequery_inner_promotionscene_ex(request, headers, runtime)
+
+    async def pagequery_inner_promotionscene_async(
+        self,
+        request: ato_models.PagequeryInnerPromotionsceneRequest,
+    ) -> ato_models.PagequeryInnerPromotionsceneResponse:
+        """
+        Description: 随时享-服务商平台-营销场景分页查询
+        Summary: 营销场景分页查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.pagequery_inner_promotionscene_ex_async(request, headers, runtime)
+
+    def pagequery_inner_promotionscene_ex(
+        self,
+        request: ato_models.PagequeryInnerPromotionsceneRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.PagequeryInnerPromotionsceneResponse:
+        """
+        Description: 随时享-服务商平台-营销场景分页查询
+        Summary: 营销场景分页查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.PagequeryInnerPromotionsceneResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.promotionscene.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def pagequery_inner_promotionscene_ex_async(
+        self,
+        request: ato_models.PagequeryInnerPromotionsceneRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.PagequeryInnerPromotionsceneResponse:
+        """
+        Description: 随时享-服务商平台-营销场景分页查询
+        Summary: 营销场景分页查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.PagequeryInnerPromotionsceneResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.promotionscene.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_inner_promotionscene(
+        self,
+        request: ato_models.UpdateInnerPromotionsceneRequest,
+    ) -> ato_models.UpdateInnerPromotionsceneResponse:
+        """
+        Description: 随时享-服务商平台-营销场景更新
+        Summary: 营销场景更新
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_inner_promotionscene_ex(request, headers, runtime)
+
+    async def update_inner_promotionscene_async(
+        self,
+        request: ato_models.UpdateInnerPromotionsceneRequest,
+    ) -> ato_models.UpdateInnerPromotionsceneResponse:
+        """
+        Description: 随时享-服务商平台-营销场景更新
+        Summary: 营销场景更新
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_inner_promotionscene_ex_async(request, headers, runtime)
+
+    def update_inner_promotionscene_ex(
+        self,
+        request: ato_models.UpdateInnerPromotionsceneRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.UpdateInnerPromotionsceneResponse:
+        """
+        Description: 随时享-服务商平台-营销场景更新
+        Summary: 营销场景更新
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.UpdateInnerPromotionsceneResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.promotionscene.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_inner_promotionscene_ex_async(
+        self,
+        request: ato_models.UpdateInnerPromotionsceneRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.UpdateInnerPromotionsceneResponse:
+        """
+        Description: 随时享-服务商平台-营销场景更新
+        Summary: 营销场景更新
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.UpdateInnerPromotionsceneResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.promotionscene.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def delete_inner_promotionscene(
+        self,
+        request: ato_models.DeleteInnerPromotionsceneRequest,
+    ) -> ato_models.DeleteInnerPromotionsceneResponse:
+        """
+        Description: 随时享-服务商平台-营销场景删除
+        Summary: 营销场景删除
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_inner_promotionscene_ex(request, headers, runtime)
+
+    async def delete_inner_promotionscene_async(
+        self,
+        request: ato_models.DeleteInnerPromotionsceneRequest,
+    ) -> ato_models.DeleteInnerPromotionsceneResponse:
+        """
+        Description: 随时享-服务商平台-营销场景删除
+        Summary: 营销场景删除
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.delete_inner_promotionscene_ex_async(request, headers, runtime)
+
+    def delete_inner_promotionscene_ex(
+        self,
+        request: ato_models.DeleteInnerPromotionsceneRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.DeleteInnerPromotionsceneResponse:
+        """
+        Description: 随时享-服务商平台-营销场景删除
+        Summary: 营销场景删除
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.DeleteInnerPromotionsceneResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.promotionscene.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def delete_inner_promotionscene_ex_async(
+        self,
+        request: ato_models.DeleteInnerPromotionsceneRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.DeleteInnerPromotionsceneResponse:
+        """
+        Description: 随时享-服务商平台-营销场景删除
+        Summary: 营销场景删除
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.DeleteInnerPromotionsceneResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.promotionscene.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def delete_inner_platformorderlead(
+        self,
+        request: ato_models.DeleteInnerPlatformorderleadRequest,
+    ) -> ato_models.DeleteInnerPlatformorderleadResponse:
+        """
+        Description: 平台订单用户线索备注删除
+        Summary: 随时享-服务商平台用户线索跟进删除备注
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_inner_platformorderlead_ex(request, headers, runtime)
+
+    async def delete_inner_platformorderlead_async(
+        self,
+        request: ato_models.DeleteInnerPlatformorderleadRequest,
+    ) -> ato_models.DeleteInnerPlatformorderleadResponse:
+        """
+        Description: 平台订单用户线索备注删除
+        Summary: 随时享-服务商平台用户线索跟进删除备注
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.delete_inner_platformorderlead_ex_async(request, headers, runtime)
+
+    def delete_inner_platformorderlead_ex(
+        self,
+        request: ato_models.DeleteInnerPlatformorderleadRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.DeleteInnerPlatformorderleadResponse:
+        """
+        Description: 平台订单用户线索备注删除
+        Summary: 随时享-服务商平台用户线索跟进删除备注
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.DeleteInnerPlatformorderleadResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.platformorderlead.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def delete_inner_platformorderlead_ex_async(
+        self,
+        request: ato_models.DeleteInnerPlatformorderleadRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.DeleteInnerPlatformorderleadResponse:
+        """
+        Description: 平台订单用户线索备注删除
+        Summary: 随时享-服务商平台用户线索跟进删除备注
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.DeleteInnerPlatformorderleadResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.platformorderlead.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_insure(
