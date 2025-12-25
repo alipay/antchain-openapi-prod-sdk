@@ -338,6 +338,46 @@ func (s *BasicCarInfo) SetMortgage(v bool) *BasicCarInfo {
 	return s
 }
 
+// 常岳用户结构体
+type CyUserInfo struct {
+	// 用户id
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 用户名
+	UserName *string `json:"user_name,omitempty" xml:"user_name,omitempty"`
+	// 证件号
+	IdCard *string `json:"id_card,omitempty" xml:"id_card,omitempty"`
+	// 手机号
+	PhoneNum *string `json:"phone_num,omitempty" xml:"phone_num,omitempty" require:"true"`
+}
+
+func (s CyUserInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CyUserInfo) GoString() string {
+	return s.String()
+}
+
+func (s *CyUserInfo) SetUserId(v string) *CyUserInfo {
+	s.UserId = &v
+	return s
+}
+
+func (s *CyUserInfo) SetUserName(v string) *CyUserInfo {
+	s.UserName = &v
+	return s
+}
+
+func (s *CyUserInfo) SetIdCard(v string) *CyUserInfo {
+	s.IdCard = &v
+	return s
+}
+
+func (s *CyUserInfo) SetPhoneNum(v string) *CyUserInfo {
+	s.PhoneNum = &v
+	return s
+}
+
 // 用户基本信息
 type CarOwnerUserInfo struct {
 	// 用户id
@@ -823,6 +863,90 @@ func (s *SubmitNewcarResponse) SetPushResultCode(v string) *SubmitNewcarResponse
 	return s
 }
 
+type RegisterCarownerCyRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 唯一场景码
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+	// 用户基本信息
+	UserInfo *CyUserInfo `json:"user_info,omitempty" xml:"user_info,omitempty" require:"true"`
+	// 车辆信息
+	CarInfo *CarInfo `json:"car_info,omitempty" xml:"car_info,omitempty" require:"true"`
+}
+
+func (s RegisterCarownerCyRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RegisterCarownerCyRequest) GoString() string {
+	return s.String()
+}
+
+func (s *RegisterCarownerCyRequest) SetAuthToken(v string) *RegisterCarownerCyRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *RegisterCarownerCyRequest) SetProductInstanceId(v string) *RegisterCarownerCyRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *RegisterCarownerCyRequest) SetSceneCode(v string) *RegisterCarownerCyRequest {
+	s.SceneCode = &v
+	return s
+}
+
+func (s *RegisterCarownerCyRequest) SetUserInfo(v *CyUserInfo) *RegisterCarownerCyRequest {
+	s.UserInfo = v
+	return s
+}
+
+func (s *RegisterCarownerCyRequest) SetCarInfo(v *CarInfo) *RegisterCarownerCyRequest {
+	s.CarInfo = v
+	return s
+}
+
+type RegisterCarownerCyResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否成功
+	PushSuccess *bool `json:"push_success,omitempty" xml:"push_success,omitempty"`
+}
+
+func (s RegisterCarownerCyResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RegisterCarownerCyResponse) GoString() string {
+	return s.String()
+}
+
+func (s *RegisterCarownerCyResponse) SetReqMsgId(v string) *RegisterCarownerCyResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *RegisterCarownerCyResponse) SetResultCode(v string) *RegisterCarownerCyResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *RegisterCarownerCyResponse) SetResultMsg(v string) *RegisterCarownerCyResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *RegisterCarownerCyResponse) SetPushSuccess(v bool) *RegisterCarownerCyResponse {
+	s.PushSuccess = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -945,7 +1069,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.4"),
+				"sdk_version":      tea.String("1.0.5"),
 				"_prod_code":       tea.String("INTELLICAR"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -1132,6 +1256,40 @@ func (client *Client) SubmitNewcarEx(request *SubmitNewcarRequest, headers map[s
 	}
 	_result = &SubmitNewcarResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.intellicar.newcar.submit"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 常岳线索推送接口
+ * Summary: 常岳线索推送
+ */
+func (client *Client) RegisterCarownerCy(request *RegisterCarownerCyRequest) (_result *RegisterCarownerCyResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &RegisterCarownerCyResponse{}
+	_body, _err := client.RegisterCarownerCyEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 常岳线索推送接口
+ * Summary: 常岳线索推送
+ */
+func (client *Client) RegisterCarownerCyEx(request *RegisterCarownerCyRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *RegisterCarownerCyResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &RegisterCarownerCyResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.intellicar.carowner.cy.register"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
