@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.4',
+                    'sdk_version': '1.0.5',
                     '_prod_code': 'INTELLICAR',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.4',
+                    'sdk_version': '1.0.5',
                     '_prod_code': 'INTELLICAR',
                     '_prod_channel': 'default'
                 }
@@ -497,4 +497,60 @@ class Client:
         return TeaCore.from_map(
             intellicar_models.SubmitNewcarResponse(),
             await self.do_request_async('1.0', 'antdigital.intellicar.newcar.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def register_carowner_cy(
+        self,
+        request: intellicar_models.RegisterCarownerCyRequest,
+    ) -> intellicar_models.RegisterCarownerCyResponse:
+        """
+        Description: 常岳线索推送接口
+        Summary: 常岳线索推送
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.register_carowner_cy_ex(request, headers, runtime)
+
+    async def register_carowner_cy_async(
+        self,
+        request: intellicar_models.RegisterCarownerCyRequest,
+    ) -> intellicar_models.RegisterCarownerCyResponse:
+        """
+        Description: 常岳线索推送接口
+        Summary: 常岳线索推送
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.register_carowner_cy_ex_async(request, headers, runtime)
+
+    def register_carowner_cy_ex(
+        self,
+        request: intellicar_models.RegisterCarownerCyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> intellicar_models.RegisterCarownerCyResponse:
+        """
+        Description: 常岳线索推送接口
+        Summary: 常岳线索推送
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            intellicar_models.RegisterCarownerCyResponse(),
+            self.do_request('1.0', 'antdigital.intellicar.carowner.cy.register', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def register_carowner_cy_ex_async(
+        self,
+        request: intellicar_models.RegisterCarownerCyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> intellicar_models.RegisterCarownerCyResponse:
+        """
+        Description: 常岳线索推送接口
+        Summary: 常岳线索推送
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            intellicar_models.RegisterCarownerCyResponse(),
+            await self.do_request_async('1.0', 'antdigital.intellicar.carowner.cy.register', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
