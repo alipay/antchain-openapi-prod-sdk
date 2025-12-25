@@ -216,6 +216,39 @@ export class BasicCarInfo extends $tea.Model {
   }
 }
 
+// 常岳用户结构体
+export class CyUserInfo extends $tea.Model {
+  // 用户id
+  userId: string;
+  // 用户名
+  userName?: string;
+  // 证件号
+  idCard?: string;
+  // 手机号
+  phoneNum: string;
+  static names(): { [key: string]: string } {
+    return {
+      userId: 'user_id',
+      userName: 'user_name',
+      idCard: 'id_card',
+      phoneNum: 'phone_num',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      userId: 'string',
+      userName: 'string',
+      idCard: 'string',
+      phoneNum: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 用户基本信息
 export class CarOwnerUserInfo extends $tea.Model {
   // 用户id
@@ -600,6 +633,73 @@ export class SubmitNewcarResponse extends $tea.Model {
   }
 }
 
+export class RegisterCarownerCyRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 唯一场景码
+  sceneCode: string;
+  // 用户基本信息
+  userInfo: CyUserInfo;
+  // 车辆信息
+  carInfo: CarInfo;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      sceneCode: 'scene_code',
+      userInfo: 'user_info',
+      carInfo: 'car_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      sceneCode: 'string',
+      userInfo: CyUserInfo,
+      carInfo: CarInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RegisterCarownerCyResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否成功
+  pushSuccess?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      pushSuccess: 'push_success',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      pushSuccess: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -713,7 +813,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.4",
+          sdk_version: "1.0.5",
           _prod_code: "INTELLICAR",
           _prod_channel: "default",
         };
@@ -835,6 +935,25 @@ export default class Client {
   async submitNewcarEx(request: SubmitNewcarRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SubmitNewcarResponse> {
     Util.validateModel(request);
     return $tea.cast<SubmitNewcarResponse>(await this.doRequest("1.0", "antdigital.intellicar.newcar.submit", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SubmitNewcarResponse({}));
+  }
+
+  /**
+   * Description: 常岳线索推送接口
+   * Summary: 常岳线索推送
+   */
+  async registerCarownerCy(request: RegisterCarownerCyRequest): Promise<RegisterCarownerCyResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.registerCarownerCyEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 常岳线索推送接口
+   * Summary: 常岳线索推送
+   */
+  async registerCarownerCyEx(request: RegisterCarownerCyRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RegisterCarownerCyResponse> {
+    Util.validateModel(request);
+    return $tea.cast<RegisterCarownerCyResponse>(await this.doRequest("1.0", "antdigital.intellicar.carowner.cy.register", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RegisterCarownerCyResponse({}));
   }
 
 }
