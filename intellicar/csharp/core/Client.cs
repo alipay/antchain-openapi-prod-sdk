@@ -137,7 +137,7 @@ namespace AntChain.SDK.INTELLICAR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.4"},
+                        {"sdk_version", "1.0.5"},
                         {"_prod_code", "INTELLICAR"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.INTELLICAR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.4"},
+                        {"sdk_version", "1.0.5"},
                         {"_prod_code", "INTELLICAR"},
                         {"_prod_channel", "default"},
                     };
@@ -487,6 +487,48 @@ namespace AntChain.SDK.INTELLICAR
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<SubmitNewcarResponse>(await DoRequestAsync("1.0", "antdigital.intellicar.newcar.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 常岳线索推送接口
+         * Summary: 常岳线索推送
+         */
+        public RegisterCarownerCyResponse RegisterCarownerCy(RegisterCarownerCyRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return RegisterCarownerCyEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 常岳线索推送接口
+         * Summary: 常岳线索推送
+         */
+        public async Task<RegisterCarownerCyResponse> RegisterCarownerCyAsync(RegisterCarownerCyRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await RegisterCarownerCyExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 常岳线索推送接口
+         * Summary: 常岳线索推送
+         */
+        public RegisterCarownerCyResponse RegisterCarownerCyEx(RegisterCarownerCyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RegisterCarownerCyResponse>(DoRequest("1.0", "antdigital.intellicar.carowner.cy.register", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 常岳线索推送接口
+         * Summary: 常岳线索推送
+         */
+        public async Task<RegisterCarownerCyResponse> RegisterCarownerCyExAsync(RegisterCarownerCyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RegisterCarownerCyResponse>(await DoRequestAsync("1.0", "antdigital.intellicar.carowner.cy.register", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
