@@ -1,0 +1,486 @@
+import AntchainUtil;
+import Util;
+import RPCUtil;
+
+type @endpoint = string
+type @regionId = string
+type @accessKeyId = string
+type @accessKeySecret = string
+type @protocol = string
+type @userAgent = string
+type @readTimeout = number
+type @connectTimeout = number
+type @httpProxy = string
+type @httpsProxy = string
+type @socks5Proxy = string
+type @socks5NetWork = string
+type @noProxy = string
+type @maxIdleConns = number
+type @securityToken = string
+type @maxIdleTimeMillis = number
+type @keepAliveDurationMillis = number
+type @maxRequests = number
+type @maxRequestsPerHost = number
+
+/**
+ * Model for initing client
+ */
+model Config {
+  accessKeyId?: string(description='accesskey id',default=''),
+  accessKeySecret?: string(description='accesskey secret',default=''),
+  securityToken?: string(description='security token',default=''),
+  protocol?: string(description='http protocol',example='http',default='http'),
+  readTimeout?: number(description='read timeout',example='10',default=''),
+  connectTimeout?: number(description='connect timeout',example='10',default=''),
+  httpProxy?: string(description='http proxy',example='http://localhost',default=''),
+  httpsProxy?: string(description='https proxy',example='https://localhost',default=''),
+  endpoint?: string(description='endpoint',example='cs.aliyuncs.com',default=''),
+  noProxy?: string(description='proxy white list',example='http://localhost',default=''),
+  maxIdleConns?: number(description='max idle conns',example='3',default=''),
+  userAgent?: string(description='user agent',example='Alibabacloud/1',default=''),
+  socks5Proxy?: string(description='socks5 proxy',default=''),
+  socks5NetWork?: string(description='socks5 network',example='TCP',default=''),
+  maxIdleTimeMillis?: number(description='长链接最大空闲时长',default='60 * 1000L'),
+  keepAliveDurationMillis?: number(description='长链接最大连接时长',default='5000'),
+  maxRequests?: number(description='最大连接数（长链接最大总数）',default='100'),
+  maxRequestsPerHost?: number(description='每个目标主机的最大连接数（分主机域名的长链接最大总数',default='100'),
+}
+
+/**
+ * Init client with Config
+ * @param config config contains the necessary information to create a client
+ */
+init(config: Config) {
+  if (Util.isUnset(config)) {
+    throw {
+      code = 'ParameterMissing',
+      message = '\'config\' can not be unset'
+    };
+  }
+
+  @accessKeyId = config.accessKeyId;
+  @accessKeySecret = config.accessKeySecret;
+  @securityToken = config.securityToken;
+  @endpoint = config.endpoint;
+  @protocol = config.protocol;
+  @userAgent = config.userAgent;
+  @readTimeout = Util.defaultNumber(config.readTimeout, 20000);
+  @connectTimeout = Util.defaultNumber(config.connectTimeout, 20000);
+  @httpProxy = config.httpProxy;
+  @httpsProxy = config.httpsProxy;
+  @noProxy = config.noProxy;
+  @socks5Proxy = config.socks5Proxy;
+  @socks5NetWork = config.socks5NetWork;
+  @maxIdleConns = Util.defaultNumber(config.maxIdleConns, 60000);
+  @maxIdleTimeMillis = Util.defaultNumber(config.maxIdleTimeMillis, 5);
+  @keepAliveDurationMillis = Util.defaultNumber(config.keepAliveDurationMillis, 5000);
+  @maxRequests = Util.defaultNumber(config.maxRequests, 100);
+  @maxRequestsPerHost = Util.defaultNumber(config.maxRequestsPerHost, 100);
+}
+
+/**
+ * Encapsulate the request and invoke the network
+ * @param action api name
+ * @param protocol http or https
+ * @param method e.g. GET
+ * @param pathname pathname of every api
+ * @param request which contains request params
+ * @param runtime which controls some details of call api, such as retry times
+ * @return the response
+ */
+api doRequest(version: string, action: string, protocol: string, method: string, pathname: string, request: object, headers: map[string]string, runtime: Util.RuntimeOptions): object {
+  __request.protocol = Util.defaultString(@protocol, protocol);
+  __request.method = method;
+  __request.pathname = pathname;
+  __request.query = {
+    method = action,
+    version = version,
+    sign_type = 'HmacSHA1',
+    req_time = AntchainUtil.getTimestamp(),
+    req_msg_id = AntchainUtil.getNonce(),
+    access_key = @accessKeyId,
+    base_sdk_version = 'TeaSDK-2.0',
+    sdk_version = '1.0.5',
+    _prod_code = 'INTELLICAR',
+    _prod_channel = 'default'
+  };
+
+  if (!Util.empty(@securityToken)) {
+    __request.query.security_token = @securityToken;
+  }
+
+  __request.headers = {
+    host = Util.defaultString(@endpoint, 'openapi.antchain.antgroup.com'),
+    user-agent = Util.getUserAgent(@userAgent),
+    ...headers
+  };
+
+  var tmp = Util.anyifyMapValue(RPCUtil.query(request));
+  __request.body = Util.toFormString(tmp);
+  __request.headers.content-type = 'application/x-www-form-urlencoded';
+
+  var signedParam = {
+    ...__request.query,
+    ...RPCUtil.query(request)
+  };
+  __request.query.sign = AntchainUtil.getSignature(signedParam, @accessKeySecret);
+} returns {
+  var raw = Util.readAsString(__response.body);
+  var obj = Util.parseJSON(raw);
+  var res = Util.assertAsMap(obj);
+  var resp = Util.assertAsMap(res.response);
+
+  if (AntchainUtil.hasError(raw, @accessKeySecret)) {
+    throw {
+      message = resp.result_msg,
+      data = resp,
+      code = resp.result_code
+    };
+  }
+  return resp;
+} runtime {
+  timeouted = 'retry',
+  readTimeout = Util.defaultNumber(runtime.readTimeout, @readTimeout),
+  connectTimeout = Util.defaultNumber(runtime.connectTimeout, @connectTimeout),
+  httpProxy = Util.defaultString(runtime.httpProxy, @httpProxy),
+  httpsProxy = Util.defaultString(runtime.httpsProxy, @httpsProxy),
+  noProxy = Util.defaultString(runtime.noProxy, @noProxy),
+  maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
+  maxIdleTimeMillis = @maxIdleTimeMillis,
+  keepAliveDuration = @keepAliveDurationMillis,
+  maxRequests = @maxRequests,
+  maxRequestsPerHost = @maxRequestsPerHost,
+  retry = {
+    retryable = runtime.autoretry,
+    maxAttempts = Util.defaultNumber(runtime.maxAttempts, 3)
+  },
+  backoff = {
+    policy = Util.defaultString(runtime.backoffPolicy, 'no'),
+    period = Util.defaultNumber(runtime.backoffPeriod, 1)
+  },
+  ignoreSSL = runtime.ignoreSSL
+}
+
+// 用户信息
+model CarUserInfo {
+  // 唯一标识用户的id
+  userId: string(name='user_id', example='xxxxx'),
+  // 手机号
+  phoneNum: string(name='phone_num', example='138xxxxxxx'),
+  // 城市编码
+  cityCode: string(name='city_code', example='110000'),
+  // 姓名
+  userCertName?: string(name='user_cert_name', example='张三'),
+  // 证件号码
+  userCertNo?: string(name='user_cert_no', example='xxxxx'),
+  // 性别
+  userGender?: string(name='user_gender', example='girl'),
+  // 昵称
+  nick?: string(name='nick', example='xxxxx'),
+}
+
+// 新车线索集合
+model NewCarInfo {
+  // 车系
+  carSeries: string(name='car_series', example='xxx'),
+  // 金融方案
+  finaicalPlan?: string(name='finaical_plan', example='xxx'),
+  // 车系id
+  carSeriesId?: string(name='car_series_id', example='xxx'),
+  // 请求提交唯一id
+  submitId?: string(name='submit_id', example='xxxxx'),
+  // 预计购买时间
+  purcharseTime?: string(name='purcharse_time', example='1'),
+  // 用户信息
+  userInfo: CarUserInfo(name='user_info', example=''),
+  // 懂车帝或者汽车之家
+  matchSource?: string(name='match_source', example='DCD/QC'),
+  // 汽车之家车型id
+  qcCarSeriesId?: string(name='qc_car_series_id', example='123'),
+}
+
+// 车信息
+model BasicCarInfo {
+  // 车牌号
+  licenseNo: string(name='license_no', example='xxxx'),
+  // 车架号
+  vin: string(name='vin', example='xxxxx'),
+  // 发动机号
+  engineNo: string(name='engine_no', example='xxxxx'),
+  // 初登日期
+  registerDate: string(name='register_date', example='2021-12-21'),
+  // 车辆型号
+  modelCode: string(name='model_code', example='xxxxx'),
+  // 营运性质
+  useNatureCode: string(name='use_nature_code', example='xxxxx'),
+  // 是否抵押
+  mortgage?: boolean(name='mortgage', example='true, false'),
+}
+
+// 常岳用户结构体
+model CyUserInfo {
+  // 用户id
+  userId: string(name='user_id', example='xxx'),
+  // 用户名
+  userName?: string(name='user_name', example='xxxx'),
+  // 证件号
+  idCard?: string(name='id_card', example='xxx'),
+  // 手机号
+  phoneNum: string(name='phone_num', example='xxx'),
+}
+
+// 用户基本信息
+model CarOwnerUserInfo {
+  // 用户id
+  userId: string(name='user_id', example='XX'),
+  // 手机号
+  phoneNum: string(name='phone_num', example='xxx'),
+}
+
+// 批量提交结果
+model BatchSubmitCarResult {
+  // 提交线索唯一请求id
+  submitId: string(name='submit_id', example='xxx'),
+  // 是否成功
+  isSuccess: boolean(name='is_success', example='true, false'),
+  // OK NO_DEMAND 无线索需求，需要重试 INVALID 无效，不要重试
+  pushResultCode: string(name='push_result_code', example='OK/INVALID/NO_DEMAND'),
+}
+
+// 车辆信息
+model CarInfo {
+  // 车牌号
+  licenseNo: string(name='license_no', example='xxx'),
+  // 车架号
+  vin: string(name='vin', example='xxx'),
+  // 发动机号
+  engineNo: string(name='engine_no', example='xxx'),
+  // 注册日期
+  registerDate: string(name='register_date', example='xxx'),
+  // 车型
+  modelCode: string(name='model_code', example='xxx'),
+}
+
+model PushCarloanRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 车信息
+  basicCarInfo: BasicCarInfo(name='basic_car_info'),
+  // 用户信息
+  userInfo: CarUserInfo(name='user_info'),
+  // 场景码
+  sceneCode: string(name='scene_code'),
+}
+
+model PushCarloanResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否推送成功
+  pushSuccess?: boolean(name='push_success'),
+}
+
+/**
+ * Description: 推送星贷车信息
+ * Summary: 推送星贷车信息
+ */
+async function pushCarloan(request: PushCarloanRequest): PushCarloanResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pushCarloanEx(request, headers, runtime);
+}
+
+/**
+ * Description: 推送星贷车信息
+ * Summary: 推送星贷车信息
+ */
+async function pushCarloanEx(request: PushCarloanRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PushCarloanResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.intellicar.carloan.push', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RegisterCarownerRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 唯一场景码
+  sceneCode: string(name='scene_code'),
+  // 用户基本信息
+  userInfo: CarOwnerUserInfo(name='user_info'),
+  // 车辆信息
+  carInfo: CarInfo(name='car_info'),
+}
+
+model RegisterCarownerResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  pushSuccess?: boolean(name='push_success'),
+  // token
+  token?: string(name='token'),
+}
+
+/**
+ * Description: 车主信息提交
+ * Summary:  车主信息提交
+ */
+async function registerCarowner(request: RegisterCarownerRequest): RegisterCarownerResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return registerCarownerEx(request, headers, runtime);
+}
+
+/**
+ * Description: 车主信息提交
+ * Summary:  车主信息提交
+ */
+async function registerCarownerEx(request: RegisterCarownerRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RegisterCarownerResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.intellicar.carowner.register', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BatchcreateNewcarRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // testchannleCode
+  sceneCode: string(name='scene_code'),
+  // 新车线索集合
+  newCarInfo: [ NewCarInfo ](name='new_car_info'),
+}
+
+model BatchcreateNewcarResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 批量提交结果
+  batchSubmitCarResult?: [ BatchSubmitCarResult ](name='batch_submit_car_result'),
+}
+
+/**
+ * Description: 新车线索批量提交
+ * Summary: 新车线索批量提交
+ */
+async function batchcreateNewcar(request: BatchcreateNewcarRequest): BatchcreateNewcarResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return batchcreateNewcarEx(request, headers, runtime);
+}
+
+/**
+ * Description: 新车线索批量提交
+ * Summary: 新车线索批量提交
+ */
+async function batchcreateNewcarEx(request: BatchcreateNewcarRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BatchcreateNewcarResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.intellicar.newcar.batchcreate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SubmitNewcarRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 场景码
+  sceneCode: string(name='scene_code'),
+  // 用户信息
+  userInfo: CarUserInfo(name='user_info'),
+  // 车系
+  carSeries: string(name='car_series'),
+  // 金融方案
+  finaicalPlan?: string(name='finaical_plan'),
+  // 	
+  // 预计购买时间
+  purcharseTime?: string(name='purcharse_time'),
+  // xxxx
+  carSeriesId?: string(name='car_series_id'),
+  // 提交线索的唯一id
+  submitId?: string(name='submit_id'),
+  // 汽车之家车系id
+  qcCarSeriesId?: string(name='qc_car_series_id'),
+  // 匹配源
+  matchSource?: string(name='match_source'),
+}
+
+model SubmitNewcarResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // OK NO_DEMAND 无线索需求，需要重试 INVALID 无效，不要重试
+  pushResultCode?: string(name='push_result_code'),
+}
+
+/**
+ * Description: 提交新车线索
+ * Summary:  提交新车线索
+ */
+async function submitNewcar(request: SubmitNewcarRequest): SubmitNewcarResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return submitNewcarEx(request, headers, runtime);
+}
+
+/**
+ * Description: 提交新车线索
+ * Summary:  提交新车线索
+ */
+async function submitNewcarEx(request: SubmitNewcarRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitNewcarResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.intellicar.newcar.submit', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RegisterCarownerCyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 唯一场景码
+  sceneCode: string(name='scene_code'),
+  // 用户基本信息
+  userInfo: CyUserInfo(name='user_info'),
+  // 车辆信息
+  carInfo: CarInfo(name='car_info'),
+}
+
+model RegisterCarownerCyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  pushSuccess?: boolean(name='push_success'),
+}
+
+/**
+ * Description: 常岳线索推送接口
+ * Summary: 常岳线索推送
+ */
+async function registerCarownerCy(request: RegisterCarownerCyRequest): RegisterCarownerCyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return registerCarownerCyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 常岳线索推送接口
+ * Summary: 常岳线索推送
+ */
+async function registerCarownerCyEx(request: RegisterCarownerCyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RegisterCarownerCyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.intellicar.carowner.cy.register', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
