@@ -15,6 +15,8 @@ use AntChain\INTELLICAR\Models\BatchcreateNewcarRequest;
 use AntChain\INTELLICAR\Models\BatchcreateNewcarResponse;
 use AntChain\INTELLICAR\Models\PushCarloanRequest;
 use AntChain\INTELLICAR\Models\PushCarloanResponse;
+use AntChain\INTELLICAR\Models\RegisterCarownerCyRequest;
+use AntChain\INTELLICAR\Models\RegisterCarownerCyResponse;
 use AntChain\INTELLICAR\Models\RegisterCarownerRequest;
 use AntChain\INTELLICAR\Models\RegisterCarownerResponse;
 use AntChain\INTELLICAR\Models\SubmitNewcarRequest;
@@ -166,7 +168,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.4',
+                    'sdk_version'      => '1.0.5',
                     '_prod_code'       => 'INTELLICAR',
                     '_prod_channel'    => 'default',
                 ];
@@ -344,5 +346,38 @@ class Client
         Utils::validateModel($request);
 
         return SubmitNewcarResponse::fromMap($this->doRequest('1.0', 'antdigital.intellicar.newcar.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 常岳线索推送接口
+     * Summary: 常岳线索推送
+     *
+     * @param RegisterCarownerCyRequest $request
+     *
+     * @return RegisterCarownerCyResponse
+     */
+    public function registerCarownerCy($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->registerCarownerCyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 常岳线索推送接口
+     * Summary: 常岳线索推送
+     *
+     * @param RegisterCarownerCyRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return RegisterCarownerCyResponse
+     */
+    public function registerCarownerCyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RegisterCarownerCyResponse::fromMap($this->doRequest('1.0', 'antdigital.intellicar.carowner.cy.register', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
