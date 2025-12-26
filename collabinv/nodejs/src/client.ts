@@ -1522,6 +1522,132 @@ export class BatchqueryCarloanPrdResponse extends $tea.Model {
   }
 }
 
+export class QueryCarloanYztRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 车牌号
+  plateNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      plateNo: 'plate_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      plateNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryCarloanYztResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 查询结果
+  result?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ImportCarloanYztRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 用户id
+  userId: string;
+  // 手机号
+  phoneNum: string;
+  // 车牌号
+  licenseNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      userId: 'user_id',
+      phoneNum: 'phone_num',
+      licenseNo: 'license_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      userId: 'string',
+      phoneNum: 'string',
+      licenseNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ImportCarloanYztResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 保存结果
+  result?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class ImportIdmapSamplefileRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -3236,7 +3362,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.61",
+          sdk_version: "1.0.64",
           _prod_code: "COLLABINV",
           _prod_channel: "default",
         };
@@ -3608,6 +3734,44 @@ export default class Client {
   async batchqueryCarloanPrdEx(request: BatchqueryCarloanPrdRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BatchqueryCarloanPrdResponse> {
     Util.validateModel(request);
     return $tea.cast<BatchqueryCarloanPrdResponse>(await this.doRequest("1.0", "antchain.zkcollabinv.carloan.prd.batchquery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BatchqueryCarloanPrdResponse({}));
+  }
+
+  /**
+   * Description: 云中停查询接口
+   * Summary: 云中停查询接口
+   */
+  async queryCarloanYzt(request: QueryCarloanYztRequest): Promise<QueryCarloanYztResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryCarloanYztEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 云中停查询接口
+   * Summary: 云中停查询接口
+   */
+  async queryCarloanYztEx(request: QueryCarloanYztRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryCarloanYztResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryCarloanYztResponse>(await this.doRequest("1.0", "antchain.zkcollabinv.carloan.yzt.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryCarloanYztResponse({}));
+  }
+
+  /**
+   * Description: 云中停线索导入接口
+   * Summary: 云中停线索导入
+   */
+  async importCarloanYzt(request: ImportCarloanYztRequest): Promise<ImportCarloanYztResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.importCarloanYztEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 云中停线索导入接口
+   * Summary: 云中停线索导入
+   */
+  async importCarloanYztEx(request: ImportCarloanYztRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ImportCarloanYztResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ImportCarloanYztResponse>(await this.doRequest("1.0", "antchain.zkcollabinv.carloan.yzt.import", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ImportCarloanYztResponse({}));
   }
 
   /**
