@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.61"),
+                    new TeaPair("sdk_version", "1.0.64"),
                     new TeaPair("_prod_code", "COLLABINV"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -544,6 +544,48 @@ public class Client {
     public BatchqueryCarloanPrdResponse batchqueryCarloanPrdEx(BatchqueryCarloanPrdRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.zkcollabinv.carloan.prd.batchquery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BatchqueryCarloanPrdResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 云中停查询接口
+     * Summary: 云中停查询接口</p>
+     */
+    public QueryCarloanYztResponse queryCarloanYzt(QueryCarloanYztRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryCarloanYztEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 云中停查询接口
+     * Summary: 云中停查询接口</p>
+     */
+    public QueryCarloanYztResponse queryCarloanYztEx(QueryCarloanYztRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.zkcollabinv.carloan.yzt.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCarloanYztResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 云中停线索导入接口
+     * Summary: 云中停线索导入</p>
+     */
+    public ImportCarloanYztResponse importCarloanYzt(ImportCarloanYztRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.importCarloanYztEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 云中停线索导入接口
+     * Summary: 云中停线索导入</p>
+     */
+    public ImportCarloanYztResponse importCarloanYztEx(ImportCarloanYztRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.zkcollabinv.carloan.yzt.import", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ImportCarloanYztResponse());
     }
 
     /**
