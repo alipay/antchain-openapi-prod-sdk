@@ -137,7 +137,7 @@ namespace AntChain.SDK.COLLABINV
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.61"},
+                        {"sdk_version", "1.0.64"},
                         {"_prod_code", "COLLABINV"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.COLLABINV
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.61"},
+                        {"sdk_version", "1.0.64"},
                         {"_prod_code", "COLLABINV"},
                         {"_prod_channel", "default"},
                     };
@@ -1039,6 +1039,90 @@ namespace AntChain.SDK.COLLABINV
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<BatchqueryCarloanPrdResponse>(await DoRequestAsync("1.0", "antchain.zkcollabinv.carloan.prd.batchquery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 云中停查询接口
+         * Summary: 云中停查询接口
+         */
+        public QueryCarloanYztResponse QueryCarloanYzt(QueryCarloanYztRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryCarloanYztEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 云中停查询接口
+         * Summary: 云中停查询接口
+         */
+        public async Task<QueryCarloanYztResponse> QueryCarloanYztAsync(QueryCarloanYztRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryCarloanYztExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 云中停查询接口
+         * Summary: 云中停查询接口
+         */
+        public QueryCarloanYztResponse QueryCarloanYztEx(QueryCarloanYztRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCarloanYztResponse>(DoRequest("1.0", "antchain.zkcollabinv.carloan.yzt.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 云中停查询接口
+         * Summary: 云中停查询接口
+         */
+        public async Task<QueryCarloanYztResponse> QueryCarloanYztExAsync(QueryCarloanYztRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCarloanYztResponse>(await DoRequestAsync("1.0", "antchain.zkcollabinv.carloan.yzt.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 云中停线索导入接口
+         * Summary: 云中停线索导入
+         */
+        public ImportCarloanYztResponse ImportCarloanYzt(ImportCarloanYztRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ImportCarloanYztEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 云中停线索导入接口
+         * Summary: 云中停线索导入
+         */
+        public async Task<ImportCarloanYztResponse> ImportCarloanYztAsync(ImportCarloanYztRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ImportCarloanYztExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 云中停线索导入接口
+         * Summary: 云中停线索导入
+         */
+        public ImportCarloanYztResponse ImportCarloanYztEx(ImportCarloanYztRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ImportCarloanYztResponse>(DoRequest("1.0", "antchain.zkcollabinv.carloan.yzt.import", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 云中停线索导入接口
+         * Summary: 云中停线索导入
+         */
+        public async Task<ImportCarloanYztResponse> ImportCarloanYztExAsync(ImportCarloanYztRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ImportCarloanYztResponse>(await DoRequestAsync("1.0", "antchain.zkcollabinv.carloan.yzt.import", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
