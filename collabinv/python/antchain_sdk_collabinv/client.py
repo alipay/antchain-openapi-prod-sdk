@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.61',
+                    'sdk_version': '1.0.64',
                     '_prod_code': 'COLLABINV',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.61',
+                    'sdk_version': '1.0.64',
                     '_prod_code': 'COLLABINV',
                     '_prod_channel': 'default'
                 }
@@ -1205,6 +1205,118 @@ class Client:
         return TeaCore.from_map(
             collabinv_models.BatchqueryCarloanPrdResponse(),
             await self.do_request_async('1.0', 'antchain.zkcollabinv.carloan.prd.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_carloan_yzt(
+        self,
+        request: collabinv_models.QueryCarloanYztRequest,
+    ) -> collabinv_models.QueryCarloanYztResponse:
+        """
+        Description: 云中停查询接口
+        Summary: 云中停查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_carloan_yzt_ex(request, headers, runtime)
+
+    async def query_carloan_yzt_async(
+        self,
+        request: collabinv_models.QueryCarloanYztRequest,
+    ) -> collabinv_models.QueryCarloanYztResponse:
+        """
+        Description: 云中停查询接口
+        Summary: 云中停查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_carloan_yzt_ex_async(request, headers, runtime)
+
+    def query_carloan_yzt_ex(
+        self,
+        request: collabinv_models.QueryCarloanYztRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> collabinv_models.QueryCarloanYztResponse:
+        """
+        Description: 云中停查询接口
+        Summary: 云中停查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            collabinv_models.QueryCarloanYztResponse(),
+            self.do_request('1.0', 'antchain.zkcollabinv.carloan.yzt.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_carloan_yzt_ex_async(
+        self,
+        request: collabinv_models.QueryCarloanYztRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> collabinv_models.QueryCarloanYztResponse:
+        """
+        Description: 云中停查询接口
+        Summary: 云中停查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            collabinv_models.QueryCarloanYztResponse(),
+            await self.do_request_async('1.0', 'antchain.zkcollabinv.carloan.yzt.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def import_carloan_yzt(
+        self,
+        request: collabinv_models.ImportCarloanYztRequest,
+    ) -> collabinv_models.ImportCarloanYztResponse:
+        """
+        Description: 云中停线索导入接口
+        Summary: 云中停线索导入
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.import_carloan_yzt_ex(request, headers, runtime)
+
+    async def import_carloan_yzt_async(
+        self,
+        request: collabinv_models.ImportCarloanYztRequest,
+    ) -> collabinv_models.ImportCarloanYztResponse:
+        """
+        Description: 云中停线索导入接口
+        Summary: 云中停线索导入
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.import_carloan_yzt_ex_async(request, headers, runtime)
+
+    def import_carloan_yzt_ex(
+        self,
+        request: collabinv_models.ImportCarloanYztRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> collabinv_models.ImportCarloanYztResponse:
+        """
+        Description: 云中停线索导入接口
+        Summary: 云中停线索导入
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            collabinv_models.ImportCarloanYztResponse(),
+            self.do_request('1.0', 'antchain.zkcollabinv.carloan.yzt.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def import_carloan_yzt_ex_async(
+        self,
+        request: collabinv_models.ImportCarloanYztRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> collabinv_models.ImportCarloanYztResponse:
+        """
+        Description: 云中停线索导入接口
+        Summary: 云中停线索导入
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            collabinv_models.ImportCarloanYztResponse(),
+            await self.do_request_async('1.0', 'antchain.zkcollabinv.carloan.yzt.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def import_idmap_samplefile(
