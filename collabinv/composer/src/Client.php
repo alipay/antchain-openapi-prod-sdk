@@ -35,6 +35,8 @@ use AntChain\COLLABINV\Models\ExecModelSampletaskRequest;
 use AntChain\COLLABINV\Models\ExecModelSampletaskResponse;
 use AntChain\COLLABINV\Models\ImportCarloanUsersRequest;
 use AntChain\COLLABINV\Models\ImportCarloanUsersResponse;
+use AntChain\COLLABINV\Models\ImportCarloanYztRequest;
+use AntChain\COLLABINV\Models\ImportCarloanYztResponse;
 use AntChain\COLLABINV\Models\ImportIdmapPsiresultfileRequest;
 use AntChain\COLLABINV\Models\ImportIdmapPsiresultfileResponse;
 use AntChain\COLLABINV\Models\ImportIdmapSamplefileRequest;
@@ -53,6 +55,8 @@ use AntChain\COLLABINV\Models\QueryAgentSseRequest;
 use AntChain\COLLABINV\Models\QueryAgentSseResponse;
 use AntChain\COLLABINV\Models\QueryCarloanUsersRequest;
 use AntChain\COLLABINV\Models\QueryCarloanUsersResponse;
+use AntChain\COLLABINV\Models\QueryCarloanYztRequest;
+use AntChain\COLLABINV\Models\QueryCarloanYztResponse;
 use AntChain\COLLABINV\Models\QueryIndexresearchBrandindexRequest;
 use AntChain\COLLABINV\Models\QueryIndexresearchBrandindexResponse;
 use AntChain\COLLABINV\Models\QueryIndexresearchBrandRequest;
@@ -230,7 +234,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.61',
+                    'sdk_version'      => '1.0.64',
                     '_prod_code'       => 'COLLABINV',
                     '_prod_channel'    => 'default',
                 ];
@@ -823,6 +827,72 @@ class Client
         Utils::validateModel($request);
 
         return BatchqueryCarloanPrdResponse::fromMap($this->doRequest('1.0', 'antchain.zkcollabinv.carloan.prd.batchquery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 云中停查询接口
+     * Summary: 云中停查询接口.
+     *
+     * @param QueryCarloanYztRequest $request
+     *
+     * @return QueryCarloanYztResponse
+     */
+    public function queryCarloanYzt($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryCarloanYztEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 云中停查询接口
+     * Summary: 云中停查询接口.
+     *
+     * @param QueryCarloanYztRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return QueryCarloanYztResponse
+     */
+    public function queryCarloanYztEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryCarloanYztResponse::fromMap($this->doRequest('1.0', 'antchain.zkcollabinv.carloan.yzt.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 云中停线索导入接口
+     * Summary: 云中停线索导入.
+     *
+     * @param ImportCarloanYztRequest $request
+     *
+     * @return ImportCarloanYztResponse
+     */
+    public function importCarloanYzt($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->importCarloanYztEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 云中停线索导入接口
+     * Summary: 云中停线索导入.
+     *
+     * @param ImportCarloanYztRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return ImportCarloanYztResponse
+     */
+    public function importCarloanYztEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ImportCarloanYztResponse::fromMap($this->doRequest('1.0', 'antchain.zkcollabinv.carloan.yzt.import', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
