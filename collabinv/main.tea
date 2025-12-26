@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.61',
+    sdk_version = '1.0.64',
     _prod_code = 'COLLABINV',
     _prod_channel = 'default'
   };
@@ -996,6 +996,86 @@ async function batchqueryCarloanPrd(request: BatchqueryCarloanPrdRequest): Batch
 async function batchqueryCarloanPrdEx(request: BatchqueryCarloanPrdRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BatchqueryCarloanPrdResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.zkcollabinv.carloan.prd.batchquery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryCarloanYztRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 车牌号
+  plateNo: string(name='plate_no'),
+}
+
+model QueryCarloanYztResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 查询结果
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 云中停查询接口
+ * Summary: 云中停查询接口
+ */
+async function queryCarloanYzt(request: QueryCarloanYztRequest): QueryCarloanYztResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryCarloanYztEx(request, headers, runtime);
+}
+
+/**
+ * Description: 云中停查询接口
+ * Summary: 云中停查询接口
+ */
+async function queryCarloanYztEx(request: QueryCarloanYztRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryCarloanYztResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.zkcollabinv.carloan.yzt.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ImportCarloanYztRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户id
+  userId: string(name='user_id'),
+  // 手机号
+  phoneNum: string(name='phone_num'),
+  // 车牌号
+  licenseNo: string(name='license_no'),
+}
+
+model ImportCarloanYztResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 保存结果
+  result?: boolean(name='result'),
+}
+
+/**
+ * Description: 云中停线索导入接口
+ * Summary: 云中停线索导入
+ */
+async function importCarloanYzt(request: ImportCarloanYztRequest): ImportCarloanYztResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return importCarloanYztEx(request, headers, runtime);
+}
+
+/**
+ * Description: 云中停线索导入接口
+ * Summary: 云中停线索导入
+ */
+async function importCarloanYztEx(request: ImportCarloanYztRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ImportCarloanYztResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.zkcollabinv.carloan.yzt.import', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model ImportIdmapSamplefileRequest = {
