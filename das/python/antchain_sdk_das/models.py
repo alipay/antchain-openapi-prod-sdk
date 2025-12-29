@@ -1959,8 +1959,10 @@ class AuthConfigListResponse(TeaModel):
         target_name: str = None,
         auth_app_name: str = None,
         auth_content_list: List[AuthContent] = None,
+        product_identity_id_list: List[str] = None,
         auth_count: int = None,
         auth_status: bool = None,
+        have_agreement: bool = None,
     ):
         # 场景码
         self.scene_code = scene_code
@@ -1976,10 +1978,14 @@ class AuthConfigListResponse(TeaModel):
         self.auth_app_name = auth_app_name
         # 授权内容列表
         self.auth_content_list = auth_content_list
+        # 国标产品标识码列表
+        self.product_identity_id_list = product_identity_id_list
         # 授权次数
         self.auth_count = auth_count
         # 授权状态
         self.auth_status = auth_status
+        # 是否有协议
+        self.have_agreement = have_agreement
 
     def validate(self):
         self.validate_required(self.scene_code, 'scene_code')
@@ -1993,8 +1999,10 @@ class AuthConfigListResponse(TeaModel):
             for k in self.auth_content_list:
                 if k:
                     k.validate()
+        self.validate_required(self.product_identity_id_list, 'product_identity_id_list')
         self.validate_required(self.auth_count, 'auth_count')
         self.validate_required(self.auth_status, 'auth_status')
+        self.validate_required(self.have_agreement, 'have_agreement')
 
     def to_map(self):
         _map = super().to_map()
@@ -2018,10 +2026,14 @@ class AuthConfigListResponse(TeaModel):
         if self.auth_content_list is not None:
             for k in self.auth_content_list:
                 result['auth_content_list'].append(k.to_map() if k else None)
+        if self.product_identity_id_list is not None:
+            result['product_identity_id_list'] = self.product_identity_id_list
         if self.auth_count is not None:
             result['auth_count'] = self.auth_count
         if self.auth_status is not None:
             result['auth_status'] = self.auth_status
+        if self.have_agreement is not None:
+            result['have_agreement'] = self.have_agreement
         return result
 
     def from_map(self, m: dict = None):
@@ -2043,10 +2055,14 @@ class AuthConfigListResponse(TeaModel):
             for k in m.get('auth_content_list'):
                 temp_model = AuthContent()
                 self.auth_content_list.append(temp_model.from_map(k))
+        if m.get('product_identity_id_list') is not None:
+            self.product_identity_id_list = m.get('product_identity_id_list')
         if m.get('auth_count') is not None:
             self.auth_count = m.get('auth_count')
         if m.get('auth_status') is not None:
             self.auth_status = m.get('auth_status')
+        if m.get('have_agreement') is not None:
+            self.have_agreement = m.get('have_agreement')
         return self
 
 
@@ -8146,7 +8162,9 @@ class AddAuthConfigRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         parent_scene_code: str = None,
-        source_space_id: str = None,
+        source_service_node_id: str = None,
+        source_tenant_id: str = None,
+        target_service_node_id: str = None,
         auth_enterprise_code: str = None,
         target_name: str = None,
         auth_app_name: str = None,
@@ -8172,8 +8190,12 @@ class AddAuthConfigRequest(TeaModel):
         self.product_instance_id = product_instance_id
         # 复用的场景码
         self.parent_scene_code = parent_scene_code
-        # 数据源连接器空间id
-        self.source_space_id = source_space_id
+        # 数据源可信空间id
+        self.source_service_node_id = source_service_node_id
+        # 数据源租户id
+        self.source_tenant_id = source_tenant_id
+        # 使用方可信空间id
+        self.target_service_node_id = target_service_node_id
         # 被授权方企业信用代码
         self.auth_enterprise_code = auth_enterprise_code
         # 被授权方名称
@@ -8214,7 +8236,9 @@ class AddAuthConfigRequest(TeaModel):
         self.start_auth_url = start_auth_url
 
     def validate(self):
-        self.validate_required(self.source_space_id, 'source_space_id')
+        self.validate_required(self.source_service_node_id, 'source_service_node_id')
+        self.validate_required(self.source_tenant_id, 'source_tenant_id')
+        self.validate_required(self.target_service_node_id, 'target_service_node_id')
         self.validate_required(self.auth_enterprise_code, 'auth_enterprise_code')
         self.validate_required(self.target_name, 'target_name')
         self.validate_required(self.auth_app_name, 'auth_app_name')
@@ -8242,8 +8266,12 @@ class AddAuthConfigRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.parent_scene_code is not None:
             result['parent_scene_code'] = self.parent_scene_code
-        if self.source_space_id is not None:
-            result['source_space_id'] = self.source_space_id
+        if self.source_service_node_id is not None:
+            result['source_service_node_id'] = self.source_service_node_id
+        if self.source_tenant_id is not None:
+            result['source_tenant_id'] = self.source_tenant_id
+        if self.target_service_node_id is not None:
+            result['target_service_node_id'] = self.target_service_node_id
         if self.auth_enterprise_code is not None:
             result['auth_enterprise_code'] = self.auth_enterprise_code
         if self.target_name is not None:
@@ -8296,8 +8324,12 @@ class AddAuthConfigRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('parent_scene_code') is not None:
             self.parent_scene_code = m.get('parent_scene_code')
-        if m.get('source_space_id') is not None:
-            self.source_space_id = m.get('source_space_id')
+        if m.get('source_service_node_id') is not None:
+            self.source_service_node_id = m.get('source_service_node_id')
+        if m.get('source_tenant_id') is not None:
+            self.source_tenant_id = m.get('source_tenant_id')
+        if m.get('target_service_node_id') is not None:
+            self.target_service_node_id = m.get('target_service_node_id')
         if m.get('auth_enterprise_code') is not None:
             self.auth_enterprise_code = m.get('auth_enterprise_code')
         if m.get('target_name') is not None:
@@ -8401,7 +8433,9 @@ class UpdateAuthConfigRequest(TeaModel):
         product_instance_id: str = None,
         scene_code: str = None,
         parent_scene_code: str = None,
-        source_space_id: str = None,
+        source_service_node_id: str = None,
+        source_tenant_id: str = None,
+        target_service_node_id: str = None,
         auth_enterprise_code: str = None,
         target_name: str = None,
         auth_app_name: str = None,
@@ -8411,7 +8445,7 @@ class UpdateAuthConfigRequest(TeaModel):
         auth_type: str = None,
         enable_show_proof_vc: bool = None,
         enable_show_auth_record: bool = None,
-        product_group_list: List[AuthProductGroup] = None,
+        product_group_list: List[ProductProviderGroup] = None,
         user_type: str = None,
         agreement_list: List[Agreement] = None,
         background_color: str = None,
@@ -8429,8 +8463,12 @@ class UpdateAuthConfigRequest(TeaModel):
         self.scene_code = scene_code
         # 复用的场景码
         self.parent_scene_code = parent_scene_code
-        # 数据源连接器空间id
-        self.source_space_id = source_space_id
+        # 数据源可信空间id
+        self.source_service_node_id = source_service_node_id
+        # 数据源租户id
+        self.source_tenant_id = source_tenant_id
+        # 使用方可信空间id
+        self.target_service_node_id = target_service_node_id
         # 被授权方企业信用代码
         self.auth_enterprise_code = auth_enterprise_code
         # 被授权方名称
@@ -8472,7 +8510,9 @@ class UpdateAuthConfigRequest(TeaModel):
 
     def validate(self):
         self.validate_required(self.scene_code, 'scene_code')
-        self.validate_required(self.source_space_id, 'source_space_id')
+        self.validate_required(self.source_service_node_id, 'source_service_node_id')
+        self.validate_required(self.source_tenant_id, 'source_tenant_id')
+        self.validate_required(self.target_service_node_id, 'target_service_node_id')
         self.validate_required(self.auth_enterprise_code, 'auth_enterprise_code')
         self.validate_required(self.target_name, 'target_name')
         self.validate_required(self.auth_app_name, 'auth_app_name')
@@ -8502,8 +8542,12 @@ class UpdateAuthConfigRequest(TeaModel):
             result['scene_code'] = self.scene_code
         if self.parent_scene_code is not None:
             result['parent_scene_code'] = self.parent_scene_code
-        if self.source_space_id is not None:
-            result['source_space_id'] = self.source_space_id
+        if self.source_service_node_id is not None:
+            result['source_service_node_id'] = self.source_service_node_id
+        if self.source_tenant_id is not None:
+            result['source_tenant_id'] = self.source_tenant_id
+        if self.target_service_node_id is not None:
+            result['target_service_node_id'] = self.target_service_node_id
         if self.auth_enterprise_code is not None:
             result['auth_enterprise_code'] = self.auth_enterprise_code
         if self.target_name is not None:
@@ -8558,8 +8602,12 @@ class UpdateAuthConfigRequest(TeaModel):
             self.scene_code = m.get('scene_code')
         if m.get('parent_scene_code') is not None:
             self.parent_scene_code = m.get('parent_scene_code')
-        if m.get('source_space_id') is not None:
-            self.source_space_id = m.get('source_space_id')
+        if m.get('source_service_node_id') is not None:
+            self.source_service_node_id = m.get('source_service_node_id')
+        if m.get('source_tenant_id') is not None:
+            self.source_tenant_id = m.get('source_tenant_id')
+        if m.get('target_service_node_id') is not None:
+            self.target_service_node_id = m.get('target_service_node_id')
         if m.get('auth_enterprise_code') is not None:
             self.auth_enterprise_code = m.get('auth_enterprise_code')
         if m.get('target_name') is not None:
@@ -8581,7 +8629,7 @@ class UpdateAuthConfigRequest(TeaModel):
         self.product_group_list = []
         if m.get('product_group_list') is not None:
             for k in m.get('product_group_list'):
-                temp_model = AuthProductGroup()
+                temp_model = ProductProviderGroup()
                 self.product_group_list.append(temp_model.from_map(k))
         if m.get('user_type') is not None:
             self.user_type = m.get('user_type')
@@ -9025,31 +9073,38 @@ class ListAuthConfigRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
-        source_space_id: str = None,
+        source_service_node_id: str = None,
+        source_tenant_id: str = None,
         target_name: str = None,
         auth_app_name: str = None,
         auth_content_code_list: List[str] = None,
+        product_identity_id_list: List[str] = None,
         page_num: int = None,
         page_size: int = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # 连接器空间id
-        self.source_space_id = source_space_id
+        # 数据源可信空间id
+        self.source_service_node_id = source_service_node_id
+        # 数据源租户id
+        self.source_tenant_id = source_tenant_id
         # 客户名称
         self.target_name = target_name
         # 业务应用名称
         self.auth_app_name = auth_app_name
         # 授权内容code列表
         self.auth_content_code_list = auth_content_code_list
+        # 国标产品标识码列表
+        self.product_identity_id_list = product_identity_id_list
         # 页码
         self.page_num = page_num
         # 每页数量
         self.page_size = page_size
 
     def validate(self):
-        self.validate_required(self.source_space_id, 'source_space_id')
+        self.validate_required(self.source_service_node_id, 'source_service_node_id')
+        self.validate_required(self.source_tenant_id, 'source_tenant_id')
         self.validate_required(self.page_num, 'page_num')
         self.validate_required(self.page_size, 'page_size')
 
@@ -9063,14 +9118,18 @@ class ListAuthConfigRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
-        if self.source_space_id is not None:
-            result['source_space_id'] = self.source_space_id
+        if self.source_service_node_id is not None:
+            result['source_service_node_id'] = self.source_service_node_id
+        if self.source_tenant_id is not None:
+            result['source_tenant_id'] = self.source_tenant_id
         if self.target_name is not None:
             result['target_name'] = self.target_name
         if self.auth_app_name is not None:
             result['auth_app_name'] = self.auth_app_name
         if self.auth_content_code_list is not None:
             result['auth_content_code_list'] = self.auth_content_code_list
+        if self.product_identity_id_list is not None:
+            result['product_identity_id_list'] = self.product_identity_id_list
         if self.page_num is not None:
             result['page_num'] = self.page_num
         if self.page_size is not None:
@@ -9083,14 +9142,18 @@ class ListAuthConfigRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
-        if m.get('source_space_id') is not None:
-            self.source_space_id = m.get('source_space_id')
+        if m.get('source_service_node_id') is not None:
+            self.source_service_node_id = m.get('source_service_node_id')
+        if m.get('source_tenant_id') is not None:
+            self.source_tenant_id = m.get('source_tenant_id')
         if m.get('target_name') is not None:
             self.target_name = m.get('target_name')
         if m.get('auth_app_name') is not None:
             self.auth_app_name = m.get('auth_app_name')
         if m.get('auth_content_code_list') is not None:
             self.auth_content_code_list = m.get('auth_content_code_list')
+        if m.get('product_identity_id_list') is not None:
+            self.product_identity_id_list = m.get('product_identity_id_list')
         if m.get('page_num') is not None:
             self.page_num = m.get('page_num')
         if m.get('page_size') is not None:
@@ -9273,19 +9336,19 @@ class DetailAuthConfigRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
-        source_space_id: str = None,
+        source_service_node_id: str = None,
         scene_code: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # 空间id
-        self.source_space_id = source_space_id
+        # 数据源可信空间id
+        self.source_service_node_id = source_service_node_id
         # 场景码
         self.scene_code = scene_code
 
     def validate(self):
-        self.validate_required(self.source_space_id, 'source_space_id')
+        self.validate_required(self.source_service_node_id, 'source_service_node_id')
         self.validate_required(self.scene_code, 'scene_code')
 
     def to_map(self):
@@ -9298,8 +9361,8 @@ class DetailAuthConfigRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
-        if self.source_space_id is not None:
-            result['source_space_id'] = self.source_space_id
+        if self.source_service_node_id is not None:
+            result['source_service_node_id'] = self.source_service_node_id
         if self.scene_code is not None:
             result['scene_code'] = self.scene_code
         return result
@@ -9310,8 +9373,8 @@ class DetailAuthConfigRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
-        if m.get('source_space_id') is not None:
-            self.source_space_id = m.get('source_space_id')
+        if m.get('source_service_node_id') is not None:
+            self.source_service_node_id = m.get('source_service_node_id')
         if m.get('scene_code') is not None:
             self.scene_code = m.get('scene_code')
         return self
@@ -9929,6 +9992,7 @@ class QueryProductParamRequest(TeaModel):
         source_space_id: str = None,
         enterprise_code: str = None,
         product_identity_id: str = None,
+        scene_code: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -9939,11 +10003,14 @@ class QueryProductParamRequest(TeaModel):
         self.enterprise_code = enterprise_code
         # 国标产品标识码
         self.product_identity_id = product_identity_id
+        # 场景码
+        self.scene_code = scene_code
 
     def validate(self):
         self.validate_required(self.source_space_id, 'source_space_id')
         self.validate_required(self.enterprise_code, 'enterprise_code')
         self.validate_required(self.product_identity_id, 'product_identity_id')
+        self.validate_required(self.scene_code, 'scene_code')
 
     def to_map(self):
         _map = super().to_map()
@@ -9961,6 +10028,8 @@ class QueryProductParamRequest(TeaModel):
             result['enterprise_code'] = self.enterprise_code
         if self.product_identity_id is not None:
             result['product_identity_id'] = self.product_identity_id
+        if self.scene_code is not None:
+            result['scene_code'] = self.scene_code
         return result
 
     def from_map(self, m: dict = None):
@@ -9975,6 +10044,8 @@ class QueryProductParamRequest(TeaModel):
             self.enterprise_code = m.get('enterprise_code')
         if m.get('product_identity_id') is not None:
             self.product_identity_id = m.get('product_identity_id')
+        if m.get('scene_code') is not None:
+            self.scene_code = m.get('scene_code')
         return self
 
 
@@ -9984,7 +10055,6 @@ class QueryProductParamResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        need_auth: bool = None,
         user_type: str = None,
         param_info_list: List[ProductParamInfo] = None,
     ):
@@ -9994,8 +10064,6 @@ class QueryProductParamResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 是否需要授权
-        self.need_auth = need_auth
         # 用户表示类型
         self.user_type = user_type
         # 产品参数信息列表
@@ -10019,8 +10087,6 @@ class QueryProductParamResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
-        if self.need_auth is not None:
-            result['need_auth'] = self.need_auth
         if self.user_type is not None:
             result['user_type'] = self.user_type
         result['param_info_list'] = []
@@ -10037,8 +10103,6 @@ class QueryProductParamResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
-        if m.get('need_auth') is not None:
-            self.need_auth = m.get('need_auth')
         if m.get('user_type') is not None:
             self.user_type = m.get('user_type')
         self.param_info_list = []
@@ -10251,6 +10315,203 @@ class CallbackAuthRecordResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        return self
+
+
+class ListAuthAgreementRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        return self
+
+
+class ListAuthAgreementResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        agreement_info_list: List[Agreement] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 默认的授权协议列表
+        self.agreement_info_list = agreement_info_list
+
+    def validate(self):
+        if self.agreement_info_list:
+            for k in self.agreement_info_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['agreement_info_list'] = []
+        if self.agreement_info_list is not None:
+            for k in self.agreement_info_list:
+                result['agreement_info_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.agreement_info_list = []
+        if m.get('agreement_info_list') is not None:
+            for k in m.get('agreement_info_list'):
+                temp_model = Agreement()
+                self.agreement_info_list.append(temp_model.from_map(k))
+        return self
+
+
+class StartProductAuthRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        source_space_id: str = None,
+        enterprise_code: str = None,
+        product_identity_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 空间id
+        self.source_space_id = source_space_id
+        # 企业代码
+        self.enterprise_code = enterprise_code
+        # 国标产品标识码
+        self.product_identity_id = product_identity_id
+
+    def validate(self):
+        self.validate_required(self.source_space_id, 'source_space_id')
+        self.validate_required(self.enterprise_code, 'enterprise_code')
+        self.validate_required(self.product_identity_id, 'product_identity_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.source_space_id is not None:
+            result['source_space_id'] = self.source_space_id
+        if self.enterprise_code is not None:
+            result['enterprise_code'] = self.enterprise_code
+        if self.product_identity_id is not None:
+            result['product_identity_id'] = self.product_identity_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('source_space_id') is not None:
+            self.source_space_id = m.get('source_space_id')
+        if m.get('enterprise_code') is not None:
+            self.enterprise_code = m.get('enterprise_code')
+        if m.get('product_identity_id') is not None:
+            self.product_identity_id = m.get('product_identity_id')
+        return self
+
+
+class StartProductAuthResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        need_auth: bool = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 是否需要授权
+        self.need_auth = need_auth
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.need_auth is not None:
+            result['need_auth'] = self.need_auth
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('need_auth') is not None:
+            self.need_auth = m.get('need_auth')
         return self
 
 

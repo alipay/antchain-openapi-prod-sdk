@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.110',
+                    'sdk_version': '1.1.121',
                     '_prod_code': 'DAS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.110',
+                    'sdk_version': '1.1.121',
                     '_prod_code': 'DAS',
                     '_prod_channel': 'undefined'
                 }
@@ -3609,6 +3609,118 @@ class Client:
         return TeaCore.from_map(
             das_models.CallbackAuthRecordResponse(),
             await self.do_request_async('1.0', 'antchain.das.auth.record.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def list_auth_agreement(
+        self,
+        request: das_models.ListAuthAgreementRequest,
+    ) -> das_models.ListAuthAgreementResponse:
+        """
+        Description: 获取默认的授权协议
+        Summary: 获取默认的授权协议
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_auth_agreement_ex(request, headers, runtime)
+
+    async def list_auth_agreement_async(
+        self,
+        request: das_models.ListAuthAgreementRequest,
+    ) -> das_models.ListAuthAgreementResponse:
+        """
+        Description: 获取默认的授权协议
+        Summary: 获取默认的授权协议
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.list_auth_agreement_ex_async(request, headers, runtime)
+
+    def list_auth_agreement_ex(
+        self,
+        request: das_models.ListAuthAgreementRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> das_models.ListAuthAgreementResponse:
+        """
+        Description: 获取默认的授权协议
+        Summary: 获取默认的授权协议
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            das_models.ListAuthAgreementResponse(),
+            self.do_request('1.0', 'antchain.das.auth.agreement.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def list_auth_agreement_ex_async(
+        self,
+        request: das_models.ListAuthAgreementRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> das_models.ListAuthAgreementResponse:
+        """
+        Description: 获取默认的授权协议
+        Summary: 获取默认的授权协议
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            das_models.ListAuthAgreementResponse(),
+            await self.do_request_async('1.0', 'antchain.das.auth.agreement.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def start_product_auth(
+        self,
+        request: das_models.StartProductAuthRequest,
+    ) -> das_models.StartProductAuthResponse:
+        """
+        Description: 数据产品是否需要授权
+        Summary: 数据产品是否需要授权
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.start_product_auth_ex(request, headers, runtime)
+
+    async def start_product_auth_async(
+        self,
+        request: das_models.StartProductAuthRequest,
+    ) -> das_models.StartProductAuthResponse:
+        """
+        Description: 数据产品是否需要授权
+        Summary: 数据产品是否需要授权
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.start_product_auth_ex_async(request, headers, runtime)
+
+    def start_product_auth_ex(
+        self,
+        request: das_models.StartProductAuthRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> das_models.StartProductAuthResponse:
+        """
+        Description: 数据产品是否需要授权
+        Summary: 数据产品是否需要授权
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            das_models.StartProductAuthResponse(),
+            self.do_request('1.0', 'antchain.das.product.auth.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def start_product_auth_ex_async(
+        self,
+        request: das_models.StartProductAuthRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> das_models.StartProductAuthResponse:
+        """
+        Description: 数据产品是否需要授权
+        Summary: 数据产品是否需要授权
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            das_models.StartProductAuthResponse(),
+            await self.do_request_async('1.0', 'antchain.das.product.auth.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(

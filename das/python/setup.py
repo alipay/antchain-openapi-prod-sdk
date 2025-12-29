@@ -24,7 +24,7 @@ from setuptools import setup, find_packages
 """
 setup module for antchain_das.
 
-Created on 16/12/2025
+Created on 29/12/2025
 
 @author: Ant Chain SDK
 """
