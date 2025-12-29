@@ -64,6 +64,14 @@ class AuthConfigListResponse extends Model
      */
     public $authContentList;
 
+    // 国标产品标识码列表
+    /**
+     * @example -
+     *
+     * @var string[]
+     */
+    public $productIdentityIdList;
+
     // 授权次数
     /**
      * @example -
@@ -79,16 +87,26 @@ class AuthConfigListResponse extends Model
      * @var bool
      */
     public $authStatus;
+
+    // 是否有协议
+    /**
+     * @example true, false
+     *
+     * @var bool
+     */
+    public $haveAgreement;
     protected $_name = [
-        'sceneCode'          => 'scene_code',
-        'authType'           => 'auth_type',
-        'sourceSpaceId'      => 'source_space_id',
-        'authEnterpriseCode' => 'auth_enterprise_code',
-        'targetName'         => 'target_name',
-        'authAppName'        => 'auth_app_name',
-        'authContentList'    => 'auth_content_list',
-        'authCount'          => 'auth_count',
-        'authStatus'         => 'auth_status',
+        'sceneCode'             => 'scene_code',
+        'authType'              => 'auth_type',
+        'sourceSpaceId'         => 'source_space_id',
+        'authEnterpriseCode'    => 'auth_enterprise_code',
+        'targetName'            => 'target_name',
+        'authAppName'           => 'auth_app_name',
+        'authContentList'       => 'auth_content_list',
+        'productIdentityIdList' => 'product_identity_id_list',
+        'authCount'             => 'auth_count',
+        'authStatus'            => 'auth_status',
+        'haveAgreement'         => 'have_agreement',
     ];
 
     public function validate()
@@ -100,8 +118,10 @@ class AuthConfigListResponse extends Model
         Model::validateRequired('targetName', $this->targetName, true);
         Model::validateRequired('authAppName', $this->authAppName, true);
         Model::validateRequired('authContentList', $this->authContentList, true);
+        Model::validateRequired('productIdentityIdList', $this->productIdentityIdList, true);
         Model::validateRequired('authCount', $this->authCount, true);
         Model::validateRequired('authStatus', $this->authStatus, true);
+        Model::validateRequired('haveAgreement', $this->haveAgreement, true);
     }
 
     public function toMap()
@@ -134,11 +154,17 @@ class AuthConfigListResponse extends Model
                 }
             }
         }
+        if (null !== $this->productIdentityIdList) {
+            $res['product_identity_id_list'] = $this->productIdentityIdList;
+        }
         if (null !== $this->authCount) {
             $res['auth_count'] = $this->authCount;
         }
         if (null !== $this->authStatus) {
             $res['auth_status'] = $this->authStatus;
+        }
+        if (null !== $this->haveAgreement) {
+            $res['have_agreement'] = $this->haveAgreement;
         }
 
         return $res;
@@ -179,11 +205,19 @@ class AuthConfigListResponse extends Model
                 }
             }
         }
+        if (isset($map['product_identity_id_list'])) {
+            if (!empty($map['product_identity_id_list'])) {
+                $model->productIdentityIdList = $map['product_identity_id_list'];
+            }
+        }
         if (isset($map['auth_count'])) {
             $model->authCount = $map['auth_count'];
         }
         if (isset($map['auth_status'])) {
             $model->authStatus = $map['auth_status'];
+        }
+        if (isset($map['have_agreement'])) {
+            $model->haveAgreement = $map['have_agreement'];
         }
 
         return $model;

@@ -19,11 +19,17 @@ class ListAuthConfigRequest extends Model
      */
     public $productInstanceId;
 
-    // 连接器空间id
+    // 数据源可信空间id
     /**
      * @var string
      */
-    public $sourceSpaceId;
+    public $sourceServiceNodeId;
+
+    // 数据源租户id
+    /**
+     * @var string
+     */
+    public $sourceTenantId;
 
     // 客户名称
     /**
@@ -43,6 +49,12 @@ class ListAuthConfigRequest extends Model
      */
     public $authContentCodeList;
 
+    // 国标产品标识码列表
+    /**
+     * @var string[]
+     */
+    public $productIdentityIdList;
+
     // 页码
     /**
      * @var int
@@ -55,19 +67,22 @@ class ListAuthConfigRequest extends Model
      */
     public $pageSize;
     protected $_name = [
-        'authToken'           => 'auth_token',
-        'productInstanceId'   => 'product_instance_id',
-        'sourceSpaceId'       => 'source_space_id',
-        'targetName'          => 'target_name',
-        'authAppName'         => 'auth_app_name',
-        'authContentCodeList' => 'auth_content_code_list',
-        'pageNum'             => 'page_num',
-        'pageSize'            => 'page_size',
+        'authToken'             => 'auth_token',
+        'productInstanceId'     => 'product_instance_id',
+        'sourceServiceNodeId'   => 'source_service_node_id',
+        'sourceTenantId'        => 'source_tenant_id',
+        'targetName'            => 'target_name',
+        'authAppName'           => 'auth_app_name',
+        'authContentCodeList'   => 'auth_content_code_list',
+        'productIdentityIdList' => 'product_identity_id_list',
+        'pageNum'               => 'page_num',
+        'pageSize'              => 'page_size',
     ];
 
     public function validate()
     {
-        Model::validateRequired('sourceSpaceId', $this->sourceSpaceId, true);
+        Model::validateRequired('sourceServiceNodeId', $this->sourceServiceNodeId, true);
+        Model::validateRequired('sourceTenantId', $this->sourceTenantId, true);
         Model::validateRequired('pageNum', $this->pageNum, true);
         Model::validateRequired('pageSize', $this->pageSize, true);
     }
@@ -81,8 +96,11 @@ class ListAuthConfigRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->sourceSpaceId) {
-            $res['source_space_id'] = $this->sourceSpaceId;
+        if (null !== $this->sourceServiceNodeId) {
+            $res['source_service_node_id'] = $this->sourceServiceNodeId;
+        }
+        if (null !== $this->sourceTenantId) {
+            $res['source_tenant_id'] = $this->sourceTenantId;
         }
         if (null !== $this->targetName) {
             $res['target_name'] = $this->targetName;
@@ -92,6 +110,9 @@ class ListAuthConfigRequest extends Model
         }
         if (null !== $this->authContentCodeList) {
             $res['auth_content_code_list'] = $this->authContentCodeList;
+        }
+        if (null !== $this->productIdentityIdList) {
+            $res['product_identity_id_list'] = $this->productIdentityIdList;
         }
         if (null !== $this->pageNum) {
             $res['page_num'] = $this->pageNum;
@@ -117,8 +138,11 @@ class ListAuthConfigRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['source_space_id'])) {
-            $model->sourceSpaceId = $map['source_space_id'];
+        if (isset($map['source_service_node_id'])) {
+            $model->sourceServiceNodeId = $map['source_service_node_id'];
+        }
+        if (isset($map['source_tenant_id'])) {
+            $model->sourceTenantId = $map['source_tenant_id'];
         }
         if (isset($map['target_name'])) {
             $model->targetName = $map['target_name'];
@@ -129,6 +153,11 @@ class ListAuthConfigRequest extends Model
         if (isset($map['auth_content_code_list'])) {
             if (!empty($map['auth_content_code_list'])) {
                 $model->authContentCodeList = $map['auth_content_code_list'];
+            }
+        }
+        if (isset($map['product_identity_id_list'])) {
+            if (!empty($map['product_identity_id_list'])) {
+                $model->productIdentityIdList = $map['product_identity_id_list'];
             }
         }
         if (isset($map['page_num'])) {

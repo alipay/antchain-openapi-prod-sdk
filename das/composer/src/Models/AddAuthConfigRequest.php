@@ -25,11 +25,23 @@ class AddAuthConfigRequest extends Model
      */
     public $parentSceneCode;
 
-    // 数据源连接器空间id
+    // 数据源可信空间id
     /**
      * @var string
      */
-    public $sourceSpaceId;
+    public $sourceServiceNodeId;
+
+    // 数据源租户id
+    /**
+     * @var string
+     */
+    public $sourceTenantId;
+
+    // 使用方可信空间id
+    /**
+     * @var string
+     */
+    public $targetServiceNodeId;
 
     // 被授权方企业信用代码
     /**
@@ -148,7 +160,9 @@ class AddAuthConfigRequest extends Model
         'authToken'                 => 'auth_token',
         'productInstanceId'         => 'product_instance_id',
         'parentSceneCode'           => 'parent_scene_code',
-        'sourceSpaceId'             => 'source_space_id',
+        'sourceServiceNodeId'       => 'source_service_node_id',
+        'sourceTenantId'            => 'source_tenant_id',
+        'targetServiceNodeId'       => 'target_service_node_id',
         'authEnterpriseCode'        => 'auth_enterprise_code',
         'targetName'                => 'target_name',
         'authAppName'               => 'auth_app_name',
@@ -172,7 +186,9 @@ class AddAuthConfigRequest extends Model
 
     public function validate()
     {
-        Model::validateRequired('sourceSpaceId', $this->sourceSpaceId, true);
+        Model::validateRequired('sourceServiceNodeId', $this->sourceServiceNodeId, true);
+        Model::validateRequired('sourceTenantId', $this->sourceTenantId, true);
+        Model::validateRequired('targetServiceNodeId', $this->targetServiceNodeId, true);
         Model::validateRequired('authEnterpriseCode', $this->authEnterpriseCode, true);
         Model::validateRequired('targetName', $this->targetName, true);
         Model::validateRequired('authAppName', $this->authAppName, true);
@@ -193,8 +209,14 @@ class AddAuthConfigRequest extends Model
         if (null !== $this->parentSceneCode) {
             $res['parent_scene_code'] = $this->parentSceneCode;
         }
-        if (null !== $this->sourceSpaceId) {
-            $res['source_space_id'] = $this->sourceSpaceId;
+        if (null !== $this->sourceServiceNodeId) {
+            $res['source_service_node_id'] = $this->sourceServiceNodeId;
+        }
+        if (null !== $this->sourceTenantId) {
+            $res['source_tenant_id'] = $this->sourceTenantId;
+        }
+        if (null !== $this->targetServiceNodeId) {
+            $res['target_service_node_id'] = $this->targetServiceNodeId;
         }
         if (null !== $this->authEnterpriseCode) {
             $res['auth_enterprise_code'] = $this->authEnterpriseCode;
@@ -286,8 +308,14 @@ class AddAuthConfigRequest extends Model
         if (isset($map['parent_scene_code'])) {
             $model->parentSceneCode = $map['parent_scene_code'];
         }
-        if (isset($map['source_space_id'])) {
-            $model->sourceSpaceId = $map['source_space_id'];
+        if (isset($map['source_service_node_id'])) {
+            $model->sourceServiceNodeId = $map['source_service_node_id'];
+        }
+        if (isset($map['source_tenant_id'])) {
+            $model->sourceTenantId = $map['source_tenant_id'];
+        }
+        if (isset($map['target_service_node_id'])) {
+            $model->targetServiceNodeId = $map['target_service_node_id'];
         }
         if (isset($map['auth_enterprise_code'])) {
             $model->authEnterpriseCode = $map['auth_enterprise_code'];

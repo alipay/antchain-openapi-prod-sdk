@@ -47,6 +47,8 @@ use AntChain\DAS\Models\GetDomesticTrademarklogoRequest;
 use AntChain\DAS\Models\GetDomesticTrademarklogoResponse;
 use AntChain\DAS\Models\InitUnifiedentranceAsyncRequest;
 use AntChain\DAS\Models\InitUnifiedentranceAsyncResponse;
+use AntChain\DAS\Models\ListAuthAgreementRequest;
+use AntChain\DAS\Models\ListAuthAgreementResponse;
 use AntChain\DAS\Models\ListAuthConfigRequest;
 use AntChain\DAS\Models\ListAuthConfigResponse;
 use AntChain\DAS\Models\ListAuthContentRequest;
@@ -101,6 +103,8 @@ use AntChain\DAS\Models\SendDasSmsRequest;
 use AntChain\DAS\Models\SendDasSmsResponse;
 use AntChain\DAS\Models\SignApplicationResumeRequest;
 use AntChain\DAS\Models\SignApplicationResumeResponse;
+use AntChain\DAS\Models\StartProductAuthRequest;
+use AntChain\DAS\Models\StartProductAuthResponse;
 use AntChain\DAS\Models\UpdateAuthConfigRequest;
 use AntChain\DAS\Models\UpdateAuthConfigResponse;
 use AntChain\DAS\Models\UpdateAuthStatusRequest;
@@ -274,7 +278,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.110',
+                    'sdk_version'      => '1.1.121',
                     '_prod_code'       => 'DAS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -2277,6 +2281,72 @@ class Client
         Utils::validateModel($request);
 
         return CallbackAuthRecordResponse::fromMap($this->doRequest('1.0', 'antchain.das.auth.record.callback', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取默认的授权协议
+     * Summary: 获取默认的授权协议.
+     *
+     * @param ListAuthAgreementRequest $request
+     *
+     * @return ListAuthAgreementResponse
+     */
+    public function listAuthAgreement($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listAuthAgreementEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取默认的授权协议
+     * Summary: 获取默认的授权协议.
+     *
+     * @param ListAuthAgreementRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return ListAuthAgreementResponse
+     */
+    public function listAuthAgreementEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListAuthAgreementResponse::fromMap($this->doRequest('1.0', 'antchain.das.auth.agreement.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数据产品是否需要授权
+     * Summary: 数据产品是否需要授权.
+     *
+     * @param StartProductAuthRequest $request
+     *
+     * @return StartProductAuthResponse
+     */
+    public function startProductAuth($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startProductAuthEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数据产品是否需要授权
+     * Summary: 数据产品是否需要授权.
+     *
+     * @param StartProductAuthRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return StartProductAuthResponse
+     */
+    public function startProductAuthEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartProductAuthResponse::fromMap($this->doRequest('1.0', 'antchain.das.product.auth.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

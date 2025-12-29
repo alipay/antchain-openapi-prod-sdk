@@ -6,7 +6,7 @@ namespace AntChain\DAS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryProductParamRequest extends Model
+class StartProductAuthRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -36,19 +36,12 @@ class QueryProductParamRequest extends Model
      * @var string
      */
     public $productIdentityId;
-
-    // 场景码
-    /**
-     * @var string
-     */
-    public $sceneCode;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'sourceSpaceId'     => 'source_space_id',
         'enterpriseCode'    => 'enterprise_code',
         'productIdentityId' => 'product_identity_id',
-        'sceneCode'         => 'scene_code',
     ];
 
     public function validate()
@@ -56,7 +49,6 @@ class QueryProductParamRequest extends Model
         Model::validateRequired('sourceSpaceId', $this->sourceSpaceId, true);
         Model::validateRequired('enterpriseCode', $this->enterpriseCode, true);
         Model::validateRequired('productIdentityId', $this->productIdentityId, true);
-        Model::validateRequired('sceneCode', $this->sceneCode, true);
     }
 
     public function toMap()
@@ -77,9 +69,6 @@ class QueryProductParamRequest extends Model
         if (null !== $this->productIdentityId) {
             $res['product_identity_id'] = $this->productIdentityId;
         }
-        if (null !== $this->sceneCode) {
-            $res['scene_code'] = $this->sceneCode;
-        }
 
         return $res;
     }
@@ -87,7 +76,7 @@ class QueryProductParamRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryProductParamRequest
+     * @return StartProductAuthRequest
      */
     public static function fromMap($map = [])
     {
@@ -106,9 +95,6 @@ class QueryProductParamRequest extends Model
         }
         if (isset($map['product_identity_id'])) {
             $model->productIdentityId = $map['product_identity_id'];
-        }
-        if (isset($map['scene_code'])) {
-            $model->sceneCode = $map['scene_code'];
         }
 
         return $model;

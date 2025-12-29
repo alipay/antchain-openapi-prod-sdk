@@ -6,7 +6,7 @@ namespace AntChain\DAS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryProductParamResponse extends Model
+class ListAuthAgreementResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,23 +26,16 @@ class QueryProductParamResponse extends Model
      */
     public $resultMsg;
 
-    // 用户表示类型
+    // 默认的授权协议列表
     /**
-     * @var string
+     * @var Agreement[]
      */
-    public $userType;
-
-    // 产品参数信息列表
-    /**
-     * @var ProductParamInfo[]
-     */
-    public $paramInfoList;
+    public $agreementInfoList;
     protected $_name = [
-        'reqMsgId'      => 'req_msg_id',
-        'resultCode'    => 'result_code',
-        'resultMsg'     => 'result_msg',
-        'userType'      => 'user_type',
-        'paramInfoList' => 'param_info_list',
+        'reqMsgId'          => 'req_msg_id',
+        'resultCode'        => 'result_code',
+        'resultMsg'         => 'result_msg',
+        'agreementInfoList' => 'agreement_info_list',
     ];
 
     public function validate()
@@ -61,15 +54,12 @@ class QueryProductParamResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->userType) {
-            $res['user_type'] = $this->userType;
-        }
-        if (null !== $this->paramInfoList) {
-            $res['param_info_list'] = [];
-            if (null !== $this->paramInfoList && \is_array($this->paramInfoList)) {
+        if (null !== $this->agreementInfoList) {
+            $res['agreement_info_list'] = [];
+            if (null !== $this->agreementInfoList && \is_array($this->agreementInfoList)) {
                 $n = 0;
-                foreach ($this->paramInfoList as $item) {
-                    $res['param_info_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                foreach ($this->agreementInfoList as $item) {
+                    $res['agreement_info_list'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
         }
@@ -80,7 +70,7 @@ class QueryProductParamResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryProductParamResponse
+     * @return ListAuthAgreementResponse
      */
     public static function fromMap($map = [])
     {
@@ -94,15 +84,12 @@ class QueryProductParamResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['user_type'])) {
-            $model->userType = $map['user_type'];
-        }
-        if (isset($map['param_info_list'])) {
-            if (!empty($map['param_info_list'])) {
-                $model->paramInfoList = [];
-                $n                    = 0;
-                foreach ($map['param_info_list'] as $item) {
-                    $model->paramInfoList[$n++] = null !== $item ? ProductParamInfo::fromMap($item) : $item;
+        if (isset($map['agreement_info_list'])) {
+            if (!empty($map['agreement_info_list'])) {
+                $model->agreementInfoList = [];
+                $n                        = 0;
+                foreach ($map['agreement_info_list'] as $item) {
+                    $model->agreementInfoList[$n++] = null !== $item ? Agreement::fromMap($item) : $item;
                 }
             }
         }
