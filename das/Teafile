@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-das:1.1.110",
-    "go": "github.com/antchain-openapi-sdk-go/das/client:v1.1.110",
-    "csharp": "AntChain.SDK.DAS:1.1.110",
+    "java": "com.antgroup.antchain.openapi:openapi-das:1.1.121",
+    "go": "github.com/antchain-openapi-sdk-go/das/client:v1.1.121",
+    "csharp": "AntChain.SDK.DAS:1.1.121",
     "ts": "@antchain/das:1.1.102",
-    "php": "antchain/das:1.1.110",
-    "python": "antchain_sdk_das:1.1.110"
+    "php": "antchain/das:1.1.121",
+    "python": "antchain_sdk_das:1.1.121"
   },
   "libraries": {
     "Util": "darabonba:Util:*",
