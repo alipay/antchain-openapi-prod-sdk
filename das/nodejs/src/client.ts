@@ -1195,10 +1195,14 @@ export class AuthConfigListResponse extends $tea.Model {
   authAppName: string;
   // 授权内容列表
   authContentList: AuthContent[];
+  // 国标产品标识码列表
+  productIdentityIdList: string[];
   // 授权次数
   authCount: number;
   // 授权状态
   authStatus: boolean;
+  // 是否有协议
+  haveAgreement: boolean;
   static names(): { [key: string]: string } {
     return {
       sceneCode: 'scene_code',
@@ -1208,8 +1212,10 @@ export class AuthConfigListResponse extends $tea.Model {
       targetName: 'target_name',
       authAppName: 'auth_app_name',
       authContentList: 'auth_content_list',
+      productIdentityIdList: 'product_identity_id_list',
       authCount: 'auth_count',
       authStatus: 'auth_status',
+      haveAgreement: 'have_agreement',
     };
   }
 
@@ -1222,8 +1228,10 @@ export class AuthConfigListResponse extends $tea.Model {
       targetName: 'string',
       authAppName: 'string',
       authContentList: { 'type': 'array', 'itemType': AuthContent },
+      productIdentityIdList: { 'type': 'array', 'itemType': 'string' },
       authCount: 'number',
       authStatus: 'boolean',
+      haveAgreement: 'boolean',
     };
   }
 
@@ -4929,8 +4937,12 @@ export class AddAuthConfigRequest extends $tea.Model {
   productInstanceId?: string;
   // 复用的场景码
   parentSceneCode?: string;
-  // 数据源连接器空间id
-  sourceSpaceId: string;
+  // 数据源可信空间id
+  sourceServiceNodeId: string;
+  // 数据源租户id
+  sourceTenantId: string;
+  // 使用方可信空间id
+  targetServiceNodeId: string;
   // 被授权方企业信用代码
   authEnterpriseCode: string;
   // 被授权方名称
@@ -4974,7 +4986,9 @@ export class AddAuthConfigRequest extends $tea.Model {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       parentSceneCode: 'parent_scene_code',
-      sourceSpaceId: 'source_space_id',
+      sourceServiceNodeId: 'source_service_node_id',
+      sourceTenantId: 'source_tenant_id',
+      targetServiceNodeId: 'target_service_node_id',
       authEnterpriseCode: 'auth_enterprise_code',
       targetName: 'target_name',
       authAppName: 'auth_app_name',
@@ -5002,7 +5016,9 @@ export class AddAuthConfigRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       parentSceneCode: 'string',
-      sourceSpaceId: 'string',
+      sourceServiceNodeId: 'string',
+      sourceTenantId: 'string',
+      targetServiceNodeId: 'string',
       authEnterpriseCode: 'string',
       targetName: 'string',
       authAppName: 'string',
@@ -5070,8 +5086,12 @@ export class UpdateAuthConfigRequest extends $tea.Model {
   sceneCode: string;
   // 复用的场景码
   parentSceneCode?: string;
-  // 数据源连接器空间id
-  sourceSpaceId: string;
+  // 数据源可信空间id
+  sourceServiceNodeId: string;
+  // 数据源租户id
+  sourceTenantId: string;
+  // 使用方可信空间id
+  targetServiceNodeId: string;
   // 被授权方企业信用代码
   authEnterpriseCode: string;
   // 被授权方名称
@@ -5091,7 +5111,7 @@ export class UpdateAuthConfigRequest extends $tea.Model {
   // C端是否显示授权记录
   enableShowAuthRecord?: boolean;
   // 授权服务产品列表
-  productGroupList?: AuthProductGroup[];
+  productGroupList?: ProductProviderGroup[];
   // 用户类型
   userType?: string;
   // 授权协议
@@ -5116,7 +5136,9 @@ export class UpdateAuthConfigRequest extends $tea.Model {
       productInstanceId: 'product_instance_id',
       sceneCode: 'scene_code',
       parentSceneCode: 'parent_scene_code',
-      sourceSpaceId: 'source_space_id',
+      sourceServiceNodeId: 'source_service_node_id',
+      sourceTenantId: 'source_tenant_id',
+      targetServiceNodeId: 'target_service_node_id',
       authEnterpriseCode: 'auth_enterprise_code',
       targetName: 'target_name',
       authAppName: 'auth_app_name',
@@ -5145,7 +5167,9 @@ export class UpdateAuthConfigRequest extends $tea.Model {
       productInstanceId: 'string',
       sceneCode: 'string',
       parentSceneCode: 'string',
-      sourceSpaceId: 'string',
+      sourceServiceNodeId: 'string',
+      sourceTenantId: 'string',
+      targetServiceNodeId: 'string',
       authEnterpriseCode: 'string',
       targetName: 'string',
       authAppName: 'string',
@@ -5155,7 +5179,7 @@ export class UpdateAuthConfigRequest extends $tea.Model {
       authType: 'string',
       enableShowProofVc: 'boolean',
       enableShowAuthRecord: 'boolean',
-      productGroupList: { 'type': 'array', 'itemType': AuthProductGroup },
+      productGroupList: { 'type': 'array', 'itemType': ProductProviderGroup },
       userType: 'string',
       agreementList: { 'type': 'array', 'itemType': Agreement },
       backgroundColor: 'string',
@@ -5434,14 +5458,18 @@ export class ListAuthConfigRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 连接器空间id
-  sourceSpaceId: string;
+  // 数据源可信空间id
+  sourceServiceNodeId: string;
+  // 数据源租户id
+  sourceTenantId: string;
   // 客户名称
   targetName?: string;
   // 业务应用名称
   authAppName?: string;
   // 授权内容code列表
   authContentCodeList?: string[];
+  // 国标产品标识码列表
+  productIdentityIdList?: string[];
   // 页码
   pageNum: number;
   // 每页数量
@@ -5450,10 +5478,12 @@ export class ListAuthConfigRequest extends $tea.Model {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      sourceSpaceId: 'source_space_id',
+      sourceServiceNodeId: 'source_service_node_id',
+      sourceTenantId: 'source_tenant_id',
       targetName: 'target_name',
       authAppName: 'auth_app_name',
       authContentCodeList: 'auth_content_code_list',
+      productIdentityIdList: 'product_identity_id_list',
       pageNum: 'page_num',
       pageSize: 'page_size',
     };
@@ -5463,10 +5493,12 @@ export class ListAuthConfigRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      sourceSpaceId: 'string',
+      sourceServiceNodeId: 'string',
+      sourceTenantId: 'string',
       targetName: 'string',
       authAppName: 'string',
       authContentCodeList: { 'type': 'array', 'itemType': 'string' },
+      productIdentityIdList: { 'type': 'array', 'itemType': 'string' },
       pageNum: 'number',
       pageSize: 'number',
     };
@@ -5584,15 +5616,15 @@ export class DetailAuthConfigRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 空间id
-  sourceSpaceId: string;
+  // 数据源可信空间id
+  sourceServiceNodeId: string;
   // 场景码
   sceneCode: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      sourceSpaceId: 'source_space_id',
+      sourceServiceNodeId: 'source_service_node_id',
       sceneCode: 'scene_code',
     };
   }
@@ -5601,7 +5633,7 @@ export class DetailAuthConfigRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      sourceSpaceId: 'string',
+      sourceServiceNodeId: 'string',
       sceneCode: 'string',
     };
   }
@@ -5974,6 +6006,8 @@ export class QueryProductParamRequest extends $tea.Model {
   enterpriseCode: string;
   // 国标产品标识码
   productIdentityId: string;
+  // 场景码
+  sceneCode: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -5981,6 +6015,7 @@ export class QueryProductParamRequest extends $tea.Model {
       sourceSpaceId: 'source_space_id',
       enterpriseCode: 'enterprise_code',
       productIdentityId: 'product_identity_id',
+      sceneCode: 'scene_code',
     };
   }
 
@@ -5991,6 +6026,7 @@ export class QueryProductParamRequest extends $tea.Model {
       sourceSpaceId: 'string',
       enterpriseCode: 'string',
       productIdentityId: 'string',
+      sceneCode: 'string',
     };
   }
 
@@ -6006,8 +6042,6 @@ export class QueryProductParamResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 是否需要授权
-  needAuth?: boolean;
   // 用户表示类型
   userType?: string;
   // 产品参数信息列表
@@ -6017,7 +6051,6 @@ export class QueryProductParamResponse extends $tea.Model {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      needAuth: 'need_auth',
       userType: 'user_type',
       paramInfoList: 'param_info_list',
     };
@@ -6028,7 +6061,6 @@ export class QueryProductParamResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      needAuth: 'boolean',
       userType: 'string',
       paramInfoList: { 'type': 'array', 'itemType': ProductParamInfo },
     };
@@ -6161,6 +6193,128 @@ export class CallbackAuthRecordResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       authToken: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListAuthAgreementRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListAuthAgreementResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 默认的授权协议列表
+  agreementInfoList?: Agreement[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      agreementInfoList: 'agreement_info_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      agreementInfoList: { 'type': 'array', 'itemType': Agreement },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class StartProductAuthRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 空间id
+  sourceSpaceId: string;
+  // 企业代码
+  enterpriseCode: string;
+  // 国标产品标识码
+  productIdentityId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      sourceSpaceId: 'source_space_id',
+      enterpriseCode: 'enterprise_code',
+      productIdentityId: 'product_identity_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      sourceSpaceId: 'string',
+      enterpriseCode: 'string',
+      productIdentityId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class StartProductAuthResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否需要授权
+  needAuth?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      needAuth: 'need_auth',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      needAuth: 'boolean',
     };
   }
 
@@ -6370,7 +6524,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.110",
+          sdk_version: "1.1.121",
           _prod_code: "DAS",
           _prod_channel: "undefined",
         };
@@ -7587,6 +7741,44 @@ export default class Client {
   async callbackAuthRecordEx(request: CallbackAuthRecordRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CallbackAuthRecordResponse> {
     Util.validateModel(request);
     return $tea.cast<CallbackAuthRecordResponse>(await this.doRequest("1.0", "antchain.das.auth.record.callback", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CallbackAuthRecordResponse({}));
+  }
+
+  /**
+   * Description: 获取默认的授权协议
+   * Summary: 获取默认的授权协议
+   */
+  async listAuthAgreement(request: ListAuthAgreementRequest): Promise<ListAuthAgreementResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.listAuthAgreementEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 获取默认的授权协议
+   * Summary: 获取默认的授权协议
+   */
+  async listAuthAgreementEx(request: ListAuthAgreementRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ListAuthAgreementResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ListAuthAgreementResponse>(await this.doRequest("1.0", "antchain.das.auth.agreement.list", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ListAuthAgreementResponse({}));
+  }
+
+  /**
+   * Description: 数据产品是否需要授权
+   * Summary: 数据产品是否需要授权
+   */
+  async startProductAuth(request: StartProductAuthRequest): Promise<StartProductAuthResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.startProductAuthEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 数据产品是否需要授权
+   * Summary: 数据产品是否需要授权
+   */
+  async startProductAuthEx(request: StartProductAuthRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<StartProductAuthResponse> {
+    Util.validateModel(request);
+    return $tea.cast<StartProductAuthResponse>(await this.doRequest("1.0", "antchain.das.product.auth.start", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new StartProductAuthResponse({}));
   }
 
   /**
