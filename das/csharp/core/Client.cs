@@ -137,7 +137,7 @@ namespace AntChain.SDK.DAS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.110"},
+                        {"sdk_version", "1.1.121"},
                         {"_prod_code", "DAS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.DAS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.110"},
+                        {"sdk_version", "1.1.121"},
                         {"_prod_code", "DAS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -2905,6 +2905,90 @@ namespace AntChain.SDK.DAS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CallbackAuthRecordResponse>(await DoRequestAsync("1.0", "antchain.das.auth.record.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取默认的授权协议
+         * Summary: 获取默认的授权协议
+         */
+        public ListAuthAgreementResponse ListAuthAgreement(ListAuthAgreementRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ListAuthAgreementEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取默认的授权协议
+         * Summary: 获取默认的授权协议
+         */
+        public async Task<ListAuthAgreementResponse> ListAuthAgreementAsync(ListAuthAgreementRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ListAuthAgreementExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取默认的授权协议
+         * Summary: 获取默认的授权协议
+         */
+        public ListAuthAgreementResponse ListAuthAgreementEx(ListAuthAgreementRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListAuthAgreementResponse>(DoRequest("1.0", "antchain.das.auth.agreement.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取默认的授权协议
+         * Summary: 获取默认的授权协议
+         */
+        public async Task<ListAuthAgreementResponse> ListAuthAgreementExAsync(ListAuthAgreementRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListAuthAgreementResponse>(await DoRequestAsync("1.0", "antchain.das.auth.agreement.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 数据产品是否需要授权
+         * Summary: 数据产品是否需要授权
+         */
+        public StartProductAuthResponse StartProductAuth(StartProductAuthRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return StartProductAuthEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 数据产品是否需要授权
+         * Summary: 数据产品是否需要授权
+         */
+        public async Task<StartProductAuthResponse> StartProductAuthAsync(StartProductAuthRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await StartProductAuthExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 数据产品是否需要授权
+         * Summary: 数据产品是否需要授权
+         */
+        public StartProductAuthResponse StartProductAuthEx(StartProductAuthRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<StartProductAuthResponse>(DoRequest("1.0", "antchain.das.product.auth.start", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 数据产品是否需要授权
+         * Summary: 数据产品是否需要授权
+         */
+        public async Task<StartProductAuthResponse> StartProductAuthExAsync(StartProductAuthRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<StartProductAuthResponse>(await DoRequestAsync("1.0", "antchain.das.product.auth.start", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

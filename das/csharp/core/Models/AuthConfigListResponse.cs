@@ -45,6 +45,11 @@ namespace AntChain.SDK.DAS.Models
         [Validation(Required=true)]
         public List<AuthContent> AuthContentList { get; set; }
 
+        // 国标产品标识码列表
+        [NameInMap("product_identity_id_list")]
+        [Validation(Required=true)]
+        public List<string> ProductIdentityIdList { get; set; }
+
         // 授权次数
         [NameInMap("auth_count")]
         [Validation(Required=true)]
@@ -54,6 +59,11 @@ namespace AntChain.SDK.DAS.Models
         [NameInMap("auth_status")]
         [Validation(Required=true)]
         public bool? AuthStatus { get; set; }
+
+        // 是否有协议
+        [NameInMap("have_agreement")]
+        [Validation(Required=true)]
+        public bool? HaveAgreement { get; set; }
 
     }
 

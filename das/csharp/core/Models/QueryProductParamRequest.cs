@@ -33,6 +33,11 @@ namespace AntChain.SDK.DAS.Models
         [Validation(Required=true)]
         public string ProductIdentityId { get; set; }
 
+        // 场景码
+        [NameInMap("scene_code")]
+        [Validation(Required=true)]
+        public string SceneCode { get; set; }
+
     }
 
 }

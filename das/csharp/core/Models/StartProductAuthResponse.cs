@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.DAS.Models
 {
-    public class QueryProductParamResponse : TeaModel {
+    public class StartProductAuthResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,15 +24,10 @@ namespace AntChain.SDK.DAS.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 用户表示类型
-        [NameInMap("user_type")]
+        // 是否需要授权
+        [NameInMap("need_auth")]
         [Validation(Required=false)]
-        public string UserType { get; set; }
-
-        // 产品参数信息列表
-        [NameInMap("param_info_list")]
-        [Validation(Required=false)]
-        public List<ProductParamInfo> ParamInfoList { get; set; }
+        public bool? NeedAuth { get; set; }
 
     }
 

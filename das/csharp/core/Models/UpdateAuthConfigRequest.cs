@@ -28,10 +28,20 @@ namespace AntChain.SDK.DAS.Models
         [Validation(Required=false)]
         public string ParentSceneCode { get; set; }
 
-        // 数据源连接器空间id
-        [NameInMap("source_space_id")]
+        // 数据源可信空间id
+        [NameInMap("source_service_node_id")]
         [Validation(Required=true)]
-        public string SourceSpaceId { get; set; }
+        public string SourceServiceNodeId { get; set; }
+
+        // 数据源租户id
+        [NameInMap("source_tenant_id")]
+        [Validation(Required=true)]
+        public string SourceTenantId { get; set; }
+
+        // 使用方可信空间id
+        [NameInMap("target_service_node_id")]
+        [Validation(Required=true)]
+        public string TargetServiceNodeId { get; set; }
 
         // 被授权方企业信用代码
         [NameInMap("auth_enterprise_code")]
@@ -81,7 +91,7 @@ namespace AntChain.SDK.DAS.Models
         // 授权服务产品列表
         [NameInMap("product_group_list")]
         [Validation(Required=false)]
-        public List<AuthProductGroup> ProductGroupList { get; set; }
+        public List<ProductProviderGroup> ProductGroupList { get; set; }
 
         // 用户类型
         [NameInMap("user_type")]

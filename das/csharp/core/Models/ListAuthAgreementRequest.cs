@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.DAS.Models
 {
-    public class DetailAuthConfigRequest : TeaModel {
+    public class ListAuthAgreementRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -17,16 +17,6 @@ namespace AntChain.SDK.DAS.Models
         [NameInMap("product_instance_id")]
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
-
-        // 数据源可信空间id
-        [NameInMap("source_service_node_id")]
-        [Validation(Required=true)]
-        public string SourceServiceNodeId { get; set; }
-
-        // 场景码
-        [NameInMap("scene_code")]
-        [Validation(Required=true)]
-        public string SceneCode { get; set; }
 
     }
 
