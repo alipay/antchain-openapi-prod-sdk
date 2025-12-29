@@ -15,10 +15,20 @@ public class AddAuthConfigRequest extends TeaModel {
     @NameInMap("parent_scene_code")
     public String parentSceneCode;
 
-    // 数据源连接器空间id
-    @NameInMap("source_space_id")
+    // 数据源可信空间id
+    @NameInMap("source_service_node_id")
     @Validation(required = true)
-    public String sourceSpaceId;
+    public String sourceServiceNodeId;
+
+    // 数据源租户id
+    @NameInMap("source_tenant_id")
+    @Validation(required = true)
+    public String sourceTenantId;
+
+    // 使用方可信空间id
+    @NameInMap("target_service_node_id")
+    @Validation(required = true)
+    public String targetServiceNodeId;
 
     // 被授权方企业信用代码
     @NameInMap("auth_enterprise_code")
@@ -131,12 +141,28 @@ public class AddAuthConfigRequest extends TeaModel {
         return this.parentSceneCode;
     }
 
-    public AddAuthConfigRequest setSourceSpaceId(String sourceSpaceId) {
-        this.sourceSpaceId = sourceSpaceId;
+    public AddAuthConfigRequest setSourceServiceNodeId(String sourceServiceNodeId) {
+        this.sourceServiceNodeId = sourceServiceNodeId;
         return this;
     }
-    public String getSourceSpaceId() {
-        return this.sourceSpaceId;
+    public String getSourceServiceNodeId() {
+        return this.sourceServiceNodeId;
+    }
+
+    public AddAuthConfigRequest setSourceTenantId(String sourceTenantId) {
+        this.sourceTenantId = sourceTenantId;
+        return this;
+    }
+    public String getSourceTenantId() {
+        return this.sourceTenantId;
+    }
+
+    public AddAuthConfigRequest setTargetServiceNodeId(String targetServiceNodeId) {
+        this.targetServiceNodeId = targetServiceNodeId;
+        return this;
+    }
+    public String getTargetServiceNodeId() {
+        return this.targetServiceNodeId;
     }
 
     public AddAuthConfigRequest setAuthEnterpriseCode(String authEnterpriseCode) {

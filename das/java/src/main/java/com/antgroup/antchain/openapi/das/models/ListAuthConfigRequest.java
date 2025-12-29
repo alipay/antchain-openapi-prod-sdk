@@ -11,10 +11,15 @@ public class ListAuthConfigRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 连接器空间id
-    @NameInMap("source_space_id")
+    // 数据源可信空间id
+    @NameInMap("source_service_node_id")
     @Validation(required = true)
-    public String sourceSpaceId;
+    public String sourceServiceNodeId;
+
+    // 数据源租户id
+    @NameInMap("source_tenant_id")
+    @Validation(required = true)
+    public String sourceTenantId;
 
     // 客户名称
     @NameInMap("target_name")
@@ -27,6 +32,10 @@ public class ListAuthConfigRequest extends TeaModel {
     // 授权内容code列表
     @NameInMap("auth_content_code_list")
     public java.util.List<String> authContentCodeList;
+
+    // 国标产品标识码列表
+    @NameInMap("product_identity_id_list")
+    public java.util.List<String> productIdentityIdList;
 
     // 页码
     @NameInMap("page_num")
@@ -59,12 +68,20 @@ public class ListAuthConfigRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public ListAuthConfigRequest setSourceSpaceId(String sourceSpaceId) {
-        this.sourceSpaceId = sourceSpaceId;
+    public ListAuthConfigRequest setSourceServiceNodeId(String sourceServiceNodeId) {
+        this.sourceServiceNodeId = sourceServiceNodeId;
         return this;
     }
-    public String getSourceSpaceId() {
-        return this.sourceSpaceId;
+    public String getSourceServiceNodeId() {
+        return this.sourceServiceNodeId;
+    }
+
+    public ListAuthConfigRequest setSourceTenantId(String sourceTenantId) {
+        this.sourceTenantId = sourceTenantId;
+        return this;
+    }
+    public String getSourceTenantId() {
+        return this.sourceTenantId;
     }
 
     public ListAuthConfigRequest setTargetName(String targetName) {
@@ -89,6 +106,14 @@ public class ListAuthConfigRequest extends TeaModel {
     }
     public java.util.List<String> getAuthContentCodeList() {
         return this.authContentCodeList;
+    }
+
+    public ListAuthConfigRequest setProductIdentityIdList(java.util.List<String> productIdentityIdList) {
+        this.productIdentityIdList = productIdentityIdList;
+        return this;
+    }
+    public java.util.List<String> getProductIdentityIdList() {
+        return this.productIdentityIdList;
     }
 
     public ListAuthConfigRequest setPageNum(Long pageNum) {

@@ -79,6 +79,17 @@ public class AuthConfigListResponse extends TeaModel {
     @Validation(required = true)
     public java.util.List<AuthContent> authContentList;
 
+    // 国标产品标识码列表
+    /**
+     * <strong>example:</strong>
+     * <ul>
+     * <li></li>
+     * </ul>
+     */
+    @NameInMap("product_identity_id_list")
+    @Validation(required = true)
+    public java.util.List<String> productIdentityIdList;
+
     // 授权次数
     /**
      * <strong>example:</strong>
@@ -98,6 +109,15 @@ public class AuthConfigListResponse extends TeaModel {
     @NameInMap("auth_status")
     @Validation(required = true)
     public Boolean authStatus;
+
+    // 是否有协议
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
+    @NameInMap("have_agreement")
+    @Validation(required = true)
+    public Boolean haveAgreement;
 
     public static AuthConfigListResponse build(java.util.Map<String, ?> map) throws Exception {
         AuthConfigListResponse self = new AuthConfigListResponse();
@@ -160,6 +180,14 @@ public class AuthConfigListResponse extends TeaModel {
         return this.authContentList;
     }
 
+    public AuthConfigListResponse setProductIdentityIdList(java.util.List<String> productIdentityIdList) {
+        this.productIdentityIdList = productIdentityIdList;
+        return this;
+    }
+    public java.util.List<String> getProductIdentityIdList() {
+        return this.productIdentityIdList;
+    }
+
     public AuthConfigListResponse setAuthCount(Long authCount) {
         this.authCount = authCount;
         return this;
@@ -174,6 +202,14 @@ public class AuthConfigListResponse extends TeaModel {
     }
     public Boolean getAuthStatus() {
         return this.authStatus;
+    }
+
+    public AuthConfigListResponse setHaveAgreement(Boolean haveAgreement) {
+        this.haveAgreement = haveAgreement;
+        return this;
+    }
+    public Boolean getHaveAgreement() {
+        return this.haveAgreement;
     }
 
 }

@@ -16,10 +16,6 @@ public class QueryProductParamResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 是否需要授权
-    @NameInMap("need_auth")
-    public Boolean needAuth;
-
     // 用户表示类型
     @NameInMap("user_type")
     public String userType;
@@ -55,14 +51,6 @@ public class QueryProductParamResponse extends TeaModel {
     }
     public String getResultMsg() {
         return this.resultMsg;
-    }
-
-    public QueryProductParamResponse setNeedAuth(Boolean needAuth) {
-        this.needAuth = needAuth;
-        return this;
-    }
-    public Boolean getNeedAuth() {
-        return this.needAuth;
     }
 
     public QueryProductParamResponse setUserType(String userType) {

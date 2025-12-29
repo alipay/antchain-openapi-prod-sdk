@@ -20,10 +20,20 @@ public class UpdateAuthConfigRequest extends TeaModel {
     @NameInMap("parent_scene_code")
     public String parentSceneCode;
 
-    // 数据源连接器空间id
-    @NameInMap("source_space_id")
+    // 数据源可信空间id
+    @NameInMap("source_service_node_id")
     @Validation(required = true)
-    public String sourceSpaceId;
+    public String sourceServiceNodeId;
+
+    // 数据源租户id
+    @NameInMap("source_tenant_id")
+    @Validation(required = true)
+    public String sourceTenantId;
+
+    // 使用方可信空间id
+    @NameInMap("target_service_node_id")
+    @Validation(required = true)
+    public String targetServiceNodeId;
 
     // 被授权方企业信用代码
     @NameInMap("auth_enterprise_code")
@@ -69,7 +79,7 @@ public class UpdateAuthConfigRequest extends TeaModel {
 
     // 授权服务产品列表
     @NameInMap("product_group_list")
-    public java.util.List<AuthProductGroup> productGroupList;
+    public java.util.List<ProductProviderGroup> productGroupList;
 
     // 用户类型
     @NameInMap("user_type")
@@ -144,12 +154,28 @@ public class UpdateAuthConfigRequest extends TeaModel {
         return this.parentSceneCode;
     }
 
-    public UpdateAuthConfigRequest setSourceSpaceId(String sourceSpaceId) {
-        this.sourceSpaceId = sourceSpaceId;
+    public UpdateAuthConfigRequest setSourceServiceNodeId(String sourceServiceNodeId) {
+        this.sourceServiceNodeId = sourceServiceNodeId;
         return this;
     }
-    public String getSourceSpaceId() {
-        return this.sourceSpaceId;
+    public String getSourceServiceNodeId() {
+        return this.sourceServiceNodeId;
+    }
+
+    public UpdateAuthConfigRequest setSourceTenantId(String sourceTenantId) {
+        this.sourceTenantId = sourceTenantId;
+        return this;
+    }
+    public String getSourceTenantId() {
+        return this.sourceTenantId;
+    }
+
+    public UpdateAuthConfigRequest setTargetServiceNodeId(String targetServiceNodeId) {
+        this.targetServiceNodeId = targetServiceNodeId;
+        return this;
+    }
+    public String getTargetServiceNodeId() {
+        return this.targetServiceNodeId;
     }
 
     public UpdateAuthConfigRequest setAuthEnterpriseCode(String authEnterpriseCode) {
@@ -224,11 +250,11 @@ public class UpdateAuthConfigRequest extends TeaModel {
         return this.enableShowAuthRecord;
     }
 
-    public UpdateAuthConfigRequest setProductGroupList(java.util.List<AuthProductGroup> productGroupList) {
+    public UpdateAuthConfigRequest setProductGroupList(java.util.List<ProductProviderGroup> productGroupList) {
         this.productGroupList = productGroupList;
         return this;
     }
-    public java.util.List<AuthProductGroup> getProductGroupList() {
+    public java.util.List<ProductProviderGroup> getProductGroupList() {
         return this.productGroupList;
     }
 
