@@ -6,7 +6,7 @@ namespace AntChain\Ak_eed2ee0664ac41b78f2c14f3ffa051e7\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryDemoABCResponse extends Model
+class InitDemoBbpInsuranceUserResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -25,14 +25,22 @@ class QueryDemoABCResponse extends Model
      * @var string
      */
     public $resultMsg;
+
+    // 123
+    /**
+     * @var string
+     */
+    public $startDate;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
+        'startDate'  => 'start_date',
     ];
 
     public function validate()
     {
+        Model::validatePattern('startDate', $this->startDate, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
     }
 
     public function toMap()
@@ -47,6 +55,9 @@ class QueryDemoABCResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
+        if (null !== $this->startDate) {
+            $res['start_date'] = $this->startDate;
+        }
 
         return $res;
     }
@@ -54,7 +65,7 @@ class QueryDemoABCResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryDemoABCResponse
+     * @return InitDemoBbpInsuranceUserResponse
      */
     public static function fromMap($map = [])
     {
@@ -67,6 +78,9 @@ class QueryDemoABCResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
+        }
+        if (isset($map['start_date'])) {
+            $model->startDate = $map['start_date'];
         }
 
         return $model;
