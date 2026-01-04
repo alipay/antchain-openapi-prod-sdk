@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.dtaiagt.models;
 
 import com.aliyun.tea.*;
 
-public class DetailAgentMcpRequest extends TeaModel {
+public class DetailMcpMymcpRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -21,12 +21,12 @@ public class DetailAgentMcpRequest extends TeaModel {
     @Validation(required = true)
     public String serverId;
 
-    public static DetailAgentMcpRequest build(java.util.Map<String, ?> map) throws Exception {
-        DetailAgentMcpRequest self = new DetailAgentMcpRequest();
+    public static DetailMcpMymcpRequest build(java.util.Map<String, ?> map) throws Exception {
+        DetailMcpMymcpRequest self = new DetailMcpMymcpRequest();
         return TeaModel.build(map, self);
     }
 
-    public DetailAgentMcpRequest setAuthToken(String authToken) {
+    public DetailMcpMymcpRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -34,7 +34,7 @@ public class DetailAgentMcpRequest extends TeaModel {
         return this.authToken;
     }
 
-    public DetailAgentMcpRequest setProductInstanceId(String productInstanceId) {
+    public DetailMcpMymcpRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -42,7 +42,7 @@ public class DetailAgentMcpRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public DetailAgentMcpRequest setSpaceId(String spaceId) {
+    public DetailMcpMymcpRequest setSpaceId(String spaceId) {
         this.spaceId = spaceId;
         return this;
     }
@@ -50,7 +50,7 @@ public class DetailAgentMcpRequest extends TeaModel {
         return this.spaceId;
     }
 
-    public DetailAgentMcpRequest setServerId(String serverId) {
+    public DetailMcpMymcpRequest setServerId(String serverId) {
         this.serverId = serverId;
         return this;
     }

@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.dtaiagt.models;
 
 import com.aliyun.tea.*;
 
-public class PagequeryAgentMcplistRequest extends TeaModel {
+public class ListLibraryDocRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -11,31 +11,29 @@ public class PagequeryAgentMcplistRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 空间ID
-    @NameInMap("space_id")
+    // 知识库ID
+    @NameInMap("library_id")
     @Validation(required = true)
-    public String spaceId;
+    public Long libraryId;
 
-    // 查询条件
-    @NameInMap("query")
-    public String query;
+    // 文档标题模糊匹配
+    @NameInMap("title")
+    public String title;
 
-    // 页码
+    // 当前页
     @NameInMap("page_num")
-    @Validation(required = true)
     public Long pageNum;
 
     // 分页大小
     @NameInMap("page_size")
-    @Validation(required = true)
     public Long pageSize;
 
-    public static PagequeryAgentMcplistRequest build(java.util.Map<String, ?> map) throws Exception {
-        PagequeryAgentMcplistRequest self = new PagequeryAgentMcplistRequest();
+    public static ListLibraryDocRequest build(java.util.Map<String, ?> map) throws Exception {
+        ListLibraryDocRequest self = new ListLibraryDocRequest();
         return TeaModel.build(map, self);
     }
 
-    public PagequeryAgentMcplistRequest setAuthToken(String authToken) {
+    public ListLibraryDocRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -43,7 +41,7 @@ public class PagequeryAgentMcplistRequest extends TeaModel {
         return this.authToken;
     }
 
-    public PagequeryAgentMcplistRequest setProductInstanceId(String productInstanceId) {
+    public ListLibraryDocRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -51,23 +49,23 @@ public class PagequeryAgentMcplistRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public PagequeryAgentMcplistRequest setSpaceId(String spaceId) {
-        this.spaceId = spaceId;
+    public ListLibraryDocRequest setLibraryId(Long libraryId) {
+        this.libraryId = libraryId;
         return this;
     }
-    public String getSpaceId() {
-        return this.spaceId;
+    public Long getLibraryId() {
+        return this.libraryId;
     }
 
-    public PagequeryAgentMcplistRequest setQuery(String query) {
-        this.query = query;
+    public ListLibraryDocRequest setTitle(String title) {
+        this.title = title;
         return this;
     }
-    public String getQuery() {
-        return this.query;
+    public String getTitle() {
+        return this.title;
     }
 
-    public PagequeryAgentMcplistRequest setPageNum(Long pageNum) {
+    public ListLibraryDocRequest setPageNum(Long pageNum) {
         this.pageNum = pageNum;
         return this;
     }
@@ -75,7 +73,7 @@ public class PagequeryAgentMcplistRequest extends TeaModel {
         return this.pageNum;
     }
 
-    public PagequeryAgentMcplistRequest setPageSize(Long pageSize) {
+    public ListLibraryDocRequest setPageSize(Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

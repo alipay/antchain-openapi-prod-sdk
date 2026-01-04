@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.dtaiagt.models;
 
 import com.aliyun.tea.*;
 
-public class PagequeryAgentMcplistResponse extends TeaModel {
+public class UploadAlipayLibraryResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,16 @@ public class PagequeryAgentMcplistResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // MyMCP分页对象
+    // result
     @NameInMap("data")
-    public MyMcpPageRestult data;
+    public LibraryUploadFileResult data;
 
-    public static PagequeryAgentMcplistResponse build(java.util.Map<String, ?> map) throws Exception {
-        PagequeryAgentMcplistResponse self = new PagequeryAgentMcplistResponse();
+    public static UploadAlipayLibraryResponse build(java.util.Map<String, ?> map) throws Exception {
+        UploadAlipayLibraryResponse self = new UploadAlipayLibraryResponse();
         return TeaModel.build(map, self);
     }
 
-    public PagequeryAgentMcplistResponse setReqMsgId(String reqMsgId) {
+    public UploadAlipayLibraryResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class PagequeryAgentMcplistResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public PagequeryAgentMcplistResponse setResultCode(String resultCode) {
+    public UploadAlipayLibraryResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class PagequeryAgentMcplistResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public PagequeryAgentMcplistResponse setResultMsg(String resultMsg) {
+    public UploadAlipayLibraryResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,11 +49,11 @@ public class PagequeryAgentMcplistResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public PagequeryAgentMcplistResponse setData(MyMcpPageRestult data) {
+    public UploadAlipayLibraryResponse setData(LibraryUploadFileResult data) {
         this.data = data;
         return this;
     }
-    public MyMcpPageRestult getData() {
+    public LibraryUploadFileResult getData() {
         return this.data;
     }
 

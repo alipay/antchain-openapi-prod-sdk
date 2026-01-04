@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.dtaiagt.models;
 
 import com.aliyun.tea.*;
 
-public class DetailAgentMcpResponse extends TeaModel {
+public class DownloadLibraryDocResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,16 @@ public class DetailAgentMcpResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // MCP详情接口返回Result
+    // data
     @NameInMap("data")
-    public MCPDetailCommonResult data;
+    public StringResult data;
 
-    public static DetailAgentMcpResponse build(java.util.Map<String, ?> map) throws Exception {
-        DetailAgentMcpResponse self = new DetailAgentMcpResponse();
+    public static DownloadLibraryDocResponse build(java.util.Map<String, ?> map) throws Exception {
+        DownloadLibraryDocResponse self = new DownloadLibraryDocResponse();
         return TeaModel.build(map, self);
     }
 
-    public DetailAgentMcpResponse setReqMsgId(String reqMsgId) {
+    public DownloadLibraryDocResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class DetailAgentMcpResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public DetailAgentMcpResponse setResultCode(String resultCode) {
+    public DownloadLibraryDocResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class DetailAgentMcpResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public DetailAgentMcpResponse setResultMsg(String resultMsg) {
+    public DownloadLibraryDocResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,11 +49,11 @@ public class DetailAgentMcpResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public DetailAgentMcpResponse setData(MCPDetailCommonResult data) {
+    public DownloadLibraryDocResponse setData(StringResult data) {
         this.data = data;
         return this;
     }
-    public MCPDetailCommonResult getData() {
+    public StringResult getData() {
         return this.data;
     }
 
