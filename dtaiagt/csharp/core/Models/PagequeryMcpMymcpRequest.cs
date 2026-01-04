@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.DTAIAGT.Models
 {
-    public class DetailAgentMcpRequest : TeaModel {
+    public class PagequeryMcpMymcpRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,15 +18,25 @@ namespace AntChain.SDK.DTAIAGT.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 空间id
+        // 空间ID
         [NameInMap("space_id")]
         [Validation(Required=true)]
         public string SpaceId { get; set; }
 
-        // 平台serverId
-        [NameInMap("server_id")]
+        // 查询条件
+        [NameInMap("query")]
+        [Validation(Required=false)]
+        public string Query { get; set; }
+
+        // 页码
+        [NameInMap("page_num")]
         [Validation(Required=true)]
-        public string ServerId { get; set; }
+        public long? PageNum { get; set; }
+
+        // 分页大小
+        [NameInMap("page_size")]
+        [Validation(Required=true)]
+        public long? PageSize { get; set; }
 
     }
 

@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.DTAIAGT.Models
 {
-    public class PagequeryAgentMcplistResponse : TeaModel {
+    public class ListLibraryDocResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,10 +24,10 @@ namespace AntChain.SDK.DTAIAGT.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // MyMCP分页对象
+        // 响应体
         [NameInMap("data")]
         [Validation(Required=false)]
-        public MyMcpPageRestult Data { get; set; }
+        public LibraryDocPageResult Data { get; set; }
 
     }
 

@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.DTAIAGT.Models
 {
-    public class PagequeryAgentMcplistRequest : TeaModel {
+    public class UploadSaasLibraryRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,25 +18,24 @@ namespace AntChain.SDK.DTAIAGT.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 空间ID
-        [NameInMap("space_id")]
-        [Validation(Required=true)]
-        public string SpaceId { get; set; }
-
-        // 查询条件
-        [NameInMap("query")]
+        // 文件ID
+        /// <summary>
+        /// 待上传文件
+        /// </summary>
+        [NameInMap("fileObject")]
         [Validation(Required=false)]
-        public string Query { get; set; }
+        public Stream FileObject { get; set; }
 
-        // 页码
-        [NameInMap("page_num")]
-        [Validation(Required=true)]
-        public long? PageNum { get; set; }
+        /// <summary>
+        /// 待上传文件名
+        /// </summary>
+        [NameInMap("fileObjectName")]
+        [Validation(Required=false)]
+        public string FileObjectName { get; set; }
 
-        // 分页大小
-        [NameInMap("page_size")]
+        [NameInMap("file_id")]
         [Validation(Required=true)]
-        public long? PageSize { get; set; }
+        public string FileId { get; set; }
 
     }
 

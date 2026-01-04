@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.DTAIAGT.Models
 {
-    public class DetailAgentMcpResponse : TeaModel {
+    public class UploadSaasAgentchatResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,10 +24,10 @@ namespace AntChain.SDK.DTAIAGT.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // MCP详情接口返回Result
+        // data
         [NameInMap("data")]
         [Validation(Required=false)]
-        public MCPDetailCommonResult Data { get; set; }
+        public UploadAttachmentFileResult Data { get; set; }
 
     }
 
