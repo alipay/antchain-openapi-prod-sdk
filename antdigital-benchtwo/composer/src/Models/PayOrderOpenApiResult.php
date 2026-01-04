@@ -1,0 +1,51 @@
+<?php
+
+// This file is auto-generated, don't edit it. Thanks.
+
+namespace AntChain\BENCHTWO\Models;
+
+use AlibabaCloud\Tea\Model;
+
+class PayOrderOpenApiResult extends Model
+{
+    // 11
+    /**
+     * @example 11
+     *
+     * @var string
+     */
+    public $test;
+    protected $_name = [
+        'test' => 'test',
+    ];
+
+    public function validate()
+    {
+        Model::validateRequired('test', $this->test, true);
+    }
+
+    public function toMap()
+    {
+        $res = [];
+        if (null !== $this->test) {
+            $res['test'] = $this->test;
+        }
+
+        return $res;
+    }
+
+    /**
+     * @param array $map
+     *
+     * @return PayOrderOpenApiResult
+     */
+    public static function fromMap($map = [])
+    {
+        $model = new self();
+        if (isset($map['test'])) {
+            $model->test = $map['test'];
+        }
+
+        return $model;
+    }
+}
