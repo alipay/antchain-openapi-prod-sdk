@@ -24,7 +24,7 @@ from setuptools import setup, find_packages
 """
 setup module for antchain_dtaiagt.
 
-Created on 23/10/2025
+Created on 04/01/2026
 
 @author: Ant Chain SDK
 """
