@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "DTAIAGT",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-dtaiagt:1.2.0",
-    "go": "github.com/antchain-openapi-sdk-go/dtaiagt/client:v1.3.1",
-    "csharp": "AntChain.SDK.DTAIAGT:1.3.1",
+    "java": "com.antgroup.antchain.openapi:openapi-dtaiagt:3.0.2",
+    "go": "github.com/antchain-openapi-sdk-go/dtaiagt/v3/client:v3.0.2",
+    "csharp": "AntChain.SDK.DTAIAGT:3.0.2",
     "ts": "@antchain/dtaiagt:1.3.1",
-    "php": "antchain/dtaiagt:1.3.1",
-    "python": "antchain_sdk_dtaiagt:1.3.1"
+    "php": "antchain/dtaiagt:3.0.2",
+    "python": "antchain_sdk_dtaiagt:3.0.2"
   },
   "libraries": {
     "Util": "darabonba:Util:*",

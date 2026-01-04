@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.3.1',
+    sdk_version = '3.0.2',
     _prod_code = 'DTAIAGT',
     _prod_channel = 'default'
   };
@@ -161,6 +161,268 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   ignoreSSL = runtime.ignoreSSL
 }
 
+// Agent对话-对应的工具/工作流参数列表
+model ToolOptionParam {
+  // 参数名称
+  name: string(name='name', example='参数名称'),
+  // 参数code
+  code: string(name='code', example='参数code'),
+  // 参数描述
+  desc: string(name='desc', example='参数描述'),
+  // 参数值
+  value: string(name='value', example='参数值'),
+}
+
+// 对话界面思维链显示标题结构
+model ThoughtChainDisplay {
+  // 思维链显示状态
+  status: string(name='status', example='思维链显示状态'),
+  // 思维链显示名称
+  name: string(name='name', example='思维链显示名称'),
+  // 思维链类型
+  subType: string(name='sub_type', example='思维链类型'),
+  // 思维链图标
+  icon: string(name='icon', example='思维链图标'),
+  // 思维链模块额外信息
+  resultMsg: string(name='result_msg', example='思维链模块额外信息'),
+}
+
+// Agent对话详情-思维链-内容
+model ThoughtChainContent {
+  // id
+  id: string(name='id', example='id'),
+  // source
+  source: string(name='source', example='source'),
+  // children
+  children: string(name='children', example='children'),
+  // timeConsuming
+  timeConsuming: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='time_consuming', example='2018-10-10T10:10:00Z'),
+  // timeConsumingEpoch
+  timeConsumingEpoch: long(name='time_consuming_epoch', example=''),
+  // latency
+  latency: long(name='latency', example=''),
+  // type
+  type: string(name='type', example='type'),
+}
+
+// Agent对话-记忆参数列表
+// 
+model AgentVariable {
+  // 变量对应的id
+  id: long(name='id', example=''),
+  // 变量名称
+  name: string(name='name', example='变量名称'),
+  // 变量code
+  code: string(name='code', example='变量code'),
+  // 变量描述
+  desc: string(name='desc', example='变量描述'),
+  // 变量值
+  value: string(name='value', example='变量值'),
+  // 变量值更新时间
+  updateTime: string(name='update_time', example='updateTime'),
+  // "business", "业务参数"
+  // "memory", "记忆参数"
+  type: string(name='type', example='business'),
+  // 是否模型可见
+  showToModel: boolean(name='show_to_model', example=''),
+}
+
+// Agent对话-引用工具/工作流列表
+model ToolOptionInfo {
+  // plugin = 工具；workflow = 工作流
+  type: string(name='type', example='plugin'),
+  // 对应的工具/工作流名称
+  name: string(name='name', example='123'),
+  // 对应的工具/工作流名称
+  code: string(name='code', example='对应的工具/工作流名称'),
+  // 对应的工具/工作流参数列表
+  params: [ ToolOptionParam ](name='params', example='[]'),
+}
+
+// Agent对话详情-思维链信息详情列表
+model ThoughtChainDisplayUnit {
+  // 思维链模块id
+  // 
+  id: string(name='id', example='1'),
+  // 思维链模块状态：success or fail
+  // 
+  status: string(name='status', example='success'),
+  // 思维链模块额外信息
+  // 
+  resultMsg: string(name='result_msg', example='1'),
+  // 思维链模块耗时
+  // 
+  latency: long(name='latency', example=''),
+  // 思维链模块时间戳 (思维链本身的时间戳)
+  // 
+  timestamp: long(name='timestamp', example=''),
+  // 思维链对应操作开始执行时间戳 (optional)
+  // 
+  startTimestamp: long(name='start_timestamp', example=''),
+  // 思维链对应操作开始输出时间戳 (optional)
+  // 
+  outputTimestamp: long(name='output_timestamp', example=''),
+  // 思维链对应操作结束执行时间戳 (optional)
+  // 
+  endTimestamp: long(name='end_timestamp', example=''),
+  // 思维链对应过程总模型token耗费 (optional)
+  // 
+  tokenCost: long(name='token_cost', example=''),
+  // 思维链对应过程输入模型token耗费 (optional)
+  // 
+  inputTokenCost: long(name='input_token_cost', example=''),
+  // 思维链对应过程输出模型token耗费 (optional)
+  // 
+  outputTokenCost: long(name='output_token_cost', example=''),
+  // 思维链模块显示名称
+  // 
+  displayName: string(name='display_name', example='"知识查询" '),
+  // 思维链模块是否为进行中阶段的输出
+  // 
+  isRunning: boolean(name='is_running', example='true, false'),
+  // 思维链模块类型：DECISION or GENERATE
+  // 
+  type: string(name='type', example='DECISION'),
+  // 思维链模块子类型：content_search 知识查询 / llm 大模型 / tool 工具 / workflow 工作流 / end 结束 / parameter 参数处理
+  // 
+  subType: string(name='sub_type', example='content_search'),
+  // 思维链模块子类型关联id。如果是工具，那就是 platform_api_plugin 表的 id；如果是工作流，那就是 platform_intent 表的 id
+  // 
+  refResourceId: long(name='ref_resource_id', example=''),
+  // 思维链模块子类型关联code，一般是工具或工作流类型对应的code
+  // 
+  refResourceCode: string(name='ref_resource_code', example='search_tool'),
+  // 思维链模块子类型关联图标
+  // 
+  refResourceIcon: string(name='ref_resource_icon', example='"icon.png" '),
+  // 思维链模块子类型为工作流时的版本，仅当子类型为工作流时赋值
+  // 
+  refWorkflowBuildVersion: string(name='ref_workflow_build_version', example='1'),
+  // 思维链模块子类型为工作流时的运行实例id，仅当子类型为工作流且 refWorkflowBuildVersion 以 NEW 开头时赋值
+  // 
+  refWorkflowRuntimeInstanceId: string(name='ref_workflow_runtime_instance_id', example='1'),
+  // 思维链模块入参信息，JSON字符串格式
+  // 
+  inputJsonString: string(name='input_json_string', example='"{"key":"value"}" '),
+  // 思维链模块出参信息，JSON字符串格式
+  // 
+  outputJsonString: string(name='output_json_string', example='"{"result":"ok"}" '),
+  // 思维链模块额外消息信息 (如内置工具过程展现内容)，JSON字符串格式
+  // 
+  extraInfoJsonString: string(name='extra_info_json_string', example='"{"info":"detail"}" '),
+}
+
+// 文件附件信息
+model AttachFile {
+  // 文件Id
+  // 
+  fileId: string(name='file_id', example='123'),
+  // 文件名称
+  // 
+  fileName: string(name='file_name', example='文件名称'),
+  // 文件类型
+  // 
+  fileType: string(name='file_type', example='txt'),
+  // 文件来源
+  // 
+  fileSource: string(name='file_source', example='1'),
+  // 文件链接
+  // 
+  fileUrl: string(name='file_url', example='"http://..." '),
+  // 文件总结
+  // 
+  fileSummary: string(name='file_summary', example='"文件摘要" '),
+  // 上传时间
+  // 
+  operateTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='operate_time', example='2018-10-10T10:10:00Z'),
+  // Map<String, String>	扩展信息
+  // 
+  extInfo: string(name='ext_info', example='{} '),
+  // 文件大小
+  // 
+  fileSize: string(name='file_size', example='1111'),
+  // 内容库 dbId, 用于检索
+  // 
+  contentId: string(name='content_id', example='123'),
+}
+
+// 卡片/模版类型：行动点列表
+model TemplateAction {
+  // name
+  name: string(name='name', example='name'),
+}
+
+// Agent 运行思维链
+model ThoughtChainInfo {
+  // 思维链id
+  id: string(name='id', example='123'),
+  // "success" | "error" | "loading" | "abort" | "done"
+  status: string(name='status', example='success'),
+  // 内容
+  content: [ ThoughtChainContent ](name='content', example='内容'),
+}
+
+// Agent 运行相关信息
+model AgentChatLogInfo {
+  // 记忆参数列表
+  // 
+  contextVariableList: [ AgentVariable ](name='context_variable_list', example='[]'),
+  // 引用工具/工作流列表
+  // 
+  toolOptionList: [ ToolOptionInfo ](name='tool_option_list', example='[]'),
+  // 对话界面思维链显示标题结构
+  thoughtChainDisplay: ThoughtChainDisplay(name='thought_chain_display', example=''),
+  // 思维链信息详情列表
+  // 
+  thoughtChainDisplayUnitList: [ ThoughtChainDisplayUnit ](name='thought_chain_display_unit_list', example=''),
+  // 该思维链有回答环节
+  // 
+  hasResponseType: boolean(name='has_response_type', example='true, false'),
+}
+
+// Agent详情 --> 隶属multi-agent的sub agents --> edges 信息
+model MultiAgentEdge {
+  // edge 指向的下个agent instance id
+  // 
+  nextInstanceId: string(name='next_instance_id', example='1'),
+  // 跳到next agent的prompt
+  // 
+  prompt: string(name='prompt', example='1'),
+}
+
+// Agent对话详情-文档类型：文档参考片段列表
+model DocumentReferenceInfo {
+  // title
+  title: string(name='title', example='title'),
+  // address
+  address: string(name='address', example='address'),
+  // score 浮点类型
+  score: string(name='score', example='0.1'),
+  // content
+  content: string(name='content', example='content'),
+  // type	SearchSceneEnum
+  // LLM_CHUNK,
+  //     FAQ,
+  //     LLM_TABLE;
+  type: string(name='type', example='LLM_CHUNK'),
+}
+
+// 知识类型：知识点列表
+model KnowledgeTitleInfo {
+  // title
+  title: string(name='title', example='title'),
+  // score 浮点类型
+  score: string(name='score', example='0.1'),
+}
+
+// Agent详情 --> 隶属multi-agent的sub agents --> 坐标信息
+model DraftPosition {
+  // x 浮点类型
+  x: string(name='x', example='0.1'),
+  // y 浮点类型
+  y: string(name='y', example='0.1'),
+}
+
 // 工具入参的json schema
 model JsonSchema {
   // 工具属性，Map<String, Object> 类型，适配网关透出，使用字符串方式存储
@@ -173,6 +435,77 @@ model JsonSchema {
   additionalProperties: boolean(name='additional_properties', example=''),
 }
 
+// Agent对话历史列表
+model SingleAgentChatHistoryPreview {
+  // 数据库id
+  // 
+  id: long(name='id', example=''),
+  // 会话id
+  // 
+  sessionId: string(name='session_id', example='123'),
+  // 会话开始时间
+  // 
+  askTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='ask_time', example='2018-10-10T10:10:00Z'),
+  // 前端展示的时间
+  // 
+  displayTime: string(name='display_time', example='"2024-01-01 10:00:00" '),
+  // 会话在列表中的显示内容
+  // 
+  sessionIdentifier: string(name='session_identifier', example='"会话标题" '),
+  // 消息类型（chat/pushMessage）
+  // 
+  type: string(name='type', example='chat'),
+  // 推送的消息内容
+  // 
+  textResponse: string(name='text_response', example='推送的消息内容'),
+  // 推送时间
+  // 
+  timestampDisplay: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='timestamp_display', example='2018-10-10T10:10:00Z'),
+  // 返回类型
+  // 
+  displayResponseType: string(name='display_response_type', example='文本'),
+  // 附件文件
+  // 
+  files: [ AttachFile ](name='files', example=''),
+}
+
+// Agent详情-Agent模型配置表
+// 
+model AgentModelParams {
+  // 模型类型 AgentModelTypeEnum - DECISION: 决策模型 - GENERATE: 生成模型 - E2E: 端到端模型 - RAG: 检索生成模型
+  // 
+  type: string(name='type', example='GENERATE'),
+  // 模型版本 {model}/{version}#{adapter}
+  // 
+  model: string(name='model', example='"gpt-3.5-turbo" '),
+  // 生成策略预设配置 AgentModelPresetEnum - FLEXIBLE: 灵活 - NORMAL: 正常 - STRICT: 严格
+  // 
+  presetIndex: string(name='preset_index', example='NORMAL'),
+  // temperature 浮点类型
+  // 
+  temperature: string(name='temperature', example='0.1'),
+  // top_k
+  topK: long(name='top_k', example=''),
+  // top_p 浮点类型
+  topP: string(name='top_p', example='0.1'),
+  // doSample
+  doSample: boolean(name='do_sample', example='true, false'),
+  // beam_width
+  beamWidth: long(name='beam_width', example=''),
+  // 最大输出长度
+  // 
+  maxOutToken: long(name='max_out_token', example='2048'),
+  // 是否为支持 function call 的模型
+  // 
+  functionCall: boolean(name='function_call', example='true, false'),
+  // 自定义推理服务url
+  // 
+  customUrl: string(name='custom_url', example='"http://..." '),
+  // 是否平台官方模型
+  // 
+  bailingOfficial: boolean(name='bailing_official', example='true, false'),
+}
+
 // 工具列表vo
 model ToolInfoVO {
   // 工具名称
@@ -181,6 +514,298 @@ model ToolInfoVO {
   description: string(name='description', example='工具描述'),
   // 工具入参的json schema
   inputSchema: JsonSchema(name='input_schema', example=''),
+}
+
+// Agent详情查询-隶属multi-agent的sub agents
+model SubAgentInfo {
+  // agent主键id
+  // 
+  id: long(name='id', example=''),
+  // agent code
+  // 
+  uniqueCode: string(name='unique_code', example='agent code'),
+  // 场景描述
+  // 
+  scene: string(name='scene', example='场景描述'),
+  // 调用示例 话术
+  // 
+  scripting: [ string ](name='scripting', example=''),
+  // 是否默认展示
+  // 
+  isDefault: boolean(name='is_default', example='true, false'),
+  // 实例id
+  // 
+  instanceId: string(name='instance_id', example='1'),
+  // edges 信息
+  // 
+  edges: [ MultiAgentEdge ](name='edges', example=''),
+  // 坐标信息
+  // 
+  position: DraftPosition(name='position', example='{}'),
+  // agent 来源类型
+  // 
+  agentSource: string(name='agent_source', example='"internal" '),
+}
+
+// Agent详情查询-Agent关联配置信息表
+model AgentRefPluginInfo {
+  // 工具id
+  // 
+  id: string(name='id', example='1'),
+  // 构建版本号
+  // 
+  buildVersion: string(name='build_version', example='"v1.0.0" '),
+  // 入参预设值表 Map<String, String>
+  paramValueMap: string(name='param_value_map', example='{}'),
+  // 入参预设值表，原param_value_map字段，Map<String, String>格式
+  // 
+  paramValueMapJson: string(name='param_value_map_json', example='{} '),
+  // 关联的语料
+  corpus: [ string ](name='corpus', example=''),
+}
+
+// Agent详情-Agent安全审核配置
+model AgentSecConfig {
+  // 是否打开安全审核
+  enableSecCheck: boolean(name='enable_sec_check', example='true, false'),
+  // 安全提供方:平台配置 大安全、天鉴等
+  secProvider: string(name='sec_provider', example='1'),
+}
+
+// 对话详细信息
+model DisplayResponseContent {
+  // 【对话历史展示专用】对话历史展示类型，枚举值：QUERY("用户输入"), RESPONSE("回复")
+  // 
+  chatHistoryDisplayTypeEnum: string(name='chat_history_display_type_enum', example='QUERY'),
+  // 展示类型，前端根据此类型读取相关字段进行展示，枚举值：TEXT("文本"), CARD("卡片"), TEMPLATE("模版"), MARKDOWN("Markdown模版"), KNOWLEDGE("知识点"), DOCUMENT("文档"), PLUGIN("插件"), DEFAULT("兜底"), ERROR("异常")
+  // 
+  displayResponseType: string(name='display_response_type', example='TEXT'),
+  // content 日志原文
+  rawContent: string(name='raw_content', example='{} '),
+  // Map<String, Object> 元数据kv对
+  // 
+  kvMap: string(name='kv_map', example='{}'),
+  // 关联节点id
+  // 
+  refNodeId: string(name='ref_node_id', example='"node123" '),
+  // 关联节点信息
+  // 
+  spmData: string(name='spm_data', example='"spmInfo" '),
+  // 关联意图domain+intent
+  // 
+  domainIntent: string(name='domain_intent', example='"intentA" '),
+  // 文本回复内容，非文本类型的机器人回复展现也使用该字段
+  // 
+  textResponse: string(name='text_response', example='"Hello!" '),
+  // 卡片/模版类型：行动点列表
+  // 
+  templateActionList: [ TemplateAction ](name='template_action_list', example='[]'),
+  // 模版/卡片类型: 序号
+  // 
+  order: long(name='order', example='1'),
+  // 模版类型：模版id
+  // 
+  templateId: string(name='template_id', example='1'),
+  // 模版类型：模版名称
+  // 
+  templateName: string(name='template_name', example='1'),
+  // 模版类型：模版 responseId
+  // 
+  templateResponseId: string(name='template_response_id', example='resp999'),
+  // 模版类型：模版预览图地址
+  // 
+  templatePictureUrl: string(name='template_picture_url', example='"http://..." '),
+  // 卡片类型：卡片 responseId
+  // 
+  cardResponseId: string(name='card_response_id', example='card888'),
+  // 卡片类型：卡片ID
+  // 
+  cardId: string(name='card_id', example='123'),
+  // 卡片类型：卡片版本
+  // 
+  cardVersion: string(name='card_version', example='1'),
+  // Markdown 类型：消息标题
+  // 
+  msgTitle: string(name='msg_title', example='"标题" '),
+  // Markdown 类型：消息内容
+  // 
+  msgContent: string(name='msg_content', example='"# 内容" '),
+  // 知识类型：知识点列表
+  // 
+  knowledgeTitleList: [ KnowledgeTitleInfo ](name='knowledge_title_list', example='[]'),
+  // 文档类型：文档参考片段列表
+  // 
+  documentReferenceList: [ DocumentReferenceInfo ](name='document_reference_list', example='[]'),
+  // 建议/关联问题列表
+  // 
+  suggestions: [ string ](name='suggestions', example='["问题1"] '),
+  // 响应单元id
+  // 
+  unitId: string(name='unit_id', example='响应单元id'),
+  // 响应序号
+  // 
+  index: long(name='index', example='1'),
+  // 是还在加载
+  // 
+  loading: boolean(name='loading', example='true, false'),
+  // 运行时间戳，用于计算耗时
+  // 
+  timestamp: long(name='timestamp', example='1712000000'),
+  // 运行时间戳，展示格式（已废弃）
+  // 
+  timestampDisplay: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='timestamp_display', example='2018-10-10T10:10:00Z'),
+  // 响应控制码，用于标识是否被安全拦截或者正常生成
+  // 
+  replyCmd: string(name='reply_cmd', example='1'),
+  // 附件列表
+  // 
+  files: [ AttachFile ](name='files', example='[]'),
+  // Agent 运行思维链
+  thoughtChain: ThoughtChainInfo(name='thought_chain', example='{}'),
+  // AgentChatLogInfo. Agent 运行相关信息
+  // 
+  agentChatLogInfo: AgentChatLogInfo(name='agent_chat_log_info', example='{}'),
+}
+
+// Agent历史对话信息列表vo
+model AgentChatHistoryPreviewVO {
+  // 对话历史列表
+  sessionList: [ SingleAgentChatHistoryPreview ](name='session_list', example=''),
+}
+
+// 知识库-文件上传响应内容
+model UploadAttachmentFileVO {
+  // 上传结果	
+  // 
+  uploadStatus: string(name='upload_status', example='success'),
+  // 文件URL
+  fileUrl: string(name='file_url', example='fileUrl'),
+  // file_id
+  fileId: string(name='file_id', example='1'),
+  // 文件类型
+  fileType: string(name='file_type', example='fileType'),
+  // 文件名
+  fileName: string(name='file_name', example='fileName'),
+  // 附件大小	
+  // 
+  fileSize: long(name='file_size', example='123'),
+  // 内容库 ID（用于检索）	
+  // 
+  contentId: string(name='content_id', example='1'),
+  // 错误信息	
+  // 
+  errorMessage: string(name='error_message', example='"上传失败" '),
+}
+
+// Agent详情查询VO
+model AgentVO {
+  // Agent的唯一标识符
+  id: long(name='id', example='1'),
+  // Agent唯一uid
+  // 
+  uniqueCode: string(name='unique_code', example='1'),
+  // Agent名称
+  // 
+  name: string(name='name', example='1'),
+  // Agent 版本
+  // 
+  agentVersion: string(name='agent_version', example='1'),
+  // Agent类型 "multi", "多智能体应用" "workflow", "工作流应用""lite", "轻量应用"  "external", "外部应用"
+  type: string(name='type', example='lite'),
+  // Agent描述
+  // 
+  description: string(name='description', example='"这是一个智能助手" '),
+  // Agent创建人
+  // 
+  creator: string(name='creator', example='1'),
+  // Agent创建时间
+  // 
+  gmtCreate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_create', example='2018-10-10T10:10:00Z'),
+  // Agent编辑时间
+  // 
+  gmtModified: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_modified', example='2018-10-10T10:10:00Z'),
+  // Agent安全审核配置
+  // 
+  secConfig: AgentSecConfig(name='sec_config', example=''),
+  // 欢迎语
+  // 
+  welcome: string(name='welcome', example='"欢迎使用智能助手" '),
+  // 是否展示关联问题
+  // 
+  showRelatedQuestions: boolean(name='show_related_questions', example='true, false'),
+  // 关联问题自定义prompt
+  // 
+  relatedQuestionPrompt: string(name='related_question_prompt', example='"请推荐相关问题" '),
+  // 额外信息 ，Map<String, Object>
+  extraInfo: string(name='extra_info', example='{}'),
+  // extra_info (额外信息) 字段的json形式，格式为：Map<String, Object>
+  extraInfoJson: string(name='extra_info_json', example='{}'),
+  // 交互类型 VOICE / AVATAR / VIDEO
+  // 
+  interactionType: string(name='interaction_type', example='VOICE'),
+  // 音色
+  // 
+  voice: string(name='voice', example='1'),
+  // agent模型版本 {model}/{version}#{adapter} (deprecated)
+  // 
+  model: string(name='model', example='"gpt-3.5-turbo" '),
+  // Agent模型配置表
+  // 
+  modelList: [ AgentModelParams ](name='model_list', example=''),
+  // Agent关联知识库ID列表
+  // 
+  refLibraryIds: [ string ](name='ref_library_ids', example=''),
+  // Agent关联插件信息表, key为插件主键id, value为信息
+  // 
+  refPlugins: [ AgentRefPluginInfo ](name='ref_plugins', example=''),
+  // 关联的mcpServer
+  // 
+  refMcpServers: [ AgentRefPluginInfo ](name='ref_mcp_servers', example=''),
+  // 隶属multi-agent的sub agents
+  // 
+  subAgents: [ SubAgentInfo ](name='sub_agents', example='[]'),
+  // Agent关联workflow信息表, key为intent wutong id, value为信息
+  // 
+  refWorkflows: [ AgentRefPluginInfo ](name='ref_workflows', example=''),
+  // 关联卡片id列表
+  // 
+  refCardIds: [ string ](name='ref_card_ids', example=''),
+}
+
+// MyMCP page分页内容信息
+model DigitalGatewayMCPPageVO {
+  // 空间id
+  spaceId: string(name='space_id', example='123'),
+  // server_id
+  serverId: string(name='server_id', example='server_id'),
+  // server_code
+  serverCode: string(name='server_code', example='server_code'),
+  // server_name
+  serverName: string(name='server_name', example='server_name'),
+  // icon
+  icon: string(name='icon', example='icon'),
+  // description
+  description: string(name='description', example='description'),
+  //  mcp分类
+  categories: [ string ](name='categories', example=''),
+}
+
+// 根据sessionId查询历史对话信息
+model DisplaySingleSessionHistoryVO {
+  // 展示内容列表，入参和出参放在一起，方便前端展示
+  contentList: [ DisplayResponseContent ](name='content_list', example='[]'),
+}
+
+// 知识库-任务列表对象
+model ContentTask {
+  // 任务ID
+  id: long(name='id', example=''),
+  // 任务名称
+  taskName: string(name='task_name', example='任务名称'),
+  // 任务类型
+  taskType: string(name='task_type', example='任务类型'),
+  // 任务状态:
+  status: string(name='status', example='init/end'),
 }
 
 // 异常对象
@@ -219,56 +844,106 @@ model DigitalGatewayMCPDetailVO {
   toolList: [ ToolInfoVO ](name='tool_list', example=''),
 }
 
-// MyMCP page分页内容信息
-model DigitalGatewayMCPPageVO {
-  // 空间id
-  spaceId: string(name='space_id', example='123'),
-  // server_id
-  serverId: string(name='server_id', example='server_id'),
-  // server_code
-  serverCode: string(name='server_code', example='server_code'),
-  // server_name
-  serverName: string(name='server_name', example='server_name'),
-  // icon
-  icon: string(name='icon', example='icon'),
-  // description
-  description: string(name='description', example='description'),
-  //  mcp分类
-  categories: [ string ](name='categories', example=''),
+// 知识库-文档列表-文档分页对象
+model ContentFile {
+  // 文档所属知识库ID
+  libraryId?: long(name='library_id', example=''),
+  // 文档ID
+  id?: long(name='id', example=''),
+  // 文档文件名
+  name?: string(name='name', example='文档文件名'),
+  // 文档类型
+  typ?: string(name='typ', example='lark/mark/pdf/text/doc/docx'),
+  // 文档标签列表
+  tagList?: [ string ](name='tag_list', example=''),
+  // 发布状态
+  publishStatus?: string(name='publish_status', example='0未发布/1发布中/2发布成功/3发布失败'),
 }
 
-// MCP已订阅清单Request
-model MCPServerQueryPageGatewayRequest {
-  // 空间id
-  spaceId: string(name='space_id', example='123'),
-  // 运行模式
-  runMode?: string(name='run_mode', example='null'),
-  // 来源
-  source?: string(name='source', example='all'),
-  // 查询条件
-  query?: string(name='query', example='测试'),
-  // 页码
-  pageNum: long(name='page_num', example=''),
-  // 分页大小
-  pageSize: long(name='page_size', example=''),
-}
-
-// MCP详情查询返回Result对象
-model MCPDetailCommonResult {
-  // MCP详情信息
-  result: DigitalGatewayMCPDetailVO(name='result', example=''),
+// StringResult
+model StringResult {
   // success
-  success: boolean(name='success', example='true, false'),
+  success: boolean(name='success', example=''),
   // code
-  code: string(name='code', example='ok'),
+  code: string(name='code', example='code'),
   // msg
   msg: string(name='msg', example='msg'),
   // trace_id
   traceId: string(name='trace_id', example='trace_id'),
   // req_id
   reqId: string(name='req_id', example='req_id'),
-  // 异常对象
-  bizError: BizErrorInfo(name='biz_error', example='biz_error'),
+  // 接口返回值
+  result: string(name='result', example='result'),
+}
+
+// 查看会话的历史会话信息result
+model AgentChatHistoryForSessionIdResult {
+  // success
+  success: boolean(name='success', example='success'),
+  // code
+  code: string(name='code', example='code'),
+  // msg
+  msg: string(name='msg', example='msg'),
+  // trace_id
+  traceId: string(name='trace_id', example='trace_id'),
+  // req_id
+  reqId: string(name='req_id', example='req_id'),
+  // 对话历史
+  // 
+  result: DisplaySingleSessionHistoryVO(name='result', example=''),
+}
+
+// Agent查询对话列表,Result
+model AgentChatHistoryPreviewListResult {
+  // 请求处理结果
+  // 
+  success: boolean(name='success', example='true, false'),
+  // 返回结果编码
+  // 
+  code: string(name='code', example='ok'),
+  // 返回结果信息
+  // 
+  msg: string(name='msg', example='返回结果信息'),
+  // trace_id
+  traceId: string(name='trace_id', example='trace_id'),
+  // req_id
+  reqId: string(name='req_id', example='req_id'),
+  // 对话历史
+  result: AgentChatHistoryPreviewVO(name='result', example=''),
+}
+
+// 知识库-任务列表result
+model LibraryContentTaskPageResult {
+  // 请求处理结果标识
+  success: boolean(name='success', example=''),
+  // 业务状态码
+  code: string(name='code', example='200'),
+  // 返回消息
+  message: string(name='message', example='message'),
+  // 请求链路追踪ID
+  traceId: string(name='trace_id', example='123'),
+  // 符合查询条件的总记录数
+  totalCount: long(name='total_count', example=''),
+  // 当前返回数据的页码
+  currentPage: long(name='current_page', example='1'),
+  // 实际返回的每页记录数
+  pageSize: long(name='page_size', example='10'),
+  // 任务数据列表
+  result: [ ContentTask ](name='result', example=''),
+}
+
+// 知识库文件上传响应Result
+model LibraryUploadFileResult {
+  // 请求处理结果标识
+  success: boolean(name='success', example='true, false'),
+  // 业务状态码
+  code: string(name='code', example='code'),
+  // 返回消息
+  message: string(name='message', example='message'),
+  // 请求链路追踪ID
+  traceId: string(name='trace_id', example='312'),
+  // 文件上传响应对象
+  result: UploadAttachmentFileVO(name='result', example=''),
 }
 
 // 我订阅的MCP分页对象
@@ -289,6 +964,157 @@ model MyMcpPageRestult {
   reqId: string(name='req_id', example='req_id'),
   // MCP分页内容
   result: [ DigitalGatewayMCPPageVO ](name='result', example=''),
+}
+
+// 简单返回类
+model SimpleResult {
+  // success
+  success: boolean(name='success', example='true, false'),
+  // 返回结果编码 “ok”
+  code: string(name='code', example='ok'),
+  // 返回结果信息
+  msg: string(name='msg', example='返回结果信息'),
+  // trace_id
+  traceId: string(name='trace_id', example='trace_id'),
+  // req_id
+  reqId: string(name='req_id', example='req_id'),
+}
+
+// 知识库-文档-切片result对象
+model LibraryDocBatchSplitResult {
+  // 请求是否成功
+  success: boolean(name='success', example='true, false'),
+  // 业务状态码
+  code: string(name='code', example='200'),
+  // 返回消息
+  message: string(name='message', example='消息'),
+  // 请求链路追踪ID
+  traceId: string(name='trace_id', example='123'),
+  // 任务ID，可用于异步任务追踪
+  result: long(name='result', example=''),
+}
+
+// 知识库-文档切片-文件信息
+model FileReq {
+  // 导入文件地址
+  url: string(name='url', example='null'),
+  // 文件名称
+  fileName: string(name='file_name', example='文件名称'),
+  // 文件类型，不设置使用全局类型
+  fileType: string(name='file_type', example='pdf'),
+  // 文件标签列表（用于AI参考）
+  tagList?: [ string ](name='tag_list', example=''),
+}
+
+// MCP详情查询返回Result对象
+model MCPDetailCommonResult {
+  // MCP详情信息
+  result: DigitalGatewayMCPDetailVO(name='result', example=''),
+  // success
+  success: boolean(name='success', example='true, false'),
+  // code
+  code: string(name='code', example='ok'),
+  // msg
+  msg: string(name='msg', example='msg'),
+  // trace_id
+  traceId: string(name='trace_id', example='trace_id'),
+  // req_id
+  reqId: string(name='req_id', example='req_id'),
+  // 异常对象
+  bizError: BizErrorInfo(name='biz_error', example='biz_error'),
+}
+
+// 删除Agent会话 Result
+model DeleteSessionFromAgentChatHistoryResult {
+  // success
+  success: boolean(name='success', example='true, false'),
+  // code
+  code: string(name='code', example='ok'),
+  // 返回结果信息
+  // 
+  msg: string(name='msg', example='返回结果信息'),
+  // trace_id
+  traceId: string(name='trace_id', example='trace_id'),
+  // req_id
+  reqId: string(name='req_id', example='req_id'),
+}
+
+// Agent对话-上传文件 Result
+model UploadAttachmentFileResult {
+  // success
+  success: boolean(name='success', example='true, false'),
+  // code
+  code: string(name='code', example='code'),
+  // msg
+  msg: string(name='msg', example='msg'),
+  // trace_id
+  traceId: string(name='trace_id', example='trace_id'),
+  // req_id
+  reqId: string(name='req_id', example='req_id'),
+  // 上传解析结果
+  // 
+  result: UploadAttachmentFileVO(name='result', example=''),
+}
+
+// MCP已订阅清单Request
+model MCPServerQueryPageGatewayRequest {
+  // 空间id
+  spaceId: string(name='space_id', example='123'),
+  // 运行模式
+  runMode?: string(name='run_mode', example='null'),
+  // 来源
+  source?: string(name='source', example='all'),
+  // 查询条件
+  query?: string(name='query', example='测试'),
+  // 页码
+  pageNum: long(name='page_num', example=''),
+  // 分页大小
+  pageSize: long(name='page_size', example=''),
+}
+
+// 获取 Agent 详情 Result
+model AgentDtailResult {
+  // success
+  success: boolean(name='success', example='true, false'),
+  // code
+  code: string(name='code', example='code'),
+  // msg
+  msg: string(name='msg', example='msg'),
+  // trace_id
+  traceId: string(name='trace_id', example='trace_id'),
+  // req_id
+  reqId: string(name='req_id', example='req_id'),
+  // 返回结果
+  // 
+  result: AgentVO(name='result', example=''),
+}
+
+// 知识库-文档列表-分页对象
+model LibraryDocPageResult {
+  // 请求处理结果标识
+  success: boolean(name='success', example='true, false'),
+  // 业务状态码
+  code: string(name='code', example='200'),
+  // 返回消息
+  message: string(name='message', example='返回消息'),
+  // 请求链路追踪ID
+  traceId: string(name='trace_id', example='123'),
+  // 符合查询条件的总记录数
+  totalCount: long(name='total_count', example=''),
+  // 当前返回数据的页码
+  currentPage: long(name='current_page', example=''),
+  // 分页大小
+  pageSize: long(name='page_size', example=''),
+  // 文档数据列表
+  result: [ ContentFile ](name='result', example=''),
+}
+
+// 键值对
+model XNameValuePair {
+  // 键名
+  name: string(name='name', example='key'),
+  // 键值
+  value: string(name='value', example='value'),
 }
 
 model StartOpenaiChatRequest = {
@@ -405,7 +1231,127 @@ async function startAgentCchatEx(request: StartAgentCchatRequest, headers: map[s
   return doRequest('1.0' ,'antdigital.dtaiagt.agent.cchat.start', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model PagequeryAgentMcplistRequest = {
+model UploadAlipayLibraryRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 文件id
+  fileObject?: readable(description='待上传文件', ignore='true'),
+  fileObjectName?: string(description='待上传文件名', ignore='true'),
+  fileId: string(name='file_id'),
+}
+
+model UploadAlipayLibraryResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // result
+  data?: LibraryUploadFileResult(name='data'),
+}
+
+/**
+ * Description: 主站-知识库文件上传
+ * Summary: 主站-知识库文件上传
+ */
+async function uploadAlipayLibrary(request: UploadAlipayLibraryRequest): UploadAlipayLibraryResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return uploadAlipayLibraryEx(request, headers, runtime);
+}
+
+/**
+ * Description: 主站-知识库文件上传
+ * Summary: 主站-知识库文件上传
+ */
+async function uploadAlipayLibraryEx(request: UploadAlipayLibraryRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadAlipayLibraryResponse {
+  if (!Util.isUnset(request.fileObject)) {
+    var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
+      authToken = request.authToken,
+      apiCode = 'antdigital.dtaiagt.alipay.library.upload',
+      fileName = request.fileObjectName,
+    };
+    var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+    if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+      var uploadAlipayLibraryResponse = new UploadAlipayLibraryResponse{
+        reqMsgId = uploadResp.reqMsgId,
+        resultCode = uploadResp.resultCode,
+        resultMsg = uploadResp.resultMsg,
+      };
+      return uploadAlipayLibraryResponse;
+    }
+    var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+    AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+    request.fileId = uploadResp.fileId;
+    request.fileObject = null;
+  }
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.dtaiagt.alipay.library.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UploadAlipayAgentchatRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // fileId
+  fileObject?: readable(description='待上传文件', ignore='true'),
+  fileObjectName?: string(description='待上传文件名', ignore='true'),
+  fileId?: string(name='file_id'),
+}
+
+model UploadAlipayAgentchatResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // data
+  data?: UploadAttachmentFileResult(name='data'),
+}
+
+/**
+ * Description: 主站-Agent对话-上传文件
+ * Summary: 主站-Agent对话-上传文件
+ */
+async function uploadAlipayAgentchat(request: UploadAlipayAgentchatRequest): UploadAlipayAgentchatResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return uploadAlipayAgentchatEx(request, headers, runtime);
+}
+
+/**
+ * Description: 主站-Agent对话-上传文件
+ * Summary: 主站-Agent对话-上传文件
+ */
+async function uploadAlipayAgentchatEx(request: UploadAlipayAgentchatRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadAlipayAgentchatResponse {
+  if (!Util.isUnset(request.fileObject)) {
+    var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
+      authToken = request.authToken,
+      apiCode = 'antdigital.dtaiagt.alipay.agentchat.upload',
+      fileName = request.fileObjectName,
+    };
+    var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+    if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+      var uploadAlipayAgentchatResponse = new UploadAlipayAgentchatResponse{
+        reqMsgId = uploadResp.reqMsgId,
+        resultCode = uploadResp.resultCode,
+        resultMsg = uploadResp.resultMsg,
+      };
+      return uploadAlipayAgentchatResponse;
+    }
+    var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+    AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+    request.fileId = uploadResp.fileId;
+    request.fileObject = null;
+  }
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.dtaiagt.alipay.agentchat.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PagequeryMcpMymcpRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
@@ -419,7 +1365,7 @@ model PagequeryAgentMcplistRequest = {
   pageSize: long(name='page_size'),
 }
 
-model PagequeryAgentMcplistResponse = {
+model PagequeryMcpMymcpResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
   // 结果码，一般OK表示调用成功
@@ -434,22 +1380,22 @@ model PagequeryAgentMcplistResponse = {
  * Description: 查询已订阅的mcp清单
  * Summary: 查询已订阅的mcp清单
  */
-async function pagequeryAgentMcplist(request: PagequeryAgentMcplistRequest): PagequeryAgentMcplistResponse {
+async function pagequeryMcpMymcp(request: PagequeryMcpMymcpRequest): PagequeryMcpMymcpResponse {
   var runtime = new Util.RuntimeOptions{};
   var headers : map[string]string= {};
-  return pagequeryAgentMcplistEx(request, headers, runtime);
+  return pagequeryMcpMymcpEx(request, headers, runtime);
 }
 
 /**
  * Description: 查询已订阅的mcp清单
  * Summary: 查询已订阅的mcp清单
  */
-async function pagequeryAgentMcplistEx(request: PagequeryAgentMcplistRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PagequeryAgentMcplistResponse {
+async function pagequeryMcpMymcpEx(request: PagequeryMcpMymcpRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PagequeryMcpMymcpResponse {
   Util.validateModel(request);
-  return doRequest('1.0' ,'antdigital.dtaiagt.agent.mcplist.pagequery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+  return doRequest('1.0' ,'antdigital.dtaiagt.mcp.mymcp.pagequery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model DetailAgentMcpRequest = {
+model DetailMcpMymcpRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
@@ -459,7 +1405,7 @@ model DetailAgentMcpRequest = {
   serverId: string(name='server_id'),
 }
 
-model DetailAgentMcpResponse = {
+model DetailMcpMymcpResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
   // 结果码，一般OK表示调用成功
@@ -474,19 +1420,628 @@ model DetailAgentMcpResponse = {
  * Description: mcp详情
  * Summary: mcp详情
  */
-async function detailAgentMcp(request: DetailAgentMcpRequest): DetailAgentMcpResponse {
+async function detailMcpMymcp(request: DetailMcpMymcpRequest): DetailMcpMymcpResponse {
   var runtime = new Util.RuntimeOptions{};
   var headers : map[string]string= {};
-  return detailAgentMcpEx(request, headers, runtime);
+  return detailMcpMymcpEx(request, headers, runtime);
 }
 
 /**
  * Description: mcp详情
  * Summary: mcp详情
  */
-async function detailAgentMcpEx(request: DetailAgentMcpRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DetailAgentMcpResponse {
+async function detailMcpMymcpEx(request: DetailMcpMymcpRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DetailMcpMymcpResponse {
   Util.validateModel(request);
-  return doRequest('1.0' ,'antdigital.dtaiagt.agent.mcp.detail', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+  return doRequest('1.0' ,'antdigital.dtaiagt.mcp.mymcp.detail', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListLibraryDocRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 知识库ID
+  libraryId: long(name='library_id'),
+  // 文档标题模糊匹配
+  title?: string(name='title'),
+  // 当前页
+  pageNum?: long(name='page_num'),
+  // 分页大小
+  pageSize?: long(name='page_size'),
+}
+
+model ListLibraryDocResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 响应体
+  data?: LibraryDocPageResult(name='data'),
+}
+
+/**
+ * Description: 知识库-文档分页查询
+ * Summary: 知识库-文档分页查询
+ */
+async function listLibraryDoc(request: ListLibraryDocRequest): ListLibraryDocResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listLibraryDocEx(request, headers, runtime);
+}
+
+/**
+ * Description: 知识库-文档分页查询
+ * Summary: 知识库-文档分页查询
+ */
+async function listLibraryDocEx(request: ListLibraryDocRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListLibraryDocResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.dtaiagt.library.doc.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListLibraryTaskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 知识库ID
+  libraryId: long(name='library_id'),
+  // 任务类型列表
+  taskType?: [ string ](name='task_type'),
+  // 任务ID
+  taskId?: long(name='task_id'),
+  // 页码
+  pageNum?: string(name='page_num'),
+  // 分页大小
+  pageSize?: string(name='page_size'),
+}
+
+model ListLibraryTaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 知识库-任务列表result
+  data?: LibraryContentTaskPageResult(name='data'),
+}
+
+/**
+ * Description: 知识库-任务列表
+ * Summary: 知识库-任务列表
+ */
+async function listLibraryTask(request: ListLibraryTaskRequest): ListLibraryTaskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listLibraryTaskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 知识库-任务列表
+ * Summary: 知识库-任务列表
+ */
+async function listLibraryTaskEx(request: ListLibraryTaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListLibraryTaskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.dtaiagt.library.task.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ExecLibraryDocsplitRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 知识库ID
+  libraryId: long(name='library_id'),
+  // 使用的切分器名称
+  splitter: string(name='splitter'),
+  // 切片类型
+  sectionType: string(name='section_type'),
+  // 切分字数（智能分片/按规则分片）
+  chunkSize: long(name='chunk_size'),
+  // 块之间的最大重叠字符数（智能分片）
+  chunkOverlap: long(name='chunk_overlap'),
+  // 最小标题级别，0为全部拍平（智能分片）
+  minLeve?: long(name='min_leve'),
+  // 自定义切分规则正则表达式（按规则分片）
+  regex: string(name='regex'),
+  // 任务名称
+  taskName: string(name='task_name'),
+  // 文件信息列表
+  files: [ FileReq ](name='files'),
+}
+
+model ExecLibraryDocsplitResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // data
+  data?: LibraryDocBatchSplitResult(name='data'),
+}
+
+/**
+ * Description: 知识库-文档切片
+ * Summary: 知识库-文档切片
+ */
+async function execLibraryDocsplit(request: ExecLibraryDocsplitRequest): ExecLibraryDocsplitResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return execLibraryDocsplitEx(request, headers, runtime);
+}
+
+/**
+ * Description: 知识库-文档切片
+ * Summary: 知识库-文档切片
+ */
+async function execLibraryDocsplitEx(request: ExecLibraryDocsplitRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExecLibraryDocsplitResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.dtaiagt.library.docsplit.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListAgentChatRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // agentCode
+  agentCode: string(name='agent_code'),
+}
+
+model ListAgentChatResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // data
+  data?: AgentChatHistoryPreviewListResult(name='data'),
+}
+
+/**
+ * Description: 查询Agent历史会话列表
+ * Summary: 查询Agent历史会话列表
+ */
+async function listAgentChat(request: ListAgentChatRequest): ListAgentChatResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listAgentChatEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询Agent历史会话列表
+ * Summary: 查询Agent历史会话列表
+ */
+async function listAgentChatEx(request: ListAgentChatRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListAgentChatResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.dtaiagt.agent.chat.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DetailAgentChatRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // agent_code
+  agentCode: string(name='agent_code'),
+  // session_id
+  sessionId: string(name='session_id'),
+}
+
+model DetailAgentChatResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // data
+  data?: AgentChatHistoryForSessionIdResult(name='data'),
+}
+
+/**
+ * Description: 查看Agent历史会话详情
+ * Summary: 查看Agent历史会话详情
+ */
+async function detailAgentChat(request: DetailAgentChatRequest): DetailAgentChatResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return detailAgentChatEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查看Agent历史会话详情
+ * Summary: 查看Agent历史会话详情
+ */
+async function detailAgentChatEx(request: DetailAgentChatRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DetailAgentChatResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.dtaiagt.agent.chat.detail', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeleteAgentChatRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // agent_code
+  agentCode: string(name='agent_code'),
+  // session 主键ID
+  id: long(name='id'),
+}
+
+model DeleteAgentChatResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // data
+  data?: DeleteSessionFromAgentChatHistoryResult(name='data'),
+}
+
+/**
+ * Description: 删除Agent会话
+ * Summary: 删除Agent会话
+ */
+async function deleteAgentChat(request: DeleteAgentChatRequest): DeleteAgentChatResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deleteAgentChatEx(request, headers, runtime);
+}
+
+/**
+ * Description: 删除Agent会话
+ * Summary: 删除Agent会话
+ */
+async function deleteAgentChatEx(request: DeleteAgentChatRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteAgentChatResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.dtaiagt.agent.chat.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateAgentChatRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // chat id
+  // 
+  chatId: string(name='chat_id'),
+  // session_id
+  sessionId: string(name='session_id'),
+  // 用户反馈[up_vote, down_vote, cancel_up, cancel_down]
+  // 
+  userFeedback: string(name='user_feedback'),
+  // 用户建议
+  // 
+  userFeedRemark?: string(name='user_feed_remark'),
+}
+
+model UpdateAgentChatResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // data
+  data?: SimpleResult(name='data'),
+}
+
+/**
+ * Description: Agent对话-点赞点踩反馈&删除消息评价
+ * Summary: Agent对话-赞/踩反馈&删除消息评价
+ */
+async function updateAgentChat(request: UpdateAgentChatRequest): UpdateAgentChatResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateAgentChatEx(request, headers, runtime);
+}
+
+/**
+ * Description: Agent对话-点赞点踩反馈&删除消息评价
+ * Summary: Agent对话-赞/踩反馈&删除消息评价
+ */
+async function updateAgentChatEx(request: UpdateAgentChatRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateAgentChatResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.dtaiagt.agent.chat.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DetailAgentInfoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // agent主键ID
+  id: long(name='id'),
+}
+
+model DetailAgentInfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // data
+  data?: AgentDtailResult(name='data'),
+}
+
+/**
+ * Description: 获取 Agent 详情
+ * Summary: 获取 Agent 详情
+ */
+async function detailAgentInfo(request: DetailAgentInfoRequest): DetailAgentInfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return detailAgentInfoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取 Agent 详情
+ * Summary: 获取 Agent 详情
+ */
+async function detailAgentInfoEx(request: DetailAgentInfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DetailAgentInfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.dtaiagt.agent.info.detail', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model StopAgentChatRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // chat_id
+  chatId: string(name='chat_id'),
+  // agent_id
+  agentId: string(name='agent_id'),
+  // 会话ID，非必填，拓展用
+  sessionId?: string(name='session_id'),
+}
+
+model StopAgentChatResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // data
+  data?: SimpleResult(name='data'),
+}
+
+/**
+ * Description: Agent停止对话
+ * Summary: Agent停止对话
+ */
+async function stopAgentChat(request: StopAgentChatRequest): StopAgentChatResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return stopAgentChatEx(request, headers, runtime);
+}
+
+/**
+ * Description: Agent停止对话
+ * Summary: Agent停止对话
+ */
+async function stopAgentChatEx(request: StopAgentChatRequest, headers: map[string]string, runtime: Util.RuntimeOptions): StopAgentChatResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.dtaiagt.agent.chat.stop', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UploadAgentPortalchatRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // fileId
+  fileObject?: readable(description='待上传文件', ignore='true'),
+  fileObjectName?: string(description='待上传文件名', ignore='true'),
+  fileId: string(name='file_id'),
+}
+
+model UploadAgentPortalchatResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // data
+  data?: UploadAttachmentFileResult(name='data'),
+}
+
+/**
+ * Description: Agent对话-上传文件
+ * Summary: Agent对话-上传文件
+ */
+async function uploadAgentPortalchat(request: UploadAgentPortalchatRequest): UploadAgentPortalchatResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return uploadAgentPortalchatEx(request, headers, runtime);
+}
+
+/**
+ * Description: Agent对话-上传文件
+ * Summary: Agent对话-上传文件
+ */
+async function uploadAgentPortalchatEx(request: UploadAgentPortalchatRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadAgentPortalchatResponse {
+  if (!Util.isUnset(request.fileObject)) {
+    var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
+      authToken = request.authToken,
+      apiCode = 'antdigital.dtaiagt.agent.portalchat.upload',
+      fileName = request.fileObjectName,
+    };
+    var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+    if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+      var uploadAgentPortalchatResponse = new UploadAgentPortalchatResponse{
+        reqMsgId = uploadResp.reqMsgId,
+        resultCode = uploadResp.resultCode,
+        resultMsg = uploadResp.resultMsg,
+      };
+      return uploadAgentPortalchatResponse;
+    }
+    var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+    AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+    request.fileId = uploadResp.fileId;
+    request.fileObject = null;
+  }
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.dtaiagt.agent.portalchat.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DownloadLibraryDocRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 知识库ID
+  libraryId: long(name='library_id'),
+  // 文档ID
+  docId: long(name='doc_id'),
+}
+
+model DownloadLibraryDocResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // data
+  data?: StringResult(name='data'),
+}
+
+/**
+ * Description: 知识库-文档库-文档下载
+ * Summary: 知识库-文档库-文档下载
+ */
+async function downloadLibraryDoc(request: DownloadLibraryDocRequest): DownloadLibraryDocResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return downloadLibraryDocEx(request, headers, runtime);
+}
+
+/**
+ * Description: 知识库-文档库-文档下载
+ * Summary: 知识库-文档库-文档下载
+ */
+async function downloadLibraryDocEx(request: DownloadLibraryDocRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DownloadLibraryDocResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.dtaiagt.library.doc.download', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UploadSaasLibraryRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 文件ID
+  fileObject?: readable(description='待上传文件', ignore='true'),
+  fileObjectName?: string(description='待上传文件名', ignore='true'),
+  fileId: string(name='file_id'),
+}
+
+model UploadSaasLibraryResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 文件上传响应
+  data?: LibraryUploadFileResult(name='data'),
+}
+
+/**
+ * Description: SAAS-知识库文件上传
+ * Summary: SAAS-知识库文件上传
+ */
+async function uploadSaasLibrary(request: UploadSaasLibraryRequest): UploadSaasLibraryResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return uploadSaasLibraryEx(request, headers, runtime);
+}
+
+/**
+ * Description: SAAS-知识库文件上传
+ * Summary: SAAS-知识库文件上传
+ */
+async function uploadSaasLibraryEx(request: UploadSaasLibraryRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadSaasLibraryResponse {
+  if (!Util.isUnset(request.fileObject)) {
+    var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
+      authToken = request.authToken,
+      apiCode = 'antdigital.dtaiagt.saas.library.upload',
+      fileName = request.fileObjectName,
+    };
+    var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+    if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+      var uploadSaasLibraryResponse = new UploadSaasLibraryResponse{
+        reqMsgId = uploadResp.reqMsgId,
+        resultCode = uploadResp.resultCode,
+        resultMsg = uploadResp.resultMsg,
+      };
+      return uploadSaasLibraryResponse;
+    }
+    var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+    AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+    request.fileId = uploadResp.fileId;
+    request.fileObject = null;
+  }
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.dtaiagt.saas.library.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UploadSaasAgentchatRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // fileId
+  fileObject?: readable(description='待上传文件', ignore='true'),
+  fileObjectName?: string(description='待上传文件名', ignore='true'),
+  fileId: string(name='file_id'),
+}
+
+model UploadSaasAgentchatResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // data
+  data?: UploadAttachmentFileResult(name='data'),
+}
+
+/**
+ * Description: SAAS-Agent对话-上传文件
+ * Summary: SAAS-Agent对话-上传文件
+ */
+async function uploadSaasAgentchat(request: UploadSaasAgentchatRequest): UploadSaasAgentchatResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return uploadSaasAgentchatEx(request, headers, runtime);
+}
+
+/**
+ * Description: SAAS-Agent对话-上传文件
+ * Summary: SAAS-Agent对话-上传文件
+ */
+async function uploadSaasAgentchatEx(request: UploadSaasAgentchatRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadSaasAgentchatResponse {
+  if (!Util.isUnset(request.fileObject)) {
+    var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
+      authToken = request.authToken,
+      apiCode = 'antdigital.dtaiagt.saas.agentchat.upload',
+      fileName = request.fileObjectName,
+    };
+    var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+    if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+      var uploadSaasAgentchatResponse = new UploadSaasAgentchatResponse{
+        reqMsgId = uploadResp.reqMsgId,
+        resultCode = uploadResp.resultCode,
+        resultMsg = uploadResp.resultMsg,
+      };
+      return uploadSaasAgentchatResponse;
+    }
+    var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+    AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+    request.fileId = uploadResp.fileId;
+    request.fileObject = null;
+  }
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.dtaiagt.saas.agentchat.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model StartAgentTaskRequest = {
@@ -602,5 +2157,58 @@ async function operateAgentTask(request: OperateAgentTaskRequest): OperateAgentT
 async function operateAgentTaskEx(request: OperateAgentTaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): OperateAgentTaskResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antdigital.dtaiagt.agent.task.operate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateAntcloudGatewayxFileUploadRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 上传文件作用的openapi method
+  apiCode: string(name='api_code'),
+  // 文件标签，多个标签;分割
+  fileLabel?: string(maxLength=100, name='file_label'),
+  // 自定义的文件元数据
+  fileMetadata?: string(maxLength=1000, name='file_metadata'),
+  // 文件名，不传则随机生成文件名
+  fileName?: string(maxLength=100, name='file_name'),
+  // 文件的多媒体类型
+  mimeType?: string(name='mime_type'),
+  // 产品方的api归属集群，即productInstanceId
+  apiCluster?: string(name='api_cluster'),
+}
+
+model CreateAntcloudGatewayxFileUploadResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 上传有效期
+  expiredTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='expired_time'),
+  // 32位文件唯一id
+  fileId?: string(name='file_id'),
+  // 放入http请求头里
+  uploadHeaders?: [ XNameValuePair ](name='upload_headers'),
+  // 文件上传地址
+  uploadUrl?: string(name='upload_url'),
+}
+
+/**
+ * Description: 创建HTTP PUT提交的文件上传
+ * Summary: 文件上传创建
+ */
+async function createAntcloudGatewayxFileUpload(request: CreateAntcloudGatewayxFileUploadRequest): CreateAntcloudGatewayxFileUploadResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createAntcloudGatewayxFileUploadEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建HTTP PUT提交的文件上传
+ * Summary: 文件上传创建
+ */
+async function createAntcloudGatewayxFileUploadEx(request: CreateAntcloudGatewayxFileUploadRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateAntcloudGatewayxFileUploadResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
