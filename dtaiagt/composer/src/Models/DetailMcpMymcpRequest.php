@@ -6,7 +6,7 @@ namespace AntChain\DTAIAGT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class PagequeryAgentMcplistRequest extends Model
+class DetailMcpMymcpRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,43 +19,28 @@ class PagequeryAgentMcplistRequest extends Model
      */
     public $productInstanceId;
 
-    // 空间ID
+    // 空间id
     /**
      * @var string
      */
     public $spaceId;
 
-    // 查询条件
+    // 平台serverId
     /**
      * @var string
      */
-    public $query;
-
-    // 页码
-    /**
-     * @var int
-     */
-    public $pageNum;
-
-    // 分页大小
-    /**
-     * @var int
-     */
-    public $pageSize;
+    public $serverId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'spaceId'           => 'space_id',
-        'query'             => 'query',
-        'pageNum'           => 'page_num',
-        'pageSize'          => 'page_size',
+        'serverId'          => 'server_id',
     ];
 
     public function validate()
     {
         Model::validateRequired('spaceId', $this->spaceId, true);
-        Model::validateRequired('pageNum', $this->pageNum, true);
-        Model::validateRequired('pageSize', $this->pageSize, true);
+        Model::validateRequired('serverId', $this->serverId, true);
     }
 
     public function toMap()
@@ -70,14 +55,8 @@ class PagequeryAgentMcplistRequest extends Model
         if (null !== $this->spaceId) {
             $res['space_id'] = $this->spaceId;
         }
-        if (null !== $this->query) {
-            $res['query'] = $this->query;
-        }
-        if (null !== $this->pageNum) {
-            $res['page_num'] = $this->pageNum;
-        }
-        if (null !== $this->pageSize) {
-            $res['page_size'] = $this->pageSize;
+        if (null !== $this->serverId) {
+            $res['server_id'] = $this->serverId;
         }
 
         return $res;
@@ -86,7 +65,7 @@ class PagequeryAgentMcplistRequest extends Model
     /**
      * @param array $map
      *
-     * @return PagequeryAgentMcplistRequest
+     * @return DetailMcpMymcpRequest
      */
     public static function fromMap($map = [])
     {
@@ -100,14 +79,8 @@ class PagequeryAgentMcplistRequest extends Model
         if (isset($map['space_id'])) {
             $model->spaceId = $map['space_id'];
         }
-        if (isset($map['query'])) {
-            $model->query = $map['query'];
-        }
-        if (isset($map['page_num'])) {
-            $model->pageNum = $map['page_num'];
-        }
-        if (isset($map['page_size'])) {
-            $model->pageSize = $map['page_size'];
+        if (isset($map['server_id'])) {
+            $model->serverId = $map['server_id'];
         }
 
         return $model;

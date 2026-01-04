@@ -6,7 +6,7 @@ namespace AntChain\DTAIAGT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class DetailAgentMcpRequest extends Model
+class DeleteAgentChatRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,28 +19,28 @@ class DetailAgentMcpRequest extends Model
      */
     public $productInstanceId;
 
-    // 空间id
+    // agent_code
     /**
      * @var string
      */
-    public $spaceId;
+    public $agentCode;
 
-    // 平台serverId
+    // session 主键ID
     /**
-     * @var string
+     * @var int
      */
-    public $serverId;
+    public $id;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'spaceId'           => 'space_id',
-        'serverId'          => 'server_id',
+        'agentCode'         => 'agent_code',
+        'id'                => 'id',
     ];
 
     public function validate()
     {
-        Model::validateRequired('spaceId', $this->spaceId, true);
-        Model::validateRequired('serverId', $this->serverId, true);
+        Model::validateRequired('agentCode', $this->agentCode, true);
+        Model::validateRequired('id', $this->id, true);
     }
 
     public function toMap()
@@ -52,11 +52,11 @@ class DetailAgentMcpRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->spaceId) {
-            $res['space_id'] = $this->spaceId;
+        if (null !== $this->agentCode) {
+            $res['agent_code'] = $this->agentCode;
         }
-        if (null !== $this->serverId) {
-            $res['server_id'] = $this->serverId;
+        if (null !== $this->id) {
+            $res['id'] = $this->id;
         }
 
         return $res;
@@ -65,7 +65,7 @@ class DetailAgentMcpRequest extends Model
     /**
      * @param array $map
      *
-     * @return DetailAgentMcpRequest
+     * @return DeleteAgentChatRequest
      */
     public static function fromMap($map = [])
     {
@@ -76,11 +76,11 @@ class DetailAgentMcpRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['space_id'])) {
-            $model->spaceId = $map['space_id'];
+        if (isset($map['agent_code'])) {
+            $model->agentCode = $map['agent_code'];
         }
-        if (isset($map['server_id'])) {
-            $model->serverId = $map['server_id'];
+        if (isset($map['id'])) {
+            $model->id = $map['id'];
         }
 
         return $model;

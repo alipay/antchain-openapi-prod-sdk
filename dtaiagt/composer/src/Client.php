@@ -11,12 +11,30 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
-use AntChain\DTAIAGT\Models\DetailAgentMcpRequest;
-use AntChain\DTAIAGT\Models\DetailAgentMcpResponse;
+use AntChain\DTAIAGT\Models\CreateAntcloudGatewayxFileUploadRequest;
+use AntChain\DTAIAGT\Models\CreateAntcloudGatewayxFileUploadResponse;
+use AntChain\DTAIAGT\Models\DeleteAgentChatRequest;
+use AntChain\DTAIAGT\Models\DeleteAgentChatResponse;
+use AntChain\DTAIAGT\Models\DetailAgentChatRequest;
+use AntChain\DTAIAGT\Models\DetailAgentChatResponse;
+use AntChain\DTAIAGT\Models\DetailAgentInfoRequest;
+use AntChain\DTAIAGT\Models\DetailAgentInfoResponse;
+use AntChain\DTAIAGT\Models\DetailMcpMymcpRequest;
+use AntChain\DTAIAGT\Models\DetailMcpMymcpResponse;
+use AntChain\DTAIAGT\Models\DownloadLibraryDocRequest;
+use AntChain\DTAIAGT\Models\DownloadLibraryDocResponse;
+use AntChain\DTAIAGT\Models\ExecLibraryDocsplitRequest;
+use AntChain\DTAIAGT\Models\ExecLibraryDocsplitResponse;
+use AntChain\DTAIAGT\Models\ListAgentChatRequest;
+use AntChain\DTAIAGT\Models\ListAgentChatResponse;
+use AntChain\DTAIAGT\Models\ListLibraryDocRequest;
+use AntChain\DTAIAGT\Models\ListLibraryDocResponse;
+use AntChain\DTAIAGT\Models\ListLibraryTaskRequest;
+use AntChain\DTAIAGT\Models\ListLibraryTaskResponse;
 use AntChain\DTAIAGT\Models\OperateAgentTaskRequest;
 use AntChain\DTAIAGT\Models\OperateAgentTaskResponse;
-use AntChain\DTAIAGT\Models\PagequeryAgentMcplistRequest;
-use AntChain\DTAIAGT\Models\PagequeryAgentMcplistResponse;
+use AntChain\DTAIAGT\Models\PagequeryMcpMymcpRequest;
+use AntChain\DTAIAGT\Models\PagequeryMcpMymcpResponse;
 use AntChain\DTAIAGT\Models\StartAgentCchatRequest;
 use AntChain\DTAIAGT\Models\StartAgentCchatResponse;
 use AntChain\DTAIAGT\Models\StartAgentChatRequest;
@@ -25,8 +43,22 @@ use AntChain\DTAIAGT\Models\StartAgentTaskRequest;
 use AntChain\DTAIAGT\Models\StartAgentTaskResponse;
 use AntChain\DTAIAGT\Models\StartOpenaiChatRequest;
 use AntChain\DTAIAGT\Models\StartOpenaiChatResponse;
+use AntChain\DTAIAGT\Models\StopAgentChatRequest;
+use AntChain\DTAIAGT\Models\StopAgentChatResponse;
 use AntChain\DTAIAGT\Models\StopAgentTaskRequest;
 use AntChain\DTAIAGT\Models\StopAgentTaskResponse;
+use AntChain\DTAIAGT\Models\UpdateAgentChatRequest;
+use AntChain\DTAIAGT\Models\UpdateAgentChatResponse;
+use AntChain\DTAIAGT\Models\UploadAgentPortalchatRequest;
+use AntChain\DTAIAGT\Models\UploadAgentPortalchatResponse;
+use AntChain\DTAIAGT\Models\UploadAlipayAgentchatRequest;
+use AntChain\DTAIAGT\Models\UploadAlipayAgentchatResponse;
+use AntChain\DTAIAGT\Models\UploadAlipayLibraryRequest;
+use AntChain\DTAIAGT\Models\UploadAlipayLibraryResponse;
+use AntChain\DTAIAGT\Models\UploadSaasAgentchatRequest;
+use AntChain\DTAIAGT\Models\UploadSaasAgentchatResponse;
+use AntChain\DTAIAGT\Models\UploadSaasLibraryRequest;
+use AntChain\DTAIAGT\Models\UploadSaasLibraryResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -146,7 +178,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 工具入参的json schema
+            // Agent对话-对应的工具/工作流参数列表
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -174,7 +206,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.3.1',
+                    'sdk_version'      => '3.0.2',
                     '_prod_code'       => 'DTAIAGT',
                     '_prod_channel'    => 'default',
                 ];
@@ -322,69 +354,659 @@ class Client
     }
 
     /**
-     * Description: 查询已订阅的mcp清单
-     * Summary: 查询已订阅的mcp清单.
+     * Description: 主站-知识库文件上传
+     * Summary: 主站-知识库文件上传.
      *
-     * @param PagequeryAgentMcplistRequest $request
+     * @param UploadAlipayLibraryRequest $request
      *
-     * @return PagequeryAgentMcplistResponse
+     * @return UploadAlipayLibraryResponse
      */
-    public function pagequeryAgentMcplist($request)
+    public function uploadAlipayLibrary($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->pagequeryAgentMcplistEx($request, $headers, $runtime);
+        return $this->uploadAlipayLibraryEx($request, $headers, $runtime);
     }
 
     /**
-     * Description: 查询已订阅的mcp清单
-     * Summary: 查询已订阅的mcp清单.
+     * Description: 主站-知识库文件上传
+     * Summary: 主站-知识库文件上传.
      *
-     * @param PagequeryAgentMcplistRequest $request
+     * @param UploadAlipayLibraryRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return UploadAlipayLibraryResponse
+     */
+    public function uploadAlipayLibraryEx($request, $headers, $runtime)
+    {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'antdigital.dtaiagt.alipay.library.upload',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
+                return new UploadAlipayLibraryResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
+        }
+        Utils::validateModel($request);
+
+        return UploadAlipayLibraryResponse::fromMap($this->doRequest('1.0', 'antdigital.dtaiagt.alipay.library.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 主站-Agent对话-上传文件
+     * Summary: 主站-Agent对话-上传文件.
+     *
+     * @param UploadAlipayAgentchatRequest $request
+     *
+     * @return UploadAlipayAgentchatResponse
+     */
+    public function uploadAlipayAgentchat($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->uploadAlipayAgentchatEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 主站-Agent对话-上传文件
+     * Summary: 主站-Agent对话-上传文件.
+     *
+     * @param UploadAlipayAgentchatRequest $request
      * @param string[]                     $headers
      * @param RuntimeOptions               $runtime
      *
-     * @return PagequeryAgentMcplistResponse
+     * @return UploadAlipayAgentchatResponse
      */
-    public function pagequeryAgentMcplistEx($request, $headers, $runtime)
+    public function uploadAlipayAgentchatEx($request, $headers, $runtime)
     {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'antdigital.dtaiagt.alipay.agentchat.upload',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
+                return new UploadAlipayAgentchatResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
+        }
         Utils::validateModel($request);
 
-        return PagequeryAgentMcplistResponse::fromMap($this->doRequest('1.0', 'antdigital.dtaiagt.agent.mcplist.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return UploadAlipayAgentchatResponse::fromMap($this->doRequest('1.0', 'antdigital.dtaiagt.alipay.agentchat.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
-     * Description: mcp详情
-     * Summary: mcp详情.
+     * Description: 查询已订阅的mcp清单
+     * Summary: 查询已订阅的mcp清单.
      *
-     * @param DetailAgentMcpRequest $request
+     * @param PagequeryMcpMymcpRequest $request
      *
-     * @return DetailAgentMcpResponse
+     * @return PagequeryMcpMymcpResponse
      */
-    public function detailAgentMcp($request)
+    public function pagequeryMcpMymcp($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->detailAgentMcpEx($request, $headers, $runtime);
+        return $this->pagequeryMcpMymcpEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询已订阅的mcp清单
+     * Summary: 查询已订阅的mcp清单.
+     *
+     * @param PagequeryMcpMymcpRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return PagequeryMcpMymcpResponse
+     */
+    public function pagequeryMcpMymcpEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PagequeryMcpMymcpResponse::fromMap($this->doRequest('1.0', 'antdigital.dtaiagt.mcp.mymcp.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: mcp详情
      * Summary: mcp详情.
      *
-     * @param DetailAgentMcpRequest $request
+     * @param DetailMcpMymcpRequest $request
+     *
+     * @return DetailMcpMymcpResponse
+     */
+    public function detailMcpMymcp($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->detailMcpMymcpEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: mcp详情
+     * Summary: mcp详情.
+     *
+     * @param DetailMcpMymcpRequest $request
      * @param string[]              $headers
      * @param RuntimeOptions        $runtime
      *
-     * @return DetailAgentMcpResponse
+     * @return DetailMcpMymcpResponse
      */
-    public function detailAgentMcpEx($request, $headers, $runtime)
+    public function detailMcpMymcpEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return DetailAgentMcpResponse::fromMap($this->doRequest('1.0', 'antdigital.dtaiagt.agent.mcp.detail', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return DetailMcpMymcpResponse::fromMap($this->doRequest('1.0', 'antdigital.dtaiagt.mcp.mymcp.detail', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 知识库-文档分页查询
+     * Summary: 知识库-文档分页查询.
+     *
+     * @param ListLibraryDocRequest $request
+     *
+     * @return ListLibraryDocResponse
+     */
+    public function listLibraryDoc($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listLibraryDocEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 知识库-文档分页查询
+     * Summary: 知识库-文档分页查询.
+     *
+     * @param ListLibraryDocRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return ListLibraryDocResponse
+     */
+    public function listLibraryDocEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListLibraryDocResponse::fromMap($this->doRequest('1.0', 'antdigital.dtaiagt.library.doc.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 知识库-任务列表
+     * Summary: 知识库-任务列表.
+     *
+     * @param ListLibraryTaskRequest $request
+     *
+     * @return ListLibraryTaskResponse
+     */
+    public function listLibraryTask($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listLibraryTaskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 知识库-任务列表
+     * Summary: 知识库-任务列表.
+     *
+     * @param ListLibraryTaskRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return ListLibraryTaskResponse
+     */
+    public function listLibraryTaskEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListLibraryTaskResponse::fromMap($this->doRequest('1.0', 'antdigital.dtaiagt.library.task.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 知识库-文档切片
+     * Summary: 知识库-文档切片.
+     *
+     * @param ExecLibraryDocsplitRequest $request
+     *
+     * @return ExecLibraryDocsplitResponse
+     */
+    public function execLibraryDocsplit($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->execLibraryDocsplitEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 知识库-文档切片
+     * Summary: 知识库-文档切片.
+     *
+     * @param ExecLibraryDocsplitRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return ExecLibraryDocsplitResponse
+     */
+    public function execLibraryDocsplitEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ExecLibraryDocsplitResponse::fromMap($this->doRequest('1.0', 'antdigital.dtaiagt.library.docsplit.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询Agent历史会话列表
+     * Summary: 查询Agent历史会话列表.
+     *
+     * @param ListAgentChatRequest $request
+     *
+     * @return ListAgentChatResponse
+     */
+    public function listAgentChat($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listAgentChatEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询Agent历史会话列表
+     * Summary: 查询Agent历史会话列表.
+     *
+     * @param ListAgentChatRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return ListAgentChatResponse
+     */
+    public function listAgentChatEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListAgentChatResponse::fromMap($this->doRequest('1.0', 'antdigital.dtaiagt.agent.chat.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查看Agent历史会话详情
+     * Summary: 查看Agent历史会话详情.
+     *
+     * @param DetailAgentChatRequest $request
+     *
+     * @return DetailAgentChatResponse
+     */
+    public function detailAgentChat($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->detailAgentChatEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查看Agent历史会话详情
+     * Summary: 查看Agent历史会话详情.
+     *
+     * @param DetailAgentChatRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return DetailAgentChatResponse
+     */
+    public function detailAgentChatEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DetailAgentChatResponse::fromMap($this->doRequest('1.0', 'antdigital.dtaiagt.agent.chat.detail', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 删除Agent会话
+     * Summary: 删除Agent会话.
+     *
+     * @param DeleteAgentChatRequest $request
+     *
+     * @return DeleteAgentChatResponse
+     */
+    public function deleteAgentChat($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->deleteAgentChatEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 删除Agent会话
+     * Summary: 删除Agent会话.
+     *
+     * @param DeleteAgentChatRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return DeleteAgentChatResponse
+     */
+    public function deleteAgentChatEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DeleteAgentChatResponse::fromMap($this->doRequest('1.0', 'antdigital.dtaiagt.agent.chat.delete', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: Agent对话-点赞点踩反馈&删除消息评价
+     * Summary: Agent对话-赞/踩反馈&删除消息评价.
+     *
+     * @param UpdateAgentChatRequest $request
+     *
+     * @return UpdateAgentChatResponse
+     */
+    public function updateAgentChat($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateAgentChatEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: Agent对话-点赞点踩反馈&删除消息评价
+     * Summary: Agent对话-赞/踩反馈&删除消息评价.
+     *
+     * @param UpdateAgentChatRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return UpdateAgentChatResponse
+     */
+    public function updateAgentChatEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateAgentChatResponse::fromMap($this->doRequest('1.0', 'antdigital.dtaiagt.agent.chat.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取 Agent 详情
+     * Summary: 获取 Agent 详情.
+     *
+     * @param DetailAgentInfoRequest $request
+     *
+     * @return DetailAgentInfoResponse
+     */
+    public function detailAgentInfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->detailAgentInfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取 Agent 详情
+     * Summary: 获取 Agent 详情.
+     *
+     * @param DetailAgentInfoRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return DetailAgentInfoResponse
+     */
+    public function detailAgentInfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DetailAgentInfoResponse::fromMap($this->doRequest('1.0', 'antdigital.dtaiagt.agent.info.detail', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: Agent停止对话
+     * Summary: Agent停止对话.
+     *
+     * @param StopAgentChatRequest $request
+     *
+     * @return StopAgentChatResponse
+     */
+    public function stopAgentChat($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->stopAgentChatEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: Agent停止对话
+     * Summary: Agent停止对话.
+     *
+     * @param StopAgentChatRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return StopAgentChatResponse
+     */
+    public function stopAgentChatEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StopAgentChatResponse::fromMap($this->doRequest('1.0', 'antdigital.dtaiagt.agent.chat.stop', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: Agent对话-上传文件
+     * Summary: Agent对话-上传文件.
+     *
+     * @param UploadAgentPortalchatRequest $request
+     *
+     * @return UploadAgentPortalchatResponse
+     */
+    public function uploadAgentPortalchat($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->uploadAgentPortalchatEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: Agent对话-上传文件
+     * Summary: Agent对话-上传文件.
+     *
+     * @param UploadAgentPortalchatRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return UploadAgentPortalchatResponse
+     */
+    public function uploadAgentPortalchatEx($request, $headers, $runtime)
+    {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'antdigital.dtaiagt.agent.portalchat.upload',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
+                return new UploadAgentPortalchatResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
+        }
+        Utils::validateModel($request);
+
+        return UploadAgentPortalchatResponse::fromMap($this->doRequest('1.0', 'antdigital.dtaiagt.agent.portalchat.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 知识库-文档库-文档下载
+     * Summary: 知识库-文档库-文档下载.
+     *
+     * @param DownloadLibraryDocRequest $request
+     *
+     * @return DownloadLibraryDocResponse
+     */
+    public function downloadLibraryDoc($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->downloadLibraryDocEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 知识库-文档库-文档下载
+     * Summary: 知识库-文档库-文档下载.
+     *
+     * @param DownloadLibraryDocRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return DownloadLibraryDocResponse
+     */
+    public function downloadLibraryDocEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DownloadLibraryDocResponse::fromMap($this->doRequest('1.0', 'antdigital.dtaiagt.library.doc.download', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: SAAS-知识库文件上传
+     * Summary: SAAS-知识库文件上传.
+     *
+     * @param UploadSaasLibraryRequest $request
+     *
+     * @return UploadSaasLibraryResponse
+     */
+    public function uploadSaasLibrary($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->uploadSaasLibraryEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: SAAS-知识库文件上传
+     * Summary: SAAS-知识库文件上传.
+     *
+     * @param UploadSaasLibraryRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return UploadSaasLibraryResponse
+     */
+    public function uploadSaasLibraryEx($request, $headers, $runtime)
+    {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'antdigital.dtaiagt.saas.library.upload',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
+                return new UploadSaasLibraryResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
+        }
+        Utils::validateModel($request);
+
+        return UploadSaasLibraryResponse::fromMap($this->doRequest('1.0', 'antdigital.dtaiagt.saas.library.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: SAAS-Agent对话-上传文件
+     * Summary: SAAS-Agent对话-上传文件.
+     *
+     * @param UploadSaasAgentchatRequest $request
+     *
+     * @return UploadSaasAgentchatResponse
+     */
+    public function uploadSaasAgentchat($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->uploadSaasAgentchatEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: SAAS-Agent对话-上传文件
+     * Summary: SAAS-Agent对话-上传文件.
+     *
+     * @param UploadSaasAgentchatRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return UploadSaasAgentchatResponse
+     */
+    public function uploadSaasAgentchatEx($request, $headers, $runtime)
+    {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'antdigital.dtaiagt.saas.agentchat.upload',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
+                return new UploadSaasAgentchatResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
+        }
+        Utils::validateModel($request);
+
+        return UploadSaasAgentchatResponse::fromMap($this->doRequest('1.0', 'antdigital.dtaiagt.saas.agentchat.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -484,5 +1106,38 @@ class Client
         Utils::validateModel($request);
 
         return OperateAgentTaskResponse::fromMap($this->doRequest('1.0', 'antdigital.dtaiagt.agent.task.operate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建.
+     *
+     * @param CreateAntcloudGatewayxFileUploadRequest $request
+     *
+     * @return CreateAntcloudGatewayxFileUploadResponse
+     */
+    public function createAntcloudGatewayxFileUpload($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createAntcloudGatewayxFileUploadEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建.
+     *
+     * @param CreateAntcloudGatewayxFileUploadRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return CreateAntcloudGatewayxFileUploadResponse
+     */
+    public function createAntcloudGatewayxFileUploadEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateAntcloudGatewayxFileUploadResponse::fromMap($this->doRequest('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

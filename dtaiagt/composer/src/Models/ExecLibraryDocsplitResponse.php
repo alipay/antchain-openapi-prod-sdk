@@ -6,7 +6,7 @@ namespace AntChain\DTAIAGT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class DetailAgentMcpResponse extends Model
+class ExecLibraryDocsplitResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,9 +26,9 @@ class DetailAgentMcpResponse extends Model
      */
     public $resultMsg;
 
-    // MCP详情接口返回Result
+    // data
     /**
-     * @var MCPDetailCommonResult
+     * @var LibraryDocBatchSplitResult
      */
     public $data;
     protected $_name = [
@@ -64,7 +64,7 @@ class DetailAgentMcpResponse extends Model
     /**
      * @param array $map
      *
-     * @return DetailAgentMcpResponse
+     * @return ExecLibraryDocsplitResponse
      */
     public static function fromMap($map = [])
     {
@@ -79,7 +79,7 @@ class DetailAgentMcpResponse extends Model
             $model->resultMsg = $map['result_msg'];
         }
         if (isset($map['data'])) {
-            $model->data = MCPDetailCommonResult::fromMap($map['data']);
+            $model->data = LibraryDocBatchSplitResult::fromMap($map['data']);
         }
 
         return $model;

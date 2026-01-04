@@ -6,7 +6,7 @@ namespace AntChain\DTAIAGT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class PagequeryAgentMcplistResponse extends Model
+class UpdateAgentChatResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,9 +26,9 @@ class PagequeryAgentMcplistResponse extends Model
      */
     public $resultMsg;
 
-    // MyMCP分页对象
+    // data
     /**
-     * @var MyMcpPageRestult
+     * @var SimpleResult
      */
     public $data;
     protected $_name = [
@@ -64,7 +64,7 @@ class PagequeryAgentMcplistResponse extends Model
     /**
      * @param array $map
      *
-     * @return PagequeryAgentMcplistResponse
+     * @return UpdateAgentChatResponse
      */
     public static function fromMap($map = [])
     {
@@ -79,7 +79,7 @@ class PagequeryAgentMcplistResponse extends Model
             $model->resultMsg = $map['result_msg'];
         }
         if (isset($map['data'])) {
-            $model->data = MyMcpPageRestult::fromMap($map['data']);
+            $model->data = SimpleResult::fromMap($map['data']);
         }
 
         return $model;
