@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "DEMOTMT",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-demotmt:1.0.3",
-    "go": "github.com/antchain-openapi-sdk-go/demotmt/client:v1.0.3",
+    "java": "com.antgroup.antchain.openapi:openapi-demotmt:1.0.4",
+    "go": "github.com/antchain-openapi-sdk-go/demotmt/client:v1.0.4",
     "csharp": "AntChain.SDK.DEMOTMT:0.0.1",
     "ts": "@antchain/demotmt:^1.0.0",
-    "php": "antchain/demotmt:1.0.3",
-    "python": "antchain_sdk_demotmt:1.0.3"
+    "php": "antchain/demotmt:1.0.4",
+    "python": "antchain_sdk_demotmt:1.0.4"
   },
   "libraries": {
     "Util": "darabonba:Util:*",
