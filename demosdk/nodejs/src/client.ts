@@ -442,6 +442,85 @@ export class BindXxxResponse extends $tea.Model {
   }
 }
 
+export class ImportAbcdOneRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 超时时间
+  timeout?: string;
+  // 请求编号
+  count?: number;
+  // 请求时间
+  time?: string;
+  // 请求描述
+  desc?: string;
+  // 操作者
+  operator?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      timeout: 'timeout',
+      count: 'count',
+      time: 'time',
+      desc: 'desc',
+      operator: 'operator',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      timeout: 'string',
+      count: 'number',
+      time: 'string',
+      desc: 'string',
+      operator: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ImportAbcdOneResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 描述
+  stauts?: string;
+  // 描述
+  msg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      stauts: 'stauts',
+      msg: 'msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      stauts: 'string',
+      msg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class PublishWorkbenchOneRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -870,7 +949,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.39",
+          sdk_version: "1.3.40",
           _prod_code: "DEMOSDK",
           _prod_channel: "default",
         };
@@ -992,6 +1071,25 @@ export default class Client {
   async bindXxxEx(request: BindXxxRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BindXxxResponse> {
     Util.validateModel(request);
     return $tea.cast<BindXxxResponse>(await this.doRequest("1.0", "antchain.demosdk.xxx.bind", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BindXxxResponse({}));
+  }
+
+  /**
+   * Description: 个人工作台二期测试接口
+   * Summary: 个人工作台二期测试接口
+   */
+  async importAbcdOne(request: ImportAbcdOneRequest): Promise<ImportAbcdOneResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.importAbcdOneEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 个人工作台二期测试接口
+   * Summary: 个人工作台二期测试接口
+   */
+  async importAbcdOneEx(request: ImportAbcdOneRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ImportAbcdOneResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ImportAbcdOneResponse>(await this.doRequest("1.0", "antchain.demosdk.abcd.one.import", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ImportAbcdOneResponse({}));
   }
 
   /**
