@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.DEMOSDK.Models
 {
-    public class QueryBbbCccRequest : TeaModel {
+    public class PublishWorkbenchFourRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,10 +18,10 @@ namespace AntChain.SDK.DEMOSDK.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 查询条件
-        [NameInMap("name")]
-        [Validation(Required=true, MaxLength=32)]
-        public string Name { get; set; }
+        // 超时时间
+        [NameInMap("timeout")]
+        [Validation(Required=true)]
+        public string Timeout { get; set; }
 
     }
 
