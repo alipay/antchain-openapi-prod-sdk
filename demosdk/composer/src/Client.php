@@ -15,6 +15,8 @@ use AntChain\DEMOSDK\Models\BindAaaBbbCccRequest;
 use AntChain\DEMOSDK\Models\BindAaaBbbCccResponse;
 use AntChain\DEMOSDK\Models\BindXxxRequest;
 use AntChain\DEMOSDK\Models\BindXxxResponse;
+use AntChain\DEMOSDK\Models\ImportAbcdOneRequest;
+use AntChain\DEMOSDK\Models\ImportAbcdOneResponse;
 use AntChain\DEMOSDK\Models\ImportTwiceThreeRequest;
 use AntChain\DEMOSDK\Models\ImportTwiceThreeResponse;
 use AntChain\DEMOSDK\Models\PublishWorkbenchFourRequest;
@@ -176,7 +178,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.3.39',
+                    'sdk_version'      => '1.3.40',
                     '_prod_code'       => 'DEMOSDK',
                     '_prod_channel'    => 'default',
                 ];
@@ -354,6 +356,39 @@ class Client
         Utils::validateModel($request);
 
         return BindXxxResponse::fromMap($this->doRequest('1.0', 'antchain.demosdk.xxx.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 个人工作台二期测试接口
+     * Summary: 个人工作台二期测试接口.
+     *
+     * @param ImportAbcdOneRequest $request
+     *
+     * @return ImportAbcdOneResponse
+     */
+    public function importAbcdOne($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->importAbcdOneEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 个人工作台二期测试接口
+     * Summary: 个人工作台二期测试接口.
+     *
+     * @param ImportAbcdOneRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return ImportAbcdOneResponse
+     */
+    public function importAbcdOneEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ImportAbcdOneResponse::fromMap($this->doRequest('1.0', 'antchain.demosdk.abcd.one.import', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
