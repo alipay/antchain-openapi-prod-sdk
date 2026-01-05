@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.39',
+                    'sdk_version': '1.3.40',
                     '_prod_code': 'DEMOSDK',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.39',
+                    'sdk_version': '1.3.40',
                     '_prod_code': 'DEMOSDK',
                     '_prod_channel': 'default'
                 }
@@ -497,6 +497,62 @@ class Client:
         return TeaCore.from_map(
             demosdk_models.BindXxxResponse(),
             await self.do_request_async('1.0', 'antchain.demosdk.xxx.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def import_abcd_one(
+        self,
+        request: demosdk_models.ImportAbcdOneRequest,
+    ) -> demosdk_models.ImportAbcdOneResponse:
+        """
+        Description: 个人工作台二期测试接口
+        Summary: 个人工作台二期测试接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.import_abcd_one_ex(request, headers, runtime)
+
+    async def import_abcd_one_async(
+        self,
+        request: demosdk_models.ImportAbcdOneRequest,
+    ) -> demosdk_models.ImportAbcdOneResponse:
+        """
+        Description: 个人工作台二期测试接口
+        Summary: 个人工作台二期测试接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.import_abcd_one_ex_async(request, headers, runtime)
+
+    def import_abcd_one_ex(
+        self,
+        request: demosdk_models.ImportAbcdOneRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.ImportAbcdOneResponse:
+        """
+        Description: 个人工作台二期测试接口
+        Summary: 个人工作台二期测试接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.ImportAbcdOneResponse(),
+            self.do_request('1.0', 'antchain.demosdk.abcd.one.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def import_abcd_one_ex_async(
+        self,
+        request: demosdk_models.ImportAbcdOneRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.ImportAbcdOneResponse:
+        """
+        Description: 个人工作台二期测试接口
+        Summary: 个人工作台二期测试接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.ImportAbcdOneResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.abcd.one.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def publish_workbench_one(
