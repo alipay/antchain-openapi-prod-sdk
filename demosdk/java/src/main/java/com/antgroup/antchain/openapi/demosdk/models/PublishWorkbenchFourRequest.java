@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.demosdk.models;
 
 import com.aliyun.tea.*;
 
-public class LyzaTestRequest extends TeaModel {
+public class PublishWorkbenchFourRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -11,16 +11,17 @@ public class LyzaTestRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // aa
-    @NameInMap("param")
-    public String param;
+    // 超时时间
+    @NameInMap("timeout")
+    @Validation(required = true)
+    public String timeout;
 
-    public static LyzaTestRequest build(java.util.Map<String, ?> map) throws Exception {
-        LyzaTestRequest self = new LyzaTestRequest();
+    public static PublishWorkbenchFourRequest build(java.util.Map<String, ?> map) throws Exception {
+        PublishWorkbenchFourRequest self = new PublishWorkbenchFourRequest();
         return TeaModel.build(map, self);
     }
 
-    public LyzaTestRequest setAuthToken(String authToken) {
+    public PublishWorkbenchFourRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -28,7 +29,7 @@ public class LyzaTestRequest extends TeaModel {
         return this.authToken;
     }
 
-    public LyzaTestRequest setProductInstanceId(String productInstanceId) {
+    public PublishWorkbenchFourRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -36,12 +37,12 @@ public class LyzaTestRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public LyzaTestRequest setParam(String param) {
-        this.param = param;
+    public PublishWorkbenchFourRequest setTimeout(String timeout) {
+        this.timeout = timeout;
         return this;
     }
-    public String getParam() {
-        return this.param;
+    public String getTimeout() {
+        return this.timeout;
     }
 
 }

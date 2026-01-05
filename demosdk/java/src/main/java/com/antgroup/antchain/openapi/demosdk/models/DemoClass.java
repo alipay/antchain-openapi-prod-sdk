@@ -5,21 +5,37 @@ import com.aliyun.tea.*;
 
 public class DemoClass extends TeaModel {
     // 字符串测试
+    /**
+     * <strong>example:</strong>
+     * <p>some string</p>
+     */
     @NameInMap("some_string")
     @Validation(required = true)
     public String someString;
 
     // 日期测试
+    /**
+     * <strong>example:</strong>
+     * <p>3</p>
+     */
     @NameInMap("some_date")
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String someDate;
 
     // Boolean测试
+    /**
+     * <strong>example:</strong>
+     * <p>true</p>
+     */
     @NameInMap("some_boolean")
     @Validation(required = true)
     public Boolean someBoolean;
 
     // 整数测试
+    /**
+     * <strong>example:</strong>
+     * <p>3</p>
+     */
     @NameInMap("some_int")
     @Validation(required = true, maximum = 2000, minimum = 1)
     public Long someInt;

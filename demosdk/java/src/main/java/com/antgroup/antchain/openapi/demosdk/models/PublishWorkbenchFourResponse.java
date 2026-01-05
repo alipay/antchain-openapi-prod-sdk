@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.demosdk.models;
 
 import com.aliyun.tea.*;
 
-public class ParamLiuyzTestResponse extends TeaModel {
+public class PublishWorkbenchFourResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,20 @@ public class ParamLiuyzTestResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 0000
-    @NameInMap("code")
-    public String code;
+    // 状态
+    @NameInMap("msg")
+    public String msg;
 
-    public static ParamLiuyzTestResponse build(java.util.Map<String, ?> map) throws Exception {
-        ParamLiuyzTestResponse self = new ParamLiuyzTestResponse();
+    // 状态码
+    @NameInMap("status")
+    public String status;
+
+    public static PublishWorkbenchFourResponse build(java.util.Map<String, ?> map) throws Exception {
+        PublishWorkbenchFourResponse self = new PublishWorkbenchFourResponse();
         return TeaModel.build(map, self);
     }
 
-    public ParamLiuyzTestResponse setReqMsgId(String reqMsgId) {
+    public PublishWorkbenchFourResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +37,7 @@ public class ParamLiuyzTestResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public ParamLiuyzTestResponse setResultCode(String resultCode) {
+    public PublishWorkbenchFourResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +45,7 @@ public class ParamLiuyzTestResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public ParamLiuyzTestResponse setResultMsg(String resultMsg) {
+    public PublishWorkbenchFourResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,12 +53,20 @@ public class ParamLiuyzTestResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public ParamLiuyzTestResponse setCode(String code) {
-        this.code = code;
+    public PublishWorkbenchFourResponse setMsg(String msg) {
+        this.msg = msg;
         return this;
     }
-    public String getCode() {
-        return this.code;
+    public String getMsg() {
+        return this.msg;
+    }
+
+    public PublishWorkbenchFourResponse setStatus(String status) {
+        this.status = status;
+        return this;
+    }
+    public String getStatus() {
+        return this.status;
     }
 
 }

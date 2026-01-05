@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.demosdk.models;
 
 import com.aliyun.tea.*;
 
-public class ParamLiuyzTestRequest extends TeaModel {
+public class PublishWorkbenchOneRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -11,17 +11,17 @@ public class ParamLiuyzTestRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // aaa
-    @NameInMap("param_a")
+    // 超时时间
+    @NameInMap("timeout")
     @Validation(required = true)
-    public String paramA;
+    public String timeout;
 
-    public static ParamLiuyzTestRequest build(java.util.Map<String, ?> map) throws Exception {
-        ParamLiuyzTestRequest self = new ParamLiuyzTestRequest();
+    public static PublishWorkbenchOneRequest build(java.util.Map<String, ?> map) throws Exception {
+        PublishWorkbenchOneRequest self = new PublishWorkbenchOneRequest();
         return TeaModel.build(map, self);
     }
 
-    public ParamLiuyzTestRequest setAuthToken(String authToken) {
+    public PublishWorkbenchOneRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -29,7 +29,7 @@ public class ParamLiuyzTestRequest extends TeaModel {
         return this.authToken;
     }
 
-    public ParamLiuyzTestRequest setProductInstanceId(String productInstanceId) {
+    public PublishWorkbenchOneRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -37,12 +37,12 @@ public class ParamLiuyzTestRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public ParamLiuyzTestRequest setParamA(String paramA) {
-        this.paramA = paramA;
+    public PublishWorkbenchOneRequest setTimeout(String timeout) {
+        this.timeout = timeout;
         return this;
     }
-    public String getParamA() {
-        return this.paramA;
+    public String getTimeout() {
+        return this.timeout;
     }
 
 }

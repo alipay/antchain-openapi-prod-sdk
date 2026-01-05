@@ -32,7 +32,9 @@ public class Client {
     public Number _maxRequests;
     public Number _maxRequestsPerHost;
     /**
-     * Init client with Config
+     * <b>description</b> :
+     * <p>Init client with Config</p>
+     * 
      * @param config config contains the necessary information to create a client
      */
     public Client(Config config) throws Exception {
@@ -64,7 +66,9 @@ public class Client {
     }
 
     /**
-     * Encapsulate the request and invoke the network
+     * <b>description</b> :
+     * <p>Encapsulate the request and invoke the network</p>
+     * 
      * @param action api name
      * @param protocol http or https
      * @param method e.g. GET
@@ -122,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.3.33"),
+                    new TeaPair("sdk_version", "1.3.39"),
                     new TeaPair("_prod_code", "DEMOSDK"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -185,223 +189,9 @@ public class Client {
     }
 
     /**
-     * Description: 测试sdk打包用
-     * Summary: shiyi.cj
-     */
-    public QueryBbbCccResponse queryBbbCcc(QueryBbbCccRequest request) throws Exception {
-        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.queryBbbCccEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 测试sdk打包用
-     * Summary: shiyi.cj
-     */
-    public QueryBbbCccResponse queryBbbCccEx(QueryBbbCccRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.bbb.ccc.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryBbbCccResponse());
-    }
-
-    /**
-     * Description: 测试用
-     * Summary: 测试用
-     */
-    public ImportBbbCciResponse importBbbCci(ImportBbbCciRequest request) throws Exception {
-        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.importBbbCciEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 测试用
-     * Summary: 测试用
-     */
-    public ImportBbbCciResponse importBbbCciEx(ImportBbbCciRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
-        if (!com.aliyun.teautil.Common.isUnset(request.fileObject)) {
-            CreateAntcloudGatewayxFileUploadRequest uploadReq = CreateAntcloudGatewayxFileUploadRequest.build(TeaConverter.buildMap(
-                new TeaPair("authToken", request.authToken),
-                new TeaPair("apiCode", "antchain.demosdk.bbb.cci.import"),
-                new TeaPair("fileName", request.fileObjectName)
-            ));
-            CreateAntcloudGatewayxFileUploadResponse uploadResp = this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
-            if (!com.antgroup.antchain.openapi.antchain.util.AntchainUtils.isSuccess(uploadResp.resultCode, "ok")) {
-                ImportBbbCciResponse importBbbCciResponse = ImportBbbCciResponse.build(TeaConverter.buildMap(
-                    new TeaPair("reqMsgId", uploadResp.reqMsgId),
-                    new TeaPair("resultCode", uploadResp.resultCode),
-                    new TeaPair("resultMsg", uploadResp.resultMsg)
-                ));
-                return importBbbCciResponse;
-            }
-
-            java.util.Map<String, String> uploadHeaders = com.antgroup.antchain.openapi.antchain.util.AntchainUtils.parseUploadHeaders(uploadResp.uploadHeaders);
-            com.antgroup.antchain.openapi.antchain.util.AntchainUtils.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
-            request.fileId = uploadResp.fileId;
-            request.fileObject = null;
-        }
-
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.bbb.cci.import", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ImportBbbCciResponse());
-    }
-
-    /**
-     * Description: 个人工作台二期全链路测试接口1
-     * Summary: 个人工作台二期全链路测试接口1
-     */
-    public QueryTimeLimitResponse queryTimeLimit(QueryTimeLimitRequest request) throws Exception {
-        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.queryTimeLimitEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 个人工作台二期全链路测试接口1
-     * Summary: 个人工作台二期全链路测试接口1
-     */
-    public QueryTimeLimitResponse queryTimeLimitEx(QueryTimeLimitRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
-        if (!com.aliyun.teautil.Common.isUnset(request.fileObject)) {
-            CreateAntcloudGatewayxFileUploadRequest uploadReq = CreateAntcloudGatewayxFileUploadRequest.build(TeaConverter.buildMap(
-                new TeaPair("authToken", request.authToken),
-                new TeaPair("apiCode", "antchain.demosdk.time.limit.query"),
-                new TeaPair("fileName", request.fileObjectName)
-            ));
-            CreateAntcloudGatewayxFileUploadResponse uploadResp = this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
-            if (!com.antgroup.antchain.openapi.antchain.util.AntchainUtils.isSuccess(uploadResp.resultCode, "ok")) {
-                QueryTimeLimitResponse queryTimeLimitResponse = QueryTimeLimitResponse.build(TeaConverter.buildMap(
-                    new TeaPair("reqMsgId", uploadResp.reqMsgId),
-                    new TeaPair("resultCode", uploadResp.resultCode),
-                    new TeaPair("resultMsg", uploadResp.resultMsg)
-                ));
-                return queryTimeLimitResponse;
-            }
-
-            java.util.Map<String, String> uploadHeaders = com.antgroup.antchain.openapi.antchain.util.AntchainUtils.parseUploadHeaders(uploadResp.uploadHeaders);
-            com.antgroup.antchain.openapi.antchain.util.AntchainUtils.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
-            request.fileId = uploadResp.fileId;
-            request.fileObject = null;
-        }
-
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.time.limit.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTimeLimitResponse());
-    }
-
-    /**
-     * Description: 个人工作台二期测试接口2
-     * Summary: 个人工作台二期测试接口2
-     */
-    public QueryCacheLimitResponse queryCacheLimit(QueryCacheLimitRequest request) throws Exception {
-        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.queryCacheLimitEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 个人工作台二期测试接口2
-     * Summary: 个人工作台二期测试接口2
-     */
-    public QueryCacheLimitResponse queryCacheLimitEx(QueryCacheLimitRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.cache.limit.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCacheLimitResponse());
-    }
-
-    /**
-     * Description: 测试接口
-     * Summary: 测试接口
-     */
-    public QueryBbbEeeResponse queryBbbEee(QueryBbbEeeRequest request) throws Exception {
-        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.queryBbbEeeEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 测试接口
-     * Summary: 测试接口
-     */
-    public QueryBbbEeeResponse queryBbbEeeEx(QueryBbbEeeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.bbb.eee.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryBbbEeeResponse());
-    }
-
-    /**
-     * Description: 测试用
-     * Summary: 测试用
-     */
-    public QueryAaaTestResponse queryAaaTest(QueryAaaTestRequest request) throws Exception {
-        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.queryAaaTestEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 测试用
-     * Summary: 测试用
-     */
-    public QueryAaaTestResponse queryAaaTestEx(QueryAaaTestRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.aaa.test.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAaaTestResponse());
-    }
-
-    /**
-     * Description: 测试
-     * Summary: 测试
-     */
-    public StabilizeBbbCccResponse stabilizeBbbCcc(StabilizeBbbCccRequest request) throws Exception {
-        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.stabilizeBbbCccEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 测试
-     * Summary: 测试
-     */
-    public StabilizeBbbCccResponse stabilizeBbbCccEx(StabilizeBbbCccRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.bbb.ccc.stabilize", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new StabilizeBbbCccResponse());
-    }
-
-    /**
-     * Description: r
-     * Summary: 测试
-     */
-    public QueryMultiCccResponse queryMultiCcc(QueryMultiCccRequest request) throws Exception {
-        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.queryMultiCccEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: r
-     * Summary: 测试
-     */
-    public QueryMultiCccResponse queryMultiCccEx(QueryMultiCccRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.multi.ccc.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryMultiCccResponse());
-    }
-
-    /**
-     * Description: l
-     * Summary: 测试
-     */
-    public QueryAaaCciResponse queryAaaCci(QueryAaaCciRequest request) throws Exception {
-        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.queryAaaCciEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: l
-     * Summary: 测试
-     */
-    public QueryAaaCciResponse queryAaaCciEx(QueryAaaCciRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.aaa.cci.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAaaCciResponse());
-    }
-
-    /**
-     * Description: 这是测试的      
-     * Summary: 测试  
+     * <b>description</b> :
+     * <p>Description: 这是测试的
+     * Summary: 这是测试的</p>
      */
     public QueryAaaSdkResponse queryAaaSdk(QueryAaaSdkRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -410,8 +200,9 @@ public class Client {
     }
 
     /**
-     * Description: 这是测试的      
-     * Summary: 测试  
+     * <b>description</b> :
+     * <p>Description: 这是测试的
+     * Summary: 这是测试的</p>
      */
     public QueryAaaSdkResponse queryAaaSdkEx(QueryAaaSdkRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -419,106 +210,9 @@ public class Client {
     }
 
     /**
-     * Description: l
-     * Summary: 测试
-     */
-    public QueryMultiCciuResponse queryMultiCciu(QueryMultiCciuRequest request) throws Exception {
-        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.queryMultiCciuEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: l
-     * Summary: 测试
-     */
-    public QueryMultiCciuResponse queryMultiCciuEx(QueryMultiCciuRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.multi.cciu.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryMultiCciuResponse());
-    }
-
-    /**
-     * Description: 个人工作台二期测试使用
-     * Summary: 个人工作台二期测试使用
-     */
-    public ApiFileUploadResponse apiFileUpload(ApiFileUploadRequest request) throws Exception {
-        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.apiFileUploadEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 个人工作台二期测试使用
-     * Summary: 个人工作台二期测试使用
-     */
-    public ApiFileUploadResponse apiFileUploadEx(ApiFileUploadRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
-        if (!com.aliyun.teautil.Common.isUnset(request.fileObject)) {
-            CreateAntcloudGatewayxFileUploadRequest uploadReq = CreateAntcloudGatewayxFileUploadRequest.build(TeaConverter.buildMap(
-                new TeaPair("authToken", request.authToken),
-                new TeaPair("apiCode", "antchain.demosdk.file.upload.api"),
-                new TeaPair("fileName", request.fileObjectName)
-            ));
-            CreateAntcloudGatewayxFileUploadResponse uploadResp = this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
-            if (!com.antgroup.antchain.openapi.antchain.util.AntchainUtils.isSuccess(uploadResp.resultCode, "ok")) {
-                ApiFileUploadResponse apiFileUploadResponse = ApiFileUploadResponse.build(TeaConverter.buildMap(
-                    new TeaPair("reqMsgId", uploadResp.reqMsgId),
-                    new TeaPair("resultCode", uploadResp.resultCode),
-                    new TeaPair("resultMsg", uploadResp.resultMsg)
-                ));
-                return apiFileUploadResponse;
-            }
-
-            java.util.Map<String, String> uploadHeaders = com.antgroup.antchain.openapi.antchain.util.AntchainUtils.parseUploadHeaders(uploadResp.uploadHeaders);
-            com.antgroup.antchain.openapi.antchain.util.AntchainUtils.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
-            request.fileId = uploadResp.fileId;
-            request.fileObject = null;
-        }
-
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.file.upload.api", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApiFileUploadResponse());
-    }
-
-    /**
-     * Description: 测试接口
-     * Summary: 测试接口
-     */
-    public ResetBbbCccResponse resetBbbCcc(ResetBbbCccRequest request) throws Exception {
-        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.resetBbbCccEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 测试接口
-     * Summary: 测试接口
-     */
-    public ResetBbbCccResponse resetBbbCccEx(ResetBbbCccRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.bbb.ccc.reset", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ResetBbbCccResponse());
-    }
-
-    /**
-     * Description: 测试接口
-     * Summary: 测试接口
-     */
-    public QueryTestSssResponse queryTestSss(QueryTestSssRequest request) throws Exception {
-        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.queryTestSssEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 测试接口
-     * Summary: 测试接口
-     */
-    public QueryTestSssResponse queryTestSssEx(QueryTestSssRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.test.sss.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTestSssResponse());
-    }
-
-    /**
-     * Description: 自动化测试创建test，请勿修改、删除
-     * Summary: 自动化测试创建test，请勿修改、删除
+     * <b>description</b> :
+     * <p>Description: 自动化测试创建test，请勿修改、删除
+     * Summary: 自动化测试创建test，请勿修改、删除</p>
      */
     public BindAaaBbbCccResponse bindAaaBbbCcc(BindAaaBbbCccRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -527,8 +221,9 @@ public class Client {
     }
 
     /**
-     * Description: 自动化测试创建test，请勿修改、删除
-     * Summary: 自动化测试创建test，请勿修改、删除
+     * <b>description</b> :
+     * <p>Description: 自动化测试创建test，请勿修改、删除
+     * Summary: 自动化测试创建test，请勿修改、删除</p>
      */
     public BindAaaBbbCccResponse bindAaaBbbCccEx(BindAaaBbbCccRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -536,8 +231,9 @@ public class Client {
     }
 
     /**
-     * Description: 自动化测试创建test，请勿修改、删除
-     * Summary: 自动化测试创建test1
+     * <b>description</b> :
+     * <p>Description: 自动化测试创建test，请勿修改、删除
+     * Summary: 自动化测试创建test，请勿修改、删除</p>
      */
     public QueryAaaCcdResponse queryAaaCcd(QueryAaaCcdRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -546,8 +242,9 @@ public class Client {
     }
 
     /**
-     * Description: 自动化测试创建test，请勿修改、删除
-     * Summary: 自动化测试创建test1
+     * <b>description</b> :
+     * <p>Description: 自动化测试创建test，请勿修改、删除
+     * Summary: 自动化测试创建test，请勿修改、删除</p>
      */
     public QueryAaaCcdResponse queryAaaCcdEx(QueryAaaCcdRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -555,8 +252,9 @@ public class Client {
     }
 
     /**
-     * Description: 自动化测试创建test，请勿修改、删除
-     * Summary: 自动化测试创建test，请勿修改、删除
+     * <b>description</b> :
+     * <p>Description: 自动化测试创建test，请勿修改、删除
+     * Summary: 自动化测试创建test，请勿修改、删除</p>
      */
     public BindXxxResponse bindXxx(BindXxxRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -565,8 +263,9 @@ public class Client {
     }
 
     /**
-     * Description: 自动化测试创建test，请勿修改、删除
-     * Summary: 自动化测试创建test，请勿修改、删除
+     * <b>description</b> :
+     * <p>Description: 自动化测试创建test，请勿修改、删除
+     * Summary: 自动化测试创建test，请勿修改、删除</p>
      */
     public BindXxxResponse bindXxxEx(BindXxxRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -574,445 +273,51 @@ public class Client {
     }
 
     /**
-     * Description: 测试
-     * Summary: 测试
+     * <b>description</b> :
+     * <p>Description: 个人工作台测试使用
+     * Summary: 个人工作台测试使用</p>
      */
-    public QueryCcXxResponse queryCcXx(QueryCcXxRequest request) throws Exception {
+    public PublishWorkbenchOneResponse publishWorkbenchOne(PublishWorkbenchOneRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.queryCcXxEx(request, headers, runtime);
+        return this.publishWorkbenchOneEx(request, headers, runtime);
     }
 
     /**
-     * Description: 测试
-     * Summary: 测试
+     * <b>description</b> :
+     * <p>Description: 个人工作台测试使用
+     * Summary: 个人工作台测试使用</p>
      */
-    public QueryCcXxResponse queryCcXxEx(QueryCcXxRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+    public PublishWorkbenchOneResponse publishWorkbenchOneEx(PublishWorkbenchOneRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.cc.xx.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCcXxResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.workbench.one.publish", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PublishWorkbenchOneResponse());
     }
 
     /**
-     * Description: test
-     * Summary: test
+     * <b>description</b> :
+     * <p>Description: 个人工作台测试
+     * Summary: 个人工作台测试</p>
      */
-    public LyzaTestResponse lyzaTest(LyzaTestRequest request) throws Exception {
+    public PublishWorkbenchTwoResponse publishWorkbenchTwo(PublishWorkbenchTwoRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.lyzaTestEx(request, headers, runtime);
+        return this.publishWorkbenchTwoEx(request, headers, runtime);
     }
 
     /**
-     * Description: test
-     * Summary: test
+     * <b>description</b> :
+     * <p>Description: 个人工作台测试
+     * Summary: 个人工作台测试</p>
      */
-    public LyzaTestResponse lyzaTestEx(LyzaTestRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+    public PublishWorkbenchTwoResponse publishWorkbenchTwoEx(PublishWorkbenchTwoRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.test.lyza", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new LyzaTestResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.workbench.two.publish", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PublishWorkbenchTwoResponse());
     }
 
     /**
-     * Description: test
-     * Summary: test
-     */
-    public CTestLizAaaResponse cTestLizAaa(CTestLizAaaRequest request) throws Exception {
-        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.cTestLizAaaEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: test
-     * Summary: test
-     */
-    public CTestLizAaaResponse cTestLizAaaEx(CTestLizAaaRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.test.liz.aaa.c", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CTestLizAaaResponse());
-    }
-
-    /**
-     * Description: 用于个人工作台二期测试使用
-     * Summary: 用于个人工作台二期测试使用
-     */
-    public VerifyApiListResponse verifyApiList(VerifyApiListRequest request) throws Exception {
-        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.verifyApiListEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 用于个人工作台二期测试使用
-     * Summary: 用于个人工作台二期测试使用
-     */
-    public VerifyApiListResponse verifyApiListEx(VerifyApiListRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.api.list.verify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new VerifyApiListResponse());
-    }
-
-    /**
-     * Description: 用于个人工作台二期测试使用测试test
-     * Summary: 用于个人工作台二期测试使用
-     */
-    public QueryWorkbenchTestResponse queryWorkbenchTest(QueryWorkbenchTestRequest request) throws Exception {
-        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.queryWorkbenchTestEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 用于个人工作台二期测试使用测试test
-     * Summary: 用于个人工作台二期测试使用
-     */
-    public QueryWorkbenchTestResponse queryWorkbenchTestEx(QueryWorkbenchTestRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.workbench.test.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryWorkbenchTestResponse());
-    }
-
-    /**
-     * Description: 用于个人工作台二期测试使用
-     * Summary: 用于个人工作台二期测试使用
-     */
-    public ImportCreateTestResponse importCreateTest(ImportCreateTestRequest request) throws Exception {
-        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.importCreateTestEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 用于个人工作台二期测试使用
-     * Summary: 用于个人工作台二期测试使用
-     */
-    public ImportCreateTestResponse importCreateTestEx(ImportCreateTestRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.create.test.import", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ImportCreateTestResponse());
-    }
-
-    /**
-     * Description: 哈哈哈个人工作台二期测试接口test
-     * Summary: 个人工作台二期测试接口
-     */
-    public QueryAbcdOneResponse queryAbcdOne(QueryAbcdOneRequest request) throws Exception {
-        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.queryAbcdOneEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 哈哈哈个人工作台二期测试接口test
-     * Summary: 个人工作台二期测试接口
-     */
-    public QueryAbcdOneResponse queryAbcdOneEx(QueryAbcdOneRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.abcd.one.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAbcdOneResponse());
-    }
-
-    /**
-     * Description: 个人工作台二期测试接口
-     * Summary: 个人工作台二期测试接口
-     */
-    public ImportAbcdOneResponse importAbcdOne(ImportAbcdOneRequest request) throws Exception {
-        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.importAbcdOneEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 个人工作台二期测试接口
-     * Summary: 个人工作台二期测试接口
-     */
-    public ImportAbcdOneResponse importAbcdOneEx(ImportAbcdOneRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.abcd.one.import", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ImportAbcdOneResponse());
-    }
-
-    /**
-     * Description: 个人工作台二期分组路由灰度测试接口
-     * Summary: 个人工作台二期分组路由灰度测试接口
-     */
-    public ResetAbcdLimitResponse resetAbcdLimit(ResetAbcdLimitRequest request) throws Exception {
-        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.resetAbcdLimitEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 个人工作台二期分组路由灰度测试接口
-     * Summary: 个人工作台二期分组路由灰度测试接口
-     */
-    public ResetAbcdLimitResponse resetAbcdLimitEx(ResetAbcdLimitRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.abcd.limit.reset", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ResetAbcdLimitResponse());
-    }
-
-    /**
-     * Description: 个人工作台二期分组路由测试接口
-     * Summary: 个人工作台二期分组路由测试接口
-     */
-    public RegisterAbcdLimitResponse registerAbcdLimit(RegisterAbcdLimitRequest request) throws Exception {
-        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.registerAbcdLimitEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 个人工作台二期分组路由测试接口
-     * Summary: 个人工作台二期分组路由测试接口
-     */
-    public RegisterAbcdLimitResponse registerAbcdLimitEx(RegisterAbcdLimitRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.abcd.limit.register", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RegisterAbcdLimitResponse());
-    }
-
-    /**
-     * Description: 个人工作台预发测试使用
-     * Summary: 个人工作台预发测试使用
-     */
-    public QueryTwiceOneResponse queryTwiceOne(QueryTwiceOneRequest request) throws Exception {
-        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.queryTwiceOneEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 个人工作台预发测试使用
-     * Summary: 个人工作台预发测试使用
-     */
-    public QueryTwiceOneResponse queryTwiceOneEx(QueryTwiceOneRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.twice.one.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTwiceOneResponse());
-    }
-
-    /**
-     * Description: 个人工作台二期预发测试
-     * Summary: 个人工作台二期预发测试
-     */
-    public ImportTwiceOneResponse importTwiceOne(ImportTwiceOneRequest request) throws Exception {
-        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.importTwiceOneEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 个人工作台二期预发测试
-     * Summary: 个人工作台二期预发测试
-     */
-    public ImportTwiceOneResponse importTwiceOneEx(ImportTwiceOneRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.twice.one.import", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ImportTwiceOneResponse());
-    }
-
-    /**
-     * Description: 个人工作台二期预发测试
-     * Summary: 个人工作台二期预发测试
-     */
-    public PublishTwiceOneResponse publishTwiceOne(PublishTwiceOneRequest request) throws Exception {
-        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.publishTwiceOneEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 个人工作台二期预发测试
-     * Summary: 个人工作台二期预发测试
-     */
-    public PublishTwiceOneResponse publishTwiceOneEx(PublishTwiceOneRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.twice.one.publish", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PublishTwiceOneResponse());
-    }
-
-    /**
-     * Description: 用于个人工作台二期测试使用
-     * Summary: 用于个人工作台二期测试使用
-     */
-    public ImportCreateOneResponse importCreateOne(ImportCreateOneRequest request) throws Exception {
-        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.importCreateOneEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 用于个人工作台二期测试使用
-     * Summary: 用于个人工作台二期测试使用
-     */
-    public ImportCreateOneResponse importCreateOneEx(ImportCreateOneRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.create.one.import", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ImportCreateOneResponse());
-    }
-
-    /**
-     * Description: 用于个人工作台二期测试使用
-     * Summary: 用于个人工作台二期测试使用
-     */
-    public QueryCreateTwoResponse queryCreateTwo(QueryCreateTwoRequest request) throws Exception {
-        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.queryCreateTwoEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 用于个人工作台二期测试使用
-     * Summary: 用于个人工作台二期测试使用
-     */
-    public QueryCreateTwoResponse queryCreateTwoEx(QueryCreateTwoRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.create.two.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCreateTwoResponse());
-    }
-
-    /**
-     * Description: 用于个人工作台二期测试使用
-     * Summary: 用于个人工作台二期测试使用
-     */
-    public ImportCreateThreeResponse importCreateThree(ImportCreateThreeRequest request) throws Exception {
-        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.importCreateThreeEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 用于个人工作台二期测试使用
-     * Summary: 用于个人工作台二期测试使用
-     */
-    public ImportCreateThreeResponse importCreateThreeEx(ImportCreateThreeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.create.three.import", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ImportCreateThreeResponse());
-    }
-
-    /**
-     * Description: 个人工作台二期预发测试
-     * Summary: 个人工作台二期预发测试
-     */
-    public WithdrawTwiceOneResponse withdrawTwiceOne(WithdrawTwiceOneRequest request) throws Exception {
-        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.withdrawTwiceOneEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 个人工作台二期预发测试
-     * Summary: 个人工作台二期预发测试
-     */
-    public WithdrawTwiceOneResponse withdrawTwiceOneEx(WithdrawTwiceOneRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.twice.one.withdraw", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new WithdrawTwiceOneResponse());
-    }
-
-    /**
-     * Description: 个人工作台二期预发测试
-     * Summary: 个人工作台二期预发测试
-     */
-    public OperateTwiceOneResponse operateTwiceOne(OperateTwiceOneRequest request) throws Exception {
-        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.operateTwiceOneEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 个人工作台二期预发测试
-     * Summary: 个人工作台二期预发测试
-     */
-    public OperateTwiceOneResponse operateTwiceOneEx(OperateTwiceOneRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.twice.one.operate", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new OperateTwiceOneResponse());
-    }
-
-    /**
-     * Description: 个人工作台二期预发测试
-     * Summary: 个人工作台二期预发测试
-     */
-    public QueryTwiceTwoResponse queryTwiceTwo(QueryTwiceTwoRequest request) throws Exception {
-        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.queryTwiceTwoEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 个人工作台二期预发测试
-     * Summary: 个人工作台二期预发测试
-     */
-    public QueryTwiceTwoResponse queryTwiceTwoEx(QueryTwiceTwoRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.twice.two.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTwiceTwoResponse());
-    }
-
-    /**
-     * Description: 测试刷新cachekey
-     * Summary: 测试刷新cachekey
-     */
-    public QueryTestResponse queryTest(QueryTestRequest request) throws Exception {
-        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.queryTestEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 测试刷新cachekey
-     * Summary: 测试刷新cachekey
-     */
-    public QueryTestResponse queryTestEx(QueryTestRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.test.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTestResponse());
-    }
-
-    /**
-     * Description: 测试刷新cachekey
-     * Summary: 测试刷新cachekey
-     */
-    public ImportTestResponse importTest(ImportTestRequest request) throws Exception {
-        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.importTestEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 测试刷新cachekey
-     * Summary: 测试刷新cachekey
-     */
-    public ImportTestResponse importTestEx(ImportTestRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.test.import", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ImportTestResponse());
-    }
-
-    /**
-     * Description: 测试灰度刷新缓存范围
-     * Summary: 测试灰度刷新缓存范围
-     */
-    public StabilizeTestResponse stabilizeTest(StabilizeTestRequest request) throws Exception {
-        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.stabilizeTestEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 测试灰度刷新缓存范围
-     * Summary: 测试灰度刷新缓存范围
-     */
-    public StabilizeTestResponse stabilizeTestEx(StabilizeTestRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.test.stabilize", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new StabilizeTestResponse());
-    }
-
-    /**
-     * Description: 个人工作台二期预发测试
-     * Summary: 个人工作台二期预发测试
-     */
-    public QueryTwiceThreeResponse queryTwiceThree(QueryTwiceThreeRequest request) throws Exception {
-        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.queryTwiceThreeEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 个人工作台二期预发测试
-     * Summary: 个人工作台二期预发测试
-     */
-    public QueryTwiceThreeResponse queryTwiceThreeEx(QueryTwiceThreeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.twice.three.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTwiceThreeResponse());
-    }
-
-    /**
-     * Description: 个人工作台二期预发测试
-     * Summary: 个人工作台二期预发测试
+     * <b>description</b> :
+     * <p>Description: 个人工作台二期预发测试
+     * Summary: 个人工作台二期预发测试</p>
      */
     public ImportTwiceThreeResponse importTwiceThree(ImportTwiceThreeRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -1021,8 +326,9 @@ public class Client {
     }
 
     /**
-     * Description: 个人工作台二期预发测试
-     * Summary: 个人工作台二期预发测试
+     * <b>description</b> :
+     * <p>Description: 个人工作台二期预发测试
+     * Summary: 个人工作台二期预发测试</p>
      */
     public ImportTwiceThreeResponse importTwiceThreeEx(ImportTwiceThreeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -1030,173 +336,44 @@ public class Client {
     }
 
     /**
-     * Description: 测试刷新cachekey
-     * Summary: 测试刷新cachekey
+     * <b>description</b> :
+     * <p>Description: 个人工作台测试使用
+     * Summary: 个人工作台测试使用</p>
      */
-    public UnstabilizeTestResponse unstabilizeTest(UnstabilizeTestRequest request) throws Exception {
+    public PublishWorkbenchThreeResponse publishWorkbenchThree(PublishWorkbenchThreeRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.unstabilizeTestEx(request, headers, runtime);
+        return this.publishWorkbenchThreeEx(request, headers, runtime);
     }
 
     /**
-     * Description: 测试刷新cachekey
-     * Summary: 测试刷新cachekey
+     * <b>description</b> :
+     * <p>Description: 个人工作台测试使用
+     * Summary: 个人工作台测试使用</p>
      */
-    public UnstabilizeTestResponse unstabilizeTestEx(UnstabilizeTestRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+    public PublishWorkbenchThreeResponse publishWorkbenchThreeEx(PublishWorkbenchThreeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.test.unstabilize", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UnstabilizeTestResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.workbench.three.publish", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PublishWorkbenchThreeResponse());
     }
 
     /**
-     * Description: 测试
-     * Summary: 测试
+     * <b>description</b> :
+     * <p>Description: 个人工作台测试使用
+     * Summary: 个人工作台测试使用</p>
      */
-    public QueryTestXcResponse queryTestXc(QueryTestXcRequest request) throws Exception {
+    public PublishWorkbenchFourResponse publishWorkbenchFour(PublishWorkbenchFourRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.queryTestXcEx(request, headers, runtime);
+        return this.publishWorkbenchFourEx(request, headers, runtime);
     }
 
     /**
-     * Description: 测试
-     * Summary: 测试
+     * <b>description</b> :
+     * <p>Description: 个人工作台测试使用
+     * Summary: 个人工作台测试使用</p>
      */
-    public QueryTestXcResponse queryTestXcEx(QueryTestXcRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+    public PublishWorkbenchFourResponse publishWorkbenchFourEx(PublishWorkbenchFourRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.test.xc.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTestXcResponse());
-    }
-
-    /**
-     * Description: test
-     * Summary: test
-     */
-    public QueryTestSyaResponse queryTestSya(QueryTestSyaRequest request) throws Exception {
-        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.queryTestSyaEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: test
-     * Summary: test
-     */
-    public QueryTestSyaResponse queryTestSyaEx(QueryTestSyaRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.test.sya.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTestSyaResponse());
-    }
-
-    /**
-     * Description: 用于个人工作台二期测试使用
-     * Summary: 用于个人工作台二期测试使用
-     */
-    public QueryQqqWwwResponse queryQqqWww(QueryQqqWwwRequest request) throws Exception {
-        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.queryQqqWwwEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 用于个人工作台二期测试使用
-     * Summary: 用于个人工作台二期测试使用
-     */
-    public QueryQqqWwwResponse queryQqqWwwEx(QueryQqqWwwRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.qqq.www.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryQqqWwwResponse());
-    }
-
-    /**
-     * Description: 个人工作台二期预发测试
-     * Summary: 个人工作台二期预发测试
-     */
-    public StabilizeTwiceThreeResponse stabilizeTwiceThree(StabilizeTwiceThreeRequest request) throws Exception {
-        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.stabilizeTwiceThreeEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 个人工作台二期预发测试
-     * Summary: 个人工作台二期预发测试
-     */
-    public StabilizeTwiceThreeResponse stabilizeTwiceThreeEx(StabilizeTwiceThreeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.twice.three.stabilize", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new StabilizeTwiceThreeResponse());
-    }
-
-    /**
-     * Description: 个人工作台二期预发测试
-     * Summary: 个人工作台二期预发测试
-     */
-    public UnstabilizeTwiceThreeResponse unstabilizeTwiceThree(UnstabilizeTwiceThreeRequest request) throws Exception {
-        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.unstabilizeTwiceThreeEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 个人工作台二期预发测试
-     * Summary: 个人工作台二期预发测试
-     */
-    public UnstabilizeTwiceThreeResponse unstabilizeTwiceThreeEx(UnstabilizeTwiceThreeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.twice.three.unstabilize", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UnstabilizeTwiceThreeResponse());
-    }
-
-    /**
-     * Description: 测试用
-     * Summary: 测试用
-     */
-    public QueryBbbAatestResponse queryBbbAatest(QueryBbbAatestRequest request) throws Exception {
-        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.queryBbbAatestEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 测试用
-     * Summary: 测试用
-     */
-    public QueryBbbAatestResponse queryBbbAatestEx(QueryBbbAatestRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.bbb.aatest.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryBbbAatestResponse());
-    }
-
-    /**
-     * Description: 测试接口
-     * Summary: 测试接口
-     */
-    public ParamLiuyzTestResponse paramLiuyzTest(ParamLiuyzTestRequest request) throws Exception {
-        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.paramLiuyzTestEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 测试接口
-     * Summary: 测试接口
-     */
-    public ParamLiuyzTestResponse paramLiuyzTestEx(ParamLiuyzTestRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.liuyz.test.param", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ParamLiuyzTestResponse());
-    }
-
-    /**
-     * Description: 创建HTTP PUT提交的文件上传
-     * Summary: 文件上传创建
-     */
-    public CreateAntcloudGatewayxFileUploadResponse createAntcloudGatewayxFileUpload(CreateAntcloudGatewayxFileUploadRequest request) throws Exception {
-        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.createAntcloudGatewayxFileUploadEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 创建HTTP PUT提交的文件上传
-     * Summary: 文件上传创建
-     */
-    public CreateAntcloudGatewayxFileUploadResponse createAntcloudGatewayxFileUploadEx(CreateAntcloudGatewayxFileUploadRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antcloud.gatewayx.file.upload.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateAntcloudGatewayxFileUploadResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.workbench.four.publish", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PublishWorkbenchFourResponse());
     }
 }

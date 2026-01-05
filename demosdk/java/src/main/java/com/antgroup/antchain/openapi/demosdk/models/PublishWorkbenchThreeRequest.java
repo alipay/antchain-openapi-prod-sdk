@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.demosdk.models;
 
 import com.aliyun.tea.*;
 
-public class WithdrawTwiceOneRequest extends TeaModel {
+public class PublishWorkbenchThreeRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -13,14 +13,15 @@ public class WithdrawTwiceOneRequest extends TeaModel {
 
     // 超时时间
     @NameInMap("timeout")
+    @Validation(required = true)
     public String timeout;
 
-    public static WithdrawTwiceOneRequest build(java.util.Map<String, ?> map) throws Exception {
-        WithdrawTwiceOneRequest self = new WithdrawTwiceOneRequest();
+    public static PublishWorkbenchThreeRequest build(java.util.Map<String, ?> map) throws Exception {
+        PublishWorkbenchThreeRequest self = new PublishWorkbenchThreeRequest();
         return TeaModel.build(map, self);
     }
 
-    public WithdrawTwiceOneRequest setAuthToken(String authToken) {
+    public PublishWorkbenchThreeRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -28,7 +29,7 @@ public class WithdrawTwiceOneRequest extends TeaModel {
         return this.authToken;
     }
 
-    public WithdrawTwiceOneRequest setProductInstanceId(String productInstanceId) {
+    public PublishWorkbenchThreeRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -36,7 +37,7 @@ public class WithdrawTwiceOneRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public WithdrawTwiceOneRequest setTimeout(String timeout) {
+    public PublishWorkbenchThreeRequest setTimeout(String timeout) {
         this.timeout = timeout;
         return this;
     }

@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.demosdk.models;
 
 import com.aliyun.tea.*;
 
-public class ImportCreateThreeRequest extends TeaModel {
+public class PublishWorkbenchTwoRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -11,17 +11,17 @@ public class ImportCreateThreeRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 3000
+    // 超时时间
     @NameInMap("timeout")
     @Validation(required = true)
     public String timeout;
 
-    public static ImportCreateThreeRequest build(java.util.Map<String, ?> map) throws Exception {
-        ImportCreateThreeRequest self = new ImportCreateThreeRequest();
+    public static PublishWorkbenchTwoRequest build(java.util.Map<String, ?> map) throws Exception {
+        PublishWorkbenchTwoRequest self = new PublishWorkbenchTwoRequest();
         return TeaModel.build(map, self);
     }
 
-    public ImportCreateThreeRequest setAuthToken(String authToken) {
+    public PublishWorkbenchTwoRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -29,7 +29,7 @@ public class ImportCreateThreeRequest extends TeaModel {
         return this.authToken;
     }
 
-    public ImportCreateThreeRequest setProductInstanceId(String productInstanceId) {
+    public PublishWorkbenchTwoRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -37,7 +37,7 @@ public class ImportCreateThreeRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public ImportCreateThreeRequest setTimeout(String timeout) {
+    public PublishWorkbenchTwoRequest setTimeout(String timeout) {
         this.timeout = timeout;
         return this;
     }

@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.demosdk.models;
 
 import com.aliyun.tea.*;
 
-public class QueryWorkbenchTestResponse extends TeaModel {
+public class PublishWorkbenchTwoResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -17,19 +17,19 @@ public class QueryWorkbenchTestResponse extends TeaModel {
     public String resultMsg;
 
     // 状态
-    @NameInMap("stauts")
-    public String stauts;
-
-    // 描述
     @NameInMap("msg")
     public String msg;
 
-    public static QueryWorkbenchTestResponse build(java.util.Map<String, ?> map) throws Exception {
-        QueryWorkbenchTestResponse self = new QueryWorkbenchTestResponse();
+    // 状态码
+    @NameInMap("status")
+    public String status;
+
+    public static PublishWorkbenchTwoResponse build(java.util.Map<String, ?> map) throws Exception {
+        PublishWorkbenchTwoResponse self = new PublishWorkbenchTwoResponse();
         return TeaModel.build(map, self);
     }
 
-    public QueryWorkbenchTestResponse setReqMsgId(String reqMsgId) {
+    public PublishWorkbenchTwoResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -37,7 +37,7 @@ public class QueryWorkbenchTestResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public QueryWorkbenchTestResponse setResultCode(String resultCode) {
+    public PublishWorkbenchTwoResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -45,7 +45,7 @@ public class QueryWorkbenchTestResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public QueryWorkbenchTestResponse setResultMsg(String resultMsg) {
+    public PublishWorkbenchTwoResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -53,20 +53,20 @@ public class QueryWorkbenchTestResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryWorkbenchTestResponse setStauts(String stauts) {
-        this.stauts = stauts;
-        return this;
-    }
-    public String getStauts() {
-        return this.stauts;
-    }
-
-    public QueryWorkbenchTestResponse setMsg(String msg) {
+    public PublishWorkbenchTwoResponse setMsg(String msg) {
         this.msg = msg;
         return this;
     }
     public String getMsg() {
         return this.msg;
+    }
+
+    public PublishWorkbenchTwoResponse setStatus(String status) {
+        this.status = status;
+        return this;
+    }
+    public String getStatus() {
+        return this.status;
     }
 
 }

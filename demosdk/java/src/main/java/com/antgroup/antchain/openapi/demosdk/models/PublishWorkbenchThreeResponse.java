@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.demosdk.models;
 
 import com.aliyun.tea.*;
 
-public class QueryCreateTwoResponse extends TeaModel {
+public class PublishWorkbenchThreeResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,20 +16,20 @@ public class QueryCreateTwoResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // OK
-    @NameInMap("stauts")
-    public String stauts;
-
-    // SUCCESS le
+    // 状态
     @NameInMap("msg")
     public String msg;
 
-    public static QueryCreateTwoResponse build(java.util.Map<String, ?> map) throws Exception {
-        QueryCreateTwoResponse self = new QueryCreateTwoResponse();
+    // 状态码
+    @NameInMap("status")
+    public String status;
+
+    public static PublishWorkbenchThreeResponse build(java.util.Map<String, ?> map) throws Exception {
+        PublishWorkbenchThreeResponse self = new PublishWorkbenchThreeResponse();
         return TeaModel.build(map, self);
     }
 
-    public QueryCreateTwoResponse setReqMsgId(String reqMsgId) {
+    public PublishWorkbenchThreeResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -37,7 +37,7 @@ public class QueryCreateTwoResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public QueryCreateTwoResponse setResultCode(String resultCode) {
+    public PublishWorkbenchThreeResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -45,7 +45,7 @@ public class QueryCreateTwoResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public QueryCreateTwoResponse setResultMsg(String resultMsg) {
+    public PublishWorkbenchThreeResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -53,20 +53,20 @@ public class QueryCreateTwoResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryCreateTwoResponse setStauts(String stauts) {
-        this.stauts = stauts;
-        return this;
-    }
-    public String getStauts() {
-        return this.stauts;
-    }
-
-    public QueryCreateTwoResponse setMsg(String msg) {
+    public PublishWorkbenchThreeResponse setMsg(String msg) {
         this.msg = msg;
         return this;
     }
     public String getMsg() {
         return this.msg;
+    }
+
+    public PublishWorkbenchThreeResponse setStatus(String status) {
+        this.status = status;
+        return this;
+    }
+    public String getStatus() {
+        return this.status;
     }
 
 }

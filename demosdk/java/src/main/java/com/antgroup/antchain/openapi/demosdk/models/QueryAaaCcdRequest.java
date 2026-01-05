@@ -11,6 +11,10 @@ public class QueryAaaCcdRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
+    // 123
+    @NameInMap("test")
+    public String test;
+
     public static QueryAaaCcdRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryAaaCcdRequest self = new QueryAaaCcdRequest();
         return TeaModel.build(map, self);
@@ -30,6 +34,14 @@ public class QueryAaaCcdRequest extends TeaModel {
     }
     public String getProductInstanceId() {
         return this.productInstanceId;
+    }
+
+    public QueryAaaCcdRequest setTest(String test) {
+        this.test = test;
+        return this;
+    }
+    public String getTest() {
+        return this.test;
     }
 
 }

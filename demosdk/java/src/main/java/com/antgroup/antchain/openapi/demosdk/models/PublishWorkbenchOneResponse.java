@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.demosdk.models;
 
 import com.aliyun.tea.*;
 
-public class QueryTwiceTwoResponse extends TeaModel {
+public class PublishWorkbenchOneResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,20 +16,20 @@ public class QueryTwiceTwoResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 状态码
-    @NameInMap("stauts")
-    public String stauts;
-
-    // 状态描述
+    // 状态
     @NameInMap("msg")
     public String msg;
 
-    public static QueryTwiceTwoResponse build(java.util.Map<String, ?> map) throws Exception {
-        QueryTwiceTwoResponse self = new QueryTwiceTwoResponse();
+    // 状态码
+    @NameInMap("status")
+    public String status;
+
+    public static PublishWorkbenchOneResponse build(java.util.Map<String, ?> map) throws Exception {
+        PublishWorkbenchOneResponse self = new PublishWorkbenchOneResponse();
         return TeaModel.build(map, self);
     }
 
-    public QueryTwiceTwoResponse setReqMsgId(String reqMsgId) {
+    public PublishWorkbenchOneResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -37,7 +37,7 @@ public class QueryTwiceTwoResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public QueryTwiceTwoResponse setResultCode(String resultCode) {
+    public PublishWorkbenchOneResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -45,7 +45,7 @@ public class QueryTwiceTwoResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public QueryTwiceTwoResponse setResultMsg(String resultMsg) {
+    public PublishWorkbenchOneResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -53,20 +53,20 @@ public class QueryTwiceTwoResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryTwiceTwoResponse setStauts(String stauts) {
-        this.stauts = stauts;
-        return this;
-    }
-    public String getStauts() {
-        return this.stauts;
-    }
-
-    public QueryTwiceTwoResponse setMsg(String msg) {
+    public PublishWorkbenchOneResponse setMsg(String msg) {
         this.msg = msg;
         return this;
     }
     public String getMsg() {
         return this.msg;
+    }
+
+    public PublishWorkbenchOneResponse setStatus(String status) {
+        this.status = status;
+        return this;
+    }
+    public String getStatus() {
+        return this.status;
     }
 
 }
