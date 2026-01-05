@@ -18,9 +18,16 @@ class QueryAaaCcdRequest extends Model
      * @var string
      */
     public $productInstanceId;
+
+    // 123
+    /**
+     * @var string
+     */
+    public $test;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
+        'test'              => 'test',
     ];
 
     public function validate()
@@ -35,6 +42,9 @@ class QueryAaaCcdRequest extends Model
         }
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->test) {
+            $res['test'] = $this->test;
         }
 
         return $res;
@@ -53,6 +63,9 @@ class QueryAaaCcdRequest extends Model
         }
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
+        }
+        if (isset($map['test'])) {
+            $model->test = $map['test'];
         }
 
         return $model;

@@ -6,7 +6,7 @@ namespace AntChain\DEMOSDK\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ResetBbbCccRequest extends Model
+class PublishWorkbenchTwoRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -18,13 +18,21 @@ class ResetBbbCccRequest extends Model
      * @var string
      */
     public $productInstanceId;
+
+    // 超时时间
+    /**
+     * @var string
+     */
+    public $timeout;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
+        'timeout'           => 'timeout',
     ];
 
     public function validate()
     {
+        Model::validateRequired('timeout', $this->timeout, true);
     }
 
     public function toMap()
@@ -36,6 +44,9 @@ class ResetBbbCccRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
+        if (null !== $this->timeout) {
+            $res['timeout'] = $this->timeout;
+        }
 
         return $res;
     }
@@ -43,7 +54,7 @@ class ResetBbbCccRequest extends Model
     /**
      * @param array $map
      *
-     * @return ResetBbbCccRequest
+     * @return PublishWorkbenchTwoRequest
      */
     public static function fromMap($map = [])
     {
@@ -53,6 +64,9 @@ class ResetBbbCccRequest extends Model
         }
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
+        }
+        if (isset($map['timeout'])) {
+            $model->timeout = $map['timeout'];
         }
 
         return $model;

@@ -6,32 +6,30 @@ namespace AntChain\DEMOSDK\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class XNameValuePair extends Model
+class TestDemo extends Model
 {
-    // 键名
+    // 1
     /**
-     * @example key
+     * @example 张三
      *
      * @var string
      */
     public $name;
 
-    // 键值
+    // 1
     /**
-     * @example value
+     * @example 23
      *
-     * @var string
+     * @var int
      */
-    public $value;
+    public $number;
     protected $_name = [
-        'name'  => 'name',
-        'value' => 'value',
+        'name'   => 'name',
+        'number' => 'number',
     ];
 
     public function validate()
     {
-        Model::validateRequired('name', $this->name, true);
-        Model::validateRequired('value', $this->value, true);
     }
 
     public function toMap()
@@ -40,8 +38,8 @@ class XNameValuePair extends Model
         if (null !== $this->name) {
             $res['name'] = $this->name;
         }
-        if (null !== $this->value) {
-            $res['value'] = $this->value;
+        if (null !== $this->number) {
+            $res['number'] = $this->number;
         }
 
         return $res;
@@ -50,7 +48,7 @@ class XNameValuePair extends Model
     /**
      * @param array $map
      *
-     * @return XNameValuePair
+     * @return TestDemo
      */
     public static function fromMap($map = [])
     {
@@ -58,8 +56,8 @@ class XNameValuePair extends Model
         if (isset($map['name'])) {
             $model->name = $map['name'];
         }
-        if (isset($map['value'])) {
-            $model->value = $map['value'];
+        if (isset($map['number'])) {
+            $model->number = $map['number'];
         }
 
         return $model;

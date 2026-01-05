@@ -6,7 +6,7 @@ namespace AntChain\DEMOSDK\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryWorkbenchTestResponse extends Model
+class PublishWorkbenchFourResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -30,19 +30,19 @@ class QueryWorkbenchTestResponse extends Model
     /**
      * @var string
      */
-    public $stauts;
+    public $msg;
 
-    // 描述
+    // 状态码
     /**
      * @var string
      */
-    public $msg;
+    public $status;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'stauts'     => 'stauts',
         'msg'        => 'msg',
+        'status'     => 'status',
     ];
 
     public function validate()
@@ -61,11 +61,11 @@ class QueryWorkbenchTestResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->stauts) {
-            $res['stauts'] = $this->stauts;
-        }
         if (null !== $this->msg) {
             $res['msg'] = $this->msg;
+        }
+        if (null !== $this->status) {
+            $res['status'] = $this->status;
         }
 
         return $res;
@@ -74,7 +74,7 @@ class QueryWorkbenchTestResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryWorkbenchTestResponse
+     * @return PublishWorkbenchFourResponse
      */
     public static function fromMap($map = [])
     {
@@ -88,11 +88,11 @@ class QueryWorkbenchTestResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['stauts'])) {
-            $model->stauts = $map['stauts'];
-        }
         if (isset($map['msg'])) {
             $model->msg = $map['msg'];
+        }
+        if (isset($map['status'])) {
+            $model->status = $map['status'];
         }
 
         return $model;

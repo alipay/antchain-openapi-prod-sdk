@@ -6,7 +6,7 @@ namespace AntChain\DEMOSDK\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryMultiCccResponse extends Model
+class PublishWorkbenchThreeResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -25,10 +25,24 @@ class QueryMultiCccResponse extends Model
      * @var string
      */
     public $resultMsg;
+
+    // 状态
+    /**
+     * @var string
+     */
+    public $msg;
+
+    // 状态码
+    /**
+     * @var string
+     */
+    public $status;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
+        'msg'        => 'msg',
+        'status'     => 'status',
     ];
 
     public function validate()
@@ -47,6 +61,12 @@ class QueryMultiCccResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
+        if (null !== $this->msg) {
+            $res['msg'] = $this->msg;
+        }
+        if (null !== $this->status) {
+            $res['status'] = $this->status;
+        }
 
         return $res;
     }
@@ -54,7 +74,7 @@ class QueryMultiCccResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryMultiCccResponse
+     * @return PublishWorkbenchThreeResponse
      */
     public static function fromMap($map = [])
     {
@@ -67,6 +87,12 @@ class QueryMultiCccResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
+        }
+        if (isset($map['msg'])) {
+            $model->msg = $map['msg'];
+        }
+        if (isset($map['status'])) {
+            $model->status = $map['status'];
         }
 
         return $model;

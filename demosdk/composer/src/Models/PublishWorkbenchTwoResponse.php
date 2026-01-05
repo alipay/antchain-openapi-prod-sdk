@@ -6,7 +6,7 @@ namespace AntChain\DEMOSDK\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ImportCreateThreeResponse extends Model
+class PublishWorkbenchTwoResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,13 +26,13 @@ class ImportCreateThreeResponse extends Model
      */
     public $resultMsg;
 
-    // SUCCESS le
+    // 状态
     /**
      * @var string
      */
     public $msg;
 
-    // OK
+    // 状态码
     /**
      * @var string
      */
@@ -74,7 +74,7 @@ class ImportCreateThreeResponse extends Model
     /**
      * @param array $map
      *
-     * @return ImportCreateThreeResponse
+     * @return PublishWorkbenchTwoResponse
      */
     public static function fromMap($map = [])
     {
