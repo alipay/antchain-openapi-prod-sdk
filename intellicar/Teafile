@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "INTELLICAR",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-intellicar:1.0.5",
-    "go": "github.com/antchain-openapi-sdk-go/intellicar/client:v1.0.5",
-    "csharp": "AntChain.SDK.INTELLICAR:1.0.5",
+    "java": "com.antgroup.antchain.openapi:openapi-intellicar:1.0.6",
+    "go": "github.com/antchain-openapi-sdk-go/intellicar/client:v1.0.6",
+    "csharp": "AntChain.SDK.INTELLICAR:1.0.6",
     "ts": "@antchain/intellicar:^1.0.0",
-    "php": "antchain/intellicar:1.0.5",
-    "python": "antchain_sdk_intellicar:1.0.5"
+    "php": "antchain/intellicar:1.0.6",
+    "python": "antchain_sdk_intellicar:1.0.6"
   },
   "libraries": {
     "Util": "darabonba:Util:*",
