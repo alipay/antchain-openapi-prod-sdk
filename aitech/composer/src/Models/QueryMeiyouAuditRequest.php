@@ -54,6 +54,12 @@ class QueryMeiyouAuditRequest extends Model
      * @var string
      */
     public $source;
+
+    // 操作人
+    /**
+     * @var string[]
+     */
+    public $auditOperators;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -63,6 +69,7 @@ class QueryMeiyouAuditRequest extends Model
         'gmtCreateEnd'      => 'gmt_create_end',
         'maxNum'            => 'max_num',
         'source'            => 'source',
+        'auditOperators'    => 'audit_operators',
     ];
 
     public function validate()
@@ -98,6 +105,9 @@ class QueryMeiyouAuditRequest extends Model
         }
         if (null !== $this->source) {
             $res['source'] = $this->source;
+        }
+        if (null !== $this->auditOperators) {
+            $res['audit_operators'] = $this->auditOperators;
         }
 
         return $res;
@@ -136,6 +146,11 @@ class QueryMeiyouAuditRequest extends Model
         }
         if (isset($map['source'])) {
             $model->source = $map['source'];
+        }
+        if (isset($map['audit_operators'])) {
+            if (!empty($map['audit_operators'])) {
+                $model->auditOperators = $map['audit_operators'];
+            }
         }
 
         return $model;

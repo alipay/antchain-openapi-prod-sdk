@@ -48,6 +48,14 @@ class UpdateMeiyouItagRelationWebInfo extends Model
      */
     public $refuseReson;
 
+    // 审核不通过图片序号
+    /**
+     * @example ["1","2"]
+     *
+     * @var string
+     */
+    public $refuseImages;
+
     // 美柚itag关联状态
     /**
      * @example 1
@@ -71,15 +79,34 @@ class UpdateMeiyouItagRelationWebInfo extends Model
      * @var string
      */
     public $auditResult;
+
+    // 审核人员
+    /**
+     * @example 1
+     *
+     * @var string
+     */
+    public $auditUser;
+
+    // 审核时间
+    /**
+     * @example 1
+     *
+     * @var int
+     */
+    public $auditTime;
     protected $_name = [
         'id'               => 'id',
         'auditId'          => 'audit_id',
         'itagDataId'       => 'itag_data_id',
         'meiyouAuditState' => 'meiyou_audit_state',
         'refuseReson'      => 'refuse_reson',
+        'refuseImages'     => 'refuse_images',
         'auditState'       => 'audit_state',
         'topicState'       => 'topic_state',
         'auditResult'      => 'audit_result',
+        'auditUser'        => 'audit_user',
+        'auditTime'        => 'audit_time',
     ];
 
     public function validate()
@@ -105,6 +132,9 @@ class UpdateMeiyouItagRelationWebInfo extends Model
         if (null !== $this->refuseReson) {
             $res['refuse_reson'] = $this->refuseReson;
         }
+        if (null !== $this->refuseImages) {
+            $res['refuse_images'] = $this->refuseImages;
+        }
         if (null !== $this->auditState) {
             $res['audit_state'] = $this->auditState;
         }
@@ -113,6 +143,12 @@ class UpdateMeiyouItagRelationWebInfo extends Model
         }
         if (null !== $this->auditResult) {
             $res['audit_result'] = $this->auditResult;
+        }
+        if (null !== $this->auditUser) {
+            $res['audit_user'] = $this->auditUser;
+        }
+        if (null !== $this->auditTime) {
+            $res['audit_time'] = $this->auditTime;
         }
 
         return $res;
@@ -141,6 +177,9 @@ class UpdateMeiyouItagRelationWebInfo extends Model
         if (isset($map['refuse_reson'])) {
             $model->refuseReson = $map['refuse_reson'];
         }
+        if (isset($map['refuse_images'])) {
+            $model->refuseImages = $map['refuse_images'];
+        }
         if (isset($map['audit_state'])) {
             $model->auditState = $map['audit_state'];
         }
@@ -149,6 +188,12 @@ class UpdateMeiyouItagRelationWebInfo extends Model
         }
         if (isset($map['audit_result'])) {
             $model->auditResult = $map['audit_result'];
+        }
+        if (isset($map['audit_user'])) {
+            $model->auditUser = $map['audit_user'];
+        }
+        if (isset($map['audit_time'])) {
+            $model->auditTime = $map['audit_time'];
         }
 
         return $model;
