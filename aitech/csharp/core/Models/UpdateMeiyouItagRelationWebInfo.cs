@@ -35,6 +35,11 @@ namespace AntChain.SDK.AITECH.Models
         [Validation(Required=false)]
         public string RefuseReson { get; set; }
 
+        // 审核不通过图片序号
+        [NameInMap("refuse_images")]
+        [Validation(Required=false)]
+        public string RefuseImages { get; set; }
+
         // 美柚itag关联状态
         [NameInMap("audit_state")]
         [Validation(Required=false)]
@@ -49,6 +54,16 @@ namespace AntChain.SDK.AITECH.Models
         [NameInMap("audit_result")]
         [Validation(Required=false)]
         public string AuditResult { get; set; }
+
+        // 审核人员
+        [NameInMap("audit_user")]
+        [Validation(Required=false)]
+        public string AuditUser { get; set; }
+
+        // 审核时间
+        [NameInMap("audit_time")]
+        [Validation(Required=false)]
+        public long? AuditTime { get; set; }
 
     }
 

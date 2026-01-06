@@ -48,6 +48,11 @@ namespace AntChain.SDK.AITECH.Models
         [Validation(Required=false)]
         public string Source { get; set; }
 
+        // 操作人
+        [NameInMap("audit_operators")]
+        [Validation(Required=false)]
+        public List<string> AuditOperators { get; set; }
+
     }
 
 }
