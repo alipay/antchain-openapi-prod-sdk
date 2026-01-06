@@ -15,6 +15,8 @@ use AntChain\INTELLICAR\Models\BatchcreateNewcarRequest;
 use AntChain\INTELLICAR\Models\BatchcreateNewcarResponse;
 use AntChain\INTELLICAR\Models\PushCarloanRequest;
 use AntChain\INTELLICAR\Models\PushCarloanResponse;
+use AntChain\INTELLICAR\Models\QueryCarPriceRequest;
+use AntChain\INTELLICAR\Models\QueryCarPriceResponse;
 use AntChain\INTELLICAR\Models\RegisterCarownerCyRequest;
 use AntChain\INTELLICAR\Models\RegisterCarownerCyResponse;
 use AntChain\INTELLICAR\Models\RegisterCarownerRequest;
@@ -168,7 +170,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.5',
+                    'sdk_version'      => '1.0.6',
                     '_prod_code'       => 'INTELLICAR',
                     '_prod_channel'    => 'default',
                 ];
@@ -379,5 +381,38 @@ class Client
         Utils::validateModel($request);
 
         return RegisterCarownerCyResponse::fromMap($this->doRequest('1.0', 'antdigital.intellicar.carowner.cy.register', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 车辆价格查询
+     * Summary: 车辆价格查询.
+     *
+     * @param QueryCarPriceRequest $request
+     *
+     * @return QueryCarPriceResponse
+     */
+    public function queryCarPrice($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryCarPriceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 车辆价格查询
+     * Summary: 车辆价格查询.
+     *
+     * @param QueryCarPriceRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return QueryCarPriceResponse
+     */
+    public function queryCarPriceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryCarPriceResponse::fromMap($this->doRequest('1.0', 'antdigital.intellicar.car.price.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
