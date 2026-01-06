@@ -404,6 +404,137 @@ func (s *CarOwnerUserInfo) SetPhoneNum(v string) *CarOwnerUserInfo {
 	return s
 }
 
+// 车辆业务价格
+type CarBusinessPrice struct {
+	// 品牌id
+	BrandId *string `json:"brand_id,omitempty" xml:"brand_id,omitempty"`
+	// 品牌名称
+	BrandName *string `json:"brand_name,omitempty" xml:"brand_name,omitempty"`
+	// 车系id
+	CarSeriesId *string `json:"car_series_id,omitempty" xml:"car_series_id,omitempty"`
+	// 车系名称
+	CarSeries *string `json:"car_series,omitempty" xml:"car_series,omitempty"`
+	// 车型id
+	CarId *string `json:"car_id,omitempty" xml:"car_id,omitempty"`
+	// 车型名称
+	CarName *string `json:"car_name,omitempty" xml:"car_name,omitempty"`
+	// 年款
+	CarYear *string `json:"car_year,omitempty" xml:"car_year,omitempty"`
+	// 城市code
+	CityCode *string `json:"city_code,omitempty" xml:"city_code,omitempty"`
+	// 城市名称
+	CityName *string `json:"city_name,omitempty" xml:"city_name,omitempty"`
+	// 车系指导价（范围值） 单位到分
+	SeriesGuidePrice *string `json:"series_guide_price,omitempty" xml:"series_guide_price,omitempty"`
+	// 车型指导价（具体值）单位到分
+	OfficialPrice *int64 `json:"official_price,omitempty" xml:"official_price,omitempty"`
+	// 车主成交价（具体值）单位到分
+	FullPrice *int64 `json:"full_price,omitempty" xml:"full_price,omitempty"`
+	// 车主裸车价（具体值）单位到分
+	NakedPrice *int64 `json:"naked_price,omitempty" xml:"naked_price,omitempty"`
+	// 购置税（具体值）单位到分
+	PurchaseTax *int64 `json:"purchase_tax,omitempty" xml:"purchase_tax,omitempty"`
+	// 车船税（具体值）单位到分
+	VehicleVesselTax *int64 `json:"vehicle_vessel_tax,omitempty" xml:"vehicle_vessel_tax,omitempty"`
+	// 商业险（具体值）单位到分
+	BusinessInsurance *int64 `json:"business_insurance,omitempty" xml:"business_insurance,omitempty"`
+	// json 扩展字段
+	ExtraContent *string `json:"extra_content,omitempty" xml:"extra_content,omitempty"`
+}
+
+func (s CarBusinessPrice) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CarBusinessPrice) GoString() string {
+	return s.String()
+}
+
+func (s *CarBusinessPrice) SetBrandId(v string) *CarBusinessPrice {
+	s.BrandId = &v
+	return s
+}
+
+func (s *CarBusinessPrice) SetBrandName(v string) *CarBusinessPrice {
+	s.BrandName = &v
+	return s
+}
+
+func (s *CarBusinessPrice) SetCarSeriesId(v string) *CarBusinessPrice {
+	s.CarSeriesId = &v
+	return s
+}
+
+func (s *CarBusinessPrice) SetCarSeries(v string) *CarBusinessPrice {
+	s.CarSeries = &v
+	return s
+}
+
+func (s *CarBusinessPrice) SetCarId(v string) *CarBusinessPrice {
+	s.CarId = &v
+	return s
+}
+
+func (s *CarBusinessPrice) SetCarName(v string) *CarBusinessPrice {
+	s.CarName = &v
+	return s
+}
+
+func (s *CarBusinessPrice) SetCarYear(v string) *CarBusinessPrice {
+	s.CarYear = &v
+	return s
+}
+
+func (s *CarBusinessPrice) SetCityCode(v string) *CarBusinessPrice {
+	s.CityCode = &v
+	return s
+}
+
+func (s *CarBusinessPrice) SetCityName(v string) *CarBusinessPrice {
+	s.CityName = &v
+	return s
+}
+
+func (s *CarBusinessPrice) SetSeriesGuidePrice(v string) *CarBusinessPrice {
+	s.SeriesGuidePrice = &v
+	return s
+}
+
+func (s *CarBusinessPrice) SetOfficialPrice(v int64) *CarBusinessPrice {
+	s.OfficialPrice = &v
+	return s
+}
+
+func (s *CarBusinessPrice) SetFullPrice(v int64) *CarBusinessPrice {
+	s.FullPrice = &v
+	return s
+}
+
+func (s *CarBusinessPrice) SetNakedPrice(v int64) *CarBusinessPrice {
+	s.NakedPrice = &v
+	return s
+}
+
+func (s *CarBusinessPrice) SetPurchaseTax(v int64) *CarBusinessPrice {
+	s.PurchaseTax = &v
+	return s
+}
+
+func (s *CarBusinessPrice) SetVehicleVesselTax(v int64) *CarBusinessPrice {
+	s.VehicleVesselTax = &v
+	return s
+}
+
+func (s *CarBusinessPrice) SetBusinessInsurance(v int64) *CarBusinessPrice {
+	s.BusinessInsurance = &v
+	return s
+}
+
+func (s *CarBusinessPrice) SetExtraContent(v string) *CarBusinessPrice {
+	s.ExtraContent = &v
+	return s
+}
+
 // 批量提交结果
 type BatchSubmitCarResult struct {
 	// 提交线索唯一请求id
@@ -947,6 +1078,119 @@ func (s *RegisterCarownerCyResponse) SetPushSuccess(v bool) *RegisterCarownerCyR
 	return s
 }
 
+type QueryCarPriceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 车型id
+	CarId *string `json:"car_id,omitempty" xml:"car_id,omitempty"`
+	// 车系id
+	SeriesId *string `json:"series_id,omitempty" xml:"series_id,omitempty"`
+	// 城市code
+	CityCode *string `json:"city_code,omitempty" xml:"city_code,omitempty"`
+	// 页码
+	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty" require:"true"`
+	// 每页大小
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+}
+
+func (s QueryCarPriceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCarPriceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCarPriceRequest) SetAuthToken(v string) *QueryCarPriceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryCarPriceRequest) SetProductInstanceId(v string) *QueryCarPriceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryCarPriceRequest) SetCarId(v string) *QueryCarPriceRequest {
+	s.CarId = &v
+	return s
+}
+
+func (s *QueryCarPriceRequest) SetSeriesId(v string) *QueryCarPriceRequest {
+	s.SeriesId = &v
+	return s
+}
+
+func (s *QueryCarPriceRequest) SetCityCode(v string) *QueryCarPriceRequest {
+	s.CityCode = &v
+	return s
+}
+
+func (s *QueryCarPriceRequest) SetPageNum(v int64) *QueryCarPriceRequest {
+	s.PageNum = &v
+	return s
+}
+
+func (s *QueryCarPriceRequest) SetPageSize(v int64) *QueryCarPriceRequest {
+	s.PageSize = &v
+	return s
+}
+
+type QueryCarPriceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 总页数
+	TotalPages *int64 `json:"total_pages,omitempty" xml:"total_pages,omitempty"`
+	// 当前页码
+	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty"`
+	//
+	// 车辆业务价格
+	Data []*CarBusinessPrice `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+}
+
+func (s QueryCarPriceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCarPriceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCarPriceResponse) SetReqMsgId(v string) *QueryCarPriceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryCarPriceResponse) SetResultCode(v string) *QueryCarPriceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryCarPriceResponse) SetResultMsg(v string) *QueryCarPriceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryCarPriceResponse) SetTotalPages(v int64) *QueryCarPriceResponse {
+	s.TotalPages = &v
+	return s
+}
+
+func (s *QueryCarPriceResponse) SetPageNum(v int64) *QueryCarPriceResponse {
+	s.PageNum = &v
+	return s
+}
+
+func (s *QueryCarPriceResponse) SetData(v []*CarBusinessPrice) *QueryCarPriceResponse {
+	s.Data = v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -1069,7 +1313,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.5"),
+				"sdk_version":      tea.String("1.0.6"),
 				"_prod_code":       tea.String("INTELLICAR"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -1290,6 +1534,40 @@ func (client *Client) RegisterCarownerCyEx(request *RegisterCarownerCyRequest, h
 	}
 	_result = &RegisterCarownerCyResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.intellicar.carowner.cy.register"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 车辆价格查询
+ * Summary: 车辆价格查询
+ */
+func (client *Client) QueryCarPrice(request *QueryCarPriceRequest) (_result *QueryCarPriceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryCarPriceResponse{}
+	_body, _err := client.QueryCarPriceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 车辆价格查询
+ * Summary: 车辆价格查询
+ */
+func (client *Client) QueryCarPriceEx(request *QueryCarPriceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryCarPriceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryCarPriceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.intellicar.car.price.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
