@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.5"),
+                    new TeaPair("sdk_version", "1.0.6"),
                     new TeaPair("_prod_code", "INTELLICAR"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -291,5 +291,26 @@ public class Client {
     public RegisterCarownerCyResponse registerCarownerCyEx(RegisterCarownerCyRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antdigital.intellicar.carowner.cy.register", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RegisterCarownerCyResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 车辆价格查询
+     * Summary: 车辆价格查询</p>
+     */
+    public QueryCarPriceResponse queryCarPrice(QueryCarPriceRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryCarPriceEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 车辆价格查询
+     * Summary: 车辆价格查询</p>
+     */
+    public QueryCarPriceResponse queryCarPriceEx(QueryCarPriceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.intellicar.car.price.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCarPriceResponse());
     }
 }
