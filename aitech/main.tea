@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.51',
+    sdk_version = '1.1.55',
     _prod_code = 'AITECH',
     _prod_channel = 'default'
   };
@@ -424,12 +424,18 @@ model UpdateMeiyouItagRelationWebInfo {
   meiyouAuditState?: string(name='meiyou_audit_state', example='INIT'),
   // 审核不通过原因
   refuseReson?: string(name='refuse_reson', example='34'),
+  // 审核不通过图片序号
+  refuseImages?: string(name='refuse_images', example='["1","2"]'),
   // 美柚itag关联状态
   auditState?: string(name='audit_state', example='1'),
   // 美柚itag关联状态
   topicState?: string(name='topic_state', example='1'),
   // 审核结果
   auditResult?: string(name='audit_result', example='1'),
+  // 审核人员
+  auditUser?: string(name='audit_user', example='1'),
+  // 审核时间
+  auditTime?: long(name='audit_time', example='1'),
 }
 
 model ApplyAuditImageRequest = {
@@ -1453,6 +1459,8 @@ model QueryMeiyouAuditRequest = {
   maxNum?: long(name='max_num'),
   // 数据来源
   source?: string(name='source'),
+  // 操作人
+  auditOperators?: [ string ](name='audit_operators'),
 }
 
 model QueryMeiyouAuditResponse = {
