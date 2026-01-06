@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.5',
+                    'sdk_version': '1.0.6',
                     '_prod_code': 'INTELLICAR',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.5',
+                    'sdk_version': '1.0.6',
                     '_prod_code': 'INTELLICAR',
                     '_prod_channel': 'default'
                 }
@@ -553,4 +553,60 @@ class Client:
         return TeaCore.from_map(
             intellicar_models.RegisterCarownerCyResponse(),
             await self.do_request_async('1.0', 'antdigital.intellicar.carowner.cy.register', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_car_price(
+        self,
+        request: intellicar_models.QueryCarPriceRequest,
+    ) -> intellicar_models.QueryCarPriceResponse:
+        """
+        Description: 车辆价格查询
+        Summary: 车辆价格查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_car_price_ex(request, headers, runtime)
+
+    async def query_car_price_async(
+        self,
+        request: intellicar_models.QueryCarPriceRequest,
+    ) -> intellicar_models.QueryCarPriceResponse:
+        """
+        Description: 车辆价格查询
+        Summary: 车辆价格查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_car_price_ex_async(request, headers, runtime)
+
+    def query_car_price_ex(
+        self,
+        request: intellicar_models.QueryCarPriceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> intellicar_models.QueryCarPriceResponse:
+        """
+        Description: 车辆价格查询
+        Summary: 车辆价格查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            intellicar_models.QueryCarPriceResponse(),
+            self.do_request('1.0', 'antdigital.intellicar.car.price.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_car_price_ex_async(
+        self,
+        request: intellicar_models.QueryCarPriceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> intellicar_models.QueryCarPriceResponse:
+        """
+        Description: 车辆价格查询
+        Summary: 车辆价格查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            intellicar_models.QueryCarPriceResponse(),
+            await self.do_request_async('1.0', 'antdigital.intellicar.car.price.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
