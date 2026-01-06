@@ -714,12 +714,18 @@ export class UpdateMeiyouItagRelationWebInfo extends $tea.Model {
   meiyouAuditState?: string;
   // 审核不通过原因
   refuseReson?: string;
+  // 审核不通过图片序号
+  refuseImages?: string;
   // 美柚itag关联状态
   auditState?: string;
   // 美柚itag关联状态
   topicState?: string;
   // 审核结果
   auditResult?: string;
+  // 审核人员
+  auditUser?: string;
+  // 审核时间
+  auditTime?: number;
   static names(): { [key: string]: string } {
     return {
       id: 'id',
@@ -727,9 +733,12 @@ export class UpdateMeiyouItagRelationWebInfo extends $tea.Model {
       itagDataId: 'itag_data_id',
       meiyouAuditState: 'meiyou_audit_state',
       refuseReson: 'refuse_reson',
+      refuseImages: 'refuse_images',
       auditState: 'audit_state',
       topicState: 'topic_state',
       auditResult: 'audit_result',
+      auditUser: 'audit_user',
+      auditTime: 'audit_time',
     };
   }
 
@@ -740,9 +749,12 @@ export class UpdateMeiyouItagRelationWebInfo extends $tea.Model {
       itagDataId: 'number',
       meiyouAuditState: 'string',
       refuseReson: 'string',
+      refuseImages: 'string',
       auditState: 'string',
       topicState: 'string',
       auditResult: 'string',
+      auditUser: 'string',
+      auditTime: 'number',
     };
   }
 
@@ -2372,6 +2384,8 @@ export class QueryMeiyouAuditRequest extends $tea.Model {
   maxNum?: number;
   // 数据来源
   source?: string;
+  // 操作人
+  auditOperators?: string[];
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -2382,6 +2396,7 @@ export class QueryMeiyouAuditRequest extends $tea.Model {
       gmtCreateEnd: 'gmt_create_end',
       maxNum: 'max_num',
       source: 'source',
+      auditOperators: 'audit_operators',
     };
   }
 
@@ -2395,6 +2410,7 @@ export class QueryMeiyouAuditRequest extends $tea.Model {
       gmtCreateEnd: 'string',
       maxNum: 'number',
       source: 'string',
+      auditOperators: { 'type': 'array', 'itemType': 'string' },
     };
   }
 
@@ -5338,7 +5354,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.51",
+          sdk_version: "1.1.55",
           _prod_code: "AITECH",
           _prod_channel: "default",
         };
