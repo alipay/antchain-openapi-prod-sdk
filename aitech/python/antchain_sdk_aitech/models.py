@@ -1216,9 +1216,12 @@ class UpdateMeiyouItagRelationWebInfo(TeaModel):
         itag_data_id: int = None,
         meiyou_audit_state: str = None,
         refuse_reson: str = None,
+        refuse_images: str = None,
         audit_state: str = None,
         topic_state: str = None,
         audit_result: str = None,
+        audit_user: str = None,
+        audit_time: int = None,
     ):
         # 主键id
         self.id = id
@@ -1230,12 +1233,18 @@ class UpdateMeiyouItagRelationWebInfo(TeaModel):
         self.meiyou_audit_state = meiyou_audit_state
         # 审核不通过原因
         self.refuse_reson = refuse_reson
+        # 审核不通过图片序号
+        self.refuse_images = refuse_images
         # 美柚itag关联状态
         self.audit_state = audit_state
         # 美柚itag关联状态
         self.topic_state = topic_state
         # 审核结果
         self.audit_result = audit_result
+        # 审核人员
+        self.audit_user = audit_user
+        # 审核时间
+        self.audit_time = audit_time
 
     def validate(self):
         self.validate_required(self.id, 'id')
@@ -1256,12 +1265,18 @@ class UpdateMeiyouItagRelationWebInfo(TeaModel):
             result['meiyou_audit_state'] = self.meiyou_audit_state
         if self.refuse_reson is not None:
             result['refuse_reson'] = self.refuse_reson
+        if self.refuse_images is not None:
+            result['refuse_images'] = self.refuse_images
         if self.audit_state is not None:
             result['audit_state'] = self.audit_state
         if self.topic_state is not None:
             result['topic_state'] = self.topic_state
         if self.audit_result is not None:
             result['audit_result'] = self.audit_result
+        if self.audit_user is not None:
+            result['audit_user'] = self.audit_user
+        if self.audit_time is not None:
+            result['audit_time'] = self.audit_time
         return result
 
     def from_map(self, m: dict = None):
@@ -1276,12 +1291,18 @@ class UpdateMeiyouItagRelationWebInfo(TeaModel):
             self.meiyou_audit_state = m.get('meiyou_audit_state')
         if m.get('refuse_reson') is not None:
             self.refuse_reson = m.get('refuse_reson')
+        if m.get('refuse_images') is not None:
+            self.refuse_images = m.get('refuse_images')
         if m.get('audit_state') is not None:
             self.audit_state = m.get('audit_state')
         if m.get('topic_state') is not None:
             self.topic_state = m.get('topic_state')
         if m.get('audit_result') is not None:
             self.audit_result = m.get('audit_result')
+        if m.get('audit_user') is not None:
+            self.audit_user = m.get('audit_user')
+        if m.get('audit_time') is not None:
+            self.audit_time = m.get('audit_time')
         return self
 
 
@@ -3822,6 +3843,7 @@ class QueryMeiyouAuditRequest(TeaModel):
         gmt_create_end: str = None,
         max_num: int = None,
         source: str = None,
+        audit_operators: List[str] = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -3838,6 +3860,8 @@ class QueryMeiyouAuditRequest(TeaModel):
         self.max_num = max_num
         # 数据来源
         self.source = source
+        # 操作人
+        self.audit_operators = audit_operators
 
     def validate(self):
         self.validate_required(self.audit_state, 'audit_state')
@@ -3868,6 +3892,8 @@ class QueryMeiyouAuditRequest(TeaModel):
             result['max_num'] = self.max_num
         if self.source is not None:
             result['source'] = self.source
+        if self.audit_operators is not None:
+            result['audit_operators'] = self.audit_operators
         return result
 
     def from_map(self, m: dict = None):
@@ -3888,6 +3914,8 @@ class QueryMeiyouAuditRequest(TeaModel):
             self.max_num = m.get('max_num')
         if m.get('source') is not None:
             self.source = m.get('source')
+        if m.get('audit_operators') is not None:
+            self.audit_operators = m.get('audit_operators')
         return self
 
 
