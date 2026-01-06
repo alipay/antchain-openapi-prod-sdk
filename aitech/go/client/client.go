@@ -1003,12 +1003,18 @@ type UpdateMeiyouItagRelationWebInfo struct {
 	MeiyouAuditState *string `json:"meiyou_audit_state,omitempty" xml:"meiyou_audit_state,omitempty"`
 	// 审核不通过原因
 	RefuseReson *string `json:"refuse_reson,omitempty" xml:"refuse_reson,omitempty"`
+	// 审核不通过图片序号
+	RefuseImages *string `json:"refuse_images,omitempty" xml:"refuse_images,omitempty"`
 	// 美柚itag关联状态
 	AuditState *string `json:"audit_state,omitempty" xml:"audit_state,omitempty"`
 	// 美柚itag关联状态
 	TopicState *string `json:"topic_state,omitempty" xml:"topic_state,omitempty"`
 	// 审核结果
 	AuditResult *string `json:"audit_result,omitempty" xml:"audit_result,omitempty"`
+	// 审核人员
+	AuditUser *string `json:"audit_user,omitempty" xml:"audit_user,omitempty"`
+	// 审核时间
+	AuditTime *int64 `json:"audit_time,omitempty" xml:"audit_time,omitempty"`
 }
 
 func (s UpdateMeiyouItagRelationWebInfo) String() string {
@@ -1044,6 +1050,11 @@ func (s *UpdateMeiyouItagRelationWebInfo) SetRefuseReson(v string) *UpdateMeiyou
 	return s
 }
 
+func (s *UpdateMeiyouItagRelationWebInfo) SetRefuseImages(v string) *UpdateMeiyouItagRelationWebInfo {
+	s.RefuseImages = &v
+	return s
+}
+
 func (s *UpdateMeiyouItagRelationWebInfo) SetAuditState(v string) *UpdateMeiyouItagRelationWebInfo {
 	s.AuditState = &v
 	return s
@@ -1056,6 +1067,16 @@ func (s *UpdateMeiyouItagRelationWebInfo) SetTopicState(v string) *UpdateMeiyouI
 
 func (s *UpdateMeiyouItagRelationWebInfo) SetAuditResult(v string) *UpdateMeiyouItagRelationWebInfo {
 	s.AuditResult = &v
+	return s
+}
+
+func (s *UpdateMeiyouItagRelationWebInfo) SetAuditUser(v string) *UpdateMeiyouItagRelationWebInfo {
+	s.AuditUser = &v
+	return s
+}
+
+func (s *UpdateMeiyouItagRelationWebInfo) SetAuditTime(v int64) *UpdateMeiyouItagRelationWebInfo {
+	s.AuditTime = &v
 	return s
 }
 
@@ -3129,6 +3150,8 @@ type QueryMeiyouAuditRequest struct {
 	MaxNum *int64 `json:"max_num,omitempty" xml:"max_num,omitempty"`
 	// 数据来源
 	Source *string `json:"source,omitempty" xml:"source,omitempty"`
+	// 操作人
+	AuditOperators []*string `json:"audit_operators,omitempty" xml:"audit_operators,omitempty" type:"Repeated"`
 }
 
 func (s QueryMeiyouAuditRequest) String() string {
@@ -3176,6 +3199,11 @@ func (s *QueryMeiyouAuditRequest) SetMaxNum(v int64) *QueryMeiyouAuditRequest {
 
 func (s *QueryMeiyouAuditRequest) SetSource(v string) *QueryMeiyouAuditRequest {
 	s.Source = &v
+	return s
+}
+
+func (s *QueryMeiyouAuditRequest) SetAuditOperators(v []*string) *QueryMeiyouAuditRequest {
+	s.AuditOperators = v
 	return s
 }
 
@@ -7015,7 +7043,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.51"),
+				"sdk_version":      tea.String("1.1.55"),
 				"_prod_code":       tea.String("AITECH"),
 				"_prod_channel":    tea.String("default"),
 			}
