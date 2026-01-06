@@ -45,6 +45,14 @@ public class UpdateMeiyouItagRelationWebInfo extends TeaModel {
     @NameInMap("refuse_reson")
     public String refuseReson;
 
+    // 审核不通过图片序号
+    /**
+     * <strong>example:</strong>
+     * <p>[&quot;1&quot;,&quot;2&quot;]</p>
+     */
+    @NameInMap("refuse_images")
+    public String refuseImages;
+
     // 美柚itag关联状态
     /**
      * <strong>example:</strong>
@@ -68,6 +76,22 @@ public class UpdateMeiyouItagRelationWebInfo extends TeaModel {
      */
     @NameInMap("audit_result")
     public String auditResult;
+
+    // 审核人员
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
+    @NameInMap("audit_user")
+    public String auditUser;
+
+    // 审核时间
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
+    @NameInMap("audit_time")
+    public Long auditTime;
 
     public static UpdateMeiyouItagRelationWebInfo build(java.util.Map<String, ?> map) throws Exception {
         UpdateMeiyouItagRelationWebInfo self = new UpdateMeiyouItagRelationWebInfo();
@@ -114,6 +138,14 @@ public class UpdateMeiyouItagRelationWebInfo extends TeaModel {
         return this.refuseReson;
     }
 
+    public UpdateMeiyouItagRelationWebInfo setRefuseImages(String refuseImages) {
+        this.refuseImages = refuseImages;
+        return this;
+    }
+    public String getRefuseImages() {
+        return this.refuseImages;
+    }
+
     public UpdateMeiyouItagRelationWebInfo setAuditState(String auditState) {
         this.auditState = auditState;
         return this;
@@ -136,6 +168,22 @@ public class UpdateMeiyouItagRelationWebInfo extends TeaModel {
     }
     public String getAuditResult() {
         return this.auditResult;
+    }
+
+    public UpdateMeiyouItagRelationWebInfo setAuditUser(String auditUser) {
+        this.auditUser = auditUser;
+        return this;
+    }
+    public String getAuditUser() {
+        return this.auditUser;
+    }
+
+    public UpdateMeiyouItagRelationWebInfo setAuditTime(Long auditTime) {
+        this.auditTime = auditTime;
+        return this;
+    }
+    public Long getAuditTime() {
+        return this.auditTime;
     }
 
 }

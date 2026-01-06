@@ -38,6 +38,10 @@ public class QueryMeiyouAuditRequest extends TeaModel {
     @NameInMap("source")
     public String source;
 
+    // 操作人
+    @NameInMap("audit_operators")
+    public java.util.List<String> auditOperators;
+
     public static QueryMeiyouAuditRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryMeiyouAuditRequest self = new QueryMeiyouAuditRequest();
         return TeaModel.build(map, self);
@@ -105,6 +109,14 @@ public class QueryMeiyouAuditRequest extends TeaModel {
     }
     public String getSource() {
         return this.source;
+    }
+
+    public QueryMeiyouAuditRequest setAuditOperators(java.util.List<String> auditOperators) {
+        this.auditOperators = auditOperators;
+        return this;
+    }
+    public java.util.List<String> getAuditOperators() {
+        return this.auditOperators;
     }
 
 }
