@@ -3209,6 +3209,67 @@ export class DistributeDataPackage extends $tea.Model {
   }
 }
 
+// 设备物模型行程统计信息
+export class DeviceTripProperties extends $tea.Model {
+  // 上报时间
+  reportTime: string;
+  // 1
+  powerStatus: string;
+  // 1
+  enduranceMileage: string;
+  // 1
+  totalMileage: string;
+  // 1
+  speed: string;
+  // 1
+  coord: string;
+  // 1
+  location: string;
+  // 1
+  rein: string;
+  // 1
+  spdBd: string;
+  // 1
+  cs: string;
+  // 1
+  eqst: string;
+  static names(): { [key: string]: string } {
+    return {
+      reportTime: 'report_time',
+      powerStatus: 'power_status',
+      enduranceMileage: 'endurance_mileage',
+      totalMileage: 'total_mileage',
+      speed: 'speed',
+      coord: 'coord',
+      location: 'location',
+      rein: 'rein',
+      spdBd: 'spd_bd',
+      cs: 'cs',
+      eqst: 'eqst',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reportTime: 'string',
+      powerStatus: 'string',
+      enduranceMileage: 'string',
+      totalMileage: 'string',
+      speed: 'string',
+      coord: 'string',
+      location: 'string',
+      rein: 'string',
+      spdBd: 'string',
+      cs: 'string',
+      eqst: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // iotbasic项目品类行业场景内容
 export class IotbasicCategoryIndustrySceneInfo extends $tea.Model {
   // 行业
@@ -4092,6 +4153,59 @@ export class XrTicketPoolItem extends $tea.Model {
       xrVerificationType: 'string',
       surplusCount: 'number',
       issuedCount: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// kyt 凭证申请参数
+export class KytApplyParams extends $tea.Model {
+  // 设备类型
+  deviceType?: string;
+  // 凭证类型
+  credType?: string;
+  // 品牌
+  brandId: string;
+  // 凭证内容
+  generateCode?: string;
+  // 协议类型
+  protocolType: string;
+  // 无感参数
+  keyLess: string;
+  // mac
+  mac: string;
+  // ble_name
+  bleName: string;
+  // 通道
+  channel?: string;
+  static names(): { [key: string]: string } {
+    return {
+      deviceType: 'device_type',
+      credType: 'cred_type',
+      brandId: 'brand_id',
+      generateCode: 'generate_code',
+      protocolType: 'protocol_type',
+      keyLess: 'key_less',
+      mac: 'mac',
+      bleName: 'ble_name',
+      channel: 'channel',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      deviceType: 'string',
+      credType: 'string',
+      brandId: 'string',
+      generateCode: 'string',
+      protocolType: 'string',
+      keyLess: 'string',
+      mac: 'string',
+      bleName: 'string',
+      channel: 'string',
     };
   }
 
@@ -18269,6 +18383,184 @@ export class QueryElectrocarTriplastResponse extends $tea.Model {
   }
 }
 
+export class RegisterElectrocarDeviceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 设备名称
+  deviceNeme: string;
+  // 设备名称
+  nickName: string;
+  // 产品key
+  trustProductKey: string;
+  // 凭证申请参数
+  kytApplyParams: KytApplyParams;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      deviceNeme: 'device_neme',
+      nickName: 'nick_name',
+      trustProductKey: 'trust_product_key',
+      kytApplyParams: 'kyt_apply_params',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      deviceNeme: 'string',
+      nickName: 'string',
+      trustProductKey: 'string',
+      kytApplyParams: KytApplyParams,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RegisterElectrocarDeviceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 状态
+  success?: string;
+  // tuid
+  tuid?: string;
+  // kyt 返回的蓝牙凭证信息
+  carKeyInitData?: string;
+  // 物联网平台三元组加密
+  mqttContent?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      tuid: 'tuid',
+      carKeyInitData: 'car_key_init_data',
+      mqttContent: 'mqtt_content',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'string',
+      tuid: 'string',
+      carKeyInitData: 'string',
+      mqttContent: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryElectrocarDevicehistorypropertiesRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // tuid
+  tuid: string;
+  // 开始时间戳
+  startTime: number;
+  // 结束时间戳
+  endTime: number;
+  // 1
+  pageNum: number;
+  // 1
+  pageSize: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tuid: 'tuid',
+      startTime: 'start_time',
+      endTime: 'end_time',
+      pageNum: 'page_num',
+      pageSize: 'page_size',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tuid: 'string',
+      startTime: 'number',
+      endTime: 'number',
+      pageNum: 'number',
+      pageSize: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryElectrocarDevicehistorypropertiesResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // success
+  success?: boolean;
+  // 行程统计信息属性
+  tripProperties?: DeviceTripProperties[];
+  // 1
+  pageNum?: number;
+  // 1
+  pageSize?: number;
+  // 1
+  totalPages?: number;
+  // 记录总数
+  totalSize?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      tripProperties: 'trip_properties',
+      pageNum: 'page_num',
+      pageSize: 'page_size',
+      totalPages: 'total_pages',
+      totalSize: 'total_size',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      tripProperties: { 'type': 'array', 'itemType': DeviceTripProperties },
+      pageNum: 'number',
+      pageSize: 'number',
+      totalPages: 'number',
+      totalSize: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryIotplatformPurchaseorderRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -29038,7 +29330,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.12.48",
+          sdk_version: "1.12.53",
           _prod_code: "BOT",
           _prod_channel: "undefined",
         };
@@ -31864,6 +32156,44 @@ export default class Client {
   async queryElectrocarTriplastEx(request: QueryElectrocarTriplastRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryElectrocarTriplastResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryElectrocarTriplastResponse>(await this.doRequest("1.0", "blockchain.bot.electrocar.triplast.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryElectrocarTriplastResponse({}));
+  }
+
+  /**
+   * Description: iotx二轮车设备注册
+   * Summary: iotx二轮车设备注册
+   */
+  async registerElectrocarDevice(request: RegisterElectrocarDeviceRequest): Promise<RegisterElectrocarDeviceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.registerElectrocarDeviceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: iotx二轮车设备注册
+   * Summary: iotx二轮车设备注册
+   */
+  async registerElectrocarDeviceEx(request: RegisterElectrocarDeviceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RegisterElectrocarDeviceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<RegisterElectrocarDeviceResponse>(await this.doRequest("1.0", "blockchain.bot.electrocar.device.register", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RegisterElectrocarDeviceResponse({}));
+  }
+
+  /**
+   * Description: iotx二轮车设备属性
+   * Summary: iotx二轮车设备属性
+   */
+  async queryElectrocarDevicehistoryproperties(request: QueryElectrocarDevicehistorypropertiesRequest): Promise<QueryElectrocarDevicehistorypropertiesResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryElectrocarDevicehistorypropertiesEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: iotx二轮车设备属性
+   * Summary: iotx二轮车设备属性
+   */
+  async queryElectrocarDevicehistorypropertiesEx(request: QueryElectrocarDevicehistorypropertiesRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryElectrocarDevicehistorypropertiesResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryElectrocarDevicehistorypropertiesResponse>(await this.doRequest("1.0", "blockchain.bot.electrocar.devicehistoryproperties.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryElectrocarDevicehistorypropertiesResponse({}));
   }
 
   /**
