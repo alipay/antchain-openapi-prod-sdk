@@ -4250,6 +4250,95 @@ func (s *DistributeDataPackage) SetPackageTime(v int64) *DistributeDataPackage {
 	return s
 }
 
+// 设备物模型行程统计信息
+type DeviceTripProperties struct {
+	// 上报时间
+	ReportTime *string `json:"report_time,omitempty" xml:"report_time,omitempty" require:"true"`
+	// 1
+	PowerStatus *string `json:"power_status,omitempty" xml:"power_status,omitempty" require:"true"`
+	// 1
+	EnduranceMileage *string `json:"endurance_mileage,omitempty" xml:"endurance_mileage,omitempty" require:"true"`
+	// 1
+	TotalMileage *string `json:"total_mileage,omitempty" xml:"total_mileage,omitempty" require:"true"`
+	// 1
+	Speed *string `json:"speed,omitempty" xml:"speed,omitempty" require:"true"`
+	// 1
+	Coord *string `json:"coord,omitempty" xml:"coord,omitempty" require:"true"`
+	// 1
+	Location *string `json:"location,omitempty" xml:"location,omitempty" require:"true"`
+	// 1
+	Rein *string `json:"rein,omitempty" xml:"rein,omitempty" require:"true"`
+	// 1
+	SpdBd *string `json:"spd_bd,omitempty" xml:"spd_bd,omitempty" require:"true"`
+	// 1
+	Cs *string `json:"cs,omitempty" xml:"cs,omitempty" require:"true"`
+	// 1
+	Eqst *string `json:"eqst,omitempty" xml:"eqst,omitempty" require:"true"`
+}
+
+func (s DeviceTripProperties) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeviceTripProperties) GoString() string {
+	return s.String()
+}
+
+func (s *DeviceTripProperties) SetReportTime(v string) *DeviceTripProperties {
+	s.ReportTime = &v
+	return s
+}
+
+func (s *DeviceTripProperties) SetPowerStatus(v string) *DeviceTripProperties {
+	s.PowerStatus = &v
+	return s
+}
+
+func (s *DeviceTripProperties) SetEnduranceMileage(v string) *DeviceTripProperties {
+	s.EnduranceMileage = &v
+	return s
+}
+
+func (s *DeviceTripProperties) SetTotalMileage(v string) *DeviceTripProperties {
+	s.TotalMileage = &v
+	return s
+}
+
+func (s *DeviceTripProperties) SetSpeed(v string) *DeviceTripProperties {
+	s.Speed = &v
+	return s
+}
+
+func (s *DeviceTripProperties) SetCoord(v string) *DeviceTripProperties {
+	s.Coord = &v
+	return s
+}
+
+func (s *DeviceTripProperties) SetLocation(v string) *DeviceTripProperties {
+	s.Location = &v
+	return s
+}
+
+func (s *DeviceTripProperties) SetRein(v string) *DeviceTripProperties {
+	s.Rein = &v
+	return s
+}
+
+func (s *DeviceTripProperties) SetSpdBd(v string) *DeviceTripProperties {
+	s.SpdBd = &v
+	return s
+}
+
+func (s *DeviceTripProperties) SetCs(v string) *DeviceTripProperties {
+	s.Cs = &v
+	return s
+}
+
+func (s *DeviceTripProperties) SetEqst(v string) *DeviceTripProperties {
+	s.Eqst = &v
+	return s
+}
+
 // iotbasic项目品类行业场景内容
 type IotbasicCategoryIndustrySceneInfo struct {
 	// 行业
@@ -5388,6 +5477,81 @@ func (s *XrTicketPoolItem) SetSurplusCount(v int64) *XrTicketPoolItem {
 
 func (s *XrTicketPoolItem) SetIssuedCount(v int64) *XrTicketPoolItem {
 	s.IssuedCount = &v
+	return s
+}
+
+// kyt 凭证申请参数
+type KytApplyParams struct {
+	// 设备类型
+	DeviceType *string `json:"device_type,omitempty" xml:"device_type,omitempty"`
+	// 凭证类型
+	CredType *string `json:"cred_type,omitempty" xml:"cred_type,omitempty"`
+	// 品牌
+	BrandId *string `json:"brand_id,omitempty" xml:"brand_id,omitempty" require:"true"`
+	// 凭证内容
+	GenerateCode *string `json:"generate_code,omitempty" xml:"generate_code,omitempty"`
+	// 协议类型
+	ProtocolType *string `json:"protocol_type,omitempty" xml:"protocol_type,omitempty" require:"true"`
+	// 无感参数
+	KeyLess *string `json:"key_less,omitempty" xml:"key_less,omitempty" require:"true"`
+	// mac
+	Mac *string `json:"mac,omitempty" xml:"mac,omitempty" require:"true"`
+	// ble_name
+	BleName *string `json:"ble_name,omitempty" xml:"ble_name,omitempty" require:"true"`
+	// 通道
+	Channel *string `json:"channel,omitempty" xml:"channel,omitempty"`
+}
+
+func (s KytApplyParams) String() string {
+	return tea.Prettify(s)
+}
+
+func (s KytApplyParams) GoString() string {
+	return s.String()
+}
+
+func (s *KytApplyParams) SetDeviceType(v string) *KytApplyParams {
+	s.DeviceType = &v
+	return s
+}
+
+func (s *KytApplyParams) SetCredType(v string) *KytApplyParams {
+	s.CredType = &v
+	return s
+}
+
+func (s *KytApplyParams) SetBrandId(v string) *KytApplyParams {
+	s.BrandId = &v
+	return s
+}
+
+func (s *KytApplyParams) SetGenerateCode(v string) *KytApplyParams {
+	s.GenerateCode = &v
+	return s
+}
+
+func (s *KytApplyParams) SetProtocolType(v string) *KytApplyParams {
+	s.ProtocolType = &v
+	return s
+}
+
+func (s *KytApplyParams) SetKeyLess(v string) *KytApplyParams {
+	s.KeyLess = &v
+	return s
+}
+
+func (s *KytApplyParams) SetMac(v string) *KytApplyParams {
+	s.Mac = &v
+	return s
+}
+
+func (s *KytApplyParams) SetBleName(v string) *KytApplyParams {
+	s.BleName = &v
+	return s
+}
+
+func (s *KytApplyParams) SetChannel(v string) *KytApplyParams {
+	s.Channel = &v
 	return s
 }
 
@@ -23983,6 +24147,251 @@ func (s *QueryElectrocarTriplastResponse) SetLastTripDetail(v *TripDetail) *Quer
 	return s
 }
 
+type RegisterElectrocarDeviceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 设备名称
+	DeviceNeme *string `json:"device_neme,omitempty" xml:"device_neme,omitempty" require:"true"`
+	// 设备名称
+	NickName *string `json:"nick_name,omitempty" xml:"nick_name,omitempty" require:"true"`
+	// 产品key
+	TrustProductKey *string `json:"trust_product_key,omitempty" xml:"trust_product_key,omitempty" require:"true"`
+	// 凭证申请参数
+	KytApplyParams *KytApplyParams `json:"kyt_apply_params,omitempty" xml:"kyt_apply_params,omitempty" require:"true"`
+}
+
+func (s RegisterElectrocarDeviceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RegisterElectrocarDeviceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *RegisterElectrocarDeviceRequest) SetAuthToken(v string) *RegisterElectrocarDeviceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *RegisterElectrocarDeviceRequest) SetProductInstanceId(v string) *RegisterElectrocarDeviceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *RegisterElectrocarDeviceRequest) SetDeviceNeme(v string) *RegisterElectrocarDeviceRequest {
+	s.DeviceNeme = &v
+	return s
+}
+
+func (s *RegisterElectrocarDeviceRequest) SetNickName(v string) *RegisterElectrocarDeviceRequest {
+	s.NickName = &v
+	return s
+}
+
+func (s *RegisterElectrocarDeviceRequest) SetTrustProductKey(v string) *RegisterElectrocarDeviceRequest {
+	s.TrustProductKey = &v
+	return s
+}
+
+func (s *RegisterElectrocarDeviceRequest) SetKytApplyParams(v *KytApplyParams) *RegisterElectrocarDeviceRequest {
+	s.KytApplyParams = v
+	return s
+}
+
+type RegisterElectrocarDeviceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 状态
+	Success *string `json:"success,omitempty" xml:"success,omitempty"`
+	// tuid
+	Tuid *string `json:"tuid,omitempty" xml:"tuid,omitempty"`
+	// kyt 返回的蓝牙凭证信息
+	CarKeyInitData *string `json:"car_key_init_data,omitempty" xml:"car_key_init_data,omitempty"`
+	// 物联网平台三元组加密
+	MqttContent *string `json:"mqtt_content,omitempty" xml:"mqtt_content,omitempty"`
+}
+
+func (s RegisterElectrocarDeviceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RegisterElectrocarDeviceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *RegisterElectrocarDeviceResponse) SetReqMsgId(v string) *RegisterElectrocarDeviceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *RegisterElectrocarDeviceResponse) SetResultCode(v string) *RegisterElectrocarDeviceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *RegisterElectrocarDeviceResponse) SetResultMsg(v string) *RegisterElectrocarDeviceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *RegisterElectrocarDeviceResponse) SetSuccess(v string) *RegisterElectrocarDeviceResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *RegisterElectrocarDeviceResponse) SetTuid(v string) *RegisterElectrocarDeviceResponse {
+	s.Tuid = &v
+	return s
+}
+
+func (s *RegisterElectrocarDeviceResponse) SetCarKeyInitData(v string) *RegisterElectrocarDeviceResponse {
+	s.CarKeyInitData = &v
+	return s
+}
+
+func (s *RegisterElectrocarDeviceResponse) SetMqttContent(v string) *RegisterElectrocarDeviceResponse {
+	s.MqttContent = &v
+	return s
+}
+
+type QueryElectrocarDevicehistorypropertiesRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// tuid
+	Tuid *string `json:"tuid,omitempty" xml:"tuid,omitempty" require:"true"`
+	// 开始时间戳
+	StartTime *int64 `json:"start_time,omitempty" xml:"start_time,omitempty" require:"true"`
+	// 结束时间戳
+	EndTime *int64 `json:"end_time,omitempty" xml:"end_time,omitempty" require:"true"`
+	// 1
+	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty" require:"true"`
+	// 1
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+}
+
+func (s QueryElectrocarDevicehistorypropertiesRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryElectrocarDevicehistorypropertiesRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryElectrocarDevicehistorypropertiesRequest) SetAuthToken(v string) *QueryElectrocarDevicehistorypropertiesRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryElectrocarDevicehistorypropertiesRequest) SetProductInstanceId(v string) *QueryElectrocarDevicehistorypropertiesRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryElectrocarDevicehistorypropertiesRequest) SetTuid(v string) *QueryElectrocarDevicehistorypropertiesRequest {
+	s.Tuid = &v
+	return s
+}
+
+func (s *QueryElectrocarDevicehistorypropertiesRequest) SetStartTime(v int64) *QueryElectrocarDevicehistorypropertiesRequest {
+	s.StartTime = &v
+	return s
+}
+
+func (s *QueryElectrocarDevicehistorypropertiesRequest) SetEndTime(v int64) *QueryElectrocarDevicehistorypropertiesRequest {
+	s.EndTime = &v
+	return s
+}
+
+func (s *QueryElectrocarDevicehistorypropertiesRequest) SetPageNum(v int64) *QueryElectrocarDevicehistorypropertiesRequest {
+	s.PageNum = &v
+	return s
+}
+
+func (s *QueryElectrocarDevicehistorypropertiesRequest) SetPageSize(v int64) *QueryElectrocarDevicehistorypropertiesRequest {
+	s.PageSize = &v
+	return s
+}
+
+type QueryElectrocarDevicehistorypropertiesResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// success
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 行程统计信息属性
+	TripProperties []*DeviceTripProperties `json:"trip_properties,omitempty" xml:"trip_properties,omitempty" type:"Repeated"`
+	// 1
+	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty"`
+	// 1
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 1
+	TotalPages *int64 `json:"total_pages,omitempty" xml:"total_pages,omitempty"`
+	// 记录总数
+	TotalSize *int64 `json:"total_size,omitempty" xml:"total_size,omitempty"`
+}
+
+func (s QueryElectrocarDevicehistorypropertiesResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryElectrocarDevicehistorypropertiesResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryElectrocarDevicehistorypropertiesResponse) SetReqMsgId(v string) *QueryElectrocarDevicehistorypropertiesResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryElectrocarDevicehistorypropertiesResponse) SetResultCode(v string) *QueryElectrocarDevicehistorypropertiesResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryElectrocarDevicehistorypropertiesResponse) SetResultMsg(v string) *QueryElectrocarDevicehistorypropertiesResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryElectrocarDevicehistorypropertiesResponse) SetSuccess(v bool) *QueryElectrocarDevicehistorypropertiesResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *QueryElectrocarDevicehistorypropertiesResponse) SetTripProperties(v []*DeviceTripProperties) *QueryElectrocarDevicehistorypropertiesResponse {
+	s.TripProperties = v
+	return s
+}
+
+func (s *QueryElectrocarDevicehistorypropertiesResponse) SetPageNum(v int64) *QueryElectrocarDevicehistorypropertiesResponse {
+	s.PageNum = &v
+	return s
+}
+
+func (s *QueryElectrocarDevicehistorypropertiesResponse) SetPageSize(v int64) *QueryElectrocarDevicehistorypropertiesResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *QueryElectrocarDevicehistorypropertiesResponse) SetTotalPages(v int64) *QueryElectrocarDevicehistorypropertiesResponse {
+	s.TotalPages = &v
+	return s
+}
+
+func (s *QueryElectrocarDevicehistorypropertiesResponse) SetTotalSize(v int64) *QueryElectrocarDevicehistorypropertiesResponse {
+	s.TotalSize = &v
+	return s
+}
+
 type QueryIotplatformPurchaseorderRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -37867,7 +38276,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.12.48"),
+				"sdk_version":      tea.String("1.12.53"),
 				"_prod_code":       tea.String("BOT"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -42874,6 +43283,74 @@ func (client *Client) QueryElectrocarTriplastEx(request *QueryElectrocarTriplast
 	}
 	_result = &QueryElectrocarTriplastResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.electrocar.triplast.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: iotx二轮车设备注册
+ * Summary: iotx二轮车设备注册
+ */
+func (client *Client) RegisterElectrocarDevice(request *RegisterElectrocarDeviceRequest) (_result *RegisterElectrocarDeviceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &RegisterElectrocarDeviceResponse{}
+	_body, _err := client.RegisterElectrocarDeviceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: iotx二轮车设备注册
+ * Summary: iotx二轮车设备注册
+ */
+func (client *Client) RegisterElectrocarDeviceEx(request *RegisterElectrocarDeviceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *RegisterElectrocarDeviceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &RegisterElectrocarDeviceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.electrocar.device.register"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: iotx二轮车设备属性
+ * Summary: iotx二轮车设备属性
+ */
+func (client *Client) QueryElectrocarDevicehistoryproperties(request *QueryElectrocarDevicehistorypropertiesRequest) (_result *QueryElectrocarDevicehistorypropertiesResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryElectrocarDevicehistorypropertiesResponse{}
+	_body, _err := client.QueryElectrocarDevicehistorypropertiesEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: iotx二轮车设备属性
+ * Summary: iotx二轮车设备属性
+ */
+func (client *Client) QueryElectrocarDevicehistorypropertiesEx(request *QueryElectrocarDevicehistorypropertiesRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryElectrocarDevicehistorypropertiesResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryElectrocarDevicehistorypropertiesResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.electrocar.devicehistoryproperties.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
