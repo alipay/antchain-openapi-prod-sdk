@@ -383,6 +383,8 @@ use AntChain\BOT\Models\QueryDigitalkeyWithholdsignRequest;
 use AntChain\BOT\Models\QueryDigitalkeyWithholdsignResponse;
 use AntChain\BOT\Models\QueryDockedDataRequest;
 use AntChain\BOT\Models\QueryDockedDataResponse;
+use AntChain\BOT\Models\QueryElectrocarDevicehistorypropertiesRequest;
+use AntChain\BOT\Models\QueryElectrocarDevicehistorypropertiesResponse;
 use AntChain\BOT\Models\QueryElectrocarRealtimedataRequest;
 use AntChain\BOT\Models\QueryElectrocarRealtimedataResponse;
 use AntChain\BOT\Models\QueryElectrocarTravelRequest;
@@ -457,6 +459,8 @@ use AntChain\BOT\Models\RegisterCarkeyscorpCustomerRequest;
 use AntChain\BOT\Models\RegisterCarkeyscorpCustomerResponse;
 use AntChain\BOT\Models\RegisterDevicecorpCustomerRequest;
 use AntChain\BOT\Models\RegisterDevicecorpCustomerResponse;
+use AntChain\BOT\Models\RegisterElectrocarDeviceRequest;
+use AntChain\BOT\Models\RegisterElectrocarDeviceResponse;
 use AntChain\BOT\Models\RegisterIotbasicCorpjoinRequest;
 use AntChain\BOT\Models\RegisterIotbasicCorpjoinResponse;
 use AntChain\BOT\Models\ReplaceDistributedeviceBychainidRequest;
@@ -726,7 +730,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.12.48',
+                    'sdk_version'      => '1.12.53',
                     '_prod_code'       => 'BOT',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -5562,6 +5566,72 @@ class Client
         Utils::validateModel($request);
 
         return QueryElectrocarTriplastResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.electrocar.triplast.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: iotx二轮车设备注册
+     * Summary: iotx二轮车设备注册.
+     *
+     * @param RegisterElectrocarDeviceRequest $request
+     *
+     * @return RegisterElectrocarDeviceResponse
+     */
+    public function registerElectrocarDevice($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->registerElectrocarDeviceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: iotx二轮车设备注册
+     * Summary: iotx二轮车设备注册.
+     *
+     * @param RegisterElectrocarDeviceRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return RegisterElectrocarDeviceResponse
+     */
+    public function registerElectrocarDeviceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RegisterElectrocarDeviceResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.electrocar.device.register', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: iotx二轮车设备属性
+     * Summary: iotx二轮车设备属性.
+     *
+     * @param QueryElectrocarDevicehistorypropertiesRequest $request
+     *
+     * @return QueryElectrocarDevicehistorypropertiesResponse
+     */
+    public function queryElectrocarDevicehistoryproperties($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryElectrocarDevicehistorypropertiesEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: iotx二轮车设备属性
+     * Summary: iotx二轮车设备属性.
+     *
+     * @param QueryElectrocarDevicehistorypropertiesRequest $request
+     * @param string[]                                      $headers
+     * @param RuntimeOptions                                $runtime
+     *
+     * @return QueryElectrocarDevicehistorypropertiesResponse
+     */
+    public function queryElectrocarDevicehistorypropertiesEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryElectrocarDevicehistorypropertiesResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.electrocar.devicehistoryproperties.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
