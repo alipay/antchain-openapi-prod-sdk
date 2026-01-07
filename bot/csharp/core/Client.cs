@@ -137,7 +137,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.12.48"},
+                        {"sdk_version", "1.12.53"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.12.48"},
+                        {"sdk_version", "1.12.53"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -6463,6 +6463,90 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryElectrocarTriplastResponse>(await DoRequestAsync("1.0", "blockchain.bot.electrocar.triplast.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: iotx二轮车设备注册
+         * Summary: iotx二轮车设备注册
+         */
+        public RegisterElectrocarDeviceResponse RegisterElectrocarDevice(RegisterElectrocarDeviceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return RegisterElectrocarDeviceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: iotx二轮车设备注册
+         * Summary: iotx二轮车设备注册
+         */
+        public async Task<RegisterElectrocarDeviceResponse> RegisterElectrocarDeviceAsync(RegisterElectrocarDeviceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await RegisterElectrocarDeviceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: iotx二轮车设备注册
+         * Summary: iotx二轮车设备注册
+         */
+        public RegisterElectrocarDeviceResponse RegisterElectrocarDeviceEx(RegisterElectrocarDeviceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RegisterElectrocarDeviceResponse>(DoRequest("1.0", "blockchain.bot.electrocar.device.register", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: iotx二轮车设备注册
+         * Summary: iotx二轮车设备注册
+         */
+        public async Task<RegisterElectrocarDeviceResponse> RegisterElectrocarDeviceExAsync(RegisterElectrocarDeviceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RegisterElectrocarDeviceResponse>(await DoRequestAsync("1.0", "blockchain.bot.electrocar.device.register", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: iotx二轮车设备属性
+         * Summary: iotx二轮车设备属性
+         */
+        public QueryElectrocarDevicehistorypropertiesResponse QueryElectrocarDevicehistoryproperties(QueryElectrocarDevicehistorypropertiesRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryElectrocarDevicehistorypropertiesEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: iotx二轮车设备属性
+         * Summary: iotx二轮车设备属性
+         */
+        public async Task<QueryElectrocarDevicehistorypropertiesResponse> QueryElectrocarDevicehistorypropertiesAsync(QueryElectrocarDevicehistorypropertiesRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryElectrocarDevicehistorypropertiesExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: iotx二轮车设备属性
+         * Summary: iotx二轮车设备属性
+         */
+        public QueryElectrocarDevicehistorypropertiesResponse QueryElectrocarDevicehistorypropertiesEx(QueryElectrocarDevicehistorypropertiesRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryElectrocarDevicehistorypropertiesResponse>(DoRequest("1.0", "blockchain.bot.electrocar.devicehistoryproperties.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: iotx二轮车设备属性
+         * Summary: iotx二轮车设备属性
+         */
+        public async Task<QueryElectrocarDevicehistorypropertiesResponse> QueryElectrocarDevicehistorypropertiesExAsync(QueryElectrocarDevicehistorypropertiesRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryElectrocarDevicehistorypropertiesResponse>(await DoRequestAsync("1.0", "blockchain.bot.electrocar.devicehistoryproperties.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
