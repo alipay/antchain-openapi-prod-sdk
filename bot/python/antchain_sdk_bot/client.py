@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.48',
+                    'sdk_version': '1.12.53',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.48',
+                    'sdk_version': '1.12.53',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -8409,6 +8409,118 @@ class Client:
         return TeaCore.from_map(
             bot_models.QueryElectrocarTriplastResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.electrocar.triplast.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def register_electrocar_device(
+        self,
+        request: bot_models.RegisterElectrocarDeviceRequest,
+    ) -> bot_models.RegisterElectrocarDeviceResponse:
+        """
+        Description: iotx二轮车设备注册
+        Summary: iotx二轮车设备注册
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.register_electrocar_device_ex(request, headers, runtime)
+
+    async def register_electrocar_device_async(
+        self,
+        request: bot_models.RegisterElectrocarDeviceRequest,
+    ) -> bot_models.RegisterElectrocarDeviceResponse:
+        """
+        Description: iotx二轮车设备注册
+        Summary: iotx二轮车设备注册
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.register_electrocar_device_ex_async(request, headers, runtime)
+
+    def register_electrocar_device_ex(
+        self,
+        request: bot_models.RegisterElectrocarDeviceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.RegisterElectrocarDeviceResponse:
+        """
+        Description: iotx二轮车设备注册
+        Summary: iotx二轮车设备注册
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.RegisterElectrocarDeviceResponse(),
+            self.do_request('1.0', 'blockchain.bot.electrocar.device.register', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def register_electrocar_device_ex_async(
+        self,
+        request: bot_models.RegisterElectrocarDeviceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.RegisterElectrocarDeviceResponse:
+        """
+        Description: iotx二轮车设备注册
+        Summary: iotx二轮车设备注册
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.RegisterElectrocarDeviceResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.electrocar.device.register', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_electrocar_devicehistoryproperties(
+        self,
+        request: bot_models.QueryElectrocarDevicehistorypropertiesRequest,
+    ) -> bot_models.QueryElectrocarDevicehistorypropertiesResponse:
+        """
+        Description: iotx二轮车设备属性
+        Summary: iotx二轮车设备属性
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_electrocar_devicehistoryproperties_ex(request, headers, runtime)
+
+    async def query_electrocar_devicehistoryproperties_async(
+        self,
+        request: bot_models.QueryElectrocarDevicehistorypropertiesRequest,
+    ) -> bot_models.QueryElectrocarDevicehistorypropertiesResponse:
+        """
+        Description: iotx二轮车设备属性
+        Summary: iotx二轮车设备属性
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_electrocar_devicehistoryproperties_ex_async(request, headers, runtime)
+
+    def query_electrocar_devicehistoryproperties_ex(
+        self,
+        request: bot_models.QueryElectrocarDevicehistorypropertiesRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryElectrocarDevicehistorypropertiesResponse:
+        """
+        Description: iotx二轮车设备属性
+        Summary: iotx二轮车设备属性
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryElectrocarDevicehistorypropertiesResponse(),
+            self.do_request('1.0', 'blockchain.bot.electrocar.devicehistoryproperties.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_electrocar_devicehistoryproperties_ex_async(
+        self,
+        request: bot_models.QueryElectrocarDevicehistorypropertiesRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryElectrocarDevicehistorypropertiesResponse:
+        """
+        Description: iotx二轮车设备属性
+        Summary: iotx二轮车设备属性
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryElectrocarDevicehistorypropertiesResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.electrocar.devicehistoryproperties.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_iotplatform_purchaseorder(

@@ -5243,6 +5243,114 @@ class DistributeDataPackage(TeaModel):
         return self
 
 
+class DeviceTripProperties(TeaModel):
+    def __init__(
+        self,
+        report_time: str = None,
+        power_status: str = None,
+        endurance_mileage: str = None,
+        total_mileage: str = None,
+        speed: str = None,
+        coord: str = None,
+        location: str = None,
+        rein: str = None,
+        spd_bd: str = None,
+        cs: str = None,
+        eqst: str = None,
+    ):
+        # 上报时间
+        self.report_time = report_time
+        # 1
+        self.power_status = power_status
+        # 1
+        self.endurance_mileage = endurance_mileage
+        # 1
+        self.total_mileage = total_mileage
+        # 1
+        self.speed = speed
+        # 1
+        self.coord = coord
+        # 1
+        self.location = location
+        # 1
+        self.rein = rein
+        # 1
+        self.spd_bd = spd_bd
+        # 1
+        self.cs = cs
+        # 1
+        self.eqst = eqst
+
+    def validate(self):
+        self.validate_required(self.report_time, 'report_time')
+        self.validate_required(self.power_status, 'power_status')
+        self.validate_required(self.endurance_mileage, 'endurance_mileage')
+        self.validate_required(self.total_mileage, 'total_mileage')
+        self.validate_required(self.speed, 'speed')
+        self.validate_required(self.coord, 'coord')
+        self.validate_required(self.location, 'location')
+        self.validate_required(self.rein, 'rein')
+        self.validate_required(self.spd_bd, 'spd_bd')
+        self.validate_required(self.cs, 'cs')
+        self.validate_required(self.eqst, 'eqst')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.report_time is not None:
+            result['report_time'] = self.report_time
+        if self.power_status is not None:
+            result['power_status'] = self.power_status
+        if self.endurance_mileage is not None:
+            result['endurance_mileage'] = self.endurance_mileage
+        if self.total_mileage is not None:
+            result['total_mileage'] = self.total_mileage
+        if self.speed is not None:
+            result['speed'] = self.speed
+        if self.coord is not None:
+            result['coord'] = self.coord
+        if self.location is not None:
+            result['location'] = self.location
+        if self.rein is not None:
+            result['rein'] = self.rein
+        if self.spd_bd is not None:
+            result['spd_bd'] = self.spd_bd
+        if self.cs is not None:
+            result['cs'] = self.cs
+        if self.eqst is not None:
+            result['eqst'] = self.eqst
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('report_time') is not None:
+            self.report_time = m.get('report_time')
+        if m.get('power_status') is not None:
+            self.power_status = m.get('power_status')
+        if m.get('endurance_mileage') is not None:
+            self.endurance_mileage = m.get('endurance_mileage')
+        if m.get('total_mileage') is not None:
+            self.total_mileage = m.get('total_mileage')
+        if m.get('speed') is not None:
+            self.speed = m.get('speed')
+        if m.get('coord') is not None:
+            self.coord = m.get('coord')
+        if m.get('location') is not None:
+            self.location = m.get('location')
+        if m.get('rein') is not None:
+            self.rein = m.get('rein')
+        if m.get('spd_bd') is not None:
+            self.spd_bd = m.get('spd_bd')
+        if m.get('cs') is not None:
+            self.cs = m.get('cs')
+        if m.get('eqst') is not None:
+            self.eqst = m.get('eqst')
+        return self
+
+
 class IotbasicCategoryIndustrySceneInfo(TeaModel):
     def __init__(
         self,
@@ -6662,6 +6770,94 @@ class XrTicketPoolItem(TeaModel):
             self.surplus_count = m.get('surplus_count')
         if m.get('issued_count') is not None:
             self.issued_count = m.get('issued_count')
+        return self
+
+
+class KytApplyParams(TeaModel):
+    def __init__(
+        self,
+        device_type: str = None,
+        cred_type: str = None,
+        brand_id: str = None,
+        generate_code: str = None,
+        protocol_type: str = None,
+        key_less: str = None,
+        mac: str = None,
+        ble_name: str = None,
+        channel: str = None,
+    ):
+        # 设备类型
+        self.device_type = device_type
+        # 凭证类型
+        self.cred_type = cred_type
+        # 品牌
+        self.brand_id = brand_id
+        # 凭证内容
+        self.generate_code = generate_code
+        # 协议类型
+        self.protocol_type = protocol_type
+        # 无感参数
+        self.key_less = key_less
+        # mac
+        self.mac = mac
+        # ble_name
+        self.ble_name = ble_name
+        # 通道
+        self.channel = channel
+
+    def validate(self):
+        self.validate_required(self.brand_id, 'brand_id')
+        self.validate_required(self.protocol_type, 'protocol_type')
+        self.validate_required(self.key_less, 'key_less')
+        self.validate_required(self.mac, 'mac')
+        self.validate_required(self.ble_name, 'ble_name')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.device_type is not None:
+            result['device_type'] = self.device_type
+        if self.cred_type is not None:
+            result['cred_type'] = self.cred_type
+        if self.brand_id is not None:
+            result['brand_id'] = self.brand_id
+        if self.generate_code is not None:
+            result['generate_code'] = self.generate_code
+        if self.protocol_type is not None:
+            result['protocol_type'] = self.protocol_type
+        if self.key_less is not None:
+            result['key_less'] = self.key_less
+        if self.mac is not None:
+            result['mac'] = self.mac
+        if self.ble_name is not None:
+            result['ble_name'] = self.ble_name
+        if self.channel is not None:
+            result['channel'] = self.channel
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('device_type') is not None:
+            self.device_type = m.get('device_type')
+        if m.get('cred_type') is not None:
+            self.cred_type = m.get('cred_type')
+        if m.get('brand_id') is not None:
+            self.brand_id = m.get('brand_id')
+        if m.get('generate_code') is not None:
+            self.generate_code = m.get('generate_code')
+        if m.get('protocol_type') is not None:
+            self.protocol_type = m.get('protocol_type')
+        if m.get('key_less') is not None:
+            self.key_less = m.get('key_less')
+        if m.get('mac') is not None:
+            self.mac = m.get('mac')
+        if m.get('ble_name') is not None:
+            self.ble_name = m.get('ble_name')
+        if m.get('channel') is not None:
+            self.channel = m.get('channel')
         return self
 
 
@@ -29948,6 +30144,309 @@ class QueryElectrocarTriplastResponse(TeaModel):
         if m.get('last_trip_detail') is not None:
             temp_model = TripDetail()
             self.last_trip_detail = temp_model.from_map(m['last_trip_detail'])
+        return self
+
+
+class RegisterElectrocarDeviceRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        device_neme: str = None,
+        nick_name: str = None,
+        trust_product_key: str = None,
+        kyt_apply_params: KytApplyParams = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 设备名称
+        self.device_neme = device_neme
+        # 设备名称
+        self.nick_name = nick_name
+        # 产品key
+        self.trust_product_key = trust_product_key
+        # 凭证申请参数
+        self.kyt_apply_params = kyt_apply_params
+
+    def validate(self):
+        self.validate_required(self.device_neme, 'device_neme')
+        self.validate_required(self.nick_name, 'nick_name')
+        self.validate_required(self.trust_product_key, 'trust_product_key')
+        self.validate_required(self.kyt_apply_params, 'kyt_apply_params')
+        if self.kyt_apply_params:
+            self.kyt_apply_params.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.device_neme is not None:
+            result['device_neme'] = self.device_neme
+        if self.nick_name is not None:
+            result['nick_name'] = self.nick_name
+        if self.trust_product_key is not None:
+            result['trust_product_key'] = self.trust_product_key
+        if self.kyt_apply_params is not None:
+            result['kyt_apply_params'] = self.kyt_apply_params.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('device_neme') is not None:
+            self.device_neme = m.get('device_neme')
+        if m.get('nick_name') is not None:
+            self.nick_name = m.get('nick_name')
+        if m.get('trust_product_key') is not None:
+            self.trust_product_key = m.get('trust_product_key')
+        if m.get('kyt_apply_params') is not None:
+            temp_model = KytApplyParams()
+            self.kyt_apply_params = temp_model.from_map(m['kyt_apply_params'])
+        return self
+
+
+class RegisterElectrocarDeviceResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        success: str = None,
+        tuid: str = None,
+        car_key_init_data: str = None,
+        mqtt_content: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 状态
+        self.success = success
+        # tuid
+        self.tuid = tuid
+        # kyt 返回的蓝牙凭证信息
+        self.car_key_init_data = car_key_init_data
+        # 物联网平台三元组加密
+        self.mqtt_content = mqtt_content
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.success is not None:
+            result['success'] = self.success
+        if self.tuid is not None:
+            result['tuid'] = self.tuid
+        if self.car_key_init_data is not None:
+            result['car_key_init_data'] = self.car_key_init_data
+        if self.mqtt_content is not None:
+            result['mqtt_content'] = self.mqtt_content
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('tuid') is not None:
+            self.tuid = m.get('tuid')
+        if m.get('car_key_init_data') is not None:
+            self.car_key_init_data = m.get('car_key_init_data')
+        if m.get('mqtt_content') is not None:
+            self.mqtt_content = m.get('mqtt_content')
+        return self
+
+
+class QueryElectrocarDevicehistorypropertiesRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tuid: str = None,
+        start_time: int = None,
+        end_time: int = None,
+        page_num: int = None,
+        page_size: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # tuid
+        self.tuid = tuid
+        # 开始时间戳
+        self.start_time = start_time
+        # 结束时间戳
+        self.end_time = end_time
+        # 1
+        self.page_num = page_num
+        # 1
+        self.page_size = page_size
+
+    def validate(self):
+        self.validate_required(self.tuid, 'tuid')
+        self.validate_required(self.start_time, 'start_time')
+        self.validate_required(self.end_time, 'end_time')
+        self.validate_required(self.page_num, 'page_num')
+        self.validate_required(self.page_size, 'page_size')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tuid is not None:
+            result['tuid'] = self.tuid
+        if self.start_time is not None:
+            result['start_time'] = self.start_time
+        if self.end_time is not None:
+            result['end_time'] = self.end_time
+        if self.page_num is not None:
+            result['page_num'] = self.page_num
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tuid') is not None:
+            self.tuid = m.get('tuid')
+        if m.get('start_time') is not None:
+            self.start_time = m.get('start_time')
+        if m.get('end_time') is not None:
+            self.end_time = m.get('end_time')
+        if m.get('page_num') is not None:
+            self.page_num = m.get('page_num')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        return self
+
+
+class QueryElectrocarDevicehistorypropertiesResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        success: bool = None,
+        trip_properties: List[DeviceTripProperties] = None,
+        page_num: int = None,
+        page_size: int = None,
+        total_pages: int = None,
+        total_size: int = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # success
+        self.success = success
+        # 行程统计信息属性
+        self.trip_properties = trip_properties
+        # 1
+        self.page_num = page_num
+        # 1
+        self.page_size = page_size
+        # 1
+        self.total_pages = total_pages
+        # 记录总数
+        self.total_size = total_size
+
+    def validate(self):
+        if self.trip_properties:
+            for k in self.trip_properties:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.success is not None:
+            result['success'] = self.success
+        result['trip_properties'] = []
+        if self.trip_properties is not None:
+            for k in self.trip_properties:
+                result['trip_properties'].append(k.to_map() if k else None)
+        if self.page_num is not None:
+            result['page_num'] = self.page_num
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.total_pages is not None:
+            result['total_pages'] = self.total_pages
+        if self.total_size is not None:
+            result['total_size'] = self.total_size
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        self.trip_properties = []
+        if m.get('trip_properties') is not None:
+            for k in m.get('trip_properties'):
+                temp_model = DeviceTripProperties()
+                self.trip_properties.append(temp_model.from_map(k))
+        if m.get('page_num') is not None:
+            self.page_num = m.get('page_num')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('total_pages') is not None:
+            self.total_pages = m.get('total_pages')
+        if m.get('total_size') is not None:
+            self.total_size = m.get('total_size')
         return self
 
 
