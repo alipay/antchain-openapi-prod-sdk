@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.12.48',
+    sdk_version = '1.12.53',
     _prod_code = 'BOT',
     _prod_channel = 'undefined'
   };
@@ -1453,6 +1453,32 @@ model DistributeDataPackage {
   packageTime: long(name='package_time', example=''),
 }
 
+// 设备物模型行程统计信息
+model DeviceTripProperties {
+  // 上报时间
+  reportTime: string(name='report_time', example='1765794345159'),
+  // 1
+  powerStatus: string(name='power_status', example='1'),
+  // 1
+  enduranceMileage: string(name='endurance_mileage', example='1'),
+  // 1
+  totalMileage: string(name='total_mileage', example='1'),
+  // 1
+  speed: string(name='speed', example='1'),
+  // 1
+  coord: string(name='coord', example='1'),
+  // 1
+  location: string(name='location', example='1'),
+  // 1
+  rein: string(name='rein', example='1'),
+  // 1
+  spdBd: string(name='spd_bd', example='1'),
+  // 1
+  cs: string(name='cs', example='1'),
+  // 1
+  eqst: string(name='eqst', example='1'),
+}
+
 // iotbasic项目品类行业场景内容
 model IotbasicCategoryIndustrySceneInfo {
   // 行业
@@ -1816,6 +1842,28 @@ model XrTicketPoolItem {
   surplusCount?: long(name='surplus_count', example='100'),
   // 已发放数量 （总数-剩余数量）
   issuedCount?: long(name='issued_count', example='12'),
+}
+
+// kyt 凭证申请参数
+model KytApplyParams {
+  // 设备类型
+  deviceType?: string(name='device_type', example='tw_car'),
+  // 凭证类型
+  credType?: string(name='cred_type', example='mcu_dk_cred'),
+  // 品牌
+  brandId: string(name='brand_id', example='JL'),
+  // 凭证内容
+  generateCode?: string(name='generate_code', example='[]'),
+  // 协议类型
+  protocolType: string(name='protocol_type', example='ble'),
+  // 无感参数
+  keyLess: string(name='key_less', example='1'),
+  // mac
+  mac: string(name='mac', example='F8:5F:56:F6:05:BC'),
+  // ble_name
+  bleName: string(name='ble_name', example='ble_'),
+  // 通道
+  channel?: string(name='channel', example='DT'),
 }
 
 // 信物链证据基本组成结构体
@@ -9984,6 +10032,112 @@ async function queryElectrocarTriplast(request: QueryElectrocarTriplastRequest):
 async function queryElectrocarTriplastEx(request: QueryElectrocarTriplastRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryElectrocarTriplastResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bot.electrocar.triplast.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RegisterElectrocarDeviceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 设备名称
+  deviceNeme: string(name='device_neme'),
+  // 设备名称
+  nickName: string(name='nick_name'),
+  // 产品key
+  trustProductKey: string(name='trust_product_key'),
+  // 凭证申请参数
+  kytApplyParams: KytApplyParams(name='kyt_apply_params'),
+}
+
+model RegisterElectrocarDeviceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 状态
+  success?: string(name='success'),
+  // tuid
+  tuid?: string(name='tuid'),
+  // kyt 返回的蓝牙凭证信息
+  carKeyInitData?: string(name='car_key_init_data'),
+  // 物联网平台三元组加密
+  mqttContent?: string(name='mqtt_content'),
+}
+
+/**
+ * Description: iotx二轮车设备注册
+ * Summary: iotx二轮车设备注册
+ */
+async function registerElectrocarDevice(request: RegisterElectrocarDeviceRequest): RegisterElectrocarDeviceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return registerElectrocarDeviceEx(request, headers, runtime);
+}
+
+/**
+ * Description: iotx二轮车设备注册
+ * Summary: iotx二轮车设备注册
+ */
+async function registerElectrocarDeviceEx(request: RegisterElectrocarDeviceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RegisterElectrocarDeviceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.electrocar.device.register', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryElectrocarDevicehistorypropertiesRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // tuid
+  tuid: string(name='tuid'),
+  // 开始时间戳
+  startTime: long(name='start_time'),
+  // 结束时间戳
+  endTime: long(name='end_time'),
+  // 1
+  pageNum: long(name='page_num'),
+  // 1
+  pageSize: long(name='page_size'),
+}
+
+model QueryElectrocarDevicehistorypropertiesResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // success
+  success?: boolean(name='success'),
+  // 行程统计信息属性
+  tripProperties?: [ DeviceTripProperties ](name='trip_properties'),
+  // 1
+  pageNum?: long(name='page_num'),
+  // 1
+  pageSize?: long(name='page_size'),
+  // 1
+  totalPages?: long(name='total_pages'),
+  // 记录总数
+  totalSize?: long(name='total_size'),
+}
+
+/**
+ * Description: iotx二轮车设备属性
+ * Summary: iotx二轮车设备属性
+ */
+async function queryElectrocarDevicehistoryproperties(request: QueryElectrocarDevicehistorypropertiesRequest): QueryElectrocarDevicehistorypropertiesResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryElectrocarDevicehistorypropertiesEx(request, headers, runtime);
+}
+
+/**
+ * Description: iotx二轮车设备属性
+ * Summary: iotx二轮车设备属性
+ */
+async function queryElectrocarDevicehistorypropertiesEx(request: QueryElectrocarDevicehistorypropertiesRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryElectrocarDevicehistorypropertiesResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.electrocar.devicehistoryproperties.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryIotplatformPurchaseorderRequest = {
