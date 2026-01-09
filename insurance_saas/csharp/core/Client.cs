@@ -137,7 +137,7 @@ namespace AntChain.SDK.INSURANCE_SAAS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.11.2"},
+                        {"sdk_version", "1.11.3"},
                         {"_prod_code", "INSURANCE_SAAS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.INSURANCE_SAAS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.11.2"},
+                        {"sdk_version", "1.11.3"},
                         {"_prod_code", "INSURANCE_SAAS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1831,6 +1831,48 @@ namespace AntChain.SDK.INSURANCE_SAAS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CallbackMarketingPolicycancelResponse>(await DoRequestAsync("1.0", "antcloud.insurance.marketing.policycancel.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 车险线索查询
+         * Summary: 车险线索查询
+         */
+        public QueryLeadMarketResponse QueryLeadMarket(QueryLeadMarketRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryLeadMarketEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 车险线索查询
+         * Summary: 车险线索查询
+         */
+        public async Task<QueryLeadMarketResponse> QueryLeadMarketAsync(QueryLeadMarketRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryLeadMarketExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 车险线索查询
+         * Summary: 车险线索查询
+         */
+        public QueryLeadMarketResponse QueryLeadMarketEx(QueryLeadMarketRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryLeadMarketResponse>(DoRequest("1.0", "antcloud.insurance.lead.market.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 车险线索查询
+         * Summary: 车险线索查询
+         */
+        public async Task<QueryLeadMarketResponse> QueryLeadMarketExAsync(QueryLeadMarketRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryLeadMarketResponse>(await DoRequestAsync("1.0", "antcloud.insurance.lead.market.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
