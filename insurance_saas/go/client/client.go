@@ -4571,6 +4571,84 @@ func (s *CallbackMarketingPolicycancelResponse) SetRequestId(v string) *Callback
 	return s
 }
 
+type QueryLeadMarketRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 产品编码
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
+	// 请求时的线索唯一id
+	LeadId *string `json:"lead_id,omitempty" xml:"lead_id,omitempty" require:"true"`
+	// 业务参数
+	BizContent *string `json:"biz_content,omitempty" xml:"biz_content,omitempty"`
+}
+
+func (s QueryLeadMarketRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryLeadMarketRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryLeadMarketRequest) SetAuthToken(v string) *QueryLeadMarketRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryLeadMarketRequest) SetProductCode(v string) *QueryLeadMarketRequest {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *QueryLeadMarketRequest) SetLeadId(v string) *QueryLeadMarketRequest {
+	s.LeadId = &v
+	return s
+}
+
+func (s *QueryLeadMarketRequest) SetBizContent(v string) *QueryLeadMarketRequest {
+	s.BizContent = &v
+	return s
+}
+
+type QueryLeadMarketResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// JSON字符串
+	BizResult *string `json:"biz_result,omitempty" xml:"biz_result,omitempty"`
+}
+
+func (s QueryLeadMarketResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryLeadMarketResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryLeadMarketResponse) SetReqMsgId(v string) *QueryLeadMarketResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryLeadMarketResponse) SetResultCode(v string) *QueryLeadMarketResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryLeadMarketResponse) SetResultMsg(v string) *QueryLeadMarketResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryLeadMarketResponse) SetBizResult(v string) *QueryLeadMarketResponse {
+	s.BizResult = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -4693,7 +4771,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.11.2"),
+				"sdk_version":      tea.String("1.11.3"),
 				"_prod_code":       tea.String("INSURANCE_SAAS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -5968,6 +6046,40 @@ func (client *Client) CallbackMarketingPolicycancelEx(request *CallbackMarketing
 	}
 	_result = &CallbackMarketingPolicycancelResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.insurance.marketing.policycancel.callback"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 车险线索查询
+ * Summary: 车险线索查询
+ */
+func (client *Client) QueryLeadMarket(request *QueryLeadMarketRequest) (_result *QueryLeadMarketResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryLeadMarketResponse{}
+	_body, _err := client.QueryLeadMarketEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 车险线索查询
+ * Summary: 车险线索查询
+ */
+func (client *Client) QueryLeadMarketEx(request *QueryLeadMarketRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryLeadMarketResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryLeadMarketResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.insurance.lead.market.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
