@@ -1081,6 +1081,58 @@ type CarInfoBrief struct {
 	AxesNumber *string `json:"axes_number,omitempty" xml:"axes_number,omitempty"`
 	// 轴距
 	WheelBase *string `json:"wheel_base,omitempty" xml:"wheel_base,omitempty"`
+	// 排量描述
+	EngineDescribe *string `json:"engine_describe,omitempty" xml:"engine_describe,omitempty"`
+	// 车身颜色
+	Color *string `json:"color,omitempty" xml:"color,omitempty"`
+	// 年款
+	YearPattern *string `json:"year_pattern,omitempty" xml:"year_pattern,omitempty"`
+	// 生产厂商
+	ManufacturerName *string `json:"manufacturer_name,omitempty" xml:"manufacturer_name,omitempty"`
+	// 发布年月
+	PublishDate *string `json:"publish_date,omitempty" xml:"publish_date,omitempty"`
+	// 款型
+	SaleCode *string `json:"sale_code,omitempty" xml:"sale_code,omitempty"`
+	// 驱动形式
+	DriveForm *string `json:"drive_form,omitempty" xml:"drive_form,omitempty"`
+	// 国产/进口/合资
+	ImportFlag *string `json:"import_flag,omitempty" xml:"import_flag,omitempty"`
+	// 后轮距
+	TireDistanceAfter *string `json:"tire_distance_after,omitempty" xml:"tire_distance_after,omitempty"`
+	// 排量
+	Displacement *string `json:"displacement,omitempty" xml:"displacement,omitempty"`
+	// 排放标准
+	EmissionStandard *string `json:"emission_standard,omitempty" xml:"emission_standard,omitempty"`
+	// 功率
+	Power *string `json:"power,omitempty" xml:"power,omitempty"`
+	// 变速箱类型
+	Gearbox *string `json:"gearbox,omitempty" xml:"gearbox,omitempty"`
+	// 车辆类型
+	VehicleType *string `json:"vehicle_type,omitempty" xml:"vehicle_type,omitempty"`
+	// 发动机型号
+	EngineModel *string `json:"engine_model,omitempty" xml:"engine_model,omitempty"`
+	// 轮胎数
+	TireCount *string `json:"tire_count,omitempty" xml:"tire_count,omitempty"`
+	// 座位数
+	RatedPassengers *string `json:"rated_passengers,omitempty" xml:"rated_passengers,omitempty"`
+	// 指导价
+	GuidedPrice *string `json:"guided_price,omitempty" xml:"guided_price,omitempty"`
+	// 车长
+	Length *string `json:"length,omitempty" xml:"length,omitempty"`
+	// 车宽
+	Width *string `json:"width,omitempty" xml:"width,omitempty"`
+	// 车高
+	Height *string `json:"height,omitempty" xml:"height,omitempty"`
+	// 整备质量
+	CurbWeight *string `json:"curb_weight,omitempty" xml:"curb_weight,omitempty"`
+	// 总质量
+	TotalWeight *string `json:"total_weight,omitempty" xml:"total_weight,omitempty"`
+	// 前轮距
+	TireDistanceBefore *string `json:"tire_distance_before,omitempty" xml:"tire_distance_before,omitempty"`
+	// 额定载重量
+	RatedPlyload *string `json:"rated_plyload,omitempty" xml:"rated_plyload,omitempty"`
+	// 牵引总质量
+	TrailerWeight *string `json:"trailer_weight,omitempty" xml:"trailer_weight,omitempty"`
 }
 
 func (s CarInfoBrief) String() string {
@@ -1118,6 +1170,136 @@ func (s *CarInfoBrief) SetAxesNumber(v string) *CarInfoBrief {
 
 func (s *CarInfoBrief) SetWheelBase(v string) *CarInfoBrief {
 	s.WheelBase = &v
+	return s
+}
+
+func (s *CarInfoBrief) SetEngineDescribe(v string) *CarInfoBrief {
+	s.EngineDescribe = &v
+	return s
+}
+
+func (s *CarInfoBrief) SetColor(v string) *CarInfoBrief {
+	s.Color = &v
+	return s
+}
+
+func (s *CarInfoBrief) SetYearPattern(v string) *CarInfoBrief {
+	s.YearPattern = &v
+	return s
+}
+
+func (s *CarInfoBrief) SetManufacturerName(v string) *CarInfoBrief {
+	s.ManufacturerName = &v
+	return s
+}
+
+func (s *CarInfoBrief) SetPublishDate(v string) *CarInfoBrief {
+	s.PublishDate = &v
+	return s
+}
+
+func (s *CarInfoBrief) SetSaleCode(v string) *CarInfoBrief {
+	s.SaleCode = &v
+	return s
+}
+
+func (s *CarInfoBrief) SetDriveForm(v string) *CarInfoBrief {
+	s.DriveForm = &v
+	return s
+}
+
+func (s *CarInfoBrief) SetImportFlag(v string) *CarInfoBrief {
+	s.ImportFlag = &v
+	return s
+}
+
+func (s *CarInfoBrief) SetTireDistanceAfter(v string) *CarInfoBrief {
+	s.TireDistanceAfter = &v
+	return s
+}
+
+func (s *CarInfoBrief) SetDisplacement(v string) *CarInfoBrief {
+	s.Displacement = &v
+	return s
+}
+
+func (s *CarInfoBrief) SetEmissionStandard(v string) *CarInfoBrief {
+	s.EmissionStandard = &v
+	return s
+}
+
+func (s *CarInfoBrief) SetPower(v string) *CarInfoBrief {
+	s.Power = &v
+	return s
+}
+
+func (s *CarInfoBrief) SetGearbox(v string) *CarInfoBrief {
+	s.Gearbox = &v
+	return s
+}
+
+func (s *CarInfoBrief) SetVehicleType(v string) *CarInfoBrief {
+	s.VehicleType = &v
+	return s
+}
+
+func (s *CarInfoBrief) SetEngineModel(v string) *CarInfoBrief {
+	s.EngineModel = &v
+	return s
+}
+
+func (s *CarInfoBrief) SetTireCount(v string) *CarInfoBrief {
+	s.TireCount = &v
+	return s
+}
+
+func (s *CarInfoBrief) SetRatedPassengers(v string) *CarInfoBrief {
+	s.RatedPassengers = &v
+	return s
+}
+
+func (s *CarInfoBrief) SetGuidedPrice(v string) *CarInfoBrief {
+	s.GuidedPrice = &v
+	return s
+}
+
+func (s *CarInfoBrief) SetLength(v string) *CarInfoBrief {
+	s.Length = &v
+	return s
+}
+
+func (s *CarInfoBrief) SetWidth(v string) *CarInfoBrief {
+	s.Width = &v
+	return s
+}
+
+func (s *CarInfoBrief) SetHeight(v string) *CarInfoBrief {
+	s.Height = &v
+	return s
+}
+
+func (s *CarInfoBrief) SetCurbWeight(v string) *CarInfoBrief {
+	s.CurbWeight = &v
+	return s
+}
+
+func (s *CarInfoBrief) SetTotalWeight(v string) *CarInfoBrief {
+	s.TotalWeight = &v
+	return s
+}
+
+func (s *CarInfoBrief) SetTireDistanceBefore(v string) *CarInfoBrief {
+	s.TireDistanceBefore = &v
+	return s
+}
+
+func (s *CarInfoBrief) SetRatedPlyload(v string) *CarInfoBrief {
+	s.RatedPlyload = &v
+	return s
+}
+
+func (s *CarInfoBrief) SetTrailerWeight(v string) *CarInfoBrief {
+	s.TrailerWeight = &v
 	return s
 }
 
@@ -10053,7 +10235,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.22.12"),
+				"sdk_version":      tea.String("1.22.13"),
 				"_prod_code":       tea.String("REALPERSON"),
 				"_prod_channel":    tea.String("undefined"),
 			}
