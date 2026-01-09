@@ -1178,6 +1178,32 @@ class CarInfoBrief(TeaModel):
         fuel_type: str = None,
         axes_number: str = None,
         wheel_base: str = None,
+        engine_describe: str = None,
+        color: str = None,
+        year_pattern: str = None,
+        manufacturer_name: str = None,
+        publish_date: str = None,
+        sale_code: str = None,
+        drive_form: str = None,
+        import_flag: str = None,
+        tire_distance_after: str = None,
+        displacement: str = None,
+        emission_standard: str = None,
+        power: str = None,
+        gearbox: str = None,
+        vehicle_type: str = None,
+        engine_model: str = None,
+        tire_count: str = None,
+        rated_passengers: str = None,
+        guided_price: str = None,
+        length: str = None,
+        width: str = None,
+        height: str = None,
+        curb_weight: str = None,
+        total_weight: str = None,
+        tire_distance_before: str = None,
+        rated_plyload: str = None,
+        trailer_weight: str = None,
     ):
         # 生产时间
         self.production_time = production_time
@@ -1191,6 +1217,58 @@ class CarInfoBrief(TeaModel):
         self.axes_number = axes_number
         # 轴距
         self.wheel_base = wheel_base
+        # 排量描述
+        self.engine_describe = engine_describe
+        # 车身颜色
+        self.color = color
+        # 年款
+        self.year_pattern = year_pattern
+        # 生产厂商
+        self.manufacturer_name = manufacturer_name
+        # 发布年月
+        self.publish_date = publish_date
+        # 款型
+        self.sale_code = sale_code
+        # 驱动形式
+        self.drive_form = drive_form
+        # 国产/进口/合资
+        self.import_flag = import_flag
+        # 后轮距
+        self.tire_distance_after = tire_distance_after
+        # 排量
+        self.displacement = displacement
+        # 排放标准
+        self.emission_standard = emission_standard
+        # 功率
+        self.power = power
+        # 变速箱类型
+        self.gearbox = gearbox
+        # 车辆类型
+        self.vehicle_type = vehicle_type
+        # 发动机型号
+        self.engine_model = engine_model
+        # 轮胎数
+        self.tire_count = tire_count
+        # 座位数
+        self.rated_passengers = rated_passengers
+        # 指导价
+        self.guided_price = guided_price
+        # 车长
+        self.length = length
+        # 车宽
+        self.width = width
+        # 车高
+        self.height = height
+        # 整备质量
+        self.curb_weight = curb_weight
+        # 总质量
+        self.total_weight = total_weight
+        # 前轮距
+        self.tire_distance_before = tire_distance_before
+        # 额定载重量
+        self.rated_plyload = rated_plyload
+        # 牵引总质量
+        self.trailer_weight = trailer_weight
 
     def validate(self):
         pass
@@ -1213,6 +1291,58 @@ class CarInfoBrief(TeaModel):
             result['axes_number'] = self.axes_number
         if self.wheel_base is not None:
             result['wheel_base'] = self.wheel_base
+        if self.engine_describe is not None:
+            result['engine_describe'] = self.engine_describe
+        if self.color is not None:
+            result['color'] = self.color
+        if self.year_pattern is not None:
+            result['year_pattern'] = self.year_pattern
+        if self.manufacturer_name is not None:
+            result['manufacturer_name'] = self.manufacturer_name
+        if self.publish_date is not None:
+            result['publish_date'] = self.publish_date
+        if self.sale_code is not None:
+            result['sale_code'] = self.sale_code
+        if self.drive_form is not None:
+            result['drive_form'] = self.drive_form
+        if self.import_flag is not None:
+            result['import_flag'] = self.import_flag
+        if self.tire_distance_after is not None:
+            result['tire_distance_after'] = self.tire_distance_after
+        if self.displacement is not None:
+            result['displacement'] = self.displacement
+        if self.emission_standard is not None:
+            result['emission_standard'] = self.emission_standard
+        if self.power is not None:
+            result['power'] = self.power
+        if self.gearbox is not None:
+            result['gearbox'] = self.gearbox
+        if self.vehicle_type is not None:
+            result['vehicle_type'] = self.vehicle_type
+        if self.engine_model is not None:
+            result['engine_model'] = self.engine_model
+        if self.tire_count is not None:
+            result['tire_count'] = self.tire_count
+        if self.rated_passengers is not None:
+            result['rated_passengers'] = self.rated_passengers
+        if self.guided_price is not None:
+            result['guided_price'] = self.guided_price
+        if self.length is not None:
+            result['length'] = self.length
+        if self.width is not None:
+            result['width'] = self.width
+        if self.height is not None:
+            result['height'] = self.height
+        if self.curb_weight is not None:
+            result['curb_weight'] = self.curb_weight
+        if self.total_weight is not None:
+            result['total_weight'] = self.total_weight
+        if self.tire_distance_before is not None:
+            result['tire_distance_before'] = self.tire_distance_before
+        if self.rated_plyload is not None:
+            result['rated_plyload'] = self.rated_plyload
+        if self.trailer_weight is not None:
+            result['trailer_weight'] = self.trailer_weight
         return result
 
     def from_map(self, m: dict = None):
@@ -1229,6 +1359,58 @@ class CarInfoBrief(TeaModel):
             self.axes_number = m.get('axes_number')
         if m.get('wheel_base') is not None:
             self.wheel_base = m.get('wheel_base')
+        if m.get('engine_describe') is not None:
+            self.engine_describe = m.get('engine_describe')
+        if m.get('color') is not None:
+            self.color = m.get('color')
+        if m.get('year_pattern') is not None:
+            self.year_pattern = m.get('year_pattern')
+        if m.get('manufacturer_name') is not None:
+            self.manufacturer_name = m.get('manufacturer_name')
+        if m.get('publish_date') is not None:
+            self.publish_date = m.get('publish_date')
+        if m.get('sale_code') is not None:
+            self.sale_code = m.get('sale_code')
+        if m.get('drive_form') is not None:
+            self.drive_form = m.get('drive_form')
+        if m.get('import_flag') is not None:
+            self.import_flag = m.get('import_flag')
+        if m.get('tire_distance_after') is not None:
+            self.tire_distance_after = m.get('tire_distance_after')
+        if m.get('displacement') is not None:
+            self.displacement = m.get('displacement')
+        if m.get('emission_standard') is not None:
+            self.emission_standard = m.get('emission_standard')
+        if m.get('power') is not None:
+            self.power = m.get('power')
+        if m.get('gearbox') is not None:
+            self.gearbox = m.get('gearbox')
+        if m.get('vehicle_type') is not None:
+            self.vehicle_type = m.get('vehicle_type')
+        if m.get('engine_model') is not None:
+            self.engine_model = m.get('engine_model')
+        if m.get('tire_count') is not None:
+            self.tire_count = m.get('tire_count')
+        if m.get('rated_passengers') is not None:
+            self.rated_passengers = m.get('rated_passengers')
+        if m.get('guided_price') is not None:
+            self.guided_price = m.get('guided_price')
+        if m.get('length') is not None:
+            self.length = m.get('length')
+        if m.get('width') is not None:
+            self.width = m.get('width')
+        if m.get('height') is not None:
+            self.height = m.get('height')
+        if m.get('curb_weight') is not None:
+            self.curb_weight = m.get('curb_weight')
+        if m.get('total_weight') is not None:
+            self.total_weight = m.get('total_weight')
+        if m.get('tire_distance_before') is not None:
+            self.tire_distance_before = m.get('tire_distance_before')
+        if m.get('rated_plyload') is not None:
+            self.rated_plyload = m.get('rated_plyload')
+        if m.get('trailer_weight') is not None:
+            self.trailer_weight = m.get('trailer_weight')
         return self
 
 
