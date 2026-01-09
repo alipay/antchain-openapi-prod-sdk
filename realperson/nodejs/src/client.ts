@@ -727,6 +727,58 @@ export class CarInfoBrief extends $tea.Model {
   axesNumber?: string;
   // 轴距
   wheelBase?: string;
+  // 排量描述
+  engineDescribe?: string;
+  // 车身颜色
+  color?: string;
+  // 年款
+  yearPattern?: string;
+  // 生产厂商
+  manufacturerName?: string;
+  // 发布年月
+  publishDate?: string;
+  // 款型
+  saleCode?: string;
+  // 驱动形式
+  driveForm?: string;
+  // 国产/进口/合资
+  importFlag?: string;
+  // 后轮距
+  tireDistanceAfter?: string;
+  // 排量
+  displacement?: string;
+  // 排放标准
+  emissionStandard?: string;
+  // 功率
+  power?: string;
+  // 变速箱类型
+  gearbox?: string;
+  // 车辆类型
+  vehicleType?: string;
+  // 发动机型号
+  engineModel?: string;
+  // 轮胎数
+  tireCount?: string;
+  // 座位数
+  ratedPassengers?: string;
+  // 指导价
+  guidedPrice?: string;
+  // 车长
+  length?: string;
+  // 车宽
+  width?: string;
+  // 车高
+  height?: string;
+  // 整备质量
+  curbWeight?: string;
+  // 总质量
+  totalWeight?: string;
+  // 前轮距
+  tireDistanceBefore?: string;
+  // 额定载重量
+  ratedPlyload?: string;
+  // 牵引总质量
+  trailerWeight?: string;
   static names(): { [key: string]: string } {
     return {
       productionTime: 'production_time',
@@ -735,6 +787,32 @@ export class CarInfoBrief extends $tea.Model {
       fuelType: 'fuel_type',
       axesNumber: 'axes_number',
       wheelBase: 'wheel_base',
+      engineDescribe: 'engine_describe',
+      color: 'color',
+      yearPattern: 'year_pattern',
+      manufacturerName: 'manufacturer_name',
+      publishDate: 'publish_date',
+      saleCode: 'sale_code',
+      driveForm: 'drive_form',
+      importFlag: 'import_flag',
+      tireDistanceAfter: 'tire_distance_after',
+      displacement: 'displacement',
+      emissionStandard: 'emission_standard',
+      power: 'power',
+      gearbox: 'gearbox',
+      vehicleType: 'vehicle_type',
+      engineModel: 'engine_model',
+      tireCount: 'tire_count',
+      ratedPassengers: 'rated_passengers',
+      guidedPrice: 'guided_price',
+      length: 'length',
+      width: 'width',
+      height: 'height',
+      curbWeight: 'curb_weight',
+      totalWeight: 'total_weight',
+      tireDistanceBefore: 'tire_distance_before',
+      ratedPlyload: 'rated_plyload',
+      trailerWeight: 'trailer_weight',
     };
   }
 
@@ -746,6 +824,32 @@ export class CarInfoBrief extends $tea.Model {
       fuelType: 'string',
       axesNumber: 'string',
       wheelBase: 'string',
+      engineDescribe: 'string',
+      color: 'string',
+      yearPattern: 'string',
+      manufacturerName: 'string',
+      publishDate: 'string',
+      saleCode: 'string',
+      driveForm: 'string',
+      importFlag: 'string',
+      tireDistanceAfter: 'string',
+      displacement: 'string',
+      emissionStandard: 'string',
+      power: 'string',
+      gearbox: 'string',
+      vehicleType: 'string',
+      engineModel: 'string',
+      tireCount: 'string',
+      ratedPassengers: 'string',
+      guidedPrice: 'string',
+      length: 'string',
+      width: 'string',
+      height: 'string',
+      curbWeight: 'string',
+      totalWeight: 'string',
+      tireDistanceBefore: 'string',
+      ratedPlyload: 'string',
+      trailerWeight: 'string',
     };
   }
 
@@ -7289,7 +7393,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.22.12",
+          sdk_version: "1.22.13",
           _prod_code: "REALPERSON",
           _prod_channel: "undefined",
         };
