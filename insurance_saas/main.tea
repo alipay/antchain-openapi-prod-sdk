@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.11.2',
+    sdk_version = '1.11.4',
     _prod_code = 'INSURANCE_SAAS',
     _prod_channel = 'undefined'
   };
@@ -2118,5 +2118,46 @@ async function callbackMarketingPolicycancel(request: CallbackMarketingPolicycan
 async function callbackMarketingPolicycancelEx(request: CallbackMarketingPolicycancelRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CallbackMarketingPolicycancelResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antcloud.insurance.marketing.policycancel.callback', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryLeadMarketRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 产品编码
+  productCode: string(name='product_code'),
+  // 业务参数
+  bizContent?: string(name='biz_content'),
+  // 请求流水号，全局唯一
+  requestId: string(name='request_id'),
+}
+
+model QueryLeadMarketResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // JSON字符串
+  bizResult?: string(name='biz_result'),
+}
+
+/**
+ * Description: 车险线索查询
+ * Summary: 车险线索查询
+ */
+async function queryLeadMarket(request: QueryLeadMarketRequest): QueryLeadMarketResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryLeadMarketEx(request, headers, runtime);
+}
+
+/**
+ * Description: 车险线索查询
+ * Summary: 车险线索查询
+ */
+async function queryLeadMarketEx(request: QueryLeadMarketRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryLeadMarketResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.insurance.lead.market.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
