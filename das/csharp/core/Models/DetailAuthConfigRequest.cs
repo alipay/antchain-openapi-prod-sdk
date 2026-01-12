@@ -23,6 +23,11 @@ namespace AntChain.SDK.DAS.Models
         [Validation(Required=true)]
         public string SourceServiceNodeId { get; set; }
 
+        // 数据源租户id
+        [NameInMap("source_tenant_id")]
+        [Validation(Required=true)]
+        public string SourceTenantId { get; set; }
+
         // 场景码
         [NameInMap("scene_code")]
         [Validation(Required=true)]
