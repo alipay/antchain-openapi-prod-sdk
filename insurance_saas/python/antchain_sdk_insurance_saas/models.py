@@ -5640,21 +5640,21 @@ class QueryLeadMarketRequest(TeaModel):
         self,
         auth_token: str = None,
         product_code: str = None,
-        lead_id: str = None,
         biz_content: str = None,
+        request_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         # 产品编码
         self.product_code = product_code
-        # 请求时的线索唯一id
-        self.lead_id = lead_id
         # 业务参数
         self.biz_content = biz_content
+        # 请求流水号，全局唯一
+        self.request_id = request_id
 
     def validate(self):
         self.validate_required(self.product_code, 'product_code')
-        self.validate_required(self.lead_id, 'lead_id')
+        self.validate_required(self.request_id, 'request_id')
 
     def to_map(self):
         _map = super().to_map()
@@ -5666,10 +5666,10 @@ class QueryLeadMarketRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_code is not None:
             result['product_code'] = self.product_code
-        if self.lead_id is not None:
-            result['lead_id'] = self.lead_id
         if self.biz_content is not None:
             result['biz_content'] = self.biz_content
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
         return result
 
     def from_map(self, m: dict = None):
@@ -5678,10 +5678,10 @@ class QueryLeadMarketRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_code') is not None:
             self.product_code = m.get('product_code')
-        if m.get('lead_id') is not None:
-            self.lead_id = m.get('lead_id')
         if m.get('biz_content') is not None:
             self.biz_content = m.get('biz_content')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
         return self
 
 
