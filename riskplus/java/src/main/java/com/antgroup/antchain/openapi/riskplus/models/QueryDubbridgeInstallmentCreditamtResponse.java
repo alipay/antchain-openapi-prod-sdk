@@ -52,7 +52,7 @@ public class QueryDubbridgeInstallmentCreditamtResponse extends TeaModel {
     // 1- 拒绝 
     // 2- 审批中
     // 3- 失败
-    // 
+    // 4- 未授信
     @NameInMap("apply_status")
     public String applyStatus;
 

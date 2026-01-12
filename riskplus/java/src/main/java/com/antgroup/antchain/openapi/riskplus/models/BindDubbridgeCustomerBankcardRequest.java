@@ -47,9 +47,13 @@ public class BindDubbridgeCustomerBankcardRequest extends TeaModel {
     @NameInMap("mobile")
     public String mobile;
 
-    // 银行名称
-    @NameInMap("bank_name")
-    public String bankName;
+    // 业务类型
+    @NameInMap("prod_type")
+    public String prodType;
+
+    // 银行编码
+    @NameInMap("bank_code")
+    public String bankCode;
 
     public static BindDubbridgeCustomerBankcardRequest build(java.util.Map<String, ?> map) throws Exception {
         BindDubbridgeCustomerBankcardRequest self = new BindDubbridgeCustomerBankcardRequest();
@@ -136,12 +140,20 @@ public class BindDubbridgeCustomerBankcardRequest extends TeaModel {
         return this.mobile;
     }
 
-    public BindDubbridgeCustomerBankcardRequest setBankName(String bankName) {
-        this.bankName = bankName;
+    public BindDubbridgeCustomerBankcardRequest setProdType(String prodType) {
+        this.prodType = prodType;
         return this;
     }
-    public String getBankName() {
-        return this.bankName;
+    public String getProdType() {
+        return this.prodType;
+    }
+
+    public BindDubbridgeCustomerBankcardRequest setBankCode(String bankCode) {
+        this.bankCode = bankCode;
+        return this;
+    }
+    public String getBankCode() {
+        return this.bankCode;
     }
 
 }

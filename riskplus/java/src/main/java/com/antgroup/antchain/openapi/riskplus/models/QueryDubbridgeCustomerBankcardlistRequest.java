@@ -21,6 +21,10 @@ public class QueryDubbridgeCustomerBankcardlistRequest extends TeaModel {
     @Validation(required = true)
     public String fundCode;
 
+    // 业务类型
+    @NameInMap("prod_type")
+    public String prodType;
+
     public static QueryDubbridgeCustomerBankcardlistRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryDubbridgeCustomerBankcardlistRequest self = new QueryDubbridgeCustomerBankcardlistRequest();
         return TeaModel.build(map, self);
@@ -56,6 +60,14 @@ public class QueryDubbridgeCustomerBankcardlistRequest extends TeaModel {
     }
     public String getFundCode() {
         return this.fundCode;
+    }
+
+    public QueryDubbridgeCustomerBankcardlistRequest setProdType(String prodType) {
+        this.prodType = prodType;
+        return this;
+    }
+    public String getProdType() {
+        return this.prodType;
     }
 
 }

@@ -48,6 +48,14 @@ public class CountDubbridgeRepayReftrialRequest extends TeaModel {
     @NameInMap("coupon_id")
     public String couponId;
 
+    // 贴息比例
+    @NameInMap("interest_subsidy_ratio")
+    public String interestSubsidyRatio;
+
+    // 参考定价
+    @NameInMap("reference_ratio")
+    public String referenceRatio;
+
     public static CountDubbridgeRepayReftrialRequest build(java.util.Map<String, ?> map) throws Exception {
         CountDubbridgeRepayReftrialRequest self = new CountDubbridgeRepayReftrialRequest();
         return TeaModel.build(map, self);
@@ -131,6 +139,22 @@ public class CountDubbridgeRepayReftrialRequest extends TeaModel {
     }
     public String getCouponId() {
         return this.couponId;
+    }
+
+    public CountDubbridgeRepayReftrialRequest setInterestSubsidyRatio(String interestSubsidyRatio) {
+        this.interestSubsidyRatio = interestSubsidyRatio;
+        return this;
+    }
+    public String getInterestSubsidyRatio() {
+        return this.interestSubsidyRatio;
+    }
+
+    public CountDubbridgeRepayReftrialRequest setReferenceRatio(String referenceRatio) {
+        this.referenceRatio = referenceRatio;
+        return this;
+    }
+    public String getReferenceRatio() {
+        return this.referenceRatio;
     }
 
 }

@@ -61,6 +61,10 @@ public class QueryDubbridgeCreditStatusResponse extends TeaModel {
     @NameInMap("loan_inst_code")
     public String loanInstCode;
 
+    // JSON字符串
+    @NameInMap("ext_info")
+    public String extInfo;
+
     public static QueryDubbridgeCreditStatusResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryDubbridgeCreditStatusResponse self = new QueryDubbridgeCreditStatusResponse();
         return TeaModel.build(map, self);
@@ -176,6 +180,14 @@ public class QueryDubbridgeCreditStatusResponse extends TeaModel {
     }
     public String getLoanInstCode() {
         return this.loanInstCode;
+    }
+
+    public QueryDubbridgeCreditStatusResponse setExtInfo(String extInfo) {
+        this.extInfo = extInfo;
+        return this;
+    }
+    public String getExtInfo() {
+        return this.extInfo;
     }
 
 }

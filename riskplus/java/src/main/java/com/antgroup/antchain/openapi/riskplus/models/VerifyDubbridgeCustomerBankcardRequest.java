@@ -39,6 +39,10 @@ public class VerifyDubbridgeCustomerBankcardRequest extends TeaModel {
     @Validation(required = true)
     public String channelCode;
 
+    // 业务类型
+    @NameInMap("prod_type")
+    public String prodType;
+
     public static VerifyDubbridgeCustomerBankcardRequest build(java.util.Map<String, ?> map) throws Exception {
         VerifyDubbridgeCustomerBankcardRequest self = new VerifyDubbridgeCustomerBankcardRequest();
         return TeaModel.build(map, self);
@@ -106,6 +110,14 @@ public class VerifyDubbridgeCustomerBankcardRequest extends TeaModel {
     }
     public String getChannelCode() {
         return this.channelCode;
+    }
+
+    public VerifyDubbridgeCustomerBankcardRequest setProdType(String prodType) {
+        this.prodType = prodType;
+        return this;
+    }
+    public String getProdType() {
+        return this.prodType;
     }
 
 }

@@ -28,6 +28,10 @@ public class VerifyDubbridgeCustomerBankcardResponse extends TeaModel {
     @NameInMap("customer_no")
     public String customerNo;
 
+    // 协议号
+    @NameInMap("protocol_no")
+    public String protocolNo;
+
     public static VerifyDubbridgeCustomerBankcardResponse build(java.util.Map<String, ?> map) throws Exception {
         VerifyDubbridgeCustomerBankcardResponse self = new VerifyDubbridgeCustomerBankcardResponse();
         return TeaModel.build(map, self);
@@ -79,6 +83,14 @@ public class VerifyDubbridgeCustomerBankcardResponse extends TeaModel {
     }
     public String getCustomerNo() {
         return this.customerNo;
+    }
+
+    public VerifyDubbridgeCustomerBankcardResponse setProtocolNo(String protocolNo) {
+        this.protocolNo = protocolNo;
+        return this;
+    }
+    public String getProtocolNo() {
+        return this.protocolNo;
     }
 
 }

@@ -62,6 +62,10 @@ public class RepayDubbridgeRepayWithholdRequest extends TeaModel {
     @NameInMap("signing_agreement_num")
     public String signingAgreementNum;
 
+    // 担保费
+    @NameInMap("guarantee_fee")
+    public String guaranteeFee;
+
     public static RepayDubbridgeRepayWithholdRequest build(java.util.Map<String, ?> map) throws Exception {
         RepayDubbridgeRepayWithholdRequest self = new RepayDubbridgeRepayWithholdRequest();
         return TeaModel.build(map, self);
@@ -177,6 +181,14 @@ public class RepayDubbridgeRepayWithholdRequest extends TeaModel {
     }
     public String getSigningAgreementNum() {
         return this.signingAgreementNum;
+    }
+
+    public RepayDubbridgeRepayWithholdRequest setGuaranteeFee(String guaranteeFee) {
+        this.guaranteeFee = guaranteeFee;
+        return this;
+    }
+    public String getGuaranteeFee() {
+        return this.guaranteeFee;
     }
 
 }

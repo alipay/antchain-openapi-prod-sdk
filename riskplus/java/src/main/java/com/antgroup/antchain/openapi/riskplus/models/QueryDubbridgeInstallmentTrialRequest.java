@@ -49,6 +49,10 @@ public class QueryDubbridgeInstallmentTrialRequest extends TeaModel {
     @NameInMap("coupon_id")
     public String couponId;
 
+    // 导流平台
+    @NameInMap("traffic_platform")
+    public String trafficPlatform;
+
     public static QueryDubbridgeInstallmentTrialRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryDubbridgeInstallmentTrialRequest self = new QueryDubbridgeInstallmentTrialRequest();
         return TeaModel.build(map, self);
@@ -132,6 +136,14 @@ public class QueryDubbridgeInstallmentTrialRequest extends TeaModel {
     }
     public String getCouponId() {
         return this.couponId;
+    }
+
+    public QueryDubbridgeInstallmentTrialRequest setTrafficPlatform(String trafficPlatform) {
+        this.trafficPlatform = trafficPlatform;
+        return this;
+    }
+    public String getTrafficPlatform() {
+        return this.trafficPlatform;
     }
 
 }

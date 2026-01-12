@@ -30,6 +30,14 @@ public class CountDubbridgeRepayTrialRequest extends TeaModel {
     @NameInMap("period_list")
     public java.util.List<Long> periodList;
 
+    // 贴息比例
+    @NameInMap("interest_subsidy_ratio")
+    public String interestSubsidyRatio;
+
+    // 参考定价
+    @NameInMap("reference_ratio")
+    public String referenceRatio;
+
     public static CountDubbridgeRepayTrialRequest build(java.util.Map<String, ?> map) throws Exception {
         CountDubbridgeRepayTrialRequest self = new CountDubbridgeRepayTrialRequest();
         return TeaModel.build(map, self);
@@ -81,6 +89,22 @@ public class CountDubbridgeRepayTrialRequest extends TeaModel {
     }
     public java.util.List<Long> getPeriodList() {
         return this.periodList;
+    }
+
+    public CountDubbridgeRepayTrialRequest setInterestSubsidyRatio(String interestSubsidyRatio) {
+        this.interestSubsidyRatio = interestSubsidyRatio;
+        return this;
+    }
+    public String getInterestSubsidyRatio() {
+        return this.interestSubsidyRatio;
+    }
+
+    public CountDubbridgeRepayTrialRequest setReferenceRatio(String referenceRatio) {
+        this.referenceRatio = referenceRatio;
+        return this;
+    }
+    public String getReferenceRatio() {
+        return this.referenceRatio;
     }
 
 }

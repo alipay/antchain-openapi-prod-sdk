@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.30.0"),
+                    new TeaPair("sdk_version", "1.30.11"),
                     new TeaPair("_prod_code", "RISKPLUS"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -2182,6 +2182,48 @@ public class Client {
     public NotifyDubbridgeInterestResultResponse notifyDubbridgeInterestResultEx(NotifyDubbridgeInterestResultRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "riskplus.dubbridge.interest.result.notify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new NotifyDubbridgeInterestResultResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 天枢-商户结算信息修改
+     * Summary: 天枢-商户结算信息修改</p>
+     */
+    public SettlementmodifyDubbridgeAlipayMerchantResponse settlementmodifyDubbridgeAlipayMerchant(SettlementmodifyDubbridgeAlipayMerchantRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.settlementmodifyDubbridgeAlipayMerchantEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 天枢-商户结算信息修改
+     * Summary: 天枢-商户结算信息修改</p>
+     */
+    public SettlementmodifyDubbridgeAlipayMerchantResponse settlementmodifyDubbridgeAlipayMerchantEx(SettlementmodifyDubbridgeAlipayMerchantRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.dubbridge.alipay.merchant.settlementmodify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SettlementmodifyDubbridgeAlipayMerchantResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 撞库查询机构侧最高可用额度
+     * Summary: 机构侧最高可用额度查询接口</p>
+     */
+    public QueryDubbridgeFundCreditamtResponse queryDubbridgeFundCreditamt(QueryDubbridgeFundCreditamtRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDubbridgeFundCreditamtEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 撞库查询机构侧最高可用额度
+     * Summary: 机构侧最高可用额度查询接口</p>
+     */
+    public QueryDubbridgeFundCreditamtResponse queryDubbridgeFundCreditamtEx(QueryDubbridgeFundCreditamtRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.dubbridge.fund.creditamt.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDubbridgeFundCreditamtResponse());
     }
 
     /**
@@ -5702,6 +5744,27 @@ public class Client {
     public DownloadUmktOfflineCampaignResponse downloadUmktOfflineCampaignEx(DownloadUmktOfflineCampaignRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "riskplus.umkt.offline.campaign.download", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DownloadUmktOfflineCampaignResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 营销盾半圈投任务查询
+     * Summary: 营销盾半圈投任务查询</p>
+     */
+    public QueryUmktCampaignTaskResponse queryUmktCampaignTask(QueryUmktCampaignTaskRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryUmktCampaignTaskEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 营销盾半圈投任务查询
+     * Summary: 营销盾半圈投任务查询</p>
+     */
+    public QueryUmktCampaignTaskResponse queryUmktCampaignTaskEx(QueryUmktCampaignTaskRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.umkt.campaign.task.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryUmktCampaignTaskResponse());
     }
 
     /**

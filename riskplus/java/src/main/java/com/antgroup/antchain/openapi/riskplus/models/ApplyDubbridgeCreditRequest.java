@@ -83,6 +83,14 @@ public class ApplyDubbridgeCreditRequest extends TeaModel {
     @NameInMap("fund_code")
     public String fundCode;
 
+    // 业务方订单号
+    @NameInMap("biz_order_no")
+    public String bizOrderNo;
+
+    // 业务类型
+    @NameInMap("prod_type")
+    public String prodType;
+
     public static ApplyDubbridgeCreditRequest build(java.util.Map<String, ?> map) throws Exception {
         ApplyDubbridgeCreditRequest self = new ApplyDubbridgeCreditRequest();
         return TeaModel.build(map, self);
@@ -238,6 +246,22 @@ public class ApplyDubbridgeCreditRequest extends TeaModel {
     }
     public String getFundCode() {
         return this.fundCode;
+    }
+
+    public ApplyDubbridgeCreditRequest setBizOrderNo(String bizOrderNo) {
+        this.bizOrderNo = bizOrderNo;
+        return this;
+    }
+    public String getBizOrderNo() {
+        return this.bizOrderNo;
+    }
+
+    public ApplyDubbridgeCreditRequest setProdType(String prodType) {
+        this.prodType = prodType;
+        return this;
+    }
+    public String getProdType() {
+        return this.prodType;
     }
 
 }

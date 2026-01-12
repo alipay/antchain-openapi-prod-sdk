@@ -78,6 +78,14 @@ public class ApplyDubbridgeUsecreditRequest extends TeaModel {
     @NameInMap("coupon_id")
     public String couponId;
 
+    // 导流平台
+    @NameInMap("traffic_platform")
+    public String trafficPlatform;
+
+    // 业务方订单号
+    @NameInMap("biz_order_no")
+    public String bizOrderNo;
+
     public static ApplyDubbridgeUsecreditRequest build(java.util.Map<String, ?> map) throws Exception {
         ApplyDubbridgeUsecreditRequest self = new ApplyDubbridgeUsecreditRequest();
         return TeaModel.build(map, self);
@@ -217,6 +225,22 @@ public class ApplyDubbridgeUsecreditRequest extends TeaModel {
     }
     public String getCouponId() {
         return this.couponId;
+    }
+
+    public ApplyDubbridgeUsecreditRequest setTrafficPlatform(String trafficPlatform) {
+        this.trafficPlatform = trafficPlatform;
+        return this;
+    }
+    public String getTrafficPlatform() {
+        return this.trafficPlatform;
+    }
+
+    public ApplyDubbridgeUsecreditRequest setBizOrderNo(String bizOrderNo) {
+        this.bizOrderNo = bizOrderNo;
+        return this;
+    }
+    public String getBizOrderNo() {
+        return this.bizOrderNo;
     }
 
 }

@@ -42,6 +42,10 @@ public class UploadUmktOfflinedecisionRequest extends TeaModel {
     @NameInMap("relation_type")
     public String relationType;
 
+    // 任务执行uuid
+    @NameInMap("task_uuid")
+    public String taskUuid;
+
     public static UploadUmktOfflinedecisionRequest build(java.util.Map<String, ?> map) throws Exception {
         UploadUmktOfflinedecisionRequest self = new UploadUmktOfflinedecisionRequest();
         return TeaModel.build(map, self);
@@ -109,6 +113,14 @@ public class UploadUmktOfflinedecisionRequest extends TeaModel {
     }
     public String getRelationType() {
         return this.relationType;
+    }
+
+    public UploadUmktOfflinedecisionRequest setTaskUuid(String taskUuid) {
+        this.taskUuid = taskUuid;
+        return this;
+    }
+    public String getTaskUuid() {
+        return this.taskUuid;
     }
 
 }

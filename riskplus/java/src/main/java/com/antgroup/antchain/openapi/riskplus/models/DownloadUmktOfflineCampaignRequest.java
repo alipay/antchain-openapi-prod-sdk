@@ -23,13 +23,16 @@ public class DownloadUmktOfflineCampaignRequest extends TeaModel {
 
     // 关联圈客计划id
     @NameInMap("decision_plan_id")
-    @Validation(required = true)
     public Long decisionPlanId;
 
     // 任务id
     @NameInMap("task_id")
     @Validation(required = true)
     public String taskId;
+
+    // 节点任务关联资源id
+    @NameInMap("resource_id")
+    public String resourceId;
 
     public static DownloadUmktOfflineCampaignRequest build(java.util.Map<String, ?> map) throws Exception {
         DownloadUmktOfflineCampaignRequest self = new DownloadUmktOfflineCampaignRequest();
@@ -82,6 +85,14 @@ public class DownloadUmktOfflineCampaignRequest extends TeaModel {
     }
     public String getTaskId() {
         return this.taskId;
+    }
+
+    public DownloadUmktOfflineCampaignRequest setResourceId(String resourceId) {
+        this.resourceId = resourceId;
+        return this;
+    }
+    public String getResourceId() {
+        return this.resourceId;
     }
 
 }

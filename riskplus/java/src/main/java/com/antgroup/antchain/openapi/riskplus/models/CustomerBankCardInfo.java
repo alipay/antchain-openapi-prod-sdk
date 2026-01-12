@@ -47,6 +47,14 @@ public class CustomerBankCardInfo extends TeaModel {
     @NameInMap("acct_bank_card")
     public String acctBankCard;
 
+    // 协议号
+    /**
+     * <strong>example:</strong>
+     * <p>202515300000000000000158463</p>
+     */
+    @NameInMap("protocol_no")
+    public String protocolNo;
+
     public static CustomerBankCardInfo build(java.util.Map<String, ?> map) throws Exception {
         CustomerBankCardInfo self = new CustomerBankCardInfo();
         return TeaModel.build(map, self);
@@ -90,6 +98,14 @@ public class CustomerBankCardInfo extends TeaModel {
     }
     public String getAcctBankCard() {
         return this.acctBankCard;
+    }
+
+    public CustomerBankCardInfo setProtocolNo(String protocolNo) {
+        this.protocolNo = protocolNo;
+        return this;
+    }
+    public String getProtocolNo() {
+        return this.protocolNo;
     }
 
 }

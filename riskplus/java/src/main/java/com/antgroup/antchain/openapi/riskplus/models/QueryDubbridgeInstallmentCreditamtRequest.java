@@ -77,6 +77,10 @@ public class QueryDubbridgeInstallmentCreditamtRequest extends TeaModel {
     @NameInMap("click_id")
     public String clickId;
 
+    // 取消授信额度
+    @NameInMap("cancal_credit_line")
+    public String cancalCreditLine;
+
     public static QueryDubbridgeInstallmentCreditamtRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryDubbridgeInstallmentCreditamtRequest self = new QueryDubbridgeInstallmentCreditamtRequest();
         return TeaModel.build(map, self);
@@ -216,6 +220,14 @@ public class QueryDubbridgeInstallmentCreditamtRequest extends TeaModel {
     }
     public String getClickId() {
         return this.clickId;
+    }
+
+    public QueryDubbridgeInstallmentCreditamtRequest setCancalCreditLine(String cancalCreditLine) {
+        this.cancalCreditLine = cancalCreditLine;
+        return this;
+    }
+    public String getCancalCreditLine() {
+        return this.cancalCreditLine;
     }
 
 }
