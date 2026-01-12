@@ -19,6 +19,18 @@ class UpdateAuthStatusRequest extends Model
      */
     public $productInstanceId;
 
+    // 数据源可信空间id
+    /**
+     * @var string
+     */
+    public $sourceServiceNodeId;
+
+    // 数据源租户id
+    /**
+     * @var string
+     */
+    public $sourceTenantId;
+
     // 被授权方企业信用代码
     /**
      * @var string
@@ -37,15 +49,19 @@ class UpdateAuthStatusRequest extends Model
      */
     public $authStatus;
     protected $_name = [
-        'authToken'          => 'auth_token',
-        'productInstanceId'  => 'product_instance_id',
-        'authEnterpriseCode' => 'auth_enterprise_code',
-        'sceneCode'          => 'scene_code',
-        'authStatus'         => 'auth_status',
+        'authToken'           => 'auth_token',
+        'productInstanceId'   => 'product_instance_id',
+        'sourceServiceNodeId' => 'source_service_node_id',
+        'sourceTenantId'      => 'source_tenant_id',
+        'authEnterpriseCode'  => 'auth_enterprise_code',
+        'sceneCode'           => 'scene_code',
+        'authStatus'          => 'auth_status',
     ];
 
     public function validate()
     {
+        Model::validateRequired('sourceServiceNodeId', $this->sourceServiceNodeId, true);
+        Model::validateRequired('sourceTenantId', $this->sourceTenantId, true);
         Model::validateRequired('authEnterpriseCode', $this->authEnterpriseCode, true);
         Model::validateRequired('sceneCode', $this->sceneCode, true);
         Model::validateRequired('authStatus', $this->authStatus, true);
@@ -59,6 +75,12 @@ class UpdateAuthStatusRequest extends Model
         }
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->sourceServiceNodeId) {
+            $res['source_service_node_id'] = $this->sourceServiceNodeId;
+        }
+        if (null !== $this->sourceTenantId) {
+            $res['source_tenant_id'] = $this->sourceTenantId;
         }
         if (null !== $this->authEnterpriseCode) {
             $res['auth_enterprise_code'] = $this->authEnterpriseCode;
@@ -86,6 +108,12 @@ class UpdateAuthStatusRequest extends Model
         }
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
+        }
+        if (isset($map['source_service_node_id'])) {
+            $model->sourceServiceNodeId = $map['source_service_node_id'];
+        }
+        if (isset($map['source_tenant_id'])) {
+            $model->sourceTenantId = $map['source_tenant_id'];
         }
         if (isset($map['auth_enterprise_code'])) {
             $model->authEnterpriseCode = $map['auth_enterprise_code'];
