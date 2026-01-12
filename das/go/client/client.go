@@ -7347,6 +7347,10 @@ type UpdateAuthStatusRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 数据源可信空间id
+	SourceServiceNodeId *string `json:"source_service_node_id,omitempty" xml:"source_service_node_id,omitempty" require:"true"`
+	// 数据源租户id
+	SourceTenantId *string `json:"source_tenant_id,omitempty" xml:"source_tenant_id,omitempty" require:"true"`
 	// 被授权方企业信用代码
 	AuthEnterpriseCode *string `json:"auth_enterprise_code,omitempty" xml:"auth_enterprise_code,omitempty" require:"true"`
 	// 场景码
@@ -7370,6 +7374,16 @@ func (s *UpdateAuthStatusRequest) SetAuthToken(v string) *UpdateAuthStatusReques
 
 func (s *UpdateAuthStatusRequest) SetProductInstanceId(v string) *UpdateAuthStatusRequest {
 	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UpdateAuthStatusRequest) SetSourceServiceNodeId(v string) *UpdateAuthStatusRequest {
+	s.SourceServiceNodeId = &v
+	return s
+}
+
+func (s *UpdateAuthStatusRequest) SetSourceTenantId(v string) *UpdateAuthStatusRequest {
+	s.SourceTenantId = &v
 	return s
 }
 
@@ -7426,6 +7440,8 @@ type DetailAuthConfigRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 数据源可信空间id
 	SourceServiceNodeId *string `json:"source_service_node_id,omitempty" xml:"source_service_node_id,omitempty" require:"true"`
+	// 数据源租户id
+	SourceTenantId *string `json:"source_tenant_id,omitempty" xml:"source_tenant_id,omitempty" require:"true"`
 	// 场景码
 	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
 }
@@ -7450,6 +7466,11 @@ func (s *DetailAuthConfigRequest) SetProductInstanceId(v string) *DetailAuthConf
 
 func (s *DetailAuthConfigRequest) SetSourceServiceNodeId(v string) *DetailAuthConfigRequest {
 	s.SourceServiceNodeId = &v
+	return s
+}
+
+func (s *DetailAuthConfigRequest) SetSourceTenantId(v string) *DetailAuthConfigRequest {
+	s.SourceTenantId = &v
 	return s
 }
 
@@ -7669,6 +7690,10 @@ type ListAuthRecordRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 数据源可信空间id
+	SourceServiceNodeId *string `json:"source_service_node_id,omitempty" xml:"source_service_node_id,omitempty" require:"true"`
+	// 数据源租户id
+	SourceTenantId *string `json:"source_tenant_id,omitempty" xml:"source_tenant_id,omitempty" require:"true"`
 	// 场景码
 	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
 	// 用户信息
@@ -7694,6 +7719,16 @@ func (s *ListAuthRecordRequest) SetAuthToken(v string) *ListAuthRecordRequest {
 
 func (s *ListAuthRecordRequest) SetProductInstanceId(v string) *ListAuthRecordRequest {
 	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ListAuthRecordRequest) SetSourceServiceNodeId(v string) *ListAuthRecordRequest {
+	s.SourceServiceNodeId = &v
+	return s
+}
+
+func (s *ListAuthRecordRequest) SetSourceTenantId(v string) *ListAuthRecordRequest {
+	s.SourceTenantId = &v
 	return s
 }
 
@@ -8607,7 +8642,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.121"),
+				"sdk_version":      tea.String("1.1.123"),
 				"_prod_code":       tea.String("DAS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
