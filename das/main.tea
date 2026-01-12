@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.121',
+    sdk_version = '1.1.123',
     _prod_code = 'DAS',
     _prod_channel = 'undefined'
   };
@@ -3217,6 +3217,10 @@ model UpdateAuthStatusRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
+  // 数据源可信空间id
+  sourceServiceNodeId: string(name='source_service_node_id'),
+  // 数据源租户id
+  sourceTenantId: string(name='source_tenant_id'),
   // 被授权方企业信用代码
   authEnterpriseCode: string(name='auth_enterprise_code'),
   // 场景码
@@ -3259,6 +3263,8 @@ model DetailAuthConfigRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 数据源可信空间id
   sourceServiceNodeId: string(name='source_service_node_id'),
+  // 数据源租户id
+  sourceTenantId: string(name='source_tenant_id'),
   // 场景码
   sceneCode: string(name='scene_code'),
 }
@@ -3345,6 +3351,10 @@ model ListAuthRecordRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
+  // 数据源可信空间id
+  sourceServiceNodeId: string(name='source_service_node_id'),
+  // 数据源租户id
+  sourceTenantId: string(name='source_tenant_id'),
   // 场景码
   sceneCode: string(name='scene_code'),
   // 用户信息
