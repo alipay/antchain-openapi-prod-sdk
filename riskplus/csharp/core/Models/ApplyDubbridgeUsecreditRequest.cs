@@ -93,6 +93,16 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string CouponId { get; set; }
 
+        // 导流平台
+        [NameInMap("traffic_platform")]
+        [Validation(Required=false)]
+        public string TrafficPlatform { get; set; }
+
+        // 业务方订单号
+        [NameInMap("biz_order_no")]
+        [Validation(Required=false)]
+        public string BizOrderNo { get; set; }
+
     }
 
 }

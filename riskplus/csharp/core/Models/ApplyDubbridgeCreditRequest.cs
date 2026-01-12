@@ -103,6 +103,16 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string FundCode { get; set; }
 
+        // 业务方订单号
+        [NameInMap("biz_order_no")]
+        [Validation(Required=false)]
+        public string BizOrderNo { get; set; }
+
+        // 业务类型
+        [NameInMap("prod_type")]
+        [Validation(Required=false)]
+        public string ProdType { get; set; }
+
     }
 
 }

@@ -48,6 +48,11 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=true)]
         public string ChannelCode { get; set; }
 
+        // 业务类型
+        [NameInMap("prod_type")]
+        [Validation(Required=false)]
+        public string ProdType { get; set; }
+
     }
 
 }

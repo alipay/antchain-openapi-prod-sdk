@@ -78,6 +78,11 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string SigningAgreementNum { get; set; }
 
+        // 担保费
+        [NameInMap("guarantee_fee")]
+        [Validation(Required=false)]
+        public string GuaranteeFee { get; set; }
+
     }
 
 }

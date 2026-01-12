@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.RISKPLUS.Models
 {
-    public class VerifyDubbridgeCustomerBankcardResponse : TeaModel {
+    public class QueryUmktCampaignTaskResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,25 +24,15 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 绑卡流水
-        [NameInMap("bind_serial_no")]
+        // 圈投计划id
+        [NameInMap("campaign_id")]
         [Validation(Required=false)]
-        public string BindSerialNo { get; set; }
+        public long? CampaignId { get; set; }
 
-        // 签约结果
-        [NameInMap("sign_result")]
+        // 圈投任务列表
+        [NameInMap("campaign_task_list")]
         [Validation(Required=false)]
-        public string SignResult { get; set; }
-
-        // 客户号
-        [NameInMap("customer_no")]
-        [Validation(Required=false)]
-        public string CustomerNo { get; set; }
-
-        // 协议号
-        [NameInMap("protocol_no")]
-        [Validation(Required=false)]
-        public string ProtocolNo { get; set; }
+        public List<UmktCampaignTaskInfo> CampaignTaskList { get; set; }
 
     }
 

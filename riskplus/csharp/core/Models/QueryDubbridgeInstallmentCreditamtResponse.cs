@@ -67,7 +67,7 @@ namespace AntChain.SDK.RISKPLUS.Models
         // 1- 拒绝 
         // 2- 审批中
         // 3- 失败
-        // 
+        // 4- 未授信
         [NameInMap("apply_status")]
         [Validation(Required=false)]
         public string ApplyStatus { get; set; }

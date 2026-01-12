@@ -35,6 +35,11 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string AcctBankCard { get; set; }
 
+        // 协议号
+        [NameInMap("protocol_no")]
+        [Validation(Required=false)]
+        public string ProtocolNo { get; set; }
+
     }
 
 }

@@ -58,6 +58,16 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string CouponId { get; set; }
 
+        // 贴息比例
+        [NameInMap("interest_subsidy_ratio")]
+        [Validation(Required=false)]
+        public string InterestSubsidyRatio { get; set; }
+
+        // 参考定价
+        [NameInMap("reference_ratio")]
+        [Validation(Required=false)]
+        public string ReferenceRatio { get; set; }
+
     }
 
 }

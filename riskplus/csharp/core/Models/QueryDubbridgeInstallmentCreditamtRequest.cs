@@ -93,6 +93,11 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ClickId { get; set; }
 
+        // 取消授信额度
+        [NameInMap("cancal_credit_line")]
+        [Validation(Required=false)]
+        public string CancalCreditLine { get; set; }
+
     }
 
 }

@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.RISKPLUS.Models
 {
-    public class DownloadUmktOfflineCampaignRequest : TeaModel {
+    public class QueryUmktCampaignTaskRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,30 +18,20 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 圈投计划id
+        // 半圈投计划id
         [NameInMap("campaign_id")]
         [Validation(Required=true)]
         public long? CampaignId { get; set; }
 
-        // 节点id
-        [NameInMap("node_id")]
-        [Validation(Required=true)]
-        public string NodeId { get; set; }
-
-        // 关联圈客计划id
-        [NameInMap("decision_plan_id")]
-        [Validation(Required=false)]
-        public long? DecisionPlanId { get; set; }
-
-        // 任务id
+        // 任务唯一id
         [NameInMap("task_id")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string TaskId { get; set; }
 
-        // 节点任务关联资源id
-        [NameInMap("resource_id")]
+        // 圈投任务执行日期
+        [NameInMap("exec_date")]
         [Validation(Required=false)]
-        public string ResourceId { get; set; }
+        public string ExecDate { get; set; }
 
     }
 

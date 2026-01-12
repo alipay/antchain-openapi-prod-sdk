@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.RISKPLUS.Models
 {
-    public class VerifyDubbridgeCustomerBankcardResponse : TeaModel {
+    public class SettlementmodifyDubbridgeAlipayMerchantResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,25 +24,25 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 绑卡流水
-        [NameInMap("bind_serial_no")]
+        // 入驻申请单号
+        [NameInMap("order_id")]
         [Validation(Required=false)]
-        public string BindSerialNo { get; set; }
+        public string OrderId { get; set; }
 
-        // 签约结果
-        [NameInMap("sign_result")]
+        // 社会统一信用代码
+        [NameInMap("usci")]
         [Validation(Required=false)]
-        public string SignResult { get; set; }
+        public string Usci { get; set; }
 
-        // 客户号
-        [NameInMap("customer_no")]
+        // 门店所属子品牌
+        [NameInMap("traffic_platform")]
         [Validation(Required=false)]
-        public string CustomerNo { get; set; }
+        public string TrafficPlatform { get; set; }
 
-        // 协议号
-        [NameInMap("protocol_no")]
+        // 外部商户id
+        [NameInMap("external_id")]
         [Validation(Required=false)]
-        public string ProtocolNo { get; set; }
+        public string ExternalId { get; set; }
 
     }
 

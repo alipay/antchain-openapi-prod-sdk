@@ -52,6 +52,11 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string RelationType { get; set; }
 
+        // 任务执行uuid
+        [NameInMap("task_uuid")]
+        [Validation(Required=false)]
+        public string TaskUuid { get; set; }
+
     }
 
 }

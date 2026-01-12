@@ -137,7 +137,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.30.0"},
+                        {"sdk_version", "1.30.11"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.30.0"},
+                        {"sdk_version", "1.30.11"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -4315,6 +4315,90 @@ namespace AntChain.SDK.RISKPLUS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<NotifyDubbridgeInterestResultResponse>(await DoRequestAsync("1.0", "riskplus.dubbridge.interest.result.notify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 天枢-商户结算信息修改
+         * Summary: 天枢-商户结算信息修改
+         */
+        public SettlementmodifyDubbridgeAlipayMerchantResponse SettlementmodifyDubbridgeAlipayMerchant(SettlementmodifyDubbridgeAlipayMerchantRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SettlementmodifyDubbridgeAlipayMerchantEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 天枢-商户结算信息修改
+         * Summary: 天枢-商户结算信息修改
+         */
+        public async Task<SettlementmodifyDubbridgeAlipayMerchantResponse> SettlementmodifyDubbridgeAlipayMerchantAsync(SettlementmodifyDubbridgeAlipayMerchantRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SettlementmodifyDubbridgeAlipayMerchantExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 天枢-商户结算信息修改
+         * Summary: 天枢-商户结算信息修改
+         */
+        public SettlementmodifyDubbridgeAlipayMerchantResponse SettlementmodifyDubbridgeAlipayMerchantEx(SettlementmodifyDubbridgeAlipayMerchantRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SettlementmodifyDubbridgeAlipayMerchantResponse>(DoRequest("1.0", "riskplus.dubbridge.alipay.merchant.settlementmodify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 天枢-商户结算信息修改
+         * Summary: 天枢-商户结算信息修改
+         */
+        public async Task<SettlementmodifyDubbridgeAlipayMerchantResponse> SettlementmodifyDubbridgeAlipayMerchantExAsync(SettlementmodifyDubbridgeAlipayMerchantRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SettlementmodifyDubbridgeAlipayMerchantResponse>(await DoRequestAsync("1.0", "riskplus.dubbridge.alipay.merchant.settlementmodify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 撞库查询机构侧最高可用额度
+         * Summary: 机构侧最高可用额度查询接口
+         */
+        public QueryDubbridgeFundCreditamtResponse QueryDubbridgeFundCreditamt(QueryDubbridgeFundCreditamtRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryDubbridgeFundCreditamtEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 撞库查询机构侧最高可用额度
+         * Summary: 机构侧最高可用额度查询接口
+         */
+        public async Task<QueryDubbridgeFundCreditamtResponse> QueryDubbridgeFundCreditamtAsync(QueryDubbridgeFundCreditamtRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryDubbridgeFundCreditamtExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 撞库查询机构侧最高可用额度
+         * Summary: 机构侧最高可用额度查询接口
+         */
+        public QueryDubbridgeFundCreditamtResponse QueryDubbridgeFundCreditamtEx(QueryDubbridgeFundCreditamtRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDubbridgeFundCreditamtResponse>(DoRequest("1.0", "riskplus.dubbridge.fund.creditamt.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 撞库查询机构侧最高可用额度
+         * Summary: 机构侧最高可用额度查询接口
+         */
+        public async Task<QueryDubbridgeFundCreditamtResponse> QueryDubbridgeFundCreditamtExAsync(QueryDubbridgeFundCreditamtRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDubbridgeFundCreditamtResponse>(await DoRequestAsync("1.0", "riskplus.dubbridge.fund.creditamt.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -11403,6 +11487,48 @@ namespace AntChain.SDK.RISKPLUS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<DownloadUmktOfflineCampaignResponse>(await DoRequestAsync("1.0", "riskplus.umkt.offline.campaign.download", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 营销盾半圈投任务查询
+         * Summary: 营销盾半圈投任务查询
+         */
+        public QueryUmktCampaignTaskResponse QueryUmktCampaignTask(QueryUmktCampaignTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryUmktCampaignTaskEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 营销盾半圈投任务查询
+         * Summary: 营销盾半圈投任务查询
+         */
+        public async Task<QueryUmktCampaignTaskResponse> QueryUmktCampaignTaskAsync(QueryUmktCampaignTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryUmktCampaignTaskExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 营销盾半圈投任务查询
+         * Summary: 营销盾半圈投任务查询
+         */
+        public QueryUmktCampaignTaskResponse QueryUmktCampaignTaskEx(QueryUmktCampaignTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryUmktCampaignTaskResponse>(DoRequest("1.0", "riskplus.umkt.campaign.task.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 营销盾半圈投任务查询
+         * Summary: 营销盾半圈投任务查询
+         */
+        public async Task<QueryUmktCampaignTaskResponse> QueryUmktCampaignTaskExAsync(QueryUmktCampaignTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryUmktCampaignTaskResponse>(await DoRequestAsync("1.0", "riskplus.umkt.campaign.task.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
