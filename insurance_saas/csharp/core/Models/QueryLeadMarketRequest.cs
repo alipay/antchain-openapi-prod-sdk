@@ -19,15 +19,15 @@ namespace AntChain.SDK.INSURANCE_SAAS.Models
         [Validation(Required=true)]
         public string ProductCode { get; set; }
 
-        // 请求时的线索唯一id
-        [NameInMap("lead_id")]
-        [Validation(Required=true)]
-        public string LeadId { get; set; }
-
         // 业务参数
         [NameInMap("biz_content")]
         [Validation(Required=false)]
         public string BizContent { get; set; }
+
+        // 请求流水号，全局唯一
+        [NameInMap("request_id")]
+        [Validation(Required=true)]
+        public string RequestId { get; set; }
 
     }
 
