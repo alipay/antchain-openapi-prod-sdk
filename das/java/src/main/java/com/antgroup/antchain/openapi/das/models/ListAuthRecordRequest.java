@@ -11,6 +11,16 @@ public class ListAuthRecordRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
+    // 数据源可信空间id
+    @NameInMap("source_service_node_id")
+    @Validation(required = true)
+    public String sourceServiceNodeId;
+
+    // 数据源租户id
+    @NameInMap("source_tenant_id")
+    @Validation(required = true)
+    public String sourceTenantId;
+
     // 场景码
     @NameInMap("scene_code")
     @Validation(required = true)
@@ -49,6 +59,22 @@ public class ListAuthRecordRequest extends TeaModel {
     }
     public String getProductInstanceId() {
         return this.productInstanceId;
+    }
+
+    public ListAuthRecordRequest setSourceServiceNodeId(String sourceServiceNodeId) {
+        this.sourceServiceNodeId = sourceServiceNodeId;
+        return this;
+    }
+    public String getSourceServiceNodeId() {
+        return this.sourceServiceNodeId;
+    }
+
+    public ListAuthRecordRequest setSourceTenantId(String sourceTenantId) {
+        this.sourceTenantId = sourceTenantId;
+        return this;
+    }
+    public String getSourceTenantId() {
+        return this.sourceTenantId;
     }
 
     public ListAuthRecordRequest setSceneCode(String sceneCode) {

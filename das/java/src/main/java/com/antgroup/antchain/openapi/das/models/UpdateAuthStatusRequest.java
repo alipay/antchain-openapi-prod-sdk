@@ -11,6 +11,16 @@ public class UpdateAuthStatusRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
+    // 数据源可信空间id
+    @NameInMap("source_service_node_id")
+    @Validation(required = true)
+    public String sourceServiceNodeId;
+
+    // 数据源租户id
+    @NameInMap("source_tenant_id")
+    @Validation(required = true)
+    public String sourceTenantId;
+
     // 被授权方企业信用代码
     @NameInMap("auth_enterprise_code")
     @Validation(required = true)
@@ -45,6 +55,22 @@ public class UpdateAuthStatusRequest extends TeaModel {
     }
     public String getProductInstanceId() {
         return this.productInstanceId;
+    }
+
+    public UpdateAuthStatusRequest setSourceServiceNodeId(String sourceServiceNodeId) {
+        this.sourceServiceNodeId = sourceServiceNodeId;
+        return this;
+    }
+    public String getSourceServiceNodeId() {
+        return this.sourceServiceNodeId;
+    }
+
+    public UpdateAuthStatusRequest setSourceTenantId(String sourceTenantId) {
+        this.sourceTenantId = sourceTenantId;
+        return this;
+    }
+    public String getSourceTenantId() {
+        return this.sourceTenantId;
     }
 
     public UpdateAuthStatusRequest setAuthEnterpriseCode(String authEnterpriseCode) {

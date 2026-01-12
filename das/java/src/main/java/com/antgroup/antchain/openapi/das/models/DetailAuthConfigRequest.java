@@ -16,6 +16,11 @@ public class DetailAuthConfigRequest extends TeaModel {
     @Validation(required = true)
     public String sourceServiceNodeId;
 
+    // 数据源租户id
+    @NameInMap("source_tenant_id")
+    @Validation(required = true)
+    public String sourceTenantId;
+
     // 场景码
     @NameInMap("scene_code")
     @Validation(required = true)
@@ -48,6 +53,14 @@ public class DetailAuthConfigRequest extends TeaModel {
     }
     public String getSourceServiceNodeId() {
         return this.sourceServiceNodeId;
+    }
+
+    public DetailAuthConfigRequest setSourceTenantId(String sourceTenantId) {
+        this.sourceTenantId = sourceTenantId;
+        return this;
+    }
+    public String getSourceTenantId() {
+        return this.sourceTenantId;
     }
 
     public DetailAuthConfigRequest setSceneCode(String sceneCode) {
