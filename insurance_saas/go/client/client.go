@@ -4576,10 +4576,10 @@ type QueryLeadMarketRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 产品编码
 	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
-	// 请求时的线索唯一id
-	LeadId *string `json:"lead_id,omitempty" xml:"lead_id,omitempty" require:"true"`
 	// 业务参数
 	BizContent *string `json:"biz_content,omitempty" xml:"biz_content,omitempty"`
+	// 请求流水号，全局唯一
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
 }
 
 func (s QueryLeadMarketRequest) String() string {
@@ -4600,13 +4600,13 @@ func (s *QueryLeadMarketRequest) SetProductCode(v string) *QueryLeadMarketReques
 	return s
 }
 
-func (s *QueryLeadMarketRequest) SetLeadId(v string) *QueryLeadMarketRequest {
-	s.LeadId = &v
+func (s *QueryLeadMarketRequest) SetBizContent(v string) *QueryLeadMarketRequest {
+	s.BizContent = &v
 	return s
 }
 
-func (s *QueryLeadMarketRequest) SetBizContent(v string) *QueryLeadMarketRequest {
-	s.BizContent = &v
+func (s *QueryLeadMarketRequest) SetRequestId(v string) *QueryLeadMarketRequest {
+	s.RequestId = &v
 	return s
 }
 
@@ -4771,7 +4771,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.11.3"),
+				"sdk_version":      tea.String("1.11.4"),
 				"_prod_code":       tea.String("INSURANCE_SAAS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
