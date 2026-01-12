@@ -13,14 +13,14 @@ public class QueryLeadMarketRequest extends TeaModel {
     @Validation(required = true)
     public String productCode;
 
-    // 请求时的线索唯一id
-    @NameInMap("lead_id")
-    @Validation(required = true)
-    public String leadId;
-
     // 业务参数
     @NameInMap("biz_content")
     public String bizContent;
+
+    // 请求流水号，全局唯一
+    @NameInMap("request_id")
+    @Validation(required = true)
+    public String requestId;
 
     public static QueryLeadMarketRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryLeadMarketRequest self = new QueryLeadMarketRequest();
@@ -43,20 +43,20 @@ public class QueryLeadMarketRequest extends TeaModel {
         return this.productCode;
     }
 
-    public QueryLeadMarketRequest setLeadId(String leadId) {
-        this.leadId = leadId;
-        return this;
-    }
-    public String getLeadId() {
-        return this.leadId;
-    }
-
     public QueryLeadMarketRequest setBizContent(String bizContent) {
         this.bizContent = bizContent;
         return this;
     }
     public String getBizContent() {
         return this.bizContent;
+    }
+
+    public QueryLeadMarketRequest setRequestId(String requestId) {
+        this.requestId = requestId;
+        return this;
+    }
+    public String getRequestId() {
+        return this.requestId;
     }
 
 }
