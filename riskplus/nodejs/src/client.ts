@@ -124,6 +124,40 @@ export class InfoCodes extends $tea.Model {
   }
 }
 
+// 营销盾半圈投返回节点关联任务信息
+export class UmktCampaignRelationTaskInfo extends $tea.Model {
+  // 关联资源id
+  resourceId: string;
+  // 任务状态
+  // WFE-待执行
+  // D - 已完成
+  // ECN - 执行中
+  // C - 取消
+  // F - 执行失败
+  taskStatus: string;
+  // 错误信息
+  errMsg: string;
+  static names(): { [key: string]: string } {
+    return {
+      resourceId: 'resource_id',
+      taskStatus: 'task_status',
+      errMsg: 'err_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      resourceId: 'string',
+      taskStatus: 'string',
+      errMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 删除参数
 export class OutParams extends $tea.Model {
   // 输出参数
@@ -391,6 +425,39 @@ export class BaseCustomerUmktInfoModel extends $tea.Model {
       customerKey: 'string',
       queryTemplate: 'string',
       umktResult: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 营销盾半圈投节点任务信息
+export class UmktCampaignNodeTaskInfo extends $tea.Model {
+  // 节点id
+  nodeId: string;
+  // 节点任务状态
+  nodeTaskStatus: string;
+  // 节点任务执行日期 yyyy-MM-dd格式
+  execDate: string;
+  // 节点任务关联资源任务列表
+  relTaskList: UmktCampaignRelationTaskInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      nodeId: 'node_id',
+      nodeTaskStatus: 'node_task_status',
+      execDate: 'exec_date',
+      relTaskList: 'rel_task_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      nodeId: 'string',
+      nodeTaskStatus: 'string',
+      execDate: 'string',
+      relTaskList: { 'type': 'array', 'itemType': UmktCampaignRelationTaskInfo },
     };
   }
 
@@ -3556,6 +3623,43 @@ export class SmsReponse extends $tea.Model {
   }
 }
 
+// 营销盾圈投任务信息
+export class UmktCampaignTaskInfo extends $tea.Model {
+  // 任务唯一id
+  taskId: string;
+  // 圈投任务执行日期，yyyy-MM-dd格式
+  execDate: string;
+  // 圈投任务执行批次
+  execBatch: string;
+  // 圈投任务状态
+  campaignTaskStatus: string;
+  // 节点任务列表
+  nodeTaskList: UmktCampaignNodeTaskInfo;
+  static names(): { [key: string]: string } {
+    return {
+      taskId: 'task_id',
+      execDate: 'exec_date',
+      execBatch: 'exec_batch',
+      campaignTaskStatus: 'campaign_task_status',
+      nodeTaskList: 'node_task_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      taskId: 'string',
+      execDate: 'string',
+      execBatch: 'string',
+      campaignTaskStatus: 'string',
+      nodeTaskList: UmktCampaignNodeTaskInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 天枢系统专用ReceiptInfo结构体
 export class ReceiptInfo extends $tea.Model {
   // 客户名
@@ -4033,6 +4137,8 @@ export class CustomerBankCardInfo extends $tea.Model {
   signed?: string;
   // 是否为账户代扣银行卡
   acctBankCard?: string;
+  // 协议号
+  protocolNo?: string;
   static names(): { [key: string]: string } {
     return {
       bankName: 'bank_name',
@@ -4040,6 +4146,7 @@ export class CustomerBankCardInfo extends $tea.Model {
       bankCardNo: 'bank_card_no',
       signed: 'signed',
       acctBankCard: 'acct_bank_card',
+      protocolNo: 'protocol_no',
     };
   }
 
@@ -4050,6 +4157,7 @@ export class CustomerBankCardInfo extends $tea.Model {
       bankCardNo: 'string',
       signed: 'string',
       acctBankCard: 'string',
+      protocolNo: 'string',
     };
   }
 
@@ -5456,6 +5564,47 @@ export class CertificateInfo extends $tea.Model {
       certificateUrl: 'string',
       certificateBase64: 'string',
       message: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 机构侧最高可用额度
+export class FundInfo extends $tea.Model {
+  // 资金方编号
+  fundCode: string;
+  // 资金方简称
+  abbreFundName: string;
+  // 额度状态
+  creditStatus: string;
+  // 授信总额度
+  creditAmount?: string;
+  // 剩余可用余额
+  restAmount?: string;
+  // 年利率
+  yearInterestRate?: string;
+  static names(): { [key: string]: string } {
+    return {
+      fundCode: 'fund_code',
+      abbreFundName: 'abbre_fund_name',
+      creditStatus: 'credit_status',
+      creditAmount: 'credit_amount',
+      restAmount: 'rest_amount',
+      yearInterestRate: 'year_interest_rate',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      fundCode: 'string',
+      abbreFundName: 'string',
+      creditStatus: 'string',
+      creditAmount: 'string',
+      restAmount: 'string',
+      yearInterestRate: 'string',
     };
   }
 
@@ -8998,6 +9147,10 @@ export class ApplyDubbridgeCreditRequest extends $tea.Model {
   customType?: string;
   // 资金方代码
   fundCode?: string;
+  // 业务方订单号
+  bizOrderNo?: string;
+  // 业务类型
+  prodType?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -9019,6 +9172,8 @@ export class ApplyDubbridgeCreditRequest extends $tea.Model {
       channelType: 'channel_type',
       customType: 'custom_type',
       fundCode: 'fund_code',
+      bizOrderNo: 'biz_order_no',
+      prodType: 'prod_type',
     };
   }
 
@@ -9043,6 +9198,8 @@ export class ApplyDubbridgeCreditRequest extends $tea.Model {
       channelType: 'string',
       customType: 'string',
       fundCode: 'string',
+      bizOrderNo: 'string',
+      prodType: 'string',
     };
   }
 
@@ -9184,8 +9341,10 @@ export class BindDubbridgeCustomerBankcardRequest extends $tea.Model {
   cardNo?: string;
   // 手机号
   mobile?: string;
-  // 银行名称
-  bankName?: string;
+  // 业务类型
+  prodType?: string;
+  // 银行编码
+  bankCode?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -9198,7 +9357,8 @@ export class BindDubbridgeCustomerBankcardRequest extends $tea.Model {
       openId: 'open_id',
       cardNo: 'card_no',
       mobile: 'mobile',
-      bankName: 'bank_name',
+      prodType: 'prod_type',
+      bankCode: 'bank_code',
     };
   }
 
@@ -9214,7 +9374,8 @@ export class BindDubbridgeCustomerBankcardRequest extends $tea.Model {
       openId: 'string',
       cardNo: 'string',
       mobile: 'string',
-      bankName: 'string',
+      prodType: 'string',
+      bankCode: 'string',
     };
   }
 
@@ -9275,6 +9436,8 @@ export class VerifyDubbridgeCustomerBankcardRequest extends $tea.Model {
   bankCardNo: string;
   // 渠道号
   channelCode: string;
+  // 业务类型
+  prodType?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -9285,6 +9448,7 @@ export class VerifyDubbridgeCustomerBankcardRequest extends $tea.Model {
       bindValidCode: 'bind_valid_code',
       bankCardNo: 'bank_card_no',
       channelCode: 'channel_code',
+      prodType: 'prod_type',
     };
   }
 
@@ -9298,6 +9462,7 @@ export class VerifyDubbridgeCustomerBankcardRequest extends $tea.Model {
       bindValidCode: 'string',
       bankCardNo: 'string',
       channelCode: 'string',
+      prodType: 'string',
     };
   }
 
@@ -9319,6 +9484,8 @@ export class VerifyDubbridgeCustomerBankcardResponse extends $tea.Model {
   signResult?: string;
   // 客户号
   customerNo?: string;
+  // 协议号
+  protocolNo?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -9327,6 +9494,7 @@ export class VerifyDubbridgeCustomerBankcardResponse extends $tea.Model {
       bindSerialNo: 'bind_serial_no',
       signResult: 'sign_result',
       customerNo: 'customer_no',
+      protocolNo: 'protocol_no',
     };
   }
 
@@ -9338,6 +9506,7 @@ export class VerifyDubbridgeCustomerBankcardResponse extends $tea.Model {
       bindSerialNo: 'string',
       signResult: 'string',
       customerNo: 'string',
+      protocolNo: 'string',
     };
   }
 
@@ -9481,6 +9650,8 @@ export class QueryDubbridgeCreditStatusResponse extends $tea.Model {
   coolingPeriod?: string;
   // 资金源编码
   loanInstCode?: string;
+  // JSON字符串
+  extInfo?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -9497,6 +9668,7 @@ export class QueryDubbridgeCreditStatusResponse extends $tea.Model {
       fundCode: 'fund_code',
       coolingPeriod: 'cooling_period',
       loanInstCode: 'loan_inst_code',
+      extInfo: 'ext_info',
     };
   }
 
@@ -9516,6 +9688,7 @@ export class QueryDubbridgeCreditStatusResponse extends $tea.Model {
       fundCode: 'string',
       coolingPeriod: 'string',
       loanInstCode: 'string',
+      extInfo: 'string',
     };
   }
 
@@ -10635,12 +10808,18 @@ export class QueryDubbridgeRepayListRequest extends $tea.Model {
   orderNo: string;
   // 用信申请订单号
   originalOrderNo: string;
+  // 贴息比例
+  interestSubsidyRatio?: string;
+  // 参考定价
+  referenceRatio?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       orderNo: 'order_no',
       originalOrderNo: 'original_order_no',
+      interestSubsidyRatio: 'interest_subsidy_ratio',
+      referenceRatio: 'reference_ratio',
     };
   }
 
@@ -10650,6 +10829,8 @@ export class QueryDubbridgeRepayListRequest extends $tea.Model {
       productInstanceId: 'string',
       orderNo: 'string',
       originalOrderNo: 'string',
+      interestSubsidyRatio: 'string',
+      referenceRatio: 'string',
     };
   }
 
@@ -10710,6 +10891,10 @@ export class CountDubbridgeRepayReftrialRequest extends $tea.Model {
   repayDate?: string;
   // 优惠券id
   couponId?: string;
+  // 贴息比例
+  interestSubsidyRatio?: string;
+  // 参考定价
+  referenceRatio?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -10722,6 +10907,8 @@ export class CountDubbridgeRepayReftrialRequest extends $tea.Model {
       repayType: 'repay_type',
       repayDate: 'repay_date',
       couponId: 'coupon_id',
+      interestSubsidyRatio: 'interest_subsidy_ratio',
+      referenceRatio: 'reference_ratio',
     };
   }
 
@@ -10737,6 +10924,8 @@ export class CountDubbridgeRepayReftrialRequest extends $tea.Model {
       repayType: 'string',
       repayDate: 'string',
       couponId: 'string',
+      interestSubsidyRatio: 'string',
+      referenceRatio: 'string',
     };
   }
 
@@ -10805,6 +10994,10 @@ export class CountDubbridgeRepayTrialRequest extends $tea.Model {
   orderNo: string;
   // 试算逾期期次列表
   periodList?: number[];
+  // 贴息比例
+  interestSubsidyRatio?: string;
+  // 参考定价
+  referenceRatio?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -10813,6 +11006,8 @@ export class CountDubbridgeRepayTrialRequest extends $tea.Model {
       repayType: 'repay_type',
       orderNo: 'order_no',
       periodList: 'period_list',
+      interestSubsidyRatio: 'interest_subsidy_ratio',
+      referenceRatio: 'reference_ratio',
     };
   }
 
@@ -10824,6 +11019,8 @@ export class CountDubbridgeRepayTrialRequest extends $tea.Model {
       repayType: 'string',
       orderNo: 'string',
       periodList: { 'type': 'array', 'itemType': 'number' },
+      interestSubsidyRatio: 'string',
+      referenceRatio: 'string',
     };
   }
 
@@ -10916,6 +11113,8 @@ export class RepayDubbridgeRepayWithholdRequest extends $tea.Model {
   deductionCode?: string;
   // 通道签约协议号（担保渠道）
   signingAgreementNum?: string;
+  // 担保费
+  guaranteeFee?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -10932,6 +11131,7 @@ export class RepayDubbridgeRepayWithholdRequest extends $tea.Model {
       accountOpenBank: 'account_open_bank',
       deductionCode: 'deduction_code',
       signingAgreementNum: 'signing_agreement_num',
+      guaranteeFee: 'guarantee_fee',
     };
   }
 
@@ -10951,6 +11151,7 @@ export class RepayDubbridgeRepayWithholdRequest extends $tea.Model {
       accountOpenBank: 'string',
       deductionCode: 'string',
       signingAgreementNum: 'string',
+      guaranteeFee: 'string',
     };
   }
 
@@ -11088,6 +11289,10 @@ export class ApplyDubbridgeUsecreditRequest extends $tea.Model {
   materials?: Material[];
   // 优惠券id
   couponId?: string;
+  // 导流平台
+  trafficPlatform?: string;
+  // 业务方订单号
+  bizOrderNo?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -11107,6 +11312,8 @@ export class ApplyDubbridgeUsecreditRequest extends $tea.Model {
       bankCardNo: 'bank_card_no',
       materials: 'materials',
       couponId: 'coupon_id',
+      trafficPlatform: 'traffic_platform',
+      bizOrderNo: 'biz_order_no',
     };
   }
 
@@ -11129,6 +11336,8 @@ export class ApplyDubbridgeUsecreditRequest extends $tea.Model {
       bankCardNo: 'string',
       materials: { 'type': 'array', 'itemType': Material },
       couponId: 'string',
+      trafficPlatform: 'string',
+      bizOrderNo: 'string',
     };
   }
 
@@ -11922,12 +12131,15 @@ export class QueryDubbridgeCustomerBankcardlistRequest extends $tea.Model {
   customerNo: string;
   // 资金方编号
   fundCode: string;
+  // 业务类型
+  prodType?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       customerNo: 'customer_no',
       fundCode: 'fund_code',
+      prodType: 'prod_type',
     };
   }
 
@@ -11937,6 +12149,7 @@ export class QueryDubbridgeCustomerBankcardlistRequest extends $tea.Model {
       productInstanceId: 'string',
       customerNo: 'string',
       fundCode: 'string',
+      prodType: 'string',
     };
   }
 
@@ -12542,6 +12755,8 @@ export class QueryDubbridgeInstallmentCreditamtRequest extends $tea.Model {
   trafficMktId?: string;
   // 点击id
   clickId?: string;
+  // 取消授信额度
+  cancalCreditLine?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -12561,6 +12776,7 @@ export class QueryDubbridgeInstallmentCreditamtRequest extends $tea.Model {
       trafficAdId: 'traffic_ad_id',
       trafficMktId: 'traffic_mkt_id',
       clickId: 'click_id',
+      cancalCreditLine: 'cancal_credit_line',
     };
   }
 
@@ -12583,6 +12799,7 @@ export class QueryDubbridgeInstallmentCreditamtRequest extends $tea.Model {
       trafficAdId: 'string',
       trafficMktId: 'string',
       clickId: 'string',
+      cancalCreditLine: 'string',
     };
   }
 
@@ -12620,7 +12837,7 @@ export class QueryDubbridgeInstallmentCreditamtResponse extends $tea.Model {
   // 1- 拒绝 
   // 2- 审批中
   // 3- 失败
-  // 
+  // 4- 未授信
   applyStatus?: string;
   // 额度状态：
   // 0- 正常 
@@ -12859,6 +13076,8 @@ export class QueryDubbridgeInstallmentTrialRequest extends $tea.Model {
   tradeAmount: string;
   // 优惠券id
   couponId?: string;
+  // 导流平台
+  trafficPlatform?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -12871,6 +13090,7 @@ export class QueryDubbridgeInstallmentTrialRequest extends $tea.Model {
       fundCode: 'fund_code',
       tradeAmount: 'trade_amount',
       couponId: 'coupon_id',
+      trafficPlatform: 'traffic_platform',
     };
   }
 
@@ -12886,6 +13106,7 @@ export class QueryDubbridgeInstallmentTrialRequest extends $tea.Model {
       fundCode: 'string',
       tradeAmount: 'string',
       couponId: 'string',
+      trafficPlatform: 'string',
     };
   }
 
@@ -13715,6 +13936,260 @@ export class NotifyDubbridgeInterestResultResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       result: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SettlementmodifyDubbridgeAlipayMerchantRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 订单号
+  // request请求单号，每次请求唯一，如uuid
+  orderNo: string;
+  // 门店唯一ID
+  externalId?: string;
+  // 004:数科入驻
+  // 001:支付宝入驻
+  // 没有默认：001
+  enterType: string;
+  // 社会统一信用代码
+  // 配合traffic_platform
+  usci: string;
+  // 子品牌 配合usci
+  trafficPlatform?: string;
+  // 结算支付宝账户
+  alipayLogonId?: string;
+  // 对公-开户行名称
+  bankName?: string;
+  // 对公-开户银行编码
+  bankCode?: string;
+  // 对公-支行名称	STRING
+  branchName?: string;
+  // 对公-联行号
+  cnapsCode?: string;
+  // 对公-银行账户名称
+  accountName?: string;
+  // 对公-银行账户号
+  accountNumber?: string;
+  // 对公-开户行所在省，浙江、北京
+  bankProvince?: string;
+  // 对公-开户行所在市，杭州、北京
+  bankCity?: string;
+  // 对私-银行卡号
+  payeeBankCard?: string;
+  // 对私-银行名称
+  payeeBankName?: string;
+  // 对私-银行编码
+  payeeBankCode?: string;
+  // 蚂蚁数科入驻账号
+  loginTenant?: string;
+  // 入驻时间，yyyy-MM-dd
+  loginDate?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderNo: 'order_no',
+      externalId: 'external_id',
+      enterType: 'enter_type',
+      usci: 'usci',
+      trafficPlatform: 'traffic_platform',
+      alipayLogonId: 'alipay_logon_id',
+      bankName: 'bank_name',
+      bankCode: 'bank_code',
+      branchName: 'branch_name',
+      cnapsCode: 'cnaps_code',
+      accountName: 'account_name',
+      accountNumber: 'account_number',
+      bankProvince: 'bank_province',
+      bankCity: 'bank_city',
+      payeeBankCard: 'payee_bank_card',
+      payeeBankName: 'payee_bank_name',
+      payeeBankCode: 'payee_bank_code',
+      loginTenant: 'login_tenant',
+      loginDate: 'login_date',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderNo: 'string',
+      externalId: 'string',
+      enterType: 'string',
+      usci: 'string',
+      trafficPlatform: 'string',
+      alipayLogonId: 'string',
+      bankName: 'string',
+      bankCode: 'string',
+      branchName: 'string',
+      cnapsCode: 'string',
+      accountName: 'string',
+      accountNumber: 'string',
+      bankProvince: 'string',
+      bankCity: 'string',
+      payeeBankCard: 'string',
+      payeeBankName: 'string',
+      payeeBankCode: 'string',
+      loginTenant: 'string',
+      loginDate: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SettlementmodifyDubbridgeAlipayMerchantResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 入驻申请单号
+  orderId?: string;
+  // 社会统一信用代码
+  usci?: string;
+  // 门店所属子品牌
+  trafficPlatform?: string;
+  // 外部商户id
+  externalId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      orderId: 'order_id',
+      usci: 'usci',
+      trafficPlatform: 'traffic_platform',
+      externalId: 'external_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      orderId: 'string',
+      usci: 'string',
+      trafficPlatform: 'string',
+      externalId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgeFundCreditamtRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求单号
+  requestId: string;
+  // 业务类型
+  prodType: string;
+  // 导流平台
+  trafficPlatform?: string;
+  // 流量来源名称
+  trafficSourceName?: string;
+  // 资产方用户唯一标识
+  openId: string;
+  // 手机号
+  mobile: string;
+  // 手机号加密类型
+  mobileType: string;
+  // 身份证号
+  cardNo: string;
+  // 身份证号加密类型
+  cardNoType: string;
+  // 客户姓名
+  customerName: string;
+  // 客户姓名加密类型
+  customNameType: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      requestId: 'request_id',
+      prodType: 'prod_type',
+      trafficPlatform: 'traffic_platform',
+      trafficSourceName: 'traffic_source_name',
+      openId: 'open_id',
+      mobile: 'mobile',
+      mobileType: 'mobile_type',
+      cardNo: 'card_no',
+      cardNoType: 'card_no_type',
+      customerName: 'customer_name',
+      customNameType: 'custom_name_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      requestId: 'string',
+      prodType: 'string',
+      trafficPlatform: 'string',
+      trafficSourceName: 'string',
+      openId: 'string',
+      mobile: 'string',
+      mobileType: 'string',
+      cardNo: 'string',
+      cardNoType: 'string',
+      customerName: 'string',
+      customNameType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgeFundCreditamtResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 业务类型
+  prodType?: string;
+  // 客户编号
+  customNo?: string;
+  // 资金方列表
+  fundList?: FundInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      prodType: 'prod_type',
+      customNo: 'custom_no',
+      fundList: 'fund_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      prodType: 'string',
+      customNo: 'string',
+      fundList: { 'type': 'array', 'itemType': FundInfo },
     };
   }
 
@@ -25678,6 +26153,8 @@ export class UploadUmktOfflinedecisionRequest extends $tea.Model {
   fileId: string;
   // 非必填, 默认OFFLINE_DECISION
   relationType?: string;
+  // 任务执行uuid
+  taskUuid?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -25688,6 +26165,7 @@ export class UploadUmktOfflinedecisionRequest extends $tea.Model {
       fileObjectName: 'fileObjectName',
       fileId: 'file_id',
       relationType: 'relation_type',
+      taskUuid: 'task_uuid',
     };
   }
 
@@ -25701,6 +26179,7 @@ export class UploadUmktOfflinedecisionRequest extends $tea.Model {
       fileObjectName: 'string',
       fileId: 'string',
       relationType: 'string',
+      taskUuid: 'string',
     };
   }
 
@@ -26028,9 +26507,11 @@ export class DownloadUmktOfflineCampaignRequest extends $tea.Model {
   // 节点id
   nodeId: string;
   // 关联圈客计划id
-  decisionPlanId: number;
+  decisionPlanId?: number;
   // 任务id
   taskId: string;
+  // 节点任务关联资源id
+  resourceId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -26039,6 +26520,7 @@ export class DownloadUmktOfflineCampaignRequest extends $tea.Model {
       nodeId: 'node_id',
       decisionPlanId: 'decision_plan_id',
       taskId: 'task_id',
+      resourceId: 'resource_id',
     };
   }
 
@@ -26050,6 +26532,7 @@ export class DownloadUmktOfflineCampaignRequest extends $tea.Model {
       nodeId: 'string',
       decisionPlanId: 'number',
       taskId: 'string',
+      resourceId: 'string',
     };
   }
 
@@ -26082,6 +26565,77 @@ export class DownloadUmktOfflineCampaignResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       fileUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryUmktCampaignTaskRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 半圈投计划id
+  campaignId: number;
+  // 任务唯一id
+  taskId?: string;
+  // 圈投任务执行日期
+  execDate?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      campaignId: 'campaign_id',
+      taskId: 'task_id',
+      execDate: 'exec_date',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      campaignId: 'number',
+      taskId: 'string',
+      execDate: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryUmktCampaignTaskResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 圈投计划id
+  campaignId?: number;
+  // 圈投任务列表
+  campaignTaskList?: UmktCampaignTaskInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      campaignId: 'campaign_id',
+      campaignTaskList: 'campaign_task_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      campaignId: 'number',
+      campaignTaskList: { 'type': 'array', 'itemType': UmktCampaignTaskInfo },
     };
   }
 
@@ -26291,7 +26845,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.30.0",
+          sdk_version: "1.30.11",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
@@ -28145,6 +28699,44 @@ export default class Client {
   async notifyDubbridgeInterestResultEx(request: NotifyDubbridgeInterestResultRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<NotifyDubbridgeInterestResultResponse> {
     Util.validateModel(request);
     return $tea.cast<NotifyDubbridgeInterestResultResponse>(await this.doRequest("1.0", "riskplus.dubbridge.interest.result.notify", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new NotifyDubbridgeInterestResultResponse({}));
+  }
+
+  /**
+   * Description: 天枢-商户结算信息修改
+   * Summary: 天枢-商户结算信息修改
+   */
+  async settlementmodifyDubbridgeAlipayMerchant(request: SettlementmodifyDubbridgeAlipayMerchantRequest): Promise<SettlementmodifyDubbridgeAlipayMerchantResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.settlementmodifyDubbridgeAlipayMerchantEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 天枢-商户结算信息修改
+   * Summary: 天枢-商户结算信息修改
+   */
+  async settlementmodifyDubbridgeAlipayMerchantEx(request: SettlementmodifyDubbridgeAlipayMerchantRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SettlementmodifyDubbridgeAlipayMerchantResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SettlementmodifyDubbridgeAlipayMerchantResponse>(await this.doRequest("1.0", "riskplus.dubbridge.alipay.merchant.settlementmodify", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SettlementmodifyDubbridgeAlipayMerchantResponse({}));
+  }
+
+  /**
+   * Description: 撞库查询机构侧最高可用额度
+   * Summary: 机构侧最高可用额度查询接口
+   */
+  async queryDubbridgeFundCreditamt(request: QueryDubbridgeFundCreditamtRequest): Promise<QueryDubbridgeFundCreditamtResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDubbridgeFundCreditamtEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 撞库查询机构侧最高可用额度
+   * Summary: 机构侧最高可用额度查询接口
+   */
+  async queryDubbridgeFundCreditamtEx(request: QueryDubbridgeFundCreditamtRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDubbridgeFundCreditamtResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDubbridgeFundCreditamtResponse>(await this.doRequest("1.0", "riskplus.dubbridge.fund.creditamt.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDubbridgeFundCreditamtResponse({}));
   }
 
   /**
@@ -31355,6 +31947,25 @@ export default class Client {
   async downloadUmktOfflineCampaignEx(request: DownloadUmktOfflineCampaignRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DownloadUmktOfflineCampaignResponse> {
     Util.validateModel(request);
     return $tea.cast<DownloadUmktOfflineCampaignResponse>(await this.doRequest("1.0", "riskplus.umkt.offline.campaign.download", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new DownloadUmktOfflineCampaignResponse({}));
+  }
+
+  /**
+   * Description: 营销盾半圈投任务查询
+   * Summary: 营销盾半圈投任务查询
+   */
+  async queryUmktCampaignTask(request: QueryUmktCampaignTaskRequest): Promise<QueryUmktCampaignTaskResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryUmktCampaignTaskEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 营销盾半圈投任务查询
+   * Summary: 营销盾半圈投任务查询
+   */
+  async queryUmktCampaignTaskEx(request: QueryUmktCampaignTaskRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryUmktCampaignTaskResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryUmktCampaignTaskResponse>(await this.doRequest("1.0", "riskplus.umkt.campaign.task.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryUmktCampaignTaskResponse({}));
   }
 
   /**
