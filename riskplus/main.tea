@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.30.0',
+    sdk_version = '1.30.11',
     _prod_code = 'RISKPLUS',
     _prod_channel = 'undefined'
   };
@@ -173,6 +173,21 @@ model RtopLevelDistribution {
 model InfoCodes {
   // infocode
   name: string(name='name', example='infocode'),
+}
+
+// 营销盾半圈投返回节点关联任务信息
+model UmktCampaignRelationTaskInfo {
+  // 关联资源id
+  resourceId: string(name='resource_id', example='bizCode1'),
+  // 任务状态
+  // WFE-待执行
+  // D - 已完成
+  // ECN - 执行中
+  // C - 取消
+  // F - 执行失败
+  taskStatus: string(name='task_status', example='D'),
+  // 错误信息
+  errMsg: string(name='err_msg', example='odps2oss执行失败'),
 }
 
 // 删除参数
@@ -278,6 +293,18 @@ model BaseCustomerUmktInfoModel {
   queryTemplate?: string(name='query_template', example='MOBILE'),
   // 实时营销结果
   umktResult?: long(name='umkt_result', example='1'),
+}
+
+// 营销盾半圈投节点任务信息
+model UmktCampaignNodeTaskInfo {
+  // 节点id
+  nodeId: string(name='node_id', example='xxxxx'),
+  // 节点任务状态
+  nodeTaskStatus: string(name='node_task_status', example='D'),
+  // 节点任务执行日期 yyyy-MM-dd格式
+  execDate: string(name='exec_date', example='2025-12-25'),
+  // 节点任务关联资源任务列表
+  relTaskList: [ UmktCampaignRelationTaskInfo ](name='rel_task_list', example='[{"resourceId":"bizCode","taskStatus":"D"}]'),
 }
 
 // 企业类型分布统计
@@ -1585,6 +1612,20 @@ model SmsReponse {
   requestId: string(name='request_id', example='EF2DE797-B632-5DCF-8502-600959436E77'),
 }
 
+// 营销盾圈投任务信息
+model UmktCampaignTaskInfo {
+  // 任务唯一id
+  taskId: string(name='task_id', example='xxx-xxx-xxx'),
+  // 圈投任务执行日期，yyyy-MM-dd格式
+  execDate: string(name='exec_date', example='2025-12-25'),
+  // 圈投任务执行批次
+  execBatch: string(name='exec_batch', example='202512250020'),
+  // 圈投任务状态
+  campaignTaskStatus: string(name='campaign_task_status', example='D'),
+  // 节点任务列表
+  nodeTaskList: UmktCampaignNodeTaskInfo(name='node_task_list', example='[{"nodeId":"35d2171b68fd472c8f4cc5c293985d37","execDate":"","nodeTaskStatus":"F","relTaskList":[{"resourceId":"1007", "taskStatus":"F","errMsg":"上游节点执行失败"}]}'),
+}
+
 // 天枢系统专用ReceiptInfo结构体
 model ReceiptInfo {
   // 客户名
@@ -1791,6 +1832,8 @@ model CustomerBankCardInfo {
   signed?: string(name='signed', example='Y/N'),
   // 是否为账户代扣银行卡
   acctBankCard?: string(name='acct_bank_card', example='Y/N'),
+  // 协议号
+  protocolNo?: string(name='protocol_no', example='202515300000000000000158463'),
 }
 
 // 期数费用
@@ -2380,6 +2423,22 @@ model CertificateInfo {
   certificateBase64?: string(name='certificate_base64', example='BEAKENMCT...'),
   // 说明
   message?: string(name='message', example='已开具'),
+}
+
+// 机构侧最高可用额度
+model FundInfo {
+  // 资金方编号
+  fundCode: string(name='fund_code', example='D20250701000000001'),
+  // 资金方简称
+  abbreFundName: string(name='abbre_fund_name', example='科融'),
+  // 额度状态
+  creditStatus: string(name='credit_status', example='0'),
+  // 授信总额度
+  creditAmount?: string(name='credit_amount', example='200000'),
+  // 剩余可用余额
+  restAmount?: string(name='rest_amount', example='200000'),
+  // 年利率
+  yearInterestRate?: string(name='year_interest_rate', example='0.1250'),
 }
 
 // 涉众风险企业特征
@@ -4460,6 +4519,10 @@ model ApplyDubbridgeCreditRequest = {
   customType?: string(name='custom_type'),
   // 资金方代码
   fundCode?: string(name='fund_code'),
+  // 业务方订单号
+  bizOrderNo?: string(name='biz_order_no'),
+  // 业务类型
+  prodType?: string(name='prod_type'),
 }
 
 model ApplyDubbridgeCreditResponse = {
@@ -4580,8 +4643,10 @@ model BindDubbridgeCustomerBankcardRequest = {
   cardNo?: string(name='card_no'),
   // 手机号
   mobile?: string(name='mobile'),
-  // 银行名称
-  bankName?: string(name='bank_name'),
+  // 业务类型
+  prodType?: string(name='prod_type'),
+  // 银行编码
+  bankCode?: string(name='bank_code'),
 }
 
 model BindDubbridgeCustomerBankcardResponse = {
@@ -4632,6 +4697,8 @@ model VerifyDubbridgeCustomerBankcardRequest = {
   bankCardNo: string(name='bank_card_no'),
   // 渠道号
   channelCode: string(name='channel_code'),
+  // 业务类型
+  prodType?: string(name='prod_type'),
 }
 
 model VerifyDubbridgeCustomerBankcardResponse = {
@@ -4647,6 +4714,8 @@ model VerifyDubbridgeCustomerBankcardResponse = {
   signResult?: string(name='sign_result'),
   // 客户号
   customerNo?: string(name='customer_no'),
+  // 协议号
+  protocolNo?: string(name='protocol_no'),
 }
 
 /**
@@ -4753,6 +4822,8 @@ model QueryDubbridgeCreditStatusResponse = {
   coolingPeriod?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='cooling_period'),
   // 资金源编码
   loanInstCode?: string(name='loan_inst_code'),
+  // JSON字符串
+  extInfo?: string(name='ext_info'),
 }
 
 /**
@@ -5444,6 +5515,10 @@ model QueryDubbridgeRepayListRequest = {
   orderNo: string(name='order_no'),
   // 用信申请订单号
   originalOrderNo: string(name='original_order_no'),
+  // 贴息比例
+  interestSubsidyRatio?: string(name='interest_subsidy_ratio'),
+  // 参考定价
+  referenceRatio?: string(name='reference_ratio'),
 }
 
 model QueryDubbridgeRepayListResponse = {
@@ -5496,6 +5571,10 @@ model CountDubbridgeRepayReftrialRequest = {
   repayDate?: string(name='repay_date'),
   // 优惠券id
   couponId?: string(name='coupon_id'),
+  // 贴息比例
+  interestSubsidyRatio?: string(name='interest_subsidy_ratio'),
+  // 参考定价
+  referenceRatio?: string(name='reference_ratio'),
 }
 
 model CountDubbridgeRepayReftrialResponse = {
@@ -5548,6 +5627,10 @@ model CountDubbridgeRepayTrialRequest = {
   orderNo: string(name='order_no'),
   // 试算逾期期次列表
   periodList?: [ long ](name='period_list'),
+  // 贴息比例
+  interestSubsidyRatio?: string(name='interest_subsidy_ratio'),
+  // 参考定价
+  referenceRatio?: string(name='reference_ratio'),
 }
 
 model CountDubbridgeRepayTrialResponse = {
@@ -5620,6 +5703,8 @@ model RepayDubbridgeRepayWithholdRequest = {
   deductionCode?: string(name='deduction_code'),
   // 通道签约协议号（担保渠道）
   signingAgreementNum?: string(name='signing_agreement_num'),
+  // 担保费
+  guaranteeFee?: string(name='guarantee_fee'),
 }
 
 model RepayDubbridgeRepayWithholdResponse = {
@@ -5726,6 +5811,10 @@ model ApplyDubbridgeUsecreditRequest = {
   materials?: [ Material ](name='materials'),
   // 优惠券id
   couponId?: string(name='coupon_id'),
+  // 导流平台
+  trafficPlatform?: string(name='traffic_platform'),
+  // 业务方订单号
+  bizOrderNo?: string(name='biz_order_no'),
 }
 
 model ApplyDubbridgeUsecreditResponse = {
@@ -6222,6 +6311,8 @@ model QueryDubbridgeCustomerBankcardlistRequest = {
   customerNo: string(name='customer_no'),
   // 资金方编号
   fundCode: string(name='fund_code'),
+  // 业务类型
+  prodType?: string(name='prod_type'),
 }
 
 model QueryDubbridgeCustomerBankcardlistResponse = {
@@ -6614,6 +6705,8 @@ model QueryDubbridgeInstallmentCreditamtRequest = {
   trafficMktId?: string(name='traffic_mkt_id'),
   // 点击id
   clickId?: string(name='click_id'),
+  // 取消授信额度
+  cancalCreditLine?: string(name='cancal_credit_line'),
 }
 
 model QueryDubbridgeInstallmentCreditamtResponse = {
@@ -6645,7 +6738,7 @@ model QueryDubbridgeInstallmentCreditamtResponse = {
   // 1- 拒绝 
   // 2- 审批中
   // 3- 失败
-  // 
+  // 4- 未授信
   applyStatus?: string(name='apply_status'),
   // 额度状态：
   // 0- 正常 
@@ -6798,6 +6891,8 @@ model QueryDubbridgeInstallmentTrialRequest = {
   tradeAmount: string(name='trade_amount'),
   // 优惠券id
   couponId?: string(name='coupon_id'),
+  // 导流平台
+  trafficPlatform?: string(name='traffic_platform'),
 }
 
 model QueryDubbridgeInstallmentTrialResponse = {
@@ -7327,6 +7422,152 @@ async function notifyDubbridgeInterestResult(request: NotifyDubbridgeInterestRes
 async function notifyDubbridgeInterestResultEx(request: NotifyDubbridgeInterestResultRequest, headers: map[string]string, runtime: Util.RuntimeOptions): NotifyDubbridgeInterestResultResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.dubbridge.interest.result.notify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SettlementmodifyDubbridgeAlipayMerchantRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 订单号
+  // request请求单号，每次请求唯一，如uuid
+  orderNo: string(name='order_no'),
+  // 门店唯一ID
+  externalId?: string(name='external_id'),
+  // 004:数科入驻
+  // 001:支付宝入驻
+  // 没有默认：001
+  enterType: string(name='enter_type'),
+  // 社会统一信用代码
+  // 配合traffic_platform
+  usci: string(name='usci'),
+  // 子品牌 配合usci
+  trafficPlatform?: string(name='traffic_platform'),
+  // 结算支付宝账户
+  alipayLogonId?: string(name='alipay_logon_id'),
+  // 对公-开户行名称
+  bankName?: string(name='bank_name'),
+  // 对公-开户银行编码
+  bankCode?: string(name='bank_code'),
+  // 对公-支行名称	STRING
+  branchName?: string(name='branch_name'),
+  // 对公-联行号
+  cnapsCode?: string(name='cnaps_code'),
+  // 对公-银行账户名称
+  accountName?: string(name='account_name'),
+  // 对公-银行账户号
+  accountNumber?: string(name='account_number'),
+  // 对公-开户行所在省，浙江、北京
+  bankProvince?: string(name='bank_province'),
+  // 对公-开户行所在市，杭州、北京
+  bankCity?: string(name='bank_city'),
+  // 对私-银行卡号
+  payeeBankCard?: string(name='payee_bank_card'),
+  // 对私-银行名称
+  payeeBankName?: string(name='payee_bank_name'),
+  // 对私-银行编码
+  payeeBankCode?: string(name='payee_bank_code'),
+  // 蚂蚁数科入驻账号
+  loginTenant?: string(name='login_tenant'),
+  // 入驻时间，yyyy-MM-dd
+  loginDate?: string(name='login_date'),
+}
+
+model SettlementmodifyDubbridgeAlipayMerchantResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 入驻申请单号
+  orderId?: string(name='order_id'),
+  // 社会统一信用代码
+  usci?: string(name='usci'),
+  // 门店所属子品牌
+  trafficPlatform?: string(name='traffic_platform'),
+  // 外部商户id
+  externalId?: string(name='external_id'),
+}
+
+/**
+ * Description: 天枢-商户结算信息修改
+ * Summary: 天枢-商户结算信息修改
+ */
+async function settlementmodifyDubbridgeAlipayMerchant(request: SettlementmodifyDubbridgeAlipayMerchantRequest): SettlementmodifyDubbridgeAlipayMerchantResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return settlementmodifyDubbridgeAlipayMerchantEx(request, headers, runtime);
+}
+
+/**
+ * Description: 天枢-商户结算信息修改
+ * Summary: 天枢-商户结算信息修改
+ */
+async function settlementmodifyDubbridgeAlipayMerchantEx(request: SettlementmodifyDubbridgeAlipayMerchantRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SettlementmodifyDubbridgeAlipayMerchantResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.alipay.merchant.settlementmodify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDubbridgeFundCreditamtRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 请求单号
+  requestId: string(name='request_id'),
+  // 业务类型
+  prodType: string(name='prod_type'),
+  // 导流平台
+  trafficPlatform?: string(name='traffic_platform'),
+  // 流量来源名称
+  trafficSourceName?: string(name='traffic_source_name'),
+  // 资产方用户唯一标识
+  openId: string(name='open_id'),
+  // 手机号
+  mobile: string(name='mobile'),
+  // 手机号加密类型
+  mobileType: string(name='mobile_type'),
+  // 身份证号
+  cardNo: string(name='card_no'),
+  // 身份证号加密类型
+  cardNoType: string(name='card_no_type'),
+  // 客户姓名
+  customerName: string(name='customer_name'),
+  // 客户姓名加密类型
+  customNameType: string(name='custom_name_type'),
+}
+
+model QueryDubbridgeFundCreditamtResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 业务类型
+  prodType?: string(name='prod_type'),
+  // 客户编号
+  customNo?: string(name='custom_no'),
+  // 资金方列表
+  fundList?: [ FundInfo ](name='fund_list'),
+}
+
+/**
+ * Description: 撞库查询机构侧最高可用额度
+ * Summary: 机构侧最高可用额度查询接口
+ */
+async function queryDubbridgeFundCreditamt(request: QueryDubbridgeFundCreditamtRequest): QueryDubbridgeFundCreditamtResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDubbridgeFundCreditamtEx(request, headers, runtime);
+}
+
+/**
+ * Description: 撞库查询机构侧最高可用额度
+ * Summary: 机构侧最高可用额度查询接口
+ */
+async function queryDubbridgeFundCreditamtEx(request: QueryDubbridgeFundCreditamtRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubbridgeFundCreditamtResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.fund.creditamt.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model VerifyFinserviceZhimaIdentifyRequest = {
@@ -14780,6 +15021,8 @@ model UploadUmktOfflinedecisionRequest = {
   fileId: string(name='file_id'),
   // 非必填, 默认OFFLINE_DECISION
   relationType?: string(name='relation_type'),
+  // 任务执行uuid
+  taskUuid?: string(name='task_uuid'),
 }
 
 model UploadUmktOfflinedecisionResponse = {
@@ -15035,9 +15278,11 @@ model DownloadUmktOfflineCampaignRequest = {
   // 节点id
   nodeId: string(name='node_id'),
   // 关联圈客计划id
-  decisionPlanId: long(name='decision_plan_id'),
+  decisionPlanId?: long(name='decision_plan_id'),
   // 任务id
   taskId: string(name='task_id'),
+  // 节点任务关联资源id
+  resourceId?: string(name='resource_id'),
 }
 
 model DownloadUmktOfflineCampaignResponse = {
@@ -15068,6 +15313,50 @@ async function downloadUmktOfflineCampaign(request: DownloadUmktOfflineCampaignR
 async function downloadUmktOfflineCampaignEx(request: DownloadUmktOfflineCampaignRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DownloadUmktOfflineCampaignResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.umkt.offline.campaign.download', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryUmktCampaignTaskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 半圈投计划id
+  campaignId: long(name='campaign_id'),
+  // 任务唯一id
+  taskId?: string(name='task_id'),
+  // 圈投任务执行日期
+  execDate?: string(name='exec_date'),
+}
+
+model QueryUmktCampaignTaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 圈投计划id
+  campaignId?: long(name='campaign_id'),
+  // 圈投任务列表
+  campaignTaskList?: [ UmktCampaignTaskInfo ](name='campaign_task_list'),
+}
+
+/**
+ * Description: 营销盾半圈投任务查询
+ * Summary: 营销盾半圈投任务查询
+ */
+async function queryUmktCampaignTask(request: QueryUmktCampaignTaskRequest): QueryUmktCampaignTaskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryUmktCampaignTaskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 营销盾半圈投任务查询
+ * Summary: 营销盾半圈投任务查询
+ */
+async function queryUmktCampaignTaskEx(request: QueryUmktCampaignTaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryUmktCampaignTaskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.umkt.campaign.task.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateAntcloudGatewayxFileUploadRequest = {
