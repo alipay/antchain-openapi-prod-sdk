@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.30.0',
+                    'sdk_version': '1.30.11',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.30.0',
+                    'sdk_version': '1.30.11',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -5573,6 +5573,118 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.NotifyDubbridgeInterestResultResponse(),
             await self.do_request_async('1.0', 'riskplus.dubbridge.interest.result.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def settlementmodify_dubbridge_alipay_merchant(
+        self,
+        request: riskplus_models.SettlementmodifyDubbridgeAlipayMerchantRequest,
+    ) -> riskplus_models.SettlementmodifyDubbridgeAlipayMerchantResponse:
+        """
+        Description: 天枢-商户结算信息修改
+        Summary: 天枢-商户结算信息修改
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.settlementmodify_dubbridge_alipay_merchant_ex(request, headers, runtime)
+
+    async def settlementmodify_dubbridge_alipay_merchant_async(
+        self,
+        request: riskplus_models.SettlementmodifyDubbridgeAlipayMerchantRequest,
+    ) -> riskplus_models.SettlementmodifyDubbridgeAlipayMerchantResponse:
+        """
+        Description: 天枢-商户结算信息修改
+        Summary: 天枢-商户结算信息修改
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.settlementmodify_dubbridge_alipay_merchant_ex_async(request, headers, runtime)
+
+    def settlementmodify_dubbridge_alipay_merchant_ex(
+        self,
+        request: riskplus_models.SettlementmodifyDubbridgeAlipayMerchantRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.SettlementmodifyDubbridgeAlipayMerchantResponse:
+        """
+        Description: 天枢-商户结算信息修改
+        Summary: 天枢-商户结算信息修改
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.SettlementmodifyDubbridgeAlipayMerchantResponse(),
+            self.do_request('1.0', 'riskplus.dubbridge.alipay.merchant.settlementmodify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def settlementmodify_dubbridge_alipay_merchant_ex_async(
+        self,
+        request: riskplus_models.SettlementmodifyDubbridgeAlipayMerchantRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.SettlementmodifyDubbridgeAlipayMerchantResponse:
+        """
+        Description: 天枢-商户结算信息修改
+        Summary: 天枢-商户结算信息修改
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.SettlementmodifyDubbridgeAlipayMerchantResponse(),
+            await self.do_request_async('1.0', 'riskplus.dubbridge.alipay.merchant.settlementmodify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_dubbridge_fund_creditamt(
+        self,
+        request: riskplus_models.QueryDubbridgeFundCreditamtRequest,
+    ) -> riskplus_models.QueryDubbridgeFundCreditamtResponse:
+        """
+        Description: 撞库查询机构侧最高可用额度
+        Summary: 机构侧最高可用额度查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_dubbridge_fund_creditamt_ex(request, headers, runtime)
+
+    async def query_dubbridge_fund_creditamt_async(
+        self,
+        request: riskplus_models.QueryDubbridgeFundCreditamtRequest,
+    ) -> riskplus_models.QueryDubbridgeFundCreditamtResponse:
+        """
+        Description: 撞库查询机构侧最高可用额度
+        Summary: 机构侧最高可用额度查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_dubbridge_fund_creditamt_ex_async(request, headers, runtime)
+
+    def query_dubbridge_fund_creditamt_ex(
+        self,
+        request: riskplus_models.QueryDubbridgeFundCreditamtRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeFundCreditamtResponse:
+        """
+        Description: 撞库查询机构侧最高可用额度
+        Summary: 机构侧最高可用额度查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeFundCreditamtResponse(),
+            self.do_request('1.0', 'riskplus.dubbridge.fund.creditamt.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_dubbridge_fund_creditamt_ex_async(
+        self,
+        request: riskplus_models.QueryDubbridgeFundCreditamtRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeFundCreditamtResponse:
+        """
+        Description: 撞库查询机构侧最高可用额度
+        Summary: 机构侧最高可用额度查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeFundCreditamtResponse(),
+            await self.do_request_async('1.0', 'riskplus.dubbridge.fund.creditamt.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def verify_finservice_zhima_identify(
@@ -14713,6 +14825,62 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.DownloadUmktOfflineCampaignResponse(),
             await self.do_request_async('1.0', 'riskplus.umkt.offline.campaign.download', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_umkt_campaign_task(
+        self,
+        request: riskplus_models.QueryUmktCampaignTaskRequest,
+    ) -> riskplus_models.QueryUmktCampaignTaskResponse:
+        """
+        Description: 营销盾半圈投任务查询
+        Summary: 营销盾半圈投任务查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_umkt_campaign_task_ex(request, headers, runtime)
+
+    async def query_umkt_campaign_task_async(
+        self,
+        request: riskplus_models.QueryUmktCampaignTaskRequest,
+    ) -> riskplus_models.QueryUmktCampaignTaskResponse:
+        """
+        Description: 营销盾半圈投任务查询
+        Summary: 营销盾半圈投任务查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_umkt_campaign_task_ex_async(request, headers, runtime)
+
+    def query_umkt_campaign_task_ex(
+        self,
+        request: riskplus_models.QueryUmktCampaignTaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryUmktCampaignTaskResponse:
+        """
+        Description: 营销盾半圈投任务查询
+        Summary: 营销盾半圈投任务查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryUmktCampaignTaskResponse(),
+            self.do_request('1.0', 'riskplus.umkt.campaign.task.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_umkt_campaign_task_ex_async(
+        self,
+        request: riskplus_models.QueryUmktCampaignTaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryUmktCampaignTaskResponse:
+        """
+        Description: 营销盾半圈投任务查询
+        Summary: 营销盾半圈投任务查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryUmktCampaignTaskResponse(),
+            await self.do_request_async('1.0', 'riskplus.umkt.campaign.task.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
