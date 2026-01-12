@@ -3356,6 +3356,70 @@ export class CallbackMarketingPolicycancelResponse extends $tea.Model {
   }
 }
 
+export class QueryLeadMarketRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 产品编码
+  productCode: string;
+  // 业务参数
+  bizContent?: string;
+  // 请求流水号，全局唯一
+  requestId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productCode: 'product_code',
+      bizContent: 'biz_content',
+      requestId: 'request_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productCode: 'string',
+      bizContent: 'string',
+      requestId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryLeadMarketResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // JSON字符串
+  bizResult?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      bizResult: 'biz_result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      bizResult: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -3469,7 +3533,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.11.2",
+          sdk_version: "1.11.4",
           _prod_code: "INSURANCE_SAAS",
           _prod_channel: "undefined",
         };
@@ -4199,6 +4263,25 @@ export default class Client {
   async callbackMarketingPolicycancelEx(request: CallbackMarketingPolicycancelRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CallbackMarketingPolicycancelResponse> {
     Util.validateModel(request);
     return $tea.cast<CallbackMarketingPolicycancelResponse>(await this.doRequest("1.0", "antcloud.insurance.marketing.policycancel.callback", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CallbackMarketingPolicycancelResponse({}));
+  }
+
+  /**
+   * Description: 车险线索查询
+   * Summary: 车险线索查询
+   */
+  async queryLeadMarket(request: QueryLeadMarketRequest): Promise<QueryLeadMarketResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryLeadMarketEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 车险线索查询
+   * Summary: 车险线索查询
+   */
+  async queryLeadMarketEx(request: QueryLeadMarketRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryLeadMarketResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryLeadMarketResponse>(await this.doRequest("1.0", "antcloud.insurance.lead.market.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryLeadMarketResponse({}));
   }
 
 }
