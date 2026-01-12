@@ -90,6 +90,12 @@ class RepayDubbridgeRepayWithholdRequest extends Model
      * @var string
      */
     public $signingAgreementNum;
+
+    // 担保费
+    /**
+     * @var string
+     */
+    public $guaranteeFee;
     protected $_name = [
         'authToken'           => 'auth_token',
         'productInstanceId'   => 'product_instance_id',
@@ -105,6 +111,7 @@ class RepayDubbridgeRepayWithholdRequest extends Model
         'accountOpenBank'     => 'account_open_bank',
         'deductionCode'       => 'deduction_code',
         'signingAgreementNum' => 'signing_agreement_num',
+        'guaranteeFee'        => 'guarantee_fee',
     ];
 
     public function validate()
@@ -158,6 +165,9 @@ class RepayDubbridgeRepayWithholdRequest extends Model
         }
         if (null !== $this->signingAgreementNum) {
             $res['signing_agreement_num'] = $this->signingAgreementNum;
+        }
+        if (null !== $this->guaranteeFee) {
+            $res['guarantee_fee'] = $this->guaranteeFee;
         }
 
         return $res;
@@ -214,6 +224,9 @@ class RepayDubbridgeRepayWithholdRequest extends Model
         }
         if (isset($map['signing_agreement_num'])) {
             $model->signingAgreementNum = $map['signing_agreement_num'];
+        }
+        if (isset($map['guarantee_fee'])) {
+            $model->guaranteeFee = $map['guarantee_fee'];
         }
 
         return $model;

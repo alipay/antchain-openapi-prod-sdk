@@ -42,13 +42,27 @@ class CountDubbridgeRepayTrialRequest extends Model
      * @var int[]
      */
     public $periodList;
+
+    // 贴息比例
+    /**
+     * @var string
+     */
+    public $interestSubsidyRatio;
+
+    // 参考定价
+    /**
+     * @var string
+     */
+    public $referenceRatio;
     protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'originalOrderNo'   => 'original_order_no',
-        'repayType'         => 'repay_type',
-        'orderNo'           => 'order_no',
-        'periodList'        => 'period_list',
+        'authToken'            => 'auth_token',
+        'productInstanceId'    => 'product_instance_id',
+        'originalOrderNo'      => 'original_order_no',
+        'repayType'            => 'repay_type',
+        'orderNo'              => 'order_no',
+        'periodList'           => 'period_list',
+        'interestSubsidyRatio' => 'interest_subsidy_ratio',
+        'referenceRatio'       => 'reference_ratio',
     ];
 
     public function validate()
@@ -78,6 +92,12 @@ class CountDubbridgeRepayTrialRequest extends Model
         }
         if (null !== $this->periodList) {
             $res['period_list'] = $this->periodList;
+        }
+        if (null !== $this->interestSubsidyRatio) {
+            $res['interest_subsidy_ratio'] = $this->interestSubsidyRatio;
+        }
+        if (null !== $this->referenceRatio) {
+            $res['reference_ratio'] = $this->referenceRatio;
         }
 
         return $res;
@@ -110,6 +130,12 @@ class CountDubbridgeRepayTrialRequest extends Model
             if (!empty($map['period_list'])) {
                 $model->periodList = $map['period_list'];
             }
+        }
+        if (isset($map['interest_subsidy_ratio'])) {
+            $model->interestSubsidyRatio = $map['interest_subsidy_ratio'];
+        }
+        if (isset($map['reference_ratio'])) {
+            $model->referenceRatio = $map['reference_ratio'];
         }
 
         return $model;

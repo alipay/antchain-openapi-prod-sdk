@@ -91,6 +91,12 @@ class QueryDubbridgeCreditStatusResponse extends Model
      * @var string
      */
     public $loanInstCode;
+
+    // JSON字符串
+    /**
+     * @var string
+     */
+    public $extInfo;
     protected $_name = [
         'reqMsgId'      => 'req_msg_id',
         'resultCode'    => 'result_code',
@@ -106,6 +112,7 @@ class QueryDubbridgeCreditStatusResponse extends Model
         'fundCode'      => 'fund_code',
         'coolingPeriod' => 'cooling_period',
         'loanInstCode'  => 'loan_inst_code',
+        'extInfo'       => 'ext_info',
     ];
 
     public function validate()
@@ -157,6 +164,9 @@ class QueryDubbridgeCreditStatusResponse extends Model
         }
         if (null !== $this->loanInstCode) {
             $res['loan_inst_code'] = $this->loanInstCode;
+        }
+        if (null !== $this->extInfo) {
+            $res['ext_info'] = $this->extInfo;
         }
 
         return $res;
@@ -211,6 +221,9 @@ class QueryDubbridgeCreditStatusResponse extends Model
         }
         if (isset($map['loan_inst_code'])) {
             $model->loanInstCode = $map['loan_inst_code'];
+        }
+        if (isset($map['ext_info'])) {
+            $model->extInfo = $map['ext_info'];
         }
 
         return $model;

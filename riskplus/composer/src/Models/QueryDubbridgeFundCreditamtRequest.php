@@ -6,7 +6,7 @@ namespace AntChain\RISKPLUS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryDubbridgeInstallmentCreditamtRequest extends Model
+class QueryDubbridgeFundCreditamtRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,13 +19,13 @@ class QueryDubbridgeInstallmentCreditamtRequest extends Model
      */
     public $productInstanceId;
 
-    // 订单号：request请求单号，每次请求唯一，如uuid
+    // 请求单号
     /**
      * @var string
      */
-    public $orderNo;
+    public $requestId;
 
-    // 1：现金贷、2：分期付
+    // 业务类型
     /**
      * @var string
      */
@@ -37,7 +37,7 @@ class QueryDubbridgeInstallmentCreditamtRequest extends Model
      */
     public $trafficPlatform;
 
-    // 流量来源名称，导流平台背后具体的流量名称
+    // 流量来源名称
     /**
      * @var string
      */
@@ -55,29 +55,11 @@ class QueryDubbridgeInstallmentCreditamtRequest extends Model
      */
     public $mobile;
 
-    // 项目编号（天枢侧提前约定）
+    // 手机号加密类型
     /**
      * @var string
      */
-    public $projectCode;
-
-    // 交易金额，单位：元，如199.88（用于筛选额度充足的机构）
-    /**
-     * @var string
-     */
-    public $tradeAmount;
-
-    // 分期金额，单位：元，如99.88（用于筛选额度充足的机构）,分期金额由天枢加工的渠道可不传递
-    /**
-     * @var string
-     */
-    public $installmentAmount;
-
-    // 资产方购物订单号，如二轮车/摩托车订单号
-    /**
-     * @var string
-     */
-    public $bizOrderNo;
+    public $mobileType;
 
     // 身份证号
     /**
@@ -85,64 +67,50 @@ class QueryDubbridgeInstallmentCreditamtRequest extends Model
      */
     public $cardNo;
 
+    // 身份证号加密类型
+    /**
+     * @var string
+     */
+    public $cardNoType;
+
     // 客户姓名
     /**
      * @var string
      */
     public $customerName;
 
-    // 广告位id，流量来源内各广告位标志
+    // 客户姓名加密类型
     /**
      * @var string
      */
-    public $trafficAdId;
-
-    // 营销活动编号
-    /**
-     * @var string
-     */
-    public $trafficMktId;
-
-    // 点击id
-    /**
-     * @var string
-     */
-    public $clickId;
-
-    // 取消授信额度
-    /**
-     * @var string
-     */
-    public $cancalCreditLine;
+    public $customNameType;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'orderNo'           => 'order_no',
+        'requestId'         => 'request_id',
         'prodType'          => 'prod_type',
         'trafficPlatform'   => 'traffic_platform',
         'trafficSourceName' => 'traffic_source_name',
         'openId'            => 'open_id',
         'mobile'            => 'mobile',
-        'projectCode'       => 'project_code',
-        'tradeAmount'       => 'trade_amount',
-        'installmentAmount' => 'installment_amount',
-        'bizOrderNo'        => 'biz_order_no',
+        'mobileType'        => 'mobile_type',
         'cardNo'            => 'card_no',
+        'cardNoType'        => 'card_no_type',
         'customerName'      => 'customer_name',
-        'trafficAdId'       => 'traffic_ad_id',
-        'trafficMktId'      => 'traffic_mkt_id',
-        'clickId'           => 'click_id',
-        'cancalCreditLine'  => 'cancal_credit_line',
+        'customNameType'    => 'custom_name_type',
     ];
 
     public function validate()
     {
-        Model::validateRequired('orderNo', $this->orderNo, true);
+        Model::validateRequired('requestId', $this->requestId, true);
         Model::validateRequired('prodType', $this->prodType, true);
-        Model::validateRequired('trafficPlatform', $this->trafficPlatform, true);
         Model::validateRequired('openId', $this->openId, true);
         Model::validateRequired('mobile', $this->mobile, true);
-        Model::validateRequired('projectCode', $this->projectCode, true);
+        Model::validateRequired('mobileType', $this->mobileType, true);
+        Model::validateRequired('cardNo', $this->cardNo, true);
+        Model::validateRequired('cardNoType', $this->cardNoType, true);
+        Model::validateRequired('customerName', $this->customerName, true);
+        Model::validateRequired('customNameType', $this->customNameType, true);
     }
 
     public function toMap()
@@ -154,8 +122,8 @@ class QueryDubbridgeInstallmentCreditamtRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->orderNo) {
-            $res['order_no'] = $this->orderNo;
+        if (null !== $this->requestId) {
+            $res['request_id'] = $this->requestId;
         }
         if (null !== $this->prodType) {
             $res['prod_type'] = $this->prodType;
@@ -172,35 +140,20 @@ class QueryDubbridgeInstallmentCreditamtRequest extends Model
         if (null !== $this->mobile) {
             $res['mobile'] = $this->mobile;
         }
-        if (null !== $this->projectCode) {
-            $res['project_code'] = $this->projectCode;
-        }
-        if (null !== $this->tradeAmount) {
-            $res['trade_amount'] = $this->tradeAmount;
-        }
-        if (null !== $this->installmentAmount) {
-            $res['installment_amount'] = $this->installmentAmount;
-        }
-        if (null !== $this->bizOrderNo) {
-            $res['biz_order_no'] = $this->bizOrderNo;
+        if (null !== $this->mobileType) {
+            $res['mobile_type'] = $this->mobileType;
         }
         if (null !== $this->cardNo) {
             $res['card_no'] = $this->cardNo;
         }
+        if (null !== $this->cardNoType) {
+            $res['card_no_type'] = $this->cardNoType;
+        }
         if (null !== $this->customerName) {
             $res['customer_name'] = $this->customerName;
         }
-        if (null !== $this->trafficAdId) {
-            $res['traffic_ad_id'] = $this->trafficAdId;
-        }
-        if (null !== $this->trafficMktId) {
-            $res['traffic_mkt_id'] = $this->trafficMktId;
-        }
-        if (null !== $this->clickId) {
-            $res['click_id'] = $this->clickId;
-        }
-        if (null !== $this->cancalCreditLine) {
-            $res['cancal_credit_line'] = $this->cancalCreditLine;
+        if (null !== $this->customNameType) {
+            $res['custom_name_type'] = $this->customNameType;
         }
 
         return $res;
@@ -209,7 +162,7 @@ class QueryDubbridgeInstallmentCreditamtRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryDubbridgeInstallmentCreditamtRequest
+     * @return QueryDubbridgeFundCreditamtRequest
      */
     public static function fromMap($map = [])
     {
@@ -220,8 +173,8 @@ class QueryDubbridgeInstallmentCreditamtRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['order_no'])) {
-            $model->orderNo = $map['order_no'];
+        if (isset($map['request_id'])) {
+            $model->requestId = $map['request_id'];
         }
         if (isset($map['prod_type'])) {
             $model->prodType = $map['prod_type'];
@@ -238,35 +191,20 @@ class QueryDubbridgeInstallmentCreditamtRequest extends Model
         if (isset($map['mobile'])) {
             $model->mobile = $map['mobile'];
         }
-        if (isset($map['project_code'])) {
-            $model->projectCode = $map['project_code'];
-        }
-        if (isset($map['trade_amount'])) {
-            $model->tradeAmount = $map['trade_amount'];
-        }
-        if (isset($map['installment_amount'])) {
-            $model->installmentAmount = $map['installment_amount'];
-        }
-        if (isset($map['biz_order_no'])) {
-            $model->bizOrderNo = $map['biz_order_no'];
+        if (isset($map['mobile_type'])) {
+            $model->mobileType = $map['mobile_type'];
         }
         if (isset($map['card_no'])) {
             $model->cardNo = $map['card_no'];
         }
+        if (isset($map['card_no_type'])) {
+            $model->cardNoType = $map['card_no_type'];
+        }
         if (isset($map['customer_name'])) {
             $model->customerName = $map['customer_name'];
         }
-        if (isset($map['traffic_ad_id'])) {
-            $model->trafficAdId = $map['traffic_ad_id'];
-        }
-        if (isset($map['traffic_mkt_id'])) {
-            $model->trafficMktId = $map['traffic_mkt_id'];
-        }
-        if (isset($map['click_id'])) {
-            $model->clickId = $map['click_id'];
-        }
-        if (isset($map['cancal_credit_line'])) {
-            $model->cancalCreditLine = $map['cancal_credit_line'];
+        if (isset($map['custom_name_type'])) {
+            $model->customNameType = $map['custom_name_type'];
         }
 
         return $model;

@@ -6,7 +6,7 @@ namespace AntChain\RISKPLUS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class VerifyDubbridgeCustomerBankcardResponse extends Model
+class SettlementmodifyDubbridgeAlipayMerchantResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,37 +26,37 @@ class VerifyDubbridgeCustomerBankcardResponse extends Model
      */
     public $resultMsg;
 
-    // 绑卡流水
+    // 入驻申请单号
     /**
      * @var string
      */
-    public $bindSerialNo;
+    public $orderId;
 
-    // 签约结果
+    // 社会统一信用代码
     /**
      * @var string
      */
-    public $signResult;
+    public $usci;
 
-    // 客户号
+    // 门店所属子品牌
     /**
      * @var string
      */
-    public $customerNo;
+    public $trafficPlatform;
 
-    // 协议号
+    // 外部商户id
     /**
      * @var string
      */
-    public $protocolNo;
+    public $externalId;
     protected $_name = [
-        'reqMsgId'     => 'req_msg_id',
-        'resultCode'   => 'result_code',
-        'resultMsg'    => 'result_msg',
-        'bindSerialNo' => 'bind_serial_no',
-        'signResult'   => 'sign_result',
-        'customerNo'   => 'customer_no',
-        'protocolNo'   => 'protocol_no',
+        'reqMsgId'        => 'req_msg_id',
+        'resultCode'      => 'result_code',
+        'resultMsg'       => 'result_msg',
+        'orderId'         => 'order_id',
+        'usci'            => 'usci',
+        'trafficPlatform' => 'traffic_platform',
+        'externalId'      => 'external_id',
     ];
 
     public function validate()
@@ -75,17 +75,17 @@ class VerifyDubbridgeCustomerBankcardResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->bindSerialNo) {
-            $res['bind_serial_no'] = $this->bindSerialNo;
+        if (null !== $this->orderId) {
+            $res['order_id'] = $this->orderId;
         }
-        if (null !== $this->signResult) {
-            $res['sign_result'] = $this->signResult;
+        if (null !== $this->usci) {
+            $res['usci'] = $this->usci;
         }
-        if (null !== $this->customerNo) {
-            $res['customer_no'] = $this->customerNo;
+        if (null !== $this->trafficPlatform) {
+            $res['traffic_platform'] = $this->trafficPlatform;
         }
-        if (null !== $this->protocolNo) {
-            $res['protocol_no'] = $this->protocolNo;
+        if (null !== $this->externalId) {
+            $res['external_id'] = $this->externalId;
         }
 
         return $res;
@@ -94,7 +94,7 @@ class VerifyDubbridgeCustomerBankcardResponse extends Model
     /**
      * @param array $map
      *
-     * @return VerifyDubbridgeCustomerBankcardResponse
+     * @return SettlementmodifyDubbridgeAlipayMerchantResponse
      */
     public static function fromMap($map = [])
     {
@@ -108,17 +108,17 @@ class VerifyDubbridgeCustomerBankcardResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['bind_serial_no'])) {
-            $model->bindSerialNo = $map['bind_serial_no'];
+        if (isset($map['order_id'])) {
+            $model->orderId = $map['order_id'];
         }
-        if (isset($map['sign_result'])) {
-            $model->signResult = $map['sign_result'];
+        if (isset($map['usci'])) {
+            $model->usci = $map['usci'];
         }
-        if (isset($map['customer_no'])) {
-            $model->customerNo = $map['customer_no'];
+        if (isset($map['traffic_platform'])) {
+            $model->trafficPlatform = $map['traffic_platform'];
         }
-        if (isset($map['protocol_no'])) {
-            $model->protocolNo = $map['protocol_no'];
+        if (isset($map['external_id'])) {
+            $model->externalId = $map['external_id'];
         }
 
         return $model;

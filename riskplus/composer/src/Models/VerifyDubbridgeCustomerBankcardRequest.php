@@ -54,6 +54,12 @@ class VerifyDubbridgeCustomerBankcardRequest extends Model
      * @var string
      */
     public $channelCode;
+
+    // 业务类型
+    /**
+     * @var string
+     */
+    public $prodType;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -63,6 +69,7 @@ class VerifyDubbridgeCustomerBankcardRequest extends Model
         'bindValidCode'     => 'bind_valid_code',
         'bankCardNo'        => 'bank_card_no',
         'channelCode'       => 'channel_code',
+        'prodType'          => 'prod_type',
     ];
 
     public function validate()
@@ -100,6 +107,9 @@ class VerifyDubbridgeCustomerBankcardRequest extends Model
         if (null !== $this->channelCode) {
             $res['channel_code'] = $this->channelCode;
         }
+        if (null !== $this->prodType) {
+            $res['prod_type'] = $this->prodType;
+        }
 
         return $res;
     }
@@ -135,6 +145,9 @@ class VerifyDubbridgeCustomerBankcardRequest extends Model
         }
         if (isset($map['channel_code'])) {
             $model->channelCode = $map['channel_code'];
+        }
+        if (isset($map['prod_type'])) {
+            $model->prodType = $map['prod_type'];
         }
 
         return $model;

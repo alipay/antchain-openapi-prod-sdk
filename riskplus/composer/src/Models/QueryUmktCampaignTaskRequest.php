@@ -6,7 +6,7 @@ namespace AntChain\RISKPLUS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class DownloadUmktOfflineCampaignRequest extends Model
+class QueryUmktCampaignTaskRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,50 +19,34 @@ class DownloadUmktOfflineCampaignRequest extends Model
      */
     public $productInstanceId;
 
-    // 圈投计划id
+    // 半圈投计划id
     /**
      * @var int
      */
     public $campaignId;
 
-    // 节点id
-    /**
-     * @var string
-     */
-    public $nodeId;
-
-    // 关联圈客计划id
-    /**
-     * @var int
-     */
-    public $decisionPlanId;
-
-    // 任务id
+    // 任务唯一id
     /**
      * @var string
      */
     public $taskId;
 
-    // 节点任务关联资源id
+    // 圈投任务执行日期
     /**
      * @var string
      */
-    public $resourceId;
+    public $execDate;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'campaignId'        => 'campaign_id',
-        'nodeId'            => 'node_id',
-        'decisionPlanId'    => 'decision_plan_id',
         'taskId'            => 'task_id',
-        'resourceId'        => 'resource_id',
+        'execDate'          => 'exec_date',
     ];
 
     public function validate()
     {
         Model::validateRequired('campaignId', $this->campaignId, true);
-        Model::validateRequired('nodeId', $this->nodeId, true);
-        Model::validateRequired('taskId', $this->taskId, true);
     }
 
     public function toMap()
@@ -77,17 +61,11 @@ class DownloadUmktOfflineCampaignRequest extends Model
         if (null !== $this->campaignId) {
             $res['campaign_id'] = $this->campaignId;
         }
-        if (null !== $this->nodeId) {
-            $res['node_id'] = $this->nodeId;
-        }
-        if (null !== $this->decisionPlanId) {
-            $res['decision_plan_id'] = $this->decisionPlanId;
-        }
         if (null !== $this->taskId) {
             $res['task_id'] = $this->taskId;
         }
-        if (null !== $this->resourceId) {
-            $res['resource_id'] = $this->resourceId;
+        if (null !== $this->execDate) {
+            $res['exec_date'] = $this->execDate;
         }
 
         return $res;
@@ -96,7 +74,7 @@ class DownloadUmktOfflineCampaignRequest extends Model
     /**
      * @param array $map
      *
-     * @return DownloadUmktOfflineCampaignRequest
+     * @return QueryUmktCampaignTaskRequest
      */
     public static function fromMap($map = [])
     {
@@ -110,17 +88,11 @@ class DownloadUmktOfflineCampaignRequest extends Model
         if (isset($map['campaign_id'])) {
             $model->campaignId = $map['campaign_id'];
         }
-        if (isset($map['node_id'])) {
-            $model->nodeId = $map['node_id'];
-        }
-        if (isset($map['decision_plan_id'])) {
-            $model->decisionPlanId = $map['decision_plan_id'];
-        }
         if (isset($map['task_id'])) {
             $model->taskId = $map['task_id'];
         }
-        if (isset($map['resource_id'])) {
-            $model->resourceId = $map['resource_id'];
+        if (isset($map['exec_date'])) {
+            $model->execDate = $map['exec_date'];
         }
 
         return $model;

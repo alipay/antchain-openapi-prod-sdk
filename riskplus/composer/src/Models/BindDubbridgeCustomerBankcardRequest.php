@@ -67,11 +67,17 @@ class BindDubbridgeCustomerBankcardRequest extends Model
      */
     public $mobile;
 
-    // 银行名称
+    // 业务类型
     /**
      * @var string
      */
-    public $bankName;
+    public $prodType;
+
+    // 银行编码
+    /**
+     * @var string
+     */
+    public $bankCode;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -83,7 +89,8 @@ class BindDubbridgeCustomerBankcardRequest extends Model
         'openId'            => 'open_id',
         'cardNo'            => 'card_no',
         'mobile'            => 'mobile',
-        'bankName'          => 'bank_name',
+        'prodType'          => 'prod_type',
+        'bankCode'          => 'bank_code',
     ];
 
     public function validate()
@@ -127,8 +134,11 @@ class BindDubbridgeCustomerBankcardRequest extends Model
         if (null !== $this->mobile) {
             $res['mobile'] = $this->mobile;
         }
-        if (null !== $this->bankName) {
-            $res['bank_name'] = $this->bankName;
+        if (null !== $this->prodType) {
+            $res['prod_type'] = $this->prodType;
+        }
+        if (null !== $this->bankCode) {
+            $res['bank_code'] = $this->bankCode;
         }
 
         return $res;
@@ -172,8 +182,11 @@ class BindDubbridgeCustomerBankcardRequest extends Model
         if (isset($map['mobile'])) {
             $model->mobile = $map['mobile'];
         }
-        if (isset($map['bank_name'])) {
-            $model->bankName = $map['bank_name'];
+        if (isset($map['prod_type'])) {
+            $model->prodType = $map['prod_type'];
+        }
+        if (isset($map['bank_code'])) {
+            $model->bankCode = $map['bank_code'];
         }
 
         return $model;

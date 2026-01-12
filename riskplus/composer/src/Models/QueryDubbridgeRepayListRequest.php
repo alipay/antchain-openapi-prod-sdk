@@ -30,11 +30,25 @@ class QueryDubbridgeRepayListRequest extends Model
      * @var string
      */
     public $originalOrderNo;
+
+    // 贴息比例
+    /**
+     * @var string
+     */
+    public $interestSubsidyRatio;
+
+    // 参考定价
+    /**
+     * @var string
+     */
+    public $referenceRatio;
     protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'orderNo'           => 'order_no',
-        'originalOrderNo'   => 'original_order_no',
+        'authToken'            => 'auth_token',
+        'productInstanceId'    => 'product_instance_id',
+        'orderNo'              => 'order_no',
+        'originalOrderNo'      => 'original_order_no',
+        'interestSubsidyRatio' => 'interest_subsidy_ratio',
+        'referenceRatio'       => 'reference_ratio',
     ];
 
     public function validate()
@@ -57,6 +71,12 @@ class QueryDubbridgeRepayListRequest extends Model
         }
         if (null !== $this->originalOrderNo) {
             $res['original_order_no'] = $this->originalOrderNo;
+        }
+        if (null !== $this->interestSubsidyRatio) {
+            $res['interest_subsidy_ratio'] = $this->interestSubsidyRatio;
+        }
+        if (null !== $this->referenceRatio) {
+            $res['reference_ratio'] = $this->referenceRatio;
         }
 
         return $res;
@@ -81,6 +101,12 @@ class QueryDubbridgeRepayListRequest extends Model
         }
         if (isset($map['original_order_no'])) {
             $model->originalOrderNo = $map['original_order_no'];
+        }
+        if (isset($map['interest_subsidy_ratio'])) {
+            $model->interestSubsidyRatio = $map['interest_subsidy_ratio'];
+        }
+        if (isset($map['reference_ratio'])) {
+            $model->referenceRatio = $map['reference_ratio'];
         }
 
         return $model;

@@ -66,6 +66,12 @@ class QueryDubbridgeInstallmentTrialRequest extends Model
      * @var string
      */
     public $couponId;
+
+    // 导流平台
+    /**
+     * @var string
+     */
+    public $trafficPlatform;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -77,6 +83,7 @@ class QueryDubbridgeInstallmentTrialRequest extends Model
         'fundCode'          => 'fund_code',
         'tradeAmount'       => 'trade_amount',
         'couponId'          => 'coupon_id',
+        'trafficPlatform'   => 'traffic_platform',
     ];
 
     public function validate()
@@ -122,6 +129,9 @@ class QueryDubbridgeInstallmentTrialRequest extends Model
         if (null !== $this->couponId) {
             $res['coupon_id'] = $this->couponId;
         }
+        if (null !== $this->trafficPlatform) {
+            $res['traffic_platform'] = $this->trafficPlatform;
+        }
 
         return $res;
     }
@@ -163,6 +173,9 @@ class QueryDubbridgeInstallmentTrialRequest extends Model
         }
         if (isset($map['coupon_id'])) {
             $model->couponId = $map['coupon_id'];
+        }
+        if (isset($map['traffic_platform'])) {
+            $model->trafficPlatform = $map['traffic_platform'];
         }
 
         return $model;

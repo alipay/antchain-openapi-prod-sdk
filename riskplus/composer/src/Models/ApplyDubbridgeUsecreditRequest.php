@@ -108,6 +108,18 @@ class ApplyDubbridgeUsecreditRequest extends Model
      * @var string
      */
     public $couponId;
+
+    // 导流平台
+    /**
+     * @var string
+     */
+    public $trafficPlatform;
+
+    // 业务方订单号
+    /**
+     * @var string
+     */
+    public $bizOrderNo;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -126,6 +138,8 @@ class ApplyDubbridgeUsecreditRequest extends Model
         'bankCardNo'        => 'bank_card_no',
         'materials'         => 'materials',
         'couponId'          => 'coupon_id',
+        'trafficPlatform'   => 'traffic_platform',
+        'bizOrderNo'        => 'biz_order_no',
     ];
 
     public function validate()
@@ -199,6 +213,12 @@ class ApplyDubbridgeUsecreditRequest extends Model
         if (null !== $this->couponId) {
             $res['coupon_id'] = $this->couponId;
         }
+        if (null !== $this->trafficPlatform) {
+            $res['traffic_platform'] = $this->trafficPlatform;
+        }
+        if (null !== $this->bizOrderNo) {
+            $res['biz_order_no'] = $this->bizOrderNo;
+        }
 
         return $res;
     }
@@ -267,6 +287,12 @@ class ApplyDubbridgeUsecreditRequest extends Model
         }
         if (isset($map['coupon_id'])) {
             $model->couponId = $map['coupon_id'];
+        }
+        if (isset($map['traffic_platform'])) {
+            $model->trafficPlatform = $map['traffic_platform'];
+        }
+        if (isset($map['biz_order_no'])) {
+            $model->bizOrderNo = $map['biz_order_no'];
         }
 
         return $model;

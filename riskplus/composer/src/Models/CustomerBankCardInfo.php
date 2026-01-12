@@ -47,12 +47,21 @@ class CustomerBankCardInfo extends Model
      * @var string
      */
     public $acctBankCard;
+
+    // 协议号
+    /**
+     * @example 202515300000000000000158463
+     *
+     * @var string
+     */
+    public $protocolNo;
     protected $_name = [
         'bankName'     => 'bank_name',
         'bankCode'     => 'bank_code',
         'bankCardNo'   => 'bank_card_no',
         'signed'       => 'signed',
         'acctBankCard' => 'acct_bank_card',
+        'protocolNo'   => 'protocol_no',
     ];
 
     public function validate()
@@ -80,6 +89,9 @@ class CustomerBankCardInfo extends Model
         if (null !== $this->acctBankCard) {
             $res['acct_bank_card'] = $this->acctBankCard;
         }
+        if (null !== $this->protocolNo) {
+            $res['protocol_no'] = $this->protocolNo;
+        }
 
         return $res;
     }
@@ -106,6 +118,9 @@ class CustomerBankCardInfo extends Model
         }
         if (isset($map['acct_bank_card'])) {
             $model->acctBankCard = $map['acct_bank_card'];
+        }
+        if (isset($map['protocol_no'])) {
+            $model->protocolNo = $map['protocol_no'];
         }
 
         return $model;

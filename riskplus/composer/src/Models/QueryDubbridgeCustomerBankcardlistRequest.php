@@ -30,11 +30,18 @@ class QueryDubbridgeCustomerBankcardlistRequest extends Model
      * @var string
      */
     public $fundCode;
+
+    // 业务类型
+    /**
+     * @var string
+     */
+    public $prodType;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'customerNo'        => 'customer_no',
         'fundCode'          => 'fund_code',
+        'prodType'          => 'prod_type',
     ];
 
     public function validate()
@@ -57,6 +64,9 @@ class QueryDubbridgeCustomerBankcardlistRequest extends Model
         }
         if (null !== $this->fundCode) {
             $res['fund_code'] = $this->fundCode;
+        }
+        if (null !== $this->prodType) {
+            $res['prod_type'] = $this->prodType;
         }
 
         return $res;
@@ -81,6 +91,9 @@ class QueryDubbridgeCustomerBankcardlistRequest extends Model
         }
         if (isset($map['fund_code'])) {
             $model->fundCode = $map['fund_code'];
+        }
+        if (isset($map['prod_type'])) {
+            $model->prodType = $map['prod_type'];
         }
 
         return $model;

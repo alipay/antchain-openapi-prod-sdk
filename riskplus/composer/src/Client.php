@@ -251,6 +251,8 @@ use AntChain\RISKPLUS\Models\QueryDubbridgeCustomerBankcardlistRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeCustomerBankcardlistResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeCustomerCommonagreementsignRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeCustomerCommonagreementsignResponse;
+use AntChain\RISKPLUS\Models\QueryDubbridgeFundCreditamtRequest;
+use AntChain\RISKPLUS\Models\QueryDubbridgeFundCreditamtResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeInstallmentCreditamtRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeInstallmentCreditamtResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeInstallmentTrialRequest;
@@ -407,6 +409,8 @@ use AntChain\RISKPLUS\Models\QueryTdisaasairSecurityPolicyRequest;
 use AntChain\RISKPLUS\Models\QueryTdisaasairSecurityPolicyResponse;
 use AntChain\RISKPLUS\Models\QueryTdisaasSecurityPolicyRequest;
 use AntChain\RISKPLUS\Models\QueryTdisaasSecurityPolicyResponse;
+use AntChain\RISKPLUS\Models\QueryUmktCampaignTaskRequest;
+use AntChain\RISKPLUS\Models\QueryUmktCampaignTaskResponse;
 use AntChain\RISKPLUS\Models\QueryUmktCardsmsAnalysisRequest;
 use AntChain\RISKPLUS\Models\QueryUmktCardsmsAnalysisResponse;
 use AntChain\RISKPLUS\Models\QueryUmktCardsmsSupportRequest;
@@ -471,6 +475,8 @@ use AntChain\RISKPLUS\Models\SendUmktDigitalsmsBatchRequest;
 use AntChain\RISKPLUS\Models\SendUmktDigitalsmsBatchResponse;
 use AntChain\RISKPLUS\Models\SendUmktTextsmsBatchRequest;
 use AntChain\RISKPLUS\Models\SendUmktTextsmsBatchResponse;
+use AntChain\RISKPLUS\Models\SettlementmodifyDubbridgeAlipayMerchantRequest;
+use AntChain\RISKPLUS\Models\SettlementmodifyDubbridgeAlipayMerchantResponse;
 use AntChain\RISKPLUS\Models\StartRbbRegdatasyncScheduleRequest;
 use AntChain\RISKPLUS\Models\StartRbbRegdatasyncScheduleResponse;
 use AntChain\RISKPLUS\Models\SyncRdaasTaxAuthinfoRequest;
@@ -660,7 +666,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.30.0',
+                    'sdk_version'      => '1.30.11',
                     '_prod_code'       => 'RISKPLUS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -3827,6 +3833,72 @@ class Client
         Utils::validateModel($request);
 
         return NotifyDubbridgeInterestResultResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.interest.result.notify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 天枢-商户结算信息修改
+     * Summary: 天枢-商户结算信息修改.
+     *
+     * @param SettlementmodifyDubbridgeAlipayMerchantRequest $request
+     *
+     * @return SettlementmodifyDubbridgeAlipayMerchantResponse
+     */
+    public function settlementmodifyDubbridgeAlipayMerchant($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->settlementmodifyDubbridgeAlipayMerchantEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 天枢-商户结算信息修改
+     * Summary: 天枢-商户结算信息修改.
+     *
+     * @param SettlementmodifyDubbridgeAlipayMerchantRequest $request
+     * @param string[]                                       $headers
+     * @param RuntimeOptions                                 $runtime
+     *
+     * @return SettlementmodifyDubbridgeAlipayMerchantResponse
+     */
+    public function settlementmodifyDubbridgeAlipayMerchantEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SettlementmodifyDubbridgeAlipayMerchantResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.alipay.merchant.settlementmodify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 撞库查询机构侧最高可用额度
+     * Summary: 机构侧最高可用额度查询接口.
+     *
+     * @param QueryDubbridgeFundCreditamtRequest $request
+     *
+     * @return QueryDubbridgeFundCreditamtResponse
+     */
+    public function queryDubbridgeFundCreditamt($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDubbridgeFundCreditamtEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 撞库查询机构侧最高可用额度
+     * Summary: 机构侧最高可用额度查询接口.
+     *
+     * @param QueryDubbridgeFundCreditamtRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return QueryDubbridgeFundCreditamtResponse
+     */
+    public function queryDubbridgeFundCreditamtEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDubbridgeFundCreditamtResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.fund.creditamt.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -9188,6 +9260,39 @@ class Client
         Utils::validateModel($request);
 
         return DownloadUmktOfflineCampaignResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.offline.campaign.download', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 营销盾半圈投任务查询
+     * Summary: 营销盾半圈投任务查询.
+     *
+     * @param QueryUmktCampaignTaskRequest $request
+     *
+     * @return QueryUmktCampaignTaskResponse
+     */
+    public function queryUmktCampaignTask($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryUmktCampaignTaskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 营销盾半圈投任务查询
+     * Summary: 营销盾半圈投任务查询.
+     *
+     * @param QueryUmktCampaignTaskRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return QueryUmktCampaignTaskResponse
+     */
+    public function queryUmktCampaignTaskEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryUmktCampaignTaskResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.campaign.task.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

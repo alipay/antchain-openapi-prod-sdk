@@ -76,7 +76,7 @@ class QueryDubbridgeInstallmentCreditamtResponse extends Model
     // 1- 拒绝
     // 2- 审批中
     // 3- 失败
-    //
+    // 4- 未授信
     /**
      * @var string
      */

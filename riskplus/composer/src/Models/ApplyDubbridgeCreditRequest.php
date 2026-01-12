@@ -120,6 +120,18 @@ class ApplyDubbridgeCreditRequest extends Model
      * @var string
      */
     public $fundCode;
+
+    // 业务方订单号
+    /**
+     * @var string
+     */
+    public $bizOrderNo;
+
+    // 业务类型
+    /**
+     * @var string
+     */
+    public $prodType;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -140,6 +152,8 @@ class ApplyDubbridgeCreditRequest extends Model
         'channelType'       => 'channel_type',
         'customType'        => 'custom_type',
         'fundCode'          => 'fund_code',
+        'bizOrderNo'        => 'biz_order_no',
+        'prodType'          => 'prod_type',
     ];
 
     public function validate()
@@ -216,6 +230,12 @@ class ApplyDubbridgeCreditRequest extends Model
         if (null !== $this->fundCode) {
             $res['fund_code'] = $this->fundCode;
         }
+        if (null !== $this->bizOrderNo) {
+            $res['biz_order_no'] = $this->bizOrderNo;
+        }
+        if (null !== $this->prodType) {
+            $res['prod_type'] = $this->prodType;
+        }
 
         return $res;
     }
@@ -290,6 +310,12 @@ class ApplyDubbridgeCreditRequest extends Model
         }
         if (isset($map['fund_code'])) {
             $model->fundCode = $map['fund_code'];
+        }
+        if (isset($map['biz_order_no'])) {
+            $model->bizOrderNo = $map['biz_order_no'];
+        }
+        if (isset($map['prod_type'])) {
+            $model->prodType = $map['prod_type'];
         }
 
         return $model;

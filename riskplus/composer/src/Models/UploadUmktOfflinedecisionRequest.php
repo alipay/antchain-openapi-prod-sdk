@@ -57,6 +57,12 @@ class UploadUmktOfflinedecisionRequest extends Model
      * @var string
      */
     public $relationType;
+
+    // 任务执行uuid
+    /**
+     * @var string
+     */
+    public $taskUuid;
     protected $_name = [
         'authToken'             => 'auth_token',
         'productInstanceId'     => 'product_instance_id',
@@ -64,6 +70,7 @@ class UploadUmktOfflinedecisionRequest extends Model
         'fileTemplate'          => 'file_template',
         'fileId'                => 'file_id',
         'relationType'          => 'relation_type',
+        'taskUuid'              => 'task_uuid',
     ];
 
     public function validate()
@@ -100,6 +107,9 @@ class UploadUmktOfflinedecisionRequest extends Model
         if (null !== $this->relationType) {
             $res['relation_type'] = $this->relationType;
         }
+        if (null !== $this->taskUuid) {
+            $res['task_uuid'] = $this->taskUuid;
+        }
 
         return $res;
     }
@@ -135,6 +145,9 @@ class UploadUmktOfflinedecisionRequest extends Model
         }
         if (isset($map['relation_type'])) {
             $model->relationType = $map['relation_type'];
+        }
+        if (isset($map['task_uuid'])) {
+            $model->taskUuid = $map['task_uuid'];
         }
 
         return $model;
