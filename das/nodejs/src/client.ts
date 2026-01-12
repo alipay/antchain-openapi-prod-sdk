@@ -5553,6 +5553,10 @@ export class UpdateAuthStatusRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
+  // 数据源可信空间id
+  sourceServiceNodeId: string;
+  // 数据源租户id
+  sourceTenantId: string;
   // 被授权方企业信用代码
   authEnterpriseCode: string;
   // 场景码
@@ -5563,6 +5567,8 @@ export class UpdateAuthStatusRequest extends $tea.Model {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
+      sourceServiceNodeId: 'source_service_node_id',
+      sourceTenantId: 'source_tenant_id',
       authEnterpriseCode: 'auth_enterprise_code',
       sceneCode: 'scene_code',
       authStatus: 'auth_status',
@@ -5573,6 +5579,8 @@ export class UpdateAuthStatusRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
+      sourceServiceNodeId: 'string',
+      sourceTenantId: 'string',
       authEnterpriseCode: 'string',
       sceneCode: 'string',
       authStatus: 'boolean',
@@ -5618,6 +5626,8 @@ export class DetailAuthConfigRequest extends $tea.Model {
   productInstanceId?: string;
   // 数据源可信空间id
   sourceServiceNodeId: string;
+  // 数据源租户id
+  sourceTenantId: string;
   // 场景码
   sceneCode: string;
   static names(): { [key: string]: string } {
@@ -5625,6 +5635,7 @@ export class DetailAuthConfigRequest extends $tea.Model {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       sourceServiceNodeId: 'source_service_node_id',
+      sourceTenantId: 'source_tenant_id',
       sceneCode: 'scene_code',
     };
   }
@@ -5634,6 +5645,7 @@ export class DetailAuthConfigRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       sourceServiceNodeId: 'string',
+      sourceTenantId: 'string',
       sceneCode: 'string',
     };
   }
@@ -5775,6 +5787,10 @@ export class ListAuthRecordRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
+  // 数据源可信空间id
+  sourceServiceNodeId: string;
+  // 数据源租户id
+  sourceTenantId: string;
   // 场景码
   sceneCode: string;
   // 用户信息
@@ -5787,6 +5803,8 @@ export class ListAuthRecordRequest extends $tea.Model {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
+      sourceServiceNodeId: 'source_service_node_id',
+      sourceTenantId: 'source_tenant_id',
       sceneCode: 'scene_code',
       userInfo: 'user_info',
       pageNum: 'page_num',
@@ -5798,6 +5816,8 @@ export class ListAuthRecordRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
+      sourceServiceNodeId: 'string',
+      sourceTenantId: 'string',
       sceneCode: 'string',
       userInfo: 'string',
       pageNum: 'number',
@@ -6524,7 +6544,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.121",
+          sdk_version: "1.1.123",
           _prod_code: "DAS",
           _prod_channel: "undefined",
         };

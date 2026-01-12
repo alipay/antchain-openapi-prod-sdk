@@ -1,6 +1,6 @@
 {
   "name": "@antchain/das",
-  "version": "1.1.121",
+  "version": "1.1.123",
   "description": "",
   "main": "dist/client.js",
   "scripts": {
