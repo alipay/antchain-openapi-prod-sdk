@@ -20,28 +20,28 @@ class QueryLeadMarketRequest extends Model
      */
     public $productCode;
 
-    // 请求时的线索唯一id
-    /**
-     * @var string
-     */
-    public $leadId;
-
     // 业务参数
     /**
      * @var string
      */
     public $bizContent;
+
+    // 请求流水号，全局唯一
+    /**
+     * @var string
+     */
+    public $requestId;
     protected $_name = [
         'authToken'   => 'auth_token',
         'productCode' => 'product_code',
-        'leadId'      => 'lead_id',
         'bizContent'  => 'biz_content',
+        'requestId'   => 'request_id',
     ];
 
     public function validate()
     {
         Model::validateRequired('productCode', $this->productCode, true);
-        Model::validateRequired('leadId', $this->leadId, true);
+        Model::validateRequired('requestId', $this->requestId, true);
     }
 
     public function toMap()
@@ -53,11 +53,11 @@ class QueryLeadMarketRequest extends Model
         if (null !== $this->productCode) {
             $res['product_code'] = $this->productCode;
         }
-        if (null !== $this->leadId) {
-            $res['lead_id'] = $this->leadId;
-        }
         if (null !== $this->bizContent) {
             $res['biz_content'] = $this->bizContent;
+        }
+        if (null !== $this->requestId) {
+            $res['request_id'] = $this->requestId;
         }
 
         return $res;
@@ -77,11 +77,11 @@ class QueryLeadMarketRequest extends Model
         if (isset($map['product_code'])) {
             $model->productCode = $map['product_code'];
         }
-        if (isset($map['lead_id'])) {
-            $model->leadId = $map['lead_id'];
-        }
         if (isset($map['biz_content'])) {
             $model->bizContent = $map['biz_content'];
+        }
+        if (isset($map['request_id'])) {
+            $model->requestId = $map['request_id'];
         }
 
         return $model;
