@@ -4056,8 +4056,8 @@ func (s *NotifyInterestSupplierorderResponse) SetBizResult(v string) *NotifyInte
 type ReceiveLeadMarketRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	// 线索唯一id
-	LeadId *string `json:"lead_id,omitempty" xml:"lead_id,omitempty" require:"true"`
+	// 请求流水号，全局唯一
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
 	// 本次固定传LMKT_LEADS_TRANSFER
 	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
 	// 业务参数，json
@@ -4077,8 +4077,8 @@ func (s *ReceiveLeadMarketRequest) SetAuthToken(v string) *ReceiveLeadMarketRequ
 	return s
 }
 
-func (s *ReceiveLeadMarketRequest) SetLeadId(v string) *ReceiveLeadMarketRequest {
-	s.LeadId = &v
+func (s *ReceiveLeadMarketRequest) SetRequestId(v string) *ReceiveLeadMarketRequest {
+	s.RequestId = &v
 	return s
 }
 
@@ -4578,8 +4578,8 @@ type QueryLeadMarketRequest struct {
 	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
 	// 业务参数
 	BizContent *string `json:"biz_content,omitempty" xml:"biz_content,omitempty"`
-	// 请求流水号，全局唯一
-	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
+	// 线索唯一编码
+	LeadId *string `json:"lead_id,omitempty" xml:"lead_id,omitempty" require:"true"`
 }
 
 func (s QueryLeadMarketRequest) String() string {
@@ -4605,8 +4605,8 @@ func (s *QueryLeadMarketRequest) SetBizContent(v string) *QueryLeadMarketRequest
 	return s
 }
 
-func (s *QueryLeadMarketRequest) SetRequestId(v string) *QueryLeadMarketRequest {
-	s.RequestId = &v
+func (s *QueryLeadMarketRequest) SetLeadId(v string) *QueryLeadMarketRequest {
+	s.LeadId = &v
 	return s
 }
 
@@ -4771,7 +4771,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.11.4"),
+				"sdk_version":      tea.String("1.11.5"),
 				"_prod_code":       tea.String("INSURANCE_SAAS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
