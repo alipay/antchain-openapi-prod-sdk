@@ -8,10 +8,10 @@ public class ReceiveLeadMarketRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
-    // 线索唯一id
-    @NameInMap("lead_id")
+    // 请求流水号，全局唯一
+    @NameInMap("request_id")
     @Validation(required = true)
-    public String leadId;
+    public String requestId;
 
     // 本次固定传LMKT_LEADS_TRANSFER
     @NameInMap("product_code")
@@ -36,12 +36,12 @@ public class ReceiveLeadMarketRequest extends TeaModel {
         return this.authToken;
     }
 
-    public ReceiveLeadMarketRequest setLeadId(String leadId) {
-        this.leadId = leadId;
+    public ReceiveLeadMarketRequest setRequestId(String requestId) {
+        this.requestId = requestId;
         return this;
     }
-    public String getLeadId() {
-        return this.leadId;
+    public String getRequestId() {
+        return this.requestId;
     }
 
     public ReceiveLeadMarketRequest setProductCode(String productCode) {

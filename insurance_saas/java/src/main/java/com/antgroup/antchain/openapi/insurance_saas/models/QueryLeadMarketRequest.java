@@ -17,10 +17,10 @@ public class QueryLeadMarketRequest extends TeaModel {
     @NameInMap("biz_content")
     public String bizContent;
 
-    // 请求流水号，全局唯一
-    @NameInMap("request_id")
+    // 线索唯一编码
+    @NameInMap("lead_id")
     @Validation(required = true)
-    public String requestId;
+    public String leadId;
 
     public static QueryLeadMarketRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryLeadMarketRequest self = new QueryLeadMarketRequest();
@@ -51,12 +51,12 @@ public class QueryLeadMarketRequest extends TeaModel {
         return this.bizContent;
     }
 
-    public QueryLeadMarketRequest setRequestId(String requestId) {
-        this.requestId = requestId;
+    public QueryLeadMarketRequest setLeadId(String leadId) {
+        this.leadId = leadId;
         return this;
     }
-    public String getRequestId() {
-        return this.requestId;
+    public String getLeadId() {
+        return this.leadId;
     }
 
 }
