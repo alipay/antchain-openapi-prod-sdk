@@ -14,10 +14,10 @@ namespace AntChain.SDK.INSURANCE_SAAS.Models
         [Validation(Required=false)]
         public string AuthToken { get; set; }
 
-        // 线索唯一id
-        [NameInMap("lead_id")]
+        // 请求流水号，全局唯一
+        [NameInMap("request_id")]
         [Validation(Required=true)]
-        public string LeadId { get; set; }
+        public string RequestId { get; set; }
 
         // 本次固定传LMKT_LEADS_TRANSFER
         [NameInMap("product_code")]

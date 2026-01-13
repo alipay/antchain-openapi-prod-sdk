@@ -24,10 +24,10 @@ namespace AntChain.SDK.INSURANCE_SAAS.Models
         [Validation(Required=false)]
         public string BizContent { get; set; }
 
-        // 请求流水号，全局唯一
-        [NameInMap("request_id")]
+        // 线索唯一编码
+        [NameInMap("lead_id")]
         [Validation(Required=true)]
-        public string RequestId { get; set; }
+        public string LeadId { get; set; }
 
     }
 
