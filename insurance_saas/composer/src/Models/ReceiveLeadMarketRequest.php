@@ -14,11 +14,11 @@ class ReceiveLeadMarketRequest extends Model
      */
     public $authToken;
 
-    // 线索唯一id
+    // 请求流水号，全局唯一
     /**
      * @var string
      */
-    public $leadId;
+    public $requestId;
 
     // 本次固定传LMKT_LEADS_TRANSFER
     /**
@@ -33,14 +33,14 @@ class ReceiveLeadMarketRequest extends Model
     public $bizContent;
     protected $_name = [
         'authToken'   => 'auth_token',
-        'leadId'      => 'lead_id',
+        'requestId'   => 'request_id',
         'productCode' => 'product_code',
         'bizContent'  => 'biz_content',
     ];
 
     public function validate()
     {
-        Model::validateRequired('leadId', $this->leadId, true);
+        Model::validateRequired('requestId', $this->requestId, true);
         Model::validateRequired('productCode', $this->productCode, true);
         Model::validateRequired('bizContent', $this->bizContent, true);
     }
@@ -51,8 +51,8 @@ class ReceiveLeadMarketRequest extends Model
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
         }
-        if (null !== $this->leadId) {
-            $res['lead_id'] = $this->leadId;
+        if (null !== $this->requestId) {
+            $res['request_id'] = $this->requestId;
         }
         if (null !== $this->productCode) {
             $res['product_code'] = $this->productCode;
@@ -75,8 +75,8 @@ class ReceiveLeadMarketRequest extends Model
         if (isset($map['auth_token'])) {
             $model->authToken = $map['auth_token'];
         }
-        if (isset($map['lead_id'])) {
-            $model->leadId = $map['lead_id'];
+        if (isset($map['request_id'])) {
+            $model->requestId = $map['request_id'];
         }
         if (isset($map['product_code'])) {
             $model->productCode = $map['product_code'];

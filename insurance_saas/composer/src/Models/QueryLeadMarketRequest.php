@@ -26,22 +26,22 @@ class QueryLeadMarketRequest extends Model
      */
     public $bizContent;
 
-    // 请求流水号，全局唯一
+    // 线索唯一编码
     /**
      * @var string
      */
-    public $requestId;
+    public $leadId;
     protected $_name = [
         'authToken'   => 'auth_token',
         'productCode' => 'product_code',
         'bizContent'  => 'biz_content',
-        'requestId'   => 'request_id',
+        'leadId'      => 'lead_id',
     ];
 
     public function validate()
     {
         Model::validateRequired('productCode', $this->productCode, true);
-        Model::validateRequired('requestId', $this->requestId, true);
+        Model::validateRequired('leadId', $this->leadId, true);
     }
 
     public function toMap()
@@ -56,8 +56,8 @@ class QueryLeadMarketRequest extends Model
         if (null !== $this->bizContent) {
             $res['biz_content'] = $this->bizContent;
         }
-        if (null !== $this->requestId) {
-            $res['request_id'] = $this->requestId;
+        if (null !== $this->leadId) {
+            $res['lead_id'] = $this->leadId;
         }
 
         return $res;
@@ -80,8 +80,8 @@ class QueryLeadMarketRequest extends Model
         if (isset($map['biz_content'])) {
             $model->bizContent = $map['biz_content'];
         }
-        if (isset($map['request_id'])) {
-            $model->requestId = $map['request_id'];
+        if (isset($map['lead_id'])) {
+            $model->leadId = $map['lead_id'];
         }
 
         return $model;
