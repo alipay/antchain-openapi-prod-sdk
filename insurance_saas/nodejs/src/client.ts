@@ -2978,8 +2978,8 @@ export class NotifyInterestSupplierorderResponse extends $tea.Model {
 export class ReceiveLeadMarketRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 线索唯一id
-  leadId: string;
+  // 请求流水号，全局唯一
+  requestId: string;
   // 本次固定传LMKT_LEADS_TRANSFER
   productCode: string;
   // 业务参数，json
@@ -2987,7 +2987,7 @@ export class ReceiveLeadMarketRequest extends $tea.Model {
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
-      leadId: 'lead_id',
+      requestId: 'request_id',
       productCode: 'product_code',
       bizContent: 'biz_content',
     };
@@ -2996,7 +2996,7 @@ export class ReceiveLeadMarketRequest extends $tea.Model {
   static types(): { [key: string]: any } {
     return {
       authToken: 'string',
-      leadId: 'string',
+      requestId: 'string',
       productCode: 'string',
       bizContent: 'string',
     };
@@ -3363,14 +3363,14 @@ export class QueryLeadMarketRequest extends $tea.Model {
   productCode: string;
   // 业务参数
   bizContent?: string;
-  // 请求流水号，全局唯一
-  requestId: string;
+  // 线索唯一编码
+  leadId: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productCode: 'product_code',
       bizContent: 'biz_content',
-      requestId: 'request_id',
+      leadId: 'lead_id',
     };
   }
 
@@ -3379,7 +3379,7 @@ export class QueryLeadMarketRequest extends $tea.Model {
       authToken: 'string',
       productCode: 'string',
       bizContent: 'string',
-      requestId: 'string',
+      leadId: 'string',
     };
   }
 
@@ -3533,7 +3533,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.11.4",
+          sdk_version: "1.11.5",
           _prod_code: "INSURANCE_SAAS",
           _prod_channel: "undefined",
         };
