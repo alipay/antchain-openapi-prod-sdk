@@ -2321,7 +2321,6 @@ class BatchqueryCarloanTestRequest(TeaModel):
 
     def validate(self):
         self.validate_required(self.date, 'date')
-        self.validate_required(self.data_num, 'data_num')
 
     def to_map(self):
         _map = super().to_map()
@@ -2419,7 +2418,6 @@ class BatchqueryCarloanPrdRequest(TeaModel):
 
     def validate(self):
         self.validate_required(self.date, 'date')
-        self.validate_required(self.data_num, 'data_num')
 
     def to_map(self):
         _map = super().to_map()
