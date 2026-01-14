@@ -40,7 +40,6 @@ class BatchqueryCarloanTestRequest extends Model
     public function validate()
     {
         Model::validateRequired('date', $this->date, true);
-        Model::validateRequired('dataNum', $this->dataNum, true);
     }
 
     public function toMap()
