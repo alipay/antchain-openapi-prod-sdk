@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.64',
+    sdk_version = '1.0.65',
     _prod_code = 'COLLABINV',
     _prod_channel = 'default'
   };
@@ -925,7 +925,7 @@ model BatchqueryCarloanTestRequest = {
   // 日期
   date: string(name='date'),
   // 查询条数
-  dataNum: long(name='data_num'),
+  dataNum?: long(name='data_num'),
 }
 
 model BatchqueryCarloanTestResponse = {
@@ -965,7 +965,7 @@ model BatchqueryCarloanPrdRequest = {
   // 日期
   date: string(name='date'),
   // 查询条数
-  dataNum: long(name='data_num'),
+  dataNum?: long(name='data_num'),
 }
 
 model BatchqueryCarloanPrdResponse = {
