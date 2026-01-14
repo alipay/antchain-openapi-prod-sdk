@@ -1840,7 +1840,7 @@ type BatchqueryCarloanTestRequest struct {
 	// 日期
 	Date *string `json:"date,omitempty" xml:"date,omitempty" require:"true"`
 	// 查询条数
-	DataNum *int64 `json:"data_num,omitempty" xml:"data_num,omitempty" require:"true"`
+	DataNum *int64 `json:"data_num,omitempty" xml:"data_num,omitempty"`
 }
 
 func (s BatchqueryCarloanTestRequest) String() string {
@@ -1917,7 +1917,7 @@ type BatchqueryCarloanPrdRequest struct {
 	// 日期
 	Date *string `json:"date,omitempty" xml:"date,omitempty" require:"true"`
 	// 查询条数
-	DataNum *int64 `json:"data_num,omitempty" xml:"data_num,omitempty" require:"true"`
+	DataNum *int64 `json:"data_num,omitempty" xml:"data_num,omitempty"`
 }
 
 func (s BatchqueryCarloanPrdRequest) String() string {
@@ -4393,7 +4393,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.64"),
+				"sdk_version":      tea.String("1.0.65"),
 				"_prod_code":       tea.String("COLLABINV"),
 				"_prod_channel":    tea.String("default"),
 			}
