@@ -1403,7 +1403,7 @@ export class BatchqueryCarloanTestRequest extends $tea.Model {
   // 日期
   date: string;
   // 查询条数
-  dataNum: number;
+  dataNum?: number;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -1466,7 +1466,7 @@ export class BatchqueryCarloanPrdRequest extends $tea.Model {
   // 日期
   date: string;
   // 查询条数
-  dataNum: number;
+  dataNum?: number;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -3362,7 +3362,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.64",
+          sdk_version: "1.0.65",
           _prod_code: "COLLABINV",
           _prod_channel: "default",
         };
