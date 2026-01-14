@@ -18,7 +18,6 @@ public class BatchqueryCarloanPrdRequest extends TeaModel {
 
     // 查询条数
     @NameInMap("data_num")
-    @Validation(required = true)
     public Long dataNum;
 
     public static BatchqueryCarloanPrdRequest build(java.util.Map<String, ?> map) throws Exception {
