@@ -7197,6 +7197,65 @@ export class ResumeAcecContractResponse extends $tea.Model {
   }
 }
 
+export class StartAgentChatRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求内容，内容为 AgentChatReq 对象的json字符串
+  agentChatRequest: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      agentChatRequest: 'agent_chat_request',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      agentChatRequest: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class StartAgentChatResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 会话结果
+  chatCompletionObject?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      chatCompletionObject: 'chat_completion_object',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      chatCompletionObject: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateLeaseRealpersonRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -18388,7 +18447,7 @@ export class RegisterElectrocarDeviceRequest extends $tea.Model {
   authToken?: string;
   productInstanceId?: string;
   // 设备名称
-  deviceNeme: string;
+  deviceName: string;
   // 设备名称
   nickName: string;
   // 产品key
@@ -18399,7 +18458,7 @@ export class RegisterElectrocarDeviceRequest extends $tea.Model {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      deviceNeme: 'device_neme',
+      deviceName: 'device_name',
       nickName: 'nick_name',
       trustProductKey: 'trust_product_key',
       kytApplyParams: 'kyt_apply_params',
@@ -18410,7 +18469,7 @@ export class RegisterElectrocarDeviceRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      deviceNeme: 'string',
+      deviceName: 'string',
       nickName: 'string',
       trustProductKey: 'string',
       kytApplyParams: KytApplyParams,
@@ -18430,7 +18489,7 @@ export class RegisterElectrocarDeviceResponse extends $tea.Model {
   // 异常信息的文本描述
   resultMsg?: string;
   // 状态
-  success?: string;
+  success?: boolean;
   // tuid
   tuid?: string;
   // kyt 返回的蓝牙凭证信息
@@ -18454,7 +18513,7 @@ export class RegisterElectrocarDeviceResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      success: 'string',
+      success: 'boolean',
       tuid: 'string',
       carKeyInitData: 'string',
       mqttContent: 'string',
@@ -27948,6 +28007,73 @@ export class ApplyTechintegrationSkushipemptymodelbyuidResponse extends $tea.Mod
   }
 }
 
+export class QueryAiStreamtestRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 咨询内容
+  query: string;
+  // 用户ID
+  userId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      query: 'query',
+      userId: 'user_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      query: 'string',
+      userId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAiStreamtestResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 结果
+  success?: boolean;
+  // 结果
+  result?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      result: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class ExecThingsdidOneapiRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -29330,7 +29456,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.12.53",
+          sdk_version: "1.12.59",
           _prod_code: "BOT",
           _prod_channel: "undefined",
         };
@@ -29433,6 +29559,25 @@ export default class Client {
   async resumeAcecContractEx(request: ResumeAcecContractRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ResumeAcecContractResponse> {
     Util.validateModel(request);
     return $tea.cast<ResumeAcecContractResponse>(await this.doRequest("1.0", "blockchain.bot.acec.contract.resume", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ResumeAcecContractResponse({}));
+  }
+
+  /**
+   * Description: 智能体流式对话接口
+   * Summary: 智能体流式对话接口
+   */
+  async startAgentChat(request: StartAgentChatRequest): Promise<StartAgentChatResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.startAgentChatEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 智能体流式对话接口
+   * Summary: 智能体流式对话接口
+   */
+  async startAgentChatEx(request: StartAgentChatRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<StartAgentChatResponse> {
+    Util.validateModel(request);
+    return $tea.cast<StartAgentChatResponse>(await this.doRequest("1.0", "blockchain.bot.agent.chat.start", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new StartAgentChatResponse({}));
   }
 
   /**
@@ -34531,6 +34676,25 @@ export default class Client {
   async applyTechintegrationSkushipemptymodelbyuidEx(request: ApplyTechintegrationSkushipemptymodelbyuidRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyTechintegrationSkushipemptymodelbyuidResponse> {
     Util.validateModel(request);
     return $tea.cast<ApplyTechintegrationSkushipemptymodelbyuidResponse>(await this.doRequest("1.0", "blockchain.bot.techintegration.skushipemptymodelbyuid.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyTechintegrationSkushipemptymodelbyuidResponse({}));
+  }
+
+  /**
+   * Description: 流式链路测试
+   * Summary: 流式链路测试
+   */
+  async queryAiStreamtest(request: QueryAiStreamtestRequest): Promise<QueryAiStreamtestResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAiStreamtestEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 流式链路测试
+   * Summary: 流式链路测试
+   */
+  async queryAiStreamtestEx(request: QueryAiStreamtestRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAiStreamtestResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAiStreamtestResponse>(await this.doRequest("1.0", "blockchain.bot.ai.streamtest.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAiStreamtestResponse({}));
   }
 
   /**
