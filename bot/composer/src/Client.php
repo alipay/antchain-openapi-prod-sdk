@@ -343,6 +343,8 @@ use AntChain\BOT\Models\QueryAiidentificationGoodsRequest;
 use AntChain\BOT\Models\QueryAiidentificationGoodsResponse;
 use AntChain\BOT\Models\QueryAiidentificationQrcodeRequest;
 use AntChain\BOT\Models\QueryAiidentificationQrcodeResponse;
+use AntChain\BOT\Models\QueryAiStreamtestRequest;
+use AntChain\BOT\Models\QueryAiStreamtestResponse;
 use AntChain\BOT\Models\QueryAnalysisRequest;
 use AntChain\BOT\Models\QueryAnalysisResponse;
 use AntChain\BOT\Models\QueryAsyncRequestRequest;
@@ -507,6 +509,8 @@ use AntChain\BOT\Models\SetDevicePropertyRequest;
 use AntChain\BOT\Models\SetDevicePropertyResponse;
 use AntChain\BOT\Models\SetEnergyprojectLightmodeRequest;
 use AntChain\BOT\Models\SetEnergyprojectLightmodeResponse;
+use AntChain\BOT\Models\StartAgentChatRequest;
+use AntChain\BOT\Models\StartAgentChatResponse;
 use AntChain\BOT\Models\StartEvidenceQueryRequest;
 use AntChain\BOT\Models\StartEvidenceQueryResponse;
 use AntChain\BOT\Models\StartEvidenceStoreRequest;
@@ -730,7 +734,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.12.53',
+                    'sdk_version'      => '1.12.58',
                     '_prod_code'       => 'BOT',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -875,6 +879,39 @@ class Client
         Utils::validateModel($request);
 
         return ResumeAcecContractResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.acec.contract.resume', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 智能体流式对话接口
+     * Summary: 智能体流式对话接口.
+     *
+     * @param StartAgentChatRequest $request
+     *
+     * @return StartAgentChatResponse
+     */
+    public function startAgentChat($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startAgentChatEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 智能体流式对话接口
+     * Summary: 智能体流式对话接口.
+     *
+     * @param StartAgentChatRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return StartAgentChatResponse
+     */
+    public function startAgentChatEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartAgentChatResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.agent.chat.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -9691,6 +9728,39 @@ class Client
         Utils::validateModel($request);
 
         return ApplyTechintegrationSkushipemptymodelbyuidResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.techintegration.skushipemptymodelbyuid.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 流式链路测试
+     * Summary: 流式链路测试.
+     *
+     * @param QueryAiStreamtestRequest $request
+     *
+     * @return QueryAiStreamtestResponse
+     */
+    public function queryAiStreamtest($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAiStreamtestEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 流式链路测试
+     * Summary: 流式链路测试.
+     *
+     * @param QueryAiStreamtestRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return QueryAiStreamtestResponse
+     */
+    public function queryAiStreamtestEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAiStreamtestResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.ai.streamtest.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

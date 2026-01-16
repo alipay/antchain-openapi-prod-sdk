@@ -6,7 +6,7 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class RegisterElectrocarDeviceResponse extends Model
+class QueryAiStreamtestResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,37 +26,23 @@ class RegisterElectrocarDeviceResponse extends Model
      */
     public $resultMsg;
 
-    // 状态
+    // 结果
     /**
      * @var bool
      */
     public $success;
 
-    // tuid
+    // 结果
     /**
      * @var string
      */
-    public $tuid;
-
-    // kyt 返回的蓝牙凭证信息
-    /**
-     * @var string
-     */
-    public $carKeyInitData;
-
-    // 物联网平台三元组加密
-    /**
-     * @var string
-     */
-    public $mqttContent;
+    public $result;
     protected $_name = [
-        'reqMsgId'       => 'req_msg_id',
-        'resultCode'     => 'result_code',
-        'resultMsg'      => 'result_msg',
-        'success'        => 'success',
-        'tuid'           => 'tuid',
-        'carKeyInitData' => 'car_key_init_data',
-        'mqttContent'    => 'mqtt_content',
+        'reqMsgId'   => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg'  => 'result_msg',
+        'success'    => 'success',
+        'result'     => 'result',
     ];
 
     public function validate()
@@ -78,14 +64,8 @@ class RegisterElectrocarDeviceResponse extends Model
         if (null !== $this->success) {
             $res['success'] = $this->success;
         }
-        if (null !== $this->tuid) {
-            $res['tuid'] = $this->tuid;
-        }
-        if (null !== $this->carKeyInitData) {
-            $res['car_key_init_data'] = $this->carKeyInitData;
-        }
-        if (null !== $this->mqttContent) {
-            $res['mqtt_content'] = $this->mqttContent;
+        if (null !== $this->result) {
+            $res['result'] = $this->result;
         }
 
         return $res;
@@ -94,7 +74,7 @@ class RegisterElectrocarDeviceResponse extends Model
     /**
      * @param array $map
      *
-     * @return RegisterElectrocarDeviceResponse
+     * @return QueryAiStreamtestResponse
      */
     public static function fromMap($map = [])
     {
@@ -111,14 +91,8 @@ class RegisterElectrocarDeviceResponse extends Model
         if (isset($map['success'])) {
             $model->success = $map['success'];
         }
-        if (isset($map['tuid'])) {
-            $model->tuid = $map['tuid'];
-        }
-        if (isset($map['car_key_init_data'])) {
-            $model->carKeyInitData = $map['car_key_init_data'];
-        }
-        if (isset($map['mqtt_content'])) {
-            $model->mqttContent = $map['mqtt_content'];
+        if (isset($map['result'])) {
+            $model->result = $map['result'];
         }
 
         return $model;
