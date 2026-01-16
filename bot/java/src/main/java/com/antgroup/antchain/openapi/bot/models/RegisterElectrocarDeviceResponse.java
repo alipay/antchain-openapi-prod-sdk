@@ -18,7 +18,7 @@ public class RegisterElectrocarDeviceResponse extends TeaModel {
 
     // 状态
     @NameInMap("success")
-    public String success;
+    public Boolean success;
 
     // tuid
     @NameInMap("tuid")
@@ -61,11 +61,11 @@ public class RegisterElectrocarDeviceResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public RegisterElectrocarDeviceResponse setSuccess(String success) {
+    public RegisterElectrocarDeviceResponse setSuccess(Boolean success) {
         this.success = success;
         return this;
     }
-    public String getSuccess() {
+    public Boolean getSuccess() {
         return this.success;
     }
 
