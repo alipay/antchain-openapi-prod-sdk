@@ -19,9 +19,9 @@ namespace AntChain.SDK.BOT.Models
         public string ProductInstanceId { get; set; }
 
         // 设备名称
-        [NameInMap("device_neme")]
+        [NameInMap("device_name")]
         [Validation(Required=true)]
-        public string DeviceNeme { get; set; }
+        public string DeviceName { get; set; }
 
         // 设备名称
         [NameInMap("nick_name")]
