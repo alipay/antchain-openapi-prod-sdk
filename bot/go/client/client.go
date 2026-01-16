@@ -24222,7 +24222,7 @@ type RegisterElectrocarDeviceRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 设备名称
-	DeviceNeme *string `json:"device_neme,omitempty" xml:"device_neme,omitempty" require:"true"`
+	DeviceName *string `json:"device_name,omitempty" xml:"device_name,omitempty" require:"true"`
 	// 设备名称
 	NickName *string `json:"nick_name,omitempty" xml:"nick_name,omitempty" require:"true"`
 	// 产品key
@@ -24249,8 +24249,8 @@ func (s *RegisterElectrocarDeviceRequest) SetProductInstanceId(v string) *Regist
 	return s
 }
 
-func (s *RegisterElectrocarDeviceRequest) SetDeviceNeme(v string) *RegisterElectrocarDeviceRequest {
-	s.DeviceNeme = &v
+func (s *RegisterElectrocarDeviceRequest) SetDeviceName(v string) *RegisterElectrocarDeviceRequest {
+	s.DeviceName = &v
 	return s
 }
 
@@ -38430,7 +38430,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.12.58"),
+				"sdk_version":      tea.String("1.12.59"),
 				"_prod_code":       tea.String("BOT"),
 				"_prod_channel":    tea.String("undefined"),
 			}
