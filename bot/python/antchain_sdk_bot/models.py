@@ -30242,7 +30242,7 @@ class RegisterElectrocarDeviceRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
-        device_neme: str = None,
+        device_name: str = None,
         nick_name: str = None,
         trust_product_key: str = None,
         kyt_apply_params: KytApplyParams = None,
@@ -30251,7 +30251,7 @@ class RegisterElectrocarDeviceRequest(TeaModel):
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         # 设备名称
-        self.device_neme = device_neme
+        self.device_name = device_name
         # 设备名称
         self.nick_name = nick_name
         # 产品key
@@ -30260,7 +30260,7 @@ class RegisterElectrocarDeviceRequest(TeaModel):
         self.kyt_apply_params = kyt_apply_params
 
     def validate(self):
-        self.validate_required(self.device_neme, 'device_neme')
+        self.validate_required(self.device_name, 'device_name')
         self.validate_required(self.nick_name, 'nick_name')
         self.validate_required(self.trust_product_key, 'trust_product_key')
         self.validate_required(self.kyt_apply_params, 'kyt_apply_params')
@@ -30277,8 +30277,8 @@ class RegisterElectrocarDeviceRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
-        if self.device_neme is not None:
-            result['device_neme'] = self.device_neme
+        if self.device_name is not None:
+            result['device_name'] = self.device_name
         if self.nick_name is not None:
             result['nick_name'] = self.nick_name
         if self.trust_product_key is not None:
@@ -30293,8 +30293,8 @@ class RegisterElectrocarDeviceRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
-        if m.get('device_neme') is not None:
-            self.device_neme = m.get('device_neme')
+        if m.get('device_name') is not None:
+            self.device_name = m.get('device_name')
         if m.get('nick_name') is not None:
             self.nick_name = m.get('nick_name')
         if m.get('trust_product_key') is not None:
