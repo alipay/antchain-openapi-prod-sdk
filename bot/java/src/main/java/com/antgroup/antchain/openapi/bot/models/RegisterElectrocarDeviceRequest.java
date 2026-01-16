@@ -12,9 +12,9 @@ public class RegisterElectrocarDeviceRequest extends TeaModel {
     public String productInstanceId;
 
     // 设备名称
-    @NameInMap("device_neme")
+    @NameInMap("device_name")
     @Validation(required = true)
-    public String deviceNeme;
+    public String deviceName;
 
     // 设备名称
     @NameInMap("nick_name")
@@ -52,12 +52,12 @@ public class RegisterElectrocarDeviceRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public RegisterElectrocarDeviceRequest setDeviceNeme(String deviceNeme) {
-        this.deviceNeme = deviceNeme;
+    public RegisterElectrocarDeviceRequest setDeviceName(String deviceName) {
+        this.deviceName = deviceName;
         return this;
     }
-    public String getDeviceNeme() {
-        return this.deviceNeme;
+    public String getDeviceName() {
+        return this.deviceName;
     }
 
     public RegisterElectrocarDeviceRequest setNickName(String nickName) {
