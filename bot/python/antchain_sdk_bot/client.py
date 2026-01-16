@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.53',
+                    'sdk_version': '1.12.58',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.53',
+                    'sdk_version': '1.12.58',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -441,6 +441,62 @@ class Client:
         return TeaCore.from_map(
             bot_models.ResumeAcecContractResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.acec.contract.resume', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def start_agent_chat(
+        self,
+        request: bot_models.StartAgentChatRequest,
+    ) -> bot_models.StartAgentChatResponse:
+        """
+        Description: 智能体流式对话接口
+        Summary: 智能体流式对话接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.start_agent_chat_ex(request, headers, runtime)
+
+    async def start_agent_chat_async(
+        self,
+        request: bot_models.StartAgentChatRequest,
+    ) -> bot_models.StartAgentChatResponse:
+        """
+        Description: 智能体流式对话接口
+        Summary: 智能体流式对话接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.start_agent_chat_ex_async(request, headers, runtime)
+
+    def start_agent_chat_ex(
+        self,
+        request: bot_models.StartAgentChatRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.StartAgentChatResponse:
+        """
+        Description: 智能体流式对话接口
+        Summary: 智能体流式对话接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.StartAgentChatResponse(),
+            self.do_request('1.0', 'blockchain.bot.agent.chat.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def start_agent_chat_ex_async(
+        self,
+        request: bot_models.StartAgentChatRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.StartAgentChatResponse:
+        """
+        Description: 智能体流式对话接口
+        Summary: 智能体流式对话接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.StartAgentChatResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.agent.chat.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_lease_realperson(
@@ -15409,6 +15465,62 @@ class Client:
         return TeaCore.from_map(
             bot_models.ApplyTechintegrationSkushipemptymodelbyuidResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.techintegration.skushipemptymodelbyuid.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_ai_streamtest(
+        self,
+        request: bot_models.QueryAiStreamtestRequest,
+    ) -> bot_models.QueryAiStreamtestResponse:
+        """
+        Description: 流式链路测试
+        Summary: 流式链路测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_ai_streamtest_ex(request, headers, runtime)
+
+    async def query_ai_streamtest_async(
+        self,
+        request: bot_models.QueryAiStreamtestRequest,
+    ) -> bot_models.QueryAiStreamtestResponse:
+        """
+        Description: 流式链路测试
+        Summary: 流式链路测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_ai_streamtest_ex_async(request, headers, runtime)
+
+    def query_ai_streamtest_ex(
+        self,
+        request: bot_models.QueryAiStreamtestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryAiStreamtestResponse:
+        """
+        Description: 流式链路测试
+        Summary: 流式链路测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryAiStreamtestResponse(),
+            self.do_request('1.0', 'blockchain.bot.ai.streamtest.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_ai_streamtest_ex_async(
+        self,
+        request: bot_models.QueryAiStreamtestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryAiStreamtestResponse:
+        """
+        Description: 流式链路测试
+        Summary: 流式链路测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryAiStreamtestResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.ai.streamtest.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def exec_thingsdid_oneapi(
