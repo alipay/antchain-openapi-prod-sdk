@@ -9372,6 +9372,76 @@ func (s *ResumeAcecContractResponse) SetData(v string) *ResumeAcecContractRespon
 	return s
 }
 
+type StartAgentChatRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求内容，内容为 AgentChatReq 对象的json字符串
+	AgentChatRequest *string `json:"agent_chat_request,omitempty" xml:"agent_chat_request,omitempty" require:"true"`
+}
+
+func (s StartAgentChatRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StartAgentChatRequest) GoString() string {
+	return s.String()
+}
+
+func (s *StartAgentChatRequest) SetAuthToken(v string) *StartAgentChatRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *StartAgentChatRequest) SetProductInstanceId(v string) *StartAgentChatRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *StartAgentChatRequest) SetAgentChatRequest(v string) *StartAgentChatRequest {
+	s.AgentChatRequest = &v
+	return s
+}
+
+type StartAgentChatResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 会话结果
+	ChatCompletionObject *string `json:"chat_completion_object,omitempty" xml:"chat_completion_object,omitempty"`
+}
+
+func (s StartAgentChatResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StartAgentChatResponse) GoString() string {
+	return s.String()
+}
+
+func (s *StartAgentChatResponse) SetReqMsgId(v string) *StartAgentChatResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *StartAgentChatResponse) SetResultCode(v string) *StartAgentChatResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *StartAgentChatResponse) SetResultMsg(v string) *StartAgentChatResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *StartAgentChatResponse) SetChatCompletionObject(v string) *StartAgentChatResponse {
+	s.ChatCompletionObject = &v
+	return s
+}
+
 type CreateLeaseRealpersonRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -24207,7 +24277,7 @@ type RegisterElectrocarDeviceResponse struct {
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 状态
-	Success *string `json:"success,omitempty" xml:"success,omitempty"`
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
 	// tuid
 	Tuid *string `json:"tuid,omitempty" xml:"tuid,omitempty"`
 	// kyt 返回的蓝牙凭证信息
@@ -24239,7 +24309,7 @@ func (s *RegisterElectrocarDeviceResponse) SetResultMsg(v string) *RegisterElect
 	return s
 }
 
-func (s *RegisterElectrocarDeviceResponse) SetSuccess(v string) *RegisterElectrocarDeviceResponse {
+func (s *RegisterElectrocarDeviceResponse) SetSuccess(v bool) *RegisterElectrocarDeviceResponse {
 	s.Success = &v
 	return s
 }
@@ -36506,6 +36576,90 @@ func (s *ApplyTechintegrationSkushipemptymodelbyuidResponse) SetId2(v string) *A
 	return s
 }
 
+type QueryAiStreamtestRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 咨询内容
+	Query *string `json:"query,omitempty" xml:"query,omitempty" require:"true"`
+	// 用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+}
+
+func (s QueryAiStreamtestRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAiStreamtestRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAiStreamtestRequest) SetAuthToken(v string) *QueryAiStreamtestRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAiStreamtestRequest) SetProductInstanceId(v string) *QueryAiStreamtestRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryAiStreamtestRequest) SetQuery(v string) *QueryAiStreamtestRequest {
+	s.Query = &v
+	return s
+}
+
+func (s *QueryAiStreamtestRequest) SetUserId(v string) *QueryAiStreamtestRequest {
+	s.UserId = &v
+	return s
+}
+
+type QueryAiStreamtestResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 结果
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 结果
+	Result *string `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s QueryAiStreamtestResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAiStreamtestResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAiStreamtestResponse) SetReqMsgId(v string) *QueryAiStreamtestResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAiStreamtestResponse) SetResultCode(v string) *QueryAiStreamtestResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAiStreamtestResponse) SetResultMsg(v string) *QueryAiStreamtestResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAiStreamtestResponse) SetSuccess(v bool) *QueryAiStreamtestResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *QueryAiStreamtestResponse) SetResult(v string) *QueryAiStreamtestResponse {
+	s.Result = &v
+	return s
+}
+
 type ExecThingsdidOneapiRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -38276,7 +38430,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.12.53"),
+				"sdk_version":      tea.String("1.12.58"),
 				"_prod_code":       tea.String("BOT"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -38429,6 +38583,40 @@ func (client *Client) ResumeAcecContractEx(request *ResumeAcecContractRequest, h
 	}
 	_result = &ResumeAcecContractResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.acec.contract.resume"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 智能体流式对话接口
+ * Summary: 智能体流式对话接口
+ */
+func (client *Client) StartAgentChat(request *StartAgentChatRequest) (_result *StartAgentChatResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &StartAgentChatResponse{}
+	_body, _err := client.StartAgentChatEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 智能体流式对话接口
+ * Summary: 智能体流式对话接口
+ */
+func (client *Client) StartAgentChatEx(request *StartAgentChatRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *StartAgentChatResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &StartAgentChatResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.agent.chat.start"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -47533,6 +47721,40 @@ func (client *Client) ApplyTechintegrationSkushipemptymodelbyuidEx(request *Appl
 	}
 	_result = &ApplyTechintegrationSkushipemptymodelbyuidResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.techintegration.skushipemptymodelbyuid.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 流式链路测试
+ * Summary: 流式链路测试
+ */
+func (client *Client) QueryAiStreamtest(request *QueryAiStreamtestRequest) (_result *QueryAiStreamtestResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAiStreamtestResponse{}
+	_body, _err := client.QueryAiStreamtestEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 流式链路测试
+ * Summary: 流式链路测试
+ */
+func (client *Client) QueryAiStreamtestEx(request *QueryAiStreamtestRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAiStreamtestResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAiStreamtestResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.ai.streamtest.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
