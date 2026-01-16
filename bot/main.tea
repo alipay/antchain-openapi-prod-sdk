@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.12.53',
+    sdk_version = '1.12.59',
     _prod_code = 'BOT',
     _prod_channel = 'undefined'
   };
@@ -3123,6 +3123,44 @@ async function resumeAcecContract(request: ResumeAcecContractRequest): ResumeAce
 async function resumeAcecContractEx(request: ResumeAcecContractRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ResumeAcecContractResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bot.acec.contract.resume', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model StartAgentChatRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 请求内容，内容为 AgentChatReq 对象的json字符串
+  agentChatRequest: string(name='agent_chat_request'),
+}
+
+model StartAgentChatResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 会话结果
+  chatCompletionObject?: string(name='chat_completion_object'),
+}
+
+/**
+ * Description: 智能体流式对话接口
+ * Summary: 智能体流式对话接口
+ */
+async function startAgentChat(request: StartAgentChatRequest): StartAgentChatResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return startAgentChatEx(request, headers, runtime);
+}
+
+/**
+ * Description: 智能体流式对话接口
+ * Summary: 智能体流式对话接口
+ */
+async function startAgentChatEx(request: StartAgentChatRequest, headers: map[string]string, runtime: Util.RuntimeOptions): StartAgentChatResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.agent.chat.start', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateLeaseRealpersonRequest = {
@@ -10039,7 +10077,7 @@ model RegisterElectrocarDeviceRequest = {
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   // 设备名称
-  deviceNeme: string(name='device_neme'),
+  deviceName: string(name='device_name'),
   // 设备名称
   nickName: string(name='nick_name'),
   // 产品key
@@ -10056,7 +10094,7 @@ model RegisterElectrocarDeviceResponse = {
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 状态
-  success?: string(name='success'),
+  success?: boolean(name='success'),
   // tuid
   tuid?: string(name='tuid'),
   // kyt 返回的蓝牙凭证信息
@@ -16026,6 +16064,48 @@ async function applyTechintegrationSkushipemptymodelbyuid(request: ApplyTechinte
 async function applyTechintegrationSkushipemptymodelbyuidEx(request: ApplyTechintegrationSkushipemptymodelbyuidRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyTechintegrationSkushipemptymodelbyuidResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bot.techintegration.skushipemptymodelbyuid.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAiStreamtestRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 咨询内容
+  query: string(name='query'),
+  // 用户ID
+  userId: string(name='user_id'),
+}
+
+model QueryAiStreamtestResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 结果
+  success?: boolean(name='success'),
+  // 结果
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 流式链路测试
+ * Summary: 流式链路测试
+ */
+async function queryAiStreamtest(request: QueryAiStreamtestRequest): QueryAiStreamtestResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAiStreamtestEx(request, headers, runtime);
+}
+
+/**
+ * Description: 流式链路测试
+ * Summary: 流式链路测试
+ */
+async function queryAiStreamtestEx(request: QueryAiStreamtestRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAiStreamtestResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.ai.streamtest.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model ExecThingsdidOneapiRequest = {
