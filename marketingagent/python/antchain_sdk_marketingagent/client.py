@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # Part represents a container for a section of communication content.
+            # DataPart represents a structured blob.
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.2',
+                    'sdk_version': '1.0.3',
                     '_prod_code': 'MARKETINGAGENT',
                     '_prod_channel': 'default'
                 }
@@ -214,7 +214,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # Part represents a container for a section of communication content.
+            # DataPart represents a structured blob.
         }
         _last_request = None
         _last_exception = None
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.2',
+                    'sdk_version': '1.0.3',
                     '_prod_code': 'MARKETINGAGENT',
                     '_prod_channel': 'default'
                 }
@@ -274,62 +274,6 @@ class Client:
                     continue
                 raise e
         raise UnretryableException(_last_request, _last_exception)
-
-    def query_demo(
-        self,
-        request: marketingagent_models.QueryDemoRequest,
-    ) -> marketingagent_models.QueryDemoResponse:
-        """
-        Description: 摩斯营销智能体A2A接口测试
-        Summary: 摩斯营销智能体A2A接口测试
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.query_demo_ex(request, headers, runtime)
-
-    async def query_demo_async(
-        self,
-        request: marketingagent_models.QueryDemoRequest,
-    ) -> marketingagent_models.QueryDemoResponse:
-        """
-        Description: 摩斯营销智能体A2A接口测试
-        Summary: 摩斯营销智能体A2A接口测试
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.query_demo_ex_async(request, headers, runtime)
-
-    def query_demo_ex(
-        self,
-        request: marketingagent_models.QueryDemoRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> marketingagent_models.QueryDemoResponse:
-        """
-        Description: 摩斯营销智能体A2A接口测试
-        Summary: 摩斯营销智能体A2A接口测试
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            marketingagent_models.QueryDemoResponse(),
-            self.do_request('1.0', 'antcloud.marketingagent.demo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def query_demo_ex_async(
-        self,
-        request: marketingagent_models.QueryDemoRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> marketingagent_models.QueryDemoResponse:
-        """
-        Description: 摩斯营销智能体A2A接口测试
-        Summary: 摩斯营销智能体A2A接口测试
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            marketingagent_models.QueryDemoResponse(),
-            await self.do_request_async('1.0', 'antcloud.marketingagent.demo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
 
     def send_message(
         self,

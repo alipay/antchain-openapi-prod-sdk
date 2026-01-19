@@ -154,13 +154,13 @@ class Config(TeaModel):
         return self
 
 
-class Part(TeaModel):
+class DataPart(TeaModel):
     def __init__(
         self,
-        text: str = None,
+        data: str = None,
     ):
-        # the string content of the text part.
-        self.text = text
+        # A JSON object containing arbitrary data.
+        self.data = data
 
     def validate(self):
         pass
@@ -171,14 +171,51 @@ class Part(TeaModel):
             return _map
 
         result = dict()
+        if self.data is not None:
+            result['data'] = self.data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('data') is not None:
+            self.data = m.get('data')
+        return self
+
+
+class Part(TeaModel):
+    def __init__(
+        self,
+        text: str = None,
+        data: DataPart = None,
+    ):
+        # the string content of the text part.
+        self.text = text
+        # The structured data content.
+        self.data = data
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
         if self.text is not None:
             result['text'] = self.text
+        if self.data is not None:
+            result['data'] = self.data.to_map()
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
         if m.get('text') is not None:
             self.text = m.get('text')
+        if m.get('data') is not None:
+            temp_model = DataPart()
+            self.data = temp_model.from_map(m['data'])
         return self
 
 
@@ -355,90 +392,6 @@ class Task(TeaModel):
             for k in m.get('artifacts'):
                 temp_model = Artifact()
                 self.artifacts.append(temp_model.from_map(k))
-        return self
-
-
-class QueryDemoRequest(TeaModel):
-    def __init__(
-        self,
-        auth_token: str = None,
-        message: str = None,
-    ):
-        # OAuth模式下的授权token
-        self.auth_token = auth_token
-        # 输入
-        self.message = message
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.auth_token is not None:
-            result['auth_token'] = self.auth_token
-        if self.message is not None:
-            result['message'] = self.message
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('auth_token') is not None:
-            self.auth_token = m.get('auth_token')
-        if m.get('message') is not None:
-            self.message = m.get('message')
-        return self
-
-
-class QueryDemoResponse(TeaModel):
-    def __init__(
-        self,
-        req_msg_id: str = None,
-        result_code: str = None,
-        result_msg: str = None,
-        task: str = None,
-    ):
-        # 请求唯一ID，用于链路跟踪和问题排查
-        self.req_msg_id = req_msg_id
-        # 结果码，一般OK表示调用成功
-        self.result_code = result_code
-        # 异常信息的文本描述
-        self.result_msg = result_msg
-        # 输出
-        self.task = task
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.req_msg_id is not None:
-            result['req_msg_id'] = self.req_msg_id
-        if self.result_code is not None:
-            result['result_code'] = self.result_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
-        if self.task is not None:
-            result['task'] = self.task
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('req_msg_id') is not None:
-            self.req_msg_id = m.get('req_msg_id')
-        if m.get('result_code') is not None:
-            self.result_code = m.get('result_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
-        if m.get('task') is not None:
-            self.task = m.get('task')
         return self
 
 
