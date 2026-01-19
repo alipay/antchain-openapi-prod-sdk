@@ -23,11 +23,6 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=true)]
         public string DeviceName { get; set; }
 
-        // 设备名称
-        [NameInMap("nick_name")]
-        [Validation(Required=true)]
-        public string NickName { get; set; }
-
         // 产品key
         [NameInMap("trust_product_key")]
         [Validation(Required=true)]
