@@ -25,12 +25,6 @@ class RegisterElectrocarDeviceRequest extends Model
      */
     public $deviceName;
 
-    // 设备名称
-    /**
-     * @var string
-     */
-    public $nickName;
-
     // 产品key
     /**
      * @var string
@@ -46,7 +40,6 @@ class RegisterElectrocarDeviceRequest extends Model
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'deviceName'        => 'device_name',
-        'nickName'          => 'nick_name',
         'trustProductKey'   => 'trust_product_key',
         'kytApplyParams'    => 'kyt_apply_params',
     ];
@@ -54,7 +47,6 @@ class RegisterElectrocarDeviceRequest extends Model
     public function validate()
     {
         Model::validateRequired('deviceName', $this->deviceName, true);
-        Model::validateRequired('nickName', $this->nickName, true);
         Model::validateRequired('trustProductKey', $this->trustProductKey, true);
         Model::validateRequired('kytApplyParams', $this->kytApplyParams, true);
     }
@@ -70,9 +62,6 @@ class RegisterElectrocarDeviceRequest extends Model
         }
         if (null !== $this->deviceName) {
             $res['device_name'] = $this->deviceName;
-        }
-        if (null !== $this->nickName) {
-            $res['nick_name'] = $this->nickName;
         }
         if (null !== $this->trustProductKey) {
             $res['trust_product_key'] = $this->trustProductKey;
@@ -100,9 +89,6 @@ class RegisterElectrocarDeviceRequest extends Model
         }
         if (isset($map['device_name'])) {
             $model->deviceName = $map['device_name'];
-        }
-        if (isset($map['nick_name'])) {
-            $model->nickName = $map['nick_name'];
         }
         if (isset($map['trust_product_key'])) {
             $model->trustProductKey = $map['trust_product_key'];
