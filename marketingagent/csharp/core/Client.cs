@@ -137,7 +137,7 @@ namespace AntChain.SDK.MARKETINGAGENT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.3"},
+                        {"sdk_version", "1.0.4"},
                         {"_prod_code", "MARKETINGAGENT"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.MARKETINGAGENT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.3"},
+                        {"sdk_version", "1.0.4"},
                         {"_prod_code", "MARKETINGAGENT"},
                         {"_prod_channel", "default"},
                     };
