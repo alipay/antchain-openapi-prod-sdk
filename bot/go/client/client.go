@@ -24223,8 +24223,6 @@ type RegisterElectrocarDeviceRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 设备名称
 	DeviceName *string `json:"device_name,omitempty" xml:"device_name,omitempty" require:"true"`
-	// 设备名称
-	NickName *string `json:"nick_name,omitempty" xml:"nick_name,omitempty" require:"true"`
 	// 产品key
 	TrustProductKey *string `json:"trust_product_key,omitempty" xml:"trust_product_key,omitempty" require:"true"`
 	// 凭证申请参数
@@ -24251,11 +24249,6 @@ func (s *RegisterElectrocarDeviceRequest) SetProductInstanceId(v string) *Regist
 
 func (s *RegisterElectrocarDeviceRequest) SetDeviceName(v string) *RegisterElectrocarDeviceRequest {
 	s.DeviceName = &v
-	return s
-}
-
-func (s *RegisterElectrocarDeviceRequest) SetNickName(v string) *RegisterElectrocarDeviceRequest {
-	s.NickName = &v
 	return s
 }
 
@@ -38430,7 +38423,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.12.59"),
+				"sdk_version":      tea.String("1.12.60"),
 				"_prod_code":       tea.String("BOT"),
 				"_prod_channel":    tea.String("undefined"),
 			}
