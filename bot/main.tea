@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.12.59',
+    sdk_version = '1.12.60',
     _prod_code = 'BOT',
     _prod_channel = 'undefined'
   };
@@ -10078,8 +10078,6 @@ model RegisterElectrocarDeviceRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 设备名称
   deviceName: string(name='device_name'),
-  // 设备名称
-  nickName: string(name='nick_name'),
   // 产品key
   trustProductKey: string(name='trust_product_key'),
   // 凭证申请参数
