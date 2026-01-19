@@ -30243,7 +30243,6 @@ class RegisterElectrocarDeviceRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         device_name: str = None,
-        nick_name: str = None,
         trust_product_key: str = None,
         kyt_apply_params: KytApplyParams = None,
     ):
@@ -30252,8 +30251,6 @@ class RegisterElectrocarDeviceRequest(TeaModel):
         self.product_instance_id = product_instance_id
         # 设备名称
         self.device_name = device_name
-        # 设备名称
-        self.nick_name = nick_name
         # 产品key
         self.trust_product_key = trust_product_key
         # 凭证申请参数
@@ -30261,7 +30258,6 @@ class RegisterElectrocarDeviceRequest(TeaModel):
 
     def validate(self):
         self.validate_required(self.device_name, 'device_name')
-        self.validate_required(self.nick_name, 'nick_name')
         self.validate_required(self.trust_product_key, 'trust_product_key')
         self.validate_required(self.kyt_apply_params, 'kyt_apply_params')
         if self.kyt_apply_params:
@@ -30279,8 +30275,6 @@ class RegisterElectrocarDeviceRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.device_name is not None:
             result['device_name'] = self.device_name
-        if self.nick_name is not None:
-            result['nick_name'] = self.nick_name
         if self.trust_product_key is not None:
             result['trust_product_key'] = self.trust_product_key
         if self.kyt_apply_params is not None:
@@ -30295,8 +30289,6 @@ class RegisterElectrocarDeviceRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('device_name') is not None:
             self.device_name = m.get('device_name')
-        if m.get('nick_name') is not None:
-            self.nick_name = m.get('nick_name')
         if m.get('trust_product_key') is not None:
             self.trust_product_key = m.get('trust_product_key')
         if m.get('kyt_apply_params') is not None:
