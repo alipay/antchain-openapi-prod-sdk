@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.2"),
+                    new TeaPair("sdk_version", "1.0.3"),
                     new TeaPair("_prod_code", "MARKETINGAGENT"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -186,27 +186,6 @@ public class Client {
 
     public void addResponseInterceptor(ResponseInterceptor interceptor) {
         interceptorChain.addResponseInterceptor(interceptor);
-    }
-
-    /**
-     * <b>description</b> :
-     * <p>Description: 摩斯营销智能体A2A接口测试
-     * Summary: 摩斯营销智能体A2A接口测试</p>
-     */
-    public QueryDemoResponse queryDemo(QueryDemoRequest request) throws Exception {
-        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.queryDemoEx(request, headers, runtime);
-    }
-
-    /**
-     * <b>description</b> :
-     * <p>Description: 摩斯营销智能体A2A接口测试
-     * Summary: 摩斯营销智能体A2A接口测试</p>
-     */
-    public QueryDemoResponse queryDemoEx(QueryDemoRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antcloud.marketingagent.demo.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDemoResponse());
     }
 
     /**

@@ -12,6 +12,10 @@ public class Part extends TeaModel {
     @NameInMap("text")
     public String text;
 
+    // The structured data content.
+    @NameInMap("data")
+    public DataPart data;
+
     public static Part build(java.util.Map<String, ?> map) throws Exception {
         Part self = new Part();
         return TeaModel.build(map, self);
@@ -23,6 +27,14 @@ public class Part extends TeaModel {
     }
     public String getText() {
         return this.text;
+    }
+
+    public Part setData(DataPart data) {
+        this.data = data;
+        return this;
+    }
+    public DataPart getData() {
+        return this.data;
     }
 
 }
