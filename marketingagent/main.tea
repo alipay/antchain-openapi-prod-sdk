@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.2',
+    sdk_version = '1.0.4',
     _prod_code = 'MARKETINGAGENT',
     _prod_channel = 'default'
   };
@@ -161,10 +161,18 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   ignoreSSL = runtime.ignoreSSL
 }
 
+// DataPart represents a structured blob.
+model DataPart {
+  // A JSON object containing arbitrary data.
+  data?: string(name='data', example='data'),
+}
+
 // Part represents a container for a section of communication content.
 model Part {
   // the string content of the text part.
   text?: string(name='text', example='content'),
+  // The structured data content.
+  data?: DataPart(name='data', example=''),
 }
 
 // Message is one unit of communication between client and server.
@@ -199,43 +207,6 @@ model Task {
   status: TaskStatus(name='status', example=''),
   // A set of output artifacts for a Task.
   artifacts: [ Artifact ](name='artifacts', example=''),
-}
-
-model QueryDemoRequest = {
-  // OAuth模式下的授权token
-  authToken?: string(name='auth_token'),
-  // 输入
-  message?: string(name='message'),
-}
-
-model QueryDemoResponse = {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string(name='req_msg_id'),
-  // 结果码，一般OK表示调用成功
-  resultCode?: string(name='result_code'),
-  // 异常信息的文本描述
-  resultMsg?: string(name='result_msg'),
-  // 输出
-  task?: string(name='task'),
-}
-
-/**
- * Description: 摩斯营销智能体A2A接口测试
- * Summary: 摩斯营销智能体A2A接口测试
- */
-async function queryDemo(request: QueryDemoRequest): QueryDemoResponse {
-  var runtime = new Util.RuntimeOptions{};
-  var headers : map[string]string= {};
-  return queryDemoEx(request, headers, runtime);
-}
-
-/**
- * Description: 摩斯营销智能体A2A接口测试
- * Summary: 摩斯营销智能体A2A接口测试
- */
-async function queryDemoEx(request: QueryDemoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDemoResponse {
-  Util.validateModel(request);
-  return doRequest('1.0' ,'antcloud.marketingagent.demo.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model SendMessageRequest = {
