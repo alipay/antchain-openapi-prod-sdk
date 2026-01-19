@@ -148,10 +148,31 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
+// DataPart represents a structured blob.
+type DataPart struct {
+	// A JSON object containing arbitrary data.
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s DataPart) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DataPart) GoString() string {
+	return s.String()
+}
+
+func (s *DataPart) SetData(v string) *DataPart {
+	s.Data = &v
+	return s
+}
+
 // Part represents a container for a section of communication content.
 type Part struct {
 	// the string content of the text part.
 	Text *string `json:"text,omitempty" xml:"text,omitempty"`
+	// The structured data content.
+	Data *DataPart `json:"data,omitempty" xml:"data,omitempty"`
 }
 
 func (s Part) String() string {
@@ -164,6 +185,11 @@ func (s Part) GoString() string {
 
 func (s *Part) SetText(v string) *Part {
 	s.Text = &v
+	return s
+}
+
+func (s *Part) SetData(v *DataPart) *Part {
+	s.Data = v
 	return s
 }
 
@@ -270,70 +296,6 @@ func (s *Task) SetStatus(v *TaskStatus) *Task {
 
 func (s *Task) SetArtifacts(v []*Artifact) *Task {
 	s.Artifacts = v
-	return s
-}
-
-type QueryDemoRequest struct {
-	// OAuth模式下的授权token
-	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	// 输入
-	Message *string `json:"message,omitempty" xml:"message,omitempty"`
-}
-
-func (s QueryDemoRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s QueryDemoRequest) GoString() string {
-	return s.String()
-}
-
-func (s *QueryDemoRequest) SetAuthToken(v string) *QueryDemoRequest {
-	s.AuthToken = &v
-	return s
-}
-
-func (s *QueryDemoRequest) SetMessage(v string) *QueryDemoRequest {
-	s.Message = &v
-	return s
-}
-
-type QueryDemoResponse struct {
-	// 请求唯一ID，用于链路跟踪和问题排查
-	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 结果码，一般OK表示调用成功
-	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	// 异常信息的文本描述
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 输出
-	Task *string `json:"task,omitempty" xml:"task,omitempty"`
-}
-
-func (s QueryDemoResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s QueryDemoResponse) GoString() string {
-	return s.String()
-}
-
-func (s *QueryDemoResponse) SetReqMsgId(v string) *QueryDemoResponse {
-	s.ReqMsgId = &v
-	return s
-}
-
-func (s *QueryDemoResponse) SetResultCode(v string) *QueryDemoResponse {
-	s.ResultCode = &v
-	return s
-}
-
-func (s *QueryDemoResponse) SetResultMsg(v string) *QueryDemoResponse {
-	s.ResultMsg = &v
-	return s
-}
-
-func (s *QueryDemoResponse) SetTask(v string) *QueryDemoResponse {
-	s.Task = &v
 	return s
 }
 
@@ -608,7 +570,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.2"),
+				"sdk_version":      tea.String("1.0.3"),
 				"_prod_code":       tea.String("MARKETINGAGENT"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -664,40 +626,6 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 	}
 
 	return _resp, _err
-}
-
-/**
- * Description: 摩斯营销智能体A2A接口测试
- * Summary: 摩斯营销智能体A2A接口测试
- */
-func (client *Client) QueryDemo(request *QueryDemoRequest) (_result *QueryDemoResponse, _err error) {
-	runtime := &util.RuntimeOptions{}
-	headers := make(map[string]*string)
-	_result = &QueryDemoResponse{}
-	_body, _err := client.QueryDemoEx(request, headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = _body
-	return _result, _err
-}
-
-/**
- * Description: 摩斯营销智能体A2A接口测试
- * Summary: 摩斯营销智能体A2A接口测试
- */
-func (client *Client) QueryDemoEx(request *QueryDemoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDemoResponse, _err error) {
-	_err = util.ValidateModel(request)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = &QueryDemoResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.marketingagent.demo.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_err = tea.Convert(_body, &_result)
-	return _result, _err
 }
 
 /**
