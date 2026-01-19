@@ -15,6 +15,11 @@ namespace AntChain.SDK.MARKETINGAGENT.Models
         [Validation(Required=false)]
         public string Text { get; set; }
 
+        // The structured data content.
+        [NameInMap("data")]
+        [Validation(Required=false)]
+        public DataPart Data { get; set; }
+
     }
 
 }

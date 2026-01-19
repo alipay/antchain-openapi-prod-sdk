@@ -137,7 +137,7 @@ namespace AntChain.SDK.MARKETINGAGENT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.2"},
+                        {"sdk_version", "1.0.3"},
                         {"_prod_code", "MARKETINGAGENT"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.MARKETINGAGENT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.2"},
+                        {"sdk_version", "1.0.3"},
                         {"_prod_code", "MARKETINGAGENT"},
                         {"_prod_channel", "default"},
                     };
@@ -319,48 +319,6 @@ namespace AntChain.SDK.MARKETINGAGENT
             }
 
             throw new TeaUnretryableException(_lastRequest, _lastException);
-        }
-
-        /**
-         * Description: 摩斯营销智能体A2A接口测试
-         * Summary: 摩斯营销智能体A2A接口测试
-         */
-        public QueryDemoResponse QueryDemo(QueryDemoRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return QueryDemoEx(request, headers, runtime);
-        }
-
-        /**
-         * Description: 摩斯营销智能体A2A接口测试
-         * Summary: 摩斯营销智能体A2A接口测试
-         */
-        public async Task<QueryDemoResponse> QueryDemoAsync(QueryDemoRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await QueryDemoExAsync(request, headers, runtime);
-        }
-
-        /**
-         * Description: 摩斯营销智能体A2A接口测试
-         * Summary: 摩斯营销智能体A2A接口测试
-         */
-        public QueryDemoResponse QueryDemoEx(QueryDemoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<QueryDemoResponse>(DoRequest("1.0", "antcloud.marketingagent.demo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 摩斯营销智能体A2A接口测试
-         * Summary: 摩斯营销智能体A2A接口测试
-         */
-        public async Task<QueryDemoResponse> QueryDemoExAsync(QueryDemoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<QueryDemoResponse>(await DoRequestAsync("1.0", "antcloud.marketingagent.demo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
