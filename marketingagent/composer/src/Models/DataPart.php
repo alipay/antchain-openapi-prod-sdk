@@ -6,25 +6,16 @@ namespace AntChain\MARKETINGAGENT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class Part extends Model
+class DataPart extends Model
 {
-    // the string content of the text part.
+    // A JSON object containing arbitrary data.
     /**
-     * @example content
+     * @example data
      *
      * @var string
      */
-    public $text;
-
-    // The structured data content.
-    /**
-     * @example
-     *
-     * @var DataPart
-     */
     public $data;
     protected $_name = [
-        'text' => 'text',
         'data' => 'data',
     ];
 
@@ -35,11 +26,8 @@ class Part extends Model
     public function toMap()
     {
         $res = [];
-        if (null !== $this->text) {
-            $res['text'] = $this->text;
-        }
         if (null !== $this->data) {
-            $res['data'] = null !== $this->data ? $this->data->toMap() : null;
+            $res['data'] = $this->data;
         }
 
         return $res;
@@ -48,16 +36,13 @@ class Part extends Model
     /**
      * @param array $map
      *
-     * @return Part
+     * @return DataPart
      */
     public static function fromMap($map = [])
     {
         $model = new self();
-        if (isset($map['text'])) {
-            $model->text = $map['text'];
-        }
         if (isset($map['data'])) {
-            $model->data = DataPart::fromMap($map['data']);
+            $model->data = $map['data'];
         }
 
         return $model;

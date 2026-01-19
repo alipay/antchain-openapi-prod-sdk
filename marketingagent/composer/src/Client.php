@@ -13,8 +13,6 @@ use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
 use AntChain\MARKETINGAGENT\Models\GetTaskRequest;
 use AntChain\MARKETINGAGENT\Models\GetTaskResponse;
-use AntChain\MARKETINGAGENT\Models\QueryDemoRequest;
-use AntChain\MARKETINGAGENT\Models\QueryDemoResponse;
 use AntChain\MARKETINGAGENT\Models\SendMessageRequest;
 use AntChain\MARKETINGAGENT\Models\SendMessageResponse;
 use AntChain\Util\UtilClient;
@@ -136,7 +134,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // Part represents a container for a section of communication content.
+            // DataPart represents a structured blob.
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -164,7 +162,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.2',
+                    'sdk_version'      => '1.0.3',
                     '_prod_code'       => 'MARKETINGAGENT',
                     '_prod_channel'    => 'default',
                 ];
@@ -210,39 +208,6 @@ class Client
         }
 
         throw new TeaUnableRetryError($_lastRequest, $_lastException);
-    }
-
-    /**
-     * Description: 摩斯营销智能体A2A接口测试
-     * Summary: 摩斯营销智能体A2A接口测试.
-     *
-     * @param QueryDemoRequest $request
-     *
-     * @return QueryDemoResponse
-     */
-    public function queryDemo($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->queryDemoEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 摩斯营销智能体A2A接口测试
-     * Summary: 摩斯营销智能体A2A接口测试.
-     *
-     * @param QueryDemoRequest $request
-     * @param string[]         $headers
-     * @param RuntimeOptions   $runtime
-     *
-     * @return QueryDemoResponse
-     */
-    public function queryDemoEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return QueryDemoResponse::fromMap($this->doRequest('1.0', 'antcloud.marketingagent.demo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
