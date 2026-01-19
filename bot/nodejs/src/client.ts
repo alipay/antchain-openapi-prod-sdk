@@ -18448,8 +18448,6 @@ export class RegisterElectrocarDeviceRequest extends $tea.Model {
   productInstanceId?: string;
   // 设备名称
   deviceName: string;
-  // 设备名称
-  nickName: string;
   // 产品key
   trustProductKey: string;
   // 凭证申请参数
@@ -18459,7 +18457,6 @@ export class RegisterElectrocarDeviceRequest extends $tea.Model {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       deviceName: 'device_name',
-      nickName: 'nick_name',
       trustProductKey: 'trust_product_key',
       kytApplyParams: 'kyt_apply_params',
     };
@@ -18470,7 +18467,6 @@ export class RegisterElectrocarDeviceRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       deviceName: 'string',
-      nickName: 'string',
       trustProductKey: 'string',
       kytApplyParams: KytApplyParams,
     };
@@ -29456,7 +29452,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.12.59",
+          sdk_version: "1.12.60",
           _prod_code: "BOT",
           _prod_channel: "undefined",
         };
