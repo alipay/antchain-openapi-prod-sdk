@@ -16,11 +16,6 @@ public class RegisterElectrocarDeviceRequest extends TeaModel {
     @Validation(required = true)
     public String deviceName;
 
-    // 设备名称
-    @NameInMap("nick_name")
-    @Validation(required = true)
-    public String nickName;
-
     // 产品key
     @NameInMap("trust_product_key")
     @Validation(required = true)
@@ -58,14 +53,6 @@ public class RegisterElectrocarDeviceRequest extends TeaModel {
     }
     public String getDeviceName() {
         return this.deviceName;
-    }
-
-    public RegisterElectrocarDeviceRequest setNickName(String nickName) {
-        this.nickName = nickName;
-        return this;
-    }
-    public String getNickName() {
-        return this.nickName;
     }
 
     public RegisterElectrocarDeviceRequest setTrustProductKey(String trustProductKey) {
