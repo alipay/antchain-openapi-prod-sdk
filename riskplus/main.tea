@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.30.11',
+    sdk_version = '1.30.12',
     _prod_code = 'RISKPLUS',
     _prod_channel = 'undefined'
   };
@@ -1623,7 +1623,7 @@ model UmktCampaignTaskInfo {
   // 圈投任务状态
   campaignTaskStatus: string(name='campaign_task_status', example='D'),
   // 节点任务列表
-  nodeTaskList: UmktCampaignNodeTaskInfo(name='node_task_list', example='[{"nodeId":"35d2171b68fd472c8f4cc5c293985d37","execDate":"","nodeTaskStatus":"F","relTaskList":[{"resourceId":"1007", "taskStatus":"F","errMsg":"上游节点执行失败"}]}'),
+  nodeTaskList: [ UmktCampaignNodeTaskInfo ](name='node_task_list', example='[{"nodeId":"35d2171b68fd472c8f4cc5c293985d37","execDate":"","nodeTaskStatus":"F","relTaskList":[{"resourceId":"1007", "taskStatus":"F","errMsg":"上游节点执行失败"}]}'),
 }
 
 // 天枢系统专用ReceiptInfo结构体
