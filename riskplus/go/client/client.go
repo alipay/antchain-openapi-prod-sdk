@@ -4837,7 +4837,7 @@ type UmktCampaignTaskInfo struct {
 	// 圈投任务状态
 	CampaignTaskStatus *string `json:"campaign_task_status,omitempty" xml:"campaign_task_status,omitempty" require:"true"`
 	// 节点任务列表
-	NodeTaskList *UmktCampaignNodeTaskInfo `json:"node_task_list,omitempty" xml:"node_task_list,omitempty" require:"true"`
+	NodeTaskList []*UmktCampaignNodeTaskInfo `json:"node_task_list,omitempty" xml:"node_task_list,omitempty" require:"true" type:"Repeated"`
 }
 
 func (s UmktCampaignTaskInfo) String() string {
@@ -4868,7 +4868,7 @@ func (s *UmktCampaignTaskInfo) SetCampaignTaskStatus(v string) *UmktCampaignTask
 	return s
 }
 
-func (s *UmktCampaignTaskInfo) SetNodeTaskList(v *UmktCampaignNodeTaskInfo) *UmktCampaignTaskInfo {
+func (s *UmktCampaignTaskInfo) SetNodeTaskList(v []*UmktCampaignNodeTaskInfo) *UmktCampaignTaskInfo {
 	s.NodeTaskList = v
 	return s
 }
@@ -36003,7 +36003,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.30.11"),
+				"sdk_version":      tea.String("1.30.12"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
