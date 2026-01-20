@@ -5955,7 +5955,7 @@ class UmktCampaignTaskInfo(TeaModel):
         exec_date: str = None,
         exec_batch: str = None,
         campaign_task_status: str = None,
-        node_task_list: UmktCampaignNodeTaskInfo = None,
+        node_task_list: List[UmktCampaignNodeTaskInfo] = None,
     ):
         # 任务唯一id
         self.task_id = task_id
@@ -5975,7 +5975,9 @@ class UmktCampaignTaskInfo(TeaModel):
         self.validate_required(self.campaign_task_status, 'campaign_task_status')
         self.validate_required(self.node_task_list, 'node_task_list')
         if self.node_task_list:
-            self.node_task_list.validate()
+            for k in self.node_task_list:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -5991,8 +5993,10 @@ class UmktCampaignTaskInfo(TeaModel):
             result['exec_batch'] = self.exec_batch
         if self.campaign_task_status is not None:
             result['campaign_task_status'] = self.campaign_task_status
+        result['node_task_list'] = []
         if self.node_task_list is not None:
-            result['node_task_list'] = self.node_task_list.to_map()
+            for k in self.node_task_list:
+                result['node_task_list'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -6005,9 +6009,11 @@ class UmktCampaignTaskInfo(TeaModel):
             self.exec_batch = m.get('exec_batch')
         if m.get('campaign_task_status') is not None:
             self.campaign_task_status = m.get('campaign_task_status')
+        self.node_task_list = []
         if m.get('node_task_list') is not None:
-            temp_model = UmktCampaignNodeTaskInfo()
-            self.node_task_list = temp_model.from_map(m['node_task_list'])
+            for k in m.get('node_task_list'):
+                temp_model = UmktCampaignNodeTaskInfo()
+                self.node_task_list.append(temp_model.from_map(k))
         return self
 
 
