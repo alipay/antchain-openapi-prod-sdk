@@ -33,7 +33,7 @@ namespace AntChain.SDK.RISKPLUS.Models
         // 节点任务列表
         [NameInMap("node_task_list")]
         [Validation(Required=true)]
-        public UmktCampaignNodeTaskInfo NodeTaskList { get; set; }
+        public List<UmktCampaignNodeTaskInfo> NodeTaskList { get; set; }
 
     }
 
