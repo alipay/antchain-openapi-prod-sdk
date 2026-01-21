@@ -511,10 +511,14 @@ use AntChain\BOT\Models\SetEnergyprojectLightmodeRequest;
 use AntChain\BOT\Models\SetEnergyprojectLightmodeResponse;
 use AntChain\BOT\Models\StartAgentChatRequest;
 use AntChain\BOT\Models\StartAgentChatResponse;
+use AntChain\BOT\Models\StartAgentThingmodelRequest;
+use AntChain\BOT\Models\StartAgentThingmodelResponse;
 use AntChain\BOT\Models\StartEvidenceQueryRequest;
 use AntChain\BOT\Models\StartEvidenceQueryResponse;
 use AntChain\BOT\Models\StartEvidenceStoreRequest;
 use AntChain\BOT\Models\StartEvidenceStoreResponse;
+use AntChain\BOT\Models\StartIotagentChatRequest;
+use AntChain\BOT\Models\StartIotagentChatResponse;
 use AntChain\BOT\Models\StartTenantBindinfoRequest;
 use AntChain\BOT\Models\StartTenantBindinfoResponse;
 use AntChain\BOT\Models\StartThingsdidRegisterRequest;
@@ -734,7 +738,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.12.60',
+                    'sdk_version'      => '1.12.62',
                     '_prod_code'       => 'BOT',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -879,39 +883,6 @@ class Client
         Utils::validateModel($request);
 
         return ResumeAcecContractResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.acec.contract.resume', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 智能体流式对话接口
-     * Summary: 智能体流式对话接口.
-     *
-     * @param StartAgentChatRequest $request
-     *
-     * @return StartAgentChatResponse
-     */
-    public function startAgentChat($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->startAgentChatEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 智能体流式对话接口
-     * Summary: 智能体流式对话接口.
-     *
-     * @param StartAgentChatRequest $request
-     * @param string[]              $headers
-     * @param RuntimeOptions        $runtime
-     *
-     * @return StartAgentChatResponse
-     */
-    public function startAgentChatEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return StartAgentChatResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.agent.chat.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -1987,6 +1958,72 @@ class Client
         Utils::validateModel($request);
 
         return GetAiidentificationQrcodeResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.aiidentification.qrcode.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 智能体流式对话接口
+     * Summary: 智能体流式对话接口.
+     *
+     * @param StartAgentChatRequest $request
+     *
+     * @return StartAgentChatResponse
+     */
+    public function startAgentChat($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startAgentChatEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 智能体流式对话接口
+     * Summary: 智能体流式对话接口.
+     *
+     * @param StartAgentChatRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return StartAgentChatResponse
+     */
+    public function startAgentChatEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartAgentChatResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.agent.chat.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 智能体流式物模型上报接口
+     * Summary: 智能体流式物模型上报接口.
+     *
+     * @param StartAgentThingmodelRequest $request
+     *
+     * @return StartAgentThingmodelResponse
+     */
+    public function startAgentThingmodel($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startAgentThingmodelEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 智能体流式物模型上报接口
+     * Summary: 智能体流式物模型上报接口.
+     *
+     * @param StartAgentThingmodelRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return StartAgentThingmodelResponse
+     */
+    public function startAgentThingmodelEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartAgentThingmodelResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.agent.thingmodel.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -9761,6 +9798,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryAiStreamtestResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.ai.streamtest.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 智能体流式对话接口
+     * Summary: 智能体流式对话接口.
+     *
+     * @param StartIotagentChatRequest $request
+     *
+     * @return StartIotagentChatResponse
+     */
+    public function startIotagentChat($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startIotagentChatEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 智能体流式对话接口
+     * Summary: 智能体流式对话接口.
+     *
+     * @param StartIotagentChatRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return StartIotagentChatResponse
+     */
+    public function startIotagentChatEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartIotagentChatResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotagent.chat.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
