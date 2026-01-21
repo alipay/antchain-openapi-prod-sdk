@@ -43,6 +43,11 @@ namespace AntChain.SDK.INTELLICAR.Models
         [Validation(Required=true)]
         public long? PageSize { get; set; }
 
+        // QC或者DCD的id查询价格
+        [NameInMap("id_type")]
+        [Validation(Required=false)]
+        public string IdType { get; set; }
+
     }
 
 }
