@@ -33,6 +33,10 @@ public class QueryCarPriceRequest extends TeaModel {
     @Validation(required = true)
     public Long pageSize;
 
+    // QC或者DCD的id查询价格
+    @NameInMap("id_type")
+    public String idType;
+
     public static QueryCarPriceRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryCarPriceRequest self = new QueryCarPriceRequest();
         return TeaModel.build(map, self);
@@ -92,6 +96,14 @@ public class QueryCarPriceRequest extends TeaModel {
     }
     public Long getPageSize() {
         return this.pageSize;
+    }
+
+    public QueryCarPriceRequest setIdType(String idType) {
+        this.idType = idType;
+        return this;
+    }
+    public String getIdType() {
+        return this.idType;
     }
 
 }
