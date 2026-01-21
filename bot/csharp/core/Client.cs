@@ -137,7 +137,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.12.60"},
+                        {"sdk_version", "1.12.62"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.12.60"},
+                        {"sdk_version", "1.12.62"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -445,48 +445,6 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ResumeAcecContractResponse>(await DoRequestAsync("1.0", "blockchain.bot.acec.contract.resume", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 智能体流式对话接口
-         * Summary: 智能体流式对话接口
-         */
-        public StartAgentChatResponse StartAgentChat(StartAgentChatRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return StartAgentChatEx(request, headers, runtime);
-        }
-
-        /**
-         * Description: 智能体流式对话接口
-         * Summary: 智能体流式对话接口
-         */
-        public async Task<StartAgentChatResponse> StartAgentChatAsync(StartAgentChatRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await StartAgentChatExAsync(request, headers, runtime);
-        }
-
-        /**
-         * Description: 智能体流式对话接口
-         * Summary: 智能体流式对话接口
-         */
-        public StartAgentChatResponse StartAgentChatEx(StartAgentChatRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<StartAgentChatResponse>(DoRequest("1.0", "blockchain.bot.agent.chat.start", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 智能体流式对话接口
-         * Summary: 智能体流式对话接口
-         */
-        public async Task<StartAgentChatResponse> StartAgentChatExAsync(StartAgentChatRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<StartAgentChatResponse>(await DoRequestAsync("1.0", "blockchain.bot.agent.chat.start", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -1879,6 +1837,90 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<GetAiidentificationQrcodeResponse>(await DoRequestAsync("1.0", "blockchain.bot.aiidentification.qrcode.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 智能体流式对话接口
+         * Summary: 智能体流式对话接口
+         */
+        public StartAgentChatResponse StartAgentChat(StartAgentChatRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return StartAgentChatEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 智能体流式对话接口
+         * Summary: 智能体流式对话接口
+         */
+        public async Task<StartAgentChatResponse> StartAgentChatAsync(StartAgentChatRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await StartAgentChatExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 智能体流式对话接口
+         * Summary: 智能体流式对话接口
+         */
+        public StartAgentChatResponse StartAgentChatEx(StartAgentChatRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<StartAgentChatResponse>(DoRequest("1.0", "blockchain.bot.agent.chat.start", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 智能体流式对话接口
+         * Summary: 智能体流式对话接口
+         */
+        public async Task<StartAgentChatResponse> StartAgentChatExAsync(StartAgentChatRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<StartAgentChatResponse>(await DoRequestAsync("1.0", "blockchain.bot.agent.chat.start", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 智能体流式物模型上报接口
+         * Summary: 智能体流式物模型上报接口
+         */
+        public StartAgentThingmodelResponse StartAgentThingmodel(StartAgentThingmodelRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return StartAgentThingmodelEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 智能体流式物模型上报接口
+         * Summary: 智能体流式物模型上报接口
+         */
+        public async Task<StartAgentThingmodelResponse> StartAgentThingmodelAsync(StartAgentThingmodelRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await StartAgentThingmodelExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 智能体流式物模型上报接口
+         * Summary: 智能体流式物模型上报接口
+         */
+        public StartAgentThingmodelResponse StartAgentThingmodelEx(StartAgentThingmodelRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<StartAgentThingmodelResponse>(DoRequest("1.0", "blockchain.bot.agent.thingmodel.start", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 智能体流式物模型上报接口
+         * Summary: 智能体流式物模型上报接口
+         */
+        public async Task<StartAgentThingmodelResponse> StartAgentThingmodelExAsync(StartAgentThingmodelRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<StartAgentThingmodelResponse>(await DoRequestAsync("1.0", "blockchain.bot.agent.thingmodel.start", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -11797,6 +11839,48 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryAiStreamtestResponse>(await DoRequestAsync("1.0", "blockchain.bot.ai.streamtest.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 智能体流式对话接口
+         * Summary: 智能体流式对话接口
+         */
+        public StartIotagentChatResponse StartIotagentChat(StartIotagentChatRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return StartIotagentChatEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 智能体流式对话接口
+         * Summary: 智能体流式对话接口
+         */
+        public async Task<StartIotagentChatResponse> StartIotagentChatAsync(StartIotagentChatRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await StartIotagentChatExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 智能体流式对话接口
+         * Summary: 智能体流式对话接口
+         */
+        public StartIotagentChatResponse StartIotagentChatEx(StartIotagentChatRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<StartIotagentChatResponse>(DoRequest("1.0", "blockchain.bot.iotagent.chat.start", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 智能体流式对话接口
+         * Summary: 智能体流式对话接口
+         */
+        public async Task<StartIotagentChatResponse> StartIotagentChatExAsync(StartIotagentChatRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<StartIotagentChatResponse>(await DoRequestAsync("1.0", "blockchain.bot.iotagent.chat.start", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
