@@ -48,6 +48,12 @@ class QueryCarPriceRequest extends Model
      * @var int
      */
     public $pageSize;
+
+    // QC或者DCD的id查询价格
+    /**
+     * @var string
+     */
+    public $idType;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -56,6 +62,7 @@ class QueryCarPriceRequest extends Model
         'cityCode'          => 'city_code',
         'pageNum'           => 'page_num',
         'pageSize'          => 'page_size',
+        'idType'            => 'id_type',
     ];
 
     public function validate()
@@ -87,6 +94,9 @@ class QueryCarPriceRequest extends Model
         }
         if (null !== $this->pageSize) {
             $res['page_size'] = $this->pageSize;
+        }
+        if (null !== $this->idType) {
+            $res['id_type'] = $this->idType;
         }
 
         return $res;
@@ -120,6 +130,9 @@ class QueryCarPriceRequest extends Model
         }
         if (isset($map['page_size'])) {
             $model->pageSize = $map['page_size'];
+        }
+        if (isset($map['id_type'])) {
+            $model->idType = $map['id_type'];
         }
 
         return $model;

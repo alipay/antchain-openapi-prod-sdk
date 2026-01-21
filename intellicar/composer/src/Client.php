@@ -13,6 +13,10 @@ use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
 use AntChain\INTELLICAR\Models\BatchcreateNewcarRequest;
 use AntChain\INTELLICAR\Models\BatchcreateNewcarResponse;
+use AntChain\INTELLICAR\Models\CreateAntcloudGatewayxFileUploadRequest;
+use AntChain\INTELLICAR\Models\CreateAntcloudGatewayxFileUploadResponse;
+use AntChain\INTELLICAR\Models\ImportCarFileRequest;
+use AntChain\INTELLICAR\Models\ImportCarFileResponse;
 use AntChain\INTELLICAR\Models\PushCarloanRequest;
 use AntChain\INTELLICAR\Models\PushCarloanResponse;
 use AntChain\INTELLICAR\Models\QueryCarPriceRequest;
@@ -170,7 +174,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.6',
+                    'sdk_version'      => '1.0.8',
                     '_prod_code'       => 'INTELLICAR',
                     '_prod_channel'    => 'default',
                 ];
@@ -414,5 +418,90 @@ class Client
         Utils::validateModel($request);
 
         return QueryCarPriceResponse::fromMap($this->doRequest('1.0', 'antdigital.intellicar.car.price.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 文件引入
+     * Summary: 文件引入.
+     *
+     * @param ImportCarFileRequest $request
+     *
+     * @return ImportCarFileResponse
+     */
+    public function importCarFile($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->importCarFileEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 文件引入
+     * Summary: 文件引入.
+     *
+     * @param ImportCarFileRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return ImportCarFileResponse
+     */
+    public function importCarFileEx($request, $headers, $runtime)
+    {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'antdigital.intellicar.car.file.import',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
+                return new ImportCarFileResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
+        }
+        Utils::validateModel($request);
+
+        return ImportCarFileResponse::fromMap($this->doRequest('1.0', 'antdigital.intellicar.car.file.import', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建.
+     *
+     * @param CreateAntcloudGatewayxFileUploadRequest $request
+     *
+     * @return CreateAntcloudGatewayxFileUploadResponse
+     */
+    public function createAntcloudGatewayxFileUpload($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createAntcloudGatewayxFileUploadEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建.
+     *
+     * @param CreateAntcloudGatewayxFileUploadRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return CreateAntcloudGatewayxFileUploadResponse
+     */
+    public function createAntcloudGatewayxFileUploadEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateAntcloudGatewayxFileUploadResponse::fromMap($this->doRequest('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
