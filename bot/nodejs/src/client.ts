@@ -7197,65 +7197,6 @@ export class ResumeAcecContractResponse extends $tea.Model {
   }
 }
 
-export class StartAgentChatRequest extends $tea.Model {
-  // OAuth模式下的授权token
-  authToken?: string;
-  productInstanceId?: string;
-  // 请求内容，内容为 AgentChatReq 对象的json字符串
-  agentChatRequest: string;
-  static names(): { [key: string]: string } {
-    return {
-      authToken: 'auth_token',
-      productInstanceId: 'product_instance_id',
-      agentChatRequest: 'agent_chat_request',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authToken: 'string',
-      productInstanceId: 'string',
-      agentChatRequest: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class StartAgentChatResponse extends $tea.Model {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string;
-  // 结果码，一般OK表示调用成功
-  resultCode?: string;
-  // 异常信息的文本描述
-  resultMsg?: string;
-  // 会话结果
-  chatCompletionObject?: string;
-  static names(): { [key: string]: string } {
-    return {
-      reqMsgId: 'req_msg_id',
-      resultCode: 'result_code',
-      resultMsg: 'result_msg',
-      chatCompletionObject: 'chat_completion_object',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      reqMsgId: 'string',
-      resultCode: 'string',
-      resultMsg: 'string',
-      chatCompletionObject: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 export class CreateLeaseRealpersonRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -9674,6 +9615,124 @@ export class GetAiidentificationQrcodeResponse extends $tea.Model {
       code: 'string',
       message: 'string',
       data: BaiQrcodeParseRespData,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class StartAgentChatRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求内容，内容为 AgentChatReq 对象的json字符串
+  agentChatRequest: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      agentChatRequest: 'agent_chat_request',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      agentChatRequest: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class StartAgentChatResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 会话结果
+  chatCompletionObject?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      chatCompletionObject: 'chat_completion_object',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      chatCompletionObject: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class StartAgentThingmodelRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求内容，内容为 AgentThingModelReq 对象的json字符串
+  agentThingModelRequest: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      agentThingModelRequest: 'agent_thing_model_request',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      agentThingModelRequest: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class StartAgentThingmodelResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 物模型上报结果
+  thingModelCompletionObject?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      thingModelCompletionObject: 'thing_model_completion_object',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      thingModelCompletionObject: 'string',
     };
   }
 
@@ -28070,6 +28129,65 @@ export class QueryAiStreamtestResponse extends $tea.Model {
   }
 }
 
+export class StartIotagentChatRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求内容，内容为json字符串
+  agentChatRequest: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      agentChatRequest: 'agent_chat_request',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      agentChatRequest: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class StartIotagentChatResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 会话结果
+  chatCompletionObject?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      chatCompletionObject: 'chat_completion_object',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      chatCompletionObject: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class ExecThingsdidOneapiRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -29452,7 +29570,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.12.60",
+          sdk_version: "1.12.62",
           _prod_code: "BOT",
           _prod_channel: "undefined",
         };
@@ -29555,25 +29673,6 @@ export default class Client {
   async resumeAcecContractEx(request: ResumeAcecContractRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ResumeAcecContractResponse> {
     Util.validateModel(request);
     return $tea.cast<ResumeAcecContractResponse>(await this.doRequest("1.0", "blockchain.bot.acec.contract.resume", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ResumeAcecContractResponse({}));
-  }
-
-  /**
-   * Description: 智能体流式对话接口
-   * Summary: 智能体流式对话接口
-   */
-  async startAgentChat(request: StartAgentChatRequest): Promise<StartAgentChatResponse> {
-    let runtime = new $Util.RuntimeOptions({ });
-    let headers : {[key: string ]: string} = { };
-    return await this.startAgentChatEx(request, headers, runtime);
-  }
-
-  /**
-   * Description: 智能体流式对话接口
-   * Summary: 智能体流式对话接口
-   */
-  async startAgentChatEx(request: StartAgentChatRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<StartAgentChatResponse> {
-    Util.validateModel(request);
-    return $tea.cast<StartAgentChatResponse>(await this.doRequest("1.0", "blockchain.bot.agent.chat.start", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new StartAgentChatResponse({}));
   }
 
   /**
@@ -30204,6 +30303,44 @@ export default class Client {
   async getAiidentificationQrcodeEx(request: GetAiidentificationQrcodeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetAiidentificationQrcodeResponse> {
     Util.validateModel(request);
     return $tea.cast<GetAiidentificationQrcodeResponse>(await this.doRequest("1.0", "blockchain.bot.aiidentification.qrcode.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetAiidentificationQrcodeResponse({}));
+  }
+
+  /**
+   * Description: 智能体流式对话接口
+   * Summary: 智能体流式对话接口
+   */
+  async startAgentChat(request: StartAgentChatRequest): Promise<StartAgentChatResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.startAgentChatEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 智能体流式对话接口
+   * Summary: 智能体流式对话接口
+   */
+  async startAgentChatEx(request: StartAgentChatRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<StartAgentChatResponse> {
+    Util.validateModel(request);
+    return $tea.cast<StartAgentChatResponse>(await this.doRequest("1.0", "blockchain.bot.agent.chat.start", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new StartAgentChatResponse({}));
+  }
+
+  /**
+   * Description: 智能体流式物模型上报接口
+   * Summary: 智能体流式物模型上报接口
+   */
+  async startAgentThingmodel(request: StartAgentThingmodelRequest): Promise<StartAgentThingmodelResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.startAgentThingmodelEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 智能体流式物模型上报接口
+   * Summary: 智能体流式物模型上报接口
+   */
+  async startAgentThingmodelEx(request: StartAgentThingmodelRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<StartAgentThingmodelResponse> {
+    Util.validateModel(request);
+    return $tea.cast<StartAgentThingmodelResponse>(await this.doRequest("1.0", "blockchain.bot.agent.thingmodel.start", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new StartAgentThingmodelResponse({}));
   }
 
   /**
@@ -34691,6 +34828,25 @@ export default class Client {
   async queryAiStreamtestEx(request: QueryAiStreamtestRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAiStreamtestResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryAiStreamtestResponse>(await this.doRequest("1.0", "blockchain.bot.ai.streamtest.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAiStreamtestResponse({}));
+  }
+
+  /**
+   * Description: 智能体流式对话接口
+   * Summary: 智能体流式对话接口
+   */
+  async startIotagentChat(request: StartIotagentChatRequest): Promise<StartIotagentChatResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.startIotagentChatEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 智能体流式对话接口
+   * Summary: 智能体流式对话接口
+   */
+  async startIotagentChatEx(request: StartIotagentChatRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<StartIotagentChatResponse> {
+    Util.validateModel(request);
+    return $tea.cast<StartIotagentChatResponse>(await this.doRequest("1.0", "blockchain.bot.iotagent.chat.start", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new StartIotagentChatResponse({}));
   }
 
   /**
