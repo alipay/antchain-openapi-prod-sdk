@@ -6,6 +6,7 @@ import (
 	util "github.com/alibabacloud-go/tea-utils/v2/service"
 	"github.com/alibabacloud-go/tea/tea"
 	antchainutil "github.com/antchain-openapi-sdk-go/antchain-util/service"
+	"io"
 )
 
 /**
@@ -615,6 +616,32 @@ func (s *CarInfo) SetModelCode(v string) *CarInfo {
 	return s
 }
 
+// 键值对
+type XNameValuePair struct {
+	// 键名
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 键值
+	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+}
+
+func (s XNameValuePair) String() string {
+	return tea.Prettify(s)
+}
+
+func (s XNameValuePair) GoString() string {
+	return s.String()
+}
+
+func (s *XNameValuePair) SetName(v string) *XNameValuePair {
+	s.Name = &v
+	return s
+}
+
+func (s *XNameValuePair) SetValue(v string) *XNameValuePair {
+	s.Value = &v
+	return s
+}
+
 type PushCarloanRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -1092,6 +1119,8 @@ type QueryCarPriceRequest struct {
 	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty" require:"true"`
 	// 每页大小
 	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+	// QC或者DCD的id查询价格
+	IdType *string `json:"id_type,omitempty" xml:"id_type,omitempty"`
 }
 
 func (s QueryCarPriceRequest) String() string {
@@ -1134,6 +1163,11 @@ func (s *QueryCarPriceRequest) SetPageNum(v int64) *QueryCarPriceRequest {
 
 func (s *QueryCarPriceRequest) SetPageSize(v int64) *QueryCarPriceRequest {
 	s.PageSize = &v
+	return s
+}
+
+func (s *QueryCarPriceRequest) SetIdType(v string) *QueryCarPriceRequest {
+	s.IdType = &v
 	return s
 }
 
@@ -1188,6 +1222,210 @@ func (s *QueryCarPriceResponse) SetPageNum(v int64) *QueryCarPriceResponse {
 
 func (s *QueryCarPriceResponse) SetData(v []*CarBusinessPrice) *QueryCarPriceResponse {
 	s.Data = v
+	return s
+}
+
+type ImportCarFileRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// xx
+	// 待上传文件
+	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
+	// 待上传文件名
+	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+}
+
+func (s ImportCarFileRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ImportCarFileRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ImportCarFileRequest) SetAuthToken(v string) *ImportCarFileRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ImportCarFileRequest) SetProductInstanceId(v string) *ImportCarFileRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ImportCarFileRequest) SetFileObject(v io.Reader) *ImportCarFileRequest {
+	s.FileObject = v
+	return s
+}
+
+func (s *ImportCarFileRequest) SetFileObjectName(v string) *ImportCarFileRequest {
+	s.FileObjectName = &v
+	return s
+}
+
+func (s *ImportCarFileRequest) SetFileId(v string) *ImportCarFileRequest {
+	s.FileId = &v
+	return s
+}
+
+type ImportCarFileResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// xx
+	Code *string `json:"code,omitempty" xml:"code,omitempty"`
+}
+
+func (s ImportCarFileResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ImportCarFileResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ImportCarFileResponse) SetReqMsgId(v string) *ImportCarFileResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ImportCarFileResponse) SetResultCode(v string) *ImportCarFileResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ImportCarFileResponse) SetResultMsg(v string) *ImportCarFileResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ImportCarFileResponse) SetCode(v string) *ImportCarFileResponse {
+	s.Code = &v
+	return s
+}
+
+type CreateAntcloudGatewayxFileUploadRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 上传文件作用的openapi method
+	ApiCode *string `json:"api_code,omitempty" xml:"api_code,omitempty" require:"true"`
+	// 文件标签，多个标签;分割
+	FileLabel *string `json:"file_label,omitempty" xml:"file_label,omitempty" maxLength:"100"`
+	// 自定义的文件元数据
+	FileMetadata *string `json:"file_metadata,omitempty" xml:"file_metadata,omitempty" maxLength:"1000"`
+	// 文件名，不传则随机生成文件名
+	FileName *string `json:"file_name,omitempty" xml:"file_name,omitempty" maxLength:"100"`
+	// 文件的多媒体类型
+	MimeType *string `json:"mime_type,omitempty" xml:"mime_type,omitempty"`
+	// 产品方的api归属集群，即productInstanceId
+	ApiCluster *string `json:"api_cluster,omitempty" xml:"api_cluster,omitempty"`
+}
+
+func (s CreateAntcloudGatewayxFileUploadRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateAntcloudGatewayxFileUploadRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetAuthToken(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetApiCode(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.ApiCode = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetFileLabel(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.FileLabel = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetFileMetadata(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.FileMetadata = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetFileName(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.FileName = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetMimeType(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.MimeType = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetApiCluster(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.ApiCluster = &v
+	return s
+}
+
+type CreateAntcloudGatewayxFileUploadResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 上传有效期
+	ExpiredTime *string `json:"expired_time,omitempty" xml:"expired_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 32位文件唯一id
+	FileId *string `json:"file_id,omitempty" xml:"file_id,omitempty"`
+	// 放入http请求头里
+	UploadHeaders []*XNameValuePair `json:"upload_headers,omitempty" xml:"upload_headers,omitempty" type:"Repeated"`
+	// 文件上传地址
+	UploadUrl *string `json:"upload_url,omitempty" xml:"upload_url,omitempty"`
+}
+
+func (s CreateAntcloudGatewayxFileUploadResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateAntcloudGatewayxFileUploadResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetReqMsgId(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetResultCode(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetResultMsg(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetExpiredTime(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.ExpiredTime = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetFileId(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.FileId = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetUploadHeaders(v []*XNameValuePair) *CreateAntcloudGatewayxFileUploadResponse {
+	s.UploadHeaders = v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetUploadUrl(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.UploadUrl = &v
 	return s
 }
 
@@ -1313,7 +1551,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.6"),
+				"sdk_version":      tea.String("1.0.8"),
 				"_prod_code":       tea.String("INTELLICAR"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -1568,6 +1806,104 @@ func (client *Client) QueryCarPriceEx(request *QueryCarPriceRequest, headers map
 	}
 	_result = &QueryCarPriceResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.intellicar.car.price.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 文件引入
+ * Summary: 文件引入
+ */
+func (client *Client) ImportCarFile(request *ImportCarFileRequest) (_result *ImportCarFileResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ImportCarFileResponse{}
+	_body, _err := client.ImportCarFileEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 文件引入
+ * Summary: 文件引入
+ */
+func (client *Client) ImportCarFileEx(request *ImportCarFileRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ImportCarFileResponse, _err error) {
+	if !tea.BoolValue(util.IsUnset(request.FileObject)) {
+		uploadReq := &CreateAntcloudGatewayxFileUploadRequest{
+			AuthToken: request.AuthToken,
+			ApiCode:   tea.String("antdigital.intellicar.car.file.import"),
+			FileName:  request.FileObjectName,
+		}
+		uploadResp, _err := client.CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime)
+		if _err != nil {
+			return _result, _err
+		}
+
+		if !tea.BoolValue(antchainutil.IsSuccess(uploadResp.ResultCode, tea.String("ok"))) {
+			importCarFileResponse := &ImportCarFileResponse{
+				ReqMsgId:   uploadResp.ReqMsgId,
+				ResultCode: uploadResp.ResultCode,
+				ResultMsg:  uploadResp.ResultMsg,
+			}
+			_result = importCarFileResponse
+			return _result, _err
+		}
+
+		uploadHeaders := antchainutil.ParseUploadHeaders(uploadResp.UploadHeaders)
+		_err = antchainutil.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl)
+		if _err != nil {
+			return _result, _err
+		}
+		request.FileId = uploadResp.FileId
+		request.FileObject = nil
+	}
+
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ImportCarFileResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.intellicar.car.file.import"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 创建HTTP PUT提交的文件上传
+ * Summary: 文件上传创建
+ */
+func (client *Client) CreateAntcloudGatewayxFileUpload(request *CreateAntcloudGatewayxFileUploadRequest) (_result *CreateAntcloudGatewayxFileUploadResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateAntcloudGatewayxFileUploadResponse{}
+	_body, _err := client.CreateAntcloudGatewayxFileUploadEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 创建HTTP PUT提交的文件上传
+ * Summary: 文件上传创建
+ */
+func (client *Client) CreateAntcloudGatewayxFileUploadEx(request *CreateAntcloudGatewayxFileUploadRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateAntcloudGatewayxFileUploadResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateAntcloudGatewayxFileUploadResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.gatewayx.file.upload.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
