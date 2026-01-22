@@ -16,6 +16,10 @@ public class QueryAasSaSaRequest extends TeaModel {
     @Validation(required = true)
     public String notBlankVerify;
 
+    // 12344
+    @NameInMap("idcard")
+    public String idcard;
+
     public static QueryAasSaSaRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryAasSaSaRequest self = new QueryAasSaSaRequest();
         return TeaModel.build(map, self);
@@ -43,6 +47,14 @@ public class QueryAasSaSaRequest extends TeaModel {
     }
     public String getNotBlankVerify() {
         return this.notBlankVerify;
+    }
+
+    public QueryAasSaSaRequest setIdcard(String idcard) {
+        this.idcard = idcard;
+        return this;
+    }
+    public String getIdcard() {
+        return this.idcard;
     }
 
 }

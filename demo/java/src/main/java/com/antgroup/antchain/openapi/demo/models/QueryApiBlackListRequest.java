@@ -11,10 +11,10 @@ public class QueryApiBlackListRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 查询输入
-    @NameInMap("data")
+    // 超时时间
+    @NameInMap("timeout")
     @Validation(required = true)
-    public String data;
+    public String timeout;
 
     public static QueryApiBlackListRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryApiBlackListRequest self = new QueryApiBlackListRequest();
@@ -37,12 +37,12 @@ public class QueryApiBlackListRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public QueryApiBlackListRequest setData(String data) {
-        this.data = data;
+    public QueryApiBlackListRequest setTimeout(String timeout) {
+        this.timeout = timeout;
         return this;
     }
-    public String getData() {
-        return this.data;
+    public String getTimeout() {
+        return this.timeout;
     }
 
 }

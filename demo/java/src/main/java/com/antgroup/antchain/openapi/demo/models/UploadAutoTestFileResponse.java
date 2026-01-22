@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.demo.models;
 
 import com.aliyun.tea.*;
 
-public class QueryApiBlackListResponse extends TeaModel {
+public class UploadAutoTestFileResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,20 +16,20 @@ public class QueryApiBlackListResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 200
+    // OK
     @NameInMap("status")
     public String status;
 
-    // OK
+    // SUCCESS le
     @NameInMap("msg")
     public String msg;
 
-    public static QueryApiBlackListResponse build(java.util.Map<String, ?> map) throws Exception {
-        QueryApiBlackListResponse self = new QueryApiBlackListResponse();
+    public static UploadAutoTestFileResponse build(java.util.Map<String, ?> map) throws Exception {
+        UploadAutoTestFileResponse self = new UploadAutoTestFileResponse();
         return TeaModel.build(map, self);
     }
 
-    public QueryApiBlackListResponse setReqMsgId(String reqMsgId) {
+    public UploadAutoTestFileResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -37,7 +37,7 @@ public class QueryApiBlackListResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public QueryApiBlackListResponse setResultCode(String resultCode) {
+    public UploadAutoTestFileResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -45,7 +45,7 @@ public class QueryApiBlackListResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public QueryApiBlackListResponse setResultMsg(String resultMsg) {
+    public UploadAutoTestFileResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -53,7 +53,7 @@ public class QueryApiBlackListResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryApiBlackListResponse setStatus(String status) {
+    public UploadAutoTestFileResponse setStatus(String status) {
         this.status = status;
         return this;
     }
@@ -61,7 +61,7 @@ public class QueryApiBlackListResponse extends TeaModel {
         return this.status;
     }
 
-    public QueryApiBlackListResponse setMsg(String msg) {
+    public UploadAutoTestFileResponse setMsg(String msg) {
         this.msg = msg;
         return this;
     }
