@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '3.0.2',
+    sdk_version = '3.1.1',
     _prod_code = 'DTAIAGT',
     _prod_channel = 'default'
   };
@@ -665,6 +665,10 @@ model DisplayResponseContent {
   // AgentChatLogInfo. Agent 运行相关信息
   // 
   agentChatLogInfo: AgentChatLogInfo(name='agent_chat_log_info', example='{}'),
+  // chat_id
+  chatId: string(name='chat_id', example='chat_id'),
+  // session_id
+  sessionId: string(name='session_id', example='session_id'),
 }
 
 // Agent历史对话信息列表vo
@@ -1231,6 +1235,44 @@ async function startAgentCchatEx(request: StartAgentCchatRequest, headers: map[s
   return doRequest('1.0' ,'antdigital.dtaiagt.agent.cchat.start', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model CancelAgentChatRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 请求内容，内容为 AgentQuitReq 对象的json字符串
+  request: string(name='request'),
+}
+
+model CancelAgentChatResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 停止对话响应内容
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 取消对话接口
+ * Summary: 取消对话接口
+ */
+async function cancelAgentChat(request: CancelAgentChatRequest): CancelAgentChatResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return cancelAgentChatEx(request, headers, runtime);
+}
+
+/**
+ * Description: 取消对话接口
+ * Summary: 取消对话接口
+ */
+async function cancelAgentChatEx(request: CancelAgentChatRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CancelAgentChatResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.dtaiagt.agent.chat.cancel', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model UploadAlipayLibraryRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -1786,12 +1828,8 @@ model StopAgentChatRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // chat_id
-  chatId: string(name='chat_id'),
-  // agent_id
-  agentId: string(name='agent_id'),
-  // 会话ID，非必填，拓展用
-  sessionId?: string(name='session_id'),
+  // 请求内容，内容为 AgentQuitReq 对象的json字符串
+  request: string(name='request'),
 }
 
 model StopAgentChatResponse = {
@@ -1801,8 +1839,8 @@ model StopAgentChatResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // data
-  data?: SimpleResult(name='data'),
+  // 停止对话响应内容
+  data?: string(name='data'),
 }
 
 /**
