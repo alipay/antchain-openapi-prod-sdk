@@ -1451,6 +1451,10 @@ type DisplayResponseContent struct {
 	// AgentChatLogInfo. Agent 运行相关信息
 	//
 	AgentChatLogInfo *AgentChatLogInfo `json:"agent_chat_log_info,omitempty" xml:"agent_chat_log_info,omitempty" require:"true"`
+	// chat_id
+	ChatId *string `json:"chat_id,omitempty" xml:"chat_id,omitempty" require:"true"`
+	// session_id
+	SessionId *string `json:"session_id,omitempty" xml:"session_id,omitempty" require:"true"`
 }
 
 func (s DisplayResponseContent) String() string {
@@ -1613,6 +1617,16 @@ func (s *DisplayResponseContent) SetThoughtChain(v *ThoughtChainInfo) *DisplayRe
 
 func (s *DisplayResponseContent) SetAgentChatLogInfo(v *AgentChatLogInfo) *DisplayResponseContent {
 	s.AgentChatLogInfo = v
+	return s
+}
+
+func (s *DisplayResponseContent) SetChatId(v string) *DisplayResponseContent {
+	s.ChatId = &v
+	return s
+}
+
+func (s *DisplayResponseContent) SetSessionId(v string) *DisplayResponseContent {
+	s.SessionId = &v
 	return s
 }
 
@@ -3271,6 +3285,76 @@ func (s *StartAgentCchatResponse) SetChatCompletionObject(v string) *StartAgentC
 	return s
 }
 
+type CancelAgentChatRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求内容，内容为 AgentQuitReq 对象的json字符串
+	Request *string `json:"request,omitempty" xml:"request,omitempty" require:"true"`
+}
+
+func (s CancelAgentChatRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CancelAgentChatRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CancelAgentChatRequest) SetAuthToken(v string) *CancelAgentChatRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CancelAgentChatRequest) SetProductInstanceId(v string) *CancelAgentChatRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CancelAgentChatRequest) SetRequest(v string) *CancelAgentChatRequest {
+	s.Request = &v
+	return s
+}
+
+type CancelAgentChatResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 停止对话响应内容
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s CancelAgentChatResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CancelAgentChatResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CancelAgentChatResponse) SetReqMsgId(v string) *CancelAgentChatResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CancelAgentChatResponse) SetResultCode(v string) *CancelAgentChatResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CancelAgentChatResponse) SetResultMsg(v string) *CancelAgentChatResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CancelAgentChatResponse) SetData(v string) *CancelAgentChatResponse {
+	s.Data = &v
+	return s
+}
+
 type UploadAlipayLibraryRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -4314,12 +4398,8 @@ type StopAgentChatRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// chat_id
-	ChatId *string `json:"chat_id,omitempty" xml:"chat_id,omitempty" require:"true"`
-	// agent_id
-	AgentId *string `json:"agent_id,omitempty" xml:"agent_id,omitempty" require:"true"`
-	// 会话ID，非必填，拓展用
-	SessionId *string `json:"session_id,omitempty" xml:"session_id,omitempty"`
+	// 请求内容，内容为 AgentQuitReq 对象的json字符串
+	Request *string `json:"request,omitempty" xml:"request,omitempty" require:"true"`
 }
 
 func (s StopAgentChatRequest) String() string {
@@ -4340,18 +4420,8 @@ func (s *StopAgentChatRequest) SetProductInstanceId(v string) *StopAgentChatRequ
 	return s
 }
 
-func (s *StopAgentChatRequest) SetChatId(v string) *StopAgentChatRequest {
-	s.ChatId = &v
-	return s
-}
-
-func (s *StopAgentChatRequest) SetAgentId(v string) *StopAgentChatRequest {
-	s.AgentId = &v
-	return s
-}
-
-func (s *StopAgentChatRequest) SetSessionId(v string) *StopAgentChatRequest {
-	s.SessionId = &v
+func (s *StopAgentChatRequest) SetRequest(v string) *StopAgentChatRequest {
+	s.Request = &v
 	return s
 }
 
@@ -4362,8 +4432,8 @@ type StopAgentChatResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// data
-	Data *SimpleResult `json:"data,omitempty" xml:"data,omitempty"`
+	// 停止对话响应内容
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
 }
 
 func (s StopAgentChatResponse) String() string {
@@ -4389,8 +4459,8 @@ func (s *StopAgentChatResponse) SetResultMsg(v string) *StopAgentChatResponse {
 	return s
 }
 
-func (s *StopAgentChatResponse) SetData(v *SimpleResult) *StopAgentChatResponse {
-	s.Data = v
+func (s *StopAgentChatResponse) SetData(v string) *StopAgentChatResponse {
+	s.Data = &v
 	return s
 }
 
@@ -5176,7 +5246,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("3.0.2"),
+				"sdk_version":      tea.String("3.1.1"),
 				"_prod_code":       tea.String("DTAIAGT"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -5329,6 +5399,40 @@ func (client *Client) StartAgentCchatEx(request *StartAgentCchatRequest, headers
 	}
 	_result = &StartAgentCchatResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.dtaiagt.agent.cchat.start"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 取消对话接口
+ * Summary: 取消对话接口
+ */
+func (client *Client) CancelAgentChat(request *CancelAgentChatRequest) (_result *CancelAgentChatResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CancelAgentChatResponse{}
+	_body, _err := client.CancelAgentChatEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 取消对话接口
+ * Summary: 取消对话接口
+ */
+func (client *Client) CancelAgentChatEx(request *CancelAgentChatRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CancelAgentChatResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CancelAgentChatResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.dtaiagt.agent.chat.cancel"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
