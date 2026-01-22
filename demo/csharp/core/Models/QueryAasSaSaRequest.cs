@@ -23,6 +23,11 @@ namespace AntChain.SDK.DEMO.Models
         [Validation(Required=true)]
         public string NotBlankVerify { get; set; }
 
+        // 12344
+        [NameInMap("idcard")]
+        [Validation(Required=false)]
+        public string Idcard { get; set; }
+
     }
 
 }
