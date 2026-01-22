@@ -6,7 +6,7 @@ namespace AntChain\DEMO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryApiBlackListResponse extends Model
+class QueryStreamTestmethodtwoResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -25,24 +25,10 @@ class QueryApiBlackListResponse extends Model
      * @var string
      */
     public $resultMsg;
-
-    // 200
-    /**
-     * @var string
-     */
-    public $status;
-
-    // OK
-    /**
-     * @var string
-     */
-    public $msg;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'status'     => 'status',
-        'msg'        => 'msg',
     ];
 
     public function validate()
@@ -61,12 +47,6 @@ class QueryApiBlackListResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->status) {
-            $res['status'] = $this->status;
-        }
-        if (null !== $this->msg) {
-            $res['msg'] = $this->msg;
-        }
 
         return $res;
     }
@@ -74,7 +54,7 @@ class QueryApiBlackListResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryApiBlackListResponse
+     * @return QueryStreamTestmethodtwoResponse
      */
     public static function fromMap($map = [])
     {
@@ -87,12 +67,6 @@ class QueryApiBlackListResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['status'])) {
-            $model->status = $map['status'];
-        }
-        if (isset($map['msg'])) {
-            $model->msg = $map['msg'];
         }
 
         return $model;

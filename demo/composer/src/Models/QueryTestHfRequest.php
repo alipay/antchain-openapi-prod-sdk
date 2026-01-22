@@ -6,7 +6,7 @@ namespace AntChain\DEMO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryAasSaSaRequest extends Model
+class QueryTestHfRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -18,28 +18,13 @@ class QueryAasSaSaRequest extends Model
      * @var string
      */
     public $productInstanceId;
-
-    // aa
-    /**
-     * @var string
-     */
-    public $notBlankVerify;
-
-    // 12344
-    /**
-     * @var string
-     */
-    public $idcard;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'notBlankVerify'    => 'not_blank_verify',
-        'idcard'            => 'idcard',
     ];
 
     public function validate()
     {
-        Model::validateRequired('notBlankVerify', $this->notBlankVerify, true);
     }
 
     public function toMap()
@@ -51,12 +36,6 @@ class QueryAasSaSaRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->notBlankVerify) {
-            $res['not_blank_verify'] = $this->notBlankVerify;
-        }
-        if (null !== $this->idcard) {
-            $res['idcard'] = $this->idcard;
-        }
 
         return $res;
     }
@@ -64,7 +43,7 @@ class QueryAasSaSaRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryAasSaSaRequest
+     * @return QueryTestHfRequest
      */
     public static function fromMap($map = [])
     {
@@ -74,12 +53,6 @@ class QueryAasSaSaRequest extends Model
         }
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['not_blank_verify'])) {
-            $model->notBlankVerify = $map['not_blank_verify'];
-        }
-        if (isset($map['idcard'])) {
-            $model->idcard = $map['idcard'];
         }
 
         return $model;

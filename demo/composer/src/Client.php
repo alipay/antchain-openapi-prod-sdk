@@ -87,6 +87,8 @@ use AntChain\DEMO\Models\QueryStreamSpecialCharactersRequest;
 use AntChain\DEMO\Models\QueryStreamSpecialCharactersResponse;
 use AntChain\DEMO\Models\QueryStreamTestmethodRequest;
 use AntChain\DEMO\Models\QueryStreamTestmethodResponse;
+use AntChain\DEMO\Models\QueryStreamTestmethodtwoRequest;
+use AntChain\DEMO\Models\QueryStreamTestmethodtwoResponse;
 use AntChain\DEMO\Models\QueryStreamTestRequest;
 use AntChain\DEMO\Models\QueryStreamTestResponse;
 use AntChain\DEMO\Models\QueryStreamTimeoutRequest;
@@ -109,16 +111,22 @@ use AntChain\DEMO\Models\QueryTestEmbedUserRequest;
 use AntChain\DEMO\Models\QueryTestEmbedUserResponse;
 use AntChain\DEMO\Models\QueryTestForLimitRequest;
 use AntChain\DEMO\Models\QueryTestForLimitResponse;
+use AntChain\DEMO\Models\QueryTestHfRequest;
+use AntChain\DEMO\Models\QueryTestHfResponse;
 use AntChain\DEMO\Models\QueryTestTestTestRequest;
 use AntChain\DEMO\Models\QueryTestTestTestResponse;
 use AntChain\DEMO\Models\QueryTestTimeMenhuRequest;
 use AntChain\DEMO\Models\QueryTestTimeMenhuResponse;
 use AntChain\DEMO\Models\QueryTestTimeTestaRequest;
 use AntChain\DEMO\Models\QueryTestTimeTestaResponse;
+use AntChain\DEMO\Models\StabilizeTestTestRequest;
+use AntChain\DEMO\Models\StabilizeTestTestResponse;
 use AntChain\DEMO\Models\StatusGatewayCheckRequest;
 use AntChain\DEMO\Models\StatusGatewayCheckResponse;
 use AntChain\DEMO\Models\UpdateGatewayRoadRequest;
 use AntChain\DEMO\Models\UpdateGatewayRoadResponse;
+use AntChain\DEMO\Models\UploadAutoTestFileRequest;
+use AntChain\DEMO\Models\UploadAutoTestFileResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -266,7 +274,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.85',
+                    'sdk_version'      => '1.1.93',
                     '_prod_code'       => 'DEMO',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -312,6 +320,39 @@ class Client
         }
 
         throw new TeaUnableRetryError($_lastRequest, $_lastException);
+    }
+
+    /**
+     * Description: test
+     * Summary: test.
+     *
+     * @param StabilizeTestTestRequest $request
+     *
+     * @return StabilizeTestTestResponse
+     */
+    public function stabilizeTestTest($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->stabilizeTestTestEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: test
+     * Summary: test.
+     *
+     * @param StabilizeTestTestRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return StabilizeTestTestResponse
+     */
+    public function stabilizeTestTestEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StabilizeTestTestResponse::fromMap($this->doRequest('1.0', 'demo.test.test.stabilize', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -434,7 +475,7 @@ class Client
 
     /**
      * Description: 超时测试
-     * Summary: 超时.
+     * Summary: 自动化运行态测试使用【勿动！】.
      *
      * @param QueryGatewayCheckEchotimeoutRequest $request
      *
@@ -450,7 +491,7 @@ class Client
 
     /**
      * Description: 超时测试
-     * Summary: 超时.
+     * Summary: 自动化运行态测试使用【勿动！】.
      *
      * @param QueryGatewayCheckEchotimeoutRequest $request
      * @param string[]                            $headers
@@ -764,7 +805,7 @@ class Client
 
     /**
      * Description: 设置下游耗时
-     * Summary: 超时（加密）.
+     * Summary: 自动化运行态使用【勿动！】.
      *
      * @param QueryGatewayCheckEchotimeoutokRequest $request
      *
@@ -780,7 +821,7 @@ class Client
 
     /**
      * Description: 设置下游耗时
-     * Summary: 超时（加密）.
+     * Summary: 自动化运行态使用【勿动！】.
      *
      * @param QueryGatewayCheckEchotimeoutokRequest $request
      * @param string[]                              $headers
@@ -1541,6 +1582,124 @@ class Client
     }
 
     /**
+     * Description: 自动化文件上传
+     * Summary: 自动化文件上传【勿动！】.
+     *
+     * @param UploadAutoTestFileRequest $request
+     *
+     * @return UploadAutoTestFileResponse
+     */
+    public function uploadAutoTestFile($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->uploadAutoTestFileEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 自动化文件上传
+     * Summary: 自动化文件上传【勿动！】.
+     *
+     * @param UploadAutoTestFileRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return UploadAutoTestFileResponse
+     */
+    public function uploadAutoTestFileEx($request, $headers, $runtime)
+    {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'demo.auto.test.file.upload',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'OK')) {
+                return new UploadAutoTestFileResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
+        }
+        Utils::validateModel($request);
+
+        return UploadAutoTestFileResponse::fromMap($this->doRequest('1.0', 'demo.auto.test.file.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: stream200 test
+     * Summary: stream200 test.
+     *
+     * @param QueryStreamTestmethodtwoRequest $request
+     *
+     * @return QueryStreamTestmethodtwoResponse
+     */
+    public function queryStreamTestmethodtwo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryStreamTestmethodtwoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: stream200 test
+     * Summary: stream200 test.
+     *
+     * @param QueryStreamTestmethodtwoRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return QueryStreamTestmethodtwoResponse
+     */
+    public function queryStreamTestmethodtwoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryStreamTestmethodtwoResponse::fromMap($this->doRequest('1.0', 'demo.stream.testmethodtwo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: test
+     * Summary: test.
+     *
+     * @param QueryTestHfRequest $request
+     *
+     * @return QueryTestHfResponse
+     */
+    public function queryTestHf($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryTestHfEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: test
+     * Summary: test.
+     *
+     * @param QueryTestHfRequest $request
+     * @param string[]           $headers
+     * @param RuntimeOptions     $runtime
+     *
+     * @return QueryTestHfResponse
+     */
+    public function queryTestHfEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryTestHfResponse::fromMap($this->doRequest('1.0', 'demo.test.hf.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 测试用
      * Summary: 测试用.
      *
@@ -2037,7 +2196,7 @@ class Client
 
     /**
      * Description: 123
-     * Summary: 测试用api.
+     * Summary: 123.
      *
      * @param BindAaaBbbCcdRequest $request
      *
@@ -2053,7 +2212,7 @@ class Client
 
     /**
      * Description: 123
-     * Summary: 测试用api.
+     * Summary: 123.
      *
      * @param BindAaaBbbCcdRequest $request
      * @param string[]             $headers

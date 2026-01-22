@@ -5,8 +5,9 @@
 namespace AntChain\DEMO\Models;
 
 use AlibabaCloud\Tea\Model;
+use GuzzleHttp\Psr7\Stream;
 
-class QueryApiBlackListRequest extends Model
+class UploadAutoTestFileRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,6 +20,26 @@ class QueryApiBlackListRequest extends Model
      */
     public $productInstanceId;
 
+    // fileId
+    /**
+     * @description 待上传文件
+     *
+     * @var Stream
+     */
+    public $fileObject;
+
+    /**
+     * @description 待上传文件名
+     *
+     * @var string
+     */
+    public $fileObjectName;
+
+    /**
+     * @var string
+     */
+    public $fileId;
+
     // 超时时间
     /**
      * @var string
@@ -27,11 +48,13 @@ class QueryApiBlackListRequest extends Model
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
+        'fileId'            => 'file_id',
         'timeout'           => 'timeout',
     ];
 
     public function validate()
     {
+        Model::validateRequired('fileId', $this->fileId, true);
         Model::validateRequired('timeout', $this->timeout, true);
     }
 
@@ -44,6 +67,15 @@ class QueryApiBlackListRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
+        if (null !== $this->fileObject) {
+            $res['fileObject'] = $this->fileObject;
+        }
+        if (null !== $this->fileObjectName) {
+            $res['fileObjectName'] = $this->fileObjectName;
+        }
+        if (null !== $this->fileId) {
+            $res['file_id'] = $this->fileId;
+        }
         if (null !== $this->timeout) {
             $res['timeout'] = $this->timeout;
         }
@@ -54,7 +86,7 @@ class QueryApiBlackListRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryApiBlackListRequest
+     * @return UploadAutoTestFileRequest
      */
     public static function fromMap($map = [])
     {
@@ -64,6 +96,15 @@ class QueryApiBlackListRequest extends Model
         }
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
+        }
+        if (isset($map['fileObject'])) {
+            $model->fileObject = $map['fileObject'];
+        }
+        if (isset($map['fileObjectName'])) {
+            $model->fileObjectName = $map['fileObjectName'];
+        }
+        if (isset($map['file_id'])) {
+            $model->fileId = $map['file_id'];
         }
         if (isset($map['timeout'])) {
             $model->timeout = $map['timeout'];

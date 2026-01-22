@@ -6,7 +6,7 @@ namespace AntChain\DEMO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryApiBlackListResponse extends Model
+class UploadAutoTestFileResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,13 +26,13 @@ class QueryApiBlackListResponse extends Model
      */
     public $resultMsg;
 
-    // 200
+    // OK
     /**
      * @var string
      */
     public $status;
 
-    // OK
+    // SUCCESS le
     /**
      * @var string
      */
@@ -74,7 +74,7 @@ class QueryApiBlackListResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryApiBlackListResponse
+     * @return UploadAutoTestFileResponse
      */
     public static function fromMap($map = [])
     {
