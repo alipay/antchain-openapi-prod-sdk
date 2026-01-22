@@ -24,7 +24,7 @@ from setuptools import setup, find_packages
 """
 setup module for antchain_benchtwo.
 
-Created on 05/01/2026
+Created on 22/01/2026
 
 @author: Ant Chain SDK
 """
