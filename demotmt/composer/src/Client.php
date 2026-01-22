@@ -19,8 +19,6 @@ use AntChain\DEMOTMT\Models\QueryTenantApiusageRequest;
 use AntChain\DEMOTMT\Models\QueryTenantApiusageResponse;
 use AntChain\DEMOTMT\Models\QueryTestRequest;
 use AntChain\DEMOTMT\Models\QueryTestResponse;
-use AntChain\DEMOTMT\Models\TestWorkbenchCreateRequest;
-use AntChain\DEMOTMT\Models\TestWorkbenchCreateResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -140,7 +138,6 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 测试
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -168,7 +165,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.4',
+                    'sdk_version'      => '1.0.5',
                     '_prod_code'       => 'DEMOTMT',
                     '_prod_channel'    => 'default',
                 ];
@@ -379,38 +376,5 @@ class Client
         Utils::validateModel($request);
 
         return QueryTenantApiusageResponse::fromMap($this->doRequest('1.0', 'antchain.demotmt.tenant.apiusage.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 测试使用
-     * Summary: 测试使用.
-     *
-     * @param TestWorkbenchCreateRequest $request
-     *
-     * @return TestWorkbenchCreateResponse
-     */
-    public function testWorkbenchCreate($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->testWorkbenchCreateEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 测试使用
-     * Summary: 测试使用.
-     *
-     * @param TestWorkbenchCreateRequest $request
-     * @param string[]                   $headers
-     * @param RuntimeOptions             $runtime
-     *
-     * @return TestWorkbenchCreateResponse
-     */
-    public function testWorkbenchCreateEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return TestWorkbenchCreateResponse::fromMap($this->doRequest('1.0', 'antchain.demotmt.workbench.create.test', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
