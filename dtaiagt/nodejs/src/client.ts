@@ -1107,6 +1107,10 @@ export class DisplayResponseContent extends $tea.Model {
   // AgentChatLogInfo. Agent 运行相关信息
   // 
   agentChatLogInfo: AgentChatLogInfo;
+  // chat_id
+  chatId: string;
+  // session_id
+  sessionId: string;
   static names(): { [key: string]: string } {
     return {
       chatHistoryDisplayTypeEnum: 'chat_history_display_type_enum',
@@ -1140,6 +1144,8 @@ export class DisplayResponseContent extends $tea.Model {
       files: 'files',
       thoughtChain: 'thought_chain',
       agentChatLogInfo: 'agent_chat_log_info',
+      chatId: 'chat_id',
+      sessionId: 'session_id',
     };
   }
 
@@ -1176,6 +1182,8 @@ export class DisplayResponseContent extends $tea.Model {
       files: { 'type': 'array', 'itemType': AttachFile },
       thoughtChain: ThoughtChainInfo,
       agentChatLogInfo: AgentChatLogInfo,
+      chatId: 'string',
+      sessionId: 'string',
     };
   }
 
@@ -2454,6 +2462,65 @@ export class StartAgentCchatResponse extends $tea.Model {
   }
 }
 
+export class CancelAgentChatRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求内容，内容为 AgentQuitReq 对象的json字符串
+  request: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      request: 'request',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      request: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CancelAgentChatResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 停止对话响应内容
+  data?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class UploadAlipayLibraryRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -3277,19 +3344,13 @@ export class StopAgentChatRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // chat_id
-  chatId: string;
-  // agent_id
-  agentId: string;
-  // 会话ID，非必填，拓展用
-  sessionId?: string;
+  // 请求内容，内容为 AgentQuitReq 对象的json字符串
+  request: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      chatId: 'chat_id',
-      agentId: 'agent_id',
-      sessionId: 'session_id',
+      request: 'request',
     };
   }
 
@@ -3297,9 +3358,7 @@ export class StopAgentChatRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      chatId: 'string',
-      agentId: 'string',
-      sessionId: 'string',
+      request: 'string',
     };
   }
 
@@ -3315,8 +3374,8 @@ export class StopAgentChatResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // data
-  data?: SimpleResult;
+  // 停止对话响应内容
+  data?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -3331,7 +3390,7 @@ export class StopAgentChatResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      data: SimpleResult,
+      data: 'string',
     };
   }
 
@@ -3977,7 +4036,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "3.0.2",
+          sdk_version: "3.1.1",
           _prod_code: "DTAIAGT",
           _prod_channel: "default",
         };
@@ -4080,6 +4139,25 @@ export default class Client {
   async startAgentCchatEx(request: StartAgentCchatRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<StartAgentCchatResponse> {
     Util.validateModel(request);
     return $tea.cast<StartAgentCchatResponse>(await this.doRequest("1.0", "antdigital.dtaiagt.agent.cchat.start", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new StartAgentCchatResponse({}));
+  }
+
+  /**
+   * Description: 取消对话接口
+   * Summary: 取消对话接口
+   */
+  async cancelAgentChat(request: CancelAgentChatRequest): Promise<CancelAgentChatResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.cancelAgentChatEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 取消对话接口
+   * Summary: 取消对话接口
+   */
+  async cancelAgentChatEx(request: CancelAgentChatRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CancelAgentChatResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CancelAgentChatResponse>(await this.doRequest("1.0", "antdigital.dtaiagt.agent.chat.cancel", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CancelAgentChatResponse({}));
   }
 
   /**
