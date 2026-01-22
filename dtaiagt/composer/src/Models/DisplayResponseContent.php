@@ -284,6 +284,22 @@ class DisplayResponseContent extends Model
      * @var AgentChatLogInfo
      */
     public $agentChatLogInfo;
+
+    // chat_id
+    /**
+     * @example chat_id
+     *
+     * @var string
+     */
+    public $chatId;
+
+    // session_id
+    /**
+     * @example session_id
+     *
+     * @var string
+     */
+    public $sessionId;
     protected $_name = [
         'chatHistoryDisplayTypeEnum' => 'chat_history_display_type_enum',
         'displayResponseType'        => 'display_response_type',
@@ -316,6 +332,8 @@ class DisplayResponseContent extends Model
         'files'                      => 'files',
         'thoughtChain'               => 'thought_chain',
         'agentChatLogInfo'           => 'agent_chat_log_info',
+        'chatId'                     => 'chat_id',
+        'sessionId'                  => 'session_id',
     ];
 
     public function validate()
@@ -351,6 +369,8 @@ class DisplayResponseContent extends Model
         Model::validateRequired('files', $this->files, true);
         Model::validateRequired('thoughtChain', $this->thoughtChain, true);
         Model::validateRequired('agentChatLogInfo', $this->agentChatLogInfo, true);
+        Model::validateRequired('chatId', $this->chatId, true);
+        Model::validateRequired('sessionId', $this->sessionId, true);
         Model::validatePattern('timestampDisplay', $this->timestampDisplay, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
     }
 
@@ -473,6 +493,12 @@ class DisplayResponseContent extends Model
         }
         if (null !== $this->agentChatLogInfo) {
             $res['agent_chat_log_info'] = null !== $this->agentChatLogInfo ? $this->agentChatLogInfo->toMap() : null;
+        }
+        if (null !== $this->chatId) {
+            $res['chat_id'] = $this->chatId;
+        }
+        if (null !== $this->sessionId) {
+            $res['session_id'] = $this->sessionId;
         }
 
         return $res;
@@ -604,6 +630,12 @@ class DisplayResponseContent extends Model
         }
         if (isset($map['agent_chat_log_info'])) {
             $model->agentChatLogInfo = AgentChatLogInfo::fromMap($map['agent_chat_log_info']);
+        }
+        if (isset($map['chat_id'])) {
+            $model->chatId = $map['chat_id'];
+        }
+        if (isset($map['session_id'])) {
+            $model->sessionId = $map['session_id'];
         }
 
         return $model;

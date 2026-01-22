@@ -6,7 +6,7 @@ namespace AntChain\DTAIAGT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class StopAgentChatRequest extends Model
+class CancelAgentChatRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -54,7 +54,7 @@ class StopAgentChatRequest extends Model
     /**
      * @param array $map
      *
-     * @return StopAgentChatRequest
+     * @return CancelAgentChatRequest
      */
     public static function fromMap($map = [])
     {

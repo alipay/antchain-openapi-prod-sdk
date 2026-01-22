@@ -11,6 +11,8 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\DTAIAGT\Models\CancelAgentChatRequest;
+use AntChain\DTAIAGT\Models\CancelAgentChatResponse;
 use AntChain\DTAIAGT\Models\CreateAntcloudGatewayxFileUploadRequest;
 use AntChain\DTAIAGT\Models\CreateAntcloudGatewayxFileUploadResponse;
 use AntChain\DTAIAGT\Models\DeleteAgentChatRequest;
@@ -206,7 +208,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '3.0.2',
+                    'sdk_version'      => '3.1.1',
                     '_prod_code'       => 'DTAIAGT',
                     '_prod_channel'    => 'default',
                 ];
@@ -351,6 +353,39 @@ class Client
         Utils::validateModel($request);
 
         return StartAgentCchatResponse::fromMap($this->doRequest('1.0', 'antdigital.dtaiagt.agent.cchat.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 取消对话接口
+     * Summary: 取消对话接口.
+     *
+     * @param CancelAgentChatRequest $request
+     *
+     * @return CancelAgentChatResponse
+     */
+    public function cancelAgentChat($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->cancelAgentChatEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 取消对话接口
+     * Summary: 取消对话接口.
+     *
+     * @param CancelAgentChatRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return CancelAgentChatResponse
+     */
+    public function cancelAgentChatEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CancelAgentChatResponse::fromMap($this->doRequest('1.0', 'antdigital.dtaiagt.agent.chat.cancel', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

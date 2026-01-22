@@ -6,7 +6,7 @@ namespace AntChain\DTAIAGT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class StopAgentChatResponse extends Model
+class CancelAgentChatResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -64,7 +64,7 @@ class StopAgentChatResponse extends Model
     /**
      * @param array $map
      *
-     * @return StopAgentChatResponse
+     * @return CancelAgentChatResponse
      */
     public static function fromMap($map = [])
     {
