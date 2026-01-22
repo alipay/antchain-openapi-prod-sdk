@@ -1769,6 +1769,8 @@ class DisplayResponseContent(TeaModel):
         files: List[AttachFile] = None,
         thought_chain: ThoughtChainInfo = None,
         agent_chat_log_info: AgentChatLogInfo = None,
+        chat_id: str = None,
+        session_id: str = None,
     ):
         # 【对话历史展示专用】对话历史展示类型，枚举值：QUERY("用户输入"), RESPONSE("回复")
         # 
@@ -1861,6 +1863,10 @@ class DisplayResponseContent(TeaModel):
         # AgentChatLogInfo. Agent 运行相关信息
         # 
         self.agent_chat_log_info = agent_chat_log_info
+        # chat_id
+        self.chat_id = chat_id
+        # session_id
+        self.session_id = session_id
 
     def validate(self):
         self.validate_required(self.chat_history_display_type_enum, 'chat_history_display_type_enum')
@@ -1916,6 +1922,8 @@ class DisplayResponseContent(TeaModel):
         self.validate_required(self.agent_chat_log_info, 'agent_chat_log_info')
         if self.agent_chat_log_info:
             self.agent_chat_log_info.validate()
+        self.validate_required(self.chat_id, 'chat_id')
+        self.validate_required(self.session_id, 'session_id')
 
     def to_map(self):
         _map = super().to_map()
@@ -1993,6 +2001,10 @@ class DisplayResponseContent(TeaModel):
             result['thought_chain'] = self.thought_chain.to_map()
         if self.agent_chat_log_info is not None:
             result['agent_chat_log_info'] = self.agent_chat_log_info.to_map()
+        if self.chat_id is not None:
+            result['chat_id'] = self.chat_id
+        if self.session_id is not None:
+            result['session_id'] = self.session_id
         return result
 
     def from_map(self, m: dict = None):
@@ -2073,6 +2085,10 @@ class DisplayResponseContent(TeaModel):
         if m.get('agent_chat_log_info') is not None:
             temp_model = AgentChatLogInfo()
             self.agent_chat_log_info = temp_model.from_map(m['agent_chat_log_info'])
+        if m.get('chat_id') is not None:
+            self.chat_id = m.get('chat_id')
+        if m.get('session_id') is not None:
+            self.session_id = m.get('session_id')
         return self
 
 
@@ -4266,6 +4282,96 @@ class StartAgentCchatResponse(TeaModel):
         return self
 
 
+class CancelAgentChatRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        request: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 请求内容，内容为 AgentQuitReq 对象的json字符串
+        self.request = request
+
+    def validate(self):
+        self.validate_required(self.request, 'request')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.request is not None:
+            result['request'] = self.request
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('request') is not None:
+            self.request = m.get('request')
+        return self
+
+
+class CancelAgentChatResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 停止对话响应内容
+        self.data = data
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.data is not None:
+            result['data'] = self.data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('data') is not None:
+            self.data = m.get('data')
+        return self
+
+
 class UploadAlipayLibraryRequest(TeaModel):
     def __init__(
         self,
@@ -5597,23 +5703,16 @@ class StopAgentChatRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
-        chat_id: str = None,
-        agent_id: str = None,
-        session_id: str = None,
+        request: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # chat_id
-        self.chat_id = chat_id
-        # agent_id
-        self.agent_id = agent_id
-        # 会话ID，非必填，拓展用
-        self.session_id = session_id
+        # 请求内容，内容为 AgentQuitReq 对象的json字符串
+        self.request = request
 
     def validate(self):
-        self.validate_required(self.chat_id, 'chat_id')
-        self.validate_required(self.agent_id, 'agent_id')
+        self.validate_required(self.request, 'request')
 
     def to_map(self):
         _map = super().to_map()
@@ -5625,12 +5724,8 @@ class StopAgentChatRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
-        if self.chat_id is not None:
-            result['chat_id'] = self.chat_id
-        if self.agent_id is not None:
-            result['agent_id'] = self.agent_id
-        if self.session_id is not None:
-            result['session_id'] = self.session_id
+        if self.request is not None:
+            result['request'] = self.request
         return result
 
     def from_map(self, m: dict = None):
@@ -5639,12 +5734,8 @@ class StopAgentChatRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
-        if m.get('chat_id') is not None:
-            self.chat_id = m.get('chat_id')
-        if m.get('agent_id') is not None:
-            self.agent_id = m.get('agent_id')
-        if m.get('session_id') is not None:
-            self.session_id = m.get('session_id')
+        if m.get('request') is not None:
+            self.request = m.get('request')
         return self
 
 
@@ -5654,7 +5745,7 @@ class StopAgentChatResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        data: SimpleResult = None,
+        data: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -5662,12 +5753,11 @@ class StopAgentChatResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # data
+        # 停止对话响应内容
         self.data = data
 
     def validate(self):
-        if self.data:
-            self.data.validate()
+        pass
 
     def to_map(self):
         _map = super().to_map()
@@ -5682,7 +5772,7 @@ class StopAgentChatResponse(TeaModel):
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
         if self.data is not None:
-            result['data'] = self.data.to_map()
+            result['data'] = self.data
         return result
 
     def from_map(self, m: dict = None):
@@ -5694,8 +5784,7 @@ class StopAgentChatResponse(TeaModel):
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
         if m.get('data') is not None:
-            temp_model = SimpleResult()
-            self.data = temp_model.from_map(m['data'])
+            self.data = m.get('data')
         return self
 
 
