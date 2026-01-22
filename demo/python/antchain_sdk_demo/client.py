@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.93',
+                    'sdk_version': '1.1.94',
                     '_prod_code': 'DEMO',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.93',
+                    'sdk_version': '1.1.94',
                     '_prod_code': 'DEMO',
                     '_prod_channel': 'undefined'
                 }
@@ -329,6 +329,62 @@ class Client:
         return TeaCore.from_map(
             demo_models.StabilizeTestTestResponse(),
             await self.do_request_async('1.0', 'demo.test.test.stabilize', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def asdas_asda_asda(
+        self,
+        request: demo_models.AsdasAsdaAsdaRequest,
+    ) -> demo_models.AsdasAsdaAsdaResponse:
+        """
+        Description: a_a_a
+        Summary: a_a_a
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.asdas_asda_asda_ex(request, headers, runtime)
+
+    async def asdas_asda_asda_async(
+        self,
+        request: demo_models.AsdasAsdaAsdaRequest,
+    ) -> demo_models.AsdasAsdaAsdaResponse:
+        """
+        Description: a_a_a
+        Summary: a_a_a
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.asdas_asda_asda_ex_async(request, headers, runtime)
+
+    def asdas_asda_asda_ex(
+        self,
+        request: demo_models.AsdasAsdaAsdaRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.AsdasAsdaAsdaResponse:
+        """
+        Description: a_a_a
+        Summary: a_a_a
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.AsdasAsdaAsdaResponse(),
+            self.do_request('1.0', 'demo.asda.asda.asdas', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def asdas_asda_asda_ex_async(
+        self,
+        request: demo_models.AsdasAsdaAsdaRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.AsdasAsdaAsdaResponse:
+        """
+        Description: a_a_a
+        Summary: a_a_a
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.AsdasAsdaAsdaResponse(),
+            await self.do_request_async('1.0', 'demo.asda.asda.asdas', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def status_gateway_check(
