@@ -1240,6 +1240,61 @@ export class StabilizeTestTestResponse extends $tea.Model {
   }
 }
 
+export class AsdasAsdaAsdaRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 11
+  aa?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      aa: 'aa',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      aa: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AsdasAsdaAsdaResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class StatusGatewayCheckRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -4891,7 +4946,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.93",
+          sdk_version: "1.1.94",
           _prod_code: "DEMO",
           _prod_channel: "undefined",
         };
@@ -4956,6 +5011,25 @@ export default class Client {
   async stabilizeTestTestEx(request: StabilizeTestTestRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<StabilizeTestTestResponse> {
     Util.validateModel(request);
     return $tea.cast<StabilizeTestTestResponse>(await this.doRequest("1.0", "demo.test.test.stabilize", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new StabilizeTestTestResponse({}));
+  }
+
+  /**
+   * Description: a_a_a
+   * Summary: a_a_a
+   */
+  async asdasAsdaAsda(request: AsdasAsdaAsdaRequest): Promise<AsdasAsdaAsdaResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.asdasAsdaAsdaEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: a_a_a
+   * Summary: a_a_a
+   */
+  async asdasAsdaAsdaEx(request: AsdasAsdaAsdaRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<AsdasAsdaAsdaResponse> {
+    Util.validateModel(request);
+    return $tea.cast<AsdasAsdaAsdaResponse>(await this.doRequest("1.0", "demo.asda.asda.asdas", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new AsdasAsdaAsdaResponse({}));
   }
 
   /**
