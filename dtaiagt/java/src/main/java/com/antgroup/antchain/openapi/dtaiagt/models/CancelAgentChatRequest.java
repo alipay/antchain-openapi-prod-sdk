@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.dtaiagt.models;
 
 import com.aliyun.tea.*;
 
-public class StopAgentChatRequest extends TeaModel {
+public class CancelAgentChatRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -16,12 +16,12 @@ public class StopAgentChatRequest extends TeaModel {
     @Validation(required = true)
     public String request;
 
-    public static StopAgentChatRequest build(java.util.Map<String, ?> map) throws Exception {
-        StopAgentChatRequest self = new StopAgentChatRequest();
+    public static CancelAgentChatRequest build(java.util.Map<String, ?> map) throws Exception {
+        CancelAgentChatRequest self = new CancelAgentChatRequest();
         return TeaModel.build(map, self);
     }
 
-    public StopAgentChatRequest setAuthToken(String authToken) {
+    public CancelAgentChatRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -29,7 +29,7 @@ public class StopAgentChatRequest extends TeaModel {
         return this.authToken;
     }
 
-    public StopAgentChatRequest setProductInstanceId(String productInstanceId) {
+    public CancelAgentChatRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -37,7 +37,7 @@ public class StopAgentChatRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public StopAgentChatRequest setRequest(String request) {
+    public CancelAgentChatRequest setRequest(String request) {
         this.request = request;
         return this;
     }

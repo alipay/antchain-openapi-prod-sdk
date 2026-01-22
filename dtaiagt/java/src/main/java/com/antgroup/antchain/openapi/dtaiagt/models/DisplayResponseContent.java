@@ -312,6 +312,24 @@ public class DisplayResponseContent extends TeaModel {
     @Validation(required = true)
     public AgentChatLogInfo agentChatLogInfo;
 
+    // chat_id
+    /**
+     * <strong>example:</strong>
+     * <p>chat_id</p>
+     */
+    @NameInMap("chat_id")
+    @Validation(required = true)
+    public String chatId;
+
+    // session_id
+    /**
+     * <strong>example:</strong>
+     * <p>session_id</p>
+     */
+    @NameInMap("session_id")
+    @Validation(required = true)
+    public String sessionId;
+
     public static DisplayResponseContent build(java.util.Map<String, ?> map) throws Exception {
         DisplayResponseContent self = new DisplayResponseContent();
         return TeaModel.build(map, self);
@@ -563,6 +581,22 @@ public class DisplayResponseContent extends TeaModel {
     }
     public AgentChatLogInfo getAgentChatLogInfo() {
         return this.agentChatLogInfo;
+    }
+
+    public DisplayResponseContent setChatId(String chatId) {
+        this.chatId = chatId;
+        return this;
+    }
+    public String getChatId() {
+        return this.chatId;
+    }
+
+    public DisplayResponseContent setSessionId(String sessionId) {
+        this.sessionId = sessionId;
+        return this;
+    }
+    public String getSessionId() {
+        return this.sessionId;
     }
 
 }
