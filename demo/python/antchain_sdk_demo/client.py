@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.85',
+                    'sdk_version': '1.1.93',
                     '_prod_code': 'DEMO',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.85',
+                    'sdk_version': '1.1.93',
                     '_prod_code': 'DEMO',
                     '_prod_channel': 'undefined'
                 }
@@ -274,6 +274,62 @@ class Client:
                     continue
                 raise e
         raise UnretryableException(_last_request, _last_exception)
+
+    def stabilize_test_test(
+        self,
+        request: demo_models.StabilizeTestTestRequest,
+    ) -> demo_models.StabilizeTestTestResponse:
+        """
+        Description: test
+        Summary: test
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.stabilize_test_test_ex(request, headers, runtime)
+
+    async def stabilize_test_test_async(
+        self,
+        request: demo_models.StabilizeTestTestRequest,
+    ) -> demo_models.StabilizeTestTestResponse:
+        """
+        Description: test
+        Summary: test
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.stabilize_test_test_ex_async(request, headers, runtime)
+
+    def stabilize_test_test_ex(
+        self,
+        request: demo_models.StabilizeTestTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.StabilizeTestTestResponse:
+        """
+        Description: test
+        Summary: test
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.StabilizeTestTestResponse(),
+            self.do_request('1.0', 'demo.test.test.stabilize', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def stabilize_test_test_ex_async(
+        self,
+        request: demo_models.StabilizeTestTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.StabilizeTestTestResponse:
+        """
+        Description: test
+        Summary: test
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.StabilizeTestTestResponse(),
+            await self.do_request_async('1.0', 'demo.test.test.stabilize', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
 
     def status_gateway_check(
         self,
@@ -485,7 +541,7 @@ class Client:
     ) -> demo_models.QueryGatewayCheckEchotimeoutResponse:
         """
         Description: 超时测试
-        Summary: 超时
+        Summary: 自动化运行态测试使用【勿动！】
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -497,7 +553,7 @@ class Client:
     ) -> demo_models.QueryGatewayCheckEchotimeoutResponse:
         """
         Description: 超时测试
-        Summary: 超时
+        Summary: 自动化运行态测试使用【勿动！】
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -511,7 +567,7 @@ class Client:
     ) -> demo_models.QueryGatewayCheckEchotimeoutResponse:
         """
         Description: 超时测试
-        Summary: 超时
+        Summary: 自动化运行态测试使用【勿动！】
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -527,7 +583,7 @@ class Client:
     ) -> demo_models.QueryGatewayCheckEchotimeoutResponse:
         """
         Description: 超时测试
-        Summary: 超时
+        Summary: 自动化运行态测试使用【勿动！】
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -1045,7 +1101,7 @@ class Client:
     ) -> demo_models.QueryGatewayCheckEchotimeoutokResponse:
         """
         Description: 设置下游耗时
-        Summary: 超时（加密）
+        Summary: 自动化运行态使用【勿动！】
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -1057,7 +1113,7 @@ class Client:
     ) -> demo_models.QueryGatewayCheckEchotimeoutokResponse:
         """
         Description: 设置下游耗时
-        Summary: 超时（加密）
+        Summary: 自动化运行态使用【勿动！】
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -1071,7 +1127,7 @@ class Client:
     ) -> demo_models.QueryGatewayCheckEchotimeoutokResponse:
         """
         Description: 设置下游耗时
-        Summary: 超时（加密）
+        Summary: 自动化运行态使用【勿动！】
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -1087,7 +1143,7 @@ class Client:
     ) -> demo_models.QueryGatewayCheckEchotimeoutokResponse:
         """
         Description: 设置下游耗时
-        Summary: 超时（加密）
+        Summary: 自动化运行态使用【勿动！】
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -2363,6 +2419,210 @@ class Client:
             await self.do_request_async('1.0', 'demo.agent.financial.risk.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def upload_auto_test_file(
+        self,
+        request: demo_models.UploadAutoTestFileRequest,
+    ) -> demo_models.UploadAutoTestFileResponse:
+        """
+        Description: 自动化文件上传
+        Summary: 自动化文件上传【勿动！】
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.upload_auto_test_file_ex(request, headers, runtime)
+
+    async def upload_auto_test_file_async(
+        self,
+        request: demo_models.UploadAutoTestFileRequest,
+    ) -> demo_models.UploadAutoTestFileResponse:
+        """
+        Description: 自动化文件上传
+        Summary: 自动化文件上传【勿动！】
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.upload_auto_test_file_ex_async(request, headers, runtime)
+
+    def upload_auto_test_file_ex(
+        self,
+        request: demo_models.UploadAutoTestFileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.UploadAutoTestFileResponse:
+        """
+        Description: 自动化文件上传
+        Summary: 自动化文件上传【勿动！】
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = demo_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='demo.auto.test.file.upload',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'OK'):
+                upload_auto_test_file_response = demo_models.UploadAutoTestFileResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return upload_auto_test_file_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.UploadAutoTestFileResponse(),
+            self.do_request('1.0', 'demo.auto.test.file.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def upload_auto_test_file_ex_async(
+        self,
+        request: demo_models.UploadAutoTestFileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.UploadAutoTestFileResponse:
+        """
+        Description: 自动化文件上传
+        Summary: 自动化文件上传【勿动！】
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = demo_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='demo.auto.test.file.upload',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'OK'):
+                upload_auto_test_file_response = demo_models.UploadAutoTestFileResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return upload_auto_test_file_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.UploadAutoTestFileResponse(),
+            await self.do_request_async('1.0', 'demo.auto.test.file.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_stream_testmethodtwo(
+        self,
+        request: demo_models.QueryStreamTestmethodtwoRequest,
+    ) -> demo_models.QueryStreamTestmethodtwoResponse:
+        """
+        Description: stream200 test
+        Summary: stream200 test
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_stream_testmethodtwo_ex(request, headers, runtime)
+
+    async def query_stream_testmethodtwo_async(
+        self,
+        request: demo_models.QueryStreamTestmethodtwoRequest,
+    ) -> demo_models.QueryStreamTestmethodtwoResponse:
+        """
+        Description: stream200 test
+        Summary: stream200 test
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_stream_testmethodtwo_ex_async(request, headers, runtime)
+
+    def query_stream_testmethodtwo_ex(
+        self,
+        request: demo_models.QueryStreamTestmethodtwoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.QueryStreamTestmethodtwoResponse:
+        """
+        Description: stream200 test
+        Summary: stream200 test
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.QueryStreamTestmethodtwoResponse(),
+            self.do_request('1.0', 'demo.stream.testmethodtwo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_stream_testmethodtwo_ex_async(
+        self,
+        request: demo_models.QueryStreamTestmethodtwoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.QueryStreamTestmethodtwoResponse:
+        """
+        Description: stream200 test
+        Summary: stream200 test
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.QueryStreamTestmethodtwoResponse(),
+            await self.do_request_async('1.0', 'demo.stream.testmethodtwo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_test_hf(
+        self,
+        request: demo_models.QueryTestHfRequest,
+    ) -> demo_models.QueryTestHfResponse:
+        """
+        Description: test
+        Summary: test
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_test_hf_ex(request, headers, runtime)
+
+    async def query_test_hf_async(
+        self,
+        request: demo_models.QueryTestHfRequest,
+    ) -> demo_models.QueryTestHfResponse:
+        """
+        Description: test
+        Summary: test
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_test_hf_ex_async(request, headers, runtime)
+
+    def query_test_hf_ex(
+        self,
+        request: demo_models.QueryTestHfRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.QueryTestHfResponse:
+        """
+        Description: test
+        Summary: test
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.QueryTestHfResponse(),
+            self.do_request('1.0', 'demo.test.hf.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_test_hf_ex_async(
+        self,
+        request: demo_models.QueryTestHfRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.QueryTestHfResponse:
+        """
+        Description: test
+        Summary: test
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.QueryTestHfResponse(),
+            await self.do_request_async('1.0', 'demo.test.hf.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def query_aaa_multi_ccc(
         self,
         request: demo_models.QueryAaaMultiCccRequest,
@@ -3209,7 +3469,7 @@ class Client:
     ) -> demo_models.BindAaaBbbCcdResponse:
         """
         Description: 123
-        Summary: 测试用api
+        Summary: 123
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -3221,7 +3481,7 @@ class Client:
     ) -> demo_models.BindAaaBbbCcdResponse:
         """
         Description: 123
-        Summary: 测试用api
+        Summary: 123
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -3235,7 +3495,7 @@ class Client:
     ) -> demo_models.BindAaaBbbCcdResponse:
         """
         Description: 123
-        Summary: 测试用api
+        Summary: 123
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -3251,7 +3511,7 @@ class Client:
     ) -> demo_models.BindAaaBbbCcdResponse:
         """
         Description: 123
-        Summary: 测试用api
+        Summary: 123
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
