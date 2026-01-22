@@ -148,25 +148,6 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
-// 测试
-type PayOrderOpenApiResult struct {
-	// 11
-	Test *string `json:"test,omitempty" xml:"test,omitempty" require:"true"`
-}
-
-func (s PayOrderOpenApiResult) String() string {
-	return tea.Prettify(s)
-}
-
-func (s PayOrderOpenApiResult) GoString() string {
-	return s.String()
-}
-
-func (s *PayOrderOpenApiResult) SetTest(v string) *PayOrderOpenApiResult {
-	s.Test = &v
-	return s
-}
-
 type QueryTestRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -566,83 +547,6 @@ func (s *QueryTenantApiusageResponse) SetApiUsageJson(v string) *QueryTenantApiu
 	return s
 }
 
-type TestWorkbenchCreateRequest struct {
-	// OAuth模式下的授权token
-	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 超时
-	Timeout *string `json:"timeout,omitempty" xml:"timeout,omitempty"`
-}
-
-func (s TestWorkbenchCreateRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s TestWorkbenchCreateRequest) GoString() string {
-	return s.String()
-}
-
-func (s *TestWorkbenchCreateRequest) SetAuthToken(v string) *TestWorkbenchCreateRequest {
-	s.AuthToken = &v
-	return s
-}
-
-func (s *TestWorkbenchCreateRequest) SetProductInstanceId(v string) *TestWorkbenchCreateRequest {
-	s.ProductInstanceId = &v
-	return s
-}
-
-func (s *TestWorkbenchCreateRequest) SetTimeout(v string) *TestWorkbenchCreateRequest {
-	s.Timeout = &v
-	return s
-}
-
-type TestWorkbenchCreateResponse struct {
-	// 请求唯一ID，用于链路跟踪和问题排查
-	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 结果码，一般OK表示调用成功
-	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	// 异常信息的文本描述
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 状态
-	Stauts *string `json:"stauts,omitempty" xml:"stauts,omitempty"`
-	// 描述
-	Msg *string `json:"msg,omitempty" xml:"msg,omitempty"`
-}
-
-func (s TestWorkbenchCreateResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s TestWorkbenchCreateResponse) GoString() string {
-	return s.String()
-}
-
-func (s *TestWorkbenchCreateResponse) SetReqMsgId(v string) *TestWorkbenchCreateResponse {
-	s.ReqMsgId = &v
-	return s
-}
-
-func (s *TestWorkbenchCreateResponse) SetResultCode(v string) *TestWorkbenchCreateResponse {
-	s.ResultCode = &v
-	return s
-}
-
-func (s *TestWorkbenchCreateResponse) SetResultMsg(v string) *TestWorkbenchCreateResponse {
-	s.ResultMsg = &v
-	return s
-}
-
-func (s *TestWorkbenchCreateResponse) SetStauts(v string) *TestWorkbenchCreateResponse {
-	s.Stauts = &v
-	return s
-}
-
-func (s *TestWorkbenchCreateResponse) SetMsg(v string) *TestWorkbenchCreateResponse {
-	s.Msg = &v
-	return s
-}
-
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -765,7 +669,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.4"),
+				"sdk_version":      tea.String("1.0.5"),
 				"_prod_code":       tea.String("DEMOTMT"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -986,40 +890,6 @@ func (client *Client) QueryTenantApiusageEx(request *QueryTenantApiusageRequest,
 	}
 	_result = &QueryTenantApiusageResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.demotmt.tenant.apiusage.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_err = tea.Convert(_body, &_result)
-	return _result, _err
-}
-
-/**
- * Description: 测试使用
- * Summary: 测试使用
- */
-func (client *Client) TestWorkbenchCreate(request *TestWorkbenchCreateRequest) (_result *TestWorkbenchCreateResponse, _err error) {
-	runtime := &util.RuntimeOptions{}
-	headers := make(map[string]*string)
-	_result = &TestWorkbenchCreateResponse{}
-	_body, _err := client.TestWorkbenchCreateEx(request, headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = _body
-	return _result, _err
-}
-
-/**
- * Description: 测试使用
- * Summary: 测试使用
- */
-func (client *Client) TestWorkbenchCreateEx(request *TestWorkbenchCreateRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *TestWorkbenchCreateResponse, _err error) {
-	_err = util.ValidateModel(request)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = &TestWorkbenchCreateResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.demotmt.workbench.create.test"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
