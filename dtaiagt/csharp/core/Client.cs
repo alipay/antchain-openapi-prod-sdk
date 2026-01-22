@@ -137,7 +137,7 @@ namespace AntChain.SDK.DTAIAGT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "3.0.2"},
+                        {"sdk_version", "3.1.1"},
                         {"_prod_code", "DTAIAGT"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.DTAIAGT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "3.0.2"},
+                        {"sdk_version", "3.1.1"},
                         {"_prod_code", "DTAIAGT"},
                         {"_prod_channel", "default"},
                     };
@@ -445,6 +445,48 @@ namespace AntChain.SDK.DTAIAGT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<StartAgentCchatResponse>(await DoRequestAsync("1.0", "antdigital.dtaiagt.agent.cchat.start", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 取消对话接口
+         * Summary: 取消对话接口
+         */
+        public CancelAgentChatResponse CancelAgentChat(CancelAgentChatRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CancelAgentChatEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 取消对话接口
+         * Summary: 取消对话接口
+         */
+        public async Task<CancelAgentChatResponse> CancelAgentChatAsync(CancelAgentChatRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CancelAgentChatExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 取消对话接口
+         * Summary: 取消对话接口
+         */
+        public CancelAgentChatResponse CancelAgentChatEx(CancelAgentChatRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CancelAgentChatResponse>(DoRequest("1.0", "antdigital.dtaiagt.agent.chat.cancel", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 取消对话接口
+         * Summary: 取消对话接口
+         */
+        public async Task<CancelAgentChatResponse> CancelAgentChatExAsync(CancelAgentChatRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CancelAgentChatResponse>(await DoRequestAsync("1.0", "antdigital.dtaiagt.agent.chat.cancel", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

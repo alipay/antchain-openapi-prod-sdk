@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.DTAIAGT.Models
 {
-    public class StopAgentChatRequest : TeaModel {
+    public class CancelAgentChatRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]

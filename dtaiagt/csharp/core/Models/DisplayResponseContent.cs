@@ -194,6 +194,16 @@ namespace AntChain.SDK.DTAIAGT.Models
         [Validation(Required=true)]
         public AgentChatLogInfo AgentChatLogInfo { get; set; }
 
+        // chat_id
+        [NameInMap("chat_id")]
+        [Validation(Required=true)]
+        public string ChatId { get; set; }
+
+        // session_id
+        [NameInMap("session_id")]
+        [Validation(Required=true)]
+        public string SessionId { get; set; }
+
     }
 
 }
