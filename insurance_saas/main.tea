@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.11.4',
+    sdk_version = '1.12.3',
     _prod_code = 'INSURANCE_SAAS',
     _prod_channel = 'undefined'
   };
@@ -1888,8 +1888,8 @@ async function notifyInterestSupplierorderEx(request: NotifyInterestSupplierorde
 model ReceiveLeadMarketRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 线索唯一id
-  leadId: string(name='lead_id'),
+  // 请求流水号，全局唯一
+  requestId: string(name='request_id'),
   // 本次固定传LMKT_LEADS_TRANSFER
   productCode: string(name='product_code'),
   // 业务参数，json
@@ -2127,8 +2127,8 @@ model QueryLeadMarketRequest = {
   productCode: string(name='product_code'),
   // 业务参数
   bizContent?: string(name='biz_content'),
-  // 请求流水号，全局唯一
-  requestId: string(name='request_id'),
+  // 线索唯一编码
+  leadId: string(name='lead_id'),
 }
 
 model QueryLeadMarketResponse = {
@@ -2159,5 +2159,52 @@ async function queryLeadMarket(request: QueryLeadMarketRequest): QueryLeadMarket
 async function queryLeadMarketEx(request: QueryLeadMarketRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryLeadMarketResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antcloud.insurance.lead.market.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model NotifyAutoinsuranceEventRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 调用方生成的唯一编码，参考格式： yyyyMMdd_xxxxx，已接口请求的当前日期开头；
+  requestNo: string(name='request_no'),
+  // 车架号
+  vin: string(name='vin'),
+  // 通知类型
+  noticeType: string(name='notice_type'),
+  // 投保类型
+  insureType: string(name='insure_type'),
+  // 发生时间yyyy-MM-dd HH:mm:ss
+  happenTime: string(name='happen_time'),
+  // 附加信息，{"samePerson":true}  将会是一个JSON对象，samePerson表示车牌人和投保人是否同一个人，后续可能还会加其它附加信息。
+  extraInfo?: string(name='extra_info'),
+}
+
+model NotifyAutoinsuranceEventResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 请求流水号
+  requestNo?: string(name='request_no'),
+}
+
+/**
+ * Description: 理想车险事件通知
+ * Summary: 理想车险事件通知
+ */
+async function notifyAutoinsuranceEvent(request: NotifyAutoinsuranceEventRequest): NotifyAutoinsuranceEventResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return notifyAutoinsuranceEventEx(request, headers, runtime);
+}
+
+/**
+ * Description: 理想车险事件通知
+ * Summary: 理想车险事件通知
+ */
+async function notifyAutoinsuranceEventEx(request: NotifyAutoinsuranceEventRequest, headers: map[string]string, runtime: Util.RuntimeOptions): NotifyAutoinsuranceEventResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.insurance.autoinsurance.event.notify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
