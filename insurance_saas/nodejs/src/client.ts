@@ -3420,6 +3420,82 @@ export class QueryLeadMarketResponse extends $tea.Model {
   }
 }
 
+export class NotifyAutoinsuranceEventRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 调用方生成的唯一编码，参考格式： yyyyMMdd_xxxxx，已接口请求的当前日期开头；
+  requestNo: string;
+  // 车架号
+  vin: string;
+  // 通知类型
+  noticeType: string;
+  // 投保类型
+  insureType: string;
+  // 发生时间yyyy-MM-dd HH:mm:ss
+  happenTime: string;
+  // 附加信息，{"samePerson":true}  将会是一个JSON对象，samePerson表示车牌人和投保人是否同一个人，后续可能还会加其它附加信息。
+  extraInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      requestNo: 'request_no',
+      vin: 'vin',
+      noticeType: 'notice_type',
+      insureType: 'insure_type',
+      happenTime: 'happen_time',
+      extraInfo: 'extra_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      requestNo: 'string',
+      vin: 'string',
+      noticeType: 'string',
+      insureType: 'string',
+      happenTime: 'string',
+      extraInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class NotifyAutoinsuranceEventResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 请求流水号
+  requestNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      requestNo: 'request_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      requestNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -3533,7 +3609,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.11.5",
+          sdk_version: "1.12.3",
           _prod_code: "INSURANCE_SAAS",
           _prod_channel: "undefined",
         };
@@ -4282,6 +4358,25 @@ export default class Client {
   async queryLeadMarketEx(request: QueryLeadMarketRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryLeadMarketResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryLeadMarketResponse>(await this.doRequest("1.0", "antcloud.insurance.lead.market.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryLeadMarketResponse({}));
+  }
+
+  /**
+   * Description: 理想车险事件通知
+   * Summary: 理想车险事件通知
+   */
+  async notifyAutoinsuranceEvent(request: NotifyAutoinsuranceEventRequest): Promise<NotifyAutoinsuranceEventResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.notifyAutoinsuranceEventEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 理想车险事件通知
+   * Summary: 理想车险事件通知
+   */
+  async notifyAutoinsuranceEventEx(request: NotifyAutoinsuranceEventRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<NotifyAutoinsuranceEventResponse> {
+    Util.validateModel(request);
+    return $tea.cast<NotifyAutoinsuranceEventResponse>(await this.doRequest("1.0", "antcloud.insurance.autoinsurance.event.notify", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new NotifyAutoinsuranceEventResponse({}));
   }
 
 }

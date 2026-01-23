@@ -1,6 +1,6 @@
 {
   "name": "@antchain/insurance_saas",
-  "version": "1.11.5",
+  "version": "1.12.3",
   "description": "",
   "main": "dist/client.js",
   "scripts": {
