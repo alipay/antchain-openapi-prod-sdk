@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.DEMO.Models
 {
-    public class QueryTestHfResponse : TeaModel {
+    public class QueryAaaaFffDdResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -23,6 +23,16 @@ namespace AntChain.SDK.DEMO.Models
         [NameInMap("result_msg")]
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
+
+        // aaa
+        [NameInMap("aaa")]
+        [Validation(Required=false)]
+        public string Aaa { get; set; }
+
+        // bbb
+        [NameInMap("bbb")]
+        [Validation(Required=false)]
+        public string Bbb { get; set; }
 
     }
 

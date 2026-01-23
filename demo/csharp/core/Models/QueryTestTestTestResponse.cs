@@ -24,16 +24,6 @@ namespace AntChain.SDK.DEMO.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 1
-        [NameInMap("stauts")]
-        [Validation(Required=false)]
-        public string Stauts { get; set; }
-
-        // 1
-        [NameInMap("msg")]
-        [Validation(Required=false)]
-        public string Msg { get; set; }
-
     }
 
 }

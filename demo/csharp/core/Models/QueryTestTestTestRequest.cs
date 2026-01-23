@@ -18,30 +18,6 @@ namespace AntChain.SDK.DEMO.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 超时时间
-        [NameInMap("timeout")]
-        [Validation(Required=true)]
-        public string Timeout { get; set; }
-
-        // aaa
-        /// <summary>
-        /// 待上传文件
-        /// </summary>
-        [NameInMap("fileObject")]
-        [Validation(Required=false)]
-        public Stream FileObject { get; set; }
-
-        /// <summary>
-        /// 待上传文件名
-        /// </summary>
-        [NameInMap("fileObjectName")]
-        [Validation(Required=false)]
-        public string FileObjectName { get; set; }
-
-        [NameInMap("file_id")]
-        [Validation(Required=true)]
-        public string FileId { get; set; }
-
     }
 
 }
