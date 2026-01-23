@@ -16,10 +16,6 @@ public class QueryGatewayMyResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // SUCCESS le
-    @NameInMap("success")
-    public String success;
-
     public static QueryGatewayMyResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryGatewayMyResponse self = new QueryGatewayMyResponse();
         return TeaModel.build(map, self);
@@ -47,14 +43,6 @@ public class QueryGatewayMyResponse extends TeaModel {
     }
     public String getResultMsg() {
         return this.resultMsg;
-    }
-
-    public QueryGatewayMyResponse setSuccess(String success) {
-        this.success = success;
-        return this;
-    }
-    public String getSuccess() {
-        return this.success;
     }
 
 }

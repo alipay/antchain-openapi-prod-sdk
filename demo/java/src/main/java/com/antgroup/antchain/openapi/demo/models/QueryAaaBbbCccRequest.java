@@ -11,11 +11,6 @@ public class QueryAaaBbbCccRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 入参
-    @NameInMap("param")
-    @Validation(required = true)
-    public String param;
-
     public static QueryAaaBbbCccRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryAaaBbbCccRequest self = new QueryAaaBbbCccRequest();
         return TeaModel.build(map, self);
@@ -35,14 +30,6 @@ public class QueryAaaBbbCccRequest extends TeaModel {
     }
     public String getProductInstanceId() {
         return this.productInstanceId;
-    }
-
-    public QueryAaaBbbCccRequest setParam(String param) {
-        this.param = param;
-        return this;
-    }
-    public String getParam() {
-        return this.param;
     }
 
 }
