@@ -4649,6 +4649,105 @@ func (s *QueryLeadMarketResponse) SetBizResult(v string) *QueryLeadMarketRespons
 	return s
 }
 
+type NotifyAutoinsuranceEventRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 调用方生成的唯一编码，参考格式： yyyyMMdd_xxxxx，已接口请求的当前日期开头；
+	RequestNo *string `json:"request_no,omitempty" xml:"request_no,omitempty" require:"true"`
+	// 车架号
+	Vin *string `json:"vin,omitempty" xml:"vin,omitempty" require:"true"`
+	// 通知类型
+	NoticeType *string `json:"notice_type,omitempty" xml:"notice_type,omitempty" require:"true"`
+	// 投保类型
+	InsureType *string `json:"insure_type,omitempty" xml:"insure_type,omitempty" require:"true"`
+	// 发生时间yyyy-MM-dd HH:mm:ss
+	HappenTime *string `json:"happen_time,omitempty" xml:"happen_time,omitempty" require:"true"`
+	// 附加信息，{"samePerson":true}  将会是一个JSON对象，samePerson表示车牌人和投保人是否同一个人，后续可能还会加其它附加信息。
+	ExtraInfo *string `json:"extra_info,omitempty" xml:"extra_info,omitempty"`
+}
+
+func (s NotifyAutoinsuranceEventRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s NotifyAutoinsuranceEventRequest) GoString() string {
+	return s.String()
+}
+
+func (s *NotifyAutoinsuranceEventRequest) SetAuthToken(v string) *NotifyAutoinsuranceEventRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *NotifyAutoinsuranceEventRequest) SetRequestNo(v string) *NotifyAutoinsuranceEventRequest {
+	s.RequestNo = &v
+	return s
+}
+
+func (s *NotifyAutoinsuranceEventRequest) SetVin(v string) *NotifyAutoinsuranceEventRequest {
+	s.Vin = &v
+	return s
+}
+
+func (s *NotifyAutoinsuranceEventRequest) SetNoticeType(v string) *NotifyAutoinsuranceEventRequest {
+	s.NoticeType = &v
+	return s
+}
+
+func (s *NotifyAutoinsuranceEventRequest) SetInsureType(v string) *NotifyAutoinsuranceEventRequest {
+	s.InsureType = &v
+	return s
+}
+
+func (s *NotifyAutoinsuranceEventRequest) SetHappenTime(v string) *NotifyAutoinsuranceEventRequest {
+	s.HappenTime = &v
+	return s
+}
+
+func (s *NotifyAutoinsuranceEventRequest) SetExtraInfo(v string) *NotifyAutoinsuranceEventRequest {
+	s.ExtraInfo = &v
+	return s
+}
+
+type NotifyAutoinsuranceEventResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 请求流水号
+	RequestNo *string `json:"request_no,omitempty" xml:"request_no,omitempty"`
+}
+
+func (s NotifyAutoinsuranceEventResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s NotifyAutoinsuranceEventResponse) GoString() string {
+	return s.String()
+}
+
+func (s *NotifyAutoinsuranceEventResponse) SetReqMsgId(v string) *NotifyAutoinsuranceEventResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *NotifyAutoinsuranceEventResponse) SetResultCode(v string) *NotifyAutoinsuranceEventResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *NotifyAutoinsuranceEventResponse) SetResultMsg(v string) *NotifyAutoinsuranceEventResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *NotifyAutoinsuranceEventResponse) SetRequestNo(v string) *NotifyAutoinsuranceEventResponse {
+	s.RequestNo = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -4771,7 +4870,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.11.5"),
+				"sdk_version":      tea.String("1.12.3"),
 				"_prod_code":       tea.String("INSURANCE_SAAS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -6080,6 +6179,40 @@ func (client *Client) QueryLeadMarketEx(request *QueryLeadMarketRequest, headers
 	}
 	_result = &QueryLeadMarketResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.insurance.lead.market.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 理想车险事件通知
+ * Summary: 理想车险事件通知
+ */
+func (client *Client) NotifyAutoinsuranceEvent(request *NotifyAutoinsuranceEventRequest) (_result *NotifyAutoinsuranceEventResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &NotifyAutoinsuranceEventResponse{}
+	_body, _err := client.NotifyAutoinsuranceEventEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 理想车险事件通知
+ * Summary: 理想车险事件通知
+ */
+func (client *Client) NotifyAutoinsuranceEventEx(request *NotifyAutoinsuranceEventRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *NotifyAutoinsuranceEventResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &NotifyAutoinsuranceEventResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.insurance.autoinsurance.event.notify"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
