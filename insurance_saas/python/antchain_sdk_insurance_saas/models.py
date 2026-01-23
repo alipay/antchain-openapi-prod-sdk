@@ -5734,3 +5734,126 @@ class QueryLeadMarketResponse(TeaModel):
         return self
 
 
+class NotifyAutoinsuranceEventRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        request_no: str = None,
+        vin: str = None,
+        notice_type: str = None,
+        insure_type: str = None,
+        happen_time: str = None,
+        extra_info: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 调用方生成的唯一编码，参考格式： yyyyMMdd_xxxxx，已接口请求的当前日期开头；
+        self.request_no = request_no
+        # 车架号
+        self.vin = vin
+        # 通知类型
+        self.notice_type = notice_type
+        # 投保类型
+        self.insure_type = insure_type
+        # 发生时间yyyy-MM-dd HH:mm:ss
+        self.happen_time = happen_time
+        # 附加信息，{"samePerson":true}  将会是一个JSON对象，samePerson表示车牌人和投保人是否同一个人，后续可能还会加其它附加信息。
+        self.extra_info = extra_info
+
+    def validate(self):
+        self.validate_required(self.request_no, 'request_no')
+        self.validate_required(self.vin, 'vin')
+        self.validate_required(self.notice_type, 'notice_type')
+        self.validate_required(self.insure_type, 'insure_type')
+        self.validate_required(self.happen_time, 'happen_time')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.request_no is not None:
+            result['request_no'] = self.request_no
+        if self.vin is not None:
+            result['vin'] = self.vin
+        if self.notice_type is not None:
+            result['notice_type'] = self.notice_type
+        if self.insure_type is not None:
+            result['insure_type'] = self.insure_type
+        if self.happen_time is not None:
+            result['happen_time'] = self.happen_time
+        if self.extra_info is not None:
+            result['extra_info'] = self.extra_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('request_no') is not None:
+            self.request_no = m.get('request_no')
+        if m.get('vin') is not None:
+            self.vin = m.get('vin')
+        if m.get('notice_type') is not None:
+            self.notice_type = m.get('notice_type')
+        if m.get('insure_type') is not None:
+            self.insure_type = m.get('insure_type')
+        if m.get('happen_time') is not None:
+            self.happen_time = m.get('happen_time')
+        if m.get('extra_info') is not None:
+            self.extra_info = m.get('extra_info')
+        return self
+
+
+class NotifyAutoinsuranceEventResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        request_no: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 请求流水号
+        self.request_no = request_no
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.request_no is not None:
+            result['request_no'] = self.request_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('request_no') is not None:
+            self.request_no = m.get('request_no')
+        return self
+
+
