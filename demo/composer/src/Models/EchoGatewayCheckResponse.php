@@ -26,7 +26,7 @@ class EchoGatewayCheckResponse extends Model
      */
     public $resultMsg;
 
-    // output_demo测试
+    // output_demo
     /**
      * @var DemoClass
      */

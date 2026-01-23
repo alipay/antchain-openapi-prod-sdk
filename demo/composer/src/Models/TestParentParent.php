@@ -6,29 +6,29 @@ namespace AntChain\DEMO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class TestAPIObject extends Model
+class TestParentParent extends Model
 {
-    // test
+    // fff
     /**
-     * @example 21
+     * @example fff
      *
-     * @var int
+     * @var TestParent
      */
-    public $id;
+    public $ssss;
     protected $_name = [
-        'id' => 'id',
+        'ssss' => 'ssss',
     ];
 
     public function validate()
     {
-        Model::validateRequired('id', $this->id, true);
+        Model::validateRequired('ssss', $this->ssss, true);
     }
 
     public function toMap()
     {
         $res = [];
-        if (null !== $this->id) {
-            $res['id'] = $this->id;
+        if (null !== $this->ssss) {
+            $res['ssss'] = null !== $this->ssss ? $this->ssss->toMap() : null;
         }
 
         return $res;
@@ -37,13 +37,13 @@ class TestAPIObject extends Model
     /**
      * @param array $map
      *
-     * @return TestAPIObject
+     * @return TestParentParent
      */
     public static function fromMap($map = [])
     {
         $model = new self();
-        if (isset($map['id'])) {
-            $model->id = $map['id'];
+        if (isset($map['ssss'])) {
+            $model->ssss = TestParent::fromMap($map['ssss']);
         }
 
         return $model;

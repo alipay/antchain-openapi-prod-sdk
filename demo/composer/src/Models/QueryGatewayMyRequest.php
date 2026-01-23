@@ -36,12 +36,33 @@ class QueryGatewayMyRequest extends Model
      * @var bool
      */
     public $test3;
+
+    // 日期类型入参
+    /**
+     * @var string
+     */
+    public $test4;
+
+    // 数组类型入参（数组内元素为结构体类型）
+    /**
+     * @var NumberTest[]
+     */
+    public $test5;
+
+    // 结构体入参
+    /**
+     * @var NumberTest
+     */
+    public $test6;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'test1'             => 'test_1',
         'test2'             => 'test_2',
         'test3'             => 'test_3',
+        'test4'             => 'test_4',
+        'test5'             => 'test_5',
+        'test6'             => 'test_6',
     ];
 
     public function validate()
@@ -49,6 +70,10 @@ class QueryGatewayMyRequest extends Model
         Model::validateRequired('test1', $this->test1, true);
         Model::validateRequired('test2', $this->test2, true);
         Model::validateRequired('test3', $this->test3, true);
+        Model::validateRequired('test4', $this->test4, true);
+        Model::validateRequired('test5', $this->test5, true);
+        Model::validateRequired('test6', $this->test6, true);
+        Model::validatePattern('test4', $this->test4, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
     }
 
     public function toMap()
@@ -68,6 +93,21 @@ class QueryGatewayMyRequest extends Model
         }
         if (null !== $this->test3) {
             $res['test_3'] = $this->test3;
+        }
+        if (null !== $this->test4) {
+            $res['test_4'] = $this->test4;
+        }
+        if (null !== $this->test5) {
+            $res['test_5'] = [];
+            if (null !== $this->test5 && \is_array($this->test5)) {
+                $n = 0;
+                foreach ($this->test5 as $item) {
+                    $res['test_5'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
+        }
+        if (null !== $this->test6) {
+            $res['test_6'] = null !== $this->test6 ? $this->test6->toMap() : null;
         }
 
         return $res;
@@ -95,6 +135,21 @@ class QueryGatewayMyRequest extends Model
         }
         if (isset($map['test_3'])) {
             $model->test3 = $map['test_3'];
+        }
+        if (isset($map['test_4'])) {
+            $model->test4 = $map['test_4'];
+        }
+        if (isset($map['test_5'])) {
+            if (!empty($map['test_5'])) {
+                $model->test5 = [];
+                $n            = 0;
+                foreach ($map['test_5'] as $item) {
+                    $model->test5[$n++] = null !== $item ? NumberTest::fromMap($item) : $item;
+                }
+            }
+        }
+        if (isset($map['test_6'])) {
+            $model->test6 = NumberTest::fromMap($map['test_6']);
         }
 
         return $model;

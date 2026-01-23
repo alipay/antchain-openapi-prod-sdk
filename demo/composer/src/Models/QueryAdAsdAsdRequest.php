@@ -18,23 +18,13 @@ class QueryAdAsdAsdRequest extends Model
      * @var string
      */
     public $productInstanceId;
-
-    // 1111
-    /**
-     * @var string
-     */
-    public $bnumber;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'bnumber'           => 'bnumber',
     ];
 
     public function validate()
     {
-        Model::validateRequired('bnumber', $this->bnumber, true);
-        Model::validateMaxLength('bnumber', $this->bnumber, 2);
-        Model::validateMinLength('bnumber', $this->bnumber, 1);
     }
 
     public function toMap()
@@ -45,9 +35,6 @@ class QueryAdAsdAsdRequest extends Model
         }
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->bnumber) {
-            $res['bnumber'] = $this->bnumber;
         }
 
         return $res;
@@ -66,9 +53,6 @@ class QueryAdAsdAsdRequest extends Model
         }
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['bnumber'])) {
-            $model->bnumber = $map['bnumber'];
         }
 
         return $model;

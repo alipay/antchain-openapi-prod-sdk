@@ -6,7 +6,7 @@ namespace AntChain\DEMO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryAasSaSaRequest extends Model
+class QueryAaaaFffDdRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,27 +19,28 @@ class QueryAasSaSaRequest extends Model
      */
     public $productInstanceId;
 
-    // aa
+    // xxx
     /**
      * @var string
      */
-    public $notBlankVerify;
+    public $xxx;
 
-    // 12344
+    // yyy
     /**
      * @var string
      */
-    public $idcard;
+    public $yyy;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'notBlankVerify'    => 'not_blank_verify',
-        'idcard'            => 'idcard',
+        'xxx'               => 'xxx',
+        'yyy'               => 'yyy',
     ];
 
     public function validate()
     {
-        Model::validateRequired('notBlankVerify', $this->notBlankVerify, true);
+        Model::validateRequired('xxx', $this->xxx, true);
+        Model::validateRequired('yyy', $this->yyy, true);
     }
 
     public function toMap()
@@ -51,11 +52,11 @@ class QueryAasSaSaRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->notBlankVerify) {
-            $res['not_blank_verify'] = $this->notBlankVerify;
+        if (null !== $this->xxx) {
+            $res['xxx'] = $this->xxx;
         }
-        if (null !== $this->idcard) {
-            $res['idcard'] = $this->idcard;
+        if (null !== $this->yyy) {
+            $res['yyy'] = $this->yyy;
         }
 
         return $res;
@@ -64,7 +65,7 @@ class QueryAasSaSaRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryAasSaSaRequest
+     * @return QueryAaaaFffDdRequest
      */
     public static function fromMap($map = [])
     {
@@ -75,11 +76,11 @@ class QueryAasSaSaRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['not_blank_verify'])) {
-            $model->notBlankVerify = $map['not_blank_verify'];
+        if (isset($map['xxx'])) {
+            $model->xxx = $map['xxx'];
         }
-        if (isset($map['idcard'])) {
-            $model->idcard = $map['idcard'];
+        if (isset($map['yyy'])) {
+            $model->yyy = $map['yyy'];
         }
 
         return $model;

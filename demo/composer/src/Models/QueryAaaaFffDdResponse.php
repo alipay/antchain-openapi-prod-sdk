@@ -6,7 +6,7 @@ namespace AntChain\DEMO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryStreamTestResponse extends Model
+class QueryAaaaFffDdResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -25,10 +25,24 @@ class QueryStreamTestResponse extends Model
      * @var string
      */
     public $resultMsg;
+
+    // aaa
+    /**
+     * @var string
+     */
+    public $aaa;
+
+    // bbb
+    /**
+     * @var string
+     */
+    public $bbb;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
+        'aaa'        => 'aaa',
+        'bbb'        => 'bbb',
     ];
 
     public function validate()
@@ -47,6 +61,12 @@ class QueryStreamTestResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
+        if (null !== $this->aaa) {
+            $res['aaa'] = $this->aaa;
+        }
+        if (null !== $this->bbb) {
+            $res['bbb'] = $this->bbb;
+        }
 
         return $res;
     }
@@ -54,7 +74,7 @@ class QueryStreamTestResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryStreamTestResponse
+     * @return QueryAaaaFffDdResponse
      */
     public static function fromMap($map = [])
     {
@@ -67,6 +87,12 @@ class QueryStreamTestResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
+        }
+        if (isset($map['aaa'])) {
+            $model->aaa = $map['aaa'];
+        }
+        if (isset($map['bbb'])) {
+            $model->bbb = $map['bbb'];
         }
 
         return $model;
