@@ -43,6 +43,8 @@ use AntChain\INSURANCE_SAAS\Models\GetRightplatformUrlRequest;
 use AntChain\INSURANCE_SAAS\Models\GetRightplatformUrlResponse;
 use AntChain\INSURANCE_SAAS\Models\IssueEmbedcardPaysucRequest;
 use AntChain\INSURANCE_SAAS\Models\IssueEmbedcardPaysucResponse;
+use AntChain\INSURANCE_SAAS\Models\NotifyAutoinsuranceEventRequest;
+use AntChain\INSURANCE_SAAS\Models\NotifyAutoinsuranceEventResponse;
 use AntChain\INSURANCE_SAAS\Models\NotifyInterestScenesubjectRequest;
 use AntChain\INSURANCE_SAAS\Models\NotifyInterestScenesubjectResponse;
 use AntChain\INSURANCE_SAAS\Models\NotifyInterestSupplierorderRequest;
@@ -232,7 +234,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.11.5',
+                    'sdk_version'      => '1.12.3',
                     '_prod_code'       => 'INSURANCE_SAAS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1499,5 +1501,38 @@ class Client
         Utils::validateModel($request);
 
         return QueryLeadMarketResponse::fromMap($this->doRequest('1.0', 'antcloud.insurance.lead.market.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 理想车险事件通知
+     * Summary: 理想车险事件通知.
+     *
+     * @param NotifyAutoinsuranceEventRequest $request
+     *
+     * @return NotifyAutoinsuranceEventResponse
+     */
+    public function notifyAutoinsuranceEvent($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->notifyAutoinsuranceEventEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 理想车险事件通知
+     * Summary: 理想车险事件通知.
+     *
+     * @param NotifyAutoinsuranceEventRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return NotifyAutoinsuranceEventResponse
+     */
+    public function notifyAutoinsuranceEventEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return NotifyAutoinsuranceEventResponse::fromMap($this->doRequest('1.0', 'antcloud.insurance.autoinsurance.event.notify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
