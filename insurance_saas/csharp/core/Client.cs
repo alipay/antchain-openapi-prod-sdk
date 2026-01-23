@@ -137,7 +137,7 @@ namespace AntChain.SDK.INSURANCE_SAAS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.11.5"},
+                        {"sdk_version", "1.12.3"},
                         {"_prod_code", "INSURANCE_SAAS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.INSURANCE_SAAS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.11.5"},
+                        {"sdk_version", "1.12.3"},
                         {"_prod_code", "INSURANCE_SAAS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1873,6 +1873,48 @@ namespace AntChain.SDK.INSURANCE_SAAS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryLeadMarketResponse>(await DoRequestAsync("1.0", "antcloud.insurance.lead.market.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 理想车险事件通知
+         * Summary: 理想车险事件通知
+         */
+        public NotifyAutoinsuranceEventResponse NotifyAutoinsuranceEvent(NotifyAutoinsuranceEventRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return NotifyAutoinsuranceEventEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 理想车险事件通知
+         * Summary: 理想车险事件通知
+         */
+        public async Task<NotifyAutoinsuranceEventResponse> NotifyAutoinsuranceEventAsync(NotifyAutoinsuranceEventRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await NotifyAutoinsuranceEventExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 理想车险事件通知
+         * Summary: 理想车险事件通知
+         */
+        public NotifyAutoinsuranceEventResponse NotifyAutoinsuranceEventEx(NotifyAutoinsuranceEventRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<NotifyAutoinsuranceEventResponse>(DoRequest("1.0", "antcloud.insurance.autoinsurance.event.notify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 理想车险事件通知
+         * Summary: 理想车险事件通知
+         */
+        public async Task<NotifyAutoinsuranceEventResponse> NotifyAutoinsuranceEventExAsync(NotifyAutoinsuranceEventRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<NotifyAutoinsuranceEventResponse>(await DoRequestAsync("1.0", "antcloud.insurance.autoinsurance.event.notify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
