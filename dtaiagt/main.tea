@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '3.1.1',
+    sdk_version = '3.3.0',
     _prod_code = 'DTAIAGT',
     _prod_channel = 'default'
   };
@@ -555,11 +555,8 @@ model AgentRefPluginInfo {
   // 构建版本号
   // 
   buildVersion: string(name='build_version', example='"v1.0.0" '),
-  // 入参预设值表 Map<String, String>
+  // 入参预设值表 Map<String,String> 格式
   paramValueMap: string(name='param_value_map', example='{}'),
-  // 入参预设值表，原param_value_map字段，Map<String, String>格式
-  // 
-  paramValueMapJson: string(name='param_value_map_json', example='{} '),
   // 关联的语料
   corpus: [ string ](name='corpus', example=''),
 }
@@ -880,7 +877,7 @@ model StringResult {
   result: string(name='result', example='result'),
 }
 
-// 查看会话的历史会话信息result
+// 查看会话的历史会话信息result结果
 model AgentChatHistoryForSessionIdResult {
   // success
   success: boolean(name='success', example='success'),
@@ -1459,7 +1456,7 @@ model DetailMcpMymcpResponse = {
 }
 
 /**
- * Description: mcp详情
+ * Description: mcp详情查询
  * Summary: mcp详情
  */
 async function detailMcpMymcp(request: DetailMcpMymcpRequest): DetailMcpMymcpResponse {
@@ -1469,7 +1466,7 @@ async function detailMcpMymcp(request: DetailMcpMymcpRequest): DetailMcpMymcpRes
 }
 
 /**
- * Description: mcp详情
+ * Description: mcp详情查询
  * Summary: mcp详情
  */
 async function detailMcpMymcpEx(request: DetailMcpMymcpRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DetailMcpMymcpResponse {
@@ -1676,12 +1673,12 @@ model DetailAgentChatResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // data
+  // data信息
   data?: AgentChatHistoryForSessionIdResult(name='data'),
 }
 
 /**
- * Description: 查看Agent历史会话详情
+ * Description: 查看Agent历史会话详情信息
  * Summary: 查看Agent历史会话详情
  */
 async function detailAgentChat(request: DetailAgentChatRequest): DetailAgentChatResponse {
@@ -1691,7 +1688,7 @@ async function detailAgentChat(request: DetailAgentChatRequest): DetailAgentChat
 }
 
 /**
- * Description: 查看Agent历史会话详情
+ * Description: 查看Agent历史会话详情信息
  * Summary: 查看Agent历史会话详情
  */
 async function detailAgentChatEx(request: DetailAgentChatRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DetailAgentChatResponse {
