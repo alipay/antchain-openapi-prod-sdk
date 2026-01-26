@@ -15,6 +15,10 @@ use AntChain\AICLAIM\Models\CreateAntcloudGatewayxFileUploadRequest;
 use AntChain\AICLAIM\Models\CreateAntcloudGatewayxFileUploadResponse;
 use AntChain\AICLAIM\Models\ExecImageClassificationRequest;
 use AntChain\AICLAIM\Models\ExecImageClassificationResponse;
+use AntChain\AICLAIM\Models\ExecImageExtractionRequest;
+use AntChain\AICLAIM\Models\ExecImageExtractionResponse;
+use AntChain\AICLAIM\Models\QueryImageExtractionRequest;
+use AntChain\AICLAIM\Models\QueryImageExtractionResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -134,7 +138,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 键值对
+            // BaseExtractionData
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -162,7 +166,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.6',
+                    'sdk_version'      => '1.1.0',
                     '_prod_code'       => 'AICLAIM',
                     '_prod_channel'    => 'default',
                 ];
@@ -260,6 +264,91 @@ class Client
         Utils::validateModel($request);
 
         return ExecImageClassificationResponse::fromMap($this->doRequest('1.0', 'antdigital.aiclaim.image.classification.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 理赔材料的信息采集任务提交
+     * Summary: 提交理赔材料照片信息采集.
+     *
+     * @param ExecImageExtractionRequest $request
+     *
+     * @return ExecImageExtractionResponse
+     */
+    public function execImageExtraction($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->execImageExtractionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 理赔材料的信息采集任务提交
+     * Summary: 提交理赔材料照片信息采集.
+     *
+     * @param ExecImageExtractionRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return ExecImageExtractionResponse
+     */
+    public function execImageExtractionEx($request, $headers, $runtime)
+    {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'antdigital.aiclaim.image.extraction.exec',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
+                return new ExecImageExtractionResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
+        }
+        Utils::validateModel($request);
+
+        return ExecImageExtractionResponse::fromMap($this->doRequest('1.0', 'antdigital.aiclaim.image.extraction.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查看理赔材料照片信息采集结果
+     * Summary: 查看理赔材料照片信息采集结果.
+     *
+     * @param QueryImageExtractionRequest $request
+     *
+     * @return QueryImageExtractionResponse
+     */
+    public function queryImageExtraction($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryImageExtractionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查看理赔材料照片信息采集结果
+     * Summary: 查看理赔材料照片信息采集结果.
+     *
+     * @param QueryImageExtractionRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return QueryImageExtractionResponse
+     */
+    public function queryImageExtractionEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryImageExtractionResponse::fromMap($this->doRequest('1.0', 'antdigital.aiclaim.image.extraction.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
