@@ -78,6 +78,122 @@ export class Config extends $tea.Model {
   }
 }
 
+// BaseExtractionData
+export class BaseExtractionData extends $tea.Model {
+  static names(): { [key: string]: string } {
+    return {
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// Page
+export class Page extends $tea.Model {
+  // 边界框坐标[x1,y1,x2,y2]
+  bbox?: number[];
+  // 图片文件名
+  image?: string;
+  // 页面索引
+  pageIndex?: number;
+  static names(): { [key: string]: string } {
+    return {
+      bbox: 'bbox',
+      image: 'image',
+      pageIndex: 'page_index',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      bbox: { 'type': 'array', 'itemType': 'number' },
+      image: 'string',
+      pageIndex: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// Extraction
+export class Extraction extends $tea.Model {
+  // 提取出的具体信息的基类，不同类型的影像材料，有不同的数据结构，下文会详细展开。不同的sub_type映射不同的BaseExtractionData子类。
+  data?: BaseExtractionData;
+  // 失败原因(失败时填写)，成功时为null
+  failureReason?: string;
+  // 提取状态: success/not_supported
+  status?: string;
+  static names(): { [key: string]: string } {
+    return {
+      data: 'data',
+      failureReason: 'failure_reason',
+      status: 'status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      data: BaseExtractionData,
+      failureReason: 'string',
+      status: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// doument
+export class Document extends $tea.Model {
+  // 参考分类接口中返回的分类结果
+  type?: string;
+  // 参考分类接口中返回的分类结果
+  typeCn?: string;
+  // 细分的分类结果
+  subType?: string;
+  // 细分的分类结果
+  subTypeCn?: string;
+  // 参考Extraction参数
+  extraction?: Extraction[];
+  // 参考Page参数
+  page?: Page[];
+  static names(): { [key: string]: string } {
+    return {
+      type: 'type',
+      typeCn: 'type_cn',
+      subType: 'sub_type',
+      subTypeCn: 'sub_type_cn',
+      extraction: 'extraction',
+      page: 'page',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      type: 'string',
+      typeCn: 'string',
+      subType: 'string',
+      subTypeCn: 'string',
+      extraction: { 'type': 'array', 'itemType': Extraction },
+      page: { 'type': 'array', 'itemType': Page },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 键值对
 export class XNameValuePair extends $tea.Model {
   // 键名
@@ -204,6 +320,146 @@ export class ExecImageClassificationResponse extends $tea.Model {
       isRemakefile: 'boolean',
       isUncomplet: 'boolean',
       isMultiMaterial: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExecImageExtractionRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // file_id
+  fileObject?: Readable;
+  fileObjectName?: string;
+  fileId: string;
+  // uuid
+  batchNo: string;
+  // 理赔单号
+  claimNumber: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      fileObject: 'fileObject',
+      fileObjectName: 'fileObjectName',
+      fileId: 'file_id',
+      batchNo: 'batch_no',
+      claimNumber: 'claim_number',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      fileObject: 'Readable',
+      fileObjectName: 'string',
+      fileId: 'string',
+      batchNo: 'string',
+      claimNumber: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExecImageExtractionResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 上传任务的id
+  batchNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      batchNo: 'batch_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      batchNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryImageExtractionRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 任务id
+  batchNo: string;
+  // 理赔单id
+  claimNumber: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      batchNo: 'batch_no',
+      claimNumber: 'claim_number',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      batchNo: 'string',
+      claimNumber: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryImageExtractionResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 任务号
+  batchNo?: string;
+  // 参考Document参数
+  documents?: Document[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      batchNo: 'batch_no',
+      documents: 'documents',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      batchNo: 'string',
+      documents: { 'type': 'array', 'itemType': Document },
     };
   }
 
@@ -413,7 +669,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.6",
+          sdk_version: "1.1.0",
           _prod_code: "AICLAIM",
           _prod_channel: "default",
         };
@@ -500,6 +756,66 @@ export default class Client {
 
     Util.validateModel(request);
     return $tea.cast<ExecImageClassificationResponse>(await this.doRequest("1.0", "antdigital.aiclaim.image.classification.exec", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ExecImageClassificationResponse({}));
+  }
+
+  /**
+   * Description: 理赔材料的信息采集任务提交
+   * Summary: 提交理赔材料照片信息采集
+   */
+  async execImageExtraction(request: ExecImageExtractionRequest): Promise<ExecImageExtractionResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.execImageExtractionEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 理赔材料的信息采集任务提交
+   * Summary: 提交理赔材料照片信息采集
+   */
+  async execImageExtractionEx(request: ExecImageExtractionRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ExecImageExtractionResponse> {
+    if (!Util.isUnset(request.fileObject)) {
+      let uploadReq = new CreateAntcloudGatewayxFileUploadRequest({
+        authToken: request.authToken,
+        apiCode: "antdigital.aiclaim.image.extraction.exec",
+        fileName: request.fileObjectName,
+      });
+      let uploadResp = await this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+      if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+        let execImageExtractionResponse = new ExecImageExtractionResponse({
+          reqMsgId: uploadResp.reqMsgId,
+          resultCode: uploadResp.resultCode,
+          resultMsg: uploadResp.resultMsg,
+        });
+        return execImageExtractionResponse;
+      }
+
+      let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+      await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+      request.fileId = uploadResp.fileId;
+      request.fileObject = null;
+    }
+
+    Util.validateModel(request);
+    return $tea.cast<ExecImageExtractionResponse>(await this.doRequest("1.0", "antdigital.aiclaim.image.extraction.exec", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ExecImageExtractionResponse({}));
+  }
+
+  /**
+   * Description: 查看理赔材料照片信息采集结果
+   * Summary: 查看理赔材料照片信息采集结果
+   */
+  async queryImageExtraction(request: QueryImageExtractionRequest): Promise<QueryImageExtractionResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryImageExtractionEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查看理赔材料照片信息采集结果
+   * Summary: 查看理赔材料照片信息采集结果
+   */
+  async queryImageExtractionEx(request: QueryImageExtractionRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryImageExtractionResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryImageExtractionResponse>(await this.doRequest("1.0", "antdigital.aiclaim.image.extraction.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryImageExtractionResponse({}));
   }
 
   /**
