@@ -149,6 +149,138 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
+// BaseExtractionData
+type BaseExtractionData struct {
+}
+
+func (s BaseExtractionData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BaseExtractionData) GoString() string {
+	return s.String()
+}
+
+// Page
+type Page struct {
+	// 边界框坐标[x1,y1,x2,y2]
+	Bbox []*int64 `json:"bbox,omitempty" xml:"bbox,omitempty" type:"Repeated"`
+	// 图片文件名
+	Image *string `json:"image,omitempty" xml:"image,omitempty"`
+	// 页面索引
+	PageIndex *int64 `json:"page_index,omitempty" xml:"page_index,omitempty"`
+}
+
+func (s Page) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Page) GoString() string {
+	return s.String()
+}
+
+func (s *Page) SetBbox(v []*int64) *Page {
+	s.Bbox = v
+	return s
+}
+
+func (s *Page) SetImage(v string) *Page {
+	s.Image = &v
+	return s
+}
+
+func (s *Page) SetPageIndex(v int64) *Page {
+	s.PageIndex = &v
+	return s
+}
+
+// Extraction
+type Extraction struct {
+	// 提取出的具体信息的基类，不同类型的影像材料，有不同的数据结构，下文会详细展开。不同的sub_type映射不同的BaseExtractionData子类。
+	Data *BaseExtractionData `json:"data,omitempty" xml:"data,omitempty"`
+	// 失败原因(失败时填写)，成功时为null
+	FailureReason *string `json:"failure_reason,omitempty" xml:"failure_reason,omitempty"`
+	// 提取状态: success/not_supported
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+}
+
+func (s Extraction) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Extraction) GoString() string {
+	return s.String()
+}
+
+func (s *Extraction) SetData(v *BaseExtractionData) *Extraction {
+	s.Data = v
+	return s
+}
+
+func (s *Extraction) SetFailureReason(v string) *Extraction {
+	s.FailureReason = &v
+	return s
+}
+
+func (s *Extraction) SetStatus(v string) *Extraction {
+	s.Status = &v
+	return s
+}
+
+// doument
+type Document struct {
+	// 参考分类接口中返回的分类结果
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	// 参考分类接口中返回的分类结果
+	TypeCn *string `json:"type_cn,omitempty" xml:"type_cn,omitempty"`
+	// 细分的分类结果
+	SubType *string `json:"sub_type,omitempty" xml:"sub_type,omitempty"`
+	// 细分的分类结果
+	SubTypeCn *string `json:"sub_type_cn,omitempty" xml:"sub_type_cn,omitempty"`
+	// 参考Extraction参数
+	Extraction []*Extraction `json:"extraction,omitempty" xml:"extraction,omitempty" type:"Repeated"`
+	// 参考Page参数
+	Page []*Page `json:"page,omitempty" xml:"page,omitempty" type:"Repeated"`
+}
+
+func (s Document) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Document) GoString() string {
+	return s.String()
+}
+
+func (s *Document) SetType(v string) *Document {
+	s.Type = &v
+	return s
+}
+
+func (s *Document) SetTypeCn(v string) *Document {
+	s.TypeCn = &v
+	return s
+}
+
+func (s *Document) SetSubType(v string) *Document {
+	s.SubType = &v
+	return s
+}
+
+func (s *Document) SetSubTypeCn(v string) *Document {
+	s.SubTypeCn = &v
+	return s
+}
+
+func (s *Document) SetExtraction(v []*Extraction) *Document {
+	s.Extraction = v
+	return s
+}
+
+func (s *Document) SetPage(v []*Page) *Document {
+	s.Page = v
+	return s
+}
+
 // 键值对
 type XNameValuePair struct {
 	// 键名
@@ -333,6 +465,188 @@ func (s *ExecImageClassificationResponse) SetIsUncomplet(v bool) *ExecImageClass
 
 func (s *ExecImageClassificationResponse) SetIsMultiMaterial(v bool) *ExecImageClassificationResponse {
 	s.IsMultiMaterial = &v
+	return s
+}
+
+type ExecImageExtractionRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// file_id
+	// 待上传文件
+	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
+	// 待上传文件名
+	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+	// uuid
+	BatchNo *string `json:"batch_no,omitempty" xml:"batch_no,omitempty" require:"true"`
+	// 理赔单号
+	ClaimNumber *string `json:"claim_number,omitempty" xml:"claim_number,omitempty" require:"true"`
+}
+
+func (s ExecImageExtractionRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecImageExtractionRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ExecImageExtractionRequest) SetAuthToken(v string) *ExecImageExtractionRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ExecImageExtractionRequest) SetProductInstanceId(v string) *ExecImageExtractionRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ExecImageExtractionRequest) SetFileObject(v io.Reader) *ExecImageExtractionRequest {
+	s.FileObject = v
+	return s
+}
+
+func (s *ExecImageExtractionRequest) SetFileObjectName(v string) *ExecImageExtractionRequest {
+	s.FileObjectName = &v
+	return s
+}
+
+func (s *ExecImageExtractionRequest) SetFileId(v string) *ExecImageExtractionRequest {
+	s.FileId = &v
+	return s
+}
+
+func (s *ExecImageExtractionRequest) SetBatchNo(v string) *ExecImageExtractionRequest {
+	s.BatchNo = &v
+	return s
+}
+
+func (s *ExecImageExtractionRequest) SetClaimNumber(v string) *ExecImageExtractionRequest {
+	s.ClaimNumber = &v
+	return s
+}
+
+type ExecImageExtractionResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 上传任务的id
+	BatchNo *string `json:"batch_no,omitempty" xml:"batch_no,omitempty"`
+}
+
+func (s ExecImageExtractionResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecImageExtractionResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ExecImageExtractionResponse) SetReqMsgId(v string) *ExecImageExtractionResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ExecImageExtractionResponse) SetResultCode(v string) *ExecImageExtractionResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ExecImageExtractionResponse) SetResultMsg(v string) *ExecImageExtractionResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ExecImageExtractionResponse) SetBatchNo(v string) *ExecImageExtractionResponse {
+	s.BatchNo = &v
+	return s
+}
+
+type QueryImageExtractionRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 任务id
+	BatchNo *string `json:"batch_no,omitempty" xml:"batch_no,omitempty" require:"true"`
+	// 理赔单id
+	ClaimNumber *string `json:"claim_number,omitempty" xml:"claim_number,omitempty" require:"true"`
+}
+
+func (s QueryImageExtractionRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryImageExtractionRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryImageExtractionRequest) SetAuthToken(v string) *QueryImageExtractionRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryImageExtractionRequest) SetProductInstanceId(v string) *QueryImageExtractionRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryImageExtractionRequest) SetBatchNo(v string) *QueryImageExtractionRequest {
+	s.BatchNo = &v
+	return s
+}
+
+func (s *QueryImageExtractionRequest) SetClaimNumber(v string) *QueryImageExtractionRequest {
+	s.ClaimNumber = &v
+	return s
+}
+
+type QueryImageExtractionResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 任务号
+	BatchNo *string `json:"batch_no,omitempty" xml:"batch_no,omitempty"`
+	// 参考Document参数
+	Documents []*Document `json:"documents,omitempty" xml:"documents,omitempty" type:"Repeated"`
+}
+
+func (s QueryImageExtractionResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryImageExtractionResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryImageExtractionResponse) SetReqMsgId(v string) *QueryImageExtractionResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryImageExtractionResponse) SetResultCode(v string) *QueryImageExtractionResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryImageExtractionResponse) SetResultMsg(v string) *QueryImageExtractionResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryImageExtractionResponse) SetBatchNo(v string) *QueryImageExtractionResponse {
+	s.BatchNo = &v
+	return s
+}
+
+func (s *QueryImageExtractionResponse) SetDocuments(v []*Document) *QueryImageExtractionResponse {
+	s.Documents = v
 	return s
 }
 
@@ -578,7 +892,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.6"),
+				"sdk_version":      tea.String("1.1.0"),
 				"_prod_code":       tea.String("AICLAIM"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -693,6 +1007,104 @@ func (client *Client) ExecImageClassificationEx(request *ExecImageClassification
 	}
 	_result = &ExecImageClassificationResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.aiclaim.image.classification.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 理赔材料的信息采集任务提交
+ * Summary: 提交理赔材料照片信息采集
+ */
+func (client *Client) ExecImageExtraction(request *ExecImageExtractionRequest) (_result *ExecImageExtractionResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ExecImageExtractionResponse{}
+	_body, _err := client.ExecImageExtractionEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 理赔材料的信息采集任务提交
+ * Summary: 提交理赔材料照片信息采集
+ */
+func (client *Client) ExecImageExtractionEx(request *ExecImageExtractionRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ExecImageExtractionResponse, _err error) {
+	if !tea.BoolValue(util.IsUnset(request.FileObject)) {
+		uploadReq := &CreateAntcloudGatewayxFileUploadRequest{
+			AuthToken: request.AuthToken,
+			ApiCode:   tea.String("antdigital.aiclaim.image.extraction.exec"),
+			FileName:  request.FileObjectName,
+		}
+		uploadResp, _err := client.CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime)
+		if _err != nil {
+			return _result, _err
+		}
+
+		if !tea.BoolValue(antchainutil.IsSuccess(uploadResp.ResultCode, tea.String("ok"))) {
+			execImageExtractionResponse := &ExecImageExtractionResponse{
+				ReqMsgId:   uploadResp.ReqMsgId,
+				ResultCode: uploadResp.ResultCode,
+				ResultMsg:  uploadResp.ResultMsg,
+			}
+			_result = execImageExtractionResponse
+			return _result, _err
+		}
+
+		uploadHeaders := antchainutil.ParseUploadHeaders(uploadResp.UploadHeaders)
+		_err = antchainutil.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl)
+		if _err != nil {
+			return _result, _err
+		}
+		request.FileId = uploadResp.FileId
+		request.FileObject = nil
+	}
+
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ExecImageExtractionResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.aiclaim.image.extraction.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查看理赔材料照片信息采集结果
+ * Summary: 查看理赔材料照片信息采集结果
+ */
+func (client *Client) QueryImageExtraction(request *QueryImageExtractionRequest) (_result *QueryImageExtractionResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryImageExtractionResponse{}
+	_body, _err := client.QueryImageExtractionEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查看理赔材料照片信息采集结果
+ * Summary: 查看理赔材料照片信息采集结果
+ */
+func (client *Client) QueryImageExtractionEx(request *QueryImageExtractionRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryImageExtractionResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryImageExtractionResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.aiclaim.image.extraction.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
