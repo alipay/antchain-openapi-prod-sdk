@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '3.1.1',
+                    'sdk_version': '3.3.0',
                     '_prod_code': 'DTAIAGT',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '3.1.1',
+                    'sdk_version': '3.3.0',
                     '_prod_code': 'DTAIAGT',
                     '_prod_channel': 'default'
                 }
@@ -744,7 +744,7 @@ class Client:
         request: dtaiagt_models.DetailMcpMymcpRequest,
     ) -> dtaiagt_models.DetailMcpMymcpResponse:
         """
-        Description: mcp详情
+        Description: mcp详情查询
         Summary: mcp详情
         """
         runtime = util_models.RuntimeOptions()
@@ -756,7 +756,7 @@ class Client:
         request: dtaiagt_models.DetailMcpMymcpRequest,
     ) -> dtaiagt_models.DetailMcpMymcpResponse:
         """
-        Description: mcp详情
+        Description: mcp详情查询
         Summary: mcp详情
         """
         runtime = util_models.RuntimeOptions()
@@ -770,7 +770,7 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> dtaiagt_models.DetailMcpMymcpResponse:
         """
-        Description: mcp详情
+        Description: mcp详情查询
         Summary: mcp详情
         """
         UtilClient.validate_model(request)
@@ -786,7 +786,7 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> dtaiagt_models.DetailMcpMymcpResponse:
         """
-        Description: mcp详情
+        Description: mcp详情查询
         Summary: mcp详情
         """
         UtilClient.validate_model(request)
@@ -1024,7 +1024,7 @@ class Client:
         request: dtaiagt_models.DetailAgentChatRequest,
     ) -> dtaiagt_models.DetailAgentChatResponse:
         """
-        Description: 查看Agent历史会话详情
+        Description: 查看Agent历史会话详情信息
         Summary: 查看Agent历史会话详情
         """
         runtime = util_models.RuntimeOptions()
@@ -1036,7 +1036,7 @@ class Client:
         request: dtaiagt_models.DetailAgentChatRequest,
     ) -> dtaiagt_models.DetailAgentChatResponse:
         """
-        Description: 查看Agent历史会话详情
+        Description: 查看Agent历史会话详情信息
         Summary: 查看Agent历史会话详情
         """
         runtime = util_models.RuntimeOptions()
@@ -1050,7 +1050,7 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> dtaiagt_models.DetailAgentChatResponse:
         """
-        Description: 查看Agent历史会话详情
+        Description: 查看Agent历史会话详情信息
         Summary: 查看Agent历史会话详情
         """
         UtilClient.validate_model(request)
@@ -1066,7 +1066,7 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> dtaiagt_models.DetailAgentChatResponse:
         """
-        Description: 查看Agent历史会话详情
+        Description: 查看Agent历史会话详情信息
         Summary: 查看Agent历史会话详情
         """
         UtilClient.validate_model(request)

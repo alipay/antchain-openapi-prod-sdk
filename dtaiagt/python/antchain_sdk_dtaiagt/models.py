@@ -1642,7 +1642,6 @@ class AgentRefPluginInfo(TeaModel):
         id: str = None,
         build_version: str = None,
         param_value_map: str = None,
-        param_value_map_json: str = None,
         corpus: List[str] = None,
     ):
         # 工具id
@@ -1651,11 +1650,8 @@ class AgentRefPluginInfo(TeaModel):
         # 构建版本号
         # 
         self.build_version = build_version
-        # 入参预设值表 Map<String, String>
+        # 入参预设值表 Map<String,String> 格式
         self.param_value_map = param_value_map
-        # 入参预设值表，原param_value_map字段，Map<String, String>格式
-        # 
-        self.param_value_map_json = param_value_map_json
         # 关联的语料
         self.corpus = corpus
 
@@ -1663,7 +1659,6 @@ class AgentRefPluginInfo(TeaModel):
         self.validate_required(self.id, 'id')
         self.validate_required(self.build_version, 'build_version')
         self.validate_required(self.param_value_map, 'param_value_map')
-        self.validate_required(self.param_value_map_json, 'param_value_map_json')
         self.validate_required(self.corpus, 'corpus')
 
     def to_map(self):
@@ -1678,8 +1673,6 @@ class AgentRefPluginInfo(TeaModel):
             result['build_version'] = self.build_version
         if self.param_value_map is not None:
             result['param_value_map'] = self.param_value_map
-        if self.param_value_map_json is not None:
-            result['param_value_map_json'] = self.param_value_map_json
         if self.corpus is not None:
             result['corpus'] = self.corpus
         return result
@@ -1692,8 +1685,6 @@ class AgentRefPluginInfo(TeaModel):
             self.build_version = m.get('build_version')
         if m.get('param_value_map') is not None:
             self.param_value_map = m.get('param_value_map')
-        if m.get('param_value_map_json') is not None:
-            self.param_value_map_json = m.get('param_value_map_json')
         if m.get('corpus') is not None:
             self.corpus = m.get('corpus')
         return self
@@ -5351,7 +5342,7 @@ class DetailAgentChatResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # data
+        # data信息
         self.data = data
 
     def validate(self):
