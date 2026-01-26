@@ -16,7 +16,7 @@ public class DetailAgentChatResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // data
+    // data信息
     @NameInMap("data")
     public AgentChatHistoryForSessionIdResult data;
 

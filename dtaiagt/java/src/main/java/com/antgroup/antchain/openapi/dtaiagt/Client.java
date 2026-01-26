@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "3.1.1"),
+                    new TeaPair("sdk_version", "3.3.0"),
                     new TeaPair("_prod_code", "DTAIAGT"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -381,7 +381,7 @@ public class Client {
 
     /**
      * <b>description</b> :
-     * <p>Description: mcp详情
+     * <p>Description: mcp详情查询
      * Summary: mcp详情</p>
      */
     public DetailMcpMymcpResponse detailMcpMymcp(DetailMcpMymcpRequest request) throws Exception {
@@ -392,7 +392,7 @@ public class Client {
 
     /**
      * <b>description</b> :
-     * <p>Description: mcp详情
+     * <p>Description: mcp详情查询
      * Summary: mcp详情</p>
      */
     public DetailMcpMymcpResponse detailMcpMymcpEx(DetailMcpMymcpRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
@@ -486,7 +486,7 @@ public class Client {
 
     /**
      * <b>description</b> :
-     * <p>Description: 查看Agent历史会话详情
+     * <p>Description: 查看Agent历史会话详情信息
      * Summary: 查看Agent历史会话详情</p>
      */
     public DetailAgentChatResponse detailAgentChat(DetailAgentChatRequest request) throws Exception {
@@ -497,7 +497,7 @@ public class Client {
 
     /**
      * <b>description</b> :
-     * <p>Description: 查看Agent历史会话详情
+     * <p>Description: 查看Agent历史会话详情信息
      * Summary: 查看Agent历史会话详情</p>
      */
     public DetailAgentChatResponse detailAgentChatEx(DetailAgentChatRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {

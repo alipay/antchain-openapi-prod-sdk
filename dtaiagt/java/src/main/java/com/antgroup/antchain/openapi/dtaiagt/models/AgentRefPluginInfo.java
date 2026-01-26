@@ -24,7 +24,7 @@ public class AgentRefPluginInfo extends TeaModel {
     @Validation(required = true)
     public String buildVersion;
 
-    // 入参预设值表 Map<String, String>
+    // 入参预设值表 Map<String,String> 格式
     /**
      * <strong>example:</strong>
      * <p>{}</p>
@@ -32,16 +32,6 @@ public class AgentRefPluginInfo extends TeaModel {
     @NameInMap("param_value_map")
     @Validation(required = true)
     public String paramValueMap;
-
-    // 入参预设值表，原param_value_map字段，Map<String, String>格式
-    // 
-    /**
-     * <strong>example:</strong>
-     * <p>{} </p>
-     */
-    @NameInMap("param_value_map_json")
-    @Validation(required = true)
-    public String paramValueMapJson;
 
     // 关联的语料
     @NameInMap("corpus")
@@ -75,14 +65,6 @@ public class AgentRefPluginInfo extends TeaModel {
     }
     public String getParamValueMap() {
         return this.paramValueMap;
-    }
-
-    public AgentRefPluginInfo setParamValueMapJson(String paramValueMapJson) {
-        this.paramValueMapJson = paramValueMapJson;
-        return this;
-    }
-    public String getParamValueMapJson() {
-        return this.paramValueMapJson;
     }
 
     public AgentRefPluginInfo setCorpus(java.util.List<String> corpus) {
