@@ -26,7 +26,7 @@ class DetailAgentChatResponse extends Model
      */
     public $resultMsg;
 
-    // data
+    // data信息
     /**
      * @var AgentChatHistoryForSessionIdResult
      */

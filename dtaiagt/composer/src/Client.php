@@ -208,7 +208,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '3.1.1',
+                    'sdk_version'      => '3.3.0',
                     '_prod_code'       => 'DTAIAGT',
                     '_prod_channel'    => 'default',
                 ];
@@ -526,7 +526,7 @@ class Client
     }
 
     /**
-     * Description: mcp详情
+     * Description: mcp详情查询
      * Summary: mcp详情.
      *
      * @param DetailMcpMymcpRequest $request
@@ -542,7 +542,7 @@ class Client
     }
 
     /**
-     * Description: mcp详情
+     * Description: mcp详情查询
      * Summary: mcp详情.
      *
      * @param DetailMcpMymcpRequest $request
@@ -691,7 +691,7 @@ class Client
     }
 
     /**
-     * Description: 查看Agent历史会话详情
+     * Description: 查看Agent历史会话详情信息
      * Summary: 查看Agent历史会话详情.
      *
      * @param DetailAgentChatRequest $request
@@ -707,7 +707,7 @@ class Client
     }
 
     /**
-     * Description: 查看Agent历史会话详情
+     * Description: 查看Agent历史会话详情信息
      * Summary: 查看Agent历史会话详情.
      *
      * @param DetailAgentChatRequest $request

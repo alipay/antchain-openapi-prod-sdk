@@ -26,22 +26,13 @@ class AgentRefPluginInfo extends Model
      */
     public $buildVersion;
 
-    // 入参预设值表 Map<String, String>
+    // 入参预设值表 Map<String,String> 格式
     /**
      * @example {}
      *
      * @var string
      */
     public $paramValueMap;
-
-    // 入参预设值表，原param_value_map字段，Map<String, String>格式
-    //
-    /**
-     * @example {}
-     *
-     * @var string
-     */
-    public $paramValueMapJson;
 
     // 关联的语料
     /**
@@ -51,11 +42,10 @@ class AgentRefPluginInfo extends Model
      */
     public $corpus;
     protected $_name = [
-        'id'                => 'id',
-        'buildVersion'      => 'build_version',
-        'paramValueMap'     => 'param_value_map',
-        'paramValueMapJson' => 'param_value_map_json',
-        'corpus'            => 'corpus',
+        'id'            => 'id',
+        'buildVersion'  => 'build_version',
+        'paramValueMap' => 'param_value_map',
+        'corpus'        => 'corpus',
     ];
 
     public function validate()
@@ -63,7 +53,6 @@ class AgentRefPluginInfo extends Model
         Model::validateRequired('id', $this->id, true);
         Model::validateRequired('buildVersion', $this->buildVersion, true);
         Model::validateRequired('paramValueMap', $this->paramValueMap, true);
-        Model::validateRequired('paramValueMapJson', $this->paramValueMapJson, true);
         Model::validateRequired('corpus', $this->corpus, true);
     }
 
@@ -78,9 +67,6 @@ class AgentRefPluginInfo extends Model
         }
         if (null !== $this->paramValueMap) {
             $res['param_value_map'] = $this->paramValueMap;
-        }
-        if (null !== $this->paramValueMapJson) {
-            $res['param_value_map_json'] = $this->paramValueMapJson;
         }
         if (null !== $this->corpus) {
             $res['corpus'] = $this->corpus;
@@ -105,9 +91,6 @@ class AgentRefPluginInfo extends Model
         }
         if (isset($map['param_value_map'])) {
             $model->paramValueMap = $map['param_value_map'];
-        }
-        if (isset($map['param_value_map_json'])) {
-            $model->paramValueMapJson = $map['param_value_map_json'];
         }
         if (isset($map['corpus'])) {
             if (!empty($map['corpus'])) {
