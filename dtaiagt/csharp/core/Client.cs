@@ -137,7 +137,7 @@ namespace AntChain.SDK.DTAIAGT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "3.1.1"},
+                        {"sdk_version", "3.3.0"},
                         {"_prod_code", "DTAIAGT"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.DTAIAGT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "3.1.1"},
+                        {"sdk_version", "3.3.0"},
                         {"_prod_code", "DTAIAGT"},
                         {"_prod_channel", "default"},
                     };
@@ -712,7 +712,7 @@ namespace AntChain.SDK.DTAIAGT
         }
 
         /**
-         * Description: mcp详情
+         * Description: mcp详情查询
          * Summary: mcp详情
          */
         public DetailMcpMymcpResponse DetailMcpMymcp(DetailMcpMymcpRequest request)
@@ -723,7 +723,7 @@ namespace AntChain.SDK.DTAIAGT
         }
 
         /**
-         * Description: mcp详情
+         * Description: mcp详情查询
          * Summary: mcp详情
          */
         public async Task<DetailMcpMymcpResponse> DetailMcpMymcpAsync(DetailMcpMymcpRequest request)
@@ -734,7 +734,7 @@ namespace AntChain.SDK.DTAIAGT
         }
 
         /**
-         * Description: mcp详情
+         * Description: mcp详情查询
          * Summary: mcp详情
          */
         public DetailMcpMymcpResponse DetailMcpMymcpEx(DetailMcpMymcpRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
@@ -744,7 +744,7 @@ namespace AntChain.SDK.DTAIAGT
         }
 
         /**
-         * Description: mcp详情
+         * Description: mcp详情查询
          * Summary: mcp详情
          */
         public async Task<DetailMcpMymcpResponse> DetailMcpMymcpExAsync(DetailMcpMymcpRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
@@ -922,7 +922,7 @@ namespace AntChain.SDK.DTAIAGT
         }
 
         /**
-         * Description: 查看Agent历史会话详情
+         * Description: 查看Agent历史会话详情信息
          * Summary: 查看Agent历史会话详情
          */
         public DetailAgentChatResponse DetailAgentChat(DetailAgentChatRequest request)
@@ -933,7 +933,7 @@ namespace AntChain.SDK.DTAIAGT
         }
 
         /**
-         * Description: 查看Agent历史会话详情
+         * Description: 查看Agent历史会话详情信息
          * Summary: 查看Agent历史会话详情
          */
         public async Task<DetailAgentChatResponse> DetailAgentChatAsync(DetailAgentChatRequest request)
@@ -944,7 +944,7 @@ namespace AntChain.SDK.DTAIAGT
         }
 
         /**
-         * Description: 查看Agent历史会话详情
+         * Description: 查看Agent历史会话详情信息
          * Summary: 查看Agent历史会话详情
          */
         public DetailAgentChatResponse DetailAgentChatEx(DetailAgentChatRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
@@ -954,7 +954,7 @@ namespace AntChain.SDK.DTAIAGT
         }
 
         /**
-         * Description: 查看Agent历史会话详情
+         * Description: 查看Agent历史会话详情信息
          * Summary: 查看Agent历史会话详情
          */
         public async Task<DetailAgentChatResponse> DetailAgentChatExAsync(DetailAgentChatRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)

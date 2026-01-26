@@ -24,7 +24,7 @@ namespace AntChain.SDK.DTAIAGT.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // data
+        // data信息
         [NameInMap("data")]
         [Validation(Required=false)]
         public AgentChatHistoryForSessionIdResult Data { get; set; }

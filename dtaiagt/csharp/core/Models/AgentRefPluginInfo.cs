@@ -22,16 +22,10 @@ namespace AntChain.SDK.DTAIAGT.Models
         [Validation(Required=true)]
         public string BuildVersion { get; set; }
 
-        // 入参预设值表 Map<String, String>
+        // 入参预设值表 Map<String,String> 格式
         [NameInMap("param_value_map")]
         [Validation(Required=true)]
         public string ParamValueMap { get; set; }
-
-        // 入参预设值表，原param_value_map字段，Map<String, String>格式
-        // 
-        [NameInMap("param_value_map_json")]
-        [Validation(Required=true)]
-        public string ParamValueMapJson { get; set; }
 
         // 关联的语料
         [NameInMap("corpus")]

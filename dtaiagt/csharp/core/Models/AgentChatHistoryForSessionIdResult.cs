@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.DTAIAGT.Models
 {
-    // 查看会话的历史会话信息result
+    // 查看会话的历史会话信息result结果
     public class AgentChatHistoryForSessionIdResult : TeaModel {
         // success
         [NameInMap("success")]
