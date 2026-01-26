@@ -957,11 +957,8 @@ export class AgentRefPluginInfo extends $tea.Model {
   // 构建版本号
   // 
   buildVersion: string;
-  // 入参预设值表 Map<String, String>
+  // 入参预设值表 Map<String,String> 格式
   paramValueMap: string;
-  // 入参预设值表，原param_value_map字段，Map<String, String>格式
-  // 
-  paramValueMapJson: string;
   // 关联的语料
   corpus: string[];
   static names(): { [key: string]: string } {
@@ -969,7 +966,6 @@ export class AgentRefPluginInfo extends $tea.Model {
       id: 'id',
       buildVersion: 'build_version',
       paramValueMap: 'param_value_map',
-      paramValueMapJson: 'param_value_map_json',
       corpus: 'corpus',
     };
   }
@@ -979,7 +975,6 @@ export class AgentRefPluginInfo extends $tea.Model {
       id: 'string',
       buildVersion: 'string',
       paramValueMap: 'string',
-      paramValueMapJson: 'string',
       corpus: { 'type': 'array', 'itemType': 'string' },
     };
   }
@@ -1675,7 +1670,7 @@ export class StringResult extends $tea.Model {
   }
 }
 
-// 查看会话的历史会话信息result
+// 查看会话的历史会话信息result结果
 export class AgentChatHistoryForSessionIdResult extends $tea.Model {
   // success
   success: boolean;
@@ -3119,7 +3114,7 @@ export class DetailAgentChatResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // data
+  // data信息
   data?: AgentChatHistoryForSessionIdResult;
   static names(): { [key: string]: string } {
     return {
@@ -4036,7 +4031,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "3.1.1",
+          sdk_version: "3.3.0",
           _prod_code: "DTAIAGT",
           _prod_channel: "default",
         };
@@ -4262,7 +4257,7 @@ export default class Client {
   }
 
   /**
-   * Description: mcp详情
+   * Description: mcp详情查询
    * Summary: mcp详情
    */
   async detailMcpMymcp(request: DetailMcpMymcpRequest): Promise<DetailMcpMymcpResponse> {
@@ -4272,7 +4267,7 @@ export default class Client {
   }
 
   /**
-   * Description: mcp详情
+   * Description: mcp详情查询
    * Summary: mcp详情
    */
   async detailMcpMymcpEx(request: DetailMcpMymcpRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DetailMcpMymcpResponse> {
@@ -4357,7 +4352,7 @@ export default class Client {
   }
 
   /**
-   * Description: 查看Agent历史会话详情
+   * Description: 查看Agent历史会话详情信息
    * Summary: 查看Agent历史会话详情
    */
   async detailAgentChat(request: DetailAgentChatRequest): Promise<DetailAgentChatResponse> {
@@ -4367,7 +4362,7 @@ export default class Client {
   }
 
   /**
-   * Description: 查看Agent历史会话详情
+   * Description: 查看Agent历史会话详情信息
    * Summary: 查看Agent历史会话详情
    */
   async detailAgentChatEx(request: DetailAgentChatRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DetailAgentChatResponse> {
