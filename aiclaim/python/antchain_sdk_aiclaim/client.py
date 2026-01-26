@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 键值对
+            # BaseExtractionData
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.6',
+                    'sdk_version': '1.1.0',
                     '_prod_code': 'AICLAIM',
                     '_prod_channel': 'default'
                 }
@@ -214,7 +214,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 键值对
+            # BaseExtractionData
         }
         _last_request = None
         _last_exception = None
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.6',
+                    'sdk_version': '1.1.0',
                     '_prod_code': 'AICLAIM',
                     '_prod_channel': 'default'
                 }
@@ -365,6 +365,154 @@ class Client:
         return TeaCore.from_map(
             aiclaim_models.ExecImageClassificationResponse(),
             await self.do_request_async('1.0', 'antdigital.aiclaim.image.classification.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def exec_image_extraction(
+        self,
+        request: aiclaim_models.ExecImageExtractionRequest,
+    ) -> aiclaim_models.ExecImageExtractionResponse:
+        """
+        Description: 理赔材料的信息采集任务提交
+        Summary: 提交理赔材料照片信息采集
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.exec_image_extraction_ex(request, headers, runtime)
+
+    async def exec_image_extraction_async(
+        self,
+        request: aiclaim_models.ExecImageExtractionRequest,
+    ) -> aiclaim_models.ExecImageExtractionResponse:
+        """
+        Description: 理赔材料的信息采集任务提交
+        Summary: 提交理赔材料照片信息采集
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.exec_image_extraction_ex_async(request, headers, runtime)
+
+    def exec_image_extraction_ex(
+        self,
+        request: aiclaim_models.ExecImageExtractionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aiclaim_models.ExecImageExtractionResponse:
+        """
+        Description: 理赔材料的信息采集任务提交
+        Summary: 提交理赔材料照片信息采集
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = aiclaim_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antdigital.aiclaim.image.extraction.exec',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                exec_image_extraction_response = aiclaim_models.ExecImageExtractionResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return exec_image_extraction_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aiclaim_models.ExecImageExtractionResponse(),
+            self.do_request('1.0', 'antdigital.aiclaim.image.extraction.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def exec_image_extraction_ex_async(
+        self,
+        request: aiclaim_models.ExecImageExtractionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aiclaim_models.ExecImageExtractionResponse:
+        """
+        Description: 理赔材料的信息采集任务提交
+        Summary: 提交理赔材料照片信息采集
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = aiclaim_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antdigital.aiclaim.image.extraction.exec',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                exec_image_extraction_response = aiclaim_models.ExecImageExtractionResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return exec_image_extraction_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aiclaim_models.ExecImageExtractionResponse(),
+            await self.do_request_async('1.0', 'antdigital.aiclaim.image.extraction.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_image_extraction(
+        self,
+        request: aiclaim_models.QueryImageExtractionRequest,
+    ) -> aiclaim_models.QueryImageExtractionResponse:
+        """
+        Description: 查看理赔材料照片信息采集结果
+        Summary: 查看理赔材料照片信息采集结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_image_extraction_ex(request, headers, runtime)
+
+    async def query_image_extraction_async(
+        self,
+        request: aiclaim_models.QueryImageExtractionRequest,
+    ) -> aiclaim_models.QueryImageExtractionResponse:
+        """
+        Description: 查看理赔材料照片信息采集结果
+        Summary: 查看理赔材料照片信息采集结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_image_extraction_ex_async(request, headers, runtime)
+
+    def query_image_extraction_ex(
+        self,
+        request: aiclaim_models.QueryImageExtractionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aiclaim_models.QueryImageExtractionResponse:
+        """
+        Description: 查看理赔材料照片信息采集结果
+        Summary: 查看理赔材料照片信息采集结果
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aiclaim_models.QueryImageExtractionResponse(),
+            self.do_request('1.0', 'antdigital.aiclaim.image.extraction.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_image_extraction_ex_async(
+        self,
+        request: aiclaim_models.QueryImageExtractionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aiclaim_models.QueryImageExtractionResponse:
+        """
+        Description: 查看理赔材料照片信息采集结果
+        Summary: 查看理赔材料照片信息采集结果
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aiclaim_models.QueryImageExtractionResponse(),
+            await self.do_request_async('1.0', 'antdigital.aiclaim.image.extraction.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(

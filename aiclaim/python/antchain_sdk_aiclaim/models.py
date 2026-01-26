@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # This file is auto-generated, don't edit it. Thanks.
 from Tea.model import TeaModel
-from typing import BinaryIO, List
+from typing import List, BinaryIO
 
 
 class Config(TeaModel):
@@ -151,6 +151,192 @@ class Config(TeaModel):
             self.max_requests = m.get('maxRequests')
         if m.get('maxRequestsPerHost') is not None:
             self.max_requests_per_host = m.get('maxRequestsPerHost')
+        return self
+
+
+class BaseExtractionData(TeaModel):
+    def __init__(self):
+        pass
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        return self
+
+
+class Page(TeaModel):
+    def __init__(
+        self,
+        bbox: List[int] = None,
+        image: str = None,
+        page_index: int = None,
+    ):
+        # 边界框坐标[x1,y1,x2,y2]
+        self.bbox = bbox
+        # 图片文件名
+        self.image = image
+        # 页面索引
+        self.page_index = page_index
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.bbox is not None:
+            result['bbox'] = self.bbox
+        if self.image is not None:
+            result['image'] = self.image
+        if self.page_index is not None:
+            result['page_index'] = self.page_index
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('bbox') is not None:
+            self.bbox = m.get('bbox')
+        if m.get('image') is not None:
+            self.image = m.get('image')
+        if m.get('page_index') is not None:
+            self.page_index = m.get('page_index')
+        return self
+
+
+class Extraction(TeaModel):
+    def __init__(
+        self,
+        data: BaseExtractionData = None,
+        failure_reason: str = None,
+        status: str = None,
+    ):
+        # 提取出的具体信息的基类，不同类型的影像材料，有不同的数据结构，下文会详细展开。不同的sub_type映射不同的BaseExtractionData子类。
+        self.data = data
+        # 失败原因(失败时填写)，成功时为null
+        self.failure_reason = failure_reason
+        # 提取状态: success/not_supported
+        self.status = status
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['data'] = self.data.to_map()
+        if self.failure_reason is not None:
+            result['failure_reason'] = self.failure_reason
+        if self.status is not None:
+            result['status'] = self.status
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('data') is not None:
+            temp_model = BaseExtractionData()
+            self.data = temp_model.from_map(m['data'])
+        if m.get('failure_reason') is not None:
+            self.failure_reason = m.get('failure_reason')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        return self
+
+
+class Document(TeaModel):
+    def __init__(
+        self,
+        type: str = None,
+        type_cn: str = None,
+        sub_type: str = None,
+        sub_type_cn: str = None,
+        extraction: List[Extraction] = None,
+        page: List[Page] = None,
+    ):
+        # 参考分类接口中返回的分类结果
+        self.type = type
+        # 参考分类接口中返回的分类结果
+        self.type_cn = type_cn
+        # 细分的分类结果
+        self.sub_type = sub_type
+        # 细分的分类结果
+        self.sub_type_cn = sub_type_cn
+        # 参考Extraction参数
+        self.extraction = extraction
+        # 参考Page参数
+        self.page = page
+
+    def validate(self):
+        if self.extraction:
+            for k in self.extraction:
+                if k:
+                    k.validate()
+        if self.page:
+            for k in self.page:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.type is not None:
+            result['type'] = self.type
+        if self.type_cn is not None:
+            result['type_cn'] = self.type_cn
+        if self.sub_type is not None:
+            result['sub_type'] = self.sub_type
+        if self.sub_type_cn is not None:
+            result['sub_type_cn'] = self.sub_type_cn
+        result['extraction'] = []
+        if self.extraction is not None:
+            for k in self.extraction:
+                result['extraction'].append(k.to_map() if k else None)
+        result['page'] = []
+        if self.page is not None:
+            for k in self.page:
+                result['page'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('type_cn') is not None:
+            self.type_cn = m.get('type_cn')
+        if m.get('sub_type') is not None:
+            self.sub_type = m.get('sub_type')
+        if m.get('sub_type_cn') is not None:
+            self.sub_type_cn = m.get('sub_type_cn')
+        self.extraction = []
+        if m.get('extraction') is not None:
+            for k in m.get('extraction'):
+                temp_model = Extraction()
+                self.extraction.append(temp_model.from_map(k))
+        self.page = []
+        if m.get('page') is not None:
+            for k in m.get('page'):
+                temp_model = Page()
+                self.page.append(temp_model.from_map(k))
         return self
 
 
@@ -368,6 +554,239 @@ class ExecImageClassificationResponse(TeaModel):
             self.is_uncomplet = m.get('is_uncomplet')
         if m.get('is_multi_material') is not None:
             self.is_multi_material = m.get('is_multi_material')
+        return self
+
+
+class ExecImageExtractionRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        file_object: BinaryIO = None,
+        file_object_name: str = None,
+        file_id: str = None,
+        batch_no: str = None,
+        claim_number: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # file_id
+        # 待上传文件
+        self.file_object = file_object
+        # 待上传文件名
+        self.file_object_name = file_object_name
+        self.file_id = file_id
+        # uuid
+        self.batch_no = batch_no
+        # 理赔单号
+        self.claim_number = claim_number
+
+    def validate(self):
+        self.validate_required(self.file_id, 'file_id')
+        self.validate_required(self.batch_no, 'batch_no')
+        self.validate_required(self.claim_number, 'claim_number')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.file_object is not None:
+            result['fileObject'] = self.file_object
+        if self.file_object_name is not None:
+            result['fileObjectName'] = self.file_object_name
+        if self.file_id is not None:
+            result['file_id'] = self.file_id
+        if self.batch_no is not None:
+            result['batch_no'] = self.batch_no
+        if self.claim_number is not None:
+            result['claim_number'] = self.claim_number
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('fileObject') is not None:
+            self.file_object = m.get('fileObject')
+        if m.get('fileObjectName') is not None:
+            self.file_object_name = m.get('fileObjectName')
+        if m.get('file_id') is not None:
+            self.file_id = m.get('file_id')
+        if m.get('batch_no') is not None:
+            self.batch_no = m.get('batch_no')
+        if m.get('claim_number') is not None:
+            self.claim_number = m.get('claim_number')
+        return self
+
+
+class ExecImageExtractionResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        batch_no: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 上传任务的id
+        self.batch_no = batch_no
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.batch_no is not None:
+            result['batch_no'] = self.batch_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('batch_no') is not None:
+            self.batch_no = m.get('batch_no')
+        return self
+
+
+class QueryImageExtractionRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        batch_no: str = None,
+        claim_number: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 任务id
+        self.batch_no = batch_no
+        # 理赔单id
+        self.claim_number = claim_number
+
+    def validate(self):
+        self.validate_required(self.batch_no, 'batch_no')
+        self.validate_required(self.claim_number, 'claim_number')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.batch_no is not None:
+            result['batch_no'] = self.batch_no
+        if self.claim_number is not None:
+            result['claim_number'] = self.claim_number
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('batch_no') is not None:
+            self.batch_no = m.get('batch_no')
+        if m.get('claim_number') is not None:
+            self.claim_number = m.get('claim_number')
+        return self
+
+
+class QueryImageExtractionResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        batch_no: str = None,
+        documents: List[Document] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 任务号
+        self.batch_no = batch_no
+        # 参考Document参数
+        self.documents = documents
+
+    def validate(self):
+        if self.documents:
+            for k in self.documents:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.batch_no is not None:
+            result['batch_no'] = self.batch_no
+        result['documents'] = []
+        if self.documents is not None:
+            for k in self.documents:
+                result['documents'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('batch_no') is not None:
+            self.batch_no = m.get('batch_no')
+        self.documents = []
+        if m.get('documents') is not None:
+            for k in m.get('documents'):
+                temp_model = Document()
+                self.documents.append(temp_model.from_map(k))
         return self
 
 
