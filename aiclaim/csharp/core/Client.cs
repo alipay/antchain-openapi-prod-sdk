@@ -137,7 +137,7 @@ namespace AntChain.SDK.AICLAIM
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.6"},
+                        {"sdk_version", "1.1.0"},
                         {"_prod_code", "AICLAIM"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.AICLAIM
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.6"},
+                        {"sdk_version", "1.1.0"},
                         {"_prod_code", "AICLAIM"},
                         {"_prod_channel", "default"},
                     };
@@ -409,6 +409,138 @@ namespace AntChain.SDK.AICLAIM
             }
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ExecImageClassificationResponse>(await DoRequestAsync("1.0", "antdigital.aiclaim.image.classification.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 理赔材料的信息采集任务提交
+         * Summary: 提交理赔材料照片信息采集
+         */
+        public ExecImageExtractionResponse ExecImageExtraction(ExecImageExtractionRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ExecImageExtractionEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 理赔材料的信息采集任务提交
+         * Summary: 提交理赔材料照片信息采集
+         */
+        public async Task<ExecImageExtractionResponse> ExecImageExtractionAsync(ExecImageExtractionRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ExecImageExtractionExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 理赔材料的信息采集任务提交
+         * Summary: 提交理赔材料照片信息采集
+         */
+        public ExecImageExtractionResponse ExecImageExtractionEx(ExecImageExtractionRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "antdigital.aiclaim.image.extraction.exec",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    ExecImageExtractionResponse execImageExtractionResponse = new ExecImageExtractionResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return execImageExtractionResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+                request.FileObject = null;
+            }
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecImageExtractionResponse>(DoRequest("1.0", "antdigital.aiclaim.image.extraction.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 理赔材料的信息采集任务提交
+         * Summary: 提交理赔材料照片信息采集
+         */
+        public async Task<ExecImageExtractionResponse> ExecImageExtractionExAsync(ExecImageExtractionRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "antdigital.aiclaim.image.extraction.exec",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = await CreateAntcloudGatewayxFileUploadExAsync(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    ExecImageExtractionResponse execImageExtractionResponse = new ExecImageExtractionResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return execImageExtractionResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+                request.FileObject = null;
+            }
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecImageExtractionResponse>(await DoRequestAsync("1.0", "antdigital.aiclaim.image.extraction.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查看理赔材料照片信息采集结果
+         * Summary: 查看理赔材料照片信息采集结果
+         */
+        public QueryImageExtractionResponse QueryImageExtraction(QueryImageExtractionRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryImageExtractionEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查看理赔材料照片信息采集结果
+         * Summary: 查看理赔材料照片信息采集结果
+         */
+        public async Task<QueryImageExtractionResponse> QueryImageExtractionAsync(QueryImageExtractionRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryImageExtractionExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查看理赔材料照片信息采集结果
+         * Summary: 查看理赔材料照片信息采集结果
+         */
+        public QueryImageExtractionResponse QueryImageExtractionEx(QueryImageExtractionRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryImageExtractionResponse>(DoRequest("1.0", "antdigital.aiclaim.image.extraction.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查看理赔材料照片信息采集结果
+         * Summary: 查看理赔材料照片信息采集结果
+         */
+        public async Task<QueryImageExtractionResponse> QueryImageExtractionExAsync(QueryImageExtractionRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryImageExtractionResponse>(await DoRequestAsync("1.0", "antdigital.aiclaim.image.extraction.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
