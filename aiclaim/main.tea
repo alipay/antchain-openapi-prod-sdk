@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.6',
+    sdk_version = '1.1.0',
     _prod_code = 'AICLAIM',
     _prod_channel = 'default'
   };
@@ -159,6 +159,46 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     period = Util.defaultNumber(runtime.backoffPeriod, 1)
   },
   ignoreSSL = runtime.ignoreSSL
+}
+
+// BaseExtractionData
+model BaseExtractionData {
+}
+
+// Page
+model Page {
+  // 边界框坐标[x1,y1,x2,y2]
+  bbox?: [ long ](name='bbox', example='[0,0,999,999]'),
+  // 图片文件名
+  image?: string(name='image', example='检验报告.jpg'),
+  // 页面索引
+  pageIndex?: long(name='page_index', example='0'),
+}
+
+// Extraction
+model Extraction {
+  // 提取出的具体信息的基类，不同类型的影像材料，有不同的数据结构，下文会详细展开。不同的sub_type映射不同的BaseExtractionData子类。
+  data?: BaseExtractionData(name='data', example=''),
+  // 失败原因(失败时填写)，成功时为null
+  failureReason?: string(name='failure_reason', example='category_not_supported'),
+  // 提取状态: success/not_supported
+  status?: string(name='status', example='not_supported'),
+}
+
+// doument
+model Document {
+  // 参考分类接口中返回的分类结果
+  type?: string(name='type', example='MEDICAL_EXPENSE_INVOICE'),
+  // 参考分类接口中返回的分类结果
+  typeCn?: string(name='type_cn', example='医疗费用发票'),
+  // 细分的分类结果
+  subType?: string(name='sub_type', example='TARGET_INVOICE_OUTPATIENT'),
+  // 细分的分类结果
+  subTypeCn?: string(name='sub_type_cn', example='门诊发票'),
+  // 参考Extraction参数
+  extraction?: [ Extraction ](name='extraction', example=''),
+  // 参考Page参数
+  page?: [ Page ](name='page', example=''),
 }
 
 // 键值对
@@ -249,6 +289,112 @@ async function execImageClassificationEx(request: ExecImageClassificationRequest
   }
   Util.validateModel(request);
   return doRequest('1.0' ,'antdigital.aiclaim.image.classification.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ExecImageExtractionRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // file_id
+  fileObject?: readable(description='待上传文件', ignore='true'),
+  fileObjectName?: string(description='待上传文件名', ignore='true'),
+  fileId: string(name='file_id'),
+  // uuid
+  batchNo: string(name='batch_no'),
+  // 理赔单号
+  claimNumber: string(name='claim_number'),
+}
+
+model ExecImageExtractionResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 上传任务的id
+  batchNo?: string(name='batch_no'),
+}
+
+/**
+ * Description: 理赔材料的信息采集任务提交
+ * Summary: 提交理赔材料照片信息采集
+ */
+async function execImageExtraction(request: ExecImageExtractionRequest): ExecImageExtractionResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return execImageExtractionEx(request, headers, runtime);
+}
+
+/**
+ * Description: 理赔材料的信息采集任务提交
+ * Summary: 提交理赔材料照片信息采集
+ */
+async function execImageExtractionEx(request: ExecImageExtractionRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExecImageExtractionResponse {
+  if (!Util.isUnset(request.fileObject)) {
+    var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
+      authToken = request.authToken,
+      apiCode = 'antdigital.aiclaim.image.extraction.exec',
+      fileName = request.fileObjectName,
+    };
+    var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+    if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+      var execImageExtractionResponse = new ExecImageExtractionResponse{
+        reqMsgId = uploadResp.reqMsgId,
+        resultCode = uploadResp.resultCode,
+        resultMsg = uploadResp.resultMsg,
+      };
+      return execImageExtractionResponse;
+    }
+    var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+    AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+    request.fileId = uploadResp.fileId;
+    request.fileObject = null;
+  }
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.aiclaim.image.extraction.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryImageExtractionRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 任务id
+  batchNo: string(name='batch_no'),
+  // 理赔单id
+  claimNumber: string(name='claim_number'),
+}
+
+model QueryImageExtractionResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 任务号
+  batchNo?: string(name='batch_no'),
+  // 参考Document参数
+  documents?: [ Document ](name='documents'),
+}
+
+/**
+ * Description: 查看理赔材料照片信息采集结果
+ * Summary: 查看理赔材料照片信息采集结果
+ */
+async function queryImageExtraction(request: QueryImageExtractionRequest): QueryImageExtractionResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryImageExtractionEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查看理赔材料照片信息采集结果
+ * Summary: 查看理赔材料照片信息采集结果
+ */
+async function queryImageExtractionEx(request: QueryImageExtractionRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryImageExtractionResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.aiclaim.image.extraction.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateAntcloudGatewayxFileUploadRequest = {
