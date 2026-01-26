@@ -1290,11 +1290,8 @@ type AgentRefPluginInfo struct {
 	// 构建版本号
 	//
 	BuildVersion *string `json:"build_version,omitempty" xml:"build_version,omitempty" require:"true"`
-	// 入参预设值表 Map<String, String>
+	// 入参预设值表 Map<String,String> 格式
 	ParamValueMap *string `json:"param_value_map,omitempty" xml:"param_value_map,omitempty" require:"true"`
-	// 入参预设值表，原param_value_map字段，Map<String, String>格式
-	//
-	ParamValueMapJson *string `json:"param_value_map_json,omitempty" xml:"param_value_map_json,omitempty" require:"true"`
 	// 关联的语料
 	Corpus []*string `json:"corpus,omitempty" xml:"corpus,omitempty" require:"true" type:"Repeated"`
 }
@@ -1319,11 +1316,6 @@ func (s *AgentRefPluginInfo) SetBuildVersion(v string) *AgentRefPluginInfo {
 
 func (s *AgentRefPluginInfo) SetParamValueMap(v string) *AgentRefPluginInfo {
 	s.ParamValueMap = &v
-	return s
-}
-
-func (s *AgentRefPluginInfo) SetParamValueMapJson(v string) *AgentRefPluginInfo {
-	s.ParamValueMapJson = &v
 	return s
 }
 
@@ -2279,7 +2271,7 @@ func (s *StringResult) SetResult(v string) *StringResult {
 	return s
 }
 
-// 查看会话的历史会话信息result
+// 查看会话的历史会话信息result结果
 type AgentChatHistoryForSessionIdResult struct {
 	// success
 	Success *bool `json:"success,omitempty" xml:"success,omitempty" require:"true"`
@@ -4121,7 +4113,7 @@ type DetailAgentChatResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// data
+	// data信息
 	Data *AgentChatHistoryForSessionIdResult `json:"data,omitempty" xml:"data,omitempty"`
 }
 
@@ -5246,7 +5238,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("3.1.1"),
+				"sdk_version":      tea.String("3.3.0"),
 				"_prod_code":       tea.String("DTAIAGT"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -5603,7 +5595,7 @@ func (client *Client) PagequeryMcpMymcpEx(request *PagequeryMcpMymcpRequest, hea
 }
 
 /**
- * Description: mcp详情
+ * Description: mcp详情查询
  * Summary: mcp详情
  */
 func (client *Client) DetailMcpMymcp(request *DetailMcpMymcpRequest) (_result *DetailMcpMymcpResponse, _err error) {
@@ -5619,7 +5611,7 @@ func (client *Client) DetailMcpMymcp(request *DetailMcpMymcpRequest) (_result *D
 }
 
 /**
- * Description: mcp详情
+ * Description: mcp详情查询
  * Summary: mcp详情
  */
 func (client *Client) DetailMcpMymcpEx(request *DetailMcpMymcpRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DetailMcpMymcpResponse, _err error) {
@@ -5773,7 +5765,7 @@ func (client *Client) ListAgentChatEx(request *ListAgentChatRequest, headers map
 }
 
 /**
- * Description: 查看Agent历史会话详情
+ * Description: 查看Agent历史会话详情信息
  * Summary: 查看Agent历史会话详情
  */
 func (client *Client) DetailAgentChat(request *DetailAgentChatRequest) (_result *DetailAgentChatResponse, _err error) {
@@ -5789,7 +5781,7 @@ func (client *Client) DetailAgentChat(request *DetailAgentChatRequest) (_result 
 }
 
 /**
- * Description: 查看Agent历史会话详情
+ * Description: 查看Agent历史会话详情信息
  * Summary: 查看Agent历史会话详情
  */
 func (client *Client) DetailAgentChatEx(request *DetailAgentChatRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DetailAgentChatResponse, _err error) {
