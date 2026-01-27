@@ -247,6 +247,697 @@ func (s *CardQuality) SetIsNoCoverPropobility(v string) *CardQuality {
 	return s
 }
 
+// 音频元数据
+type AudioMeta struct {
+	// 采样率
+	SampleFreq *int64 `json:"sample_freq,omitempty" xml:"sample_freq,omitempty"`
+	// 音频道数
+	ChannelsNum *int64 `json:"channels_num,omitempty" xml:"channels_num,omitempty"`
+	// 音频数据采样点所占位数
+	Bits *int64 `json:"bits,omitempty" xml:"bits,omitempty"`
+	// 语音信道分离标识
+	Channel *int64 `json:"channel,omitempty" xml:"channel,omitempty"`
+}
+
+func (s AudioMeta) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AudioMeta) GoString() string {
+	return s.String()
+}
+
+func (s *AudioMeta) SetSampleFreq(v int64) *AudioMeta {
+	s.SampleFreq = &v
+	return s
+}
+
+func (s *AudioMeta) SetChannelsNum(v int64) *AudioMeta {
+	s.ChannelsNum = &v
+	return s
+}
+
+func (s *AudioMeta) SetBits(v int64) *AudioMeta {
+	s.Bits = &v
+	return s
+}
+
+func (s *AudioMeta) SetChannel(v int64) *AudioMeta {
+	s.Channel = &v
+	return s
+}
+
+// 音频文件
+type Audio struct {
+	// 音频文件名称（单次请求保持唯一）
+	Token *string `json:"token,omitempty" xml:"token,omitempty"`
+	// 待认证的音频文件，base64编码格式
+	RawData *string `json:"raw_data,omitempty" xml:"raw_data,omitempty"`
+	// 音频文件OSS地址
+	AudioUrl *string `json:"audio_url,omitempty" xml:"audio_url,omitempty"`
+}
+
+func (s Audio) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Audio) GoString() string {
+	return s.String()
+}
+
+func (s *Audio) SetToken(v string) *Audio {
+	s.Token = &v
+	return s
+}
+
+func (s *Audio) SetRawData(v string) *Audio {
+	s.RawData = &v
+	return s
+}
+
+func (s *Audio) SetAudioUrl(v string) *Audio {
+	s.AudioUrl = &v
+	return s
+}
+
+// 银行卡代扣二级租户收支明细
+type TransactionDetail struct {
+	// 交易类型：RECHARGE 入金，TRANSFER 划拨 ，WITHDRAW 出金
+	TransType *string `json:"trans_type,omitempty" xml:"trans_type,omitempty"`
+	// 余额方向：CR-贷款（收入）/ DR-借款（支出）
+	Direction *string `json:"direction,omitempty" xml:"direction,omitempty"`
+	// 币种 CNY人民币
+	Ccy *string `json:"ccy,omitempty" xml:"ccy,omitempty"`
+	// 交易金额，单位：元，整数部分最长10位数，保留两位小数
+	Amount *string `json:"amount,omitempty" xml:"amount,omitempty"`
+	// 交易后余额，单位：元，整数部分最长10位数，保留两位小数
+	AfterAmount *string `json:"after_amount,omitempty" xml:"after_amount,omitempty"`
+	// 创建时间，格式为：yyyy-MM-dd HH:mm:ss
+	CreatTime *string `json:"creat_time,omitempty" xml:"creat_time,omitempty"`
+	// SHARE-分账
+	// OFFSET_SHARE-差额分账
+	// REFUND-退款
+	// TRANSFER-转账
+	// WITHDRAW-提现
+	// CLEAR-资金清算
+	// OTHER-其他
+	// WITHDRAW_CANCEL-提现退回
+	BusinessType *string `json:"business_type,omitempty" xml:"business_type,omitempty"`
+}
+
+func (s TransactionDetail) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TransactionDetail) GoString() string {
+	return s.String()
+}
+
+func (s *TransactionDetail) SetTransType(v string) *TransactionDetail {
+	s.TransType = &v
+	return s
+}
+
+func (s *TransactionDetail) SetDirection(v string) *TransactionDetail {
+	s.Direction = &v
+	return s
+}
+
+func (s *TransactionDetail) SetCcy(v string) *TransactionDetail {
+	s.Ccy = &v
+	return s
+}
+
+func (s *TransactionDetail) SetAmount(v string) *TransactionDetail {
+	s.Amount = &v
+	return s
+}
+
+func (s *TransactionDetail) SetAfterAmount(v string) *TransactionDetail {
+	s.AfterAmount = &v
+	return s
+}
+
+func (s *TransactionDetail) SetCreatTime(v string) *TransactionDetail {
+	s.CreatTime = &v
+	return s
+}
+
+func (s *TransactionDetail) SetBusinessType(v string) *TransactionDetail {
+	s.BusinessType = &v
+	return s
+}
+
+// 风险咨询设备信息
+type DeviceInfo struct {
+	// 设备指纹
+	DeviceFingerprint *string `json:"device_fingerprint,omitempty" xml:"device_fingerprint,omitempty"`
+	// 设备制造商
+	DeviceBrand *string `json:"device_brand,omitempty" xml:"device_brand,omitempty"`
+	// 设备具体型号
+	DeviceModel *string `json:"device_model,omitempty" xml:"device_model,omitempty"`
+	// 操作系统类型
+	Os *string `json:"os,omitempty" xml:"os,omitempty"`
+	// 操作系统版本
+	OsVersion *string `json:"os_version,omitempty" xml:"os_version,omitempty"`
+	// 设备rom版本
+	RomModel *string `json:"rom_model,omitempty" xml:"rom_model,omitempty"`
+	// 设备硬盘信息
+	HardDisk *string `json:"hard_disk,omitempty" xml:"hard_disk,omitempty"`
+	// 内存容量
+	Memory *string `json:"memory,omitempty" xml:"memory,omitempty"`
+	// 设备网络ip
+	CameraInfo *string `json:"camera_info,omitempty" xml:"camera_info,omitempty"`
+	// 网关入口ip
+	GatewayIp *string `json:"gateway_ip,omitempty" xml:"gateway_ip,omitempty"`
+}
+
+func (s DeviceInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeviceInfo) GoString() string {
+	return s.String()
+}
+
+func (s *DeviceInfo) SetDeviceFingerprint(v string) *DeviceInfo {
+	s.DeviceFingerprint = &v
+	return s
+}
+
+func (s *DeviceInfo) SetDeviceBrand(v string) *DeviceInfo {
+	s.DeviceBrand = &v
+	return s
+}
+
+func (s *DeviceInfo) SetDeviceModel(v string) *DeviceInfo {
+	s.DeviceModel = &v
+	return s
+}
+
+func (s *DeviceInfo) SetOs(v string) *DeviceInfo {
+	s.Os = &v
+	return s
+}
+
+func (s *DeviceInfo) SetOsVersion(v string) *DeviceInfo {
+	s.OsVersion = &v
+	return s
+}
+
+func (s *DeviceInfo) SetRomModel(v string) *DeviceInfo {
+	s.RomModel = &v
+	return s
+}
+
+func (s *DeviceInfo) SetHardDisk(v string) *DeviceInfo {
+	s.HardDisk = &v
+	return s
+}
+
+func (s *DeviceInfo) SetMemory(v string) *DeviceInfo {
+	s.Memory = &v
+	return s
+}
+
+func (s *DeviceInfo) SetCameraInfo(v string) *DeviceInfo {
+	s.CameraInfo = &v
+	return s
+}
+
+func (s *DeviceInfo) SetGatewayIp(v string) *DeviceInfo {
+	s.GatewayIp = &v
+	return s
+}
+
+// 车辆资产验证详版车辆信息
+type CarInfoDetail struct {
+	// 车辆型号
+	Clxh *string `json:"clxh,omitempty" xml:"clxh,omitempty"`
+	// 发动机号
+	EngineCode *string `json:"engine_code,omitempty" xml:"engine_code,omitempty"`
+	// 发动机型号
+	EngineModel *string `json:"engine_model,omitempty" xml:"engine_model,omitempty"`
+	// 生产时间
+	ProductionTime *string `json:"production_time,omitempty" xml:"production_time,omitempty"`
+	// 品牌名称
+	BrandName *string `json:"brand_name,omitempty" xml:"brand_name,omitempty"`
+	// 高尔夫(第七代,2014-)
+	SeriesName *string `json:"series_name,omitempty" xml:"series_name,omitempty"`
+	// 年款
+	ModelYear *string `json:"model_year,omitempty" xml:"model_year,omitempty"`
+	// 款型名称
+	VehicleName *string `json:"vehicle_name,omitempty" xml:"vehicle_name,omitempty"`
+	// 指导价
+	GuidePrice *string `json:"guide_price,omitempty" xml:"guide_price,omitempty"`
+	// 车身颜色
+	Color *string `json:"color,omitempty" xml:"color,omitempty"`
+	// 车型级别
+	VehicleLevel *string `json:"vehicle_level,omitempty" xml:"vehicle_level,omitempty"`
+	// 车型种类
+	VehicleType *string `json:"vehicle_type,omitempty" xml:"vehicle_type,omitempty"`
+	// 车身结构
+	BodyStruct *string `json:"body_struct,omitempty" xml:"body_struct,omitempty"`
+	//  燃料种类
+	FuelType *string `json:"fuel_type,omitempty" xml:"fuel_type,omitempty"`
+	// 驱动方式
+	DriveWay *string `json:"drive_way,omitempty" xml:"drive_way,omitempty"`
+	// 底盘型号-商用车用
+	ChassisModel *string `json:"chassis_model,omitempty" xml:"chassis_model,omitempty"`
+	// 排放标准
+	EmissionStandard *string `json:"emission_standard,omitempty" xml:"emission_standard,omitempty"`
+	// 排量
+	Displacement *string `json:"displacement,omitempty" xml:"displacement,omitempty"`
+	// 长
+	Length *string `json:"length,omitempty" xml:"length,omitempty"`
+	// 宽
+	Width *string `json:"width,omitempty" xml:"width,omitempty"`
+	// 高
+	Height *string `json:"height,omitempty" xml:"height,omitempty"`
+	// 总质量
+	TotalMass *string `json:"total_mass,omitempty" xml:"total_mass,omitempty"`
+	// 整备质量
+	CurbWeight *string `json:"curb_weight,omitempty" xml:"curb_weight,omitempty"`
+	// 前轮距
+	TireDistanceBefore *string `json:"tire_distance_before,omitempty" xml:"tire_distance_before,omitempty"`
+	// 后轮距
+	TireDistanceAfter *string `json:"tire_distance_after,omitempty" xml:"tire_distance_after,omitempty"`
+	// 轴数
+	AxesNumber *string `json:"axes_number,omitempty" xml:"axes_number,omitempty"`
+	// 轴距
+	WheelBase *string `json:"wheel_base,omitempty" xml:"wheel_base,omitempty"`
+	// 座位数
+	SeatingCapacity *string `json:"seating_capacity,omitempty" xml:"seating_capacity,omitempty"`
+	// 核定载质量
+	ApprovedLoad *string `json:"approved_load,omitempty" xml:"approved_load,omitempty"`
+	// 准牵引总质量
+	QuasiTraction *string `json:"quasi_traction,omitempty" xml:"quasi_traction,omitempty"`
+	// 轮胎规格
+	TireSize *string `json:"tire_size,omitempty" xml:"tire_size,omitempty"`
+	// 轮胎数
+	TireNumber *string `json:"tire_number,omitempty" xml:"tire_number,omitempty"`
+	//  变速箱
+	Transmission *string `json:"transmission,omitempty" xml:"transmission,omitempty"`
+	//  功率
+	Power *string `json:"power,omitempty" xml:"power,omitempty"`
+	// 油耗
+	FuelConsumption *string `json:"fuel_consumption,omitempty" xml:"fuel_consumption,omitempty"`
+	// 环保标准
+	EnvironmentalStandards *string `json:"environmental_standards,omitempty" xml:"environmental_standards,omitempty"`
+}
+
+func (s CarInfoDetail) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CarInfoDetail) GoString() string {
+	return s.String()
+}
+
+func (s *CarInfoDetail) SetClxh(v string) *CarInfoDetail {
+	s.Clxh = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetEngineCode(v string) *CarInfoDetail {
+	s.EngineCode = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetEngineModel(v string) *CarInfoDetail {
+	s.EngineModel = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetProductionTime(v string) *CarInfoDetail {
+	s.ProductionTime = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetBrandName(v string) *CarInfoDetail {
+	s.BrandName = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetSeriesName(v string) *CarInfoDetail {
+	s.SeriesName = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetModelYear(v string) *CarInfoDetail {
+	s.ModelYear = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetVehicleName(v string) *CarInfoDetail {
+	s.VehicleName = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetGuidePrice(v string) *CarInfoDetail {
+	s.GuidePrice = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetColor(v string) *CarInfoDetail {
+	s.Color = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetVehicleLevel(v string) *CarInfoDetail {
+	s.VehicleLevel = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetVehicleType(v string) *CarInfoDetail {
+	s.VehicleType = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetBodyStruct(v string) *CarInfoDetail {
+	s.BodyStruct = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetFuelType(v string) *CarInfoDetail {
+	s.FuelType = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetDriveWay(v string) *CarInfoDetail {
+	s.DriveWay = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetChassisModel(v string) *CarInfoDetail {
+	s.ChassisModel = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetEmissionStandard(v string) *CarInfoDetail {
+	s.EmissionStandard = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetDisplacement(v string) *CarInfoDetail {
+	s.Displacement = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetLength(v string) *CarInfoDetail {
+	s.Length = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetWidth(v string) *CarInfoDetail {
+	s.Width = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetHeight(v string) *CarInfoDetail {
+	s.Height = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetTotalMass(v string) *CarInfoDetail {
+	s.TotalMass = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetCurbWeight(v string) *CarInfoDetail {
+	s.CurbWeight = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetTireDistanceBefore(v string) *CarInfoDetail {
+	s.TireDistanceBefore = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetTireDistanceAfter(v string) *CarInfoDetail {
+	s.TireDistanceAfter = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetAxesNumber(v string) *CarInfoDetail {
+	s.AxesNumber = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetWheelBase(v string) *CarInfoDetail {
+	s.WheelBase = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetSeatingCapacity(v string) *CarInfoDetail {
+	s.SeatingCapacity = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetApprovedLoad(v string) *CarInfoDetail {
+	s.ApprovedLoad = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetQuasiTraction(v string) *CarInfoDetail {
+	s.QuasiTraction = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetTireSize(v string) *CarInfoDetail {
+	s.TireSize = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetTireNumber(v string) *CarInfoDetail {
+	s.TireNumber = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetTransmission(v string) *CarInfoDetail {
+	s.Transmission = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetPower(v string) *CarInfoDetail {
+	s.Power = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetFuelConsumption(v string) *CarInfoDetail {
+	s.FuelConsumption = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetEnvironmentalStandards(v string) *CarInfoDetail {
+	s.EnvironmentalStandards = &v
+	return s
+}
+
+// AIGC风险专项检测
+type AigcRiskResult struct {
+	// AIGC风险检测评分
+	AigcRiskLevel *string `json:"aigc_risk_level,omitempty" xml:"aigc_risk_level,omitempty"`
+	// 图像伪造分数
+	DeepfakeScore *string `json:"deepfake_score,omitempty" xml:"deepfake_score,omitempty"`
+	// 图像伪造结论
+	DeepfakeResult *string `json:"deepfake_result,omitempty" xml:"deepfake_result,omitempty"`
+	// 视频伪造分数
+	VideoForgeryScore *string `json:"video_forgery_score,omitempty" xml:"video_forgery_score,omitempty"`
+	// 视频伪造结论
+	VideoFogeryResult *string `json:"video_fogery_result,omitempty" xml:"video_fogery_result,omitempty"`
+}
+
+func (s AigcRiskResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AigcRiskResult) GoString() string {
+	return s.String()
+}
+
+func (s *AigcRiskResult) SetAigcRiskLevel(v string) *AigcRiskResult {
+	s.AigcRiskLevel = &v
+	return s
+}
+
+func (s *AigcRiskResult) SetDeepfakeScore(v string) *AigcRiskResult {
+	s.DeepfakeScore = &v
+	return s
+}
+
+func (s *AigcRiskResult) SetDeepfakeResult(v string) *AigcRiskResult {
+	s.DeepfakeResult = &v
+	return s
+}
+
+func (s *AigcRiskResult) SetVideoForgeryScore(v string) *AigcRiskResult {
+	s.VideoForgeryScore = &v
+	return s
+}
+
+func (s *AigcRiskResult) SetVideoFogeryResult(v string) *AigcRiskResult {
+	s.VideoFogeryResult = &v
+	return s
+}
+
+// 车辆资产验证旗舰版车辆信息
+type CarInfo struct {
+	// 是否高频使用，格式：YES/NO
+	HighFrequency *string `json:"high_frequency,omitempty" xml:"high_frequency,omitempty"`
+	// 车辆价值区间，格式：1，2，3...
+	Value *string `json:"value,omitempty" xml:"value,omitempty"`
+	// 车辆类型，格式：1，2，3
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+}
+
+func (s CarInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CarInfo) GoString() string {
+	return s.String()
+}
+
+func (s *CarInfo) SetHighFrequency(v string) *CarInfo {
+	s.HighFrequency = &v
+	return s
+}
+
+func (s *CarInfo) SetValue(v string) *CarInfo {
+	s.Value = &v
+	return s
+}
+
+func (s *CarInfo) SetType(v string) *CarInfo {
+	s.Type = &v
+	return s
+}
+
+// 设备风险信息
+type DeviceRiskInfo struct {
+	// 端安全产品名
+	SecurityProductName *string `json:"security_product_name,omitempty" xml:"security_product_name,omitempty" require:"true"`
+	// 调用蚂蚁终端安全或人脸保镖的token
+	Token *string `json:"token,omitempty" xml:"token,omitempty"`
+	// 端安全SDK版本
+	SecurityVersion *string `json:"security_version,omitempty" xml:"security_version,omitempty"`
+	// 设备是否root
+	IsDeviceRooted *bool `json:"is_device_rooted,omitempty" xml:"is_device_rooted,omitempty"`
+	// 设备是否hook
+	IsDeviceHooked *bool `json:"is_device_hooked,omitempty" xml:"is_device_hooked,omitempty"`
+	// 设备是否使用定制rom
+	IsCustomRom *bool `json:"is_custom_rom,omitempty" xml:"is_custom_rom,omitempty"`
+	// 设备是否是云手机
+	IsCloudPhone *bool `json:"is_cloud_phone,omitempty" xml:"is_cloud_phone,omitempty"`
+	// 是否为模拟器
+	IsEmulator *bool `json:"is_emulator,omitempty" xml:"is_emulator,omitempty"`
+	// 设备是否支持虚拟摄像头
+	HasVirtualCamera *bool `json:"has_virtual_camera,omitempty" xml:"has_virtual_camera,omitempty"`
+	// 设备是否使用虚拟摄像头
+	IsUsingVirtualCamera *bool `json:"is_using_virtual_camera,omitempty" xml:"is_using_virtual_camera,omitempty"`
+	// 设备是否有重打包风险
+	HasRepackRisk *bool `json:"has_repack_risk,omitempty" xml:"has_repack_risk,omitempty"`
+	// 设备是否多开
+	IsMultiInstance *bool `json:"is_multi_instance,omitempty" xml:"is_multi_instance,omitempty"`
+	// 设备是否开启虚拟定位
+	IsFakeLocation *bool `json:"is_fake_location,omitempty" xml:"is_fake_location,omitempty"`
+	// 有其他注入行为
+	HasOtherInjection *bool `json:"has_other_injection,omitempty" xml:"has_other_injection,omitempty"`
+	// 设备是否有其他自动化工具
+	HasAtuomationTools *bool `json:"has_atuomation_tools,omitempty" xml:"has_atuomation_tools,omitempty"`
+	// 风险sdk的JSON格式数据
+	RiskSdkJson *string `json:"risk_sdk_json,omitempty" xml:"risk_sdk_json,omitempty"`
+}
+
+func (s DeviceRiskInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeviceRiskInfo) GoString() string {
+	return s.String()
+}
+
+func (s *DeviceRiskInfo) SetSecurityProductName(v string) *DeviceRiskInfo {
+	s.SecurityProductName = &v
+	return s
+}
+
+func (s *DeviceRiskInfo) SetToken(v string) *DeviceRiskInfo {
+	s.Token = &v
+	return s
+}
+
+func (s *DeviceRiskInfo) SetSecurityVersion(v string) *DeviceRiskInfo {
+	s.SecurityVersion = &v
+	return s
+}
+
+func (s *DeviceRiskInfo) SetIsDeviceRooted(v bool) *DeviceRiskInfo {
+	s.IsDeviceRooted = &v
+	return s
+}
+
+func (s *DeviceRiskInfo) SetIsDeviceHooked(v bool) *DeviceRiskInfo {
+	s.IsDeviceHooked = &v
+	return s
+}
+
+func (s *DeviceRiskInfo) SetIsCustomRom(v bool) *DeviceRiskInfo {
+	s.IsCustomRom = &v
+	return s
+}
+
+func (s *DeviceRiskInfo) SetIsCloudPhone(v bool) *DeviceRiskInfo {
+	s.IsCloudPhone = &v
+	return s
+}
+
+func (s *DeviceRiskInfo) SetIsEmulator(v bool) *DeviceRiskInfo {
+	s.IsEmulator = &v
+	return s
+}
+
+func (s *DeviceRiskInfo) SetHasVirtualCamera(v bool) *DeviceRiskInfo {
+	s.HasVirtualCamera = &v
+	return s
+}
+
+func (s *DeviceRiskInfo) SetIsUsingVirtualCamera(v bool) *DeviceRiskInfo {
+	s.IsUsingVirtualCamera = &v
+	return s
+}
+
+func (s *DeviceRiskInfo) SetHasRepackRisk(v bool) *DeviceRiskInfo {
+	s.HasRepackRisk = &v
+	return s
+}
+
+func (s *DeviceRiskInfo) SetIsMultiInstance(v bool) *DeviceRiskInfo {
+	s.IsMultiInstance = &v
+	return s
+}
+
+func (s *DeviceRiskInfo) SetIsFakeLocation(v bool) *DeviceRiskInfo {
+	s.IsFakeLocation = &v
+	return s
+}
+
+func (s *DeviceRiskInfo) SetHasOtherInjection(v bool) *DeviceRiskInfo {
+	s.HasOtherInjection = &v
+	return s
+}
+
+func (s *DeviceRiskInfo) SetHasAtuomationTools(v bool) *DeviceRiskInfo {
+	s.HasAtuomationTools = &v
+	return s
+}
+
+func (s *DeviceRiskInfo) SetRiskSdkJson(v string) *DeviceRiskInfo {
+	s.RiskSdkJson = &v
+	return s
+}
+
 // 卡证OCR风险结果
 type RiskInfo struct {
 	// 是否为复印件（仅身份证、银行卡含该字段）。0：否，1：是
@@ -313,46 +1004,6 @@ func (s *RiskInfo) SetIdcardNumberType(v string) *RiskInfo {
 	return s
 }
 
-// 音频元数据
-type AudioMeta struct {
-	// 采样率
-	SampleFreq *int64 `json:"sample_freq,omitempty" xml:"sample_freq,omitempty"`
-	// 音频道数
-	ChannelsNum *int64 `json:"channels_num,omitempty" xml:"channels_num,omitempty"`
-	// 音频数据采样点所占位数
-	Bits *int64 `json:"bits,omitempty" xml:"bits,omitempty"`
-	// 语音信道分离标识
-	Channel *int64 `json:"channel,omitempty" xml:"channel,omitempty"`
-}
-
-func (s AudioMeta) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AudioMeta) GoString() string {
-	return s.String()
-}
-
-func (s *AudioMeta) SetSampleFreq(v int64) *AudioMeta {
-	s.SampleFreq = &v
-	return s
-}
-
-func (s *AudioMeta) SetChannelsNum(v int64) *AudioMeta {
-	s.ChannelsNum = &v
-	return s
-}
-
-func (s *AudioMeta) SetBits(v int64) *AudioMeta {
-	s.Bits = &v
-	return s
-}
-
-func (s *AudioMeta) SetChannel(v int64) *AudioMeta {
-	s.Channel = &v
-	return s
-}
-
 // 分账退款信息
 type ShareRefundInfo struct {
 	// 商户id
@@ -402,39 +1053,6 @@ func (s *ShareInfo) SetMerchantId(v string) *ShareInfo {
 
 func (s *ShareInfo) SetAmount(v string) *ShareInfo {
 	s.Amount = &v
-	return s
-}
-
-// 音频文件
-type Audio struct {
-	// 音频文件名称（单次请求保持唯一）
-	Token *string `json:"token,omitempty" xml:"token,omitempty"`
-	// 待认证的音频文件，base64编码格式
-	RawData *string `json:"raw_data,omitempty" xml:"raw_data,omitempty"`
-	// 音频文件OSS地址
-	AudioUrl *string `json:"audio_url,omitempty" xml:"audio_url,omitempty"`
-}
-
-func (s Audio) String() string {
-	return tea.Prettify(s)
-}
-
-func (s Audio) GoString() string {
-	return s.String()
-}
-
-func (s *Audio) SetToken(v string) *Audio {
-	s.Token = &v
-	return s
-}
-
-func (s *Audio) SetRawData(v string) *Audio {
-	s.RawData = &v
-	return s
-}
-
-func (s *Audio) SetAudioUrl(v string) *Audio {
-	s.AudioUrl = &v
 	return s
 }
 
@@ -803,270 +1421,6 @@ func (s *CarInfoPlus) SetColor(v string) *CarInfoPlus {
 	return s
 }
 
-// 车辆资产验证详版车辆信息
-type CarInfoDetail struct {
-	// 车辆型号
-	Clxh *string `json:"clxh,omitempty" xml:"clxh,omitempty"`
-	// 发动机号
-	EngineCode *string `json:"engine_code,omitempty" xml:"engine_code,omitempty"`
-	// 发动机型号
-	EngineModel *string `json:"engine_model,omitempty" xml:"engine_model,omitempty"`
-	// 生产时间
-	ProductionTime *string `json:"production_time,omitempty" xml:"production_time,omitempty"`
-	// 品牌名称
-	BrandName *string `json:"brand_name,omitempty" xml:"brand_name,omitempty"`
-	// 高尔夫(第七代,2014-)
-	SeriesName *string `json:"series_name,omitempty" xml:"series_name,omitempty"`
-	// 年款
-	ModelYear *string `json:"model_year,omitempty" xml:"model_year,omitempty"`
-	// 款型名称
-	VehicleName *string `json:"vehicle_name,omitempty" xml:"vehicle_name,omitempty"`
-	// 指导价
-	GuidePrice *string `json:"guide_price,omitempty" xml:"guide_price,omitempty"`
-	// 车身颜色
-	Color *string `json:"color,omitempty" xml:"color,omitempty"`
-	// 车型级别
-	VehicleLevel *string `json:"vehicle_level,omitempty" xml:"vehicle_level,omitempty"`
-	// 车型种类
-	VehicleType *string `json:"vehicle_type,omitempty" xml:"vehicle_type,omitempty"`
-	// 车身结构
-	BodyStruct *string `json:"body_struct,omitempty" xml:"body_struct,omitempty"`
-	//  燃料种类
-	FuelType *string `json:"fuel_type,omitempty" xml:"fuel_type,omitempty"`
-	// 驱动方式
-	DriveWay *string `json:"drive_way,omitempty" xml:"drive_way,omitempty"`
-	// 底盘型号-商用车用
-	ChassisModel *string `json:"chassis_model,omitempty" xml:"chassis_model,omitempty"`
-	// 排放标准
-	EmissionStandard *string `json:"emission_standard,omitempty" xml:"emission_standard,omitempty"`
-	// 排量
-	Displacement *string `json:"displacement,omitempty" xml:"displacement,omitempty"`
-	// 长
-	Length *string `json:"length,omitempty" xml:"length,omitempty"`
-	// 宽
-	Width *string `json:"width,omitempty" xml:"width,omitempty"`
-	// 高
-	Height *string `json:"height,omitempty" xml:"height,omitempty"`
-	// 总质量
-	TotalMass *string `json:"total_mass,omitempty" xml:"total_mass,omitempty"`
-	// 整备质量
-	CurbWeight *string `json:"curb_weight,omitempty" xml:"curb_weight,omitempty"`
-	// 前轮距
-	TireDistanceBefore *string `json:"tire_distance_before,omitempty" xml:"tire_distance_before,omitempty"`
-	// 后轮距
-	TireDistanceAfter *string `json:"tire_distance_after,omitempty" xml:"tire_distance_after,omitempty"`
-	// 轴数
-	AxesNumber *string `json:"axes_number,omitempty" xml:"axes_number,omitempty"`
-	// 轴距
-	WheelBase *string `json:"wheel_base,omitempty" xml:"wheel_base,omitempty"`
-	// 座位数
-	SeatingCapacity *string `json:"seating_capacity,omitempty" xml:"seating_capacity,omitempty"`
-	// 核定载质量
-	ApprovedLoad *string `json:"approved_load,omitempty" xml:"approved_load,omitempty"`
-	// 准牵引总质量
-	QuasiTraction *string `json:"quasi_traction,omitempty" xml:"quasi_traction,omitempty"`
-	// 轮胎规格
-	TireSize *string `json:"tire_size,omitempty" xml:"tire_size,omitempty"`
-	// 轮胎数
-	TireNumber *string `json:"tire_number,omitempty" xml:"tire_number,omitempty"`
-	//  变速箱
-	Transmission *string `json:"transmission,omitempty" xml:"transmission,omitempty"`
-	//  功率
-	Power *string `json:"power,omitempty" xml:"power,omitempty"`
-	// 油耗
-	FuelConsumption *string `json:"fuel_consumption,omitempty" xml:"fuel_consumption,omitempty"`
-	// 环保标准
-	EnvironmentalStandards *string `json:"environmental_standards,omitempty" xml:"environmental_standards,omitempty"`
-}
-
-func (s CarInfoDetail) String() string {
-	return tea.Prettify(s)
-}
-
-func (s CarInfoDetail) GoString() string {
-	return s.String()
-}
-
-func (s *CarInfoDetail) SetClxh(v string) *CarInfoDetail {
-	s.Clxh = &v
-	return s
-}
-
-func (s *CarInfoDetail) SetEngineCode(v string) *CarInfoDetail {
-	s.EngineCode = &v
-	return s
-}
-
-func (s *CarInfoDetail) SetEngineModel(v string) *CarInfoDetail {
-	s.EngineModel = &v
-	return s
-}
-
-func (s *CarInfoDetail) SetProductionTime(v string) *CarInfoDetail {
-	s.ProductionTime = &v
-	return s
-}
-
-func (s *CarInfoDetail) SetBrandName(v string) *CarInfoDetail {
-	s.BrandName = &v
-	return s
-}
-
-func (s *CarInfoDetail) SetSeriesName(v string) *CarInfoDetail {
-	s.SeriesName = &v
-	return s
-}
-
-func (s *CarInfoDetail) SetModelYear(v string) *CarInfoDetail {
-	s.ModelYear = &v
-	return s
-}
-
-func (s *CarInfoDetail) SetVehicleName(v string) *CarInfoDetail {
-	s.VehicleName = &v
-	return s
-}
-
-func (s *CarInfoDetail) SetGuidePrice(v string) *CarInfoDetail {
-	s.GuidePrice = &v
-	return s
-}
-
-func (s *CarInfoDetail) SetColor(v string) *CarInfoDetail {
-	s.Color = &v
-	return s
-}
-
-func (s *CarInfoDetail) SetVehicleLevel(v string) *CarInfoDetail {
-	s.VehicleLevel = &v
-	return s
-}
-
-func (s *CarInfoDetail) SetVehicleType(v string) *CarInfoDetail {
-	s.VehicleType = &v
-	return s
-}
-
-func (s *CarInfoDetail) SetBodyStruct(v string) *CarInfoDetail {
-	s.BodyStruct = &v
-	return s
-}
-
-func (s *CarInfoDetail) SetFuelType(v string) *CarInfoDetail {
-	s.FuelType = &v
-	return s
-}
-
-func (s *CarInfoDetail) SetDriveWay(v string) *CarInfoDetail {
-	s.DriveWay = &v
-	return s
-}
-
-func (s *CarInfoDetail) SetChassisModel(v string) *CarInfoDetail {
-	s.ChassisModel = &v
-	return s
-}
-
-func (s *CarInfoDetail) SetEmissionStandard(v string) *CarInfoDetail {
-	s.EmissionStandard = &v
-	return s
-}
-
-func (s *CarInfoDetail) SetDisplacement(v string) *CarInfoDetail {
-	s.Displacement = &v
-	return s
-}
-
-func (s *CarInfoDetail) SetLength(v string) *CarInfoDetail {
-	s.Length = &v
-	return s
-}
-
-func (s *CarInfoDetail) SetWidth(v string) *CarInfoDetail {
-	s.Width = &v
-	return s
-}
-
-func (s *CarInfoDetail) SetHeight(v string) *CarInfoDetail {
-	s.Height = &v
-	return s
-}
-
-func (s *CarInfoDetail) SetTotalMass(v string) *CarInfoDetail {
-	s.TotalMass = &v
-	return s
-}
-
-func (s *CarInfoDetail) SetCurbWeight(v string) *CarInfoDetail {
-	s.CurbWeight = &v
-	return s
-}
-
-func (s *CarInfoDetail) SetTireDistanceBefore(v string) *CarInfoDetail {
-	s.TireDistanceBefore = &v
-	return s
-}
-
-func (s *CarInfoDetail) SetTireDistanceAfter(v string) *CarInfoDetail {
-	s.TireDistanceAfter = &v
-	return s
-}
-
-func (s *CarInfoDetail) SetAxesNumber(v string) *CarInfoDetail {
-	s.AxesNumber = &v
-	return s
-}
-
-func (s *CarInfoDetail) SetWheelBase(v string) *CarInfoDetail {
-	s.WheelBase = &v
-	return s
-}
-
-func (s *CarInfoDetail) SetSeatingCapacity(v string) *CarInfoDetail {
-	s.SeatingCapacity = &v
-	return s
-}
-
-func (s *CarInfoDetail) SetApprovedLoad(v string) *CarInfoDetail {
-	s.ApprovedLoad = &v
-	return s
-}
-
-func (s *CarInfoDetail) SetQuasiTraction(v string) *CarInfoDetail {
-	s.QuasiTraction = &v
-	return s
-}
-
-func (s *CarInfoDetail) SetTireSize(v string) *CarInfoDetail {
-	s.TireSize = &v
-	return s
-}
-
-func (s *CarInfoDetail) SetTireNumber(v string) *CarInfoDetail {
-	s.TireNumber = &v
-	return s
-}
-
-func (s *CarInfoDetail) SetTransmission(v string) *CarInfoDetail {
-	s.Transmission = &v
-	return s
-}
-
-func (s *CarInfoDetail) SetPower(v string) *CarInfoDetail {
-	s.Power = &v
-	return s
-}
-
-func (s *CarInfoDetail) SetFuelConsumption(v string) *CarInfoDetail {
-	s.FuelConsumption = &v
-	return s
-}
-
-func (s *CarInfoDetail) SetEnvironmentalStandards(v string) *CarInfoDetail {
-	s.EnvironmentalStandards = &v
-	return s
-}
-
 // 车辆资产验证简版车辆信息
 type CarInfoBrief struct {
 	// 生产时间
@@ -1303,36 +1657,57 @@ func (s *CarInfoBrief) SetTrailerWeight(v string) *CarInfoBrief {
 	return s
 }
 
-// 车辆资产验证旗舰版车辆信息
-type CarInfo struct {
-	// 是否高频使用，格式：YES/NO
-	HighFrequency *string `json:"high_frequency,omitempty" xml:"high_frequency,omitempty"`
-	// 车辆价值区间，格式：1，2，3...
-	Value *string `json:"value,omitempty" xml:"value,omitempty"`
-	// 车辆类型，格式：1，2，3
-	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+// 综合风险
+type RiskResult struct {
+	// 活体检测标签
+	ImageLabels *string `json:"image_labels,omitempty" xml:"image_labels,omitempty"`
+	// 设备风险等级
+	DeviceRiskLevel *string `json:"device_risk_level,omitempty" xml:"device_risk_level,omitempty"`
+	// 设备风险标签
+	DeviceRiskLabels *string `json:"device_risk_labels,omitempty" xml:"device_risk_labels,omitempty"`
+	// 行为风险等级
+	BehaviorRiskLevel *string `json:"behavior_risk_level,omitempty" xml:"behavior_risk_level,omitempty"`
+	// 行为风险标签
+	BehaviorRiskLabels *string `json:"behavior_risk_labels,omitempty" xml:"behavior_risk_labels,omitempty"`
+	// 是否关联攻击
+	IsCorrelate *bool `json:"is_correlate,omitempty" xml:"is_correlate,omitempty"`
 }
 
-func (s CarInfo) String() string {
+func (s RiskResult) String() string {
 	return tea.Prettify(s)
 }
 
-func (s CarInfo) GoString() string {
+func (s RiskResult) GoString() string {
 	return s.String()
 }
 
-func (s *CarInfo) SetHighFrequency(v string) *CarInfo {
-	s.HighFrequency = &v
+func (s *RiskResult) SetImageLabels(v string) *RiskResult {
+	s.ImageLabels = &v
 	return s
 }
 
-func (s *CarInfo) SetValue(v string) *CarInfo {
-	s.Value = &v
+func (s *RiskResult) SetDeviceRiskLevel(v string) *RiskResult {
+	s.DeviceRiskLevel = &v
 	return s
 }
 
-func (s *CarInfo) SetType(v string) *CarInfo {
-	s.Type = &v
+func (s *RiskResult) SetDeviceRiskLabels(v string) *RiskResult {
+	s.DeviceRiskLabels = &v
+	return s
+}
+
+func (s *RiskResult) SetBehaviorRiskLevel(v string) *RiskResult {
+	s.BehaviorRiskLevel = &v
+	return s
+}
+
+func (s *RiskResult) SetBehaviorRiskLabels(v string) *RiskResult {
+	s.BehaviorRiskLabels = &v
+	return s
+}
+
+func (s *RiskResult) SetIsCorrelate(v bool) *RiskResult {
+	s.IsCorrelate = &v
 	return s
 }
 
@@ -2184,6 +2559,10 @@ type CheckIndividualidFourmetaRequest struct {
 	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
 	// 证件类型： 1：居民身份证（默认值） 2：军官证 3：护照 4：回乡证 5：台胞证 6：警官证 7：士兵证 99：其他
 	CertType *string `json:"cert_type,omitempty" xml:"cert_type,omitempty"`
+	// 入参加密模式：NONE：不加密；AES：姓名、身份证号、手机号码字段都是AES加密后的字符串。非必填，不填时默认明文
+	ReqEncType *string `json:"req_enc_type,omitempty" xml:"req_enc_type,omitempty"`
+	// 用于入参加密的AES密钥
+	EncToken *string `json:"enc_token,omitempty" xml:"enc_token,omitempty"`
 }
 
 func (s CheckIndividualidFourmetaRequest) String() string {
@@ -2236,6 +2615,16 @@ func (s *CheckIndividualidFourmetaRequest) SetExternParam(v string) *CheckIndivi
 
 func (s *CheckIndividualidFourmetaRequest) SetCertType(v string) *CheckIndividualidFourmetaRequest {
 	s.CertType = &v
+	return s
+}
+
+func (s *CheckIndividualidFourmetaRequest) SetReqEncType(v string) *CheckIndividualidFourmetaRequest {
+	s.ReqEncType = &v
+	return s
+}
+
+func (s *CheckIndividualidFourmetaRequest) SetEncToken(v string) *CheckIndividualidFourmetaRequest {
+	s.EncToken = &v
 	return s
 }
 
@@ -2690,6 +3079,10 @@ type CheckRouteTwometaRequest struct {
 	// map结果的json数据格式，预留字段
 	//
 	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+	// 入参加密模式：NONE：不加密；AES：姓名、身份证号、手机号码字段都是AES加密后的字符串。非必填，不填时默认明文
+	ReqEncType *string `json:"req_enc_type,omitempty" xml:"req_enc_type,omitempty"`
+	// 用于入参加密的AES密钥
+	EncToken *string `json:"enc_token,omitempty" xml:"enc_token,omitempty"`
 }
 
 func (s CheckRouteTwometaRequest) String() string {
@@ -2732,6 +3125,16 @@ func (s *CheckRouteTwometaRequest) SetScene(v string) *CheckRouteTwometaRequest 
 
 func (s *CheckRouteTwometaRequest) SetExternParam(v string) *CheckRouteTwometaRequest {
 	s.ExternParam = &v
+	return s
+}
+
+func (s *CheckRouteTwometaRequest) SetReqEncType(v string) *CheckRouteTwometaRequest {
+	s.ReqEncType = &v
+	return s
+}
+
+func (s *CheckRouteTwometaRequest) SetEncToken(v string) *CheckRouteTwometaRequest {
+	s.EncToken = &v
 	return s
 }
 
@@ -3835,6 +4238,10 @@ type CheckThreemetaBankcardRequest struct {
 	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty"`
 	// 扩展信息，Map的json格式
 	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+	// 入参加密模式：NONE：不加密；AES：姓名、身份证号、手机号码字段都是AES加密后的字符串。非必填，不填时默认明文
+	ReqEncType *string `json:"req_enc_type,omitempty" xml:"req_enc_type,omitempty"`
+	// 用于入参加密的AES密钥
+	EncToken *string `json:"enc_token,omitempty" xml:"enc_token,omitempty"`
 }
 
 func (s CheckThreemetaBankcardRequest) String() string {
@@ -3892,6 +4299,16 @@ func (s *CheckThreemetaBankcardRequest) SetMobile(v string) *CheckThreemetaBankc
 
 func (s *CheckThreemetaBankcardRequest) SetExternParam(v string) *CheckThreemetaBankcardRequest {
 	s.ExternParam = &v
+	return s
+}
+
+func (s *CheckThreemetaBankcardRequest) SetReqEncType(v string) *CheckThreemetaBankcardRequest {
+	s.ReqEncType = &v
+	return s
+}
+
+func (s *CheckThreemetaBankcardRequest) SetEncToken(v string) *CheckThreemetaBankcardRequest {
+	s.EncToken = &v
 	return s
 }
 
@@ -9993,6 +10410,1225 @@ func (s *QueryCarinfoPlusResponse) SetCarInfos(v []*CarInfoPlus) *QueryCarinfoPl
 	return s
 }
 
+type OpenCutpaymentsubAccountRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 登录号，商户自定义，要求全局唯一，长度11位以上
+	LoginNo *string `json:"login_no,omitempty" xml:"login_no,omitempty" require:"true"`
+	// 邮箱
+	Email *string `json:"email,omitempty" xml:"email,omitempty" require:"true"`
+	// 是否个体户企业为 false个体户为 true
+	SelfEmployed *bool `json:"self_employed,omitempty" xml:"self_employed,omitempty" require:"true"`
+	// 商户名称（营业执照上的名称）
+	LicenseName *string `json:"license_name,omitempty" xml:"license_name,omitempty" require:"true"`
+	// 营业执照号
+	LicenseNo *string `json:"license_no,omitempty" xml:"license_no,omitempty" require:"true"`
+	// 法人姓名
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty" require:"true"`
+	// 法人身份证号
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
+	// 法人手机号
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty" require:"true"`
+	// 公司所属行业
+	IndustryId *string `json:"industry_id,omitempty" xml:"industry_id,omitempty" require:"true"`
+	// 银行卡号
+	BankCard *string `json:"bank_card,omitempty" xml:"bank_card,omitempty" require:"true"`
+	// 银行名称
+	BankName *string `json:"bank_name,omitempty" xml:"bank_name,omitempty" require:"true"`
+	// 开户行省份
+	BankProvince *string `json:"bank_province,omitempty" xml:"bank_province,omitempty" require:"true"`
+	// 开户行城市
+	BankCity *string `json:"bank_city,omitempty" xml:"bank_city,omitempty" require:"true"`
+	// 开户支行名称
+	BankBranchName *string `json:"bank_branch_name,omitempty" xml:"bank_branch_name,omitempty" require:"true"`
+	// 持卡人姓名
+	// 当开个体户且绑定对私卡时需传此字段,否则默认绑定对公卡
+	CardUserName *string `json:"card_user_name,omitempty" xml:"card_user_name,omitempty"`
+	// 一级商户商户号
+	FirstLevelMemberid *string `json:"first_level_memberid,omitempty" xml:"first_level_memberid,omitempty" require:"true"`
+	// 一级商户终端号
+	FirstLevelTerminalid *string `json:"first_level_terminalid,omitempty" xml:"first_level_terminalid,omitempty" require:"true"`
+	// 扩展信息，预留字段
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s OpenCutpaymentsubAccountRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OpenCutpaymentsubAccountRequest) GoString() string {
+	return s.String()
+}
+
+func (s *OpenCutpaymentsubAccountRequest) SetAuthToken(v string) *OpenCutpaymentsubAccountRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *OpenCutpaymentsubAccountRequest) SetProductInstanceId(v string) *OpenCutpaymentsubAccountRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *OpenCutpaymentsubAccountRequest) SetOuterOrderNo(v string) *OpenCutpaymentsubAccountRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *OpenCutpaymentsubAccountRequest) SetLoginNo(v string) *OpenCutpaymentsubAccountRequest {
+	s.LoginNo = &v
+	return s
+}
+
+func (s *OpenCutpaymentsubAccountRequest) SetEmail(v string) *OpenCutpaymentsubAccountRequest {
+	s.Email = &v
+	return s
+}
+
+func (s *OpenCutpaymentsubAccountRequest) SetSelfEmployed(v bool) *OpenCutpaymentsubAccountRequest {
+	s.SelfEmployed = &v
+	return s
+}
+
+func (s *OpenCutpaymentsubAccountRequest) SetLicenseName(v string) *OpenCutpaymentsubAccountRequest {
+	s.LicenseName = &v
+	return s
+}
+
+func (s *OpenCutpaymentsubAccountRequest) SetLicenseNo(v string) *OpenCutpaymentsubAccountRequest {
+	s.LicenseNo = &v
+	return s
+}
+
+func (s *OpenCutpaymentsubAccountRequest) SetCertName(v string) *OpenCutpaymentsubAccountRequest {
+	s.CertName = &v
+	return s
+}
+
+func (s *OpenCutpaymentsubAccountRequest) SetCertNo(v string) *OpenCutpaymentsubAccountRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *OpenCutpaymentsubAccountRequest) SetMobile(v string) *OpenCutpaymentsubAccountRequest {
+	s.Mobile = &v
+	return s
+}
+
+func (s *OpenCutpaymentsubAccountRequest) SetIndustryId(v string) *OpenCutpaymentsubAccountRequest {
+	s.IndustryId = &v
+	return s
+}
+
+func (s *OpenCutpaymentsubAccountRequest) SetBankCard(v string) *OpenCutpaymentsubAccountRequest {
+	s.BankCard = &v
+	return s
+}
+
+func (s *OpenCutpaymentsubAccountRequest) SetBankName(v string) *OpenCutpaymentsubAccountRequest {
+	s.BankName = &v
+	return s
+}
+
+func (s *OpenCutpaymentsubAccountRequest) SetBankProvince(v string) *OpenCutpaymentsubAccountRequest {
+	s.BankProvince = &v
+	return s
+}
+
+func (s *OpenCutpaymentsubAccountRequest) SetBankCity(v string) *OpenCutpaymentsubAccountRequest {
+	s.BankCity = &v
+	return s
+}
+
+func (s *OpenCutpaymentsubAccountRequest) SetBankBranchName(v string) *OpenCutpaymentsubAccountRequest {
+	s.BankBranchName = &v
+	return s
+}
+
+func (s *OpenCutpaymentsubAccountRequest) SetCardUserName(v string) *OpenCutpaymentsubAccountRequest {
+	s.CardUserName = &v
+	return s
+}
+
+func (s *OpenCutpaymentsubAccountRequest) SetFirstLevelMemberid(v string) *OpenCutpaymentsubAccountRequest {
+	s.FirstLevelMemberid = &v
+	return s
+}
+
+func (s *OpenCutpaymentsubAccountRequest) SetFirstLevelTerminalid(v string) *OpenCutpaymentsubAccountRequest {
+	s.FirstLevelTerminalid = &v
+	return s
+}
+
+func (s *OpenCutpaymentsubAccountRequest) SetExternParam(v string) *OpenCutpaymentsubAccountRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type OpenCutpaymentsubAccountResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 扩展信息，预留字段
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s OpenCutpaymentsubAccountResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OpenCutpaymentsubAccountResponse) GoString() string {
+	return s.String()
+}
+
+func (s *OpenCutpaymentsubAccountResponse) SetReqMsgId(v string) *OpenCutpaymentsubAccountResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *OpenCutpaymentsubAccountResponse) SetResultCode(v string) *OpenCutpaymentsubAccountResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *OpenCutpaymentsubAccountResponse) SetResultMsg(v string) *OpenCutpaymentsubAccountResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *OpenCutpaymentsubAccountResponse) SetExternInfo(v string) *OpenCutpaymentsubAccountResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+type QueryCutpaymentsubAccountRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 登录号
+	LoginNo *string `json:"login_no,omitempty" xml:"login_no,omitempty" require:"true"`
+	// 一级商户商户号
+	FirstLevelMemberid *string `json:"first_level_memberid,omitempty" xml:"first_level_memberid,omitempty" require:"true"`
+	// 一级商户终端号
+	FirstLevelTerminalid *string `json:"first_level_terminalid,omitempty" xml:"first_level_terminalid,omitempty" require:"true"`
+	// 扩展信息，预留字段
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s QueryCutpaymentsubAccountRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCutpaymentsubAccountRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCutpaymentsubAccountRequest) SetAuthToken(v string) *QueryCutpaymentsubAccountRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubAccountRequest) SetProductInstanceId(v string) *QueryCutpaymentsubAccountRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubAccountRequest) SetOuterOrderNo(v string) *QueryCutpaymentsubAccountRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubAccountRequest) SetLoginNo(v string) *QueryCutpaymentsubAccountRequest {
+	s.LoginNo = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubAccountRequest) SetFirstLevelMemberid(v string) *QueryCutpaymentsubAccountRequest {
+	s.FirstLevelMemberid = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubAccountRequest) SetFirstLevelTerminalid(v string) *QueryCutpaymentsubAccountRequest {
+	s.FirstLevelTerminalid = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubAccountRequest) SetExternParam(v string) *QueryCutpaymentsubAccountRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type QueryCutpaymentsubAccountResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 二级商户号
+	ContractNo *string `json:"contract_no,omitempty" xml:"contract_no,omitempty"`
+	// 二级商户客户账户名
+	ContractName *string `json:"contract_name,omitempty" xml:"contract_name,omitempty"`
+	// 二级商户客户名
+	CustomerName *string `json:"customer_name,omitempty" xml:"customer_name,omitempty"`
+	// 扩展信息，预留字段
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s QueryCutpaymentsubAccountResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCutpaymentsubAccountResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCutpaymentsubAccountResponse) SetReqMsgId(v string) *QueryCutpaymentsubAccountResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubAccountResponse) SetResultCode(v string) *QueryCutpaymentsubAccountResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubAccountResponse) SetResultMsg(v string) *QueryCutpaymentsubAccountResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubAccountResponse) SetContractNo(v string) *QueryCutpaymentsubAccountResponse {
+	s.ContractNo = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubAccountResponse) SetContractName(v string) *QueryCutpaymentsubAccountResponse {
+	s.ContractName = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubAccountResponse) SetCustomerName(v string) *QueryCutpaymentsubAccountResponse {
+	s.CustomerName = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubAccountResponse) SetExternInfo(v string) *QueryCutpaymentsubAccountResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+type TransferCutpaymentsubRevenueRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 商户订单号需要唯一，方便定位到每一笔订单
+	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
+	// 01:加值；02:减值；
+	OrderType *string `json:"order_type,omitempty" xml:"order_type,omitempty" require:"true"`
+	// 分账总金额，单位：元，整数部分最长10位数，保留两位小数
+	DealAmount *string `json:"deal_amount,omitempty" xml:"deal_amount,omitempty" require:"true"`
+	// 二级商户账户号
+	ContractNo *string `json:"contract_no,omitempty" xml:"contract_no,omitempty" require:"true"`
+	// 金额，单位：元，整数部分最长10位数，保留两位小数
+	TransAmount *string `json:"trans_amount,omitempty" xml:"trans_amount,omitempty" require:"true"`
+	// 一级商户商户号
+	FirstLevelMemberid *string `json:"first_level_memberid,omitempty" xml:"first_level_memberid,omitempty" require:"true"`
+	// 一级商户终端号
+	FirstLevelTerminalid *string `json:"first_level_terminalid,omitempty" xml:"first_level_terminalid,omitempty" require:"true"`
+	// 扩展信息，预留字段
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s TransferCutpaymentsubRevenueRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TransferCutpaymentsubRevenueRequest) GoString() string {
+	return s.String()
+}
+
+func (s *TransferCutpaymentsubRevenueRequest) SetAuthToken(v string) *TransferCutpaymentsubRevenueRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *TransferCutpaymentsubRevenueRequest) SetProductInstanceId(v string) *TransferCutpaymentsubRevenueRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *TransferCutpaymentsubRevenueRequest) SetOuterOrderNo(v string) *TransferCutpaymentsubRevenueRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *TransferCutpaymentsubRevenueRequest) SetOrderNo(v string) *TransferCutpaymentsubRevenueRequest {
+	s.OrderNo = &v
+	return s
+}
+
+func (s *TransferCutpaymentsubRevenueRequest) SetOrderType(v string) *TransferCutpaymentsubRevenueRequest {
+	s.OrderType = &v
+	return s
+}
+
+func (s *TransferCutpaymentsubRevenueRequest) SetDealAmount(v string) *TransferCutpaymentsubRevenueRequest {
+	s.DealAmount = &v
+	return s
+}
+
+func (s *TransferCutpaymentsubRevenueRequest) SetContractNo(v string) *TransferCutpaymentsubRevenueRequest {
+	s.ContractNo = &v
+	return s
+}
+
+func (s *TransferCutpaymentsubRevenueRequest) SetTransAmount(v string) *TransferCutpaymentsubRevenueRequest {
+	s.TransAmount = &v
+	return s
+}
+
+func (s *TransferCutpaymentsubRevenueRequest) SetFirstLevelMemberid(v string) *TransferCutpaymentsubRevenueRequest {
+	s.FirstLevelMemberid = &v
+	return s
+}
+
+func (s *TransferCutpaymentsubRevenueRequest) SetFirstLevelTerminalid(v string) *TransferCutpaymentsubRevenueRequest {
+	s.FirstLevelTerminalid = &v
+	return s
+}
+
+func (s *TransferCutpaymentsubRevenueRequest) SetExternParam(v string) *TransferCutpaymentsubRevenueRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type TransferCutpaymentsubRevenueResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 扩展信息，预留字段
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s TransferCutpaymentsubRevenueResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TransferCutpaymentsubRevenueResponse) GoString() string {
+	return s.String()
+}
+
+func (s *TransferCutpaymentsubRevenueResponse) SetReqMsgId(v string) *TransferCutpaymentsubRevenueResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *TransferCutpaymentsubRevenueResponse) SetResultCode(v string) *TransferCutpaymentsubRevenueResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *TransferCutpaymentsubRevenueResponse) SetResultMsg(v string) *TransferCutpaymentsubRevenueResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *TransferCutpaymentsubRevenueResponse) SetExternInfo(v string) *TransferCutpaymentsubRevenueResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+type QueryCutpaymentsubRevenueRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 商户订单号需要唯一，方便定位到每一笔订单
+	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
+	// 01:加值；02:减值
+	OrderType *string `json:"order_type,omitempty" xml:"order_type,omitempty" require:"true"`
+	// 一级商户商户号
+	FirstLevelMemberid *string `json:"first_level_memberid,omitempty" xml:"first_level_memberid,omitempty" require:"true"`
+	// 一级商户终端号
+	FirstLevelTerminalid *string `json:"first_level_terminalid,omitempty" xml:"first_level_terminalid,omitempty" require:"true"`
+	// 扩展信息，预留字段
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s QueryCutpaymentsubRevenueRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCutpaymentsubRevenueRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCutpaymentsubRevenueRequest) SetAuthToken(v string) *QueryCutpaymentsubRevenueRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubRevenueRequest) SetProductInstanceId(v string) *QueryCutpaymentsubRevenueRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubRevenueRequest) SetOuterOrderNo(v string) *QueryCutpaymentsubRevenueRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubRevenueRequest) SetOrderNo(v string) *QueryCutpaymentsubRevenueRequest {
+	s.OrderNo = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubRevenueRequest) SetOrderType(v string) *QueryCutpaymentsubRevenueRequest {
+	s.OrderType = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubRevenueRequest) SetFirstLevelMemberid(v string) *QueryCutpaymentsubRevenueRequest {
+	s.FirstLevelMemberid = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubRevenueRequest) SetFirstLevelTerminalid(v string) *QueryCutpaymentsubRevenueRequest {
+	s.FirstLevelTerminalid = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubRevenueRequest) SetExternParam(v string) *QueryCutpaymentsubRevenueRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type QueryCutpaymentsubRevenueResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 扩展信息，预留字段
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s QueryCutpaymentsubRevenueResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCutpaymentsubRevenueResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCutpaymentsubRevenueResponse) SetReqMsgId(v string) *QueryCutpaymentsubRevenueResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubRevenueResponse) SetResultCode(v string) *QueryCutpaymentsubRevenueResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubRevenueResponse) SetResultMsg(v string) *QueryCutpaymentsubRevenueResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubRevenueResponse) SetExternInfo(v string) *QueryCutpaymentsubRevenueResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+type CaptureCutpaymentsubWithdrawalRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 提现的订单号，商户订单号需要唯一，方便定位到每一笔订单
+	WithdrawOrderId *string `json:"withdraw_order_id,omitempty" xml:"withdraw_order_id,omitempty" require:"true"`
+	// 二级商户账户号
+	ContractNo *string `json:"contract_no,omitempty" xml:"contract_no,omitempty" require:"true"`
+	// 提现金额，单位：元，整数部分最长10位数，保留两位小数
+	DealAmount *string `json:"deal_amount,omitempty" xml:"deal_amount,omitempty" require:"true"`
+	// 一级商户商户号
+	FirstLevelMemberid *string `json:"first_level_memberid,omitempty" xml:"first_level_memberid,omitempty" require:"true"`
+	// 一级商户终端号
+	FirstLevelTerminalid *string `json:"first_level_terminalid,omitempty" xml:"first_level_terminalid,omitempty" require:"true"`
+	// 扩展信息，预留字段
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s CaptureCutpaymentsubWithdrawalRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CaptureCutpaymentsubWithdrawalRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CaptureCutpaymentsubWithdrawalRequest) SetAuthToken(v string) *CaptureCutpaymentsubWithdrawalRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CaptureCutpaymentsubWithdrawalRequest) SetProductInstanceId(v string) *CaptureCutpaymentsubWithdrawalRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CaptureCutpaymentsubWithdrawalRequest) SetOuterOrderNo(v string) *CaptureCutpaymentsubWithdrawalRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *CaptureCutpaymentsubWithdrawalRequest) SetWithdrawOrderId(v string) *CaptureCutpaymentsubWithdrawalRequest {
+	s.WithdrawOrderId = &v
+	return s
+}
+
+func (s *CaptureCutpaymentsubWithdrawalRequest) SetContractNo(v string) *CaptureCutpaymentsubWithdrawalRequest {
+	s.ContractNo = &v
+	return s
+}
+
+func (s *CaptureCutpaymentsubWithdrawalRequest) SetDealAmount(v string) *CaptureCutpaymentsubWithdrawalRequest {
+	s.DealAmount = &v
+	return s
+}
+
+func (s *CaptureCutpaymentsubWithdrawalRequest) SetFirstLevelMemberid(v string) *CaptureCutpaymentsubWithdrawalRequest {
+	s.FirstLevelMemberid = &v
+	return s
+}
+
+func (s *CaptureCutpaymentsubWithdrawalRequest) SetFirstLevelTerminalid(v string) *CaptureCutpaymentsubWithdrawalRequest {
+	s.FirstLevelTerminalid = &v
+	return s
+}
+
+func (s *CaptureCutpaymentsubWithdrawalRequest) SetExternParam(v string) *CaptureCutpaymentsubWithdrawalRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type CaptureCutpaymentsubWithdrawalResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 扩展信息，预留字段
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s CaptureCutpaymentsubWithdrawalResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CaptureCutpaymentsubWithdrawalResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CaptureCutpaymentsubWithdrawalResponse) SetReqMsgId(v string) *CaptureCutpaymentsubWithdrawalResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CaptureCutpaymentsubWithdrawalResponse) SetResultCode(v string) *CaptureCutpaymentsubWithdrawalResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CaptureCutpaymentsubWithdrawalResponse) SetResultMsg(v string) *CaptureCutpaymentsubWithdrawalResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CaptureCutpaymentsubWithdrawalResponse) SetExternInfo(v string) *CaptureCutpaymentsubWithdrawalResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+type QueryCutpaymentsubWithdrawalRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 原商户流水号
+	WithdrawOrderId *string `json:"withdraw_order_id,omitempty" xml:"withdraw_order_id,omitempty" require:"true"`
+	// 交易时间 yyyy-MM-dd，原交易日期
+	Time *string `json:"time,omitempty" xml:"time,omitempty" require:"true"`
+	// 一级商户商户号
+	FirstLevelMemberid *string `json:"first_level_memberid,omitempty" xml:"first_level_memberid,omitempty" require:"true"`
+	// 一级商户终端号
+	FirstLevelTerminalid *string `json:"first_level_terminalid,omitempty" xml:"first_level_terminalid,omitempty" require:"true"`
+	// 扩展信息，预留字段
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s QueryCutpaymentsubWithdrawalRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCutpaymentsubWithdrawalRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCutpaymentsubWithdrawalRequest) SetAuthToken(v string) *QueryCutpaymentsubWithdrawalRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubWithdrawalRequest) SetProductInstanceId(v string) *QueryCutpaymentsubWithdrawalRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubWithdrawalRequest) SetOuterOrderNo(v string) *QueryCutpaymentsubWithdrawalRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubWithdrawalRequest) SetWithdrawOrderId(v string) *QueryCutpaymentsubWithdrawalRequest {
+	s.WithdrawOrderId = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubWithdrawalRequest) SetTime(v string) *QueryCutpaymentsubWithdrawalRequest {
+	s.Time = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubWithdrawalRequest) SetFirstLevelMemberid(v string) *QueryCutpaymentsubWithdrawalRequest {
+	s.FirstLevelMemberid = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubWithdrawalRequest) SetFirstLevelTerminalid(v string) *QueryCutpaymentsubWithdrawalRequest {
+	s.FirstLevelTerminalid = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubWithdrawalRequest) SetExternParam(v string) *QueryCutpaymentsubWithdrawalRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type QueryCutpaymentsubWithdrawalResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 扩展信息，预留字段
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s QueryCutpaymentsubWithdrawalResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCutpaymentsubWithdrawalResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCutpaymentsubWithdrawalResponse) SetReqMsgId(v string) *QueryCutpaymentsubWithdrawalResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubWithdrawalResponse) SetResultCode(v string) *QueryCutpaymentsubWithdrawalResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubWithdrawalResponse) SetResultMsg(v string) *QueryCutpaymentsubWithdrawalResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubWithdrawalResponse) SetExternInfo(v string) *QueryCutpaymentsubWithdrawalResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+type QueryCutpaymentsubBalanceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 二级商户账户号
+	ContractNo *string `json:"contract_no,omitempty" xml:"contract_no,omitempty" require:"true"`
+	// 一级商户商户号
+	FirstLevelMemberid *string `json:"first_level_memberid,omitempty" xml:"first_level_memberid,omitempty" require:"true"`
+	// 一级商户终端号
+	FirstLevelTerminalid *string `json:"first_level_terminalid,omitempty" xml:"first_level_terminalid,omitempty" require:"true"`
+}
+
+func (s QueryCutpaymentsubBalanceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCutpaymentsubBalanceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCutpaymentsubBalanceRequest) SetAuthToken(v string) *QueryCutpaymentsubBalanceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubBalanceRequest) SetProductInstanceId(v string) *QueryCutpaymentsubBalanceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubBalanceRequest) SetOuterOrderNo(v string) *QueryCutpaymentsubBalanceRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubBalanceRequest) SetContractNo(v string) *QueryCutpaymentsubBalanceRequest {
+	s.ContractNo = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubBalanceRequest) SetFirstLevelMemberid(v string) *QueryCutpaymentsubBalanceRequest {
+	s.FirstLevelMemberid = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubBalanceRequest) SetFirstLevelTerminalid(v string) *QueryCutpaymentsubBalanceRequest {
+	s.FirstLevelTerminalid = &v
+	return s
+}
+
+type QueryCutpaymentsubBalanceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 账簿可用余额，单位：元；可用于提现，整数部分最长10位数，保留两位小数
+	AvailableAmount *string `json:"available_amount,omitempty" xml:"available_amount,omitempty"`
+	// 账簿余额，单位：元；整数部分最长10位数，保留两位小数
+	CurrAmount *string `json:"curr_amount,omitempty" xml:"curr_amount,omitempty"`
+	// 扩展信息，预留字段
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s QueryCutpaymentsubBalanceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCutpaymentsubBalanceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCutpaymentsubBalanceResponse) SetReqMsgId(v string) *QueryCutpaymentsubBalanceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubBalanceResponse) SetResultCode(v string) *QueryCutpaymentsubBalanceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubBalanceResponse) SetResultMsg(v string) *QueryCutpaymentsubBalanceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubBalanceResponse) SetAvailableAmount(v string) *QueryCutpaymentsubBalanceResponse {
+	s.AvailableAmount = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubBalanceResponse) SetCurrAmount(v string) *QueryCutpaymentsubBalanceResponse {
+	s.CurrAmount = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubBalanceResponse) SetExternInfo(v string) *QueryCutpaymentsubBalanceResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+type QueryCutpaymentsubTransactionRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 二级商户账户号
+	ContractNo *string `json:"contract_no,omitempty" xml:"contract_no,omitempty" require:"true"`
+	// 明细开始时间，格式为：yyyy-MM-dd HH:mm:ss
+	StartTime *string `json:"start_time,omitempty" xml:"start_time,omitempty"`
+	// 明细结束时间，格式为：yyyy-MM-dd HH:mm:ss，查询间隔最大支持一个月
+	EndTime *string `json:"end_time,omitempty" xml:"end_time,omitempty"`
+	// 当前页
+	PageNum *string `json:"page_num,omitempty" xml:"page_num,omitempty" require:"true"`
+	// 每页数量，每页最多100条数据
+	PageSize *string `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+	// 一级商户商户号
+	FirstLevelMemberid *string `json:"first_level_memberid,omitempty" xml:"first_level_memberid,omitempty" require:"true"`
+	// 一级商户终端号
+	FirstLevelTerminalid *string `json:"first_level_terminalid,omitempty" xml:"first_level_terminalid,omitempty" require:"true"`
+}
+
+func (s QueryCutpaymentsubTransactionRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCutpaymentsubTransactionRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCutpaymentsubTransactionRequest) SetAuthToken(v string) *QueryCutpaymentsubTransactionRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubTransactionRequest) SetProductInstanceId(v string) *QueryCutpaymentsubTransactionRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubTransactionRequest) SetOuterOrderNo(v string) *QueryCutpaymentsubTransactionRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubTransactionRequest) SetContractNo(v string) *QueryCutpaymentsubTransactionRequest {
+	s.ContractNo = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubTransactionRequest) SetStartTime(v string) *QueryCutpaymentsubTransactionRequest {
+	s.StartTime = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubTransactionRequest) SetEndTime(v string) *QueryCutpaymentsubTransactionRequest {
+	s.EndTime = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubTransactionRequest) SetPageNum(v string) *QueryCutpaymentsubTransactionRequest {
+	s.PageNum = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubTransactionRequest) SetPageSize(v string) *QueryCutpaymentsubTransactionRequest {
+	s.PageSize = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubTransactionRequest) SetFirstLevelMemberid(v string) *QueryCutpaymentsubTransactionRequest {
+	s.FirstLevelMemberid = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubTransactionRequest) SetFirstLevelTerminalid(v string) *QueryCutpaymentsubTransactionRequest {
+	s.FirstLevelTerminalid = &v
+	return s
+}
+
+type QueryCutpaymentsubTransactionResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 当前页
+	PageNum *string `json:"page_num,omitempty" xml:"page_num,omitempty"`
+	// 每页数量
+	PageSize *string `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 总页数
+	PageCount *string `json:"page_count,omitempty" xml:"page_count,omitempty"`
+	// 银行卡代扣二级租户收支明细
+	TransactionDetailList []*TransactionDetail `json:"transaction_detail_list,omitempty" xml:"transaction_detail_list,omitempty" type:"Repeated"`
+}
+
+func (s QueryCutpaymentsubTransactionResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCutpaymentsubTransactionResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCutpaymentsubTransactionResponse) SetReqMsgId(v string) *QueryCutpaymentsubTransactionResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubTransactionResponse) SetResultCode(v string) *QueryCutpaymentsubTransactionResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubTransactionResponse) SetResultMsg(v string) *QueryCutpaymentsubTransactionResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubTransactionResponse) SetPageNum(v string) *QueryCutpaymentsubTransactionResponse {
+	s.PageNum = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubTransactionResponse) SetPageSize(v string) *QueryCutpaymentsubTransactionResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubTransactionResponse) SetPageCount(v string) *QueryCutpaymentsubTransactionResponse {
+	s.PageCount = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubTransactionResponse) SetTransactionDetailList(v []*TransactionDetail) *QueryCutpaymentsubTransactionResponse {
+	s.TransactionDetailList = v
+	return s
+}
+
+type QueryRiskServerRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 设备信息
+	DeviceInfo *DeviceInfo `json:"device_info,omitempty" xml:"device_info,omitempty" require:"true"`
+	// 设备风险信息
+	DeviceRiskInfo *DeviceRiskInfo `json:"device_risk_info,omitempty" xml:"device_risk_info,omitempty" require:"true"`
+	// 视频文件
+	// 待上传文件
+	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
+	// 待上传文件名
+	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty"`
+	// base64编码最佳人脸图，可加密
+	FaceImage *string `json:"face_image,omitempty" xml:"face_image,omitempty" require:"true"`
+	// 唯一标识业务请求
+	UniqueId *string `json:"unique_id,omitempty" xml:"unique_id,omitempty" require:"true"`
+	// 标识应用程序名称
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty"`
+	// 标识应用程序版本
+	AppVersion *string `json:"app_version,omitempty" xml:"app_version,omitempty"`
+	// 标识业务场景
+	SceneId *string `json:"scene_id,omitempty" xml:"scene_id,omitempty"`
+	// 姓名，可加密
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty"`
+	// 身份证号，可加密
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty"`
+	// 表示用户唯一id
+	Uid *string `json:"uid,omitempty" xml:"uid,omitempty"`
+	// cert_name、cert_no两个字段的传入模式0：明文 1：密文
+	EncType *string `json:"enc_type,omitempty" xml:"enc_type,omitempty"`
+	// 图片的传入加密模式 0：明文 1：AES加密
+	MaterialEncType *string `json:"material_enc_type,omitempty" xml:"material_enc_type,omitempty"`
+	// 公钥加密后的密钥，用于传入的加密图片/视频
+	MaterialEncToken *string `json:"material_enc_token,omitempty" xml:"material_enc_token,omitempty"`
+}
+
+func (s QueryRiskServerRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryRiskServerRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryRiskServerRequest) SetAuthToken(v string) *QueryRiskServerRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryRiskServerRequest) SetProductInstanceId(v string) *QueryRiskServerRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryRiskServerRequest) SetDeviceInfo(v *DeviceInfo) *QueryRiskServerRequest {
+	s.DeviceInfo = v
+	return s
+}
+
+func (s *QueryRiskServerRequest) SetDeviceRiskInfo(v *DeviceRiskInfo) *QueryRiskServerRequest {
+	s.DeviceRiskInfo = v
+	return s
+}
+
+func (s *QueryRiskServerRequest) SetFileObject(v io.Reader) *QueryRiskServerRequest {
+	s.FileObject = v
+	return s
+}
+
+func (s *QueryRiskServerRequest) SetFileObjectName(v string) *QueryRiskServerRequest {
+	s.FileObjectName = &v
+	return s
+}
+
+func (s *QueryRiskServerRequest) SetFileId(v string) *QueryRiskServerRequest {
+	s.FileId = &v
+	return s
+}
+
+func (s *QueryRiskServerRequest) SetFaceImage(v string) *QueryRiskServerRequest {
+	s.FaceImage = &v
+	return s
+}
+
+func (s *QueryRiskServerRequest) SetUniqueId(v string) *QueryRiskServerRequest {
+	s.UniqueId = &v
+	return s
+}
+
+func (s *QueryRiskServerRequest) SetAppName(v string) *QueryRiskServerRequest {
+	s.AppName = &v
+	return s
+}
+
+func (s *QueryRiskServerRequest) SetAppVersion(v string) *QueryRiskServerRequest {
+	s.AppVersion = &v
+	return s
+}
+
+func (s *QueryRiskServerRequest) SetSceneId(v string) *QueryRiskServerRequest {
+	s.SceneId = &v
+	return s
+}
+
+func (s *QueryRiskServerRequest) SetCertName(v string) *QueryRiskServerRequest {
+	s.CertName = &v
+	return s
+}
+
+func (s *QueryRiskServerRequest) SetCertNo(v string) *QueryRiskServerRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *QueryRiskServerRequest) SetUid(v string) *QueryRiskServerRequest {
+	s.Uid = &v
+	return s
+}
+
+func (s *QueryRiskServerRequest) SetEncType(v string) *QueryRiskServerRequest {
+	s.EncType = &v
+	return s
+}
+
+func (s *QueryRiskServerRequest) SetMaterialEncType(v string) *QueryRiskServerRequest {
+	s.MaterialEncType = &v
+	return s
+}
+
+func (s *QueryRiskServerRequest) SetMaterialEncToken(v string) *QueryRiskServerRequest {
+	s.MaterialEncToken = &v
+	return s
+}
+
+type QueryRiskServerResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 攻击结论
+	FaceAttack *string `json:"face_attack,omitempty" xml:"face_attack,omitempty"`
+	// 综合风险检测结果
+	RiskResult *RiskResult `json:"risk_result,omitempty" xml:"risk_result,omitempty"`
+	// Aigc风险检测结论
+	AigcRiskResult *AigcRiskResult `json:"aigc_risk_result,omitempty" xml:"aigc_risk_result,omitempty"`
+	// 是否面部遮挡
+	FaceOcclusion *bool `json:"face_occlusion,omitempty" xml:"face_occlusion,omitempty"`
+	// 人脸性别年龄预估
+	Attributes *string `json:"attributes,omitempty" xml:"attributes,omitempty"`
+	// 人脸质量分和小分
+	QualityResult *string `json:"quality_result,omitempty" xml:"quality_result,omitempty"`
+}
+
+func (s QueryRiskServerResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryRiskServerResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryRiskServerResponse) SetReqMsgId(v string) *QueryRiskServerResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryRiskServerResponse) SetResultCode(v string) *QueryRiskServerResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryRiskServerResponse) SetResultMsg(v string) *QueryRiskServerResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryRiskServerResponse) SetFaceAttack(v string) *QueryRiskServerResponse {
+	s.FaceAttack = &v
+	return s
+}
+
+func (s *QueryRiskServerResponse) SetRiskResult(v *RiskResult) *QueryRiskServerResponse {
+	s.RiskResult = v
+	return s
+}
+
+func (s *QueryRiskServerResponse) SetAigcRiskResult(v *AigcRiskResult) *QueryRiskServerResponse {
+	s.AigcRiskResult = v
+	return s
+}
+
+func (s *QueryRiskServerResponse) SetFaceOcclusion(v bool) *QueryRiskServerResponse {
+	s.FaceOcclusion = &v
+	return s
+}
+
+func (s *QueryRiskServerResponse) SetAttributes(v string) *QueryRiskServerResponse {
+	s.Attributes = &v
+	return s
+}
+
+func (s *QueryRiskServerResponse) SetQualityResult(v string) *QueryRiskServerResponse {
+	s.QualityResult = &v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -10235,7 +11871,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.22.13"),
+				"sdk_version":      tea.String("1.22.18"),
 				"_prod_code":       tea.String("REALPERSON"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -12842,6 +14478,342 @@ func (client *Client) QueryCarinfoPlusEx(request *QueryCarinfoPlusRequest, heade
 	}
 	_result = &QueryCarinfoPlusResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.carinfo.plus.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 银行卡代扣二级租户开户
+ * Summary: 银行卡代扣二级租户开户
+ */
+func (client *Client) OpenCutpaymentsubAccount(request *OpenCutpaymentsubAccountRequest) (_result *OpenCutpaymentsubAccountResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &OpenCutpaymentsubAccountResponse{}
+	_body, _err := client.OpenCutpaymentsubAccountEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 银行卡代扣二级租户开户
+ * Summary: 银行卡代扣二级租户开户
+ */
+func (client *Client) OpenCutpaymentsubAccountEx(request *OpenCutpaymentsubAccountRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *OpenCutpaymentsubAccountResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &OpenCutpaymentsubAccountResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.cutpaymentsub.account.open"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 银行卡代扣二级租户查询开户状态
+ * Summary: 银行卡代扣二级租户查询开户状态
+ */
+func (client *Client) QueryCutpaymentsubAccount(request *QueryCutpaymentsubAccountRequest) (_result *QueryCutpaymentsubAccountResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryCutpaymentsubAccountResponse{}
+	_body, _err := client.QueryCutpaymentsubAccountEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 银行卡代扣二级租户查询开户状态
+ * Summary: 银行卡代扣二级租户查询开户状态
+ */
+func (client *Client) QueryCutpaymentsubAccountEx(request *QueryCutpaymentsubAccountRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryCutpaymentsubAccountResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryCutpaymentsubAccountResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.cutpaymentsub.account.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 银行卡代扣二级租户分账
+ * Summary: 银行卡代扣二级租户分账
+ */
+func (client *Client) TransferCutpaymentsubRevenue(request *TransferCutpaymentsubRevenueRequest) (_result *TransferCutpaymentsubRevenueResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &TransferCutpaymentsubRevenueResponse{}
+	_body, _err := client.TransferCutpaymentsubRevenueEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 银行卡代扣二级租户分账
+ * Summary: 银行卡代扣二级租户分账
+ */
+func (client *Client) TransferCutpaymentsubRevenueEx(request *TransferCutpaymentsubRevenueRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *TransferCutpaymentsubRevenueResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &TransferCutpaymentsubRevenueResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.cutpaymentsub.revenue.transfer"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 银行卡代扣二级租户查询分账
+ * Summary: 银行卡代扣二级租户查询分账
+ */
+func (client *Client) QueryCutpaymentsubRevenue(request *QueryCutpaymentsubRevenueRequest) (_result *QueryCutpaymentsubRevenueResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryCutpaymentsubRevenueResponse{}
+	_body, _err := client.QueryCutpaymentsubRevenueEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 银行卡代扣二级租户查询分账
+ * Summary: 银行卡代扣二级租户查询分账
+ */
+func (client *Client) QueryCutpaymentsubRevenueEx(request *QueryCutpaymentsubRevenueRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryCutpaymentsubRevenueResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryCutpaymentsubRevenueResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.cutpaymentsub.revenue.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 银行卡代扣二级租户提现
+ * Summary: 银行卡代扣二级租户提现
+ */
+func (client *Client) CaptureCutpaymentsubWithdrawal(request *CaptureCutpaymentsubWithdrawalRequest) (_result *CaptureCutpaymentsubWithdrawalResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CaptureCutpaymentsubWithdrawalResponse{}
+	_body, _err := client.CaptureCutpaymentsubWithdrawalEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 银行卡代扣二级租户提现
+ * Summary: 银行卡代扣二级租户提现
+ */
+func (client *Client) CaptureCutpaymentsubWithdrawalEx(request *CaptureCutpaymentsubWithdrawalRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CaptureCutpaymentsubWithdrawalResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CaptureCutpaymentsubWithdrawalResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.cutpaymentsub.withdrawal.capture"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 银行卡代扣二级租户提现查询
+ * Summary: 银行卡代扣二级租户提现查询
+ */
+func (client *Client) QueryCutpaymentsubWithdrawal(request *QueryCutpaymentsubWithdrawalRequest) (_result *QueryCutpaymentsubWithdrawalResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryCutpaymentsubWithdrawalResponse{}
+	_body, _err := client.QueryCutpaymentsubWithdrawalEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 银行卡代扣二级租户提现查询
+ * Summary: 银行卡代扣二级租户提现查询
+ */
+func (client *Client) QueryCutpaymentsubWithdrawalEx(request *QueryCutpaymentsubWithdrawalRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryCutpaymentsubWithdrawalResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryCutpaymentsubWithdrawalResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.cutpaymentsub.withdrawal.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 银行卡代扣二级租户查询余额
+ * Summary: 银行卡代扣二级租户查询余额
+ */
+func (client *Client) QueryCutpaymentsubBalance(request *QueryCutpaymentsubBalanceRequest) (_result *QueryCutpaymentsubBalanceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryCutpaymentsubBalanceResponse{}
+	_body, _err := client.QueryCutpaymentsubBalanceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 银行卡代扣二级租户查询余额
+ * Summary: 银行卡代扣二级租户查询余额
+ */
+func (client *Client) QueryCutpaymentsubBalanceEx(request *QueryCutpaymentsubBalanceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryCutpaymentsubBalanceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryCutpaymentsubBalanceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.cutpaymentsub.balance.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 银行卡代扣二级租户查询收支明细
+ * Summary: 银行卡代扣二级租户查询收支明细
+ */
+func (client *Client) QueryCutpaymentsubTransaction(request *QueryCutpaymentsubTransactionRequest) (_result *QueryCutpaymentsubTransactionResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryCutpaymentsubTransactionResponse{}
+	_body, _err := client.QueryCutpaymentsubTransactionEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 银行卡代扣二级租户查询收支明细
+ * Summary: 银行卡代扣二级租户查询收支明细
+ */
+func (client *Client) QueryCutpaymentsubTransactionEx(request *QueryCutpaymentsubTransactionRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryCutpaymentsubTransactionResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryCutpaymentsubTransactionResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.cutpaymentsub.transaction.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 提供私有化刷脸的风险咨询
+ * Summary: 人脸风险咨询服务
+ */
+func (client *Client) QueryRiskServer(request *QueryRiskServerRequest) (_result *QueryRiskServerResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryRiskServerResponse{}
+	_body, _err := client.QueryRiskServerEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 提供私有化刷脸的风险咨询
+ * Summary: 人脸风险咨询服务
+ */
+func (client *Client) QueryRiskServerEx(request *QueryRiskServerRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryRiskServerResponse, _err error) {
+	if !tea.BoolValue(util.IsUnset(request.FileObject)) {
+		uploadReq := &CreateAntcloudGatewayxFileUploadRequest{
+			AuthToken: request.AuthToken,
+			ApiCode:   tea.String("di.realperson.risk.server.query"),
+			FileName:  request.FileObjectName,
+		}
+		uploadResp, _err := client.CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime)
+		if _err != nil {
+			return _result, _err
+		}
+
+		if !tea.BoolValue(antchainutil.IsSuccess(uploadResp.ResultCode, tea.String("ok"))) {
+			queryRiskServerResponse := &QueryRiskServerResponse{
+				ReqMsgId:   uploadResp.ReqMsgId,
+				ResultCode: uploadResp.ResultCode,
+				ResultMsg:  uploadResp.ResultMsg,
+			}
+			_result = queryRiskServerResponse
+			return _result, _err
+		}
+
+		uploadHeaders := antchainutil.ParseUploadHeaders(uploadResp.UploadHeaders)
+		_err = antchainutil.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl)
+		if _err != nil {
+			return _result, _err
+		}
+		request.FileId = uploadResp.FileId
+		request.FileObject = nil
+	}
+
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryRiskServerResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.risk.server.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
