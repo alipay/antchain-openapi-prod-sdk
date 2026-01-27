@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.1.55"),
+                    new TeaPair("sdk_version", "1.1.57"),
                     new TeaPair("_prod_code", "AITECH"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -1425,5 +1425,47 @@ public class Client {
     public QueryGuardDocumentResponse queryGuardDocumentEx(QueryGuardDocumentRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "aitech.comm.guard.document.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryGuardDocumentResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 天鉴SaaS提问检测
+     * Summary: 天鉴SaaS提问检测</p>
+     */
+    public QuerySecurityQuestionResponse querySecurityQuestion(QuerySecurityQuestionRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.querySecurityQuestionEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 天鉴SaaS提问检测
+     * Summary: 天鉴SaaS提问检测</p>
+     */
+    public QuerySecurityQuestionResponse querySecurityQuestionEx(QuerySecurityQuestionRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "aitech.comm.security.question.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QuerySecurityQuestionResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 天鉴SaaS回答检测
+     * Summary: 天鉴SaaS回答检测</p>
+     */
+    public QuerySecurityAnswerResponse querySecurityAnswer(QuerySecurityAnswerRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.querySecurityAnswerEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 天鉴SaaS回答检测
+     * Summary: 天鉴SaaS回答检测</p>
+     */
+    public QuerySecurityAnswerResponse querySecurityAnswerEx(QuerySecurityAnswerRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "aitech.comm.security.answer.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QuerySecurityAnswerResponse());
     }
 }
