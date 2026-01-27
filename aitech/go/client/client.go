@@ -7088,7 +7088,7 @@ type QuerySecurityQuestionRequest struct {
 	// 是否需要针对提问内容的进行金融合规检测。默认值：N：不开启，Y：开启
 	FinanceComplianceDetection *string `json:"finance_compliance_detection,omitempty" xml:"finance_compliance_detection,omitempty"`
 	// 是否需要针对提问内容的进行领域识别
-	FieldIdentify *string `json:"field_identify,omitempty" xml:"field_identify,omitempty" require:"true"`
+	FieldIdentify *string `json:"field_identify,omitempty" xml:"field_identify,omitempty"`
 	// 是否开启提示词攻击防御功能
 	PromptAttackDefense *string `json:"prompt_attack_defense,omitempty" xml:"prompt_attack_defense,omitempty"`
 	// 是否开启隐私数据泄露的专项检测
@@ -7567,7 +7567,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.57"),
+				"sdk_version":      tea.String("1.1.58"),
 				"_prod_code":       tea.String("AITECH"),
 				"_prod_channel":    tea.String("default"),
 			}
