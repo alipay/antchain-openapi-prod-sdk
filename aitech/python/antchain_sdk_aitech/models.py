@@ -422,6 +422,34 @@ class QRCodeAuditResult(TeaModel):
         return self
 
 
+class AttackSubLabel(TeaModel):
+    def __init__(
+        self,
+        attack_sub_label: str = None,
+    ):
+        # 提示词攻击手法二级标签
+        self.attack_sub_label = attack_sub_label
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.attack_sub_label is not None:
+            result['attack_sub_label'] = self.attack_sub_label
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('attack_sub_label') is not None:
+            self.attack_sub_label = m.get('attack_sub_label')
+        return self
+
+
 class MeiyouTopicWebInfo(TeaModel):
     def __init__(
         self,
@@ -584,6 +612,55 @@ class MayaStreamResult(TeaModel):
         return self
 
 
+class SubLabelModel(TeaModel):
+    def __init__(
+        self,
+        sub_label: str = None,
+        risk_words: List[str] = None,
+        risk_words_index: List[str] = None,
+        third_labels: List[str] = None,
+    ):
+        # 二级标签
+        self.sub_label = sub_label
+        # 风险关键词列表
+        self.risk_words = risk_words
+        # 风险关键词索引列表
+        self.risk_words_index = risk_words_index
+        # 三级标签列表
+        self.third_labels = third_labels
+
+    def validate(self):
+        self.validate_required(self.sub_label, 'sub_label')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.sub_label is not None:
+            result['sub_label'] = self.sub_label
+        if self.risk_words is not None:
+            result['risk_words'] = self.risk_words
+        if self.risk_words_index is not None:
+            result['risk_words_index'] = self.risk_words_index
+        if self.third_labels is not None:
+            result['third_labels'] = self.third_labels
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('sub_label') is not None:
+            self.sub_label = m.get('sub_label')
+        if m.get('risk_words') is not None:
+            self.risk_words = m.get('risk_words')
+        if m.get('risk_words_index') is not None:
+            self.risk_words_index = m.get('risk_words_index')
+        if m.get('third_labels') is not None:
+            self.third_labels = m.get('third_labels')
+        return self
+
+
 class LogoAuditResult(TeaModel):
     def __init__(
         self,
@@ -626,6 +703,48 @@ class LogoAuditResult(TeaModel):
             for k in m.get('details'):
                 temp_model = LogoDetail()
                 self.details.append(temp_model.from_map(k))
+        return self
+
+
+class FieldModel(TeaModel):
+    def __init__(
+        self,
+        field_category: str = None,
+        field_label: str = None,
+        field_score: int = None,
+    ):
+        # 领域一级标签
+        self.field_category = field_category
+        # 领域二级标签
+        self.field_label = field_label
+        # 领域一级标签的等级分数
+        self.field_score = field_score
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.field_category is not None:
+            result['field_category'] = self.field_category
+        if self.field_label is not None:
+            result['field_label'] = self.field_label
+        if self.field_score is not None:
+            result['field_score'] = self.field_score
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('field_category') is not None:
+            self.field_category = m.get('field_category')
+        if m.get('field_label') is not None:
+            self.field_label = m.get('field_label')
+        if m.get('field_score') is not None:
+            self.field_score = m.get('field_score')
         return self
 
 
@@ -799,6 +918,49 @@ class AntCloudProdProviderHttpResponse(TeaModel):
             self.response = temp_model.from_map(m['response'])
         if m.get('sign') is not None:
             self.sign = m.get('sign')
+        return self
+
+
+class LabelModel(TeaModel):
+    def __init__(
+        self,
+        label: str = None,
+        sub_labels: List[SubLabelModel] = None,
+    ):
+        # 一级标签
+        self.label = label
+        # 子标签
+        self.sub_labels = sub_labels
+
+    def validate(self):
+        if self.sub_labels:
+            for k in self.sub_labels:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.label is not None:
+            result['label'] = self.label
+        result['sub_labels'] = []
+        if self.sub_labels is not None:
+            for k in self.sub_labels:
+                result['sub_labels'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('label') is not None:
+            self.label = m.get('label')
+        self.sub_labels = []
+        if m.get('sub_labels') is not None:
+            for k in m.get('sub_labels'):
+                temp_model = SubLabelModel()
+                self.sub_labels.append(temp_model.from_map(k))
         return self
 
 
@@ -1035,6 +1197,43 @@ class ImageAuditResult(TeaModel):
         if m.get('qr_code_audit_result') is not None:
             temp_model = QRCodeAuditResult()
             self.qr_code_audit_result = temp_model.from_map(m['qr_code_audit_result'])
+        return self
+
+
+class AttackLabel(TeaModel):
+    def __init__(
+        self,
+        attack_label: str = None,
+        attack_sub_labels: AttackSubLabel = None,
+    ):
+        # 提示词攻击手法一级标签
+        self.attack_label = attack_label
+        # 提示词攻击手法二级标签列表
+        self.attack_sub_labels = attack_sub_labels
+
+    def validate(self):
+        if self.attack_sub_labels:
+            self.attack_sub_labels.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.attack_label is not None:
+            result['attack_label'] = self.attack_label
+        if self.attack_sub_labels is not None:
+            result['attack_sub_labels'] = self.attack_sub_labels.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('attack_label') is not None:
+            self.attack_label = m.get('attack_label')
+        if m.get('attack_sub_labels') is not None:
+            temp_model = AttackSubLabel()
+            self.attack_sub_labels = temp_model.from_map(m['attack_sub_labels'])
         return self
 
 
@@ -8439,6 +8638,457 @@ class QueryGuardDocumentResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('result') is not None:
             self.result = m.get('result')
+        return self
+
+
+class QuerySecurityQuestionRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        enterprise: str = None,
+        question: str = None,
+        business_id: str = None,
+        scene_code: str = None,
+        message_id: str = None,
+        session_id: str = None,
+        multi_session_detect: str = None,
+        prompt_reword: str = None,
+        finance_compliance_detection: str = None,
+        field_identify: str = None,
+        prompt_attack_defense: str = None,
+        privacy_data_detection: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 调用方唯一标示
+        self.enterprise = enterprise
+        # 提问内容
+        self.question = question
+        # 调用方标示
+        self.business_id = business_id
+        # 场景code
+        self.scene_code = scene_code
+        # 标示是否是同一个Q&A
+        self.message_id = message_id
+        # 会话ID
+        self.session_id = session_id
+        # 是否开启流式检测功能。默认值：N：不开启，Y：开启
+        self.multi_session_detect = multi_session_detect
+        # 是否开启针对大模型输入文本的的安全改写和增强功能。默认值：N：不开启，Y：开启
+        self.prompt_reword = prompt_reword
+        # 是否需要针对提问内容的进行金融合规检测。默认值：N：不开启，Y：开启
+        self.finance_compliance_detection = finance_compliance_detection
+        # 是否需要针对提问内容的进行领域识别
+        self.field_identify = field_identify
+        # 是否开启提示词攻击防御功能
+        self.prompt_attack_defense = prompt_attack_defense
+        # 是否开启隐私数据泄露的专项检测
+        self.privacy_data_detection = privacy_data_detection
+
+    def validate(self):
+        self.validate_required(self.question, 'question')
+        if self.question is not None:
+            self.validate_max_length(self.question, 'question', 10000)
+        self.validate_required(self.business_id, 'business_id')
+        self.validate_required(self.scene_code, 'scene_code')
+        self.validate_required(self.field_identify, 'field_identify')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.enterprise is not None:
+            result['enterprise'] = self.enterprise
+        if self.question is not None:
+            result['question'] = self.question
+        if self.business_id is not None:
+            result['business_id'] = self.business_id
+        if self.scene_code is not None:
+            result['scene_code'] = self.scene_code
+        if self.message_id is not None:
+            result['message_id'] = self.message_id
+        if self.session_id is not None:
+            result['session_id'] = self.session_id
+        if self.multi_session_detect is not None:
+            result['multi_session_detect'] = self.multi_session_detect
+        if self.prompt_reword is not None:
+            result['prompt_reword'] = self.prompt_reword
+        if self.finance_compliance_detection is not None:
+            result['finance_compliance_detection'] = self.finance_compliance_detection
+        if self.field_identify is not None:
+            result['field_identify'] = self.field_identify
+        if self.prompt_attack_defense is not None:
+            result['prompt_attack_defense'] = self.prompt_attack_defense
+        if self.privacy_data_detection is not None:
+            result['privacy_data_detection'] = self.privacy_data_detection
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('enterprise') is not None:
+            self.enterprise = m.get('enterprise')
+        if m.get('question') is not None:
+            self.question = m.get('question')
+        if m.get('business_id') is not None:
+            self.business_id = m.get('business_id')
+        if m.get('scene_code') is not None:
+            self.scene_code = m.get('scene_code')
+        if m.get('message_id') is not None:
+            self.message_id = m.get('message_id')
+        if m.get('session_id') is not None:
+            self.session_id = m.get('session_id')
+        if m.get('multi_session_detect') is not None:
+            self.multi_session_detect = m.get('multi_session_detect')
+        if m.get('prompt_reword') is not None:
+            self.prompt_reword = m.get('prompt_reword')
+        if m.get('finance_compliance_detection') is not None:
+            self.finance_compliance_detection = m.get('finance_compliance_detection')
+        if m.get('field_identify') is not None:
+            self.field_identify = m.get('field_identify')
+        if m.get('prompt_attack_defense') is not None:
+            self.prompt_attack_defense = m.get('prompt_attack_defense')
+        if m.get('privacy_data_detection') is not None:
+            self.privacy_data_detection = m.get('privacy_data_detection')
+        return self
+
+
+class QuerySecurityQuestionResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        action_code: str = None,
+        customize_risk_word: List[str] = None,
+        labels: List[LabelModel] = None,
+        session_id: str = None,
+        message_id: str = None,
+        limit_answer: str = None,
+        security_answer: str = None,
+        security_prompt: str = None,
+        attack_labels: AttackLabel = None,
+        field_info: FieldModel = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 代表风险等级和建议的处置结论，PASS：安全无风险，BLOCK：绝对风险，建议直接拦截，SECURITY_ANSWER：泛风险，回答内容存在敏感要素
+        self.action_code = action_code
+        # 命中的自定义黑词列表
+        self.customize_risk_word = customize_risk_word
+        # 风险标签
+        self.labels = labels
+        # 会话Id
+        self.session_id = session_id
+        # 表示是同一个Q&A
+        self.message_id = message_id
+        # 兜底话术
+        self.limit_answer = limit_answer
+        # 有风险时的安全代答
+        self.security_answer = security_answer
+        # 当请求参数 promptReword=Y 时返回，为安全改写后的内容
+        self.security_prompt = security_prompt
+        # 提示词攻击手法标签
+        self.attack_labels = attack_labels
+        # 领域标签信息
+        self.field_info = field_info
+
+    def validate(self):
+        if self.labels:
+            for k in self.labels:
+                if k:
+                    k.validate()
+        if self.attack_labels:
+            self.attack_labels.validate()
+        if self.field_info:
+            self.field_info.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.action_code is not None:
+            result['action_code'] = self.action_code
+        if self.customize_risk_word is not None:
+            result['customize_risk_word'] = self.customize_risk_word
+        result['labels'] = []
+        if self.labels is not None:
+            for k in self.labels:
+                result['labels'].append(k.to_map() if k else None)
+        if self.session_id is not None:
+            result['session_id'] = self.session_id
+        if self.message_id is not None:
+            result['message_id'] = self.message_id
+        if self.limit_answer is not None:
+            result['limit_answer'] = self.limit_answer
+        if self.security_answer is not None:
+            result['security_answer'] = self.security_answer
+        if self.security_prompt is not None:
+            result['security_prompt'] = self.security_prompt
+        if self.attack_labels is not None:
+            result['attack_labels'] = self.attack_labels.to_map()
+        if self.field_info is not None:
+            result['field_info'] = self.field_info.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('action_code') is not None:
+            self.action_code = m.get('action_code')
+        if m.get('customize_risk_word') is not None:
+            self.customize_risk_word = m.get('customize_risk_word')
+        self.labels = []
+        if m.get('labels') is not None:
+            for k in m.get('labels'):
+                temp_model = LabelModel()
+                self.labels.append(temp_model.from_map(k))
+        if m.get('session_id') is not None:
+            self.session_id = m.get('session_id')
+        if m.get('message_id') is not None:
+            self.message_id = m.get('message_id')
+        if m.get('limit_answer') is not None:
+            self.limit_answer = m.get('limit_answer')
+        if m.get('security_answer') is not None:
+            self.security_answer = m.get('security_answer')
+        if m.get('security_prompt') is not None:
+            self.security_prompt = m.get('security_prompt')
+        if m.get('attack_labels') is not None:
+            temp_model = AttackLabel()
+            self.attack_labels = temp_model.from_map(m['attack_labels'])
+        if m.get('field_info') is not None:
+            temp_model = FieldModel()
+            self.field_info = temp_model.from_map(m['field_info'])
+        return self
+
+
+class QuerySecurityAnswerRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        enterprise: str = None,
+        business_id: str = None,
+        content: str = None,
+        scene_code: str = None,
+        flow_detect: str = None,
+        flow_msg_id: str = None,
+        flow_end: str = None,
+        message_id: str = None,
+        privacy_data_obfuscation: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 调用标示
+        self.enterprise = enterprise
+        # 细分调用方标识
+        self.business_id = business_id
+        # 当前回答内容，最大长度40000个字符
+        self.content = content
+        # 场景code
+        self.scene_code = scene_code
+        # 是否开启流式检测功能。默认值：N：不开启，Y：开启
+        self.flow_detect = flow_detect
+        # 会话id
+        self.flow_msg_id = flow_msg_id
+        # 流失内容结束标示
+        self.flow_end = flow_end
+        # 表示是同一个Q&A
+        self.message_id = message_id
+        # 是否要针对大模型输出的内容中的隐私数据进行脱敏。默认值：N：不开启，Y：开启
+        self.privacy_data_obfuscation = privacy_data_obfuscation
+
+    def validate(self):
+        self.validate_required(self.business_id, 'business_id')
+        self.validate_required(self.content, 'content')
+        if self.content is not None:
+            self.validate_max_length(self.content, 'content', 40000)
+        self.validate_required(self.scene_code, 'scene_code')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.enterprise is not None:
+            result['enterprise'] = self.enterprise
+        if self.business_id is not None:
+            result['business_id'] = self.business_id
+        if self.content is not None:
+            result['content'] = self.content
+        if self.scene_code is not None:
+            result['scene_code'] = self.scene_code
+        if self.flow_detect is not None:
+            result['flow_detect'] = self.flow_detect
+        if self.flow_msg_id is not None:
+            result['flow_msg_id'] = self.flow_msg_id
+        if self.flow_end is not None:
+            result['flow_end'] = self.flow_end
+        if self.message_id is not None:
+            result['message_id'] = self.message_id
+        if self.privacy_data_obfuscation is not None:
+            result['privacy_data_obfuscation'] = self.privacy_data_obfuscation
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('enterprise') is not None:
+            self.enterprise = m.get('enterprise')
+        if m.get('business_id') is not None:
+            self.business_id = m.get('business_id')
+        if m.get('content') is not None:
+            self.content = m.get('content')
+        if m.get('scene_code') is not None:
+            self.scene_code = m.get('scene_code')
+        if m.get('flow_detect') is not None:
+            self.flow_detect = m.get('flow_detect')
+        if m.get('flow_msg_id') is not None:
+            self.flow_msg_id = m.get('flow_msg_id')
+        if m.get('flow_end') is not None:
+            self.flow_end = m.get('flow_end')
+        if m.get('message_id') is not None:
+            self.message_id = m.get('message_id')
+        if m.get('privacy_data_obfuscation') is not None:
+            self.privacy_data_obfuscation = m.get('privacy_data_obfuscation')
+        return self
+
+
+class QuerySecurityAnswerResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        action_code: str = None,
+        labels: List[LabelModel] = None,
+        customize_risk_word: List[str] = None,
+        flow_process_state: str = None,
+        flow_msg_id: str = None,
+        message_id: str = None,
+        security_answer: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 代表风险等级和建议的处置结论，PASS：安全无风险，BLOCK：绝对风险，建议直接拦截，SECURITY_ANSWER：泛风险，回答内容存在敏感要素
+        self.action_code = action_code
+        # 风险标签
+        self.labels = labels
+        # 命中的自定义黑词列表
+        self.customize_risk_word = customize_risk_word
+        # 针对流式输入的处理状态，针对流式输入的处理状态，当请求参数 flowDetect=Y 时返回，结果信息如下：
+        # 1. processing：等待处理中，暂无风险检测结果，可能是输入的文本信息不足一句
+        # 2. done：处理完成，请参考actionCode及对应的风险标签信息
+        self.flow_process_state = flow_process_state
+        # 流式内容ID
+        self.flow_msg_id = flow_msg_id
+        # 表示是同一个Q&A
+        self.message_id = message_id
+        # 兜底话术
+        self.security_answer = security_answer
+
+    def validate(self):
+        if self.labels:
+            for k in self.labels:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.action_code is not None:
+            result['action_code'] = self.action_code
+        result['labels'] = []
+        if self.labels is not None:
+            for k in self.labels:
+                result['labels'].append(k.to_map() if k else None)
+        if self.customize_risk_word is not None:
+            result['customize_risk_word'] = self.customize_risk_word
+        if self.flow_process_state is not None:
+            result['flow_process_state'] = self.flow_process_state
+        if self.flow_msg_id is not None:
+            result['flow_msg_id'] = self.flow_msg_id
+        if self.message_id is not None:
+            result['message_id'] = self.message_id
+        if self.security_answer is not None:
+            result['security_answer'] = self.security_answer
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('action_code') is not None:
+            self.action_code = m.get('action_code')
+        self.labels = []
+        if m.get('labels') is not None:
+            for k in m.get('labels'):
+                temp_model = LabelModel()
+                self.labels.append(temp_model.from_map(k))
+        if m.get('customize_risk_word') is not None:
+            self.customize_risk_word = m.get('customize_risk_word')
+        if m.get('flow_process_state') is not None:
+            self.flow_process_state = m.get('flow_process_state')
+        if m.get('flow_msg_id') is not None:
+            self.flow_msg_id = m.get('flow_msg_id')
+        if m.get('message_id') is not None:
+            self.message_id = m.get('message_id')
+        if m.get('security_answer') is not None:
+            self.security_answer = m.get('security_answer')
         return self
 
 

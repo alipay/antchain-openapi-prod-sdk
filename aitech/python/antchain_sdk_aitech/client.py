@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.55',
+                    'sdk_version': '1.1.57',
                     '_prod_code': 'AITECH',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.55',
+                    'sdk_version': '1.1.57',
                     '_prod_code': 'AITECH',
                     '_prod_channel': 'default'
                 }
@@ -3577,4 +3577,116 @@ class Client:
         return TeaCore.from_map(
             aitech_models.QueryGuardDocumentResponse(),
             await self.do_request_async('1.0', 'aitech.comm.guard.document.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_security_question(
+        self,
+        request: aitech_models.QuerySecurityQuestionRequest,
+    ) -> aitech_models.QuerySecurityQuestionResponse:
+        """
+        Description: 天鉴SaaS提问检测
+        Summary: 天鉴SaaS提问检测
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_security_question_ex(request, headers, runtime)
+
+    async def query_security_question_async(
+        self,
+        request: aitech_models.QuerySecurityQuestionRequest,
+    ) -> aitech_models.QuerySecurityQuestionResponse:
+        """
+        Description: 天鉴SaaS提问检测
+        Summary: 天鉴SaaS提问检测
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_security_question_ex_async(request, headers, runtime)
+
+    def query_security_question_ex(
+        self,
+        request: aitech_models.QuerySecurityQuestionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.QuerySecurityQuestionResponse:
+        """
+        Description: 天鉴SaaS提问检测
+        Summary: 天鉴SaaS提问检测
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.QuerySecurityQuestionResponse(),
+            self.do_request('1.0', 'aitech.comm.security.question.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_security_question_ex_async(
+        self,
+        request: aitech_models.QuerySecurityQuestionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.QuerySecurityQuestionResponse:
+        """
+        Description: 天鉴SaaS提问检测
+        Summary: 天鉴SaaS提问检测
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.QuerySecurityQuestionResponse(),
+            await self.do_request_async('1.0', 'aitech.comm.security.question.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_security_answer(
+        self,
+        request: aitech_models.QuerySecurityAnswerRequest,
+    ) -> aitech_models.QuerySecurityAnswerResponse:
+        """
+        Description: 天鉴SaaS回答检测
+        Summary: 天鉴SaaS回答检测
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_security_answer_ex(request, headers, runtime)
+
+    async def query_security_answer_async(
+        self,
+        request: aitech_models.QuerySecurityAnswerRequest,
+    ) -> aitech_models.QuerySecurityAnswerResponse:
+        """
+        Description: 天鉴SaaS回答检测
+        Summary: 天鉴SaaS回答检测
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_security_answer_ex_async(request, headers, runtime)
+
+    def query_security_answer_ex(
+        self,
+        request: aitech_models.QuerySecurityAnswerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.QuerySecurityAnswerResponse:
+        """
+        Description: 天鉴SaaS回答检测
+        Summary: 天鉴SaaS回答检测
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.QuerySecurityAnswerResponse(),
+            self.do_request('1.0', 'aitech.comm.security.answer.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_security_answer_ex_async(
+        self,
+        request: aitech_models.QuerySecurityAnswerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.QuerySecurityAnswerResponse:
+        """
+        Description: 天鉴SaaS回答检测
+        Summary: 天鉴SaaS回答检测
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.QuerySecurityAnswerResponse(),
+            await self.do_request_async('1.0', 'aitech.comm.security.answer.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
