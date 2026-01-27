@@ -348,6 +348,25 @@ func (s *QRCodeAuditResult) SetDetails(v []*QRCodeDetail) *QRCodeAuditResult {
 	return s
 }
 
+// 攻击手法二级标签
+type AttackSubLabel struct {
+	// 提示词攻击手法二级标签
+	AttackSubLabel *string `json:"attack_sub_label,omitempty" xml:"attack_sub_label,omitempty"`
+}
+
+func (s AttackSubLabel) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AttackSubLabel) GoString() string {
+	return s.String()
+}
+
+func (s *AttackSubLabel) SetAttackSubLabel(v string) *AttackSubLabel {
+	s.AttackSubLabel = &v
+	return s
+}
+
 // 主题信息
 type MeiyouTopicWebInfo struct {
 	// 内容文本
@@ -486,6 +505,46 @@ func (s *MayaStreamResult) SetErrorMsg(v string) *MayaStreamResult {
 	return s
 }
 
+// 二级标签结构
+type SubLabelModel struct {
+	// 二级标签
+	SubLabel *string `json:"sub_label,omitempty" xml:"sub_label,omitempty" require:"true"`
+	// 风险关键词列表
+	RiskWords []*string `json:"risk_words,omitempty" xml:"risk_words,omitempty" type:"Repeated"`
+	// 风险关键词索引列表
+	RiskWordsIndex []*string `json:"risk_words_index,omitempty" xml:"risk_words_index,omitempty" type:"Repeated"`
+	// 三级标签列表
+	ThirdLabels []*string `json:"third_labels,omitempty" xml:"third_labels,omitempty" type:"Repeated"`
+}
+
+func (s SubLabelModel) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubLabelModel) GoString() string {
+	return s.String()
+}
+
+func (s *SubLabelModel) SetSubLabel(v string) *SubLabelModel {
+	s.SubLabel = &v
+	return s
+}
+
+func (s *SubLabelModel) SetRiskWords(v []*string) *SubLabelModel {
+	s.RiskWords = v
+	return s
+}
+
+func (s *SubLabelModel) SetRiskWordsIndex(v []*string) *SubLabelModel {
+	s.RiskWordsIndex = v
+	return s
+}
+
+func (s *SubLabelModel) SetThirdLabels(v []*string) *SubLabelModel {
+	s.ThirdLabels = v
+	return s
+}
+
 // logo审核结果
 type LogoAuditResult struct {
 	// 检测到LOGO个数
@@ -509,6 +568,39 @@ func (s *LogoAuditResult) SetDetectNum(v int64) *LogoAuditResult {
 
 func (s *LogoAuditResult) SetDetails(v []*LogoDetail) *LogoAuditResult {
 	s.Details = v
+	return s
+}
+
+// 领域信息
+type FieldModel struct {
+	// 领域一级标签
+	FieldCategory *string `json:"field_category,omitempty" xml:"field_category,omitempty"`
+	// 领域二级标签
+	FieldLabel *string `json:"field_label,omitempty" xml:"field_label,omitempty"`
+	// 领域一级标签的等级分数
+	FieldScore *int64 `json:"field_score,omitempty" xml:"field_score,omitempty"`
+}
+
+func (s FieldModel) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FieldModel) GoString() string {
+	return s.String()
+}
+
+func (s *FieldModel) SetFieldCategory(v string) *FieldModel {
+	s.FieldCategory = &v
+	return s
+}
+
+func (s *FieldModel) SetFieldLabel(v string) *FieldModel {
+	s.FieldLabel = &v
+	return s
+}
+
+func (s *FieldModel) SetFieldScore(v int64) *FieldModel {
+	s.FieldScore = &v
 	return s
 }
 
@@ -652,6 +744,32 @@ func (s *AntCloudProdProviderHttpResponse) SetResponse(v *MayaStreamResult) *Ant
 
 func (s *AntCloudProdProviderHttpResponse) SetSign(v string) *AntCloudProdProviderHttpResponse {
 	s.Sign = &v
+	return s
+}
+
+// 一级标签信息
+type LabelModel struct {
+	// 一级标签
+	Label *string `json:"label,omitempty" xml:"label,omitempty"`
+	// 子标签
+	SubLabels []*SubLabelModel `json:"sub_labels,omitempty" xml:"sub_labels,omitempty" type:"Repeated"`
+}
+
+func (s LabelModel) String() string {
+	return tea.Prettify(s)
+}
+
+func (s LabelModel) GoString() string {
+	return s.String()
+}
+
+func (s *LabelModel) SetLabel(v string) *LabelModel {
+	s.Label = &v
+	return s
+}
+
+func (s *LabelModel) SetSubLabels(v []*SubLabelModel) *LabelModel {
+	s.SubLabels = v
 	return s
 }
 
@@ -836,6 +954,32 @@ func (s *ImageAuditResult) SetLogoAuditResult(v *LogoAuditResult) *ImageAuditRes
 
 func (s *ImageAuditResult) SetQrCodeAuditResult(v *QRCodeAuditResult) *ImageAuditResult {
 	s.QrCodeAuditResult = v
+	return s
+}
+
+// 提示词攻击手法一级标签
+type AttackLabel struct {
+	// 提示词攻击手法一级标签
+	AttackLabel *string `json:"attack_label,omitempty" xml:"attack_label,omitempty"`
+	// 提示词攻击手法二级标签列表
+	AttackSubLabels *AttackSubLabel `json:"attack_sub_labels,omitempty" xml:"attack_sub_labels,omitempty"`
+}
+
+func (s AttackLabel) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AttackLabel) GoString() string {
+	return s.String()
+}
+
+func (s *AttackLabel) SetAttackLabel(v string) *AttackLabel {
+	s.AttackLabel = &v
+	return s
+}
+
+func (s *AttackLabel) SetAttackSubLabels(v *AttackSubLabel) *AttackLabel {
+	s.AttackSubLabels = v
 	return s
 }
 
@@ -6921,6 +7065,386 @@ func (s *QueryGuardDocumentResponse) SetResult(v string) *QueryGuardDocumentResp
 	return s
 }
 
+type QuerySecurityQuestionRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 调用方唯一标示
+	Enterprise *string `json:"enterprise,omitempty" xml:"enterprise,omitempty"`
+	// 提问内容
+	Question *string `json:"question,omitempty" xml:"question,omitempty" require:"true" maxLength:"10000"`
+	// 调用方标示
+	BusinessId *string `json:"business_id,omitempty" xml:"business_id,omitempty" require:"true"`
+	// 场景code
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+	// 标示是否是同一个Q&A
+	MessageId *string `json:"message_id,omitempty" xml:"message_id,omitempty"`
+	// 会话ID
+	SessionId *string `json:"session_id,omitempty" xml:"session_id,omitempty"`
+	// 是否开启流式检测功能。默认值：N：不开启，Y：开启
+	MultiSessionDetect *string `json:"multi_session_detect,omitempty" xml:"multi_session_detect,omitempty"`
+	// 是否开启针对大模型输入文本的的安全改写和增强功能。默认值：N：不开启，Y：开启
+	PromptReword *string `json:"prompt_reword,omitempty" xml:"prompt_reword,omitempty"`
+	// 是否需要针对提问内容的进行金融合规检测。默认值：N：不开启，Y：开启
+	FinanceComplianceDetection *string `json:"finance_compliance_detection,omitempty" xml:"finance_compliance_detection,omitempty"`
+	// 是否需要针对提问内容的进行领域识别
+	FieldIdentify *string `json:"field_identify,omitempty" xml:"field_identify,omitempty" require:"true"`
+	// 是否开启提示词攻击防御功能
+	PromptAttackDefense *string `json:"prompt_attack_defense,omitempty" xml:"prompt_attack_defense,omitempty"`
+	// 是否开启隐私数据泄露的专项检测
+	PrivacyDataDetection *string `json:"privacy_data_detection,omitempty" xml:"privacy_data_detection,omitempty"`
+}
+
+func (s QuerySecurityQuestionRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QuerySecurityQuestionRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QuerySecurityQuestionRequest) SetAuthToken(v string) *QuerySecurityQuestionRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QuerySecurityQuestionRequest) SetProductInstanceId(v string) *QuerySecurityQuestionRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QuerySecurityQuestionRequest) SetEnterprise(v string) *QuerySecurityQuestionRequest {
+	s.Enterprise = &v
+	return s
+}
+
+func (s *QuerySecurityQuestionRequest) SetQuestion(v string) *QuerySecurityQuestionRequest {
+	s.Question = &v
+	return s
+}
+
+func (s *QuerySecurityQuestionRequest) SetBusinessId(v string) *QuerySecurityQuestionRequest {
+	s.BusinessId = &v
+	return s
+}
+
+func (s *QuerySecurityQuestionRequest) SetSceneCode(v string) *QuerySecurityQuestionRequest {
+	s.SceneCode = &v
+	return s
+}
+
+func (s *QuerySecurityQuestionRequest) SetMessageId(v string) *QuerySecurityQuestionRequest {
+	s.MessageId = &v
+	return s
+}
+
+func (s *QuerySecurityQuestionRequest) SetSessionId(v string) *QuerySecurityQuestionRequest {
+	s.SessionId = &v
+	return s
+}
+
+func (s *QuerySecurityQuestionRequest) SetMultiSessionDetect(v string) *QuerySecurityQuestionRequest {
+	s.MultiSessionDetect = &v
+	return s
+}
+
+func (s *QuerySecurityQuestionRequest) SetPromptReword(v string) *QuerySecurityQuestionRequest {
+	s.PromptReword = &v
+	return s
+}
+
+func (s *QuerySecurityQuestionRequest) SetFinanceComplianceDetection(v string) *QuerySecurityQuestionRequest {
+	s.FinanceComplianceDetection = &v
+	return s
+}
+
+func (s *QuerySecurityQuestionRequest) SetFieldIdentify(v string) *QuerySecurityQuestionRequest {
+	s.FieldIdentify = &v
+	return s
+}
+
+func (s *QuerySecurityQuestionRequest) SetPromptAttackDefense(v string) *QuerySecurityQuestionRequest {
+	s.PromptAttackDefense = &v
+	return s
+}
+
+func (s *QuerySecurityQuestionRequest) SetPrivacyDataDetection(v string) *QuerySecurityQuestionRequest {
+	s.PrivacyDataDetection = &v
+	return s
+}
+
+type QuerySecurityQuestionResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 代表风险等级和建议的处置结论，PASS：安全无风险，BLOCK：绝对风险，建议直接拦截，SECURITY_ANSWER：泛风险，回答内容存在敏感要素
+	ActionCode *string `json:"action_code,omitempty" xml:"action_code,omitempty"`
+	// 命中的自定义黑词列表
+	CustomizeRiskWord []*string `json:"customize_risk_word,omitempty" xml:"customize_risk_word,omitempty" type:"Repeated"`
+	// 风险标签
+	Labels []*LabelModel `json:"labels,omitempty" xml:"labels,omitempty" type:"Repeated"`
+	// 会话Id
+	SessionId *string `json:"session_id,omitempty" xml:"session_id,omitempty"`
+	// 表示是同一个Q&A
+	MessageId *string `json:"message_id,omitempty" xml:"message_id,omitempty"`
+	// 兜底话术
+	LimitAnswer *string `json:"limit_answer,omitempty" xml:"limit_answer,omitempty"`
+	// 有风险时的安全代答
+	SecurityAnswer *string `json:"security_answer,omitempty" xml:"security_answer,omitempty"`
+	// 当请求参数 promptReword=Y 时返回，为安全改写后的内容
+	SecurityPrompt *string `json:"security_prompt,omitempty" xml:"security_prompt,omitempty"`
+	// 提示词攻击手法标签
+	AttackLabels *AttackLabel `json:"attack_labels,omitempty" xml:"attack_labels,omitempty"`
+	// 领域标签信息
+	FieldInfo *FieldModel `json:"field_info,omitempty" xml:"field_info,omitempty"`
+}
+
+func (s QuerySecurityQuestionResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QuerySecurityQuestionResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QuerySecurityQuestionResponse) SetReqMsgId(v string) *QuerySecurityQuestionResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QuerySecurityQuestionResponse) SetResultCode(v string) *QuerySecurityQuestionResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QuerySecurityQuestionResponse) SetResultMsg(v string) *QuerySecurityQuestionResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QuerySecurityQuestionResponse) SetActionCode(v string) *QuerySecurityQuestionResponse {
+	s.ActionCode = &v
+	return s
+}
+
+func (s *QuerySecurityQuestionResponse) SetCustomizeRiskWord(v []*string) *QuerySecurityQuestionResponse {
+	s.CustomizeRiskWord = v
+	return s
+}
+
+func (s *QuerySecurityQuestionResponse) SetLabels(v []*LabelModel) *QuerySecurityQuestionResponse {
+	s.Labels = v
+	return s
+}
+
+func (s *QuerySecurityQuestionResponse) SetSessionId(v string) *QuerySecurityQuestionResponse {
+	s.SessionId = &v
+	return s
+}
+
+func (s *QuerySecurityQuestionResponse) SetMessageId(v string) *QuerySecurityQuestionResponse {
+	s.MessageId = &v
+	return s
+}
+
+func (s *QuerySecurityQuestionResponse) SetLimitAnswer(v string) *QuerySecurityQuestionResponse {
+	s.LimitAnswer = &v
+	return s
+}
+
+func (s *QuerySecurityQuestionResponse) SetSecurityAnswer(v string) *QuerySecurityQuestionResponse {
+	s.SecurityAnswer = &v
+	return s
+}
+
+func (s *QuerySecurityQuestionResponse) SetSecurityPrompt(v string) *QuerySecurityQuestionResponse {
+	s.SecurityPrompt = &v
+	return s
+}
+
+func (s *QuerySecurityQuestionResponse) SetAttackLabels(v *AttackLabel) *QuerySecurityQuestionResponse {
+	s.AttackLabels = v
+	return s
+}
+
+func (s *QuerySecurityQuestionResponse) SetFieldInfo(v *FieldModel) *QuerySecurityQuestionResponse {
+	s.FieldInfo = v
+	return s
+}
+
+type QuerySecurityAnswerRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 调用标示
+	Enterprise *string `json:"enterprise,omitempty" xml:"enterprise,omitempty"`
+	// 细分调用方标识
+	BusinessId *string `json:"business_id,omitempty" xml:"business_id,omitempty" require:"true"`
+	// 当前回答内容，最大长度40000个字符
+	Content *string `json:"content,omitempty" xml:"content,omitempty" require:"true" maxLength:"40000"`
+	// 场景code
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+	// 是否开启流式检测功能。默认值：N：不开启，Y：开启
+	FlowDetect *string `json:"flow_detect,omitempty" xml:"flow_detect,omitempty"`
+	// 会话id
+	FlowMsgId *string `json:"flow_msg_id,omitempty" xml:"flow_msg_id,omitempty"`
+	// 流失内容结束标示
+	FlowEnd *string `json:"flow_end,omitempty" xml:"flow_end,omitempty"`
+	// 表示是同一个Q&A
+	MessageId *string `json:"message_id,omitempty" xml:"message_id,omitempty"`
+	// 是否要针对大模型输出的内容中的隐私数据进行脱敏。默认值：N：不开启，Y：开启
+	PrivacyDataObfuscation *string `json:"privacy_data_obfuscation,omitempty" xml:"privacy_data_obfuscation,omitempty"`
+}
+
+func (s QuerySecurityAnswerRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QuerySecurityAnswerRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QuerySecurityAnswerRequest) SetAuthToken(v string) *QuerySecurityAnswerRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QuerySecurityAnswerRequest) SetProductInstanceId(v string) *QuerySecurityAnswerRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QuerySecurityAnswerRequest) SetEnterprise(v string) *QuerySecurityAnswerRequest {
+	s.Enterprise = &v
+	return s
+}
+
+func (s *QuerySecurityAnswerRequest) SetBusinessId(v string) *QuerySecurityAnswerRequest {
+	s.BusinessId = &v
+	return s
+}
+
+func (s *QuerySecurityAnswerRequest) SetContent(v string) *QuerySecurityAnswerRequest {
+	s.Content = &v
+	return s
+}
+
+func (s *QuerySecurityAnswerRequest) SetSceneCode(v string) *QuerySecurityAnswerRequest {
+	s.SceneCode = &v
+	return s
+}
+
+func (s *QuerySecurityAnswerRequest) SetFlowDetect(v string) *QuerySecurityAnswerRequest {
+	s.FlowDetect = &v
+	return s
+}
+
+func (s *QuerySecurityAnswerRequest) SetFlowMsgId(v string) *QuerySecurityAnswerRequest {
+	s.FlowMsgId = &v
+	return s
+}
+
+func (s *QuerySecurityAnswerRequest) SetFlowEnd(v string) *QuerySecurityAnswerRequest {
+	s.FlowEnd = &v
+	return s
+}
+
+func (s *QuerySecurityAnswerRequest) SetMessageId(v string) *QuerySecurityAnswerRequest {
+	s.MessageId = &v
+	return s
+}
+
+func (s *QuerySecurityAnswerRequest) SetPrivacyDataObfuscation(v string) *QuerySecurityAnswerRequest {
+	s.PrivacyDataObfuscation = &v
+	return s
+}
+
+type QuerySecurityAnswerResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 代表风险等级和建议的处置结论，PASS：安全无风险，BLOCK：绝对风险，建议直接拦截，SECURITY_ANSWER：泛风险，回答内容存在敏感要素
+	ActionCode *string `json:"action_code,omitempty" xml:"action_code,omitempty"`
+	// 风险标签
+	Labels []*LabelModel `json:"labels,omitempty" xml:"labels,omitempty" type:"Repeated"`
+	// 命中的自定义黑词列表
+	CustomizeRiskWord []*string `json:"customize_risk_word,omitempty" xml:"customize_risk_word,omitempty" type:"Repeated"`
+	// 针对流式输入的处理状态，针对流式输入的处理状态，当请求参数 flowDetect=Y 时返回，结果信息如下：
+	// 1. processing：等待处理中，暂无风险检测结果，可能是输入的文本信息不足一句
+	// 2. done：处理完成，请参考actionCode及对应的风险标签信息
+	FlowProcessState *string `json:"flow_process_state,omitempty" xml:"flow_process_state,omitempty"`
+	// 流式内容ID
+	FlowMsgId *string `json:"flow_msg_id,omitempty" xml:"flow_msg_id,omitempty"`
+	// 表示是同一个Q&A
+	MessageId *string `json:"message_id,omitempty" xml:"message_id,omitempty"`
+	// 兜底话术
+	SecurityAnswer *string `json:"security_answer,omitempty" xml:"security_answer,omitempty"`
+}
+
+func (s QuerySecurityAnswerResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QuerySecurityAnswerResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QuerySecurityAnswerResponse) SetReqMsgId(v string) *QuerySecurityAnswerResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QuerySecurityAnswerResponse) SetResultCode(v string) *QuerySecurityAnswerResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QuerySecurityAnswerResponse) SetResultMsg(v string) *QuerySecurityAnswerResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QuerySecurityAnswerResponse) SetActionCode(v string) *QuerySecurityAnswerResponse {
+	s.ActionCode = &v
+	return s
+}
+
+func (s *QuerySecurityAnswerResponse) SetLabels(v []*LabelModel) *QuerySecurityAnswerResponse {
+	s.Labels = v
+	return s
+}
+
+func (s *QuerySecurityAnswerResponse) SetCustomizeRiskWord(v []*string) *QuerySecurityAnswerResponse {
+	s.CustomizeRiskWord = v
+	return s
+}
+
+func (s *QuerySecurityAnswerResponse) SetFlowProcessState(v string) *QuerySecurityAnswerResponse {
+	s.FlowProcessState = &v
+	return s
+}
+
+func (s *QuerySecurityAnswerResponse) SetFlowMsgId(v string) *QuerySecurityAnswerResponse {
+	s.FlowMsgId = &v
+	return s
+}
+
+func (s *QuerySecurityAnswerResponse) SetMessageId(v string) *QuerySecurityAnswerResponse {
+	s.MessageId = &v
+	return s
+}
+
+func (s *QuerySecurityAnswerResponse) SetSecurityAnswer(v string) *QuerySecurityAnswerResponse {
+	s.SecurityAnswer = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -7043,7 +7567,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.55"),
+				"sdk_version":      tea.String("1.1.57"),
 				"_prod_code":       tea.String("AITECH"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -9100,6 +9624,74 @@ func (client *Client) QueryGuardDocumentEx(request *QueryGuardDocumentRequest, h
 	}
 	_result = &QueryGuardDocumentResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("aitech.comm.guard.document.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 天鉴SaaS提问检测
+ * Summary: 天鉴SaaS提问检测
+ */
+func (client *Client) QuerySecurityQuestion(request *QuerySecurityQuestionRequest) (_result *QuerySecurityQuestionResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QuerySecurityQuestionResponse{}
+	_body, _err := client.QuerySecurityQuestionEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 天鉴SaaS提问检测
+ * Summary: 天鉴SaaS提问检测
+ */
+func (client *Client) QuerySecurityQuestionEx(request *QuerySecurityQuestionRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QuerySecurityQuestionResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QuerySecurityQuestionResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("aitech.comm.security.question.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 天鉴SaaS回答检测
+ * Summary: 天鉴SaaS回答检测
+ */
+func (client *Client) QuerySecurityAnswer(request *QuerySecurityAnswerRequest) (_result *QuerySecurityAnswerResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QuerySecurityAnswerResponse{}
+	_body, _err := client.QuerySecurityAnswerEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 天鉴SaaS回答检测
+ * Summary: 天鉴SaaS回答检测
+ */
+func (client *Client) QuerySecurityAnswerEx(request *QuerySecurityAnswerRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QuerySecurityAnswerResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QuerySecurityAnswerResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("aitech.comm.security.answer.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
