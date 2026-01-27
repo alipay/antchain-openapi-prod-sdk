@@ -45,6 +45,14 @@ public class CheckThreemetaBankcardRequest extends TeaModel {
     @NameInMap("extern_param")
     public String externParam;
 
+    // 入参加密模式：NONE：不加密；AES：姓名、身份证号、手机号码字段都是AES加密后的字符串。非必填，不填时默认明文
+    @NameInMap("req_enc_type")
+    public String reqEncType;
+
+    // 用于入参加密的AES密钥
+    @NameInMap("enc_token")
+    public String encToken;
+
     public static CheckThreemetaBankcardRequest build(java.util.Map<String, ?> map) throws Exception {
         CheckThreemetaBankcardRequest self = new CheckThreemetaBankcardRequest();
         return TeaModel.build(map, self);
@@ -128,6 +136,22 @@ public class CheckThreemetaBankcardRequest extends TeaModel {
     }
     public String getExternParam() {
         return this.externParam;
+    }
+
+    public CheckThreemetaBankcardRequest setReqEncType(String reqEncType) {
+        this.reqEncType = reqEncType;
+        return this;
+    }
+    public String getReqEncType() {
+        return this.reqEncType;
+    }
+
+    public CheckThreemetaBankcardRequest setEncToken(String encToken) {
+        this.encToken = encToken;
+        return this;
+    }
+    public String getEncToken() {
+        return this.encToken;
     }
 
 }

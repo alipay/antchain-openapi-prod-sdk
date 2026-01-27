@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.22.13"),
+                    new TeaPair("sdk_version", "1.22.18"),
                     new TeaPair("_prod_code", "REALPERSON"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -1789,6 +1789,217 @@ public class Client {
     public QueryCarinfoPlusResponse queryCarinfoPlusEx(QueryCarinfoPlusRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "di.realperson.carinfo.plus.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCarinfoPlusResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 银行卡代扣二级租户开户
+     * Summary: 银行卡代扣二级租户开户</p>
+     */
+    public OpenCutpaymentsubAccountResponse openCutpaymentsubAccount(OpenCutpaymentsubAccountRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.openCutpaymentsubAccountEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 银行卡代扣二级租户开户
+     * Summary: 银行卡代扣二级租户开户</p>
+     */
+    public OpenCutpaymentsubAccountResponse openCutpaymentsubAccountEx(OpenCutpaymentsubAccountRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "di.realperson.cutpaymentsub.account.open", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new OpenCutpaymentsubAccountResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 银行卡代扣二级租户查询开户状态
+     * Summary: 银行卡代扣二级租户查询开户状态</p>
+     */
+    public QueryCutpaymentsubAccountResponse queryCutpaymentsubAccount(QueryCutpaymentsubAccountRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryCutpaymentsubAccountEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 银行卡代扣二级租户查询开户状态
+     * Summary: 银行卡代扣二级租户查询开户状态</p>
+     */
+    public QueryCutpaymentsubAccountResponse queryCutpaymentsubAccountEx(QueryCutpaymentsubAccountRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "di.realperson.cutpaymentsub.account.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCutpaymentsubAccountResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 银行卡代扣二级租户分账
+     * Summary: 银行卡代扣二级租户分账</p>
+     */
+    public TransferCutpaymentsubRevenueResponse transferCutpaymentsubRevenue(TransferCutpaymentsubRevenueRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.transferCutpaymentsubRevenueEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 银行卡代扣二级租户分账
+     * Summary: 银行卡代扣二级租户分账</p>
+     */
+    public TransferCutpaymentsubRevenueResponse transferCutpaymentsubRevenueEx(TransferCutpaymentsubRevenueRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "di.realperson.cutpaymentsub.revenue.transfer", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new TransferCutpaymentsubRevenueResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 银行卡代扣二级租户查询分账
+     * Summary: 银行卡代扣二级租户查询分账</p>
+     */
+    public QueryCutpaymentsubRevenueResponse queryCutpaymentsubRevenue(QueryCutpaymentsubRevenueRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryCutpaymentsubRevenueEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 银行卡代扣二级租户查询分账
+     * Summary: 银行卡代扣二级租户查询分账</p>
+     */
+    public QueryCutpaymentsubRevenueResponse queryCutpaymentsubRevenueEx(QueryCutpaymentsubRevenueRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "di.realperson.cutpaymentsub.revenue.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCutpaymentsubRevenueResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 银行卡代扣二级租户提现
+     * Summary: 银行卡代扣二级租户提现</p>
+     */
+    public CaptureCutpaymentsubWithdrawalResponse captureCutpaymentsubWithdrawal(CaptureCutpaymentsubWithdrawalRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.captureCutpaymentsubWithdrawalEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 银行卡代扣二级租户提现
+     * Summary: 银行卡代扣二级租户提现</p>
+     */
+    public CaptureCutpaymentsubWithdrawalResponse captureCutpaymentsubWithdrawalEx(CaptureCutpaymentsubWithdrawalRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "di.realperson.cutpaymentsub.withdrawal.capture", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CaptureCutpaymentsubWithdrawalResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 银行卡代扣二级租户提现查询
+     * Summary: 银行卡代扣二级租户提现查询</p>
+     */
+    public QueryCutpaymentsubWithdrawalResponse queryCutpaymentsubWithdrawal(QueryCutpaymentsubWithdrawalRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryCutpaymentsubWithdrawalEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 银行卡代扣二级租户提现查询
+     * Summary: 银行卡代扣二级租户提现查询</p>
+     */
+    public QueryCutpaymentsubWithdrawalResponse queryCutpaymentsubWithdrawalEx(QueryCutpaymentsubWithdrawalRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "di.realperson.cutpaymentsub.withdrawal.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCutpaymentsubWithdrawalResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 银行卡代扣二级租户查询余额
+     * Summary: 银行卡代扣二级租户查询余额</p>
+     */
+    public QueryCutpaymentsubBalanceResponse queryCutpaymentsubBalance(QueryCutpaymentsubBalanceRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryCutpaymentsubBalanceEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 银行卡代扣二级租户查询余额
+     * Summary: 银行卡代扣二级租户查询余额</p>
+     */
+    public QueryCutpaymentsubBalanceResponse queryCutpaymentsubBalanceEx(QueryCutpaymentsubBalanceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "di.realperson.cutpaymentsub.balance.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCutpaymentsubBalanceResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 银行卡代扣二级租户查询收支明细
+     * Summary: 银行卡代扣二级租户查询收支明细</p>
+     */
+    public QueryCutpaymentsubTransactionResponse queryCutpaymentsubTransaction(QueryCutpaymentsubTransactionRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryCutpaymentsubTransactionEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 银行卡代扣二级租户查询收支明细
+     * Summary: 银行卡代扣二级租户查询收支明细</p>
+     */
+    public QueryCutpaymentsubTransactionResponse queryCutpaymentsubTransactionEx(QueryCutpaymentsubTransactionRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "di.realperson.cutpaymentsub.transaction.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCutpaymentsubTransactionResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 提供私有化刷脸的风险咨询
+     * Summary: 人脸风险咨询服务</p>
+     */
+    public QueryRiskServerResponse queryRiskServer(QueryRiskServerRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryRiskServerEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 提供私有化刷脸的风险咨询
+     * Summary: 人脸风险咨询服务</p>
+     */
+    public QueryRiskServerResponse queryRiskServerEx(QueryRiskServerRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        if (!com.aliyun.teautil.Common.isUnset(request.fileObject)) {
+            CreateAntcloudGatewayxFileUploadRequest uploadReq = CreateAntcloudGatewayxFileUploadRequest.build(TeaConverter.buildMap(
+                new TeaPair("authToken", request.authToken),
+                new TeaPair("apiCode", "di.realperson.risk.server.query"),
+                new TeaPair("fileName", request.fileObjectName)
+            ));
+            CreateAntcloudGatewayxFileUploadResponse uploadResp = this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+            if (!com.antgroup.antchain.openapi.antchain.util.AntchainUtils.isSuccess(uploadResp.resultCode, "ok")) {
+                QueryRiskServerResponse queryRiskServerResponse = QueryRiskServerResponse.build(TeaConverter.buildMap(
+                    new TeaPair("reqMsgId", uploadResp.reqMsgId),
+                    new TeaPair("resultCode", uploadResp.resultCode),
+                    new TeaPair("resultMsg", uploadResp.resultMsg)
+                ));
+                return queryRiskServerResponse;
+            }
+
+            java.util.Map<String, String> uploadHeaders = com.antgroup.antchain.openapi.antchain.util.AntchainUtils.parseUploadHeaders(uploadResp.uploadHeaders);
+            com.antgroup.antchain.openapi.antchain.util.AntchainUtils.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+            request.fileId = uploadResp.fileId;
+            request.fileObject = null;
+        }
+
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "di.realperson.risk.server.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryRiskServerResponse());
     }
 
     /**
