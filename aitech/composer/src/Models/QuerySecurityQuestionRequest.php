@@ -112,7 +112,6 @@ class QuerySecurityQuestionRequest extends Model
         Model::validateRequired('question', $this->question, true);
         Model::validateRequired('businessId', $this->businessId, true);
         Model::validateRequired('sceneCode', $this->sceneCode, true);
-        Model::validateRequired('fieldIdentify', $this->fieldIdentify, true);
         Model::validateMaxLength('question', $this->question, 10000);
     }
 
