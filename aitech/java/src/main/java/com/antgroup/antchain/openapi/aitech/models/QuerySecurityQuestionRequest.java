@@ -52,7 +52,6 @@ public class QuerySecurityQuestionRequest extends TeaModel {
 
     // 是否需要针对提问内容的进行领域识别
     @NameInMap("field_identify")
-    @Validation(required = true)
     public String fieldIdentify;
 
     // 是否开启提示词攻击防御功能
