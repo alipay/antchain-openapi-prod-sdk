@@ -55,6 +55,16 @@ namespace AntChain.SDK.REALPERSON.Models
         [Validation(Required=false)]
         public string CertType { get; set; }
 
+        // 入参加密模式：NONE：不加密；AES：姓名、身份证号、手机号码字段都是AES加密后的字符串。非必填，不填时默认明文
+        [NameInMap("req_enc_type")]
+        [Validation(Required=false)]
+        public string ReqEncType { get; set; }
+
+        // 用于入参加密的AES密钥
+        [NameInMap("enc_token")]
+        [Validation(Required=false)]
+        public string EncToken { get; set; }
+
     }
 
 }
