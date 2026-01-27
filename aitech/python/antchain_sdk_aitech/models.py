@@ -8693,7 +8693,6 @@ class QuerySecurityQuestionRequest(TeaModel):
             self.validate_max_length(self.question, 'question', 10000)
         self.validate_required(self.business_id, 'business_id')
         self.validate_required(self.scene_code, 'scene_code')
-        self.validate_required(self.field_identify, 'field_identify')
 
     def to_map(self):
         _map = super().to_map()
