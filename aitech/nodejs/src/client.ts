@@ -242,6 +242,27 @@ export class QRCodeAuditResult extends $tea.Model {
   }
 }
 
+// 攻击手法二级标签
+export class AttackSubLabel extends $tea.Model {
+  // 提示词攻击手法二级标签
+  attackSubLabel?: string;
+  static names(): { [key: string]: string } {
+    return {
+      attackSubLabel: 'attack_sub_label',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      attackSubLabel: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 主题信息
 export class MeiyouTopicWebInfo extends $tea.Model {
   // 内容文本
@@ -342,6 +363,39 @@ export class MayaStreamResult extends $tea.Model {
   }
 }
 
+// 二级标签结构
+export class SubLabelModel extends $tea.Model {
+  // 二级标签
+  subLabel: string;
+  // 风险关键词列表
+  riskWords?: string[];
+  // 风险关键词索引列表
+  riskWordsIndex?: string[];
+  // 三级标签列表
+  thirdLabels?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      subLabel: 'sub_label',
+      riskWords: 'risk_words',
+      riskWordsIndex: 'risk_words_index',
+      thirdLabels: 'third_labels',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      subLabel: 'string',
+      riskWords: { 'type': 'array', 'itemType': 'string' },
+      riskWordsIndex: { 'type': 'array', 'itemType': 'string' },
+      thirdLabels: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // logo审核结果
 export class LogoAuditResult extends $tea.Model {
   // 检测到LOGO个数
@@ -359,6 +413,35 @@ export class LogoAuditResult extends $tea.Model {
     return {
       detectNum: 'number',
       details: { 'type': 'array', 'itemType': LogoDetail },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 领域信息
+export class FieldModel extends $tea.Model {
+  // 领域一级标签
+  fieldCategory?: string;
+  // 领域二级标签
+  fieldLabel?: string;
+  // 领域一级标签的等级分数
+  fieldScore?: number;
+  static names(): { [key: string]: string } {
+    return {
+      fieldCategory: 'field_category',
+      fieldLabel: 'field_label',
+      fieldScore: 'field_score',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      fieldCategory: 'string',
+      fieldLabel: 'string',
+      fieldScore: 'number',
     };
   }
 
@@ -461,6 +544,31 @@ export class AntCloudProdProviderHttpResponse extends $tea.Model {
     return {
       response: MayaStreamResult,
       sign: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 一级标签信息
+export class LabelModel extends $tea.Model {
+  // 一级标签
+  label?: string;
+  // 子标签
+  subLabels?: SubLabelModel[];
+  static names(): { [key: string]: string } {
+    return {
+      label: 'label',
+      subLabels: 'sub_labels',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      label: 'string',
+      subLabels: { 'type': 'array', 'itemType': SubLabelModel },
     };
   }
 
@@ -597,6 +705,31 @@ export class ImageAuditResult extends $tea.Model {
       dataId: 'string',
       logoAuditResult: LogoAuditResult,
       qrCodeAuditResult: QRCodeAuditResult,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 提示词攻击手法一级标签
+export class AttackLabel extends $tea.Model {
+  // 提示词攻击手法一级标签
+  attackLabel?: string;
+  // 提示词攻击手法二级标签列表
+  attackSubLabels?: AttackSubLabel;
+  static names(): { [key: string]: string } {
+    return {
+      attackLabel: 'attack_label',
+      attackSubLabels: 'attack_sub_labels',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      attackLabel: 'string',
+      attackSubLabels: AttackSubLabel,
     };
   }
 
@@ -5241,6 +5374,262 @@ export class QueryGuardDocumentResponse extends $tea.Model {
   }
 }
 
+export class QuerySecurityQuestionRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 调用方唯一标示
+  enterprise?: string;
+  // 提问内容
+  question: string;
+  // 调用方标示
+  businessId: string;
+  // 场景code
+  sceneCode: string;
+  // 标示是否是同一个Q&A
+  messageId?: string;
+  // 会话ID
+  sessionId?: string;
+  // 是否开启流式检测功能。默认值：N：不开启，Y：开启
+  multiSessionDetect?: string;
+  // 是否开启针对大模型输入文本的的安全改写和增强功能。默认值：N：不开启，Y：开启
+  promptReword?: string;
+  // 是否需要针对提问内容的进行金融合规检测。默认值：N：不开启，Y：开启
+  financeComplianceDetection?: string;
+  // 是否需要针对提问内容的进行领域识别
+  fieldIdentify: string;
+  // 是否开启提示词攻击防御功能
+  promptAttackDefense?: string;
+  // 是否开启隐私数据泄露的专项检测
+  privacyDataDetection?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      enterprise: 'enterprise',
+      question: 'question',
+      businessId: 'business_id',
+      sceneCode: 'scene_code',
+      messageId: 'message_id',
+      sessionId: 'session_id',
+      multiSessionDetect: 'multi_session_detect',
+      promptReword: 'prompt_reword',
+      financeComplianceDetection: 'finance_compliance_detection',
+      fieldIdentify: 'field_identify',
+      promptAttackDefense: 'prompt_attack_defense',
+      privacyDataDetection: 'privacy_data_detection',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      enterprise: 'string',
+      question: 'string',
+      businessId: 'string',
+      sceneCode: 'string',
+      messageId: 'string',
+      sessionId: 'string',
+      multiSessionDetect: 'string',
+      promptReword: 'string',
+      financeComplianceDetection: 'string',
+      fieldIdentify: 'string',
+      promptAttackDefense: 'string',
+      privacyDataDetection: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QuerySecurityQuestionResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 代表风险等级和建议的处置结论，PASS：安全无风险，BLOCK：绝对风险，建议直接拦截，SECURITY_ANSWER：泛风险，回答内容存在敏感要素
+  actionCode?: string;
+  // 命中的自定义黑词列表
+  customizeRiskWord?: string[];
+  // 风险标签
+  labels?: LabelModel[];
+  // 会话Id
+  sessionId?: string;
+  // 表示是同一个Q&A
+  messageId?: string;
+  // 兜底话术
+  limitAnswer?: string;
+  // 有风险时的安全代答
+  securityAnswer?: string;
+  // 当请求参数 promptReword=Y 时返回，为安全改写后的内容
+  securityPrompt?: string;
+  // 提示词攻击手法标签
+  attackLabels?: AttackLabel;
+  // 领域标签信息
+  fieldInfo?: FieldModel;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      actionCode: 'action_code',
+      customizeRiskWord: 'customize_risk_word',
+      labels: 'labels',
+      sessionId: 'session_id',
+      messageId: 'message_id',
+      limitAnswer: 'limit_answer',
+      securityAnswer: 'security_answer',
+      securityPrompt: 'security_prompt',
+      attackLabels: 'attack_labels',
+      fieldInfo: 'field_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      actionCode: 'string',
+      customizeRiskWord: { 'type': 'array', 'itemType': 'string' },
+      labels: { 'type': 'array', 'itemType': LabelModel },
+      sessionId: 'string',
+      messageId: 'string',
+      limitAnswer: 'string',
+      securityAnswer: 'string',
+      securityPrompt: 'string',
+      attackLabels: AttackLabel,
+      fieldInfo: FieldModel,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QuerySecurityAnswerRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 调用标示
+  enterprise?: string;
+  // 细分调用方标识
+  businessId: string;
+  // 当前回答内容，最大长度40000个字符
+  content: string;
+  // 场景code
+  sceneCode: string;
+  // 是否开启流式检测功能。默认值：N：不开启，Y：开启
+  flowDetect?: string;
+  // 会话id
+  flowMsgId?: string;
+  // 流失内容结束标示
+  flowEnd?: string;
+  // 表示是同一个Q&A
+  messageId?: string;
+  // 是否要针对大模型输出的内容中的隐私数据进行脱敏。默认值：N：不开启，Y：开启
+  privacyDataObfuscation?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      enterprise: 'enterprise',
+      businessId: 'business_id',
+      content: 'content',
+      sceneCode: 'scene_code',
+      flowDetect: 'flow_detect',
+      flowMsgId: 'flow_msg_id',
+      flowEnd: 'flow_end',
+      messageId: 'message_id',
+      privacyDataObfuscation: 'privacy_data_obfuscation',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      enterprise: 'string',
+      businessId: 'string',
+      content: 'string',
+      sceneCode: 'string',
+      flowDetect: 'string',
+      flowMsgId: 'string',
+      flowEnd: 'string',
+      messageId: 'string',
+      privacyDataObfuscation: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QuerySecurityAnswerResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 代表风险等级和建议的处置结论，PASS：安全无风险，BLOCK：绝对风险，建议直接拦截，SECURITY_ANSWER：泛风险，回答内容存在敏感要素
+  actionCode?: string;
+  // 风险标签
+  labels?: LabelModel[];
+  // 命中的自定义黑词列表
+  customizeRiskWord?: string[];
+  // 针对流式输入的处理状态，针对流式输入的处理状态，当请求参数 flowDetect=Y 时返回，结果信息如下：
+  // 1. processing：等待处理中，暂无风险检测结果，可能是输入的文本信息不足一句
+  // 2. done：处理完成，请参考actionCode及对应的风险标签信息
+  flowProcessState?: string;
+  // 流式内容ID
+  flowMsgId?: string;
+  // 表示是同一个Q&A
+  messageId?: string;
+  // 兜底话术
+  securityAnswer?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      actionCode: 'action_code',
+      labels: 'labels',
+      customizeRiskWord: 'customize_risk_word',
+      flowProcessState: 'flow_process_state',
+      flowMsgId: 'flow_msg_id',
+      messageId: 'message_id',
+      securityAnswer: 'security_answer',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      actionCode: 'string',
+      labels: { 'type': 'array', 'itemType': LabelModel },
+      customizeRiskWord: { 'type': 'array', 'itemType': 'string' },
+      flowProcessState: 'string',
+      flowMsgId: 'string',
+      messageId: 'string',
+      securityAnswer: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -5354,7 +5743,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.55",
+          sdk_version: "1.1.57",
           _prod_code: "AITECH",
           _prod_channel: "default",
         };
@@ -6521,6 +6910,44 @@ export default class Client {
   async queryGuardDocumentEx(request: QueryGuardDocumentRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryGuardDocumentResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryGuardDocumentResponse>(await this.doRequest("1.0", "aitech.comm.guard.document.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryGuardDocumentResponse({}));
+  }
+
+  /**
+   * Description: 天鉴SaaS提问检测
+   * Summary: 天鉴SaaS提问检测
+   */
+  async querySecurityQuestion(request: QuerySecurityQuestionRequest): Promise<QuerySecurityQuestionResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.querySecurityQuestionEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 天鉴SaaS提问检测
+   * Summary: 天鉴SaaS提问检测
+   */
+  async querySecurityQuestionEx(request: QuerySecurityQuestionRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QuerySecurityQuestionResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QuerySecurityQuestionResponse>(await this.doRequest("1.0", "aitech.comm.security.question.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QuerySecurityQuestionResponse({}));
+  }
+
+  /**
+   * Description: 天鉴SaaS回答检测
+   * Summary: 天鉴SaaS回答检测
+   */
+  async querySecurityAnswer(request: QuerySecurityAnswerRequest): Promise<QuerySecurityAnswerResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.querySecurityAnswerEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 天鉴SaaS回答检测
+   * Summary: 天鉴SaaS回答检测
+   */
+  async querySecurityAnswerEx(request: QuerySecurityAnswerRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QuerySecurityAnswerResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QuerySecurityAnswerResponse>(await this.doRequest("1.0", "aitech.comm.security.answer.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QuerySecurityAnswerResponse({}));
   }
 
 }
