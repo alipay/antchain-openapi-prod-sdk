@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.55',
+    sdk_version = '1.1.57',
     _prod_code = 'AITECH',
     _prod_channel = 'default'
   };
@@ -221,6 +221,12 @@ model QRCodeAuditResult {
   details: [ QRCodeDetail ](name='details', example=''),
 }
 
+// 攻击手法二级标签
+model AttackSubLabel {
+  // 提示词攻击手法二级标签
+  attackSubLabel?: string(name='attack_sub_label', example='role_play：角色扮演'),
+}
+
 // 主题信息
 model MeiyouTopicWebInfo {
   // 内容文本
@@ -263,12 +269,34 @@ model MayaStreamResult {
   errorMsg: string(name='error_msg', example='maya平台调用失败'),
 }
 
+// 二级标签结构
+model SubLabelModel {
+  // 二级标签
+  subLabel: string(name='sub_label', example='正常'),
+  // 风险关键词列表
+  riskWords?: [ string ](name='risk_words', example=''),
+  // 风险关键词索引列表
+  riskWordsIndex?: [ string ](name='risk_words_index', example=''),
+  // 三级标签列表
+  thirdLabels?: [ string ](name='third_labels', example=''),
+}
+
 // logo审核结果
 model LogoAuditResult {
   // 检测到LOGO个数
   detectNum: long(name='detect_num', example=''),
   // LOGO详情
   details: [ LogoDetail ](name='details', example=''),
+}
+
+// 领域信息
+model FieldModel {
+  // 领域一级标签
+  fieldCategory?: string(name='field_category', example='金融'),
+  // 领域二级标签
+  fieldLabel?: string(name='field_label', example='金融'),
+  // 领域一级标签的等级分数
+  fieldScore?: long(name='field_score', example=''),
 }
 
 // 美柚审核信息存储请求
@@ -311,6 +339,14 @@ model AntCloudProdProviderHttpResponse {
   response: MayaStreamResult(name='response', example=''),
   // 签名
   sign: string(name='sign', example='5Okl4F2SNc9L2zrWCF8xZ+QPUyA='),
+}
+
+// 一级标签信息
+model LabelModel {
+  // 一级标签
+  label?: string(name='label', example='正常'),
+  // 子标签
+  subLabels?: [ SubLabelModel ](name='sub_labels', example=''),
 }
 
 // 文本同步审核结果
@@ -366,6 +402,14 @@ model ImageAuditResult {
   logoAuditResult: LogoAuditResult(name='logo_audit_result', example=''),
   // QRCode审核结果
   qrCodeAuditResult: QRCodeAuditResult(name='qr_code_audit_result', example=''),
+}
+
+// 提示词攻击手法一级标签
+model AttackLabel {
+  // 提示词攻击手法一级标签
+  attackLabel?: string(name='attack_label', example='jailbreak：越狱攻击'),
+  // 提示词攻击手法二级标签列表
+  attackSubLabels?: AttackSubLabel(name='attack_sub_labels', example=''),
 }
 
 // 美柚审核信息
@@ -3199,5 +3243,151 @@ async function queryGuardDocument(request: QueryGuardDocumentRequest): QueryGuar
 async function queryGuardDocumentEx(request: QueryGuardDocumentRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryGuardDocumentResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'aitech.comm.guard.document.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QuerySecurityQuestionRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 调用方唯一标示
+  enterprise?: string(name='enterprise'),
+  // 提问内容
+  question: string(maxLength=10000, name='question'),
+  // 调用方标示
+  businessId: string(name='business_id'),
+  // 场景code
+  sceneCode: string(name='scene_code'),
+  // 标示是否是同一个Q&A
+  messageId?: string(name='message_id'),
+  // 会话ID
+  sessionId?: string(name='session_id'),
+  // 是否开启流式检测功能。默认值：N：不开启，Y：开启
+  multiSessionDetect?: string(name='multi_session_detect'),
+  // 是否开启针对大模型输入文本的的安全改写和增强功能。默认值：N：不开启，Y：开启
+  promptReword?: string(name='prompt_reword'),
+  // 是否需要针对提问内容的进行金融合规检测。默认值：N：不开启，Y：开启
+  financeComplianceDetection?: string(name='finance_compliance_detection'),
+  // 是否需要针对提问内容的进行领域识别
+  fieldIdentify: string(name='field_identify'),
+  // 是否开启提示词攻击防御功能
+  promptAttackDefense?: string(name='prompt_attack_defense'),
+  // 是否开启隐私数据泄露的专项检测
+  privacyDataDetection?: string(name='privacy_data_detection'),
+}
+
+model QuerySecurityQuestionResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 代表风险等级和建议的处置结论，PASS：安全无风险，BLOCK：绝对风险，建议直接拦截，SECURITY_ANSWER：泛风险，回答内容存在敏感要素
+  actionCode?: string(name='action_code'),
+  // 命中的自定义黑词列表
+  customizeRiskWord?: [ string ](name='customize_risk_word'),
+  // 风险标签
+  labels?: [ LabelModel ](name='labels'),
+  // 会话Id
+  sessionId?: string(name='session_id'),
+  // 表示是同一个Q&A
+  messageId?: string(name='message_id'),
+  // 兜底话术
+  limitAnswer?: string(name='limit_answer'),
+  // 有风险时的安全代答
+  securityAnswer?: string(name='security_answer'),
+  // 当请求参数 promptReword=Y 时返回，为安全改写后的内容
+  securityPrompt?: string(name='security_prompt'),
+  // 提示词攻击手法标签
+  attackLabels?: AttackLabel(name='attack_labels'),
+  // 领域标签信息
+  fieldInfo?: FieldModel(name='field_info'),
+}
+
+/**
+ * Description: 天鉴SaaS提问检测
+ * Summary: 天鉴SaaS提问检测
+ */
+async function querySecurityQuestion(request: QuerySecurityQuestionRequest): QuerySecurityQuestionResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return querySecurityQuestionEx(request, headers, runtime);
+}
+
+/**
+ * Description: 天鉴SaaS提问检测
+ * Summary: 天鉴SaaS提问检测
+ */
+async function querySecurityQuestionEx(request: QuerySecurityQuestionRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QuerySecurityQuestionResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'aitech.comm.security.question.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QuerySecurityAnswerRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 调用标示
+  enterprise?: string(name='enterprise'),
+  // 细分调用方标识
+  businessId: string(name='business_id'),
+  // 当前回答内容，最大长度40000个字符
+  content: string(maxLength=40000, name='content'),
+  // 场景code
+  sceneCode: string(name='scene_code'),
+  // 是否开启流式检测功能。默认值：N：不开启，Y：开启
+  flowDetect?: string(name='flow_detect'),
+  // 会话id
+  flowMsgId?: string(name='flow_msg_id'),
+  // 流失内容结束标示
+  flowEnd?: string(name='flow_end'),
+  // 表示是同一个Q&A
+  messageId?: string(name='message_id'),
+  // 是否要针对大模型输出的内容中的隐私数据进行脱敏。默认值：N：不开启，Y：开启
+  privacyDataObfuscation?: string(name='privacy_data_obfuscation'),
+}
+
+model QuerySecurityAnswerResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 代表风险等级和建议的处置结论，PASS：安全无风险，BLOCK：绝对风险，建议直接拦截，SECURITY_ANSWER：泛风险，回答内容存在敏感要素
+  actionCode?: string(name='action_code'),
+  // 风险标签
+  labels?: [ LabelModel ](name='labels'),
+  // 命中的自定义黑词列表
+  customizeRiskWord?: [ string ](name='customize_risk_word'),
+  // 针对流式输入的处理状态，针对流式输入的处理状态，当请求参数 flowDetect=Y 时返回，结果信息如下：
+  // 1. processing：等待处理中，暂无风险检测结果，可能是输入的文本信息不足一句
+  // 2. done：处理完成，请参考actionCode及对应的风险标签信息
+  flowProcessState?: string(name='flow_process_state'),
+  // 流式内容ID
+  flowMsgId?: string(name='flow_msg_id'),
+  // 表示是同一个Q&A
+  messageId?: string(name='message_id'),
+  // 兜底话术
+  securityAnswer?: string(name='security_answer'),
+}
+
+/**
+ * Description: 天鉴SaaS回答检测
+ * Summary: 天鉴SaaS回答检测
+ */
+async function querySecurityAnswer(request: QuerySecurityAnswerRequest): QuerySecurityAnswerResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return querySecurityAnswerEx(request, headers, runtime);
+}
+
+/**
+ * Description: 天鉴SaaS回答检测
+ * Summary: 天鉴SaaS回答检测
+ */
+async function querySecurityAnswerEx(request: QuerySecurityAnswerRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QuerySecurityAnswerResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'aitech.comm.security.answer.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
