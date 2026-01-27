@@ -156,6 +156,485 @@ export class CardQuality extends $tea.Model {
   }
 }
 
+// 音频元数据
+export class AudioMeta extends $tea.Model {
+  // 采样率
+  sampleFreq?: number;
+  // 音频道数
+  channelsNum?: number;
+  // 音频数据采样点所占位数
+  bits?: number;
+  // 语音信道分离标识
+  channel?: number;
+  static names(): { [key: string]: string } {
+    return {
+      sampleFreq: 'sample_freq',
+      channelsNum: 'channels_num',
+      bits: 'bits',
+      channel: 'channel',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      sampleFreq: 'number',
+      channelsNum: 'number',
+      bits: 'number',
+      channel: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 音频文件
+export class Audio extends $tea.Model {
+  // 音频文件名称（单次请求保持唯一）
+  token?: string;
+  // 待认证的音频文件，base64编码格式
+  rawData?: string;
+  // 音频文件OSS地址
+  audioUrl?: string;
+  static names(): { [key: string]: string } {
+    return {
+      token: 'token',
+      rawData: 'raw_data',
+      audioUrl: 'audio_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      token: 'string',
+      rawData: 'string',
+      audioUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 银行卡代扣二级租户收支明细
+export class TransactionDetail extends $tea.Model {
+  // 交易类型：RECHARGE 入金，TRANSFER 划拨 ，WITHDRAW 出金
+  transType?: string;
+  // 余额方向：CR-贷款（收入）/ DR-借款（支出）
+  direction?: string;
+  // 币种 CNY人民币
+  ccy?: string;
+  // 交易金额，单位：元，整数部分最长10位数，保留两位小数
+  amount?: string;
+  // 交易后余额，单位：元，整数部分最长10位数，保留两位小数
+  afterAmount?: string;
+  // 创建时间，格式为：yyyy-MM-dd HH:mm:ss
+  creatTime?: string;
+  // SHARE-分账
+  // OFFSET_SHARE-差额分账
+  // REFUND-退款
+  // TRANSFER-转账
+  // WITHDRAW-提现
+  // CLEAR-资金清算
+  // OTHER-其他
+  // WITHDRAW_CANCEL-提现退回
+  businessType?: string;
+  static names(): { [key: string]: string } {
+    return {
+      transType: 'trans_type',
+      direction: 'direction',
+      ccy: 'ccy',
+      amount: 'amount',
+      afterAmount: 'after_amount',
+      creatTime: 'creat_time',
+      businessType: 'business_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      transType: 'string',
+      direction: 'string',
+      ccy: 'string',
+      amount: 'string',
+      afterAmount: 'string',
+      creatTime: 'string',
+      businessType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 风险咨询设备信息
+export class DeviceInfo extends $tea.Model {
+  // 设备指纹
+  deviceFingerprint?: string;
+  // 设备制造商
+  deviceBrand?: string;
+  // 设备具体型号
+  deviceModel?: string;
+  // 操作系统类型
+  os?: string;
+  // 操作系统版本
+  osVersion?: string;
+  // 设备rom版本
+  romModel?: string;
+  // 设备硬盘信息
+  hardDisk?: string;
+  // 内存容量
+  memory?: string;
+  // 设备网络ip
+  cameraInfo?: string;
+  // 网关入口ip
+  gatewayIp?: string;
+  static names(): { [key: string]: string } {
+    return {
+      deviceFingerprint: 'device_fingerprint',
+      deviceBrand: 'device_brand',
+      deviceModel: 'device_model',
+      os: 'os',
+      osVersion: 'os_version',
+      romModel: 'rom_model',
+      hardDisk: 'hard_disk',
+      memory: 'memory',
+      cameraInfo: 'camera_info',
+      gatewayIp: 'gateway_ip',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      deviceFingerprint: 'string',
+      deviceBrand: 'string',
+      deviceModel: 'string',
+      os: 'string',
+      osVersion: 'string',
+      romModel: 'string',
+      hardDisk: 'string',
+      memory: 'string',
+      cameraInfo: 'string',
+      gatewayIp: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 车辆资产验证详版车辆信息
+export class CarInfoDetail extends $tea.Model {
+  // 车辆型号
+  clxh?: string;
+  // 发动机号
+  engineCode?: string;
+  // 发动机型号
+  engineModel?: string;
+  // 生产时间
+  productionTime?: string;
+  // 品牌名称
+  brandName?: string;
+  // 高尔夫(第七代,2014-)
+  seriesName?: string;
+  // 年款
+  modelYear?: string;
+  // 款型名称
+  vehicleName?: string;
+  // 指导价
+  guidePrice?: string;
+  // 车身颜色
+  color?: string;
+  // 车型级别
+  vehicleLevel?: string;
+  // 车型种类
+  vehicleType?: string;
+  // 车身结构
+  bodyStruct?: string;
+  //  燃料种类
+  fuelType?: string;
+  // 驱动方式
+  driveWay?: string;
+  // 底盘型号-商用车用
+  chassisModel?: string;
+  // 排放标准
+  emissionStandard?: string;
+  // 排量
+  displacement?: string;
+  // 长
+  length?: string;
+  // 宽
+  width?: string;
+  // 高
+  height?: string;
+  // 总质量
+  totalMass?: string;
+  // 整备质量
+  curbWeight?: string;
+  // 前轮距
+  tireDistanceBefore?: string;
+  // 后轮距
+  tireDistanceAfter?: string;
+  // 轴数
+  axesNumber?: string;
+  // 轴距 
+  wheelBase?: string;
+  // 座位数
+  seatingCapacity?: string;
+  // 核定载质量
+  approvedLoad?: string;
+  // 准牵引总质量 
+  quasiTraction?: string;
+  // 轮胎规格
+  tireSize?: string;
+  // 轮胎数
+  tireNumber?: string;
+  //  变速箱
+  transmission?: string;
+  //  功率
+  power?: string;
+  // 油耗
+  fuelConsumption?: string;
+  // 环保标准
+  environmentalStandards?: string;
+  static names(): { [key: string]: string } {
+    return {
+      clxh: 'clxh',
+      engineCode: 'engine_code',
+      engineModel: 'engine_model',
+      productionTime: 'production_time',
+      brandName: 'brand_name',
+      seriesName: 'series_name',
+      modelYear: 'model_year',
+      vehicleName: 'vehicle_name',
+      guidePrice: 'guide_price',
+      color: 'color',
+      vehicleLevel: 'vehicle_level',
+      vehicleType: 'vehicle_type',
+      bodyStruct: 'body_struct',
+      fuelType: 'fuel_type',
+      driveWay: 'drive_way',
+      chassisModel: 'chassis_model',
+      emissionStandard: 'emission_standard',
+      displacement: 'displacement',
+      length: 'length',
+      width: 'width',
+      height: 'height',
+      totalMass: 'total_mass',
+      curbWeight: 'curb_weight',
+      tireDistanceBefore: 'tire_distance_before',
+      tireDistanceAfter: 'tire_distance_after',
+      axesNumber: 'axes_number',
+      wheelBase: 'wheel_base',
+      seatingCapacity: 'seating_capacity',
+      approvedLoad: 'approved_load',
+      quasiTraction: 'quasi_traction',
+      tireSize: 'tire_size',
+      tireNumber: 'tire_number',
+      transmission: 'transmission',
+      power: 'power',
+      fuelConsumption: 'fuel_consumption',
+      environmentalStandards: 'environmental_standards',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      clxh: 'string',
+      engineCode: 'string',
+      engineModel: 'string',
+      productionTime: 'string',
+      brandName: 'string',
+      seriesName: 'string',
+      modelYear: 'string',
+      vehicleName: 'string',
+      guidePrice: 'string',
+      color: 'string',
+      vehicleLevel: 'string',
+      vehicleType: 'string',
+      bodyStruct: 'string',
+      fuelType: 'string',
+      driveWay: 'string',
+      chassisModel: 'string',
+      emissionStandard: 'string',
+      displacement: 'string',
+      length: 'string',
+      width: 'string',
+      height: 'string',
+      totalMass: 'string',
+      curbWeight: 'string',
+      tireDistanceBefore: 'string',
+      tireDistanceAfter: 'string',
+      axesNumber: 'string',
+      wheelBase: 'string',
+      seatingCapacity: 'string',
+      approvedLoad: 'string',
+      quasiTraction: 'string',
+      tireSize: 'string',
+      tireNumber: 'string',
+      transmission: 'string',
+      power: 'string',
+      fuelConsumption: 'string',
+      environmentalStandards: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// AIGC风险专项检测
+export class AigcRiskResult extends $tea.Model {
+  // AIGC风险检测评分
+  aigcRiskLevel?: string;
+  // 图像伪造分数
+  deepfakeScore?: string;
+  // 图像伪造结论
+  deepfakeResult?: string;
+  // 视频伪造分数
+  videoForgeryScore?: string;
+  // 视频伪造结论
+  videoFogeryResult?: string;
+  static names(): { [key: string]: string } {
+    return {
+      aigcRiskLevel: 'aigc_risk_level',
+      deepfakeScore: 'deepfake_score',
+      deepfakeResult: 'deepfake_result',
+      videoForgeryScore: 'video_forgery_score',
+      videoFogeryResult: 'video_fogery_result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      aigcRiskLevel: 'string',
+      deepfakeScore: 'string',
+      deepfakeResult: 'string',
+      videoForgeryScore: 'string',
+      videoFogeryResult: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 车辆资产验证旗舰版车辆信息
+export class CarInfo extends $tea.Model {
+  // 是否高频使用，格式：YES/NO
+  highFrequency?: string;
+  // 车辆价值区间，格式：1，2，3...
+  value?: string;
+  // 车辆类型，格式：1，2，3
+  type?: string;
+  static names(): { [key: string]: string } {
+    return {
+      highFrequency: 'high_frequency',
+      value: 'value',
+      type: 'type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      highFrequency: 'string',
+      value: 'string',
+      type: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 设备风险信息
+export class DeviceRiskInfo extends $tea.Model {
+  // 端安全产品名
+  securityProductName: string;
+  // 调用蚂蚁终端安全或人脸保镖的token
+  token?: string;
+  // 端安全SDK版本
+  securityVersion?: string;
+  // 设备是否root
+  isDeviceRooted?: boolean;
+  // 设备是否hook
+  isDeviceHooked?: boolean;
+  // 设备是否使用定制rom
+  isCustomRom?: boolean;
+  // 设备是否是云手机
+  isCloudPhone?: boolean;
+  // 是否为模拟器
+  isEmulator?: boolean;
+  // 设备是否支持虚拟摄像头
+  hasVirtualCamera?: boolean;
+  // 设备是否使用虚拟摄像头
+  isUsingVirtualCamera?: boolean;
+  // 设备是否有重打包风险
+  hasRepackRisk?: boolean;
+  // 设备是否多开
+  isMultiInstance?: boolean;
+  // 设备是否开启虚拟定位
+  isFakeLocation?: boolean;
+  // 有其他注入行为
+  hasOtherInjection?: boolean;
+  // 设备是否有其他自动化工具
+  hasAtuomationTools?: boolean;
+  // 风险sdk的JSON格式数据
+  riskSdkJson?: string;
+  static names(): { [key: string]: string } {
+    return {
+      securityProductName: 'security_product_name',
+      token: 'token',
+      securityVersion: 'security_version',
+      isDeviceRooted: 'is_device_rooted',
+      isDeviceHooked: 'is_device_hooked',
+      isCustomRom: 'is_custom_rom',
+      isCloudPhone: 'is_cloud_phone',
+      isEmulator: 'is_emulator',
+      hasVirtualCamera: 'has_virtual_camera',
+      isUsingVirtualCamera: 'is_using_virtual_camera',
+      hasRepackRisk: 'has_repack_risk',
+      isMultiInstance: 'is_multi_instance',
+      isFakeLocation: 'is_fake_location',
+      hasOtherInjection: 'has_other_injection',
+      hasAtuomationTools: 'has_atuomation_tools',
+      riskSdkJson: 'risk_sdk_json',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      securityProductName: 'string',
+      token: 'string',
+      securityVersion: 'string',
+      isDeviceRooted: 'boolean',
+      isDeviceHooked: 'boolean',
+      isCustomRom: 'boolean',
+      isCloudPhone: 'boolean',
+      isEmulator: 'boolean',
+      hasVirtualCamera: 'boolean',
+      isUsingVirtualCamera: 'boolean',
+      hasRepackRisk: 'boolean',
+      isMultiInstance: 'boolean',
+      isFakeLocation: 'boolean',
+      hasOtherInjection: 'boolean',
+      hasAtuomationTools: 'boolean',
+      riskSdkJson: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 卡证OCR风险结果
 export class RiskInfo extends $tea.Model {
   // 是否为复印件（仅身份证、银行卡含该字段）。0：否，1：是
@@ -209,39 +688,6 @@ export class RiskInfo extends $tea.Model {
   }
 }
 
-// 音频元数据
-export class AudioMeta extends $tea.Model {
-  // 采样率
-  sampleFreq?: number;
-  // 音频道数
-  channelsNum?: number;
-  // 音频数据采样点所占位数
-  bits?: number;
-  // 语音信道分离标识
-  channel?: number;
-  static names(): { [key: string]: string } {
-    return {
-      sampleFreq: 'sample_freq',
-      channelsNum: 'channels_num',
-      bits: 'bits',
-      channel: 'channel',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      sampleFreq: 'number',
-      channelsNum: 'number',
-      bits: 'number',
-      channel: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // 分账退款信息
 export class ShareRefundInfo extends $tea.Model {
   // 商户id
@@ -284,35 +730,6 @@ export class ShareInfo extends $tea.Model {
     return {
       merchantId: 'string',
       amount: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 音频文件
-export class Audio extends $tea.Model {
-  // 音频文件名称（单次请求保持唯一）
-  token?: string;
-  // 待认证的音频文件，base64编码格式
-  rawData?: string;
-  // 音频文件OSS地址
-  audioUrl?: string;
-  static names(): { [key: string]: string } {
-    return {
-      token: 'token',
-      rawData: 'raw_data',
-      audioUrl: 'audio_url',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      token: 'string',
-      rawData: 'string',
-      audioUrl: 'string',
     };
   }
 
@@ -552,167 +969,6 @@ export class CarInfoPlus extends $tea.Model {
   }
 }
 
-// 车辆资产验证详版车辆信息
-export class CarInfoDetail extends $tea.Model {
-  // 车辆型号
-  clxh?: string;
-  // 发动机号
-  engineCode?: string;
-  // 发动机型号
-  engineModel?: string;
-  // 生产时间
-  productionTime?: string;
-  // 品牌名称
-  brandName?: string;
-  // 高尔夫(第七代,2014-)
-  seriesName?: string;
-  // 年款
-  modelYear?: string;
-  // 款型名称
-  vehicleName?: string;
-  // 指导价
-  guidePrice?: string;
-  // 车身颜色
-  color?: string;
-  // 车型级别
-  vehicleLevel?: string;
-  // 车型种类
-  vehicleType?: string;
-  // 车身结构
-  bodyStruct?: string;
-  //  燃料种类
-  fuelType?: string;
-  // 驱动方式
-  driveWay?: string;
-  // 底盘型号-商用车用
-  chassisModel?: string;
-  // 排放标准
-  emissionStandard?: string;
-  // 排量
-  displacement?: string;
-  // 长
-  length?: string;
-  // 宽
-  width?: string;
-  // 高
-  height?: string;
-  // 总质量
-  totalMass?: string;
-  // 整备质量
-  curbWeight?: string;
-  // 前轮距
-  tireDistanceBefore?: string;
-  // 后轮距
-  tireDistanceAfter?: string;
-  // 轴数
-  axesNumber?: string;
-  // 轴距 
-  wheelBase?: string;
-  // 座位数
-  seatingCapacity?: string;
-  // 核定载质量
-  approvedLoad?: string;
-  // 准牵引总质量 
-  quasiTraction?: string;
-  // 轮胎规格
-  tireSize?: string;
-  // 轮胎数
-  tireNumber?: string;
-  //  变速箱
-  transmission?: string;
-  //  功率
-  power?: string;
-  // 油耗
-  fuelConsumption?: string;
-  // 环保标准
-  environmentalStandards?: string;
-  static names(): { [key: string]: string } {
-    return {
-      clxh: 'clxh',
-      engineCode: 'engine_code',
-      engineModel: 'engine_model',
-      productionTime: 'production_time',
-      brandName: 'brand_name',
-      seriesName: 'series_name',
-      modelYear: 'model_year',
-      vehicleName: 'vehicle_name',
-      guidePrice: 'guide_price',
-      color: 'color',
-      vehicleLevel: 'vehicle_level',
-      vehicleType: 'vehicle_type',
-      bodyStruct: 'body_struct',
-      fuelType: 'fuel_type',
-      driveWay: 'drive_way',
-      chassisModel: 'chassis_model',
-      emissionStandard: 'emission_standard',
-      displacement: 'displacement',
-      length: 'length',
-      width: 'width',
-      height: 'height',
-      totalMass: 'total_mass',
-      curbWeight: 'curb_weight',
-      tireDistanceBefore: 'tire_distance_before',
-      tireDistanceAfter: 'tire_distance_after',
-      axesNumber: 'axes_number',
-      wheelBase: 'wheel_base',
-      seatingCapacity: 'seating_capacity',
-      approvedLoad: 'approved_load',
-      quasiTraction: 'quasi_traction',
-      tireSize: 'tire_size',
-      tireNumber: 'tire_number',
-      transmission: 'transmission',
-      power: 'power',
-      fuelConsumption: 'fuel_consumption',
-      environmentalStandards: 'environmental_standards',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      clxh: 'string',
-      engineCode: 'string',
-      engineModel: 'string',
-      productionTime: 'string',
-      brandName: 'string',
-      seriesName: 'string',
-      modelYear: 'string',
-      vehicleName: 'string',
-      guidePrice: 'string',
-      color: 'string',
-      vehicleLevel: 'string',
-      vehicleType: 'string',
-      bodyStruct: 'string',
-      fuelType: 'string',
-      driveWay: 'string',
-      chassisModel: 'string',
-      emissionStandard: 'string',
-      displacement: 'string',
-      length: 'string',
-      width: 'string',
-      height: 'string',
-      totalMass: 'string',
-      curbWeight: 'string',
-      tireDistanceBefore: 'string',
-      tireDistanceAfter: 'string',
-      axesNumber: 'string',
-      wheelBase: 'string',
-      seatingCapacity: 'string',
-      approvedLoad: 'string',
-      quasiTraction: 'string',
-      tireSize: 'string',
-      tireNumber: 'string',
-      transmission: 'string',
-      power: 'string',
-      fuelConsumption: 'string',
-      environmentalStandards: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // 车辆资产验证简版车辆信息
 export class CarInfoBrief extends $tea.Model {
   // 生产时间
@@ -858,27 +1114,39 @@ export class CarInfoBrief extends $tea.Model {
   }
 }
 
-// 车辆资产验证旗舰版车辆信息
-export class CarInfo extends $tea.Model {
-  // 是否高频使用，格式：YES/NO
-  highFrequency?: string;
-  // 车辆价值区间，格式：1，2，3...
-  value?: string;
-  // 车辆类型，格式：1，2，3
-  type?: string;
+// 综合风险
+export class RiskResult extends $tea.Model {
+  // 活体检测标签
+  imageLabels?: string;
+  // 设备风险等级
+  deviceRiskLevel?: string;
+  // 设备风险标签
+  deviceRiskLabels?: string;
+  // 行为风险等级
+  behaviorRiskLevel?: string;
+  // 行为风险标签
+  behaviorRiskLabels?: string;
+  // 是否关联攻击
+  isCorrelate?: boolean;
   static names(): { [key: string]: string } {
     return {
-      highFrequency: 'high_frequency',
-      value: 'value',
-      type: 'type',
+      imageLabels: 'image_labels',
+      deviceRiskLevel: 'device_risk_level',
+      deviceRiskLabels: 'device_risk_labels',
+      behaviorRiskLevel: 'behavior_risk_level',
+      behaviorRiskLabels: 'behavior_risk_labels',
+      isCorrelate: 'is_correlate',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      highFrequency: 'string',
-      value: 'string',
-      type: 'string',
+      imageLabels: 'string',
+      deviceRiskLevel: 'string',
+      deviceRiskLabels: 'string',
+      behaviorRiskLevel: 'string',
+      behaviorRiskLabels: 'string',
+      isCorrelate: 'boolean',
     };
   }
 
@@ -1506,6 +1774,10 @@ export class CheckIndividualidFourmetaRequest extends $tea.Model {
   externParam?: string;
   // 证件类型： 1：居民身份证（默认值） 2：军官证 3：护照 4：回乡证 5：台胞证 6：警官证 7：士兵证 99：其他
   certType?: string;
+  // 入参加密模式：NONE：不加密；AES：姓名、身份证号、手机号码字段都是AES加密后的字符串。非必填，不填时默认明文
+  reqEncType?: string;
+  // 用于入参加密的AES密钥
+  encToken?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -1517,6 +1789,8 @@ export class CheckIndividualidFourmetaRequest extends $tea.Model {
       bankCard: 'bank_card',
       externParam: 'extern_param',
       certType: 'cert_type',
+      reqEncType: 'req_enc_type',
+      encToken: 'enc_token',
     };
   }
 
@@ -1531,6 +1805,8 @@ export class CheckIndividualidFourmetaRequest extends $tea.Model {
       bankCard: 'string',
       externParam: 'string',
       certType: 'string',
+      reqEncType: 'string',
+      encToken: 'string',
     };
   }
 
@@ -1870,6 +2146,10 @@ export class CheckRouteTwometaRequest extends $tea.Model {
   // map结果的json数据格式，预留字段
   // 
   externParam?: string;
+  // 入参加密模式：NONE：不加密；AES：姓名、身份证号、手机号码字段都是AES加密后的字符串。非必填，不填时默认明文
+  reqEncType?: string;
+  // 用于入参加密的AES密钥
+  encToken?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -1879,6 +2159,8 @@ export class CheckRouteTwometaRequest extends $tea.Model {
       certNo: 'cert_no',
       scene: 'scene',
       externParam: 'extern_param',
+      reqEncType: 'req_enc_type',
+      encToken: 'enc_token',
     };
   }
 
@@ -1891,6 +2173,8 @@ export class CheckRouteTwometaRequest extends $tea.Model {
       certNo: 'string',
       scene: 'string',
       externParam: 'string',
+      reqEncType: 'string',
+      encToken: 'string',
     };
   }
 
@@ -2707,6 +2991,10 @@ export class CheckThreemetaBankcardRequest extends $tea.Model {
   mobile?: string;
   // 扩展信息，Map的json格式
   externParam?: string;
+  // 入参加密模式：NONE：不加密；AES：姓名、身份证号、手机号码字段都是AES加密后的字符串。非必填，不填时默认明文
+  reqEncType?: string;
+  // 用于入参加密的AES密钥
+  encToken?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -2719,6 +3007,8 @@ export class CheckThreemetaBankcardRequest extends $tea.Model {
       certType: 'cert_type',
       mobile: 'mobile',
       externParam: 'extern_param',
+      reqEncType: 'req_enc_type',
+      encToken: 'enc_token',
     };
   }
 
@@ -2734,6 +3024,8 @@ export class CheckThreemetaBankcardRequest extends $tea.Model {
       certType: 'string',
       mobile: 'string',
       externParam: 'string',
+      reqEncType: 'string',
+      encToken: 'string',
     };
   }
 
@@ -7192,6 +7484,872 @@ export class QueryCarinfoPlusResponse extends $tea.Model {
   }
 }
 
+export class OpenCutpaymentsubAccountRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+  outerOrderNo: string;
+  // 登录号，商户自定义，要求全局唯一，长度11位以上
+  loginNo: string;
+  // 邮箱
+  email: string;
+  // 是否个体户企业为 false个体户为 true
+  selfEmployed: boolean;
+  // 商户名称（营业执照上的名称）
+  licenseName: string;
+  // 营业执照号
+  licenseNo: string;
+  // 法人姓名
+  certName: string;
+  // 法人身份证号
+  certNo: string;
+  // 法人手机号
+  mobile: string;
+  // 公司所属行业
+  industryId: string;
+  // 银行卡号
+  bankCard: string;
+  // 银行名称
+  bankName: string;
+  // 开户行省份
+  bankProvince: string;
+  // 开户行城市
+  bankCity: string;
+  // 开户支行名称
+  bankBranchName: string;
+  // 持卡人姓名
+  // 当开个体户且绑定对私卡时需传此字段,否则默认绑定对公卡
+  cardUserName?: string;
+  // 一级商户商户号
+  firstLevelMemberid: string;
+  // 一级商户终端号
+  firstLevelTerminalid: string;
+  // 扩展信息，预留字段
+  externParam?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      outerOrderNo: 'outer_order_no',
+      loginNo: 'login_no',
+      email: 'email',
+      selfEmployed: 'self_employed',
+      licenseName: 'license_name',
+      licenseNo: 'license_no',
+      certName: 'cert_name',
+      certNo: 'cert_no',
+      mobile: 'mobile',
+      industryId: 'industry_id',
+      bankCard: 'bank_card',
+      bankName: 'bank_name',
+      bankProvince: 'bank_province',
+      bankCity: 'bank_city',
+      bankBranchName: 'bank_branch_name',
+      cardUserName: 'card_user_name',
+      firstLevelMemberid: 'first_level_memberid',
+      firstLevelTerminalid: 'first_level_terminalid',
+      externParam: 'extern_param',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      outerOrderNo: 'string',
+      loginNo: 'string',
+      email: 'string',
+      selfEmployed: 'boolean',
+      licenseName: 'string',
+      licenseNo: 'string',
+      certName: 'string',
+      certNo: 'string',
+      mobile: 'string',
+      industryId: 'string',
+      bankCard: 'string',
+      bankName: 'string',
+      bankProvince: 'string',
+      bankCity: 'string',
+      bankBranchName: 'string',
+      cardUserName: 'string',
+      firstLevelMemberid: 'string',
+      firstLevelTerminalid: 'string',
+      externParam: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class OpenCutpaymentsubAccountResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 扩展信息，预留字段
+  externInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      externInfo: 'extern_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      externInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryCutpaymentsubAccountRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+  outerOrderNo: string;
+  // 登录号
+  loginNo: string;
+  // 一级商户商户号
+  firstLevelMemberid: string;
+  // 一级商户终端号
+  firstLevelTerminalid: string;
+  // 扩展信息，预留字段
+  externParam?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      outerOrderNo: 'outer_order_no',
+      loginNo: 'login_no',
+      firstLevelMemberid: 'first_level_memberid',
+      firstLevelTerminalid: 'first_level_terminalid',
+      externParam: 'extern_param',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      outerOrderNo: 'string',
+      loginNo: 'string',
+      firstLevelMemberid: 'string',
+      firstLevelTerminalid: 'string',
+      externParam: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryCutpaymentsubAccountResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 二级商户号
+  contractNo?: string;
+  // 二级商户客户账户名
+  contractName?: string;
+  // 二级商户客户名
+  customerName?: string;
+  // 扩展信息，预留字段
+  externInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      contractNo: 'contract_no',
+      contractName: 'contract_name',
+      customerName: 'customer_name',
+      externInfo: 'extern_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      contractNo: 'string',
+      contractName: 'string',
+      customerName: 'string',
+      externInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class TransferCutpaymentsubRevenueRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+  outerOrderNo: string;
+  // 商户订单号需要唯一，方便定位到每一笔订单
+  orderNo: string;
+  // 01:加值；02:减值；
+  orderType: string;
+  // 分账总金额，单位：元，整数部分最长10位数，保留两位小数
+  dealAmount: string;
+  // 二级商户账户号
+  contractNo: string;
+  // 金额，单位：元，整数部分最长10位数，保留两位小数
+  transAmount: string;
+  // 一级商户商户号
+  firstLevelMemberid: string;
+  // 一级商户终端号
+  firstLevelTerminalid: string;
+  // 扩展信息，预留字段
+  externParam?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      outerOrderNo: 'outer_order_no',
+      orderNo: 'order_no',
+      orderType: 'order_type',
+      dealAmount: 'deal_amount',
+      contractNo: 'contract_no',
+      transAmount: 'trans_amount',
+      firstLevelMemberid: 'first_level_memberid',
+      firstLevelTerminalid: 'first_level_terminalid',
+      externParam: 'extern_param',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      outerOrderNo: 'string',
+      orderNo: 'string',
+      orderType: 'string',
+      dealAmount: 'string',
+      contractNo: 'string',
+      transAmount: 'string',
+      firstLevelMemberid: 'string',
+      firstLevelTerminalid: 'string',
+      externParam: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class TransferCutpaymentsubRevenueResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 扩展信息，预留字段
+  externInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      externInfo: 'extern_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      externInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryCutpaymentsubRevenueRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+  outerOrderNo: string;
+  // 商户订单号需要唯一，方便定位到每一笔订单
+  orderNo: string;
+  // 01:加值；02:减值
+  orderType: string;
+  // 一级商户商户号
+  firstLevelMemberid: string;
+  // 一级商户终端号
+  firstLevelTerminalid: string;
+  // 扩展信息，预留字段
+  externParam?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      outerOrderNo: 'outer_order_no',
+      orderNo: 'order_no',
+      orderType: 'order_type',
+      firstLevelMemberid: 'first_level_memberid',
+      firstLevelTerminalid: 'first_level_terminalid',
+      externParam: 'extern_param',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      outerOrderNo: 'string',
+      orderNo: 'string',
+      orderType: 'string',
+      firstLevelMemberid: 'string',
+      firstLevelTerminalid: 'string',
+      externParam: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryCutpaymentsubRevenueResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 扩展信息，预留字段
+  externInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      externInfo: 'extern_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      externInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CaptureCutpaymentsubWithdrawalRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+  outerOrderNo: string;
+  // 提现的订单号，商户订单号需要唯一，方便定位到每一笔订单
+  withdrawOrderId: string;
+  // 二级商户账户号
+  contractNo: string;
+  // 提现金额，单位：元，整数部分最长10位数，保留两位小数
+  dealAmount: string;
+  // 一级商户商户号
+  firstLevelMemberid: string;
+  // 一级商户终端号
+  firstLevelTerminalid: string;
+  // 扩展信息，预留字段
+  externParam?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      outerOrderNo: 'outer_order_no',
+      withdrawOrderId: 'withdraw_order_id',
+      contractNo: 'contract_no',
+      dealAmount: 'deal_amount',
+      firstLevelMemberid: 'first_level_memberid',
+      firstLevelTerminalid: 'first_level_terminalid',
+      externParam: 'extern_param',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      outerOrderNo: 'string',
+      withdrawOrderId: 'string',
+      contractNo: 'string',
+      dealAmount: 'string',
+      firstLevelMemberid: 'string',
+      firstLevelTerminalid: 'string',
+      externParam: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CaptureCutpaymentsubWithdrawalResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 扩展信息，预留字段
+  externInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      externInfo: 'extern_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      externInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryCutpaymentsubWithdrawalRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+  outerOrderNo: string;
+  // 原商户流水号
+  withdrawOrderId: string;
+  // 交易时间 yyyy-MM-dd，原交易日期
+  time: string;
+  // 一级商户商户号
+  firstLevelMemberid: string;
+  // 一级商户终端号
+  firstLevelTerminalid: string;
+  // 扩展信息，预留字段
+  externParam?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      outerOrderNo: 'outer_order_no',
+      withdrawOrderId: 'withdraw_order_id',
+      time: 'time',
+      firstLevelMemberid: 'first_level_memberid',
+      firstLevelTerminalid: 'first_level_terminalid',
+      externParam: 'extern_param',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      outerOrderNo: 'string',
+      withdrawOrderId: 'string',
+      time: 'string',
+      firstLevelMemberid: 'string',
+      firstLevelTerminalid: 'string',
+      externParam: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryCutpaymentsubWithdrawalResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 扩展信息，预留字段
+  externInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      externInfo: 'extern_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      externInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryCutpaymentsubBalanceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+  outerOrderNo: string;
+  // 二级商户账户号
+  contractNo: string;
+  // 一级商户商户号
+  firstLevelMemberid: string;
+  // 一级商户终端号
+  firstLevelTerminalid: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      outerOrderNo: 'outer_order_no',
+      contractNo: 'contract_no',
+      firstLevelMemberid: 'first_level_memberid',
+      firstLevelTerminalid: 'first_level_terminalid',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      outerOrderNo: 'string',
+      contractNo: 'string',
+      firstLevelMemberid: 'string',
+      firstLevelTerminalid: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryCutpaymentsubBalanceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 账簿可用余额，单位：元；可用于提现，整数部分最长10位数，保留两位小数
+  availableAmount?: string;
+  // 账簿余额，单位：元；整数部分最长10位数，保留两位小数
+  currAmount?: string;
+  // 扩展信息，预留字段
+  externInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      availableAmount: 'available_amount',
+      currAmount: 'curr_amount',
+      externInfo: 'extern_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      availableAmount: 'string',
+      currAmount: 'string',
+      externInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryCutpaymentsubTransactionRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+  outerOrderNo: string;
+  // 二级商户账户号
+  contractNo: string;
+  // 明细开始时间，格式为：yyyy-MM-dd HH:mm:ss
+  startTime?: string;
+  // 明细结束时间，格式为：yyyy-MM-dd HH:mm:ss，查询间隔最大支持一个月
+  endTime?: string;
+  // 当前页
+  pageNum: string;
+  // 每页数量，每页最多100条数据
+  pageSize: string;
+  // 一级商户商户号
+  firstLevelMemberid: string;
+  // 一级商户终端号
+  firstLevelTerminalid: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      outerOrderNo: 'outer_order_no',
+      contractNo: 'contract_no',
+      startTime: 'start_time',
+      endTime: 'end_time',
+      pageNum: 'page_num',
+      pageSize: 'page_size',
+      firstLevelMemberid: 'first_level_memberid',
+      firstLevelTerminalid: 'first_level_terminalid',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      outerOrderNo: 'string',
+      contractNo: 'string',
+      startTime: 'string',
+      endTime: 'string',
+      pageNum: 'string',
+      pageSize: 'string',
+      firstLevelMemberid: 'string',
+      firstLevelTerminalid: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryCutpaymentsubTransactionResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 当前页
+  pageNum?: string;
+  // 每页数量
+  pageSize?: string;
+  // 总页数
+  pageCount?: string;
+  // 银行卡代扣二级租户收支明细
+  transactionDetailList?: TransactionDetail[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      pageNum: 'page_num',
+      pageSize: 'page_size',
+      pageCount: 'page_count',
+      transactionDetailList: 'transaction_detail_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      pageNum: 'string',
+      pageSize: 'string',
+      pageCount: 'string',
+      transactionDetailList: { 'type': 'array', 'itemType': TransactionDetail },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryRiskServerRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 设备信息
+  deviceInfo: DeviceInfo;
+  // 设备风险信息
+  deviceRiskInfo: DeviceRiskInfo;
+  // 视频文件
+  fileObject?: Readable;
+  fileObjectName?: string;
+  fileId?: string;
+  // base64编码最佳人脸图，可加密
+  faceImage: string;
+  // 唯一标识业务请求
+  uniqueId: string;
+  // 标识应用程序名称
+  appName?: string;
+  // 标识应用程序版本
+  appVersion?: string;
+  // 标识业务场景
+  sceneId?: string;
+  // 姓名，可加密
+  certName?: string;
+  // 身份证号，可加密
+  certNo?: string;
+  // 表示用户唯一id
+  uid?: string;
+  // cert_name、cert_no两个字段的传入模式0：明文 1：密文
+  encType?: string;
+  // 图片的传入加密模式 0：明文 1：AES加密
+  materialEncType?: string;
+  // 公钥加密后的密钥，用于传入的加密图片/视频
+  materialEncToken?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      deviceInfo: 'device_info',
+      deviceRiskInfo: 'device_risk_info',
+      fileObject: 'fileObject',
+      fileObjectName: 'fileObjectName',
+      fileId: 'file_id',
+      faceImage: 'face_image',
+      uniqueId: 'unique_id',
+      appName: 'app_name',
+      appVersion: 'app_version',
+      sceneId: 'scene_id',
+      certName: 'cert_name',
+      certNo: 'cert_no',
+      uid: 'uid',
+      encType: 'enc_type',
+      materialEncType: 'material_enc_type',
+      materialEncToken: 'material_enc_token',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      deviceInfo: DeviceInfo,
+      deviceRiskInfo: DeviceRiskInfo,
+      fileObject: 'Readable',
+      fileObjectName: 'string',
+      fileId: 'string',
+      faceImage: 'string',
+      uniqueId: 'string',
+      appName: 'string',
+      appVersion: 'string',
+      sceneId: 'string',
+      certName: 'string',
+      certNo: 'string',
+      uid: 'string',
+      encType: 'string',
+      materialEncType: 'string',
+      materialEncToken: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryRiskServerResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 攻击结论
+  faceAttack?: string;
+  // 综合风险检测结果
+  riskResult?: RiskResult;
+  // Aigc风险检测结论
+  aigcRiskResult?: AigcRiskResult;
+  // 是否面部遮挡
+  faceOcclusion?: boolean;
+  // 人脸性别年龄预估
+  attributes?: string;
+  // 人脸质量分和小分
+  qualityResult?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      faceAttack: 'face_attack',
+      riskResult: 'risk_result',
+      aigcRiskResult: 'aigc_risk_result',
+      faceOcclusion: 'face_occlusion',
+      attributes: 'attributes',
+      qualityResult: 'quality_result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      faceAttack: 'string',
+      riskResult: RiskResult,
+      aigcRiskResult: AigcRiskResult,
+      faceOcclusion: 'boolean',
+      attributes: 'string',
+      qualityResult: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -7393,7 +8551,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.22.13",
+          sdk_version: "1.22.18",
           _prod_code: "REALPERSON",
           _prod_channel: "undefined",
         };
@@ -8904,6 +10062,199 @@ export default class Client {
   async queryCarinfoPlusEx(request: QueryCarinfoPlusRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryCarinfoPlusResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryCarinfoPlusResponse>(await this.doRequest("1.0", "di.realperson.carinfo.plus.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryCarinfoPlusResponse({}));
+  }
+
+  /**
+   * Description: 银行卡代扣二级租户开户
+   * Summary: 银行卡代扣二级租户开户
+   */
+  async openCutpaymentsubAccount(request: OpenCutpaymentsubAccountRequest): Promise<OpenCutpaymentsubAccountResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.openCutpaymentsubAccountEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 银行卡代扣二级租户开户
+   * Summary: 银行卡代扣二级租户开户
+   */
+  async openCutpaymentsubAccountEx(request: OpenCutpaymentsubAccountRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<OpenCutpaymentsubAccountResponse> {
+    Util.validateModel(request);
+    return $tea.cast<OpenCutpaymentsubAccountResponse>(await this.doRequest("1.0", "di.realperson.cutpaymentsub.account.open", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new OpenCutpaymentsubAccountResponse({}));
+  }
+
+  /**
+   * Description: 银行卡代扣二级租户查询开户状态
+   * Summary: 银行卡代扣二级租户查询开户状态
+   */
+  async queryCutpaymentsubAccount(request: QueryCutpaymentsubAccountRequest): Promise<QueryCutpaymentsubAccountResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryCutpaymentsubAccountEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 银行卡代扣二级租户查询开户状态
+   * Summary: 银行卡代扣二级租户查询开户状态
+   */
+  async queryCutpaymentsubAccountEx(request: QueryCutpaymentsubAccountRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryCutpaymentsubAccountResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryCutpaymentsubAccountResponse>(await this.doRequest("1.0", "di.realperson.cutpaymentsub.account.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryCutpaymentsubAccountResponse({}));
+  }
+
+  /**
+   * Description: 银行卡代扣二级租户分账
+   * Summary: 银行卡代扣二级租户分账
+   */
+  async transferCutpaymentsubRevenue(request: TransferCutpaymentsubRevenueRequest): Promise<TransferCutpaymentsubRevenueResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.transferCutpaymentsubRevenueEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 银行卡代扣二级租户分账
+   * Summary: 银行卡代扣二级租户分账
+   */
+  async transferCutpaymentsubRevenueEx(request: TransferCutpaymentsubRevenueRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<TransferCutpaymentsubRevenueResponse> {
+    Util.validateModel(request);
+    return $tea.cast<TransferCutpaymentsubRevenueResponse>(await this.doRequest("1.0", "di.realperson.cutpaymentsub.revenue.transfer", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new TransferCutpaymentsubRevenueResponse({}));
+  }
+
+  /**
+   * Description: 银行卡代扣二级租户查询分账
+   * Summary: 银行卡代扣二级租户查询分账
+   */
+  async queryCutpaymentsubRevenue(request: QueryCutpaymentsubRevenueRequest): Promise<QueryCutpaymentsubRevenueResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryCutpaymentsubRevenueEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 银行卡代扣二级租户查询分账
+   * Summary: 银行卡代扣二级租户查询分账
+   */
+  async queryCutpaymentsubRevenueEx(request: QueryCutpaymentsubRevenueRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryCutpaymentsubRevenueResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryCutpaymentsubRevenueResponse>(await this.doRequest("1.0", "di.realperson.cutpaymentsub.revenue.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryCutpaymentsubRevenueResponse({}));
+  }
+
+  /**
+   * Description: 银行卡代扣二级租户提现
+   * Summary: 银行卡代扣二级租户提现
+   */
+  async captureCutpaymentsubWithdrawal(request: CaptureCutpaymentsubWithdrawalRequest): Promise<CaptureCutpaymentsubWithdrawalResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.captureCutpaymentsubWithdrawalEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 银行卡代扣二级租户提现
+   * Summary: 银行卡代扣二级租户提现
+   */
+  async captureCutpaymentsubWithdrawalEx(request: CaptureCutpaymentsubWithdrawalRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CaptureCutpaymentsubWithdrawalResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CaptureCutpaymentsubWithdrawalResponse>(await this.doRequest("1.0", "di.realperson.cutpaymentsub.withdrawal.capture", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CaptureCutpaymentsubWithdrawalResponse({}));
+  }
+
+  /**
+   * Description: 银行卡代扣二级租户提现查询
+   * Summary: 银行卡代扣二级租户提现查询
+   */
+  async queryCutpaymentsubWithdrawal(request: QueryCutpaymentsubWithdrawalRequest): Promise<QueryCutpaymentsubWithdrawalResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryCutpaymentsubWithdrawalEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 银行卡代扣二级租户提现查询
+   * Summary: 银行卡代扣二级租户提现查询
+   */
+  async queryCutpaymentsubWithdrawalEx(request: QueryCutpaymentsubWithdrawalRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryCutpaymentsubWithdrawalResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryCutpaymentsubWithdrawalResponse>(await this.doRequest("1.0", "di.realperson.cutpaymentsub.withdrawal.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryCutpaymentsubWithdrawalResponse({}));
+  }
+
+  /**
+   * Description: 银行卡代扣二级租户查询余额
+   * Summary: 银行卡代扣二级租户查询余额
+   */
+  async queryCutpaymentsubBalance(request: QueryCutpaymentsubBalanceRequest): Promise<QueryCutpaymentsubBalanceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryCutpaymentsubBalanceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 银行卡代扣二级租户查询余额
+   * Summary: 银行卡代扣二级租户查询余额
+   */
+  async queryCutpaymentsubBalanceEx(request: QueryCutpaymentsubBalanceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryCutpaymentsubBalanceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryCutpaymentsubBalanceResponse>(await this.doRequest("1.0", "di.realperson.cutpaymentsub.balance.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryCutpaymentsubBalanceResponse({}));
+  }
+
+  /**
+   * Description: 银行卡代扣二级租户查询收支明细
+   * Summary: 银行卡代扣二级租户查询收支明细
+   */
+  async queryCutpaymentsubTransaction(request: QueryCutpaymentsubTransactionRequest): Promise<QueryCutpaymentsubTransactionResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryCutpaymentsubTransactionEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 银行卡代扣二级租户查询收支明细
+   * Summary: 银行卡代扣二级租户查询收支明细
+   */
+  async queryCutpaymentsubTransactionEx(request: QueryCutpaymentsubTransactionRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryCutpaymentsubTransactionResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryCutpaymentsubTransactionResponse>(await this.doRequest("1.0", "di.realperson.cutpaymentsub.transaction.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryCutpaymentsubTransactionResponse({}));
+  }
+
+  /**
+   * Description: 提供私有化刷脸的风险咨询
+   * Summary: 人脸风险咨询服务
+   */
+  async queryRiskServer(request: QueryRiskServerRequest): Promise<QueryRiskServerResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryRiskServerEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 提供私有化刷脸的风险咨询
+   * Summary: 人脸风险咨询服务
+   */
+  async queryRiskServerEx(request: QueryRiskServerRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryRiskServerResponse> {
+    if (!Util.isUnset(request.fileObject)) {
+      let uploadReq = new CreateAntcloudGatewayxFileUploadRequest({
+        authToken: request.authToken,
+        apiCode: "di.realperson.risk.server.query",
+        fileName: request.fileObjectName,
+      });
+      let uploadResp = await this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+      if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+        let queryRiskServerResponse = new QueryRiskServerResponse({
+          reqMsgId: uploadResp.reqMsgId,
+          resultCode: uploadResp.resultCode,
+          resultMsg: uploadResp.resultMsg,
+        });
+        return queryRiskServerResponse;
+      }
+
+      let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+      await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+      request.fileId = uploadResp.fileId;
+      request.fileObject = null;
+    }
+
+    Util.validateModel(request);
+    return $tea.cast<QueryRiskServerResponse>(await this.doRequest("1.0", "di.realperson.risk.server.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryRiskServerResponse({}));
   }
 
   /**
