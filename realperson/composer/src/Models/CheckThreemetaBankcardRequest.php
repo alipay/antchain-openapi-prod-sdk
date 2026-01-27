@@ -66,6 +66,18 @@ class CheckThreemetaBankcardRequest extends Model
      * @var string
      */
     public $externParam;
+
+    // 入参加密模式：NONE：不加密；AES：姓名、身份证号、手机号码字段都是AES加密后的字符串。非必填，不填时默认明文
+    /**
+     * @var string
+     */
+    public $reqEncType;
+
+    // 用于入参加密的AES密钥
+    /**
+     * @var string
+     */
+    public $encToken;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -77,6 +89,8 @@ class CheckThreemetaBankcardRequest extends Model
         'certType'          => 'cert_type',
         'mobile'            => 'mobile',
         'externParam'       => 'extern_param',
+        'reqEncType'        => 'req_enc_type',
+        'encToken'          => 'enc_token',
     ];
 
     public function validate()
@@ -117,6 +131,12 @@ class CheckThreemetaBankcardRequest extends Model
         }
         if (null !== $this->externParam) {
             $res['extern_param'] = $this->externParam;
+        }
+        if (null !== $this->reqEncType) {
+            $res['req_enc_type'] = $this->reqEncType;
+        }
+        if (null !== $this->encToken) {
+            $res['enc_token'] = $this->encToken;
         }
 
         return $res;
@@ -159,6 +179,12 @@ class CheckThreemetaBankcardRequest extends Model
         }
         if (isset($map['extern_param'])) {
             $model->externParam = $map['extern_param'];
+        }
+        if (isset($map['req_enc_type'])) {
+            $model->reqEncType = $map['req_enc_type'];
+        }
+        if (isset($map['enc_token'])) {
+            $model->encToken = $map['enc_token'];
         }
 
         return $model;

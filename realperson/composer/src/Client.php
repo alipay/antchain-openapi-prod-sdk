@@ -23,6 +23,8 @@ use AntChain\REALPERSON\Models\BindCutpaymentPreRequest;
 use AntChain\REALPERSON\Models\BindCutpaymentPreResponse;
 use AntChain\REALPERSON\Models\BindCutpaymentSignRequest;
 use AntChain\REALPERSON\Models\BindCutpaymentSignResponse;
+use AntChain\REALPERSON\Models\CaptureCutpaymentsubWithdrawalRequest;
+use AntChain\REALPERSON\Models\CaptureCutpaymentsubWithdrawalResponse;
 use AntChain\REALPERSON\Models\CheckAnticheatPersonalRequest;
 use AntChain\REALPERSON\Models\CheckAnticheatPersonalResponse;
 use AntChain\REALPERSON\Models\CheckBankcardTwometaRequest;
@@ -79,6 +81,8 @@ use AntChain\REALPERSON\Models\InitCarrierRepairmobileRequest;
 use AntChain\REALPERSON\Models\InitCarrierRepairmobileResponse;
 use AntChain\REALPERSON\Models\InitFacevrfZimRequest;
 use AntChain\REALPERSON\Models\InitFacevrfZimResponse;
+use AntChain\REALPERSON\Models\OpenCutpaymentsubAccountRequest;
+use AntChain\REALPERSON\Models\OpenCutpaymentsubAccountResponse;
 use AntChain\REALPERSON\Models\QueryAlipayverifyServerRequest;
 use AntChain\REALPERSON\Models\QueryAlipayverifyServerResponse;
 use AntChain\REALPERSON\Models\QueryBankLivenessfourRequest;
@@ -107,6 +111,16 @@ use AntChain\REALPERSON\Models\QueryCutpaymentRefundRequest;
 use AntChain\REALPERSON\Models\QueryCutpaymentRefundResponse;
 use AntChain\REALPERSON\Models\QueryCutpaymentStatementRequest;
 use AntChain\REALPERSON\Models\QueryCutpaymentStatementResponse;
+use AntChain\REALPERSON\Models\QueryCutpaymentsubAccountRequest;
+use AntChain\REALPERSON\Models\QueryCutpaymentsubAccountResponse;
+use AntChain\REALPERSON\Models\QueryCutpaymentsubBalanceRequest;
+use AntChain\REALPERSON\Models\QueryCutpaymentsubBalanceResponse;
+use AntChain\REALPERSON\Models\QueryCutpaymentsubRevenueRequest;
+use AntChain\REALPERSON\Models\QueryCutpaymentsubRevenueResponse;
+use AntChain\REALPERSON\Models\QueryCutpaymentsubTransactionRequest;
+use AntChain\REALPERSON\Models\QueryCutpaymentsubTransactionResponse;
+use AntChain\REALPERSON\Models\QueryCutpaymentsubWithdrawalRequest;
+use AntChain\REALPERSON\Models\QueryCutpaymentsubWithdrawalResponse;
 use AntChain\REALPERSON\Models\QueryDeepsecRiskRequest;
 use AntChain\REALPERSON\Models\QueryDeepsecRiskResponse;
 use AntChain\REALPERSON\Models\QueryDeepsecTsbmrqRequest;
@@ -127,6 +141,8 @@ use AntChain\REALPERSON\Models\QueryMobileRiskRequest;
 use AntChain\REALPERSON\Models\QueryMobileRiskResponse;
 use AntChain\REALPERSON\Models\QueryNfcServerRequest;
 use AntChain\REALPERSON\Models\QueryNfcServerResponse;
+use AntChain\REALPERSON\Models\QueryRiskServerRequest;
+use AntChain\REALPERSON\Models\QueryRiskServerResponse;
 use AntChain\REALPERSON\Models\QuerySocialriskBriefRequest;
 use AntChain\REALPERSON\Models\QuerySocialriskBriefResponse;
 use AntChain\REALPERSON\Models\QuerySocialriskDetailRequest;
@@ -145,6 +161,8 @@ use AntChain\REALPERSON\Models\RecognizeOcrIndividualcardRequest;
 use AntChain\REALPERSON\Models\RecognizeOcrIndividualcardResponse;
 use AntChain\REALPERSON\Models\ScaleinImageRequest;
 use AntChain\REALPERSON\Models\ScaleinImageResponse;
+use AntChain\REALPERSON\Models\TransferCutpaymentsubRevenueRequest;
+use AntChain\REALPERSON\Models\TransferCutpaymentsubRevenueResponse;
 use AntChain\REALPERSON\Models\UnbindCutpaymentSignRequest;
 use AntChain\REALPERSON\Models\UnbindCutpaymentSignResponse;
 use AntChain\REALPERSON\Models\VerifyFacevrfZimRequest;
@@ -298,7 +316,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.22.13',
+                    'sdk_version'      => '1.22.18',
                     '_prod_code'       => 'REALPERSON',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -2754,6 +2772,322 @@ class Client
         Utils::validateModel($request);
 
         return QueryCarinfoPlusResponse::fromMap($this->doRequest('1.0', 'di.realperson.carinfo.plus.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 银行卡代扣二级租户开户
+     * Summary: 银行卡代扣二级租户开户.
+     *
+     * @param OpenCutpaymentsubAccountRequest $request
+     *
+     * @return OpenCutpaymentsubAccountResponse
+     */
+    public function openCutpaymentsubAccount($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->openCutpaymentsubAccountEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 银行卡代扣二级租户开户
+     * Summary: 银行卡代扣二级租户开户.
+     *
+     * @param OpenCutpaymentsubAccountRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return OpenCutpaymentsubAccountResponse
+     */
+    public function openCutpaymentsubAccountEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return OpenCutpaymentsubAccountResponse::fromMap($this->doRequest('1.0', 'di.realperson.cutpaymentsub.account.open', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 银行卡代扣二级租户查询开户状态
+     * Summary: 银行卡代扣二级租户查询开户状态
+     *
+     * @param QueryCutpaymentsubAccountRequest $request
+     *
+     * @return QueryCutpaymentsubAccountResponse
+     */
+    public function queryCutpaymentsubAccount($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryCutpaymentsubAccountEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 银行卡代扣二级租户查询开户状态
+     * Summary: 银行卡代扣二级租户查询开户状态
+     *
+     * @param QueryCutpaymentsubAccountRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return QueryCutpaymentsubAccountResponse
+     */
+    public function queryCutpaymentsubAccountEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryCutpaymentsubAccountResponse::fromMap($this->doRequest('1.0', 'di.realperson.cutpaymentsub.account.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 银行卡代扣二级租户分账
+     * Summary: 银行卡代扣二级租户分账.
+     *
+     * @param TransferCutpaymentsubRevenueRequest $request
+     *
+     * @return TransferCutpaymentsubRevenueResponse
+     */
+    public function transferCutpaymentsubRevenue($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->transferCutpaymentsubRevenueEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 银行卡代扣二级租户分账
+     * Summary: 银行卡代扣二级租户分账.
+     *
+     * @param TransferCutpaymentsubRevenueRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return TransferCutpaymentsubRevenueResponse
+     */
+    public function transferCutpaymentsubRevenueEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return TransferCutpaymentsubRevenueResponse::fromMap($this->doRequest('1.0', 'di.realperson.cutpaymentsub.revenue.transfer', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 银行卡代扣二级租户查询分账
+     * Summary: 银行卡代扣二级租户查询分账.
+     *
+     * @param QueryCutpaymentsubRevenueRequest $request
+     *
+     * @return QueryCutpaymentsubRevenueResponse
+     */
+    public function queryCutpaymentsubRevenue($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryCutpaymentsubRevenueEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 银行卡代扣二级租户查询分账
+     * Summary: 银行卡代扣二级租户查询分账.
+     *
+     * @param QueryCutpaymentsubRevenueRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return QueryCutpaymentsubRevenueResponse
+     */
+    public function queryCutpaymentsubRevenueEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryCutpaymentsubRevenueResponse::fromMap($this->doRequest('1.0', 'di.realperson.cutpaymentsub.revenue.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 银行卡代扣二级租户提现
+     * Summary: 银行卡代扣二级租户提现.
+     *
+     * @param CaptureCutpaymentsubWithdrawalRequest $request
+     *
+     * @return CaptureCutpaymentsubWithdrawalResponse
+     */
+    public function captureCutpaymentsubWithdrawal($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->captureCutpaymentsubWithdrawalEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 银行卡代扣二级租户提现
+     * Summary: 银行卡代扣二级租户提现.
+     *
+     * @param CaptureCutpaymentsubWithdrawalRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return CaptureCutpaymentsubWithdrawalResponse
+     */
+    public function captureCutpaymentsubWithdrawalEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CaptureCutpaymentsubWithdrawalResponse::fromMap($this->doRequest('1.0', 'di.realperson.cutpaymentsub.withdrawal.capture', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 银行卡代扣二级租户提现查询
+     * Summary: 银行卡代扣二级租户提现查询.
+     *
+     * @param QueryCutpaymentsubWithdrawalRequest $request
+     *
+     * @return QueryCutpaymentsubWithdrawalResponse
+     */
+    public function queryCutpaymentsubWithdrawal($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryCutpaymentsubWithdrawalEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 银行卡代扣二级租户提现查询
+     * Summary: 银行卡代扣二级租户提现查询.
+     *
+     * @param QueryCutpaymentsubWithdrawalRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return QueryCutpaymentsubWithdrawalResponse
+     */
+    public function queryCutpaymentsubWithdrawalEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryCutpaymentsubWithdrawalResponse::fromMap($this->doRequest('1.0', 'di.realperson.cutpaymentsub.withdrawal.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 银行卡代扣二级租户查询余额
+     * Summary: 银行卡代扣二级租户查询余额.
+     *
+     * @param QueryCutpaymentsubBalanceRequest $request
+     *
+     * @return QueryCutpaymentsubBalanceResponse
+     */
+    public function queryCutpaymentsubBalance($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryCutpaymentsubBalanceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 银行卡代扣二级租户查询余额
+     * Summary: 银行卡代扣二级租户查询余额.
+     *
+     * @param QueryCutpaymentsubBalanceRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return QueryCutpaymentsubBalanceResponse
+     */
+    public function queryCutpaymentsubBalanceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryCutpaymentsubBalanceResponse::fromMap($this->doRequest('1.0', 'di.realperson.cutpaymentsub.balance.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 银行卡代扣二级租户查询收支明细
+     * Summary: 银行卡代扣二级租户查询收支明细.
+     *
+     * @param QueryCutpaymentsubTransactionRequest $request
+     *
+     * @return QueryCutpaymentsubTransactionResponse
+     */
+    public function queryCutpaymentsubTransaction($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryCutpaymentsubTransactionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 银行卡代扣二级租户查询收支明细
+     * Summary: 银行卡代扣二级租户查询收支明细.
+     *
+     * @param QueryCutpaymentsubTransactionRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return QueryCutpaymentsubTransactionResponse
+     */
+    public function queryCutpaymentsubTransactionEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryCutpaymentsubTransactionResponse::fromMap($this->doRequest('1.0', 'di.realperson.cutpaymentsub.transaction.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 提供私有化刷脸的风险咨询
+     * Summary: 人脸风险咨询服务
+     *
+     * @param QueryRiskServerRequest $request
+     *
+     * @return QueryRiskServerResponse
+     */
+    public function queryRiskServer($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryRiskServerEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 提供私有化刷脸的风险咨询
+     * Summary: 人脸风险咨询服务
+     *
+     * @param QueryRiskServerRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return QueryRiskServerResponse
+     */
+    public function queryRiskServerEx($request, $headers, $runtime)
+    {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'di.realperson.risk.server.query',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
+                return new QueryRiskServerResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
+        }
+        Utils::validateModel($request);
+
+        return QueryRiskServerResponse::fromMap($this->doRequest('1.0', 'di.realperson.risk.server.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

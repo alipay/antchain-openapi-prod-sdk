@@ -62,6 +62,18 @@ class CheckIndividualidFourmetaRequest extends Model
      * @var string
      */
     public $certType;
+
+    // 入参加密模式：NONE：不加密；AES：姓名、身份证号、手机号码字段都是AES加密后的字符串。非必填，不填时默认明文
+    /**
+     * @var string
+     */
+    public $reqEncType;
+
+    // 用于入参加密的AES密钥
+    /**
+     * @var string
+     */
+    public $encToken;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -72,6 +84,8 @@ class CheckIndividualidFourmetaRequest extends Model
         'bankCard'          => 'bank_card',
         'externParam'       => 'extern_param',
         'certType'          => 'cert_type',
+        'reqEncType'        => 'req_enc_type',
+        'encToken'          => 'enc_token',
     ];
 
     public function validate()
@@ -113,6 +127,12 @@ class CheckIndividualidFourmetaRequest extends Model
         if (null !== $this->certType) {
             $res['cert_type'] = $this->certType;
         }
+        if (null !== $this->reqEncType) {
+            $res['req_enc_type'] = $this->reqEncType;
+        }
+        if (null !== $this->encToken) {
+            $res['enc_token'] = $this->encToken;
+        }
 
         return $res;
     }
@@ -151,6 +171,12 @@ class CheckIndividualidFourmetaRequest extends Model
         }
         if (isset($map['cert_type'])) {
             $model->certType = $map['cert_type'];
+        }
+        if (isset($map['req_enc_type'])) {
+            $model->reqEncType = $map['req_enc_type'];
+        }
+        if (isset($map['enc_token'])) {
+            $model->encToken = $map['enc_token'];
         }
 
         return $model;
