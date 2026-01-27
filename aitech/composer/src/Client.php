@@ -85,6 +85,10 @@ use AntChain\AITECH\Models\QueryMeiyouAudittopicRequest;
 use AntChain\AITECH\Models\QueryMeiyouAudittopicResponse;
 use AntChain\AITECH\Models\QueryMeiyouItagrelationRequest;
 use AntChain\AITECH\Models\QueryMeiyouItagrelationResponse;
+use AntChain\AITECH\Models\QuerySecurityAnswerRequest;
+use AntChain\AITECH\Models\QuerySecurityAnswerResponse;
+use AntChain\AITECH\Models\QuerySecurityQuestionRequest;
+use AntChain\AITECH\Models\QuerySecurityQuestionResponse;
 use AntChain\AITECH\Models\SaveAuditMeiyouRequest;
 use AntChain\AITECH\Models\SaveAuditMeiyouResponse;
 use AntChain\AITECH\Models\SubmitAuditAudiobaseRequest;
@@ -276,7 +280,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.55',
+                    'sdk_version'      => '1.1.57',
                     '_prod_code'       => 'AITECH',
                     '_prod_channel'    => 'default',
                 ];
@@ -2269,5 +2273,71 @@ class Client
         Utils::validateModel($request);
 
         return QueryGuardDocumentResponse::fromMap($this->doRequest('1.0', 'aitech.comm.guard.document.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 天鉴SaaS提问检测
+     * Summary: 天鉴SaaS提问检测.
+     *
+     * @param QuerySecurityQuestionRequest $request
+     *
+     * @return QuerySecurityQuestionResponse
+     */
+    public function querySecurityQuestion($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->querySecurityQuestionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 天鉴SaaS提问检测
+     * Summary: 天鉴SaaS提问检测.
+     *
+     * @param QuerySecurityQuestionRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return QuerySecurityQuestionResponse
+     */
+    public function querySecurityQuestionEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QuerySecurityQuestionResponse::fromMap($this->doRequest('1.0', 'aitech.comm.security.question.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 天鉴SaaS回答检测
+     * Summary: 天鉴SaaS回答检测.
+     *
+     * @param QuerySecurityAnswerRequest $request
+     *
+     * @return QuerySecurityAnswerResponse
+     */
+    public function querySecurityAnswer($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->querySecurityAnswerEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 天鉴SaaS回答检测
+     * Summary: 天鉴SaaS回答检测.
+     *
+     * @param QuerySecurityAnswerRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return QuerySecurityAnswerResponse
+     */
+    public function querySecurityAnswerEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QuerySecurityAnswerResponse::fromMap($this->doRequest('1.0', 'aitech.comm.security.answer.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
