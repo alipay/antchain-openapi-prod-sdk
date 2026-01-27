@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "AITECH",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "main": "./main.tea",
   "maintainers": [
     {
