@@ -5397,7 +5397,7 @@ export class QuerySecurityQuestionRequest extends $tea.Model {
   // 是否需要针对提问内容的进行金融合规检测。默认值：N：不开启，Y：开启
   financeComplianceDetection?: string;
   // 是否需要针对提问内容的进行领域识别
-  fieldIdentify: string;
+  fieldIdentify?: string;
   // 是否开启提示词攻击防御功能
   promptAttackDefense?: string;
   // 是否开启隐私数据泄露的专项检测
@@ -5743,7 +5743,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.57",
+          sdk_version: "1.1.58",
           _prod_code: "AITECH",
           _prod_channel: "default",
         };
