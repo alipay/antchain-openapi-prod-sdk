@@ -65,7 +65,7 @@ namespace AntChain.SDK.AITECH.Models
 
         // 是否需要针对提问内容的进行领域识别
         [NameInMap("field_identify")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string FieldIdentify { get; set; }
 
         // 是否开启提示词攻击防御功能
