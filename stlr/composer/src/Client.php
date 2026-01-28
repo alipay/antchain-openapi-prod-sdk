@@ -23,6 +23,10 @@ use AntChain\STLR\Models\AddEcarOffsetacquisitionRequest;
 use AntChain\STLR\Models\AddEcarOffsetacquisitionResponse;
 use AntChain\STLR\Models\AddEcarOffsettranslateRequest;
 use AntChain\STLR\Models\AddEcarOffsettranslateResponse;
+use AntChain\STLR\Models\AddFinanceCompanyRequest;
+use AntChain\STLR\Models\AddFinanceCompanyResponse;
+use AntChain\STLR\Models\AddFinanceEmissionRequest;
+use AntChain\STLR\Models\AddFinanceEmissionResponse;
 use AntChain\STLR\Models\AddPdcpAuthRequest;
 use AntChain\STLR\Models\AddPdcpAuthResponse;
 use AntChain\STLR\Models\AuthEcarOffsetdatumRequest;
@@ -39,6 +43,10 @@ use AntChain\STLR\Models\CountEcarGreenoperationRequest;
 use AntChain\STLR\Models\CountEcarGreenoperationResponse;
 use AntChain\STLR\Models\CreateAntcloudGatewayxFileUploadRequest;
 use AntChain\STLR\Models\CreateAntcloudGatewayxFileUploadResponse;
+use AntChain\STLR\Models\CreateFinanceReportRequest;
+use AntChain\STLR\Models\CreateFinanceReportResponse;
+use AntChain\STLR\Models\DeleteFinanceCompanyRequest;
+use AntChain\STLR\Models\DeleteFinanceCompanyResponse;
 use AntChain\STLR\Models\DescribeAcarActivityRequest;
 use AntChain\STLR\Models\DescribeAcarActivityResponse;
 use AntChain\STLR\Models\DescribeAcarDailyemissionsRequest;
@@ -57,6 +65,8 @@ use AntChain\STLR\Models\DetailEcarOffsetdatumRequest;
 use AntChain\STLR\Models\DetailEcarOffsetdatumResponse;
 use AntChain\STLR\Models\DetailEcarOffsettranslateRequest;
 use AntChain\STLR\Models\DetailEcarOffsettranslateResponse;
+use AntChain\STLR\Models\DetailLcaprojectTraceprojectRequest;
+use AntChain\STLR\Models\DetailLcaprojectTraceprojectResponse;
 use AntChain\STLR\Models\DetailPdcpDepositRequest;
 use AntChain\STLR\Models\DetailPdcpDepositResponse;
 use AntChain\STLR\Models\GetEcarPlaformauthtokenRequest;
@@ -69,6 +79,12 @@ use AntChain\STLR\Models\ListEcarGreenoperationRequest;
 use AntChain\STLR\Models\ListEcarGreenoperationResponse;
 use AntChain\STLR\Models\ListEcarOffsetdatumRequest;
 use AntChain\STLR\Models\ListEcarOffsetdatumResponse;
+use AntChain\STLR\Models\ListFinanceReportRequest;
+use AntChain\STLR\Models\ListFinanceReportResponse;
+use AntChain\STLR\Models\ListLcaprojectTraceprojectRequest;
+use AntChain\STLR\Models\ListLcaprojectTraceprojectResponse;
+use AntChain\STLR\Models\OperateLcaprojectTracebindingRequest;
+use AntChain\STLR\Models\OperateLcaprojectTracebindingResponse;
 use AntChain\STLR\Models\PagequeryAuthAdminRequest;
 use AntChain\STLR\Models\PagequeryAuthAdminResponse;
 use AntChain\STLR\Models\PagequeryDataassetTypeRequest;
@@ -103,6 +119,8 @@ use AntChain\STLR\Models\QueryEmissionTotalRequest;
 use AntChain\STLR\Models\QueryEmissionTotalResponse;
 use AntChain\STLR\Models\QueryGatewayAccountRequest;
 use AntChain\STLR\Models\QueryGatewayAccountResponse;
+use AntChain\STLR\Models\QueryLcaprojectTracetenantRequest;
+use AntChain\STLR\Models\QueryLcaprojectTracetenantResponse;
 use AntChain\STLR\Models\QueryPdcpAccountRequest;
 use AntChain\STLR\Models\QueryPdcpAccountResponse;
 use AntChain\STLR\Models\QueryPdcpAuthRequest;
@@ -133,6 +151,10 @@ use AntChain\STLR\Models\SubmitEcarLcacalcRequest;
 use AntChain\STLR\Models\SubmitEcarLcacalcResponse;
 use AntChain\STLR\Models\SubmitEcarLcaorderwithcustomerRequest;
 use AntChain\STLR\Models\SubmitEcarLcaorderwithcustomerResponse;
+use AntChain\STLR\Models\UpdateFinanceCompanyRequest;
+use AntChain\STLR\Models\UpdateFinanceCompanyResponse;
+use AntChain\STLR\Models\UpdateFinanceReportRequest;
+use AntChain\STLR\Models\UpdateFinanceReportResponse;
 use AntChain\STLR\Models\UpdatePdcpAuthRequest;
 use AntChain\STLR\Models\UpdatePdcpAuthResponse;
 use AntChain\STLR\Models\UploadEcarFileRequest;
@@ -288,7 +310,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '2.9.2',
+                    'sdk_version'      => '2.11.4',
                     '_prod_code'       => 'STLR',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1634,7 +1656,8 @@ class Client
             }
             $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
             UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
-            $request->fileId = $uploadResp->fileId;
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
         }
         Utils::validateModel($request);
 
@@ -2213,7 +2236,8 @@ class Client
             }
             $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
             UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
-            $request->fileId = $uploadResp->fileId;
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
         }
         Utils::validateModel($request);
 
@@ -2462,11 +2486,375 @@ class Client
             }
             $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
             UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
-            $request->fileId = $uploadResp->fileId;
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
         }
         Utils::validateModel($request);
 
         return SubmitEcarGreencertificategenerationfileResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.ecar.greencertificategenerationfile.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 溯源检查租户
+     * Summary: 溯源检查租户.
+     *
+     * @param QueryLcaprojectTracetenantRequest $request
+     *
+     * @return QueryLcaprojectTracetenantResponse
+     */
+    public function queryLcaprojectTracetenant($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryLcaprojectTracetenantEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 溯源检查租户
+     * Summary: 溯源检查租户.
+     *
+     * @param QueryLcaprojectTracetenantRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return QueryLcaprojectTracetenantResponse
+     */
+    public function queryLcaprojectTracetenantEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryLcaprojectTracetenantResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.lcaproject.tracetenant.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 溯源查询LCA项目列表
+     * Summary: 查询LCA项目列表.
+     *
+     * @param ListLcaprojectTraceprojectRequest $request
+     *
+     * @return ListLcaprojectTraceprojectResponse
+     */
+    public function listLcaprojectTraceproject($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listLcaprojectTraceprojectEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 溯源查询LCA项目列表
+     * Summary: 查询LCA项目列表.
+     *
+     * @param ListLcaprojectTraceprojectRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return ListLcaprojectTraceprojectResponse
+     */
+    public function listLcaprojectTraceprojectEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListLcaprojectTraceprojectResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.lcaproject.traceproject.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 根据请求参数获取LCA项目跟踪信息
+     * Summary: 根据请求参数获取LCA项目信息.
+     *
+     * @param DetailLcaprojectTraceprojectRequest $request
+     *
+     * @return DetailLcaprojectTraceprojectResponse
+     */
+    public function detailLcaprojectTraceproject($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->detailLcaprojectTraceprojectEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 根据请求参数获取LCA项目跟踪信息
+     * Summary: 根据请求参数获取LCA项目信息.
+     *
+     * @param DetailLcaprojectTraceprojectRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return DetailLcaprojectTraceprojectResponse
+     */
+    public function detailLcaprojectTraceprojectEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DetailLcaprojectTraceprojectResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.lcaproject.traceproject.detail', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 绑定LCA项目
+     * Summary: 绑定LCA项目.
+     *
+     * @param OperateLcaprojectTracebindingRequest $request
+     *
+     * @return OperateLcaprojectTracebindingResponse
+     */
+    public function operateLcaprojectTracebinding($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->operateLcaprojectTracebindingEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 绑定LCA项目
+     * Summary: 绑定LCA项目.
+     *
+     * @param OperateLcaprojectTracebindingRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return OperateLcaprojectTracebindingResponse
+     */
+    public function operateLcaprojectTracebindingEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return OperateLcaprojectTracebindingResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.lcaproject.tracebinding.operate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 转型金融排放新增
+     * Summary: 转型金融排放新增.
+     *
+     * @param AddFinanceEmissionRequest $request
+     *
+     * @return AddFinanceEmissionResponse
+     */
+    public function addFinanceEmission($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->addFinanceEmissionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 转型金融排放新增
+     * Summary: 转型金融排放新增.
+     *
+     * @param AddFinanceEmissionRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return AddFinanceEmissionResponse
+     */
+    public function addFinanceEmissionEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AddFinanceEmissionResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.finance.emission.add', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 新增企业或者项目
+     * Summary: 新增企业或者项目.
+     *
+     * @param AddFinanceCompanyRequest $request
+     *
+     * @return AddFinanceCompanyResponse
+     */
+    public function addFinanceCompany($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->addFinanceCompanyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 新增企业或者项目
+     * Summary: 新增企业或者项目.
+     *
+     * @param AddFinanceCompanyRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return AddFinanceCompanyResponse
+     */
+    public function addFinanceCompanyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AddFinanceCompanyResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.finance.company.add', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 企业或者项目更新
+     * Summary: 企业更新.
+     *
+     * @param UpdateFinanceCompanyRequest $request
+     *
+     * @return UpdateFinanceCompanyResponse
+     */
+    public function updateFinanceCompany($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateFinanceCompanyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 企业或者项目更新
+     * Summary: 企业更新.
+     *
+     * @param UpdateFinanceCompanyRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return UpdateFinanceCompanyResponse
+     */
+    public function updateFinanceCompanyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateFinanceCompanyResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.finance.company.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 删除企业或者项目
+     * Summary: 删除企业.
+     *
+     * @param DeleteFinanceCompanyRequest $request
+     *
+     * @return DeleteFinanceCompanyResponse
+     */
+    public function deleteFinanceCompany($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->deleteFinanceCompanyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 删除企业或者项目
+     * Summary: 删除企业.
+     *
+     * @param DeleteFinanceCompanyRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return DeleteFinanceCompanyResponse
+     */
+    public function deleteFinanceCompanyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DeleteFinanceCompanyResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.finance.company.delete', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 排放报告获取
+     * Summary: 排放报告获取.
+     *
+     * @param ListFinanceReportRequest $request
+     *
+     * @return ListFinanceReportResponse
+     */
+    public function listFinanceReport($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listFinanceReportEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 排放报告获取
+     * Summary: 排放报告获取.
+     *
+     * @param ListFinanceReportRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return ListFinanceReportResponse
+     */
+    public function listFinanceReportEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListFinanceReportResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.finance.report.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 转型金融报告生成
+     * Summary: 转型金融报告生成.
+     *
+     * @param CreateFinanceReportRequest $request
+     *
+     * @return CreateFinanceReportResponse
+     */
+    public function createFinanceReport($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createFinanceReportEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 转型金融报告生成
+     * Summary: 转型金融报告生成.
+     *
+     * @param CreateFinanceReportRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return CreateFinanceReportResponse
+     */
+    public function createFinanceReportEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateFinanceReportResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.finance.report.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 转型报告更新
+     * Summary: 转型报告更新.
+     *
+     * @param UpdateFinanceReportRequest $request
+     *
+     * @return UpdateFinanceReportResponse
+     */
+    public function updateFinanceReport($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateFinanceReportEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 转型报告更新
+     * Summary: 转型报告更新.
+     *
+     * @param UpdateFinanceReportRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return UpdateFinanceReportResponse
+     */
+    public function updateFinanceReportEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateFinanceReportResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.finance.report.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
