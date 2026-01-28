@@ -5,10 +5,6 @@ import com.aliyun.tea.*;
 
 public class Message extends TeaModel {
     // Parts is the container of the message content.
-    /**
-     * <strong>example:</strong>
-     * <p>undefined</p>
-     */
     @NameInMap("parts")
     public java.util.List<Part> parts;
 
@@ -21,6 +17,14 @@ public class Message extends TeaModel {
      */
     @NameInMap("role")
     public String role;
+
+    // The context id of the message. This is optional and if set, the message will be associated with the given context(a specific conversation or session).
+    /**
+     * <strong>example:</strong>
+     * <p>contextid</p>
+     */
+    @NameInMap("context_id")
+    public String contextId;
 
     public static Message build(java.util.Map<String, ?> map) throws Exception {
         Message self = new Message();
@@ -41,6 +45,14 @@ public class Message extends TeaModel {
     }
     public String getRole() {
         return this.role;
+    }
+
+    public Message setContextId(String contextId) {
+        this.contextId = contextId;
+        return this;
+    }
+    public String getContextId() {
+        return this.contextId;
     }
 
 }

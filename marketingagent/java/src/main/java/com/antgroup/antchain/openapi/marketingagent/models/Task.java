@@ -13,6 +13,14 @@ public class Task extends TeaModel {
     @Validation(required = true)
     public String id;
 
+    // Unique identifier (e.g. UUID) for the contextual collection of interactions (tasks and messages). Created by the A2A server.
+    /**
+     * <strong>example:</strong>
+     * <p>contextid</p>
+     */
+    @NameInMap("context_id")
+    public String contextId;
+
     // The current status of a Task, including state and a message.
     @NameInMap("status")
     @Validation(required = true)
@@ -34,6 +42,14 @@ public class Task extends TeaModel {
     }
     public String getId() {
         return this.id;
+    }
+
+    public Task setContextId(String contextId) {
+        this.contextId = contextId;
+        return this;
+    }
+    public String getContextId() {
+        return this.contextId;
     }
 
     public Task setStatus(TaskStatus status) {
