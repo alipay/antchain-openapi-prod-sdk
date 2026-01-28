@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '2.9.2',
+    sdk_version = '2.11.4',
     _prod_code = 'STLR',
     _prod_channel = 'undefined'
   };
@@ -336,6 +336,36 @@ model LcaCalcResult {
   recordDate: string(name='record_date', example='2024-05-01'),
   // 自定义业务标识
   customContext?: string(name='custom_context', example='bizNo001'),
+}
+
+// 转型金融报告详情
+model FinanceReportDetail {
+  // 文件
+  file: EnterpriseDocumentFile(name='file', example=''),
+  // 报告编号
+  reportNo: string(name='report_no', example='xxx'),
+  // 报告名称
+  reportName: string(name='report_name', example='xxx'),
+  // 是否盖章
+  hasSealed: boolean(name='has_sealed', example='true, false'),
+  // 报告时间
+  reportTime: string(name='report_time', example='2025-01-20'),
+  // 报告提交人
+  reportSubmitter: string(name='report_submitter', example='张三'),
+  // 报告生成方式
+  generateType: string(name='generate_type', example='MANUAL , INTERFACE'),
+  // 对比年，报告年
+  compareYear: string(name='compare_year', example='2025'),
+  // 基准年
+  baseYear: string(name='base_year', example='2024'),
+  // 企业名称
+  companyName: string(name='company_name', example='xxx'),
+  // 区域名称
+  areaName: string(name='area_name', example='北京'),
+  // 行业名称
+  industryName: string(name='industry_name', example='能源'),
+  // 社会统一信用代码
+  companyId: string(name='company_id', example='28382372323232434'),
 }
 
 //  每月的排放数据
@@ -576,6 +606,20 @@ model LcaCarbonDatum {
   lcaStageCarbonDatum: [ LcaStageCarbonItem ](name='lca_stage_carbon_datum', example=''),
 }
 
+// 转型路径分析数据
+model TransferPathAnalysis {
+  // 所属领域
+  field: string(name='field', example='系统能效提升'),
+  // 目录编号
+  indexNumber: string(name='index_number', example='1.12'),
+  // 目录内容
+  indexContent: string(name='index_content', example='低温余热有机工质郎肯循环（ORC）发电'),
+  // 技术标准说明
+  detail: string(name='detail', example='基于有机朗肯循环（ORC）原理，通过蒸发器回收95-300℃的热水、热液、蒸汽、烟气中的低温余热，通过向心涡轮和发电机将热量转换成高品质电能。参考标准《低温余热双循环发电装置》（GB/T 37819-2019）、《低温双循环余热回收利用装置性能测试方法》（GB/T 40286-2021）等。'),
+  // 企业是否采取该路径
+  target: string(name='target', example='长期目标'),
+}
+
 // 数据授权策略
 model AuthorizePolicy {
   // 授权策略ID
@@ -668,6 +712,28 @@ model BlockchainDTO {
   txHash: string(name='tx_hash', example='xxx'),
   // 当前块高
   blockNumber: long(name='block_number', example='12917'),
+}
+
+// 溯源碳足迹项目
+model LcaProjectTrace {
+  // 碳足迹编码
+  projectNo: string(name='project_no', example='project_no'),
+  // 碳足迹生命周期边界
+  lifeCycleBoundary: string(name='life_cycle_boundary', example='life_cycle_boundary'),
+  // 产品编码
+  productNo: string(name='product_no', example='product_no'),
+  // 碳足迹项目排放量
+  lcaCarbonAmount: string(name='lca_carbon_amount', example='lca_carbon_amount'),
+  // 产品名称
+  productName: string(name='product_name', example='product_name'),
+  // 产品规格型号
+  specification: string(name='specification', example='specification'),
+  // 碳足迹开始时间
+  lcaStartDate: string(name='lca_start_date', example='lca_start_date'),
+  // 碳足迹结束时间
+  lcaEndDate: string(name='lca_end_date', example='lca_end_date'),
+  // 溯源状态
+  traceStatus: string(name='trace_status', example='trace_status'),
 }
 
 // 排放范围排放数据统计
@@ -2535,6 +2601,7 @@ async function uploadEcarFileEx(request: UploadEcarFileRequest, headers: map[str
     var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
     AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
     request.fileId = uploadResp.fileId;
+    request.fileObject = null;
   }
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.carbon.ecar.file.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
@@ -3372,6 +3439,7 @@ async function uploadEcarPlaformfileEx(request: UploadEcarPlaformfileRequest, he
     var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
     AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
     request.fileId = uploadResp.fileId;
+    request.fileObject = null;
   }
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.carbon.ecar.plaformfile.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
@@ -3721,9 +3789,492 @@ async function submitEcarGreencertificategenerationfileEx(request: SubmitEcarGre
     var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
     AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
     request.fileId = uploadResp.fileId;
+    request.fileObject = null;
   }
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.carbon.ecar.greencertificategenerationfile.submit', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryLcaprojectTracetenantRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户id
+  tenantId: string(name='tenant_id'),
+}
+
+model QueryLcaprojectTracetenantResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 租户id
+  tenantId?: string(name='tenant_id'),
+  // 企业名称
+  enterpriseName?: string(name='enterprise_name'),
+}
+
+/**
+ * Description: 溯源检查租户
+ * Summary: 溯源检查租户
+ */
+async function queryLcaprojectTracetenant(request: QueryLcaprojectTracetenantRequest): QueryLcaprojectTracetenantResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryLcaprojectTracetenantEx(request, headers, runtime);
+}
+
+/**
+ * Description: 溯源检查租户
+ * Summary: 溯源检查租户
+ */
+async function queryLcaprojectTracetenantEx(request: QueryLcaprojectTracetenantRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryLcaprojectTracetenantResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.lcaproject.tracetenant.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListLcaprojectTraceprojectRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户id
+  tenantId: string(name='tenant_id'),
+  // 产品规格
+  specification: string(name='specification'),
+  // 列表数量
+  limit?: long(name='limit'),
+}
+
+model ListLcaprojectTraceprojectResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 查询LCA项目列表
+  list?: [ LcaProjectTrace ](name='list'),
+}
+
+/**
+ * Description: 溯源查询LCA项目列表
+ * Summary: 查询LCA项目列表
+ */
+async function listLcaprojectTraceproject(request: ListLcaprojectTraceprojectRequest): ListLcaprojectTraceprojectResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listLcaprojectTraceprojectEx(request, headers, runtime);
+}
+
+/**
+ * Description: 溯源查询LCA项目列表
+ * Summary: 查询LCA项目列表
+ */
+async function listLcaprojectTraceprojectEx(request: ListLcaprojectTraceprojectRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListLcaprojectTraceprojectResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.lcaproject.traceproject.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DetailLcaprojectTraceprojectRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户id
+  tenantId: string(name='tenant_id'),
+  // 项目编码
+  projectNo: string(name='project_no'),
+}
+
+model DetailLcaprojectTraceprojectResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 原材料运输排放量
+  transportEmissionAmount?: string(name='transport_emission_amount'),
+  // 碳足迹总排放量
+  emissionAmount?: string(name='emission_amount'),
+  // 废弃物运输排放量
+  wasteTransportEmissionAmount?: string(name='waste_transport_emission_amount'),
+  // 碳足迹排放单位
+  emissionUnit?: string(name='emission_unit'),
+  // 废弃物处置排放量
+  wasteDisposalEmissionAmount?: string(name='waste_disposal_emission_amount'),
+  // 原材料制造排放量
+  manufactureEmissionAmount?: string(name='manufacture_emission_amount'),
+  // 能耗使用排放量
+  energyEmissionAmount?: string(name='energy_emission_amount'),
+  // 环境排放排放量
+  environmentEmissionAmount?: string(name='environment_emission_amount'),
+}
+
+/**
+ * Description: 根据请求参数获取LCA项目跟踪信息
+ * Summary: 根据请求参数获取LCA项目信息
+ */
+async function detailLcaprojectTraceproject(request: DetailLcaprojectTraceprojectRequest): DetailLcaprojectTraceprojectResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return detailLcaprojectTraceprojectEx(request, headers, runtime);
+}
+
+/**
+ * Description: 根据请求参数获取LCA项目跟踪信息
+ * Summary: 根据请求参数获取LCA项目信息
+ */
+async function detailLcaprojectTraceprojectEx(request: DetailLcaprojectTraceprojectRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DetailLcaprojectTraceprojectResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.lcaproject.traceproject.detail', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model OperateLcaprojectTracebindingRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户id
+  tenantId: string(name='tenant_id'),
+  // 项目编码
+  projectNo: string(name='project_no'),
+}
+
+model OperateLcaprojectTracebindingResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 绑定LCA项目
+ * Summary: 绑定LCA项目
+ */
+async function operateLcaprojectTracebinding(request: OperateLcaprojectTracebindingRequest): OperateLcaprojectTracebindingResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return operateLcaprojectTracebindingEx(request, headers, runtime);
+}
+
+/**
+ * Description: 绑定LCA项目
+ * Summary: 绑定LCA项目
+ */
+async function operateLcaprojectTracebindingEx(request: OperateLcaprojectTracebindingRequest, headers: map[string]string, runtime: Util.RuntimeOptions): OperateLcaprojectTracebindingResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.lcaproject.tracebinding.operate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AddFinanceEmissionRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 银行碳账号
+  enterpriseNo: string(name='enterprise_no'),
+  // 企业统一社会信用代码
+  companyId: string(name='company_id'),
+  // 排放盘查方案
+  planCode: string(name='plan_code'),
+  // 排放量
+  emissionDosage: string(name='emission_dosage'),
+  // 年份
+  year: string(name='year'),
+}
+
+model AddFinanceEmissionResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 碳排放量
+  emissionAmount?: string(name='emission_amount'),
+  // 订单号
+  orderNo?: string(name='order_no'),
+}
+
+/**
+ * Description: 转型金融排放新增
+ * Summary: 转型金融排放新增
+ */
+async function addFinanceEmission(request: AddFinanceEmissionRequest): AddFinanceEmissionResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return addFinanceEmissionEx(request, headers, runtime);
+}
+
+/**
+ * Description: 转型金融排放新增
+ * Summary: 转型金融排放新增
+ */
+async function addFinanceEmissionEx(request: AddFinanceEmissionRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AddFinanceEmissionResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.finance.emission.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AddFinanceCompanyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 银行碳账户
+  enterpriseNo: string(name='enterprise_no'),
+  // 企业统一信用代码或者项目编号
+  companyId: string(name='company_id'),
+  // 企业名称或者项目名称
+  companyName: string(name='company_name'),
+  // 行业编码，枚举值
+  industryCode: string(name='industry_code'),
+  // 地区编码
+  areaCode: string(name='area_code'),
+  // 提交人
+  companySubmitter: string(name='company_submitter'),
+  // 企业或项目注册年份
+  registerYear: string(name='register_year'),
+}
+
+model AddFinanceCompanyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 新增企业或者项目
+ * Summary: 新增企业或者项目
+ */
+async function addFinanceCompany(request: AddFinanceCompanyRequest): AddFinanceCompanyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return addFinanceCompanyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 新增企业或者项目
+ * Summary: 新增企业或者项目
+ */
+async function addFinanceCompanyEx(request: AddFinanceCompanyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AddFinanceCompanyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.finance.company.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateFinanceCompanyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 银行碳账户
+  enterpriseNo: string(name='enterprise_no'),
+  // 企业统一信用代码
+  companyId: string(name='company_id'),
+  // 企业或者项目名称
+  companyName: string(name='company_name'),
+  // 行业编码
+  industryCode: string(name='industry_code'),
+  // 地区编码
+  areaCode: string(name='area_code'),
+}
+
+model UpdateFinanceCompanyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 企业或者项目更新
+ * Summary: 企业更新
+ */
+async function updateFinanceCompany(request: UpdateFinanceCompanyRequest): UpdateFinanceCompanyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateFinanceCompanyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 企业或者项目更新
+ * Summary: 企业更新
+ */
+async function updateFinanceCompanyEx(request: UpdateFinanceCompanyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateFinanceCompanyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.finance.company.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeleteFinanceCompanyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 银行碳账户
+  enterpriseNo: string(name='enterprise_no'),
+  // 企业统一信用代码或者项目id
+  companyId: string(name='company_id'),
+}
+
+model DeleteFinanceCompanyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 删除企业或者项目
+ * Summary: 删除企业
+ */
+async function deleteFinanceCompany(request: DeleteFinanceCompanyRequest): DeleteFinanceCompanyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deleteFinanceCompanyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 删除企业或者项目
+ * Summary: 删除企业
+ */
+async function deleteFinanceCompanyEx(request: DeleteFinanceCompanyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteFinanceCompanyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.finance.company.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListFinanceReportRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 银行碳账户
+  enterpriseNo: string(name='enterprise_no'),
+  // 企业统一信用代码或者项目id
+  companyId: string(name='company_id'),
+  // 报告年，当前年，对比年
+  compareYear: string(name='compare_year'),
+  // 基准年，被对比年
+  baseYear: string(name='base_year'),
+}
+
+model ListFinanceReportResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 报告列表
+  list?: [ FinanceReportDetail ](name='list'),
+}
+
+/**
+ * Description: 排放报告获取
+ * Summary: 排放报告获取
+ */
+async function listFinanceReport(request: ListFinanceReportRequest): ListFinanceReportResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listFinanceReportEx(request, headers, runtime);
+}
+
+/**
+ * Description: 排放报告获取
+ * Summary: 排放报告获取
+ */
+async function listFinanceReportEx(request: ListFinanceReportRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListFinanceReportResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.finance.report.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateFinanceReportRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 银行碳账户
+  enterpriseNo: string(name='enterprise_no'),
+  // 企业社会统一信用编码
+  companyId: string(name='company_id'),
+  // 对比年
+  compareYear: string(name='compare_year'),
+  // 基准年份
+  baseYear: string(name='base_year'),
+  // 转型路径分析
+  transferPathAnalysisList: [ TransferPathAnalysis ](name='transfer_path_analysis_list'),
+}
+
+model CreateFinanceReportResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 转型金融报告生成
+ * Summary: 转型金融报告生成
+ */
+async function createFinanceReport(request: CreateFinanceReportRequest): CreateFinanceReportResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createFinanceReportEx(request, headers, runtime);
+}
+
+/**
+ * Description: 转型金融报告生成
+ * Summary: 转型金融报告生成
+ */
+async function createFinanceReportEx(request: CreateFinanceReportRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateFinanceReportResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.finance.report.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateFinanceReportRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 报告单号
+  reportNo: string(name='report_no'),
+  // 银行碳账号
+  enterpriseNo: string(name='enterprise_no'),
+  // 报告盖章人
+  reportSinger: string(name='report_singer'),
+  // 可以直接公网可以下载的oss地址
+  reportOssUrl: string(name='report_oss_url'),
+}
+
+model UpdateFinanceReportResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 转型报告更新
+ * Summary: 转型报告更新
+ */
+async function updateFinanceReport(request: UpdateFinanceReportRequest): UpdateFinanceReportResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateFinanceReportEx(request, headers, runtime);
+}
+
+/**
+ * Description: 转型报告更新
+ * Summary: 转型报告更新
+ */
+async function updateFinanceReportEx(request: UpdateFinanceReportRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateFinanceReportResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.finance.report.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryThirdCertRequest = {

@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "STLR",
-  "version": "1.0.22",
+  "version": "1.0.23",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-stlr:2.9.2",
-    "go": "github.com/antchain-openapi-sdk-go/stlr/v2/client:v2.9.2",
-    "csharp": "AntChain.SDK.STLR:2.9.2",
+    "java": "com.antgroup.antchain.openapi:openapi-stlr:2.11.4",
+    "go": "github.com/antchain-openapi-sdk-go/stlr/v2/client:v2.11.4",
+    "csharp": "AntChain.SDK.STLR:2.11.4",
     "ts": "@antchain/stlr:2.9.2",
-    "php": "antchain/stlr:2.9.2",
-    "python": "antchain_sdk_stlr:2.9.2"
+    "php": "antchain/stlr:2.11.4",
+    "python": "antchain_sdk_stlr:2.11.4"
   },
   "libraries": {
     "Util": "darabonba:Util:*",
