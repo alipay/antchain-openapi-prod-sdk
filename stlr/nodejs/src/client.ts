@@ -557,6 +557,75 @@ export class LcaCalcResult extends $tea.Model {
   }
 }
 
+// 转型金融报告详情
+export class FinanceReportDetail extends $tea.Model {
+  // 文件
+  file: EnterpriseDocumentFile;
+  // 报告编号
+  reportNo: string;
+  // 报告名称
+  reportName: string;
+  // 是否盖章
+  hasSealed: boolean;
+  // 报告时间
+  reportTime: string;
+  // 报告提交人
+  reportSubmitter: string;
+  // 报告生成方式
+  generateType: string;
+  // 对比年，报告年
+  compareYear: string;
+  // 基准年
+  baseYear: string;
+  // 企业名称
+  companyName: string;
+  // 区域名称
+  areaName: string;
+  // 行业名称
+  industryName: string;
+  // 社会统一信用代码
+  companyId: string;
+  static names(): { [key: string]: string } {
+    return {
+      file: 'file',
+      reportNo: 'report_no',
+      reportName: 'report_name',
+      hasSealed: 'has_sealed',
+      reportTime: 'report_time',
+      reportSubmitter: 'report_submitter',
+      generateType: 'generate_type',
+      compareYear: 'compare_year',
+      baseYear: 'base_year',
+      companyName: 'company_name',
+      areaName: 'area_name',
+      industryName: 'industry_name',
+      companyId: 'company_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      file: EnterpriseDocumentFile,
+      reportNo: 'string',
+      reportName: 'string',
+      hasSealed: 'boolean',
+      reportTime: 'string',
+      reportSubmitter: 'string',
+      generateType: 'string',
+      compareYear: 'string',
+      baseYear: 'string',
+      companyName: 'string',
+      areaName: 'string',
+      industryName: 'string',
+      companyId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 //  每月的排放数据
 export class AnnualMonthEmissionDatum extends $tea.Model {
   // 统计的年份
@@ -1195,6 +1264,43 @@ export class LcaCarbonDatum extends $tea.Model {
   }
 }
 
+// 转型路径分析数据
+export class TransferPathAnalysis extends $tea.Model {
+  // 所属领域
+  field: string;
+  // 目录编号
+  indexNumber: string;
+  // 目录内容
+  indexContent: string;
+  // 技术标准说明
+  detail: string;
+  // 企业是否采取该路径
+  target: string;
+  static names(): { [key: string]: string } {
+    return {
+      field: 'field',
+      indexNumber: 'index_number',
+      indexContent: 'index_content',
+      detail: 'detail',
+      target: 'target',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      field: 'string',
+      indexNumber: 'string',
+      indexContent: 'string',
+      detail: 'string',
+      target: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 数据授权策略
 export class AuthorizePolicy extends $tea.Model {
   // 授权策略ID
@@ -1436,6 +1542,59 @@ export class BlockchainDTO extends $tea.Model {
     return {
       txHash: 'string',
       blockNumber: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 溯源碳足迹项目
+export class LcaProjectTrace extends $tea.Model {
+  // 碳足迹编码
+  projectNo: string;
+  // 碳足迹生命周期边界
+  lifeCycleBoundary: string;
+  // 产品编码
+  productNo: string;
+  // 碳足迹项目排放量
+  lcaCarbonAmount: string;
+  // 产品名称
+  productName: string;
+  // 产品规格型号
+  specification: string;
+  // 碳足迹开始时间
+  lcaStartDate: string;
+  // 碳足迹结束时间
+  lcaEndDate: string;
+  // 溯源状态
+  traceStatus: string;
+  static names(): { [key: string]: string } {
+    return {
+      projectNo: 'project_no',
+      lifeCycleBoundary: 'life_cycle_boundary',
+      productNo: 'product_no',
+      lcaCarbonAmount: 'lca_carbon_amount',
+      productName: 'product_name',
+      specification: 'specification',
+      lcaStartDate: 'lca_start_date',
+      lcaEndDate: 'lca_end_date',
+      traceStatus: 'trace_status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      projectNo: 'string',
+      lifeCycleBoundary: 'string',
+      productNo: 'string',
+      lcaCarbonAmount: 'string',
+      productName: 'string',
+      specification: 'string',
+      lcaStartDate: 'string',
+      lcaEndDate: 'string',
+      traceStatus: 'string',
     };
   }
 
@@ -6395,6 +6554,783 @@ export class SubmitEcarGreencertificategenerationfileResponse extends $tea.Model
   }
 }
 
+export class QueryLcaprojectTracetenantRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户id
+  tenantId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tenantId: 'tenant_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tenantId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryLcaprojectTracetenantResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 租户id
+  tenantId?: string;
+  // 企业名称
+  enterpriseName?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      tenantId: 'tenant_id',
+      enterpriseName: 'enterprise_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      tenantId: 'string',
+      enterpriseName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListLcaprojectTraceprojectRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户id
+  tenantId: string;
+  // 产品规格
+  specification: string;
+  // 列表数量
+  limit?: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tenantId: 'tenant_id',
+      specification: 'specification',
+      limit: 'limit',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tenantId: 'string',
+      specification: 'string',
+      limit: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListLcaprojectTraceprojectResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 查询LCA项目列表
+  list?: LcaProjectTrace[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      list: 'list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      list: { 'type': 'array', 'itemType': LcaProjectTrace },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DetailLcaprojectTraceprojectRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户id
+  tenantId: string;
+  // 项目编码
+  projectNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tenantId: 'tenant_id',
+      projectNo: 'project_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tenantId: 'string',
+      projectNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DetailLcaprojectTraceprojectResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 原材料运输排放量
+  transportEmissionAmount?: string;
+  // 碳足迹总排放量
+  emissionAmount?: string;
+  // 废弃物运输排放量
+  wasteTransportEmissionAmount?: string;
+  // 碳足迹排放单位
+  emissionUnit?: string;
+  // 废弃物处置排放量
+  wasteDisposalEmissionAmount?: string;
+  // 原材料制造排放量
+  manufactureEmissionAmount?: string;
+  // 能耗使用排放量
+  energyEmissionAmount?: string;
+  // 环境排放排放量
+  environmentEmissionAmount?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      transportEmissionAmount: 'transport_emission_amount',
+      emissionAmount: 'emission_amount',
+      wasteTransportEmissionAmount: 'waste_transport_emission_amount',
+      emissionUnit: 'emission_unit',
+      wasteDisposalEmissionAmount: 'waste_disposal_emission_amount',
+      manufactureEmissionAmount: 'manufacture_emission_amount',
+      energyEmissionAmount: 'energy_emission_amount',
+      environmentEmissionAmount: 'environment_emission_amount',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      transportEmissionAmount: 'string',
+      emissionAmount: 'string',
+      wasteTransportEmissionAmount: 'string',
+      emissionUnit: 'string',
+      wasteDisposalEmissionAmount: 'string',
+      manufactureEmissionAmount: 'string',
+      energyEmissionAmount: 'string',
+      environmentEmissionAmount: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class OperateLcaprojectTracebindingRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户id
+  tenantId: string;
+  // 项目编码
+  projectNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tenantId: 'tenant_id',
+      projectNo: 'project_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tenantId: 'string',
+      projectNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class OperateLcaprojectTracebindingResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AddFinanceEmissionRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 银行碳账号
+  enterpriseNo: string;
+  // 企业统一社会信用代码
+  companyId: string;
+  // 排放盘查方案
+  planCode: string;
+  // 排放量
+  emissionDosage: string;
+  // 年份
+  year: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      enterpriseNo: 'enterprise_no',
+      companyId: 'company_id',
+      planCode: 'plan_code',
+      emissionDosage: 'emission_dosage',
+      year: 'year',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      enterpriseNo: 'string',
+      companyId: 'string',
+      planCode: 'string',
+      emissionDosage: 'string',
+      year: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AddFinanceEmissionResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 碳排放量
+  emissionAmount?: string;
+  // 订单号
+  orderNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      emissionAmount: 'emission_amount',
+      orderNo: 'order_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      emissionAmount: 'string',
+      orderNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AddFinanceCompanyRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 银行碳账户
+  enterpriseNo: string;
+  // 企业统一信用代码或者项目编号
+  companyId: string;
+  // 企业名称或者项目名称
+  companyName: string;
+  // 行业编码，枚举值
+  industryCode: string;
+  // 地区编码
+  areaCode: string;
+  // 提交人
+  companySubmitter: string;
+  // 企业或项目注册年份
+  registerYear: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      enterpriseNo: 'enterprise_no',
+      companyId: 'company_id',
+      companyName: 'company_name',
+      industryCode: 'industry_code',
+      areaCode: 'area_code',
+      companySubmitter: 'company_submitter',
+      registerYear: 'register_year',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      enterpriseNo: 'string',
+      companyId: 'string',
+      companyName: 'string',
+      industryCode: 'string',
+      areaCode: 'string',
+      companySubmitter: 'string',
+      registerYear: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AddFinanceCompanyResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateFinanceCompanyRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 银行碳账户
+  enterpriseNo: string;
+  // 企业统一信用代码
+  companyId: string;
+  // 企业或者项目名称
+  companyName: string;
+  // 行业编码
+  industryCode: string;
+  // 地区编码
+  areaCode: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      enterpriseNo: 'enterprise_no',
+      companyId: 'company_id',
+      companyName: 'company_name',
+      industryCode: 'industry_code',
+      areaCode: 'area_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      enterpriseNo: 'string',
+      companyId: 'string',
+      companyName: 'string',
+      industryCode: 'string',
+      areaCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateFinanceCompanyResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DeleteFinanceCompanyRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 银行碳账户
+  enterpriseNo: string;
+  // 企业统一信用代码或者项目id
+  companyId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      enterpriseNo: 'enterprise_no',
+      companyId: 'company_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      enterpriseNo: 'string',
+      companyId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DeleteFinanceCompanyResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListFinanceReportRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 银行碳账户
+  enterpriseNo: string;
+  // 企业统一信用代码或者项目id
+  companyId: string;
+  // 报告年，当前年，对比年
+  compareYear: string;
+  // 基准年，被对比年
+  baseYear: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      enterpriseNo: 'enterprise_no',
+      companyId: 'company_id',
+      compareYear: 'compare_year',
+      baseYear: 'base_year',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      enterpriseNo: 'string',
+      companyId: 'string',
+      compareYear: 'string',
+      baseYear: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListFinanceReportResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 报告列表
+  list?: FinanceReportDetail[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      list: 'list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      list: { 'type': 'array', 'itemType': FinanceReportDetail },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateFinanceReportRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 银行碳账户
+  enterpriseNo: string;
+  // 企业社会统一信用编码
+  companyId: string;
+  // 对比年
+  compareYear: string;
+  // 基准年份
+  baseYear: string;
+  // 转型路径分析
+  transferPathAnalysisList: TransferPathAnalysis[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      enterpriseNo: 'enterprise_no',
+      companyId: 'company_id',
+      compareYear: 'compare_year',
+      baseYear: 'base_year',
+      transferPathAnalysisList: 'transfer_path_analysis_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      enterpriseNo: 'string',
+      companyId: 'string',
+      compareYear: 'string',
+      baseYear: 'string',
+      transferPathAnalysisList: { 'type': 'array', 'itemType': TransferPathAnalysis },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateFinanceReportResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateFinanceReportRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 报告单号
+  reportNo: string;
+  // 银行碳账号
+  enterpriseNo: string;
+  // 报告盖章人
+  reportSinger: string;
+  // 可以直接公网可以下载的oss地址
+  reportOssUrl: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      reportNo: 'report_no',
+      enterpriseNo: 'enterprise_no',
+      reportSinger: 'report_singer',
+      reportOssUrl: 'report_oss_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      reportNo: 'string',
+      enterpriseNo: 'string',
+      reportSinger: 'string',
+      reportOssUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateFinanceReportResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryThirdCertRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -6677,7 +7613,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "2.9.2",
+          sdk_version: "2.11.4",
           _prod_code: "STLR",
           _prod_channel: "undefined",
         };
@@ -7481,6 +8417,7 @@ export default class Client {
       let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
       await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
       request.fileId = uploadResp.fileId;
+      request.fileObject = null;
     }
 
     Util.validateModel(request);
@@ -7825,6 +8762,7 @@ export default class Client {
       let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
       await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
       request.fileId = uploadResp.fileId;
+      request.fileObject = null;
     }
 
     Util.validateModel(request);
@@ -7979,10 +8917,220 @@ export default class Client {
       let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
       await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
       request.fileId = uploadResp.fileId;
+      request.fileObject = null;
     }
 
     Util.validateModel(request);
     return $tea.cast<SubmitEcarGreencertificategenerationfileResponse>(await this.doRequest("1.0", "antchain.carbon.ecar.greencertificategenerationfile.submit", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SubmitEcarGreencertificategenerationfileResponse({}));
+  }
+
+  /**
+   * Description: 溯源检查租户
+   * Summary: 溯源检查租户
+   */
+  async queryLcaprojectTracetenant(request: QueryLcaprojectTracetenantRequest): Promise<QueryLcaprojectTracetenantResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryLcaprojectTracetenantEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 溯源检查租户
+   * Summary: 溯源检查租户
+   */
+  async queryLcaprojectTracetenantEx(request: QueryLcaprojectTracetenantRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryLcaprojectTracetenantResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryLcaprojectTracetenantResponse>(await this.doRequest("1.0", "antchain.carbon.lcaproject.tracetenant.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryLcaprojectTracetenantResponse({}));
+  }
+
+  /**
+   * Description: 溯源查询LCA项目列表
+   * Summary: 查询LCA项目列表
+   */
+  async listLcaprojectTraceproject(request: ListLcaprojectTraceprojectRequest): Promise<ListLcaprojectTraceprojectResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.listLcaprojectTraceprojectEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 溯源查询LCA项目列表
+   * Summary: 查询LCA项目列表
+   */
+  async listLcaprojectTraceprojectEx(request: ListLcaprojectTraceprojectRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ListLcaprojectTraceprojectResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ListLcaprojectTraceprojectResponse>(await this.doRequest("1.0", "antchain.carbon.lcaproject.traceproject.list", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ListLcaprojectTraceprojectResponse({}));
+  }
+
+  /**
+   * Description: 根据请求参数获取LCA项目跟踪信息
+   * Summary: 根据请求参数获取LCA项目信息
+   */
+  async detailLcaprojectTraceproject(request: DetailLcaprojectTraceprojectRequest): Promise<DetailLcaprojectTraceprojectResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.detailLcaprojectTraceprojectEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 根据请求参数获取LCA项目跟踪信息
+   * Summary: 根据请求参数获取LCA项目信息
+   */
+  async detailLcaprojectTraceprojectEx(request: DetailLcaprojectTraceprojectRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DetailLcaprojectTraceprojectResponse> {
+    Util.validateModel(request);
+    return $tea.cast<DetailLcaprojectTraceprojectResponse>(await this.doRequest("1.0", "antchain.carbon.lcaproject.traceproject.detail", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new DetailLcaprojectTraceprojectResponse({}));
+  }
+
+  /**
+   * Description: 绑定LCA项目
+   * Summary: 绑定LCA项目
+   */
+  async operateLcaprojectTracebinding(request: OperateLcaprojectTracebindingRequest): Promise<OperateLcaprojectTracebindingResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.operateLcaprojectTracebindingEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 绑定LCA项目
+   * Summary: 绑定LCA项目
+   */
+  async operateLcaprojectTracebindingEx(request: OperateLcaprojectTracebindingRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<OperateLcaprojectTracebindingResponse> {
+    Util.validateModel(request);
+    return $tea.cast<OperateLcaprojectTracebindingResponse>(await this.doRequest("1.0", "antchain.carbon.lcaproject.tracebinding.operate", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new OperateLcaprojectTracebindingResponse({}));
+  }
+
+  /**
+   * Description: 转型金融排放新增
+   * Summary: 转型金融排放新增
+   */
+  async addFinanceEmission(request: AddFinanceEmissionRequest): Promise<AddFinanceEmissionResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.addFinanceEmissionEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 转型金融排放新增
+   * Summary: 转型金融排放新增
+   */
+  async addFinanceEmissionEx(request: AddFinanceEmissionRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<AddFinanceEmissionResponse> {
+    Util.validateModel(request);
+    return $tea.cast<AddFinanceEmissionResponse>(await this.doRequest("1.0", "antchain.carbon.finance.emission.add", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new AddFinanceEmissionResponse({}));
+  }
+
+  /**
+   * Description: 新增企业或者项目
+   * Summary: 新增企业或者项目
+   */
+  async addFinanceCompany(request: AddFinanceCompanyRequest): Promise<AddFinanceCompanyResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.addFinanceCompanyEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 新增企业或者项目
+   * Summary: 新增企业或者项目
+   */
+  async addFinanceCompanyEx(request: AddFinanceCompanyRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<AddFinanceCompanyResponse> {
+    Util.validateModel(request);
+    return $tea.cast<AddFinanceCompanyResponse>(await this.doRequest("1.0", "antchain.carbon.finance.company.add", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new AddFinanceCompanyResponse({}));
+  }
+
+  /**
+   * Description: 企业或者项目更新
+   * Summary: 企业更新
+   */
+  async updateFinanceCompany(request: UpdateFinanceCompanyRequest): Promise<UpdateFinanceCompanyResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.updateFinanceCompanyEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 企业或者项目更新
+   * Summary: 企业更新
+   */
+  async updateFinanceCompanyEx(request: UpdateFinanceCompanyRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdateFinanceCompanyResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UpdateFinanceCompanyResponse>(await this.doRequest("1.0", "antchain.carbon.finance.company.update", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UpdateFinanceCompanyResponse({}));
+  }
+
+  /**
+   * Description: 删除企业或者项目
+   * Summary: 删除企业
+   */
+  async deleteFinanceCompany(request: DeleteFinanceCompanyRequest): Promise<DeleteFinanceCompanyResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.deleteFinanceCompanyEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 删除企业或者项目
+   * Summary: 删除企业
+   */
+  async deleteFinanceCompanyEx(request: DeleteFinanceCompanyRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DeleteFinanceCompanyResponse> {
+    Util.validateModel(request);
+    return $tea.cast<DeleteFinanceCompanyResponse>(await this.doRequest("1.0", "antchain.carbon.finance.company.delete", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new DeleteFinanceCompanyResponse({}));
+  }
+
+  /**
+   * Description: 排放报告获取
+   * Summary: 排放报告获取
+   */
+  async listFinanceReport(request: ListFinanceReportRequest): Promise<ListFinanceReportResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.listFinanceReportEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 排放报告获取
+   * Summary: 排放报告获取
+   */
+  async listFinanceReportEx(request: ListFinanceReportRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ListFinanceReportResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ListFinanceReportResponse>(await this.doRequest("1.0", "antchain.carbon.finance.report.list", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ListFinanceReportResponse({}));
+  }
+
+  /**
+   * Description: 转型金融报告生成
+   * Summary: 转型金融报告生成
+   */
+  async createFinanceReport(request: CreateFinanceReportRequest): Promise<CreateFinanceReportResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createFinanceReportEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 转型金融报告生成
+   * Summary: 转型金融报告生成
+   */
+  async createFinanceReportEx(request: CreateFinanceReportRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateFinanceReportResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateFinanceReportResponse>(await this.doRequest("1.0", "antchain.carbon.finance.report.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateFinanceReportResponse({}));
+  }
+
+  /**
+   * Description: 转型报告更新
+   * Summary: 转型报告更新
+   */
+  async updateFinanceReport(request: UpdateFinanceReportRequest): Promise<UpdateFinanceReportResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.updateFinanceReportEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 转型报告更新
+   * Summary: 转型报告更新
+   */
+  async updateFinanceReportEx(request: UpdateFinanceReportRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdateFinanceReportResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UpdateFinanceReportResponse>(await this.doRequest("1.0", "antchain.carbon.finance.report.update", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UpdateFinanceReportResponse({}));
   }
 
   /**
