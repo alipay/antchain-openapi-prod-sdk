@@ -13,24 +13,50 @@ use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
 use AntChain\DUANKA\Models\CheckAistudioModelRequest;
 use AntChain\DUANKA\Models\CheckAistudioModelResponse;
+use AntChain\DUANKA\Models\CheckDataphinTaskRequest;
+use AntChain\DUANKA\Models\CheckDataphinTaskResponse;
+use AntChain\DUANKA\Models\CheckEasMdetectionRequest;
+use AntChain\DUANKA\Models\CheckEasMdetectionResponse;
+use AntChain\DUANKA\Models\ExistDataphinTablepartitionRequest;
+use AntChain\DUANKA\Models\ExistDataphinTablepartitionResponse;
 use AntChain\DUANKA\Models\ImportAistudioOssRequest;
 use AntChain\DUANKA\Models\ImportAistudioOssResponse;
+use AntChain\DUANKA\Models\ImportDataphinFileRequest;
+use AntChain\DUANKA\Models\ImportDataphinFileResponse;
+use AntChain\DUANKA\Models\ImportDataphinTaskRequest;
+use AntChain\DUANKA\Models\ImportDataphinTaskResponse;
+use AntChain\DUANKA\Models\PublishDataphinTaskRequest;
+use AntChain\DUANKA\Models\PublishDataphinTaskResponse;
 use AntChain\DUANKA\Models\QueryAistudioModelRequest;
 use AntChain\DUANKA\Models\QueryAistudioModelResponse;
 use AntChain\DUANKA\Models\QueryBacktrackScoreRequest;
 use AntChain\DUANKA\Models\QueryBacktrackScoreResponse;
+use AntChain\DUANKA\Models\QueryBpserviceHttpRequest;
+use AntChain\DUANKA\Models\QueryBpserviceHttpResponse;
 use AntChain\DUANKA\Models\QueryCommonScoreRequest;
 use AntChain\DUANKA\Models\QueryCommonScoreResponse;
+use AntChain\DUANKA\Models\QueryDataphinTableinfoRequest;
+use AntChain\DUANKA\Models\QueryDataphinTableinfoResponse;
 use AntChain\DUANKA\Models\QueryDuankaEvaluationRequest;
 use AntChain\DUANKA\Models\QueryDuankaEvaluationResponse;
 use AntChain\DUANKA\Models\QueryHrUserRequest;
 use AntChain\DUANKA\Models\QueryHrUserResponse;
+use AntChain\DUANKA\Models\QueryIndustryScoreRequest;
+use AntChain\DUANKA\Models\QueryIndustryScoreResponse;
 use AntChain\DUANKA\Models\QueryIrBrandRequest;
 use AntChain\DUANKA\Models\QueryIrBrandResponse;
 use AntChain\DUANKA\Models\QuerySkyholdResRequest;
 use AntChain\DUANKA\Models\QuerySkyholdResResponse;
+use AntChain\DUANKA\Models\RunDataphinTaskRequest;
+use AntChain\DUANKA\Models\RunDataphinTaskResponse;
+use AntChain\DUANKA\Models\SubmitDatapinTaskRequest;
+use AntChain\DUANKA\Models\SubmitDatapinTaskResponse;
 use AntChain\DUANKA\Models\SubmitYunfengdieAuditRequest;
 use AntChain\DUANKA\Models\SubmitYunfengdieAuditResponse;
+use AntChain\DUANKA\Models\SyncOpdsOssRequest;
+use AntChain\DUANKA\Models\SyncOpdsOssResponse;
+use AntChain\DUANKA\Models\SyncOssOdpsRequest;
+use AntChain\DUANKA\Models\SyncOssOdpsResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -150,7 +176,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 查询结果
+            // ColumnDTO
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -178,7 +204,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.0',
+                    'sdk_version'      => '1.1.15',
                     '_prod_code'       => 'DUANKA',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -521,6 +547,435 @@ class Client
         Utils::validateModel($request);
 
         return QueryBacktrackScoreResponse::fromMap($this->doRequest('1.0', 'antcloud.duanka.backtrack.score.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 大模型sql检验
+     * Summary: 大模型sql检验.
+     *
+     * @param CheckEasMdetectionRequest $request
+     *
+     * @return CheckEasMdetectionResponse
+     */
+    public function checkEasMdetection($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->checkEasMdetectionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 大模型sql检验
+     * Summary: 大模型sql检验.
+     *
+     * @param CheckEasMdetectionRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return CheckEasMdetectionResponse
+     */
+    public function checkEasMdetectionEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CheckEasMdetectionResponse::fromMap($this->doRequest('1.0', 'antcloud.duanka.eas.mdetection.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 主站bpservice通用http接口，支持GET、PUT、DELETE、POST类型请求
+     * Summary: 主站bpservice通用http接口.
+     *
+     * @param QueryBpserviceHttpRequest $request
+     *
+     * @return QueryBpserviceHttpResponse
+     */
+    public function queryBpserviceHttp($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryBpserviceHttpEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 主站bpservice通用http接口，支持GET、PUT、DELETE、POST类型请求
+     * Summary: 主站bpservice通用http接口.
+     *
+     * @param QueryBpserviceHttpRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return QueryBpserviceHttpResponse
+     */
+    public function queryBpserviceHttpEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryBpserviceHttpResponse::fromMap($this->doRequest('1.0', 'antcloud.duanka.bpservice.http.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 导入dataphin的同步任务
+     * Summary: 导入dataphin的同步任务
+     *
+     * @param ImportDataphinTaskRequest $request
+     *
+     * @return ImportDataphinTaskResponse
+     */
+    public function importDataphinTask($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->importDataphinTaskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 导入dataphin的同步任务
+     * Summary: 导入dataphin的同步任务
+     *
+     * @param ImportDataphinTaskRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return ImportDataphinTaskResponse
+     */
+    public function importDataphinTaskEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ImportDataphinTaskResponse::fromMap($this->doRequest('1.0', 'antcloud.duanka.dataphin.task.import', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 同步oss文件到odps里面
+     * Summary: 同步oss文件到odps里面.
+     *
+     * @param SyncOssOdpsRequest $request
+     *
+     * @return SyncOssOdpsResponse
+     */
+    public function syncOssOdps($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->syncOssOdpsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 同步oss文件到odps里面
+     * Summary: 同步oss文件到odps里面.
+     *
+     * @param SyncOssOdpsRequest $request
+     * @param string[]           $headers
+     * @param RuntimeOptions     $runtime
+     *
+     * @return SyncOssOdpsResponse
+     */
+    public function syncOssOdpsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SyncOssOdpsResponse::fromMap($this->doRequest('1.0', 'antcloud.duanka.oss.odps.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: odps表数据导出到oss中
+     * Summary: odps表数据导出到oss中.
+     *
+     * @param SyncOpdsOssRequest $request
+     *
+     * @return SyncOpdsOssResponse
+     */
+    public function syncOpdsOss($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->syncOpdsOssEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: odps表数据导出到oss中
+     * Summary: odps表数据导出到oss中.
+     *
+     * @param SyncOpdsOssRequest $request
+     * @param string[]           $headers
+     * @param RuntimeOptions     $runtime
+     *
+     * @return SyncOpdsOssResponse
+     */
+    public function syncOpdsOssEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SyncOpdsOssResponse::fromMap($this->doRequest('1.0', 'antcloud.duanka.opds.oss.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 判断dataphin表分区是否存在
+     * Summary: 判断dataphin表分区是否存在.
+     *
+     * @param ExistDataphinTablepartitionRequest $request
+     *
+     * @return ExistDataphinTablepartitionResponse
+     */
+    public function existDataphinTablepartition($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->existDataphinTablepartitionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 判断dataphin表分区是否存在
+     * Summary: 判断dataphin表分区是否存在.
+     *
+     * @param ExistDataphinTablepartitionRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return ExistDataphinTablepartitionResponse
+     */
+    public function existDataphinTablepartitionEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ExistDataphinTablepartitionResponse::fromMap($this->doRequest('1.0', 'antcloud.duanka.dataphin.tablepartition.exist', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 发布dataphin任务
+     * Summary: 发布dataphin任务
+     *
+     * @param PublishDataphinTaskRequest $request
+     *
+     * @return PublishDataphinTaskResponse
+     */
+    public function publishDataphinTask($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->publishDataphinTaskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 发布dataphin任务
+     * Summary: 发布dataphin任务
+     *
+     * @param PublishDataphinTaskRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return PublishDataphinTaskResponse
+     */
+    public function publishDataphinTaskEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PublishDataphinTaskResponse::fromMap($this->doRequest('1.0', 'antcloud.duanka.dataphin.task.publish', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 校验任务发布
+     * Summary: 校验任务发布.
+     *
+     * @param CheckDataphinTaskRequest $request
+     *
+     * @return CheckDataphinTaskResponse
+     */
+    public function checkDataphinTask($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->checkDataphinTaskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 校验任务发布
+     * Summary: 校验任务发布.
+     *
+     * @param CheckDataphinTaskRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return CheckDataphinTaskResponse
+     */
+    public function checkDataphinTaskEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CheckDataphinTaskResponse::fromMap($this->doRequest('1.0', 'antcloud.duanka.dataphin.task.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 运行任务
+     * Summary: 运行任务
+     *
+     * @param RunDataphinTaskRequest $request
+     *
+     * @return RunDataphinTaskResponse
+     */
+    public function runDataphinTask($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->runDataphinTaskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 运行任务
+     * Summary: 运行任务
+     *
+     * @param RunDataphinTaskRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return RunDataphinTaskResponse
+     */
+    public function runDataphinTaskEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RunDataphinTaskResponse::fromMap($this->doRequest('1.0', 'antcloud.duanka.dataphin.task.run', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 表信息查询
+     * Summary: 表信息查询.
+     *
+     * @param QueryDataphinTableinfoRequest $request
+     *
+     * @return QueryDataphinTableinfoResponse
+     */
+    public function queryDataphinTableinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDataphinTableinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 表信息查询
+     * Summary: 表信息查询.
+     *
+     * @param QueryDataphinTableinfoRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return QueryDataphinTableinfoResponse
+     */
+    public function queryDataphinTableinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDataphinTableinfoResponse::fromMap($this->doRequest('1.0', 'antcloud.duanka.dataphin.tableinfo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 文件ossToOdps
+     * Summary: 文件ossToOdps.
+     *
+     * @param ImportDataphinFileRequest $request
+     *
+     * @return ImportDataphinFileResponse
+     */
+    public function importDataphinFile($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->importDataphinFileEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 文件ossToOdps
+     * Summary: 文件ossToOdps.
+     *
+     * @param ImportDataphinFileRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return ImportDataphinFileResponse
+     */
+    public function importDataphinFileEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ImportDataphinFileResponse::fromMap($this->doRequest('1.0', 'antcloud.duanka.dataphin.file.import', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 提交dataphin任务
+     * Summary: 提交dataphin任务
+     *
+     * @param SubmitDatapinTaskRequest $request
+     *
+     * @return SubmitDatapinTaskResponse
+     */
+    public function submitDatapinTask($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->submitDatapinTaskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 提交dataphin任务
+     * Summary: 提交dataphin任务
+     *
+     * @param SubmitDatapinTaskRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return SubmitDatapinTaskResponse
+     */
+    public function submitDatapinTaskEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SubmitDatapinTaskResponse::fromMap($this->doRequest('1.0', 'antcloud.duanka.datapin.task.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 行业分查询
+     * Summary: 行业分查询.
+     *
+     * @param QueryIndustryScoreRequest $request
+     *
+     * @return QueryIndustryScoreResponse
+     */
+    public function queryIndustryScore($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryIndustryScoreEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 行业分查询
+     * Summary: 行业分查询.
+     *
+     * @param QueryIndustryScoreRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return QueryIndustryScoreResponse
+     */
+    public function queryIndustryScoreEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryIndustryScoreResponse::fromMap($this->doRequest('1.0', 'antcloud.duanka.industry.score.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

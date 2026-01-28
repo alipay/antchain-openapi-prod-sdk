@@ -6,7 +6,7 @@ namespace AntChain\DUANKA\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryAistudioModelResponse extends Model
+class CheckDataphinTaskResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,44 +26,44 @@ class QueryAistudioModelResponse extends Model
      */
     public $resultMsg;
 
-    // 业务唯一id
+    // publicstatus
     /**
-     * @var string
+     * @var PublishStatus
      */
-    public $bizCode;
+    public $data;
 
-    // 压测报告
+    // requestId
     /**
      * @var string
      */
-    public $pressureReport;
+    public $requestId;
 
-    // 运行态报告
+    // code
     /**
      * @var string
      */
-    public $runtimeReport;
+    public $code;
 
-    // 安全报告
+    // message
     /**
      * @var string
      */
-    public $safetyReport;
+    public $message;
 
-    // 任务状态
+    // traceId
     /**
      * @var string
      */
-    public $status;
+    public $traceId;
     protected $_name = [
-        'reqMsgId'       => 'req_msg_id',
-        'resultCode'     => 'result_code',
-        'resultMsg'      => 'result_msg',
-        'bizCode'        => 'biz_code',
-        'pressureReport' => 'pressure_report',
-        'runtimeReport'  => 'runtime_report',
-        'safetyReport'   => 'safety_report',
-        'status'         => 'status',
+        'reqMsgId'   => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg'  => 'result_msg',
+        'data'       => 'data',
+        'requestId'  => 'request_id',
+        'code'       => 'code',
+        'message'    => 'message',
+        'traceId'    => 'trace_id',
     ];
 
     public function validate()
@@ -82,20 +82,20 @@ class QueryAistudioModelResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->bizCode) {
-            $res['biz_code'] = $this->bizCode;
+        if (null !== $this->data) {
+            $res['data'] = null !== $this->data ? $this->data->toMap() : null;
         }
-        if (null !== $this->pressureReport) {
-            $res['pressure_report'] = $this->pressureReport;
+        if (null !== $this->requestId) {
+            $res['request_id'] = $this->requestId;
         }
-        if (null !== $this->runtimeReport) {
-            $res['runtime_report'] = $this->runtimeReport;
+        if (null !== $this->code) {
+            $res['code'] = $this->code;
         }
-        if (null !== $this->safetyReport) {
-            $res['safety_report'] = $this->safetyReport;
+        if (null !== $this->message) {
+            $res['message'] = $this->message;
         }
-        if (null !== $this->status) {
-            $res['status'] = $this->status;
+        if (null !== $this->traceId) {
+            $res['trace_id'] = $this->traceId;
         }
 
         return $res;
@@ -104,7 +104,7 @@ class QueryAistudioModelResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryAistudioModelResponse
+     * @return CheckDataphinTaskResponse
      */
     public static function fromMap($map = [])
     {
@@ -118,20 +118,20 @@ class QueryAistudioModelResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['biz_code'])) {
-            $model->bizCode = $map['biz_code'];
+        if (isset($map['data'])) {
+            $model->data = PublishStatus::fromMap($map['data']);
         }
-        if (isset($map['pressure_report'])) {
-            $model->pressureReport = $map['pressure_report'];
+        if (isset($map['request_id'])) {
+            $model->requestId = $map['request_id'];
         }
-        if (isset($map['runtime_report'])) {
-            $model->runtimeReport = $map['runtime_report'];
+        if (isset($map['code'])) {
+            $model->code = $map['code'];
         }
-        if (isset($map['safety_report'])) {
-            $model->safetyReport = $map['safety_report'];
+        if (isset($map['message'])) {
+            $model->message = $map['message'];
         }
-        if (isset($map['status'])) {
-            $model->status = $map['status'];
+        if (isset($map['trace_id'])) {
+            $model->traceId = $map['trace_id'];
         }
 
         return $model;

@@ -104,9 +104,15 @@ class CheckAistudioModelRequest extends Model
 
     // 离线模型批次大小，默认2000
     /**
-     * @var string
+     * @var int
      */
     public $batchSize;
+
+    // 验证所用样本数，默认50000
+    /**
+     * @var int
+     */
+    public $verificationNum;
     protected $_name = [
         'authToken'        => 'auth_token',
         'bizCode'          => 'biz_code',
@@ -124,6 +130,7 @@ class CheckAistudioModelRequest extends Model
         'pmCore'           => 'pm_core',
         'pmMem'            => 'pm_mem',
         'batchSize'        => 'batch_size',
+        'verificationNum'  => 'verification_num',
     ];
 
     public function validate()
@@ -190,6 +197,9 @@ class CheckAistudioModelRequest extends Model
         if (null !== $this->batchSize) {
             $res['batch_size'] = $this->batchSize;
         }
+        if (null !== $this->verificationNum) {
+            $res['verification_num'] = $this->verificationNum;
+        }
 
         return $res;
     }
@@ -249,6 +259,9 @@ class CheckAistudioModelRequest extends Model
         }
         if (isset($map['batch_size'])) {
             $model->batchSize = $map['batch_size'];
+        }
+        if (isset($map['verification_num'])) {
+            $model->verificationNum = $map['verification_num'];
         }
 
         return $model;
