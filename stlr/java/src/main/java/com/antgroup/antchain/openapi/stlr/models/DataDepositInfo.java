@@ -10,20 +10,36 @@ public class DataDepositInfo extends TeaModel {
     public java.util.List<DepositFieldValue> dataValue;
 
     // 数据存证区块链交易ID
+    /**
+     * <strong>example:</strong>
+     * <p>c5fcc677a0b04c62973c2dbc72jcus83271</p>
+     */
     @NameInMap("tx_id")
     public String txId;
 
     // 数据存证操作用户ID
+    /**
+     * <strong>example:</strong>
+     * <p>user_001</p>
+     */
     @NameInMap("user_id")
     @Validation(required = true)
     public String userId;
 
     // 存证数据内容
+    /**
+     * <strong>example:</strong>
+     * <p>待补充</p>
+     */
     @NameInMap("deposit_content")
     @Validation(required = true)
     public String depositContent;
 
     // 存证执行状态
+    /**
+     * <strong>example:</strong>
+     * <p>status</p>
+     */
     @NameInMap("status")
     @Validation(required = true)
     public String status;

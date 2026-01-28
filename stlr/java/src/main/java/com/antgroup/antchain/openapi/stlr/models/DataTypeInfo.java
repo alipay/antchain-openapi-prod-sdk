@@ -5,21 +5,37 @@ import com.aliyun.tea.*;
 
 public class DataTypeInfo extends TeaModel {
     // 数据类型编码
+    /**
+     * <strong>example:</strong>
+     * <p>dataTypeNo</p>
+     */
     @NameInMap("data_type_no")
     @Validation(required = true)
     public String dataTypeNo;
 
     // 数据类型名称
+    /**
+     * <strong>example:</strong>
+     * <p>data_type_name</p>
+     */
     @NameInMap("data_type_name")
     @Validation(required = true)
     public String dataTypeName;
 
     // 数据类型配置
+    /**
+     * <strong>example:</strong>
+     * <p>data_type_config</p>
+     */
     @NameInMap("data_type_config")
     @Validation(required = true)
     public String dataTypeConfig;
 
     // 数据JSON格式检查
+    /**
+     * <strong>example:</strong>
+     * <p>data_json_schema</p>
+     */
     @NameInMap("data_json_schema")
     @Validation(required = true)
     public String dataJsonSchema;

@@ -5,46 +5,82 @@ import com.aliyun.tea.*;
 
 public class EmissionsCityStatistics extends TeaModel {
     // 城市编码
+    /**
+     * <strong>example:</strong>
+     * <p>637401</p>
+     */
     @NameInMap("city_no")
     @Validation(required = true)
     public String cityNo;
 
     // 城市名称
+    /**
+     * <strong>example:</strong>
+     * <p>南充市</p>
+     */
     @NameInMap("city_name")
     @Validation(required = true)
     public String cityName;
 
     // 累计排放量
+    /**
+     * <strong>example:</strong>
+     * <p>222.22</p>
+     */
     @NameInMap("emission_amount")
     @Validation(required = true)
     public String emissionAmount;
 
     // 今日新增碳排放量
+    /**
+     * <strong>example:</strong>
+     * <p>22.22</p>
+     */
     @NameInMap("emission_amount_today")
     @Validation(required = true)
     public String emissionAmountToday;
 
     // 总减碳量
+    /**
+     * <strong>example:</strong>
+     * <p>21.11</p>
+     */
     @NameInMap("reduction_amount")
     @Validation(required = true)
     public String reductionAmount;
 
     // 今日减碳量
+    /**
+     * <strong>example:</strong>
+     * <p>9.11</p>
+     */
     @NameInMap("reduction_amount_today")
     @Validation(required = true)
     public String reductionAmountToday;
 
     // 总抵消量
+    /**
+     * <strong>example:</strong>
+     * <p>9.11</p>
+     */
     @NameInMap("counteraction_amount")
     @Validation(required = true)
     public String counteractionAmount;
 
     // 今日抵消量
+    /**
+     * <strong>example:</strong>
+     * <p>2.11</p>
+     */
     @NameInMap("counteraction_amount_today")
     @Validation(required = true)
     public String counteractionAmountToday;
 
     // 排放量单位，默认为：
+    /**
+     * <strong>example:</strong>
+     * <p>tCO2e</p>
+     */
     @NameInMap("data_unit")
     @Validation(required = true)
     public String dataUnit;

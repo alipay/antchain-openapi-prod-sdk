@@ -5,25 +5,45 @@ import com.aliyun.tea.*;
 
 public class OutputStreamActiveData extends TeaModel {
     // 物料编码
+    /**
+     * <strong>example:</strong>
+     * <p>0102010000</p>
+     */
     @NameInMap("material_code")
     @Validation(required = true)
     public String materialCode;
 
     // 用量，非负，最多6位小数
+    /**
+     * <strong>example:</strong>
+     * <p>200.12</p>
+     */
     @NameInMap("amount")
     @Validation(required = true)
     public String amount;
 
     // 单位
+    /**
+     * <strong>example:</strong>
+     * <p>KG</p>
+     */
     @NameInMap("unit")
     @Validation(required = true)
     public String unit;
 
     // 单价（仅产品用，产品不传时默认为空）
+    /**
+     * <strong>example:</strong>
+     * <p>100</p>
+     */
     @NameInMap("unit_price")
     public String unitPrice;
 
     // 处置方式编码（仅废弃物用）
+    /**
+     * <strong>example:</strong>
+     * <p>5201000000</p>
+     */
     @NameInMap("disposal_type_code")
     public String disposalTypeCode;
 

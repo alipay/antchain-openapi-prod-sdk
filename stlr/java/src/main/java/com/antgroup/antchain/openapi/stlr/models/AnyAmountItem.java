@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class AnyAmountItem extends TeaModel {
     // 数据项编码
+    /**
+     * <strong>example:</strong>
+     * <p>AD1</p>
+     */
     @NameInMap("item_code")
     @Validation(required = true)
     public String itemCode;
 
     // 数据值，按字符串输出，最多保留6位小数
+    /**
+     * <strong>example:</strong>
+     * <p>221.11</p>
+     */
     @NameInMap("item_amount")
     @Validation(required = true)
     public String itemAmount;

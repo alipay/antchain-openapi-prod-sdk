@@ -5,21 +5,37 @@ import com.aliyun.tea.*;
 
 public class GreenOperationStatisticsByType extends TeaModel {
     // 绿色行为类型
+    /**
+     * <strong>example:</strong>
+     * <p>ElectronicInvoice</p>
+     */
     @NameInMap("green_operation_type")
     @Validation(required = true)
     public String greenOperationType;
 
     // 绿色行为类型名称
+    /**
+     * <strong>example:</strong>
+     * <p>电子发票</p>
+     */
     @NameInMap("green_operation_type_name")
     @Validation(required = true)
     public String greenOperationTypeName;
 
     // 绿色行为产生的绿色能量值
+    /**
+     * <strong>example:</strong>
+     * <p>11</p>
+     */
     @NameInMap("green_energy_amount")
     @Validation(required = true)
     public Long greenEnergyAmount;
 
     // 相关类型的绿色行为记录数
+    /**
+     * <strong>example:</strong>
+     * <p>33</p>
+     */
     @NameInMap("green_operation_records")
     @Validation(required = true)
     public Long greenOperationRecords;

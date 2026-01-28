@@ -5,21 +5,37 @@ import com.aliyun.tea.*;
 
 public class EnterpriseLcaAssessmentItem extends TeaModel {
     // 物料编码
+    /**
+     * <strong>example:</strong>
+     * <p>0601020000</p>
+     */
     @NameInMap("material_code")
     @Validation(required = true)
     public String materialCode;
 
     // 数据明细名称
+    /**
+     * <strong>example:</strong>
+     * <p>煤炭</p>
+     */
     @NameInMap("assessment_item_name")
     @Validation(required = true)
     public String assessmentItemName;
 
     // 物料直接碳排放评估量
+    /**
+     * <strong>example:</strong>
+     * <p>0</p>
+     */
     @NameInMap("emission_amount")
     @Validation(required = true)
     public String emissionAmount;
 
     // 物料运输碳排放评估量
+    /**
+     * <strong>example:</strong>
+     * <p>123.1</p>
+     */
     @NameInMap("transport_emission_amount")
     @Validation(required = true)
     public String transportEmissionAmount;

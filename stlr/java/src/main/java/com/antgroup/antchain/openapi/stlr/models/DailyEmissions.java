@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class DailyEmissions extends TeaModel {
     // 日期
+    /**
+     * <strong>example:</strong>
+     * <p>2021-07-21</p>
+     */
     @NameInMap("date")
     @Validation(required = true)
     public String date;
 
     // 排放量值
+    /**
+     * <strong>example:</strong>
+     * <p>11.22</p>
+     */
     @NameInMap("value")
     @Validation(required = true)
     public Long value;

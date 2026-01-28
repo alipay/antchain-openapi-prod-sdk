@@ -5,30 +5,54 @@ import com.aliyun.tea.*;
 
 public class PlatformCustomerSummary extends TeaModel {
     // 三方平台的客户ID
+    /**
+     * <strong>example:</strong>
+     * <p>2322323</p>
+     */
     @NameInMap("customer_id")
     @Validation(required = true)
     public String customerId;
 
     // 三方平台客户名称
+    /**
+     * <strong>example:</strong>
+     * <p>****有限公司</p>
+     */
     @NameInMap("customer_name")
     @Validation(required = true)
     public String customerName;
 
     // 联系人
+    /**
+     * <strong>example:</strong>
+     * <p>张三</p>
+     */
     @NameInMap("contact_person")
     @Validation(required = true)
     public String contactPerson;
 
     // 联系电话
+    /**
+     * <strong>example:</strong>
+     * <p>13655665566</p>
+     */
     @NameInMap("contact_telephone")
     @Validation(required = true)
     public String contactTelephone;
 
     // 联系邮箱
+    /**
+     * <strong>example:</strong>
+     * <p><a href="mailto:ss@163.com">ss@163.com</a></p>
+     */
     @NameInMap("contact_email")
     public String contactEmail;
 
     // 统一社会信用代码
+    /**
+     * <strong>example:</strong>
+     * <p>23123121</p>
+     */
     @NameInMap("social_credit_code")
     @Validation(required = true)
     public String socialCreditCode;

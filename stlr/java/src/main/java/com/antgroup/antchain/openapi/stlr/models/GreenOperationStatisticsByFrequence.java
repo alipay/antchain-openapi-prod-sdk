@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class GreenOperationStatisticsByFrequence extends TeaModel {
     // 绿色行为发生时期
+    /**
+     * <strong>example:</strong>
+     * <p>2021-09</p>
+     */
     @NameInMap("occurrence_period")
     @Validation(required = true)
     public String occurrencePeriod;
 
     // 绿色行为产生的绿色能量值
+    /**
+     * <strong>example:</strong>
+     * <p>11212</p>
+     */
     @NameInMap("green_energy_amount")
     @Validation(required = true)
     public Long greenEnergyAmount;
 
     // 时期内发生绿色行为的记录条数
+    /**
+     * <strong>example:</strong>
+     * <p>111</p>
+     */
     @NameInMap("green_operation_records")
     @Validation(required = true)
     public Long greenOperationRecords;

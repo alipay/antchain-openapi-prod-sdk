@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class InputStreamActiveData extends TeaModel {
     // 物料编码
+    /**
+     * <strong>example:</strong>
+     * <p>0601020000</p>
+     */
     @NameInMap("material_code")
     @Validation(required = true)
     public String materialCode;
 
     // 用量，非负，最多6位小数
+    /**
+     * <strong>example:</strong>
+     * <p>100</p>
+     */
     @NameInMap("amount")
     @Validation(required = true)
     public String amount;
 
     // 单位
+    /**
+     * <strong>example:</strong>
+     * <p>KG</p>
+     */
     @NameInMap("unit")
     @Validation(required = true)
     public String unit;

@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class LcaStageActiveData extends TeaModel {
     // LCA阶段
+    /**
+     * <strong>example:</strong>
+     * <p>ProductManufacture</p>
+     */
     @NameInMap("lca_stage")
     @Validation(required = true)
     public String lcaStage;

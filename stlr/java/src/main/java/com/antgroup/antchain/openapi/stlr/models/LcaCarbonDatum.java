@@ -5,31 +5,55 @@ import com.aliyun.tea.*;
 
 public class LcaCarbonDatum extends TeaModel {
     // LCA碳排放总量
+    /**
+     * <strong>example:</strong>
+     * <p>2323.22</p>
+     */
     @NameInMap("lca_carbon_amount")
     @Validation(required = true)
     public String lcaCarbonAmount;
 
     // 足迹报告pdf文件下载地址（30分钟内下载有效）
+    /**
+     * <strong>example:</strong>
+     * <p><a href="http://oss.com/lca/lca_report.pdf">http://oss.com/lca/lca_report.pdf</a></p>
+     */
     @NameInMap("lca_report_file_url")
     @Validation(required = true)
     public String lcaReportFileUrl;
 
     // 足迹分析结果详情文件地址（30分钟内下载有效）
+    /**
+     * <strong>example:</strong>
+     * <p><a href="http://oss.com/lca/lca_detail.pdf">http://oss.com/lca/lca_detail.pdf</a></p>
+     */
     @NameInMap("lca_detail_file_url")
     @Validation(required = true)
     public String lcaDetailFileUrl;
 
     // B2B-从摇篮到大门，B2C-从摇篮到坟墓
+    /**
+     * <strong>example:</strong>
+     * <p>B2B</p>
+     */
     @NameInMap("life_cycle_boundary")
     @Validation(required = true)
     public String lifeCycleBoundary;
 
     // 足迹开始时间，格式：yyyyMMdd
+    /**
+     * <strong>example:</strong>
+     * <p>20231223</p>
+     */
     @NameInMap("lca_start_date")
     @Validation(required = true)
     public String lcaStartDate;
 
     // 足迹结束时间 格式：yyyyMMdd
+    /**
+     * <strong>example:</strong>
+     * <p>20231202</p>
+     */
     @NameInMap("lca_end_date")
     @Validation(required = true)
     public String lcaEndDate;

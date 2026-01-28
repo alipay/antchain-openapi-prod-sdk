@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class AnnualMonthEmissionDatum extends TeaModel {
     // 统计的年份
+    /**
+     * <strong>example:</strong>
+     * <p>2022</p>
+     */
     @NameInMap("year")
     @Validation(required = true)
     public String year;
 
     // 统计的月份
+    /**
+     * <strong>example:</strong>
+     * <p>12</p>
+     */
     @NameInMap("month")
     @Validation(required = true)
     public String month;
 
     // 统计排放量
+    /**
+     * <strong>example:</strong>
+     * <p>22.22</p>
+     */
     @NameInMap("value")
     @Validation(required = true)
     public String value;

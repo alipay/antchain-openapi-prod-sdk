@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class DeviceGeneration extends TeaModel {
     // 设备内部编号，注册设备后获取
+    /**
+     * <strong>example:</strong>
+     * <p>0340340000000707</p>
+     */
     @NameInMap("device_no")
     @Validation(required = true)
     public String deviceNo;

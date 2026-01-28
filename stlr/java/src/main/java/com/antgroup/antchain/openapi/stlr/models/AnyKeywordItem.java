@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class AnyKeywordItem extends TeaModel {
     // 项目编码
+    /**
+     * <strong>example:</strong>
+     * <p>CFD</p>
+     */
     @NameInMap("item_code")
     @Validation(required = true)
     public String itemCode;
 
     // 项目值
+    /**
+     * <strong>example:</strong>
+     * <p>各种按业务场景的取值</p>
+     */
     @NameInMap("item_value")
     @Validation(required = true)
     public String itemValue;

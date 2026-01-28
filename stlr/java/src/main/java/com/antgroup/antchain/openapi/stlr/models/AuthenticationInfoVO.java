@@ -5,41 +5,73 @@ import com.aliyun.tea.*;
 
 public class AuthenticationInfoVO extends TeaModel {
     // 授权记录编码
+    /**
+     * <strong>example:</strong>
+     * <p>授权记录编码</p>
+     */
     @NameInMap("authentication_no")
     @Validation(required = true)
     public String authenticationNo;
 
     // 收取方did
+    /**
+     * <strong>example:</strong>
+     * <p>收取方did</p>
+     */
     @NameInMap("authorizer_did")
     @Validation(required = true)
     public String authorizerDid;
 
     // 授权方名称
+    /**
+     * <strong>example:</strong>
+     * <p>授权方名称</p>
+     */
     @NameInMap("authorizer_name")
     @Validation(required = true)
     public String authorizerName;
 
     // 被授权方did
+    /**
+     * <strong>example:</strong>
+     * <p>被授权方did</p>
+     */
     @NameInMap("authorized_did")
     @Validation(required = true)
     public String authorizedDid;
 
     // 被授权方名称
+    /**
+     * <strong>example:</strong>
+     * <p>被授权方名称</p>
+     */
     @NameInMap("authorized_name")
     @Validation(required = true)
     public String authorizedName;
 
     // 数据协作类型
+    /**
+     * <strong>example:</strong>
+     * <p>数据协作类型</p>
+     */
     @NameInMap("data_transfer_type")
     @Validation(required = true)
     public String dataTransferType;
 
     // 授权详情
+    /**
+     * <strong>example:</strong>
+     * <p>{}</p>
+     */
     @NameInMap("authentication_deetail")
     @Validation(required = true)
     public String authenticationDeetail;
 
     // 授权状态
+    /**
+     * <strong>example:</strong>
+     * <p>Approved：审批通过   Approving：待审批 NotApproved：审批不通过 Cancelled: 取消授权</p>
+     */
     @NameInMap("status")
     @Validation(required = true)
     public String status;

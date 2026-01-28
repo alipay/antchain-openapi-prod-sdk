@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class CertProductAuthDO extends TeaModel {
     // 三方平台产品ID
+    /**
+     * <strong>example:</strong>
+     * <p>产品ID</p>
+     */
     @NameInMap("product_id")
     @Validation(required = true)
     public String productId;
 
     // 三方平台产品名称
+    /**
+     * <strong>example:</strong>
+     * <p>产品名称</p>
+     */
     @NameInMap("product_name")
     @Validation(required = true)
     public String productName;

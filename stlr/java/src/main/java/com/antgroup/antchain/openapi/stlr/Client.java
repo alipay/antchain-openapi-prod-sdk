@@ -32,7 +32,9 @@ public class Client {
     public Number _maxRequests;
     public Number _maxRequestsPerHost;
     /**
-     * Init client with Config
+     * <b>description</b> :
+     * <p>Init client with Config</p>
+     * 
      * @param config config contains the necessary information to create a client
      */
     public Client(Config config) throws Exception {
@@ -64,7 +66,9 @@ public class Client {
     }
 
     /**
-     * Encapsulate the request and invoke the network
+     * <b>description</b> :
+     * <p>Encapsulate the request and invoke the network</p>
+     * 
      * @param action api name
      * @param protocol http or https
      * @param method e.g. GET
@@ -122,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "2.9.2"),
+                    new TeaPair("sdk_version", "2.11.4"),
                     new TeaPair("_prod_code", "STLR"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -185,8 +189,9 @@ public class Client {
     }
 
     /**
-     * Description: 查询活动资料描述信息，包括大型会展信息及当前开展的活动日期等等
-     * Summary: 查询当前活动资料信息
+     * <b>description</b> :
+     * <p>Description: 查询活动资料描述信息，包括大型会展信息及当前开展的活动日期等等
+     * Summary: 查询当前活动资料信息</p>
      */
     public DescribeAcarActivityResponse describeAcarActivity(DescribeAcarActivityRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -195,8 +200,9 @@ public class Client {
     }
 
     /**
-     * Description: 查询活动资料描述信息，包括大型会展信息及当前开展的活动日期等等
-     * Summary: 查询当前活动资料信息
+     * <b>description</b> :
+     * <p>Description: 查询活动资料描述信息，包括大型会展信息及当前开展的活动日期等等
+     * Summary: 查询当前活动资料信息</p>
      */
     public DescribeAcarActivityResponse describeAcarActivityEx(DescribeAcarActivityRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -204,8 +210,9 @@ public class Client {
     }
 
     /**
-     * Description: 返回当前活动累计的碳排放量，以及每日累计的总排放量。
-     * Summary: 查询当前活动的每日碳排放量
+     * <b>description</b> :
+     * <p>Description: 返回当前活动累计的碳排放量，以及每日累计的总排放量。
+     * Summary: 查询当前活动的每日碳排放量</p>
      */
     public DescribeAcarDailyemissionsResponse describeAcarDailyemissions(DescribeAcarDailyemissionsRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -214,8 +221,9 @@ public class Client {
     }
 
     /**
-     * Description: 返回当前活动累计的碳排放量，以及每日累计的总排放量。
-     * Summary: 查询当前活动的每日碳排放量
+     * <b>description</b> :
+     * <p>Description: 返回当前活动累计的碳排放量，以及每日累计的总排放量。
+     * Summary: 查询当前活动的每日碳排放量</p>
      */
     public DescribeAcarDailyemissionsResponse describeAcarDailyemissionsEx(DescribeAcarDailyemissionsRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -223,8 +231,9 @@ public class Client {
     }
 
     /**
-     * Description: 查询当前活动各范围的碳排放量，返回各范围的排放占比，以及范围下各分类的碳排放量。
-     * Summary: 查询当前活动各范围的碳排放量
+     * <b>description</b> :
+     * <p>Description: 查询当前活动各范围的碳排放量，返回各范围的排放占比，以及范围下各分类的碳排放量。
+     * Summary: 查询当前活动各范围的碳排放量</p>
      */
     public DescribeAcarScopemissionResponse describeAcarScopemission(DescribeAcarScopemissionRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -233,8 +242,9 @@ public class Client {
     }
 
     /**
-     * Description: 查询当前活动各范围的碳排放量，返回各范围的排放占比，以及范围下各分类的碳排放量。
-     * Summary: 查询当前活动各范围的碳排放量
+     * <b>description</b> :
+     * <p>Description: 查询当前活动各范围的碳排放量，返回各范围的排放占比，以及范围下各分类的碳排放量。
+     * Summary: 查询当前活动各范围的碳排放量</p>
      */
     public DescribeAcarScopemissionResponse describeAcarScopemissionEx(DescribeAcarScopemissionRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -242,8 +252,9 @@ public class Client {
     }
 
     /**
-     * Description: 获取减排情况，返回多项减排方案实施下相关的减排情况
-     * Summary: 获取减排情况
+     * <b>description</b> :
+     * <p>Description: 获取减排情况，返回多项减排方案实施下相关的减排情况
+     * Summary: 获取减排情况</p>
      */
     public DescribeAcarReductionemissionsResponse describeAcarReductionemissions(DescribeAcarReductionemissionsRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -252,8 +263,9 @@ public class Client {
     }
 
     /**
-     * Description: 获取减排情况，返回多项减排方案实施下相关的减排情况
-     * Summary: 获取减排情况
+     * <b>description</b> :
+     * <p>Description: 获取减排情况，返回多项减排方案实施下相关的减排情况
+     * Summary: 获取减排情况</p>
      */
     public DescribeAcarReductionemissionsResponse describeAcarReductionemissionsEx(DescribeAcarReductionemissionsRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -261,8 +273,9 @@ public class Client {
     }
 
     /**
-     * Description: 查询最近排放数据，返回最近排放数据信息
-     * Summary: 查询最近排放数据
+     * <b>description</b> :
+     * <p>Description: 查询最近排放数据，返回最近排放数据信息
+     * Summary: 查询最近排放数据</p>
      */
     public DescribeAcarLastemissiondataResponse describeAcarLastemissiondata(DescribeAcarLastemissiondataRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -271,8 +284,9 @@ public class Client {
     }
 
     /**
-     * Description: 查询最近排放数据，返回最近排放数据信息
-     * Summary: 查询最近排放数据
+     * <b>description</b> :
+     * <p>Description: 查询最近排放数据，返回最近排放数据信息
+     * Summary: 查询最近排放数据</p>
      */
     public DescribeAcarLastemissiondataResponse describeAcarLastemissiondataEx(DescribeAcarLastemissiondataRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -280,8 +294,9 @@ public class Client {
     }
 
     /**
-     * Description: 碳总量查询
-     * Summary: 碳总量查询
+     * <b>description</b> :
+     * <p>Description: 碳总量查询
+     * Summary: 碳总量查询</p>
      */
     public QueryEmissionTotalResponse queryEmissionTotal(QueryEmissionTotalRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -290,8 +305,9 @@ public class Client {
     }
 
     /**
-     * Description: 碳总量查询
-     * Summary: 碳总量查询
+     * <b>description</b> :
+     * <p>Description: 碳总量查询
+     * Summary: 碳总量查询</p>
      */
     public QueryEmissionTotalResponse queryEmissionTotalEx(QueryEmissionTotalRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -299,8 +315,9 @@ public class Client {
     }
 
     /**
-     * Description: 碳排放总量分类统计
-     * Summary: 碳排放总量分类统计
+     * <b>description</b> :
+     * <p>Description: 碳排放总量分类统计
+     * Summary: 碳排放总量分类统计</p>
      */
     public QueryEmissionGroupbycategoryResponse queryEmissionGroupbycategory(QueryEmissionGroupbycategoryRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -309,8 +326,9 @@ public class Client {
     }
 
     /**
-     * Description: 碳排放总量分类统计
-     * Summary: 碳排放总量分类统计
+     * <b>description</b> :
+     * <p>Description: 碳排放总量分类统计
+     * Summary: 碳排放总量分类统计</p>
      */
     public QueryEmissionGroupbycategoryResponse queryEmissionGroupbycategoryEx(QueryEmissionGroupbycategoryRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -318,8 +336,9 @@ public class Client {
     }
 
     /**
-     * Description: 碳排放总量分单元统计
-     * Summary: 碳排放总量分单元统计
+     * <b>description</b> :
+     * <p>Description: 碳排放总量分单元统计
+     * Summary: 碳排放总量分单元统计</p>
      */
     public QueryEmissionGroupbylocationResponse queryEmissionGroupbylocation(QueryEmissionGroupbylocationRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -328,8 +347,9 @@ public class Client {
     }
 
     /**
-     * Description: 碳排放总量分单元统计
-     * Summary: 碳排放总量分单元统计
+     * <b>description</b> :
+     * <p>Description: 碳排放总量分单元统计
+     * Summary: 碳排放总量分单元统计</p>
      */
     public QueryEmissionGroupbylocationResponse queryEmissionGroupbylocationEx(QueryEmissionGroupbylocationRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -337,8 +357,9 @@ public class Client {
     }
 
     /**
-     * Description: 碳排放总量分城市统计
-     * Summary: 碳排放总量分城市统计
+     * <b>description</b> :
+     * <p>Description: 碳排放总量分城市统计
+     * Summary: 碳排放总量分城市统计</p>
      */
     public QueryEmissionGroupbycityResponse queryEmissionGroupbycity(QueryEmissionGroupbycityRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -347,8 +368,9 @@ public class Client {
     }
 
     /**
-     * Description: 碳排放总量分城市统计
-     * Summary: 碳排放总量分城市统计
+     * <b>description</b> :
+     * <p>Description: 碳排放总量分城市统计
+     * Summary: 碳排放总量分城市统计</p>
      */
     public QueryEmissionGroupbycityResponse queryEmissionGroupbycityEx(QueryEmissionGroupbycityRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -356,8 +378,9 @@ public class Client {
     }
 
     /**
-     * Description: 减排统计查询
-     * Summary: 减排统计查询
+     * <b>description</b> :
+     * <p>Description: 减排统计查询
+     * Summary: 减排统计查询</p>
      */
     public QueryEmissionReductionResponse queryEmissionReduction(QueryEmissionReductionRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -366,8 +389,9 @@ public class Client {
     }
 
     /**
-     * Description: 减排统计查询
-     * Summary: 减排统计查询
+     * <b>description</b> :
+     * <p>Description: 减排统计查询
+     * Summary: 减排统计查询</p>
      */
     public QueryEmissionReductionResponse queryEmissionReductionEx(QueryEmissionReductionRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -375,8 +399,9 @@ public class Client {
     }
 
     /**
-     * Description: 碳抵消量统计
-     * Summary: 碳抵消量统计
+     * <b>description</b> :
+     * <p>Description: 碳抵消量统计
+     * Summary: 碳抵消量统计</p>
      */
     public QueryEmissionCounteractionResponse queryEmissionCounteraction(QueryEmissionCounteractionRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -385,8 +410,9 @@ public class Client {
     }
 
     /**
-     * Description: 碳抵消量统计
-     * Summary: 碳抵消量统计
+     * <b>description</b> :
+     * <p>Description: 碳抵消量统计
+     * Summary: 碳抵消量统计</p>
      */
     public QueryEmissionCounteractionResponse queryEmissionCounteractionEx(QueryEmissionCounteractionRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -394,8 +420,9 @@ public class Client {
     }
 
     /**
-     * Description: 账户开通接口。开通协作平台和链上账户
-     * Summary: 账户开通接口
+     * <b>description</b> :
+     * <p>Description: 账户开通接口。开通协作平台和链上账户
+     * Summary: 账户开通接口</p>
      */
     public RegisterPdcpAccountResponse registerPdcpAccount(RegisterPdcpAccountRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -404,8 +431,9 @@ public class Client {
     }
 
     /**
-     * Description: 账户开通接口。开通协作平台和链上账户
-     * Summary: 账户开通接口
+     * <b>description</b> :
+     * <p>Description: 账户开通接口。开通协作平台和链上账户
+     * Summary: 账户开通接口</p>
      */
     public RegisterPdcpAccountResponse registerPdcpAccountEx(RegisterPdcpAccountRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -413,8 +441,9 @@ public class Client {
     }
 
     /**
-     * Description: 存证接口
-     * Summary: 存证接口
+     * <b>description</b> :
+     * <p>Description: 存证接口
+     * Summary: 存证接口</p>
      */
     public PushPdcpBlockchainResponse pushPdcpBlockchain(PushPdcpBlockchainRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -423,8 +452,9 @@ public class Client {
     }
 
     /**
-     * Description: 存证接口
-     * Summary: 存证接口
+     * <b>description</b> :
+     * <p>Description: 存证接口
+     * Summary: 存证接口</p>
      */
     public PushPdcpBlockchainResponse pushPdcpBlockchainEx(PushPdcpBlockchainRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -432,8 +462,9 @@ public class Client {
     }
 
     /**
-     * Description: 异步存证接口
-     * Summary: 异步存证接口
+     * <b>description</b> :
+     * <p>Description: 异步存证接口
+     * Summary: 异步存证接口</p>
      */
     public UploadPdcpBlockchainResponse uploadPdcpBlockchain(UploadPdcpBlockchainRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -442,8 +473,9 @@ public class Client {
     }
 
     /**
-     * Description: 异步存证接口
-     * Summary: 异步存证接口
+     * <b>description</b> :
+     * <p>Description: 异步存证接口
+     * Summary: 异步存证接口</p>
      */
     public UploadPdcpBlockchainResponse uploadPdcpBlockchainEx(UploadPdcpBlockchainRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -451,8 +483,9 @@ public class Client {
     }
 
     /**
-     * Description: 查询异步存证结果
-     * Summary: 查询异步存证结果
+     * <b>description</b> :
+     * <p>Description: 查询异步存证结果
+     * Summary: 查询异步存证结果</p>
      */
     public GetPdcpBlockchainResponse getPdcpBlockchain(GetPdcpBlockchainRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -461,8 +494,9 @@ public class Client {
     }
 
     /**
-     * Description: 查询异步存证结果
-     * Summary: 查询异步存证结果
+     * <b>description</b> :
+     * <p>Description: 查询异步存证结果
+     * Summary: 查询异步存证结果</p>
      */
     public GetPdcpBlockchainResponse getPdcpBlockchainEx(GetPdcpBlockchainRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -470,8 +504,9 @@ public class Client {
     }
 
     /**
-     * Description: 链上账户查询接口
-     * Summary: 链上账户查询接口
+     * <b>description</b> :
+     * <p>Description: 链上账户查询接口
+     * Summary: 链上账户查询接口</p>
      */
     public QueryPdcpAccountResponse queryPdcpAccount(QueryPdcpAccountRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -480,8 +515,9 @@ public class Client {
     }
 
     /**
-     * Description: 链上账户查询接口
-     * Summary: 链上账户查询接口
+     * <b>description</b> :
+     * <p>Description: 链上账户查询接口
+     * Summary: 链上账户查询接口</p>
      */
     public QueryPdcpAccountResponse queryPdcpAccountEx(QueryPdcpAccountRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -489,8 +525,9 @@ public class Client {
     }
 
     /**
-     * Description: 新增授权接口
-     * Summary: 新增授权接口
+     * <b>description</b> :
+     * <p>Description: 新增授权接口
+     * Summary: 新增授权接口</p>
      */
     public AddPdcpAuthResponse addPdcpAuth(AddPdcpAuthRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -499,8 +536,9 @@ public class Client {
     }
 
     /**
-     * Description: 新增授权接口
-     * Summary: 新增授权接口
+     * <b>description</b> :
+     * <p>Description: 新增授权接口
+     * Summary: 新增授权接口</p>
      */
     public AddPdcpAuthResponse addPdcpAuthEx(AddPdcpAuthRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -508,8 +546,9 @@ public class Client {
     }
 
     /**
-     * Description: 授权取消、授权审批接口
-     * Summary: 授权接口变更
+     * <b>description</b> :
+     * <p>Description: 授权取消、授权审批接口
+     * Summary: 授权接口变更</p>
      */
     public UpdatePdcpAuthResponse updatePdcpAuth(UpdatePdcpAuthRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -518,8 +557,9 @@ public class Client {
     }
 
     /**
-     * Description: 授权取消、授权审批接口
-     * Summary: 授权接口变更
+     * <b>description</b> :
+     * <p>Description: 授权取消、授权审批接口
+     * Summary: 授权接口变更</p>
      */
     public UpdatePdcpAuthResponse updatePdcpAuthEx(UpdatePdcpAuthRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -527,8 +567,9 @@ public class Client {
     }
 
     /**
-     * Description: 路由账户查询接口
-     * Summary: 路由账户查询接口
+     * <b>description</b> :
+     * <p>Description: 路由账户查询接口
+     * Summary: 路由账户查询接口</p>
      */
     public QueryGatewayAccountResponse queryGatewayAccount(QueryGatewayAccountRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -537,8 +578,9 @@ public class Client {
     }
 
     /**
-     * Description: 路由账户查询接口
-     * Summary: 路由账户查询接口
+     * <b>description</b> :
+     * <p>Description: 路由账户查询接口
+     * Summary: 路由账户查询接口</p>
      */
     public QueryGatewayAccountResponse queryGatewayAccountEx(QueryGatewayAccountRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -546,8 +588,9 @@ public class Client {
     }
 
     /**
-     * Description: 授权记录查询
-     * Summary: 授权记录查询
+     * <b>description</b> :
+     * <p>Description: 授权记录查询
+     * Summary: 授权记录查询</p>
      */
     public QueryPdcpAuthResponse queryPdcpAuth(QueryPdcpAuthRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -556,8 +599,9 @@ public class Client {
     }
 
     /**
-     * Description: 授权记录查询
-     * Summary: 授权记录查询
+     * <b>description</b> :
+     * <p>Description: 授权记录查询
+     * Summary: 授权记录查询</p>
      */
     public QueryPdcpAuthResponse queryPdcpAuthEx(QueryPdcpAuthRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -565,8 +609,9 @@ public class Client {
     }
 
     /**
-     * Description: 授权数据查询
-     * Summary: 授权数据查询
+     * <b>description</b> :
+     * <p>Description: 授权数据查询
+     * Summary: 授权数据查询</p>
      */
     public QueryPdcpDataResponse queryPdcpData(QueryPdcpDataRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -575,8 +620,9 @@ public class Client {
     }
 
     /**
-     * Description: 授权数据查询
-     * Summary: 授权数据查询
+     * <b>description</b> :
+     * <p>Description: 授权数据查询
+     * Summary: 授权数据查询</p>
      */
     public QueryPdcpDataResponse queryPdcpDataEx(QueryPdcpDataRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -584,8 +630,9 @@ public class Client {
     }
 
     /**
-     * Description: 查询存证数据详情，包括存证内容、存证数据值、存证状态、存证交易等信息。 若指定版本，返回指定版本；若未指定，返回最新版本。
-     * Summary: 查询存证数据详情
+     * <b>description</b> :
+     * <p>Description: 查询存证数据详情，包括存证内容、存证数据值、存证状态、存证交易等信息。 若指定版本，返回指定版本；若未指定，返回最新版本。
+     * Summary: 查询存证数据详情</p>
      */
     public DetailPdcpDepositResponse detailPdcpDeposit(DetailPdcpDepositRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -594,8 +641,9 @@ public class Client {
     }
 
     /**
-     * Description: 查询存证数据详情，包括存证内容、存证数据值、存证状态、存证交易等信息。 若指定版本，返回指定版本；若未指定，返回最新版本。
-     * Summary: 查询存证数据详情
+     * <b>description</b> :
+     * <p>Description: 查询存证数据详情，包括存证内容、存证数据值、存证状态、存证交易等信息。 若指定版本，返回指定版本；若未指定，返回最新版本。
+     * Summary: 查询存证数据详情</p>
      */
     public DetailPdcpDepositResponse detailPdcpDepositEx(DetailPdcpDepositRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -603,8 +651,9 @@ public class Client {
     }
 
     /**
-     * Description: 查询存证数据历史变更
-     * Summary: 存证数据变更历史追溯查询
+     * <b>description</b> :
+     * <p>Description: 查询存证数据历史变更
+     * Summary: 存证数据变更历史追溯查询</p>
      */
     public QueryPdcpDtraceResponse queryPdcpDtrace(QueryPdcpDtraceRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -613,8 +662,9 @@ public class Client {
     }
 
     /**
-     * Description: 查询存证数据历史变更
-     * Summary: 存证数据变更历史追溯查询
+     * <b>description</b> :
+     * <p>Description: 查询存证数据历史变更
+     * Summary: 存证数据变更历史追溯查询</p>
      */
     public QueryPdcpDtraceResponse queryPdcpDtraceEx(QueryPdcpDtraceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -622,8 +672,9 @@ public class Client {
     }
 
     /**
-     * Description: 通过链山存证内容校验存证数据可信性
-     * Summary: 存证数据可信校验
+     * <b>description</b> :
+     * <p>Description: 通过链山存证内容校验存证数据可信性
+     * Summary: 存证数据可信校验</p>
      */
     public CheckPdcpDtraceResponse checkPdcpDtrace(CheckPdcpDtraceRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -632,8 +683,9 @@ public class Client {
     }
 
     /**
-     * Description: 通过链山存证内容校验存证数据可信性
-     * Summary: 存证数据可信校验
+     * <b>description</b> :
+     * <p>Description: 通过链山存证内容校验存证数据可信性
+     * Summary: 存证数据可信校验</p>
      */
     public CheckPdcpDtraceResponse checkPdcpDtraceEx(CheckPdcpDtraceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -641,8 +693,9 @@ public class Client {
     }
 
     /**
-     * Description: 根据授权方和被授权方授权关系批量查询授权数据
-     * Summary: 批量查询授权数据
+     * <b>description</b> :
+     * <p>Description: 根据授权方和被授权方授权关系批量查询授权数据
+     * Summary: 批量查询授权数据</p>
      */
     public BatchqueryPdcpDataResponse batchqueryPdcpData(BatchqueryPdcpDataRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -651,8 +704,9 @@ public class Client {
     }
 
     /**
-     * Description: 根据授权方和被授权方授权关系批量查询授权数据
-     * Summary: 批量查询授权数据
+     * <b>description</b> :
+     * <p>Description: 根据授权方和被授权方授权关系批量查询授权数据
+     * Summary: 批量查询授权数据</p>
      */
     public BatchqueryPdcpDataResponse batchqueryPdcpDataEx(BatchqueryPdcpDataRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -660,8 +714,9 @@ public class Client {
     }
 
     /**
-     * Description: 查询用户拥有的数据记录
-     * Summary: 查询拥有的数据
+     * <b>description</b> :
+     * <p>Description: 查询用户拥有的数据记录
+     * Summary: 查询拥有的数据</p>
      */
     public QueryPdcpOwndataResponse queryPdcpOwndata(QueryPdcpOwndataRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -670,8 +725,9 @@ public class Client {
     }
 
     /**
-     * Description: 查询用户拥有的数据记录
-     * Summary: 查询拥有的数据
+     * <b>description</b> :
+     * <p>Description: 查询用户拥有的数据记录
+     * Summary: 查询拥有的数据</p>
      */
     public QueryPdcpOwndataResponse queryPdcpOwndataEx(QueryPdcpOwndataRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -679,8 +735,9 @@ public class Client {
     }
 
     /**
-     * Description: 分页查询数据资产
-     * Summary: 数据资产
+     * <b>description</b> :
+     * <p>Description: 分页查询数据资产
+     * Summary: 数据资产</p>
      */
     public QueryPdcpDataassetResponse queryPdcpDataasset(QueryPdcpDataassetRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -689,8 +746,9 @@ public class Client {
     }
 
     /**
-     * Description: 分页查询数据资产
-     * Summary: 数据资产
+     * <b>description</b> :
+     * <p>Description: 分页查询数据资产
+     * Summary: 数据资产</p>
      */
     public QueryPdcpDataassetResponse queryPdcpDataassetEx(QueryPdcpDataassetRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -698,8 +756,9 @@ public class Client {
     }
 
     /**
-     * Description: 注册数据资产
-     * Summary: 注册数据资产
+     * <b>description</b> :
+     * <p>Description: 注册数据资产
+     * Summary: 注册数据资产</p>
      */
     public RegisterPdcpDataassetResponse registerPdcpDataasset(RegisterPdcpDataassetRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -708,8 +767,9 @@ public class Client {
     }
 
     /**
-     * Description: 注册数据资产
-     * Summary: 注册数据资产
+     * <b>description</b> :
+     * <p>Description: 注册数据资产
+     * Summary: 注册数据资产</p>
      */
     public RegisterPdcpDataassetResponse registerPdcpDataassetEx(RegisterPdcpDataassetRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -717,8 +777,9 @@ public class Client {
     }
 
     /**
-     * Description: 添加数据授权策略
-     * Summary: 添加数据授权策略
+     * <b>description</b> :
+     * <p>Description: 添加数据授权策略
+     * Summary: 添加数据授权策略</p>
      */
     public AddAuthAdminResponse addAuthAdmin(AddAuthAdminRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -727,8 +788,9 @@ public class Client {
     }
 
     /**
-     * Description: 添加数据授权策略
-     * Summary: 添加数据授权策略
+     * <b>description</b> :
+     * <p>Description: 添加数据授权策略
+     * Summary: 添加数据授权策略</p>
      */
     public AddAuthAdminResponse addAuthAdminEx(AddAuthAdminRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -736,8 +798,9 @@ public class Client {
     }
 
     /**
-     * Description: 分页查询数据授权策略
-     * Summary: 分页查询数据授权策略
+     * <b>description</b> :
+     * <p>Description: 分页查询数据授权策略
+     * Summary: 分页查询数据授权策略</p>
      */
     public PagequeryAuthAdminResponse pagequeryAuthAdmin(PagequeryAuthAdminRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -746,8 +809,9 @@ public class Client {
     }
 
     /**
-     * Description: 分页查询数据授权策略
-     * Summary: 分页查询数据授权策略
+     * <b>description</b> :
+     * <p>Description: 分页查询数据授权策略
+     * Summary: 分页查询数据授权策略</p>
      */
     public PagequeryAuthAdminResponse pagequeryAuthAdminEx(PagequeryAuthAdminRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -755,8 +819,9 @@ public class Client {
     }
 
     /**
-     * Description: 查询数据授权策略
-     * Summary: 查询数据授权策略
+     * <b>description</b> :
+     * <p>Description: 查询数据授权策略
+     * Summary: 查询数据授权策略</p>
      */
     public QueryAuthAdminResponse queryAuthAdmin(QueryAuthAdminRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -765,8 +830,9 @@ public class Client {
     }
 
     /**
-     * Description: 查询数据授权策略
-     * Summary: 查询数据授权策略
+     * <b>description</b> :
+     * <p>Description: 查询数据授权策略
+     * Summary: 查询数据授权策略</p>
      */
     public QueryAuthAdminResponse queryAuthAdminEx(QueryAuthAdminRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -774,8 +840,9 @@ public class Client {
     }
 
     /**
-     * Description: 数据资产添加数据类型
-     * Summary: 添加数据类型
+     * <b>description</b> :
+     * <p>Description: 数据资产添加数据类型
+     * Summary: 添加数据类型</p>
      */
     public AddDataassetTypeResponse addDataassetType(AddDataassetTypeRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -784,8 +851,9 @@ public class Client {
     }
 
     /**
-     * Description: 数据资产添加数据类型
-     * Summary: 添加数据类型
+     * <b>description</b> :
+     * <p>Description: 数据资产添加数据类型
+     * Summary: 添加数据类型</p>
      */
     public AddDataassetTypeResponse addDataassetTypeEx(AddDataassetTypeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -793,8 +861,9 @@ public class Client {
     }
 
     /**
-     * Description: 分页查询数据资产类型
-     * Summary: 分页查询数据资产类型
+     * <b>description</b> :
+     * <p>Description: 分页查询数据资产类型
+     * Summary: 分页查询数据资产类型</p>
      */
     public PagequeryDataassetTypeResponse pagequeryDataassetType(PagequeryDataassetTypeRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -803,8 +872,9 @@ public class Client {
     }
 
     /**
-     * Description: 分页查询数据资产类型
-     * Summary: 分页查询数据资产类型
+     * <b>description</b> :
+     * <p>Description: 分页查询数据资产类型
+     * Summary: 分页查询数据资产类型</p>
      */
     public PagequeryDataassetTypeResponse pagequeryDataassetTypeEx(PagequeryDataassetTypeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -812,8 +882,9 @@ public class Client {
     }
 
     /**
-     * Description: 启动数据采集任务，从外部数据读取数据并记录到可信存证
-     * Summary: 开始采集外部数据
+     * <b>description</b> :
+     * <p>Description: 启动数据采集任务，从外部数据读取数据并记录到可信存证
+     * Summary: 开始采集外部数据</p>
      */
     public StartDatasetCollectingResponse startDatasetCollecting(StartDatasetCollectingRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -822,8 +893,9 @@ public class Client {
     }
 
     /**
-     * Description: 启动数据采集任务，从外部数据读取数据并记录到可信存证
-     * Summary: 开始采集外部数据
+     * <b>description</b> :
+     * <p>Description: 启动数据采集任务，从外部数据读取数据并记录到可信存证
+     * Summary: 开始采集外部数据</p>
      */
     public StartDatasetCollectingResponse startDatasetCollectingEx(StartDatasetCollectingRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -831,8 +903,9 @@ public class Client {
     }
 
     /**
-     * Description: 查询外部数据采集状态
-     * Summary: 查询外部数据采集状态
+     * <b>description</b> :
+     * <p>Description: 查询外部数据采集状态
+     * Summary: 查询外部数据采集状态</p>
      */
     public QueryDatasetCollectingResponse queryDatasetCollecting(QueryDatasetCollectingRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -841,8 +914,9 @@ public class Client {
     }
 
     /**
-     * Description: 查询外部数据采集状态
-     * Summary: 查询外部数据采集状态
+     * <b>description</b> :
+     * <p>Description: 查询外部数据采集状态
+     * Summary: 查询外部数据采集状态</p>
      */
     public QueryDatasetCollectingResponse queryDatasetCollectingEx(QueryDatasetCollectingRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -850,8 +924,9 @@ public class Client {
     }
 
     /**
-     * Description: 新增排放活动数据
-     * Summary: 新增排放活动数据
+     * <b>description</b> :
+     * <p>Description: 新增排放活动数据
+     * Summary: 新增排放活动数据</p>
      */
     public AddEcarAvitivedataResponse addEcarAvitivedata(AddEcarAvitivedataRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -860,8 +935,9 @@ public class Client {
     }
 
     /**
-     * Description: 新增排放活动数据
-     * Summary: 新增排放活动数据
+     * <b>description</b> :
+     * <p>Description: 新增排放活动数据
+     * Summary: 新增排放活动数据</p>
      */
     public AddEcarAvitivedataResponse addEcarAvitivedataEx(AddEcarAvitivedataRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -869,8 +945,9 @@ public class Client {
     }
 
     /**
-     * Description: 查询排放活动数据详情
-     * Summary: 查询排放活动数据详情
+     * <b>description</b> :
+     * <p>Description: 查询排放活动数据详情
+     * Summary: 查询排放活动数据详情</p>
      */
     public DetailEcarAvitivedataResponse detailEcarAvitivedata(DetailEcarAvitivedataRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -879,8 +956,9 @@ public class Client {
     }
 
     /**
-     * Description: 查询排放活动数据详情
-     * Summary: 查询排放活动数据详情
+     * <b>description</b> :
+     * <p>Description: 查询排放活动数据详情
+     * Summary: 查询排放活动数据详情</p>
      */
     public DetailEcarAvitivedataResponse detailEcarAvitivedataEx(DetailEcarAvitivedataRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -888,8 +966,9 @@ public class Client {
     }
 
     /**
-     * Description: 排放活动数据统计计算
-     * Summary: 排放活动数据统计计算
+     * <b>description</b> :
+     * <p>Description: 排放活动数据统计计算
+     * Summary: 排放活动数据统计计算</p>
      */
     public CountEcarActivedataResponse countEcarActivedata(CountEcarActivedataRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -898,8 +977,9 @@ public class Client {
     }
 
     /**
-     * Description: 排放活动数据统计计算
-     * Summary: 排放活动数据统计计算
+     * <b>description</b> :
+     * <p>Description: 排放活动数据统计计算
+     * Summary: 排放活动数据统计计算</p>
      */
     public CountEcarActivedataResponse countEcarActivedataEx(CountEcarActivedataRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -907,8 +987,9 @@ public class Client {
     }
 
     /**
-     * Description: 文件上传接口
-     * Summary: 文件上传接口
+     * <b>description</b> :
+     * <p>Description: 文件上传接口
+     * Summary: 文件上传接口</p>
      */
     public UploadEcarFileResponse uploadEcarFile(UploadEcarFileRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -917,8 +998,9 @@ public class Client {
     }
 
     /**
-     * Description: 文件上传接口
-     * Summary: 文件上传接口
+     * <b>description</b> :
+     * <p>Description: 文件上传接口
+     * Summary: 文件上传接口</p>
      */
     public UploadEcarFileResponse uploadEcarFileEx(UploadEcarFileRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         if (!com.aliyun.teautil.Common.isUnset(request.fileObject)) {
@@ -940,6 +1022,7 @@ public class Client {
             java.util.Map<String, String> uploadHeaders = com.antgroup.antchain.openapi.antchain.util.AntchainUtils.parseUploadHeaders(uploadResp.uploadHeaders);
             com.antgroup.antchain.openapi.antchain.util.AntchainUtils.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
             request.fileId = uploadResp.fileId;
+            request.fileObject = null;
         }
 
         com.aliyun.teautil.Common.validateModel(request);
@@ -947,8 +1030,9 @@ public class Client {
     }
 
     /**
-     * Description: 录入绿色行为数据，支持绿色定义或电子发票等多种绿色行为类型的数据提交
-     * Summary: 录入绿色行为数据
+     * <b>description</b> :
+     * <p>Description: 录入绿色行为数据，支持绿色定义或电子发票等多种绿色行为类型的数据提交
+     * Summary: 录入绿色行为数据</p>
      */
     public AddEcarGreenoperationResponse addEcarGreenoperation(AddEcarGreenoperationRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -957,8 +1041,9 @@ public class Client {
     }
 
     /**
-     * Description: 录入绿色行为数据，支持绿色定义或电子发票等多种绿色行为类型的数据提交
-     * Summary: 录入绿色行为数据
+     * <b>description</b> :
+     * <p>Description: 录入绿色行为数据，支持绿色定义或电子发票等多种绿色行为类型的数据提交
+     * Summary: 录入绿色行为数据</p>
      */
     public AddEcarGreenoperationResponse addEcarGreenoperationEx(AddEcarGreenoperationRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -966,8 +1051,9 @@ public class Client {
     }
 
     /**
-     * Description: 统计绿色行为数据，返回时间范围内的、按绿色行为类型统计的绿色行为数据
-     * Summary: 统计绿色行为数据
+     * <b>description</b> :
+     * <p>Description: 统计绿色行为数据，返回时间范围内的、按绿色行为类型统计的绿色行为数据
+     * Summary: 统计绿色行为数据</p>
      */
     public CountEcarGreenoperationResponse countEcarGreenoperation(CountEcarGreenoperationRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -976,8 +1062,9 @@ public class Client {
     }
 
     /**
-     * Description: 统计绿色行为数据，返回时间范围内的、按绿色行为类型统计的绿色行为数据
-     * Summary: 统计绿色行为数据
+     * <b>description</b> :
+     * <p>Description: 统计绿色行为数据，返回时间范围内的、按绿色行为类型统计的绿色行为数据
+     * Summary: 统计绿色行为数据</p>
      */
     public CountEcarGreenoperationResponse countEcarGreenoperationEx(CountEcarGreenoperationRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -985,8 +1072,9 @@ public class Client {
     }
 
     /**
-     * Description: 查询最近发生的绿色行为数据列表，按照请求的记录条数限制查询最近的绿色数据
-     * Summary: 查询最近的绿色行为数据
+     * <b>description</b> :
+     * <p>Description: 查询最近发生的绿色行为数据列表，按照请求的记录条数限制查询最近的绿色数据
+     * Summary: 查询最近的绿色行为数据</p>
      */
     public ListEcarGreenoperationResponse listEcarGreenoperation(ListEcarGreenoperationRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -995,8 +1083,9 @@ public class Client {
     }
 
     /**
-     * Description: 查询最近发生的绿色行为数据列表，按照请求的记录条数限制查询最近的绿色数据
-     * Summary: 查询最近的绿色行为数据
+     * <b>description</b> :
+     * <p>Description: 查询最近发生的绿色行为数据列表，按照请求的记录条数限制查询最近的绿色数据
+     * Summary: 查询最近的绿色行为数据</p>
      */
     public ListEcarGreenoperationResponse listEcarGreenoperationEx(ListEcarGreenoperationRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -1004,8 +1093,9 @@ public class Client {
     }
 
     /**
-     * Description: 按年度统计排放数据，用于一般的总的预览页展示数据
-     * Summary: 预览本年度排放统计
+     * <b>description</b> :
+     * <p>Description: 按年度统计排放数据，用于一般的总的预览页展示数据
+     * Summary: 预览本年度排放统计</p>
      */
     public PreviewEcarAvitivedataResponse previewEcarAvitivedata(PreviewEcarAvitivedataRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -1014,8 +1104,9 @@ public class Client {
     }
 
     /**
-     * Description: 按年度统计排放数据，用于一般的总的预览页展示数据
-     * Summary: 预览本年度排放统计
+     * <b>description</b> :
+     * <p>Description: 按年度统计排放数据，用于一般的总的预览页展示数据
+     * Summary: 预览本年度排放统计</p>
      */
     public PreviewEcarAvitivedataResponse previewEcarAvitivedataEx(PreviewEcarAvitivedataRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -1023,8 +1114,9 @@ public class Client {
     }
 
     /**
-     * Description: 机构会员注册接口，支持根据蚂蚁DID或者姓名+密码注意企业的终端会员
-     * Summary: 机构会员注册
+     * <b>description</b> :
+     * <p>Description: 机构会员注册接口，支持根据蚂蚁DID或者姓名+密码注意企业的终端会员
+     * Summary: 机构会员注册</p>
      */
     public RegisterEcarEnterprisememberResponse registerEcarEnterprisemember(RegisterEcarEnterprisememberRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -1033,8 +1125,9 @@ public class Client {
     }
 
     /**
-     * Description: 机构会员注册接口，支持根据蚂蚁DID或者姓名+密码注意企业的终端会员
-     * Summary: 机构会员注册
+     * <b>description</b> :
+     * <p>Description: 机构会员注册接口，支持根据蚂蚁DID或者姓名+密码注意企业的终端会员
+     * Summary: 机构会员注册</p>
      */
     public RegisterEcarEnterprisememberResponse registerEcarEnterprisememberEx(RegisterEcarEnterprisememberRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -1042,8 +1135,9 @@ public class Client {
     }
 
     /**
-     * Description: 碳补偿数据采集，提供给碳普惠业务相关接口，外围系统提交碳普惠数据
-     * Summary: 碳补偿数据采集
+     * <b>description</b> :
+     * <p>Description: 碳补偿数据采集，提供给碳普惠业务相关接口，外围系统提交碳普惠数据
+     * Summary: 碳补偿数据采集</p>
      */
     public AddEcarOffsetacquisitionResponse addEcarOffsetacquisition(AddEcarOffsetacquisitionRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -1052,8 +1146,9 @@ public class Client {
     }
 
     /**
-     * Description: 碳补偿数据采集，提供给碳普惠业务相关接口，外围系统提交碳普惠数据
-     * Summary: 碳补偿数据采集
+     * <b>description</b> :
+     * <p>Description: 碳补偿数据采集，提供给碳普惠业务相关接口，外围系统提交碳普惠数据
+     * Summary: 碳补偿数据采集</p>
      */
     public AddEcarOffsetacquisitionResponse addEcarOffsetacquisitionEx(AddEcarOffsetacquisitionRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -1061,8 +1156,9 @@ public class Client {
     }
 
     /**
-     * Description: 碳普惠减碳量转移，减碳量在业务端兑换成权益的场景时可使用此接口
-     * Summary: 碳普惠减碳量转移
+     * <b>description</b> :
+     * <p>Description: 碳普惠减碳量转移，减碳量在业务端兑换成权益的场景时可使用此接口
+     * Summary: 碳普惠减碳量转移</p>
      */
     public AddEcarOffsettranslateResponse addEcarOffsettranslate(AddEcarOffsettranslateRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -1071,8 +1167,9 @@ public class Client {
     }
 
     /**
-     * Description: 碳普惠减碳量转移，减碳量在业务端兑换成权益的场景时可使用此接口
-     * Summary: 碳普惠减碳量转移
+     * <b>description</b> :
+     * <p>Description: 碳普惠减碳量转移，减碳量在业务端兑换成权益的场景时可使用此接口
+     * Summary: 碳普惠减碳量转移</p>
      */
     public AddEcarOffsettranslateResponse addEcarOffsettranslateEx(AddEcarOffsettranslateRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -1080,8 +1177,9 @@ public class Client {
     }
 
     /**
-     * Description: 碳普惠数据授权，授权三方平台租户可访问相关平台方会员的碳普惠数据
-     * Summary: 碳普惠数据授权
+     * <b>description</b> :
+     * <p>Description: 碳普惠数据授权，授权三方平台租户可访问相关平台方会员的碳普惠数据
+     * Summary: 碳普惠数据授权</p>
      */
     public AuthEcarOffsetdatumResponse authEcarOffsetdatum(AuthEcarOffsetdatumRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -1090,8 +1188,9 @@ public class Client {
     }
 
     /**
-     * Description: 碳普惠数据授权，授权三方平台租户可访问相关平台方会员的碳普惠数据
-     * Summary: 碳普惠数据授权
+     * <b>description</b> :
+     * <p>Description: 碳普惠数据授权，授权三方平台租户可访问相关平台方会员的碳普惠数据
+     * Summary: 碳普惠数据授权</p>
      */
     public AuthEcarOffsetdatumResponse authEcarOffsetdatumEx(AuthEcarOffsetdatumRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -1099,8 +1198,9 @@ public class Client {
     }
 
     /**
-     * Description: 碳普惠数据列表查询，根据账户DID和日期查询碳补偿数据
-     * Summary: 碳普惠数据列表查询
+     * <b>description</b> :
+     * <p>Description: 碳普惠数据列表查询，根据账户DID和日期查询碳补偿数据
+     * Summary: 碳普惠数据列表查询</p>
      */
     public ListEcarOffsetdatumResponse listEcarOffsetdatum(ListEcarOffsetdatumRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -1109,8 +1209,9 @@ public class Client {
     }
 
     /**
-     * Description: 碳普惠数据列表查询，根据账户DID和日期查询碳补偿数据
-     * Summary: 碳普惠数据列表查询
+     * <b>description</b> :
+     * <p>Description: 碳普惠数据列表查询，根据账户DID和日期查询碳补偿数据
+     * Summary: 碳普惠数据列表查询</p>
      */
     public ListEcarOffsetdatumResponse listEcarOffsetdatumEx(ListEcarOffsetdatumRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -1118,8 +1219,9 @@ public class Client {
     }
 
     /**
-     * Description: 机构会员列表查询，支持分页查询指定时间范围内的会员列表，返回结果按照会员注册时间降序排列
-     * Summary: 机构会员列表查询
+     * <b>description</b> :
+     * <p>Description: 机构会员列表查询，支持分页查询指定时间范围内的会员列表，返回结果按照会员注册时间降序排列
+     * Summary: 机构会员列表查询</p>
      */
     public ListEcarEnterprisememberResponse listEcarEnterprisemember(ListEcarEnterprisememberRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -1128,8 +1230,9 @@ public class Client {
     }
 
     /**
-     * Description: 机构会员列表查询，支持分页查询指定时间范围内的会员列表，返回结果按照会员注册时间降序排列
-     * Summary: 机构会员列表查询
+     * <b>description</b> :
+     * <p>Description: 机构会员列表查询，支持分页查询指定时间范围内的会员列表，返回结果按照会员注册时间降序排列
+     * Summary: 机构会员列表查询</p>
      */
     public ListEcarEnterprisememberResponse listEcarEnterprisememberEx(ListEcarEnterprisememberRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -1137,8 +1240,9 @@ public class Client {
     }
 
     /**
-     * Description: 碳普惠项目数据预览，包括注册会员数和累积碳能量值
-     * Summary: 碳普惠项目数据预览
+     * <b>description</b> :
+     * <p>Description: 碳普惠项目数据预览，包括注册会员数和累积碳能量值
+     * Summary: 碳普惠项目数据预览</p>
      */
     public PreviewEcarOffsetdatumResponse previewEcarOffsetdatum(PreviewEcarOffsetdatumRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -1147,8 +1251,9 @@ public class Client {
     }
 
     /**
-     * Description: 碳普惠项目数据预览，包括注册会员数和累积碳能量值
-     * Summary: 碳普惠项目数据预览
+     * <b>description</b> :
+     * <p>Description: 碳普惠项目数据预览，包括注册会员数和累积碳能量值
+     * Summary: 碳普惠项目数据预览</p>
      */
     public PreviewEcarOffsetdatumResponse previewEcarOffsetdatumEx(PreviewEcarOffsetdatumRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -1156,8 +1261,9 @@ public class Client {
     }
 
     /**
-     * Description: 单个机构会员信息查询，根据会员关键信息，如手机号码、身份证号码查询会员资料
-     * Summary: 单个机构会员信息查询
+     * <b>description</b> :
+     * <p>Description: 单个机构会员信息查询，根据会员关键信息，如手机号码、身份证号码查询会员资料
+     * Summary: 单个机构会员信息查询</p>
      */
     public DetailEcarEnterprisememberResponse detailEcarEnterprisemember(DetailEcarEnterprisememberRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -1166,8 +1272,9 @@ public class Client {
     }
 
     /**
-     * Description: 单个机构会员信息查询，根据会员关键信息，如手机号码、身份证号码查询会员资料
-     * Summary: 单个机构会员信息查询
+     * <b>description</b> :
+     * <p>Description: 单个机构会员信息查询，根据会员关键信息，如手机号码、身份证号码查询会员资料
+     * Summary: 单个机构会员信息查询</p>
      */
     public DetailEcarEnterprisememberResponse detailEcarEnterprisememberEx(DetailEcarEnterprisememberRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -1175,8 +1282,9 @@ public class Client {
     }
 
     /**
-     * Description: 碳补偿项目账户查询，根据账户DID和项目编码查询账户信息
-     * Summary: 碳补偿项目账户查询
+     * <b>description</b> :
+     * <p>Description: 碳补偿项目账户查询，根据账户DID和项目编码查询账户信息
+     * Summary: 碳补偿项目账户查询</p>
      */
     public QueryEcarOffsetaccountResponse queryEcarOffsetaccount(QueryEcarOffsetaccountRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -1185,8 +1293,9 @@ public class Client {
     }
 
     /**
-     * Description: 碳补偿项目账户查询，根据账户DID和项目编码查询账户信息
-     * Summary: 碳补偿项目账户查询
+     * <b>description</b> :
+     * <p>Description: 碳补偿项目账户查询，根据账户DID和项目编码查询账户信息
+     * Summary: 碳补偿项目账户查询</p>
      */
     public QueryEcarOffsetaccountResponse queryEcarOffsetaccountEx(QueryEcarOffsetaccountRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -1194,8 +1303,9 @@ public class Client {
     }
 
     /**
-     * Description: 查询碳补偿数据详情
-     * Summary: 碳补偿数据详情
+     * <b>description</b> :
+     * <p>Description: 查询碳补偿数据详情
+     * Summary: 碳补偿数据详情</p>
      */
     public DetailEcarOffsetdatumResponse detailEcarOffsetdatum(DetailEcarOffsetdatumRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -1204,8 +1314,9 @@ public class Client {
     }
 
     /**
-     * Description: 查询碳补偿数据详情
-     * Summary: 碳补偿数据详情
+     * <b>description</b> :
+     * <p>Description: 查询碳补偿数据详情
+     * Summary: 碳补偿数据详情</p>
      */
     public DetailEcarOffsetdatumResponse detailEcarOffsetdatumEx(DetailEcarOffsetdatumRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -1213,8 +1324,9 @@ public class Client {
     }
 
     /**
-     * Description: 查询碳普惠减碳量转移记录详情
-     * Summary: 碳普惠减碳量转移记录详情
+     * <b>description</b> :
+     * <p>Description: 查询碳普惠减碳量转移记录详情
+     * Summary: 碳普惠减碳量转移记录详情</p>
      */
     public DetailEcarOffsettranslateResponse detailEcarOffsettranslate(DetailEcarOffsettranslateRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -1223,8 +1335,9 @@ public class Client {
     }
 
     /**
-     * Description: 查询碳普惠减碳量转移记录详情
-     * Summary: 碳普惠减碳量转移记录详情
+     * <b>description</b> :
+     * <p>Description: 查询碳普惠减碳量转移记录详情
+     * Summary: 碳普惠减碳量转移记录详情</p>
      */
     public DetailEcarOffsettranslateResponse detailEcarOffsettranslateEx(DetailEcarOffsettranslateRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -1232,8 +1345,9 @@ public class Client {
     }
 
     /**
-     * Description: 平台方LCA评估结果提交接口，支持三方平台提交LCA评估结果数据
-     * Summary: 平台方LCA评估结果提交
+     * <b>description</b> :
+     * <p>Description: 平台方LCA评估结果提交接口，支持三方平台提交LCA评估结果数据
+     * Summary: 平台方LCA评估结果提交</p>
      */
     public SubmitEcarLcaassementResponse submitEcarLcaassement(SubmitEcarLcaassementRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -1242,8 +1356,9 @@ public class Client {
     }
 
     /**
-     * Description: 平台方LCA评估结果提交接口，支持三方平台提交LCA评估结果数据
-     * Summary: 平台方LCA评估结果提交
+     * <b>description</b> :
+     * <p>Description: 平台方LCA评估结果提交接口，支持三方平台提交LCA评估结果数据
+     * Summary: 平台方LCA评估结果提交</p>
      */
     public SubmitEcarLcaassementResponse submitEcarLcaassementEx(SubmitEcarLcaassementRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -1251,8 +1366,9 @@ public class Client {
     }
 
     /**
-     * Description: 三方平台文件上传
-     * Summary: 三方平台文件上传
+     * <b>description</b> :
+     * <p>Description: 三方平台文件上传
+     * Summary: 三方平台文件上传</p>
      */
     public UploadEcarPlaformfileResponse uploadEcarPlaformfile(UploadEcarPlaformfileRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -1261,8 +1377,9 @@ public class Client {
     }
 
     /**
-     * Description: 三方平台文件上传
-     * Summary: 三方平台文件上传
+     * <b>description</b> :
+     * <p>Description: 三方平台文件上传
+     * Summary: 三方平台文件上传</p>
      */
     public UploadEcarPlaformfileResponse uploadEcarPlaformfileEx(UploadEcarPlaformfileRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         if (!com.aliyun.teautil.Common.isUnset(request.fileObject)) {
@@ -1284,6 +1401,7 @@ public class Client {
             java.util.Map<String, String> uploadHeaders = com.antgroup.antchain.openapi.antchain.util.AntchainUtils.parseUploadHeaders(uploadResp.uploadHeaders);
             com.antgroup.antchain.openapi.antchain.util.AntchainUtils.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
             request.fileId = uploadResp.fileId;
+            request.fileObject = null;
         }
 
         com.aliyun.teautil.Common.validateModel(request);
@@ -1291,8 +1409,9 @@ public class Client {
     }
 
     /**
-     * Description: 三方平台提交LCA订单，同时包括客户入驻信息
-     * Summary: LCA订单提交(含客户入驻信息)
+     * <b>description</b> :
+     * <p>Description: 三方平台提交LCA订单，同时包括客户入驻信息
+     * Summary: LCA订单提交(含客户入驻信息)</p>
      */
     public SubmitEcarLcaorderwithcustomerResponse submitEcarLcaorderwithcustomer(SubmitEcarLcaorderwithcustomerRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -1301,8 +1420,9 @@ public class Client {
     }
 
     /**
-     * Description: 三方平台提交LCA订单，同时包括客户入驻信息
-     * Summary: LCA订单提交(含客户入驻信息)
+     * <b>description</b> :
+     * <p>Description: 三方平台提交LCA订单，同时包括客户入驻信息
+     * Summary: LCA订单提交(含客户入驻信息)</p>
      */
     public SubmitEcarLcaorderwithcustomerResponse submitEcarLcaorderwithcustomerEx(SubmitEcarLcaorderwithcustomerRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -1310,8 +1430,9 @@ public class Client {
     }
 
     /**
-     * Description: 三方平台信登token获取
-     * Summary: 三方平台获取信登token
+     * <b>description</b> :
+     * <p>Description: 三方平台信登token获取
+     * Summary: 三方平台获取信登token</p>
      */
     public GetEcarPlaformauthtokenResponse getEcarPlaformauthtoken(GetEcarPlaformauthtokenRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -1320,8 +1441,9 @@ public class Client {
     }
 
     /**
-     * Description: 三方平台信登token获取
-     * Summary: 三方平台获取信登token
+     * <b>description</b> :
+     * <p>Description: 三方平台信登token获取
+     * Summary: 三方平台获取信登token</p>
      */
     public GetEcarPlaformauthtokenResponse getEcarPlaformauthtokenEx(GetEcarPlaformauthtokenRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -1329,8 +1451,9 @@ public class Client {
     }
 
     /**
-     * Description: LCA订单查询
-     * Summary: LCA订单查询
+     * <b>description</b> :
+     * <p>Description: LCA订单查询
+     * Summary: LCA订单查询</p>
      */
     public QueryEcarLcaorderResponse queryEcarLcaorder(QueryEcarLcaorderRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -1339,8 +1462,9 @@ public class Client {
     }
 
     /**
-     * Description: LCA订单查询
-     * Summary: LCA订单查询
+     * <b>description</b> :
+     * <p>Description: LCA订单查询
+     * Summary: LCA订单查询</p>
      */
     public QueryEcarLcaorderResponse queryEcarLcaorderEx(QueryEcarLcaorderRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -1348,8 +1472,9 @@ public class Client {
     }
 
     /**
-     * Description: 绿证发电量数据上报接口
-     * Summary: 绿证发电量数据上报接口
+     * <b>description</b> :
+     * <p>Description: 绿证发电量数据上报接口
+     * Summary: 绿证发电量数据上报接口</p>
      */
     public BatchcreateEcarGreencertificategenerationResponse batchcreateEcarGreencertificategeneration(BatchcreateEcarGreencertificategenerationRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -1358,8 +1483,9 @@ public class Client {
     }
 
     /**
-     * Description: 绿证发电量数据上报接口
-     * Summary: 绿证发电量数据上报接口
+     * <b>description</b> :
+     * <p>Description: 绿证发电量数据上报接口
+     * Summary: 绿证发电量数据上报接口</p>
      */
     public BatchcreateEcarGreencertificategenerationResponse batchcreateEcarGreencertificategenerationEx(BatchcreateEcarGreencertificategenerationRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -1367,8 +1493,9 @@ public class Client {
     }
 
     /**
-     * Description: 产品碳足迹速算请求提交
-     * Summary: 产品碳足迹速算请求提交
+     * <b>description</b> :
+     * <p>Description: 产品碳足迹速算请求提交
+     * Summary: 产品碳足迹速算请求提交</p>
      */
     public SubmitEcarLcacalcResponse submitEcarLcacalc(SubmitEcarLcacalcRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -1377,8 +1504,9 @@ public class Client {
     }
 
     /**
-     * Description: 产品碳足迹速算请求提交
-     * Summary: 产品碳足迹速算请求提交
+     * <b>description</b> :
+     * <p>Description: 产品碳足迹速算请求提交
+     * Summary: 产品碳足迹速算请求提交</p>
      */
     public SubmitEcarLcacalcResponse submitEcarLcacalcEx(SubmitEcarLcacalcRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -1386,8 +1514,9 @@ public class Client {
     }
 
     /**
-     * Description: 产品碳足迹速算结果查询
-     * Summary: 产品碳足迹速算结果查询
+     * <b>description</b> :
+     * <p>Description: 产品碳足迹速算结果查询
+     * Summary: 产品碳足迹速算结果查询</p>
      */
     public QueryEcarLcacalcResponse queryEcarLcacalc(QueryEcarLcacalcRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -1396,8 +1525,9 @@ public class Client {
     }
 
     /**
-     * Description: 产品碳足迹速算结果查询
-     * Summary: 产品碳足迹速算结果查询
+     * <b>description</b> :
+     * <p>Description: 产品碳足迹速算结果查询
+     * Summary: 产品碳足迹速算结果查询</p>
      */
     public QueryEcarLcacalcResponse queryEcarLcacalcEx(QueryEcarLcacalcRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -1405,8 +1535,9 @@ public class Client {
     }
 
     /**
-     * Description: 发电数据文件导入开放接口
-     * Summary: 发电数据文件导入开放接口
+     * <b>description</b> :
+     * <p>Description: 发电数据文件导入开放接口
+     * Summary: 发电数据文件导入开放接口</p>
      */
     public SubmitEcarGreencertificategenerationfileResponse submitEcarGreencertificategenerationfile(SubmitEcarGreencertificategenerationfileRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -1415,8 +1546,9 @@ public class Client {
     }
 
     /**
-     * Description: 发电数据文件导入开放接口
-     * Summary: 发电数据文件导入开放接口
+     * <b>description</b> :
+     * <p>Description: 发电数据文件导入开放接口
+     * Summary: 发电数据文件导入开放接口</p>
      */
     public SubmitEcarGreencertificategenerationfileResponse submitEcarGreencertificategenerationfileEx(SubmitEcarGreencertificategenerationfileRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         if (!com.aliyun.teautil.Common.isUnset(request.fileObject)) {
@@ -1438,6 +1570,7 @@ public class Client {
             java.util.Map<String, String> uploadHeaders = com.antgroup.antchain.openapi.antchain.util.AntchainUtils.parseUploadHeaders(uploadResp.uploadHeaders);
             com.antgroup.antchain.openapi.antchain.util.AntchainUtils.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
             request.fileId = uploadResp.fileId;
+            request.fileObject = null;
         }
 
         com.aliyun.teautil.Common.validateModel(request);
@@ -1445,8 +1578,240 @@ public class Client {
     }
 
     /**
-     * Description: 三方平台调用此接口，查询用户的证书信息
-     * Summary: 证书查询
+     * <b>description</b> :
+     * <p>Description: 溯源检查租户
+     * Summary: 溯源检查租户</p>
+     */
+    public QueryLcaprojectTracetenantResponse queryLcaprojectTracetenant(QueryLcaprojectTracetenantRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryLcaprojectTracetenantEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 溯源检查租户
+     * Summary: 溯源检查租户</p>
+     */
+    public QueryLcaprojectTracetenantResponse queryLcaprojectTracetenantEx(QueryLcaprojectTracetenantRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.carbon.lcaproject.tracetenant.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryLcaprojectTracetenantResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 溯源查询LCA项目列表
+     * Summary: 查询LCA项目列表</p>
+     */
+    public ListLcaprojectTraceprojectResponse listLcaprojectTraceproject(ListLcaprojectTraceprojectRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.listLcaprojectTraceprojectEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 溯源查询LCA项目列表
+     * Summary: 查询LCA项目列表</p>
+     */
+    public ListLcaprojectTraceprojectResponse listLcaprojectTraceprojectEx(ListLcaprojectTraceprojectRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.carbon.lcaproject.traceproject.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListLcaprojectTraceprojectResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 根据请求参数获取LCA项目跟踪信息
+     * Summary: 根据请求参数获取LCA项目信息</p>
+     */
+    public DetailLcaprojectTraceprojectResponse detailLcaprojectTraceproject(DetailLcaprojectTraceprojectRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.detailLcaprojectTraceprojectEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 根据请求参数获取LCA项目跟踪信息
+     * Summary: 根据请求参数获取LCA项目信息</p>
+     */
+    public DetailLcaprojectTraceprojectResponse detailLcaprojectTraceprojectEx(DetailLcaprojectTraceprojectRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.carbon.lcaproject.traceproject.detail", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DetailLcaprojectTraceprojectResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 绑定LCA项目
+     * Summary: 绑定LCA项目</p>
+     */
+    public OperateLcaprojectTracebindingResponse operateLcaprojectTracebinding(OperateLcaprojectTracebindingRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.operateLcaprojectTracebindingEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 绑定LCA项目
+     * Summary: 绑定LCA项目</p>
+     */
+    public OperateLcaprojectTracebindingResponse operateLcaprojectTracebindingEx(OperateLcaprojectTracebindingRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.carbon.lcaproject.tracebinding.operate", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new OperateLcaprojectTracebindingResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 转型金融排放新增
+     * Summary: 转型金融排放新增</p>
+     */
+    public AddFinanceEmissionResponse addFinanceEmission(AddFinanceEmissionRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.addFinanceEmissionEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 转型金融排放新增
+     * Summary: 转型金融排放新增</p>
+     */
+    public AddFinanceEmissionResponse addFinanceEmissionEx(AddFinanceEmissionRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.carbon.finance.emission.add", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AddFinanceEmissionResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 新增企业或者项目
+     * Summary: 新增企业或者项目</p>
+     */
+    public AddFinanceCompanyResponse addFinanceCompany(AddFinanceCompanyRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.addFinanceCompanyEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 新增企业或者项目
+     * Summary: 新增企业或者项目</p>
+     */
+    public AddFinanceCompanyResponse addFinanceCompanyEx(AddFinanceCompanyRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.carbon.finance.company.add", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AddFinanceCompanyResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 企业或者项目更新
+     * Summary: 企业更新</p>
+     */
+    public UpdateFinanceCompanyResponse updateFinanceCompany(UpdateFinanceCompanyRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateFinanceCompanyEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 企业或者项目更新
+     * Summary: 企业更新</p>
+     */
+    public UpdateFinanceCompanyResponse updateFinanceCompanyEx(UpdateFinanceCompanyRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.carbon.finance.company.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateFinanceCompanyResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 删除企业或者项目
+     * Summary: 删除企业</p>
+     */
+    public DeleteFinanceCompanyResponse deleteFinanceCompany(DeleteFinanceCompanyRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.deleteFinanceCompanyEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 删除企业或者项目
+     * Summary: 删除企业</p>
+     */
+    public DeleteFinanceCompanyResponse deleteFinanceCompanyEx(DeleteFinanceCompanyRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.carbon.finance.company.delete", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DeleteFinanceCompanyResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 排放报告获取
+     * Summary: 排放报告获取</p>
+     */
+    public ListFinanceReportResponse listFinanceReport(ListFinanceReportRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.listFinanceReportEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 排放报告获取
+     * Summary: 排放报告获取</p>
+     */
+    public ListFinanceReportResponse listFinanceReportEx(ListFinanceReportRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.carbon.finance.report.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListFinanceReportResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 转型金融报告生成
+     * Summary: 转型金融报告生成</p>
+     */
+    public CreateFinanceReportResponse createFinanceReport(CreateFinanceReportRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createFinanceReportEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 转型金融报告生成
+     * Summary: 转型金融报告生成</p>
+     */
+    public CreateFinanceReportResponse createFinanceReportEx(CreateFinanceReportRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.carbon.finance.report.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateFinanceReportResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 转型报告更新
+     * Summary: 转型报告更新</p>
+     */
+    public UpdateFinanceReportResponse updateFinanceReport(UpdateFinanceReportRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateFinanceReportEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 转型报告更新
+     * Summary: 转型报告更新</p>
+     */
+    public UpdateFinanceReportResponse updateFinanceReportEx(UpdateFinanceReportRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.carbon.finance.report.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateFinanceReportResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 三方平台调用此接口，查询用户的证书信息
+     * Summary: 证书查询</p>
      */
     public QueryThirdCertResponse queryThirdCert(QueryThirdCertRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -1455,8 +1820,9 @@ public class Client {
     }
 
     /**
-     * Description: 三方平台调用此接口，查询用户的证书信息
-     * Summary: 证书查询
+     * <b>description</b> :
+     * <p>Description: 三方平台调用此接口，查询用户的证书信息
+     * Summary: 证书查询</p>
      */
     public QueryThirdCertResponse queryThirdCertEx(QueryThirdCertRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -1464,8 +1830,9 @@ public class Client {
     }
 
     /**
-     * Description: 创建HTTP PUT提交的文件上传
-     * Summary: 文件上传创建
+     * <b>description</b> :
+     * <p>Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建</p>
      */
     public CreateAntcloudGatewayxFileUploadResponse createAntcloudGatewayxFileUpload(CreateAntcloudGatewayxFileUploadRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -1474,8 +1841,9 @@ public class Client {
     }
 
     /**
-     * Description: 创建HTTP PUT提交的文件上传
-     * Summary: 文件上传创建
+     * <b>description</b> :
+     * <p>Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建</p>
      */
     public CreateAntcloudGatewayxFileUploadResponse createAntcloudGatewayxFileUploadEx(CreateAntcloudGatewayxFileUploadRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);

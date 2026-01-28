@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class AccountRegisterResponse extends TeaModel {
     // 账户did
+    /**
+     * <strong>example:</strong>
+     * <p>did:private:xxxcxxxxx</p>
+     */
     @NameInMap("user_did")
     @Validation(required = true)
     public String userDid;

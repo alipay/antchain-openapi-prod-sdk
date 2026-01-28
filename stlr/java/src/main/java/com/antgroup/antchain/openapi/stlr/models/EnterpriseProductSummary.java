@@ -5,30 +5,54 @@ import com.aliyun.tea.*;
 
 public class EnterpriseProductSummary extends TeaModel {
     // 产品自定义编码
+    /**
+     * <strong>example:</strong>
+     * <p>12312121</p>
+     */
     @NameInMap("enterprise_custom_code")
     @Validation(required = true)
     public String enterpriseCustomCode;
 
     // 产品名称
+    /**
+     * <strong>example:</strong>
+     * <p>石墨</p>
+     */
     @NameInMap("product_name")
     @Validation(required = true)
     public String productName;
 
     // 规格型号
+    /**
+     * <strong>example:</strong>
+     * <p>DDD-1212</p>
+     */
     @NameInMap("specification")
     @Validation(required = true)
     public String specification;
 
     // 产品描述
+    /**
+     * <strong>example:</strong>
+     * <p>这是一个石墨产品</p>
+     */
     @NameInMap("product_description")
     public String productDescription;
 
     // 产品分类名称
+    /**
+     * <strong>example:</strong>
+     * <p>产品分类名</p>
+     */
     @NameInMap("product_category_name")
     @Validation(required = true)
     public String productCategoryName;
 
     // 品牌信息
+    /**
+     * <strong>example:</strong>
+     * <p>Adidas</p>
+     */
     @NameInMap("brand_information")
     public String brandInformation;
 

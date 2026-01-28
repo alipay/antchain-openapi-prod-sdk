@@ -5,21 +5,37 @@ import com.aliyun.tea.*;
 
 public class EmissionsScopeStatistics extends TeaModel {
     // 盘查范围编码
+    /**
+     * <strong>example:</strong>
+     * <p>002</p>
+     */
     @NameInMap("inventory_scope_no")
     @Validation(required = true)
     public String inventoryScopeNo;
 
     // 盘查范围名称
+    /**
+     * <strong>example:</strong>
+     * <p>范围一</p>
+     */
     @NameInMap("inventory_scope_name")
     @Validation(required = true)
     public String inventoryScopeName;
 
     // 碳排放量
+    /**
+     * <strong>example:</strong>
+     * <p>222.33</p>
+     */
     @NameInMap("emissions")
     @Validation(required = true)
     public Long emissions;
 
     // 排放占比
+    /**
+     * <strong>example:</strong>
+     * <p>0.11</p>
+     */
     @NameInMap("percentage")
     @Validation(required = true)
     public Long percentage;

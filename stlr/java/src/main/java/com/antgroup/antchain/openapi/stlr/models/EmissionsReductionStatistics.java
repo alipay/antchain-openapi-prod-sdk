@@ -5,26 +5,46 @@ import com.aliyun.tea.*;
 
 public class EmissionsReductionStatistics extends TeaModel {
     // 减排方法
+    /**
+     * <strong>example:</strong>
+     * <p>EnergySubstitution</p>
+     */
     @NameInMap("reduction_method")
     @Validation(required = true)
     public String reductionMethod;
 
     // 减排方法名称
+    /**
+     * <strong>example:</strong>
+     * <p>使用绿电</p>
+     */
     @NameInMap("reduction_method_name")
     @Validation(required = true)
     public String reductionMethodName;
 
     // 减排量
+    /**
+     * <strong>example:</strong>
+     * <p>123123.11</p>
+     */
     @NameInMap("reduction_amount")
     @Validation(required = true)
     public String reductionAmount;
 
     // 减排量占比
+    /**
+     * <strong>example:</strong>
+     * <p>0.22</p>
+     */
     @NameInMap("reduction_ratio")
     @Validation(required = true)
     public String reductionRatio;
 
     // 减排量单位
+    /**
+     * <strong>example:</strong>
+     * <p>tCO2e</p>
+     */
     @NameInMap("data_unit")
     @Validation(required = true)
     public String dataUnit;

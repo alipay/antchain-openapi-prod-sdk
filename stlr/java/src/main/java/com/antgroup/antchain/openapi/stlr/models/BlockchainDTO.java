@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class BlockchainDTO extends TeaModel {
     // 交易hash
+    /**
+     * <strong>example:</strong>
+     * <p>xxx</p>
+     */
     @NameInMap("tx_hash")
     @Validation(required = true)
     public String txHash;
 
     // 当前块高
+    /**
+     * <strong>example:</strong>
+     * <p>12917</p>
+     */
     @NameInMap("block_number")
     @Validation(required = true)
     public Long blockNumber;

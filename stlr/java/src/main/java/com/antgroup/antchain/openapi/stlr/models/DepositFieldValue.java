@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class DepositFieldValue extends TeaModel {
     // 存证数据字段名
+    /**
+     * <strong>example:</strong>
+     * <p>distance</p>
+     */
     @NameInMap("name")
     @Validation(required = true)
     public String name;
 
     // 存证数据字段值
+    /**
+     * <strong>example:</strong>
+     * <p>10.0</p>
+     */
     @NameInMap("value")
     public String value;
 

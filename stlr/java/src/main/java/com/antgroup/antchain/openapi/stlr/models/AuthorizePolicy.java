@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class AuthorizePolicy extends TeaModel {
     // 授权策略ID
+    /**
+     * <strong>example:</strong>
+     * <p>11</p>
+     */
     @NameInMap("policy_id")
     @Validation(required = true)
     public String policyId;
 
     // 授权策略描述
+    /**
+     * <strong>example:</strong>
+     * <p>11</p>
+     */
     @NameInMap("description")
     @Validation(required = true)
     public String description;
 
     // 授权策略配置
+    /**
+     * <strong>example:</strong>
+     * <p>授权策略配置</p>
+     */
     @NameInMap("authorize_config")
     @Validation(required = true)
     public String authorizeConfig;

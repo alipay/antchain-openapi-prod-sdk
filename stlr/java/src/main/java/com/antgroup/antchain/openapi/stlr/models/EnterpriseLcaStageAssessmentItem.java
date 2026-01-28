@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class EnterpriseLcaStageAssessmentItem extends TeaModel {
     // LCA阶段
+    /**
+     * <strong>example:</strong>
+     * <p>ProductManufacture</p>
+     */
     @NameInMap("lca_stage")
     @Validation(required = true)
     public String lcaStage;
 
     // 阶段排放占比
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("lca_stage_carbon_rate")
     @Validation(required = true)
     public String lcaStageCarbonRate;
 
     // 阶段排放量
+    /**
+     * <strong>example:</strong>
+     * <p>123.12</p>
+     */
     @NameInMap("lca_stage_carbon_emissions")
     @Validation(required = true)
     public String lcaStageCarbonEmissions;
