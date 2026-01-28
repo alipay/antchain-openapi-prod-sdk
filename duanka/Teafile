@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "DUANKA",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-duanka:1.1.0",
-    "go": "github.com/antchain-openapi-sdk-go/duanka/client:v1.1.0",
-    "csharp": "AntChain.SDK.DUANKA:1.1.0",
+    "java": "com.antgroup.antchain.openapi:openapi-duanka:1.1.15",
+    "go": "github.com/antchain-openapi-sdk-go/duanka/client:v1.1.15",
+    "csharp": "AntChain.SDK.DUANKA:1.1.15",
     "ts": "@antchain/duanka:1.1.0",
-    "php": "antchain/duanka:1.1.0",
-    "python": "antchain_sdk_duanka:1.1.0"
+    "php": "antchain/duanka:1.1.15",
+    "python": "antchain_sdk_duanka:1.1.15"
   },
   "libraries": {
     "Util": "darabonba:Util:*",

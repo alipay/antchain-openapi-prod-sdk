@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.0',
+    sdk_version = '1.1.15',
     _prod_code = 'DUANKA',
     _prod_channel = 'undefined'
   };
@@ -161,6 +161,106 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   ignoreSSL = runtime.ignoreSSL
 }
 
+// ColumnDTO
+model ColumnDTO {
+  // tableGuid
+  tableGuid: string(name='table_guid', example='tableGuid'),
+  // name
+  name: string(name='name', example='name'),
+  // desc
+  desc: string(name='desc', example='desc'),
+  // dataType
+  dataType: string(name='data_type', example='dataType'),
+  // columnSeq
+  columnSeq: long(name='column_seq', example='columnSeq'),
+  // securityLevel
+  securityLevel: string(name='security_level', example='securityLevel'),
+  // true, false
+  isPK: boolean(name='is_p_k', example='true, false'),
+  // isPartition
+  isPartition: boolean(name='is_partition', example='isPartition'),
+  // columnId
+  columnId: string(name='column_id', example='columnId'),
+  // code
+  code: string(name='code', example='code'),
+  // visitCount
+  visitCount: long(name='visit_count', example='visitCount'),
+}
+
+// TableDTO
+model TableDTO {
+  // tableId
+  tableId: string(name='table_id', example='tableId'),
+  // subType
+  subType: string(name='sub_type', example='subType'),
+  // tableType
+  tableType: string(name='table_type', example='tableType'),
+  // phyFileSize
+  phyFileSize: long(name='phy_file_size', example='phyFileSize'),
+  // tableLifeCycle
+  tableLifeCycle: string(name='table_life_cycle', example='tableLifeCycle'),
+  // createTime
+  createTime: string(name='create_time', example='createTime'),
+  // lastDdlTime
+  lastDdlTime: string(name='last_ddl_time', example='lastDdlTime'),
+  // nodeIds
+  nodeIds: string(name='node_ids', example='nodeIds'),
+  // lastViewTime
+  lastViewTime: string(name='last_view_time', example='lastViewTime'),
+  // appId
+  appId: string(name='app_id', example='appId'),
+  // partitionKey
+  partitionKey: string(name='partition_key', example='partitionKey'),
+  // primaryKey
+  primaryKey: string(name='primary_key', example='primaryKey'),
+  // dataLayer
+  dataLayer: string(name='data_layer', example='dataLayer'),
+  // owner
+  owner: string(name='owner', example='owner'),
+  // ownerName
+  ownerName: string(name='owner_name', example='ownerName'),
+  // visitCnt3m
+  visitCnt3m: string(name='visit_cnt3m', example='visitCnt3m'),
+  // env
+  env: string(name='env', example='env'),
+  // name
+  name: string(name='name', example='name'),
+  // nameCn
+  nameCn: string(name='name_cn', example='nameCn'),
+  // gmtDataUpdateTime
+  gmtDataUpdateTime: string(name='gmt_data_update_time', example='gmtDataUpdateTime'),
+  // desc
+  desc: string(name='desc', example='desc'),
+  // guid
+  guid: string(name='guid', example='guid'),
+  // logicSubType
+  logicSubType: string(name='logic_sub_type', example='logicSubType'),
+  // tenantId
+  tenantId: string(name='tenant_id', example='tenantId'),
+  // bizUnitId
+  bizUnitId: string(name='biz_unit_id', example='bizUnitId'),
+  // bizUnitName
+  bizUnitName: string(name='biz_unit_name', example='bizUnitName'),
+  // dataCellId
+  dataCellJd: string(name='data_cell_jd', example='dataCellId'),
+  // dataCellName
+  dataCellName: string(name='data_cell_name', example='dataCellName'),
+  // projectId
+  projectId: string(name='project_id', example='projectId'),
+  // projectName
+  projectName: string(name='project_name', example='projectName'),
+  // developMode
+  developMode: string(name='develop_mode', example='developMode'),
+  // modelType
+  modelType: string(name='model_type', example='modelType'),
+  // parentModelId
+  parentModelId: string(name='parent_model_id', example='parentModelId'),
+  // fileId
+  fileId: string(name='file_id', example='fileId'),
+  // columns
+  columns: [ ColumnDTO ](name='columns', example='columns'),
+}
+
 // 查询结果
 model QueryResult {
   // 工号
@@ -177,6 +277,18 @@ model QueryResult {
   empType: string(name='emp_type', example='全职/其他人员/外包/实习/正式'),
 }
 
+// PublishStatus
+model PublishStatus {
+  // status
+  status: string(name='status', example='status'),
+  // errorCode
+  errorCode: string(name='error_code', example='errorCode'),
+  // message
+  message: string(name='message', example='message'),
+  // errorData
+  errorData: string(name='error_data', example='errorData'),
+}
+
 // Zhx ir 结果
 model ZhxIrResultStruct {
   // 日合计交易金额指数
@@ -191,6 +303,54 @@ model ZhxIrResultStruct {
   cityLevel?: string(name='city_level', example='4线'),
 }
 
+// 分区结果查询信息
+model PartitionObject {
+  // tableGuid
+  tableGuid: string(name='table_guid', example='tableGuid'),
+  // name
+  name: string(name='name', example='name'),
+  // create_time
+  createTime: string(name='create_time', example='create_time'),
+  // last_modify_time
+  lastModifyTime: string(name='last_modify_time', example='last_modify_time'),
+  // panguFileSize
+  panguFileSize: long(name='pangu_file_size', example='1'),
+  // recordCnt 记录数目
+  recordCnt: long(name='record_cnt', example='1'),
+}
+
+// ProduceFeatureResultObj
+model ProduceFeatureResultObj {
+  // projectId
+  projectId: string(name='project_id', example='projectId'),
+  // taskId
+  taskId: string(name='task_id', example='taskId'),
+  // status
+  status: string(name='status', example='status'),
+  // publishId
+  publishId?: string(name='publish_id', example='publishId'),
+  // supplementId
+  supplementId?: string(name='supplement_id', example='supplementId'),
+  // fileKey
+  fileKey?: string(name='file_key', example='fileKey'),
+  // guid
+  guid?: string(name='guid', example='guid'),
+  // partition
+  partition?: string(name='partition', example='partition'),
+}
+
+// BaseResult
+model BaseResult {
+  // success
+  success: boolean(name='success', example='success'),
+  // errorCode
+  errorCode: string(name='error_code', example='errorCode'),
+  // message
+  message: string(name='message', example='message'),
+  // tabledto
+  data: TableDTO(name='data', example='tabledto'),
+}
+
 // 用户信息查询结果
 model UserInfoResult {
   // hr主数据接口调用结果
@@ -201,6 +361,15 @@ model UserInfoResult {
   errorCode?: string(name='error_code', example='错误码'),
   // 查询结果
   queryResultList: [ QueryResult ](name='query_result_list', example=''),
+}
+
+// 键值对，兼容map用
+model NameValuePair {
+  // 	
+  // 键名
+  name: string(name='name', example='key'),
+  // 键值
+  value: string(name='value', example='value'),
 }
 
 // 模型结果
@@ -521,7 +690,9 @@ model CheckAistudioModelRequest = {
   // 在线模型压测内存大小（GB），默认为2
   pmMem?: long(name='pm_mem'),
   // 离线模型批次大小，默认2000
-  batchSize?: string(name='batch_size'),
+  batchSize?: long(name='batch_size'),
+  // 验证所用样本数，默认50000
+  verificationNum?: long(name='verification_num'),
 }
 
 model CheckAistudioModelResponse = {
@@ -576,6 +747,8 @@ model QueryAistudioModelResponse = {
   runtimeReport?: string(name='runtime_report'),
   // 安全报告
   safetyReport?: string(name='safety_report'),
+  // 任务状态
+  status?: string(name='status'),
 }
 
 /**
@@ -651,6 +824,739 @@ async function queryBacktrackScore(request: QueryBacktrackScoreRequest): QueryBa
 async function queryBacktrackScoreEx(request: QueryBacktrackScoreRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryBacktrackScoreResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antcloud.duanka.backtrack.score.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CheckEasMdetectionRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // sql
+  sql: string(name='sql'),
+}
+
+model CheckEasMdetectionResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 检查结果
+  checkResult?: boolean(name='check_result'),
+  // 检查结果码
+  checkCode?: string(name='check_code'),
+  // 检查消息
+  checkMessage?: string(name='check_message'),
+}
+
+/**
+ * Description: 大模型sql检验
+ * Summary: 大模型sql检验
+ */
+async function checkEasMdetection(request: CheckEasMdetectionRequest): CheckEasMdetectionResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return checkEasMdetectionEx(request, headers, runtime);
+}
+
+/**
+ * Description: 大模型sql检验
+ * Summary: 大模型sql检验
+ */
+async function checkEasMdetectionEx(request: CheckEasMdetectionRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CheckEasMdetectionResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.duanka.eas.mdetection.check', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryBpserviceHttpRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 请求地址
+  url: string(name='url'),
+  // 请求头参数
+  headers?: [ NameValuePair ](name='headers'),
+  // 请求体JSON String
+  requestBody?: string(name='request_body'),
+  // 0-GET，1-POST，2-PUT，3-DELETE
+  httpMethod: long(name='http_method'),
+}
+
+model QueryBpserviceHttpResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // http响应body String
+  responseBodyString?: string(name='response_body_string'),
+}
+
+/**
+ * Description: 主站bpservice通用http接口，支持GET、PUT、DELETE、POST类型请求
+ * Summary: 主站bpservice通用http接口
+ */
+async function queryBpserviceHttp(request: QueryBpserviceHttpRequest): QueryBpserviceHttpResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryBpserviceHttpEx(request, headers, runtime);
+}
+
+/**
+ * Description: 主站bpservice通用http接口，支持GET、PUT、DELETE、POST类型请求
+ * Summary: 主站bpservice通用http接口
+ */
+async function queryBpserviceHttpEx(request: QueryBpserviceHttpRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryBpserviceHttpResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.duanka.bpservice.http.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ImportDataphinTaskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // name
+  name: string(name='name'),
+  // 描述
+  desc: string(name='desc'),
+  // 操作人
+  operator: string(name='operator'),
+  // 项目ID
+  projectId: string(name='project_id'),
+  // projectTaskPath项目任务地址
+  projectTaskPath: string(name='project_task_path'),
+  // tenantId租户id
+  tenantId: string(name='tenant_id'),
+  // dt=20240226
+  params: string(name='params'),
+  // sql
+  sql: string(name='sql'),
+}
+
+model ImportDataphinTaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 结果数据
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 导入dataphin的同步任务
+ * Summary: 导入dataphin的同步任务
+ */
+async function importDataphinTask(request: ImportDataphinTaskRequest): ImportDataphinTaskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return importDataphinTaskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 导入dataphin的同步任务
+ * Summary: 导入dataphin的同步任务
+ */
+async function importDataphinTaskEx(request: ImportDataphinTaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ImportDataphinTaskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.duanka.dataphin.task.import', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SyncOssOdpsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // ossPath
+  ossPath: string(name='oss_path'),
+  // ossFilename
+  ossFilename: string(name='oss_filename'),
+  // 来源列表
+  sourceList?: [ string ](name='source_list'),
+  // oss ds id
+  ossDsId: string(name='oss_ds_id'),
+  // ossDsName
+  ossDsName: string(name='oss_ds_name'),
+  // odpsDsId
+  odpsDsId: string(name='odps_ds_id'),
+  // odps_ds_name
+  odpsDsName: string(name='odps_ds_name'),
+  // odpsProjectName
+  odpsProjectName: string(name='odps_project_name'),
+  // odpsTableName
+  odpsTableName: string(name='odps_table_name'),
+  // odpsGuidTableName
+  odpsGuidTableName: string(name='odps_guid_table_name'),
+  // partitionCondition
+  partitionCondition: string(name='partition_condition'),
+  // where
+  where?: string(name='where'),
+  // columnList
+  columnList: [ string ](name='column_list'),
+  // name
+  name: string(name='name'),
+  // 描述
+  desc?: string(name='desc'),
+  // 操作人
+  operator: string(name='operator'),
+  // projectId项目id
+  projectId: string(name='project_id'),
+  // projectTaskPath 项目任务地址
+  projectTaskPath: string(name='project_task_path'),
+  // 租户id
+  tenantId: string(name='tenant_id'),
+  // 参数
+  params?: string(name='params'),
+}
+
+model SyncOssOdpsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // requestId
+  requestId?: string(name='request_id'),
+  // code
+  code?: string(name='code'),
+  // message
+  message?: string(name='message'),
+  // trace_id
+  traceId?: string(name='trace_id'),
+  // data
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 同步oss文件到odps里面
+ * Summary: 同步oss文件到odps里面
+ */
+async function syncOssOdps(request: SyncOssOdpsRequest): SyncOssOdpsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return syncOssOdpsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 同步oss文件到odps里面
+ * Summary: 同步oss文件到odps里面
+ */
+async function syncOssOdpsEx(request: SyncOssOdpsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SyncOssOdpsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.duanka.oss.odps.sync', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SyncOpdsOssRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // ossPath
+  ossPath: string(name='oss_path'),
+  // ossFilename
+  ossFilename: string(name='oss_filename'),
+  // ossDsId
+  ossDsId: string(name='oss_ds_id'),
+  // ossDsName
+  ossDsName: string(name='oss_ds_name'),
+  // odpsDsId
+  odpsDsId: string(name='odps_ds_id'),
+  // odpsDsName
+  odpsDsName: string(name='odps_ds_name'),
+  // odpsProjectName
+  odpsProjectName: string(name='odps_project_name'),
+  // odpsTableName
+  odpsTableName: string(name='odps_table_name'),
+  // odpsGuidTableName
+  odpsGuidTableName: string(name='odps_guid_table_name'),
+  // 分区条件
+  partitionCondition: string(name='partition_condition'),
+  // 过滤条件
+  where: string(name='where'),
+  // 字段列表
+  columnList: [ string ](name='column_list'),
+  // name
+  name: string(name='name'),
+  // 任务描述
+  desc: string(name='desc'),
+  // 操作人
+  operator: string(name='operator'),
+  // 项目空间id
+  projectId: string(name='project_id'),
+  // project_task_path
+  projectTaskPath: string(name='project_task_path'),
+  // 租户id
+  tenantId: string(name='tenant_id'),
+  // 参数
+  params: string(name='params'),
+}
+
+model SyncOpdsOssResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // data
+  data?: string(name='data'),
+  // requestId
+  requestId?: string(name='request_id'),
+  // code
+  code?: string(name='code'),
+  // message
+  message?: string(name='message'),
+  // traceId
+  traceId?: string(name='trace_id'),
+}
+
+/**
+ * Description: odps表数据导出到oss中
+ * Summary: odps表数据导出到oss中
+ */
+async function syncOpdsOss(request: SyncOpdsOssRequest): SyncOpdsOssResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return syncOpdsOssEx(request, headers, runtime);
+}
+
+/**
+ * Description: odps表数据导出到oss中
+ * Summary: odps表数据导出到oss中
+ */
+async function syncOpdsOssEx(request: SyncOpdsOssRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SyncOpdsOssResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.duanka.opds.oss.sync', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ExistDataphinTablepartitionRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // operator操作人
+  operator: string(name='operator'),
+  // project项目空间
+  project: string(name='project'),
+  // tableName
+  tableName: string(name='table_name'),
+  // 分区
+  partition: string(name='partition'),
+}
+
+model ExistDataphinTablepartitionResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 分区返回数据
+  data?: PartitionObject(name='data'),
+}
+
+/**
+ * Description: 判断dataphin表分区是否存在
+ * Summary: 判断dataphin表分区是否存在
+ */
+async function existDataphinTablepartition(request: ExistDataphinTablepartitionRequest): ExistDataphinTablepartitionResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return existDataphinTablepartitionEx(request, headers, runtime);
+}
+
+/**
+ * Description: 判断dataphin表分区是否存在
+ * Summary: 判断dataphin表分区是否存在
+ */
+async function existDataphinTablepartitionEx(request: ExistDataphinTablepartitionRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExistDataphinTablepartitionResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.duanka.dataphin.tablepartition.exist', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PublishDataphinTaskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // desc
+  desc: string(name='desc'),
+  // operator
+  operator: string(name='operator'),
+  // tenantId
+  tenantId: string(name='tenant_id'),
+  // projectId
+  projectId: string(name='project_id'),
+  // taskId
+  taskId: string(name='task_id'),
+}
+
+model PublishDataphinTaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // data
+  data?: long(name='data'),
+  // requestId
+  requestId?: string(name='request_id'),
+  // code
+  code?: string(name='code'),
+  // message
+  message?: string(name='message'),
+  // traceId
+  traceId?: string(name='trace_id'),
+}
+
+/**
+ * Description: 发布dataphin任务
+ * Summary: 发布dataphin任务
+ */
+async function publishDataphinTask(request: PublishDataphinTaskRequest): PublishDataphinTaskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return publishDataphinTaskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 发布dataphin任务
+ * Summary: 发布dataphin任务
+ */
+async function publishDataphinTaskEx(request: PublishDataphinTaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PublishDataphinTaskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.duanka.dataphin.task.publish', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CheckDataphinTaskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // publishId
+  publishId: string(name='publish_id'),
+  // tenantId
+  tenantId: string(name='tenant_id'),
+  // operator
+  operator: string(name='operator'),
+}
+
+model CheckDataphinTaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // publicstatus
+  data?: PublishStatus(name='data'),
+  // requestId
+  requestId?: string(name='request_id'),
+  // code
+  code?: string(name='code'),
+  // message
+  message?: string(name='message'),
+  // traceId
+  traceId?: string(name='trace_id'),
+}
+
+/**
+ * Description: 校验任务发布
+ * Summary: 校验任务发布
+ */
+async function checkDataphinTask(request: CheckDataphinTaskRequest): CheckDataphinTaskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return checkDataphinTaskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 校验任务发布
+ * Summary: 校验任务发布
+ */
+async function checkDataphinTaskEx(request: CheckDataphinTaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CheckDataphinTaskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.duanka.dataphin.task.check', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RunDataphinTaskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // name
+  name: string(name='name'),
+  // tenantId
+  tenantId: string(name='tenant_id'),
+  // operator
+  operator: string(name='operator'),
+  // projectId
+  projectId: string(name='project_id'),
+  // params,json map
+  params: string(name='params'),
+  // taskId
+  taskId: string(name='task_id'),
+}
+
+model RunDataphinTaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // data
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 运行任务
+ * Summary: 运行任务
+ */
+async function runDataphinTask(request: RunDataphinTaskRequest): RunDataphinTaskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return runDataphinTaskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 运行任务
+ * Summary: 运行任务
+ */
+async function runDataphinTaskEx(request: RunDataphinTaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RunDataphinTaskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.duanka.dataphin.task.run', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDataphinTableinfoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // projectSpaceName
+  projectSpaceName: string(name='project_space_name'),
+  // tableName
+  tableName: string(name='table_name'),
+  // operator
+  operator: string(name='operator'),
+}
+
+model QueryDataphinTableinfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // requestId
+  requestId?: string(name='request_id'),
+  // code
+  code?: string(name='code'),
+  // message
+  message?: string(name='message'),
+  // traceId
+  traceId?: string(name='trace_id'),
+  // data
+  data?: BaseResult(name='data'),
+}
+
+/**
+ * Description: 表信息查询
+ * Summary: 表信息查询
+ */
+async function queryDataphinTableinfo(request: QueryDataphinTableinfoRequest): QueryDataphinTableinfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDataphinTableinfoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 表信息查询
+ * Summary: 表信息查询
+ */
+async function queryDataphinTableinfoEx(request: QueryDataphinTableinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDataphinTableinfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.duanka.dataphin.tableinfo.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ImportDataphinFileRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // orderId
+  orderId: string(name='order_id'),
+  // operator
+  operator: string(name='operator'),
+  // userId
+  userId: string(name='user_id'),
+  // fileKey
+  fileKey: string(name='file_key'),
+  // headerList
+  headerList: [ string ](name='header_list'),
+  // targetList
+  targetList: [ string ](name='target_list'),
+  // tableProject
+  tableProject: string(name='table_project'),
+  // tableName
+  tableName: string(name='table_name'),
+  // partition
+  partition: string(name='partition'),
+  // OcDataphinProjectEnum枚举
+  project: string(name='project'),
+}
+
+model ImportDataphinFileResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // success
+  success?: boolean(name='success'),
+  // errorCode
+  errorCode?: string(name='error_code'),
+  // errorMsg
+  errorMsg?: string(name='error_msg'),
+  // resultObj
+  resultObj?: ProduceFeatureResultObj(name='result_obj'),
+}
+
+/**
+ * Description: 文件ossToOdps
+ * Summary: 文件ossToOdps
+ */
+async function importDataphinFile(request: ImportDataphinFileRequest): ImportDataphinFileResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return importDataphinFileEx(request, headers, runtime);
+}
+
+/**
+ * Description: 文件ossToOdps
+ * Summary: 文件ossToOdps
+ */
+async function importDataphinFileEx(request: ImportDataphinFileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ImportDataphinFileResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.duanka.dataphin.file.import', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SubmitDatapinTaskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // name
+  name: string(name='name'),
+  // 任务描述
+  desc: string(name='desc'),
+  // operator
+  operator: string(name='operator'),
+  // projectId
+  projectId: string(name='project_id'),
+  // projectTaskPath
+  projectTaskPath: string(name='project_task_path'),
+  // tenantId
+  tenantId: string(name='tenant_id'),
+  // params
+  params: string(name='params'),
+  // ossDsId
+  ossDsId?: string(name='oss_ds_id'),
+  // ossDsName
+  ossDsName: string(name='oss_ds_name'),
+  // odpsDsId
+  odpsDsId: string(name='odps_ds_id'),
+  // odpsDsName
+  odpsDsName?: string(name='odps_ds_name'),
+  // odpsProjectName
+  odpsProjectName: string(name='odps_project_name'),
+  // odpsTableName
+  odpsTableName?: string(name='odps_table_name'),
+  // odpsGuidTableName
+  odpsGuidTableName: string(name='odps_guid_table_name'),
+  // partitionCondition
+  partitionCondition?: string(name='partition_condition'),
+  // where
+  where?: string(name='where'),
+  // columnList
+  columnList?: [ string ](name='column_list'),
+  // ossPath
+  ossPath: string(name='oss_path'),
+  // ossFilename
+  ossFilename: string(name='oss_filename'),
+}
+
+model SubmitDatapinTaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // requestId
+  requestId?: string(name='request_id'),
+  // code
+  code?: string(name='code'),
+  // message
+  message?: string(name='message'),
+  // traceId
+  traceId?: string(name='trace_id'),
+  // data
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 提交dataphin任务
+ * Summary: 提交dataphin任务
+ */
+async function submitDatapinTask(request: SubmitDatapinTaskRequest): SubmitDatapinTaskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return submitDatapinTaskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 提交dataphin任务
+ * Summary: 提交dataphin任务
+ */
+async function submitDatapinTaskEx(request: SubmitDatapinTaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitDatapinTaskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.duanka.datapin.task.submit', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryIndustryScoreRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 模型id
+  modelId: string(name='model_id'),
+  // 用户id（客户身份证号/手机号的md5/sha256散列值）
+  userId: string(name='user_id'),
+  // 用户id类型（身份证号：ID_NO；手机号：MOBILE_NO）
+  userIdType: string(name='user_id_type'),
+  // user_id 散列类型: "MD5"：MD5（小写）, "SHA256" ： SHA256（小写）， "SM3"： SM3（小写）
+  encryptType: string(name='encrypt_type'),
+  // 客户编码
+  customerCode: string(name='customer_code'),
+  // 流水号，串联链路用，非必填
+  transNo: string(name='trans_no'),
+  // encrypt_type类型的散列后的操作，默认为空不加密。 如启用，需要对散列后的user_id 加密，可选用如下算法，类型1、AES/ECB/PKCS5PADDING 在加密后的二进制需要以字符集UTF-8，编码base64 方式赋值给user_id传输。 示例：AES秘钥：base64_aes_key = "CZqWzQ5JL8s5Zx2XVpGZGw=="，报文：plaintext = "Hello, 蚂蚁。" ，使用算法： AES/ECB/PKCS5PADDING ；密文：SI1wU1ePSFoMy5YzuxclFkbZ/FIXUHPRDbKBW85WolY=，配置了此项user_id应该传输此密文。
+  userIdHashEncrypt: string(name='user_id_hash_encrypt'),
+}
+
+model QueryIndustryScoreResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 模型分数
+  score?: string(name='score'),
+  // 流水号
+  transNo?: string(name='trans_no'),
+}
+
+/**
+ * Description: 行业分查询
+ * Summary: 行业分查询
+ */
+async function queryIndustryScore(request: QueryIndustryScoreRequest): QueryIndustryScoreResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryIndustryScoreEx(request, headers, runtime);
+}
+
+/**
+ * Description: 行业分查询
+ * Summary: 行业分查询
+ */
+async function queryIndustryScoreEx(request: QueryIndustryScoreRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryIndustryScoreResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.duanka.industry.score.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryIrBrandRequest = {
