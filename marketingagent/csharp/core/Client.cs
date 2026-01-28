@@ -137,7 +137,7 @@ namespace AntChain.SDK.MARKETINGAGENT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.4"},
+                        {"sdk_version", "1.0.6"},
                         {"_prod_code", "MARKETINGAGENT"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.MARKETINGAGENT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.4"},
+                        {"sdk_version", "1.0.6"},
                         {"_prod_code", "MARKETINGAGENT"},
                         {"_prod_channel", "default"},
                     };
@@ -403,6 +403,48 @@ namespace AntChain.SDK.MARKETINGAGENT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<GetTaskResponse>(await DoRequestAsync("1.0", "antcloud.marketingagent.task.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 京东微信核销数据回调
+         * Summary: 京东微信核销数据回调
+         */
+        public GetComsumeJdResponse GetComsumeJd(GetComsumeJdRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return GetComsumeJdEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 京东微信核销数据回调
+         * Summary: 京东微信核销数据回调
+         */
+        public async Task<GetComsumeJdResponse> GetComsumeJdAsync(GetComsumeJdRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await GetComsumeJdExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 京东微信核销数据回调
+         * Summary: 京东微信核销数据回调
+         */
+        public GetComsumeJdResponse GetComsumeJdEx(GetComsumeJdRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetComsumeJdResponse>(DoRequest("1.0", "antcloud.marketingagent.comsume.jd.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 京东微信核销数据回调
+         * Summary: 京东微信核销数据回调
+         */
+        public async Task<GetComsumeJdResponse> GetComsumeJdExAsync(GetComsumeJdRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetComsumeJdResponse>(await DoRequestAsync("1.0", "antcloud.marketingagent.comsume.jd.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }

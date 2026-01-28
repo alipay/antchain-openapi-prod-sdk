@@ -15,6 +15,11 @@ namespace AntChain.SDK.MARKETINGAGENT.Models
         [Validation(Required=true)]
         public string Id { get; set; }
 
+        // Unique identifier (e.g. UUID) for the contextual collection of interactions (tasks and messages). Created by the A2A server.
+        [NameInMap("context_id")]
+        [Validation(Required=false)]
+        public string ContextId { get; set; }
+
         // The current status of a Task, including state and a message.
         [NameInMap("status")]
         [Validation(Required=true)]
