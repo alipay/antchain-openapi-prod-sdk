@@ -77,6 +77,224 @@ export class Config extends $tea.Model {
   }
 }
 
+// ColumnDTO
+export class ColumnDTO extends $tea.Model {
+  // tableGuid
+  tableGuid: string;
+  // name
+  name: string;
+  // desc
+  desc: string;
+  // dataType
+  dataType: string;
+  // columnSeq
+  columnSeq: number;
+  // securityLevel
+  securityLevel: string;
+  // true, false
+  isPK: boolean;
+  // isPartition
+  isPartition: boolean;
+  // columnId
+  columnId: string;
+  // code
+  code: string;
+  // visitCount
+  visitCount: number;
+  static names(): { [key: string]: string } {
+    return {
+      tableGuid: 'table_guid',
+      name: 'name',
+      desc: 'desc',
+      dataType: 'data_type',
+      columnSeq: 'column_seq',
+      securityLevel: 'security_level',
+      isPK: 'is_p_k',
+      isPartition: 'is_partition',
+      columnId: 'column_id',
+      code: 'code',
+      visitCount: 'visit_count',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      tableGuid: 'string',
+      name: 'string',
+      desc: 'string',
+      dataType: 'string',
+      columnSeq: 'number',
+      securityLevel: 'string',
+      isPK: 'boolean',
+      isPartition: 'boolean',
+      columnId: 'string',
+      code: 'string',
+      visitCount: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// TableDTO
+export class TableDTO extends $tea.Model {
+  // tableId
+  tableId: string;
+  // subType
+  subType: string;
+  // tableType
+  tableType: string;
+  // phyFileSize
+  phyFileSize: number;
+  // tableLifeCycle
+  tableLifeCycle: string;
+  // createTime
+  createTime: string;
+  // lastDdlTime
+  lastDdlTime: string;
+  // nodeIds
+  nodeIds: string;
+  // lastViewTime
+  lastViewTime: string;
+  // appId
+  appId: string;
+  // partitionKey
+  partitionKey: string;
+  // primaryKey
+  primaryKey: string;
+  // dataLayer
+  dataLayer: string;
+  // owner
+  owner: string;
+  // ownerName
+  ownerName: string;
+  // visitCnt3m
+  visitCnt3m: string;
+  // env
+  env: string;
+  // name
+  name: string;
+  // nameCn
+  nameCn: string;
+  // gmtDataUpdateTime
+  gmtDataUpdateTime: string;
+  // desc
+  desc: string;
+  // guid
+  guid: string;
+  // logicSubType
+  logicSubType: string;
+  // tenantId
+  tenantId: string;
+  // bizUnitId
+  bizUnitId: string;
+  // bizUnitName
+  bizUnitName: string;
+  // dataCellId
+  dataCellJd: string;
+  // dataCellName
+  dataCellName: string;
+  // projectId
+  projectId: string;
+  // projectName
+  projectName: string;
+  // developMode
+  developMode: string;
+  // modelType
+  modelType: string;
+  // parentModelId
+  parentModelId: string;
+  // fileId
+  fileId: string;
+  // columns
+  columns: ColumnDTO[];
+  static names(): { [key: string]: string } {
+    return {
+      tableId: 'table_id',
+      subType: 'sub_type',
+      tableType: 'table_type',
+      phyFileSize: 'phy_file_size',
+      tableLifeCycle: 'table_life_cycle',
+      createTime: 'create_time',
+      lastDdlTime: 'last_ddl_time',
+      nodeIds: 'node_ids',
+      lastViewTime: 'last_view_time',
+      appId: 'app_id',
+      partitionKey: 'partition_key',
+      primaryKey: 'primary_key',
+      dataLayer: 'data_layer',
+      owner: 'owner',
+      ownerName: 'owner_name',
+      visitCnt3m: 'visit_cnt3m',
+      env: 'env',
+      name: 'name',
+      nameCn: 'name_cn',
+      gmtDataUpdateTime: 'gmt_data_update_time',
+      desc: 'desc',
+      guid: 'guid',
+      logicSubType: 'logic_sub_type',
+      tenantId: 'tenant_id',
+      bizUnitId: 'biz_unit_id',
+      bizUnitName: 'biz_unit_name',
+      dataCellJd: 'data_cell_jd',
+      dataCellName: 'data_cell_name',
+      projectId: 'project_id',
+      projectName: 'project_name',
+      developMode: 'develop_mode',
+      modelType: 'model_type',
+      parentModelId: 'parent_model_id',
+      fileId: 'file_id',
+      columns: 'columns',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      tableId: 'string',
+      subType: 'string',
+      tableType: 'string',
+      phyFileSize: 'number',
+      tableLifeCycle: 'string',
+      createTime: 'string',
+      lastDdlTime: 'string',
+      nodeIds: 'string',
+      lastViewTime: 'string',
+      appId: 'string',
+      partitionKey: 'string',
+      primaryKey: 'string',
+      dataLayer: 'string',
+      owner: 'string',
+      ownerName: 'string',
+      visitCnt3m: 'string',
+      env: 'string',
+      name: 'string',
+      nameCn: 'string',
+      gmtDataUpdateTime: 'string',
+      desc: 'string',
+      guid: 'string',
+      logicSubType: 'string',
+      tenantId: 'string',
+      bizUnitId: 'string',
+      bizUnitName: 'string',
+      dataCellJd: 'string',
+      dataCellName: 'string',
+      projectId: 'string',
+      projectName: 'string',
+      developMode: 'string',
+      modelType: 'string',
+      parentModelId: 'string',
+      fileId: 'string',
+      columns: { 'type': 'array', 'itemType': ColumnDTO },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 查询结果
 export class QueryResult extends $tea.Model {
   // 工号
@@ -110,6 +328,39 @@ export class QueryResult extends $tea.Model {
       loginAccount: 'string',
       buMail: 'string',
       empType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// PublishStatus
+export class PublishStatus extends $tea.Model {
+  // status
+  status: string;
+  // errorCode
+  errorCode: string;
+  // message
+  message: string;
+  // errorData
+  errorData: string;
+  static names(): { [key: string]: string } {
+    return {
+      status: 'status',
+      errorCode: 'error_code',
+      message: 'message',
+      errorData: 'error_data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      status: 'string',
+      errorCode: 'string',
+      message: 'string',
+      errorData: 'string',
     };
   }
 
@@ -155,6 +406,129 @@ export class ZhxIrResultStruct extends $tea.Model {
   }
 }
 
+// 分区结果查询信息
+export class PartitionObject extends $tea.Model {
+  // tableGuid
+  tableGuid: string;
+  // name
+  name: string;
+  // create_time
+  createTime: string;
+  // last_modify_time
+  lastModifyTime: string;
+  // panguFileSize
+  panguFileSize: number;
+  // recordCnt 记录数目
+  recordCnt: number;
+  static names(): { [key: string]: string } {
+    return {
+      tableGuid: 'table_guid',
+      name: 'name',
+      createTime: 'create_time',
+      lastModifyTime: 'last_modify_time',
+      panguFileSize: 'pangu_file_size',
+      recordCnt: 'record_cnt',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      tableGuid: 'string',
+      name: 'string',
+      createTime: 'string',
+      lastModifyTime: 'string',
+      panguFileSize: 'number',
+      recordCnt: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// ProduceFeatureResultObj
+export class ProduceFeatureResultObj extends $tea.Model {
+  // projectId
+  projectId: string;
+  // taskId
+  taskId: string;
+  // status
+  status: string;
+  // publishId
+  publishId?: string;
+  // supplementId
+  supplementId?: string;
+  // fileKey
+  fileKey?: string;
+  // guid
+  guid?: string;
+  // partition
+  partition?: string;
+  static names(): { [key: string]: string } {
+    return {
+      projectId: 'project_id',
+      taskId: 'task_id',
+      status: 'status',
+      publishId: 'publish_id',
+      supplementId: 'supplement_id',
+      fileKey: 'file_key',
+      guid: 'guid',
+      partition: 'partition',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      projectId: 'string',
+      taskId: 'string',
+      status: 'string',
+      publishId: 'string',
+      supplementId: 'string',
+      fileKey: 'string',
+      guid: 'string',
+      partition: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// BaseResult
+export class BaseResult extends $tea.Model {
+  // success
+  success: boolean;
+  // errorCode
+  errorCode: string;
+  // message
+  message: string;
+  // tabledto
+  data: TableDTO;
+  static names(): { [key: string]: string } {
+    return {
+      success: 'success',
+      errorCode: 'error_code',
+      message: 'message',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      success: 'boolean',
+      errorCode: 'string',
+      message: 'string',
+      data: TableDTO,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 用户信息查询结果
 export class UserInfoResult extends $tea.Model {
   // hr主数据接口调用结果
@@ -180,6 +554,32 @@ export class UserInfoResult extends $tea.Model {
       message: 'string',
       errorCode: 'string',
       queryResultList: { 'type': 'array', 'itemType': QueryResult },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 键值对，兼容map用
+export class NameValuePair extends $tea.Model {
+  // 	
+  // 键名
+  name: string;
+  // 键值
+  value: string;
+  static names(): { [key: string]: string } {
+    return {
+      name: 'name',
+      value: 'value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      name: 'string',
+      value: 'string',
     };
   }
 
@@ -683,7 +1083,9 @@ export class CheckAistudioModelRequest extends $tea.Model {
   // 在线模型压测内存大小（GB），默认为2
   pmMem?: number;
   // 离线模型批次大小，默认2000
-  batchSize?: string;
+  batchSize?: number;
+  // 验证所用样本数，默认50000
+  verificationNum?: number;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -702,6 +1104,7 @@ export class CheckAistudioModelRequest extends $tea.Model {
       pmCore: 'pm_core',
       pmMem: 'pm_mem',
       batchSize: 'batch_size',
+      verificationNum: 'verification_num',
     };
   }
 
@@ -722,7 +1125,8 @@ export class CheckAistudioModelRequest extends $tea.Model {
       dockerImage: 'string',
       pmCore: 'number',
       pmMem: 'number',
-      batchSize: 'string',
+      batchSize: 'number',
+      verificationNum: 'number',
     };
   }
 
@@ -802,6 +1206,8 @@ export class QueryAistudioModelResponse extends $tea.Model {
   runtimeReport?: string;
   // 安全报告
   safetyReport?: string;
+  // 任务状态
+  status?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -811,6 +1217,7 @@ export class QueryAistudioModelResponse extends $tea.Model {
       pressureReport: 'pressure_report',
       runtimeReport: 'runtime_report',
       safetyReport: 'safety_report',
+      status: 'status',
     };
   }
 
@@ -823,6 +1230,7 @@ export class QueryAistudioModelResponse extends $tea.Model {
       pressureReport: 'string',
       runtimeReport: 'string',
       safetyReport: 'string',
+      status: 'string',
     };
   }
 
@@ -889,6 +1297,1238 @@ export class QueryBacktrackScoreRequest extends $tea.Model {
 }
 
 export class QueryBacktrackScoreResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 模型分数
+  score?: string;
+  // 流水号
+  transNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      score: 'score',
+      transNo: 'trans_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      score: 'string',
+      transNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CheckEasMdetectionRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // sql
+  sql: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      sql: 'sql',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      sql: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CheckEasMdetectionResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 检查结果
+  checkResult?: boolean;
+  // 检查结果码
+  checkCode?: string;
+  // 检查消息
+  checkMessage?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      checkResult: 'check_result',
+      checkCode: 'check_code',
+      checkMessage: 'check_message',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      checkResult: 'boolean',
+      checkCode: 'string',
+      checkMessage: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryBpserviceHttpRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 请求地址
+  url: string;
+  // 请求头参数
+  headers?: NameValuePair[];
+  // 请求体JSON String
+  requestBody?: string;
+  // 0-GET，1-POST，2-PUT，3-DELETE
+  httpMethod: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      url: 'url',
+      headers: 'headers',
+      requestBody: 'request_body',
+      httpMethod: 'http_method',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      url: 'string',
+      headers: { 'type': 'array', 'itemType': NameValuePair },
+      requestBody: 'string',
+      httpMethod: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryBpserviceHttpResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // http响应body String
+  responseBodyString?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      responseBodyString: 'response_body_string',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      responseBodyString: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ImportDataphinTaskRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // name
+  name: string;
+  // 描述
+  desc: string;
+  // 操作人
+  operator: string;
+  // 项目ID
+  projectId: string;
+  // projectTaskPath项目任务地址
+  projectTaskPath: string;
+  // tenantId租户id
+  tenantId: string;
+  // dt=20240226
+  params: string;
+  // sql
+  sql: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      name: 'name',
+      desc: 'desc',
+      operator: 'operator',
+      projectId: 'project_id',
+      projectTaskPath: 'project_task_path',
+      tenantId: 'tenant_id',
+      params: 'params',
+      sql: 'sql',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      name: 'string',
+      desc: 'string',
+      operator: 'string',
+      projectId: 'string',
+      projectTaskPath: 'string',
+      tenantId: 'string',
+      params: 'string',
+      sql: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ImportDataphinTaskResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 结果数据
+  data?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SyncOssOdpsRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // ossPath
+  ossPath: string;
+  // ossFilename
+  ossFilename: string;
+  // 来源列表
+  sourceList?: string[];
+  // oss ds id
+  ossDsId: string;
+  // ossDsName
+  ossDsName: string;
+  // odpsDsId
+  odpsDsId: string;
+  // odps_ds_name
+  odpsDsName: string;
+  // odpsProjectName
+  odpsProjectName: string;
+  // odpsTableName
+  odpsTableName: string;
+  // odpsGuidTableName
+  odpsGuidTableName: string;
+  // partitionCondition
+  partitionCondition: string;
+  // where
+  where?: string;
+  // columnList
+  columnList: string[];
+  // name
+  name: string;
+  // 描述
+  desc?: string;
+  // 操作人
+  operator: string;
+  // projectId项目id
+  projectId: string;
+  // projectTaskPath 项目任务地址
+  projectTaskPath: string;
+  // 租户id
+  tenantId: string;
+  // 参数
+  params?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      ossPath: 'oss_path',
+      ossFilename: 'oss_filename',
+      sourceList: 'source_list',
+      ossDsId: 'oss_ds_id',
+      ossDsName: 'oss_ds_name',
+      odpsDsId: 'odps_ds_id',
+      odpsDsName: 'odps_ds_name',
+      odpsProjectName: 'odps_project_name',
+      odpsTableName: 'odps_table_name',
+      odpsGuidTableName: 'odps_guid_table_name',
+      partitionCondition: 'partition_condition',
+      where: 'where',
+      columnList: 'column_list',
+      name: 'name',
+      desc: 'desc',
+      operator: 'operator',
+      projectId: 'project_id',
+      projectTaskPath: 'project_task_path',
+      tenantId: 'tenant_id',
+      params: 'params',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      ossPath: 'string',
+      ossFilename: 'string',
+      sourceList: { 'type': 'array', 'itemType': 'string' },
+      ossDsId: 'string',
+      ossDsName: 'string',
+      odpsDsId: 'string',
+      odpsDsName: 'string',
+      odpsProjectName: 'string',
+      odpsTableName: 'string',
+      odpsGuidTableName: 'string',
+      partitionCondition: 'string',
+      where: 'string',
+      columnList: { 'type': 'array', 'itemType': 'string' },
+      name: 'string',
+      desc: 'string',
+      operator: 'string',
+      projectId: 'string',
+      projectTaskPath: 'string',
+      tenantId: 'string',
+      params: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SyncOssOdpsResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // requestId
+  requestId?: string;
+  // code
+  code?: string;
+  // message
+  message?: string;
+  // trace_id
+  traceId?: string;
+  // data
+  data?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      requestId: 'request_id',
+      code: 'code',
+      message: 'message',
+      traceId: 'trace_id',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      requestId: 'string',
+      code: 'string',
+      message: 'string',
+      traceId: 'string',
+      data: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SyncOpdsOssRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // ossPath
+  ossPath: string;
+  // ossFilename
+  ossFilename: string;
+  // ossDsId
+  ossDsId: string;
+  // ossDsName
+  ossDsName: string;
+  // odpsDsId
+  odpsDsId: string;
+  // odpsDsName
+  odpsDsName: string;
+  // odpsProjectName
+  odpsProjectName: string;
+  // odpsTableName
+  odpsTableName: string;
+  // odpsGuidTableName
+  odpsGuidTableName: string;
+  // 分区条件
+  partitionCondition: string;
+  // 过滤条件
+  where: string;
+  // 字段列表
+  columnList: string[];
+  // name
+  name: string;
+  // 任务描述
+  desc: string;
+  // 操作人
+  operator: string;
+  // 项目空间id
+  projectId: string;
+  // project_task_path
+  projectTaskPath: string;
+  // 租户id
+  tenantId: string;
+  // 参数
+  params: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      ossPath: 'oss_path',
+      ossFilename: 'oss_filename',
+      ossDsId: 'oss_ds_id',
+      ossDsName: 'oss_ds_name',
+      odpsDsId: 'odps_ds_id',
+      odpsDsName: 'odps_ds_name',
+      odpsProjectName: 'odps_project_name',
+      odpsTableName: 'odps_table_name',
+      odpsGuidTableName: 'odps_guid_table_name',
+      partitionCondition: 'partition_condition',
+      where: 'where',
+      columnList: 'column_list',
+      name: 'name',
+      desc: 'desc',
+      operator: 'operator',
+      projectId: 'project_id',
+      projectTaskPath: 'project_task_path',
+      tenantId: 'tenant_id',
+      params: 'params',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      ossPath: 'string',
+      ossFilename: 'string',
+      ossDsId: 'string',
+      ossDsName: 'string',
+      odpsDsId: 'string',
+      odpsDsName: 'string',
+      odpsProjectName: 'string',
+      odpsTableName: 'string',
+      odpsGuidTableName: 'string',
+      partitionCondition: 'string',
+      where: 'string',
+      columnList: { 'type': 'array', 'itemType': 'string' },
+      name: 'string',
+      desc: 'string',
+      operator: 'string',
+      projectId: 'string',
+      projectTaskPath: 'string',
+      tenantId: 'string',
+      params: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SyncOpdsOssResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // data
+  data?: string;
+  // requestId
+  requestId?: string;
+  // code
+  code?: string;
+  // message
+  message?: string;
+  // traceId
+  traceId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+      requestId: 'request_id',
+      code: 'code',
+      message: 'message',
+      traceId: 'trace_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: 'string',
+      requestId: 'string',
+      code: 'string',
+      message: 'string',
+      traceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExistDataphinTablepartitionRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // operator操作人
+  operator: string;
+  // project项目空间
+  project: string;
+  // tableName
+  tableName: string;
+  // 分区
+  partition: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      operator: 'operator',
+      project: 'project',
+      tableName: 'table_name',
+      partition: 'partition',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      operator: 'string',
+      project: 'string',
+      tableName: 'string',
+      partition: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExistDataphinTablepartitionResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 分区返回数据
+  data?: PartitionObject;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: PartitionObject,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PublishDataphinTaskRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // desc
+  desc: string;
+  // operator
+  operator: string;
+  // tenantId
+  tenantId: string;
+  // projectId
+  projectId: string;
+  // taskId
+  taskId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      desc: 'desc',
+      operator: 'operator',
+      tenantId: 'tenant_id',
+      projectId: 'project_id',
+      taskId: 'task_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      desc: 'string',
+      operator: 'string',
+      tenantId: 'string',
+      projectId: 'string',
+      taskId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PublishDataphinTaskResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // data
+  data?: number;
+  // requestId
+  requestId?: string;
+  // code
+  code?: string;
+  // message
+  message?: string;
+  // traceId
+  traceId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+      requestId: 'request_id',
+      code: 'code',
+      message: 'message',
+      traceId: 'trace_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: 'number',
+      requestId: 'string',
+      code: 'string',
+      message: 'string',
+      traceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CheckDataphinTaskRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // publishId
+  publishId: string;
+  // tenantId
+  tenantId: string;
+  // operator
+  operator: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      publishId: 'publish_id',
+      tenantId: 'tenant_id',
+      operator: 'operator',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      publishId: 'string',
+      tenantId: 'string',
+      operator: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CheckDataphinTaskResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // publicstatus
+  data?: PublishStatus;
+  // requestId
+  requestId?: string;
+  // code
+  code?: string;
+  // message
+  message?: string;
+  // traceId
+  traceId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+      requestId: 'request_id',
+      code: 'code',
+      message: 'message',
+      traceId: 'trace_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: PublishStatus,
+      requestId: 'string',
+      code: 'string',
+      message: 'string',
+      traceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RunDataphinTaskRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // name
+  name: string;
+  // tenantId
+  tenantId: string;
+  // operator
+  operator: string;
+  // projectId
+  projectId: string;
+  // params,json map
+  params: string;
+  // taskId
+  taskId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      name: 'name',
+      tenantId: 'tenant_id',
+      operator: 'operator',
+      projectId: 'project_id',
+      params: 'params',
+      taskId: 'task_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      name: 'string',
+      tenantId: 'string',
+      operator: 'string',
+      projectId: 'string',
+      params: 'string',
+      taskId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RunDataphinTaskResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // data
+  data?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDataphinTableinfoRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // projectSpaceName
+  projectSpaceName: string;
+  // tableName
+  tableName: string;
+  // operator
+  operator: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      projectSpaceName: 'project_space_name',
+      tableName: 'table_name',
+      operator: 'operator',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      projectSpaceName: 'string',
+      tableName: 'string',
+      operator: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDataphinTableinfoResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // requestId
+  requestId?: string;
+  // code
+  code?: string;
+  // message
+  message?: string;
+  // traceId
+  traceId?: string;
+  // data
+  data?: BaseResult;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      requestId: 'request_id',
+      code: 'code',
+      message: 'message',
+      traceId: 'trace_id',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      requestId: 'string',
+      code: 'string',
+      message: 'string',
+      traceId: 'string',
+      data: BaseResult,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ImportDataphinFileRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // orderId
+  orderId: string;
+  // operator
+  operator: string;
+  // userId
+  userId: string;
+  // fileKey
+  fileKey: string;
+  // headerList
+  headerList: string[];
+  // targetList
+  targetList: string[];
+  // tableProject
+  tableProject: string;
+  // tableName
+  tableName: string;
+  // partition
+  partition: string;
+  // OcDataphinProjectEnum枚举
+  project: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      orderId: 'order_id',
+      operator: 'operator',
+      userId: 'user_id',
+      fileKey: 'file_key',
+      headerList: 'header_list',
+      targetList: 'target_list',
+      tableProject: 'table_project',
+      tableName: 'table_name',
+      partition: 'partition',
+      project: 'project',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      orderId: 'string',
+      operator: 'string',
+      userId: 'string',
+      fileKey: 'string',
+      headerList: { 'type': 'array', 'itemType': 'string' },
+      targetList: { 'type': 'array', 'itemType': 'string' },
+      tableProject: 'string',
+      tableName: 'string',
+      partition: 'string',
+      project: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ImportDataphinFileResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // success
+  success?: boolean;
+  // errorCode
+  errorCode?: string;
+  // errorMsg
+  errorMsg?: string;
+  // resultObj
+  resultObj?: ProduceFeatureResultObj;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      errorCode: 'error_code',
+      errorMsg: 'error_msg',
+      resultObj: 'result_obj',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      errorCode: 'string',
+      errorMsg: 'string',
+      resultObj: ProduceFeatureResultObj,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SubmitDatapinTaskRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // name
+  name: string;
+  // 任务描述
+  desc: string;
+  // operator
+  operator: string;
+  // projectId
+  projectId: string;
+  // projectTaskPath
+  projectTaskPath: string;
+  // tenantId
+  tenantId: string;
+  // params
+  params: string;
+  // ossDsId
+  ossDsId?: string;
+  // ossDsName
+  ossDsName: string;
+  // odpsDsId
+  odpsDsId: string;
+  // odpsDsName
+  odpsDsName?: string;
+  // odpsProjectName
+  odpsProjectName: string;
+  // odpsTableName
+  odpsTableName?: string;
+  // odpsGuidTableName
+  odpsGuidTableName: string;
+  // partitionCondition
+  partitionCondition?: string;
+  // where
+  where?: string;
+  // columnList
+  columnList?: string[];
+  // ossPath
+  ossPath: string;
+  // ossFilename
+  ossFilename: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      name: 'name',
+      desc: 'desc',
+      operator: 'operator',
+      projectId: 'project_id',
+      projectTaskPath: 'project_task_path',
+      tenantId: 'tenant_id',
+      params: 'params',
+      ossDsId: 'oss_ds_id',
+      ossDsName: 'oss_ds_name',
+      odpsDsId: 'odps_ds_id',
+      odpsDsName: 'odps_ds_name',
+      odpsProjectName: 'odps_project_name',
+      odpsTableName: 'odps_table_name',
+      odpsGuidTableName: 'odps_guid_table_name',
+      partitionCondition: 'partition_condition',
+      where: 'where',
+      columnList: 'column_list',
+      ossPath: 'oss_path',
+      ossFilename: 'oss_filename',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      name: 'string',
+      desc: 'string',
+      operator: 'string',
+      projectId: 'string',
+      projectTaskPath: 'string',
+      tenantId: 'string',
+      params: 'string',
+      ossDsId: 'string',
+      ossDsName: 'string',
+      odpsDsId: 'string',
+      odpsDsName: 'string',
+      odpsProjectName: 'string',
+      odpsTableName: 'string',
+      odpsGuidTableName: 'string',
+      partitionCondition: 'string',
+      where: 'string',
+      columnList: { 'type': 'array', 'itemType': 'string' },
+      ossPath: 'string',
+      ossFilename: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SubmitDatapinTaskResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // requestId
+  requestId?: string;
+  // code
+  code?: string;
+  // message
+  message?: string;
+  // traceId
+  traceId?: string;
+  // data
+  data?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      requestId: 'request_id',
+      code: 'code',
+      message: 'message',
+      traceId: 'trace_id',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      requestId: 'string',
+      code: 'string',
+      message: 'string',
+      traceId: 'string',
+      data: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryIndustryScoreRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 模型id
+  modelId: string;
+  // 用户id（客户身份证号/手机号的md5/sha256散列值）
+  userId: string;
+  // 用户id类型（身份证号：ID_NO；手机号：MOBILE_NO）
+  userIdType: string;
+  // user_id 散列类型: "MD5"：MD5（小写）, "SHA256" ： SHA256（小写）， "SM3"： SM3（小写）
+  encryptType: string;
+  // 客户编码
+  customerCode: string;
+  // 流水号，串联链路用，非必填
+  transNo: string;
+  // encrypt_type类型的散列后的操作，默认为空不加密。 如启用，需要对散列后的user_id 加密，可选用如下算法，类型1、AES/ECB/PKCS5PADDING 在加密后的二进制需要以字符集UTF-8，编码base64 方式赋值给user_id传输。 示例：AES秘钥：base64_aes_key = "CZqWzQ5JL8s5Zx2XVpGZGw=="，报文：plaintext = "Hello, 蚂蚁。" ，使用算法： AES/ECB/PKCS5PADDING ；密文：SI1wU1ePSFoMy5YzuxclFkbZ/FIXUHPRDbKBW85WolY=，配置了此项user_id应该传输此密文。
+  userIdHashEncrypt: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      modelId: 'model_id',
+      userId: 'user_id',
+      userIdType: 'user_id_type',
+      encryptType: 'encrypt_type',
+      customerCode: 'customer_code',
+      transNo: 'trans_no',
+      userIdHashEncrypt: 'user_id_hash_encrypt',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      modelId: 'string',
+      userId: 'string',
+      userIdType: 'string',
+      encryptType: 'string',
+      customerCode: 'string',
+      transNo: 'string',
+      userIdHashEncrypt: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryIndustryScoreResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -1105,7 +2745,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.0",
+          sdk_version: "1.1.15",
           _prod_code: "DUANKA",
           _prod_channel: "undefined",
         };
@@ -1322,6 +2962,253 @@ export default class Client {
   async queryBacktrackScoreEx(request: QueryBacktrackScoreRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryBacktrackScoreResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryBacktrackScoreResponse>(await this.doRequest("1.0", "antcloud.duanka.backtrack.score.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryBacktrackScoreResponse({}));
+  }
+
+  /**
+   * Description: 大模型sql检验
+   * Summary: 大模型sql检验
+   */
+  async checkEasMdetection(request: CheckEasMdetectionRequest): Promise<CheckEasMdetectionResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.checkEasMdetectionEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 大模型sql检验
+   * Summary: 大模型sql检验
+   */
+  async checkEasMdetectionEx(request: CheckEasMdetectionRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CheckEasMdetectionResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CheckEasMdetectionResponse>(await this.doRequest("1.0", "antcloud.duanka.eas.mdetection.check", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CheckEasMdetectionResponse({}));
+  }
+
+  /**
+   * Description: 主站bpservice通用http接口，支持GET、PUT、DELETE、POST类型请求
+   * Summary: 主站bpservice通用http接口
+   */
+  async queryBpserviceHttp(request: QueryBpserviceHttpRequest): Promise<QueryBpserviceHttpResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryBpserviceHttpEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 主站bpservice通用http接口，支持GET、PUT、DELETE、POST类型请求
+   * Summary: 主站bpservice通用http接口
+   */
+  async queryBpserviceHttpEx(request: QueryBpserviceHttpRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryBpserviceHttpResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryBpserviceHttpResponse>(await this.doRequest("1.0", "antcloud.duanka.bpservice.http.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryBpserviceHttpResponse({}));
+  }
+
+  /**
+   * Description: 导入dataphin的同步任务
+   * Summary: 导入dataphin的同步任务
+   */
+  async importDataphinTask(request: ImportDataphinTaskRequest): Promise<ImportDataphinTaskResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.importDataphinTaskEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 导入dataphin的同步任务
+   * Summary: 导入dataphin的同步任务
+   */
+  async importDataphinTaskEx(request: ImportDataphinTaskRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ImportDataphinTaskResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ImportDataphinTaskResponse>(await this.doRequest("1.0", "antcloud.duanka.dataphin.task.import", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ImportDataphinTaskResponse({}));
+  }
+
+  /**
+   * Description: 同步oss文件到odps里面
+   * Summary: 同步oss文件到odps里面
+   */
+  async syncOssOdps(request: SyncOssOdpsRequest): Promise<SyncOssOdpsResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.syncOssOdpsEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 同步oss文件到odps里面
+   * Summary: 同步oss文件到odps里面
+   */
+  async syncOssOdpsEx(request: SyncOssOdpsRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SyncOssOdpsResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SyncOssOdpsResponse>(await this.doRequest("1.0", "antcloud.duanka.oss.odps.sync", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SyncOssOdpsResponse({}));
+  }
+
+  /**
+   * Description: odps表数据导出到oss中
+   * Summary: odps表数据导出到oss中
+   */
+  async syncOpdsOss(request: SyncOpdsOssRequest): Promise<SyncOpdsOssResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.syncOpdsOssEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: odps表数据导出到oss中
+   * Summary: odps表数据导出到oss中
+   */
+  async syncOpdsOssEx(request: SyncOpdsOssRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SyncOpdsOssResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SyncOpdsOssResponse>(await this.doRequest("1.0", "antcloud.duanka.opds.oss.sync", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SyncOpdsOssResponse({}));
+  }
+
+  /**
+   * Description: 判断dataphin表分区是否存在
+   * Summary: 判断dataphin表分区是否存在
+   */
+  async existDataphinTablepartition(request: ExistDataphinTablepartitionRequest): Promise<ExistDataphinTablepartitionResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.existDataphinTablepartitionEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 判断dataphin表分区是否存在
+   * Summary: 判断dataphin表分区是否存在
+   */
+  async existDataphinTablepartitionEx(request: ExistDataphinTablepartitionRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ExistDataphinTablepartitionResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ExistDataphinTablepartitionResponse>(await this.doRequest("1.0", "antcloud.duanka.dataphin.tablepartition.exist", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ExistDataphinTablepartitionResponse({}));
+  }
+
+  /**
+   * Description: 发布dataphin任务
+   * Summary: 发布dataphin任务
+   */
+  async publishDataphinTask(request: PublishDataphinTaskRequest): Promise<PublishDataphinTaskResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.publishDataphinTaskEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 发布dataphin任务
+   * Summary: 发布dataphin任务
+   */
+  async publishDataphinTaskEx(request: PublishDataphinTaskRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PublishDataphinTaskResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PublishDataphinTaskResponse>(await this.doRequest("1.0", "antcloud.duanka.dataphin.task.publish", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PublishDataphinTaskResponse({}));
+  }
+
+  /**
+   * Description: 校验任务发布
+   * Summary: 校验任务发布
+   */
+  async checkDataphinTask(request: CheckDataphinTaskRequest): Promise<CheckDataphinTaskResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.checkDataphinTaskEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 校验任务发布
+   * Summary: 校验任务发布
+   */
+  async checkDataphinTaskEx(request: CheckDataphinTaskRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CheckDataphinTaskResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CheckDataphinTaskResponse>(await this.doRequest("1.0", "antcloud.duanka.dataphin.task.check", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CheckDataphinTaskResponse({}));
+  }
+
+  /**
+   * Description: 运行任务
+   * Summary: 运行任务
+   */
+  async runDataphinTask(request: RunDataphinTaskRequest): Promise<RunDataphinTaskResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.runDataphinTaskEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 运行任务
+   * Summary: 运行任务
+   */
+  async runDataphinTaskEx(request: RunDataphinTaskRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RunDataphinTaskResponse> {
+    Util.validateModel(request);
+    return $tea.cast<RunDataphinTaskResponse>(await this.doRequest("1.0", "antcloud.duanka.dataphin.task.run", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RunDataphinTaskResponse({}));
+  }
+
+  /**
+   * Description: 表信息查询
+   * Summary: 表信息查询
+   */
+  async queryDataphinTableinfo(request: QueryDataphinTableinfoRequest): Promise<QueryDataphinTableinfoResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDataphinTableinfoEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 表信息查询
+   * Summary: 表信息查询
+   */
+  async queryDataphinTableinfoEx(request: QueryDataphinTableinfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDataphinTableinfoResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDataphinTableinfoResponse>(await this.doRequest("1.0", "antcloud.duanka.dataphin.tableinfo.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDataphinTableinfoResponse({}));
+  }
+
+  /**
+   * Description: 文件ossToOdps
+   * Summary: 文件ossToOdps
+   */
+  async importDataphinFile(request: ImportDataphinFileRequest): Promise<ImportDataphinFileResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.importDataphinFileEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 文件ossToOdps
+   * Summary: 文件ossToOdps
+   */
+  async importDataphinFileEx(request: ImportDataphinFileRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ImportDataphinFileResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ImportDataphinFileResponse>(await this.doRequest("1.0", "antcloud.duanka.dataphin.file.import", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ImportDataphinFileResponse({}));
+  }
+
+  /**
+   * Description: 提交dataphin任务
+   * Summary: 提交dataphin任务
+   */
+  async submitDatapinTask(request: SubmitDatapinTaskRequest): Promise<SubmitDatapinTaskResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.submitDatapinTaskEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 提交dataphin任务
+   * Summary: 提交dataphin任务
+   */
+  async submitDatapinTaskEx(request: SubmitDatapinTaskRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SubmitDatapinTaskResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SubmitDatapinTaskResponse>(await this.doRequest("1.0", "antcloud.duanka.datapin.task.submit", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SubmitDatapinTaskResponse({}));
+  }
+
+  /**
+   * Description: 行业分查询
+   * Summary: 行业分查询
+   */
+  async queryIndustryScore(request: QueryIndustryScoreRequest): Promise<QueryIndustryScoreResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryIndustryScoreEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 行业分查询
+   * Summary: 行业分查询
+   */
+  async queryIndustryScoreEx(request: QueryIndustryScoreRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryIndustryScoreResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryIndustryScoreResponse>(await this.doRequest("1.0", "antcloud.duanka.industry.score.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryIndustryScoreResponse({}));
   }
 
   /**
