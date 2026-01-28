@@ -10,7 +10,7 @@ class Message extends Model
 {
     // Parts is the container of the message content.
     /**
-     * @example undefined
+     * @example
      *
      * @var Part[]
      */
@@ -25,9 +25,18 @@ class Message extends Model
      * @var string
      */
     public $role;
+
+    // The context id of the message. This is optional and if set, the message will be associated with the given context(a specific conversation or session).
+    /**
+     * @example contextid
+     *
+     * @var string
+     */
+    public $contextId;
     protected $_name = [
-        'parts' => 'parts',
-        'role'  => 'role',
+        'parts'     => 'parts',
+        'role'      => 'role',
+        'contextId' => 'context_id',
     ];
 
     public function validate()
@@ -48,6 +57,9 @@ class Message extends Model
         }
         if (null !== $this->role) {
             $res['role'] = $this->role;
+        }
+        if (null !== $this->contextId) {
+            $res['context_id'] = $this->contextId;
         }
 
         return $res;
@@ -72,6 +84,9 @@ class Message extends Model
         }
         if (isset($map['role'])) {
             $model->role = $map['role'];
+        }
+        if (isset($map['context_id'])) {
+            $model->contextId = $map['context_id'];
         }
 
         return $model;

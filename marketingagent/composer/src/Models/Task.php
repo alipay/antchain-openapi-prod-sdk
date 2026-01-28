@@ -16,6 +16,14 @@ class Task extends Model
      */
     public $id;
 
+    // Unique identifier (e.g. UUID) for the contextual collection of interactions (tasks and messages). Created by the A2A server.
+    /**
+     * @example contextid
+     *
+     * @var string
+     */
+    public $contextId;
+
     // The current status of a Task, including state and a message.
     /**
      * @example
@@ -33,6 +41,7 @@ class Task extends Model
     public $artifacts;
     protected $_name = [
         'id'        => 'id',
+        'contextId' => 'context_id',
         'status'    => 'status',
         'artifacts' => 'artifacts',
     ];
@@ -49,6 +58,9 @@ class Task extends Model
         $res = [];
         if (null !== $this->id) {
             $res['id'] = $this->id;
+        }
+        if (null !== $this->contextId) {
+            $res['context_id'] = $this->contextId;
         }
         if (null !== $this->status) {
             $res['status'] = null !== $this->status ? $this->status->toMap() : null;
@@ -76,6 +88,9 @@ class Task extends Model
         $model = new self();
         if (isset($map['id'])) {
             $model->id = $map['id'];
+        }
+        if (isset($map['context_id'])) {
+            $model->contextId = $map['context_id'];
         }
         if (isset($map['status'])) {
             $model->status = TaskStatus::fromMap($map['status']);

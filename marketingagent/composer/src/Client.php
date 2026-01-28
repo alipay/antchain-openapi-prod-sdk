@@ -11,6 +11,8 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\MARKETINGAGENT\Models\GetComsumeJdRequest;
+use AntChain\MARKETINGAGENT\Models\GetComsumeJdResponse;
 use AntChain\MARKETINGAGENT\Models\GetTaskRequest;
 use AntChain\MARKETINGAGENT\Models\GetTaskResponse;
 use AntChain\MARKETINGAGENT\Models\SendMessageRequest;
@@ -162,7 +164,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.4',
+                    'sdk_version'      => '1.0.6',
                     '_prod_code'       => 'MARKETINGAGENT',
                     '_prod_channel'    => 'default',
                 ];
@@ -274,5 +276,38 @@ class Client
         Utils::validateModel($request);
 
         return GetTaskResponse::fromMap($this->doRequest('1.0', 'antcloud.marketingagent.task.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 京东微信核销数据回调
+     * Summary: 京东微信核销数据回调.
+     *
+     * @param GetComsumeJdRequest $request
+     *
+     * @return GetComsumeJdResponse
+     */
+    public function getComsumeJd($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getComsumeJdEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 京东微信核销数据回调
+     * Summary: 京东微信核销数据回调.
+     *
+     * @param GetComsumeJdRequest $request
+     * @param string[]            $headers
+     * @param RuntimeOptions      $runtime
+     *
+     * @return GetComsumeJdResponse
+     */
+    public function getComsumeJdEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetComsumeJdResponse::fromMap($this->doRequest('1.0', 'antcloud.marketingagent.comsume.jd.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
