@@ -34,10 +34,28 @@ class MerchantSettleInfo extends Model
      * @var string
      */
     public $bankAccountType;
+
+    // 支行名称
+    /**
+     * @example 招商银行上海支行
+     *
+     * @var string
+     */
+    public $bankBranchName;
+
+    // 银行名称
+    /**
+     * @example 招商银行
+     *
+     * @var string
+     */
+    public $bankName;
     protected $_name = [
         'bankNum'         => 'bank_num',
         'bankCnap'        => 'bank_cnap',
         'bankAccountType' => 'bank_account_type',
+        'bankBranchName'  => 'bank_branch_name',
+        'bankName'        => 'bank_name',
     ];
 
     public function validate()
@@ -59,6 +77,12 @@ class MerchantSettleInfo extends Model
         if (null !== $this->bankAccountType) {
             $res['bank_account_type'] = $this->bankAccountType;
         }
+        if (null !== $this->bankBranchName) {
+            $res['bank_branch_name'] = $this->bankBranchName;
+        }
+        if (null !== $this->bankName) {
+            $res['bank_name'] = $this->bankName;
+        }
 
         return $res;
     }
@@ -79,6 +103,12 @@ class MerchantSettleInfo extends Model
         }
         if (isset($map['bank_account_type'])) {
             $model->bankAccountType = $map['bank_account_type'];
+        }
+        if (isset($map['bank_branch_name'])) {
+            $model->bankBranchName = $map['bank_branch_name'];
+        }
+        if (isset($map['bank_name'])) {
+            $model->bankName = $map['bank_name'];
         }
 
         return $model;

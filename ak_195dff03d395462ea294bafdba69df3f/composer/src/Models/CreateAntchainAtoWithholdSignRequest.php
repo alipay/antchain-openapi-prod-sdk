@@ -72,6 +72,15 @@ class CreateAntchainAtoWithholdSignRequest extends Model
      * @var string
      */
     public $merchantAppId;
+
+    // 代扣签约场景, 当payChannel=JDPAY时，该字段必填
+    // JDbindCardH5：京东一键绑卡_H5
+    // JDAPPSignH5：京东APP签约_H5
+    //
+    /**
+     * @var string
+     */
+    public $withholdSignScene;
     protected $_name = [
         'authToken'                        => 'auth_token',
         'productInstanceId'                => 'product_instance_id',
@@ -84,6 +93,7 @@ class CreateAntchainAtoWithholdSignRequest extends Model
         'returnUrl'                        => 'return_url',
         'userOpenId'                       => 'user_open_id',
         'merchantAppId'                    => 'merchant_app_id',
+        'withholdSignScene'                => 'withhold_sign_scene',
     ];
 
     public function validate()
@@ -137,6 +147,9 @@ class CreateAntchainAtoWithholdSignRequest extends Model
         if (null !== $this->merchantAppId) {
             $res['merchant_app_id'] = $this->merchantAppId;
         }
+        if (null !== $this->withholdSignScene) {
+            $res['withhold_sign_scene'] = $this->withholdSignScene;
+        }
 
         return $res;
     }
@@ -181,6 +194,9 @@ class CreateAntchainAtoWithholdSignRequest extends Model
         }
         if (isset($map['merchant_app_id'])) {
             $model->merchantAppId = $map['merchant_app_id'];
+        }
+        if (isset($map['withhold_sign_scene'])) {
+            $model->withholdSignScene = $map['withhold_sign_scene'];
         }
 
         return $model;

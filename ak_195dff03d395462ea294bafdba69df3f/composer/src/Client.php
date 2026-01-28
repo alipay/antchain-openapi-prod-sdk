@@ -23,8 +23,12 @@ use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\AllAntchainAtoSignTempla
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\AllAntchainAtoSignTemplateResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\ApplyAntchainAtoFundCreditutilizationRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\ApplyAntchainAtoFundCreditutilizationResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\ApplyAntchainAtoTradeCreditgrantingRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\ApplyAntchainAtoTradeCreditgrantingResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\ApplyAntchainAtoTradeFinanceprecheckRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\ApplyAntchainAtoTradeFinanceprecheckResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\AuthAntchainAtoFundCreditgrantingRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\AuthAntchainAtoFundCreditgrantingResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\AuthAntchainAtoFundFlowRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\AuthAntchainAtoFundFlowResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\AuthAntchainAtoSignFlowRequest;
@@ -109,6 +113,8 @@ use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoFundAsse
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoFundAssetpackageResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoFundCompensateaccountRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoFundCompensateaccountResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoFundCreditgrantingRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoFundCreditgrantingResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoFundCreditRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoFundCreditResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoInnerTemplateelementlinkRequest;
@@ -125,6 +131,8 @@ use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoRealpers
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoRealpersonFacevrfResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoSignCreditRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoSignCreditResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoTradeCreditgrantingRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoTradeCreditgrantingResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoWithholdActivepayRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoWithholdActivepayResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoWithholdCompensateaccountRequest;
@@ -163,6 +171,8 @@ use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoFrontIndi
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoFrontIndirectorderResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoFrontTradeRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoFrontTradeResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoFundCreditgrantingRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoFundCreditgrantingResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoFundFinanceloanresultsRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoFundFinanceloanresultsResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoFundFinanceprecheckresultRequest;
@@ -354,7 +364,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.7.0',
+                    'sdk_version'      => '1.7.1',
                     '_prod_code'       => 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel'    => 'saas',
                 ];
@@ -3271,6 +3281,107 @@ class Client
     }
 
     /**
+     * Description: 调用说明：
+     * ● 本接口用于授信额度试算完成后同步授信结果。
+     * Summary: 授信结果同步接口.
+     *
+     * @param SyncAntchainAtoFundCreditgrantingRequest $request
+     *
+     * @return SyncAntchainAtoFundCreditgrantingResponse
+     */
+    public function syncAntchainAtoFundCreditgranting($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->syncAntchainAtoFundCreditgrantingEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 调用说明：
+     * ● 本接口用于授信额度试算完成后同步授信结果。
+     * Summary: 授信结果同步接口.
+     *
+     * @param SyncAntchainAtoFundCreditgrantingRequest $request
+     * @param string[]                                 $headers
+     * @param RuntimeOptions                           $runtime
+     *
+     * @return SyncAntchainAtoFundCreditgrantingResponse
+     */
+    public function syncAntchainAtoFundCreditgrantingEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SyncAntchainAtoFundCreditgrantingResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.creditgranting.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 本接口用于授信授权。本接口返回成功后，代表授权申请已发起。如果授权通过，会发送异步通知。
+     * Summary: 授信授权申请接口.
+     *
+     * @param AuthAntchainAtoFundCreditgrantingRequest $request
+     *
+     * @return AuthAntchainAtoFundCreditgrantingResponse
+     */
+    public function authAntchainAtoFundCreditgranting($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->authAntchainAtoFundCreditgrantingEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 本接口用于授信授权。本接口返回成功后，代表授权申请已发起。如果授权通过，会发送异步通知。
+     * Summary: 授信授权申请接口.
+     *
+     * @param AuthAntchainAtoFundCreditgrantingRequest $request
+     * @param string[]                                 $headers
+     * @param RuntimeOptions                           $runtime
+     *
+     * @return AuthAntchainAtoFundCreditgrantingResponse
+     */
+    public function authAntchainAtoFundCreditgrantingEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AuthAntchainAtoFundCreditgrantingResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.creditgranting.auth', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 本接口用于查询授信结果
+     * Summary: 授信结果查询.
+     *
+     * @param QueryAntchainAtoFundCreditgrantingRequest $request
+     *
+     * @return QueryAntchainAtoFundCreditgrantingResponse
+     */
+    public function queryAntchainAtoFundCreditgranting($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAntchainAtoFundCreditgrantingEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 本接口用于查询授信结果
+     * Summary: 授信结果查询.
+     *
+     * @param QueryAntchainAtoFundCreditgrantingRequest $request
+     * @param string[]                                  $headers
+     * @param RuntimeOptions                            $runtime
+     *
+     * @return QueryAntchainAtoFundCreditgrantingResponse
+     */
+    public function queryAntchainAtoFundCreditgrantingEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAntchainAtoFundCreditgrantingResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.creditgranting.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 资产包详情查询
      * Summary: 资产包详情查询.
      *
@@ -3666,6 +3777,72 @@ class Client
         Utils::validateModel($request);
 
         return CancelAntchainAtoFundFlowResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.flow.cancel', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 提交授信申请
+     * Summary: 提交授信申请.
+     *
+     * @param ApplyAntchainAtoTradeCreditgrantingRequest $request
+     *
+     * @return ApplyAntchainAtoTradeCreditgrantingResponse
+     */
+    public function applyAntchainAtoTradeCreditgranting($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyAntchainAtoTradeCreditgrantingEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 提交授信申请
+     * Summary: 提交授信申请.
+     *
+     * @param ApplyAntchainAtoTradeCreditgrantingRequest $request
+     * @param string[]                                   $headers
+     * @param RuntimeOptions                             $runtime
+     *
+     * @return ApplyAntchainAtoTradeCreditgrantingResponse
+     */
+    public function applyAntchainAtoTradeCreditgrantingEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyAntchainAtoTradeCreditgrantingResponse::fromMap($this->doRequest('1.0', 'antchain.ato.trade.creditgranting.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 授信信息查询
+     * Summary: 授信信息查询.
+     *
+     * @param QueryAntchainAtoTradeCreditgrantingRequest $request
+     *
+     * @return QueryAntchainAtoTradeCreditgrantingResponse
+     */
+    public function queryAntchainAtoTradeCreditgranting($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAntchainAtoTradeCreditgrantingEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 授信信息查询
+     * Summary: 授信信息查询.
+     *
+     * @param QueryAntchainAtoTradeCreditgrantingRequest $request
+     * @param string[]                                   $headers
+     * @param RuntimeOptions                             $runtime
+     *
+     * @return QueryAntchainAtoTradeCreditgrantingResponse
+     */
+    public function queryAntchainAtoTradeCreditgrantingEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAntchainAtoTradeCreditgrantingResponse::fromMap($this->doRequest('1.0', 'antchain.ato.trade.creditgranting.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

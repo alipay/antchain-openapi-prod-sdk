@@ -198,6 +198,12 @@ class SubmitAntchainAtoSignFlowRequest extends Model
      * @var string
      */
     public $sealType;
+
+    // 代扣签约场景，JDbindCardH5：京东一键绑卡_H5；JDAPPSignH5：京东APP签约_H5
+    /**
+     * @var string
+     */
+    public $withholdSignScene;
     protected $_name = [
         'authToken'             => 'auth_token',
         'productInstanceId'     => 'product_instance_id',
@@ -230,6 +236,7 @@ class SubmitAntchainAtoSignFlowRequest extends Model
         'userOrgIdNumber'       => 'user_org_id_number',
         'needFace'              => 'need_face',
         'sealType'              => 'seal_type',
+        'withholdSignScene'     => 'withhold_sign_scene',
     ];
 
     public function validate()
@@ -357,6 +364,9 @@ class SubmitAntchainAtoSignFlowRequest extends Model
         if (null !== $this->sealType) {
             $res['seal_type'] = $this->sealType;
         }
+        if (null !== $this->withholdSignScene) {
+            $res['withhold_sign_scene'] = $this->withholdSignScene;
+        }
 
         return $res;
     }
@@ -461,6 +471,9 @@ class SubmitAntchainAtoSignFlowRequest extends Model
         }
         if (isset($map['seal_type'])) {
             $model->sealType = $map['seal_type'];
+        }
+        if (isset($map['withhold_sign_scene'])) {
+            $model->withholdSignScene = $map['withhold_sign_scene'];
         }
 
         return $model;
