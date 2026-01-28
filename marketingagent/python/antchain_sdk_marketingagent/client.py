@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.4',
+                    'sdk_version': '1.0.6',
                     '_prod_code': 'MARKETINGAGENT',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.4',
+                    'sdk_version': '1.0.6',
                     '_prod_code': 'MARKETINGAGENT',
                     '_prod_channel': 'default'
                 }
@@ -385,4 +385,60 @@ class Client:
         return TeaCore.from_map(
             marketingagent_models.GetTaskResponse(),
             await self.do_request_async('1.0', 'antcloud.marketingagent.task.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_comsume_jd(
+        self,
+        request: marketingagent_models.GetComsumeJdRequest,
+    ) -> marketingagent_models.GetComsumeJdResponse:
+        """
+        Description: 京东微信核销数据回调
+        Summary: 京东微信核销数据回调
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_comsume_jd_ex(request, headers, runtime)
+
+    async def get_comsume_jd_async(
+        self,
+        request: marketingagent_models.GetComsumeJdRequest,
+    ) -> marketingagent_models.GetComsumeJdResponse:
+        """
+        Description: 京东微信核销数据回调
+        Summary: 京东微信核销数据回调
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_comsume_jd_ex_async(request, headers, runtime)
+
+    def get_comsume_jd_ex(
+        self,
+        request: marketingagent_models.GetComsumeJdRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> marketingagent_models.GetComsumeJdResponse:
+        """
+        Description: 京东微信核销数据回调
+        Summary: 京东微信核销数据回调
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            marketingagent_models.GetComsumeJdResponse(),
+            self.do_request('1.0', 'antcloud.marketingagent.comsume.jd.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_comsume_jd_ex_async(
+        self,
+        request: marketingagent_models.GetComsumeJdRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> marketingagent_models.GetComsumeJdResponse:
+        """
+        Description: 京东微信核销数据回调
+        Summary: 京东微信核销数据回调
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            marketingagent_models.GetComsumeJdResponse(),
+            await self.do_request_async('1.0', 'antcloud.marketingagent.comsume.jd.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
