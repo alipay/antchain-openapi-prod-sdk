@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.0',
+                    'sdk_version': '1.7.1',
                     '_prod_code': 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel': 'saas'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.0',
+                    'sdk_version': '1.7.1',
                     '_prod_code': 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel': 'saas'
                 }
@@ -5155,6 +5155,178 @@ class Client:
             await self.do_request_async('1.0', 'antchain.ato.fund.creditutilization.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def sync_antchain_ato_fund_creditgranting(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoFundCreditgrantingRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoFundCreditgrantingResponse:
+        """
+        Description: 调用说明：
+        ● 本接口用于授信额度试算完成后同步授信结果。
+        Summary: 授信结果同步接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.sync_antchain_ato_fund_creditgranting_ex(request, headers, runtime)
+
+    async def sync_antchain_ato_fund_creditgranting_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoFundCreditgrantingRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoFundCreditgrantingResponse:
+        """
+        Description: 调用说明：
+        ● 本接口用于授信额度试算完成后同步授信结果。
+        Summary: 授信结果同步接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.sync_antchain_ato_fund_creditgranting_ex_async(request, headers, runtime)
+
+    def sync_antchain_ato_fund_creditgranting_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoFundCreditgrantingRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoFundCreditgrantingResponse:
+        """
+        Description: 调用说明：
+        ● 本接口用于授信额度试算完成后同步授信结果。
+        Summary: 授信结果同步接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoFundCreditgrantingResponse(),
+            self.do_request('1.0', 'antchain.ato.fund.creditgranting.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def sync_antchain_ato_fund_creditgranting_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoFundCreditgrantingRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoFundCreditgrantingResponse:
+        """
+        Description: 调用说明：
+        ● 本接口用于授信额度试算完成后同步授信结果。
+        Summary: 授信结果同步接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoFundCreditgrantingResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.fund.creditgranting.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def auth_antchain_ato_fund_creditgranting(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.AuthAntchainAtoFundCreditgrantingRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.AuthAntchainAtoFundCreditgrantingResponse:
+        """
+        Description: 本接口用于授信授权。本接口返回成功后，代表授权申请已发起。如果授权通过，会发送异步通知。
+        Summary: 授信授权申请接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.auth_antchain_ato_fund_creditgranting_ex(request, headers, runtime)
+
+    async def auth_antchain_ato_fund_creditgranting_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.AuthAntchainAtoFundCreditgrantingRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.AuthAntchainAtoFundCreditgrantingResponse:
+        """
+        Description: 本接口用于授信授权。本接口返回成功后，代表授权申请已发起。如果授权通过，会发送异步通知。
+        Summary: 授信授权申请接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.auth_antchain_ato_fund_creditgranting_ex_async(request, headers, runtime)
+
+    def auth_antchain_ato_fund_creditgranting_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.AuthAntchainAtoFundCreditgrantingRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.AuthAntchainAtoFundCreditgrantingResponse:
+        """
+        Description: 本接口用于授信授权。本接口返回成功后，代表授权申请已发起。如果授权通过，会发送异步通知。
+        Summary: 授信授权申请接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.AuthAntchainAtoFundCreditgrantingResponse(),
+            self.do_request('1.0', 'antchain.ato.fund.creditgranting.auth', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def auth_antchain_ato_fund_creditgranting_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.AuthAntchainAtoFundCreditgrantingRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.AuthAntchainAtoFundCreditgrantingResponse:
+        """
+        Description: 本接口用于授信授权。本接口返回成功后，代表授权申请已发起。如果授权通过，会发送异步通知。
+        Summary: 授信授权申请接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.AuthAntchainAtoFundCreditgrantingResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.fund.creditgranting.auth', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_antchain_ato_fund_creditgranting(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoFundCreditgrantingRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoFundCreditgrantingResponse:
+        """
+        Description: 本接口用于查询授信结果
+        Summary: 授信结果查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_antchain_ato_fund_creditgranting_ex(request, headers, runtime)
+
+    async def query_antchain_ato_fund_creditgranting_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoFundCreditgrantingRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoFundCreditgrantingResponse:
+        """
+        Description: 本接口用于查询授信结果
+        Summary: 授信结果查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_antchain_ato_fund_creditgranting_ex_async(request, headers, runtime)
+
+    def query_antchain_ato_fund_creditgranting_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoFundCreditgrantingRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoFundCreditgrantingResponse:
+        """
+        Description: 本接口用于查询授信结果
+        Summary: 授信结果查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoFundCreditgrantingResponse(),
+            self.do_request('1.0', 'antchain.ato.fund.creditgranting.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_antchain_ato_fund_creditgranting_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoFundCreditgrantingRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoFundCreditgrantingResponse:
+        """
+        Description: 本接口用于查询授信结果
+        Summary: 授信结果查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoFundCreditgrantingResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.fund.creditgranting.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def query_antchain_ato_fund_assetpackage(
         self,
         request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoFundAssetpackageRequest,
@@ -5829,6 +6001,118 @@ class Client:
         return TeaCore.from_map(
             ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CancelAntchainAtoFundFlowResponse(),
             await self.do_request_async('1.0', 'antchain.ato.fund.flow.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_antchain_ato_trade_creditgranting(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ApplyAntchainAtoTradeCreditgrantingRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ApplyAntchainAtoTradeCreditgrantingResponse:
+        """
+        Description: 提交授信申请
+        Summary: 提交授信申请
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_antchain_ato_trade_creditgranting_ex(request, headers, runtime)
+
+    async def apply_antchain_ato_trade_creditgranting_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ApplyAntchainAtoTradeCreditgrantingRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ApplyAntchainAtoTradeCreditgrantingResponse:
+        """
+        Description: 提交授信申请
+        Summary: 提交授信申请
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_antchain_ato_trade_creditgranting_ex_async(request, headers, runtime)
+
+    def apply_antchain_ato_trade_creditgranting_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ApplyAntchainAtoTradeCreditgrantingRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ApplyAntchainAtoTradeCreditgrantingResponse:
+        """
+        Description: 提交授信申请
+        Summary: 提交授信申请
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ApplyAntchainAtoTradeCreditgrantingResponse(),
+            self.do_request('1.0', 'antchain.ato.trade.creditgranting.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_antchain_ato_trade_creditgranting_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ApplyAntchainAtoTradeCreditgrantingRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ApplyAntchainAtoTradeCreditgrantingResponse:
+        """
+        Description: 提交授信申请
+        Summary: 提交授信申请
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ApplyAntchainAtoTradeCreditgrantingResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.trade.creditgranting.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_antchain_ato_trade_creditgranting(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoTradeCreditgrantingRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoTradeCreditgrantingResponse:
+        """
+        Description: 授信信息查询
+        Summary: 授信信息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_antchain_ato_trade_creditgranting_ex(request, headers, runtime)
+
+    async def query_antchain_ato_trade_creditgranting_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoTradeCreditgrantingRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoTradeCreditgrantingResponse:
+        """
+        Description: 授信信息查询
+        Summary: 授信信息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_antchain_ato_trade_creditgranting_ex_async(request, headers, runtime)
+
+    def query_antchain_ato_trade_creditgranting_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoTradeCreditgrantingRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoTradeCreditgrantingResponse:
+        """
+        Description: 授信信息查询
+        Summary: 授信信息查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoTradeCreditgrantingResponse(),
+            self.do_request('1.0', 'antchain.ato.trade.creditgranting.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_antchain_ato_trade_creditgranting_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoTradeCreditgrantingRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoTradeCreditgrantingResponse:
+        """
+        Description: 授信信息查询
+        Summary: 授信信息查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoTradeCreditgrantingResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.trade.creditgranting.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(

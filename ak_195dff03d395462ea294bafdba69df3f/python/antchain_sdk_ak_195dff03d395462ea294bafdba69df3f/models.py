@@ -397,8 +397,6 @@ class CompanyInfo(TeaModel):
         self.validate_required(self.company_name, 'company_name')
         self.validate_required(self.company_alias_name, 'company_alias_name')
         self.validate_required(self.merchant_id, 'merchant_id')
-        self.validate_required(self.company_mobile, 'company_mobile')
-        self.validate_required(self.company_address, 'company_address')
         self.validate_required(self.contact_name, 'contact_name')
         self.validate_required(self.contact_mobile, 'contact_mobile')
         if self.bank_opening_license_file:
@@ -674,6 +672,8 @@ class MerchantSettleInfo(TeaModel):
         bank_num: str = None,
         bank_cnap: str = None,
         bank_account_type: str = None,
+        bank_branch_name: str = None,
+        bank_name: str = None,
     ):
         # 结算银行卡账号
         self.bank_num = bank_num
@@ -684,6 +684,10 @@ class MerchantSettleInfo(TeaModel):
         # 03:民办非企业：ENTERPRISE
         # 07个体工商户时：PERSON或 ENTERPRISE
         self.bank_account_type = bank_account_type
+        # 支行名称
+        self.bank_branch_name = bank_branch_name
+        # 银行名称
+        self.bank_name = bank_name
 
     def validate(self):
         self.validate_required(self.bank_num, 'bank_num')
@@ -702,6 +706,10 @@ class MerchantSettleInfo(TeaModel):
             result['bank_cnap'] = self.bank_cnap
         if self.bank_account_type is not None:
             result['bank_account_type'] = self.bank_account_type
+        if self.bank_branch_name is not None:
+            result['bank_branch_name'] = self.bank_branch_name
+        if self.bank_name is not None:
+            result['bank_name'] = self.bank_name
         return result
 
     def from_map(self, m: dict = None):
@@ -712,6 +720,10 @@ class MerchantSettleInfo(TeaModel):
             self.bank_cnap = m.get('bank_cnap')
         if m.get('bank_account_type') is not None:
             self.bank_account_type = m.get('bank_account_type')
+        if m.get('bank_branch_name') is not None:
+            self.bank_branch_name = m.get('bank_branch_name')
+        if m.get('bank_name') is not None:
+            self.bank_name = m.get('bank_name')
         return self
 
 
@@ -2176,6 +2188,7 @@ class SubmitAntchainAtoSignFlowRequest(TeaModel):
         user_org_id_number: str = None,
         need_face: bool = None,
         seal_type: str = None,
+        withhold_sign_scene: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -2244,6 +2257,8 @@ class SubmitAntchainAtoSignFlowRequest(TeaModel):
         # 1-模板印章签名
         # 多种类型时逗号分割，为空不限制
         self.seal_type = seal_type
+        # 代扣签约场景，JDbindCardH5：京东一键绑卡_H5；JDAPPSignH5：京东APP签约_H5
+        self.withhold_sign_scene = withhold_sign_scene
 
     def validate(self):
         self.validate_required(self.order_id, 'order_id')
@@ -2341,6 +2356,8 @@ class SubmitAntchainAtoSignFlowRequest(TeaModel):
             result['need_face'] = self.need_face
         if self.seal_type is not None:
             result['seal_type'] = self.seal_type
+        if self.withhold_sign_scene is not None:
+            result['withhold_sign_scene'] = self.withhold_sign_scene
         return result
 
     def from_map(self, m: dict = None):
@@ -2407,6 +2424,8 @@ class SubmitAntchainAtoSignFlowRequest(TeaModel):
             self.need_face = m.get('need_face')
         if m.get('seal_type') is not None:
             self.seal_type = m.get('seal_type')
+        if m.get('withhold_sign_scene') is not None:
+            self.withhold_sign_scene = m.get('withhold_sign_scene')
         return self
 
 
@@ -2649,6 +2668,7 @@ class CreateAntchainAtoWithholdSignRequest(TeaModel):
         return_url: str = None,
         user_open_id: str = None,
         merchant_app_id: str = None,
+        withhold_sign_scene: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -2671,6 +2691,11 @@ class CreateAntchainAtoWithholdSignRequest(TeaModel):
         self.user_open_id = user_open_id
         # 商户支付宝应用 id。paychannel=JDPAY此字段无需传入，paychannel=ALIPAY，如果传入了 user_open_id，则此字段必传。
         self.merchant_app_id = merchant_app_id
+        # 代扣签约场景, 当payChannel=JDPAY时，该字段必填
+        # JDbindCardH5：京东一键绑卡_H5
+        # JDAPPSignH5：京东APP签约_H5
+        # 
+        self.withhold_sign_scene = withhold_sign_scene
 
     def validate(self):
         self.validate_required(self.order_id, 'order_id')
@@ -2721,6 +2746,8 @@ class CreateAntchainAtoWithholdSignRequest(TeaModel):
             result['user_open_id'] = self.user_open_id
         if self.merchant_app_id is not None:
             result['merchant_app_id'] = self.merchant_app_id
+        if self.withhold_sign_scene is not None:
+            result['withhold_sign_scene'] = self.withhold_sign_scene
         return result
 
     def from_map(self, m: dict = None):
@@ -2747,6 +2774,8 @@ class CreateAntchainAtoWithholdSignRequest(TeaModel):
             self.user_open_id = m.get('user_open_id')
         if m.get('merchant_app_id') is not None:
             self.merchant_app_id = m.get('merchant_app_id')
+        if m.get('withhold_sign_scene') is not None:
+            self.withhold_sign_scene = m.get('withhold_sign_scene')
         return self
 
 
@@ -2860,6 +2889,7 @@ class QueryAntchainAtoWithholdSignResponse(TeaModel):
         valid_time: str = None,
         invalid_time: str = None,
         agreement_no: str = None,
+        withhold_sign_scene: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -2880,6 +2910,10 @@ class QueryAntchainAtoWithholdSignResponse(TeaModel):
         self.invalid_time = invalid_time
         # 代扣协议号
         self.agreement_no = agreement_no
+        # 代扣签约场景
+        # JDbindCardH5：京东一键绑卡_H5
+        # JDAPPSignH5：京东APP签约_H5
+        self.withhold_sign_scene = withhold_sign_scene
 
     def validate(self):
         if self.sign_time is not None:
@@ -2911,6 +2945,8 @@ class QueryAntchainAtoWithholdSignResponse(TeaModel):
             result['invalid_time'] = self.invalid_time
         if self.agreement_no is not None:
             result['agreement_no'] = self.agreement_no
+        if self.withhold_sign_scene is not None:
+            result['withhold_sign_scene'] = self.withhold_sign_scene
         return result
 
     def from_map(self, m: dict = None):
@@ -2931,6 +2967,8 @@ class QueryAntchainAtoWithholdSignResponse(TeaModel):
             self.invalid_time = m.get('invalid_time')
         if m.get('agreement_no') is not None:
             self.agreement_no = m.get('agreement_no')
+        if m.get('withhold_sign_scene') is not None:
+            self.withhold_sign_scene = m.get('withhold_sign_scene')
         return self
 
 
@@ -3440,6 +3478,7 @@ class SubmitAntchainAtoFrontSignRequest(TeaModel):
         user_org_name: str = None,
         need_face: bool = None,
         seal_type: str = None,
+        withhold_sign_scene: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -3517,6 +3556,8 @@ class SubmitAntchainAtoFrontSignRequest(TeaModel):
         # 1-模板印章签名
         # 多种类型时逗号分割，为空不限制
         self.seal_type = seal_type
+        # 代扣签约场景，JDbindCardH5：京东一键绑卡_H5；JDAPPSignH5：京东APP签约_H5
+        self.withhold_sign_scene = withhold_sign_scene
 
     def validate(self):
         self.validate_required(self.order_id, 'order_id')
@@ -3611,6 +3652,8 @@ class SubmitAntchainAtoFrontSignRequest(TeaModel):
             result['need_face'] = self.need_face
         if self.seal_type is not None:
             result['seal_type'] = self.seal_type
+        if self.withhold_sign_scene is not None:
+            result['withhold_sign_scene'] = self.withhold_sign_scene
         return result
 
     def from_map(self, m: dict = None):
@@ -3677,6 +3720,8 @@ class SubmitAntchainAtoFrontSignRequest(TeaModel):
             self.need_face = m.get('need_face')
         if m.get('seal_type') is not None:
             self.seal_type = m.get('seal_type')
+        if m.get('withhold_sign_scene') is not None:
+            self.withhold_sign_scene = m.get('withhold_sign_scene')
         return self
 
 
@@ -8476,6 +8521,7 @@ class RegisterAntchainAtoMerchantexpandMerchantRequest(TeaModel):
         merchant_holding_info: MerchantHoldingInfo = None,
         merchant_settle_info: MerchantSettleInfo = None,
         pay_channel: str = None,
+        role: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -8498,6 +8544,10 @@ class RegisterAntchainAtoMerchantexpandMerchantRequest(TeaModel):
         # ALIPAY（默认）
         # JDPAY
         self.pay_channel = pay_channel
+        # 角色
+        # MERCHANT（默认）
+        # FINANCIER
+        self.role = role
 
     def validate(self):
         self.validate_required(self.company_info, 'company_info')
@@ -8506,7 +8556,6 @@ class RegisterAntchainAtoMerchantexpandMerchantRequest(TeaModel):
         self.validate_required(self.legal_info, 'legal_info')
         if self.legal_info:
             self.legal_info.validate()
-        self.validate_required(self.application_info, 'application_info')
         if self.application_info:
             self.application_info.validate()
         self.validate_required(self.expand_mode, 'expand_mode')
@@ -8541,6 +8590,8 @@ class RegisterAntchainAtoMerchantexpandMerchantRequest(TeaModel):
             result['merchant_settle_info'] = self.merchant_settle_info.to_map()
         if self.pay_channel is not None:
             result['pay_channel'] = self.pay_channel
+        if self.role is not None:
+            result['role'] = self.role
         return result
 
     def from_map(self, m: dict = None):
@@ -8570,6 +8621,8 @@ class RegisterAntchainAtoMerchantexpandMerchantRequest(TeaModel):
             self.merchant_settle_info = temp_model.from_map(m['merchant_settle_info'])
         if m.get('pay_channel') is not None:
             self.pay_channel = m.get('pay_channel')
+        if m.get('role') is not None:
+            self.role = m.get('role')
         return self
 
 
@@ -12265,6 +12318,496 @@ class ApplyAntchainAtoFundCreditutilizationResponse(TeaModel):
         return self
 
 
+class SyncAntchainAtoFundCreditgrantingRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        granting_id: str = None,
+        auth_id: str = None,
+        fund_id: str = None,
+        merchant_id: str = None,
+        tenant_id: str = None,
+        granting_line: int = None,
+        effect_start_time: str = None,
+        effect_end_time: str = None,
+        review_result: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 授信id
+        self.granting_id = granting_id
+        # 授信授权id
+        self.auth_id = auth_id
+        # 资方社会信用代码
+        self.fund_id = fund_id
+        # 商户社会信用代码
+        self.merchant_id = merchant_id
+        # 商户租户id
+        self.tenant_id = tenant_id
+        # 授信额度，单位为分
+        self.granting_line = granting_line
+        # 授信有效期开始时间(yyyy-MM-dd HH:mm:ss)
+        self.effect_start_time = effect_start_time
+        # 授信有效期结束时间(yyyy-MM-dd HH:mm:ss)
+        self.effect_end_time = effect_end_time
+        # 审核结果
+        self.review_result = review_result
+
+    def validate(self):
+        self.validate_required(self.granting_id, 'granting_id')
+        if self.granting_id is not None:
+            self.validate_max_length(self.granting_id, 'granting_id', 20)
+        self.validate_required(self.auth_id, 'auth_id')
+        if self.auth_id is not None:
+            self.validate_max_length(self.auth_id, 'auth_id', 20)
+        self.validate_required(self.fund_id, 'fund_id')
+        if self.fund_id is not None:
+            self.validate_max_length(self.fund_id, 'fund_id', 32)
+        self.validate_required(self.merchant_id, 'merchant_id')
+        if self.merchant_id is not None:
+            self.validate_max_length(self.merchant_id, 'merchant_id', 32)
+        self.validate_required(self.tenant_id, 'tenant_id')
+        if self.tenant_id is not None:
+            self.validate_max_length(self.tenant_id, 'tenant_id', 32)
+        if self.granting_line is not None:
+            self.validate_minimum(self.granting_line, 'granting_line', 1)
+        if self.effect_start_time is not None:
+            self.validate_max_length(self.effect_start_time, 'effect_start_time', 20)
+        if self.effect_end_time is not None:
+            self.validate_max_length(self.effect_end_time, 'effect_end_time', 20)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.granting_id is not None:
+            result['granting_id'] = self.granting_id
+        if self.auth_id is not None:
+            result['auth_id'] = self.auth_id
+        if self.fund_id is not None:
+            result['fund_id'] = self.fund_id
+        if self.merchant_id is not None:
+            result['merchant_id'] = self.merchant_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.granting_line is not None:
+            result['granting_line'] = self.granting_line
+        if self.effect_start_time is not None:
+            result['effect_start_time'] = self.effect_start_time
+        if self.effect_end_time is not None:
+            result['effect_end_time'] = self.effect_end_time
+        if self.review_result is not None:
+            result['review_result'] = self.review_result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('granting_id') is not None:
+            self.granting_id = m.get('granting_id')
+        if m.get('auth_id') is not None:
+            self.auth_id = m.get('auth_id')
+        if m.get('fund_id') is not None:
+            self.fund_id = m.get('fund_id')
+        if m.get('merchant_id') is not None:
+            self.merchant_id = m.get('merchant_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('granting_line') is not None:
+            self.granting_line = m.get('granting_line')
+        if m.get('effect_start_time') is not None:
+            self.effect_start_time = m.get('effect_start_time')
+        if m.get('effect_end_time') is not None:
+            self.effect_end_time = m.get('effect_end_time')
+        if m.get('review_result') is not None:
+            self.review_result = m.get('review_result')
+        return self
+
+
+class SyncAntchainAtoFundCreditgrantingResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class AuthAntchainAtoFundCreditgrantingRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tenant_id: str = None,
+        merchant_id: str = None,
+        fund_id: str = None,
+        auth_id: str = None,
+        auth_begin_time: str = None,
+        auth_end_time: str = None,
+        order_query_begin: str = None,
+        order_query_end: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 租户id
+        self.tenant_id = tenant_id
+        # 商户统一社会信用代码
+        self.merchant_id = merchant_id
+        # 资方统一社会信用代码
+        self.fund_id = fund_id
+        # 授权id
+        self.auth_id = auth_id
+        # 授权开始时间，格式为yyyy-MM-dd
+        self.auth_begin_time = auth_begin_time
+        # 授权结束时间，格式为yyyy-MM-dd
+        self.auth_end_time = auth_end_time
+        # 订单查询开始时间，格式为yyyy-MM-dd HH:mm:ss，需要在auth_begin_time之后。
+        self.order_query_begin = order_query_begin
+        # 订单查询结束时间，格式为yyyy-MM-dd HH:mm:ss，需要在auth_end_time之前
+        self.order_query_end = order_query_end
+
+    def validate(self):
+        self.validate_required(self.tenant_id, 'tenant_id')
+        self.validate_required(self.merchant_id, 'merchant_id')
+        self.validate_required(self.fund_id, 'fund_id')
+        self.validate_required(self.auth_id, 'auth_id')
+        self.validate_required(self.order_query_begin, 'order_query_begin')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.merchant_id is not None:
+            result['merchant_id'] = self.merchant_id
+        if self.fund_id is not None:
+            result['fund_id'] = self.fund_id
+        if self.auth_id is not None:
+            result['auth_id'] = self.auth_id
+        if self.auth_begin_time is not None:
+            result['auth_begin_time'] = self.auth_begin_time
+        if self.auth_end_time is not None:
+            result['auth_end_time'] = self.auth_end_time
+        if self.order_query_begin is not None:
+            result['order_query_begin'] = self.order_query_begin
+        if self.order_query_end is not None:
+            result['order_query_end'] = self.order_query_end
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('merchant_id') is not None:
+            self.merchant_id = m.get('merchant_id')
+        if m.get('fund_id') is not None:
+            self.fund_id = m.get('fund_id')
+        if m.get('auth_id') is not None:
+            self.auth_id = m.get('auth_id')
+        if m.get('auth_begin_time') is not None:
+            self.auth_begin_time = m.get('auth_begin_time')
+        if m.get('auth_end_time') is not None:
+            self.auth_end_time = m.get('auth_end_time')
+        if m.get('order_query_begin') is not None:
+            self.order_query_begin = m.get('order_query_begin')
+        if m.get('order_query_end') is not None:
+            self.order_query_end = m.get('order_query_end')
+        return self
+
+
+class AuthAntchainAtoFundCreditgrantingResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        merchant_auth_url: str = None,
+        auth_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 商家授权链接
+        self.merchant_auth_url = merchant_auth_url
+        # 传入的auth_id
+        self.auth_id = auth_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.merchant_auth_url is not None:
+            result['merchant_auth_url'] = self.merchant_auth_url
+        if self.auth_id is not None:
+            result['auth_id'] = self.auth_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('merchant_auth_url') is not None:
+            self.merchant_auth_url = m.get('merchant_auth_url')
+        if m.get('auth_id') is not None:
+            self.auth_id = m.get('auth_id')
+        return self
+
+
+class QueryAntchainAtoFundCreditgrantingRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        granting_id: str = None,
+        fund_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 授信id
+        self.granting_id = granting_id
+        # 资方社会信用代码
+        self.fund_id = fund_id
+
+    def validate(self):
+        self.validate_required(self.granting_id, 'granting_id')
+        if self.granting_id is not None:
+            self.validate_max_length(self.granting_id, 'granting_id', 20)
+        self.validate_required(self.fund_id, 'fund_id')
+        if self.fund_id is not None:
+            self.validate_max_length(self.fund_id, 'fund_id', 32)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.granting_id is not None:
+            result['granting_id'] = self.granting_id
+        if self.fund_id is not None:
+            result['fund_id'] = self.fund_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('granting_id') is not None:
+            self.granting_id = m.get('granting_id')
+        if m.get('fund_id') is not None:
+            self.fund_id = m.get('fund_id')
+        return self
+
+
+class QueryAntchainAtoFundCreditgrantingResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        granting_id: str = None,
+        auth_id: str = None,
+        fund_id: str = None,
+        merchant_id: str = None,
+        tenant_id: str = None,
+        granting_line: int = None,
+        effect_start_time: str = None,
+        effect_end_time: str = None,
+        status: str = None,
+        biz_type: str = None,
+        credit_extra_data: str = None,
+        credit_info_list: List[str] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 授信id
+        self.granting_id = granting_id
+        # 授信授权id
+        self.auth_id = auth_id
+        # 资方社会信用代码
+        self.fund_id = fund_id
+        # 商户社会信用代码
+        self.merchant_id = merchant_id
+        # 商户租户id
+        # 
+        self.tenant_id = tenant_id
+        # 授信额度，单位为分
+        self.granting_line = granting_line
+        # 授信有效期开始时间(yyyy-MM-dd HH:mm:ss)
+        self.effect_start_time = effect_start_time
+        # 授信有效期结束时间(yyyy-MM-dd HH:mm:ss)
+        self.effect_end_time = effect_end_time
+        # 授信状态
+        # CREDITED:已授信
+        self.status = status
+        # 授信业务
+        self.biz_type = biz_type
+        # 授信额外数据
+        self.credit_extra_data = credit_extra_data
+        # 相关文件列表
+        self.credit_info_list = credit_info_list
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.granting_id is not None:
+            result['granting_id'] = self.granting_id
+        if self.auth_id is not None:
+            result['auth_id'] = self.auth_id
+        if self.fund_id is not None:
+            result['fund_id'] = self.fund_id
+        if self.merchant_id is not None:
+            result['merchant_id'] = self.merchant_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.granting_line is not None:
+            result['granting_line'] = self.granting_line
+        if self.effect_start_time is not None:
+            result['effect_start_time'] = self.effect_start_time
+        if self.effect_end_time is not None:
+            result['effect_end_time'] = self.effect_end_time
+        if self.status is not None:
+            result['status'] = self.status
+        if self.biz_type is not None:
+            result['biz_type'] = self.biz_type
+        if self.credit_extra_data is not None:
+            result['credit_extra_data'] = self.credit_extra_data
+        if self.credit_info_list is not None:
+            result['credit_info_list'] = self.credit_info_list
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('granting_id') is not None:
+            self.granting_id = m.get('granting_id')
+        if m.get('auth_id') is not None:
+            self.auth_id = m.get('auth_id')
+        if m.get('fund_id') is not None:
+            self.fund_id = m.get('fund_id')
+        if m.get('merchant_id') is not None:
+            self.merchant_id = m.get('merchant_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('granting_line') is not None:
+            self.granting_line = m.get('granting_line')
+        if m.get('effect_start_time') is not None:
+            self.effect_start_time = m.get('effect_start_time')
+        if m.get('effect_end_time') is not None:
+            self.effect_end_time = m.get('effect_end_time')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('biz_type') is not None:
+            self.biz_type = m.get('biz_type')
+        if m.get('credit_extra_data') is not None:
+            self.credit_extra_data = m.get('credit_extra_data')
+        if m.get('credit_info_list') is not None:
+            self.credit_info_list = m.get('credit_info_list')
+        return self
+
+
 class QueryAntchainAtoFundAssetpackageRequest(TeaModel):
     def __init__(
         self,
@@ -13813,6 +14356,240 @@ class CancelAntchainAtoFundFlowResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
+        return self
+
+
+class ApplyAntchainAtoTradeCreditgrantingRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        granting_id: str = None,
+        merchant_id: str = None,
+        merchant_name: str = None,
+        fund_id: str = None,
+        auth_id: str = None,
+        credit_extra_data: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 授信id
+        self.granting_id = granting_id
+        # merchant_id
+        self.merchant_id = merchant_id
+        # merchant_name
+        self.merchant_name = merchant_name
+        # fund_id
+        self.fund_id = fund_id
+        # auth_id
+        self.auth_id = auth_id
+        # 授信附加信息
+        self.credit_extra_data = credit_extra_data
+
+    def validate(self):
+        self.validate_required(self.granting_id, 'granting_id')
+        if self.granting_id is not None:
+            self.validate_max_length(self.granting_id, 'granting_id', 49)
+        self.validate_required(self.merchant_id, 'merchant_id')
+        if self.merchant_id is not None:
+            self.validate_max_length(self.merchant_id, 'merchant_id', 63)
+        self.validate_required(self.merchant_name, 'merchant_name')
+        if self.merchant_name is not None:
+            self.validate_max_length(self.merchant_name, 'merchant_name', 199)
+        self.validate_required(self.fund_id, 'fund_id')
+        if self.fund_id is not None:
+            self.validate_max_length(self.fund_id, 'fund_id', 63)
+        self.validate_required(self.auth_id, 'auth_id')
+        if self.auth_id is not None:
+            self.validate_max_length(self.auth_id, 'auth_id', 63)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.granting_id is not None:
+            result['granting_id'] = self.granting_id
+        if self.merchant_id is not None:
+            result['merchant_id'] = self.merchant_id
+        if self.merchant_name is not None:
+            result['merchant_name'] = self.merchant_name
+        if self.fund_id is not None:
+            result['fund_id'] = self.fund_id
+        if self.auth_id is not None:
+            result['auth_id'] = self.auth_id
+        if self.credit_extra_data is not None:
+            result['credit_extra_data'] = self.credit_extra_data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('granting_id') is not None:
+            self.granting_id = m.get('granting_id')
+        if m.get('merchant_id') is not None:
+            self.merchant_id = m.get('merchant_id')
+        if m.get('merchant_name') is not None:
+            self.merchant_name = m.get('merchant_name')
+        if m.get('fund_id') is not None:
+            self.fund_id = m.get('fund_id')
+        if m.get('auth_id') is not None:
+            self.auth_id = m.get('auth_id')
+        if m.get('credit_extra_data') is not None:
+            self.credit_extra_data = m.get('credit_extra_data')
+        return self
+
+
+class ApplyAntchainAtoTradeCreditgrantingResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class QueryAntchainAtoTradeCreditgrantingRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        granting_id: str = None,
+        merchant_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # granting_id
+        self.granting_id = granting_id
+        # merchant_id
+        self.merchant_id = merchant_id
+
+    def validate(self):
+        self.validate_required(self.granting_id, 'granting_id')
+        if self.granting_id is not None:
+            self.validate_max_length(self.granting_id, 'granting_id', 49)
+        self.validate_required(self.merchant_id, 'merchant_id')
+        if self.merchant_id is not None:
+            self.validate_max_length(self.merchant_id, 'merchant_id', 63)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.granting_id is not None:
+            result['granting_id'] = self.granting_id
+        if self.merchant_id is not None:
+            result['merchant_id'] = self.merchant_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('granting_id') is not None:
+            self.granting_id = m.get('granting_id')
+        if m.get('merchant_id') is not None:
+            self.merchant_id = m.get('merchant_id')
+        return self
+
+
+class QueryAntchainAtoTradeCreditgrantingResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        response_data: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # CreditGrantingInfo
+        self.response_data = response_data
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.response_data is not None:
+            result['response_data'] = self.response_data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('response_data') is not None:
+            self.response_data = m.get('response_data')
         return self
 
 
