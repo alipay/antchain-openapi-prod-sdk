@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.7.0"),
+                    new TeaPair("sdk_version", "1.7.1"),
                     new TeaPair("_prod_code", "ak_195dff03d395462ea294bafdba69df3f"),
                     new TeaPair("_prod_channel", "saas")
                 );
@@ -2047,6 +2047,71 @@ public class Client {
 
     /**
      * <b>description</b> :
+     * <p>Description: 调用说明：
+     * ●本接口用于授信额度试算完成后同步授信结果。
+     * Summary: 授信结果同步接口</p>
+     */
+    public SyncAntchainAtoFundCreditgrantingResponse syncAntchainAtoFundCreditgranting(SyncAntchainAtoFundCreditgrantingRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.syncAntchainAtoFundCreditgrantingEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 调用说明：
+     * ●本接口用于授信额度试算完成后同步授信结果。
+     * Summary: 授信结果同步接口</p>
+     */
+    public SyncAntchainAtoFundCreditgrantingResponse syncAntchainAtoFundCreditgrantingEx(SyncAntchainAtoFundCreditgrantingRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.fund.creditgranting.sync", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SyncAntchainAtoFundCreditgrantingResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 本接口用于授信授权。本接口返回成功后，代表授权申请已发起。如果授权通过，会发送异步通知。
+     * Summary: 授信授权申请接口</p>
+     */
+    public AuthAntchainAtoFundCreditgrantingResponse authAntchainAtoFundCreditgranting(AuthAntchainAtoFundCreditgrantingRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.authAntchainAtoFundCreditgrantingEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 本接口用于授信授权。本接口返回成功后，代表授权申请已发起。如果授权通过，会发送异步通知。
+     * Summary: 授信授权申请接口</p>
+     */
+    public AuthAntchainAtoFundCreditgrantingResponse authAntchainAtoFundCreditgrantingEx(AuthAntchainAtoFundCreditgrantingRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.fund.creditgranting.auth", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AuthAntchainAtoFundCreditgrantingResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 本接口用于查询授信结果
+     * Summary: 授信结果查询</p>
+     */
+    public QueryAntchainAtoFundCreditgrantingResponse queryAntchainAtoFundCreditgranting(QueryAntchainAtoFundCreditgrantingRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAntchainAtoFundCreditgrantingEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 本接口用于查询授信结果
+     * Summary: 授信结果查询</p>
+     */
+    public QueryAntchainAtoFundCreditgrantingResponse queryAntchainAtoFundCreditgrantingEx(QueryAntchainAtoFundCreditgrantingRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.fund.creditgranting.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAntchainAtoFundCreditgrantingResponse());
+    }
+
+    /**
+     * <b>description</b> :
      * <p>Description: 资产包详情查询
      * Summary: 资产包详情查询</p>
      */
@@ -2297,6 +2362,48 @@ public class Client {
     public CancelAntchainAtoFundFlowResponse cancelAntchainAtoFundFlowEx(CancelAntchainAtoFundFlowRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.fund.flow.cancel", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CancelAntchainAtoFundFlowResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 提交授信申请
+     * Summary: 提交授信申请</p>
+     */
+    public ApplyAntchainAtoTradeCreditgrantingResponse applyAntchainAtoTradeCreditgranting(ApplyAntchainAtoTradeCreditgrantingRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.applyAntchainAtoTradeCreditgrantingEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 提交授信申请
+     * Summary: 提交授信申请</p>
+     */
+    public ApplyAntchainAtoTradeCreditgrantingResponse applyAntchainAtoTradeCreditgrantingEx(ApplyAntchainAtoTradeCreditgrantingRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.trade.creditgranting.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyAntchainAtoTradeCreditgrantingResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 授信信息查询
+     * Summary: 授信信息查询</p>
+     */
+    public QueryAntchainAtoTradeCreditgrantingResponse queryAntchainAtoTradeCreditgranting(QueryAntchainAtoTradeCreditgrantingRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAntchainAtoTradeCreditgrantingEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 授信信息查询
+     * Summary: 授信信息查询</p>
+     */
+    public QueryAntchainAtoTradeCreditgrantingResponse queryAntchainAtoTradeCreditgrantingEx(QueryAntchainAtoTradeCreditgrantingRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.trade.creditgranting.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAntchainAtoTradeCreditgrantingResponse());
     }
 
     /**

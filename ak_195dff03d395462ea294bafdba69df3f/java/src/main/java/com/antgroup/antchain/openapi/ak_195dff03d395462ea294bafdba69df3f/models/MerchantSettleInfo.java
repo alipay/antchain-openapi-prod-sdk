@@ -34,6 +34,22 @@ public class MerchantSettleInfo extends TeaModel {
     @Validation(required = true)
     public String bankAccountType;
 
+    // 支行名称
+    /**
+     * <strong>example:</strong>
+     * <p>招商银行上海支行</p>
+     */
+    @NameInMap("bank_branch_name")
+    public String bankBranchName;
+
+    // 银行名称
+    /**
+     * <strong>example:</strong>
+     * <p>招商银行</p>
+     */
+    @NameInMap("bank_name")
+    public String bankName;
+
     public static MerchantSettleInfo build(java.util.Map<String, ?> map) throws Exception {
         MerchantSettleInfo self = new MerchantSettleInfo();
         return TeaModel.build(map, self);
@@ -61,6 +77,22 @@ public class MerchantSettleInfo extends TeaModel {
     }
     public String getBankAccountType() {
         return this.bankAccountType;
+    }
+
+    public MerchantSettleInfo setBankBranchName(String bankBranchName) {
+        this.bankBranchName = bankBranchName;
+        return this;
+    }
+    public String getBankBranchName() {
+        return this.bankBranchName;
+    }
+
+    public MerchantSettleInfo setBankName(String bankName) {
+        this.bankName = bankName;
+        return this;
+    }
+    public String getBankName() {
+        return this.bankName;
     }
 
 }

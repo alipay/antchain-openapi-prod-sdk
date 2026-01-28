@@ -23,7 +23,6 @@ public class RegisterAntchainAtoMerchantexpandMerchantRequest extends TeaModel {
 
     // 应用信息
     @NameInMap("application_info")
-    @Validation(required = true)
     public ApplicationInfo applicationInfo;
 
     // 进件模式 DIRECT(直连进件) AGENT(代理进件)
@@ -48,6 +47,12 @@ public class RegisterAntchainAtoMerchantexpandMerchantRequest extends TeaModel {
     // JDPAY
     @NameInMap("pay_channel")
     public String payChannel;
+
+    // 角色
+    // MERCHANT（默认）
+    // FINANCIER
+    @NameInMap("role")
+    public String role;
 
     public static RegisterAntchainAtoMerchantexpandMerchantRequest build(java.util.Map<String, ?> map) throws Exception {
         RegisterAntchainAtoMerchantexpandMerchantRequest self = new RegisterAntchainAtoMerchantexpandMerchantRequest();
@@ -132,6 +137,14 @@ public class RegisterAntchainAtoMerchantexpandMerchantRequest extends TeaModel {
     }
     public String getPayChannel() {
         return this.payChannel;
+    }
+
+    public RegisterAntchainAtoMerchantexpandMerchantRequest setRole(String role) {
+        this.role = role;
+        return this;
+    }
+    public String getRole() {
+        return this.role;
     }
 
 }
