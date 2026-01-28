@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 查询结果
+            # ColumnDTO
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.0',
+                    'sdk_version': '1.1.15',
                     '_prod_code': 'DUANKA',
                     '_prod_channel': 'undefined'
                 }
@@ -214,7 +214,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 查询结果
+            # ColumnDTO
         }
         _last_request = None
         _last_exception = None
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.0',
+                    'sdk_version': '1.1.15',
                     '_prod_code': 'DUANKA',
                     '_prod_channel': 'undefined'
                 }
@@ -777,6 +777,734 @@ class Client:
         return TeaCore.from_map(
             duanka_models.QueryBacktrackScoreResponse(),
             await self.do_request_async('1.0', 'antcloud.duanka.backtrack.score.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def check_eas_mdetection(
+        self,
+        request: duanka_models.CheckEasMdetectionRequest,
+    ) -> duanka_models.CheckEasMdetectionResponse:
+        """
+        Description: 大模型sql检验
+        Summary: 大模型sql检验
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.check_eas_mdetection_ex(request, headers, runtime)
+
+    async def check_eas_mdetection_async(
+        self,
+        request: duanka_models.CheckEasMdetectionRequest,
+    ) -> duanka_models.CheckEasMdetectionResponse:
+        """
+        Description: 大模型sql检验
+        Summary: 大模型sql检验
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.check_eas_mdetection_ex_async(request, headers, runtime)
+
+    def check_eas_mdetection_ex(
+        self,
+        request: duanka_models.CheckEasMdetectionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> duanka_models.CheckEasMdetectionResponse:
+        """
+        Description: 大模型sql检验
+        Summary: 大模型sql检验
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            duanka_models.CheckEasMdetectionResponse(),
+            self.do_request('1.0', 'antcloud.duanka.eas.mdetection.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def check_eas_mdetection_ex_async(
+        self,
+        request: duanka_models.CheckEasMdetectionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> duanka_models.CheckEasMdetectionResponse:
+        """
+        Description: 大模型sql检验
+        Summary: 大模型sql检验
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            duanka_models.CheckEasMdetectionResponse(),
+            await self.do_request_async('1.0', 'antcloud.duanka.eas.mdetection.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_bpservice_http(
+        self,
+        request: duanka_models.QueryBpserviceHttpRequest,
+    ) -> duanka_models.QueryBpserviceHttpResponse:
+        """
+        Description: 主站bpservice通用http接口，支持GET、PUT、DELETE、POST类型请求
+        Summary: 主站bpservice通用http接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_bpservice_http_ex(request, headers, runtime)
+
+    async def query_bpservice_http_async(
+        self,
+        request: duanka_models.QueryBpserviceHttpRequest,
+    ) -> duanka_models.QueryBpserviceHttpResponse:
+        """
+        Description: 主站bpservice通用http接口，支持GET、PUT、DELETE、POST类型请求
+        Summary: 主站bpservice通用http接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_bpservice_http_ex_async(request, headers, runtime)
+
+    def query_bpservice_http_ex(
+        self,
+        request: duanka_models.QueryBpserviceHttpRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> duanka_models.QueryBpserviceHttpResponse:
+        """
+        Description: 主站bpservice通用http接口，支持GET、PUT、DELETE、POST类型请求
+        Summary: 主站bpservice通用http接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            duanka_models.QueryBpserviceHttpResponse(),
+            self.do_request('1.0', 'antcloud.duanka.bpservice.http.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_bpservice_http_ex_async(
+        self,
+        request: duanka_models.QueryBpserviceHttpRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> duanka_models.QueryBpserviceHttpResponse:
+        """
+        Description: 主站bpservice通用http接口，支持GET、PUT、DELETE、POST类型请求
+        Summary: 主站bpservice通用http接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            duanka_models.QueryBpserviceHttpResponse(),
+            await self.do_request_async('1.0', 'antcloud.duanka.bpservice.http.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def import_dataphin_task(
+        self,
+        request: duanka_models.ImportDataphinTaskRequest,
+    ) -> duanka_models.ImportDataphinTaskResponse:
+        """
+        Description: 导入dataphin的同步任务
+        Summary: 导入dataphin的同步任务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.import_dataphin_task_ex(request, headers, runtime)
+
+    async def import_dataphin_task_async(
+        self,
+        request: duanka_models.ImportDataphinTaskRequest,
+    ) -> duanka_models.ImportDataphinTaskResponse:
+        """
+        Description: 导入dataphin的同步任务
+        Summary: 导入dataphin的同步任务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.import_dataphin_task_ex_async(request, headers, runtime)
+
+    def import_dataphin_task_ex(
+        self,
+        request: duanka_models.ImportDataphinTaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> duanka_models.ImportDataphinTaskResponse:
+        """
+        Description: 导入dataphin的同步任务
+        Summary: 导入dataphin的同步任务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            duanka_models.ImportDataphinTaskResponse(),
+            self.do_request('1.0', 'antcloud.duanka.dataphin.task.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def import_dataphin_task_ex_async(
+        self,
+        request: duanka_models.ImportDataphinTaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> duanka_models.ImportDataphinTaskResponse:
+        """
+        Description: 导入dataphin的同步任务
+        Summary: 导入dataphin的同步任务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            duanka_models.ImportDataphinTaskResponse(),
+            await self.do_request_async('1.0', 'antcloud.duanka.dataphin.task.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def sync_oss_odps(
+        self,
+        request: duanka_models.SyncOssOdpsRequest,
+    ) -> duanka_models.SyncOssOdpsResponse:
+        """
+        Description: 同步oss文件到odps里面
+        Summary: 同步oss文件到odps里面
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.sync_oss_odps_ex(request, headers, runtime)
+
+    async def sync_oss_odps_async(
+        self,
+        request: duanka_models.SyncOssOdpsRequest,
+    ) -> duanka_models.SyncOssOdpsResponse:
+        """
+        Description: 同步oss文件到odps里面
+        Summary: 同步oss文件到odps里面
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.sync_oss_odps_ex_async(request, headers, runtime)
+
+    def sync_oss_odps_ex(
+        self,
+        request: duanka_models.SyncOssOdpsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> duanka_models.SyncOssOdpsResponse:
+        """
+        Description: 同步oss文件到odps里面
+        Summary: 同步oss文件到odps里面
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            duanka_models.SyncOssOdpsResponse(),
+            self.do_request('1.0', 'antcloud.duanka.oss.odps.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def sync_oss_odps_ex_async(
+        self,
+        request: duanka_models.SyncOssOdpsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> duanka_models.SyncOssOdpsResponse:
+        """
+        Description: 同步oss文件到odps里面
+        Summary: 同步oss文件到odps里面
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            duanka_models.SyncOssOdpsResponse(),
+            await self.do_request_async('1.0', 'antcloud.duanka.oss.odps.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def sync_opds_oss(
+        self,
+        request: duanka_models.SyncOpdsOssRequest,
+    ) -> duanka_models.SyncOpdsOssResponse:
+        """
+        Description: odps表数据导出到oss中
+        Summary: odps表数据导出到oss中
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.sync_opds_oss_ex(request, headers, runtime)
+
+    async def sync_opds_oss_async(
+        self,
+        request: duanka_models.SyncOpdsOssRequest,
+    ) -> duanka_models.SyncOpdsOssResponse:
+        """
+        Description: odps表数据导出到oss中
+        Summary: odps表数据导出到oss中
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.sync_opds_oss_ex_async(request, headers, runtime)
+
+    def sync_opds_oss_ex(
+        self,
+        request: duanka_models.SyncOpdsOssRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> duanka_models.SyncOpdsOssResponse:
+        """
+        Description: odps表数据导出到oss中
+        Summary: odps表数据导出到oss中
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            duanka_models.SyncOpdsOssResponse(),
+            self.do_request('1.0', 'antcloud.duanka.opds.oss.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def sync_opds_oss_ex_async(
+        self,
+        request: duanka_models.SyncOpdsOssRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> duanka_models.SyncOpdsOssResponse:
+        """
+        Description: odps表数据导出到oss中
+        Summary: odps表数据导出到oss中
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            duanka_models.SyncOpdsOssResponse(),
+            await self.do_request_async('1.0', 'antcloud.duanka.opds.oss.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def exist_dataphin_tablepartition(
+        self,
+        request: duanka_models.ExistDataphinTablepartitionRequest,
+    ) -> duanka_models.ExistDataphinTablepartitionResponse:
+        """
+        Description: 判断dataphin表分区是否存在
+        Summary: 判断dataphin表分区是否存在
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.exist_dataphin_tablepartition_ex(request, headers, runtime)
+
+    async def exist_dataphin_tablepartition_async(
+        self,
+        request: duanka_models.ExistDataphinTablepartitionRequest,
+    ) -> duanka_models.ExistDataphinTablepartitionResponse:
+        """
+        Description: 判断dataphin表分区是否存在
+        Summary: 判断dataphin表分区是否存在
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.exist_dataphin_tablepartition_ex_async(request, headers, runtime)
+
+    def exist_dataphin_tablepartition_ex(
+        self,
+        request: duanka_models.ExistDataphinTablepartitionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> duanka_models.ExistDataphinTablepartitionResponse:
+        """
+        Description: 判断dataphin表分区是否存在
+        Summary: 判断dataphin表分区是否存在
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            duanka_models.ExistDataphinTablepartitionResponse(),
+            self.do_request('1.0', 'antcloud.duanka.dataphin.tablepartition.exist', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def exist_dataphin_tablepartition_ex_async(
+        self,
+        request: duanka_models.ExistDataphinTablepartitionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> duanka_models.ExistDataphinTablepartitionResponse:
+        """
+        Description: 判断dataphin表分区是否存在
+        Summary: 判断dataphin表分区是否存在
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            duanka_models.ExistDataphinTablepartitionResponse(),
+            await self.do_request_async('1.0', 'antcloud.duanka.dataphin.tablepartition.exist', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def publish_dataphin_task(
+        self,
+        request: duanka_models.PublishDataphinTaskRequest,
+    ) -> duanka_models.PublishDataphinTaskResponse:
+        """
+        Description: 发布dataphin任务
+        Summary: 发布dataphin任务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.publish_dataphin_task_ex(request, headers, runtime)
+
+    async def publish_dataphin_task_async(
+        self,
+        request: duanka_models.PublishDataphinTaskRequest,
+    ) -> duanka_models.PublishDataphinTaskResponse:
+        """
+        Description: 发布dataphin任务
+        Summary: 发布dataphin任务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.publish_dataphin_task_ex_async(request, headers, runtime)
+
+    def publish_dataphin_task_ex(
+        self,
+        request: duanka_models.PublishDataphinTaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> duanka_models.PublishDataphinTaskResponse:
+        """
+        Description: 发布dataphin任务
+        Summary: 发布dataphin任务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            duanka_models.PublishDataphinTaskResponse(),
+            self.do_request('1.0', 'antcloud.duanka.dataphin.task.publish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def publish_dataphin_task_ex_async(
+        self,
+        request: duanka_models.PublishDataphinTaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> duanka_models.PublishDataphinTaskResponse:
+        """
+        Description: 发布dataphin任务
+        Summary: 发布dataphin任务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            duanka_models.PublishDataphinTaskResponse(),
+            await self.do_request_async('1.0', 'antcloud.duanka.dataphin.task.publish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def check_dataphin_task(
+        self,
+        request: duanka_models.CheckDataphinTaskRequest,
+    ) -> duanka_models.CheckDataphinTaskResponse:
+        """
+        Description: 校验任务发布
+        Summary: 校验任务发布
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.check_dataphin_task_ex(request, headers, runtime)
+
+    async def check_dataphin_task_async(
+        self,
+        request: duanka_models.CheckDataphinTaskRequest,
+    ) -> duanka_models.CheckDataphinTaskResponse:
+        """
+        Description: 校验任务发布
+        Summary: 校验任务发布
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.check_dataphin_task_ex_async(request, headers, runtime)
+
+    def check_dataphin_task_ex(
+        self,
+        request: duanka_models.CheckDataphinTaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> duanka_models.CheckDataphinTaskResponse:
+        """
+        Description: 校验任务发布
+        Summary: 校验任务发布
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            duanka_models.CheckDataphinTaskResponse(),
+            self.do_request('1.0', 'antcloud.duanka.dataphin.task.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def check_dataphin_task_ex_async(
+        self,
+        request: duanka_models.CheckDataphinTaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> duanka_models.CheckDataphinTaskResponse:
+        """
+        Description: 校验任务发布
+        Summary: 校验任务发布
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            duanka_models.CheckDataphinTaskResponse(),
+            await self.do_request_async('1.0', 'antcloud.duanka.dataphin.task.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def run_dataphin_task(
+        self,
+        request: duanka_models.RunDataphinTaskRequest,
+    ) -> duanka_models.RunDataphinTaskResponse:
+        """
+        Description: 运行任务
+        Summary: 运行任务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.run_dataphin_task_ex(request, headers, runtime)
+
+    async def run_dataphin_task_async(
+        self,
+        request: duanka_models.RunDataphinTaskRequest,
+    ) -> duanka_models.RunDataphinTaskResponse:
+        """
+        Description: 运行任务
+        Summary: 运行任务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.run_dataphin_task_ex_async(request, headers, runtime)
+
+    def run_dataphin_task_ex(
+        self,
+        request: duanka_models.RunDataphinTaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> duanka_models.RunDataphinTaskResponse:
+        """
+        Description: 运行任务
+        Summary: 运行任务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            duanka_models.RunDataphinTaskResponse(),
+            self.do_request('1.0', 'antcloud.duanka.dataphin.task.run', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def run_dataphin_task_ex_async(
+        self,
+        request: duanka_models.RunDataphinTaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> duanka_models.RunDataphinTaskResponse:
+        """
+        Description: 运行任务
+        Summary: 运行任务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            duanka_models.RunDataphinTaskResponse(),
+            await self.do_request_async('1.0', 'antcloud.duanka.dataphin.task.run', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_dataphin_tableinfo(
+        self,
+        request: duanka_models.QueryDataphinTableinfoRequest,
+    ) -> duanka_models.QueryDataphinTableinfoResponse:
+        """
+        Description: 表信息查询
+        Summary: 表信息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_dataphin_tableinfo_ex(request, headers, runtime)
+
+    async def query_dataphin_tableinfo_async(
+        self,
+        request: duanka_models.QueryDataphinTableinfoRequest,
+    ) -> duanka_models.QueryDataphinTableinfoResponse:
+        """
+        Description: 表信息查询
+        Summary: 表信息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_dataphin_tableinfo_ex_async(request, headers, runtime)
+
+    def query_dataphin_tableinfo_ex(
+        self,
+        request: duanka_models.QueryDataphinTableinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> duanka_models.QueryDataphinTableinfoResponse:
+        """
+        Description: 表信息查询
+        Summary: 表信息查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            duanka_models.QueryDataphinTableinfoResponse(),
+            self.do_request('1.0', 'antcloud.duanka.dataphin.tableinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_dataphin_tableinfo_ex_async(
+        self,
+        request: duanka_models.QueryDataphinTableinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> duanka_models.QueryDataphinTableinfoResponse:
+        """
+        Description: 表信息查询
+        Summary: 表信息查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            duanka_models.QueryDataphinTableinfoResponse(),
+            await self.do_request_async('1.0', 'antcloud.duanka.dataphin.tableinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def import_dataphin_file(
+        self,
+        request: duanka_models.ImportDataphinFileRequest,
+    ) -> duanka_models.ImportDataphinFileResponse:
+        """
+        Description: 文件ossToOdps
+        Summary: 文件ossToOdps
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.import_dataphin_file_ex(request, headers, runtime)
+
+    async def import_dataphin_file_async(
+        self,
+        request: duanka_models.ImportDataphinFileRequest,
+    ) -> duanka_models.ImportDataphinFileResponse:
+        """
+        Description: 文件ossToOdps
+        Summary: 文件ossToOdps
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.import_dataphin_file_ex_async(request, headers, runtime)
+
+    def import_dataphin_file_ex(
+        self,
+        request: duanka_models.ImportDataphinFileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> duanka_models.ImportDataphinFileResponse:
+        """
+        Description: 文件ossToOdps
+        Summary: 文件ossToOdps
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            duanka_models.ImportDataphinFileResponse(),
+            self.do_request('1.0', 'antcloud.duanka.dataphin.file.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def import_dataphin_file_ex_async(
+        self,
+        request: duanka_models.ImportDataphinFileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> duanka_models.ImportDataphinFileResponse:
+        """
+        Description: 文件ossToOdps
+        Summary: 文件ossToOdps
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            duanka_models.ImportDataphinFileResponse(),
+            await self.do_request_async('1.0', 'antcloud.duanka.dataphin.file.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def submit_datapin_task(
+        self,
+        request: duanka_models.SubmitDatapinTaskRequest,
+    ) -> duanka_models.SubmitDatapinTaskResponse:
+        """
+        Description: 提交dataphin任务
+        Summary: 提交dataphin任务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.submit_datapin_task_ex(request, headers, runtime)
+
+    async def submit_datapin_task_async(
+        self,
+        request: duanka_models.SubmitDatapinTaskRequest,
+    ) -> duanka_models.SubmitDatapinTaskResponse:
+        """
+        Description: 提交dataphin任务
+        Summary: 提交dataphin任务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.submit_datapin_task_ex_async(request, headers, runtime)
+
+    def submit_datapin_task_ex(
+        self,
+        request: duanka_models.SubmitDatapinTaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> duanka_models.SubmitDatapinTaskResponse:
+        """
+        Description: 提交dataphin任务
+        Summary: 提交dataphin任务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            duanka_models.SubmitDatapinTaskResponse(),
+            self.do_request('1.0', 'antcloud.duanka.datapin.task.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def submit_datapin_task_ex_async(
+        self,
+        request: duanka_models.SubmitDatapinTaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> duanka_models.SubmitDatapinTaskResponse:
+        """
+        Description: 提交dataphin任务
+        Summary: 提交dataphin任务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            duanka_models.SubmitDatapinTaskResponse(),
+            await self.do_request_async('1.0', 'antcloud.duanka.datapin.task.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_industry_score(
+        self,
+        request: duanka_models.QueryIndustryScoreRequest,
+    ) -> duanka_models.QueryIndustryScoreResponse:
+        """
+        Description: 行业分查询
+        Summary: 行业分查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_industry_score_ex(request, headers, runtime)
+
+    async def query_industry_score_async(
+        self,
+        request: duanka_models.QueryIndustryScoreRequest,
+    ) -> duanka_models.QueryIndustryScoreResponse:
+        """
+        Description: 行业分查询
+        Summary: 行业分查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_industry_score_ex_async(request, headers, runtime)
+
+    def query_industry_score_ex(
+        self,
+        request: duanka_models.QueryIndustryScoreRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> duanka_models.QueryIndustryScoreResponse:
+        """
+        Description: 行业分查询
+        Summary: 行业分查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            duanka_models.QueryIndustryScoreResponse(),
+            self.do_request('1.0', 'antcloud.duanka.industry.score.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_industry_score_ex_async(
+        self,
+        request: duanka_models.QueryIndustryScoreRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> duanka_models.QueryIndustryScoreResponse:
+        """
+        Description: 行业分查询
+        Summary: 行业分查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            duanka_models.QueryIndustryScoreResponse(),
+            await self.do_request_async('1.0', 'antcloud.duanka.industry.score.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_ir_brand(
