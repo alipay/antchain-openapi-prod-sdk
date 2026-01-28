@@ -738,6 +738,109 @@ func (s *LcaCalcResult) SetCustomContext(v string) *LcaCalcResult {
 	return s
 }
 
+// 转型金融报告详情
+type FinanceReportDetail struct {
+	// 文件
+	File *EnterpriseDocumentFile `json:"file,omitempty" xml:"file,omitempty" require:"true"`
+	// 报告编号
+	ReportNo *string `json:"report_no,omitempty" xml:"report_no,omitempty" require:"true"`
+	// 报告名称
+	ReportName *string `json:"report_name,omitempty" xml:"report_name,omitempty" require:"true"`
+	// 是否盖章
+	HasSealed *bool `json:"has_sealed,omitempty" xml:"has_sealed,omitempty" require:"true"`
+	// 报告时间
+	ReportTime *string `json:"report_time,omitempty" xml:"report_time,omitempty" require:"true"`
+	// 报告提交人
+	ReportSubmitter *string `json:"report_submitter,omitempty" xml:"report_submitter,omitempty" require:"true"`
+	// 报告生成方式
+	GenerateType *string `json:"generate_type,omitempty" xml:"generate_type,omitempty" require:"true"`
+	// 对比年，报告年
+	CompareYear *string `json:"compare_year,omitempty" xml:"compare_year,omitempty" require:"true"`
+	// 基准年
+	BaseYear *string `json:"base_year,omitempty" xml:"base_year,omitempty" require:"true"`
+	// 企业名称
+	CompanyName *string `json:"company_name,omitempty" xml:"company_name,omitempty" require:"true"`
+	// 区域名称
+	AreaName *string `json:"area_name,omitempty" xml:"area_name,omitempty" require:"true"`
+	// 行业名称
+	IndustryName *string `json:"industry_name,omitempty" xml:"industry_name,omitempty" require:"true"`
+	// 社会统一信用代码
+	CompanyId *string `json:"company_id,omitempty" xml:"company_id,omitempty" require:"true"`
+}
+
+func (s FinanceReportDetail) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FinanceReportDetail) GoString() string {
+	return s.String()
+}
+
+func (s *FinanceReportDetail) SetFile(v *EnterpriseDocumentFile) *FinanceReportDetail {
+	s.File = v
+	return s
+}
+
+func (s *FinanceReportDetail) SetReportNo(v string) *FinanceReportDetail {
+	s.ReportNo = &v
+	return s
+}
+
+func (s *FinanceReportDetail) SetReportName(v string) *FinanceReportDetail {
+	s.ReportName = &v
+	return s
+}
+
+func (s *FinanceReportDetail) SetHasSealed(v bool) *FinanceReportDetail {
+	s.HasSealed = &v
+	return s
+}
+
+func (s *FinanceReportDetail) SetReportTime(v string) *FinanceReportDetail {
+	s.ReportTime = &v
+	return s
+}
+
+func (s *FinanceReportDetail) SetReportSubmitter(v string) *FinanceReportDetail {
+	s.ReportSubmitter = &v
+	return s
+}
+
+func (s *FinanceReportDetail) SetGenerateType(v string) *FinanceReportDetail {
+	s.GenerateType = &v
+	return s
+}
+
+func (s *FinanceReportDetail) SetCompareYear(v string) *FinanceReportDetail {
+	s.CompareYear = &v
+	return s
+}
+
+func (s *FinanceReportDetail) SetBaseYear(v string) *FinanceReportDetail {
+	s.BaseYear = &v
+	return s
+}
+
+func (s *FinanceReportDetail) SetCompanyName(v string) *FinanceReportDetail {
+	s.CompanyName = &v
+	return s
+}
+
+func (s *FinanceReportDetail) SetAreaName(v string) *FinanceReportDetail {
+	s.AreaName = &v
+	return s
+}
+
+func (s *FinanceReportDetail) SetIndustryName(v string) *FinanceReportDetail {
+	s.IndustryName = &v
+	return s
+}
+
+func (s *FinanceReportDetail) SetCompanyId(v string) *FinanceReportDetail {
+	s.CompanyId = &v
+	return s
+}
+
 //  每月的排放数据
 type AnnualMonthEmissionDatum struct {
 	// 统计的年份
@@ -1535,6 +1638,53 @@ func (s *LcaCarbonDatum) SetLcaStageCarbonDatum(v []*LcaStageCarbonItem) *LcaCar
 	return s
 }
 
+// 转型路径分析数据
+type TransferPathAnalysis struct {
+	// 所属领域
+	Field *string `json:"field,omitempty" xml:"field,omitempty" require:"true"`
+	// 目录编号
+	IndexNumber *string `json:"index_number,omitempty" xml:"index_number,omitempty" require:"true"`
+	// 目录内容
+	IndexContent *string `json:"index_content,omitempty" xml:"index_content,omitempty" require:"true"`
+	// 技术标准说明
+	Detail *string `json:"detail,omitempty" xml:"detail,omitempty" require:"true"`
+	// 企业是否采取该路径
+	Target *string `json:"target,omitempty" xml:"target,omitempty" require:"true"`
+}
+
+func (s TransferPathAnalysis) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TransferPathAnalysis) GoString() string {
+	return s.String()
+}
+
+func (s *TransferPathAnalysis) SetField(v string) *TransferPathAnalysis {
+	s.Field = &v
+	return s
+}
+
+func (s *TransferPathAnalysis) SetIndexNumber(v string) *TransferPathAnalysis {
+	s.IndexNumber = &v
+	return s
+}
+
+func (s *TransferPathAnalysis) SetIndexContent(v string) *TransferPathAnalysis {
+	s.IndexContent = &v
+	return s
+}
+
+func (s *TransferPathAnalysis) SetDetail(v string) *TransferPathAnalysis {
+	s.Detail = &v
+	return s
+}
+
+func (s *TransferPathAnalysis) SetTarget(v string) *TransferPathAnalysis {
+	s.Target = &v
+	return s
+}
+
 // 数据授权策略
 type AuthorizePolicy struct {
 	// 授权策略ID
@@ -1842,6 +1992,81 @@ func (s *BlockchainDTO) SetTxHash(v string) *BlockchainDTO {
 
 func (s *BlockchainDTO) SetBlockNumber(v int64) *BlockchainDTO {
 	s.BlockNumber = &v
+	return s
+}
+
+// 溯源碳足迹项目
+type LcaProjectTrace struct {
+	// 碳足迹编码
+	ProjectNo *string `json:"project_no,omitempty" xml:"project_no,omitempty" require:"true"`
+	// 碳足迹生命周期边界
+	LifeCycleBoundary *string `json:"life_cycle_boundary,omitempty" xml:"life_cycle_boundary,omitempty" require:"true"`
+	// 产品编码
+	ProductNo *string `json:"product_no,omitempty" xml:"product_no,omitempty" require:"true"`
+	// 碳足迹项目排放量
+	LcaCarbonAmount *string `json:"lca_carbon_amount,omitempty" xml:"lca_carbon_amount,omitempty" require:"true"`
+	// 产品名称
+	ProductName *string `json:"product_name,omitempty" xml:"product_name,omitempty" require:"true"`
+	// 产品规格型号
+	Specification *string `json:"specification,omitempty" xml:"specification,omitempty" require:"true"`
+	// 碳足迹开始时间
+	LcaStartDate *string `json:"lca_start_date,omitempty" xml:"lca_start_date,omitempty" require:"true"`
+	// 碳足迹结束时间
+	LcaEndDate *string `json:"lca_end_date,omitempty" xml:"lca_end_date,omitempty" require:"true"`
+	// 溯源状态
+	TraceStatus *string `json:"trace_status,omitempty" xml:"trace_status,omitempty" require:"true"`
+}
+
+func (s LcaProjectTrace) String() string {
+	return tea.Prettify(s)
+}
+
+func (s LcaProjectTrace) GoString() string {
+	return s.String()
+}
+
+func (s *LcaProjectTrace) SetProjectNo(v string) *LcaProjectTrace {
+	s.ProjectNo = &v
+	return s
+}
+
+func (s *LcaProjectTrace) SetLifeCycleBoundary(v string) *LcaProjectTrace {
+	s.LifeCycleBoundary = &v
+	return s
+}
+
+func (s *LcaProjectTrace) SetProductNo(v string) *LcaProjectTrace {
+	s.ProductNo = &v
+	return s
+}
+
+func (s *LcaProjectTrace) SetLcaCarbonAmount(v string) *LcaProjectTrace {
+	s.LcaCarbonAmount = &v
+	return s
+}
+
+func (s *LcaProjectTrace) SetProductName(v string) *LcaProjectTrace {
+	s.ProductName = &v
+	return s
+}
+
+func (s *LcaProjectTrace) SetSpecification(v string) *LcaProjectTrace {
+	s.Specification = &v
+	return s
+}
+
+func (s *LcaProjectTrace) SetLcaStartDate(v string) *LcaProjectTrace {
+	s.LcaStartDate = &v
+	return s
+}
+
+func (s *LcaProjectTrace) SetLcaEndDate(v string) *LcaProjectTrace {
+	s.LcaEndDate = &v
+	return s
+}
+
+func (s *LcaProjectTrace) SetTraceStatus(v string) *LcaProjectTrace {
+	s.TraceStatus = &v
 	return s
 }
 
@@ -8316,6 +8541,1000 @@ func (s *SubmitEcarGreencertificategenerationfileResponse) SetResultMsg(v string
 	return s
 }
 
+type QueryLcaprojectTracetenantRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+}
+
+func (s QueryLcaprojectTracetenantRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryLcaprojectTracetenantRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryLcaprojectTracetenantRequest) SetAuthToken(v string) *QueryLcaprojectTracetenantRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryLcaprojectTracetenantRequest) SetProductInstanceId(v string) *QueryLcaprojectTracetenantRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryLcaprojectTracetenantRequest) SetTenantId(v string) *QueryLcaprojectTracetenantRequest {
+	s.TenantId = &v
+	return s
+}
+
+type QueryLcaprojectTracetenantResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// 企业名称
+	EnterpriseName *string `json:"enterprise_name,omitempty" xml:"enterprise_name,omitempty"`
+}
+
+func (s QueryLcaprojectTracetenantResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryLcaprojectTracetenantResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryLcaprojectTracetenantResponse) SetReqMsgId(v string) *QueryLcaprojectTracetenantResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryLcaprojectTracetenantResponse) SetResultCode(v string) *QueryLcaprojectTracetenantResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryLcaprojectTracetenantResponse) SetResultMsg(v string) *QueryLcaprojectTracetenantResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryLcaprojectTracetenantResponse) SetTenantId(v string) *QueryLcaprojectTracetenantResponse {
+	s.TenantId = &v
+	return s
+}
+
+func (s *QueryLcaprojectTracetenantResponse) SetEnterpriseName(v string) *QueryLcaprojectTracetenantResponse {
+	s.EnterpriseName = &v
+	return s
+}
+
+type ListLcaprojectTraceprojectRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 产品规格
+	Specification *string `json:"specification,omitempty" xml:"specification,omitempty" require:"true"`
+	// 列表数量
+	Limit *int64 `json:"limit,omitempty" xml:"limit,omitempty"`
+}
+
+func (s ListLcaprojectTraceprojectRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListLcaprojectTraceprojectRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ListLcaprojectTraceprojectRequest) SetAuthToken(v string) *ListLcaprojectTraceprojectRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ListLcaprojectTraceprojectRequest) SetProductInstanceId(v string) *ListLcaprojectTraceprojectRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ListLcaprojectTraceprojectRequest) SetTenantId(v string) *ListLcaprojectTraceprojectRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *ListLcaprojectTraceprojectRequest) SetSpecification(v string) *ListLcaprojectTraceprojectRequest {
+	s.Specification = &v
+	return s
+}
+
+func (s *ListLcaprojectTraceprojectRequest) SetLimit(v int64) *ListLcaprojectTraceprojectRequest {
+	s.Limit = &v
+	return s
+}
+
+type ListLcaprojectTraceprojectResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 查询LCA项目列表
+	List []*LcaProjectTrace `json:"list,omitempty" xml:"list,omitempty" type:"Repeated"`
+}
+
+func (s ListLcaprojectTraceprojectResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListLcaprojectTraceprojectResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ListLcaprojectTraceprojectResponse) SetReqMsgId(v string) *ListLcaprojectTraceprojectResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ListLcaprojectTraceprojectResponse) SetResultCode(v string) *ListLcaprojectTraceprojectResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ListLcaprojectTraceprojectResponse) SetResultMsg(v string) *ListLcaprojectTraceprojectResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ListLcaprojectTraceprojectResponse) SetList(v []*LcaProjectTrace) *ListLcaprojectTraceprojectResponse {
+	s.List = v
+	return s
+}
+
+type DetailLcaprojectTraceprojectRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 项目编码
+	ProjectNo *string `json:"project_no,omitempty" xml:"project_no,omitempty" require:"true"`
+}
+
+func (s DetailLcaprojectTraceprojectRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DetailLcaprojectTraceprojectRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DetailLcaprojectTraceprojectRequest) SetAuthToken(v string) *DetailLcaprojectTraceprojectRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DetailLcaprojectTraceprojectRequest) SetProductInstanceId(v string) *DetailLcaprojectTraceprojectRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *DetailLcaprojectTraceprojectRequest) SetTenantId(v string) *DetailLcaprojectTraceprojectRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *DetailLcaprojectTraceprojectRequest) SetProjectNo(v string) *DetailLcaprojectTraceprojectRequest {
+	s.ProjectNo = &v
+	return s
+}
+
+type DetailLcaprojectTraceprojectResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 原材料运输排放量
+	TransportEmissionAmount *string `json:"transport_emission_amount,omitempty" xml:"transport_emission_amount,omitempty"`
+	// 碳足迹总排放量
+	EmissionAmount *string `json:"emission_amount,omitempty" xml:"emission_amount,omitempty"`
+	// 废弃物运输排放量
+	WasteTransportEmissionAmount *string `json:"waste_transport_emission_amount,omitempty" xml:"waste_transport_emission_amount,omitempty"`
+	// 碳足迹排放单位
+	EmissionUnit *string `json:"emission_unit,omitempty" xml:"emission_unit,omitempty"`
+	// 废弃物处置排放量
+	WasteDisposalEmissionAmount *string `json:"waste_disposal_emission_amount,omitempty" xml:"waste_disposal_emission_amount,omitempty"`
+	// 原材料制造排放量
+	ManufactureEmissionAmount *string `json:"manufacture_emission_amount,omitempty" xml:"manufacture_emission_amount,omitempty"`
+	// 能耗使用排放量
+	EnergyEmissionAmount *string `json:"energy_emission_amount,omitempty" xml:"energy_emission_amount,omitempty"`
+	// 环境排放排放量
+	EnvironmentEmissionAmount *string `json:"environment_emission_amount,omitempty" xml:"environment_emission_amount,omitempty"`
+}
+
+func (s DetailLcaprojectTraceprojectResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DetailLcaprojectTraceprojectResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DetailLcaprojectTraceprojectResponse) SetReqMsgId(v string) *DetailLcaprojectTraceprojectResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DetailLcaprojectTraceprojectResponse) SetResultCode(v string) *DetailLcaprojectTraceprojectResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DetailLcaprojectTraceprojectResponse) SetResultMsg(v string) *DetailLcaprojectTraceprojectResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *DetailLcaprojectTraceprojectResponse) SetTransportEmissionAmount(v string) *DetailLcaprojectTraceprojectResponse {
+	s.TransportEmissionAmount = &v
+	return s
+}
+
+func (s *DetailLcaprojectTraceprojectResponse) SetEmissionAmount(v string) *DetailLcaprojectTraceprojectResponse {
+	s.EmissionAmount = &v
+	return s
+}
+
+func (s *DetailLcaprojectTraceprojectResponse) SetWasteTransportEmissionAmount(v string) *DetailLcaprojectTraceprojectResponse {
+	s.WasteTransportEmissionAmount = &v
+	return s
+}
+
+func (s *DetailLcaprojectTraceprojectResponse) SetEmissionUnit(v string) *DetailLcaprojectTraceprojectResponse {
+	s.EmissionUnit = &v
+	return s
+}
+
+func (s *DetailLcaprojectTraceprojectResponse) SetWasteDisposalEmissionAmount(v string) *DetailLcaprojectTraceprojectResponse {
+	s.WasteDisposalEmissionAmount = &v
+	return s
+}
+
+func (s *DetailLcaprojectTraceprojectResponse) SetManufactureEmissionAmount(v string) *DetailLcaprojectTraceprojectResponse {
+	s.ManufactureEmissionAmount = &v
+	return s
+}
+
+func (s *DetailLcaprojectTraceprojectResponse) SetEnergyEmissionAmount(v string) *DetailLcaprojectTraceprojectResponse {
+	s.EnergyEmissionAmount = &v
+	return s
+}
+
+func (s *DetailLcaprojectTraceprojectResponse) SetEnvironmentEmissionAmount(v string) *DetailLcaprojectTraceprojectResponse {
+	s.EnvironmentEmissionAmount = &v
+	return s
+}
+
+type OperateLcaprojectTracebindingRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 项目编码
+	ProjectNo *string `json:"project_no,omitempty" xml:"project_no,omitempty" require:"true"`
+}
+
+func (s OperateLcaprojectTracebindingRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OperateLcaprojectTracebindingRequest) GoString() string {
+	return s.String()
+}
+
+func (s *OperateLcaprojectTracebindingRequest) SetAuthToken(v string) *OperateLcaprojectTracebindingRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *OperateLcaprojectTracebindingRequest) SetProductInstanceId(v string) *OperateLcaprojectTracebindingRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *OperateLcaprojectTracebindingRequest) SetTenantId(v string) *OperateLcaprojectTracebindingRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *OperateLcaprojectTracebindingRequest) SetProjectNo(v string) *OperateLcaprojectTracebindingRequest {
+	s.ProjectNo = &v
+	return s
+}
+
+type OperateLcaprojectTracebindingResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s OperateLcaprojectTracebindingResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OperateLcaprojectTracebindingResponse) GoString() string {
+	return s.String()
+}
+
+func (s *OperateLcaprojectTracebindingResponse) SetReqMsgId(v string) *OperateLcaprojectTracebindingResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *OperateLcaprojectTracebindingResponse) SetResultCode(v string) *OperateLcaprojectTracebindingResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *OperateLcaprojectTracebindingResponse) SetResultMsg(v string) *OperateLcaprojectTracebindingResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type AddFinanceEmissionRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 银行碳账号
+	EnterpriseNo *string `json:"enterprise_no,omitempty" xml:"enterprise_no,omitempty" require:"true"`
+	// 企业统一社会信用代码
+	CompanyId *string `json:"company_id,omitempty" xml:"company_id,omitempty" require:"true"`
+	// 排放盘查方案
+	PlanCode *string `json:"plan_code,omitempty" xml:"plan_code,omitempty" require:"true"`
+	// 排放量
+	EmissionDosage *string `json:"emission_dosage,omitempty" xml:"emission_dosage,omitempty" require:"true"`
+	// 年份
+	Year *string `json:"year,omitempty" xml:"year,omitempty" require:"true"`
+}
+
+func (s AddFinanceEmissionRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AddFinanceEmissionRequest) GoString() string {
+	return s.String()
+}
+
+func (s *AddFinanceEmissionRequest) SetAuthToken(v string) *AddFinanceEmissionRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *AddFinanceEmissionRequest) SetProductInstanceId(v string) *AddFinanceEmissionRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *AddFinanceEmissionRequest) SetEnterpriseNo(v string) *AddFinanceEmissionRequest {
+	s.EnterpriseNo = &v
+	return s
+}
+
+func (s *AddFinanceEmissionRequest) SetCompanyId(v string) *AddFinanceEmissionRequest {
+	s.CompanyId = &v
+	return s
+}
+
+func (s *AddFinanceEmissionRequest) SetPlanCode(v string) *AddFinanceEmissionRequest {
+	s.PlanCode = &v
+	return s
+}
+
+func (s *AddFinanceEmissionRequest) SetEmissionDosage(v string) *AddFinanceEmissionRequest {
+	s.EmissionDosage = &v
+	return s
+}
+
+func (s *AddFinanceEmissionRequest) SetYear(v string) *AddFinanceEmissionRequest {
+	s.Year = &v
+	return s
+}
+
+type AddFinanceEmissionResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 碳排放量
+	EmissionAmount *string `json:"emission_amount,omitempty" xml:"emission_amount,omitempty"`
+	// 订单号
+	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty"`
+}
+
+func (s AddFinanceEmissionResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AddFinanceEmissionResponse) GoString() string {
+	return s.String()
+}
+
+func (s *AddFinanceEmissionResponse) SetReqMsgId(v string) *AddFinanceEmissionResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *AddFinanceEmissionResponse) SetResultCode(v string) *AddFinanceEmissionResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *AddFinanceEmissionResponse) SetResultMsg(v string) *AddFinanceEmissionResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *AddFinanceEmissionResponse) SetEmissionAmount(v string) *AddFinanceEmissionResponse {
+	s.EmissionAmount = &v
+	return s
+}
+
+func (s *AddFinanceEmissionResponse) SetOrderNo(v string) *AddFinanceEmissionResponse {
+	s.OrderNo = &v
+	return s
+}
+
+type AddFinanceCompanyRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 银行碳账户
+	EnterpriseNo *string `json:"enterprise_no,omitempty" xml:"enterprise_no,omitempty" require:"true"`
+	// 企业统一信用代码或者项目编号
+	CompanyId *string `json:"company_id,omitempty" xml:"company_id,omitempty" require:"true"`
+	// 企业名称或者项目名称
+	CompanyName *string `json:"company_name,omitempty" xml:"company_name,omitempty" require:"true"`
+	// 行业编码，枚举值
+	IndustryCode *string `json:"industry_code,omitempty" xml:"industry_code,omitempty" require:"true"`
+	// 地区编码
+	AreaCode *string `json:"area_code,omitempty" xml:"area_code,omitempty" require:"true"`
+	// 提交人
+	CompanySubmitter *string `json:"company_submitter,omitempty" xml:"company_submitter,omitempty" require:"true"`
+	// 企业或项目注册年份
+	RegisterYear *string `json:"register_year,omitempty" xml:"register_year,omitempty" require:"true"`
+}
+
+func (s AddFinanceCompanyRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AddFinanceCompanyRequest) GoString() string {
+	return s.String()
+}
+
+func (s *AddFinanceCompanyRequest) SetAuthToken(v string) *AddFinanceCompanyRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *AddFinanceCompanyRequest) SetProductInstanceId(v string) *AddFinanceCompanyRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *AddFinanceCompanyRequest) SetEnterpriseNo(v string) *AddFinanceCompanyRequest {
+	s.EnterpriseNo = &v
+	return s
+}
+
+func (s *AddFinanceCompanyRequest) SetCompanyId(v string) *AddFinanceCompanyRequest {
+	s.CompanyId = &v
+	return s
+}
+
+func (s *AddFinanceCompanyRequest) SetCompanyName(v string) *AddFinanceCompanyRequest {
+	s.CompanyName = &v
+	return s
+}
+
+func (s *AddFinanceCompanyRequest) SetIndustryCode(v string) *AddFinanceCompanyRequest {
+	s.IndustryCode = &v
+	return s
+}
+
+func (s *AddFinanceCompanyRequest) SetAreaCode(v string) *AddFinanceCompanyRequest {
+	s.AreaCode = &v
+	return s
+}
+
+func (s *AddFinanceCompanyRequest) SetCompanySubmitter(v string) *AddFinanceCompanyRequest {
+	s.CompanySubmitter = &v
+	return s
+}
+
+func (s *AddFinanceCompanyRequest) SetRegisterYear(v string) *AddFinanceCompanyRequest {
+	s.RegisterYear = &v
+	return s
+}
+
+type AddFinanceCompanyResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s AddFinanceCompanyResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AddFinanceCompanyResponse) GoString() string {
+	return s.String()
+}
+
+func (s *AddFinanceCompanyResponse) SetReqMsgId(v string) *AddFinanceCompanyResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *AddFinanceCompanyResponse) SetResultCode(v string) *AddFinanceCompanyResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *AddFinanceCompanyResponse) SetResultMsg(v string) *AddFinanceCompanyResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type UpdateFinanceCompanyRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 银行碳账户
+	EnterpriseNo *string `json:"enterprise_no,omitempty" xml:"enterprise_no,omitempty" require:"true"`
+	// 企业统一信用代码
+	CompanyId *string `json:"company_id,omitempty" xml:"company_id,omitempty" require:"true"`
+	// 企业或者项目名称
+	CompanyName *string `json:"company_name,omitempty" xml:"company_name,omitempty" require:"true"`
+	// 行业编码
+	IndustryCode *string `json:"industry_code,omitempty" xml:"industry_code,omitempty" require:"true"`
+	// 地区编码
+	AreaCode *string `json:"area_code,omitempty" xml:"area_code,omitempty" require:"true"`
+}
+
+func (s UpdateFinanceCompanyRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateFinanceCompanyRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateFinanceCompanyRequest) SetAuthToken(v string) *UpdateFinanceCompanyRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateFinanceCompanyRequest) SetProductInstanceId(v string) *UpdateFinanceCompanyRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UpdateFinanceCompanyRequest) SetEnterpriseNo(v string) *UpdateFinanceCompanyRequest {
+	s.EnterpriseNo = &v
+	return s
+}
+
+func (s *UpdateFinanceCompanyRequest) SetCompanyId(v string) *UpdateFinanceCompanyRequest {
+	s.CompanyId = &v
+	return s
+}
+
+func (s *UpdateFinanceCompanyRequest) SetCompanyName(v string) *UpdateFinanceCompanyRequest {
+	s.CompanyName = &v
+	return s
+}
+
+func (s *UpdateFinanceCompanyRequest) SetIndustryCode(v string) *UpdateFinanceCompanyRequest {
+	s.IndustryCode = &v
+	return s
+}
+
+func (s *UpdateFinanceCompanyRequest) SetAreaCode(v string) *UpdateFinanceCompanyRequest {
+	s.AreaCode = &v
+	return s
+}
+
+type UpdateFinanceCompanyResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s UpdateFinanceCompanyResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateFinanceCompanyResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateFinanceCompanyResponse) SetReqMsgId(v string) *UpdateFinanceCompanyResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UpdateFinanceCompanyResponse) SetResultCode(v string) *UpdateFinanceCompanyResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UpdateFinanceCompanyResponse) SetResultMsg(v string) *UpdateFinanceCompanyResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type DeleteFinanceCompanyRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 银行碳账户
+	EnterpriseNo *string `json:"enterprise_no,omitempty" xml:"enterprise_no,omitempty" require:"true"`
+	// 企业统一信用代码或者项目id
+	CompanyId *string `json:"company_id,omitempty" xml:"company_id,omitempty" require:"true"`
+}
+
+func (s DeleteFinanceCompanyRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeleteFinanceCompanyRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DeleteFinanceCompanyRequest) SetAuthToken(v string) *DeleteFinanceCompanyRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DeleteFinanceCompanyRequest) SetProductInstanceId(v string) *DeleteFinanceCompanyRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *DeleteFinanceCompanyRequest) SetEnterpriseNo(v string) *DeleteFinanceCompanyRequest {
+	s.EnterpriseNo = &v
+	return s
+}
+
+func (s *DeleteFinanceCompanyRequest) SetCompanyId(v string) *DeleteFinanceCompanyRequest {
+	s.CompanyId = &v
+	return s
+}
+
+type DeleteFinanceCompanyResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s DeleteFinanceCompanyResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeleteFinanceCompanyResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DeleteFinanceCompanyResponse) SetReqMsgId(v string) *DeleteFinanceCompanyResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DeleteFinanceCompanyResponse) SetResultCode(v string) *DeleteFinanceCompanyResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DeleteFinanceCompanyResponse) SetResultMsg(v string) *DeleteFinanceCompanyResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type ListFinanceReportRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 银行碳账户
+	EnterpriseNo *string `json:"enterprise_no,omitempty" xml:"enterprise_no,omitempty" require:"true"`
+	// 企业统一信用代码或者项目id
+	CompanyId *string `json:"company_id,omitempty" xml:"company_id,omitempty" require:"true"`
+	// 报告年，当前年，对比年
+	CompareYear *string `json:"compare_year,omitempty" xml:"compare_year,omitempty" require:"true"`
+	// 基准年，被对比年
+	BaseYear *string `json:"base_year,omitempty" xml:"base_year,omitempty" require:"true"`
+}
+
+func (s ListFinanceReportRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListFinanceReportRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ListFinanceReportRequest) SetAuthToken(v string) *ListFinanceReportRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ListFinanceReportRequest) SetProductInstanceId(v string) *ListFinanceReportRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ListFinanceReportRequest) SetEnterpriseNo(v string) *ListFinanceReportRequest {
+	s.EnterpriseNo = &v
+	return s
+}
+
+func (s *ListFinanceReportRequest) SetCompanyId(v string) *ListFinanceReportRequest {
+	s.CompanyId = &v
+	return s
+}
+
+func (s *ListFinanceReportRequest) SetCompareYear(v string) *ListFinanceReportRequest {
+	s.CompareYear = &v
+	return s
+}
+
+func (s *ListFinanceReportRequest) SetBaseYear(v string) *ListFinanceReportRequest {
+	s.BaseYear = &v
+	return s
+}
+
+type ListFinanceReportResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 报告列表
+	List []*FinanceReportDetail `json:"list,omitempty" xml:"list,omitempty" type:"Repeated"`
+}
+
+func (s ListFinanceReportResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListFinanceReportResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ListFinanceReportResponse) SetReqMsgId(v string) *ListFinanceReportResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ListFinanceReportResponse) SetResultCode(v string) *ListFinanceReportResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ListFinanceReportResponse) SetResultMsg(v string) *ListFinanceReportResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ListFinanceReportResponse) SetList(v []*FinanceReportDetail) *ListFinanceReportResponse {
+	s.List = v
+	return s
+}
+
+type CreateFinanceReportRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 银行碳账户
+	EnterpriseNo *string `json:"enterprise_no,omitempty" xml:"enterprise_no,omitempty" require:"true"`
+	// 企业社会统一信用编码
+	CompanyId *string `json:"company_id,omitempty" xml:"company_id,omitempty" require:"true"`
+	// 对比年
+	CompareYear *string `json:"compare_year,omitempty" xml:"compare_year,omitempty" require:"true"`
+	// 基准年份
+	BaseYear *string `json:"base_year,omitempty" xml:"base_year,omitempty" require:"true"`
+	// 转型路径分析
+	TransferPathAnalysisList []*TransferPathAnalysis `json:"transfer_path_analysis_list,omitempty" xml:"transfer_path_analysis_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s CreateFinanceReportRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateFinanceReportRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateFinanceReportRequest) SetAuthToken(v string) *CreateFinanceReportRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateFinanceReportRequest) SetProductInstanceId(v string) *CreateFinanceReportRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateFinanceReportRequest) SetEnterpriseNo(v string) *CreateFinanceReportRequest {
+	s.EnterpriseNo = &v
+	return s
+}
+
+func (s *CreateFinanceReportRequest) SetCompanyId(v string) *CreateFinanceReportRequest {
+	s.CompanyId = &v
+	return s
+}
+
+func (s *CreateFinanceReportRequest) SetCompareYear(v string) *CreateFinanceReportRequest {
+	s.CompareYear = &v
+	return s
+}
+
+func (s *CreateFinanceReportRequest) SetBaseYear(v string) *CreateFinanceReportRequest {
+	s.BaseYear = &v
+	return s
+}
+
+func (s *CreateFinanceReportRequest) SetTransferPathAnalysisList(v []*TransferPathAnalysis) *CreateFinanceReportRequest {
+	s.TransferPathAnalysisList = v
+	return s
+}
+
+type CreateFinanceReportResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s CreateFinanceReportResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateFinanceReportResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateFinanceReportResponse) SetReqMsgId(v string) *CreateFinanceReportResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateFinanceReportResponse) SetResultCode(v string) *CreateFinanceReportResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateFinanceReportResponse) SetResultMsg(v string) *CreateFinanceReportResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type UpdateFinanceReportRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 报告单号
+	ReportNo *string `json:"report_no,omitempty" xml:"report_no,omitempty" require:"true"`
+	// 银行碳账号
+	EnterpriseNo *string `json:"enterprise_no,omitempty" xml:"enterprise_no,omitempty" require:"true"`
+	// 报告盖章人
+	ReportSinger *string `json:"report_singer,omitempty" xml:"report_singer,omitempty" require:"true"`
+	// 可以直接公网可以下载的oss地址
+	ReportOssUrl *string `json:"report_oss_url,omitempty" xml:"report_oss_url,omitempty" require:"true"`
+}
+
+func (s UpdateFinanceReportRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateFinanceReportRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateFinanceReportRequest) SetAuthToken(v string) *UpdateFinanceReportRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateFinanceReportRequest) SetProductInstanceId(v string) *UpdateFinanceReportRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UpdateFinanceReportRequest) SetReportNo(v string) *UpdateFinanceReportRequest {
+	s.ReportNo = &v
+	return s
+}
+
+func (s *UpdateFinanceReportRequest) SetEnterpriseNo(v string) *UpdateFinanceReportRequest {
+	s.EnterpriseNo = &v
+	return s
+}
+
+func (s *UpdateFinanceReportRequest) SetReportSinger(v string) *UpdateFinanceReportRequest {
+	s.ReportSinger = &v
+	return s
+}
+
+func (s *UpdateFinanceReportRequest) SetReportOssUrl(v string) *UpdateFinanceReportRequest {
+	s.ReportOssUrl = &v
+	return s
+}
+
+type UpdateFinanceReportResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s UpdateFinanceReportResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateFinanceReportResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateFinanceReportResponse) SetReqMsgId(v string) *UpdateFinanceReportResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UpdateFinanceReportResponse) SetResultCode(v string) *UpdateFinanceReportResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UpdateFinanceReportResponse) SetResultMsg(v string) *UpdateFinanceReportResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type QueryThirdCertRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -8665,7 +9884,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("2.9.2"),
+				"sdk_version":      tea.String("2.11.4"),
 				"_prod_code":       tea.String("STLR"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -10063,6 +11282,7 @@ func (client *Client) UploadEcarFileEx(request *UploadEcarFileRequest, headers m
 			return _result, _err
 		}
 		request.FileId = uploadResp.FileId
+		request.FileObject = nil
 	}
 
 	_err = util.ValidateModel(request)
@@ -10670,6 +11890,7 @@ func (client *Client) UploadEcarPlaformfileEx(request *UploadEcarPlaformfileRequ
 			return _result, _err
 		}
 		request.FileId = uploadResp.FileId
+		request.FileObject = nil
 	}
 
 	_err = util.ValidateModel(request)
@@ -10937,6 +12158,7 @@ func (client *Client) SubmitEcarGreencertificategenerationfileEx(request *Submit
 			return _result, _err
 		}
 		request.FileId = uploadResp.FileId
+		request.FileObject = nil
 	}
 
 	_err = util.ValidateModel(request)
@@ -10945,6 +12167,380 @@ func (client *Client) SubmitEcarGreencertificategenerationfileEx(request *Submit
 	}
 	_result = &SubmitEcarGreencertificategenerationfileResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.carbon.ecar.greencertificategenerationfile.submit"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 溯源检查租户
+ * Summary: 溯源检查租户
+ */
+func (client *Client) QueryLcaprojectTracetenant(request *QueryLcaprojectTracetenantRequest) (_result *QueryLcaprojectTracetenantResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryLcaprojectTracetenantResponse{}
+	_body, _err := client.QueryLcaprojectTracetenantEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 溯源检查租户
+ * Summary: 溯源检查租户
+ */
+func (client *Client) QueryLcaprojectTracetenantEx(request *QueryLcaprojectTracetenantRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryLcaprojectTracetenantResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryLcaprojectTracetenantResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.carbon.lcaproject.tracetenant.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 溯源查询LCA项目列表
+ * Summary: 查询LCA项目列表
+ */
+func (client *Client) ListLcaprojectTraceproject(request *ListLcaprojectTraceprojectRequest) (_result *ListLcaprojectTraceprojectResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ListLcaprojectTraceprojectResponse{}
+	_body, _err := client.ListLcaprojectTraceprojectEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 溯源查询LCA项目列表
+ * Summary: 查询LCA项目列表
+ */
+func (client *Client) ListLcaprojectTraceprojectEx(request *ListLcaprojectTraceprojectRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ListLcaprojectTraceprojectResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ListLcaprojectTraceprojectResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.carbon.lcaproject.traceproject.list"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 根据请求参数获取LCA项目跟踪信息
+ * Summary: 根据请求参数获取LCA项目信息
+ */
+func (client *Client) DetailLcaprojectTraceproject(request *DetailLcaprojectTraceprojectRequest) (_result *DetailLcaprojectTraceprojectResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DetailLcaprojectTraceprojectResponse{}
+	_body, _err := client.DetailLcaprojectTraceprojectEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 根据请求参数获取LCA项目跟踪信息
+ * Summary: 根据请求参数获取LCA项目信息
+ */
+func (client *Client) DetailLcaprojectTraceprojectEx(request *DetailLcaprojectTraceprojectRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DetailLcaprojectTraceprojectResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DetailLcaprojectTraceprojectResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.carbon.lcaproject.traceproject.detail"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 绑定LCA项目
+ * Summary: 绑定LCA项目
+ */
+func (client *Client) OperateLcaprojectTracebinding(request *OperateLcaprojectTracebindingRequest) (_result *OperateLcaprojectTracebindingResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &OperateLcaprojectTracebindingResponse{}
+	_body, _err := client.OperateLcaprojectTracebindingEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 绑定LCA项目
+ * Summary: 绑定LCA项目
+ */
+func (client *Client) OperateLcaprojectTracebindingEx(request *OperateLcaprojectTracebindingRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *OperateLcaprojectTracebindingResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &OperateLcaprojectTracebindingResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.carbon.lcaproject.tracebinding.operate"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 转型金融排放新增
+ * Summary: 转型金融排放新增
+ */
+func (client *Client) AddFinanceEmission(request *AddFinanceEmissionRequest) (_result *AddFinanceEmissionResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &AddFinanceEmissionResponse{}
+	_body, _err := client.AddFinanceEmissionEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 转型金融排放新增
+ * Summary: 转型金融排放新增
+ */
+func (client *Client) AddFinanceEmissionEx(request *AddFinanceEmissionRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *AddFinanceEmissionResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &AddFinanceEmissionResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.carbon.finance.emission.add"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 新增企业或者项目
+ * Summary: 新增企业或者项目
+ */
+func (client *Client) AddFinanceCompany(request *AddFinanceCompanyRequest) (_result *AddFinanceCompanyResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &AddFinanceCompanyResponse{}
+	_body, _err := client.AddFinanceCompanyEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 新增企业或者项目
+ * Summary: 新增企业或者项目
+ */
+func (client *Client) AddFinanceCompanyEx(request *AddFinanceCompanyRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *AddFinanceCompanyResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &AddFinanceCompanyResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.carbon.finance.company.add"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 企业或者项目更新
+ * Summary: 企业更新
+ */
+func (client *Client) UpdateFinanceCompany(request *UpdateFinanceCompanyRequest) (_result *UpdateFinanceCompanyResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UpdateFinanceCompanyResponse{}
+	_body, _err := client.UpdateFinanceCompanyEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 企业或者项目更新
+ * Summary: 企业更新
+ */
+func (client *Client) UpdateFinanceCompanyEx(request *UpdateFinanceCompanyRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UpdateFinanceCompanyResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UpdateFinanceCompanyResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.carbon.finance.company.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 删除企业或者项目
+ * Summary: 删除企业
+ */
+func (client *Client) DeleteFinanceCompany(request *DeleteFinanceCompanyRequest) (_result *DeleteFinanceCompanyResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DeleteFinanceCompanyResponse{}
+	_body, _err := client.DeleteFinanceCompanyEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 删除企业或者项目
+ * Summary: 删除企业
+ */
+func (client *Client) DeleteFinanceCompanyEx(request *DeleteFinanceCompanyRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DeleteFinanceCompanyResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DeleteFinanceCompanyResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.carbon.finance.company.delete"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 排放报告获取
+ * Summary: 排放报告获取
+ */
+func (client *Client) ListFinanceReport(request *ListFinanceReportRequest) (_result *ListFinanceReportResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ListFinanceReportResponse{}
+	_body, _err := client.ListFinanceReportEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 排放报告获取
+ * Summary: 排放报告获取
+ */
+func (client *Client) ListFinanceReportEx(request *ListFinanceReportRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ListFinanceReportResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ListFinanceReportResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.carbon.finance.report.list"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 转型金融报告生成
+ * Summary: 转型金融报告生成
+ */
+func (client *Client) CreateFinanceReport(request *CreateFinanceReportRequest) (_result *CreateFinanceReportResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateFinanceReportResponse{}
+	_body, _err := client.CreateFinanceReportEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 转型金融报告生成
+ * Summary: 转型金融报告生成
+ */
+func (client *Client) CreateFinanceReportEx(request *CreateFinanceReportRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateFinanceReportResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateFinanceReportResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.carbon.finance.report.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 转型报告更新
+ * Summary: 转型报告更新
+ */
+func (client *Client) UpdateFinanceReport(request *UpdateFinanceReportRequest) (_result *UpdateFinanceReportResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UpdateFinanceReportResponse{}
+	_body, _err := client.UpdateFinanceReportEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 转型报告更新
+ * Summary: 转型报告更新
+ */
+func (client *Client) UpdateFinanceReportEx(request *UpdateFinanceReportRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UpdateFinanceReportResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UpdateFinanceReportResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.carbon.finance.report.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
