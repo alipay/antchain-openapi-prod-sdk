@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '2.9.2',
+                    'sdk_version': '2.11.4',
                     '_prod_code': 'STLR',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '2.9.2',
+                    'sdk_version': '2.11.4',
                     '_prod_code': 'STLR',
                     '_prod_channel': 'undefined'
                 }
@@ -2454,6 +2454,7 @@ class Client:
             upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
             AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             stlr_models.UploadEcarFileResponse(),
@@ -2487,6 +2488,7 @@ class Client:
             upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
             await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             stlr_models.UploadEcarFileResponse(),
@@ -3440,6 +3442,7 @@ class Client:
             upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
             AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             stlr_models.UploadEcarPlaformfileResponse(),
@@ -3473,6 +3476,7 @@ class Client:
             upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
             await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             stlr_models.UploadEcarPlaformfileResponse(),
@@ -3866,6 +3870,7 @@ class Client:
             upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
             AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             stlr_models.SubmitEcarGreencertificategenerationfileResponse(),
@@ -3899,10 +3904,627 @@ class Client:
             upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
             await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             stlr_models.SubmitEcarGreencertificategenerationfileResponse(),
             await self.do_request_async('1.0', 'antchain.carbon.ecar.greencertificategenerationfile.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_lcaproject_tracetenant(
+        self,
+        request: stlr_models.QueryLcaprojectTracetenantRequest,
+    ) -> stlr_models.QueryLcaprojectTracetenantResponse:
+        """
+        Description: 溯源检查租户
+        Summary: 溯源检查租户
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_lcaproject_tracetenant_ex(request, headers, runtime)
+
+    async def query_lcaproject_tracetenant_async(
+        self,
+        request: stlr_models.QueryLcaprojectTracetenantRequest,
+    ) -> stlr_models.QueryLcaprojectTracetenantResponse:
+        """
+        Description: 溯源检查租户
+        Summary: 溯源检查租户
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_lcaproject_tracetenant_ex_async(request, headers, runtime)
+
+    def query_lcaproject_tracetenant_ex(
+        self,
+        request: stlr_models.QueryLcaprojectTracetenantRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.QueryLcaprojectTracetenantResponse:
+        """
+        Description: 溯源检查租户
+        Summary: 溯源检查租户
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.QueryLcaprojectTracetenantResponse(),
+            self.do_request('1.0', 'antchain.carbon.lcaproject.tracetenant.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_lcaproject_tracetenant_ex_async(
+        self,
+        request: stlr_models.QueryLcaprojectTracetenantRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.QueryLcaprojectTracetenantResponse:
+        """
+        Description: 溯源检查租户
+        Summary: 溯源检查租户
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.QueryLcaprojectTracetenantResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.lcaproject.tracetenant.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def list_lcaproject_traceproject(
+        self,
+        request: stlr_models.ListLcaprojectTraceprojectRequest,
+    ) -> stlr_models.ListLcaprojectTraceprojectResponse:
+        """
+        Description: 溯源查询LCA项目列表
+        Summary: 查询LCA项目列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_lcaproject_traceproject_ex(request, headers, runtime)
+
+    async def list_lcaproject_traceproject_async(
+        self,
+        request: stlr_models.ListLcaprojectTraceprojectRequest,
+    ) -> stlr_models.ListLcaprojectTraceprojectResponse:
+        """
+        Description: 溯源查询LCA项目列表
+        Summary: 查询LCA项目列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.list_lcaproject_traceproject_ex_async(request, headers, runtime)
+
+    def list_lcaproject_traceproject_ex(
+        self,
+        request: stlr_models.ListLcaprojectTraceprojectRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.ListLcaprojectTraceprojectResponse:
+        """
+        Description: 溯源查询LCA项目列表
+        Summary: 查询LCA项目列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.ListLcaprojectTraceprojectResponse(),
+            self.do_request('1.0', 'antchain.carbon.lcaproject.traceproject.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def list_lcaproject_traceproject_ex_async(
+        self,
+        request: stlr_models.ListLcaprojectTraceprojectRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.ListLcaprojectTraceprojectResponse:
+        """
+        Description: 溯源查询LCA项目列表
+        Summary: 查询LCA项目列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.ListLcaprojectTraceprojectResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.lcaproject.traceproject.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def detail_lcaproject_traceproject(
+        self,
+        request: stlr_models.DetailLcaprojectTraceprojectRequest,
+    ) -> stlr_models.DetailLcaprojectTraceprojectResponse:
+        """
+        Description: 根据请求参数获取LCA项目跟踪信息
+        Summary: 根据请求参数获取LCA项目信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.detail_lcaproject_traceproject_ex(request, headers, runtime)
+
+    async def detail_lcaproject_traceproject_async(
+        self,
+        request: stlr_models.DetailLcaprojectTraceprojectRequest,
+    ) -> stlr_models.DetailLcaprojectTraceprojectResponse:
+        """
+        Description: 根据请求参数获取LCA项目跟踪信息
+        Summary: 根据请求参数获取LCA项目信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.detail_lcaproject_traceproject_ex_async(request, headers, runtime)
+
+    def detail_lcaproject_traceproject_ex(
+        self,
+        request: stlr_models.DetailLcaprojectTraceprojectRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.DetailLcaprojectTraceprojectResponse:
+        """
+        Description: 根据请求参数获取LCA项目跟踪信息
+        Summary: 根据请求参数获取LCA项目信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.DetailLcaprojectTraceprojectResponse(),
+            self.do_request('1.0', 'antchain.carbon.lcaproject.traceproject.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def detail_lcaproject_traceproject_ex_async(
+        self,
+        request: stlr_models.DetailLcaprojectTraceprojectRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.DetailLcaprojectTraceprojectResponse:
+        """
+        Description: 根据请求参数获取LCA项目跟踪信息
+        Summary: 根据请求参数获取LCA项目信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.DetailLcaprojectTraceprojectResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.lcaproject.traceproject.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def operate_lcaproject_tracebinding(
+        self,
+        request: stlr_models.OperateLcaprojectTracebindingRequest,
+    ) -> stlr_models.OperateLcaprojectTracebindingResponse:
+        """
+        Description: 绑定LCA项目
+        Summary: 绑定LCA项目
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.operate_lcaproject_tracebinding_ex(request, headers, runtime)
+
+    async def operate_lcaproject_tracebinding_async(
+        self,
+        request: stlr_models.OperateLcaprojectTracebindingRequest,
+    ) -> stlr_models.OperateLcaprojectTracebindingResponse:
+        """
+        Description: 绑定LCA项目
+        Summary: 绑定LCA项目
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.operate_lcaproject_tracebinding_ex_async(request, headers, runtime)
+
+    def operate_lcaproject_tracebinding_ex(
+        self,
+        request: stlr_models.OperateLcaprojectTracebindingRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.OperateLcaprojectTracebindingResponse:
+        """
+        Description: 绑定LCA项目
+        Summary: 绑定LCA项目
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.OperateLcaprojectTracebindingResponse(),
+            self.do_request('1.0', 'antchain.carbon.lcaproject.tracebinding.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def operate_lcaproject_tracebinding_ex_async(
+        self,
+        request: stlr_models.OperateLcaprojectTracebindingRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.OperateLcaprojectTracebindingResponse:
+        """
+        Description: 绑定LCA项目
+        Summary: 绑定LCA项目
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.OperateLcaprojectTracebindingResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.lcaproject.tracebinding.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def add_finance_emission(
+        self,
+        request: stlr_models.AddFinanceEmissionRequest,
+    ) -> stlr_models.AddFinanceEmissionResponse:
+        """
+        Description: 转型金融排放新增
+        Summary: 转型金融排放新增
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.add_finance_emission_ex(request, headers, runtime)
+
+    async def add_finance_emission_async(
+        self,
+        request: stlr_models.AddFinanceEmissionRequest,
+    ) -> stlr_models.AddFinanceEmissionResponse:
+        """
+        Description: 转型金融排放新增
+        Summary: 转型金融排放新增
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.add_finance_emission_ex_async(request, headers, runtime)
+
+    def add_finance_emission_ex(
+        self,
+        request: stlr_models.AddFinanceEmissionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.AddFinanceEmissionResponse:
+        """
+        Description: 转型金融排放新增
+        Summary: 转型金融排放新增
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.AddFinanceEmissionResponse(),
+            self.do_request('1.0', 'antchain.carbon.finance.emission.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def add_finance_emission_ex_async(
+        self,
+        request: stlr_models.AddFinanceEmissionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.AddFinanceEmissionResponse:
+        """
+        Description: 转型金融排放新增
+        Summary: 转型金融排放新增
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.AddFinanceEmissionResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.finance.emission.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def add_finance_company(
+        self,
+        request: stlr_models.AddFinanceCompanyRequest,
+    ) -> stlr_models.AddFinanceCompanyResponse:
+        """
+        Description: 新增企业或者项目
+        Summary: 新增企业或者项目
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.add_finance_company_ex(request, headers, runtime)
+
+    async def add_finance_company_async(
+        self,
+        request: stlr_models.AddFinanceCompanyRequest,
+    ) -> stlr_models.AddFinanceCompanyResponse:
+        """
+        Description: 新增企业或者项目
+        Summary: 新增企业或者项目
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.add_finance_company_ex_async(request, headers, runtime)
+
+    def add_finance_company_ex(
+        self,
+        request: stlr_models.AddFinanceCompanyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.AddFinanceCompanyResponse:
+        """
+        Description: 新增企业或者项目
+        Summary: 新增企业或者项目
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.AddFinanceCompanyResponse(),
+            self.do_request('1.0', 'antchain.carbon.finance.company.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def add_finance_company_ex_async(
+        self,
+        request: stlr_models.AddFinanceCompanyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.AddFinanceCompanyResponse:
+        """
+        Description: 新增企业或者项目
+        Summary: 新增企业或者项目
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.AddFinanceCompanyResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.finance.company.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_finance_company(
+        self,
+        request: stlr_models.UpdateFinanceCompanyRequest,
+    ) -> stlr_models.UpdateFinanceCompanyResponse:
+        """
+        Description: 企业或者项目更新
+        Summary: 企业更新
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_finance_company_ex(request, headers, runtime)
+
+    async def update_finance_company_async(
+        self,
+        request: stlr_models.UpdateFinanceCompanyRequest,
+    ) -> stlr_models.UpdateFinanceCompanyResponse:
+        """
+        Description: 企业或者项目更新
+        Summary: 企业更新
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_finance_company_ex_async(request, headers, runtime)
+
+    def update_finance_company_ex(
+        self,
+        request: stlr_models.UpdateFinanceCompanyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.UpdateFinanceCompanyResponse:
+        """
+        Description: 企业或者项目更新
+        Summary: 企业更新
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.UpdateFinanceCompanyResponse(),
+            self.do_request('1.0', 'antchain.carbon.finance.company.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_finance_company_ex_async(
+        self,
+        request: stlr_models.UpdateFinanceCompanyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.UpdateFinanceCompanyResponse:
+        """
+        Description: 企业或者项目更新
+        Summary: 企业更新
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.UpdateFinanceCompanyResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.finance.company.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def delete_finance_company(
+        self,
+        request: stlr_models.DeleteFinanceCompanyRequest,
+    ) -> stlr_models.DeleteFinanceCompanyResponse:
+        """
+        Description: 删除企业或者项目
+        Summary: 删除企业
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_finance_company_ex(request, headers, runtime)
+
+    async def delete_finance_company_async(
+        self,
+        request: stlr_models.DeleteFinanceCompanyRequest,
+    ) -> stlr_models.DeleteFinanceCompanyResponse:
+        """
+        Description: 删除企业或者项目
+        Summary: 删除企业
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.delete_finance_company_ex_async(request, headers, runtime)
+
+    def delete_finance_company_ex(
+        self,
+        request: stlr_models.DeleteFinanceCompanyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.DeleteFinanceCompanyResponse:
+        """
+        Description: 删除企业或者项目
+        Summary: 删除企业
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.DeleteFinanceCompanyResponse(),
+            self.do_request('1.0', 'antchain.carbon.finance.company.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def delete_finance_company_ex_async(
+        self,
+        request: stlr_models.DeleteFinanceCompanyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.DeleteFinanceCompanyResponse:
+        """
+        Description: 删除企业或者项目
+        Summary: 删除企业
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.DeleteFinanceCompanyResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.finance.company.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def list_finance_report(
+        self,
+        request: stlr_models.ListFinanceReportRequest,
+    ) -> stlr_models.ListFinanceReportResponse:
+        """
+        Description: 排放报告获取
+        Summary: 排放报告获取
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_finance_report_ex(request, headers, runtime)
+
+    async def list_finance_report_async(
+        self,
+        request: stlr_models.ListFinanceReportRequest,
+    ) -> stlr_models.ListFinanceReportResponse:
+        """
+        Description: 排放报告获取
+        Summary: 排放报告获取
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.list_finance_report_ex_async(request, headers, runtime)
+
+    def list_finance_report_ex(
+        self,
+        request: stlr_models.ListFinanceReportRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.ListFinanceReportResponse:
+        """
+        Description: 排放报告获取
+        Summary: 排放报告获取
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.ListFinanceReportResponse(),
+            self.do_request('1.0', 'antchain.carbon.finance.report.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def list_finance_report_ex_async(
+        self,
+        request: stlr_models.ListFinanceReportRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.ListFinanceReportResponse:
+        """
+        Description: 排放报告获取
+        Summary: 排放报告获取
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.ListFinanceReportResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.finance.report.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_finance_report(
+        self,
+        request: stlr_models.CreateFinanceReportRequest,
+    ) -> stlr_models.CreateFinanceReportResponse:
+        """
+        Description: 转型金融报告生成
+        Summary: 转型金融报告生成
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_finance_report_ex(request, headers, runtime)
+
+    async def create_finance_report_async(
+        self,
+        request: stlr_models.CreateFinanceReportRequest,
+    ) -> stlr_models.CreateFinanceReportResponse:
+        """
+        Description: 转型金融报告生成
+        Summary: 转型金融报告生成
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_finance_report_ex_async(request, headers, runtime)
+
+    def create_finance_report_ex(
+        self,
+        request: stlr_models.CreateFinanceReportRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.CreateFinanceReportResponse:
+        """
+        Description: 转型金融报告生成
+        Summary: 转型金融报告生成
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.CreateFinanceReportResponse(),
+            self.do_request('1.0', 'antchain.carbon.finance.report.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_finance_report_ex_async(
+        self,
+        request: stlr_models.CreateFinanceReportRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.CreateFinanceReportResponse:
+        """
+        Description: 转型金融报告生成
+        Summary: 转型金融报告生成
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.CreateFinanceReportResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.finance.report.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_finance_report(
+        self,
+        request: stlr_models.UpdateFinanceReportRequest,
+    ) -> stlr_models.UpdateFinanceReportResponse:
+        """
+        Description: 转型报告更新
+        Summary: 转型报告更新
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_finance_report_ex(request, headers, runtime)
+
+    async def update_finance_report_async(
+        self,
+        request: stlr_models.UpdateFinanceReportRequest,
+    ) -> stlr_models.UpdateFinanceReportResponse:
+        """
+        Description: 转型报告更新
+        Summary: 转型报告更新
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_finance_report_ex_async(request, headers, runtime)
+
+    def update_finance_report_ex(
+        self,
+        request: stlr_models.UpdateFinanceReportRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.UpdateFinanceReportResponse:
+        """
+        Description: 转型报告更新
+        Summary: 转型报告更新
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.UpdateFinanceReportResponse(),
+            self.do_request('1.0', 'antchain.carbon.finance.report.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_finance_report_ex_async(
+        self,
+        request: stlr_models.UpdateFinanceReportRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.UpdateFinanceReportResponse:
+        """
+        Description: 转型报告更新
+        Summary: 转型报告更新
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.UpdateFinanceReportResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.finance.report.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_third_cert(
