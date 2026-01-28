@@ -68,12 +68,12 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f.Models
 
         // 公司联系电话
         [NameInMap("company_mobile")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string CompanyMobile { get; set; }
 
         // 公司联系地址
         [NameInMap("company_address")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string CompanyAddress { get; set; }
 
         // 联系人姓名

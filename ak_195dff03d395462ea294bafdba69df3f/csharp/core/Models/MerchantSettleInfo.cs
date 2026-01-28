@@ -28,6 +28,16 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f.Models
         [Validation(Required=true)]
         public string BankAccountType { get; set; }
 
+        // 支行名称
+        [NameInMap("bank_branch_name")]
+        [Validation(Required=false)]
+        public string BankBranchName { get; set; }
+
+        // 银行名称
+        [NameInMap("bank_name")]
+        [Validation(Required=false)]
+        public string BankName { get; set; }
+
     }
 
 }

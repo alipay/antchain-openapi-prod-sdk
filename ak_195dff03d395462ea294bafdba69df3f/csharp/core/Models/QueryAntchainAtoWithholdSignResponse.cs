@@ -52,6 +52,13 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f.Models
         [Validation(Required=false)]
         public string AgreementNo { get; set; }
 
+        // 代扣签约场景
+        // JDbindCardH5：京东一键绑卡_H5
+        // JDAPPSignH5：京东APP签约_H5
+        [NameInMap("withhold_sign_scene")]
+        [Validation(Required=false)]
+        public string WithholdSignScene { get; set; }
+
     }
 
 }
