@@ -79,7 +79,11 @@ public class CheckAistudioModelRequest extends TeaModel {
 
     // 离线模型批次大小，默认2000
     @NameInMap("batch_size")
-    public String batchSize;
+    public Long batchSize;
+
+    // 验证所用样本数，默认50000
+    @NameInMap("verification_num")
+    public Long verificationNum;
 
     public static CheckAistudioModelRequest build(java.util.Map<String, ?> map) throws Exception {
         CheckAistudioModelRequest self = new CheckAistudioModelRequest();
@@ -206,12 +210,20 @@ public class CheckAistudioModelRequest extends TeaModel {
         return this.pmMem;
     }
 
-    public CheckAistudioModelRequest setBatchSize(String batchSize) {
+    public CheckAistudioModelRequest setBatchSize(Long batchSize) {
         this.batchSize = batchSize;
         return this;
     }
-    public String getBatchSize() {
+    public Long getBatchSize() {
         return this.batchSize;
+    }
+
+    public CheckAistudioModelRequest setVerificationNum(Long verificationNum) {
+        this.verificationNum = verificationNum;
+        return this;
+    }
+    public Long getVerificationNum() {
+        return this.verificationNum;
     }
 
 }

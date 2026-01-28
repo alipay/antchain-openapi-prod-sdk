@@ -2,13 +2,15 @@
 package com.antgroup.antchain.openapi.duanka;
 
 import com.aliyun.tea.*;
+import com.aliyun.tea.interceptor.InterceptorChain;
+import com.aliyun.tea.interceptor.RuntimeOptionsInterceptor;
+import com.aliyun.tea.interceptor.RequestInterceptor;
+import com.aliyun.tea.interceptor.ResponseInterceptor;
 import com.antgroup.antchain.openapi.duanka.models.*;
-import com.antgroup.antchain.openapi.antchain.util.*;
-import com.aliyun.teautil.*;
-import com.aliyun.teautil.models.*;
-import com.aliyun.common.*;
 
 public class Client {
+
+    private final static InterceptorChain interceptorChain = InterceptorChain.create();
 
     public String _endpoint;
     public String _regionId;
@@ -30,11 +32,13 @@ public class Client {
     public Number _maxRequests;
     public Number _maxRequestsPerHost;
     /**
-     * Init client with Config
+     * <b>description</b> :
+     * <p>Init client with Config</p>
+     * 
      * @param config config contains the necessary information to create a client
      */
     public Client(Config config) throws Exception {
-        if (com.aliyun.teautil.Common.isUnset(TeaModel.buildMap(config))) {
+        if (com.aliyun.teautil.Common.isUnset(config)) {
             throw new TeaException(TeaConverter.buildMap(
                 new TeaPair("code", "ParameterMissing"),
                 new TeaPair("message", "'config' can not be unset")
@@ -61,7 +65,19 @@ public class Client {
         this._maxRequestsPerHost = com.aliyun.teautil.Common.defaultNumber(config.maxRequestsPerHost, 100);
     }
 
-    public java.util.Map<String, ?> doRequest(String version, String action, String protocol, String method, String pathname, java.util.Map<String, ?> request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    /**
+     * <b>description</b> :
+     * <p>Encapsulate the request and invoke the network</p>
+     * 
+     * @param action api name
+     * @param protocol http or https
+     * @param method e.g. GET
+     * @param pathname pathname of every api
+     * @param request which contains request params
+     * @param runtime which controls some details of call api, such as retry times
+     * @return the response
+     */
+    public java.util.Map<String, ?> doRequest(String version, String action, String protocol, String method, String pathname, java.util.Map<String, ?> request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         java.util.Map<String, Object> runtime_ = TeaConverter.buildMap(
             new TeaPair("timeouted", "retry"),
             new TeaPair("readTimeout", com.aliyun.teautil.Common.defaultNumber(runtime.readTimeout, _readTimeout)),
@@ -110,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.1.0"),
+                    new TeaPair("sdk_version", "1.1.15"),
                     new TeaPair("_prod_code", "DUANKA"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -134,7 +150,7 @@ public class Client {
                 );
                 request_.query.put("sign", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getSignature(signedParam, _accessKeySecret));
                 _lastRequest = request_;
-                TeaResponse response_ = Tea.doAction(request_, runtime_);
+                TeaResponse response_ = Tea.doAction(request_, runtime_, interceptorChain);
 
                 String raw = com.aliyun.teautil.Common.readAsString(response_.body);
                 Object obj = com.aliyun.teautil.Common.parseJSON(raw);
@@ -157,196 +173,500 @@ public class Client {
                 throw e;
             }
         }
-
         throw new TeaUnretryableException(_lastRequest, _lastException);
     }
 
+    public void addRuntimeOptionsInterceptor(RuntimeOptionsInterceptor interceptor) {
+        interceptorChain.addRuntimeOptionsInterceptor(interceptor);
+    }
+
+    public void addRequestInterceptor(RequestInterceptor interceptor) {
+        interceptorChain.addRequestInterceptor(interceptor);
+    }
+
+    public void addResponseInterceptor(ResponseInterceptor interceptor) {
+        interceptorChain.addResponseInterceptor(interceptor);
+    }
+
     /**
-     * Description: 查询断卡结果
-     * Summary: 查询断卡结果
+     * <b>description</b> :
+     * <p>Description: 查询断卡结果
+     * Summary: 查询断卡结果</p>
      */
     public QueryDuankaEvaluationResponse queryDuankaEvaluation(QueryDuankaEvaluationRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.queryDuankaEvaluationEx(request, headers, runtime);
     }
 
     /**
-     * Description: 查询断卡结果
-     * Summary: 查询断卡结果
+     * <b>description</b> :
+     * <p>Description: 查询断卡结果
+     * Summary: 查询断卡结果</p>
      */
-    public QueryDuankaEvaluationResponse queryDuankaEvaluationEx(QueryDuankaEvaluationRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public QueryDuankaEvaluationResponse queryDuankaEvaluationEx(QueryDuankaEvaluationRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.duanka.duanka.evaluation.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDuankaEvaluationResponse());
     }
 
     /**
-     * Description: hr主数据用户信息查询接口
-     * Summary: hr主数据用户信息查询接口
+     * <b>description</b> :
+     * <p>Description: hr主数据用户信息查询接口
+     * Summary: hr主数据用户信息查询接口</p>
      */
     public QueryHrUserResponse queryHrUser(QueryHrUserRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.queryHrUserEx(request, headers, runtime);
     }
 
     /**
-     * Description: hr主数据用户信息查询接口
-     * Summary: hr主数据用户信息查询接口
+     * <b>description</b> :
+     * <p>Description: hr主数据用户信息查询接口
+     * Summary: hr主数据用户信息查询接口</p>
      */
-    public QueryHrUserResponse queryHrUserEx(QueryHrUserRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public QueryHrUserResponse queryHrUserEx(QueryHrUserRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.duanka.hr.user.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryHrUserResponse());
     }
 
     /**
-     * Description: 天擎数据接口查询
-     * Summary: 天擎数据接口查询
+     * <b>description</b> :
+     * <p>Description: 天擎数据接口查询
+     * Summary: 天擎数据接口查询</p>
      */
     public QuerySkyholdResResponse querySkyholdRes(QuerySkyholdResRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.querySkyholdResEx(request, headers, runtime);
     }
 
     /**
-     * Description: 天擎数据接口查询
-     * Summary: 天擎数据接口查询
+     * <b>description</b> :
+     * <p>Description: 天擎数据接口查询
+     * Summary: 天擎数据接口查询</p>
      */
-    public QuerySkyholdResResponse querySkyholdResEx(QuerySkyholdResRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public QuerySkyholdResResponse querySkyholdResEx(QuerySkyholdResRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.duanka.skyhold.res.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QuerySkyholdResResponse());
     }
 
     /**
-     * Description: 通用查询
-     * Summary: 通用查询
+     * <b>description</b> :
+     * <p>Description: 通用查询
+     * Summary: 通用查询</p>
      */
     public QueryCommonScoreResponse queryCommonScore(QueryCommonScoreRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.queryCommonScoreEx(request, headers, runtime);
     }
 
     /**
-     * Description: 通用查询
-     * Summary: 通用查询
+     * <b>description</b> :
+     * <p>Description: 通用查询
+     * Summary: 通用查询</p>
      */
-    public QueryCommonScoreResponse queryCommonScoreEx(QueryCommonScoreRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public QueryCommonScoreResponse queryCommonScoreEx(QueryCommonScoreRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.duanka.common.score.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCommonScoreResponse());
     }
 
     /**
-     * Description: 云凤蝶工单提交接口
-     * Summary: 云凤蝶工单提交接口
+     * <b>description</b> :
+     * <p>Description: 云凤蝶工单提交接口
+     * Summary: 云凤蝶工单提交接口</p>
      */
     public SubmitYunfengdieAuditResponse submitYunfengdieAudit(SubmitYunfengdieAuditRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.submitYunfengdieAuditEx(request, headers, runtime);
     }
 
     /**
-     * Description: 云凤蝶工单提交接口
-     * Summary: 云凤蝶工单提交接口
+     * <b>description</b> :
+     * <p>Description: 云凤蝶工单提交接口
+     * Summary: 云凤蝶工单提交接口</p>
      */
-    public SubmitYunfengdieAuditResponse submitYunfengdieAuditEx(SubmitYunfengdieAuditRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public SubmitYunfengdieAuditResponse submitYunfengdieAuditEx(SubmitYunfengdieAuditRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.duanka.yunfengdie.audit.submit", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SubmitYunfengdieAuditResponse());
     }
 
     /**
-     * Description: 文件转存接口
-     * Summary: 文件转存接口
+     * <b>description</b> :
+     * <p>Description: 文件转存接口
+     * Summary: 文件转存接口</p>
      */
     public ImportAistudioOssResponse importAistudioOss(ImportAistudioOssRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.importAistudioOssEx(request, headers, runtime);
     }
 
     /**
-     * Description: 文件转存接口
-     * Summary: 文件转存接口
+     * <b>description</b> :
+     * <p>Description: 文件转存接口
+     * Summary: 文件转存接口</p>
      */
-    public ImportAistudioOssResponse importAistudioOssEx(ImportAistudioOssRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public ImportAistudioOssResponse importAistudioOssEx(ImportAistudioOssRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.duanka.aistudio.oss.import", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ImportAistudioOssResponse());
     }
 
     /**
-     * Description: 模型验收服务
-     * Summary: 模型验收服务
+     * <b>description</b> :
+     * <p>Description: 模型验收服务
+     * Summary: 模型验收服务</p>
      */
     public CheckAistudioModelResponse checkAistudioModel(CheckAistudioModelRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.checkAistudioModelEx(request, headers, runtime);
     }
 
     /**
-     * Description: 模型验收服务
-     * Summary: 模型验收服务
+     * <b>description</b> :
+     * <p>Description: 模型验收服务
+     * Summary: 模型验收服务</p>
      */
-    public CheckAistudioModelResponse checkAistudioModelEx(CheckAistudioModelRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public CheckAistudioModelResponse checkAistudioModelEx(CheckAistudioModelRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.duanka.aistudio.model.check", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CheckAistudioModelResponse());
     }
 
     /**
-     * Description: 模型验收服务结果查询
-     * Summary: 模型验收服务结果查询
+     * <b>description</b> :
+     * <p>Description: 模型验收服务结果查询
+     * Summary: 模型验收服务结果查询</p>
      */
     public QueryAistudioModelResponse queryAistudioModel(QueryAistudioModelRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.queryAistudioModelEx(request, headers, runtime);
     }
 
     /**
-     * Description: 模型验收服务结果查询
-     * Summary: 模型验收服务结果查询
+     * <b>description</b> :
+     * <p>Description: 模型验收服务结果查询
+     * Summary: 模型验收服务结果查询</p>
      */
-    public QueryAistudioModelResponse queryAistudioModelEx(QueryAistudioModelRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public QueryAistudioModelResponse queryAistudioModelEx(QueryAistudioModelRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.duanka.aistudio.model.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAistudioModelResponse());
     }
 
     /**
-     * Description: 通用查询-回溯
-     * Summary: 通用查询-回溯
+     * <b>description</b> :
+     * <p>Description: 通用查询-回溯
+     * Summary: 通用查询-回溯</p>
      */
     public QueryBacktrackScoreResponse queryBacktrackScore(QueryBacktrackScoreRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.queryBacktrackScoreEx(request, headers, runtime);
     }
 
     /**
-     * Description: 通用查询-回溯
-     * Summary: 通用查询-回溯
+     * <b>description</b> :
+     * <p>Description: 通用查询-回溯
+     * Summary: 通用查询-回溯</p>
      */
-    public QueryBacktrackScoreResponse queryBacktrackScoreEx(QueryBacktrackScoreRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public QueryBacktrackScoreResponse queryBacktrackScoreEx(QueryBacktrackScoreRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.duanka.backtrack.score.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryBacktrackScoreResponse());
     }
 
     /**
-     * Description: 品牌研究数据查询
-     * Summary: 品牌研究数据查询
+     * <b>description</b> :
+     * <p>Description: 大模型sql检验
+     * Summary: 大模型sql检验</p>
+     */
+    public CheckEasMdetectionResponse checkEasMdetection(CheckEasMdetectionRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.checkEasMdetectionEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 大模型sql检验
+     * Summary: 大模型sql检验</p>
+     */
+    public CheckEasMdetectionResponse checkEasMdetectionEx(CheckEasMdetectionRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.duanka.eas.mdetection.check", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CheckEasMdetectionResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 主站bpservice通用http接口，支持GET、PUT、DELETE、POST类型请求
+     * Summary: 主站bpservice通用http接口</p>
+     */
+    public QueryBpserviceHttpResponse queryBpserviceHttp(QueryBpserviceHttpRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryBpserviceHttpEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 主站bpservice通用http接口，支持GET、PUT、DELETE、POST类型请求
+     * Summary: 主站bpservice通用http接口</p>
+     */
+    public QueryBpserviceHttpResponse queryBpserviceHttpEx(QueryBpserviceHttpRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.duanka.bpservice.http.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryBpserviceHttpResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 导入dataphin的同步任务
+     * Summary: 导入dataphin的同步任务</p>
+     */
+    public ImportDataphinTaskResponse importDataphinTask(ImportDataphinTaskRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.importDataphinTaskEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 导入dataphin的同步任务
+     * Summary: 导入dataphin的同步任务</p>
+     */
+    public ImportDataphinTaskResponse importDataphinTaskEx(ImportDataphinTaskRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.duanka.dataphin.task.import", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ImportDataphinTaskResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 同步oss文件到odps里面
+     * Summary: 同步oss文件到odps里面</p>
+     */
+    public SyncOssOdpsResponse syncOssOdps(SyncOssOdpsRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.syncOssOdpsEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 同步oss文件到odps里面
+     * Summary: 同步oss文件到odps里面</p>
+     */
+    public SyncOssOdpsResponse syncOssOdpsEx(SyncOssOdpsRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.duanka.oss.odps.sync", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SyncOssOdpsResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: odps表数据导出到oss中
+     * Summary: odps表数据导出到oss中</p>
+     */
+    public SyncOpdsOssResponse syncOpdsOss(SyncOpdsOssRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.syncOpdsOssEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: odps表数据导出到oss中
+     * Summary: odps表数据导出到oss中</p>
+     */
+    public SyncOpdsOssResponse syncOpdsOssEx(SyncOpdsOssRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.duanka.opds.oss.sync", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SyncOpdsOssResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 判断dataphin表分区是否存在
+     * Summary: 判断dataphin表分区是否存在</p>
+     */
+    public ExistDataphinTablepartitionResponse existDataphinTablepartition(ExistDataphinTablepartitionRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.existDataphinTablepartitionEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 判断dataphin表分区是否存在
+     * Summary: 判断dataphin表分区是否存在</p>
+     */
+    public ExistDataphinTablepartitionResponse existDataphinTablepartitionEx(ExistDataphinTablepartitionRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.duanka.dataphin.tablepartition.exist", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExistDataphinTablepartitionResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 发布dataphin任务
+     * Summary: 发布dataphin任务</p>
+     */
+    public PublishDataphinTaskResponse publishDataphinTask(PublishDataphinTaskRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.publishDataphinTaskEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 发布dataphin任务
+     * Summary: 发布dataphin任务</p>
+     */
+    public PublishDataphinTaskResponse publishDataphinTaskEx(PublishDataphinTaskRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.duanka.dataphin.task.publish", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PublishDataphinTaskResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 校验任务发布
+     * Summary: 校验任务发布</p>
+     */
+    public CheckDataphinTaskResponse checkDataphinTask(CheckDataphinTaskRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.checkDataphinTaskEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 校验任务发布
+     * Summary: 校验任务发布</p>
+     */
+    public CheckDataphinTaskResponse checkDataphinTaskEx(CheckDataphinTaskRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.duanka.dataphin.task.check", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CheckDataphinTaskResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 运行任务
+     * Summary: 运行任务</p>
+     */
+    public RunDataphinTaskResponse runDataphinTask(RunDataphinTaskRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.runDataphinTaskEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 运行任务
+     * Summary: 运行任务</p>
+     */
+    public RunDataphinTaskResponse runDataphinTaskEx(RunDataphinTaskRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.duanka.dataphin.task.run", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RunDataphinTaskResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 表信息查询
+     * Summary: 表信息查询</p>
+     */
+    public QueryDataphinTableinfoResponse queryDataphinTableinfo(QueryDataphinTableinfoRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDataphinTableinfoEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 表信息查询
+     * Summary: 表信息查询</p>
+     */
+    public QueryDataphinTableinfoResponse queryDataphinTableinfoEx(QueryDataphinTableinfoRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.duanka.dataphin.tableinfo.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDataphinTableinfoResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 文件ossToOdps
+     * Summary: 文件ossToOdps</p>
+     */
+    public ImportDataphinFileResponse importDataphinFile(ImportDataphinFileRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.importDataphinFileEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 文件ossToOdps
+     * Summary: 文件ossToOdps</p>
+     */
+    public ImportDataphinFileResponse importDataphinFileEx(ImportDataphinFileRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.duanka.dataphin.file.import", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ImportDataphinFileResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 提交dataphin任务
+     * Summary: 提交dataphin任务</p>
+     */
+    public SubmitDatapinTaskResponse submitDatapinTask(SubmitDatapinTaskRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.submitDatapinTaskEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 提交dataphin任务
+     * Summary: 提交dataphin任务</p>
+     */
+    public SubmitDatapinTaskResponse submitDatapinTaskEx(SubmitDatapinTaskRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.duanka.datapin.task.submit", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SubmitDatapinTaskResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 行业分查询
+     * Summary: 行业分查询</p>
+     */
+    public QueryIndustryScoreResponse queryIndustryScore(QueryIndustryScoreRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryIndustryScoreEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 行业分查询
+     * Summary: 行业分查询</p>
+     */
+    public QueryIndustryScoreResponse queryIndustryScoreEx(QueryIndustryScoreRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.duanka.industry.score.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryIndustryScoreResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 品牌研究数据查询
+     * Summary: 品牌研究数据查询</p>
      */
     public QueryIrBrandResponse queryIrBrand(QueryIrBrandRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.queryIrBrandEx(request, headers, runtime);
     }
 
     /**
-     * Description: 品牌研究数据查询
-     * Summary: 品牌研究数据查询
+     * <b>description</b> :
+     * <p>Description: 品牌研究数据查询
+     * Summary: 品牌研究数据查询</p>
      */
-    public QueryIrBrandResponse queryIrBrandEx(QueryIrBrandRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public QueryIrBrandResponse queryIrBrandEx(QueryIrBrandRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.duanka.ir.brand.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryIrBrandResponse());
     }

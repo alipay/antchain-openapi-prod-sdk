@@ -5,15 +5,27 @@ import com.aliyun.tea.*;
 
 public class UserInfoResult extends TeaModel {
     // hr主数据接口调用结果
+    /**
+     * <strong>example:</strong>
+     * <p>true</p>
+     */
     @NameInMap("success")
     @Validation(required = true)
     public Boolean success;
 
     // 调用信息
+    /**
+     * <strong>example:</strong>
+     * <p>workNoList:[] must not null</p>
+     */
     @NameInMap("message")
     public String message;
 
     // 错误码
+    /**
+     * <strong>example:</strong>
+     * <p>错误码</p>
+     */
     @NameInMap("error_code")
     public String errorCode;
 

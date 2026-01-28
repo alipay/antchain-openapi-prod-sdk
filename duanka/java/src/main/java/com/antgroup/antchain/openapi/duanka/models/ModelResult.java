@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class ModelResult extends TeaModel {
     // 分数
+    /**
+     * <strong>example:</strong>
+     * <p>0.91</p>
+     */
     @NameInMap("score")
     @Validation(required = true)
     public String score;
 
     // 模型id
+    /**
+     * <strong>example:</strong>
+     * <p>20230701_001</p>
+     */
     @NameInMap("model_id")
     @Validation(required = true)
     public String modelId;

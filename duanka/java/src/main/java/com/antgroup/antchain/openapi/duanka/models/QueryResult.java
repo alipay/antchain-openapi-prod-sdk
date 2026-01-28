@@ -5,30 +5,54 @@ import com.aliyun.tea.*;
 
 public class QueryResult extends TeaModel {
     // 工号
+    /**
+     * <strong>example:</strong>
+     * <p>WB0136222X</p>
+     */
     @NameInMap("work_no")
     @Validation(required = true)
     public String workNo;
 
     // 花名
+    /**
+     * <strong>example:</strong>
+     * <p>花名</p>
+     */
     @NameInMap("nick_name")
     public String nickName;
 
     // 姓名
+    /**
+     * <strong>example:</strong>
+     * <p>张三</p>
+     */
     @NameInMap("name")
     @Validation(required = true)
     public String name;
 
     // 域账号
+    /**
+     * <strong>example:</strong>
+     * <p>XXX.xxx</p>
+     */
     @NameInMap("login_account")
     @Validation(required = true)
     public String loginAccount;
 
     // 企业邮箱
+    /**
+     * <strong>example:</strong>
+     * <p><a href="mailto:XXX@antgroup.com">XXX@antgroup.com</a></p>
+     */
     @NameInMap("bu_mail")
     @Validation(required = true)
     public String buMail;
 
     // 人员类型
+    /**
+     * <strong>example:</strong>
+     * <p>全职/其他人员/外包/实习/正式</p>
+     */
     @NameInMap("emp_type")
     @Validation(required = true)
     public String empType;

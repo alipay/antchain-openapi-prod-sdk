@@ -32,6 +32,10 @@ public class QueryAistudioModelResponse extends TeaModel {
     @NameInMap("safety_report")
     public String safetyReport;
 
+    // 任务状态
+    @NameInMap("status")
+    public String status;
+
     public static QueryAistudioModelResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryAistudioModelResponse self = new QueryAistudioModelResponse();
         return TeaModel.build(map, self);
@@ -91,6 +95,14 @@ public class QueryAistudioModelResponse extends TeaModel {
     }
     public String getSafetyReport() {
         return this.safetyReport;
+    }
+
+    public QueryAistudioModelResponse setStatus(String status) {
+        this.status = status;
+        return this;
+    }
+    public String getStatus() {
+        return this.status;
     }
 
 }
