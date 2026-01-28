@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.DUANKA.Models
 {
-    public class QueryAistudioModelResponse : TeaModel {
+    public class CheckEasMdetectionResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,30 +24,20 @@ namespace AntChain.SDK.DUANKA.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 业务唯一id
-        [NameInMap("biz_code")]
+        // 检查结果
+        [NameInMap("check_result")]
         [Validation(Required=false)]
-        public string BizCode { get; set; }
+        public bool? CheckResult { get; set; }
 
-        // 压测报告
-        [NameInMap("pressure_report")]
+        // 检查结果码
+        [NameInMap("check_code")]
         [Validation(Required=false)]
-        public string PressureReport { get; set; }
+        public string CheckCode { get; set; }
 
-        // 运行态报告
-        [NameInMap("runtime_report")]
+        // 检查消息
+        [NameInMap("check_message")]
         [Validation(Required=false)]
-        public string RuntimeReport { get; set; }
-
-        // 安全报告
-        [NameInMap("safety_report")]
-        [Validation(Required=false)]
-        public string SafetyReport { get; set; }
-
-        // 任务状态
-        [NameInMap("status")]
-        [Validation(Required=false)]
-        public string Status { get; set; }
+        public string CheckMessage { get; set; }
 
     }
 

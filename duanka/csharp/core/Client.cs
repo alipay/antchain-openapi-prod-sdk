@@ -137,7 +137,7 @@ namespace AntChain.SDK.DUANKA
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.0"},
+                        {"sdk_version", "1.1.15"},
                         {"_prod_code", "DUANKA"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.DUANKA
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.0"},
+                        {"sdk_version", "1.1.15"},
                         {"_prod_code", "DUANKA"},
                         {"_prod_channel", "undefined"},
                     };
@@ -697,6 +697,552 @@ namespace AntChain.SDK.DUANKA
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryBacktrackScoreResponse>(await DoRequestAsync("1.0", "antcloud.duanka.backtrack.score.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 大模型sql检验
+         * Summary: 大模型sql检验
+         */
+        public CheckEasMdetectionResponse CheckEasMdetection(CheckEasMdetectionRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CheckEasMdetectionEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 大模型sql检验
+         * Summary: 大模型sql检验
+         */
+        public async Task<CheckEasMdetectionResponse> CheckEasMdetectionAsync(CheckEasMdetectionRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CheckEasMdetectionExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 大模型sql检验
+         * Summary: 大模型sql检验
+         */
+        public CheckEasMdetectionResponse CheckEasMdetectionEx(CheckEasMdetectionRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CheckEasMdetectionResponse>(DoRequest("1.0", "antcloud.duanka.eas.mdetection.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 大模型sql检验
+         * Summary: 大模型sql检验
+         */
+        public async Task<CheckEasMdetectionResponse> CheckEasMdetectionExAsync(CheckEasMdetectionRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CheckEasMdetectionResponse>(await DoRequestAsync("1.0", "antcloud.duanka.eas.mdetection.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 主站bpservice通用http接口，支持GET、PUT、DELETE、POST类型请求
+         * Summary: 主站bpservice通用http接口
+         */
+        public QueryBpserviceHttpResponse QueryBpserviceHttp(QueryBpserviceHttpRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryBpserviceHttpEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 主站bpservice通用http接口，支持GET、PUT、DELETE、POST类型请求
+         * Summary: 主站bpservice通用http接口
+         */
+        public async Task<QueryBpserviceHttpResponse> QueryBpserviceHttpAsync(QueryBpserviceHttpRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryBpserviceHttpExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 主站bpservice通用http接口，支持GET、PUT、DELETE、POST类型请求
+         * Summary: 主站bpservice通用http接口
+         */
+        public QueryBpserviceHttpResponse QueryBpserviceHttpEx(QueryBpserviceHttpRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryBpserviceHttpResponse>(DoRequest("1.0", "antcloud.duanka.bpservice.http.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 主站bpservice通用http接口，支持GET、PUT、DELETE、POST类型请求
+         * Summary: 主站bpservice通用http接口
+         */
+        public async Task<QueryBpserviceHttpResponse> QueryBpserviceHttpExAsync(QueryBpserviceHttpRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryBpserviceHttpResponse>(await DoRequestAsync("1.0", "antcloud.duanka.bpservice.http.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 导入dataphin的同步任务
+         * Summary: 导入dataphin的同步任务
+         */
+        public ImportDataphinTaskResponse ImportDataphinTask(ImportDataphinTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ImportDataphinTaskEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 导入dataphin的同步任务
+         * Summary: 导入dataphin的同步任务
+         */
+        public async Task<ImportDataphinTaskResponse> ImportDataphinTaskAsync(ImportDataphinTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ImportDataphinTaskExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 导入dataphin的同步任务
+         * Summary: 导入dataphin的同步任务
+         */
+        public ImportDataphinTaskResponse ImportDataphinTaskEx(ImportDataphinTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ImportDataphinTaskResponse>(DoRequest("1.0", "antcloud.duanka.dataphin.task.import", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 导入dataphin的同步任务
+         * Summary: 导入dataphin的同步任务
+         */
+        public async Task<ImportDataphinTaskResponse> ImportDataphinTaskExAsync(ImportDataphinTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ImportDataphinTaskResponse>(await DoRequestAsync("1.0", "antcloud.duanka.dataphin.task.import", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 同步oss文件到odps里面
+         * Summary: 同步oss文件到odps里面
+         */
+        public SyncOssOdpsResponse SyncOssOdps(SyncOssOdpsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SyncOssOdpsEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 同步oss文件到odps里面
+         * Summary: 同步oss文件到odps里面
+         */
+        public async Task<SyncOssOdpsResponse> SyncOssOdpsAsync(SyncOssOdpsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SyncOssOdpsExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 同步oss文件到odps里面
+         * Summary: 同步oss文件到odps里面
+         */
+        public SyncOssOdpsResponse SyncOssOdpsEx(SyncOssOdpsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncOssOdpsResponse>(DoRequest("1.0", "antcloud.duanka.oss.odps.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 同步oss文件到odps里面
+         * Summary: 同步oss文件到odps里面
+         */
+        public async Task<SyncOssOdpsResponse> SyncOssOdpsExAsync(SyncOssOdpsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncOssOdpsResponse>(await DoRequestAsync("1.0", "antcloud.duanka.oss.odps.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: odps表数据导出到oss中
+         * Summary: odps表数据导出到oss中
+         */
+        public SyncOpdsOssResponse SyncOpdsOss(SyncOpdsOssRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SyncOpdsOssEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: odps表数据导出到oss中
+         * Summary: odps表数据导出到oss中
+         */
+        public async Task<SyncOpdsOssResponse> SyncOpdsOssAsync(SyncOpdsOssRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SyncOpdsOssExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: odps表数据导出到oss中
+         * Summary: odps表数据导出到oss中
+         */
+        public SyncOpdsOssResponse SyncOpdsOssEx(SyncOpdsOssRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncOpdsOssResponse>(DoRequest("1.0", "antcloud.duanka.opds.oss.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: odps表数据导出到oss中
+         * Summary: odps表数据导出到oss中
+         */
+        public async Task<SyncOpdsOssResponse> SyncOpdsOssExAsync(SyncOpdsOssRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncOpdsOssResponse>(await DoRequestAsync("1.0", "antcloud.duanka.opds.oss.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 判断dataphin表分区是否存在
+         * Summary: 判断dataphin表分区是否存在
+         */
+        public ExistDataphinTablepartitionResponse ExistDataphinTablepartition(ExistDataphinTablepartitionRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ExistDataphinTablepartitionEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 判断dataphin表分区是否存在
+         * Summary: 判断dataphin表分区是否存在
+         */
+        public async Task<ExistDataphinTablepartitionResponse> ExistDataphinTablepartitionAsync(ExistDataphinTablepartitionRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ExistDataphinTablepartitionExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 判断dataphin表分区是否存在
+         * Summary: 判断dataphin表分区是否存在
+         */
+        public ExistDataphinTablepartitionResponse ExistDataphinTablepartitionEx(ExistDataphinTablepartitionRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExistDataphinTablepartitionResponse>(DoRequest("1.0", "antcloud.duanka.dataphin.tablepartition.exist", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 判断dataphin表分区是否存在
+         * Summary: 判断dataphin表分区是否存在
+         */
+        public async Task<ExistDataphinTablepartitionResponse> ExistDataphinTablepartitionExAsync(ExistDataphinTablepartitionRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExistDataphinTablepartitionResponse>(await DoRequestAsync("1.0", "antcloud.duanka.dataphin.tablepartition.exist", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 发布dataphin任务
+         * Summary: 发布dataphin任务
+         */
+        public PublishDataphinTaskResponse PublishDataphinTask(PublishDataphinTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PublishDataphinTaskEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 发布dataphin任务
+         * Summary: 发布dataphin任务
+         */
+        public async Task<PublishDataphinTaskResponse> PublishDataphinTaskAsync(PublishDataphinTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PublishDataphinTaskExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 发布dataphin任务
+         * Summary: 发布dataphin任务
+         */
+        public PublishDataphinTaskResponse PublishDataphinTaskEx(PublishDataphinTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PublishDataphinTaskResponse>(DoRequest("1.0", "antcloud.duanka.dataphin.task.publish", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 发布dataphin任务
+         * Summary: 发布dataphin任务
+         */
+        public async Task<PublishDataphinTaskResponse> PublishDataphinTaskExAsync(PublishDataphinTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PublishDataphinTaskResponse>(await DoRequestAsync("1.0", "antcloud.duanka.dataphin.task.publish", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 校验任务发布
+         * Summary: 校验任务发布
+         */
+        public CheckDataphinTaskResponse CheckDataphinTask(CheckDataphinTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CheckDataphinTaskEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 校验任务发布
+         * Summary: 校验任务发布
+         */
+        public async Task<CheckDataphinTaskResponse> CheckDataphinTaskAsync(CheckDataphinTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CheckDataphinTaskExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 校验任务发布
+         * Summary: 校验任务发布
+         */
+        public CheckDataphinTaskResponse CheckDataphinTaskEx(CheckDataphinTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CheckDataphinTaskResponse>(DoRequest("1.0", "antcloud.duanka.dataphin.task.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 校验任务发布
+         * Summary: 校验任务发布
+         */
+        public async Task<CheckDataphinTaskResponse> CheckDataphinTaskExAsync(CheckDataphinTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CheckDataphinTaskResponse>(await DoRequestAsync("1.0", "antcloud.duanka.dataphin.task.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 运行任务
+         * Summary: 运行任务
+         */
+        public RunDataphinTaskResponse RunDataphinTask(RunDataphinTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return RunDataphinTaskEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 运行任务
+         * Summary: 运行任务
+         */
+        public async Task<RunDataphinTaskResponse> RunDataphinTaskAsync(RunDataphinTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await RunDataphinTaskExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 运行任务
+         * Summary: 运行任务
+         */
+        public RunDataphinTaskResponse RunDataphinTaskEx(RunDataphinTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RunDataphinTaskResponse>(DoRequest("1.0", "antcloud.duanka.dataphin.task.run", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 运行任务
+         * Summary: 运行任务
+         */
+        public async Task<RunDataphinTaskResponse> RunDataphinTaskExAsync(RunDataphinTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RunDataphinTaskResponse>(await DoRequestAsync("1.0", "antcloud.duanka.dataphin.task.run", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 表信息查询
+         * Summary: 表信息查询
+         */
+        public QueryDataphinTableinfoResponse QueryDataphinTableinfo(QueryDataphinTableinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryDataphinTableinfoEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 表信息查询
+         * Summary: 表信息查询
+         */
+        public async Task<QueryDataphinTableinfoResponse> QueryDataphinTableinfoAsync(QueryDataphinTableinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryDataphinTableinfoExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 表信息查询
+         * Summary: 表信息查询
+         */
+        public QueryDataphinTableinfoResponse QueryDataphinTableinfoEx(QueryDataphinTableinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDataphinTableinfoResponse>(DoRequest("1.0", "antcloud.duanka.dataphin.tableinfo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 表信息查询
+         * Summary: 表信息查询
+         */
+        public async Task<QueryDataphinTableinfoResponse> QueryDataphinTableinfoExAsync(QueryDataphinTableinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDataphinTableinfoResponse>(await DoRequestAsync("1.0", "antcloud.duanka.dataphin.tableinfo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 文件ossToOdps
+         * Summary: 文件ossToOdps
+         */
+        public ImportDataphinFileResponse ImportDataphinFile(ImportDataphinFileRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ImportDataphinFileEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 文件ossToOdps
+         * Summary: 文件ossToOdps
+         */
+        public async Task<ImportDataphinFileResponse> ImportDataphinFileAsync(ImportDataphinFileRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ImportDataphinFileExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 文件ossToOdps
+         * Summary: 文件ossToOdps
+         */
+        public ImportDataphinFileResponse ImportDataphinFileEx(ImportDataphinFileRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ImportDataphinFileResponse>(DoRequest("1.0", "antcloud.duanka.dataphin.file.import", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 文件ossToOdps
+         * Summary: 文件ossToOdps
+         */
+        public async Task<ImportDataphinFileResponse> ImportDataphinFileExAsync(ImportDataphinFileRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ImportDataphinFileResponse>(await DoRequestAsync("1.0", "antcloud.duanka.dataphin.file.import", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 提交dataphin任务
+         * Summary: 提交dataphin任务
+         */
+        public SubmitDatapinTaskResponse SubmitDatapinTask(SubmitDatapinTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SubmitDatapinTaskEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 提交dataphin任务
+         * Summary: 提交dataphin任务
+         */
+        public async Task<SubmitDatapinTaskResponse> SubmitDatapinTaskAsync(SubmitDatapinTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SubmitDatapinTaskExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 提交dataphin任务
+         * Summary: 提交dataphin任务
+         */
+        public SubmitDatapinTaskResponse SubmitDatapinTaskEx(SubmitDatapinTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitDatapinTaskResponse>(DoRequest("1.0", "antcloud.duanka.datapin.task.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 提交dataphin任务
+         * Summary: 提交dataphin任务
+         */
+        public async Task<SubmitDatapinTaskResponse> SubmitDatapinTaskExAsync(SubmitDatapinTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitDatapinTaskResponse>(await DoRequestAsync("1.0", "antcloud.duanka.datapin.task.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 行业分查询
+         * Summary: 行业分查询
+         */
+        public QueryIndustryScoreResponse QueryIndustryScore(QueryIndustryScoreRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryIndustryScoreEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 行业分查询
+         * Summary: 行业分查询
+         */
+        public async Task<QueryIndustryScoreResponse> QueryIndustryScoreAsync(QueryIndustryScoreRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryIndustryScoreExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 行业分查询
+         * Summary: 行业分查询
+         */
+        public QueryIndustryScoreResponse QueryIndustryScoreEx(QueryIndustryScoreRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryIndustryScoreResponse>(DoRequest("1.0", "antcloud.duanka.industry.score.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 行业分查询
+         * Summary: 行业分查询
+         */
+        public async Task<QueryIndustryScoreResponse> QueryIndustryScoreExAsync(QueryIndustryScoreRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryIndustryScoreResponse>(await DoRequestAsync("1.0", "antcloud.duanka.industry.score.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

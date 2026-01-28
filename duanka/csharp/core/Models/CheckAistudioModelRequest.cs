@@ -91,7 +91,12 @@ namespace AntChain.SDK.DUANKA.Models
         // 离线模型批次大小，默认2000
         [NameInMap("batch_size")]
         [Validation(Required=false)]
-        public string BatchSize { get; set; }
+        public long? BatchSize { get; set; }
+
+        // 验证所用样本数，默认50000
+        [NameInMap("verification_num")]
+        [Validation(Required=false)]
+        public long? VerificationNum { get; set; }
 
     }
 

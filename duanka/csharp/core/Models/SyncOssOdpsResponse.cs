@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.DUANKA.Models
 {
-    public class QueryAistudioModelResponse : TeaModel {
+    public class SyncOssOdpsResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,30 +24,30 @@ namespace AntChain.SDK.DUANKA.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 业务唯一id
-        [NameInMap("biz_code")]
+        // requestId
+        [NameInMap("request_id")]
         [Validation(Required=false)]
-        public string BizCode { get; set; }
+        public string RequestId { get; set; }
 
-        // 压测报告
-        [NameInMap("pressure_report")]
+        // code
+        [NameInMap("code")]
         [Validation(Required=false)]
-        public string PressureReport { get; set; }
+        public string Code { get; set; }
 
-        // 运行态报告
-        [NameInMap("runtime_report")]
+        // message
+        [NameInMap("message")]
         [Validation(Required=false)]
-        public string RuntimeReport { get; set; }
+        public string Message { get; set; }
 
-        // 安全报告
-        [NameInMap("safety_report")]
+        // trace_id
+        [NameInMap("trace_id")]
         [Validation(Required=false)]
-        public string SafetyReport { get; set; }
+        public string TraceId { get; set; }
 
-        // 任务状态
-        [NameInMap("status")]
+        // data
+        [NameInMap("data")]
         [Validation(Required=false)]
-        public string Status { get; set; }
+        public string Data { get; set; }
 
     }
 
