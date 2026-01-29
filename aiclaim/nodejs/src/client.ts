@@ -78,23 +78,6 @@ export class Config extends $tea.Model {
   }
 }
 
-// BaseExtractionData
-export class BaseExtractionData extends $tea.Model {
-  static names(): { [key: string]: string } {
-    return {
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // Page
 export class Page extends $tea.Model {
   // 边界框坐标[x1,y1,x2,y2]
@@ -127,7 +110,7 @@ export class Page extends $tea.Model {
 // Extraction
 export class Extraction extends $tea.Model {
   // 提取出的具体信息的基类，不同类型的影像材料，有不同的数据结构，下文会详细展开。不同的sub_type映射不同的BaseExtractionData子类。
-  data?: BaseExtractionData;
+  data?: string;
   // 失败原因(失败时填写)，成功时为null
   failureReason?: string;
   // 提取状态: success/not_supported
@@ -142,7 +125,7 @@ export class Extraction extends $tea.Model {
 
   static types(): { [key: string]: any } {
     return {
-      data: BaseExtractionData,
+      data: 'string',
       failureReason: 'string',
       status: 'string',
     };
@@ -156,36 +139,28 @@ export class Extraction extends $tea.Model {
 // doument
 export class Document extends $tea.Model {
   // 参考分类接口中返回的分类结果
-  type?: string;
+  docType?: string;
   // 参考分类接口中返回的分类结果
-  typeCn?: string;
-  // 细分的分类结果
-  subType?: string;
-  // 细分的分类结果
-  subTypeCn?: string;
+  docTypeCn?: string;
   // 参考Extraction参数
-  extraction?: Extraction[];
+  extraction?: Extraction;
   // 参考Page参数
-  page?: Page[];
+  pages?: Page[];
   static names(): { [key: string]: string } {
     return {
-      type: 'type',
-      typeCn: 'type_cn',
-      subType: 'sub_type',
-      subTypeCn: 'sub_type_cn',
+      docType: 'doc_type',
+      docTypeCn: 'doc_type_cn',
       extraction: 'extraction',
-      page: 'page',
+      pages: 'pages',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      type: 'string',
-      typeCn: 'string',
-      subType: 'string',
-      subTypeCn: 'string',
-      extraction: { 'type': 'array', 'itemType': Extraction },
-      page: { 'type': 'array', 'itemType': Page },
+      docType: 'string',
+      docTypeCn: 'string',
+      extraction: Extraction,
+      pages: { 'type': 'array', 'itemType': Page },
     };
   }
 
@@ -336,8 +311,6 @@ export class ExecImageExtractionRequest extends $tea.Model {
   fileObject?: Readable;
   fileObjectName?: string;
   fileId: string;
-  // uuid
-  batchNo: string;
   // 理赔单号
   claimNumber: string;
   static names(): { [key: string]: string } {
@@ -347,7 +320,6 @@ export class ExecImageExtractionRequest extends $tea.Model {
       fileObject: 'fileObject',
       fileObjectName: 'fileObjectName',
       fileId: 'file_id',
-      batchNo: 'batch_no',
       claimNumber: 'claim_number',
     };
   }
@@ -359,7 +331,6 @@ export class ExecImageExtractionRequest extends $tea.Model {
       fileObject: 'Readable',
       fileObjectName: 'string',
       fileId: 'string',
-      batchNo: 'string',
       claimNumber: 'string',
     };
   }
@@ -669,7 +640,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.0",
+          sdk_version: "1.1.3",
           _prod_code: "AICLAIM",
           _prod_channel: "default",
         };
