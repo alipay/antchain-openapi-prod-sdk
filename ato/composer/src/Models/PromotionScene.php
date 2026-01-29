@@ -47,12 +47,21 @@ class PromotionScene extends Model
      * @var int
      */
     public $sceneProductAmount;
+
+    // 已上线场景商品数量
+    /**
+     * @example 已上线场景商品数量
+     *
+     * @var int
+     */
+    public $onlineSceneProductAmount;
     protected $_name = [
-        'tenantId'           => 'tenant_id',
-        'sceneCode'          => 'scene_code',
-        'sceneName'          => 'scene_name',
-        'sceneRemark'        => 'scene_remark',
-        'sceneProductAmount' => 'scene_product_amount',
+        'tenantId'                 => 'tenant_id',
+        'sceneCode'                => 'scene_code',
+        'sceneName'                => 'scene_name',
+        'sceneRemark'              => 'scene_remark',
+        'sceneProductAmount'       => 'scene_product_amount',
+        'onlineSceneProductAmount' => 'online_scene_product_amount',
     ];
 
     public function validate()
@@ -76,6 +85,9 @@ class PromotionScene extends Model
         }
         if (null !== $this->sceneProductAmount) {
             $res['scene_product_amount'] = $this->sceneProductAmount;
+        }
+        if (null !== $this->onlineSceneProductAmount) {
+            $res['online_scene_product_amount'] = $this->onlineSceneProductAmount;
         }
 
         return $res;
@@ -103,6 +115,9 @@ class PromotionScene extends Model
         }
         if (isset($map['scene_product_amount'])) {
             $model->sceneProductAmount = $map['scene_product_amount'];
+        }
+        if (isset($map['online_scene_product_amount'])) {
+            $model->onlineSceneProductAmount = $map['online_scene_product_amount'];
         }
 
         return $model;

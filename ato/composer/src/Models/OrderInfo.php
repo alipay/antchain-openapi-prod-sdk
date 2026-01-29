@@ -156,6 +156,16 @@ class OrderInfo extends Model
      * @var string
      */
     public $fundMode;
+
+    // 订单支付渠道
+    // ALIPAY
+    // JDPAY
+    /**
+     * @example ALIPAY
+     *
+     * @var string
+     */
+    public $payChannel;
     protected $_name = [
         'orderId'              => 'order_id',
         'orderCreateTime'      => 'order_create_time',
@@ -175,6 +185,7 @@ class OrderInfo extends Model
         'divideStartTermIndex' => 'divide_start_term_index',
         'promotionId'          => 'promotion_id',
         'fundMode'             => 'fund_mode',
+        'payChannel'           => 'pay_channel',
     ];
 
     public function validate()
@@ -237,6 +248,9 @@ class OrderInfo extends Model
         }
         if (null !== $this->fundMode) {
             $res['fund_mode'] = $this->fundMode;
+        }
+        if (null !== $this->payChannel) {
+            $res['pay_channel'] = $this->payChannel;
         }
 
         return $res;
@@ -303,6 +317,9 @@ class OrderInfo extends Model
         }
         if (isset($map['fund_mode'])) {
             $model->fundMode = $map['fund_mode'];
+        }
+        if (isset($map['pay_channel'])) {
+            $model->payChannel = $map['pay_channel'];
         }
 
         return $model;

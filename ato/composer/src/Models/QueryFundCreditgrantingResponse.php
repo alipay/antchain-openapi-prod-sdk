@@ -81,6 +81,24 @@ class QueryFundCreditgrantingResponse extends Model
      * @var string
      */
     public $status;
+
+    // 授信业务
+    /**
+     * @var string
+     */
+    public $bizType;
+
+    // 授信额外数据
+    /**
+     * @var string
+     */
+    public $creditExtraData;
+
+    // 相关文件列表
+    /**
+     * @var string[]
+     */
+    public $creditInfoList;
     protected $_name = [
         'reqMsgId'        => 'req_msg_id',
         'resultCode'      => 'result_code',
@@ -94,6 +112,9 @@ class QueryFundCreditgrantingResponse extends Model
         'effectStartTime' => 'effect_start_time',
         'effectEndTime'   => 'effect_end_time',
         'status'          => 'status',
+        'bizType'         => 'biz_type',
+        'creditExtraData' => 'credit_extra_data',
+        'creditInfoList'  => 'credit_info_list',
     ];
 
     public function validate()
@@ -138,6 +159,15 @@ class QueryFundCreditgrantingResponse extends Model
         }
         if (null !== $this->status) {
             $res['status'] = $this->status;
+        }
+        if (null !== $this->bizType) {
+            $res['biz_type'] = $this->bizType;
+        }
+        if (null !== $this->creditExtraData) {
+            $res['credit_extra_data'] = $this->creditExtraData;
+        }
+        if (null !== $this->creditInfoList) {
+            $res['credit_info_list'] = $this->creditInfoList;
         }
 
         return $res;
@@ -186,6 +216,17 @@ class QueryFundCreditgrantingResponse extends Model
         }
         if (isset($map['status'])) {
             $model->status = $map['status'];
+        }
+        if (isset($map['biz_type'])) {
+            $model->bizType = $map['biz_type'];
+        }
+        if (isset($map['credit_extra_data'])) {
+            $model->creditExtraData = $map['credit_extra_data'];
+        }
+        if (isset($map['credit_info_list'])) {
+            if (!empty($map['credit_info_list'])) {
+                $model->creditInfoList = $map['credit_info_list'];
+            }
         }
 
         return $model;

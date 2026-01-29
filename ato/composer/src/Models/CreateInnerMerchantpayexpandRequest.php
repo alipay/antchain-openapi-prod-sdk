@@ -82,19 +82,49 @@ class CreateInnerMerchantpayexpandRequest extends Model
      * @var bool
      */
     public $allowDuplicate;
+
+    // 支付渠道
+    // JDPAY
+    // ALIPAY
+    /**
+     * @var string
+     */
+    public $payChannel;
+
+    // 京东进件控股信息
+    /**
+     * @var MerchantHoldingInfo
+     */
+    public $merchantHoldingInfo;
+
+    // 京东进件结算信息
+    /**
+     * @var MerchantSettleInfo
+     */
+    public $merchantSettleInfo;
+
+    // traceId
+    /**
+     * @var string
+     */
+    public $traceId;
     protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'tenantId'          => 'tenant_id',
-        'companyInfo'       => 'company_info',
-        'legalInfo'         => 'legal_info',
-        'applicationInfo'   => 'application_info',
-        'submit'            => 'submit',
-        'expandMode'        => 'expand_mode',
-        'subTenantId'       => 'sub_tenant_id',
-        'userName'          => 'user_name',
-        'payExpandId'       => 'pay_expand_id',
-        'allowDuplicate'    => 'allow_duplicate',
+        'authToken'           => 'auth_token',
+        'productInstanceId'   => 'product_instance_id',
+        'tenantId'            => 'tenant_id',
+        'companyInfo'         => 'company_info',
+        'legalInfo'           => 'legal_info',
+        'applicationInfo'     => 'application_info',
+        'submit'              => 'submit',
+        'expandMode'          => 'expand_mode',
+        'subTenantId'         => 'sub_tenant_id',
+        'userName'            => 'user_name',
+        'payExpandId'         => 'pay_expand_id',
+        'allowDuplicate'      => 'allow_duplicate',
+        'payChannel'          => 'pay_channel',
+        'merchantHoldingInfo' => 'merchant_holding_info',
+        'merchantSettleInfo'  => 'merchant_settle_info',
+        'traceId'             => 'trace_id',
     ];
 
     public function validate()
@@ -147,6 +177,18 @@ class CreateInnerMerchantpayexpandRequest extends Model
         if (null !== $this->allowDuplicate) {
             $res['allow_duplicate'] = $this->allowDuplicate;
         }
+        if (null !== $this->payChannel) {
+            $res['pay_channel'] = $this->payChannel;
+        }
+        if (null !== $this->merchantHoldingInfo) {
+            $res['merchant_holding_info'] = null !== $this->merchantHoldingInfo ? $this->merchantHoldingInfo->toMap() : null;
+        }
+        if (null !== $this->merchantSettleInfo) {
+            $res['merchant_settle_info'] = null !== $this->merchantSettleInfo ? $this->merchantSettleInfo->toMap() : null;
+        }
+        if (null !== $this->traceId) {
+            $res['trace_id'] = $this->traceId;
+        }
 
         return $res;
     }
@@ -194,6 +236,18 @@ class CreateInnerMerchantpayexpandRequest extends Model
         }
         if (isset($map['allow_duplicate'])) {
             $model->allowDuplicate = $map['allow_duplicate'];
+        }
+        if (isset($map['pay_channel'])) {
+            $model->payChannel = $map['pay_channel'];
+        }
+        if (isset($map['merchant_holding_info'])) {
+            $model->merchantHoldingInfo = MerchantHoldingInfo::fromMap($map['merchant_holding_info']);
+        }
+        if (isset($map['merchant_settle_info'])) {
+            $model->merchantSettleInfo = MerchantSettleInfo::fromMap($map['merchant_settle_info']);
+        }
+        if (isset($map['trace_id'])) {
+            $model->traceId = $map['trace_id'];
         }
 
         return $model;

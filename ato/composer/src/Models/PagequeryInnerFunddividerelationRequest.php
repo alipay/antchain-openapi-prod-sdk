@@ -31,13 +31,13 @@ class PagequeryInnerFunddividerelationRequest extends Model
      */
     public $pageInfo;
 
-    // 商户公司社会统一信用代码
+    // 被分账方商户公司社会统一信用代码
     /**
      * @var string
      */
     public $subjectMerchantId;
 
-    // 商户公司名称
+    // 被分账方商户公司名称
     /**
      * @var string
      */
@@ -51,6 +51,32 @@ class PagequeryInnerFunddividerelationRequest extends Model
      * @var string
      */
     public $status;
+
+    // 支付渠道
+    // ALIPAY
+    // JDPAY
+    /**
+     * @var string
+     */
+    public $payChannel;
+
+    // traceid
+    /**
+     * @var string
+     */
+    public $traceId;
+
+    // 分账方公司名称
+    /**
+     * @var string
+     */
+    public $companyName;
+
+    // 分账方公司社会统一代码
+    /**
+     * @var string
+     */
+    public $merchantId;
     protected $_name = [
         'authToken'          => 'auth_token',
         'productInstanceId'  => 'product_instance_id',
@@ -59,6 +85,10 @@ class PagequeryInnerFunddividerelationRequest extends Model
         'subjectMerchantId'  => 'subject_merchant_id',
         'subjectCompanyName' => 'subject_company_name',
         'status'             => 'status',
+        'payChannel'         => 'pay_channel',
+        'traceId'            => 'trace_id',
+        'companyName'        => 'company_name',
+        'merchantId'         => 'merchant_id',
     ];
 
     public function validate()
@@ -90,6 +120,18 @@ class PagequeryInnerFunddividerelationRequest extends Model
         }
         if (null !== $this->status) {
             $res['status'] = $this->status;
+        }
+        if (null !== $this->payChannel) {
+            $res['pay_channel'] = $this->payChannel;
+        }
+        if (null !== $this->traceId) {
+            $res['trace_id'] = $this->traceId;
+        }
+        if (null !== $this->companyName) {
+            $res['company_name'] = $this->companyName;
+        }
+        if (null !== $this->merchantId) {
+            $res['merchant_id'] = $this->merchantId;
         }
 
         return $res;
@@ -123,6 +165,18 @@ class PagequeryInnerFunddividerelationRequest extends Model
         }
         if (isset($map['status'])) {
             $model->status = $map['status'];
+        }
+        if (isset($map['pay_channel'])) {
+            $model->payChannel = $map['pay_channel'];
+        }
+        if (isset($map['trace_id'])) {
+            $model->traceId = $map['trace_id'];
+        }
+        if (isset($map['company_name'])) {
+            $model->companyName = $map['company_name'];
+        }
+        if (isset($map['merchant_id'])) {
+            $model->merchantId = $map['merchant_id'];
         }
 
         return $model;

@@ -43,6 +43,12 @@ class SubmitInnerPendingeventRequest extends Model
      * @var string
      */
     public $operator;
+
+    // traceid
+    /**
+     * @var string
+     */
+    public $traceId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -50,6 +56,7 @@ class SubmitInnerPendingeventRequest extends Model
         'eventId'           => 'event_id',
         'action'            => 'action',
         'operator'          => 'operator',
+        'traceId'           => 'trace_id',
     ];
 
     public function validate()
@@ -81,6 +88,9 @@ class SubmitInnerPendingeventRequest extends Model
         if (null !== $this->operator) {
             $res['operator'] = $this->operator;
         }
+        if (null !== $this->traceId) {
+            $res['trace_id'] = $this->traceId;
+        }
 
         return $res;
     }
@@ -110,6 +120,9 @@ class SubmitInnerPendingeventRequest extends Model
         }
         if (isset($map['operator'])) {
             $model->operator = $map['operator'];
+        }
+        if (isset($map['trace_id'])) {
+            $model->traceId = $map['trace_id'];
         }
 
         return $model;

@@ -40,12 +40,19 @@ class UploadInnerFileRequest extends Model
      * @var string
      */
     public $bizScene;
+
+    // traceid
+    /**
+     * @var string
+     */
+    public $traceId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'tenantId'          => 'tenant_id',
         'fileName'          => 'file_name',
         'bizScene'          => 'biz_scene',
+        'traceId'           => 'trace_id',
     ];
 
     public function validate()
@@ -73,6 +80,9 @@ class UploadInnerFileRequest extends Model
         if (null !== $this->bizScene) {
             $res['biz_scene'] = $this->bizScene;
         }
+        if (null !== $this->traceId) {
+            $res['trace_id'] = $this->traceId;
+        }
 
         return $res;
     }
@@ -99,6 +109,9 @@ class UploadInnerFileRequest extends Model
         }
         if (isset($map['biz_scene'])) {
             $model->bizScene = $map['biz_scene'];
+        }
+        if (isset($map['trace_id'])) {
+            $model->traceId = $map['trace_id'];
         }
 
         return $model;

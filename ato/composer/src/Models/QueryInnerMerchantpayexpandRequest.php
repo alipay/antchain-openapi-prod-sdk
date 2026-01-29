@@ -36,12 +36,19 @@ class QueryInnerMerchantpayexpandRequest extends Model
      * @var string
      */
     public $expandMode;
+
+    // traceId
+    /**
+     * @var string
+     */
+    public $traceId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'tenantId'          => 'tenant_id',
         'payExpandId'       => 'pay_expand_id',
         'expandMode'        => 'expand_mode',
+        'traceId'           => 'trace_id',
     ];
 
     public function validate()
@@ -67,6 +74,9 @@ class QueryInnerMerchantpayexpandRequest extends Model
         }
         if (null !== $this->expandMode) {
             $res['expand_mode'] = $this->expandMode;
+        }
+        if (null !== $this->traceId) {
+            $res['trace_id'] = $this->traceId;
         }
 
         return $res;
@@ -94,6 +104,9 @@ class QueryInnerMerchantpayexpandRequest extends Model
         }
         if (isset($map['expand_mode'])) {
             $model->expandMode = $map['expand_mode'];
+        }
+        if (isset($map['trace_id'])) {
+            $model->traceId = $map['trace_id'];
         }
 
         return $model;

@@ -55,6 +55,16 @@ class RelationPage extends Model
      * @var string
      */
     public $subjectCompanyName;
+
+    // 支付渠道
+    // ALIPAY
+    // JDPAY
+    /**
+     * @example ALIPAY
+     *
+     * @var string
+     */
+    public $payChannel;
     protected $_name = [
         'relationId'         => 'relation_id',
         'companyName'        => 'company_name',
@@ -62,6 +72,7 @@ class RelationPage extends Model
         'status'             => 'status',
         'subjectMerchantId'  => 'subject_merchant_id',
         'subjectCompanyName' => 'subject_company_name',
+        'payChannel'         => 'pay_channel',
     ];
 
     public function validate()
@@ -95,6 +106,9 @@ class RelationPage extends Model
         if (null !== $this->subjectCompanyName) {
             $res['subject_company_name'] = $this->subjectCompanyName;
         }
+        if (null !== $this->payChannel) {
+            $res['pay_channel'] = $this->payChannel;
+        }
 
         return $res;
     }
@@ -124,6 +138,9 @@ class RelationPage extends Model
         }
         if (isset($map['subject_company_name'])) {
             $model->subjectCompanyName = $map['subject_company_name'];
+        }
+        if (isset($map['pay_channel'])) {
+            $model->payChannel = $map['pay_channel'];
         }
 
         return $model;

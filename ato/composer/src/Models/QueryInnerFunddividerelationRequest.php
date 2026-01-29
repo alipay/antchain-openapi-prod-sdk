@@ -30,11 +30,18 @@ class QueryInnerFunddividerelationRequest extends Model
      * @var string
      */
     public $relationId;
+
+    // traceid
+    /**
+     * @var string
+     */
+    public $traceId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'tenantId'          => 'tenant_id',
         'relationId'        => 'relation_id',
+        'traceId'           => 'trace_id',
     ];
 
     public function validate()
@@ -57,6 +64,9 @@ class QueryInnerFunddividerelationRequest extends Model
         }
         if (null !== $this->relationId) {
             $res['relation_id'] = $this->relationId;
+        }
+        if (null !== $this->traceId) {
+            $res['trace_id'] = $this->traceId;
         }
 
         return $res;
@@ -81,6 +91,9 @@ class QueryInnerFunddividerelationRequest extends Model
         }
         if (isset($map['relation_id'])) {
             $model->relationId = $map['relation_id'];
+        }
+        if (isset($map['trace_id'])) {
+            $model->traceId = $map['trace_id'];
         }
 
         return $model;

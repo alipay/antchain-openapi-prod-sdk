@@ -68,6 +68,14 @@ class RegisterMerchantexpandMerchantRequest extends Model
      * @var string
      */
     public $payChannel;
+
+    // 角色
+    // MERCHANT（默认）
+    // FINANCIER
+    /**
+     * @var string
+     */
+    public $role;
     protected $_name = [
         'authToken'           => 'auth_token',
         'productInstanceId'   => 'product_instance_id',
@@ -79,13 +87,13 @@ class RegisterMerchantexpandMerchantRequest extends Model
         'merchantHoldingInfo' => 'merchant_holding_info',
         'merchantSettleInfo'  => 'merchant_settle_info',
         'payChannel'          => 'pay_channel',
+        'role'                => 'role',
     ];
 
     public function validate()
     {
         Model::validateRequired('companyInfo', $this->companyInfo, true);
         Model::validateRequired('legalInfo', $this->legalInfo, true);
-        Model::validateRequired('applicationInfo', $this->applicationInfo, true);
         Model::validateRequired('expandMode', $this->expandMode, true);
     }
 
@@ -121,6 +129,9 @@ class RegisterMerchantexpandMerchantRequest extends Model
         }
         if (null !== $this->payChannel) {
             $res['pay_channel'] = $this->payChannel;
+        }
+        if (null !== $this->role) {
+            $res['role'] = $this->role;
         }
 
         return $res;
@@ -163,6 +174,9 @@ class RegisterMerchantexpandMerchantRequest extends Model
         }
         if (isset($map['pay_channel'])) {
             $model->payChannel = $map['pay_channel'];
+        }
+        if (isset($map['role'])) {
+            $model->role = $map['role'];
         }
 
         return $model;

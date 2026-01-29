@@ -24,10 +24,17 @@ class GetInnerMerchantstaticdataRequest extends Model
      * @var string
      */
     public $tenantId;
+
+    // traceId
+    /**
+     * @var string
+     */
+    public $traceId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'tenantId'          => 'tenant_id',
+        'traceId'           => 'trace_id',
     ];
 
     public function validate()
@@ -46,6 +53,9 @@ class GetInnerMerchantstaticdataRequest extends Model
         }
         if (null !== $this->tenantId) {
             $res['tenant_id'] = $this->tenantId;
+        }
+        if (null !== $this->traceId) {
+            $res['trace_id'] = $this->traceId;
         }
 
         return $res;
@@ -67,6 +77,9 @@ class GetInnerMerchantstaticdataRequest extends Model
         }
         if (isset($map['tenant_id'])) {
             $model->tenantId = $map['tenant_id'];
+        }
+        if (isset($map['trace_id'])) {
+            $model->traceId = $map['trace_id'];
         }
 
         return $model;

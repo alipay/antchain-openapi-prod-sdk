@@ -47,7 +47,7 @@ class SubmitInnerFundmngdatadownloadRequest extends Model
      */
     public $type;
 
-    // 商户社会统一信用代码
+    // 商户社会统一信用代码，多个逗号分隔
     /**
      * @var string
      */
@@ -73,6 +73,24 @@ class SubmitInnerFundmngdatadownloadRequest extends Model
      * @var string
      */
     public $traceId;
+
+    // 租户角色
+    //
+    // ROLE_MERCHANT(0, "商户"),
+    // ROLE_FINANCIER(1, "资金方"),
+    // ROLE_MIX(2, "商户资金方"),
+    // DATA_PROVIDER(3, "数据提供者"),
+    // ROLE_GUARANTOR(4, "担保方"),
+    /**
+     * @var int
+     */
+    public $tenantRole;
+
+    // 资方社会统一信用代码，多个逗号分隔
+    /**
+     * @var string
+     */
+    public $fundId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -84,6 +102,8 @@ class SubmitInnerFundmngdatadownloadRequest extends Model
         'fundMode'          => 'fund_mode',
         'loanChannel'       => 'loan_channel',
         'traceId'           => 'trace_id',
+        'tenantRole'        => 'tenant_role',
+        'fundId'            => 'fund_id',
     ];
 
     public function validate()
@@ -128,6 +148,12 @@ class SubmitInnerFundmngdatadownloadRequest extends Model
         if (null !== $this->traceId) {
             $res['trace_id'] = $this->traceId;
         }
+        if (null !== $this->tenantRole) {
+            $res['tenant_role'] = $this->tenantRole;
+        }
+        if (null !== $this->fundId) {
+            $res['fund_id'] = $this->fundId;
+        }
 
         return $res;
     }
@@ -169,6 +195,12 @@ class SubmitInnerFundmngdatadownloadRequest extends Model
         }
         if (isset($map['trace_id'])) {
             $model->traceId = $map['trace_id'];
+        }
+        if (isset($map['tenant_role'])) {
+            $model->tenantRole = $map['tenant_role'];
+        }
+        if (isset($map['fund_id'])) {
+            $model->fundId = $map['fund_id'];
         }
 
         return $model;

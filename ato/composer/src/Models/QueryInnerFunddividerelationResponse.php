@@ -91,6 +91,20 @@ class QueryInnerFunddividerelationResponse extends Model
      * @var string
      */
     public $relationFailReason;
+
+    // 支付渠道
+    // ALIPAY(默认)
+    // JDPAY
+    /**
+     * @var string
+     */
+    public $payChannel;
+
+    // 分账方租户id
+    /**
+     * @var string
+     */
+    public $divideTenantId;
     protected $_name = [
         'reqMsgId'           => 'req_msg_id',
         'resultCode'         => 'result_code',
@@ -106,6 +120,8 @@ class QueryInnerFunddividerelationResponse extends Model
         'auditInfos'         => 'audit_infos',
         'relationStatus'     => 'relation_status',
         'relationFailReason' => 'relation_fail_reason',
+        'payChannel'         => 'pay_channel',
+        'divideTenantId'     => 'divide_tenant_id',
     ];
 
     public function validate()
@@ -168,6 +184,12 @@ class QueryInnerFunddividerelationResponse extends Model
         }
         if (null !== $this->relationFailReason) {
             $res['relation_fail_reason'] = $this->relationFailReason;
+        }
+        if (null !== $this->payChannel) {
+            $res['pay_channel'] = $this->payChannel;
+        }
+        if (null !== $this->divideTenantId) {
+            $res['divide_tenant_id'] = $this->divideTenantId;
         }
 
         return $res;
@@ -234,6 +256,12 @@ class QueryInnerFunddividerelationResponse extends Model
         }
         if (isset($map['relation_fail_reason'])) {
             $model->relationFailReason = $map['relation_fail_reason'];
+        }
+        if (isset($map['pay_channel'])) {
+            $model->payChannel = $map['pay_channel'];
+        }
+        if (isset($map['divide_tenant_id'])) {
+            $model->divideTenantId = $map['divide_tenant_id'];
         }
 
         return $model;

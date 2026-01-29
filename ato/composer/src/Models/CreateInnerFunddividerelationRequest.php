@@ -94,6 +94,26 @@ class CreateInnerFunddividerelationRequest extends Model
      * @var string
      */
     public $expandMode;
+
+    // 分账公司租户id
+    /**
+     * @var string
+     */
+    public $divideTenantId;
+
+    // 支付渠道
+    // ALIPAY（默认）
+    // JDPAY
+    /**
+     * @var string
+     */
+    public $payChannel;
+
+    // traceid
+    /**
+     * @var string
+     */
+    public $traceId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -109,6 +129,9 @@ class CreateInnerFunddividerelationRequest extends Model
         'userName'          => 'user_name',
         'subjectMerchantId' => 'subject_merchant_id',
         'expandMode'        => 'expand_mode',
+        'divideTenantId'    => 'divide_tenant_id',
+        'payChannel'        => 'pay_channel',
+        'traceId'           => 'trace_id',
     ];
 
     public function validate()
@@ -169,6 +192,15 @@ class CreateInnerFunddividerelationRequest extends Model
         if (null !== $this->expandMode) {
             $res['expand_mode'] = $this->expandMode;
         }
+        if (null !== $this->divideTenantId) {
+            $res['divide_tenant_id'] = $this->divideTenantId;
+        }
+        if (null !== $this->payChannel) {
+            $res['pay_channel'] = $this->payChannel;
+        }
+        if (null !== $this->traceId) {
+            $res['trace_id'] = $this->traceId;
+        }
 
         return $res;
     }
@@ -228,6 +260,15 @@ class CreateInnerFunddividerelationRequest extends Model
         }
         if (isset($map['expand_mode'])) {
             $model->expandMode = $map['expand_mode'];
+        }
+        if (isset($map['divide_tenant_id'])) {
+            $model->divideTenantId = $map['divide_tenant_id'];
+        }
+        if (isset($map['pay_channel'])) {
+            $model->payChannel = $map['pay_channel'];
+        }
+        if (isset($map['trace_id'])) {
+            $model->traceId = $map['trace_id'];
         }
 
         return $model;

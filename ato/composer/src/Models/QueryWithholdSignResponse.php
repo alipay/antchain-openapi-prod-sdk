@@ -58,15 +58,24 @@ class QueryWithholdSignResponse extends Model
      * @var string
      */
     public $agreementNo;
+
+    // 代扣签约场景
+    // JDbindCardH5：京东一键绑卡_H5
+    // JDAPPSignH5：京东APP签约_H5
+    /**
+     * @var string
+     */
+    public $withholdSignScene;
     protected $_name = [
-        'reqMsgId'    => 'req_msg_id',
-        'resultCode'  => 'result_code',
-        'resultMsg'   => 'result_msg',
-        'status'      => 'status',
-        'signTime'    => 'sign_time',
-        'validTime'   => 'valid_time',
-        'invalidTime' => 'invalid_time',
-        'agreementNo' => 'agreement_no',
+        'reqMsgId'          => 'req_msg_id',
+        'resultCode'        => 'result_code',
+        'resultMsg'         => 'result_msg',
+        'status'            => 'status',
+        'signTime'          => 'sign_time',
+        'validTime'         => 'valid_time',
+        'invalidTime'       => 'invalid_time',
+        'agreementNo'       => 'agreement_no',
+        'withholdSignScene' => 'withhold_sign_scene',
     ];
 
     public function validate()
@@ -103,6 +112,9 @@ class QueryWithholdSignResponse extends Model
         if (null !== $this->agreementNo) {
             $res['agreement_no'] = $this->agreementNo;
         }
+        if (null !== $this->withholdSignScene) {
+            $res['withhold_sign_scene'] = $this->withholdSignScene;
+        }
 
         return $res;
     }
@@ -138,6 +150,9 @@ class QueryWithholdSignResponse extends Model
         }
         if (isset($map['agreement_no'])) {
             $model->agreementNo = $map['agreement_no'];
+        }
+        if (isset($map['withhold_sign_scene'])) {
+            $model->withholdSignScene = $map['withhold_sign_scene'];
         }
 
         return $model;

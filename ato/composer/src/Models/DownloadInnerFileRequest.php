@@ -30,11 +30,18 @@ class DownloadInnerFileRequest extends Model
      * @var string
      */
     public $fileKey;
+
+    // traceid
+    /**
+     * @var string
+     */
+    public $traceId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'tenantId'          => 'tenant_id',
         'fileKey'           => 'file_key',
+        'traceId'           => 'trace_id',
     ];
 
     public function validate()
@@ -57,6 +64,9 @@ class DownloadInnerFileRequest extends Model
         }
         if (null !== $this->fileKey) {
             $res['file_key'] = $this->fileKey;
+        }
+        if (null !== $this->traceId) {
+            $res['trace_id'] = $this->traceId;
         }
 
         return $res;
@@ -81,6 +91,9 @@ class DownloadInnerFileRequest extends Model
         }
         if (isset($map['file_key'])) {
             $model->fileKey = $map['file_key'];
+        }
+        if (isset($map['trace_id'])) {
+            $model->traceId = $map['trace_id'];
         }
 
         return $model;

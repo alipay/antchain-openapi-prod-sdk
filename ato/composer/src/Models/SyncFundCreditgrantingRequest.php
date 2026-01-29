@@ -66,6 +66,12 @@ class SyncFundCreditgrantingRequest extends Model
      * @var string
      */
     public $effectEndTime;
+
+    // 审核结果
+    /**
+     * @var string
+     */
+    public $reviewResult;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -77,6 +83,7 @@ class SyncFundCreditgrantingRequest extends Model
         'grantingLine'      => 'granting_line',
         'effectStartTime'   => 'effect_start_time',
         'effectEndTime'     => 'effect_end_time',
+        'reviewResult'      => 'review_result',
     ];
 
     public function validate()
@@ -86,9 +93,6 @@ class SyncFundCreditgrantingRequest extends Model
         Model::validateRequired('fundId', $this->fundId, true);
         Model::validateRequired('merchantId', $this->merchantId, true);
         Model::validateRequired('tenantId', $this->tenantId, true);
-        Model::validateRequired('grantingLine', $this->grantingLine, true);
-        Model::validateRequired('effectStartTime', $this->effectStartTime, true);
-        Model::validateRequired('effectEndTime', $this->effectEndTime, true);
         Model::validateMaxLength('grantingId', $this->grantingId, 20);
         Model::validateMaxLength('authId', $this->authId, 20);
         Model::validateMaxLength('fundId', $this->fundId, 32);
@@ -139,6 +143,9 @@ class SyncFundCreditgrantingRequest extends Model
         if (null !== $this->effectEndTime) {
             $res['effect_end_time'] = $this->effectEndTime;
         }
+        if (null !== $this->reviewResult) {
+            $res['review_result'] = $this->reviewResult;
+        }
 
         return $res;
     }
@@ -180,6 +187,9 @@ class SyncFundCreditgrantingRequest extends Model
         }
         if (isset($map['effect_end_time'])) {
             $model->effectEndTime = $map['effect_end_time'];
+        }
+        if (isset($map['review_result'])) {
+            $model->reviewResult = $map['review_result'];
         }
 
         return $model;

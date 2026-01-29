@@ -86,6 +86,26 @@ class QueryInnerMerchantpayexpandResponse extends Model
      * @var bool
      */
     public $zftExpandSuccessful;
+
+    // 京东商户控股信息
+    /**
+     * @var MerchantHoldingInfo
+     */
+    public $merchantHoldingInfo;
+
+    // 京东商户结算信息
+    /**
+     * @var MerchantSettleInfo
+     */
+    public $merchantSettleInfo;
+
+    // 支付渠道
+    // JDPAY
+    // ALIPAY
+    /**
+     * @var string
+     */
+    public $payChannel;
     protected $_name = [
         'reqMsgId'                  => 'req_msg_id',
         'resultCode'                => 'result_code',
@@ -100,6 +120,9 @@ class QueryInnerMerchantpayexpandResponse extends Model
         'expandFailReason'          => 'expand_fail_reason',
         'showCustomerServiceBanner' => 'show_customer_service_banner',
         'zftExpandSuccessful'       => 'zft_expand_successful',
+        'merchantHoldingInfo'       => 'merchant_holding_info',
+        'merchantSettleInfo'        => 'merchant_settle_info',
+        'payChannel'                => 'pay_channel',
     ];
 
     public function validate()
@@ -153,6 +176,15 @@ class QueryInnerMerchantpayexpandResponse extends Model
         }
         if (null !== $this->zftExpandSuccessful) {
             $res['zft_expand_successful'] = $this->zftExpandSuccessful;
+        }
+        if (null !== $this->merchantHoldingInfo) {
+            $res['merchant_holding_info'] = null !== $this->merchantHoldingInfo ? $this->merchantHoldingInfo->toMap() : null;
+        }
+        if (null !== $this->merchantSettleInfo) {
+            $res['merchant_settle_info'] = null !== $this->merchantSettleInfo ? $this->merchantSettleInfo->toMap() : null;
+        }
+        if (null !== $this->payChannel) {
+            $res['pay_channel'] = $this->payChannel;
         }
 
         return $res;
@@ -210,6 +242,15 @@ class QueryInnerMerchantpayexpandResponse extends Model
         }
         if (isset($map['zft_expand_successful'])) {
             $model->zftExpandSuccessful = $map['zft_expand_successful'];
+        }
+        if (isset($map['merchant_holding_info'])) {
+            $model->merchantHoldingInfo = MerchantHoldingInfo::fromMap($map['merchant_holding_info']);
+        }
+        if (isset($map['merchant_settle_info'])) {
+            $model->merchantSettleInfo = MerchantSettleInfo::fromMap($map['merchant_settle_info']);
+        }
+        if (isset($map['pay_channel'])) {
+            $model->payChannel = $map['pay_channel'];
         }
 
         return $model;

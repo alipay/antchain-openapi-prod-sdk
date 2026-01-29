@@ -36,12 +36,19 @@ class SubmitInnerMerchantpayexpandRequest extends Model
      * @var string
      */
     public $userName;
+
+    // traceId
+    /**
+     * @var string
+     */
+    public $traceId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'tenantId'          => 'tenant_id',
         'payExpandId'       => 'pay_expand_id',
         'userName'          => 'user_name',
+        'traceId'           => 'trace_id',
     ];
 
     public function validate()
@@ -69,6 +76,9 @@ class SubmitInnerMerchantpayexpandRequest extends Model
         if (null !== $this->userName) {
             $res['user_name'] = $this->userName;
         }
+        if (null !== $this->traceId) {
+            $res['trace_id'] = $this->traceId;
+        }
 
         return $res;
     }
@@ -95,6 +105,9 @@ class SubmitInnerMerchantpayexpandRequest extends Model
         }
         if (isset($map['user_name'])) {
             $model->userName = $map['user_name'];
+        }
+        if (isset($map['trace_id'])) {
+            $model->traceId = $map['trace_id'];
         }
 
         return $model;

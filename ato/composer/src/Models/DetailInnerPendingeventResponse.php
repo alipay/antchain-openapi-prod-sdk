@@ -52,10 +52,20 @@ class DetailInnerPendingeventResponse extends Model
     public $contentSubject;
 
     // 待办内容详情
+    // content_type=link，是文件访问链接
+    // content_type=text，是富文本
     /**
      * @var string
      */
     public $contentDetails;
+
+    // 待办类型
+    // text
+    // link
+    /**
+     * @var string
+     */
+    public $contentType;
 
     // 待办处理页面操作按钮
     // ACKNOWLEDGE 我已知晓
@@ -102,6 +112,7 @@ class DetailInnerPendingeventResponse extends Model
         'status'              => 'status',
         'contentSubject'      => 'content_subject',
         'contentDetails'      => 'content_details',
+        'contentType'         => 'content_type',
         'actionOptionsConfig' => 'action_options_config',
         'effectiveStartTime'  => 'effective_start_time',
         'effectiveEndTime'    => 'effective_end_time',
@@ -139,6 +150,9 @@ class DetailInnerPendingeventResponse extends Model
         }
         if (null !== $this->contentDetails) {
             $res['content_details'] = $this->contentDetails;
+        }
+        if (null !== $this->contentType) {
+            $res['content_type'] = $this->contentType;
         }
         if (null !== $this->actionOptionsConfig) {
             $res['action_options_config'] = $this->actionOptionsConfig;
@@ -190,6 +204,9 @@ class DetailInnerPendingeventResponse extends Model
         }
         if (isset($map['content_details'])) {
             $model->contentDetails = $map['content_details'];
+        }
+        if (isset($map['content_type'])) {
+            $model->contentType = $map['content_type'];
         }
         if (isset($map['action_options_config'])) {
             $model->actionOptionsConfig = $map['action_options_config'];

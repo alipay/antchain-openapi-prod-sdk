@@ -6,7 +6,7 @@ namespace AntChain\ATO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class DetailInnerPendingeventRequest extends Model
+class GetInnerSignflowRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,35 +19,20 @@ class DetailInnerPendingeventRequest extends Model
      */
     public $productInstanceId;
 
-    // 租户id
+    // 签署合同单号
     /**
      * @var string
      */
-    public $tenantId;
-
-    // 事件id
-    /**
-     * @var string
-     */
-    public $eventId;
-
-    // traceid
-    /**
-     * @var string
-     */
-    public $traceId;
+    public $signNo;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'tenantId'          => 'tenant_id',
-        'eventId'           => 'event_id',
-        'traceId'           => 'trace_id',
+        'signNo'            => 'sign_no',
     ];
 
     public function validate()
     {
-        Model::validateRequired('tenantId', $this->tenantId, true);
-        Model::validateRequired('eventId', $this->eventId, true);
+        Model::validateRequired('signNo', $this->signNo, true);
     }
 
     public function toMap()
@@ -59,14 +44,8 @@ class DetailInnerPendingeventRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->tenantId) {
-            $res['tenant_id'] = $this->tenantId;
-        }
-        if (null !== $this->eventId) {
-            $res['event_id'] = $this->eventId;
-        }
-        if (null !== $this->traceId) {
-            $res['trace_id'] = $this->traceId;
+        if (null !== $this->signNo) {
+            $res['sign_no'] = $this->signNo;
         }
 
         return $res;
@@ -75,7 +54,7 @@ class DetailInnerPendingeventRequest extends Model
     /**
      * @param array $map
      *
-     * @return DetailInnerPendingeventRequest
+     * @return GetInnerSignflowRequest
      */
     public static function fromMap($map = [])
     {
@@ -86,14 +65,8 @@ class DetailInnerPendingeventRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['tenant_id'])) {
-            $model->tenantId = $map['tenant_id'];
-        }
-        if (isset($map['event_id'])) {
-            $model->eventId = $map['event_id'];
-        }
-        if (isset($map['trace_id'])) {
-            $model->traceId = $map['trace_id'];
+        if (isset($map['sign_no'])) {
+            $model->signNo = $map['sign_no'];
         }
 
         return $model;

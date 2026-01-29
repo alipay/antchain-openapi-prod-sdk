@@ -31,6 +31,8 @@ use AntChain\ATO\Models\ApplyFundAssertorderRequest;
 use AntChain\ATO\Models\ApplyFundAssertorderResponse;
 use AntChain\ATO\Models\ApplyFundCreditutilizationRequest;
 use AntChain\ATO\Models\ApplyFundCreditutilizationResponse;
+use AntChain\ATO\Models\ApplyTradeCreditgrantingRequest;
+use AntChain\ATO\Models\ApplyTradeCreditgrantingResponse;
 use AntChain\ATO\Models\ApplyTradeFinanceprecheckRequest;
 use AntChain\ATO\Models\ApplyTradeFinanceprecheckResponse;
 use AntChain\ATO\Models\AuthFundCreditgrantingRequest;
@@ -107,6 +109,8 @@ use AntChain\ATO\Models\CreateInnerTemplatetextareaRequest;
 use AntChain\ATO\Models\CreateInnerTemplatetextareaResponse;
 use AntChain\ATO\Models\CreateInnerTenantaccountinfoRequest;
 use AntChain\ATO\Models\CreateInnerTenantaccountinfoResponse;
+use AntChain\ATO\Models\CreateInnerWithholdjdsignurlRequest;
+use AntChain\ATO\Models\CreateInnerWithholdjdsignurlResponse;
 use AntChain\ATO\Models\CreateInnerWithholdsignRequest;
 use AntChain\ATO\Models\CreateInnerWithholdsignResponse;
 use AntChain\ATO\Models\CreateInsureRequest;
@@ -143,6 +147,8 @@ use AntChain\ATO\Models\DetailInnerCustomerserviceRequest;
 use AntChain\ATO\Models\DetailInnerCustomerserviceResponse;
 use AntChain\ATO\Models\DetailInnerFundmngorderRequest;
 use AntChain\ATO\Models\DetailInnerFundmngorderResponse;
+use AntChain\ATO\Models\DetailInnerMerchantbasicinfoRequest;
+use AntChain\ATO\Models\DetailInnerMerchantbasicinfoResponse;
 use AntChain\ATO\Models\DetailInnerNoticeRequest;
 use AntChain\ATO\Models\DetailInnerNoticeResponse;
 use AntChain\ATO\Models\DetailInnerOrderRequest;
@@ -185,6 +191,8 @@ use AntChain\ATO\Models\GetInnerMerchantstaticdataRequest;
 use AntChain\ATO\Models\GetInnerMerchantstaticdataResponse;
 use AntChain\ATO\Models\GetInnerProductRequest;
 use AntChain\ATO\Models\GetInnerProductResponse;
+use AntChain\ATO\Models\GetInnerSignflowRequest;
+use AntChain\ATO\Models\GetInnerSignflowResponse;
 use AntChain\ATO\Models\GetInnerTemplateofficeurlRequest;
 use AntChain\ATO\Models\GetInnerTemplateofficeurlResponse;
 use AntChain\ATO\Models\GetInnerTenantRequest;
@@ -251,6 +259,8 @@ use AntChain\ATO\Models\PagequeryInnerMerchantagentRequest;
 use AntChain\ATO\Models\PagequeryInnerMerchantagentResponse;
 use AntChain\ATO\Models\PagequeryInnerMerchantagreementRequest;
 use AntChain\ATO\Models\PagequeryInnerMerchantagreementResponse;
+use AntChain\ATO\Models\PagequeryInnerMerchantexpandsummaryRequest;
+use AntChain\ATO\Models\PagequeryInnerMerchantexpandsummaryResponse;
 use AntChain\ATO\Models\PagequeryInnerNoticeRequest;
 use AntChain\ATO\Models\PagequeryInnerNoticeResponse;
 use AntChain\ATO\Models\PagequeryInnerOrdermsgRequest;
@@ -331,6 +341,8 @@ use AntChain\ATO\Models\QueryInnerLoggerRequest;
 use AntChain\ATO\Models\QueryInnerLoggerResponse;
 use AntChain\ATO\Models\QueryInnerMerchantagreementRequest;
 use AntChain\ATO\Models\QueryInnerMerchantagreementResponse;
+use AntChain\ATO\Models\QueryInnerMerchantopenchannelRequest;
+use AntChain\ATO\Models\QueryInnerMerchantopenchannelResponse;
 use AntChain\ATO\Models\QueryInnerMerchantpayexpandRequest;
 use AntChain\ATO\Models\QueryInnerMerchantpayexpandResponse;
 use AntChain\ATO\Models\QueryInnerSaleschannelRequest;
@@ -377,6 +389,8 @@ use AntChain\ATO\Models\QueryRiskRequest;
 use AntChain\ATO\Models\QueryRiskResponse;
 use AntChain\ATO\Models\QuerySignCreditRequest;
 use AntChain\ATO\Models\QuerySignCreditResponse;
+use AntChain\ATO\Models\QueryTradeCreditgrantingRequest;
+use AntChain\ATO\Models\QueryTradeCreditgrantingResponse;
 use AntChain\ATO\Models\QueryWithholdActivepayRequest;
 use AntChain\ATO\Models\QueryWithholdActivepayResponse;
 use AntChain\ATO\Models\QueryWithholdCompensateaccountRequest;
@@ -429,6 +443,8 @@ use AntChain\ATO\Models\SaveInnerTemplateRequest;
 use AntChain\ATO\Models\SaveInnerTemplateResponse;
 use AntChain\ATO\Models\SetInnerPlatformproductRequest;
 use AntChain\ATO\Models\SetInnerPlatformproductResponse;
+use AntChain\ATO\Models\SignFundFlowRequest;
+use AntChain\ATO\Models\SignFundFlowResponse;
 use AntChain\ATO\Models\SignInnerAuthorizationRequest;
 use AntChain\ATO\Models\SignInnerAuthorizationResponse;
 use AntChain\ATO\Models\SignInnerSupplementalRequest;
@@ -451,6 +467,8 @@ use AntChain\ATO\Models\SubmitInnerKnowledgebaseinfoRequest;
 use AntChain\ATO\Models\SubmitInnerKnowledgebaseinfoResponse;
 use AntChain\ATO\Models\SubmitInnerKnowledgecategoryRequest;
 use AntChain\ATO\Models\SubmitInnerKnowledgecategoryResponse;
+use AntChain\ATO\Models\SubmitInnerMerchantbasicinfoRequest;
+use AntChain\ATO\Models\SubmitInnerMerchantbasicinfoResponse;
 use AntChain\ATO\Models\SubmitInnerMerchantpayexpandRequest;
 use AntChain\ATO\Models\SubmitInnerMerchantpayexpandResponse;
 use AntChain\ATO\Models\SubmitInnerPendingeventRequest;
@@ -475,6 +493,8 @@ use AntChain\ATO\Models\SyncFundFinanceloanresultsRequest;
 use AntChain\ATO\Models\SyncFundFinanceloanresultsResponse;
 use AntChain\ATO\Models\SyncFundFinanceprecheckresultRequest;
 use AntChain\ATO\Models\SyncFundFinanceprecheckresultResponse;
+use AntChain\ATO\Models\SyncFundFlowRequest;
+use AntChain\ATO\Models\SyncFundFlowResponse;
 use AntChain\ATO\Models\SyncFundMerchantpromiseRequest;
 use AntChain\ATO\Models\SyncFundMerchantpromiseResponse;
 use AntChain\ATO\Models\SyncFundOrderfinancialRequest;
@@ -698,7 +718,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.16.66',
+                    'sdk_version'      => '1.19.2',
                     '_prod_code'       => 'ATO',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -2984,6 +3004,72 @@ class Client
         Utils::validateModel($request);
 
         return CancelFundFlowResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.flow.cancel', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 资方自有合同同步
+     * Summary: 资方自有合同同步.
+     *
+     * @param SyncFundFlowRequest $request
+     *
+     * @return SyncFundFlowResponse
+     */
+    public function syncFundFlow($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->syncFundFlowEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 资方自有合同同步
+     * Summary: 资方自有合同同步.
+     *
+     * @param SyncFundFlowRequest $request
+     * @param string[]            $headers
+     * @param RuntimeOptions      $runtime
+     *
+     * @return SyncFundFlowResponse
+     */
+    public function syncFundFlowEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SyncFundFlowResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.flow.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 资方自有合同签署
+     * Summary: 资方自有合同签署.
+     *
+     * @param SignFundFlowRequest $request
+     *
+     * @return SignFundFlowResponse
+     */
+    public function signFundFlow($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->signFundFlowEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 资方自有合同签署
+     * Summary: 资方自有合同签署.
+     *
+     * @param SignFundFlowRequest $request
+     * @param string[]            $headers
+     * @param RuntimeOptions      $runtime
+     *
+     * @return SignFundFlowResponse
+     */
+    public function signFundFlowEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SignFundFlowResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.flow.sign', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -7545,6 +7631,204 @@ class Client
     }
 
     /**
+     * Description: 商户基础信息添加/编辑接口
+     * Summary: 商户基础信息添加/编辑接口.
+     *
+     * @param SubmitInnerMerchantbasicinfoRequest $request
+     *
+     * @return SubmitInnerMerchantbasicinfoResponse
+     */
+    public function submitInnerMerchantbasicinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->submitInnerMerchantbasicinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商户基础信息添加/编辑接口
+     * Summary: 商户基础信息添加/编辑接口.
+     *
+     * @param SubmitInnerMerchantbasicinfoRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return SubmitInnerMerchantbasicinfoResponse
+     */
+    public function submitInnerMerchantbasicinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SubmitInnerMerchantbasicinfoResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.merchantbasicinfo.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商户基础信息查询接口
+     * Summary: 商户基础信息查询接口.
+     *
+     * @param DetailInnerMerchantbasicinfoRequest $request
+     *
+     * @return DetailInnerMerchantbasicinfoResponse
+     */
+    public function detailInnerMerchantbasicinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->detailInnerMerchantbasicinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商户基础信息查询接口
+     * Summary: 商户基础信息查询接口.
+     *
+     * @param DetailInnerMerchantbasicinfoRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return DetailInnerMerchantbasicinfoResponse
+     */
+    public function detailInnerMerchantbasicinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DetailInnerMerchantbasicinfoResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.merchantbasicinfo.detail', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商户已开通支付渠道查询接口
+     * Summary: 商户已开通支付渠道查询接口.
+     *
+     * @param QueryInnerMerchantopenchannelRequest $request
+     *
+     * @return QueryInnerMerchantopenchannelResponse
+     */
+    public function queryInnerMerchantopenchannel($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryInnerMerchantopenchannelEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商户已开通支付渠道查询接口
+     * Summary: 商户已开通支付渠道查询接口.
+     *
+     * @param QueryInnerMerchantopenchannelRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return QueryInnerMerchantopenchannelResponse
+     */
+    public function queryInnerMerchantopenchannelEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryInnerMerchantopenchannelResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.merchantopenchannel.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商户进件记录分页查询
+     * Summary: 商户进件记录分页查询.
+     *
+     * @param PagequeryInnerMerchantexpandsummaryRequest $request
+     *
+     * @return PagequeryInnerMerchantexpandsummaryResponse
+     */
+    public function pagequeryInnerMerchantexpandsummary($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pagequeryInnerMerchantexpandsummaryEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商户进件记录分页查询
+     * Summary: 商户进件记录分页查询.
+     *
+     * @param PagequeryInnerMerchantexpandsummaryRequest $request
+     * @param string[]                                   $headers
+     * @param RuntimeOptions                             $runtime
+     *
+     * @return PagequeryInnerMerchantexpandsummaryResponse
+     */
+    public function pagequeryInnerMerchantexpandsummaryEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PagequeryInnerMerchantexpandsummaryResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.merchantexpandsummary.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取京东代扣签约链接签约串
+     * Summary: 获取京东代扣签约链接签约串.
+     *
+     * @param CreateInnerWithholdjdsignurlRequest $request
+     *
+     * @return CreateInnerWithholdjdsignurlResponse
+     */
+    public function createInnerWithholdjdsignurl($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createInnerWithholdjdsignurlEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取京东代扣签约链接签约串
+     * Summary: 获取京东代扣签约链接签约串.
+     *
+     * @param CreateInnerWithholdjdsignurlRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return CreateInnerWithholdjdsignurlResponse
+     */
+    public function createInnerWithholdjdsignurlEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateInnerWithholdjdsignurlResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.withholdjdsignurl.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询法务电子签签署状态
+     * Summary: 查询法务电子签签署状态
+     *
+     * @param GetInnerSignflowRequest $request
+     *
+     * @return GetInnerSignflowResponse
+     */
+    public function getInnerSignflow($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getInnerSignflowEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询法务电子签签署状态
+     * Summary: 查询法务电子签签署状态
+     *
+     * @param GetInnerSignflowRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return GetInnerSignflowResponse
+     */
+    public function getInnerSignflowEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetInnerSignflowResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.signflow.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 一键投保
      * Summary: 投保.
      *
@@ -9197,6 +9481,72 @@ class Client
         Utils::validateModel($request);
 
         return GetTradeOrderfullinfoResponse::fromMap($this->doRequest('1.0', 'antchain.ato.trade.orderfullinfo.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 提交授信申请
+     * Summary: 提交授信申请.
+     *
+     * @param ApplyTradeCreditgrantingRequest $request
+     *
+     * @return ApplyTradeCreditgrantingResponse
+     */
+    public function applyTradeCreditgranting($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyTradeCreditgrantingEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 提交授信申请
+     * Summary: 提交授信申请.
+     *
+     * @param ApplyTradeCreditgrantingRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return ApplyTradeCreditgrantingResponse
+     */
+    public function applyTradeCreditgrantingEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyTradeCreditgrantingResponse::fromMap($this->doRequest('1.0', 'antchain.ato.trade.creditgranting.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 授信信息查询
+     * Summary: 授信信息查询.
+     *
+     * @param QueryTradeCreditgrantingRequest $request
+     *
+     * @return QueryTradeCreditgrantingResponse
+     */
+    public function queryTradeCreditgranting($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryTradeCreditgrantingEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 授信信息查询
+     * Summary: 授信信息查询.
+     *
+     * @param QueryTradeCreditgrantingRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return QueryTradeCreditgrantingResponse
+     */
+    public function queryTradeCreditgrantingEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryTradeCreditgrantingResponse::fromMap($this->doRequest('1.0', 'antchain.ato.trade.creditgranting.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

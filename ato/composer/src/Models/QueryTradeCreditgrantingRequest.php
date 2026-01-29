@@ -6,7 +6,7 @@ namespace AntChain\ATO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class DetailInnerPendingeventRequest extends Model
+class QueryTradeCreditgrantingRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,35 +19,32 @@ class DetailInnerPendingeventRequest extends Model
      */
     public $productInstanceId;
 
-    // 租户id
+    // granting_id
     /**
      * @var string
      */
-    public $tenantId;
+    public $grantingId;
 
-    // 事件id
+    // merchant_id
     /**
      * @var string
      */
-    public $eventId;
-
-    // traceid
-    /**
-     * @var string
-     */
-    public $traceId;
+    public $merchantId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'tenantId'          => 'tenant_id',
-        'eventId'           => 'event_id',
-        'traceId'           => 'trace_id',
+        'grantingId'        => 'granting_id',
+        'merchantId'        => 'merchant_id',
     ];
 
     public function validate()
     {
-        Model::validateRequired('tenantId', $this->tenantId, true);
-        Model::validateRequired('eventId', $this->eventId, true);
+        Model::validateRequired('grantingId', $this->grantingId, true);
+        Model::validateRequired('merchantId', $this->merchantId, true);
+        Model::validateMaxLength('grantingId', $this->grantingId, 49);
+        Model::validateMaxLength('merchantId', $this->merchantId, 63);
+        Model::validateMinLength('grantingId', $this->grantingId, 6);
+        Model::validateMinLength('merchantId', $this->merchantId, 1);
     }
 
     public function toMap()
@@ -59,14 +56,11 @@ class DetailInnerPendingeventRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->tenantId) {
-            $res['tenant_id'] = $this->tenantId;
+        if (null !== $this->grantingId) {
+            $res['granting_id'] = $this->grantingId;
         }
-        if (null !== $this->eventId) {
-            $res['event_id'] = $this->eventId;
-        }
-        if (null !== $this->traceId) {
-            $res['trace_id'] = $this->traceId;
+        if (null !== $this->merchantId) {
+            $res['merchant_id'] = $this->merchantId;
         }
 
         return $res;
@@ -75,7 +69,7 @@ class DetailInnerPendingeventRequest extends Model
     /**
      * @param array $map
      *
-     * @return DetailInnerPendingeventRequest
+     * @return QueryTradeCreditgrantingRequest
      */
     public static function fromMap($map = [])
     {
@@ -86,14 +80,11 @@ class DetailInnerPendingeventRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['tenant_id'])) {
-            $model->tenantId = $map['tenant_id'];
+        if (isset($map['granting_id'])) {
+            $model->grantingId = $map['granting_id'];
         }
-        if (isset($map['event_id'])) {
-            $model->eventId = $map['event_id'];
-        }
-        if (isset($map['trace_id'])) {
-            $model->traceId = $map['trace_id'];
+        if (isset($map['merchant_id'])) {
+            $model->merchantId = $map['merchant_id'];
         }
 
         return $model;

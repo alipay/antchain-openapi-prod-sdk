@@ -36,12 +36,19 @@ class TransferBrokerUserdataRequest extends Model
      * @var string
      */
     public $dataContent;
+
+    // DIRECT直推;ROUND_ROBIN轮询;BROADCAST广播
+    /**
+     * @var string
+     */
+    public $pushMode;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'dataId'            => 'data_id',
         'dataType'          => 'data_type',
         'dataContent'       => 'data_content',
+        'pushMode'          => 'push_mode',
     ];
 
     public function validate()
@@ -71,6 +78,9 @@ class TransferBrokerUserdataRequest extends Model
         if (null !== $this->dataContent) {
             $res['data_content'] = $this->dataContent;
         }
+        if (null !== $this->pushMode) {
+            $res['push_mode'] = $this->pushMode;
+        }
 
         return $res;
     }
@@ -97,6 +107,9 @@ class TransferBrokerUserdataRequest extends Model
         }
         if (isset($map['data_content'])) {
             $model->dataContent = $map['data_content'];
+        }
+        if (isset($map['push_mode'])) {
+            $model->pushMode = $map['push_mode'];
         }
 
         return $model;

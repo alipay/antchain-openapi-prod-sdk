@@ -6,7 +6,7 @@ namespace AntChain\ATO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class DetailInnerPendingeventRequest extends Model
+class PagequeryInnerMerchantexpandsummaryRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -25,29 +25,30 @@ class DetailInnerPendingeventRequest extends Model
      */
     public $tenantId;
 
-    // 事件id
-    /**
-     * @var string
-     */
-    public $eventId;
-
     // traceid
     /**
      * @var string
      */
     public $traceId;
+
+    // 分页参数
+    /**
+     * @var PageQuery
+     */
+    public $pageInfo;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'tenantId'          => 'tenant_id',
-        'eventId'           => 'event_id',
         'traceId'           => 'trace_id',
+        'pageInfo'          => 'page_info',
     ];
 
     public function validate()
     {
         Model::validateRequired('tenantId', $this->tenantId, true);
-        Model::validateRequired('eventId', $this->eventId, true);
+        Model::validateRequired('traceId', $this->traceId, true);
+        Model::validateRequired('pageInfo', $this->pageInfo, true);
     }
 
     public function toMap()
@@ -62,11 +63,11 @@ class DetailInnerPendingeventRequest extends Model
         if (null !== $this->tenantId) {
             $res['tenant_id'] = $this->tenantId;
         }
-        if (null !== $this->eventId) {
-            $res['event_id'] = $this->eventId;
-        }
         if (null !== $this->traceId) {
             $res['trace_id'] = $this->traceId;
+        }
+        if (null !== $this->pageInfo) {
+            $res['page_info'] = null !== $this->pageInfo ? $this->pageInfo->toMap() : null;
         }
 
         return $res;
@@ -75,7 +76,7 @@ class DetailInnerPendingeventRequest extends Model
     /**
      * @param array $map
      *
-     * @return DetailInnerPendingeventRequest
+     * @return PagequeryInnerMerchantexpandsummaryRequest
      */
     public static function fromMap($map = [])
     {
@@ -89,11 +90,11 @@ class DetailInnerPendingeventRequest extends Model
         if (isset($map['tenant_id'])) {
             $model->tenantId = $map['tenant_id'];
         }
-        if (isset($map['event_id'])) {
-            $model->eventId = $map['event_id'];
-        }
         if (isset($map['trace_id'])) {
             $model->traceId = $map['trace_id'];
+        }
+        if (isset($map['page_info'])) {
+            $model->pageInfo = PageQuery::fromMap($map['page_info']);
         }
 
         return $model;

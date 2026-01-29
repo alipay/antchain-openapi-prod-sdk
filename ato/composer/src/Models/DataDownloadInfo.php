@@ -87,17 +87,44 @@ class DataDownloadInfo extends Model
      * @var string
      */
     public $loanChannel;
+
+    // 资方社会统一信用代码
+    /**
+     * @example 91301010101010101A
+     *
+     * @var string
+     */
+    public $fundId;
+
+    // 公司名称
+    /**
+     * @example xxx公司名称
+     *
+     * @var string
+     */
+    public $merchantName;
+
+    // 资方公司名称
+    /**
+     * @example xx公司名称
+     *
+     * @var string
+     */
+    public $fundName;
     protected $_name = [
-        'merchantId'  => 'merchant_id',
-        'bizNo'       => 'biz_no',
-        'status'      => 'status',
-        'type'        => 'type',
-        'startTime'   => 'start_time',
-        'endTime'     => 'end_time',
-        'createTime'  => 'create_time',
-        'resultInfo'  => 'result_info',
-        'fundMode'    => 'fund_mode',
-        'loanChannel' => 'loan_channel',
+        'merchantId'   => 'merchant_id',
+        'bizNo'        => 'biz_no',
+        'status'       => 'status',
+        'type'         => 'type',
+        'startTime'    => 'start_time',
+        'endTime'      => 'end_time',
+        'createTime'   => 'create_time',
+        'resultInfo'   => 'result_info',
+        'fundMode'     => 'fund_mode',
+        'loanChannel'  => 'loan_channel',
+        'fundId'       => 'fund_id',
+        'merchantName' => 'merchant_name',
+        'fundName'     => 'fund_name',
     ];
 
     public function validate()
@@ -136,6 +163,15 @@ class DataDownloadInfo extends Model
         }
         if (null !== $this->loanChannel) {
             $res['loan_channel'] = $this->loanChannel;
+        }
+        if (null !== $this->fundId) {
+            $res['fund_id'] = $this->fundId;
+        }
+        if (null !== $this->merchantName) {
+            $res['merchant_name'] = $this->merchantName;
+        }
+        if (null !== $this->fundName) {
+            $res['fund_name'] = $this->fundName;
         }
 
         return $res;
@@ -178,6 +214,15 @@ class DataDownloadInfo extends Model
         }
         if (isset($map['loan_channel'])) {
             $model->loanChannel = $map['loan_channel'];
+        }
+        if (isset($map['fund_id'])) {
+            $model->fundId = $map['fund_id'];
+        }
+        if (isset($map['merchant_name'])) {
+            $model->merchantName = $map['merchant_name'];
+        }
+        if (isset($map['fund_name'])) {
+            $model->fundName = $map['fund_name'];
         }
 
         return $model;
