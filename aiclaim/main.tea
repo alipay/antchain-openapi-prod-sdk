@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.0',
+    sdk_version = '1.1.3',
     _prod_code = 'AICLAIM',
     _prod_channel = 'default'
   };
@@ -161,10 +161,6 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   ignoreSSL = runtime.ignoreSSL
 }
 
-// BaseExtractionData
-model BaseExtractionData {
-}
-
 // Page
 model Page {
   // 边界框坐标[x1,y1,x2,y2]
@@ -178,7 +174,7 @@ model Page {
 // Extraction
 model Extraction {
   // 提取出的具体信息的基类，不同类型的影像材料，有不同的数据结构，下文会详细展开。不同的sub_type映射不同的BaseExtractionData子类。
-  data?: BaseExtractionData(name='data', example=''),
+  data?: string(name='data', example='""'),
   // 失败原因(失败时填写)，成功时为null
   failureReason?: string(name='failure_reason', example='category_not_supported'),
   // 提取状态: success/not_supported
@@ -188,17 +184,13 @@ model Extraction {
 // doument
 model Document {
   // 参考分类接口中返回的分类结果
-  type?: string(name='type', example='MEDICAL_EXPENSE_INVOICE'),
+  docType?: string(name='doc_type', example='MEDICAL_EXPENSE_INVOICE'),
   // 参考分类接口中返回的分类结果
-  typeCn?: string(name='type_cn', example='医疗费用发票'),
-  // 细分的分类结果
-  subType?: string(name='sub_type', example='TARGET_INVOICE_OUTPATIENT'),
-  // 细分的分类结果
-  subTypeCn?: string(name='sub_type_cn', example='门诊发票'),
+  docTypeCn?: string(name='doc_type_cn', example='医疗费用发票'),
   // 参考Extraction参数
-  extraction?: [ Extraction ](name='extraction', example=''),
+  extraction?: Extraction(name='extraction', example=''),
   // 参考Page参数
-  page?: [ Page ](name='page', example=''),
+  pages?: [ Page ](name='pages', example=''),
 }
 
 // 键值对
@@ -299,8 +291,6 @@ model ExecImageExtractionRequest = {
   fileObject?: readable(description='待上传文件', ignore='true'),
   fileObjectName?: string(description='待上传文件名', ignore='true'),
   fileId: string(name='file_id'),
-  // uuid
-  batchNo: string(name='batch_no'),
   // 理赔单号
   claimNumber: string(name='claim_number'),
 }
