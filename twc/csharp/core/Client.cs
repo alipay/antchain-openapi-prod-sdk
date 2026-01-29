@@ -137,7 +137,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.13.16"},
+                        {"sdk_version", "1.13.20"},
                         {"_prod_code", "TWC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.13.16"},
+                        {"sdk_version", "1.13.20"},
                         {"_prod_code", "TWC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -6459,6 +6459,48 @@ namespace AntChain.SDK.TWC
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<UnbindContractZfbagreementResponse>(await DoRequestAsync("1.0", "twc.notary.contract.zfbagreement.unbind", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 完成手动签署流程
+         * Summary: 完成手动签署流程
+         */
+        public FinishContractFlowResponse FinishContractFlow(FinishContractFlowRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return FinishContractFlowEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 完成手动签署流程
+         * Summary: 完成手动签署流程
+         */
+        public async Task<FinishContractFlowResponse> FinishContractFlowAsync(FinishContractFlowRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await FinishContractFlowExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 完成手动签署流程
+         * Summary: 完成手动签署流程
+         */
+        public FinishContractFlowResponse FinishContractFlowEx(FinishContractFlowRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<FinishContractFlowResponse>(DoRequest("1.0", "twc.notary.contract.flow.finish", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 完成手动签署流程
+         * Summary: 完成手动签署流程
+         */
+        public async Task<FinishContractFlowResponse> FinishContractFlowExAsync(FinishContractFlowRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<FinishContractFlowResponse>(await DoRequestAsync("1.0", "twc.notary.contract.flow.finish", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
