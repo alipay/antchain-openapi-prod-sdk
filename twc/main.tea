@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.13.16',
+    sdk_version = '1.13.20',
     _prod_code = 'TWC',
     _prod_channel = 'undefined'
   };
@@ -10343,6 +10343,46 @@ async function unbindContractZfbagreement(request: UnbindContractZfbagreementReq
 async function unbindContractZfbagreementEx(request: UnbindContractZfbagreementRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UnbindContractZfbagreementResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'twc.notary.contract.zfbagreement.unbind', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model FinishContractFlowRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 流程id
+  flowId: string(name='flow_id'),
+  // 用户账号
+  accountId: string(name='account_id'),
+}
+
+model FinishContractFlowResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功. true-成功, false-不成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 完成手动签署流程
+ * Summary: 完成手动签署流程
+ */
+async function finishContractFlow(request: FinishContractFlowRequest): FinishContractFlowResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return finishContractFlowEx(request, headers, runtime);
+}
+
+/**
+ * Description: 完成手动签署流程
+ * Summary: 完成手动签署流程
+ */
+async function finishContractFlowEx(request: FinishContractFlowRequest, headers: map[string]string, runtime: Util.RuntimeOptions): FinishContractFlowResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.contract.flow.finish', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model PushDigitalcontentUsageRequest = {
