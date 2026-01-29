@@ -11,34 +11,24 @@ namespace AntChain.SDK.AICLAIM.Models
     // doument
     public class Document : TeaModel {
         // 参考分类接口中返回的分类结果
-        [NameInMap("type")]
+        [NameInMap("doc_type")]
         [Validation(Required=false)]
-        public string Type { get; set; }
+        public string DocType { get; set; }
 
         // 参考分类接口中返回的分类结果
-        [NameInMap("type_cn")]
+        [NameInMap("doc_type_cn")]
         [Validation(Required=false)]
-        public string TypeCn { get; set; }
-
-        // 细分的分类结果
-        [NameInMap("sub_type")]
-        [Validation(Required=false)]
-        public string SubType { get; set; }
-
-        // 细分的分类结果
-        [NameInMap("sub_type_cn")]
-        [Validation(Required=false)]
-        public string SubTypeCn { get; set; }
+        public string DocTypeCn { get; set; }
 
         // 参考Extraction参数
         [NameInMap("extraction")]
         [Validation(Required=false)]
-        public List<Extraction> Extraction { get; set; }
+        public Extraction Extraction { get; set; }
 
         // 参考Page参数
-        [NameInMap("page")]
+        [NameInMap("pages")]
         [Validation(Required=false)]
-        public List<Page> Page { get; set; }
+        public List<Page> Pages { get; set; }
 
     }
 

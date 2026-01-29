@@ -13,7 +13,7 @@ namespace AntChain.SDK.AICLAIM.Models
         // 提取出的具体信息的基类，不同类型的影像材料，有不同的数据结构，下文会详细展开。不同的sub_type映射不同的BaseExtractionData子类。
         [NameInMap("data")]
         [Validation(Required=false)]
-        public BaseExtractionData Data { get; set; }
+        public string Data { get; set; }
 
         // 失败原因(失败时填写)，成功时为null
         [NameInMap("failure_reason")]

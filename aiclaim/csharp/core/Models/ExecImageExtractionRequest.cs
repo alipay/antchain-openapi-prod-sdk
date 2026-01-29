@@ -37,11 +37,6 @@ namespace AntChain.SDK.AICLAIM.Models
         [Validation(Required=true)]
         public string FileId { get; set; }
 
-        // uuid
-        [NameInMap("batch_no")]
-        [Validation(Required=true)]
-        public string BatchNo { get; set; }
-
         // 理赔单号
         [NameInMap("claim_number")]
         [Validation(Required=true)]
