@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.13.16',
+                    'sdk_version': '1.13.20',
                     '_prod_code': 'TWC',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.13.16',
+                    'sdk_version': '1.13.20',
                     '_prod_code': 'TWC',
                     '_prod_channel': 'undefined'
                 }
@@ -8457,6 +8457,62 @@ class Client:
         return TeaCore.from_map(
             twc_models.UnbindContractZfbagreementResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.zfbagreement.unbind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def finish_contract_flow(
+        self,
+        request: twc_models.FinishContractFlowRequest,
+    ) -> twc_models.FinishContractFlowResponse:
+        """
+        Description: 完成手动签署流程
+        Summary: 完成手动签署流程
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.finish_contract_flow_ex(request, headers, runtime)
+
+    async def finish_contract_flow_async(
+        self,
+        request: twc_models.FinishContractFlowRequest,
+    ) -> twc_models.FinishContractFlowResponse:
+        """
+        Description: 完成手动签署流程
+        Summary: 完成手动签署流程
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.finish_contract_flow_ex_async(request, headers, runtime)
+
+    def finish_contract_flow_ex(
+        self,
+        request: twc_models.FinishContractFlowRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.FinishContractFlowResponse:
+        """
+        Description: 完成手动签署流程
+        Summary: 完成手动签署流程
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.FinishContractFlowResponse(),
+            self.do_request('1.0', 'twc.notary.contract.flow.finish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def finish_contract_flow_ex_async(
+        self,
+        request: twc_models.FinishContractFlowRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.FinishContractFlowResponse:
+        """
+        Description: 完成手动签署流程
+        Summary: 完成手动签署流程
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.FinishContractFlowResponse(),
+            await self.do_request_async('1.0', 'twc.notary.contract.flow.finish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def push_digitalcontent_usage(
