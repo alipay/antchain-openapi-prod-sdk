@@ -519,6 +519,8 @@ use AntChain\BOT\Models\StartEvidenceStoreRequest;
 use AntChain\BOT\Models\StartEvidenceStoreResponse;
 use AntChain\BOT\Models\StartIotagentChatRequest;
 use AntChain\BOT\Models\StartIotagentChatResponse;
+use AntChain\BOT\Models\StartIotagentThingmodelRequest;
+use AntChain\BOT\Models\StartIotagentThingmodelResponse;
 use AntChain\BOT\Models\StartTenantBindinfoRequest;
 use AntChain\BOT\Models\StartTenantBindinfoResponse;
 use AntChain\BOT\Models\StartThingsdidRegisterRequest;
@@ -738,7 +740,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.12.62',
+                    'sdk_version'      => '1.12.66',
                     '_prod_code'       => 'BOT',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -9831,6 +9833,39 @@ class Client
         Utils::validateModel($request);
 
         return StartIotagentChatResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotagent.chat.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 智能体流式物模型上报接口
+     * Summary: 智能体流式物模型上报接口.
+     *
+     * @param StartIotagentThingmodelRequest $request
+     *
+     * @return StartIotagentThingmodelResponse
+     */
+    public function startIotagentThingmodel($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startIotagentThingmodelEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 智能体流式物模型上报接口
+     * Summary: 智能体流式物模型上报接口.
+     *
+     * @param StartIotagentThingmodelRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return StartIotagentThingmodelResponse
+     */
+    public function startIotagentThingmodelEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartIotagentThingmodelResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotagent.thingmodel.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
