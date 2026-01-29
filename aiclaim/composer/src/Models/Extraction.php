@@ -10,9 +10,9 @@ class Extraction extends Model
 {
     // 提取出的具体信息的基类，不同类型的影像材料，有不同的数据结构，下文会详细展开。不同的sub_type映射不同的BaseExtractionData子类。
     /**
-     * @example
+     * @example ""
      *
-     * @var BaseExtractionData
+     * @var string
      */
     public $data;
 
@@ -45,7 +45,7 @@ class Extraction extends Model
     {
         $res = [];
         if (null !== $this->data) {
-            $res['data'] = null !== $this->data ? $this->data->toMap() : null;
+            $res['data'] = $this->data;
         }
         if (null !== $this->failureReason) {
             $res['failure_reason'] = $this->failureReason;
@@ -66,7 +66,7 @@ class Extraction extends Model
     {
         $model = new self();
         if (isset($map['data'])) {
-            $model->data = BaseExtractionData::fromMap($map['data']);
+            $model->data = $map['data'];
         }
         if (isset($map['failure_reason'])) {
             $model->failureReason = $map['failure_reason'];

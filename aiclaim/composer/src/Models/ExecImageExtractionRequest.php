@@ -40,12 +40,6 @@ class ExecImageExtractionRequest extends Model
      */
     public $fileId;
 
-    // uuid
-    /**
-     * @var string
-     */
-    public $batchNo;
-
     // 理赔单号
     /**
      * @var string
@@ -55,14 +49,12 @@ class ExecImageExtractionRequest extends Model
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'fileId'            => 'file_id',
-        'batchNo'           => 'batch_no',
         'claimNumber'       => 'claim_number',
     ];
 
     public function validate()
     {
         Model::validateRequired('fileId', $this->fileId, true);
-        Model::validateRequired('batchNo', $this->batchNo, true);
         Model::validateRequired('claimNumber', $this->claimNumber, true);
     }
 
@@ -83,9 +75,6 @@ class ExecImageExtractionRequest extends Model
         }
         if (null !== $this->fileId) {
             $res['file_id'] = $this->fileId;
-        }
-        if (null !== $this->batchNo) {
-            $res['batch_no'] = $this->batchNo;
         }
         if (null !== $this->claimNumber) {
             $res['claim_number'] = $this->claimNumber;
@@ -116,9 +105,6 @@ class ExecImageExtractionRequest extends Model
         }
         if (isset($map['file_id'])) {
             $model->fileId = $map['file_id'];
-        }
-        if (isset($map['batch_no'])) {
-            $model->batchNo = $map['batch_no'];
         }
         if (isset($map['claim_number'])) {
             $model->claimNumber = $map['claim_number'];

@@ -14,7 +14,7 @@ class Document extends Model
      *
      * @var string
      */
-    public $type;
+    public $docType;
 
     // 参考分类接口中返回的分类结果
     /**
@@ -22,29 +22,13 @@ class Document extends Model
      *
      * @var string
      */
-    public $typeCn;
-
-    // 细分的分类结果
-    /**
-     * @example TARGET_INVOICE_OUTPATIENT
-     *
-     * @var string
-     */
-    public $subType;
-
-    // 细分的分类结果
-    /**
-     * @example 门诊发票
-     *
-     * @var string
-     */
-    public $subTypeCn;
+    public $docTypeCn;
 
     // 参考Extraction参数
     /**
      * @example
      *
-     * @var Extraction[]
+     * @var Extraction
      */
     public $extraction;
 
@@ -54,14 +38,12 @@ class Document extends Model
      *
      * @var Page[]
      */
-    public $page;
+    public $pages;
     protected $_name = [
-        'type'       => 'type',
-        'typeCn'     => 'type_cn',
-        'subType'    => 'sub_type',
-        'subTypeCn'  => 'sub_type_cn',
+        'docType'    => 'doc_type',
+        'docTypeCn'  => 'doc_type_cn',
         'extraction' => 'extraction',
-        'page'       => 'page',
+        'pages'      => 'pages',
     ];
 
     public function validate()
@@ -71,33 +53,21 @@ class Document extends Model
     public function toMap()
     {
         $res = [];
-        if (null !== $this->type) {
-            $res['type'] = $this->type;
+        if (null !== $this->docType) {
+            $res['doc_type'] = $this->docType;
         }
-        if (null !== $this->typeCn) {
-            $res['type_cn'] = $this->typeCn;
-        }
-        if (null !== $this->subType) {
-            $res['sub_type'] = $this->subType;
-        }
-        if (null !== $this->subTypeCn) {
-            $res['sub_type_cn'] = $this->subTypeCn;
+        if (null !== $this->docTypeCn) {
+            $res['doc_type_cn'] = $this->docTypeCn;
         }
         if (null !== $this->extraction) {
-            $res['extraction'] = [];
-            if (null !== $this->extraction && \is_array($this->extraction)) {
-                $n = 0;
-                foreach ($this->extraction as $item) {
-                    $res['extraction'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
+            $res['extraction'] = null !== $this->extraction ? $this->extraction->toMap() : null;
         }
-        if (null !== $this->page) {
-            $res['page'] = [];
-            if (null !== $this->page && \is_array($this->page)) {
+        if (null !== $this->pages) {
+            $res['pages'] = [];
+            if (null !== $this->pages && \is_array($this->pages)) {
                 $n = 0;
-                foreach ($this->page as $item) {
-                    $res['page'][$n++] = null !== $item ? $item->toMap() : $item;
+                foreach ($this->pages as $item) {
+                    $res['pages'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
         }
@@ -113,33 +83,21 @@ class Document extends Model
     public static function fromMap($map = [])
     {
         $model = new self();
-        if (isset($map['type'])) {
-            $model->type = $map['type'];
+        if (isset($map['doc_type'])) {
+            $model->docType = $map['doc_type'];
         }
-        if (isset($map['type_cn'])) {
-            $model->typeCn = $map['type_cn'];
-        }
-        if (isset($map['sub_type'])) {
-            $model->subType = $map['sub_type'];
-        }
-        if (isset($map['sub_type_cn'])) {
-            $model->subTypeCn = $map['sub_type_cn'];
+        if (isset($map['doc_type_cn'])) {
+            $model->docTypeCn = $map['doc_type_cn'];
         }
         if (isset($map['extraction'])) {
-            if (!empty($map['extraction'])) {
-                $model->extraction = [];
-                $n                 = 0;
-                foreach ($map['extraction'] as $item) {
-                    $model->extraction[$n++] = null !== $item ? Extraction::fromMap($item) : $item;
-                }
-            }
+            $model->extraction = Extraction::fromMap($map['extraction']);
         }
-        if (isset($map['page'])) {
-            if (!empty($map['page'])) {
-                $model->page = [];
-                $n           = 0;
-                foreach ($map['page'] as $item) {
-                    $model->page[$n++] = null !== $item ? Page::fromMap($item) : $item;
+        if (isset($map['pages'])) {
+            if (!empty($map['pages'])) {
+                $model->pages = [];
+                $n            = 0;
+                foreach ($map['pages'] as $item) {
+                    $model->pages[$n++] = null !== $item ? Page::fromMap($item) : $item;
                 }
             }
         }
