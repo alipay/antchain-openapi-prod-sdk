@@ -46,9 +46,18 @@ namespace AntChain.SDK.ATO.Models
         public string ContentSubject { get; set; }
 
         // 待办内容详情
+        // content_type=link，是文件访问链接
+        // content_type=text，是富文本
         [NameInMap("content_details")]
         [Validation(Required=false)]
         public string ContentDetails { get; set; }
+
+        // 待办类型 
+        // text 
+        // link
+        [NameInMap("content_type")]
+        [Validation(Required=false)]
+        public string ContentType { get; set; }
 
         // 待办处理页面操作按钮 
         // ACKNOWLEDGE 我已知晓

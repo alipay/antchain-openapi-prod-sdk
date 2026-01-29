@@ -105,6 +105,13 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string FundMode { get; set; }
 
+        // 订单支付渠道
+        // ALIPAY
+        // JDPAY
+        [NameInMap("pay_channel")]
+        [Validation(Required=false)]
+        public string PayChannel { get; set; }
+
     }
 
 }

@@ -63,6 +63,14 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false, MaxLength=32)]
         public string MerchantAppId { get; set; }
 
+        // 代扣签约场景, 当payChannel=JDPAY时，该字段必填
+        // JDbindCardH5：京东一键绑卡_H5
+        // JDAPPSignH5：京东APP签约_H5
+        // 
+        [NameInMap("withhold_sign_scene")]
+        [Validation(Required=false)]
+        public string WithholdSignScene { get; set; }
+
     }
 
 }

@@ -33,6 +33,11 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=true)]
         public string DataContent { get; set; }
 
+        // DIRECT直推;ROUND_ROBIN轮询;BROADCAST广播
+        [NameInMap("push_mode")]
+        [Validation(Required=false)]
+        public string PushMode { get; set; }
+
     }
 
 }

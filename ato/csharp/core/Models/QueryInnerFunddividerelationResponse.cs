@@ -79,6 +79,18 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string RelationFailReason { get; set; }
 
+        // 支付渠道
+        // ALIPAY(默认)
+        // JDPAY
+        [NameInMap("pay_channel")]
+        [Validation(Required=false)]
+        public string PayChannel { get; set; }
+
+        // 分账方租户id
+        [NameInMap("divide_tenant_id")]
+        [Validation(Required=false)]
+        public string DivideTenantId { get; set; }
+
     }
 
 }

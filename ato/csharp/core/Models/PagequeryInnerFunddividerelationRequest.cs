@@ -28,12 +28,12 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=true)]
         public PageQuery PageInfo { get; set; }
 
-        // 商户公司社会统一信用代码
+        // 被分账方商户公司社会统一信用代码
         [NameInMap("subject_merchant_id")]
         [Validation(Required=false)]
         public string SubjectMerchantId { get; set; }
 
-        // 商户公司名称
+        // 被分账方商户公司名称
         [NameInMap("subject_company_name")]
         [Validation(Required=false)]
         public string SubjectCompanyName { get; set; }
@@ -45,6 +45,28 @@ namespace AntChain.SDK.ATO.Models
         [NameInMap("status")]
         [Validation(Required=false)]
         public string Status { get; set; }
+
+        // 支付渠道
+        // ALIPAY
+        // JDPAY
+        [NameInMap("pay_channel")]
+        [Validation(Required=false)]
+        public string PayChannel { get; set; }
+
+        // traceid
+        [NameInMap("trace_id")]
+        [Validation(Required=false)]
+        public string TraceId { get; set; }
+
+        // 分账方公司名称
+        [NameInMap("company_name")]
+        [Validation(Required=false)]
+        public string CompanyName { get; set; }
+
+        // 分账方公司社会统一代码
+        [NameInMap("merchant_id")]
+        [Validation(Required=false)]
+        public string MerchantId { get; set; }
 
     }
 

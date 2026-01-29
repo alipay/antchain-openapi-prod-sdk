@@ -23,6 +23,11 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=true)]
         public string TenantId { get; set; }
 
+        // traceId
+        [NameInMap("trace_id")]
+        [Validation(Required=false)]
+        public string TraceId { get; set; }
+
     }
 
 }

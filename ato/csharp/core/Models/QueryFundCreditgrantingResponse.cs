@@ -71,6 +71,21 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string Status { get; set; }
 
+        // 授信业务
+        [NameInMap("biz_type")]
+        [Validation(Required=false)]
+        public string BizType { get; set; }
+
+        // 授信额外数据
+        [NameInMap("credit_extra_data")]
+        [Validation(Required=false)]
+        public string CreditExtraData { get; set; }
+
+        // 相关文件列表
+        [NameInMap("credit_info_list")]
+        [Validation(Required=false)]
+        public List<string> CreditInfoList { get; set; }
+
     }
 
 }

@@ -30,7 +30,7 @@ namespace AntChain.SDK.ATO.Models
 
         // 应用信息
         [NameInMap("application_info")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public ApplicationInfo ApplicationInfo { get; set; }
 
         // 进件模式 DIRECT(直连进件) AGENT(代理进件)
@@ -59,6 +59,13 @@ namespace AntChain.SDK.ATO.Models
         [NameInMap("pay_channel")]
         [Validation(Required=false)]
         public string PayChannel { get; set; }
+
+        // 角色
+        // MERCHANT（默认）
+        // FINANCIER
+        [NameInMap("role")]
+        [Validation(Required=false)]
+        public string Role { get; set; }
 
     }
 

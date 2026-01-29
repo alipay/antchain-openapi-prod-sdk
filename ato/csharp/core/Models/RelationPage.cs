@@ -40,6 +40,13 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=true)]
         public string SubjectCompanyName { get; set; }
 
+        // 支付渠道
+        // ALIPAY
+        // JDPAY
+        [NameInMap("pay_channel")]
+        [Validation(Required=false)]
+        public string PayChannel { get; set; }
+
     }
 
 }

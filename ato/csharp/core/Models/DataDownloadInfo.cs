@@ -60,6 +60,21 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string LoanChannel { get; set; }
 
+        // 资方社会统一信用代码
+        [NameInMap("fund_id")]
+        [Validation(Required=false)]
+        public string FundId { get; set; }
+
+        // 公司名称
+        [NameInMap("merchant_name")]
+        [Validation(Required=false)]
+        public string MerchantName { get; set; }
+
+        // 资方公司名称
+        [NameInMap("fund_name")]
+        [Validation(Required=false)]
+        public string FundName { get; set; }
+
     }
 
 }

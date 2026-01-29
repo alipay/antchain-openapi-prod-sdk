@@ -44,11 +44,15 @@ namespace AntChain.SDK.ATO.Models
         public string EffectiveEndTime { get; set; }
 
         // 待办类型
+        // text
+        // link
         [NameInMap("content_type")]
         [Validation(Required=false)]
         public string ContentType { get; set; }
 
-        // 待办详情，根据content_type可能为下载链接或者富文本
+        // 待办详情，
+        // content_type=text，是富文本
+        // content_type=link，是fileKey,通过antchain.ato.inner.file.download获取文件访问链接
         [NameInMap("content_details")]
         [Validation(Required=false)]
         public string ContentDetails { get; set; }

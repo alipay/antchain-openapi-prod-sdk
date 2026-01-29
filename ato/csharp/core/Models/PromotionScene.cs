@@ -35,6 +35,11 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public long? SceneProductAmount { get; set; }
 
+        // 已上线场景商品数量
+        [NameInMap("online_scene_product_amount")]
+        [Validation(Required=false)]
+        public long? OnlineSceneProductAmount { get; set; }
+
     }
 
 }

@@ -45,18 +45,23 @@ namespace AntChain.SDK.ATO.Models
 
         // 授信额度，单位为分
         [NameInMap("granting_line")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public long? GrantingLine { get; set; }
 
         // 授信有效期开始时间(yyyy-MM-dd HH:mm:ss)
         [NameInMap("effect_start_time")]
-        [Validation(Required=true, MaxLength=20)]
+        [Validation(Required=false, MaxLength=20)]
         public string EffectStartTime { get; set; }
 
         // 授信有效期结束时间(yyyy-MM-dd HH:mm:ss)
         [NameInMap("effect_end_time")]
-        [Validation(Required=true, MaxLength=20)]
+        [Validation(Required=false, MaxLength=20)]
         public string EffectEndTime { get; set; }
+
+        // 审核结果
+        [NameInMap("review_result")]
+        [Validation(Required=false)]
+        public string ReviewResult { get; set; }
 
     }
 

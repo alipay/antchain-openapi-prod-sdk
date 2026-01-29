@@ -42,7 +42,7 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=true)]
         public string Type { get; set; }
 
-        // 商户社会统一信用代码
+        // 商户社会统一信用代码，多个逗号分隔
         [NameInMap("merchant_id")]
         [Validation(Required=false)]
         public string MerchantId { get; set; }
@@ -64,6 +64,22 @@ namespace AntChain.SDK.ATO.Models
         [NameInMap("trace_id")]
         [Validation(Required=true)]
         public string TraceId { get; set; }
+
+        // 租户角色
+        // 
+        //       ROLE_MERCHANT(0, "商户"),
+        //       ROLE_FINANCIER(1, "资金方"),
+        //       ROLE_MIX(2, "商户资金方"),
+        //       DATA_PROVIDER(3, "数据提供者"),
+        //       ROLE_GUARANTOR(4, "担保方"),
+        [NameInMap("tenant_role")]
+        [Validation(Required=false)]
+        public long? TenantRole { get; set; }
+
+        // 资方社会统一信用代码，多个逗号分隔
+        [NameInMap("fund_id")]
+        [Validation(Required=false)]
+        public string FundId { get; set; }
 
     }
 

@@ -40,6 +40,11 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=true)]
         public PageQuery PageInfo { get; set; }
 
+        // traceid
+        [NameInMap("trace_id")]
+        [Validation(Required=false)]
+        public string TraceId { get; set; }
+
     }
 
 }
