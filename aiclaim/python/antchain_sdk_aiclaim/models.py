@@ -154,26 +154,6 @@ class Config(TeaModel):
         return self
 
 
-class BaseExtractionData(TeaModel):
-    def __init__(self):
-        pass
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        return self
-
-
 class Page(TeaModel):
     def __init__(
         self,
@@ -219,7 +199,7 @@ class Page(TeaModel):
 class Extraction(TeaModel):
     def __init__(
         self,
-        data: BaseExtractionData = None,
+        data: str = None,
         failure_reason: str = None,
         status: str = None,
     ):
@@ -231,8 +211,7 @@ class Extraction(TeaModel):
         self.status = status
 
     def validate(self):
-        if self.data:
-            self.data.validate()
+        pass
 
     def to_map(self):
         _map = super().to_map()
@@ -241,7 +220,7 @@ class Extraction(TeaModel):
 
         result = dict()
         if self.data is not None:
-            result['data'] = self.data.to_map()
+            result['data'] = self.data
         if self.failure_reason is not None:
             result['failure_reason'] = self.failure_reason
         if self.status is not None:
@@ -251,8 +230,7 @@ class Extraction(TeaModel):
     def from_map(self, m: dict = None):
         m = m or dict()
         if m.get('data') is not None:
-            temp_model = BaseExtractionData()
-            self.data = temp_model.from_map(m['data'])
+            self.data = m.get('data')
         if m.get('failure_reason') is not None:
             self.failure_reason = m.get('failure_reason')
         if m.get('status') is not None:
@@ -263,33 +241,25 @@ class Extraction(TeaModel):
 class Document(TeaModel):
     def __init__(
         self,
-        type: str = None,
-        type_cn: str = None,
-        sub_type: str = None,
-        sub_type_cn: str = None,
-        extraction: List[Extraction] = None,
-        page: List[Page] = None,
+        doc_type: str = None,
+        doc_type_cn: str = None,
+        extraction: Extraction = None,
+        pages: List[Page] = None,
     ):
         # 参考分类接口中返回的分类结果
-        self.type = type
+        self.doc_type = doc_type
         # 参考分类接口中返回的分类结果
-        self.type_cn = type_cn
-        # 细分的分类结果
-        self.sub_type = sub_type
-        # 细分的分类结果
-        self.sub_type_cn = sub_type_cn
+        self.doc_type_cn = doc_type_cn
         # 参考Extraction参数
         self.extraction = extraction
         # 参考Page参数
-        self.page = page
+        self.pages = pages
 
     def validate(self):
         if self.extraction:
-            for k in self.extraction:
-                if k:
-                    k.validate()
-        if self.page:
-            for k in self.page:
+            self.extraction.validate()
+        if self.pages:
+            for k in self.pages:
                 if k:
                     k.validate()
 
@@ -299,44 +269,32 @@ class Document(TeaModel):
             return _map
 
         result = dict()
-        if self.type is not None:
-            result['type'] = self.type
-        if self.type_cn is not None:
-            result['type_cn'] = self.type_cn
-        if self.sub_type is not None:
-            result['sub_type'] = self.sub_type
-        if self.sub_type_cn is not None:
-            result['sub_type_cn'] = self.sub_type_cn
-        result['extraction'] = []
+        if self.doc_type is not None:
+            result['doc_type'] = self.doc_type
+        if self.doc_type_cn is not None:
+            result['doc_type_cn'] = self.doc_type_cn
         if self.extraction is not None:
-            for k in self.extraction:
-                result['extraction'].append(k.to_map() if k else None)
-        result['page'] = []
-        if self.page is not None:
-            for k in self.page:
-                result['page'].append(k.to_map() if k else None)
+            result['extraction'] = self.extraction.to_map()
+        result['pages'] = []
+        if self.pages is not None:
+            for k in self.pages:
+                result['pages'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('type') is not None:
-            self.type = m.get('type')
-        if m.get('type_cn') is not None:
-            self.type_cn = m.get('type_cn')
-        if m.get('sub_type') is not None:
-            self.sub_type = m.get('sub_type')
-        if m.get('sub_type_cn') is not None:
-            self.sub_type_cn = m.get('sub_type_cn')
-        self.extraction = []
+        if m.get('doc_type') is not None:
+            self.doc_type = m.get('doc_type')
+        if m.get('doc_type_cn') is not None:
+            self.doc_type_cn = m.get('doc_type_cn')
         if m.get('extraction') is not None:
-            for k in m.get('extraction'):
-                temp_model = Extraction()
-                self.extraction.append(temp_model.from_map(k))
-        self.page = []
-        if m.get('page') is not None:
-            for k in m.get('page'):
+            temp_model = Extraction()
+            self.extraction = temp_model.from_map(m['extraction'])
+        self.pages = []
+        if m.get('pages') is not None:
+            for k in m.get('pages'):
                 temp_model = Page()
-                self.page.append(temp_model.from_map(k))
+                self.pages.append(temp_model.from_map(k))
         return self
 
 
@@ -565,7 +523,6 @@ class ExecImageExtractionRequest(TeaModel):
         file_object: BinaryIO = None,
         file_object_name: str = None,
         file_id: str = None,
-        batch_no: str = None,
         claim_number: str = None,
     ):
         # OAuth模式下的授权token
@@ -577,14 +534,11 @@ class ExecImageExtractionRequest(TeaModel):
         # 待上传文件名
         self.file_object_name = file_object_name
         self.file_id = file_id
-        # uuid
-        self.batch_no = batch_no
         # 理赔单号
         self.claim_number = claim_number
 
     def validate(self):
         self.validate_required(self.file_id, 'file_id')
-        self.validate_required(self.batch_no, 'batch_no')
         self.validate_required(self.claim_number, 'claim_number')
 
     def to_map(self):
@@ -603,8 +557,6 @@ class ExecImageExtractionRequest(TeaModel):
             result['fileObjectName'] = self.file_object_name
         if self.file_id is not None:
             result['file_id'] = self.file_id
-        if self.batch_no is not None:
-            result['batch_no'] = self.batch_no
         if self.claim_number is not None:
             result['claim_number'] = self.claim_number
         return result
@@ -621,8 +573,6 @@ class ExecImageExtractionRequest(TeaModel):
             self.file_object_name = m.get('fileObjectName')
         if m.get('file_id') is not None:
             self.file_id = m.get('file_id')
-        if m.get('batch_no') is not None:
-            self.batch_no = m.get('batch_no')
         if m.get('claim_number') is not None:
             self.claim_number = m.get('claim_number')
         return self
