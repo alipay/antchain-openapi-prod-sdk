@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.62',
+                    'sdk_version': '1.12.66',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.62',
+                    'sdk_version': '1.12.66',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -15633,6 +15633,62 @@ class Client:
         return TeaCore.from_map(
             bot_models.StartIotagentChatResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.iotagent.chat.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def start_iotagent_thingmodel(
+        self,
+        request: bot_models.StartIotagentThingmodelRequest,
+    ) -> bot_models.StartIotagentThingmodelResponse:
+        """
+        Description: 智能体流式物模型上报接口
+        Summary: 智能体流式物模型上报接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.start_iotagent_thingmodel_ex(request, headers, runtime)
+
+    async def start_iotagent_thingmodel_async(
+        self,
+        request: bot_models.StartIotagentThingmodelRequest,
+    ) -> bot_models.StartIotagentThingmodelResponse:
+        """
+        Description: 智能体流式物模型上报接口
+        Summary: 智能体流式物模型上报接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.start_iotagent_thingmodel_ex_async(request, headers, runtime)
+
+    def start_iotagent_thingmodel_ex(
+        self,
+        request: bot_models.StartIotagentThingmodelRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.StartIotagentThingmodelResponse:
+        """
+        Description: 智能体流式物模型上报接口
+        Summary: 智能体流式物模型上报接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.StartIotagentThingmodelResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotagent.thingmodel.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def start_iotagent_thingmodel_ex_async(
+        self,
+        request: bot_models.StartIotagentThingmodelRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.StartIotagentThingmodelResponse:
+        """
+        Description: 智能体流式物模型上报接口
+        Summary: 智能体流式物模型上报接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.StartIotagentThingmodelResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotagent.thingmodel.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def exec_thingsdid_oneapi(
