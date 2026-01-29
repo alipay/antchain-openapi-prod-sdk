@@ -5,8 +5,12 @@ import com.aliyun.tea.*;
 
 public class Extraction extends TeaModel {
     // 提取出的具体信息的基类，不同类型的影像材料，有不同的数据结构，下文会详细展开。不同的sub_type映射不同的BaseExtractionData子类。
+    /**
+     * <strong>example:</strong>
+     * <p>&quot;&quot;</p>
+     */
     @NameInMap("data")
-    public BaseExtractionData data;
+    public String data;
 
     // 失败原因(失败时填写)，成功时为null
     /**
@@ -29,11 +33,11 @@ public class Extraction extends TeaModel {
         return TeaModel.build(map, self);
     }
 
-    public Extraction setData(BaseExtractionData data) {
+    public Extraction setData(String data) {
         this.data = data;
         return this;
     }
-    public BaseExtractionData getData() {
+    public String getData() {
         return this.data;
     }
 

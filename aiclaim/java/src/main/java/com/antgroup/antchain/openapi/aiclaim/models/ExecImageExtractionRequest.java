@@ -28,11 +28,6 @@ public class ExecImageExtractionRequest extends TeaModel {
     @Validation(required = true)
     public String fileId;
 
-    // uuid
-    @NameInMap("batch_no")
-    @Validation(required = true)
-    public String batchNo;
-
     // 理赔单号
     @NameInMap("claim_number")
     @Validation(required = true)
@@ -81,14 +76,6 @@ public class ExecImageExtractionRequest extends TeaModel {
     }
     public String getFileId() {
         return this.fileId;
-    }
-
-    public ExecImageExtractionRequest setBatchNo(String batchNo) {
-        this.batchNo = batchNo;
-        return this;
-    }
-    public String getBatchNo() {
-        return this.batchNo;
     }
 
     public ExecImageExtractionRequest setClaimNumber(String claimNumber) {
