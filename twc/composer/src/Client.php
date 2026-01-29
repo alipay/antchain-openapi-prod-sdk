@@ -347,6 +347,8 @@ use AntChain\TWC\Models\ExistStubRequest;
 use AntChain\TWC\Models\ExistStubResponse;
 use AntChain\TWC\Models\FinishBclOrderRequest;
 use AntChain\TWC\Models\FinishBclOrderResponse;
+use AntChain\TWC\Models\FinishContractFlowRequest;
+use AntChain\TWC\Models\FinishContractFlowResponse;
 use AntChain\TWC\Models\FinishFileIntegrationRequest;
 use AntChain\TWC\Models\FinishFileIntegrationResponse;
 use AntChain\TWC\Models\FinishFlowInstanceRequest;
@@ -880,7 +882,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.13.16',
+                    'sdk_version'      => '1.13.20',
                     '_prod_code'       => 'TWC',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -5748,6 +5750,39 @@ class Client
         Utils::validateModel($request);
 
         return UnbindContractZfbagreementResponse::fromMap($this->doRequest('1.0', 'twc.notary.contract.zfbagreement.unbind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 完成手动签署流程
+     * Summary: 完成手动签署流程.
+     *
+     * @param FinishContractFlowRequest $request
+     *
+     * @return FinishContractFlowResponse
+     */
+    public function finishContractFlow($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->finishContractFlowEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 完成手动签署流程
+     * Summary: 完成手动签署流程.
+     *
+     * @param FinishContractFlowRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return FinishContractFlowResponse
+     */
+    public function finishContractFlowEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return FinishContractFlowResponse::fromMap($this->doRequest('1.0', 'twc.notary.contract.flow.finish', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
