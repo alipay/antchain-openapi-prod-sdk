@@ -18948,6 +18948,69 @@ export class UnbindContractZfbagreementResponse extends $tea.Model {
   }
 }
 
+export class FinishContractFlowRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 流程id
+  flowId: string;
+  // 用户账号
+  accountId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      flowId: 'flow_id',
+      accountId: 'account_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      flowId: 'string',
+      accountId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class FinishContractFlowResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否成功. true-成功, false-不成功
+  success?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class PushDigitalcontentUsageRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -37624,7 +37687,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.13.16",
+          sdk_version: "1.13.20",
           _prod_code: "TWC",
           _prod_channel: "undefined",
         };
@@ -40448,6 +40511,25 @@ export default class Client {
   async unbindContractZfbagreementEx(request: UnbindContractZfbagreementRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UnbindContractZfbagreementResponse> {
     Util.validateModel(request);
     return $tea.cast<UnbindContractZfbagreementResponse>(await this.doRequest("1.0", "twc.notary.contract.zfbagreement.unbind", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UnbindContractZfbagreementResponse({}));
+  }
+
+  /**
+   * Description: 完成手动签署流程
+   * Summary: 完成手动签署流程
+   */
+  async finishContractFlow(request: FinishContractFlowRequest): Promise<FinishContractFlowResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.finishContractFlowEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 完成手动签署流程
+   * Summary: 完成手动签署流程
+   */
+  async finishContractFlowEx(request: FinishContractFlowRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<FinishContractFlowResponse> {
+    Util.validateModel(request);
+    return $tea.cast<FinishContractFlowResponse>(await this.doRequest("1.0", "twc.notary.contract.flow.finish", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new FinishContractFlowResponse({}));
   }
 
   /**
