@@ -149,18 +149,6 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
-// BaseExtractionData
-type BaseExtractionData struct {
-}
-
-func (s BaseExtractionData) String() string {
-	return tea.Prettify(s)
-}
-
-func (s BaseExtractionData) GoString() string {
-	return s.String()
-}
-
 // Page
 type Page struct {
 	// 边界框坐标[x1,y1,x2,y2]
@@ -197,7 +185,7 @@ func (s *Page) SetPageIndex(v int64) *Page {
 // Extraction
 type Extraction struct {
 	// 提取出的具体信息的基类，不同类型的影像材料，有不同的数据结构，下文会详细展开。不同的sub_type映射不同的BaseExtractionData子类。
-	Data *BaseExtractionData `json:"data,omitempty" xml:"data,omitempty"`
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
 	// 失败原因(失败时填写)，成功时为null
 	FailureReason *string `json:"failure_reason,omitempty" xml:"failure_reason,omitempty"`
 	// 提取状态: success/not_supported
@@ -212,8 +200,8 @@ func (s Extraction) GoString() string {
 	return s.String()
 }
 
-func (s *Extraction) SetData(v *BaseExtractionData) *Extraction {
-	s.Data = v
+func (s *Extraction) SetData(v string) *Extraction {
+	s.Data = &v
 	return s
 }
 
@@ -230,17 +218,13 @@ func (s *Extraction) SetStatus(v string) *Extraction {
 // doument
 type Document struct {
 	// 参考分类接口中返回的分类结果
-	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	DocType *string `json:"doc_type,omitempty" xml:"doc_type,omitempty"`
 	// 参考分类接口中返回的分类结果
-	TypeCn *string `json:"type_cn,omitempty" xml:"type_cn,omitempty"`
-	// 细分的分类结果
-	SubType *string `json:"sub_type,omitempty" xml:"sub_type,omitempty"`
-	// 细分的分类结果
-	SubTypeCn *string `json:"sub_type_cn,omitempty" xml:"sub_type_cn,omitempty"`
+	DocTypeCn *string `json:"doc_type_cn,omitempty" xml:"doc_type_cn,omitempty"`
 	// 参考Extraction参数
-	Extraction []*Extraction `json:"extraction,omitempty" xml:"extraction,omitempty" type:"Repeated"`
+	Extraction *Extraction `json:"extraction,omitempty" xml:"extraction,omitempty"`
 	// 参考Page参数
-	Page []*Page `json:"page,omitempty" xml:"page,omitempty" type:"Repeated"`
+	Pages []*Page `json:"pages,omitempty" xml:"pages,omitempty" type:"Repeated"`
 }
 
 func (s Document) String() string {
@@ -251,33 +235,23 @@ func (s Document) GoString() string {
 	return s.String()
 }
 
-func (s *Document) SetType(v string) *Document {
-	s.Type = &v
+func (s *Document) SetDocType(v string) *Document {
+	s.DocType = &v
 	return s
 }
 
-func (s *Document) SetTypeCn(v string) *Document {
-	s.TypeCn = &v
+func (s *Document) SetDocTypeCn(v string) *Document {
+	s.DocTypeCn = &v
 	return s
 }
 
-func (s *Document) SetSubType(v string) *Document {
-	s.SubType = &v
-	return s
-}
-
-func (s *Document) SetSubTypeCn(v string) *Document {
-	s.SubTypeCn = &v
-	return s
-}
-
-func (s *Document) SetExtraction(v []*Extraction) *Document {
+func (s *Document) SetExtraction(v *Extraction) *Document {
 	s.Extraction = v
 	return s
 }
 
-func (s *Document) SetPage(v []*Page) *Document {
-	s.Page = v
+func (s *Document) SetPages(v []*Page) *Document {
+	s.Pages = v
 	return s
 }
 
@@ -478,8 +452,6 @@ type ExecImageExtractionRequest struct {
 	// 待上传文件名
 	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
 	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
-	// uuid
-	BatchNo *string `json:"batch_no,omitempty" xml:"batch_no,omitempty" require:"true"`
 	// 理赔单号
 	ClaimNumber *string `json:"claim_number,omitempty" xml:"claim_number,omitempty" require:"true"`
 }
@@ -514,11 +486,6 @@ func (s *ExecImageExtractionRequest) SetFileObjectName(v string) *ExecImageExtra
 
 func (s *ExecImageExtractionRequest) SetFileId(v string) *ExecImageExtractionRequest {
 	s.FileId = &v
-	return s
-}
-
-func (s *ExecImageExtractionRequest) SetBatchNo(v string) *ExecImageExtractionRequest {
-	s.BatchNo = &v
 	return s
 }
 
@@ -892,7 +859,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.0"),
+				"sdk_version":      tea.String("1.1.3"),
 				"_prod_code":       tea.String("AICLAIM"),
 				"_prod_channel":    tea.String("default"),
 			}
