@@ -34,8 +34,16 @@ public class DetailInnerPendingeventResponse extends TeaModel {
     public String contentSubject;
 
     // 待办内容详情
+    // content_type=link，是文件访问链接
+    // content_type=text，是富文本
     @NameInMap("content_details")
     public String contentDetails;
+
+    // 待办类型 
+    // text 
+    // link
+    @NameInMap("content_type")
+    public String contentType;
 
     // 待办处理页面操作按钮 
     // ACKNOWLEDGE 我已知晓
@@ -131,6 +139,14 @@ public class DetailInnerPendingeventResponse extends TeaModel {
     }
     public String getContentDetails() {
         return this.contentDetails;
+    }
+
+    public DetailInnerPendingeventResponse setContentType(String contentType) {
+        this.contentType = contentType;
+        return this;
+    }
+    public String getContentType() {
+        return this.contentType;
     }
 
     public DetailInnerPendingeventResponse setActionOptionsConfig(String actionOptionsConfig) {

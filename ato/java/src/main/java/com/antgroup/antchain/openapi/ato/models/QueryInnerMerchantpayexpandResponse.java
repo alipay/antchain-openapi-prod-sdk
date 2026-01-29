@@ -57,6 +57,20 @@ public class QueryInnerMerchantpayexpandResponse extends TeaModel {
     @NameInMap("zft_expand_successful")
     public Boolean zftExpandSuccessful;
 
+    // 京东商户控股信息
+    @NameInMap("merchant_holding_info")
+    public MerchantHoldingInfo merchantHoldingInfo;
+
+    // 京东商户结算信息
+    @NameInMap("merchant_settle_info")
+    public MerchantSettleInfo merchantSettleInfo;
+
+    // 支付渠道
+    // JDPAY
+    // ALIPAY
+    @NameInMap("pay_channel")
+    public String payChannel;
+
     public static QueryInnerMerchantpayexpandResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryInnerMerchantpayexpandResponse self = new QueryInnerMerchantpayexpandResponse();
         return TeaModel.build(map, self);
@@ -164,6 +178,30 @@ public class QueryInnerMerchantpayexpandResponse extends TeaModel {
     }
     public Boolean getZftExpandSuccessful() {
         return this.zftExpandSuccessful;
+    }
+
+    public QueryInnerMerchantpayexpandResponse setMerchantHoldingInfo(MerchantHoldingInfo merchantHoldingInfo) {
+        this.merchantHoldingInfo = merchantHoldingInfo;
+        return this;
+    }
+    public MerchantHoldingInfo getMerchantHoldingInfo() {
+        return this.merchantHoldingInfo;
+    }
+
+    public QueryInnerMerchantpayexpandResponse setMerchantSettleInfo(MerchantSettleInfo merchantSettleInfo) {
+        this.merchantSettleInfo = merchantSettleInfo;
+        return this;
+    }
+    public MerchantSettleInfo getMerchantSettleInfo() {
+        return this.merchantSettleInfo;
+    }
+
+    public QueryInnerMerchantpayexpandResponse setPayChannel(String payChannel) {
+        this.payChannel = payChannel;
+        return this;
+    }
+    public String getPayChannel() {
+        return this.payChannel;
     }
 
 }

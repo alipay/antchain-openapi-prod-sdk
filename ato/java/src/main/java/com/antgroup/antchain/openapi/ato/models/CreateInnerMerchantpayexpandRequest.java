@@ -62,6 +62,24 @@ public class CreateInnerMerchantpayexpandRequest extends TeaModel {
     @NameInMap("allow_duplicate")
     public Boolean allowDuplicate;
 
+    // 支付渠道
+    // JDPAY
+    // ALIPAY
+    @NameInMap("pay_channel")
+    public String payChannel;
+
+    // 京东进件控股信息
+    @NameInMap("merchant_holding_info")
+    public MerchantHoldingInfo merchantHoldingInfo;
+
+    //  京东进件结算信息
+    @NameInMap("merchant_settle_info")
+    public MerchantSettleInfo merchantSettleInfo;
+
+    // traceId
+    @NameInMap("trace_id")
+    public String traceId;
+
     public static CreateInnerMerchantpayexpandRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateInnerMerchantpayexpandRequest self = new CreateInnerMerchantpayexpandRequest();
         return TeaModel.build(map, self);
@@ -161,6 +179,38 @@ public class CreateInnerMerchantpayexpandRequest extends TeaModel {
     }
     public Boolean getAllowDuplicate() {
         return this.allowDuplicate;
+    }
+
+    public CreateInnerMerchantpayexpandRequest setPayChannel(String payChannel) {
+        this.payChannel = payChannel;
+        return this;
+    }
+    public String getPayChannel() {
+        return this.payChannel;
+    }
+
+    public CreateInnerMerchantpayexpandRequest setMerchantHoldingInfo(MerchantHoldingInfo merchantHoldingInfo) {
+        this.merchantHoldingInfo = merchantHoldingInfo;
+        return this;
+    }
+    public MerchantHoldingInfo getMerchantHoldingInfo() {
+        return this.merchantHoldingInfo;
+    }
+
+    public CreateInnerMerchantpayexpandRequest setMerchantSettleInfo(MerchantSettleInfo merchantSettleInfo) {
+        this.merchantSettleInfo = merchantSettleInfo;
+        return this;
+    }
+    public MerchantSettleInfo getMerchantSettleInfo() {
+        return this.merchantSettleInfo;
+    }
+
+    public CreateInnerMerchantpayexpandRequest setTraceId(String traceId) {
+        this.traceId = traceId;
+        return this;
+    }
+    public String getTraceId() {
+        return this.traceId;
     }
 
 }

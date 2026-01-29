@@ -84,6 +84,30 @@ public class DataDownloadInfo extends TeaModel {
     @NameInMap("loan_channel")
     public String loanChannel;
 
+    // 资方社会统一信用代码
+    /**
+     * <strong>example:</strong>
+     * <p>91301010101010101A</p>
+     */
+    @NameInMap("fund_id")
+    public String fundId;
+
+    // 公司名称
+    /**
+     * <strong>example:</strong>
+     * <p>xxx公司名称</p>
+     */
+    @NameInMap("merchant_name")
+    public String merchantName;
+
+    // 资方公司名称
+    /**
+     * <strong>example:</strong>
+     * <p>xx公司名称</p>
+     */
+    @NameInMap("fund_name")
+    public String fundName;
+
     public static DataDownloadInfo build(java.util.Map<String, ?> map) throws Exception {
         DataDownloadInfo self = new DataDownloadInfo();
         return TeaModel.build(map, self);
@@ -167,6 +191,30 @@ public class DataDownloadInfo extends TeaModel {
     }
     public String getLoanChannel() {
         return this.loanChannel;
+    }
+
+    public DataDownloadInfo setFundId(String fundId) {
+        this.fundId = fundId;
+        return this;
+    }
+    public String getFundId() {
+        return this.fundId;
+    }
+
+    public DataDownloadInfo setMerchantName(String merchantName) {
+        this.merchantName = merchantName;
+        return this;
+    }
+    public String getMerchantName() {
+        return this.merchantName;
+    }
+
+    public DataDownloadInfo setFundName(String fundName) {
+        this.fundName = fundName;
+        return this;
+    }
+    public String getFundName() {
+        return this.fundName;
     }
 
 }

@@ -30,6 +30,10 @@ public class UploadInnerFileRequest extends TeaModel {
     @Validation(required = true)
     public String bizScene;
 
+    // traceid
+    @NameInMap("trace_id")
+    public String traceId;
+
     public static UploadInnerFileRequest build(java.util.Map<String, ?> map) throws Exception {
         UploadInnerFileRequest self = new UploadInnerFileRequest();
         return TeaModel.build(map, self);
@@ -73,6 +77,14 @@ public class UploadInnerFileRequest extends TeaModel {
     }
     public String getBizScene() {
         return this.bizScene;
+    }
+
+    public UploadInnerFileRequest setTraceId(String traceId) {
+        this.traceId = traceId;
+        return this;
+    }
+    public String getTraceId() {
+        return this.traceId;
     }
 
 }

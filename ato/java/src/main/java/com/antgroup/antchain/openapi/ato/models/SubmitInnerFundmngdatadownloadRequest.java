@@ -35,7 +35,7 @@ public class SubmitInnerFundmngdatadownloadRequest extends TeaModel {
     @Validation(required = true)
     public String type;
 
-    // 商户社会统一信用代码
+    // 商户社会统一信用代码，多个逗号分隔
     @NameInMap("merchant_id")
     public String merchantId;
 
@@ -54,6 +54,20 @@ public class SubmitInnerFundmngdatadownloadRequest extends TeaModel {
     @NameInMap("trace_id")
     @Validation(required = true)
     public String traceId;
+
+    // 租户角色
+    // 
+    //       ROLE_MERCHANT(0, "商户"),
+    //       ROLE_FINANCIER(1, "资金方"),
+    //       ROLE_MIX(2, "商户资金方"),
+    //       DATA_PROVIDER(3, "数据提供者"),
+    //       ROLE_GUARANTOR(4, "担保方"),
+    @NameInMap("tenant_role")
+    public Long tenantRole;
+
+    // 资方社会统一信用代码，多个逗号分隔
+    @NameInMap("fund_id")
+    public String fundId;
 
     public static SubmitInnerFundmngdatadownloadRequest build(java.util.Map<String, ?> map) throws Exception {
         SubmitInnerFundmngdatadownloadRequest self = new SubmitInnerFundmngdatadownloadRequest();
@@ -138,6 +152,22 @@ public class SubmitInnerFundmngdatadownloadRequest extends TeaModel {
     }
     public String getTraceId() {
         return this.traceId;
+    }
+
+    public SubmitInnerFundmngdatadownloadRequest setTenantRole(Long tenantRole) {
+        this.tenantRole = tenantRole;
+        return this;
+    }
+    public Long getTenantRole() {
+        return this.tenantRole;
+    }
+
+    public SubmitInnerFundmngdatadownloadRequest setFundId(String fundId) {
+        this.fundId = fundId;
+        return this;
+    }
+    public String getFundId() {
+        return this.fundId;
     }
 
 }

@@ -32,6 +32,10 @@ public class SubmitInnerPendingeventRequest extends TeaModel {
     @Validation(required = true)
     public String operator;
 
+    // traceid
+    @NameInMap("trace_id")
+    public String traceId;
+
     public static SubmitInnerPendingeventRequest build(java.util.Map<String, ?> map) throws Exception {
         SubmitInnerPendingeventRequest self = new SubmitInnerPendingeventRequest();
         return TeaModel.build(map, self);
@@ -83,6 +87,14 @@ public class SubmitInnerPendingeventRequest extends TeaModel {
     }
     public String getOperator() {
         return this.operator;
+    }
+
+    public SubmitInnerPendingeventRequest setTraceId(String traceId) {
+        this.traceId = traceId;
+        return this;
+    }
+    public String getTraceId() {
+        return this.traceId;
     }
 
 }

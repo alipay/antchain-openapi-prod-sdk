@@ -25,6 +25,10 @@ public class QueryInnerMerchantpayexpandRequest extends TeaModel {
     @Validation(required = true)
     public String expandMode;
 
+    // traceId
+    @NameInMap("trace_id")
+    public String traceId;
+
     public static QueryInnerMerchantpayexpandRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryInnerMerchantpayexpandRequest self = new QueryInnerMerchantpayexpandRequest();
         return TeaModel.build(map, self);
@@ -68,6 +72,14 @@ public class QueryInnerMerchantpayexpandRequest extends TeaModel {
     }
     public String getExpandMode() {
         return this.expandMode;
+    }
+
+    public QueryInnerMerchantpayexpandRequest setTraceId(String traceId) {
+        this.traceId = traceId;
+        return this;
+    }
+    public String getTraceId() {
+        return this.traceId;
     }
 
 }

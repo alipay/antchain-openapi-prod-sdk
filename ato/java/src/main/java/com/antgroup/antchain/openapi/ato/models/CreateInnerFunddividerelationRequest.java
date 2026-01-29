@@ -66,6 +66,20 @@ public class CreateInnerFunddividerelationRequest extends TeaModel {
     @NameInMap("expand_mode")
     public String expandMode;
 
+    // 分账公司租户id
+    @NameInMap("divide_tenant_id")
+    public String divideTenantId;
+
+    // 支付渠道
+    // ALIPAY（默认）
+    // JDPAY
+    @NameInMap("pay_channel")
+    public String payChannel;
+
+    // traceid
+    @NameInMap("trace_id")
+    public String traceId;
+
     public static CreateInnerFunddividerelationRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateInnerFunddividerelationRequest self = new CreateInnerFunddividerelationRequest();
         return TeaModel.build(map, self);
@@ -181,6 +195,30 @@ public class CreateInnerFunddividerelationRequest extends TeaModel {
     }
     public String getExpandMode() {
         return this.expandMode;
+    }
+
+    public CreateInnerFunddividerelationRequest setDivideTenantId(String divideTenantId) {
+        this.divideTenantId = divideTenantId;
+        return this;
+    }
+    public String getDivideTenantId() {
+        return this.divideTenantId;
+    }
+
+    public CreateInnerFunddividerelationRequest setPayChannel(String payChannel) {
+        this.payChannel = payChannel;
+        return this;
+    }
+    public String getPayChannel() {
+        return this.payChannel;
+    }
+
+    public CreateInnerFunddividerelationRequest setTraceId(String traceId) {
+        this.traceId = traceId;
+        return this;
+    }
+    public String getTraceId() {
+        return this.traceId;
     }
 
 }

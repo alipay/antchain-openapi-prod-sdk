@@ -42,6 +42,12 @@ public class QueryWithholdSignResponse extends TeaModel {
     @NameInMap("agreement_no")
     public String agreementNo;
 
+    // 代扣签约场景
+    // JDbindCardH5：京东一键绑卡_H5
+    // JDAPPSignH5：京东APP签约_H5
+    @NameInMap("withhold_sign_scene")
+    public String withholdSignScene;
+
     public static QueryWithholdSignResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryWithholdSignResponse self = new QueryWithholdSignResponse();
         return TeaModel.build(map, self);
@@ -109,6 +115,14 @@ public class QueryWithholdSignResponse extends TeaModel {
     }
     public String getAgreementNo() {
         return this.agreementNo;
+    }
+
+    public QueryWithholdSignResponse setWithholdSignScene(String withholdSignScene) {
+        this.withholdSignScene = withholdSignScene;
+        return this;
+    }
+    public String getWithholdSignScene() {
+        return this.withholdSignScene;
     }
 
 }

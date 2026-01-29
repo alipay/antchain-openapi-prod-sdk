@@ -60,6 +60,16 @@ public class QueryInnerFunddividerelationResponse extends TeaModel {
     @NameInMap("relation_fail_reason")
     public String relationFailReason;
 
+    // 支付渠道
+    // ALIPAY(默认)
+    // JDPAY
+    @NameInMap("pay_channel")
+    public String payChannel;
+
+    // 分账方租户id
+    @NameInMap("divide_tenant_id")
+    public String divideTenantId;
+
     public static QueryInnerFunddividerelationResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryInnerFunddividerelationResponse self = new QueryInnerFunddividerelationResponse();
         return TeaModel.build(map, self);
@@ -175,6 +185,22 @@ public class QueryInnerFunddividerelationResponse extends TeaModel {
     }
     public String getRelationFailReason() {
         return this.relationFailReason;
+    }
+
+    public QueryInnerFunddividerelationResponse setPayChannel(String payChannel) {
+        this.payChannel = payChannel;
+        return this;
+    }
+    public String getPayChannel() {
+        return this.payChannel;
+    }
+
+    public QueryInnerFunddividerelationResponse setDivideTenantId(String divideTenantId) {
+        this.divideTenantId = divideTenantId;
+        return this;
+    }
+    public String getDivideTenantId() {
+        return this.divideTenantId;
     }
 
 }

@@ -154,6 +154,10 @@ public class SubmitFrontSignRequest extends TeaModel {
     @NameInMap("seal_type")
     public String sealType;
 
+    // 代扣签约场景，JDbindCardH5：京东一键绑卡_H5；JDAPPSignH5：京东APP签约_H5
+    @NameInMap("withhold_sign_scene")
+    public String withholdSignScene;
+
     public static SubmitFrontSignRequest build(java.util.Map<String, ?> map) throws Exception {
         SubmitFrontSignRequest self = new SubmitFrontSignRequest();
         return TeaModel.build(map, self);
@@ -405,6 +409,14 @@ public class SubmitFrontSignRequest extends TeaModel {
     }
     public String getSealType() {
         return this.sealType;
+    }
+
+    public SubmitFrontSignRequest setWithholdSignScene(String withholdSignScene) {
+        this.withholdSignScene = withholdSignScene;
+        return this;
+    }
+    public String getWithholdSignScene() {
+        return this.withholdSignScene;
     }
 
 }

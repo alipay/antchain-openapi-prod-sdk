@@ -153,6 +153,16 @@ public class OrderInfo extends TeaModel {
     @NameInMap("fund_mode")
     public String fundMode;
 
+    // 订单支付渠道
+    // ALIPAY
+    // JDPAY
+    /**
+     * <strong>example:</strong>
+     * <p>ALIPAY</p>
+     */
+    @NameInMap("pay_channel")
+    public String payChannel;
+
     public static OrderInfo build(java.util.Map<String, ?> map) throws Exception {
         OrderInfo self = new OrderInfo();
         return TeaModel.build(map, self);
@@ -300,6 +310,14 @@ public class OrderInfo extends TeaModel {
     }
     public String getFundMode() {
         return this.fundMode;
+    }
+
+    public OrderInfo setPayChannel(String payChannel) {
+        this.payChannel = payChannel;
+        return this;
+    }
+    public String getPayChannel() {
+        return this.payChannel;
     }
 
 }

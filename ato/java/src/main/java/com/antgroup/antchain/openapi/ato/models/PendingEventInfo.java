@@ -56,6 +56,8 @@ public class PendingEventInfo extends TeaModel {
     public String effectiveEndTime;
 
     // 待办类型
+    // text
+    // link
     /**
      * <strong>example:</strong>
      * <p>text</p>
@@ -63,10 +65,12 @@ public class PendingEventInfo extends TeaModel {
     @NameInMap("content_type")
     public String contentType;
 
-    // 待办详情，根据content_type可能为下载链接或者富文本
+    // 待办详情，
+    // content_type=text，是富文本
+    // content_type=link，是fileKey,通过antchain.ato.inner.file.download获取文件访问链接
     /**
      * <strong>example:</strong>
-     * <p><a href="http://123.docx">http://123.docx</a></p>
+     * <p>agreement/auth/BGDBWWGN/202511234567_7246.docx</p>
      */
     @NameInMap("content_details")
     public String contentDetails;

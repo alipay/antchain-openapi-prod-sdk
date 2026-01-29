@@ -54,6 +54,18 @@ public class QueryFundCreditgrantingResponse extends TeaModel {
     @NameInMap("status")
     public String status;
 
+    // 授信业务
+    @NameInMap("biz_type")
+    public String bizType;
+
+    // 授信额外数据
+    @NameInMap("credit_extra_data")
+    public String creditExtraData;
+
+    // 相关文件列表
+    @NameInMap("credit_info_list")
+    public java.util.List<String> creditInfoList;
+
     public static QueryFundCreditgrantingResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryFundCreditgrantingResponse self = new QueryFundCreditgrantingResponse();
         return TeaModel.build(map, self);
@@ -153,6 +165,30 @@ public class QueryFundCreditgrantingResponse extends TeaModel {
     }
     public String getStatus() {
         return this.status;
+    }
+
+    public QueryFundCreditgrantingResponse setBizType(String bizType) {
+        this.bizType = bizType;
+        return this;
+    }
+    public String getBizType() {
+        return this.bizType;
+    }
+
+    public QueryFundCreditgrantingResponse setCreditExtraData(String creditExtraData) {
+        this.creditExtraData = creditExtraData;
+        return this;
+    }
+    public String getCreditExtraData() {
+        return this.creditExtraData;
+    }
+
+    public QueryFundCreditgrantingResponse setCreditInfoList(java.util.List<String> creditInfoList) {
+        this.creditInfoList = creditInfoList;
+        return this;
+    }
+    public java.util.List<String> getCreditInfoList() {
+        return this.creditInfoList;
     }
 
 }

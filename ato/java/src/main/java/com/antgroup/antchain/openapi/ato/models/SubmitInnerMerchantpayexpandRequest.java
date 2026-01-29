@@ -26,6 +26,10 @@ public class SubmitInnerMerchantpayexpandRequest extends TeaModel {
     @Validation(required = true)
     public String userName;
 
+    // traceId
+    @NameInMap("trace_id")
+    public String traceId;
+
     public static SubmitInnerMerchantpayexpandRequest build(java.util.Map<String, ?> map) throws Exception {
         SubmitInnerMerchantpayexpandRequest self = new SubmitInnerMerchantpayexpandRequest();
         return TeaModel.build(map, self);
@@ -69,6 +73,14 @@ public class SubmitInnerMerchantpayexpandRequest extends TeaModel {
     }
     public String getUserName() {
         return this.userName;
+    }
+
+    public SubmitInnerMerchantpayexpandRequest setTraceId(String traceId) {
+        this.traceId = traceId;
+        return this;
+    }
+    public String getTraceId() {
+        return this.traceId;
     }
 
 }

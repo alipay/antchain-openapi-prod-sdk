@@ -26,6 +26,10 @@ public class TransferBrokerUserdataRequest extends TeaModel {
     @Validation(required = true)
     public String dataContent;
 
+    // DIRECT直推;ROUND_ROBIN轮询;BROADCAST广播
+    @NameInMap("push_mode")
+    public String pushMode;
+
     public static TransferBrokerUserdataRequest build(java.util.Map<String, ?> map) throws Exception {
         TransferBrokerUserdataRequest self = new TransferBrokerUserdataRequest();
         return TeaModel.build(map, self);
@@ -69,6 +73,14 @@ public class TransferBrokerUserdataRequest extends TeaModel {
     }
     public String getDataContent() {
         return this.dataContent;
+    }
+
+    public TransferBrokerUserdataRequest setPushMode(String pushMode) {
+        this.pushMode = pushMode;
+        return this;
+    }
+    public String getPushMode() {
+        return this.pushMode;
     }
 
 }

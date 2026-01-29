@@ -97,7 +97,6 @@ public class CompanyInfo extends TeaModel {
      * <p>1231xx2322</p>
      */
     @NameInMap("company_mobile")
-    @Validation(required = true)
     public String companyMobile;
 
     // 公司联系地址
@@ -106,7 +105,6 @@ public class CompanyInfo extends TeaModel {
      * <p>xx市xx区</p>
      */
     @NameInMap("company_address")
-    @Validation(required = true)
     public String companyAddress;
 
     // 联系人姓名

@@ -21,6 +21,10 @@ public class QueryInnerFunddividerelationRequest extends TeaModel {
     @Validation(required = true)
     public String relationId;
 
+    // traceid
+    @NameInMap("trace_id")
+    public String traceId;
+
     public static QueryInnerFunddividerelationRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryInnerFunddividerelationRequest self = new QueryInnerFunddividerelationRequest();
         return TeaModel.build(map, self);
@@ -56,6 +60,14 @@ public class QueryInnerFunddividerelationRequest extends TeaModel {
     }
     public String getRelationId() {
         return this.relationId;
+    }
+
+    public QueryInnerFunddividerelationRequest setTraceId(String traceId) {
+        this.traceId = traceId;
+        return this;
+    }
+    public String getTraceId() {
+        return this.traceId;
     }
 
 }

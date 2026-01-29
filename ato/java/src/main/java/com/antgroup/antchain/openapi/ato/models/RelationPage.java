@@ -58,6 +58,16 @@ public class RelationPage extends TeaModel {
     @Validation(required = true)
     public String subjectCompanyName;
 
+    // 支付渠道
+    // ALIPAY
+    // JDPAY
+    /**
+     * <strong>example:</strong>
+     * <p>ALIPAY</p>
+     */
+    @NameInMap("pay_channel")
+    public String payChannel;
+
     public static RelationPage build(java.util.Map<String, ?> map) throws Exception {
         RelationPage self = new RelationPage();
         return TeaModel.build(map, self);
@@ -109,6 +119,14 @@ public class RelationPage extends TeaModel {
     }
     public String getSubjectCompanyName() {
         return this.subjectCompanyName;
+    }
+
+    public RelationPage setPayChannel(String payChannel) {
+        this.payChannel = payChannel;
+        return this;
+    }
+    public String getPayChannel() {
+        return this.payChannel;
     }
 
 }

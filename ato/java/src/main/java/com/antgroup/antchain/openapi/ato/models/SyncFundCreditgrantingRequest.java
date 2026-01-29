@@ -38,18 +38,21 @@ public class SyncFundCreditgrantingRequest extends TeaModel {
 
     // 授信额度，单位为分
     @NameInMap("granting_line")
-    @Validation(required = true, minimum = 1)
     public Long grantingLine;
 
     // 授信有效期开始时间(yyyy-MM-dd HH:mm:ss)
     @NameInMap("effect_start_time")
-    @Validation(required = true, maxLength = 20, minLength = 10)
+    @Validation(maxLength = 20, minLength = 10)
     public String effectStartTime;
 
     // 授信有效期结束时间(yyyy-MM-dd HH:mm:ss)
     @NameInMap("effect_end_time")
-    @Validation(required = true, maxLength = 20, minLength = 10)
+    @Validation(maxLength = 20, minLength = 10)
     public String effectEndTime;
+
+    // 审核结果
+    @NameInMap("review_result")
+    public String reviewResult;
 
     public static SyncFundCreditgrantingRequest build(java.util.Map<String, ?> map) throws Exception {
         SyncFundCreditgrantingRequest self = new SyncFundCreditgrantingRequest();
@@ -134,6 +137,14 @@ public class SyncFundCreditgrantingRequest extends TeaModel {
     }
     public String getEffectEndTime() {
         return this.effectEndTime;
+    }
+
+    public SyncFundCreditgrantingRequest setReviewResult(String reviewResult) {
+        this.reviewResult = reviewResult;
+        return this;
+    }
+    public String getReviewResult() {
+        return this.reviewResult;
     }
 
 }

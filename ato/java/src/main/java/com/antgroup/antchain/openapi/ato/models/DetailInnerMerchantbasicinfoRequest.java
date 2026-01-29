@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.ato.models;
 
 import com.aliyun.tea.*;
 
-public class DetailInnerPendingeventRequest extends TeaModel {
+public class DetailInnerMerchantbasicinfoRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -16,21 +16,17 @@ public class DetailInnerPendingeventRequest extends TeaModel {
     @Validation(required = true)
     public String tenantId;
 
-    // 事件id
-    @NameInMap("event_id")
-    @Validation(required = true)
-    public String eventId;
-
     // traceid
     @NameInMap("trace_id")
+    @Validation(required = true)
     public String traceId;
 
-    public static DetailInnerPendingeventRequest build(java.util.Map<String, ?> map) throws Exception {
-        DetailInnerPendingeventRequest self = new DetailInnerPendingeventRequest();
+    public static DetailInnerMerchantbasicinfoRequest build(java.util.Map<String, ?> map) throws Exception {
+        DetailInnerMerchantbasicinfoRequest self = new DetailInnerMerchantbasicinfoRequest();
         return TeaModel.build(map, self);
     }
 
-    public DetailInnerPendingeventRequest setAuthToken(String authToken) {
+    public DetailInnerMerchantbasicinfoRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -38,7 +34,7 @@ public class DetailInnerPendingeventRequest extends TeaModel {
         return this.authToken;
     }
 
-    public DetailInnerPendingeventRequest setProductInstanceId(String productInstanceId) {
+    public DetailInnerMerchantbasicinfoRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -46,7 +42,7 @@ public class DetailInnerPendingeventRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public DetailInnerPendingeventRequest setTenantId(String tenantId) {
+    public DetailInnerMerchantbasicinfoRequest setTenantId(String tenantId) {
         this.tenantId = tenantId;
         return this;
     }
@@ -54,15 +50,7 @@ public class DetailInnerPendingeventRequest extends TeaModel {
         return this.tenantId;
     }
 
-    public DetailInnerPendingeventRequest setEventId(String eventId) {
-        this.eventId = eventId;
-        return this;
-    }
-    public String getEventId() {
-        return this.eventId;
-    }
-
-    public DetailInnerPendingeventRequest setTraceId(String traceId) {
+    public DetailInnerMerchantbasicinfoRequest setTraceId(String traceId) {
         this.traceId = traceId;
         return this;
     }

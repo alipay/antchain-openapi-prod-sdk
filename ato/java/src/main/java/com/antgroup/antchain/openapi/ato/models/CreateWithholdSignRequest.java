@@ -56,6 +56,13 @@ public class CreateWithholdSignRequest extends TeaModel {
     @Validation(maxLength = 32)
     public String merchantAppId;
 
+    // 代扣签约场景, 当payChannel=JDPAY时，该字段必填
+    // JDbindCardH5：京东一键绑卡_H5
+    // JDAPPSignH5：京东APP签约_H5
+    // 
+    @NameInMap("withhold_sign_scene")
+    public String withholdSignScene;
+
     public static CreateWithholdSignRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateWithholdSignRequest self = new CreateWithholdSignRequest();
         return TeaModel.build(map, self);
@@ -147,6 +154,14 @@ public class CreateWithholdSignRequest extends TeaModel {
     }
     public String getMerchantAppId() {
         return this.merchantAppId;
+    }
+
+    public CreateWithholdSignRequest setWithholdSignScene(String withholdSignScene) {
+        this.withholdSignScene = withholdSignScene;
+        return this;
+    }
+    public String getWithholdSignScene() {
+        return this.withholdSignScene;
     }
 
 }

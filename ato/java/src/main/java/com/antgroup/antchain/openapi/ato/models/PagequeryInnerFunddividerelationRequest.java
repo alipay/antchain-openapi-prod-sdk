@@ -21,11 +21,11 @@ public class PagequeryInnerFunddividerelationRequest extends TeaModel {
     @Validation(required = true)
     public PageQuery pageInfo;
 
-    // 商户公司社会统一信用代码
+    // 被分账方商户公司社会统一信用代码
     @NameInMap("subject_merchant_id")
     public String subjectMerchantId;
 
-    // 商户公司名称
+    // 被分账方商户公司名称
     @NameInMap("subject_company_name")
     public String subjectCompanyName;
 
@@ -35,6 +35,24 @@ public class PagequeryInnerFunddividerelationRequest extends TeaModel {
     // AUDIT_NOT_PASSED:审批不通过
     @NameInMap("status")
     public String status;
+
+    // 支付渠道
+    // ALIPAY
+    // JDPAY
+    @NameInMap("pay_channel")
+    public String payChannel;
+
+    // traceid
+    @NameInMap("trace_id")
+    public String traceId;
+
+    // 分账方公司名称
+    @NameInMap("company_name")
+    public String companyName;
+
+    // 分账方公司社会统一代码
+    @NameInMap("merchant_id")
+    public String merchantId;
 
     public static PagequeryInnerFunddividerelationRequest build(java.util.Map<String, ?> map) throws Exception {
         PagequeryInnerFunddividerelationRequest self = new PagequeryInnerFunddividerelationRequest();
@@ -95,6 +113,38 @@ public class PagequeryInnerFunddividerelationRequest extends TeaModel {
     }
     public String getStatus() {
         return this.status;
+    }
+
+    public PagequeryInnerFunddividerelationRequest setPayChannel(String payChannel) {
+        this.payChannel = payChannel;
+        return this;
+    }
+    public String getPayChannel() {
+        return this.payChannel;
+    }
+
+    public PagequeryInnerFunddividerelationRequest setTraceId(String traceId) {
+        this.traceId = traceId;
+        return this;
+    }
+    public String getTraceId() {
+        return this.traceId;
+    }
+
+    public PagequeryInnerFunddividerelationRequest setCompanyName(String companyName) {
+        this.companyName = companyName;
+        return this;
+    }
+    public String getCompanyName() {
+        return this.companyName;
+    }
+
+    public PagequeryInnerFunddividerelationRequest setMerchantId(String merchantId) {
+        this.merchantId = merchantId;
+        return this;
+    }
+    public String getMerchantId() {
+        return this.merchantId;
     }
 
 }

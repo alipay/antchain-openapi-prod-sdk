@@ -44,6 +44,14 @@ public class PromotionScene extends TeaModel {
     @NameInMap("scene_product_amount")
     public Long sceneProductAmount;
 
+    // 已上线场景商品数量
+    /**
+     * <strong>example:</strong>
+     * <p>已上线场景商品数量</p>
+     */
+    @NameInMap("online_scene_product_amount")
+    public Long onlineSceneProductAmount;
+
     public static PromotionScene build(java.util.Map<String, ?> map) throws Exception {
         PromotionScene self = new PromotionScene();
         return TeaModel.build(map, self);
@@ -87,6 +95,14 @@ public class PromotionScene extends TeaModel {
     }
     public Long getSceneProductAmount() {
         return this.sceneProductAmount;
+    }
+
+    public PromotionScene setOnlineSceneProductAmount(Long onlineSceneProductAmount) {
+        this.onlineSceneProductAmount = onlineSceneProductAmount;
+        return this;
+    }
+    public Long getOnlineSceneProductAmount() {
+        return this.onlineSceneProductAmount;
     }
 
 }
