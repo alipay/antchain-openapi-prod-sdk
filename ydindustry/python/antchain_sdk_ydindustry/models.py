@@ -165,6 +165,7 @@ class QueryRetailScoreRequest(TeaModel):
         customer_code: str = None,
         trans_no: str = None,
         user_id_hash_encrypt: str = None,
+        instance_code: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -183,6 +184,8 @@ class QueryRetailScoreRequest(TeaModel):
         self.trans_no = trans_no
         # encrypt_type类型的散列后的操作，默认为空不加密...
         self.user_id_hash_encrypt = user_id_hash_encrypt
+        # 客户场景码
+        self.instance_code = instance_code
 
     def validate(self):
         self.validate_required(self.industry_id, 'industry_id')
@@ -217,6 +220,8 @@ class QueryRetailScoreRequest(TeaModel):
             result['trans_no'] = self.trans_no
         if self.user_id_hash_encrypt is not None:
             result['user_id_hash_encrypt'] = self.user_id_hash_encrypt
+        if self.instance_code is not None:
+            result['instance_code'] = self.instance_code
         return result
 
     def from_map(self, m: dict = None):
@@ -239,6 +244,8 @@ class QueryRetailScoreRequest(TeaModel):
             self.trans_no = m.get('trans_no')
         if m.get('user_id_hash_encrypt') is not None:
             self.user_id_hash_encrypt = m.get('user_id_hash_encrypt')
+        if m.get('instance_code') is not None:
+            self.instance_code = m.get('instance_code')
         return self
 
 
@@ -250,6 +257,7 @@ class QueryRetailScoreResponse(TeaModel):
         result_msg: str = None,
         score: str = None,
         trans_no: str = None,
+        ext_param: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -261,6 +269,8 @@ class QueryRetailScoreResponse(TeaModel):
         self.score = score
         # 流水号
         self.trans_no = trans_no
+        # 返回行业分其他数据，里面是key-value形式，标识返回的额外参数数据
+        self.ext_param = ext_param
 
     def validate(self):
         pass
@@ -281,6 +291,8 @@ class QueryRetailScoreResponse(TeaModel):
             result['score'] = self.score
         if self.trans_no is not None:
             result['trans_no'] = self.trans_no
+        if self.ext_param is not None:
+            result['ext_param'] = self.ext_param
         return result
 
     def from_map(self, m: dict = None):
@@ -295,6 +307,8 @@ class QueryRetailScoreResponse(TeaModel):
             self.score = m.get('score')
         if m.get('trans_no') is not None:
             self.trans_no = m.get('trans_no')
+        if m.get('ext_param') is not None:
+            self.ext_param = m.get('ext_param')
         return self
 
 
