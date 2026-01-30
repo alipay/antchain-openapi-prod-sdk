@@ -77,15 +77,58 @@ export class Config extends $tea.Model {
   }
 }
 
-// 订单还款计划
-export class PromiseInfo extends $tea.Model {
+export class SyncAntchainAtoFundSplittingRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 资方订单号
+  fundNo: string;
+  // 商户的订单号
+  orderId: string;
+  // 商户的数科租户ID
+  merchantTenantId: string;
+  // 第几期，例如：2表示第二期
+  termNum: number;
+  // 扣款时间， yyyy-MM-dd HH:mm:ss 格式
+  deductionTime: string;
+  // 扣款金额，单位精确到分， 例如：12462300为124623.00元
+  deductionAmount: number;
+  // 商户分账金额，单位精确到分，比如：666601 = 6666.01元
+  merchantSplitAmount: number;
+  // 资方分账金额，单位精确到分。比如：666610 = 6666.10元
+  fundSplitAmount: number;
+  // 其他参与方分账信息，JSON格式的数组，样例：
+  // [{"participants":"参与方A","amount":666600,"accountNo":"777223","accountType":"ICBC"}]
+  otherSplitInfo?: string;
   static names(): { [key: string]: string } {
     return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      fundNo: 'fund_no',
+      orderId: 'order_id',
+      merchantTenantId: 'merchant_tenant_id',
+      termNum: 'term_num',
+      deductionTime: 'deduction_time',
+      deductionAmount: 'deduction_amount',
+      merchantSplitAmount: 'merchant_split_amount',
+      fundSplitAmount: 'fund_split_amount',
+      otherSplitInfo: 'other_split_info',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      fundNo: 'string',
+      orderId: 'string',
+      merchantTenantId: 'string',
+      termNum: 'number',
+      deductionTime: 'string',
+      deductionAmount: 'number',
+      merchantSplitAmount: 'number',
+      fundSplitAmount: 'number',
+      otherSplitInfo: 'string',
     };
   }
 
@@ -94,49 +137,30 @@ export class PromiseInfo extends $tea.Model {
   }
 }
 
-// 同步订单中的下单人信息
-export class UserSyncInfo extends $tea.Model {
+export class SyncAntchainAtoFundSplittingResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 流水同步描述信息
+  responseData?: string;
   static names(): { [key: string]: string } {
     return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      responseData: 'response_data',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 主订单信息
-export class OrderInfo extends $tea.Model {
-  static names(): { [key: string]: string } {
-    return {
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 订单商品信息
-export class GoodsInfo extends $tea.Model {
-  static names(): { [key: string]: string } {
-    return {
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      responseData: 'string',
     };
   }
 
@@ -224,23 +248,32 @@ export class SyncAntchainAtoFundOrderfinancialResponse extends $tea.Model {
   }
 }
 
-export class GetAntchainAtoFundRepaymentplanRequest extends $tea.Model {
+export class SyncAntchainAtoFundWithholdingcontractRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 订单id，不可为空
+  // 订单号
   orderId: string;
-  // 商户在数科注册的tenantId，不可为空
+  // 商家在数科注册的租户id
   merchantTenantId: string;
-  // 用户的支付宝uid
-  alipayUid: string;
+  // 代扣协议号
+  withholdingContractId: string;
+  // json的字符串，存储额外信息
+  extraInfo?: string;
+  // 签署状态：
+  // - ACCEPT : 接受
+  // - REFUSE : 拒绝
+  // - TIMEOUT : 超时
+  status: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       orderId: 'order_id',
       merchantTenantId: 'merchant_tenant_id',
-      alipayUid: 'alipay_uid',
+      withholdingContractId: 'withholding_contract_id',
+      extraInfo: 'extra_info',
+      status: 'status',
     };
   }
 
@@ -250,7 +283,9 @@ export class GetAntchainAtoFundRepaymentplanRequest extends $tea.Model {
       productInstanceId: 'string',
       orderId: 'string',
       merchantTenantId: 'string',
-      alipayUid: 'string',
+      withholdingContractId: 'string',
+      extraInfo: 'string',
+      status: 'string',
     };
   }
 
@@ -259,107 +294,14 @@ export class GetAntchainAtoFundRepaymentplanRequest extends $tea.Model {
   }
 }
 
-export class GetAntchainAtoFundRepaymentplanResponse extends $tea.Model {
+export class SyncAntchainAtoFundWithholdingcontractResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 订单id
-  orderId?: string;
-  // 租赁公司支付宝UID
-  leaseAlipayUid?: string;
-  // 宽限期，天
-  gracePeriodDays?: number;
-  // 还款策略列表
-  repayStrategyList?: string;
-  // 处罚策略
-  //  NONE : 没有处罚
-  //  PENALTY_FEE： 罚息
-  punishmentType?: string;
-  // 租期
-  payPeriod?: number;
-  static names(): { [key: string]: string } {
-    return {
-      reqMsgId: 'req_msg_id',
-      resultCode: 'result_code',
-      resultMsg: 'result_msg',
-      orderId: 'order_id',
-      leaseAlipayUid: 'lease_alipay_uid',
-      gracePeriodDays: 'grace_period_days',
-      repayStrategyList: 'repay_strategy_list',
-      punishmentType: 'punishment_type',
-      payPeriod: 'pay_period',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      reqMsgId: 'string',
-      resultCode: 'string',
-      resultMsg: 'string',
-      orderId: 'string',
-      leaseAlipayUid: 'string',
-      gracePeriodDays: 'number',
-      repayStrategyList: 'string',
-      punishmentType: 'string',
-      payPeriod: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class SyncAntchainAtoTradeFullRequest extends $tea.Model {
-  // OAuth模式下的授权token
-  authToken?: string;
-  productInstanceId?: string;
-  // 购买用户信息
-  userInfo: UserSyncInfo;
-  // 主订单信息
-  orderInfo: OrderInfo;
-  // 订单包含的商品信息列表
-  goodsInfo: GoodsInfo;
-  // 订单还款计划
-  promiseInfo: PromiseInfo;
-  static names(): { [key: string]: string } {
-    return {
-      authToken: 'auth_token',
-      productInstanceId: 'product_instance_id',
-      userInfo: 'user_info',
-      orderInfo: 'order_info',
-      goodsInfo: 'goods_info',
-      promiseInfo: 'promise_info',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authToken: 'string',
-      productInstanceId: 'string',
-      userInfo: UserSyncInfo,
-      orderInfo: OrderInfo,
-      goodsInfo: GoodsInfo,
-      promiseInfo: PromiseInfo,
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class SyncAntchainAtoTradeFullResponse extends $tea.Model {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string;
-  // 结果码，一般OK表示调用成功
-  resultCode?: string;
-  // 异常信息的文本描述
-  resultMsg?: string;
-  // 同步成功
+  // 存储成功
   responseData?: string;
   static names(): { [key: string]: string } {
     return {
@@ -376,6 +318,190 @@ export class SyncAntchainAtoTradeFullResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       responseData: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SyncAntchainAtoFundOrderfulfillmentRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 商户id
+  merchantTenantId: string;
+  // 订单id
+  orderId: string;
+  // 租期编号
+  leaseTermIndex: number;
+  // 剩余归还期数
+  remainTerm: number;
+  // 总期数
+  totalTerm: number;
+  // 租金归还状态，
+  // RETURN_FULL : 足额归还 【终态】
+  // NOT_RETURN : 未归还
+  // CANCEL : 取消 【终态】
+  rentalReturnState: string;
+  // 租金归还金额,精确到分，即1234表示12.34元
+  rentalMoney: number;
+  // 罚息金额，分，1234表示12.34元
+  penaltyFeeMoney: number;
+  // 总金额，单位分
+  totalMoney: number;
+  // 归还时间，格式为"2019-07-31 12:00:00"
+  returnTime?: string;
+  // 归还方式，
+  // ANTDIGITAL： 数科代扣
+  // FUND : 资方代扣
+  // BANK : 银行转账
+  // WECHAT : 微信支付
+  returnWay?: string;
+  // 还款凭证编号
+  returnVoucherSerial?: string;
+  // 银行名字
+  bankName?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      merchantTenantId: 'merchant_tenant_id',
+      orderId: 'order_id',
+      leaseTermIndex: 'lease_term_index',
+      remainTerm: 'remain_term',
+      totalTerm: 'total_term',
+      rentalReturnState: 'rental_return_state',
+      rentalMoney: 'rental_money',
+      penaltyFeeMoney: 'penalty_fee_money',
+      totalMoney: 'total_money',
+      returnTime: 'return_time',
+      returnWay: 'return_way',
+      returnVoucherSerial: 'return_voucher_serial',
+      bankName: 'bank_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      merchantTenantId: 'string',
+      orderId: 'string',
+      leaseTermIndex: 'number',
+      remainTerm: 'number',
+      totalTerm: 'number',
+      rentalReturnState: 'string',
+      rentalMoney: 'number',
+      penaltyFeeMoney: 'number',
+      totalMoney: 'number',
+      returnTime: 'string',
+      returnWay: 'string',
+      returnVoucherSerial: 'string',
+      bankName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SyncAntchainAtoFundOrderfulfillmentResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 添加成功
+  responseData?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      responseData: 'response_data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      responseData: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetAntchainAtoFundOrderfulfillmentRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 订单id
+  orderId: string;
+  // 租赁订单所属商家租户id
+  merchantTenantId: string;
+  // 期数
+  // 如果填入，获取term_idx下的履约记录
+  // 如果不填入，获取order_id下的所有履约记录
+  termIdx?: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderId: 'order_id',
+      merchantTenantId: 'merchant_tenant_id',
+      termIdx: 'term_idx',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderId: 'string',
+      merchantTenantId: 'string',
+      termIdx: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetAntchainAtoFundOrderfulfillmentResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 订单履约信息的列表数组
+  // List<OrderFulfillment> 的jsonArray.toString
+  orderFulfillmentDataList?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      orderFulfillmentDataList: 'order_fulfillment_data_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      orderFulfillmentDataList: 'string',
     };
   }
 
@@ -411,7 +537,7 @@ export default class Client {
    * @param config config contains the necessary information to create a client
    */
   constructor(config: Config) {
-    if (Util.isUnset($tea.toMap(config))) {
+    if (Util.isUnset(config)) {
       throw $tea.newError({
         code: "ParameterMissing",
         message: "'config' can not be unset",
@@ -497,7 +623,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.0",
+          sdk_version: "1.1.1",
           _prod_code: "ak_2abe765c32934341bd9bb6cc1c8ff589",
           _prod_channel: "saas",
         };
@@ -546,6 +672,25 @@ export default class Client {
   }
 
   /**
+   * Description: 分账流水同步
+   * Summary: 【仅测试环境生效】分账流水同步
+   */
+  async syncAntchainAtoFundSplitting(request: SyncAntchainAtoFundSplittingRequest): Promise<SyncAntchainAtoFundSplittingResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.syncAntchainAtoFundSplittingEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 分账流水同步
+   * Summary: 【仅测试环境生效】分账流水同步
+   */
+  async syncAntchainAtoFundSplittingEx(request: SyncAntchainAtoFundSplittingRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SyncAntchainAtoFundSplittingResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SyncAntchainAtoFundSplittingResponse>(await this.doRequest("1.0", "antchain.ato.fund.splitting.sync", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SyncAntchainAtoFundSplittingResponse({}));
+  }
+
+  /**
    * Description: 提供给融资资金方，用以订单融资结果同步
    * Summary: 【废弃】订单融资结果同步
    */
@@ -565,41 +710,60 @@ export default class Client {
   }
 
   /**
-   * Description: 将返回订单实人认证通过后的、商家同步的还款计划
-   * Summary: 【废弃】获取实人认证通过后用户承诺
+   * Description: 同步租赁订单的代扣协议
+   * Summary: 【仅测试环境生效】同步租赁订单的代扣协议
    */
-  async getAntchainAtoFundRepaymentplan(request: GetAntchainAtoFundRepaymentplanRequest): Promise<GetAntchainAtoFundRepaymentplanResponse> {
+  async syncAntchainAtoFundWithholdingcontract(request: SyncAntchainAtoFundWithholdingcontractRequest): Promise<SyncAntchainAtoFundWithholdingcontractResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.getAntchainAtoFundRepaymentplanEx(request, headers, runtime);
+    return await this.syncAntchainAtoFundWithholdingcontractEx(request, headers, runtime);
   }
 
   /**
-   * Description: 将返回订单实人认证通过后的、商家同步的还款计划
-   * Summary: 【废弃】获取实人认证通过后用户承诺
+   * Description: 同步租赁订单的代扣协议
+   * Summary: 【仅测试环境生效】同步租赁订单的代扣协议
    */
-  async getAntchainAtoFundRepaymentplanEx(request: GetAntchainAtoFundRepaymentplanRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetAntchainAtoFundRepaymentplanResponse> {
+  async syncAntchainAtoFundWithholdingcontractEx(request: SyncAntchainAtoFundWithholdingcontractRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SyncAntchainAtoFundWithholdingcontractResponse> {
     Util.validateModel(request);
-    return $tea.cast<GetAntchainAtoFundRepaymentplanResponse>(await this.doRequest("1.0", "antchain.ato.fund.repaymentplan.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetAntchainAtoFundRepaymentplanResponse({}));
+    return $tea.cast<SyncAntchainAtoFundWithholdingcontractResponse>(await this.doRequest("1.0", "antchain.ato.fund.withholdingcontract.sync", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SyncAntchainAtoFundWithholdingcontractResponse({}));
   }
 
   /**
-   * Description: 同步商家的订单信息，包含下单人信息、订单信息、订单关联的商品信息以及订单绑定的还款计划。
-   * Summary: 【废弃】同步商家的订单信息
+   * Description: 资方回传一条订单还款履约信息
+   * Summary: 【仅测试环境生效】同步订单还款履约信息
    */
-  async syncAntchainAtoTradeFull(request: SyncAntchainAtoTradeFullRequest): Promise<SyncAntchainAtoTradeFullResponse> {
+  async syncAntchainAtoFundOrderfulfillment(request: SyncAntchainAtoFundOrderfulfillmentRequest): Promise<SyncAntchainAtoFundOrderfulfillmentResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.syncAntchainAtoTradeFullEx(request, headers, runtime);
+    return await this.syncAntchainAtoFundOrderfulfillmentEx(request, headers, runtime);
   }
 
   /**
-   * Description: 同步商家的订单信息，包含下单人信息、订单信息、订单关联的商品信息以及订单绑定的还款计划。
-   * Summary: 【废弃】同步商家的订单信息
+   * Description: 资方回传一条订单还款履约信息
+   * Summary: 【仅测试环境生效】同步订单还款履约信息
    */
-  async syncAntchainAtoTradeFullEx(request: SyncAntchainAtoTradeFullRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SyncAntchainAtoTradeFullResponse> {
+  async syncAntchainAtoFundOrderfulfillmentEx(request: SyncAntchainAtoFundOrderfulfillmentRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SyncAntchainAtoFundOrderfulfillmentResponse> {
     Util.validateModel(request);
-    return $tea.cast<SyncAntchainAtoTradeFullResponse>(await this.doRequest("1.0", "antchain.ato.trade.full.sync", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SyncAntchainAtoTradeFullResponse({}));
+    return $tea.cast<SyncAntchainAtoFundOrderfulfillmentResponse>(await this.doRequest("1.0", "antchain.ato.fund.orderfulfillment.sync", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SyncAntchainAtoFundOrderfulfillmentResponse({}));
+  }
+
+  /**
+   * Description: 获取订单的履约信息
+   * Summary: 【仅测试环境生效】获取订单的履约信息
+   */
+  async getAntchainAtoFundOrderfulfillment(request: GetAntchainAtoFundOrderfulfillmentRequest): Promise<GetAntchainAtoFundOrderfulfillmentResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getAntchainAtoFundOrderfulfillmentEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 获取订单的履约信息
+   * Summary: 【仅测试环境生效】获取订单的履约信息
+   */
+  async getAntchainAtoFundOrderfulfillmentEx(request: GetAntchainAtoFundOrderfulfillmentRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetAntchainAtoFundOrderfulfillmentResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetAntchainAtoFundOrderfulfillmentResponse>(await this.doRequest("1.0", "antchain.ato.fund.orderfulfillment.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetAntchainAtoFundOrderfulfillmentResponse({}));
   }
 
 }
