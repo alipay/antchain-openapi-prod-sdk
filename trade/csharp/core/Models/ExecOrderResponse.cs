@@ -1,0 +1,44 @@
+// This file is auto-generated, don't edit it. Thanks.
+
+using System;
+using System.Collections.Generic;
+using System.IO;
+
+using Tea;
+
+namespace AntChain.SDK.TRADE.Models
+{
+    public class ExecOrderResponse : TeaModel {
+        // 请求唯一ID，用于链路跟踪和问题排查
+        [NameInMap("req_msg_id")]
+        [Validation(Required=false)]
+        public string ReqMsgId { get; set; }
+
+        // 结果码，一般OK表示调用成功
+        [NameInMap("result_code")]
+        [Validation(Required=false)]
+        public string ResultCode { get; set; }
+
+        // 异常信息的文本描述
+        [NameInMap("result_msg")]
+        [Validation(Required=false)]
+        public string ResultMsg { get; set; }
+
+        // 执行结果
+        [NameInMap("success")]
+        [Validation(Required=false)]
+        public bool? Success { get; set; }
+
+        // 实例ID列表
+        [NameInMap("instance_ids")]
+        [Validation(Required=false)]
+        public List<string> InstanceIds { get; set; }
+
+        // 操作订单状态
+        [NameInMap("order_status")]
+        [Validation(Required=false)]
+        public string OrderStatus { get; set; }
+
+    }
+
+}

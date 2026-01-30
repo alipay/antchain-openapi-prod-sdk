@@ -15,6 +15,11 @@ namespace AntChain.SDK.TRADE.Models
         [Validation(Required=false)]
         public string PayChannel { get; set; }
 
+        // 支付方式，例如：直付通
+        [NameInMap("payment_method")]
+        [Validation(Required=false)]
+        public string PaymentMethod { get; set; }
+
     }
 
 }

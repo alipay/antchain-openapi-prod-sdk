@@ -137,7 +137,7 @@ namespace AntChain.SDK.TRADE
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "3.13.2"},
+                        {"sdk_version", "3.15.4"},
                         {"_prod_code", "TRADE"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.TRADE
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "3.13.2"},
+                        {"sdk_version", "3.15.4"},
                         {"_prod_code", "TRADE"},
                         {"_prod_channel", "undefined"},
                     };
@@ -445,6 +445,48 @@ namespace AntChain.SDK.TRADE
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<SendMarketingCouponResponse>(await DoRequestAsync("1.0", "antcloud.trade.marketing.coupon.send", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用于线下sit调试完成的商品commonBuy信息一件上线
+         * Summary: 商品commonBuy配置信息同步
+         */
+        public SyncOfferCommonbuyResponse SyncOfferCommonbuy(SyncOfferCommonbuyRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SyncOfferCommonbuyEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用于线下sit调试完成的商品commonBuy信息一件上线
+         * Summary: 商品commonBuy配置信息同步
+         */
+        public async Task<SyncOfferCommonbuyResponse> SyncOfferCommonbuyAsync(SyncOfferCommonbuyRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SyncOfferCommonbuyExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用于线下sit调试完成的商品commonBuy信息一件上线
+         * Summary: 商品commonBuy配置信息同步
+         */
+        public SyncOfferCommonbuyResponse SyncOfferCommonbuyEx(SyncOfferCommonbuyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncOfferCommonbuyResponse>(DoRequest("1.0", "antcloud.trade.offer.commonbuy.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用于线下sit调试完成的商品commonBuy信息一件上线
+         * Summary: 商品commonBuy配置信息同步
+         */
+        public async Task<SyncOfferCommonbuyResponse> SyncOfferCommonbuyExAsync(SyncOfferCommonbuyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncOfferCommonbuyResponse>(await DoRequestAsync("1.0", "antcloud.trade.offer.commonbuy.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -907,6 +949,174 @@ namespace AntChain.SDK.TRADE
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CancelOrderResponse>(await DoRequestAsync("1.0", "antcloud.trade.order.cancel", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商品通用批量下单接口
+         * Summary: 通用批量下单接口
+         */
+        public BatchcreateOrderResponse BatchcreateOrder(BatchcreateOrderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return BatchcreateOrderEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商品通用批量下单接口
+         * Summary: 通用批量下单接口
+         */
+        public async Task<BatchcreateOrderResponse> BatchcreateOrderAsync(BatchcreateOrderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await BatchcreateOrderExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商品通用批量下单接口
+         * Summary: 通用批量下单接口
+         */
+        public BatchcreateOrderResponse BatchcreateOrderEx(BatchcreateOrderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BatchcreateOrderResponse>(DoRequest("1.0", "antcloud.trade.order.batchcreate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商品通用批量下单接口
+         * Summary: 通用批量下单接口
+         */
+        public async Task<BatchcreateOrderResponse> BatchcreateOrderExAsync(BatchcreateOrderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BatchcreateOrderResponse>(await DoRequestAsync("1.0", "antcloud.trade.order.batchcreate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 通用订单批量取消接口
+         * Summary: 通用订单批量取消接口
+         */
+        public BatchcancelOrderResponse BatchcancelOrder(BatchcancelOrderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return BatchcancelOrderEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 通用订单批量取消接口
+         * Summary: 通用订单批量取消接口
+         */
+        public async Task<BatchcancelOrderResponse> BatchcancelOrderAsync(BatchcancelOrderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await BatchcancelOrderExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 通用订单批量取消接口
+         * Summary: 通用订单批量取消接口
+         */
+        public BatchcancelOrderResponse BatchcancelOrderEx(BatchcancelOrderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BatchcancelOrderResponse>(DoRequest("1.0", "antcloud.trade.order.batchcancel", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 通用订单批量取消接口
+         * Summary: 通用订单批量取消接口
+         */
+        public async Task<BatchcancelOrderResponse> BatchcancelOrderExAsync(BatchcancelOrderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BatchcancelOrderResponse>(await DoRequestAsync("1.0", "antcloud.trade.order.batchcancel", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 在订单非自动履约场景，手动触发执行
+         * Summary: 触发订单的履约执行
+         */
+        public ExecOrderResponse ExecOrder(ExecOrderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ExecOrderEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 在订单非自动履约场景，手动触发执行
+         * Summary: 触发订单的履约执行
+         */
+        public async Task<ExecOrderResponse> ExecOrderAsync(ExecOrderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ExecOrderExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 在订单非自动履约场景，手动触发执行
+         * Summary: 触发订单的履约执行
+         */
+        public ExecOrderResponse ExecOrderEx(ExecOrderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecOrderResponse>(DoRequest("1.0", "antcloud.trade.order.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 在订单非自动履约场景，手动触发执行
+         * Summary: 触发订单的履约执行
+         */
+        public async Task<ExecOrderResponse> ExecOrderExAsync(ExecOrderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecOrderResponse>(await DoRequestAsync("1.0", "antcloud.trade.order.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 在订单非自动履约场景，撤销订单并退款
+         * Summary: 订单退款
+         */
+        public RefundOrderResponse RefundOrder(RefundOrderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return RefundOrderEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 在订单非自动履约场景，撤销订单并退款
+         * Summary: 订单退款
+         */
+        public async Task<RefundOrderResponse> RefundOrderAsync(RefundOrderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await RefundOrderExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 在订单非自动履约场景，撤销订单并退款
+         * Summary: 订单退款
+         */
+        public RefundOrderResponse RefundOrderEx(RefundOrderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RefundOrderResponse>(DoRequest("1.0", "antcloud.trade.order.refund", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 在订单非自动履约场景，撤销订单并退款
+         * Summary: 订单退款
+         */
+        public async Task<RefundOrderResponse> RefundOrderExAsync(RefundOrderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RefundOrderResponse>(await DoRequestAsync("1.0", "antcloud.trade.order.refund", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
