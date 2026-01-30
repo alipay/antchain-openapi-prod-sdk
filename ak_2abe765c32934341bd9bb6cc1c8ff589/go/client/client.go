@@ -148,52 +148,131 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
-// 订单还款计划
-type PromiseInfo struct {
+type SyncAntchainAtoFundSplittingRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 资方订单号
+	FundNo *string `json:"fund_no,omitempty" xml:"fund_no,omitempty" require:"true" maxLength:"50" minLength:"1"`
+	// 商户的订单号
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true" maxLength:"50" minLength:"1"`
+	// 商户的数科租户ID
+	MerchantTenantId *string `json:"merchant_tenant_id,omitempty" xml:"merchant_tenant_id,omitempty" require:"true" maxLength:"50" minLength:"1"`
+	// 第几期，例如：2表示第二期
+	TermNum *int64 `json:"term_num,omitempty" xml:"term_num,omitempty" require:"true"`
+	// 扣款时间， yyyy-MM-dd HH:mm:ss 格式
+	DeductionTime *string `json:"deduction_time,omitempty" xml:"deduction_time,omitempty" require:"true"`
+	// 扣款金额，单位精确到分， 例如：12462300为124623.00元
+	DeductionAmount *int64 `json:"deduction_amount,omitempty" xml:"deduction_amount,omitempty" require:"true"`
+	// 商户分账金额，单位精确到分，比如：666601 = 6666.01元
+	MerchantSplitAmount *int64 `json:"merchant_split_amount,omitempty" xml:"merchant_split_amount,omitempty" require:"true"`
+	// 资方分账金额，单位精确到分。比如：666610 = 6666.10元
+	FundSplitAmount *int64 `json:"fund_split_amount,omitempty" xml:"fund_split_amount,omitempty" require:"true"`
+	// 其他参与方分账信息，JSON格式的数组，样例：
+	// [{"participants":"参与方A","amount":666600,"accountNo":"777223","accountType":"ICBC"}]
+	OtherSplitInfo *string `json:"other_split_info,omitempty" xml:"other_split_info,omitempty"`
 }
 
-func (s PromiseInfo) String() string {
+func (s SyncAntchainAtoFundSplittingRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s PromiseInfo) GoString() string {
+func (s SyncAntchainAtoFundSplittingRequest) GoString() string {
 	return s.String()
 }
 
-// 同步订单中的下单人信息
-type UserSyncInfo struct {
+func (s *SyncAntchainAtoFundSplittingRequest) SetAuthToken(v string) *SyncAntchainAtoFundSplittingRequest {
+	s.AuthToken = &v
+	return s
 }
 
-func (s UserSyncInfo) String() string {
+func (s *SyncAntchainAtoFundSplittingRequest) SetProductInstanceId(v string) *SyncAntchainAtoFundSplittingRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SyncAntchainAtoFundSplittingRequest) SetFundNo(v string) *SyncAntchainAtoFundSplittingRequest {
+	s.FundNo = &v
+	return s
+}
+
+func (s *SyncAntchainAtoFundSplittingRequest) SetOrderId(v string) *SyncAntchainAtoFundSplittingRequest {
+	s.OrderId = &v
+	return s
+}
+
+func (s *SyncAntchainAtoFundSplittingRequest) SetMerchantTenantId(v string) *SyncAntchainAtoFundSplittingRequest {
+	s.MerchantTenantId = &v
+	return s
+}
+
+func (s *SyncAntchainAtoFundSplittingRequest) SetTermNum(v int64) *SyncAntchainAtoFundSplittingRequest {
+	s.TermNum = &v
+	return s
+}
+
+func (s *SyncAntchainAtoFundSplittingRequest) SetDeductionTime(v string) *SyncAntchainAtoFundSplittingRequest {
+	s.DeductionTime = &v
+	return s
+}
+
+func (s *SyncAntchainAtoFundSplittingRequest) SetDeductionAmount(v int64) *SyncAntchainAtoFundSplittingRequest {
+	s.DeductionAmount = &v
+	return s
+}
+
+func (s *SyncAntchainAtoFundSplittingRequest) SetMerchantSplitAmount(v int64) *SyncAntchainAtoFundSplittingRequest {
+	s.MerchantSplitAmount = &v
+	return s
+}
+
+func (s *SyncAntchainAtoFundSplittingRequest) SetFundSplitAmount(v int64) *SyncAntchainAtoFundSplittingRequest {
+	s.FundSplitAmount = &v
+	return s
+}
+
+func (s *SyncAntchainAtoFundSplittingRequest) SetOtherSplitInfo(v string) *SyncAntchainAtoFundSplittingRequest {
+	s.OtherSplitInfo = &v
+	return s
+}
+
+type SyncAntchainAtoFundSplittingResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 流水同步描述信息
+	ResponseData *string `json:"response_data,omitempty" xml:"response_data,omitempty"`
+}
+
+func (s SyncAntchainAtoFundSplittingResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s UserSyncInfo) GoString() string {
+func (s SyncAntchainAtoFundSplittingResponse) GoString() string {
 	return s.String()
 }
 
-// 主订单信息
-type OrderInfo struct {
+func (s *SyncAntchainAtoFundSplittingResponse) SetReqMsgId(v string) *SyncAntchainAtoFundSplittingResponse {
+	s.ReqMsgId = &v
+	return s
 }
 
-func (s OrderInfo) String() string {
-	return tea.Prettify(s)
+func (s *SyncAntchainAtoFundSplittingResponse) SetResultCode(v string) *SyncAntchainAtoFundSplittingResponse {
+	s.ResultCode = &v
+	return s
 }
 
-func (s OrderInfo) GoString() string {
-	return s.String()
+func (s *SyncAntchainAtoFundSplittingResponse) SetResultMsg(v string) *SyncAntchainAtoFundSplittingResponse {
+	s.ResultMsg = &v
+	return s
 }
 
-// 订单商品信息
-type GoodsInfo struct {
-}
-
-func (s GoodsInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s GoodsInfo) GoString() string {
-	return s.String()
+func (s *SyncAntchainAtoFundSplittingResponse) SetResponseData(v string) *SyncAntchainAtoFundSplittingResponse {
+	s.ResponseData = &v
+	return s
 }
 
 type SyncAntchainAtoFundOrderfinancialRequest struct {
@@ -301,215 +380,352 @@ func (s *SyncAntchainAtoFundOrderfinancialResponse) SetResponseData(v string) *S
 	return s
 }
 
-type GetAntchainAtoFundRepaymentplanRequest struct {
+type SyncAntchainAtoFundWithholdingcontractRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 订单id，不可为空
+	// 订单号
 	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true" maxLength:"50" minLength:"1"`
-	// 商户在数科注册的tenantId，不可为空
+	// 商家在数科注册的租户id
 	MerchantTenantId *string `json:"merchant_tenant_id,omitempty" xml:"merchant_tenant_id,omitempty" require:"true" maxLength:"50" minLength:"1"`
-	// 用户的支付宝uid
-	AlipayUid *string `json:"alipay_uid,omitempty" xml:"alipay_uid,omitempty" require:"true" maxLength:"50" minLength:"1"`
+	// 代扣协议号
+	WithholdingContractId *string `json:"withholding_contract_id,omitempty" xml:"withholding_contract_id,omitempty" require:"true" maxLength:"100" minLength:"1"`
+	// json的字符串，存储额外信息
+	ExtraInfo *string `json:"extra_info,omitempty" xml:"extra_info,omitempty"`
+	// 签署状态：
+	// - ACCEPT : 接受
+	// - REFUSE : 拒绝
+	// - TIMEOUT : 超时
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
 }
 
-func (s GetAntchainAtoFundRepaymentplanRequest) String() string {
+func (s SyncAntchainAtoFundWithholdingcontractRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s GetAntchainAtoFundRepaymentplanRequest) GoString() string {
+func (s SyncAntchainAtoFundWithholdingcontractRequest) GoString() string {
 	return s.String()
 }
 
-func (s *GetAntchainAtoFundRepaymentplanRequest) SetAuthToken(v string) *GetAntchainAtoFundRepaymentplanRequest {
+func (s *SyncAntchainAtoFundWithholdingcontractRequest) SetAuthToken(v string) *SyncAntchainAtoFundWithholdingcontractRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *GetAntchainAtoFundRepaymentplanRequest) SetProductInstanceId(v string) *GetAntchainAtoFundRepaymentplanRequest {
+func (s *SyncAntchainAtoFundWithholdingcontractRequest) SetProductInstanceId(v string) *SyncAntchainAtoFundWithholdingcontractRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *GetAntchainAtoFundRepaymentplanRequest) SetOrderId(v string) *GetAntchainAtoFundRepaymentplanRequest {
+func (s *SyncAntchainAtoFundWithholdingcontractRequest) SetOrderId(v string) *SyncAntchainAtoFundWithholdingcontractRequest {
 	s.OrderId = &v
 	return s
 }
 
-func (s *GetAntchainAtoFundRepaymentplanRequest) SetMerchantTenantId(v string) *GetAntchainAtoFundRepaymentplanRequest {
+func (s *SyncAntchainAtoFundWithholdingcontractRequest) SetMerchantTenantId(v string) *SyncAntchainAtoFundWithholdingcontractRequest {
 	s.MerchantTenantId = &v
 	return s
 }
 
-func (s *GetAntchainAtoFundRepaymentplanRequest) SetAlipayUid(v string) *GetAntchainAtoFundRepaymentplanRequest {
-	s.AlipayUid = &v
+func (s *SyncAntchainAtoFundWithholdingcontractRequest) SetWithholdingContractId(v string) *SyncAntchainAtoFundWithholdingcontractRequest {
+	s.WithholdingContractId = &v
 	return s
 }
 
-type GetAntchainAtoFundRepaymentplanResponse struct {
+func (s *SyncAntchainAtoFundWithholdingcontractRequest) SetExtraInfo(v string) *SyncAntchainAtoFundWithholdingcontractRequest {
+	s.ExtraInfo = &v
+	return s
+}
+
+func (s *SyncAntchainAtoFundWithholdingcontractRequest) SetStatus(v string) *SyncAntchainAtoFundWithholdingcontractRequest {
+	s.Status = &v
+	return s
+}
+
+type SyncAntchainAtoFundWithholdingcontractResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 订单id
-	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty"`
-	// 租赁公司支付宝UID
-	LeaseAlipayUid *string `json:"lease_alipay_uid,omitempty" xml:"lease_alipay_uid,omitempty"`
-	// 宽限期，天
-	GracePeriodDays *int64 `json:"grace_period_days,omitempty" xml:"grace_period_days,omitempty"`
-	// 还款策略列表
-	RepayStrategyList *string `json:"repay_strategy_list,omitempty" xml:"repay_strategy_list,omitempty"`
-	// 处罚策略
-	//  NONE : 没有处罚
-	//  PENALTY_FEE： 罚息
-	PunishmentType *string `json:"punishment_type,omitempty" xml:"punishment_type,omitempty"`
-	// 租期
-	PayPeriod *int64 `json:"pay_period,omitempty" xml:"pay_period,omitempty"`
+	// 存储成功
+	ResponseData *string `json:"response_data,omitempty" xml:"response_data,omitempty"`
 }
 
-func (s GetAntchainAtoFundRepaymentplanResponse) String() string {
+func (s SyncAntchainAtoFundWithholdingcontractResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s GetAntchainAtoFundRepaymentplanResponse) GoString() string {
+func (s SyncAntchainAtoFundWithholdingcontractResponse) GoString() string {
 	return s.String()
 }
 
-func (s *GetAntchainAtoFundRepaymentplanResponse) SetReqMsgId(v string) *GetAntchainAtoFundRepaymentplanResponse {
+func (s *SyncAntchainAtoFundWithholdingcontractResponse) SetReqMsgId(v string) *SyncAntchainAtoFundWithholdingcontractResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *GetAntchainAtoFundRepaymentplanResponse) SetResultCode(v string) *GetAntchainAtoFundRepaymentplanResponse {
+func (s *SyncAntchainAtoFundWithholdingcontractResponse) SetResultCode(v string) *SyncAntchainAtoFundWithholdingcontractResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *GetAntchainAtoFundRepaymentplanResponse) SetResultMsg(v string) *GetAntchainAtoFundRepaymentplanResponse {
+func (s *SyncAntchainAtoFundWithholdingcontractResponse) SetResultMsg(v string) *SyncAntchainAtoFundWithholdingcontractResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-func (s *GetAntchainAtoFundRepaymentplanResponse) SetOrderId(v string) *GetAntchainAtoFundRepaymentplanResponse {
-	s.OrderId = &v
+func (s *SyncAntchainAtoFundWithholdingcontractResponse) SetResponseData(v string) *SyncAntchainAtoFundWithholdingcontractResponse {
+	s.ResponseData = &v
 	return s
 }
 
-func (s *GetAntchainAtoFundRepaymentplanResponse) SetLeaseAlipayUid(v string) *GetAntchainAtoFundRepaymentplanResponse {
-	s.LeaseAlipayUid = &v
-	return s
-}
-
-func (s *GetAntchainAtoFundRepaymentplanResponse) SetGracePeriodDays(v int64) *GetAntchainAtoFundRepaymentplanResponse {
-	s.GracePeriodDays = &v
-	return s
-}
-
-func (s *GetAntchainAtoFundRepaymentplanResponse) SetRepayStrategyList(v string) *GetAntchainAtoFundRepaymentplanResponse {
-	s.RepayStrategyList = &v
-	return s
-}
-
-func (s *GetAntchainAtoFundRepaymentplanResponse) SetPunishmentType(v string) *GetAntchainAtoFundRepaymentplanResponse {
-	s.PunishmentType = &v
-	return s
-}
-
-func (s *GetAntchainAtoFundRepaymentplanResponse) SetPayPeriod(v int64) *GetAntchainAtoFundRepaymentplanResponse {
-	s.PayPeriod = &v
-	return s
-}
-
-type SyncAntchainAtoTradeFullRequest struct {
+type SyncAntchainAtoFundOrderfulfillmentRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 购买用户信息
-	UserInfo *UserSyncInfo `json:"user_info,omitempty" xml:"user_info,omitempty" require:"true"`
-	// 主订单信息
-	OrderInfo *OrderInfo `json:"order_info,omitempty" xml:"order_info,omitempty" require:"true"`
-	// 订单包含的商品信息列表
-	GoodsInfo *GoodsInfo `json:"goods_info,omitempty" xml:"goods_info,omitempty" require:"true"`
-	// 订单还款计划
-	PromiseInfo *PromiseInfo `json:"promise_info,omitempty" xml:"promise_info,omitempty" require:"true"`
+	// 商户id
+	MerchantTenantId *string `json:"merchant_tenant_id,omitempty" xml:"merchant_tenant_id,omitempty" require:"true" maxLength:"49" minLength:"1"`
+	// 订单id
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true" maxLength:"49" minLength:"1"`
+	// 租期编号
+	LeaseTermIndex *int64 `json:"lease_term_index,omitempty" xml:"lease_term_index,omitempty" require:"true"`
+	// 剩余归还期数
+	RemainTerm *int64 `json:"remain_term,omitempty" xml:"remain_term,omitempty" require:"true"`
+	// 总期数
+	TotalTerm *int64 `json:"total_term,omitempty" xml:"total_term,omitempty" require:"true"`
+	// 租金归还状态，
+	// RETURN_FULL : 足额归还 【终态】
+	// NOT_RETURN : 未归还
+	// CANCEL : 取消 【终态】
+	RentalReturnState *string `json:"rental_return_state,omitempty" xml:"rental_return_state,omitempty" require:"true"`
+	// 租金归还金额,精确到分，即1234表示12.34元
+	RentalMoney *int64 `json:"rental_money,omitempty" xml:"rental_money,omitempty" require:"true"`
+	// 罚息金额，分，1234表示12.34元
+	PenaltyFeeMoney *int64 `json:"penalty_fee_money,omitempty" xml:"penalty_fee_money,omitempty" require:"true"`
+	// 总金额，单位分
+	TotalMoney *int64 `json:"total_money,omitempty" xml:"total_money,omitempty" require:"true"`
+	// 归还时间，格式为"2019-07-31 12:00:00"
+	ReturnTime *string `json:"return_time,omitempty" xml:"return_time,omitempty"`
+	// 归还方式，
+	// ANTDIGITAL： 数科代扣
+	// FUND : 资方代扣
+	// BANK : 银行转账
+	// WECHAT : 微信支付
+	ReturnWay *string `json:"return_way,omitempty" xml:"return_way,omitempty"`
+	// 还款凭证编号
+	ReturnVoucherSerial *string `json:"return_voucher_serial,omitempty" xml:"return_voucher_serial,omitempty" maxLength:"127" minLength:"1"`
+	// 银行名字
+	BankName *string `json:"bank_name,omitempty" xml:"bank_name,omitempty" maxLength:"127"`
 }
 
-func (s SyncAntchainAtoTradeFullRequest) String() string {
+func (s SyncAntchainAtoFundOrderfulfillmentRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s SyncAntchainAtoTradeFullRequest) GoString() string {
+func (s SyncAntchainAtoFundOrderfulfillmentRequest) GoString() string {
 	return s.String()
 }
 
-func (s *SyncAntchainAtoTradeFullRequest) SetAuthToken(v string) *SyncAntchainAtoTradeFullRequest {
+func (s *SyncAntchainAtoFundOrderfulfillmentRequest) SetAuthToken(v string) *SyncAntchainAtoFundOrderfulfillmentRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *SyncAntchainAtoTradeFullRequest) SetProductInstanceId(v string) *SyncAntchainAtoTradeFullRequest {
+func (s *SyncAntchainAtoFundOrderfulfillmentRequest) SetProductInstanceId(v string) *SyncAntchainAtoFundOrderfulfillmentRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *SyncAntchainAtoTradeFullRequest) SetUserInfo(v *UserSyncInfo) *SyncAntchainAtoTradeFullRequest {
-	s.UserInfo = v
+func (s *SyncAntchainAtoFundOrderfulfillmentRequest) SetMerchantTenantId(v string) *SyncAntchainAtoFundOrderfulfillmentRequest {
+	s.MerchantTenantId = &v
 	return s
 }
 
-func (s *SyncAntchainAtoTradeFullRequest) SetOrderInfo(v *OrderInfo) *SyncAntchainAtoTradeFullRequest {
-	s.OrderInfo = v
+func (s *SyncAntchainAtoFundOrderfulfillmentRequest) SetOrderId(v string) *SyncAntchainAtoFundOrderfulfillmentRequest {
+	s.OrderId = &v
 	return s
 }
 
-func (s *SyncAntchainAtoTradeFullRequest) SetGoodsInfo(v *GoodsInfo) *SyncAntchainAtoTradeFullRequest {
-	s.GoodsInfo = v
+func (s *SyncAntchainAtoFundOrderfulfillmentRequest) SetLeaseTermIndex(v int64) *SyncAntchainAtoFundOrderfulfillmentRequest {
+	s.LeaseTermIndex = &v
 	return s
 }
 
-func (s *SyncAntchainAtoTradeFullRequest) SetPromiseInfo(v *PromiseInfo) *SyncAntchainAtoTradeFullRequest {
-	s.PromiseInfo = v
+func (s *SyncAntchainAtoFundOrderfulfillmentRequest) SetRemainTerm(v int64) *SyncAntchainAtoFundOrderfulfillmentRequest {
+	s.RemainTerm = &v
 	return s
 }
 
-type SyncAntchainAtoTradeFullResponse struct {
+func (s *SyncAntchainAtoFundOrderfulfillmentRequest) SetTotalTerm(v int64) *SyncAntchainAtoFundOrderfulfillmentRequest {
+	s.TotalTerm = &v
+	return s
+}
+
+func (s *SyncAntchainAtoFundOrderfulfillmentRequest) SetRentalReturnState(v string) *SyncAntchainAtoFundOrderfulfillmentRequest {
+	s.RentalReturnState = &v
+	return s
+}
+
+func (s *SyncAntchainAtoFundOrderfulfillmentRequest) SetRentalMoney(v int64) *SyncAntchainAtoFundOrderfulfillmentRequest {
+	s.RentalMoney = &v
+	return s
+}
+
+func (s *SyncAntchainAtoFundOrderfulfillmentRequest) SetPenaltyFeeMoney(v int64) *SyncAntchainAtoFundOrderfulfillmentRequest {
+	s.PenaltyFeeMoney = &v
+	return s
+}
+
+func (s *SyncAntchainAtoFundOrderfulfillmentRequest) SetTotalMoney(v int64) *SyncAntchainAtoFundOrderfulfillmentRequest {
+	s.TotalMoney = &v
+	return s
+}
+
+func (s *SyncAntchainAtoFundOrderfulfillmentRequest) SetReturnTime(v string) *SyncAntchainAtoFundOrderfulfillmentRequest {
+	s.ReturnTime = &v
+	return s
+}
+
+func (s *SyncAntchainAtoFundOrderfulfillmentRequest) SetReturnWay(v string) *SyncAntchainAtoFundOrderfulfillmentRequest {
+	s.ReturnWay = &v
+	return s
+}
+
+func (s *SyncAntchainAtoFundOrderfulfillmentRequest) SetReturnVoucherSerial(v string) *SyncAntchainAtoFundOrderfulfillmentRequest {
+	s.ReturnVoucherSerial = &v
+	return s
+}
+
+func (s *SyncAntchainAtoFundOrderfulfillmentRequest) SetBankName(v string) *SyncAntchainAtoFundOrderfulfillmentRequest {
+	s.BankName = &v
+	return s
+}
+
+type SyncAntchainAtoFundOrderfulfillmentResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 同步成功
+	// 添加成功
 	ResponseData *string `json:"response_data,omitempty" xml:"response_data,omitempty"`
 }
 
-func (s SyncAntchainAtoTradeFullResponse) String() string {
+func (s SyncAntchainAtoFundOrderfulfillmentResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s SyncAntchainAtoTradeFullResponse) GoString() string {
+func (s SyncAntchainAtoFundOrderfulfillmentResponse) GoString() string {
 	return s.String()
 }
 
-func (s *SyncAntchainAtoTradeFullResponse) SetReqMsgId(v string) *SyncAntchainAtoTradeFullResponse {
+func (s *SyncAntchainAtoFundOrderfulfillmentResponse) SetReqMsgId(v string) *SyncAntchainAtoFundOrderfulfillmentResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *SyncAntchainAtoTradeFullResponse) SetResultCode(v string) *SyncAntchainAtoTradeFullResponse {
+func (s *SyncAntchainAtoFundOrderfulfillmentResponse) SetResultCode(v string) *SyncAntchainAtoFundOrderfulfillmentResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *SyncAntchainAtoTradeFullResponse) SetResultMsg(v string) *SyncAntchainAtoTradeFullResponse {
+func (s *SyncAntchainAtoFundOrderfulfillmentResponse) SetResultMsg(v string) *SyncAntchainAtoFundOrderfulfillmentResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-func (s *SyncAntchainAtoTradeFullResponse) SetResponseData(v string) *SyncAntchainAtoTradeFullResponse {
+func (s *SyncAntchainAtoFundOrderfulfillmentResponse) SetResponseData(v string) *SyncAntchainAtoFundOrderfulfillmentResponse {
 	s.ResponseData = &v
+	return s
+}
+
+type GetAntchainAtoFundOrderfulfillmentRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 订单id
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true" maxLength:"49" minLength:"1"`
+	// 租赁订单所属商家租户id
+	MerchantTenantId *string `json:"merchant_tenant_id,omitempty" xml:"merchant_tenant_id,omitempty" require:"true" maxLength:"49" minLength:"1"`
+	// 期数
+	// 如果填入，获取term_idx下的履约记录
+	// 如果不填入，获取order_id下的所有履约记录
+	TermIdx *int64 `json:"term_idx,omitempty" xml:"term_idx,omitempty"`
+}
+
+func (s GetAntchainAtoFundOrderfulfillmentRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetAntchainAtoFundOrderfulfillmentRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetAntchainAtoFundOrderfulfillmentRequest) SetAuthToken(v string) *GetAntchainAtoFundOrderfulfillmentRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GetAntchainAtoFundOrderfulfillmentRequest) SetProductInstanceId(v string) *GetAntchainAtoFundOrderfulfillmentRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *GetAntchainAtoFundOrderfulfillmentRequest) SetOrderId(v string) *GetAntchainAtoFundOrderfulfillmentRequest {
+	s.OrderId = &v
+	return s
+}
+
+func (s *GetAntchainAtoFundOrderfulfillmentRequest) SetMerchantTenantId(v string) *GetAntchainAtoFundOrderfulfillmentRequest {
+	s.MerchantTenantId = &v
+	return s
+}
+
+func (s *GetAntchainAtoFundOrderfulfillmentRequest) SetTermIdx(v int64) *GetAntchainAtoFundOrderfulfillmentRequest {
+	s.TermIdx = &v
+	return s
+}
+
+type GetAntchainAtoFundOrderfulfillmentResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 订单履约信息的列表数组
+	// List<OrderFulfillment> 的jsonArray.toString
+	OrderFulfillmentDataList *string `json:"order_fulfillment_data_list,omitempty" xml:"order_fulfillment_data_list,omitempty"`
+}
+
+func (s GetAntchainAtoFundOrderfulfillmentResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetAntchainAtoFundOrderfulfillmentResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetAntchainAtoFundOrderfulfillmentResponse) SetReqMsgId(v string) *GetAntchainAtoFundOrderfulfillmentResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GetAntchainAtoFundOrderfulfillmentResponse) SetResultCode(v string) *GetAntchainAtoFundOrderfulfillmentResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GetAntchainAtoFundOrderfulfillmentResponse) SetResultMsg(v string) *GetAntchainAtoFundOrderfulfillmentResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GetAntchainAtoFundOrderfulfillmentResponse) SetOrderFulfillmentDataList(v string) *GetAntchainAtoFundOrderfulfillmentResponse {
+	s.OrderFulfillmentDataList = &v
 	return s
 }
 
@@ -635,7 +851,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.0"),
+				"sdk_version":      tea.String("1.1.1"),
 				"_prod_code":       tea.String("ak_2abe765c32934341bd9bb6cc1c8ff589"),
 				"_prod_channel":    tea.String("saas"),
 			}
@@ -694,6 +910,40 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 }
 
 /**
+ * Description: 分账流水同步
+ * Summary: 【仅测试环境生效】分账流水同步
+ */
+func (client *Client) SyncAntchainAtoFundSplitting(request *SyncAntchainAtoFundSplittingRequest) (_result *SyncAntchainAtoFundSplittingResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SyncAntchainAtoFundSplittingResponse{}
+	_body, _err := client.SyncAntchainAtoFundSplittingEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 分账流水同步
+ * Summary: 【仅测试环境生效】分账流水同步
+ */
+func (client *Client) SyncAntchainAtoFundSplittingEx(request *SyncAntchainAtoFundSplittingRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SyncAntchainAtoFundSplittingResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SyncAntchainAtoFundSplittingResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.fund.splitting.sync"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
  * Description: 提供给融资资金方，用以订单融资结果同步
  * Summary: 【废弃】订单融资结果同步
  */
@@ -728,14 +978,14 @@ func (client *Client) SyncAntchainAtoFundOrderfinancialEx(request *SyncAntchainA
 }
 
 /**
- * Description: 将返回订单实人认证通过后的、商家同步的还款计划
- * Summary: 【废弃】获取实人认证通过后用户承诺
+ * Description: 同步租赁订单的代扣协议
+ * Summary: 【仅测试环境生效】同步租赁订单的代扣协议
  */
-func (client *Client) GetAntchainAtoFundRepaymentplan(request *GetAntchainAtoFundRepaymentplanRequest) (_result *GetAntchainAtoFundRepaymentplanResponse, _err error) {
+func (client *Client) SyncAntchainAtoFundWithholdingcontract(request *SyncAntchainAtoFundWithholdingcontractRequest) (_result *SyncAntchainAtoFundWithholdingcontractResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
-	_result = &GetAntchainAtoFundRepaymentplanResponse{}
-	_body, _err := client.GetAntchainAtoFundRepaymentplanEx(request, headers, runtime)
+	_result = &SyncAntchainAtoFundWithholdingcontractResponse{}
+	_body, _err := client.SyncAntchainAtoFundWithholdingcontractEx(request, headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -744,16 +994,16 @@ func (client *Client) GetAntchainAtoFundRepaymentplan(request *GetAntchainAtoFun
 }
 
 /**
- * Description: 将返回订单实人认证通过后的、商家同步的还款计划
- * Summary: 【废弃】获取实人认证通过后用户承诺
+ * Description: 同步租赁订单的代扣协议
+ * Summary: 【仅测试环境生效】同步租赁订单的代扣协议
  */
-func (client *Client) GetAntchainAtoFundRepaymentplanEx(request *GetAntchainAtoFundRepaymentplanRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetAntchainAtoFundRepaymentplanResponse, _err error) {
+func (client *Client) SyncAntchainAtoFundWithholdingcontractEx(request *SyncAntchainAtoFundWithholdingcontractRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SyncAntchainAtoFundWithholdingcontractResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &GetAntchainAtoFundRepaymentplanResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.fund.repaymentplan.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	_result = &SyncAntchainAtoFundWithholdingcontractResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.fund.withholdingcontract.sync"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -762,14 +1012,14 @@ func (client *Client) GetAntchainAtoFundRepaymentplanEx(request *GetAntchainAtoF
 }
 
 /**
- * Description: 同步商家的订单信息，包含下单人信息、订单信息、订单关联的商品信息以及订单绑定的还款计划。
- * Summary: 【废弃】同步商家的订单信息
+ * Description: 资方回传一条订单还款履约信息
+ * Summary: 【仅测试环境生效】同步订单还款履约信息
  */
-func (client *Client) SyncAntchainAtoTradeFull(request *SyncAntchainAtoTradeFullRequest) (_result *SyncAntchainAtoTradeFullResponse, _err error) {
+func (client *Client) SyncAntchainAtoFundOrderfulfillment(request *SyncAntchainAtoFundOrderfulfillmentRequest) (_result *SyncAntchainAtoFundOrderfulfillmentResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
-	_result = &SyncAntchainAtoTradeFullResponse{}
-	_body, _err := client.SyncAntchainAtoTradeFullEx(request, headers, runtime)
+	_result = &SyncAntchainAtoFundOrderfulfillmentResponse{}
+	_body, _err := client.SyncAntchainAtoFundOrderfulfillmentEx(request, headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -778,16 +1028,50 @@ func (client *Client) SyncAntchainAtoTradeFull(request *SyncAntchainAtoTradeFull
 }
 
 /**
- * Description: 同步商家的订单信息，包含下单人信息、订单信息、订单关联的商品信息以及订单绑定的还款计划。
- * Summary: 【废弃】同步商家的订单信息
+ * Description: 资方回传一条订单还款履约信息
+ * Summary: 【仅测试环境生效】同步订单还款履约信息
  */
-func (client *Client) SyncAntchainAtoTradeFullEx(request *SyncAntchainAtoTradeFullRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SyncAntchainAtoTradeFullResponse, _err error) {
+func (client *Client) SyncAntchainAtoFundOrderfulfillmentEx(request *SyncAntchainAtoFundOrderfulfillmentRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SyncAntchainAtoFundOrderfulfillmentResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &SyncAntchainAtoTradeFullResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.trade.full.sync"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	_result = &SyncAntchainAtoFundOrderfulfillmentResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.fund.orderfulfillment.sync"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 获取订单的履约信息
+ * Summary: 【仅测试环境生效】获取订单的履约信息
+ */
+func (client *Client) GetAntchainAtoFundOrderfulfillment(request *GetAntchainAtoFundOrderfulfillmentRequest) (_result *GetAntchainAtoFundOrderfulfillmentResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GetAntchainAtoFundOrderfulfillmentResponse{}
+	_body, _err := client.GetAntchainAtoFundOrderfulfillmentEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 获取订单的履约信息
+ * Summary: 【仅测试环境生效】获取订单的履约信息
+ */
+func (client *Client) GetAntchainAtoFundOrderfulfillmentEx(request *GetAntchainAtoFundOrderfulfillmentRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetAntchainAtoFundOrderfulfillmentResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GetAntchainAtoFundOrderfulfillmentResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.fund.orderfulfillment.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
