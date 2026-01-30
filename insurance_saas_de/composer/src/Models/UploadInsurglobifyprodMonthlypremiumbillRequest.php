@@ -132,7 +132,7 @@ class UploadInsurglobifyprodMonthlypremiumbillRequest extends Model
         Model::validateMaxLength('externalChannelCode', $this->externalChannelCode, 10);
         Model::validateMaxLength('externalProductCode', $this->externalProductCode, 10);
         Model::validateMaxLength('chSchemeName', $this->chSchemeName, 20);
-        Model::validateMaxLength('bigPolNo', $this->bigPolNo, 100);
+        Model::validateMaxLength('bigPolNo', $this->bigPolNo, 200);
         Model::validateMaxLength('billingYear', $this->billingYear, 4);
         Model::validateMaxLength('billingMonth', $this->billingMonth, 2);
         Model::validateMaxLength('packageCount', $this->packageCount, 256);

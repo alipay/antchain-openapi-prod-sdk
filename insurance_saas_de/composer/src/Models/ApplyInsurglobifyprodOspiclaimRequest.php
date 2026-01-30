@@ -82,7 +82,7 @@ class ApplyInsurglobifyprodOspiclaimRequest extends Model
     /**
      * @var string
      */
-    public $timeZone;
+    public $timezone;
 
     // 索赔状态（Open / Under Review / In Payment Process / Closed / Rejected / Cancelled）
     /**
@@ -156,7 +156,7 @@ class ApplyInsurglobifyprodOspiclaimRequest extends Model
         'incidentCause'       => 'incident_cause',
         'accidentTime'        => 'accident_time',
         'saleDate'            => 'sale_date',
-        'timeZone'            => 'time_zone',
+        'timezone'            => 'timezone',
         'claimStatus'         => 'claim_status',
         'cargoType'           => 'cargo_type',
         'claimPaidTime'       => 'claim_paid_time',
@@ -179,7 +179,7 @@ class ApplyInsurglobifyprodOspiclaimRequest extends Model
         Model::validateRequired('incidentCause', $this->incidentCause, true);
         Model::validateRequired('accidentTime', $this->accidentTime, true);
         Model::validateRequired('saleDate', $this->saleDate, true);
-        Model::validateRequired('timeZone', $this->timeZone, true);
+        Model::validateRequired('timezone', $this->timezone, true);
         Model::validateRequired('claimStatus', $this->claimStatus, true);
         Model::validateRequired('cargoType', $this->cargoType, true);
         Model::validateRequired('claimPaidTime', $this->claimPaidTime, true);
@@ -193,12 +193,12 @@ class ApplyInsurglobifyprodOspiclaimRequest extends Model
         Model::validateMaxLength('externalChannelCode', $this->externalChannelCode, 10);
         Model::validateMaxLength('externalProductCode', $this->externalProductCode, 10);
         Model::validateMaxLength('bigPolNo', $this->bigPolNo, 100);
-        Model::validateMaxLength('relaOrderNo', $this->relaOrderNo, 100);
+        Model::validateMaxLength('relaOrderNo', $this->relaOrderNo, 200);
         Model::validateMaxLength('damagedCargoName', $this->damagedCargoName, 100);
         Model::validateMaxLength('incidentCause', $this->incidentCause, 50);
         Model::validateMaxLength('accidentTime', $this->accidentTime, 50);
         Model::validateMaxLength('saleDate', $this->saleDate, 50);
-        Model::validateMaxLength('timeZone', $this->timeZone, 20);
+        Model::validateMaxLength('timezone', $this->timezone, 20);
         Model::validateMaxLength('claimStatus', $this->claimStatus, 20);
         Model::validateMaxLength('cargoType', $this->cargoType, 256);
         Model::validateMaxLength('claimPaidTime', $this->claimPaidTime, 50);
@@ -246,8 +246,8 @@ class ApplyInsurglobifyprodOspiclaimRequest extends Model
         if (null !== $this->saleDate) {
             $res['sale_date'] = $this->saleDate;
         }
-        if (null !== $this->timeZone) {
-            $res['time_zone'] = $this->timeZone;
+        if (null !== $this->timezone) {
+            $res['timezone'] = $this->timezone;
         }
         if (null !== $this->claimStatus) {
             $res['claim_status'] = $this->claimStatus;
@@ -321,8 +321,8 @@ class ApplyInsurglobifyprodOspiclaimRequest extends Model
         if (isset($map['sale_date'])) {
             $model->saleDate = $map['sale_date'];
         }
-        if (isset($map['time_zone'])) {
-            $model->timeZone = $map['time_zone'];
+        if (isset($map['timezone'])) {
+            $model->timezone = $map['timezone'];
         }
         if (isset($map['claim_status'])) {
             $model->claimStatus = $map['claim_status'];

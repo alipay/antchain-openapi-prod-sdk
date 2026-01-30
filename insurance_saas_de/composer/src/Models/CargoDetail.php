@@ -6,7 +6,7 @@ namespace AntChain\INSURANCE_SAAS_DE\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CargoDetails extends Model
+class CargoDetail extends Model
 {
     // 货物序号
     /**
@@ -34,7 +34,7 @@ class CargoDetails extends Model
 
     // 货物数量
     /**
-     * @example 1000
+     * @example 100
      *
      * @var string
      */
@@ -62,11 +62,6 @@ class CargoDetails extends Model
         Model::validateRequired('cargoSpecification', $this->cargoSpecification, true);
         Model::validateRequired('cargoQuantity', $this->cargoQuantity, true);
         Model::validateRequired('cargoUnitPrice', $this->cargoUnitPrice, true);
-        Model::validateMaxLength('cargoSequenceNo', $this->cargoSequenceNo, 10);
-        Model::validateMaxLength('cargoName', $this->cargoName, 50);
-        Model::validateMaxLength('cargoSpecification', $this->cargoSpecification, 50);
-        Model::validateMaxLength('cargoQuantity', $this->cargoQuantity, 100);
-        Model::validateMaxLength('cargoUnitPrice', $this->cargoUnitPrice, 20);
     }
 
     public function toMap()
@@ -94,7 +89,7 @@ class CargoDetails extends Model
     /**
      * @param array $map
      *
-     * @return CargoDetails
+     * @return CargoDetail
      */
     public static function fromMap($map = [])
     {

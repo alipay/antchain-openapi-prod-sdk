@@ -101,7 +101,7 @@ class ApplyInsurglobifyprodOspiinsureRequest extends Model
     /**
      * @var string
      */
-    public $timeZone;
+    public $timezone;
 
     // 投保人名称
     /**
@@ -279,9 +279,9 @@ class ApplyInsurglobifyprodOspiinsureRequest extends Model
      */
     public $destination;
 
-    // 货物明细
+    // 货物明细列表
     /**
-     * @var CargoDetails
+     * @var CargoDetail[]
      */
     public $cargoDetails;
     protected $_name = [
@@ -298,7 +298,7 @@ class ApplyInsurglobifyprodOspiinsureRequest extends Model
         'currency'                => 'currency',
         'bigPolNo'                => 'big_pol_no',
         'insureStart'             => 'insure_start',
-        'timeZone'                => 'time_zone',
+        'timezone'                => 'timezone',
         'tbrName'                 => 'tbr_name',
         'tbrIdType'               => 'tbr_id_type',
         'tbrIdNo'                 => 'tbr_id_no',
@@ -339,7 +339,7 @@ class ApplyInsurglobifyprodOspiinsureRequest extends Model
         Model::validateRequired('currency', $this->currency, true);
         Model::validateRequired('bigPolNo', $this->bigPolNo, true);
         Model::validateRequired('insureStart', $this->insureStart, true);
-        Model::validateRequired('timeZone', $this->timeZone, true);
+        Model::validateRequired('timezone', $this->timezone, true);
         Model::validateRequired('tbrName', $this->tbrName, true);
         Model::validateRequired('tbrIdType', $this->tbrIdType, true);
         Model::validateRequired('tbrIdNo', $this->tbrIdNo, true);
@@ -376,7 +376,7 @@ class ApplyInsurglobifyprodOspiinsureRequest extends Model
         Model::validateMaxLength('currency', $this->currency, 3);
         Model::validateMaxLength('bigPolNo', $this->bigPolNo, 200);
         Model::validateMaxLength('insureStart', $this->insureStart, 50);
-        Model::validateMaxLength('timeZone', $this->timeZone, 20);
+        Model::validateMaxLength('timezone', $this->timezone, 20);
         Model::validateMaxLength('tbrName', $this->tbrName, 100);
         Model::validateMaxLength('tbrIdType', $this->tbrIdType, 20);
         Model::validateMaxLength('tbrIdNo', $this->tbrIdNo, 100);
@@ -445,8 +445,8 @@ class ApplyInsurglobifyprodOspiinsureRequest extends Model
         if (null !== $this->insureStart) {
             $res['insure_start'] = $this->insureStart;
         }
-        if (null !== $this->timeZone) {
-            $res['time_zone'] = $this->timeZone;
+        if (null !== $this->timezone) {
+            $res['timezone'] = $this->timezone;
         }
         if (null !== $this->tbrName) {
             $res['tbr_name'] = $this->tbrName;
@@ -521,7 +521,13 @@ class ApplyInsurglobifyprodOspiinsureRequest extends Model
             $res['destination'] = $this->destination;
         }
         if (null !== $this->cargoDetails) {
-            $res['cargo_details'] = null !== $this->cargoDetails ? $this->cargoDetails->toMap() : null;
+            $res['cargo_details'] = [];
+            if (null !== $this->cargoDetails && \is_array($this->cargoDetails)) {
+                $n = 0;
+                foreach ($this->cargoDetails as $item) {
+                    $res['cargo_details'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -574,8 +580,8 @@ class ApplyInsurglobifyprodOspiinsureRequest extends Model
         if (isset($map['insure_start'])) {
             $model->insureStart = $map['insure_start'];
         }
-        if (isset($map['time_zone'])) {
-            $model->timeZone = $map['time_zone'];
+        if (isset($map['timezone'])) {
+            $model->timezone = $map['timezone'];
         }
         if (isset($map['tbr_name'])) {
             $model->tbrName = $map['tbr_name'];
@@ -650,7 +656,13 @@ class ApplyInsurglobifyprodOspiinsureRequest extends Model
             $model->destination = $map['destination'];
         }
         if (isset($map['cargo_details'])) {
-            $model->cargoDetails = CargoDetails::fromMap($map['cargo_details']);
+            if (!empty($map['cargo_details'])) {
+                $model->cargoDetails = [];
+                $n                   = 0;
+                foreach ($map['cargo_details'] as $item) {
+                    $model->cargoDetails[$n++] = null !== $item ? CargoDetail::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;
