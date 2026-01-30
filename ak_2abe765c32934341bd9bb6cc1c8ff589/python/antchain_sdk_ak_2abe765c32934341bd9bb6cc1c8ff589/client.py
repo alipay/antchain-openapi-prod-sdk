@@ -109,8 +109,7 @@ class Client:
                 'policy': UtilClient.default_string(runtime.backoff_policy, 'no'),
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
-            'ignoreSSL': runtime.ignore_ssl,
-            # 订单还款计划
+            'ignoreSSL': runtime.ignore_ssl
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +134,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.0',
+                    'sdk_version': '1.1.1',
                     '_prod_code': 'ak_2abe765c32934341bd9bb6cc1c8ff589',
                     '_prod_channel': 'saas'
                 }
@@ -213,8 +212,7 @@ class Client:
                 'policy': UtilClient.default_string(runtime.backoff_policy, 'no'),
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
-            'ignoreSSL': runtime.ignore_ssl,
-            # 订单还款计划
+            'ignoreSSL': runtime.ignore_ssl
         }
         _last_request = None
         _last_exception = None
@@ -239,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.0',
+                    'sdk_version': '1.1.1',
                     '_prod_code': 'ak_2abe765c32934341bd9bb6cc1c8ff589',
                     '_prod_channel': 'saas'
                 }
@@ -274,6 +272,62 @@ class Client:
                     continue
                 raise e
         raise UnretryableException(_last_request, _last_exception)
+
+    def sync_antchain_ato_fund_splitting(
+        self,
+        request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.SyncAntchainAtoFundSplittingRequest,
+    ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.SyncAntchainAtoFundSplittingResponse:
+        """
+        Description: 分账流水同步
+        Summary: 【仅测试环境生效】分账流水同步
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.sync_antchain_ato_fund_splitting_ex(request, headers, runtime)
+
+    async def sync_antchain_ato_fund_splitting_async(
+        self,
+        request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.SyncAntchainAtoFundSplittingRequest,
+    ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.SyncAntchainAtoFundSplittingResponse:
+        """
+        Description: 分账流水同步
+        Summary: 【仅测试环境生效】分账流水同步
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.sync_antchain_ato_fund_splitting_ex_async(request, headers, runtime)
+
+    def sync_antchain_ato_fund_splitting_ex(
+        self,
+        request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.SyncAntchainAtoFundSplittingRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.SyncAntchainAtoFundSplittingResponse:
+        """
+        Description: 分账流水同步
+        Summary: 【仅测试环境生效】分账流水同步
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.SyncAntchainAtoFundSplittingResponse(),
+            self.do_request('1.0', 'antchain.ato.fund.splitting.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def sync_antchain_ato_fund_splitting_ex_async(
+        self,
+        request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.SyncAntchainAtoFundSplittingRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.SyncAntchainAtoFundSplittingResponse:
+        """
+        Description: 分账流水同步
+        Summary: 【仅测试环境生效】分账流水同步
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.SyncAntchainAtoFundSplittingResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.fund.splitting.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
 
     def sync_antchain_ato_fund_orderfinancial(
         self,
@@ -331,114 +385,170 @@ class Client:
             await self.do_request_async('1.0', 'antchain.ato.fund.orderfinancial.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def get_antchain_ato_fund_repaymentplan(
+    def sync_antchain_ato_fund_withholdingcontract(
         self,
-        request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.GetAntchainAtoFundRepaymentplanRequest,
-    ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.GetAntchainAtoFundRepaymentplanResponse:
+        request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.SyncAntchainAtoFundWithholdingcontractRequest,
+    ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.SyncAntchainAtoFundWithholdingcontractResponse:
         """
-        Description: 将返回订单实人认证通过后的、商家同步的还款计划
-        Summary: 【废弃】获取实人认证通过后用户承诺
+        Description: 同步租赁订单的代扣协议
+        Summary: 【仅测试环境生效】同步租赁订单的代扣协议
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_antchain_ato_fund_repaymentplan_ex(request, headers, runtime)
+        return self.sync_antchain_ato_fund_withholdingcontract_ex(request, headers, runtime)
 
-    async def get_antchain_ato_fund_repaymentplan_async(
+    async def sync_antchain_ato_fund_withholdingcontract_async(
         self,
-        request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.GetAntchainAtoFundRepaymentplanRequest,
-    ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.GetAntchainAtoFundRepaymentplanResponse:
+        request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.SyncAntchainAtoFundWithholdingcontractRequest,
+    ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.SyncAntchainAtoFundWithholdingcontractResponse:
         """
-        Description: 将返回订单实人认证通过后的、商家同步的还款计划
-        Summary: 【废弃】获取实人认证通过后用户承诺
+        Description: 同步租赁订单的代扣协议
+        Summary: 【仅测试环境生效】同步租赁订单的代扣协议
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.get_antchain_ato_fund_repaymentplan_ex_async(request, headers, runtime)
+        return await self.sync_antchain_ato_fund_withholdingcontract_ex_async(request, headers, runtime)
 
-    def get_antchain_ato_fund_repaymentplan_ex(
+    def sync_antchain_ato_fund_withholdingcontract_ex(
         self,
-        request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.GetAntchainAtoFundRepaymentplanRequest,
+        request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.SyncAntchainAtoFundWithholdingcontractRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.GetAntchainAtoFundRepaymentplanResponse:
+    ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.SyncAntchainAtoFundWithholdingcontractResponse:
         """
-        Description: 将返回订单实人认证通过后的、商家同步的还款计划
-        Summary: 【废弃】获取实人认证通过后用户承诺
+        Description: 同步租赁订单的代扣协议
+        Summary: 【仅测试环境生效】同步租赁订单的代扣协议
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.GetAntchainAtoFundRepaymentplanResponse(),
-            self.do_request('1.0', 'antchain.ato.fund.repaymentplan.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.SyncAntchainAtoFundWithholdingcontractResponse(),
+            self.do_request('1.0', 'antchain.ato.fund.withholdingcontract.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def get_antchain_ato_fund_repaymentplan_ex_async(
+    async def sync_antchain_ato_fund_withholdingcontract_ex_async(
         self,
-        request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.GetAntchainAtoFundRepaymentplanRequest,
+        request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.SyncAntchainAtoFundWithholdingcontractRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.GetAntchainAtoFundRepaymentplanResponse:
+    ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.SyncAntchainAtoFundWithholdingcontractResponse:
         """
-        Description: 将返回订单实人认证通过后的、商家同步的还款计划
-        Summary: 【废弃】获取实人认证通过后用户承诺
+        Description: 同步租赁订单的代扣协议
+        Summary: 【仅测试环境生效】同步租赁订单的代扣协议
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.GetAntchainAtoFundRepaymentplanResponse(),
-            await self.do_request_async('1.0', 'antchain.ato.fund.repaymentplan.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.SyncAntchainAtoFundWithholdingcontractResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.fund.withholdingcontract.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def sync_antchain_ato_trade_full(
+    def sync_antchain_ato_fund_orderfulfillment(
         self,
-        request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.SyncAntchainAtoTradeFullRequest,
-    ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.SyncAntchainAtoTradeFullResponse:
+        request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.SyncAntchainAtoFundOrderfulfillmentRequest,
+    ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.SyncAntchainAtoFundOrderfulfillmentResponse:
         """
-        Description: 同步商家的订单信息，包含下单人信息、订单信息、订单关联的商品信息以及订单绑定的还款计划。
-        Summary: 【废弃】同步商家的订单信息
+        Description: 资方回传一条订单还款履约信息
+        Summary: 【仅测试环境生效】同步订单还款履约信息
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.sync_antchain_ato_trade_full_ex(request, headers, runtime)
+        return self.sync_antchain_ato_fund_orderfulfillment_ex(request, headers, runtime)
 
-    async def sync_antchain_ato_trade_full_async(
+    async def sync_antchain_ato_fund_orderfulfillment_async(
         self,
-        request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.SyncAntchainAtoTradeFullRequest,
-    ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.SyncAntchainAtoTradeFullResponse:
+        request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.SyncAntchainAtoFundOrderfulfillmentRequest,
+    ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.SyncAntchainAtoFundOrderfulfillmentResponse:
         """
-        Description: 同步商家的订单信息，包含下单人信息、订单信息、订单关联的商品信息以及订单绑定的还款计划。
-        Summary: 【废弃】同步商家的订单信息
+        Description: 资方回传一条订单还款履约信息
+        Summary: 【仅测试环境生效】同步订单还款履约信息
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.sync_antchain_ato_trade_full_ex_async(request, headers, runtime)
+        return await self.sync_antchain_ato_fund_orderfulfillment_ex_async(request, headers, runtime)
 
-    def sync_antchain_ato_trade_full_ex(
+    def sync_antchain_ato_fund_orderfulfillment_ex(
         self,
-        request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.SyncAntchainAtoTradeFullRequest,
+        request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.SyncAntchainAtoFundOrderfulfillmentRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.SyncAntchainAtoTradeFullResponse:
+    ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.SyncAntchainAtoFundOrderfulfillmentResponse:
         """
-        Description: 同步商家的订单信息，包含下单人信息、订单信息、订单关联的商品信息以及订单绑定的还款计划。
-        Summary: 【废弃】同步商家的订单信息
+        Description: 资方回传一条订单还款履约信息
+        Summary: 【仅测试环境生效】同步订单还款履约信息
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.SyncAntchainAtoTradeFullResponse(),
-            self.do_request('1.0', 'antchain.ato.trade.full.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.SyncAntchainAtoFundOrderfulfillmentResponse(),
+            self.do_request('1.0', 'antchain.ato.fund.orderfulfillment.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def sync_antchain_ato_trade_full_ex_async(
+    async def sync_antchain_ato_fund_orderfulfillment_ex_async(
         self,
-        request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.SyncAntchainAtoTradeFullRequest,
+        request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.SyncAntchainAtoFundOrderfulfillmentRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.SyncAntchainAtoTradeFullResponse:
+    ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.SyncAntchainAtoFundOrderfulfillmentResponse:
         """
-        Description: 同步商家的订单信息，包含下单人信息、订单信息、订单关联的商品信息以及订单绑定的还款计划。
-        Summary: 【废弃】同步商家的订单信息
+        Description: 资方回传一条订单还款履约信息
+        Summary: 【仅测试环境生效】同步订单还款履约信息
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.SyncAntchainAtoTradeFullResponse(),
-            await self.do_request_async('1.0', 'antchain.ato.trade.full.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.SyncAntchainAtoFundOrderfulfillmentResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.fund.orderfulfillment.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_antchain_ato_fund_orderfulfillment(
+        self,
+        request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.GetAntchainAtoFundOrderfulfillmentRequest,
+    ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.GetAntchainAtoFundOrderfulfillmentResponse:
+        """
+        Description: 获取订单的履约信息
+        Summary: 【仅测试环境生效】获取订单的履约信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_antchain_ato_fund_orderfulfillment_ex(request, headers, runtime)
+
+    async def get_antchain_ato_fund_orderfulfillment_async(
+        self,
+        request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.GetAntchainAtoFundOrderfulfillmentRequest,
+    ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.GetAntchainAtoFundOrderfulfillmentResponse:
+        """
+        Description: 获取订单的履约信息
+        Summary: 【仅测试环境生效】获取订单的履约信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_antchain_ato_fund_orderfulfillment_ex_async(request, headers, runtime)
+
+    def get_antchain_ato_fund_orderfulfillment_ex(
+        self,
+        request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.GetAntchainAtoFundOrderfulfillmentRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.GetAntchainAtoFundOrderfulfillmentResponse:
+        """
+        Description: 获取订单的履约信息
+        Summary: 【仅测试环境生效】获取订单的履约信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.GetAntchainAtoFundOrderfulfillmentResponse(),
+            self.do_request('1.0', 'antchain.ato.fund.orderfulfillment.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_antchain_ato_fund_orderfulfillment_ex_async(
+        self,
+        request: ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.GetAntchainAtoFundOrderfulfillmentRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.GetAntchainAtoFundOrderfulfillmentResponse:
+        """
+        Description: 获取订单的履约信息
+        Summary: 【仅测试环境生效】获取订单的履约信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__2abe_765c_32934341bd_9bb_6cc_1c_8ff_589_models.GetAntchainAtoFundOrderfulfillmentResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.fund.orderfulfillment.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
