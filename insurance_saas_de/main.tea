@@ -1,0 +1,484 @@
+import AntchainUtil;
+import Util;
+import RPCUtil;
+
+type @endpoint = string
+type @regionId = string
+type @accessKeyId = string
+type @accessKeySecret = string
+type @protocol = string
+type @userAgent = string
+type @readTimeout = number
+type @connectTimeout = number
+type @httpProxy = string
+type @httpsProxy = string
+type @socks5Proxy = string
+type @socks5NetWork = string
+type @noProxy = string
+type @maxIdleConns = number
+type @securityToken = string
+type @maxIdleTimeMillis = number
+type @keepAliveDurationMillis = number
+type @maxRequests = number
+type @maxRequestsPerHost = number
+
+/**
+ * Model for initing client
+ */
+model Config {
+  accessKeyId?: string(description='accesskey id',default=''),
+  accessKeySecret?: string(description='accesskey secret',default=''),
+  securityToken?: string(description='security token',default=''),
+  protocol?: string(description='http protocol',example='http',default='http'),
+  readTimeout?: number(description='read timeout',example='10',default=''),
+  connectTimeout?: number(description='connect timeout',example='10',default=''),
+  httpProxy?: string(description='http proxy',example='http://localhost',default=''),
+  httpsProxy?: string(description='https proxy',example='https://localhost',default=''),
+  endpoint?: string(description='endpoint',example='cs.aliyuncs.com',default=''),
+  noProxy?: string(description='proxy white list',example='http://localhost',default=''),
+  maxIdleConns?: number(description='max idle conns',example='3',default=''),
+  userAgent?: string(description='user agent',example='Alibabacloud/1',default=''),
+  socks5Proxy?: string(description='socks5 proxy',default=''),
+  socks5NetWork?: string(description='socks5 network',example='TCP',default=''),
+  maxIdleTimeMillis?: number(description='长链接最大空闲时长',default='60 * 1000L'),
+  keepAliveDurationMillis?: number(description='长链接最大连接时长',default='5000'),
+  maxRequests?: number(description='最大连接数（长链接最大总数）',default='100'),
+  maxRequestsPerHost?: number(description='每个目标主机的最大连接数（分主机域名的长链接最大总数',default='100'),
+}
+
+/**
+ * Init client with Config
+ * @param config config contains the necessary information to create a client
+ */
+init(config: Config) {
+  if (Util.isUnset(config)) {
+    throw {
+      code = 'ParameterMissing',
+      message = '\'config\' can not be unset'
+    };
+  }
+
+  @accessKeyId = config.accessKeyId;
+  @accessKeySecret = config.accessKeySecret;
+  @securityToken = config.securityToken;
+  @endpoint = config.endpoint;
+  @protocol = config.protocol;
+  @userAgent = config.userAgent;
+  @readTimeout = Util.defaultNumber(config.readTimeout, 20000);
+  @connectTimeout = Util.defaultNumber(config.connectTimeout, 20000);
+  @httpProxy = config.httpProxy;
+  @httpsProxy = config.httpsProxy;
+  @noProxy = config.noProxy;
+  @socks5Proxy = config.socks5Proxy;
+  @socks5NetWork = config.socks5NetWork;
+  @maxIdleConns = Util.defaultNumber(config.maxIdleConns, 60000);
+  @maxIdleTimeMillis = Util.defaultNumber(config.maxIdleTimeMillis, 5);
+  @keepAliveDurationMillis = Util.defaultNumber(config.keepAliveDurationMillis, 5000);
+  @maxRequests = Util.defaultNumber(config.maxRequests, 100);
+  @maxRequestsPerHost = Util.defaultNumber(config.maxRequestsPerHost, 100);
+}
+
+/**
+ * Encapsulate the request and invoke the network
+ * @param action api name
+ * @param protocol http or https
+ * @param method e.g. GET
+ * @param pathname pathname of every api
+ * @param request which contains request params
+ * @param runtime which controls some details of call api, such as retry times
+ * @return the response
+ */
+api doRequest(version: string, action: string, protocol: string, method: string, pathname: string, request: object, headers: map[string]string, runtime: Util.RuntimeOptions): object {
+  __request.protocol = Util.defaultString(@protocol, protocol);
+  __request.method = method;
+  __request.pathname = pathname;
+  __request.query = {
+    method = action,
+    version = version,
+    sign_type = 'HmacSHA1',
+    req_time = AntchainUtil.getTimestamp(),
+    req_msg_id = AntchainUtil.getNonce(),
+    access_key = @accessKeyId,
+    base_sdk_version = 'TeaSDK-2.0',
+    sdk_version = '1.0.7',
+    _prod_code = 'INSURANCE_SAAS_DE',
+    _prod_channel = 'default'
+  };
+
+  if (!Util.empty(@securityToken)) {
+    __request.query.security_token = @securityToken;
+  }
+
+  __request.headers = {
+    host = Util.defaultString(@endpoint, 'openapi.antchain.antgroup.com'),
+    user-agent = Util.getUserAgent(@userAgent),
+    ...headers
+  };
+
+  var tmp = Util.anyifyMapValue(RPCUtil.query(request));
+  __request.body = Util.toFormString(tmp);
+  __request.headers.content-type = 'application/x-www-form-urlencoded';
+
+  var signedParam = {
+    ...__request.query,
+    ...RPCUtil.query(request)
+  };
+  __request.query.sign = AntchainUtil.getSignature(signedParam, @accessKeySecret);
+} returns {
+  var raw = Util.readAsString(__response.body);
+  var obj = Util.parseJSON(raw);
+  var res = Util.assertAsMap(obj);
+  var resp = Util.assertAsMap(res.response);
+
+  if (AntchainUtil.hasError(raw, @accessKeySecret)) {
+    throw {
+      message = resp.result_msg,
+      data = resp,
+      code = resp.result_code
+    };
+  }
+  return resp;
+} runtime {
+  timeouted = 'retry',
+  readTimeout = Util.defaultNumber(runtime.readTimeout, @readTimeout),
+  connectTimeout = Util.defaultNumber(runtime.connectTimeout, @connectTimeout),
+  httpProxy = Util.defaultString(runtime.httpProxy, @httpProxy),
+  httpsProxy = Util.defaultString(runtime.httpsProxy, @httpsProxy),
+  noProxy = Util.defaultString(runtime.noProxy, @noProxy),
+  maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
+  maxIdleTimeMillis = @maxIdleTimeMillis,
+  keepAliveDuration = @keepAliveDurationMillis,
+  maxRequests = @maxRequests,
+  maxRequestsPerHost = @maxRequestsPerHost,
+  retry = {
+    retryable = runtime.autoretry,
+    maxAttempts = Util.defaultNumber(runtime.maxAttempts, 3)
+  },
+  backoff = {
+    policy = Util.defaultString(runtime.backoffPolicy, 'no'),
+    period = Util.defaultNumber(runtime.backoffPeriod, 1)
+  },
+  ignoreSSL = runtime.ignoreSSL
+}
+
+// 货物明细
+model CargoDetail {
+  // 货物序号
+  cargoSequenceNo: string(name='cargo_sequence_no', example='1'),
+  // 货物名称
+  cargoName: string(name='cargo_name', example='耳机'),
+  // 货物规格
+  cargoSpecification: string(name='cargo_specification', example='xxx'),
+  // 货物数量
+  cargoQuantity: string(name='cargo_quantity', example='100'),
+  // 货物单价，小数位只支持2位
+  cargoUnitPrice: string(name='cargo_unit_price', example='454.22'),
+}
+
+model ApplyInsurglobifyprodOspiinsureRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 调用方生成的唯一编码，系统会根据该流水号做防重、幂等判断逻辑。当极端场景中，系统会返回处理中，错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；
+  tradeNo: string(maxLength=50, name='trade_no'),
+  // 保司编码
+  externalChannelCode: string(maxLength=10, name='external_channel_code'),
+  // 险种编码
+  externalProductCode: string(maxLength=10, name='external_product_code'),
+  // 保险方案名
+  chSchemeName: string(maxLength=20, name='ch_scheme_name'),
+  // 保险项目名
+  chProjectName: string(maxLength=20, name='ch_project_name'),
+  // 总保额，小数位只支持2位
+  insuredAmount: string(maxLength=20, name='insured_amount'),
+  // 保费，小数位只支持2位
+  premium: string(maxLength=20, name='premium'),
+  // 总保费，小数位只支持2位
+  totalPremium: string(maxLength=20, name='total_premium'),
+  // 币种，使用ISO 4217代码；
+  // CNY：人民币
+  // USD：美元
+  // EUR：欧元
+  // GBP：英镑
+  // JPY：日元
+  // CHF：瑞士法郎
+  // SGD：新加坡元
+  currency: string(maxLength=3, name='currency'),
+  // 关联的大保单编号
+  bigPolNo: string(maxLength=200, name='big_pol_no'),
+  // 保险起期(ISO 8601格式，2026-01-11T14:30:00+02:00)
+  insureStart: string(maxLength=50, name='insure_start'),
+  // 时区
+  // Asia/Shanghai
+  // Europe/Berlin
+  // America/New_York
+  // Pacific/Auckland
+  // Europe/Berlin 
+  timezone: string(maxLength=20, name='timezone'),
+  // 投保人名称
+  tbrName: string(maxLength=100, name='tbr_name'),
+  // 投保人证件类型
+  // // 个人
+  // // 护照
+  // PASSPORT
+  // // 国民身份证
+  // NATIONAL_ID
+  // // 居留许可
+  // RESIDENCE_PERMIT
+  // // 个人税号
+  // TAX_ID
+  // // 企业
+  // // 公司注册号（最常用）
+  // COMPANY_REGISTRATION
+  // // 增值税号
+  // VAT_NUMBER
+  // // 企业税号
+  // TAX_ID
+  tbrIdType: string(maxLength=20, name='tbr_id_type'),
+  // 投保人证件号
+  tbrIdNo: string(maxLength=100, name='tbr_id_no'),
+  // 被保人名称
+  bbrName: string(maxLength=100, name='bbr_name'),
+  // 被保人证件类型
+  // // 个人
+  // // 护照
+  // PASSPORT
+  // // 国民身份证
+  // NATIONAL_ID
+  // // 居留许可
+  // RESIDENCE_PERMIT
+  // // 个人税号
+  // TAX_ID
+  // // 企业
+  // // 公司注册号（最常用）
+  // COMPANY_REGISTRATION
+  // // 增值税号
+  // VAT_NUMBER
+  // // 企业税号
+  // TAX_ID
+  bbrIdType: string(maxLength=20, name='bbr_id_type'),
+  // 被保人证件号
+  bbrIdNo: string(maxLength=100, name='bbr_id_no'),
+  // 订单号
+  relaOrderNo: string(maxLength=100, name='rela_order_no'),
+  // 寄件时间(ISO 8601格式，2026-01-11T14:30:00+02:00)
+  pickUpTime: string(maxLength=50, name='pick_up_time'),
+  // 快递公司名称
+  courierCompany: string(maxLength=100, name='courier_company'),
+  // 快递单号
+  courierNumber: string(maxLength=100, name='courier_number'),
+  // 货物大类
+  cargoType: string(maxLength=256, name='cargo_type'),
+  // 货物总数量（件）
+  cargoTotalQuantity: string(maxLength=100, name='cargo_total_quantity'),
+  // 货物总重量
+  cargoTotalWeight: string(maxLength=200, name='cargo_total_weight'),
+  // 货物总价值，小数位只支持2位
+  cargoTotalWorth: string(maxLength=20, name='cargo_total_worth'),
+  // 卖家脱敏唯一标识
+  sellId: string(maxLength=100, name='sell_id'),
+  // 卖家NAIC代码
+  sellNaicCode: string(maxLength=50, name='sell_naic_code'),
+  // 出发地ISO国别
+  startPlaceIsoCountry: string(maxLength=10, name='start_place_iso_country'),
+  // 出发地省市
+  startPlaceProvinceCity: string(maxLength=50, name='start_place_province_city'),
+  // 出发地详细地址
+  startPlace: string(maxLength=500, name='start_place'),
+  // 出发地邮编
+  startPlacePostcode: string(maxLength=50, name='start_place_postcode'),
+  // 买家脱敏唯一标识
+  buyId: string(maxLength=100, name='buy_id'),
+  // 目的地ISO国别
+  isoCountry: string(maxLength=10, name='iso_country'),
+  // 湖南省长沙市
+  destinationProvinceCity: string(maxLength=50, name='destination_province_city'),
+  // 目的地详细地址
+  destination: string(maxLength=500, name='destination'),
+  // 货物明细列表
+  cargoDetails: [ CargoDetail ](name='cargo_details'),
+}
+
+model ApplyInsurglobifyprodOspiinsureResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 交易流水号
+  tradeNo?: string(name='trade_no'),
+}
+
+/**
+ * Description: 海外邮包险投保
+ * Summary: 海外邮包险投保
+ */
+async function applyInsurglobifyprodOspiinsure(request: ApplyInsurglobifyprodOspiinsureRequest): ApplyInsurglobifyprodOspiinsureResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyInsurglobifyprodOspiinsureEx(request, headers, runtime);
+}
+
+/**
+ * Description: 海外邮包险投保
+ * Summary: 海外邮包险投保
+ */
+async function applyInsurglobifyprodOspiinsureEx(request: ApplyInsurglobifyprodOspiinsureRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyInsurglobifyprodOspiinsureResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.insurancesaasde.insurglobifyprod.ospiinsure.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyInsurglobifyprodOspiclaimRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 调用方生成的唯一编码，系统会根据该流水号做防重、幂等判断逻辑。当极端场景中，系统会返回处理中，错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；
+  tradeNo: string(maxLength=50, name='trade_no'),
+  // 保司编码
+  externalChannelCode: string(maxLength=10, name='external_channel_code'),
+  // 险种编码
+  externalProductCode: string(maxLength=10, name='external_product_code'),
+  // 大保单号
+  bigPolNo: string(maxLength=100, name='big_pol_no'),
+  // 投保订单号
+  relaOrderNo: string(maxLength=200, name='rela_order_no'),
+  // 受损货物名称
+  damagedCargoName: string(maxLength=100, name='damaged_cargo_name'),
+  // 出险原因
+  incidentCause: string(maxLength=50, name='incident_cause'),
+  // 出险日期(ISO 8601格式，2026-01-11T14:30:00+02:00)
+  accidentTime: string(maxLength=50, name='accident_time'),
+  // 销售日期(ISO 8601格式，2026-01-11T14:30:00+02:00)
+  saleDate: string(maxLength=50, name='sale_date'),
+  // 时区
+  // Asia/Shanghai
+  // Europe/Berlin
+  // America/New_York
+  // Pacific/Auckland
+  // Europe/Berlin 
+  timezone: string(maxLength=20, name='timezone'),
+  // 索赔状态（Open / Under Review / In Payment Process / Closed / Rejected / Cancelled）
+  claimStatus: string(maxLength=20, name='claim_status'),
+  // 货物大类
+  cargoType: string(maxLength=256, name='cargo_type'),
+  // 平台赔付日期(ISO 8601格式，2026-01-11T14:30:00+02:00)
+  claimPaidTime: string(maxLength=50, name='claim_paid_time'),
+  // 索赔类别(Valid / Fraudulent / Invalid
+  claimCategory: string(maxLength=20, name='claim_category'),
+  // 索赔被拒原因
+  claimPaidDesc: string(maxLength=256, name='claim_paid_desc'),
+  // 索赔总金额，小数位只支持2位
+  claimPaidAmount: string(maxLength=20, name='claim_paid_amount'),
+  // 币种，使用ISO 4217代码；
+  // CNY：人民币
+  // USD：美元
+  // EUR：欧元
+  // GBP：英镑
+  // JPY：日元
+  // CHF：瑞士法郎
+  // SGD：新加坡元
+  currency: string(minLength=3, name='currency'),
+  // 索赔事件类型(Loss / Theft / Breakage / Non-Delivery）
+  claimIncidentType: string(maxLength=20, name='claim_incident_type'),
+  // 索赔事件详情情况
+  claimVerdictDesc: string(maxLength=526, name='claim_verdict_desc'),
+}
+
+model ApplyInsurglobifyprodOspiclaimResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 交易流水号
+  tradeNo?: string(name='trade_no'),
+}
+
+/**
+ * Description: 海外邮包险理赔
+ * Summary: 海外邮包险理赔
+ */
+async function applyInsurglobifyprodOspiclaim(request: ApplyInsurglobifyprodOspiclaimRequest): ApplyInsurglobifyprodOspiclaimResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyInsurglobifyprodOspiclaimEx(request, headers, runtime);
+}
+
+/**
+ * Description: 海外邮包险理赔
+ * Summary: 海外邮包险理赔
+ */
+async function applyInsurglobifyprodOspiclaimEx(request: ApplyInsurglobifyprodOspiclaimRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyInsurglobifyprodOspiclaimResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.insurancesaasde.insurglobifyprod.ospiclaim.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UploadInsurglobifyprodMonthlypremiumbillRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 调用方生成的唯一编码，系统会根据该流水号做防重、幂等判断逻辑。当极端场景中，系统会返回处理中，错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；
+  tradeNo: string(maxLength=50, name='trade_no'),
+  // 保司编码
+  externalChannelCode: string(maxLength=10, name='external_channel_code'),
+  // 险种编码
+  externalProductCode: string(maxLength=10, name='external_product_code'),
+  // 保险方案名
+  chSchemeName: string(maxLength=20, name='ch_scheme_name'),
+  // 关联的大保单号
+  bigPolNo: string(maxLength=200, name='big_pol_no'),
+  // 账单年度
+  billingYear: string(maxLength=4, name='billing_year'),
+  // 账单月份
+  billingMonth: string(maxLength=2, name='billing_month'),
+  // 包裹总数
+  packageCount: string(maxLength=256, name='package_count'),
+  // 净保费，小数位只支持2位
+  premium: string(maxLength=20, name='premium'),
+  // 税费，小数位只支持2位
+  taxaAmount: string(maxLength=20, name='taxa_amount'),
+  // 总保费（含税费），小数位只支持2位
+  totalPremium: string(maxLength=20, name='total_premium'),
+  // 币种，使用ISO 4217代码；
+  // CNY：人民币
+  // USD：美元
+  // EUR：欧元
+  // GBP：英镑
+  // JPY：日元
+  // CHF：瑞士法郎
+  // SGD：新加坡元
+  currency: string(maxLength=3, name='currency'),
+}
+
+model UploadInsurglobifyprodMonthlypremiumbillResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 交易流水号
+  tradeNo?: string(name='trade_no'),
+}
+
+/**
+ * Description: 月度保费账单上传
+ * Summary: 月度保费账单上传
+ */
+async function uploadInsurglobifyprodMonthlypremiumbill(request: UploadInsurglobifyprodMonthlypremiumbillRequest): UploadInsurglobifyprodMonthlypremiumbillResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return uploadInsurglobifyprodMonthlypremiumbillEx(request, headers, runtime);
+}
+
+/**
+ * Description: 月度保费账单上传
+ * Summary: 月度保费账单上传
+ */
+async function uploadInsurglobifyprodMonthlypremiumbillEx(request: UploadInsurglobifyprodMonthlypremiumbillRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadInsurglobifyprodMonthlypremiumbillResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.insurancesaasde.insurglobifyprod.monthlypremiumbill.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
