@@ -11,12 +11,16 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
-use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\GetAntchainAtoFundRepaymentplanRequest;
-use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\GetAntchainAtoFundRepaymentplanResponse;
+use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\GetAntchainAtoFundOrderfulfillmentRequest;
+use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\GetAntchainAtoFundOrderfulfillmentResponse;
 use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\SyncAntchainAtoFundOrderfinancialRequest;
 use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\SyncAntchainAtoFundOrderfinancialResponse;
-use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\SyncAntchainAtoTradeFullRequest;
-use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\SyncAntchainAtoTradeFullResponse;
+use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\SyncAntchainAtoFundOrderfulfillmentRequest;
+use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\SyncAntchainAtoFundOrderfulfillmentResponse;
+use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\SyncAntchainAtoFundSplittingRequest;
+use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\SyncAntchainAtoFundSplittingResponse;
+use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\SyncAntchainAtoFundWithholdingcontractRequest;
+use AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models\SyncAntchainAtoFundWithholdingcontractResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -136,7 +140,6 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 订单还款计划
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -164,7 +167,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.0',
+                    'sdk_version'      => '1.1.1',
                     '_prod_code'       => 'ak_2abe765c32934341bd9bb6cc1c8ff589',
                     '_prod_channel'    => 'saas',
                 ];
@@ -213,6 +216,39 @@ class Client
     }
 
     /**
+     * Description: 分账流水同步
+     * Summary: 【仅测试环境生效】分账流水同步.
+     *
+     * @param SyncAntchainAtoFundSplittingRequest $request
+     *
+     * @return SyncAntchainAtoFundSplittingResponse
+     */
+    public function syncAntchainAtoFundSplitting($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->syncAntchainAtoFundSplittingEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 分账流水同步
+     * Summary: 【仅测试环境生效】分账流水同步.
+     *
+     * @param SyncAntchainAtoFundSplittingRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return SyncAntchainAtoFundSplittingResponse
+     */
+    public function syncAntchainAtoFundSplittingEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SyncAntchainAtoFundSplittingResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.splitting.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 提供给融资资金方，用以订单融资结果同步
      * Summary: 【废弃】订单融资结果同步.
      *
@@ -246,68 +282,101 @@ class Client
     }
 
     /**
-     * Description: 将返回订单实人认证通过后的、商家同步的还款计划
-     * Summary: 【废弃】获取实人认证通过后用户承诺.
+     * Description: 同步租赁订单的代扣协议
+     * Summary: 【仅测试环境生效】同步租赁订单的代扣协议.
      *
-     * @param GetAntchainAtoFundRepaymentplanRequest $request
+     * @param SyncAntchainAtoFundWithholdingcontractRequest $request
      *
-     * @return GetAntchainAtoFundRepaymentplanResponse
+     * @return SyncAntchainAtoFundWithholdingcontractResponse
      */
-    public function getAntchainAtoFundRepaymentplan($request)
+    public function syncAntchainAtoFundWithholdingcontract($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->getAntchainAtoFundRepaymentplanEx($request, $headers, $runtime);
+        return $this->syncAntchainAtoFundWithholdingcontractEx($request, $headers, $runtime);
     }
 
     /**
-     * Description: 将返回订单实人认证通过后的、商家同步的还款计划
-     * Summary: 【废弃】获取实人认证通过后用户承诺.
+     * Description: 同步租赁订单的代扣协议
+     * Summary: 【仅测试环境生效】同步租赁订单的代扣协议.
      *
-     * @param GetAntchainAtoFundRepaymentplanRequest $request
-     * @param string[]                               $headers
-     * @param RuntimeOptions                         $runtime
+     * @param SyncAntchainAtoFundWithholdingcontractRequest $request
+     * @param string[]                                      $headers
+     * @param RuntimeOptions                                $runtime
      *
-     * @return GetAntchainAtoFundRepaymentplanResponse
+     * @return SyncAntchainAtoFundWithholdingcontractResponse
      */
-    public function getAntchainAtoFundRepaymentplanEx($request, $headers, $runtime)
+    public function syncAntchainAtoFundWithholdingcontractEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return GetAntchainAtoFundRepaymentplanResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.repaymentplan.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return SyncAntchainAtoFundWithholdingcontractResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.withholdingcontract.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
-     * Description: 同步商家的订单信息，包含下单人信息、订单信息、订单关联的商品信息以及订单绑定的还款计划。
-     * Summary: 【废弃】同步商家的订单信息.
+     * Description: 资方回传一条订单还款履约信息
+     * Summary: 【仅测试环境生效】同步订单还款履约信息.
      *
-     * @param SyncAntchainAtoTradeFullRequest $request
+     * @param SyncAntchainAtoFundOrderfulfillmentRequest $request
      *
-     * @return SyncAntchainAtoTradeFullResponse
+     * @return SyncAntchainAtoFundOrderfulfillmentResponse
      */
-    public function syncAntchainAtoTradeFull($request)
+    public function syncAntchainAtoFundOrderfulfillment($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->syncAntchainAtoTradeFullEx($request, $headers, $runtime);
+        return $this->syncAntchainAtoFundOrderfulfillmentEx($request, $headers, $runtime);
     }
 
     /**
-     * Description: 同步商家的订单信息，包含下单人信息、订单信息、订单关联的商品信息以及订单绑定的还款计划。
-     * Summary: 【废弃】同步商家的订单信息.
+     * Description: 资方回传一条订单还款履约信息
+     * Summary: 【仅测试环境生效】同步订单还款履约信息.
      *
-     * @param SyncAntchainAtoTradeFullRequest $request
-     * @param string[]                        $headers
-     * @param RuntimeOptions                  $runtime
+     * @param SyncAntchainAtoFundOrderfulfillmentRequest $request
+     * @param string[]                                   $headers
+     * @param RuntimeOptions                             $runtime
      *
-     * @return SyncAntchainAtoTradeFullResponse
+     * @return SyncAntchainAtoFundOrderfulfillmentResponse
      */
-    public function syncAntchainAtoTradeFullEx($request, $headers, $runtime)
+    public function syncAntchainAtoFundOrderfulfillmentEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return SyncAntchainAtoTradeFullResponse::fromMap($this->doRequest('1.0', 'antchain.ato.trade.full.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return SyncAntchainAtoFundOrderfulfillmentResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.orderfulfillment.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取订单的履约信息
+     * Summary: 【仅测试环境生效】获取订单的履约信息.
+     *
+     * @param GetAntchainAtoFundOrderfulfillmentRequest $request
+     *
+     * @return GetAntchainAtoFundOrderfulfillmentResponse
+     */
+    public function getAntchainAtoFundOrderfulfillment($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getAntchainAtoFundOrderfulfillmentEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取订单的履约信息
+     * Summary: 【仅测试环境生效】获取订单的履约信息.
+     *
+     * @param GetAntchainAtoFundOrderfulfillmentRequest $request
+     * @param string[]                                  $headers
+     * @param RuntimeOptions                            $runtime
+     *
+     * @return GetAntchainAtoFundOrderfulfillmentResponse
+     */
+    public function getAntchainAtoFundOrderfulfillmentEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetAntchainAtoFundOrderfulfillmentResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.orderfulfillment.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

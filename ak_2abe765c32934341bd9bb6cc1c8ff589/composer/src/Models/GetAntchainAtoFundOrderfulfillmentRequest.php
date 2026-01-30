@@ -6,7 +6,7 @@ namespace AntChain\Ak_2abe765c32934341bd9bb6cc1c8ff589\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class GetAntchainAtoFundRepaymentplanRequest extends Model
+class GetAntchainAtoFundOrderfulfillmentRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,42 +19,41 @@ class GetAntchainAtoFundRepaymentplanRequest extends Model
      */
     public $productInstanceId;
 
-    // 订单id，不可为空
+    // 订单id
     /**
      * @var string
      */
     public $orderId;
 
-    // 商户在数科注册的tenantId，不可为空
+    // 租赁订单所属商家租户id
     /**
      * @var string
      */
     public $merchantTenantId;
 
-    // 用户的支付宝uid
+    // 期数
+    // 如果填入，获取term_idx下的履约记录
+    // 如果不填入，获取order_id下的所有履约记录
     /**
-     * @var string
+     * @var int
      */
-    public $alipayUid;
+    public $termIdx;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'orderId'           => 'order_id',
         'merchantTenantId'  => 'merchant_tenant_id',
-        'alipayUid'         => 'alipay_uid',
+        'termIdx'           => 'term_idx',
     ];
 
     public function validate()
     {
         Model::validateRequired('orderId', $this->orderId, true);
         Model::validateRequired('merchantTenantId', $this->merchantTenantId, true);
-        Model::validateRequired('alipayUid', $this->alipayUid, true);
-        Model::validateMaxLength('orderId', $this->orderId, 50);
-        Model::validateMaxLength('merchantTenantId', $this->merchantTenantId, 50);
-        Model::validateMaxLength('alipayUid', $this->alipayUid, 50);
+        Model::validateMaxLength('orderId', $this->orderId, 49);
+        Model::validateMaxLength('merchantTenantId', $this->merchantTenantId, 49);
         Model::validateMinLength('orderId', $this->orderId, 1);
         Model::validateMinLength('merchantTenantId', $this->merchantTenantId, 1);
-        Model::validateMinLength('alipayUid', $this->alipayUid, 1);
     }
 
     public function toMap()
@@ -72,8 +71,8 @@ class GetAntchainAtoFundRepaymentplanRequest extends Model
         if (null !== $this->merchantTenantId) {
             $res['merchant_tenant_id'] = $this->merchantTenantId;
         }
-        if (null !== $this->alipayUid) {
-            $res['alipay_uid'] = $this->alipayUid;
+        if (null !== $this->termIdx) {
+            $res['term_idx'] = $this->termIdx;
         }
 
         return $res;
@@ -82,7 +81,7 @@ class GetAntchainAtoFundRepaymentplanRequest extends Model
     /**
      * @param array $map
      *
-     * @return GetAntchainAtoFundRepaymentplanRequest
+     * @return GetAntchainAtoFundOrderfulfillmentRequest
      */
     public static function fromMap($map = [])
     {
@@ -99,8 +98,8 @@ class GetAntchainAtoFundRepaymentplanRequest extends Model
         if (isset($map['merchant_tenant_id'])) {
             $model->merchantTenantId = $map['merchant_tenant_id'];
         }
-        if (isset($map['alipay_uid'])) {
-            $model->alipayUid = $map['alipay_uid'];
+        if (isset($map['term_idx'])) {
+            $model->termIdx = $map['term_idx'];
         }
 
         return $model;
