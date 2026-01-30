@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.Ak_2abe765c32934341bd9bb6cc1c8ff589.Models
 {
-    public class SyncAntchainAtoTradeFullResponse : TeaModel {
+    public class GetAntchainAtoFundOrderfulfillmentResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,10 +24,11 @@ namespace AntChain.SDK.Ak_2abe765c32934341bd9bb6cc1c8ff589.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 同步成功
-        [NameInMap("response_data")]
+        // 订单履约信息的列表数组
+        // List<OrderFulfillment> 的jsonArray.toString
+        [NameInMap("order_fulfillment_data_list")]
         [Validation(Required=false)]
-        public string ResponseData { get; set; }
+        public string OrderFulfillmentDataList { get; set; }
 
     }
 
