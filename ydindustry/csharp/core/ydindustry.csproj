@@ -7,7 +7,7 @@
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <AssemblyName>AntChain.SDK.YDINDUSTRY</AssemblyName>
-    <Version>1.0.0</Version>
+    <Version>1.0.1</Version>
     <LangVersion>5</LangVersion>
     <Authors>Ant Chain, Inc</Authors>
     <Description>Ant Chain YDINDUSTRY SDK Library for .NET</Description>

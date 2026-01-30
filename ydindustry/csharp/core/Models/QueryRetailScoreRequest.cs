@@ -53,6 +53,11 @@ namespace AntChain.SDK.YDINDUSTRY.Models
         [Validation(Required=true)]
         public string UserIdHashEncrypt { get; set; }
 
+        // 客户场景码
+        [NameInMap("instance_code")]
+        [Validation(Required=false)]
+        public string InstanceCode { get; set; }
+
     }
 
 }

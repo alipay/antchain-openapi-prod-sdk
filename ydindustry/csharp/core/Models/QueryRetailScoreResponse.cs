@@ -34,6 +34,11 @@ namespace AntChain.SDK.YDINDUSTRY.Models
         [Validation(Required=false)]
         public string TransNo { get; set; }
 
+        // 返回行业分其他数据，里面是key-value形式，标识返回的额外参数数据
+        [NameInMap("ext_param")]
+        [Validation(Required=false)]
+        public string ExtParam { get; set; }
+
     }
 
 }
