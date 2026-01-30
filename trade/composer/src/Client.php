@@ -11,6 +11,10 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\TRADE\Models\BatchcancelOrderRequest;
+use AntChain\TRADE\Models\BatchcancelOrderResponse;
+use AntChain\TRADE\Models\BatchcreateOrderRequest;
+use AntChain\TRADE\Models\BatchcreateOrderResponse;
 use AntChain\TRADE\Models\CancelOrderRequest;
 use AntChain\TRADE\Models\CancelOrderResponse;
 use AntChain\TRADE\Models\CreateComboOrderRequest;
@@ -21,6 +25,8 @@ use AntChain\TRADE\Models\CreateOrderRequest;
 use AntChain\TRADE\Models\CreateOrderResponse;
 use AntChain\TRADE\Models\CreateOrderWorkflowRequest;
 use AntChain\TRADE\Models\CreateOrderWorkflowResponse;
+use AntChain\TRADE\Models\ExecOrderRequest;
+use AntChain\TRADE\Models\ExecOrderResponse;
 use AntChain\TRADE\Models\ExistPricePersonalizedRequest;
 use AntChain\TRADE\Models\ExistPricePersonalizedResponse;
 use AntChain\TRADE\Models\GetComboOrderRequest;
@@ -43,8 +49,12 @@ use AntChain\TRADE\Models\QueryPriceRequest;
 use AntChain\TRADE\Models\QueryPriceResponse;
 use AntChain\TRADE\Models\QueryWareslifeInstanceRequest;
 use AntChain\TRADE\Models\QueryWareslifeInstanceResponse;
+use AntChain\TRADE\Models\RefundOrderRequest;
+use AntChain\TRADE\Models\RefundOrderResponse;
 use AntChain\TRADE\Models\SendMarketingCouponRequest;
 use AntChain\TRADE\Models\SendMarketingCouponResponse;
+use AntChain\TRADE\Models\SyncOfferCommonbuyRequest;
+use AntChain\TRADE\Models\SyncOfferCommonbuyResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -164,7 +174,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 商品属性结构
+            // 定价条件
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -192,7 +202,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '3.13.2',
+                    'sdk_version'      => '3.15.4',
                     '_prod_code'       => 'TRADE',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -337,6 +347,39 @@ class Client
         Utils::validateModel($request);
 
         return SendMarketingCouponResponse::fromMap($this->doRequest('1.0', 'antcloud.trade.marketing.coupon.send', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用于线下sit调试完成的商品commonBuy信息一件上线
+     * Summary: 商品commonBuy配置信息同步.
+     *
+     * @param SyncOfferCommonbuyRequest $request
+     *
+     * @return SyncOfferCommonbuyResponse
+     */
+    public function syncOfferCommonbuy($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->syncOfferCommonbuyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用于线下sit调试完成的商品commonBuy信息一件上线
+     * Summary: 商品commonBuy配置信息同步.
+     *
+     * @param SyncOfferCommonbuyRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return SyncOfferCommonbuyResponse
+     */
+    public function syncOfferCommonbuyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SyncOfferCommonbuyResponse::fromMap($this->doRequest('1.0', 'antcloud.trade.offer.commonbuy.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -700,6 +743,138 @@ class Client
         Utils::validateModel($request);
 
         return CancelOrderResponse::fromMap($this->doRequest('1.0', 'antcloud.trade.order.cancel', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商品通用批量下单接口
+     * Summary: 通用批量下单接口.
+     *
+     * @param BatchcreateOrderRequest $request
+     *
+     * @return BatchcreateOrderResponse
+     */
+    public function batchcreateOrder($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->batchcreateOrderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商品通用批量下单接口
+     * Summary: 通用批量下单接口.
+     *
+     * @param BatchcreateOrderRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return BatchcreateOrderResponse
+     */
+    public function batchcreateOrderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BatchcreateOrderResponse::fromMap($this->doRequest('1.0', 'antcloud.trade.order.batchcreate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 通用订单批量取消接口
+     * Summary: 通用订单批量取消接口.
+     *
+     * @param BatchcancelOrderRequest $request
+     *
+     * @return BatchcancelOrderResponse
+     */
+    public function batchcancelOrder($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->batchcancelOrderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 通用订单批量取消接口
+     * Summary: 通用订单批量取消接口.
+     *
+     * @param BatchcancelOrderRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return BatchcancelOrderResponse
+     */
+    public function batchcancelOrderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BatchcancelOrderResponse::fromMap($this->doRequest('1.0', 'antcloud.trade.order.batchcancel', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 在订单非自动履约场景，手动触发执行
+     * Summary: 触发订单的履约执行.
+     *
+     * @param ExecOrderRequest $request
+     *
+     * @return ExecOrderResponse
+     */
+    public function execOrder($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->execOrderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 在订单非自动履约场景，手动触发执行
+     * Summary: 触发订单的履约执行.
+     *
+     * @param ExecOrderRequest $request
+     * @param string[]         $headers
+     * @param RuntimeOptions   $runtime
+     *
+     * @return ExecOrderResponse
+     */
+    public function execOrderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ExecOrderResponse::fromMap($this->doRequest('1.0', 'antcloud.trade.order.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 在订单非自动履约场景，撤销订单并退款
+     * Summary: 订单退款.
+     *
+     * @param RefundOrderRequest $request
+     *
+     * @return RefundOrderResponse
+     */
+    public function refundOrder($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->refundOrderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 在订单非自动履约场景，撤销订单并退款
+     * Summary: 订单退款.
+     *
+     * @param RefundOrderRequest $request
+     * @param string[]           $headers
+     * @param RuntimeOptions     $runtime
+     *
+     * @return RefundOrderResponse
+     */
+    public function refundOrderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RefundOrderResponse::fromMap($this->doRequest('1.0', 'antcloud.trade.order.refund', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

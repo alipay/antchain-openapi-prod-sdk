@@ -6,140 +6,106 @@ namespace AntChain\TRADE\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CreateOrderRequest extends Model
+class CommodityInstance extends Model
 {
-    // OAuth模式下的授权token
+    // 订单号
     /**
-     * @var string
-     */
-    public $authToken;
-
-    // 业务流水号，调用方指定，幂等号
-    /**
+     * @example 2088123412341234
+     *
      * @var string
      */
     public $bizNo;
 
-    // 租户ID，和租户名称二选一必填
-    /**
-     * @var string
-     */
-    public $tenantId;
-
-    // 租户名称，和租户ID二选一必填
-    /**
-     * @var string
-     */
-    public $tenantName;
-
-    // 操作人ID，不填则默认和租户ID一致
-    /**
-     * @var string
-     */
-    public $operatorId;
-
     // 商品编码
     /**
+     * @example KKAASP00001001
+     *
      * @var string
      */
     public $commodityCode;
 
     // 销售主体，不传默认ZL6
     /**
+     * @example ZL6,ZL7,ZJ9
+     *
      * @var string
      */
     public $ou;
 
-    // 订单类型，NEW：新购；RENEW：续费； MODIFY：变配
-    // 不填默认新购
+    // 订单类型，NEW：新购；RENEW：续费； MODIFY：变配 不填默认新购
     /**
+     * @example NEW
+     *
      * @var string
      */
     public $orderType;
 
-    // 订购周期对象，当商品是周期订阅类型时，必填
+    // 订购时长
     /**
+     * @example
+     *
      * @var OrderDuration
      */
     public $duration;
 
     // 优惠券ID
     /**
+     * @example 12345678
+     *
      * @var string
      */
     public $couponId;
 
     // 数量，不填默认1
     /**
+     * @example
+     *
      * @var int
      */
     public $quantity;
 
+    //
     // 商品订购属性，开通型商品部需要填写
     /**
+     * @example []
+     *
      * @var CommodityOrderAttribute[]
      */
     public $commodityAttrs;
 
     // 履约选项
     /**
+     * @example
+     *
      * @var FulfillmentOptions
      */
     public $fulfillmentOptions;
 
-    // 支付选项
-    /**
-     * @var PayOptions
-     */
-    public $payOptions;
-
-    // 价格策略
-    /**
-     * @var PriceStrategy
-     */
-    public $priceStrategy;
-
     // 实例ID，续费/变配场景必传
     /**
+     * @example A0BQBHFM00034877FVDJWUXR1ZXEMOD1U4G
+     *
      * @var string
      */
     public $instanceId;
 
-    // 售卖市场。10100000：鹊凿市场；12000002：国际ZAN市场；其他市场编码请联系中台获取
-    /**
-     * @var string
-     */
-    public $saleMarket;
-
-    // 扩展属性，JSON字符串
-    /**
-     * @var string
-     */
-    public $extendedProperties;
-
-    // 批次流水号，外部合同下单场景，传入向中台申请的合同ID
-    /**
-     * @var string
-     */
-    public $batchBizNo;
-
     // 预付费订单金额。仅白名单商品且batchBizNo是合法的合同ID的情况，才允许指定预付订单金额
     /**
+     * @example
+     *
      * @var PrepayAmount
      */
     public $prepayAmount;
 
     // 后付商品签约价，用于在履约阶段生成一客一价
     /**
+     * @example
+     *
      * @var PostPayPrice
      */
     public $postPayPrice;
     protected $_name = [
-        'authToken'          => 'auth_token',
         'bizNo'              => 'biz_no',
-        'tenantId'           => 'tenant_id',
-        'tenantName'         => 'tenant_name',
-        'operatorId'         => 'operator_id',
         'commodityCode'      => 'commodity_code',
         'ou'                 => 'ou',
         'orderType'          => 'order_type',
@@ -148,40 +114,21 @@ class CreateOrderRequest extends Model
         'quantity'           => 'quantity',
         'commodityAttrs'     => 'commodity_attrs',
         'fulfillmentOptions' => 'fulfillment_options',
-        'payOptions'         => 'pay_options',
-        'priceStrategy'      => 'price_strategy',
         'instanceId'         => 'instance_id',
-        'saleMarket'         => 'sale_market',
-        'extendedProperties' => 'extended_properties',
-        'batchBizNo'         => 'batch_biz_no',
         'prepayAmount'       => 'prepay_amount',
         'postPayPrice'       => 'post_pay_price',
     ];
 
     public function validate()
     {
-        Model::validateRequired('bizNo', $this->bizNo, true);
         Model::validateRequired('commodityCode', $this->commodityCode, true);
-        Model::validateRequired('saleMarket', $this->saleMarket, true);
     }
 
     public function toMap()
     {
         $res = [];
-        if (null !== $this->authToken) {
-            $res['auth_token'] = $this->authToken;
-        }
         if (null !== $this->bizNo) {
             $res['biz_no'] = $this->bizNo;
-        }
-        if (null !== $this->tenantId) {
-            $res['tenant_id'] = $this->tenantId;
-        }
-        if (null !== $this->tenantName) {
-            $res['tenant_name'] = $this->tenantName;
-        }
-        if (null !== $this->operatorId) {
-            $res['operator_id'] = $this->operatorId;
         }
         if (null !== $this->commodityCode) {
             $res['commodity_code'] = $this->commodityCode;
@@ -213,23 +160,8 @@ class CreateOrderRequest extends Model
         if (null !== $this->fulfillmentOptions) {
             $res['fulfillment_options'] = null !== $this->fulfillmentOptions ? $this->fulfillmentOptions->toMap() : null;
         }
-        if (null !== $this->payOptions) {
-            $res['pay_options'] = null !== $this->payOptions ? $this->payOptions->toMap() : null;
-        }
-        if (null !== $this->priceStrategy) {
-            $res['price_strategy'] = null !== $this->priceStrategy ? $this->priceStrategy->toMap() : null;
-        }
         if (null !== $this->instanceId) {
             $res['instance_id'] = $this->instanceId;
-        }
-        if (null !== $this->saleMarket) {
-            $res['sale_market'] = $this->saleMarket;
-        }
-        if (null !== $this->extendedProperties) {
-            $res['extended_properties'] = $this->extendedProperties;
-        }
-        if (null !== $this->batchBizNo) {
-            $res['batch_biz_no'] = $this->batchBizNo;
         }
         if (null !== $this->prepayAmount) {
             $res['prepay_amount'] = null !== $this->prepayAmount ? $this->prepayAmount->toMap() : null;
@@ -244,25 +176,13 @@ class CreateOrderRequest extends Model
     /**
      * @param array $map
      *
-     * @return CreateOrderRequest
+     * @return CommodityInstance
      */
     public static function fromMap($map = [])
     {
         $model = new self();
-        if (isset($map['auth_token'])) {
-            $model->authToken = $map['auth_token'];
-        }
         if (isset($map['biz_no'])) {
             $model->bizNo = $map['biz_no'];
-        }
-        if (isset($map['tenant_id'])) {
-            $model->tenantId = $map['tenant_id'];
-        }
-        if (isset($map['tenant_name'])) {
-            $model->tenantName = $map['tenant_name'];
-        }
-        if (isset($map['operator_id'])) {
-            $model->operatorId = $map['operator_id'];
         }
         if (isset($map['commodity_code'])) {
             $model->commodityCode = $map['commodity_code'];
@@ -294,23 +214,8 @@ class CreateOrderRequest extends Model
         if (isset($map['fulfillment_options'])) {
             $model->fulfillmentOptions = FulfillmentOptions::fromMap($map['fulfillment_options']);
         }
-        if (isset($map['pay_options'])) {
-            $model->payOptions = PayOptions::fromMap($map['pay_options']);
-        }
-        if (isset($map['price_strategy'])) {
-            $model->priceStrategy = PriceStrategy::fromMap($map['price_strategy']);
-        }
         if (isset($map['instance_id'])) {
             $model->instanceId = $map['instance_id'];
-        }
-        if (isset($map['sale_market'])) {
-            $model->saleMarket = $map['sale_market'];
-        }
-        if (isset($map['extended_properties'])) {
-            $model->extendedProperties = $map['extended_properties'];
-        }
-        if (isset($map['batch_biz_no'])) {
-            $model->batchBizNo = $map['batch_biz_no'];
         }
         if (isset($map['prepay_amount'])) {
             $model->prepayAmount = PrepayAmount::fromMap($map['prepay_amount']);

@@ -15,8 +15,17 @@ class PayOptions extends Model
      * @var string
      */
     public $payChannel;
+
+    // 支付方式，例如：直付通
+    /**
+     * @example ZFT
+     *
+     * @var string
+     */
+    public $paymentMethod;
     protected $_name = [
-        'payChannel' => 'pay_channel',
+        'payChannel'    => 'pay_channel',
+        'paymentMethod' => 'payment_method',
     ];
 
     public function validate()
@@ -28,6 +37,9 @@ class PayOptions extends Model
         $res = [];
         if (null !== $this->payChannel) {
             $res['pay_channel'] = $this->payChannel;
+        }
+        if (null !== $this->paymentMethod) {
+            $res['payment_method'] = $this->paymentMethod;
         }
 
         return $res;
@@ -43,6 +55,9 @@ class PayOptions extends Model
         $model = new self();
         if (isset($map['pay_channel'])) {
             $model->payChannel = $map['pay_channel'];
+        }
+        if (isset($map['payment_method'])) {
+            $model->paymentMethod = $map['payment_method'];
         }
 
         return $model;
