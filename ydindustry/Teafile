@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "YDINDUSTRY",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-ydindustry:1.0.0",
-    "go": "github.com/antchain-openapi-sdk-go/ydindustry/client:v1.0.0",
-    "csharp": "AntChain.SDK.YDINDUSTRY:1.0.0",
+    "java": "com.antgroup.antchain.openapi:openapi-ydindustry:1.0.1",
+    "go": "github.com/antchain-openapi-sdk-go/ydindustry/client:v1.0.1",
+    "csharp": "AntChain.SDK.YDINDUSTRY:1.0.1",
     "ts": "@antchain/ydindustry:^1.0.0",
-    "php": "antchain/ydindustry:1.0.0",
-    "python": "antchain_sdk_ydindustry:1.0.0"
+    "php": "antchain/ydindustry:1.0.1",
+    "python": "antchain_sdk_ydindustry:1.0.1"
   },
   "libraries": {
     "Util": "darabonba:Util:*",

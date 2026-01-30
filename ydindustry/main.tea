@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.0',
+    sdk_version = '1.0.1',
     _prod_code = 'YDINDUSTRY',
     _prod_channel = 'default'
   };
@@ -179,6 +179,8 @@ model QueryRetailScoreRequest = {
   transNo: string(name='trans_no'),
   // encrypt_type类型的散列后的操作，默认为空不加密...
   userIdHashEncrypt: string(name='user_id_hash_encrypt'),
+  // 客户场景码
+  instanceCode?: string(name='instance_code'),
 }
 
 model QueryRetailScoreResponse = {
@@ -192,6 +194,8 @@ model QueryRetailScoreResponse = {
   score?: string(name='score'),
   // 流水号
   transNo?: string(name='trans_no'),
+  // 返回行业分其他数据，里面是key-value形式，标识返回的额外参数数据
+  extParam?: string(name='ext_param'),
 }
 
 /**
