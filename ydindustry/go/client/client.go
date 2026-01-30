@@ -166,6 +166,8 @@ type QueryRetailScoreRequest struct {
 	TransNo *string `json:"trans_no,omitempty" xml:"trans_no,omitempty" require:"true"`
 	// encrypt_type类型的散列后的操作，默认为空不加密...
 	UserIdHashEncrypt *string `json:"user_id_hash_encrypt,omitempty" xml:"user_id_hash_encrypt,omitempty" require:"true"`
+	// 客户场景码
+	InstanceCode *string `json:"instance_code,omitempty" xml:"instance_code,omitempty"`
 }
 
 func (s QueryRetailScoreRequest) String() string {
@@ -221,6 +223,11 @@ func (s *QueryRetailScoreRequest) SetUserIdHashEncrypt(v string) *QueryRetailSco
 	return s
 }
 
+func (s *QueryRetailScoreRequest) SetInstanceCode(v string) *QueryRetailScoreRequest {
+	s.InstanceCode = &v
+	return s
+}
+
 type QueryRetailScoreResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -232,6 +239,8 @@ type QueryRetailScoreResponse struct {
 	Score *string `json:"score,omitempty" xml:"score,omitempty"`
 	// 流水号
 	TransNo *string `json:"trans_no,omitempty" xml:"trans_no,omitempty"`
+	// 返回行业分其他数据，里面是key-value形式，标识返回的额外参数数据
+	ExtParam *string `json:"ext_param,omitempty" xml:"ext_param,omitempty"`
 }
 
 func (s QueryRetailScoreResponse) String() string {
@@ -264,6 +273,11 @@ func (s *QueryRetailScoreResponse) SetScore(v string) *QueryRetailScoreResponse 
 
 func (s *QueryRetailScoreResponse) SetTransNo(v string) *QueryRetailScoreResponse {
 	s.TransNo = &v
+	return s
+}
+
+func (s *QueryRetailScoreResponse) SetExtParam(v string) *QueryRetailScoreResponse {
+	s.ExtParam = &v
 	return s
 }
 
@@ -389,7 +403,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.0"),
+				"sdk_version":      tea.String("1.0.1"),
 				"_prod_code":       tea.String("YDINDUSTRY"),
 				"_prod_channel":    tea.String("default"),
 			}
