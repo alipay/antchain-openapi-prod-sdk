@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 商品属性结构
+            # 定价条件
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '3.13.2',
+                    'sdk_version': '3.15.4',
                     '_prod_code': 'TRADE',
                     '_prod_channel': 'undefined'
                 }
@@ -214,7 +214,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 商品属性结构
+            # 定价条件
         }
         _last_request = None
         _last_exception = None
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '3.13.2',
+                    'sdk_version': '3.15.4',
                     '_prod_code': 'TRADE',
                     '_prod_channel': 'undefined'
                 }
@@ -441,6 +441,62 @@ class Client:
         return TeaCore.from_map(
             trade_models.SendMarketingCouponResponse(),
             await self.do_request_async('1.0', 'antcloud.trade.marketing.coupon.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def sync_offer_commonbuy(
+        self,
+        request: trade_models.SyncOfferCommonbuyRequest,
+    ) -> trade_models.SyncOfferCommonbuyResponse:
+        """
+        Description: 用于线下sit调试完成的商品commonBuy信息一件上线
+        Summary: 商品commonBuy配置信息同步
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.sync_offer_commonbuy_ex(request, headers, runtime)
+
+    async def sync_offer_commonbuy_async(
+        self,
+        request: trade_models.SyncOfferCommonbuyRequest,
+    ) -> trade_models.SyncOfferCommonbuyResponse:
+        """
+        Description: 用于线下sit调试完成的商品commonBuy信息一件上线
+        Summary: 商品commonBuy配置信息同步
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.sync_offer_commonbuy_ex_async(request, headers, runtime)
+
+    def sync_offer_commonbuy_ex(
+        self,
+        request: trade_models.SyncOfferCommonbuyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> trade_models.SyncOfferCommonbuyResponse:
+        """
+        Description: 用于线下sit调试完成的商品commonBuy信息一件上线
+        Summary: 商品commonBuy配置信息同步
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            trade_models.SyncOfferCommonbuyResponse(),
+            self.do_request('1.0', 'antcloud.trade.offer.commonbuy.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def sync_offer_commonbuy_ex_async(
+        self,
+        request: trade_models.SyncOfferCommonbuyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> trade_models.SyncOfferCommonbuyResponse:
+        """
+        Description: 用于线下sit调试完成的商品commonBuy信息一件上线
+        Summary: 商品commonBuy配置信息同步
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            trade_models.SyncOfferCommonbuyResponse(),
+            await self.do_request_async('1.0', 'antcloud.trade.offer.commonbuy.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_order_after(
@@ -1057,6 +1113,230 @@ class Client:
         return TeaCore.from_map(
             trade_models.CancelOrderResponse(),
             await self.do_request_async('1.0', 'antcloud.trade.order.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def batchcreate_order(
+        self,
+        request: trade_models.BatchcreateOrderRequest,
+    ) -> trade_models.BatchcreateOrderResponse:
+        """
+        Description: 商品通用批量下单接口
+        Summary: 通用批量下单接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.batchcreate_order_ex(request, headers, runtime)
+
+    async def batchcreate_order_async(
+        self,
+        request: trade_models.BatchcreateOrderRequest,
+    ) -> trade_models.BatchcreateOrderResponse:
+        """
+        Description: 商品通用批量下单接口
+        Summary: 通用批量下单接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.batchcreate_order_ex_async(request, headers, runtime)
+
+    def batchcreate_order_ex(
+        self,
+        request: trade_models.BatchcreateOrderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> trade_models.BatchcreateOrderResponse:
+        """
+        Description: 商品通用批量下单接口
+        Summary: 通用批量下单接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            trade_models.BatchcreateOrderResponse(),
+            self.do_request('1.0', 'antcloud.trade.order.batchcreate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def batchcreate_order_ex_async(
+        self,
+        request: trade_models.BatchcreateOrderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> trade_models.BatchcreateOrderResponse:
+        """
+        Description: 商品通用批量下单接口
+        Summary: 通用批量下单接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            trade_models.BatchcreateOrderResponse(),
+            await self.do_request_async('1.0', 'antcloud.trade.order.batchcreate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def batchcancel_order(
+        self,
+        request: trade_models.BatchcancelOrderRequest,
+    ) -> trade_models.BatchcancelOrderResponse:
+        """
+        Description: 通用订单批量取消接口
+        Summary: 通用订单批量取消接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.batchcancel_order_ex(request, headers, runtime)
+
+    async def batchcancel_order_async(
+        self,
+        request: trade_models.BatchcancelOrderRequest,
+    ) -> trade_models.BatchcancelOrderResponse:
+        """
+        Description: 通用订单批量取消接口
+        Summary: 通用订单批量取消接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.batchcancel_order_ex_async(request, headers, runtime)
+
+    def batchcancel_order_ex(
+        self,
+        request: trade_models.BatchcancelOrderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> trade_models.BatchcancelOrderResponse:
+        """
+        Description: 通用订单批量取消接口
+        Summary: 通用订单批量取消接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            trade_models.BatchcancelOrderResponse(),
+            self.do_request('1.0', 'antcloud.trade.order.batchcancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def batchcancel_order_ex_async(
+        self,
+        request: trade_models.BatchcancelOrderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> trade_models.BatchcancelOrderResponse:
+        """
+        Description: 通用订单批量取消接口
+        Summary: 通用订单批量取消接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            trade_models.BatchcancelOrderResponse(),
+            await self.do_request_async('1.0', 'antcloud.trade.order.batchcancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def exec_order(
+        self,
+        request: trade_models.ExecOrderRequest,
+    ) -> trade_models.ExecOrderResponse:
+        """
+        Description: 在订单非自动履约场景，手动触发执行
+        Summary: 触发订单的履约执行
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.exec_order_ex(request, headers, runtime)
+
+    async def exec_order_async(
+        self,
+        request: trade_models.ExecOrderRequest,
+    ) -> trade_models.ExecOrderResponse:
+        """
+        Description: 在订单非自动履约场景，手动触发执行
+        Summary: 触发订单的履约执行
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.exec_order_ex_async(request, headers, runtime)
+
+    def exec_order_ex(
+        self,
+        request: trade_models.ExecOrderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> trade_models.ExecOrderResponse:
+        """
+        Description: 在订单非自动履约场景，手动触发执行
+        Summary: 触发订单的履约执行
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            trade_models.ExecOrderResponse(),
+            self.do_request('1.0', 'antcloud.trade.order.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def exec_order_ex_async(
+        self,
+        request: trade_models.ExecOrderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> trade_models.ExecOrderResponse:
+        """
+        Description: 在订单非自动履约场景，手动触发执行
+        Summary: 触发订单的履约执行
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            trade_models.ExecOrderResponse(),
+            await self.do_request_async('1.0', 'antcloud.trade.order.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def refund_order(
+        self,
+        request: trade_models.RefundOrderRequest,
+    ) -> trade_models.RefundOrderResponse:
+        """
+        Description: 在订单非自动履约场景，撤销订单并退款
+        Summary: 订单退款
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.refund_order_ex(request, headers, runtime)
+
+    async def refund_order_async(
+        self,
+        request: trade_models.RefundOrderRequest,
+    ) -> trade_models.RefundOrderResponse:
+        """
+        Description: 在订单非自动履约场景，撤销订单并退款
+        Summary: 订单退款
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.refund_order_ex_async(request, headers, runtime)
+
+    def refund_order_ex(
+        self,
+        request: trade_models.RefundOrderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> trade_models.RefundOrderResponse:
+        """
+        Description: 在订单非自动履约场景，撤销订单并退款
+        Summary: 订单退款
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            trade_models.RefundOrderResponse(),
+            self.do_request('1.0', 'antcloud.trade.order.refund', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def refund_order_ex_async(
+        self,
+        request: trade_models.RefundOrderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> trade_models.RefundOrderResponse:
+        """
+        Description: 在订单非自动履约场景，撤销订单并退款
+        Summary: 订单退款
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            trade_models.RefundOrderResponse(),
+            await self.do_request_async('1.0', 'antcloud.trade.order.refund', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def exist_price_personalized(
