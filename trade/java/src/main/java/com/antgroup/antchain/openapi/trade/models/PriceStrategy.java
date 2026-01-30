@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class PriceStrategy extends TeaModel {
     // 继承租户在商品下的价格，仅后付费商品生效
+    /**
+     * <strong>example:</strong>
+     * <p>2088123412341234</p>
+     */
     @NameInMap("follow_tenant_id")
     public String followTenantId;
 

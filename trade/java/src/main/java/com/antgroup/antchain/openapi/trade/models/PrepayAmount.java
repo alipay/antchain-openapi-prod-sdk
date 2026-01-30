@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class PrepayAmount extends TeaModel {
     // 指定预付费金额
+    /**
+     * <strong>example:</strong>
+     * <p>100.00</p>
+     */
     @NameInMap("amount")
     @Validation(required = true)
     public String amount;
 
     // 币种单位，CNY\USD等标准币种单位编码
+    /**
+     * <strong>example:</strong>
+     * <p>CNY</p>
+     */
     @NameInMap("currency")
     @Validation(required = true)
     public String currency;

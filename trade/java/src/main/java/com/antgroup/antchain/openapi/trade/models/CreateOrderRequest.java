@@ -88,6 +88,10 @@ public class CreateOrderRequest extends TeaModel {
     @NameInMap("prepay_amount")
     public PrepayAmount prepayAmount;
 
+    // 后付商品签约价，用于在履约阶段生成一客一价
+    @NameInMap("post_pay_price")
+    public PostPayPrice postPayPrice;
+
     public static CreateOrderRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateOrderRequest self = new CreateOrderRequest();
         return TeaModel.build(map, self);
@@ -251,6 +255,14 @@ public class CreateOrderRequest extends TeaModel {
     }
     public PrepayAmount getPrepayAmount() {
         return this.prepayAmount;
+    }
+
+    public CreateOrderRequest setPostPayPrice(PostPayPrice postPayPrice) {
+        this.postPayPrice = postPayPrice;
+        return this;
+    }
+    public PostPayPrice getPostPayPrice() {
+        return this.postPayPrice;
     }
 
 }

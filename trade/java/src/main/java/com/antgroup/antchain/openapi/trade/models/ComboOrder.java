@@ -5,76 +5,136 @@ import com.aliyun.tea.*;
 
 public class ComboOrder extends TeaModel {
     // 租户ID
+    /**
+     * <strong>example:</strong>
+     * <p>2088xxx</p>
+     */
     @NameInMap("tenant_id")
     @Validation(required = true)
     public String tenantId;
 
     // 业务流水号
+    /**
+     * <strong>example:</strong>
+     * <p>2088123412341234</p>
+     */
     @NameInMap("biz_no")
     @Validation(required = true)
     public String bizNo;
 
     // 套餐订单号
+    /**
+     * <strong>example:</strong>
+     * <p>2088123412341234</p>
+     */
     @NameInMap("order_id")
     @Validation(required = true)
     public String orderId;
 
     // 套餐编码
+    /**
+     * <strong>example:</strong>
+     * <p>KKAASP00001001</p>
+     */
     @NameInMap("combo_code")
     @Validation(required = true)
     public String comboCode;
 
     // 套餐名称，下单时的套餐名称
+    /**
+     * <strong>example:</strong>
+     * <p>测试套餐</p>
+     */
     @NameInMap("combo_name")
     @Validation(required = true)
     public String comboName;
 
     // 订单状态，CREATED：创建；CANCEL：取消；PAYING：支付中；PAID：支付完成
+    /**
+     * <strong>example:</strong>
+     * <p>CREATED</p>
+     */
     @NameInMap("status")
     @Validation(required = true)
     public String status;
 
     // 履约生产状态，INCOMPLETE:未完成、COMPLETED:完成
+    /**
+     * <strong>example:</strong>
+     * <p>COMPLETED</p>
+     */
     @NameInMap("provision_status")
     @Validation(required = true)
     public String provisionStatus;
 
     // 订单原始金额
+    /**
+     * <strong>example:</strong>
+     * <p>200.00</p>
+     */
     @NameInMap("original_amount")
     @Validation(required = true)
     public String originalAmount;
 
     // 折扣金额
+    /**
+     * <strong>example:</strong>
+     * <p>100.00</p>
+     */
     @NameInMap("discount_amount")
     @Validation(required = true)
     public String discountAmount;
 
     // 优惠金额
+    /**
+     * <strong>example:</strong>
+     * <p>100.00</p>
+     */
     @NameInMap("coupon_amount")
     @Validation(required = true)
     public String couponAmount;
 
     // 实付金额
+    /**
+     * <strong>example:</strong>
+     * <p>0.00</p>
+     */
     @NameInMap("pay_amount")
     @Validation(required = true)
     public String payAmount;
 
     // 下单时间
+    /**
+     * <strong>example:</strong>
+     * <p>2018-10-10T10:10:00Z</p>
+     */
     @NameInMap("gmt_create")
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String gmtCreate;
 
     // 套餐内商品订单列表
+    /**
+     * <strong>example:</strong>
+     * <p>[]</p>
+     */
     @NameInMap("commodity_orders")
     @Validation(required = true)
     public java.util.List<ComboCommodityOrder> commodityOrders;
 
     // 支付完成时间
+    /**
+     * <strong>example:</strong>
+     * <p>2018-10-10T10:10:00Z</p>
+     */
     @NameInMap("pay_time")
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String payTime;
 
     // 支付渠道
+    /**
+     * <strong>example:</strong>
+     * <p>CUSTOMER_FUND</p>
+     */
     @NameInMap("pay_channel")
     @Validation(required = true)
     public String payChannel;

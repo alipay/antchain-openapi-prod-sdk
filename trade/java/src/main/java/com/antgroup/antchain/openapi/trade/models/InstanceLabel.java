@@ -6,11 +6,19 @@ import com.aliyun.tea.*;
 public class InstanceLabel extends TeaModel {
     // 标签名。
     // 传递isvId
+    /**
+     * <strong>example:</strong>
+     * <p>isvId</p>
+     */
     @NameInMap("instance_key")
     @Validation(required = true)
     public String instanceKey;
 
     // 标签值
+    /**
+     * <strong>example:</strong>
+     * <p>邀请码</p>
+     */
     @NameInMap("instance_value")
     @Validation(required = true)
     public String instanceValue;

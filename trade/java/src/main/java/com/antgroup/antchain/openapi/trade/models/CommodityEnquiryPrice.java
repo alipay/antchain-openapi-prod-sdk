@@ -5,61 +5,109 @@ import com.aliyun.tea.*;
 
 public class CommodityEnquiryPrice extends TeaModel {
     // 商品主数据编码
+    /**
+     * <strong>example:</strong>
+     * <p>KXSFFM00264687</p>
+     */
     @NameInMap("commodity_code")
     @Validation(required = true)
     public String commodityCode;
 
     // 商品名称
+    /**
+     * <strong>example:</strong>
+     * <p>测试商品</p>
+     */
     @NameInMap("commodity_name")
     @Validation(required = true)
     public String commodityName;
 
     // 预付-支付金额
+    /**
+     * <strong>example:</strong>
+     * <p>100.00</p>
+     */
     @NameInMap("pay_amount")
     @Validation(required = true)
     public String payAmount;
 
     // 预付费-原始金额
+    /**
+     * <strong>example:</strong>
+     * <p>200.00</p>
+     */
     @NameInMap("original_amount")
     @Validation(required = true)
     public String originalAmount;
 
     // 预付费-折扣金额
+    /**
+     * <strong>example:</strong>
+     * <p>100.00</p>
+     */
     @NameInMap("discount_amount")
     @Validation(required = true)
     public String discountAmount;
 
     // 预付费-优惠券抵扣金额
+    /**
+     * <strong>example:</strong>
+     * <p>0.00</p>
+     */
     @NameInMap("coupon_amount")
     @Validation(required = true)
     public String couponAmount;
 
     // 原订购剩余价值，用于变配场景
+    /**
+     * <strong>example:</strong>
+     * <p>50.00</p>
+     */
     @NameInMap("subscription_unused_amount")
     @Validation(required = true)
     public String subscriptionUnusedAmount;
 
     // 命中的活动编码
+    /**
+     * <strong>example:</strong>
+     * <p>a05d8efc-b1c8-42a0-9666-98f419d4e2eb</p>
+     */
     @NameInMap("activity_code")
     @Validation(required = true)
     public String activityCode;
 
     // 命中的活动名称
+    /**
+     * <strong>example:</strong>
+     * <p>测试折扣活动</p>
+     */
     @NameInMap("activity_name")
     @Validation(required = true)
     public String activityName;
 
     // 命中的定价计划ID
+    /**
+     * <strong>example:</strong>
+     * <p>1000</p>
+     */
     @NameInMap("price_plan_id")
     @Validation(required = true)
     public Long pricePlanId;
 
     // 命中的定价约束ID
+    /**
+     * <strong>example:</strong>
+     * <p>2000</p>
+     */
     @NameInMap("price_constraint_id")
     @Validation(required = true)
     public Long priceConstraintId;
 
     // 币种，元：CNY
+    /**
+     * <strong>example:</strong>
+     * <p>CNY</p>
+     */
     @NameInMap("currency")
     @Validation(required = true)
     public String currency;
@@ -69,15 +117,27 @@ public class CommodityEnquiryPrice extends TeaModel {
     public OrderDuration minDurationOfValidPayAmount;
 
     // 预付费-折扣率
+    /**
+     * <strong>example:</strong>
+     * <p>0.75</p>
+     */
     @NameInMap("discount_rate")
     @Validation(required = true)
     public String discountRate;
 
     // 原始BD权限价金额，白名单商品会返回此价格
+    /**
+     * <strong>example:</strong>
+     * <p>160.00</p>
+     */
     @NameInMap("original_bd_amount")
     public String originalBdAmount;
 
     // 原始成本价金额，白名单商品会返回此价格
+    /**
+     * <strong>example:</strong>
+     * <p>100.00</p>
+     */
     @NameInMap("original_cost_amount")
     public String originalCostAmount;
 

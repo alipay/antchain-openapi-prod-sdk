@@ -5,36 +5,64 @@ import com.aliyun.tea.*;
 
 public class Combo extends TeaModel {
     // 套餐名称
+    /**
+     * <strong>example:</strong>
+     * <p>测试套餐</p>
+     */
     @NameInMap("code")
     @Validation(required = true)
     public String code;
 
     // 套餐编码
+    /**
+     * <strong>example:</strong>
+     * <p>KKAASP00001001</p>
+     */
     @NameInMap("name")
     @Validation(required = true)
     public String name;
 
     // 套餐版本号
+    /**
+     * <strong>example:</strong>
+     * <p>SPV202105192651</p>
+     */
     @NameInMap("vid")
     @Validation(required = true)
     public String vid;
 
     // 套餐描述
+    /**
+     * <strong>example:</strong>
+     * <p>这是一个套餐</p>
+     */
     @NameInMap("description")
     @Validation(required = true)
     public String description;
 
     // 扩展信息，JSON结构，包含标签、个性化配置等数据
+    /**
+     * <strong>example:</strong>
+     * <p>{&quot;key&quot;:&quot;name&quot;}</p>
+     */
     @NameInMap("extends_config")
     @Validation(required = true)
     public String extendsConfig;
 
     // 状态
+    /**
+     * <strong>example:</strong>
+     * <p>ONLINE</p>
+     */
     @NameInMap("status")
     @Validation(required = true)
     public String status;
 
     // 套餐内商品列表
+    /**
+     * <strong>example:</strong>
+     * <p>[] </p>
+     */
     @NameInMap("commodities")
     @Validation(required = true)
     public java.util.List<ComboCommodity> commodities;

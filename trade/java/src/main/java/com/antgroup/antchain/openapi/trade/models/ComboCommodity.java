@@ -5,41 +5,73 @@ import com.aliyun.tea.*;
 
 public class ComboCommodity extends TeaModel {
     // 商品名称
+    /**
+     * <strong>example:</strong>
+     * <p>测试商品</p>
+     */
     @NameInMap("name")
     @Validation(required = true)
     public String name;
 
     // 商品在套餐中的唯一编码，当一个套餐中存在两个一样的商品时，编码会不一样
+    /**
+     * <strong>example:</strong>
+     * <p>ZWZJFM00167122ABCDEF</p>
+     */
     @NameInMap("unique_code")
     @Validation(required = true)
     public String uniqueCode;
 
     // 商品主数据编码
+    /**
+     * <strong>example:</strong>
+     * <p>ZWZJFM00167122</p>
+     */
     @NameInMap("inner_code")
     @Validation(required = true)
     public String innerCode;
 
     // 商品类型，资源包：attach
+    /**
+     * <strong>example:</strong>
+     * <p>attach</p>
+     */
     @NameInMap("type")
     @Validation(required = true)
     public String type;
 
     // 付费方式，预付：PREPAY，按量付费：POSTPAY
+    /**
+     * <strong>example:</strong>
+     * <p>PREPAY</p>
+     */
     @NameInMap("charge_type")
     @Validation(required = true)
     public String chargeType;
 
     // 销售属性列表
+    /**
+     * <strong>example:</strong>
+     * <p>[]</p>
+     */
     @NameInMap("attrs")
     @Validation(required = true)
     public java.util.List<CommodityAttribute> attrs;
 
     // 商品数量
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("quantity")
     @Validation(required = true)
     public Long quantity;
 
     // 扩展信息，JSON结构，包含标签、个性化配置等数据
+    /**
+     * <strong>example:</strong>
+     * <p>{&quot;key&quot;:&quot;name&quot;}</p>
+     */
     @NameInMap("extends_config")
     @Validation(required = true)
     public String extendsConfig;

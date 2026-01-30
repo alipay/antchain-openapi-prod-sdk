@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class ComboCommodityOrder extends TeaModel {
     // 商品编码
+    /**
+     * <strong>example:</strong>
+     * <p>KXSFFM00264687</p>
+     */
     @NameInMap("commodity_code")
     @Validation(required = true)
     public String commodityCode;
 
     // 状态
+    /**
+     * <strong>example:</strong>
+     * <p>COMPLETE</p>
+     */
     @NameInMap("status")
     @Validation(required = true)
     public String status;
 
     // 实例ID列表
+    /**
+     * <strong>example:</strong>
+     * <p>A0BLOCKCHAINAXAXVZSE1ZXEMO6HM2S</p>
+     */
     @NameInMap("instance_ids")
     @Validation(required = true)
     public java.util.List<String> instanceIds;

@@ -5,41 +5,73 @@ import com.aliyun.tea.*;
 
 public class InstanceCapacity extends TeaModel {
     // 实例ID
+    /**
+     * <strong>example:</strong>
+     * <p>A0KMMSFM00190219BMZNESCN1ZXEMO6IGIE</p>
+     */
     @NameInMap("instance_id")
     @Validation(required = true)
     public String instanceId;
 
     // 当前剩余容量
+    /**
+     * <strong>example:</strong>
+     * <p>1000</p>
+     */
     @NameInMap("current_capacity")
     @Validation(required = true)
     public String currentCapacity;
 
     // 初始容量
+    /**
+     * <strong>example:</strong>
+     * <p>1000</p>
+     */
     @NameInMap("initial_capacity")
     @Validation(required = true)
     public String initialCapacity;
 
     // 起始时间
+    /**
+     * <strong>example:</strong>
+     * <p>2018-10-10T10:10:00Z</p>
+     */
     @NameInMap("start_time")
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String startTime;
 
     // 截止时间
+    /**
+     * <strong>example:</strong>
+     * <p>2018-10-10T10:10:00Z</p>
+     */
     @NameInMap("end_time")
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String endTime;
 
     // Valid：有效；Closed：已用完；Expired:已到期
+    /**
+     * <strong>example:</strong>
+     * <p>状态</p>
+     */
     @NameInMap("status")
     @Validation(required = true)
     public String status;
 
     // 资源包对应商品码
+    /**
+     * <strong>example:</strong>
+     * <p>KXSFFM00264687</p>
+     */
     @NameInMap("commodity_code")
     @Validation(required = true)
     public String commodityCode;
 
     // 关联按量商品码
+    /**
+     * <strong>example:</strong>
+     * <p>KKAASP00000001</p>
+     */
     @NameInMap("rel_postpay_commodity")
     @Validation(required = true)
     public String relPostpayCommodity;

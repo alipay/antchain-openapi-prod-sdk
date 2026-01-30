@@ -5,36 +5,64 @@ import com.aliyun.tea.*;
 
 public class CreateOrderResult extends TeaModel {
     // 下单时指定的业务流水号。二级订单号
+    /**
+     * <strong>example:</strong>
+     * <p>2088****</p>
+     */
     @NameInMap("bsn_no")
     @Validation(required = true)
     public String bsnNo;
 
     // 一级订单号
+    /**
+     * <strong>example:</strong>
+     * <p>2088*****</p>
+     */
     @NameInMap("order_id")
     @Validation(required = true)
     public String orderId;
 
     // 二级订单号
+    /**
+     * <strong>example:</strong>
+     * <p>2088*****</p>
+     */
     @NameInMap("normal_order_line_id")
     @Validation(required = true)
     public String normalOrderLineId;
 
     // 订单状态
+    /**
+     * <strong>example:</strong>
+     * <p>ORDER_INIT</p>
+     */
     @NameInMap("order_status")
     @Validation(required = true)
     public String orderStatus;
 
     // 实例列表
+    /**
+     * <strong>example:</strong>
+     * <p>A0****</p>
+     */
     @NameInMap("instance_ids")
     @Validation(required = true)
     public String instanceIds;
 
     // 订购错误码
+    /**
+     * <strong>example:</strong>
+     * <p>订购错误码</p>
+     */
     @NameInMap("order_error_code")
     @Validation(required = true)
     public String orderErrorCode;
 
     // 订购错误描述
+    /**
+     * <strong>example:</strong>
+     * <p>订购错误描述</p>
+     */
     @NameInMap("order_error_description")
     @Validation(required = true)
     public String orderErrorDescription;

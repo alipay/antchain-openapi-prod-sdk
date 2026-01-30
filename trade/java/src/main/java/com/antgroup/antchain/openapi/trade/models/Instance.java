@@ -5,26 +5,46 @@ import com.aliyun.tea.*;
 
 public class Instance extends TeaModel {
     // 租户id
+    /**
+     * <strong>example:</strong>
+     * <p>2088*****</p>
+     */
     @NameInMap("tenant_id")
     @Validation(required = true)
     public String tenantId;
 
     // 实例id
+    /**
+     * <strong>example:</strong>
+     * <p>实例id</p>
+     */
     @NameInMap("instance_id")
     @Validation(required = true)
     public String instanceId;
 
     // 商品code
+    /**
+     * <strong>example:</strong>
+     * <p>ECS</p>
+     */
     @NameInMap("product_name")
     @Validation(required = true)
     public String productName;
 
     // 付费类型 PREPAY_BY_MONTH 预付 AFTER_PAY_BY_HOUR 后付 MIX_PAY 混合付
+    /**
+     * <strong>example:</strong>
+     * <p>PREPAY_BY_MONTH</p>
+     */
     @NameInMap("charge_type")
     @Validation(required = true)
     public String chargeType;
 
     // 状态 CREATING 创建中 FAILED 创建失败  STARTED 运行中 STOPPED 已停服  RELEASED 已释放
+    /**
+     * <strong>example:</strong>
+     * <p>STARTED</p>
+     */
     @NameInMap("status")
     @Validation(required = true)
     public String status;

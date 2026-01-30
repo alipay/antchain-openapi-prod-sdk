@@ -5,15 +5,27 @@ import com.aliyun.tea.*;
 
 public class FulfillmentOptions extends TeaModel {
     // 是否延迟履约，默认false
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
     @NameInMap("deplay")
     public Boolean deplay;
 
     // 实际履约开始时间，默认支付完成时间；只有deplay=true时，start_time才生效
+    /**
+     * <strong>example:</strong>
+     * <p>2018-10-10T10:10:00Z</p>
+     */
     @NameInMap("start_time")
     @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String startTime;
 
     // 跳过SPI回调，默认false，优先级高于商品上默认的接入属性
+    /**
+     * <strong>example:</strong>
+     * <p>true,false</p>
+     */
     @NameInMap("spi_skip")
     public Boolean spiSkip;
 
