@@ -95,6 +95,8 @@ export class QueryRetailScoreRequest extends $tea.Model {
   transNo: string;
   // encrypt_type类型的散列后的操作，默认为空不加密...
   userIdHashEncrypt: string;
+  // 客户场景码
+  instanceCode?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -106,6 +108,7 @@ export class QueryRetailScoreRequest extends $tea.Model {
       customerCode: 'customer_code',
       transNo: 'trans_no',
       userIdHashEncrypt: 'user_id_hash_encrypt',
+      instanceCode: 'instance_code',
     };
   }
 
@@ -120,6 +123,7 @@ export class QueryRetailScoreRequest extends $tea.Model {
       customerCode: 'string',
       transNo: 'string',
       userIdHashEncrypt: 'string',
+      instanceCode: 'string',
     };
   }
 
@@ -139,6 +143,8 @@ export class QueryRetailScoreResponse extends $tea.Model {
   score?: string;
   // 流水号
   transNo?: string;
+  // 返回行业分其他数据，里面是key-value形式，标识返回的额外参数数据
+  extParam?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -146,6 +152,7 @@ export class QueryRetailScoreResponse extends $tea.Model {
       resultMsg: 'result_msg',
       score: 'score',
       transNo: 'trans_no',
+      extParam: 'ext_param',
     };
   }
 
@@ -156,6 +163,7 @@ export class QueryRetailScoreResponse extends $tea.Model {
       resultMsg: 'string',
       score: 'string',
       transNo: 'string',
+      extParam: 'string',
     };
   }
 
@@ -277,7 +285,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.0",
+          sdk_version: "1.0.1",
           _prod_code: "YDINDUSTRY",
           _prod_channel: "default",
         };
