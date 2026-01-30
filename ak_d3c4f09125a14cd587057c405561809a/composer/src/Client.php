@@ -11,8 +11,12 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\Ak_d3c4f09125a14cd587057c405561809a\Models\DetailAntdigitalWebtrwatradeDistributorSubuservirtualaccountRequest;
+use AntChain\Ak_d3c4f09125a14cd587057c405561809a\Models\DetailAntdigitalWebtrwatradeDistributorSubuservirtualaccountResponse;
 use AntChain\Ak_d3c4f09125a14cd587057c405561809a\Models\DetailAntdigitalWebtrwatradeIssuerProjectwithroleRequest;
 use AntChain\Ak_d3c4f09125a14cd587057c405561809a\Models\DetailAntdigitalWebtrwatradeIssuerProjectwithroleResponse;
+use AntChain\Ak_d3c4f09125a14cd587057c405561809a\Models\DetailAntdigitalWebtrwatradeIssuerSubuservirtualaccountRequest;
+use AntChain\Ak_d3c4f09125a14cd587057c405561809a\Models\DetailAntdigitalWebtrwatradeIssuerSubuservirtualaccountResponse;
 use AntChain\Ak_d3c4f09125a14cd587057c405561809a\Models\ListAntdigitalWebtrwatradeDistributorCrosschainaccountRequest;
 use AntChain\Ak_d3c4f09125a14cd587057c405561809a\Models\ListAntdigitalWebtrwatradeDistributorCrosschainaccountResponse;
 use AntChain\Ak_d3c4f09125a14cd587057c405561809a\Models\ListAntdigitalWebtrwatradeDistributorOperationloglogininfoRequest;
@@ -33,10 +37,20 @@ use AntChain\Ak_d3c4f09125a14cd587057c405561809a\Models\ListAntdigitalWebtrwatra
 use AntChain\Ak_d3c4f09125a14cd587057c405561809a\Models\ListAntdigitalWebtrwatradeIssuerProjectResponse;
 use AntChain\Ak_d3c4f09125a14cd587057c405561809a\Models\ListAntdigitalWebtrwatradeIssuerSubuserRequest;
 use AntChain\Ak_d3c4f09125a14cd587057c405561809a\Models\ListAntdigitalWebtrwatradeIssuerSubuserResponse;
+use AntChain\Ak_d3c4f09125a14cd587057c405561809a\Models\QueryAntdigitalWebtrwatradeDistributorCrosschainaccountRequest;
+use AntChain\Ak_d3c4f09125a14cd587057c405561809a\Models\QueryAntdigitalWebtrwatradeDistributorCrosschainaccountResponse;
+use AntChain\Ak_d3c4f09125a14cd587057c405561809a\Models\QueryAntdigitalWebtrwatradeDistributorSubuseraccountRequest;
+use AntChain\Ak_d3c4f09125a14cd587057c405561809a\Models\QueryAntdigitalWebtrwatradeDistributorSubuseraccountResponse;
 use AntChain\Ak_d3c4f09125a14cd587057c405561809a\Models\QueryAntdigitalWebtrwatradeDistributorSubuserdetailRequest;
 use AntChain\Ak_d3c4f09125a14cd587057c405561809a\Models\QueryAntdigitalWebtrwatradeDistributorSubuserdetailResponse;
+use AntChain\Ak_d3c4f09125a14cd587057c405561809a\Models\QueryAntdigitalWebtrwatradeIssuerCrosschainaccountRequest;
+use AntChain\Ak_d3c4f09125a14cd587057c405561809a\Models\QueryAntdigitalWebtrwatradeIssuerCrosschainaccountResponse;
+use AntChain\Ak_d3c4f09125a14cd587057c405561809a\Models\QueryAntdigitalWebtrwatradeIssuerSubuseraccountRequest;
+use AntChain\Ak_d3c4f09125a14cd587057c405561809a\Models\QueryAntdigitalWebtrwatradeIssuerSubuseraccountResponse;
 use AntChain\Ak_d3c4f09125a14cd587057c405561809a\Models\QueryAntdigitalWebtrwatradeIssuerSubuserdetailRequest;
 use AntChain\Ak_d3c4f09125a14cd587057c405561809a\Models\QueryAntdigitalWebtrwatradeIssuerSubuserdetailResponse;
+use AntChain\Ak_d3c4f09125a14cd587057c405561809a\Models\UpdateAntdigitalWebtrwatradeDistributorSubuserRequest;
+use AntChain\Ak_d3c4f09125a14cd587057c405561809a\Models\UpdateAntdigitalWebtrwatradeDistributorSubuserResponse;
 use AntChain\Ak_d3c4f09125a14cd587057c405561809a\Models\UpdateAntdigitalWebtrwatradeIssuerPriceRequest;
 use AntChain\Ak_d3c4f09125a14cd587057c405561809a\Models\UpdateAntdigitalWebtrwatradeIssuerPriceResponse;
 use AntChain\Util\UtilClient;
@@ -186,7 +200,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.2',
+                    'sdk_version'      => '1.1.3',
                     '_prod_code'       => 'ak_d3c4f09125a14cd587057c405561809a',
                     '_prod_channel'    => 'saas',
                 ];
@@ -265,6 +279,39 @@ class Client
         Utils::validateModel($request);
 
         return UpdateAntdigitalWebtrwatradeIssuerPriceResponse::fromMap($this->doRequest('1.0', 'antdigital.webtrwatrade.issuer.price.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 更新二级用户
+     * Summary: 更新二级用户.
+     *
+     * @param UpdateAntdigitalWebtrwatradeDistributorSubuserRequest $request
+     *
+     * @return UpdateAntdigitalWebtrwatradeDistributorSubuserResponse
+     */
+    public function updateAntdigitalWebtrwatradeDistributorSubuser($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateAntdigitalWebtrwatradeDistributorSubuserEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 更新二级用户
+     * Summary: 更新二级用户.
+     *
+     * @param UpdateAntdigitalWebtrwatradeDistributorSubuserRequest $request
+     * @param string[]                                              $headers
+     * @param RuntimeOptions                                        $runtime
+     *
+     * @return UpdateAntdigitalWebtrwatradeDistributorSubuserResponse
+     */
+    public function updateAntdigitalWebtrwatradeDistributorSubuserEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateAntdigitalWebtrwatradeDistributorSubuserResponse::fromMap($this->doRequest('1.0', 'antdigital.webtrwatrade.distributor.subuser.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -694,5 +741,203 @@ class Client
         Utils::validateModel($request);
 
         return ListAntdigitalWebtrwatradeDistributorSubuserResponse::fromMap($this->doRequest('1.0', 'antdigital.webtrwatrade.distributor.subuser.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 代销机构本侧链持仓情况
+     * Summary: 代销机构本侧链持仓情况.
+     *
+     * @param QueryAntdigitalWebtrwatradeDistributorSubuseraccountRequest $request
+     *
+     * @return QueryAntdigitalWebtrwatradeDistributorSubuseraccountResponse
+     */
+    public function queryAntdigitalWebtrwatradeDistributorSubuseraccount($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAntdigitalWebtrwatradeDistributorSubuseraccountEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 代销机构本侧链持仓情况
+     * Summary: 代销机构本侧链持仓情况.
+     *
+     * @param QueryAntdigitalWebtrwatradeDistributorSubuseraccountRequest $request
+     * @param string[]                                                    $headers
+     * @param RuntimeOptions                                              $runtime
+     *
+     * @return QueryAntdigitalWebtrwatradeDistributorSubuseraccountResponse
+     */
+    public function queryAntdigitalWebtrwatradeDistributorSubuseraccountEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAntdigitalWebtrwatradeDistributorSubuseraccountResponse::fromMap($this->doRequest('1.0', 'antdigital.webtrwatrade.distributor.subuseraccount.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 发行机构本侧链持仓情况
+     * Summary: 发行机构本侧链持仓情况.
+     *
+     * @param QueryAntdigitalWebtrwatradeIssuerSubuseraccountRequest $request
+     *
+     * @return QueryAntdigitalWebtrwatradeIssuerSubuseraccountResponse
+     */
+    public function queryAntdigitalWebtrwatradeIssuerSubuseraccount($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAntdigitalWebtrwatradeIssuerSubuseraccountEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 发行机构本侧链持仓情况
+     * Summary: 发行机构本侧链持仓情况.
+     *
+     * @param QueryAntdigitalWebtrwatradeIssuerSubuseraccountRequest $request
+     * @param string[]                                               $headers
+     * @param RuntimeOptions                                         $runtime
+     *
+     * @return QueryAntdigitalWebtrwatradeIssuerSubuseraccountResponse
+     */
+    public function queryAntdigitalWebtrwatradeIssuerSubuseraccountEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAntdigitalWebtrwatradeIssuerSubuseraccountResponse::fromMap($this->doRequest('1.0', 'antdigital.webtrwatrade.issuer.subuseraccount.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 代销机构对侧链持仓情况
+     * Summary: 代销机构对侧链持仓情况.
+     *
+     * @param QueryAntdigitalWebtrwatradeDistributorCrosschainaccountRequest $request
+     *
+     * @return QueryAntdigitalWebtrwatradeDistributorCrosschainaccountResponse
+     */
+    public function queryAntdigitalWebtrwatradeDistributorCrosschainaccount($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAntdigitalWebtrwatradeDistributorCrosschainaccountEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 代销机构对侧链持仓情况
+     * Summary: 代销机构对侧链持仓情况.
+     *
+     * @param QueryAntdigitalWebtrwatradeDistributorCrosschainaccountRequest $request
+     * @param string[]                                                       $headers
+     * @param RuntimeOptions                                                 $runtime
+     *
+     * @return QueryAntdigitalWebtrwatradeDistributorCrosschainaccountResponse
+     */
+    public function queryAntdigitalWebtrwatradeDistributorCrosschainaccountEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAntdigitalWebtrwatradeDistributorCrosschainaccountResponse::fromMap($this->doRequest('1.0', 'antdigital.webtrwatrade.distributor.crosschainaccount.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 发行机构对侧链持仓情况
+     * Summary: 发行机构对侧链持仓情况.
+     *
+     * @param QueryAntdigitalWebtrwatradeIssuerCrosschainaccountRequest $request
+     *
+     * @return QueryAntdigitalWebtrwatradeIssuerCrosschainaccountResponse
+     */
+    public function queryAntdigitalWebtrwatradeIssuerCrosschainaccount($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAntdigitalWebtrwatradeIssuerCrosschainaccountEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 发行机构对侧链持仓情况
+     * Summary: 发行机构对侧链持仓情况.
+     *
+     * @param QueryAntdigitalWebtrwatradeIssuerCrosschainaccountRequest $request
+     * @param string[]                                                  $headers
+     * @param RuntimeOptions                                            $runtime
+     *
+     * @return QueryAntdigitalWebtrwatradeIssuerCrosschainaccountResponse
+     */
+    public function queryAntdigitalWebtrwatradeIssuerCrosschainaccountEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAntdigitalWebtrwatradeIssuerCrosschainaccountResponse::fromMap($this->doRequest('1.0', 'antdigital.webtrwatrade.issuer.crosschainaccount.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 代销机构虚拟子账号明细
+     * Summary: 代销机构虚拟子账号明细.
+     *
+     * @param DetailAntdigitalWebtrwatradeDistributorSubuservirtualaccountRequest $request
+     *
+     * @return DetailAntdigitalWebtrwatradeDistributorSubuservirtualaccountResponse
+     */
+    public function detailAntdigitalWebtrwatradeDistributorSubuservirtualaccount($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->detailAntdigitalWebtrwatradeDistributorSubuservirtualaccountEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 代销机构虚拟子账号明细
+     * Summary: 代销机构虚拟子账号明细.
+     *
+     * @param DetailAntdigitalWebtrwatradeDistributorSubuservirtualaccountRequest $request
+     * @param string[]                                                            $headers
+     * @param RuntimeOptions                                                      $runtime
+     *
+     * @return DetailAntdigitalWebtrwatradeDistributorSubuservirtualaccountResponse
+     */
+    public function detailAntdigitalWebtrwatradeDistributorSubuservirtualaccountEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DetailAntdigitalWebtrwatradeDistributorSubuservirtualaccountResponse::fromMap($this->doRequest('1.0', 'antdigital.webtrwatrade.distributor.subuservirtualaccount.detail', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 发行机构虚拟子账号明细
+     * Summary: 发行机构虚拟子账号明细.
+     *
+     * @param DetailAntdigitalWebtrwatradeIssuerSubuservirtualaccountRequest $request
+     *
+     * @return DetailAntdigitalWebtrwatradeIssuerSubuservirtualaccountResponse
+     */
+    public function detailAntdigitalWebtrwatradeIssuerSubuservirtualaccount($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->detailAntdigitalWebtrwatradeIssuerSubuservirtualaccountEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 发行机构虚拟子账号明细
+     * Summary: 发行机构虚拟子账号明细.
+     *
+     * @param DetailAntdigitalWebtrwatradeIssuerSubuservirtualaccountRequest $request
+     * @param string[]                                                       $headers
+     * @param RuntimeOptions                                                 $runtime
+     *
+     * @return DetailAntdigitalWebtrwatradeIssuerSubuservirtualaccountResponse
+     */
+    public function detailAntdigitalWebtrwatradeIssuerSubuservirtualaccountEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DetailAntdigitalWebtrwatradeIssuerSubuservirtualaccountResponse::fromMap($this->doRequest('1.0', 'antdigital.webtrwatrade.issuer.subuservirtualaccount.detail', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
