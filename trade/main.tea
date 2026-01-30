@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '3.13.2',
+    sdk_version = '3.15.4',
     _prod_code = 'TRADE',
     _prod_channel = 'undefined'
   };
@@ -161,6 +161,18 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   ignoreSSL = runtime.ignoreSSL
 }
 
+// 定价条件
+model PriceConditionAttr {
+  // 属性code
+  attrCode: string(name='attr_code', example='属性code'),
+  // 属性值code
+  attrValueCode: string(name='attr_value_code', example='属性值code'),
+  // 属性值名称
+  attrValueName: string(name='attr_value_name', example='属性值名称'),
+  // 运算符，只有在约束条件中会出现
+  operator?: string(name='operator', example='运算符'),
+}
+
 // 商品属性结构
 model CommodityAttribute {
   // 属性编码
@@ -182,24 +194,28 @@ model CommodityAttribute {
   unit: string(name='unit', example='次、分钟'),
 }
 
-// 套餐内商品结构
-model ComboCommodity {
-  // 商品名称
-  name: string(name='name', example='测试商品'),
-  // 商品在套餐中的唯一编码，当一个套餐中存在两个一样的商品时，编码会不一样
-  uniqueCode: string(name='unique_code', example='ZWZJFM00167122ABCDEF'),
-  // 商品主数据编码
-  innerCode: string(name='inner_code', example='ZWZJFM00167122'),
-  // 商品类型，资源包：attach
-  type: string(name='type', example='attach'),
-  // 付费方式，预付：PREPAY，按量付费：POSTPAY
-  chargeType: string(name='charge_type', example='PREPAY'),
-  // 销售属性列表
-  attrs: [ CommodityAttribute ](name='attrs', example='[]'),
-  // 商品数量
-  quantity: long(name='quantity', example='1'),
-  // 扩展信息，JSON结构，包含标签、个性化配置等数据
-  extendsConfig: string(name='extends_config', example='{"key":"name"}'),
+// 非继承型一客一价
+model NoExtendPrice {
+  // 定价条件
+  conditionAttrs?: [ PriceConditionAttr ](name='condition_attrs', example=''),
+  // 阶梯开始
+  ladderStart: string(name='ladder_start', example='0'),
+  // 阶梯结束
+  ladderEnd: string(name='ladder_end', example='infinity'),
+  // 签约价
+  price: string(name='price', example='100'),
+  // 计价方法：具体公式、阶梯方法、自定义
+  pricingMethod: string(name='pricing_method', example='nonAccDiffFullCalculation'),
+  // 阶梯区间类型，左开右闭/左闭右开
+  ladderIntervalType: string(name='ladder_interval_type', example='LCRO'),
+  // 定价对象code
+  priceObjectCode: string(name='price_object_code', example='SYS_USAGE_AMOUNT'),
+  // 计价模式：公式、阶梯、自定义
+  pricingMode: string(name='pricing_mode', example='ladder'),
+  // 价格单位
+  unit: string(name='unit', example='元/次'),
+  // 是否阶梯总价
+  ladderPriceFixed?: boolean(name='ladder_price_fixed', example='true, false'),
 }
 
 // 订单周期结构
@@ -210,39 +226,14 @@ model OrderDuration {
   durationValue: long(name='duration_value', example='1'),
 }
 
-// 套餐内商品订单结构
-model ComboCommodityOrder {
-  // 商品编码
-  commodityCode: string(name='commodity_code', example='KXSFFM00264687'),
-  // 状态
-  status: string(name='status', example='COMPLETE'),
-  // 实例ID列表
-  instanceIds: [ string ](name='instance_ids', example='A0BLOCKCHAINAXAXVZSE1ZXEMO6HM2S'),
-}
-
-// 商品定价结构
-model CommodityPricing {
-}
-
-// 标签对象
-model InstanceLabel {
-  // 标签名。
-  // 传递isvId
-  instanceKey: string(name='instance_key', example='isvId'),
-  // 标签值
-  instanceValue: string(name='instance_value', example='邀请码'),
-}
-
-// 支付选项
-model PayOptions {
-  // 系统自动会根据账号类型、当前OU进行付费渠道判定；如果传入的付款渠道不满足，则报错
-  payChannel?: string(name='pay_channel', example='CUSTOMER_FUND'),
-}
-
-// 价格策略
-model PriceStrategy {
-  // 继承租户在商品下的价格，仅后付费商品生效
-  followTenantId?: string(name='follow_tenant_id', example='2088123412341234'),
+// 后付商品签约价，用于在履约阶段生成一客一价
+model PostPayPrice {
+  //  币种单位值，156（CNY)
+  currencyValue?: string(name='currency_value', example=' 币种单位值，156（CNY)'),
+  //  价格周期
+  duration?: OrderDuration(name='duration', example=' 价格周期'),
+  // 非继承型一客一价
+  noExtendPrices?: [ NoExtendPrice ](name='no_extend_prices', example='非继承型一客一价'),
 }
 
 // 商品订购属性结构
@@ -273,58 +264,48 @@ model FulfillmentOptions {
   spiSkip?: boolean(name='spi_skip', example='true,false'),
 }
 
-// 商品询价结构
-model CommodityEnquiryPrice {
-  // 商品主数据编码
+// 套餐内商品订单结构
+model ComboCommodityOrder {
+  // 商品编码
   commodityCode: string(name='commodity_code', example='KXSFFM00264687'),
-  // 商品名称
-  commodityName: string(name='commodity_name', example='测试商品'),
-  // 预付-支付金额
-  payAmount: string(name='pay_amount', example='100.00'),
-  // 预付费-原始金额
-  originalAmount: string(name='original_amount', example='200.00'),
-  // 预付费-折扣金额
-  discountAmount: string(name='discount_amount', example='100.00'),
-  // 预付费-优惠券抵扣金额
-  couponAmount: string(name='coupon_amount', example='0.00'),
-  // 原订购剩余价值，用于变配场景
-  subscriptionUnusedAmount: string(name='subscription_unused_amount', example='50.00'),
-  // 命中的活动编码
-  activityCode: string(name='activity_code', example='a05d8efc-b1c8-42a0-9666-98f419d4e2eb'),
-  // 命中的活动名称
-  activityName: string(name='activity_name', example='测试折扣活动'),
-  // 命中的定价计划ID
-  pricePlanId: long(name='price_plan_id', example='1000'),
-  // 命中的定价约束ID
-  priceConstraintId: long(name='price_constraint_id', example='2000'),
-  // 币种，元：CNY
-  currency: string(name='currency', example='CNY'),
-  // 基于剩余价值变配场景下，预测的支付金额正常的最小订购周期
-  minDurationOfValidPayAmount?: OrderDuration(name='min_duration_of_valid_pay_amount', example=''),
-  // 预付费-折扣率
-  discountRate: string(name='discount_rate', example='0.75'),
-  // 原始BD权限价金额，白名单商品会返回此价格
-  originalBdAmount?: string(name='original_bd_amount', example='160.00'),
-  // 原始成本价金额，白名单商品会返回此价格
-  originalCostAmount?: string(name='original_cost_amount', example='100.00'),
+  // 状态
+  status: string(name='status', example='COMPLETE'),
+  // 实例ID列表
+  instanceIds: [ string ](name='instance_ids', example='A0BLOCKCHAINAXAXVZSE1ZXEMO6HM2S'),
 }
 
-// 套餐结构
-model Combo {
-  // 套餐名称
-  code: string(name='code', example='测试套餐'),
-  // 套餐编码
-  name: string(name='name', example='KKAASP00001001'),
-  // 套餐版本号
-  vid: string(name='vid', example='SPV202105192651'),
-  // 套餐描述
-  description: string(name='description', example='这是一个套餐'),
+// 套餐内商品结构
+model ComboCommodity {
+  // 商品名称
+  name: string(name='name', example='测试商品'),
+  // 商品在套餐中的唯一编码，当一个套餐中存在两个一样的商品时，编码会不一样
+  uniqueCode: string(name='unique_code', example='ZWZJFM00167122ABCDEF'),
+  // 商品主数据编码
+  innerCode: string(name='inner_code', example='ZWZJFM00167122'),
+  // 商品类型，资源包：attach
+  type: string(name='type', example='attach'),
+  // 付费方式，预付：PREPAY，按量付费：POSTPAY
+  chargeType: string(name='charge_type', example='PREPAY'),
+  // 销售属性列表
+  attrs: [ CommodityAttribute ](name='attrs', example='[]'),
+  // 商品数量
+  quantity: long(name='quantity', example='1'),
   // 扩展信息，JSON结构，包含标签、个性化配置等数据
   extendsConfig: string(name='extends_config', example='{"key":"name"}'),
-  // 状态
-  status: string(name='status', example='ONLINE'),
-  // 套餐内商品列表
-  commodities: [ ComboCommodity ](name='commodities', example='[] '),
+}
+
+// 支付选项
+model PayOptions {
+  // 系统自动会根据账号类型、当前OU进行付费渠道判定；如果传入的付款渠道不满足，则报错
+  payChannel?: string(name='pay_channel', example='CUSTOMER_FUND'),
+  // 支付方式，例如：直付通
+  paymentMethod?: string(name='payment_method', example='ZFT'),
+}
+
+// 履约开通参数
+model ProvisionOption {
+  // 订单开始时间 (ISO 8601 UTC)，可自定义覆盖默认值
+  orderStartTime?: string(name='order_start_time', example='2025-08-22T07:05:49.441Z'),
 }
 
 // 资源包结构
@@ -347,36 +328,53 @@ model InstanceCapacity {
   relPostpayCommodity: string(name='rel_postpay_commodity', example='KKAASP00000001'),
 }
 
-// 实例
-model Instance {
-  // 租户id
-  tenantId: string(name='tenant_id', example='2088*****'),
-  // 实例id
-  instanceId: string(name='instance_id', example='实例id'),
-  // 商品code
-  productName: string(name='product_name', example='ECS'),
-  // 付费类型 PREPAY_BY_MONTH 预付 AFTER_PAY_BY_HOUR 后付 MIX_PAY 混合付
-  chargeType: string(name='charge_type', example='PREPAY_BY_MONTH'),
-  // 状态 CREATING 创建中 FAILED 创建失败  STARTED 运行中 STOPPED 已停服  RELEASED 已释放
-  status: string(name='status', example='STARTED'),
+// 商品同步common_buy内容
+model CommoditySyncCommonBuyInfo {
+  // 商品列表配置 ListJson字符串
+  commonBuySaleGroupListJson: [ string ](name='common_buy_sale_group_list_json', example='{"cyCode":"KXSFFM00329522","cyCodeType":"L5","description":"","gmtCreate":1768268723555,"gmtModified":1768268723555,"h5Mage":"","id":0,"pcImage":"","relateOu":"ZL6","relateSaleCode":"KXSFFSZL600314529","relateSaleName":"企业版"}'),
+  // 规格配置 ListJson字符串
+  offerAttrListJson: [ string ](name='offer_attr_list_json', example='{"attrCode":"L0735","id":4459268,"offerCode":"DJKXFM01233589"}'),
+  // Region配置 ListJson字符串
+  prodOfferRegionListJson: [ string ](name='prod_offer_region_list_json', example='{"aliyunRegionCode":"","id":1,"instCode":"","regionCode":"","regionName":"","type":"","zoneRange":""}'),
+  // 费用项配置 ListJson字符串
+  offerAttrGroupListJson: [ string ](name='offer_attr_group_list_json', example='{"attrGroupCode":"","attrGroupName":"","attrGroupType":"","feeExpress":"","feeExpressMap":{},"feeList":[{"attrGroupCode":"","attrGroupName":"","fee":"","feeAttr":"","feeId":0,"id":0,"remark":""}],"id":0,"offerCode":"","remark":""}'),
+  // 属性配置 ListJson字符串
+  offerExtendAttrListJson: [ string ](name='offer_extend_attr_list_json', example='{"attrCode":"","defaultValue":"","displayName":"","express":"","id":0,"offerCode":"","offerVersion":"","remark":"","tip":"","valueRange":""}'),
+  // 界面归类配置 ListJson字符串
+  offerCommonBuyGroupListJson: [ string ](name='offer_common_buy_group_list_json', example='{"displayName":"","groupCode":"","id":1,"memberList":[{"buyDisplay":"","componentCode":"","displayType":"","groupId":0,"id":0,"label":"","labelDisplay":"","required":"","sortId":0,"upgradeDisplay":""}],"offerCode":"","remark":"","seqOrder":1}'),
+  // 规格约束配置 ListJson字符串
+  offerAttrConstraintsListFson: [ string ](name='offer_attr_constraints_list_fson', example='{"cond":"","condType":"","constraintName":"","id":0,"offerCode":"","offerUniqueVid":"","orderType":"","remark":"","result":""}'),
+  // 售卖规则配置 ListJson字符串
+  offerRuleGroupListJson: [ string ](name='offer_rule_group_list_json', example='{"actionParam":"","groupIndex":0,"groupName":"","id":0,"memberList":[{"groupId":0,"id":0,"isNegative":false,"onlyLogin":"","paramStr":"","ruleCode":"","ruleIndex":0,"ruleScript":"","ruleType":""}],"remark":"","ruleEventCode":""}'),
 }
 
-// 下单返回接口
-model CreateOrderResult {
-  // 下单时指定的业务流水号。二级订单号
-  bsnNo: string(name='bsn_no', example='2088****'),
-  // 一级订单号
-  orderId: string(name='order_id', example='2088*****'),
-  // 二级订单号
-  normalOrderLineId: string(name='normal_order_line_id', example='2088*****'),
-  // 订单状态
-  orderStatus: string(name='order_status', example='ORDER_INIT'),
-  // 实例列表
-  instanceIds: string(name='instance_ids', example='A0****'),
-  // 订购错误码
-  orderErrorCode: string(name='order_error_code', example='订购错误码'),
-  // 订购错误描述
-  orderErrorDescription: string(name='order_error_description', example='订购错误描述'),
+// 商品实例
+model CommodityInstance {
+  // 订单号
+  bizNo?: string(name='biz_no', example='2088123412341234'),
+  // 商品编码
+  commodityCode: string(name='commodity_code', example='KKAASP00001001'),
+  // 销售主体，不传默认ZL6
+  ou?: string(name='ou', example='ZL6,ZL7,ZJ9'),
+  // 订单类型，NEW：新购；RENEW：续费； MODIFY：变配 不填默认新购
+  orderType?: string(name='order_type', example='NEW '),
+  // 订购时长
+  duration?: OrderDuration(name='duration', example=''),
+  // 优惠券ID
+  couponId?: string(name='coupon_id', example='12345678'),
+  // 数量，不填默认1
+  quantity?: long(name='quantity', example=''),
+  // 	
+  // 商品订购属性，开通型商品部需要填写
+  commodityAttrs?: [ CommodityOrderAttribute ](name='commodity_attrs', example='[]'),
+  // 履约选项
+  fulfillmentOptions?: FulfillmentOptions(name='fulfillment_options', example=''),
+  // 实例ID，续费/变配场景必传
+  instanceId?: string(name='instance_id', example='A0BQBHFM00034877FVDJWUXR1ZXEMOD1U4G'),
+  // 预付费订单金额。仅白名单商品且batchBizNo是合法的合同ID的情况，才允许指定预付订单金额
+  prepayAmount?: PrepayAmount(name='prepay_amount', example=''),
+  // 后付商品签约价，用于在履约阶段生成一客一价
+  postPayPrice?: PostPayPrice(name='post_pay_price', example=''),
 }
 
 // 优惠券模型
@@ -462,6 +460,147 @@ model ComboOrder {
   payTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='pay_time', example='2018-10-10T10:10:00Z'),
   // 支付渠道
   payChannel: string(name='pay_channel', example='CUSTOMER_FUND'),
+}
+
+// 商品定价结构
+model CommodityPricing {
+}
+
+// 标签对象
+model InstanceLabel {
+  // 标签名。
+  // 传递isvId
+  instanceKey: string(name='instance_key', example='isvId'),
+  // 标签值
+  instanceValue: string(name='instance_value', example='邀请码'),
+}
+
+// 价格策略
+model PriceStrategy {
+  // 继承租户在商品下的价格，仅后付费商品生效
+  followTenantId?: string(name='follow_tenant_id', example='2088123412341234'),
+}
+
+// 商品同步common_buy内容
+model OfferSyncCommonBuyInfo {
+  // 商品列表配置 ListJson字符串
+  commonBuySaleGroupListJson: [ string ](name='common_buy_sale_group_list_json', example='{"cyCode":"KXSFFM00329522","cyCodeType":"L5","description":"","gmtCreate":1768268723555,"gmtModified":1768268723555,"h5Mage":"","id":0,"pcImage":"","relateOu":"ZL6","relateSaleCode":"KXSFFSZL600314529","relateSaleName":"企业版"}'),
+  // 规格配置 ListJson字符串
+  offerAttrListJson: [ string ](name='offer_attr_list_json', example='{"attrCode":"L0735","id":4459268,"offerCode":"DJKXFM01233589"}'),
+  // Region配置 ListJson字符串
+  prodOfferRegionListJson: [ string ](name='prod_offer_region_list_json', example='{"aliyunRegionCode":"","id":1,"instCode":"","regionCode":"","regionName":"","type":"","zoneRange":""}'),
+  // 费用项配置 ListJson字符串
+  offerAttrGroupListJson: [ string ](name='offer_attr_group_list_json', example='{"attrGroupCode":"","attrGroupName":"","attrGroupType":"","feeExpress":"","feeExpressMap":{},"feeList":[{"attrGroupCode":"","attrGroupName":"","fee":"","feeAttr":"","feeId":0,"id":0,"remark":""}],"id":0,"offerCode":"","remark":""}'),
+  // 属性配置 ListJson字符串
+  offerExtendAttrListJson: [ string ](name='offer_extend_attr_list_json', example='{"attrCode":"","defaultValue":"","displayName":"","express":"","id":0,"offerCode":"","offerVersion":"","remark":"","tip":"","valueRange":""}'),
+  // 界面归类配置 ListJson字符串
+  offerCommonBuyGroupListJson: [ string ](name='offer_common_buy_group_list_json', example='{"displayName":"","groupCode":"","id":1,"memberList":[{"buyDisplay":"","componentCode":"","displayType":"","groupId":0,"id":0,"label":"","labelDisplay":"","required":"","sortId":0,"upgradeDisplay":""}],"offerCode":"","remark":"","seqOrder":1}'),
+  // 规格约束配置 ListJson字符串
+  offerAttrConstraintsListJson: [ string ](name='offer_attr_constraints_list_json', example='{"cond":"","condType":"","constraintName":"","id":0,"offerCode":"","offerUniqueVid":"","orderType":"","remark":"","result":""}'),
+  // 售卖规则配置 ListJson字符串
+  offerRuleGroupListJson: [ string ](name='offer_rule_group_list_json', example='{"actionParam":"","groupIndex":0,"groupName":"","id":0,"memberList":[{"groupId":0,"id":0,"isNegative":false,"onlyLogin":"","paramStr":"","ruleCode":"","ruleIndex":0,"ruleScript":"","ruleType":""}],"remark":"","ruleEventCode":""}'),
+}
+
+// 创建订单返回结果
+model CreateTradeOrderResult {
+  // 订单号
+  orderId: string(name='order_id', example='2088123412341234'),
+  // 下单时的订单号
+  bizNo: string(name='biz_no', example='2088123412341234'),
+  // 实例ID列表
+  instanceIds?: [ string ](name='instance_ids', example=''),
+  // 订单状态
+  payStatus: string(name='pay_status', example='PAY_SUCCESS'),
+  // 订购错误码
+  orderErrorCode?: string(name='order_error_code', example='订购错误码'),
+  // 订购错误描述	
+  orderErrorDescription?: string(name='order_error_description', example='订购错误描述 '),
+}
+
+// 商品询价结构
+model CommodityEnquiryPrice {
+  // 商品主数据编码
+  commodityCode: string(name='commodity_code', example='KXSFFM00264687'),
+  // 商品名称
+  commodityName: string(name='commodity_name', example='测试商品'),
+  // 预付-支付金额
+  payAmount: string(name='pay_amount', example='100.00'),
+  // 预付费-原始金额
+  originalAmount: string(name='original_amount', example='200.00'),
+  // 预付费-折扣金额
+  discountAmount: string(name='discount_amount', example='100.00'),
+  // 预付费-优惠券抵扣金额
+  couponAmount: string(name='coupon_amount', example='0.00'),
+  // 原订购剩余价值，用于变配场景
+  subscriptionUnusedAmount: string(name='subscription_unused_amount', example='50.00'),
+  // 命中的活动编码
+  activityCode: string(name='activity_code', example='a05d8efc-b1c8-42a0-9666-98f419d4e2eb'),
+  // 命中的活动名称
+  activityName: string(name='activity_name', example='测试折扣活动'),
+  // 命中的定价计划ID
+  pricePlanId: long(name='price_plan_id', example='1000'),
+  // 命中的定价约束ID
+  priceConstraintId: long(name='price_constraint_id', example='2000'),
+  // 币种，元：CNY
+  currency: string(name='currency', example='CNY'),
+  // 基于剩余价值变配场景下，预测的支付金额正常的最小订购周期
+  minDurationOfValidPayAmount?: OrderDuration(name='min_duration_of_valid_pay_amount', example=''),
+  // 预付费-折扣率
+  discountRate: string(name='discount_rate', example='0.75'),
+  // 原始BD权限价金额，白名单商品会返回此价格
+  originalBdAmount?: string(name='original_bd_amount', example='160.00'),
+  // 原始成本价金额，白名单商品会返回此价格
+  originalCostAmount?: string(name='original_cost_amount', example='100.00'),
+}
+
+// 套餐结构
+model Combo {
+  // 套餐名称
+  code: string(name='code', example='测试套餐'),
+  // 套餐编码
+  name: string(name='name', example='KKAASP00001001'),
+  // 套餐版本号
+  vid: string(name='vid', example='SPV202105192651'),
+  // 套餐描述
+  description: string(name='description', example='这是一个套餐'),
+  // 扩展信息，JSON结构，包含标签、个性化配置等数据
+  extendsConfig: string(name='extends_config', example='{"key":"name"}'),
+  // 状态
+  status: string(name='status', example='ONLINE'),
+  // 套餐内商品列表
+  commodities: [ ComboCommodity ](name='commodities', example='[] '),
+}
+
+// 实例
+model Instance {
+  // 租户id
+  tenantId: string(name='tenant_id', example='2088*****'),
+  // 实例id
+  instanceId: string(name='instance_id', example='实例id'),
+  // 商品code
+  productName: string(name='product_name', example='ECS'),
+  // 付费类型 PREPAY_BY_MONTH 预付 AFTER_PAY_BY_HOUR 后付 MIX_PAY 混合付
+  chargeType: string(name='charge_type', example='PREPAY_BY_MONTH'),
+  // 状态 CREATING 创建中 FAILED 创建失败  STARTED 运行中 STOPPED 已停服  RELEASED 已释放
+  status: string(name='status', example='STARTED'),
+}
+
+// 下单返回接口
+model CreateOrderResult {
+  // 下单时指定的业务流水号。二级订单号
+  bsnNo: string(name='bsn_no', example='2088****'),
+  // 一级订单号
+  orderId: string(name='order_id', example='2088*****'),
+  // 二级订单号
+  normalOrderLineId: string(name='normal_order_line_id', example='2088*****'),
+  // 订单状态
+  orderStatus: string(name='order_status', example='ORDER_INIT'),
+  // 实例列表
+  instanceIds: string(name='instance_ids', example='A0****'),
+  // 订购错误码
+  orderErrorCode: string(name='order_error_code', example='订购错误码'),
+  // 订购错误描述
+  orderErrorDescription: string(name='order_error_description', example='订购错误描述'),
 }
 
 model QueryInstanceCapacityRequest = {
@@ -594,6 +733,49 @@ async function sendMarketingCoupon(request: SendMarketingCouponRequest): SendMar
 async function sendMarketingCouponEx(request: SendMarketingCouponRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SendMarketingCouponResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antcloud.trade.marketing.coupon.send', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SyncOfferCommonbuyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 请求id offerCode_yyyyMMddHHm0(最后一位固定为0幂等用，请求10分钟内只能触发一次)
+  requestId: string(name='request_id'),
+  // 需要同步的商品code
+  offerCode: string(name='offer_code'),
+  // 操作人工号
+  requestWorkNo: string(name='request_work_no'),
+  // 商品同步commonBuy的配置列表对应json
+  offerCommonBuySyncInfo: OfferSyncCommonBuyInfo(name='offer_common_buy_sync_info'),
+}
+
+model SyncOfferCommonbuyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否触发同步商品信息异步处理
+  result?: boolean(name='result'),
+}
+
+/**
+ * Description: 用于线下sit调试完成的商品commonBuy信息一件上线
+ * Summary: 商品commonBuy配置信息同步
+ */
+async function syncOfferCommonbuy(request: SyncOfferCommonbuyRequest): SyncOfferCommonbuyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return syncOfferCommonbuyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 用于线下sit调试完成的商品commonBuy信息一件上线
+ * Summary: 商品commonBuy配置信息同步
+ */
+async function syncOfferCommonbuyEx(request: SyncOfferCommonbuyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SyncOfferCommonbuyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.trade.offer.commonbuy.sync', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateOrderAfterRequest = {
@@ -1021,6 +1203,8 @@ model CreateOrderRequest = {
   batchBizNo?: string(name='batch_biz_no'),
   // 预付费订单金额。仅白名单商品且batchBizNo是合法的合同ID的情况，才允许指定预付订单金额
   prepayAmount?: PrepayAmount(name='prepay_amount'),
+  // 后付商品签约价，用于在履约阶段生成一客一价
+  postPayPrice?: PostPayPrice(name='post_pay_price'),
 }
 
 model CreateOrderResponse = {
@@ -1134,6 +1318,191 @@ async function cancelOrder(request: CancelOrderRequest): CancelOrderResponse {
 async function cancelOrderEx(request: CancelOrderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CancelOrderResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antcloud.trade.order.cancel', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BatchcreateOrderRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  //  批量下单场景编码 BatchOrderSceneEnum.online_acboss.getCode()
+  batchOrderScene: string(name='batch_order_scene'),
+  //  批量下单批次号
+  batchOrderBsnNo: string(name='batch_order_bsn_no'),
+  // 销售市场 com.antgroup.actradeprod.common.service.model.order.enums.SaleMarketEnum
+  saleMarket: string(name='sale_market'),
+  // 租户Id
+  tenantId?: string(name='tenant_id'),
+  // 租户名称
+  tenantName?: string(name='tenant_name'),
+  // 操作人ID，不填则默认和租户ID一致
+  operatorId?: string(name='operator_id'),
+  // 支付选项
+  payOptions?: PayOptions(name='pay_options'),
+  // 商品实例列表
+  commodityInstanceList: [ CommodityInstance ](name='commodity_instance_list'),
+  // 扩展属性，JSON字符串
+  extendedProperties: string(name='extended_properties'),
+}
+
+model BatchcreateOrderResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 支付状态
+  payStatus?: string(name='pay_status'),
+  // 批量下单列表返回
+  createTradeOrderResults?: [ CreateTradeOrderResult ](name='create_trade_order_results'),
+}
+
+/**
+ * Description: 商品通用批量下单接口
+ * Summary: 通用批量下单接口
+ */
+async function batchcreateOrder(request: BatchcreateOrderRequest): BatchcreateOrderResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return batchcreateOrderEx(request, headers, runtime);
+}
+
+/**
+ * Description: 商品通用批量下单接口
+ * Summary: 通用批量下单接口
+ */
+async function batchcreateOrderEx(request: BatchcreateOrderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BatchcreateOrderResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.trade.order.batchcreate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BatchcancelOrderRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 批次号
+  batchOrderBsnNo: string(name='batch_order_bsn_no'),
+  // 租户Id
+  tenantId: string(name='tenant_id'),
+}
+
+model BatchcancelOrderResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否取消成功
+  // 
+  result?: boolean(name='result'),
+  // 取消订单结果
+  createTradeOrderResult?: [ CreateTradeOrderResult ](name='create_trade_order_result'),
+}
+
+/**
+ * Description: 通用订单批量取消接口
+ * Summary: 通用订单批量取消接口
+ */
+async function batchcancelOrder(request: BatchcancelOrderRequest): BatchcancelOrderResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return batchcancelOrderEx(request, headers, runtime);
+}
+
+/**
+ * Description: 通用订单批量取消接口
+ * Summary: 通用订单批量取消接口
+ */
+async function batchcancelOrderEx(request: BatchcancelOrderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BatchcancelOrderResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.trade.order.batchcancel', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ExecOrderRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 订单号
+  orderId: string(name='order_id'),
+  // 租户标识
+  tenantId: string(name='tenant_id'),
+  // 开通参数
+  provisionOptions?: ProvisionOption(name='provision_options'),
+}
+
+model ExecOrderResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 执行结果
+  success?: boolean(name='success'),
+  // 实例ID列表
+  instanceIds?: [ string ](name='instance_ids'),
+  // 操作订单状态
+  orderStatus?: string(name='order_status'),
+}
+
+/**
+ * Description: 在订单非自动履约场景，手动触发执行
+ * Summary: 触发订单的履约执行
+ */
+async function execOrder(request: ExecOrderRequest): ExecOrderResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return execOrderEx(request, headers, runtime);
+}
+
+/**
+ * Description: 在订单非自动履约场景，手动触发执行
+ * Summary: 触发订单的履约执行
+ */
+async function execOrderEx(request: ExecOrderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExecOrderResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.trade.order.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RefundOrderRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 订单号
+  orderId: string(name='order_id'),
+  // 租户标识
+  tenantId: string(name='tenant_id'),
+}
+
+model RefundOrderResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 订单号
+  orderId?: string(name='order_id'),
+  // 执行结果
+  success?: boolean(name='success'),
+  // 操作订单状态
+  orderStatus?: string(name='order_status'),
+}
+
+/**
+ * Description: 在订单非自动履约场景，撤销订单并退款
+ * Summary: 订单退款
+ */
+async function refundOrder(request: RefundOrderRequest): RefundOrderResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return refundOrderEx(request, headers, runtime);
+}
+
+/**
+ * Description: 在订单非自动履约场景，撤销订单并退款
+ * Summary: 订单退款
+ */
+async function refundOrderEx(request: RefundOrderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RefundOrderResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.trade.order.refund', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model ExistPricePersonalizedRequest = {
