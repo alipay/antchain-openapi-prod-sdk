@@ -3,14 +3,14 @@ package com.antgroup.antchain.openapi.insurance_saas_de.models;
 
 import com.aliyun.tea.*;
 
-public class CargoDetails extends TeaModel {
+public class CargoDetail extends TeaModel {
     // 货物序号
     /**
      * <strong>example:</strong>
      * <p>1</p>
      */
     @NameInMap("cargo_sequence_no")
-    @Validation(required = true, maxLength = 10)
+    @Validation(required = true)
     public String cargoSequenceNo;
 
     // 货物名称
@@ -19,7 +19,7 @@ public class CargoDetails extends TeaModel {
      * <p>耳机</p>
      */
     @NameInMap("cargo_name")
-    @Validation(required = true, maxLength = 50)
+    @Validation(required = true)
     public String cargoName;
 
     // 货物规格
@@ -28,16 +28,16 @@ public class CargoDetails extends TeaModel {
      * <p>xxx</p>
      */
     @NameInMap("cargo_specification")
-    @Validation(required = true, maxLength = 50)
+    @Validation(required = true)
     public String cargoSpecification;
 
     // 货物数量
     /**
      * <strong>example:</strong>
-     * <p>1000</p>
+     * <p>100</p>
      */
     @NameInMap("cargo_quantity")
-    @Validation(required = true, maxLength = 100)
+    @Validation(required = true)
     public String cargoQuantity;
 
     // 货物单价，小数位只支持2位
@@ -46,15 +46,15 @@ public class CargoDetails extends TeaModel {
      * <p>454.22</p>
      */
     @NameInMap("cargo_unit_price")
-    @Validation(required = true, maxLength = 20)
+    @Validation(required = true)
     public String cargoUnitPrice;
 
-    public static CargoDetails build(java.util.Map<String, ?> map) throws Exception {
-        CargoDetails self = new CargoDetails();
+    public static CargoDetail build(java.util.Map<String, ?> map) throws Exception {
+        CargoDetail self = new CargoDetail();
         return TeaModel.build(map, self);
     }
 
-    public CargoDetails setCargoSequenceNo(String cargoSequenceNo) {
+    public CargoDetail setCargoSequenceNo(String cargoSequenceNo) {
         this.cargoSequenceNo = cargoSequenceNo;
         return this;
     }
@@ -62,7 +62,7 @@ public class CargoDetails extends TeaModel {
         return this.cargoSequenceNo;
     }
 
-    public CargoDetails setCargoName(String cargoName) {
+    public CargoDetail setCargoName(String cargoName) {
         this.cargoName = cargoName;
         return this;
     }
@@ -70,7 +70,7 @@ public class CargoDetails extends TeaModel {
         return this.cargoName;
     }
 
-    public CargoDetails setCargoSpecification(String cargoSpecification) {
+    public CargoDetail setCargoSpecification(String cargoSpecification) {
         this.cargoSpecification = cargoSpecification;
         return this;
     }
@@ -78,7 +78,7 @@ public class CargoDetails extends TeaModel {
         return this.cargoSpecification;
     }
 
-    public CargoDetails setCargoQuantity(String cargoQuantity) {
+    public CargoDetail setCargoQuantity(String cargoQuantity) {
         this.cargoQuantity = cargoQuantity;
         return this;
     }
@@ -86,7 +86,7 @@ public class CargoDetails extends TeaModel {
         return this.cargoQuantity;
     }
 
-    public CargoDetails setCargoUnitPrice(String cargoUnitPrice) {
+    public CargoDetail setCargoUnitPrice(String cargoUnitPrice) {
         this.cargoUnitPrice = cargoUnitPrice;
         return this;
     }

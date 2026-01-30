@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.antgroup.antchain.openapi</groupId>
   <artifactId>openapi-insurance_saas_de</artifactId>
-  <version>1.0.4</version>
+  <version>1.0.7</version>
   <packaging>jar</packaging>
   <name>openapi-insurance_saas_de</name>
   <description>Ant Chain INSURANCE_SAAS_DE SDK for Java

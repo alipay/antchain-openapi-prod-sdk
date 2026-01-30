@@ -33,7 +33,7 @@ public class UploadInsurglobifyprodMonthlypremiumbillRequest extends TeaModel {
 
     // 关联的大保单号
     @NameInMap("big_pol_no")
-    @Validation(required = true, maxLength = 100)
+    @Validation(required = true, maxLength = 200)
     public String bigPolNo;
 
     // 账单年度

@@ -33,7 +33,7 @@ public class ApplyInsurglobifyprodOspiclaimRequest extends TeaModel {
 
     // 投保订单号
     @NameInMap("rela_order_no")
-    @Validation(required = true, maxLength = 100)
+    @Validation(required = true, maxLength = 200)
     public String relaOrderNo;
 
     // 受损货物名称
@@ -62,9 +62,9 @@ public class ApplyInsurglobifyprodOspiclaimRequest extends TeaModel {
     // America/New_York
     // Pacific/Auckland
     // Europe/Berlin 
-    @NameInMap("time_zone")
+    @NameInMap("timezone")
     @Validation(required = true, maxLength = 20)
-    public String timeZone;
+    public String timezone;
 
     // 索赔状态（Open / Under Review / In Payment Process / Closed / Rejected / Cancelled）
     @NameInMap("claim_status")
@@ -211,12 +211,12 @@ public class ApplyInsurglobifyprodOspiclaimRequest extends TeaModel {
         return this.saleDate;
     }
 
-    public ApplyInsurglobifyprodOspiclaimRequest setTimeZone(String timeZone) {
-        this.timeZone = timeZone;
+    public ApplyInsurglobifyprodOspiclaimRequest setTimezone(String timezone) {
+        this.timezone = timezone;
         return this;
     }
-    public String getTimeZone() {
-        return this.timeZone;
+    public String getTimezone() {
+        return this.timezone;
     }
 
     public ApplyInsurglobifyprodOspiclaimRequest setClaimStatus(String claimStatus) {

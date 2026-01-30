@@ -79,9 +79,9 @@ public class ApplyInsurglobifyprodOspiinsureRequest extends TeaModel {
     // America/New_York
     // Pacific/Auckland
     // Europe/Berlin 
-    @NameInMap("time_zone")
+    @NameInMap("timezone")
     @Validation(required = true, maxLength = 20)
-    public String timeZone;
+    public String timezone;
 
     // 投保人名称
     @NameInMap("tbr_name")
@@ -235,10 +235,10 @@ public class ApplyInsurglobifyprodOspiinsureRequest extends TeaModel {
     @Validation(required = true, maxLength = 500)
     public String destination;
 
-    // 货物明细
+    // 货物明细列表
     @NameInMap("cargo_details")
     @Validation(required = true)
-    public CargoDetails cargoDetails;
+    public java.util.List<CargoDetail> cargoDetails;
 
     public static ApplyInsurglobifyprodOspiinsureRequest build(java.util.Map<String, ?> map) throws Exception {
         ApplyInsurglobifyprodOspiinsureRequest self = new ApplyInsurglobifyprodOspiinsureRequest();
@@ -349,12 +349,12 @@ public class ApplyInsurglobifyprodOspiinsureRequest extends TeaModel {
         return this.insureStart;
     }
 
-    public ApplyInsurglobifyprodOspiinsureRequest setTimeZone(String timeZone) {
-        this.timeZone = timeZone;
+    public ApplyInsurglobifyprodOspiinsureRequest setTimezone(String timezone) {
+        this.timezone = timezone;
         return this;
     }
-    public String getTimeZone() {
-        return this.timeZone;
+    public String getTimezone() {
+        return this.timezone;
     }
 
     public ApplyInsurglobifyprodOspiinsureRequest setTbrName(String tbrName) {
@@ -549,11 +549,11 @@ public class ApplyInsurglobifyprodOspiinsureRequest extends TeaModel {
         return this.destination;
     }
 
-    public ApplyInsurglobifyprodOspiinsureRequest setCargoDetails(CargoDetails cargoDetails) {
+    public ApplyInsurglobifyprodOspiinsureRequest setCargoDetails(java.util.List<CargoDetail> cargoDetails) {
         this.cargoDetails = cargoDetails;
         return this;
     }
-    public CargoDetails getCargoDetails() {
+    public java.util.List<CargoDetail> getCargoDetails() {
         return this.cargoDetails;
     }
 
