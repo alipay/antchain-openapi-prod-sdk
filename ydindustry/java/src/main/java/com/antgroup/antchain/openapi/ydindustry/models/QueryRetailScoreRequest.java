@@ -46,6 +46,10 @@ public class QueryRetailScoreRequest extends TeaModel {
     @Validation(required = true)
     public String userIdHashEncrypt;
 
+    // 客户场景码
+    @NameInMap("instance_code")
+    public String instanceCode;
+
     public static QueryRetailScoreRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryRetailScoreRequest self = new QueryRetailScoreRequest();
         return TeaModel.build(map, self);
@@ -121,6 +125,14 @@ public class QueryRetailScoreRequest extends TeaModel {
     }
     public String getUserIdHashEncrypt() {
         return this.userIdHashEncrypt;
+    }
+
+    public QueryRetailScoreRequest setInstanceCode(String instanceCode) {
+        this.instanceCode = instanceCode;
+        return this;
+    }
+    public String getInstanceCode() {
+        return this.instanceCode;
     }
 
 }

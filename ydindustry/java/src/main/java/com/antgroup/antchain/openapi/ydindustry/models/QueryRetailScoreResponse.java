@@ -24,6 +24,10 @@ public class QueryRetailScoreResponse extends TeaModel {
     @NameInMap("trans_no")
     public String transNo;
 
+    // 返回行业分其他数据，里面是key-value形式，标识返回的额外参数数据
+    @NameInMap("ext_param")
+    public String extParam;
+
     public static QueryRetailScoreResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryRetailScoreResponse self = new QueryRetailScoreResponse();
         return TeaModel.build(map, self);
@@ -67,6 +71,14 @@ public class QueryRetailScoreResponse extends TeaModel {
     }
     public String getTransNo() {
         return this.transNo;
+    }
+
+    public QueryRetailScoreResponse setExtParam(String extParam) {
+        this.extParam = extParam;
+        return this;
+    }
+    public String getExtParam() {
+        return this.extParam;
     }
 
 }
