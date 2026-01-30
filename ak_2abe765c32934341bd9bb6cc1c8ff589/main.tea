@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.0',
+    sdk_version = '1.1.1',
     _prod_code = 'ak_2abe765c32934341bd9bb6cc1c8ff589',
     _prod_channel = 'saas'
   };
@@ -161,20 +161,59 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   ignoreSSL = runtime.ignoreSSL
 }
 
-// 订单还款计划
-model PromiseInfo {
+model SyncAntchainAtoFundSplittingRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 资方订单号
+  fundNo: string(maxLength=50, minLength=1, name='fund_no'),
+  // 商户的订单号
+  orderId: string(maxLength=50, minLength=1, name='order_id'),
+  // 商户的数科租户ID
+  merchantTenantId: string(maxLength=50, minLength=1, name='merchant_tenant_id'),
+  // 第几期，例如：2表示第二期
+  termNum: long(name='term_num'),
+  // 扣款时间， yyyy-MM-dd HH:mm:ss 格式
+  deductionTime: string(name='deduction_time'),
+  // 扣款金额，单位精确到分， 例如：12462300为124623.00元
+  deductionAmount: long(name='deduction_amount'),
+  // 商户分账金额，单位精确到分，比如：666601 = 6666.01元
+  merchantSplitAmount: long(name='merchant_split_amount'),
+  // 资方分账金额，单位精确到分。比如：666610 = 6666.10元
+  fundSplitAmount: long(name='fund_split_amount'),
+  // 其他参与方分账信息，JSON格式的数组，样例：
+  // [{"participants":"参与方A","amount":666600,"accountNo":"777223","accountType":"ICBC"}]
+  otherSplitInfo?: string(name='other_split_info'),
 }
 
-// 同步订单中的下单人信息
-model UserSyncInfo {
+model SyncAntchainAtoFundSplittingResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 流水同步描述信息
+  responseData?: string(name='response_data'),
 }
 
-// 主订单信息
-model OrderInfo {
+/**
+ * Description: 分账流水同步
+ * Summary: 【仅测试环境生效】分账流水同步
+ */
+async function syncAntchainAtoFundSplitting(request: SyncAntchainAtoFundSplittingRequest): SyncAntchainAtoFundSplittingResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return syncAntchainAtoFundSplittingEx(request, headers, runtime);
 }
 
-// 订单商品信息
-model GoodsInfo {
+/**
+ * Description: 分账流水同步
+ * Summary: 【仅测试环境生效】分账流水同步
+ */
+async function syncAntchainAtoFundSplittingEx(request: SyncAntchainAtoFundSplittingRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SyncAntchainAtoFundSplittingResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.fund.splitting.sync', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model SyncAntchainAtoFundOrderfinancialRequest = {
@@ -225,101 +264,166 @@ async function syncAntchainAtoFundOrderfinancialEx(request: SyncAntchainAtoFundO
   return doRequest('1.0' ,'antchain.ato.fund.orderfinancial.sync', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model GetAntchainAtoFundRepaymentplanRequest = {
+model SyncAntchainAtoFundWithholdingcontractRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 订单id，不可为空
+  // 订单号
   orderId: string(maxLength=50, minLength=1, name='order_id'),
-  // 商户在数科注册的tenantId，不可为空
+  // 商家在数科注册的租户id
   merchantTenantId: string(maxLength=50, minLength=1, name='merchant_tenant_id'),
-  // 用户的支付宝uid
-  alipayUid: string(maxLength=50, minLength=1, name='alipay_uid'),
+  // 代扣协议号
+  withholdingContractId: string(maxLength=100, minLength=1, name='withholding_contract_id'),
+  // json的字符串，存储额外信息
+  extraInfo?: string(name='extra_info'),
+  // 签署状态：
+  // - ACCEPT : 接受
+  // - REFUSE : 拒绝
+  // - TIMEOUT : 超时
+  status: string(name='status'),
 }
 
-model GetAntchainAtoFundRepaymentplanResponse = {
+model SyncAntchainAtoFundWithholdingcontractResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
   // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 订单id
-  orderId?: string(name='order_id'),
-  // 租赁公司支付宝UID
-  leaseAlipayUid?: string(name='lease_alipay_uid'),
-  // 宽限期，天
-  gracePeriodDays?: long(name='grace_period_days'),
-  // 还款策略列表
-  repayStrategyList?: string(name='repay_strategy_list'),
-  // 处罚策略
-  //  NONE : 没有处罚
-  //  PENALTY_FEE： 罚息
-  punishmentType?: string(name='punishment_type'),
-  // 租期
-  payPeriod?: long(name='pay_period'),
-}
-
-/**
- * Description: 将返回订单实人认证通过后的、商家同步的还款计划
- * Summary: 【废弃】获取实人认证通过后用户承诺
- */
-async function getAntchainAtoFundRepaymentplan(request: GetAntchainAtoFundRepaymentplanRequest): GetAntchainAtoFundRepaymentplanResponse {
-  var runtime = new Util.RuntimeOptions{};
-  var headers : map[string]string= {};
-  return getAntchainAtoFundRepaymentplanEx(request, headers, runtime);
-}
-
-/**
- * Description: 将返回订单实人认证通过后的、商家同步的还款计划
- * Summary: 【废弃】获取实人认证通过后用户承诺
- */
-async function getAntchainAtoFundRepaymentplanEx(request: GetAntchainAtoFundRepaymentplanRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetAntchainAtoFundRepaymentplanResponse {
-  Util.validateModel(request);
-  return doRequest('1.0' ,'antchain.ato.fund.repaymentplan.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
-}
-
-model SyncAntchainAtoTradeFullRequest = {
-  // OAuth模式下的授权token
-  authToken?: string(name='auth_token'),
-  productInstanceId?: string(name='product_instance_id'),
-  // 购买用户信息
-  userInfo: UserSyncInfo(name='user_info'),
-  // 主订单信息
-  orderInfo: OrderInfo(name='order_info'),
-  // 订单包含的商品信息列表
-  goodsInfo: GoodsInfo(name='goods_info'),
-  // 订单还款计划
-  promiseInfo: PromiseInfo(name='promise_info'),
-}
-
-model SyncAntchainAtoTradeFullResponse = {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string(name='req_msg_id'),
-  // 结果码，一般OK表示调用成功
-  resultCode?: string(name='result_code'),
-  // 异常信息的文本描述
-  resultMsg?: string(name='result_msg'),
-  // 同步成功
+  // 存储成功
   responseData?: string(name='response_data'),
 }
 
 /**
- * Description: 同步商家的订单信息，包含下单人信息、订单信息、订单关联的商品信息以及订单绑定的还款计划。
- * Summary: 【废弃】同步商家的订单信息
+ * Description: 同步租赁订单的代扣协议
+ * Summary: 【仅测试环境生效】同步租赁订单的代扣协议
  */
-async function syncAntchainAtoTradeFull(request: SyncAntchainAtoTradeFullRequest): SyncAntchainAtoTradeFullResponse {
+async function syncAntchainAtoFundWithholdingcontract(request: SyncAntchainAtoFundWithholdingcontractRequest): SyncAntchainAtoFundWithholdingcontractResponse {
   var runtime = new Util.RuntimeOptions{};
   var headers : map[string]string= {};
-  return syncAntchainAtoTradeFullEx(request, headers, runtime);
+  return syncAntchainAtoFundWithholdingcontractEx(request, headers, runtime);
 }
 
 /**
- * Description: 同步商家的订单信息，包含下单人信息、订单信息、订单关联的商品信息以及订单绑定的还款计划。
- * Summary: 【废弃】同步商家的订单信息
+ * Description: 同步租赁订单的代扣协议
+ * Summary: 【仅测试环境生效】同步租赁订单的代扣协议
  */
-async function syncAntchainAtoTradeFullEx(request: SyncAntchainAtoTradeFullRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SyncAntchainAtoTradeFullResponse {
+async function syncAntchainAtoFundWithholdingcontractEx(request: SyncAntchainAtoFundWithholdingcontractRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SyncAntchainAtoFundWithholdingcontractResponse {
   Util.validateModel(request);
-  return doRequest('1.0' ,'antchain.ato.trade.full.sync', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+  return doRequest('1.0' ,'antchain.ato.fund.withholdingcontract.sync', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SyncAntchainAtoFundOrderfulfillmentRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 商户id
+  merchantTenantId: string(maxLength=49, minLength=1, name='merchant_tenant_id'),
+  // 订单id
+  orderId: string(maxLength=49, minLength=1, name='order_id'),
+  // 租期编号
+  leaseTermIndex: long(name='lease_term_index'),
+  // 剩余归还期数
+  remainTerm: long(name='remain_term'),
+  // 总期数
+  totalTerm: long(name='total_term'),
+  // 租金归还状态，
+  // RETURN_FULL : 足额归还 【终态】
+  // NOT_RETURN : 未归还
+  // CANCEL : 取消 【终态】
+  rentalReturnState: string(name='rental_return_state'),
+  // 租金归还金额,精确到分，即1234表示12.34元
+  rentalMoney: long(name='rental_money'),
+  // 罚息金额，分，1234表示12.34元
+  penaltyFeeMoney: long(name='penalty_fee_money'),
+  // 总金额，单位分
+  totalMoney: long(name='total_money'),
+  // 归还时间，格式为"2019-07-31 12:00:00"
+  returnTime?: string(name='return_time'),
+  // 归还方式，
+  // ANTDIGITAL： 数科代扣
+  // FUND : 资方代扣
+  // BANK : 银行转账
+  // WECHAT : 微信支付
+  returnWay?: string(name='return_way'),
+  // 还款凭证编号
+  returnVoucherSerial?: string(maxLength=127, minLength=1, name='return_voucher_serial'),
+  // 银行名字
+  bankName?: string(maxLength=127, name='bank_name'),
+}
+
+model SyncAntchainAtoFundOrderfulfillmentResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 添加成功
+  responseData?: string(name='response_data'),
+}
+
+/**
+ * Description: 资方回传一条订单还款履约信息
+ * Summary: 【仅测试环境生效】同步订单还款履约信息
+ */
+async function syncAntchainAtoFundOrderfulfillment(request: SyncAntchainAtoFundOrderfulfillmentRequest): SyncAntchainAtoFundOrderfulfillmentResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return syncAntchainAtoFundOrderfulfillmentEx(request, headers, runtime);
+}
+
+/**
+ * Description: 资方回传一条订单还款履约信息
+ * Summary: 【仅测试环境生效】同步订单还款履约信息
+ */
+async function syncAntchainAtoFundOrderfulfillmentEx(request: SyncAntchainAtoFundOrderfulfillmentRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SyncAntchainAtoFundOrderfulfillmentResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.fund.orderfulfillment.sync', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetAntchainAtoFundOrderfulfillmentRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 订单id
+  orderId: string(maxLength=49, minLength=1, name='order_id'),
+  // 租赁订单所属商家租户id
+  merchantTenantId: string(maxLength=49, minLength=1, name='merchant_tenant_id'),
+  // 期数
+  // 如果填入，获取term_idx下的履约记录
+  // 如果不填入，获取order_id下的所有履约记录
+  termIdx?: long(name='term_idx'),
+}
+
+model GetAntchainAtoFundOrderfulfillmentResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 订单履约信息的列表数组
+  // List<OrderFulfillment> 的jsonArray.toString
+  orderFulfillmentDataList?: string(name='order_fulfillment_data_list'),
+}
+
+/**
+ * Description: 获取订单的履约信息
+ * Summary: 【仅测试环境生效】获取订单的履约信息
+ */
+async function getAntchainAtoFundOrderfulfillment(request: GetAntchainAtoFundOrderfulfillmentRequest): GetAntchainAtoFundOrderfulfillmentResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getAntchainAtoFundOrderfulfillmentEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取订单的履约信息
+ * Summary: 【仅测试环境生效】获取订单的履约信息
+ */
+async function getAntchainAtoFundOrderfulfillmentEx(request: GetAntchainAtoFundOrderfulfillmentRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetAntchainAtoFundOrderfulfillmentResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.fund.orderfulfillment.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
