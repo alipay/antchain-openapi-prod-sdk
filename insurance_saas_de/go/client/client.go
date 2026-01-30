@@ -149,48 +149,48 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 }
 
 // 货物明细
-type CargoDetails struct {
+type CargoDetail struct {
 	// 货物序号
-	CargoSequenceNo *string `json:"cargo_sequence_no,omitempty" xml:"cargo_sequence_no,omitempty" require:"true" maxLength:"10"`
+	CargoSequenceNo *string `json:"cargo_sequence_no,omitempty" xml:"cargo_sequence_no,omitempty" require:"true"`
 	// 货物名称
-	CargoName *string `json:"cargo_name,omitempty" xml:"cargo_name,omitempty" require:"true" maxLength:"50"`
+	CargoName *string `json:"cargo_name,omitempty" xml:"cargo_name,omitempty" require:"true"`
 	// 货物规格
-	CargoSpecification *string `json:"cargo_specification,omitempty" xml:"cargo_specification,omitempty" require:"true" maxLength:"50"`
+	CargoSpecification *string `json:"cargo_specification,omitempty" xml:"cargo_specification,omitempty" require:"true"`
 	// 货物数量
-	CargoQuantity *string `json:"cargo_quantity,omitempty" xml:"cargo_quantity,omitempty" require:"true" maxLength:"100"`
+	CargoQuantity *string `json:"cargo_quantity,omitempty" xml:"cargo_quantity,omitempty" require:"true"`
 	// 货物单价，小数位只支持2位
-	CargoUnitPrice *string `json:"cargo_unit_price,omitempty" xml:"cargo_unit_price,omitempty" require:"true" maxLength:"20"`
+	CargoUnitPrice *string `json:"cargo_unit_price,omitempty" xml:"cargo_unit_price,omitempty" require:"true"`
 }
 
-func (s CargoDetails) String() string {
+func (s CargoDetail) String() string {
 	return tea.Prettify(s)
 }
 
-func (s CargoDetails) GoString() string {
+func (s CargoDetail) GoString() string {
 	return s.String()
 }
 
-func (s *CargoDetails) SetCargoSequenceNo(v string) *CargoDetails {
+func (s *CargoDetail) SetCargoSequenceNo(v string) *CargoDetail {
 	s.CargoSequenceNo = &v
 	return s
 }
 
-func (s *CargoDetails) SetCargoName(v string) *CargoDetails {
+func (s *CargoDetail) SetCargoName(v string) *CargoDetail {
 	s.CargoName = &v
 	return s
 }
 
-func (s *CargoDetails) SetCargoSpecification(v string) *CargoDetails {
+func (s *CargoDetail) SetCargoSpecification(v string) *CargoDetail {
 	s.CargoSpecification = &v
 	return s
 }
 
-func (s *CargoDetails) SetCargoQuantity(v string) *CargoDetails {
+func (s *CargoDetail) SetCargoQuantity(v string) *CargoDetail {
 	s.CargoQuantity = &v
 	return s
 }
 
-func (s *CargoDetails) SetCargoUnitPrice(v string) *CargoDetails {
+func (s *CargoDetail) SetCargoUnitPrice(v string) *CargoDetail {
 	s.CargoUnitPrice = &v
 	return s
 }
@@ -234,7 +234,7 @@ type ApplyInsurglobifyprodOspiinsureRequest struct {
 	// America/New_York
 	// Pacific/Auckland
 	// Europe/Berlin
-	TimeZone *string `json:"time_zone,omitempty" xml:"time_zone,omitempty" require:"true" maxLength:"20"`
+	Timezone *string `json:"timezone,omitempty" xml:"timezone,omitempty" require:"true" maxLength:"20"`
 	// 投保人名称
 	TbrName *string `json:"tbr_name,omitempty" xml:"tbr_name,omitempty" require:"true" maxLength:"100"`
 	// 投保人证件类型
@@ -315,8 +315,8 @@ type ApplyInsurglobifyprodOspiinsureRequest struct {
 	DestinationProvinceCity *string `json:"destination_province_city,omitempty" xml:"destination_province_city,omitempty" require:"true" maxLength:"50"`
 	// 目的地详细地址
 	Destination *string `json:"destination,omitempty" xml:"destination,omitempty" require:"true" maxLength:"500"`
-	// 货物明细
-	CargoDetails *CargoDetails `json:"cargo_details,omitempty" xml:"cargo_details,omitempty" require:"true"`
+	// 货物明细列表
+	CargoDetails []*CargoDetail `json:"cargo_details,omitempty" xml:"cargo_details,omitempty" require:"true" type:"Repeated"`
 }
 
 func (s ApplyInsurglobifyprodOspiinsureRequest) String() string {
@@ -392,8 +392,8 @@ func (s *ApplyInsurglobifyprodOspiinsureRequest) SetInsureStart(v string) *Apply
 	return s
 }
 
-func (s *ApplyInsurglobifyprodOspiinsureRequest) SetTimeZone(v string) *ApplyInsurglobifyprodOspiinsureRequest {
-	s.TimeZone = &v
+func (s *ApplyInsurglobifyprodOspiinsureRequest) SetTimezone(v string) *ApplyInsurglobifyprodOspiinsureRequest {
+	s.Timezone = &v
 	return s
 }
 
@@ -517,7 +517,7 @@ func (s *ApplyInsurglobifyprodOspiinsureRequest) SetDestination(v string) *Apply
 	return s
 }
 
-func (s *ApplyInsurglobifyprodOspiinsureRequest) SetCargoDetails(v *CargoDetails) *ApplyInsurglobifyprodOspiinsureRequest {
+func (s *ApplyInsurglobifyprodOspiinsureRequest) SetCargoDetails(v []*CargoDetail) *ApplyInsurglobifyprodOspiinsureRequest {
 	s.CargoDetails = v
 	return s
 }
@@ -574,7 +574,7 @@ type ApplyInsurglobifyprodOspiclaimRequest struct {
 	// 大保单号
 	BigPolNo *string `json:"big_pol_no,omitempty" xml:"big_pol_no,omitempty" require:"true" maxLength:"100"`
 	// 投保订单号
-	RelaOrderNo *string `json:"rela_order_no,omitempty" xml:"rela_order_no,omitempty" require:"true" maxLength:"100"`
+	RelaOrderNo *string `json:"rela_order_no,omitempty" xml:"rela_order_no,omitempty" require:"true" maxLength:"200"`
 	// 受损货物名称
 	DamagedCargoName *string `json:"damaged_cargo_name,omitempty" xml:"damaged_cargo_name,omitempty" require:"true" maxLength:"100"`
 	// 出险原因
@@ -589,7 +589,7 @@ type ApplyInsurglobifyprodOspiclaimRequest struct {
 	// America/New_York
 	// Pacific/Auckland
 	// Europe/Berlin
-	TimeZone *string `json:"time_zone,omitempty" xml:"time_zone,omitempty" require:"true" maxLength:"20"`
+	Timezone *string `json:"timezone,omitempty" xml:"timezone,omitempty" require:"true" maxLength:"20"`
 	// 索赔状态（Open / Under Review / In Payment Process / Closed / Rejected / Cancelled）
 	ClaimStatus *string `json:"claim_status,omitempty" xml:"claim_status,omitempty" require:"true" maxLength:"20"`
 	// 货物大类
@@ -680,8 +680,8 @@ func (s *ApplyInsurglobifyprodOspiclaimRequest) SetSaleDate(v string) *ApplyInsu
 	return s
 }
 
-func (s *ApplyInsurglobifyprodOspiclaimRequest) SetTimeZone(v string) *ApplyInsurglobifyprodOspiclaimRequest {
-	s.TimeZone = &v
+func (s *ApplyInsurglobifyprodOspiclaimRequest) SetTimezone(v string) *ApplyInsurglobifyprodOspiclaimRequest {
+	s.Timezone = &v
 	return s
 }
 
@@ -782,7 +782,7 @@ type UploadInsurglobifyprodMonthlypremiumbillRequest struct {
 	// 保险方案名
 	ChSchemeName *string `json:"ch_scheme_name,omitempty" xml:"ch_scheme_name,omitempty" require:"true" maxLength:"20"`
 	// 关联的大保单号
-	BigPolNo *string `json:"big_pol_no,omitempty" xml:"big_pol_no,omitempty" require:"true" maxLength:"100"`
+	BigPolNo *string `json:"big_pol_no,omitempty" xml:"big_pol_no,omitempty" require:"true" maxLength:"200"`
 	// 账单年度
 	BillingYear *string `json:"billing_year,omitempty" xml:"billing_year,omitempty" require:"true" maxLength:"4"`
 	// 账单月份
@@ -1045,7 +1045,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.4"),
+				"sdk_version":      tea.String("1.0.7"),
 				"_prod_code":       tea.String("INSURANCE_SAAS_DE"),
 				"_prod_channel":    tea.String("default"),
 			}
