@@ -77,6 +77,39 @@ export class Config extends $tea.Model {
   }
 }
 
+// 定价条件
+export class PriceConditionAttr extends $tea.Model {
+  // 属性code
+  attrCode: string;
+  // 属性值code
+  attrValueCode: string;
+  // 属性值名称
+  attrValueName: string;
+  // 运算符，只有在约束条件中会出现
+  operator?: string;
+  static names(): { [key: string]: string } {
+    return {
+      attrCode: 'attr_code',
+      attrValueCode: 'attr_value_code',
+      attrValueName: 'attr_value_name',
+      operator: 'operator',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      attrCode: 'string',
+      attrValueCode: 'string',
+      attrValueName: 'string',
+      operator: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 商品属性结构
 export class CommodityAttribute extends $tea.Model {
   // 属性编码
@@ -127,47 +160,55 @@ export class CommodityAttribute extends $tea.Model {
   }
 }
 
-// 套餐内商品结构
-export class ComboCommodity extends $tea.Model {
-  // 商品名称
-  name: string;
-  // 商品在套餐中的唯一编码，当一个套餐中存在两个一样的商品时，编码会不一样
-  uniqueCode: string;
-  // 商品主数据编码
-  innerCode: string;
-  // 商品类型，资源包：attach
-  type: string;
-  // 付费方式，预付：PREPAY，按量付费：POSTPAY
-  chargeType: string;
-  // 销售属性列表
-  attrs: CommodityAttribute[];
-  // 商品数量
-  quantity: number;
-  // 扩展信息，JSON结构，包含标签、个性化配置等数据
-  extendsConfig: string;
+// 非继承型一客一价
+export class NoExtendPrice extends $tea.Model {
+  // 定价条件
+  conditionAttrs?: PriceConditionAttr[];
+  // 阶梯开始
+  ladderStart: string;
+  // 阶梯结束
+  ladderEnd: string;
+  // 签约价
+  price: string;
+  // 计价方法：具体公式、阶梯方法、自定义
+  pricingMethod: string;
+  // 阶梯区间类型，左开右闭/左闭右开
+  ladderIntervalType: string;
+  // 定价对象code
+  priceObjectCode: string;
+  // 计价模式：公式、阶梯、自定义
+  pricingMode: string;
+  // 价格单位
+  unit: string;
+  // 是否阶梯总价
+  ladderPriceFixed?: boolean;
   static names(): { [key: string]: string } {
     return {
-      name: 'name',
-      uniqueCode: 'unique_code',
-      innerCode: 'inner_code',
-      type: 'type',
-      chargeType: 'charge_type',
-      attrs: 'attrs',
-      quantity: 'quantity',
-      extendsConfig: 'extends_config',
+      conditionAttrs: 'condition_attrs',
+      ladderStart: 'ladder_start',
+      ladderEnd: 'ladder_end',
+      price: 'price',
+      pricingMethod: 'pricing_method',
+      ladderIntervalType: 'ladder_interval_type',
+      priceObjectCode: 'price_object_code',
+      pricingMode: 'pricing_mode',
+      unit: 'unit',
+      ladderPriceFixed: 'ladder_price_fixed',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      name: 'string',
-      uniqueCode: 'string',
-      innerCode: 'string',
-      type: 'string',
-      chargeType: 'string',
-      attrs: { 'type': 'array', 'itemType': CommodityAttribute },
-      quantity: 'number',
-      extendsConfig: 'string',
+      conditionAttrs: { 'type': 'array', 'itemType': PriceConditionAttr },
+      ladderStart: 'string',
+      ladderEnd: 'string',
+      price: 'string',
+      pricingMethod: 'string',
+      ladderIntervalType: 'string',
+      priceObjectCode: 'string',
+      pricingMode: 'string',
+      unit: 'string',
+      ladderPriceFixed: 'boolean',
     };
   }
 
@@ -201,112 +242,27 @@ export class OrderDuration extends $tea.Model {
   }
 }
 
-// 套餐内商品订单结构
-export class ComboCommodityOrder extends $tea.Model {
-  // 商品编码
-  commodityCode: string;
-  // 状态
-  status: string;
-  // 实例ID列表
-  instanceIds: string[];
+// 后付商品签约价，用于在履约阶段生成一客一价
+export class PostPayPrice extends $tea.Model {
+  //  币种单位值，156（CNY)
+  currencyValue?: string;
+  //  价格周期
+  duration?: OrderDuration;
+  // 非继承型一客一价
+  noExtendPrices?: NoExtendPrice[];
   static names(): { [key: string]: string } {
     return {
-      commodityCode: 'commodity_code',
-      status: 'status',
-      instanceIds: 'instance_ids',
+      currencyValue: 'currency_value',
+      duration: 'duration',
+      noExtendPrices: 'no_extend_prices',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      commodityCode: 'string',
-      status: 'string',
-      instanceIds: { 'type': 'array', 'itemType': 'string' },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 商品定价结构
-export class CommodityPricing extends $tea.Model {
-  static names(): { [key: string]: string } {
-    return {
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 标签对象
-export class InstanceLabel extends $tea.Model {
-  // 标签名。
-  // 传递isvId
-  instanceKey: string;
-  // 标签值
-  instanceValue: string;
-  static names(): { [key: string]: string } {
-    return {
-      instanceKey: 'instance_key',
-      instanceValue: 'instance_value',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      instanceKey: 'string',
-      instanceValue: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 支付选项
-export class PayOptions extends $tea.Model {
-  // 系统自动会根据账号类型、当前OU进行付费渠道判定；如果传入的付款渠道不满足，则报错
-  payChannel?: string;
-  static names(): { [key: string]: string } {
-    return {
-      payChannel: 'pay_channel',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      payChannel: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 价格策略
-export class PriceStrategy extends $tea.Model {
-  // 继承租户在商品下的价格，仅后付费商品生效
-  followTenantId?: string;
-  static names(): { [key: string]: string } {
-    return {
-      followTenantId: 'follow_tenant_id',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      followTenantId: 'string',
+      currencyValue: 'string',
+      duration: OrderDuration,
+      noExtendPrices: { 'type': 'array', 'itemType': NoExtendPrice },
     };
   }
 
@@ -398,79 +354,27 @@ export class FulfillmentOptions extends $tea.Model {
   }
 }
 
-// 商品询价结构
-export class CommodityEnquiryPrice extends $tea.Model {
-  // 商品主数据编码
+// 套餐内商品订单结构
+export class ComboCommodityOrder extends $tea.Model {
+  // 商品编码
   commodityCode: string;
-  // 商品名称
-  commodityName: string;
-  // 预付-支付金额
-  payAmount: string;
-  // 预付费-原始金额
-  originalAmount: string;
-  // 预付费-折扣金额
-  discountAmount: string;
-  // 预付费-优惠券抵扣金额
-  couponAmount: string;
-  // 原订购剩余价值，用于变配场景
-  subscriptionUnusedAmount: string;
-  // 命中的活动编码
-  activityCode: string;
-  // 命中的活动名称
-  activityName: string;
-  // 命中的定价计划ID
-  pricePlanId: number;
-  // 命中的定价约束ID
-  priceConstraintId: number;
-  // 币种，元：CNY
-  currency: string;
-  // 基于剩余价值变配场景下，预测的支付金额正常的最小订购周期
-  minDurationOfValidPayAmount?: OrderDuration;
-  // 预付费-折扣率
-  discountRate: string;
-  // 原始BD权限价金额，白名单商品会返回此价格
-  originalBdAmount?: string;
-  // 原始成本价金额，白名单商品会返回此价格
-  originalCostAmount?: string;
+  // 状态
+  status: string;
+  // 实例ID列表
+  instanceIds: string[];
   static names(): { [key: string]: string } {
     return {
       commodityCode: 'commodity_code',
-      commodityName: 'commodity_name',
-      payAmount: 'pay_amount',
-      originalAmount: 'original_amount',
-      discountAmount: 'discount_amount',
-      couponAmount: 'coupon_amount',
-      subscriptionUnusedAmount: 'subscription_unused_amount',
-      activityCode: 'activity_code',
-      activityName: 'activity_name',
-      pricePlanId: 'price_plan_id',
-      priceConstraintId: 'price_constraint_id',
-      currency: 'currency',
-      minDurationOfValidPayAmount: 'min_duration_of_valid_pay_amount',
-      discountRate: 'discount_rate',
-      originalBdAmount: 'original_bd_amount',
-      originalCostAmount: 'original_cost_amount',
+      status: 'status',
+      instanceIds: 'instance_ids',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
       commodityCode: 'string',
-      commodityName: 'string',
-      payAmount: 'string',
-      originalAmount: 'string',
-      discountAmount: 'string',
-      couponAmount: 'string',
-      subscriptionUnusedAmount: 'string',
-      activityCode: 'string',
-      activityName: 'string',
-      pricePlanId: 'number',
-      priceConstraintId: 'number',
-      currency: 'string',
-      minDurationOfValidPayAmount: OrderDuration,
-      discountRate: 'string',
-      originalBdAmount: 'string',
-      originalCostAmount: 'string',
+      status: 'string',
+      instanceIds: { 'type': 'array', 'itemType': 'string' },
     };
   }
 
@@ -479,43 +383,93 @@ export class CommodityEnquiryPrice extends $tea.Model {
   }
 }
 
-// 套餐结构
-export class Combo extends $tea.Model {
-  // 套餐名称
-  code: string;
-  // 套餐编码
+// 套餐内商品结构
+export class ComboCommodity extends $tea.Model {
+  // 商品名称
   name: string;
-  // 套餐版本号
-  vid: string;
-  // 套餐描述
-  description: string;
+  // 商品在套餐中的唯一编码，当一个套餐中存在两个一样的商品时，编码会不一样
+  uniqueCode: string;
+  // 商品主数据编码
+  innerCode: string;
+  // 商品类型，资源包：attach
+  type: string;
+  // 付费方式，预付：PREPAY，按量付费：POSTPAY
+  chargeType: string;
+  // 销售属性列表
+  attrs: CommodityAttribute[];
+  // 商品数量
+  quantity: number;
   // 扩展信息，JSON结构，包含标签、个性化配置等数据
   extendsConfig: string;
-  // 状态
-  status: string;
-  // 套餐内商品列表
-  commodities: ComboCommodity[];
   static names(): { [key: string]: string } {
     return {
-      code: 'code',
       name: 'name',
-      vid: 'vid',
-      description: 'description',
+      uniqueCode: 'unique_code',
+      innerCode: 'inner_code',
+      type: 'type',
+      chargeType: 'charge_type',
+      attrs: 'attrs',
+      quantity: 'quantity',
       extendsConfig: 'extends_config',
-      status: 'status',
-      commodities: 'commodities',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      code: 'string',
       name: 'string',
-      vid: 'string',
-      description: 'string',
+      uniqueCode: 'string',
+      innerCode: 'string',
+      type: 'string',
+      chargeType: 'string',
+      attrs: { 'type': 'array', 'itemType': CommodityAttribute },
+      quantity: 'number',
       extendsConfig: 'string',
-      status: 'string',
-      commodities: { 'type': 'array', 'itemType': ComboCommodity },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 支付选项
+export class PayOptions extends $tea.Model {
+  // 系统自动会根据账号类型、当前OU进行付费渠道判定；如果传入的付款渠道不满足，则报错
+  payChannel?: string;
+  // 支付方式，例如：直付通
+  paymentMethod?: string;
+  static names(): { [key: string]: string } {
+    return {
+      payChannel: 'pay_channel',
+      paymentMethod: 'payment_method',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      payChannel: 'string',
+      paymentMethod: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 履约开通参数
+export class ProvisionOption extends $tea.Model {
+  // 订单开始时间 (ISO 8601 UTC)，可自定义覆盖默认值
+  orderStartTime?: string;
+  static names(): { [key: string]: string } {
+    return {
+      orderStartTime: 'order_start_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      orderStartTime: 'string',
     };
   }
 
@@ -573,35 +527,47 @@ export class InstanceCapacity extends $tea.Model {
   }
 }
 
-// 实例
-export class Instance extends $tea.Model {
-  // 租户id
-  tenantId: string;
-  // 实例id
-  instanceId: string;
-  // 商品code
-  productName: string;
-  // 付费类型 PREPAY_BY_MONTH 预付 AFTER_PAY_BY_HOUR 后付 MIX_PAY 混合付
-  chargeType: string;
-  // 状态 CREATING 创建中 FAILED 创建失败  STARTED 运行中 STOPPED 已停服  RELEASED 已释放
-  status: string;
+// 商品同步common_buy内容
+export class CommoditySyncCommonBuyInfo extends $tea.Model {
+  // 商品列表配置 ListJson字符串
+  commonBuySaleGroupListJson: string[];
+  // 规格配置 ListJson字符串
+  offerAttrListJson: string[];
+  // Region配置 ListJson字符串
+  prodOfferRegionListJson: string[];
+  // 费用项配置 ListJson字符串
+  offerAttrGroupListJson: string[];
+  // 属性配置 ListJson字符串
+  offerExtendAttrListJson: string[];
+  // 界面归类配置 ListJson字符串
+  offerCommonBuyGroupListJson: string[];
+  // 规格约束配置 ListJson字符串
+  offerAttrConstraintsListFson: string[];
+  // 售卖规则配置 ListJson字符串
+  offerRuleGroupListJson: string[];
   static names(): { [key: string]: string } {
     return {
-      tenantId: 'tenant_id',
-      instanceId: 'instance_id',
-      productName: 'product_name',
-      chargeType: 'charge_type',
-      status: 'status',
+      commonBuySaleGroupListJson: 'common_buy_sale_group_list_json',
+      offerAttrListJson: 'offer_attr_list_json',
+      prodOfferRegionListJson: 'prod_offer_region_list_json',
+      offerAttrGroupListJson: 'offer_attr_group_list_json',
+      offerExtendAttrListJson: 'offer_extend_attr_list_json',
+      offerCommonBuyGroupListJson: 'offer_common_buy_group_list_json',
+      offerAttrConstraintsListFson: 'offer_attr_constraints_list_fson',
+      offerRuleGroupListJson: 'offer_rule_group_list_json',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      tenantId: 'string',
-      instanceId: 'string',
-      productName: 'string',
-      chargeType: 'string',
-      status: 'string',
+      commonBuySaleGroupListJson: { 'type': 'array', 'itemType': 'string' },
+      offerAttrListJson: { 'type': 'array', 'itemType': 'string' },
+      prodOfferRegionListJson: { 'type': 'array', 'itemType': 'string' },
+      offerAttrGroupListJson: { 'type': 'array', 'itemType': 'string' },
+      offerExtendAttrListJson: { 'type': 'array', 'itemType': 'string' },
+      offerCommonBuyGroupListJson: { 'type': 'array', 'itemType': 'string' },
+      offerAttrConstraintsListFson: { 'type': 'array', 'itemType': 'string' },
+      offerRuleGroupListJson: { 'type': 'array', 'itemType': 'string' },
     };
   }
 
@@ -610,43 +576,64 @@ export class Instance extends $tea.Model {
   }
 }
 
-// 下单返回接口
-export class CreateOrderResult extends $tea.Model {
-  // 下单时指定的业务流水号。二级订单号
-  bsnNo: string;
-  // 一级订单号
-  orderId: string;
-  // 二级订单号
-  normalOrderLineId: string;
-  // 订单状态
-  orderStatus: string;
-  // 实例列表
-  instanceIds: string;
-  // 订购错误码
-  orderErrorCode: string;
-  // 订购错误描述
-  orderErrorDescription: string;
+// 商品实例
+export class CommodityInstance extends $tea.Model {
+  // 订单号
+  bizNo?: string;
+  // 商品编码
+  commodityCode: string;
+  // 销售主体，不传默认ZL6
+  ou?: string;
+  // 订单类型，NEW：新购；RENEW：续费； MODIFY：变配 不填默认新购
+  orderType?: string;
+  // 订购时长
+  duration?: OrderDuration;
+  // 优惠券ID
+  couponId?: string;
+  // 数量，不填默认1
+  quantity?: number;
+  // 	
+  // 商品订购属性，开通型商品部需要填写
+  commodityAttrs?: CommodityOrderAttribute[];
+  // 履约选项
+  fulfillmentOptions?: FulfillmentOptions;
+  // 实例ID，续费/变配场景必传
+  instanceId?: string;
+  // 预付费订单金额。仅白名单商品且batchBizNo是合法的合同ID的情况，才允许指定预付订单金额
+  prepayAmount?: PrepayAmount;
+  // 后付商品签约价，用于在履约阶段生成一客一价
+  postPayPrice?: PostPayPrice;
   static names(): { [key: string]: string } {
     return {
-      bsnNo: 'bsn_no',
-      orderId: 'order_id',
-      normalOrderLineId: 'normal_order_line_id',
-      orderStatus: 'order_status',
-      instanceIds: 'instance_ids',
-      orderErrorCode: 'order_error_code',
-      orderErrorDescription: 'order_error_description',
+      bizNo: 'biz_no',
+      commodityCode: 'commodity_code',
+      ou: 'ou',
+      orderType: 'order_type',
+      duration: 'duration',
+      couponId: 'coupon_id',
+      quantity: 'quantity',
+      commodityAttrs: 'commodity_attrs',
+      fulfillmentOptions: 'fulfillment_options',
+      instanceId: 'instance_id',
+      prepayAmount: 'prepay_amount',
+      postPayPrice: 'post_pay_price',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      bsnNo: 'string',
-      orderId: 'string',
-      normalOrderLineId: 'string',
-      orderStatus: 'string',
-      instanceIds: 'string',
-      orderErrorCode: 'string',
-      orderErrorDescription: 'string',
+      bizNo: 'string',
+      commodityCode: 'string',
+      ou: 'string',
+      orderType: 'string',
+      duration: OrderDuration,
+      couponId: 'string',
+      quantity: 'number',
+      commodityAttrs: { 'type': 'array', 'itemType': CommodityOrderAttribute },
+      fulfillmentOptions: FulfillmentOptions,
+      instanceId: 'string',
+      prepayAmount: PrepayAmount,
+      postPayPrice: PostPayPrice,
     };
   }
 
@@ -820,6 +807,368 @@ export class ComboOrder extends $tea.Model {
       commodityOrders: { 'type': 'array', 'itemType': ComboCommodityOrder },
       payTime: 'string',
       payChannel: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 商品定价结构
+export class CommodityPricing extends $tea.Model {
+  static names(): { [key: string]: string } {
+    return {
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 标签对象
+export class InstanceLabel extends $tea.Model {
+  // 标签名。
+  // 传递isvId
+  instanceKey: string;
+  // 标签值
+  instanceValue: string;
+  static names(): { [key: string]: string } {
+    return {
+      instanceKey: 'instance_key',
+      instanceValue: 'instance_value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      instanceKey: 'string',
+      instanceValue: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 价格策略
+export class PriceStrategy extends $tea.Model {
+  // 继承租户在商品下的价格，仅后付费商品生效
+  followTenantId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      followTenantId: 'follow_tenant_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      followTenantId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 商品同步common_buy内容
+export class OfferSyncCommonBuyInfo extends $tea.Model {
+  // 商品列表配置 ListJson字符串
+  commonBuySaleGroupListJson: string[];
+  // 规格配置 ListJson字符串
+  offerAttrListJson: string[];
+  // Region配置 ListJson字符串
+  prodOfferRegionListJson: string[];
+  // 费用项配置 ListJson字符串
+  offerAttrGroupListJson: string[];
+  // 属性配置 ListJson字符串
+  offerExtendAttrListJson: string[];
+  // 界面归类配置 ListJson字符串
+  offerCommonBuyGroupListJson: string[];
+  // 规格约束配置 ListJson字符串
+  offerAttrConstraintsListJson: string[];
+  // 售卖规则配置 ListJson字符串
+  offerRuleGroupListJson: string[];
+  static names(): { [key: string]: string } {
+    return {
+      commonBuySaleGroupListJson: 'common_buy_sale_group_list_json',
+      offerAttrListJson: 'offer_attr_list_json',
+      prodOfferRegionListJson: 'prod_offer_region_list_json',
+      offerAttrGroupListJson: 'offer_attr_group_list_json',
+      offerExtendAttrListJson: 'offer_extend_attr_list_json',
+      offerCommonBuyGroupListJson: 'offer_common_buy_group_list_json',
+      offerAttrConstraintsListJson: 'offer_attr_constraints_list_json',
+      offerRuleGroupListJson: 'offer_rule_group_list_json',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      commonBuySaleGroupListJson: { 'type': 'array', 'itemType': 'string' },
+      offerAttrListJson: { 'type': 'array', 'itemType': 'string' },
+      prodOfferRegionListJson: { 'type': 'array', 'itemType': 'string' },
+      offerAttrGroupListJson: { 'type': 'array', 'itemType': 'string' },
+      offerExtendAttrListJson: { 'type': 'array', 'itemType': 'string' },
+      offerCommonBuyGroupListJson: { 'type': 'array', 'itemType': 'string' },
+      offerAttrConstraintsListJson: { 'type': 'array', 'itemType': 'string' },
+      offerRuleGroupListJson: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 创建订单返回结果
+export class CreateTradeOrderResult extends $tea.Model {
+  // 订单号
+  orderId: string;
+  // 下单时的订单号
+  bizNo: string;
+  // 实例ID列表
+  instanceIds?: string[];
+  // 订单状态
+  payStatus: string;
+  // 订购错误码
+  orderErrorCode?: string;
+  // 订购错误描述	
+  orderErrorDescription?: string;
+  static names(): { [key: string]: string } {
+    return {
+      orderId: 'order_id',
+      bizNo: 'biz_no',
+      instanceIds: 'instance_ids',
+      payStatus: 'pay_status',
+      orderErrorCode: 'order_error_code',
+      orderErrorDescription: 'order_error_description',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      orderId: 'string',
+      bizNo: 'string',
+      instanceIds: { 'type': 'array', 'itemType': 'string' },
+      payStatus: 'string',
+      orderErrorCode: 'string',
+      orderErrorDescription: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 商品询价结构
+export class CommodityEnquiryPrice extends $tea.Model {
+  // 商品主数据编码
+  commodityCode: string;
+  // 商品名称
+  commodityName: string;
+  // 预付-支付金额
+  payAmount: string;
+  // 预付费-原始金额
+  originalAmount: string;
+  // 预付费-折扣金额
+  discountAmount: string;
+  // 预付费-优惠券抵扣金额
+  couponAmount: string;
+  // 原订购剩余价值，用于变配场景
+  subscriptionUnusedAmount: string;
+  // 命中的活动编码
+  activityCode: string;
+  // 命中的活动名称
+  activityName: string;
+  // 命中的定价计划ID
+  pricePlanId: number;
+  // 命中的定价约束ID
+  priceConstraintId: number;
+  // 币种，元：CNY
+  currency: string;
+  // 基于剩余价值变配场景下，预测的支付金额正常的最小订购周期
+  minDurationOfValidPayAmount?: OrderDuration;
+  // 预付费-折扣率
+  discountRate: string;
+  // 原始BD权限价金额，白名单商品会返回此价格
+  originalBdAmount?: string;
+  // 原始成本价金额，白名单商品会返回此价格
+  originalCostAmount?: string;
+  static names(): { [key: string]: string } {
+    return {
+      commodityCode: 'commodity_code',
+      commodityName: 'commodity_name',
+      payAmount: 'pay_amount',
+      originalAmount: 'original_amount',
+      discountAmount: 'discount_amount',
+      couponAmount: 'coupon_amount',
+      subscriptionUnusedAmount: 'subscription_unused_amount',
+      activityCode: 'activity_code',
+      activityName: 'activity_name',
+      pricePlanId: 'price_plan_id',
+      priceConstraintId: 'price_constraint_id',
+      currency: 'currency',
+      minDurationOfValidPayAmount: 'min_duration_of_valid_pay_amount',
+      discountRate: 'discount_rate',
+      originalBdAmount: 'original_bd_amount',
+      originalCostAmount: 'original_cost_amount',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      commodityCode: 'string',
+      commodityName: 'string',
+      payAmount: 'string',
+      originalAmount: 'string',
+      discountAmount: 'string',
+      couponAmount: 'string',
+      subscriptionUnusedAmount: 'string',
+      activityCode: 'string',
+      activityName: 'string',
+      pricePlanId: 'number',
+      priceConstraintId: 'number',
+      currency: 'string',
+      minDurationOfValidPayAmount: OrderDuration,
+      discountRate: 'string',
+      originalBdAmount: 'string',
+      originalCostAmount: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 套餐结构
+export class Combo extends $tea.Model {
+  // 套餐名称
+  code: string;
+  // 套餐编码
+  name: string;
+  // 套餐版本号
+  vid: string;
+  // 套餐描述
+  description: string;
+  // 扩展信息，JSON结构，包含标签、个性化配置等数据
+  extendsConfig: string;
+  // 状态
+  status: string;
+  // 套餐内商品列表
+  commodities: ComboCommodity[];
+  static names(): { [key: string]: string } {
+    return {
+      code: 'code',
+      name: 'name',
+      vid: 'vid',
+      description: 'description',
+      extendsConfig: 'extends_config',
+      status: 'status',
+      commodities: 'commodities',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      code: 'string',
+      name: 'string',
+      vid: 'string',
+      description: 'string',
+      extendsConfig: 'string',
+      status: 'string',
+      commodities: { 'type': 'array', 'itemType': ComboCommodity },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 实例
+export class Instance extends $tea.Model {
+  // 租户id
+  tenantId: string;
+  // 实例id
+  instanceId: string;
+  // 商品code
+  productName: string;
+  // 付费类型 PREPAY_BY_MONTH 预付 AFTER_PAY_BY_HOUR 后付 MIX_PAY 混合付
+  chargeType: string;
+  // 状态 CREATING 创建中 FAILED 创建失败  STARTED 运行中 STOPPED 已停服  RELEASED 已释放
+  status: string;
+  static names(): { [key: string]: string } {
+    return {
+      tenantId: 'tenant_id',
+      instanceId: 'instance_id',
+      productName: 'product_name',
+      chargeType: 'charge_type',
+      status: 'status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      tenantId: 'string',
+      instanceId: 'string',
+      productName: 'string',
+      chargeType: 'string',
+      status: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 下单返回接口
+export class CreateOrderResult extends $tea.Model {
+  // 下单时指定的业务流水号。二级订单号
+  bsnNo: string;
+  // 一级订单号
+  orderId: string;
+  // 二级订单号
+  normalOrderLineId: string;
+  // 订单状态
+  orderStatus: string;
+  // 实例列表
+  instanceIds: string;
+  // 订购错误码
+  orderErrorCode: string;
+  // 订购错误描述
+  orderErrorDescription: string;
+  static names(): { [key: string]: string } {
+    return {
+      bsnNo: 'bsn_no',
+      orderId: 'order_id',
+      normalOrderLineId: 'normal_order_line_id',
+      orderStatus: 'order_status',
+      instanceIds: 'instance_ids',
+      orderErrorCode: 'order_error_code',
+      orderErrorDescription: 'order_error_description',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      bsnNo: 'string',
+      orderId: 'string',
+      normalOrderLineId: 'string',
+      orderStatus: 'string',
+      instanceIds: 'string',
+      orderErrorCode: 'string',
+      orderErrorDescription: 'string',
     };
   }
 
@@ -1025,6 +1374,74 @@ export class SendMarketingCouponResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       couponId: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SyncOfferCommonbuyRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 请求id offerCode_yyyyMMddHHm0(最后一位固定为0幂等用，请求10分钟内只能触发一次)
+  requestId: string;
+  // 需要同步的商品code
+  offerCode: string;
+  // 操作人工号
+  requestWorkNo: string;
+  // 商品同步commonBuy的配置列表对应json
+  offerCommonBuySyncInfo: OfferSyncCommonBuyInfo;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      requestId: 'request_id',
+      offerCode: 'offer_code',
+      requestWorkNo: 'request_work_no',
+      offerCommonBuySyncInfo: 'offer_common_buy_sync_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      requestId: 'string',
+      offerCode: 'string',
+      requestWorkNo: 'string',
+      offerCommonBuySyncInfo: OfferSyncCommonBuyInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SyncOfferCommonbuyResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否触发同步商品信息异步处理
+  result?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: 'boolean',
     };
   }
 
@@ -1690,6 +2107,8 @@ export class CreateOrderRequest extends $tea.Model {
   batchBizNo?: string;
   // 预付费订单金额。仅白名单商品且batchBizNo是合法的合同ID的情况，才允许指定预付订单金额
   prepayAmount?: PrepayAmount;
+  // 后付商品签约价，用于在履约阶段生成一客一价
+  postPayPrice?: PostPayPrice;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -1712,6 +2131,7 @@ export class CreateOrderRequest extends $tea.Model {
       extendedProperties: 'extended_properties',
       batchBizNo: 'batch_biz_no',
       prepayAmount: 'prepay_amount',
+      postPayPrice: 'post_pay_price',
     };
   }
 
@@ -1737,6 +2157,7 @@ export class CreateOrderRequest extends $tea.Model {
       extendedProperties: 'string',
       batchBizNo: 'string',
       prepayAmount: PrepayAmount,
+      postPayPrice: PostPayPrice,
     };
   }
 
@@ -1898,6 +2319,303 @@ export class CancelOrderResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       result: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BatchcreateOrderRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  //  批量下单场景编码 BatchOrderSceneEnum.online_acboss.getCode()
+  batchOrderScene: string;
+  //  批量下单批次号
+  batchOrderBsnNo: string;
+  // 销售市场 com.antgroup.actradeprod.common.service.model.order.enums.SaleMarketEnum
+  saleMarket: string;
+  // 租户Id
+  tenantId?: string;
+  // 租户名称
+  tenantName?: string;
+  // 操作人ID，不填则默认和租户ID一致
+  operatorId?: string;
+  // 支付选项
+  payOptions?: PayOptions;
+  // 商品实例列表
+  commodityInstanceList: CommodityInstance[];
+  // 扩展属性，JSON字符串
+  extendedProperties: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      batchOrderScene: 'batch_order_scene',
+      batchOrderBsnNo: 'batch_order_bsn_no',
+      saleMarket: 'sale_market',
+      tenantId: 'tenant_id',
+      tenantName: 'tenant_name',
+      operatorId: 'operator_id',
+      payOptions: 'pay_options',
+      commodityInstanceList: 'commodity_instance_list',
+      extendedProperties: 'extended_properties',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      batchOrderScene: 'string',
+      batchOrderBsnNo: 'string',
+      saleMarket: 'string',
+      tenantId: 'string',
+      tenantName: 'string',
+      operatorId: 'string',
+      payOptions: PayOptions,
+      commodityInstanceList: { 'type': 'array', 'itemType': CommodityInstance },
+      extendedProperties: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BatchcreateOrderResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 支付状态
+  payStatus?: string;
+  // 批量下单列表返回
+  createTradeOrderResults?: CreateTradeOrderResult[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      payStatus: 'pay_status',
+      createTradeOrderResults: 'create_trade_order_results',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      payStatus: 'string',
+      createTradeOrderResults: { 'type': 'array', 'itemType': CreateTradeOrderResult },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BatchcancelOrderRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 批次号
+  batchOrderBsnNo: string;
+  // 租户Id
+  tenantId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      batchOrderBsnNo: 'batch_order_bsn_no',
+      tenantId: 'tenant_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      batchOrderBsnNo: 'string',
+      tenantId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BatchcancelOrderResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否取消成功
+  // 
+  result?: boolean;
+  // 取消订单结果
+  createTradeOrderResult?: CreateTradeOrderResult[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+      createTradeOrderResult: 'create_trade_order_result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: 'boolean',
+      createTradeOrderResult: { 'type': 'array', 'itemType': CreateTradeOrderResult },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExecOrderRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 订单号
+  orderId: string;
+  // 租户标识
+  tenantId: string;
+  // 开通参数
+  provisionOptions?: ProvisionOption;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      orderId: 'order_id',
+      tenantId: 'tenant_id',
+      provisionOptions: 'provision_options',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      orderId: 'string',
+      tenantId: 'string',
+      provisionOptions: ProvisionOption,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExecOrderResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 执行结果
+  success?: boolean;
+  // 实例ID列表
+  instanceIds?: string[];
+  // 操作订单状态
+  orderStatus?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      instanceIds: 'instance_ids',
+      orderStatus: 'order_status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      instanceIds: { 'type': 'array', 'itemType': 'string' },
+      orderStatus: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RefundOrderRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 订单号
+  orderId: string;
+  // 租户标识
+  tenantId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      orderId: 'order_id',
+      tenantId: 'tenant_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      orderId: 'string',
+      tenantId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RefundOrderResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 订单号
+  orderId?: string;
+  // 执行结果
+  success?: boolean;
+  // 操作订单状态
+  orderStatus?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      orderId: 'order_id',
+      success: 'success',
+      orderStatus: 'order_status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      orderId: 'string',
+      success: 'boolean',
+      orderStatus: 'string',
     };
   }
 
@@ -2241,7 +2959,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "3.13.2",
+          sdk_version: "3.15.4",
           _prod_code: "TRADE",
           _prod_channel: "undefined",
         };
@@ -2344,6 +3062,25 @@ export default class Client {
   async sendMarketingCouponEx(request: SendMarketingCouponRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SendMarketingCouponResponse> {
     Util.validateModel(request);
     return $tea.cast<SendMarketingCouponResponse>(await this.doRequest("1.0", "antcloud.trade.marketing.coupon.send", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SendMarketingCouponResponse({}));
+  }
+
+  /**
+   * Description: 用于线下sit调试完成的商品commonBuy信息一件上线
+   * Summary: 商品commonBuy配置信息同步
+   */
+  async syncOfferCommonbuy(request: SyncOfferCommonbuyRequest): Promise<SyncOfferCommonbuyResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.syncOfferCommonbuyEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 用于线下sit调试完成的商品commonBuy信息一件上线
+   * Summary: 商品commonBuy配置信息同步
+   */
+  async syncOfferCommonbuyEx(request: SyncOfferCommonbuyRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SyncOfferCommonbuyResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SyncOfferCommonbuyResponse>(await this.doRequest("1.0", "antcloud.trade.offer.commonbuy.sync", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SyncOfferCommonbuyResponse({}));
   }
 
   /**
@@ -2553,6 +3290,82 @@ export default class Client {
   async cancelOrderEx(request: CancelOrderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CancelOrderResponse> {
     Util.validateModel(request);
     return $tea.cast<CancelOrderResponse>(await this.doRequest("1.0", "antcloud.trade.order.cancel", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CancelOrderResponse({}));
+  }
+
+  /**
+   * Description: 商品通用批量下单接口
+   * Summary: 通用批量下单接口
+   */
+  async batchcreateOrder(request: BatchcreateOrderRequest): Promise<BatchcreateOrderResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.batchcreateOrderEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 商品通用批量下单接口
+   * Summary: 通用批量下单接口
+   */
+  async batchcreateOrderEx(request: BatchcreateOrderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BatchcreateOrderResponse> {
+    Util.validateModel(request);
+    return $tea.cast<BatchcreateOrderResponse>(await this.doRequest("1.0", "antcloud.trade.order.batchcreate", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BatchcreateOrderResponse({}));
+  }
+
+  /**
+   * Description: 通用订单批量取消接口
+   * Summary: 通用订单批量取消接口
+   */
+  async batchcancelOrder(request: BatchcancelOrderRequest): Promise<BatchcancelOrderResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.batchcancelOrderEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 通用订单批量取消接口
+   * Summary: 通用订单批量取消接口
+   */
+  async batchcancelOrderEx(request: BatchcancelOrderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BatchcancelOrderResponse> {
+    Util.validateModel(request);
+    return $tea.cast<BatchcancelOrderResponse>(await this.doRequest("1.0", "antcloud.trade.order.batchcancel", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BatchcancelOrderResponse({}));
+  }
+
+  /**
+   * Description: 在订单非自动履约场景，手动触发执行
+   * Summary: 触发订单的履约执行
+   */
+  async execOrder(request: ExecOrderRequest): Promise<ExecOrderResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.execOrderEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 在订单非自动履约场景，手动触发执行
+   * Summary: 触发订单的履约执行
+   */
+  async execOrderEx(request: ExecOrderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ExecOrderResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ExecOrderResponse>(await this.doRequest("1.0", "antcloud.trade.order.exec", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ExecOrderResponse({}));
+  }
+
+  /**
+   * Description: 在订单非自动履约场景，撤销订单并退款
+   * Summary: 订单退款
+   */
+  async refundOrder(request: RefundOrderRequest): Promise<RefundOrderResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.refundOrderEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 在订单非自动履约场景，撤销订单并退款
+   * Summary: 订单退款
+   */
+  async refundOrderEx(request: RefundOrderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RefundOrderResponse> {
+    Util.validateModel(request);
+    return $tea.cast<RefundOrderResponse>(await this.doRequest("1.0", "antcloud.trade.order.refund", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RefundOrderResponse({}));
   }
 
   /**
