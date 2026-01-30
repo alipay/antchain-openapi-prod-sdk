@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.2',
+                    'sdk_version': '1.1.3',
                     '_prod_code': 'ak_d3c4f09125a14cd587057c405561809a',
                     '_prod_channel': 'saas'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.2',
+                    'sdk_version': '1.1.3',
                     '_prod_code': 'ak_d3c4f09125a14cd587057c405561809a',
                     '_prod_channel': 'saas'
                 }
@@ -329,6 +329,62 @@ class Client:
         return TeaCore.from_map(
             ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.UpdateAntdigitalWebtrwatradeIssuerPriceResponse(),
             await self.do_request_async('1.0', 'antdigital.webtrwatrade.issuer.price.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_antdigital_webtrwatrade_distributor_subuser(
+        self,
+        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.UpdateAntdigitalWebtrwatradeDistributorSubuserRequest,
+    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.UpdateAntdigitalWebtrwatradeDistributorSubuserResponse:
+        """
+        Description: 更新二级用户
+        Summary: 更新二级用户
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_antdigital_webtrwatrade_distributor_subuser_ex(request, headers, runtime)
+
+    async def update_antdigital_webtrwatrade_distributor_subuser_async(
+        self,
+        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.UpdateAntdigitalWebtrwatradeDistributorSubuserRequest,
+    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.UpdateAntdigitalWebtrwatradeDistributorSubuserResponse:
+        """
+        Description: 更新二级用户
+        Summary: 更新二级用户
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_antdigital_webtrwatrade_distributor_subuser_ex_async(request, headers, runtime)
+
+    def update_antdigital_webtrwatrade_distributor_subuser_ex(
+        self,
+        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.UpdateAntdigitalWebtrwatradeDistributorSubuserRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.UpdateAntdigitalWebtrwatradeDistributorSubuserResponse:
+        """
+        Description: 更新二级用户
+        Summary: 更新二级用户
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.UpdateAntdigitalWebtrwatradeDistributorSubuserResponse(),
+            self.do_request('1.0', 'antdigital.webtrwatrade.distributor.subuser.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_antdigital_webtrwatrade_distributor_subuser_ex_async(
+        self,
+        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.UpdateAntdigitalWebtrwatradeDistributorSubuserRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.UpdateAntdigitalWebtrwatradeDistributorSubuserResponse:
+        """
+        Description: 更新二级用户
+        Summary: 更新二级用户
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.UpdateAntdigitalWebtrwatradeDistributorSubuserResponse(),
+            await self.do_request_async('1.0', 'antdigital.webtrwatrade.distributor.subuser.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def list_antdigital_webtrwatrade_issuer_operationloglogininfo(
@@ -1057,4 +1113,340 @@ class Client:
         return TeaCore.from_map(
             ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeDistributorSubuserResponse(),
             await self.do_request_async('1.0', 'antdigital.webtrwatrade.distributor.subuser.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_antdigital_webtrwatrade_distributor_subuseraccount(
+        self,
+        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeDistributorSubuseraccountRequest,
+    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeDistributorSubuseraccountResponse:
+        """
+        Description: 代销机构本侧链持仓情况
+        Summary: 代销机构本侧链持仓情况
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_antdigital_webtrwatrade_distributor_subuseraccount_ex(request, headers, runtime)
+
+    async def query_antdigital_webtrwatrade_distributor_subuseraccount_async(
+        self,
+        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeDistributorSubuseraccountRequest,
+    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeDistributorSubuseraccountResponse:
+        """
+        Description: 代销机构本侧链持仓情况
+        Summary: 代销机构本侧链持仓情况
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_antdigital_webtrwatrade_distributor_subuseraccount_ex_async(request, headers, runtime)
+
+    def query_antdigital_webtrwatrade_distributor_subuseraccount_ex(
+        self,
+        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeDistributorSubuseraccountRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeDistributorSubuseraccountResponse:
+        """
+        Description: 代销机构本侧链持仓情况
+        Summary: 代销机构本侧链持仓情况
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeDistributorSubuseraccountResponse(),
+            self.do_request('1.0', 'antdigital.webtrwatrade.distributor.subuseraccount.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_antdigital_webtrwatrade_distributor_subuseraccount_ex_async(
+        self,
+        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeDistributorSubuseraccountRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeDistributorSubuseraccountResponse:
+        """
+        Description: 代销机构本侧链持仓情况
+        Summary: 代销机构本侧链持仓情况
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeDistributorSubuseraccountResponse(),
+            await self.do_request_async('1.0', 'antdigital.webtrwatrade.distributor.subuseraccount.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_antdigital_webtrwatrade_issuer_subuseraccount(
+        self,
+        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeIssuerSubuseraccountRequest,
+    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeIssuerSubuseraccountResponse:
+        """
+        Description: 发行机构本侧链持仓情况
+        Summary: 发行机构本侧链持仓情况
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_antdigital_webtrwatrade_issuer_subuseraccount_ex(request, headers, runtime)
+
+    async def query_antdigital_webtrwatrade_issuer_subuseraccount_async(
+        self,
+        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeIssuerSubuseraccountRequest,
+    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeIssuerSubuseraccountResponse:
+        """
+        Description: 发行机构本侧链持仓情况
+        Summary: 发行机构本侧链持仓情况
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_antdigital_webtrwatrade_issuer_subuseraccount_ex_async(request, headers, runtime)
+
+    def query_antdigital_webtrwatrade_issuer_subuseraccount_ex(
+        self,
+        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeIssuerSubuseraccountRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeIssuerSubuseraccountResponse:
+        """
+        Description: 发行机构本侧链持仓情况
+        Summary: 发行机构本侧链持仓情况
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeIssuerSubuseraccountResponse(),
+            self.do_request('1.0', 'antdigital.webtrwatrade.issuer.subuseraccount.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_antdigital_webtrwatrade_issuer_subuseraccount_ex_async(
+        self,
+        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeIssuerSubuseraccountRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeIssuerSubuseraccountResponse:
+        """
+        Description: 发行机构本侧链持仓情况
+        Summary: 发行机构本侧链持仓情况
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeIssuerSubuseraccountResponse(),
+            await self.do_request_async('1.0', 'antdigital.webtrwatrade.issuer.subuseraccount.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_antdigital_webtrwatrade_distributor_crosschainaccount(
+        self,
+        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeDistributorCrosschainaccountRequest,
+    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeDistributorCrosschainaccountResponse:
+        """
+        Description: 代销机构对侧链持仓情况
+        Summary: 代销机构对侧链持仓情况
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_antdigital_webtrwatrade_distributor_crosschainaccount_ex(request, headers, runtime)
+
+    async def query_antdigital_webtrwatrade_distributor_crosschainaccount_async(
+        self,
+        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeDistributorCrosschainaccountRequest,
+    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeDistributorCrosschainaccountResponse:
+        """
+        Description: 代销机构对侧链持仓情况
+        Summary: 代销机构对侧链持仓情况
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_antdigital_webtrwatrade_distributor_crosschainaccount_ex_async(request, headers, runtime)
+
+    def query_antdigital_webtrwatrade_distributor_crosschainaccount_ex(
+        self,
+        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeDistributorCrosschainaccountRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeDistributorCrosschainaccountResponse:
+        """
+        Description: 代销机构对侧链持仓情况
+        Summary: 代销机构对侧链持仓情况
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeDistributorCrosschainaccountResponse(),
+            self.do_request('1.0', 'antdigital.webtrwatrade.distributor.crosschainaccount.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_antdigital_webtrwatrade_distributor_crosschainaccount_ex_async(
+        self,
+        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeDistributorCrosschainaccountRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeDistributorCrosschainaccountResponse:
+        """
+        Description: 代销机构对侧链持仓情况
+        Summary: 代销机构对侧链持仓情况
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeDistributorCrosschainaccountResponse(),
+            await self.do_request_async('1.0', 'antdigital.webtrwatrade.distributor.crosschainaccount.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_antdigital_webtrwatrade_issuer_crosschainaccount(
+        self,
+        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeIssuerCrosschainaccountRequest,
+    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeIssuerCrosschainaccountResponse:
+        """
+        Description: 发行机构对侧链持仓情况
+        Summary: 发行机构对侧链持仓情况
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_antdigital_webtrwatrade_issuer_crosschainaccount_ex(request, headers, runtime)
+
+    async def query_antdigital_webtrwatrade_issuer_crosschainaccount_async(
+        self,
+        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeIssuerCrosschainaccountRequest,
+    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeIssuerCrosschainaccountResponse:
+        """
+        Description: 发行机构对侧链持仓情况
+        Summary: 发行机构对侧链持仓情况
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_antdigital_webtrwatrade_issuer_crosschainaccount_ex_async(request, headers, runtime)
+
+    def query_antdigital_webtrwatrade_issuer_crosschainaccount_ex(
+        self,
+        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeIssuerCrosschainaccountRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeIssuerCrosschainaccountResponse:
+        """
+        Description: 发行机构对侧链持仓情况
+        Summary: 发行机构对侧链持仓情况
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeIssuerCrosschainaccountResponse(),
+            self.do_request('1.0', 'antdigital.webtrwatrade.issuer.crosschainaccount.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_antdigital_webtrwatrade_issuer_crosschainaccount_ex_async(
+        self,
+        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeIssuerCrosschainaccountRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeIssuerCrosschainaccountResponse:
+        """
+        Description: 发行机构对侧链持仓情况
+        Summary: 发行机构对侧链持仓情况
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeIssuerCrosschainaccountResponse(),
+            await self.do_request_async('1.0', 'antdigital.webtrwatrade.issuer.crosschainaccount.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def detail_antdigital_webtrwatrade_distributor_subuservirtualaccount(
+        self,
+        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.DetailAntdigitalWebtrwatradeDistributorSubuservirtualaccountRequest,
+    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.DetailAntdigitalWebtrwatradeDistributorSubuservirtualaccountResponse:
+        """
+        Description: 代销机构虚拟子账号明细
+        Summary: 代销机构虚拟子账号明细
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.detail_antdigital_webtrwatrade_distributor_subuservirtualaccount_ex(request, headers, runtime)
+
+    async def detail_antdigital_webtrwatrade_distributor_subuservirtualaccount_async(
+        self,
+        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.DetailAntdigitalWebtrwatradeDistributorSubuservirtualaccountRequest,
+    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.DetailAntdigitalWebtrwatradeDistributorSubuservirtualaccountResponse:
+        """
+        Description: 代销机构虚拟子账号明细
+        Summary: 代销机构虚拟子账号明细
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.detail_antdigital_webtrwatrade_distributor_subuservirtualaccount_ex_async(request, headers, runtime)
+
+    def detail_antdigital_webtrwatrade_distributor_subuservirtualaccount_ex(
+        self,
+        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.DetailAntdigitalWebtrwatradeDistributorSubuservirtualaccountRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.DetailAntdigitalWebtrwatradeDistributorSubuservirtualaccountResponse:
+        """
+        Description: 代销机构虚拟子账号明细
+        Summary: 代销机构虚拟子账号明细
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.DetailAntdigitalWebtrwatradeDistributorSubuservirtualaccountResponse(),
+            self.do_request('1.0', 'antdigital.webtrwatrade.distributor.subuservirtualaccount.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def detail_antdigital_webtrwatrade_distributor_subuservirtualaccount_ex_async(
+        self,
+        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.DetailAntdigitalWebtrwatradeDistributorSubuservirtualaccountRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.DetailAntdigitalWebtrwatradeDistributorSubuservirtualaccountResponse:
+        """
+        Description: 代销机构虚拟子账号明细
+        Summary: 代销机构虚拟子账号明细
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.DetailAntdigitalWebtrwatradeDistributorSubuservirtualaccountResponse(),
+            await self.do_request_async('1.0', 'antdigital.webtrwatrade.distributor.subuservirtualaccount.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def detail_antdigital_webtrwatrade_issuer_subuservirtualaccount(
+        self,
+        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.DetailAntdigitalWebtrwatradeIssuerSubuservirtualaccountRequest,
+    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.DetailAntdigitalWebtrwatradeIssuerSubuservirtualaccountResponse:
+        """
+        Description: 发行机构虚拟子账号明细
+        Summary: 发行机构虚拟子账号明细
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.detail_antdigital_webtrwatrade_issuer_subuservirtualaccount_ex(request, headers, runtime)
+
+    async def detail_antdigital_webtrwatrade_issuer_subuservirtualaccount_async(
+        self,
+        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.DetailAntdigitalWebtrwatradeIssuerSubuservirtualaccountRequest,
+    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.DetailAntdigitalWebtrwatradeIssuerSubuservirtualaccountResponse:
+        """
+        Description: 发行机构虚拟子账号明细
+        Summary: 发行机构虚拟子账号明细
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.detail_antdigital_webtrwatrade_issuer_subuservirtualaccount_ex_async(request, headers, runtime)
+
+    def detail_antdigital_webtrwatrade_issuer_subuservirtualaccount_ex(
+        self,
+        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.DetailAntdigitalWebtrwatradeIssuerSubuservirtualaccountRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.DetailAntdigitalWebtrwatradeIssuerSubuservirtualaccountResponse:
+        """
+        Description: 发行机构虚拟子账号明细
+        Summary: 发行机构虚拟子账号明细
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.DetailAntdigitalWebtrwatradeIssuerSubuservirtualaccountResponse(),
+            self.do_request('1.0', 'antdigital.webtrwatrade.issuer.subuservirtualaccount.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def detail_antdigital_webtrwatrade_issuer_subuservirtualaccount_ex_async(
+        self,
+        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.DetailAntdigitalWebtrwatradeIssuerSubuservirtualaccountRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.DetailAntdigitalWebtrwatradeIssuerSubuservirtualaccountResponse:
+        """
+        Description: 发行机构虚拟子账号明细
+        Summary: 发行机构虚拟子账号明细
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.DetailAntdigitalWebtrwatradeIssuerSubuservirtualaccountResponse(),
+            await self.do_request_async('1.0', 'antdigital.webtrwatrade.issuer.subuservirtualaccount.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
