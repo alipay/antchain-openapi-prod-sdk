@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.ak_2abe765c32934341bd9bb6cc1c8ff589.models
 
 import com.aliyun.tea.*;
 
-public class SyncAntchainAtoTradeFullResponse extends TeaModel {
+public class SyncAntchainAtoFundSplittingResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,16 @@ public class SyncAntchainAtoTradeFullResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 同步成功
+    // 流水同步描述信息
     @NameInMap("response_data")
     public String responseData;
 
-    public static SyncAntchainAtoTradeFullResponse build(java.util.Map<String, ?> map) throws Exception {
-        SyncAntchainAtoTradeFullResponse self = new SyncAntchainAtoTradeFullResponse();
+    public static SyncAntchainAtoFundSplittingResponse build(java.util.Map<String, ?> map) throws Exception {
+        SyncAntchainAtoFundSplittingResponse self = new SyncAntchainAtoFundSplittingResponse();
         return TeaModel.build(map, self);
     }
 
-    public SyncAntchainAtoTradeFullResponse setReqMsgId(String reqMsgId) {
+    public SyncAntchainAtoFundSplittingResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class SyncAntchainAtoTradeFullResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public SyncAntchainAtoTradeFullResponse setResultCode(String resultCode) {
+    public SyncAntchainAtoFundSplittingResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class SyncAntchainAtoTradeFullResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public SyncAntchainAtoTradeFullResponse setResultMsg(String resultMsg) {
+    public SyncAntchainAtoFundSplittingResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,7 +49,7 @@ public class SyncAntchainAtoTradeFullResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public SyncAntchainAtoTradeFullResponse setResponseData(String responseData) {
+    public SyncAntchainAtoFundSplittingResponse setResponseData(String responseData) {
         this.responseData = responseData;
         return this;
     }
