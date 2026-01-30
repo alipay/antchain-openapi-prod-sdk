@@ -37,12 +37,19 @@ class QueryRetailScoreResponse extends Model
      * @var string
      */
     public $transNo;
+
+    // 返回行业分其他数据，里面是key-value形式，标识返回的额外参数数据
+    /**
+     * @var string
+     */
+    public $extParam;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
         'score'      => 'score',
         'transNo'    => 'trans_no',
+        'extParam'   => 'ext_param',
     ];
 
     public function validate()
@@ -66,6 +73,9 @@ class QueryRetailScoreResponse extends Model
         }
         if (null !== $this->transNo) {
             $res['trans_no'] = $this->transNo;
+        }
+        if (null !== $this->extParam) {
+            $res['ext_param'] = $this->extParam;
         }
 
         return $res;
@@ -93,6 +103,9 @@ class QueryRetailScoreResponse extends Model
         }
         if (isset($map['trans_no'])) {
             $model->transNo = $map['trans_no'];
+        }
+        if (isset($map['ext_param'])) {
+            $model->extParam = $map['ext_param'];
         }
 
         return $model;

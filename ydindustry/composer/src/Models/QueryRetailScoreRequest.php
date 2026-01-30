@@ -60,6 +60,12 @@ class QueryRetailScoreRequest extends Model
      * @var string
      */
     public $userIdHashEncrypt;
+
+    // 客户场景码
+    /**
+     * @var string
+     */
+    public $instanceCode;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -70,6 +76,7 @@ class QueryRetailScoreRequest extends Model
         'customerCode'      => 'customer_code',
         'transNo'           => 'trans_no',
         'userIdHashEncrypt' => 'user_id_hash_encrypt',
+        'instanceCode'      => 'instance_code',
     ];
 
     public function validate()
@@ -113,6 +120,9 @@ class QueryRetailScoreRequest extends Model
         if (null !== $this->userIdHashEncrypt) {
             $res['user_id_hash_encrypt'] = $this->userIdHashEncrypt;
         }
+        if (null !== $this->instanceCode) {
+            $res['instance_code'] = $this->instanceCode;
+        }
 
         return $res;
     }
@@ -151,6 +161,9 @@ class QueryRetailScoreRequest extends Model
         }
         if (isset($map['user_id_hash_encrypt'])) {
             $model->userIdHashEncrypt = $map['user_id_hash_encrypt'];
+        }
+        if (isset($map['instance_code'])) {
+            $model->instanceCode = $map['instance_code'];
         }
 
         return $model;
