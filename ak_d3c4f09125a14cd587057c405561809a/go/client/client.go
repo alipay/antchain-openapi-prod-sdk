@@ -406,6 +406,142 @@ func (s *SubUserAccountDetailsVO) SetTransactionStatus(v string) *SubUserAccount
 	return s
 }
 
+// 虚拟子账户明细
+type SubUserVirtualAccountDetailVO struct {
+	// 明细ID
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	// 交易前余额
+	PreBalance *string `json:"pre_balance,omitempty" xml:"pre_balance,omitempty"`
+	// 交易数量
+	TransactionAmount *string `json:"transaction_amount,omitempty" xml:"transaction_amount,omitempty"`
+	// 交易后余额
+	PostBalance *string `json:"post_balance,omitempty" xml:"post_balance,omitempty"`
+	// 交易类型(TRANSFER_IN、TRANSFER_OUT)
+	TransactionType *string `json:"transaction_type,omitempty" xml:"transaction_type,omitempty"`
+	// 创建时间
+	GmtCreated *int64 `json:"gmt_created,omitempty" xml:"gmt_created,omitempty"`
+	// 更新时间
+	GmtModified *int64 `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty"`
+	// 交易状态（PENDING/CONFIRMED/INVALID）
+	TransactionStatus *string `json:"transaction_status,omitempty" xml:"transaction_status,omitempty"`
+}
+
+func (s SubUserVirtualAccountDetailVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubUserVirtualAccountDetailVO) GoString() string {
+	return s.String()
+}
+
+func (s *SubUserVirtualAccountDetailVO) SetId(v string) *SubUserVirtualAccountDetailVO {
+	s.Id = &v
+	return s
+}
+
+func (s *SubUserVirtualAccountDetailVO) SetPreBalance(v string) *SubUserVirtualAccountDetailVO {
+	s.PreBalance = &v
+	return s
+}
+
+func (s *SubUserVirtualAccountDetailVO) SetTransactionAmount(v string) *SubUserVirtualAccountDetailVO {
+	s.TransactionAmount = &v
+	return s
+}
+
+func (s *SubUserVirtualAccountDetailVO) SetPostBalance(v string) *SubUserVirtualAccountDetailVO {
+	s.PostBalance = &v
+	return s
+}
+
+func (s *SubUserVirtualAccountDetailVO) SetTransactionType(v string) *SubUserVirtualAccountDetailVO {
+	s.TransactionType = &v
+	return s
+}
+
+func (s *SubUserVirtualAccountDetailVO) SetGmtCreated(v int64) *SubUserVirtualAccountDetailVO {
+	s.GmtCreated = &v
+	return s
+}
+
+func (s *SubUserVirtualAccountDetailVO) SetGmtModified(v int64) *SubUserVirtualAccountDetailVO {
+	s.GmtModified = &v
+	return s
+}
+
+func (s *SubUserVirtualAccountDetailVO) SetTransactionStatus(v string) *SubUserVirtualAccountDetailVO {
+	s.TransactionStatus = &v
+	return s
+}
+
+// 虚拟子账户红利明细
+type SubUserBonusVirtualAccountDetailVO struct {
+	// 明细ID
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	// 交易前余额
+	PreBalance *string `json:"pre_balance,omitempty" xml:"pre_balance,omitempty"`
+	// 交易数量
+	TransactionAmount *string `json:"transaction_amount,omitempty" xml:"transaction_amount,omitempty"`
+	// 交易后余额
+	PostBalance *string `json:"post_balance,omitempty" xml:"post_balance,omitempty"`
+	// 交易类型(TRANSFER_IN、TRANSFER_OUT)
+	TransactionType *string `json:"transaction_type,omitempty" xml:"transaction_type,omitempty"`
+	// 创建时间
+	GmtCreated *int64 `json:"gmt_created,omitempty" xml:"gmt_created,omitempty"`
+	// 更新时间
+	GmtModified *int64 `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty"`
+	// 交易状态（PENDING/CONFIRMED/INVALID）
+	TransactionStatus *string `json:"transaction_status,omitempty" xml:"transaction_status,omitempty"`
+}
+
+func (s SubUserBonusVirtualAccountDetailVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubUserBonusVirtualAccountDetailVO) GoString() string {
+	return s.String()
+}
+
+func (s *SubUserBonusVirtualAccountDetailVO) SetId(v string) *SubUserBonusVirtualAccountDetailVO {
+	s.Id = &v
+	return s
+}
+
+func (s *SubUserBonusVirtualAccountDetailVO) SetPreBalance(v string) *SubUserBonusVirtualAccountDetailVO {
+	s.PreBalance = &v
+	return s
+}
+
+func (s *SubUserBonusVirtualAccountDetailVO) SetTransactionAmount(v string) *SubUserBonusVirtualAccountDetailVO {
+	s.TransactionAmount = &v
+	return s
+}
+
+func (s *SubUserBonusVirtualAccountDetailVO) SetPostBalance(v string) *SubUserBonusVirtualAccountDetailVO {
+	s.PostBalance = &v
+	return s
+}
+
+func (s *SubUserBonusVirtualAccountDetailVO) SetTransactionType(v string) *SubUserBonusVirtualAccountDetailVO {
+	s.TransactionType = &v
+	return s
+}
+
+func (s *SubUserBonusVirtualAccountDetailVO) SetGmtCreated(v int64) *SubUserBonusVirtualAccountDetailVO {
+	s.GmtCreated = &v
+	return s
+}
+
+func (s *SubUserBonusVirtualAccountDetailVO) SetGmtModified(v int64) *SubUserBonusVirtualAccountDetailVO {
+	s.GmtModified = &v
+	return s
+}
+
+func (s *SubUserBonusVirtualAccountDetailVO) SetTransactionStatus(v string) *SubUserBonusVirtualAccountDetailVO {
+	s.TransactionStatus = &v
+	return s
+}
+
 // 红利账户明细
 type SubUserBonusAccountDetailVO struct {
 	// 明细ID
@@ -833,6 +969,95 @@ func (s *OperationLogVO) SetLoginAccount(v string) *OperationLogVO {
 	return s
 }
 
+// 虚拟子账号明细与红利明细
+type SubUserVirtualAccountListVO struct {
+	// 项目ID
+	AssetProjectId *string `json:"asset_project_id,omitempty" xml:"asset_project_id,omitempty"`
+	// 资产项目合约地址
+	AssetProjectAddress *string `json:"asset_project_address,omitempty" xml:"asset_project_address,omitempty"`
+	// 红利合约地址
+	BonusAddress *string `json:"bonus_address,omitempty" xml:"bonus_address,omitempty"`
+	// 用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+	// 代销机构ID
+	DistributorInstitutionId *string `json:"distributor_institution_id,omitempty" xml:"distributor_institution_id,omitempty"`
+	// 链名
+	ChainName *string `json:"chain_name,omitempty" xml:"chain_name,omitempty"`
+	// 投资者用户账户ID
+	SubUserAccountId *string `json:"sub_user_account_id,omitempty" xml:"sub_user_account_id,omitempty"`
+	// 虚拟子账户ID
+	SubUserVirtualAccountId *string `json:"sub_user_virtual_account_id,omitempty" xml:"sub_user_virtual_account_id,omitempty"`
+	// 虚拟子账户红利账户ID
+	SubUserBonusVirtualAccountId *string `json:"sub_user_bonus_virtual_account_id,omitempty" xml:"sub_user_bonus_virtual_account_id,omitempty"`
+	// 虚拟子账户明细
+	SubUserVirtualAccountDetails []*SubUserVirtualAccountDetailVO `json:"sub_user_virtual_account_details,omitempty" xml:"sub_user_virtual_account_details,omitempty" type:"Repeated"`
+	// 虚拟子账户红利明细
+	SubUserBonusVirtualAccountDetails []*SubUserBonusVirtualAccountDetailVO `json:"sub_user_bonus_virtual_account_details,omitempty" xml:"sub_user_bonus_virtual_account_details,omitempty" type:"Repeated"`
+}
+
+func (s SubUserVirtualAccountListVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubUserVirtualAccountListVO) GoString() string {
+	return s.String()
+}
+
+func (s *SubUserVirtualAccountListVO) SetAssetProjectId(v string) *SubUserVirtualAccountListVO {
+	s.AssetProjectId = &v
+	return s
+}
+
+func (s *SubUserVirtualAccountListVO) SetAssetProjectAddress(v string) *SubUserVirtualAccountListVO {
+	s.AssetProjectAddress = &v
+	return s
+}
+
+func (s *SubUserVirtualAccountListVO) SetBonusAddress(v string) *SubUserVirtualAccountListVO {
+	s.BonusAddress = &v
+	return s
+}
+
+func (s *SubUserVirtualAccountListVO) SetUserId(v string) *SubUserVirtualAccountListVO {
+	s.UserId = &v
+	return s
+}
+
+func (s *SubUserVirtualAccountListVO) SetDistributorInstitutionId(v string) *SubUserVirtualAccountListVO {
+	s.DistributorInstitutionId = &v
+	return s
+}
+
+func (s *SubUserVirtualAccountListVO) SetChainName(v string) *SubUserVirtualAccountListVO {
+	s.ChainName = &v
+	return s
+}
+
+func (s *SubUserVirtualAccountListVO) SetSubUserAccountId(v string) *SubUserVirtualAccountListVO {
+	s.SubUserAccountId = &v
+	return s
+}
+
+func (s *SubUserVirtualAccountListVO) SetSubUserVirtualAccountId(v string) *SubUserVirtualAccountListVO {
+	s.SubUserVirtualAccountId = &v
+	return s
+}
+
+func (s *SubUserVirtualAccountListVO) SetSubUserBonusVirtualAccountId(v string) *SubUserVirtualAccountListVO {
+	s.SubUserBonusVirtualAccountId = &v
+	return s
+}
+
+func (s *SubUserVirtualAccountListVO) SetSubUserVirtualAccountDetails(v []*SubUserVirtualAccountDetailVO) *SubUserVirtualAccountListVO {
+	s.SubUserVirtualAccountDetails = v
+	return s
+}
+
+func (s *SubUserVirtualAccountListVO) SetSubUserBonusVirtualAccountDetails(v []*SubUserBonusVirtualAccountDetailVO) *SubUserVirtualAccountListVO {
+	s.SubUserBonusVirtualAccountDetails = v
+	return s
+}
+
 // 二级用户基础信息
 type SubUserAccountBaseVO struct {
 	// 二级用户ID
@@ -898,6 +1123,116 @@ func (s *SubUserAccountBaseVO) SetSubUserVirtualAccountsInfo(v []*SubUserVirtual
 
 func (s *SubUserAccountBaseVO) SetCrossChainSubUserAccountsInfo(v []*CrossChainSubUserAccountInfoBO) *SubUserAccountBaseVO {
 	s.CrossChainSubUserAccountsInfo = v
+	return s
+}
+
+// 本侧链持币情况
+type SubUserAccountCeilingBaseVO struct {
+	// 项目ID
+	AssetProjectId *string `json:"asset_project_id,omitempty" xml:"asset_project_id,omitempty"`
+	// 代币名称
+	TokenName *string `json:"token_name,omitempty" xml:"token_name,omitempty"`
+	// 代币合约地址
+	TokenAddress *string `json:"token_address,omitempty" xml:"token_address,omitempty"`
+	// 用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+	// 用户地址
+	UserAddress *string `json:"user_address,omitempty" xml:"user_address,omitempty"`
+	// 登录名
+	LoginName *string `json:"login_name,omitempty" xml:"login_name,omitempty"`
+	// 登录类型
+	LoginType *string `json:"login_type,omitempty" xml:"login_type,omitempty"`
+	// 别名
+	Alias *string `json:"alias,omitempty" xml:"alias,omitempty"`
+	// 实际持有份额
+	RealShares *string `json:"real_shares,omitempty" xml:"real_shares,omitempty"`
+	// 代币名称
+	BonusTokenName *string `json:"bonus_token_name,omitempty" xml:"bonus_token_name,omitempty"`
+	// 代币合约名称
+	BonusTokenAddress *string `json:"bonus_token_address,omitempty" xml:"bonus_token_address,omitempty"`
+	// 红利份额
+	RealBonus *string `json:"real_bonus,omitempty" xml:"real_bonus,omitempty"`
+	// 锁定金额
+	LockedAmount *string `json:"locked_amount,omitempty" xml:"locked_amount,omitempty"`
+	// 虚拟子账户余额
+	VirtualAccountBalance *string `json:"virtual_account_balance,omitempty" xml:"virtual_account_balance,omitempty"`
+}
+
+func (s SubUserAccountCeilingBaseVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubUserAccountCeilingBaseVO) GoString() string {
+	return s.String()
+}
+
+func (s *SubUserAccountCeilingBaseVO) SetAssetProjectId(v string) *SubUserAccountCeilingBaseVO {
+	s.AssetProjectId = &v
+	return s
+}
+
+func (s *SubUserAccountCeilingBaseVO) SetTokenName(v string) *SubUserAccountCeilingBaseVO {
+	s.TokenName = &v
+	return s
+}
+
+func (s *SubUserAccountCeilingBaseVO) SetTokenAddress(v string) *SubUserAccountCeilingBaseVO {
+	s.TokenAddress = &v
+	return s
+}
+
+func (s *SubUserAccountCeilingBaseVO) SetUserId(v string) *SubUserAccountCeilingBaseVO {
+	s.UserId = &v
+	return s
+}
+
+func (s *SubUserAccountCeilingBaseVO) SetUserAddress(v string) *SubUserAccountCeilingBaseVO {
+	s.UserAddress = &v
+	return s
+}
+
+func (s *SubUserAccountCeilingBaseVO) SetLoginName(v string) *SubUserAccountCeilingBaseVO {
+	s.LoginName = &v
+	return s
+}
+
+func (s *SubUserAccountCeilingBaseVO) SetLoginType(v string) *SubUserAccountCeilingBaseVO {
+	s.LoginType = &v
+	return s
+}
+
+func (s *SubUserAccountCeilingBaseVO) SetAlias(v string) *SubUserAccountCeilingBaseVO {
+	s.Alias = &v
+	return s
+}
+
+func (s *SubUserAccountCeilingBaseVO) SetRealShares(v string) *SubUserAccountCeilingBaseVO {
+	s.RealShares = &v
+	return s
+}
+
+func (s *SubUserAccountCeilingBaseVO) SetBonusTokenName(v string) *SubUserAccountCeilingBaseVO {
+	s.BonusTokenName = &v
+	return s
+}
+
+func (s *SubUserAccountCeilingBaseVO) SetBonusTokenAddress(v string) *SubUserAccountCeilingBaseVO {
+	s.BonusTokenAddress = &v
+	return s
+}
+
+func (s *SubUserAccountCeilingBaseVO) SetRealBonus(v string) *SubUserAccountCeilingBaseVO {
+	s.RealBonus = &v
+	return s
+}
+
+func (s *SubUserAccountCeilingBaseVO) SetLockedAmount(v string) *SubUserAccountCeilingBaseVO {
+	s.LockedAmount = &v
+	return s
+}
+
+func (s *SubUserAccountCeilingBaseVO) SetVirtualAccountBalance(v string) *SubUserAccountCeilingBaseVO {
+	s.VirtualAccountBalance = &v
 	return s
 }
 
@@ -1175,6 +1510,88 @@ func (s *LoginOperationLogVO) SetGmtCreated(v int64) *LoginOperationLogVO {
 	return s
 }
 
+// 对侧链持币情况
+type CrossChainSubUserAccountCeilingBaseVO struct {
+	// 项目ID
+	AssetProjectId *string `json:"asset_project_id,omitempty" xml:"asset_project_id,omitempty"`
+	// 代币名称
+	TokenName *string `json:"token_name,omitempty" xml:"token_name,omitempty"`
+	// 代币合约地址
+	TokenAddress *string `json:"token_address,omitempty" xml:"token_address,omitempty"`
+	// 别名
+	Alias *string `json:"alias,omitempty" xml:"alias,omitempty"`
+	// 实际持有份额
+	RealShares *string `json:"real_shares,omitempty" xml:"real_shares,omitempty"`
+	// 代币名称
+	BonusTokenName *string `json:"bonus_token_name,omitempty" xml:"bonus_token_name,omitempty"`
+	// 代币合约名称
+	BonusTokenAddress *string `json:"bonus_token_address,omitempty" xml:"bonus_token_address,omitempty"`
+	// 红利份额
+	RealBonus *string `json:"real_bonus,omitempty" xml:"real_bonus,omitempty"`
+	// 目标链
+	TagetChainType *string `json:"taget_chain_type,omitempty" xml:"taget_chain_type,omitempty"`
+	// 目标链用户地址
+	TargetUserAddress *string `json:"target_user_address,omitempty" xml:"target_user_address,omitempty"`
+}
+
+func (s CrossChainSubUserAccountCeilingBaseVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CrossChainSubUserAccountCeilingBaseVO) GoString() string {
+	return s.String()
+}
+
+func (s *CrossChainSubUserAccountCeilingBaseVO) SetAssetProjectId(v string) *CrossChainSubUserAccountCeilingBaseVO {
+	s.AssetProjectId = &v
+	return s
+}
+
+func (s *CrossChainSubUserAccountCeilingBaseVO) SetTokenName(v string) *CrossChainSubUserAccountCeilingBaseVO {
+	s.TokenName = &v
+	return s
+}
+
+func (s *CrossChainSubUserAccountCeilingBaseVO) SetTokenAddress(v string) *CrossChainSubUserAccountCeilingBaseVO {
+	s.TokenAddress = &v
+	return s
+}
+
+func (s *CrossChainSubUserAccountCeilingBaseVO) SetAlias(v string) *CrossChainSubUserAccountCeilingBaseVO {
+	s.Alias = &v
+	return s
+}
+
+func (s *CrossChainSubUserAccountCeilingBaseVO) SetRealShares(v string) *CrossChainSubUserAccountCeilingBaseVO {
+	s.RealShares = &v
+	return s
+}
+
+func (s *CrossChainSubUserAccountCeilingBaseVO) SetBonusTokenName(v string) *CrossChainSubUserAccountCeilingBaseVO {
+	s.BonusTokenName = &v
+	return s
+}
+
+func (s *CrossChainSubUserAccountCeilingBaseVO) SetBonusTokenAddress(v string) *CrossChainSubUserAccountCeilingBaseVO {
+	s.BonusTokenAddress = &v
+	return s
+}
+
+func (s *CrossChainSubUserAccountCeilingBaseVO) SetRealBonus(v string) *CrossChainSubUserAccountCeilingBaseVO {
+	s.RealBonus = &v
+	return s
+}
+
+func (s *CrossChainSubUserAccountCeilingBaseVO) SetTagetChainType(v string) *CrossChainSubUserAccountCeilingBaseVO {
+	s.TagetChainType = &v
+	return s
+}
+
+func (s *CrossChainSubUserAccountCeilingBaseVO) SetTargetUserAddress(v string) *CrossChainSubUserAccountCeilingBaseVO {
+	s.TargetUserAddress = &v
+	return s
+}
+
 // 资产账户明细与红利账户明细
 type SubUserAccountDetailVO struct {
 	// 项目ID
@@ -1442,6 +1859,125 @@ func (s *UpdateAntdigitalWebtrwatradeIssuerPriceResponse) SetResultCode(v string
 
 func (s *UpdateAntdigitalWebtrwatradeIssuerPriceResponse) SetResultMsg(v string) *UpdateAntdigitalWebtrwatradeIssuerPriceResponse {
 	s.ResultMsg = &v
+	return s
+}
+
+type UpdateAntdigitalWebtrwatradeDistributorSubuserRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 二级用户账号
+	SubUserAccountId *string `json:"sub_user_account_id,omitempty" xml:"sub_user_account_id,omitempty" require:"true"`
+	// 用户id
+	SubUserId *string `json:"sub_user_id,omitempty" xml:"sub_user_id,omitempty"`
+	// 二级用户钱包地址
+	SubUserAddress *string `json:"sub_user_address,omitempty" xml:"sub_user_address,omitempty"`
+	// assetProjectId
+	AssetProjectId *string `json:"asset_project_id,omitempty" xml:"asset_project_id,omitempty" require:"true"`
+	// userTarget
+	UserTarget *string `json:"user_target,omitempty" xml:"user_target,omitempty" require:"true"`
+	// 登录开关
+	LoginAccountSwitch *bool `json:"login_account_switch,omitempty" xml:"login_account_switch,omitempty"`
+	// 姓名
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 联系方式
+	Contact *string `json:"contact,omitempty" xml:"contact,omitempty"`
+}
+
+func (s UpdateAntdigitalWebtrwatradeDistributorSubuserRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateAntdigitalWebtrwatradeDistributorSubuserRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateAntdigitalWebtrwatradeDistributorSubuserRequest) SetAuthToken(v string) *UpdateAntdigitalWebtrwatradeDistributorSubuserRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateAntdigitalWebtrwatradeDistributorSubuserRequest) SetProductInstanceId(v string) *UpdateAntdigitalWebtrwatradeDistributorSubuserRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UpdateAntdigitalWebtrwatradeDistributorSubuserRequest) SetSubUserAccountId(v string) *UpdateAntdigitalWebtrwatradeDistributorSubuserRequest {
+	s.SubUserAccountId = &v
+	return s
+}
+
+func (s *UpdateAntdigitalWebtrwatradeDistributorSubuserRequest) SetSubUserId(v string) *UpdateAntdigitalWebtrwatradeDistributorSubuserRequest {
+	s.SubUserId = &v
+	return s
+}
+
+func (s *UpdateAntdigitalWebtrwatradeDistributorSubuserRequest) SetSubUserAddress(v string) *UpdateAntdigitalWebtrwatradeDistributorSubuserRequest {
+	s.SubUserAddress = &v
+	return s
+}
+
+func (s *UpdateAntdigitalWebtrwatradeDistributorSubuserRequest) SetAssetProjectId(v string) *UpdateAntdigitalWebtrwatradeDistributorSubuserRequest {
+	s.AssetProjectId = &v
+	return s
+}
+
+func (s *UpdateAntdigitalWebtrwatradeDistributorSubuserRequest) SetUserTarget(v string) *UpdateAntdigitalWebtrwatradeDistributorSubuserRequest {
+	s.UserTarget = &v
+	return s
+}
+
+func (s *UpdateAntdigitalWebtrwatradeDistributorSubuserRequest) SetLoginAccountSwitch(v bool) *UpdateAntdigitalWebtrwatradeDistributorSubuserRequest {
+	s.LoginAccountSwitch = &v
+	return s
+}
+
+func (s *UpdateAntdigitalWebtrwatradeDistributorSubuserRequest) SetName(v string) *UpdateAntdigitalWebtrwatradeDistributorSubuserRequest {
+	s.Name = &v
+	return s
+}
+
+func (s *UpdateAntdigitalWebtrwatradeDistributorSubuserRequest) SetContact(v string) *UpdateAntdigitalWebtrwatradeDistributorSubuserRequest {
+	s.Contact = &v
+	return s
+}
+
+type UpdateAntdigitalWebtrwatradeDistributorSubuserResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否成功
+	Data *bool `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s UpdateAntdigitalWebtrwatradeDistributorSubuserResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateAntdigitalWebtrwatradeDistributorSubuserResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateAntdigitalWebtrwatradeDistributorSubuserResponse) SetReqMsgId(v string) *UpdateAntdigitalWebtrwatradeDistributorSubuserResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UpdateAntdigitalWebtrwatradeDistributorSubuserResponse) SetResultCode(v string) *UpdateAntdigitalWebtrwatradeDistributorSubuserResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UpdateAntdigitalWebtrwatradeDistributorSubuserResponse) SetResultMsg(v string) *UpdateAntdigitalWebtrwatradeDistributorSubuserResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UpdateAntdigitalWebtrwatradeDistributorSubuserResponse) SetData(v bool) *UpdateAntdigitalWebtrwatradeDistributorSubuserResponse {
+	s.Data = &v
 	return s
 }
 
@@ -2736,6 +3272,636 @@ func (s *ListAntdigitalWebtrwatradeDistributorSubuserResponse) SetData(v []*SubU
 	return s
 }
 
+type QueryAntdigitalWebtrwatradeDistributorSubuseraccountRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 用户ID-用户ID & 本侧链用户地址 & 登录名+登录名类型(EMAIL) 三选一
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+	// 本侧链用户地址-用户ID & 本侧链用户地址 & 登录名+登录名类型(EMAIL) 三选一
+	UserAddress *string `json:"user_address,omitempty" xml:"user_address,omitempty"`
+	// 登录名-用户ID & 本侧链用户地址 & 登录名+登录名类型(EMAIL) 三选一
+	LoginName *string `json:"login_name,omitempty" xml:"login_name,omitempty"`
+	// 登录名类型(EMAIL) -用户ID & 本侧链用户地址 & 登录名+登录名类型(EMAIL) 三选一
+	LoginAccountType *string `json:"login_account_type,omitempty" xml:"login_account_type,omitempty"`
+}
+
+func (s QueryAntdigitalWebtrwatradeDistributorSubuseraccountRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAntdigitalWebtrwatradeDistributorSubuseraccountRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAntdigitalWebtrwatradeDistributorSubuseraccountRequest) SetAuthToken(v string) *QueryAntdigitalWebtrwatradeDistributorSubuseraccountRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAntdigitalWebtrwatradeDistributorSubuseraccountRequest) SetProductInstanceId(v string) *QueryAntdigitalWebtrwatradeDistributorSubuseraccountRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryAntdigitalWebtrwatradeDistributorSubuseraccountRequest) SetUserId(v string) *QueryAntdigitalWebtrwatradeDistributorSubuseraccountRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *QueryAntdigitalWebtrwatradeDistributorSubuseraccountRequest) SetUserAddress(v string) *QueryAntdigitalWebtrwatradeDistributorSubuseraccountRequest {
+	s.UserAddress = &v
+	return s
+}
+
+func (s *QueryAntdigitalWebtrwatradeDistributorSubuseraccountRequest) SetLoginName(v string) *QueryAntdigitalWebtrwatradeDistributorSubuseraccountRequest {
+	s.LoginName = &v
+	return s
+}
+
+func (s *QueryAntdigitalWebtrwatradeDistributorSubuseraccountRequest) SetLoginAccountType(v string) *QueryAntdigitalWebtrwatradeDistributorSubuseraccountRequest {
+	s.LoginAccountType = &v
+	return s
+}
+
+type QueryAntdigitalWebtrwatradeDistributorSubuseraccountResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 本侧链持仓
+	Data []*SubUserAccountCeilingBaseVO `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+}
+
+func (s QueryAntdigitalWebtrwatradeDistributorSubuseraccountResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAntdigitalWebtrwatradeDistributorSubuseraccountResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAntdigitalWebtrwatradeDistributorSubuseraccountResponse) SetReqMsgId(v string) *QueryAntdigitalWebtrwatradeDistributorSubuseraccountResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAntdigitalWebtrwatradeDistributorSubuseraccountResponse) SetResultCode(v string) *QueryAntdigitalWebtrwatradeDistributorSubuseraccountResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAntdigitalWebtrwatradeDistributorSubuseraccountResponse) SetResultMsg(v string) *QueryAntdigitalWebtrwatradeDistributorSubuseraccountResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAntdigitalWebtrwatradeDistributorSubuseraccountResponse) SetData(v []*SubUserAccountCeilingBaseVO) *QueryAntdigitalWebtrwatradeDistributorSubuseraccountResponse {
+	s.Data = v
+	return s
+}
+
+type QueryAntdigitalWebtrwatradeIssuerSubuseraccountRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 用户ID-用户ID & 本侧链用户地址 & 登录名+登录名类型(EMAIL) 三选一
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+	// 本侧链用户地址-用户ID & 本侧链用户地址 & 登录名+登录名类型(EMAIL) 三选一
+	UserAddress *string `json:"user_address,omitempty" xml:"user_address,omitempty"`
+	// 登录名-用户ID & 本侧链用户地址 & 登录名+登录名类型(EMAIL) 三选一
+	LoginName *string `json:"login_name,omitempty" xml:"login_name,omitempty"`
+	// 登录名类型(EMAIL) -用户ID & 本侧链用户地址 & 登录名+登录名类型(EMAIL) 三选一
+	LoginAccountType *string `json:"login_account_type,omitempty" xml:"login_account_type,omitempty"`
+}
+
+func (s QueryAntdigitalWebtrwatradeIssuerSubuseraccountRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAntdigitalWebtrwatradeIssuerSubuseraccountRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAntdigitalWebtrwatradeIssuerSubuseraccountRequest) SetAuthToken(v string) *QueryAntdigitalWebtrwatradeIssuerSubuseraccountRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAntdigitalWebtrwatradeIssuerSubuseraccountRequest) SetProductInstanceId(v string) *QueryAntdigitalWebtrwatradeIssuerSubuseraccountRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryAntdigitalWebtrwatradeIssuerSubuseraccountRequest) SetUserId(v string) *QueryAntdigitalWebtrwatradeIssuerSubuseraccountRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *QueryAntdigitalWebtrwatradeIssuerSubuseraccountRequest) SetUserAddress(v string) *QueryAntdigitalWebtrwatradeIssuerSubuseraccountRequest {
+	s.UserAddress = &v
+	return s
+}
+
+func (s *QueryAntdigitalWebtrwatradeIssuerSubuseraccountRequest) SetLoginName(v string) *QueryAntdigitalWebtrwatradeIssuerSubuseraccountRequest {
+	s.LoginName = &v
+	return s
+}
+
+func (s *QueryAntdigitalWebtrwatradeIssuerSubuseraccountRequest) SetLoginAccountType(v string) *QueryAntdigitalWebtrwatradeIssuerSubuseraccountRequest {
+	s.LoginAccountType = &v
+	return s
+}
+
+type QueryAntdigitalWebtrwatradeIssuerSubuseraccountResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 本侧链持仓
+	Data []*SubUserAccountCeilingBaseVO `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+}
+
+func (s QueryAntdigitalWebtrwatradeIssuerSubuseraccountResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAntdigitalWebtrwatradeIssuerSubuseraccountResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAntdigitalWebtrwatradeIssuerSubuseraccountResponse) SetReqMsgId(v string) *QueryAntdigitalWebtrwatradeIssuerSubuseraccountResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAntdigitalWebtrwatradeIssuerSubuseraccountResponse) SetResultCode(v string) *QueryAntdigitalWebtrwatradeIssuerSubuseraccountResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAntdigitalWebtrwatradeIssuerSubuseraccountResponse) SetResultMsg(v string) *QueryAntdigitalWebtrwatradeIssuerSubuseraccountResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAntdigitalWebtrwatradeIssuerSubuseraccountResponse) SetData(v []*SubUserAccountCeilingBaseVO) *QueryAntdigitalWebtrwatradeIssuerSubuseraccountResponse {
+	s.Data = v
+	return s
+}
+
+type QueryAntdigitalWebtrwatradeDistributorCrosschainaccountRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 对侧链用户地址
+	TargetUserAddress *string `json:"target_user_address,omitempty" xml:"target_user_address,omitempty" require:"true"`
+	// 目标链
+	TagetChainType *string `json:"taget_chain_type,omitempty" xml:"taget_chain_type,omitempty" require:"true"`
+}
+
+func (s QueryAntdigitalWebtrwatradeDistributorCrosschainaccountRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAntdigitalWebtrwatradeDistributorCrosschainaccountRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAntdigitalWebtrwatradeDistributorCrosschainaccountRequest) SetAuthToken(v string) *QueryAntdigitalWebtrwatradeDistributorCrosschainaccountRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAntdigitalWebtrwatradeDistributorCrosschainaccountRequest) SetProductInstanceId(v string) *QueryAntdigitalWebtrwatradeDistributorCrosschainaccountRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryAntdigitalWebtrwatradeDistributorCrosschainaccountRequest) SetTargetUserAddress(v string) *QueryAntdigitalWebtrwatradeDistributorCrosschainaccountRequest {
+	s.TargetUserAddress = &v
+	return s
+}
+
+func (s *QueryAntdigitalWebtrwatradeDistributorCrosschainaccountRequest) SetTagetChainType(v string) *QueryAntdigitalWebtrwatradeDistributorCrosschainaccountRequest {
+	s.TagetChainType = &v
+	return s
+}
+
+type QueryAntdigitalWebtrwatradeDistributorCrosschainaccountResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 对侧链持仓情况
+	Data []*CrossChainSubUserAccountCeilingBaseVO `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+}
+
+func (s QueryAntdigitalWebtrwatradeDistributorCrosschainaccountResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAntdigitalWebtrwatradeDistributorCrosschainaccountResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAntdigitalWebtrwatradeDistributorCrosschainaccountResponse) SetReqMsgId(v string) *QueryAntdigitalWebtrwatradeDistributorCrosschainaccountResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAntdigitalWebtrwatradeDistributorCrosschainaccountResponse) SetResultCode(v string) *QueryAntdigitalWebtrwatradeDistributorCrosschainaccountResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAntdigitalWebtrwatradeDistributorCrosschainaccountResponse) SetResultMsg(v string) *QueryAntdigitalWebtrwatradeDistributorCrosschainaccountResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAntdigitalWebtrwatradeDistributorCrosschainaccountResponse) SetData(v []*CrossChainSubUserAccountCeilingBaseVO) *QueryAntdigitalWebtrwatradeDistributorCrosschainaccountResponse {
+	s.Data = v
+	return s
+}
+
+type QueryAntdigitalWebtrwatradeIssuerCrosschainaccountRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 对侧链用户地址
+	TargetUserAddress *string `json:"target_user_address,omitempty" xml:"target_user_address,omitempty" require:"true"`
+	// 目标链
+	TagetChainType *string `json:"taget_chain_type,omitempty" xml:"taget_chain_type,omitempty" require:"true"`
+}
+
+func (s QueryAntdigitalWebtrwatradeIssuerCrosschainaccountRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAntdigitalWebtrwatradeIssuerCrosschainaccountRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAntdigitalWebtrwatradeIssuerCrosschainaccountRequest) SetAuthToken(v string) *QueryAntdigitalWebtrwatradeIssuerCrosschainaccountRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAntdigitalWebtrwatradeIssuerCrosschainaccountRequest) SetProductInstanceId(v string) *QueryAntdigitalWebtrwatradeIssuerCrosschainaccountRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryAntdigitalWebtrwatradeIssuerCrosschainaccountRequest) SetTargetUserAddress(v string) *QueryAntdigitalWebtrwatradeIssuerCrosschainaccountRequest {
+	s.TargetUserAddress = &v
+	return s
+}
+
+func (s *QueryAntdigitalWebtrwatradeIssuerCrosschainaccountRequest) SetTagetChainType(v string) *QueryAntdigitalWebtrwatradeIssuerCrosschainaccountRequest {
+	s.TagetChainType = &v
+	return s
+}
+
+type QueryAntdigitalWebtrwatradeIssuerCrosschainaccountResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 对侧链持仓情况
+	Data []*CrossChainSubUserAccountCeilingBaseVO `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+}
+
+func (s QueryAntdigitalWebtrwatradeIssuerCrosschainaccountResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAntdigitalWebtrwatradeIssuerCrosschainaccountResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAntdigitalWebtrwatradeIssuerCrosschainaccountResponse) SetReqMsgId(v string) *QueryAntdigitalWebtrwatradeIssuerCrosschainaccountResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAntdigitalWebtrwatradeIssuerCrosschainaccountResponse) SetResultCode(v string) *QueryAntdigitalWebtrwatradeIssuerCrosschainaccountResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAntdigitalWebtrwatradeIssuerCrosschainaccountResponse) SetResultMsg(v string) *QueryAntdigitalWebtrwatradeIssuerCrosschainaccountResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAntdigitalWebtrwatradeIssuerCrosschainaccountResponse) SetData(v []*CrossChainSubUserAccountCeilingBaseVO) *QueryAntdigitalWebtrwatradeIssuerCrosschainaccountResponse {
+	s.Data = v
+	return s
+}
+
+type DetailAntdigitalWebtrwatradeDistributorSubuservirtualaccountRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 资产项目ID - 资产项目ID & 资产项目合约地址+项目所在链 二选一
+	AssetProjectId *string `json:"asset_project_id,omitempty" xml:"asset_project_id,omitempty"`
+	// 资产项目合约地址 - 资产项目ID & 资产项目合约地址+项目所在链 二选一
+	AssetProjectAddress *string `json:"asset_project_address,omitempty" xml:"asset_project_address,omitempty"`
+	// 项目所在链 - 资产项目ID & 资产项目合约地址+项目所在链 二选一
+	ChainName *string `json:"chain_name,omitempty" xml:"chain_name,omitempty"`
+	// 用户ID - 用户ID & 本侧链用户地址 & 登录名+登录名类型(EMAIL) 三选一
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+	// 本侧链用户地址 - 用户ID & 本侧链用户地址 & 登录名+登录名类型(EMAIL) 三选一
+	UserAddress *string `json:"user_address,omitempty" xml:"user_address,omitempty"`
+	// 登录名 - 用户ID & 本侧链用户地址 & 登录名+登录名类型(EMAIL) 三选一
+	LoginName *string `json:"login_name,omitempty" xml:"login_name,omitempty"`
+	// 登录名类型(EMAIL) - 用户ID & 本侧链用户地址 & 登录名+登录名类型(EMAIL) 三选一
+	LoginAccountType *string `json:"login_account_type,omitempty" xml:"login_account_type,omitempty"`
+	// 虚拟子账号对应用户ID
+	VirtualAccountUserId *string `json:"virtual_account_user_id,omitempty" xml:"virtual_account_user_id,omitempty"`
+	// 虚拟子账号登录名
+	VirtualAccountLoginName *string `json:"virtual_account_login_name,omitempty" xml:"virtual_account_login_name,omitempty"`
+	// 虚拟子账号登录名类型(EMAIL)
+	VirtualAccountLoginAccountType *string `json:"virtual_account_login_account_type,omitempty" xml:"virtual_account_login_account_type,omitempty"`
+	// 开始时间 (时间戳)
+	StartTimeMills *int64 `json:"start_time_mills,omitempty" xml:"start_time_mills,omitempty" require:"true"`
+	// 结束时间 (时间戳)
+	EndTimeMills *int64 `json:"end_time_mills,omitempty" xml:"end_time_mills,omitempty" require:"true"`
+}
+
+func (s DetailAntdigitalWebtrwatradeDistributorSubuservirtualaccountRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DetailAntdigitalWebtrwatradeDistributorSubuservirtualaccountRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DetailAntdigitalWebtrwatradeDistributorSubuservirtualaccountRequest) SetAuthToken(v string) *DetailAntdigitalWebtrwatradeDistributorSubuservirtualaccountRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DetailAntdigitalWebtrwatradeDistributorSubuservirtualaccountRequest) SetProductInstanceId(v string) *DetailAntdigitalWebtrwatradeDistributorSubuservirtualaccountRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *DetailAntdigitalWebtrwatradeDistributorSubuservirtualaccountRequest) SetAssetProjectId(v string) *DetailAntdigitalWebtrwatradeDistributorSubuservirtualaccountRequest {
+	s.AssetProjectId = &v
+	return s
+}
+
+func (s *DetailAntdigitalWebtrwatradeDistributorSubuservirtualaccountRequest) SetAssetProjectAddress(v string) *DetailAntdigitalWebtrwatradeDistributorSubuservirtualaccountRequest {
+	s.AssetProjectAddress = &v
+	return s
+}
+
+func (s *DetailAntdigitalWebtrwatradeDistributorSubuservirtualaccountRequest) SetChainName(v string) *DetailAntdigitalWebtrwatradeDistributorSubuservirtualaccountRequest {
+	s.ChainName = &v
+	return s
+}
+
+func (s *DetailAntdigitalWebtrwatradeDistributorSubuservirtualaccountRequest) SetUserId(v string) *DetailAntdigitalWebtrwatradeDistributorSubuservirtualaccountRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *DetailAntdigitalWebtrwatradeDistributorSubuservirtualaccountRequest) SetUserAddress(v string) *DetailAntdigitalWebtrwatradeDistributorSubuservirtualaccountRequest {
+	s.UserAddress = &v
+	return s
+}
+
+func (s *DetailAntdigitalWebtrwatradeDistributorSubuservirtualaccountRequest) SetLoginName(v string) *DetailAntdigitalWebtrwatradeDistributorSubuservirtualaccountRequest {
+	s.LoginName = &v
+	return s
+}
+
+func (s *DetailAntdigitalWebtrwatradeDistributorSubuservirtualaccountRequest) SetLoginAccountType(v string) *DetailAntdigitalWebtrwatradeDistributorSubuservirtualaccountRequest {
+	s.LoginAccountType = &v
+	return s
+}
+
+func (s *DetailAntdigitalWebtrwatradeDistributorSubuservirtualaccountRequest) SetVirtualAccountUserId(v string) *DetailAntdigitalWebtrwatradeDistributorSubuservirtualaccountRequest {
+	s.VirtualAccountUserId = &v
+	return s
+}
+
+func (s *DetailAntdigitalWebtrwatradeDistributorSubuservirtualaccountRequest) SetVirtualAccountLoginName(v string) *DetailAntdigitalWebtrwatradeDistributorSubuservirtualaccountRequest {
+	s.VirtualAccountLoginName = &v
+	return s
+}
+
+func (s *DetailAntdigitalWebtrwatradeDistributorSubuservirtualaccountRequest) SetVirtualAccountLoginAccountType(v string) *DetailAntdigitalWebtrwatradeDistributorSubuservirtualaccountRequest {
+	s.VirtualAccountLoginAccountType = &v
+	return s
+}
+
+func (s *DetailAntdigitalWebtrwatradeDistributorSubuservirtualaccountRequest) SetStartTimeMills(v int64) *DetailAntdigitalWebtrwatradeDistributorSubuservirtualaccountRequest {
+	s.StartTimeMills = &v
+	return s
+}
+
+func (s *DetailAntdigitalWebtrwatradeDistributorSubuservirtualaccountRequest) SetEndTimeMills(v int64) *DetailAntdigitalWebtrwatradeDistributorSubuservirtualaccountRequest {
+	s.EndTimeMills = &v
+	return s
+}
+
+type DetailAntdigitalWebtrwatradeDistributorSubuservirtualaccountResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 虚拟子账户明细
+	Data []*SubUserVirtualAccountListVO `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+}
+
+func (s DetailAntdigitalWebtrwatradeDistributorSubuservirtualaccountResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DetailAntdigitalWebtrwatradeDistributorSubuservirtualaccountResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DetailAntdigitalWebtrwatradeDistributorSubuservirtualaccountResponse) SetReqMsgId(v string) *DetailAntdigitalWebtrwatradeDistributorSubuservirtualaccountResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DetailAntdigitalWebtrwatradeDistributorSubuservirtualaccountResponse) SetResultCode(v string) *DetailAntdigitalWebtrwatradeDistributorSubuservirtualaccountResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DetailAntdigitalWebtrwatradeDistributorSubuservirtualaccountResponse) SetResultMsg(v string) *DetailAntdigitalWebtrwatradeDistributorSubuservirtualaccountResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *DetailAntdigitalWebtrwatradeDistributorSubuservirtualaccountResponse) SetData(v []*SubUserVirtualAccountListVO) *DetailAntdigitalWebtrwatradeDistributorSubuservirtualaccountResponse {
+	s.Data = v
+	return s
+}
+
+type DetailAntdigitalWebtrwatradeIssuerSubuservirtualaccountRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 资产项目ID - 资产项目ID & 资产项目合约地址+项目所在链 二选一
+	AssetProjectId *string `json:"asset_project_id,omitempty" xml:"asset_project_id,omitempty"`
+	// 资产项目合约地址 - 资产项目ID & 资产项目合约地址+项目所在链 二选一
+	AssetProjectAddress *string `json:"asset_project_address,omitempty" xml:"asset_project_address,omitempty"`
+	// 项目所在链 - 资产项目ID & 资产项目合约地址+项目所在链 二选一
+	ChainName *string `json:"chain_name,omitempty" xml:"chain_name,omitempty"`
+	// 用户ID - 用户ID & 本侧链用户地址 & 登录名+登录名类型(EMAIL) 三选一
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+	// 本侧链用户地址 - 用户ID & 本侧链用户地址 & 登录名+登录名类型(EMAIL) 三选一
+	UserAddress *string `json:"user_address,omitempty" xml:"user_address,omitempty"`
+	// 登录名 - 用户ID & 本侧链用户地址 & 登录名+登录名类型(EMAIL) 三选一
+	LoginName *string `json:"login_name,omitempty" xml:"login_name,omitempty"`
+	// 登录名类型(EMAIL) - 用户ID & 本侧链用户地址 & 登录名+登录名类型(EMAIL) 三选一
+	LoginAccountType *string `json:"login_account_type,omitempty" xml:"login_account_type,omitempty"`
+	// 虚拟子账号对应用户ID
+	VirtualAccountUserId *string `json:"virtual_account_user_id,omitempty" xml:"virtual_account_user_id,omitempty"`
+	// 虚拟子账号登录名
+	VirtualAccountLoginName *string `json:"virtual_account_login_name,omitempty" xml:"virtual_account_login_name,omitempty"`
+	// 虚拟子账号登录名类型(EMAIL)
+	VirtualAccountLoginAccountType *string `json:"virtual_account_login_account_type,omitempty" xml:"virtual_account_login_account_type,omitempty"`
+	// 开始时间 (时间戳)
+	StartTimeMills *int64 `json:"start_time_mills,omitempty" xml:"start_time_mills,omitempty" require:"true"`
+	// 结束时间 (时间戳)
+	EndTimeMills *int64 `json:"end_time_mills,omitempty" xml:"end_time_mills,omitempty" require:"true"`
+}
+
+func (s DetailAntdigitalWebtrwatradeIssuerSubuservirtualaccountRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DetailAntdigitalWebtrwatradeIssuerSubuservirtualaccountRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DetailAntdigitalWebtrwatradeIssuerSubuservirtualaccountRequest) SetAuthToken(v string) *DetailAntdigitalWebtrwatradeIssuerSubuservirtualaccountRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DetailAntdigitalWebtrwatradeIssuerSubuservirtualaccountRequest) SetProductInstanceId(v string) *DetailAntdigitalWebtrwatradeIssuerSubuservirtualaccountRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *DetailAntdigitalWebtrwatradeIssuerSubuservirtualaccountRequest) SetAssetProjectId(v string) *DetailAntdigitalWebtrwatradeIssuerSubuservirtualaccountRequest {
+	s.AssetProjectId = &v
+	return s
+}
+
+func (s *DetailAntdigitalWebtrwatradeIssuerSubuservirtualaccountRequest) SetAssetProjectAddress(v string) *DetailAntdigitalWebtrwatradeIssuerSubuservirtualaccountRequest {
+	s.AssetProjectAddress = &v
+	return s
+}
+
+func (s *DetailAntdigitalWebtrwatradeIssuerSubuservirtualaccountRequest) SetChainName(v string) *DetailAntdigitalWebtrwatradeIssuerSubuservirtualaccountRequest {
+	s.ChainName = &v
+	return s
+}
+
+func (s *DetailAntdigitalWebtrwatradeIssuerSubuservirtualaccountRequest) SetUserId(v string) *DetailAntdigitalWebtrwatradeIssuerSubuservirtualaccountRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *DetailAntdigitalWebtrwatradeIssuerSubuservirtualaccountRequest) SetUserAddress(v string) *DetailAntdigitalWebtrwatradeIssuerSubuservirtualaccountRequest {
+	s.UserAddress = &v
+	return s
+}
+
+func (s *DetailAntdigitalWebtrwatradeIssuerSubuservirtualaccountRequest) SetLoginName(v string) *DetailAntdigitalWebtrwatradeIssuerSubuservirtualaccountRequest {
+	s.LoginName = &v
+	return s
+}
+
+func (s *DetailAntdigitalWebtrwatradeIssuerSubuservirtualaccountRequest) SetLoginAccountType(v string) *DetailAntdigitalWebtrwatradeIssuerSubuservirtualaccountRequest {
+	s.LoginAccountType = &v
+	return s
+}
+
+func (s *DetailAntdigitalWebtrwatradeIssuerSubuservirtualaccountRequest) SetVirtualAccountUserId(v string) *DetailAntdigitalWebtrwatradeIssuerSubuservirtualaccountRequest {
+	s.VirtualAccountUserId = &v
+	return s
+}
+
+func (s *DetailAntdigitalWebtrwatradeIssuerSubuservirtualaccountRequest) SetVirtualAccountLoginName(v string) *DetailAntdigitalWebtrwatradeIssuerSubuservirtualaccountRequest {
+	s.VirtualAccountLoginName = &v
+	return s
+}
+
+func (s *DetailAntdigitalWebtrwatradeIssuerSubuservirtualaccountRequest) SetVirtualAccountLoginAccountType(v string) *DetailAntdigitalWebtrwatradeIssuerSubuservirtualaccountRequest {
+	s.VirtualAccountLoginAccountType = &v
+	return s
+}
+
+func (s *DetailAntdigitalWebtrwatradeIssuerSubuservirtualaccountRequest) SetStartTimeMills(v int64) *DetailAntdigitalWebtrwatradeIssuerSubuservirtualaccountRequest {
+	s.StartTimeMills = &v
+	return s
+}
+
+func (s *DetailAntdigitalWebtrwatradeIssuerSubuservirtualaccountRequest) SetEndTimeMills(v int64) *DetailAntdigitalWebtrwatradeIssuerSubuservirtualaccountRequest {
+	s.EndTimeMills = &v
+	return s
+}
+
+type DetailAntdigitalWebtrwatradeIssuerSubuservirtualaccountResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 虚拟子账户明细
+	Data []*SubUserVirtualAccountListVO `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+}
+
+func (s DetailAntdigitalWebtrwatradeIssuerSubuservirtualaccountResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DetailAntdigitalWebtrwatradeIssuerSubuservirtualaccountResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DetailAntdigitalWebtrwatradeIssuerSubuservirtualaccountResponse) SetReqMsgId(v string) *DetailAntdigitalWebtrwatradeIssuerSubuservirtualaccountResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DetailAntdigitalWebtrwatradeIssuerSubuservirtualaccountResponse) SetResultCode(v string) *DetailAntdigitalWebtrwatradeIssuerSubuservirtualaccountResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DetailAntdigitalWebtrwatradeIssuerSubuservirtualaccountResponse) SetResultMsg(v string) *DetailAntdigitalWebtrwatradeIssuerSubuservirtualaccountResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *DetailAntdigitalWebtrwatradeIssuerSubuservirtualaccountResponse) SetData(v []*SubUserVirtualAccountListVO) *DetailAntdigitalWebtrwatradeIssuerSubuservirtualaccountResponse {
+	s.Data = v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -2858,7 +4024,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.2"),
+				"sdk_version":      tea.String("1.1.3"),
 				"_prod_code":       tea.String("ak_d3c4f09125a14cd587057c405561809a"),
 				"_prod_channel":    tea.String("saas"),
 			}
@@ -2943,6 +4109,40 @@ func (client *Client) UpdateAntdigitalWebtrwatradeIssuerPriceEx(request *UpdateA
 	}
 	_result = &UpdateAntdigitalWebtrwatradeIssuerPriceResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.webtrwatrade.issuer.price.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 更新二级用户
+ * Summary: 更新二级用户
+ */
+func (client *Client) UpdateAntdigitalWebtrwatradeDistributorSubuser(request *UpdateAntdigitalWebtrwatradeDistributorSubuserRequest) (_result *UpdateAntdigitalWebtrwatradeDistributorSubuserResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UpdateAntdigitalWebtrwatradeDistributorSubuserResponse{}
+	_body, _err := client.UpdateAntdigitalWebtrwatradeDistributorSubuserEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 更新二级用户
+ * Summary: 更新二级用户
+ */
+func (client *Client) UpdateAntdigitalWebtrwatradeDistributorSubuserEx(request *UpdateAntdigitalWebtrwatradeDistributorSubuserRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UpdateAntdigitalWebtrwatradeDistributorSubuserResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UpdateAntdigitalWebtrwatradeDistributorSubuserResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.webtrwatrade.distributor.subuser.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -3385,6 +4585,210 @@ func (client *Client) ListAntdigitalWebtrwatradeDistributorSubuserEx(request *Li
 	}
 	_result = &ListAntdigitalWebtrwatradeDistributorSubuserResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.webtrwatrade.distributor.subuser.list"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 代销机构本侧链持仓情况
+ * Summary: 代销机构本侧链持仓情况
+ */
+func (client *Client) QueryAntdigitalWebtrwatradeDistributorSubuseraccount(request *QueryAntdigitalWebtrwatradeDistributorSubuseraccountRequest) (_result *QueryAntdigitalWebtrwatradeDistributorSubuseraccountResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAntdigitalWebtrwatradeDistributorSubuseraccountResponse{}
+	_body, _err := client.QueryAntdigitalWebtrwatradeDistributorSubuseraccountEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 代销机构本侧链持仓情况
+ * Summary: 代销机构本侧链持仓情况
+ */
+func (client *Client) QueryAntdigitalWebtrwatradeDistributorSubuseraccountEx(request *QueryAntdigitalWebtrwatradeDistributorSubuseraccountRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAntdigitalWebtrwatradeDistributorSubuseraccountResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAntdigitalWebtrwatradeDistributorSubuseraccountResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.webtrwatrade.distributor.subuseraccount.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 发行机构本侧链持仓情况
+ * Summary: 发行机构本侧链持仓情况
+ */
+func (client *Client) QueryAntdigitalWebtrwatradeIssuerSubuseraccount(request *QueryAntdigitalWebtrwatradeIssuerSubuseraccountRequest) (_result *QueryAntdigitalWebtrwatradeIssuerSubuseraccountResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAntdigitalWebtrwatradeIssuerSubuseraccountResponse{}
+	_body, _err := client.QueryAntdigitalWebtrwatradeIssuerSubuseraccountEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 发行机构本侧链持仓情况
+ * Summary: 发行机构本侧链持仓情况
+ */
+func (client *Client) QueryAntdigitalWebtrwatradeIssuerSubuseraccountEx(request *QueryAntdigitalWebtrwatradeIssuerSubuseraccountRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAntdigitalWebtrwatradeIssuerSubuseraccountResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAntdigitalWebtrwatradeIssuerSubuseraccountResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.webtrwatrade.issuer.subuseraccount.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 代销机构对侧链持仓情况
+ * Summary: 代销机构对侧链持仓情况
+ */
+func (client *Client) QueryAntdigitalWebtrwatradeDistributorCrosschainaccount(request *QueryAntdigitalWebtrwatradeDistributorCrosschainaccountRequest) (_result *QueryAntdigitalWebtrwatradeDistributorCrosschainaccountResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAntdigitalWebtrwatradeDistributorCrosschainaccountResponse{}
+	_body, _err := client.QueryAntdigitalWebtrwatradeDistributorCrosschainaccountEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 代销机构对侧链持仓情况
+ * Summary: 代销机构对侧链持仓情况
+ */
+func (client *Client) QueryAntdigitalWebtrwatradeDistributorCrosschainaccountEx(request *QueryAntdigitalWebtrwatradeDistributorCrosschainaccountRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAntdigitalWebtrwatradeDistributorCrosschainaccountResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAntdigitalWebtrwatradeDistributorCrosschainaccountResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.webtrwatrade.distributor.crosschainaccount.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 发行机构对侧链持仓情况
+ * Summary: 发行机构对侧链持仓情况
+ */
+func (client *Client) QueryAntdigitalWebtrwatradeIssuerCrosschainaccount(request *QueryAntdigitalWebtrwatradeIssuerCrosschainaccountRequest) (_result *QueryAntdigitalWebtrwatradeIssuerCrosschainaccountResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAntdigitalWebtrwatradeIssuerCrosschainaccountResponse{}
+	_body, _err := client.QueryAntdigitalWebtrwatradeIssuerCrosschainaccountEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 发行机构对侧链持仓情况
+ * Summary: 发行机构对侧链持仓情况
+ */
+func (client *Client) QueryAntdigitalWebtrwatradeIssuerCrosschainaccountEx(request *QueryAntdigitalWebtrwatradeIssuerCrosschainaccountRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAntdigitalWebtrwatradeIssuerCrosschainaccountResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAntdigitalWebtrwatradeIssuerCrosschainaccountResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.webtrwatrade.issuer.crosschainaccount.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 代销机构虚拟子账号明细
+ * Summary: 代销机构虚拟子账号明细
+ */
+func (client *Client) DetailAntdigitalWebtrwatradeDistributorSubuservirtualaccount(request *DetailAntdigitalWebtrwatradeDistributorSubuservirtualaccountRequest) (_result *DetailAntdigitalWebtrwatradeDistributorSubuservirtualaccountResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DetailAntdigitalWebtrwatradeDistributorSubuservirtualaccountResponse{}
+	_body, _err := client.DetailAntdigitalWebtrwatradeDistributorSubuservirtualaccountEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 代销机构虚拟子账号明细
+ * Summary: 代销机构虚拟子账号明细
+ */
+func (client *Client) DetailAntdigitalWebtrwatradeDistributorSubuservirtualaccountEx(request *DetailAntdigitalWebtrwatradeDistributorSubuservirtualaccountRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DetailAntdigitalWebtrwatradeDistributorSubuservirtualaccountResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DetailAntdigitalWebtrwatradeDistributorSubuservirtualaccountResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.webtrwatrade.distributor.subuservirtualaccount.detail"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 发行机构虚拟子账号明细
+ * Summary: 发行机构虚拟子账号明细
+ */
+func (client *Client) DetailAntdigitalWebtrwatradeIssuerSubuservirtualaccount(request *DetailAntdigitalWebtrwatradeIssuerSubuservirtualaccountRequest) (_result *DetailAntdigitalWebtrwatradeIssuerSubuservirtualaccountResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DetailAntdigitalWebtrwatradeIssuerSubuservirtualaccountResponse{}
+	_body, _err := client.DetailAntdigitalWebtrwatradeIssuerSubuservirtualaccountEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 发行机构虚拟子账号明细
+ * Summary: 发行机构虚拟子账号明细
+ */
+func (client *Client) DetailAntdigitalWebtrwatradeIssuerSubuservirtualaccountEx(request *DetailAntdigitalWebtrwatradeIssuerSubuservirtualaccountRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DetailAntdigitalWebtrwatradeIssuerSubuservirtualaccountResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DetailAntdigitalWebtrwatradeIssuerSubuservirtualaccountResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.webtrwatrade.issuer.subuservirtualaccount.detail"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
