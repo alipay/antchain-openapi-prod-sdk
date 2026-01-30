@@ -40,7 +40,7 @@ namespace AntChain.SDK.INSURANCE_SAAS_DE.Models
 
         // 关联的大保单号
         [NameInMap("big_pol_no")]
-        [Validation(Required=true, MaxLength=100)]
+        [Validation(Required=true, MaxLength=200)]
         public string BigPolNo { get; set; }
 
         // 账单年度

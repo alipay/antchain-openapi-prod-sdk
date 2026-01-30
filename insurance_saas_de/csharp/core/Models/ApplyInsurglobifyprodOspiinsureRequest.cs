@@ -86,9 +86,9 @@ namespace AntChain.SDK.INSURANCE_SAAS_DE.Models
         // America/New_York
         // Pacific/Auckland
         // Europe/Berlin 
-        [NameInMap("time_zone")]
+        [NameInMap("timezone")]
         [Validation(Required=true, MaxLength=20)]
-        public string TimeZone { get; set; }
+        public string Timezone { get; set; }
 
         // 投保人名称
         [NameInMap("tbr_name")]
@@ -242,10 +242,10 @@ namespace AntChain.SDK.INSURANCE_SAAS_DE.Models
         [Validation(Required=true, MaxLength=500)]
         public string Destination { get; set; }
 
-        // 货物明细
+        // 货物明细列表
         [NameInMap("cargo_details")]
         [Validation(Required=true)]
-        public CargoDetails CargoDetails { get; set; }
+        public List<CargoDetail> CargoDetails { get; set; }
 
     }
 

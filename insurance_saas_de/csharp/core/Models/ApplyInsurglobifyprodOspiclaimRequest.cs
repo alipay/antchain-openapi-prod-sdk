@@ -40,7 +40,7 @@ namespace AntChain.SDK.INSURANCE_SAAS_DE.Models
 
         // 投保订单号
         [NameInMap("rela_order_no")]
-        [Validation(Required=true, MaxLength=100)]
+        [Validation(Required=true, MaxLength=200)]
         public string RelaOrderNo { get; set; }
 
         // 受损货物名称
@@ -69,9 +69,9 @@ namespace AntChain.SDK.INSURANCE_SAAS_DE.Models
         // America/New_York
         // Pacific/Auckland
         // Europe/Berlin 
-        [NameInMap("time_zone")]
+        [NameInMap("timezone")]
         [Validation(Required=true, MaxLength=20)]
-        public string TimeZone { get; set; }
+        public string Timezone { get; set; }
 
         // 索赔状态（Open / Under Review / In Payment Process / Closed / Rejected / Cancelled）
         [NameInMap("claim_status")]
