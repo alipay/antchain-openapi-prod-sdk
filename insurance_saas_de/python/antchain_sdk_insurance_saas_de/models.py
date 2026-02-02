@@ -808,10 +808,10 @@ class ApplyInsurglobifyprodOspiclaimRequest(TeaModel):
             self.validate_max_length(self.external_product_code, 'external_product_code', 10)
         self.validate_required(self.big_pol_no, 'big_pol_no')
         if self.big_pol_no is not None:
-            self.validate_max_length(self.big_pol_no, 'big_pol_no', 100)
+            self.validate_max_length(self.big_pol_no, 'big_pol_no', 200)
         self.validate_required(self.rela_order_no, 'rela_order_no')
         if self.rela_order_no is not None:
-            self.validate_max_length(self.rela_order_no, 'rela_order_no', 200)
+            self.validate_max_length(self.rela_order_no, 'rela_order_no', 100)
         self.validate_required(self.damaged_cargo_name, 'damaged_cargo_name')
         if self.damaged_cargo_name is not None:
             self.validate_max_length(self.damaged_cargo_name, 'damaged_cargo_name', 100)
