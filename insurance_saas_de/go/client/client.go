@@ -572,9 +572,9 @@ type ApplyInsurglobifyprodOspiclaimRequest struct {
 	// 险种编码
 	ExternalProductCode *string `json:"external_product_code,omitempty" xml:"external_product_code,omitempty" require:"true" maxLength:"10"`
 	// 大保单号
-	BigPolNo *string `json:"big_pol_no,omitempty" xml:"big_pol_no,omitempty" require:"true" maxLength:"100"`
+	BigPolNo *string `json:"big_pol_no,omitempty" xml:"big_pol_no,omitempty" require:"true" maxLength:"200"`
 	// 投保订单号
-	RelaOrderNo *string `json:"rela_order_no,omitempty" xml:"rela_order_no,omitempty" require:"true" maxLength:"200"`
+	RelaOrderNo *string `json:"rela_order_no,omitempty" xml:"rela_order_no,omitempty" require:"true" maxLength:"100"`
 	// 受损货物名称
 	DamagedCargoName *string `json:"damaged_cargo_name,omitempty" xml:"damaged_cargo_name,omitempty" require:"true" maxLength:"100"`
 	// 出险原因
@@ -1045,7 +1045,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.7"),
+				"sdk_version":      tea.String("1.0.8"),
 				"_prod_code":       tea.String("INSURANCE_SAAS_DE"),
 				"_prod_channel":    tea.String("default"),
 			}
