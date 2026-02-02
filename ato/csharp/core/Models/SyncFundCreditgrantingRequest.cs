@@ -20,12 +20,12 @@ namespace AntChain.SDK.ATO.Models
 
         // 授信id
         [NameInMap("granting_id")]
-        [Validation(Required=true, MaxLength=20)]
+        [Validation(Required=true, MaxLength=50)]
         public string GrantingId { get; set; }
 
         // 授信授权id
         [NameInMap("auth_id")]
-        [Validation(Required=true, MaxLength=20)]
+        [Validation(Required=true, MaxLength=50)]
         public string AuthId { get; set; }
 
         // 资方社会信用代码
