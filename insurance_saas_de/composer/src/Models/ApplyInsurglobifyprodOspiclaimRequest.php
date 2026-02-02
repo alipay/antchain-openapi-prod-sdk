@@ -192,8 +192,8 @@ class ApplyInsurglobifyprodOspiclaimRequest extends Model
         Model::validateMaxLength('tradeNo', $this->tradeNo, 50);
         Model::validateMaxLength('externalChannelCode', $this->externalChannelCode, 10);
         Model::validateMaxLength('externalProductCode', $this->externalProductCode, 10);
-        Model::validateMaxLength('bigPolNo', $this->bigPolNo, 100);
-        Model::validateMaxLength('relaOrderNo', $this->relaOrderNo, 200);
+        Model::validateMaxLength('bigPolNo', $this->bigPolNo, 200);
+        Model::validateMaxLength('relaOrderNo', $this->relaOrderNo, 100);
         Model::validateMaxLength('damagedCargoName', $this->damagedCargoName, 100);
         Model::validateMaxLength('incidentCause', $this->incidentCause, 50);
         Model::validateMaxLength('accidentTime', $this->accidentTime, 50);
