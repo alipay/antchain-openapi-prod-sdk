@@ -35,12 +35,12 @@ namespace AntChain.SDK.INSURANCE_SAAS_DE.Models
 
         // 大保单号
         [NameInMap("big_pol_no")]
-        [Validation(Required=true, MaxLength=100)]
+        [Validation(Required=true, MaxLength=200)]
         public string BigPolNo { get; set; }
 
         // 投保订单号
         [NameInMap("rela_order_no")]
-        [Validation(Required=true, MaxLength=200)]
+        [Validation(Required=true, MaxLength=100)]
         public string RelaOrderNo { get; set; }
 
         // 受损货物名称
