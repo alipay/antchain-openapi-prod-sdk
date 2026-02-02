@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.7',
+    sdk_version = '1.0.8',
     _prod_code = 'INSURANCE_SAAS_DE',
     _prod_channel = 'default'
   };
@@ -340,9 +340,9 @@ model ApplyInsurglobifyprodOspiclaimRequest = {
   // 险种编码
   externalProductCode: string(maxLength=10, name='external_product_code'),
   // 大保单号
-  bigPolNo: string(maxLength=100, name='big_pol_no'),
+  bigPolNo: string(maxLength=200, name='big_pol_no'),
   // 投保订单号
-  relaOrderNo: string(maxLength=200, name='rela_order_no'),
+  relaOrderNo: string(maxLength=100, name='rela_order_no'),
   // 受损货物名称
   damagedCargoName: string(maxLength=100, name='damaged_cargo_name'),
   // 出险原因
