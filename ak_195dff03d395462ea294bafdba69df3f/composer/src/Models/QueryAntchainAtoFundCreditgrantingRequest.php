@@ -41,7 +41,7 @@ class QueryAntchainAtoFundCreditgrantingRequest extends Model
     {
         Model::validateRequired('grantingId', $this->grantingId, true);
         Model::validateRequired('fundId', $this->fundId, true);
-        Model::validateMaxLength('grantingId', $this->grantingId, 20);
+        Model::validateMaxLength('grantingId', $this->grantingId, 50);
         Model::validateMaxLength('fundId', $this->fundId, 32);
         Model::validateMinLength('grantingId', $this->grantingId, 1);
         Model::validateMinLength('fundId', $this->fundId, 1);
