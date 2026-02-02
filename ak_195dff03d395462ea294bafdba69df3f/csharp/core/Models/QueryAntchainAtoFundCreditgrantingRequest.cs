@@ -20,7 +20,7 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f.Models
 
         // 授信id
         [NameInMap("granting_id")]
-        [Validation(Required=true, MaxLength=20)]
+        [Validation(Required=true, MaxLength=50)]
         public string GrantingId { get; set; }
 
         // 资方社会信用代码
