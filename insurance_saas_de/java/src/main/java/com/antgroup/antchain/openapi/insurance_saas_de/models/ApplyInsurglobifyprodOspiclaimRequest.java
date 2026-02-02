@@ -28,12 +28,12 @@ public class ApplyInsurglobifyprodOspiclaimRequest extends TeaModel {
 
     // 大保单号
     @NameInMap("big_pol_no")
-    @Validation(required = true, maxLength = 100)
+    @Validation(required = true, maxLength = 200)
     public String bigPolNo;
 
     // 投保订单号
     @NameInMap("rela_order_no")
-    @Validation(required = true, maxLength = 200)
+    @Validation(required = true, maxLength = 100)
     public String relaOrderNo;
 
     // 受损货物名称
