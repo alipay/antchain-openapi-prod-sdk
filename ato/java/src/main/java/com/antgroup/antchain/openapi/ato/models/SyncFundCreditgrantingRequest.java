@@ -13,12 +13,12 @@ public class SyncFundCreditgrantingRequest extends TeaModel {
 
     // 授信id
     @NameInMap("granting_id")
-    @Validation(required = true, maxLength = 20, minLength = 10)
+    @Validation(required = true, maxLength = 50, minLength = 6)
     public String grantingId;
 
     // 授信授权id
     @NameInMap("auth_id")
-    @Validation(required = true, maxLength = 20, minLength = 10)
+    @Validation(required = true, maxLength = 50, minLength = 6)
     public String authId;
 
     // 资方社会信用代码
