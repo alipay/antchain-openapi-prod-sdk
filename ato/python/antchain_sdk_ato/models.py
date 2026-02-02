@@ -15302,10 +15302,10 @@ class SyncFundCreditgrantingRequest(TeaModel):
     def validate(self):
         self.validate_required(self.granting_id, 'granting_id')
         if self.granting_id is not None:
-            self.validate_max_length(self.granting_id, 'granting_id', 20)
+            self.validate_max_length(self.granting_id, 'granting_id', 50)
         self.validate_required(self.auth_id, 'auth_id')
         if self.auth_id is not None:
-            self.validate_max_length(self.auth_id, 'auth_id', 20)
+            self.validate_max_length(self.auth_id, 'auth_id', 50)
         self.validate_required(self.fund_id, 'fund_id')
         if self.fund_id is not None:
             self.validate_max_length(self.fund_id, 'fund_id', 32)
@@ -15712,7 +15712,7 @@ class QueryFundCreditgrantingRequest(TeaModel):
     def validate(self):
         self.validate_required(self.granting_id, 'granting_id')
         if self.granting_id is not None:
-            self.validate_max_length(self.granting_id, 'granting_id', 20)
+            self.validate_max_length(self.granting_id, 'granting_id', 50)
         self.validate_required(self.fund_id, 'fund_id')
         if self.fund_id is not None:
             self.validate_max_length(self.fund_id, 'fund_id', 32)
