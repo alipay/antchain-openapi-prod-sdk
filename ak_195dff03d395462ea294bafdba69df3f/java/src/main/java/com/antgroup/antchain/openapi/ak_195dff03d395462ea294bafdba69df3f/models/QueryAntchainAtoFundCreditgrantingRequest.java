@@ -13,7 +13,7 @@ public class QueryAntchainAtoFundCreditgrantingRequest extends TeaModel {
 
     // 授信id
     @NameInMap("granting_id")
-    @Validation(required = true, maxLength = 20, minLength = 1)
+    @Validation(required = true, maxLength = 50, minLength = 1)
     public String grantingId;
 
     // 资方社会信用代码
