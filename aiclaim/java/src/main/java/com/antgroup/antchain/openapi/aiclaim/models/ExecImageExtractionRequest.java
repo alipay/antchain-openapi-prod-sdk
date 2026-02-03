@@ -25,7 +25,6 @@ public class ExecImageExtractionRequest extends TeaModel {
     public String fileObjectName;
 
     @NameInMap("file_id")
-    @Validation(required = true)
     public String fileId;
 
     // 理赔单号

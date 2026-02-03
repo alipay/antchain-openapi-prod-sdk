@@ -11,14 +11,6 @@ public class ExecImageClassificationRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 需要分类的图片
-    @NameInMap("image_base64")
-    public String imageBase64;
-
-    // 图片类型
-    @NameInMap("img_type")
-    public String imgType;
-
     // 保单号
     @NameInMap("claim_number")
     @Validation(required = true)
@@ -59,22 +51,6 @@ public class ExecImageClassificationRequest extends TeaModel {
     }
     public String getProductInstanceId() {
         return this.productInstanceId;
-    }
-
-    public ExecImageClassificationRequest setImageBase64(String imageBase64) {
-        this.imageBase64 = imageBase64;
-        return this;
-    }
-    public String getImageBase64() {
-        return this.imageBase64;
-    }
-
-    public ExecImageClassificationRequest setImgType(String imgType) {
-        this.imgType = imgType;
-        return this;
-    }
-    public String getImgType() {
-        return this.imgType;
     }
 
     public ExecImageClassificationRequest setClaimNumber(String claimNumber) {
