@@ -34,7 +34,7 @@ namespace AntChain.SDK.AICLAIM.Models
         public string FileObjectName { get; set; }
 
         [NameInMap("file_id")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string FileId { get; set; }
 
         // 理赔单号

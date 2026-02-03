@@ -18,16 +18,6 @@ namespace AntChain.SDK.AICLAIM.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 需要分类的图片
-        [NameInMap("image_base64")]
-        [Validation(Required=false)]
-        public string ImageBase64 { get; set; }
-
-        // 图片类型
-        [NameInMap("img_type")]
-        [Validation(Required=false)]
-        public string ImgType { get; set; }
-
         // 保单号
         [NameInMap("claim_number")]
         [Validation(Required=true)]
