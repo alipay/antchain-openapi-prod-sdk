@@ -24,7 +24,7 @@ from setuptools import setup, find_packages
 """
 setup module for antchain_aiclaim.
 
-Created on 29/01/2026
+Created on 03/02/2026
 
 @author: Ant Chain SDK
 """

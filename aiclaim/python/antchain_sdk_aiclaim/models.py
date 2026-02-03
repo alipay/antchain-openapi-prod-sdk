@@ -339,8 +339,6 @@ class ExecImageClassificationRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
-        image_base_64: str = None,
-        img_type: str = None,
         claim_number: str = None,
         file_object: BinaryIO = None,
         file_object_name: str = None,
@@ -349,10 +347,6 @@ class ExecImageClassificationRequest(TeaModel):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # 需要分类的图片
-        self.image_base_64 = image_base_64
-        # 图片类型
-        self.img_type = img_type
         # 保单号
         self.claim_number = claim_number
         # file_id
@@ -375,10 +369,6 @@ class ExecImageClassificationRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
-        if self.image_base_64 is not None:
-            result['image_base64'] = self.image_base_64
-        if self.img_type is not None:
-            result['img_type'] = self.img_type
         if self.claim_number is not None:
             result['claim_number'] = self.claim_number
         if self.file_object is not None:
@@ -395,10 +385,6 @@ class ExecImageClassificationRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
-        if m.get('image_base64') is not None:
-            self.image_base_64 = m.get('image_base64')
-        if m.get('img_type') is not None:
-            self.img_type = m.get('img_type')
         if m.get('claim_number') is not None:
             self.claim_number = m.get('claim_number')
         if m.get('fileObject') is not None:
@@ -538,7 +524,6 @@ class ExecImageExtractionRequest(TeaModel):
         self.claim_number = claim_number
 
     def validate(self):
-        self.validate_required(self.file_id, 'file_id')
         self.validate_required(self.claim_number, 'claim_number')
 
     def to_map(self):
