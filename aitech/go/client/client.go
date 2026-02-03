@@ -7093,6 +7093,8 @@ type QuerySecurityQuestionRequest struct {
 	PromptAttackDefense *string `json:"prompt_attack_defense,omitempty" xml:"prompt_attack_defense,omitempty"`
 	// 是否开启隐私数据泄露的专项检测
 	PrivacyDataDetection *string `json:"privacy_data_detection,omitempty" xml:"privacy_data_detection,omitempty"`
+	// 是否开启安全代答功能
+	SecurityAnswer *string `json:"security_answer,omitempty" xml:"security_answer,omitempty"`
 }
 
 func (s QuerySecurityQuestionRequest) String() string {
@@ -7170,6 +7172,11 @@ func (s *QuerySecurityQuestionRequest) SetPromptAttackDefense(v string) *QuerySe
 
 func (s *QuerySecurityQuestionRequest) SetPrivacyDataDetection(v string) *QuerySecurityQuestionRequest {
 	s.PrivacyDataDetection = &v
+	return s
+}
+
+func (s *QuerySecurityQuestionRequest) SetSecurityAnswer(v string) *QuerySecurityQuestionRequest {
+	s.SecurityAnswer = &v
 	return s
 }
 
@@ -7297,6 +7304,8 @@ type QuerySecurityAnswerRequest struct {
 	MessageId *string `json:"message_id,omitempty" xml:"message_id,omitempty"`
 	// 是否要针对大模型输出的内容中的隐私数据进行脱敏。默认值：N：不开启，Y：开启
 	PrivacyDataObfuscation *string `json:"privacy_data_obfuscation,omitempty" xml:"privacy_data_obfuscation,omitempty"`
+	// 是否开启隐私数据泄露的专项检测（新字段，老privacy废弃）
+	PrivacyDataDetection *string `json:"privacy_data_detection,omitempty" xml:"privacy_data_detection,omitempty"`
 }
 
 func (s QuerySecurityAnswerRequest) String() string {
@@ -7359,6 +7368,11 @@ func (s *QuerySecurityAnswerRequest) SetMessageId(v string) *QuerySecurityAnswer
 
 func (s *QuerySecurityAnswerRequest) SetPrivacyDataObfuscation(v string) *QuerySecurityAnswerRequest {
 	s.PrivacyDataObfuscation = &v
+	return s
+}
+
+func (s *QuerySecurityAnswerRequest) SetPrivacyDataDetection(v string) *QuerySecurityAnswerRequest {
+	s.PrivacyDataDetection = &v
 	return s
 }
 
@@ -7567,7 +7581,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.59"),
+				"sdk_version":      tea.String("1.1.60"),
 				"_prod_code":       tea.String("AITECH"),
 				"_prod_channel":    tea.String("default"),
 			}
