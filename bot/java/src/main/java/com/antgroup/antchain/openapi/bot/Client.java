@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.12.66"),
+                    new TeaPair("sdk_version", "1.12.69"),
                     new TeaPair("_prod_code", "BOT"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -964,27 +964,6 @@ public class Client {
     public StartAgentChatResponse startAgentChatEx(StartAgentChatRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.agent.chat.start", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new StartAgentChatResponse());
-    }
-
-    /**
-     * <b>description</b> :
-     * <p>Description: 智能体流式物模型上报接口
-     * Summary: 智能体流式物模型上报接口</p>
-     */
-    public StartAgentThingmodelResponse startAgentThingmodel(StartAgentThingmodelRequest request) throws Exception {
-        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.startAgentThingmodelEx(request, headers, runtime);
-    }
-
-    /**
-     * <b>description</b> :
-     * <p>Description: 智能体流式物模型上报接口
-     * Summary: 智能体流式物模型上报接口</p>
-     */
-    public StartAgentThingmodelResponse startAgentThingmodelEx(StartAgentThingmodelRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.agent.thingmodel.start", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new StartAgentThingmodelResponse());
     }
 
     /**
@@ -3338,6 +3317,27 @@ public class Client {
     public QueryElectrocarDevicehistorypropertiesResponse queryElectrocarDevicehistorypropertiesEx(QueryElectrocarDevicehistorypropertiesRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.electrocar.devicehistoryproperties.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryElectrocarDevicehistorypropertiesResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: iotx二轮车设备信息
+     * Summary: iotx二轮车设备信息</p>
+     */
+    public QueryElectrocarDeviceinfosResponse queryElectrocarDeviceinfos(QueryElectrocarDeviceinfosRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryElectrocarDeviceinfosEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: iotx二轮车设备信息
+     * Summary: iotx二轮车设备信息</p>
+     */
+    public QueryElectrocarDeviceinfosResponse queryElectrocarDeviceinfosEx(QueryElectrocarDeviceinfosRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.electrocar.deviceinfos.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryElectrocarDeviceinfosResponse());
     }
 
     /**
