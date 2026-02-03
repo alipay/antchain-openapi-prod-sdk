@@ -54,7 +54,6 @@ class ExecImageExtractionRequest extends Model
 
     public function validate()
     {
-        Model::validateRequired('fileId', $this->fileId, true);
         Model::validateRequired('claimNumber', $this->claimNumber, true);
     }
 

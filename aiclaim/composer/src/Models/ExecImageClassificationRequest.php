@@ -20,18 +20,6 @@ class ExecImageClassificationRequest extends Model
      */
     public $productInstanceId;
 
-    // 需要分类的图片
-    /**
-     * @var string
-     */
-    public $imageBase64;
-
-    // 图片类型
-    /**
-     * @var string
-     */
-    public $imgType;
-
     // 保单号
     /**
      * @var string
@@ -60,8 +48,6 @@ class ExecImageClassificationRequest extends Model
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'imageBase64'       => 'image_base64',
-        'imgType'           => 'img_type',
         'claimNumber'       => 'claim_number',
         'fileId'            => 'file_id',
     ];
@@ -79,12 +65,6 @@ class ExecImageClassificationRequest extends Model
         }
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->imageBase64) {
-            $res['image_base64'] = $this->imageBase64;
-        }
-        if (null !== $this->imgType) {
-            $res['img_type'] = $this->imgType;
         }
         if (null !== $this->claimNumber) {
             $res['claim_number'] = $this->claimNumber;
@@ -115,12 +95,6 @@ class ExecImageClassificationRequest extends Model
         }
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['image_base64'])) {
-            $model->imageBase64 = $map['image_base64'];
-        }
-        if (isset($map['img_type'])) {
-            $model->imgType = $map['img_type'];
         }
         if (isset($map['claim_number'])) {
             $model->claimNumber = $map['claim_number'];
