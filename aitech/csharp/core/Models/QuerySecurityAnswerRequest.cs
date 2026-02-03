@@ -63,6 +63,11 @@ namespace AntChain.SDK.AITECH.Models
         [Validation(Required=false)]
         public string PrivacyDataObfuscation { get; set; }
 
+        // 是否开启隐私数据泄露的专项检测（新字段，老privacy废弃）
+        [NameInMap("privacy_data_detection")]
+        [Validation(Required=false)]
+        public string PrivacyDataDetection { get; set; }
+
     }
 
 }

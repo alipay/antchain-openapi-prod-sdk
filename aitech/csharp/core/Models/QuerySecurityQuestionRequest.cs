@@ -78,6 +78,11 @@ namespace AntChain.SDK.AITECH.Models
         [Validation(Required=false)]
         public string PrivacyDataDetection { get; set; }
 
+        // 是否开启安全代答功能
+        [NameInMap("security_answer")]
+        [Validation(Required=false)]
+        public string SecurityAnswer { get; set; }
+
     }
 
 }
