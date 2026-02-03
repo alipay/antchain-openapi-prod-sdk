@@ -5402,6 +5402,8 @@ export class QuerySecurityQuestionRequest extends $tea.Model {
   promptAttackDefense?: string;
   // 是否开启隐私数据泄露的专项检测
   privacyDataDetection?: string;
+  // 是否开启安全代答功能
+  securityAnswer?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -5418,6 +5420,7 @@ export class QuerySecurityQuestionRequest extends $tea.Model {
       fieldIdentify: 'field_identify',
       promptAttackDefense: 'prompt_attack_defense',
       privacyDataDetection: 'privacy_data_detection',
+      securityAnswer: 'security_answer',
     };
   }
 
@@ -5437,6 +5440,7 @@ export class QuerySecurityQuestionRequest extends $tea.Model {
       fieldIdentify: 'string',
       promptAttackDefense: 'string',
       privacyDataDetection: 'string',
+      securityAnswer: 'string',
     };
   }
 
@@ -5535,6 +5539,8 @@ export class QuerySecurityAnswerRequest extends $tea.Model {
   messageId?: string;
   // 是否要针对大模型输出的内容中的隐私数据进行脱敏。默认值：N：不开启，Y：开启
   privacyDataObfuscation?: string;
+  // 是否开启隐私数据泄露的专项检测（新字段，老privacy废弃）
+  privacyDataDetection?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -5548,6 +5554,7 @@ export class QuerySecurityAnswerRequest extends $tea.Model {
       flowEnd: 'flow_end',
       messageId: 'message_id',
       privacyDataObfuscation: 'privacy_data_obfuscation',
+      privacyDataDetection: 'privacy_data_detection',
     };
   }
 
@@ -5564,6 +5571,7 @@ export class QuerySecurityAnswerRequest extends $tea.Model {
       flowEnd: 'string',
       messageId: 'string',
       privacyDataObfuscation: 'string',
+      privacyDataDetection: 'string',
     };
   }
 
@@ -5743,7 +5751,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.59",
+          sdk_version: "1.1.60",
           _prod_code: "AITECH",
           _prod_channel: "default",
         };
