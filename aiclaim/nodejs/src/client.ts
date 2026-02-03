@@ -198,10 +198,6 @@ export class ExecImageClassificationRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 需要分类的图片
-  imageBase64?: string;
-  // 图片类型
-  imgType?: string;
   // 保单号
   claimNumber: string;
   // file_id
@@ -212,8 +208,6 @@ export class ExecImageClassificationRequest extends $tea.Model {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      imageBase64: 'image_base64',
-      imgType: 'img_type',
       claimNumber: 'claim_number',
       fileObject: 'fileObject',
       fileObjectName: 'fileObjectName',
@@ -225,8 +219,6 @@ export class ExecImageClassificationRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      imageBase64: 'string',
-      imgType: 'string',
       claimNumber: 'string',
       fileObject: 'Readable',
       fileObjectName: 'string',
@@ -310,7 +302,7 @@ export class ExecImageExtractionRequest extends $tea.Model {
   // file_id
   fileObject?: Readable;
   fileObjectName?: string;
-  fileId: string;
+  fileId?: string;
   // 理赔单号
   claimNumber: string;
   static names(): { [key: string]: string } {
@@ -640,7 +632,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.3",
+          sdk_version: "1.1.5",
           _prod_code: "AICLAIM",
           _prod_channel: "default",
         };
