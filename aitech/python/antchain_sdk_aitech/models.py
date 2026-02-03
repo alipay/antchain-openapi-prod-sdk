@@ -8658,6 +8658,7 @@ class QuerySecurityQuestionRequest(TeaModel):
         field_identify: str = None,
         prompt_attack_defense: str = None,
         privacy_data_detection: str = None,
+        security_answer: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -8686,6 +8687,8 @@ class QuerySecurityQuestionRequest(TeaModel):
         self.prompt_attack_defense = prompt_attack_defense
         # 是否开启隐私数据泄露的专项检测
         self.privacy_data_detection = privacy_data_detection
+        # 是否开启安全代答功能
+        self.security_answer = security_answer
 
     def validate(self):
         self.validate_required(self.question, 'question')
@@ -8728,6 +8731,8 @@ class QuerySecurityQuestionRequest(TeaModel):
             result['prompt_attack_defense'] = self.prompt_attack_defense
         if self.privacy_data_detection is not None:
             result['privacy_data_detection'] = self.privacy_data_detection
+        if self.security_answer is not None:
+            result['security_answer'] = self.security_answer
         return result
 
     def from_map(self, m: dict = None):
@@ -8760,6 +8765,8 @@ class QuerySecurityQuestionRequest(TeaModel):
             self.prompt_attack_defense = m.get('prompt_attack_defense')
         if m.get('privacy_data_detection') is not None:
             self.privacy_data_detection = m.get('privacy_data_detection')
+        if m.get('security_answer') is not None:
+            self.security_answer = m.get('security_answer')
         return self
 
 
@@ -8903,6 +8910,7 @@ class QuerySecurityAnswerRequest(TeaModel):
         flow_end: str = None,
         message_id: str = None,
         privacy_data_obfuscation: str = None,
+        privacy_data_detection: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -8925,6 +8933,8 @@ class QuerySecurityAnswerRequest(TeaModel):
         self.message_id = message_id
         # 是否要针对大模型输出的内容中的隐私数据进行脱敏。默认值：N：不开启，Y：开启
         self.privacy_data_obfuscation = privacy_data_obfuscation
+        # 是否开启隐私数据泄露的专项检测（新字段，老privacy废弃）
+        self.privacy_data_detection = privacy_data_detection
 
     def validate(self):
         self.validate_required(self.business_id, 'business_id')
@@ -8961,6 +8971,8 @@ class QuerySecurityAnswerRequest(TeaModel):
             result['message_id'] = self.message_id
         if self.privacy_data_obfuscation is not None:
             result['privacy_data_obfuscation'] = self.privacy_data_obfuscation
+        if self.privacy_data_detection is not None:
+            result['privacy_data_detection'] = self.privacy_data_detection
         return result
 
     def from_map(self, m: dict = None):
@@ -8987,6 +8999,8 @@ class QuerySecurityAnswerRequest(TeaModel):
             self.message_id = m.get('message_id')
         if m.get('privacy_data_obfuscation') is not None:
             self.privacy_data_obfuscation = m.get('privacy_data_obfuscation')
+        if m.get('privacy_data_detection') is not None:
+            self.privacy_data_detection = m.get('privacy_data_detection')
         return self
 
 
