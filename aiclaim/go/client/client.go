@@ -285,10 +285,6 @@ type ExecImageClassificationRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 需要分类的图片
-	ImageBase64 *string `json:"image_base64,omitempty" xml:"image_base64,omitempty"`
-	// 图片类型
-	ImgType *string `json:"img_type,omitempty" xml:"img_type,omitempty"`
 	// 保单号
 	ClaimNumber *string `json:"claim_number,omitempty" xml:"claim_number,omitempty" require:"true"`
 	// file_id
@@ -314,16 +310,6 @@ func (s *ExecImageClassificationRequest) SetAuthToken(v string) *ExecImageClassi
 
 func (s *ExecImageClassificationRequest) SetProductInstanceId(v string) *ExecImageClassificationRequest {
 	s.ProductInstanceId = &v
-	return s
-}
-
-func (s *ExecImageClassificationRequest) SetImageBase64(v string) *ExecImageClassificationRequest {
-	s.ImageBase64 = &v
-	return s
-}
-
-func (s *ExecImageClassificationRequest) SetImgType(v string) *ExecImageClassificationRequest {
-	s.ImgType = &v
 	return s
 }
 
@@ -451,7 +437,7 @@ type ExecImageExtractionRequest struct {
 	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
 	// 待上传文件名
 	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
-	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty"`
 	// 理赔单号
 	ClaimNumber *string `json:"claim_number,omitempty" xml:"claim_number,omitempty" require:"true"`
 }
@@ -859,7 +845,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.3"),
+				"sdk_version":      tea.String("1.1.5"),
 				"_prod_code":       tea.String("AICLAIM"),
 				"_prod_channel":    tea.String("default"),
 			}
