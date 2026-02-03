@@ -137,7 +137,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.12.66"},
+                        {"sdk_version", "1.12.69"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.12.66"},
+                        {"sdk_version", "1.12.69"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1879,48 +1879,6 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<StartAgentChatResponse>(await DoRequestAsync("1.0", "blockchain.bot.agent.chat.start", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 智能体流式物模型上报接口
-         * Summary: 智能体流式物模型上报接口
-         */
-        public StartAgentThingmodelResponse StartAgentThingmodel(StartAgentThingmodelRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return StartAgentThingmodelEx(request, headers, runtime);
-        }
-
-        /**
-         * Description: 智能体流式物模型上报接口
-         * Summary: 智能体流式物模型上报接口
-         */
-        public async Task<StartAgentThingmodelResponse> StartAgentThingmodelAsync(StartAgentThingmodelRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await StartAgentThingmodelExAsync(request, headers, runtime);
-        }
-
-        /**
-         * Description: 智能体流式物模型上报接口
-         * Summary: 智能体流式物模型上报接口
-         */
-        public StartAgentThingmodelResponse StartAgentThingmodelEx(StartAgentThingmodelRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<StartAgentThingmodelResponse>(DoRequest("1.0", "blockchain.bot.agent.thingmodel.start", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 智能体流式物模型上报接口
-         * Summary: 智能体流式物模型上报接口
-         */
-        public async Task<StartAgentThingmodelResponse> StartAgentThingmodelExAsync(StartAgentThingmodelRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<StartAgentThingmodelResponse>(await DoRequestAsync("1.0", "blockchain.bot.agent.thingmodel.start", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -6631,6 +6589,48 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryElectrocarDevicehistorypropertiesResponse>(await DoRequestAsync("1.0", "blockchain.bot.electrocar.devicehistoryproperties.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: iotx二轮车设备信息
+         * Summary: iotx二轮车设备信息
+         */
+        public QueryElectrocarDeviceinfosResponse QueryElectrocarDeviceinfos(QueryElectrocarDeviceinfosRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryElectrocarDeviceinfosEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: iotx二轮车设备信息
+         * Summary: iotx二轮车设备信息
+         */
+        public async Task<QueryElectrocarDeviceinfosResponse> QueryElectrocarDeviceinfosAsync(QueryElectrocarDeviceinfosRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryElectrocarDeviceinfosExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: iotx二轮车设备信息
+         * Summary: iotx二轮车设备信息
+         */
+        public QueryElectrocarDeviceinfosResponse QueryElectrocarDeviceinfosEx(QueryElectrocarDeviceinfosRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryElectrocarDeviceinfosResponse>(DoRequest("1.0", "blockchain.bot.electrocar.deviceinfos.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: iotx二轮车设备信息
+         * Summary: iotx二轮车设备信息
+         */
+        public async Task<QueryElectrocarDeviceinfosResponse> QueryElectrocarDeviceinfosExAsync(QueryElectrocarDeviceinfosRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryElectrocarDeviceinfosResponse>(await DoRequestAsync("1.0", "blockchain.bot.electrocar.deviceinfos.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

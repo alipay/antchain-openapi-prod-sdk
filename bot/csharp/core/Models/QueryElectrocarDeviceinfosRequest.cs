@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BOT.Models
 {
-    public class StartAgentThingmodelRequest : TeaModel {
+    public class QueryElectrocarDeviceinfosRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,10 +18,10 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 请求内容，内容为 AgentThingModelReq 对象的json字符串
-        [NameInMap("agent_thing_model_request")]
+        // tuid
+        [NameInMap("tuid")]
         [Validation(Required=true)]
-        public string AgentThingModelRequest { get; set; }
+        public string Tuid { get; set; }
 
     }
 
