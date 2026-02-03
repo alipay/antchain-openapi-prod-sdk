@@ -6,7 +6,7 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class StartAgentThingmodelRequest extends Model
+class QueryElectrocarDeviceinfosRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,20 +19,20 @@ class StartAgentThingmodelRequest extends Model
      */
     public $productInstanceId;
 
-    // 请求内容，内容为 AgentThingModelReq 对象的json字符串
+    // tuid
     /**
      * @var string
      */
-    public $agentThingModelRequest;
+    public $tuid;
     protected $_name = [
-        'authToken'              => 'auth_token',
-        'productInstanceId'      => 'product_instance_id',
-        'agentThingModelRequest' => 'agent_thing_model_request',
+        'authToken'         => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'tuid'              => 'tuid',
     ];
 
     public function validate()
     {
-        Model::validateRequired('agentThingModelRequest', $this->agentThingModelRequest, true);
+        Model::validateRequired('tuid', $this->tuid, true);
     }
 
     public function toMap()
@@ -44,8 +44,8 @@ class StartAgentThingmodelRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->agentThingModelRequest) {
-            $res['agent_thing_model_request'] = $this->agentThingModelRequest;
+        if (null !== $this->tuid) {
+            $res['tuid'] = $this->tuid;
         }
 
         return $res;
@@ -54,7 +54,7 @@ class StartAgentThingmodelRequest extends Model
     /**
      * @param array $map
      *
-     * @return StartAgentThingmodelRequest
+     * @return QueryElectrocarDeviceinfosRequest
      */
     public static function fromMap($map = [])
     {
@@ -65,8 +65,8 @@ class StartAgentThingmodelRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['agent_thing_model_request'])) {
-            $model->agentThingModelRequest = $map['agent_thing_model_request'];
+        if (isset($map['tuid'])) {
+            $model->tuid = $map['tuid'];
         }
 
         return $model;

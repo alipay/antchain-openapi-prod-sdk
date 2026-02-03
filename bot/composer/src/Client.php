@@ -387,6 +387,8 @@ use AntChain\BOT\Models\QueryDockedDataRequest;
 use AntChain\BOT\Models\QueryDockedDataResponse;
 use AntChain\BOT\Models\QueryElectrocarDevicehistorypropertiesRequest;
 use AntChain\BOT\Models\QueryElectrocarDevicehistorypropertiesResponse;
+use AntChain\BOT\Models\QueryElectrocarDeviceinfosRequest;
+use AntChain\BOT\Models\QueryElectrocarDeviceinfosResponse;
 use AntChain\BOT\Models\QueryElectrocarRealtimedataRequest;
 use AntChain\BOT\Models\QueryElectrocarRealtimedataResponse;
 use AntChain\BOT\Models\QueryElectrocarTravelRequest;
@@ -511,8 +513,6 @@ use AntChain\BOT\Models\SetEnergyprojectLightmodeRequest;
 use AntChain\BOT\Models\SetEnergyprojectLightmodeResponse;
 use AntChain\BOT\Models\StartAgentChatRequest;
 use AntChain\BOT\Models\StartAgentChatResponse;
-use AntChain\BOT\Models\StartAgentThingmodelRequest;
-use AntChain\BOT\Models\StartAgentThingmodelResponse;
 use AntChain\BOT\Models\StartEvidenceQueryRequest;
 use AntChain\BOT\Models\StartEvidenceQueryResponse;
 use AntChain\BOT\Models\StartEvidenceStoreRequest;
@@ -740,7 +740,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.12.66',
+                    'sdk_version'      => '1.12.69',
                     '_prod_code'       => 'BOT',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1993,39 +1993,6 @@ class Client
         Utils::validateModel($request);
 
         return StartAgentChatResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.agent.chat.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 智能体流式物模型上报接口
-     * Summary: 智能体流式物模型上报接口.
-     *
-     * @param StartAgentThingmodelRequest $request
-     *
-     * @return StartAgentThingmodelResponse
-     */
-    public function startAgentThingmodel($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->startAgentThingmodelEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 智能体流式物模型上报接口
-     * Summary: 智能体流式物模型上报接口.
-     *
-     * @param StartAgentThingmodelRequest $request
-     * @param string[]                    $headers
-     * @param RuntimeOptions              $runtime
-     *
-     * @return StartAgentThingmodelResponse
-     */
-    public function startAgentThingmodelEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return StartAgentThingmodelResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.agent.thingmodel.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -5708,6 +5675,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryElectrocarDevicehistorypropertiesResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.electrocar.devicehistoryproperties.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: iotx二轮车设备信息
+     * Summary: iotx二轮车设备信息.
+     *
+     * @param QueryElectrocarDeviceinfosRequest $request
+     *
+     * @return QueryElectrocarDeviceinfosResponse
+     */
+    public function queryElectrocarDeviceinfos($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryElectrocarDeviceinfosEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: iotx二轮车设备信息
+     * Summary: iotx二轮车设备信息.
+     *
+     * @param QueryElectrocarDeviceinfosRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return QueryElectrocarDeviceinfosResponse
+     */
+    public function queryElectrocarDeviceinfosEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryElectrocarDeviceinfosResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.electrocar.deviceinfos.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
