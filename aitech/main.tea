@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.59',
+    sdk_version = '1.1.60',
     _prod_code = 'AITECH',
     _prod_channel = 'default'
   };
@@ -3273,6 +3273,8 @@ model QuerySecurityQuestionRequest = {
   promptAttackDefense?: string(name='prompt_attack_defense'),
   // 是否开启隐私数据泄露的专项检测
   privacyDataDetection?: string(name='privacy_data_detection'),
+  // 是否开启安全代答功能
+  securityAnswer?: string(name='security_answer'),
 }
 
 model QuerySecurityQuestionResponse = {
@@ -3345,6 +3347,8 @@ model QuerySecurityAnswerRequest = {
   messageId?: string(name='message_id'),
   // 是否要针对大模型输出的内容中的隐私数据进行脱敏。默认值：N：不开启，Y：开启
   privacyDataObfuscation?: string(name='privacy_data_obfuscation'),
+  // 是否开启隐私数据泄露的专项检测（新字段，老privacy废弃）
+  privacyDataDetection?: string(name='privacy_data_detection'),
 }
 
 model QuerySecurityAnswerResponse = {
