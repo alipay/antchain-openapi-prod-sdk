@@ -62,6 +62,10 @@ public class QuerySecurityQuestionRequest extends TeaModel {
     @NameInMap("privacy_data_detection")
     public String privacyDataDetection;
 
+    // 是否开启安全代答功能
+    @NameInMap("security_answer")
+    public String securityAnswer;
+
     public static QuerySecurityQuestionRequest build(java.util.Map<String, ?> map) throws Exception {
         QuerySecurityQuestionRequest self = new QuerySecurityQuestionRequest();
         return TeaModel.build(map, self);
@@ -177,6 +181,14 @@ public class QuerySecurityQuestionRequest extends TeaModel {
     }
     public String getPrivacyDataDetection() {
         return this.privacyDataDetection;
+    }
+
+    public QuerySecurityQuestionRequest setSecurityAnswer(String securityAnswer) {
+        this.securityAnswer = securityAnswer;
+        return this;
+    }
+    public String getSecurityAnswer() {
+        return this.securityAnswer;
     }
 
 }

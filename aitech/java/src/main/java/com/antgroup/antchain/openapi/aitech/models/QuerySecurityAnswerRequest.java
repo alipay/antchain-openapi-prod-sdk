@@ -50,6 +50,10 @@ public class QuerySecurityAnswerRequest extends TeaModel {
     @NameInMap("privacy_data_obfuscation")
     public String privacyDataObfuscation;
 
+    // 是否开启隐私数据泄露的专项检测（新字段，老privacy废弃）
+    @NameInMap("privacy_data_detection")
+    public String privacyDataDetection;
+
     public static QuerySecurityAnswerRequest build(java.util.Map<String, ?> map) throws Exception {
         QuerySecurityAnswerRequest self = new QuerySecurityAnswerRequest();
         return TeaModel.build(map, self);
@@ -141,6 +145,14 @@ public class QuerySecurityAnswerRequest extends TeaModel {
     }
     public String getPrivacyDataObfuscation() {
         return this.privacyDataObfuscation;
+    }
+
+    public QuerySecurityAnswerRequest setPrivacyDataDetection(String privacyDataDetection) {
+        this.privacyDataDetection = privacyDataDetection;
+        return this;
+    }
+    public String getPrivacyDataDetection() {
+        return this.privacyDataDetection;
     }
 
 }
