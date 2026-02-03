@@ -90,6 +90,12 @@ class QuerySecurityQuestionRequest extends Model
      * @var string
      */
     public $privacyDataDetection;
+
+    // 是否开启安全代答功能
+    /**
+     * @var string
+     */
+    public $securityAnswer;
     protected $_name = [
         'authToken'                  => 'auth_token',
         'productInstanceId'          => 'product_instance_id',
@@ -105,6 +111,7 @@ class QuerySecurityQuestionRequest extends Model
         'fieldIdentify'              => 'field_identify',
         'promptAttackDefense'        => 'prompt_attack_defense',
         'privacyDataDetection'       => 'privacy_data_detection',
+        'securityAnswer'             => 'security_answer',
     ];
 
     public function validate()
@@ -160,6 +167,9 @@ class QuerySecurityQuestionRequest extends Model
         if (null !== $this->privacyDataDetection) {
             $res['privacy_data_detection'] = $this->privacyDataDetection;
         }
+        if (null !== $this->securityAnswer) {
+            $res['security_answer'] = $this->securityAnswer;
+        }
 
         return $res;
     }
@@ -213,6 +223,9 @@ class QuerySecurityQuestionRequest extends Model
         }
         if (isset($map['privacy_data_detection'])) {
             $model->privacyDataDetection = $map['privacy_data_detection'];
+        }
+        if (isset($map['security_answer'])) {
+            $model->securityAnswer = $map['security_answer'];
         }
 
         return $model;

@@ -72,6 +72,12 @@ class QuerySecurityAnswerRequest extends Model
      * @var string
      */
     public $privacyDataObfuscation;
+
+    // 是否开启隐私数据泄露的专项检测（新字段，老privacy废弃）
+    /**
+     * @var string
+     */
+    public $privacyDataDetection;
     protected $_name = [
         'authToken'              => 'auth_token',
         'productInstanceId'      => 'product_instance_id',
@@ -84,6 +90,7 @@ class QuerySecurityAnswerRequest extends Model
         'flowEnd'                => 'flow_end',
         'messageId'              => 'message_id',
         'privacyDataObfuscation' => 'privacy_data_obfuscation',
+        'privacyDataDetection'   => 'privacy_data_detection',
     ];
 
     public function validate()
@@ -130,6 +137,9 @@ class QuerySecurityAnswerRequest extends Model
         if (null !== $this->privacyDataObfuscation) {
             $res['privacy_data_obfuscation'] = $this->privacyDataObfuscation;
         }
+        if (null !== $this->privacyDataDetection) {
+            $res['privacy_data_detection'] = $this->privacyDataDetection;
+        }
 
         return $res;
     }
@@ -174,6 +184,9 @@ class QuerySecurityAnswerRequest extends Model
         }
         if (isset($map['privacy_data_obfuscation'])) {
             $model->privacyDataObfuscation = $map['privacy_data_obfuscation'];
+        }
+        if (isset($map['privacy_data_detection'])) {
+            $model->privacyDataDetection = $map['privacy_data_detection'];
         }
 
         return $model;
