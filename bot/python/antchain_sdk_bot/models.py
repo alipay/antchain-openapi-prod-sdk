@@ -15785,96 +15785,6 @@ class StartAgentChatResponse(TeaModel):
         return self
 
 
-class StartAgentThingmodelRequest(TeaModel):
-    def __init__(
-        self,
-        auth_token: str = None,
-        product_instance_id: str = None,
-        agent_thing_model_request: str = None,
-    ):
-        # OAuth模式下的授权token
-        self.auth_token = auth_token
-        self.product_instance_id = product_instance_id
-        # 请求内容，内容为 AgentThingModelReq 对象的json字符串
-        self.agent_thing_model_request = agent_thing_model_request
-
-    def validate(self):
-        self.validate_required(self.agent_thing_model_request, 'agent_thing_model_request')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.auth_token is not None:
-            result['auth_token'] = self.auth_token
-        if self.product_instance_id is not None:
-            result['product_instance_id'] = self.product_instance_id
-        if self.agent_thing_model_request is not None:
-            result['agent_thing_model_request'] = self.agent_thing_model_request
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('auth_token') is not None:
-            self.auth_token = m.get('auth_token')
-        if m.get('product_instance_id') is not None:
-            self.product_instance_id = m.get('product_instance_id')
-        if m.get('agent_thing_model_request') is not None:
-            self.agent_thing_model_request = m.get('agent_thing_model_request')
-        return self
-
-
-class StartAgentThingmodelResponse(TeaModel):
-    def __init__(
-        self,
-        req_msg_id: str = None,
-        result_code: str = None,
-        result_msg: str = None,
-        thing_model_completion_object: str = None,
-    ):
-        # 请求唯一ID，用于链路跟踪和问题排查
-        self.req_msg_id = req_msg_id
-        # 结果码，一般OK表示调用成功
-        self.result_code = result_code
-        # 异常信息的文本描述
-        self.result_msg = result_msg
-        # 物模型上报结果
-        self.thing_model_completion_object = thing_model_completion_object
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.req_msg_id is not None:
-            result['req_msg_id'] = self.req_msg_id
-        if self.result_code is not None:
-            result['result_code'] = self.result_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
-        if self.thing_model_completion_object is not None:
-            result['thing_model_completion_object'] = self.thing_model_completion_object
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('req_msg_id') is not None:
-            self.req_msg_id = m.get('req_msg_id')
-        if m.get('result_code') is not None:
-            self.result_code = m.get('result_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
-        if m.get('thing_model_completion_object') is not None:
-            self.thing_model_completion_object = m.get('thing_model_completion_object')
-        return self
-
-
 class CreateAcsDeviceRequest(TeaModel):
     def __init__(
         self,
@@ -30619,6 +30529,173 @@ class QueryElectrocarDevicehistorypropertiesResponse(TeaModel):
             self.total_pages = m.get('total_pages')
         if m.get('total_size') is not None:
             self.total_size = m.get('total_size')
+        return self
+
+
+class QueryElectrocarDeviceinfosRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tuid: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # tuid
+        self.tuid = tuid
+
+    def validate(self):
+        self.validate_required(self.tuid, 'tuid')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tuid is not None:
+            result['tuid'] = self.tuid
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tuid') is not None:
+            self.tuid = m.get('tuid')
+        return self
+
+
+class QueryElectrocarDeviceinfosResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        trust_product_key: str = None,
+        product_key: str = None,
+        trust_device_id: str = None,
+        device_name: str = None,
+        nick_name: str = None,
+        device_status: str = None,
+        device_register_time: str = None,
+        device_active_time: str = None,
+        last_online_time: str = None,
+        last_offline_time: str = None,
+        last_communication_time: str = None,
+        device_ota_version: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # key
+        self.trust_product_key = trust_product_key
+        # 产品key
+        self.product_key = product_key
+        # 设备唯一id
+        self.trust_device_id = trust_device_id
+        # 设备tuid
+        self.device_name = device_name
+        # 设备名称
+        self.nick_name = nick_name
+        # 设备在线状态
+        self.device_status = device_status
+        # 设备注册时间
+        self.device_register_time = device_register_time
+        # 设备激活时间
+        self.device_active_time = device_active_time
+        # 最后在线时间
+        self.last_online_time = last_online_time
+        # 最后离线时间
+        self.last_offline_time = last_offline_time
+        # 最后通讯时间
+        self.last_communication_time = last_communication_time
+        # ota版本
+        self.device_ota_version = device_ota_version
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.trust_product_key is not None:
+            result['trust_product_key'] = self.trust_product_key
+        if self.product_key is not None:
+            result['product_key'] = self.product_key
+        if self.trust_device_id is not None:
+            result['trust_device_id'] = self.trust_device_id
+        if self.device_name is not None:
+            result['device_name'] = self.device_name
+        if self.nick_name is not None:
+            result['nick_name'] = self.nick_name
+        if self.device_status is not None:
+            result['device_status'] = self.device_status
+        if self.device_register_time is not None:
+            result['device_register_time'] = self.device_register_time
+        if self.device_active_time is not None:
+            result['device_active_time'] = self.device_active_time
+        if self.last_online_time is not None:
+            result['last_online_time'] = self.last_online_time
+        if self.last_offline_time is not None:
+            result['last_offline_time'] = self.last_offline_time
+        if self.last_communication_time is not None:
+            result['last_communication_time'] = self.last_communication_time
+        if self.device_ota_version is not None:
+            result['device_ota_version'] = self.device_ota_version
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('trust_product_key') is not None:
+            self.trust_product_key = m.get('trust_product_key')
+        if m.get('product_key') is not None:
+            self.product_key = m.get('product_key')
+        if m.get('trust_device_id') is not None:
+            self.trust_device_id = m.get('trust_device_id')
+        if m.get('device_name') is not None:
+            self.device_name = m.get('device_name')
+        if m.get('nick_name') is not None:
+            self.nick_name = m.get('nick_name')
+        if m.get('device_status') is not None:
+            self.device_status = m.get('device_status')
+        if m.get('device_register_time') is not None:
+            self.device_register_time = m.get('device_register_time')
+        if m.get('device_active_time') is not None:
+            self.device_active_time = m.get('device_active_time')
+        if m.get('last_online_time') is not None:
+            self.last_online_time = m.get('last_online_time')
+        if m.get('last_offline_time') is not None:
+            self.last_offline_time = m.get('last_offline_time')
+        if m.get('last_communication_time') is not None:
+            self.last_communication_time = m.get('last_communication_time')
+        if m.get('device_ota_version') is not None:
+            self.device_ota_version = m.get('device_ota_version')
         return self
 
 

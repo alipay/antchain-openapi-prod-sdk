@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.66',
+                    'sdk_version': '1.12.69',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.66',
+                    'sdk_version': '1.12.69',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -2325,62 +2325,6 @@ class Client:
         return TeaCore.from_map(
             bot_models.StartAgentChatResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.agent.chat.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def start_agent_thingmodel(
-        self,
-        request: bot_models.StartAgentThingmodelRequest,
-    ) -> bot_models.StartAgentThingmodelResponse:
-        """
-        Description: 智能体流式物模型上报接口
-        Summary: 智能体流式物模型上报接口
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.start_agent_thingmodel_ex(request, headers, runtime)
-
-    async def start_agent_thingmodel_async(
-        self,
-        request: bot_models.StartAgentThingmodelRequest,
-    ) -> bot_models.StartAgentThingmodelResponse:
-        """
-        Description: 智能体流式物模型上报接口
-        Summary: 智能体流式物模型上报接口
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.start_agent_thingmodel_ex_async(request, headers, runtime)
-
-    def start_agent_thingmodel_ex(
-        self,
-        request: bot_models.StartAgentThingmodelRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> bot_models.StartAgentThingmodelResponse:
-        """
-        Description: 智能体流式物模型上报接口
-        Summary: 智能体流式物模型上报接口
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            bot_models.StartAgentThingmodelResponse(),
-            self.do_request('1.0', 'blockchain.bot.agent.thingmodel.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def start_agent_thingmodel_ex_async(
-        self,
-        request: bot_models.StartAgentThingmodelRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> bot_models.StartAgentThingmodelResponse:
-        """
-        Description: 智能体流式物模型上报接口
-        Summary: 智能体流式物模型上报接口
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            bot_models.StartAgentThingmodelResponse(),
-            await self.do_request_async('1.0', 'blockchain.bot.agent.thingmodel.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_acs_device(
@@ -8633,6 +8577,62 @@ class Client:
         return TeaCore.from_map(
             bot_models.QueryElectrocarDevicehistorypropertiesResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.electrocar.devicehistoryproperties.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_electrocar_deviceinfos(
+        self,
+        request: bot_models.QueryElectrocarDeviceinfosRequest,
+    ) -> bot_models.QueryElectrocarDeviceinfosResponse:
+        """
+        Description: iotx二轮车设备信息
+        Summary: iotx二轮车设备信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_electrocar_deviceinfos_ex(request, headers, runtime)
+
+    async def query_electrocar_deviceinfos_async(
+        self,
+        request: bot_models.QueryElectrocarDeviceinfosRequest,
+    ) -> bot_models.QueryElectrocarDeviceinfosResponse:
+        """
+        Description: iotx二轮车设备信息
+        Summary: iotx二轮车设备信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_electrocar_deviceinfos_ex_async(request, headers, runtime)
+
+    def query_electrocar_deviceinfos_ex(
+        self,
+        request: bot_models.QueryElectrocarDeviceinfosRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryElectrocarDeviceinfosResponse:
+        """
+        Description: iotx二轮车设备信息
+        Summary: iotx二轮车设备信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryElectrocarDeviceinfosResponse(),
+            self.do_request('1.0', 'blockchain.bot.electrocar.deviceinfos.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_electrocar_deviceinfos_ex_async(
+        self,
+        request: bot_models.QueryElectrocarDeviceinfosRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryElectrocarDeviceinfosResponse:
+        """
+        Description: iotx二轮车设备信息
+        Summary: iotx二轮车设备信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryElectrocarDeviceinfosResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.electrocar.deviceinfos.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_iotplatform_purchaseorder(
