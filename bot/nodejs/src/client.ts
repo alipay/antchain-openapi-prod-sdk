@@ -9682,65 +9682,6 @@ export class StartAgentChatResponse extends $tea.Model {
   }
 }
 
-export class StartAgentThingmodelRequest extends $tea.Model {
-  // OAuth模式下的授权token
-  authToken?: string;
-  productInstanceId?: string;
-  // 请求内容，内容为 AgentThingModelReq 对象的json字符串
-  agentThingModelRequest: string;
-  static names(): { [key: string]: string } {
-    return {
-      authToken: 'auth_token',
-      productInstanceId: 'product_instance_id',
-      agentThingModelRequest: 'agent_thing_model_request',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authToken: 'string',
-      productInstanceId: 'string',
-      agentThingModelRequest: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class StartAgentThingmodelResponse extends $tea.Model {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string;
-  // 结果码，一般OK表示调用成功
-  resultCode?: string;
-  // 异常信息的文本描述
-  resultMsg?: string;
-  // 物模型上报结果
-  thingModelCompletionObject?: string;
-  static names(): { [key: string]: string } {
-    return {
-      reqMsgId: 'req_msg_id',
-      resultCode: 'result_code',
-      resultMsg: 'result_msg',
-      thingModelCompletionObject: 'thing_model_completion_object',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      reqMsgId: 'string',
-      resultCode: 'string',
-      resultMsg: 'string',
-      thingModelCompletionObject: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 export class CreateAcsDeviceRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -18667,6 +18608,109 @@ export class QueryElectrocarDevicehistorypropertiesResponse extends $tea.Model {
       pageSize: 'number',
       totalPages: 'number',
       totalSize: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryElectrocarDeviceinfosRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // tuid
+  tuid: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tuid: 'tuid',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tuid: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryElectrocarDeviceinfosResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // key
+  trustProductKey?: string;
+  // 产品key
+  productKey?: string;
+  // 设备唯一id
+  trustDeviceId?: string;
+  // 设备tuid
+  deviceName?: string;
+  // 设备名称
+  nickName?: string;
+  // 设备在线状态
+  deviceStatus?: string;
+  // 设备注册时间
+  deviceRegisterTime?: string;
+  // 设备激活时间
+  deviceActiveTime?: string;
+  // 最后在线时间
+  lastOnlineTime?: string;
+  // 最后离线时间
+  lastOfflineTime?: string;
+  // 最后通讯时间
+  lastCommunicationTime?: string;
+  // ota版本
+  deviceOtaVersion?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      trustProductKey: 'trust_product_key',
+      productKey: 'product_key',
+      trustDeviceId: 'trust_device_id',
+      deviceName: 'device_name',
+      nickName: 'nick_name',
+      deviceStatus: 'device_status',
+      deviceRegisterTime: 'device_register_time',
+      deviceActiveTime: 'device_active_time',
+      lastOnlineTime: 'last_online_time',
+      lastOfflineTime: 'last_offline_time',
+      lastCommunicationTime: 'last_communication_time',
+      deviceOtaVersion: 'device_ota_version',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      trustProductKey: 'string',
+      productKey: 'string',
+      trustDeviceId: 'string',
+      deviceName: 'string',
+      nickName: 'string',
+      deviceStatus: 'string',
+      deviceRegisterTime: 'string',
+      deviceActiveTime: 'string',
+      lastOnlineTime: 'string',
+      lastOfflineTime: 'string',
+      lastCommunicationTime: 'string',
+      deviceOtaVersion: 'string',
     };
   }
 
@@ -29629,7 +29673,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.12.66",
+          sdk_version: "1.12.69",
           _prod_code: "BOT",
           _prod_channel: "undefined",
         };
@@ -30381,25 +30425,6 @@ export default class Client {
   async startAgentChatEx(request: StartAgentChatRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<StartAgentChatResponse> {
     Util.validateModel(request);
     return $tea.cast<StartAgentChatResponse>(await this.doRequest("1.0", "blockchain.bot.agent.chat.start", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new StartAgentChatResponse({}));
-  }
-
-  /**
-   * Description: 智能体流式物模型上报接口
-   * Summary: 智能体流式物模型上报接口
-   */
-  async startAgentThingmodel(request: StartAgentThingmodelRequest): Promise<StartAgentThingmodelResponse> {
-    let runtime = new $Util.RuntimeOptions({ });
-    let headers : {[key: string ]: string} = { };
-    return await this.startAgentThingmodelEx(request, headers, runtime);
-  }
-
-  /**
-   * Description: 智能体流式物模型上报接口
-   * Summary: 智能体流式物模型上报接口
-   */
-  async startAgentThingmodelEx(request: StartAgentThingmodelRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<StartAgentThingmodelResponse> {
-    Util.validateModel(request);
-    return $tea.cast<StartAgentThingmodelResponse>(await this.doRequest("1.0", "blockchain.bot.agent.thingmodel.start", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new StartAgentThingmodelResponse({}));
   }
 
   /**
@@ -32531,6 +32556,25 @@ export default class Client {
   async queryElectrocarDevicehistorypropertiesEx(request: QueryElectrocarDevicehistorypropertiesRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryElectrocarDevicehistorypropertiesResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryElectrocarDevicehistorypropertiesResponse>(await this.doRequest("1.0", "blockchain.bot.electrocar.devicehistoryproperties.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryElectrocarDevicehistorypropertiesResponse({}));
+  }
+
+  /**
+   * Description: iotx二轮车设备信息
+   * Summary: iotx二轮车设备信息
+   */
+  async queryElectrocarDeviceinfos(request: QueryElectrocarDeviceinfosRequest): Promise<QueryElectrocarDeviceinfosResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryElectrocarDeviceinfosEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: iotx二轮车设备信息
+   * Summary: iotx二轮车设备信息
+   */
+  async queryElectrocarDeviceinfosEx(request: QueryElectrocarDeviceinfosRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryElectrocarDeviceinfosResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryElectrocarDeviceinfosResponse>(await this.doRequest("1.0", "blockchain.bot.electrocar.deviceinfos.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryElectrocarDeviceinfosResponse({}));
   }
 
   /**
