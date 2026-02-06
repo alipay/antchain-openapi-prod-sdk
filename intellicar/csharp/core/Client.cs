@@ -137,7 +137,7 @@ namespace AntChain.SDK.INTELLICAR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.10"},
+                        {"sdk_version", "1.0.14"},
                         {"_prod_code", "INTELLICAR"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.INTELLICAR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.10"},
+                        {"sdk_version", "1.0.14"},
                         {"_prod_code", "INTELLICAR"},
                         {"_prod_channel", "default"},
                     };
@@ -661,6 +661,48 @@ namespace AntChain.SDK.INTELLICAR
             }
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ImportCarFileResponse>(await DoRequestAsync("1.0", "antdigital.intellicar.car.file.import", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 二手车估值接口
+         * Summary: 二手车估值接口
+         */
+        public QueryUsedcarResponse QueryUsedcar(QueryUsedcarRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryUsedcarEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 二手车估值接口
+         * Summary: 二手车估值接口
+         */
+        public async Task<QueryUsedcarResponse> QueryUsedcarAsync(QueryUsedcarRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryUsedcarExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 二手车估值接口
+         * Summary: 二手车估值接口
+         */
+        public QueryUsedcarResponse QueryUsedcarEx(QueryUsedcarRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryUsedcarResponse>(DoRequest("1.0", "antdigital.intellicar.usedcar.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 二手车估值接口
+         * Summary: 二手车估值接口
+         */
+        public async Task<QueryUsedcarResponse> QueryUsedcarExAsync(QueryUsedcarRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryUsedcarResponse>(await DoRequestAsync("1.0", "antdigital.intellicar.usedcar.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
