@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.9',
+    sdk_version = '1.0.14',
     _prod_code = 'INTELLICAR',
     _prod_channel = 'default'
   };
@@ -273,6 +273,46 @@ model CarBusinessPrice {
   businessInsurance?: long(name='business_insurance', example=''),
   // json 扩展字段
   extraContent?: string(name='extra_content', example='{"xx":""}'),
+}
+
+// 二手车估价信息
+model UsedCarValuation {
+  // 评估金额(万)
+  referenceprice: string(name='referenceprice', example='1.15-1.43'),
+  // 官方报价(参考)(万)
+  newcarprice: string(name='newcarprice', example='54.5'),
+  // 车型图片(参考)
+  url: string(name='url', example='"http://car0.autoimg.cn/cardfs/product/g32/M08/A5/55/t_autohomecar__ChxkPmZijMqAMuHJAALTBQ2Tti4239.jpg"'),
+  // 车况好(万)(三个价格用"-"分隔,第一个是较小值第二个是...
+  conditiona: string(name='conditiona', example='1.30-1.38-1.45'),
+  // 车况正常(万)
+  conditionb: string(name='conditionb', example='1.18-1.29-1.41'),
+  // 车况差(万)
+  conditionc: string(name='conditionc', example='1.04-1.16-1.28'),
+}
+
+// 二手车
+model UsedCarInfo {
+  // 渠道方线索业务id
+  leadId: string(name='lead_id', example='xxxx'),
+  // 城市名称
+  cityName: string(name='city_name', example='xxx'),
+  // 省份id
+  pid: string(name='pid', example='xxxx'),
+  // 城市id
+  cid: string(name='cid', example='xxxx'),
+  // 品牌名称
+  brandName?: string(name='brand_name', example='xxxx'),
+  // 车系名称
+  seriesName?: string(name='series_name', example='xxx'),
+  // 汽车之家车型id
+  specId: string(name='spec_id', example='xxx'),
+  // 车型名称
+  specName?: string(name='spec_name', example='xxxx'),
+  // 首次上牌时间格式 yyyy/MM/dd
+  firstRegTime: string(name='first_reg_time', example='2020/01/01'),
+  // 行驶公里数(km)
+  mileage: string(name='mileage', example='12345.67'),
 }
 
 // 批量提交结果
@@ -641,6 +681,48 @@ async function importCarFileEx(request: ImportCarFileRequest, headers: map[strin
   }
   Util.validateModel(request);
   return doRequest('1.0' ,'antdigital.intellicar.car.file.import', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryUsedcarRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 场景码
+  sceneCode: string(name='scene_code'),
+  // 二手车信息
+  usedCarInfo: UsedCarInfo(name='used_car_info'),
+  // 用户基本信息
+  userInfo: CarOwnerUserInfo(name='user_info'),
+}
+
+model QueryUsedcarResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 二手车估值信息
+  usedCarValuation?: UsedCarValuation(name='used_car_valuation'),
+}
+
+/**
+ * Description: 二手车估值接口
+ * Summary: 二手车估值接口
+ */
+async function queryUsedcar(request: QueryUsedcarRequest): QueryUsedcarResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryUsedcarEx(request, headers, runtime);
+}
+
+/**
+ * Description: 二手车估值接口
+ * Summary: 二手车估值接口
+ */
+async function queryUsedcarEx(request: QueryUsedcarRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryUsedcarResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.intellicar.usedcar.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateAntcloudGatewayxFileUploadRequest = {
