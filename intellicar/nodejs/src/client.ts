@@ -360,6 +360,104 @@ export class CarBusinessPrice extends $tea.Model {
   }
 }
 
+// 二手车估价信息
+export class UsedCarValuation extends $tea.Model {
+  // 评估金额(万)
+  referenceprice: string;
+  // 官方报价(参考)(万)
+  newcarprice: string;
+  // 车型图片(参考)
+  url: string;
+  // 车况好(万)(三个价格用"-"分隔,第一个是较小值第二个是...
+  conditiona: string;
+  // 车况正常(万)
+  conditionb: string;
+  // 车况差(万)
+  conditionc: string;
+  static names(): { [key: string]: string } {
+    return {
+      referenceprice: 'referenceprice',
+      newcarprice: 'newcarprice',
+      url: 'url',
+      conditiona: 'conditiona',
+      conditionb: 'conditionb',
+      conditionc: 'conditionc',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      referenceprice: 'string',
+      newcarprice: 'string',
+      url: 'string',
+      conditiona: 'string',
+      conditionb: 'string',
+      conditionc: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 二手车
+export class UsedCarInfo extends $tea.Model {
+  // 渠道方线索业务id
+  leadId: string;
+  // 城市名称
+  cityName: string;
+  // 省份id
+  pid: string;
+  // 城市id
+  cid: string;
+  // 品牌名称
+  brandName?: string;
+  // 车系名称
+  seriesName?: string;
+  // 汽车之家车型id
+  specId: string;
+  // 车型名称
+  specName?: string;
+  // 首次上牌时间格式 yyyy/MM/dd
+  firstRegTime: string;
+  // 行驶公里数(km)
+  mileage: string;
+  static names(): { [key: string]: string } {
+    return {
+      leadId: 'lead_id',
+      cityName: 'city_name',
+      pid: 'pid',
+      cid: 'cid',
+      brandName: 'brand_name',
+      seriesName: 'series_name',
+      specId: 'spec_id',
+      specName: 'spec_name',
+      firstRegTime: 'first_reg_time',
+      mileage: 'mileage',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      leadId: 'string',
+      cityName: 'string',
+      pid: 'string',
+      cid: 'string',
+      brandName: 'string',
+      seriesName: 'string',
+      specId: 'string',
+      specName: 'string',
+      firstRegTime: 'string',
+      mileage: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 批量提交结果
 export class BatchSubmitCarResult extends $tea.Model {
   // 提交线索唯一请求id
@@ -964,6 +1062,73 @@ export class ImportCarFileResponse extends $tea.Model {
   }
 }
 
+export class QueryUsedcarRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 场景码
+  sceneCode: string;
+  // 二手车信息
+  usedCarInfo: UsedCarInfo;
+  // 用户基本信息
+  userInfo: CarOwnerUserInfo;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      sceneCode: 'scene_code',
+      usedCarInfo: 'used_car_info',
+      userInfo: 'user_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      sceneCode: 'string',
+      usedCarInfo: UsedCarInfo,
+      userInfo: CarOwnerUserInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryUsedcarResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 二手车估值信息
+  usedCarValuation?: UsedCarValuation;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      usedCarValuation: 'used_car_valuation',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      usedCarValuation: UsedCarValuation,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -1165,7 +1330,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.10",
+          sdk_version: "1.0.14",
           _prod_code: "INTELLICAR",
           _prod_channel: "default",
         };
@@ -1366,6 +1531,25 @@ export default class Client {
 
     Util.validateModel(request);
     return $tea.cast<ImportCarFileResponse>(await this.doRequest("1.0", "antdigital.intellicar.car.file.import", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ImportCarFileResponse({}));
+  }
+
+  /**
+   * Description: 二手车估值接口
+   * Summary: 二手车估值接口
+   */
+  async queryUsedcar(request: QueryUsedcarRequest): Promise<QueryUsedcarResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryUsedcarEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 二手车估值接口
+   * Summary: 二手车估值接口
+   */
+  async queryUsedcarEx(request: QueryUsedcarRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryUsedcarResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryUsedcarResponse>(await this.doRequest("1.0", "antdigital.intellicar.usedcar.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryUsedcarResponse({}));
   }
 
   /**
