@@ -21,6 +21,8 @@ use AntChain\INTELLICAR\Models\PushCarloanRequest;
 use AntChain\INTELLICAR\Models\PushCarloanResponse;
 use AntChain\INTELLICAR\Models\QueryCarPriceRequest;
 use AntChain\INTELLICAR\Models\QueryCarPriceResponse;
+use AntChain\INTELLICAR\Models\QueryUsedcarRequest;
+use AntChain\INTELLICAR\Models\QueryUsedcarResponse;
 use AntChain\INTELLICAR\Models\RegisterCarownerCyRequest;
 use AntChain\INTELLICAR\Models\RegisterCarownerCyResponse;
 use AntChain\INTELLICAR\Models\RegisterCarownerRequest;
@@ -174,7 +176,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.10',
+                    'sdk_version'      => '1.0.14',
                     '_prod_code'       => 'INTELLICAR',
                     '_prod_channel'    => 'default',
                 ];
@@ -470,6 +472,39 @@ class Client
         Utils::validateModel($request);
 
         return ImportCarFileResponse::fromMap($this->doRequest('1.0', 'antdigital.intellicar.car.file.import', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 二手车估值接口
+     * Summary: 二手车估值接口.
+     *
+     * @param QueryUsedcarRequest $request
+     *
+     * @return QueryUsedcarResponse
+     */
+    public function queryUsedcar($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryUsedcarEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 二手车估值接口
+     * Summary: 二手车估值接口.
+     *
+     * @param QueryUsedcarRequest $request
+     * @param string[]            $headers
+     * @param RuntimeOptions      $runtime
+     *
+     * @return QueryUsedcarResponse
+     */
+    public function queryUsedcarEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryUsedcarResponse::fromMap($this->doRequest('1.0', 'antdigital.intellicar.usedcar.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
