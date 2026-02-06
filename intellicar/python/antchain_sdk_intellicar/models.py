@@ -608,6 +608,171 @@ class CarBusinessPrice(TeaModel):
         return self
 
 
+class UsedCarValuation(TeaModel):
+    def __init__(
+        self,
+        referenceprice: str = None,
+        newcarprice: str = None,
+        url: str = None,
+        conditiona: str = None,
+        conditionb: str = None,
+        conditionc: str = None,
+    ):
+        # 评估金额(万)
+        self.referenceprice = referenceprice
+        # 官方报价(参考)(万)
+        self.newcarprice = newcarprice
+        # 车型图片(参考)
+        self.url = url
+        # 车况好(万)(三个价格用"-"分隔,第一个是较小值第二个是...
+        self.conditiona = conditiona
+        # 车况正常(万)
+        self.conditionb = conditionb
+        # 车况差(万)
+        self.conditionc = conditionc
+
+    def validate(self):
+        self.validate_required(self.referenceprice, 'referenceprice')
+        self.validate_required(self.newcarprice, 'newcarprice')
+        self.validate_required(self.url, 'url')
+        self.validate_required(self.conditiona, 'conditiona')
+        self.validate_required(self.conditionb, 'conditionb')
+        self.validate_required(self.conditionc, 'conditionc')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.referenceprice is not None:
+            result['referenceprice'] = self.referenceprice
+        if self.newcarprice is not None:
+            result['newcarprice'] = self.newcarprice
+        if self.url is not None:
+            result['url'] = self.url
+        if self.conditiona is not None:
+            result['conditiona'] = self.conditiona
+        if self.conditionb is not None:
+            result['conditionb'] = self.conditionb
+        if self.conditionc is not None:
+            result['conditionc'] = self.conditionc
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('referenceprice') is not None:
+            self.referenceprice = m.get('referenceprice')
+        if m.get('newcarprice') is not None:
+            self.newcarprice = m.get('newcarprice')
+        if m.get('url') is not None:
+            self.url = m.get('url')
+        if m.get('conditiona') is not None:
+            self.conditiona = m.get('conditiona')
+        if m.get('conditionb') is not None:
+            self.conditionb = m.get('conditionb')
+        if m.get('conditionc') is not None:
+            self.conditionc = m.get('conditionc')
+        return self
+
+
+class UsedCarInfo(TeaModel):
+    def __init__(
+        self,
+        lead_id: str = None,
+        city_name: str = None,
+        pid: str = None,
+        cid: str = None,
+        brand_name: str = None,
+        series_name: str = None,
+        spec_id: str = None,
+        spec_name: str = None,
+        first_reg_time: str = None,
+        mileage: str = None,
+    ):
+        # 渠道方线索业务id
+        self.lead_id = lead_id
+        # 城市名称
+        self.city_name = city_name
+        # 省份id
+        self.pid = pid
+        # 城市id
+        self.cid = cid
+        # 品牌名称
+        self.brand_name = brand_name
+        # 车系名称
+        self.series_name = series_name
+        # 汽车之家车型id
+        self.spec_id = spec_id
+        # 车型名称
+        self.spec_name = spec_name
+        # 首次上牌时间格式 yyyy/MM/dd
+        self.first_reg_time = first_reg_time
+        # 行驶公里数(km)
+        self.mileage = mileage
+
+    def validate(self):
+        self.validate_required(self.lead_id, 'lead_id')
+        self.validate_required(self.city_name, 'city_name')
+        self.validate_required(self.pid, 'pid')
+        self.validate_required(self.cid, 'cid')
+        self.validate_required(self.spec_id, 'spec_id')
+        self.validate_required(self.first_reg_time, 'first_reg_time')
+        self.validate_required(self.mileage, 'mileage')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.lead_id is not None:
+            result['lead_id'] = self.lead_id
+        if self.city_name is not None:
+            result['city_name'] = self.city_name
+        if self.pid is not None:
+            result['pid'] = self.pid
+        if self.cid is not None:
+            result['cid'] = self.cid
+        if self.brand_name is not None:
+            result['brand_name'] = self.brand_name
+        if self.series_name is not None:
+            result['series_name'] = self.series_name
+        if self.spec_id is not None:
+            result['spec_id'] = self.spec_id
+        if self.spec_name is not None:
+            result['spec_name'] = self.spec_name
+        if self.first_reg_time is not None:
+            result['first_reg_time'] = self.first_reg_time
+        if self.mileage is not None:
+            result['mileage'] = self.mileage
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('lead_id') is not None:
+            self.lead_id = m.get('lead_id')
+        if m.get('city_name') is not None:
+            self.city_name = m.get('city_name')
+        if m.get('pid') is not None:
+            self.pid = m.get('pid')
+        if m.get('cid') is not None:
+            self.cid = m.get('cid')
+        if m.get('brand_name') is not None:
+            self.brand_name = m.get('brand_name')
+        if m.get('series_name') is not None:
+            self.series_name = m.get('series_name')
+        if m.get('spec_id') is not None:
+            self.spec_id = m.get('spec_id')
+        if m.get('spec_name') is not None:
+            self.spec_name = m.get('spec_name')
+        if m.get('first_reg_time') is not None:
+            self.first_reg_time = m.get('first_reg_time')
+        if m.get('mileage') is not None:
+            self.mileage = m.get('mileage')
+        return self
+
+
 class BatchSubmitCarResult(TeaModel):
     def __init__(
         self,
@@ -1608,6 +1773,120 @@ class ImportCarFileResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('code') is not None:
             self.code = m.get('code')
+        return self
+
+
+class QueryUsedcarRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        scene_code: str = None,
+        used_car_info: UsedCarInfo = None,
+        user_info: CarOwnerUserInfo = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 场景码
+        self.scene_code = scene_code
+        # 二手车信息
+        self.used_car_info = used_car_info
+        # 用户基本信息
+        self.user_info = user_info
+
+    def validate(self):
+        self.validate_required(self.scene_code, 'scene_code')
+        self.validate_required(self.used_car_info, 'used_car_info')
+        if self.used_car_info:
+            self.used_car_info.validate()
+        self.validate_required(self.user_info, 'user_info')
+        if self.user_info:
+            self.user_info.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.scene_code is not None:
+            result['scene_code'] = self.scene_code
+        if self.used_car_info is not None:
+            result['used_car_info'] = self.used_car_info.to_map()
+        if self.user_info is not None:
+            result['user_info'] = self.user_info.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('scene_code') is not None:
+            self.scene_code = m.get('scene_code')
+        if m.get('used_car_info') is not None:
+            temp_model = UsedCarInfo()
+            self.used_car_info = temp_model.from_map(m['used_car_info'])
+        if m.get('user_info') is not None:
+            temp_model = CarOwnerUserInfo()
+            self.user_info = temp_model.from_map(m['user_info'])
+        return self
+
+
+class QueryUsedcarResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        used_car_valuation: UsedCarValuation = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 二手车估值信息
+        self.used_car_valuation = used_car_valuation
+
+    def validate(self):
+        if self.used_car_valuation:
+            self.used_car_valuation.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.used_car_valuation is not None:
+            result['used_car_valuation'] = self.used_car_valuation.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('used_car_valuation') is not None:
+            temp_model = UsedCarValuation()
+            self.used_car_valuation = temp_model.from_map(m['used_car_valuation'])
         return self
 
 

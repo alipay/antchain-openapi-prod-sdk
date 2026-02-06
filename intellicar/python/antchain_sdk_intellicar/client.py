@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.9',
+                    'sdk_version': '1.0.14',
                     '_prod_code': 'INTELLICAR',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.9',
+                    'sdk_version': '1.0.14',
                     '_prod_code': 'INTELLICAR',
                     '_prod_channel': 'default'
                 }
@@ -701,6 +701,62 @@ class Client:
         return TeaCore.from_map(
             intellicar_models.ImportCarFileResponse(),
             await self.do_request_async('1.0', 'antdigital.intellicar.car.file.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_usedcar(
+        self,
+        request: intellicar_models.QueryUsedcarRequest,
+    ) -> intellicar_models.QueryUsedcarResponse:
+        """
+        Description: 二手车估值接口
+        Summary: 二手车估值接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_usedcar_ex(request, headers, runtime)
+
+    async def query_usedcar_async(
+        self,
+        request: intellicar_models.QueryUsedcarRequest,
+    ) -> intellicar_models.QueryUsedcarResponse:
+        """
+        Description: 二手车估值接口
+        Summary: 二手车估值接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_usedcar_ex_async(request, headers, runtime)
+
+    def query_usedcar_ex(
+        self,
+        request: intellicar_models.QueryUsedcarRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> intellicar_models.QueryUsedcarResponse:
+        """
+        Description: 二手车估值接口
+        Summary: 二手车估值接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            intellicar_models.QueryUsedcarResponse(),
+            self.do_request('1.0', 'antdigital.intellicar.usedcar.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_usedcar_ex_async(
+        self,
+        request: intellicar_models.QueryUsedcarRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> intellicar_models.QueryUsedcarResponse:
+        """
+        Description: 二手车估值接口
+        Summary: 二手车估值接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            intellicar_models.QueryUsedcarResponse(),
+            await self.do_request_async('1.0', 'antdigital.intellicar.usedcar.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
