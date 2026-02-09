@@ -499,14 +499,14 @@ export class AigcRiskResult extends $tea.Model {
   // 视频伪造分数
   videoForgeryScore?: string;
   // 视频伪造结论
-  videoFogeryResult?: string;
+  videoForgeryResult?: string;
   static names(): { [key: string]: string } {
     return {
       aigcRiskLevel: 'aigc_risk_level',
       deepfakeScore: 'deepfake_score',
       deepfakeResult: 'deepfake_result',
       videoForgeryScore: 'video_forgery_score',
-      videoFogeryResult: 'video_fogery_result',
+      videoForgeryResult: 'video_forgery_result',
     };
   }
 
@@ -516,7 +516,7 @@ export class AigcRiskResult extends $tea.Model {
       deepfakeScore: 'string',
       deepfakeResult: 'string',
       videoForgeryScore: 'string',
-      videoFogeryResult: 'string',
+      videoForgeryResult: 'string',
     };
   }
 
@@ -556,12 +556,6 @@ export class CarInfo extends $tea.Model {
 
 // 设备风险信息
 export class DeviceRiskInfo extends $tea.Model {
-  // 端安全产品名
-  securityProductName: string;
-  // 调用蚂蚁终端安全或人脸保镖的token
-  token?: string;
-  // 端安全SDK版本
-  securityVersion?: string;
   // 设备是否root
   isDeviceRooted?: boolean;
   // 设备是否hook
@@ -590,9 +584,6 @@ export class DeviceRiskInfo extends $tea.Model {
   riskSdkJson?: string;
   static names(): { [key: string]: string } {
     return {
-      securityProductName: 'security_product_name',
-      token: 'token',
-      securityVersion: 'security_version',
       isDeviceRooted: 'is_device_rooted',
       isDeviceHooked: 'is_device_hooked',
       isCustomRom: 'is_custom_rom',
@@ -611,9 +602,6 @@ export class DeviceRiskInfo extends $tea.Model {
 
   static types(): { [key: string]: any } {
     return {
-      securityProductName: 'string',
-      token: 'string',
-      securityVersion: 'string',
       isDeviceRooted: 'boolean',
       isDeviceHooked: 'boolean',
       isCustomRom: 'boolean',
@@ -8218,17 +8206,17 @@ export class QueryRiskServerRequest extends $tea.Model {
   authToken?: string;
   productInstanceId?: string;
   // 设备信息
-  deviceInfo: DeviceInfo;
+  deviceInfo?: DeviceInfo;
   // 设备风险信息
-  deviceRiskInfo: DeviceRiskInfo;
+  deviceRiskInfo?: DeviceRiskInfo;
   // 视频文件
   fileObject?: Readable;
   fileObjectName?: string;
   fileId?: string;
   // base64编码最佳人脸图，可加密
   faceImage: string;
-  // 唯一标识业务请求
-  uniqueId: string;
+  // 外部唯一标识。用于定位。 值为32位长度的字母数字组合前面几位字符是商户自定义的简称，中间可以使用一段时间，后段可以使用一个随机或递增序列
+  outOrderNo: string;
   // 标识应用程序名称
   appName?: string;
   // 标识应用程序版本
@@ -8247,6 +8235,12 @@ export class QueryRiskServerRequest extends $tea.Model {
   materialEncType?: string;
   // 公钥加密后的密钥，用于传入的加密图片/视频
   materialEncToken?: string;
+  // 端安全产品名
+  securityProductName: string;
+  // 调用蚂蚁终端安全或人脸保镖的token
+  securityProductToken?: string;
+  // 端安全SDK版本
+  securityVersion?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -8257,7 +8251,7 @@ export class QueryRiskServerRequest extends $tea.Model {
       fileObjectName: 'fileObjectName',
       fileId: 'file_id',
       faceImage: 'face_image',
-      uniqueId: 'unique_id',
+      outOrderNo: 'out_order_no',
       appName: 'app_name',
       appVersion: 'app_version',
       sceneId: 'scene_id',
@@ -8267,6 +8261,9 @@ export class QueryRiskServerRequest extends $tea.Model {
       encType: 'enc_type',
       materialEncType: 'material_enc_type',
       materialEncToken: 'material_enc_token',
+      securityProductName: 'security_product_name',
+      securityProductToken: 'security_product_token',
+      securityVersion: 'security_version',
     };
   }
 
@@ -8280,7 +8277,7 @@ export class QueryRiskServerRequest extends $tea.Model {
       fileObjectName: 'string',
       fileId: 'string',
       faceImage: 'string',
-      uniqueId: 'string',
+      outOrderNo: 'string',
       appName: 'string',
       appVersion: 'string',
       sceneId: 'string',
@@ -8290,6 +8287,9 @@ export class QueryRiskServerRequest extends $tea.Model {
       encType: 'string',
       materialEncType: 'string',
       materialEncToken: 'string',
+      securityProductName: 'string',
+      securityProductToken: 'string',
+      securityVersion: 'string',
     };
   }
 
@@ -8317,6 +8317,8 @@ export class QueryRiskServerResponse extends $tea.Model {
   attributes?: string;
   // 人脸质量分和小分
   qualityResult?: string;
+  // 风险咨询唯一标识
+  certifyId?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -8328,6 +8330,7 @@ export class QueryRiskServerResponse extends $tea.Model {
       faceOcclusion: 'face_occlusion',
       attributes: 'attributes',
       qualityResult: 'quality_result',
+      certifyId: 'certify_id',
     };
   }
 
@@ -8342,6 +8345,7 @@ export class QueryRiskServerResponse extends $tea.Model {
       faceOcclusion: 'boolean',
       attributes: 'string',
       qualityResult: 'string',
+      certifyId: 'string',
     };
   }
 
@@ -8551,7 +8555,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.22.18",
+          sdk_version: "1.22.21",
           _prod_code: "REALPERSON",
           _prod_channel: "undefined",
         };
