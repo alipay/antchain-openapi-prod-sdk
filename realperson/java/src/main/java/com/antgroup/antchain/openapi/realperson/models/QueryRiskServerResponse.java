@@ -40,6 +40,10 @@ public class QueryRiskServerResponse extends TeaModel {
     @NameInMap("quality_result")
     public String qualityResult;
 
+    // 风险咨询唯一标识
+    @NameInMap("certify_id")
+    public String certifyId;
+
     public static QueryRiskServerResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryRiskServerResponse self = new QueryRiskServerResponse();
         return TeaModel.build(map, self);
@@ -115,6 +119,14 @@ public class QueryRiskServerResponse extends TeaModel {
     }
     public String getQualityResult() {
         return this.qualityResult;
+    }
+
+    public QueryRiskServerResponse setCertifyId(String certifyId) {
+        this.certifyId = certifyId;
+        return this;
+    }
+    public String getCertifyId() {
+        return this.certifyId;
     }
 
 }

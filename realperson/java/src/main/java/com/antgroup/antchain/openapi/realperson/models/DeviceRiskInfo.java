@@ -4,31 +4,6 @@ package com.antgroup.antchain.openapi.realperson.models;
 import com.aliyun.tea.*;
 
 public class DeviceRiskInfo extends TeaModel {
-    // 端安全产品名
-    /**
-     * <strong>example:</strong>
-     * <p>ant</p>
-     */
-    @NameInMap("security_product_name")
-    @Validation(required = true)
-    public String securityProductName;
-
-    // 调用蚂蚁终端安全或人脸保镖的token
-    /**
-     * <strong>example:</strong>
-     * <p>sfa1des</p>
-     */
-    @NameInMap("token")
-    public String token;
-
-    // 端安全SDK版本
-    /**
-     * <strong>example:</strong>
-     * <p>1.2.1</p>
-     */
-    @NameInMap("security_version")
-    public String securityVersion;
-
     // 设备是否root
     @NameInMap("is_device_rooted")
     public Boolean isDeviceRooted;
@@ -132,30 +107,6 @@ public class DeviceRiskInfo extends TeaModel {
     public static DeviceRiskInfo build(java.util.Map<String, ?> map) throws Exception {
         DeviceRiskInfo self = new DeviceRiskInfo();
         return TeaModel.build(map, self);
-    }
-
-    public DeviceRiskInfo setSecurityProductName(String securityProductName) {
-        this.securityProductName = securityProductName;
-        return this;
-    }
-    public String getSecurityProductName() {
-        return this.securityProductName;
-    }
-
-    public DeviceRiskInfo setToken(String token) {
-        this.token = token;
-        return this;
-    }
-    public String getToken() {
-        return this.token;
-    }
-
-    public DeviceRiskInfo setSecurityVersion(String securityVersion) {
-        this.securityVersion = securityVersion;
-        return this;
-    }
-    public String getSecurityVersion() {
-        return this.securityVersion;
     }
 
     public DeviceRiskInfo setIsDeviceRooted(Boolean isDeviceRooted) {

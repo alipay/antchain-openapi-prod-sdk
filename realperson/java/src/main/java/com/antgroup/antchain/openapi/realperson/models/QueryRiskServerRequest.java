@@ -13,12 +13,10 @@ public class QueryRiskServerRequest extends TeaModel {
 
     // 设备信息
     @NameInMap("device_info")
-    @Validation(required = true)
     public DeviceInfo deviceInfo;
 
     // 设备风险信息
     @NameInMap("device_risk_info")
-    @Validation(required = true)
     public DeviceRiskInfo deviceRiskInfo;
 
     // 视频文件
@@ -42,10 +40,10 @@ public class QueryRiskServerRequest extends TeaModel {
     @Validation(required = true)
     public String faceImage;
 
-    // 唯一标识业务请求
-    @NameInMap("unique_id")
+    // 外部唯一标识。用于定位。 值为32位长度的字母数字组合前面几位字符是商户自定义的简称，中间可以使用一段时间，后段可以使用一个随机或递增序列
+    @NameInMap("out_order_no")
     @Validation(required = true)
-    public String uniqueId;
+    public String outOrderNo;
 
     // 标识应用程序名称
     @NameInMap("app_name")
@@ -82,6 +80,19 @@ public class QueryRiskServerRequest extends TeaModel {
     // 公钥加密后的密钥，用于传入的加密图片/视频
     @NameInMap("material_enc_token")
     public String materialEncToken;
+
+    // 端安全产品名
+    @NameInMap("security_product_name")
+    @Validation(required = true)
+    public String securityProductName;
+
+    // 调用蚂蚁终端安全或人脸保镖的token
+    @NameInMap("security_product_token")
+    public String securityProductToken;
+
+    // 端安全SDK版本
+    @NameInMap("security_version")
+    public String securityVersion;
 
     public static QueryRiskServerRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryRiskServerRequest self = new QueryRiskServerRequest();
@@ -152,12 +163,12 @@ public class QueryRiskServerRequest extends TeaModel {
         return this.faceImage;
     }
 
-    public QueryRiskServerRequest setUniqueId(String uniqueId) {
-        this.uniqueId = uniqueId;
+    public QueryRiskServerRequest setOutOrderNo(String outOrderNo) {
+        this.outOrderNo = outOrderNo;
         return this;
     }
-    public String getUniqueId() {
-        return this.uniqueId;
+    public String getOutOrderNo() {
+        return this.outOrderNo;
     }
 
     public QueryRiskServerRequest setAppName(String appName) {
@@ -230,6 +241,30 @@ public class QueryRiskServerRequest extends TeaModel {
     }
     public String getMaterialEncToken() {
         return this.materialEncToken;
+    }
+
+    public QueryRiskServerRequest setSecurityProductName(String securityProductName) {
+        this.securityProductName = securityProductName;
+        return this;
+    }
+    public String getSecurityProductName() {
+        return this.securityProductName;
+    }
+
+    public QueryRiskServerRequest setSecurityProductToken(String securityProductToken) {
+        this.securityProductToken = securityProductToken;
+        return this;
+    }
+    public String getSecurityProductToken() {
+        return this.securityProductToken;
+    }
+
+    public QueryRiskServerRequest setSecurityVersion(String securityVersion) {
+        this.securityVersion = securityVersion;
+        return this;
+    }
+    public String getSecurityVersion() {
+        return this.securityVersion;
     }
 
 }

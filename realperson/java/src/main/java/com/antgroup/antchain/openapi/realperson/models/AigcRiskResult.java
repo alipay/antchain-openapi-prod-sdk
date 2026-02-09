@@ -41,8 +41,8 @@ public class AigcRiskResult extends TeaModel {
      * <strong>example:</strong>
      * <p>T</p>
      */
-    @NameInMap("video_fogery_result")
-    public String videoFogeryResult;
+    @NameInMap("video_forgery_result")
+    public String videoForgeryResult;
 
     public static AigcRiskResult build(java.util.Map<String, ?> map) throws Exception {
         AigcRiskResult self = new AigcRiskResult();
@@ -81,12 +81,12 @@ public class AigcRiskResult extends TeaModel {
         return this.videoForgeryScore;
     }
 
-    public AigcRiskResult setVideoFogeryResult(String videoFogeryResult) {
-        this.videoFogeryResult = videoFogeryResult;
+    public AigcRiskResult setVideoForgeryResult(String videoForgeryResult) {
+        this.videoForgeryResult = videoForgeryResult;
         return this;
     }
-    public String getVideoFogeryResult() {
-        return this.videoFogeryResult;
+    public String getVideoForgeryResult() {
+        return this.videoForgeryResult;
     }
 
 }
