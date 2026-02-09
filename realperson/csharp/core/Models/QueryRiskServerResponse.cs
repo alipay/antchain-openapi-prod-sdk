@@ -54,6 +54,11 @@ namespace AntChain.SDK.REALPERSON.Models
         [Validation(Required=false)]
         public string QualityResult { get; set; }
 
+        // 风险咨询唯一标识
+        [NameInMap("certify_id")]
+        [Validation(Required=false)]
+        public string CertifyId { get; set; }
+
     }
 
 }

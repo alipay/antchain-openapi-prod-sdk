@@ -20,12 +20,12 @@ namespace AntChain.SDK.REALPERSON.Models
 
         // 设备信息
         [NameInMap("device_info")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public DeviceInfo DeviceInfo { get; set; }
 
         // 设备风险信息
         [NameInMap("device_risk_info")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public DeviceRiskInfo DeviceRiskInfo { get; set; }
 
         // 视频文件
@@ -52,10 +52,10 @@ namespace AntChain.SDK.REALPERSON.Models
         [Validation(Required=true)]
         public string FaceImage { get; set; }
 
-        // 唯一标识业务请求
-        [NameInMap("unique_id")]
+        // 外部唯一标识。用于定位。 值为32位长度的字母数字组合前面几位字符是商户自定义的简称，中间可以使用一段时间，后段可以使用一个随机或递增序列
+        [NameInMap("out_order_no")]
         [Validation(Required=true)]
-        public string UniqueId { get; set; }
+        public string OutOrderNo { get; set; }
 
         // 标识应用程序名称
         [NameInMap("app_name")]
@@ -101,6 +101,21 @@ namespace AntChain.SDK.REALPERSON.Models
         [NameInMap("material_enc_token")]
         [Validation(Required=false)]
         public string MaterialEncToken { get; set; }
+
+        // 端安全产品名
+        [NameInMap("security_product_name")]
+        [Validation(Required=true)]
+        public string SecurityProductName { get; set; }
+
+        // 调用蚂蚁终端安全或人脸保镖的token
+        [NameInMap("security_product_token")]
+        [Validation(Required=false)]
+        public string SecurityProductToken { get; set; }
+
+        // 端安全SDK版本
+        [NameInMap("security_version")]
+        [Validation(Required=false)]
+        public string SecurityVersion { get; set; }
 
     }
 

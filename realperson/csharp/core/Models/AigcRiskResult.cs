@@ -31,9 +31,9 @@ namespace AntChain.SDK.REALPERSON.Models
         public string VideoForgeryScore { get; set; }
 
         // 视频伪造结论
-        [NameInMap("video_fogery_result")]
+        [NameInMap("video_forgery_result")]
         [Validation(Required=false)]
-        public string VideoFogeryResult { get; set; }
+        public string VideoForgeryResult { get; set; }
 
     }
 

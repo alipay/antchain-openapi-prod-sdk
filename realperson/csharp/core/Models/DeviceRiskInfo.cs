@@ -10,21 +10,6 @@ namespace AntChain.SDK.REALPERSON.Models
 {
     // 设备风险信息
     public class DeviceRiskInfo : TeaModel {
-        // 端安全产品名
-        [NameInMap("security_product_name")]
-        [Validation(Required=true)]
-        public string SecurityProductName { get; set; }
-
-        // 调用蚂蚁终端安全或人脸保镖的token
-        [NameInMap("token")]
-        [Validation(Required=false)]
-        public string Token { get; set; }
-
-        // 端安全SDK版本
-        [NameInMap("security_version")]
-        [Validation(Required=false)]
-        public string SecurityVersion { get; set; }
-
         // 设备是否root
         [NameInMap("is_device_rooted")]
         [Validation(Required=false)]
