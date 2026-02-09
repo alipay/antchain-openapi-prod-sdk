@@ -809,7 +809,7 @@ class AigcRiskResult(TeaModel):
         deepfake_score: str = None,
         deepfake_result: str = None,
         video_forgery_score: str = None,
-        video_fogery_result: str = None,
+        video_forgery_result: str = None,
     ):
         # AIGC风险检测评分
         self.aigc_risk_level = aigc_risk_level
@@ -820,7 +820,7 @@ class AigcRiskResult(TeaModel):
         # 视频伪造分数
         self.video_forgery_score = video_forgery_score
         # 视频伪造结论
-        self.video_fogery_result = video_fogery_result
+        self.video_forgery_result = video_forgery_result
 
     def validate(self):
         pass
@@ -839,8 +839,8 @@ class AigcRiskResult(TeaModel):
             result['deepfake_result'] = self.deepfake_result
         if self.video_forgery_score is not None:
             result['video_forgery_score'] = self.video_forgery_score
-        if self.video_fogery_result is not None:
-            result['video_fogery_result'] = self.video_fogery_result
+        if self.video_forgery_result is not None:
+            result['video_forgery_result'] = self.video_forgery_result
         return result
 
     def from_map(self, m: dict = None):
@@ -853,8 +853,8 @@ class AigcRiskResult(TeaModel):
             self.deepfake_result = m.get('deepfake_result')
         if m.get('video_forgery_score') is not None:
             self.video_forgery_score = m.get('video_forgery_score')
-        if m.get('video_fogery_result') is not None:
-            self.video_fogery_result = m.get('video_fogery_result')
+        if m.get('video_forgery_result') is not None:
+            self.video_forgery_result = m.get('video_forgery_result')
         return self
 
 
@@ -903,9 +903,6 @@ class CarInfo(TeaModel):
 class DeviceRiskInfo(TeaModel):
     def __init__(
         self,
-        security_product_name: str = None,
-        token: str = None,
-        security_version: str = None,
         is_device_rooted: bool = None,
         is_device_hooked: bool = None,
         is_custom_rom: bool = None,
@@ -920,12 +917,6 @@ class DeviceRiskInfo(TeaModel):
         has_atuomation_tools: bool = None,
         risk_sdk_json: str = None,
     ):
-        # 端安全产品名
-        self.security_product_name = security_product_name
-        # 调用蚂蚁终端安全或人脸保镖的token
-        self.token = token
-        # 端安全SDK版本
-        self.security_version = security_version
         # 设备是否root
         self.is_device_rooted = is_device_rooted
         # 设备是否hook
@@ -954,7 +945,7 @@ class DeviceRiskInfo(TeaModel):
         self.risk_sdk_json = risk_sdk_json
 
     def validate(self):
-        self.validate_required(self.security_product_name, 'security_product_name')
+        pass
 
     def to_map(self):
         _map = super().to_map()
@@ -962,12 +953,6 @@ class DeviceRiskInfo(TeaModel):
             return _map
 
         result = dict()
-        if self.security_product_name is not None:
-            result['security_product_name'] = self.security_product_name
-        if self.token is not None:
-            result['token'] = self.token
-        if self.security_version is not None:
-            result['security_version'] = self.security_version
         if self.is_device_rooted is not None:
             result['is_device_rooted'] = self.is_device_rooted
         if self.is_device_hooked is not None:
@@ -998,12 +983,6 @@ class DeviceRiskInfo(TeaModel):
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('security_product_name') is not None:
-            self.security_product_name = m.get('security_product_name')
-        if m.get('token') is not None:
-            self.token = m.get('token')
-        if m.get('security_version') is not None:
-            self.security_version = m.get('security_version')
         if m.get('is_device_rooted') is not None:
             self.is_device_rooted = m.get('is_device_rooted')
         if m.get('is_device_hooked') is not None:
@@ -13412,7 +13391,7 @@ class QueryRiskServerRequest(TeaModel):
         file_object_name: str = None,
         file_id: str = None,
         face_image: str = None,
-        unique_id: str = None,
+        out_order_no: str = None,
         app_name: str = None,
         app_version: str = None,
         scene_id: str = None,
@@ -13422,6 +13401,9 @@ class QueryRiskServerRequest(TeaModel):
         enc_type: str = None,
         material_enc_type: str = None,
         material_enc_token: str = None,
+        security_product_name: str = None,
+        security_product_token: str = None,
+        security_version: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -13438,8 +13420,8 @@ class QueryRiskServerRequest(TeaModel):
         self.file_id = file_id
         # base64编码最佳人脸图，可加密
         self.face_image = face_image
-        # 唯一标识业务请求
-        self.unique_id = unique_id
+        # 外部唯一标识。用于定位。 值为32位长度的字母数字组合前面几位字符是商户自定义的简称，中间可以使用一段时间，后段可以使用一个随机或递增序列
+        self.out_order_no = out_order_no
         # 标识应用程序名称
         self.app_name = app_name
         # 标识应用程序版本
@@ -13458,16 +13440,21 @@ class QueryRiskServerRequest(TeaModel):
         self.material_enc_type = material_enc_type
         # 公钥加密后的密钥，用于传入的加密图片/视频
         self.material_enc_token = material_enc_token
+        # 端安全产品名
+        self.security_product_name = security_product_name
+        # 调用蚂蚁终端安全或人脸保镖的token
+        self.security_product_token = security_product_token
+        # 端安全SDK版本
+        self.security_version = security_version
 
     def validate(self):
-        self.validate_required(self.device_info, 'device_info')
         if self.device_info:
             self.device_info.validate()
-        self.validate_required(self.device_risk_info, 'device_risk_info')
         if self.device_risk_info:
             self.device_risk_info.validate()
         self.validate_required(self.face_image, 'face_image')
-        self.validate_required(self.unique_id, 'unique_id')
+        self.validate_required(self.out_order_no, 'out_order_no')
+        self.validate_required(self.security_product_name, 'security_product_name')
 
     def to_map(self):
         _map = super().to_map()
@@ -13491,8 +13478,8 @@ class QueryRiskServerRequest(TeaModel):
             result['file_id'] = self.file_id
         if self.face_image is not None:
             result['face_image'] = self.face_image
-        if self.unique_id is not None:
-            result['unique_id'] = self.unique_id
+        if self.out_order_no is not None:
+            result['out_order_no'] = self.out_order_no
         if self.app_name is not None:
             result['app_name'] = self.app_name
         if self.app_version is not None:
@@ -13511,6 +13498,12 @@ class QueryRiskServerRequest(TeaModel):
             result['material_enc_type'] = self.material_enc_type
         if self.material_enc_token is not None:
             result['material_enc_token'] = self.material_enc_token
+        if self.security_product_name is not None:
+            result['security_product_name'] = self.security_product_name
+        if self.security_product_token is not None:
+            result['security_product_token'] = self.security_product_token
+        if self.security_version is not None:
+            result['security_version'] = self.security_version
         return result
 
     def from_map(self, m: dict = None):
@@ -13533,8 +13526,8 @@ class QueryRiskServerRequest(TeaModel):
             self.file_id = m.get('file_id')
         if m.get('face_image') is not None:
             self.face_image = m.get('face_image')
-        if m.get('unique_id') is not None:
-            self.unique_id = m.get('unique_id')
+        if m.get('out_order_no') is not None:
+            self.out_order_no = m.get('out_order_no')
         if m.get('app_name') is not None:
             self.app_name = m.get('app_name')
         if m.get('app_version') is not None:
@@ -13553,6 +13546,12 @@ class QueryRiskServerRequest(TeaModel):
             self.material_enc_type = m.get('material_enc_type')
         if m.get('material_enc_token') is not None:
             self.material_enc_token = m.get('material_enc_token')
+        if m.get('security_product_name') is not None:
+            self.security_product_name = m.get('security_product_name')
+        if m.get('security_product_token') is not None:
+            self.security_product_token = m.get('security_product_token')
+        if m.get('security_version') is not None:
+            self.security_version = m.get('security_version')
         return self
 
 
@@ -13568,6 +13567,7 @@ class QueryRiskServerResponse(TeaModel):
         face_occlusion: bool = None,
         attributes: str = None,
         quality_result: str = None,
+        certify_id: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -13587,6 +13587,8 @@ class QueryRiskServerResponse(TeaModel):
         self.attributes = attributes
         # 人脸质量分和小分
         self.quality_result = quality_result
+        # 风险咨询唯一标识
+        self.certify_id = certify_id
 
     def validate(self):
         if self.risk_result:
@@ -13618,6 +13620,8 @@ class QueryRiskServerResponse(TeaModel):
             result['attributes'] = self.attributes
         if self.quality_result is not None:
             result['quality_result'] = self.quality_result
+        if self.certify_id is not None:
+            result['certify_id'] = self.certify_id
         return result
 
     def from_map(self, m: dict = None):
@@ -13642,6 +13646,8 @@ class QueryRiskServerResponse(TeaModel):
             self.attributes = m.get('attributes')
         if m.get('quality_result') is not None:
             self.quality_result = m.get('quality_result')
+        if m.get('certify_id') is not None:
+            self.certify_id = m.get('certify_id')
         return self
 
 
