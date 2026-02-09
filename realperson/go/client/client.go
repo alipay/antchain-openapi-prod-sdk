@@ -745,7 +745,7 @@ type AigcRiskResult struct {
 	// 视频伪造分数
 	VideoForgeryScore *string `json:"video_forgery_score,omitempty" xml:"video_forgery_score,omitempty"`
 	// 视频伪造结论
-	VideoFogeryResult *string `json:"video_fogery_result,omitempty" xml:"video_fogery_result,omitempty"`
+	VideoForgeryResult *string `json:"video_forgery_result,omitempty" xml:"video_forgery_result,omitempty"`
 }
 
 func (s AigcRiskResult) String() string {
@@ -776,8 +776,8 @@ func (s *AigcRiskResult) SetVideoForgeryScore(v string) *AigcRiskResult {
 	return s
 }
 
-func (s *AigcRiskResult) SetVideoFogeryResult(v string) *AigcRiskResult {
-	s.VideoFogeryResult = &v
+func (s *AigcRiskResult) SetVideoForgeryResult(v string) *AigcRiskResult {
+	s.VideoForgeryResult = &v
 	return s
 }
 
@@ -816,12 +816,6 @@ func (s *CarInfo) SetType(v string) *CarInfo {
 
 // 设备风险信息
 type DeviceRiskInfo struct {
-	// 端安全产品名
-	SecurityProductName *string `json:"security_product_name,omitempty" xml:"security_product_name,omitempty" require:"true"`
-	// 调用蚂蚁终端安全或人脸保镖的token
-	Token *string `json:"token,omitempty" xml:"token,omitempty"`
-	// 端安全SDK版本
-	SecurityVersion *string `json:"security_version,omitempty" xml:"security_version,omitempty"`
 	// 设备是否root
 	IsDeviceRooted *bool `json:"is_device_rooted,omitempty" xml:"is_device_rooted,omitempty"`
 	// 设备是否hook
@@ -856,21 +850,6 @@ func (s DeviceRiskInfo) String() string {
 
 func (s DeviceRiskInfo) GoString() string {
 	return s.String()
-}
-
-func (s *DeviceRiskInfo) SetSecurityProductName(v string) *DeviceRiskInfo {
-	s.SecurityProductName = &v
-	return s
-}
-
-func (s *DeviceRiskInfo) SetToken(v string) *DeviceRiskInfo {
-	s.Token = &v
-	return s
-}
-
-func (s *DeviceRiskInfo) SetSecurityVersion(v string) *DeviceRiskInfo {
-	s.SecurityVersion = &v
-	return s
 }
 
 func (s *DeviceRiskInfo) SetIsDeviceRooted(v bool) *DeviceRiskInfo {
@@ -11424,9 +11403,9 @@ type QueryRiskServerRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 设备信息
-	DeviceInfo *DeviceInfo `json:"device_info,omitempty" xml:"device_info,omitempty" require:"true"`
+	DeviceInfo *DeviceInfo `json:"device_info,omitempty" xml:"device_info,omitempty"`
 	// 设备风险信息
-	DeviceRiskInfo *DeviceRiskInfo `json:"device_risk_info,omitempty" xml:"device_risk_info,omitempty" require:"true"`
+	DeviceRiskInfo *DeviceRiskInfo `json:"device_risk_info,omitempty" xml:"device_risk_info,omitempty"`
 	// 视频文件
 	// 待上传文件
 	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
@@ -11435,8 +11414,8 @@ type QueryRiskServerRequest struct {
 	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty"`
 	// base64编码最佳人脸图，可加密
 	FaceImage *string `json:"face_image,omitempty" xml:"face_image,omitempty" require:"true"`
-	// 唯一标识业务请求
-	UniqueId *string `json:"unique_id,omitempty" xml:"unique_id,omitempty" require:"true"`
+	// 外部唯一标识。用于定位。 值为32位长度的字母数字组合前面几位字符是商户自定义的简称，中间可以使用一段时间，后段可以使用一个随机或递增序列
+	OutOrderNo *string `json:"out_order_no,omitempty" xml:"out_order_no,omitempty" require:"true"`
 	// 标识应用程序名称
 	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty"`
 	// 标识应用程序版本
@@ -11455,6 +11434,12 @@ type QueryRiskServerRequest struct {
 	MaterialEncType *string `json:"material_enc_type,omitempty" xml:"material_enc_type,omitempty"`
 	// 公钥加密后的密钥，用于传入的加密图片/视频
 	MaterialEncToken *string `json:"material_enc_token,omitempty" xml:"material_enc_token,omitempty"`
+	// 端安全产品名
+	SecurityProductName *string `json:"security_product_name,omitempty" xml:"security_product_name,omitempty" require:"true"`
+	// 调用蚂蚁终端安全或人脸保镖的token
+	SecurityProductToken *string `json:"security_product_token,omitempty" xml:"security_product_token,omitempty"`
+	// 端安全SDK版本
+	SecurityVersion *string `json:"security_version,omitempty" xml:"security_version,omitempty"`
 }
 
 func (s QueryRiskServerRequest) String() string {
@@ -11505,8 +11490,8 @@ func (s *QueryRiskServerRequest) SetFaceImage(v string) *QueryRiskServerRequest 
 	return s
 }
 
-func (s *QueryRiskServerRequest) SetUniqueId(v string) *QueryRiskServerRequest {
-	s.UniqueId = &v
+func (s *QueryRiskServerRequest) SetOutOrderNo(v string) *QueryRiskServerRequest {
+	s.OutOrderNo = &v
 	return s
 }
 
@@ -11555,6 +11540,21 @@ func (s *QueryRiskServerRequest) SetMaterialEncToken(v string) *QueryRiskServerR
 	return s
 }
 
+func (s *QueryRiskServerRequest) SetSecurityProductName(v string) *QueryRiskServerRequest {
+	s.SecurityProductName = &v
+	return s
+}
+
+func (s *QueryRiskServerRequest) SetSecurityProductToken(v string) *QueryRiskServerRequest {
+	s.SecurityProductToken = &v
+	return s
+}
+
+func (s *QueryRiskServerRequest) SetSecurityVersion(v string) *QueryRiskServerRequest {
+	s.SecurityVersion = &v
+	return s
+}
+
 type QueryRiskServerResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -11574,6 +11574,8 @@ type QueryRiskServerResponse struct {
 	Attributes *string `json:"attributes,omitempty" xml:"attributes,omitempty"`
 	// 人脸质量分和小分
 	QualityResult *string `json:"quality_result,omitempty" xml:"quality_result,omitempty"`
+	// 风险咨询唯一标识
+	CertifyId *string `json:"certify_id,omitempty" xml:"certify_id,omitempty"`
 }
 
 func (s QueryRiskServerResponse) String() string {
@@ -11626,6 +11628,11 @@ func (s *QueryRiskServerResponse) SetAttributes(v string) *QueryRiskServerRespon
 
 func (s *QueryRiskServerResponse) SetQualityResult(v string) *QueryRiskServerResponse {
 	s.QualityResult = &v
+	return s
+}
+
+func (s *QueryRiskServerResponse) SetCertifyId(v string) *QueryRiskServerResponse {
+	s.CertifyId = &v
 	return s
 }
 
@@ -11871,7 +11878,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.22.18"),
+				"sdk_version":      tea.String("1.22.21"),
 				"_prod_code":       tea.String("REALPERSON"),
 				"_prod_channel":    tea.String("undefined"),
 			}
