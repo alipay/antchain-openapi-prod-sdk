@@ -61,6 +61,12 @@ class QueryRiskServerResponse extends Model
      * @var string
      */
     public $qualityResult;
+
+    // 风险咨询唯一标识
+    /**
+     * @var string
+     */
+    public $certifyId;
     protected $_name = [
         'reqMsgId'       => 'req_msg_id',
         'resultCode'     => 'result_code',
@@ -71,6 +77,7 @@ class QueryRiskServerResponse extends Model
         'faceOcclusion'  => 'face_occlusion',
         'attributes'     => 'attributes',
         'qualityResult'  => 'quality_result',
+        'certifyId'      => 'certify_id',
     ];
 
     public function validate()
@@ -106,6 +113,9 @@ class QueryRiskServerResponse extends Model
         }
         if (null !== $this->qualityResult) {
             $res['quality_result'] = $this->qualityResult;
+        }
+        if (null !== $this->certifyId) {
+            $res['certify_id'] = $this->certifyId;
         }
 
         return $res;
@@ -145,6 +155,9 @@ class QueryRiskServerResponse extends Model
         }
         if (isset($map['quality_result'])) {
             $model->qualityResult = $map['quality_result'];
+        }
+        if (isset($map['certify_id'])) {
+            $model->certifyId = $map['certify_id'];
         }
 
         return $model;

@@ -58,11 +58,11 @@ class QueryRiskServerRequest extends Model
      */
     public $faceImage;
 
-    // 唯一标识业务请求
+    // 外部唯一标识。用于定位。 值为32位长度的字母数字组合前面几位字符是商户自定义的简称，中间可以使用一段时间，后段可以使用一个随机或递增序列
     /**
      * @var string
      */
-    public $uniqueId;
+    public $outOrderNo;
 
     // 标识应用程序名称
     /**
@@ -117,31 +117,51 @@ class QueryRiskServerRequest extends Model
      * @var string
      */
     public $materialEncToken;
+
+    // 端安全产品名
+    /**
+     * @var string
+     */
+    public $securityProductName;
+
+    // 调用蚂蚁终端安全或人脸保镖的token
+    /**
+     * @var string
+     */
+    public $securityProductToken;
+
+    // 端安全SDK版本
+    /**
+     * @var string
+     */
+    public $securityVersion;
     protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'deviceInfo'        => 'device_info',
-        'deviceRiskInfo'    => 'device_risk_info',
-        'fileId'            => 'file_id',
-        'faceImage'         => 'face_image',
-        'uniqueId'          => 'unique_id',
-        'appName'           => 'app_name',
-        'appVersion'        => 'app_version',
-        'sceneId'           => 'scene_id',
-        'certName'          => 'cert_name',
-        'certNo'            => 'cert_no',
-        'uid'               => 'uid',
-        'encType'           => 'enc_type',
-        'materialEncType'   => 'material_enc_type',
-        'materialEncToken'  => 'material_enc_token',
+        'authToken'            => 'auth_token',
+        'productInstanceId'    => 'product_instance_id',
+        'deviceInfo'           => 'device_info',
+        'deviceRiskInfo'       => 'device_risk_info',
+        'fileId'               => 'file_id',
+        'faceImage'            => 'face_image',
+        'outOrderNo'           => 'out_order_no',
+        'appName'              => 'app_name',
+        'appVersion'           => 'app_version',
+        'sceneId'              => 'scene_id',
+        'certName'             => 'cert_name',
+        'certNo'               => 'cert_no',
+        'uid'                  => 'uid',
+        'encType'              => 'enc_type',
+        'materialEncType'      => 'material_enc_type',
+        'materialEncToken'     => 'material_enc_token',
+        'securityProductName'  => 'security_product_name',
+        'securityProductToken' => 'security_product_token',
+        'securityVersion'      => 'security_version',
     ];
 
     public function validate()
     {
-        Model::validateRequired('deviceInfo', $this->deviceInfo, true);
-        Model::validateRequired('deviceRiskInfo', $this->deviceRiskInfo, true);
         Model::validateRequired('faceImage', $this->faceImage, true);
-        Model::validateRequired('uniqueId', $this->uniqueId, true);
+        Model::validateRequired('outOrderNo', $this->outOrderNo, true);
+        Model::validateRequired('securityProductName', $this->securityProductName, true);
     }
 
     public function toMap()
@@ -171,8 +191,8 @@ class QueryRiskServerRequest extends Model
         if (null !== $this->faceImage) {
             $res['face_image'] = $this->faceImage;
         }
-        if (null !== $this->uniqueId) {
-            $res['unique_id'] = $this->uniqueId;
+        if (null !== $this->outOrderNo) {
+            $res['out_order_no'] = $this->outOrderNo;
         }
         if (null !== $this->appName) {
             $res['app_name'] = $this->appName;
@@ -200,6 +220,15 @@ class QueryRiskServerRequest extends Model
         }
         if (null !== $this->materialEncToken) {
             $res['material_enc_token'] = $this->materialEncToken;
+        }
+        if (null !== $this->securityProductName) {
+            $res['security_product_name'] = $this->securityProductName;
+        }
+        if (null !== $this->securityProductToken) {
+            $res['security_product_token'] = $this->securityProductToken;
+        }
+        if (null !== $this->securityVersion) {
+            $res['security_version'] = $this->securityVersion;
         }
 
         return $res;
@@ -237,8 +266,8 @@ class QueryRiskServerRequest extends Model
         if (isset($map['face_image'])) {
             $model->faceImage = $map['face_image'];
         }
-        if (isset($map['unique_id'])) {
-            $model->uniqueId = $map['unique_id'];
+        if (isset($map['out_order_no'])) {
+            $model->outOrderNo = $map['out_order_no'];
         }
         if (isset($map['app_name'])) {
             $model->appName = $map['app_name'];
@@ -266,6 +295,15 @@ class QueryRiskServerRequest extends Model
         }
         if (isset($map['material_enc_token'])) {
             $model->materialEncToken = $map['material_enc_token'];
+        }
+        if (isset($map['security_product_name'])) {
+            $model->securityProductName = $map['security_product_name'];
+        }
+        if (isset($map['security_product_token'])) {
+            $model->securityProductToken = $map['security_product_token'];
+        }
+        if (isset($map['security_version'])) {
+            $model->securityVersion = $map['security_version'];
         }
 
         return $model;

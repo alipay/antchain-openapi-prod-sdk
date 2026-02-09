@@ -8,30 +8,6 @@ use AlibabaCloud\Tea\Model;
 
 class DeviceRiskInfo extends Model
 {
-    // 端安全产品名
-    /**
-     * @example ant
-     *
-     * @var string
-     */
-    public $securityProductName;
-
-    // 调用蚂蚁终端安全或人脸保镖的token
-    /**
-     * @example sfa1des
-     *
-     * @var string
-     */
-    public $token;
-
-    // 端安全SDK版本
-    /**
-     * @example 1.2.1
-     *
-     * @var string
-     */
-    public $securityVersion;
-
     // 设备是否root
     /**
      * @example
@@ -136,9 +112,6 @@ class DeviceRiskInfo extends Model
      */
     public $riskSdkJson;
     protected $_name = [
-        'securityProductName'  => 'security_product_name',
-        'token'                => 'token',
-        'securityVersion'      => 'security_version',
         'isDeviceRooted'       => 'is_device_rooted',
         'isDeviceHooked'       => 'is_device_hooked',
         'isCustomRom'          => 'is_custom_rom',
@@ -156,21 +129,11 @@ class DeviceRiskInfo extends Model
 
     public function validate()
     {
-        Model::validateRequired('securityProductName', $this->securityProductName, true);
     }
 
     public function toMap()
     {
         $res = [];
-        if (null !== $this->securityProductName) {
-            $res['security_product_name'] = $this->securityProductName;
-        }
-        if (null !== $this->token) {
-            $res['token'] = $this->token;
-        }
-        if (null !== $this->securityVersion) {
-            $res['security_version'] = $this->securityVersion;
-        }
         if (null !== $this->isDeviceRooted) {
             $res['is_device_rooted'] = $this->isDeviceRooted;
         }
@@ -222,15 +185,6 @@ class DeviceRiskInfo extends Model
     public static function fromMap($map = [])
     {
         $model = new self();
-        if (isset($map['security_product_name'])) {
-            $model->securityProductName = $map['security_product_name'];
-        }
-        if (isset($map['token'])) {
-            $model->token = $map['token'];
-        }
-        if (isset($map['security_version'])) {
-            $model->securityVersion = $map['security_version'];
-        }
         if (isset($map['is_device_rooted'])) {
             $model->isDeviceRooted = $map['is_device_rooted'];
         }

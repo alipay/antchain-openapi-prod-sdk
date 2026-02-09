@@ -46,13 +46,13 @@ class AigcRiskResult extends Model
      *
      * @var string
      */
-    public $videoFogeryResult;
+    public $videoForgeryResult;
     protected $_name = [
-        'aigcRiskLevel'     => 'aigc_risk_level',
-        'deepfakeScore'     => 'deepfake_score',
-        'deepfakeResult'    => 'deepfake_result',
-        'videoForgeryScore' => 'video_forgery_score',
-        'videoFogeryResult' => 'video_fogery_result',
+        'aigcRiskLevel'      => 'aigc_risk_level',
+        'deepfakeScore'      => 'deepfake_score',
+        'deepfakeResult'     => 'deepfake_result',
+        'videoForgeryScore'  => 'video_forgery_score',
+        'videoForgeryResult' => 'video_forgery_result',
     ];
 
     public function validate()
@@ -74,8 +74,8 @@ class AigcRiskResult extends Model
         if (null !== $this->videoForgeryScore) {
             $res['video_forgery_score'] = $this->videoForgeryScore;
         }
-        if (null !== $this->videoFogeryResult) {
-            $res['video_fogery_result'] = $this->videoFogeryResult;
+        if (null !== $this->videoForgeryResult) {
+            $res['video_forgery_result'] = $this->videoForgeryResult;
         }
 
         return $res;
@@ -101,8 +101,8 @@ class AigcRiskResult extends Model
         if (isset($map['video_forgery_score'])) {
             $model->videoForgeryScore = $map['video_forgery_score'];
         }
-        if (isset($map['video_fogery_result'])) {
-            $model->videoFogeryResult = $map['video_fogery_result'];
+        if (isset($map['video_forgery_result'])) {
+            $model->videoForgeryResult = $map['video_forgery_result'];
         }
 
         return $model;
