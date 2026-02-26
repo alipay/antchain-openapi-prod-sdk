@@ -2,6 +2,7 @@
 import AntchainUtil from '@antchain/alipay-util';
 import Util, * as $Util from '@alicloud/tea-util';
 import RPCUtil from '@alicloud/rpc-util';
+import { Readable } from 'stream';
 import * as $tea from '@alicloud/tea-typescript';
 
 /**
@@ -205,6 +206,31 @@ export class EntrustGuaranteeProduct extends $tea.Model {
       guaranteeProductCode: 'string',
       insuranceProductCode: 'string',
       insuranceProductName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 键值对
+export class XNameValuePair extends $tea.Model {
+  // 键名
+  name: string;
+  // 键值
+  value: string;
+  static names(): { [key: string]: string } {
+    return {
+      name: 'name',
+      value: 'value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      name: 'string',
+      value: 'string',
     };
   }
 
@@ -3496,6 +3522,276 @@ export class NotifyAutoinsuranceEventResponse extends $tea.Model {
   }
 }
 
+export class UploadMktFileRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 文件唯一id
+  fileObject?: Readable;
+  fileObjectName?: string;
+  fileId: string;
+  // 业务入参json格式字符串
+  bizContent?: string;
+  // 请求id，每一次请求保持唯一，若重复，则报错；
+  requestId: string;
+  // 产品编码，蚂蚁分配
+  productCode: string;
+  // 数据类型，
+  // 营销人群底包--MKT_AUD_SRC，
+  // 营销目标人群包--MKT_AUD_TAR
+  dataType: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      fileObject: 'fileObject',
+      fileObjectName: 'fileObjectName',
+      fileId: 'file_id',
+      bizContent: 'biz_content',
+      requestId: 'request_id',
+      productCode: 'product_code',
+      dataType: 'data_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      fileObject: 'Readable',
+      fileObjectName: 'string',
+      fileId: 'string',
+      bizContent: 'string',
+      requestId: 'string',
+      productCode: 'string',
+      dataType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadMktFileResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 请求id
+  requestId?: string;
+  // 文件名称
+  fileName?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      requestId: 'request_id',
+      fileName: 'file_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      requestId: 'string',
+      fileName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CallbackMktEffectRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 请求id，每一次请求保持唯一；若重复，则更新原数据；
+  requestId: string;
+  // 项目ID，待蚂蚁分配
+  projectId: string;
+  // 营销模式
+  // ADVERTISING_TRAFFIC("广告投流"),   
+  // LIVE_STREAMING("直播"),    
+  // INFLUENCER("达人"),    
+  // AI_HANGUP_SMS("AI挂短"), 
+  // AI_OFFICIAL_ACCOUNT("AI公众号"),    
+  // BPO_WECHAT("BPO企微")
+  marketingMode: string;
+  // 投保特征短链
+  insureShortUrl: string;
+  // 加密类型：MD5，32位[小]
+  encryptionType: string;
+  // 加密用户标识
+  encryptedUserId: string;
+  // 用户点击投保页唯一标识
+  clickId: string;
+  // 事件完成时间（yyyy-MM-dd HH:mm:ss）
+  clickTime: string;
+  // 节点类型
+  nodeType: string;
+  // 节点详细信息
+  nodeInfo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      requestId: 'request_id',
+      projectId: 'project_id',
+      marketingMode: 'marketing_mode',
+      insureShortUrl: 'insure_short_url',
+      encryptionType: 'encryption_type',
+      encryptedUserId: 'encrypted_user_id',
+      clickId: 'click_id',
+      clickTime: 'click_time',
+      nodeType: 'node_type',
+      nodeInfo: 'node_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      requestId: 'string',
+      projectId: 'string',
+      marketingMode: 'string',
+      insureShortUrl: 'string',
+      encryptionType: 'string',
+      encryptedUserId: 'string',
+      clickId: 'string',
+      clickTime: 'string',
+      nodeType: 'string',
+      nodeInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CallbackMktEffectResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 请求id
+  requestId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      requestId: 'request_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      requestId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 上传文件作用的openapi method
+  apiCode: string;
+  // 文件标签，多个标签;分割
+  fileLabel?: string;
+  // 自定义的文件元数据
+  fileMetadata?: string;
+  // 文件名，不传则随机生成文件名
+  fileName?: string;
+  // 文件的多媒体类型
+  mimeType?: string;
+  // 产品方的api归属集群，即productInstanceId
+  apiCluster?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      apiCode: 'api_code',
+      fileLabel: 'file_label',
+      fileMetadata: 'file_metadata',
+      fileName: 'file_name',
+      mimeType: 'mime_type',
+      apiCluster: 'api_cluster',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      apiCode: 'string',
+      fileLabel: 'string',
+      fileMetadata: 'string',
+      fileName: 'string',
+      mimeType: 'string',
+      apiCluster: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateAntcloudGatewayxFileUploadResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 上传有效期
+  expiredTime?: string;
+  // 32位文件唯一id
+  fileId?: string;
+  // 放入http请求头里
+  uploadHeaders?: XNameValuePair[];
+  // 文件上传地址
+  uploadUrl?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      expiredTime: 'expired_time',
+      fileId: 'file_id',
+      uploadHeaders: 'upload_headers',
+      uploadUrl: 'upload_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      expiredTime: 'string',
+      fileId: 'string',
+      uploadHeaders: { 'type': 'array', 'itemType': XNameValuePair },
+      uploadUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -3609,7 +3905,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.12.3",
+          sdk_version: "1.12.6",
           _prod_code: "INSURANCE_SAAS",
           _prod_channel: "undefined",
         };
@@ -4377,6 +4673,85 @@ export default class Client {
   async notifyAutoinsuranceEventEx(request: NotifyAutoinsuranceEventRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<NotifyAutoinsuranceEventResponse> {
     Util.validateModel(request);
     return $tea.cast<NotifyAutoinsuranceEventResponse>(await this.doRequest("1.0", "antcloud.insurance.autoinsurance.event.notify", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new NotifyAutoinsuranceEventResponse({}));
+  }
+
+  /**
+   * Description: 保险营销文件上传，营销链路中涉及到文件上传，均可使用本接口，根据上传的数据类型做区分
+   * Summary: 保险营销文件上传
+   */
+  async uploadMktFile(request: UploadMktFileRequest): Promise<UploadMktFileResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.uploadMktFileEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 保险营销文件上传，营销链路中涉及到文件上传，均可使用本接口，根据上传的数据类型做区分
+   * Summary: 保险营销文件上传
+   */
+  async uploadMktFileEx(request: UploadMktFileRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UploadMktFileResponse> {
+    if (!Util.isUnset(request.fileObject)) {
+      let uploadReq = new CreateAntcloudGatewayxFileUploadRequest({
+        authToken: request.authToken,
+        apiCode: "antcloud.insurance.mkt.file.upload",
+        fileName: request.fileObjectName,
+      });
+      let uploadResp = await this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+      if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+        let uploadMktFileResponse = new UploadMktFileResponse({
+          reqMsgId: uploadResp.reqMsgId,
+          resultCode: uploadResp.resultCode,
+          resultMsg: uploadResp.resultMsg,
+        });
+        return uploadMktFileResponse;
+      }
+
+      let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+      await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+      request.fileId = uploadResp.fileId;
+      request.fileObject = null;
+    }
+
+    Util.validateModel(request);
+    return $tea.cast<UploadMktFileResponse>(await this.doRequest("1.0", "antcloud.insurance.mkt.file.upload", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UploadMktFileResponse({}));
+  }
+
+  /**
+   * Description: 保险营销效果回传
+   * Summary: 保险营销效果回传
+   */
+  async callbackMktEffect(request: CallbackMktEffectRequest): Promise<CallbackMktEffectResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.callbackMktEffectEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 保险营销效果回传
+   * Summary: 保险营销效果回传
+   */
+  async callbackMktEffectEx(request: CallbackMktEffectRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CallbackMktEffectResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CallbackMktEffectResponse>(await this.doRequest("1.0", "antcloud.insurance.mkt.effect.callback", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CallbackMktEffectResponse({}));
+  }
+
+  /**
+   * Description: 创建HTTP PUT提交的文件上传
+   * Summary: 文件上传创建
+   */
+  async createAntcloudGatewayxFileUpload(request: CreateAntcloudGatewayxFileUploadRequest): Promise<CreateAntcloudGatewayxFileUploadResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createAntcloudGatewayxFileUploadEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 创建HTTP PUT提交的文件上传
+   * Summary: 文件上传创建
+   */
+  async createAntcloudGatewayxFileUploadEx(request: CreateAntcloudGatewayxFileUploadRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateAntcloudGatewayxFileUploadResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateAntcloudGatewayxFileUploadResponse>(await this.doRequest("1.0", "antcloud.gatewayx.file.upload.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateAntcloudGatewayxFileUploadResponse({}));
   }
 
 }
