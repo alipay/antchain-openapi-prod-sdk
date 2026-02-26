@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.12.3',
+    sdk_version = '1.12.6',
     _prod_code = 'INSURANCE_SAAS',
     _prod_channel = 'undefined'
   };
@@ -209,6 +209,14 @@ model EntrustGuaranteeProduct {
   insuranceProductCode?: string(name='insurance_product_code', example='保险公司的产品code'),
   // 保险公司的产品描述
   insuranceProductName?: string(name='insurance_product_name', example='保险公司的产品描述'),
+}
+
+// 键值对
+model XNameValuePair {
+  // 键名
+  name: string(name='name', example='key'),
+  // 键值
+  value: string(name='value', example='value'),
 }
 
 model QueryInquiryRequest = {
@@ -2206,5 +2214,190 @@ async function notifyAutoinsuranceEvent(request: NotifyAutoinsuranceEventRequest
 async function notifyAutoinsuranceEventEx(request: NotifyAutoinsuranceEventRequest, headers: map[string]string, runtime: Util.RuntimeOptions): NotifyAutoinsuranceEventResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antcloud.insurance.autoinsurance.event.notify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UploadMktFileRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 文件唯一id
+  fileObject?: readable(description='待上传文件', ignore='true'),
+  fileObjectName?: string(description='待上传文件名', ignore='true'),
+  fileId: string(name='file_id'),
+  // 业务入参json格式字符串
+  bizContent?: string(maxLength=1024, name='biz_content'),
+  // 请求id，每一次请求保持唯一，若重复，则报错；
+  requestId: string(maxLength=128, name='request_id'),
+  // 产品编码，蚂蚁分配
+  productCode: string(maxLength=64, name='product_code'),
+  // 数据类型，
+  // 营销人群底包--MKT_AUD_SRC，
+  // 营销目标人群包--MKT_AUD_TAR
+  dataType: string(maxLength=64, name='data_type'),
+}
+
+model UploadMktFileResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 请求id
+  requestId?: string(name='request_id'),
+  // 文件名称
+  fileName?: string(name='file_name'),
+}
+
+/**
+ * Description: 保险营销文件上传，营销链路中涉及到文件上传，均可使用本接口，根据上传的数据类型做区分
+ * Summary: 保险营销文件上传
+ */
+async function uploadMktFile(request: UploadMktFileRequest): UploadMktFileResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return uploadMktFileEx(request, headers, runtime);
+}
+
+/**
+ * Description: 保险营销文件上传，营销链路中涉及到文件上传，均可使用本接口，根据上传的数据类型做区分
+ * Summary: 保险营销文件上传
+ */
+async function uploadMktFileEx(request: UploadMktFileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadMktFileResponse {
+  if (!Util.isUnset(request.fileObject)) {
+    var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
+      authToken = request.authToken,
+      apiCode = 'antcloud.insurance.mkt.file.upload',
+      fileName = request.fileObjectName,
+    };
+    var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+    if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+      var uploadMktFileResponse = new UploadMktFileResponse{
+        reqMsgId = uploadResp.reqMsgId,
+        resultCode = uploadResp.resultCode,
+        resultMsg = uploadResp.resultMsg,
+      };
+      return uploadMktFileResponse;
+    }
+    var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+    AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+    request.fileId = uploadResp.fileId;
+    request.fileObject = null;
+  }
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.insurance.mkt.file.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CallbackMktEffectRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 请求id，每一次请求保持唯一；若重复，则更新原数据；
+  requestId: string(maxLength=128, name='request_id'),
+  // 项目ID，待蚂蚁分配
+  projectId: string(maxLength=64, name='project_id'),
+  // 营销模式
+  // ADVERTISING_TRAFFIC("广告投流"),   
+  // LIVE_STREAMING("直播"),    
+  // INFLUENCER("达人"),    
+  // AI_HANGUP_SMS("AI挂短"), 
+  // AI_OFFICIAL_ACCOUNT("AI公众号"),    
+  // BPO_WECHAT("BPO企微")
+  marketingMode: string(maxLength=64, name='marketing_mode'),
+  // 投保特征短链
+  insureShortUrl: string(maxLength=256, name='insure_short_url'),
+  // 加密类型：MD5，32位[小]
+  encryptionType: string(maxLength=32, name='encryption_type'),
+  // 加密用户标识
+  encryptedUserId: string(maxLength=64, name='encrypted_user_id'),
+  // 用户点击投保页唯一标识
+  clickId: string(maxLength=128, name='click_id'),
+  // 事件完成时间（yyyy-MM-dd HH:mm:ss）
+  clickTime: string(maxLength=32, name='click_time'),
+  // 节点类型
+  nodeType: string(maxLength=64, name='node_type'),
+  // 节点详细信息
+  nodeInfo: string(maxLength=1024, name='node_info'),
+}
+
+model CallbackMktEffectResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 请求id
+  requestId?: string(name='request_id'),
+}
+
+/**
+ * Description: 保险营销效果回传
+ * Summary: 保险营销效果回传
+ */
+async function callbackMktEffect(request: CallbackMktEffectRequest): CallbackMktEffectResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return callbackMktEffectEx(request, headers, runtime);
+}
+
+/**
+ * Description: 保险营销效果回传
+ * Summary: 保险营销效果回传
+ */
+async function callbackMktEffectEx(request: CallbackMktEffectRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CallbackMktEffectResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.insurance.mkt.effect.callback', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateAntcloudGatewayxFileUploadRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 上传文件作用的openapi method
+  apiCode: string(name='api_code'),
+  // 文件标签，多个标签;分割
+  fileLabel?: string(maxLength=100, name='file_label'),
+  // 自定义的文件元数据
+  fileMetadata?: string(maxLength=1000, name='file_metadata'),
+  // 文件名，不传则随机生成文件名
+  fileName?: string(maxLength=100, name='file_name'),
+  // 文件的多媒体类型
+  mimeType?: string(name='mime_type'),
+  // 产品方的api归属集群，即productInstanceId
+  apiCluster?: string(name='api_cluster'),
+}
+
+model CreateAntcloudGatewayxFileUploadResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 上传有效期
+  expiredTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='expired_time'),
+  // 32位文件唯一id
+  fileId?: string(name='file_id'),
+  // 放入http请求头里
+  uploadHeaders?: [ XNameValuePair ](name='upload_headers'),
+  // 文件上传地址
+  uploadUrl?: string(name='upload_url'),
+}
+
+/**
+ * Description: 创建HTTP PUT提交的文件上传
+ * Summary: 文件上传创建
+ */
+async function createAntcloudGatewayxFileUpload(request: CreateAntcloudGatewayxFileUploadRequest): CreateAntcloudGatewayxFileUploadResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createAntcloudGatewayxFileUploadEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建HTTP PUT提交的文件上传
+ * Summary: 文件上传创建
+ */
+async function createAntcloudGatewayxFileUploadEx(request: CreateAntcloudGatewayxFileUploadRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateAntcloudGatewayxFileUploadResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
