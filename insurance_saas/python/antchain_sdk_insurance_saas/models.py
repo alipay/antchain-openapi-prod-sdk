@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # This file is auto-generated, don't edit it. Thanks.
 from Tea.model import TeaModel
-from typing import List
+from typing import List, BinaryIO
 
 
 class Config(TeaModel):
@@ -376,6 +376,42 @@ class EntrustGuaranteeProduct(TeaModel):
             self.insurance_product_code = m.get('insurance_product_code')
         if m.get('insurance_product_name') is not None:
             self.insurance_product_name = m.get('insurance_product_name')
+        return self
+
+
+class XNameValuePair(TeaModel):
+    def __init__(
+        self,
+        name: str = None,
+        value: str = None,
+    ):
+        # 键名
+        self.name = name
+        # 键值
+        self.value = value
+
+    def validate(self):
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.value, 'value')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.name is not None:
+            result['name'] = self.name
+        if self.value is not None:
+            result['value'] = self.value
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('value') is not None:
+            self.value = m.get('value')
         return self
 
 
@@ -5854,6 +5890,490 @@ class NotifyAutoinsuranceEventResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('request_no') is not None:
             self.request_no = m.get('request_no')
+        return self
+
+
+class UploadMktFileRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        file_object: BinaryIO = None,
+        file_object_name: str = None,
+        file_id: str = None,
+        biz_content: str = None,
+        request_id: str = None,
+        product_code: str = None,
+        data_type: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 文件唯一id
+        # 待上传文件
+        self.file_object = file_object
+        # 待上传文件名
+        self.file_object_name = file_object_name
+        self.file_id = file_id
+        # 业务入参json格式字符串
+        self.biz_content = biz_content
+        # 请求id，每一次请求保持唯一，若重复，则报错；
+        self.request_id = request_id
+        # 产品编码，蚂蚁分配
+        self.product_code = product_code
+        # 数据类型，
+        # 营销人群底包--MKT_AUD_SRC，
+        # 营销目标人群包--MKT_AUD_TAR
+        self.data_type = data_type
+
+    def validate(self):
+        self.validate_required(self.file_id, 'file_id')
+        if self.biz_content is not None:
+            self.validate_max_length(self.biz_content, 'biz_content', 1024)
+        self.validate_required(self.request_id, 'request_id')
+        if self.request_id is not None:
+            self.validate_max_length(self.request_id, 'request_id', 128)
+        self.validate_required(self.product_code, 'product_code')
+        if self.product_code is not None:
+            self.validate_max_length(self.product_code, 'product_code', 64)
+        self.validate_required(self.data_type, 'data_type')
+        if self.data_type is not None:
+            self.validate_max_length(self.data_type, 'data_type', 64)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.file_object is not None:
+            result['fileObject'] = self.file_object
+        if self.file_object_name is not None:
+            result['fileObjectName'] = self.file_object_name
+        if self.file_id is not None:
+            result['file_id'] = self.file_id
+        if self.biz_content is not None:
+            result['biz_content'] = self.biz_content
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.product_code is not None:
+            result['product_code'] = self.product_code
+        if self.data_type is not None:
+            result['data_type'] = self.data_type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('fileObject') is not None:
+            self.file_object = m.get('fileObject')
+        if m.get('fileObjectName') is not None:
+            self.file_object_name = m.get('fileObjectName')
+        if m.get('file_id') is not None:
+            self.file_id = m.get('file_id')
+        if m.get('biz_content') is not None:
+            self.biz_content = m.get('biz_content')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('product_code') is not None:
+            self.product_code = m.get('product_code')
+        if m.get('data_type') is not None:
+            self.data_type = m.get('data_type')
+        return self
+
+
+class UploadMktFileResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        request_id: str = None,
+        file_name: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 请求id
+        self.request_id = request_id
+        # 文件名称
+        self.file_name = file_name
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.file_name is not None:
+            result['file_name'] = self.file_name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('file_name') is not None:
+            self.file_name = m.get('file_name')
+        return self
+
+
+class CallbackMktEffectRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        request_id: str = None,
+        project_id: str = None,
+        marketing_mode: str = None,
+        insure_short_url: str = None,
+        encryption_type: str = None,
+        encrypted_user_id: str = None,
+        click_id: str = None,
+        click_time: str = None,
+        node_type: str = None,
+        node_info: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 请求id，每一次请求保持唯一；若重复，则更新原数据；
+        self.request_id = request_id
+        # 项目ID，待蚂蚁分配
+        self.project_id = project_id
+        # 营销模式
+        # ADVERTISING_TRAFFIC("广告投流"),
+        # LIVE_STREAMING("直播"),
+        # INFLUENCER("达人"),
+        # AI_HANGUP_SMS("AI挂短"),
+        # AI_OFFICIAL_ACCOUNT("AI公众号"),
+        # BPO_WECHAT("BPO企微")
+        self.marketing_mode = marketing_mode
+        # 投保特征短链
+        self.insure_short_url = insure_short_url
+        # 加密类型：MD5，32位[小]
+        self.encryption_type = encryption_type
+        # 加密用户标识
+        self.encrypted_user_id = encrypted_user_id
+        # 用户点击投保页唯一标识
+        self.click_id = click_id
+        # 事件完成时间（yyyy-MM-dd HH:mm:ss）
+        self.click_time = click_time
+        # 节点类型
+        self.node_type = node_type
+        # 节点详细信息
+        self.node_info = node_info
+
+    def validate(self):
+        self.validate_required(self.request_id, 'request_id')
+        if self.request_id is not None:
+            self.validate_max_length(self.request_id, 'request_id', 128)
+        self.validate_required(self.project_id, 'project_id')
+        if self.project_id is not None:
+            self.validate_max_length(self.project_id, 'project_id', 64)
+        self.validate_required(self.marketing_mode, 'marketing_mode')
+        if self.marketing_mode is not None:
+            self.validate_max_length(self.marketing_mode, 'marketing_mode', 64)
+        self.validate_required(self.insure_short_url, 'insure_short_url')
+        if self.insure_short_url is not None:
+            self.validate_max_length(self.insure_short_url, 'insure_short_url', 256)
+        self.validate_required(self.encryption_type, 'encryption_type')
+        if self.encryption_type is not None:
+            self.validate_max_length(self.encryption_type, 'encryption_type', 32)
+        self.validate_required(self.encrypted_user_id, 'encrypted_user_id')
+        if self.encrypted_user_id is not None:
+            self.validate_max_length(self.encrypted_user_id, 'encrypted_user_id', 64)
+        self.validate_required(self.click_id, 'click_id')
+        if self.click_id is not None:
+            self.validate_max_length(self.click_id, 'click_id', 128)
+        self.validate_required(self.click_time, 'click_time')
+        if self.click_time is not None:
+            self.validate_max_length(self.click_time, 'click_time', 32)
+        self.validate_required(self.node_type, 'node_type')
+        if self.node_type is not None:
+            self.validate_max_length(self.node_type, 'node_type', 64)
+        self.validate_required(self.node_info, 'node_info')
+        if self.node_info is not None:
+            self.validate_max_length(self.node_info, 'node_info', 1024)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.project_id is not None:
+            result['project_id'] = self.project_id
+        if self.marketing_mode is not None:
+            result['marketing_mode'] = self.marketing_mode
+        if self.insure_short_url is not None:
+            result['insure_short_url'] = self.insure_short_url
+        if self.encryption_type is not None:
+            result['encryption_type'] = self.encryption_type
+        if self.encrypted_user_id is not None:
+            result['encrypted_user_id'] = self.encrypted_user_id
+        if self.click_id is not None:
+            result['click_id'] = self.click_id
+        if self.click_time is not None:
+            result['click_time'] = self.click_time
+        if self.node_type is not None:
+            result['node_type'] = self.node_type
+        if self.node_info is not None:
+            result['node_info'] = self.node_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('project_id') is not None:
+            self.project_id = m.get('project_id')
+        if m.get('marketing_mode') is not None:
+            self.marketing_mode = m.get('marketing_mode')
+        if m.get('insure_short_url') is not None:
+            self.insure_short_url = m.get('insure_short_url')
+        if m.get('encryption_type') is not None:
+            self.encryption_type = m.get('encryption_type')
+        if m.get('encrypted_user_id') is not None:
+            self.encrypted_user_id = m.get('encrypted_user_id')
+        if m.get('click_id') is not None:
+            self.click_id = m.get('click_id')
+        if m.get('click_time') is not None:
+            self.click_time = m.get('click_time')
+        if m.get('node_type') is not None:
+            self.node_type = m.get('node_type')
+        if m.get('node_info') is not None:
+            self.node_info = m.get('node_info')
+        return self
+
+
+class CallbackMktEffectResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        request_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 请求id
+        self.request_id = request_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        return self
+
+
+class CreateAntcloudGatewayxFileUploadRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        api_code: str = None,
+        file_label: str = None,
+        file_metadata: str = None,
+        file_name: str = None,
+        mime_type: str = None,
+        api_cluster: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 上传文件作用的openapi method
+        self.api_code = api_code
+        # 文件标签，多个标签;分割
+        self.file_label = file_label
+        # 自定义的文件元数据
+        self.file_metadata = file_metadata
+        # 文件名，不传则随机生成文件名
+        self.file_name = file_name
+        # 文件的多媒体类型
+        self.mime_type = mime_type
+        # 产品方的api归属集群，即productInstanceId
+        self.api_cluster = api_cluster
+
+    def validate(self):
+        self.validate_required(self.api_code, 'api_code')
+        if self.file_label is not None:
+            self.validate_max_length(self.file_label, 'file_label', 100)
+        if self.file_metadata is not None:
+            self.validate_max_length(self.file_metadata, 'file_metadata', 1000)
+        if self.file_name is not None:
+            self.validate_max_length(self.file_name, 'file_name', 100)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.api_code is not None:
+            result['api_code'] = self.api_code
+        if self.file_label is not None:
+            result['file_label'] = self.file_label
+        if self.file_metadata is not None:
+            result['file_metadata'] = self.file_metadata
+        if self.file_name is not None:
+            result['file_name'] = self.file_name
+        if self.mime_type is not None:
+            result['mime_type'] = self.mime_type
+        if self.api_cluster is not None:
+            result['api_cluster'] = self.api_cluster
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('api_code') is not None:
+            self.api_code = m.get('api_code')
+        if m.get('file_label') is not None:
+            self.file_label = m.get('file_label')
+        if m.get('file_metadata') is not None:
+            self.file_metadata = m.get('file_metadata')
+        if m.get('file_name') is not None:
+            self.file_name = m.get('file_name')
+        if m.get('mime_type') is not None:
+            self.mime_type = m.get('mime_type')
+        if m.get('api_cluster') is not None:
+            self.api_cluster = m.get('api_cluster')
+        return self
+
+
+class CreateAntcloudGatewayxFileUploadResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        expired_time: str = None,
+        file_id: str = None,
+        upload_headers: List[XNameValuePair] = None,
+        upload_url: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 上传有效期
+        self.expired_time = expired_time
+        # 32位文件唯一id
+        self.file_id = file_id
+        # 放入http请求头里
+        self.upload_headers = upload_headers
+        # 文件上传地址
+        self.upload_url = upload_url
+
+    def validate(self):
+        if self.expired_time is not None:
+            self.validate_pattern(self.expired_time, 'expired_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.upload_headers:
+            for k in self.upload_headers:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.expired_time is not None:
+            result['expired_time'] = self.expired_time
+        if self.file_id is not None:
+            result['file_id'] = self.file_id
+        result['upload_headers'] = []
+        if self.upload_headers is not None:
+            for k in self.upload_headers:
+                result['upload_headers'].append(k.to_map() if k else None)
+        if self.upload_url is not None:
+            result['upload_url'] = self.upload_url
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('expired_time') is not None:
+            self.expired_time = m.get('expired_time')
+        if m.get('file_id') is not None:
+            self.file_id = m.get('file_id')
+        self.upload_headers = []
+        if m.get('upload_headers') is not None:
+            for k in m.get('upload_headers'):
+                temp_model = XNameValuePair()
+                self.upload_headers.append(temp_model.from_map(k))
+        if m.get('upload_url') is not None:
+            self.upload_url = m.get('upload_url')
         return self
 
 

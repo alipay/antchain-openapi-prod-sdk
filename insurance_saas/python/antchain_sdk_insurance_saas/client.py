@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.3',
+                    'sdk_version': '1.12.6',
                     '_prod_code': 'INSURANCE_SAAS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.3',
+                    'sdk_version': '1.12.6',
                     '_prod_code': 'INSURANCE_SAAS',
                     '_prod_channel': 'undefined'
                 }
@@ -2401,4 +2401,208 @@ class Client:
         return TeaCore.from_map(
             insurance__saas_models.NotifyAutoinsuranceEventResponse(),
             await self.do_request_async('1.0', 'antcloud.insurance.autoinsurance.event.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def upload_mkt_file(
+        self,
+        request: insurance__saas_models.UploadMktFileRequest,
+    ) -> insurance__saas_models.UploadMktFileResponse:
+        """
+        Description: 保险营销文件上传，营销链路中涉及到文件上传，均可使用本接口，根据上传的数据类型做区分
+        Summary: 保险营销文件上传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.upload_mkt_file_ex(request, headers, runtime)
+
+    async def upload_mkt_file_async(
+        self,
+        request: insurance__saas_models.UploadMktFileRequest,
+    ) -> insurance__saas_models.UploadMktFileResponse:
+        """
+        Description: 保险营销文件上传，营销链路中涉及到文件上传，均可使用本接口，根据上传的数据类型做区分
+        Summary: 保险营销文件上传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.upload_mkt_file_ex_async(request, headers, runtime)
+
+    def upload_mkt_file_ex(
+        self,
+        request: insurance__saas_models.UploadMktFileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.UploadMktFileResponse:
+        """
+        Description: 保险营销文件上传，营销链路中涉及到文件上传，均可使用本接口，根据上传的数据类型做区分
+        Summary: 保险营销文件上传
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = insurance__saas_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antcloud.insurance.mkt.file.upload',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                upload_mkt_file_response = insurance__saas_models.UploadMktFileResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return upload_mkt_file_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.UploadMktFileResponse(),
+            self.do_request('1.0', 'antcloud.insurance.mkt.file.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def upload_mkt_file_ex_async(
+        self,
+        request: insurance__saas_models.UploadMktFileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.UploadMktFileResponse:
+        """
+        Description: 保险营销文件上传，营销链路中涉及到文件上传，均可使用本接口，根据上传的数据类型做区分
+        Summary: 保险营销文件上传
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = insurance__saas_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antcloud.insurance.mkt.file.upload',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                upload_mkt_file_response = insurance__saas_models.UploadMktFileResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return upload_mkt_file_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.UploadMktFileResponse(),
+            await self.do_request_async('1.0', 'antcloud.insurance.mkt.file.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def callback_mkt_effect(
+        self,
+        request: insurance__saas_models.CallbackMktEffectRequest,
+    ) -> insurance__saas_models.CallbackMktEffectResponse:
+        """
+        Description: 保险营销效果回传
+        Summary: 保险营销效果回传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.callback_mkt_effect_ex(request, headers, runtime)
+
+    async def callback_mkt_effect_async(
+        self,
+        request: insurance__saas_models.CallbackMktEffectRequest,
+    ) -> insurance__saas_models.CallbackMktEffectResponse:
+        """
+        Description: 保险营销效果回传
+        Summary: 保险营销效果回传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.callback_mkt_effect_ex_async(request, headers, runtime)
+
+    def callback_mkt_effect_ex(
+        self,
+        request: insurance__saas_models.CallbackMktEffectRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.CallbackMktEffectResponse:
+        """
+        Description: 保险营销效果回传
+        Summary: 保险营销效果回传
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.CallbackMktEffectResponse(),
+            self.do_request('1.0', 'antcloud.insurance.mkt.effect.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def callback_mkt_effect_ex_async(
+        self,
+        request: insurance__saas_models.CallbackMktEffectRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.CallbackMktEffectResponse:
+        """
+        Description: 保险营销效果回传
+        Summary: 保险营销效果回传
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.CallbackMktEffectResponse(),
+            await self.do_request_async('1.0', 'antcloud.insurance.mkt.effect.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_antcloud_gatewayx_file_upload(
+        self,
+        request: insurance__saas_models.CreateAntcloudGatewayxFileUploadRequest,
+    ) -> insurance__saas_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_antcloud_gatewayx_file_upload_ex(request, headers, runtime)
+
+    async def create_antcloud_gatewayx_file_upload_async(
+        self,
+        request: insurance__saas_models.CreateAntcloudGatewayxFileUploadRequest,
+    ) -> insurance__saas_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_antcloud_gatewayx_file_upload_ex_async(request, headers, runtime)
+
+    def create_antcloud_gatewayx_file_upload_ex(
+        self,
+        request: insurance__saas_models.CreateAntcloudGatewayxFileUploadRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.CreateAntcloudGatewayxFileUploadResponse(),
+            self.do_request('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_antcloud_gatewayx_file_upload_ex_async(
+        self,
+        request: insurance__saas_models.CreateAntcloudGatewayxFileUploadRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.CreateAntcloudGatewayxFileUploadResponse(),
+            await self.do_request_async('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
