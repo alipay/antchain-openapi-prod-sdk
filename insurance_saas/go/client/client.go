@@ -6,6 +6,7 @@ import (
 	util "github.com/alibabacloud-go/tea-utils/v2/service"
 	"github.com/alibabacloud-go/tea/tea"
 	antchainutil "github.com/antchain-openapi-sdk-go/antchain-util/service"
+	"io"
 )
 
 /**
@@ -312,6 +313,32 @@ func (s *EntrustGuaranteeProduct) SetInsuranceProductCode(v string) *EntrustGuar
 
 func (s *EntrustGuaranteeProduct) SetInsuranceProductName(v string) *EntrustGuaranteeProduct {
 	s.InsuranceProductName = &v
+	return s
+}
+
+// 键值对
+type XNameValuePair struct {
+	// 键名
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 键值
+	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+}
+
+func (s XNameValuePair) String() string {
+	return tea.Prettify(s)
+}
+
+func (s XNameValuePair) GoString() string {
+	return s.String()
+}
+
+func (s *XNameValuePair) SetName(v string) *XNameValuePair {
+	s.Name = &v
+	return s
+}
+
+func (s *XNameValuePair) SetValue(v string) *XNameValuePair {
+	s.Value = &v
 	return s
 }
 
@@ -4748,6 +4775,374 @@ func (s *NotifyAutoinsuranceEventResponse) SetRequestNo(v string) *NotifyAutoins
 	return s
 }
 
+type UploadMktFileRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 文件唯一id
+	// 待上传文件
+	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
+	// 待上传文件名
+	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+	// 业务入参json格式字符串
+	BizContent *string `json:"biz_content,omitempty" xml:"biz_content,omitempty" maxLength:"1024"`
+	// 请求id，每一次请求保持唯一，若重复，则报错；
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true" maxLength:"128"`
+	// 产品编码，蚂蚁分配
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true" maxLength:"64"`
+	// 数据类型，
+	// 营销人群底包--MKT_AUD_SRC，
+	// 营销目标人群包--MKT_AUD_TAR
+	DataType *string `json:"data_type,omitempty" xml:"data_type,omitempty" require:"true" maxLength:"64"`
+}
+
+func (s UploadMktFileRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadMktFileRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UploadMktFileRequest) SetAuthToken(v string) *UploadMktFileRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UploadMktFileRequest) SetFileObject(v io.Reader) *UploadMktFileRequest {
+	s.FileObject = v
+	return s
+}
+
+func (s *UploadMktFileRequest) SetFileObjectName(v string) *UploadMktFileRequest {
+	s.FileObjectName = &v
+	return s
+}
+
+func (s *UploadMktFileRequest) SetFileId(v string) *UploadMktFileRequest {
+	s.FileId = &v
+	return s
+}
+
+func (s *UploadMktFileRequest) SetBizContent(v string) *UploadMktFileRequest {
+	s.BizContent = &v
+	return s
+}
+
+func (s *UploadMktFileRequest) SetRequestId(v string) *UploadMktFileRequest {
+	s.RequestId = &v
+	return s
+}
+
+func (s *UploadMktFileRequest) SetProductCode(v string) *UploadMktFileRequest {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *UploadMktFileRequest) SetDataType(v string) *UploadMktFileRequest {
+	s.DataType = &v
+	return s
+}
+
+type UploadMktFileResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 请求id
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
+	// 文件名称
+	FileName *string `json:"file_name,omitempty" xml:"file_name,omitempty"`
+}
+
+func (s UploadMktFileResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadMktFileResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UploadMktFileResponse) SetReqMsgId(v string) *UploadMktFileResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UploadMktFileResponse) SetResultCode(v string) *UploadMktFileResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UploadMktFileResponse) SetResultMsg(v string) *UploadMktFileResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UploadMktFileResponse) SetRequestId(v string) *UploadMktFileResponse {
+	s.RequestId = &v
+	return s
+}
+
+func (s *UploadMktFileResponse) SetFileName(v string) *UploadMktFileResponse {
+	s.FileName = &v
+	return s
+}
+
+type CallbackMktEffectRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 请求id，每一次请求保持唯一；若重复，则更新原数据；
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true" maxLength:"128"`
+	// 项目ID，待蚂蚁分配
+	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty" require:"true" maxLength:"64"`
+	// 营销模式
+	// ADVERTISING_TRAFFIC("广告投流"),
+	// LIVE_STREAMING("直播"),
+	// INFLUENCER("达人"),
+	// AI_HANGUP_SMS("AI挂短"),
+	// AI_OFFICIAL_ACCOUNT("AI公众号"),
+	// BPO_WECHAT("BPO企微")
+	MarketingMode *string `json:"marketing_mode,omitempty" xml:"marketing_mode,omitempty" require:"true" maxLength:"64"`
+	// 投保特征短链
+	InsureShortUrl *string `json:"insure_short_url,omitempty" xml:"insure_short_url,omitempty" require:"true" maxLength:"256"`
+	// 加密类型：MD5，32位[小]
+	EncryptionType *string `json:"encryption_type,omitempty" xml:"encryption_type,omitempty" require:"true" maxLength:"32"`
+	// 加密用户标识
+	EncryptedUserId *string `json:"encrypted_user_id,omitempty" xml:"encrypted_user_id,omitempty" require:"true" maxLength:"64"`
+	// 用户点击投保页唯一标识
+	ClickId *string `json:"click_id,omitempty" xml:"click_id,omitempty" require:"true" maxLength:"128"`
+	// 事件完成时间（yyyy-MM-dd HH:mm:ss）
+	ClickTime *string `json:"click_time,omitempty" xml:"click_time,omitempty" require:"true" maxLength:"32"`
+	// 节点类型
+	NodeType *string `json:"node_type,omitempty" xml:"node_type,omitempty" require:"true" maxLength:"64"`
+	// 节点详细信息
+	NodeInfo *string `json:"node_info,omitempty" xml:"node_info,omitempty" require:"true" maxLength:"1024"`
+}
+
+func (s CallbackMktEffectRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CallbackMktEffectRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CallbackMktEffectRequest) SetAuthToken(v string) *CallbackMktEffectRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CallbackMktEffectRequest) SetRequestId(v string) *CallbackMktEffectRequest {
+	s.RequestId = &v
+	return s
+}
+
+func (s *CallbackMktEffectRequest) SetProjectId(v string) *CallbackMktEffectRequest {
+	s.ProjectId = &v
+	return s
+}
+
+func (s *CallbackMktEffectRequest) SetMarketingMode(v string) *CallbackMktEffectRequest {
+	s.MarketingMode = &v
+	return s
+}
+
+func (s *CallbackMktEffectRequest) SetInsureShortUrl(v string) *CallbackMktEffectRequest {
+	s.InsureShortUrl = &v
+	return s
+}
+
+func (s *CallbackMktEffectRequest) SetEncryptionType(v string) *CallbackMktEffectRequest {
+	s.EncryptionType = &v
+	return s
+}
+
+func (s *CallbackMktEffectRequest) SetEncryptedUserId(v string) *CallbackMktEffectRequest {
+	s.EncryptedUserId = &v
+	return s
+}
+
+func (s *CallbackMktEffectRequest) SetClickId(v string) *CallbackMktEffectRequest {
+	s.ClickId = &v
+	return s
+}
+
+func (s *CallbackMktEffectRequest) SetClickTime(v string) *CallbackMktEffectRequest {
+	s.ClickTime = &v
+	return s
+}
+
+func (s *CallbackMktEffectRequest) SetNodeType(v string) *CallbackMktEffectRequest {
+	s.NodeType = &v
+	return s
+}
+
+func (s *CallbackMktEffectRequest) SetNodeInfo(v string) *CallbackMktEffectRequest {
+	s.NodeInfo = &v
+	return s
+}
+
+type CallbackMktEffectResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 请求id
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
+}
+
+func (s CallbackMktEffectResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CallbackMktEffectResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CallbackMktEffectResponse) SetReqMsgId(v string) *CallbackMktEffectResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CallbackMktEffectResponse) SetResultCode(v string) *CallbackMktEffectResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CallbackMktEffectResponse) SetResultMsg(v string) *CallbackMktEffectResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CallbackMktEffectResponse) SetRequestId(v string) *CallbackMktEffectResponse {
+	s.RequestId = &v
+	return s
+}
+
+type CreateAntcloudGatewayxFileUploadRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 上传文件作用的openapi method
+	ApiCode *string `json:"api_code,omitempty" xml:"api_code,omitempty" require:"true"`
+	// 文件标签，多个标签;分割
+	FileLabel *string `json:"file_label,omitempty" xml:"file_label,omitempty" maxLength:"100"`
+	// 自定义的文件元数据
+	FileMetadata *string `json:"file_metadata,omitempty" xml:"file_metadata,omitempty" maxLength:"1000"`
+	// 文件名，不传则随机生成文件名
+	FileName *string `json:"file_name,omitempty" xml:"file_name,omitempty" maxLength:"100"`
+	// 文件的多媒体类型
+	MimeType *string `json:"mime_type,omitempty" xml:"mime_type,omitempty"`
+	// 产品方的api归属集群，即productInstanceId
+	ApiCluster *string `json:"api_cluster,omitempty" xml:"api_cluster,omitempty"`
+}
+
+func (s CreateAntcloudGatewayxFileUploadRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateAntcloudGatewayxFileUploadRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetAuthToken(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetApiCode(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.ApiCode = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetFileLabel(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.FileLabel = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetFileMetadata(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.FileMetadata = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetFileName(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.FileName = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetMimeType(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.MimeType = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetApiCluster(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.ApiCluster = &v
+	return s
+}
+
+type CreateAntcloudGatewayxFileUploadResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 上传有效期
+	ExpiredTime *string `json:"expired_time,omitempty" xml:"expired_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 32位文件唯一id
+	FileId *string `json:"file_id,omitempty" xml:"file_id,omitempty"`
+	// 放入http请求头里
+	UploadHeaders []*XNameValuePair `json:"upload_headers,omitempty" xml:"upload_headers,omitempty" type:"Repeated"`
+	// 文件上传地址
+	UploadUrl *string `json:"upload_url,omitempty" xml:"upload_url,omitempty"`
+}
+
+func (s CreateAntcloudGatewayxFileUploadResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateAntcloudGatewayxFileUploadResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetReqMsgId(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetResultCode(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetResultMsg(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetExpiredTime(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.ExpiredTime = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetFileId(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.FileId = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetUploadHeaders(v []*XNameValuePair) *CreateAntcloudGatewayxFileUploadResponse {
+	s.UploadHeaders = v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetUploadUrl(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.UploadUrl = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -4870,7 +5265,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.12.3"),
+				"sdk_version":      tea.String("1.12.6"),
 				"_prod_code":       tea.String("INSURANCE_SAAS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -6213,6 +6608,138 @@ func (client *Client) NotifyAutoinsuranceEventEx(request *NotifyAutoinsuranceEve
 	}
 	_result = &NotifyAutoinsuranceEventResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.insurance.autoinsurance.event.notify"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 保险营销文件上传，营销链路中涉及到文件上传，均可使用本接口，根据上传的数据类型做区分
+ * Summary: 保险营销文件上传
+ */
+func (client *Client) UploadMktFile(request *UploadMktFileRequest) (_result *UploadMktFileResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UploadMktFileResponse{}
+	_body, _err := client.UploadMktFileEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 保险营销文件上传，营销链路中涉及到文件上传，均可使用本接口，根据上传的数据类型做区分
+ * Summary: 保险营销文件上传
+ */
+func (client *Client) UploadMktFileEx(request *UploadMktFileRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UploadMktFileResponse, _err error) {
+	if !tea.BoolValue(util.IsUnset(request.FileObject)) {
+		uploadReq := &CreateAntcloudGatewayxFileUploadRequest{
+			AuthToken: request.AuthToken,
+			ApiCode:   tea.String("antcloud.insurance.mkt.file.upload"),
+			FileName:  request.FileObjectName,
+		}
+		uploadResp, _err := client.CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime)
+		if _err != nil {
+			return _result, _err
+		}
+
+		if !tea.BoolValue(antchainutil.IsSuccess(uploadResp.ResultCode, tea.String("ok"))) {
+			uploadMktFileResponse := &UploadMktFileResponse{
+				ReqMsgId:   uploadResp.ReqMsgId,
+				ResultCode: uploadResp.ResultCode,
+				ResultMsg:  uploadResp.ResultMsg,
+			}
+			_result = uploadMktFileResponse
+			return _result, _err
+		}
+
+		uploadHeaders := antchainutil.ParseUploadHeaders(uploadResp.UploadHeaders)
+		_err = antchainutil.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl)
+		if _err != nil {
+			return _result, _err
+		}
+		request.FileId = uploadResp.FileId
+		request.FileObject = nil
+	}
+
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UploadMktFileResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.insurance.mkt.file.upload"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 保险营销效果回传
+ * Summary: 保险营销效果回传
+ */
+func (client *Client) CallbackMktEffect(request *CallbackMktEffectRequest) (_result *CallbackMktEffectResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CallbackMktEffectResponse{}
+	_body, _err := client.CallbackMktEffectEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 保险营销效果回传
+ * Summary: 保险营销效果回传
+ */
+func (client *Client) CallbackMktEffectEx(request *CallbackMktEffectRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CallbackMktEffectResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CallbackMktEffectResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.insurance.mkt.effect.callback"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 创建HTTP PUT提交的文件上传
+ * Summary: 文件上传创建
+ */
+func (client *Client) CreateAntcloudGatewayxFileUpload(request *CreateAntcloudGatewayxFileUploadRequest) (_result *CreateAntcloudGatewayxFileUploadResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateAntcloudGatewayxFileUploadResponse{}
+	_body, _err := client.CreateAntcloudGatewayxFileUploadEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 创建HTTP PUT提交的文件上传
+ * Summary: 文件上传创建
+ */
+func (client *Client) CreateAntcloudGatewayxFileUploadEx(request *CreateAntcloudGatewayxFileUploadRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateAntcloudGatewayxFileUploadResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateAntcloudGatewayxFileUploadResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.gatewayx.file.upload.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
