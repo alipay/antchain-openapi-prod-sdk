@@ -25,10 +25,14 @@ use AntChain\INSURANCE_SAAS\Models\CallbackMarketingEventRequest;
 use AntChain\INSURANCE_SAAS\Models\CallbackMarketingEventResponse;
 use AntChain\INSURANCE_SAAS\Models\CallbackMarketingPolicycancelRequest;
 use AntChain\INSURANCE_SAAS\Models\CallbackMarketingPolicycancelResponse;
+use AntChain\INSURANCE_SAAS\Models\CallbackMktEffectRequest;
+use AntChain\INSURANCE_SAAS\Models\CallbackMktEffectResponse;
 use AntChain\INSURANCE_SAAS\Models\CancelClaimRequest;
 use AntChain\INSURANCE_SAAS\Models\CancelClaimResponse;
 use AntChain\INSURANCE_SAAS\Models\ConfirmClaimSettleRequest;
 use AntChain\INSURANCE_SAAS\Models\ConfirmClaimSettleResponse;
+use AntChain\INSURANCE_SAAS\Models\CreateAntcloudGatewayxFileUploadRequest;
+use AntChain\INSURANCE_SAAS\Models\CreateAntcloudGatewayxFileUploadResponse;
 use AntChain\INSURANCE_SAAS\Models\FinishClaimSettleRequest;
 use AntChain\INSURANCE_SAAS\Models\FinishClaimSettleResponse;
 use AntChain\INSURANCE_SAAS\Models\GetEmbedcardUrlRequest;
@@ -87,6 +91,8 @@ use AntChain\INSURANCE_SAAS\Models\UpdateClaimMaterialRequest;
 use AntChain\INSURANCE_SAAS\Models\UpdateClaimMaterialResponse;
 use AntChain\INSURANCE_SAAS\Models\UpdateRightplatformApplyinfoRequest;
 use AntChain\INSURANCE_SAAS\Models\UpdateRightplatformApplyinfoResponse;
+use AntChain\INSURANCE_SAAS\Models\UploadMktFileRequest;
+use AntChain\INSURANCE_SAAS\Models\UploadMktFileResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -234,7 +240,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.12.3',
+                    'sdk_version'      => '1.12.6',
                     '_prod_code'       => 'INSURANCE_SAAS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1534,5 +1540,123 @@ class Client
         Utils::validateModel($request);
 
         return NotifyAutoinsuranceEventResponse::fromMap($this->doRequest('1.0', 'antcloud.insurance.autoinsurance.event.notify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 保险营销文件上传，营销链路中涉及到文件上传，均可使用本接口，根据上传的数据类型做区分
+     * Summary: 保险营销文件上传.
+     *
+     * @param UploadMktFileRequest $request
+     *
+     * @return UploadMktFileResponse
+     */
+    public function uploadMktFile($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->uploadMktFileEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 保险营销文件上传，营销链路中涉及到文件上传，均可使用本接口，根据上传的数据类型做区分
+     * Summary: 保险营销文件上传.
+     *
+     * @param UploadMktFileRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return UploadMktFileResponse
+     */
+    public function uploadMktFileEx($request, $headers, $runtime)
+    {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'antcloud.insurance.mkt.file.upload',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
+                return new UploadMktFileResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
+        }
+        Utils::validateModel($request);
+
+        return UploadMktFileResponse::fromMap($this->doRequest('1.0', 'antcloud.insurance.mkt.file.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 保险营销效果回传
+     * Summary: 保险营销效果回传.
+     *
+     * @param CallbackMktEffectRequest $request
+     *
+     * @return CallbackMktEffectResponse
+     */
+    public function callbackMktEffect($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->callbackMktEffectEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 保险营销效果回传
+     * Summary: 保险营销效果回传.
+     *
+     * @param CallbackMktEffectRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return CallbackMktEffectResponse
+     */
+    public function callbackMktEffectEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CallbackMktEffectResponse::fromMap($this->doRequest('1.0', 'antcloud.insurance.mkt.effect.callback', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建.
+     *
+     * @param CreateAntcloudGatewayxFileUploadRequest $request
+     *
+     * @return CreateAntcloudGatewayxFileUploadResponse
+     */
+    public function createAntcloudGatewayxFileUpload($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createAntcloudGatewayxFileUploadEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建.
+     *
+     * @param CreateAntcloudGatewayxFileUploadRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return CreateAntcloudGatewayxFileUploadResponse
+     */
+    public function createAntcloudGatewayxFileUploadEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateAntcloudGatewayxFileUploadResponse::fromMap($this->doRequest('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
