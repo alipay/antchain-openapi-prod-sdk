@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.12.3"),
+                    new TeaPair("sdk_version", "1.12.6"),
                     new TeaPair("_prod_code", "INSURANCE_SAAS"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -984,5 +984,90 @@ public class Client {
     public NotifyAutoinsuranceEventResponse notifyAutoinsuranceEventEx(NotifyAutoinsuranceEventRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.insurance.autoinsurance.event.notify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new NotifyAutoinsuranceEventResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 保险营销文件上传，营销链路中涉及到文件上传，均可使用本接口，根据上传的数据类型做区分
+     * Summary: 保险营销文件上传</p>
+     */
+    public UploadMktFileResponse uploadMktFile(UploadMktFileRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.uploadMktFileEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 保险营销文件上传，营销链路中涉及到文件上传，均可使用本接口，根据上传的数据类型做区分
+     * Summary: 保险营销文件上传</p>
+     */
+    public UploadMktFileResponse uploadMktFileEx(UploadMktFileRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        if (!com.aliyun.teautil.Common.isUnset(request.fileObject)) {
+            CreateAntcloudGatewayxFileUploadRequest uploadReq = CreateAntcloudGatewayxFileUploadRequest.build(TeaConverter.buildMap(
+                new TeaPair("authToken", request.authToken),
+                new TeaPair("apiCode", "antcloud.insurance.mkt.file.upload"),
+                new TeaPair("fileName", request.fileObjectName)
+            ));
+            CreateAntcloudGatewayxFileUploadResponse uploadResp = this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+            if (!com.antgroup.antchain.openapi.antchain.util.AntchainUtils.isSuccess(uploadResp.resultCode, "ok")) {
+                UploadMktFileResponse uploadMktFileResponse = UploadMktFileResponse.build(TeaConverter.buildMap(
+                    new TeaPair("reqMsgId", uploadResp.reqMsgId),
+                    new TeaPair("resultCode", uploadResp.resultCode),
+                    new TeaPair("resultMsg", uploadResp.resultMsg)
+                ));
+                return uploadMktFileResponse;
+            }
+
+            java.util.Map<String, String> uploadHeaders = com.antgroup.antchain.openapi.antchain.util.AntchainUtils.parseUploadHeaders(uploadResp.uploadHeaders);
+            com.antgroup.antchain.openapi.antchain.util.AntchainUtils.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+            request.fileId = uploadResp.fileId;
+            request.fileObject = null;
+        }
+
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.insurance.mkt.file.upload", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UploadMktFileResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 保险营销效果回传
+     * Summary: 保险营销效果回传</p>
+     */
+    public CallbackMktEffectResponse callbackMktEffect(CallbackMktEffectRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.callbackMktEffectEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 保险营销效果回传
+     * Summary: 保险营销效果回传</p>
+     */
+    public CallbackMktEffectResponse callbackMktEffectEx(CallbackMktEffectRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.insurance.mkt.effect.callback", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CallbackMktEffectResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建</p>
+     */
+    public CreateAntcloudGatewayxFileUploadResponse createAntcloudGatewayxFileUpload(CreateAntcloudGatewayxFileUploadRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createAntcloudGatewayxFileUploadEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建</p>
+     */
+    public CreateAntcloudGatewayxFileUploadResponse createAntcloudGatewayxFileUploadEx(CreateAntcloudGatewayxFileUploadRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.gatewayx.file.upload.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateAntcloudGatewayxFileUploadResponse());
     }
 }
