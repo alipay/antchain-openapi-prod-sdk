@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.6"),
+                    new TeaPair("sdk_version", "1.0.7"),
                     new TeaPair("_prod_code", "MARKETINGAGENT"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -191,7 +191,7 @@ public class Client {
     /**
      * <b>description</b> :
      * <p>Description: 摩斯营销智能体A2A开放接口：message:send
-     * Summary: 摩斯营销智能体A2A开放接口：message:send</p>
+     * Summary: message:send</p>
      */
     public SendMessageResponse sendMessage(SendMessageRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -202,7 +202,7 @@ public class Client {
     /**
      * <b>description</b> :
      * <p>Description: 摩斯营销智能体A2A开放接口：message:send
-     * Summary: 摩斯营销智能体A2A开放接口：message:send</p>
+     * Summary: message:send</p>
      */
     public SendMessageResponse sendMessageEx(SendMessageRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);

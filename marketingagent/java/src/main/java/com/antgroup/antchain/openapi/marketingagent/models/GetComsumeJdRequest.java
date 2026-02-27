@@ -35,7 +35,6 @@ public class GetComsumeJdRequest extends TeaModel {
     // 时间格式“yyyy-mm-dd
     // hh:mm:ss”
     @NameInMap("consume_time")
-    @Validation(required = true)
     public String consumeTime;
 
     // 回传类型
@@ -46,17 +45,14 @@ public class GetComsumeJdRequest extends TeaModel {
 
     // 银行流水号
     @NameInMap("bank_flow_no")
-    @Validation(required = true)
     public String bankFlowNo;
 
     // 交易订单号
     @NameInMap("transaction_id")
-    @Validation(required = true)
     public String transactionId;
 
     // 交易金额(分)
     @NameInMap("trade_amount")
-    @Validation(required = true)
     public Long tradeAmount;
 
     // 消耗商户号（本期不传）
