@@ -659,11 +659,7 @@ class GetComsumeJdRequest(TeaModel):
         self.validate_required(self.user_id, 'user_id')
         self.validate_required(self.coupon_id, 'coupon_id')
         self.validate_required(self.prize_status, 'prize_status')
-        self.validate_required(self.consume_time, 'consume_time')
         self.validate_required(self.write_off_type, 'write_off_type')
-        self.validate_required(self.bank_flow_no, 'bank_flow_no')
-        self.validate_required(self.transaction_id, 'transaction_id')
-        self.validate_required(self.trade_amount, 'trade_amount')
 
     def to_map(self):
         _map = super().to_map()

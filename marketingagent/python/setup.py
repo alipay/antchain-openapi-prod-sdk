@@ -24,7 +24,7 @@ from setuptools import setup, find_packages
 """
 setup module for antchain_marketingagent.
 
-Created on 28/01/2026
+Created on 27/02/2026
 
 @author: Ant Chain SDK
 """
