@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.6',
+    sdk_version = '1.0.7',
     _prod_code = 'MARKETINGAGENT',
     _prod_channel = 'default'
   };
@@ -237,7 +237,7 @@ model SendMessageResponse = {
 
 /**
  * Description: 摩斯营销智能体A2A开放接口：message:send
- * Summary: 摩斯营销智能体A2A开放接口：message:send
+ * Summary: message:send
  */
 async function sendMessage(request: SendMessageRequest): SendMessageResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -247,7 +247,7 @@ async function sendMessage(request: SendMessageRequest): SendMessageResponse {
 
 /**
  * Description: 摩斯营销智能体A2A开放接口：message:send
- * Summary: 摩斯营销智能体A2A开放接口：message:send
+ * Summary: message:send
  */
 async function sendMessageEx(request: SendMessageRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SendMessageResponse {
   Util.validateModel(request);
@@ -310,16 +310,16 @@ model GetComsumeJdRequest = {
   // 使用时间
   // 时间格式“yyyy-mm-dd
   // hh:mm:ss”
-  consumeTime: string(name='consume_time'),
+  consumeTime?: string(name='consume_time'),
   // 回传类型
   // _1_-实时 ‘_2_-批量
   writeOffType: long(name='write_off_type'),
   // 银行流水号
-  bankFlowNo: string(name='bank_flow_no'),
+  bankFlowNo?: string(name='bank_flow_no'),
   // 交易订单号
-  transactionId: string(name='transaction_id'),
+  transactionId?: string(name='transaction_id'),
   // 交易金额(分)
-  tradeAmount: long(name='trade_amount'),
+  tradeAmount?: long(name='trade_amount'),
   // 消耗商户号（本期不传）
   merchantNo?: string(name='merchant_no'),
 }

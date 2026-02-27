@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "MARKETINGAGENT",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-marketingagent:1.0.6",
-    "go": "github.com/antchain-openapi-sdk-go/marketingagent/client:v1.0.6",
-    "csharp": "AntChain.SDK.MARKETINGAGENT:1.0.6",
+    "java": "com.antgroup.antchain.openapi:openapi-marketingagent:1.0.7",
+    "go": "github.com/antchain-openapi-sdk-go/marketingagent/client:v1.0.7",
+    "csharp": "AntChain.SDK.MARKETINGAGENT:1.0.7",
     "ts": "@antchain/marketingagent:^1.0.0",
-    "php": "antchain/marketingagent:1.0.6",
-    "python": "antchain_sdk_marketingagent:1.0.6"
+    "php": "antchain/marketingagent:1.0.7",
+    "python": "antchain_sdk_marketingagent:1.0.7"
   },
   "libraries": {
     "Util": "darabonba:Util:*",
