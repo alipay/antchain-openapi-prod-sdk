@@ -374,16 +374,16 @@ export class GetComsumeJdRequest extends $tea.Model {
   // 使用时间
   // 时间格式“yyyy-mm-dd
   // hh:mm:ss”
-  consumeTime: string;
+  consumeTime?: string;
   // 回传类型
   // _1_-实时 ‘_2_-批量
   writeOffType: number;
   // 银行流水号
-  bankFlowNo: string;
+  bankFlowNo?: string;
   // 交易订单号
-  transactionId: string;
+  transactionId?: string;
   // 交易金额(分)
-  tradeAmount: number;
+  tradeAmount?: number;
   // 消耗商户号（本期不传）
   merchantNo?: string;
   static names(): { [key: string]: string } {
@@ -572,7 +572,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.6",
+          sdk_version: "1.0.7",
           _prod_code: "MARKETINGAGENT",
           _prod_channel: "default",
         };
@@ -622,7 +622,7 @@ export default class Client {
 
   /**
    * Description: 摩斯营销智能体A2A开放接口：message:send
-   * Summary: 摩斯营销智能体A2A开放接口：message:send
+   * Summary: message:send
    */
   async sendMessage(request: SendMessageRequest): Promise<SendMessageResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -632,7 +632,7 @@ export default class Client {
 
   /**
    * Description: 摩斯营销智能体A2A开放接口：message:send
-   * Summary: 摩斯营销智能体A2A开放接口：message:send
+   * Summary: message:send
    */
   async sendMessageEx(request: SendMessageRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SendMessageResponse> {
     Util.validateModel(request);
