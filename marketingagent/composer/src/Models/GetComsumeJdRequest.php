@@ -99,11 +99,7 @@ class GetComsumeJdRequest extends Model
         Model::validateRequired('userId', $this->userId, true);
         Model::validateRequired('couponId', $this->couponId, true);
         Model::validateRequired('prizeStatus', $this->prizeStatus, true);
-        Model::validateRequired('consumeTime', $this->consumeTime, true);
         Model::validateRequired('writeOffType', $this->writeOffType, true);
-        Model::validateRequired('bankFlowNo', $this->bankFlowNo, true);
-        Model::validateRequired('transactionId', $this->transactionId, true);
-        Model::validateRequired('tradeAmount', $this->tradeAmount, true);
     }
 
     public function toMap()

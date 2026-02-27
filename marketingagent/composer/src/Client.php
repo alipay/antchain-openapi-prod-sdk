@@ -164,7 +164,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.6',
+                    'sdk_version'      => '1.0.7',
                     '_prod_code'       => 'MARKETINGAGENT',
                     '_prod_channel'    => 'default',
                 ];
@@ -214,7 +214,7 @@ class Client
 
     /**
      * Description: 摩斯营销智能体A2A开放接口：message:send
-     * Summary: 摩斯营销智能体A2A开放接口：message:send.
+     * Summary: message:send.
      *
      * @param SendMessageRequest $request
      *
@@ -230,7 +230,7 @@ class Client
 
     /**
      * Description: 摩斯营销智能体A2A开放接口：message:send
-     * Summary: 摩斯营销智能体A2A开放接口：message:send.
+     * Summary: message:send.
      *
      * @param SendMessageRequest $request
      * @param string[]           $headers
