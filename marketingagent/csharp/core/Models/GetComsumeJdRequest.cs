@@ -41,7 +41,7 @@ namespace AntChain.SDK.MARKETINGAGENT.Models
         // 时间格式“yyyy-mm-dd
         // hh:mm:ss”
         [NameInMap("consume_time")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string ConsumeTime { get; set; }
 
         // 回传类型
@@ -52,17 +52,17 @@ namespace AntChain.SDK.MARKETINGAGENT.Models
 
         // 银行流水号
         [NameInMap("bank_flow_no")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string BankFlowNo { get; set; }
 
         // 交易订单号
         [NameInMap("transaction_id")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string TransactionId { get; set; }
 
         // 交易金额(分)
         [NameInMap("trade_amount")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public long? TradeAmount { get; set; }
 
         // 消耗商户号（本期不传）

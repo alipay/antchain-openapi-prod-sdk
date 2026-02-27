@@ -137,7 +137,7 @@ namespace AntChain.SDK.MARKETINGAGENT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.6"},
+                        {"sdk_version", "1.0.7"},
                         {"_prod_code", "MARKETINGAGENT"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.MARKETINGAGENT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.6"},
+                        {"sdk_version", "1.0.7"},
                         {"_prod_code", "MARKETINGAGENT"},
                         {"_prod_channel", "default"},
                     };
@@ -323,7 +323,7 @@ namespace AntChain.SDK.MARKETINGAGENT
 
         /**
          * Description: 摩斯营销智能体A2A开放接口：message:send
-         * Summary: 摩斯营销智能体A2A开放接口：message:send
+         * Summary: message:send
          */
         public SendMessageResponse SendMessage(SendMessageRequest request)
         {
@@ -334,7 +334,7 @@ namespace AntChain.SDK.MARKETINGAGENT
 
         /**
          * Description: 摩斯营销智能体A2A开放接口：message:send
-         * Summary: 摩斯营销智能体A2A开放接口：message:send
+         * Summary: message:send
          */
         public async Task<SendMessageResponse> SendMessageAsync(SendMessageRequest request)
         {
@@ -345,7 +345,7 @@ namespace AntChain.SDK.MARKETINGAGENT
 
         /**
          * Description: 摩斯营销智能体A2A开放接口：message:send
-         * Summary: 摩斯营销智能体A2A开放接口：message:send
+         * Summary: message:send
          */
         public SendMessageResponse SendMessageEx(SendMessageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -355,7 +355,7 @@ namespace AntChain.SDK.MARKETINGAGENT
 
         /**
          * Description: 摩斯营销智能体A2A开放接口：message:send
-         * Summary: 摩斯营销智能体A2A开放接口：message:send
+         * Summary: message:send
          */
         public async Task<SendMessageResponse> SendMessageExAsync(SendMessageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
