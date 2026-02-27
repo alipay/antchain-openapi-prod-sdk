@@ -479,16 +479,16 @@ type GetComsumeJdRequest struct {
 	// 使用时间
 	// 时间格式“yyyy-mm-dd
 	// hh:mm:ss”
-	ConsumeTime *string `json:"consume_time,omitempty" xml:"consume_time,omitempty" require:"true"`
+	ConsumeTime *string `json:"consume_time,omitempty" xml:"consume_time,omitempty"`
 	// 回传类型
 	// _1_-实时 ‘_2_-批量
 	WriteOffType *int64 `json:"write_off_type,omitempty" xml:"write_off_type,omitempty" require:"true"`
 	// 银行流水号
-	BankFlowNo *string `json:"bank_flow_no,omitempty" xml:"bank_flow_no,omitempty" require:"true"`
+	BankFlowNo *string `json:"bank_flow_no,omitempty" xml:"bank_flow_no,omitempty"`
 	// 交易订单号
-	TransactionId *string `json:"transaction_id,omitempty" xml:"transaction_id,omitempty" require:"true"`
+	TransactionId *string `json:"transaction_id,omitempty" xml:"transaction_id,omitempty"`
 	// 交易金额(分)
-	TradeAmount *int64 `json:"trade_amount,omitempty" xml:"trade_amount,omitempty" require:"true"`
+	TradeAmount *int64 `json:"trade_amount,omitempty" xml:"trade_amount,omitempty"`
 	// 消耗商户号（本期不传）
 	MerchantNo *string `json:"merchant_no,omitempty" xml:"merchant_no,omitempty"`
 }
@@ -724,7 +724,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.6"),
+				"sdk_version":      tea.String("1.0.7"),
 				"_prod_code":       tea.String("MARKETINGAGENT"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -784,7 +784,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 
 /**
  * Description: 摩斯营销智能体A2A开放接口：message:send
- * Summary: 摩斯营销智能体A2A开放接口：message:send
+ * Summary: message:send
  */
 func (client *Client) SendMessage(request *SendMessageRequest) (_result *SendMessageResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -800,7 +800,7 @@ func (client *Client) SendMessage(request *SendMessageRequest) (_result *SendMes
 
 /**
  * Description: 摩斯营销智能体A2A开放接口：message:send
- * Summary: 摩斯营销智能体A2A开放接口：message:send
+ * Summary: message:send
  */
 func (client *Client) SendMessageEx(request *SendMessageRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SendMessageResponse, _err error) {
 	_err = util.ValidateModel(request)
