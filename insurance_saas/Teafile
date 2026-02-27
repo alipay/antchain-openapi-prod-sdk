@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "INSURANCE_SAAS",
-  "version": "1.0.16",
+  "version": "1.0.17",
   "main": "./main.tea",
   "maintainers": [
     {
