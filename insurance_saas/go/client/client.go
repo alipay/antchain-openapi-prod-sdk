@@ -4853,8 +4853,6 @@ type UploadMktFileResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 请求id
 	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
-	// 文件名称
-	FileName *string `json:"file_name,omitempty" xml:"file_name,omitempty"`
 }
 
 func (s UploadMktFileResponse) String() string {
@@ -4882,11 +4880,6 @@ func (s *UploadMktFileResponse) SetResultMsg(v string) *UploadMktFileResponse {
 
 func (s *UploadMktFileResponse) SetRequestId(v string) *UploadMktFileResponse {
 	s.RequestId = &v
-	return s
-}
-
-func (s *UploadMktFileResponse) SetFileName(v string) *UploadMktFileResponse {
-	s.FileName = &v
 	return s
 }
 
@@ -5020,6 +5013,84 @@ func (s *CallbackMktEffectResponse) SetResultMsg(v string) *CallbackMktEffectRes
 
 func (s *CallbackMktEffectResponse) SetRequestId(v string) *CallbackMktEffectResponse {
 	s.RequestId = &v
+	return s
+}
+
+type ReceiveBusinessOpportunitiesRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 全局唯一
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
+	// 产品编码
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
+	// 业务参数，json格式
+	BizContent *string `json:"biz_content,omitempty" xml:"biz_content,omitempty" require:"true"`
+}
+
+func (s ReceiveBusinessOpportunitiesRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ReceiveBusinessOpportunitiesRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ReceiveBusinessOpportunitiesRequest) SetAuthToken(v string) *ReceiveBusinessOpportunitiesRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ReceiveBusinessOpportunitiesRequest) SetRequestId(v string) *ReceiveBusinessOpportunitiesRequest {
+	s.RequestId = &v
+	return s
+}
+
+func (s *ReceiveBusinessOpportunitiesRequest) SetProductCode(v string) *ReceiveBusinessOpportunitiesRequest {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *ReceiveBusinessOpportunitiesRequest) SetBizContent(v string) *ReceiveBusinessOpportunitiesRequest {
+	s.BizContent = &v
+	return s
+}
+
+type ReceiveBusinessOpportunitiesResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// {}，业务出参，详情见下方字段
+	BizResult *string `json:"biz_result,omitempty" xml:"biz_result,omitempty"`
+}
+
+func (s ReceiveBusinessOpportunitiesResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ReceiveBusinessOpportunitiesResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ReceiveBusinessOpportunitiesResponse) SetReqMsgId(v string) *ReceiveBusinessOpportunitiesResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ReceiveBusinessOpportunitiesResponse) SetResultCode(v string) *ReceiveBusinessOpportunitiesResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ReceiveBusinessOpportunitiesResponse) SetResultMsg(v string) *ReceiveBusinessOpportunitiesResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ReceiveBusinessOpportunitiesResponse) SetBizResult(v string) *ReceiveBusinessOpportunitiesResponse {
+	s.BizResult = &v
 	return s
 }
 
@@ -5265,7 +5336,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.12.6"),
+				"sdk_version":      tea.String("1.12.8"),
 				"_prod_code":       tea.String("INSURANCE_SAAS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -6706,6 +6777,40 @@ func (client *Client) CallbackMktEffectEx(request *CallbackMktEffectRequest, hea
 	}
 	_result = &CallbackMktEffectResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.insurance.mkt.effect.callback"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 太保代商机数量推送接口
+ * Summary: 太保代商机数量接收
+ */
+func (client *Client) ReceiveBusinessOpportunities(request *ReceiveBusinessOpportunitiesRequest) (_result *ReceiveBusinessOpportunitiesResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ReceiveBusinessOpportunitiesResponse{}
+	_body, _err := client.ReceiveBusinessOpportunitiesEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 太保代商机数量推送接口
+ * Summary: 太保代商机数量接收
+ */
+func (client *Client) ReceiveBusinessOpportunitiesEx(request *ReceiveBusinessOpportunitiesRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ReceiveBusinessOpportunitiesResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ReceiveBusinessOpportunitiesResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.insurance.business.opportunities.receive"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
