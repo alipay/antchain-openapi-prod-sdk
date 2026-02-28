@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.6',
+                    'sdk_version': '1.12.8',
                     '_prod_code': 'INSURANCE_SAAS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.6',
+                    'sdk_version': '1.12.8',
                     '_prod_code': 'INSURANCE_SAAS',
                     '_prod_channel': 'undefined'
                 }
@@ -2549,6 +2549,62 @@ class Client:
         return TeaCore.from_map(
             insurance__saas_models.CallbackMktEffectResponse(),
             await self.do_request_async('1.0', 'antcloud.insurance.mkt.effect.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def receive_business_opportunities(
+        self,
+        request: insurance__saas_models.ReceiveBusinessOpportunitiesRequest,
+    ) -> insurance__saas_models.ReceiveBusinessOpportunitiesResponse:
+        """
+        Description: 太保代商机数量推送接口
+        Summary: 太保代商机数量接收
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.receive_business_opportunities_ex(request, headers, runtime)
+
+    async def receive_business_opportunities_async(
+        self,
+        request: insurance__saas_models.ReceiveBusinessOpportunitiesRequest,
+    ) -> insurance__saas_models.ReceiveBusinessOpportunitiesResponse:
+        """
+        Description: 太保代商机数量推送接口
+        Summary: 太保代商机数量接收
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.receive_business_opportunities_ex_async(request, headers, runtime)
+
+    def receive_business_opportunities_ex(
+        self,
+        request: insurance__saas_models.ReceiveBusinessOpportunitiesRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.ReceiveBusinessOpportunitiesResponse:
+        """
+        Description: 太保代商机数量推送接口
+        Summary: 太保代商机数量接收
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.ReceiveBusinessOpportunitiesResponse(),
+            self.do_request('1.0', 'antcloud.insurance.business.opportunities.receive', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def receive_business_opportunities_ex_async(
+        self,
+        request: insurance__saas_models.ReceiveBusinessOpportunitiesRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.ReceiveBusinessOpportunitiesResponse:
+        """
+        Description: 太保代商机数量推送接口
+        Summary: 太保代商机数量接收
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.ReceiveBusinessOpportunitiesResponse(),
+            await self.do_request_async('1.0', 'antcloud.insurance.business.opportunities.receive', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(

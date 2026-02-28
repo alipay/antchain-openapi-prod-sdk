@@ -5990,7 +5990,6 @@ class UploadMktFileResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
         request_id: str = None,
-        file_name: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -6000,8 +5999,6 @@ class UploadMktFileResponse(TeaModel):
         self.result_msg = result_msg
         # 请求id
         self.request_id = request_id
-        # 文件名称
-        self.file_name = file_name
 
     def validate(self):
         pass
@@ -6020,8 +6017,6 @@ class UploadMktFileResponse(TeaModel):
             result['result_msg'] = self.result_msg
         if self.request_id is not None:
             result['request_id'] = self.request_id
-        if self.file_name is not None:
-            result['file_name'] = self.file_name
         return result
 
     def from_map(self, m: dict = None):
@@ -6034,8 +6029,6 @@ class UploadMktFileResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('request_id') is not None:
             self.request_id = m.get('request_id')
-        if m.get('file_name') is not None:
-            self.file_name = m.get('file_name')
         return self
 
 
@@ -6218,6 +6211,106 @@ class CallbackMktEffectResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('request_id') is not None:
             self.request_id = m.get('request_id')
+        return self
+
+
+class ReceiveBusinessOpportunitiesRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        request_id: str = None,
+        product_code: str = None,
+        biz_content: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 全局唯一
+        self.request_id = request_id
+        # 产品编码
+        self.product_code = product_code
+        # 业务参数，json格式
+        self.biz_content = biz_content
+
+    def validate(self):
+        self.validate_required(self.request_id, 'request_id')
+        self.validate_required(self.product_code, 'product_code')
+        self.validate_required(self.biz_content, 'biz_content')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.product_code is not None:
+            result['product_code'] = self.product_code
+        if self.biz_content is not None:
+            result['biz_content'] = self.biz_content
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('product_code') is not None:
+            self.product_code = m.get('product_code')
+        if m.get('biz_content') is not None:
+            self.biz_content = m.get('biz_content')
+        return self
+
+
+class ReceiveBusinessOpportunitiesResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        biz_result: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # {}，业务出参，详情见下方字段
+        self.biz_result = biz_result
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.biz_result is not None:
+            result['biz_result'] = self.biz_result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('biz_result') is not None:
+            self.biz_result = m.get('biz_result')
         return self
 
 
