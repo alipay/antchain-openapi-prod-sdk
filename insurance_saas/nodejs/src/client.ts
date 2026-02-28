@@ -3579,15 +3579,12 @@ export class UploadMktFileResponse extends $tea.Model {
   resultMsg?: string;
   // 请求id
   requestId?: string;
-  // 文件名称
-  fileName?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
       requestId: 'request_id',
-      fileName: 'file_name',
     };
   }
 
@@ -3597,7 +3594,6 @@ export class UploadMktFileResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       requestId: 'string',
-      fileName: 'string',
     };
   }
 
@@ -3696,6 +3692,70 @@ export class CallbackMktEffectResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       requestId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ReceiveBusinessOpportunitiesRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 全局唯一
+  requestId: string;
+  // 产品编码
+  productCode: string;
+  // 业务参数，json格式
+  bizContent: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      requestId: 'request_id',
+      productCode: 'product_code',
+      bizContent: 'biz_content',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      requestId: 'string',
+      productCode: 'string',
+      bizContent: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ReceiveBusinessOpportunitiesResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // {}，业务出参，详情见下方字段
+  bizResult?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      bizResult: 'biz_result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      bizResult: 'string',
     };
   }
 
@@ -3905,7 +3965,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.12.6",
+          sdk_version: "1.12.8",
           _prod_code: "INSURANCE_SAAS",
           _prod_channel: "undefined",
         };
@@ -4733,6 +4793,25 @@ export default class Client {
   async callbackMktEffectEx(request: CallbackMktEffectRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CallbackMktEffectResponse> {
     Util.validateModel(request);
     return $tea.cast<CallbackMktEffectResponse>(await this.doRequest("1.0", "antcloud.insurance.mkt.effect.callback", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CallbackMktEffectResponse({}));
+  }
+
+  /**
+   * Description: 太保代商机数量推送接口
+   * Summary: 太保代商机数量接收
+   */
+  async receiveBusinessOpportunities(request: ReceiveBusinessOpportunitiesRequest): Promise<ReceiveBusinessOpportunitiesResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.receiveBusinessOpportunitiesEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 太保代商机数量推送接口
+   * Summary: 太保代商机数量接收
+   */
+  async receiveBusinessOpportunitiesEx(request: ReceiveBusinessOpportunitiesRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ReceiveBusinessOpportunitiesResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ReceiveBusinessOpportunitiesResponse>(await this.doRequest("1.0", "antcloud.insurance.business.opportunities.receive", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ReceiveBusinessOpportunitiesResponse({}));
   }
 
   /**
