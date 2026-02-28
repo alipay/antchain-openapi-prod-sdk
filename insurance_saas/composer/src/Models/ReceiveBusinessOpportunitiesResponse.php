@@ -6,7 +6,7 @@ namespace AntChain\INSURANCE_SAAS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class UploadMktFileResponse extends Model
+class ReceiveBusinessOpportunitiesResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,16 +26,16 @@ class UploadMktFileResponse extends Model
      */
     public $resultMsg;
 
-    // 请求id
+    // {}，业务出参，详情见下方字段
     /**
      * @var string
      */
-    public $requestId;
+    public $bizResult;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'requestId'  => 'request_id',
+        'bizResult'  => 'biz_result',
     ];
 
     public function validate()
@@ -54,8 +54,8 @@ class UploadMktFileResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->requestId) {
-            $res['request_id'] = $this->requestId;
+        if (null !== $this->bizResult) {
+            $res['biz_result'] = $this->bizResult;
         }
 
         return $res;
@@ -64,7 +64,7 @@ class UploadMktFileResponse extends Model
     /**
      * @param array $map
      *
-     * @return UploadMktFileResponse
+     * @return ReceiveBusinessOpportunitiesResponse
      */
     public static function fromMap($map = [])
     {
@@ -78,8 +78,8 @@ class UploadMktFileResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['request_id'])) {
-            $model->requestId = $map['request_id'];
+        if (isset($map['biz_result'])) {
+            $model->bizResult = $map['biz_result'];
         }
 
         return $model;

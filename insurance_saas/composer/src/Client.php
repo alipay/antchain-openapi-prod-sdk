@@ -77,6 +77,8 @@ use AntChain\INSURANCE_SAAS\Models\QueryReverseCommissionRequest;
 use AntChain\INSURANCE_SAAS\Models\QueryReverseCommissionResponse;
 use AntChain\INSURANCE_SAAS\Models\QueryUnderwritingRequest;
 use AntChain\INSURANCE_SAAS\Models\QueryUnderwritingResponse;
+use AntChain\INSURANCE_SAAS\Models\ReceiveBusinessOpportunitiesRequest;
+use AntChain\INSURANCE_SAAS\Models\ReceiveBusinessOpportunitiesResponse;
 use AntChain\INSURANCE_SAAS\Models\ReceiveLeadMarketRequest;
 use AntChain\INSURANCE_SAAS\Models\ReceiveLeadMarketResponse;
 use AntChain\INSURANCE_SAAS\Models\SubmitInquiryRequest;
@@ -240,7 +242,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.12.6',
+                    'sdk_version'      => '1.12.8',
                     '_prod_code'       => 'INSURANCE_SAAS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1625,6 +1627,39 @@ class Client
         Utils::validateModel($request);
 
         return CallbackMktEffectResponse::fromMap($this->doRequest('1.0', 'antcloud.insurance.mkt.effect.callback', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 太保代商机数量推送接口
+     * Summary: 太保代商机数量接收.
+     *
+     * @param ReceiveBusinessOpportunitiesRequest $request
+     *
+     * @return ReceiveBusinessOpportunitiesResponse
+     */
+    public function receiveBusinessOpportunities($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->receiveBusinessOpportunitiesEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 太保代商机数量推送接口
+     * Summary: 太保代商机数量接收.
+     *
+     * @param ReceiveBusinessOpportunitiesRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return ReceiveBusinessOpportunitiesResponse
+     */
+    public function receiveBusinessOpportunitiesEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ReceiveBusinessOpportunitiesResponse::fromMap($this->doRequest('1.0', 'antcloud.insurance.business.opportunities.receive', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
