@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.insurance_saas.models;
 
 import com.aliyun.tea.*;
 
-public class UploadMktFileResponse extends TeaModel {
+public class ReceiveBusinessOpportunitiesResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,16 @@ public class UploadMktFileResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 请求id
-    @NameInMap("request_id")
-    public String requestId;
+    // {}，业务出参，详情见下方字段
+    @NameInMap("biz_result")
+    public String bizResult;
 
-    public static UploadMktFileResponse build(java.util.Map<String, ?> map) throws Exception {
-        UploadMktFileResponse self = new UploadMktFileResponse();
+    public static ReceiveBusinessOpportunitiesResponse build(java.util.Map<String, ?> map) throws Exception {
+        ReceiveBusinessOpportunitiesResponse self = new ReceiveBusinessOpportunitiesResponse();
         return TeaModel.build(map, self);
     }
 
-    public UploadMktFileResponse setReqMsgId(String reqMsgId) {
+    public ReceiveBusinessOpportunitiesResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class UploadMktFileResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public UploadMktFileResponse setResultCode(String resultCode) {
+    public ReceiveBusinessOpportunitiesResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class UploadMktFileResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public UploadMktFileResponse setResultMsg(String resultMsg) {
+    public ReceiveBusinessOpportunitiesResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,12 +49,12 @@ public class UploadMktFileResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public UploadMktFileResponse setRequestId(String requestId) {
-        this.requestId = requestId;
+    public ReceiveBusinessOpportunitiesResponse setBizResult(String bizResult) {
+        this.bizResult = bizResult;
         return this;
     }
-    public String getRequestId() {
-        return this.requestId;
+    public String getBizResult() {
+        return this.bizResult;
     }
 
 }

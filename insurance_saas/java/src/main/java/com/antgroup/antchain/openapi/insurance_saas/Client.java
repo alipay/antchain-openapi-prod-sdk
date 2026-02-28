@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.12.6"),
+                    new TeaPair("sdk_version", "1.12.8"),
                     new TeaPair("_prod_code", "INSURANCE_SAAS"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -1048,6 +1048,27 @@ public class Client {
     public CallbackMktEffectResponse callbackMktEffectEx(CallbackMktEffectRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.insurance.mkt.effect.callback", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CallbackMktEffectResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 太保代商机数量推送接口
+     * Summary: 太保代商机数量接收</p>
+     */
+    public ReceiveBusinessOpportunitiesResponse receiveBusinessOpportunities(ReceiveBusinessOpportunitiesRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.receiveBusinessOpportunitiesEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 太保代商机数量推送接口
+     * Summary: 太保代商机数量接收</p>
+     */
+    public ReceiveBusinessOpportunitiesResponse receiveBusinessOpportunitiesEx(ReceiveBusinessOpportunitiesRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.insurance.business.opportunities.receive", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ReceiveBusinessOpportunitiesResponse());
     }
 
     /**
