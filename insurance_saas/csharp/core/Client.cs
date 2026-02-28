@@ -137,7 +137,7 @@ namespace AntChain.SDK.INSURANCE_SAAS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.12.6"},
+                        {"sdk_version", "1.12.8"},
                         {"_prod_code", "INSURANCE_SAAS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.INSURANCE_SAAS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.12.6"},
+                        {"sdk_version", "1.12.8"},
                         {"_prod_code", "INSURANCE_SAAS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -2047,6 +2047,48 @@ namespace AntChain.SDK.INSURANCE_SAAS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CallbackMktEffectResponse>(await DoRequestAsync("1.0", "antcloud.insurance.mkt.effect.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 太保代商机数量推送接口
+         * Summary: 太保代商机数量接收
+         */
+        public ReceiveBusinessOpportunitiesResponse ReceiveBusinessOpportunities(ReceiveBusinessOpportunitiesRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ReceiveBusinessOpportunitiesEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 太保代商机数量推送接口
+         * Summary: 太保代商机数量接收
+         */
+        public async Task<ReceiveBusinessOpportunitiesResponse> ReceiveBusinessOpportunitiesAsync(ReceiveBusinessOpportunitiesRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ReceiveBusinessOpportunitiesExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 太保代商机数量推送接口
+         * Summary: 太保代商机数量接收
+         */
+        public ReceiveBusinessOpportunitiesResponse ReceiveBusinessOpportunitiesEx(ReceiveBusinessOpportunitiesRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ReceiveBusinessOpportunitiesResponse>(DoRequest("1.0", "antcloud.insurance.business.opportunities.receive", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 太保代商机数量推送接口
+         * Summary: 太保代商机数量接收
+         */
+        public async Task<ReceiveBusinessOpportunitiesResponse> ReceiveBusinessOpportunitiesExAsync(ReceiveBusinessOpportunitiesRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ReceiveBusinessOpportunitiesResponse>(await DoRequestAsync("1.0", "antcloud.insurance.business.opportunities.receive", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

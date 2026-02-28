@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.INSURANCE_SAAS.Models
 {
-    public class UploadMktFileResponse : TeaModel {
+    public class ReceiveBusinessOpportunitiesResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,10 +24,10 @@ namespace AntChain.SDK.INSURANCE_SAAS.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 请求id
-        [NameInMap("request_id")]
+        // {}，业务出参，详情见下方字段
+        [NameInMap("biz_result")]
         [Validation(Required=false)]
-        public string RequestId { get; set; }
+        public string BizResult { get; set; }
 
     }
 
