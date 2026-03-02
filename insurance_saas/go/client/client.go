@@ -5021,6 +5021,8 @@ type ReceiveBusinessOpportunitiesRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 全局唯一
 	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
+	// 渠道编码
+	ChannelCode *string `json:"channel_code,omitempty" xml:"channel_code,omitempty" require:"true"`
 	// 产品编码
 	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
 	// 业务参数，json格式
@@ -5042,6 +5044,11 @@ func (s *ReceiveBusinessOpportunitiesRequest) SetAuthToken(v string) *ReceiveBus
 
 func (s *ReceiveBusinessOpportunitiesRequest) SetRequestId(v string) *ReceiveBusinessOpportunitiesRequest {
 	s.RequestId = &v
+	return s
+}
+
+func (s *ReceiveBusinessOpportunitiesRequest) SetChannelCode(v string) *ReceiveBusinessOpportunitiesRequest {
+	s.ChannelCode = &v
 	return s
 }
 
@@ -5336,7 +5343,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.12.9"),
+				"sdk_version":      tea.String("1.12.10"),
 				"_prod_code":       tea.String("INSURANCE_SAAS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -6785,8 +6792,8 @@ func (client *Client) CallbackMktEffectEx(request *CallbackMktEffectRequest, hea
 }
 
 /**
- * Description: 太保代商机数量推送接口
- * Summary: 太保代商机数量接收
+ * Description: 商机数量推送接口
+ * Summary: 商机数量接收
  */
 func (client *Client) ReceiveBusinessOpportunities(request *ReceiveBusinessOpportunitiesRequest) (_result *ReceiveBusinessOpportunitiesResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -6801,8 +6808,8 @@ func (client *Client) ReceiveBusinessOpportunities(request *ReceiveBusinessOppor
 }
 
 /**
- * Description: 太保代商机数量推送接口
- * Summary: 太保代商机数量接收
+ * Description: 商机数量推送接口
+ * Summary: 商机数量接收
  */
 func (client *Client) ReceiveBusinessOpportunitiesEx(request *ReceiveBusinessOpportunitiesRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ReceiveBusinessOpportunitiesResponse, _err error) {
 	_err = util.ValidateModel(request)
