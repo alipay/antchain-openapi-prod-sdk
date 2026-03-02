@@ -6038,7 +6038,6 @@ class CallbackMktEffectRequest(TeaModel):
         auth_token: str = None,
         request_id: str = None,
         project_id: str = None,
-        marketing_mode: str = None,
         insure_short_url: str = None,
         encryption_type: str = None,
         encrypted_user_id: str = None,
@@ -6053,14 +6052,6 @@ class CallbackMktEffectRequest(TeaModel):
         self.request_id = request_id
         # 项目ID，待蚂蚁分配
         self.project_id = project_id
-        # 营销模式
-        # ADVERTISING_TRAFFIC("广告投流"),
-        # LIVE_STREAMING("直播"),
-        # INFLUENCER("达人"),
-        # AI_HANGUP_SMS("AI挂短"),
-        # AI_OFFICIAL_ACCOUNT("AI公众号"),
-        # BPO_WECHAT("BPO企微")
-        self.marketing_mode = marketing_mode
         # 投保特征短链
         self.insure_short_url = insure_short_url
         # 加密类型：MD5，32位[小]
@@ -6083,9 +6074,6 @@ class CallbackMktEffectRequest(TeaModel):
         self.validate_required(self.project_id, 'project_id')
         if self.project_id is not None:
             self.validate_max_length(self.project_id, 'project_id', 64)
-        self.validate_required(self.marketing_mode, 'marketing_mode')
-        if self.marketing_mode is not None:
-            self.validate_max_length(self.marketing_mode, 'marketing_mode', 64)
         self.validate_required(self.insure_short_url, 'insure_short_url')
         if self.insure_short_url is not None:
             self.validate_max_length(self.insure_short_url, 'insure_short_url', 256)
@@ -6120,8 +6108,6 @@ class CallbackMktEffectRequest(TeaModel):
             result['request_id'] = self.request_id
         if self.project_id is not None:
             result['project_id'] = self.project_id
-        if self.marketing_mode is not None:
-            result['marketing_mode'] = self.marketing_mode
         if self.insure_short_url is not None:
             result['insure_short_url'] = self.insure_short_url
         if self.encryption_type is not None:
@@ -6146,8 +6132,6 @@ class CallbackMktEffectRequest(TeaModel):
             self.request_id = m.get('request_id')
         if m.get('project_id') is not None:
             self.project_id = m.get('project_id')
-        if m.get('marketing_mode') is not None:
-            self.marketing_mode = m.get('marketing_mode')
         if m.get('insure_short_url') is not None:
             self.insure_short_url = m.get('insure_short_url')
         if m.get('encryption_type') is not None:
