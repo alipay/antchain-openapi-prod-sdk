@@ -6219,6 +6219,7 @@ class ReceiveBusinessOpportunitiesRequest(TeaModel):
         self,
         auth_token: str = None,
         request_id: str = None,
+        channel_code: str = None,
         product_code: str = None,
         biz_content: str = None,
     ):
@@ -6226,6 +6227,8 @@ class ReceiveBusinessOpportunitiesRequest(TeaModel):
         self.auth_token = auth_token
         # 全局唯一
         self.request_id = request_id
+        # 渠道编码
+        self.channel_code = channel_code
         # 产品编码
         self.product_code = product_code
         # 业务参数，json格式
@@ -6233,6 +6236,7 @@ class ReceiveBusinessOpportunitiesRequest(TeaModel):
 
     def validate(self):
         self.validate_required(self.request_id, 'request_id')
+        self.validate_required(self.channel_code, 'channel_code')
         self.validate_required(self.product_code, 'product_code')
         self.validate_required(self.biz_content, 'biz_content')
 
@@ -6246,6 +6250,8 @@ class ReceiveBusinessOpportunitiesRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.request_id is not None:
             result['request_id'] = self.request_id
+        if self.channel_code is not None:
+            result['channel_code'] = self.channel_code
         if self.product_code is not None:
             result['product_code'] = self.product_code
         if self.biz_content is not None:
@@ -6258,6 +6264,8 @@ class ReceiveBusinessOpportunitiesRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('request_id') is not None:
             self.request_id = m.get('request_id')
+        if m.get('channel_code') is not None:
+            self.channel_code = m.get('channel_code')
         if m.get('product_code') is not None:
             self.product_code = m.get('product_code')
         if m.get('biz_content') is not None:

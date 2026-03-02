@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.9',
+                    'sdk_version': '1.12.10',
                     '_prod_code': 'INSURANCE_SAAS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.9',
+                    'sdk_version': '1.12.10',
                     '_prod_code': 'INSURANCE_SAAS',
                     '_prod_channel': 'undefined'
                 }
@@ -2556,8 +2556,8 @@ class Client:
         request: insurance__saas_models.ReceiveBusinessOpportunitiesRequest,
     ) -> insurance__saas_models.ReceiveBusinessOpportunitiesResponse:
         """
-        Description: 太保代商机数量推送接口
-        Summary: 太保代商机数量接收
+        Description: 商机数量推送接口
+        Summary: 商机数量接收
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -2568,8 +2568,8 @@ class Client:
         request: insurance__saas_models.ReceiveBusinessOpportunitiesRequest,
     ) -> insurance__saas_models.ReceiveBusinessOpportunitiesResponse:
         """
-        Description: 太保代商机数量推送接口
-        Summary: 太保代商机数量接收
+        Description: 商机数量推送接口
+        Summary: 商机数量接收
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -2582,8 +2582,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> insurance__saas_models.ReceiveBusinessOpportunitiesResponse:
         """
-        Description: 太保代商机数量推送接口
-        Summary: 太保代商机数量接收
+        Description: 商机数量推送接口
+        Summary: 商机数量接收
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -2598,8 +2598,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> insurance__saas_models.ReceiveBusinessOpportunitiesResponse:
         """
-        Description: 太保代商机数量推送接口
-        Summary: 太保代商机数量接收
+        Description: 商机数量推送接口
+        Summary: 商机数量接收
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
