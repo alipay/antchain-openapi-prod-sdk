@@ -20,6 +20,12 @@ class ReceiveBusinessOpportunitiesRequest extends Model
      */
     public $requestId;
 
+    // 渠道编码
+    /**
+     * @var string
+     */
+    public $channelCode;
+
     // 产品编码
     /**
      * @var string
@@ -34,6 +40,7 @@ class ReceiveBusinessOpportunitiesRequest extends Model
     protected $_name = [
         'authToken'   => 'auth_token',
         'requestId'   => 'request_id',
+        'channelCode' => 'channel_code',
         'productCode' => 'product_code',
         'bizContent'  => 'biz_content',
     ];
@@ -41,6 +48,7 @@ class ReceiveBusinessOpportunitiesRequest extends Model
     public function validate()
     {
         Model::validateRequired('requestId', $this->requestId, true);
+        Model::validateRequired('channelCode', $this->channelCode, true);
         Model::validateRequired('productCode', $this->productCode, true);
         Model::validateRequired('bizContent', $this->bizContent, true);
     }
@@ -53,6 +61,9 @@ class ReceiveBusinessOpportunitiesRequest extends Model
         }
         if (null !== $this->requestId) {
             $res['request_id'] = $this->requestId;
+        }
+        if (null !== $this->channelCode) {
+            $res['channel_code'] = $this->channelCode;
         }
         if (null !== $this->productCode) {
             $res['product_code'] = $this->productCode;
@@ -77,6 +88,9 @@ class ReceiveBusinessOpportunitiesRequest extends Model
         }
         if (isset($map['request_id'])) {
             $model->requestId = $map['request_id'];
+        }
+        if (isset($map['channel_code'])) {
+            $model->channelCode = $map['channel_code'];
         }
         if (isset($map['product_code'])) {
             $model->productCode = $map['product_code'];
