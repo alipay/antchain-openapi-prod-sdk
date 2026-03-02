@@ -19,6 +19,11 @@ namespace AntChain.SDK.INSURANCE_SAAS.Models
         [Validation(Required=true)]
         public string RequestId { get; set; }
 
+        // 渠道编码
+        [NameInMap("channel_code")]
+        [Validation(Required=true)]
+        public string ChannelCode { get; set; }
+
         // 产品编码
         [NameInMap("product_code")]
         [Validation(Required=true)]

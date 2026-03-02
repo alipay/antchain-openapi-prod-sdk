@@ -137,7 +137,7 @@ namespace AntChain.SDK.INSURANCE_SAAS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.12.9"},
+                        {"sdk_version", "1.12.10"},
                         {"_prod_code", "INSURANCE_SAAS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.INSURANCE_SAAS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.12.9"},
+                        {"sdk_version", "1.12.10"},
                         {"_prod_code", "INSURANCE_SAAS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -2050,8 +2050,8 @@ namespace AntChain.SDK.INSURANCE_SAAS
         }
 
         /**
-         * Description: 太保代商机数量推送接口
-         * Summary: 太保代商机数量接收
+         * Description: 商机数量推送接口
+         * Summary: 商机数量接收
          */
         public ReceiveBusinessOpportunitiesResponse ReceiveBusinessOpportunities(ReceiveBusinessOpportunitiesRequest request)
         {
@@ -2061,8 +2061,8 @@ namespace AntChain.SDK.INSURANCE_SAAS
         }
 
         /**
-         * Description: 太保代商机数量推送接口
-         * Summary: 太保代商机数量接收
+         * Description: 商机数量推送接口
+         * Summary: 商机数量接收
          */
         public async Task<ReceiveBusinessOpportunitiesResponse> ReceiveBusinessOpportunitiesAsync(ReceiveBusinessOpportunitiesRequest request)
         {
@@ -2072,8 +2072,8 @@ namespace AntChain.SDK.INSURANCE_SAAS
         }
 
         /**
-         * Description: 太保代商机数量推送接口
-         * Summary: 太保代商机数量接收
+         * Description: 商机数量推送接口
+         * Summary: 商机数量接收
          */
         public ReceiveBusinessOpportunitiesResponse ReceiveBusinessOpportunitiesEx(ReceiveBusinessOpportunitiesRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -2082,8 +2082,8 @@ namespace AntChain.SDK.INSURANCE_SAAS
         }
 
         /**
-         * Description: 太保代商机数量推送接口
-         * Summary: 太保代商机数量接收
+         * Description: 商机数量推送接口
+         * Summary: 商机数量接收
          */
         public async Task<ReceiveBusinessOpportunitiesResponse> ReceiveBusinessOpportunitiesExAsync(ReceiveBusinessOpportunitiesRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
