@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.12.10',
+    sdk_version = '1.12.11',
     _prod_code = 'INSURANCE_SAAS',
     _prod_channel = 'undefined'
   };
@@ -2292,14 +2292,6 @@ model CallbackMktEffectRequest = {
   requestId: string(maxLength=128, name='request_id'),
   // 项目ID，待蚂蚁分配
   projectId: string(maxLength=64, name='project_id'),
-  // 营销模式
-  // ADVERTISING_TRAFFIC("广告投流"),   
-  // LIVE_STREAMING("直播"),    
-  // INFLUENCER("达人"),    
-  // AI_HANGUP_SMS("AI挂短"), 
-  // AI_OFFICIAL_ACCOUNT("AI公众号"),    
-  // BPO_WECHAT("BPO企微")
-  marketingMode: string(maxLength=64, name='marketing_mode'),
   // 投保特征短链
   insureShortUrl: string(maxLength=256, name='insure_short_url'),
   // 加密类型：MD5，32位[小]
