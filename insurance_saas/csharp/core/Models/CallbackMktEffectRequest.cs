@@ -24,17 +24,6 @@ namespace AntChain.SDK.INSURANCE_SAAS.Models
         [Validation(Required=true, MaxLength=64)]
         public string ProjectId { get; set; }
 
-        // 营销模式
-        // ADVERTISING_TRAFFIC("广告投流"),   
-        // LIVE_STREAMING("直播"),    
-        // INFLUENCER("达人"),    
-        // AI_HANGUP_SMS("AI挂短"), 
-        // AI_OFFICIAL_ACCOUNT("AI公众号"),    
-        // BPO_WECHAT("BPO企微")
-        [NameInMap("marketing_mode")]
-        [Validation(Required=true, MaxLength=64)]
-        public string MarketingMode { get; set; }
-
         // 投保特征短链
         [NameInMap("insure_short_url")]
         [Validation(Required=true, MaxLength=256)]
