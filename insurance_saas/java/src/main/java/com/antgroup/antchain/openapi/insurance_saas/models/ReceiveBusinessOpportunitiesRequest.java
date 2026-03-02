@@ -13,6 +13,11 @@ public class ReceiveBusinessOpportunitiesRequest extends TeaModel {
     @Validation(required = true)
     public String requestId;
 
+    // 渠道编码
+    @NameInMap("channel_code")
+    @Validation(required = true)
+    public String channelCode;
+
     // 产品编码
     @NameInMap("product_code")
     @Validation(required = true)
@@ -42,6 +47,14 @@ public class ReceiveBusinessOpportunitiesRequest extends TeaModel {
     }
     public String getRequestId() {
         return this.requestId;
+    }
+
+    public ReceiveBusinessOpportunitiesRequest setChannelCode(String channelCode) {
+        this.channelCode = channelCode;
+        return this;
+    }
+    public String getChannelCode() {
+        return this.channelCode;
     }
 
     public ReceiveBusinessOpportunitiesRequest setProductCode(String productCode) {
