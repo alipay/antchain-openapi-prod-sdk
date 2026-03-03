@@ -4888,6 +4888,8 @@ type CallbackMktEffectRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 请求id，每一次请求保持唯一；若重复，则更新原数据；
 	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true" maxLength:"128"`
+	// 产品编码，蚂蚁分配
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
 	// 项目ID，待蚂蚁分配
 	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty" require:"true" maxLength:"64"`
 	// 投保特征短链
@@ -4921,6 +4923,11 @@ func (s *CallbackMktEffectRequest) SetAuthToken(v string) *CallbackMktEffectRequ
 
 func (s *CallbackMktEffectRequest) SetRequestId(v string) *CallbackMktEffectRequest {
 	s.RequestId = &v
+	return s
+}
+
+func (s *CallbackMktEffectRequest) SetProductCode(v string) *CallbackMktEffectRequest {
+	s.ProductCode = &v
 	return s
 }
 
@@ -5330,7 +5337,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.12.11"),
+				"sdk_version":      tea.String("1.12.12"),
 				"_prod_code":       tea.String("INSURANCE_SAAS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
