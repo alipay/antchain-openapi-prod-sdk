@@ -13,6 +13,11 @@ public class CallbackMktEffectRequest extends TeaModel {
     @Validation(required = true, maxLength = 128)
     public String requestId;
 
+    // 产品编码，蚂蚁分配
+    @NameInMap("product_code")
+    @Validation(required = true)
+    public String productCode;
+
     // 项目ID，待蚂蚁分配
     @NameInMap("project_id")
     @Validation(required = true, maxLength = 64)
@@ -72,6 +77,14 @@ public class CallbackMktEffectRequest extends TeaModel {
     }
     public String getRequestId() {
         return this.requestId;
+    }
+
+    public CallbackMktEffectRequest setProductCode(String productCode) {
+        this.productCode = productCode;
+        return this;
+    }
+    public String getProductCode() {
+        return this.productCode;
     }
 
     public CallbackMktEffectRequest setProjectId(String projectId) {
