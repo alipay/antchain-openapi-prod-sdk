@@ -2496,6 +2496,8 @@ export class CreateApiAuthurlRequest extends $tea.Model {
   orderNo?: string;
   // 登录方式，ACCOUNT_PASS：账密，ALL：全部(包括账密和扫码)，默认为ALL（全部）
   loginMode?: string;
+  // 授权页面初始化模式 PASS 账密登录 QRCODE 扫码登录 PASSSHARE 分享辅助登录
+  initMode?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -2510,6 +2512,7 @@ export class CreateApiAuthurlRequest extends $tea.Model {
       identityNumber: 'identity_number',
       orderNo: 'order_no',
       loginMode: 'login_mode',
+      initMode: 'init_mode',
     };
   }
 
@@ -2527,6 +2530,7 @@ export class CreateApiAuthurlRequest extends $tea.Model {
       identityNumber: 'string',
       orderNo: 'string',
       loginMode: 'string',
+      initMode: 'string',
     };
   }
 
@@ -5085,7 +5089,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.8.45",
+          sdk_version: "1.8.46",
           _prod_code: "TAX",
           _prod_channel: "undefined",
         };
