@@ -3261,6 +3261,8 @@ type CreateApiAuthurlRequest struct {
 	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty"`
 	// 登录方式，ACCOUNT_PASS：账密，ALL：全部(包括账密和扫码)，默认为ALL（全部）
 	LoginMode *string `json:"login_mode,omitempty" xml:"login_mode,omitempty"`
+	// 授权页面初始化模式 PASS 账密登录 QRCODE 扫码登录 PASSSHARE 分享辅助登录
+	InitMode *string `json:"init_mode,omitempty" xml:"init_mode,omitempty"`
 }
 
 func (s CreateApiAuthurlRequest) String() string {
@@ -3328,6 +3330,11 @@ func (s *CreateApiAuthurlRequest) SetOrderNo(v string) *CreateApiAuthurlRequest 
 
 func (s *CreateApiAuthurlRequest) SetLoginMode(v string) *CreateApiAuthurlRequest {
 	s.LoginMode = &v
+	return s
+}
+
+func (s *CreateApiAuthurlRequest) SetInitMode(v string) *CreateApiAuthurlRequest {
+	s.InitMode = &v
 	return s
 }
 
@@ -6726,7 +6733,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.8.45"),
+				"sdk_version":      tea.String("1.8.46"),
 				"_prod_code":       tea.String("TAX"),
 				"_prod_channel":    tea.String("undefined"),
 			}
