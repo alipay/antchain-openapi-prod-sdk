@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.8.45',
+    sdk_version = '1.8.46',
     _prod_code = 'TAX',
     _prod_channel = 'undefined'
   };
@@ -1406,6 +1406,8 @@ model CreateApiAuthurlRequest = {
   orderNo?: string(name='order_no'),
   // 登录方式，ACCOUNT_PASS：账密，ALL：全部(包括账密和扫码)，默认为ALL（全部）
   loginMode?: string(name='login_mode'),
+  // 授权页面初始化模式 PASS 账密登录 QRCODE 扫码登录 PASSSHARE 分享辅助登录
+  initMode?: string(name='init_mode'),
 }
 
 model CreateApiAuthurlResponse = {
