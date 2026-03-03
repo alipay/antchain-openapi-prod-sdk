@@ -6037,6 +6037,7 @@ class CallbackMktEffectRequest(TeaModel):
         self,
         auth_token: str = None,
         request_id: str = None,
+        product_code: str = None,
         project_id: str = None,
         insure_short_url: str = None,
         encryption_type: str = None,
@@ -6050,6 +6051,8 @@ class CallbackMktEffectRequest(TeaModel):
         self.auth_token = auth_token
         # 请求id，每一次请求保持唯一；若重复，则更新原数据；
         self.request_id = request_id
+        # 产品编码，蚂蚁分配
+        self.product_code = product_code
         # 项目ID，待蚂蚁分配
         self.project_id = project_id
         # 投保特征短链
@@ -6071,6 +6074,7 @@ class CallbackMktEffectRequest(TeaModel):
         self.validate_required(self.request_id, 'request_id')
         if self.request_id is not None:
             self.validate_max_length(self.request_id, 'request_id', 128)
+        self.validate_required(self.product_code, 'product_code')
         self.validate_required(self.project_id, 'project_id')
         if self.project_id is not None:
             self.validate_max_length(self.project_id, 'project_id', 64)
@@ -6106,6 +6110,8 @@ class CallbackMktEffectRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.request_id is not None:
             result['request_id'] = self.request_id
+        if self.product_code is not None:
+            result['product_code'] = self.product_code
         if self.project_id is not None:
             result['project_id'] = self.project_id
         if self.insure_short_url is not None:
@@ -6130,6 +6136,8 @@ class CallbackMktEffectRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('request_id') is not None:
             self.request_id = m.get('request_id')
+        if m.get('product_code') is not None:
+            self.product_code = m.get('product_code')
         if m.get('project_id') is not None:
             self.project_id = m.get('project_id')
         if m.get('insure_short_url') is not None:
