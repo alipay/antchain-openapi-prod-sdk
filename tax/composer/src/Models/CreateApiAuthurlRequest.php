@@ -78,6 +78,12 @@ class CreateApiAuthurlRequest extends Model
      * @var string
      */
     public $loginMode;
+
+    // 授权页面初始化模式 PASS 账密登录 QRCODE 扫码登录 PASSSHARE 分享辅助登录
+    /**
+     * @var string
+     */
+    public $initMode;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -91,6 +97,7 @@ class CreateApiAuthurlRequest extends Model
         'identityNumber'    => 'identity_number',
         'orderNo'           => 'order_no',
         'loginMode'         => 'login_mode',
+        'initMode'          => 'init_mode',
     ];
 
     public function validate()
@@ -141,6 +148,9 @@ class CreateApiAuthurlRequest extends Model
         if (null !== $this->loginMode) {
             $res['login_mode'] = $this->loginMode;
         }
+        if (null !== $this->initMode) {
+            $res['init_mode'] = $this->initMode;
+        }
 
         return $res;
     }
@@ -188,6 +198,9 @@ class CreateApiAuthurlRequest extends Model
         }
         if (isset($map['login_mode'])) {
             $model->loginMode = $map['login_mode'];
+        }
+        if (isset($map['init_mode'])) {
+            $model->initMode = $map['init_mode'];
         }
 
         return $model;
