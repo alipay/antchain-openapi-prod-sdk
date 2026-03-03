@@ -68,6 +68,11 @@ namespace AntChain.SDK.TAX.Models
         [Validation(Required=false)]
         public string LoginMode { get; set; }
 
+        // 授权页面初始化模式 PASS 账密登录 QRCODE 扫码登录 PASSSHARE 分享辅助登录
+        [NameInMap("init_mode")]
+        [Validation(Required=false)]
+        public string InitMode { get; set; }
+
     }
 
 }
