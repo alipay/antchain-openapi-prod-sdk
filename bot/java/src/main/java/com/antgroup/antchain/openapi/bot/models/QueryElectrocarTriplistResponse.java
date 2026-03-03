@@ -24,6 +24,22 @@ public class QueryElectrocarTriplistResponse extends TeaModel {
     @NameInMap("trip_detail_list")
     public java.util.List<TripDetail> tripDetailList;
 
+    // 当前页码
+    @NameInMap("page_index")
+    public Long pageIndex;
+
+    // 单页数量
+    @NameInMap("page_size")
+    public Long pageSize;
+
+    // 记录总数
+    @NameInMap("total_size")
+    public Long totalSize;
+
+    // 页总数
+    @NameInMap("total_pages")
+    public Long totalPages;
+
     public static QueryElectrocarTriplistResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryElectrocarTriplistResponse self = new QueryElectrocarTriplistResponse();
         return TeaModel.build(map, self);
@@ -67,6 +83,38 @@ public class QueryElectrocarTriplistResponse extends TeaModel {
     }
     public java.util.List<TripDetail> getTripDetailList() {
         return this.tripDetailList;
+    }
+
+    public QueryElectrocarTriplistResponse setPageIndex(Long pageIndex) {
+        this.pageIndex = pageIndex;
+        return this;
+    }
+    public Long getPageIndex() {
+        return this.pageIndex;
+    }
+
+    public QueryElectrocarTriplistResponse setPageSize(Long pageSize) {
+        this.pageSize = pageSize;
+        return this;
+    }
+    public Long getPageSize() {
+        return this.pageSize;
+    }
+
+    public QueryElectrocarTriplistResponse setTotalSize(Long totalSize) {
+        this.totalSize = totalSize;
+        return this;
+    }
+    public Long getTotalSize() {
+        return this.totalSize;
+    }
+
+    public QueryElectrocarTriplistResponse setTotalPages(Long totalPages) {
+        this.totalPages = totalPages;
+        return this;
+    }
+    public Long getTotalPages() {
+        return this.totalPages;
     }
 
 }

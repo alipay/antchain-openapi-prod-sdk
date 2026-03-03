@@ -30,6 +30,14 @@ public class QueryElectrocarTravelRequest extends TeaModel {
     @NameInMap("time_range")
     public String timeRange;
 
+    // 默认1
+    @NameInMap("page_num")
+    public Long pageNum;
+
+    // 默认20
+    @NameInMap("page_size")
+    public Long pageSize;
+
     public static QueryElectrocarTravelRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryElectrocarTravelRequest self = new QueryElectrocarTravelRequest();
         return TeaModel.build(map, self);
@@ -81,6 +89,22 @@ public class QueryElectrocarTravelRequest extends TeaModel {
     }
     public String getTimeRange() {
         return this.timeRange;
+    }
+
+    public QueryElectrocarTravelRequest setPageNum(Long pageNum) {
+        this.pageNum = pageNum;
+        return this;
+    }
+    public Long getPageNum() {
+        return this.pageNum;
+    }
+
+    public QueryElectrocarTravelRequest setPageSize(Long pageSize) {
+        this.pageSize = pageSize;
+        return this;
+    }
+    public Long getPageSize() {
+        return this.pageSize;
     }
 
 }
