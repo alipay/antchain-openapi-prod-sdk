@@ -56,6 +56,10 @@ public class CreateApiAuthurlRequest extends TeaModel {
     @NameInMap("login_mode")
     public String loginMode;
 
+    // 授权页面初始化模式 PASS 账密登录 QRCODE 扫码登录 PASSSHARE 分享辅助登录
+    @NameInMap("init_mode")
+    public String initMode;
+
     public static CreateApiAuthurlRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateApiAuthurlRequest self = new CreateApiAuthurlRequest();
         return TeaModel.build(map, self);
@@ -155,6 +159,14 @@ public class CreateApiAuthurlRequest extends TeaModel {
     }
     public String getLoginMode() {
         return this.loginMode;
+    }
+
+    public CreateApiAuthurlRequest setInitMode(String initMode) {
+        this.initMode = initMode;
+        return this;
+    }
+    public String getInitMode() {
+        return this.initMode;
     }
 
 }
