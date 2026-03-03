@@ -4093,6 +4093,7 @@ class CreateApiAuthurlRequest(TeaModel):
         identity_number: str = None,
         order_no: str = None,
         login_mode: str = None,
+        init_mode: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -4117,6 +4118,8 @@ class CreateApiAuthurlRequest(TeaModel):
         self.order_no = order_no
         # 登录方式，ACCOUNT_PASS：账密，ALL：全部(包括账密和扫码)，默认为ALL（全部）
         self.login_mode = login_mode
+        # 授权页面初始化模式 PASS 账密登录 QRCODE 扫码登录 PASSSHARE 分享辅助登录
+        self.init_mode = init_mode
 
     def validate(self):
         self.validate_required(self.auth_type, 'auth_type')
@@ -4155,6 +4158,8 @@ class CreateApiAuthurlRequest(TeaModel):
             result['order_no'] = self.order_no
         if self.login_mode is not None:
             result['login_mode'] = self.login_mode
+        if self.init_mode is not None:
+            result['init_mode'] = self.init_mode
         return result
 
     def from_map(self, m: dict = None):
@@ -4183,6 +4188,8 @@ class CreateApiAuthurlRequest(TeaModel):
             self.order_no = m.get('order_no')
         if m.get('login_mode') is not None:
             self.login_mode = m.get('login_mode')
+        if m.get('init_mode') is not None:
+            self.init_mode = m.get('init_mode')
         return self
 
 
