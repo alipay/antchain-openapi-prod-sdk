@@ -37,12 +37,40 @@ class QueryElectrocarTriplistResponse extends Model
      * @var TripDetail[]
      */
     public $tripDetailList;
+
+    // 当前页码
+    /**
+     * @var int
+     */
+    public $pageIndex;
+
+    // 单页数量
+    /**
+     * @var int
+     */
+    public $pageSize;
+
+    // 记录总数
+    /**
+     * @var int
+     */
+    public $totalSize;
+
+    // 页总数
+    /**
+     * @var int
+     */
+    public $totalPages;
     protected $_name = [
         'reqMsgId'       => 'req_msg_id',
         'resultCode'     => 'result_code',
         'resultMsg'      => 'result_msg',
         'success'        => 'success',
         'tripDetailList' => 'trip_detail_list',
+        'pageIndex'      => 'page_index',
+        'pageSize'       => 'page_size',
+        'totalSize'      => 'total_size',
+        'totalPages'     => 'total_pages',
     ];
 
     public function validate()
@@ -72,6 +100,18 @@ class QueryElectrocarTriplistResponse extends Model
                     $res['trip_detail_list'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
+        }
+        if (null !== $this->pageIndex) {
+            $res['page_index'] = $this->pageIndex;
+        }
+        if (null !== $this->pageSize) {
+            $res['page_size'] = $this->pageSize;
+        }
+        if (null !== $this->totalSize) {
+            $res['total_size'] = $this->totalSize;
+        }
+        if (null !== $this->totalPages) {
+            $res['total_pages'] = $this->totalPages;
         }
 
         return $res;
@@ -105,6 +145,18 @@ class QueryElectrocarTriplistResponse extends Model
                     $model->tripDetailList[$n++] = null !== $item ? TripDetail::fromMap($item) : $item;
                 }
             }
+        }
+        if (isset($map['page_index'])) {
+            $model->pageIndex = $map['page_index'];
+        }
+        if (isset($map['page_size'])) {
+            $model->pageSize = $map['page_size'];
+        }
+        if (isset($map['total_size'])) {
+            $model->totalSize = $map['total_size'];
+        }
+        if (isset($map['total_pages'])) {
+            $model->totalPages = $map['total_pages'];
         }
 
         return $model;
