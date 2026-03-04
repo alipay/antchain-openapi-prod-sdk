@@ -15,17 +15,17 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f.Models
         // APP 自有app
         // ALL 两种都有
         [NameInMap("application_scene")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string ApplicationScene { get; set; }
 
         // 小程序id
         [NameInMap("tiny_app_id")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string TinyAppId { get; set; }
 
         // 小程序名称
         [NameInMap("site_name")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string SiteName { get; set; }
 
         // 网站地址（pay_channel=ALIPAY必填）
