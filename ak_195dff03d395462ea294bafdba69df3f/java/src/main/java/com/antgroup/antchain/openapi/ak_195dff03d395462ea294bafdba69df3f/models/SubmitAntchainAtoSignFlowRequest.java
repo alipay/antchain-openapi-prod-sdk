@@ -16,23 +16,16 @@ public class SubmitAntchainAtoSignFlowRequest extends TeaModel {
     @Validation(required = true)
     public String orderId;
 
-    // CRED_PSN_CH_IDCARD： 大陆身份证
-    // CRED_PSN_CH_TWCARD：台湾来往大陆通行证
-    // CRED_PSN_CH_MACAO"：澳门来往大陆通行证
-    // CRED_PSN_CH_HONGKONG：香港来往大陆通行证
-    // CRED_PSN_PASSPORT：护照
+    // CRED_PSN_CH_IDCARD大陆身份证
     @NameInMap("user_id_type")
-    @Validation(required = true)
     public String userIdType;
 
     // 用户证件号，需要采用RSA加密传输
     @NameInMap("user_id_number")
-    @Validation(required = true)
     public String userIdNumber;
 
     // 姓名，需要采用RSA加密传输
     @NameInMap("user_name")
-    @Validation(required = true)
     public String userName;
 
     // 用户手机号，可不传；传的话需要采用RSA加密传输

@@ -45,6 +45,7 @@ public class RegisterAntchainAtoMerchantexpandMerchantRequest extends TeaModel {
     // 支付渠道
     // ALIPAY（默认）
     // JDPAY
+    // RECEIPT_COUPON（立减金金融）
     @NameInMap("pay_channel")
     public String payChannel;
 

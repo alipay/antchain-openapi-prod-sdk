@@ -1,0 +1,61 @@
+// This file is auto-generated, don't edit it. Thanks.
+package com.antgroup.antchain.openapi.ak_195dff03d395462ea294bafdba69df3f.models;
+
+import com.aliyun.tea.*;
+
+public class QueryAntchainAtoFundCreditauthRequest extends TeaModel {
+    // OAuth模式下的授权token
+    @NameInMap("auth_token")
+    public String authToken;
+
+    @NameInMap("product_instance_id")
+    public String productInstanceId;
+
+    // 资方社会引用代码
+    @NameInMap("fund_id")
+    @Validation(required = true)
+    public String fundId;
+
+    // 授权id
+    @NameInMap("auth_id")
+    @Validation(required = true)
+    public String authId;
+
+    public static QueryAntchainAtoFundCreditauthRequest build(java.util.Map<String, ?> map) throws Exception {
+        QueryAntchainAtoFundCreditauthRequest self = new QueryAntchainAtoFundCreditauthRequest();
+        return TeaModel.build(map, self);
+    }
+
+    public QueryAntchainAtoFundCreditauthRequest setAuthToken(String authToken) {
+        this.authToken = authToken;
+        return this;
+    }
+    public String getAuthToken() {
+        return this.authToken;
+    }
+
+    public QueryAntchainAtoFundCreditauthRequest setProductInstanceId(String productInstanceId) {
+        this.productInstanceId = productInstanceId;
+        return this;
+    }
+    public String getProductInstanceId() {
+        return this.productInstanceId;
+    }
+
+    public QueryAntchainAtoFundCreditauthRequest setFundId(String fundId) {
+        this.fundId = fundId;
+        return this;
+    }
+    public String getFundId() {
+        return this.fundId;
+    }
+
+    public QueryAntchainAtoFundCreditauthRequest setAuthId(String authId) {
+        this.authId = authId;
+        return this;
+    }
+    public String getAuthId() {
+        return this.authId;
+    }
+
+}

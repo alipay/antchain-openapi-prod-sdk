@@ -38,7 +38,7 @@ public class RepayAntchainAtoFundPlanRequest extends TeaModel {
 
     // 支付描述
     @NameInMap("payment_description")
-    @Validation(required = true, maxLength = 64)
+    @Validation(required = true, maxLength = 300)
     public String paymentDescription;
 
     public static RepayAntchainAtoFundPlanRequest build(java.util.Map<String, ?> map) throws Exception {
