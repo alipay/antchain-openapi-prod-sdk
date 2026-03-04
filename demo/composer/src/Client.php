@@ -11,30 +11,44 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\DEMO\Models\AsdasAsdaAsdaRequest;
+use AntChain\DEMO\Models\AsdasAsdaAsdaResponse;
 use AntChain\DEMO\Models\BindAaaBbbCccRequest;
 use AntChain\DEMO\Models\BindAaaBbbCccResponse;
 use AntChain\DEMO\Models\BindAaaBbbCcdRequest;
 use AntChain\DEMO\Models\BindAaaBbbCcdResponse;
+use AntChain\DEMO\Models\CheckAicoguardcoreAicoguardrailsQuestionRequest;
+use AntChain\DEMO\Models\CheckAicoguardcoreAicoguardrailsQuestionResponse;
 use AntChain\DEMO\Models\CreateAntcloudGatewayxFileUploadRequest;
 use AntChain\DEMO\Models\CreateAntcloudGatewayxFileUploadResponse;
 use AntChain\DEMO\Models\EchoGatewayCheckRequest;
 use AntChain\DEMO\Models\EchoGatewayCheckResponse;
+use AntChain\DEMO\Models\ErfvQwsxWedcRequest;
+use AntChain\DEMO\Models\ErfvQwsxWedcResponse;
 use AntChain\DEMO\Models\ExecGatewayRoadRequest;
 use AntChain\DEMO\Models\ExecGatewayRoadResponse;
 use AntChain\DEMO\Models\InitGatewayRoadRequest;
 use AntChain\DEMO\Models\InitGatewayRoadResponse;
 use AntChain\DEMO\Models\MatchBusinessAndInstanceRequest;
 use AntChain\DEMO\Models\MatchBusinessAndInstanceResponse;
-use AntChain\DEMO\Models\QueryAaaaFffDdRequest;
-use AntChain\DEMO\Models\QueryAaaaFffDdResponse;
 use AntChain\DEMO\Models\QueryAaaBbbCccRequest;
 use AntChain\DEMO\Models\QueryAaaBbbCccResponse;
+use AntChain\DEMO\Models\QueryAaaMultiCccRequest;
+use AntChain\DEMO\Models\QueryAaaMultiCccResponse;
+use AntChain\DEMO\Models\QueryAasSaSaRequest;
+use AntChain\DEMO\Models\QueryAasSaSaResponse;
 use AntChain\DEMO\Models\QueryAbcAbcAbcRequest;
 use AntChain\DEMO\Models\QueryAbcAbcAbcResponse;
 use AntChain\DEMO\Models\QueryABCRequest;
 use AntChain\DEMO\Models\QueryABCResponse;
 use AntChain\DEMO\Models\QueryAdAsdAsdRequest;
 use AntChain\DEMO\Models\QueryAdAsdAsdResponse;
+use AntChain\DEMO\Models\QueryAgentFinancialRiskRequest;
+use AntChain\DEMO\Models\QueryAgentFinancialRiskResponse;
+use AntChain\DEMO\Models\QueryApiBlackListRequest;
+use AntChain\DEMO\Models\QueryApiBlackListResponse;
+use AntChain\DEMO\Models\QueryApiWhiteListRequest;
+use AntChain\DEMO\Models\QueryApiWhiteListResponse;
 use AntChain\DEMO\Models\QueryAutoTestRequest;
 use AntChain\DEMO\Models\QueryAutoTestResponse;
 use AntChain\DEMO\Models\QueryGatewayCheckEchotenRequest;
@@ -67,6 +81,10 @@ use AntChain\DEMO\Models\QueryLoadtestTimeThreeRequest;
 use AntChain\DEMO\Models\QueryLoadtestTimeThreeResponse;
 use AntChain\DEMO\Models\QueryLoadtestTimeTwoRequest;
 use AntChain\DEMO\Models\QueryLoadtestTimeTwoResponse;
+use AntChain\DEMO\Models\QueryOasRestRequest;
+use AntChain\DEMO\Models\QueryOasRestResponse;
+use AntChain\DEMO\Models\QueryReWRequest;
+use AntChain\DEMO\Models\QueryReWResponse;
 use AntChain\DEMO\Models\QueryStreamNonjsonRequest;
 use AntChain\DEMO\Models\QueryStreamNonjsonResponse;
 use AntChain\DEMO\Models\QueryStreamNonstreamRequest;
@@ -75,6 +93,10 @@ use AntChain\DEMO\Models\QueryStreamSpecialCharactersRequest;
 use AntChain\DEMO\Models\QueryStreamSpecialCharactersResponse;
 use AntChain\DEMO\Models\QueryStreamTestmethodRequest;
 use AntChain\DEMO\Models\QueryStreamTestmethodResponse;
+use AntChain\DEMO\Models\QueryStreamTestmethodtwoRequest;
+use AntChain\DEMO\Models\QueryStreamTestmethodtwoResponse;
+use AntChain\DEMO\Models\QueryStreamTestRequest;
+use AntChain\DEMO\Models\QueryStreamTestResponse;
 use AntChain\DEMO\Models\QueryStreamTimeoutRequest;
 use AntChain\DEMO\Models\QueryStreamTimeoutResponse;
 use AntChain\DEMO\Models\QueryTestCatcheLimitRequest;
@@ -91,16 +113,20 @@ use AntChain\DEMO\Models\QueryTestContentTypethreeRequest;
 use AntChain\DEMO\Models\QueryTestContentTypethreeResponse;
 use AntChain\DEMO\Models\QueryTestContentTypetwoRequest;
 use AntChain\DEMO\Models\QueryTestContentTypetwoResponse;
+use AntChain\DEMO\Models\QueryTestEmbedUserRequest;
+use AntChain\DEMO\Models\QueryTestEmbedUserResponse;
 use AntChain\DEMO\Models\QueryTestForLimitRequest;
 use AntChain\DEMO\Models\QueryTestForLimitResponse;
-use AntChain\DEMO\Models\QueryTestTestRequest;
-use AntChain\DEMO\Models\QueryTestTestResponse;
+use AntChain\DEMO\Models\QueryTestHfRequest;
+use AntChain\DEMO\Models\QueryTestHfResponse;
 use AntChain\DEMO\Models\QueryTestTestTestRequest;
 use AntChain\DEMO\Models\QueryTestTestTestResponse;
 use AntChain\DEMO\Models\QueryTestTimeMenhuRequest;
 use AntChain\DEMO\Models\QueryTestTimeMenhuResponse;
 use AntChain\DEMO\Models\QueryTestTimeTestaRequest;
 use AntChain\DEMO\Models\QueryTestTimeTestaResponse;
+use AntChain\DEMO\Models\StabilizeTestTestRequest;
+use AntChain\DEMO\Models\StabilizeTestTestResponse;
 use AntChain\DEMO\Models\StatusGatewayCheckRequest;
 use AntChain\DEMO\Models\StatusGatewayCheckResponse;
 use AntChain\DEMO\Models\UpdateGatewayRoadRequest;
@@ -226,7 +252,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // host
+            // 键值对，兼容map用
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -254,9 +280,9 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.90',
+                    'sdk_version'      => '1.1.97',
                     '_prod_code'       => 'DEMO',
-                    '_prod_channel'    => 'default',
+                    '_prod_channel'    => 'undefined',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -300,6 +326,72 @@ class Client
         }
 
         throw new TeaUnableRetryError($_lastRequest, $_lastException);
+    }
+
+    /**
+     * Description: test
+     * Summary: test.
+     *
+     * @param StabilizeTestTestRequest $request
+     *
+     * @return StabilizeTestTestResponse
+     */
+    public function stabilizeTestTest($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->stabilizeTestTestEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: test
+     * Summary: test.
+     *
+     * @param StabilizeTestTestRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return StabilizeTestTestResponse
+     */
+    public function stabilizeTestTestEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StabilizeTestTestResponse::fromMap($this->doRequest('1.0', 'demo.test.test.stabilize', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: a_a_a
+     * Summary: a_a_a.
+     *
+     * @param AsdasAsdaAsdaRequest $request
+     *
+     * @return AsdasAsdaAsdaResponse
+     */
+    public function asdasAsdaAsda($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->asdasAsdaAsdaEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: a_a_a
+     * Summary: a_a_a.
+     *
+     * @param AsdasAsdaAsdaRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return AsdasAsdaAsdaResponse
+     */
+    public function asdasAsdaAsdaEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AsdasAsdaAsdaResponse::fromMap($this->doRequest('1.0', 'demo.asda.asda.asdas', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -388,72 +480,6 @@ class Client
     }
 
     /**
-     * Description: 测试使用
-     * Summary: 测试使用.
-     *
-     * @param QueryAaaaFffDdRequest $request
-     *
-     * @return QueryAaaaFffDdResponse
-     */
-    public function queryAaaaFffDd($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->queryAaaaFffDdEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 测试使用
-     * Summary: 测试使用.
-     *
-     * @param QueryAaaaFffDdRequest $request
-     * @param string[]              $headers
-     * @param RuntimeOptions        $runtime
-     *
-     * @return QueryAaaaFffDdResponse
-     */
-    public function queryAaaaFffDdEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return QueryAaaaFffDdResponse::fromMap($this->doRequest('1.0', 'demo.aaaa.fff.dd.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 的
-     * Summary: 下载地址创建.
-     *
-     * @param QueryTestTestRequest $request
-     *
-     * @return QueryTestTestResponse
-     */
-    public function queryTestTest($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->queryTestTestEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 的
-     * Summary: 下载地址创建.
-     *
-     * @param QueryTestTestRequest $request
-     * @param string[]             $headers
-     * @param RuntimeOptions       $runtime
-     *
-     * @return QueryTestTestResponse
-     */
-    public function queryTestTestEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return QueryTestTestResponse::fromMap($this->doRequest('1.0', 'demo.test.test.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
      * Description: aaa
      * Summary: 测试demo.
      *
@@ -488,7 +514,7 @@ class Client
 
     /**
      * Description: 超时测试
-     * Summary: 超时.
+     * Summary: 自动化运行态测试使用【勿动！】.
      *
      * @param QueryGatewayCheckEchotimeoutRequest $request
      *
@@ -504,7 +530,7 @@ class Client
 
     /**
      * Description: 超时测试
-     * Summary: 超时.
+     * Summary: 自动化运行态测试使用【勿动！】.
      *
      * @param QueryGatewayCheckEchotimeoutRequest $request
      * @param string[]                            $headers
@@ -586,72 +612,6 @@ class Client
     }
 
     /**
-     * Description: 更新入参后返回结果，Fr 自动化连通性测试。
-     * Summary: road.upd（Fr AutoT）.
-     *
-     * @param UpdateGatewayRoadRequest $request
-     *
-     * @return UpdateGatewayRoadResponse
-     */
-    public function updateGatewayRoad($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->updateGatewayRoadEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 更新入参后返回结果，Fr 自动化连通性测试。
-     * Summary: road.upd（Fr AutoT）.
-     *
-     * @param UpdateGatewayRoadRequest $request
-     * @param string[]                 $headers
-     * @param RuntimeOptions           $runtime
-     *
-     * @return UpdateGatewayRoadResponse
-     */
-    public function updateGatewayRoadEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return UpdateGatewayRoadResponse::fromMap($this->doRequest('1.0', 'demo.gateway.road.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 压测接口3
-     * Summary: 压测接口3.
-     *
-     * @param QueryLoadtestTimeThreeRequest $request
-     *
-     * @return QueryLoadtestTimeThreeResponse
-     */
-    public function queryLoadtestTimeThree($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->queryLoadtestTimeThreeEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 压测接口3
-     * Summary: 压测接口3.
-     *
-     * @param QueryLoadtestTimeThreeRequest $request
-     * @param string[]                      $headers
-     * @param RuntimeOptions                $runtime
-     *
-     * @return QueryLoadtestTimeThreeResponse
-     */
-    public function queryLoadtestTimeThreeEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return QueryLoadtestTimeThreeResponse::fromMap($this->doRequest('1.0', 'demo.loadtest.time.three.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
      * Description: 根据入参组合返回结果，Fr 自动化连通性测试。
      * Summary: road.init（Fr AutoT）.
      *
@@ -715,6 +675,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryGatewayEmbedResponse::fromMap($this->doRequest('1.0', 'demo.gateway.embed.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 更新入参后返回结果，Fr 自动化连通性测试。
+     * Summary: road.upd（Fr AutoT）.
+     *
+     * @param UpdateGatewayRoadRequest $request
+     *
+     * @return UpdateGatewayRoadResponse
+     */
+    public function updateGatewayRoad($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateGatewayRoadEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 更新入参后返回结果，Fr 自动化连通性测试。
+     * Summary: road.upd（Fr AutoT）.
+     *
+     * @param UpdateGatewayRoadRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return UpdateGatewayRoadResponse
+     */
+    public function updateGatewayRoadEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateGatewayRoadResponse::fromMap($this->doRequest('1.0', 'demo.gateway.road.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -784,8 +777,41 @@ class Client
     }
 
     /**
+     * Description: 压测接口3
+     * Summary: 压测接口3.
+     *
+     * @param QueryLoadtestTimeThreeRequest $request
+     *
+     * @return QueryLoadtestTimeThreeResponse
+     */
+    public function queryLoadtestTimeThree($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryLoadtestTimeThreeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 压测接口3
+     * Summary: 压测接口3.
+     *
+     * @param QueryLoadtestTimeThreeRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return QueryLoadtestTimeThreeResponse
+     */
+    public function queryLoadtestTimeThreeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryLoadtestTimeThreeResponse::fromMap($this->doRequest('1.0', 'demo.loadtest.time.three.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: test
-     * Summary: test.
+     * Summary: 自动化测试工程使用，勿删勿改.
      *
      * @param QueryInstanceidRuleRequest $request
      *
@@ -801,7 +827,7 @@ class Client
 
     /**
      * Description: test
-     * Summary: test.
+     * Summary: 自动化测试工程使用，勿删勿改.
      *
      * @param QueryInstanceidRuleRequest $request
      * @param string[]                   $headers
@@ -814,6 +840,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryInstanceidRuleResponse::fromMap($this->doRequest('1.0', 'demo.instanceid.rule.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 设置下游耗时
+     * Summary: 自动化运行态使用【勿动！】.
+     *
+     * @param QueryGatewayCheckEchotimeoutokRequest $request
+     *
+     * @return QueryGatewayCheckEchotimeoutokResponse
+     */
+    public function queryGatewayCheckEchotimeoutok($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryGatewayCheckEchotimeoutokEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 设置下游耗时
+     * Summary: 自动化运行态使用【勿动！】.
+     *
+     * @param QueryGatewayCheckEchotimeoutokRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return QueryGatewayCheckEchotimeoutokResponse
+     */
+    public function queryGatewayCheckEchotimeoutokEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryGatewayCheckEchotimeoutokResponse::fromMap($this->doRequest('1.0', 'demo.gateway.check.echotimeoutok.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -850,36 +909,36 @@ class Client
     }
 
     /**
-     * Description: 设置下游耗时
-     * Summary: 超时（加密）.
+     * Description: 流失查询测试
+     * Summary: 流失查询测试.
      *
-     * @param QueryGatewayCheckEchotimeoutokRequest $request
+     * @param QueryStreamTestRequest $request
      *
-     * @return QueryGatewayCheckEchotimeoutokResponse
+     * @return QueryStreamTestResponse
      */
-    public function queryGatewayCheckEchotimeoutok($request)
+    public function queryStreamTest($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->queryGatewayCheckEchotimeoutokEx($request, $headers, $runtime);
+        return $this->queryStreamTestEx($request, $headers, $runtime);
     }
 
     /**
-     * Description: 设置下游耗时
-     * Summary: 超时（加密）.
+     * Description: 流失查询测试
+     * Summary: 流失查询测试.
      *
-     * @param QueryGatewayCheckEchotimeoutokRequest $request
-     * @param string[]                              $headers
-     * @param RuntimeOptions                        $runtime
+     * @param QueryStreamTestRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
      *
-     * @return QueryGatewayCheckEchotimeoutokResponse
+     * @return QueryStreamTestResponse
      */
-    public function queryGatewayCheckEchotimeoutokEx($request, $headers, $runtime)
+    public function queryStreamTestEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return QueryGatewayCheckEchotimeoutokResponse::fromMap($this->doRequest('1.0', 'demo.gateway.check.echotimeoutok.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return QueryStreamTestResponse::fromMap($this->doRequest('1.0', 'demo.stream.test.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -916,39 +975,6 @@ class Client
     }
 
     /**
-     * Description: test
-     * Summary: test.
-     *
-     * @param QueryTestTestTestRequest $request
-     *
-     * @return QueryTestTestTestResponse
-     */
-    public function queryTestTestTest($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->queryTestTestTestEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: test
-     * Summary: test.
-     *
-     * @param QueryTestTestTestRequest $request
-     * @param string[]                 $headers
-     * @param RuntimeOptions           $runtime
-     *
-     * @return QueryTestTestTestResponse
-     */
-    public function queryTestTestTestEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return QueryTestTestTestResponse::fromMap($this->doRequest('1.0', 'demo.test.test.test.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
      * Description: 测试使用
      * Summary: 测试使用.
      *
@@ -982,6 +1008,58 @@ class Client
     }
 
     /**
+     * Description: test
+     * Summary: test.
+     *
+     * @param QueryTestTestTestRequest $request
+     *
+     * @return QueryTestTestTestResponse
+     */
+    public function queryTestTestTest($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryTestTestTestEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: test
+     * Summary: test.
+     *
+     * @param QueryTestTestTestRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return QueryTestTestTestResponse
+     */
+    public function queryTestTestTestEx($request, $headers, $runtime)
+    {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'demo.test.test.test.query',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'OK')) {
+                return new QueryTestTestTestResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
+        }
+        Utils::validateModel($request);
+
+        return QueryTestTestTestResponse::fromMap($this->doRequest('1.0', 'demo.test.test.test.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: a
      * Summary: abcde.
      *
@@ -1012,6 +1090,138 @@ class Client
         Utils::validateModel($request);
 
         return QueryABCResponse::fromMap($this->doRequest('1.0', 'demo.a.b.c.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 近端接口测试
+     * Summary: 近端接口测试.
+     *
+     * @param QueryTestEmbedUserRequest $request
+     *
+     * @return QueryTestEmbedUserResponse
+     */
+    public function queryTestEmbedUser($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryTestEmbedUserEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 近端接口测试
+     * Summary: 近端接口测试.
+     *
+     * @param QueryTestEmbedUserRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return QueryTestEmbedUserResponse
+     */
+    public function queryTestEmbedUserEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryTestEmbedUserResponse::fromMap($this->doRequest('1.0', 'demo.test.embed.user.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: sss
+     * Summary: sss.
+     *
+     * @param QueryAasSaSaRequest $request
+     *
+     * @return QueryAasSaSaResponse
+     */
+    public function queryAasSaSa($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAasSaSaEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: sss
+     * Summary: sss.
+     *
+     * @param QueryAasSaSaRequest $request
+     * @param string[]            $headers
+     * @param RuntimeOptions      $runtime
+     *
+     * @return QueryAasSaSaResponse
+     */
+    public function queryAasSaSaEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAasSaSaResponse::fromMap($this->doRequest('1.0', 'demo.aas.sa.sa.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用于自动化测试IP访问控制白名单测试需要，【请勿做任何改动！】
+     * Summary: 自动化测试需要，【请勿做任何改动！】.
+     *
+     * @param QueryApiWhiteListRequest $request
+     *
+     * @return QueryApiWhiteListResponse
+     */
+    public function queryApiWhiteList($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryApiWhiteListEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用于自动化测试IP访问控制白名单测试需要，【请勿做任何改动！】
+     * Summary: 自动化测试需要，【请勿做任何改动！】.
+     *
+     * @param QueryApiWhiteListRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return QueryApiWhiteListResponse
+     */
+    public function queryApiWhiteListEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryApiWhiteListResponse::fromMap($this->doRequest('1.0', 'demo.api.white.list.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用于自动化测试IP访问控制白名单测试需要，【请勿做任何改动！】
+     * Summary: 自动化测试需要，【请勿做任何改动！】.
+     *
+     * @param QueryApiBlackListRequest $request
+     *
+     * @return QueryApiBlackListResponse
+     */
+    public function queryApiBlackList($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryApiBlackListEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用于自动化测试IP访问控制白名单测试需要，【请勿做任何改动！】
+     * Summary: 自动化测试需要，【请勿做任何改动！】.
+     *
+     * @param QueryApiBlackListRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return QueryApiBlackListResponse
+     */
+    public function queryApiBlackListEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryApiBlackListResponse::fromMap($this->doRequest('1.0', 'demo.api.black.list.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -1049,7 +1259,7 @@ class Client
 
     /**
      * Description: ip访问白名单测试
-     * Summary: 【自动化】ip访问黑名单测试.
+     * Summary: ip访问白名单测试.
      *
      * @param QueryIpBlackListRequest $request
      *
@@ -1065,7 +1275,7 @@ class Client
 
     /**
      * Description: ip访问白名单测试
-     * Summary: 【自动化】ip访问黑名单测试.
+     * Summary: ip访问白名单测试.
      *
      * @param QueryIpBlackListRequest $request
      * @param string[]                $headers
@@ -1144,6 +1354,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryTestTimeTestaResponse::fromMap($this->doRequest('1.0', 'demo.test.time.testa.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: oas 测试使用
+     * Summary: oas 测试使用.
+     *
+     * @param QueryOasRestRequest $request
+     *
+     * @return QueryOasRestResponse
+     */
+    public function queryOasRest($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryOasRestEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: oas 测试使用
+     * Summary: oas 测试使用.
+     *
+     * @param QueryOasRestRequest $request
+     * @param string[]            $headers
+     * @param RuntimeOptions      $runtime
+     *
+     * @return QueryOasRestResponse
+     */
+    public function queryOasRestEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryOasRestResponse::fromMap($this->doRequest('1.0', 'demo.oas.rest.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -1345,8 +1588,41 @@ class Client
     }
 
     /**
+     * Description: 金融场景风险分析
+     * Summary: 金融场景风险分析.
+     *
+     * @param QueryAgentFinancialRiskRequest $request
+     *
+     * @return QueryAgentFinancialRiskResponse
+     */
+    public function queryAgentFinancialRisk($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAgentFinancialRiskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 金融场景风险分析
+     * Summary: 金融场景风险分析.
+     *
+     * @param QueryAgentFinancialRiskRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return QueryAgentFinancialRiskResponse
+     */
+    public function queryAgentFinancialRiskEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAgentFinancialRiskResponse::fromMap($this->doRequest('1.0', 'demo.agent.financial.risk.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 自动化文件上传
-     * Summary: 自动化文件上传.
+     * Summary: 自动化文件上传【勿动！】.
      *
      * @param UploadAutoTestFileRequest $request
      *
@@ -1362,7 +1638,7 @@ class Client
 
     /**
      * Description: 自动化文件上传
-     * Summary: 自动化文件上传.
+     * Summary: 自动化文件上传【勿动！】.
      *
      * @param UploadAutoTestFileRequest $request
      * @param string[]                  $headers
@@ -1394,6 +1670,105 @@ class Client
         Utils::validateModel($request);
 
         return UploadAutoTestFileResponse::fromMap($this->doRequest('1.0', 'demo.auto.test.file.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: stream200 test
+     * Summary: stream200 test.
+     *
+     * @param QueryStreamTestmethodtwoRequest $request
+     *
+     * @return QueryStreamTestmethodtwoResponse
+     */
+    public function queryStreamTestmethodtwo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryStreamTestmethodtwoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: stream200 test
+     * Summary: stream200 test.
+     *
+     * @param QueryStreamTestmethodtwoRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return QueryStreamTestmethodtwoResponse
+     */
+    public function queryStreamTestmethodtwoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryStreamTestmethodtwoResponse::fromMap($this->doRequest('1.0', 'demo.stream.testmethodtwo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: test
+     * Summary: test.
+     *
+     * @param QueryTestHfRequest $request
+     *
+     * @return QueryTestHfResponse
+     */
+    public function queryTestHf($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryTestHfEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: test
+     * Summary: test.
+     *
+     * @param QueryTestHfRequest $request
+     * @param string[]           $headers
+     * @param RuntimeOptions     $runtime
+     *
+     * @return QueryTestHfResponse
+     */
+    public function queryTestHfEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryTestHfResponse::fromMap($this->doRequest('1.0', 'demo.test.hf.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 测试用
+     * Summary: 测试用.
+     *
+     * @param QueryAaaMultiCccRequest $request
+     *
+     * @return QueryAaaMultiCccResponse
+     */
+    public function queryAaaMultiCcc($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAaaMultiCccEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 测试用
+     * Summary: 测试用.
+     *
+     * @param QueryAaaMultiCccRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return QueryAaaMultiCccResponse
+     */
+    public function queryAaaMultiCccEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAaaMultiCccResponse::fromMap($this->doRequest('1.0', 'demo.aaa.multi.ccc.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -1694,6 +2069,72 @@ class Client
     }
 
     /**
+     * Description: sss1
+     * Summary: sss1.
+     *
+     * @param ErfvQwsxWedcRequest $request
+     *
+     * @return ErfvQwsxWedcResponse
+     */
+    public function erfvQwsxWedc($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->erfvQwsxWedcEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: sss1
+     * Summary: sss1.
+     *
+     * @param ErfvQwsxWedcRequest $request
+     * @param string[]            $headers
+     * @param RuntimeOptions      $runtime
+     *
+     * @return ErfvQwsxWedcResponse
+     */
+    public function erfvQwsxWedcEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ErfvQwsxWedcResponse::fromMap($this->doRequest('1.0', 'demo.qwsx.wedc.erfv', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 大模型护栏多轮对话提问检测 测试
+     * Summary: 大模型护栏多轮对话提问检测.
+     *
+     * @param CheckAicoguardcoreAicoguardrailsQuestionRequest $request
+     *
+     * @return CheckAicoguardcoreAicoguardrailsQuestionResponse
+     */
+    public function checkAicoguardcoreAicoguardrailsQuestion($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->checkAicoguardcoreAicoguardrailsQuestionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 大模型护栏多轮对话提问检测 测试
+     * Summary: 大模型护栏多轮对话提问检测.
+     *
+     * @param CheckAicoguardcoreAicoguardrailsQuestionRequest $request
+     * @param string[]                                        $headers
+     * @param RuntimeOptions                                  $runtime
+     *
+     * @return CheckAicoguardcoreAicoguardrailsQuestionResponse
+     */
+    public function checkAicoguardcoreAicoguardrailsQuestionEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CheckAicoguardcoreAicoguardrailsQuestionResponse::fromMap($this->doRequest('1.0', 'demo.aicoguardcore.aicoguardrails.question.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 个人工作台二期测试
      * Summary: 个人工作台二期测试.
      *
@@ -1827,7 +2268,7 @@ class Client
 
     /**
      * Description: 123
-     * Summary: 测试用api.
+     * Summary: 123.
      *
      * @param BindAaaBbbCcdRequest $request
      *
@@ -1843,7 +2284,7 @@ class Client
 
     /**
      * Description: 123
-     * Summary: 测试用api.
+     * Summary: 123.
      *
      * @param BindAaaBbbCcdRequest $request
      * @param string[]             $headers
@@ -1856,6 +2297,39 @@ class Client
         Utils::validateModel($request);
 
         return BindAaaBbbCcdResponse::fromMap($this->doRequest('1.0', 'demo.aaa.bbb.ccd.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 测试
+     * Summary: 测试.
+     *
+     * @param QueryReWRequest $request
+     *
+     * @return QueryReWResponse
+     */
+    public function queryReW($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryReWEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 测试
+     * Summary: 测试.
+     *
+     * @param QueryReWRequest $request
+     * @param string[]        $headers
+     * @param RuntimeOptions  $runtime
+     *
+     * @return QueryReWResponse
+     */
+    public function queryReWEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryReWResponse::fromMap($this->doRequest('1.0', 'demo.re.w.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

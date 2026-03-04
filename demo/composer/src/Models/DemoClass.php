@@ -47,12 +47,21 @@ class DemoClass extends Model
      * @var string[]
      */
     public $someList;
+
+    // 结构体字段
+    /**
+     * @example
+     *
+     * @var AnotherClass
+     */
+    public $someStruct;
     protected $_name = [
         'someString'  => 'some_string',
         'someDate'    => 'some_date',
         'someBoolean' => 'some_boolean',
         'someInt'     => 'some_int',
         'someList'    => 'some_list',
+        'someStruct'  => 'some_struct',
     ];
 
     public function validate()
@@ -62,6 +71,7 @@ class DemoClass extends Model
         Model::validateRequired('someBoolean', $this->someBoolean, true);
         Model::validateRequired('someInt', $this->someInt, true);
         Model::validateRequired('someList', $this->someList, true);
+        Model::validateRequired('someStruct', $this->someStruct, true);
         Model::validatePattern('someDate', $this->someDate, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
         Model::validateMaximum('someInt', $this->someInt, 2000);
         Model::validateMinimum('someInt', $this->someInt, 1);
@@ -84,6 +94,9 @@ class DemoClass extends Model
         }
         if (null !== $this->someList) {
             $res['some_list'] = $this->someList;
+        }
+        if (null !== $this->someStruct) {
+            $res['some_struct'] = null !== $this->someStruct ? $this->someStruct->toMap() : null;
         }
 
         return $res;
@@ -113,6 +126,9 @@ class DemoClass extends Model
             if (!empty($map['some_list'])) {
                 $model->someList = $map['some_list'];
             }
+        }
+        if (isset($map['some_struct'])) {
+            $model->someStruct = AnotherClass::fromMap($map['some_struct']);
         }
 
         return $model;

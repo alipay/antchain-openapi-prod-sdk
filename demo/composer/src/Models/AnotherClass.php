@@ -20,21 +20,12 @@ class AnotherClass extends Model
     /**
      * @example
      *
-     * @var DemoClass
+     * @var QueryMap
      */
     public $ref;
-
-    // 列表引用Struct
-    /**
-     * @example
-     *
-     * @var DemoClass[]
-     */
-    public $refList;
     protected $_name = [
-        'bar'     => 'bar',
-        'ref'     => 'ref',
-        'refList' => 'refList',
+        'bar' => 'bar',
+        'ref' => 'ref',
     ];
 
     public function validate()
@@ -52,15 +43,6 @@ class AnotherClass extends Model
         if (null !== $this->ref) {
             $res['ref'] = null !== $this->ref ? $this->ref->toMap() : null;
         }
-        if (null !== $this->refList) {
-            $res['refList'] = [];
-            if (null !== $this->refList && \is_array($this->refList)) {
-                $n = 0;
-                foreach ($this->refList as $item) {
-                    $res['refList'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
-        }
 
         return $res;
     }
@@ -77,16 +59,7 @@ class AnotherClass extends Model
             $model->bar = $map['bar'];
         }
         if (isset($map['ref'])) {
-            $model->ref = DemoClass::fromMap($map['ref']);
-        }
-        if (isset($map['refList'])) {
-            if (!empty($map['refList'])) {
-                $model->refList = [];
-                $n              = 0;
-                foreach ($map['refList'] as $item) {
-                    $model->refList[$n++] = null !== $item ? DemoClass::fromMap($item) : $item;
-                }
-            }
+            $model->ref = QueryMap::fromMap($map['ref']);
         }
 
         return $model;

@@ -18,9 +18,23 @@ class QueryTestTimeTestaRequest extends Model
      * @var string
      */
     public $productInstanceId;
+
+    // a
+    /**
+     * @var string
+     */
+    public $a;
+
+    // b
+    /**
+     * @var TestClass
+     */
+    public $b;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
+        'a'                 => 'a',
+        'b'                 => 'b',
     ];
 
     public function validate()
@@ -35,6 +49,12 @@ class QueryTestTimeTestaRequest extends Model
         }
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->a) {
+            $res['a'] = $this->a;
+        }
+        if (null !== $this->b) {
+            $res['b'] = null !== $this->b ? $this->b->toMap() : null;
         }
 
         return $res;
@@ -53,6 +73,12 @@ class QueryTestTimeTestaRequest extends Model
         }
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
+        }
+        if (isset($map['a'])) {
+            $model->a = $map['a'];
+        }
+        if (isset($map['b'])) {
+            $model->b = TestClass::fromMap($map['b']);
         }
 
         return $model;

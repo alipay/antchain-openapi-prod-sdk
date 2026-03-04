@@ -6,7 +6,7 @@ namespace AntChain\DEMO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryAdAsdAsdRequest extends Model
+class QueryOasRestRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,30 +19,20 @@ class QueryAdAsdAsdRequest extends Model
      */
     public $productInstanceId;
 
-    // 1111
+    // id信息
     /**
      * @var string
      */
-    public $bnumber;
-
-    // 1
-    /**
-     * @var CardInfo
-     */
-    public $cardInfo;
+    public $identityId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'bnumber'           => 'bnumber',
-        'cardInfo'          => 'card_info',
+        'identityId'        => 'identity_id',
     ];
 
     public function validate()
     {
-        Model::validateRequired('bnumber', $this->bnumber, true);
-        Model::validateRequired('cardInfo', $this->cardInfo, true);
-        Model::validateMaxLength('bnumber', $this->bnumber, 2);
-        Model::validateMinLength('bnumber', $this->bnumber, 1);
+        Model::validateRequired('identityId', $this->identityId, true);
     }
 
     public function toMap()
@@ -54,11 +44,8 @@ class QueryAdAsdAsdRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->bnumber) {
-            $res['bnumber'] = $this->bnumber;
-        }
-        if (null !== $this->cardInfo) {
-            $res['card_info'] = null !== $this->cardInfo ? $this->cardInfo->toMap() : null;
+        if (null !== $this->identityId) {
+            $res['identity_id'] = $this->identityId;
         }
 
         return $res;
@@ -67,7 +54,7 @@ class QueryAdAsdAsdRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryAdAsdAsdRequest
+     * @return QueryOasRestRequest
      */
     public static function fromMap($map = [])
     {
@@ -78,11 +65,8 @@ class QueryAdAsdAsdRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['bnumber'])) {
-            $model->bnumber = $map['bnumber'];
-        }
-        if (isset($map['card_info'])) {
-            $model->cardInfo = CardInfo::fromMap($map['card_info']);
+        if (isset($map['identity_id'])) {
+            $model->identityId = $map['identity_id'];
         }
 
         return $model;

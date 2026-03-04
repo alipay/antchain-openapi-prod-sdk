@@ -6,7 +6,7 @@ namespace AntChain\DEMO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryTestTestRequest extends Model
+class QueryStreamTestmethodtwoRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -18,20 +18,13 @@ class QueryTestTestRequest extends Model
      * @var string
      */
     public $productInstanceId;
-
-    /**
-     * @var string
-     */
-    public $acpmpcore;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'acpmpcore'         => 'acpmpcore',
     ];
 
     public function validate()
     {
-        Model::validateRequired('acpmpcore', $this->acpmpcore, true);
     }
 
     public function toMap()
@@ -43,9 +36,6 @@ class QueryTestTestRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->acpmpcore) {
-            $res['acpmpcore'] = $this->acpmpcore;
-        }
 
         return $res;
     }
@@ -53,7 +43,7 @@ class QueryTestTestRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryTestTestRequest
+     * @return QueryStreamTestmethodtwoRequest
      */
     public static function fromMap($map = [])
     {
@@ -63,9 +53,6 @@ class QueryTestTestRequest extends Model
         }
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['acpmpcore'])) {
-            $model->acpmpcore = $map['acpmpcore'];
         }
 
         return $model;

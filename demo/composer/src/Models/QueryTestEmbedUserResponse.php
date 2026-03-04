@@ -6,7 +6,7 @@ namespace AntChain\DEMO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryTestTestTestResponse extends Model
+class QueryTestEmbedUserResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,23 +26,16 @@ class QueryTestTestTestResponse extends Model
      */
     public $resultMsg;
 
-    // 1
+    // name
     /**
      * @var string
      */
-    public $stauts;
-
-    // 1
-    /**
-     * @var string
-     */
-    public $msg;
+    public $name;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'stauts'     => 'stauts',
-        'msg'        => 'msg',
+        'name'       => 'name',
     ];
 
     public function validate()
@@ -61,11 +54,8 @@ class QueryTestTestTestResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->stauts) {
-            $res['stauts'] = $this->stauts;
-        }
-        if (null !== $this->msg) {
-            $res['msg'] = $this->msg;
+        if (null !== $this->name) {
+            $res['name'] = $this->name;
         }
 
         return $res;
@@ -74,7 +64,7 @@ class QueryTestTestTestResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryTestTestTestResponse
+     * @return QueryTestEmbedUserResponse
      */
     public static function fromMap($map = [])
     {
@@ -88,11 +78,8 @@ class QueryTestTestTestResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['stauts'])) {
-            $model->stauts = $map['stauts'];
-        }
-        if (isset($map['msg'])) {
-            $model->msg = $map['msg'];
+        if (isset($map['name'])) {
+            $model->name = $map['name'];
         }
 
         return $model;
