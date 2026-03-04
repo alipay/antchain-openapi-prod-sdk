@@ -9,11 +9,11 @@ using Tea;
 namespace AntChain.SDK.DEMO.Models
 {
     // 测试
-    public class Test : TeaModel {
-        // d
-        [NameInMap("a")]
+    public class TestAPIObject : TeaModel {
+        // test
+        [NameInMap("id")]
         [Validation(Required=true)]
-        public string A { get; set; }
+        public long? Id { get; set; }
 
     }
 

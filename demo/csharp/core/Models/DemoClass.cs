@@ -35,6 +35,11 @@ namespace AntChain.SDK.DEMO.Models
         [Validation(Required=true)]
         public List<string> SomeList { get; set; }
 
+        // 结构体字段
+        [NameInMap("some_struct")]
+        [Validation(Required=true)]
+        public AnotherClass SomeStruct { get; set; }
+
     }
 
 }

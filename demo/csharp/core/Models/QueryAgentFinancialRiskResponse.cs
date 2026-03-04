@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.DEMO.Models
 {
-    public class EchoGatewayCheckResponse : TeaModel {
+    public class QueryAgentFinancialRiskResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,20 +24,30 @@ namespace AntChain.SDK.DEMO.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // output_demo测试
-        [NameInMap("output_demo")]
+        // 风险等级
+        [NameInMap("risk_level")]
         [Validation(Required=false)]
-        public DemoClass OutputDemo { get; set; }
+        public string RiskLevel { get; set; }
 
-        // output_string
-        [NameInMap("output_string")]
+        // 风险建议动作
+        [NameInMap("suggested_action")]
         [Validation(Required=false)]
-        public string OutputString { get; set; }
+        public string SuggestedAction { get; set; }
 
-        // file_url
-        [NameInMap("file_url")]
+        // 风险分
+        [NameInMap("risk_score")]
         [Validation(Required=false)]
-        public string FileUrl { get; set; }
+        public long? RiskScore { get; set; }
+
+        // 风险因子列表
+        [NameInMap("riskfactors")]
+        [Validation(Required=false)]
+        public RiskFactorDetail Riskfactors { get; set; }
+
+        // 处置建议
+        [NameInMap("recommendations")]
+        [Validation(Required=false)]
+        public string Recommendations { get; set; }
 
     }
 

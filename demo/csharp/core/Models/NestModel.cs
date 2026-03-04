@@ -8,12 +8,12 @@ using Tea;
 
 namespace AntChain.SDK.DEMO.Models
 {
-    // sss
-    public class TestParentParent : TeaModel {
-        // fff
-        [NameInMap("ssss")]
+    // 嵌套结构
+    public class NestModel : TeaModel {
+        // aaaa
+        [NameInMap("a")]
         [Validation(Required=true)]
-        public TestParent Ssss { get; set; }
+        public string A { get; set; }
 
     }
 

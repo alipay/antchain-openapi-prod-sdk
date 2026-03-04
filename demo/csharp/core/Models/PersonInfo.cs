@@ -8,17 +8,17 @@ using Tea;
 
 namespace AntChain.SDK.DEMO.Models
 {
-    // 另一个Demo类
-    public class AnotherClass : TeaModel {
-        // 测试字段
-        [NameInMap("bar")]
+    // x
+    public class PersonInfo : TeaModel {
+        // 1
+        [NameInMap("card_infos")]
         [Validation(Required=true)]
-        public string Bar { get; set; }
+        public CardInfos CardInfos { get; set; }
 
-        // 引用字段
-        [NameInMap("ref")]
+        // 123
+        [NameInMap("name")]
         [Validation(Required=true)]
-        public QueryMap Ref { get; set; }
+        public string Name { get; set; }
 
     }
 
