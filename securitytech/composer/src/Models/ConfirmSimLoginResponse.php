@@ -6,7 +6,7 @@ namespace AntChain\SECURITYTECH\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QuerySimLoginResponse extends Model
+class ConfirmSimLoginResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,13 +26,7 @@ class QuerySimLoginResponse extends Model
      */
     public $resultMsg;
 
-    // 登录结果
-    // NO_RESULT：暂无登录结果
-    // EXPIRED：token过期
-    // ACTIVATE_OK：激活成功，店长首次登录成功
-    // LOGIN_OK：登录成功
-    // USER_NOT_EXIST：用户不存在
-    // STORE_NOT_ACTIVATED：门店未激活
+    // 登录结果 NO_RESULT：暂无登录结果 EXPIRED：token过期 ACTIVATE_OK：激活成功，店长首次登录成功 LOGIN_OK：登录成功 USER_NOT_EXIST：用户不存在 STORE_NOT_ACTIVATED：门店未激活
     /**
      * @var string
      */
@@ -62,17 +56,11 @@ class QuerySimLoginResponse extends Model
      */
     public $loginTime;
 
-    // 当前登录的门店信息
+    // 选择登录门店信息
     /**
      * @var SimStoreInfo
      */
     public $storeInfo;
-
-    // 待选择门店列表
-    /**
-     * @var SimStoreInfo[]
-     */
-    public $storeInfoList;
 
     // 当前登录的销售信息
     /**
@@ -80,17 +68,16 @@ class QuerySimLoginResponse extends Model
      */
     public $salesInfo;
     protected $_name = [
-        'reqMsgId'      => 'req_msg_id',
-        'resultCode'    => 'result_code',
-        'resultMsg'     => 'result_msg',
-        'loginResult'   => 'login_result',
-        'loginMsg'      => 'login_msg',
-        'activated'     => 'activated',
-        'activateTime'  => 'activate_time',
-        'loginTime'     => 'login_time',
-        'storeInfo'     => 'store_info',
-        'storeInfoList' => 'store_info_list',
-        'salesInfo'     => 'sales_info',
+        'reqMsgId'     => 'req_msg_id',
+        'resultCode'   => 'result_code',
+        'resultMsg'    => 'result_msg',
+        'loginResult'  => 'login_result',
+        'loginMsg'     => 'login_msg',
+        'activated'    => 'activated',
+        'activateTime' => 'activate_time',
+        'loginTime'    => 'login_time',
+        'storeInfo'    => 'store_info',
+        'salesInfo'    => 'sales_info',
     ];
 
     public function validate()
@@ -127,15 +114,6 @@ class QuerySimLoginResponse extends Model
         if (null !== $this->storeInfo) {
             $res['store_info'] = null !== $this->storeInfo ? $this->storeInfo->toMap() : null;
         }
-        if (null !== $this->storeInfoList) {
-            $res['store_info_list'] = [];
-            if (null !== $this->storeInfoList && \is_array($this->storeInfoList)) {
-                $n = 0;
-                foreach ($this->storeInfoList as $item) {
-                    $res['store_info_list'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
-        }
         if (null !== $this->salesInfo) {
             $res['sales_info'] = null !== $this->salesInfo ? $this->salesInfo->toMap() : null;
         }
@@ -146,7 +124,7 @@ class QuerySimLoginResponse extends Model
     /**
      * @param array $map
      *
-     * @return QuerySimLoginResponse
+     * @return ConfirmSimLoginResponse
      */
     public static function fromMap($map = [])
     {
@@ -177,15 +155,6 @@ class QuerySimLoginResponse extends Model
         }
         if (isset($map['store_info'])) {
             $model->storeInfo = SimStoreInfo::fromMap($map['store_info']);
-        }
-        if (isset($map['store_info_list'])) {
-            if (!empty($map['store_info_list'])) {
-                $model->storeInfoList = [];
-                $n                    = 0;
-                foreach ($map['store_info_list'] as $item) {
-                    $model->storeInfoList[$n++] = null !== $item ? SimStoreInfo::fromMap($item) : $item;
-                }
-            }
         }
         if (isset($map['sales_info'])) {
             $model->salesInfo = SimSalesInfo::fromMap($map['sales_info']);

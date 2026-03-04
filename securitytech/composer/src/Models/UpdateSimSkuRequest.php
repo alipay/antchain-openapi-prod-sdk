@@ -6,7 +6,7 @@ namespace AntChain\SECURITYTECH\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CreateSimOrderRequest extends Model
+class UpdateSimSkuRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -25,60 +25,38 @@ class CreateSimOrderRequest extends Model
      */
     public $deviceId;
 
-    // sku id
-    /**
-     * @var string
-     */
-    public $skuId;
-
-    // 订单价格 单位元
-    /**
-     * @var string
-     */
-    public $totalAmount;
-
-    // 车辆sn号
-    /**
-     * @var string
-     */
-    public $sn;
-
-    // 颜色
-    /**
-     * @var string
-     */
-    public $color;
-
     // 登录态token
     /**
      * @var string
      */
     public $token;
 
-    // 扩展信息
+    // 更改价格的skuId
     /**
      * @var string
      */
-    public $extraInfo;
+    public $skuId;
+
+    // sku门店价格，单位元
+    /**
+     * @var string
+     */
+    public $storeAmount;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'deviceId'          => 'device_id',
-        'skuId'             => 'sku_id',
-        'totalAmount'       => 'total_amount',
-        'sn'                => 'sn',
-        'color'             => 'color',
         'token'             => 'token',
-        'extraInfo'         => 'extra_info',
+        'skuId'             => 'sku_id',
+        'storeAmount'       => 'store_amount',
     ];
 
     public function validate()
     {
         Model::validateRequired('deviceId', $this->deviceId, true);
-        Model::validateRequired('skuId', $this->skuId, true);
-        Model::validateRequired('totalAmount', $this->totalAmount, true);
-        Model::validateRequired('color', $this->color, true);
         Model::validateRequired('token', $this->token, true);
+        Model::validateRequired('skuId', $this->skuId, true);
+        Model::validateRequired('storeAmount', $this->storeAmount, true);
     }
 
     public function toMap()
@@ -93,23 +71,14 @@ class CreateSimOrderRequest extends Model
         if (null !== $this->deviceId) {
             $res['device_id'] = $this->deviceId;
         }
-        if (null !== $this->skuId) {
-            $res['sku_id'] = $this->skuId;
-        }
-        if (null !== $this->totalAmount) {
-            $res['total_amount'] = $this->totalAmount;
-        }
-        if (null !== $this->sn) {
-            $res['sn'] = $this->sn;
-        }
-        if (null !== $this->color) {
-            $res['color'] = $this->color;
-        }
         if (null !== $this->token) {
             $res['token'] = $this->token;
         }
-        if (null !== $this->extraInfo) {
-            $res['extra_info'] = $this->extraInfo;
+        if (null !== $this->skuId) {
+            $res['sku_id'] = $this->skuId;
+        }
+        if (null !== $this->storeAmount) {
+            $res['store_amount'] = $this->storeAmount;
         }
 
         return $res;
@@ -118,7 +87,7 @@ class CreateSimOrderRequest extends Model
     /**
      * @param array $map
      *
-     * @return CreateSimOrderRequest
+     * @return UpdateSimSkuRequest
      */
     public static function fromMap($map = [])
     {
@@ -132,23 +101,14 @@ class CreateSimOrderRequest extends Model
         if (isset($map['device_id'])) {
             $model->deviceId = $map['device_id'];
         }
-        if (isset($map['sku_id'])) {
-            $model->skuId = $map['sku_id'];
-        }
-        if (isset($map['total_amount'])) {
-            $model->totalAmount = $map['total_amount'];
-        }
-        if (isset($map['sn'])) {
-            $model->sn = $map['sn'];
-        }
-        if (isset($map['color'])) {
-            $model->color = $map['color'];
-        }
         if (isset($map['token'])) {
             $model->token = $map['token'];
         }
-        if (isset($map['extra_info'])) {
-            $model->extraInfo = $map['extra_info'];
+        if (isset($map['sku_id'])) {
+            $model->skuId = $map['sku_id'];
+        }
+        if (isset($map['store_amount'])) {
+            $model->storeAmount = $map['store_amount'];
         }
 
         return $model;

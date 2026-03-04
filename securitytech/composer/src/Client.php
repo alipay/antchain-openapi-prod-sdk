@@ -19,6 +19,8 @@ use AntChain\SECURITYTECH\Models\CancelSimOrderRequest;
 use AntChain\SECURITYTECH\Models\CancelSimOrderResponse;
 use AntChain\SECURITYTECH\Models\CheckOpticalIdentifyRequest;
 use AntChain\SECURITYTECH\Models\CheckOpticalIdentifyResponse;
+use AntChain\SECURITYTECH\Models\ConfirmSimLoginRequest;
+use AntChain\SECURITYTECH\Models\ConfirmSimLoginResponse;
 use AntChain\SECURITYTECH\Models\ConfirmSimOrderRequest;
 use AntChain\SECURITYTECH\Models\ConfirmSimOrderResponse;
 use AntChain\SECURITYTECH\Models\CreateBlueshieldSecuritypictureRequest;
@@ -65,6 +67,8 @@ use AntChain\SECURITYTECH\Models\ListSimOrderRequest;
 use AntChain\SECURITYTECH\Models\ListSimOrderResponse;
 use AntChain\SECURITYTECH\Models\ListSimSkuRequest;
 use AntChain\SECURITYTECH\Models\ListSimSkuResponse;
+use AntChain\SECURITYTECH\Models\OperateTwevCarRequest;
+use AntChain\SECURITYTECH\Models\OperateTwevCarResponse;
 use AntChain\SECURITYTECH\Models\OperateTwevPowerRequest;
 use AntChain\SECURITYTECH\Models\OperateTwevPowerResponse;
 use AntChain\SECURITYTECH\Models\OperateTwevSearchRequest;
@@ -83,6 +87,8 @@ use AntChain\SECURITYTECH\Models\QueryDeviceriskFingerRequest;
 use AntChain\SECURITYTECH\Models\QueryDeviceriskFingerResponse;
 use AntChain\SECURITYTECH\Models\QueryDeviceriskRisklabelRequest;
 use AntChain\SECURITYTECH\Models\QueryDeviceriskRisklabelResponse;
+use AntChain\SECURITYTECH\Models\QueryDigitalkeyNfccarinfoRequest;
+use AntChain\SECURITYTECH\Models\QueryDigitalkeyNfccarinfoResponse;
 use AntChain\SECURITYTECH\Models\QueryDigitalkeyUserinfoRequest;
 use AntChain\SECURITYTECH\Models\QueryDigitalkeyUserinfoResponse;
 use AntChain\SECURITYTECH\Models\QueryEkytDriverRequest;
@@ -115,10 +121,18 @@ use AntChain\SECURITYTECH\Models\QuerySimSkuRequest;
 use AntChain\SECURITYTECH\Models\QuerySimSkuResponse;
 use AntChain\SECURITYTECH\Models\QuerySpuListRequest;
 use AntChain\SECURITYTECH\Models\QuerySpuListResponse;
+use AntChain\SECURITYTECH\Models\QueryTwevCardataRequest;
+use AntChain\SECURITYTECH\Models\QueryTwevCardataResponse;
+use AntChain\SECURITYTECH\Models\QueryTwevCarRequest;
+use AntChain\SECURITYTECH\Models\QueryTwevCarResponse;
+use AntChain\SECURITYTECH\Models\QueryTwevCartravelRequest;
+use AntChain\SECURITYTECH\Models\QueryTwevCartravelResponse;
 use AntChain\SECURITYTECH\Models\QueryTwevPositionRequest;
 use AntChain\SECURITYTECH\Models\QueryTwevPositionResponse;
 use AntChain\SECURITYTECH\Models\QueryTwevTaskRequest;
 use AntChain\SECURITYTECH\Models\QueryTwevTaskResponse;
+use AntChain\SECURITYTECH\Models\QueryTwevTravelRequest;
+use AntChain\SECURITYTECH\Models\QueryTwevTravelResponse;
 use AntChain\SECURITYTECH\Models\QueryYhllRequest;
 use AntChain\SECURITYTECH\Models\QueryYhllResponse;
 use AntChain\SECURITYTECH\Models\RecognizeCctAnalyzeRequest;
@@ -139,6 +153,8 @@ use AntChain\SECURITYTECH\Models\SubmitAshieldPeriodhardeningtaskRequest;
 use AntChain\SECURITYTECH\Models\SubmitAshieldPeriodhardeningtaskResponse;
 use AntChain\SECURITYTECH\Models\SubmitDeviceriskReportRequest;
 use AntChain\SECURITYTECH\Models\SubmitDeviceriskReportResponse;
+use AntChain\SECURITYTECH\Models\UpdateSimSkuRequest;
+use AntChain\SECURITYTECH\Models\UpdateSimSkuResponse;
 use AntChain\SECURITYTECH\Models\UploadEtcWaybillRequest;
 use AntChain\SECURITYTECH\Models\UploadEtcWaybillResponse;
 use AntChain\SECURITYTECH\Models\UploadSimQrcodeRequest;
@@ -294,7 +310,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.4.21',
+                    'sdk_version'      => '1.6.4',
                     '_prod_code'       => 'SECURITYTECH',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1332,6 +1348,270 @@ class Client
         Utils::validateModel($request);
 
         return InitDigitalkeyCorpResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.digitalkey.corp.init', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数字钥匙nfc车辆信息查询
+     * Summary: 数字钥匙nfc车辆信息查询.
+     *
+     * @param QueryDigitalkeyNfccarinfoRequest $request
+     *
+     * @return QueryDigitalkeyNfccarinfoResponse
+     */
+    public function queryDigitalkeyNfccarinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDigitalkeyNfccarinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数字钥匙nfc车辆信息查询
+     * Summary: 数字钥匙nfc车辆信息查询.
+     *
+     * @param QueryDigitalkeyNfccarinfoRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return QueryDigitalkeyNfccarinfoResponse
+     */
+    public function queryDigitalkeyNfccarinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDigitalkeyNfccarinfoResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.digitalkey.nfccarinfo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 两轮车一体机选择门店登录
+     * Summary: 两轮车一体机选择门店登录.
+     *
+     * @param ConfirmSimLoginRequest $request
+     *
+     * @return ConfirmSimLoginResponse
+     */
+    public function confirmSimLogin($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->confirmSimLoginEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 两轮车一体机选择门店登录
+     * Summary: 两轮车一体机选择门店登录.
+     *
+     * @param ConfirmSimLoginRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return ConfirmSimLoginResponse
+     */
+    public function confirmSimLoginEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ConfirmSimLoginResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.sim.login.confirm', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 两轮车一体机门店设置sku价格
+     * Summary: 两轮车一体机门店设置sku价格
+     *
+     * @param UpdateSimSkuRequest $request
+     *
+     * @return UpdateSimSkuResponse
+     */
+    public function updateSimSku($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateSimSkuEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 两轮车一体机门店设置sku价格
+     * Summary: 两轮车一体机门店设置sku价格
+     *
+     * @param UpdateSimSkuRequest $request
+     * @param string[]            $headers
+     * @param RuntimeOptions      $runtime
+     *
+     * @return UpdateSimSkuResponse
+     */
+    public function updateSimSkuEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateSimSkuResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.sim.sku.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 贷后控车查询车辆定位数据
+     * Summary: 贷后控车查询车辆定位数据.
+     *
+     * @param QueryTwevCarRequest $request
+     *
+     * @return QueryTwevCarResponse
+     */
+    public function queryTwevCar($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryTwevCarEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 贷后控车查询车辆定位数据
+     * Summary: 贷后控车查询车辆定位数据.
+     *
+     * @param QueryTwevCarRequest $request
+     * @param string[]            $headers
+     * @param RuntimeOptions      $runtime
+     *
+     * @return QueryTwevCarResponse
+     */
+    public function queryTwevCarEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryTwevCarResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.twev.car.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 贷后控车查询车辆gps轨迹
+     * Summary: 贷后控车查询车辆gps轨迹.
+     *
+     * @param QueryTwevTravelRequest $request
+     *
+     * @return QueryTwevTravelResponse
+     */
+    public function queryTwevTravel($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryTwevTravelEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 贷后控车查询车辆gps轨迹
+     * Summary: 贷后控车查询车辆gps轨迹.
+     *
+     * @param QueryTwevTravelRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return QueryTwevTravelResponse
+     */
+    public function queryTwevTravelEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryTwevTravelResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.twev.travel.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 贷后控车车辆控制
+     * Summary: 贷后控车车辆控制.
+     *
+     * @param OperateTwevCarRequest $request
+     *
+     * @return OperateTwevCarResponse
+     */
+    public function operateTwevCar($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->operateTwevCarEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 贷后控车车辆控制
+     * Summary: 贷后控车车辆控制.
+     *
+     * @param OperateTwevCarRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return OperateTwevCarResponse
+     */
+    public function operateTwevCarEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return OperateTwevCarResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.twev.car.operate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 新接口-查询车辆行程统计数据
+     * Summary: 新接口-查询车辆行程统计数据.
+     *
+     * @param QueryTwevCardataRequest $request
+     *
+     * @return QueryTwevCardataResponse
+     */
+    public function queryTwevCardata($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryTwevCardataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 新接口-查询车辆行程统计数据
+     * Summary: 新接口-查询车辆行程统计数据.
+     *
+     * @param QueryTwevCardataRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return QueryTwevCardataResponse
+     */
+    public function queryTwevCardataEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryTwevCardataResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.twev.cardata.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 新接口-分页查询车辆行程记录
+     * Summary: 新接口-分页查询车辆行程记录.
+     *
+     * @param QueryTwevCartravelRequest $request
+     *
+     * @return QueryTwevCartravelResponse
+     */
+    public function queryTwevCartravel($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryTwevCartravelEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 新接口-分页查询车辆行程记录
+     * Summary: 新接口-分页查询车辆行程记录.
+     *
+     * @param QueryTwevCartravelRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return QueryTwevCartravelResponse
+     */
+    public function queryTwevCartravelEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryTwevCartravelResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.twev.cartravel.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

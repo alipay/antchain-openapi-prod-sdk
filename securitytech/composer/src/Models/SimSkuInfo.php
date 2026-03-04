@@ -103,6 +103,30 @@ class SimSkuInfo extends Model
      * @var string
      */
     public $skuDescription;
+
+    // sku价格配置开关 true开/false关
+    /**
+     * @example true, false
+     *
+     * @var bool
+     */
+    public $priceSwitch;
+
+    // sku价格配置范围 上限：单位元
+    /**
+     * @example
+     *
+     * @var string
+     */
+    public $priceMax;
+
+    // sku价格配置范围 下限：单位元
+    /**
+     * @example
+     *
+     * @var string
+     */
+    public $priceMin;
     protected $_name = [
         'skuId'          => 'sku_id',
         'skuName'        => 'sku_name',
@@ -116,6 +140,9 @@ class SimSkuInfo extends Model
         'images'         => 'images',
         'storeId'        => 'store_id',
         'skuDescription' => 'sku_description',
+        'priceSwitch'    => 'price_switch',
+        'priceMax'       => 'price_max',
+        'priceMin'       => 'price_min',
     ];
 
     public function validate()
@@ -131,6 +158,7 @@ class SimSkuInfo extends Model
         Model::validateRequired('accessories', $this->accessories, true);
         Model::validateRequired('images', $this->images, true);
         Model::validateRequired('storeId', $this->storeId, true);
+        Model::validateRequired('priceSwitch', $this->priceSwitch, true);
     }
 
     public function toMap()
@@ -171,6 +199,15 @@ class SimSkuInfo extends Model
         }
         if (null !== $this->skuDescription) {
             $res['sku_description'] = $this->skuDescription;
+        }
+        if (null !== $this->priceSwitch) {
+            $res['price_switch'] = $this->priceSwitch;
+        }
+        if (null !== $this->priceMax) {
+            $res['price_max'] = $this->priceMax;
+        }
+        if (null !== $this->priceMin) {
+            $res['price_min'] = $this->priceMin;
         }
 
         return $res;
@@ -219,6 +256,15 @@ class SimSkuInfo extends Model
         }
         if (isset($map['sku_description'])) {
             $model->skuDescription = $map['sku_description'];
+        }
+        if (isset($map['price_switch'])) {
+            $model->priceSwitch = $map['price_switch'];
+        }
+        if (isset($map['price_max'])) {
+            $model->priceMax = $map['price_max'];
+        }
+        if (isset($map['price_min'])) {
+            $model->priceMin = $map['price_min'];
         }
 
         return $model;

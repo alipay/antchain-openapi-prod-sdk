@@ -55,6 +55,12 @@ class QueryDigitalkeyUserinfoResponse extends Model
      * @var string
      */
     public $brandId;
+
+    // 用户绑定车辆tuid集合
+    /**
+     * @var string[]
+     */
+    public $tuids;
     protected $_name = [
         'reqMsgId'     => 'req_msg_id',
         'resultCode'   => 'result_code',
@@ -64,6 +70,7 @@ class QueryDigitalkeyUserinfoResponse extends Model
         'nickName'     => 'nick_name',
         'avatarUrl'    => 'avatar_url',
         'brandId'      => 'brand_id',
+        'tuids'        => 'tuids',
     ];
 
     public function validate()
@@ -96,6 +103,9 @@ class QueryDigitalkeyUserinfoResponse extends Model
         }
         if (null !== $this->brandId) {
             $res['brand_id'] = $this->brandId;
+        }
+        if (null !== $this->tuids) {
+            $res['tuids'] = $this->tuids;
         }
 
         return $res;
@@ -132,6 +142,11 @@ class QueryDigitalkeyUserinfoResponse extends Model
         }
         if (isset($map['brand_id'])) {
             $model->brandId = $map['brand_id'];
+        }
+        if (isset($map['tuids'])) {
+            if (!empty($map['tuids'])) {
+                $model->tuids = $map['tuids'];
+            }
         }
 
         return $model;

@@ -16,6 +16,14 @@ class SimStoreInfo extends Model
      */
     public $storeId;
 
+    // 品牌id
+    /**
+     * @example HQS
+     *
+     * @var string
+     */
+    public $brandId;
+
     // 门店名称
     /**
      * @example
@@ -39,18 +47,30 @@ class SimStoreInfo extends Model
      * @var string
      */
     public $signUrl;
+
+    // 销售信息
+    /**
+     * @example
+     *
+     * @var SimSalesInfo
+     */
+    public $salesInfo;
     protected $_name = [
         'storeId'   => 'store_id',
+        'brandId'   => 'brand_id',
         'storeName' => 'store_name',
         'isSign'    => 'is_sign',
         'signUrl'   => 'sign_url',
+        'salesInfo' => 'sales_info',
     ];
 
     public function validate()
     {
         Model::validateRequired('storeId', $this->storeId, true);
+        Model::validateRequired('brandId', $this->brandId, true);
         Model::validateRequired('storeName', $this->storeName, true);
         Model::validateRequired('isSign', $this->isSign, true);
+        Model::validateRequired('salesInfo', $this->salesInfo, true);
     }
 
     public function toMap()
@@ -58,6 +78,9 @@ class SimStoreInfo extends Model
         $res = [];
         if (null !== $this->storeId) {
             $res['store_id'] = $this->storeId;
+        }
+        if (null !== $this->brandId) {
+            $res['brand_id'] = $this->brandId;
         }
         if (null !== $this->storeName) {
             $res['store_name'] = $this->storeName;
@@ -67,6 +90,9 @@ class SimStoreInfo extends Model
         }
         if (null !== $this->signUrl) {
             $res['sign_url'] = $this->signUrl;
+        }
+        if (null !== $this->salesInfo) {
+            $res['sales_info'] = null !== $this->salesInfo ? $this->salesInfo->toMap() : null;
         }
 
         return $res;
@@ -83,6 +109,9 @@ class SimStoreInfo extends Model
         if (isset($map['store_id'])) {
             $model->storeId = $map['store_id'];
         }
+        if (isset($map['brand_id'])) {
+            $model->brandId = $map['brand_id'];
+        }
         if (isset($map['store_name'])) {
             $model->storeName = $map['store_name'];
         }
@@ -91,6 +120,9 @@ class SimStoreInfo extends Model
         }
         if (isset($map['sign_url'])) {
             $model->signUrl = $map['sign_url'];
+        }
+        if (isset($map['sales_info'])) {
+            $model->salesInfo = SimSalesInfo::fromMap($map['sales_info']);
         }
 
         return $model;

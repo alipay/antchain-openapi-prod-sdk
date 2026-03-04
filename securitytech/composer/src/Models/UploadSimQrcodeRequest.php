@@ -48,6 +48,12 @@ class UploadSimQrcodeRequest extends Model
      * @var string
      */
     public $base64Data;
+
+    // 二维码解析后数据
+    /**
+     * @var string
+     */
+    public $qrcodeValue;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -56,6 +62,7 @@ class UploadSimQrcodeRequest extends Model
         'vehicleModel'      => 'vehicle_model',
         'parseType'         => 'parse_type',
         'base64Data'        => 'base64_data',
+        'qrcodeValue'       => 'qrcode_value',
     ];
 
     public function validate()
@@ -64,7 +71,6 @@ class UploadSimQrcodeRequest extends Model
         Model::validateRequired('token', $this->token, true);
         Model::validateRequired('vehicleModel', $this->vehicleModel, true);
         Model::validateRequired('parseType', $this->parseType, true);
-        Model::validateRequired('base64Data', $this->base64Data, true);
     }
 
     public function toMap()
@@ -90,6 +96,9 @@ class UploadSimQrcodeRequest extends Model
         }
         if (null !== $this->base64Data) {
             $res['base64_data'] = $this->base64Data;
+        }
+        if (null !== $this->qrcodeValue) {
+            $res['qrcode_value'] = $this->qrcodeValue;
         }
 
         return $res;
@@ -123,6 +132,9 @@ class UploadSimQrcodeRequest extends Model
         }
         if (isset($map['base64_data'])) {
             $model->base64Data = $map['base64_data'];
+        }
+        if (isset($map['qrcode_value'])) {
+            $model->qrcodeValue = $map['qrcode_value'];
         }
 
         return $model;

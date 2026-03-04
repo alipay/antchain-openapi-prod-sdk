@@ -6,7 +6,7 @@ namespace AntChain\SECURITYTECH\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CreateSimOrderRequest extends Model
+class ConfirmSimLoginRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -25,60 +25,46 @@ class CreateSimOrderRequest extends Model
      */
     public $deviceId;
 
-    // sku id
-    /**
-     * @var string
-     */
-    public $skuId;
-
-    // 订单价格 单位元
-    /**
-     * @var string
-     */
-    public $totalAmount;
-
-    // 车辆sn号
-    /**
-     * @var string
-     */
-    public $sn;
-
-    // 颜色
-    /**
-     * @var string
-     */
-    public $color;
-
     // 登录态token
     /**
      * @var string
      */
     public $token;
 
-    // 扩展信息
+    // 登录销售id
     /**
      * @var string
      */
-    public $extraInfo;
+    public $salesId;
+
+    // 选择登录门店id
+    /**
+     * @var string
+     */
+    public $storeId;
+
+    // 门店品牌id
+    /**
+     * @var string
+     */
+    public $brandId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'deviceId'          => 'device_id',
-        'skuId'             => 'sku_id',
-        'totalAmount'       => 'total_amount',
-        'sn'                => 'sn',
-        'color'             => 'color',
         'token'             => 'token',
-        'extraInfo'         => 'extra_info',
+        'salesId'           => 'sales_id',
+        'storeId'           => 'store_id',
+        'brandId'           => 'brand_id',
     ];
 
     public function validate()
     {
         Model::validateRequired('deviceId', $this->deviceId, true);
-        Model::validateRequired('skuId', $this->skuId, true);
-        Model::validateRequired('totalAmount', $this->totalAmount, true);
-        Model::validateRequired('color', $this->color, true);
         Model::validateRequired('token', $this->token, true);
+        Model::validateRequired('salesId', $this->salesId, true);
+        Model::validateRequired('storeId', $this->storeId, true);
+        Model::validateRequired('brandId', $this->brandId, true);
     }
 
     public function toMap()
@@ -93,23 +79,17 @@ class CreateSimOrderRequest extends Model
         if (null !== $this->deviceId) {
             $res['device_id'] = $this->deviceId;
         }
-        if (null !== $this->skuId) {
-            $res['sku_id'] = $this->skuId;
-        }
-        if (null !== $this->totalAmount) {
-            $res['total_amount'] = $this->totalAmount;
-        }
-        if (null !== $this->sn) {
-            $res['sn'] = $this->sn;
-        }
-        if (null !== $this->color) {
-            $res['color'] = $this->color;
-        }
         if (null !== $this->token) {
             $res['token'] = $this->token;
         }
-        if (null !== $this->extraInfo) {
-            $res['extra_info'] = $this->extraInfo;
+        if (null !== $this->salesId) {
+            $res['sales_id'] = $this->salesId;
+        }
+        if (null !== $this->storeId) {
+            $res['store_id'] = $this->storeId;
+        }
+        if (null !== $this->brandId) {
+            $res['brand_id'] = $this->brandId;
         }
 
         return $res;
@@ -118,7 +98,7 @@ class CreateSimOrderRequest extends Model
     /**
      * @param array $map
      *
-     * @return CreateSimOrderRequest
+     * @return ConfirmSimLoginRequest
      */
     public static function fromMap($map = [])
     {
@@ -132,23 +112,17 @@ class CreateSimOrderRequest extends Model
         if (isset($map['device_id'])) {
             $model->deviceId = $map['device_id'];
         }
-        if (isset($map['sku_id'])) {
-            $model->skuId = $map['sku_id'];
-        }
-        if (isset($map['total_amount'])) {
-            $model->totalAmount = $map['total_amount'];
-        }
-        if (isset($map['sn'])) {
-            $model->sn = $map['sn'];
-        }
-        if (isset($map['color'])) {
-            $model->color = $map['color'];
-        }
         if (isset($map['token'])) {
             $model->token = $map['token'];
         }
-        if (isset($map['extra_info'])) {
-            $model->extraInfo = $map['extra_info'];
+        if (isset($map['sales_id'])) {
+            $model->salesId = $map['sales_id'];
+        }
+        if (isset($map['store_id'])) {
+            $model->storeId = $map['store_id'];
+        }
+        if (isset($map['brand_id'])) {
+            $model->brandId = $map['brand_id'];
         }
 
         return $model;

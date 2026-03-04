@@ -15,13 +15,23 @@ class SimSalesInfo extends Model
      * @var string
      */
     public $salesId;
+
+    // 销售角色 法人:TWEV_STORE_MANAGER/销售:TWEV_SALES
+    /**
+     * @example TWEV_STORE_MANAGER
+     *
+     * @var string
+     */
+    public $salesType;
     protected $_name = [
-        'salesId' => 'sales_id',
+        'salesId'   => 'sales_id',
+        'salesType' => 'sales_type',
     ];
 
     public function validate()
     {
         Model::validateRequired('salesId', $this->salesId, true);
+        Model::validateRequired('salesType', $this->salesType, true);
     }
 
     public function toMap()
@@ -29,6 +39,9 @@ class SimSalesInfo extends Model
         $res = [];
         if (null !== $this->salesId) {
             $res['sales_id'] = $this->salesId;
+        }
+        if (null !== $this->salesType) {
+            $res['sales_type'] = $this->salesType;
         }
 
         return $res;
@@ -44,6 +57,9 @@ class SimSalesInfo extends Model
         $model = new self();
         if (isset($map['sales_id'])) {
             $model->salesId = $map['sales_id'];
+        }
+        if (isset($map['sales_type'])) {
+            $model->salesType = $map['sales_type'];
         }
 
         return $model;

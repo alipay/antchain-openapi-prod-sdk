@@ -24,6 +24,14 @@ class SimOrderInfo extends Model
      */
     public $salesId;
 
+    // 销售姓名
+    /**
+     * @example
+     *
+     * @var string
+     */
+    public $salesName;
+
     // 车辆SN号
     /**
      * @example
@@ -31,6 +39,14 @@ class SimOrderInfo extends Model
      * @var string
      */
     public $sn;
+
+    // 车架号
+    /**
+     * @example
+     *
+     * @var string
+     */
+    public $frameNo;
 
     // 用户手机号
     /**
@@ -135,7 +151,9 @@ class SimOrderInfo extends Model
     protected $_name = [
         'orderId'      => 'order_id',
         'salesId'      => 'sales_id',
+        'salesName'    => 'sales_name',
         'sn'           => 'sn',
+        'frameNo'      => 'frame_no',
         'mobileNo'     => 'mobile_no',
         'orderTime'    => 'order_time',
         'paymentType'  => 'payment_type',
@@ -154,6 +172,7 @@ class SimOrderInfo extends Model
     {
         Model::validateRequired('orderId', $this->orderId, true);
         Model::validateRequired('salesId', $this->salesId, true);
+        Model::validateRequired('salesName', $this->salesName, true);
         Model::validateRequired('orderTime', $this->orderTime, true);
         Model::validateRequired('status', $this->status, true);
     }
@@ -167,8 +186,14 @@ class SimOrderInfo extends Model
         if (null !== $this->salesId) {
             $res['sales_id'] = $this->salesId;
         }
+        if (null !== $this->salesName) {
+            $res['sales_name'] = $this->salesName;
+        }
         if (null !== $this->sn) {
             $res['sn'] = $this->sn;
+        }
+        if (null !== $this->frameNo) {
+            $res['frame_no'] = $this->frameNo;
         }
         if (null !== $this->mobileNo) {
             $res['mobile_no'] = $this->mobileNo;
@@ -224,8 +249,14 @@ class SimOrderInfo extends Model
         if (isset($map['sales_id'])) {
             $model->salesId = $map['sales_id'];
         }
+        if (isset($map['sales_name'])) {
+            $model->salesName = $map['sales_name'];
+        }
         if (isset($map['sn'])) {
             $model->sn = $map['sn'];
+        }
+        if (isset($map['frame_no'])) {
+            $model->frameNo = $map['frame_no'];
         }
         if (isset($map['mobile_no'])) {
             $model->mobileNo = $map['mobile_no'];
