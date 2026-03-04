@@ -174,6 +174,32 @@ func (s *RiskData) SetResultValue(v string) *RiskData {
 	return s
 }
 
+// 两轮车一体机销售信息
+type SimSalesInfo struct {
+	// 销售对外业务id
+	SalesId *string `json:"sales_id,omitempty" xml:"sales_id,omitempty" require:"true"`
+	// 销售角色 法人:TWEV_STORE_MANAGER/销售:TWEV_SALES
+	SalesType *string `json:"sales_type,omitempty" xml:"sales_type,omitempty" require:"true"`
+}
+
+func (s SimSalesInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SimSalesInfo) GoString() string {
+	return s.String()
+}
+
+func (s *SimSalesInfo) SetSalesId(v string) *SimSalesInfo {
+	s.SalesId = &v
+	return s
+}
+
+func (s *SimSalesInfo) SetSalesType(v string) *SimSalesInfo {
+	s.SalesType = &v
+	return s
+}
+
 // ekyt响应头
 type ResponseHead struct {
 	// 请求唯一标识
@@ -190,6 +216,32 @@ func (s ResponseHead) GoString() string {
 
 func (s *ResponseHead) SetRequestId(v string) *ResponseHead {
 	s.RequestId = &v
+	return s
+}
+
+// 时间
+type DurationInfo struct {
+	// 时长
+	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+	// 时间单位
+	Unit *string `json:"unit,omitempty" xml:"unit,omitempty" require:"true"`
+}
+
+func (s DurationInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DurationInfo) GoString() string {
+	return s.String()
+}
+
+func (s *DurationInfo) SetValue(v string) *DurationInfo {
+	s.Value = &v
+	return s
+}
+
+func (s *DurationInfo) SetUnit(v string) *DurationInfo {
+	s.Unit = &v
 	return s
 }
 
@@ -428,25 +480,6 @@ func (s *FaceShieldResult) SetRiskDesc(v string) *FaceShieldResult {
 
 func (s *FaceShieldResult) SetSugAction(v string) *FaceShieldResult {
 	s.SugAction = &v
-	return s
-}
-
-// 两轮车一体机销售信息
-type SimSalesInfo struct {
-	// 销售对外业务id
-	SalesId *string `json:"sales_id,omitempty" xml:"sales_id,omitempty" require:"true"`
-}
-
-func (s SimSalesInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s SimSalesInfo) GoString() string {
-	return s.String()
-}
-
-func (s *SimSalesInfo) SetSalesId(v string) *SimSalesInfo {
-	s.SalesId = &v
 	return s
 }
 
@@ -692,6 +725,46 @@ func (s *HardeningTaskResponse) SetAfterSize(v int64) *HardeningTaskResponse {
 	return s
 }
 
+// 行程统计数据
+type TripStatisticInfo struct {
+	// 总里程
+	TotalMileage *string `json:"total_mileage,omitempty" xml:"total_mileage,omitempty" require:"true"`
+	// 总时长
+	TotalDuration *DurationInfo `json:"total_duration,omitempty" xml:"total_duration,omitempty" require:"true"`
+	// 总条数
+	TotalCount *int64 `json:"total_count,omitempty" xml:"total_count,omitempty" require:"true"`
+	// 时间码
+	PeriodCode *int64 `json:"period_code,omitempty" xml:"period_code,omitempty" require:"true"`
+}
+
+func (s TripStatisticInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TripStatisticInfo) GoString() string {
+	return s.String()
+}
+
+func (s *TripStatisticInfo) SetTotalMileage(v string) *TripStatisticInfo {
+	s.TotalMileage = &v
+	return s
+}
+
+func (s *TripStatisticInfo) SetTotalDuration(v *DurationInfo) *TripStatisticInfo {
+	s.TotalDuration = v
+	return s
+}
+
+func (s *TripStatisticInfo) SetTotalCount(v int64) *TripStatisticInfo {
+	s.TotalCount = &v
+	return s
+}
+
+func (s *TripStatisticInfo) SetPeriodCode(v int64) *TripStatisticInfo {
+	s.PeriodCode = &v
+	return s
+}
+
 // ETC车辆信息
 type EtcVehicleInfo struct {
 	// 车辆id
@@ -782,6 +855,107 @@ func (s *EtcVehicleInfo) SetDeviceStatusDetail(v string) *EtcVehicleInfo {
 
 func (s *EtcVehicleInfo) SetDeviceBizTime(v string) *EtcVehicleInfo {
 	s.DeviceBizTime = &v
+	return s
+}
+
+// 车辆gps轨迹点
+type SimCarLocationInfo struct {
+	// 定位时间
+	LocationTime *string `json:"location_time,omitempty" xml:"location_time,omitempty" require:"true"`
+	// 经度
+	Longitude *string `json:"longitude,omitempty" xml:"longitude,omitempty" require:"true"`
+	// 纬度
+	Latitude *string `json:"latitude,omitempty" xml:"latitude,omitempty" require:"true"`
+}
+
+func (s SimCarLocationInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SimCarLocationInfo) GoString() string {
+	return s.String()
+}
+
+func (s *SimCarLocationInfo) SetLocationTime(v string) *SimCarLocationInfo {
+	s.LocationTime = &v
+	return s
+}
+
+func (s *SimCarLocationInfo) SetLongitude(v string) *SimCarLocationInfo {
+	s.Longitude = &v
+	return s
+}
+
+func (s *SimCarLocationInfo) SetLatitude(v string) *SimCarLocationInfo {
+	s.Latitude = &v
+	return s
+}
+
+// 车辆信息列表
+type CarInfoVO struct {
+	// 车辆型号
+	CarModel *string `json:"car_model,omitempty" xml:"car_model,omitempty" require:"true"`
+	// 车辆颜色
+	CarColor *string `json:"car_color,omitempty" xml:"car_color,omitempty" require:"true"`
+	// 车型编号
+	ModelNo *string `json:"model_no,omitempty" xml:"model_no,omitempty" require:"true"`
+	// 车架号
+	FrameNo *string `json:"frame_no,omitempty" xml:"frame_no,omitempty" require:"true"`
+	// 设备ID
+	Tuid *string `json:"tuid,omitempty" xml:"tuid,omitempty" require:"true"`
+	// tagId
+	TagId *string `json:"tag_id,omitempty" xml:"tag_id,omitempty" require:"true"`
+	// 品牌ID
+	BrandId *string `json:"brand_id,omitempty" xml:"brand_id,omitempty" require:"true"`
+	// 协议类型
+	ProtocolType *string `json:"protocol_type,omitempty" xml:"protocol_type,omitempty" require:"true"`
+}
+
+func (s CarInfoVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CarInfoVO) GoString() string {
+	return s.String()
+}
+
+func (s *CarInfoVO) SetCarModel(v string) *CarInfoVO {
+	s.CarModel = &v
+	return s
+}
+
+func (s *CarInfoVO) SetCarColor(v string) *CarInfoVO {
+	s.CarColor = &v
+	return s
+}
+
+func (s *CarInfoVO) SetModelNo(v string) *CarInfoVO {
+	s.ModelNo = &v
+	return s
+}
+
+func (s *CarInfoVO) SetFrameNo(v string) *CarInfoVO {
+	s.FrameNo = &v
+	return s
+}
+
+func (s *CarInfoVO) SetTuid(v string) *CarInfoVO {
+	s.Tuid = &v
+	return s
+}
+
+func (s *CarInfoVO) SetTagId(v string) *CarInfoVO {
+	s.TagId = &v
+	return s
+}
+
+func (s *CarInfoVO) SetBrandId(v string) *CarInfoVO {
+	s.BrandId = &v
+	return s
+}
+
+func (s *CarInfoVO) SetProtocolType(v string) *CarInfoVO {
+	s.ProtocolType = &v
 	return s
 }
 
@@ -888,8 +1062,12 @@ type SimOrderInfo struct {
 	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
 	// 必填	销售id
 	SalesId *string `json:"sales_id,omitempty" xml:"sales_id,omitempty" require:"true"`
+	// 销售姓名
+	SalesName *string `json:"sales_name,omitempty" xml:"sales_name,omitempty" require:"true"`
 	// 车辆SN号
 	Sn *string `json:"sn,omitempty" xml:"sn,omitempty"`
+	// 车架号
+	FrameNo *string `json:"frame_no,omitempty" xml:"frame_no,omitempty"`
 	// 用户手机号
 	MobileNo *string `json:"mobile_no,omitempty" xml:"mobile_no,omitempty"`
 	// 订单时间，格式yyyy-MM-dd HH:mm:ss
@@ -939,8 +1117,18 @@ func (s *SimOrderInfo) SetSalesId(v string) *SimOrderInfo {
 	return s
 }
 
+func (s *SimOrderInfo) SetSalesName(v string) *SimOrderInfo {
+	s.SalesName = &v
+	return s
+}
+
 func (s *SimOrderInfo) SetSn(v string) *SimOrderInfo {
 	s.Sn = &v
+	return s
+}
+
+func (s *SimOrderInfo) SetFrameNo(v string) *SimOrderInfo {
+	s.FrameNo = &v
 	return s
 }
 
@@ -1030,6 +1218,12 @@ type SimSkuInfo struct {
 	StoreId *string `json:"store_id,omitempty" xml:"store_id,omitempty" require:"true"`
 	// 车型描述
 	SkuDescription *string `json:"sku_description,omitempty" xml:"sku_description,omitempty"`
+	// sku价格配置开关 true开/false关
+	PriceSwitch *bool `json:"price_switch,omitempty" xml:"price_switch,omitempty" require:"true"`
+	// sku价格配置范围 上限：单位元
+	PriceMax *string `json:"price_max,omitempty" xml:"price_max,omitempty"`
+	// sku价格配置范围 下限：单位元
+	PriceMin *string `json:"price_min,omitempty" xml:"price_min,omitempty"`
 }
 
 func (s SimSkuInfo) String() string {
@@ -1097,6 +1291,21 @@ func (s *SimSkuInfo) SetStoreId(v string) *SimSkuInfo {
 
 func (s *SimSkuInfo) SetSkuDescription(v string) *SimSkuInfo {
 	s.SkuDescription = &v
+	return s
+}
+
+func (s *SimSkuInfo) SetPriceSwitch(v bool) *SimSkuInfo {
+	s.PriceSwitch = &v
+	return s
+}
+
+func (s *SimSkuInfo) SetPriceMax(v string) *SimSkuInfo {
+	s.PriceMax = &v
+	return s
+}
+
+func (s *SimSkuInfo) SetPriceMin(v string) *SimSkuInfo {
+	s.PriceMin = &v
 	return s
 }
 
@@ -1368,6 +1577,95 @@ func (s *SimSpuInfo) SetSpuPictureInfo(v *SpuPictureInfo) *SimSpuInfo {
 	return s
 }
 
+// 行程详细信息
+type TripDetailInfo struct {
+	// 开始时间 时间戳
+	StartTime *int64 `json:"start_time,omitempty" xml:"start_time,omitempty" require:"true"`
+	// 结束时间 时间戳
+	EndTime *int64 `json:"end_time,omitempty" xml:"end_time,omitempty" require:"true"`
+	// 行程id
+	TripId *string `json:"trip_id,omitempty" xml:"trip_id,omitempty" require:"true"`
+	// 行驶里程
+	Mileage *string `json:"mileage,omitempty" xml:"mileage,omitempty" require:"true"`
+	// 时长
+	Duration *DurationInfo `json:"duration,omitempty" xml:"duration,omitempty" require:"true"`
+	// 最高速度
+	MaxSpeed *string `json:"max_speed,omitempty" xml:"max_speed,omitempty" require:"true"`
+	// 平均速度
+	AvgSpeed *string `json:"avg_speed,omitempty" xml:"avg_speed,omitempty" require:"true"`
+	// 开始地址
+	FirstAddress *string `json:"first_address,omitempty" xml:"first_address,omitempty" require:"true"`
+	// 结束地址
+	LastAddress *string `json:"last_address,omitempty" xml:"last_address,omitempty" require:"true"`
+	// 开始定位时间 时间戳
+	FirstLocationTime *int64 `json:"first_location_time,omitempty" xml:"first_location_time,omitempty" require:"true"`
+	// 最终定位时间 时间戳
+	LastLocationTime *int64 `json:"last_location_time,omitempty" xml:"last_location_time,omitempty" require:"true"`
+}
+
+func (s TripDetailInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TripDetailInfo) GoString() string {
+	return s.String()
+}
+
+func (s *TripDetailInfo) SetStartTime(v int64) *TripDetailInfo {
+	s.StartTime = &v
+	return s
+}
+
+func (s *TripDetailInfo) SetEndTime(v int64) *TripDetailInfo {
+	s.EndTime = &v
+	return s
+}
+
+func (s *TripDetailInfo) SetTripId(v string) *TripDetailInfo {
+	s.TripId = &v
+	return s
+}
+
+func (s *TripDetailInfo) SetMileage(v string) *TripDetailInfo {
+	s.Mileage = &v
+	return s
+}
+
+func (s *TripDetailInfo) SetDuration(v *DurationInfo) *TripDetailInfo {
+	s.Duration = v
+	return s
+}
+
+func (s *TripDetailInfo) SetMaxSpeed(v string) *TripDetailInfo {
+	s.MaxSpeed = &v
+	return s
+}
+
+func (s *TripDetailInfo) SetAvgSpeed(v string) *TripDetailInfo {
+	s.AvgSpeed = &v
+	return s
+}
+
+func (s *TripDetailInfo) SetFirstAddress(v string) *TripDetailInfo {
+	s.FirstAddress = &v
+	return s
+}
+
+func (s *TripDetailInfo) SetLastAddress(v string) *TripDetailInfo {
+	s.LastAddress = &v
+	return s
+}
+
+func (s *TripDetailInfo) SetFirstLocationTime(v int64) *TripDetailInfo {
+	s.FirstLocationTime = &v
+	return s
+}
+
+func (s *TripDetailInfo) SetLastLocationTime(v int64) *TripDetailInfo {
+	s.LastLocationTime = &v
+	return s
+}
+
 // KeyValue对属性
 type KeyValueMap struct {
 	// key-value中的key
@@ -1544,12 +1842,16 @@ func (s *CctDataMap) SetPicture(v []*string) *CctDataMap {
 type SimStoreInfo struct {
 	// 门店对外业务id
 	StoreId *string `json:"store_id,omitempty" xml:"store_id,omitempty" require:"true"`
+	// 品牌id
+	BrandId *string `json:"brand_id,omitempty" xml:"brand_id,omitempty" require:"true"`
 	// 门店名称
 	StoreName *string `json:"store_name,omitempty" xml:"store_name,omitempty" require:"true"`
 	// 是否签约 true已签约/false未签约
 	IsSign *bool `json:"is_sign,omitempty" xml:"is_sign,omitempty" require:"true"`
 	// 支付宝H5签约链接 未签约时非空
 	SignUrl *string `json:"sign_url,omitempty" xml:"sign_url,omitempty"`
+	// 销售信息
+	SalesInfo *SimSalesInfo `json:"sales_info,omitempty" xml:"sales_info,omitempty" require:"true"`
 }
 
 func (s SimStoreInfo) String() string {
@@ -1565,6 +1867,11 @@ func (s *SimStoreInfo) SetStoreId(v string) *SimStoreInfo {
 	return s
 }
 
+func (s *SimStoreInfo) SetBrandId(v string) *SimStoreInfo {
+	s.BrandId = &v
+	return s
+}
+
 func (s *SimStoreInfo) SetStoreName(v string) *SimStoreInfo {
 	s.StoreName = &v
 	return s
@@ -1577,6 +1884,11 @@ func (s *SimStoreInfo) SetIsSign(v bool) *SimStoreInfo {
 
 func (s *SimStoreInfo) SetSignUrl(v string) *SimStoreInfo {
 	s.SignUrl = &v
+	return s
+}
+
+func (s *SimStoreInfo) SetSalesInfo(v *SimSalesInfo) *SimStoreInfo {
+	s.SalesInfo = v
 	return s
 }
 
@@ -2838,6 +3150,8 @@ type QuerySimLoginResponse struct {
 	LoginTime *string `json:"login_time,omitempty" xml:"login_time,omitempty"`
 	// 当前登录的门店信息
 	StoreInfo *SimStoreInfo `json:"store_info,omitempty" xml:"store_info,omitempty"`
+	// 待选择门店列表
+	StoreInfoList []*SimStoreInfo `json:"store_info_list,omitempty" xml:"store_info_list,omitempty" type:"Repeated"`
 	// 当前登录的销售信息
 	SalesInfo *SimSalesInfo `json:"sales_info,omitempty" xml:"sales_info,omitempty"`
 }
@@ -2892,6 +3206,11 @@ func (s *QuerySimLoginResponse) SetLoginTime(v string) *QuerySimLoginResponse {
 
 func (s *QuerySimLoginResponse) SetStoreInfo(v *SimStoreInfo) *QuerySimLoginResponse {
 	s.StoreInfo = v
+	return s
+}
+
+func (s *QuerySimLoginResponse) SetStoreInfoList(v []*SimStoreInfo) *QuerySimLoginResponse {
+	s.StoreInfoList = v
 	return s
 }
 
@@ -3174,6 +3493,8 @@ type CreateSimOrderRequest struct {
 	DeviceId *string `json:"device_id,omitempty" xml:"device_id,omitempty" require:"true"`
 	// sku id
 	SkuId *string `json:"sku_id,omitempty" xml:"sku_id,omitempty" require:"true"`
+	// 订单价格 单位元
+	TotalAmount *string `json:"total_amount,omitempty" xml:"total_amount,omitempty" require:"true"`
 	// 车辆sn号
 	Sn *string `json:"sn,omitempty" xml:"sn,omitempty"`
 	// 颜色
@@ -3209,6 +3530,11 @@ func (s *CreateSimOrderRequest) SetDeviceId(v string) *CreateSimOrderRequest {
 
 func (s *CreateSimOrderRequest) SetSkuId(v string) *CreateSimOrderRequest {
 	s.SkuId = &v
+	return s
+}
+
+func (s *CreateSimOrderRequest) SetTotalAmount(v string) *CreateSimOrderRequest {
+	s.TotalAmount = &v
 	return s
 }
 
@@ -3732,7 +4058,9 @@ type UploadSimQrcodeRequest struct {
 	// 解析类型
 	ParseType *string `json:"parse_type,omitempty" xml:"parse_type,omitempty" require:"true"`
 	// base64后的图象数据
-	Base64Data *string `json:"base64_data,omitempty" xml:"base64_data,omitempty" require:"true"`
+	Base64Data *string `json:"base64_data,omitempty" xml:"base64_data,omitempty"`
+	// 二维码解析后数据
+	QrcodeValue *string `json:"qrcode_value,omitempty" xml:"qrcode_value,omitempty"`
 }
 
 func (s UploadSimQrcodeRequest) String() string {
@@ -3775,6 +4103,11 @@ func (s *UploadSimQrcodeRequest) SetParseType(v string) *UploadSimQrcodeRequest 
 
 func (s *UploadSimQrcodeRequest) SetBase64Data(v string) *UploadSimQrcodeRequest {
 	s.Base64Data = &v
+	return s
+}
+
+func (s *UploadSimQrcodeRequest) SetQrcodeValue(v string) *UploadSimQrcodeRequest {
+	s.QrcodeValue = &v
 	return s
 }
 
@@ -4271,6 +4604,8 @@ type QueryDigitalkeyUserinfoResponse struct {
 	AvatarUrl *string `json:"avatar_url,omitempty" xml:"avatar_url,omitempty"`
 	// 品牌ID
 	BrandId *string `json:"brand_id,omitempty" xml:"brand_id,omitempty"`
+	// 用户绑定车辆tuid集合
+	Tuids []*string `json:"tuids,omitempty" xml:"tuids,omitempty" type:"Repeated"`
 }
 
 func (s QueryDigitalkeyUserinfoResponse) String() string {
@@ -4318,6 +4653,11 @@ func (s *QueryDigitalkeyUserinfoResponse) SetAvatarUrl(v string) *QueryDigitalke
 
 func (s *QueryDigitalkeyUserinfoResponse) SetBrandId(v string) *QueryDigitalkeyUserinfoResponse {
 	s.BrandId = &v
+	return s
+}
+
+func (s *QueryDigitalkeyUserinfoResponse) SetTuids(v []*string) *QueryDigitalkeyUserinfoResponse {
+	s.Tuids = v
 	return s
 }
 
@@ -4941,6 +5281,930 @@ func (s *InitDigitalkeyCorpResponse) SetResultMsg(v string) *InitDigitalkeyCorpR
 
 func (s *InitDigitalkeyCorpResponse) SetSecretId(v string) *InitDigitalkeyCorpResponse {
 	s.SecretId = &v
+	return s
+}
+
+type QueryDigitalkeyNfccarinfoRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 品牌ID
+	BrandId *string `json:"brand_id,omitempty" xml:"brand_id,omitempty" require:"true"`
+	// 请求的页数
+	PageNo *int64 `json:"page_no,omitempty" xml:"page_no,omitempty" require:"true"`
+	// 单页项数
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+	// 开始时间
+	StartTime *string `json:"start_time,omitempty" xml:"start_time,omitempty"`
+	// 结束时间
+	EndTime *string `json:"end_time,omitempty" xml:"end_time,omitempty"`
+}
+
+func (s QueryDigitalkeyNfccarinfoRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDigitalkeyNfccarinfoRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDigitalkeyNfccarinfoRequest) SetAuthToken(v string) *QueryDigitalkeyNfccarinfoRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDigitalkeyNfccarinfoRequest) SetProductInstanceId(v string) *QueryDigitalkeyNfccarinfoRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryDigitalkeyNfccarinfoRequest) SetBrandId(v string) *QueryDigitalkeyNfccarinfoRequest {
+	s.BrandId = &v
+	return s
+}
+
+func (s *QueryDigitalkeyNfccarinfoRequest) SetPageNo(v int64) *QueryDigitalkeyNfccarinfoRequest {
+	s.PageNo = &v
+	return s
+}
+
+func (s *QueryDigitalkeyNfccarinfoRequest) SetPageSize(v int64) *QueryDigitalkeyNfccarinfoRequest {
+	s.PageSize = &v
+	return s
+}
+
+func (s *QueryDigitalkeyNfccarinfoRequest) SetStartTime(v string) *QueryDigitalkeyNfccarinfoRequest {
+	s.StartTime = &v
+	return s
+}
+
+func (s *QueryDigitalkeyNfccarinfoRequest) SetEndTime(v string) *QueryDigitalkeyNfccarinfoRequest {
+	s.EndTime = &v
+	return s
+}
+
+type QueryDigitalkeyNfccarinfoResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 分页器
+	Paginator *Paginator `json:"paginator,omitempty" xml:"paginator,omitempty"`
+	// 车辆信息列表
+	CarInfoList []*CarInfoVO `json:"car_info_list,omitempty" xml:"car_info_list,omitempty" type:"Repeated"`
+}
+
+func (s QueryDigitalkeyNfccarinfoResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDigitalkeyNfccarinfoResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDigitalkeyNfccarinfoResponse) SetReqMsgId(v string) *QueryDigitalkeyNfccarinfoResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDigitalkeyNfccarinfoResponse) SetResultCode(v string) *QueryDigitalkeyNfccarinfoResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDigitalkeyNfccarinfoResponse) SetResultMsg(v string) *QueryDigitalkeyNfccarinfoResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryDigitalkeyNfccarinfoResponse) SetPaginator(v *Paginator) *QueryDigitalkeyNfccarinfoResponse {
+	s.Paginator = v
+	return s
+}
+
+func (s *QueryDigitalkeyNfccarinfoResponse) SetCarInfoList(v []*CarInfoVO) *QueryDigitalkeyNfccarinfoResponse {
+	s.CarInfoList = v
+	return s
+}
+
+type ConfirmSimLoginRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 设备编号
+	DeviceId *string `json:"device_id,omitempty" xml:"device_id,omitempty" require:"true"`
+	// 登录态token
+	Token *string `json:"token,omitempty" xml:"token,omitempty" require:"true"`
+	// 登录销售id
+	SalesId *string `json:"sales_id,omitempty" xml:"sales_id,omitempty" require:"true"`
+	// 选择登录门店id
+	StoreId *string `json:"store_id,omitempty" xml:"store_id,omitempty" require:"true"`
+	// 门店品牌id
+	BrandId *string `json:"brand_id,omitempty" xml:"brand_id,omitempty" require:"true"`
+}
+
+func (s ConfirmSimLoginRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ConfirmSimLoginRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ConfirmSimLoginRequest) SetAuthToken(v string) *ConfirmSimLoginRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ConfirmSimLoginRequest) SetProductInstanceId(v string) *ConfirmSimLoginRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ConfirmSimLoginRequest) SetDeviceId(v string) *ConfirmSimLoginRequest {
+	s.DeviceId = &v
+	return s
+}
+
+func (s *ConfirmSimLoginRequest) SetToken(v string) *ConfirmSimLoginRequest {
+	s.Token = &v
+	return s
+}
+
+func (s *ConfirmSimLoginRequest) SetSalesId(v string) *ConfirmSimLoginRequest {
+	s.SalesId = &v
+	return s
+}
+
+func (s *ConfirmSimLoginRequest) SetStoreId(v string) *ConfirmSimLoginRequest {
+	s.StoreId = &v
+	return s
+}
+
+func (s *ConfirmSimLoginRequest) SetBrandId(v string) *ConfirmSimLoginRequest {
+	s.BrandId = &v
+	return s
+}
+
+type ConfirmSimLoginResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 登录结果 NO_RESULT：暂无登录结果 EXPIRED：token过期 ACTIVATE_OK：激活成功，店长首次登录成功 LOGIN_OK：登录成功 USER_NOT_EXIST：用户不存在 STORE_NOT_ACTIVATED：门店未激活
+	LoginResult *string `json:"login_result,omitempty" xml:"login_result,omitempty"`
+	// 登录结果中文信息
+	LoginMsg *string `json:"login_msg,omitempty" xml:"login_msg,omitempty"`
+	// 是否已经激活
+	Activated *bool `json:"activated,omitempty" xml:"activated,omitempty"`
+	// 激活时间，格式yyyy-MM-dd HH:mm:ss
+	ActivateTime *string `json:"activate_time,omitempty" xml:"activate_time,omitempty"`
+	// 登录/激活时间，格式yyyy-MM-dd HH:mm:ss
+	LoginTime *string `json:"login_time,omitempty" xml:"login_time,omitempty"`
+	// 选择登录门店信息
+	StoreInfo *SimStoreInfo `json:"store_info,omitempty" xml:"store_info,omitempty"`
+	// 当前登录的销售信息
+	SalesInfo *SimSalesInfo `json:"sales_info,omitempty" xml:"sales_info,omitempty"`
+}
+
+func (s ConfirmSimLoginResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ConfirmSimLoginResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ConfirmSimLoginResponse) SetReqMsgId(v string) *ConfirmSimLoginResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ConfirmSimLoginResponse) SetResultCode(v string) *ConfirmSimLoginResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ConfirmSimLoginResponse) SetResultMsg(v string) *ConfirmSimLoginResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ConfirmSimLoginResponse) SetLoginResult(v string) *ConfirmSimLoginResponse {
+	s.LoginResult = &v
+	return s
+}
+
+func (s *ConfirmSimLoginResponse) SetLoginMsg(v string) *ConfirmSimLoginResponse {
+	s.LoginMsg = &v
+	return s
+}
+
+func (s *ConfirmSimLoginResponse) SetActivated(v bool) *ConfirmSimLoginResponse {
+	s.Activated = &v
+	return s
+}
+
+func (s *ConfirmSimLoginResponse) SetActivateTime(v string) *ConfirmSimLoginResponse {
+	s.ActivateTime = &v
+	return s
+}
+
+func (s *ConfirmSimLoginResponse) SetLoginTime(v string) *ConfirmSimLoginResponse {
+	s.LoginTime = &v
+	return s
+}
+
+func (s *ConfirmSimLoginResponse) SetStoreInfo(v *SimStoreInfo) *ConfirmSimLoginResponse {
+	s.StoreInfo = v
+	return s
+}
+
+func (s *ConfirmSimLoginResponse) SetSalesInfo(v *SimSalesInfo) *ConfirmSimLoginResponse {
+	s.SalesInfo = v
+	return s
+}
+
+type UpdateSimSkuRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 设备编号
+	DeviceId *string `json:"device_id,omitempty" xml:"device_id,omitempty" require:"true"`
+	// 登录态token
+	Token *string `json:"token,omitempty" xml:"token,omitempty" require:"true"`
+	// 更改价格的skuId
+	SkuId *string `json:"sku_id,omitempty" xml:"sku_id,omitempty" require:"true"`
+	// sku门店价格，单位元
+	StoreAmount *string `json:"store_amount,omitempty" xml:"store_amount,omitempty" require:"true"`
+}
+
+func (s UpdateSimSkuRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateSimSkuRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateSimSkuRequest) SetAuthToken(v string) *UpdateSimSkuRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateSimSkuRequest) SetProductInstanceId(v string) *UpdateSimSkuRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UpdateSimSkuRequest) SetDeviceId(v string) *UpdateSimSkuRequest {
+	s.DeviceId = &v
+	return s
+}
+
+func (s *UpdateSimSkuRequest) SetToken(v string) *UpdateSimSkuRequest {
+	s.Token = &v
+	return s
+}
+
+func (s *UpdateSimSkuRequest) SetSkuId(v string) *UpdateSimSkuRequest {
+	s.SkuId = &v
+	return s
+}
+
+func (s *UpdateSimSkuRequest) SetStoreAmount(v string) *UpdateSimSkuRequest {
+	s.StoreAmount = &v
+	return s
+}
+
+type UpdateSimSkuResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 更新结果
+	UpdateResult *bool `json:"update_result,omitempty" xml:"update_result,omitempty"`
+}
+
+func (s UpdateSimSkuResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateSimSkuResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateSimSkuResponse) SetReqMsgId(v string) *UpdateSimSkuResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UpdateSimSkuResponse) SetResultCode(v string) *UpdateSimSkuResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UpdateSimSkuResponse) SetResultMsg(v string) *UpdateSimSkuResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UpdateSimSkuResponse) SetUpdateResult(v bool) *UpdateSimSkuResponse {
+	s.UpdateResult = &v
+	return s
+}
+
+type QueryTwevCarRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 订单id（tuid+brandId与orderid条件必填。orderid为空时，tuid+brandId必填。orderId不为空时优先使用orderId）
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty"`
+	// 车辆中控号 （tuid+brandId与orderid条件必填。orderid为空时，tuid+brandId必填。orderId不为空时优先使用orderId）
+	Tuid *string `json:"tuid,omitempty" xml:"tuid,omitempty"`
+	// 品牌id（tuid+brandId与orderid条件必填。orderid为空时，tuid+brandId必填。orderId不为空时优先使用orderId）
+	BrandId *string `json:"brand_id,omitempty" xml:"brand_id,omitempty"`
+	// 预留扩展字段 json
+	ExtraInfo *string `json:"extra_info,omitempty" xml:"extra_info,omitempty"`
+}
+
+func (s QueryTwevCarRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryTwevCarRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryTwevCarRequest) SetAuthToken(v string) *QueryTwevCarRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryTwevCarRequest) SetProductInstanceId(v string) *QueryTwevCarRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryTwevCarRequest) SetOrderId(v string) *QueryTwevCarRequest {
+	s.OrderId = &v
+	return s
+}
+
+func (s *QueryTwevCarRequest) SetTuid(v string) *QueryTwevCarRequest {
+	s.Tuid = &v
+	return s
+}
+
+func (s *QueryTwevCarRequest) SetBrandId(v string) *QueryTwevCarRequest {
+	s.BrandId = &v
+	return s
+}
+
+func (s *QueryTwevCarRequest) SetExtraInfo(v string) *QueryTwevCarRequest {
+	s.ExtraInfo = &v
+	return s
+}
+
+type QueryTwevCarResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 中控号
+	Tuid *string `json:"tuid,omitempty" xml:"tuid,omitempty"`
+	// 车架号
+	FrameNo *string `json:"frame_no,omitempty" xml:"frame_no,omitempty"`
+	// 在线状态 在线：ON_LINE/离线：OFF_LINE
+	RunningStatus *string `json:"running_status,omitempty" xml:"running_status,omitempty"`
+	// 启动状态 启动：ON/熄火：OFF
+	PowerStatus *string `json:"power_status,omitempty" xml:"power_status,omitempty"`
+	// 经度
+	Longitude *string `json:"longitude,omitempty" xml:"longitude,omitempty"`
+	// 纬度
+	Latitude *string `json:"latitude,omitempty" xml:"latitude,omitempty"`
+	// 预留扩展字段 json
+	ExtraInfo *string `json:"extra_info,omitempty" xml:"extra_info,omitempty"`
+}
+
+func (s QueryTwevCarResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryTwevCarResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryTwevCarResponse) SetReqMsgId(v string) *QueryTwevCarResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryTwevCarResponse) SetResultCode(v string) *QueryTwevCarResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryTwevCarResponse) SetResultMsg(v string) *QueryTwevCarResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryTwevCarResponse) SetTuid(v string) *QueryTwevCarResponse {
+	s.Tuid = &v
+	return s
+}
+
+func (s *QueryTwevCarResponse) SetFrameNo(v string) *QueryTwevCarResponse {
+	s.FrameNo = &v
+	return s
+}
+
+func (s *QueryTwevCarResponse) SetRunningStatus(v string) *QueryTwevCarResponse {
+	s.RunningStatus = &v
+	return s
+}
+
+func (s *QueryTwevCarResponse) SetPowerStatus(v string) *QueryTwevCarResponse {
+	s.PowerStatus = &v
+	return s
+}
+
+func (s *QueryTwevCarResponse) SetLongitude(v string) *QueryTwevCarResponse {
+	s.Longitude = &v
+	return s
+}
+
+func (s *QueryTwevCarResponse) SetLatitude(v string) *QueryTwevCarResponse {
+	s.Latitude = &v
+	return s
+}
+
+func (s *QueryTwevCarResponse) SetExtraInfo(v string) *QueryTwevCarResponse {
+	s.ExtraInfo = &v
+	return s
+}
+
+type QueryTwevTravelRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 订单id（tuid+brandId与orderid条件必填。orderid为空时，tuid+brandId必填。orderId不为空时优先使用orderId）
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty"`
+	// 车辆中控号 （tuid+brandId与orderid条件必填。orderid为空时，tuid+brandId必填。orderId不为空时优先使用orderId）
+	Tuid *string `json:"tuid,omitempty" xml:"tuid,omitempty"`
+	// 品牌id（tuid+brandId与orderid条件必填。orderid为空时，tuid+brandId必填。orderId不为空时优先使用orderId）
+	BrandId *string `json:"brand_id,omitempty" xml:"brand_id,omitempty"`
+	// 开始时间 (与结束时间不能相差超过24h)
+	BeginTime *string `json:"begin_time,omitempty" xml:"begin_time,omitempty" require:"true"`
+	// 结束时间（与开始时间不能相差超过24h）
+	EndTime *string `json:"end_time,omitempty" xml:"end_time,omitempty" require:"true"`
+	// 预留扩展字段 json
+	ExtraInfo *string `json:"extra_info,omitempty" xml:"extra_info,omitempty"`
+}
+
+func (s QueryTwevTravelRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryTwevTravelRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryTwevTravelRequest) SetAuthToken(v string) *QueryTwevTravelRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryTwevTravelRequest) SetProductInstanceId(v string) *QueryTwevTravelRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryTwevTravelRequest) SetOrderId(v string) *QueryTwevTravelRequest {
+	s.OrderId = &v
+	return s
+}
+
+func (s *QueryTwevTravelRequest) SetTuid(v string) *QueryTwevTravelRequest {
+	s.Tuid = &v
+	return s
+}
+
+func (s *QueryTwevTravelRequest) SetBrandId(v string) *QueryTwevTravelRequest {
+	s.BrandId = &v
+	return s
+}
+
+func (s *QueryTwevTravelRequest) SetBeginTime(v string) *QueryTwevTravelRequest {
+	s.BeginTime = &v
+	return s
+}
+
+func (s *QueryTwevTravelRequest) SetEndTime(v string) *QueryTwevTravelRequest {
+	s.EndTime = &v
+	return s
+}
+
+func (s *QueryTwevTravelRequest) SetExtraInfo(v string) *QueryTwevTravelRequest {
+	s.ExtraInfo = &v
+	return s
+}
+
+type QueryTwevTravelResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 中控号
+	Tuid *string `json:"tuid,omitempty" xml:"tuid,omitempty"`
+	// 轨迹点gps集合
+	Locations []*SimCarLocationInfo `json:"locations,omitempty" xml:"locations,omitempty" type:"Repeated"`
+	// 预留扩展字段 json
+	ExtraInfo *string `json:"extra_info,omitempty" xml:"extra_info,omitempty"`
+}
+
+func (s QueryTwevTravelResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryTwevTravelResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryTwevTravelResponse) SetReqMsgId(v string) *QueryTwevTravelResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryTwevTravelResponse) SetResultCode(v string) *QueryTwevTravelResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryTwevTravelResponse) SetResultMsg(v string) *QueryTwevTravelResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryTwevTravelResponse) SetTuid(v string) *QueryTwevTravelResponse {
+	s.Tuid = &v
+	return s
+}
+
+func (s *QueryTwevTravelResponse) SetLocations(v []*SimCarLocationInfo) *QueryTwevTravelResponse {
+	s.Locations = v
+	return s
+}
+
+func (s *QueryTwevTravelResponse) SetExtraInfo(v string) *QueryTwevTravelResponse {
+	s.ExtraInfo = &v
+	return s
+}
+
+type OperateTwevCarRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 订单id（tuid+brandId与orderid条件必填。orderid为空时，tuid+brandId必填。orderId不为空时优先使用orderId）
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty"`
+	// 车辆中控号 （tuid+brandId与orderid条件必填。orderid为空时，tuid+brandId必填。orderId不为空时优先使用orderId）
+	Tuid *string `json:"tuid,omitempty" xml:"tuid,omitempty"`
+	// 品牌id（tuid+brandId与orderid条件必填。orderid为空时，tuid+brandId必填。orderId不为空时优先使用orderId）
+	BrandId *string `json:"brand_id,omitempty" xml:"brand_id,omitempty"`
+	// 操作类型  设防：SET_DEFENSE/撤防：REMOVE_DEFENSE/远程启动：REMOTE_ON/远程熄火：REMOTE_OFF/超级锁车：SUPER_LOCK/超级解锁：SUPER_UNLOCK/寻车鸣笛：SEARCH_HORN/开坐桶锁：OPEN_SITTING_BUCKET
+	OperateType *string `json:"operate_type,omitempty" xml:"operate_type,omitempty" require:"true"`
+	// 预留扩展字段 json
+	ExtraInfo *string `json:"extra_info,omitempty" xml:"extra_info,omitempty"`
+}
+
+func (s OperateTwevCarRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OperateTwevCarRequest) GoString() string {
+	return s.String()
+}
+
+func (s *OperateTwevCarRequest) SetAuthToken(v string) *OperateTwevCarRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *OperateTwevCarRequest) SetProductInstanceId(v string) *OperateTwevCarRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *OperateTwevCarRequest) SetOrderId(v string) *OperateTwevCarRequest {
+	s.OrderId = &v
+	return s
+}
+
+func (s *OperateTwevCarRequest) SetTuid(v string) *OperateTwevCarRequest {
+	s.Tuid = &v
+	return s
+}
+
+func (s *OperateTwevCarRequest) SetBrandId(v string) *OperateTwevCarRequest {
+	s.BrandId = &v
+	return s
+}
+
+func (s *OperateTwevCarRequest) SetOperateType(v string) *OperateTwevCarRequest {
+	s.OperateType = &v
+	return s
+}
+
+func (s *OperateTwevCarRequest) SetExtraInfo(v string) *OperateTwevCarRequest {
+	s.ExtraInfo = &v
+	return s
+}
+
+type OperateTwevCarResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 中控号
+	Tuid *string `json:"tuid,omitempty" xml:"tuid,omitempty"`
+	// 预留扩展字段 json
+	ExtraInfo *string `json:"extra_info,omitempty" xml:"extra_info,omitempty"`
+}
+
+func (s OperateTwevCarResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OperateTwevCarResponse) GoString() string {
+	return s.String()
+}
+
+func (s *OperateTwevCarResponse) SetReqMsgId(v string) *OperateTwevCarResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *OperateTwevCarResponse) SetResultCode(v string) *OperateTwevCarResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *OperateTwevCarResponse) SetResultMsg(v string) *OperateTwevCarResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *OperateTwevCarResponse) SetTuid(v string) *OperateTwevCarResponse {
+	s.Tuid = &v
+	return s
+}
+
+func (s *OperateTwevCarResponse) SetExtraInfo(v string) *OperateTwevCarResponse {
+	s.ExtraInfo = &v
+	return s
+}
+
+type QueryTwevCardataRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 登录态token
+	Token *string `json:"token,omitempty" xml:"token,omitempty" require:"true"`
+	// 车辆中控id
+	Tuid *string `json:"tuid,omitempty" xml:"tuid,omitempty" require:"true"`
+	// 统计时间维度  MONTH（月）/WEEK（周）/DAY（日）
+	TimeDimension *string `json:"time_dimension,omitempty" xml:"time_dimension,omitempty" require:"true"`
+	// 时间戳（时间戳所在月/周/日内的数据，每月的第一天00:00， 每周的第一天00:00， 每日的00:00）
+	TimeValue *int64 `json:"time_value,omitempty" xml:"time_value,omitempty" require:"true"`
+	// 前 n 月/周/日， 包含当前月/周/日（默认9）
+	PastDays *int64 `json:"past_days,omitempty" xml:"past_days,omitempty" require:"true"`
+}
+
+func (s QueryTwevCardataRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryTwevCardataRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryTwevCardataRequest) SetAuthToken(v string) *QueryTwevCardataRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryTwevCardataRequest) SetProductInstanceId(v string) *QueryTwevCardataRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryTwevCardataRequest) SetToken(v string) *QueryTwevCardataRequest {
+	s.Token = &v
+	return s
+}
+
+func (s *QueryTwevCardataRequest) SetTuid(v string) *QueryTwevCardataRequest {
+	s.Tuid = &v
+	return s
+}
+
+func (s *QueryTwevCardataRequest) SetTimeDimension(v string) *QueryTwevCardataRequest {
+	s.TimeDimension = &v
+	return s
+}
+
+func (s *QueryTwevCardataRequest) SetTimeValue(v int64) *QueryTwevCardataRequest {
+	s.TimeValue = &v
+	return s
+}
+
+func (s *QueryTwevCardataRequest) SetPastDays(v int64) *QueryTwevCardataRequest {
+	s.PastDays = &v
+	return s
+}
+
+type QueryTwevCardataResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 行程统计数据列表
+	TripStatistics *TripStatisticInfo `json:"trip_statistics,omitempty" xml:"trip_statistics,omitempty"`
+}
+
+func (s QueryTwevCardataResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryTwevCardataResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryTwevCardataResponse) SetReqMsgId(v string) *QueryTwevCardataResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryTwevCardataResponse) SetResultCode(v string) *QueryTwevCardataResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryTwevCardataResponse) SetResultMsg(v string) *QueryTwevCardataResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryTwevCardataResponse) SetTripStatistics(v *TripStatisticInfo) *QueryTwevCardataResponse {
+	s.TripStatistics = v
+	return s
+}
+
+type QueryTwevCartravelRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 登录态token
+	Token *string `json:"token,omitempty" xml:"token,omitempty" require:"true"`
+	// 车辆中控id
+	Tuid *string `json:"tuid,omitempty" xml:"tuid,omitempty" require:"true"`
+	// 统计时间维度 MONTH（月）/WEEK（周）/DAY（日）
+	TimeDimension *string `json:"time_dimension,omitempty" xml:"time_dimension,omitempty" require:"true"`
+	// 时间戳（时间戳所在月/周/日内的数据，每月的第一天00:00， 每周的第一天00:00， 每日的00:00）
+	TimeValue *int64 `json:"time_value,omitempty" xml:"time_value,omitempty" require:"true"`
+	// 页数
+	PageNo *int64 `json:"page_no,omitempty" xml:"page_no,omitempty" require:"true"`
+	// 每页条数
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+}
+
+func (s QueryTwevCartravelRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryTwevCartravelRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryTwevCartravelRequest) SetAuthToken(v string) *QueryTwevCartravelRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryTwevCartravelRequest) SetProductInstanceId(v string) *QueryTwevCartravelRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryTwevCartravelRequest) SetToken(v string) *QueryTwevCartravelRequest {
+	s.Token = &v
+	return s
+}
+
+func (s *QueryTwevCartravelRequest) SetTuid(v string) *QueryTwevCartravelRequest {
+	s.Tuid = &v
+	return s
+}
+
+func (s *QueryTwevCartravelRequest) SetTimeDimension(v string) *QueryTwevCartravelRequest {
+	s.TimeDimension = &v
+	return s
+}
+
+func (s *QueryTwevCartravelRequest) SetTimeValue(v int64) *QueryTwevCartravelRequest {
+	s.TimeValue = &v
+	return s
+}
+
+func (s *QueryTwevCartravelRequest) SetPageNo(v int64) *QueryTwevCartravelRequest {
+	s.PageNo = &v
+	return s
+}
+
+func (s *QueryTwevCartravelRequest) SetPageSize(v int64) *QueryTwevCartravelRequest {
+	s.PageSize = &v
+	return s
+}
+
+type QueryTwevCartravelResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 总页数
+	TotaPage *int64 `json:"tota_page,omitempty" xml:"tota_page,omitempty"`
+	// 总条数
+	TotalSize *int64 `json:"total_size,omitempty" xml:"total_size,omitempty"`
+	// 当前页数
+	PageIndex *int64 `json:"page_index,omitempty" xml:"page_index,omitempty"`
+	// 单页条数
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 行程详情信息
+	TripDetailList *TripDetailInfo `json:"trip_detail_list,omitempty" xml:"trip_detail_list,omitempty"`
+}
+
+func (s QueryTwevCartravelResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryTwevCartravelResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryTwevCartravelResponse) SetReqMsgId(v string) *QueryTwevCartravelResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryTwevCartravelResponse) SetResultCode(v string) *QueryTwevCartravelResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryTwevCartravelResponse) SetResultMsg(v string) *QueryTwevCartravelResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryTwevCartravelResponse) SetTotaPage(v int64) *QueryTwevCartravelResponse {
+	s.TotaPage = &v
+	return s
+}
+
+func (s *QueryTwevCartravelResponse) SetTotalSize(v int64) *QueryTwevCartravelResponse {
+	s.TotalSize = &v
+	return s
+}
+
+func (s *QueryTwevCartravelResponse) SetPageIndex(v int64) *QueryTwevCartravelResponse {
+	s.PageIndex = &v
+	return s
+}
+
+func (s *QueryTwevCartravelResponse) SetPageSize(v int64) *QueryTwevCartravelResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *QueryTwevCartravelResponse) SetTripDetailList(v *TripDetailInfo) *QueryTwevCartravelResponse {
+	s.TripDetailList = v
 	return s
 }
 
@@ -9373,7 +10637,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.4.21"),
+				"sdk_version":      tea.String("1.6.4"),
 				"_prod_code":       tea.String("SECURITYTECH"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -10446,6 +11710,278 @@ func (client *Client) InitDigitalkeyCorpEx(request *InitDigitalkeyCorpRequest, h
 	}
 	_result = &InitDigitalkeyCorpResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.digitalkey.corp.init"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 数字钥匙nfc车辆信息查询
+ * Summary: 数字钥匙nfc车辆信息查询
+ */
+func (client *Client) QueryDigitalkeyNfccarinfo(request *QueryDigitalkeyNfccarinfoRequest) (_result *QueryDigitalkeyNfccarinfoResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDigitalkeyNfccarinfoResponse{}
+	_body, _err := client.QueryDigitalkeyNfccarinfoEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 数字钥匙nfc车辆信息查询
+ * Summary: 数字钥匙nfc车辆信息查询
+ */
+func (client *Client) QueryDigitalkeyNfccarinfoEx(request *QueryDigitalkeyNfccarinfoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDigitalkeyNfccarinfoResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDigitalkeyNfccarinfoResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.digitalkey.nfccarinfo.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 两轮车一体机选择门店登录
+ * Summary: 两轮车一体机选择门店登录
+ */
+func (client *Client) ConfirmSimLogin(request *ConfirmSimLoginRequest) (_result *ConfirmSimLoginResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ConfirmSimLoginResponse{}
+	_body, _err := client.ConfirmSimLoginEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 两轮车一体机选择门店登录
+ * Summary: 两轮车一体机选择门店登录
+ */
+func (client *Client) ConfirmSimLoginEx(request *ConfirmSimLoginRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ConfirmSimLoginResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ConfirmSimLoginResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.sim.login.confirm"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 两轮车一体机门店设置sku价格
+ * Summary: 两轮车一体机门店设置sku价格
+ */
+func (client *Client) UpdateSimSku(request *UpdateSimSkuRequest) (_result *UpdateSimSkuResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UpdateSimSkuResponse{}
+	_body, _err := client.UpdateSimSkuEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 两轮车一体机门店设置sku价格
+ * Summary: 两轮车一体机门店设置sku价格
+ */
+func (client *Client) UpdateSimSkuEx(request *UpdateSimSkuRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UpdateSimSkuResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UpdateSimSkuResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.sim.sku.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 贷后控车查询车辆定位数据
+ * Summary: 贷后控车查询车辆定位数据
+ */
+func (client *Client) QueryTwevCar(request *QueryTwevCarRequest) (_result *QueryTwevCarResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryTwevCarResponse{}
+	_body, _err := client.QueryTwevCarEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 贷后控车查询车辆定位数据
+ * Summary: 贷后控车查询车辆定位数据
+ */
+func (client *Client) QueryTwevCarEx(request *QueryTwevCarRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryTwevCarResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryTwevCarResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.twev.car.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 贷后控车查询车辆gps轨迹
+ * Summary: 贷后控车查询车辆gps轨迹
+ */
+func (client *Client) QueryTwevTravel(request *QueryTwevTravelRequest) (_result *QueryTwevTravelResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryTwevTravelResponse{}
+	_body, _err := client.QueryTwevTravelEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 贷后控车查询车辆gps轨迹
+ * Summary: 贷后控车查询车辆gps轨迹
+ */
+func (client *Client) QueryTwevTravelEx(request *QueryTwevTravelRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryTwevTravelResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryTwevTravelResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.twev.travel.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 贷后控车车辆控制
+ * Summary: 贷后控车车辆控制
+ */
+func (client *Client) OperateTwevCar(request *OperateTwevCarRequest) (_result *OperateTwevCarResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &OperateTwevCarResponse{}
+	_body, _err := client.OperateTwevCarEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 贷后控车车辆控制
+ * Summary: 贷后控车车辆控制
+ */
+func (client *Client) OperateTwevCarEx(request *OperateTwevCarRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *OperateTwevCarResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &OperateTwevCarResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.twev.car.operate"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 新接口-查询车辆行程统计数据
+ * Summary: 新接口-查询车辆行程统计数据
+ */
+func (client *Client) QueryTwevCardata(request *QueryTwevCardataRequest) (_result *QueryTwevCardataResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryTwevCardataResponse{}
+	_body, _err := client.QueryTwevCardataEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 新接口-查询车辆行程统计数据
+ * Summary: 新接口-查询车辆行程统计数据
+ */
+func (client *Client) QueryTwevCardataEx(request *QueryTwevCardataRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryTwevCardataResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryTwevCardataResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.twev.cardata.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 新接口-分页查询车辆行程记录
+ * Summary: 新接口-分页查询车辆行程记录
+ */
+func (client *Client) QueryTwevCartravel(request *QueryTwevCartravelRequest) (_result *QueryTwevCartravelResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryTwevCartravelResponse{}
+	_body, _err := client.QueryTwevCartravelEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 新接口-分页查询车辆行程记录
+ * Summary: 新接口-分页查询车辆行程记录
+ */
+func (client *Client) QueryTwevCartravelEx(request *QueryTwevCartravelRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryTwevCartravelResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryTwevCartravelResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.twev.cartravel.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
