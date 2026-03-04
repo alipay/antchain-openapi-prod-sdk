@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.SECURITYTECH.Models
 {
-    public class QueryDigitalkeyUserinfoResponse : TeaModel {
+    public class QueryTwevTravelResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,35 +24,20 @@ namespace AntChain.SDK.SECURITYTECH.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 用户ID
-        [NameInMap("uid")]
+        // 中控号
+        [NameInMap("tuid")]
         [Validation(Required=false)]
-        public string Uid { get; set; }
+        public string Tuid { get; set; }
 
-        // 个人简介
-        [NameInMap("introduction")]
+        // 轨迹点gps集合
+        [NameInMap("locations")]
         [Validation(Required=false)]
-        public string Introduction { get; set; }
+        public List<SimCarLocationInfo> Locations { get; set; }
 
-        // 用户昵称
-        [NameInMap("nick_name")]
+        // 预留扩展字段 json
+        [NameInMap("extra_info")]
         [Validation(Required=false)]
-        public string NickName { get; set; }
-
-        // 用户头像地址
-        [NameInMap("avatar_url")]
-        [Validation(Required=false)]
-        public string AvatarUrl { get; set; }
-
-        // 品牌ID
-        [NameInMap("brand_id")]
-        [Validation(Required=false)]
-        public string BrandId { get; set; }
-
-        // 用户绑定车辆tuid集合
-        [NameInMap("tuids")]
-        [Validation(Required=false)]
-        public List<string> Tuids { get; set; }
+        public string ExtraInfo { get; set; }
 
     }
 

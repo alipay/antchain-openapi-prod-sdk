@@ -137,7 +137,7 @@ namespace AntChain.SDK.SECURITYTECH
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.4.21"},
+                        {"sdk_version", "1.6.4"},
                         {"_prod_code", "SECURITYTECH"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.SECURITYTECH
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.4.21"},
+                        {"sdk_version", "1.6.4"},
                         {"_prod_code", "SECURITYTECH"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1583,6 +1583,342 @@ namespace AntChain.SDK.SECURITYTECH
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<InitDigitalkeyCorpResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.digitalkey.corp.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 数字钥匙nfc车辆信息查询
+         * Summary: 数字钥匙nfc车辆信息查询
+         */
+        public QueryDigitalkeyNfccarinfoResponse QueryDigitalkeyNfccarinfo(QueryDigitalkeyNfccarinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryDigitalkeyNfccarinfoEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 数字钥匙nfc车辆信息查询
+         * Summary: 数字钥匙nfc车辆信息查询
+         */
+        public async Task<QueryDigitalkeyNfccarinfoResponse> QueryDigitalkeyNfccarinfoAsync(QueryDigitalkeyNfccarinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryDigitalkeyNfccarinfoExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 数字钥匙nfc车辆信息查询
+         * Summary: 数字钥匙nfc车辆信息查询
+         */
+        public QueryDigitalkeyNfccarinfoResponse QueryDigitalkeyNfccarinfoEx(QueryDigitalkeyNfccarinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDigitalkeyNfccarinfoResponse>(DoRequest("1.0", "antsecuritytech.gateway.digitalkey.nfccarinfo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 数字钥匙nfc车辆信息查询
+         * Summary: 数字钥匙nfc车辆信息查询
+         */
+        public async Task<QueryDigitalkeyNfccarinfoResponse> QueryDigitalkeyNfccarinfoExAsync(QueryDigitalkeyNfccarinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDigitalkeyNfccarinfoResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.digitalkey.nfccarinfo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 两轮车一体机选择门店登录
+         * Summary: 两轮车一体机选择门店登录
+         */
+        public ConfirmSimLoginResponse ConfirmSimLogin(ConfirmSimLoginRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ConfirmSimLoginEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 两轮车一体机选择门店登录
+         * Summary: 两轮车一体机选择门店登录
+         */
+        public async Task<ConfirmSimLoginResponse> ConfirmSimLoginAsync(ConfirmSimLoginRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ConfirmSimLoginExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 两轮车一体机选择门店登录
+         * Summary: 两轮车一体机选择门店登录
+         */
+        public ConfirmSimLoginResponse ConfirmSimLoginEx(ConfirmSimLoginRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ConfirmSimLoginResponse>(DoRequest("1.0", "antsecuritytech.gateway.sim.login.confirm", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 两轮车一体机选择门店登录
+         * Summary: 两轮车一体机选择门店登录
+         */
+        public async Task<ConfirmSimLoginResponse> ConfirmSimLoginExAsync(ConfirmSimLoginRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ConfirmSimLoginResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.sim.login.confirm", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 两轮车一体机门店设置sku价格
+         * Summary: 两轮车一体机门店设置sku价格
+         */
+        public UpdateSimSkuResponse UpdateSimSku(UpdateSimSkuRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UpdateSimSkuEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 两轮车一体机门店设置sku价格
+         * Summary: 两轮车一体机门店设置sku价格
+         */
+        public async Task<UpdateSimSkuResponse> UpdateSimSkuAsync(UpdateSimSkuRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UpdateSimSkuExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 两轮车一体机门店设置sku价格
+         * Summary: 两轮车一体机门店设置sku价格
+         */
+        public UpdateSimSkuResponse UpdateSimSkuEx(UpdateSimSkuRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateSimSkuResponse>(DoRequest("1.0", "antsecuritytech.gateway.sim.sku.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 两轮车一体机门店设置sku价格
+         * Summary: 两轮车一体机门店设置sku价格
+         */
+        public async Task<UpdateSimSkuResponse> UpdateSimSkuExAsync(UpdateSimSkuRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateSimSkuResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.sim.sku.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 贷后控车查询车辆定位数据
+         * Summary: 贷后控车查询车辆定位数据
+         */
+        public QueryTwevCarResponse QueryTwevCar(QueryTwevCarRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryTwevCarEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 贷后控车查询车辆定位数据
+         * Summary: 贷后控车查询车辆定位数据
+         */
+        public async Task<QueryTwevCarResponse> QueryTwevCarAsync(QueryTwevCarRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryTwevCarExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 贷后控车查询车辆定位数据
+         * Summary: 贷后控车查询车辆定位数据
+         */
+        public QueryTwevCarResponse QueryTwevCarEx(QueryTwevCarRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryTwevCarResponse>(DoRequest("1.0", "antsecuritytech.gateway.twev.car.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 贷后控车查询车辆定位数据
+         * Summary: 贷后控车查询车辆定位数据
+         */
+        public async Task<QueryTwevCarResponse> QueryTwevCarExAsync(QueryTwevCarRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryTwevCarResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.twev.car.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 贷后控车查询车辆gps轨迹
+         * Summary: 贷后控车查询车辆gps轨迹
+         */
+        public QueryTwevTravelResponse QueryTwevTravel(QueryTwevTravelRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryTwevTravelEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 贷后控车查询车辆gps轨迹
+         * Summary: 贷后控车查询车辆gps轨迹
+         */
+        public async Task<QueryTwevTravelResponse> QueryTwevTravelAsync(QueryTwevTravelRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryTwevTravelExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 贷后控车查询车辆gps轨迹
+         * Summary: 贷后控车查询车辆gps轨迹
+         */
+        public QueryTwevTravelResponse QueryTwevTravelEx(QueryTwevTravelRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryTwevTravelResponse>(DoRequest("1.0", "antsecuritytech.gateway.twev.travel.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 贷后控车查询车辆gps轨迹
+         * Summary: 贷后控车查询车辆gps轨迹
+         */
+        public async Task<QueryTwevTravelResponse> QueryTwevTravelExAsync(QueryTwevTravelRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryTwevTravelResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.twev.travel.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 贷后控车车辆控制
+         * Summary: 贷后控车车辆控制
+         */
+        public OperateTwevCarResponse OperateTwevCar(OperateTwevCarRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return OperateTwevCarEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 贷后控车车辆控制
+         * Summary: 贷后控车车辆控制
+         */
+        public async Task<OperateTwevCarResponse> OperateTwevCarAsync(OperateTwevCarRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await OperateTwevCarExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 贷后控车车辆控制
+         * Summary: 贷后控车车辆控制
+         */
+        public OperateTwevCarResponse OperateTwevCarEx(OperateTwevCarRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<OperateTwevCarResponse>(DoRequest("1.0", "antsecuritytech.gateway.twev.car.operate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 贷后控车车辆控制
+         * Summary: 贷后控车车辆控制
+         */
+        public async Task<OperateTwevCarResponse> OperateTwevCarExAsync(OperateTwevCarRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<OperateTwevCarResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.twev.car.operate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 新接口-查询车辆行程统计数据
+         * Summary: 新接口-查询车辆行程统计数据
+         */
+        public QueryTwevCardataResponse QueryTwevCardata(QueryTwevCardataRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryTwevCardataEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 新接口-查询车辆行程统计数据
+         * Summary: 新接口-查询车辆行程统计数据
+         */
+        public async Task<QueryTwevCardataResponse> QueryTwevCardataAsync(QueryTwevCardataRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryTwevCardataExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 新接口-查询车辆行程统计数据
+         * Summary: 新接口-查询车辆行程统计数据
+         */
+        public QueryTwevCardataResponse QueryTwevCardataEx(QueryTwevCardataRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryTwevCardataResponse>(DoRequest("1.0", "antsecuritytech.gateway.twev.cardata.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 新接口-查询车辆行程统计数据
+         * Summary: 新接口-查询车辆行程统计数据
+         */
+        public async Task<QueryTwevCardataResponse> QueryTwevCardataExAsync(QueryTwevCardataRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryTwevCardataResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.twev.cardata.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 新接口-分页查询车辆行程记录
+         * Summary: 新接口-分页查询车辆行程记录
+         */
+        public QueryTwevCartravelResponse QueryTwevCartravel(QueryTwevCartravelRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryTwevCartravelEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 新接口-分页查询车辆行程记录
+         * Summary: 新接口-分页查询车辆行程记录
+         */
+        public async Task<QueryTwevCartravelResponse> QueryTwevCartravelAsync(QueryTwevCartravelRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryTwevCartravelExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 新接口-分页查询车辆行程记录
+         * Summary: 新接口-分页查询车辆行程记录
+         */
+        public QueryTwevCartravelResponse QueryTwevCartravelEx(QueryTwevCartravelRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryTwevCartravelResponse>(DoRequest("1.0", "antsecuritytech.gateway.twev.cartravel.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 新接口-分页查询车辆行程记录
+         * Summary: 新接口-分页查询车辆行程记录
+         */
+        public async Task<QueryTwevCartravelResponse> QueryTwevCartravelExAsync(QueryTwevCartravelRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryTwevCartravelResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.twev.cartravel.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

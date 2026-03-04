@@ -70,6 +70,21 @@ namespace AntChain.SDK.SECURITYTECH.Models
         [Validation(Required=false)]
         public string SkuDescription { get; set; }
 
+        // sku价格配置开关 true开/false关
+        [NameInMap("price_switch")]
+        [Validation(Required=true)]
+        public bool? PriceSwitch { get; set; }
+
+        // sku价格配置范围 上限：单位元
+        [NameInMap("price_max")]
+        [Validation(Required=false)]
+        public string PriceMax { get; set; }
+
+        // sku价格配置范围 下限：单位元
+        [NameInMap("price_min")]
+        [Validation(Required=false)]
+        public string PriceMin { get; set; }
+
     }
 
 }

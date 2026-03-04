@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.SECURITYTECH.Models
 {
-    public class QueryDigitalkeyUserinfoResponse : TeaModel {
+    public class QueryTwevCarResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,35 +24,40 @@ namespace AntChain.SDK.SECURITYTECH.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 用户ID
-        [NameInMap("uid")]
+        // 中控号
+        [NameInMap("tuid")]
         [Validation(Required=false)]
-        public string Uid { get; set; }
+        public string Tuid { get; set; }
 
-        // 个人简介
-        [NameInMap("introduction")]
+        // 车架号
+        [NameInMap("frame_no")]
         [Validation(Required=false)]
-        public string Introduction { get; set; }
+        public string FrameNo { get; set; }
 
-        // 用户昵称
-        [NameInMap("nick_name")]
+        // 在线状态 在线：ON_LINE/离线：OFF_LINE
+        [NameInMap("running_status")]
         [Validation(Required=false)]
-        public string NickName { get; set; }
+        public string RunningStatus { get; set; }
 
-        // 用户头像地址
-        [NameInMap("avatar_url")]
+        // 启动状态 启动：ON/熄火：OFF
+        [NameInMap("power_status")]
         [Validation(Required=false)]
-        public string AvatarUrl { get; set; }
+        public string PowerStatus { get; set; }
 
-        // 品牌ID
-        [NameInMap("brand_id")]
+        // 经度
+        [NameInMap("longitude")]
         [Validation(Required=false)]
-        public string BrandId { get; set; }
+        public string Longitude { get; set; }
 
-        // 用户绑定车辆tuid集合
-        [NameInMap("tuids")]
+        // 纬度
+        [NameInMap("latitude")]
         [Validation(Required=false)]
-        public List<string> Tuids { get; set; }
+        public string Latitude { get; set; }
+
+        // 预留扩展字段 json
+        [NameInMap("extra_info")]
+        [Validation(Required=false)]
+        public string ExtraInfo { get; set; }
 
     }
 

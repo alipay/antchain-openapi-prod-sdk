@@ -40,8 +40,13 @@ namespace AntChain.SDK.SECURITYTECH.Models
 
         // base64后的图象数据
         [NameInMap("base64_data")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string Base64Data { get; set; }
+
+        // 二维码解析后数据
+        [NameInMap("qrcode_value")]
+        [Validation(Required=false)]
+        public string QrcodeValue { get; set; }
 
     }
 

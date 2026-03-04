@@ -15,6 +15,11 @@ namespace AntChain.SDK.SECURITYTECH.Models
         [Validation(Required=true)]
         public string SalesId { get; set; }
 
+        // 销售角色 法人:TWEV_STORE_MANAGER/销售:TWEV_SALES
+        [NameInMap("sales_type")]
+        [Validation(Required=true)]
+        public string SalesType { get; set; }
+
     }
 
 }

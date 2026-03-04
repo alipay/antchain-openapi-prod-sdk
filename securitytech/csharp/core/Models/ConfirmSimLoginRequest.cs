@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.SECURITYTECH.Models
 {
-    public class CreateSimOrderRequest : TeaModel {
+    public class ConfirmSimLoginRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -23,35 +23,25 @@ namespace AntChain.SDK.SECURITYTECH.Models
         [Validation(Required=true)]
         public string DeviceId { get; set; }
 
-        // sku id
-        [NameInMap("sku_id")]
-        [Validation(Required=true)]
-        public string SkuId { get; set; }
-
-        // 订单价格 单位元
-        [NameInMap("total_amount")]
-        [Validation(Required=true)]
-        public string TotalAmount { get; set; }
-
-        // 车辆sn号
-        [NameInMap("sn")]
-        [Validation(Required=false)]
-        public string Sn { get; set; }
-
-        // 颜色
-        [NameInMap("color")]
-        [Validation(Required=true)]
-        public string Color { get; set; }
-
         // 登录态token
         [NameInMap("token")]
         [Validation(Required=true)]
         public string Token { get; set; }
 
-        // 扩展信息
-        [NameInMap("extra_info")]
-        [Validation(Required=false)]
-        public string ExtraInfo { get; set; }
+        // 登录销售id
+        [NameInMap("sales_id")]
+        [Validation(Required=true)]
+        public string SalesId { get; set; }
+
+        // 选择登录门店id
+        [NameInMap("store_id")]
+        [Validation(Required=true)]
+        public string StoreId { get; set; }
+
+        // 门店品牌id
+        [NameInMap("brand_id")]
+        [Validation(Required=true)]
+        public string BrandId { get; set; }
 
     }
 

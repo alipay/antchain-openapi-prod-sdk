@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.SECURITYTECH.Models
 {
-    public class QueryDigitalkeyUserinfoResponse : TeaModel {
+    public class QueryTwevCartravelResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,35 +24,30 @@ namespace AntChain.SDK.SECURITYTECH.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 用户ID
-        [NameInMap("uid")]
+        // 总页数
+        [NameInMap("tota_page")]
         [Validation(Required=false)]
-        public string Uid { get; set; }
+        public long? TotaPage { get; set; }
 
-        // 个人简介
-        [NameInMap("introduction")]
+        // 总条数
+        [NameInMap("total_size")]
         [Validation(Required=false)]
-        public string Introduction { get; set; }
+        public long? TotalSize { get; set; }
 
-        // 用户昵称
-        [NameInMap("nick_name")]
+        // 当前页数
+        [NameInMap("page_index")]
         [Validation(Required=false)]
-        public string NickName { get; set; }
+        public long? PageIndex { get; set; }
 
-        // 用户头像地址
-        [NameInMap("avatar_url")]
+        // 单页条数
+        [NameInMap("page_size")]
         [Validation(Required=false)]
-        public string AvatarUrl { get; set; }
+        public long? PageSize { get; set; }
 
-        // 品牌ID
-        [NameInMap("brand_id")]
+        // 行程详情信息
+        [NameInMap("trip_detail_list")]
         [Validation(Required=false)]
-        public string BrandId { get; set; }
-
-        // 用户绑定车辆tuid集合
-        [NameInMap("tuids")]
-        [Validation(Required=false)]
-        public List<string> Tuids { get; set; }
+        public TripDetailInfo TripDetailList { get; set; }
 
     }
 

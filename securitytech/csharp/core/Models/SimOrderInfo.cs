@@ -20,10 +20,20 @@ namespace AntChain.SDK.SECURITYTECH.Models
         [Validation(Required=true)]
         public string SalesId { get; set; }
 
+        // 销售姓名
+        [NameInMap("sales_name")]
+        [Validation(Required=true)]
+        public string SalesName { get; set; }
+
         // 车辆SN号
         [NameInMap("sn")]
         [Validation(Required=false)]
         public string Sn { get; set; }
+
+        // 车架号
+        [NameInMap("frame_no")]
+        [Validation(Required=false)]
+        public string FrameNo { get; set; }
 
         // 用户手机号
         [NameInMap("mobile_no")]

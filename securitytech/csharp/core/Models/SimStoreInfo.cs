@@ -15,6 +15,11 @@ namespace AntChain.SDK.SECURITYTECH.Models
         [Validation(Required=true)]
         public string StoreId { get; set; }
 
+        // 品牌id
+        [NameInMap("brand_id")]
+        [Validation(Required=true)]
+        public string BrandId { get; set; }
+
         // 门店名称
         [NameInMap("store_name")]
         [Validation(Required=true)]
@@ -29,6 +34,11 @@ namespace AntChain.SDK.SECURITYTECH.Models
         [NameInMap("sign_url")]
         [Validation(Required=false)]
         public string SignUrl { get; set; }
+
+        // 销售信息
+        [NameInMap("sales_info")]
+        [Validation(Required=true)]
+        public SimSalesInfo SalesInfo { get; set; }
 
     }
 
