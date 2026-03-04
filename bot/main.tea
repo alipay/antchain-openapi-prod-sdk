@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.12.69',
+    sdk_version = '1.12.75',
     _prod_code = 'BOT',
     _prod_channel = 'undefined'
   };
@@ -9634,6 +9634,10 @@ model QueryElectrocarTravelRequest = {
   // 时间范围
   // 注：trip_data_model = 3 不需要传
   timeRange?: string(name='time_range'),
+  // 默认1
+  pageNum?: long(name='page_num'),
+  // 默认20
+  pageSize?: long(name='page_size'),
 }
 
 model QueryElectrocarTravelResponse = {
@@ -9948,6 +9952,14 @@ model QueryElectrocarTriplistResponse = {
   success?: boolean(name='success'),
   // 行程列表
   tripDetailList?: [ TripDetail ](name='trip_detail_list'),
+  // 当前页码
+  pageIndex?: long(name='page_index'),
+  // 单页数量
+  pageSize?: long(name='page_size'),
+  // 记录总数
+  totalSize?: long(name='total_size'),
+  // 页总数
+  totalPages?: long(name='total_pages'),
 }
 
 /**
