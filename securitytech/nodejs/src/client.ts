@@ -102,6 +102,31 @@ export class RiskData extends $tea.Model {
   }
 }
 
+// 两轮车一体机销售信息
+export class SimSalesInfo extends $tea.Model {
+  // 销售对外业务id
+  salesId: string;
+  // 销售角色 法人:TWEV_STORE_MANAGER/销售:TWEV_SALES
+  salesType: string;
+  static names(): { [key: string]: string } {
+    return {
+      salesId: 'sales_id',
+      salesType: 'sales_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      salesId: 'string',
+      salesType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // ekyt响应头
 export class ResponseHead extends $tea.Model {
   // 请求唯一标识
@@ -115,6 +140,31 @@ export class ResponseHead extends $tea.Model {
   static types(): { [key: string]: any } {
     return {
       requestId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 时间
+export class DurationInfo extends $tea.Model {
+  // 时长
+  value: string;
+  // 时间单位
+  unit: string;
+  static names(): { [key: string]: string } {
+    return {
+      value: 'value',
+      unit: 'unit',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      value: 'string',
+      unit: 'string',
     };
   }
 
@@ -330,27 +380,6 @@ export class FaceShieldResult extends $tea.Model {
   }
 }
 
-// 两轮车一体机销售信息
-export class SimSalesInfo extends $tea.Model {
-  // 销售对外业务id
-  salesId: string;
-  static names(): { [key: string]: string } {
-    return {
-      salesId: 'sales_id',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      salesId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // 终端安全-Android加固-Response
 export class FileTokenForUpload extends $tea.Model {
   // .
@@ -540,6 +569,39 @@ export class HardeningTaskResponse extends $tea.Model {
   }
 }
 
+// 行程统计数据
+export class TripStatisticInfo extends $tea.Model {
+  // 总里程
+  totalMileage: string;
+  // 总时长
+  totalDuration: DurationInfo;
+  // 总条数
+  totalCount: number;
+  // 时间码
+  periodCode: number;
+  static names(): { [key: string]: string } {
+    return {
+      totalMileage: 'total_mileage',
+      totalDuration: 'total_duration',
+      totalCount: 'total_count',
+      periodCode: 'period_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      totalMileage: 'string',
+      totalDuration: DurationInfo,
+      totalCount: 'number',
+      periodCode: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // ETC车辆信息
 export class EtcVehicleInfo extends $tea.Model {
   // 车辆id
@@ -597,6 +659,84 @@ export class EtcVehicleInfo extends $tea.Model {
       deviceStatus: 'string',
       deviceStatusDetail: 'string',
       deviceBizTime: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 车辆gps轨迹点
+export class SimCarLocationInfo extends $tea.Model {
+  // 定位时间
+  locationTime: string;
+  // 经度
+  longitude: string;
+  // 纬度
+  latitude: string;
+  static names(): { [key: string]: string } {
+    return {
+      locationTime: 'location_time',
+      longitude: 'longitude',
+      latitude: 'latitude',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      locationTime: 'string',
+      longitude: 'string',
+      latitude: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 车辆信息列表
+export class CarInfoVO extends $tea.Model {
+  // 车辆型号
+  carModel: string;
+  // 车辆颜色
+  carColor: string;
+  // 车型编号
+  modelNo: string;
+  // 车架号
+  frameNo: string;
+  // 设备ID
+  tuid: string;
+  // tagId
+  tagId: string;
+  // 品牌ID
+  brandId: string;
+  // 协议类型
+  protocolType: string;
+  static names(): { [key: string]: string } {
+    return {
+      carModel: 'car_model',
+      carColor: 'car_color',
+      modelNo: 'model_no',
+      frameNo: 'frame_no',
+      tuid: 'tuid',
+      tagId: 'tag_id',
+      brandId: 'brand_id',
+      protocolType: 'protocol_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      carModel: 'string',
+      carColor: 'string',
+      modelNo: 'string',
+      frameNo: 'string',
+      tuid: 'string',
+      tagId: 'string',
+      brandId: 'string',
+      protocolType: 'string',
     };
   }
 
@@ -707,8 +847,12 @@ export class SimOrderInfo extends $tea.Model {
   orderId: string;
   // 必填	销售id
   salesId: string;
+  // 销售姓名
+  salesName: string;
   // 车辆SN号
   sn?: string;
+  // 车架号
+  frameNo?: string;
   // 用户手机号
   mobileNo?: string;
   // 订单时间，格式yyyy-MM-dd HH:mm:ss
@@ -742,7 +886,9 @@ export class SimOrderInfo extends $tea.Model {
     return {
       orderId: 'order_id',
       salesId: 'sales_id',
+      salesName: 'sales_name',
       sn: 'sn',
+      frameNo: 'frame_no',
       mobileNo: 'mobile_no',
       orderTime: 'order_time',
       paymentType: 'payment_type',
@@ -762,7 +908,9 @@ export class SimOrderInfo extends $tea.Model {
     return {
       orderId: 'string',
       salesId: 'string',
+      salesName: 'string',
       sn: 'string',
+      frameNo: 'string',
       mobileNo: 'string',
       orderTime: 'string',
       paymentType: 'string',
@@ -809,6 +957,12 @@ export class SimSkuInfo extends $tea.Model {
   storeId: string;
   // 车型描述
   skuDescription?: string;
+  // sku价格配置开关 true开/false关
+  priceSwitch: boolean;
+  // sku价格配置范围 上限：单位元
+  priceMax?: string;
+  // sku价格配置范围 下限：单位元
+  priceMin?: string;
   static names(): { [key: string]: string } {
     return {
       skuId: 'sku_id',
@@ -823,6 +977,9 @@ export class SimSkuInfo extends $tea.Model {
       images: 'images',
       storeId: 'store_id',
       skuDescription: 'sku_description',
+      priceSwitch: 'price_switch',
+      priceMax: 'price_max',
+      priceMin: 'price_min',
     };
   }
 
@@ -840,6 +997,9 @@ export class SimSkuInfo extends $tea.Model {
       images: 'string',
       storeId: 'string',
       skuDescription: 'string',
+      priceSwitch: 'boolean',
+      priceMax: 'string',
+      priceMin: 'string',
     };
   }
 
@@ -1062,6 +1222,67 @@ export class SimSpuInfo extends $tea.Model {
   }
 }
 
+// 行程详细信息
+export class TripDetailInfo extends $tea.Model {
+  // 开始时间 时间戳
+  startTime: number;
+  // 结束时间 时间戳
+  endTime: number;
+  // 行程id
+  tripId: string;
+  // 行驶里程
+  mileage: string;
+  // 时长
+  duration: DurationInfo;
+  // 最高速度
+  maxSpeed: string;
+  // 平均速度
+  avgSpeed: string;
+  // 开始地址
+  firstAddress: string;
+  // 结束地址
+  lastAddress: string;
+  // 开始定位时间 时间戳
+  firstLocationTime: number;
+  // 最终定位时间 时间戳
+  lastLocationTime: number;
+  static names(): { [key: string]: string } {
+    return {
+      startTime: 'start_time',
+      endTime: 'end_time',
+      tripId: 'trip_id',
+      mileage: 'mileage',
+      duration: 'duration',
+      maxSpeed: 'max_speed',
+      avgSpeed: 'avg_speed',
+      firstAddress: 'first_address',
+      lastAddress: 'last_address',
+      firstLocationTime: 'first_location_time',
+      lastLocationTime: 'last_location_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      startTime: 'number',
+      endTime: 'number',
+      tripId: 'string',
+      mileage: 'string',
+      duration: DurationInfo,
+      maxSpeed: 'string',
+      avgSpeed: 'string',
+      firstAddress: 'string',
+      lastAddress: 'string',
+      firstLocationTime: 'number',
+      lastLocationTime: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // KeyValue对属性
 export class KeyValueMap extends $tea.Model {
   // key-value中的key
@@ -1215,27 +1436,35 @@ export class CctDataMap extends $tea.Model {
 export class SimStoreInfo extends $tea.Model {
   // 门店对外业务id
   storeId: string;
+  // 品牌id
+  brandId: string;
   // 门店名称
   storeName: string;
   // 是否签约 true已签约/false未签约
   isSign: boolean;
   // 支付宝H5签约链接 未签约时非空
   signUrl?: string;
+  // 销售信息
+  salesInfo: SimSalesInfo;
   static names(): { [key: string]: string } {
     return {
       storeId: 'store_id',
+      brandId: 'brand_id',
       storeName: 'store_name',
       isSign: 'is_sign',
       signUrl: 'sign_url',
+      salesInfo: 'sales_info',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
       storeId: 'string',
+      brandId: 'string',
       storeName: 'string',
       isSign: 'boolean',
       signUrl: 'string',
+      salesInfo: SimSalesInfo,
     };
   }
 
@@ -2217,6 +2446,8 @@ export class QuerySimLoginResponse extends $tea.Model {
   loginTime?: string;
   // 当前登录的门店信息
   storeInfo?: SimStoreInfo;
+  // 待选择门店列表
+  storeInfoList?: SimStoreInfo[];
   // 当前登录的销售信息
   salesInfo?: SimSalesInfo;
   static names(): { [key: string]: string } {
@@ -2230,6 +2461,7 @@ export class QuerySimLoginResponse extends $tea.Model {
       activateTime: 'activate_time',
       loginTime: 'login_time',
       storeInfo: 'store_info',
+      storeInfoList: 'store_info_list',
       salesInfo: 'sales_info',
     };
   }
@@ -2245,6 +2477,7 @@ export class QuerySimLoginResponse extends $tea.Model {
       activateTime: 'string',
       loginTime: 'string',
       storeInfo: SimStoreInfo,
+      storeInfoList: { 'type': 'array', 'itemType': SimStoreInfo },
       salesInfo: SimSalesInfo,
     };
   }
@@ -2471,6 +2704,8 @@ export class CreateSimOrderRequest extends $tea.Model {
   deviceId: string;
   // sku id
   skuId: string;
+  // 订单价格 单位元
+  totalAmount: string;
   // 车辆sn号
   sn?: string;
   // 颜色
@@ -2485,6 +2720,7 @@ export class CreateSimOrderRequest extends $tea.Model {
       productInstanceId: 'product_instance_id',
       deviceId: 'device_id',
       skuId: 'sku_id',
+      totalAmount: 'total_amount',
       sn: 'sn',
       color: 'color',
       token: 'token',
@@ -2498,6 +2734,7 @@ export class CreateSimOrderRequest extends $tea.Model {
       productInstanceId: 'string',
       deviceId: 'string',
       skuId: 'string',
+      totalAmount: 'string',
       sn: 'string',
       color: 'string',
       token: 'string',
@@ -2906,7 +3143,9 @@ export class UploadSimQrcodeRequest extends $tea.Model {
   // 解析类型
   parseType: string;
   // base64后的图象数据
-  base64Data: string;
+  base64Data?: string;
+  // 二维码解析后数据
+  qrcodeValue?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -2916,6 +3155,7 @@ export class UploadSimQrcodeRequest extends $tea.Model {
       vehicleModel: 'vehicle_model',
       parseType: 'parse_type',
       base64Data: 'base64_data',
+      qrcodeValue: 'qrcode_value',
     };
   }
 
@@ -2928,6 +3168,7 @@ export class UploadSimQrcodeRequest extends $tea.Model {
       vehicleModel: 'string',
       parseType: 'string',
       base64Data: 'string',
+      qrcodeValue: 'string',
     };
   }
 
@@ -3320,6 +3561,8 @@ export class QueryDigitalkeyUserinfoResponse extends $tea.Model {
   avatarUrl?: string;
   // 品牌ID
   brandId?: string;
+  // 用户绑定车辆tuid集合
+  tuids?: string[];
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -3330,6 +3573,7 @@ export class QueryDigitalkeyUserinfoResponse extends $tea.Model {
       nickName: 'nick_name',
       avatarUrl: 'avatar_url',
       brandId: 'brand_id',
+      tuids: 'tuids',
     };
   }
 
@@ -3343,6 +3587,7 @@ export class QueryDigitalkeyUserinfoResponse extends $tea.Model {
       nickName: 'string',
       avatarUrl: 'string',
       brandId: 'string',
+      tuids: { 'type': 'array', 'itemType': 'string' },
     };
   }
 
@@ -3813,6 +4058,686 @@ export class InitDigitalkeyCorpResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       secretId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDigitalkeyNfccarinfoRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 品牌ID
+  brandId: string;
+  // 请求的页数
+  pageNo: number;
+  // 单页项数
+  pageSize: number;
+  // 开始时间
+  startTime?: string;
+  // 结束时间
+  endTime?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      brandId: 'brand_id',
+      pageNo: 'page_no',
+      pageSize: 'page_size',
+      startTime: 'start_time',
+      endTime: 'end_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      brandId: 'string',
+      pageNo: 'number',
+      pageSize: 'number',
+      startTime: 'string',
+      endTime: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDigitalkeyNfccarinfoResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 分页器
+  paginator?: Paginator;
+  // 车辆信息列表
+  carInfoList?: CarInfoVO[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      paginator: 'paginator',
+      carInfoList: 'car_info_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      paginator: Paginator,
+      carInfoList: { 'type': 'array', 'itemType': CarInfoVO },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ConfirmSimLoginRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 设备编号
+  deviceId: string;
+  // 登录态token
+  token: string;
+  // 登录销售id
+  salesId: string;
+  // 选择登录门店id
+  storeId: string;
+  // 门店品牌id
+  brandId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      deviceId: 'device_id',
+      token: 'token',
+      salesId: 'sales_id',
+      storeId: 'store_id',
+      brandId: 'brand_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      deviceId: 'string',
+      token: 'string',
+      salesId: 'string',
+      storeId: 'string',
+      brandId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ConfirmSimLoginResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 登录结果 NO_RESULT：暂无登录结果 EXPIRED：token过期 ACTIVATE_OK：激活成功，店长首次登录成功 LOGIN_OK：登录成功 USER_NOT_EXIST：用户不存在 STORE_NOT_ACTIVATED：门店未激活
+  loginResult?: string;
+  // 登录结果中文信息
+  loginMsg?: string;
+  // 是否已经激活
+  activated?: boolean;
+  // 激活时间，格式yyyy-MM-dd HH:mm:ss
+  activateTime?: string;
+  // 登录/激活时间，格式yyyy-MM-dd HH:mm:ss
+  loginTime?: string;
+  // 选择登录门店信息
+  storeInfo?: SimStoreInfo;
+  // 当前登录的销售信息
+  salesInfo?: SimSalesInfo;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      loginResult: 'login_result',
+      loginMsg: 'login_msg',
+      activated: 'activated',
+      activateTime: 'activate_time',
+      loginTime: 'login_time',
+      storeInfo: 'store_info',
+      salesInfo: 'sales_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      loginResult: 'string',
+      loginMsg: 'string',
+      activated: 'boolean',
+      activateTime: 'string',
+      loginTime: 'string',
+      storeInfo: SimStoreInfo,
+      salesInfo: SimSalesInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateSimSkuRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 设备编号
+  deviceId: string;
+  // 登录态token
+  token: string;
+  // 更改价格的skuId
+  skuId: string;
+  // sku门店价格，单位元
+  storeAmount: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      deviceId: 'device_id',
+      token: 'token',
+      skuId: 'sku_id',
+      storeAmount: 'store_amount',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      deviceId: 'string',
+      token: 'string',
+      skuId: 'string',
+      storeAmount: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateSimSkuResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 更新结果
+  updateResult?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      updateResult: 'update_result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      updateResult: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryTwevCarRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 订单id（tuid+brandId与orderid条件必填。orderid为空时，tuid+brandId必填。orderId不为空时优先使用orderId）
+  orderId?: string;
+  // 车辆中控号 （tuid+brandId与orderid条件必填。orderid为空时，tuid+brandId必填。orderId不为空时优先使用orderId）
+  tuid?: string;
+  // 品牌id（tuid+brandId与orderid条件必填。orderid为空时，tuid+brandId必填。orderId不为空时优先使用orderId）
+  brandId?: string;
+  // 预留扩展字段 json
+  extraInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderId: 'order_id',
+      tuid: 'tuid',
+      brandId: 'brand_id',
+      extraInfo: 'extra_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderId: 'string',
+      tuid: 'string',
+      brandId: 'string',
+      extraInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryTwevCarResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 中控号
+  tuid?: string;
+  // 车架号
+  frameNo?: string;
+  // 在线状态 在线：ON_LINE/离线：OFF_LINE
+  runningStatus?: string;
+  // 启动状态 启动：ON/熄火：OFF
+  powerStatus?: string;
+  // 经度
+  longitude?: string;
+  // 纬度
+  latitude?: string;
+  // 预留扩展字段 json
+  extraInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      tuid: 'tuid',
+      frameNo: 'frame_no',
+      runningStatus: 'running_status',
+      powerStatus: 'power_status',
+      longitude: 'longitude',
+      latitude: 'latitude',
+      extraInfo: 'extra_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      tuid: 'string',
+      frameNo: 'string',
+      runningStatus: 'string',
+      powerStatus: 'string',
+      longitude: 'string',
+      latitude: 'string',
+      extraInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryTwevTravelRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 订单id（tuid+brandId与orderid条件必填。orderid为空时，tuid+brandId必填。orderId不为空时优先使用orderId）
+  orderId?: string;
+  // 车辆中控号 （tuid+brandId与orderid条件必填。orderid为空时，tuid+brandId必填。orderId不为空时优先使用orderId）
+  tuid?: string;
+  // 品牌id（tuid+brandId与orderid条件必填。orderid为空时，tuid+brandId必填。orderId不为空时优先使用orderId）
+  brandId?: string;
+  // 开始时间 (与结束时间不能相差超过24h)
+  beginTime: string;
+  // 结束时间（与开始时间不能相差超过24h）
+  endTime: string;
+  // 预留扩展字段 json
+  extraInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderId: 'order_id',
+      tuid: 'tuid',
+      brandId: 'brand_id',
+      beginTime: 'begin_time',
+      endTime: 'end_time',
+      extraInfo: 'extra_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderId: 'string',
+      tuid: 'string',
+      brandId: 'string',
+      beginTime: 'string',
+      endTime: 'string',
+      extraInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryTwevTravelResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 中控号
+  tuid?: string;
+  // 轨迹点gps集合
+  locations?: SimCarLocationInfo[];
+  // 预留扩展字段 json
+  extraInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      tuid: 'tuid',
+      locations: 'locations',
+      extraInfo: 'extra_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      tuid: 'string',
+      locations: { 'type': 'array', 'itemType': SimCarLocationInfo },
+      extraInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class OperateTwevCarRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 订单id（tuid+brandId与orderid条件必填。orderid为空时，tuid+brandId必填。orderId不为空时优先使用orderId）
+  orderId?: string;
+  // 车辆中控号 （tuid+brandId与orderid条件必填。orderid为空时，tuid+brandId必填。orderId不为空时优先使用orderId）
+  tuid?: string;
+  // 品牌id（tuid+brandId与orderid条件必填。orderid为空时，tuid+brandId必填。orderId不为空时优先使用orderId）
+  brandId?: string;
+  // 操作类型  设防：SET_DEFENSE/撤防：REMOVE_DEFENSE/远程启动：REMOTE_ON/远程熄火：REMOTE_OFF/超级锁车：SUPER_LOCK/超级解锁：SUPER_UNLOCK/寻车鸣笛：SEARCH_HORN/开坐桶锁：OPEN_SITTING_BUCKET
+  operateType: string;
+  // 预留扩展字段 json
+  extraInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderId: 'order_id',
+      tuid: 'tuid',
+      brandId: 'brand_id',
+      operateType: 'operate_type',
+      extraInfo: 'extra_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderId: 'string',
+      tuid: 'string',
+      brandId: 'string',
+      operateType: 'string',
+      extraInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class OperateTwevCarResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 中控号
+  tuid?: string;
+  // 预留扩展字段 json
+  extraInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      tuid: 'tuid',
+      extraInfo: 'extra_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      tuid: 'string',
+      extraInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryTwevCardataRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 登录态token
+  token: string;
+  // 车辆中控id
+  tuid: string;
+  // 统计时间维度  MONTH（月）/WEEK（周）/DAY（日）
+  timeDimension: string;
+  // 时间戳（时间戳所在月/周/日内的数据，每月的第一天00:00， 每周的第一天00:00， 每日的00:00）
+  timeValue: number;
+  // 前 n 月/周/日， 包含当前月/周/日（默认9）
+  pastDays: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      token: 'token',
+      tuid: 'tuid',
+      timeDimension: 'time_dimension',
+      timeValue: 'time_value',
+      pastDays: 'past_days',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      token: 'string',
+      tuid: 'string',
+      timeDimension: 'string',
+      timeValue: 'number',
+      pastDays: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryTwevCardataResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 行程统计数据列表
+  tripStatistics?: TripStatisticInfo;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      tripStatistics: 'trip_statistics',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      tripStatistics: TripStatisticInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryTwevCartravelRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 登录态token
+  token: string;
+  // 车辆中控id
+  tuid: string;
+  // 统计时间维度 MONTH（月）/WEEK（周）/DAY（日）
+  timeDimension: string;
+  // 时间戳（时间戳所在月/周/日内的数据，每月的第一天00:00， 每周的第一天00:00， 每日的00:00）
+  timeValue: number;
+  // 页数
+  pageNo: number;
+  // 每页条数
+  pageSize: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      token: 'token',
+      tuid: 'tuid',
+      timeDimension: 'time_dimension',
+      timeValue: 'time_value',
+      pageNo: 'page_no',
+      pageSize: 'page_size',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      token: 'string',
+      tuid: 'string',
+      timeDimension: 'string',
+      timeValue: 'number',
+      pageNo: 'number',
+      pageSize: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryTwevCartravelResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 总页数
+  totaPage?: number;
+  // 总条数
+  totalSize?: number;
+  // 当前页数
+  pageIndex?: number;
+  // 单页条数
+  pageSize?: number;
+  // 行程详情信息
+  tripDetailList?: TripDetailInfo;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      totaPage: 'tota_page',
+      totalSize: 'total_size',
+      pageIndex: 'page_index',
+      pageSize: 'page_size',
+      tripDetailList: 'trip_detail_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      totaPage: 'number',
+      totalSize: 'number',
+      pageIndex: 'number',
+      pageSize: 'number',
+      tripDetailList: TripDetailInfo,
     };
   }
 
@@ -7127,7 +8052,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.4.21",
+          sdk_version: "1.6.4",
           _prod_code: "SECURITYTECH",
           _prod_channel: "undefined",
         };
@@ -7745,6 +8670,158 @@ export default class Client {
   async initDigitalkeyCorpEx(request: InitDigitalkeyCorpRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<InitDigitalkeyCorpResponse> {
     Util.validateModel(request);
     return $tea.cast<InitDigitalkeyCorpResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.digitalkey.corp.init", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new InitDigitalkeyCorpResponse({}));
+  }
+
+  /**
+   * Description: 数字钥匙nfc车辆信息查询
+   * Summary: 数字钥匙nfc车辆信息查询
+   */
+  async queryDigitalkeyNfccarinfo(request: QueryDigitalkeyNfccarinfoRequest): Promise<QueryDigitalkeyNfccarinfoResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDigitalkeyNfccarinfoEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 数字钥匙nfc车辆信息查询
+   * Summary: 数字钥匙nfc车辆信息查询
+   */
+  async queryDigitalkeyNfccarinfoEx(request: QueryDigitalkeyNfccarinfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDigitalkeyNfccarinfoResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDigitalkeyNfccarinfoResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.digitalkey.nfccarinfo.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDigitalkeyNfccarinfoResponse({}));
+  }
+
+  /**
+   * Description: 两轮车一体机选择门店登录
+   * Summary: 两轮车一体机选择门店登录
+   */
+  async confirmSimLogin(request: ConfirmSimLoginRequest): Promise<ConfirmSimLoginResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.confirmSimLoginEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 两轮车一体机选择门店登录
+   * Summary: 两轮车一体机选择门店登录
+   */
+  async confirmSimLoginEx(request: ConfirmSimLoginRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ConfirmSimLoginResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ConfirmSimLoginResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.sim.login.confirm", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ConfirmSimLoginResponse({}));
+  }
+
+  /**
+   * Description: 两轮车一体机门店设置sku价格
+   * Summary: 两轮车一体机门店设置sku价格
+   */
+  async updateSimSku(request: UpdateSimSkuRequest): Promise<UpdateSimSkuResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.updateSimSkuEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 两轮车一体机门店设置sku价格
+   * Summary: 两轮车一体机门店设置sku价格
+   */
+  async updateSimSkuEx(request: UpdateSimSkuRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdateSimSkuResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UpdateSimSkuResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.sim.sku.update", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UpdateSimSkuResponse({}));
+  }
+
+  /**
+   * Description: 贷后控车查询车辆定位数据
+   * Summary: 贷后控车查询车辆定位数据
+   */
+  async queryTwevCar(request: QueryTwevCarRequest): Promise<QueryTwevCarResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryTwevCarEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 贷后控车查询车辆定位数据
+   * Summary: 贷后控车查询车辆定位数据
+   */
+  async queryTwevCarEx(request: QueryTwevCarRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryTwevCarResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryTwevCarResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.twev.car.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryTwevCarResponse({}));
+  }
+
+  /**
+   * Description: 贷后控车查询车辆gps轨迹
+   * Summary: 贷后控车查询车辆gps轨迹
+   */
+  async queryTwevTravel(request: QueryTwevTravelRequest): Promise<QueryTwevTravelResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryTwevTravelEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 贷后控车查询车辆gps轨迹
+   * Summary: 贷后控车查询车辆gps轨迹
+   */
+  async queryTwevTravelEx(request: QueryTwevTravelRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryTwevTravelResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryTwevTravelResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.twev.travel.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryTwevTravelResponse({}));
+  }
+
+  /**
+   * Description: 贷后控车车辆控制
+   * Summary: 贷后控车车辆控制
+   */
+  async operateTwevCar(request: OperateTwevCarRequest): Promise<OperateTwevCarResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.operateTwevCarEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 贷后控车车辆控制
+   * Summary: 贷后控车车辆控制
+   */
+  async operateTwevCarEx(request: OperateTwevCarRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<OperateTwevCarResponse> {
+    Util.validateModel(request);
+    return $tea.cast<OperateTwevCarResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.twev.car.operate", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new OperateTwevCarResponse({}));
+  }
+
+  /**
+   * Description: 新接口-查询车辆行程统计数据
+   * Summary: 新接口-查询车辆行程统计数据
+   */
+  async queryTwevCardata(request: QueryTwevCardataRequest): Promise<QueryTwevCardataResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryTwevCardataEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 新接口-查询车辆行程统计数据
+   * Summary: 新接口-查询车辆行程统计数据
+   */
+  async queryTwevCardataEx(request: QueryTwevCardataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryTwevCardataResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryTwevCardataResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.twev.cardata.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryTwevCardataResponse({}));
+  }
+
+  /**
+   * Description: 新接口-分页查询车辆行程记录
+   * Summary: 新接口-分页查询车辆行程记录
+   */
+  async queryTwevCartravel(request: QueryTwevCartravelRequest): Promise<QueryTwevCartravelResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryTwevCartravelEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 新接口-分页查询车辆行程记录
+   * Summary: 新接口-分页查询车辆行程记录
+   */
+  async queryTwevCartravelEx(request: QueryTwevCartravelRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryTwevCartravelResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryTwevCartravelResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.twev.cartravel.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryTwevCartravelResponse({}));
   }
 
   /**
