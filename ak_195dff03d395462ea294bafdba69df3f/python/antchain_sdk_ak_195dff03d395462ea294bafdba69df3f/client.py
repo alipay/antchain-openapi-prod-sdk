@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.3',
+                    'sdk_version': '1.7.4',
                     '_prod_code': 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel': 'saas'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.3',
+                    'sdk_version': '1.7.4',
                     '_prod_code': 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel': 'saas'
                 }
@@ -5327,6 +5327,62 @@ class Client:
             await self.do_request_async('1.0', 'antchain.ato.fund.creditgranting.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def query_antchain_ato_fund_creditauth(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoFundCreditauthRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoFundCreditauthResponse:
+        """
+        Description: 授权信息查询
+        Summary: 授权信息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_antchain_ato_fund_creditauth_ex(request, headers, runtime)
+
+    async def query_antchain_ato_fund_creditauth_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoFundCreditauthRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoFundCreditauthResponse:
+        """
+        Description: 授权信息查询
+        Summary: 授权信息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_antchain_ato_fund_creditauth_ex_async(request, headers, runtime)
+
+    def query_antchain_ato_fund_creditauth_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoFundCreditauthRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoFundCreditauthResponse:
+        """
+        Description: 授权信息查询
+        Summary: 授权信息查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoFundCreditauthResponse(),
+            self.do_request('1.0', 'antchain.ato.fund.creditauth.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_antchain_ato_fund_creditauth_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoFundCreditauthRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoFundCreditauthResponse:
+        """
+        Description: 授权信息查询
+        Summary: 授权信息查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoFundCreditauthResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.fund.creditauth.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def query_antchain_ato_fund_assetpackage(
         self,
         request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoFundAssetpackageRequest,
@@ -6001,6 +6057,118 @@ class Client:
         return TeaCore.from_map(
             ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CancelAntchainAtoFundFlowResponse(),
             await self.do_request_async('1.0', 'antchain.ato.fund.flow.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def sync_antchain_ato_fund_flow(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoFundFlowRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoFundFlowResponse:
+        """
+        Description: 资方自有合同同步
+        Summary: 资方自有合同同步
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.sync_antchain_ato_fund_flow_ex(request, headers, runtime)
+
+    async def sync_antchain_ato_fund_flow_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoFundFlowRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoFundFlowResponse:
+        """
+        Description: 资方自有合同同步
+        Summary: 资方自有合同同步
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.sync_antchain_ato_fund_flow_ex_async(request, headers, runtime)
+
+    def sync_antchain_ato_fund_flow_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoFundFlowRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoFundFlowResponse:
+        """
+        Description: 资方自有合同同步
+        Summary: 资方自有合同同步
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoFundFlowResponse(),
+            self.do_request('1.0', 'antchain.ato.fund.flow.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def sync_antchain_ato_fund_flow_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoFundFlowRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoFundFlowResponse:
+        """
+        Description: 资方自有合同同步
+        Summary: 资方自有合同同步
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoFundFlowResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.fund.flow.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def sign_antchain_ato_fund_flow(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SignAntchainAtoFundFlowRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SignAntchainAtoFundFlowResponse:
+        """
+        Description: 资方自有合同签署
+        Summary: 资方自有合同签署
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.sign_antchain_ato_fund_flow_ex(request, headers, runtime)
+
+    async def sign_antchain_ato_fund_flow_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SignAntchainAtoFundFlowRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SignAntchainAtoFundFlowResponse:
+        """
+        Description: 资方自有合同签署
+        Summary: 资方自有合同签署
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.sign_antchain_ato_fund_flow_ex_async(request, headers, runtime)
+
+    def sign_antchain_ato_fund_flow_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SignAntchainAtoFundFlowRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SignAntchainAtoFundFlowResponse:
+        """
+        Description: 资方自有合同签署
+        Summary: 资方自有合同签署
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SignAntchainAtoFundFlowResponse(),
+            self.do_request('1.0', 'antchain.ato.fund.flow.sign', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def sign_antchain_ato_fund_flow_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SignAntchainAtoFundFlowRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SignAntchainAtoFundFlowResponse:
+        """
+        Description: 资方自有合同签署
+        Summary: 资方自有合同签署
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SignAntchainAtoFundFlowResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.fund.flow.sign', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def apply_antchain_ato_trade_creditgranting(
