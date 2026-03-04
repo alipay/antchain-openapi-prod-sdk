@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.securitytech.models;
 
 import com.aliyun.tea.*;
 
-public class QuerySimLoginResponse extends TeaModel {
+public class ConfirmSimLoginResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,13 +16,7 @@ public class QuerySimLoginResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 登录结果
-    // NO_RESULT：暂无登录结果
-    // EXPIRED：token过期
-    // ACTIVATE_OK：激活成功，店长首次登录成功
-    // LOGIN_OK：登录成功
-    // USER_NOT_EXIST：用户不存在
-    // STORE_NOT_ACTIVATED：门店未激活
+    // 登录结果 NO_RESULT：暂无登录结果 EXPIRED：token过期 ACTIVATE_OK：激活成功，店长首次登录成功 LOGIN_OK：登录成功 USER_NOT_EXIST：用户不存在 STORE_NOT_ACTIVATED：门店未激活
     @NameInMap("login_result")
     public String loginResult;
 
@@ -42,24 +36,20 @@ public class QuerySimLoginResponse extends TeaModel {
     @NameInMap("login_time")
     public String loginTime;
 
-    // 当前登录的门店信息
+    // 选择登录门店信息
     @NameInMap("store_info")
     public SimStoreInfo storeInfo;
-
-    // 待选择门店列表
-    @NameInMap("store_info_list")
-    public java.util.List<SimStoreInfo> storeInfoList;
 
     // 当前登录的销售信息
     @NameInMap("sales_info")
     public SimSalesInfo salesInfo;
 
-    public static QuerySimLoginResponse build(java.util.Map<String, ?> map) throws Exception {
-        QuerySimLoginResponse self = new QuerySimLoginResponse();
+    public static ConfirmSimLoginResponse build(java.util.Map<String, ?> map) throws Exception {
+        ConfirmSimLoginResponse self = new ConfirmSimLoginResponse();
         return TeaModel.build(map, self);
     }
 
-    public QuerySimLoginResponse setReqMsgId(String reqMsgId) {
+    public ConfirmSimLoginResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -67,7 +57,7 @@ public class QuerySimLoginResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public QuerySimLoginResponse setResultCode(String resultCode) {
+    public ConfirmSimLoginResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -75,7 +65,7 @@ public class QuerySimLoginResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public QuerySimLoginResponse setResultMsg(String resultMsg) {
+    public ConfirmSimLoginResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -83,7 +73,7 @@ public class QuerySimLoginResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QuerySimLoginResponse setLoginResult(String loginResult) {
+    public ConfirmSimLoginResponse setLoginResult(String loginResult) {
         this.loginResult = loginResult;
         return this;
     }
@@ -91,7 +81,7 @@ public class QuerySimLoginResponse extends TeaModel {
         return this.loginResult;
     }
 
-    public QuerySimLoginResponse setLoginMsg(String loginMsg) {
+    public ConfirmSimLoginResponse setLoginMsg(String loginMsg) {
         this.loginMsg = loginMsg;
         return this;
     }
@@ -99,7 +89,7 @@ public class QuerySimLoginResponse extends TeaModel {
         return this.loginMsg;
     }
 
-    public QuerySimLoginResponse setActivated(Boolean activated) {
+    public ConfirmSimLoginResponse setActivated(Boolean activated) {
         this.activated = activated;
         return this;
     }
@@ -107,7 +97,7 @@ public class QuerySimLoginResponse extends TeaModel {
         return this.activated;
     }
 
-    public QuerySimLoginResponse setActivateTime(String activateTime) {
+    public ConfirmSimLoginResponse setActivateTime(String activateTime) {
         this.activateTime = activateTime;
         return this;
     }
@@ -115,7 +105,7 @@ public class QuerySimLoginResponse extends TeaModel {
         return this.activateTime;
     }
 
-    public QuerySimLoginResponse setLoginTime(String loginTime) {
+    public ConfirmSimLoginResponse setLoginTime(String loginTime) {
         this.loginTime = loginTime;
         return this;
     }
@@ -123,7 +113,7 @@ public class QuerySimLoginResponse extends TeaModel {
         return this.loginTime;
     }
 
-    public QuerySimLoginResponse setStoreInfo(SimStoreInfo storeInfo) {
+    public ConfirmSimLoginResponse setStoreInfo(SimStoreInfo storeInfo) {
         this.storeInfo = storeInfo;
         return this;
     }
@@ -131,15 +121,7 @@ public class QuerySimLoginResponse extends TeaModel {
         return this.storeInfo;
     }
 
-    public QuerySimLoginResponse setStoreInfoList(java.util.List<SimStoreInfo> storeInfoList) {
-        this.storeInfoList = storeInfoList;
-        return this;
-    }
-    public java.util.List<SimStoreInfo> getStoreInfoList() {
-        return this.storeInfoList;
-    }
-
-    public QuerySimLoginResponse setSalesInfo(SimSalesInfo salesInfo) {
+    public ConfirmSimLoginResponse setSalesInfo(SimSalesInfo salesInfo) {
         this.salesInfo = salesInfo;
         return this;
     }

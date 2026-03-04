@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.4.21"),
+                    new TeaPair("sdk_version", "1.6.4"),
                     new TeaPair("_prod_code", "SECURITYTECH"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -818,6 +818,174 @@ public class Client {
     public InitDigitalkeyCorpResponse initDigitalkeyCorpEx(InitDigitalkeyCorpRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.digitalkey.corp.init", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new InitDigitalkeyCorpResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 数字钥匙nfc车辆信息查询
+     * Summary: 数字钥匙nfc车辆信息查询</p>
+     */
+    public QueryDigitalkeyNfccarinfoResponse queryDigitalkeyNfccarinfo(QueryDigitalkeyNfccarinfoRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDigitalkeyNfccarinfoEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 数字钥匙nfc车辆信息查询
+     * Summary: 数字钥匙nfc车辆信息查询</p>
+     */
+    public QueryDigitalkeyNfccarinfoResponse queryDigitalkeyNfccarinfoEx(QueryDigitalkeyNfccarinfoRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.digitalkey.nfccarinfo.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDigitalkeyNfccarinfoResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 两轮车一体机选择门店登录
+     * Summary: 两轮车一体机选择门店登录</p>
+     */
+    public ConfirmSimLoginResponse confirmSimLogin(ConfirmSimLoginRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.confirmSimLoginEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 两轮车一体机选择门店登录
+     * Summary: 两轮车一体机选择门店登录</p>
+     */
+    public ConfirmSimLoginResponse confirmSimLoginEx(ConfirmSimLoginRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.sim.login.confirm", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ConfirmSimLoginResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 两轮车一体机门店设置sku价格
+     * Summary: 两轮车一体机门店设置sku价格</p>
+     */
+    public UpdateSimSkuResponse updateSimSku(UpdateSimSkuRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateSimSkuEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 两轮车一体机门店设置sku价格
+     * Summary: 两轮车一体机门店设置sku价格</p>
+     */
+    public UpdateSimSkuResponse updateSimSkuEx(UpdateSimSkuRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.sim.sku.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateSimSkuResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 贷后控车查询车辆定位数据
+     * Summary: 贷后控车查询车辆定位数据</p>
+     */
+    public QueryTwevCarResponse queryTwevCar(QueryTwevCarRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryTwevCarEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 贷后控车查询车辆定位数据
+     * Summary: 贷后控车查询车辆定位数据</p>
+     */
+    public QueryTwevCarResponse queryTwevCarEx(QueryTwevCarRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.twev.car.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTwevCarResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 贷后控车查询车辆gps轨迹
+     * Summary: 贷后控车查询车辆gps轨迹</p>
+     */
+    public QueryTwevTravelResponse queryTwevTravel(QueryTwevTravelRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryTwevTravelEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 贷后控车查询车辆gps轨迹
+     * Summary: 贷后控车查询车辆gps轨迹</p>
+     */
+    public QueryTwevTravelResponse queryTwevTravelEx(QueryTwevTravelRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.twev.travel.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTwevTravelResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 贷后控车车辆控制
+     * Summary: 贷后控车车辆控制</p>
+     */
+    public OperateTwevCarResponse operateTwevCar(OperateTwevCarRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.operateTwevCarEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 贷后控车车辆控制
+     * Summary: 贷后控车车辆控制</p>
+     */
+    public OperateTwevCarResponse operateTwevCarEx(OperateTwevCarRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.twev.car.operate", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new OperateTwevCarResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 新接口-查询车辆行程统计数据
+     * Summary: 新接口-查询车辆行程统计数据</p>
+     */
+    public QueryTwevCardataResponse queryTwevCardata(QueryTwevCardataRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryTwevCardataEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 新接口-查询车辆行程统计数据
+     * Summary: 新接口-查询车辆行程统计数据</p>
+     */
+    public QueryTwevCardataResponse queryTwevCardataEx(QueryTwevCardataRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.twev.cardata.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTwevCardataResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 新接口-分页查询车辆行程记录
+     * Summary: 新接口-分页查询车辆行程记录</p>
+     */
+    public QueryTwevCartravelResponse queryTwevCartravel(QueryTwevCartravelRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryTwevCartravelEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 新接口-分页查询车辆行程记录
+     * Summary: 新接口-分页查询车辆行程记录</p>
+     */
+    public QueryTwevCartravelResponse queryTwevCartravelEx(QueryTwevCartravelRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.twev.cartravel.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTwevCartravelResponse());
     }
 
     /**

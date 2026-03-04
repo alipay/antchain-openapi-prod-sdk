@@ -113,6 +113,31 @@ public class SimSkuInfo extends TeaModel {
     @NameInMap("sku_description")
     public String skuDescription;
 
+    // sku价格配置开关 true开/false关
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
+    @NameInMap("price_switch")
+    @Validation(required = true)
+    public Boolean priceSwitch;
+
+    // sku价格配置范围 上限：单位元
+    /**
+     * <strong>example:</strong>
+     * 
+     */
+    @NameInMap("price_max")
+    public String priceMax;
+
+    // sku价格配置范围 下限：单位元
+    /**
+     * <strong>example:</strong>
+     * 
+     */
+    @NameInMap("price_min")
+    public String priceMin;
+
     public static SimSkuInfo build(java.util.Map<String, ?> map) throws Exception {
         SimSkuInfo self = new SimSkuInfo();
         return TeaModel.build(map, self);
@@ -212,6 +237,30 @@ public class SimSkuInfo extends TeaModel {
     }
     public String getSkuDescription() {
         return this.skuDescription;
+    }
+
+    public SimSkuInfo setPriceSwitch(Boolean priceSwitch) {
+        this.priceSwitch = priceSwitch;
+        return this;
+    }
+    public Boolean getPriceSwitch() {
+        return this.priceSwitch;
+    }
+
+    public SimSkuInfo setPriceMax(String priceMax) {
+        this.priceMax = priceMax;
+        return this;
+    }
+    public String getPriceMax() {
+        return this.priceMax;
+    }
+
+    public SimSkuInfo setPriceMin(String priceMin) {
+        this.priceMin = priceMin;
+        return this;
+    }
+    public String getPriceMin() {
+        return this.priceMin;
     }
 
 }

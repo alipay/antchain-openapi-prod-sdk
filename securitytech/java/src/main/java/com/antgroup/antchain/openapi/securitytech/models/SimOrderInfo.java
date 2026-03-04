@@ -22,6 +22,15 @@ public class SimOrderInfo extends TeaModel {
     @Validation(required = true)
     public String salesId;
 
+    // 销售姓名
+    /**
+     * <strong>example:</strong>
+     * 
+     */
+    @NameInMap("sales_name")
+    @Validation(required = true)
+    public String salesName;
+
     // 车辆SN号
     /**
      * <strong>example:</strong>
@@ -29,6 +38,14 @@ public class SimOrderInfo extends TeaModel {
      */
     @NameInMap("sn")
     public String sn;
+
+    // 车架号
+    /**
+     * <strong>example:</strong>
+     * 
+     */
+    @NameInMap("frame_no")
+    public String frameNo;
 
     // 用户手机号
     /**
@@ -154,12 +171,28 @@ public class SimOrderInfo extends TeaModel {
         return this.salesId;
     }
 
+    public SimOrderInfo setSalesName(String salesName) {
+        this.salesName = salesName;
+        return this;
+    }
+    public String getSalesName() {
+        return this.salesName;
+    }
+
     public SimOrderInfo setSn(String sn) {
         this.sn = sn;
         return this;
     }
     public String getSn() {
         return this.sn;
+    }
+
+    public SimOrderInfo setFrameNo(String frameNo) {
+        this.frameNo = frameNo;
+        return this;
+    }
+    public String getFrameNo() {
+        return this.frameNo;
     }
 
     public SimOrderInfo setMobileNo(String mobileNo) {

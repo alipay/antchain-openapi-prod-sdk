@@ -33,8 +33,11 @@ public class UploadSimQrcodeRequest extends TeaModel {
 
     // base64后的图象数据
     @NameInMap("base64_data")
-    @Validation(required = true)
     public String base64Data;
+
+    // 二维码解析后数据
+    @NameInMap("qrcode_value")
+    public String qrcodeValue;
 
     public static UploadSimQrcodeRequest build(java.util.Map<String, ?> map) throws Exception {
         UploadSimQrcodeRequest self = new UploadSimQrcodeRequest();
@@ -95,6 +98,14 @@ public class UploadSimQrcodeRequest extends TeaModel {
     }
     public String getBase64Data() {
         return this.base64Data;
+    }
+
+    public UploadSimQrcodeRequest setQrcodeValue(String qrcodeValue) {
+        this.qrcodeValue = qrcodeValue;
+        return this;
+    }
+    public String getQrcodeValue() {
+        return this.qrcodeValue;
     }
 
 }

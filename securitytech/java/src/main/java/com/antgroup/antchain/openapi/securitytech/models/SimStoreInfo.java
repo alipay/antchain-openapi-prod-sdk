@@ -13,6 +13,15 @@ public class SimStoreInfo extends TeaModel {
     @Validation(required = true)
     public String storeId;
 
+    // 品牌id
+    /**
+     * <strong>example:</strong>
+     * <p>HQS</p>
+     */
+    @NameInMap("brand_id")
+    @Validation(required = true)
+    public String brandId;
+
     // 门店名称
     /**
      * <strong>example:</strong>
@@ -39,6 +48,11 @@ public class SimStoreInfo extends TeaModel {
     @NameInMap("sign_url")
     public String signUrl;
 
+    // 销售信息
+    @NameInMap("sales_info")
+    @Validation(required = true)
+    public SimSalesInfo salesInfo;
+
     public static SimStoreInfo build(java.util.Map<String, ?> map) throws Exception {
         SimStoreInfo self = new SimStoreInfo();
         return TeaModel.build(map, self);
@@ -50,6 +64,14 @@ public class SimStoreInfo extends TeaModel {
     }
     public String getStoreId() {
         return this.storeId;
+    }
+
+    public SimStoreInfo setBrandId(String brandId) {
+        this.brandId = brandId;
+        return this;
+    }
+    public String getBrandId() {
+        return this.brandId;
     }
 
     public SimStoreInfo setStoreName(String storeName) {
@@ -74,6 +96,14 @@ public class SimStoreInfo extends TeaModel {
     }
     public String getSignUrl() {
         return this.signUrl;
+    }
+
+    public SimStoreInfo setSalesInfo(SimSalesInfo salesInfo) {
+        this.salesInfo = salesInfo;
+        return this;
+    }
+    public SimSalesInfo getSalesInfo() {
+        return this.salesInfo;
     }
 
 }

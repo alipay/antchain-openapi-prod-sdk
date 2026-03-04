@@ -21,6 +21,11 @@ public class CreateSimOrderRequest extends TeaModel {
     @Validation(required = true)
     public String skuId;
 
+    // 订单价格 单位元
+    @NameInMap("total_amount")
+    @Validation(required = true)
+    public String totalAmount;
+
     // 车辆sn号
     @NameInMap("sn")
     public String sn;
@@ -74,6 +79,14 @@ public class CreateSimOrderRequest extends TeaModel {
     }
     public String getSkuId() {
         return this.skuId;
+    }
+
+    public CreateSimOrderRequest setTotalAmount(String totalAmount) {
+        this.totalAmount = totalAmount;
+        return this;
+    }
+    public String getTotalAmount() {
+        return this.totalAmount;
     }
 
     public CreateSimOrderRequest setSn(String sn) {

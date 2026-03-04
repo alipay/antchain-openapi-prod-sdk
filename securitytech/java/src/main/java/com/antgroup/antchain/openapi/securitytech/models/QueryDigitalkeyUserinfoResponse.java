@@ -36,6 +36,10 @@ public class QueryDigitalkeyUserinfoResponse extends TeaModel {
     @NameInMap("brand_id")
     public String brandId;
 
+    // 用户绑定车辆tuid集合
+    @NameInMap("tuids")
+    public java.util.List<String> tuids;
+
     public static QueryDigitalkeyUserinfoResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryDigitalkeyUserinfoResponse self = new QueryDigitalkeyUserinfoResponse();
         return TeaModel.build(map, self);
@@ -103,6 +107,14 @@ public class QueryDigitalkeyUserinfoResponse extends TeaModel {
     }
     public String getBrandId() {
         return this.brandId;
+    }
+
+    public QueryDigitalkeyUserinfoResponse setTuids(java.util.List<String> tuids) {
+        this.tuids = tuids;
+        return this;
+    }
+    public java.util.List<String> getTuids() {
+        return this.tuids;
     }
 
 }
