@@ -17740,6 +17740,10 @@ export class QueryElectrocarTravelRequest extends $tea.Model {
   // 时间范围
   // 注：trip_data_model = 3 不需要传
   timeRange?: string;
+  // 默认1
+  pageNum?: number;
+  // 默认20
+  pageSize?: number;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -17748,6 +17752,8 @@ export class QueryElectrocarTravelRequest extends $tea.Model {
       tripDataModel: 'trip_data_model',
       tripId: 'trip_id',
       timeRange: 'time_range',
+      pageNum: 'page_num',
+      pageSize: 'page_size',
     };
   }
 
@@ -17759,6 +17765,8 @@ export class QueryElectrocarTravelRequest extends $tea.Model {
       tripDataModel: 'number',
       tripId: 'string',
       timeRange: 'string',
+      pageNum: 'number',
+      pageSize: 'number',
     };
   }
 
@@ -18262,6 +18270,14 @@ export class QueryElectrocarTriplistResponse extends $tea.Model {
   success?: boolean;
   // 行程列表
   tripDetailList?: TripDetail[];
+  // 当前页码
+  pageIndex?: number;
+  // 单页数量
+  pageSize?: number;
+  // 记录总数
+  totalSize?: number;
+  // 页总数
+  totalPages?: number;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -18269,6 +18285,10 @@ export class QueryElectrocarTriplistResponse extends $tea.Model {
       resultMsg: 'result_msg',
       success: 'success',
       tripDetailList: 'trip_detail_list',
+      pageIndex: 'page_index',
+      pageSize: 'page_size',
+      totalSize: 'total_size',
+      totalPages: 'total_pages',
     };
   }
 
@@ -18279,6 +18299,10 @@ export class QueryElectrocarTriplistResponse extends $tea.Model {
       resultMsg: 'string',
       success: 'boolean',
       tripDetailList: { 'type': 'array', 'itemType': TripDetail },
+      pageIndex: 'number',
+      pageSize: 'number',
+      totalSize: 'number',
+      totalPages: 'number',
     };
   }
 
@@ -29673,7 +29697,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.12.69",
+          sdk_version: "1.12.75",
           _prod_code: "BOT",
           _prod_channel: "undefined",
         };
