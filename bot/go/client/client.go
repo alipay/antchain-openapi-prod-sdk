@@ -23283,6 +23283,10 @@ type QueryElectrocarTravelRequest struct {
 	// 时间范围
 	// 注：trip_data_model = 3 不需要传
 	TimeRange *string `json:"time_range,omitempty" xml:"time_range,omitempty"`
+	// 默认1
+	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty"`
+	// 默认20
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
 }
 
 func (s QueryElectrocarTravelRequest) String() string {
@@ -23320,6 +23324,16 @@ func (s *QueryElectrocarTravelRequest) SetTripId(v string) *QueryElectrocarTrave
 
 func (s *QueryElectrocarTravelRequest) SetTimeRange(v string) *QueryElectrocarTravelRequest {
 	s.TimeRange = &v
+	return s
+}
+
+func (s *QueryElectrocarTravelRequest) SetPageNum(v int64) *QueryElectrocarTravelRequest {
+	s.PageNum = &v
+	return s
+}
+
+func (s *QueryElectrocarTravelRequest) SetPageSize(v int64) *QueryElectrocarTravelRequest {
+	s.PageSize = &v
 	return s
 }
 
@@ -23990,6 +24004,14 @@ type QueryElectrocarTriplistResponse struct {
 	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
 	// 行程列表
 	TripDetailList []*TripDetail `json:"trip_detail_list,omitempty" xml:"trip_detail_list,omitempty" type:"Repeated"`
+	// 当前页码
+	PageIndex *int64 `json:"page_index,omitempty" xml:"page_index,omitempty"`
+	// 单页数量
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 记录总数
+	TotalSize *int64 `json:"total_size,omitempty" xml:"total_size,omitempty"`
+	// 页总数
+	TotalPages *int64 `json:"total_pages,omitempty" xml:"total_pages,omitempty"`
 }
 
 func (s QueryElectrocarTriplistResponse) String() string {
@@ -24022,6 +24044,26 @@ func (s *QueryElectrocarTriplistResponse) SetSuccess(v bool) *QueryElectrocarTri
 
 func (s *QueryElectrocarTriplistResponse) SetTripDetailList(v []*TripDetail) *QueryElectrocarTriplistResponse {
 	s.TripDetailList = v
+	return s
+}
+
+func (s *QueryElectrocarTriplistResponse) SetPageIndex(v int64) *QueryElectrocarTriplistResponse {
+	s.PageIndex = &v
+	return s
+}
+
+func (s *QueryElectrocarTriplistResponse) SetPageSize(v int64) *QueryElectrocarTriplistResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *QueryElectrocarTriplistResponse) SetTotalSize(v int64) *QueryElectrocarTriplistResponse {
+	s.TotalSize = &v
+	return s
+}
+
+func (s *QueryElectrocarTriplistResponse) SetTotalPages(v int64) *QueryElectrocarTriplistResponse {
+	s.TotalPages = &v
 	return s
 }
 
@@ -38710,7 +38752,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.12.69"),
+				"sdk_version":      tea.String("1.12.75"),
 				"_prod_code":       tea.String("BOT"),
 				"_prod_channel":    tea.String("undefined"),
 			}
