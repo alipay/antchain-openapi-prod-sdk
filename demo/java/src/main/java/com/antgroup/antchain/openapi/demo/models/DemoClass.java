@@ -45,6 +45,11 @@ public class DemoClass extends TeaModel {
     @Validation(required = true)
     public java.util.List<String> someList;
 
+    // 结构体字段
+    @NameInMap("some_struct")
+    @Validation(required = true)
+    public AnotherClass someStruct;
+
     public static DemoClass build(java.util.Map<String, ?> map) throws Exception {
         DemoClass self = new DemoClass();
         return TeaModel.build(map, self);
@@ -88,6 +93,14 @@ public class DemoClass extends TeaModel {
     }
     public java.util.List<String> getSomeList() {
         return this.someList;
+    }
+
+    public DemoClass setSomeStruct(AnotherClass someStruct) {
+        this.someStruct = someStruct;
+        return this;
+    }
+    public AnotherClass getSomeStruct() {
+        return this.someStruct;
     }
 
 }

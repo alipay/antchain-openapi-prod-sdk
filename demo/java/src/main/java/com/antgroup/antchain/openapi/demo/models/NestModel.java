@@ -3,22 +3,22 @@ package com.antgroup.antchain.openapi.demo.models;
 
 import com.aliyun.tea.*;
 
-public class Test extends TeaModel {
-    // d
+public class NestModel extends TeaModel {
+    // aaaa
     /**
      * <strong>example:</strong>
-     * <p>d</p>
+     * <p>aaa</p>
      */
     @NameInMap("a")
     @Validation(required = true)
     public String a;
 
-    public static Test build(java.util.Map<String, ?> map) throws Exception {
-        Test self = new Test();
+    public static NestModel build(java.util.Map<String, ?> map) throws Exception {
+        NestModel self = new NestModel();
         return TeaModel.build(map, self);
     }
 
-    public Test setA(String a) {
+    public NestModel setA(String a) {
         this.a = a;
         return this;
     }

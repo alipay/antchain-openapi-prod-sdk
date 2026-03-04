@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.demo.models;
 
 import com.aliyun.tea.*;
 
-public class QueryGatewayMyResponse extends TeaModel {
+public class QueryApiBlackListResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,20 @@ public class QueryGatewayMyResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // SUCCESS le
-    @NameInMap("success")
-    public String success;
+    // 200
+    @NameInMap("status")
+    public String status;
 
-    public static QueryGatewayMyResponse build(java.util.Map<String, ?> map) throws Exception {
-        QueryGatewayMyResponse self = new QueryGatewayMyResponse();
+    // OK
+    @NameInMap("msg")
+    public String msg;
+
+    public static QueryApiBlackListResponse build(java.util.Map<String, ?> map) throws Exception {
+        QueryApiBlackListResponse self = new QueryApiBlackListResponse();
         return TeaModel.build(map, self);
     }
 
-    public QueryGatewayMyResponse setReqMsgId(String reqMsgId) {
+    public QueryApiBlackListResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +37,7 @@ public class QueryGatewayMyResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public QueryGatewayMyResponse setResultCode(String resultCode) {
+    public QueryApiBlackListResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +45,7 @@ public class QueryGatewayMyResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public QueryGatewayMyResponse setResultMsg(String resultMsg) {
+    public QueryApiBlackListResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,12 +53,20 @@ public class QueryGatewayMyResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryGatewayMyResponse setSuccess(String success) {
-        this.success = success;
+    public QueryApiBlackListResponse setStatus(String status) {
+        this.status = status;
         return this;
     }
-    public String getSuccess() {
-        return this.success;
+    public String getStatus() {
+        return this.status;
+    }
+
+    public QueryApiBlackListResponse setMsg(String msg) {
+        this.msg = msg;
+        return this;
+    }
+    public String getMsg() {
+        return this.msg;
     }
 
 }

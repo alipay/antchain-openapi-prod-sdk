@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.demo.models;
 
 import com.aliyun.tea.*;
 
-public class QueryGatewayMyResponse extends TeaModel {
+public class AsdasAsdaAsdaResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,12 @@ public class QueryGatewayMyResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // SUCCESS le
-    @NameInMap("success")
-    public String success;
-
-    public static QueryGatewayMyResponse build(java.util.Map<String, ?> map) throws Exception {
-        QueryGatewayMyResponse self = new QueryGatewayMyResponse();
+    public static AsdasAsdaAsdaResponse build(java.util.Map<String, ?> map) throws Exception {
+        AsdasAsdaAsdaResponse self = new AsdasAsdaAsdaResponse();
         return TeaModel.build(map, self);
     }
 
-    public QueryGatewayMyResponse setReqMsgId(String reqMsgId) {
+    public AsdasAsdaAsdaResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +29,7 @@ public class QueryGatewayMyResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public QueryGatewayMyResponse setResultCode(String resultCode) {
+    public AsdasAsdaAsdaResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,20 +37,12 @@ public class QueryGatewayMyResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public QueryGatewayMyResponse setResultMsg(String resultMsg) {
+    public AsdasAsdaAsdaResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
     public String getResultMsg() {
         return this.resultMsg;
-    }
-
-    public QueryGatewayMyResponse setSuccess(String success) {
-        this.success = success;
-        return this;
-    }
-    public String getSuccess() {
-        return this.success;
     }
 
 }

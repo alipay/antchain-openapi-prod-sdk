@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.demo.models;
 
 import com.aliyun.tea.*;
 
-public class QueryGatewayMyResponse extends TeaModel {
+public class QueryApiWhiteListResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,16 @@ public class QueryGatewayMyResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // SUCCESS le
-    @NameInMap("success")
-    public String success;
+    // 查询返回
+    @NameInMap("query_result")
+    public String queryResult;
 
-    public static QueryGatewayMyResponse build(java.util.Map<String, ?> map) throws Exception {
-        QueryGatewayMyResponse self = new QueryGatewayMyResponse();
+    public static QueryApiWhiteListResponse build(java.util.Map<String, ?> map) throws Exception {
+        QueryApiWhiteListResponse self = new QueryApiWhiteListResponse();
         return TeaModel.build(map, self);
     }
 
-    public QueryGatewayMyResponse setReqMsgId(String reqMsgId) {
+    public QueryApiWhiteListResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class QueryGatewayMyResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public QueryGatewayMyResponse setResultCode(String resultCode) {
+    public QueryApiWhiteListResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class QueryGatewayMyResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public QueryGatewayMyResponse setResultMsg(String resultMsg) {
+    public QueryApiWhiteListResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,12 +49,12 @@ public class QueryGatewayMyResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryGatewayMyResponse setSuccess(String success) {
-        this.success = success;
+    public QueryApiWhiteListResponse setQueryResult(String queryResult) {
+        this.queryResult = queryResult;
         return this;
     }
-    public String getSuccess() {
-        return this.success;
+    public String getQueryResult() {
+        return this.queryResult;
     }
 
 }

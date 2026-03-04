@@ -11,6 +11,16 @@ public class QueryAdAsdAsdRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
+    // 1111
+    @NameInMap("bnumber")
+    @Validation(required = true, maxLength = 2, minLength = 1)
+    public String bnumber;
+
+    // 1
+    @NameInMap("card_info")
+    @Validation(required = true)
+    public CardInfo cardInfo;
+
     public static QueryAdAsdAsdRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryAdAsdAsdRequest self = new QueryAdAsdAsdRequest();
         return TeaModel.build(map, self);
@@ -30,6 +40,22 @@ public class QueryAdAsdAsdRequest extends TeaModel {
     }
     public String getProductInstanceId() {
         return this.productInstanceId;
+    }
+
+    public QueryAdAsdAsdRequest setBnumber(String bnumber) {
+        this.bnumber = bnumber;
+        return this;
+    }
+    public String getBnumber() {
+        return this.bnumber;
+    }
+
+    public QueryAdAsdAsdRequest setCardInfo(CardInfo cardInfo) {
+        this.cardInfo = cardInfo;
+        return this;
+    }
+    public CardInfo getCardInfo() {
+        return this.cardInfo;
     }
 
 }

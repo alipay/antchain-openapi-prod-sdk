@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.demo.models;
 
 import com.aliyun.tea.*;
 
-public class QueryAaaBbbCccRequest extends TeaModel {
+public class QueryApiBlackListRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -11,17 +11,17 @@ public class QueryAaaBbbCccRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 入参
-    @NameInMap("param")
+    // 超时时间
+    @NameInMap("timeout")
     @Validation(required = true)
-    public String param;
+    public String timeout;
 
-    public static QueryAaaBbbCccRequest build(java.util.Map<String, ?> map) throws Exception {
-        QueryAaaBbbCccRequest self = new QueryAaaBbbCccRequest();
+    public static QueryApiBlackListRequest build(java.util.Map<String, ?> map) throws Exception {
+        QueryApiBlackListRequest self = new QueryApiBlackListRequest();
         return TeaModel.build(map, self);
     }
 
-    public QueryAaaBbbCccRequest setAuthToken(String authToken) {
+    public QueryApiBlackListRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -29,7 +29,7 @@ public class QueryAaaBbbCccRequest extends TeaModel {
         return this.authToken;
     }
 
-    public QueryAaaBbbCccRequest setProductInstanceId(String productInstanceId) {
+    public QueryApiBlackListRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -37,12 +37,12 @@ public class QueryAaaBbbCccRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public QueryAaaBbbCccRequest setParam(String param) {
-        this.param = param;
+    public QueryApiBlackListRequest setTimeout(String timeout) {
+        this.timeout = timeout;
         return this;
     }
-    public String getParam() {
-        return this.param;
+    public String getTimeout() {
+        return this.timeout;
     }
 
 }
