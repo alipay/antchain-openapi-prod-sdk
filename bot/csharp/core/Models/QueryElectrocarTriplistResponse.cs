@@ -34,6 +34,26 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public List<TripDetail> TripDetailList { get; set; }
 
+        // 当前页码
+        [NameInMap("page_index")]
+        [Validation(Required=false)]
+        public long? PageIndex { get; set; }
+
+        // 单页数量
+        [NameInMap("page_size")]
+        [Validation(Required=false)]
+        public long? PageSize { get; set; }
+
+        // 记录总数
+        [NameInMap("total_size")]
+        [Validation(Required=false)]
+        public long? TotalSize { get; set; }
+
+        // 页总数
+        [NameInMap("total_pages")]
+        [Validation(Required=false)]
+        public long? TotalPages { get; set; }
+
     }
 
 }

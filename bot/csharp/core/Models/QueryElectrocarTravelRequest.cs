@@ -39,6 +39,16 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string TimeRange { get; set; }
 
+        // 默认1
+        [NameInMap("page_num")]
+        [Validation(Required=false)]
+        public long? PageNum { get; set; }
+
+        // 默认20
+        [NameInMap("page_size")]
+        [Validation(Required=false)]
+        public long? PageSize { get; set; }
+
     }
 
 }
