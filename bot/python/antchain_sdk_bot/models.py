@@ -29098,6 +29098,8 @@ class QueryElectrocarTravelRequest(TeaModel):
         trip_data_model: int = None,
         trip_id: str = None,
         time_range: str = None,
+        page_num: int = None,
+        page_size: int = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -29111,6 +29113,10 @@ class QueryElectrocarTravelRequest(TeaModel):
         # 时间范围
         # 注：trip_data_model = 3 不需要传
         self.time_range = time_range
+        # 默认1
+        self.page_num = page_num
+        # 默认20
+        self.page_size = page_size
 
     def validate(self):
         self.validate_required(self.tuid, 'tuid')
@@ -29134,6 +29140,10 @@ class QueryElectrocarTravelRequest(TeaModel):
             result['trip_id'] = self.trip_id
         if self.time_range is not None:
             result['time_range'] = self.time_range
+        if self.page_num is not None:
+            result['page_num'] = self.page_num
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
         return result
 
     def from_map(self, m: dict = None):
@@ -29150,6 +29160,10 @@ class QueryElectrocarTravelRequest(TeaModel):
             self.trip_id = m.get('trip_id')
         if m.get('time_range') is not None:
             self.time_range = m.get('time_range')
+        if m.get('page_num') is not None:
+            self.page_num = m.get('page_num')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
         return self
 
 
@@ -29944,6 +29958,10 @@ class QueryElectrocarTriplistResponse(TeaModel):
         result_msg: str = None,
         success: bool = None,
         trip_detail_list: List[TripDetail] = None,
+        page_index: int = None,
+        page_size: int = None,
+        total_size: int = None,
+        total_pages: int = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -29955,6 +29973,14 @@ class QueryElectrocarTriplistResponse(TeaModel):
         self.success = success
         # 行程列表
         self.trip_detail_list = trip_detail_list
+        # 当前页码
+        self.page_index = page_index
+        # 单页数量
+        self.page_size = page_size
+        # 记录总数
+        self.total_size = total_size
+        # 页总数
+        self.total_pages = total_pages
 
     def validate(self):
         if self.trip_detail_list:
@@ -29980,6 +30006,14 @@ class QueryElectrocarTriplistResponse(TeaModel):
         if self.trip_detail_list is not None:
             for k in self.trip_detail_list:
                 result['trip_detail_list'].append(k.to_map() if k else None)
+        if self.page_index is not None:
+            result['page_index'] = self.page_index
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.total_size is not None:
+            result['total_size'] = self.total_size
+        if self.total_pages is not None:
+            result['total_pages'] = self.total_pages
         return result
 
     def from_map(self, m: dict = None):
@@ -29997,6 +30031,14 @@ class QueryElectrocarTriplistResponse(TeaModel):
             for k in m.get('trip_detail_list'):
                 temp_model = TripDetail()
                 self.trip_detail_list.append(temp_model.from_map(k))
+        if m.get('page_index') is not None:
+            self.page_index = m.get('page_index')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('total_size') is not None:
+            self.total_size = m.get('total_size')
+        if m.get('total_pages') is not None:
+            self.total_pages = m.get('total_pages')
         return self
 
 
