@@ -113,6 +113,8 @@ use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoFundAsse
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoFundAssetpackageResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoFundCompensateaccountRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoFundCompensateaccountResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoFundCreditauthRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoFundCreditauthResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoFundCreditgrantingRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoFundCreditgrantingResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoFundCreditRequest;
@@ -161,6 +163,8 @@ use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\RetryAntchainAtoWithhold
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\RetryAntchainAtoWithholdPlanResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SaveAntchainAtoInnerTemplateRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SaveAntchainAtoInnerTemplateResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SignAntchainAtoFundFlowRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SignAntchainAtoFundFlowResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SubmitAntchainAtoFrontSignRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SubmitAntchainAtoFrontSignResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SubmitAntchainAtoFundFlowRequest;
@@ -177,6 +181,8 @@ use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoFundFinan
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoFundFinanceloanresultsResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoFundFinanceprecheckresultRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoFundFinanceprecheckresultResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoFundFlowRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoFundFlowResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoFundMerchantpromiseRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoFundMerchantpromiseResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoInnerTemplateRequest;
@@ -364,7 +370,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.7.3',
+                    'sdk_version'      => '1.7.4',
                     '_prod_code'       => 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel'    => 'saas',
                 ];
@@ -3382,6 +3388,39 @@ class Client
     }
 
     /**
+     * Description: 授权信息查询
+     * Summary: 授权信息查询.
+     *
+     * @param QueryAntchainAtoFundCreditauthRequest $request
+     *
+     * @return QueryAntchainAtoFundCreditauthResponse
+     */
+    public function queryAntchainAtoFundCreditauth($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAntchainAtoFundCreditauthEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 授权信息查询
+     * Summary: 授权信息查询.
+     *
+     * @param QueryAntchainAtoFundCreditauthRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return QueryAntchainAtoFundCreditauthResponse
+     */
+    public function queryAntchainAtoFundCreditauthEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAntchainAtoFundCreditauthResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.creditauth.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 资产包详情查询
      * Summary: 资产包详情查询.
      *
@@ -3777,6 +3816,72 @@ class Client
         Utils::validateModel($request);
 
         return CancelAntchainAtoFundFlowResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.flow.cancel', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 资方自有合同同步
+     * Summary: 资方自有合同同步.
+     *
+     * @param SyncAntchainAtoFundFlowRequest $request
+     *
+     * @return SyncAntchainAtoFundFlowResponse
+     */
+    public function syncAntchainAtoFundFlow($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->syncAntchainAtoFundFlowEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 资方自有合同同步
+     * Summary: 资方自有合同同步.
+     *
+     * @param SyncAntchainAtoFundFlowRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return SyncAntchainAtoFundFlowResponse
+     */
+    public function syncAntchainAtoFundFlowEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SyncAntchainAtoFundFlowResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.flow.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 资方自有合同签署
+     * Summary: 资方自有合同签署.
+     *
+     * @param SignAntchainAtoFundFlowRequest $request
+     *
+     * @return SignAntchainAtoFundFlowResponse
+     */
+    public function signAntchainAtoFundFlow($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->signAntchainAtoFundFlowEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 资方自有合同签署
+     * Summary: 资方自有合同签署.
+     *
+     * @param SignAntchainAtoFundFlowRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return SignAntchainAtoFundFlowResponse
+     */
+    public function signAntchainAtoFundFlowEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SignAntchainAtoFundFlowResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.flow.sign', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
