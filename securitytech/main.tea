@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.4.21',
+    sdk_version = '1.6.4',
     _prod_code = 'SECURITYTECH',
     _prod_channel = 'undefined'
   };
@@ -169,10 +169,26 @@ model RiskData {
   resultValue: string(name='result_value', example='·'),
 }
 
+// 两轮车一体机销售信息
+model SimSalesInfo {
+  // 销售对外业务id
+  salesId: string(name='sales_id', example=' '),
+  // 销售角色 法人:TWEV_STORE_MANAGER/销售:TWEV_SALES
+  salesType: string(name='sales_type', example='TWEV_STORE_MANAGER'),
+}
+
 // ekyt响应头
 model ResponseHead {
   // 请求唯一标识
   requestId: string(name='request_id', example='91440300892305861T'),
+}
+
+// 时间
+model DurationInfo {
+  // 时长
+  value: string(name='value', example='12'),
+  // 时间单位
+  unit: string(name='unit', example='h'),
 }
 
 // spu图片信息
@@ -247,12 +263,6 @@ model FaceShieldResult {
   sugAction: string(name='sug_action', example='建议直接拦截'),
 }
 
-// 两轮车一体机销售信息
-model SimSalesInfo {
-  // 销售对外业务id
-  salesId: string(name='sales_id', example=' '),
-}
-
 // 终端安全-Android加固-Response
 model FileTokenForUpload {
   // .
@@ -325,6 +335,18 @@ model HardeningTaskResponse {
   afterSize: long(name='after_size', example=''),
 }
 
+// 行程统计数据
+model TripStatisticInfo {
+  // 总里程
+  totalMileage: string(name='total_mileage', example=' '),
+  // 总时长
+  totalDuration: DurationInfo(name='total_duration', example=' '),
+  // 总条数
+  totalCount: long(name='total_count', example=' '),
+  // 时间码
+  periodCode: long(name='period_code', example=' '),
+}
+
 // ETC车辆信息
 model EtcVehicleInfo {
   // 车辆id
@@ -353,6 +375,36 @@ model EtcVehicleInfo {
   deviceStatusDetail?: string(name='device_status_detail', example='卡签挂起'),
   // 设备状态触发的具体时间
   deviceBizTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='device_biz_time', example='2018-10-10T10:10:00Z'),
+}
+
+// 车辆gps轨迹点
+model SimCarLocationInfo {
+  // 定位时间
+  locationTime: string(name='location_time', example='2025-12-26 17:07:00'),
+  // 经度
+  longitude: string(name='longitude', example=' '),
+  // 纬度
+  latitude: string(name='latitude', example=' '),
+}
+
+// 车辆信息列表
+model CarInfoVO {
+  // 车辆型号
+  carModel: string(name='car_model', example='E10R'),
+  // 车辆颜色
+  carColor: string(name='car_color', example='红色'),
+  // 车型编号
+  modelNo: string(name='model_no', example='AAA470106'),
+  // 车架号
+  frameNo: string(name='frame_no', example='220922507905000'),
+  // 设备ID
+  tuid: string(name='tuid', example='FF9999995FF1020251009BE8B1B08855'),
+  // tagId
+  tagId: string(name='tag_id', example='4EA1FFFFFFFFFFFFFFFFFFFFE13D02862257'),
+  // 品牌ID
+  brandId: string(name='brand_id', example='SAIGE'),
+  // 协议类型
+  protocolType: string(name='protocol_type', example='ble'),
 }
 
 // eKYT业务响应结果
@@ -391,8 +443,12 @@ model SimOrderInfo {
   orderId: string(name='order_id', example=' '),
   // 必填	销售id
   salesId: string(name='sales_id', example=' '),
+  // 销售姓名
+  salesName: string(name='sales_name', example=' '),
   // 车辆SN号
   sn?: string(name='sn', example=' '),
+  // 车架号
+  frameNo?: string(name='frame_no', example=' '),
   // 用户手机号
   mobileNo?: string(name='mobile_no', example='17796897555'),
   // 订单时间，格式yyyy-MM-dd HH:mm:ss
@@ -450,6 +506,12 @@ model SimSkuInfo {
   storeId: string(name='store_id', example=' '),
   // 车型描述
   skuDescription?: string(name='sku_description', example=' '),
+  // sku价格配置开关 true开/false关
+  priceSwitch: boolean(name='price_switch', example='true, false'),
+  // sku价格配置范围 上限：单位元
+  priceMax?: string(name='price_max', example=' '),
+  // sku价格配置范围 下限：单位元
+  priceMin?: string(name='price_min', example=' '),
 }
 
 // eKYT可信签约查询数据
@@ -532,6 +594,32 @@ model SimSpuInfo {
   spuPictureInfo: SpuPictureInfo(name='spu_picture_info', example=' '),
 }
 
+// 行程详细信息
+model TripDetailInfo {
+  // 开始时间 时间戳
+  startTime: long(name='start_time', example=' '),
+  // 结束时间 时间戳
+  endTime: long(name='end_time', example=' '),
+  // 行程id
+  tripId: string(name='trip_id', example=' '),
+  // 行驶里程
+  mileage: string(name='mileage', example=' '),
+  // 时长
+  duration: DurationInfo(name='duration', example=' '),
+  // 最高速度
+  maxSpeed: string(name='max_speed', example=' '),
+  // 平均速度
+  avgSpeed: string(name='avg_speed', example=' '),
+  // 开始地址
+  firstAddress: string(name='first_address', example=' '),
+  // 结束地址
+  lastAddress: string(name='last_address', example=' '),
+  // 开始定位时间 时间戳
+  firstLocationTime: long(name='first_location_time', example=''),
+  // 最终定位时间 时间戳
+  lastLocationTime: long(name='last_location_time', example=' '),
+}
+
 // KeyValue对属性
 model KeyValueMap {
   // key-value中的key
@@ -588,12 +676,16 @@ model CctDataMap {
 model SimStoreInfo {
   // 门店对外业务id
   storeId: string(name='store_id', example=' '),
+  // 品牌id
+  brandId: string(name='brand_id', example='HQS'),
   // 门店名称
   storeName: string(name='store_name', example=' '),
   // 是否签约 true已签约/false未签约
   isSign: boolean(name='is_sign', example='true, false'),
   // 支付宝H5签约链接 未签约时非空
   signUrl?: string(name='sign_url', example=' '),
+  // 销售信息
+  salesInfo: SimSalesInfo(name='sales_info', example=''),
 }
 
 // 司机签约信息列表
@@ -1141,6 +1233,8 @@ model QuerySimLoginResponse = {
   loginTime?: string(name='login_time'),
   // 当前登录的门店信息
   storeInfo?: SimStoreInfo(name='store_info'),
+  // 待选择门店列表
+  storeInfoList?: [ SimStoreInfo ](name='store_info_list'),
   // 当前登录的销售信息
   salesInfo?: SimSalesInfo(name='sales_info'),
 }
@@ -1302,6 +1396,8 @@ model CreateSimOrderRequest = {
   deviceId: string(name='device_id'),
   // sku id
   skuId: string(name='sku_id'),
+  // 订单价格 单位元
+  totalAmount: string(name='total_amount'),
   // 车辆sn号
   sn?: string(name='sn'),
   // 颜色
@@ -1573,7 +1669,9 @@ model UploadSimQrcodeRequest = {
   // 解析类型
   parseType: string(name='parse_type'),
   // base64后的图象数据
-  base64Data: string(name='base64_data'),
+  base64Data?: string(name='base64_data'),
+  // 二维码解析后数据
+  qrcodeValue?: string(name='qrcode_value'),
 }
 
 model UploadSimQrcodeResponse = {
@@ -1819,6 +1917,8 @@ model QueryDigitalkeyUserinfoResponse = {
   avatarUrl?: string(name='avatar_url'),
   // 品牌ID
   brandId?: string(name='brand_id'),
+  // 用户绑定车辆tuid集合
+  tuids?: [ string ](name='tuids'),
 }
 
 /**
@@ -2124,6 +2224,414 @@ async function initDigitalkeyCorp(request: InitDigitalkeyCorpRequest): InitDigit
 async function initDigitalkeyCorpEx(request: InitDigitalkeyCorpRequest, headers: map[string]string, runtime: Util.RuntimeOptions): InitDigitalkeyCorpResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antsecuritytech.gateway.digitalkey.corp.init', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDigitalkeyNfccarinfoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 品牌ID
+  brandId: string(name='brand_id'),
+  // 请求的页数
+  pageNo: long(name='page_no'),
+  // 单页项数
+  pageSize: long(name='page_size'),
+  // 开始时间
+  startTime?: string(name='start_time'),
+  // 结束时间
+  endTime?: string(name='end_time'),
+}
+
+model QueryDigitalkeyNfccarinfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 分页器
+  paginator?: Paginator(name='paginator'),
+  // 车辆信息列表
+  carInfoList?: [ CarInfoVO ](name='car_info_list'),
+}
+
+/**
+ * Description: 数字钥匙nfc车辆信息查询
+ * Summary: 数字钥匙nfc车辆信息查询
+ */
+async function queryDigitalkeyNfccarinfo(request: QueryDigitalkeyNfccarinfoRequest): QueryDigitalkeyNfccarinfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDigitalkeyNfccarinfoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 数字钥匙nfc车辆信息查询
+ * Summary: 数字钥匙nfc车辆信息查询
+ */
+async function queryDigitalkeyNfccarinfoEx(request: QueryDigitalkeyNfccarinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDigitalkeyNfccarinfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.digitalkey.nfccarinfo.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ConfirmSimLoginRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 设备编号
+  deviceId: string(name='device_id'),
+  // 登录态token
+  token: string(name='token'),
+  // 登录销售id
+  salesId: string(name='sales_id'),
+  // 选择登录门店id
+  storeId: string(name='store_id'),
+  // 门店品牌id
+  brandId: string(name='brand_id'),
+}
+
+model ConfirmSimLoginResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 登录结果 NO_RESULT：暂无登录结果 EXPIRED：token过期 ACTIVATE_OK：激活成功，店长首次登录成功 LOGIN_OK：登录成功 USER_NOT_EXIST：用户不存在 STORE_NOT_ACTIVATED：门店未激活
+  loginResult?: string(name='login_result'),
+  // 登录结果中文信息
+  loginMsg?: string(name='login_msg'),
+  // 是否已经激活
+  activated?: boolean(name='activated'),
+  // 激活时间，格式yyyy-MM-dd HH:mm:ss
+  activateTime?: string(name='activate_time'),
+  // 登录/激活时间，格式yyyy-MM-dd HH:mm:ss
+  loginTime?: string(name='login_time'),
+  // 选择登录门店信息
+  storeInfo?: SimStoreInfo(name='store_info'),
+  // 当前登录的销售信息
+  salesInfo?: SimSalesInfo(name='sales_info'),
+}
+
+/**
+ * Description: 两轮车一体机选择门店登录
+ * Summary: 两轮车一体机选择门店登录
+ */
+async function confirmSimLogin(request: ConfirmSimLoginRequest): ConfirmSimLoginResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return confirmSimLoginEx(request, headers, runtime);
+}
+
+/**
+ * Description: 两轮车一体机选择门店登录
+ * Summary: 两轮车一体机选择门店登录
+ */
+async function confirmSimLoginEx(request: ConfirmSimLoginRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ConfirmSimLoginResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.sim.login.confirm', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateSimSkuRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 设备编号
+  deviceId: string(name='device_id'),
+  // 登录态token
+  token: string(name='token'),
+  // 更改价格的skuId
+  skuId: string(name='sku_id'),
+  // sku门店价格，单位元
+  storeAmount: string(name='store_amount'),
+}
+
+model UpdateSimSkuResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 更新结果
+  updateResult?: boolean(name='update_result'),
+}
+
+/**
+ * Description: 两轮车一体机门店设置sku价格
+ * Summary: 两轮车一体机门店设置sku价格
+ */
+async function updateSimSku(request: UpdateSimSkuRequest): UpdateSimSkuResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateSimSkuEx(request, headers, runtime);
+}
+
+/**
+ * Description: 两轮车一体机门店设置sku价格
+ * Summary: 两轮车一体机门店设置sku价格
+ */
+async function updateSimSkuEx(request: UpdateSimSkuRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateSimSkuResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.sim.sku.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryTwevCarRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 订单id（tuid+brandId与orderid条件必填。orderid为空时，tuid+brandId必填。orderId不为空时优先使用orderId）
+  orderId?: string(name='order_id'),
+  // 车辆中控号 （tuid+brandId与orderid条件必填。orderid为空时，tuid+brandId必填。orderId不为空时优先使用orderId）
+  tuid?: string(name='tuid'),
+  // 品牌id（tuid+brandId与orderid条件必填。orderid为空时，tuid+brandId必填。orderId不为空时优先使用orderId）
+  brandId?: string(name='brand_id'),
+  // 预留扩展字段 json
+  extraInfo?: string(name='extra_info'),
+}
+
+model QueryTwevCarResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 中控号
+  tuid?: string(name='tuid'),
+  // 车架号
+  frameNo?: string(name='frame_no'),
+  // 在线状态 在线：ON_LINE/离线：OFF_LINE
+  runningStatus?: string(name='running_status'),
+  // 启动状态 启动：ON/熄火：OFF
+  powerStatus?: string(name='power_status'),
+  // 经度
+  longitude?: string(name='longitude'),
+  // 纬度
+  latitude?: string(name='latitude'),
+  // 预留扩展字段 json
+  extraInfo?: string(name='extra_info'),
+}
+
+/**
+ * Description: 贷后控车查询车辆定位数据
+ * Summary: 贷后控车查询车辆定位数据
+ */
+async function queryTwevCar(request: QueryTwevCarRequest): QueryTwevCarResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryTwevCarEx(request, headers, runtime);
+}
+
+/**
+ * Description: 贷后控车查询车辆定位数据
+ * Summary: 贷后控车查询车辆定位数据
+ */
+async function queryTwevCarEx(request: QueryTwevCarRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryTwevCarResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.twev.car.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryTwevTravelRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 订单id（tuid+brandId与orderid条件必填。orderid为空时，tuid+brandId必填。orderId不为空时优先使用orderId）
+  orderId?: string(name='order_id'),
+  // 车辆中控号 （tuid+brandId与orderid条件必填。orderid为空时，tuid+brandId必填。orderId不为空时优先使用orderId）
+  tuid?: string(name='tuid'),
+  // 品牌id（tuid+brandId与orderid条件必填。orderid为空时，tuid+brandId必填。orderId不为空时优先使用orderId）
+  brandId?: string(name='brand_id'),
+  // 开始时间 (与结束时间不能相差超过24h)
+  beginTime: string(name='begin_time'),
+  // 结束时间（与开始时间不能相差超过24h）
+  endTime: string(name='end_time'),
+  // 预留扩展字段 json
+  extraInfo?: string(name='extra_info'),
+}
+
+model QueryTwevTravelResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 中控号
+  tuid?: string(name='tuid'),
+  // 轨迹点gps集合
+  locations?: [ SimCarLocationInfo ](name='locations'),
+  // 预留扩展字段 json
+  extraInfo?: string(name='extra_info'),
+}
+
+/**
+ * Description: 贷后控车查询车辆gps轨迹
+ * Summary: 贷后控车查询车辆gps轨迹
+ */
+async function queryTwevTravel(request: QueryTwevTravelRequest): QueryTwevTravelResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryTwevTravelEx(request, headers, runtime);
+}
+
+/**
+ * Description: 贷后控车查询车辆gps轨迹
+ * Summary: 贷后控车查询车辆gps轨迹
+ */
+async function queryTwevTravelEx(request: QueryTwevTravelRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryTwevTravelResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.twev.travel.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model OperateTwevCarRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 订单id（tuid+brandId与orderid条件必填。orderid为空时，tuid+brandId必填。orderId不为空时优先使用orderId）
+  orderId?: string(name='order_id'),
+  // 车辆中控号 （tuid+brandId与orderid条件必填。orderid为空时，tuid+brandId必填。orderId不为空时优先使用orderId）
+  tuid?: string(name='tuid'),
+  // 品牌id（tuid+brandId与orderid条件必填。orderid为空时，tuid+brandId必填。orderId不为空时优先使用orderId）
+  brandId?: string(name='brand_id'),
+  // 操作类型  设防：SET_DEFENSE/撤防：REMOVE_DEFENSE/远程启动：REMOTE_ON/远程熄火：REMOTE_OFF/超级锁车：SUPER_LOCK/超级解锁：SUPER_UNLOCK/寻车鸣笛：SEARCH_HORN/开坐桶锁：OPEN_SITTING_BUCKET
+  operateType: string(name='operate_type'),
+  // 预留扩展字段 json
+  extraInfo?: string(name='extra_info'),
+}
+
+model OperateTwevCarResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 中控号
+  tuid?: string(name='tuid'),
+  // 预留扩展字段 json
+  extraInfo?: string(name='extra_info'),
+}
+
+/**
+ * Description: 贷后控车车辆控制
+ * Summary: 贷后控车车辆控制
+ */
+async function operateTwevCar(request: OperateTwevCarRequest): OperateTwevCarResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return operateTwevCarEx(request, headers, runtime);
+}
+
+/**
+ * Description: 贷后控车车辆控制
+ * Summary: 贷后控车车辆控制
+ */
+async function operateTwevCarEx(request: OperateTwevCarRequest, headers: map[string]string, runtime: Util.RuntimeOptions): OperateTwevCarResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.twev.car.operate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryTwevCardataRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 登录态token
+  token: string(name='token'),
+  // 车辆中控id
+  tuid: string(name='tuid'),
+  // 统计时间维度  MONTH（月）/WEEK（周）/DAY（日）
+  timeDimension: string(name='time_dimension'),
+  // 时间戳（时间戳所在月/周/日内的数据，每月的第一天00:00， 每周的第一天00:00， 每日的00:00）
+  timeValue: long(name='time_value'),
+  // 前 n 月/周/日， 包含当前月/周/日（默认9）
+  pastDays: long(name='past_days'),
+}
+
+model QueryTwevCardataResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 行程统计数据列表
+  tripStatistics?: TripStatisticInfo(name='trip_statistics'),
+}
+
+/**
+ * Description: 新接口-查询车辆行程统计数据
+ * Summary: 新接口-查询车辆行程统计数据
+ */
+async function queryTwevCardata(request: QueryTwevCardataRequest): QueryTwevCardataResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryTwevCardataEx(request, headers, runtime);
+}
+
+/**
+ * Description: 新接口-查询车辆行程统计数据
+ * Summary: 新接口-查询车辆行程统计数据
+ */
+async function queryTwevCardataEx(request: QueryTwevCardataRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryTwevCardataResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.twev.cardata.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryTwevCartravelRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 登录态token
+  token: string(name='token'),
+  // 车辆中控id
+  tuid: string(name='tuid'),
+  // 统计时间维度 MONTH（月）/WEEK（周）/DAY（日）
+  timeDimension: string(name='time_dimension'),
+  // 时间戳（时间戳所在月/周/日内的数据，每月的第一天00:00， 每周的第一天00:00， 每日的00:00）
+  timeValue: long(name='time_value'),
+  // 页数
+  pageNo: long(name='page_no'),
+  // 每页条数
+  pageSize: long(name='page_size'),
+}
+
+model QueryTwevCartravelResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 总页数
+  totaPage?: long(name='tota_page'),
+  // 总条数
+  totalSize?: long(name='total_size'),
+  // 当前页数
+  pageIndex?: long(name='page_index'),
+  // 单页条数
+  pageSize?: long(name='page_size'),
+  // 行程详情信息
+  tripDetailList?: TripDetailInfo(name='trip_detail_list'),
+}
+
+/**
+ * Description: 新接口-分页查询车辆行程记录
+ * Summary: 新接口-分页查询车辆行程记录
+ */
+async function queryTwevCartravel(request: QueryTwevCartravelRequest): QueryTwevCartravelResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryTwevCartravelEx(request, headers, runtime);
+}
+
+/**
+ * Description: 新接口-分页查询车辆行程记录
+ * Summary: 新接口-分页查询车辆行程记录
+ */
+async function queryTwevCartravelEx(request: QueryTwevCartravelRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryTwevCartravelResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.twev.cartravel.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateBssecpicRequest = {
