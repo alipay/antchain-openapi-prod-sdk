@@ -4892,8 +4892,10 @@ type CallbackMktEffectRequest struct {
 	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true" maxLength:"64"`
 	// 项目ID，待蚂蚁分配
 	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty" require:"true" maxLength:"64"`
+	// 营销模式
+	MarketingMode *string `json:"marketing_mode,omitempty" xml:"marketing_mode,omitempty" require:"true" maxLength:"64"`
 	// 投保特征短链
-	InsureShortUrl *string `json:"insure_short_url,omitempty" xml:"insure_short_url,omitempty" require:"true" maxLength:"256"`
+	InsureShortUrl *string `json:"insure_short_url,omitempty" xml:"insure_short_url,omitempty" maxLength:"256"`
 	// 加密类型：MD5，32位[小]
 	EncryptionType *string `json:"encryption_type,omitempty" xml:"encryption_type,omitempty" require:"true" maxLength:"32"`
 	// 加密用户标识
@@ -4935,6 +4937,11 @@ func (s *CallbackMktEffectRequest) SetProductCode(v string) *CallbackMktEffectRe
 
 func (s *CallbackMktEffectRequest) SetProjectId(v string) *CallbackMktEffectRequest {
 	s.ProjectId = &v
+	return s
+}
+
+func (s *CallbackMktEffectRequest) SetMarketingMode(v string) *CallbackMktEffectRequest {
+	s.MarketingMode = &v
 	return s
 }
 
@@ -5344,7 +5351,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.12.13"),
+				"sdk_version":      tea.String("1.12.14"),
 				"_prod_code":       tea.String("INSURANCE_SAAS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
