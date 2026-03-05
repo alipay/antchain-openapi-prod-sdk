@@ -56,11 +56,17 @@ class CallbackMktEffectRequest extends Model
      */
     public $clickId;
 
-    // 事件完成时间（yyyy-MM-dd HH:mm:ss）
+    // 用户点击进入页面时间（格式：yyyy-MM-dd HH:mm:ss）
     /**
      * @var string
      */
     public $clickTime;
+
+    // 事件完成时间（yyyy-MM-dd HH:mm:ss）
+    /**
+     * @var string
+     */
+    public $eventTime;
 
     // 节点类型
     /**
@@ -83,6 +89,7 @@ class CallbackMktEffectRequest extends Model
         'encryptedUserId' => 'encrypted_user_id',
         'clickId'         => 'click_id',
         'clickTime'       => 'click_time',
+        'eventTime'       => 'event_time',
         'nodeType'        => 'node_type',
         'nodeInfo'        => 'node_info',
     ];
@@ -97,15 +104,18 @@ class CallbackMktEffectRequest extends Model
         Model::validateRequired('encryptedUserId', $this->encryptedUserId, true);
         Model::validateRequired('clickId', $this->clickId, true);
         Model::validateRequired('clickTime', $this->clickTime, true);
+        Model::validateRequired('eventTime', $this->eventTime, true);
         Model::validateRequired('nodeType', $this->nodeType, true);
         Model::validateRequired('nodeInfo', $this->nodeInfo, true);
         Model::validateMaxLength('requestId', $this->requestId, 128);
+        Model::validateMaxLength('productCode', $this->productCode, 64);
         Model::validateMaxLength('projectId', $this->projectId, 64);
         Model::validateMaxLength('insureShortUrl', $this->insureShortUrl, 256);
         Model::validateMaxLength('encryptionType', $this->encryptionType, 32);
         Model::validateMaxLength('encryptedUserId', $this->encryptedUserId, 64);
         Model::validateMaxLength('clickId', $this->clickId, 128);
         Model::validateMaxLength('clickTime', $this->clickTime, 32);
+        Model::validateMaxLength('eventTime', $this->eventTime, 32);
         Model::validateMaxLength('nodeType', $this->nodeType, 64);
         Model::validateMaxLength('nodeInfo', $this->nodeInfo, 1024);
     }
@@ -139,6 +149,9 @@ class CallbackMktEffectRequest extends Model
         }
         if (null !== $this->clickTime) {
             $res['click_time'] = $this->clickTime;
+        }
+        if (null !== $this->eventTime) {
+            $res['event_time'] = $this->eventTime;
         }
         if (null !== $this->nodeType) {
             $res['node_type'] = $this->nodeType;
@@ -184,6 +197,9 @@ class CallbackMktEffectRequest extends Model
         }
         if (isset($map['click_time'])) {
             $model->clickTime = $map['click_time'];
+        }
+        if (isset($map['event_time'])) {
+            $model->eventTime = $map['event_time'];
         }
         if (isset($map['node_type'])) {
             $model->nodeType = $map['node_type'];
