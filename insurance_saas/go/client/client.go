@@ -4889,7 +4889,7 @@ type CallbackMktEffectRequest struct {
 	// 请求id，每一次请求保持唯一；若重复，则更新原数据；
 	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true" maxLength:"128"`
 	// 产品编码，蚂蚁分配
-	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true" maxLength:"64"`
 	// 项目ID，待蚂蚁分配
 	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty" require:"true" maxLength:"64"`
 	// 投保特征短链
@@ -4900,8 +4900,10 @@ type CallbackMktEffectRequest struct {
 	EncryptedUserId *string `json:"encrypted_user_id,omitempty" xml:"encrypted_user_id,omitempty" require:"true" maxLength:"64"`
 	// 用户点击投保页唯一标识
 	ClickId *string `json:"click_id,omitempty" xml:"click_id,omitempty" require:"true" maxLength:"128"`
-	// 事件完成时间（yyyy-MM-dd HH:mm:ss）
+	// 用户点击进入页面时间（格式：yyyy-MM-dd HH:mm:ss）
 	ClickTime *string `json:"click_time,omitempty" xml:"click_time,omitempty" require:"true" maxLength:"32"`
+	// 事件完成时间（yyyy-MM-dd HH:mm:ss）
+	EventTime *string `json:"event_time,omitempty" xml:"event_time,omitempty" require:"true" maxLength:"32"`
 	// 节点类型
 	NodeType *string `json:"node_type,omitempty" xml:"node_type,omitempty" require:"true" maxLength:"64"`
 	// 节点详细信息
@@ -4958,6 +4960,11 @@ func (s *CallbackMktEffectRequest) SetClickId(v string) *CallbackMktEffectReques
 
 func (s *CallbackMktEffectRequest) SetClickTime(v string) *CallbackMktEffectRequest {
 	s.ClickTime = &v
+	return s
+}
+
+func (s *CallbackMktEffectRequest) SetEventTime(v string) *CallbackMktEffectRequest {
+	s.EventTime = &v
 	return s
 }
 
@@ -5337,7 +5344,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.12.12"),
+				"sdk_version":      tea.String("1.12.13"),
 				"_prod_code":       tea.String("INSURANCE_SAAS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
