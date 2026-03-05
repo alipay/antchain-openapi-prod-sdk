@@ -32,6 +32,12 @@ class CallbackMktEffectRequest extends Model
      */
     public $projectId;
 
+    // 营销模式
+    /**
+     * @var string
+     */
+    public $marketingMode;
+
     // 投保特征短链
     /**
      * @var string
@@ -84,6 +90,7 @@ class CallbackMktEffectRequest extends Model
         'requestId'       => 'request_id',
         'productCode'     => 'product_code',
         'projectId'       => 'project_id',
+        'marketingMode'   => 'marketing_mode',
         'insureShortUrl'  => 'insure_short_url',
         'encryptionType'  => 'encryption_type',
         'encryptedUserId' => 'encrypted_user_id',
@@ -99,7 +106,7 @@ class CallbackMktEffectRequest extends Model
         Model::validateRequired('requestId', $this->requestId, true);
         Model::validateRequired('productCode', $this->productCode, true);
         Model::validateRequired('projectId', $this->projectId, true);
-        Model::validateRequired('insureShortUrl', $this->insureShortUrl, true);
+        Model::validateRequired('marketingMode', $this->marketingMode, true);
         Model::validateRequired('encryptionType', $this->encryptionType, true);
         Model::validateRequired('encryptedUserId', $this->encryptedUserId, true);
         Model::validateRequired('clickId', $this->clickId, true);
@@ -110,6 +117,7 @@ class CallbackMktEffectRequest extends Model
         Model::validateMaxLength('requestId', $this->requestId, 128);
         Model::validateMaxLength('productCode', $this->productCode, 64);
         Model::validateMaxLength('projectId', $this->projectId, 64);
+        Model::validateMaxLength('marketingMode', $this->marketingMode, 64);
         Model::validateMaxLength('insureShortUrl', $this->insureShortUrl, 256);
         Model::validateMaxLength('encryptionType', $this->encryptionType, 32);
         Model::validateMaxLength('encryptedUserId', $this->encryptedUserId, 64);
@@ -134,6 +142,9 @@ class CallbackMktEffectRequest extends Model
         }
         if (null !== $this->projectId) {
             $res['project_id'] = $this->projectId;
+        }
+        if (null !== $this->marketingMode) {
+            $res['marketing_mode'] = $this->marketingMode;
         }
         if (null !== $this->insureShortUrl) {
             $res['insure_short_url'] = $this->insureShortUrl;
@@ -182,6 +193,9 @@ class CallbackMktEffectRequest extends Model
         }
         if (isset($map['project_id'])) {
             $model->projectId = $map['project_id'];
+        }
+        if (isset($map['marketing_mode'])) {
+            $model->marketingMode = $map['marketing_mode'];
         }
         if (isset($map['insure_short_url'])) {
             $model->insureShortUrl = $map['insure_short_url'];
