@@ -23,9 +23,14 @@ public class CallbackMktEffectRequest extends TeaModel {
     @Validation(required = true, maxLength = 64)
     public String projectId;
 
+    // 营销模式
+    @NameInMap("marketing_mode")
+    @Validation(required = true, maxLength = 64)
+    public String marketingMode;
+
     // 投保特征短链
     @NameInMap("insure_short_url")
-    @Validation(required = true, maxLength = 256)
+    @Validation(maxLength = 256)
     public String insureShortUrl;
 
     // 加密类型：MD5，32位[小]
@@ -98,6 +103,14 @@ public class CallbackMktEffectRequest extends TeaModel {
     }
     public String getProjectId() {
         return this.projectId;
+    }
+
+    public CallbackMktEffectRequest setMarketingMode(String marketingMode) {
+        this.marketingMode = marketingMode;
+        return this;
+    }
+    public String getMarketingMode() {
+        return this.marketingMode;
     }
 
     public CallbackMktEffectRequest setInsureShortUrl(String insureShortUrl) {
