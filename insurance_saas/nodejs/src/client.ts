@@ -3619,8 +3619,10 @@ export class CallbackMktEffectRequest extends $tea.Model {
   encryptedUserId: string;
   // 用户点击投保页唯一标识
   clickId: string;
-  // 事件完成时间（yyyy-MM-dd HH:mm:ss）
+  // 用户点击进入页面时间（格式：yyyy-MM-dd HH:mm:ss）
   clickTime: string;
+  // 事件完成时间（yyyy-MM-dd HH:mm:ss）
+  eventTime: string;
   // 节点类型
   nodeType: string;
   // 节点详细信息
@@ -3636,6 +3638,7 @@ export class CallbackMktEffectRequest extends $tea.Model {
       encryptedUserId: 'encrypted_user_id',
       clickId: 'click_id',
       clickTime: 'click_time',
+      eventTime: 'event_time',
       nodeType: 'node_type',
       nodeInfo: 'node_info',
     };
@@ -3652,6 +3655,7 @@ export class CallbackMktEffectRequest extends $tea.Model {
       encryptedUserId: 'string',
       clickId: 'string',
       clickTime: 'string',
+      eventTime: 'string',
       nodeType: 'string',
       nodeInfo: 'string',
     };
@@ -3963,7 +3967,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.12.12",
+          sdk_version: "1.12.13",
           _prod_code: "INSURANCE_SAAS",
           _prod_channel: "undefined",
         };
