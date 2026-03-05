@@ -6044,6 +6044,7 @@ class CallbackMktEffectRequest(TeaModel):
         encrypted_user_id: str = None,
         click_id: str = None,
         click_time: str = None,
+        event_time: str = None,
         node_type: str = None,
         node_info: str = None,
     ):
@@ -6063,8 +6064,10 @@ class CallbackMktEffectRequest(TeaModel):
         self.encrypted_user_id = encrypted_user_id
         # 用户点击投保页唯一标识
         self.click_id = click_id
-        # 事件完成时间（yyyy-MM-dd HH:mm:ss）
+        # 用户点击进入页面时间（格式：yyyy-MM-dd HH:mm:ss）
         self.click_time = click_time
+        # 事件完成时间（yyyy-MM-dd HH:mm:ss）
+        self.event_time = event_time
         # 节点类型
         self.node_type = node_type
         # 节点详细信息
@@ -6075,6 +6078,8 @@ class CallbackMktEffectRequest(TeaModel):
         if self.request_id is not None:
             self.validate_max_length(self.request_id, 'request_id', 128)
         self.validate_required(self.product_code, 'product_code')
+        if self.product_code is not None:
+            self.validate_max_length(self.product_code, 'product_code', 64)
         self.validate_required(self.project_id, 'project_id')
         if self.project_id is not None:
             self.validate_max_length(self.project_id, 'project_id', 64)
@@ -6093,6 +6098,9 @@ class CallbackMktEffectRequest(TeaModel):
         self.validate_required(self.click_time, 'click_time')
         if self.click_time is not None:
             self.validate_max_length(self.click_time, 'click_time', 32)
+        self.validate_required(self.event_time, 'event_time')
+        if self.event_time is not None:
+            self.validate_max_length(self.event_time, 'event_time', 32)
         self.validate_required(self.node_type, 'node_type')
         if self.node_type is not None:
             self.validate_max_length(self.node_type, 'node_type', 64)
@@ -6124,6 +6132,8 @@ class CallbackMktEffectRequest(TeaModel):
             result['click_id'] = self.click_id
         if self.click_time is not None:
             result['click_time'] = self.click_time
+        if self.event_time is not None:
+            result['event_time'] = self.event_time
         if self.node_type is not None:
             result['node_type'] = self.node_type
         if self.node_info is not None:
@@ -6150,6 +6160,8 @@ class CallbackMktEffectRequest(TeaModel):
             self.click_id = m.get('click_id')
         if m.get('click_time') is not None:
             self.click_time = m.get('click_time')
+        if m.get('event_time') is not None:
+            self.event_time = m.get('event_time')
         if m.get('node_type') is not None:
             self.node_type = m.get('node_type')
         if m.get('node_info') is not None:
