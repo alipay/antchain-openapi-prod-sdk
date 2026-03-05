@@ -15,7 +15,7 @@ public class CallbackMktEffectRequest extends TeaModel {
 
     // 产品编码，蚂蚁分配
     @NameInMap("product_code")
-    @Validation(required = true)
+    @Validation(required = true, maxLength = 64)
     public String productCode;
 
     // 项目ID，待蚂蚁分配
@@ -43,10 +43,15 @@ public class CallbackMktEffectRequest extends TeaModel {
     @Validation(required = true, maxLength = 128)
     public String clickId;
 
-    // 事件完成时间（yyyy-MM-dd HH:mm:ss）
+    // 用户点击进入页面时间（格式：yyyy-MM-dd HH:mm:ss）
     @NameInMap("click_time")
     @Validation(required = true, maxLength = 32)
     public String clickTime;
+
+    // 事件完成时间（yyyy-MM-dd HH:mm:ss）
+    @NameInMap("event_time")
+    @Validation(required = true, maxLength = 32)
+    public String eventTime;
 
     // 节点类型
     @NameInMap("node_type")
@@ -133,6 +138,14 @@ public class CallbackMktEffectRequest extends TeaModel {
     }
     public String getClickTime() {
         return this.clickTime;
+    }
+
+    public CallbackMktEffectRequest setEventTime(String eventTime) {
+        this.eventTime = eventTime;
+        return this;
+    }
+    public String getEventTime() {
+        return this.eventTime;
     }
 
     public CallbackMktEffectRequest setNodeType(String nodeType) {
