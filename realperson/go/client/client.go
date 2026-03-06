@@ -734,6 +734,55 @@ func (s *CarInfoDetail) SetEnvironmentalStandards(v string) *CarInfoDetail {
 	return s
 }
 
+// 银行卡代扣一键绑卡账户信息
+type AccInfo struct {
+	// 身份证号
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty"`
+	// 持卡人姓名
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty"`
+	// 银行卡号
+	BankCard *string `json:"bank_card,omitempty" xml:"bank_card,omitempty"`
+	// 手机号
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty"`
+	// 银行卡类型，
+	// 0：借记卡
+	// 1：信用卡
+	CardType *string `json:"card_type,omitempty" xml:"card_type,omitempty"`
+}
+
+func (s AccInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AccInfo) GoString() string {
+	return s.String()
+}
+
+func (s *AccInfo) SetCertNo(v string) *AccInfo {
+	s.CertNo = &v
+	return s
+}
+
+func (s *AccInfo) SetCertName(v string) *AccInfo {
+	s.CertName = &v
+	return s
+}
+
+func (s *AccInfo) SetBankCard(v string) *AccInfo {
+	s.BankCard = &v
+	return s
+}
+
+func (s *AccInfo) SetMobile(v string) *AccInfo {
+	s.Mobile = &v
+	return s
+}
+
+func (s *AccInfo) SetCardType(v string) *AccInfo {
+	s.CardType = &v
+	return s
+}
+
 // AIGC风险专项检测
 type AigcRiskResult struct {
 	// AIGC风险检测评分
@@ -2374,6 +2423,8 @@ type CheckIndividualidTwometaResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// true:匹配成功  false：匹配失败
 	Match *string `json:"match,omitempty" xml:"match,omitempty"`
+	// 户籍状态
+	Residency *string `json:"residency,omitempty" xml:"residency,omitempty"`
 	// 扩展信息，预留字段
 	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
 }
@@ -2403,6 +2454,11 @@ func (s *CheckIndividualidTwometaResponse) SetResultMsg(v string) *CheckIndividu
 
 func (s *CheckIndividualidTwometaResponse) SetMatch(v string) *CheckIndividualidTwometaResponse {
 	s.Match = &v
+	return s
+}
+
+func (s *CheckIndividualidTwometaResponse) SetResidency(v string) *CheckIndividualidTwometaResponse {
+	s.Residency = &v
 	return s
 }
 
@@ -3127,6 +3183,8 @@ type CheckRouteTwometaResponse struct {
 	// true:匹配成功 false：匹配失败
 	//
 	Match *string `json:"match,omitempty" xml:"match,omitempty"`
+	// 户籍状态
+	Residency *string `json:"residency,omitempty" xml:"residency,omitempty"`
 	// 扩展信息，预留字段
 	//
 	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
@@ -3157,6 +3215,11 @@ func (s *CheckRouteTwometaResponse) SetResultMsg(v string) *CheckRouteTwometaRes
 
 func (s *CheckRouteTwometaResponse) SetMatch(v string) *CheckRouteTwometaResponse {
 	s.Match = &v
+	return s
+}
+
+func (s *CheckRouteTwometaResponse) SetResidency(v string) *CheckRouteTwometaResponse {
+	s.Residency = &v
 	return s
 }
 
@@ -11636,6 +11699,350 @@ func (s *QueryRiskServerResponse) SetCertifyId(v string) *QueryRiskServerRespons
 	return s
 }
 
+type QueryUserAssetRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 外部唯一标识。用于定位。 值为32位长度的字母数字组合前面几位字符是商户自定义的简称，中间可以使用一段时间，后段可以使用一个随机或递增序列
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 入参加密模式：
+	// NONE：不加密；
+	// MD5：身份证号字段以MD5加密后的字符串传输
+	ReqEncType *string `json:"req_enc_type,omitempty" xml:"req_enc_type,omitempty"`
+	// 手机号码
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty" require:"true"`
+	// map结果的json数据格式，预留字段
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s QueryUserAssetRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryUserAssetRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryUserAssetRequest) SetAuthToken(v string) *QueryUserAssetRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryUserAssetRequest) SetProductInstanceId(v string) *QueryUserAssetRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryUserAssetRequest) SetOuterOrderNo(v string) *QueryUserAssetRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *QueryUserAssetRequest) SetReqEncType(v string) *QueryUserAssetRequest {
+	s.ReqEncType = &v
+	return s
+}
+
+func (s *QueryUserAssetRequest) SetMobile(v string) *QueryUserAssetRequest {
+	s.Mobile = &v
+	return s
+}
+
+func (s *QueryUserAssetRequest) SetExternParam(v string) *QueryUserAssetRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type QueryUserAssetResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回分数，分数等级为 1-7
+	Score *string `json:"score,omitempty" xml:"score,omitempty"`
+	// 扩展信息，预留字段
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s QueryUserAssetResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryUserAssetResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryUserAssetResponse) SetReqMsgId(v string) *QueryUserAssetResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryUserAssetResponse) SetResultCode(v string) *QueryUserAssetResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryUserAssetResponse) SetResultMsg(v string) *QueryUserAssetResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryUserAssetResponse) SetScore(v string) *QueryUserAssetResponse {
+	s.Score = &v
+	return s
+}
+
+func (s *QueryUserAssetResponse) SetExternInfo(v string) *QueryUserAssetResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+type BindCutpaymentOneclickRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+	// 银行编号
+	BankCode *string `json:"bank_code,omitempty" xml:"bank_code,omitempty" require:"true"`
+	// 银行卡类型，
+	// 0：借记卡
+	// 1：信用卡
+	CardType *string `json:"card_type,omitempty" xml:"card_type,omitempty" require:"true"`
+	// 证件类型，
+	// 0：身份证
+	// 1：港澳居民居住证
+	// 2：台湾居民居住证
+	IdCardType *string `json:"id_card_type,omitempty" xml:"id_card_type,omitempty" require:"true"`
+	// 姓名
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty" require:"true"`
+	// 身份证号
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
+	// 页面返回地址，
+	// 签约完成，页面跳转地址，注：地址后不能带参数
+	PageUrl *string `json:"page_url,omitempty" xml:"page_url,omitempty" require:"true"`
+}
+
+func (s BindCutpaymentOneclickRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BindCutpaymentOneclickRequest) GoString() string {
+	return s.String()
+}
+
+func (s *BindCutpaymentOneclickRequest) SetAuthToken(v string) *BindCutpaymentOneclickRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *BindCutpaymentOneclickRequest) SetProductInstanceId(v string) *BindCutpaymentOneclickRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *BindCutpaymentOneclickRequest) SetOuterOrderNo(v string) *BindCutpaymentOneclickRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *BindCutpaymentOneclickRequest) SetUserId(v string) *BindCutpaymentOneclickRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *BindCutpaymentOneclickRequest) SetBankCode(v string) *BindCutpaymentOneclickRequest {
+	s.BankCode = &v
+	return s
+}
+
+func (s *BindCutpaymentOneclickRequest) SetCardType(v string) *BindCutpaymentOneclickRequest {
+	s.CardType = &v
+	return s
+}
+
+func (s *BindCutpaymentOneclickRequest) SetIdCardType(v string) *BindCutpaymentOneclickRequest {
+	s.IdCardType = &v
+	return s
+}
+
+func (s *BindCutpaymentOneclickRequest) SetCertName(v string) *BindCutpaymentOneclickRequest {
+	s.CertName = &v
+	return s
+}
+
+func (s *BindCutpaymentOneclickRequest) SetCertNo(v string) *BindCutpaymentOneclickRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *BindCutpaymentOneclickRequest) SetPageUrl(v string) *BindCutpaymentOneclickRequest {
+	s.PageUrl = &v
+	return s
+}
+
+type BindCutpaymentOneclickResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 跳转地址
+	Url *string `json:"url,omitempty" xml:"url,omitempty"`
+	// 渠道 ID
+	ChannelId *string `json:"channel_id,omitempty" xml:"channel_id,omitempty"`
+}
+
+func (s BindCutpaymentOneclickResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BindCutpaymentOneclickResponse) GoString() string {
+	return s.String()
+}
+
+func (s *BindCutpaymentOneclickResponse) SetReqMsgId(v string) *BindCutpaymentOneclickResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *BindCutpaymentOneclickResponse) SetResultCode(v string) *BindCutpaymentOneclickResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *BindCutpaymentOneclickResponse) SetResultMsg(v string) *BindCutpaymentOneclickResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *BindCutpaymentOneclickResponse) SetUrl(v string) *BindCutpaymentOneclickResponse {
+	s.Url = &v
+	return s
+}
+
+func (s *BindCutpaymentOneclickResponse) SetChannelId(v string) *BindCutpaymentOneclickResponse {
+	s.ChannelId = &v
+	return s
+}
+
+type QueryCutpaymentOneclickRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 一键绑卡商户跳转的请求ID
+	PreOuterOrderNo *string `json:"pre_outer_order_no,omitempty" xml:"pre_outer_order_no,omitempty" require:"true"`
+	// 渠道ID
+	ChannelId *string `json:"channel_id,omitempty" xml:"channel_id,omitempty" require:"true"`
+}
+
+func (s QueryCutpaymentOneclickRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCutpaymentOneclickRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCutpaymentOneclickRequest) SetAuthToken(v string) *QueryCutpaymentOneclickRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryCutpaymentOneclickRequest) SetProductInstanceId(v string) *QueryCutpaymentOneclickRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryCutpaymentOneclickRequest) SetOuterOrderNo(v string) *QueryCutpaymentOneclickRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *QueryCutpaymentOneclickRequest) SetPreOuterOrderNo(v string) *QueryCutpaymentOneclickRequest {
+	s.PreOuterOrderNo = &v
+	return s
+}
+
+func (s *QueryCutpaymentOneclickRequest) SetChannelId(v string) *QueryCutpaymentOneclickRequest {
+	s.ChannelId = &v
+	return s
+}
+
+type QueryCutpaymentOneclickResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 签约协议号
+	ProtocolNo *string `json:"protocol_no,omitempty" xml:"protocol_no,omitempty"`
+	// 银行卡识别码
+	SgnAcc *string `json:"sgn_acc,omitempty" xml:"sgn_acc,omitempty"`
+	// 账户信息
+	AccInfo *AccInfo `json:"acc_info,omitempty" xml:"acc_info,omitempty"`
+	// 银行编号
+	BankCode *string `json:"bank_code,omitempty" xml:"bank_code,omitempty"`
+	// 银行名称
+	BankName *string `json:"bank_name,omitempty" xml:"bank_name,omitempty"`
+}
+
+func (s QueryCutpaymentOneclickResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCutpaymentOneclickResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCutpaymentOneclickResponse) SetReqMsgId(v string) *QueryCutpaymentOneclickResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryCutpaymentOneclickResponse) SetResultCode(v string) *QueryCutpaymentOneclickResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryCutpaymentOneclickResponse) SetResultMsg(v string) *QueryCutpaymentOneclickResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryCutpaymentOneclickResponse) SetProtocolNo(v string) *QueryCutpaymentOneclickResponse {
+	s.ProtocolNo = &v
+	return s
+}
+
+func (s *QueryCutpaymentOneclickResponse) SetSgnAcc(v string) *QueryCutpaymentOneclickResponse {
+	s.SgnAcc = &v
+	return s
+}
+
+func (s *QueryCutpaymentOneclickResponse) SetAccInfo(v *AccInfo) *QueryCutpaymentOneclickResponse {
+	s.AccInfo = v
+	return s
+}
+
+func (s *QueryCutpaymentOneclickResponse) SetBankCode(v string) *QueryCutpaymentOneclickResponse {
+	s.BankCode = &v
+	return s
+}
+
+func (s *QueryCutpaymentOneclickResponse) SetBankName(v string) *QueryCutpaymentOneclickResponse {
+	s.BankName = &v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -11878,7 +12285,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.22.21"),
+				"sdk_version":      tea.String("1.22.24"),
 				"_prod_code":       tea.String("REALPERSON"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -14821,6 +15228,108 @@ func (client *Client) QueryRiskServerEx(request *QueryRiskServerRequest, headers
 	}
 	_result = &QueryRiskServerResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.risk.server.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 用户资产验证
+ * Summary: 用户资产验证
+ */
+func (client *Client) QueryUserAsset(request *QueryUserAssetRequest) (_result *QueryUserAssetResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryUserAssetResponse{}
+	_body, _err := client.QueryUserAssetEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 用户资产验证
+ * Summary: 用户资产验证
+ */
+func (client *Client) QueryUserAssetEx(request *QueryUserAssetRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryUserAssetResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryUserAssetResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.user.asset.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 银行卡代扣一键绑卡签约
+ * Summary: 银行卡代扣一键绑卡签约
+ */
+func (client *Client) BindCutpaymentOneclick(request *BindCutpaymentOneclickRequest) (_result *BindCutpaymentOneclickResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &BindCutpaymentOneclickResponse{}
+	_body, _err := client.BindCutpaymentOneclickEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 银行卡代扣一键绑卡签约
+ * Summary: 银行卡代扣一键绑卡签约
+ */
+func (client *Client) BindCutpaymentOneclickEx(request *BindCutpaymentOneclickRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BindCutpaymentOneclickResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &BindCutpaymentOneclickResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.cutpayment.oneclick.bind"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 银行卡代扣一键绑卡查询
+ * Summary: 银行卡代扣一键绑卡查询
+ */
+func (client *Client) QueryCutpaymentOneclick(request *QueryCutpaymentOneclickRequest) (_result *QueryCutpaymentOneclickResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryCutpaymentOneclickResponse{}
+	_body, _err := client.QueryCutpaymentOneclickEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 银行卡代扣一键绑卡查询
+ * Summary: 银行卡代扣一键绑卡查询
+ */
+func (client *Client) QueryCutpaymentOneclickEx(request *QueryCutpaymentOneclickRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryCutpaymentOneclickResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryCutpaymentOneclickResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.cutpayment.oneclick.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
