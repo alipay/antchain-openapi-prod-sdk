@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.22.21',
+                    'sdk_version': '1.22.24',
                     '_prod_code': 'REALPERSON',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.22.21',
+                    'sdk_version': '1.22.24',
                     '_prod_code': 'REALPERSON',
                     '_prod_channel': 'undefined'
                 }
@@ -4929,6 +4929,174 @@ class Client:
         return TeaCore.from_map(
             realperson_models.QueryRiskServerResponse(),
             await self.do_request_async('1.0', 'di.realperson.risk.server.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_user_asset(
+        self,
+        request: realperson_models.QueryUserAssetRequest,
+    ) -> realperson_models.QueryUserAssetResponse:
+        """
+        Description: 用户资产验证
+        Summary: 用户资产验证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_user_asset_ex(request, headers, runtime)
+
+    async def query_user_asset_async(
+        self,
+        request: realperson_models.QueryUserAssetRequest,
+    ) -> realperson_models.QueryUserAssetResponse:
+        """
+        Description: 用户资产验证
+        Summary: 用户资产验证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_user_asset_ex_async(request, headers, runtime)
+
+    def query_user_asset_ex(
+        self,
+        request: realperson_models.QueryUserAssetRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.QueryUserAssetResponse:
+        """
+        Description: 用户资产验证
+        Summary: 用户资产验证
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.QueryUserAssetResponse(),
+            self.do_request('1.0', 'di.realperson.user.asset.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_user_asset_ex_async(
+        self,
+        request: realperson_models.QueryUserAssetRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.QueryUserAssetResponse:
+        """
+        Description: 用户资产验证
+        Summary: 用户资产验证
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.QueryUserAssetResponse(),
+            await self.do_request_async('1.0', 'di.realperson.user.asset.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def bind_cutpayment_oneclick(
+        self,
+        request: realperson_models.BindCutpaymentOneclickRequest,
+    ) -> realperson_models.BindCutpaymentOneclickResponse:
+        """
+        Description: 银行卡代扣一键绑卡签约
+        Summary: 银行卡代扣一键绑卡签约
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.bind_cutpayment_oneclick_ex(request, headers, runtime)
+
+    async def bind_cutpayment_oneclick_async(
+        self,
+        request: realperson_models.BindCutpaymentOneclickRequest,
+    ) -> realperson_models.BindCutpaymentOneclickResponse:
+        """
+        Description: 银行卡代扣一键绑卡签约
+        Summary: 银行卡代扣一键绑卡签约
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.bind_cutpayment_oneclick_ex_async(request, headers, runtime)
+
+    def bind_cutpayment_oneclick_ex(
+        self,
+        request: realperson_models.BindCutpaymentOneclickRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.BindCutpaymentOneclickResponse:
+        """
+        Description: 银行卡代扣一键绑卡签约
+        Summary: 银行卡代扣一键绑卡签约
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.BindCutpaymentOneclickResponse(),
+            self.do_request('1.0', 'di.realperson.cutpayment.oneclick.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def bind_cutpayment_oneclick_ex_async(
+        self,
+        request: realperson_models.BindCutpaymentOneclickRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.BindCutpaymentOneclickResponse:
+        """
+        Description: 银行卡代扣一键绑卡签约
+        Summary: 银行卡代扣一键绑卡签约
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.BindCutpaymentOneclickResponse(),
+            await self.do_request_async('1.0', 'di.realperson.cutpayment.oneclick.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_cutpayment_oneclick(
+        self,
+        request: realperson_models.QueryCutpaymentOneclickRequest,
+    ) -> realperson_models.QueryCutpaymentOneclickResponse:
+        """
+        Description: 银行卡代扣一键绑卡查询
+        Summary: 银行卡代扣一键绑卡查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_cutpayment_oneclick_ex(request, headers, runtime)
+
+    async def query_cutpayment_oneclick_async(
+        self,
+        request: realperson_models.QueryCutpaymentOneclickRequest,
+    ) -> realperson_models.QueryCutpaymentOneclickResponse:
+        """
+        Description: 银行卡代扣一键绑卡查询
+        Summary: 银行卡代扣一键绑卡查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_cutpayment_oneclick_ex_async(request, headers, runtime)
+
+    def query_cutpayment_oneclick_ex(
+        self,
+        request: realperson_models.QueryCutpaymentOneclickRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.QueryCutpaymentOneclickResponse:
+        """
+        Description: 银行卡代扣一键绑卡查询
+        Summary: 银行卡代扣一键绑卡查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.QueryCutpaymentOneclickResponse(),
+            self.do_request('1.0', 'di.realperson.cutpayment.oneclick.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_cutpayment_oneclick_ex_async(
+        self,
+        request: realperson_models.QueryCutpaymentOneclickRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.QueryCutpaymentOneclickResponse:
+        """
+        Description: 银行卡代扣一键绑卡查询
+        Summary: 银行卡代扣一键绑卡查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.QueryCutpaymentOneclickResponse(),
+            await self.do_request_async('1.0', 'di.realperson.cutpayment.oneclick.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(

@@ -802,6 +802,64 @@ class CarInfoDetail(TeaModel):
         return self
 
 
+class AccInfo(TeaModel):
+    def __init__(
+        self,
+        cert_no: str = None,
+        cert_name: str = None,
+        bank_card: str = None,
+        mobile: str = None,
+        card_type: str = None,
+    ):
+        # 身份证号
+        self.cert_no = cert_no
+        # 持卡人姓名
+        self.cert_name = cert_name
+        # 银行卡号
+        self.bank_card = bank_card
+        # 手机号
+        self.mobile = mobile
+        # 银行卡类型，
+        # 0：借记卡
+        # 1：信用卡
+        self.card_type = card_type
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cert_no is not None:
+            result['cert_no'] = self.cert_no
+        if self.cert_name is not None:
+            result['cert_name'] = self.cert_name
+        if self.bank_card is not None:
+            result['bank_card'] = self.bank_card
+        if self.mobile is not None:
+            result['mobile'] = self.mobile
+        if self.card_type is not None:
+            result['card_type'] = self.card_type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('cert_no') is not None:
+            self.cert_no = m.get('cert_no')
+        if m.get('cert_name') is not None:
+            self.cert_name = m.get('cert_name')
+        if m.get('bank_card') is not None:
+            self.bank_card = m.get('bank_card')
+        if m.get('mobile') is not None:
+            self.mobile = m.get('mobile')
+        if m.get('card_type') is not None:
+            self.card_type = m.get('card_type')
+        return self
+
+
 class AigcRiskResult(TeaModel):
     def __init__(
         self,
@@ -2650,6 +2708,7 @@ class CheckIndividualidTwometaResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
         match: str = None,
+        residency: str = None,
         extern_info: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
@@ -2660,6 +2719,8 @@ class CheckIndividualidTwometaResponse(TeaModel):
         self.result_msg = result_msg
         # true:匹配成功  false：匹配失败
         self.match = match
+        # 户籍状态
+        self.residency = residency
         # 扩展信息，预留字段
         self.extern_info = extern_info
 
@@ -2680,6 +2741,8 @@ class CheckIndividualidTwometaResponse(TeaModel):
             result['result_msg'] = self.result_msg
         if self.match is not None:
             result['match'] = self.match
+        if self.residency is not None:
+            result['residency'] = self.residency
         if self.extern_info is not None:
             result['extern_info'] = self.extern_info
         return result
@@ -2694,6 +2757,8 @@ class CheckIndividualidTwometaResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('match') is not None:
             self.match = m.get('match')
+        if m.get('residency') is not None:
+            self.residency = m.get('residency')
         if m.get('extern_info') is not None:
             self.extern_info = m.get('extern_info')
         return self
@@ -3555,6 +3620,7 @@ class CheckRouteTwometaResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
         match: str = None,
+        residency: str = None,
         extern_info: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
@@ -3566,6 +3632,8 @@ class CheckRouteTwometaResponse(TeaModel):
         # true:匹配成功 false：匹配失败
         # 
         self.match = match
+        # 户籍状态
+        self.residency = residency
         # 扩展信息，预留字段
         # 
         self.extern_info = extern_info
@@ -3587,6 +3655,8 @@ class CheckRouteTwometaResponse(TeaModel):
             result['result_msg'] = self.result_msg
         if self.match is not None:
             result['match'] = self.match
+        if self.residency is not None:
+            result['residency'] = self.residency
         if self.extern_info is not None:
             result['extern_info'] = self.extern_info
         return result
@@ -3601,6 +3671,8 @@ class CheckRouteTwometaResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('match') is not None:
             self.match = m.get('match')
+        if m.get('residency') is not None:
+            self.residency = m.get('residency')
         if m.get('extern_info') is not None:
             self.extern_info = m.get('extern_info')
         return self
@@ -13648,6 +13720,421 @@ class QueryRiskServerResponse(TeaModel):
             self.quality_result = m.get('quality_result')
         if m.get('certify_id') is not None:
             self.certify_id = m.get('certify_id')
+        return self
+
+
+class QueryUserAssetRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        outer_order_no: str = None,
+        req_enc_type: str = None,
+        mobile: str = None,
+        extern_param: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 外部唯一标识。用于定位。 值为32位长度的字母数字组合前面几位字符是商户自定义的简称，中间可以使用一段时间，后段可以使用一个随机或递增序列
+        self.outer_order_no = outer_order_no
+        # 入参加密模式：
+        # NONE：不加密；
+        # MD5：身份证号字段以MD5加密后的字符串传输
+        self.req_enc_type = req_enc_type
+        # 手机号码
+        self.mobile = mobile
+        # map结果的json数据格式，预留字段
+        self.extern_param = extern_param
+
+    def validate(self):
+        self.validate_required(self.outer_order_no, 'outer_order_no')
+        self.validate_required(self.mobile, 'mobile')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.outer_order_no is not None:
+            result['outer_order_no'] = self.outer_order_no
+        if self.req_enc_type is not None:
+            result['req_enc_type'] = self.req_enc_type
+        if self.mobile is not None:
+            result['mobile'] = self.mobile
+        if self.extern_param is not None:
+            result['extern_param'] = self.extern_param
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('outer_order_no') is not None:
+            self.outer_order_no = m.get('outer_order_no')
+        if m.get('req_enc_type') is not None:
+            self.req_enc_type = m.get('req_enc_type')
+        if m.get('mobile') is not None:
+            self.mobile = m.get('mobile')
+        if m.get('extern_param') is not None:
+            self.extern_param = m.get('extern_param')
+        return self
+
+
+class QueryUserAssetResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        score: str = None,
+        extern_info: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 返回分数，分数等级为 1-7
+        self.score = score
+        # 扩展信息，预留字段
+        self.extern_info = extern_info
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.score is not None:
+            result['score'] = self.score
+        if self.extern_info is not None:
+            result['extern_info'] = self.extern_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('score') is not None:
+            self.score = m.get('score')
+        if m.get('extern_info') is not None:
+            self.extern_info = m.get('extern_info')
+        return self
+
+
+class BindCutpaymentOneclickRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        outer_order_no: str = None,
+        user_id: str = None,
+        bank_code: str = None,
+        card_type: str = None,
+        id_card_type: str = None,
+        cert_name: str = None,
+        cert_no: str = None,
+        page_url: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+        self.outer_order_no = outer_order_no
+        # 用户ID
+        self.user_id = user_id
+        # 银行编号
+        self.bank_code = bank_code
+        # 银行卡类型，
+        # 0：借记卡
+        # 1：信用卡
+        self.card_type = card_type
+        # 证件类型，
+        # 0：身份证
+        # 1：港澳居民居住证
+        # 2：台湾居民居住证
+        self.id_card_type = id_card_type
+        # 姓名
+        self.cert_name = cert_name
+        # 身份证号
+        self.cert_no = cert_no
+        # 页面返回地址，
+        # 签约完成，页面跳转地址，注：地址后不能带参数
+        self.page_url = page_url
+
+    def validate(self):
+        self.validate_required(self.outer_order_no, 'outer_order_no')
+        self.validate_required(self.bank_code, 'bank_code')
+        self.validate_required(self.card_type, 'card_type')
+        self.validate_required(self.id_card_type, 'id_card_type')
+        self.validate_required(self.cert_name, 'cert_name')
+        self.validate_required(self.cert_no, 'cert_no')
+        self.validate_required(self.page_url, 'page_url')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.outer_order_no is not None:
+            result['outer_order_no'] = self.outer_order_no
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        if self.bank_code is not None:
+            result['bank_code'] = self.bank_code
+        if self.card_type is not None:
+            result['card_type'] = self.card_type
+        if self.id_card_type is not None:
+            result['id_card_type'] = self.id_card_type
+        if self.cert_name is not None:
+            result['cert_name'] = self.cert_name
+        if self.cert_no is not None:
+            result['cert_no'] = self.cert_no
+        if self.page_url is not None:
+            result['page_url'] = self.page_url
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('outer_order_no') is not None:
+            self.outer_order_no = m.get('outer_order_no')
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        if m.get('bank_code') is not None:
+            self.bank_code = m.get('bank_code')
+        if m.get('card_type') is not None:
+            self.card_type = m.get('card_type')
+        if m.get('id_card_type') is not None:
+            self.id_card_type = m.get('id_card_type')
+        if m.get('cert_name') is not None:
+            self.cert_name = m.get('cert_name')
+        if m.get('cert_no') is not None:
+            self.cert_no = m.get('cert_no')
+        if m.get('page_url') is not None:
+            self.page_url = m.get('page_url')
+        return self
+
+
+class BindCutpaymentOneclickResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        url: str = None,
+        channel_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 跳转地址
+        self.url = url
+        # 渠道 ID
+        self.channel_id = channel_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.url is not None:
+            result['url'] = self.url
+        if self.channel_id is not None:
+            result['channel_id'] = self.channel_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('url') is not None:
+            self.url = m.get('url')
+        if m.get('channel_id') is not None:
+            self.channel_id = m.get('channel_id')
+        return self
+
+
+class QueryCutpaymentOneclickRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        outer_order_no: str = None,
+        pre_outer_order_no: str = None,
+        channel_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+        self.outer_order_no = outer_order_no
+        # 一键绑卡商户跳转的请求ID
+        self.pre_outer_order_no = pre_outer_order_no
+        # 渠道ID
+        self.channel_id = channel_id
+
+    def validate(self):
+        self.validate_required(self.outer_order_no, 'outer_order_no')
+        self.validate_required(self.pre_outer_order_no, 'pre_outer_order_no')
+        self.validate_required(self.channel_id, 'channel_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.outer_order_no is not None:
+            result['outer_order_no'] = self.outer_order_no
+        if self.pre_outer_order_no is not None:
+            result['pre_outer_order_no'] = self.pre_outer_order_no
+        if self.channel_id is not None:
+            result['channel_id'] = self.channel_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('outer_order_no') is not None:
+            self.outer_order_no = m.get('outer_order_no')
+        if m.get('pre_outer_order_no') is not None:
+            self.pre_outer_order_no = m.get('pre_outer_order_no')
+        if m.get('channel_id') is not None:
+            self.channel_id = m.get('channel_id')
+        return self
+
+
+class QueryCutpaymentOneclickResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        protocol_no: str = None,
+        sgn_acc: str = None,
+        acc_info: AccInfo = None,
+        bank_code: str = None,
+        bank_name: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 签约协议号
+        self.protocol_no = protocol_no
+        # 银行卡识别码
+        self.sgn_acc = sgn_acc
+        # 账户信息
+        self.acc_info = acc_info
+        # 银行编号
+        self.bank_code = bank_code
+        # 银行名称
+        self.bank_name = bank_name
+
+    def validate(self):
+        if self.acc_info:
+            self.acc_info.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.protocol_no is not None:
+            result['protocol_no'] = self.protocol_no
+        if self.sgn_acc is not None:
+            result['sgn_acc'] = self.sgn_acc
+        if self.acc_info is not None:
+            result['acc_info'] = self.acc_info.to_map()
+        if self.bank_code is not None:
+            result['bank_code'] = self.bank_code
+        if self.bank_name is not None:
+            result['bank_name'] = self.bank_name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('protocol_no') is not None:
+            self.protocol_no = m.get('protocol_no')
+        if m.get('sgn_acc') is not None:
+            self.sgn_acc = m.get('sgn_acc')
+        if m.get('acc_info') is not None:
+            temp_model = AccInfo()
+            self.acc_info = temp_model.from_map(m['acc_info'])
+        if m.get('bank_code') is not None:
+            self.bank_code = m.get('bank_code')
+        if m.get('bank_name') is not None:
+            self.bank_name = m.get('bank_name')
         return self
 
 
