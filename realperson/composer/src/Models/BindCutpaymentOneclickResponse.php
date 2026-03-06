@@ -6,7 +6,7 @@ namespace AntChain\REALPERSON\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CheckRouteTwometaResponse extends Model
+class BindCutpaymentOneclickResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,32 +26,23 @@ class CheckRouteTwometaResponse extends Model
      */
     public $resultMsg;
 
-    // true:匹配成功 false：匹配失败
-    //
+    // 跳转地址
     /**
      * @var string
      */
-    public $match;
+    public $url;
 
-    // 户籍状态
+    // 渠道 ID
     /**
      * @var string
      */
-    public $residency;
-
-    // 扩展信息，预留字段
-    //
-    /**
-     * @var string
-     */
-    public $externInfo;
+    public $channelId;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'match'      => 'match',
-        'residency'  => 'residency',
-        'externInfo' => 'extern_info',
+        'url'        => 'url',
+        'channelId'  => 'channel_id',
     ];
 
     public function validate()
@@ -70,14 +61,11 @@ class CheckRouteTwometaResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->match) {
-            $res['match'] = $this->match;
+        if (null !== $this->url) {
+            $res['url'] = $this->url;
         }
-        if (null !== $this->residency) {
-            $res['residency'] = $this->residency;
-        }
-        if (null !== $this->externInfo) {
-            $res['extern_info'] = $this->externInfo;
+        if (null !== $this->channelId) {
+            $res['channel_id'] = $this->channelId;
         }
 
         return $res;
@@ -86,7 +74,7 @@ class CheckRouteTwometaResponse extends Model
     /**
      * @param array $map
      *
-     * @return CheckRouteTwometaResponse
+     * @return BindCutpaymentOneclickResponse
      */
     public static function fromMap($map = [])
     {
@@ -100,14 +88,11 @@ class CheckRouteTwometaResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['match'])) {
-            $model->match = $map['match'];
+        if (isset($map['url'])) {
+            $model->url = $map['url'];
         }
-        if (isset($map['residency'])) {
-            $model->residency = $map['residency'];
-        }
-        if (isset($map['extern_info'])) {
-            $model->externInfo = $map['extern_info'];
+        if (isset($map['channel_id'])) {
+            $model->channelId = $map['channel_id'];
         }
 
         return $model;

@@ -6,7 +6,7 @@ namespace AntChain\REALPERSON\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CheckRouteTwometaResponse extends Model
+class QueryCutpaymentOneclickResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,32 +26,44 @@ class CheckRouteTwometaResponse extends Model
      */
     public $resultMsg;
 
-    // true:匹配成功 false：匹配失败
-    //
+    // 签约协议号
     /**
      * @var string
      */
-    public $match;
+    public $protocolNo;
 
-    // 户籍状态
+    // 银行卡识别码
     /**
      * @var string
      */
-    public $residency;
+    public $sgnAcc;
 
-    // 扩展信息，预留字段
-    //
+    // 账户信息
+    /**
+     * @var AccInfo
+     */
+    public $accInfo;
+
+    // 银行编号
     /**
      * @var string
      */
-    public $externInfo;
+    public $bankCode;
+
+    // 银行名称
+    /**
+     * @var string
+     */
+    public $bankName;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'match'      => 'match',
-        'residency'  => 'residency',
-        'externInfo' => 'extern_info',
+        'protocolNo' => 'protocol_no',
+        'sgnAcc'     => 'sgn_acc',
+        'accInfo'    => 'acc_info',
+        'bankCode'   => 'bank_code',
+        'bankName'   => 'bank_name',
     ];
 
     public function validate()
@@ -70,14 +82,20 @@ class CheckRouteTwometaResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->match) {
-            $res['match'] = $this->match;
+        if (null !== $this->protocolNo) {
+            $res['protocol_no'] = $this->protocolNo;
         }
-        if (null !== $this->residency) {
-            $res['residency'] = $this->residency;
+        if (null !== $this->sgnAcc) {
+            $res['sgn_acc'] = $this->sgnAcc;
         }
-        if (null !== $this->externInfo) {
-            $res['extern_info'] = $this->externInfo;
+        if (null !== $this->accInfo) {
+            $res['acc_info'] = null !== $this->accInfo ? $this->accInfo->toMap() : null;
+        }
+        if (null !== $this->bankCode) {
+            $res['bank_code'] = $this->bankCode;
+        }
+        if (null !== $this->bankName) {
+            $res['bank_name'] = $this->bankName;
         }
 
         return $res;
@@ -86,7 +104,7 @@ class CheckRouteTwometaResponse extends Model
     /**
      * @param array $map
      *
-     * @return CheckRouteTwometaResponse
+     * @return QueryCutpaymentOneclickResponse
      */
     public static function fromMap($map = [])
     {
@@ -100,14 +118,20 @@ class CheckRouteTwometaResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['match'])) {
-            $model->match = $map['match'];
+        if (isset($map['protocol_no'])) {
+            $model->protocolNo = $map['protocol_no'];
         }
-        if (isset($map['residency'])) {
-            $model->residency = $map['residency'];
+        if (isset($map['sgn_acc'])) {
+            $model->sgnAcc = $map['sgn_acc'];
         }
-        if (isset($map['extern_info'])) {
-            $model->externInfo = $map['extern_info'];
+        if (isset($map['acc_info'])) {
+            $model->accInfo = AccInfo::fromMap($map['acc_info']);
+        }
+        if (isset($map['bank_code'])) {
+            $model->bankCode = $map['bank_code'];
+        }
+        if (isset($map['bank_name'])) {
+            $model->bankName = $map['bank_name'];
         }
 
         return $model;

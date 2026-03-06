@@ -6,7 +6,7 @@ namespace AntChain\REALPERSON\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CheckRouteTwometaResponse extends Model
+class QueryUserAssetResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,21 +26,13 @@ class CheckRouteTwometaResponse extends Model
      */
     public $resultMsg;
 
-    // true:匹配成功 false：匹配失败
-    //
+    // 返回分数，分数等级为 1-7
     /**
      * @var string
      */
-    public $match;
-
-    // 户籍状态
-    /**
-     * @var string
-     */
-    public $residency;
+    public $score;
 
     // 扩展信息，预留字段
-    //
     /**
      * @var string
      */
@@ -49,8 +41,7 @@ class CheckRouteTwometaResponse extends Model
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'match'      => 'match',
-        'residency'  => 'residency',
+        'score'      => 'score',
         'externInfo' => 'extern_info',
     ];
 
@@ -70,11 +61,8 @@ class CheckRouteTwometaResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->match) {
-            $res['match'] = $this->match;
-        }
-        if (null !== $this->residency) {
-            $res['residency'] = $this->residency;
+        if (null !== $this->score) {
+            $res['score'] = $this->score;
         }
         if (null !== $this->externInfo) {
             $res['extern_info'] = $this->externInfo;
@@ -86,7 +74,7 @@ class CheckRouteTwometaResponse extends Model
     /**
      * @param array $map
      *
-     * @return CheckRouteTwometaResponse
+     * @return QueryUserAssetResponse
      */
     public static function fromMap($map = [])
     {
@@ -100,11 +88,8 @@ class CheckRouteTwometaResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['match'])) {
-            $model->match = $map['match'];
-        }
-        if (isset($map['residency'])) {
-            $model->residency = $map['residency'];
+        if (isset($map['score'])) {
+            $model->score = $map['score'];
         }
         if (isset($map['extern_info'])) {
             $model->externInfo = $map['extern_info'];

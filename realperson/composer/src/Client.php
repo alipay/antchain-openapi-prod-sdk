@@ -19,6 +19,8 @@ use AntChain\REALPERSON\Models\ApplyExtOrgdataRequest;
 use AntChain\REALPERSON\Models\ApplyExtOrgdataResponse;
 use AntChain\REALPERSON\Models\BindCarrierRepairmobileRequest;
 use AntChain\REALPERSON\Models\BindCarrierRepairmobileResponse;
+use AntChain\REALPERSON\Models\BindCutpaymentOneclickRequest;
+use AntChain\REALPERSON\Models\BindCutpaymentOneclickResponse;
 use AntChain\REALPERSON\Models\BindCutpaymentPreRequest;
 use AntChain\REALPERSON\Models\BindCutpaymentPreResponse;
 use AntChain\REALPERSON\Models\BindCutpaymentSignRequest;
@@ -105,6 +107,8 @@ use AntChain\REALPERSON\Models\QueryCarrierRepairmobileRequest;
 use AntChain\REALPERSON\Models\QueryCarrierRepairmobileResponse;
 use AntChain\REALPERSON\Models\QueryCutpaymentBindRequest;
 use AntChain\REALPERSON\Models\QueryCutpaymentBindResponse;
+use AntChain\REALPERSON\Models\QueryCutpaymentOneclickRequest;
+use AntChain\REALPERSON\Models\QueryCutpaymentOneclickResponse;
 use AntChain\REALPERSON\Models\QueryCutpaymentPaymentRequest;
 use AntChain\REALPERSON\Models\QueryCutpaymentPaymentResponse;
 use AntChain\REALPERSON\Models\QueryCutpaymentRefundRequest;
@@ -155,6 +159,8 @@ use AntChain\REALPERSON\Models\QueryThreemetaPhonereuseRequest;
 use AntChain\REALPERSON\Models\QueryThreemetaPhonereuseResponse;
 use AntChain\REALPERSON\Models\QueryTscenterDeviceRequest;
 use AntChain\REALPERSON\Models\QueryTscenterDeviceResponse;
+use AntChain\REALPERSON\Models\QueryUserAssetRequest;
+use AntChain\REALPERSON\Models\QueryUserAssetResponse;
 use AntChain\REALPERSON\Models\RecognizeDocIndividualcardRequest;
 use AntChain\REALPERSON\Models\RecognizeDocIndividualcardResponse;
 use AntChain\REALPERSON\Models\RecognizeOcrIndividualcardRequest;
@@ -316,7 +322,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.22.21',
+                    'sdk_version'      => '1.22.24',
                     '_prod_code'       => 'REALPERSON',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -3088,6 +3094,105 @@ class Client
         Utils::validateModel($request);
 
         return QueryRiskServerResponse::fromMap($this->doRequest('1.0', 'di.realperson.risk.server.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用户资产验证
+     * Summary: 用户资产验证
+     *
+     * @param QueryUserAssetRequest $request
+     *
+     * @return QueryUserAssetResponse
+     */
+    public function queryUserAsset($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryUserAssetEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用户资产验证
+     * Summary: 用户资产验证
+     *
+     * @param QueryUserAssetRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return QueryUserAssetResponse
+     */
+    public function queryUserAssetEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryUserAssetResponse::fromMap($this->doRequest('1.0', 'di.realperson.user.asset.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 银行卡代扣一键绑卡签约
+     * Summary: 银行卡代扣一键绑卡签约.
+     *
+     * @param BindCutpaymentOneclickRequest $request
+     *
+     * @return BindCutpaymentOneclickResponse
+     */
+    public function bindCutpaymentOneclick($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->bindCutpaymentOneclickEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 银行卡代扣一键绑卡签约
+     * Summary: 银行卡代扣一键绑卡签约.
+     *
+     * @param BindCutpaymentOneclickRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return BindCutpaymentOneclickResponse
+     */
+    public function bindCutpaymentOneclickEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BindCutpaymentOneclickResponse::fromMap($this->doRequest('1.0', 'di.realperson.cutpayment.oneclick.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 银行卡代扣一键绑卡查询
+     * Summary: 银行卡代扣一键绑卡查询.
+     *
+     * @param QueryCutpaymentOneclickRequest $request
+     *
+     * @return QueryCutpaymentOneclickResponse
+     */
+    public function queryCutpaymentOneclick($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryCutpaymentOneclickEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 银行卡代扣一键绑卡查询
+     * Summary: 银行卡代扣一键绑卡查询.
+     *
+     * @param QueryCutpaymentOneclickRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return QueryCutpaymentOneclickResponse
+     */
+    public function queryCutpaymentOneclickEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryCutpaymentOneclickResponse::fromMap($this->doRequest('1.0', 'di.realperson.cutpayment.oneclick.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

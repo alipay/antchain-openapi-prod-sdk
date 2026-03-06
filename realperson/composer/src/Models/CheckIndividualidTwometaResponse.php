@@ -32,6 +32,12 @@ class CheckIndividualidTwometaResponse extends Model
      */
     public $match;
 
+    // 户籍状态
+    /**
+     * @var string
+     */
+    public $residency;
+
     // 扩展信息，预留字段
     /**
      * @var string
@@ -42,6 +48,7 @@ class CheckIndividualidTwometaResponse extends Model
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
         'match'      => 'match',
+        'residency'  => 'residency',
         'externInfo' => 'extern_info',
     ];
 
@@ -63,6 +70,9 @@ class CheckIndividualidTwometaResponse extends Model
         }
         if (null !== $this->match) {
             $res['match'] = $this->match;
+        }
+        if (null !== $this->residency) {
+            $res['residency'] = $this->residency;
         }
         if (null !== $this->externInfo) {
             $res['extern_info'] = $this->externInfo;
@@ -90,6 +100,9 @@ class CheckIndividualidTwometaResponse extends Model
         }
         if (isset($map['match'])) {
             $model->match = $map['match'];
+        }
+        if (isset($map['residency'])) {
+            $model->residency = $map['residency'];
         }
         if (isset($map['extern_info'])) {
             $model->externInfo = $map['extern_info'];
