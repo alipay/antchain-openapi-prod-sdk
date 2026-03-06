@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.22.21"),
+                    new TeaPair("sdk_version", "1.22.24"),
                     new TeaPair("_prod_code", "REALPERSON"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -2000,6 +2000,69 @@ public class Client {
 
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "di.realperson.risk.server.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryRiskServerResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 用户资产验证
+     * Summary: 用户资产验证</p>
+     */
+    public QueryUserAssetResponse queryUserAsset(QueryUserAssetRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryUserAssetEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 用户资产验证
+     * Summary: 用户资产验证</p>
+     */
+    public QueryUserAssetResponse queryUserAssetEx(QueryUserAssetRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "di.realperson.user.asset.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryUserAssetResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 银行卡代扣一键绑卡签约
+     * Summary: 银行卡代扣一键绑卡签约</p>
+     */
+    public BindCutpaymentOneclickResponse bindCutpaymentOneclick(BindCutpaymentOneclickRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.bindCutpaymentOneclickEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 银行卡代扣一键绑卡签约
+     * Summary: 银行卡代扣一键绑卡签约</p>
+     */
+    public BindCutpaymentOneclickResponse bindCutpaymentOneclickEx(BindCutpaymentOneclickRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "di.realperson.cutpayment.oneclick.bind", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BindCutpaymentOneclickResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 银行卡代扣一键绑卡查询
+     * Summary: 银行卡代扣一键绑卡查询</p>
+     */
+    public QueryCutpaymentOneclickResponse queryCutpaymentOneclick(QueryCutpaymentOneclickRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryCutpaymentOneclickEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 银行卡代扣一键绑卡查询
+     * Summary: 银行卡代扣一键绑卡查询</p>
+     */
+    public QueryCutpaymentOneclickResponse queryCutpaymentOneclickEx(QueryCutpaymentOneclickRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "di.realperson.cutpayment.oneclick.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCutpaymentOneclickResponse());
     }
 
     /**

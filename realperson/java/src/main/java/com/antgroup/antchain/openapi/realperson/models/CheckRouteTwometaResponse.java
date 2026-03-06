@@ -21,6 +21,10 @@ public class CheckRouteTwometaResponse extends TeaModel {
     @NameInMap("match")
     public String match;
 
+    // 户籍状态
+    @NameInMap("residency")
+    public String residency;
+
     // 扩展信息，预留字段
     // 
     @NameInMap("extern_info")
@@ -61,6 +65,14 @@ public class CheckRouteTwometaResponse extends TeaModel {
     }
     public String getMatch() {
         return this.match;
+    }
+
+    public CheckRouteTwometaResponse setResidency(String residency) {
+        this.residency = residency;
+        return this;
+    }
+    public String getResidency() {
+        return this.residency;
     }
 
     public CheckRouteTwometaResponse setExternInfo(String externInfo) {

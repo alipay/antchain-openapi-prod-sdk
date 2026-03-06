@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.realperson.models;
 
 import com.aliyun.tea.*;
 
-public class CheckIndividualidTwometaResponse extends TeaModel {
+public class QueryUserAssetResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,24 +16,20 @@ public class CheckIndividualidTwometaResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // true:匹配成功  false：匹配失败
-    @NameInMap("match")
-    public String match;
-
-    // 户籍状态
-    @NameInMap("residency")
-    public String residency;
+    // 返回分数，分数等级为 1-7
+    @NameInMap("score")
+    public String score;
 
     // 扩展信息，预留字段
     @NameInMap("extern_info")
     public String externInfo;
 
-    public static CheckIndividualidTwometaResponse build(java.util.Map<String, ?> map) throws Exception {
-        CheckIndividualidTwometaResponse self = new CheckIndividualidTwometaResponse();
+    public static QueryUserAssetResponse build(java.util.Map<String, ?> map) throws Exception {
+        QueryUserAssetResponse self = new QueryUserAssetResponse();
         return TeaModel.build(map, self);
     }
 
-    public CheckIndividualidTwometaResponse setReqMsgId(String reqMsgId) {
+    public QueryUserAssetResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -41,7 +37,7 @@ public class CheckIndividualidTwometaResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public CheckIndividualidTwometaResponse setResultCode(String resultCode) {
+    public QueryUserAssetResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -49,7 +45,7 @@ public class CheckIndividualidTwometaResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public CheckIndividualidTwometaResponse setResultMsg(String resultMsg) {
+    public QueryUserAssetResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -57,23 +53,15 @@ public class CheckIndividualidTwometaResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public CheckIndividualidTwometaResponse setMatch(String match) {
-        this.match = match;
+    public QueryUserAssetResponse setScore(String score) {
+        this.score = score;
         return this;
     }
-    public String getMatch() {
-        return this.match;
+    public String getScore() {
+        return this.score;
     }
 
-    public CheckIndividualidTwometaResponse setResidency(String residency) {
-        this.residency = residency;
-        return this;
-    }
-    public String getResidency() {
-        return this.residency;
-    }
-
-    public CheckIndividualidTwometaResponse setExternInfo(String externInfo) {
+    public QueryUserAssetResponse setExternInfo(String externInfo) {
         this.externInfo = externInfo;
         return this;
     }
