@@ -30,6 +30,11 @@ namespace AntChain.SDK.REALPERSON.Models
         [Validation(Required=false)]
         public string Match { get; set; }
 
+        // 户籍状态
+        [NameInMap("residency")]
+        [Validation(Required=false)]
+        public string Residency { get; set; }
+
         // 扩展信息，预留字段
         // 
         [NameInMap("extern_info")]

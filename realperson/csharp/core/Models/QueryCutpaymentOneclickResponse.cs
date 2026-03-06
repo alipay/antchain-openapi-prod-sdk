@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.REALPERSON.Models
 {
-    public class CheckIndividualidTwometaResponse : TeaModel {
+    public class QueryCutpaymentOneclickResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,20 +24,30 @@ namespace AntChain.SDK.REALPERSON.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // true:匹配成功  false：匹配失败
-        [NameInMap("match")]
+        // 签约协议号
+        [NameInMap("protocol_no")]
         [Validation(Required=false)]
-        public string Match { get; set; }
+        public string ProtocolNo { get; set; }
 
-        // 户籍状态
-        [NameInMap("residency")]
+        // 银行卡识别码
+        [NameInMap("sgn_acc")]
         [Validation(Required=false)]
-        public string Residency { get; set; }
+        public string SgnAcc { get; set; }
 
-        // 扩展信息，预留字段
-        [NameInMap("extern_info")]
+        // 账户信息
+        [NameInMap("acc_info")]
         [Validation(Required=false)]
-        public string ExternInfo { get; set; }
+        public AccInfo AccInfo { get; set; }
+
+        // 银行编号
+        [NameInMap("bank_code")]
+        [Validation(Required=false)]
+        public string BankCode { get; set; }
+
+        // 银行名称
+        [NameInMap("bank_name")]
+        [Validation(Required=false)]
+        public string BankName { get; set; }
 
     }
 
