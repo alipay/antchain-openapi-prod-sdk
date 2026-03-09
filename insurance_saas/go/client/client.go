@@ -4909,7 +4909,7 @@ type CallbackMktEffectRequest struct {
 	// 节点类型
 	NodeType *string `json:"node_type,omitempty" xml:"node_type,omitempty" require:"true" maxLength:"64"`
 	// 节点详细信息
-	NodeInfo *string `json:"node_info,omitempty" xml:"node_info,omitempty" require:"true" maxLength:"1024"`
+	NodeInfo *string `json:"node_info,omitempty" xml:"node_info,omitempty" maxLength:"1024"`
 }
 
 func (s CallbackMktEffectRequest) String() string {
@@ -5351,7 +5351,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.12.14"),
+				"sdk_version":      tea.String("1.12.15"),
 				"_prod_code":       tea.String("INSURANCE_SAAS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
