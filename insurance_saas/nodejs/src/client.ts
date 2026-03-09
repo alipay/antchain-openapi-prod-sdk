@@ -3628,7 +3628,7 @@ export class CallbackMktEffectRequest extends $tea.Model {
   // 节点类型
   nodeType: string;
   // 节点详细信息
-  nodeInfo: string;
+  nodeInfo?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -3971,7 +3971,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.12.14",
+          sdk_version: "1.12.15",
           _prod_code: "INSURANCE_SAAS",
           _prod_channel: "undefined",
         };
