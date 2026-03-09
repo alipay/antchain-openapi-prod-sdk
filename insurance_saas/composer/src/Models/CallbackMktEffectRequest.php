@@ -113,7 +113,6 @@ class CallbackMktEffectRequest extends Model
         Model::validateRequired('clickTime', $this->clickTime, true);
         Model::validateRequired('eventTime', $this->eventTime, true);
         Model::validateRequired('nodeType', $this->nodeType, true);
-        Model::validateRequired('nodeInfo', $this->nodeInfo, true);
         Model::validateMaxLength('requestId', $this->requestId, 128);
         Model::validateMaxLength('productCode', $this->productCode, 64);
         Model::validateMaxLength('projectId', $this->projectId, 64);
