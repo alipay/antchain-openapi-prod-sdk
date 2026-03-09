@@ -64,6 +64,21 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string AuthInfo { get; set; }
 
+        // merchant_id
+        [NameInMap("merchant_id")]
+        [Validation(Required=false)]
+        public string MerchantId { get; set; }
+
+        // fund_id
+        [NameInMap("fund_id")]
+        [Validation(Required=false)]
+        public string FundId { get; set; }
+
+        // json字符串
+        [NameInMap("auth_contract")]
+        [Validation(Required=false)]
+        public string AuthContract { get; set; }
+
     }
 
 }

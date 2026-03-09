@@ -74,6 +74,16 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string InitiatorAccountId { get; set; }
 
+        // 商家上传的合同签署完跳转地址
+        [NameInMap("sign_redirect_url")]
+        [Validation(Required=false)]
+        public string SignRedirectUrl { get; set; }
+
+        // 订单租户 id
+        [NameInMap("tenant_id")]
+        [Validation(Required=false)]
+        public string TenantId { get; set; }
+
     }
 
 }

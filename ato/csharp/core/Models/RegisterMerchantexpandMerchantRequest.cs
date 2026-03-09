@@ -56,6 +56,7 @@ namespace AntChain.SDK.ATO.Models
         // 支付渠道
         // ALIPAY（默认）
         // JDPAY
+        // RECEIPT_COUPON（立减金金融）
         [NameInMap("pay_channel")]
         [Validation(Required=false)]
         public string PayChannel { get; set; }

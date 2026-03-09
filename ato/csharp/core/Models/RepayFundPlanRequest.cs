@@ -45,7 +45,7 @@ namespace AntChain.SDK.ATO.Models
 
         // 支付描述
         [NameInMap("payment_description")]
-        [Validation(Required=true, MaxLength=64)]
+        [Validation(Required=true, MaxLength=300)]
         public string PaymentDescription { get; set; }
 
     }

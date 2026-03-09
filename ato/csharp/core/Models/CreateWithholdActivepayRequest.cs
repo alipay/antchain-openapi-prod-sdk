@@ -68,6 +68,11 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public long? PayApplyNo { get; set; }
 
+        // 回调地址
+        [NameInMap("return_url")]
+        [Validation(Required=false)]
+        public string ReturnUrl { get; set; }
+
     }
 
 }

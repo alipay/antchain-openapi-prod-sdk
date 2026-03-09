@@ -23,23 +23,19 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=true)]
         public string OrderId { get; set; }
 
-        // CRED_PSN_CH_IDCARD： 大陆身份证
-        // CRED_PSN_CH_TWCARD：台湾来往大陆通行证
-        // CRED_PSN_CH_MACAO"：澳门来往大陆通行证
-        // CRED_PSN_CH_HONGKONG：香港来往大陆通行证
-        // CRED_PSN_PASSPORT：护照
+        // CRED_PSN_CH_IDCARD大陆身份证
         [NameInMap("user_id_type")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string UserIdType { get; set; }
 
         // 用户证件号，需要采用RSA加密传输
         [NameInMap("user_id_number")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string UserIdNumber { get; set; }
 
         // 姓名，需要采用RSA加密传输
         [NameInMap("user_name")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string UserName { get; set; }
 
         // 用户手机号，可不传；传的话需要采用RSA加密传输
