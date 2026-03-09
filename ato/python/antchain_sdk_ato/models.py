@@ -2141,9 +2141,6 @@ class ApplicationInfo(TeaModel):
         self.site_info = site_info
 
     def validate(self):
-        self.validate_required(self.application_scene, 'application_scene')
-        self.validate_required(self.tiny_app_id, 'tiny_app_id')
-        self.validate_required(self.site_name, 'site_name')
         if self.site_info:
             for k in self.site_info:
                 if k:
@@ -15936,6 +15933,9 @@ class QueryFundCreditauthResponse(TeaModel):
         auth_end_time: str = None,
         auth_apply_expire_time: str = None,
         auth_info: str = None,
+        merchant_id: str = None,
+        fund_id: str = None,
+        auth_contract: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -15962,6 +15962,12 @@ class QueryFundCreditauthResponse(TeaModel):
         self.auth_apply_expire_time = auth_apply_expire_time
         # 授信/用信授权信息,json结构
         self.auth_info = auth_info
+        # merchant_id
+        self.merchant_id = merchant_id
+        # fund_id
+        self.fund_id = fund_id
+        # json字符串
+        self.auth_contract = auth_contract
 
     def validate(self):
         pass
@@ -15992,6 +15998,12 @@ class QueryFundCreditauthResponse(TeaModel):
             result['auth_apply_expire_time'] = self.auth_apply_expire_time
         if self.auth_info is not None:
             result['auth_info'] = self.auth_info
+        if self.merchant_id is not None:
+            result['merchant_id'] = self.merchant_id
+        if self.fund_id is not None:
+            result['fund_id'] = self.fund_id
+        if self.auth_contract is not None:
+            result['auth_contract'] = self.auth_contract
         return result
 
     def from_map(self, m: dict = None):
@@ -16016,6 +16028,12 @@ class QueryFundCreditauthResponse(TeaModel):
             self.auth_apply_expire_time = m.get('auth_apply_expire_time')
         if m.get('auth_info') is not None:
             self.auth_info = m.get('auth_info')
+        if m.get('merchant_id') is not None:
+            self.merchant_id = m.get('merchant_id')
+        if m.get('fund_id') is not None:
+            self.fund_id = m.get('fund_id')
+        if m.get('auth_contract') is not None:
+            self.auth_contract = m.get('auth_contract')
         return self
 
 
@@ -16337,7 +16355,7 @@ class RepayFundPlanRequest(TeaModel):
             self.validate_minimum(self.amount, 'amount', 0)
         self.validate_required(self.payment_description, 'payment_description')
         if self.payment_description is not None:
-            self.validate_max_length(self.payment_description, 'payment_description', 64)
+            self.validate_max_length(self.payment_description, 'payment_description', 300)
 
     def to_map(self):
         _map = super().to_map()
@@ -35293,6 +35311,8 @@ class GetInnerSignflowResponse(TeaModel):
         alipay_user_id: str = None,
         sign_info: str = None,
         initiator_account_id: str = None,
+        sign_redirect_url: str = None,
+        tenant_id: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -35320,6 +35340,10 @@ class GetInnerSignflowResponse(TeaModel):
         self.sign_info = sign_info
         # 发起人账户id
         self.initiator_account_id = initiator_account_id
+        # 商家上传的合同签署完跳转地址
+        self.sign_redirect_url = sign_redirect_url
+        # 订单租户 id
+        self.tenant_id = tenant_id
 
     def validate(self):
         pass
@@ -35356,6 +35380,10 @@ class GetInnerSignflowResponse(TeaModel):
             result['sign_info'] = self.sign_info
         if self.initiator_account_id is not None:
             result['initiator_account_id'] = self.initiator_account_id
+        if self.sign_redirect_url is not None:
+            result['sign_redirect_url'] = self.sign_redirect_url
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
         return result
 
     def from_map(self, m: dict = None):
@@ -35386,6 +35414,10 @@ class GetInnerSignflowResponse(TeaModel):
             self.sign_info = m.get('sign_info')
         if m.get('initiator_account_id') is not None:
             self.initiator_account_id = m.get('initiator_account_id')
+        if m.get('sign_redirect_url') is not None:
+            self.sign_redirect_url = m.get('sign_redirect_url')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
         return self
 
 
@@ -35886,6 +35918,7 @@ class RegisterMerchantexpandMerchantRequest(TeaModel):
         # 支付渠道
         # ALIPAY（默认）
         # JDPAY
+        # RECEIPT_COUPON（立减金金融）
         self.pay_channel = pay_channel
         # 角色
         # MERCHANT（默认）
@@ -37787,11 +37820,7 @@ class SubmitSignFlowRequest(TeaModel):
         self.product_instance_id = product_instance_id
         # 订单号
         self.order_id = order_id
-        # CRED_PSN_CH_IDCARD： 大陆身份证
-        # CRED_PSN_CH_TWCARD：台湾来往大陆通行证
-        # CRED_PSN_CH_MACAO"：澳门来往大陆通行证
-        # CRED_PSN_CH_HONGKONG：香港来往大陆通行证
-        # CRED_PSN_PASSPORT：护照
+        # CRED_PSN_CH_IDCARD大陆身份证
         self.user_id_type = user_id_type
         # 用户证件号，需要采用RSA加密传输
         self.user_id_number = user_id_number
@@ -37854,9 +37883,6 @@ class SubmitSignFlowRequest(TeaModel):
 
     def validate(self):
         self.validate_required(self.order_id, 'order_id')
-        self.validate_required(self.user_id_type, 'user_id_type')
-        self.validate_required(self.user_id_number, 'user_id_number')
-        self.validate_required(self.user_name, 'user_name')
         self.validate_required(self.business_scene, 'business_scene')
         self.validate_required(self.template_list, 'template_list')
         if self.alipay_user_id is not None:
@@ -43249,6 +43275,7 @@ class CreateWithholdActivepayRequest(TeaModel):
         operation_divide_trans_in_list: List[OperationDivideTransInModel] = None,
         multi_pay_detail: List[SingleTermDetail] = None,
         pay_apply_no: int = None,
+        return_url: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -43276,6 +43303,8 @@ class CreateWithholdActivepayRequest(TeaModel):
         # 支付申请号，用于区分在一笔订单同一支付类型的多笔支付请求。
         # 当支付类型非MULTI_PAY或为空时必填
         self.pay_apply_no = pay_apply_no
+        # 回调地址
+        self.return_url = return_url
 
     def validate(self):
         self.validate_required(self.order_id, 'order_id')
@@ -43335,6 +43364,8 @@ class CreateWithholdActivepayRequest(TeaModel):
                 result['multi_pay_detail'].append(k.to_map() if k else None)
         if self.pay_apply_no is not None:
             result['pay_apply_no'] = self.pay_apply_no
+        if self.return_url is not None:
+            result['return_url'] = self.return_url
         return result
 
     def from_map(self, m: dict = None):
@@ -43367,6 +43398,8 @@ class CreateWithholdActivepayRequest(TeaModel):
                 self.multi_pay_detail.append(temp_model.from_map(k))
         if m.get('pay_apply_no') is not None:
             self.pay_apply_no = m.get('pay_apply_no')
+        if m.get('return_url') is not None:
+            self.return_url = m.get('return_url')
         return self
 
 
