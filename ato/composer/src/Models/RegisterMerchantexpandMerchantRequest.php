@@ -64,6 +64,7 @@ class RegisterMerchantexpandMerchantRequest extends Model
     // 支付渠道
     // ALIPAY（默认）
     // JDPAY
+    // RECEIPT_COUPON（立减金金融）
     /**
      * @var string
      */

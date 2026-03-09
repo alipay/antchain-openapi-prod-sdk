@@ -85,6 +85,18 @@ class GetInnerSignflowResponse extends Model
      * @var string
      */
     public $initiatorAccountId;
+
+    // 商家上传的合同签署完跳转地址
+    /**
+     * @var string
+     */
+    public $signRedirectUrl;
+
+    // 订单租户 id
+    /**
+     * @var string
+     */
+    public $tenantId;
     protected $_name = [
         'reqMsgId'           => 'req_msg_id',
         'resultCode'         => 'result_code',
@@ -99,6 +111,8 @@ class GetInnerSignflowResponse extends Model
         'alipayUserId'       => 'alipay_user_id',
         'signInfo'           => 'sign_info',
         'initiatorAccountId' => 'initiator_account_id',
+        'signRedirectUrl'    => 'sign_redirect_url',
+        'tenantId'           => 'tenant_id',
     ];
 
     public function validate()
@@ -146,6 +160,12 @@ class GetInnerSignflowResponse extends Model
         }
         if (null !== $this->initiatorAccountId) {
             $res['initiator_account_id'] = $this->initiatorAccountId;
+        }
+        if (null !== $this->signRedirectUrl) {
+            $res['sign_redirect_url'] = $this->signRedirectUrl;
+        }
+        if (null !== $this->tenantId) {
+            $res['tenant_id'] = $this->tenantId;
         }
 
         return $res;
@@ -197,6 +217,12 @@ class GetInnerSignflowResponse extends Model
         }
         if (isset($map['initiator_account_id'])) {
             $model->initiatorAccountId = $map['initiator_account_id'];
+        }
+        if (isset($map['sign_redirect_url'])) {
+            $model->signRedirectUrl = $map['sign_redirect_url'];
+        }
+        if (isset($map['tenant_id'])) {
+            $model->tenantId = $map['tenant_id'];
         }
 
         return $model;

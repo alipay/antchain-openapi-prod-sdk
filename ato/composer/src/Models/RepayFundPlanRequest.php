@@ -76,7 +76,7 @@ class RepayFundPlanRequest extends Model
         Model::validateMaxLength('orderId', $this->orderId, 50);
         Model::validateMaxLength('merchantId', $this->merchantId, 64);
         Model::validateMaxLength('fundId', $this->fundId, 64);
-        Model::validateMaxLength('paymentDescription', $this->paymentDescription, 64);
+        Model::validateMaxLength('paymentDescription', $this->paymentDescription, 300);
         Model::validateMinLength('orderId', $this->orderId, 1);
         Model::validateMinLength('merchantId', $this->merchantId, 1);
         Model::validateMinLength('fundId', $this->fundId, 1);

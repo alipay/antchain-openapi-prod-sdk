@@ -91,9 +91,6 @@ class ApplicationInfo extends Model
 
     public function validate()
     {
-        Model::validateRequired('applicationScene', $this->applicationScene, true);
-        Model::validateRequired('tinyAppId', $this->tinyAppId, true);
-        Model::validateRequired('siteName', $this->siteName, true);
     }
 
     public function toMap()

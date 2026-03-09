@@ -72,6 +72,24 @@ class QueryFundCreditauthResponse extends Model
      * @var string
      */
     public $authInfo;
+
+    // merchant_id
+    /**
+     * @var string
+     */
+    public $merchantId;
+
+    // fund_id
+    /**
+     * @var string
+     */
+    public $fundId;
+
+    // json字符串
+    /**
+     * @var string
+     */
+    public $authContract;
     protected $_name = [
         'reqMsgId'            => 'req_msg_id',
         'resultCode'          => 'result_code',
@@ -83,6 +101,9 @@ class QueryFundCreditauthResponse extends Model
         'authEndTime'         => 'auth_end_time',
         'authApplyExpireTime' => 'auth_apply_expire_time',
         'authInfo'            => 'auth_info',
+        'merchantId'          => 'merchant_id',
+        'fundId'              => 'fund_id',
+        'authContract'        => 'auth_contract',
     ];
 
     public function validate()
@@ -121,6 +142,15 @@ class QueryFundCreditauthResponse extends Model
         }
         if (null !== $this->authInfo) {
             $res['auth_info'] = $this->authInfo;
+        }
+        if (null !== $this->merchantId) {
+            $res['merchant_id'] = $this->merchantId;
+        }
+        if (null !== $this->fundId) {
+            $res['fund_id'] = $this->fundId;
+        }
+        if (null !== $this->authContract) {
+            $res['auth_contract'] = $this->authContract;
         }
 
         return $res;
@@ -163,6 +193,15 @@ class QueryFundCreditauthResponse extends Model
         }
         if (isset($map['auth_info'])) {
             $model->authInfo = $map['auth_info'];
+        }
+        if (isset($map['merchant_id'])) {
+            $model->merchantId = $map['merchant_id'];
+        }
+        if (isset($map['fund_id'])) {
+            $model->fundId = $map['fund_id'];
+        }
+        if (isset($map['auth_contract'])) {
+            $model->authContract = $map['auth_contract'];
         }
 
         return $model;

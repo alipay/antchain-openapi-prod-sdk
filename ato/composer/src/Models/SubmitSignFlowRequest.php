@@ -25,11 +25,7 @@ class SubmitSignFlowRequest extends Model
      */
     public $orderId;
 
-    // CRED_PSN_CH_IDCARD： 大陆身份证
-    // CRED_PSN_CH_TWCARD：台湾来往大陆通行证
-    // CRED_PSN_CH_MACAO"：澳门来往大陆通行证
-    // CRED_PSN_CH_HONGKONG：香港来往大陆通行证
-    // CRED_PSN_PASSPORT：护照
+    // CRED_PSN_CH_IDCARD大陆身份证
     /**
      * @var string
      */
@@ -242,9 +238,6 @@ class SubmitSignFlowRequest extends Model
     public function validate()
     {
         Model::validateRequired('orderId', $this->orderId, true);
-        Model::validateRequired('userIdType', $this->userIdType, true);
-        Model::validateRequired('userIdNumber', $this->userIdNumber, true);
-        Model::validateRequired('userName', $this->userName, true);
         Model::validateRequired('businessScene', $this->businessScene, true);
         Model::validateRequired('templateList', $this->templateList, true);
         Model::validateRequired('merchantName', $this->merchantName, true);

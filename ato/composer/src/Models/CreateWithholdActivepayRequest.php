@@ -77,6 +77,12 @@ class CreateWithholdActivepayRequest extends Model
      * @var int
      */
     public $payApplyNo;
+
+    // 回调地址
+    /**
+     * @var string
+     */
+    public $returnUrl;
     protected $_name = [
         'authToken'                  => 'auth_token',
         'productInstanceId'          => 'product_instance_id',
@@ -89,6 +95,7 @@ class CreateWithholdActivepayRequest extends Model
         'operationDivideTransInList' => 'operation_divide_trans_in_list',
         'multiPayDetail'             => 'multi_pay_detail',
         'payApplyNo'                 => 'pay_apply_no',
+        'returnUrl'                  => 'return_url',
     ];
 
     public function validate()
@@ -155,6 +162,9 @@ class CreateWithholdActivepayRequest extends Model
         if (null !== $this->payApplyNo) {
             $res['pay_apply_no'] = $this->payApplyNo;
         }
+        if (null !== $this->returnUrl) {
+            $res['return_url'] = $this->returnUrl;
+        }
 
         return $res;
     }
@@ -211,6 +221,9 @@ class CreateWithholdActivepayRequest extends Model
         }
         if (isset($map['pay_apply_no'])) {
             $model->payApplyNo = $map['pay_apply_no'];
+        }
+        if (isset($map['return_url'])) {
+            $model->returnUrl = $map['return_url'];
         }
 
         return $model;
