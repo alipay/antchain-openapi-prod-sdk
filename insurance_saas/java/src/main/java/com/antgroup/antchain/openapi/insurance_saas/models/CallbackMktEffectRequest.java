@@ -65,7 +65,7 @@ public class CallbackMktEffectRequest extends TeaModel {
 
     // 节点详细信息
     @NameInMap("node_info")
-    @Validation(required = true, maxLength = 1024)
+    @Validation(maxLength = 1024)
     public String nodeInfo;
 
     public static CallbackMktEffectRequest build(java.util.Map<String, ?> map) throws Exception {
