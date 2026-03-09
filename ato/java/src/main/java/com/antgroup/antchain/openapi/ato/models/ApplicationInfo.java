@@ -13,7 +13,6 @@ public class ApplicationInfo extends TeaModel {
      * <p>ALL</p>
      */
     @NameInMap("application_scene")
-    @Validation(required = true)
     public String applicationScene;
 
     // 小程序id
@@ -22,7 +21,6 @@ public class ApplicationInfo extends TeaModel {
      * <p>小程序id</p>
      */
     @NameInMap("tiny_app_id")
-    @Validation(required = true)
     public String tinyAppId;
 
     // 小程序名称
@@ -31,7 +29,6 @@ public class ApplicationInfo extends TeaModel {
      * <p>xx小程序</p>
      */
     @NameInMap("site_name")
-    @Validation(required = true)
     public String siteName;
 
     // 网站地址（pay_channel=ALIPAY必填）

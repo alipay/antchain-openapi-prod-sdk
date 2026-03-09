@@ -57,6 +57,10 @@ public class CreateWithholdActivepayRequest extends TeaModel {
     @Validation(maximum = 10, minimum = 1)
     public Long payApplyNo;
 
+    // 回调地址
+    @NameInMap("return_url")
+    public String returnUrl;
+
     public static CreateWithholdActivepayRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateWithholdActivepayRequest self = new CreateWithholdActivepayRequest();
         return TeaModel.build(map, self);
@@ -148,6 +152,14 @@ public class CreateWithholdActivepayRequest extends TeaModel {
     }
     public Long getPayApplyNo() {
         return this.payApplyNo;
+    }
+
+    public CreateWithholdActivepayRequest setReturnUrl(String returnUrl) {
+        this.returnUrl = returnUrl;
+        return this;
+    }
+    public String getReturnUrl() {
+        return this.returnUrl;
     }
 
 }

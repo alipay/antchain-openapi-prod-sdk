@@ -56,6 +56,14 @@ public class GetInnerSignflowResponse extends TeaModel {
     @NameInMap("initiator_account_id")
     public String initiatorAccountId;
 
+    // 商家上传的合同签署完跳转地址
+    @NameInMap("sign_redirect_url")
+    public String signRedirectUrl;
+
+    // 订单租户 id
+    @NameInMap("tenant_id")
+    public String tenantId;
+
     public static GetInnerSignflowResponse build(java.util.Map<String, ?> map) throws Exception {
         GetInnerSignflowResponse self = new GetInnerSignflowResponse();
         return TeaModel.build(map, self);
@@ -163,6 +171,22 @@ public class GetInnerSignflowResponse extends TeaModel {
     }
     public String getInitiatorAccountId() {
         return this.initiatorAccountId;
+    }
+
+    public GetInnerSignflowResponse setSignRedirectUrl(String signRedirectUrl) {
+        this.signRedirectUrl = signRedirectUrl;
+        return this;
+    }
+    public String getSignRedirectUrl() {
+        return this.signRedirectUrl;
+    }
+
+    public GetInnerSignflowResponse setTenantId(String tenantId) {
+        this.tenantId = tenantId;
+        return this;
+    }
+    public String getTenantId() {
+        return this.tenantId;
     }
 
 }

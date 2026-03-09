@@ -49,6 +49,18 @@ public class QueryFundCreditauthResponse extends TeaModel {
     @NameInMap("auth_info")
     public String authInfo;
 
+    // merchant_id
+    @NameInMap("merchant_id")
+    public String merchantId;
+
+    // fund_id
+    @NameInMap("fund_id")
+    public String fundId;
+
+    // json字符串
+    @NameInMap("auth_contract")
+    public String authContract;
+
     public static QueryFundCreditauthResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryFundCreditauthResponse self = new QueryFundCreditauthResponse();
         return TeaModel.build(map, self);
@@ -132,6 +144,30 @@ public class QueryFundCreditauthResponse extends TeaModel {
     }
     public String getAuthInfo() {
         return this.authInfo;
+    }
+
+    public QueryFundCreditauthResponse setMerchantId(String merchantId) {
+        this.merchantId = merchantId;
+        return this;
+    }
+    public String getMerchantId() {
+        return this.merchantId;
+    }
+
+    public QueryFundCreditauthResponse setFundId(String fundId) {
+        this.fundId = fundId;
+        return this;
+    }
+    public String getFundId() {
+        return this.fundId;
+    }
+
+    public QueryFundCreditauthResponse setAuthContract(String authContract) {
+        this.authContract = authContract;
+        return this;
+    }
+    public String getAuthContract() {
+        return this.authContract;
     }
 
 }
