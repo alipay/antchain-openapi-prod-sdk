@@ -6109,7 +6109,6 @@ class CallbackMktEffectRequest(TeaModel):
         self.validate_required(self.node_type, 'node_type')
         if self.node_type is not None:
             self.validate_max_length(self.node_type, 'node_type', 64)
-        self.validate_required(self.node_info, 'node_info')
         if self.node_info is not None:
             self.validate_max_length(self.node_info, 'node_info', 1024)
 
