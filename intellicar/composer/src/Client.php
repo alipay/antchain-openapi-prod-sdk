@@ -27,6 +27,8 @@ use AntChain\INTELLICAR\Models\RegisterCarownerCyRequest;
 use AntChain\INTELLICAR\Models\RegisterCarownerCyResponse;
 use AntChain\INTELLICAR\Models\RegisterCarownerRequest;
 use AntChain\INTELLICAR\Models\RegisterCarownerResponse;
+use AntChain\INTELLICAR\Models\SubmitIonchiRequest;
+use AntChain\INTELLICAR\Models\SubmitIonchiResponse;
 use AntChain\INTELLICAR\Models\SubmitNewcarRequest;
 use AntChain\INTELLICAR\Models\SubmitNewcarResponse;
 use AntChain\Util\UtilClient;
@@ -176,7 +178,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.14',
+                    'sdk_version'      => '1.0.15',
                     '_prod_code'       => 'INTELLICAR',
                     '_prod_channel'    => 'default',
                 ];
@@ -505,6 +507,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryUsedcarResponse::fromMap($this->doRequest('1.0', 'antdigital.intellicar.usedcar.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 逸安启回调接口
+     * Summary: 逸安启回调接口.
+     *
+     * @param SubmitIonchiRequest $request
+     *
+     * @return SubmitIonchiResponse
+     */
+    public function submitIonchi($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->submitIonchiEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 逸安启回调接口
+     * Summary: 逸安启回调接口.
+     *
+     * @param SubmitIonchiRequest $request
+     * @param string[]            $headers
+     * @param RuntimeOptions      $runtime
+     *
+     * @return SubmitIonchiResponse
+     */
+    public function submitIonchiEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SubmitIonchiResponse::fromMap($this->doRequest('1.0', 'antdigital.intellicar.ionchi.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
