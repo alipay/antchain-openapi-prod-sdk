@@ -56,11 +56,11 @@ class CallbackMktEffectRequest extends Model
      */
     public $encryptedUserId;
 
-    // 用户点击投保页唯一标识
+    // 应以识别当前用户点击投保页面的唯一标识
     /**
      * @var string
      */
-    public $clickId;
+    public $landingVisitId;
 
     // 用户点击进入页面时间（格式：yyyy-MM-dd HH:mm:ss）
     /**
@@ -94,7 +94,7 @@ class CallbackMktEffectRequest extends Model
         'insureShortUrl'  => 'insure_short_url',
         'encryptionType'  => 'encryption_type',
         'encryptedUserId' => 'encrypted_user_id',
-        'clickId'         => 'click_id',
+        'landingVisitId'  => 'landing_visit_id',
         'clickTime'       => 'click_time',
         'eventTime'       => 'event_time',
         'nodeType'        => 'node_type',
@@ -107,9 +107,10 @@ class CallbackMktEffectRequest extends Model
         Model::validateRequired('productCode', $this->productCode, true);
         Model::validateRequired('projectId', $this->projectId, true);
         Model::validateRequired('marketingMode', $this->marketingMode, true);
+        Model::validateRequired('insureShortUrl', $this->insureShortUrl, true);
         Model::validateRequired('encryptionType', $this->encryptionType, true);
         Model::validateRequired('encryptedUserId', $this->encryptedUserId, true);
-        Model::validateRequired('clickId', $this->clickId, true);
+        Model::validateRequired('landingVisitId', $this->landingVisitId, true);
         Model::validateRequired('clickTime', $this->clickTime, true);
         Model::validateRequired('eventTime', $this->eventTime, true);
         Model::validateRequired('nodeType', $this->nodeType, true);
@@ -120,7 +121,7 @@ class CallbackMktEffectRequest extends Model
         Model::validateMaxLength('insureShortUrl', $this->insureShortUrl, 256);
         Model::validateMaxLength('encryptionType', $this->encryptionType, 32);
         Model::validateMaxLength('encryptedUserId', $this->encryptedUserId, 64);
-        Model::validateMaxLength('clickId', $this->clickId, 128);
+        Model::validateMaxLength('landingVisitId', $this->landingVisitId, 128);
         Model::validateMaxLength('clickTime', $this->clickTime, 32);
         Model::validateMaxLength('eventTime', $this->eventTime, 32);
         Model::validateMaxLength('nodeType', $this->nodeType, 64);
@@ -154,8 +155,8 @@ class CallbackMktEffectRequest extends Model
         if (null !== $this->encryptedUserId) {
             $res['encrypted_user_id'] = $this->encryptedUserId;
         }
-        if (null !== $this->clickId) {
-            $res['click_id'] = $this->clickId;
+        if (null !== $this->landingVisitId) {
+            $res['landing_visit_id'] = $this->landingVisitId;
         }
         if (null !== $this->clickTime) {
             $res['click_time'] = $this->clickTime;
@@ -205,8 +206,8 @@ class CallbackMktEffectRequest extends Model
         if (isset($map['encrypted_user_id'])) {
             $model->encryptedUserId = $map['encrypted_user_id'];
         }
-        if (isset($map['click_id'])) {
-            $model->clickId = $map['click_id'];
+        if (isset($map['landing_visit_id'])) {
+            $model->landingVisitId = $map['landing_visit_id'];
         }
         if (isset($map['click_time'])) {
             $model->clickTime = $map['click_time'];
