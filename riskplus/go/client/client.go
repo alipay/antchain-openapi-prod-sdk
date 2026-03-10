@@ -149,6 +149,32 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
+// air引擎输出infoCode
+type AirInfoCodes struct {
+	// infoCode
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// infoCode描述
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+}
+
+func (s AirInfoCodes) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AirInfoCodes) GoString() string {
+	return s.String()
+}
+
+func (s *AirInfoCodes) SetName(v string) *AirInfoCodes {
+	s.Name = &v
+	return s
+}
+
+func (s *AirInfoCodes) SetDescription(v string) *AirInfoCodes {
+	s.Description = &v
+	return s
+}
+
 // 企业风险等级分布统计
 type RtopLevelDistribution struct {
 	// 统计值
@@ -190,6 +216,39 @@ func (s InfoCodes) GoString() string {
 }
 
 func (s *InfoCodes) SetName(v string) *InfoCodes {
+	s.Name = &v
+	return s
+}
+
+// air引擎决策流输出信息
+type AirDecisionFlows struct {
+	// 决策结果
+	Decision *string `json:"decision,omitempty" xml:"decision,omitempty"`
+	// air引擎输出的infoCodes信息
+	InfoCodes []*AirInfoCodes `json:"info_codes,omitempty" xml:"info_codes,omitempty" type:"Repeated"`
+	// 策略名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+}
+
+func (s AirDecisionFlows) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AirDecisionFlows) GoString() string {
+	return s.String()
+}
+
+func (s *AirDecisionFlows) SetDecision(v string) *AirDecisionFlows {
+	s.Decision = &v
+	return s
+}
+
+func (s *AirDecisionFlows) SetInfoCodes(v []*AirInfoCodes) *AirDecisionFlows {
+	s.InfoCodes = v
+	return s
+}
+
+func (s *AirDecisionFlows) SetName(v string) *AirDecisionFlows {
 	s.Name = &v
 	return s
 }
@@ -679,6 +738,75 @@ func (s *UmktOfflineDecisionTaskDetailInfo) SetStatusRemark(v string) *UmktOffli
 	return s
 }
 
+// 还款账单明细Object
+type BillDetail struct {
+	// 对账流水号，在扣款回盘文件中返回，用于对账
+	SerialNumber *string `json:"serial_number,omitempty" xml:"serial_number,omitempty"`
+	// 还款期数
+	RpyTerm *int64 `json:"rpy_term,omitempty" xml:"rpy_term,omitempty" require:"true"`
+	// 账单维度的还款总额（单位：分），单笔账单本利罚之和
+	RpyAmt *int64 `json:"rpy_amt,omitempty" xml:"rpy_amt,omitempty" require:"true"`
+	// 实还本金（单位：分）
+	RpyPrincipal *int64 `json:"rpy_principal,omitempty" xml:"rpy_principal,omitempty" require:"true"`
+	// 实还利息（单位：分）
+	RpyFeeAmt *int64 `json:"rpy_fee_amt,omitempty" xml:"rpy_fee_amt,omitempty" require:"true"`
+	// 实还罚息（单位：分）
+	RpyMuclt *int64 `json:"rpy_muclt,omitempty" xml:"rpy_muclt,omitempty" require:"true"`
+	// 其他科目金额，可能会其他类型的金额,用json数组的格式提高扩展性，涉及到保费和咨询服务费的项目，需要提供此字段。
+	//
+	OtherInfo *string `json:"other_info,omitempty" xml:"other_info,omitempty"`
+	// 用户实还日，用户主动发起是当前日；定时扣款是应还日，格式=yyyy-MM-dd
+	RpyDate *string `json:"rpy_date,omitempty" xml:"rpy_date,omitempty"`
+}
+
+func (s BillDetail) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BillDetail) GoString() string {
+	return s.String()
+}
+
+func (s *BillDetail) SetSerialNumber(v string) *BillDetail {
+	s.SerialNumber = &v
+	return s
+}
+
+func (s *BillDetail) SetRpyTerm(v int64) *BillDetail {
+	s.RpyTerm = &v
+	return s
+}
+
+func (s *BillDetail) SetRpyAmt(v int64) *BillDetail {
+	s.RpyAmt = &v
+	return s
+}
+
+func (s *BillDetail) SetRpyPrincipal(v int64) *BillDetail {
+	s.RpyPrincipal = &v
+	return s
+}
+
+func (s *BillDetail) SetRpyFeeAmt(v int64) *BillDetail {
+	s.RpyFeeAmt = &v
+	return s
+}
+
+func (s *BillDetail) SetRpyMuclt(v int64) *BillDetail {
+	s.RpyMuclt = &v
+	return s
+}
+
+func (s *BillDetail) SetOtherInfo(v string) *BillDetail {
+	s.OtherInfo = &v
+	return s
+}
+
+func (s *BillDetail) SetRpyDate(v string) *BillDetail {
+	s.RpyDate = &v
+	return s
+}
+
 // 营销盾触达媒介参数信息
 type ActionParamInfo struct {
 	// 触达媒介类型
@@ -1141,6 +1269,39 @@ func (s *StatisticInfoDetail) SetWaitingSubTaskCount(v int64) *StatisticInfoDeta
 
 func (s *StatisticInfoDetail) SetTotalCount(v int64) *StatisticInfoDetail {
 	s.TotalCount = &v
+	return s
+}
+
+// air引擎输出的决策域信息
+type AirDomainInfos struct {
+	// 决策域信息
+	DomainCode *string `json:"domain_code,omitempty" xml:"domain_code,omitempty"`
+	// 决策域信息
+	DomainDecision *string `json:"domain_decision,omitempty" xml:"domain_decision,omitempty"`
+	// 决策流输出
+	DecisionFlows []*AirDecisionFlows `json:"decision_flows,omitempty" xml:"decision_flows,omitempty" type:"Repeated"`
+}
+
+func (s AirDomainInfos) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AirDomainInfos) GoString() string {
+	return s.String()
+}
+
+func (s *AirDomainInfos) SetDomainCode(v string) *AirDomainInfos {
+	s.DomainCode = &v
+	return s
+}
+
+func (s *AirDomainInfos) SetDomainDecision(v string) *AirDomainInfos {
+	s.DomainDecision = &v
+	return s
+}
+
+func (s *AirDomainInfos) SetDecisionFlows(v []*AirDecisionFlows) *AirDomainInfos {
+	s.DecisionFlows = v
 	return s
 }
 
@@ -6790,6 +6951,61 @@ func (s *Contract) SetCreditContractNo(v string) *Contract {
 	return s
 }
 
+// 代扣明细
+type WithholdDetailItem struct {
+	// 贷款申请编号
+	AssetId *string `json:"asset_id,omitempty" xml:"asset_id,omitempty" require:"true"`
+	// 放款编号/借据号
+	CapitalLoanNo *string `json:"capital_loan_no,omitempty" xml:"capital_loan_no,omitempty" require:"true"`
+	// 订单维度的实还总额,保留两位有效数字
+	// 单笔订单代扣的总额(单位:分)
+	RpyTotalAmt *int64 `json:"rpy_total_amt,omitempty" xml:"rpy_total_amt,omitempty" require:"true"`
+	// 还款类型，0-待还、1-正常还款、2-部分提前还、 3-逾期还款 、4-全部提前还 、5-坏账代偿、 6-回购
+	RpyTpe *int64 `json:"rpy_tpe,omitempty" xml:"rpy_tpe,omitempty" require:"true"`
+	// 代扣日期，用户实还日，用户主动发起是当前日；定时扣款是应还日，格式=yyyy-MM-dd
+	RpyDate *string `json:"rpy_date,omitempty" xml:"rpy_date,omitempty" require:"true"`
+	// 还款账单明细,如果是提前结清,会有多条
+	BillDetails []*BillDetail `json:"bill_details,omitempty" xml:"bill_details,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s WithholdDetailItem) String() string {
+	return tea.Prettify(s)
+}
+
+func (s WithholdDetailItem) GoString() string {
+	return s.String()
+}
+
+func (s *WithholdDetailItem) SetAssetId(v string) *WithholdDetailItem {
+	s.AssetId = &v
+	return s
+}
+
+func (s *WithholdDetailItem) SetCapitalLoanNo(v string) *WithholdDetailItem {
+	s.CapitalLoanNo = &v
+	return s
+}
+
+func (s *WithholdDetailItem) SetRpyTotalAmt(v int64) *WithholdDetailItem {
+	s.RpyTotalAmt = &v
+	return s
+}
+
+func (s *WithholdDetailItem) SetRpyTpe(v int64) *WithholdDetailItem {
+	s.RpyTpe = &v
+	return s
+}
+
+func (s *WithholdDetailItem) SetRpyDate(v string) *WithholdDetailItem {
+	s.RpyDate = &v
+	return s
+}
+
+func (s *WithholdDetailItem) SetBillDetails(v []*BillDetail) *WithholdDetailItem {
+	s.BillDetails = v
+	return s
+}
+
 // ai外呼回调详情
 type AICallbackMessage struct {
 	// 批次号
@@ -6935,6 +7151,39 @@ func (s *AICallbackMessage) SetProperties(v string) *AICallbackMessage {
 	return s
 }
 
+// 决策场景信息
+type AirDfSceneInfos struct {
+	// 决策场景结果
+	SceneDecision *string `json:"scene_decision,omitempty" xml:"scene_decision,omitempty"`
+	// 决策场景
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty"`
+	// 决策域信息
+	DomainInfos []*AirDomainInfos `json:"domain_infos,omitempty" xml:"domain_infos,omitempty" type:"Repeated"`
+}
+
+func (s AirDfSceneInfos) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AirDfSceneInfos) GoString() string {
+	return s.String()
+}
+
+func (s *AirDfSceneInfos) SetSceneDecision(v string) *AirDfSceneInfos {
+	s.SceneDecision = &v
+	return s
+}
+
+func (s *AirDfSceneInfos) SetSceneCode(v string) *AirDfSceneInfos {
+	s.SceneCode = &v
+	return s
+}
+
+func (s *AirDfSceneInfos) SetDomainInfos(v []*AirDomainInfos) *AirDfSceneInfos {
+	s.DomainInfos = v
+	return s
+}
+
 // 预警企业
 type RtopCompanyAlarm struct {
 	// 企业ID
@@ -6979,6 +7228,112 @@ func (s *RtopCompanyAlarm) SetAlarmDate(v string) *RtopCompanyAlarm {
 
 func (s *RtopCompanyAlarm) SetAlarmFlag(v string) *RtopCompanyAlarm {
 	s.AlarmFlag = &v
+	return s
+}
+
+// 流量方还款计划通知Object
+type RepayPlanNotifyItem struct {
+	// 当前期数
+	LoanTerm *int64 `json:"loan_term,omitempty" xml:"loan_term,omitempty" require:"true"`
+	// 应还日，yyyy-MM-dd
+	ExpectRepayDate *string `json:"expect_repay_date,omitempty" xml:"expect_repay_date,omitempty" require:"true"`
+	// 应还总额(元)
+	ExpectRepayAmount *int64 `json:"expect_repay_amount,omitempty" xml:"expect_repay_amount,omitempty" require:"true"`
+	// 应还本金(元)
+	ExpectRepayPrincipal *int64 `json:"expect_repay_principal,omitempty" xml:"expect_repay_principal,omitempty" require:"true"`
+	// 应还利息(元)
+	ExpectRepayInterest *int64 `json:"expect_repay_interest,omitempty" xml:"expect_repay_interest,omitempty" require:"true"`
+	// 应还担保费(元)
+	ExpectRepayGuarantee *int64 `json:"expect_repay_guarantee,omitempty" xml:"expect_repay_guarantee,omitempty"`
+	// 起息日，格式 YYYY-MM-DD
+	InterestStartDate *string `json:"interest_start_date,omitempty" xml:"interest_start_date,omitempty"`
+	// 实还总额(元)，如未还则传0
+	RepayAmount *int64 `json:"repay_amount,omitempty" xml:"repay_amount,omitempty"`
+	// 已还本金(元)，如未还则传0
+	RepaidPrincipal *int64 `json:"repaid_principal,omitempty" xml:"repaid_principal,omitempty"`
+	// 已还利息(元)，如未还则传0
+	RepaidInterest *int64 `json:"repaid_interest,omitempty" xml:"repaid_interest,omitempty"`
+	// 应还罚息(元)，
+	ExpectRepayMuclt *int64 `json:"expect_repay_muclt,omitempty" xml:"expect_repay_muclt,omitempty"`
+	// 已还罚息(元)，如未还则传0
+	RepaidPenalty *int64 `json:"repaid_penalty,omitempty" xml:"repaid_penalty,omitempty"`
+	// 状态标志
+	// 0-正常未到期
+	// 1-正常已还清
+	// 2-逾期
+	ScheduleStatus *string `json:"schedule_status,omitempty" xml:"schedule_status,omitempty"`
+}
+
+func (s RepayPlanNotifyItem) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RepayPlanNotifyItem) GoString() string {
+	return s.String()
+}
+
+func (s *RepayPlanNotifyItem) SetLoanTerm(v int64) *RepayPlanNotifyItem {
+	s.LoanTerm = &v
+	return s
+}
+
+func (s *RepayPlanNotifyItem) SetExpectRepayDate(v string) *RepayPlanNotifyItem {
+	s.ExpectRepayDate = &v
+	return s
+}
+
+func (s *RepayPlanNotifyItem) SetExpectRepayAmount(v int64) *RepayPlanNotifyItem {
+	s.ExpectRepayAmount = &v
+	return s
+}
+
+func (s *RepayPlanNotifyItem) SetExpectRepayPrincipal(v int64) *RepayPlanNotifyItem {
+	s.ExpectRepayPrincipal = &v
+	return s
+}
+
+func (s *RepayPlanNotifyItem) SetExpectRepayInterest(v int64) *RepayPlanNotifyItem {
+	s.ExpectRepayInterest = &v
+	return s
+}
+
+func (s *RepayPlanNotifyItem) SetExpectRepayGuarantee(v int64) *RepayPlanNotifyItem {
+	s.ExpectRepayGuarantee = &v
+	return s
+}
+
+func (s *RepayPlanNotifyItem) SetInterestStartDate(v string) *RepayPlanNotifyItem {
+	s.InterestStartDate = &v
+	return s
+}
+
+func (s *RepayPlanNotifyItem) SetRepayAmount(v int64) *RepayPlanNotifyItem {
+	s.RepayAmount = &v
+	return s
+}
+
+func (s *RepayPlanNotifyItem) SetRepaidPrincipal(v int64) *RepayPlanNotifyItem {
+	s.RepaidPrincipal = &v
+	return s
+}
+
+func (s *RepayPlanNotifyItem) SetRepaidInterest(v int64) *RepayPlanNotifyItem {
+	s.RepaidInterest = &v
+	return s
+}
+
+func (s *RepayPlanNotifyItem) SetExpectRepayMuclt(v int64) *RepayPlanNotifyItem {
+	s.ExpectRepayMuclt = &v
+	return s
+}
+
+func (s *RepayPlanNotifyItem) SetRepaidPenalty(v int64) *RepayPlanNotifyItem {
+	s.RepaidPenalty = &v
+	return s
+}
+
+func (s *RepayPlanNotifyItem) SetScheduleStatus(v string) *RepayPlanNotifyItem {
+	s.ScheduleStatus = &v
 	return s
 }
 
@@ -9930,6 +10285,160 @@ func (s *QueryCreditshieldProductBatchResponse) SetSuccess(v bool) *QueryCredits
 
 func (s *QueryCreditshieldProductBatchResponse) SetQueryResults(v []*QueryResult) *QueryCreditshieldProductBatchResponse {
 	s.QueryResults = v
+	return s
+}
+
+type QuerySecurityAiriskcloudPolicyRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 风险类型：表示风险处理或风险咨询——process/advice
+	RiskType *string `json:"risk_type,omitempty" xml:"risk_type,omitempty"`
+	// 事件业务属性
+	EventInfo *string `json:"event_info,omitempty" xml:"event_info,omitempty" require:"true"`
+	// 风险场景信息
+	SecurityScene *SecurityScene `json:"security_scene,omitempty" xml:"security_scene,omitempty"`
+	// 服务上下文
+	ServiceContext *ServiceContext `json:"service_context,omitempty" xml:"service_context,omitempty"`
+}
+
+func (s QuerySecurityAiriskcloudPolicyRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QuerySecurityAiriskcloudPolicyRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QuerySecurityAiriskcloudPolicyRequest) SetAuthToken(v string) *QuerySecurityAiriskcloudPolicyRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QuerySecurityAiriskcloudPolicyRequest) SetProductInstanceId(v string) *QuerySecurityAiriskcloudPolicyRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QuerySecurityAiriskcloudPolicyRequest) SetRiskType(v string) *QuerySecurityAiriskcloudPolicyRequest {
+	s.RiskType = &v
+	return s
+}
+
+func (s *QuerySecurityAiriskcloudPolicyRequest) SetEventInfo(v string) *QuerySecurityAiriskcloudPolicyRequest {
+	s.EventInfo = &v
+	return s
+}
+
+func (s *QuerySecurityAiriskcloudPolicyRequest) SetSecurityScene(v *SecurityScene) *QuerySecurityAiriskcloudPolicyRequest {
+	s.SecurityScene = v
+	return s
+}
+
+func (s *QuerySecurityAiriskcloudPolicyRequest) SetServiceContext(v *ServiceContext) *QuerySecurityAiriskcloudPolicyRequest {
+	s.ServiceContext = v
+	return s
+}
+
+type QuerySecurityAiriskcloudPolicyResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 反馈成功之后的id
+	SecurityId *string `json:"security_id,omitempty" xml:"security_id,omitempty"`
+	// 安全处理结果，枚举值为：reject[拒绝],valida...
+	SecurityResult *string `json:"security_result,omitempty" xml:"security_result,omitempty"`
+	// 是否成功
+	Success *string `json:"success,omitempty" xml:"success,omitempty"`
+	// native场景下的核身id
+	VerifyId *string `json:"verify_id,omitempty" xml:"verify_id,omitempty"`
+	// h5场景下的核身地址
+	VerifyUrl *string `json:"verify_url,omitempty" xml:"verify_url,omitempty"`
+	// 场景分
+	ModelDetails []*ModelDetails `json:"model_details,omitempty" xml:"model_details,omitempty" type:"Repeated"`
+	// 输出变量
+	VariableDetails []*VariableDetails `json:"variable_details,omitempty" xml:"variable_details,omitempty" type:"Repeated"`
+	// 策略详情
+	StrategyDetails []*StrategyDetails `json:"strategy_details,omitempty" xml:"strategy_details,omitempty" type:"Repeated"`
+	// 场景决策
+	SceneInfos []*SceneInfos `json:"scene_infos,omitempty" xml:"scene_infos,omitempty" type:"Repeated"`
+	// infoCode信息
+	InfoCodes []*AirInfoCodes `json:"info_codes,omitempty" xml:"info_codes,omitempty" type:"Repeated"`
+}
+
+func (s QuerySecurityAiriskcloudPolicyResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QuerySecurityAiriskcloudPolicyResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QuerySecurityAiriskcloudPolicyResponse) SetReqMsgId(v string) *QuerySecurityAiriskcloudPolicyResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QuerySecurityAiriskcloudPolicyResponse) SetResultCode(v string) *QuerySecurityAiriskcloudPolicyResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QuerySecurityAiriskcloudPolicyResponse) SetResultMsg(v string) *QuerySecurityAiriskcloudPolicyResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QuerySecurityAiriskcloudPolicyResponse) SetSecurityId(v string) *QuerySecurityAiriskcloudPolicyResponse {
+	s.SecurityId = &v
+	return s
+}
+
+func (s *QuerySecurityAiriskcloudPolicyResponse) SetSecurityResult(v string) *QuerySecurityAiriskcloudPolicyResponse {
+	s.SecurityResult = &v
+	return s
+}
+
+func (s *QuerySecurityAiriskcloudPolicyResponse) SetSuccess(v string) *QuerySecurityAiriskcloudPolicyResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *QuerySecurityAiriskcloudPolicyResponse) SetVerifyId(v string) *QuerySecurityAiriskcloudPolicyResponse {
+	s.VerifyId = &v
+	return s
+}
+
+func (s *QuerySecurityAiriskcloudPolicyResponse) SetVerifyUrl(v string) *QuerySecurityAiriskcloudPolicyResponse {
+	s.VerifyUrl = &v
+	return s
+}
+
+func (s *QuerySecurityAiriskcloudPolicyResponse) SetModelDetails(v []*ModelDetails) *QuerySecurityAiriskcloudPolicyResponse {
+	s.ModelDetails = v
+	return s
+}
+
+func (s *QuerySecurityAiriskcloudPolicyResponse) SetVariableDetails(v []*VariableDetails) *QuerySecurityAiriskcloudPolicyResponse {
+	s.VariableDetails = v
+	return s
+}
+
+func (s *QuerySecurityAiriskcloudPolicyResponse) SetStrategyDetails(v []*StrategyDetails) *QuerySecurityAiriskcloudPolicyResponse {
+	s.StrategyDetails = v
+	return s
+}
+
+func (s *QuerySecurityAiriskcloudPolicyResponse) SetSceneInfos(v []*SceneInfos) *QuerySecurityAiriskcloudPolicyResponse {
+	s.SceneInfos = v
+	return s
+}
+
+func (s *QuerySecurityAiriskcloudPolicyResponse) SetInfoCodes(v []*AirInfoCodes) *QuerySecurityAiriskcloudPolicyResponse {
+	s.InfoCodes = v
 	return s
 }
 
@@ -19187,6 +19696,2015 @@ func (s *QueryDubbridgeFundCreditamtResponse) SetCustomNo(v string) *QueryDubbri
 
 func (s *QueryDubbridgeFundCreditamtResponse) SetFundList(v []*FundInfo) *QueryDubbridgeFundCreditamtResponse {
 	s.FundList = v
+	return s
+}
+
+type ApplyDubbridgeCreditLxRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 授信申请编号
+	CreditApplyId *string `json:"credit_apply_id,omitempty" xml:"credit_apply_id,omitempty" require:"true"`
+	// 合作方代码
+	PartnerCode *string `json:"partner_code,omitempty" xml:"partner_code,omitempty"`
+	// 申请人姓名
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 授信金额，单位:元
+	CreditAmount *int64 `json:"credit_amount,omitempty" xml:"credit_amount,omitempty" require:"true"`
+	// 婚姻状况，
+	// 0-未婚
+	// 1-已婚
+	// 3-离异
+	// 4-未知
+	// 5-丧偶
+	MaritalStatus *string `json:"marital_status,omitempty" xml:"marital_status,omitempty" require:"true"`
+	// 学历，
+	// 0未知，1本科，2大专，3硕士，4博士，7初中，10大专(老)，11中专，12高中，13小学
+	Education *string `json:"education,omitempty" xml:"education,omitempty" require:"true"`
+	// 年龄
+	Age *int64 `json:"age,omitempty" xml:"age,omitempty" require:"true"`
+	// 性别，
+	// 1-男
+	// 2-女
+	// 0-未知
+	Sex *string `json:"sex,omitempty" xml:"sex,omitempty" require:"true"`
+	// 证件类型，
+	// 1、身份证
+	IdentiType *string `json:"identi_type,omitempty" xml:"identi_type,omitempty" require:"true"`
+	// 证件号码
+	IdentiNo *string `json:"identi_no,omitempty" xml:"identi_no,omitempty" require:"true"`
+	// 身份证有效期止，如果是长期用20991231
+	IdCardExpireDate *string `json:"id_card_expire_date,omitempty" xml:"id_card_expire_date,omitempty" require:"true"`
+	// 身份证有效期起
+	IdCardValidDate *string `json:"id_card_valid_date,omitempty" xml:"id_card_valid_date,omitempty" require:"true"`
+	// 身份证省
+	IdProvince *string `json:"id_province,omitempty" xml:"id_province,omitempty" require:"true"`
+	// 身份证市
+	IdCity *string `json:"id_city,omitempty" xml:"id_city,omitempty" require:"true"`
+	// 身份证地址
+	IdAddr *string `json:"id_addr,omitempty" xml:"id_addr,omitempty" require:"true"`
+	// 身份证签发机关
+	IssuedAgency *string `json:"issued_agency,omitempty" xml:"issued_agency,omitempty" require:"true"`
+	// 出生日期，yyyy-MM-dd
+	Birthday *string `json:"birthday,omitempty" xml:"birthday,omitempty" require:"true"`
+	// 国籍
+	Nationality *string `json:"nationality,omitempty" xml:"nationality,omitempty" require:"true"`
+	// 民族
+	Nation *string `json:"nation,omitempty" xml:"nation,omitempty" require:"true"`
+	// 客户手机号
+	MobileNo *string `json:"mobile_no,omitempty" xml:"mobile_no,omitempty" require:"true"`
+	// 用户银行卡号
+	UserBankCardNo *string `json:"user_bank_card_no,omitempty" xml:"user_bank_card_no,omitempty" require:"true"`
+	// 第一联系人姓名
+	ContactName *string `json:"contact_name,omitempty" xml:"contact_name,omitempty" require:"true"`
+	// 第一联系人手机
+	ContactMobile *string `json:"contact_mobile,omitempty" xml:"contact_mobile,omitempty" require:"true"`
+	// 第一联系人关系，
+	// 1 父母
+	// 2 配偶
+	// 3 亲戚
+	// 4 家人
+	// 5 子女
+	// 6 朋友
+	// 7 同事
+	// 8 兄弟姐妹
+	// 9 同学
+	// 99 其他
+	ContactRel *string `json:"contact_rel,omitempty" xml:"contact_rel,omitempty" require:"true"`
+	// 居住地址对应的省，若为空则上送身份证地址对应的省
+	LivingProvince *string `json:"living_province,omitempty" xml:"living_province,omitempty" require:"true"`
+	// 居住地址对应的市，若为空则上送身份证地址对应的市
+	LivingCity *string `json:"living_city,omitempty" xml:"living_city,omitempty" require:"true"`
+	// 居住地对应的区
+	LivingCounty *string `json:"living_county,omitempty" xml:"living_county,omitempty"`
+	// 居住地址
+	LivingAddress *string `json:"living_address,omitempty" xml:"living_address,omitempty" require:"true"`
+	// 客户职业，
+	// 0 未知（空值默认按0提供）
+	// 1 国家机关、党群组织、企业、事业单位负责人
+	// 2 专业技术人员
+	// 3 办事人员和有关人员
+	// 4 商业、服务业人员
+	// 5 农、林、牧、渔、水利业生产人员
+	// 6 生产、运输设备操作人员及有关人员
+	// 7 军人
+	// 8 不便分类的其他从业人员
+	UserOccupation *string `json:"user_occupation,omitempty" xml:"user_occupation,omitempty" require:"true"`
+	// 客户行业，
+	// 0 未知（空值默认按0提供）
+	// 1 信息传输、软件和信息技术服务业
+	// 2 金融业
+	// 3 制造业
+	// 4 卫生和社会工作
+	// 5 建筑业
+	// 6 文化、体育和娱乐业
+	// 7 租赁和商务服务业
+	// 8 住宿和餐饮业
+	// 9 交通运输、仓储和邮政业
+	// 10 采矿业
+	// 11 电力、热力、燃气及水生产和供应业
+	// 12 科学研究和技术服务业
+	// 13 农、林、牧、渔业
+	// 14 水利、环境和公共设施管理业
+	// 15 其他
+	// 77 批发和零售业
+	// 78 居民服务、修理和其他服务业
+	// 79 房地产业
+	// 81 教育
+	// 82 公共管理、社会保障和社会组织
+	// 80 国际组织
+	UserIndustryCategory *string `json:"user_industry_category,omitempty" xml:"user_industry_category,omitempty" require:"true"`
+}
+
+func (s ApplyDubbridgeCreditLxRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyDubbridgeCreditLxRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyDubbridgeCreditLxRequest) SetAuthToken(v string) *ApplyDubbridgeCreditLxRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ApplyDubbridgeCreditLxRequest) SetProductInstanceId(v string) *ApplyDubbridgeCreditLxRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ApplyDubbridgeCreditLxRequest) SetCreditApplyId(v string) *ApplyDubbridgeCreditLxRequest {
+	s.CreditApplyId = &v
+	return s
+}
+
+func (s *ApplyDubbridgeCreditLxRequest) SetPartnerCode(v string) *ApplyDubbridgeCreditLxRequest {
+	s.PartnerCode = &v
+	return s
+}
+
+func (s *ApplyDubbridgeCreditLxRequest) SetName(v string) *ApplyDubbridgeCreditLxRequest {
+	s.Name = &v
+	return s
+}
+
+func (s *ApplyDubbridgeCreditLxRequest) SetCreditAmount(v int64) *ApplyDubbridgeCreditLxRequest {
+	s.CreditAmount = &v
+	return s
+}
+
+func (s *ApplyDubbridgeCreditLxRequest) SetMaritalStatus(v string) *ApplyDubbridgeCreditLxRequest {
+	s.MaritalStatus = &v
+	return s
+}
+
+func (s *ApplyDubbridgeCreditLxRequest) SetEducation(v string) *ApplyDubbridgeCreditLxRequest {
+	s.Education = &v
+	return s
+}
+
+func (s *ApplyDubbridgeCreditLxRequest) SetAge(v int64) *ApplyDubbridgeCreditLxRequest {
+	s.Age = &v
+	return s
+}
+
+func (s *ApplyDubbridgeCreditLxRequest) SetSex(v string) *ApplyDubbridgeCreditLxRequest {
+	s.Sex = &v
+	return s
+}
+
+func (s *ApplyDubbridgeCreditLxRequest) SetIdentiType(v string) *ApplyDubbridgeCreditLxRequest {
+	s.IdentiType = &v
+	return s
+}
+
+func (s *ApplyDubbridgeCreditLxRequest) SetIdentiNo(v string) *ApplyDubbridgeCreditLxRequest {
+	s.IdentiNo = &v
+	return s
+}
+
+func (s *ApplyDubbridgeCreditLxRequest) SetIdCardExpireDate(v string) *ApplyDubbridgeCreditLxRequest {
+	s.IdCardExpireDate = &v
+	return s
+}
+
+func (s *ApplyDubbridgeCreditLxRequest) SetIdCardValidDate(v string) *ApplyDubbridgeCreditLxRequest {
+	s.IdCardValidDate = &v
+	return s
+}
+
+func (s *ApplyDubbridgeCreditLxRequest) SetIdProvince(v string) *ApplyDubbridgeCreditLxRequest {
+	s.IdProvince = &v
+	return s
+}
+
+func (s *ApplyDubbridgeCreditLxRequest) SetIdCity(v string) *ApplyDubbridgeCreditLxRequest {
+	s.IdCity = &v
+	return s
+}
+
+func (s *ApplyDubbridgeCreditLxRequest) SetIdAddr(v string) *ApplyDubbridgeCreditLxRequest {
+	s.IdAddr = &v
+	return s
+}
+
+func (s *ApplyDubbridgeCreditLxRequest) SetIssuedAgency(v string) *ApplyDubbridgeCreditLxRequest {
+	s.IssuedAgency = &v
+	return s
+}
+
+func (s *ApplyDubbridgeCreditLxRequest) SetBirthday(v string) *ApplyDubbridgeCreditLxRequest {
+	s.Birthday = &v
+	return s
+}
+
+func (s *ApplyDubbridgeCreditLxRequest) SetNationality(v string) *ApplyDubbridgeCreditLxRequest {
+	s.Nationality = &v
+	return s
+}
+
+func (s *ApplyDubbridgeCreditLxRequest) SetNation(v string) *ApplyDubbridgeCreditLxRequest {
+	s.Nation = &v
+	return s
+}
+
+func (s *ApplyDubbridgeCreditLxRequest) SetMobileNo(v string) *ApplyDubbridgeCreditLxRequest {
+	s.MobileNo = &v
+	return s
+}
+
+func (s *ApplyDubbridgeCreditLxRequest) SetUserBankCardNo(v string) *ApplyDubbridgeCreditLxRequest {
+	s.UserBankCardNo = &v
+	return s
+}
+
+func (s *ApplyDubbridgeCreditLxRequest) SetContactName(v string) *ApplyDubbridgeCreditLxRequest {
+	s.ContactName = &v
+	return s
+}
+
+func (s *ApplyDubbridgeCreditLxRequest) SetContactMobile(v string) *ApplyDubbridgeCreditLxRequest {
+	s.ContactMobile = &v
+	return s
+}
+
+func (s *ApplyDubbridgeCreditLxRequest) SetContactRel(v string) *ApplyDubbridgeCreditLxRequest {
+	s.ContactRel = &v
+	return s
+}
+
+func (s *ApplyDubbridgeCreditLxRequest) SetLivingProvince(v string) *ApplyDubbridgeCreditLxRequest {
+	s.LivingProvince = &v
+	return s
+}
+
+func (s *ApplyDubbridgeCreditLxRequest) SetLivingCity(v string) *ApplyDubbridgeCreditLxRequest {
+	s.LivingCity = &v
+	return s
+}
+
+func (s *ApplyDubbridgeCreditLxRequest) SetLivingCounty(v string) *ApplyDubbridgeCreditLxRequest {
+	s.LivingCounty = &v
+	return s
+}
+
+func (s *ApplyDubbridgeCreditLxRequest) SetLivingAddress(v string) *ApplyDubbridgeCreditLxRequest {
+	s.LivingAddress = &v
+	return s
+}
+
+func (s *ApplyDubbridgeCreditLxRequest) SetUserOccupation(v string) *ApplyDubbridgeCreditLxRequest {
+	s.UserOccupation = &v
+	return s
+}
+
+func (s *ApplyDubbridgeCreditLxRequest) SetUserIndustryCategory(v string) *ApplyDubbridgeCreditLxRequest {
+	s.UserIndustryCategory = &v
+	return s
+}
+
+type ApplyDubbridgeCreditLxResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 天枢客户编号
+	CustomNo *string `json:"custom_no,omitempty" xml:"custom_no,omitempty"`
+	// 额度授信申请编号
+	CreditNo *string `json:"credit_no,omitempty" xml:"credit_no,omitempty"`
+	// 授信审核状态，
+	// 0. 授信成功
+	// 1. 授信失败
+	// 2. 授信中
+	AuditState *int64 `json:"audit_state,omitempty" xml:"audit_state,omitempty"`
+	// 业务处理描述信息
+	Msg *string `json:"msg,omitempty" xml:"msg,omitempty"`
+	// 业务错误码，
+	// 无异常=0 ，不同异常，返回不同的code
+	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty"`
+}
+
+func (s ApplyDubbridgeCreditLxResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyDubbridgeCreditLxResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyDubbridgeCreditLxResponse) SetReqMsgId(v string) *ApplyDubbridgeCreditLxResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ApplyDubbridgeCreditLxResponse) SetResultCode(v string) *ApplyDubbridgeCreditLxResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ApplyDubbridgeCreditLxResponse) SetResultMsg(v string) *ApplyDubbridgeCreditLxResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ApplyDubbridgeCreditLxResponse) SetCustomNo(v string) *ApplyDubbridgeCreditLxResponse {
+	s.CustomNo = &v
+	return s
+}
+
+func (s *ApplyDubbridgeCreditLxResponse) SetCreditNo(v string) *ApplyDubbridgeCreditLxResponse {
+	s.CreditNo = &v
+	return s
+}
+
+func (s *ApplyDubbridgeCreditLxResponse) SetAuditState(v int64) *ApplyDubbridgeCreditLxResponse {
+	s.AuditState = &v
+	return s
+}
+
+func (s *ApplyDubbridgeCreditLxResponse) SetMsg(v string) *ApplyDubbridgeCreditLxResponse {
+	s.Msg = &v
+	return s
+}
+
+func (s *ApplyDubbridgeCreditLxResponse) SetErrorCode(v string) *ApplyDubbridgeCreditLxResponse {
+	s.ErrorCode = &v
+	return s
+}
+
+type QueryDubbridgeCreditstatusLxRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 授信申请编号
+	CreditApplyId *string `json:"credit_apply_id,omitempty" xml:"credit_apply_id,omitempty" require:"true"`
+	// 合作方代码
+	PartnerCode *string `json:"partner_code,omitempty" xml:"partner_code,omitempty"`
+}
+
+func (s QueryDubbridgeCreditstatusLxRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDubbridgeCreditstatusLxRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDubbridgeCreditstatusLxRequest) SetAuthToken(v string) *QueryDubbridgeCreditstatusLxRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDubbridgeCreditstatusLxRequest) SetProductInstanceId(v string) *QueryDubbridgeCreditstatusLxRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryDubbridgeCreditstatusLxRequest) SetCreditApplyId(v string) *QueryDubbridgeCreditstatusLxRequest {
+	s.CreditApplyId = &v
+	return s
+}
+
+func (s *QueryDubbridgeCreditstatusLxRequest) SetPartnerCode(v string) *QueryDubbridgeCreditstatusLxRequest {
+	s.PartnerCode = &v
+	return s
+}
+
+type QueryDubbridgeCreditstatusLxResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 授信审核状态
+	// 0. 授信成功
+	// 1. 授信失败
+	// 2. 授信中（重试查询）
+	// 3. 查无此单（按1授信失败处理，订单轮询至下一资方）
+	AuditState *int64 `json:"audit_state,omitempty" xml:"audit_state,omitempty"`
+	// 业务错误码
+	// 无异常=0 ，不同异常，返回不同的code
+	ErrorCode *int64 `json:"error_code,omitempty" xml:"error_code,omitempty"`
+	// 授信失败必填，描述具体的失败原因，用于运营分析
+	Msg *string `json:"msg,omitempty" xml:"msg,omitempty"`
+	// 授信成功必填,授信成功后，资方的授信编号，后续用信/支用时用到
+	CreditNo *string `json:"credit_no,omitempty" xml:"credit_no,omitempty"`
+	// 授信批准的额度，授信成功必填，单位:元
+	CreditAmt *int64 `json:"credit_amt,omitempty" xml:"credit_amt,omitempty"`
+	// 授信生效日期，授信审核通过时必填，格式：yyyy-MM-dd
+	CreditValidDate *string `json:"credit_valid_date,omitempty" xml:"credit_valid_date,omitempty"`
+	// 授信失效日期，授信审核通过时必填，格式：yyyy-MM-dd  ,如果授信的当前日期大于
+	// 等于失效日期,就认为失效
+	CreditExpireDate *string `json:"credit_expire_date,omitempty" xml:"credit_expire_date,omitempty"`
+}
+
+func (s QueryDubbridgeCreditstatusLxResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDubbridgeCreditstatusLxResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDubbridgeCreditstatusLxResponse) SetReqMsgId(v string) *QueryDubbridgeCreditstatusLxResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDubbridgeCreditstatusLxResponse) SetResultCode(v string) *QueryDubbridgeCreditstatusLxResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDubbridgeCreditstatusLxResponse) SetResultMsg(v string) *QueryDubbridgeCreditstatusLxResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryDubbridgeCreditstatusLxResponse) SetAuditState(v int64) *QueryDubbridgeCreditstatusLxResponse {
+	s.AuditState = &v
+	return s
+}
+
+func (s *QueryDubbridgeCreditstatusLxResponse) SetErrorCode(v int64) *QueryDubbridgeCreditstatusLxResponse {
+	s.ErrorCode = &v
+	return s
+}
+
+func (s *QueryDubbridgeCreditstatusLxResponse) SetMsg(v string) *QueryDubbridgeCreditstatusLxResponse {
+	s.Msg = &v
+	return s
+}
+
+func (s *QueryDubbridgeCreditstatusLxResponse) SetCreditNo(v string) *QueryDubbridgeCreditstatusLxResponse {
+	s.CreditNo = &v
+	return s
+}
+
+func (s *QueryDubbridgeCreditstatusLxResponse) SetCreditAmt(v int64) *QueryDubbridgeCreditstatusLxResponse {
+	s.CreditAmt = &v
+	return s
+}
+
+func (s *QueryDubbridgeCreditstatusLxResponse) SetCreditValidDate(v string) *QueryDubbridgeCreditstatusLxResponse {
+	s.CreditValidDate = &v
+	return s
+}
+
+func (s *QueryDubbridgeCreditstatusLxResponse) SetCreditExpireDate(v string) *QueryDubbridgeCreditstatusLxResponse {
+	s.CreditExpireDate = &v
+	return s
+}
+
+type ApplyDubbridgeUsecreditLxRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 用信审批申请编号
+	ApplyId *string `json:"apply_id,omitempty" xml:"apply_id,omitempty" require:"true"`
+	// 合作方代码
+	PartnerCode *string `json:"partner_code,omitempty" xml:"partner_code,omitempty"`
+	// 授信编号
+	CreditNo *string `json:"credit_no,omitempty" xml:"credit_no,omitempty" require:"true"`
+	// 资产类型，
+	// 1：借钱（默认）
+	// 2：电商购物
+	// 3：乐花卡
+	OrderType *string `json:"order_type,omitempty" xml:"order_type,omitempty" require:"true"`
+	// 借款金额，单位：元
+	LoanPrincipal *int64 `json:"loan_principal,omitempty" xml:"loan_principal,omitempty" require:"true"`
+	// 借款期数，比如：1,2,3,6,9,12,15,18,24,36
+	LoanTerm *int64 `json:"loan_term,omitempty" xml:"loan_term,omitempty" require:"true"`
+	// 申请贷款用途，
+	// 借钱（透传）：日常消费；运动健身；电商购物；生活开销；学习进修；学艺术班；技能培训
+	// 电商购物（默认）：电商购物
+	// 乐花卡（默认）：个人综合消费
+	LoanUse *string `json:"loan_use,omitempty" xml:"loan_use,omitempty" require:"true"`
+	// 借款人收款户名，
+	// 借钱业务：借款用户个人收款账户名
+	// 电商业务：打款到对公户，传对公户相关账号信息
+	DebitAccountName *string `json:"debit_account_name,omitempty" xml:"debit_account_name,omitempty" require:"true"`
+	// 收款人银行卡开户行，
+	// 借钱业务：借款用户个人账户开户行名称
+	// 电商业务：打款到对公户，传对公户相关账号信息
+	DebitOpenAccountBank *string `json:"debit_open_account_bank,omitempty" xml:"debit_open_account_bank,omitempty" require:"true"`
+	// 收款人银行卡卡号，
+	// 借钱业务：借款用户个人账户卡号
+	// 电商业务：打款到对公户，传对公户相关账号信息
+	DebitAccountNo *string `json:"debit_account_no,omitempty" xml:"debit_account_no,omitempty" require:"true"`
+	// 收款卡联行号，
+	// 借钱业务：非必传
+	// 电商业务：打款到对公户，传对公户相关账号信息
+	DebitCnaps *string `json:"debit_cnaps,omitempty" xml:"debit_cnaps,omitempty"`
+	// 担保编号，有担保时提供担保编号
+	InsureId *string `json:"insure_id,omitempty" xml:"insure_id,omitempty"`
+	// 担保方名称，有担保时提供担名称
+	InsureName *string `json:"insure_name,omitempty" xml:"insure_name,omitempty"`
+	// 还款方式，
+	// 1-等额本息（默认）
+	// 2-等额本金
+	// 4-气球贷
+	// 10- 等本等息
+	// 13-先息后本
+	RepayType *int64 `json:"repay_type,omitempty" xml:"repay_type,omitempty" require:"true"`
+}
+
+func (s ApplyDubbridgeUsecreditLxRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyDubbridgeUsecreditLxRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyDubbridgeUsecreditLxRequest) SetAuthToken(v string) *ApplyDubbridgeUsecreditLxRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ApplyDubbridgeUsecreditLxRequest) SetProductInstanceId(v string) *ApplyDubbridgeUsecreditLxRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ApplyDubbridgeUsecreditLxRequest) SetApplyId(v string) *ApplyDubbridgeUsecreditLxRequest {
+	s.ApplyId = &v
+	return s
+}
+
+func (s *ApplyDubbridgeUsecreditLxRequest) SetPartnerCode(v string) *ApplyDubbridgeUsecreditLxRequest {
+	s.PartnerCode = &v
+	return s
+}
+
+func (s *ApplyDubbridgeUsecreditLxRequest) SetCreditNo(v string) *ApplyDubbridgeUsecreditLxRequest {
+	s.CreditNo = &v
+	return s
+}
+
+func (s *ApplyDubbridgeUsecreditLxRequest) SetOrderType(v string) *ApplyDubbridgeUsecreditLxRequest {
+	s.OrderType = &v
+	return s
+}
+
+func (s *ApplyDubbridgeUsecreditLxRequest) SetLoanPrincipal(v int64) *ApplyDubbridgeUsecreditLxRequest {
+	s.LoanPrincipal = &v
+	return s
+}
+
+func (s *ApplyDubbridgeUsecreditLxRequest) SetLoanTerm(v int64) *ApplyDubbridgeUsecreditLxRequest {
+	s.LoanTerm = &v
+	return s
+}
+
+func (s *ApplyDubbridgeUsecreditLxRequest) SetLoanUse(v string) *ApplyDubbridgeUsecreditLxRequest {
+	s.LoanUse = &v
+	return s
+}
+
+func (s *ApplyDubbridgeUsecreditLxRequest) SetDebitAccountName(v string) *ApplyDubbridgeUsecreditLxRequest {
+	s.DebitAccountName = &v
+	return s
+}
+
+func (s *ApplyDubbridgeUsecreditLxRequest) SetDebitOpenAccountBank(v string) *ApplyDubbridgeUsecreditLxRequest {
+	s.DebitOpenAccountBank = &v
+	return s
+}
+
+func (s *ApplyDubbridgeUsecreditLxRequest) SetDebitAccountNo(v string) *ApplyDubbridgeUsecreditLxRequest {
+	s.DebitAccountNo = &v
+	return s
+}
+
+func (s *ApplyDubbridgeUsecreditLxRequest) SetDebitCnaps(v string) *ApplyDubbridgeUsecreditLxRequest {
+	s.DebitCnaps = &v
+	return s
+}
+
+func (s *ApplyDubbridgeUsecreditLxRequest) SetInsureId(v string) *ApplyDubbridgeUsecreditLxRequest {
+	s.InsureId = &v
+	return s
+}
+
+func (s *ApplyDubbridgeUsecreditLxRequest) SetInsureName(v string) *ApplyDubbridgeUsecreditLxRequest {
+	s.InsureName = &v
+	return s
+}
+
+func (s *ApplyDubbridgeUsecreditLxRequest) SetRepayType(v int64) *ApplyDubbridgeUsecreditLxRequest {
+	s.RepayType = &v
+	return s
+}
+
+type ApplyDubbridgeUsecreditLxResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 用信审批状态，
+	// 0、成功
+	// 1、失败
+	// 2、审批中
+	Status *int64 `json:"status,omitempty" xml:"status,omitempty"`
+	// 用信审批描述，失败时，需给出的错误描述
+	Msg *string `json:"msg,omitempty" xml:"msg,omitempty"`
+}
+
+func (s ApplyDubbridgeUsecreditLxResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyDubbridgeUsecreditLxResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyDubbridgeUsecreditLxResponse) SetReqMsgId(v string) *ApplyDubbridgeUsecreditLxResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ApplyDubbridgeUsecreditLxResponse) SetResultCode(v string) *ApplyDubbridgeUsecreditLxResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ApplyDubbridgeUsecreditLxResponse) SetResultMsg(v string) *ApplyDubbridgeUsecreditLxResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ApplyDubbridgeUsecreditLxResponse) SetStatus(v int64) *ApplyDubbridgeUsecreditLxResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *ApplyDubbridgeUsecreditLxResponse) SetMsg(v string) *ApplyDubbridgeUsecreditLxResponse {
+	s.Msg = &v
+	return s
+}
+
+type QueryDubbridgeUsecreditstatusLxRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 支用申请编号
+	ApplyId *string `json:"apply_id,omitempty" xml:"apply_id,omitempty" require:"true"`
+	// 合作方代码
+	PartnerCode *string `json:"partner_code,omitempty" xml:"partner_code,omitempty"`
+}
+
+func (s QueryDubbridgeUsecreditstatusLxRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDubbridgeUsecreditstatusLxRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDubbridgeUsecreditstatusLxRequest) SetAuthToken(v string) *QueryDubbridgeUsecreditstatusLxRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDubbridgeUsecreditstatusLxRequest) SetProductInstanceId(v string) *QueryDubbridgeUsecreditstatusLxRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryDubbridgeUsecreditstatusLxRequest) SetApplyId(v string) *QueryDubbridgeUsecreditstatusLxRequest {
+	s.ApplyId = &v
+	return s
+}
+
+func (s *QueryDubbridgeUsecreditstatusLxRequest) SetPartnerCode(v string) *QueryDubbridgeUsecreditstatusLxRequest {
+	s.PartnerCode = &v
+	return s
+}
+
+type QueryDubbridgeUsecreditstatusLxResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 用信审批状态，
+	// 0、成功
+	// 1、失败
+	// 2、审批中
+	// 3、查无此单(重新发起用信申请接口,需要保证用信申请幂等)
+	Status *int64 `json:"status,omitempty" xml:"status,omitempty"`
+	// 用信审批描述，失败时，需给出的错误描述
+	Msg *string `json:"msg,omitempty" xml:"msg,omitempty"`
+}
+
+func (s QueryDubbridgeUsecreditstatusLxResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDubbridgeUsecreditstatusLxResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDubbridgeUsecreditstatusLxResponse) SetReqMsgId(v string) *QueryDubbridgeUsecreditstatusLxResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDubbridgeUsecreditstatusLxResponse) SetResultCode(v string) *QueryDubbridgeUsecreditstatusLxResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDubbridgeUsecreditstatusLxResponse) SetResultMsg(v string) *QueryDubbridgeUsecreditstatusLxResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryDubbridgeUsecreditstatusLxResponse) SetStatus(v int64) *QueryDubbridgeUsecreditstatusLxResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *QueryDubbridgeUsecreditstatusLxResponse) SetMsg(v string) *QueryDubbridgeUsecreditstatusLxResponse {
+	s.Msg = &v
+	return s
+}
+
+type ApplyDubbridgeLoanLxRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 用信审批申请编号
+	ApplyId *string `json:"apply_id,omitempty" xml:"apply_id,omitempty" require:"true"`
+	// 合作方代码
+	PartnerCode *string `json:"partner_code,omitempty" xml:"partner_code,omitempty"`
+	// 授信编号
+	CreditNo *string `json:"credit_no,omitempty" xml:"credit_no,omitempty" require:"true"`
+	// 资产类型， 1：借钱（默认） 2：电商购物 3：乐花卡
+	OrderType *string `json:"order_type,omitempty" xml:"order_type,omitempty" require:"true"`
+	// 借款金额，单位：元
+	LoanPrincipal *int64 `json:"loan_principal,omitempty" xml:"loan_principal,omitempty" require:"true"`
+	// 借款期数，比如：1,2,3,6,9,12,15,18,24,36
+	LoanTerm *int64 `json:"loan_term,omitempty" xml:"loan_term,omitempty" require:"true"`
+	// 申请贷款用途， 借钱（透传）：日常消费；运动健身；电商购物；生活开销；学习进修；学艺术班；技能培训 电商购物（默认）：电商购物 乐花卡（默认）：个人综合消费
+	LoanUse *string `json:"loan_use,omitempty" xml:"loan_use,omitempty" require:"true"`
+	// 银行卡绑定手机号
+	MobileNo *string `json:"mobile_no,omitempty" xml:"mobile_no,omitempty" require:"true"`
+	// 借款人收款户名， 借钱业务：借款用户个人收款账户名 电商业务：打款到对公户，传对公户相关账号信息
+	DebitAccountName *string `json:"debit_account_name,omitempty" xml:"debit_account_name,omitempty" require:"true"`
+	// 收款人银行卡开户行， 借钱业务：借款用户个人账户开户行名称 电商业务：打款到对公户，传对公户相关账号信息
+	DebitOpenAccountBank *string `json:"debit_open_account_bank,omitempty" xml:"debit_open_account_bank,omitempty" require:"true"`
+	// 收款人银行卡卡号， 借钱业务：借款用户个人账户卡号 电商业务：打款到对公户，传对公户相关账号信息
+	DebitAccountNo *string `json:"debit_account_no,omitempty" xml:"debit_account_no,omitempty" require:"true"`
+	// 收款卡联行号， 借钱业务：非必传 电商业务：打款到对公户，传对公户相关账号信息
+	DebitCnaps *string `json:"debit_cnaps,omitempty" xml:"debit_cnaps,omitempty" require:"true"`
+	// 还款方式， 1-等额本息（默认） 2-等额本金 4-气球贷 10- 等本等息 13-先息后本
+	RepayType *string `json:"repay_type,omitempty" xml:"repay_type,omitempty" require:"true"`
+}
+
+func (s ApplyDubbridgeLoanLxRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyDubbridgeLoanLxRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyDubbridgeLoanLxRequest) SetAuthToken(v string) *ApplyDubbridgeLoanLxRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ApplyDubbridgeLoanLxRequest) SetProductInstanceId(v string) *ApplyDubbridgeLoanLxRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ApplyDubbridgeLoanLxRequest) SetApplyId(v string) *ApplyDubbridgeLoanLxRequest {
+	s.ApplyId = &v
+	return s
+}
+
+func (s *ApplyDubbridgeLoanLxRequest) SetPartnerCode(v string) *ApplyDubbridgeLoanLxRequest {
+	s.PartnerCode = &v
+	return s
+}
+
+func (s *ApplyDubbridgeLoanLxRequest) SetCreditNo(v string) *ApplyDubbridgeLoanLxRequest {
+	s.CreditNo = &v
+	return s
+}
+
+func (s *ApplyDubbridgeLoanLxRequest) SetOrderType(v string) *ApplyDubbridgeLoanLxRequest {
+	s.OrderType = &v
+	return s
+}
+
+func (s *ApplyDubbridgeLoanLxRequest) SetLoanPrincipal(v int64) *ApplyDubbridgeLoanLxRequest {
+	s.LoanPrincipal = &v
+	return s
+}
+
+func (s *ApplyDubbridgeLoanLxRequest) SetLoanTerm(v int64) *ApplyDubbridgeLoanLxRequest {
+	s.LoanTerm = &v
+	return s
+}
+
+func (s *ApplyDubbridgeLoanLxRequest) SetLoanUse(v string) *ApplyDubbridgeLoanLxRequest {
+	s.LoanUse = &v
+	return s
+}
+
+func (s *ApplyDubbridgeLoanLxRequest) SetMobileNo(v string) *ApplyDubbridgeLoanLxRequest {
+	s.MobileNo = &v
+	return s
+}
+
+func (s *ApplyDubbridgeLoanLxRequest) SetDebitAccountName(v string) *ApplyDubbridgeLoanLxRequest {
+	s.DebitAccountName = &v
+	return s
+}
+
+func (s *ApplyDubbridgeLoanLxRequest) SetDebitOpenAccountBank(v string) *ApplyDubbridgeLoanLxRequest {
+	s.DebitOpenAccountBank = &v
+	return s
+}
+
+func (s *ApplyDubbridgeLoanLxRequest) SetDebitAccountNo(v string) *ApplyDubbridgeLoanLxRequest {
+	s.DebitAccountNo = &v
+	return s
+}
+
+func (s *ApplyDubbridgeLoanLxRequest) SetDebitCnaps(v string) *ApplyDubbridgeLoanLxRequest {
+	s.DebitCnaps = &v
+	return s
+}
+
+func (s *ApplyDubbridgeLoanLxRequest) SetRepayType(v string) *ApplyDubbridgeLoanLxRequest {
+	s.RepayType = &v
+	return s
+}
+
+type ApplyDubbridgeLoanLxResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 放款结果，
+	// 0:放款成功
+	// 1:放款失败
+	// 2.查无此单
+	// 99:处理中
+	LoanResult *int64 `json:"loan_result,omitempty" xml:"loan_result,omitempty"`
+	// 放款结果描述，失败时，需给出的错误描述
+	Msg *string `json:"msg,omitempty" xml:"msg,omitempty"`
+}
+
+func (s ApplyDubbridgeLoanLxResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyDubbridgeLoanLxResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyDubbridgeLoanLxResponse) SetReqMsgId(v string) *ApplyDubbridgeLoanLxResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ApplyDubbridgeLoanLxResponse) SetResultCode(v string) *ApplyDubbridgeLoanLxResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ApplyDubbridgeLoanLxResponse) SetResultMsg(v string) *ApplyDubbridgeLoanLxResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ApplyDubbridgeLoanLxResponse) SetLoanResult(v int64) *ApplyDubbridgeLoanLxResponse {
+	s.LoanResult = &v
+	return s
+}
+
+func (s *ApplyDubbridgeLoanLxResponse) SetMsg(v string) *ApplyDubbridgeLoanLxResponse {
+	s.Msg = &v
+	return s
+}
+
+type QueryDubbridgeLoanstatusLxRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 用信审批申请编号
+	ApplyId *string `json:"apply_id,omitempty" xml:"apply_id,omitempty" require:"true"`
+	// 合作方代码
+	PartnerCode *string `json:"partner_code,omitempty" xml:"partner_code,omitempty"`
+}
+
+func (s QueryDubbridgeLoanstatusLxRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDubbridgeLoanstatusLxRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDubbridgeLoanstatusLxRequest) SetAuthToken(v string) *QueryDubbridgeLoanstatusLxRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDubbridgeLoanstatusLxRequest) SetProductInstanceId(v string) *QueryDubbridgeLoanstatusLxRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryDubbridgeLoanstatusLxRequest) SetApplyId(v string) *QueryDubbridgeLoanstatusLxRequest {
+	s.ApplyId = &v
+	return s
+}
+
+func (s *QueryDubbridgeLoanstatusLxRequest) SetPartnerCode(v string) *QueryDubbridgeLoanstatusLxRequest {
+	s.PartnerCode = &v
+	return s
+}
+
+type QueryDubbridgeLoanstatusLxResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 放款结果，
+	// 0:放款成功
+	// 1:放款失败
+	// 2.查无此单(重新发起支用申请接口,需要保证支用申请接口幂等)
+	// 99:处理中
+	LoanResult *int64 `json:"loan_result,omitempty" xml:"loan_result,omitempty"`
+	// 描述信息
+	Msg *string `json:"msg,omitempty" xml:"msg,omitempty"`
+	// 成功必填，资方返回的阶梯结算利率，供生成对资还款计划时使用
+	SettleRate *int64 `json:"settle_rate,omitempty" xml:"settle_rate,omitempty"`
+	// 成功必填，YYYY-MM-DD HH:MM:SS
+	PaymentTime *string `json:"payment_time,omitempty" xml:"payment_time,omitempty"`
+	// 放款成功金额，成功必填，单位:元
+	LoanAmt *int64 `json:"loan_amt,omitempty" xml:"loan_amt,omitempty"`
+	// 放款流水号，成功必填
+	CapitalLoanNo *string `json:"capital_loan_no,omitempty" xml:"capital_loan_no,omitempty"`
+	// 收款人银行卡卡号，放款成功提供实际的放款目标账户
+	DebitAccountNo *string `json:"debit_account_no,omitempty" xml:"debit_account_no,omitempty"`
+}
+
+func (s QueryDubbridgeLoanstatusLxResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDubbridgeLoanstatusLxResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDubbridgeLoanstatusLxResponse) SetReqMsgId(v string) *QueryDubbridgeLoanstatusLxResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDubbridgeLoanstatusLxResponse) SetResultCode(v string) *QueryDubbridgeLoanstatusLxResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDubbridgeLoanstatusLxResponse) SetResultMsg(v string) *QueryDubbridgeLoanstatusLxResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryDubbridgeLoanstatusLxResponse) SetLoanResult(v int64) *QueryDubbridgeLoanstatusLxResponse {
+	s.LoanResult = &v
+	return s
+}
+
+func (s *QueryDubbridgeLoanstatusLxResponse) SetMsg(v string) *QueryDubbridgeLoanstatusLxResponse {
+	s.Msg = &v
+	return s
+}
+
+func (s *QueryDubbridgeLoanstatusLxResponse) SetSettleRate(v int64) *QueryDubbridgeLoanstatusLxResponse {
+	s.SettleRate = &v
+	return s
+}
+
+func (s *QueryDubbridgeLoanstatusLxResponse) SetPaymentTime(v string) *QueryDubbridgeLoanstatusLxResponse {
+	s.PaymentTime = &v
+	return s
+}
+
+func (s *QueryDubbridgeLoanstatusLxResponse) SetLoanAmt(v int64) *QueryDubbridgeLoanstatusLxResponse {
+	s.LoanAmt = &v
+	return s
+}
+
+func (s *QueryDubbridgeLoanstatusLxResponse) SetCapitalLoanNo(v string) *QueryDubbridgeLoanstatusLxResponse {
+	s.CapitalLoanNo = &v
+	return s
+}
+
+func (s *QueryDubbridgeLoanstatusLxResponse) SetDebitAccountNo(v string) *QueryDubbridgeLoanstatusLxResponse {
+	s.DebitAccountNo = &v
+	return s
+}
+
+type NotifyDubbridgeRepaymentplanLxRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 支用申请编号
+	ApplyId *string `json:"apply_id,omitempty" xml:"apply_id,omitempty" require:"true"`
+	// 合作方代码
+	PartnerCode *string `json:"partner_code,omitempty" xml:"partner_code,omitempty"`
+	// 放款编号
+	CapitalLoanNo *string `json:"capital_loan_no,omitempty" xml:"capital_loan_no,omitempty" require:"true"`
+	// 借款总期数
+	TotalTerm *int64 `json:"total_term,omitempty" xml:"total_term,omitempty" require:"true"`
+	// 借据总金额(元)
+	TotalAmount *int64 `json:"total_amount,omitempty" xml:"total_amount,omitempty" require:"true"`
+	// 放款成功日期，yyyy_MM-dd HH:mm:ss
+	PaymentTime *string `json:"payment_time,omitempty" xml:"payment_time,omitempty" require:"true"`
+	// 还款计划列表
+	RepayPlans []*RepayPlanNotifyItem `json:"repay_plans,omitempty" xml:"repay_plans,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s NotifyDubbridgeRepaymentplanLxRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s NotifyDubbridgeRepaymentplanLxRequest) GoString() string {
+	return s.String()
+}
+
+func (s *NotifyDubbridgeRepaymentplanLxRequest) SetAuthToken(v string) *NotifyDubbridgeRepaymentplanLxRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *NotifyDubbridgeRepaymentplanLxRequest) SetProductInstanceId(v string) *NotifyDubbridgeRepaymentplanLxRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *NotifyDubbridgeRepaymentplanLxRequest) SetApplyId(v string) *NotifyDubbridgeRepaymentplanLxRequest {
+	s.ApplyId = &v
+	return s
+}
+
+func (s *NotifyDubbridgeRepaymentplanLxRequest) SetPartnerCode(v string) *NotifyDubbridgeRepaymentplanLxRequest {
+	s.PartnerCode = &v
+	return s
+}
+
+func (s *NotifyDubbridgeRepaymentplanLxRequest) SetCapitalLoanNo(v string) *NotifyDubbridgeRepaymentplanLxRequest {
+	s.CapitalLoanNo = &v
+	return s
+}
+
+func (s *NotifyDubbridgeRepaymentplanLxRequest) SetTotalTerm(v int64) *NotifyDubbridgeRepaymentplanLxRequest {
+	s.TotalTerm = &v
+	return s
+}
+
+func (s *NotifyDubbridgeRepaymentplanLxRequest) SetTotalAmount(v int64) *NotifyDubbridgeRepaymentplanLxRequest {
+	s.TotalAmount = &v
+	return s
+}
+
+func (s *NotifyDubbridgeRepaymentplanLxRequest) SetPaymentTime(v string) *NotifyDubbridgeRepaymentplanLxRequest {
+	s.PaymentTime = &v
+	return s
+}
+
+func (s *NotifyDubbridgeRepaymentplanLxRequest) SetRepayPlans(v []*RepayPlanNotifyItem) *NotifyDubbridgeRepaymentplanLxRequest {
+	s.RepayPlans = v
+	return s
+}
+
+type NotifyDubbridgeRepaymentplanLxResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 同步结果，0-成功 1-失败
+	Status *int64 `json:"status,omitempty" xml:"status,omitempty"`
+	// 错误描述
+	Msg *string `json:"msg,omitempty" xml:"msg,omitempty"`
+}
+
+func (s NotifyDubbridgeRepaymentplanLxResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s NotifyDubbridgeRepaymentplanLxResponse) GoString() string {
+	return s.String()
+}
+
+func (s *NotifyDubbridgeRepaymentplanLxResponse) SetReqMsgId(v string) *NotifyDubbridgeRepaymentplanLxResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *NotifyDubbridgeRepaymentplanLxResponse) SetResultCode(v string) *NotifyDubbridgeRepaymentplanLxResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *NotifyDubbridgeRepaymentplanLxResponse) SetResultMsg(v string) *NotifyDubbridgeRepaymentplanLxResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *NotifyDubbridgeRepaymentplanLxResponse) SetStatus(v int64) *NotifyDubbridgeRepaymentplanLxResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *NotifyDubbridgeRepaymentplanLxResponse) SetMsg(v string) *NotifyDubbridgeRepaymentplanLxResponse {
+	s.Msg = &v
+	return s
+}
+
+type ApplyDubbridgeRepaywithholdLxRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 代扣请求流水号
+	WithholdSerialNo *string `json:"withhold_serial_no,omitempty" xml:"withhold_serial_no,omitempty" require:"true"`
+	// 合作方代码
+	PartnerCode *string `json:"partner_code,omitempty" xml:"partner_code,omitempty"`
+	// 用户绑卡信息 ，包含用户四要素：手机号、卡号、用户名、身份证等
+	BindCardInfo *string `json:"bind_card_info,omitempty" xml:"bind_card_info,omitempty" require:"true"`
+	// 通联需要的银行编码
+	BankId *string `json:"bank_id,omitempty" xml:"bank_id,omitempty"`
+	// 代扣总金额=用户代扣金额+补差金额（单位：分）
+	WithholdAmt *int64 `json:"withhold_amt,omitempty" xml:"withhold_amt,omitempty" require:"true"`
+	// 签约协议号，客户在支付机构的签约协议号(通联以身份证号唯一，宝付以四要素唯一)
+	SignNum *string `json:"sign_num,omitempty" xml:"sign_num,omitempty" require:"true"`
+	// 支付模式，
+	// 0:银行卡支付（默认）
+	// 1:余额支付
+	// 2:份额支付
+	PayMode *int64 `json:"pay_mode,omitempty" xml:"pay_mode,omitempty" require:"true"`
+	// 在支付机构的商户号
+	SubMerchantId *string `json:"sub_merchant_id,omitempty" xml:"sub_merchant_id,omitempty" require:"true"`
+	// 出账信息
+	SepOutInfo *string `json:"sep_out_info,omitempty" xml:"sep_out_info,omitempty" require:"true"`
+	// 分账信息，分账信息条数大于等于一条，当担保费为0时，担保费分账信息不会透传给资方，产品需提示资方做好适配
+	//
+	SepInInfo *string `json:"sep_in_info,omitempty" xml:"sep_in_info,omitempty" require:"true"`
+	// 加密报文，流量方对出入账信息加密报文，需资方透传给支付机构，与资方申请一致方可扣款成功
+	EncrpytContent *string `json:"encrpyt_content,omitempty" xml:"encrpyt_content,omitempty"`
+	// 代扣明细
+	WithholdDetail []*WithholdDetailItem `json:"withhold_detail,omitempty" xml:"withhold_detail,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s ApplyDubbridgeRepaywithholdLxRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyDubbridgeRepaywithholdLxRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyDubbridgeRepaywithholdLxRequest) SetAuthToken(v string) *ApplyDubbridgeRepaywithholdLxRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ApplyDubbridgeRepaywithholdLxRequest) SetProductInstanceId(v string) *ApplyDubbridgeRepaywithholdLxRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ApplyDubbridgeRepaywithholdLxRequest) SetWithholdSerialNo(v string) *ApplyDubbridgeRepaywithholdLxRequest {
+	s.WithholdSerialNo = &v
+	return s
+}
+
+func (s *ApplyDubbridgeRepaywithholdLxRequest) SetPartnerCode(v string) *ApplyDubbridgeRepaywithholdLxRequest {
+	s.PartnerCode = &v
+	return s
+}
+
+func (s *ApplyDubbridgeRepaywithholdLxRequest) SetBindCardInfo(v string) *ApplyDubbridgeRepaywithholdLxRequest {
+	s.BindCardInfo = &v
+	return s
+}
+
+func (s *ApplyDubbridgeRepaywithholdLxRequest) SetBankId(v string) *ApplyDubbridgeRepaywithholdLxRequest {
+	s.BankId = &v
+	return s
+}
+
+func (s *ApplyDubbridgeRepaywithholdLxRequest) SetWithholdAmt(v int64) *ApplyDubbridgeRepaywithholdLxRequest {
+	s.WithholdAmt = &v
+	return s
+}
+
+func (s *ApplyDubbridgeRepaywithholdLxRequest) SetSignNum(v string) *ApplyDubbridgeRepaywithholdLxRequest {
+	s.SignNum = &v
+	return s
+}
+
+func (s *ApplyDubbridgeRepaywithholdLxRequest) SetPayMode(v int64) *ApplyDubbridgeRepaywithholdLxRequest {
+	s.PayMode = &v
+	return s
+}
+
+func (s *ApplyDubbridgeRepaywithholdLxRequest) SetSubMerchantId(v string) *ApplyDubbridgeRepaywithholdLxRequest {
+	s.SubMerchantId = &v
+	return s
+}
+
+func (s *ApplyDubbridgeRepaywithholdLxRequest) SetSepOutInfo(v string) *ApplyDubbridgeRepaywithholdLxRequest {
+	s.SepOutInfo = &v
+	return s
+}
+
+func (s *ApplyDubbridgeRepaywithholdLxRequest) SetSepInInfo(v string) *ApplyDubbridgeRepaywithholdLxRequest {
+	s.SepInInfo = &v
+	return s
+}
+
+func (s *ApplyDubbridgeRepaywithholdLxRequest) SetEncrpytContent(v string) *ApplyDubbridgeRepaywithholdLxRequest {
+	s.EncrpytContent = &v
+	return s
+}
+
+func (s *ApplyDubbridgeRepaywithholdLxRequest) SetWithholdDetail(v []*WithholdDetailItem) *ApplyDubbridgeRepaywithholdLxRequest {
+	s.WithholdDetail = v
+	return s
+}
+
+type ApplyDubbridgeRepaywithholdLxResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 还款状态，1、接口通知成功
+	// 2、接口通知失败
+	// (具体的结果都以查询接口为准)
+	Status *int64 `json:"status,omitempty" xml:"status,omitempty"`
+	// 还款描述，失败时，需给出的错误描述
+	Msg *string `json:"msg,omitempty" xml:"msg,omitempty"`
+}
+
+func (s ApplyDubbridgeRepaywithholdLxResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyDubbridgeRepaywithholdLxResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyDubbridgeRepaywithholdLxResponse) SetReqMsgId(v string) *ApplyDubbridgeRepaywithholdLxResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ApplyDubbridgeRepaywithholdLxResponse) SetResultCode(v string) *ApplyDubbridgeRepaywithholdLxResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ApplyDubbridgeRepaywithholdLxResponse) SetResultMsg(v string) *ApplyDubbridgeRepaywithholdLxResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ApplyDubbridgeRepaywithholdLxResponse) SetStatus(v int64) *ApplyDubbridgeRepaywithholdLxResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *ApplyDubbridgeRepaywithholdLxResponse) SetMsg(v string) *ApplyDubbridgeRepaywithholdLxResponse {
+	s.Msg = &v
+	return s
+}
+
+type QueryDubbridgeRepaywithholdLxRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 代扣请求流水号
+	WithholdSerialNo *string `json:"withhold_serial_no,omitempty" xml:"withhold_serial_no,omitempty" require:"true"`
+	// 合作方代码
+	PartnerCode *string `json:"partner_code,omitempty" xml:"partner_code,omitempty"`
+}
+
+func (s QueryDubbridgeRepaywithholdLxRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDubbridgeRepaywithholdLxRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDubbridgeRepaywithholdLxRequest) SetAuthToken(v string) *QueryDubbridgeRepaywithholdLxRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDubbridgeRepaywithholdLxRequest) SetProductInstanceId(v string) *QueryDubbridgeRepaywithholdLxRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryDubbridgeRepaywithholdLxRequest) SetWithholdSerialNo(v string) *QueryDubbridgeRepaywithholdLxRequest {
+	s.WithholdSerialNo = &v
+	return s
+}
+
+func (s *QueryDubbridgeRepaywithholdLxRequest) SetPartnerCode(v string) *QueryDubbridgeRepaywithholdLxRequest {
+	s.PartnerCode = &v
+	return s
+}
+
+type QueryDubbridgeRepaywithholdLxResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 代扣状态，
+	// 1、代扣成功
+	// 2、代扣失败
+	// 3. 代扣处理中
+	// 4. 未收到代扣请求（交易侧可以重复发起代扣）
+	Status *int64 `json:"status,omitempty" xml:"status,omitempty"`
+	// 代扣描述，失败时，需给出的错误描述
+	Msg *string `json:"msg,omitempty" xml:"msg,omitempty"`
+	// 资金方扣款交易流水号，受理流水号(资金方)
+	OrderNum *string `json:"order_num,omitempty" xml:"order_num,omitempty"`
+	// 支付通道交易流水号
+	TransNum *string `json:"trans_num,omitempty" xml:"trans_num,omitempty"`
+	// 代扣明细
+	WithholdDetail []*WithholdDetailItem `json:"withhold_detail,omitempty" xml:"withhold_detail,omitempty" type:"Repeated"`
+}
+
+func (s QueryDubbridgeRepaywithholdLxResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDubbridgeRepaywithholdLxResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDubbridgeRepaywithholdLxResponse) SetReqMsgId(v string) *QueryDubbridgeRepaywithholdLxResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDubbridgeRepaywithholdLxResponse) SetResultCode(v string) *QueryDubbridgeRepaywithholdLxResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDubbridgeRepaywithholdLxResponse) SetResultMsg(v string) *QueryDubbridgeRepaywithholdLxResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryDubbridgeRepaywithholdLxResponse) SetStatus(v int64) *QueryDubbridgeRepaywithholdLxResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *QueryDubbridgeRepaywithholdLxResponse) SetMsg(v string) *QueryDubbridgeRepaywithholdLxResponse {
+	s.Msg = &v
+	return s
+}
+
+func (s *QueryDubbridgeRepaywithholdLxResponse) SetOrderNum(v string) *QueryDubbridgeRepaywithholdLxResponse {
+	s.OrderNum = &v
+	return s
+}
+
+func (s *QueryDubbridgeRepaywithholdLxResponse) SetTransNum(v string) *QueryDubbridgeRepaywithholdLxResponse {
+	s.TransNum = &v
+	return s
+}
+
+func (s *QueryDubbridgeRepaywithholdLxResponse) SetWithholdDetail(v []*WithholdDetailItem) *QueryDubbridgeRepaywithholdLxResponse {
+	s.WithholdDetail = v
+	return s
+}
+
+type NotifyDubbridgeRepaymentLxRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 还款请求流水号/账单号
+	BillId *string `json:"bill_id,omitempty" xml:"bill_id,omitempty" require:"true"`
+	// 贷款申请编号
+	ApplyId *string `json:"apply_id,omitempty" xml:"apply_id,omitempty" require:"true"`
+	// 是否本次还款最后一次通知，
+	// 1-是
+	// 2-否
+	// 用户一次还多期时，该笔还款按期多次通知，最后一次通知为是。为否时没有还款计划列表。
+	LastNotify *int64 `json:"last_notify,omitempty" xml:"last_notify,omitempty" require:"true"`
+	// 代扣请求流水号
+	WithholdSerialNo *string `json:"withhold_serial_no,omitempty" xml:"withhold_serial_no,omitempty"`
+	// 合作方代码
+	PartnerCode *string `json:"partner_code,omitempty" xml:"partner_code,omitempty"`
+	// 还款类型，
+	// 不同还款类型分开通知：
+	// 10-正常还款,
+	// 20-部分提前还,
+	// 30-提前结清,
+	// 40-逾期还款
+	// 50-代偿
+	RepayType *int64 `json:"repay_type,omitempty" xml:"repay_type,omitempty" require:"true"`
+	// 还款路径，
+	// 1-清分 2-代扣
+	RepayChannel *string `json:"repay_channel,omitempty" xml:"repay_channel,omitempty" require:"true"`
+	// 还款期数
+	RepayTerm *string `json:"repay_term,omitempty" xml:"repay_term,omitempty" require:"true"`
+	// 还款日期
+	RepayDate *string `json:"repay_date,omitempty" xml:"repay_date,omitempty" require:"true"`
+	// 还款总额,保留两位有效数字(单位:元)
+	RepayAmount *string `json:"repay_amount,omitempty" xml:"repay_amount,omitempty" require:"true"`
+	// 实还本金,保留两位有效数字(单位:元)
+	RepayPrincipal *string `json:"repay_principal,omitempty" xml:"repay_principal,omitempty" require:"true"`
+	// 实还利息,保留两位有效数字(单位:元)
+	RepayInterest *string `json:"repay_interest,omitempty" xml:"repay_interest,omitempty" require:"true"`
+	// 实还罚息,保留两位有效数字(单位:元)
+	RepayMuclt *string `json:"repay_muclt,omitempty" xml:"repay_muclt,omitempty"`
+	// 实还担保费,保留两位有效数字(单位:元)
+	RepayGuarantee *string `json:"repay_guarantee,omitempty" xml:"repay_guarantee,omitempty"`
+	// 当期结清状态：
+	// 0-当期未结清
+	// 1-当期已结清
+	RepaymentMode *string `json:"repayment_mode,omitempty" xml:"repayment_mode,omitempty" require:"true"`
+	// 还款计划列表，随借随还业务更新后的还款计划列表
+	RpyDetails []*BillDetail `json:"rpy_details,omitempty" xml:"rpy_details,omitempty" type:"Repeated"`
+}
+
+func (s NotifyDubbridgeRepaymentLxRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s NotifyDubbridgeRepaymentLxRequest) GoString() string {
+	return s.String()
+}
+
+func (s *NotifyDubbridgeRepaymentLxRequest) SetAuthToken(v string) *NotifyDubbridgeRepaymentLxRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *NotifyDubbridgeRepaymentLxRequest) SetProductInstanceId(v string) *NotifyDubbridgeRepaymentLxRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *NotifyDubbridgeRepaymentLxRequest) SetBillId(v string) *NotifyDubbridgeRepaymentLxRequest {
+	s.BillId = &v
+	return s
+}
+
+func (s *NotifyDubbridgeRepaymentLxRequest) SetApplyId(v string) *NotifyDubbridgeRepaymentLxRequest {
+	s.ApplyId = &v
+	return s
+}
+
+func (s *NotifyDubbridgeRepaymentLxRequest) SetLastNotify(v int64) *NotifyDubbridgeRepaymentLxRequest {
+	s.LastNotify = &v
+	return s
+}
+
+func (s *NotifyDubbridgeRepaymentLxRequest) SetWithholdSerialNo(v string) *NotifyDubbridgeRepaymentLxRequest {
+	s.WithholdSerialNo = &v
+	return s
+}
+
+func (s *NotifyDubbridgeRepaymentLxRequest) SetPartnerCode(v string) *NotifyDubbridgeRepaymentLxRequest {
+	s.PartnerCode = &v
+	return s
+}
+
+func (s *NotifyDubbridgeRepaymentLxRequest) SetRepayType(v int64) *NotifyDubbridgeRepaymentLxRequest {
+	s.RepayType = &v
+	return s
+}
+
+func (s *NotifyDubbridgeRepaymentLxRequest) SetRepayChannel(v string) *NotifyDubbridgeRepaymentLxRequest {
+	s.RepayChannel = &v
+	return s
+}
+
+func (s *NotifyDubbridgeRepaymentLxRequest) SetRepayTerm(v string) *NotifyDubbridgeRepaymentLxRequest {
+	s.RepayTerm = &v
+	return s
+}
+
+func (s *NotifyDubbridgeRepaymentLxRequest) SetRepayDate(v string) *NotifyDubbridgeRepaymentLxRequest {
+	s.RepayDate = &v
+	return s
+}
+
+func (s *NotifyDubbridgeRepaymentLxRequest) SetRepayAmount(v string) *NotifyDubbridgeRepaymentLxRequest {
+	s.RepayAmount = &v
+	return s
+}
+
+func (s *NotifyDubbridgeRepaymentLxRequest) SetRepayPrincipal(v string) *NotifyDubbridgeRepaymentLxRequest {
+	s.RepayPrincipal = &v
+	return s
+}
+
+func (s *NotifyDubbridgeRepaymentLxRequest) SetRepayInterest(v string) *NotifyDubbridgeRepaymentLxRequest {
+	s.RepayInterest = &v
+	return s
+}
+
+func (s *NotifyDubbridgeRepaymentLxRequest) SetRepayMuclt(v string) *NotifyDubbridgeRepaymentLxRequest {
+	s.RepayMuclt = &v
+	return s
+}
+
+func (s *NotifyDubbridgeRepaymentLxRequest) SetRepayGuarantee(v string) *NotifyDubbridgeRepaymentLxRequest {
+	s.RepayGuarantee = &v
+	return s
+}
+
+func (s *NotifyDubbridgeRepaymentLxRequest) SetRepaymentMode(v string) *NotifyDubbridgeRepaymentLxRequest {
+	s.RepaymentMode = &v
+	return s
+}
+
+func (s *NotifyDubbridgeRepaymentLxRequest) SetRpyDetails(v []*BillDetail) *NotifyDubbridgeRepaymentLxRequest {
+	s.RpyDetails = v
+	return s
+}
+
+type NotifyDubbridgeRepaymentLxResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 1、接口通知成功(仅代表收到请求,具体的还款结果以查询接口为准)
+	// 2、接口通知失败(代表未收到请求,会重复发起还款申请)
+	NotifyStatus *int64 `json:"notify_status,omitempty" xml:"notify_status,omitempty"`
+	// 错误描述
+	Msg *string `json:"msg,omitempty" xml:"msg,omitempty"`
+}
+
+func (s NotifyDubbridgeRepaymentLxResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s NotifyDubbridgeRepaymentLxResponse) GoString() string {
+	return s.String()
+}
+
+func (s *NotifyDubbridgeRepaymentLxResponse) SetReqMsgId(v string) *NotifyDubbridgeRepaymentLxResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *NotifyDubbridgeRepaymentLxResponse) SetResultCode(v string) *NotifyDubbridgeRepaymentLxResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *NotifyDubbridgeRepaymentLxResponse) SetResultMsg(v string) *NotifyDubbridgeRepaymentLxResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *NotifyDubbridgeRepaymentLxResponse) SetNotifyStatus(v int64) *NotifyDubbridgeRepaymentLxResponse {
+	s.NotifyStatus = &v
+	return s
+}
+
+func (s *NotifyDubbridgeRepaymentLxResponse) SetMsg(v string) *NotifyDubbridgeRepaymentLxResponse {
+	s.Msg = &v
+	return s
+}
+
+type QueryDubbridgeRepaymentLxRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 还款请求流水号/账单号
+	BillId *string `json:"bill_id,omitempty" xml:"bill_id,omitempty" require:"true"`
+	// 放款编号/借据号
+	CapitalLoanNo *string `json:"capital_loan_no,omitempty" xml:"capital_loan_no,omitempty" require:"true"`
+}
+
+func (s QueryDubbridgeRepaymentLxRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDubbridgeRepaymentLxRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDubbridgeRepaymentLxRequest) SetAuthToken(v string) *QueryDubbridgeRepaymentLxRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDubbridgeRepaymentLxRequest) SetProductInstanceId(v string) *QueryDubbridgeRepaymentLxRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryDubbridgeRepaymentLxRequest) SetBillId(v string) *QueryDubbridgeRepaymentLxRequest {
+	s.BillId = &v
+	return s
+}
+
+func (s *QueryDubbridgeRepaymentLxRequest) SetCapitalLoanNo(v string) *QueryDubbridgeRepaymentLxRequest {
+	s.CapitalLoanNo = &v
+	return s
+}
+
+type QueryDubbridgeRepaymentLxResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 还款状态，
+	// 1、成功(结算成功)
+	// 2、失败(结算失败)
+	// 3. 还款中(结算处理中)
+	// 4. 查无此通知（会重复发起还款）
+	RepayStatus *int64 `json:"repay_status,omitempty" xml:"repay_status,omitempty"`
+	// 处理成功时间，成功必填YYYY-MM-DD HH:MM:SS
+	ProcessTime *string `json:"process_time,omitempty" xml:"process_time,omitempty"`
+	// 还款描述，失败时，需给出的错误描述
+	Msg *string `json:"msg,omitempty" xml:"msg,omitempty"`
+	// 还款总额,保留两位有效数字(单位:元)
+	RepayAmount *int64 `json:"repay_amount,omitempty" xml:"repay_amount,omitempty"`
+	// 实还本金,保留两位有效数字(单位:元)
+	RepayPrincipal *string `json:"repay_principal,omitempty" xml:"repay_principal,omitempty"`
+	// 实还利息,保留两位有效数字(单位:元)
+	RepayInterest *string `json:"repay_interest,omitempty" xml:"repay_interest,omitempty"`
+	// 实还罚息,保留两位有效数字(单位:元)
+	RepayMuclt *int64 `json:"repay_muclt,omitempty" xml:"repay_muclt,omitempty"`
+	// 实还担保费,保留两位有效数字(单位:元)
+	RepayGuarantee *int64 `json:"repay_guarantee,omitempty" xml:"repay_guarantee,omitempty"`
+	// 实还信用评估费,保留两位有效数字(单位:元)
+	RepayCreditFee *int64 `json:"repay_credit_fee,omitempty" xml:"repay_credit_fee,omitempty"`
+	// 实还咨询服务费,保留两位有效数字(单位:元)
+	RepayGranteeConsultServiceFee *int64 `json:"repay_grantee_consult_service_fee,omitempty" xml:"repay_grantee_consult_service_fee,omitempty"`
+}
+
+func (s QueryDubbridgeRepaymentLxResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDubbridgeRepaymentLxResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDubbridgeRepaymentLxResponse) SetReqMsgId(v string) *QueryDubbridgeRepaymentLxResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDubbridgeRepaymentLxResponse) SetResultCode(v string) *QueryDubbridgeRepaymentLxResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDubbridgeRepaymentLxResponse) SetResultMsg(v string) *QueryDubbridgeRepaymentLxResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryDubbridgeRepaymentLxResponse) SetRepayStatus(v int64) *QueryDubbridgeRepaymentLxResponse {
+	s.RepayStatus = &v
+	return s
+}
+
+func (s *QueryDubbridgeRepaymentLxResponse) SetProcessTime(v string) *QueryDubbridgeRepaymentLxResponse {
+	s.ProcessTime = &v
+	return s
+}
+
+func (s *QueryDubbridgeRepaymentLxResponse) SetMsg(v string) *QueryDubbridgeRepaymentLxResponse {
+	s.Msg = &v
+	return s
+}
+
+func (s *QueryDubbridgeRepaymentLxResponse) SetRepayAmount(v int64) *QueryDubbridgeRepaymentLxResponse {
+	s.RepayAmount = &v
+	return s
+}
+
+func (s *QueryDubbridgeRepaymentLxResponse) SetRepayPrincipal(v string) *QueryDubbridgeRepaymentLxResponse {
+	s.RepayPrincipal = &v
+	return s
+}
+
+func (s *QueryDubbridgeRepaymentLxResponse) SetRepayInterest(v string) *QueryDubbridgeRepaymentLxResponse {
+	s.RepayInterest = &v
+	return s
+}
+
+func (s *QueryDubbridgeRepaymentLxResponse) SetRepayMuclt(v int64) *QueryDubbridgeRepaymentLxResponse {
+	s.RepayMuclt = &v
+	return s
+}
+
+func (s *QueryDubbridgeRepaymentLxResponse) SetRepayGuarantee(v int64) *QueryDubbridgeRepaymentLxResponse {
+	s.RepayGuarantee = &v
+	return s
+}
+
+func (s *QueryDubbridgeRepaymentLxResponse) SetRepayCreditFee(v int64) *QueryDubbridgeRepaymentLxResponse {
+	s.RepayCreditFee = &v
+	return s
+}
+
+func (s *QueryDubbridgeRepaymentLxResponse) SetRepayGranteeConsultServiceFee(v int64) *QueryDubbridgeRepaymentLxResponse {
+	s.RepayGranteeConsultServiceFee = &v
+	return s
+}
+
+type QueryDubbridgeCreditamtLxRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 授信申请编号
+	CreditApplyId *string `json:"credit_apply_id,omitempty" xml:"credit_apply_id,omitempty" require:"true"`
+	// 合作方代码
+	PartnerCode *string `json:"partner_code,omitempty" xml:"partner_code,omitempty"`
+}
+
+func (s QueryDubbridgeCreditamtLxRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDubbridgeCreditamtLxRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDubbridgeCreditamtLxRequest) SetAuthToken(v string) *QueryDubbridgeCreditamtLxRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDubbridgeCreditamtLxRequest) SetProductInstanceId(v string) *QueryDubbridgeCreditamtLxRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryDubbridgeCreditamtLxRequest) SetCreditApplyId(v string) *QueryDubbridgeCreditamtLxRequest {
+	s.CreditApplyId = &v
+	return s
+}
+
+func (s *QueryDubbridgeCreditamtLxRequest) SetPartnerCode(v string) *QueryDubbridgeCreditamtLxRequest {
+	s.PartnerCode = &v
+	return s
+}
+
+type QueryDubbridgeCreditamtLxResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回描述信息
+	Msg *string `json:"msg,omitempty" xml:"msg,omitempty"`
+	// 查询状态，0. 查询成功
+	// 1. 查询失败---表示“拒绝”的有效终态，下一步重新调用授信申请接口
+	Status *int64 `json:"status,omitempty" xml:"status,omitempty"`
+	// 剩余可用额度,授信成功必填,单位:元
+	CreditRemainAmt *string `json:"credit_remain_amt,omitempty" xml:"credit_remain_amt,omitempty"`
+	// 授信批准的额度，授信成功必填,单位:元
+	CreditAmt *string `json:"credit_amt,omitempty" xml:"credit_amt,omitempty"`
+	// 授信生效日期，授信审核通过时必填,格式：yyyy-MM-dd
+	CreditValidDate *string `json:"credit_valid_date,omitempty" xml:"credit_valid_date,omitempty"`
+	// 授信失效日期，授信审核通过时必填,格式：yyyy-MM-dd
+	CreditExpireDate *string `json:"credit_expire_date,omitempty" xml:"credit_expire_date,omitempty"`
+}
+
+func (s QueryDubbridgeCreditamtLxResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDubbridgeCreditamtLxResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDubbridgeCreditamtLxResponse) SetReqMsgId(v string) *QueryDubbridgeCreditamtLxResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDubbridgeCreditamtLxResponse) SetResultCode(v string) *QueryDubbridgeCreditamtLxResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDubbridgeCreditamtLxResponse) SetResultMsg(v string) *QueryDubbridgeCreditamtLxResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryDubbridgeCreditamtLxResponse) SetMsg(v string) *QueryDubbridgeCreditamtLxResponse {
+	s.Msg = &v
+	return s
+}
+
+func (s *QueryDubbridgeCreditamtLxResponse) SetStatus(v int64) *QueryDubbridgeCreditamtLxResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *QueryDubbridgeCreditamtLxResponse) SetCreditRemainAmt(v string) *QueryDubbridgeCreditamtLxResponse {
+	s.CreditRemainAmt = &v
+	return s
+}
+
+func (s *QueryDubbridgeCreditamtLxResponse) SetCreditAmt(v string) *QueryDubbridgeCreditamtLxResponse {
+	s.CreditAmt = &v
+	return s
+}
+
+func (s *QueryDubbridgeCreditamtLxResponse) SetCreditValidDate(v string) *QueryDubbridgeCreditamtLxResponse {
+	s.CreditValidDate = &v
+	return s
+}
+
+func (s *QueryDubbridgeCreditamtLxResponse) SetCreditExpireDate(v string) *QueryDubbridgeCreditamtLxResponse {
+	s.CreditExpireDate = &v
+	return s
+}
+
+type QueryDubbridgeCertificateLxRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 放款请求流水号
+	LoanReqNo *string `json:"loan_req_no,omitempty" xml:"loan_req_no,omitempty" require:"true"`
+	// 请求方代码
+	SourceCode *string `json:"source_code,omitempty" xml:"source_code,omitempty"`
+	// 文件类型，0结清证明
+	// 1代偿凭证
+	// 2放款凭证
+	FileType *int64 `json:"file_type,omitempty" xml:"file_type,omitempty" require:"true"`
+	// 申请日期，yyyy-MM-dd
+	ApplyDate *string `json:"apply_date,omitempty" xml:"apply_date,omitempty" require:"true"`
+	// 业务类型，
+	// 1非乐花卡
+	// 2乐花卡
+	BusinessType *int64 `json:"business_type,omitempty" xml:"business_type,omitempty" require:"true"`
+}
+
+func (s QueryDubbridgeCertificateLxRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDubbridgeCertificateLxRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDubbridgeCertificateLxRequest) SetAuthToken(v string) *QueryDubbridgeCertificateLxRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDubbridgeCertificateLxRequest) SetProductInstanceId(v string) *QueryDubbridgeCertificateLxRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryDubbridgeCertificateLxRequest) SetLoanReqNo(v string) *QueryDubbridgeCertificateLxRequest {
+	s.LoanReqNo = &v
+	return s
+}
+
+func (s *QueryDubbridgeCertificateLxRequest) SetSourceCode(v string) *QueryDubbridgeCertificateLxRequest {
+	s.SourceCode = &v
+	return s
+}
+
+func (s *QueryDubbridgeCertificateLxRequest) SetFileType(v int64) *QueryDubbridgeCertificateLxRequest {
+	s.FileType = &v
+	return s
+}
+
+func (s *QueryDubbridgeCertificateLxRequest) SetApplyDate(v string) *QueryDubbridgeCertificateLxRequest {
+	s.ApplyDate = &v
+	return s
+}
+
+func (s *QueryDubbridgeCertificateLxRequest) SetBusinessType(v int64) *QueryDubbridgeCertificateLxRequest {
+	s.BusinessType = &v
+	return s
+}
+
+type QueryDubbridgeCertificateLxResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回码
+	// 0：成功
+	// 1：失败
+	// 2：处理中
+	// 99：系统异常
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 申请结果描述，失败原因，失败时必传
+	Msg *string `json:"msg,omitempty" xml:"msg,omitempty"`
+	// 文件路径
+	// 实时返回文件路径给到乐信，乐信去对应sftp路径上取，路径命名规则：download/2602/loanReqNo_文件类型.pdf
+	// 若失败则返回失败原因到msg字段
+	FilePath *string `json:"file_path,omitempty" xml:"file_path,omitempty"`
+}
+
+func (s QueryDubbridgeCertificateLxResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDubbridgeCertificateLxResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDubbridgeCertificateLxResponse) SetReqMsgId(v string) *QueryDubbridgeCertificateLxResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDubbridgeCertificateLxResponse) SetResultCode(v string) *QueryDubbridgeCertificateLxResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDubbridgeCertificateLxResponse) SetResultMsg(v string) *QueryDubbridgeCertificateLxResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryDubbridgeCertificateLxResponse) SetStatus(v string) *QueryDubbridgeCertificateLxResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *QueryDubbridgeCertificateLxResponse) SetMsg(v string) *QueryDubbridgeCertificateLxResponse {
+	s.Msg = &v
+	return s
+}
+
+func (s *QueryDubbridgeCertificateLxResponse) SetFilePath(v string) *QueryDubbridgeCertificateLxResponse {
+	s.FilePath = &v
 	return s
 }
 
@@ -36003,7 +38521,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.30.12"),
+				"sdk_version":      tea.String("1.31.0"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -36666,6 +39184,40 @@ func (client *Client) QueryCreditshieldProductBatchEx(request *QueryCreditshield
 	}
 	_result = &QueryCreditshieldProductBatchResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.creditshield.product.batch.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 业务风险查询接口，基于新air决策引擎提供决策能力
+ * Summary: 业务风险咨询接口
+ */
+func (client *Client) QuerySecurityAiriskcloudPolicy(request *QuerySecurityAiriskcloudPolicyRequest) (_result *QuerySecurityAiriskcloudPolicyResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QuerySecurityAiriskcloudPolicyResponse{}
+	_body, _err := client.QuerySecurityAiriskcloudPolicyEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 业务风险查询接口，基于新air决策引擎提供决策能力
+ * Summary: 业务风险咨询接口
+ */
+func (client *Client) QuerySecurityAiriskcloudPolicyEx(request *QuerySecurityAiriskcloudPolicyRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QuerySecurityAiriskcloudPolicyResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QuerySecurityAiriskcloudPolicyResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.security.airiskcloud.policy.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -39348,6 +41900,448 @@ func (client *Client) QueryDubbridgeFundCreditamtEx(request *QueryDubbridgeFundC
 	}
 	_result = &QueryDubbridgeFundCreditamtResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.dubbridge.fund.creditamt.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 授信申请-定制接口
+ * Summary: 授信申请-定制接口
+ */
+func (client *Client) ApplyDubbridgeCreditLx(request *ApplyDubbridgeCreditLxRequest) (_result *ApplyDubbridgeCreditLxResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ApplyDubbridgeCreditLxResponse{}
+	_body, _err := client.ApplyDubbridgeCreditLxEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 授信申请-定制接口
+ * Summary: 授信申请-定制接口
+ */
+func (client *Client) ApplyDubbridgeCreditLxEx(request *ApplyDubbridgeCreditLxRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplyDubbridgeCreditLxResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ApplyDubbridgeCreditLxResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.dubbridge.credit.lx.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 授信结果查询，授信通过下会返回授信单最新额度信息
+ * Summary: 授信结果查询
+ */
+func (client *Client) QueryDubbridgeCreditstatusLx(request *QueryDubbridgeCreditstatusLxRequest) (_result *QueryDubbridgeCreditstatusLxResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDubbridgeCreditstatusLxResponse{}
+	_body, _err := client.QueryDubbridgeCreditstatusLxEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 授信结果查询，授信通过下会返回授信单最新额度信息
+ * Summary: 授信结果查询
+ */
+func (client *Client) QueryDubbridgeCreditstatusLxEx(request *QueryDubbridgeCreditstatusLxRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDubbridgeCreditstatusLxResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDubbridgeCreditstatusLxResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.dubbridge.creditstatus.lx.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 用信申请提交
+ * Summary: 用信申请
+ */
+func (client *Client) ApplyDubbridgeUsecreditLx(request *ApplyDubbridgeUsecreditLxRequest) (_result *ApplyDubbridgeUsecreditLxResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ApplyDubbridgeUsecreditLxResponse{}
+	_body, _err := client.ApplyDubbridgeUsecreditLxEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 用信申请提交
+ * Summary: 用信申请
+ */
+func (client *Client) ApplyDubbridgeUsecreditLxEx(request *ApplyDubbridgeUsecreditLxRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplyDubbridgeUsecreditLxResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ApplyDubbridgeUsecreditLxResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.dubbridge.usecredit.lx.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 用信结果查询
+ * Summary: 用信结果查询
+ */
+func (client *Client) QueryDubbridgeUsecreditstatusLx(request *QueryDubbridgeUsecreditstatusLxRequest) (_result *QueryDubbridgeUsecreditstatusLxResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDubbridgeUsecreditstatusLxResponse{}
+	_body, _err := client.QueryDubbridgeUsecreditstatusLxEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 用信结果查询
+ * Summary: 用信结果查询
+ */
+func (client *Client) QueryDubbridgeUsecreditstatusLxEx(request *QueryDubbridgeUsecreditstatusLxRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDubbridgeUsecreditstatusLxResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDubbridgeUsecreditstatusLxResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.dubbridge.usecreditstatus.lx.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 支用放款申请
+ * Summary: 支用放款申请
+ */
+func (client *Client) ApplyDubbridgeLoanLx(request *ApplyDubbridgeLoanLxRequest) (_result *ApplyDubbridgeLoanLxResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ApplyDubbridgeLoanLxResponse{}
+	_body, _err := client.ApplyDubbridgeLoanLxEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 支用放款申请
+ * Summary: 支用放款申请
+ */
+func (client *Client) ApplyDubbridgeLoanLxEx(request *ApplyDubbridgeLoanLxRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplyDubbridgeLoanLxResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ApplyDubbridgeLoanLxResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.dubbridge.loan.lx.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 支用结果查询
+ * Summary: 支用结果查询
+ */
+func (client *Client) QueryDubbridgeLoanstatusLx(request *QueryDubbridgeLoanstatusLxRequest) (_result *QueryDubbridgeLoanstatusLxResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDubbridgeLoanstatusLxResponse{}
+	_body, _err := client.QueryDubbridgeLoanstatusLxEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 支用结果查询
+ * Summary: 支用结果查询
+ */
+func (client *Client) QueryDubbridgeLoanstatusLxEx(request *QueryDubbridgeLoanstatusLxRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDubbridgeLoanstatusLxResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDubbridgeLoanstatusLxResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.dubbridge.loanstatus.lx.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 流量方生成的还款计划，通知同步至天枢及下游资金方
+ * Summary: 还款计划通知
+ */
+func (client *Client) NotifyDubbridgeRepaymentplanLx(request *NotifyDubbridgeRepaymentplanLxRequest) (_result *NotifyDubbridgeRepaymentplanLxResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &NotifyDubbridgeRepaymentplanLxResponse{}
+	_body, _err := client.NotifyDubbridgeRepaymentplanLxEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 流量方生成的还款计划，通知同步至天枢及下游资金方
+ * Summary: 还款计划通知
+ */
+func (client *Client) NotifyDubbridgeRepaymentplanLxEx(request *NotifyDubbridgeRepaymentplanLxRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *NotifyDubbridgeRepaymentplanLxResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &NotifyDubbridgeRepaymentplanLxResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.dubbridge.repaymentplan.lx.notify"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 还款代扣申请
+ * Summary: 还款代扣申请
+ */
+func (client *Client) ApplyDubbridgeRepaywithholdLx(request *ApplyDubbridgeRepaywithholdLxRequest) (_result *ApplyDubbridgeRepaywithholdLxResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ApplyDubbridgeRepaywithholdLxResponse{}
+	_body, _err := client.ApplyDubbridgeRepaywithholdLxEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 还款代扣申请
+ * Summary: 还款代扣申请
+ */
+func (client *Client) ApplyDubbridgeRepaywithholdLxEx(request *ApplyDubbridgeRepaywithholdLxRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplyDubbridgeRepaywithholdLxResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ApplyDubbridgeRepaywithholdLxResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.dubbridge.repaywithhold.lx.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 还款代扣结果查询
+ * Summary: 还款代扣结果查询
+ */
+func (client *Client) QueryDubbridgeRepaywithholdLx(request *QueryDubbridgeRepaywithholdLxRequest) (_result *QueryDubbridgeRepaywithholdLxResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDubbridgeRepaywithholdLxResponse{}
+	_body, _err := client.QueryDubbridgeRepaywithholdLxEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 还款代扣结果查询
+ * Summary: 还款代扣结果查询
+ */
+func (client *Client) QueryDubbridgeRepaywithholdLxEx(request *QueryDubbridgeRepaywithholdLxRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDubbridgeRepaywithholdLxResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDubbridgeRepaywithholdLxResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.dubbridge.repaywithhold.lx.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 实还通知
+ * Summary: 实还通知
+ */
+func (client *Client) NotifyDubbridgeRepaymentLx(request *NotifyDubbridgeRepaymentLxRequest) (_result *NotifyDubbridgeRepaymentLxResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &NotifyDubbridgeRepaymentLxResponse{}
+	_body, _err := client.NotifyDubbridgeRepaymentLxEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 实还通知
+ * Summary: 实还通知
+ */
+func (client *Client) NotifyDubbridgeRepaymentLxEx(request *NotifyDubbridgeRepaymentLxRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *NotifyDubbridgeRepaymentLxResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &NotifyDubbridgeRepaymentLxResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.dubbridge.repayment.lx.notify"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 实还通知结果查询
+ * Summary: 实还通知结果查询
+ */
+func (client *Client) QueryDubbridgeRepaymentLx(request *QueryDubbridgeRepaymentLxRequest) (_result *QueryDubbridgeRepaymentLxResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDubbridgeRepaymentLxResponse{}
+	_body, _err := client.QueryDubbridgeRepaymentLxEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 实还通知结果查询
+ * Summary: 实还通知结果查询
+ */
+func (client *Client) QueryDubbridgeRepaymentLxEx(request *QueryDubbridgeRepaymentLxRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDubbridgeRepaymentLxResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDubbridgeRepaymentLxResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.dubbridge.repayment.lx.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 已经授信通过的用户,无需重新进行授信申请,直接查询可用额度是否充足,以及是否在有效期内
+ * Summary: 额度查询接口
+ */
+func (client *Client) QueryDubbridgeCreditamtLx(request *QueryDubbridgeCreditamtLxRequest) (_result *QueryDubbridgeCreditamtLxResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDubbridgeCreditamtLxResponse{}
+	_body, _err := client.QueryDubbridgeCreditamtLxEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 已经授信通过的用户,无需重新进行授信申请,直接查询可用额度是否充足,以及是否在有效期内
+ * Summary: 额度查询接口
+ */
+func (client *Client) QueryDubbridgeCreditamtLxEx(request *QueryDubbridgeCreditamtLxRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDubbridgeCreditamtLxResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDubbridgeCreditamtLxResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.dubbridge.creditamt.lx.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 结清证明、代偿凭证、放款凭证获取
+ * Summary: 证明类文件获取
+ */
+func (client *Client) QueryDubbridgeCertificateLx(request *QueryDubbridgeCertificateLxRequest) (_result *QueryDubbridgeCertificateLxResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDubbridgeCertificateLxResponse{}
+	_body, _err := client.QueryDubbridgeCertificateLxEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 结清证明、代偿凭证、放款凭证获取
+ * Summary: 证明类文件获取
+ */
+func (client *Client) QueryDubbridgeCertificateLxEx(request *QueryDubbridgeCertificateLxRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDubbridgeCertificateLxResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDubbridgeCertificateLxResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.dubbridge.certificate.lx.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
