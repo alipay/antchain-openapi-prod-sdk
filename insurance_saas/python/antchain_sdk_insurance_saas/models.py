@@ -6043,7 +6043,7 @@ class CallbackMktEffectRequest(TeaModel):
         insure_short_url: str = None,
         encryption_type: str = None,
         encrypted_user_id: str = None,
-        click_id: str = None,
+        landing_visit_id: str = None,
         click_time: str = None,
         event_time: str = None,
         node_type: str = None,
@@ -6065,8 +6065,8 @@ class CallbackMktEffectRequest(TeaModel):
         self.encryption_type = encryption_type
         # 加密用户标识
         self.encrypted_user_id = encrypted_user_id
-        # 用户点击投保页唯一标识
-        self.click_id = click_id
+        # 应以识别当前用户点击投保页面的唯一标识
+        self.landing_visit_id = landing_visit_id
         # 用户点击进入页面时间（格式：yyyy-MM-dd HH:mm:ss）
         self.click_time = click_time
         # 事件完成时间（yyyy-MM-dd HH:mm:ss）
@@ -6089,6 +6089,7 @@ class CallbackMktEffectRequest(TeaModel):
         self.validate_required(self.marketing_mode, 'marketing_mode')
         if self.marketing_mode is not None:
             self.validate_max_length(self.marketing_mode, 'marketing_mode', 64)
+        self.validate_required(self.insure_short_url, 'insure_short_url')
         if self.insure_short_url is not None:
             self.validate_max_length(self.insure_short_url, 'insure_short_url', 256)
         self.validate_required(self.encryption_type, 'encryption_type')
@@ -6097,9 +6098,9 @@ class CallbackMktEffectRequest(TeaModel):
         self.validate_required(self.encrypted_user_id, 'encrypted_user_id')
         if self.encrypted_user_id is not None:
             self.validate_max_length(self.encrypted_user_id, 'encrypted_user_id', 64)
-        self.validate_required(self.click_id, 'click_id')
-        if self.click_id is not None:
-            self.validate_max_length(self.click_id, 'click_id', 128)
+        self.validate_required(self.landing_visit_id, 'landing_visit_id')
+        if self.landing_visit_id is not None:
+            self.validate_max_length(self.landing_visit_id, 'landing_visit_id', 128)
         self.validate_required(self.click_time, 'click_time')
         if self.click_time is not None:
             self.validate_max_length(self.click_time, 'click_time', 32)
@@ -6134,8 +6135,8 @@ class CallbackMktEffectRequest(TeaModel):
             result['encryption_type'] = self.encryption_type
         if self.encrypted_user_id is not None:
             result['encrypted_user_id'] = self.encrypted_user_id
-        if self.click_id is not None:
-            result['click_id'] = self.click_id
+        if self.landing_visit_id is not None:
+            result['landing_visit_id'] = self.landing_visit_id
         if self.click_time is not None:
             result['click_time'] = self.click_time
         if self.event_time is not None:
@@ -6164,8 +6165,8 @@ class CallbackMktEffectRequest(TeaModel):
             self.encryption_type = m.get('encryption_type')
         if m.get('encrypted_user_id') is not None:
             self.encrypted_user_id = m.get('encrypted_user_id')
-        if m.get('click_id') is not None:
-            self.click_id = m.get('click_id')
+        if m.get('landing_visit_id') is not None:
+            self.landing_visit_id = m.get('landing_visit_id')
         if m.get('click_time') is not None:
             self.click_time = m.get('click_time')
         if m.get('event_time') is not None:
