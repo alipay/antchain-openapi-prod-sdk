@@ -30,7 +30,7 @@ public class CallbackMktEffectRequest extends TeaModel {
 
     // 投保特征短链
     @NameInMap("insure_short_url")
-    @Validation(maxLength = 256)
+    @Validation(required = true, maxLength = 256)
     public String insureShortUrl;
 
     // 加密类型：MD5，32位[小]
@@ -43,10 +43,10 @@ public class CallbackMktEffectRequest extends TeaModel {
     @Validation(required = true, maxLength = 64)
     public String encryptedUserId;
 
-    // 用户点击投保页唯一标识
-    @NameInMap("click_id")
+    // 应以识别当前用户点击投保页面的唯一标识
+    @NameInMap("landing_visit_id")
     @Validation(required = true, maxLength = 128)
-    public String clickId;
+    public String landingVisitId;
 
     // 用户点击进入页面时间（格式：yyyy-MM-dd HH:mm:ss）
     @NameInMap("click_time")
@@ -137,12 +137,12 @@ public class CallbackMktEffectRequest extends TeaModel {
         return this.encryptedUserId;
     }
 
-    public CallbackMktEffectRequest setClickId(String clickId) {
-        this.clickId = clickId;
+    public CallbackMktEffectRequest setLandingVisitId(String landingVisitId) {
+        this.landingVisitId = landingVisitId;
         return this;
     }
-    public String getClickId() {
-        return this.clickId;
+    public String getLandingVisitId() {
+        return this.landingVisitId;
     }
 
     public CallbackMktEffectRequest setClickTime(String clickTime) {
