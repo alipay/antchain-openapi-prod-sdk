@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.14',
+                    'sdk_version': '1.0.15',
                     '_prod_code': 'INTELLICAR',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.14',
+                    'sdk_version': '1.0.15',
                     '_prod_code': 'INTELLICAR',
                     '_prod_channel': 'default'
                 }
@@ -757,6 +757,62 @@ class Client:
         return TeaCore.from_map(
             intellicar_models.QueryUsedcarResponse(),
             await self.do_request_async('1.0', 'antdigital.intellicar.usedcar.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def submit_ionchi(
+        self,
+        request: intellicar_models.SubmitIonchiRequest,
+    ) -> intellicar_models.SubmitIonchiResponse:
+        """
+        Description: 逸安启回调接口
+        Summary: 逸安启回调接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.submit_ionchi_ex(request, headers, runtime)
+
+    async def submit_ionchi_async(
+        self,
+        request: intellicar_models.SubmitIonchiRequest,
+    ) -> intellicar_models.SubmitIonchiResponse:
+        """
+        Description: 逸安启回调接口
+        Summary: 逸安启回调接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.submit_ionchi_ex_async(request, headers, runtime)
+
+    def submit_ionchi_ex(
+        self,
+        request: intellicar_models.SubmitIonchiRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> intellicar_models.SubmitIonchiResponse:
+        """
+        Description: 逸安启回调接口
+        Summary: 逸安启回调接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            intellicar_models.SubmitIonchiResponse(),
+            self.do_request('1.0', 'antdigital.intellicar.ionchi.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def submit_ionchi_ex_async(
+        self,
+        request: intellicar_models.SubmitIonchiRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> intellicar_models.SubmitIonchiResponse:
+        """
+        Description: 逸安启回调接口
+        Summary: 逸安启回调接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            intellicar_models.SubmitIonchiResponse(),
+            await self.do_request_async('1.0', 'antdigital.intellicar.ionchi.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
