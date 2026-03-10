@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.30.12',
+    sdk_version = '1.31.0',
     _prod_code = 'RISKPLUS',
     _prod_channel = 'undefined'
   };
@@ -161,6 +161,14 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   ignoreSSL = runtime.ignoreSSL
 }
 
+// air引擎输出infoCode
+model AirInfoCodes {
+  // infoCode
+  name?: string(name='name', example='name'),
+  // infoCode描述
+  description?: string(name='description', example='xxx'),
+}
+
 // 企业风险等级分布统计
 model RtopLevelDistribution {
   // 统计值
@@ -173,6 +181,16 @@ model RtopLevelDistribution {
 model InfoCodes {
   // infocode
   name: string(name='name', example='infocode'),
+}
+
+// air引擎决策流输出信息
+model AirDecisionFlows {
+  // 决策结果
+  decision?: string(name='decision', example='review'),
+  // air引擎输出的infoCodes信息
+  infoCodes?: [ AirInfoCodes ](name='info_codes', example='info_codes'),
+  // 策略名称
+  name?: string(name='name', example='name'),
 }
 
 // 营销盾半圈投返回节点关联任务信息
@@ -327,6 +345,27 @@ model UmktOfflineDecisionTaskDetailInfo {
   decisionResultStatus: string(name='decision_result_status', example='D'),
   // 圈客结果状态描述
   statusRemark: string(name='status_remark', example='已完成'),
+}
+
+// 还款账单明细Object
+model BillDetail {
+  // 对账流水号，在扣款回盘文件中返回，用于对账
+  serialNumber?: string(name='serial_number', example='xxxx'),
+  // 还款期数
+  rpyTerm: long(name='rpy_term', example='1'),
+  // 账单维度的还款总额（单位：分），单笔账单本利罚之和
+  rpyAmt: long(name='rpy_amt', example='1999.98'),
+  // 实还本金（单位：分）
+  rpyPrincipal: long(name='rpy_principal', example='1999.98'),
+  // 实还利息（单位：分）
+  rpyFeeAmt: long(name='rpy_fee_amt', example='1999.98'),
+  // 实还罚息（单位：分）
+  rpyMuclt: long(name='rpy_muclt', example='1999.98'),
+  // 其他科目金额，可能会其他类型的金额,用json数组的格式提高扩展性，涉及到保费和咨询服务费的项目，需要提供此字段。
+  // 
+  otherInfo?: string(name='other_info', example='[{"fee":"费用（单位：分）","type":"（费用大项）1:保费, 2:信用评估费类","subType":"费用子项） 57:担保咨询服务费（属于信用评估费类型）  50:信用评估费（属于信用评估费类型）  40保费","insureMode":"分期乐内部担保模式号"}]'),
+  // 用户实还日，用户主动发起是当前日；定时扣款是应还日，格式=yyyy-MM-dd
+  rpyDate?: string(name='rpy_date', example='yyyy-MM-dd'),
 }
 
 // 营销盾触达媒介参数信息
@@ -488,6 +527,16 @@ model StatisticInfoDetail {
   waitingSubTaskCount?: long(name='waiting_sub_task_count', example='0'),
   // 已收到的回执数
   totalCount?: long(name='total_count', example='10'),
+}
+
+// air引擎输出的决策域信息
+model AirDomainInfos {
+  // 决策域信息
+  domainCode?: string(name='domain_code', example='air_domain'),
+  // 决策域信息
+  domainDecision?: string(name='domain_decision', example='review'),
+  // 决策流输出
+  decisionFlows?: [ AirDecisionFlows ](name='decision_flows', example='[{"decision":"review","name":"租赁测试策略"}]'),
 }
 
 // 反欺诈风险数据服务规则细节信息
@@ -2199,6 +2248,23 @@ model Contract {
   creditContractNo: string(name='credit_contract_no', example='123123'),
 }
 
+// 代扣明细
+model WithholdDetailItem {
+  // 贷款申请编号
+  assetId: string(name='asset_id', example='xxxx'),
+  // 放款编号/借据号
+  capitalLoanNo: string(name='capital_loan_no', example='xxxx'),
+  // 订单维度的实还总额,保留两位有效数字
+  // 单笔订单代扣的总额(单位:分)
+  rpyTotalAmt: long(name='rpy_total_amt', example='1999.98'),
+  // 还款类型，0-待还、1-正常还款、2-部分提前还、 3-逾期还款 、4-全部提前还 、5-坏账代偿、 6-回购
+  rpyTpe: long(name='rpy_tpe', example='1'),
+  // 代扣日期，用户实还日，用户主动发起是当前日；定时扣款是应还日，格式=yyyy-MM-dd
+  rpyDate: string(name='rpy_date', example='yyyy-MM-dd'),
+  // 还款账单明细,如果是提前结清,会有多条
+  billDetails: [ BillDetail ](name='bill_details', example='[{}]'),
+}
+
 // ai外呼回调详情
 model AICallbackMessage {
   // 批次号
@@ -2241,6 +2307,16 @@ model AICallbackMessage {
   properties: string(name='properties', example='{"电话号码":"13100000000"}'),
 }
 
+// 决策场景信息
+model AirDfSceneInfos {
+  // 决策场景结果
+  sceneDecision?: string(name='scene_decision', example='review'),
+  // 决策场景
+  sceneCode?: string(name='scene_code', example='air_scene'),
+  // 决策域信息
+  domainInfos?: [ AirDomainInfos ](name='domain_infos', example='[{"decision_flows":[{"decision":"review","name":"租赁测试策略"}],"domain_decision":"review","domain_code":"lease_domain"}]'),
+}
+
 // 预警企业
 model RtopCompanyAlarm {
   // 企业ID
@@ -2253,6 +2329,39 @@ model RtopCompanyAlarm {
   alarmDate: string(name='alarm_date', example='1'),
   // 预警标识，是否需要预警
   alarmFlag: string(name='alarm_flag', example='1'),
+}
+
+// 流量方还款计划通知Object
+model RepayPlanNotifyItem {
+  // 当前期数
+  loanTerm: long(name='loan_term', example='1'),
+  // 应还日，yyyy-MM-dd
+  expectRepayDate: string(name='expect_repay_date', example='yyyy-MM-dd'),
+  // 应还总额(元)
+  expectRepayAmount: long(name='expect_repay_amount', example='1999.98'),
+  // 应还本金(元)
+  expectRepayPrincipal: long(name='expect_repay_principal', example='1999.98'),
+  // 应还利息(元)
+  expectRepayInterest: long(name='expect_repay_interest', example='1999.98'),
+  // 应还担保费(元)
+  expectRepayGuarantee?: long(name='expect_repay_guarantee', example='1999.98'),
+  // 起息日，格式 YYYY-MM-DD
+  interestStartDate?: string(name='interest_start_date', example='yyyy-MM-dd'),
+  // 实还总额(元)，如未还则传0
+  repayAmount?: long(name='repay_amount', example='1999.98'),
+  // 已还本金(元)，如未还则传0
+  repaidPrincipal?: long(name='repaid_principal', example='1999.98'),
+  // 已还利息(元)，如未还则传0
+  repaidInterest?: long(name='repaid_interest', example='1999.98'),
+  // 应还罚息(元)，
+  expectRepayMuclt?: long(name='expect_repay_muclt', example='1999.98'),
+  // 已还罚息(元)，如未还则传0
+  repaidPenalty?: long(name='repaid_penalty', example='1999.98'),
+  // 状态标志 
+  // 0-正常未到期 
+  // 1-正常已还清 
+  // 2-逾期
+  scheduleStatus?: string(name='schedule_status', example='0'),
 }
 
 // 天枢系统-二级商户交易退款查询结果-分期付
@@ -3444,6 +3553,68 @@ async function queryCreditshieldProductBatch(request: QueryCreditshieldProductBa
 async function queryCreditshieldProductBatchEx(request: QueryCreditshieldProductBatchRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryCreditshieldProductBatchResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.creditshield.product.batch.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QuerySecurityAiriskcloudPolicyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 风险类型：表示风险处理或风险咨询——process/advice
+  riskType?: string(name='risk_type'),
+  // 事件业务属性
+  eventInfo: string(name='event_info'),
+  // 风险场景信息
+  securityScene?: SecurityScene(name='security_scene'),
+  // 服务上下文
+  serviceContext?: ServiceContext(name='service_context'),
+}
+
+model QuerySecurityAiriskcloudPolicyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 反馈成功之后的id
+  securityId?: string(name='security_id'),
+  // 安全处理结果，枚举值为：reject[拒绝],valida...
+  securityResult?: string(name='security_result'),
+  // 是否成功
+  success?: string(name='success'),
+  // native场景下的核身id
+  verifyId?: string(name='verify_id'),
+  // h5场景下的核身地址
+  verifyUrl?: string(name='verify_url'),
+  // 场景分
+  modelDetails?: [ ModelDetails ](name='model_details'),
+  // 输出变量
+  variableDetails?: [ VariableDetails ](name='variable_details'),
+  // 策略详情
+  strategyDetails?: [ StrategyDetails ](name='strategy_details'),
+  // 场景决策
+  sceneInfos?: [ SceneInfos ](name='scene_infos'),
+  // infoCode信息
+  infoCodes?: [ AirInfoCodes ](name='info_codes'),
+}
+
+/**
+ * Description: 业务风险查询接口，基于新air决策引擎提供决策能力
+ * Summary: 业务风险咨询接口
+ */
+async function querySecurityAiriskcloudPolicy(request: QuerySecurityAiriskcloudPolicyRequest): QuerySecurityAiriskcloudPolicyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return querySecurityAiriskcloudPolicyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 业务风险查询接口，基于新air决策引擎提供决策能力
+ * Summary: 业务风险咨询接口
+ */
+async function querySecurityAiriskcloudPolicyEx(request: QuerySecurityAiriskcloudPolicyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QuerySecurityAiriskcloudPolicyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.security.airiskcloud.policy.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryDubheTestRequest = {
@@ -7568,6 +7739,909 @@ async function queryDubbridgeFundCreditamt(request: QueryDubbridgeFundCreditamtR
 async function queryDubbridgeFundCreditamtEx(request: QueryDubbridgeFundCreditamtRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubbridgeFundCreditamtResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.dubbridge.fund.creditamt.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyDubbridgeCreditLxRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 授信申请编号
+  creditApplyId: string(name='credit_apply_id'),
+  // 合作方代码
+  partnerCode?: string(name='partner_code'),
+  // 申请人姓名
+  name: string(name='name'),
+  // 授信金额，单位:元
+  creditAmount: long(name='credit_amount'),
+  // 婚姻状况，
+  // 0-未婚
+  // 1-已婚
+  // 3-离异
+  // 4-未知
+  // 5-丧偶
+  maritalStatus: string(name='marital_status'),
+  // 学历，
+  // 0未知，1本科，2大专，3硕士，4博士，7初中，10大专(老)，11中专，12高中，13小学
+  education: string(name='education'),
+  // 年龄
+  age: long(name='age'),
+  // 性别，
+  // 1-男
+  // 2-女
+  // 0-未知
+  sex: string(name='sex'),
+  // 证件类型，
+  // 1、身份证
+  identiType: string(name='identi_type'),
+  // 证件号码
+  identiNo: string(name='identi_no'),
+  // 身份证有效期止，如果是长期用20991231
+  idCardExpireDate: string(name='id_card_expire_date'),
+  // 身份证有效期起
+  idCardValidDate: string(name='id_card_valid_date'),
+  // 身份证省
+  idProvince: string(name='id_province'),
+  // 身份证市
+  idCity: string(name='id_city'),
+  // 身份证地址
+  idAddr: string(name='id_addr'),
+  // 身份证签发机关
+  issuedAgency: string(name='issued_agency'),
+  // 出生日期，yyyy-MM-dd
+  birthday: string(name='birthday'),
+  // 国籍
+  nationality: string(name='nationality'),
+  // 民族
+  nation: string(name='nation'),
+  // 客户手机号
+  mobileNo: string(name='mobile_no'),
+  // 用户银行卡号
+  userBankCardNo: string(name='user_bank_card_no'),
+  // 第一联系人姓名
+  contactName: string(name='contact_name'),
+  // 第一联系人手机
+  contactMobile: string(name='contact_mobile'),
+  // 第一联系人关系，
+  // 1 父母
+  // 2 配偶
+  // 3 亲戚
+  // 4 家人
+  // 5 子女
+  // 6 朋友
+  // 7 同事
+  // 8 兄弟姐妹
+  // 9 同学
+  // 99 其他
+  contactRel: string(name='contact_rel'),
+  // 居住地址对应的省，若为空则上送身份证地址对应的省
+  livingProvince: string(name='living_province'),
+  // 居住地址对应的市，若为空则上送身份证地址对应的市
+  livingCity: string(name='living_city'),
+  // 居住地对应的区
+  livingCounty?: string(name='living_county'),
+  // 居住地址
+  livingAddress: string(name='living_address'),
+  // 客户职业，
+  // 0 未知（空值默认按0提供）
+  // 1 国家机关、党群组织、企业、事业单位负责人
+  // 2 专业技术人员
+  // 3 办事人员和有关人员
+  // 4 商业、服务业人员
+  // 5 农、林、牧、渔、水利业生产人员
+  // 6 生产、运输设备操作人员及有关人员
+  // 7 军人
+  // 8 不便分类的其他从业人员
+  userOccupation: string(name='user_occupation'),
+  // 客户行业，
+  // 0 未知（空值默认按0提供）
+  // 1 信息传输、软件和信息技术服务业
+  // 2 金融业
+  // 3 制造业
+  // 4 卫生和社会工作
+  // 5 建筑业
+  // 6 文化、体育和娱乐业
+  // 7 租赁和商务服务业
+  // 8 住宿和餐饮业
+  // 9 交通运输、仓储和邮政业
+  // 10 采矿业
+  // 11 电力、热力、燃气及水生产和供应业
+  // 12 科学研究和技术服务业
+  // 13 农、林、牧、渔业
+  // 14 水利、环境和公共设施管理业
+  // 15 其他
+  // 77 批发和零售业
+  // 78 居民服务、修理和其他服务业
+  // 79 房地产业
+  // 81 教育
+  // 82 公共管理、社会保障和社会组织
+  // 80 国际组织
+  userIndustryCategory: string(name='user_industry_category'),
+}
+
+model ApplyDubbridgeCreditLxResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 天枢客户编号
+  customNo?: string(name='custom_no'),
+  // 额度授信申请编号
+  creditNo?: string(name='credit_no'),
+  // 授信审核状态，
+  // 0. 授信成功
+  // 1. 授信失败
+  // 2. 授信中
+  auditState?: long(name='audit_state'),
+  // 业务处理描述信息
+  msg?: string(name='msg'),
+  // 业务错误码，
+  // 无异常=0 ，不同异常，返回不同的code
+  errorCode?: string(name='error_code'),
+}
+
+/**
+ * Description: 授信申请-定制接口
+ * Summary: 授信申请-定制接口
+ */
+async function applyDubbridgeCreditLx(request: ApplyDubbridgeCreditLxRequest): ApplyDubbridgeCreditLxResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyDubbridgeCreditLxEx(request, headers, runtime);
+}
+
+/**
+ * Description: 授信申请-定制接口
+ * Summary: 授信申请-定制接口
+ */
+async function applyDubbridgeCreditLxEx(request: ApplyDubbridgeCreditLxRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyDubbridgeCreditLxResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.credit.lx.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDubbridgeCreditstatusLxRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 授信申请编号
+  creditApplyId: string(name='credit_apply_id'),
+  // 合作方代码
+  partnerCode?: string(name='partner_code'),
+}
+
+model QueryDubbridgeCreditstatusLxResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 授信审核状态
+  // 0. 授信成功
+  // 1. 授信失败
+  // 2. 授信中（重试查询）
+  // 3. 查无此单（按1授信失败处理，订单轮询至下一资方）
+  auditState?: long(name='audit_state'),
+  // 业务错误码
+  // 无异常=0 ，不同异常，返回不同的code
+  errorCode?: long(name='error_code'),
+  // 授信失败必填，描述具体的失败原因，用于运营分析
+  msg?: string(name='msg'),
+  // 授信成功必填,授信成功后，资方的授信编号，后续用信/支用时用到
+  creditNo?: string(name='credit_no'),
+  // 授信批准的额度，授信成功必填，单位:元
+  creditAmt?: long(name='credit_amt'),
+  // 授信生效日期，授信审核通过时必填，格式：yyyy-MM-dd
+  creditValidDate?: string(name='credit_valid_date'),
+  // 授信失效日期，授信审核通过时必填，格式：yyyy-MM-dd  ,如果授信的当前日期大于
+  // 等于失效日期,就认为失效
+  creditExpireDate?: string(name='credit_expire_date'),
+}
+
+/**
+ * Description: 授信结果查询，授信通过下会返回授信单最新额度信息
+ * Summary: 授信结果查询
+ */
+async function queryDubbridgeCreditstatusLx(request: QueryDubbridgeCreditstatusLxRequest): QueryDubbridgeCreditstatusLxResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDubbridgeCreditstatusLxEx(request, headers, runtime);
+}
+
+/**
+ * Description: 授信结果查询，授信通过下会返回授信单最新额度信息
+ * Summary: 授信结果查询
+ */
+async function queryDubbridgeCreditstatusLxEx(request: QueryDubbridgeCreditstatusLxRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubbridgeCreditstatusLxResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.creditstatus.lx.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyDubbridgeUsecreditLxRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用信审批申请编号
+  applyId: string(name='apply_id'),
+  // 合作方代码
+  partnerCode?: string(name='partner_code'),
+  // 授信编号
+  creditNo: string(name='credit_no'),
+  // 资产类型，
+  // 1：借钱（默认）
+  // 2：电商购物
+  // 3：乐花卡
+  orderType: string(name='order_type'),
+  // 借款金额，单位：元
+  loanPrincipal: long(name='loan_principal'),
+  // 借款期数，比如：1,2,3,6,9,12,15,18,24,36
+  loanTerm: long(name='loan_term'),
+  // 申请贷款用途，
+  // 借钱（透传）：日常消费；运动健身；电商购物；生活开销；学习进修；学艺术班；技能培训
+  // 电商购物（默认）：电商购物
+  // 乐花卡（默认）：个人综合消费
+  loanUse: string(name='loan_use'),
+  // 借款人收款户名，
+  // 借钱业务：借款用户个人收款账户名
+  // 电商业务：打款到对公户，传对公户相关账号信息
+  debitAccountName: string(name='debit_account_name'),
+  // 收款人银行卡开户行，
+  // 借钱业务：借款用户个人账户开户行名称
+  // 电商业务：打款到对公户，传对公户相关账号信息
+  debitOpenAccountBank: string(name='debit_open_account_bank'),
+  // 收款人银行卡卡号，
+  // 借钱业务：借款用户个人账户卡号
+  // 电商业务：打款到对公户，传对公户相关账号信息
+  debitAccountNo: string(name='debit_account_no'),
+  // 收款卡联行号，
+  // 借钱业务：非必传
+  // 电商业务：打款到对公户，传对公户相关账号信息
+  debitCnaps?: string(name='debit_cnaps'),
+  // 担保编号，有担保时提供担保编号
+  insureId?: string(name='insure_id'),
+  // 担保方名称，有担保时提供担名称
+  insureName?: string(name='insure_name'),
+  // 还款方式，
+  // 1-等额本息（默认）
+  // 2-等额本金
+  // 4-气球贷
+  // 10- 等本等息
+  // 13-先息后本
+  repayType: long(name='repay_type'),
+}
+
+model ApplyDubbridgeUsecreditLxResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 用信审批状态，
+  // 0、成功
+  // 1、失败
+  // 2、审批中
+  status?: long(name='status'),
+  // 用信审批描述，失败时，需给出的错误描述
+  msg?: string(name='msg'),
+}
+
+/**
+ * Description: 用信申请提交
+ * Summary: 用信申请
+ */
+async function applyDubbridgeUsecreditLx(request: ApplyDubbridgeUsecreditLxRequest): ApplyDubbridgeUsecreditLxResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyDubbridgeUsecreditLxEx(request, headers, runtime);
+}
+
+/**
+ * Description: 用信申请提交
+ * Summary: 用信申请
+ */
+async function applyDubbridgeUsecreditLxEx(request: ApplyDubbridgeUsecreditLxRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyDubbridgeUsecreditLxResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.usecredit.lx.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDubbridgeUsecreditstatusLxRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 支用申请编号
+  applyId: string(name='apply_id'),
+  // 合作方代码
+  partnerCode?: string(name='partner_code'),
+}
+
+model QueryDubbridgeUsecreditstatusLxResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 用信审批状态，
+  // 0、成功
+  // 1、失败
+  // 2、审批中
+  // 3、查无此单(重新发起用信申请接口,需要保证用信申请幂等)
+  status?: long(name='status'),
+  // 用信审批描述，失败时，需给出的错误描述
+  msg?: string(name='msg'),
+}
+
+/**
+ * Description: 用信结果查询
+ * Summary: 用信结果查询
+ */
+async function queryDubbridgeUsecreditstatusLx(request: QueryDubbridgeUsecreditstatusLxRequest): QueryDubbridgeUsecreditstatusLxResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDubbridgeUsecreditstatusLxEx(request, headers, runtime);
+}
+
+/**
+ * Description: 用信结果查询
+ * Summary: 用信结果查询
+ */
+async function queryDubbridgeUsecreditstatusLxEx(request: QueryDubbridgeUsecreditstatusLxRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubbridgeUsecreditstatusLxResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.usecreditstatus.lx.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyDubbridgeLoanLxRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用信审批申请编号
+  applyId: string(name='apply_id'),
+  // 合作方代码
+  partnerCode?: string(name='partner_code'),
+  // 授信编号
+  creditNo: string(name='credit_no'),
+  // 资产类型， 1：借钱（默认） 2：电商购物 3：乐花卡
+  orderType: string(name='order_type'),
+  // 借款金额，单位：元
+  loanPrincipal: long(name='loan_principal'),
+  // 借款期数，比如：1,2,3,6,9,12,15,18,24,36
+  loanTerm: long(name='loan_term'),
+  // 申请贷款用途， 借钱（透传）：日常消费；运动健身；电商购物；生活开销；学习进修；学艺术班；技能培训 电商购物（默认）：电商购物 乐花卡（默认）：个人综合消费
+  loanUse: string(name='loan_use'),
+  // 银行卡绑定手机号
+  mobileNo: string(name='mobile_no'),
+  // 借款人收款户名， 借钱业务：借款用户个人收款账户名 电商业务：打款到对公户，传对公户相关账号信息
+  debitAccountName: string(name='debit_account_name'),
+  // 收款人银行卡开户行， 借钱业务：借款用户个人账户开户行名称 电商业务：打款到对公户，传对公户相关账号信息
+  debitOpenAccountBank: string(name='debit_open_account_bank'),
+  // 收款人银行卡卡号， 借钱业务：借款用户个人账户卡号 电商业务：打款到对公户，传对公户相关账号信息
+  debitAccountNo: string(name='debit_account_no'),
+  // 收款卡联行号， 借钱业务：非必传 电商业务：打款到对公户，传对公户相关账号信息
+  debitCnaps: string(name='debit_cnaps'),
+  // 还款方式， 1-等额本息（默认） 2-等额本金 4-气球贷 10- 等本等息 13-先息后本
+  repayType: string(name='repay_type'),
+}
+
+model ApplyDubbridgeLoanLxResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 放款结果，
+  // 0:放款成功
+  // 1:放款失败
+  // 2.查无此单
+  // 99:处理中
+  loanResult?: long(name='loan_result'),
+  // 放款结果描述，失败时，需给出的错误描述
+  msg?: string(name='msg'),
+}
+
+/**
+ * Description: 支用放款申请
+ * Summary: 支用放款申请
+ */
+async function applyDubbridgeLoanLx(request: ApplyDubbridgeLoanLxRequest): ApplyDubbridgeLoanLxResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyDubbridgeLoanLxEx(request, headers, runtime);
+}
+
+/**
+ * Description: 支用放款申请
+ * Summary: 支用放款申请
+ */
+async function applyDubbridgeLoanLxEx(request: ApplyDubbridgeLoanLxRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyDubbridgeLoanLxResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.loan.lx.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDubbridgeLoanstatusLxRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用信审批申请编号
+  applyId: string(name='apply_id'),
+  // 合作方代码
+  partnerCode?: string(name='partner_code'),
+}
+
+model QueryDubbridgeLoanstatusLxResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 放款结果，
+  // 0:放款成功
+  // 1:放款失败
+  // 2.查无此单(重新发起支用申请接口,需要保证支用申请接口幂等)
+  // 99:处理中
+  loanResult?: long(name='loan_result'),
+  // 描述信息
+  msg?: string(name='msg'),
+  // 成功必填，资方返回的阶梯结算利率，供生成对资还款计划时使用
+  settleRate?: long(name='settle_rate'),
+  // 成功必填，YYYY-MM-DD HH:MM:SS
+  paymentTime?: string(name='payment_time'),
+  // 放款成功金额，成功必填，单位:元
+  loanAmt?: long(name='loan_amt'),
+  // 放款流水号，成功必填
+  capitalLoanNo?: string(name='capital_loan_no'),
+  // 收款人银行卡卡号，放款成功提供实际的放款目标账户
+  debitAccountNo?: string(name='debit_account_no'),
+}
+
+/**
+ * Description: 支用结果查询
+ * Summary: 支用结果查询
+ */
+async function queryDubbridgeLoanstatusLx(request: QueryDubbridgeLoanstatusLxRequest): QueryDubbridgeLoanstatusLxResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDubbridgeLoanstatusLxEx(request, headers, runtime);
+}
+
+/**
+ * Description: 支用结果查询
+ * Summary: 支用结果查询
+ */
+async function queryDubbridgeLoanstatusLxEx(request: QueryDubbridgeLoanstatusLxRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubbridgeLoanstatusLxResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.loanstatus.lx.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model NotifyDubbridgeRepaymentplanLxRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 支用申请编号
+  applyId: string(name='apply_id'),
+  // 合作方代码
+  partnerCode?: string(name='partner_code'),
+  // 放款编号
+  capitalLoanNo: string(name='capital_loan_no'),
+  // 借款总期数
+  totalTerm: long(name='total_term'),
+  // 借据总金额(元)
+  totalAmount: long(name='total_amount'),
+  // 放款成功日期，yyyy_MM-dd HH:mm:ss
+  paymentTime: string(name='payment_time'),
+  // 还款计划列表
+  repayPlans: [ RepayPlanNotifyItem ](name='repay_plans'),
+}
+
+model NotifyDubbridgeRepaymentplanLxResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 同步结果，0-成功 1-失败
+  status?: long(name='status'),
+  // 错误描述
+  msg?: string(name='msg'),
+}
+
+/**
+ * Description: 流量方生成的还款计划，通知同步至天枢及下游资金方
+ * Summary: 还款计划通知
+ */
+async function notifyDubbridgeRepaymentplanLx(request: NotifyDubbridgeRepaymentplanLxRequest): NotifyDubbridgeRepaymentplanLxResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return notifyDubbridgeRepaymentplanLxEx(request, headers, runtime);
+}
+
+/**
+ * Description: 流量方生成的还款计划，通知同步至天枢及下游资金方
+ * Summary: 还款计划通知
+ */
+async function notifyDubbridgeRepaymentplanLxEx(request: NotifyDubbridgeRepaymentplanLxRequest, headers: map[string]string, runtime: Util.RuntimeOptions): NotifyDubbridgeRepaymentplanLxResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.repaymentplan.lx.notify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyDubbridgeRepaywithholdLxRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 代扣请求流水号
+  withholdSerialNo: string(name='withhold_serial_no'),
+  // 合作方代码
+  partnerCode?: string(name='partner_code'),
+  // 用户绑卡信息 ，包含用户四要素：手机号、卡号、用户名、身份证等
+  bindCardInfo: string(name='bind_card_info'),
+  // 通联需要的银行编码
+  bankId?: string(name='bank_id'),
+  // 代扣总金额=用户代扣金额+补差金额（单位：分）
+  withholdAmt: long(name='withhold_amt'),
+  // 签约协议号，客户在支付机构的签约协议号(通联以身份证号唯一，宝付以四要素唯一)
+  signNum: string(name='sign_num'),
+  // 支付模式，
+  // 0:银行卡支付（默认）
+  // 1:余额支付
+  // 2:份额支付
+  payMode: long(name='pay_mode'),
+  // 在支付机构的商户号
+  subMerchantId: string(name='sub_merchant_id'),
+  // 出账信息
+  sepOutInfo: string(name='sep_out_info'),
+  // 分账信息，分账信息条数大于等于一条，当担保费为0时，担保费分账信息不会透传给资方，产品需提示资方做好适配
+  // 
+  sepInInfo: string(name='sep_in_info'),
+  // 加密报文，流量方对出入账信息加密报文，需资方透传给支付机构，与资方申请一致方可扣款成功
+  encrpytContent?: string(name='encrpyt_content'),
+  // 代扣明细
+  withholdDetail: [ WithholdDetailItem ](name='withhold_detail'),
+}
+
+model ApplyDubbridgeRepaywithholdLxResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 还款状态，1、接口通知成功
+  // 2、接口通知失败
+  // (具体的结果都以查询接口为准)
+  status?: long(name='status'),
+  // 还款描述，失败时，需给出的错误描述
+  msg?: string(name='msg'),
+}
+
+/**
+ * Description: 还款代扣申请
+ * Summary: 还款代扣申请
+ */
+async function applyDubbridgeRepaywithholdLx(request: ApplyDubbridgeRepaywithholdLxRequest): ApplyDubbridgeRepaywithholdLxResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyDubbridgeRepaywithholdLxEx(request, headers, runtime);
+}
+
+/**
+ * Description: 还款代扣申请
+ * Summary: 还款代扣申请
+ */
+async function applyDubbridgeRepaywithholdLxEx(request: ApplyDubbridgeRepaywithholdLxRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyDubbridgeRepaywithholdLxResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.repaywithhold.lx.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDubbridgeRepaywithholdLxRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 代扣请求流水号
+  withholdSerialNo: string(name='withhold_serial_no'),
+  // 合作方代码
+  partnerCode?: string(name='partner_code'),
+}
+
+model QueryDubbridgeRepaywithholdLxResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 代扣状态，
+  // 1、代扣成功
+  // 2、代扣失败
+  // 3. 代扣处理中
+  // 4. 未收到代扣请求（交易侧可以重复发起代扣）
+  status?: long(name='status'),
+  // 代扣描述，失败时，需给出的错误描述
+  msg?: string(name='msg'),
+  // 资金方扣款交易流水号，受理流水号(资金方)
+  orderNum?: string(name='order_num'),
+  // 支付通道交易流水号
+  transNum?: string(name='trans_num'),
+  // 代扣明细
+  withholdDetail?: [ WithholdDetailItem ](name='withhold_detail'),
+}
+
+/**
+ * Description: 还款代扣结果查询
+ * Summary: 还款代扣结果查询
+ */
+async function queryDubbridgeRepaywithholdLx(request: QueryDubbridgeRepaywithholdLxRequest): QueryDubbridgeRepaywithholdLxResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDubbridgeRepaywithholdLxEx(request, headers, runtime);
+}
+
+/**
+ * Description: 还款代扣结果查询
+ * Summary: 还款代扣结果查询
+ */
+async function queryDubbridgeRepaywithholdLxEx(request: QueryDubbridgeRepaywithholdLxRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubbridgeRepaywithholdLxResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.repaywithhold.lx.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model NotifyDubbridgeRepaymentLxRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 还款请求流水号/账单号
+  billId: string(name='bill_id'),
+  // 贷款申请编号
+  applyId: string(name='apply_id'),
+  // 是否本次还款最后一次通知，
+  // 1-是
+  // 2-否
+  // 用户一次还多期时，该笔还款按期多次通知，最后一次通知为是。为否时没有还款计划列表。
+  lastNotify: long(name='last_notify'),
+  // 代扣请求流水号
+  withholdSerialNo?: string(name='withhold_serial_no'),
+  // 合作方代码
+  partnerCode?: string(name='partner_code'),
+  // 还款类型，
+  // 不同还款类型分开通知：
+  // 10-正常还款,
+  // 20-部分提前还,
+  // 30-提前结清,
+  // 40-逾期还款
+  // 50-代偿
+  repayType: long(name='repay_type'),
+  // 还款路径，
+  // 1-清分 2-代扣
+  repayChannel: string(name='repay_channel'),
+  // 还款期数
+  repayTerm: string(name='repay_term'),
+  // 还款日期
+  repayDate: string(name='repay_date'),
+  // 还款总额,保留两位有效数字(单位:元)
+  repayAmount: string(name='repay_amount'),
+  // 实还本金,保留两位有效数字(单位:元)
+  repayPrincipal: string(name='repay_principal'),
+  // 实还利息,保留两位有效数字(单位:元)
+  repayInterest: string(name='repay_interest'),
+  // 实还罚息,保留两位有效数字(单位:元)
+  repayMuclt?: string(name='repay_muclt'),
+  // 实还担保费,保留两位有效数字(单位:元)
+  repayGuarantee?: string(name='repay_guarantee'),
+  // 当期结清状态：
+  // 0-当期未结清
+  // 1-当期已结清
+  repaymentMode: string(name='repayment_mode'),
+  // 还款计划列表，随借随还业务更新后的还款计划列表
+  rpyDetails?: [ BillDetail ](name='rpy_details'),
+}
+
+model NotifyDubbridgeRepaymentLxResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 1、接口通知成功(仅代表收到请求,具体的还款结果以查询接口为准)
+  // 2、接口通知失败(代表未收到请求,会重复发起还款申请)
+  notifyStatus?: long(name='notify_status'),
+  // 错误描述
+  msg?: string(name='msg'),
+}
+
+/**
+ * Description: 实还通知
+ * Summary: 实还通知
+ */
+async function notifyDubbridgeRepaymentLx(request: NotifyDubbridgeRepaymentLxRequest): NotifyDubbridgeRepaymentLxResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return notifyDubbridgeRepaymentLxEx(request, headers, runtime);
+}
+
+/**
+ * Description: 实还通知
+ * Summary: 实还通知
+ */
+async function notifyDubbridgeRepaymentLxEx(request: NotifyDubbridgeRepaymentLxRequest, headers: map[string]string, runtime: Util.RuntimeOptions): NotifyDubbridgeRepaymentLxResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.repayment.lx.notify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDubbridgeRepaymentLxRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 还款请求流水号/账单号
+  billId: string(name='bill_id'),
+  // 放款编号/借据号
+  capitalLoanNo: string(name='capital_loan_no'),
+}
+
+model QueryDubbridgeRepaymentLxResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 还款状态，
+  // 1、成功(结算成功)
+  // 2、失败(结算失败)
+  // 3. 还款中(结算处理中)
+  // 4. 查无此通知（会重复发起还款）
+  repayStatus?: long(name='repay_status'),
+  // 处理成功时间，成功必填YYYY-MM-DD HH:MM:SS
+  processTime?: string(name='process_time'),
+  // 还款描述，失败时，需给出的错误描述
+  msg?: string(name='msg'),
+  // 还款总额,保留两位有效数字(单位:元)
+  repayAmount?: long(name='repay_amount'),
+  // 实还本金,保留两位有效数字(单位:元)
+  repayPrincipal?: string(name='repay_principal'),
+  // 实还利息,保留两位有效数字(单位:元)
+  repayInterest?: string(name='repay_interest'),
+  // 实还罚息,保留两位有效数字(单位:元)
+  repayMuclt?: long(name='repay_muclt'),
+  // 实还担保费,保留两位有效数字(单位:元)
+  repayGuarantee?: long(name='repay_guarantee'),
+  // 实还信用评估费,保留两位有效数字(单位:元)
+  repayCreditFee?: long(name='repay_credit_fee'),
+  // 实还咨询服务费,保留两位有效数字(单位:元)
+  repayGranteeConsultServiceFee?: long(name='repay_grantee_consult_service_fee'),
+}
+
+/**
+ * Description: 实还通知结果查询
+ * Summary: 实还通知结果查询
+ */
+async function queryDubbridgeRepaymentLx(request: QueryDubbridgeRepaymentLxRequest): QueryDubbridgeRepaymentLxResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDubbridgeRepaymentLxEx(request, headers, runtime);
+}
+
+/**
+ * Description: 实还通知结果查询
+ * Summary: 实还通知结果查询
+ */
+async function queryDubbridgeRepaymentLxEx(request: QueryDubbridgeRepaymentLxRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubbridgeRepaymentLxResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.repayment.lx.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDubbridgeCreditamtLxRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 授信申请编号
+  creditApplyId: string(name='credit_apply_id'),
+  // 合作方代码
+  partnerCode?: string(name='partner_code'),
+}
+
+model QueryDubbridgeCreditamtLxResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回描述信息
+  msg?: string(name='msg'),
+  // 查询状态，0. 查询成功
+  // 1. 查询失败---表示“拒绝”的有效终态，下一步重新调用授信申请接口
+  status?: long(name='status'),
+  // 剩余可用额度,授信成功必填,单位:元
+  creditRemainAmt?: string(name='credit_remain_amt'),
+  // 授信批准的额度，授信成功必填,单位:元
+  creditAmt?: string(name='credit_amt'),
+  // 授信生效日期，授信审核通过时必填,格式：yyyy-MM-dd
+  creditValidDate?: string(name='credit_valid_date'),
+  // 授信失效日期，授信审核通过时必填,格式：yyyy-MM-dd  
+  creditExpireDate?: string(name='credit_expire_date'),
+}
+
+/**
+ * Description: 已经授信通过的用户,无需重新进行授信申请,直接查询可用额度是否充足,以及是否在有效期内
+ * Summary: 额度查询接口
+ */
+async function queryDubbridgeCreditamtLx(request: QueryDubbridgeCreditamtLxRequest): QueryDubbridgeCreditamtLxResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDubbridgeCreditamtLxEx(request, headers, runtime);
+}
+
+/**
+ * Description: 已经授信通过的用户,无需重新进行授信申请,直接查询可用额度是否充足,以及是否在有效期内
+ * Summary: 额度查询接口
+ */
+async function queryDubbridgeCreditamtLxEx(request: QueryDubbridgeCreditamtLxRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubbridgeCreditamtLxResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.creditamt.lx.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDubbridgeCertificateLxRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 放款请求流水号
+  loanReqNo: string(name='loan_req_no'),
+  // 请求方代码
+  sourceCode?: string(name='source_code'),
+  // 文件类型，0结清证明
+  // 1代偿凭证
+  // 2放款凭证
+  fileType: long(name='file_type'),
+  // 申请日期，yyyy-MM-dd
+  applyDate: string(name='apply_date'),
+  // 业务类型，
+  // 1非乐花卡
+  // 2乐花卡
+  businessType: long(name='business_type'),
+}
+
+model QueryDubbridgeCertificateLxResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回码
+  // 0：成功
+  // 1：失败
+  // 2：处理中
+  // 99：系统异常
+  status?: string(name='status'),
+  // 申请结果描述，失败原因，失败时必传
+  msg?: string(name='msg'),
+  // 文件路径
+  // 实时返回文件路径给到乐信，乐信去对应sftp路径上取，路径命名规则：download/2602/loanReqNo_文件类型.pdf
+  // 若失败则返回失败原因到msg字段
+  filePath?: string(name='file_path'),
+}
+
+/**
+ * Description: 结清证明、代偿凭证、放款凭证获取
+ * Summary: 证明类文件获取
+ */
+async function queryDubbridgeCertificateLx(request: QueryDubbridgeCertificateLxRequest): QueryDubbridgeCertificateLxResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDubbridgeCertificateLxEx(request, headers, runtime);
+}
+
+/**
+ * Description: 结清证明、代偿凭证、放款凭证获取
+ * Summary: 证明类文件获取
+ */
+async function queryDubbridgeCertificateLxEx(request: QueryDubbridgeCertificateLxRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubbridgeCertificateLxResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.certificate.lx.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model VerifyFinserviceZhimaIdentifyRequest = {
