@@ -11,10 +11,18 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\RISKPLUS\Models\ApplyDubbridgeCreditLxRequest;
+use AntChain\RISKPLUS\Models\ApplyDubbridgeCreditLxResponse;
 use AntChain\RISKPLUS\Models\ApplyDubbridgeCreditRequest;
 use AntChain\RISKPLUS\Models\ApplyDubbridgeCreditResponse;
 use AntChain\RISKPLUS\Models\ApplyDubbridgeCustomerAgreementsignRequest;
 use AntChain\RISKPLUS\Models\ApplyDubbridgeCustomerAgreementsignResponse;
+use AntChain\RISKPLUS\Models\ApplyDubbridgeLoanLxRequest;
+use AntChain\RISKPLUS\Models\ApplyDubbridgeLoanLxResponse;
+use AntChain\RISKPLUS\Models\ApplyDubbridgeRepaywithholdLxRequest;
+use AntChain\RISKPLUS\Models\ApplyDubbridgeRepaywithholdLxResponse;
+use AntChain\RISKPLUS\Models\ApplyDubbridgeUsecreditLxRequest;
+use AntChain\RISKPLUS\Models\ApplyDubbridgeUsecreditLxResponse;
 use AntChain\RISKPLUS\Models\ApplyDubbridgeUsecreditRequest;
 use AntChain\RISKPLUS\Models\ApplyDubbridgeUsecreditResponse;
 use AntChain\RISKPLUS\Models\ApplyDubheCreditRequest;
@@ -175,6 +183,10 @@ use AntChain\RISKPLUS\Models\NotifyDubbridgeDefininnerchannelRequest;
 use AntChain\RISKPLUS\Models\NotifyDubbridgeDefininnerchannelResponse;
 use AntChain\RISKPLUS\Models\NotifyDubbridgeInterestResultRequest;
 use AntChain\RISKPLUS\Models\NotifyDubbridgeInterestResultResponse;
+use AntChain\RISKPLUS\Models\NotifyDubbridgeRepaymentLxRequest;
+use AntChain\RISKPLUS\Models\NotifyDubbridgeRepaymentLxResponse;
+use AntChain\RISKPLUS\Models\NotifyDubbridgeRepaymentplanLxRequest;
+use AntChain\RISKPLUS\Models\NotifyDubbridgeRepaymentplanLxResponse;
 use AntChain\RISKPLUS\Models\NotifyRdaasTaxCallbackRequest;
 use AntChain\RISKPLUS\Models\NotifyRdaasTaxCallbackResponse;
 use AntChain\RISKPLUS\Models\NotifyRpgwUserSignresultRequest;
@@ -241,8 +253,14 @@ use AntChain\RISKPLUS\Models\QueryDubbridgeAlipayRefundRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeAlipayRefundResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeAlipayTradeRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeAlipayTradeResponse;
+use AntChain\RISKPLUS\Models\QueryDubbridgeCertificateLxRequest;
+use AntChain\RISKPLUS\Models\QueryDubbridgeCertificateLxResponse;
+use AntChain\RISKPLUS\Models\QueryDubbridgeCreditamtLxRequest;
+use AntChain\RISKPLUS\Models\QueryDubbridgeCreditamtLxResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeCreditPermitRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeCreditPermitResponse;
+use AntChain\RISKPLUS\Models\QueryDubbridgeCreditstatusLxRequest;
+use AntChain\RISKPLUS\Models\QueryDubbridgeCreditstatusLxResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeCreditStatusRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeCreditStatusResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeCustomerAgreementsignRequest;
@@ -257,6 +275,8 @@ use AntChain\RISKPLUS\Models\QueryDubbridgeInstallmentCreditamtRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeInstallmentCreditamtResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeInstallmentTrialRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeInstallmentTrialResponse;
+use AntChain\RISKPLUS\Models\QueryDubbridgeLoanstatusLxRequest;
+use AntChain\RISKPLUS\Models\QueryDubbridgeLoanstatusLxResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeLoanUpgradestatusRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeLoanUpgradestatusResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeMarketingCouponlistRequest;
@@ -269,10 +289,14 @@ use AntChain\RISKPLUS\Models\QueryDubbridgeRepayInfoRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeRepayInfoResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeRepayListRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeRepayListResponse;
+use AntChain\RISKPLUS\Models\QueryDubbridgeRepaymentLxRequest;
+use AntChain\RISKPLUS\Models\QueryDubbridgeRepaymentLxResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeRepayResultRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeRepayResultResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeRepaytypeInfoRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeRepaytypeInfoResponse;
+use AntChain\RISKPLUS\Models\QueryDubbridgeRepaywithholdLxRequest;
+use AntChain\RISKPLUS\Models\QueryDubbridgeRepaywithholdLxResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeRiskinfoBusinessinfoRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeRiskinfoBusinessinfoResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeRiskinfoCommonRequest;
@@ -287,6 +311,8 @@ use AntChain\RISKPLUS\Models\QueryDubbridgeSearchContractRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeSearchContractResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeSettlementCertificateRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeSettlementCertificateResponse;
+use AntChain\RISKPLUS\Models\QueryDubbridgeUsecreditstatusLxRequest;
+use AntChain\RISKPLUS\Models\QueryDubbridgeUsecreditstatusLxResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeUsecreditStatusRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeUsecreditStatusResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeUserAggregationinfoRequest;
@@ -397,6 +423,8 @@ use AntChain\RISKPLUS\Models\QueryRtopTagImageRequest;
 use AntChain\RISKPLUS\Models\QueryRtopTagImageResponse;
 use AntChain\RISKPLUS\Models\QuerySaasSecurityPolicyRequest;
 use AntChain\RISKPLUS\Models\QuerySaasSecurityPolicyResponse;
+use AntChain\RISKPLUS\Models\QuerySecurityAiriskcloudPolicyRequest;
+use AntChain\RISKPLUS\Models\QuerySecurityAiriskcloudPolicyResponse;
 use AntChain\RISKPLUS\Models\QuerySecurityDataRequest;
 use AntChain\RISKPLUS\Models\QuerySecurityDataResponse;
 use AntChain\RISKPLUS\Models\QuerySecurityPolicyRequest;
@@ -638,7 +666,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 企业风险等级分布统计
+            // air引擎输出infoCode
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -666,7 +694,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.30.12',
+                    'sdk_version'      => '1.31.0',
                     '_prod_code'       => 'RISKPLUS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1306,6 +1334,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryCreditshieldProductBatchResponse::fromMap($this->doRequest('1.0', 'riskplus.creditshield.product.batch.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 业务风险查询接口，基于新air决策引擎提供决策能力
+     * Summary: 业务风险咨询接口.
+     *
+     * @param QuerySecurityAiriskcloudPolicyRequest $request
+     *
+     * @return QuerySecurityAiriskcloudPolicyResponse
+     */
+    public function querySecurityAiriskcloudPolicy($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->querySecurityAiriskcloudPolicyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 业务风险查询接口，基于新air决策引擎提供决策能力
+     * Summary: 业务风险咨询接口.
+     *
+     * @param QuerySecurityAiriskcloudPolicyRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return QuerySecurityAiriskcloudPolicyResponse
+     */
+    public function querySecurityAiriskcloudPolicyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QuerySecurityAiriskcloudPolicyResponse::fromMap($this->doRequest('1.0', 'riskplus.security.airiskcloud.policy.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -3899,6 +3960,435 @@ class Client
         Utils::validateModel($request);
 
         return QueryDubbridgeFundCreditamtResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.fund.creditamt.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 授信申请-定制接口
+     * Summary: 授信申请-定制接口.
+     *
+     * @param ApplyDubbridgeCreditLxRequest $request
+     *
+     * @return ApplyDubbridgeCreditLxResponse
+     */
+    public function applyDubbridgeCreditLx($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyDubbridgeCreditLxEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 授信申请-定制接口
+     * Summary: 授信申请-定制接口.
+     *
+     * @param ApplyDubbridgeCreditLxRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return ApplyDubbridgeCreditLxResponse
+     */
+    public function applyDubbridgeCreditLxEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyDubbridgeCreditLxResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.credit.lx.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 授信结果查询，授信通过下会返回授信单最新额度信息
+     * Summary: 授信结果查询.
+     *
+     * @param QueryDubbridgeCreditstatusLxRequest $request
+     *
+     * @return QueryDubbridgeCreditstatusLxResponse
+     */
+    public function queryDubbridgeCreditstatusLx($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDubbridgeCreditstatusLxEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 授信结果查询，授信通过下会返回授信单最新额度信息
+     * Summary: 授信结果查询.
+     *
+     * @param QueryDubbridgeCreditstatusLxRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return QueryDubbridgeCreditstatusLxResponse
+     */
+    public function queryDubbridgeCreditstatusLxEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDubbridgeCreditstatusLxResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.creditstatus.lx.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用信申请提交
+     * Summary: 用信申请.
+     *
+     * @param ApplyDubbridgeUsecreditLxRequest $request
+     *
+     * @return ApplyDubbridgeUsecreditLxResponse
+     */
+    public function applyDubbridgeUsecreditLx($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyDubbridgeUsecreditLxEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用信申请提交
+     * Summary: 用信申请.
+     *
+     * @param ApplyDubbridgeUsecreditLxRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return ApplyDubbridgeUsecreditLxResponse
+     */
+    public function applyDubbridgeUsecreditLxEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyDubbridgeUsecreditLxResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.usecredit.lx.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用信结果查询
+     * Summary: 用信结果查询.
+     *
+     * @param QueryDubbridgeUsecreditstatusLxRequest $request
+     *
+     * @return QueryDubbridgeUsecreditstatusLxResponse
+     */
+    public function queryDubbridgeUsecreditstatusLx($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDubbridgeUsecreditstatusLxEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用信结果查询
+     * Summary: 用信结果查询.
+     *
+     * @param QueryDubbridgeUsecreditstatusLxRequest $request
+     * @param string[]                               $headers
+     * @param RuntimeOptions                         $runtime
+     *
+     * @return QueryDubbridgeUsecreditstatusLxResponse
+     */
+    public function queryDubbridgeUsecreditstatusLxEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDubbridgeUsecreditstatusLxResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.usecreditstatus.lx.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 支用放款申请
+     * Summary: 支用放款申请.
+     *
+     * @param ApplyDubbridgeLoanLxRequest $request
+     *
+     * @return ApplyDubbridgeLoanLxResponse
+     */
+    public function applyDubbridgeLoanLx($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyDubbridgeLoanLxEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 支用放款申请
+     * Summary: 支用放款申请.
+     *
+     * @param ApplyDubbridgeLoanLxRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return ApplyDubbridgeLoanLxResponse
+     */
+    public function applyDubbridgeLoanLxEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyDubbridgeLoanLxResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.loan.lx.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 支用结果查询
+     * Summary: 支用结果查询.
+     *
+     * @param QueryDubbridgeLoanstatusLxRequest $request
+     *
+     * @return QueryDubbridgeLoanstatusLxResponse
+     */
+    public function queryDubbridgeLoanstatusLx($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDubbridgeLoanstatusLxEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 支用结果查询
+     * Summary: 支用结果查询.
+     *
+     * @param QueryDubbridgeLoanstatusLxRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return QueryDubbridgeLoanstatusLxResponse
+     */
+    public function queryDubbridgeLoanstatusLxEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDubbridgeLoanstatusLxResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.loanstatus.lx.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 流量方生成的还款计划，通知同步至天枢及下游资金方
+     * Summary: 还款计划通知.
+     *
+     * @param NotifyDubbridgeRepaymentplanLxRequest $request
+     *
+     * @return NotifyDubbridgeRepaymentplanLxResponse
+     */
+    public function notifyDubbridgeRepaymentplanLx($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->notifyDubbridgeRepaymentplanLxEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 流量方生成的还款计划，通知同步至天枢及下游资金方
+     * Summary: 还款计划通知.
+     *
+     * @param NotifyDubbridgeRepaymentplanLxRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return NotifyDubbridgeRepaymentplanLxResponse
+     */
+    public function notifyDubbridgeRepaymentplanLxEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return NotifyDubbridgeRepaymentplanLxResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.repaymentplan.lx.notify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 还款代扣申请
+     * Summary: 还款代扣申请.
+     *
+     * @param ApplyDubbridgeRepaywithholdLxRequest $request
+     *
+     * @return ApplyDubbridgeRepaywithholdLxResponse
+     */
+    public function applyDubbridgeRepaywithholdLx($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyDubbridgeRepaywithholdLxEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 还款代扣申请
+     * Summary: 还款代扣申请.
+     *
+     * @param ApplyDubbridgeRepaywithholdLxRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return ApplyDubbridgeRepaywithholdLxResponse
+     */
+    public function applyDubbridgeRepaywithholdLxEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyDubbridgeRepaywithholdLxResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.repaywithhold.lx.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 还款代扣结果查询
+     * Summary: 还款代扣结果查询.
+     *
+     * @param QueryDubbridgeRepaywithholdLxRequest $request
+     *
+     * @return QueryDubbridgeRepaywithholdLxResponse
+     */
+    public function queryDubbridgeRepaywithholdLx($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDubbridgeRepaywithholdLxEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 还款代扣结果查询
+     * Summary: 还款代扣结果查询.
+     *
+     * @param QueryDubbridgeRepaywithholdLxRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return QueryDubbridgeRepaywithholdLxResponse
+     */
+    public function queryDubbridgeRepaywithholdLxEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDubbridgeRepaywithholdLxResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.repaywithhold.lx.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 实还通知
+     * Summary: 实还通知.
+     *
+     * @param NotifyDubbridgeRepaymentLxRequest $request
+     *
+     * @return NotifyDubbridgeRepaymentLxResponse
+     */
+    public function notifyDubbridgeRepaymentLx($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->notifyDubbridgeRepaymentLxEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 实还通知
+     * Summary: 实还通知.
+     *
+     * @param NotifyDubbridgeRepaymentLxRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return NotifyDubbridgeRepaymentLxResponse
+     */
+    public function notifyDubbridgeRepaymentLxEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return NotifyDubbridgeRepaymentLxResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.repayment.lx.notify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 实还通知结果查询
+     * Summary: 实还通知结果查询.
+     *
+     * @param QueryDubbridgeRepaymentLxRequest $request
+     *
+     * @return QueryDubbridgeRepaymentLxResponse
+     */
+    public function queryDubbridgeRepaymentLx($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDubbridgeRepaymentLxEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 实还通知结果查询
+     * Summary: 实还通知结果查询.
+     *
+     * @param QueryDubbridgeRepaymentLxRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return QueryDubbridgeRepaymentLxResponse
+     */
+    public function queryDubbridgeRepaymentLxEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDubbridgeRepaymentLxResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.repayment.lx.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 已经授信通过的用户,无需重新进行授信申请,直接查询可用额度是否充足,以及是否在有效期内
+     * Summary: 额度查询接口.
+     *
+     * @param QueryDubbridgeCreditamtLxRequest $request
+     *
+     * @return QueryDubbridgeCreditamtLxResponse
+     */
+    public function queryDubbridgeCreditamtLx($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDubbridgeCreditamtLxEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 已经授信通过的用户,无需重新进行授信申请,直接查询可用额度是否充足,以及是否在有效期内
+     * Summary: 额度查询接口.
+     *
+     * @param QueryDubbridgeCreditamtLxRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return QueryDubbridgeCreditamtLxResponse
+     */
+    public function queryDubbridgeCreditamtLxEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDubbridgeCreditamtLxResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.creditamt.lx.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 结清证明、代偿凭证、放款凭证获取
+     * Summary: 证明类文件获取.
+     *
+     * @param QueryDubbridgeCertificateLxRequest $request
+     *
+     * @return QueryDubbridgeCertificateLxResponse
+     */
+    public function queryDubbridgeCertificateLx($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDubbridgeCertificateLxEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 结清证明、代偿凭证、放款凭证获取
+     * Summary: 证明类文件获取.
+     *
+     * @param QueryDubbridgeCertificateLxRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return QueryDubbridgeCertificateLxResponse
+     */
+    public function queryDubbridgeCertificateLxEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDubbridgeCertificateLxResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.certificate.lx.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
