@@ -3614,13 +3614,13 @@ export class CallbackMktEffectRequest extends $tea.Model {
   // 营销模式
   marketingMode: string;
   // 投保特征短链
-  insureShortUrl?: string;
+  insureShortUrl: string;
   // 加密类型：MD5，32位[小]
   encryptionType: string;
   // 加密用户标识
   encryptedUserId: string;
-  // 用户点击投保页唯一标识
-  clickId: string;
+  // 应以识别当前用户点击投保页面的唯一标识
+  landingVisitId: string;
   // 用户点击进入页面时间（格式：yyyy-MM-dd HH:mm:ss）
   clickTime: string;
   // 事件完成时间（yyyy-MM-dd HH:mm:ss）
@@ -3639,7 +3639,7 @@ export class CallbackMktEffectRequest extends $tea.Model {
       insureShortUrl: 'insure_short_url',
       encryptionType: 'encryption_type',
       encryptedUserId: 'encrypted_user_id',
-      clickId: 'click_id',
+      landingVisitId: 'landing_visit_id',
       clickTime: 'click_time',
       eventTime: 'event_time',
       nodeType: 'node_type',
@@ -3657,7 +3657,7 @@ export class CallbackMktEffectRequest extends $tea.Model {
       insureShortUrl: 'string',
       encryptionType: 'string',
       encryptedUserId: 'string',
-      clickId: 'string',
+      landingVisitId: 'string',
       clickTime: 'string',
       eventTime: 'string',
       nodeType: 'string',
@@ -3971,7 +3971,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.12.15",
+          sdk_version: "1.12.16",
           _prod_code: "INSURANCE_SAAS",
           _prod_channel: "undefined",
         };
