@@ -137,7 +137,7 @@ namespace AntChain.SDK.INTELLICAR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.14"},
+                        {"sdk_version", "1.0.15"},
                         {"_prod_code", "INTELLICAR"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.INTELLICAR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.14"},
+                        {"sdk_version", "1.0.15"},
                         {"_prod_code", "INTELLICAR"},
                         {"_prod_channel", "default"},
                     };
@@ -703,6 +703,48 @@ namespace AntChain.SDK.INTELLICAR
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryUsedcarResponse>(await DoRequestAsync("1.0", "antdigital.intellicar.usedcar.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 逸安启回调接口
+         * Summary: 逸安启回调接口
+         */
+        public SubmitIonchiResponse SubmitIonchi(SubmitIonchiRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SubmitIonchiEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 逸安启回调接口
+         * Summary: 逸安启回调接口
+         */
+        public async Task<SubmitIonchiResponse> SubmitIonchiAsync(SubmitIonchiRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SubmitIonchiExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 逸安启回调接口
+         * Summary: 逸安启回调接口
+         */
+        public SubmitIonchiResponse SubmitIonchiEx(SubmitIonchiRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitIonchiResponse>(DoRequest("1.0", "antdigital.intellicar.ionchi.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 逸安启回调接口
+         * Summary: 逸安启回调接口
+         */
+        public async Task<SubmitIonchiResponse> SubmitIonchiExAsync(SubmitIonchiRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitIonchiResponse>(await DoRequestAsync("1.0", "antdigital.intellicar.ionchi.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
