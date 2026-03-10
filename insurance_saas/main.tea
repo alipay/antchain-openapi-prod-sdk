@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.12.15',
+    sdk_version = '1.12.16',
     _prod_code = 'INSURANCE_SAAS',
     _prod_channel = 'undefined'
   };
@@ -2297,13 +2297,13 @@ model CallbackMktEffectRequest = {
   // 营销模式
   marketingMode: string(maxLength=64, name='marketing_mode'),
   // 投保特征短链
-  insureShortUrl?: string(maxLength=256, name='insure_short_url'),
+  insureShortUrl: string(maxLength=256, name='insure_short_url'),
   // 加密类型：MD5，32位[小]
   encryptionType: string(maxLength=32, name='encryption_type'),
   // 加密用户标识
   encryptedUserId: string(maxLength=64, name='encrypted_user_id'),
-  // 用户点击投保页唯一标识
-  clickId: string(maxLength=128, name='click_id'),
+  // 应以识别当前用户点击投保页面的唯一标识
+  landingVisitId: string(maxLength=128, name='landing_visit_id'),
   // 用户点击进入页面时间（格式：yyyy-MM-dd HH:mm:ss）
   clickTime: string(maxLength=32, name='click_time'),
   // 事件完成时间（yyyy-MM-dd HH:mm:ss）
