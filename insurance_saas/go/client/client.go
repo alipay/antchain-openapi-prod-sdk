@@ -4895,13 +4895,13 @@ type CallbackMktEffectRequest struct {
 	// 营销模式
 	MarketingMode *string `json:"marketing_mode,omitempty" xml:"marketing_mode,omitempty" require:"true" maxLength:"64"`
 	// 投保特征短链
-	InsureShortUrl *string `json:"insure_short_url,omitempty" xml:"insure_short_url,omitempty" maxLength:"256"`
+	InsureShortUrl *string `json:"insure_short_url,omitempty" xml:"insure_short_url,omitempty" require:"true" maxLength:"256"`
 	// 加密类型：MD5，32位[小]
 	EncryptionType *string `json:"encryption_type,omitempty" xml:"encryption_type,omitempty" require:"true" maxLength:"32"`
 	// 加密用户标识
 	EncryptedUserId *string `json:"encrypted_user_id,omitempty" xml:"encrypted_user_id,omitempty" require:"true" maxLength:"64"`
-	// 用户点击投保页唯一标识
-	ClickId *string `json:"click_id,omitempty" xml:"click_id,omitempty" require:"true" maxLength:"128"`
+	// 应以识别当前用户点击投保页面的唯一标识
+	LandingVisitId *string `json:"landing_visit_id,omitempty" xml:"landing_visit_id,omitempty" require:"true" maxLength:"128"`
 	// 用户点击进入页面时间（格式：yyyy-MM-dd HH:mm:ss）
 	ClickTime *string `json:"click_time,omitempty" xml:"click_time,omitempty" require:"true" maxLength:"32"`
 	// 事件完成时间（yyyy-MM-dd HH:mm:ss）
@@ -4960,8 +4960,8 @@ func (s *CallbackMktEffectRequest) SetEncryptedUserId(v string) *CallbackMktEffe
 	return s
 }
 
-func (s *CallbackMktEffectRequest) SetClickId(v string) *CallbackMktEffectRequest {
-	s.ClickId = &v
+func (s *CallbackMktEffectRequest) SetLandingVisitId(v string) *CallbackMktEffectRequest {
+	s.LandingVisitId = &v
 	return s
 }
 
@@ -5351,7 +5351,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.12.15"),
+				"sdk_version":      tea.String("1.12.16"),
 				"_prod_code":       tea.String("INSURANCE_SAAS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
