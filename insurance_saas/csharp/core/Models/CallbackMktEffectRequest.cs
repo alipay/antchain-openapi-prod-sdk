@@ -36,7 +36,7 @@ namespace AntChain.SDK.INSURANCE_SAAS.Models
 
         // 投保特征短链
         [NameInMap("insure_short_url")]
-        [Validation(Required=false, MaxLength=256)]
+        [Validation(Required=true, MaxLength=256)]
         public string InsureShortUrl { get; set; }
 
         // 加密类型：MD5，32位[小]
@@ -49,10 +49,10 @@ namespace AntChain.SDK.INSURANCE_SAAS.Models
         [Validation(Required=true, MaxLength=64)]
         public string EncryptedUserId { get; set; }
 
-        // 用户点击投保页唯一标识
-        [NameInMap("click_id")]
+        // 应以识别当前用户点击投保页面的唯一标识
+        [NameInMap("landing_visit_id")]
         [Validation(Required=true, MaxLength=128)]
-        public string ClickId { get; set; }
+        public string LandingVisitId { get; set; }
 
         // 用户点击进入页面时间（格式：yyyy-MM-dd HH:mm:ss）
         [NameInMap("click_time")]
