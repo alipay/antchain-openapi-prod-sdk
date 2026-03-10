@@ -1529,6 +1529,83 @@ func (s *QueryUsedcarResponse) SetUsedCarValuation(v *UsedCarValuation) *QueryUs
 	return s
 }
 
+type SubmitIonchiRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 线索唯一标识
+	SubmitId *string `json:"submit_id,omitempty" xml:"submit_id,omitempty" require:"true"`
+	// 手机号md5
+	MobileMd5 *string `json:"mobile_md5,omitempty" xml:"mobile_md5,omitempty" require:"true"`
+}
+
+func (s SubmitIonchiRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitIonchiRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitIonchiRequest) SetAuthToken(v string) *SubmitIonchiRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SubmitIonchiRequest) SetProductInstanceId(v string) *SubmitIonchiRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SubmitIonchiRequest) SetSubmitId(v string) *SubmitIonchiRequest {
+	s.SubmitId = &v
+	return s
+}
+
+func (s *SubmitIonchiRequest) SetMobileMd5(v string) *SubmitIonchiRequest {
+	s.MobileMd5 = &v
+	return s
+}
+
+type SubmitIonchiResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 推送数科客户成功
+	PushSuccess *bool `json:"push_success,omitempty" xml:"push_success,omitempty"`
+}
+
+func (s SubmitIonchiResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitIonchiResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitIonchiResponse) SetReqMsgId(v string) *SubmitIonchiResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SubmitIonchiResponse) SetResultCode(v string) *SubmitIonchiResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SubmitIonchiResponse) SetResultMsg(v string) *SubmitIonchiResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SubmitIonchiResponse) SetPushSuccess(v bool) *SubmitIonchiResponse {
+	s.PushSuccess = &v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -1771,7 +1848,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.14"),
+				"sdk_version":      tea.String("1.0.15"),
 				"_prod_code":       tea.String("INTELLICAR"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -2124,6 +2201,40 @@ func (client *Client) QueryUsedcarEx(request *QueryUsedcarRequest, headers map[s
 	}
 	_result = &QueryUsedcarResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.intellicar.usedcar.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 逸安启回调接口
+ * Summary: 逸安启回调接口
+ */
+func (client *Client) SubmitIonchi(request *SubmitIonchiRequest) (_result *SubmitIonchiResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SubmitIonchiResponse{}
+	_body, _err := client.SubmitIonchiEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 逸安启回调接口
+ * Summary: 逸安启回调接口
+ */
+func (client *Client) SubmitIonchiEx(request *SubmitIonchiRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SubmitIonchiResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SubmitIonchiResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.intellicar.ionchi.submit"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
