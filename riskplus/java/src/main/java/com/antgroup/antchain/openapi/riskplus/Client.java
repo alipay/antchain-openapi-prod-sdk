@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.30.12"),
+                    new TeaPair("sdk_version", "1.31.0"),
                     new TeaPair("_prod_code", "RISKPLUS"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -564,6 +564,27 @@ public class Client {
     public QueryCreditshieldProductBatchResponse queryCreditshieldProductBatchEx(QueryCreditshieldProductBatchRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "riskplus.creditshield.product.batch.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCreditshieldProductBatchResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 业务风险查询接口，基于新air决策引擎提供决策能力
+     * Summary: 业务风险咨询接口</p>
+     */
+    public QuerySecurityAiriskcloudPolicyResponse querySecurityAiriskcloudPolicy(QuerySecurityAiriskcloudPolicyRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.querySecurityAiriskcloudPolicyEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 业务风险查询接口，基于新air决策引擎提供决策能力
+     * Summary: 业务风险咨询接口</p>
+     */
+    public QuerySecurityAiriskcloudPolicyResponse querySecurityAiriskcloudPolicyEx(QuerySecurityAiriskcloudPolicyRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.security.airiskcloud.policy.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QuerySecurityAiriskcloudPolicyResponse());
     }
 
     /**
@@ -2224,6 +2245,279 @@ public class Client {
     public QueryDubbridgeFundCreditamtResponse queryDubbridgeFundCreditamtEx(QueryDubbridgeFundCreditamtRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "riskplus.dubbridge.fund.creditamt.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDubbridgeFundCreditamtResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 授信申请-定制接口
+     * Summary: 授信申请-定制接口</p>
+     */
+    public ApplyDubbridgeCreditLxResponse applyDubbridgeCreditLx(ApplyDubbridgeCreditLxRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.applyDubbridgeCreditLxEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 授信申请-定制接口
+     * Summary: 授信申请-定制接口</p>
+     */
+    public ApplyDubbridgeCreditLxResponse applyDubbridgeCreditLxEx(ApplyDubbridgeCreditLxRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.dubbridge.credit.lx.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyDubbridgeCreditLxResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 授信结果查询，授信通过下会返回授信单最新额度信息
+     * Summary: 授信结果查询</p>
+     */
+    public QueryDubbridgeCreditstatusLxResponse queryDubbridgeCreditstatusLx(QueryDubbridgeCreditstatusLxRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDubbridgeCreditstatusLxEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 授信结果查询，授信通过下会返回授信单最新额度信息
+     * Summary: 授信结果查询</p>
+     */
+    public QueryDubbridgeCreditstatusLxResponse queryDubbridgeCreditstatusLxEx(QueryDubbridgeCreditstatusLxRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.dubbridge.creditstatus.lx.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDubbridgeCreditstatusLxResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 用信申请提交
+     * Summary: 用信申请</p>
+     */
+    public ApplyDubbridgeUsecreditLxResponse applyDubbridgeUsecreditLx(ApplyDubbridgeUsecreditLxRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.applyDubbridgeUsecreditLxEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 用信申请提交
+     * Summary: 用信申请</p>
+     */
+    public ApplyDubbridgeUsecreditLxResponse applyDubbridgeUsecreditLxEx(ApplyDubbridgeUsecreditLxRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.dubbridge.usecredit.lx.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyDubbridgeUsecreditLxResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 用信结果查询
+     * Summary: 用信结果查询</p>
+     */
+    public QueryDubbridgeUsecreditstatusLxResponse queryDubbridgeUsecreditstatusLx(QueryDubbridgeUsecreditstatusLxRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDubbridgeUsecreditstatusLxEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 用信结果查询
+     * Summary: 用信结果查询</p>
+     */
+    public QueryDubbridgeUsecreditstatusLxResponse queryDubbridgeUsecreditstatusLxEx(QueryDubbridgeUsecreditstatusLxRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.dubbridge.usecreditstatus.lx.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDubbridgeUsecreditstatusLxResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 支用放款申请
+     * Summary: 支用放款申请</p>
+     */
+    public ApplyDubbridgeLoanLxResponse applyDubbridgeLoanLx(ApplyDubbridgeLoanLxRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.applyDubbridgeLoanLxEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 支用放款申请
+     * Summary: 支用放款申请</p>
+     */
+    public ApplyDubbridgeLoanLxResponse applyDubbridgeLoanLxEx(ApplyDubbridgeLoanLxRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.dubbridge.loan.lx.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyDubbridgeLoanLxResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 支用结果查询
+     * Summary: 支用结果查询</p>
+     */
+    public QueryDubbridgeLoanstatusLxResponse queryDubbridgeLoanstatusLx(QueryDubbridgeLoanstatusLxRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDubbridgeLoanstatusLxEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 支用结果查询
+     * Summary: 支用结果查询</p>
+     */
+    public QueryDubbridgeLoanstatusLxResponse queryDubbridgeLoanstatusLxEx(QueryDubbridgeLoanstatusLxRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.dubbridge.loanstatus.lx.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDubbridgeLoanstatusLxResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 流量方生成的还款计划，通知同步至天枢及下游资金方
+     * Summary: 还款计划通知</p>
+     */
+    public NotifyDubbridgeRepaymentplanLxResponse notifyDubbridgeRepaymentplanLx(NotifyDubbridgeRepaymentplanLxRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.notifyDubbridgeRepaymentplanLxEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 流量方生成的还款计划，通知同步至天枢及下游资金方
+     * Summary: 还款计划通知</p>
+     */
+    public NotifyDubbridgeRepaymentplanLxResponse notifyDubbridgeRepaymentplanLxEx(NotifyDubbridgeRepaymentplanLxRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.dubbridge.repaymentplan.lx.notify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new NotifyDubbridgeRepaymentplanLxResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 还款代扣申请
+     * Summary: 还款代扣申请</p>
+     */
+    public ApplyDubbridgeRepaywithholdLxResponse applyDubbridgeRepaywithholdLx(ApplyDubbridgeRepaywithholdLxRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.applyDubbridgeRepaywithholdLxEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 还款代扣申请
+     * Summary: 还款代扣申请</p>
+     */
+    public ApplyDubbridgeRepaywithholdLxResponse applyDubbridgeRepaywithholdLxEx(ApplyDubbridgeRepaywithholdLxRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.dubbridge.repaywithhold.lx.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyDubbridgeRepaywithholdLxResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 还款代扣结果查询
+     * Summary: 还款代扣结果查询</p>
+     */
+    public QueryDubbridgeRepaywithholdLxResponse queryDubbridgeRepaywithholdLx(QueryDubbridgeRepaywithholdLxRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDubbridgeRepaywithholdLxEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 还款代扣结果查询
+     * Summary: 还款代扣结果查询</p>
+     */
+    public QueryDubbridgeRepaywithholdLxResponse queryDubbridgeRepaywithholdLxEx(QueryDubbridgeRepaywithholdLxRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.dubbridge.repaywithhold.lx.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDubbridgeRepaywithholdLxResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 实还通知
+     * Summary: 实还通知</p>
+     */
+    public NotifyDubbridgeRepaymentLxResponse notifyDubbridgeRepaymentLx(NotifyDubbridgeRepaymentLxRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.notifyDubbridgeRepaymentLxEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 实还通知
+     * Summary: 实还通知</p>
+     */
+    public NotifyDubbridgeRepaymentLxResponse notifyDubbridgeRepaymentLxEx(NotifyDubbridgeRepaymentLxRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.dubbridge.repayment.lx.notify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new NotifyDubbridgeRepaymentLxResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 实还通知结果查询
+     * Summary: 实还通知结果查询</p>
+     */
+    public QueryDubbridgeRepaymentLxResponse queryDubbridgeRepaymentLx(QueryDubbridgeRepaymentLxRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDubbridgeRepaymentLxEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 实还通知结果查询
+     * Summary: 实还通知结果查询</p>
+     */
+    public QueryDubbridgeRepaymentLxResponse queryDubbridgeRepaymentLxEx(QueryDubbridgeRepaymentLxRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.dubbridge.repayment.lx.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDubbridgeRepaymentLxResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 已经授信通过的用户,无需重新进行授信申请,直接查询可用额度是否充足,以及是否在有效期内
+     * Summary: 额度查询接口</p>
+     */
+    public QueryDubbridgeCreditamtLxResponse queryDubbridgeCreditamtLx(QueryDubbridgeCreditamtLxRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDubbridgeCreditamtLxEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 已经授信通过的用户,无需重新进行授信申请,直接查询可用额度是否充足,以及是否在有效期内
+     * Summary: 额度查询接口</p>
+     */
+    public QueryDubbridgeCreditamtLxResponse queryDubbridgeCreditamtLxEx(QueryDubbridgeCreditamtLxRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.dubbridge.creditamt.lx.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDubbridgeCreditamtLxResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 结清证明、代偿凭证、放款凭证获取
+     * Summary: 证明类文件获取</p>
+     */
+    public QueryDubbridgeCertificateLxResponse queryDubbridgeCertificateLx(QueryDubbridgeCertificateLxRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDubbridgeCertificateLxEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 结清证明、代偿凭证、放款凭证获取
+     * Summary: 证明类文件获取</p>
+     */
+    public QueryDubbridgeCertificateLxResponse queryDubbridgeCertificateLxEx(QueryDubbridgeCertificateLxRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.dubbridge.certificate.lx.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDubbridgeCertificateLxResponse());
     }
 
     /**
