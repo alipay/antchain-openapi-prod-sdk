@@ -78,6 +78,31 @@ export class Config extends $tea.Model {
   }
 }
 
+// air引擎输出infoCode
+export class AirInfoCodes extends $tea.Model {
+  // infoCode
+  name?: string;
+  // infoCode描述
+  description?: string;
+  static names(): { [key: string]: string } {
+    return {
+      name: 'name',
+      description: 'description',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      name: 'string',
+      description: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 企业风险等级分布统计
 export class RtopLevelDistribution extends $tea.Model {
   // 统计值
@@ -115,6 +140,35 @@ export class InfoCodes extends $tea.Model {
 
   static types(): { [key: string]: any } {
     return {
+      name: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// air引擎决策流输出信息
+export class AirDecisionFlows extends $tea.Model {
+  // 决策结果
+  decision?: string;
+  // air引擎输出的infoCodes信息
+  infoCodes?: AirInfoCodes[];
+  // 策略名称
+  name?: string;
+  static names(): { [key: string]: string } {
+    return {
+      decision: 'decision',
+      infoCodes: 'info_codes',
+      name: 'name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      decision: 'string',
+      infoCodes: { 'type': 'array', 'itemType': AirInfoCodes },
       name: 'string',
     };
   }
@@ -528,6 +582,56 @@ export class UmktOfflineDecisionTaskDetailInfo extends $tea.Model {
   }
 }
 
+// 还款账单明细Object
+export class BillDetail extends $tea.Model {
+  // 对账流水号，在扣款回盘文件中返回，用于对账
+  serialNumber?: string;
+  // 还款期数
+  rpyTerm: number;
+  // 账单维度的还款总额（单位：分），单笔账单本利罚之和
+  rpyAmt: number;
+  // 实还本金（单位：分）
+  rpyPrincipal: number;
+  // 实还利息（单位：分）
+  rpyFeeAmt: number;
+  // 实还罚息（单位：分）
+  rpyMuclt: number;
+  // 其他科目金额，可能会其他类型的金额,用json数组的格式提高扩展性，涉及到保费和咨询服务费的项目，需要提供此字段。
+  // 
+  otherInfo?: string;
+  // 用户实还日，用户主动发起是当前日；定时扣款是应还日，格式=yyyy-MM-dd
+  rpyDate?: string;
+  static names(): { [key: string]: string } {
+    return {
+      serialNumber: 'serial_number',
+      rpyTerm: 'rpy_term',
+      rpyAmt: 'rpy_amt',
+      rpyPrincipal: 'rpy_principal',
+      rpyFeeAmt: 'rpy_fee_amt',
+      rpyMuclt: 'rpy_muclt',
+      otherInfo: 'other_info',
+      rpyDate: 'rpy_date',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      serialNumber: 'string',
+      rpyTerm: 'number',
+      rpyAmt: 'number',
+      rpyPrincipal: 'number',
+      rpyFeeAmt: 'number',
+      rpyMuclt: 'number',
+      otherInfo: 'string',
+      rpyDate: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 营销盾触达媒介参数信息
 export class ActionParamInfo extends $tea.Model {
   // 触达媒介类型
@@ -881,6 +985,35 @@ export class StatisticInfoDetail extends $tea.Model {
       failCount: 'number',
       waitingSubTaskCount: 'number',
       totalCount: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// air引擎输出的决策域信息
+export class AirDomainInfos extends $tea.Model {
+  // 决策域信息
+  domainCode?: string;
+  // 决策域信息
+  domainDecision?: string;
+  // 决策流输出
+  decisionFlows?: AirDecisionFlows[];
+  static names(): { [key: string]: string } {
+    return {
+      domainCode: 'domain_code',
+      domainDecision: 'domain_decision',
+      decisionFlows: 'decision_flows',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      domainCode: 'string',
+      domainDecision: 'string',
+      decisionFlows: { 'type': 'array', 'itemType': AirDecisionFlows },
     };
   }
 
@@ -4996,6 +5129,48 @@ export class Contract extends $tea.Model {
   }
 }
 
+// 代扣明细
+export class WithholdDetailItem extends $tea.Model {
+  // 贷款申请编号
+  assetId: string;
+  // 放款编号/借据号
+  capitalLoanNo: string;
+  // 订单维度的实还总额,保留两位有效数字
+  // 单笔订单代扣的总额(单位:分)
+  rpyTotalAmt: number;
+  // 还款类型，0-待还、1-正常还款、2-部分提前还、 3-逾期还款 、4-全部提前还 、5-坏账代偿、 6-回购
+  rpyTpe: number;
+  // 代扣日期，用户实还日，用户主动发起是当前日；定时扣款是应还日，格式=yyyy-MM-dd
+  rpyDate: string;
+  // 还款账单明细,如果是提前结清,会有多条
+  billDetails: BillDetail[];
+  static names(): { [key: string]: string } {
+    return {
+      assetId: 'asset_id',
+      capitalLoanNo: 'capital_loan_no',
+      rpyTotalAmt: 'rpy_total_amt',
+      rpyTpe: 'rpy_tpe',
+      rpyDate: 'rpy_date',
+      billDetails: 'bill_details',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      assetId: 'string',
+      capitalLoanNo: 'string',
+      rpyTotalAmt: 'number',
+      rpyTpe: 'number',
+      rpyDate: 'string',
+      billDetails: { 'type': 'array', 'itemType': BillDetail },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // ai外呼回调详情
 export class AICallbackMessage extends $tea.Model {
   // 批次号
@@ -5089,6 +5264,35 @@ export class AICallbackMessage extends $tea.Model {
   }
 }
 
+// 决策场景信息
+export class AirDfSceneInfos extends $tea.Model {
+  // 决策场景结果
+  sceneDecision?: string;
+  // 决策场景
+  sceneCode?: string;
+  // 决策域信息
+  domainInfos?: AirDomainInfos[];
+  static names(): { [key: string]: string } {
+    return {
+      sceneDecision: 'scene_decision',
+      sceneCode: 'scene_code',
+      domainInfos: 'domain_infos',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      sceneDecision: 'string',
+      sceneCode: 'string',
+      domainInfos: { 'type': 'array', 'itemType': AirDomainInfos },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 预警企业
 export class RtopCompanyAlarm extends $tea.Model {
   // 企业ID
@@ -5118,6 +5322,78 @@ export class RtopCompanyAlarm extends $tea.Model {
       alarmIdx: 'string',
       alarmDate: 'string',
       alarmFlag: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 流量方还款计划通知Object
+export class RepayPlanNotifyItem extends $tea.Model {
+  // 当前期数
+  loanTerm: number;
+  // 应还日，yyyy-MM-dd
+  expectRepayDate: string;
+  // 应还总额(元)
+  expectRepayAmount: number;
+  // 应还本金(元)
+  expectRepayPrincipal: number;
+  // 应还利息(元)
+  expectRepayInterest: number;
+  // 应还担保费(元)
+  expectRepayGuarantee?: number;
+  // 起息日，格式 YYYY-MM-DD
+  interestStartDate?: string;
+  // 实还总额(元)，如未还则传0
+  repayAmount?: number;
+  // 已还本金(元)，如未还则传0
+  repaidPrincipal?: number;
+  // 已还利息(元)，如未还则传0
+  repaidInterest?: number;
+  // 应还罚息(元)，
+  expectRepayMuclt?: number;
+  // 已还罚息(元)，如未还则传0
+  repaidPenalty?: number;
+  // 状态标志 
+  // 0-正常未到期 
+  // 1-正常已还清 
+  // 2-逾期
+  scheduleStatus?: string;
+  static names(): { [key: string]: string } {
+    return {
+      loanTerm: 'loan_term',
+      expectRepayDate: 'expect_repay_date',
+      expectRepayAmount: 'expect_repay_amount',
+      expectRepayPrincipal: 'expect_repay_principal',
+      expectRepayInterest: 'expect_repay_interest',
+      expectRepayGuarantee: 'expect_repay_guarantee',
+      interestStartDate: 'interest_start_date',
+      repayAmount: 'repay_amount',
+      repaidPrincipal: 'repaid_principal',
+      repaidInterest: 'repaid_interest',
+      expectRepayMuclt: 'expect_repay_muclt',
+      repaidPenalty: 'repaid_penalty',
+      scheduleStatus: 'schedule_status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      loanTerm: 'number',
+      expectRepayDate: 'string',
+      expectRepayAmount: 'number',
+      expectRepayPrincipal: 'number',
+      expectRepayInterest: 'number',
+      expectRepayGuarantee: 'number',
+      interestStartDate: 'string',
+      repayAmount: 'number',
+      repaidPrincipal: 'number',
+      repaidInterest: 'number',
+      expectRepayMuclt: 'number',
+      repaidPenalty: 'number',
+      scheduleStatus: 'string',
     };
   }
 
@@ -7386,6 +7662,113 @@ export class QueryCreditshieldProductBatchResponse extends $tea.Model {
       resultMsg: 'string',
       success: 'boolean',
       queryResults: { 'type': 'array', 'itemType': QueryResult },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QuerySecurityAiriskcloudPolicyRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 风险类型：表示风险处理或风险咨询——process/advice
+  riskType?: string;
+  // 事件业务属性
+  eventInfo: string;
+  // 风险场景信息
+  securityScene?: SecurityScene;
+  // 服务上下文
+  serviceContext?: ServiceContext;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      riskType: 'risk_type',
+      eventInfo: 'event_info',
+      securityScene: 'security_scene',
+      serviceContext: 'service_context',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      riskType: 'string',
+      eventInfo: 'string',
+      securityScene: SecurityScene,
+      serviceContext: ServiceContext,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QuerySecurityAiriskcloudPolicyResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 反馈成功之后的id
+  securityId?: string;
+  // 安全处理结果，枚举值为：reject[拒绝],valida...
+  securityResult?: string;
+  // 是否成功
+  success?: string;
+  // native场景下的核身id
+  verifyId?: string;
+  // h5场景下的核身地址
+  verifyUrl?: string;
+  // 场景分
+  modelDetails?: ModelDetails[];
+  // 输出变量
+  variableDetails?: VariableDetails[];
+  // 策略详情
+  strategyDetails?: StrategyDetails[];
+  // 场景决策
+  sceneInfos?: SceneInfos[];
+  // infoCode信息
+  infoCodes?: AirInfoCodes[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      securityId: 'security_id',
+      securityResult: 'security_result',
+      success: 'success',
+      verifyId: 'verify_id',
+      verifyUrl: 'verify_url',
+      modelDetails: 'model_details',
+      variableDetails: 'variable_details',
+      strategyDetails: 'strategy_details',
+      sceneInfos: 'scene_infos',
+      infoCodes: 'info_codes',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      securityId: 'string',
+      securityResult: 'string',
+      success: 'string',
+      verifyId: 'string',
+      verifyUrl: 'string',
+      modelDetails: { 'type': 'array', 'itemType': ModelDetails },
+      variableDetails: { 'type': 'array', 'itemType': VariableDetails },
+      strategyDetails: { 'type': 'array', 'itemType': StrategyDetails },
+      sceneInfos: { 'type': 'array', 'itemType': SceneInfos },
+      infoCodes: { 'type': 'array', 'itemType': AirInfoCodes },
     };
   }
 
@@ -14190,6 +14573,1458 @@ export class QueryDubbridgeFundCreditamtResponse extends $tea.Model {
       prodType: 'string',
       customNo: 'string',
       fundList: { 'type': 'array', 'itemType': FundInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyDubbridgeCreditLxRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 授信申请编号
+  creditApplyId: string;
+  // 合作方代码
+  partnerCode?: string;
+  // 申请人姓名
+  name: string;
+  // 授信金额，单位:元
+  creditAmount: number;
+  // 婚姻状况，
+  // 0-未婚
+  // 1-已婚
+  // 3-离异
+  // 4-未知
+  // 5-丧偶
+  maritalStatus: string;
+  // 学历，
+  // 0未知，1本科，2大专，3硕士，4博士，7初中，10大专(老)，11中专，12高中，13小学
+  education: string;
+  // 年龄
+  age: number;
+  // 性别，
+  // 1-男
+  // 2-女
+  // 0-未知
+  sex: string;
+  // 证件类型，
+  // 1、身份证
+  identiType: string;
+  // 证件号码
+  identiNo: string;
+  // 身份证有效期止，如果是长期用20991231
+  idCardExpireDate: string;
+  // 身份证有效期起
+  idCardValidDate: string;
+  // 身份证省
+  idProvince: string;
+  // 身份证市
+  idCity: string;
+  // 身份证地址
+  idAddr: string;
+  // 身份证签发机关
+  issuedAgency: string;
+  // 出生日期，yyyy-MM-dd
+  birthday: string;
+  // 国籍
+  nationality: string;
+  // 民族
+  nation: string;
+  // 客户手机号
+  mobileNo: string;
+  // 用户银行卡号
+  userBankCardNo: string;
+  // 第一联系人姓名
+  contactName: string;
+  // 第一联系人手机
+  contactMobile: string;
+  // 第一联系人关系，
+  // 1 父母
+  // 2 配偶
+  // 3 亲戚
+  // 4 家人
+  // 5 子女
+  // 6 朋友
+  // 7 同事
+  // 8 兄弟姐妹
+  // 9 同学
+  // 99 其他
+  contactRel: string;
+  // 居住地址对应的省，若为空则上送身份证地址对应的省
+  livingProvince: string;
+  // 居住地址对应的市，若为空则上送身份证地址对应的市
+  livingCity: string;
+  // 居住地对应的区
+  livingCounty?: string;
+  // 居住地址
+  livingAddress: string;
+  // 客户职业，
+  // 0 未知（空值默认按0提供）
+  // 1 国家机关、党群组织、企业、事业单位负责人
+  // 2 专业技术人员
+  // 3 办事人员和有关人员
+  // 4 商业、服务业人员
+  // 5 农、林、牧、渔、水利业生产人员
+  // 6 生产、运输设备操作人员及有关人员
+  // 7 军人
+  // 8 不便分类的其他从业人员
+  userOccupation: string;
+  // 客户行业，
+  // 0 未知（空值默认按0提供）
+  // 1 信息传输、软件和信息技术服务业
+  // 2 金融业
+  // 3 制造业
+  // 4 卫生和社会工作
+  // 5 建筑业
+  // 6 文化、体育和娱乐业
+  // 7 租赁和商务服务业
+  // 8 住宿和餐饮业
+  // 9 交通运输、仓储和邮政业
+  // 10 采矿业
+  // 11 电力、热力、燃气及水生产和供应业
+  // 12 科学研究和技术服务业
+  // 13 农、林、牧、渔业
+  // 14 水利、环境和公共设施管理业
+  // 15 其他
+  // 77 批发和零售业
+  // 78 居民服务、修理和其他服务业
+  // 79 房地产业
+  // 81 教育
+  // 82 公共管理、社会保障和社会组织
+  // 80 国际组织
+  userIndustryCategory: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      creditApplyId: 'credit_apply_id',
+      partnerCode: 'partner_code',
+      name: 'name',
+      creditAmount: 'credit_amount',
+      maritalStatus: 'marital_status',
+      education: 'education',
+      age: 'age',
+      sex: 'sex',
+      identiType: 'identi_type',
+      identiNo: 'identi_no',
+      idCardExpireDate: 'id_card_expire_date',
+      idCardValidDate: 'id_card_valid_date',
+      idProvince: 'id_province',
+      idCity: 'id_city',
+      idAddr: 'id_addr',
+      issuedAgency: 'issued_agency',
+      birthday: 'birthday',
+      nationality: 'nationality',
+      nation: 'nation',
+      mobileNo: 'mobile_no',
+      userBankCardNo: 'user_bank_card_no',
+      contactName: 'contact_name',
+      contactMobile: 'contact_mobile',
+      contactRel: 'contact_rel',
+      livingProvince: 'living_province',
+      livingCity: 'living_city',
+      livingCounty: 'living_county',
+      livingAddress: 'living_address',
+      userOccupation: 'user_occupation',
+      userIndustryCategory: 'user_industry_category',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      creditApplyId: 'string',
+      partnerCode: 'string',
+      name: 'string',
+      creditAmount: 'number',
+      maritalStatus: 'string',
+      education: 'string',
+      age: 'number',
+      sex: 'string',
+      identiType: 'string',
+      identiNo: 'string',
+      idCardExpireDate: 'string',
+      idCardValidDate: 'string',
+      idProvince: 'string',
+      idCity: 'string',
+      idAddr: 'string',
+      issuedAgency: 'string',
+      birthday: 'string',
+      nationality: 'string',
+      nation: 'string',
+      mobileNo: 'string',
+      userBankCardNo: 'string',
+      contactName: 'string',
+      contactMobile: 'string',
+      contactRel: 'string',
+      livingProvince: 'string',
+      livingCity: 'string',
+      livingCounty: 'string',
+      livingAddress: 'string',
+      userOccupation: 'string',
+      userIndustryCategory: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyDubbridgeCreditLxResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 天枢客户编号
+  customNo?: string;
+  // 额度授信申请编号
+  creditNo?: string;
+  // 授信审核状态，
+  // 0. 授信成功
+  // 1. 授信失败
+  // 2. 授信中
+  auditState?: number;
+  // 业务处理描述信息
+  msg?: string;
+  // 业务错误码，
+  // 无异常=0 ，不同异常，返回不同的code
+  errorCode?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      customNo: 'custom_no',
+      creditNo: 'credit_no',
+      auditState: 'audit_state',
+      msg: 'msg',
+      errorCode: 'error_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      customNo: 'string',
+      creditNo: 'string',
+      auditState: 'number',
+      msg: 'string',
+      errorCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgeCreditstatusLxRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 授信申请编号
+  creditApplyId: string;
+  // 合作方代码
+  partnerCode?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      creditApplyId: 'credit_apply_id',
+      partnerCode: 'partner_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      creditApplyId: 'string',
+      partnerCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgeCreditstatusLxResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 授信审核状态
+  // 0. 授信成功
+  // 1. 授信失败
+  // 2. 授信中（重试查询）
+  // 3. 查无此单（按1授信失败处理，订单轮询至下一资方）
+  auditState?: number;
+  // 业务错误码
+  // 无异常=0 ，不同异常，返回不同的code
+  errorCode?: number;
+  // 授信失败必填，描述具体的失败原因，用于运营分析
+  msg?: string;
+  // 授信成功必填,授信成功后，资方的授信编号，后续用信/支用时用到
+  creditNo?: string;
+  // 授信批准的额度，授信成功必填，单位:元
+  creditAmt?: number;
+  // 授信生效日期，授信审核通过时必填，格式：yyyy-MM-dd
+  creditValidDate?: string;
+  // 授信失效日期，授信审核通过时必填，格式：yyyy-MM-dd  ,如果授信的当前日期大于
+  // 等于失效日期,就认为失效
+  creditExpireDate?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      auditState: 'audit_state',
+      errorCode: 'error_code',
+      msg: 'msg',
+      creditNo: 'credit_no',
+      creditAmt: 'credit_amt',
+      creditValidDate: 'credit_valid_date',
+      creditExpireDate: 'credit_expire_date',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      auditState: 'number',
+      errorCode: 'number',
+      msg: 'string',
+      creditNo: 'string',
+      creditAmt: 'number',
+      creditValidDate: 'string',
+      creditExpireDate: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyDubbridgeUsecreditLxRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 用信审批申请编号
+  applyId: string;
+  // 合作方代码
+  partnerCode?: string;
+  // 授信编号
+  creditNo: string;
+  // 资产类型，
+  // 1：借钱（默认）
+  // 2：电商购物
+  // 3：乐花卡
+  orderType: string;
+  // 借款金额，单位：元
+  loanPrincipal: number;
+  // 借款期数，比如：1,2,3,6,9,12,15,18,24,36
+  loanTerm: number;
+  // 申请贷款用途，
+  // 借钱（透传）：日常消费；运动健身；电商购物；生活开销；学习进修；学艺术班；技能培训
+  // 电商购物（默认）：电商购物
+  // 乐花卡（默认）：个人综合消费
+  loanUse: string;
+  // 借款人收款户名，
+  // 借钱业务：借款用户个人收款账户名
+  // 电商业务：打款到对公户，传对公户相关账号信息
+  debitAccountName: string;
+  // 收款人银行卡开户行，
+  // 借钱业务：借款用户个人账户开户行名称
+  // 电商业务：打款到对公户，传对公户相关账号信息
+  debitOpenAccountBank: string;
+  // 收款人银行卡卡号，
+  // 借钱业务：借款用户个人账户卡号
+  // 电商业务：打款到对公户，传对公户相关账号信息
+  debitAccountNo: string;
+  // 收款卡联行号，
+  // 借钱业务：非必传
+  // 电商业务：打款到对公户，传对公户相关账号信息
+  debitCnaps?: string;
+  // 担保编号，有担保时提供担保编号
+  insureId?: string;
+  // 担保方名称，有担保时提供担名称
+  insureName?: string;
+  // 还款方式，
+  // 1-等额本息（默认）
+  // 2-等额本金
+  // 4-气球贷
+  // 10- 等本等息
+  // 13-先息后本
+  repayType: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      applyId: 'apply_id',
+      partnerCode: 'partner_code',
+      creditNo: 'credit_no',
+      orderType: 'order_type',
+      loanPrincipal: 'loan_principal',
+      loanTerm: 'loan_term',
+      loanUse: 'loan_use',
+      debitAccountName: 'debit_account_name',
+      debitOpenAccountBank: 'debit_open_account_bank',
+      debitAccountNo: 'debit_account_no',
+      debitCnaps: 'debit_cnaps',
+      insureId: 'insure_id',
+      insureName: 'insure_name',
+      repayType: 'repay_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      applyId: 'string',
+      partnerCode: 'string',
+      creditNo: 'string',
+      orderType: 'string',
+      loanPrincipal: 'number',
+      loanTerm: 'number',
+      loanUse: 'string',
+      debitAccountName: 'string',
+      debitOpenAccountBank: 'string',
+      debitAccountNo: 'string',
+      debitCnaps: 'string',
+      insureId: 'string',
+      insureName: 'string',
+      repayType: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyDubbridgeUsecreditLxResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 用信审批状态，
+  // 0、成功
+  // 1、失败
+  // 2、审批中
+  status?: number;
+  // 用信审批描述，失败时，需给出的错误描述
+  msg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      status: 'status',
+      msg: 'msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      status: 'number',
+      msg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgeUsecreditstatusLxRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 支用申请编号
+  applyId: string;
+  // 合作方代码
+  partnerCode?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      applyId: 'apply_id',
+      partnerCode: 'partner_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      applyId: 'string',
+      partnerCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgeUsecreditstatusLxResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 用信审批状态，
+  // 0、成功
+  // 1、失败
+  // 2、审批中
+  // 3、查无此单(重新发起用信申请接口,需要保证用信申请幂等)
+  status?: number;
+  // 用信审批描述，失败时，需给出的错误描述
+  msg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      status: 'status',
+      msg: 'msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      status: 'number',
+      msg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyDubbridgeLoanLxRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 用信审批申请编号
+  applyId: string;
+  // 合作方代码
+  partnerCode?: string;
+  // 授信编号
+  creditNo: string;
+  // 资产类型， 1：借钱（默认） 2：电商购物 3：乐花卡
+  orderType: string;
+  // 借款金额，单位：元
+  loanPrincipal: number;
+  // 借款期数，比如：1,2,3,6,9,12,15,18,24,36
+  loanTerm: number;
+  // 申请贷款用途， 借钱（透传）：日常消费；运动健身；电商购物；生活开销；学习进修；学艺术班；技能培训 电商购物（默认）：电商购物 乐花卡（默认）：个人综合消费
+  loanUse: string;
+  // 银行卡绑定手机号
+  mobileNo: string;
+  // 借款人收款户名， 借钱业务：借款用户个人收款账户名 电商业务：打款到对公户，传对公户相关账号信息
+  debitAccountName: string;
+  // 收款人银行卡开户行， 借钱业务：借款用户个人账户开户行名称 电商业务：打款到对公户，传对公户相关账号信息
+  debitOpenAccountBank: string;
+  // 收款人银行卡卡号， 借钱业务：借款用户个人账户卡号 电商业务：打款到对公户，传对公户相关账号信息
+  debitAccountNo: string;
+  // 收款卡联行号， 借钱业务：非必传 电商业务：打款到对公户，传对公户相关账号信息
+  debitCnaps: string;
+  // 还款方式， 1-等额本息（默认） 2-等额本金 4-气球贷 10- 等本等息 13-先息后本
+  repayType: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      applyId: 'apply_id',
+      partnerCode: 'partner_code',
+      creditNo: 'credit_no',
+      orderType: 'order_type',
+      loanPrincipal: 'loan_principal',
+      loanTerm: 'loan_term',
+      loanUse: 'loan_use',
+      mobileNo: 'mobile_no',
+      debitAccountName: 'debit_account_name',
+      debitOpenAccountBank: 'debit_open_account_bank',
+      debitAccountNo: 'debit_account_no',
+      debitCnaps: 'debit_cnaps',
+      repayType: 'repay_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      applyId: 'string',
+      partnerCode: 'string',
+      creditNo: 'string',
+      orderType: 'string',
+      loanPrincipal: 'number',
+      loanTerm: 'number',
+      loanUse: 'string',
+      mobileNo: 'string',
+      debitAccountName: 'string',
+      debitOpenAccountBank: 'string',
+      debitAccountNo: 'string',
+      debitCnaps: 'string',
+      repayType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyDubbridgeLoanLxResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 放款结果，
+  // 0:放款成功
+  // 1:放款失败
+  // 2.查无此单
+  // 99:处理中
+  loanResult?: number;
+  // 放款结果描述，失败时，需给出的错误描述
+  msg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      loanResult: 'loan_result',
+      msg: 'msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      loanResult: 'number',
+      msg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgeLoanstatusLxRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 用信审批申请编号
+  applyId: string;
+  // 合作方代码
+  partnerCode?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      applyId: 'apply_id',
+      partnerCode: 'partner_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      applyId: 'string',
+      partnerCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgeLoanstatusLxResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 放款结果，
+  // 0:放款成功
+  // 1:放款失败
+  // 2.查无此单(重新发起支用申请接口,需要保证支用申请接口幂等)
+  // 99:处理中
+  loanResult?: number;
+  // 描述信息
+  msg?: string;
+  // 成功必填，资方返回的阶梯结算利率，供生成对资还款计划时使用
+  settleRate?: number;
+  // 成功必填，YYYY-MM-DD HH:MM:SS
+  paymentTime?: string;
+  // 放款成功金额，成功必填，单位:元
+  loanAmt?: number;
+  // 放款流水号，成功必填
+  capitalLoanNo?: string;
+  // 收款人银行卡卡号，放款成功提供实际的放款目标账户
+  debitAccountNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      loanResult: 'loan_result',
+      msg: 'msg',
+      settleRate: 'settle_rate',
+      paymentTime: 'payment_time',
+      loanAmt: 'loan_amt',
+      capitalLoanNo: 'capital_loan_no',
+      debitAccountNo: 'debit_account_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      loanResult: 'number',
+      msg: 'string',
+      settleRate: 'number',
+      paymentTime: 'string',
+      loanAmt: 'number',
+      capitalLoanNo: 'string',
+      debitAccountNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class NotifyDubbridgeRepaymentplanLxRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 支用申请编号
+  applyId: string;
+  // 合作方代码
+  partnerCode?: string;
+  // 放款编号
+  capitalLoanNo: string;
+  // 借款总期数
+  totalTerm: number;
+  // 借据总金额(元)
+  totalAmount: number;
+  // 放款成功日期，yyyy_MM-dd HH:mm:ss
+  paymentTime: string;
+  // 还款计划列表
+  repayPlans: RepayPlanNotifyItem[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      applyId: 'apply_id',
+      partnerCode: 'partner_code',
+      capitalLoanNo: 'capital_loan_no',
+      totalTerm: 'total_term',
+      totalAmount: 'total_amount',
+      paymentTime: 'payment_time',
+      repayPlans: 'repay_plans',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      applyId: 'string',
+      partnerCode: 'string',
+      capitalLoanNo: 'string',
+      totalTerm: 'number',
+      totalAmount: 'number',
+      paymentTime: 'string',
+      repayPlans: { 'type': 'array', 'itemType': RepayPlanNotifyItem },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class NotifyDubbridgeRepaymentplanLxResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 同步结果，0-成功 1-失败
+  status?: number;
+  // 错误描述
+  msg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      status: 'status',
+      msg: 'msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      status: 'number',
+      msg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyDubbridgeRepaywithholdLxRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 代扣请求流水号
+  withholdSerialNo: string;
+  // 合作方代码
+  partnerCode?: string;
+  // 用户绑卡信息 ，包含用户四要素：手机号、卡号、用户名、身份证等
+  bindCardInfo: string;
+  // 通联需要的银行编码
+  bankId?: string;
+  // 代扣总金额=用户代扣金额+补差金额（单位：分）
+  withholdAmt: number;
+  // 签约协议号，客户在支付机构的签约协议号(通联以身份证号唯一，宝付以四要素唯一)
+  signNum: string;
+  // 支付模式，
+  // 0:银行卡支付（默认）
+  // 1:余额支付
+  // 2:份额支付
+  payMode: number;
+  // 在支付机构的商户号
+  subMerchantId: string;
+  // 出账信息
+  sepOutInfo: string;
+  // 分账信息，分账信息条数大于等于一条，当担保费为0时，担保费分账信息不会透传给资方，产品需提示资方做好适配
+  // 
+  sepInInfo: string;
+  // 加密报文，流量方对出入账信息加密报文，需资方透传给支付机构，与资方申请一致方可扣款成功
+  encrpytContent?: string;
+  // 代扣明细
+  withholdDetail: WithholdDetailItem[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      withholdSerialNo: 'withhold_serial_no',
+      partnerCode: 'partner_code',
+      bindCardInfo: 'bind_card_info',
+      bankId: 'bank_id',
+      withholdAmt: 'withhold_amt',
+      signNum: 'sign_num',
+      payMode: 'pay_mode',
+      subMerchantId: 'sub_merchant_id',
+      sepOutInfo: 'sep_out_info',
+      sepInInfo: 'sep_in_info',
+      encrpytContent: 'encrpyt_content',
+      withholdDetail: 'withhold_detail',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      withholdSerialNo: 'string',
+      partnerCode: 'string',
+      bindCardInfo: 'string',
+      bankId: 'string',
+      withholdAmt: 'number',
+      signNum: 'string',
+      payMode: 'number',
+      subMerchantId: 'string',
+      sepOutInfo: 'string',
+      sepInInfo: 'string',
+      encrpytContent: 'string',
+      withholdDetail: { 'type': 'array', 'itemType': WithholdDetailItem },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyDubbridgeRepaywithholdLxResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 还款状态，1、接口通知成功
+  // 2、接口通知失败
+  // (具体的结果都以查询接口为准)
+  status?: number;
+  // 还款描述，失败时，需给出的错误描述
+  msg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      status: 'status',
+      msg: 'msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      status: 'number',
+      msg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgeRepaywithholdLxRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 代扣请求流水号
+  withholdSerialNo: string;
+  // 合作方代码
+  partnerCode?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      withholdSerialNo: 'withhold_serial_no',
+      partnerCode: 'partner_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      withholdSerialNo: 'string',
+      partnerCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgeRepaywithholdLxResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 代扣状态，
+  // 1、代扣成功
+  // 2、代扣失败
+  // 3. 代扣处理中
+  // 4. 未收到代扣请求（交易侧可以重复发起代扣）
+  status?: number;
+  // 代扣描述，失败时，需给出的错误描述
+  msg?: string;
+  // 资金方扣款交易流水号，受理流水号(资金方)
+  orderNum?: string;
+  // 支付通道交易流水号
+  transNum?: string;
+  // 代扣明细
+  withholdDetail?: WithholdDetailItem[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      status: 'status',
+      msg: 'msg',
+      orderNum: 'order_num',
+      transNum: 'trans_num',
+      withholdDetail: 'withhold_detail',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      status: 'number',
+      msg: 'string',
+      orderNum: 'string',
+      transNum: 'string',
+      withholdDetail: { 'type': 'array', 'itemType': WithholdDetailItem },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class NotifyDubbridgeRepaymentLxRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 还款请求流水号/账单号
+  billId: string;
+  // 贷款申请编号
+  applyId: string;
+  // 是否本次还款最后一次通知，
+  // 1-是
+  // 2-否
+  // 用户一次还多期时，该笔还款按期多次通知，最后一次通知为是。为否时没有还款计划列表。
+  lastNotify: number;
+  // 代扣请求流水号
+  withholdSerialNo?: string;
+  // 合作方代码
+  partnerCode?: string;
+  // 还款类型，
+  // 不同还款类型分开通知：
+  // 10-正常还款,
+  // 20-部分提前还,
+  // 30-提前结清,
+  // 40-逾期还款
+  // 50-代偿
+  repayType: number;
+  // 还款路径，
+  // 1-清分 2-代扣
+  repayChannel: string;
+  // 还款期数
+  repayTerm: string;
+  // 还款日期
+  repayDate: string;
+  // 还款总额,保留两位有效数字(单位:元)
+  repayAmount: string;
+  // 实还本金,保留两位有效数字(单位:元)
+  repayPrincipal: string;
+  // 实还利息,保留两位有效数字(单位:元)
+  repayInterest: string;
+  // 实还罚息,保留两位有效数字(单位:元)
+  repayMuclt?: string;
+  // 实还担保费,保留两位有效数字(单位:元)
+  repayGuarantee?: string;
+  // 当期结清状态：
+  // 0-当期未结清
+  // 1-当期已结清
+  repaymentMode: string;
+  // 还款计划列表，随借随还业务更新后的还款计划列表
+  rpyDetails?: BillDetail[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      billId: 'bill_id',
+      applyId: 'apply_id',
+      lastNotify: 'last_notify',
+      withholdSerialNo: 'withhold_serial_no',
+      partnerCode: 'partner_code',
+      repayType: 'repay_type',
+      repayChannel: 'repay_channel',
+      repayTerm: 'repay_term',
+      repayDate: 'repay_date',
+      repayAmount: 'repay_amount',
+      repayPrincipal: 'repay_principal',
+      repayInterest: 'repay_interest',
+      repayMuclt: 'repay_muclt',
+      repayGuarantee: 'repay_guarantee',
+      repaymentMode: 'repayment_mode',
+      rpyDetails: 'rpy_details',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      billId: 'string',
+      applyId: 'string',
+      lastNotify: 'number',
+      withholdSerialNo: 'string',
+      partnerCode: 'string',
+      repayType: 'number',
+      repayChannel: 'string',
+      repayTerm: 'string',
+      repayDate: 'string',
+      repayAmount: 'string',
+      repayPrincipal: 'string',
+      repayInterest: 'string',
+      repayMuclt: 'string',
+      repayGuarantee: 'string',
+      repaymentMode: 'string',
+      rpyDetails: { 'type': 'array', 'itemType': BillDetail },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class NotifyDubbridgeRepaymentLxResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 1、接口通知成功(仅代表收到请求,具体的还款结果以查询接口为准)
+  // 2、接口通知失败(代表未收到请求,会重复发起还款申请)
+  notifyStatus?: number;
+  // 错误描述
+  msg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      notifyStatus: 'notify_status',
+      msg: 'msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      notifyStatus: 'number',
+      msg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgeRepaymentLxRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 还款请求流水号/账单号
+  billId: string;
+  // 放款编号/借据号
+  capitalLoanNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      billId: 'bill_id',
+      capitalLoanNo: 'capital_loan_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      billId: 'string',
+      capitalLoanNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgeRepaymentLxResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 还款状态，
+  // 1、成功(结算成功)
+  // 2、失败(结算失败)
+  // 3. 还款中(结算处理中)
+  // 4. 查无此通知（会重复发起还款）
+  repayStatus?: number;
+  // 处理成功时间，成功必填YYYY-MM-DD HH:MM:SS
+  processTime?: string;
+  // 还款描述，失败时，需给出的错误描述
+  msg?: string;
+  // 还款总额,保留两位有效数字(单位:元)
+  repayAmount?: number;
+  // 实还本金,保留两位有效数字(单位:元)
+  repayPrincipal?: string;
+  // 实还利息,保留两位有效数字(单位:元)
+  repayInterest?: string;
+  // 实还罚息,保留两位有效数字(单位:元)
+  repayMuclt?: number;
+  // 实还担保费,保留两位有效数字(单位:元)
+  repayGuarantee?: number;
+  // 实还信用评估费,保留两位有效数字(单位:元)
+  repayCreditFee?: number;
+  // 实还咨询服务费,保留两位有效数字(单位:元)
+  repayGranteeConsultServiceFee?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      repayStatus: 'repay_status',
+      processTime: 'process_time',
+      msg: 'msg',
+      repayAmount: 'repay_amount',
+      repayPrincipal: 'repay_principal',
+      repayInterest: 'repay_interest',
+      repayMuclt: 'repay_muclt',
+      repayGuarantee: 'repay_guarantee',
+      repayCreditFee: 'repay_credit_fee',
+      repayGranteeConsultServiceFee: 'repay_grantee_consult_service_fee',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      repayStatus: 'number',
+      processTime: 'string',
+      msg: 'string',
+      repayAmount: 'number',
+      repayPrincipal: 'string',
+      repayInterest: 'string',
+      repayMuclt: 'number',
+      repayGuarantee: 'number',
+      repayCreditFee: 'number',
+      repayGranteeConsultServiceFee: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgeCreditamtLxRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 授信申请编号
+  creditApplyId: string;
+  // 合作方代码
+  partnerCode?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      creditApplyId: 'credit_apply_id',
+      partnerCode: 'partner_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      creditApplyId: 'string',
+      partnerCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgeCreditamtLxResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 返回描述信息
+  msg?: string;
+  // 查询状态，0. 查询成功
+  // 1. 查询失败---表示“拒绝”的有效终态，下一步重新调用授信申请接口
+  status?: number;
+  // 剩余可用额度,授信成功必填,单位:元
+  creditRemainAmt?: string;
+  // 授信批准的额度，授信成功必填,单位:元
+  creditAmt?: string;
+  // 授信生效日期，授信审核通过时必填,格式：yyyy-MM-dd
+  creditValidDate?: string;
+  // 授信失效日期，授信审核通过时必填,格式：yyyy-MM-dd  
+  creditExpireDate?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      msg: 'msg',
+      status: 'status',
+      creditRemainAmt: 'credit_remain_amt',
+      creditAmt: 'credit_amt',
+      creditValidDate: 'credit_valid_date',
+      creditExpireDate: 'credit_expire_date',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      msg: 'string',
+      status: 'number',
+      creditRemainAmt: 'string',
+      creditAmt: 'string',
+      creditValidDate: 'string',
+      creditExpireDate: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgeCertificateLxRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 放款请求流水号
+  loanReqNo: string;
+  // 请求方代码
+  sourceCode?: string;
+  // 文件类型，0结清证明
+  // 1代偿凭证
+  // 2放款凭证
+  fileType: number;
+  // 申请日期，yyyy-MM-dd
+  applyDate: string;
+  // 业务类型，
+  // 1非乐花卡
+  // 2乐花卡
+  businessType: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      loanReqNo: 'loan_req_no',
+      sourceCode: 'source_code',
+      fileType: 'file_type',
+      applyDate: 'apply_date',
+      businessType: 'business_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      loanReqNo: 'string',
+      sourceCode: 'string',
+      fileType: 'number',
+      applyDate: 'string',
+      businessType: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgeCertificateLxResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 返回码
+  // 0：成功
+  // 1：失败
+  // 2：处理中
+  // 99：系统异常
+  status?: string;
+  // 申请结果描述，失败原因，失败时必传
+  msg?: string;
+  // 文件路径
+  // 实时返回文件路径给到乐信，乐信去对应sftp路径上取，路径命名规则：download/2602/loanReqNo_文件类型.pdf
+  // 若失败则返回失败原因到msg字段
+  filePath?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      status: 'status',
+      msg: 'msg',
+      filePath: 'file_path',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      status: 'string',
+      msg: 'string',
+      filePath: 'string',
     };
   }
 
@@ -26845,7 +28680,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.30.12",
+          sdk_version: "1.31.0",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
@@ -27233,6 +29068,25 @@ export default class Client {
   async queryCreditshieldProductBatchEx(request: QueryCreditshieldProductBatchRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryCreditshieldProductBatchResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryCreditshieldProductBatchResponse>(await this.doRequest("1.0", "riskplus.creditshield.product.batch.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryCreditshieldProductBatchResponse({}));
+  }
+
+  /**
+   * Description: 业务风险查询接口，基于新air决策引擎提供决策能力
+   * Summary: 业务风险咨询接口
+   */
+  async querySecurityAiriskcloudPolicy(request: QuerySecurityAiriskcloudPolicyRequest): Promise<QuerySecurityAiriskcloudPolicyResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.querySecurityAiriskcloudPolicyEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 业务风险查询接口，基于新air决策引擎提供决策能力
+   * Summary: 业务风险咨询接口
+   */
+  async querySecurityAiriskcloudPolicyEx(request: QuerySecurityAiriskcloudPolicyRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QuerySecurityAiriskcloudPolicyResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QuerySecurityAiriskcloudPolicyResponse>(await this.doRequest("1.0", "riskplus.security.airiskcloud.policy.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QuerySecurityAiriskcloudPolicyResponse({}));
   }
 
   /**
@@ -28737,6 +30591,253 @@ export default class Client {
   async queryDubbridgeFundCreditamtEx(request: QueryDubbridgeFundCreditamtRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDubbridgeFundCreditamtResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryDubbridgeFundCreditamtResponse>(await this.doRequest("1.0", "riskplus.dubbridge.fund.creditamt.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDubbridgeFundCreditamtResponse({}));
+  }
+
+  /**
+   * Description: 授信申请-定制接口
+   * Summary: 授信申请-定制接口
+   */
+  async applyDubbridgeCreditLx(request: ApplyDubbridgeCreditLxRequest): Promise<ApplyDubbridgeCreditLxResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.applyDubbridgeCreditLxEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 授信申请-定制接口
+   * Summary: 授信申请-定制接口
+   */
+  async applyDubbridgeCreditLxEx(request: ApplyDubbridgeCreditLxRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyDubbridgeCreditLxResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApplyDubbridgeCreditLxResponse>(await this.doRequest("1.0", "riskplus.dubbridge.credit.lx.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyDubbridgeCreditLxResponse({}));
+  }
+
+  /**
+   * Description: 授信结果查询，授信通过下会返回授信单最新额度信息
+   * Summary: 授信结果查询
+   */
+  async queryDubbridgeCreditstatusLx(request: QueryDubbridgeCreditstatusLxRequest): Promise<QueryDubbridgeCreditstatusLxResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDubbridgeCreditstatusLxEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 授信结果查询，授信通过下会返回授信单最新额度信息
+   * Summary: 授信结果查询
+   */
+  async queryDubbridgeCreditstatusLxEx(request: QueryDubbridgeCreditstatusLxRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDubbridgeCreditstatusLxResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDubbridgeCreditstatusLxResponse>(await this.doRequest("1.0", "riskplus.dubbridge.creditstatus.lx.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDubbridgeCreditstatusLxResponse({}));
+  }
+
+  /**
+   * Description: 用信申请提交
+   * Summary: 用信申请
+   */
+  async applyDubbridgeUsecreditLx(request: ApplyDubbridgeUsecreditLxRequest): Promise<ApplyDubbridgeUsecreditLxResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.applyDubbridgeUsecreditLxEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 用信申请提交
+   * Summary: 用信申请
+   */
+  async applyDubbridgeUsecreditLxEx(request: ApplyDubbridgeUsecreditLxRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyDubbridgeUsecreditLxResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApplyDubbridgeUsecreditLxResponse>(await this.doRequest("1.0", "riskplus.dubbridge.usecredit.lx.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyDubbridgeUsecreditLxResponse({}));
+  }
+
+  /**
+   * Description: 用信结果查询
+   * Summary: 用信结果查询
+   */
+  async queryDubbridgeUsecreditstatusLx(request: QueryDubbridgeUsecreditstatusLxRequest): Promise<QueryDubbridgeUsecreditstatusLxResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDubbridgeUsecreditstatusLxEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 用信结果查询
+   * Summary: 用信结果查询
+   */
+  async queryDubbridgeUsecreditstatusLxEx(request: QueryDubbridgeUsecreditstatusLxRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDubbridgeUsecreditstatusLxResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDubbridgeUsecreditstatusLxResponse>(await this.doRequest("1.0", "riskplus.dubbridge.usecreditstatus.lx.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDubbridgeUsecreditstatusLxResponse({}));
+  }
+
+  /**
+   * Description: 支用放款申请
+   * Summary: 支用放款申请
+   */
+  async applyDubbridgeLoanLx(request: ApplyDubbridgeLoanLxRequest): Promise<ApplyDubbridgeLoanLxResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.applyDubbridgeLoanLxEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 支用放款申请
+   * Summary: 支用放款申请
+   */
+  async applyDubbridgeLoanLxEx(request: ApplyDubbridgeLoanLxRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyDubbridgeLoanLxResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApplyDubbridgeLoanLxResponse>(await this.doRequest("1.0", "riskplus.dubbridge.loan.lx.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyDubbridgeLoanLxResponse({}));
+  }
+
+  /**
+   * Description: 支用结果查询
+   * Summary: 支用结果查询
+   */
+  async queryDubbridgeLoanstatusLx(request: QueryDubbridgeLoanstatusLxRequest): Promise<QueryDubbridgeLoanstatusLxResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDubbridgeLoanstatusLxEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 支用结果查询
+   * Summary: 支用结果查询
+   */
+  async queryDubbridgeLoanstatusLxEx(request: QueryDubbridgeLoanstatusLxRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDubbridgeLoanstatusLxResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDubbridgeLoanstatusLxResponse>(await this.doRequest("1.0", "riskplus.dubbridge.loanstatus.lx.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDubbridgeLoanstatusLxResponse({}));
+  }
+
+  /**
+   * Description: 流量方生成的还款计划，通知同步至天枢及下游资金方
+   * Summary: 还款计划通知
+   */
+  async notifyDubbridgeRepaymentplanLx(request: NotifyDubbridgeRepaymentplanLxRequest): Promise<NotifyDubbridgeRepaymentplanLxResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.notifyDubbridgeRepaymentplanLxEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 流量方生成的还款计划，通知同步至天枢及下游资金方
+   * Summary: 还款计划通知
+   */
+  async notifyDubbridgeRepaymentplanLxEx(request: NotifyDubbridgeRepaymentplanLxRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<NotifyDubbridgeRepaymentplanLxResponse> {
+    Util.validateModel(request);
+    return $tea.cast<NotifyDubbridgeRepaymentplanLxResponse>(await this.doRequest("1.0", "riskplus.dubbridge.repaymentplan.lx.notify", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new NotifyDubbridgeRepaymentplanLxResponse({}));
+  }
+
+  /**
+   * Description: 还款代扣申请
+   * Summary: 还款代扣申请
+   */
+  async applyDubbridgeRepaywithholdLx(request: ApplyDubbridgeRepaywithholdLxRequest): Promise<ApplyDubbridgeRepaywithholdLxResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.applyDubbridgeRepaywithholdLxEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 还款代扣申请
+   * Summary: 还款代扣申请
+   */
+  async applyDubbridgeRepaywithholdLxEx(request: ApplyDubbridgeRepaywithholdLxRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyDubbridgeRepaywithholdLxResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApplyDubbridgeRepaywithholdLxResponse>(await this.doRequest("1.0", "riskplus.dubbridge.repaywithhold.lx.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyDubbridgeRepaywithholdLxResponse({}));
+  }
+
+  /**
+   * Description: 还款代扣结果查询
+   * Summary: 还款代扣结果查询
+   */
+  async queryDubbridgeRepaywithholdLx(request: QueryDubbridgeRepaywithholdLxRequest): Promise<QueryDubbridgeRepaywithholdLxResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDubbridgeRepaywithholdLxEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 还款代扣结果查询
+   * Summary: 还款代扣结果查询
+   */
+  async queryDubbridgeRepaywithholdLxEx(request: QueryDubbridgeRepaywithholdLxRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDubbridgeRepaywithholdLxResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDubbridgeRepaywithholdLxResponse>(await this.doRequest("1.0", "riskplus.dubbridge.repaywithhold.lx.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDubbridgeRepaywithholdLxResponse({}));
+  }
+
+  /**
+   * Description: 实还通知
+   * Summary: 实还通知
+   */
+  async notifyDubbridgeRepaymentLx(request: NotifyDubbridgeRepaymentLxRequest): Promise<NotifyDubbridgeRepaymentLxResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.notifyDubbridgeRepaymentLxEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 实还通知
+   * Summary: 实还通知
+   */
+  async notifyDubbridgeRepaymentLxEx(request: NotifyDubbridgeRepaymentLxRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<NotifyDubbridgeRepaymentLxResponse> {
+    Util.validateModel(request);
+    return $tea.cast<NotifyDubbridgeRepaymentLxResponse>(await this.doRequest("1.0", "riskplus.dubbridge.repayment.lx.notify", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new NotifyDubbridgeRepaymentLxResponse({}));
+  }
+
+  /**
+   * Description: 实还通知结果查询
+   * Summary: 实还通知结果查询
+   */
+  async queryDubbridgeRepaymentLx(request: QueryDubbridgeRepaymentLxRequest): Promise<QueryDubbridgeRepaymentLxResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDubbridgeRepaymentLxEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 实还通知结果查询
+   * Summary: 实还通知结果查询
+   */
+  async queryDubbridgeRepaymentLxEx(request: QueryDubbridgeRepaymentLxRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDubbridgeRepaymentLxResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDubbridgeRepaymentLxResponse>(await this.doRequest("1.0", "riskplus.dubbridge.repayment.lx.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDubbridgeRepaymentLxResponse({}));
+  }
+
+  /**
+   * Description: 已经授信通过的用户,无需重新进行授信申请,直接查询可用额度是否充足,以及是否在有效期内
+   * Summary: 额度查询接口
+   */
+  async queryDubbridgeCreditamtLx(request: QueryDubbridgeCreditamtLxRequest): Promise<QueryDubbridgeCreditamtLxResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDubbridgeCreditamtLxEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 已经授信通过的用户,无需重新进行授信申请,直接查询可用额度是否充足,以及是否在有效期内
+   * Summary: 额度查询接口
+   */
+  async queryDubbridgeCreditamtLxEx(request: QueryDubbridgeCreditamtLxRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDubbridgeCreditamtLxResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDubbridgeCreditamtLxResponse>(await this.doRequest("1.0", "riskplus.dubbridge.creditamt.lx.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDubbridgeCreditamtLxResponse({}));
+  }
+
+  /**
+   * Description: 结清证明、代偿凭证、放款凭证获取
+   * Summary: 证明类文件获取
+   */
+  async queryDubbridgeCertificateLx(request: QueryDubbridgeCertificateLxRequest): Promise<QueryDubbridgeCertificateLxResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDubbridgeCertificateLxEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 结清证明、代偿凭证、放款凭证获取
+   * Summary: 证明类文件获取
+   */
+  async queryDubbridgeCertificateLxEx(request: QueryDubbridgeCertificateLxRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDubbridgeCertificateLxResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDubbridgeCertificateLxResponse>(await this.doRequest("1.0", "riskplus.dubbridge.certificate.lx.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDubbridgeCertificateLxResponse({}));
   }
 
   /**
