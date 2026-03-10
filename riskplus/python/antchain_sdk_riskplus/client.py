@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 企业风险等级分布统计
+            # air引擎输出infoCode
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.30.12',
+                    'sdk_version': '1.31.0',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -214,7 +214,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 企业风险等级分布统计
+            # air引擎输出infoCode
         }
         _last_request = None
         _last_exception = None
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.30.12',
+                    'sdk_version': '1.31.0',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -1281,6 +1281,62 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.QueryCreditshieldProductBatchResponse(),
             await self.do_request_async('1.0', 'riskplus.creditshield.product.batch.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_security_airiskcloud_policy(
+        self,
+        request: riskplus_models.QuerySecurityAiriskcloudPolicyRequest,
+    ) -> riskplus_models.QuerySecurityAiriskcloudPolicyResponse:
+        """
+        Description: 业务风险查询接口，基于新air决策引擎提供决策能力
+        Summary: 业务风险咨询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_security_airiskcloud_policy_ex(request, headers, runtime)
+
+    async def query_security_airiskcloud_policy_async(
+        self,
+        request: riskplus_models.QuerySecurityAiriskcloudPolicyRequest,
+    ) -> riskplus_models.QuerySecurityAiriskcloudPolicyResponse:
+        """
+        Description: 业务风险查询接口，基于新air决策引擎提供决策能力
+        Summary: 业务风险咨询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_security_airiskcloud_policy_ex_async(request, headers, runtime)
+
+    def query_security_airiskcloud_policy_ex(
+        self,
+        request: riskplus_models.QuerySecurityAiriskcloudPolicyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QuerySecurityAiriskcloudPolicyResponse:
+        """
+        Description: 业务风险查询接口，基于新air决策引擎提供决策能力
+        Summary: 业务风险咨询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QuerySecurityAiriskcloudPolicyResponse(),
+            self.do_request('1.0', 'riskplus.security.airiskcloud.policy.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_security_airiskcloud_policy_ex_async(
+        self,
+        request: riskplus_models.QuerySecurityAiriskcloudPolicyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QuerySecurityAiriskcloudPolicyResponse:
+        """
+        Description: 业务风险查询接口，基于新air决策引擎提供决策能力
+        Summary: 业务风险咨询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QuerySecurityAiriskcloudPolicyResponse(),
+            await self.do_request_async('1.0', 'riskplus.security.airiskcloud.policy.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_dubhe_test(
@@ -5685,6 +5741,734 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.QueryDubbridgeFundCreditamtResponse(),
             await self.do_request_async('1.0', 'riskplus.dubbridge.fund.creditamt.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_dubbridge_credit_lx(
+        self,
+        request: riskplus_models.ApplyDubbridgeCreditLxRequest,
+    ) -> riskplus_models.ApplyDubbridgeCreditLxResponse:
+        """
+        Description: 授信申请-定制接口
+        Summary: 授信申请-定制接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_dubbridge_credit_lx_ex(request, headers, runtime)
+
+    async def apply_dubbridge_credit_lx_async(
+        self,
+        request: riskplus_models.ApplyDubbridgeCreditLxRequest,
+    ) -> riskplus_models.ApplyDubbridgeCreditLxResponse:
+        """
+        Description: 授信申请-定制接口
+        Summary: 授信申请-定制接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_dubbridge_credit_lx_ex_async(request, headers, runtime)
+
+    def apply_dubbridge_credit_lx_ex(
+        self,
+        request: riskplus_models.ApplyDubbridgeCreditLxRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.ApplyDubbridgeCreditLxResponse:
+        """
+        Description: 授信申请-定制接口
+        Summary: 授信申请-定制接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.ApplyDubbridgeCreditLxResponse(),
+            self.do_request('1.0', 'riskplus.dubbridge.credit.lx.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_dubbridge_credit_lx_ex_async(
+        self,
+        request: riskplus_models.ApplyDubbridgeCreditLxRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.ApplyDubbridgeCreditLxResponse:
+        """
+        Description: 授信申请-定制接口
+        Summary: 授信申请-定制接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.ApplyDubbridgeCreditLxResponse(),
+            await self.do_request_async('1.0', 'riskplus.dubbridge.credit.lx.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_dubbridge_creditstatus_lx(
+        self,
+        request: riskplus_models.QueryDubbridgeCreditstatusLxRequest,
+    ) -> riskplus_models.QueryDubbridgeCreditstatusLxResponse:
+        """
+        Description: 授信结果查询，授信通过下会返回授信单最新额度信息
+        Summary: 授信结果查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_dubbridge_creditstatus_lx_ex(request, headers, runtime)
+
+    async def query_dubbridge_creditstatus_lx_async(
+        self,
+        request: riskplus_models.QueryDubbridgeCreditstatusLxRequest,
+    ) -> riskplus_models.QueryDubbridgeCreditstatusLxResponse:
+        """
+        Description: 授信结果查询，授信通过下会返回授信单最新额度信息
+        Summary: 授信结果查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_dubbridge_creditstatus_lx_ex_async(request, headers, runtime)
+
+    def query_dubbridge_creditstatus_lx_ex(
+        self,
+        request: riskplus_models.QueryDubbridgeCreditstatusLxRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeCreditstatusLxResponse:
+        """
+        Description: 授信结果查询，授信通过下会返回授信单最新额度信息
+        Summary: 授信结果查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeCreditstatusLxResponse(),
+            self.do_request('1.0', 'riskplus.dubbridge.creditstatus.lx.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_dubbridge_creditstatus_lx_ex_async(
+        self,
+        request: riskplus_models.QueryDubbridgeCreditstatusLxRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeCreditstatusLxResponse:
+        """
+        Description: 授信结果查询，授信通过下会返回授信单最新额度信息
+        Summary: 授信结果查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeCreditstatusLxResponse(),
+            await self.do_request_async('1.0', 'riskplus.dubbridge.creditstatus.lx.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_dubbridge_usecredit_lx(
+        self,
+        request: riskplus_models.ApplyDubbridgeUsecreditLxRequest,
+    ) -> riskplus_models.ApplyDubbridgeUsecreditLxResponse:
+        """
+        Description: 用信申请提交
+        Summary: 用信申请
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_dubbridge_usecredit_lx_ex(request, headers, runtime)
+
+    async def apply_dubbridge_usecredit_lx_async(
+        self,
+        request: riskplus_models.ApplyDubbridgeUsecreditLxRequest,
+    ) -> riskplus_models.ApplyDubbridgeUsecreditLxResponse:
+        """
+        Description: 用信申请提交
+        Summary: 用信申请
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_dubbridge_usecredit_lx_ex_async(request, headers, runtime)
+
+    def apply_dubbridge_usecredit_lx_ex(
+        self,
+        request: riskplus_models.ApplyDubbridgeUsecreditLxRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.ApplyDubbridgeUsecreditLxResponse:
+        """
+        Description: 用信申请提交
+        Summary: 用信申请
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.ApplyDubbridgeUsecreditLxResponse(),
+            self.do_request('1.0', 'riskplus.dubbridge.usecredit.lx.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_dubbridge_usecredit_lx_ex_async(
+        self,
+        request: riskplus_models.ApplyDubbridgeUsecreditLxRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.ApplyDubbridgeUsecreditLxResponse:
+        """
+        Description: 用信申请提交
+        Summary: 用信申请
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.ApplyDubbridgeUsecreditLxResponse(),
+            await self.do_request_async('1.0', 'riskplus.dubbridge.usecredit.lx.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_dubbridge_usecreditstatus_lx(
+        self,
+        request: riskplus_models.QueryDubbridgeUsecreditstatusLxRequest,
+    ) -> riskplus_models.QueryDubbridgeUsecreditstatusLxResponse:
+        """
+        Description: 用信结果查询
+        Summary: 用信结果查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_dubbridge_usecreditstatus_lx_ex(request, headers, runtime)
+
+    async def query_dubbridge_usecreditstatus_lx_async(
+        self,
+        request: riskplus_models.QueryDubbridgeUsecreditstatusLxRequest,
+    ) -> riskplus_models.QueryDubbridgeUsecreditstatusLxResponse:
+        """
+        Description: 用信结果查询
+        Summary: 用信结果查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_dubbridge_usecreditstatus_lx_ex_async(request, headers, runtime)
+
+    def query_dubbridge_usecreditstatus_lx_ex(
+        self,
+        request: riskplus_models.QueryDubbridgeUsecreditstatusLxRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeUsecreditstatusLxResponse:
+        """
+        Description: 用信结果查询
+        Summary: 用信结果查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeUsecreditstatusLxResponse(),
+            self.do_request('1.0', 'riskplus.dubbridge.usecreditstatus.lx.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_dubbridge_usecreditstatus_lx_ex_async(
+        self,
+        request: riskplus_models.QueryDubbridgeUsecreditstatusLxRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeUsecreditstatusLxResponse:
+        """
+        Description: 用信结果查询
+        Summary: 用信结果查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeUsecreditstatusLxResponse(),
+            await self.do_request_async('1.0', 'riskplus.dubbridge.usecreditstatus.lx.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_dubbridge_loan_lx(
+        self,
+        request: riskplus_models.ApplyDubbridgeLoanLxRequest,
+    ) -> riskplus_models.ApplyDubbridgeLoanLxResponse:
+        """
+        Description: 支用放款申请
+        Summary: 支用放款申请
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_dubbridge_loan_lx_ex(request, headers, runtime)
+
+    async def apply_dubbridge_loan_lx_async(
+        self,
+        request: riskplus_models.ApplyDubbridgeLoanLxRequest,
+    ) -> riskplus_models.ApplyDubbridgeLoanLxResponse:
+        """
+        Description: 支用放款申请
+        Summary: 支用放款申请
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_dubbridge_loan_lx_ex_async(request, headers, runtime)
+
+    def apply_dubbridge_loan_lx_ex(
+        self,
+        request: riskplus_models.ApplyDubbridgeLoanLxRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.ApplyDubbridgeLoanLxResponse:
+        """
+        Description: 支用放款申请
+        Summary: 支用放款申请
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.ApplyDubbridgeLoanLxResponse(),
+            self.do_request('1.0', 'riskplus.dubbridge.loan.lx.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_dubbridge_loan_lx_ex_async(
+        self,
+        request: riskplus_models.ApplyDubbridgeLoanLxRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.ApplyDubbridgeLoanLxResponse:
+        """
+        Description: 支用放款申请
+        Summary: 支用放款申请
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.ApplyDubbridgeLoanLxResponse(),
+            await self.do_request_async('1.0', 'riskplus.dubbridge.loan.lx.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_dubbridge_loanstatus_lx(
+        self,
+        request: riskplus_models.QueryDubbridgeLoanstatusLxRequest,
+    ) -> riskplus_models.QueryDubbridgeLoanstatusLxResponse:
+        """
+        Description: 支用结果查询
+        Summary: 支用结果查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_dubbridge_loanstatus_lx_ex(request, headers, runtime)
+
+    async def query_dubbridge_loanstatus_lx_async(
+        self,
+        request: riskplus_models.QueryDubbridgeLoanstatusLxRequest,
+    ) -> riskplus_models.QueryDubbridgeLoanstatusLxResponse:
+        """
+        Description: 支用结果查询
+        Summary: 支用结果查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_dubbridge_loanstatus_lx_ex_async(request, headers, runtime)
+
+    def query_dubbridge_loanstatus_lx_ex(
+        self,
+        request: riskplus_models.QueryDubbridgeLoanstatusLxRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeLoanstatusLxResponse:
+        """
+        Description: 支用结果查询
+        Summary: 支用结果查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeLoanstatusLxResponse(),
+            self.do_request('1.0', 'riskplus.dubbridge.loanstatus.lx.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_dubbridge_loanstatus_lx_ex_async(
+        self,
+        request: riskplus_models.QueryDubbridgeLoanstatusLxRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeLoanstatusLxResponse:
+        """
+        Description: 支用结果查询
+        Summary: 支用结果查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeLoanstatusLxResponse(),
+            await self.do_request_async('1.0', 'riskplus.dubbridge.loanstatus.lx.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def notify_dubbridge_repaymentplan_lx(
+        self,
+        request: riskplus_models.NotifyDubbridgeRepaymentplanLxRequest,
+    ) -> riskplus_models.NotifyDubbridgeRepaymentplanLxResponse:
+        """
+        Description: 流量方生成的还款计划，通知同步至天枢及下游资金方
+        Summary: 还款计划通知
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.notify_dubbridge_repaymentplan_lx_ex(request, headers, runtime)
+
+    async def notify_dubbridge_repaymentplan_lx_async(
+        self,
+        request: riskplus_models.NotifyDubbridgeRepaymentplanLxRequest,
+    ) -> riskplus_models.NotifyDubbridgeRepaymentplanLxResponse:
+        """
+        Description: 流量方生成的还款计划，通知同步至天枢及下游资金方
+        Summary: 还款计划通知
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.notify_dubbridge_repaymentplan_lx_ex_async(request, headers, runtime)
+
+    def notify_dubbridge_repaymentplan_lx_ex(
+        self,
+        request: riskplus_models.NotifyDubbridgeRepaymentplanLxRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.NotifyDubbridgeRepaymentplanLxResponse:
+        """
+        Description: 流量方生成的还款计划，通知同步至天枢及下游资金方
+        Summary: 还款计划通知
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.NotifyDubbridgeRepaymentplanLxResponse(),
+            self.do_request('1.0', 'riskplus.dubbridge.repaymentplan.lx.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def notify_dubbridge_repaymentplan_lx_ex_async(
+        self,
+        request: riskplus_models.NotifyDubbridgeRepaymentplanLxRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.NotifyDubbridgeRepaymentplanLxResponse:
+        """
+        Description: 流量方生成的还款计划，通知同步至天枢及下游资金方
+        Summary: 还款计划通知
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.NotifyDubbridgeRepaymentplanLxResponse(),
+            await self.do_request_async('1.0', 'riskplus.dubbridge.repaymentplan.lx.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_dubbridge_repaywithhold_lx(
+        self,
+        request: riskplus_models.ApplyDubbridgeRepaywithholdLxRequest,
+    ) -> riskplus_models.ApplyDubbridgeRepaywithholdLxResponse:
+        """
+        Description: 还款代扣申请
+        Summary: 还款代扣申请
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_dubbridge_repaywithhold_lx_ex(request, headers, runtime)
+
+    async def apply_dubbridge_repaywithhold_lx_async(
+        self,
+        request: riskplus_models.ApplyDubbridgeRepaywithholdLxRequest,
+    ) -> riskplus_models.ApplyDubbridgeRepaywithholdLxResponse:
+        """
+        Description: 还款代扣申请
+        Summary: 还款代扣申请
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_dubbridge_repaywithhold_lx_ex_async(request, headers, runtime)
+
+    def apply_dubbridge_repaywithhold_lx_ex(
+        self,
+        request: riskplus_models.ApplyDubbridgeRepaywithholdLxRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.ApplyDubbridgeRepaywithholdLxResponse:
+        """
+        Description: 还款代扣申请
+        Summary: 还款代扣申请
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.ApplyDubbridgeRepaywithholdLxResponse(),
+            self.do_request('1.0', 'riskplus.dubbridge.repaywithhold.lx.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_dubbridge_repaywithhold_lx_ex_async(
+        self,
+        request: riskplus_models.ApplyDubbridgeRepaywithholdLxRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.ApplyDubbridgeRepaywithholdLxResponse:
+        """
+        Description: 还款代扣申请
+        Summary: 还款代扣申请
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.ApplyDubbridgeRepaywithholdLxResponse(),
+            await self.do_request_async('1.0', 'riskplus.dubbridge.repaywithhold.lx.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_dubbridge_repaywithhold_lx(
+        self,
+        request: riskplus_models.QueryDubbridgeRepaywithholdLxRequest,
+    ) -> riskplus_models.QueryDubbridgeRepaywithholdLxResponse:
+        """
+        Description: 还款代扣结果查询
+        Summary: 还款代扣结果查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_dubbridge_repaywithhold_lx_ex(request, headers, runtime)
+
+    async def query_dubbridge_repaywithhold_lx_async(
+        self,
+        request: riskplus_models.QueryDubbridgeRepaywithholdLxRequest,
+    ) -> riskplus_models.QueryDubbridgeRepaywithholdLxResponse:
+        """
+        Description: 还款代扣结果查询
+        Summary: 还款代扣结果查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_dubbridge_repaywithhold_lx_ex_async(request, headers, runtime)
+
+    def query_dubbridge_repaywithhold_lx_ex(
+        self,
+        request: riskplus_models.QueryDubbridgeRepaywithholdLxRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeRepaywithholdLxResponse:
+        """
+        Description: 还款代扣结果查询
+        Summary: 还款代扣结果查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeRepaywithholdLxResponse(),
+            self.do_request('1.0', 'riskplus.dubbridge.repaywithhold.lx.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_dubbridge_repaywithhold_lx_ex_async(
+        self,
+        request: riskplus_models.QueryDubbridgeRepaywithholdLxRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeRepaywithholdLxResponse:
+        """
+        Description: 还款代扣结果查询
+        Summary: 还款代扣结果查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeRepaywithholdLxResponse(),
+            await self.do_request_async('1.0', 'riskplus.dubbridge.repaywithhold.lx.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def notify_dubbridge_repayment_lx(
+        self,
+        request: riskplus_models.NotifyDubbridgeRepaymentLxRequest,
+    ) -> riskplus_models.NotifyDubbridgeRepaymentLxResponse:
+        """
+        Description: 实还通知
+        Summary: 实还通知
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.notify_dubbridge_repayment_lx_ex(request, headers, runtime)
+
+    async def notify_dubbridge_repayment_lx_async(
+        self,
+        request: riskplus_models.NotifyDubbridgeRepaymentLxRequest,
+    ) -> riskplus_models.NotifyDubbridgeRepaymentLxResponse:
+        """
+        Description: 实还通知
+        Summary: 实还通知
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.notify_dubbridge_repayment_lx_ex_async(request, headers, runtime)
+
+    def notify_dubbridge_repayment_lx_ex(
+        self,
+        request: riskplus_models.NotifyDubbridgeRepaymentLxRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.NotifyDubbridgeRepaymentLxResponse:
+        """
+        Description: 实还通知
+        Summary: 实还通知
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.NotifyDubbridgeRepaymentLxResponse(),
+            self.do_request('1.0', 'riskplus.dubbridge.repayment.lx.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def notify_dubbridge_repayment_lx_ex_async(
+        self,
+        request: riskplus_models.NotifyDubbridgeRepaymentLxRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.NotifyDubbridgeRepaymentLxResponse:
+        """
+        Description: 实还通知
+        Summary: 实还通知
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.NotifyDubbridgeRepaymentLxResponse(),
+            await self.do_request_async('1.0', 'riskplus.dubbridge.repayment.lx.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_dubbridge_repayment_lx(
+        self,
+        request: riskplus_models.QueryDubbridgeRepaymentLxRequest,
+    ) -> riskplus_models.QueryDubbridgeRepaymentLxResponse:
+        """
+        Description: 实还通知结果查询
+        Summary: 实还通知结果查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_dubbridge_repayment_lx_ex(request, headers, runtime)
+
+    async def query_dubbridge_repayment_lx_async(
+        self,
+        request: riskplus_models.QueryDubbridgeRepaymentLxRequest,
+    ) -> riskplus_models.QueryDubbridgeRepaymentLxResponse:
+        """
+        Description: 实还通知结果查询
+        Summary: 实还通知结果查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_dubbridge_repayment_lx_ex_async(request, headers, runtime)
+
+    def query_dubbridge_repayment_lx_ex(
+        self,
+        request: riskplus_models.QueryDubbridgeRepaymentLxRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeRepaymentLxResponse:
+        """
+        Description: 实还通知结果查询
+        Summary: 实还通知结果查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeRepaymentLxResponse(),
+            self.do_request('1.0', 'riskplus.dubbridge.repayment.lx.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_dubbridge_repayment_lx_ex_async(
+        self,
+        request: riskplus_models.QueryDubbridgeRepaymentLxRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeRepaymentLxResponse:
+        """
+        Description: 实还通知结果查询
+        Summary: 实还通知结果查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeRepaymentLxResponse(),
+            await self.do_request_async('1.0', 'riskplus.dubbridge.repayment.lx.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_dubbridge_creditamt_lx(
+        self,
+        request: riskplus_models.QueryDubbridgeCreditamtLxRequest,
+    ) -> riskplus_models.QueryDubbridgeCreditamtLxResponse:
+        """
+        Description: 已经授信通过的用户,无需重新进行授信申请,直接查询可用额度是否充足,以及是否在有效期内
+        Summary: 额度查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_dubbridge_creditamt_lx_ex(request, headers, runtime)
+
+    async def query_dubbridge_creditamt_lx_async(
+        self,
+        request: riskplus_models.QueryDubbridgeCreditamtLxRequest,
+    ) -> riskplus_models.QueryDubbridgeCreditamtLxResponse:
+        """
+        Description: 已经授信通过的用户,无需重新进行授信申请,直接查询可用额度是否充足,以及是否在有效期内
+        Summary: 额度查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_dubbridge_creditamt_lx_ex_async(request, headers, runtime)
+
+    def query_dubbridge_creditamt_lx_ex(
+        self,
+        request: riskplus_models.QueryDubbridgeCreditamtLxRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeCreditamtLxResponse:
+        """
+        Description: 已经授信通过的用户,无需重新进行授信申请,直接查询可用额度是否充足,以及是否在有效期内
+        Summary: 额度查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeCreditamtLxResponse(),
+            self.do_request('1.0', 'riskplus.dubbridge.creditamt.lx.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_dubbridge_creditamt_lx_ex_async(
+        self,
+        request: riskplus_models.QueryDubbridgeCreditamtLxRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeCreditamtLxResponse:
+        """
+        Description: 已经授信通过的用户,无需重新进行授信申请,直接查询可用额度是否充足,以及是否在有效期内
+        Summary: 额度查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeCreditamtLxResponse(),
+            await self.do_request_async('1.0', 'riskplus.dubbridge.creditamt.lx.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_dubbridge_certificate_lx(
+        self,
+        request: riskplus_models.QueryDubbridgeCertificateLxRequest,
+    ) -> riskplus_models.QueryDubbridgeCertificateLxResponse:
+        """
+        Description: 结清证明、代偿凭证、放款凭证获取
+        Summary: 证明类文件获取
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_dubbridge_certificate_lx_ex(request, headers, runtime)
+
+    async def query_dubbridge_certificate_lx_async(
+        self,
+        request: riskplus_models.QueryDubbridgeCertificateLxRequest,
+    ) -> riskplus_models.QueryDubbridgeCertificateLxResponse:
+        """
+        Description: 结清证明、代偿凭证、放款凭证获取
+        Summary: 证明类文件获取
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_dubbridge_certificate_lx_ex_async(request, headers, runtime)
+
+    def query_dubbridge_certificate_lx_ex(
+        self,
+        request: riskplus_models.QueryDubbridgeCertificateLxRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeCertificateLxResponse:
+        """
+        Description: 结清证明、代偿凭证、放款凭证获取
+        Summary: 证明类文件获取
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeCertificateLxResponse(),
+            self.do_request('1.0', 'riskplus.dubbridge.certificate.lx.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_dubbridge_certificate_lx_ex_async(
+        self,
+        request: riskplus_models.QueryDubbridgeCertificateLxRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeCertificateLxResponse:
+        """
+        Description: 结清证明、代偿凭证、放款凭证获取
+        Summary: 证明类文件获取
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeCertificateLxResponse(),
+            await self.do_request_async('1.0', 'riskplus.dubbridge.certificate.lx.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def verify_finservice_zhima_identify(
