@@ -6,7 +6,7 @@ namespace AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class RegisterAntchainAtoMerchantexpandMerchantResponse extends Model
+class AuthAntchainAtoTradeCreditgrantingResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -25,27 +25,10 @@ class RegisterAntchainAtoMerchantexpandMerchantResponse extends Model
      * @var string
      */
     public $resultMsg;
-
-    // 进件流水号
-    /**
-     * @var string
-     */
-    public $payExpandId;
-
-    // 进件状态
-    // INIT 入驻中
-    // SUCCESS 入驻成功
-    // FAIL 入驻失败
-    /**
-     * @var string
-     */
-    public $enrollmentStatus;
     protected $_name = [
-        'reqMsgId'         => 'req_msg_id',
-        'resultCode'       => 'result_code',
-        'resultMsg'        => 'result_msg',
-        'payExpandId'      => 'pay_expand_id',
-        'enrollmentStatus' => 'enrollment_status',
+        'reqMsgId'   => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg'  => 'result_msg',
     ];
 
     public function validate()
@@ -64,12 +47,6 @@ class RegisterAntchainAtoMerchantexpandMerchantResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->payExpandId) {
-            $res['pay_expand_id'] = $this->payExpandId;
-        }
-        if (null !== $this->enrollmentStatus) {
-            $res['enrollment_status'] = $this->enrollmentStatus;
-        }
 
         return $res;
     }
@@ -77,7 +54,7 @@ class RegisterAntchainAtoMerchantexpandMerchantResponse extends Model
     /**
      * @param array $map
      *
-     * @return RegisterAntchainAtoMerchantexpandMerchantResponse
+     * @return AuthAntchainAtoTradeCreditgrantingResponse
      */
     public static function fromMap($map = [])
     {
@@ -90,12 +67,6 @@ class RegisterAntchainAtoMerchantexpandMerchantResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['pay_expand_id'])) {
-            $model->payExpandId = $map['pay_expand_id'];
-        }
-        if (isset($map['enrollment_status'])) {
-            $model->enrollmentStatus = $map['enrollment_status'];
         }
 
         return $model;

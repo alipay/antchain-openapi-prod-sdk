@@ -33,6 +33,8 @@ use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\AuthAntchainAtoFundFlowR
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\AuthAntchainAtoFundFlowResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\AuthAntchainAtoSignFlowRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\AuthAntchainAtoSignFlowResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\AuthAntchainAtoTradeCreditgrantingRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\AuthAntchainAtoTradeCreditgrantingResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\BindAntchainAtoMerchantexpandSettlecardRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\BindAntchainAtoMerchantexpandSettlecardResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CallbackAntchainAtoFundNotifyRequest;
@@ -57,6 +59,8 @@ use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CreateAntchainAtoInnerTe
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CreateAntchainAtoInnerTemplateResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CreateAntchainAtoRealpersonFacevrfRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CreateAntchainAtoRealpersonFacevrfResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CreateAntchainAtoSignFlowRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CreateAntchainAtoSignFlowResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CreateAntchainAtoWithholdActivepayRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CreateAntchainAtoWithholdActivepayResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CreateAntchainAtoWithholdRefundRequest;
@@ -133,6 +137,8 @@ use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoRealpers
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoRealpersonFacevrfResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoSignCreditRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoSignCreditResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoTradeCreditauthRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoTradeCreditauthResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoTradeCreditgrantingRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoTradeCreditgrantingResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoWithholdActivepayRequest;
@@ -370,7 +376,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.7.4',
+                    'sdk_version'      => '1.7.5',
                     '_prod_code'       => 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel'    => 'saas',
                 ];
@@ -3948,6 +3954,105 @@ class Client
         Utils::validateModel($request);
 
         return QueryAntchainAtoTradeCreditgrantingResponse::fromMap($this->doRequest('1.0', 'antchain.ato.trade.creditgranting.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 授信授权申请
+     * Summary: 授信授权申请.
+     *
+     * @param AuthAntchainAtoTradeCreditgrantingRequest $request
+     *
+     * @return AuthAntchainAtoTradeCreditgrantingResponse
+     */
+    public function authAntchainAtoTradeCreditgranting($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->authAntchainAtoTradeCreditgrantingEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 授信授权申请
+     * Summary: 授信授权申请.
+     *
+     * @param AuthAntchainAtoTradeCreditgrantingRequest $request
+     * @param string[]                                  $headers
+     * @param RuntimeOptions                            $runtime
+     *
+     * @return AuthAntchainAtoTradeCreditgrantingResponse
+     */
+    public function authAntchainAtoTradeCreditgrantingEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AuthAntchainAtoTradeCreditgrantingResponse::fromMap($this->doRequest('1.0', 'antchain.ato.trade.creditgranting.auth', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商户查询授权
+     * Summary: 商户查询授权.
+     *
+     * @param QueryAntchainAtoTradeCreditauthRequest $request
+     *
+     * @return QueryAntchainAtoTradeCreditauthResponse
+     */
+    public function queryAntchainAtoTradeCreditauth($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAntchainAtoTradeCreditauthEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商户查询授权
+     * Summary: 商户查询授权.
+     *
+     * @param QueryAntchainAtoTradeCreditauthRequest $request
+     * @param string[]                               $headers
+     * @param RuntimeOptions                         $runtime
+     *
+     * @return QueryAntchainAtoTradeCreditauthResponse
+     */
+    public function queryAntchainAtoTradeCreditauthEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAntchainAtoTradeCreditauthResponse::fromMap($this->doRequest('1.0', 'antchain.ato.trade.creditauth.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 标准合同创建接口
+     * Summary: 标准合同创建接口.
+     *
+     * @param CreateAntchainAtoSignFlowRequest $request
+     *
+     * @return CreateAntchainAtoSignFlowResponse
+     */
+    public function createAntchainAtoSignFlow($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createAntchainAtoSignFlowEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 标准合同创建接口
+     * Summary: 标准合同创建接口.
+     *
+     * @param CreateAntchainAtoSignFlowRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return CreateAntchainAtoSignFlowResponse
+     */
+    public function createAntchainAtoSignFlowEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateAntchainAtoSignFlowResponse::fromMap($this->doRequest('1.0', 'antchain.ato.sign.flow.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
