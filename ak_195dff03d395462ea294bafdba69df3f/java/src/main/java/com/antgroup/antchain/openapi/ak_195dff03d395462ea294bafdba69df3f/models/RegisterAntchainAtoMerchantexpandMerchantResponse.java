@@ -20,6 +20,13 @@ public class RegisterAntchainAtoMerchantexpandMerchantResponse extends TeaModel 
     @NameInMap("pay_expand_id")
     public String payExpandId;
 
+    // 进件状态
+    // INIT 入驻中 
+    // SUCCESS 入驻成功 
+    // FAIL 入驻失败
+    @NameInMap("enrollment_status")
+    public String enrollmentStatus;
+
     public static RegisterAntchainAtoMerchantexpandMerchantResponse build(java.util.Map<String, ?> map) throws Exception {
         RegisterAntchainAtoMerchantexpandMerchantResponse self = new RegisterAntchainAtoMerchantexpandMerchantResponse();
         return TeaModel.build(map, self);
@@ -55,6 +62,14 @@ public class RegisterAntchainAtoMerchantexpandMerchantResponse extends TeaModel 
     }
     public String getPayExpandId() {
         return this.payExpandId;
+    }
+
+    public RegisterAntchainAtoMerchantexpandMerchantResponse setEnrollmentStatus(String enrollmentStatus) {
+        this.enrollmentStatus = enrollmentStatus;
+        return this;
+    }
+    public String getEnrollmentStatus() {
+        return this.enrollmentStatus;
     }
 
 }

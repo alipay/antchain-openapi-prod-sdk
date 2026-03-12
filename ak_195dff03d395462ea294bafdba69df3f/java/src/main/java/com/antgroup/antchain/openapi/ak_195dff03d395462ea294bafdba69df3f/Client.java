@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.7.4"),
+                    new TeaPair("sdk_version", "1.7.5"),
                     new TeaPair("_prod_code", "ak_195dff03d395462ea294bafdba69df3f"),
                     new TeaPair("_prod_channel", "saas")
                 );
@@ -2467,6 +2467,69 @@ public class Client {
     public QueryAntchainAtoTradeCreditgrantingResponse queryAntchainAtoTradeCreditgrantingEx(QueryAntchainAtoTradeCreditgrantingRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.trade.creditgranting.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAntchainAtoTradeCreditgrantingResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 授信授权申请
+     * Summary: 授信授权申请</p>
+     */
+    public AuthAntchainAtoTradeCreditgrantingResponse authAntchainAtoTradeCreditgranting(AuthAntchainAtoTradeCreditgrantingRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.authAntchainAtoTradeCreditgrantingEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 授信授权申请
+     * Summary: 授信授权申请</p>
+     */
+    public AuthAntchainAtoTradeCreditgrantingResponse authAntchainAtoTradeCreditgrantingEx(AuthAntchainAtoTradeCreditgrantingRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.trade.creditgranting.auth", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AuthAntchainAtoTradeCreditgrantingResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 商户查询授权
+     * Summary: 商户查询授权</p>
+     */
+    public QueryAntchainAtoTradeCreditauthResponse queryAntchainAtoTradeCreditauth(QueryAntchainAtoTradeCreditauthRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAntchainAtoTradeCreditauthEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 商户查询授权
+     * Summary: 商户查询授权</p>
+     */
+    public QueryAntchainAtoTradeCreditauthResponse queryAntchainAtoTradeCreditauthEx(QueryAntchainAtoTradeCreditauthRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.trade.creditauth.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAntchainAtoTradeCreditauthResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 标准合同创建接口
+     * Summary: 标准合同创建接口</p>
+     */
+    public CreateAntchainAtoSignFlowResponse createAntchainAtoSignFlow(CreateAntchainAtoSignFlowRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createAntchainAtoSignFlowEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 标准合同创建接口
+     * Summary: 标准合同创建接口</p>
+     */
+    public CreateAntchainAtoSignFlowResponse createAntchainAtoSignFlowEx(CreateAntchainAtoSignFlowRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.sign.flow.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateAntchainAtoSignFlowResponse());
     }
 
     /**
