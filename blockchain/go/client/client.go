@@ -1277,6 +1277,53 @@ func (s *BlockchainBrowserTransaction) SetTransactionContract(v *BlockchainBrows
 	return s
 }
 
+// 结算详细信息
+type SettleDetailInfo struct {
+	// 结算收款方账户类型
+	TransInType *string `json:"trans_in_type,omitempty" xml:"trans_in_type,omitempty" require:"true"`
+	// 结算收款方
+	TransIn *string `json:"trans_in,omitempty" xml:"trans_in,omitempty" require:"true"`
+	// 结算汇总维度
+	SummaryDimension *string `json:"summary_dimension,omitempty" xml:"summary_dimension,omitempty"`
+	// 结算主体类型
+	SettleEntityType *string `json:"settle_entity_type,omitempty" xml:"settle_entity_type,omitempty"`
+	// 结算主体标识
+	SettleEntityId *string `json:"settle_entity_id,omitempty" xml:"settle_entity_id,omitempty"`
+}
+
+func (s SettleDetailInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SettleDetailInfo) GoString() string {
+	return s.String()
+}
+
+func (s *SettleDetailInfo) SetTransInType(v string) *SettleDetailInfo {
+	s.TransInType = &v
+	return s
+}
+
+func (s *SettleDetailInfo) SetTransIn(v string) *SettleDetailInfo {
+	s.TransIn = &v
+	return s
+}
+
+func (s *SettleDetailInfo) SetSummaryDimension(v string) *SettleDetailInfo {
+	s.SummaryDimension = &v
+	return s
+}
+
+func (s *SettleDetailInfo) SetSettleEntityType(v string) *SettleDetailInfo {
+	s.SettleEntityType = &v
+	return s
+}
+
+func (s *SettleDetailInfo) SetSettleEntityId(v string) *SettleDetailInfo {
+	s.SettleEntityId = &v
+	return s
+}
+
 // 阿里云蚂蚁链相关下载链接
 type ALiYunDownloadPath struct {
 	// client_crt_url
@@ -3361,6 +3408,74 @@ func (s *AccountMappingResult) SetUid(v string) *AccountMappingResult {
 	return s
 }
 
+// 经营地址
+type AddressInfo struct {
+	// 城市编码
+	CityCode *string `json:"city_code,omitempty" xml:"city_code,omitempty" require:"true"`
+	// 区县编码
+	DistrictCode *string `json:"district_code,omitempty" xml:"district_code,omitempty" require:"true"`
+	// 地址
+	Address *string `json:"address,omitempty" xml:"address,omitempty" require:"true"`
+	// 省份编码
+	ProvinceCode *string `json:"province_code,omitempty" xml:"province_code,omitempty" require:"true"`
+	// 高德 poiid
+	Poiid *string `json:"poiid,omitempty" xml:"poiid,omitempty"`
+	// 经度
+	Longitude *string `json:"longitude,omitempty" xml:"longitude,omitempty"`
+	// 纬度
+	Latitude *string `json:"latitude,omitempty" xml:"latitude,omitempty"`
+	// 地址类型
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+}
+
+func (s AddressInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AddressInfo) GoString() string {
+	return s.String()
+}
+
+func (s *AddressInfo) SetCityCode(v string) *AddressInfo {
+	s.CityCode = &v
+	return s
+}
+
+func (s *AddressInfo) SetDistrictCode(v string) *AddressInfo {
+	s.DistrictCode = &v
+	return s
+}
+
+func (s *AddressInfo) SetAddress(v string) *AddressInfo {
+	s.Address = &v
+	return s
+}
+
+func (s *AddressInfo) SetProvinceCode(v string) *AddressInfo {
+	s.ProvinceCode = &v
+	return s
+}
+
+func (s *AddressInfo) SetPoiid(v string) *AddressInfo {
+	s.Poiid = &v
+	return s
+}
+
+func (s *AddressInfo) SetLongitude(v string) *AddressInfo {
+	s.Longitude = &v
+	return s
+}
+
+func (s *AddressInfo) SetLatitude(v string) *AddressInfo {
+	s.Latitude = &v
+	return s
+}
+
+func (s *AddressInfo) SetType(v string) *AddressInfo {
+	s.Type = &v
+	return s
+}
+
 // 可验证声明的完整内容以及状态，当前持有者的did等信息
 type VcContent struct {
 	// 可验证声明的唯一标识id，status 为 “1” 时候非空
@@ -3405,6 +3520,32 @@ func (s *VcContent) SetDid(v string) *VcContent {
 
 func (s *VcContent) SetMessage(v string) *VcContent {
 	s.Message = &v
+	return s
+}
+
+// 退分账明细信息
+type RefundRoyaltyResult struct {
+	// 退分账金额
+	RefundAmount *string `json:"refund_amount,omitempty" xml:"refund_amount,omitempty" require:"true"`
+	// 退分账结果码
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty" require:"true"`
+}
+
+func (s RefundRoyaltyResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RefundRoyaltyResult) GoString() string {
+	return s.String()
+}
+
+func (s *RefundRoyaltyResult) SetRefundAmount(v string) *RefundRoyaltyResult {
+	s.RefundAmount = &v
+	return s
+}
+
+func (s *RefundRoyaltyResult) SetResultCode(v string) *RefundRoyaltyResult {
+	s.ResultCode = &v
 	return s
 }
 
@@ -4545,6 +4686,25 @@ func (s *ALiYunChainContractContent) SetUpdateTime(v int64) *ALiYunChainContract
 	return s
 }
 
+// 描述结算信息
+type SettleInfo struct {
+	// 结算详细信息
+	SettleDetailInfos []*SettleDetailInfo `json:"settle_detail_infos,omitempty" xml:"settle_detail_infos,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s SettleInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SettleInfo) GoString() string {
+	return s.String()
+}
+
+func (s *SettleInfo) SetSettleDetailInfos(v []*SettleDetailInfo) *SettleInfo {
+	s.SettleDetailInfos = v
+	return s
+}
+
 // 结果
 type Result struct {
 	// 联盟id
@@ -4793,6 +4953,32 @@ func (s *BasicCarInfo) SetUseNatureCode(v string) *BasicCarInfo {
 
 func (s *BasicCarInfo) SetMortgage(v bool) *BasicCarInfo {
 	s.Mortgage = &v
+	return s
+}
+
+// 商户行业资质信息
+type IndustryQualificationInfo struct {
+	// 商户行业资质类型
+	IndustryQualificationType *string `json:"industry_qualification_type,omitempty" xml:"industry_qualification_type,omitempty" require:"true"`
+	// 商户行业资质图片
+	IndustryQualificationImage *string `json:"industry_qualification_image,omitempty" xml:"industry_qualification_image,omitempty" require:"true"`
+}
+
+func (s IndustryQualificationInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IndustryQualificationInfo) GoString() string {
+	return s.String()
+}
+
+func (s *IndustryQualificationInfo) SetIndustryQualificationType(v string) *IndustryQualificationInfo {
+	s.IndustryQualificationType = &v
+	return s
+}
+
+func (s *IndustryQualificationInfo) SetIndustryQualificationImage(v string) *IndustryQualificationInfo {
+	s.IndustryQualificationImage = &v
 	return s
 }
 
@@ -6052,6 +6238,74 @@ func (s *ApplicationQueryReq) SetApplicationId(v string) *ApplicationQueryReq {
 	return s
 }
 
+// 分账信息
+type OpenApiRoyaltyDetailInfoPojo struct {
+	// 分账比例
+	Percentage *string `json:"percentage,omitempty" xml:"percentage,omitempty"`
+	// 分账金额
+	Amount *string `json:"amount,omitempty" xml:"amount,omitempty"`
+	// 分账类型
+	RoyaltyType *string `json:"royalty_type,omitempty" xml:"royalty_type,omitempty"`
+	// 支出方账户类型
+	TransOutType *string `json:"trans_out_type,omitempty" xml:"trans_out_type,omitempty"`
+	// 支出方账户
+	TransOut *string `json:"trans_out,omitempty" xml:"trans_out,omitempty"`
+	// 收入方账户类型
+	TransInType *string `json:"trans_in_type,omitempty" xml:"trans_in_type,omitempty"`
+	// 收入方账户
+	TransIn *string `json:"trans_in,omitempty" xml:"trans_in,omitempty"`
+	// 分账描述
+	Desc *string `json:"desc,omitempty" xml:"desc,omitempty"`
+}
+
+func (s OpenApiRoyaltyDetailInfoPojo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OpenApiRoyaltyDetailInfoPojo) GoString() string {
+	return s.String()
+}
+
+func (s *OpenApiRoyaltyDetailInfoPojo) SetPercentage(v string) *OpenApiRoyaltyDetailInfoPojo {
+	s.Percentage = &v
+	return s
+}
+
+func (s *OpenApiRoyaltyDetailInfoPojo) SetAmount(v string) *OpenApiRoyaltyDetailInfoPojo {
+	s.Amount = &v
+	return s
+}
+
+func (s *OpenApiRoyaltyDetailInfoPojo) SetRoyaltyType(v string) *OpenApiRoyaltyDetailInfoPojo {
+	s.RoyaltyType = &v
+	return s
+}
+
+func (s *OpenApiRoyaltyDetailInfoPojo) SetTransOutType(v string) *OpenApiRoyaltyDetailInfoPojo {
+	s.TransOutType = &v
+	return s
+}
+
+func (s *OpenApiRoyaltyDetailInfoPojo) SetTransOut(v string) *OpenApiRoyaltyDetailInfoPojo {
+	s.TransOut = &v
+	return s
+}
+
+func (s *OpenApiRoyaltyDetailInfoPojo) SetTransInType(v string) *OpenApiRoyaltyDetailInfoPojo {
+	s.TransInType = &v
+	return s
+}
+
+func (s *OpenApiRoyaltyDetailInfoPojo) SetTransIn(v string) *OpenApiRoyaltyDetailInfoPojo {
+	s.TransIn = &v
+	return s
+}
+
+func (s *OpenApiRoyaltyDetailInfoPojo) SetDesc(v string) *OpenApiRoyaltyDetailInfoPojo {
+	s.Desc = &v
+	return s
+}
+
 // 合约信息
 type ContractInfo struct {
 	// 合约地址
@@ -6419,6 +6673,53 @@ func (s *Identity) SetUserType(v string) *Identity {
 	return s
 }
 
+// 联系人信息
+type ContactInfo struct {
+	// 联系人名字
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 手机号
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty" require:"true"`
+	// 电子邮箱
+	Email *string `json:"email,omitempty" xml:"email,omitempty"`
+	// 电话
+	Phone *string `json:"phone,omitempty" xml:"phone,omitempty"`
+	// 身份证号
+	IdCardNo *string `json:"id_card_no,omitempty" xml:"id_card_no,omitempty"`
+}
+
+func (s ContactInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ContactInfo) GoString() string {
+	return s.String()
+}
+
+func (s *ContactInfo) SetName(v string) *ContactInfo {
+	s.Name = &v
+	return s
+}
+
+func (s *ContactInfo) SetMobile(v string) *ContactInfo {
+	s.Mobile = &v
+	return s
+}
+
+func (s *ContactInfo) SetEmail(v string) *ContactInfo {
+	s.Email = &v
+	return s
+}
+
+func (s *ContactInfo) SetPhone(v string) *ContactInfo {
+	s.Phone = &v
+	return s
+}
+
+func (s *ContactInfo) SetIdCardNo(v string) *ContactInfo {
+	s.IdCardNo = &v
+	return s
+}
+
 // 营销分销平台推广人账户信息
 type FundInfo struct {
 	// 可提现余额
@@ -6783,6 +7084,88 @@ func (s *TsrResponse) SetHashAlgorithm(v string) *TsrResponse {
 
 func (s *TsrResponse) SetTs(v string) *TsrResponse {
 	s.Ts = &v
+	return s
+}
+
+// 商品信息
+type GoodsDetail struct {
+	// 商品编号
+	GoodsId *string `json:"goods_id,omitempty" xml:"goods_id,omitempty" require:"true"`
+	// 商品名称
+	GoodsName *string `json:"goods_name,omitempty" xml:"goods_name,omitempty" require:"true"`
+	// 商品数量
+	Quantity *string `json:"quantity,omitempty" xml:"quantity,omitempty" require:"true"`
+	// 商品单价
+	Price *string `json:"price,omitempty" xml:"price,omitempty" require:"true"`
+	// 商品类目
+	GoodsCategory *string `json:"goods_category,omitempty" xml:"goods_category,omitempty"`
+	// 商品类目树
+	CategoriesTree *string `json:"categories_tree,omitempty" xml:"categories_tree,omitempty"`
+	// 商品的展示地址
+	ShowUrl *string `json:"show_url,omitempty" xml:"show_url,omitempty"`
+	// 商品69条码
+	GoodsEanId *string `json:"goods_ean_id,omitempty" xml:"goods_ean_id,omitempty"`
+	// 商家侧小程序商品 ID
+	OutItemId *string `json:"out_item_id,omitempty" xml:"out_item_id,omitempty"`
+	// 商家侧小程序商品ID
+	OutSkuId *string `json:"out_sku_id,omitempty" xml:"out_sku_id,omitempty"`
+}
+
+func (s GoodsDetail) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GoodsDetail) GoString() string {
+	return s.String()
+}
+
+func (s *GoodsDetail) SetGoodsId(v string) *GoodsDetail {
+	s.GoodsId = &v
+	return s
+}
+
+func (s *GoodsDetail) SetGoodsName(v string) *GoodsDetail {
+	s.GoodsName = &v
+	return s
+}
+
+func (s *GoodsDetail) SetQuantity(v string) *GoodsDetail {
+	s.Quantity = &v
+	return s
+}
+
+func (s *GoodsDetail) SetPrice(v string) *GoodsDetail {
+	s.Price = &v
+	return s
+}
+
+func (s *GoodsDetail) SetGoodsCategory(v string) *GoodsDetail {
+	s.GoodsCategory = &v
+	return s
+}
+
+func (s *GoodsDetail) SetCategoriesTree(v string) *GoodsDetail {
+	s.CategoriesTree = &v
+	return s
+}
+
+func (s *GoodsDetail) SetShowUrl(v string) *GoodsDetail {
+	s.ShowUrl = &v
+	return s
+}
+
+func (s *GoodsDetail) SetGoodsEanId(v string) *GoodsDetail {
+	s.GoodsEanId = &v
+	return s
+}
+
+func (s *GoodsDetail) SetOutItemId(v string) *GoodsDetail {
+	s.OutItemId = &v
+	return s
+}
+
+func (s *GoodsDetail) SetOutSkuId(v string) *GoodsDetail {
+	s.OutSkuId = &v
 	return s
 }
 
@@ -8617,6 +9000,46 @@ func (s *BlockchainBrowserTransactionReceipt) SetResult(v int64) *BlockchainBrow
 	return s
 }
 
+// 商户站点信息（网站/APP/小程序）
+type SiteInfo struct {
+	// 网站类型
+	SiteType *string `json:"site_type,omitempty" xml:"site_type,omitempty" require:"true"`
+	// 站点地址
+	SiteUrl *string `json:"site_url,omitempty" xml:"site_url,omitempty" require:"true"`
+	// 站点名称
+	SiteName *string `json:"site_name,omitempty" xml:"site_name,omitempty" require:"true"`
+	// 小程序 appId
+	TinyAppId *string `json:"tiny_app_id,omitempty" xml:"tiny_app_id,omitempty" require:"true"`
+}
+
+func (s SiteInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SiteInfo) GoString() string {
+	return s.String()
+}
+
+func (s *SiteInfo) SetSiteType(v string) *SiteInfo {
+	s.SiteType = &v
+	return s
+}
+
+func (s *SiteInfo) SetSiteUrl(v string) *SiteInfo {
+	s.SiteUrl = &v
+	return s
+}
+
+func (s *SiteInfo) SetSiteName(v string) *SiteInfo {
+	s.SiteName = &v
+	return s
+}
+
+func (s *SiteInfo) SetTinyAppId(v string) *SiteInfo {
+	s.TinyAppId = &v
+	return s
+}
+
 // 数字资产管理平台批发结构
 type AccountWholesaleParam struct {
 	// 批发数量
@@ -9686,6 +10109,81 @@ func (s *DidDeleteService) SetServiceId(v string) *DidDeleteService {
 	return s
 }
 
+// 结算银行卡信息
+type SettleCardInfo struct {
+	// 开户支行名
+	AccountBranchName *string `json:"account_branch_name,omitempty" xml:"account_branch_name,omitempty" require:"true"`
+	// 卡户名
+	AccountHolderName *string `json:"account_holder_name,omitempty" xml:"account_holder_name,omitempty" require:"true"`
+	// 开户行所在地-市
+	AccountInstCity *string `json:"account_inst_city,omitempty" xml:"account_inst_city,omitempty" require:"true"`
+	// 开户行简称缩写
+	AccountInstId *string `json:"account_inst_id,omitempty" xml:"account_inst_id,omitempty" require:"true"`
+	// 银行名称
+	AccountInstName *string `json:"account_inst_name,omitempty" xml:"account_inst_name,omitempty" require:"true"`
+	// 开户行所在地-省
+	AccountInstProvince *string `json:"account_inst_province,omitempty" xml:"account_inst_province,omitempty" require:"true"`
+	// 银行卡号
+	AccountNo *string `json:"account_no,omitempty" xml:"account_no,omitempty" require:"true"`
+	// 卡类型
+	AccountType *string `json:"account_type,omitempty" xml:"account_type,omitempty" require:"true"`
+	// 账号使用类型
+	UsageType *string `json:"usage_type,omitempty" xml:"usage_type,omitempty" require:"true"`
+}
+
+func (s SettleCardInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SettleCardInfo) GoString() string {
+	return s.String()
+}
+
+func (s *SettleCardInfo) SetAccountBranchName(v string) *SettleCardInfo {
+	s.AccountBranchName = &v
+	return s
+}
+
+func (s *SettleCardInfo) SetAccountHolderName(v string) *SettleCardInfo {
+	s.AccountHolderName = &v
+	return s
+}
+
+func (s *SettleCardInfo) SetAccountInstCity(v string) *SettleCardInfo {
+	s.AccountInstCity = &v
+	return s
+}
+
+func (s *SettleCardInfo) SetAccountInstId(v string) *SettleCardInfo {
+	s.AccountInstId = &v
+	return s
+}
+
+func (s *SettleCardInfo) SetAccountInstName(v string) *SettleCardInfo {
+	s.AccountInstName = &v
+	return s
+}
+
+func (s *SettleCardInfo) SetAccountInstProvince(v string) *SettleCardInfo {
+	s.AccountInstProvince = &v
+	return s
+}
+
+func (s *SettleCardInfo) SetAccountNo(v string) *SettleCardInfo {
+	s.AccountNo = &v
+	return s
+}
+
+func (s *SettleCardInfo) SetAccountType(v string) *SettleCardInfo {
+	s.AccountType = &v
+	return s
+}
+
+func (s *SettleCardInfo) SetUsageType(v string) *SettleCardInfo {
+	s.UsageType = &v
+	return s
+}
+
 // 可验证声明相关的事件
 type VCEvent struct {
 	// 事件对应的合约方法
@@ -10523,6 +11021,32 @@ func (s *ContractDetailResp) SetRecordInfoList(v []*InstanceRecordInfo) *Contrac
 	return s
 }
 
+// 默认结算规则
+type DefaultSettleRule struct {
+	// 默认结算类型，结算到银行卡: bankCard，结算到支付宝账号: alipayAccount
+	DefaultSettleType *string `json:"default_settle_type,omitempty" xml:"default_settle_type,omitempty" require:"true"`
+	// 默认结算目标	bankCard 时填银行卡号，alipayAccount 时填支付宝登录号
+	DefaultSettleTarget *string `json:"default_settle_target,omitempty" xml:"default_settle_target,omitempty" require:"true"`
+}
+
+func (s DefaultSettleRule) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DefaultSettleRule) GoString() string {
+	return s.String()
+}
+
+func (s *DefaultSettleRule) SetDefaultSettleType(v string) *DefaultSettleRule {
+	s.DefaultSettleType = &v
+	return s
+}
+
+func (s *DefaultSettleRule) SetDefaultSettleTarget(v string) *DefaultSettleRule {
+	s.DefaultSettleTarget = &v
+	return s
+}
+
 // 托管数据库ManagedMQDTO结构体
 type ManagedMQDTOStructBody struct {
 	// id
@@ -10654,6 +11178,32 @@ func (s *CertIssueProgressDTO) SetEndTimeMillis(v int64) *CertIssueProgressDTO {
 
 func (s *CertIssueProgressDTO) SetErrorDetails(v []*TemplateInstanceErrorDetailDTO) *CertIssueProgressDTO {
 	s.ErrorDetails = v
+	return s
+}
+
+// 退款商品详细信息
+type RefundGoodsDetail struct {
+	// 商品编号
+	GoodsId *string `json:"goods_id,omitempty" xml:"goods_id,omitempty" require:"true"`
+	// 该商品的退款总金额
+	RefundAmount *string `json:"refund_amount,omitempty" xml:"refund_amount,omitempty" require:"true"`
+}
+
+func (s RefundGoodsDetail) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RefundGoodsDetail) GoString() string {
+	return s.String()
+}
+
+func (s *RefundGoodsDetail) SetGoodsId(v string) *RefundGoodsDetail {
+	s.GoodsId = &v
+	return s
+}
+
+func (s *RefundGoodsDetail) SetRefundAmount(v string) *RefundGoodsDetail {
+	s.RefundAmount = &v
 	return s
 }
 
@@ -11811,6 +12361,1014 @@ func (s *BatchcreateAccountMappingInfoResponse) SetResultMsg(v string) *Batchcre
 
 func (s *BatchcreateAccountMappingInfoResponse) SetAccounts(v []*string) *BatchcreateAccountMappingInfoResponse {
 	s.Accounts = v
+	return s
+}
+
+type RegisterAgoraxMerchantRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 商户别名。支付宝收银台及账单中的商户名称会展示此处设置的别名。如果涉及支付宝APP内的支付，支付结果页也会展示该别名；如果涉及线下当面付场景，请填写线下店铺名称
+	AliasName *string `json:"alias_name,omitempty" xml:"alias_name,omitempty" require:"true"`
+	// 进件的二级商户名称，需与收款支付宝账户名称一致
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 应用授权码
+	AppAuthToken *string `json:"app_auth_token,omitempty" xml:"app_auth_token,omitempty" require:"true"`
+	// 商家类型。01：企业，07：个体工商户，06：个人商户
+	MerchantType *string `json:"merchant_type,omitempty" xml:"merchant_type,omitempty" require:"true"`
+	// 联系人信息
+	ContactInfos *ContactInfo `json:"contact_infos,omitempty" xml:"contact_infos,omitempty" require:"true"`
+	// 默认结算规则
+	DefaultSettleRule *DefaultSettleRule `json:"default_settle_rule,omitempty" xml:"default_settle_rule,omitempty" require:"true"`
+	// 使用服务，当面付: 当面付，jsapi支付: jsapi支付
+	Service []*string `json:"service,omitempty" xml:"service,omitempty" require:"true" type:"Repeated"`
+	// 商户类别码
+	Mcc *string `json:"mcc,omitempty" xml:"mcc,omitempty" require:"true"`
+	// 商户证件编号
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
+	// 商户证件类型
+	CertType *string `json:"cert_type,omitempty" xml:"cert_type,omitempty" require:"true"`
+	// 个体工商户营业执照上的名称
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty"`
+	// 营业执照图片，file_id
+	CertImage *string `json:"cert_image,omitempty" xml:"cert_image,omitempty"`
+	// 法人名称
+	LegalName *string `json:"legal_name,omitempty" xml:"legal_name,omitempty"`
+	// 法人身份证号
+	LegalCertNo *string `json:"legal_cert_no,omitempty" xml:"legal_cert_no,omitempty"`
+	// 商户支付宝账号，用作结算账号
+	AlipayLogonId *string `json:"alipay_logon_id,omitempty" xml:"alipay_logon_id,omitempty"`
+	// 二级商户支付宝账户，用于签约、协议确认
+	BindingAlipayLogonId *string `json:"binding_alipay_logon_id,omitempty" xml:"binding_alipay_logon_id,omitempty"`
+	// 结算银行卡信息
+	BizCards *SettleCardInfo `json:"biz_cards,omitempty" xml:"biz_cards,omitempty"`
+	// 经营地址
+	BusinessAddress *AddressInfo `json:"business_address,omitempty" xml:"business_address,omitempty"`
+	// 门头照
+	OutDoorImages *string `json:"out_door_images,omitempty" xml:"out_door_images,omitempty"`
+	// 内景照
+	InDoorImages *string `json:"in_door_images,omitempty" xml:"in_door_images,omitempty"`
+	// 授权函（图片）
+	LicenseAuthLetterImage *string `json:"license_auth_letter_image,omitempty" xml:"license_auth_letter_image,omitempty"`
+	// 商户站点信息
+	Sites *SiteInfo `json:"sites,omitempty" xml:"sites,omitempty"`
+	// 商户行业资质
+	Qualifications []*IndustryQualificationInfo `json:"qualifications,omitempty" xml:"qualifications,omitempty" type:"Repeated"`
+	// 法人身份证正面图
+	LegalCertFrontImage *string `json:"legal_cert_front_image,omitempty" xml:"legal_cert_front_image,omitempty"`
+	// 法人身份证反面图
+	LegalCertBackImage *string `json:"legal_cert_back_image,omitempty" xml:"legal_cert_back_image,omitempty"`
+	// 信息关联的openId
+	InfoSourceOpenId *string `json:"info_source_open_id,omitempty" xml:"info_source_open_id,omitempty"`
+}
+
+func (s RegisterAgoraxMerchantRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RegisterAgoraxMerchantRequest) GoString() string {
+	return s.String()
+}
+
+func (s *RegisterAgoraxMerchantRequest) SetAuthToken(v string) *RegisterAgoraxMerchantRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *RegisterAgoraxMerchantRequest) SetProductInstanceId(v string) *RegisterAgoraxMerchantRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *RegisterAgoraxMerchantRequest) SetAliasName(v string) *RegisterAgoraxMerchantRequest {
+	s.AliasName = &v
+	return s
+}
+
+func (s *RegisterAgoraxMerchantRequest) SetName(v string) *RegisterAgoraxMerchantRequest {
+	s.Name = &v
+	return s
+}
+
+func (s *RegisterAgoraxMerchantRequest) SetAppAuthToken(v string) *RegisterAgoraxMerchantRequest {
+	s.AppAuthToken = &v
+	return s
+}
+
+func (s *RegisterAgoraxMerchantRequest) SetMerchantType(v string) *RegisterAgoraxMerchantRequest {
+	s.MerchantType = &v
+	return s
+}
+
+func (s *RegisterAgoraxMerchantRequest) SetContactInfos(v *ContactInfo) *RegisterAgoraxMerchantRequest {
+	s.ContactInfos = v
+	return s
+}
+
+func (s *RegisterAgoraxMerchantRequest) SetDefaultSettleRule(v *DefaultSettleRule) *RegisterAgoraxMerchantRequest {
+	s.DefaultSettleRule = v
+	return s
+}
+
+func (s *RegisterAgoraxMerchantRequest) SetService(v []*string) *RegisterAgoraxMerchantRequest {
+	s.Service = v
+	return s
+}
+
+func (s *RegisterAgoraxMerchantRequest) SetMcc(v string) *RegisterAgoraxMerchantRequest {
+	s.Mcc = &v
+	return s
+}
+
+func (s *RegisterAgoraxMerchantRequest) SetCertNo(v string) *RegisterAgoraxMerchantRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *RegisterAgoraxMerchantRequest) SetCertType(v string) *RegisterAgoraxMerchantRequest {
+	s.CertType = &v
+	return s
+}
+
+func (s *RegisterAgoraxMerchantRequest) SetCertName(v string) *RegisterAgoraxMerchantRequest {
+	s.CertName = &v
+	return s
+}
+
+func (s *RegisterAgoraxMerchantRequest) SetCertImage(v string) *RegisterAgoraxMerchantRequest {
+	s.CertImage = &v
+	return s
+}
+
+func (s *RegisterAgoraxMerchantRequest) SetLegalName(v string) *RegisterAgoraxMerchantRequest {
+	s.LegalName = &v
+	return s
+}
+
+func (s *RegisterAgoraxMerchantRequest) SetLegalCertNo(v string) *RegisterAgoraxMerchantRequest {
+	s.LegalCertNo = &v
+	return s
+}
+
+func (s *RegisterAgoraxMerchantRequest) SetAlipayLogonId(v string) *RegisterAgoraxMerchantRequest {
+	s.AlipayLogonId = &v
+	return s
+}
+
+func (s *RegisterAgoraxMerchantRequest) SetBindingAlipayLogonId(v string) *RegisterAgoraxMerchantRequest {
+	s.BindingAlipayLogonId = &v
+	return s
+}
+
+func (s *RegisterAgoraxMerchantRequest) SetBizCards(v *SettleCardInfo) *RegisterAgoraxMerchantRequest {
+	s.BizCards = v
+	return s
+}
+
+func (s *RegisterAgoraxMerchantRequest) SetBusinessAddress(v *AddressInfo) *RegisterAgoraxMerchantRequest {
+	s.BusinessAddress = v
+	return s
+}
+
+func (s *RegisterAgoraxMerchantRequest) SetOutDoorImages(v string) *RegisterAgoraxMerchantRequest {
+	s.OutDoorImages = &v
+	return s
+}
+
+func (s *RegisterAgoraxMerchantRequest) SetInDoorImages(v string) *RegisterAgoraxMerchantRequest {
+	s.InDoorImages = &v
+	return s
+}
+
+func (s *RegisterAgoraxMerchantRequest) SetLicenseAuthLetterImage(v string) *RegisterAgoraxMerchantRequest {
+	s.LicenseAuthLetterImage = &v
+	return s
+}
+
+func (s *RegisterAgoraxMerchantRequest) SetSites(v *SiteInfo) *RegisterAgoraxMerchantRequest {
+	s.Sites = v
+	return s
+}
+
+func (s *RegisterAgoraxMerchantRequest) SetQualifications(v []*IndustryQualificationInfo) *RegisterAgoraxMerchantRequest {
+	s.Qualifications = v
+	return s
+}
+
+func (s *RegisterAgoraxMerchantRequest) SetLegalCertFrontImage(v string) *RegisterAgoraxMerchantRequest {
+	s.LegalCertFrontImage = &v
+	return s
+}
+
+func (s *RegisterAgoraxMerchantRequest) SetLegalCertBackImage(v string) *RegisterAgoraxMerchantRequest {
+	s.LegalCertBackImage = &v
+	return s
+}
+
+func (s *RegisterAgoraxMerchantRequest) SetInfoSourceOpenId(v string) *RegisterAgoraxMerchantRequest {
+	s.InfoSourceOpenId = &v
+	return s
+}
+
+type RegisterAgoraxMerchantResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 商户编号
+	ExternalId *string `json:"external_id,omitempty" xml:"external_id,omitempty"`
+}
+
+func (s RegisterAgoraxMerchantResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RegisterAgoraxMerchantResponse) GoString() string {
+	return s.String()
+}
+
+func (s *RegisterAgoraxMerchantResponse) SetReqMsgId(v string) *RegisterAgoraxMerchantResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *RegisterAgoraxMerchantResponse) SetResultCode(v string) *RegisterAgoraxMerchantResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *RegisterAgoraxMerchantResponse) SetResultMsg(v string) *RegisterAgoraxMerchantResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *RegisterAgoraxMerchantResponse) SetExternalId(v string) *RegisterAgoraxMerchantResponse {
+	s.ExternalId = &v
+	return s
+}
+
+type UploadAgoraxMerchantImageRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// file_id
+	// 待上传文件
+	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
+	// 待上传文件名
+	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+	// 用户请求上传时的文件名
+	FileName *string `json:"file_name,omitempty" xml:"file_name,omitempty"`
+}
+
+func (s UploadAgoraxMerchantImageRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadAgoraxMerchantImageRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UploadAgoraxMerchantImageRequest) SetAuthToken(v string) *UploadAgoraxMerchantImageRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UploadAgoraxMerchantImageRequest) SetProductInstanceId(v string) *UploadAgoraxMerchantImageRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UploadAgoraxMerchantImageRequest) SetFileObject(v io.Reader) *UploadAgoraxMerchantImageRequest {
+	s.FileObject = v
+	return s
+}
+
+func (s *UploadAgoraxMerchantImageRequest) SetFileObjectName(v string) *UploadAgoraxMerchantImageRequest {
+	s.FileObjectName = &v
+	return s
+}
+
+func (s *UploadAgoraxMerchantImageRequest) SetFileId(v string) *UploadAgoraxMerchantImageRequest {
+	s.FileId = &v
+	return s
+}
+
+func (s *UploadAgoraxMerchantImageRequest) SetFileName(v string) *UploadAgoraxMerchantImageRequest {
+	s.FileName = &v
+	return s
+}
+
+type UploadAgoraxMerchantImageResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// file id
+	FileId *string `json:"file_id,omitempty" xml:"file_id,omitempty"`
+}
+
+func (s UploadAgoraxMerchantImageResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadAgoraxMerchantImageResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UploadAgoraxMerchantImageResponse) SetReqMsgId(v string) *UploadAgoraxMerchantImageResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UploadAgoraxMerchantImageResponse) SetResultCode(v string) *UploadAgoraxMerchantImageResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UploadAgoraxMerchantImageResponse) SetResultMsg(v string) *UploadAgoraxMerchantImageResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UploadAgoraxMerchantImageResponse) SetFileId(v string) *UploadAgoraxMerchantImageResponse {
+	s.FileId = &v
+	return s
+}
+
+type QueryAgoraxMerchantStatusRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 商户编号
+	ExternalId *string `json:"external_id,omitempty" xml:"external_id,omitempty" require:"true"`
+}
+
+func (s QueryAgoraxMerchantStatusRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAgoraxMerchantStatusRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAgoraxMerchantStatusRequest) SetAuthToken(v string) *QueryAgoraxMerchantStatusRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAgoraxMerchantStatusRequest) SetProductInstanceId(v string) *QueryAgoraxMerchantStatusRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryAgoraxMerchantStatusRequest) SetExternalId(v string) *QueryAgoraxMerchantStatusRequest {
+	s.ExternalId = &v
+	return s
+}
+
+type QueryAgoraxMerchantStatusResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 申请总体状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 二级商户id
+	Smid *string `json:"smid,omitempty" xml:"smid,omitempty"`
+	// 失败原因说明
+	Reason *string `json:"reason,omitempty" xml:"reason,omitempty"`
+	// 进件生成的卡编号
+	CardAliasNo *string `json:"card_alias_no,omitempty" xml:"card_alias_no,omitempty"`
+	// 扩展字段
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
+}
+
+func (s QueryAgoraxMerchantStatusResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAgoraxMerchantStatusResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAgoraxMerchantStatusResponse) SetReqMsgId(v string) *QueryAgoraxMerchantStatusResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAgoraxMerchantStatusResponse) SetResultCode(v string) *QueryAgoraxMerchantStatusResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAgoraxMerchantStatusResponse) SetResultMsg(v string) *QueryAgoraxMerchantStatusResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAgoraxMerchantStatusResponse) SetStatus(v string) *QueryAgoraxMerchantStatusResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *QueryAgoraxMerchantStatusResponse) SetSmid(v string) *QueryAgoraxMerchantStatusResponse {
+	s.Smid = &v
+	return s
+}
+
+func (s *QueryAgoraxMerchantStatusResponse) SetReason(v string) *QueryAgoraxMerchantStatusResponse {
+	s.Reason = &v
+	return s
+}
+
+func (s *QueryAgoraxMerchantStatusResponse) SetCardAliasNo(v string) *QueryAgoraxMerchantStatusResponse {
+	s.CardAliasNo = &v
+	return s
+}
+
+func (s *QueryAgoraxMerchantStatusResponse) SetExtInfo(v string) *QueryAgoraxMerchantStatusResponse {
+	s.ExtInfo = &v
+	return s
+}
+
+type CreateAgoraxTradeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 商户编号
+	ExternalId *string `json:"external_id,omitempty" xml:"external_id,omitempty" require:"true"`
+	// 支付类型
+	PayType *string `json:"pay_type,omitempty" xml:"pay_type,omitempty" require:"true"`
+	// 商户订单号
+	OutTradeNo *string `json:"out_trade_no,omitempty" xml:"out_trade_no,omitempty" require:"true"`
+	// 订单总金额（元）
+	TotalAmount *string `json:"total_amount,omitempty" xml:"total_amount,omitempty" require:"true"`
+	// 订单标题
+	Subject *string `json:"subject,omitempty" xml:"subject,omitempty" require:"true"`
+	// 描述结算信息
+	SettleInfo *SettleInfo `json:"settle_info,omitempty" xml:"settle_info,omitempty" require:"true"`
+	// 买家支付宝 openid
+	BuyerOpenId *string `json:"buyer_open_id,omitempty" xml:"buyer_open_id,omitempty"`
+	// 产品码
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty"`
+	// 支付授权码
+	AuthCode *string `json:"auth_code,omitempty" xml:"auth_code,omitempty"`
+	// 支付场景
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty"`
+	// 商户实际经营主体的小程序应用的 appid
+	OpAppId *string `json:"op_app_id,omitempty" xml:"op_app_id,omitempty"`
+	// 分账明细信息
+	RoyaltyParameters []*OpenApiRoyaltyDetailInfoPojo `json:"royalty_parameters,omitempty" xml:"royalty_parameters,omitempty" type:"Repeated"`
+	// 卖家支付宝用户 ID
+	SellerId *string `json:"seller_id,omitempty" xml:"seller_id,omitempty"`
+	// 订单包含的商品列表信息
+	GoodsDetails []*GoodsDetail `json:"goods_details,omitempty" xml:"goods_details,omitempty" type:"Repeated"`
+	// 订单绝对超时时间
+	TimeExpire *string `json:"time_expire,omitempty" xml:"time_expire,omitempty"`
+}
+
+func (s CreateAgoraxTradeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateAgoraxTradeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateAgoraxTradeRequest) SetAuthToken(v string) *CreateAgoraxTradeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateAgoraxTradeRequest) SetProductInstanceId(v string) *CreateAgoraxTradeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateAgoraxTradeRequest) SetExternalId(v string) *CreateAgoraxTradeRequest {
+	s.ExternalId = &v
+	return s
+}
+
+func (s *CreateAgoraxTradeRequest) SetPayType(v string) *CreateAgoraxTradeRequest {
+	s.PayType = &v
+	return s
+}
+
+func (s *CreateAgoraxTradeRequest) SetOutTradeNo(v string) *CreateAgoraxTradeRequest {
+	s.OutTradeNo = &v
+	return s
+}
+
+func (s *CreateAgoraxTradeRequest) SetTotalAmount(v string) *CreateAgoraxTradeRequest {
+	s.TotalAmount = &v
+	return s
+}
+
+func (s *CreateAgoraxTradeRequest) SetSubject(v string) *CreateAgoraxTradeRequest {
+	s.Subject = &v
+	return s
+}
+
+func (s *CreateAgoraxTradeRequest) SetSettleInfo(v *SettleInfo) *CreateAgoraxTradeRequest {
+	s.SettleInfo = v
+	return s
+}
+
+func (s *CreateAgoraxTradeRequest) SetBuyerOpenId(v string) *CreateAgoraxTradeRequest {
+	s.BuyerOpenId = &v
+	return s
+}
+
+func (s *CreateAgoraxTradeRequest) SetProductCode(v string) *CreateAgoraxTradeRequest {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *CreateAgoraxTradeRequest) SetAuthCode(v string) *CreateAgoraxTradeRequest {
+	s.AuthCode = &v
+	return s
+}
+
+func (s *CreateAgoraxTradeRequest) SetScene(v string) *CreateAgoraxTradeRequest {
+	s.Scene = &v
+	return s
+}
+
+func (s *CreateAgoraxTradeRequest) SetOpAppId(v string) *CreateAgoraxTradeRequest {
+	s.OpAppId = &v
+	return s
+}
+
+func (s *CreateAgoraxTradeRequest) SetRoyaltyParameters(v []*OpenApiRoyaltyDetailInfoPojo) *CreateAgoraxTradeRequest {
+	s.RoyaltyParameters = v
+	return s
+}
+
+func (s *CreateAgoraxTradeRequest) SetSellerId(v string) *CreateAgoraxTradeRequest {
+	s.SellerId = &v
+	return s
+}
+
+func (s *CreateAgoraxTradeRequest) SetGoodsDetails(v []*GoodsDetail) *CreateAgoraxTradeRequest {
+	s.GoodsDetails = v
+	return s
+}
+
+func (s *CreateAgoraxTradeRequest) SetTimeExpire(v string) *CreateAgoraxTradeRequest {
+	s.TimeExpire = &v
+	return s
+}
+
+type CreateAgoraxTradeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 商户订单号
+	OutTradeNo *string `json:"out_trade_no,omitempty" xml:"out_trade_no,omitempty"`
+	// 支付宝交易号
+	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty"`
+}
+
+func (s CreateAgoraxTradeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateAgoraxTradeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateAgoraxTradeResponse) SetReqMsgId(v string) *CreateAgoraxTradeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateAgoraxTradeResponse) SetResultCode(v string) *CreateAgoraxTradeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateAgoraxTradeResponse) SetResultMsg(v string) *CreateAgoraxTradeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateAgoraxTradeResponse) SetOutTradeNo(v string) *CreateAgoraxTradeResponse {
+	s.OutTradeNo = &v
+	return s
+}
+
+func (s *CreateAgoraxTradeResponse) SetTradeNo(v string) *CreateAgoraxTradeResponse {
+	s.TradeNo = &v
+	return s
+}
+
+type QueryAgoraxTradeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 商户编号
+	ExternalId *string `json:"external_id,omitempty" xml:"external_id,omitempty" require:"true"`
+	// 商户订单号
+	OutTradeNo *string `json:"out_trade_no,omitempty" xml:"out_trade_no,omitempty" require:"true"`
+	// 支付宝交易号
+	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty"`
+}
+
+func (s QueryAgoraxTradeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAgoraxTradeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAgoraxTradeRequest) SetAuthToken(v string) *QueryAgoraxTradeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAgoraxTradeRequest) SetProductInstanceId(v string) *QueryAgoraxTradeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryAgoraxTradeRequest) SetExternalId(v string) *QueryAgoraxTradeRequest {
+	s.ExternalId = &v
+	return s
+}
+
+func (s *QueryAgoraxTradeRequest) SetOutTradeNo(v string) *QueryAgoraxTradeRequest {
+	s.OutTradeNo = &v
+	return s
+}
+
+func (s *QueryAgoraxTradeRequest) SetTradeNo(v string) *QueryAgoraxTradeRequest {
+	s.TradeNo = &v
+	return s
+}
+
+type QueryAgoraxTradeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 支付宝交易号
+	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty"`
+	// 商户订单号
+	OutTradeNo *string `json:"out_trade_no,omitempty" xml:"out_trade_no,omitempty"`
+	// 交易状态
+	TradeStatus *string `json:"trade_status,omitempty" xml:"trade_status,omitempty"`
+	// 订单金额
+	TotalAmount *string `json:"total_amount,omitempty" xml:"total_amount,omitempty"`
+	// 买家支付宝用户唯一标识
+	BuyerOpenId *string `json:"buyer_open_id,omitempty" xml:"buyer_open_id,omitempty"`
+	// 实收金额
+	ReceiptAmount *string `json:"receipt_amount,omitempty" xml:"receipt_amount,omitempty"`
+}
+
+func (s QueryAgoraxTradeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAgoraxTradeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAgoraxTradeResponse) SetReqMsgId(v string) *QueryAgoraxTradeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAgoraxTradeResponse) SetResultCode(v string) *QueryAgoraxTradeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAgoraxTradeResponse) SetResultMsg(v string) *QueryAgoraxTradeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAgoraxTradeResponse) SetTradeNo(v string) *QueryAgoraxTradeResponse {
+	s.TradeNo = &v
+	return s
+}
+
+func (s *QueryAgoraxTradeResponse) SetOutTradeNo(v string) *QueryAgoraxTradeResponse {
+	s.OutTradeNo = &v
+	return s
+}
+
+func (s *QueryAgoraxTradeResponse) SetTradeStatus(v string) *QueryAgoraxTradeResponse {
+	s.TradeStatus = &v
+	return s
+}
+
+func (s *QueryAgoraxTradeResponse) SetTotalAmount(v string) *QueryAgoraxTradeResponse {
+	s.TotalAmount = &v
+	return s
+}
+
+func (s *QueryAgoraxTradeResponse) SetBuyerOpenId(v string) *QueryAgoraxTradeResponse {
+	s.BuyerOpenId = &v
+	return s
+}
+
+func (s *QueryAgoraxTradeResponse) SetReceiptAmount(v string) *QueryAgoraxTradeResponse {
+	s.ReceiptAmount = &v
+	return s
+}
+
+type RefundAgoraxTradeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 商户编号
+	ExternalId *string `json:"external_id,omitempty" xml:"external_id,omitempty" require:"true"`
+	// 退款金额（元）
+	RefundAmount *string `json:"refund_amount,omitempty" xml:"refund_amount,omitempty" require:"true"`
+	// 商户订单号
+	OutTradeNo *string `json:"out_trade_no,omitempty" xml:"out_trade_no,omitempty"`
+	// 支付宝交易号
+	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty"`
+	// 退款原因说明
+	RefundReason *string `json:"refund_reason,omitempty" xml:"refund_reason,omitempty"`
+	// 退款请求号，部分退款时必选
+	OutRequestNo *string `json:"out_request_no,omitempty" xml:"out_request_no,omitempty"`
+	// 退款包含的商品列表信息
+	RefundGoodsDetail []*RefundGoodsDetail `json:"refund_goods_detail,omitempty" xml:"refund_goods_detail,omitempty" type:"Repeated"`
+}
+
+func (s RefundAgoraxTradeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RefundAgoraxTradeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *RefundAgoraxTradeRequest) SetAuthToken(v string) *RefundAgoraxTradeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *RefundAgoraxTradeRequest) SetProductInstanceId(v string) *RefundAgoraxTradeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *RefundAgoraxTradeRequest) SetExternalId(v string) *RefundAgoraxTradeRequest {
+	s.ExternalId = &v
+	return s
+}
+
+func (s *RefundAgoraxTradeRequest) SetRefundAmount(v string) *RefundAgoraxTradeRequest {
+	s.RefundAmount = &v
+	return s
+}
+
+func (s *RefundAgoraxTradeRequest) SetOutTradeNo(v string) *RefundAgoraxTradeRequest {
+	s.OutTradeNo = &v
+	return s
+}
+
+func (s *RefundAgoraxTradeRequest) SetTradeNo(v string) *RefundAgoraxTradeRequest {
+	s.TradeNo = &v
+	return s
+}
+
+func (s *RefundAgoraxTradeRequest) SetRefundReason(v string) *RefundAgoraxTradeRequest {
+	s.RefundReason = &v
+	return s
+}
+
+func (s *RefundAgoraxTradeRequest) SetOutRequestNo(v string) *RefundAgoraxTradeRequest {
+	s.OutRequestNo = &v
+	return s
+}
+
+func (s *RefundAgoraxTradeRequest) SetRefundGoodsDetail(v []*RefundGoodsDetail) *RefundAgoraxTradeRequest {
+	s.RefundGoodsDetail = v
+	return s
+}
+
+type RefundAgoraxTradeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 商户订单号
+	OutTradeNo *string `json:"out_trade_no,omitempty" xml:"out_trade_no,omitempty"`
+	// 支付宝交易号
+	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty"`
+	// 用户的登录id
+	BuyerLogonId *string `json:"buyer_logon_id,omitempty" xml:"buyer_logon_id,omitempty"`
+	// 退款总金额
+	RefundFee *string `json:"refund_fee,omitempty" xml:"refund_fee,omitempty"`
+}
+
+func (s RefundAgoraxTradeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RefundAgoraxTradeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *RefundAgoraxTradeResponse) SetReqMsgId(v string) *RefundAgoraxTradeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *RefundAgoraxTradeResponse) SetResultCode(v string) *RefundAgoraxTradeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *RefundAgoraxTradeResponse) SetResultMsg(v string) *RefundAgoraxTradeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *RefundAgoraxTradeResponse) SetOutTradeNo(v string) *RefundAgoraxTradeResponse {
+	s.OutTradeNo = &v
+	return s
+}
+
+func (s *RefundAgoraxTradeResponse) SetTradeNo(v string) *RefundAgoraxTradeResponse {
+	s.TradeNo = &v
+	return s
+}
+
+func (s *RefundAgoraxTradeResponse) SetBuyerLogonId(v string) *RefundAgoraxTradeResponse {
+	s.BuyerLogonId = &v
+	return s
+}
+
+func (s *RefundAgoraxTradeResponse) SetRefundFee(v string) *RefundAgoraxTradeResponse {
+	s.RefundFee = &v
+	return s
+}
+
+type QueryAgoraxTradeRefundRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 商户编号
+	ExternalId *string `json:"external_id,omitempty" xml:"external_id,omitempty" require:"true"`
+	// 退款请求号
+	OutRequestNo *string `json:"out_request_no,omitempty" xml:"out_request_no,omitempty" require:"true"`
+	// 支付宝交易号
+	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty"`
+	// 商户订单号
+	OutTradeNo *string `json:"out_trade_no,omitempty" xml:"out_trade_no,omitempty"`
+	// 额外查询选项
+	QueryOptions []*string `json:"query_options,omitempty" xml:"query_options,omitempty" type:"Repeated"`
+}
+
+func (s QueryAgoraxTradeRefundRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAgoraxTradeRefundRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAgoraxTradeRefundRequest) SetAuthToken(v string) *QueryAgoraxTradeRefundRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAgoraxTradeRefundRequest) SetProductInstanceId(v string) *QueryAgoraxTradeRefundRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryAgoraxTradeRefundRequest) SetExternalId(v string) *QueryAgoraxTradeRefundRequest {
+	s.ExternalId = &v
+	return s
+}
+
+func (s *QueryAgoraxTradeRefundRequest) SetOutRequestNo(v string) *QueryAgoraxTradeRefundRequest {
+	s.OutRequestNo = &v
+	return s
+}
+
+func (s *QueryAgoraxTradeRefundRequest) SetTradeNo(v string) *QueryAgoraxTradeRefundRequest {
+	s.TradeNo = &v
+	return s
+}
+
+func (s *QueryAgoraxTradeRefundRequest) SetOutTradeNo(v string) *QueryAgoraxTradeRefundRequest {
+	s.OutTradeNo = &v
+	return s
+}
+
+func (s *QueryAgoraxTradeRefundRequest) SetQueryOptions(v []*string) *QueryAgoraxTradeRefundRequest {
+	s.QueryOptions = v
+	return s
+}
+
+type QueryAgoraxTradeRefundResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 支付宝交易号
+	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty"`
+	// 创建交易传入的商户订单号
+	OutTradeNo *string `json:"out_trade_no,omitempty" xml:"out_trade_no,omitempty"`
+	// 本笔退款对应的退款请求号
+	OutRequestNo *string `json:"out_request_no,omitempty" xml:"out_request_no,omitempty"`
+	// 该笔退款所对应的交易的订单金额
+	TotalAmount *string `json:"total_amount,omitempty" xml:"total_amount,omitempty"`
+	// 本次退款请求，对应的退款金额
+	RefundAmount *string `json:"refund_amount,omitempty" xml:"refund_amount,omitempty"`
+	// 退款状态
+	RefundStatus *string `json:"refund_status,omitempty" xml:"refund_status,omitempty"`
+	// 退分账明细信息
+	RefundRoyaltys []*RefundRoyaltyResult `json:"refund_royaltys,omitempty" xml:"refund_royaltys,omitempty" type:"Repeated"`
+	// 本次商户实际退回金额
+	SendBackFee *string `json:"send_back_fee,omitempty" xml:"send_back_fee,omitempty"`
+}
+
+func (s QueryAgoraxTradeRefundResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAgoraxTradeRefundResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAgoraxTradeRefundResponse) SetReqMsgId(v string) *QueryAgoraxTradeRefundResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAgoraxTradeRefundResponse) SetResultCode(v string) *QueryAgoraxTradeRefundResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAgoraxTradeRefundResponse) SetResultMsg(v string) *QueryAgoraxTradeRefundResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAgoraxTradeRefundResponse) SetTradeNo(v string) *QueryAgoraxTradeRefundResponse {
+	s.TradeNo = &v
+	return s
+}
+
+func (s *QueryAgoraxTradeRefundResponse) SetOutTradeNo(v string) *QueryAgoraxTradeRefundResponse {
+	s.OutTradeNo = &v
+	return s
+}
+
+func (s *QueryAgoraxTradeRefundResponse) SetOutRequestNo(v string) *QueryAgoraxTradeRefundResponse {
+	s.OutRequestNo = &v
+	return s
+}
+
+func (s *QueryAgoraxTradeRefundResponse) SetTotalAmount(v string) *QueryAgoraxTradeRefundResponse {
+	s.TotalAmount = &v
+	return s
+}
+
+func (s *QueryAgoraxTradeRefundResponse) SetRefundAmount(v string) *QueryAgoraxTradeRefundResponse {
+	s.RefundAmount = &v
+	return s
+}
+
+func (s *QueryAgoraxTradeRefundResponse) SetRefundStatus(v string) *QueryAgoraxTradeRefundResponse {
+	s.RefundStatus = &v
+	return s
+}
+
+func (s *QueryAgoraxTradeRefundResponse) SetRefundRoyaltys(v []*RefundRoyaltyResult) *QueryAgoraxTradeRefundResponse {
+	s.RefundRoyaltys = v
+	return s
+}
+
+func (s *QueryAgoraxTradeRefundResponse) SetSendBackFee(v string) *QueryAgoraxTradeRefundResponse {
+	s.SendBackFee = &v
 	return s
 }
 
@@ -52923,6 +54481,83 @@ func (s *PushAuthCarloanResponse) SetPushSuccess(v bool) *PushAuthCarloanRespons
 	return s
 }
 
+type ImportAuthCaritemsTestRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// aaa
+	// 待上传文件
+	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
+	// 待上传文件名
+	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+}
+
+func (s ImportAuthCaritemsTestRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ImportAuthCaritemsTestRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ImportAuthCaritemsTestRequest) SetAuthToken(v string) *ImportAuthCaritemsTestRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ImportAuthCaritemsTestRequest) SetProductInstanceId(v string) *ImportAuthCaritemsTestRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ImportAuthCaritemsTestRequest) SetFileObject(v io.Reader) *ImportAuthCaritemsTestRequest {
+	s.FileObject = v
+	return s
+}
+
+func (s *ImportAuthCaritemsTestRequest) SetFileObjectName(v string) *ImportAuthCaritemsTestRequest {
+	s.FileObjectName = &v
+	return s
+}
+
+func (s *ImportAuthCaritemsTestRequest) SetFileId(v string) *ImportAuthCaritemsTestRequest {
+	s.FileId = &v
+	return s
+}
+
+type ImportAuthCaritemsTestResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s ImportAuthCaritemsTestResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ImportAuthCaritemsTestResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ImportAuthCaritemsTestResponse) SetReqMsgId(v string) *ImportAuthCaritemsTestResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ImportAuthCaritemsTestResponse) SetResultCode(v string) *ImportAuthCaritemsTestResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ImportAuthCaritemsTestResponse) SetResultMsg(v string) *ImportAuthCaritemsTestResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type StartDidCorporateAgentcreateRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -72221,7 +73856,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.28.70"),
+				"sdk_version":      tea.String("1.29.0"),
 				"_prod_code":       tea.String("BLOCKCHAIN"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -72544,6 +74179,274 @@ func (client *Client) BatchcreateAccountMappingInfoEx(request *BatchcreateAccoun
 	}
 	_result = &BatchcreateAccountMappingInfoResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.account.mapping.info.batchcreate"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 商家入驻接口
+ * Summary: 商家入驻接口
+ */
+func (client *Client) RegisterAgoraxMerchant(request *RegisterAgoraxMerchantRequest) (_result *RegisterAgoraxMerchantResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &RegisterAgoraxMerchantResponse{}
+	_body, _err := client.RegisterAgoraxMerchantEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 商家入驻接口
+ * Summary: 商家入驻接口
+ */
+func (client *Client) RegisterAgoraxMerchantEx(request *RegisterAgoraxMerchantRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *RegisterAgoraxMerchantResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &RegisterAgoraxMerchantResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.agorax.merchant.register"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 商家图片上传接口
+ * Summary: 商家图片上传接口
+ */
+func (client *Client) UploadAgoraxMerchantImage(request *UploadAgoraxMerchantImageRequest) (_result *UploadAgoraxMerchantImageResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UploadAgoraxMerchantImageResponse{}
+	_body, _err := client.UploadAgoraxMerchantImageEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 商家图片上传接口
+ * Summary: 商家图片上传接口
+ */
+func (client *Client) UploadAgoraxMerchantImageEx(request *UploadAgoraxMerchantImageRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UploadAgoraxMerchantImageResponse, _err error) {
+	if !tea.BoolValue(util.IsUnset(request.FileObject)) {
+		uploadReq := &CreateAntcloudGatewayxFileUploadRequest{
+			AuthToken: request.AuthToken,
+			ApiCode:   tea.String("baas.agorax.merchant.image.upload"),
+			FileName:  request.FileObjectName,
+		}
+		uploadResp, _err := client.CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime)
+		if _err != nil {
+			return _result, _err
+		}
+
+		if !tea.BoolValue(antchainutil.IsSuccess(uploadResp.ResultCode, tea.String("ok"))) {
+			uploadAgoraxMerchantImageResponse := &UploadAgoraxMerchantImageResponse{
+				ReqMsgId:   uploadResp.ReqMsgId,
+				ResultCode: uploadResp.ResultCode,
+				ResultMsg:  uploadResp.ResultMsg,
+			}
+			_result = uploadAgoraxMerchantImageResponse
+			return _result, _err
+		}
+
+		uploadHeaders := antchainutil.ParseUploadHeaders(uploadResp.UploadHeaders)
+		_err = antchainutil.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl)
+		if _err != nil {
+			return _result, _err
+		}
+		request.FileId = uploadResp.FileId
+		request.FileObject = nil
+	}
+
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UploadAgoraxMerchantImageResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.agorax.merchant.image.upload"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询商户申请单状态
+ * Summary: 查询商户申请单状态
+ */
+func (client *Client) QueryAgoraxMerchantStatus(request *QueryAgoraxMerchantStatusRequest) (_result *QueryAgoraxMerchantStatusResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAgoraxMerchantStatusResponse{}
+	_body, _err := client.QueryAgoraxMerchantStatusEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询商户申请单状态
+ * Summary: 查询商户申请单状态
+ */
+func (client *Client) QueryAgoraxMerchantStatusEx(request *QueryAgoraxMerchantStatusRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAgoraxMerchantStatusResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAgoraxMerchantStatusResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.agorax.merchant.status.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 支持 JSAPI、当面付
+ * Summary: 创建支付订单
+ */
+func (client *Client) CreateAgoraxTrade(request *CreateAgoraxTradeRequest) (_result *CreateAgoraxTradeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateAgoraxTradeResponse{}
+	_body, _err := client.CreateAgoraxTradeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 支持 JSAPI、当面付
+ * Summary: 创建支付订单
+ */
+func (client *Client) CreateAgoraxTradeEx(request *CreateAgoraxTradeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateAgoraxTradeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateAgoraxTradeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.agorax.trade.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 支付结果查询
+ * Summary: 支付结果查询
+ */
+func (client *Client) QueryAgoraxTrade(request *QueryAgoraxTradeRequest) (_result *QueryAgoraxTradeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAgoraxTradeResponse{}
+	_body, _err := client.QueryAgoraxTradeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 支付结果查询
+ * Summary: 支付结果查询
+ */
+func (client *Client) QueryAgoraxTradeEx(request *QueryAgoraxTradeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAgoraxTradeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAgoraxTradeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.agorax.trade.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 发起退款
+ * Summary: 发起退款
+ */
+func (client *Client) RefundAgoraxTrade(request *RefundAgoraxTradeRequest) (_result *RefundAgoraxTradeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &RefundAgoraxTradeResponse{}
+	_body, _err := client.RefundAgoraxTradeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 发起退款
+ * Summary: 发起退款
+ */
+func (client *Client) RefundAgoraxTradeEx(request *RefundAgoraxTradeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *RefundAgoraxTradeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &RefundAgoraxTradeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.agorax.trade.refund"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 退款结果查询
+ * Summary: 退款结果查询
+ */
+func (client *Client) QueryAgoraxTradeRefund(request *QueryAgoraxTradeRefundRequest) (_result *QueryAgoraxTradeRefundResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAgoraxTradeRefundResponse{}
+	_body, _err := client.QueryAgoraxTradeRefundEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 退款结果查询
+ * Summary: 退款结果查询
+ */
+func (client *Client) QueryAgoraxTradeRefundEx(request *QueryAgoraxTradeRefundRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAgoraxTradeRefundResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAgoraxTradeRefundResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.agorax.trade.refund.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -86938,6 +88841,70 @@ func (client *Client) PushAuthCarloanEx(request *PushAuthCarloanRequest, headers
 	}
 	_result = &PushAuthCarloanResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.auth.carloan.push"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 测试用
+ * Summary: 测试用
+ */
+func (client *Client) ImportAuthCaritemsTest(request *ImportAuthCaritemsTestRequest) (_result *ImportAuthCaritemsTestResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ImportAuthCaritemsTestResponse{}
+	_body, _err := client.ImportAuthCaritemsTestEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 测试用
+ * Summary: 测试用
+ */
+func (client *Client) ImportAuthCaritemsTestEx(request *ImportAuthCaritemsTestRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ImportAuthCaritemsTestResponse, _err error) {
+	if !tea.BoolValue(util.IsUnset(request.FileObject)) {
+		uploadReq := &CreateAntcloudGatewayxFileUploadRequest{
+			AuthToken: request.AuthToken,
+			ApiCode:   tea.String("baas.auth.caritems.test.import"),
+			FileName:  request.FileObjectName,
+		}
+		uploadResp, _err := client.CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime)
+		if _err != nil {
+			return _result, _err
+		}
+
+		if !tea.BoolValue(antchainutil.IsSuccess(uploadResp.ResultCode, tea.String("ok"))) {
+			importAuthCaritemsTestResponse := &ImportAuthCaritemsTestResponse{
+				ReqMsgId:   uploadResp.ReqMsgId,
+				ResultCode: uploadResp.ResultCode,
+				ResultMsg:  uploadResp.ResultMsg,
+			}
+			_result = importAuthCaritemsTestResponse
+			return _result, _err
+		}
+
+		uploadHeaders := antchainutil.ParseUploadHeaders(uploadResp.UploadHeaders)
+		_err = antchainutil.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl)
+		if _err != nil {
+			return _result, _err
+		}
+		request.FileId = uploadResp.FileId
+		request.FileObject = nil
+	}
+
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ImportAuthCaritemsTestResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.auth.caritems.test.import"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
