@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.28.70',
+                    'sdk_version': '1.29.0',
                     '_prod_code': 'BLOCKCHAIN',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.28.70',
+                    'sdk_version': '1.29.0',
                     '_prod_code': 'BLOCKCHAIN',
                     '_prod_channel': 'undefined'
                 }
@@ -721,6 +721,434 @@ class Client:
         return TeaCore.from_map(
             blockchain_models.BatchcreateAccountMappingInfoResponse(),
             await self.do_request_async('1.0', 'baas.account.mapping.info.batchcreate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def register_agorax_merchant(
+        self,
+        request: blockchain_models.RegisterAgoraxMerchantRequest,
+    ) -> blockchain_models.RegisterAgoraxMerchantResponse:
+        """
+        Description: 商家入驻接口
+        Summary: 商家入驻接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.register_agorax_merchant_ex(request, headers, runtime)
+
+    async def register_agorax_merchant_async(
+        self,
+        request: blockchain_models.RegisterAgoraxMerchantRequest,
+    ) -> blockchain_models.RegisterAgoraxMerchantResponse:
+        """
+        Description: 商家入驻接口
+        Summary: 商家入驻接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.register_agorax_merchant_ex_async(request, headers, runtime)
+
+    def register_agorax_merchant_ex(
+        self,
+        request: blockchain_models.RegisterAgoraxMerchantRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.RegisterAgoraxMerchantResponse:
+        """
+        Description: 商家入驻接口
+        Summary: 商家入驻接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.RegisterAgoraxMerchantResponse(),
+            self.do_request('1.0', 'baas.agorax.merchant.register', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def register_agorax_merchant_ex_async(
+        self,
+        request: blockchain_models.RegisterAgoraxMerchantRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.RegisterAgoraxMerchantResponse:
+        """
+        Description: 商家入驻接口
+        Summary: 商家入驻接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.RegisterAgoraxMerchantResponse(),
+            await self.do_request_async('1.0', 'baas.agorax.merchant.register', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def upload_agorax_merchant_image(
+        self,
+        request: blockchain_models.UploadAgoraxMerchantImageRequest,
+    ) -> blockchain_models.UploadAgoraxMerchantImageResponse:
+        """
+        Description: 商家图片上传接口
+        Summary: 商家图片上传接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.upload_agorax_merchant_image_ex(request, headers, runtime)
+
+    async def upload_agorax_merchant_image_async(
+        self,
+        request: blockchain_models.UploadAgoraxMerchantImageRequest,
+    ) -> blockchain_models.UploadAgoraxMerchantImageResponse:
+        """
+        Description: 商家图片上传接口
+        Summary: 商家图片上传接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.upload_agorax_merchant_image_ex_async(request, headers, runtime)
+
+    def upload_agorax_merchant_image_ex(
+        self,
+        request: blockchain_models.UploadAgoraxMerchantImageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.UploadAgoraxMerchantImageResponse:
+        """
+        Description: 商家图片上传接口
+        Summary: 商家图片上传接口
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = blockchain_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='baas.agorax.merchant.image.upload',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                upload_agorax_merchant_image_response = blockchain_models.UploadAgoraxMerchantImageResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return upload_agorax_merchant_image_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.UploadAgoraxMerchantImageResponse(),
+            self.do_request('1.0', 'baas.agorax.merchant.image.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def upload_agorax_merchant_image_ex_async(
+        self,
+        request: blockchain_models.UploadAgoraxMerchantImageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.UploadAgoraxMerchantImageResponse:
+        """
+        Description: 商家图片上传接口
+        Summary: 商家图片上传接口
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = blockchain_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='baas.agorax.merchant.image.upload',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                upload_agorax_merchant_image_response = blockchain_models.UploadAgoraxMerchantImageResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return upload_agorax_merchant_image_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.UploadAgoraxMerchantImageResponse(),
+            await self.do_request_async('1.0', 'baas.agorax.merchant.image.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_agorax_merchant_status(
+        self,
+        request: blockchain_models.QueryAgoraxMerchantStatusRequest,
+    ) -> blockchain_models.QueryAgoraxMerchantStatusResponse:
+        """
+        Description: 查询商户申请单状态
+        Summary: 查询商户申请单状态
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_agorax_merchant_status_ex(request, headers, runtime)
+
+    async def query_agorax_merchant_status_async(
+        self,
+        request: blockchain_models.QueryAgoraxMerchantStatusRequest,
+    ) -> blockchain_models.QueryAgoraxMerchantStatusResponse:
+        """
+        Description: 查询商户申请单状态
+        Summary: 查询商户申请单状态
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_agorax_merchant_status_ex_async(request, headers, runtime)
+
+    def query_agorax_merchant_status_ex(
+        self,
+        request: blockchain_models.QueryAgoraxMerchantStatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.QueryAgoraxMerchantStatusResponse:
+        """
+        Description: 查询商户申请单状态
+        Summary: 查询商户申请单状态
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.QueryAgoraxMerchantStatusResponse(),
+            self.do_request('1.0', 'baas.agorax.merchant.status.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_agorax_merchant_status_ex_async(
+        self,
+        request: blockchain_models.QueryAgoraxMerchantStatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.QueryAgoraxMerchantStatusResponse:
+        """
+        Description: 查询商户申请单状态
+        Summary: 查询商户申请单状态
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.QueryAgoraxMerchantStatusResponse(),
+            await self.do_request_async('1.0', 'baas.agorax.merchant.status.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_agorax_trade(
+        self,
+        request: blockchain_models.CreateAgoraxTradeRequest,
+    ) -> blockchain_models.CreateAgoraxTradeResponse:
+        """
+        Description: 支持 JSAPI、当面付
+        Summary: 创建支付订单
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_agorax_trade_ex(request, headers, runtime)
+
+    async def create_agorax_trade_async(
+        self,
+        request: blockchain_models.CreateAgoraxTradeRequest,
+    ) -> blockchain_models.CreateAgoraxTradeResponse:
+        """
+        Description: 支持 JSAPI、当面付
+        Summary: 创建支付订单
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_agorax_trade_ex_async(request, headers, runtime)
+
+    def create_agorax_trade_ex(
+        self,
+        request: blockchain_models.CreateAgoraxTradeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.CreateAgoraxTradeResponse:
+        """
+        Description: 支持 JSAPI、当面付
+        Summary: 创建支付订单
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.CreateAgoraxTradeResponse(),
+            self.do_request('1.0', 'baas.agorax.trade.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_agorax_trade_ex_async(
+        self,
+        request: blockchain_models.CreateAgoraxTradeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.CreateAgoraxTradeResponse:
+        """
+        Description: 支持 JSAPI、当面付
+        Summary: 创建支付订单
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.CreateAgoraxTradeResponse(),
+            await self.do_request_async('1.0', 'baas.agorax.trade.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_agorax_trade(
+        self,
+        request: blockchain_models.QueryAgoraxTradeRequest,
+    ) -> blockchain_models.QueryAgoraxTradeResponse:
+        """
+        Description: 支付结果查询
+        Summary: 支付结果查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_agorax_trade_ex(request, headers, runtime)
+
+    async def query_agorax_trade_async(
+        self,
+        request: blockchain_models.QueryAgoraxTradeRequest,
+    ) -> blockchain_models.QueryAgoraxTradeResponse:
+        """
+        Description: 支付结果查询
+        Summary: 支付结果查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_agorax_trade_ex_async(request, headers, runtime)
+
+    def query_agorax_trade_ex(
+        self,
+        request: blockchain_models.QueryAgoraxTradeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.QueryAgoraxTradeResponse:
+        """
+        Description: 支付结果查询
+        Summary: 支付结果查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.QueryAgoraxTradeResponse(),
+            self.do_request('1.0', 'baas.agorax.trade.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_agorax_trade_ex_async(
+        self,
+        request: blockchain_models.QueryAgoraxTradeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.QueryAgoraxTradeResponse:
+        """
+        Description: 支付结果查询
+        Summary: 支付结果查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.QueryAgoraxTradeResponse(),
+            await self.do_request_async('1.0', 'baas.agorax.trade.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def refund_agorax_trade(
+        self,
+        request: blockchain_models.RefundAgoraxTradeRequest,
+    ) -> blockchain_models.RefundAgoraxTradeResponse:
+        """
+        Description: 发起退款
+        Summary: 发起退款
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.refund_agorax_trade_ex(request, headers, runtime)
+
+    async def refund_agorax_trade_async(
+        self,
+        request: blockchain_models.RefundAgoraxTradeRequest,
+    ) -> blockchain_models.RefundAgoraxTradeResponse:
+        """
+        Description: 发起退款
+        Summary: 发起退款
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.refund_agorax_trade_ex_async(request, headers, runtime)
+
+    def refund_agorax_trade_ex(
+        self,
+        request: blockchain_models.RefundAgoraxTradeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.RefundAgoraxTradeResponse:
+        """
+        Description: 发起退款
+        Summary: 发起退款
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.RefundAgoraxTradeResponse(),
+            self.do_request('1.0', 'baas.agorax.trade.refund', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def refund_agorax_trade_ex_async(
+        self,
+        request: blockchain_models.RefundAgoraxTradeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.RefundAgoraxTradeResponse:
+        """
+        Description: 发起退款
+        Summary: 发起退款
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.RefundAgoraxTradeResponse(),
+            await self.do_request_async('1.0', 'baas.agorax.trade.refund', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_agorax_trade_refund(
+        self,
+        request: blockchain_models.QueryAgoraxTradeRefundRequest,
+    ) -> blockchain_models.QueryAgoraxTradeRefundResponse:
+        """
+        Description: 退款结果查询
+        Summary: 退款结果查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_agorax_trade_refund_ex(request, headers, runtime)
+
+    async def query_agorax_trade_refund_async(
+        self,
+        request: blockchain_models.QueryAgoraxTradeRefundRequest,
+    ) -> blockchain_models.QueryAgoraxTradeRefundResponse:
+        """
+        Description: 退款结果查询
+        Summary: 退款结果查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_agorax_trade_refund_ex_async(request, headers, runtime)
+
+    def query_agorax_trade_refund_ex(
+        self,
+        request: blockchain_models.QueryAgoraxTradeRefundRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.QueryAgoraxTradeRefundResponse:
+        """
+        Description: 退款结果查询
+        Summary: 退款结果查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.QueryAgoraxTradeRefundResponse(),
+            self.do_request('1.0', 'baas.agorax.trade.refund.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_agorax_trade_refund_ex_async(
+        self,
+        request: blockchain_models.QueryAgoraxTradeRefundRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.QueryAgoraxTradeRefundResponse:
+        """
+        Description: 退款结果查询
+        Summary: 退款结果查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.QueryAgoraxTradeRefundResponse(),
+            await self.do_request_async('1.0', 'baas.agorax.trade.refund.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def get_akdf_userbizkey(
@@ -24409,6 +24837,98 @@ class Client:
         return TeaCore.from_map(
             blockchain_models.PushAuthCarloanResponse(),
             await self.do_request_async('1.0', 'baas.auth.carloan.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def import_auth_caritems_test(
+        self,
+        request: blockchain_models.ImportAuthCaritemsTestRequest,
+    ) -> blockchain_models.ImportAuthCaritemsTestResponse:
+        """
+        Description: 测试用
+        Summary: 测试用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.import_auth_caritems_test_ex(request, headers, runtime)
+
+    async def import_auth_caritems_test_async(
+        self,
+        request: blockchain_models.ImportAuthCaritemsTestRequest,
+    ) -> blockchain_models.ImportAuthCaritemsTestResponse:
+        """
+        Description: 测试用
+        Summary: 测试用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.import_auth_caritems_test_ex_async(request, headers, runtime)
+
+    def import_auth_caritems_test_ex(
+        self,
+        request: blockchain_models.ImportAuthCaritemsTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.ImportAuthCaritemsTestResponse:
+        """
+        Description: 测试用
+        Summary: 测试用
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = blockchain_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='baas.auth.caritems.test.import',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                import_auth_caritems_test_response = blockchain_models.ImportAuthCaritemsTestResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return import_auth_caritems_test_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.ImportAuthCaritemsTestResponse(),
+            self.do_request('1.0', 'baas.auth.caritems.test.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def import_auth_caritems_test_ex_async(
+        self,
+        request: blockchain_models.ImportAuthCaritemsTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.ImportAuthCaritemsTestResponse:
+        """
+        Description: 测试用
+        Summary: 测试用
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = blockchain_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='baas.auth.caritems.test.import',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                import_auth_caritems_test_response = blockchain_models.ImportAuthCaritemsTestResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return import_auth_caritems_test_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.ImportAuthCaritemsTestResponse(),
+            await self.do_request_async('1.0', 'baas.auth.caritems.test.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def start_did_corporate_agentcreate(
