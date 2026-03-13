@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.28.70"),
+                    new TeaPair("sdk_version", "1.29.0"),
                     new TeaPair("_prod_code", "BLOCKCHAIN"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -354,6 +354,175 @@ public class Client {
     public BatchcreateAccountMappingInfoResponse batchcreateAccountMappingInfoEx(BatchcreateAccountMappingInfoRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "baas.account.mapping.info.batchcreate", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BatchcreateAccountMappingInfoResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 商家入驻接口
+     * Summary: 商家入驻接口</p>
+     */
+    public RegisterAgoraxMerchantResponse registerAgoraxMerchant(RegisterAgoraxMerchantRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.registerAgoraxMerchantEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 商家入驻接口
+     * Summary: 商家入驻接口</p>
+     */
+    public RegisterAgoraxMerchantResponse registerAgoraxMerchantEx(RegisterAgoraxMerchantRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.agorax.merchant.register", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RegisterAgoraxMerchantResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 商家图片上传接口
+     * Summary: 商家图片上传接口</p>
+     */
+    public UploadAgoraxMerchantImageResponse uploadAgoraxMerchantImage(UploadAgoraxMerchantImageRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.uploadAgoraxMerchantImageEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 商家图片上传接口
+     * Summary: 商家图片上传接口</p>
+     */
+    public UploadAgoraxMerchantImageResponse uploadAgoraxMerchantImageEx(UploadAgoraxMerchantImageRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        if (!com.aliyun.teautil.Common.isUnset(request.fileObject)) {
+            CreateAntcloudGatewayxFileUploadRequest uploadReq = CreateAntcloudGatewayxFileUploadRequest.build(TeaConverter.buildMap(
+                new TeaPair("authToken", request.authToken),
+                new TeaPair("apiCode", "baas.agorax.merchant.image.upload"),
+                new TeaPair("fileName", request.fileObjectName)
+            ));
+            CreateAntcloudGatewayxFileUploadResponse uploadResp = this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+            if (!com.antgroup.antchain.openapi.antchain.util.AntchainUtils.isSuccess(uploadResp.resultCode, "ok")) {
+                UploadAgoraxMerchantImageResponse uploadAgoraxMerchantImageResponse = UploadAgoraxMerchantImageResponse.build(TeaConverter.buildMap(
+                    new TeaPair("reqMsgId", uploadResp.reqMsgId),
+                    new TeaPair("resultCode", uploadResp.resultCode),
+                    new TeaPair("resultMsg", uploadResp.resultMsg)
+                ));
+                return uploadAgoraxMerchantImageResponse;
+            }
+
+            java.util.Map<String, String> uploadHeaders = com.antgroup.antchain.openapi.antchain.util.AntchainUtils.parseUploadHeaders(uploadResp.uploadHeaders);
+            com.antgroup.antchain.openapi.antchain.util.AntchainUtils.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+            request.fileId = uploadResp.fileId;
+            request.fileObject = null;
+        }
+
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.agorax.merchant.image.upload", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UploadAgoraxMerchantImageResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询商户申请单状态
+     * Summary: 查询商户申请单状态</p>
+     */
+    public QueryAgoraxMerchantStatusResponse queryAgoraxMerchantStatus(QueryAgoraxMerchantStatusRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAgoraxMerchantStatusEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询商户申请单状态
+     * Summary: 查询商户申请单状态</p>
+     */
+    public QueryAgoraxMerchantStatusResponse queryAgoraxMerchantStatusEx(QueryAgoraxMerchantStatusRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.agorax.merchant.status.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAgoraxMerchantStatusResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 支持 JSAPI、当面付
+     * Summary: 创建支付订单</p>
+     */
+    public CreateAgoraxTradeResponse createAgoraxTrade(CreateAgoraxTradeRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createAgoraxTradeEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 支持 JSAPI、当面付
+     * Summary: 创建支付订单</p>
+     */
+    public CreateAgoraxTradeResponse createAgoraxTradeEx(CreateAgoraxTradeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.agorax.trade.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateAgoraxTradeResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 支付结果查询
+     * Summary: 支付结果查询</p>
+     */
+    public QueryAgoraxTradeResponse queryAgoraxTrade(QueryAgoraxTradeRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAgoraxTradeEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 支付结果查询
+     * Summary: 支付结果查询</p>
+     */
+    public QueryAgoraxTradeResponse queryAgoraxTradeEx(QueryAgoraxTradeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.agorax.trade.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAgoraxTradeResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 发起退款
+     * Summary: 发起退款</p>
+     */
+    public RefundAgoraxTradeResponse refundAgoraxTrade(RefundAgoraxTradeRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.refundAgoraxTradeEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 发起退款
+     * Summary: 发起退款</p>
+     */
+    public RefundAgoraxTradeResponse refundAgoraxTradeEx(RefundAgoraxTradeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.agorax.trade.refund", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RefundAgoraxTradeResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 退款结果查询
+     * Summary: 退款结果查询</p>
+     */
+    public QueryAgoraxTradeRefundResponse queryAgoraxTradeRefund(QueryAgoraxTradeRefundRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAgoraxTradeRefundEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 退款结果查询
+     * Summary: 退款结果查询</p>
+     */
+    public QueryAgoraxTradeRefundResponse queryAgoraxTradeRefundEx(QueryAgoraxTradeRefundRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.agorax.trade.refund.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAgoraxTradeRefundResponse());
     }
 
     /**
@@ -9259,6 +9428,49 @@ public class Client {
     public PushAuthCarloanResponse pushAuthCarloanEx(PushAuthCarloanRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "baas.auth.carloan.push", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PushAuthCarloanResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 测试用
+     * Summary: 测试用</p>
+     */
+    public ImportAuthCaritemsTestResponse importAuthCaritemsTest(ImportAuthCaritemsTestRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.importAuthCaritemsTestEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 测试用
+     * Summary: 测试用</p>
+     */
+    public ImportAuthCaritemsTestResponse importAuthCaritemsTestEx(ImportAuthCaritemsTestRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        if (!com.aliyun.teautil.Common.isUnset(request.fileObject)) {
+            CreateAntcloudGatewayxFileUploadRequest uploadReq = CreateAntcloudGatewayxFileUploadRequest.build(TeaConverter.buildMap(
+                new TeaPair("authToken", request.authToken),
+                new TeaPair("apiCode", "baas.auth.caritems.test.import"),
+                new TeaPair("fileName", request.fileObjectName)
+            ));
+            CreateAntcloudGatewayxFileUploadResponse uploadResp = this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+            if (!com.antgroup.antchain.openapi.antchain.util.AntchainUtils.isSuccess(uploadResp.resultCode, "ok")) {
+                ImportAuthCaritemsTestResponse importAuthCaritemsTestResponse = ImportAuthCaritemsTestResponse.build(TeaConverter.buildMap(
+                    new TeaPair("reqMsgId", uploadResp.reqMsgId),
+                    new TeaPair("resultCode", uploadResp.resultCode),
+                    new TeaPair("resultMsg", uploadResp.resultMsg)
+                ));
+                return importAuthCaritemsTestResponse;
+            }
+
+            java.util.Map<String, String> uploadHeaders = com.antgroup.antchain.openapi.antchain.util.AntchainUtils.parseUploadHeaders(uploadResp.uploadHeaders);
+            com.antgroup.antchain.openapi.antchain.util.AntchainUtils.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+            request.fileId = uploadResp.fileId;
+            request.fileObject = null;
+        }
+
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.auth.caritems.test.import", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ImportAuthCaritemsTestResponse());
     }
 
     /**
