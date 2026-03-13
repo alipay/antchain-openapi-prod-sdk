@@ -895,6 +895,43 @@ export class BlockchainBrowserTransaction extends $tea.Model {
   }
 }
 
+// 结算详细信息
+export class SettleDetailInfo extends $tea.Model {
+  // 结算收款方账户类型
+  transInType: string;
+  // 结算收款方
+  transIn: string;
+  // 结算汇总维度
+  summaryDimension?: string;
+  // 结算主体类型
+  settleEntityType?: string;
+  // 结算主体标识
+  settleEntityId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      transInType: 'trans_in_type',
+      transIn: 'trans_in',
+      summaryDimension: 'summary_dimension',
+      settleEntityType: 'settle_entity_type',
+      settleEntityId: 'settle_entity_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      transInType: 'string',
+      transIn: 'string',
+      summaryDimension: 'string',
+      settleEntityType: 'string',
+      settleEntityId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 阿里云蚂蚁链相关下载链接
 export class ALiYunDownloadPath extends $tea.Model {
   // client_crt_url
@@ -2443,6 +2480,55 @@ export class AccountMappingResult extends $tea.Model {
   }
 }
 
+// 经营地址
+export class AddressInfo extends $tea.Model {
+  // 城市编码
+  cityCode: string;
+  // 区县编码
+  districtCode: string;
+  // 地址
+  address: string;
+  // 省份编码
+  provinceCode: string;
+  // 高德 poiid
+  poiid?: string;
+  // 经度
+  longitude?: string;
+  // 纬度
+  latitude?: string;
+  // 地址类型
+  type?: string;
+  static names(): { [key: string]: string } {
+    return {
+      cityCode: 'city_code',
+      districtCode: 'district_code',
+      address: 'address',
+      provinceCode: 'province_code',
+      poiid: 'poiid',
+      longitude: 'longitude',
+      latitude: 'latitude',
+      type: 'type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      cityCode: 'string',
+      districtCode: 'string',
+      address: 'string',
+      provinceCode: 'string',
+      poiid: 'string',
+      longitude: 'string',
+      latitude: 'string',
+      type: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 可验证声明的完整内容以及状态，当前持有者的did等信息
 export class VcContent extends $tea.Model {
   // 可验证声明的唯一标识id，status 为 “1” 时候非空
@@ -2472,6 +2558,31 @@ export class VcContent extends $tea.Model {
       status: 'string',
       did: 'string',
       message: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 退分账明细信息
+export class RefundRoyaltyResult extends $tea.Model {
+  // 退分账金额
+  refundAmount: string;
+  // 退分账结果码
+  resultCode: string;
+  static names(): { [key: string]: string } {
+    return {
+      refundAmount: 'refund_amount',
+      resultCode: 'result_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      refundAmount: 'string',
+      resultCode: 'string',
     };
   }
 
@@ -3415,6 +3526,27 @@ export class ALiYunChainContractContent extends $tea.Model {
   }
 }
 
+// 描述结算信息
+export class SettleInfo extends $tea.Model {
+  // 结算详细信息
+  settleDetailInfos: SettleDetailInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      settleDetailInfos: 'settle_detail_infos',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      settleDetailInfos: { 'type': 'array', 'itemType': SettleDetailInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 结果
 export class Result extends $tea.Model {
   // 联盟id
@@ -3591,6 +3723,31 @@ export class BasicCarInfo extends $tea.Model {
       modelCode: 'string',
       useNatureCode: 'string',
       mortgage: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 商户行业资质信息
+export class IndustryQualificationInfo extends $tea.Model {
+  // 商户行业资质类型
+  industryQualificationType: string;
+  // 商户行业资质图片
+  industryQualificationImage: string;
+  static names(): { [key: string]: string } {
+    return {
+      industryQualificationType: 'industry_qualification_type',
+      industryQualificationImage: 'industry_qualification_image',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      industryQualificationType: 'string',
+      industryQualificationImage: 'string',
     };
   }
 
@@ -4591,6 +4748,55 @@ export class ApplicationQueryReq extends $tea.Model {
   }
 }
 
+// 分账信息
+export class OpenApiRoyaltyDetailInfoPojo extends $tea.Model {
+  // 分账比例
+  percentage?: string;
+  // 分账金额
+  amount?: string;
+  // 分账类型
+  royaltyType?: string;
+  // 支出方账户类型
+  transOutType?: string;
+  // 支出方账户
+  transOut?: string;
+  // 收入方账户类型
+  transInType?: string;
+  // 收入方账户
+  transIn?: string;
+  // 分账描述
+  desc?: string;
+  static names(): { [key: string]: string } {
+    return {
+      percentage: 'percentage',
+      amount: 'amount',
+      royaltyType: 'royalty_type',
+      transOutType: 'trans_out_type',
+      transOut: 'trans_out',
+      transInType: 'trans_in_type',
+      transIn: 'trans_in',
+      desc: 'desc',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      percentage: 'string',
+      amount: 'string',
+      royaltyType: 'string',
+      transOutType: 'string',
+      transOut: 'string',
+      transInType: 'string',
+      transIn: 'string',
+      desc: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 合约信息
 export class ContractInfo extends $tea.Model {
   // 合约地址
@@ -4892,6 +5098,43 @@ export class Identity extends $tea.Model {
   }
 }
 
+// 联系人信息
+export class ContactInfo extends $tea.Model {
+  // 联系人名字
+  name: string;
+  // 手机号
+  mobile: string;
+  // 电子邮箱
+  email?: string;
+  // 电话
+  phone?: string;
+  // 身份证号
+  idCardNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      name: 'name',
+      mobile: 'mobile',
+      email: 'email',
+      phone: 'phone',
+      idCardNo: 'id_card_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      name: 'string',
+      mobile: 'string',
+      email: 'string',
+      phone: 'string',
+      idCardNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 营销分销平台推广人账户信息
 export class FundInfo extends $tea.Model {
   // 可提现余额
@@ -5185,6 +5428,63 @@ export class TsrResponse extends $tea.Model {
       hashedMessage: 'string',
       hashAlgorithm: 'string',
       ts: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 商品信息
+export class GoodsDetail extends $tea.Model {
+  // 商品编号
+  goodsId: string;
+  // 商品名称
+  goodsName: string;
+  // 商品数量
+  quantity: string;
+  // 商品单价
+  price: string;
+  // 商品类目
+  goodsCategory?: string;
+  // 商品类目树
+  categoriesTree?: string;
+  // 商品的展示地址
+  showUrl?: string;
+  // 商品69条码
+  goodsEanId?: string;
+  // 商家侧小程序商品 ID
+  outItemId?: string;
+  // 商家侧小程序商品ID
+  outSkuId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      goodsId: 'goods_id',
+      goodsName: 'goods_name',
+      quantity: 'quantity',
+      price: 'price',
+      goodsCategory: 'goods_category',
+      categoriesTree: 'categories_tree',
+      showUrl: 'show_url',
+      goodsEanId: 'goods_ean_id',
+      outItemId: 'out_item_id',
+      outSkuId: 'out_sku_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      goodsId: 'string',
+      goodsName: 'string',
+      quantity: 'string',
+      price: 'string',
+      goodsCategory: 'string',
+      categoriesTree: 'string',
+      showUrl: 'string',
+      goodsEanId: 'string',
+      outItemId: 'string',
+      outSkuId: 'string',
     };
   }
 
@@ -6656,6 +6956,39 @@ export class BlockchainBrowserTransactionReceipt extends $tea.Model {
   }
 }
 
+// 商户站点信息（网站/APP/小程序）
+export class SiteInfo extends $tea.Model {
+  // 网站类型
+  siteType: string;
+  // 站点地址
+  siteUrl: string;
+  // 站点名称
+  siteName: string;
+  // 小程序 appId
+  tinyAppId: string;
+  static names(): { [key: string]: string } {
+    return {
+      siteType: 'site_type',
+      siteUrl: 'site_url',
+      siteName: 'site_name',
+      tinyAppId: 'tiny_app_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      siteType: 'string',
+      siteUrl: 'string',
+      siteName: 'string',
+      tinyAppId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 数字资产管理平台批发结构
 export class AccountWholesaleParam extends $tea.Model {
   // 批发数量
@@ -7471,6 +7804,59 @@ export class DidDeleteService extends $tea.Model {
   }
 }
 
+// 结算银行卡信息
+export class SettleCardInfo extends $tea.Model {
+  // 开户支行名
+  accountBranchName: string;
+  // 卡户名
+  accountHolderName: string;
+  // 开户行所在地-市
+  accountInstCity: string;
+  // 开户行简称缩写
+  accountInstId: string;
+  // 银行名称
+  accountInstName: string;
+  // 开户行所在地-省
+  accountInstProvince: string;
+  // 银行卡号
+  accountNo: string;
+  // 卡类型
+  accountType: string;
+  // 账号使用类型
+  usageType: string;
+  static names(): { [key: string]: string } {
+    return {
+      accountBranchName: 'account_branch_name',
+      accountHolderName: 'account_holder_name',
+      accountInstCity: 'account_inst_city',
+      accountInstId: 'account_inst_id',
+      accountInstName: 'account_inst_name',
+      accountInstProvince: 'account_inst_province',
+      accountNo: 'account_no',
+      accountType: 'account_type',
+      usageType: 'usage_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      accountBranchName: 'string',
+      accountHolderName: 'string',
+      accountInstCity: 'string',
+      accountInstId: 'string',
+      accountInstName: 'string',
+      accountInstProvince: 'string',
+      accountNo: 'string',
+      accountType: 'string',
+      usageType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 可验证声明相关的事件
 export class VCEvent extends $tea.Model {
   // 事件对应的合约方法
@@ -8145,6 +8531,31 @@ export class ContractDetailResp extends $tea.Model {
   }
 }
 
+// 默认结算规则
+export class DefaultSettleRule extends $tea.Model {
+  // 默认结算类型，结算到银行卡: bankCard，结算到支付宝账号: alipayAccount
+  defaultSettleType: string;
+  // 默认结算目标	bankCard 时填银行卡号，alipayAccount 时填支付宝登录号
+  defaultSettleTarget: string;
+  static names(): { [key: string]: string } {
+    return {
+      defaultSettleType: 'default_settle_type',
+      defaultSettleTarget: 'default_settle_target',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      defaultSettleType: 'string',
+      defaultSettleTarget: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 托管数据库ManagedMQDTO结构体
 export class ManagedMQDTOStructBody extends $tea.Model {
   // id
@@ -8236,6 +8647,31 @@ export class CertIssueProgressDTO extends $tea.Model {
       startTimeMillis: 'number',
       endTimeMillis: 'number',
       errorDetails: { 'type': 'array', 'itemType': TemplateInstanceErrorDetailDTO },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 退款商品详细信息
+export class RefundGoodsDetail extends $tea.Model {
+  // 商品编号
+  goodsId: string;
+  // 该商品的退款总金额
+  refundAmount: string;
+  static names(): { [key: string]: string } {
+    return {
+      goodsId: 'goods_id',
+      refundAmount: 'refund_amount',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      goodsId: 'string',
+      refundAmount: 'string',
     };
   }
 
@@ -9151,6 +9587,713 @@ export class BatchcreateAccountMappingInfoResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       accounts: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RegisterAgoraxMerchantRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 商户别名。支付宝收银台及账单中的商户名称会展示此处设置的别名。如果涉及支付宝APP内的支付，支付结果页也会展示该别名；如果涉及线下当面付场景，请填写线下店铺名称
+  aliasName: string;
+  // 进件的二级商户名称，需与收款支付宝账户名称一致
+  name: string;
+  // 应用授权码
+  appAuthToken: string;
+  // 商家类型。01：企业，07：个体工商户，06：个人商户
+  merchantType: string;
+  // 联系人信息
+  contactInfos: ContactInfo;
+  // 默认结算规则
+  defaultSettleRule: DefaultSettleRule;
+  // 使用服务，当面付: 当面付，jsapi支付: jsapi支付
+  service: string[];
+  // 商户类别码
+  mcc: string;
+  // 商户证件编号
+  certNo: string;
+  // 商户证件类型
+  certType: string;
+  // 个体工商户营业执照上的名称
+  certName?: string;
+  // 营业执照图片，file_id
+  certImage?: string;
+  // 法人名称
+  legalName?: string;
+  // 法人身份证号
+  legalCertNo?: string;
+  // 商户支付宝账号，用作结算账号
+  alipayLogonId?: string;
+  // 二级商户支付宝账户，用于签约、协议确认
+  bindingAlipayLogonId?: string;
+  // 结算银行卡信息
+  bizCards?: SettleCardInfo;
+  // 经营地址
+  businessAddress?: AddressInfo;
+  // 门头照
+  outDoorImages?: string;
+  // 内景照
+  inDoorImages?: string;
+  // 授权函（图片）
+  licenseAuthLetterImage?: string;
+  // 商户站点信息
+  sites?: SiteInfo;
+  // 商户行业资质
+  qualifications?: IndustryQualificationInfo[];
+  // 法人身份证正面图
+  legalCertFrontImage?: string;
+  // 法人身份证反面图
+  legalCertBackImage?: string;
+  // 信息关联的openId
+  infoSourceOpenId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      aliasName: 'alias_name',
+      name: 'name',
+      appAuthToken: 'app_auth_token',
+      merchantType: 'merchant_type',
+      contactInfos: 'contact_infos',
+      defaultSettleRule: 'default_settle_rule',
+      service: 'service',
+      mcc: 'mcc',
+      certNo: 'cert_no',
+      certType: 'cert_type',
+      certName: 'cert_name',
+      certImage: 'cert_image',
+      legalName: 'legal_name',
+      legalCertNo: 'legal_cert_no',
+      alipayLogonId: 'alipay_logon_id',
+      bindingAlipayLogonId: 'binding_alipay_logon_id',
+      bizCards: 'biz_cards',
+      businessAddress: 'business_address',
+      outDoorImages: 'out_door_images',
+      inDoorImages: 'in_door_images',
+      licenseAuthLetterImage: 'license_auth_letter_image',
+      sites: 'sites',
+      qualifications: 'qualifications',
+      legalCertFrontImage: 'legal_cert_front_image',
+      legalCertBackImage: 'legal_cert_back_image',
+      infoSourceOpenId: 'info_source_open_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      aliasName: 'string',
+      name: 'string',
+      appAuthToken: 'string',
+      merchantType: 'string',
+      contactInfos: ContactInfo,
+      defaultSettleRule: DefaultSettleRule,
+      service: { 'type': 'array', 'itemType': 'string' },
+      mcc: 'string',
+      certNo: 'string',
+      certType: 'string',
+      certName: 'string',
+      certImage: 'string',
+      legalName: 'string',
+      legalCertNo: 'string',
+      alipayLogonId: 'string',
+      bindingAlipayLogonId: 'string',
+      bizCards: SettleCardInfo,
+      businessAddress: AddressInfo,
+      outDoorImages: 'string',
+      inDoorImages: 'string',
+      licenseAuthLetterImage: 'string',
+      sites: SiteInfo,
+      qualifications: { 'type': 'array', 'itemType': IndustryQualificationInfo },
+      legalCertFrontImage: 'string',
+      legalCertBackImage: 'string',
+      infoSourceOpenId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RegisterAgoraxMerchantResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 商户编号
+  externalId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      externalId: 'external_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      externalId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadAgoraxMerchantImageRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // file_id
+  fileObject?: Readable;
+  fileObjectName?: string;
+  fileId: string;
+  // 用户请求上传时的文件名
+  fileName?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      fileObject: 'fileObject',
+      fileObjectName: 'fileObjectName',
+      fileId: 'file_id',
+      fileName: 'file_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      fileObject: 'Readable',
+      fileObjectName: 'string',
+      fileId: 'string',
+      fileName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadAgoraxMerchantImageResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // file id
+  fileId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      fileId: 'file_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      fileId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAgoraxMerchantStatusRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 商户编号
+  externalId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      externalId: 'external_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      externalId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAgoraxMerchantStatusResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 申请总体状态
+  status?: string;
+  // 二级商户id
+  smid?: string;
+  // 失败原因说明
+  reason?: string;
+  // 进件生成的卡编号
+  cardAliasNo?: string;
+  // 扩展字段
+  extInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      status: 'status',
+      smid: 'smid',
+      reason: 'reason',
+      cardAliasNo: 'card_alias_no',
+      extInfo: 'ext_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      status: 'string',
+      smid: 'string',
+      reason: 'string',
+      cardAliasNo: 'string',
+      extInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateAgoraxTradeRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 商户编号
+  externalId: string;
+  // 支付类型
+  payType: string;
+  // 商户订单号
+  outTradeNo: string;
+  // 订单总金额（元）
+  totalAmount: string;
+  // 订单标题
+  subject: string;
+  // 描述结算信息
+  settleInfo: SettleInfo;
+  // 买家支付宝 openid
+  buyerOpenId?: string;
+  // 产品码
+  productCode?: string;
+  // 支付授权码
+  authCode?: string;
+  // 支付场景
+  scene?: string;
+  // 商户实际经营主体的小程序应用的 appid
+  opAppId?: string;
+  // 分账明细信息
+  royaltyParameters?: OpenApiRoyaltyDetailInfoPojo[];
+  // 卖家支付宝用户 ID
+  sellerId?: string;
+  // 订单包含的商品列表信息
+  goodsDetails?: GoodsDetail[];
+  // 订单绝对超时时间
+  timeExpire?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      externalId: 'external_id',
+      payType: 'pay_type',
+      outTradeNo: 'out_trade_no',
+      totalAmount: 'total_amount',
+      subject: 'subject',
+      settleInfo: 'settle_info',
+      buyerOpenId: 'buyer_open_id',
+      productCode: 'product_code',
+      authCode: 'auth_code',
+      scene: 'scene',
+      opAppId: 'op_app_id',
+      royaltyParameters: 'royalty_parameters',
+      sellerId: 'seller_id',
+      goodsDetails: 'goods_details',
+      timeExpire: 'time_expire',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      externalId: 'string',
+      payType: 'string',
+      outTradeNo: 'string',
+      totalAmount: 'string',
+      subject: 'string',
+      settleInfo: SettleInfo,
+      buyerOpenId: 'string',
+      productCode: 'string',
+      authCode: 'string',
+      scene: 'string',
+      opAppId: 'string',
+      royaltyParameters: { 'type': 'array', 'itemType': OpenApiRoyaltyDetailInfoPojo },
+      sellerId: 'string',
+      goodsDetails: { 'type': 'array', 'itemType': GoodsDetail },
+      timeExpire: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateAgoraxTradeResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 商户订单号
+  outTradeNo?: string;
+  // 支付宝交易号
+  tradeNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      outTradeNo: 'out_trade_no',
+      tradeNo: 'trade_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      outTradeNo: 'string',
+      tradeNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAgoraxTradeRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 商户编号
+  externalId: string;
+  // 商户订单号
+  outTradeNo: string;
+  // 支付宝交易号
+  tradeNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      externalId: 'external_id',
+      outTradeNo: 'out_trade_no',
+      tradeNo: 'trade_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      externalId: 'string',
+      outTradeNo: 'string',
+      tradeNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAgoraxTradeResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 支付宝交易号
+  tradeNo?: string;
+  // 商户订单号
+  outTradeNo?: string;
+  // 交易状态
+  tradeStatus?: string;
+  // 订单金额
+  totalAmount?: string;
+  // 买家支付宝用户唯一标识  
+  buyerOpenId?: string;
+  // 实收金额
+  receiptAmount?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      tradeNo: 'trade_no',
+      outTradeNo: 'out_trade_no',
+      tradeStatus: 'trade_status',
+      totalAmount: 'total_amount',
+      buyerOpenId: 'buyer_open_id',
+      receiptAmount: 'receipt_amount',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      tradeNo: 'string',
+      outTradeNo: 'string',
+      tradeStatus: 'string',
+      totalAmount: 'string',
+      buyerOpenId: 'string',
+      receiptAmount: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RefundAgoraxTradeRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 商户编号
+  externalId: string;
+  // 退款金额（元）
+  refundAmount: string;
+  // 商户订单号
+  outTradeNo?: string;
+  // 支付宝交易号
+  tradeNo?: string;
+  // 退款原因说明
+  refundReason?: string;
+  // 退款请求号，部分退款时必选
+  outRequestNo?: string;
+  // 退款包含的商品列表信息
+  refundGoodsDetail?: RefundGoodsDetail[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      externalId: 'external_id',
+      refundAmount: 'refund_amount',
+      outTradeNo: 'out_trade_no',
+      tradeNo: 'trade_no',
+      refundReason: 'refund_reason',
+      outRequestNo: 'out_request_no',
+      refundGoodsDetail: 'refund_goods_detail',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      externalId: 'string',
+      refundAmount: 'string',
+      outTradeNo: 'string',
+      tradeNo: 'string',
+      refundReason: 'string',
+      outRequestNo: 'string',
+      refundGoodsDetail: { 'type': 'array', 'itemType': RefundGoodsDetail },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RefundAgoraxTradeResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 商户订单号
+  outTradeNo?: string;
+  // 支付宝交易号
+  tradeNo?: string;
+  // 用户的登录id
+  buyerLogonId?: string;
+  // 退款总金额
+  refundFee?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      outTradeNo: 'out_trade_no',
+      tradeNo: 'trade_no',
+      buyerLogonId: 'buyer_logon_id',
+      refundFee: 'refund_fee',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      outTradeNo: 'string',
+      tradeNo: 'string',
+      buyerLogonId: 'string',
+      refundFee: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAgoraxTradeRefundRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 商户编号
+  externalId: string;
+  // 退款请求号
+  outRequestNo: string;
+  // 支付宝交易号
+  tradeNo?: string;
+  // 商户订单号
+  outTradeNo?: string;
+  // 额外查询选项
+  queryOptions?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      externalId: 'external_id',
+      outRequestNo: 'out_request_no',
+      tradeNo: 'trade_no',
+      outTradeNo: 'out_trade_no',
+      queryOptions: 'query_options',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      externalId: 'string',
+      outRequestNo: 'string',
+      tradeNo: 'string',
+      outTradeNo: 'string',
+      queryOptions: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAgoraxTradeRefundResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 支付宝交易号
+  tradeNo?: string;
+  // 创建交易传入的商户订单号
+  outTradeNo?: string;
+  // 本笔退款对应的退款请求号
+  outRequestNo?: string;
+  // 该笔退款所对应的交易的订单金额
+  totalAmount?: string;
+  // 本次退款请求，对应的退款金额
+  refundAmount?: string;
+  // 退款状态
+  refundStatus?: string;
+  // 退分账明细信息
+  refundRoyaltys?: RefundRoyaltyResult[];
+  // 本次商户实际退回金额
+  sendBackFee?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      tradeNo: 'trade_no',
+      outTradeNo: 'out_trade_no',
+      outRequestNo: 'out_request_no',
+      totalAmount: 'total_amount',
+      refundAmount: 'refund_amount',
+      refundStatus: 'refund_status',
+      refundRoyaltys: 'refund_royaltys',
+      sendBackFee: 'send_back_fee',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      tradeNo: 'string',
+      outTradeNo: 'string',
+      outRequestNo: 'string',
+      totalAmount: 'string',
+      refundAmount: 'string',
+      refundStatus: 'string',
+      refundRoyaltys: { 'type': 'array', 'itemType': RefundRoyaltyResult },
+      sendBackFee: 'string',
     };
   }
 
@@ -40707,6 +41850,67 @@ export class PushAuthCarloanResponse extends $tea.Model {
   }
 }
 
+export class ImportAuthCaritemsTestRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // aaa
+  fileObject?: Readable;
+  fileObjectName?: string;
+  fileId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      fileObject: 'fileObject',
+      fileObjectName: 'fileObjectName',
+      fileId: 'file_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      fileObject: 'Readable',
+      fileObjectName: 'string',
+      fileId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ImportAuthCaritemsTestResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class StartDidCorporateAgentcreateRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -55585,7 +56789,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.28.70",
+          sdk_version: "1.29.0",
           _prod_code: "BLOCKCHAIN",
           _prod_channel: "undefined",
         };
@@ -55783,6 +56987,161 @@ export default class Client {
   async batchcreateAccountMappingInfoEx(request: BatchcreateAccountMappingInfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BatchcreateAccountMappingInfoResponse> {
     Util.validateModel(request);
     return $tea.cast<BatchcreateAccountMappingInfoResponse>(await this.doRequest("1.0", "baas.account.mapping.info.batchcreate", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BatchcreateAccountMappingInfoResponse({}));
+  }
+
+  /**
+   * Description: 商家入驻接口
+   * Summary: 商家入驻接口
+   */
+  async registerAgoraxMerchant(request: RegisterAgoraxMerchantRequest): Promise<RegisterAgoraxMerchantResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.registerAgoraxMerchantEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 商家入驻接口
+   * Summary: 商家入驻接口
+   */
+  async registerAgoraxMerchantEx(request: RegisterAgoraxMerchantRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RegisterAgoraxMerchantResponse> {
+    Util.validateModel(request);
+    return $tea.cast<RegisterAgoraxMerchantResponse>(await this.doRequest("1.0", "baas.agorax.merchant.register", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RegisterAgoraxMerchantResponse({}));
+  }
+
+  /**
+   * Description: 商家图片上传接口
+   * Summary: 商家图片上传接口
+   */
+  async uploadAgoraxMerchantImage(request: UploadAgoraxMerchantImageRequest): Promise<UploadAgoraxMerchantImageResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.uploadAgoraxMerchantImageEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 商家图片上传接口
+   * Summary: 商家图片上传接口
+   */
+  async uploadAgoraxMerchantImageEx(request: UploadAgoraxMerchantImageRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UploadAgoraxMerchantImageResponse> {
+    if (!Util.isUnset(request.fileObject)) {
+      let uploadReq = new CreateAntcloudGatewayxFileUploadRequest({
+        authToken: request.authToken,
+        apiCode: "baas.agorax.merchant.image.upload",
+        fileName: request.fileObjectName,
+      });
+      let uploadResp = await this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+      if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+        let uploadAgoraxMerchantImageResponse = new UploadAgoraxMerchantImageResponse({
+          reqMsgId: uploadResp.reqMsgId,
+          resultCode: uploadResp.resultCode,
+          resultMsg: uploadResp.resultMsg,
+        });
+        return uploadAgoraxMerchantImageResponse;
+      }
+
+      let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+      await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+      request.fileId = uploadResp.fileId;
+      request.fileObject = null;
+    }
+
+    Util.validateModel(request);
+    return $tea.cast<UploadAgoraxMerchantImageResponse>(await this.doRequest("1.0", "baas.agorax.merchant.image.upload", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UploadAgoraxMerchantImageResponse({}));
+  }
+
+  /**
+   * Description: 查询商户申请单状态
+   * Summary: 查询商户申请单状态
+   */
+  async queryAgoraxMerchantStatus(request: QueryAgoraxMerchantStatusRequest): Promise<QueryAgoraxMerchantStatusResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAgoraxMerchantStatusEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询商户申请单状态
+   * Summary: 查询商户申请单状态
+   */
+  async queryAgoraxMerchantStatusEx(request: QueryAgoraxMerchantStatusRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAgoraxMerchantStatusResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAgoraxMerchantStatusResponse>(await this.doRequest("1.0", "baas.agorax.merchant.status.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAgoraxMerchantStatusResponse({}));
+  }
+
+  /**
+   * Description: 支持 JSAPI、当面付
+   * Summary: 创建支付订单
+   */
+  async createAgoraxTrade(request: CreateAgoraxTradeRequest): Promise<CreateAgoraxTradeResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createAgoraxTradeEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 支持 JSAPI、当面付
+   * Summary: 创建支付订单
+   */
+  async createAgoraxTradeEx(request: CreateAgoraxTradeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateAgoraxTradeResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateAgoraxTradeResponse>(await this.doRequest("1.0", "baas.agorax.trade.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateAgoraxTradeResponse({}));
+  }
+
+  /**
+   * Description: 支付结果查询
+   * Summary: 支付结果查询
+   */
+  async queryAgoraxTrade(request: QueryAgoraxTradeRequest): Promise<QueryAgoraxTradeResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAgoraxTradeEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 支付结果查询
+   * Summary: 支付结果查询
+   */
+  async queryAgoraxTradeEx(request: QueryAgoraxTradeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAgoraxTradeResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAgoraxTradeResponse>(await this.doRequest("1.0", "baas.agorax.trade.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAgoraxTradeResponse({}));
+  }
+
+  /**
+   * Description: 发起退款
+   * Summary: 发起退款
+   */
+  async refundAgoraxTrade(request: RefundAgoraxTradeRequest): Promise<RefundAgoraxTradeResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.refundAgoraxTradeEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 发起退款
+   * Summary: 发起退款
+   */
+  async refundAgoraxTradeEx(request: RefundAgoraxTradeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RefundAgoraxTradeResponse> {
+    Util.validateModel(request);
+    return $tea.cast<RefundAgoraxTradeResponse>(await this.doRequest("1.0", "baas.agorax.trade.refund", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RefundAgoraxTradeResponse({}));
+  }
+
+  /**
+   * Description: 退款结果查询
+   * Summary: 退款结果查询
+   */
+  async queryAgoraxTradeRefund(request: QueryAgoraxTradeRefundRequest): Promise<QueryAgoraxTradeRefundResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAgoraxTradeRefundEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 退款结果查询
+   * Summary: 退款结果查询
+   */
+  async queryAgoraxTradeRefundEx(request: QueryAgoraxTradeRefundRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAgoraxTradeRefundResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAgoraxTradeRefundResponse>(await this.doRequest("1.0", "baas.agorax.trade.refund.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAgoraxTradeRefundResponse({}));
   }
 
   /**
@@ -63846,6 +65205,47 @@ export default class Client {
   async pushAuthCarloanEx(request: PushAuthCarloanRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PushAuthCarloanResponse> {
     Util.validateModel(request);
     return $tea.cast<PushAuthCarloanResponse>(await this.doRequest("1.0", "baas.auth.carloan.push", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PushAuthCarloanResponse({}));
+  }
+
+  /**
+   * Description: 测试用
+   * Summary: 测试用
+   */
+  async importAuthCaritemsTest(request: ImportAuthCaritemsTestRequest): Promise<ImportAuthCaritemsTestResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.importAuthCaritemsTestEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 测试用
+   * Summary: 测试用
+   */
+  async importAuthCaritemsTestEx(request: ImportAuthCaritemsTestRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ImportAuthCaritemsTestResponse> {
+    if (!Util.isUnset(request.fileObject)) {
+      let uploadReq = new CreateAntcloudGatewayxFileUploadRequest({
+        authToken: request.authToken,
+        apiCode: "baas.auth.caritems.test.import",
+        fileName: request.fileObjectName,
+      });
+      let uploadResp = await this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+      if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+        let importAuthCaritemsTestResponse = new ImportAuthCaritemsTestResponse({
+          reqMsgId: uploadResp.reqMsgId,
+          resultCode: uploadResp.resultCode,
+          resultMsg: uploadResp.resultMsg,
+        });
+        return importAuthCaritemsTestResponse;
+      }
+
+      let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+      await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+      request.fileId = uploadResp.fileId;
+      request.fileObject = null;
+    }
+
+    Util.validateModel(request);
+    return $tea.cast<ImportAuthCaritemsTestResponse>(await this.doRequest("1.0", "baas.auth.caritems.test.import", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ImportAuthCaritemsTestResponse({}));
   }
 
   /**
