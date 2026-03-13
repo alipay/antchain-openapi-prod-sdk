@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.28.70',
+    sdk_version = '1.29.0',
     _prod_code = 'BLOCKCHAIN',
     _prod_channel = 'undefined'
   };
@@ -491,6 +491,20 @@ model BlockchainBrowserTransaction {
   type: long(name='type', example='0'),
   // transaction_contract
   transactionContract: BlockchainBrowserTransactionContract(name='transaction_contract', example='transaction_contract'),
+}
+
+// 结算详细信息
+model SettleDetailInfo {
+  // 结算收款方账户类型
+  transInType: string(name='trans_in_type', example='userId'),
+  // 结算收款方
+  transIn: string(name='trans_in', example='1100001990'),
+  // 结算汇总维度
+  summaryDimension?: string(name='summary_dimension', example='A0001'),
+  // 结算主体类型
+  settleEntityType?: string(name='settle_entity_type', example='SecondMerchant'),
+  // 结算主体标识
+  settleEntityId?: string(name='settle_entity_id', example='2088xxxxx'),
 }
 
 // 阿里云蚂蚁链相关下载链接
@@ -1112,6 +1126,26 @@ model AccountMappingResult {
   uid: string(name='uid', example='1234'),
 }
 
+// 经营地址
+model AddressInfo {
+  // 城市编码
+  cityCode: string(name='city_code', example='371000'),
+  // 区县编码
+  districtCode: string(name='district_code', example='371002'),
+  // 地址
+  address: string(name='address', example='万塘路18号黄龙时代广场B座'),
+  // 省份编码
+  provinceCode: string(name='province_code', example='370000'),
+  // 高德 poiid
+  poiid?: string(name='poiid', example='B0FFIVU189'),
+  // 经度
+  longitude?: string(name='longitude', example='120.760001'),
+  // 纬度
+  latitude?: string(name='latitude', example='60.270001'),
+  // 地址类型
+  type?: string(name='type', example='BUSINESS_ADDRESS'),
+}
+
 // 可验证声明的完整内容以及状态，当前持有者的did等信息
 model VcContent {
   // 可验证声明的唯一标识id，status 为 “1” 时候非空
@@ -1124,6 +1158,14 @@ model VcContent {
   did?: string(name='did', example='did:mychain:6d8f3ff4af91532eaa7fc477be6b68dea14ed3bcfd5755ccedced43f6c248214'),
   // 如果status 是 “-1”，则说明当前可验证声明颁发失败，此字段说明失败原因。
   message?: string(name='message', example='“颁发可验证声明失败”'),
+}
+
+// 退分账明细信息
+model RefundRoyaltyResult {
+  // 退分账金额
+  refundAmount: string(name='refund_amount', example='12.50'),
+  // 退分账结果码
+  resultCode: string(name='result_code', example='SUCCESS'),
 }
 
 // 用户身份、账户及手机号信息
@@ -1469,6 +1511,12 @@ model ALiYunChainContractContent {
   updateTime?: long(name='update_time', example='update_time'),
 }
 
+// 描述结算信息
+model SettleInfo {
+  // 结算详细信息
+  settleDetailInfos: [ SettleDetailInfo ](name='settle_detail_infos', example=''),
+}
+
 // 结果
 model Result {
   // 联盟id
@@ -1541,6 +1589,14 @@ model BasicCarInfo {
   useNatureCode: string(name='use_nature_code', example='xxxxx'),
   // 是否抵押
   mortgage?: boolean(name='mortgage', example='true, false'),
+}
+
+// 商户行业资质信息
+model IndustryQualificationInfo {
+  // 商户行业资质类型
+  industryQualificationType: string(name='industry_qualification_type', example='323'),
+  // 商户行业资质图片
+  industryQualificationImage: string(name='industry_qualification_image', example='20200219192259536bda6664ed60f815'),
 }
 
 // 物流金融信用凭证信息
@@ -1918,6 +1974,26 @@ model ApplicationQueryReq {
   applicationId: string(maxLength=64, minLength=1, name='application_id', example='app20230725115808679d4f'),
 }
 
+// 分账信息
+model OpenApiRoyaltyDetailInfoPojo {
+  // 分账比例
+  percentage?: string(name='percentage', example='2'),
+  // 分账金额
+  amount?: string(name='amount', example='2'),
+  // 分账类型
+  royaltyType?: string(name='royalty_type', example='transfer'),
+  // 支出方账户类型
+  transOutType?: string(name='trans_out_type', example='userId'),
+  // 支出方账户
+  transOut?: string(name='trans_out', example='2088101126765726'),
+  // 收入方账户类型
+  transInType?: string(name='trans_in_type', example='userId'),
+  // 收入方账户
+  transIn?: string(name='trans_in', example='2088101126708402'),
+  // 分账描述
+  desc?: string(name='desc', example='分账给2088101126708402'),
+}
+
 // 合约信息
 model ContractInfo {
   // 合约地址
@@ -2028,6 +2104,20 @@ model Identity {
   userType: string(name='user_type', example='PERSON'),
 }
 
+// 联系人信息
+model ContactInfo {
+  // 联系人名字
+  name: string(name='name', example='张三'),
+  // 手机号
+  mobile: string(name='mobile', example='13888888888'),
+  // 电子邮箱
+  email?: string(name='email', example='user@domain.com'),
+  // 电话
+  phone?: string(name='phone', example='0571-85022088'),
+  // 身份证号
+  idCardNo?: string(name='id_card_no', example='110000199001011234'),
+}
+
 // 营销分销平台推广人账户信息
 model FundInfo {
   // 可提现余额
@@ -2136,6 +2226,30 @@ model TsrResponse {
   hashAlgorithm: string(name='hash_algorithm', example='321'),
   // 时间
   ts: string(name='ts', example='123'),
+}
+
+// 商品信息
+model GoodsDetail {
+  // 商品编号
+  goodsId: string(name='goods_id', example='apple-01'),
+  // 商品名称
+  goodsName: string(name='goods_name', example='apple'),
+  // 商品数量
+  quantity: string(name='quantity', example='1'),
+  // 商品单价
+  price: string(name='price', example='200'),
+  // 商品类目
+  goodsCategory?: string(name='goods_category', example='34543238'),
+  // 商品类目树
+  categoriesTree?: string(name='categories_tree', example='124868003|126232002|126252004'),
+  // 商品的展示地址
+  showUrl?: string(name='show_url', example='http://www.alipay.com/xxx.jpg'),
+  // 商品69条码
+  goodsEanId?: string(name='goods_ean_id', example='6972829161111'),
+  // 商家侧小程序商品 ID
+  outItemId?: string(name='out_item_id', example='outItem_01'),
+  // 商家侧小程序商品ID
+  outSkuId?: string(name='out_sku_id', example='outSku_01'),
 }
 
 // 阿里云数据导出服务TriggerDTO结构体
@@ -2686,6 +2800,18 @@ model BlockchainBrowserTransactionReceipt {
   result: long(name='result', example='0'),
 }
 
+// 商户站点信息（网站/APP/小程序）
+model SiteInfo {
+  // 网站类型
+  siteType: string(name='site_type', example='06'),
+  // 站点地址
+  siteUrl: string(name='site_url', example='https://open.alipay.com'),
+  // 站点名称
+  siteName: string(name='site_name', example='XXX网站'),
+  // 小程序 appId
+  tinyAppId: string(name='tiny_app_id', example='2021004105652035'),
+}
+
 // 数字资产管理平台批发结构
 model AccountWholesaleParam {
   // 批发数量
@@ -3005,6 +3131,28 @@ model DidDeleteService {
   serviceId: string(name='service_id', example='service#2'),
 }
 
+// 结算银行卡信息
+model SettleCardInfo {
+  // 开户支行名
+  accountBranchName: string(name='account_branch_name', example='招商银行杭州高新支行'),
+  // 卡户名
+  accountHolderName: string(name='account_holder_name', example='张三'),
+  // 开户行所在地-市
+  accountInstCity: string(name='account_inst_city', example='杭州市'),
+  // 开户行简称缩写
+  accountInstId: string(name='account_inst_id', example='CMB'),
+  // 银行名称
+  accountInstName: string(name='account_inst_name', example='招商银行'),
+  // 开户行所在地-省
+  accountInstProvince: string(name='account_inst_province', example='浙江省'),
+  // 银行卡号
+  accountNo: string(name='account_no', example='6214855710610408'),
+  // 卡类型
+  accountType: string(name='account_type', example='DC'),
+  // 账号使用类型
+  usageType: string(name='usage_type', example='01'),
+}
+
 // 可验证声明相关的事件
 model VCEvent {
   // 事件对应的合约方法
@@ -3260,6 +3408,14 @@ model ContractDetailResp {
   recordInfoList?: [ InstanceRecordInfo ](name='record_info_list', example=''),
 }
 
+// 默认结算规则
+model DefaultSettleRule {
+  // 默认结算类型，结算到银行卡: bankCard，结算到支付宝账号: alipayAccount
+  defaultSettleType: string(name='default_settle_type', example='alipayAccount'),
+  // 默认结算目标	bankCard 时填银行卡号，alipayAccount 时填支付宝登录号
+  defaultSettleTarget: string(name='default_settle_target', example='myalipay@alipay.com'),
+}
+
 // 托管数据库ManagedMQDTO结构体
 model ManagedMQDTOStructBody {
   // id
@@ -3301,6 +3457,14 @@ model CertIssueProgressDTO {
   endTimeMillis: long(name='end_time_millis', example='182371293192831'),
   // 校验错误描述列表
   errorDetails: [ TemplateInstanceErrorDetailDTO ](name='error_details', example=''),
+}
+
+// 退款商品详细信息
+model RefundGoodsDetail {
+  // 商品编号
+  goodsId: string(name='goods_id', example='apple-01'),
+  // 该商品的退款总金额
+  refundAmount: string(name='refund_amount', example='19.50'),
 }
 
 // 存证信息集合
@@ -3782,6 +3946,438 @@ async function batchcreateAccountMappingInfo(request: BatchcreateAccountMappingI
 async function batchcreateAccountMappingInfoEx(request: BatchcreateAccountMappingInfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BatchcreateAccountMappingInfoResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'baas.account.mapping.info.batchcreate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RegisterAgoraxMerchantRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 商户别名。支付宝收银台及账单中的商户名称会展示此处设置的别名。如果涉及支付宝APP内的支付，支付结果页也会展示该别名；如果涉及线下当面付场景，请填写线下店铺名称
+  aliasName: string(name='alias_name'),
+  // 进件的二级商户名称，需与收款支付宝账户名称一致
+  name: string(name='name'),
+  // 应用授权码
+  appAuthToken: string(name='app_auth_token'),
+  // 商家类型。01：企业，07：个体工商户，06：个人商户
+  merchantType: string(name='merchant_type'),
+  // 联系人信息
+  contactInfos: ContactInfo(name='contact_infos'),
+  // 默认结算规则
+  defaultSettleRule: DefaultSettleRule(name='default_settle_rule'),
+  // 使用服务，当面付: 当面付，jsapi支付: jsapi支付
+  service: [ string ](name='service'),
+  // 商户类别码
+  mcc: string(name='mcc'),
+  // 商户证件编号
+  certNo: string(name='cert_no'),
+  // 商户证件类型
+  certType: string(name='cert_type'),
+  // 个体工商户营业执照上的名称
+  certName?: string(name='cert_name'),
+  // 营业执照图片，file_id
+  certImage?: string(name='cert_image'),
+  // 法人名称
+  legalName?: string(name='legal_name'),
+  // 法人身份证号
+  legalCertNo?: string(name='legal_cert_no'),
+  // 商户支付宝账号，用作结算账号
+  alipayLogonId?: string(name='alipay_logon_id'),
+  // 二级商户支付宝账户，用于签约、协议确认
+  bindingAlipayLogonId?: string(name='binding_alipay_logon_id'),
+  // 结算银行卡信息
+  bizCards?: SettleCardInfo(name='biz_cards'),
+  // 经营地址
+  businessAddress?: AddressInfo(name='business_address'),
+  // 门头照
+  outDoorImages?: string(name='out_door_images'),
+  // 内景照
+  inDoorImages?: string(name='in_door_images'),
+  // 授权函（图片）
+  licenseAuthLetterImage?: string(name='license_auth_letter_image'),
+  // 商户站点信息
+  sites?: SiteInfo(name='sites'),
+  // 商户行业资质
+  qualifications?: [ IndustryQualificationInfo ](name='qualifications'),
+  // 法人身份证正面图
+  legalCertFrontImage?: string(name='legal_cert_front_image'),
+  // 法人身份证反面图
+  legalCertBackImage?: string(name='legal_cert_back_image'),
+  // 信息关联的openId
+  infoSourceOpenId?: string(name='info_source_open_id'),
+}
+
+model RegisterAgoraxMerchantResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 商户编号
+  externalId?: string(name='external_id'),
+}
+
+/**
+ * Description: 商家入驻接口
+ * Summary: 商家入驻接口
+ */
+async function registerAgoraxMerchant(request: RegisterAgoraxMerchantRequest): RegisterAgoraxMerchantResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return registerAgoraxMerchantEx(request, headers, runtime);
+}
+
+/**
+ * Description: 商家入驻接口
+ * Summary: 商家入驻接口
+ */
+async function registerAgoraxMerchantEx(request: RegisterAgoraxMerchantRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RegisterAgoraxMerchantResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.agorax.merchant.register', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UploadAgoraxMerchantImageRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // file_id
+  fileObject?: readable(description='待上传文件', ignore='true'),
+  fileObjectName?: string(description='待上传文件名', ignore='true'),
+  fileId: string(name='file_id'),
+  // 用户请求上传时的文件名
+  fileName?: string(name='file_name'),
+}
+
+model UploadAgoraxMerchantImageResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // file id
+  fileId?: string(name='file_id'),
+}
+
+/**
+ * Description: 商家图片上传接口
+ * Summary: 商家图片上传接口
+ */
+async function uploadAgoraxMerchantImage(request: UploadAgoraxMerchantImageRequest): UploadAgoraxMerchantImageResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return uploadAgoraxMerchantImageEx(request, headers, runtime);
+}
+
+/**
+ * Description: 商家图片上传接口
+ * Summary: 商家图片上传接口
+ */
+async function uploadAgoraxMerchantImageEx(request: UploadAgoraxMerchantImageRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadAgoraxMerchantImageResponse {
+  if (!Util.isUnset(request.fileObject)) {
+    var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
+      authToken = request.authToken,
+      apiCode = 'baas.agorax.merchant.image.upload',
+      fileName = request.fileObjectName,
+    };
+    var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+    if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+      var uploadAgoraxMerchantImageResponse = new UploadAgoraxMerchantImageResponse{
+        reqMsgId = uploadResp.reqMsgId,
+        resultCode = uploadResp.resultCode,
+        resultMsg = uploadResp.resultMsg,
+      };
+      return uploadAgoraxMerchantImageResponse;
+    }
+    var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+    AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+    request.fileId = uploadResp.fileId;
+    request.fileObject = null;
+  }
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.agorax.merchant.image.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAgoraxMerchantStatusRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 商户编号
+  externalId: string(name='external_id'),
+}
+
+model QueryAgoraxMerchantStatusResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 申请总体状态
+  status?: string(name='status'),
+  // 二级商户id
+  smid?: string(name='smid'),
+  // 失败原因说明
+  reason?: string(name='reason'),
+  // 进件生成的卡编号
+  cardAliasNo?: string(name='card_alias_no'),
+  // 扩展字段
+  extInfo?: string(name='ext_info'),
+}
+
+/**
+ * Description: 查询商户申请单状态
+ * Summary: 查询商户申请单状态
+ */
+async function queryAgoraxMerchantStatus(request: QueryAgoraxMerchantStatusRequest): QueryAgoraxMerchantStatusResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAgoraxMerchantStatusEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询商户申请单状态
+ * Summary: 查询商户申请单状态
+ */
+async function queryAgoraxMerchantStatusEx(request: QueryAgoraxMerchantStatusRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAgoraxMerchantStatusResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.agorax.merchant.status.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateAgoraxTradeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 商户编号
+  externalId: string(name='external_id'),
+  // 支付类型
+  payType: string(name='pay_type'),
+  // 商户订单号
+  outTradeNo: string(name='out_trade_no'),
+  // 订单总金额（元）
+  totalAmount: string(name='total_amount'),
+  // 订单标题
+  subject: string(name='subject'),
+  // 描述结算信息
+  settleInfo: SettleInfo(name='settle_info'),
+  // 买家支付宝 openid
+  buyerOpenId?: string(name='buyer_open_id'),
+  // 产品码
+  productCode?: string(name='product_code'),
+  // 支付授权码
+  authCode?: string(name='auth_code'),
+  // 支付场景
+  scene?: string(name='scene'),
+  // 商户实际经营主体的小程序应用的 appid
+  opAppId?: string(name='op_app_id'),
+  // 分账明细信息
+  royaltyParameters?: [ OpenApiRoyaltyDetailInfoPojo ](name='royalty_parameters'),
+  // 卖家支付宝用户 ID
+  sellerId?: string(name='seller_id'),
+  // 订单包含的商品列表信息
+  goodsDetails?: [ GoodsDetail ](name='goods_details'),
+  // 订单绝对超时时间
+  timeExpire?: string(name='time_expire'),
+}
+
+model CreateAgoraxTradeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 商户订单号
+  outTradeNo?: string(name='out_trade_no'),
+  // 支付宝交易号
+  tradeNo?: string(name='trade_no'),
+}
+
+/**
+ * Description: 支持 JSAPI、当面付
+ * Summary: 创建支付订单
+ */
+async function createAgoraxTrade(request: CreateAgoraxTradeRequest): CreateAgoraxTradeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createAgoraxTradeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 支持 JSAPI、当面付
+ * Summary: 创建支付订单
+ */
+async function createAgoraxTradeEx(request: CreateAgoraxTradeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateAgoraxTradeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.agorax.trade.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAgoraxTradeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 商户编号
+  externalId: string(name='external_id'),
+  // 商户订单号
+  outTradeNo: string(name='out_trade_no'),
+  // 支付宝交易号
+  tradeNo?: string(name='trade_no'),
+}
+
+model QueryAgoraxTradeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 支付宝交易号
+  tradeNo?: string(name='trade_no'),
+  // 商户订单号
+  outTradeNo?: string(name='out_trade_no'),
+  // 交易状态
+  tradeStatus?: string(name='trade_status'),
+  // 订单金额
+  totalAmount?: string(name='total_amount'),
+  // 买家支付宝用户唯一标识  
+  buyerOpenId?: string(name='buyer_open_id'),
+  // 实收金额
+  receiptAmount?: string(name='receipt_amount'),
+}
+
+/**
+ * Description: 支付结果查询
+ * Summary: 支付结果查询
+ */
+async function queryAgoraxTrade(request: QueryAgoraxTradeRequest): QueryAgoraxTradeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAgoraxTradeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 支付结果查询
+ * Summary: 支付结果查询
+ */
+async function queryAgoraxTradeEx(request: QueryAgoraxTradeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAgoraxTradeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.agorax.trade.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RefundAgoraxTradeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 商户编号
+  externalId: string(name='external_id'),
+  // 退款金额（元）
+  refundAmount: string(name='refund_amount'),
+  // 商户订单号
+  outTradeNo?: string(name='out_trade_no'),
+  // 支付宝交易号
+  tradeNo?: string(name='trade_no'),
+  // 退款原因说明
+  refundReason?: string(name='refund_reason'),
+  // 退款请求号，部分退款时必选
+  outRequestNo?: string(name='out_request_no'),
+  // 退款包含的商品列表信息
+  refundGoodsDetail?: [ RefundGoodsDetail ](name='refund_goods_detail'),
+}
+
+model RefundAgoraxTradeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 商户订单号
+  outTradeNo?: string(name='out_trade_no'),
+  // 支付宝交易号
+  tradeNo?: string(name='trade_no'),
+  // 用户的登录id
+  buyerLogonId?: string(name='buyer_logon_id'),
+  // 退款总金额
+  refundFee?: string(name='refund_fee'),
+}
+
+/**
+ * Description: 发起退款
+ * Summary: 发起退款
+ */
+async function refundAgoraxTrade(request: RefundAgoraxTradeRequest): RefundAgoraxTradeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return refundAgoraxTradeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 发起退款
+ * Summary: 发起退款
+ */
+async function refundAgoraxTradeEx(request: RefundAgoraxTradeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RefundAgoraxTradeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.agorax.trade.refund', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAgoraxTradeRefundRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 商户编号
+  externalId: string(name='external_id'),
+  // 退款请求号
+  outRequestNo: string(name='out_request_no'),
+  // 支付宝交易号
+  tradeNo?: string(name='trade_no'),
+  // 商户订单号
+  outTradeNo?: string(name='out_trade_no'),
+  // 额外查询选项
+  queryOptions?: [ string ](name='query_options'),
+}
+
+model QueryAgoraxTradeRefundResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 支付宝交易号
+  tradeNo?: string(name='trade_no'),
+  // 创建交易传入的商户订单号
+  outTradeNo?: string(name='out_trade_no'),
+  // 本笔退款对应的退款请求号
+  outRequestNo?: string(name='out_request_no'),
+  // 该笔退款所对应的交易的订单金额
+  totalAmount?: string(name='total_amount'),
+  // 本次退款请求，对应的退款金额
+  refundAmount?: string(name='refund_amount'),
+  // 退款状态
+  refundStatus?: string(name='refund_status'),
+  // 退分账明细信息
+  refundRoyaltys?: [ RefundRoyaltyResult ](name='refund_royaltys'),
+  // 本次商户实际退回金额
+  sendBackFee?: string(name='send_back_fee'),
+}
+
+/**
+ * Description: 退款结果查询
+ * Summary: 退款结果查询
+ */
+async function queryAgoraxTradeRefund(request: QueryAgoraxTradeRefundRequest): QueryAgoraxTradeRefundResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAgoraxTradeRefundEx(request, headers, runtime);
+}
+
+/**
+ * Description: 退款结果查询
+ * Summary: 退款结果查询
+ */
+async function queryAgoraxTradeRefundEx(request: QueryAgoraxTradeRefundRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAgoraxTradeRefundResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.agorax.trade.refund.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model GetAkdfUserbizkeyRequest = {
@@ -23265,6 +23861,64 @@ async function pushAuthCarloan(request: PushAuthCarloanRequest): PushAuthCarloan
 async function pushAuthCarloanEx(request: PushAuthCarloanRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PushAuthCarloanResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'baas.auth.carloan.push', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ImportAuthCaritemsTestRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // aaa
+  fileObject?: readable(description='待上传文件', ignore='true'),
+  fileObjectName?: string(description='待上传文件名', ignore='true'),
+  fileId: string(name='file_id'),
+}
+
+model ImportAuthCaritemsTestResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 测试用
+ * Summary: 测试用
+ */
+async function importAuthCaritemsTest(request: ImportAuthCaritemsTestRequest): ImportAuthCaritemsTestResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return importAuthCaritemsTestEx(request, headers, runtime);
+}
+
+/**
+ * Description: 测试用
+ * Summary: 测试用
+ */
+async function importAuthCaritemsTestEx(request: ImportAuthCaritemsTestRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ImportAuthCaritemsTestResponse {
+  if (!Util.isUnset(request.fileObject)) {
+    var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
+      authToken = request.authToken,
+      apiCode = 'baas.auth.caritems.test.import',
+      fileName = request.fileObjectName,
+    };
+    var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+    if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+      var importAuthCaritemsTestResponse = new ImportAuthCaritemsTestResponse{
+        reqMsgId = uploadResp.reqMsgId,
+        resultCode = uploadResp.resultCode,
+        resultMsg = uploadResp.resultMsg,
+      };
+      return importAuthCaritemsTestResponse;
+    }
+    var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+    AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+    request.fileId = uploadResp.fileId;
+    request.fileObject = null;
+  }
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.auth.caritems.test.import', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model StartDidCorporateAgentcreateRequest = {
