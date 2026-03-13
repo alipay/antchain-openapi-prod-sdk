@@ -137,7 +137,7 @@ namespace AntChain.SDK.BLOCKCHAIN
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.28.70"},
+                        {"sdk_version", "1.29.0"},
                         {"_prod_code", "BLOCKCHAIN"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.BLOCKCHAIN
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.28.70"},
+                        {"sdk_version", "1.29.0"},
                         {"_prod_code", "BLOCKCHAIN"},
                         {"_prod_channel", "undefined"},
                     };
@@ -655,6 +655,348 @@ namespace AntChain.SDK.BLOCKCHAIN
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<BatchcreateAccountMappingInfoResponse>(await DoRequestAsync("1.0", "baas.account.mapping.info.batchcreate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商家入驻接口
+         * Summary: 商家入驻接口
+         */
+        public RegisterAgoraxMerchantResponse RegisterAgoraxMerchant(RegisterAgoraxMerchantRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return RegisterAgoraxMerchantEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商家入驻接口
+         * Summary: 商家入驻接口
+         */
+        public async Task<RegisterAgoraxMerchantResponse> RegisterAgoraxMerchantAsync(RegisterAgoraxMerchantRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await RegisterAgoraxMerchantExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商家入驻接口
+         * Summary: 商家入驻接口
+         */
+        public RegisterAgoraxMerchantResponse RegisterAgoraxMerchantEx(RegisterAgoraxMerchantRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RegisterAgoraxMerchantResponse>(DoRequest("1.0", "baas.agorax.merchant.register", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商家入驻接口
+         * Summary: 商家入驻接口
+         */
+        public async Task<RegisterAgoraxMerchantResponse> RegisterAgoraxMerchantExAsync(RegisterAgoraxMerchantRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RegisterAgoraxMerchantResponse>(await DoRequestAsync("1.0", "baas.agorax.merchant.register", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商家图片上传接口
+         * Summary: 商家图片上传接口
+         */
+        public UploadAgoraxMerchantImageResponse UploadAgoraxMerchantImage(UploadAgoraxMerchantImageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UploadAgoraxMerchantImageEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商家图片上传接口
+         * Summary: 商家图片上传接口
+         */
+        public async Task<UploadAgoraxMerchantImageResponse> UploadAgoraxMerchantImageAsync(UploadAgoraxMerchantImageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UploadAgoraxMerchantImageExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商家图片上传接口
+         * Summary: 商家图片上传接口
+         */
+        public UploadAgoraxMerchantImageResponse UploadAgoraxMerchantImageEx(UploadAgoraxMerchantImageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "baas.agorax.merchant.image.upload",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    UploadAgoraxMerchantImageResponse uploadAgoraxMerchantImageResponse = new UploadAgoraxMerchantImageResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return uploadAgoraxMerchantImageResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+                request.FileObject = null;
+            }
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UploadAgoraxMerchantImageResponse>(DoRequest("1.0", "baas.agorax.merchant.image.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商家图片上传接口
+         * Summary: 商家图片上传接口
+         */
+        public async Task<UploadAgoraxMerchantImageResponse> UploadAgoraxMerchantImageExAsync(UploadAgoraxMerchantImageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "baas.agorax.merchant.image.upload",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = await CreateAntcloudGatewayxFileUploadExAsync(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    UploadAgoraxMerchantImageResponse uploadAgoraxMerchantImageResponse = new UploadAgoraxMerchantImageResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return uploadAgoraxMerchantImageResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+                request.FileObject = null;
+            }
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UploadAgoraxMerchantImageResponse>(await DoRequestAsync("1.0", "baas.agorax.merchant.image.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询商户申请单状态
+         * Summary: 查询商户申请单状态
+         */
+        public QueryAgoraxMerchantStatusResponse QueryAgoraxMerchantStatus(QueryAgoraxMerchantStatusRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAgoraxMerchantStatusEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询商户申请单状态
+         * Summary: 查询商户申请单状态
+         */
+        public async Task<QueryAgoraxMerchantStatusResponse> QueryAgoraxMerchantStatusAsync(QueryAgoraxMerchantStatusRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAgoraxMerchantStatusExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询商户申请单状态
+         * Summary: 查询商户申请单状态
+         */
+        public QueryAgoraxMerchantStatusResponse QueryAgoraxMerchantStatusEx(QueryAgoraxMerchantStatusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAgoraxMerchantStatusResponse>(DoRequest("1.0", "baas.agorax.merchant.status.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询商户申请单状态
+         * Summary: 查询商户申请单状态
+         */
+        public async Task<QueryAgoraxMerchantStatusResponse> QueryAgoraxMerchantStatusExAsync(QueryAgoraxMerchantStatusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAgoraxMerchantStatusResponse>(await DoRequestAsync("1.0", "baas.agorax.merchant.status.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 支持 JSAPI、当面付
+         * Summary: 创建支付订单
+         */
+        public CreateAgoraxTradeResponse CreateAgoraxTrade(CreateAgoraxTradeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateAgoraxTradeEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 支持 JSAPI、当面付
+         * Summary: 创建支付订单
+         */
+        public async Task<CreateAgoraxTradeResponse> CreateAgoraxTradeAsync(CreateAgoraxTradeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateAgoraxTradeExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 支持 JSAPI、当面付
+         * Summary: 创建支付订单
+         */
+        public CreateAgoraxTradeResponse CreateAgoraxTradeEx(CreateAgoraxTradeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateAgoraxTradeResponse>(DoRequest("1.0", "baas.agorax.trade.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 支持 JSAPI、当面付
+         * Summary: 创建支付订单
+         */
+        public async Task<CreateAgoraxTradeResponse> CreateAgoraxTradeExAsync(CreateAgoraxTradeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateAgoraxTradeResponse>(await DoRequestAsync("1.0", "baas.agorax.trade.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 支付结果查询
+         * Summary: 支付结果查询
+         */
+        public QueryAgoraxTradeResponse QueryAgoraxTrade(QueryAgoraxTradeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAgoraxTradeEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 支付结果查询
+         * Summary: 支付结果查询
+         */
+        public async Task<QueryAgoraxTradeResponse> QueryAgoraxTradeAsync(QueryAgoraxTradeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAgoraxTradeExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 支付结果查询
+         * Summary: 支付结果查询
+         */
+        public QueryAgoraxTradeResponse QueryAgoraxTradeEx(QueryAgoraxTradeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAgoraxTradeResponse>(DoRequest("1.0", "baas.agorax.trade.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 支付结果查询
+         * Summary: 支付结果查询
+         */
+        public async Task<QueryAgoraxTradeResponse> QueryAgoraxTradeExAsync(QueryAgoraxTradeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAgoraxTradeResponse>(await DoRequestAsync("1.0", "baas.agorax.trade.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 发起退款
+         * Summary: 发起退款
+         */
+        public RefundAgoraxTradeResponse RefundAgoraxTrade(RefundAgoraxTradeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return RefundAgoraxTradeEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 发起退款
+         * Summary: 发起退款
+         */
+        public async Task<RefundAgoraxTradeResponse> RefundAgoraxTradeAsync(RefundAgoraxTradeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await RefundAgoraxTradeExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 发起退款
+         * Summary: 发起退款
+         */
+        public RefundAgoraxTradeResponse RefundAgoraxTradeEx(RefundAgoraxTradeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RefundAgoraxTradeResponse>(DoRequest("1.0", "baas.agorax.trade.refund", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 发起退款
+         * Summary: 发起退款
+         */
+        public async Task<RefundAgoraxTradeResponse> RefundAgoraxTradeExAsync(RefundAgoraxTradeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RefundAgoraxTradeResponse>(await DoRequestAsync("1.0", "baas.agorax.trade.refund", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 退款结果查询
+         * Summary: 退款结果查询
+         */
+        public QueryAgoraxTradeRefundResponse QueryAgoraxTradeRefund(QueryAgoraxTradeRefundRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAgoraxTradeRefundEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 退款结果查询
+         * Summary: 退款结果查询
+         */
+        public async Task<QueryAgoraxTradeRefundResponse> QueryAgoraxTradeRefundAsync(QueryAgoraxTradeRefundRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAgoraxTradeRefundExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 退款结果查询
+         * Summary: 退款结果查询
+         */
+        public QueryAgoraxTradeRefundResponse QueryAgoraxTradeRefundEx(QueryAgoraxTradeRefundRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAgoraxTradeRefundResponse>(DoRequest("1.0", "baas.agorax.trade.refund.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 退款结果查询
+         * Summary: 退款结果查询
+         */
+        public async Task<QueryAgoraxTradeRefundResponse> QueryAgoraxTradeRefundExAsync(QueryAgoraxTradeRefundRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAgoraxTradeRefundResponse>(await DoRequestAsync("1.0", "baas.agorax.trade.refund.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -18473,6 +18815,96 @@ namespace AntChain.SDK.BLOCKCHAIN
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<PushAuthCarloanResponse>(await DoRequestAsync("1.0", "baas.auth.carloan.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 测试用
+         * Summary: 测试用
+         */
+        public ImportAuthCaritemsTestResponse ImportAuthCaritemsTest(ImportAuthCaritemsTestRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ImportAuthCaritemsTestEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 测试用
+         * Summary: 测试用
+         */
+        public async Task<ImportAuthCaritemsTestResponse> ImportAuthCaritemsTestAsync(ImportAuthCaritemsTestRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ImportAuthCaritemsTestExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 测试用
+         * Summary: 测试用
+         */
+        public ImportAuthCaritemsTestResponse ImportAuthCaritemsTestEx(ImportAuthCaritemsTestRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "baas.auth.caritems.test.import",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    ImportAuthCaritemsTestResponse importAuthCaritemsTestResponse = new ImportAuthCaritemsTestResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return importAuthCaritemsTestResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+                request.FileObject = null;
+            }
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ImportAuthCaritemsTestResponse>(DoRequest("1.0", "baas.auth.caritems.test.import", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 测试用
+         * Summary: 测试用
+         */
+        public async Task<ImportAuthCaritemsTestResponse> ImportAuthCaritemsTestExAsync(ImportAuthCaritemsTestRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "baas.auth.caritems.test.import",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = await CreateAntcloudGatewayxFileUploadExAsync(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    ImportAuthCaritemsTestResponse importAuthCaritemsTestResponse = new ImportAuthCaritemsTestResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return importAuthCaritemsTestResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+                request.FileObject = null;
+            }
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ImportAuthCaritemsTestResponse>(await DoRequestAsync("1.0", "baas.auth.caritems.test.import", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
