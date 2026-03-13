@@ -147,6 +147,8 @@ use AntChain\BLOCKCHAIN\Models\CountAuthTaskRequest;
 use AntChain\BLOCKCHAIN\Models\CountAuthTaskResponse;
 use AntChain\BLOCKCHAIN\Models\CreateAccountMappingInfoRequest;
 use AntChain\BLOCKCHAIN\Models\CreateAccountMappingInfoResponse;
+use AntChain\BLOCKCHAIN\Models\CreateAgoraxTradeRequest;
+use AntChain\BLOCKCHAIN\Models\CreateAgoraxTradeResponse;
 use AntChain\BLOCKCHAIN\Models\CreateAntcloudGatewayxFileUploadRequest;
 use AntChain\BLOCKCHAIN\Models\CreateAntcloudGatewayxFileUploadResponse;
 use AntChain\BLOCKCHAIN\Models\CreateApiConsortiumRequest;
@@ -477,6 +479,8 @@ use AntChain\BLOCKCHAIN\Models\GetNotaryTransactionTextRequest;
 use AntChain\BLOCKCHAIN\Models\GetNotaryTransactionTextResponse;
 use AntChain\BLOCKCHAIN\Models\GetNotaryTransRequest;
 use AntChain\BLOCKCHAIN\Models\GetNotaryTransResponse;
+use AntChain\BLOCKCHAIN\Models\ImportAuthCaritemsTestRequest;
+use AntChain\BLOCKCHAIN\Models\ImportAuthCaritemsTestResponse;
 use AntChain\BLOCKCHAIN\Models\ImportDidAldabaRequest;
 use AntChain\BLOCKCHAIN\Models\ImportDidAldabaResponse;
 use AntChain\BLOCKCHAIN\Models\ImportLogisticFinanceLocationRequest;
@@ -601,6 +605,12 @@ use AntChain\BLOCKCHAIN\Models\QueryAccountMappingRequest;
 use AntChain\BLOCKCHAIN\Models\QueryAccountMappingResponse;
 use AntChain\BLOCKCHAIN\Models\QueryAccountMappingresultRequest;
 use AntChain\BLOCKCHAIN\Models\QueryAccountMappingresultResponse;
+use AntChain\BLOCKCHAIN\Models\QueryAgoraxMerchantStatusRequest;
+use AntChain\BLOCKCHAIN\Models\QueryAgoraxMerchantStatusResponse;
+use AntChain\BLOCKCHAIN\Models\QueryAgoraxTradeRefundRequest;
+use AntChain\BLOCKCHAIN\Models\QueryAgoraxTradeRefundResponse;
+use AntChain\BLOCKCHAIN\Models\QueryAgoraxTradeRequest;
+use AntChain\BLOCKCHAIN\Models\QueryAgoraxTradeResponse;
 use AntChain\BLOCKCHAIN\Models\QueryApiDwhAccountRequest;
 use AntChain\BLOCKCHAIN\Models\QueryApiDwhAccountResponse;
 use AntChain\BLOCKCHAIN\Models\QueryApiDwhbTransactionRequest;
@@ -901,6 +911,10 @@ use AntChain\BLOCKCHAIN\Models\RebootDidNotificationConsumerRequest;
 use AntChain\BLOCKCHAIN\Models\RebootDidNotificationConsumerResponse;
 use AntChain\BLOCKCHAIN\Models\RecognizeAuthCarinfoRequest;
 use AntChain\BLOCKCHAIN\Models\RecognizeAuthCarinfoResponse;
+use AntChain\BLOCKCHAIN\Models\RefundAgoraxTradeRequest;
+use AntChain\BLOCKCHAIN\Models\RefundAgoraxTradeResponse;
+use AntChain\BLOCKCHAIN\Models\RegisterAgoraxMerchantRequest;
+use AntChain\BLOCKCHAIN\Models\RegisterAgoraxMerchantResponse;
 use AntChain\BLOCKCHAIN\Models\RegisterAuthCarownerRequest;
 use AntChain\BLOCKCHAIN\Models\RegisterAuthCarownerResponse;
 use AntChain\BLOCKCHAIN\Models\RegisterWaasBusinessRequest;
@@ -1247,6 +1261,8 @@ use AntChain\BLOCKCHAIN\Models\UpdateUnionUnionRequest;
 use AntChain\BLOCKCHAIN\Models\UpdateUnionUnionResponse;
 use AntChain\BLOCKCHAIN\Models\UpdateVcVcrepoUserRequest;
 use AntChain\BLOCKCHAIN\Models\UpdateVcVcrepoUserResponse;
+use AntChain\BLOCKCHAIN\Models\UploadAgoraxMerchantImageRequest;
+use AntChain\BLOCKCHAIN\Models\UploadAgoraxMerchantImageResponse;
 use AntChain\BLOCKCHAIN\Models\UploadAuthBusinessCardRequest;
 use AntChain\BLOCKCHAIN\Models\UploadAuthBusinessCardResponse;
 use AntChain\BLOCKCHAIN\Models\UploadAuthCertInstanceRequest;
@@ -1410,7 +1426,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.28.70',
+                    'sdk_version'      => '1.29.0',
                     '_prod_code'       => 'BLOCKCHAIN',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1720,6 +1736,256 @@ class Client
         Utils::validateModel($request);
 
         return BatchcreateAccountMappingInfoResponse::fromMap($this->doRequest('1.0', 'baas.account.mapping.info.batchcreate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商家入驻接口
+     * Summary: 商家入驻接口.
+     *
+     * @param RegisterAgoraxMerchantRequest $request
+     *
+     * @return RegisterAgoraxMerchantResponse
+     */
+    public function registerAgoraxMerchant($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->registerAgoraxMerchantEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商家入驻接口
+     * Summary: 商家入驻接口.
+     *
+     * @param RegisterAgoraxMerchantRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return RegisterAgoraxMerchantResponse
+     */
+    public function registerAgoraxMerchantEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RegisterAgoraxMerchantResponse::fromMap($this->doRequest('1.0', 'baas.agorax.merchant.register', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商家图片上传接口
+     * Summary: 商家图片上传接口.
+     *
+     * @param UploadAgoraxMerchantImageRequest $request
+     *
+     * @return UploadAgoraxMerchantImageResponse
+     */
+    public function uploadAgoraxMerchantImage($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->uploadAgoraxMerchantImageEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商家图片上传接口
+     * Summary: 商家图片上传接口.
+     *
+     * @param UploadAgoraxMerchantImageRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return UploadAgoraxMerchantImageResponse
+     */
+    public function uploadAgoraxMerchantImageEx($request, $headers, $runtime)
+    {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'baas.agorax.merchant.image.upload',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
+                return new UploadAgoraxMerchantImageResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
+        }
+        Utils::validateModel($request);
+
+        return UploadAgoraxMerchantImageResponse::fromMap($this->doRequest('1.0', 'baas.agorax.merchant.image.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询商户申请单状态
+     * Summary: 查询商户申请单状态
+     *
+     * @param QueryAgoraxMerchantStatusRequest $request
+     *
+     * @return QueryAgoraxMerchantStatusResponse
+     */
+    public function queryAgoraxMerchantStatus($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAgoraxMerchantStatusEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询商户申请单状态
+     * Summary: 查询商户申请单状态
+     *
+     * @param QueryAgoraxMerchantStatusRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return QueryAgoraxMerchantStatusResponse
+     */
+    public function queryAgoraxMerchantStatusEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAgoraxMerchantStatusResponse::fromMap($this->doRequest('1.0', 'baas.agorax.merchant.status.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 支持 JSAPI、当面付
+     * Summary: 创建支付订单.
+     *
+     * @param CreateAgoraxTradeRequest $request
+     *
+     * @return CreateAgoraxTradeResponse
+     */
+    public function createAgoraxTrade($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createAgoraxTradeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 支持 JSAPI、当面付
+     * Summary: 创建支付订单.
+     *
+     * @param CreateAgoraxTradeRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return CreateAgoraxTradeResponse
+     */
+    public function createAgoraxTradeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateAgoraxTradeResponse::fromMap($this->doRequest('1.0', 'baas.agorax.trade.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 支付结果查询
+     * Summary: 支付结果查询.
+     *
+     * @param QueryAgoraxTradeRequest $request
+     *
+     * @return QueryAgoraxTradeResponse
+     */
+    public function queryAgoraxTrade($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAgoraxTradeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 支付结果查询
+     * Summary: 支付结果查询.
+     *
+     * @param QueryAgoraxTradeRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return QueryAgoraxTradeResponse
+     */
+    public function queryAgoraxTradeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAgoraxTradeResponse::fromMap($this->doRequest('1.0', 'baas.agorax.trade.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 发起退款
+     * Summary: 发起退款.
+     *
+     * @param RefundAgoraxTradeRequest $request
+     *
+     * @return RefundAgoraxTradeResponse
+     */
+    public function refundAgoraxTrade($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->refundAgoraxTradeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 发起退款
+     * Summary: 发起退款.
+     *
+     * @param RefundAgoraxTradeRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return RefundAgoraxTradeResponse
+     */
+    public function refundAgoraxTradeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RefundAgoraxTradeResponse::fromMap($this->doRequest('1.0', 'baas.agorax.trade.refund', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 退款结果查询
+     * Summary: 退款结果查询.
+     *
+     * @param QueryAgoraxTradeRefundRequest $request
+     *
+     * @return QueryAgoraxTradeRefundResponse
+     */
+    public function queryAgoraxTradeRefund($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAgoraxTradeRefundEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 退款结果查询
+     * Summary: 退款结果查询.
+     *
+     * @param QueryAgoraxTradeRefundRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return QueryAgoraxTradeRefundResponse
+     */
+    public function queryAgoraxTradeRefundEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAgoraxTradeRefundResponse::fromMap($this->doRequest('1.0', 'baas.agorax.trade.refund.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -15671,6 +15937,58 @@ class Client
         Utils::validateModel($request);
 
         return PushAuthCarloanResponse::fromMap($this->doRequest('1.0', 'baas.auth.carloan.push', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 测试用
+     * Summary: 测试用.
+     *
+     * @param ImportAuthCaritemsTestRequest $request
+     *
+     * @return ImportAuthCaritemsTestResponse
+     */
+    public function importAuthCaritemsTest($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->importAuthCaritemsTestEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 测试用
+     * Summary: 测试用.
+     *
+     * @param ImportAuthCaritemsTestRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return ImportAuthCaritemsTestResponse
+     */
+    public function importAuthCaritemsTestEx($request, $headers, $runtime)
+    {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'baas.auth.caritems.test.import',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
+                return new ImportAuthCaritemsTestResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
+        }
+        Utils::validateModel($request);
+
+        return ImportAuthCaritemsTestResponse::fromMap($this->doRequest('1.0', 'baas.auth.caritems.test.import', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
