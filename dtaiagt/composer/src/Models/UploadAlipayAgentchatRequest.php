@@ -39,10 +39,20 @@ class UploadAlipayAgentchatRequest extends Model
      * @var string
      */
     public $fileId;
+
+    // 文件解析方式
+    // deep：e2md深度解析，耗时较长
+    // simple：本地解析，解析快
+    // 不传：使用默认配置
+    /**
+     * @var string
+     */
+    public $parseType;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'fileId'            => 'file_id',
+        'parseType'         => 'parse_type',
     ];
 
     public function validate()
@@ -66,6 +76,9 @@ class UploadAlipayAgentchatRequest extends Model
         }
         if (null !== $this->fileId) {
             $res['file_id'] = $this->fileId;
+        }
+        if (null !== $this->parseType) {
+            $res['parse_type'] = $this->parseType;
         }
 
         return $res;
@@ -93,6 +106,9 @@ class UploadAlipayAgentchatRequest extends Model
         }
         if (isset($map['file_id'])) {
             $model->fileId = $map['file_id'];
+        }
+        if (isset($map['parse_type'])) {
+            $model->parseType = $map['parse_type'];
         }
 
         return $model;
