@@ -25,7 +25,7 @@ public class SignFundFlowRequest extends TeaModel {
     @NameInMap("sign_doc_url")
     public String signDocUrl;
 
-    // 签署状态 SIGNED-已签署 UNDO-作废
+    // 签署状态 FINISH-已签署 UNDO-作废
     @NameInMap("sign_status")
     @Validation(required = true)
     public String signStatus;
