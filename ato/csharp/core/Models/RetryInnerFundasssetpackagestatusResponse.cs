@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.ATO.Models
 {
-    public class RegisterMerchantexpandMerchantResponse : TeaModel {
+    public class RetryInnerFundasssetpackagestatusResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -23,19 +23,6 @@ namespace AntChain.SDK.ATO.Models
         [NameInMap("result_msg")]
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
-
-        // 进件流水号
-        [NameInMap("pay_expand_id")]
-        [Validation(Required=false)]
-        public string PayExpandId { get; set; }
-
-        // 进件状态
-        // INIT 入驻中 
-        // SUCCESS 入驻成功 
-        // FAIL 入驻失败
-        [NameInMap("enrollment_status")]
-        [Validation(Required=false)]
-        public string EnrollmentStatus { get; set; }
 
     }
 

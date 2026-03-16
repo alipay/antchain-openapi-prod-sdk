@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.ATO.Models
 {
-    public class RegisterMerchantexpandMerchantResponse : TeaModel {
+    public class CreateSignFlowResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,18 +24,15 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 进件流水号
-        [NameInMap("pay_expand_id")]
+        // 合同签署编号，作为合同查询的依据
+        [NameInMap("sign_no")]
         [Validation(Required=false)]
-        public string PayExpandId { get; set; }
+        public string SignNo { get; set; }
 
-        // 进件状态
-        // INIT 入驻中 
-        // SUCCESS 入驻成功 
-        // FAIL 入驻失败
-        [NameInMap("enrollment_status")]
+        // 签署链接结果
+        [NameInMap("sign_url_result")]
         [Validation(Required=false)]
-        public string EnrollmentStatus { get; set; }
+        public SignUrlResult SignUrlResult { get; set; }
 
     }
 

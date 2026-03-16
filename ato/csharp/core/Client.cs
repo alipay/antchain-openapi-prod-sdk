@@ -137,7 +137,7 @@ namespace AntChain.SDK.ATO
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.19.12"},
+                        {"sdk_version", "1.19.21"},
                         {"_prod_code", "ATO"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.ATO
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.19.12"},
+                        {"sdk_version", "1.19.21"},
                         {"_prod_code", "ATO"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1457,6 +1457,342 @@ namespace AntChain.SDK.ATO
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryInnerFundmngguaranteeinfoResponse>(await DoRequestAsync("1.0", "antchain.ato.inner.fundmngguaranteeinfo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 本接口提供根据资产包id查询资产包真实状态，用于判定审核通过，同步计划，同步放款异常操作页面跳转逻辑， 
+         * Summary: 资产包状态查询
+         */
+        public QueryInnerFundasssetpackagestatusResponse QueryInnerFundasssetpackagestatus(QueryInnerFundasssetpackagestatusRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryInnerFundasssetpackagestatusEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 本接口提供根据资产包id查询资产包真实状态，用于判定审核通过，同步计划，同步放款异常操作页面跳转逻辑， 
+         * Summary: 资产包状态查询
+         */
+        public async Task<QueryInnerFundasssetpackagestatusResponse> QueryInnerFundasssetpackagestatusAsync(QueryInnerFundasssetpackagestatusRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryInnerFundasssetpackagestatusExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 本接口提供根据资产包id查询资产包真实状态，用于判定审核通过，同步计划，同步放款异常操作页面跳转逻辑， 
+         * Summary: 资产包状态查询
+         */
+        public QueryInnerFundasssetpackagestatusResponse QueryInnerFundasssetpackagestatusEx(QueryInnerFundasssetpackagestatusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryInnerFundasssetpackagestatusResponse>(DoRequest("1.0", "antchain.ato.inner.fundasssetpackagestatus.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 本接口提供根据资产包id查询资产包真实状态，用于判定审核通过，同步计划，同步放款异常操作页面跳转逻辑， 
+         * Summary: 资产包状态查询
+         */
+        public async Task<QueryInnerFundasssetpackagestatusResponse> QueryInnerFundasssetpackagestatusExAsync(QueryInnerFundasssetpackagestatusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryInnerFundasssetpackagestatusResponse>(await DoRequestAsync("1.0", "antchain.ato.inner.fundasssetpackagestatus.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 本接口提供根据资产包id审批申请单，支持审核通过，审核拒绝，审核补充材料
+         * Summary: 资产包申请单审核提交接口
+         */
+        public SubmitInnerFundasssetpackageauditResponse SubmitInnerFundasssetpackageaudit(SubmitInnerFundasssetpackageauditRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SubmitInnerFundasssetpackageauditEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 本接口提供根据资产包id审批申请单，支持审核通过，审核拒绝，审核补充材料
+         * Summary: 资产包申请单审核提交接口
+         */
+        public async Task<SubmitInnerFundasssetpackageauditResponse> SubmitInnerFundasssetpackageauditAsync(SubmitInnerFundasssetpackageauditRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SubmitInnerFundasssetpackageauditExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 本接口提供根据资产包id审批申请单，支持审核通过，审核拒绝，审核补充材料
+         * Summary: 资产包申请单审核提交接口
+         */
+        public SubmitInnerFundasssetpackageauditResponse SubmitInnerFundasssetpackageauditEx(SubmitInnerFundasssetpackageauditRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitInnerFundasssetpackageauditResponse>(DoRequest("1.0", "antchain.ato.inner.fundasssetpackageaudit.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 本接口提供根据资产包id审批申请单，支持审核通过，审核拒绝，审核补充材料
+         * Summary: 资产包申请单审核提交接口
+         */
+        public async Task<SubmitInnerFundasssetpackageauditResponse> SubmitInnerFundasssetpackageauditExAsync(SubmitInnerFundasssetpackageauditRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitInnerFundasssetpackageauditResponse>(await DoRequestAsync("1.0", "antchain.ato.inner.fundasssetpackageaudit.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 本接口提供 审核通过，同步履约计划，放款同意，放款拒绝重试能力
+         * Summary: 重试接口
+         */
+        public RetryInnerFundasssetpackagestatusResponse RetryInnerFundasssetpackagestatus(RetryInnerFundasssetpackagestatusRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return RetryInnerFundasssetpackagestatusEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 本接口提供 审核通过，同步履约计划，放款同意，放款拒绝重试能力
+         * Summary: 重试接口
+         */
+        public async Task<RetryInnerFundasssetpackagestatusResponse> RetryInnerFundasssetpackagestatusAsync(RetryInnerFundasssetpackagestatusRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await RetryInnerFundasssetpackagestatusExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 本接口提供 审核通过，同步履约计划，放款同意，放款拒绝重试能力
+         * Summary: 重试接口
+         */
+        public RetryInnerFundasssetpackagestatusResponse RetryInnerFundasssetpackagestatusEx(RetryInnerFundasssetpackagestatusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RetryInnerFundasssetpackagestatusResponse>(DoRequest("1.0", "antchain.ato.inner.fundasssetpackagestatus.retry", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 本接口提供 审核通过，同步履约计划，放款同意，放款拒绝重试能力
+         * Summary: 重试接口
+         */
+        public async Task<RetryInnerFundasssetpackagestatusResponse> RetryInnerFundasssetpackagestatusExAsync(RetryInnerFundasssetpackagestatusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RetryInnerFundasssetpackagestatusResponse>(await DoRequestAsync("1.0", "antchain.ato.inner.fundasssetpackagestatus.retry", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 本接口提供根据资产包id和订单id剔除/恢复订单
+         * Summary: 资产包订单剔除/恢复
+         */
+        public OperateInnerFundasssetpackageorderResponse OperateInnerFundasssetpackageorder(OperateInnerFundasssetpackageorderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return OperateInnerFundasssetpackageorderEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 本接口提供根据资产包id和订单id剔除/恢复订单
+         * Summary: 资产包订单剔除/恢复
+         */
+        public async Task<OperateInnerFundasssetpackageorderResponse> OperateInnerFundasssetpackageorderAsync(OperateInnerFundasssetpackageorderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await OperateInnerFundasssetpackageorderExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 本接口提供根据资产包id和订单id剔除/恢复订单
+         * Summary: 资产包订单剔除/恢复
+         */
+        public OperateInnerFundasssetpackageorderResponse OperateInnerFundasssetpackageorderEx(OperateInnerFundasssetpackageorderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<OperateInnerFundasssetpackageorderResponse>(DoRequest("1.0", "antchain.ato.inner.fundasssetpackageorder.operate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 本接口提供根据资产包id和订单id剔除/恢复订单
+         * Summary: 资产包订单剔除/恢复
+         */
+        public async Task<OperateInnerFundasssetpackageorderResponse> OperateInnerFundasssetpackageorderExAsync(OperateInnerFundasssetpackageorderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<OperateInnerFundasssetpackageorderResponse>(await DoRequestAsync("1.0", "antchain.ato.inner.fundasssetpackageorder.operate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 本接口有资方控制台调用用于查询资产包列表
+         * Summary: 资产包列表查询
+         */
+        public PagequeryInnerFundassetpackageResponse PagequeryInnerFundassetpackage(PagequeryInnerFundassetpackageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PagequeryInnerFundassetpackageEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 本接口有资方控制台调用用于查询资产包列表
+         * Summary: 资产包列表查询
+         */
+        public async Task<PagequeryInnerFundassetpackageResponse> PagequeryInnerFundassetpackageAsync(PagequeryInnerFundassetpackageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PagequeryInnerFundassetpackageExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 本接口有资方控制台调用用于查询资产包列表
+         * Summary: 资产包列表查询
+         */
+        public PagequeryInnerFundassetpackageResponse PagequeryInnerFundassetpackageEx(PagequeryInnerFundassetpackageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PagequeryInnerFundassetpackageResponse>(DoRequest("1.0", "antchain.ato.inner.fundassetpackage.pagequery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 本接口有资方控制台调用用于查询资产包列表
+         * Summary: 资产包列表查询
+         */
+        public async Task<PagequeryInnerFundassetpackageResponse> PagequeryInnerFundassetpackageExAsync(PagequeryInnerFundassetpackageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PagequeryInnerFundassetpackageResponse>(await DoRequestAsync("1.0", "antchain.ato.inner.fundassetpackage.pagequery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 本接口提供在资产包详情页面和履约计划生成页面查询履约计划快照
+         * Summary: 查询履约计划
+         */
+        public QueryInnerFundasssetpackagepromiseplanResponse QueryInnerFundasssetpackagepromiseplan(QueryInnerFundasssetpackagepromiseplanRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryInnerFundasssetpackagepromiseplanEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 本接口提供在资产包详情页面和履约计划生成页面查询履约计划快照
+         * Summary: 查询履约计划
+         */
+        public async Task<QueryInnerFundasssetpackagepromiseplanResponse> QueryInnerFundasssetpackagepromiseplanAsync(QueryInnerFundasssetpackagepromiseplanRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryInnerFundasssetpackagepromiseplanExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 本接口提供在资产包详情页面和履约计划生成页面查询履约计划快照
+         * Summary: 查询履约计划
+         */
+        public QueryInnerFundasssetpackagepromiseplanResponse QueryInnerFundasssetpackagepromiseplanEx(QueryInnerFundasssetpackagepromiseplanRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryInnerFundasssetpackagepromiseplanResponse>(DoRequest("1.0", "antchain.ato.inner.fundasssetpackagepromiseplan.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 本接口提供在资产包详情页面和履约计划生成页面查询履约计划快照
+         * Summary: 查询履约计划
+         */
+        public async Task<QueryInnerFundasssetpackagepromiseplanResponse> QueryInnerFundasssetpackagepromiseplanExAsync(QueryInnerFundasssetpackagepromiseplanRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryInnerFundasssetpackagepromiseplanResponse>(await DoRequestAsync("1.0", "antchain.ato.inner.fundasssetpackagepromiseplan.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 本接口提供用户在页面确定生成履约计划之后，调用AN系统锁定履约计划，调ato系统同步履约计划
+         * Summary: 确定并最终生成履约计划
+         */
+        public ConfirmInnerFundassetpackagepromiseplanResponse ConfirmInnerFundassetpackagepromiseplan(ConfirmInnerFundassetpackagepromiseplanRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ConfirmInnerFundassetpackagepromiseplanEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 本接口提供用户在页面确定生成履约计划之后，调用AN系统锁定履约计划，调ato系统同步履约计划
+         * Summary: 确定并最终生成履约计划
+         */
+        public async Task<ConfirmInnerFundassetpackagepromiseplanResponse> ConfirmInnerFundassetpackagepromiseplanAsync(ConfirmInnerFundassetpackagepromiseplanRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ConfirmInnerFundassetpackagepromiseplanExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 本接口提供用户在页面确定生成履约计划之后，调用AN系统锁定履约计划，调ato系统同步履约计划
+         * Summary: 确定并最终生成履约计划
+         */
+        public ConfirmInnerFundassetpackagepromiseplanResponse ConfirmInnerFundassetpackagepromiseplanEx(ConfirmInnerFundassetpackagepromiseplanRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ConfirmInnerFundassetpackagepromiseplanResponse>(DoRequest("1.0", "antchain.ato.inner.fundassetpackagepromiseplan.confirm", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 本接口提供用户在页面确定生成履约计划之后，调用AN系统锁定履约计划，调ato系统同步履约计划
+         * Summary: 确定并最终生成履约计划
+         */
+        public async Task<ConfirmInnerFundassetpackagepromiseplanResponse> ConfirmInnerFundassetpackagepromiseplanExAsync(ConfirmInnerFundassetpackagepromiseplanRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ConfirmInnerFundassetpackagepromiseplanResponse>(await DoRequestAsync("1.0", "antchain.ato.inner.fundassetpackagepromiseplan.confirm", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 本接口提供根据资产包id查询代偿签约信息，放款信息，履约信息（查AN系统），放款凭证，材料，审核记录，
+         * Summary: 资产包详情查询
+         */
+        public DetailInnerFundassetpackageResponse DetailInnerFundassetpackage(DetailInnerFundassetpackageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return DetailInnerFundassetpackageEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 本接口提供根据资产包id查询代偿签约信息，放款信息，履约信息（查AN系统），放款凭证，材料，审核记录，
+         * Summary: 资产包详情查询
+         */
+        public async Task<DetailInnerFundassetpackageResponse> DetailInnerFundassetpackageAsync(DetailInnerFundassetpackageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await DetailInnerFundassetpackageExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 本接口提供根据资产包id查询代偿签约信息，放款信息，履约信息（查AN系统），放款凭证，材料，审核记录，
+         * Summary: 资产包详情查询
+         */
+        public DetailInnerFundassetpackageResponse DetailInnerFundassetpackageEx(DetailInnerFundassetpackageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DetailInnerFundassetpackageResponse>(DoRequest("1.0", "antchain.ato.inner.fundassetpackage.detail", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 本接口提供根据资产包id查询代偿签约信息，放款信息，履约信息（查AN系统），放款凭证，材料，审核记录，
+         * Summary: 资产包详情查询
+         */
+        public async Task<DetailInnerFundassetpackageResponse> DetailInnerFundassetpackageExAsync(DetailInnerFundassetpackageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DetailInnerFundassetpackageResponse>(await DoRequestAsync("1.0", "antchain.ato.inner.fundassetpackage.detail", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -10532,6 +10868,48 @@ namespace AntChain.SDK.ATO
         }
 
         /**
+         * Description: 标准合同创建接口
+         * Summary: 标准合同创建接口
+         */
+        public CreateSignFlowResponse CreateSignFlow(CreateSignFlowRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateSignFlowEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 标准合同创建接口
+         * Summary: 标准合同创建接口
+         */
+        public async Task<CreateSignFlowResponse> CreateSignFlowAsync(CreateSignFlowRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateSignFlowExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 标准合同创建接口
+         * Summary: 标准合同创建接口
+         */
+        public CreateSignFlowResponse CreateSignFlowEx(CreateSignFlowRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateSignFlowResponse>(DoRequest("1.0", "antchain.ato.sign.flow.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 标准合同创建接口
+         * Summary: 标准合同创建接口
+         */
+        public async Task<CreateSignFlowResponse> CreateSignFlowExAsync(CreateSignFlowRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateSignFlowResponse>(await DoRequestAsync("1.0", "antchain.ato.sign.flow.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
          * Description: 对账saas交易信息同步接口
          * Summary: 对账saas交易信息同步接口
          */
@@ -11579,6 +11957,90 @@ namespace AntChain.SDK.ATO
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryTradeCreditgrantingResponse>(await DoRequestAsync("1.0", "antchain.ato.trade.creditgranting.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 授信授权申请
+         * Summary: 授信授权申请
+         */
+        public AuthTradeCreditgrantingResponse AuthTradeCreditgranting(AuthTradeCreditgrantingRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return AuthTradeCreditgrantingEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 授信授权申请
+         * Summary: 授信授权申请
+         */
+        public async Task<AuthTradeCreditgrantingResponse> AuthTradeCreditgrantingAsync(AuthTradeCreditgrantingRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await AuthTradeCreditgrantingExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 授信授权申请
+         * Summary: 授信授权申请
+         */
+        public AuthTradeCreditgrantingResponse AuthTradeCreditgrantingEx(AuthTradeCreditgrantingRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AuthTradeCreditgrantingResponse>(DoRequest("1.0", "antchain.ato.trade.creditgranting.auth", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 授信授权申请
+         * Summary: 授信授权申请
+         */
+        public async Task<AuthTradeCreditgrantingResponse> AuthTradeCreditgrantingExAsync(AuthTradeCreditgrantingRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AuthTradeCreditgrantingResponse>(await DoRequestAsync("1.0", "antchain.ato.trade.creditgranting.auth", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商户查询授权
+         * Summary: 商户查询授权
+         */
+        public QueryTradeCreditauthResponse QueryTradeCreditauth(QueryTradeCreditauthRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryTradeCreditauthEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商户查询授权
+         * Summary: 商户查询授权
+         */
+        public async Task<QueryTradeCreditauthResponse> QueryTradeCreditauthAsync(QueryTradeCreditauthRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryTradeCreditauthExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商户查询授权
+         * Summary: 商户查询授权
+         */
+        public QueryTradeCreditauthResponse QueryTradeCreditauthEx(QueryTradeCreditauthRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryTradeCreditauthResponse>(DoRequest("1.0", "antchain.ato.trade.creditauth.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商户查询授权
+         * Summary: 商户查询授权
+         */
+        public async Task<QueryTradeCreditauthResponse> QueryTradeCreditauthExAsync(QueryTradeCreditauthRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryTradeCreditauthResponse>(await DoRequestAsync("1.0", "antchain.ato.trade.creditauth.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
