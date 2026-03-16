@@ -37,6 +37,14 @@ namespace AntChain.SDK.DTAIAGT.Models
         [Validation(Required=false)]
         public string FileId { get; set; }
 
+        // 文件解析方式
+        // deep：e2md深度解析，耗时较长 
+        // simple：本地解析，解析快
+        // 不传：使用默认配置
+        [NameInMap("parse_type")]
+        [Validation(Required=false)]
+        public string ParseType { get; set; }
+
     }
 
 }
