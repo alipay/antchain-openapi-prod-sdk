@@ -6,7 +6,7 @@ namespace AntChain\ATO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class RegisterMerchantexpandMerchantResponse extends Model
+class CreateSignFlowResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,26 +26,23 @@ class RegisterMerchantexpandMerchantResponse extends Model
      */
     public $resultMsg;
 
-    // 进件流水号
+    // 合同签署编号，作为合同查询的依据
     /**
      * @var string
      */
-    public $payExpandId;
+    public $signNo;
 
-    // 进件状态
-    // INIT 入驻中
-    // SUCCESS 入驻成功
-    // FAIL 入驻失败
+    // 签署链接结果
     /**
-     * @var string
+     * @var SignUrlResult
      */
-    public $enrollmentStatus;
+    public $signUrlResult;
     protected $_name = [
-        'reqMsgId'         => 'req_msg_id',
-        'resultCode'       => 'result_code',
-        'resultMsg'        => 'result_msg',
-        'payExpandId'      => 'pay_expand_id',
-        'enrollmentStatus' => 'enrollment_status',
+        'reqMsgId'      => 'req_msg_id',
+        'resultCode'    => 'result_code',
+        'resultMsg'     => 'result_msg',
+        'signNo'        => 'sign_no',
+        'signUrlResult' => 'sign_url_result',
     ];
 
     public function validate()
@@ -64,11 +61,11 @@ class RegisterMerchantexpandMerchantResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->payExpandId) {
-            $res['pay_expand_id'] = $this->payExpandId;
+        if (null !== $this->signNo) {
+            $res['sign_no'] = $this->signNo;
         }
-        if (null !== $this->enrollmentStatus) {
-            $res['enrollment_status'] = $this->enrollmentStatus;
+        if (null !== $this->signUrlResult) {
+            $res['sign_url_result'] = null !== $this->signUrlResult ? $this->signUrlResult->toMap() : null;
         }
 
         return $res;
@@ -77,7 +74,7 @@ class RegisterMerchantexpandMerchantResponse extends Model
     /**
      * @param array $map
      *
-     * @return RegisterMerchantexpandMerchantResponse
+     * @return CreateSignFlowResponse
      */
     public static function fromMap($map = [])
     {
@@ -91,11 +88,11 @@ class RegisterMerchantexpandMerchantResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['pay_expand_id'])) {
-            $model->payExpandId = $map['pay_expand_id'];
+        if (isset($map['sign_no'])) {
+            $model->signNo = $map['sign_no'];
         }
-        if (isset($map['enrollment_status'])) {
-            $model->enrollmentStatus = $map['enrollment_status'];
+        if (isset($map['sign_url_result'])) {
+            $model->signUrlResult = SignUrlResult::fromMap($map['sign_url_result']);
         }
 
         return $model;
