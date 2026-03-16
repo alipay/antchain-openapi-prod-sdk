@@ -27,6 +27,13 @@ public class UploadAlipayAgentchatRequest extends TeaModel {
     @NameInMap("file_id")
     public String fileId;
 
+    // 文件解析方式
+    // deep：e2md深度解析，耗时较长 
+    // simple：本地解析，解析快
+    // 不传：使用默认配置
+    @NameInMap("parse_type")
+    public String parseType;
+
     public static UploadAlipayAgentchatRequest build(java.util.Map<String, ?> map) throws Exception {
         UploadAlipayAgentchatRequest self = new UploadAlipayAgentchatRequest();
         return TeaModel.build(map, self);
@@ -70,6 +77,14 @@ public class UploadAlipayAgentchatRequest extends TeaModel {
     }
     public String getFileId() {
         return this.fileId;
+    }
+
+    public UploadAlipayAgentchatRequest setParseType(String parseType) {
+        this.parseType = parseType;
+        return this;
+    }
+    public String getParseType() {
+        return this.parseType;
     }
 
 }
