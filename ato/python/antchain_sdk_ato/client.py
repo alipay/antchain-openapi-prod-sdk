@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.19.12',
+                    'sdk_version': '1.19.21',
                     '_prod_code': 'ATO',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.19.12',
+                    'sdk_version': '1.19.21',
                     '_prod_code': 'ATO',
                     '_prod_channel': 'undefined'
                 }
@@ -1789,6 +1789,454 @@ class Client:
         return TeaCore.from_map(
             ato_models.QueryInnerFundmngguaranteeinfoResponse(),
             await self.do_request_async('1.0', 'antchain.ato.inner.fundmngguaranteeinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_inner_fundasssetpackagestatus(
+        self,
+        request: ato_models.QueryInnerFundasssetpackagestatusRequest,
+    ) -> ato_models.QueryInnerFundasssetpackagestatusResponse:
+        """
+        Description: 本接口提供根据资产包id查询资产包真实状态，用于判定审核通过，同步计划，同步放款异常操作页面跳转逻辑，
+        Summary: 资产包状态查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_inner_fundasssetpackagestatus_ex(request, headers, runtime)
+
+    async def query_inner_fundasssetpackagestatus_async(
+        self,
+        request: ato_models.QueryInnerFundasssetpackagestatusRequest,
+    ) -> ato_models.QueryInnerFundasssetpackagestatusResponse:
+        """
+        Description: 本接口提供根据资产包id查询资产包真实状态，用于判定审核通过，同步计划，同步放款异常操作页面跳转逻辑，
+        Summary: 资产包状态查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_inner_fundasssetpackagestatus_ex_async(request, headers, runtime)
+
+    def query_inner_fundasssetpackagestatus_ex(
+        self,
+        request: ato_models.QueryInnerFundasssetpackagestatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryInnerFundasssetpackagestatusResponse:
+        """
+        Description: 本接口提供根据资产包id查询资产包真实状态，用于判定审核通过，同步计划，同步放款异常操作页面跳转逻辑，
+        Summary: 资产包状态查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryInnerFundasssetpackagestatusResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.fundasssetpackagestatus.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_inner_fundasssetpackagestatus_ex_async(
+        self,
+        request: ato_models.QueryInnerFundasssetpackagestatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryInnerFundasssetpackagestatusResponse:
+        """
+        Description: 本接口提供根据资产包id查询资产包真实状态，用于判定审核通过，同步计划，同步放款异常操作页面跳转逻辑，
+        Summary: 资产包状态查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryInnerFundasssetpackagestatusResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.fundasssetpackagestatus.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def submit_inner_fundasssetpackageaudit(
+        self,
+        request: ato_models.SubmitInnerFundasssetpackageauditRequest,
+    ) -> ato_models.SubmitInnerFundasssetpackageauditResponse:
+        """
+        Description: 本接口提供根据资产包id审批申请单，支持审核通过，审核拒绝，审核补充材料
+        Summary: 资产包申请单审核提交接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.submit_inner_fundasssetpackageaudit_ex(request, headers, runtime)
+
+    async def submit_inner_fundasssetpackageaudit_async(
+        self,
+        request: ato_models.SubmitInnerFundasssetpackageauditRequest,
+    ) -> ato_models.SubmitInnerFundasssetpackageauditResponse:
+        """
+        Description: 本接口提供根据资产包id审批申请单，支持审核通过，审核拒绝，审核补充材料
+        Summary: 资产包申请单审核提交接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.submit_inner_fundasssetpackageaudit_ex_async(request, headers, runtime)
+
+    def submit_inner_fundasssetpackageaudit_ex(
+        self,
+        request: ato_models.SubmitInnerFundasssetpackageauditRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.SubmitInnerFundasssetpackageauditResponse:
+        """
+        Description: 本接口提供根据资产包id审批申请单，支持审核通过，审核拒绝，审核补充材料
+        Summary: 资产包申请单审核提交接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.SubmitInnerFundasssetpackageauditResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.fundasssetpackageaudit.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def submit_inner_fundasssetpackageaudit_ex_async(
+        self,
+        request: ato_models.SubmitInnerFundasssetpackageauditRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.SubmitInnerFundasssetpackageauditResponse:
+        """
+        Description: 本接口提供根据资产包id审批申请单，支持审核通过，审核拒绝，审核补充材料
+        Summary: 资产包申请单审核提交接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.SubmitInnerFundasssetpackageauditResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.fundasssetpackageaudit.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def retry_inner_fundasssetpackagestatus(
+        self,
+        request: ato_models.RetryInnerFundasssetpackagestatusRequest,
+    ) -> ato_models.RetryInnerFundasssetpackagestatusResponse:
+        """
+        Description: 本接口提供 审核通过，同步履约计划，放款同意，放款拒绝重试能力
+        Summary: 重试接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.retry_inner_fundasssetpackagestatus_ex(request, headers, runtime)
+
+    async def retry_inner_fundasssetpackagestatus_async(
+        self,
+        request: ato_models.RetryInnerFundasssetpackagestatusRequest,
+    ) -> ato_models.RetryInnerFundasssetpackagestatusResponse:
+        """
+        Description: 本接口提供 审核通过，同步履约计划，放款同意，放款拒绝重试能力
+        Summary: 重试接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.retry_inner_fundasssetpackagestatus_ex_async(request, headers, runtime)
+
+    def retry_inner_fundasssetpackagestatus_ex(
+        self,
+        request: ato_models.RetryInnerFundasssetpackagestatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.RetryInnerFundasssetpackagestatusResponse:
+        """
+        Description: 本接口提供 审核通过，同步履约计划，放款同意，放款拒绝重试能力
+        Summary: 重试接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.RetryInnerFundasssetpackagestatusResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.fundasssetpackagestatus.retry', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def retry_inner_fundasssetpackagestatus_ex_async(
+        self,
+        request: ato_models.RetryInnerFundasssetpackagestatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.RetryInnerFundasssetpackagestatusResponse:
+        """
+        Description: 本接口提供 审核通过，同步履约计划，放款同意，放款拒绝重试能力
+        Summary: 重试接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.RetryInnerFundasssetpackagestatusResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.fundasssetpackagestatus.retry', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def operate_inner_fundasssetpackageorder(
+        self,
+        request: ato_models.OperateInnerFundasssetpackageorderRequest,
+    ) -> ato_models.OperateInnerFundasssetpackageorderResponse:
+        """
+        Description: 本接口提供根据资产包id和订单id剔除/恢复订单
+        Summary: 资产包订单剔除/恢复
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.operate_inner_fundasssetpackageorder_ex(request, headers, runtime)
+
+    async def operate_inner_fundasssetpackageorder_async(
+        self,
+        request: ato_models.OperateInnerFundasssetpackageorderRequest,
+    ) -> ato_models.OperateInnerFundasssetpackageorderResponse:
+        """
+        Description: 本接口提供根据资产包id和订单id剔除/恢复订单
+        Summary: 资产包订单剔除/恢复
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.operate_inner_fundasssetpackageorder_ex_async(request, headers, runtime)
+
+    def operate_inner_fundasssetpackageorder_ex(
+        self,
+        request: ato_models.OperateInnerFundasssetpackageorderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.OperateInnerFundasssetpackageorderResponse:
+        """
+        Description: 本接口提供根据资产包id和订单id剔除/恢复订单
+        Summary: 资产包订单剔除/恢复
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.OperateInnerFundasssetpackageorderResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.fundasssetpackageorder.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def operate_inner_fundasssetpackageorder_ex_async(
+        self,
+        request: ato_models.OperateInnerFundasssetpackageorderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.OperateInnerFundasssetpackageorderResponse:
+        """
+        Description: 本接口提供根据资产包id和订单id剔除/恢复订单
+        Summary: 资产包订单剔除/恢复
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.OperateInnerFundasssetpackageorderResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.fundasssetpackageorder.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def pagequery_inner_fundassetpackage(
+        self,
+        request: ato_models.PagequeryInnerFundassetpackageRequest,
+    ) -> ato_models.PagequeryInnerFundassetpackageResponse:
+        """
+        Description: 本接口有资方控制台调用用于查询资产包列表
+        Summary: 资产包列表查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pagequery_inner_fundassetpackage_ex(request, headers, runtime)
+
+    async def pagequery_inner_fundassetpackage_async(
+        self,
+        request: ato_models.PagequeryInnerFundassetpackageRequest,
+    ) -> ato_models.PagequeryInnerFundassetpackageResponse:
+        """
+        Description: 本接口有资方控制台调用用于查询资产包列表
+        Summary: 资产包列表查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.pagequery_inner_fundassetpackage_ex_async(request, headers, runtime)
+
+    def pagequery_inner_fundassetpackage_ex(
+        self,
+        request: ato_models.PagequeryInnerFundassetpackageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.PagequeryInnerFundassetpackageResponse:
+        """
+        Description: 本接口有资方控制台调用用于查询资产包列表
+        Summary: 资产包列表查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.PagequeryInnerFundassetpackageResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.fundassetpackage.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def pagequery_inner_fundassetpackage_ex_async(
+        self,
+        request: ato_models.PagequeryInnerFundassetpackageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.PagequeryInnerFundassetpackageResponse:
+        """
+        Description: 本接口有资方控制台调用用于查询资产包列表
+        Summary: 资产包列表查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.PagequeryInnerFundassetpackageResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.fundassetpackage.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_inner_fundasssetpackagepromiseplan(
+        self,
+        request: ato_models.QueryInnerFundasssetpackagepromiseplanRequest,
+    ) -> ato_models.QueryInnerFundasssetpackagepromiseplanResponse:
+        """
+        Description: 本接口提供在资产包详情页面和履约计划生成页面查询履约计划快照
+        Summary: 查询履约计划
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_inner_fundasssetpackagepromiseplan_ex(request, headers, runtime)
+
+    async def query_inner_fundasssetpackagepromiseplan_async(
+        self,
+        request: ato_models.QueryInnerFundasssetpackagepromiseplanRequest,
+    ) -> ato_models.QueryInnerFundasssetpackagepromiseplanResponse:
+        """
+        Description: 本接口提供在资产包详情页面和履约计划生成页面查询履约计划快照
+        Summary: 查询履约计划
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_inner_fundasssetpackagepromiseplan_ex_async(request, headers, runtime)
+
+    def query_inner_fundasssetpackagepromiseplan_ex(
+        self,
+        request: ato_models.QueryInnerFundasssetpackagepromiseplanRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryInnerFundasssetpackagepromiseplanResponse:
+        """
+        Description: 本接口提供在资产包详情页面和履约计划生成页面查询履约计划快照
+        Summary: 查询履约计划
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryInnerFundasssetpackagepromiseplanResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.fundasssetpackagepromiseplan.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_inner_fundasssetpackagepromiseplan_ex_async(
+        self,
+        request: ato_models.QueryInnerFundasssetpackagepromiseplanRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryInnerFundasssetpackagepromiseplanResponse:
+        """
+        Description: 本接口提供在资产包详情页面和履约计划生成页面查询履约计划快照
+        Summary: 查询履约计划
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryInnerFundasssetpackagepromiseplanResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.fundasssetpackagepromiseplan.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def confirm_inner_fundassetpackagepromiseplan(
+        self,
+        request: ato_models.ConfirmInnerFundassetpackagepromiseplanRequest,
+    ) -> ato_models.ConfirmInnerFundassetpackagepromiseplanResponse:
+        """
+        Description: 本接口提供用户在页面确定生成履约计划之后，调用AN系统锁定履约计划，调ato系统同步履约计划
+        Summary: 确定并最终生成履约计划
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.confirm_inner_fundassetpackagepromiseplan_ex(request, headers, runtime)
+
+    async def confirm_inner_fundassetpackagepromiseplan_async(
+        self,
+        request: ato_models.ConfirmInnerFundassetpackagepromiseplanRequest,
+    ) -> ato_models.ConfirmInnerFundassetpackagepromiseplanResponse:
+        """
+        Description: 本接口提供用户在页面确定生成履约计划之后，调用AN系统锁定履约计划，调ato系统同步履约计划
+        Summary: 确定并最终生成履约计划
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.confirm_inner_fundassetpackagepromiseplan_ex_async(request, headers, runtime)
+
+    def confirm_inner_fundassetpackagepromiseplan_ex(
+        self,
+        request: ato_models.ConfirmInnerFundassetpackagepromiseplanRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.ConfirmInnerFundassetpackagepromiseplanResponse:
+        """
+        Description: 本接口提供用户在页面确定生成履约计划之后，调用AN系统锁定履约计划，调ato系统同步履约计划
+        Summary: 确定并最终生成履约计划
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.ConfirmInnerFundassetpackagepromiseplanResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.fundassetpackagepromiseplan.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def confirm_inner_fundassetpackagepromiseplan_ex_async(
+        self,
+        request: ato_models.ConfirmInnerFundassetpackagepromiseplanRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.ConfirmInnerFundassetpackagepromiseplanResponse:
+        """
+        Description: 本接口提供用户在页面确定生成履约计划之后，调用AN系统锁定履约计划，调ato系统同步履约计划
+        Summary: 确定并最终生成履约计划
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.ConfirmInnerFundassetpackagepromiseplanResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.fundassetpackagepromiseplan.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def detail_inner_fundassetpackage(
+        self,
+        request: ato_models.DetailInnerFundassetpackageRequest,
+    ) -> ato_models.DetailInnerFundassetpackageResponse:
+        """
+        Description: 本接口提供根据资产包id查询代偿签约信息，放款信息，履约信息（查AN系统），放款凭证，材料，审核记录，
+        Summary: 资产包详情查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.detail_inner_fundassetpackage_ex(request, headers, runtime)
+
+    async def detail_inner_fundassetpackage_async(
+        self,
+        request: ato_models.DetailInnerFundassetpackageRequest,
+    ) -> ato_models.DetailInnerFundassetpackageResponse:
+        """
+        Description: 本接口提供根据资产包id查询代偿签约信息，放款信息，履约信息（查AN系统），放款凭证，材料，审核记录，
+        Summary: 资产包详情查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.detail_inner_fundassetpackage_ex_async(request, headers, runtime)
+
+    def detail_inner_fundassetpackage_ex(
+        self,
+        request: ato_models.DetailInnerFundassetpackageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.DetailInnerFundassetpackageResponse:
+        """
+        Description: 本接口提供根据资产包id查询代偿签约信息，放款信息，履约信息（查AN系统），放款凭证，材料，审核记录，
+        Summary: 资产包详情查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.DetailInnerFundassetpackageResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.fundassetpackage.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def detail_inner_fundassetpackage_ex_async(
+        self,
+        request: ato_models.DetailInnerFundassetpackageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.DetailInnerFundassetpackageResponse:
+        """
+        Description: 本接口提供根据资产包id查询代偿签约信息，放款信息，履约信息（查AN系统），放款凭证，材料，审核记录，
+        Summary: 资产包详情查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.DetailInnerFundassetpackageResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.fundassetpackage.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def sync_fund_splitting(
@@ -13795,6 +14243,62 @@ class Client:
             await self.do_request_async('1.0', 'antchain.ato.sign.contractcertificate.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def create_sign_flow(
+        self,
+        request: ato_models.CreateSignFlowRequest,
+    ) -> ato_models.CreateSignFlowResponse:
+        """
+        Description: 标准合同创建接口
+        Summary: 标准合同创建接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_sign_flow_ex(request, headers, runtime)
+
+    async def create_sign_flow_async(
+        self,
+        request: ato_models.CreateSignFlowRequest,
+    ) -> ato_models.CreateSignFlowResponse:
+        """
+        Description: 标准合同创建接口
+        Summary: 标准合同创建接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_sign_flow_ex_async(request, headers, runtime)
+
+    def create_sign_flow_ex(
+        self,
+        request: ato_models.CreateSignFlowRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.CreateSignFlowResponse:
+        """
+        Description: 标准合同创建接口
+        Summary: 标准合同创建接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.CreateSignFlowResponse(),
+            self.do_request('1.0', 'antchain.ato.sign.flow.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_sign_flow_ex_async(
+        self,
+        request: ato_models.CreateSignFlowRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.CreateSignFlowResponse:
+        """
+        Description: 标准合同创建接口
+        Summary: 标准合同创建接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.CreateSignFlowResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.sign.flow.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def sync_trade(
         self,
         request: ato_models.SyncTradeRequest,
@@ -15193,6 +15697,118 @@ class Client:
         return TeaCore.from_map(
             ato_models.QueryTradeCreditgrantingResponse(),
             await self.do_request_async('1.0', 'antchain.ato.trade.creditgranting.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def auth_trade_creditgranting(
+        self,
+        request: ato_models.AuthTradeCreditgrantingRequest,
+    ) -> ato_models.AuthTradeCreditgrantingResponse:
+        """
+        Description: 授信授权申请
+        Summary: 授信授权申请
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.auth_trade_creditgranting_ex(request, headers, runtime)
+
+    async def auth_trade_creditgranting_async(
+        self,
+        request: ato_models.AuthTradeCreditgrantingRequest,
+    ) -> ato_models.AuthTradeCreditgrantingResponse:
+        """
+        Description: 授信授权申请
+        Summary: 授信授权申请
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.auth_trade_creditgranting_ex_async(request, headers, runtime)
+
+    def auth_trade_creditgranting_ex(
+        self,
+        request: ato_models.AuthTradeCreditgrantingRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.AuthTradeCreditgrantingResponse:
+        """
+        Description: 授信授权申请
+        Summary: 授信授权申请
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.AuthTradeCreditgrantingResponse(),
+            self.do_request('1.0', 'antchain.ato.trade.creditgranting.auth', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def auth_trade_creditgranting_ex_async(
+        self,
+        request: ato_models.AuthTradeCreditgrantingRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.AuthTradeCreditgrantingResponse:
+        """
+        Description: 授信授权申请
+        Summary: 授信授权申请
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.AuthTradeCreditgrantingResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.trade.creditgranting.auth', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_trade_creditauth(
+        self,
+        request: ato_models.QueryTradeCreditauthRequest,
+    ) -> ato_models.QueryTradeCreditauthResponse:
+        """
+        Description: 商户查询授权
+        Summary: 商户查询授权
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_trade_creditauth_ex(request, headers, runtime)
+
+    async def query_trade_creditauth_async(
+        self,
+        request: ato_models.QueryTradeCreditauthRequest,
+    ) -> ato_models.QueryTradeCreditauthResponse:
+        """
+        Description: 商户查询授权
+        Summary: 商户查询授权
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_trade_creditauth_ex_async(request, headers, runtime)
+
+    def query_trade_creditauth_ex(
+        self,
+        request: ato_models.QueryTradeCreditauthRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryTradeCreditauthResponse:
+        """
+        Description: 商户查询授权
+        Summary: 商户查询授权
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryTradeCreditauthResponse(),
+            self.do_request('1.0', 'antchain.ato.trade.creditauth.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_trade_creditauth_ex_async(
+        self,
+        request: ato_models.QueryTradeCreditauthRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryTradeCreditauthResponse:
+        """
+        Description: 商户查询授权
+        Summary: 商户查询授权
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryTradeCreditauthResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.trade.creditauth.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_withhold_sign(
