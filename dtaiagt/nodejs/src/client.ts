@@ -2589,6 +2589,11 @@ export class UploadAlipayAgentchatRequest extends $tea.Model {
   fileObject?: Readable;
   fileObjectName?: string;
   fileId?: string;
+  // 文件解析方式
+  // deep：e2md深度解析，耗时较长 
+  // simple：本地解析，解析快
+  // 不传：使用默认配置
+  parseType?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -2596,6 +2601,7 @@ export class UploadAlipayAgentchatRequest extends $tea.Model {
       fileObject: 'fileObject',
       fileObjectName: 'fileObjectName',
       fileId: 'file_id',
+      parseType: 'parse_type',
     };
   }
 
@@ -2606,6 +2612,7 @@ export class UploadAlipayAgentchatRequest extends $tea.Model {
       fileObject: 'Readable',
       fileObjectName: 'string',
       fileId: 'string',
+      parseType: 'string',
     };
   }
 
@@ -4031,7 +4038,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "3.3.0",
+          sdk_version: "3.4.0",
           _prod_code: "DTAIAGT",
           _prod_channel: "default",
         };
