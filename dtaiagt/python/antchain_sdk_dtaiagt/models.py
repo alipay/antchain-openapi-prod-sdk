@@ -4477,6 +4477,7 @@ class UploadAlipayAgentchatRequest(TeaModel):
         file_object: BinaryIO = None,
         file_object_name: str = None,
         file_id: str = None,
+        parse_type: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -4487,6 +4488,11 @@ class UploadAlipayAgentchatRequest(TeaModel):
         # 待上传文件名
         self.file_object_name = file_object_name
         self.file_id = file_id
+        # 文件解析方式
+        # deep：e2md深度解析，耗时较长
+        # simple：本地解析，解析快
+        # 不传：使用默认配置
+        self.parse_type = parse_type
 
     def validate(self):
         pass
@@ -4507,6 +4513,8 @@ class UploadAlipayAgentchatRequest(TeaModel):
             result['fileObjectName'] = self.file_object_name
         if self.file_id is not None:
             result['file_id'] = self.file_id
+        if self.parse_type is not None:
+            result['parse_type'] = self.parse_type
         return result
 
     def from_map(self, m: dict = None):
@@ -4521,6 +4529,8 @@ class UploadAlipayAgentchatRequest(TeaModel):
             self.file_object_name = m.get('fileObjectName')
         if m.get('file_id') is not None:
             self.file_id = m.get('file_id')
+        if m.get('parse_type') is not None:
+            self.parse_type = m.get('parse_type')
         return self
 
 
