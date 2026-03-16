@@ -3441,6 +3441,11 @@ type UploadAlipayAgentchatRequest struct {
 	// 待上传文件名
 	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
 	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty"`
+	// 文件解析方式
+	// deep：e2md深度解析，耗时较长
+	// simple：本地解析，解析快
+	// 不传：使用默认配置
+	ParseType *string `json:"parse_type,omitempty" xml:"parse_type,omitempty"`
 }
 
 func (s UploadAlipayAgentchatRequest) String() string {
@@ -3473,6 +3478,11 @@ func (s *UploadAlipayAgentchatRequest) SetFileObjectName(v string) *UploadAlipay
 
 func (s *UploadAlipayAgentchatRequest) SetFileId(v string) *UploadAlipayAgentchatRequest {
 	s.FileId = &v
+	return s
+}
+
+func (s *UploadAlipayAgentchatRequest) SetParseType(v string) *UploadAlipayAgentchatRequest {
+	s.ParseType = &v
 	return s
 }
 
@@ -5238,7 +5248,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("3.3.0"),
+				"sdk_version":      tea.String("3.4.0"),
 				"_prod_code":       tea.String("DTAIAGT"),
 				"_prod_channel":    tea.String("default"),
 			}
