@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '3.3.0',
+    sdk_version = '3.4.0',
     _prod_code = 'DTAIAGT',
     _prod_channel = 'default'
   };
@@ -1338,6 +1338,11 @@ model UploadAlipayAgentchatRequest = {
   fileObject?: readable(description='待上传文件', ignore='true'),
   fileObjectName?: string(description='待上传文件名', ignore='true'),
   fileId?: string(name='file_id'),
+  // 文件解析方式
+  // deep：e2md深度解析，耗时较长 
+  // simple：本地解析，解析快
+  // 不传：使用默认配置
+  parseType?: string(name='parse_type'),
 }
 
 model UploadAlipayAgentchatResponse = {
