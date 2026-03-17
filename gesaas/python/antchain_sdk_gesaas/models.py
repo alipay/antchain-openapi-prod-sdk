@@ -668,6 +668,83 @@ class RightsGrantResultVO(TeaModel):
         return self
 
 
+class VoucherBaseInfoVO(TeaModel):
+    def __init__(
+        self,
+        user_id: str = None,
+        phone_number: str = None,
+        rights_code: str = None,
+        rights_name: str = None,
+        voucher_code: str = None,
+        status: str = None,
+    ):
+        # 2088xxxxxx0001
+        self.user_id = user_id
+        # 手机号
+        self.phone_number = phone_number
+        # 权益编号
+        self.rights_code = rights_code
+        # 权益名称
+        self.rights_name = rights_name
+        # 券码
+        self.voucher_code = voucher_code
+        # 券状态
+        # WAIT_EFFECT：待生效
+        # WAIT_VERIFY：待核销
+        # EXPIRED：已过期
+        # VERIFY_SUCCESS：核销成功（已核销）
+        # 公域场景下只会包含以上四种状态，私域场景会包含下方状态基
+        # FREEZE：已冻结
+        # VERIFYING：核销处理中
+        # VERIFY_FAIL：核销失败
+        # VERIFY_CANCELING：核销撤销中
+        # INVALID：已失效
+        # NO_NEED_VERIFY：无需核销
+        self.status = status
+
+    def validate(self):
+        self.validate_required(self.rights_code, 'rights_code')
+        self.validate_required(self.rights_name, 'rights_name')
+        self.validate_required(self.voucher_code, 'voucher_code')
+        self.validate_required(self.status, 'status')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        if self.phone_number is not None:
+            result['phone_number'] = self.phone_number
+        if self.rights_code is not None:
+            result['rights_code'] = self.rights_code
+        if self.rights_name is not None:
+            result['rights_name'] = self.rights_name
+        if self.voucher_code is not None:
+            result['voucher_code'] = self.voucher_code
+        if self.status is not None:
+            result['status'] = self.status
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        if m.get('phone_number') is not None:
+            self.phone_number = m.get('phone_number')
+        if m.get('rights_code') is not None:
+            self.rights_code = m.get('rights_code')
+        if m.get('rights_name') is not None:
+            self.rights_name = m.get('rights_name')
+        if m.get('voucher_code') is not None:
+            self.voucher_code = m.get('voucher_code')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        return self
+
+
 class CheckOmngRiskRequest(TeaModel):
     def __init__(
         self,
@@ -1104,6 +1181,104 @@ class QueryRightsprodGrantResponse(TeaModel):
         if m.get('rights_grant_result') is not None:
             temp_model = RightsGrantResultVO()
             self.rights_grant_result = temp_model.from_map(m['rights_grant_result'])
+        return self
+
+
+class BatchqueryRightsprodVoucherRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        voucher_code_list: List[str] = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 券编码（券实例）列表
+        self.voucher_code_list = voucher_code_list
+
+    def validate(self):
+        self.validate_required(self.voucher_code_list, 'voucher_code_list')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.voucher_code_list is not None:
+            result['voucher_code_list'] = self.voucher_code_list
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('voucher_code_list') is not None:
+            self.voucher_code_list = m.get('voucher_code_list')
+        return self
+
+
+class BatchqueryRightsprodVoucherResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        list: List[VoucherBaseInfoVO] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 券基本信息列表
+        self.list = list
+
+    def validate(self):
+        if self.list:
+            for k in self.list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['list'] = []
+        if self.list is not None:
+            for k in self.list:
+                result['list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.list = []
+        if m.get('list') is not None:
+            for k in m.get('list'):
+                temp_model = VoucherBaseInfoVO()
+                self.list.append(temp_model.from_map(k))
         return self
 
 

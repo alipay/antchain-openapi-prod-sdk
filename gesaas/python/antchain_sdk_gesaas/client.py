@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.7',
+                    'sdk_version': '1.3.0',
                     '_prod_code': 'GESAAS',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.7',
+                    'sdk_version': '1.3.0',
                     '_prod_code': 'GESAAS',
                     '_prod_channel': 'default'
                 }
@@ -441,4 +441,60 @@ class Client:
         return TeaCore.from_map(
             gesaas_models.QueryRightsprodGrantResponse(),
             await self.do_request_async('1.0', 'antdigital.gesaas.rightsprod.grant.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def batchquery_rightsprod_voucher(
+        self,
+        request: gesaas_models.BatchqueryRightsprodVoucherRequest,
+    ) -> gesaas_models.BatchqueryRightsprodVoucherResponse:
+        """
+        Description: 券基本信息批量查询
+        Summary: 券基本信息批量查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.batchquery_rightsprod_voucher_ex(request, headers, runtime)
+
+    async def batchquery_rightsprod_voucher_async(
+        self,
+        request: gesaas_models.BatchqueryRightsprodVoucherRequest,
+    ) -> gesaas_models.BatchqueryRightsprodVoucherResponse:
+        """
+        Description: 券基本信息批量查询
+        Summary: 券基本信息批量查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.batchquery_rightsprod_voucher_ex_async(request, headers, runtime)
+
+    def batchquery_rightsprod_voucher_ex(
+        self,
+        request: gesaas_models.BatchqueryRightsprodVoucherRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaas_models.BatchqueryRightsprodVoucherResponse:
+        """
+        Description: 券基本信息批量查询
+        Summary: 券基本信息批量查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaas_models.BatchqueryRightsprodVoucherResponse(),
+            self.do_request('1.0', 'antdigital.gesaas.rightsprod.voucher.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def batchquery_rightsprod_voucher_ex_async(
+        self,
+        request: gesaas_models.BatchqueryRightsprodVoucherRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaas_models.BatchqueryRightsprodVoucherResponse:
+        """
+        Description: 券基本信息批量查询
+        Summary: 券基本信息批量查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaas_models.BatchqueryRightsprodVoucherResponse(),
+            await self.do_request_async('1.0', 'antdigital.gesaas.rightsprod.voucher.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
