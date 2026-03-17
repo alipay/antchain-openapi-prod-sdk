@@ -137,7 +137,7 @@ namespace AntChain.SDK.GESAAS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.2.7"},
+                        {"sdk_version", "1.3.0"},
                         {"_prod_code", "GESAAS"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.GESAAS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.2.7"},
+                        {"sdk_version", "1.3.0"},
                         {"_prod_code", "GESAAS"},
                         {"_prod_channel", "default"},
                     };
@@ -445,6 +445,48 @@ namespace AntChain.SDK.GESAAS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryRightsprodGrantResponse>(await DoRequestAsync("1.0", "antdigital.gesaas.rightsprod.grant.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 券基本信息批量查询
+         * Summary: 券基本信息批量查询
+         */
+        public BatchqueryRightsprodVoucherResponse BatchqueryRightsprodVoucher(BatchqueryRightsprodVoucherRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return BatchqueryRightsprodVoucherEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 券基本信息批量查询
+         * Summary: 券基本信息批量查询
+         */
+        public async Task<BatchqueryRightsprodVoucherResponse> BatchqueryRightsprodVoucherAsync(BatchqueryRightsprodVoucherRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await BatchqueryRightsprodVoucherExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 券基本信息批量查询
+         * Summary: 券基本信息批量查询
+         */
+        public BatchqueryRightsprodVoucherResponse BatchqueryRightsprodVoucherEx(BatchqueryRightsprodVoucherRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BatchqueryRightsprodVoucherResponse>(DoRequest("1.0", "antdigital.gesaas.rightsprod.voucher.batchquery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 券基本信息批量查询
+         * Summary: 券基本信息批量查询
+         */
+        public async Task<BatchqueryRightsprodVoucherResponse> BatchqueryRightsprodVoucherExAsync(BatchqueryRightsprodVoucherRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BatchqueryRightsprodVoucherResponse>(await DoRequestAsync("1.0", "antdigital.gesaas.rightsprod.voucher.batchquery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
