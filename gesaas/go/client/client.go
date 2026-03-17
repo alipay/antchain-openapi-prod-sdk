@@ -533,6 +533,71 @@ func (s *RightsGrantResultVO) SetOrderDetails(v []*OrderDetail) *RightsGrantResu
 	return s
 }
 
+// 券基本信息
+type VoucherBaseInfoVO struct {
+	// 2088xxxxxx0001
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+	// 手机号
+	PhoneNumber *string `json:"phone_number,omitempty" xml:"phone_number,omitempty"`
+	// 权益编号
+	RightsCode *string `json:"rights_code,omitempty" xml:"rights_code,omitempty" require:"true"`
+	// 权益名称
+	RightsName *string `json:"rights_name,omitempty" xml:"rights_name,omitempty" require:"true"`
+	// 券码
+	VoucherCode *string `json:"voucher_code,omitempty" xml:"voucher_code,omitempty" require:"true"`
+	// 券状态
+	// WAIT_EFFECT：待生效
+	// WAIT_VERIFY：待核销
+	// EXPIRED：已过期
+	// VERIFY_SUCCESS：核销成功（已核销）
+	// 公域场景下只会包含以上四种状态，私域场景会包含下方状态基
+	// FREEZE：已冻结
+	// VERIFYING：核销处理中
+	// VERIFY_FAIL：核销失败
+	// VERIFY_CANCELING：核销撤销中
+	// INVALID：已失效
+	// NO_NEED_VERIFY：无需核销
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+}
+
+func (s VoucherBaseInfoVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VoucherBaseInfoVO) GoString() string {
+	return s.String()
+}
+
+func (s *VoucherBaseInfoVO) SetUserId(v string) *VoucherBaseInfoVO {
+	s.UserId = &v
+	return s
+}
+
+func (s *VoucherBaseInfoVO) SetPhoneNumber(v string) *VoucherBaseInfoVO {
+	s.PhoneNumber = &v
+	return s
+}
+
+func (s *VoucherBaseInfoVO) SetRightsCode(v string) *VoucherBaseInfoVO {
+	s.RightsCode = &v
+	return s
+}
+
+func (s *VoucherBaseInfoVO) SetRightsName(v string) *VoucherBaseInfoVO {
+	s.RightsName = &v
+	return s
+}
+
+func (s *VoucherBaseInfoVO) SetVoucherCode(v string) *VoucherBaseInfoVO {
+	s.VoucherCode = &v
+	return s
+}
+
+func (s *VoucherBaseInfoVO) SetStatus(v string) *VoucherBaseInfoVO {
+	s.Status = &v
+	return s
+}
+
 type CheckOmngRiskRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -894,6 +959,76 @@ func (s *QueryRightsprodGrantResponse) SetRightsGrantResult(v *RightsGrantResult
 	return s
 }
 
+type BatchqueryRightsprodVoucherRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 券编码（券实例）列表
+	VoucherCodeList []*string `json:"voucher_code_list,omitempty" xml:"voucher_code_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s BatchqueryRightsprodVoucherRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BatchqueryRightsprodVoucherRequest) GoString() string {
+	return s.String()
+}
+
+func (s *BatchqueryRightsprodVoucherRequest) SetAuthToken(v string) *BatchqueryRightsprodVoucherRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *BatchqueryRightsprodVoucherRequest) SetProductInstanceId(v string) *BatchqueryRightsprodVoucherRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *BatchqueryRightsprodVoucherRequest) SetVoucherCodeList(v []*string) *BatchqueryRightsprodVoucherRequest {
+	s.VoucherCodeList = v
+	return s
+}
+
+type BatchqueryRightsprodVoucherResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 券基本信息列表
+	List []*VoucherBaseInfoVO `json:"list,omitempty" xml:"list,omitempty" type:"Repeated"`
+}
+
+func (s BatchqueryRightsprodVoucherResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BatchqueryRightsprodVoucherResponse) GoString() string {
+	return s.String()
+}
+
+func (s *BatchqueryRightsprodVoucherResponse) SetReqMsgId(v string) *BatchqueryRightsprodVoucherResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *BatchqueryRightsprodVoucherResponse) SetResultCode(v string) *BatchqueryRightsprodVoucherResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *BatchqueryRightsprodVoucherResponse) SetResultMsg(v string) *BatchqueryRightsprodVoucherResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *BatchqueryRightsprodVoucherResponse) SetList(v []*VoucherBaseInfoVO) *BatchqueryRightsprodVoucherResponse {
+	s.List = v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -1016,7 +1151,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.2.7"),
+				"sdk_version":      tea.String("1.3.0"),
 				"_prod_code":       tea.String("GESAAS"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -1169,6 +1304,40 @@ func (client *Client) QueryRightsprodGrantEx(request *QueryRightsprodGrantReques
 	}
 	_result = &QueryRightsprodGrantResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.gesaas.rightsprod.grant.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 券基本信息批量查询
+ * Summary: 券基本信息批量查询
+ */
+func (client *Client) BatchqueryRightsprodVoucher(request *BatchqueryRightsprodVoucherRequest) (_result *BatchqueryRightsprodVoucherResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &BatchqueryRightsprodVoucherResponse{}
+	_body, _err := client.BatchqueryRightsprodVoucherEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 券基本信息批量查询
+ * Summary: 券基本信息批量查询
+ */
+func (client *Client) BatchqueryRightsprodVoucherEx(request *BatchqueryRightsprodVoucherRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BatchqueryRightsprodVoucherResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &BatchqueryRightsprodVoucherResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.gesaas.rightsprod.voucher.batchquery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
