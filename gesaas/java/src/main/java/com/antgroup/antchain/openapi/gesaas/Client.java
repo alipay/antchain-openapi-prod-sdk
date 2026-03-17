@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.2.7"),
+                    new TeaPair("sdk_version", "1.3.0"),
                     new TeaPair("_prod_code", "GESAAS"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -249,5 +249,26 @@ public class Client {
     public QueryRightsprodGrantResponse queryRightsprodGrantEx(QueryRightsprodGrantRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antdigital.gesaas.rightsprod.grant.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryRightsprodGrantResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 券基本信息批量查询
+     * Summary: 券基本信息批量查询</p>
+     */
+    public BatchqueryRightsprodVoucherResponse batchqueryRightsprodVoucher(BatchqueryRightsprodVoucherRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.batchqueryRightsprodVoucherEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 券基本信息批量查询
+     * Summary: 券基本信息批量查询</p>
+     */
+    public BatchqueryRightsprodVoucherResponse batchqueryRightsprodVoucherEx(BatchqueryRightsprodVoucherRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.gesaas.rightsprod.voucher.batchquery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BatchqueryRightsprodVoucherResponse());
     }
 }
