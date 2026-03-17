@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.2.7',
+    sdk_version = '1.3.0',
     _prod_code = 'GESAAS',
     _prod_channel = 'default'
   };
@@ -292,6 +292,33 @@ model RightsGrantResultVO {
   orderDetails?: [ OrderDetail ](name='order_details', example=''),
 }
 
+// 券基本信息
+model VoucherBaseInfoVO {
+  // 2088xxxxxx0001
+  userId?: string(name='user_id', example='用户ID'),
+  // 手机号
+  phoneNumber?: string(name='phone_number', example='15700001111'),
+  // 权益编号
+  rightsCode: string(name='rights_code', example='RC188955110502576765'),
+  // 权益名称
+  rightsName: string(name='rights_name', example='满10元减2元'),
+  // 券码
+  voucherCode: string(name='voucher_code', example='202601160007300227760ZT3CMQY'),
+  // 券状态
+  // WAIT_EFFECT：待生效 
+  // WAIT_VERIFY：待核销 
+  // EXPIRED：已过期 
+  // VERIFY_SUCCESS：核销成功（已核销） 
+  // 公域场景下只会包含以上四种状态，私域场景会包含下方状态基
+  // FREEZE：已冻结 
+  // VERIFYING：核销处理中 
+  // VERIFY_FAIL：核销失败 
+  // VERIFY_CANCELING：核销撤销中
+  // INVALID：已失效 
+  // NO_NEED_VERIFY：无需核销 
+  status: string(name='status', example='WAIT_VERIFY'),
+}
+
 model CheckOmngRiskRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -455,5 +482,43 @@ async function queryRightsprodGrant(request: QueryRightsprodGrantRequest): Query
 async function queryRightsprodGrantEx(request: QueryRightsprodGrantRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryRightsprodGrantResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antdigital.gesaas.rightsprod.grant.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BatchqueryRightsprodVoucherRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 券编码（券实例）列表
+  voucherCodeList: [ string ](name='voucher_code_list'),
+}
+
+model BatchqueryRightsprodVoucherResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 券基本信息列表
+  list?: [ VoucherBaseInfoVO ](name='list'),
+}
+
+/**
+ * Description: 券基本信息批量查询
+ * Summary: 券基本信息批量查询
+ */
+async function batchqueryRightsprodVoucher(request: BatchqueryRightsprodVoucherRequest): BatchqueryRightsprodVoucherResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return batchqueryRightsprodVoucherEx(request, headers, runtime);
+}
+
+/**
+ * Description: 券基本信息批量查询
+ * Summary: 券基本信息批量查询
+ */
+async function batchqueryRightsprodVoucherEx(request: BatchqueryRightsprodVoucherRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BatchqueryRightsprodVoucherResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.gesaas.rightsprod.voucher.batchquery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
