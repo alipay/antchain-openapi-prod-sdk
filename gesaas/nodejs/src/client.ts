@@ -388,6 +388,58 @@ export class RightsGrantResultVO extends $tea.Model {
   }
 }
 
+// 券基本信息
+export class VoucherBaseInfoVO extends $tea.Model {
+  // 2088xxxxxx0001
+  userId?: string;
+  // 手机号
+  phoneNumber?: string;
+  // 权益编号
+  rightsCode: string;
+  // 权益名称
+  rightsName: string;
+  // 券码
+  voucherCode: string;
+  // 券状态
+  // WAIT_EFFECT：待生效 
+  // WAIT_VERIFY：待核销 
+  // EXPIRED：已过期 
+  // VERIFY_SUCCESS：核销成功（已核销） 
+  // 公域场景下只会包含以上四种状态，私域场景会包含下方状态基
+  // FREEZE：已冻结 
+  // VERIFYING：核销处理中 
+  // VERIFY_FAIL：核销失败 
+  // VERIFY_CANCELING：核销撤销中
+  // INVALID：已失效 
+  // NO_NEED_VERIFY：无需核销 
+  status: string;
+  static names(): { [key: string]: string } {
+    return {
+      userId: 'user_id',
+      phoneNumber: 'phone_number',
+      rightsCode: 'rights_code',
+      rightsName: 'rights_name',
+      voucherCode: 'voucher_code',
+      status: 'status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      userId: 'string',
+      phoneNumber: 'string',
+      rightsCode: 'string',
+      rightsName: 'string',
+      voucherCode: 'string',
+      status: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CheckOmngRiskRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -656,6 +708,65 @@ export class QueryRightsprodGrantResponse extends $tea.Model {
   }
 }
 
+export class BatchqueryRightsprodVoucherRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 券编码（券实例）列表
+  voucherCodeList: string[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      voucherCodeList: 'voucher_code_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      voucherCodeList: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BatchqueryRightsprodVoucherResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 券基本信息列表
+  list?: VoucherBaseInfoVO[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      list: 'list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      list: { 'type': 'array', 'itemType': VoucherBaseInfoVO },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -769,7 +880,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.2.7",
+          sdk_version: "1.3.0",
           _prod_code: "GESAAS",
           _prod_channel: "default",
         };
@@ -872,6 +983,25 @@ export default class Client {
   async queryRightsprodGrantEx(request: QueryRightsprodGrantRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryRightsprodGrantResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryRightsprodGrantResponse>(await this.doRequest("1.0", "antdigital.gesaas.rightsprod.grant.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryRightsprodGrantResponse({}));
+  }
+
+  /**
+   * Description: 券基本信息批量查询
+   * Summary: 券基本信息批量查询
+   */
+  async batchqueryRightsprodVoucher(request: BatchqueryRightsprodVoucherRequest): Promise<BatchqueryRightsprodVoucherResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.batchqueryRightsprodVoucherEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 券基本信息批量查询
+   * Summary: 券基本信息批量查询
+   */
+  async batchqueryRightsprodVoucherEx(request: BatchqueryRightsprodVoucherRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BatchqueryRightsprodVoucherResponse> {
+    Util.validateModel(request);
+    return $tea.cast<BatchqueryRightsprodVoucherResponse>(await this.doRequest("1.0", "antdigital.gesaas.rightsprod.voucher.batchquery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BatchqueryRightsprodVoucherResponse({}));
   }
 
 }
