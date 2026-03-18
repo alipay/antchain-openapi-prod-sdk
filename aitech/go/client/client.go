@@ -7459,6 +7459,111 @@ func (s *QuerySecurityAnswerResponse) SetSecurityAnswer(v string) *QuerySecurity
 	return s
 }
 
+type QuerySecurityImageRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 调用方唯一标示
+	Enterprise *string `json:"enterprise,omitempty" xml:"enterprise,omitempty"`
+	// 租户id
+	BusinessId *string `json:"business_id,omitempty" xml:"business_id,omitempty" require:"true"`
+	// 图片风险监测code
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+	// 标示是否是同一个Q&A
+	MessageId *string `json:"message_id,omitempty" xml:"message_id,omitempty" require:"true"`
+	// 待检测图片地址
+	ImageUrl *string `json:"image_url,omitempty" xml:"image_url,omitempty" require:"true"`
+	// 图片检测内容
+	Content *string `json:"content,omitempty" xml:"content,omitempty"`
+}
+
+func (s QuerySecurityImageRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QuerySecurityImageRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QuerySecurityImageRequest) SetAuthToken(v string) *QuerySecurityImageRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QuerySecurityImageRequest) SetProductInstanceId(v string) *QuerySecurityImageRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QuerySecurityImageRequest) SetEnterprise(v string) *QuerySecurityImageRequest {
+	s.Enterprise = &v
+	return s
+}
+
+func (s *QuerySecurityImageRequest) SetBusinessId(v string) *QuerySecurityImageRequest {
+	s.BusinessId = &v
+	return s
+}
+
+func (s *QuerySecurityImageRequest) SetSceneCode(v string) *QuerySecurityImageRequest {
+	s.SceneCode = &v
+	return s
+}
+
+func (s *QuerySecurityImageRequest) SetMessageId(v string) *QuerySecurityImageRequest {
+	s.MessageId = &v
+	return s
+}
+
+func (s *QuerySecurityImageRequest) SetImageUrl(v string) *QuerySecurityImageRequest {
+	s.ImageUrl = &v
+	return s
+}
+
+func (s *QuerySecurityImageRequest) SetContent(v string) *QuerySecurityImageRequest {
+	s.Content = &v
+	return s
+}
+
+type QuerySecurityImageResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 代表风险等级和建议的处置结论
+	ActionCode *string `json:"action_code,omitempty" xml:"action_code,omitempty"`
+}
+
+func (s QuerySecurityImageResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QuerySecurityImageResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QuerySecurityImageResponse) SetReqMsgId(v string) *QuerySecurityImageResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QuerySecurityImageResponse) SetResultCode(v string) *QuerySecurityImageResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QuerySecurityImageResponse) SetResultMsg(v string) *QuerySecurityImageResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QuerySecurityImageResponse) SetActionCode(v string) *QuerySecurityImageResponse {
+	s.ActionCode = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -7581,7 +7686,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.60"),
+				"sdk_version":      tea.String("1.1.62"),
 				"_prod_code":       tea.String("AITECH"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -9706,6 +9811,40 @@ func (client *Client) QuerySecurityAnswerEx(request *QuerySecurityAnswerRequest,
 	}
 	_result = &QuerySecurityAnswerResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("aitech.comm.security.answer.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 天鉴图片检测功能saas版本
+ * Summary: 天鉴图片检测功能saas
+ */
+func (client *Client) QuerySecurityImage(request *QuerySecurityImageRequest) (_result *QuerySecurityImageResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QuerySecurityImageResponse{}
+	_body, _err := client.QuerySecurityImageEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 天鉴图片检测功能saas版本
+ * Summary: 天鉴图片检测功能saas
+ */
+func (client *Client) QuerySecurityImageEx(request *QuerySecurityImageRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QuerySecurityImageResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QuerySecurityImageResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("aitech.comm.security.image.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
