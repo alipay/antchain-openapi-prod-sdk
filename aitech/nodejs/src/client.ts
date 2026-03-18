@@ -5638,6 +5638,85 @@ export class QuerySecurityAnswerResponse extends $tea.Model {
   }
 }
 
+export class QuerySecurityImageRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 调用方唯一标示
+  enterprise?: string;
+  // 租户id
+  businessId: string;
+  // 图片风险监测code
+  sceneCode: string;
+  // 标示是否是同一个Q&A
+  messageId: string;
+  // 待检测图片地址
+  imageUrl: string;
+  // 图片检测内容
+  content?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      enterprise: 'enterprise',
+      businessId: 'business_id',
+      sceneCode: 'scene_code',
+      messageId: 'message_id',
+      imageUrl: 'image_url',
+      content: 'content',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      enterprise: 'string',
+      businessId: 'string',
+      sceneCode: 'string',
+      messageId: 'string',
+      imageUrl: 'string',
+      content: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QuerySecurityImageResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 代表风险等级和建议的处置结论
+  actionCode?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      actionCode: 'action_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      actionCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -5751,7 +5830,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.60",
+          sdk_version: "1.1.62",
           _prod_code: "AITECH",
           _prod_channel: "default",
         };
@@ -6956,6 +7035,25 @@ export default class Client {
   async querySecurityAnswerEx(request: QuerySecurityAnswerRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QuerySecurityAnswerResponse> {
     Util.validateModel(request);
     return $tea.cast<QuerySecurityAnswerResponse>(await this.doRequest("1.0", "aitech.comm.security.answer.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QuerySecurityAnswerResponse({}));
+  }
+
+  /**
+   * Description: 天鉴图片检测功能saas版本
+   * Summary: 天鉴图片检测功能saas
+   */
+  async querySecurityImage(request: QuerySecurityImageRequest): Promise<QuerySecurityImageResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.querySecurityImageEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 天鉴图片检测功能saas版本
+   * Summary: 天鉴图片检测功能saas
+   */
+  async querySecurityImageEx(request: QuerySecurityImageRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QuerySecurityImageResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QuerySecurityImageResponse>(await this.doRequest("1.0", "aitech.comm.security.image.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QuerySecurityImageResponse({}));
   }
 
 }
