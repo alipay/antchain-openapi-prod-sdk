@@ -33,6 +33,21 @@ namespace AntChain.SDK.COLLABINV.Models
         [Validation(Required=true)]
         public string LicenseNo { get; set; }
 
+        // 城市编码
+        [NameInMap("city_code")]
+        [Validation(Required=true)]
+        public string CityCode { get; set; }
+
+        // 城市名称
+        [NameInMap("city_name")]
+        [Validation(Required=true)]
+        public string CityName { get; set; }
+
+        // yyyy-MM-dd HH:mm:ss
+        [NameInMap("report_time")]
+        [Validation(Required=true)]
+        public string ReportTime { get; set; }
+
     }
 
 }
