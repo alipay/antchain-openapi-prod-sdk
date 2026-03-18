@@ -26,6 +26,21 @@ public class ImportCarloanYztRequest extends TeaModel {
     @Validation(required = true)
     public String licenseNo;
 
+    // 城市编码
+    @NameInMap("city_code")
+    @Validation(required = true)
+    public String cityCode;
+
+    // 城市名称
+    @NameInMap("city_name")
+    @Validation(required = true)
+    public String cityName;
+
+    // yyyy-MM-dd HH:mm:ss
+    @NameInMap("report_time")
+    @Validation(required = true)
+    public String reportTime;
+
     public static ImportCarloanYztRequest build(java.util.Map<String, ?> map) throws Exception {
         ImportCarloanYztRequest self = new ImportCarloanYztRequest();
         return TeaModel.build(map, self);
@@ -69,6 +84,30 @@ public class ImportCarloanYztRequest extends TeaModel {
     }
     public String getLicenseNo() {
         return this.licenseNo;
+    }
+
+    public ImportCarloanYztRequest setCityCode(String cityCode) {
+        this.cityCode = cityCode;
+        return this;
+    }
+    public String getCityCode() {
+        return this.cityCode;
+    }
+
+    public ImportCarloanYztRequest setCityName(String cityName) {
+        this.cityName = cityName;
+        return this;
+    }
+    public String getCityName() {
+        return this.cityName;
+    }
+
+    public ImportCarloanYztRequest setReportTime(String reportTime) {
+        this.reportTime = reportTime;
+        return this;
+    }
+    public String getReportTime() {
+        return this.reportTime;
     }
 
 }
