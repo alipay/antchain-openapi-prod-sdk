@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.65',
+    sdk_version = '1.0.66',
     _prod_code = 'COLLABINV',
     _prod_channel = 'default'
   };
@@ -171,6 +171,22 @@ model ChatMessageInfo {
   answer?: string(name='answer', example='恢复内容'),
   // 创建时间
   createDate: string(name='create_date', example='2025-04-24 17:54:23'),
+}
+
+// 二手车估价信息
+model UsedCarValuation {
+  // 评估金额(万)
+  referenceprice: string(name='referenceprice', example='1.15-1.43'),
+  // 官方报价(参考)(万)
+  newcarprice: string(name='newcarprice', example='54.5'),
+  // 车型图片(参考)
+  url: string(name='url', example='"http://car0.autoimg.cn/cardfs/product/g32/M08/A5/55/t_autohomecar__ChxkPmZijMqAMuHJAALTBQ2Tti4239.jpg"'),
+  // 车况好(万)(三个价格用"-"分隔,第一个是较小值第二个是...
+  conditiona: string(name='conditiona', example='1.30-1.38-1.45'),
+  // 车况正常(万)
+  conditionb: string(name='conditionb', example='1.18-1.29-1.41'),
+  // 车况差(万)
+  conditionc: string(name='conditionc', example='1.04-1.16-1.28'),
 }
 
 // 消费行业数据
@@ -1046,6 +1062,12 @@ model ImportCarloanYztRequest = {
   phoneNum: string(name='phone_num'),
   // 车牌号
   licenseNo: string(name='license_no'),
+  // 城市编码
+  cityCode: string(name='city_code'),
+  // 城市名称
+  cityName: string(name='city_name'),
+  // yyyy-MM-dd HH:mm:ss
+  reportTime: string(name='report_time'),
 }
 
 model ImportCarloanYztResponse = {
