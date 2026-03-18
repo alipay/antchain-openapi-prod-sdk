@@ -111,6 +111,47 @@ export class ChatMessageInfo extends $tea.Model {
   }
 }
 
+// 二手车估价信息
+export class UsedCarValuation extends $tea.Model {
+  // 评估金额(万)
+  referenceprice: string;
+  // 官方报价(参考)(万)
+  newcarprice: string;
+  // 车型图片(参考)
+  url: string;
+  // 车况好(万)(三个价格用"-"分隔,第一个是较小值第二个是...
+  conditiona: string;
+  // 车况正常(万)
+  conditionb: string;
+  // 车况差(万)
+  conditionc: string;
+  static names(): { [key: string]: string } {
+    return {
+      referenceprice: 'referenceprice',
+      newcarprice: 'newcarprice',
+      url: 'url',
+      conditiona: 'conditiona',
+      conditionb: 'conditionb',
+      conditionc: 'conditionc',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      referenceprice: 'string',
+      newcarprice: 'string',
+      url: 'string',
+      conditiona: 'string',
+      conditionb: 'string',
+      conditionc: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 消费行业数据
 export class IndustryData extends $tea.Model {
   // 行业
@@ -1591,6 +1632,12 @@ export class ImportCarloanYztRequest extends $tea.Model {
   phoneNum: string;
   // 车牌号
   licenseNo: string;
+  // 城市编码
+  cityCode: string;
+  // 城市名称
+  cityName: string;
+  // yyyy-MM-dd HH:mm:ss
+  reportTime: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -1598,6 +1645,9 @@ export class ImportCarloanYztRequest extends $tea.Model {
       userId: 'user_id',
       phoneNum: 'phone_num',
       licenseNo: 'license_no',
+      cityCode: 'city_code',
+      cityName: 'city_name',
+      reportTime: 'report_time',
     };
   }
 
@@ -1608,6 +1658,9 @@ export class ImportCarloanYztRequest extends $tea.Model {
       userId: 'string',
       phoneNum: 'string',
       licenseNo: 'string',
+      cityCode: 'string',
+      cityName: 'string',
+      reportTime: 'string',
     };
   }
 
@@ -3362,7 +3415,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.65",
+          sdk_version: "1.0.66",
           _prod_code: "COLLABINV",
           _prod_channel: "default",
         };
