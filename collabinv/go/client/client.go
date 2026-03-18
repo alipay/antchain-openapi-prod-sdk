@@ -189,6 +189,60 @@ func (s *ChatMessageInfo) SetCreateDate(v string) *ChatMessageInfo {
 	return s
 }
 
+// 二手车估价信息
+type UsedCarValuation struct {
+	// 评估金额(万)
+	Referenceprice *string `json:"referenceprice,omitempty" xml:"referenceprice,omitempty" require:"true"`
+	// 官方报价(参考)(万)
+	Newcarprice *string `json:"newcarprice,omitempty" xml:"newcarprice,omitempty" require:"true"`
+	// 车型图片(参考)
+	Url *string `json:"url,omitempty" xml:"url,omitempty" require:"true"`
+	// 车况好(万)(三个价格用"-"分隔,第一个是较小值第二个是...
+	Conditiona *string `json:"conditiona,omitempty" xml:"conditiona,omitempty" require:"true"`
+	// 车况正常(万)
+	Conditionb *string `json:"conditionb,omitempty" xml:"conditionb,omitempty" require:"true"`
+	// 车况差(万)
+	Conditionc *string `json:"conditionc,omitempty" xml:"conditionc,omitempty" require:"true"`
+}
+
+func (s UsedCarValuation) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UsedCarValuation) GoString() string {
+	return s.String()
+}
+
+func (s *UsedCarValuation) SetReferenceprice(v string) *UsedCarValuation {
+	s.Referenceprice = &v
+	return s
+}
+
+func (s *UsedCarValuation) SetNewcarprice(v string) *UsedCarValuation {
+	s.Newcarprice = &v
+	return s
+}
+
+func (s *UsedCarValuation) SetUrl(v string) *UsedCarValuation {
+	s.Url = &v
+	return s
+}
+
+func (s *UsedCarValuation) SetConditiona(v string) *UsedCarValuation {
+	s.Conditiona = &v
+	return s
+}
+
+func (s *UsedCarValuation) SetConditionb(v string) *UsedCarValuation {
+	s.Conditionb = &v
+	return s
+}
+
+func (s *UsedCarValuation) SetConditionc(v string) *UsedCarValuation {
+	s.Conditionc = &v
+	return s
+}
+
 // 消费行业数据
 type IndustryData struct {
 	// 行业
@@ -2067,6 +2121,12 @@ type ImportCarloanYztRequest struct {
 	PhoneNum *string `json:"phone_num,omitempty" xml:"phone_num,omitempty" require:"true"`
 	// 车牌号
 	LicenseNo *string `json:"license_no,omitempty" xml:"license_no,omitempty" require:"true"`
+	// 城市编码
+	CityCode *string `json:"city_code,omitempty" xml:"city_code,omitempty" require:"true"`
+	// 城市名称
+	CityName *string `json:"city_name,omitempty" xml:"city_name,omitempty" require:"true"`
+	// yyyy-MM-dd HH:mm:ss
+	ReportTime *string `json:"report_time,omitempty" xml:"report_time,omitempty" require:"true"`
 }
 
 func (s ImportCarloanYztRequest) String() string {
@@ -2099,6 +2159,21 @@ func (s *ImportCarloanYztRequest) SetPhoneNum(v string) *ImportCarloanYztRequest
 
 func (s *ImportCarloanYztRequest) SetLicenseNo(v string) *ImportCarloanYztRequest {
 	s.LicenseNo = &v
+	return s
+}
+
+func (s *ImportCarloanYztRequest) SetCityCode(v string) *ImportCarloanYztRequest {
+	s.CityCode = &v
+	return s
+}
+
+func (s *ImportCarloanYztRequest) SetCityName(v string) *ImportCarloanYztRequest {
+	s.CityName = &v
+	return s
+}
+
+func (s *ImportCarloanYztRequest) SetReportTime(v string) *ImportCarloanYztRequest {
+	s.ReportTime = &v
 	return s
 }
 
@@ -4393,7 +4468,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.65"),
+				"sdk_version":      tea.String("1.0.66"),
 				"_prod_code":       tea.String("COLLABINV"),
 				"_prod_channel":    tea.String("default"),
 			}
