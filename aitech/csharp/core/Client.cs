@@ -137,7 +137,7 @@ namespace AntChain.SDK.AITECH
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.60"},
+                        {"sdk_version", "1.1.62"},
                         {"_prod_code", "AITECH"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.AITECH
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.60"},
+                        {"sdk_version", "1.1.62"},
                         {"_prod_code", "AITECH"},
                         {"_prod_channel", "default"},
                     };
@@ -2881,6 +2881,48 @@ namespace AntChain.SDK.AITECH
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QuerySecurityAnswerResponse>(await DoRequestAsync("1.0", "aitech.comm.security.answer.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 天鉴图片检测功能saas版本
+         * Summary: 天鉴图片检测功能saas
+         */
+        public QuerySecurityImageResponse QuerySecurityImage(QuerySecurityImageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QuerySecurityImageEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 天鉴图片检测功能saas版本
+         * Summary: 天鉴图片检测功能saas
+         */
+        public async Task<QuerySecurityImageResponse> QuerySecurityImageAsync(QuerySecurityImageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QuerySecurityImageExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 天鉴图片检测功能saas版本
+         * Summary: 天鉴图片检测功能saas
+         */
+        public QuerySecurityImageResponse QuerySecurityImageEx(QuerySecurityImageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QuerySecurityImageResponse>(DoRequest("1.0", "aitech.comm.security.image.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 天鉴图片检测功能saas版本
+         * Summary: 天鉴图片检测功能saas
+         */
+        public async Task<QuerySecurityImageResponse> QuerySecurityImageExAsync(QuerySecurityImageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QuerySecurityImageResponse>(await DoRequestAsync("1.0", "aitech.comm.security.image.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
