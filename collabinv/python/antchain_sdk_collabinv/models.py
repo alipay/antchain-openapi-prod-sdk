@@ -204,6 +204,74 @@ class ChatMessageInfo(TeaModel):
         return self
 
 
+class UsedCarValuation(TeaModel):
+    def __init__(
+        self,
+        referenceprice: str = None,
+        newcarprice: str = None,
+        url: str = None,
+        conditiona: str = None,
+        conditionb: str = None,
+        conditionc: str = None,
+    ):
+        # 评估金额(万)
+        self.referenceprice = referenceprice
+        # 官方报价(参考)(万)
+        self.newcarprice = newcarprice
+        # 车型图片(参考)
+        self.url = url
+        # 车况好(万)(三个价格用"-"分隔,第一个是较小值第二个是...
+        self.conditiona = conditiona
+        # 车况正常(万)
+        self.conditionb = conditionb
+        # 车况差(万)
+        self.conditionc = conditionc
+
+    def validate(self):
+        self.validate_required(self.referenceprice, 'referenceprice')
+        self.validate_required(self.newcarprice, 'newcarprice')
+        self.validate_required(self.url, 'url')
+        self.validate_required(self.conditiona, 'conditiona')
+        self.validate_required(self.conditionb, 'conditionb')
+        self.validate_required(self.conditionc, 'conditionc')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.referenceprice is not None:
+            result['referenceprice'] = self.referenceprice
+        if self.newcarprice is not None:
+            result['newcarprice'] = self.newcarprice
+        if self.url is not None:
+            result['url'] = self.url
+        if self.conditiona is not None:
+            result['conditiona'] = self.conditiona
+        if self.conditionb is not None:
+            result['conditionb'] = self.conditionb
+        if self.conditionc is not None:
+            result['conditionc'] = self.conditionc
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('referenceprice') is not None:
+            self.referenceprice = m.get('referenceprice')
+        if m.get('newcarprice') is not None:
+            self.newcarprice = m.get('newcarprice')
+        if m.get('url') is not None:
+            self.url = m.get('url')
+        if m.get('conditiona') is not None:
+            self.conditiona = m.get('conditiona')
+        if m.get('conditionb') is not None:
+            self.conditionb = m.get('conditionb')
+        if m.get('conditionc') is not None:
+            self.conditionc = m.get('conditionc')
+        return self
+
+
 class IndustryData(TeaModel):
     def __init__(
         self,
@@ -2595,6 +2663,9 @@ class ImportCarloanYztRequest(TeaModel):
         user_id: str = None,
         phone_num: str = None,
         license_no: str = None,
+        city_code: str = None,
+        city_name: str = None,
+        report_time: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -2605,11 +2676,20 @@ class ImportCarloanYztRequest(TeaModel):
         self.phone_num = phone_num
         # 车牌号
         self.license_no = license_no
+        # 城市编码
+        self.city_code = city_code
+        # 城市名称
+        self.city_name = city_name
+        # yyyy-MM-dd HH:mm:ss
+        self.report_time = report_time
 
     def validate(self):
         self.validate_required(self.user_id, 'user_id')
         self.validate_required(self.phone_num, 'phone_num')
         self.validate_required(self.license_no, 'license_no')
+        self.validate_required(self.city_code, 'city_code')
+        self.validate_required(self.city_name, 'city_name')
+        self.validate_required(self.report_time, 'report_time')
 
     def to_map(self):
         _map = super().to_map()
@@ -2627,6 +2707,12 @@ class ImportCarloanYztRequest(TeaModel):
             result['phone_num'] = self.phone_num
         if self.license_no is not None:
             result['license_no'] = self.license_no
+        if self.city_code is not None:
+            result['city_code'] = self.city_code
+        if self.city_name is not None:
+            result['city_name'] = self.city_name
+        if self.report_time is not None:
+            result['report_time'] = self.report_time
         return result
 
     def from_map(self, m: dict = None):
@@ -2641,6 +2727,12 @@ class ImportCarloanYztRequest(TeaModel):
             self.phone_num = m.get('phone_num')
         if m.get('license_no') is not None:
             self.license_no = m.get('license_no')
+        if m.get('city_code') is not None:
+            self.city_code = m.get('city_code')
+        if m.get('city_name') is not None:
+            self.city_name = m.get('city_name')
+        if m.get('report_time') is not None:
+            self.report_time = m.get('report_time')
         return self
 
 
