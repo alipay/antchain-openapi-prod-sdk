@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.60',
+                    'sdk_version': '1.1.62',
                     '_prod_code': 'AITECH',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.60',
+                    'sdk_version': '1.1.62',
                     '_prod_code': 'AITECH',
                     '_prod_channel': 'default'
                 }
@@ -3689,4 +3689,60 @@ class Client:
         return TeaCore.from_map(
             aitech_models.QuerySecurityAnswerResponse(),
             await self.do_request_async('1.0', 'aitech.comm.security.answer.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_security_image(
+        self,
+        request: aitech_models.QuerySecurityImageRequest,
+    ) -> aitech_models.QuerySecurityImageResponse:
+        """
+        Description: 天鉴图片检测功能saas版本
+        Summary: 天鉴图片检测功能saas
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_security_image_ex(request, headers, runtime)
+
+    async def query_security_image_async(
+        self,
+        request: aitech_models.QuerySecurityImageRequest,
+    ) -> aitech_models.QuerySecurityImageResponse:
+        """
+        Description: 天鉴图片检测功能saas版本
+        Summary: 天鉴图片检测功能saas
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_security_image_ex_async(request, headers, runtime)
+
+    def query_security_image_ex(
+        self,
+        request: aitech_models.QuerySecurityImageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.QuerySecurityImageResponse:
+        """
+        Description: 天鉴图片检测功能saas版本
+        Summary: 天鉴图片检测功能saas
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.QuerySecurityImageResponse(),
+            self.do_request('1.0', 'aitech.comm.security.image.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_security_image_ex_async(
+        self,
+        request: aitech_models.QuerySecurityImageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.QuerySecurityImageResponse:
+        """
+        Description: 天鉴图片检测功能saas版本
+        Summary: 天鉴图片检测功能saas
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.QuerySecurityImageResponse(),
+            await self.do_request_async('1.0', 'aitech.comm.security.image.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )

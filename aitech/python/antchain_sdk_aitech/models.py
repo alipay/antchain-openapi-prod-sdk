@@ -9105,3 +9105,131 @@ class QuerySecurityAnswerResponse(TeaModel):
         return self
 
 
+class QuerySecurityImageRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        enterprise: str = None,
+        business_id: str = None,
+        scene_code: str = None,
+        message_id: str = None,
+        image_url: str = None,
+        content: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 调用方唯一标示
+        self.enterprise = enterprise
+        # 租户id
+        self.business_id = business_id
+        # 图片风险监测code
+        self.scene_code = scene_code
+        # 标示是否是同一个Q&A
+        self.message_id = message_id
+        # 待检测图片地址
+        self.image_url = image_url
+        # 图片检测内容
+        self.content = content
+
+    def validate(self):
+        self.validate_required(self.business_id, 'business_id')
+        self.validate_required(self.scene_code, 'scene_code')
+        self.validate_required(self.message_id, 'message_id')
+        self.validate_required(self.image_url, 'image_url')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.enterprise is not None:
+            result['enterprise'] = self.enterprise
+        if self.business_id is not None:
+            result['business_id'] = self.business_id
+        if self.scene_code is not None:
+            result['scene_code'] = self.scene_code
+        if self.message_id is not None:
+            result['message_id'] = self.message_id
+        if self.image_url is not None:
+            result['image_url'] = self.image_url
+        if self.content is not None:
+            result['content'] = self.content
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('enterprise') is not None:
+            self.enterprise = m.get('enterprise')
+        if m.get('business_id') is not None:
+            self.business_id = m.get('business_id')
+        if m.get('scene_code') is not None:
+            self.scene_code = m.get('scene_code')
+        if m.get('message_id') is not None:
+            self.message_id = m.get('message_id')
+        if m.get('image_url') is not None:
+            self.image_url = m.get('image_url')
+        if m.get('content') is not None:
+            self.content = m.get('content')
+        return self
+
+
+class QuerySecurityImageResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        action_code: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 代表风险等级和建议的处置结论
+        self.action_code = action_code
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.action_code is not None:
+            result['action_code'] = self.action_code
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('action_code') is not None:
+            self.action_code = m.get('action_code')
+        return self
+
+
