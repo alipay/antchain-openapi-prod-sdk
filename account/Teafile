@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "ACCOUNT",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-account:1.0.9",
-    "go": "github.com/antchain-openapi-sdk-go/account/client:v1.0.9",
-    "csharp": "AntChain.SDK.ACCOUNT:1.0.9",
+    "java": "com.antgroup.antchain.openapi:openapi-account:1.1.2",
+    "go": "github.com/antchain-openapi-sdk-go/account/client:v1.1.2",
+    "csharp": "AntChain.SDK.ACCOUNT:1.1.2",
     "ts": "@antchain/account:1.0.9",
-    "php": "antchain/account:1.0.9",
-    "python": "antchain_sdk_account:1.0.9"
+    "php": "antchain/account:1.1.2",
+    "python": "antchain_sdk_account:1.1.2"
   },
   "libraries": {
     "Util": "darabonba:Util:*",

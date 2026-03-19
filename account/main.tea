@@ -100,7 +100,9 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.9',
+    sdk_version = '1.1.2',
+    _prod_code = 'ACCOUNT',
+    _prod_channel = 'default'
   };
 
   if (!Util.empty(@securityToken)) {
@@ -145,7 +147,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   noProxy = Util.defaultString(runtime.noProxy, @noProxy),
   maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
   maxIdleTimeMillis = @maxIdleTimeMillis,
-  keepAliveDurationMillis = @keepAliveDurationMillis,
+  keepAliveDuration = @keepAliveDurationMillis,
   maxRequests = @maxRequests,
   maxRequestsPerHost = @maxRequestsPerHost,
   retry = {
@@ -167,12 +169,6 @@ model MultiCurrencyMoneyOpenApi {
   currencyValue: string(name='currency_value', example='156'),
 }
 
-// 测试
-model TestTv {
-  // 租户ID
-  tenantId: string(name='tenant_id', example='2088X'),
-}
-
 // 充值记录VO
 model ChargeRecordVO {
   // 充值凭证号
@@ -187,6 +183,12 @@ model ChargeRecordVO {
   multiCurrencyMoneyOpenApi: MultiCurrencyMoneyOpenApi(name='multi_currency_money_open_api', example=' '),
 }
 
+// 测试
+model TestTv {
+  // 租户ID
+  tenantId: string(name='tenant_id', example='2088X'),
+}
+
 model QueryBalanceRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -194,6 +196,8 @@ model QueryBalanceRequest = {
   tenantId: string(name='tenant_id'),
   // 调用系统来源
   source: string(name='source'),
+  // 所属OU，仅当客户属于非支付宝实名制用户，查询财资户的时候使用
+  ou?: string(name='ou'),
 }
 
 model QueryBalanceResponse = {
@@ -207,6 +211,8 @@ model QueryBalanceResponse = {
   balance?: MultiCurrencyMoneyOpenApi(name='balance'),
   // ALIPAY-客资账户 FINANCE-财资账户
   accountType?: string(name='account_type'),
+  // 可用余额, 客资账户返回, 财资客户不返回
+  availableAmount?: MultiCurrencyMoneyOpenApi(name='available_amount'),
 }
 
 /**
@@ -284,8 +290,6 @@ model QueryInfoRequest = {
   tenantId: string(name='tenant_id'),
   // 调用系统名称
   source: string(name='source'),
-  // 主体信息，不填默认ZL6
-  ou?: string(name='ou'),
 }
 
 model QueryInfoResponse = {
