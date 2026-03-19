@@ -70,6 +70,10 @@ class Config(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.access_key_id is not None:
             result['accessKeyId'] = self.access_key_id
@@ -166,6 +170,10 @@ class MultiCurrencyMoneyOpenApi(TeaModel):
         self.validate_required(self.currency_value, 'currency_value')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.cent is not None:
             result['cent'] = self.cent
@@ -179,30 +187,6 @@ class MultiCurrencyMoneyOpenApi(TeaModel):
             self.cent = m.get('cent')
         if m.get('currency_value') is not None:
             self.currency_value = m.get('currency_value')
-        return self
-
-
-class TestTv(TeaModel):
-    def __init__(
-        self,
-        tenant_id: str = None,
-    ):
-        # 租户ID
-        self.tenant_id = tenant_id
-
-    def validate(self):
-        self.validate_required(self.tenant_id, 'tenant_id')
-
-    def to_map(self):
-        result = dict()
-        if self.tenant_id is not None:
-            result['tenant_id'] = self.tenant_id
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('tenant_id') is not None:
-            self.tenant_id = m.get('tenant_id')
         return self
 
 
@@ -236,6 +220,10 @@ class ChargeRecordVO(TeaModel):
             self.multi_currency_money_open_api.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.voucher_no is not None:
             result['voucher_no'] = self.voucher_no
@@ -265,12 +253,41 @@ class ChargeRecordVO(TeaModel):
         return self
 
 
+class TestTv(TeaModel):
+    def __init__(
+        self,
+        tenant_id: str = None,
+    ):
+        # 租户ID
+        self.tenant_id = tenant_id
+
+    def validate(self):
+        self.validate_required(self.tenant_id, 'tenant_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        return self
+
+
 class QueryBalanceRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
         tenant_id: str = None,
         source: str = None,
+        ou: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -278,12 +295,18 @@ class QueryBalanceRequest(TeaModel):
         self.tenant_id = tenant_id
         # 调用系统来源
         self.source = source
+        # 所属OU，仅当客户属于非支付宝实名制用户，查询财资户的时候使用
+        self.ou = ou
 
     def validate(self):
         self.validate_required(self.tenant_id, 'tenant_id')
         self.validate_required(self.source, 'source')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -291,6 +314,8 @@ class QueryBalanceRequest(TeaModel):
             result['tenant_id'] = self.tenant_id
         if self.source is not None:
             result['source'] = self.source
+        if self.ou is not None:
+            result['ou'] = self.ou
         return result
 
     def from_map(self, m: dict = None):
@@ -301,6 +326,8 @@ class QueryBalanceRequest(TeaModel):
             self.tenant_id = m.get('tenant_id')
         if m.get('source') is not None:
             self.source = m.get('source')
+        if m.get('ou') is not None:
+            self.ou = m.get('ou')
         return self
 
 
@@ -312,6 +339,7 @@ class QueryBalanceResponse(TeaModel):
         result_msg: str = None,
         balance: MultiCurrencyMoneyOpenApi = None,
         account_type: str = None,
+        available_amount: MultiCurrencyMoneyOpenApi = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -323,12 +351,20 @@ class QueryBalanceResponse(TeaModel):
         self.balance = balance
         # ALIPAY-客资账户 FINANCE-财资账户
         self.account_type = account_type
+        # 可用余额, 客资账户返回, 财资客户不返回
+        self.available_amount = available_amount
 
     def validate(self):
         if self.balance:
             self.balance.validate()
+        if self.available_amount:
+            self.available_amount.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -340,6 +376,8 @@ class QueryBalanceResponse(TeaModel):
             result['balance'] = self.balance.to_map()
         if self.account_type is not None:
             result['account_type'] = self.account_type
+        if self.available_amount is not None:
+            result['available_amount'] = self.available_amount.to_map()
         return result
 
     def from_map(self, m: dict = None):
@@ -355,6 +393,9 @@ class QueryBalanceResponse(TeaModel):
             self.balance = temp_model.from_map(m['balance'])
         if m.get('account_type') is not None:
             self.account_type = m.get('account_type')
+        if m.get('available_amount') is not None:
+            temp_model = MultiCurrencyMoneyOpenApi()
+            self.available_amount = temp_model.from_map(m['available_amount'])
         return self
 
 
@@ -396,6 +437,10 @@ class ChargeCustomerBalanceRequest(TeaModel):
         self.validate_required(self.out_biz_no, 'out_biz_no')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -457,6 +502,10 @@ class ChargeCustomerBalanceResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -487,7 +536,6 @@ class QueryInfoRequest(TeaModel):
         auth_token: str = None,
         tenant_id: str = None,
         source: str = None,
-        ou: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -495,14 +543,16 @@ class QueryInfoRequest(TeaModel):
         self.tenant_id = tenant_id
         # 调用系统名称
         self.source = source
-        # 主体信息，不填默认ZL6
-        self.ou = ou
 
     def validate(self):
         self.validate_required(self.tenant_id, 'tenant_id')
         self.validate_required(self.source, 'source')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -510,8 +560,6 @@ class QueryInfoRequest(TeaModel):
             result['tenant_id'] = self.tenant_id
         if self.source is not None:
             result['source'] = self.source
-        if self.ou is not None:
-            result['ou'] = self.ou
         return result
 
     def from_map(self, m: dict = None):
@@ -522,8 +570,6 @@ class QueryInfoRequest(TeaModel):
             self.tenant_id = m.get('tenant_id')
         if m.get('source') is not None:
             self.source = m.get('source')
-        if m.get('ou') is not None:
-            self.ou = m.get('ou')
         return self
 
 
@@ -566,6 +612,10 @@ class QueryInfoResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -649,6 +699,10 @@ class QueryCustomerChargeRequest(TeaModel):
         self.validate_required(self.source, 'source')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -712,6 +766,10 @@ class QueryCustomerChargeResponse(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id

@@ -98,7 +98,7 @@ class Client:
             'noProxy': UtilClient.default_string(runtime.no_proxy, self._no_proxy),
             'maxIdleConns': UtilClient.default_number(runtime.max_idle_conns, self._max_idle_conns),
             'maxIdleTimeMillis': self._max_idle_time_millis,
-            'keepAliveDurationMillis': self._keep_alive_duration_millis,
+            'keepAliveDuration': self._keep_alive_duration_millis,
             'maxRequests': self._max_requests,
             'maxRequestsPerHost': self._max_requests_per_host,
             'retry': {
@@ -135,7 +135,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.9'
+                    'sdk_version': '1.1.2',
+                    '_prod_code': 'ACCOUNT',
+                    '_prod_channel': 'default'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -200,7 +202,7 @@ class Client:
             'noProxy': UtilClient.default_string(runtime.no_proxy, self._no_proxy),
             'maxIdleConns': UtilClient.default_number(runtime.max_idle_conns, self._max_idle_conns),
             'maxIdleTimeMillis': self._max_idle_time_millis,
-            'keepAliveDurationMillis': self._keep_alive_duration_millis,
+            'keepAliveDuration': self._keep_alive_duration_millis,
             'maxRequests': self._max_requests,
             'maxRequestsPerHost': self._max_requests_per_host,
             'retry': {
@@ -237,7 +239,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.9'
+                    'sdk_version': '1.1.2',
+                    '_prod_code': 'ACCOUNT',
+                    '_prod_channel': 'default'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -306,7 +310,8 @@ class Client:
         Summary: 智能科技客资账户余额查询
         """
         UtilClient.validate_model(request)
-        return account_models.QueryBalanceResponse().from_map(
+        return TeaCore.from_map(
+            account_models.QueryBalanceResponse(),
             self.do_request('1.0', 'antcloud.account.balance.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -321,7 +326,8 @@ class Client:
         Summary: 智能科技客资账户余额查询
         """
         UtilClient.validate_model(request)
-        return account_models.QueryBalanceResponse().from_map(
+        return TeaCore.from_map(
+            account_models.QueryBalanceResponse(),
             await self.do_request_async('1.0', 'antcloud.account.balance.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -360,7 +366,8 @@ class Client:
         Summary: 智能科技客资账号收银台充值
         """
         UtilClient.validate_model(request)
-        return account_models.ChargeCustomerBalanceResponse().from_map(
+        return TeaCore.from_map(
+            account_models.ChargeCustomerBalanceResponse(),
             self.do_request('1.0', 'antcloud.account.customer.balance.charge', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -375,7 +382,8 @@ class Client:
         Summary: 智能科技客资账号收银台充值
         """
         UtilClient.validate_model(request)
-        return account_models.ChargeCustomerBalanceResponse().from_map(
+        return TeaCore.from_map(
+            account_models.ChargeCustomerBalanceResponse(),
             await self.do_request_async('1.0', 'antcloud.account.customer.balance.charge', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -414,7 +422,8 @@ class Client:
         Summary: 智能科技线下打款渠道查询
         """
         UtilClient.validate_model(request)
-        return account_models.QueryInfoResponse().from_map(
+        return TeaCore.from_map(
+            account_models.QueryInfoResponse(),
             self.do_request('1.0', 'antcloud.account.info.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -429,7 +438,8 @@ class Client:
         Summary: 智能科技线下打款渠道查询
         """
         UtilClient.validate_model(request)
-        return account_models.QueryInfoResponse().from_map(
+        return TeaCore.from_map(
+            account_models.QueryInfoResponse(),
             await self.do_request_async('1.0', 'antcloud.account.info.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -468,7 +478,8 @@ class Client:
         Summary: 智能科技客资账户线上充值记录查询
         """
         UtilClient.validate_model(request)
-        return account_models.QueryCustomerChargeResponse().from_map(
+        return TeaCore.from_map(
+            account_models.QueryCustomerChargeResponse(),
             self.do_request('1.0', 'antcloud.account.customer.charge.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -483,6 +494,7 @@ class Client:
         Summary: 智能科技客资账户线上充值记录查询
         """
         UtilClient.validate_model(request)
-        return account_models.QueryCustomerChargeResponse().from_map(
+        return TeaCore.from_map(
+            account_models.QueryCustomerChargeResponse(),
             await self.do_request_async('1.0', 'antcloud.account.customer.charge.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
