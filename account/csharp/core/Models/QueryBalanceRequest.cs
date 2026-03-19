@@ -24,6 +24,11 @@ namespace AntChain.SDK.ACCOUNT.Models
         [Validation(Required=true)]
         public string Source { get; set; }
 
+        // 所属OU，仅当客户属于非支付宝实名制用户，查询财资户的时候使用
+        [NameInMap("ou")]
+        [Validation(Required=false)]
+        public string Ou { get; set; }
+
     }
 
 }

@@ -24,11 +24,6 @@ namespace AntChain.SDK.ACCOUNT.Models
         [Validation(Required=true)]
         public string Source { get; set; }
 
-        // 主体信息，不填默认ZL6
-        [NameInMap("ou")]
-        [Validation(Required=false)]
-        public string Ou { get; set; }
-
     }
 
 }

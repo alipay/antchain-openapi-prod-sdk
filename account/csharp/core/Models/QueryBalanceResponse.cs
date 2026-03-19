@@ -34,6 +34,11 @@ namespace AntChain.SDK.ACCOUNT.Models
         [Validation(Required=false)]
         public string AccountType { get; set; }
 
+        // 可用余额, 客资账户返回, 财资客户不返回
+        [NameInMap("available_amount")]
+        [Validation(Required=false)]
+        public MultiCurrencyMoneyOpenApi AvailableAmount { get; set; }
+
     }
 
 }
