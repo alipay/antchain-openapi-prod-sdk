@@ -3,7 +3,7 @@ package client
 
 import (
 	rpcutil "github.com/alibabacloud-go/tea-rpc-utils/service"
-	util "github.com/alibabacloud-go/tea-utils/service"
+	util "github.com/alibabacloud-go/tea-utils/v2/service"
 	"github.com/alibabacloud-go/tea/tea"
 	antchainutil "github.com/antchain-openapi-sdk-go/antchain-util/service"
 )
@@ -174,25 +174,6 @@ func (s *MultiCurrencyMoneyOpenApi) SetCurrencyValue(v string) *MultiCurrencyMon
 	return s
 }
 
-// 测试
-type TestTv struct {
-	// 租户ID
-	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
-}
-
-func (s TestTv) String() string {
-	return tea.Prettify(s)
-}
-
-func (s TestTv) GoString() string {
-	return s.String()
-}
-
-func (s *TestTv) SetTenantId(v string) *TestTv {
-	s.TenantId = &v
-	return s
-}
-
 // 充值记录VO
 type ChargeRecordVO struct {
 	// 充值凭证号
@@ -240,6 +221,25 @@ func (s *ChargeRecordVO) SetMultiCurrencyMoneyOpenApi(v *MultiCurrencyMoneyOpenA
 	return s
 }
 
+// 测试
+type TestTv struct {
+	// 租户ID
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+}
+
+func (s TestTv) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TestTv) GoString() string {
+	return s.String()
+}
+
+func (s *TestTv) SetTenantId(v string) *TestTv {
+	s.TenantId = &v
+	return s
+}
+
 type QueryBalanceRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -247,6 +247,8 @@ type QueryBalanceRequest struct {
 	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
 	// 调用系统来源
 	Source *string `json:"source,omitempty" xml:"source,omitempty" require:"true"`
+	// 所属OU，仅当客户属于非支付宝实名制用户，查询财资户的时候使用
+	Ou *string `json:"ou,omitempty" xml:"ou,omitempty"`
 }
 
 func (s QueryBalanceRequest) String() string {
@@ -272,6 +274,11 @@ func (s *QueryBalanceRequest) SetSource(v string) *QueryBalanceRequest {
 	return s
 }
 
+func (s *QueryBalanceRequest) SetOu(v string) *QueryBalanceRequest {
+	s.Ou = &v
+	return s
+}
+
 type QueryBalanceResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -283,6 +290,8 @@ type QueryBalanceResponse struct {
 	Balance *MultiCurrencyMoneyOpenApi `json:"balance,omitempty" xml:"balance,omitempty"`
 	// ALIPAY-客资账户 FINANCE-财资账户
 	AccountType *string `json:"account_type,omitempty" xml:"account_type,omitempty"`
+	// 可用余额, 客资账户返回, 财资客户不返回
+	AvailableAmount *MultiCurrencyMoneyOpenApi `json:"available_amount,omitempty" xml:"available_amount,omitempty"`
 }
 
 func (s QueryBalanceResponse) String() string {
@@ -315,6 +324,11 @@ func (s *QueryBalanceResponse) SetBalance(v *MultiCurrencyMoneyOpenApi) *QueryBa
 
 func (s *QueryBalanceResponse) SetAccountType(v string) *QueryBalanceResponse {
 	s.AccountType = &v
+	return s
+}
+
+func (s *QueryBalanceResponse) SetAvailableAmount(v *MultiCurrencyMoneyOpenApi) *QueryBalanceResponse {
+	s.AvailableAmount = v
 	return s
 }
 
@@ -431,8 +445,6 @@ type QueryInfoRequest struct {
 	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
 	// 调用系统名称
 	Source *string `json:"source,omitempty" xml:"source,omitempty" require:"true"`
-	// 主体信息，不填默认ZL6
-	Ou *string `json:"ou,omitempty" xml:"ou,omitempty"`
 }
 
 func (s QueryInfoRequest) String() string {
@@ -455,11 +467,6 @@ func (s *QueryInfoRequest) SetTenantId(v string) *QueryInfoRequest {
 
 func (s *QueryInfoRequest) SetSource(v string) *QueryInfoRequest {
 	s.Source = &v
-	return s
-}
-
-func (s *QueryInfoRequest) SetOu(v string) *QueryInfoRequest {
-	s.Ou = &v
 	return s
 }
 
@@ -730,17 +737,17 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 		return _result, _err
 	}
 	_runtime := map[string]interface{}{
-		"timeouted":               "retry",
-		"readTimeout":             tea.IntValue(util.DefaultNumber(runtime.ReadTimeout, client.ReadTimeout)),
-		"connectTimeout":          tea.IntValue(util.DefaultNumber(runtime.ConnectTimeout, client.ConnectTimeout)),
-		"httpProxy":               tea.StringValue(util.DefaultString(runtime.HttpProxy, client.HttpProxy)),
-		"httpsProxy":              tea.StringValue(util.DefaultString(runtime.HttpsProxy, client.HttpsProxy)),
-		"noProxy":                 tea.StringValue(util.DefaultString(runtime.NoProxy, client.NoProxy)),
-		"maxIdleConns":            tea.IntValue(util.DefaultNumber(runtime.MaxIdleConns, client.MaxIdleConns)),
-		"maxIdleTimeMillis":       tea.IntValue(client.MaxIdleTimeMillis),
-		"keepAliveDurationMillis": tea.IntValue(client.KeepAliveDurationMillis),
-		"maxRequests":             tea.IntValue(client.MaxRequests),
-		"maxRequestsPerHost":      tea.IntValue(client.MaxRequestsPerHost),
+		"timeouted":          "retry",
+		"readTimeout":        tea.IntValue(util.DefaultNumber(runtime.ReadTimeout, client.ReadTimeout)),
+		"connectTimeout":     tea.IntValue(util.DefaultNumber(runtime.ConnectTimeout, client.ConnectTimeout)),
+		"httpProxy":          tea.StringValue(util.DefaultString(runtime.HttpProxy, client.HttpProxy)),
+		"httpsProxy":         tea.StringValue(util.DefaultString(runtime.HttpsProxy, client.HttpsProxy)),
+		"noProxy":            tea.StringValue(util.DefaultString(runtime.NoProxy, client.NoProxy)),
+		"maxIdleConns":       tea.IntValue(util.DefaultNumber(runtime.MaxIdleConns, client.MaxIdleConns)),
+		"maxIdleTimeMillis":  tea.IntValue(client.MaxIdleTimeMillis),
+		"keepAliveDuration":  tea.IntValue(client.KeepAliveDurationMillis),
+		"maxRequests":        tea.IntValue(client.MaxRequests),
+		"maxRequestsPerHost": tea.IntValue(client.MaxRequestsPerHost),
 		"retry": map[string]interface{}{
 			"retryable":   tea.BoolValue(runtime.Autoretry),
 			"maxAttempts": tea.IntValue(util.DefaultNumber(runtime.MaxAttempts, tea.Int(3))),
@@ -774,7 +781,9 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.9"),
+				"sdk_version":      tea.String("1.1.2"),
+				"_prod_code":       tea.String("ACCOUNT"),
+				"_prod_channel":    tea.String("default"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -800,8 +809,16 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 			}
 
 			obj := util.ParseJSON(raw)
-			res := util.AssertAsMap(obj)
-			resp := util.AssertAsMap(res["response"])
+			res, _err := util.AssertAsMap(obj)
+			if _err != nil {
+				return _result, _err
+			}
+
+			resp, _err := util.AssertAsMap(res["response"])
+			if _err != nil {
+				return _result, _err
+			}
+
 			if tea.BoolValue(antchainutil.HasError(raw, client.AccessKeySecret)) {
 				_err = tea.NewSDKError(map[string]interface{}{
 					"message": resp["result_msg"],
