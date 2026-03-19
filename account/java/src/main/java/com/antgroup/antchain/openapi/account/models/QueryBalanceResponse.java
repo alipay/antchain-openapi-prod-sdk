@@ -24,6 +24,10 @@ public class QueryBalanceResponse extends TeaModel {
     @NameInMap("account_type")
     public String accountType;
 
+    // 可用余额, 客资账户返回, 财资客户不返回
+    @NameInMap("available_amount")
+    public MultiCurrencyMoneyOpenApi availableAmount;
+
     public static QueryBalanceResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryBalanceResponse self = new QueryBalanceResponse();
         return TeaModel.build(map, self);
@@ -67,6 +71,14 @@ public class QueryBalanceResponse extends TeaModel {
     }
     public String getAccountType() {
         return this.accountType;
+    }
+
+    public QueryBalanceResponse setAvailableAmount(MultiCurrencyMoneyOpenApi availableAmount) {
+        this.availableAmount = availableAmount;
+        return this;
+    }
+    public MultiCurrencyMoneyOpenApi getAvailableAmount() {
+        return this.availableAmount;
     }
 
 }

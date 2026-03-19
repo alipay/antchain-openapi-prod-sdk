@@ -5,26 +5,46 @@ import com.aliyun.tea.*;
 
 public class ChargeRecordVO extends TeaModel {
     // 充值凭证号
+    /**
+     * <strong>example:</strong>
+     * <p>2019032510730500001400640000000001</p>
+     */
     @NameInMap("voucher_no")
     @Validation(required = true)
     public String voucherNo;
 
     // 外部单据号
+    /**
+     * <strong>example:</strong>
+     * <p>2019032510730500001400640000000001</p>
+     */
     @NameInMap("out_biz_no")
     @Validation(required = true)
     public String outBizNo;
 
     // 充值时间
+    /**
+     * <strong>example:</strong>
+     * <p>2020-01-01 22:22:22</p>
+     */
     @NameInMap("recharge_time")
     @Validation(required = true)
     public String rechargeTime;
 
     // 支付状态（INIT-创建订单/SUCCESS-充值成功/FAIL-充值失败）
+    /**
+     * <strong>example:</strong>
+     * <p>SUCCESS</p>
+     */
     @NameInMap("recharge_status")
     @Validation(required = true)
     public String rechargeStatus;
 
     // 金额
+    /**
+     * <strong>example:</strong>
+     * 
+     */
     @NameInMap("multi_currency_money_open_api")
     @Validation(required = true)
     public MultiCurrencyMoneyOpenApi multiCurrencyMoneyOpenApi;

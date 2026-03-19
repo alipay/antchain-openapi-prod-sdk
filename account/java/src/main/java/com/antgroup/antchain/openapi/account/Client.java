@@ -2,13 +2,15 @@
 package com.antgroup.antchain.openapi.account;
 
 import com.aliyun.tea.*;
+import com.aliyun.tea.interceptor.InterceptorChain;
+import com.aliyun.tea.interceptor.RuntimeOptionsInterceptor;
+import com.aliyun.tea.interceptor.RequestInterceptor;
+import com.aliyun.tea.interceptor.ResponseInterceptor;
 import com.antgroup.antchain.openapi.account.models.*;
-import com.antgroup.antchain.openapi.antchain.util.*;
-import com.aliyun.teautil.*;
-import com.aliyun.teautil.models.*;
-import com.aliyun.common.*;
 
 public class Client {
+
+    private final static InterceptorChain interceptorChain = InterceptorChain.create();
 
     public String _endpoint;
     public String _regionId;
@@ -30,11 +32,13 @@ public class Client {
     public Number _maxRequests;
     public Number _maxRequestsPerHost;
     /**
-     * Init client with Config
+     * <b>description</b> :
+     * <p>Init client with Config</p>
+     * 
      * @param config config contains the necessary information to create a client
      */
     public Client(Config config) throws Exception {
-        if (com.aliyun.teautil.Common.isUnset(TeaModel.buildMap(config))) {
+        if (com.aliyun.teautil.Common.isUnset(config)) {
             throw new TeaException(TeaConverter.buildMap(
                 new TeaPair("code", "ParameterMissing"),
                 new TeaPair("message", "'config' can not be unset")
@@ -61,7 +65,19 @@ public class Client {
         this._maxRequestsPerHost = com.aliyun.teautil.Common.defaultNumber(config.maxRequestsPerHost, 100);
     }
 
-    public java.util.Map<String, ?> doRequest(String version, String action, String protocol, String method, String pathname, java.util.Map<String, ?> request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    /**
+     * <b>description</b> :
+     * <p>Encapsulate the request and invoke the network</p>
+     * 
+     * @param action api name
+     * @param protocol http or https
+     * @param method e.g. GET
+     * @param pathname pathname of every api
+     * @param request which contains request params
+     * @param runtime which controls some details of call api, such as retry times
+     * @return the response
+     */
+    public java.util.Map<String, ?> doRequest(String version, String action, String protocol, String method, String pathname, java.util.Map<String, ?> request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         java.util.Map<String, Object> runtime_ = TeaConverter.buildMap(
             new TeaPair("timeouted", "retry"),
             new TeaPair("readTimeout", com.aliyun.teautil.Common.defaultNumber(runtime.readTimeout, _readTimeout)),
@@ -71,7 +87,7 @@ public class Client {
             new TeaPair("noProxy", com.aliyun.teautil.Common.defaultString(runtime.noProxy, _noProxy)),
             new TeaPair("maxIdleConns", com.aliyun.teautil.Common.defaultNumber(runtime.maxIdleConns, _maxIdleConns)),
             new TeaPair("maxIdleTimeMillis", _maxIdleTimeMillis),
-            new TeaPair("keepAliveDurationMillis", _keepAliveDurationMillis),
+            new TeaPair("keepAliveDuration", _keepAliveDurationMillis),
             new TeaPair("maxRequests", _maxRequests),
             new TeaPair("maxRequestsPerHost", _maxRequestsPerHost),
             new TeaPair("retry", TeaConverter.buildMap(
@@ -110,7 +126,9 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.9")
+                    new TeaPair("sdk_version", "1.1.2"),
+                    new TeaPair("_prod_code", "ACCOUNT"),
+                    new TeaPair("_prod_channel", "default")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -132,7 +150,7 @@ public class Client {
                 );
                 request_.query.put("sign", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getSignature(signedParam, _accessKeySecret));
                 _lastRequest = request_;
-                TeaResponse response_ = Tea.doAction(request_, runtime_);
+                TeaResponse response_ = Tea.doAction(request_, runtime_, interceptorChain);
 
                 String raw = com.aliyun.teautil.Common.readAsString(response_.body);
                 Object obj = com.aliyun.teautil.Common.parseJSON(raw);
@@ -155,82 +173,101 @@ public class Client {
                 throw e;
             }
         }
-
         throw new TeaUnretryableException(_lastRequest, _lastException);
     }
 
+    public void addRuntimeOptionsInterceptor(RuntimeOptionsInterceptor interceptor) {
+        interceptorChain.addRuntimeOptionsInterceptor(interceptor);
+    }
+
+    public void addRequestInterceptor(RequestInterceptor interceptor) {
+        interceptorChain.addRequestInterceptor(interceptor);
+    }
+
+    public void addResponseInterceptor(ResponseInterceptor interceptor) {
+        interceptorChain.addResponseInterceptor(interceptor);
+    }
+
     /**
-     * Description: 账户余额查询，根据租户ID判断是否支付宝账号，支付宝账号返回客资户余额，非支付宝账号返回财资户余额
-     * Summary: 智能科技客资账户余额查询
+     * <b>description</b> :
+     * <p>Description: 账户余额查询，根据租户ID判断是否支付宝账号，支付宝账号返回客资户余额，非支付宝账号返回财资户余额
+     * Summary: 智能科技客资账户余额查询</p>
      */
     public QueryBalanceResponse queryBalance(QueryBalanceRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.queryBalanceEx(request, headers, runtime);
     }
 
     /**
-     * Description: 账户余额查询，根据租户ID判断是否支付宝账号，支付宝账号返回客资户余额，非支付宝账号返回财资户余额
-     * Summary: 智能科技客资账户余额查询
+     * <b>description</b> :
+     * <p>Description: 账户余额查询，根据租户ID判断是否支付宝账号，支付宝账号返回客资户余额，非支付宝账号返回财资户余额
+     * Summary: 智能科技客资账户余额查询</p>
      */
-    public QueryBalanceResponse queryBalanceEx(QueryBalanceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public QueryBalanceResponse queryBalanceEx(QueryBalanceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.account.balance.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryBalanceResponse());
     }
 
     /**
-     * Description: 智能科技客资账号收银台充值
-     * Summary: 智能科技客资账号收银台充值
+     * <b>description</b> :
+     * <p>Description: 智能科技客资账号收银台充值
+     * Summary: 智能科技客资账号收银台充值</p>
      */
     public ChargeCustomerBalanceResponse chargeCustomerBalance(ChargeCustomerBalanceRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.chargeCustomerBalanceEx(request, headers, runtime);
     }
 
     /**
-     * Description: 智能科技客资账号收银台充值
-     * Summary: 智能科技客资账号收银台充值
+     * <b>description</b> :
+     * <p>Description: 智能科技客资账号收银台充值
+     * Summary: 智能科技客资账号收银台充值</p>
      */
-    public ChargeCustomerBalanceResponse chargeCustomerBalanceEx(ChargeCustomerBalanceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public ChargeCustomerBalanceResponse chargeCustomerBalanceEx(ChargeCustomerBalanceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.account.customer.balance.charge", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ChargeCustomerBalanceResponse());
     }
 
     /**
-     * Description: 根据租户ID判断，支付宝账号返回客资线下打款渠道，非支付宝账号返回财资线下打款渠道，展示的时候只展示非空的字段
-     * Summary: 智能科技线下打款渠道查询
+     * <b>description</b> :
+     * <p>Description: 根据租户ID判断，支付宝账号返回客资线下打款渠道，非支付宝账号返回财资线下打款渠道，展示的时候只展示非空的字段
+     * Summary: 智能科技线下打款渠道查询</p>
      */
     public QueryInfoResponse queryInfo(QueryInfoRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.queryInfoEx(request, headers, runtime);
     }
 
     /**
-     * Description: 根据租户ID判断，支付宝账号返回客资线下打款渠道，非支付宝账号返回财资线下打款渠道，展示的时候只展示非空的字段
-     * Summary: 智能科技线下打款渠道查询
+     * <b>description</b> :
+     * <p>Description: 根据租户ID判断，支付宝账号返回客资线下打款渠道，非支付宝账号返回财资线下打款渠道，展示的时候只展示非空的字段
+     * Summary: 智能科技线下打款渠道查询</p>
      */
-    public QueryInfoResponse queryInfoEx(QueryInfoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public QueryInfoResponse queryInfoEx(QueryInfoRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.account.info.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryInfoResponse());
     }
 
     /**
-     * Description: 仅有客资线上充值记录
-     * Summary: 智能科技客资账户线上充值记录查询
+     * <b>description</b> :
+     * <p>Description: 仅有客资线上充值记录
+     * Summary: 智能科技客资账户线上充值记录查询</p>
      */
     public QueryCustomerChargeResponse queryCustomerCharge(QueryCustomerChargeRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.queryCustomerChargeEx(request, headers, runtime);
     }
 
     /**
-     * Description: 仅有客资线上充值记录
-     * Summary: 智能科技客资账户线上充值记录查询
+     * <b>description</b> :
+     * <p>Description: 仅有客资线上充值记录
+     * Summary: 智能科技客资账户线上充值记录查询</p>
      */
-    public QueryCustomerChargeResponse queryCustomerChargeEx(QueryCustomerChargeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public QueryCustomerChargeResponse queryCustomerChargeEx(QueryCustomerChargeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.account.customer.charge.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCustomerChargeResponse());
     }

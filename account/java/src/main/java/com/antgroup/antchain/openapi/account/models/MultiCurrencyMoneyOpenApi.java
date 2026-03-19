@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class MultiCurrencyMoneyOpenApi extends TeaModel {
     // 最小币种单位
+    /**
+     * <strong>example:</strong>
+     * <p>123</p>
+     */
     @NameInMap("cent")
     @Validation(required = true)
     public String cent;
 
     // 币种
+    /**
+     * <strong>example:</strong>
+     * <p>156</p>
+     */
     @NameInMap("currency_value")
     @Validation(required = true)
     public String currencyValue;

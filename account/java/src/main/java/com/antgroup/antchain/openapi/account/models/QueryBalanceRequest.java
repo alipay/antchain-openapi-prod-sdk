@@ -18,6 +18,10 @@ public class QueryBalanceRequest extends TeaModel {
     @Validation(required = true)
     public String source;
 
+    // 所属OU，仅当客户属于非支付宝实名制用户，查询财资户的时候使用
+    @NameInMap("ou")
+    public String ou;
+
     public static QueryBalanceRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryBalanceRequest self = new QueryBalanceRequest();
         return TeaModel.build(map, self);
@@ -45,6 +49,14 @@ public class QueryBalanceRequest extends TeaModel {
     }
     public String getSource() {
         return this.source;
+    }
+
+    public QueryBalanceRequest setOu(String ou) {
+        this.ou = ou;
+        return this;
+    }
+    public String getOu() {
+        return this.ou;
     }
 
 }

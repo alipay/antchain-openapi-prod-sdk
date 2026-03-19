@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class TestTv extends TeaModel {
     // 租户ID
+    /**
+     * <strong>example:</strong>
+     * <p>2088X</p>
+     */
     @NameInMap("tenant_id")
     @Validation(required = true)
     public String tenantId;

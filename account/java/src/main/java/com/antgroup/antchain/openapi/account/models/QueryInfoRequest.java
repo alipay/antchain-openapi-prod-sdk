@@ -18,10 +18,6 @@ public class QueryInfoRequest extends TeaModel {
     @Validation(required = true)
     public String source;
 
-    // 主体信息，不填默认ZL6
-    @NameInMap("ou")
-    public String ou;
-
     public static QueryInfoRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryInfoRequest self = new QueryInfoRequest();
         return TeaModel.build(map, self);
@@ -49,14 +45,6 @@ public class QueryInfoRequest extends TeaModel {
     }
     public String getSource() {
         return this.source;
-    }
-
-    public QueryInfoRequest setOu(String ou) {
-        this.ou = ou;
-        return this;
-    }
-    public String getOu() {
-        return this.ou;
     }
 
 }
