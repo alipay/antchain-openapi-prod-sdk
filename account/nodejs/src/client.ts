@@ -102,27 +102,6 @@ export class MultiCurrencyMoneyOpenApi extends $tea.Model {
   }
 }
 
-// 测试
-export class TestTv extends $tea.Model {
-  // 租户ID
-  tenantId: string;
-  static names(): { [key: string]: string } {
-    return {
-      tenantId: 'tenant_id',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      tenantId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // 充值记录VO
 export class ChargeRecordVO extends $tea.Model {
   // 充值凭证号
@@ -160,6 +139,27 @@ export class ChargeRecordVO extends $tea.Model {
   }
 }
 
+// 测试
+export class TestTv extends $tea.Model {
+  // 租户ID
+  tenantId: string;
+  static names(): { [key: string]: string } {
+    return {
+      tenantId: 'tenant_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      tenantId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryBalanceRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -167,11 +167,14 @@ export class QueryBalanceRequest extends $tea.Model {
   tenantId: string;
   // 调用系统来源
   source: string;
+  // 所属OU，仅当客户属于非支付宝实名制用户，查询财资户的时候使用
+  ou?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       tenantId: 'tenant_id',
       source: 'source',
+      ou: 'ou',
     };
   }
 
@@ -180,6 +183,7 @@ export class QueryBalanceRequest extends $tea.Model {
       authToken: 'string',
       tenantId: 'string',
       source: 'string',
+      ou: 'string',
     };
   }
 
@@ -199,6 +203,8 @@ export class QueryBalanceResponse extends $tea.Model {
   balance?: MultiCurrencyMoneyOpenApi;
   // ALIPAY-客资账户 FINANCE-财资账户
   accountType?: string;
+  // 可用余额, 客资账户返回, 财资客户不返回
+  availableAmount?: MultiCurrencyMoneyOpenApi;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -206,6 +212,7 @@ export class QueryBalanceResponse extends $tea.Model {
       resultMsg: 'result_msg',
       balance: 'balance',
       accountType: 'account_type',
+      availableAmount: 'available_amount',
     };
   }
 
@@ -216,6 +223,7 @@ export class QueryBalanceResponse extends $tea.Model {
       resultMsg: 'string',
       balance: MultiCurrencyMoneyOpenApi,
       accountType: 'string',
+      availableAmount: MultiCurrencyMoneyOpenApi,
     };
   }
 
@@ -311,14 +319,11 @@ export class QueryInfoRequest extends $tea.Model {
   tenantId: string;
   // 调用系统名称
   source: string;
-  // 主体信息，不填默认ZL6
-  ou?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       tenantId: 'tenant_id',
       source: 'source',
-      ou: 'ou',
     };
   }
 
@@ -327,7 +332,6 @@ export class QueryInfoRequest extends $tea.Model {
       authToken: 'string',
       tenantId: 'string',
       source: 'string',
-      ou: 'string',
     };
   }
 
@@ -501,7 +505,7 @@ export default class Client {
    * @param config config contains the necessary information to create a client
    */
   constructor(config: Config) {
-    if (Util.isUnset($tea.toMap(config))) {
+    if (Util.isUnset(config)) {
       throw $tea.newError({
         code: "ParameterMissing",
         message: "'config' can not be unset",
@@ -548,7 +552,7 @@ export default class Client {
       noProxy: Util.defaultString(runtime.noProxy, this._noProxy),
       maxIdleConns: Util.defaultNumber(runtime.maxIdleConns, this._maxIdleConns),
       maxIdleTimeMillis: this._maxIdleTimeMillis,
-      keepAliveDurationMillis: this._keepAliveDurationMillis,
+      keepAliveDuration: this._keepAliveDurationMillis,
       maxRequests: this._maxRequests,
       maxRequestsPerHost: this._maxRequestsPerHost,
       retry: {
@@ -587,7 +591,9 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.9",
+          sdk_version: "1.1.2",
+          _prod_code: "ACCOUNT",
+          _prod_channel: "default",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
