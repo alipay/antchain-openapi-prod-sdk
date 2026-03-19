@@ -37,12 +37,19 @@ class QueryBalanceResponse extends Model
      * @var string
      */
     public $accountType;
+
+    // 可用余额, 客资账户返回, 财资客户不返回
+    /**
+     * @var MultiCurrencyMoneyOpenApi
+     */
+    public $availableAmount;
     protected $_name = [
-        'reqMsgId'    => 'req_msg_id',
-        'resultCode'  => 'result_code',
-        'resultMsg'   => 'result_msg',
-        'balance'     => 'balance',
-        'accountType' => 'account_type',
+        'reqMsgId'        => 'req_msg_id',
+        'resultCode'      => 'result_code',
+        'resultMsg'       => 'result_msg',
+        'balance'         => 'balance',
+        'accountType'     => 'account_type',
+        'availableAmount' => 'available_amount',
     ];
 
     public function validate()
@@ -66,6 +73,9 @@ class QueryBalanceResponse extends Model
         }
         if (null !== $this->accountType) {
             $res['account_type'] = $this->accountType;
+        }
+        if (null !== $this->availableAmount) {
+            $res['available_amount'] = null !== $this->availableAmount ? $this->availableAmount->toMap() : null;
         }
 
         return $res;
@@ -93,6 +103,9 @@ class QueryBalanceResponse extends Model
         }
         if (isset($map['account_type'])) {
             $model->accountType = $map['account_type'];
+        }
+        if (isset($map['available_amount'])) {
+            $model->availableAmount = MultiCurrencyMoneyOpenApi::fromMap($map['available_amount']);
         }
 
         return $model;

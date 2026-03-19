@@ -25,10 +25,17 @@ class QueryBalanceRequest extends Model
      * @var string
      */
     public $source;
+
+    // 所属OU，仅当客户属于非支付宝实名制用户，查询财资户的时候使用
+    /**
+     * @var string
+     */
+    public $ou;
     protected $_name = [
         'authToken' => 'auth_token',
         'tenantId'  => 'tenant_id',
         'source'    => 'source',
+        'ou'        => 'ou',
     ];
 
     public function validate()
@@ -48,6 +55,9 @@ class QueryBalanceRequest extends Model
         }
         if (null !== $this->source) {
             $res['source'] = $this->source;
+        }
+        if (null !== $this->ou) {
+            $res['ou'] = $this->ou;
         }
 
         return $res;
@@ -69,6 +79,9 @@ class QueryBalanceRequest extends Model
         }
         if (isset($map['source'])) {
             $model->source = $map['source'];
+        }
+        if (isset($map['ou'])) {
+            $model->ou = $map['ou'];
         }
 
         return $model;

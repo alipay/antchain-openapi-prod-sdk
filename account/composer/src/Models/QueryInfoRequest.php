@@ -25,17 +25,10 @@ class QueryInfoRequest extends Model
      * @var string
      */
     public $source;
-
-    // 主体信息，不填默认ZL6
-    /**
-     * @var string
-     */
-    public $ou;
     protected $_name = [
         'authToken' => 'auth_token',
         'tenantId'  => 'tenant_id',
         'source'    => 'source',
-        'ou'        => 'ou',
     ];
 
     public function validate()
@@ -55,9 +48,6 @@ class QueryInfoRequest extends Model
         }
         if (null !== $this->source) {
             $res['source'] = $this->source;
-        }
-        if (null !== $this->ou) {
-            $res['ou'] = $this->ou;
         }
 
         return $res;
@@ -79,9 +69,6 @@ class QueryInfoRequest extends Model
         }
         if (isset($map['source'])) {
             $model->source = $map['source'];
-        }
-        if (isset($map['ou'])) {
-            $model->ou = $map['ou'];
         }
 
         return $model;
