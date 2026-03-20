@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.31.0',
+                    'sdk_version': '1.31.1',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.31.0',
+                    'sdk_version': '1.31.1',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -6469,6 +6469,566 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.QueryDubbridgeCertificateLxResponse(),
             await self.do_request_async('1.0', 'riskplus.dubbridge.certificate.lx.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_dubbridge_eccredit(
+        self,
+        request: riskplus_models.ApplyDubbridgeEccreditRequest,
+    ) -> riskplus_models.ApplyDubbridgeEccreditResponse:
+        """
+        Description: 天枢电商场景下授信申请接口
+        Summary: 天枢电商场景下授信申请接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_dubbridge_eccredit_ex(request, headers, runtime)
+
+    async def apply_dubbridge_eccredit_async(
+        self,
+        request: riskplus_models.ApplyDubbridgeEccreditRequest,
+    ) -> riskplus_models.ApplyDubbridgeEccreditResponse:
+        """
+        Description: 天枢电商场景下授信申请接口
+        Summary: 天枢电商场景下授信申请接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_dubbridge_eccredit_ex_async(request, headers, runtime)
+
+    def apply_dubbridge_eccredit_ex(
+        self,
+        request: riskplus_models.ApplyDubbridgeEccreditRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.ApplyDubbridgeEccreditResponse:
+        """
+        Description: 天枢电商场景下授信申请接口
+        Summary: 天枢电商场景下授信申请接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.ApplyDubbridgeEccreditResponse(),
+            self.do_request('1.0', 'riskplus.dubbridge.eccredit.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_dubbridge_eccredit_ex_async(
+        self,
+        request: riskplus_models.ApplyDubbridgeEccreditRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.ApplyDubbridgeEccreditResponse:
+        """
+        Description: 天枢电商场景下授信申请接口
+        Summary: 天枢电商场景下授信申请接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.ApplyDubbridgeEccreditResponse(),
+            await self.do_request_async('1.0', 'riskplus.dubbridge.eccredit.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_dubbridge_ecloan(
+        self,
+        request: riskplus_models.ApplyDubbridgeEcloanRequest,
+    ) -> riskplus_models.ApplyDubbridgeEcloanResponse:
+        """
+        Description: 天枢电商场景支用申请
+        Summary: 天枢电商场景支用申请
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_dubbridge_ecloan_ex(request, headers, runtime)
+
+    async def apply_dubbridge_ecloan_async(
+        self,
+        request: riskplus_models.ApplyDubbridgeEcloanRequest,
+    ) -> riskplus_models.ApplyDubbridgeEcloanResponse:
+        """
+        Description: 天枢电商场景支用申请
+        Summary: 天枢电商场景支用申请
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_dubbridge_ecloan_ex_async(request, headers, runtime)
+
+    def apply_dubbridge_ecloan_ex(
+        self,
+        request: riskplus_models.ApplyDubbridgeEcloanRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.ApplyDubbridgeEcloanResponse:
+        """
+        Description: 天枢电商场景支用申请
+        Summary: 天枢电商场景支用申请
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.ApplyDubbridgeEcloanResponse(),
+            self.do_request('1.0', 'riskplus.dubbridge.ecloan.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_dubbridge_ecloan_ex_async(
+        self,
+        request: riskplus_models.ApplyDubbridgeEcloanRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.ApplyDubbridgeEcloanResponse:
+        """
+        Description: 天枢电商场景支用申请
+        Summary: 天枢电商场景支用申请
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.ApplyDubbridgeEcloanResponse(),
+            await self.do_request_async('1.0', 'riskplus.dubbridge.ecloan.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_dubbridge_eccredit_quota(
+        self,
+        request: riskplus_models.QueryDubbridgeEccreditQuotaRequest,
+    ) -> riskplus_models.QueryDubbridgeEccreditQuotaResponse:
+        """
+        Description: 支用前查询授信额度
+        Summary: 支用前查询授信额度
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_dubbridge_eccredit_quota_ex(request, headers, runtime)
+
+    async def query_dubbridge_eccredit_quota_async(
+        self,
+        request: riskplus_models.QueryDubbridgeEccreditQuotaRequest,
+    ) -> riskplus_models.QueryDubbridgeEccreditQuotaResponse:
+        """
+        Description: 支用前查询授信额度
+        Summary: 支用前查询授信额度
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_dubbridge_eccredit_quota_ex_async(request, headers, runtime)
+
+    def query_dubbridge_eccredit_quota_ex(
+        self,
+        request: riskplus_models.QueryDubbridgeEccreditQuotaRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeEccreditQuotaResponse:
+        """
+        Description: 支用前查询授信额度
+        Summary: 支用前查询授信额度
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeEccreditQuotaResponse(),
+            self.do_request('1.0', 'riskplus.dubbridge.eccredit.quota.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_dubbridge_eccredit_quota_ex_async(
+        self,
+        request: riskplus_models.QueryDubbridgeEccreditQuotaRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeEccreditQuotaResponse:
+        """
+        Description: 支用前查询授信额度
+        Summary: 支用前查询授信额度
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeEccreditQuotaResponse(),
+            await self.do_request_async('1.0', 'riskplus.dubbridge.eccredit.quota.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_dubbridge_ecloan(
+        self,
+        request: riskplus_models.QueryDubbridgeEcloanRequest,
+    ) -> riskplus_models.QueryDubbridgeEcloanResponse:
+        """
+        Description: 支用结果查询接口
+        Summary: 支用结果查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_dubbridge_ecloan_ex(request, headers, runtime)
+
+    async def query_dubbridge_ecloan_async(
+        self,
+        request: riskplus_models.QueryDubbridgeEcloanRequest,
+    ) -> riskplus_models.QueryDubbridgeEcloanResponse:
+        """
+        Description: 支用结果查询接口
+        Summary: 支用结果查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_dubbridge_ecloan_ex_async(request, headers, runtime)
+
+    def query_dubbridge_ecloan_ex(
+        self,
+        request: riskplus_models.QueryDubbridgeEcloanRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeEcloanResponse:
+        """
+        Description: 支用结果查询接口
+        Summary: 支用结果查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeEcloanResponse(),
+            self.do_request('1.0', 'riskplus.dubbridge.ecloan.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_dubbridge_ecloan_ex_async(
+        self,
+        request: riskplus_models.QueryDubbridgeEcloanRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeEcloanResponse:
+        """
+        Description: 支用结果查询接口
+        Summary: 支用结果查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeEcloanResponse(),
+            await self.do_request_async('1.0', 'riskplus.dubbridge.ecloan.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def count_dubbridge_ecrepay_trial(
+        self,
+        request: riskplus_models.CountDubbridgeEcrepayTrialRequest,
+    ) -> riskplus_models.CountDubbridgeEcrepayTrialResponse:
+        """
+        Description: 支用后，还款前试算
+        Summary: 支用后，还款前试算
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.count_dubbridge_ecrepay_trial_ex(request, headers, runtime)
+
+    async def count_dubbridge_ecrepay_trial_async(
+        self,
+        request: riskplus_models.CountDubbridgeEcrepayTrialRequest,
+    ) -> riskplus_models.CountDubbridgeEcrepayTrialResponse:
+        """
+        Description: 支用后，还款前试算
+        Summary: 支用后，还款前试算
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.count_dubbridge_ecrepay_trial_ex_async(request, headers, runtime)
+
+    def count_dubbridge_ecrepay_trial_ex(
+        self,
+        request: riskplus_models.CountDubbridgeEcrepayTrialRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.CountDubbridgeEcrepayTrialResponse:
+        """
+        Description: 支用后，还款前试算
+        Summary: 支用后，还款前试算
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.CountDubbridgeEcrepayTrialResponse(),
+            self.do_request('1.0', 'riskplus.dubbridge.ecrepay.trial.count', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def count_dubbridge_ecrepay_trial_ex_async(
+        self,
+        request: riskplus_models.CountDubbridgeEcrepayTrialRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.CountDubbridgeEcrepayTrialResponse:
+        """
+        Description: 支用后，还款前试算
+        Summary: 支用后，还款前试算
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.CountDubbridgeEcrepayTrialResponse(),
+            await self.do_request_async('1.0', 'riskplus.dubbridge.ecrepay.trial.count', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_dubbridge_ecrepay(
+        self,
+        request: riskplus_models.QueryDubbridgeEcrepayRequest,
+    ) -> riskplus_models.QueryDubbridgeEcrepayResponse:
+        """
+        Description: 支用后 查询还款明细
+        Summary: 支用后 查询还款明细
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_dubbridge_ecrepay_ex(request, headers, runtime)
+
+    async def query_dubbridge_ecrepay_async(
+        self,
+        request: riskplus_models.QueryDubbridgeEcrepayRequest,
+    ) -> riskplus_models.QueryDubbridgeEcrepayResponse:
+        """
+        Description: 支用后 查询还款明细
+        Summary: 支用后 查询还款明细
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_dubbridge_ecrepay_ex_async(request, headers, runtime)
+
+    def query_dubbridge_ecrepay_ex(
+        self,
+        request: riskplus_models.QueryDubbridgeEcrepayRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeEcrepayResponse:
+        """
+        Description: 支用后 查询还款明细
+        Summary: 支用后 查询还款明细
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeEcrepayResponse(),
+            self.do_request('1.0', 'riskplus.dubbridge.ecrepay.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_dubbridge_ecrepay_ex_async(
+        self,
+        request: riskplus_models.QueryDubbridgeEcrepayRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeEcrepayResponse:
+        """
+        Description: 支用后 查询还款明细
+        Summary: 支用后 查询还款明细
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeEcrepayResponse(),
+            await self.do_request_async('1.0', 'riskplus.dubbridge.ecrepay.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def detail_dubbridge_ecloan(
+        self,
+        request: riskplus_models.DetailDubbridgeEcloanRequest,
+    ) -> riskplus_models.DetailDubbridgeEcloanResponse:
+        """
+        Description: 支用后 查询借据
+        Summary: 支用后 查询借据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.detail_dubbridge_ecloan_ex(request, headers, runtime)
+
+    async def detail_dubbridge_ecloan_async(
+        self,
+        request: riskplus_models.DetailDubbridgeEcloanRequest,
+    ) -> riskplus_models.DetailDubbridgeEcloanResponse:
+        """
+        Description: 支用后 查询借据
+        Summary: 支用后 查询借据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.detail_dubbridge_ecloan_ex_async(request, headers, runtime)
+
+    def detail_dubbridge_ecloan_ex(
+        self,
+        request: riskplus_models.DetailDubbridgeEcloanRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.DetailDubbridgeEcloanResponse:
+        """
+        Description: 支用后 查询借据
+        Summary: 支用后 查询借据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.DetailDubbridgeEcloanResponse(),
+            self.do_request('1.0', 'riskplus.dubbridge.ecloan.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def detail_dubbridge_ecloan_ex_async(
+        self,
+        request: riskplus_models.DetailDubbridgeEcloanRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.DetailDubbridgeEcloanResponse:
+        """
+        Description: 支用后 查询借据
+        Summary: 支用后 查询借据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.DetailDubbridgeEcloanResponse(),
+            await self.do_request_async('1.0', 'riskplus.dubbridge.ecloan.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_dubbridge_eccredit(
+        self,
+        request: riskplus_models.QueryDubbridgeEccreditRequest,
+    ) -> riskplus_models.QueryDubbridgeEccreditResponse:
+        """
+        Description: 授信结果查询
+        Summary: 授信结果查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_dubbridge_eccredit_ex(request, headers, runtime)
+
+    async def query_dubbridge_eccredit_async(
+        self,
+        request: riskplus_models.QueryDubbridgeEccreditRequest,
+    ) -> riskplus_models.QueryDubbridgeEccreditResponse:
+        """
+        Description: 授信结果查询
+        Summary: 授信结果查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_dubbridge_eccredit_ex_async(request, headers, runtime)
+
+    def query_dubbridge_eccredit_ex(
+        self,
+        request: riskplus_models.QueryDubbridgeEccreditRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeEccreditResponse:
+        """
+        Description: 授信结果查询
+        Summary: 授信结果查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeEccreditResponse(),
+            self.do_request('1.0', 'riskplus.dubbridge.eccredit.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_dubbridge_eccredit_ex_async(
+        self,
+        request: riskplus_models.QueryDubbridgeEccreditRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeEccreditResponse:
+        """
+        Description: 授信结果查询
+        Summary: 授信结果查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeEccreditResponse(),
+            await self.do_request_async('1.0', 'riskplus.dubbridge.eccredit.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def fill_dubbridge_eccredit(
+        self,
+        request: riskplus_models.FillDubbridgeEccreditRequest,
+    ) -> riskplus_models.FillDubbridgeEccreditResponse:
+        """
+        Description: 补充授信申请风险数据
+        Summary: 补充授信申请风险数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.fill_dubbridge_eccredit_ex(request, headers, runtime)
+
+    async def fill_dubbridge_eccredit_async(
+        self,
+        request: riskplus_models.FillDubbridgeEccreditRequest,
+    ) -> riskplus_models.FillDubbridgeEccreditResponse:
+        """
+        Description: 补充授信申请风险数据
+        Summary: 补充授信申请风险数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.fill_dubbridge_eccredit_ex_async(request, headers, runtime)
+
+    def fill_dubbridge_eccredit_ex(
+        self,
+        request: riskplus_models.FillDubbridgeEccreditRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.FillDubbridgeEccreditResponse:
+        """
+        Description: 补充授信申请风险数据
+        Summary: 补充授信申请风险数据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.FillDubbridgeEccreditResponse(),
+            self.do_request('1.0', 'riskplus.dubbridge.eccredit.fill', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def fill_dubbridge_eccredit_ex_async(
+        self,
+        request: riskplus_models.FillDubbridgeEccreditRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.FillDubbridgeEccreditResponse:
+        """
+        Description: 补充授信申请风险数据
+        Summary: 补充授信申请风险数据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.FillDubbridgeEccreditResponse(),
+            await self.do_request_async('1.0', 'riskplus.dubbridge.eccredit.fill', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_dubbridge_eccredit_skipurl(
+        self,
+        request: riskplus_models.QueryDubbridgeEccreditSkipurlRequest,
+    ) -> riskplus_models.QueryDubbridgeEccreditSkipurlResponse:
+        """
+        Description: 获取链接接口
+        Summary: 获取链接接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_dubbridge_eccredit_skipurl_ex(request, headers, runtime)
+
+    async def query_dubbridge_eccredit_skipurl_async(
+        self,
+        request: riskplus_models.QueryDubbridgeEccreditSkipurlRequest,
+    ) -> riskplus_models.QueryDubbridgeEccreditSkipurlResponse:
+        """
+        Description: 获取链接接口
+        Summary: 获取链接接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_dubbridge_eccredit_skipurl_ex_async(request, headers, runtime)
+
+    def query_dubbridge_eccredit_skipurl_ex(
+        self,
+        request: riskplus_models.QueryDubbridgeEccreditSkipurlRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeEccreditSkipurlResponse:
+        """
+        Description: 获取链接接口
+        Summary: 获取链接接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeEccreditSkipurlResponse(),
+            self.do_request('1.0', 'riskplus.dubbridge.eccredit.skipurl.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_dubbridge_eccredit_skipurl_ex_async(
+        self,
+        request: riskplus_models.QueryDubbridgeEccreditSkipurlRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeEccreditSkipurlResponse:
+        """
+        Description: 获取链接接口
+        Summary: 获取链接接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeEccreditSkipurlResponse(),
+            await self.do_request_async('1.0', 'riskplus.dubbridge.eccredit.skipurl.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def verify_finservice_zhima_identify(
