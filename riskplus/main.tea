@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.31.0',
+    sdk_version = '1.31.1',
     _prod_code = 'RISKPLUS',
     _prod_channel = 'undefined'
   };
@@ -271,6 +271,18 @@ model RiskDetail {
   ruleName: string(name='rule_name', example='贷款车辆厂商指导价与实际不符'),
 }
 
+// 经营数据
+model EcMonthData {
+  // 月份格式为YYYYMM
+  month: string(name='month', example='202210'),
+  // 实际结算金额/销售收入 单位：元，格式：数字，小数点后两位
+  purchaseAmount: long(name='purchase_amount', example='22300000.00'),
+  // GMV，单位：元，格式：数字，小数点后两位
+  gmv: long(name='gmv', example='22300000.00'),
+  // 退货率。单位：%，格式：数字，小数点后两位
+  retRate: long(name='ret_rate', example='3.08'),
+}
+
 // 回流事件记录属性项
 model BackflowEventRecordProperty {
   // 属性code
@@ -366,6 +378,18 @@ model BillDetail {
   otherInfo?: string(name='other_info', example='[{"fee":"费用（单位：分）","type":"（费用大项）1:保费, 2:信用评估费类","subType":"费用子项） 57:担保咨询服务费（属于信用评估费类型）  50:信用评估费（属于信用评估费类型）  40保费","insureMode":"分期乐内部担保模式号"}]'),
   // 用户实还日，用户主动发起是当前日；定时扣款是应还日，格式=yyyy-MM-dd
   rpyDate?: string(name='rpy_date', example='yyyy-MM-dd'),
+}
+
+// 电商支用订单详情
+model EcLoanAppls {
+  // 客户ID
+  userId: string(name='user_id', example='232'),
+  // 申请单号 系统的申请单号
+  orderNo: string(name='order_no', example='1232'),
+  // 提款单状态
+  orderStatus: string(name='order_status', example='1'),
+  // 借据号
+  loanNo: string(name='loan_no', example='123'),
 }
 
 // 营销盾触达媒介参数信息
@@ -1128,6 +1152,14 @@ model RtopCrowdRiskSummaryResp {
   registeredProvince?: string(name='registered_province', example='浙江省'),
 }
 
+// 天枢-电商-申请人信息
+model EcApplicantPersonInfo {
+  // 如果合作方传输，会在我行H5进件页面反显展示
+  applicantName?: string(name='applicant_name', example='张三'),
+  // 申请人身份证号码
+  idNo?: string(name='id_no', example='6230582100000003260'),
+}
+
 // 回执统计结果
 model StatisticResult {
   // 有效任务总数量
@@ -1363,6 +1395,14 @@ model RpcommonResp {
   data: string(name='data', example='{"a":1}'),
 }
 
+// 申请人信息
+model ApplicantPersonInfo {
+  // 申请人姓名
+  applicantName?: string(name='applicant_name', example='张三'),
+  // 申请人身份证号码
+  idNo?: string(name='id_no', example='6230582100000003260'),
+}
+
 // 客户信息结果
 model CustomInfoResult {
   // 社会信用代码
@@ -1437,6 +1477,42 @@ model RtopPopulationDistribution {
   city: string(name='city', example='杭州市'),
   // 统计值
   count: integer(name='count', example='10'),
+}
+
+// 天枢-电商-授信补充-拓展字段
+model EcBizContend {
+  // 企业名称
+  dtEnterpriseName: string(name='dt_enterprise_name', example='张三的贸易有限公司'),
+  // 企业社会信用代码
+  dtSocialCreditno: string(name='dt_social_creditno', example='91234500123400000R'),
+  // 是否有关联关系Y/N
+  dtContractFlag: string(name='dt_contract_flag', example='Y'),
+  // 固定经营场所地址
+  dtFixedManageArea?: string(name='dt_fixed_manage_area', example='广东省深圳市区福田区'),
+  // 近1个月商户在电商平台的交易额（GMV）
+  dtMerchtAtEmrchPlfLimitLt1m?: string(name='dt_mercht_at_emrch_plf_limit_lt_1m', example='10000234'),
+  // 近6个月的月均GMV
+  dtAvgGmvLt6m: string(name='dt_avg_gmv_lt_6m', example='10000234'),
+  // 近6个月平均退货率
+  dtAvgRetRateLt6m: string(name='dt_avg_ret_rate_lt_6m', example='8'),
+  // 近12个月平均退货率
+  dtAvgRetRateLt12m: string(name='dt_avg_ret_rate_lt_12m', example='10'),
+  // 退货率的季度均值
+  dtRetRateQtrAvgVal?: string(name='dt_ret_rate_qtr_avg_val', example='10'),
+  // 近3个月累计违规处罚金额
+  dtAccuFoulPunishAmtLt3m: string(name='dt_accu_foul_punish_amt_lt_3m', example='200.00'),
+  // 是否有重大违规或交易违约
+  dtIsHaveMajorFoulOrTxnDeflt: string(name='dt_is_have_major_foul_or_txn_deflt', example='Y'),
+  // 过往是否有刷单等虚假贸易记录
+  dtHisHaveSngEtcVtlFakeTradeRcrd: string(name='dt_his_have_sng_etc_vtl_fake_trade_rcrd', example='Y'),
+  // 合作时长表
+  dtCoDuranTab: string(name='dt_co_duran_tab', example='抖音：24；天猫：12'),
+  // 店铺经营品类（准入非翡翠/玉石类、黄金／彩宝／钻石／珍珠类、钟表类、珠宝／文玩类、房产/汽车、汽车售后服务、奢侈品、虚拟/服务、二手、到店美食、物流服务类）
+  dtEntCustSeg: string(name='dt_ent_cust_seg', example='玉石类'),
+  // 店铺名称
+  dtShopName: string(name='dt_shop_name', example='张三的抖音小店'),
+  // 近12个月经营数据
+  monthData: [ EcMonthData ](name='month_data', example=''),
 }
 
 // 天枢文件信息统一结构体
@@ -1915,6 +1991,64 @@ model InstallmentTrial {
   totalDeductAmount?: long(name='total_deduct_amount', example='1999.98'),
 }
 
+// 天枢-电商-借据详情
+model EcLoanDetail {
+  // 借据号
+  loanAcctNo: string(name='loan_acct_no', example='ACCAL202301120798255316102054428'),
+  // 贷款金额
+  loanAmt: long(name='loan_amt', example='1.23'),
+  // 贷款发放日
+  loanStartDate: string(name='loan_start_date', example='2023/05/01'),
+  // 贷款到期日
+  loanEndDate: string(name='loan_end_date', example='2023/05/01'),
+  // 利率类型
+  rateType: string(name='rate_type', example='1'),
+  // 利率单位
+  rateUnit: string(name='rate_unit', example='1'),
+  // 贷款利率 年化利率(%)
+  loanIntRate: string(name='loan_int_rate', example='1.23'),
+  // 当前剩余本金
+  currRemainCorpus: string(name='curr_remain_corpus', example='1.23'),
+  // 还款方式
+  loanRepayType: string(name='loan_repay_type', example='1'),
+  // 最后一次计息日
+  lastCountIntDate: string(name='last_count_int_date', example='2023/05/01'),
+  // 当前期数
+  currentTerm: string(name='current_term', example='25'),
+  // 当期应还日期
+  curRepayDay: string(name='cur_repay_day', example='2023/05/01'),
+  // 对应期次应还金额
+  curRemainAmt: long(name='cur_remain_amt', example='1.23'),
+  // 当期已还总额
+  currentPaidAmt: long(name='current_paid_amt', example='1.23'),
+  // 对应期次应还本金
+  curPrincipalAmount: long(name='cur_principal_amount', example='1.23'),
+  // 对应期次已还本金
+  actPrincipalAmount: long(name='act_principal_amount', example='1.23'),
+  // 对应期次应还利息
+  curInterestAmount: long(name='cur_interest_amount', example='1.23'),
+  // 对应期次已还利息
+  actInterestAmount: long(name='act_interest_amount', example='1.23'),
+  // 对应期次应还正常利息
+  curNormalInterestAmt: long(name='cur_normal_interest_amt', example='1.23'),
+  // 对应期次已还正常利息 
+  actCurNormalInterestAmt: long(name='act_cur_normal_interest_amt', example='1.23'),
+  // 对应期次应还罚息
+  curPrincipalPenaltyAmt: long(name='cur_principal_penalty_amt', example='1.23'),
+  // 对应期次已还罚息
+  actCurPrincipalPenaltyAmt: long(name='act_cur_principal_penalty_amt', example='1.23'),
+  // 对应期次应还复利
+  curInterestPenaltyAmt: long(name='cur_interest_penalty_amt', example='1.23'),
+  // 对应期次已还复利
+  actCurInterestPenaltyAmt: long(name='act_cur_interest_penalty_amt', example='1.23'),
+  // 总期数
+  totalNum: string(name='total_num', example='1'),
+  // 借据状态
+  loanStatus: string(name='loan_status', example='1'),
+  // 总欠款本息
+  totalOweCorpusInterest: string(name='total_owe_corpus_interest', example='1.23'),
+}
+
 // 营销盾离线圈客执行批次信息
 model UmktOfflineDecisionTaskExecBatchInfo {
   // 执行批次
@@ -2015,6 +2149,16 @@ model GetAgreementUrlResponseData {
   fileType: string(name='file_type', example='APPLY'),
   // 协议类型-名称
   fileTypeName: string(name='file_type_name', example='授信协议'),
+}
+
+// 天枢-电商-企业信息
+model EcEnterpriseInfo {
+  // 企业名称
+  entName: string(name='ent_name', example='张三的贸易有限公司'),
+  // 申请企业证件类型
+  entIdType: string(name='ent_id_type', example='Ent04'),
+  // 客户企业的统一社会信用代码，有企业信息则必输
+  entIdNo: string(name='ent_id_no', example='91234500123400000R'),
 }
 
 // 机构平台通知响应结果
@@ -2265,6 +2409,16 @@ model WithholdDetailItem {
   billDetails: [ BillDetail ](name='bill_details', example='[{}]'),
 }
 
+// 天枢-电商-跳转链接
+model EcLinkUrl {
+  // 根据传输的操作类型，返回对应的URL地址
+  urlId?: string(name='url_id', example='SQ202301291615023'),
+  // 免登场景下，给到开放银行和对公认证中心的链接ID,如果对方没有，没办法以免登的形式进入银行页面。
+  h5id?: string(name='h5id', example='APPL20200826000000250721'),
+  // 免登场景下，给到对公认证中心的数据，后续KYB需要拿到这个数据进行校验，否则会无法跳转指定地址。
+  state?: string(name='state', example='1'),
+}
+
 // ai外呼回调详情
 model AICallbackMessage {
   // 批次号
@@ -2307,6 +2461,22 @@ model AICallbackMessage {
   properties: string(name='properties', example='{"电话号码":"13100000000"}'),
 }
 
+// 天枢-电商-还款试算结果
+model EcRepayTrial {
+  // 合同编号
+  contractNo?: string(name='contract_no', example='123'),
+  // 数字格式,精确到分。借据已结清,会返回还款总金额为0
+  totalAmount?: string(name='total_amount', example='23'),
+  // 利息数字格式,精确到分
+  interestAmount?: string(name='interest_amount', example='1.23'),
+  // 本金 数字格式,精确到分
+  principalAmount?: string(name='principal_amount', example='2.35'),
+  // 罚息 数字格式,精确到分
+  penaltyInterestAmount?: string(name='penalty_interest_amount', example='1.23'),
+  // 复利 数字格式,精确到分
+  compoundInterestAmount?: string(name='compound_interest_amount', example='1.23'),
+}
+
 // 决策场景信息
 model AirDfSceneInfos {
   // 决策场景结果
@@ -2329,6 +2499,64 @@ model RtopCompanyAlarm {
   alarmDate: string(name='alarm_date', example='1'),
   // 预警标识，是否需要预警
   alarmFlag: string(name='alarm_flag', example='1'),
+}
+
+// 天枢-电商-还款明细查询
+model EcRepayQuery {
+  // 合同编号
+  contractNo: string(name='contract_no', example='91234500123400000R'),
+  // 借据号
+  loanNo: string(name='loan_no', example='91234500123400000R'),
+  // 贷款金额
+  loanamt: string(name='loanamt', example='25.34'),
+  // 实时借据状态
+  loanStatus: string(name='loan_status', example='1'),
+  // 总期次
+  totalNum: string(name='total_num', example='25'),
+  // 还款方式
+  repayType?: string(name='repay_type', example='1'),
+  // 应还总金额
+  repayAmount?: string(name='repay_amount', example='25.34'),
+  // 实还总金额
+  actualSum?: string(name='actual_sum', example='2.34'),
+  // 这笔借据所在期次的还款日。格式:yyyy/MM/dd
+  duedate?: string(name='duedate', example='2023/05/01'),
+  // 实还日期 格式:yyyy/MM/dd
+  actualpayDate?: string(name='actualpay_date', example='2023/05/01'),
+  // 应还本金 单位:元,格式:数字,小数点后两位
+  corpus?: string(name='corpus', example='1.23'),
+  // 实还本金 单位:元,格式:数字,小数点后两位
+  actualPayprincipalAmt?: string(name='actual_payprincipal_amt', example='1.23'),
+  // 应还利息 单位:元,格式:数字,小数点后两位
+  interest?: string(name='interest', example='1.23'),
+  // 实还利息 单位:元,格式:数字,小数点后两位
+  actualPayinterestAmt?: string(name='actual_payinterest_amt', example='1.23'),
+  // 应还罚息 单位:元,格式:数字,小数点后两位
+  payPrincipalPenaltyAmt?: string(name='pay_principal_penalty_amt', example='1.23'),
+  // 实还罚息 单位:元,格式:数字,小数点后两位
+  actualPayprincipalPenaltyAmt?: string(name='actual_payprincipal_penalty_amt', example='1.23'),
+  // 应还复利 单位:元,格式:数字,小数点后两位
+  payInterestPenaltyAmt?: string(name='pay_interest_penalty_amt', example='1.23'),
+  // 实还复利 单位:元,格式:数字,小数点后两位
+  actualPayinterestPenaltyAmt?: string(name='actual_payinterest_penalty_amt', example='1.23'),
+  // 应还贴息利息 单位:元,格式:数字,小数点后两位
+  paySplitinterestAmt?: string(name='pay_splitinterest_amt', example='1.23'),
+  // 实还贴息利息 单位:元,格式:数字,小数点后两位
+  actualPaysplitinterestAmt?: string(name='actual_paysplitinterest_amt', example='1.23'),
+  // 币种
+  currency?: string(name='currency', example='RMB'),
+  // 还款期次 这笔还款对应期次。单位:整数
+  repaymentNum?: string(name='repayment_num', example='25'),
+  // 优惠金额 单位:元,格式:数字,小数点后两位
+  reduceAmt?: string(name='reduce_amt', example='1.23'),
+  // 还款类型
+  billType?: string(name='bill_type', example='1'),
+  // 流水号
+  transactionNo: string(name='transaction_no', example='PANO124414515555'),
+  // 还款交易流水号 若为还款，则与还款通知流水保持一致
+  transactionSerialno: string(name='transaction_serialno', example='PANO124414515555'),
+  // 是否附言还款
+  remark?: string(name='remark', example='1'),
 }
 
 // 流量方还款计划通知Object
@@ -2384,6 +2612,26 @@ model RtopGenderDistribution {
   count: integer(name='count', example='10'),
   // 性别
   gender: string(name='gender', example='MALE'),
+}
+
+// 天枢-电商-额度返回
+model DubheEcQuota {
+  // 交易流水号,与上面的交易流水号一致
+  transactionNo: string(name='transaction_no', example='JJBH136433239635646977'),
+  // 业务状态同步接口中，客户签约成功后的合同编号，在后续查询类接口都需要使用。
+  contractNo: string(name='contract_no', example='CONT20230213000000146577'),
+  // 客户对应合同的总额度，单位：元，格式：数字，小数点后两位。
+  amt: long(name='amt', example='1'),
+  // 客户对应合同的可用额度，单位：元，格式：数字，小数点后两位
+  availCreditAmt: long(name='avail_credit_amt', example='1'),
+  // 客户对应合同的已用额度，单位：元，格式：数字，小数点后两位
+  engrossAmt: long(name='engross_amt', example='1.01'),
+  // 合同目前的额度状态 
+  creditStatus: string(name='credit_status', example='1'),
+  // 授信开始时间  格式: yyyy/MM/dd。额度有效时返回
+  contractEffectDate?: string(name='contract_effect_date', example='2023/02/01'),
+  // 授信结束时间 格式:yyyy/MM/dd。额度有效时返回
+  maturityDate?: string(name='maturity_date', example='2023/05/01'),
 }
 
 // 卡短解析服务返回参数
@@ -2480,6 +2728,34 @@ model ServiceContext {
   sessionId?: string(name='session_id', example='RZ1 2cz9oSg1GTGtGp9CwYtBbZMcD8DmobilecashierRZ12'),
   // 用户ID
   userId?: string(name='user_id', example='2088522384403582'),
+}
+
+// 天枢-电商-授信查询
+model EcCreditQuery {
+  // 外部申请编号
+  thirdApplyNo?: string(name='third_apply_no', example='SQ202301291615023'),
+  // 银行审批流水号
+  applyNo?: string(name='apply_no', example='APPL20200826000000250721'),
+  // 业务审批状态
+  applyStatus: string(name='apply_status', example='APPROVING'),
+  // 合同编号
+  contractNo?: string(name='contract_no', example='CONT20230314000000143225'),
+  // 授信开始时间 格式yyyyMMdd
+  amountStartDate?: string(name='amount_start_date', example='20221010'),
+  // 授信结束时间 yyyyMMdd
+  amountEndDate?: string(name='amount_end_date', example='20231010'),
+  // 审批金额
+  approveAmount?: string(name='approve_amount', example='5000000.00'),
+  // 否决原因
+  denyReason?: string(name='deny_reason', example='审批否决'),
+  // 提还款账号
+  bankCardNo?: string(name='bank_card_no', example='6230580199590683459'),
+  // 提还款账号联行号
+  bankCardBranchCode?: string(name='bank_card_branch_code', example='307331002509'),
+  // 账号开户行行名称
+  publicAccountBankname?: string(name='public_account_bankname', example='平安银行杭州分行'),
+  // 审批通过时间 审批通过必填(格式: yyyy-MM-dd HH:mm:ss)
+  approveTime?: string(name='approve_time', example='2023-05-01 01:01:01'),
 }
 
 // 营销盾实时圈客结果返回model
@@ -2629,6 +2905,14 @@ model CreditAmount {
   payDateSup?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='pay_date_sup', example='yyyy-MM-dd'),
   // 到期日期（兼容字段）
   expireDateSup?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='expire_date_sup', example='yyyy-MM-dd'),
+}
+
+// 天枢-电商-支用查询
+model EcLoanQuery {
+  // 总条数
+  totalCount: string(name='total_count', example='25'),
+  // 订单数组
+  loanAppls: [ EcLoanAppls ](name='loan_appls', example=''),
 }
 
 // 风控事件咨询查询入参
@@ -7745,117 +8029,12 @@ model ApplyDubbridgeCreditLxRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 授信申请编号
-  creditApplyId: string(name='credit_apply_id'),
   // 合作方代码
-  partnerCode?: string(name='partner_code'),
-  // 申请人姓名
-  name: string(name='name'),
-  // 授信金额，单位:元
-  creditAmount: long(name='credit_amount'),
-  // 婚姻状况，
-  // 0-未婚
-  // 1-已婚
-  // 3-离异
-  // 4-未知
-  // 5-丧偶
-  maritalStatus: string(name='marital_status'),
-  // 学历，
-  // 0未知，1本科，2大专，3硕士，4博士，7初中，10大专(老)，11中专，12高中，13小学
-  education: string(name='education'),
-  // 年龄
-  age: long(name='age'),
-  // 性别，
-  // 1-男
-  // 2-女
-  // 0-未知
-  sex: string(name='sex'),
-  // 证件类型，
-  // 1、身份证
-  identiType: string(name='identi_type'),
-  // 证件号码
-  identiNo: string(name='identi_no'),
-  // 身份证有效期止，如果是长期用20991231
-  idCardExpireDate: string(name='id_card_expire_date'),
-  // 身份证有效期起
-  idCardValidDate: string(name='id_card_valid_date'),
-  // 身份证省
-  idProvince: string(name='id_province'),
-  // 身份证市
-  idCity: string(name='id_city'),
-  // 身份证地址
-  idAddr: string(name='id_addr'),
-  // 身份证签发机关
-  issuedAgency: string(name='issued_agency'),
-  // 出生日期，yyyy-MM-dd
-  birthday: string(name='birthday'),
-  // 国籍
-  nationality: string(name='nationality'),
-  // 民族
-  nation: string(name='nation'),
-  // 客户手机号
-  mobileNo: string(name='mobile_no'),
-  // 用户银行卡号
-  userBankCardNo: string(name='user_bank_card_no'),
-  // 第一联系人姓名
-  contactName: string(name='contact_name'),
-  // 第一联系人手机
-  contactMobile: string(name='contact_mobile'),
-  // 第一联系人关系，
-  // 1 父母
-  // 2 配偶
-  // 3 亲戚
-  // 4 家人
-  // 5 子女
-  // 6 朋友
-  // 7 同事
-  // 8 兄弟姐妹
-  // 9 同学
-  // 99 其他
-  contactRel: string(name='contact_rel'),
-  // 居住地址对应的省，若为空则上送身份证地址对应的省
-  livingProvince: string(name='living_province'),
-  // 居住地址对应的市，若为空则上送身份证地址对应的市
-  livingCity: string(name='living_city'),
-  // 居住地对应的区
-  livingCounty?: string(name='living_county'),
-  // 居住地址
-  livingAddress: string(name='living_address'),
-  // 客户职业，
-  // 0 未知（空值默认按0提供）
-  // 1 国家机关、党群组织、企业、事业单位负责人
-  // 2 专业技术人员
-  // 3 办事人员和有关人员
-  // 4 商业、服务业人员
-  // 5 农、林、牧、渔、水利业生产人员
-  // 6 生产、运输设备操作人员及有关人员
-  // 7 军人
-  // 8 不便分类的其他从业人员
-  userOccupation: string(name='user_occupation'),
-  // 客户行业，
-  // 0 未知（空值默认按0提供）
-  // 1 信息传输、软件和信息技术服务业
-  // 2 金融业
-  // 3 制造业
-  // 4 卫生和社会工作
-  // 5 建筑业
-  // 6 文化、体育和娱乐业
-  // 7 租赁和商务服务业
-  // 8 住宿和餐饮业
-  // 9 交通运输、仓储和邮政业
-  // 10 采矿业
-  // 11 电力、热力、燃气及水生产和供应业
-  // 12 科学研究和技术服务业
-  // 13 农、林、牧、渔业
-  // 14 水利、环境和公共设施管理业
-  // 15 其他
-  // 77 批发和零售业
-  // 78 居民服务、修理和其他服务业
-  // 79 房地产业
-  // 81 教育
-  // 82 公共管理、社会保障和社会组织
-  // 80 国际组织
-  userIndustryCategory: string(name='user_industry_category'),
+  partnerCode: string(name='partner_code'),
+  // 授信申请，json格式字符串
+  bizContent: string(name='biz_content'),
+  // 请求发送时间
+  timestamp: string(name='timestamp'),
 }
 
 model ApplyDubbridgeCreditLxResponse = {
@@ -7865,20 +8044,16 @@ model ApplyDubbridgeCreditLxResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 天枢客户编号
-  customNo?: string(name='custom_no'),
-  // 额度授信申请编号
-  creditNo?: string(name='credit_no'),
-  // 授信审核状态，
-  // 0. 授信成功
-  // 1. 授信失败
-  // 2. 授信中
-  auditState?: long(name='audit_state'),
-  // 业务处理描述信息
+  // 业务返回码，001 请求成功  002 请求失败
+  code?: string(name='code'),
+  // 业务返回描述
   msg?: string(name='msg'),
-  // 业务错误码，
-  // 无异常=0 ，不同异常，返回不同的code
-  errorCode?: string(name='error_code'),
+  // 业务数据
+  bizContent?: string(name='biz_content'),
+  // 响应时间
+  timestamp?: string(name='timestamp'),
+  // 签名数据
+  sign?: string(name='sign'),
 }
 
 /**
@@ -7904,10 +8079,12 @@ model QueryDubbridgeCreditstatusLxRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 授信申请编号
-  creditApplyId: string(name='credit_apply_id'),
   // 合作方代码
-  partnerCode?: string(name='partner_code'),
+  partnerCode: string(name='partner_code'),
+  // 业务入参，json格式字符串
+  bizContent: string(name='biz_content'),
+  // 请求发送时间
+  timestamp: string(name='timestamp'),
 }
 
 model QueryDubbridgeCreditstatusLxResponse = {
@@ -7917,26 +8094,16 @@ model QueryDubbridgeCreditstatusLxResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 授信审核状态
-  // 0. 授信成功
-  // 1. 授信失败
-  // 2. 授信中（重试查询）
-  // 3. 查无此单（按1授信失败处理，订单轮询至下一资方）
-  auditState?: long(name='audit_state'),
-  // 业务错误码
-  // 无异常=0 ，不同异常，返回不同的code
-  errorCode?: long(name='error_code'),
   // 授信失败必填，描述具体的失败原因，用于运营分析
   msg?: string(name='msg'),
-  // 授信成功必填,授信成功后，资方的授信编号，后续用信/支用时用到
-  creditNo?: string(name='credit_no'),
-  // 授信批准的额度，授信成功必填，单位:元
-  creditAmt?: long(name='credit_amt'),
-  // 授信生效日期，授信审核通过时必填，格式：yyyy-MM-dd
-  creditValidDate?: string(name='credit_valid_date'),
-  // 授信失效日期，授信审核通过时必填，格式：yyyy-MM-dd  ,如果授信的当前日期大于
-  // 等于失效日期,就认为失效
-  creditExpireDate?: string(name='credit_expire_date'),
+  // 业务返回码，001 请求成功 002 请求失败
+  code?: string(name='code'),
+  // 业务数据
+  bizContent?: string(name='biz_content'),
+  // 响应时间
+  timestamp?: string(name='timestamp'),
+  // 签名数据
+  sign?: string(name='sign'),
 }
 
 /**
@@ -7962,53 +8129,12 @@ model ApplyDubbridgeUsecreditLxRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 用信审批申请编号
-  applyId: string(name='apply_id'),
   // 合作方代码
-  partnerCode?: string(name='partner_code'),
-  // 授信编号
-  creditNo: string(name='credit_no'),
-  // 资产类型，
-  // 1：借钱（默认）
-  // 2：电商购物
-  // 3：乐花卡
-  orderType: string(name='order_type'),
-  // 借款金额，单位：元
-  loanPrincipal: long(name='loan_principal'),
-  // 借款期数，比如：1,2,3,6,9,12,15,18,24,36
-  loanTerm: long(name='loan_term'),
-  // 申请贷款用途，
-  // 借钱（透传）：日常消费；运动健身；电商购物；生活开销；学习进修；学艺术班；技能培训
-  // 电商购物（默认）：电商购物
-  // 乐花卡（默认）：个人综合消费
-  loanUse: string(name='loan_use'),
-  // 借款人收款户名，
-  // 借钱业务：借款用户个人收款账户名
-  // 电商业务：打款到对公户，传对公户相关账号信息
-  debitAccountName: string(name='debit_account_name'),
-  // 收款人银行卡开户行，
-  // 借钱业务：借款用户个人账户开户行名称
-  // 电商业务：打款到对公户，传对公户相关账号信息
-  debitOpenAccountBank: string(name='debit_open_account_bank'),
-  // 收款人银行卡卡号，
-  // 借钱业务：借款用户个人账户卡号
-  // 电商业务：打款到对公户，传对公户相关账号信息
-  debitAccountNo: string(name='debit_account_no'),
-  // 收款卡联行号，
-  // 借钱业务：非必传
-  // 电商业务：打款到对公户，传对公户相关账号信息
-  debitCnaps?: string(name='debit_cnaps'),
-  // 担保编号，有担保时提供担保编号
-  insureId?: string(name='insure_id'),
-  // 担保方名称，有担保时提供担名称
-  insureName?: string(name='insure_name'),
-  // 还款方式，
-  // 1-等额本息（默认）
-  // 2-等额本金
-  // 4-气球贷
-  // 10- 等本等息
-  // 13-先息后本
-  repayType: long(name='repay_type'),
+  partnerCode: string(name='partner_code'),
+  // 业务入参，json格式字符串
+  bizContent: string(name='biz_content'),
+  // 请求发送时间
+  timestamp: string(name='timestamp'),
 }
 
 model ApplyDubbridgeUsecreditLxResponse = {
@@ -8018,13 +8144,16 @@ model ApplyDubbridgeUsecreditLxResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 用信审批状态，
-  // 0、成功
-  // 1、失败
-  // 2、审批中
-  status?: long(name='status'),
-  // 用信审批描述，失败时，需给出的错误描述
+  // 业务返回码，001 请求成功 002 请求失败
+  code?: string(name='code'),
+  // 业务返回描述
   msg?: string(name='msg'),
+  // 业务数据
+  bizContent?: string(name='biz_content'),
+  // 响应时间
+  timestamp?: string(name='timestamp'),
+  // 签名数据
+  sign?: string(name='sign'),
 }
 
 /**
@@ -8050,10 +8179,12 @@ model QueryDubbridgeUsecreditstatusLxRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 支用申请编号
-  applyId: string(name='apply_id'),
   // 合作方代码
-  partnerCode?: string(name='partner_code'),
+  partnerCode: string(name='partner_code'),
+  // 业务入参，json格式字符串
+  bizContent: string(name='biz_content'),
+  // 请求发送时间
+  timestamp: string(name='timestamp'),
 }
 
 model QueryDubbridgeUsecreditstatusLxResponse = {
@@ -8063,14 +8194,16 @@ model QueryDubbridgeUsecreditstatusLxResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 用信审批状态，
-  // 0、成功
-  // 1、失败
-  // 2、审批中
-  // 3、查无此单(重新发起用信申请接口,需要保证用信申请幂等)
-  status?: long(name='status'),
-  // 用信审批描述，失败时，需给出的错误描述
+  // 业务返回码，001 请求成功 002 请求失败
+  code?: string(name='code'),
+  // 业务返回描述
   msg?: string(name='msg'),
+  // 业务数据
+  bizContent?: string(name='biz_content'),
+  // 响应时间
+  timestamp?: string(name='timestamp'),
+  // 签名数据
+  sign?: string(name='sign'),
 }
 
 /**
@@ -8096,32 +8229,12 @@ model ApplyDubbridgeLoanLxRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 用信审批申请编号
-  applyId: string(name='apply_id'),
   // 合作方代码
-  partnerCode?: string(name='partner_code'),
-  // 授信编号
-  creditNo: string(name='credit_no'),
-  // 资产类型， 1：借钱（默认） 2：电商购物 3：乐花卡
-  orderType: string(name='order_type'),
-  // 借款金额，单位：元
-  loanPrincipal: long(name='loan_principal'),
-  // 借款期数，比如：1,2,3,6,9,12,15,18,24,36
-  loanTerm: long(name='loan_term'),
-  // 申请贷款用途， 借钱（透传）：日常消费；运动健身；电商购物；生活开销；学习进修；学艺术班；技能培训 电商购物（默认）：电商购物 乐花卡（默认）：个人综合消费
-  loanUse: string(name='loan_use'),
-  // 银行卡绑定手机号
-  mobileNo: string(name='mobile_no'),
-  // 借款人收款户名， 借钱业务：借款用户个人收款账户名 电商业务：打款到对公户，传对公户相关账号信息
-  debitAccountName: string(name='debit_account_name'),
-  // 收款人银行卡开户行， 借钱业务：借款用户个人账户开户行名称 电商业务：打款到对公户，传对公户相关账号信息
-  debitOpenAccountBank: string(name='debit_open_account_bank'),
-  // 收款人银行卡卡号， 借钱业务：借款用户个人账户卡号 电商业务：打款到对公户，传对公户相关账号信息
-  debitAccountNo: string(name='debit_account_no'),
-  // 收款卡联行号， 借钱业务：非必传 电商业务：打款到对公户，传对公户相关账号信息
-  debitCnaps: string(name='debit_cnaps'),
-  // 还款方式， 1-等额本息（默认） 2-等额本金 4-气球贷 10- 等本等息 13-先息后本
-  repayType: string(name='repay_type'),
+  partnerCode: string(name='partner_code'),
+  // 业务入参，json格式字符串
+  bizContent: string(name='biz_content'),
+  // 请求发送时间
+  timestamp: string(name='timestamp'),
 }
 
 model ApplyDubbridgeLoanLxResponse = {
@@ -8131,14 +8244,16 @@ model ApplyDubbridgeLoanLxResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 放款结果，
-  // 0:放款成功
-  // 1:放款失败
-  // 2.查无此单
-  // 99:处理中
-  loanResult?: long(name='loan_result'),
-  // 放款结果描述，失败时，需给出的错误描述
+  // 业务返回码，001 请求成功 002 请求失败
+  code?: string(name='code'),
+  // 业务返回描述
   msg?: string(name='msg'),
+  // 业务数据
+  bizContent?: string(name='biz_content'),
+  // 响应时间
+  timestamp?: string(name='timestamp'),
+  // 签名数据
+  sign?: string(name='sign'),
 }
 
 /**
@@ -8164,10 +8279,12 @@ model QueryDubbridgeLoanstatusLxRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 用信审批申请编号
-  applyId: string(name='apply_id'),
   // 合作方代码
-  partnerCode?: string(name='partner_code'),
+  partnerCode: string(name='partner_code'),
+  // 业务入参，json格式字符串
+  bizContent: string(name='biz_content'),
+  // 请求发送时间
+  timestamp: string(name='timestamp'),
 }
 
 model QueryDubbridgeLoanstatusLxResponse = {
@@ -8177,24 +8294,16 @@ model QueryDubbridgeLoanstatusLxResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 放款结果，
-  // 0:放款成功
-  // 1:放款失败
-  // 2.查无此单(重新发起支用申请接口,需要保证支用申请接口幂等)
-  // 99:处理中
-  loanResult?: long(name='loan_result'),
+  // 业务返回码，001 请求成功 002 请求失败
+  code?: string(name='code'),
   // 描述信息
   msg?: string(name='msg'),
-  // 成功必填，资方返回的阶梯结算利率，供生成对资还款计划时使用
-  settleRate?: long(name='settle_rate'),
-  // 成功必填，YYYY-MM-DD HH:MM:SS
-  paymentTime?: string(name='payment_time'),
-  // 放款成功金额，成功必填，单位:元
-  loanAmt?: long(name='loan_amt'),
-  // 放款流水号，成功必填
-  capitalLoanNo?: string(name='capital_loan_no'),
-  // 收款人银行卡卡号，放款成功提供实际的放款目标账户
-  debitAccountNo?: string(name='debit_account_no'),
+  // 业务数据
+  bizContent?: string(name='biz_content'),
+  // 响应时间
+  timestamp?: string(name='timestamp'),
+  // 签名数据
+  sign?: string(name='sign'),
 }
 
 /**
@@ -8220,20 +8329,12 @@ model NotifyDubbridgeRepaymentplanLxRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 支用申请编号
-  applyId: string(name='apply_id'),
   // 合作方代码
-  partnerCode?: string(name='partner_code'),
-  // 放款编号
-  capitalLoanNo: string(name='capital_loan_no'),
-  // 借款总期数
-  totalTerm: long(name='total_term'),
-  // 借据总金额(元)
-  totalAmount: long(name='total_amount'),
-  // 放款成功日期，yyyy_MM-dd HH:mm:ss
-  paymentTime: string(name='payment_time'),
-  // 还款计划列表
-  repayPlans: [ RepayPlanNotifyItem ](name='repay_plans'),
+  partnerCode: string(name='partner_code'),
+  // 业务入参，json格式字符串
+  bizContent: string(name='biz_content'),
+  // 请求发送时间
+  timestamp: string(name='timestamp'),
 }
 
 model NotifyDubbridgeRepaymentplanLxResponse = {
@@ -8244,9 +8345,15 @@ model NotifyDubbridgeRepaymentplanLxResponse = {
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 同步结果，0-成功 1-失败
-  status?: long(name='status'),
-  // 错误描述
+  code?: string(name='code'),
+  // 业务返回描述
   msg?: string(name='msg'),
+  // 业务数据
+  bizContent?: string(name='biz_content'),
+  // 响应时间
+  timestamp?: string(name='timestamp'),
+  // 签名数据
+  sign?: string(name='sign'),
 }
 
 /**
@@ -8272,34 +8379,12 @@ model ApplyDubbridgeRepaywithholdLxRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 代扣请求流水号
-  withholdSerialNo: string(name='withhold_serial_no'),
   // 合作方代码
-  partnerCode?: string(name='partner_code'),
-  // 用户绑卡信息 ，包含用户四要素：手机号、卡号、用户名、身份证等
-  bindCardInfo: string(name='bind_card_info'),
-  // 通联需要的银行编码
-  bankId?: string(name='bank_id'),
-  // 代扣总金额=用户代扣金额+补差金额（单位：分）
-  withholdAmt: long(name='withhold_amt'),
-  // 签约协议号，客户在支付机构的签约协议号(通联以身份证号唯一，宝付以四要素唯一)
-  signNum: string(name='sign_num'),
-  // 支付模式，
-  // 0:银行卡支付（默认）
-  // 1:余额支付
-  // 2:份额支付
-  payMode: long(name='pay_mode'),
-  // 在支付机构的商户号
-  subMerchantId: string(name='sub_merchant_id'),
-  // 出账信息
-  sepOutInfo: string(name='sep_out_info'),
-  // 分账信息，分账信息条数大于等于一条，当担保费为0时，担保费分账信息不会透传给资方，产品需提示资方做好适配
-  // 
-  sepInInfo: string(name='sep_in_info'),
-  // 加密报文，流量方对出入账信息加密报文，需资方透传给支付机构，与资方申请一致方可扣款成功
-  encrpytContent?: string(name='encrpyt_content'),
-  // 代扣明细
-  withholdDetail: [ WithholdDetailItem ](name='withhold_detail'),
+  partnerCode: string(name='partner_code'),
+  // 业务入参，json格式字符串
+  bizContent: string(name='biz_content'),
+  // 请求发送时间
+  timestamp: string(name='timestamp'),
 }
 
 model ApplyDubbridgeRepaywithholdLxResponse = {
@@ -8309,12 +8394,16 @@ model ApplyDubbridgeRepaywithholdLxResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 还款状态，1、接口通知成功
-  // 2、接口通知失败
-  // (具体的结果都以查询接口为准)
-  status?: long(name='status'),
-  // 还款描述，失败时，需给出的错误描述
+  // 业务返回码，001 请求成功 002 请求失败
+  code?: string(name='code'),
+  // 业务返回描述
   msg?: string(name='msg'),
+  // 业务数据
+  bizContent?: long(name='biz_content'),
+  // 响应时间
+  timestamp?: string(name='timestamp'),
+  // 签名数据
+  sign?: string(name='sign'),
 }
 
 /**
@@ -8340,10 +8429,12 @@ model QueryDubbridgeRepaywithholdLxRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 代扣请求流水号
-  withholdSerialNo: string(name='withhold_serial_no'),
   // 合作方代码
-  partnerCode?: string(name='partner_code'),
+  partnerCode: string(name='partner_code'),
+  // 业务入参，json格式字符串
+  bizContent: string(name='biz_content'),
+  // 请求发送时间
+  timestamp: string(name='timestamp'),
 }
 
 model QueryDubbridgeRepaywithholdLxResponse = {
@@ -8353,20 +8444,16 @@ model QueryDubbridgeRepaywithholdLxResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 代扣状态，
-  // 1、代扣成功
-  // 2、代扣失败
-  // 3. 代扣处理中
-  // 4. 未收到代扣请求（交易侧可以重复发起代扣）
-  status?: long(name='status'),
-  // 代扣描述，失败时，需给出的错误描述
+  // 业务返回码，001 请求成功 002 请求失败
+  code?: string(name='code'),
+  // 业务返回描述
   msg?: string(name='msg'),
-  // 资金方扣款交易流水号，受理流水号(资金方)
-  orderNum?: string(name='order_num'),
-  // 支付通道交易流水号
-  transNum?: string(name='trans_num'),
-  // 代扣明细
-  withholdDetail?: [ WithholdDetailItem ](name='withhold_detail'),
+  // 业务数据
+  bizContent?: string(name='biz_content'),
+  // 响应时间
+  timestamp?: string(name='timestamp'),
+  // 签名数据
+  sign?: string(name='sign'),
 }
 
 /**
@@ -8392,50 +8479,12 @@ model NotifyDubbridgeRepaymentLxRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 还款请求流水号/账单号
-  billId: string(name='bill_id'),
-  // 贷款申请编号
-  applyId: string(name='apply_id'),
-  // 是否本次还款最后一次通知，
-  // 1-是
-  // 2-否
-  // 用户一次还多期时，该笔还款按期多次通知，最后一次通知为是。为否时没有还款计划列表。
-  lastNotify: long(name='last_notify'),
-  // 代扣请求流水号
-  withholdSerialNo?: string(name='withhold_serial_no'),
   // 合作方代码
-  partnerCode?: string(name='partner_code'),
-  // 还款类型，
-  // 不同还款类型分开通知：
-  // 10-正常还款,
-  // 20-部分提前还,
-  // 30-提前结清,
-  // 40-逾期还款
-  // 50-代偿
-  repayType: long(name='repay_type'),
-  // 还款路径，
-  // 1-清分 2-代扣
-  repayChannel: string(name='repay_channel'),
-  // 还款期数
-  repayTerm: string(name='repay_term'),
-  // 还款日期
-  repayDate: string(name='repay_date'),
-  // 还款总额,保留两位有效数字(单位:元)
-  repayAmount: string(name='repay_amount'),
-  // 实还本金,保留两位有效数字(单位:元)
-  repayPrincipal: string(name='repay_principal'),
-  // 实还利息,保留两位有效数字(单位:元)
-  repayInterest: string(name='repay_interest'),
-  // 实还罚息,保留两位有效数字(单位:元)
-  repayMuclt?: string(name='repay_muclt'),
-  // 实还担保费,保留两位有效数字(单位:元)
-  repayGuarantee?: string(name='repay_guarantee'),
-  // 当期结清状态：
-  // 0-当期未结清
-  // 1-当期已结清
-  repaymentMode: string(name='repayment_mode'),
-  // 还款计划列表，随借随还业务更新后的还款计划列表
-  rpyDetails?: [ BillDetail ](name='rpy_details'),
+  partnerCode: string(name='partner_code'),
+  // 业务入参，json格式字符串
+  bizContent: string(name='biz_content'),
+  // 请求发送时间
+  timestamp: string(name='timestamp'),
 }
 
 model NotifyDubbridgeRepaymentLxResponse = {
@@ -8445,11 +8494,16 @@ model NotifyDubbridgeRepaymentLxResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 1、接口通知成功(仅代表收到请求,具体的还款结果以查询接口为准)
-  // 2、接口通知失败(代表未收到请求,会重复发起还款申请)
-  notifyStatus?: long(name='notify_status'),
-  // 错误描述
+  // 业务返回码，001 请求成功 002 请求失败
+  code?: string(name='code'),
+  // 业务返回描述
   msg?: string(name='msg'),
+  // 业务数据
+  bizContent?: string(name='biz_content'),
+  // 响应时间
+  timestamp?: string(name='timestamp'),
+  // 签名数据
+  sign?: string(name='sign'),
 }
 
 /**
@@ -8475,10 +8529,12 @@ model QueryDubbridgeRepaymentLxRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 还款请求流水号/账单号
-  billId: string(name='bill_id'),
-  // 放款编号/借据号
-  capitalLoanNo: string(name='capital_loan_no'),
+  // 合作方代码
+  partnerCode: string(name='partner_code'),
+  // 业务入参，json格式字符串
+  bizContent: string(name='biz_content'),
+  // 请求发送时间
+  timestamp: string(name='timestamp'),
 }
 
 model QueryDubbridgeRepaymentLxResponse = {
@@ -8488,30 +8544,16 @@ model QueryDubbridgeRepaymentLxResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 还款状态，
-  // 1、成功(结算成功)
-  // 2、失败(结算失败)
-  // 3. 还款中(结算处理中)
-  // 4. 查无此通知（会重复发起还款）
-  repayStatus?: long(name='repay_status'),
-  // 处理成功时间，成功必填YYYY-MM-DD HH:MM:SS
-  processTime?: string(name='process_time'),
-  // 还款描述，失败时，需给出的错误描述
+  // 业务返回码，001 请求成功 002 请求失败
+  ccode?: string(name='ccode'),
+  // 业务返回描述
   msg?: string(name='msg'),
-  // 还款总额,保留两位有效数字(单位:元)
-  repayAmount?: long(name='repay_amount'),
-  // 实还本金,保留两位有效数字(单位:元)
-  repayPrincipal?: string(name='repay_principal'),
-  // 实还利息,保留两位有效数字(单位:元)
-  repayInterest?: string(name='repay_interest'),
-  // 实还罚息,保留两位有效数字(单位:元)
-  repayMuclt?: long(name='repay_muclt'),
-  // 实还担保费,保留两位有效数字(单位:元)
-  repayGuarantee?: long(name='repay_guarantee'),
-  // 实还信用评估费,保留两位有效数字(单位:元)
-  repayCreditFee?: long(name='repay_credit_fee'),
-  // 实还咨询服务费,保留两位有效数字(单位:元)
-  repayGranteeConsultServiceFee?: long(name='repay_grantee_consult_service_fee'),
+  // 业务数据
+  bizContent?: long(name='biz_content'),
+  // 响应时间
+  timestamp?: string(name='timestamp'),
+  // 签名数据
+  sign?: string(name='sign'),
 }
 
 /**
@@ -8537,10 +8579,12 @@ model QueryDubbridgeCreditamtLxRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 授信申请编号
-  creditApplyId: string(name='credit_apply_id'),
   // 合作方代码
-  partnerCode?: string(name='partner_code'),
+  partnerCode: string(name='partner_code'),
+  // 业务入参，json格式字符串
+  bizContent: string(name='biz_content'),
+  // 请求发送时间
+  timestamp: string(name='timestamp'),
 }
 
 model QueryDubbridgeCreditamtLxResponse = {
@@ -8550,19 +8594,16 @@ model QueryDubbridgeCreditamtLxResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
+  // 业务返回码，001 请求成功 002 请求失败
+  code?: long(name='code'),
   // 返回描述信息
   msg?: string(name='msg'),
-  // 查询状态，0. 查询成功
-  // 1. 查询失败---表示“拒绝”的有效终态，下一步重新调用授信申请接口
-  status?: long(name='status'),
-  // 剩余可用额度,授信成功必填,单位:元
-  creditRemainAmt?: string(name='credit_remain_amt'),
-  // 授信批准的额度，授信成功必填,单位:元
-  creditAmt?: string(name='credit_amt'),
-  // 授信生效日期，授信审核通过时必填,格式：yyyy-MM-dd
-  creditValidDate?: string(name='credit_valid_date'),
-  // 授信失效日期，授信审核通过时必填,格式：yyyy-MM-dd  
-  creditExpireDate?: string(name='credit_expire_date'),
+  // 业务数据
+  bizContent?: string(name='biz_content'),
+  // 响应时间
+  timestamp?: string(name='timestamp'),
+  // 签名数据
+  sign?: string(name='sign'),
 }
 
 /**
@@ -8588,20 +8629,12 @@ model QueryDubbridgeCertificateLxRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 放款请求流水号
-  loanReqNo: string(name='loan_req_no'),
-  // 请求方代码
-  sourceCode?: string(name='source_code'),
-  // 文件类型，0结清证明
-  // 1代偿凭证
-  // 2放款凭证
-  fileType: long(name='file_type'),
-  // 申请日期，yyyy-MM-dd
-  applyDate: string(name='apply_date'),
-  // 业务类型，
-  // 1非乐花卡
-  // 2乐花卡
-  businessType: long(name='business_type'),
+  // 合作方代码
+  partnerCode: string(name='partner_code'),
+  // 业务入参，json格式字符串
+  bizContent: string(name='biz_content'),
+  // 请求发送时间
+  timestamp: string(name='timestamp'),
 }
 
 model QueryDubbridgeCertificateLxResponse = {
@@ -8611,18 +8644,16 @@ model QueryDubbridgeCertificateLxResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 返回码
-  // 0：成功
-  // 1：失败
-  // 2：处理中
-  // 99：系统异常
-  status?: string(name='status'),
-  // 申请结果描述，失败原因，失败时必传
+  // 业务返回码，001 请求成功 002 请求失败
+  code?: string(name='code'),
+  // 业务返回描述
   msg?: string(name='msg'),
-  // 文件路径
-  // 实时返回文件路径给到乐信，乐信去对应sftp路径上取，路径命名规则：download/2602/loanReqNo_文件类型.pdf
-  // 若失败则返回失败原因到msg字段
-  filePath?: string(name='file_path'),
+  // 业务数据
+  bizContent?: string(name='biz_content'),
+  // 响应时间
+  timestamp?: string(name='timestamp'),
+  // 签名数据
+  sign?: string(name='sign'),
 }
 
 /**
@@ -8642,6 +8673,472 @@ async function queryDubbridgeCertificateLx(request: QueryDubbridgeCertificateLxR
 async function queryDubbridgeCertificateLxEx(request: QueryDubbridgeCertificateLxRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubbridgeCertificateLxResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.dubbridge.certificate.lx.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyDubbridgeEccreditRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务场景码
+  businessScene: string(maxLength=64, name='business_scene'),
+  // 外部申请编号
+  thirdApplyNo: string(maxLength=64, name='third_apply_no'),
+  // 申请人信息
+  applicantPersonInfo?: ApplicantPersonInfo(name='applicant_person_info'),
+}
+
+model ApplyDubbridgeEccreditResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 天枢电商场景下授信申请接口
+ * Summary: 天枢电商场景下授信申请接口
+ */
+async function applyDubbridgeEccredit(request: ApplyDubbridgeEccreditRequest): ApplyDubbridgeEccreditResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyDubbridgeEccreditEx(request, headers, runtime);
+}
+
+/**
+ * Description: 天枢电商场景下授信申请接口
+ * Summary: 天枢电商场景下授信申请接口
+ */
+async function applyDubbridgeEccreditEx(request: ApplyDubbridgeEccreditRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyDubbridgeEccreditResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.eccredit.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyDubbridgeEcloanRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务场景
+  businessScene: string(name='business_scene'),
+  // 提款申请单
+  loanApplyNo: string(name='loan_apply_no'),
+  // 合同编号
+  contractNo: string(name='contract_no'),
+  // 提款金额
+  applyLoanAmt: string(name='apply_loan_amt'),
+  // 币种
+  ccy: string(name='ccy'),
+  // 支付方式
+  payMode: string(name='pay_mode'),
+  // 还款方式
+  loanRepayType: string(name='loan_repay_type'),
+  // 还款周期
+  repayPeriod: string(name='repay_period'),
+  // 借据期限
+  loanTerm: string(name='loan_term'),
+  // 期限单位
+  loanTermUnit: string(name='loan_term_unit'),
+}
+
+model ApplyDubbridgeEcloanResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 天枢电商场景支用申请
+ * Summary: 天枢电商场景支用申请
+ */
+async function applyDubbridgeEcloan(request: ApplyDubbridgeEcloanRequest): ApplyDubbridgeEcloanResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyDubbridgeEcloanEx(request, headers, runtime);
+}
+
+/**
+ * Description: 天枢电商场景支用申请
+ * Summary: 天枢电商场景支用申请
+ */
+async function applyDubbridgeEcloanEx(request: ApplyDubbridgeEcloanRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyDubbridgeEcloanResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.ecloan.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDubbridgeEccreditQuotaRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 交易流水号，自行设定规则生成
+  transactionNo: string(name='transaction_no'),
+  // 业务场景
+  businessScene: string(name='business_scene'),
+  // 合同编号
+  contractNo: string(name='contract_no'),
+}
+
+model QueryDubbridgeEccreditQuotaResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回对象
+  data?: DubheEcQuota(name='data'),
+}
+
+/**
+ * Description: 支用前查询授信额度
+ * Summary: 支用前查询授信额度
+ */
+async function queryDubbridgeEccreditQuota(request: QueryDubbridgeEccreditQuotaRequest): QueryDubbridgeEccreditQuotaResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDubbridgeEccreditQuotaEx(request, headers, runtime);
+}
+
+/**
+ * Description: 支用前查询授信额度
+ * Summary: 支用前查询授信额度
+ */
+async function queryDubbridgeEccreditQuotaEx(request: QueryDubbridgeEccreditQuotaRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubbridgeEccreditQuotaResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.eccredit.quota.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDubbridgeEcloanRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务场景
+  businessScene: string(name='business_scene'),
+  // 交易流水号
+  transactionNo: string(name='transaction_no'),
+  // 合同编号
+  contractNo: string(name='contract_no'),
+  // 申请单号
+  orderNo?: string(name='order_no'),
+  // 页码
+  pageNo?: string(name='page_no'),
+  // 每页条数
+  pageSize?: string(name='page_size'),
+  // 申请人身份证号码
+  applicantIdNo?: string(name='applicant_id_no'),
+  // 企业证件号码 当申请人身份证号码为空时,企业证件号码不允许为空
+  entIdNo?: string(name='ent_id_no'),
+}
+
+model QueryDubbridgeEcloanResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回对象
+  data?: EcLoanQuery(name='data'),
+}
+
+/**
+ * Description: 支用结果查询接口
+ * Summary: 支用结果查询接口
+ */
+async function queryDubbridgeEcloan(request: QueryDubbridgeEcloanRequest): QueryDubbridgeEcloanResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDubbridgeEcloanEx(request, headers, runtime);
+}
+
+/**
+ * Description: 支用结果查询接口
+ * Summary: 支用结果查询接口
+ */
+async function queryDubbridgeEcloanEx(request: QueryDubbridgeEcloanRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubbridgeEcloanResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.ecloan.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CountDubbridgeEcrepayTrialRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务场景
+  businessScene: string(name='business_scene'),
+  // 申请流水
+  applyNo: string(name='apply_no'),
+  // 借据号
+  loanAcctNo: string(name='loan_acct_no'),
+  // 借款人证件类型
+  idType: string(name='id_type'),
+  // 借款人证件号码
+  idNo: string(name='id_no'),
+  // 本次还款总金额(含本金、利息、复利、罚息),不送默认全额还款
+  repayAmount?: string(name='repay_amount'),
+}
+
+model CountDubbridgeEcrepayTrialResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 对象
+  data?: EcRepayTrial(name='data'),
+}
+
+/**
+ * Description: 支用后，还款前试算
+ * Summary: 支用后，还款前试算
+ */
+async function countDubbridgeEcrepayTrial(request: CountDubbridgeEcrepayTrialRequest): CountDubbridgeEcrepayTrialResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return countDubbridgeEcrepayTrialEx(request, headers, runtime);
+}
+
+/**
+ * Description: 支用后，还款前试算
+ * Summary: 支用后，还款前试算
+ */
+async function countDubbridgeEcrepayTrialEx(request: CountDubbridgeEcrepayTrialRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CountDubbridgeEcrepayTrialResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.ecrepay.trial.count', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDubbridgeEcrepayRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务场景
+  businessScene: string(name='business_scene'),
+  // 交易流水号 UUID
+  transactionNo: string(name='transaction_no'),
+  // 客户ID
+  userId?: string(name='user_id'),
+  // 合同编号
+  contractNo: string(name='contract_no'),
+  // 借据号
+  loanNo?: string(name='loan_no'),
+  // 币种
+  currency: string(name='currency'),
+  // 查询开始时间 yyyy/MM/dd,不传时查询借据下所有还款记录
+  startdate?: string(name='startdate'),
+  // 查询截至时间 yyyy/MM/dd,不传时查询借据下所有还款记录
+  enddate?: string(name='enddate'),
+}
+
+model QueryDubbridgeEcrepayResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // data
+  data?: EcRepayQuery(name='data'),
+}
+
+/**
+ * Description: 支用后 查询还款明细
+ * Summary: 支用后 查询还款明细
+ */
+async function queryDubbridgeEcrepay(request: QueryDubbridgeEcrepayRequest): QueryDubbridgeEcrepayResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDubbridgeEcrepayEx(request, headers, runtime);
+}
+
+/**
+ * Description: 支用后 查询还款明细
+ * Summary: 支用后 查询还款明细
+ */
+async function queryDubbridgeEcrepayEx(request: QueryDubbridgeEcrepayRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubbridgeEcrepayResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.ecrepay.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DetailDubbridgeEcloanRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务场景
+  businessScene: string(name='business_scene'),
+  // 交易流水号
+  transactionNo: string(name='transaction_no'),
+  // 合同号
+  contractNo: string(name='contract_no'),
+  // 借据号
+  loanNo?: string(name='loan_no'),
+}
+
+model DetailDubbridgeEcloanResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // data
+  data?: [ EcLoanDetail ](name='data'),
+}
+
+/**
+ * Description: 支用后 查询借据
+ * Summary: 支用后 查询借据
+ */
+async function detailDubbridgeEcloan(request: DetailDubbridgeEcloanRequest): DetailDubbridgeEcloanResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return detailDubbridgeEcloanEx(request, headers, runtime);
+}
+
+/**
+ * Description: 支用后 查询借据
+ * Summary: 支用后 查询借据
+ */
+async function detailDubbridgeEcloanEx(request: DetailDubbridgeEcloanRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DetailDubbridgeEcloanResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.ecloan.detail', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDubbridgeEccreditRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务场景码
+  businessScene: string(name='business_scene'),
+  // 外部申请编号 third_apply_no、apply_no必填其一)
+  thirdApplyNo?: string(name='third_apply_no'),
+  // 银行审批流水号 third_apply_no、apply_no必填其一)
+  applyNo?: string(name='apply_no'),
+  // 企业名称 客户企业的工商注册名称，有企业信息则必输
+  entName: string(name='ent_name'),
+  // 企业证件号码 客户企业的统一社会信用代码，有企业信息则必输
+  entIdNo?: string(name='ent_id_no'),
+}
+
+model QueryDubbridgeEccreditResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // data
+  data?: EcCreditQuery(name='data'),
+}
+
+/**
+ * Description: 授信结果查询
+ * Summary: 授信结果查询
+ */
+async function queryDubbridgeEccredit(request: QueryDubbridgeEccreditRequest): QueryDubbridgeEccreditResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDubbridgeEccreditEx(request, headers, runtime);
+}
+
+/**
+ * Description: 授信结果查询
+ * Summary: 授信结果查询
+ */
+async function queryDubbridgeEccreditEx(request: QueryDubbridgeEccreditRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubbridgeEccreditResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.eccredit.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model FillDubbridgeEccreditRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务场景码
+  businessScene: string(name='business_scene'),
+  // 外部申请编号 合作方调用时，生成唯一流水号
+  thirdApplyNo: string(name='third_apply_no'),
+  // biz_content
+  bizContent: EcBizContend(name='biz_content'),
+}
+
+model FillDubbridgeEccreditResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 补充授信申请风险数据
+ * Summary: 补充授信申请风险数据
+ */
+async function fillDubbridgeEccredit(request: FillDubbridgeEccreditRequest): FillDubbridgeEccreditResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return fillDubbridgeEccreditEx(request, headers, runtime);
+}
+
+/**
+ * Description: 补充授信申请风险数据
+ * Summary: 补充授信申请风险数据
+ */
+async function fillDubbridgeEccreditEx(request: FillDubbridgeEccreditRequest, headers: map[string]string, runtime: Util.RuntimeOptions): FillDubbridgeEccreditResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.eccredit.fill', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDubbridgeEccreditSkipurlRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务场景码
+  businessScene: string(name='business_scene'),
+  // 交易流水号
+  transactionNo: string(name='transaction_no'),
+  // 客户申请提交后，该笔申请对应的银行内部流水号，一直到客户签约完成都是这个流水号。
+  applyNo?: string(name='apply_no'),
+  // 企业信息
+  enterpriseInfo?: EcEnterpriseInfo(name='enterprise_info'),
+  // 申请人信息
+  applicantPersonInfo?: EcApplicantPersonInfo(name='applicant_person_info'),
+  // 操作类型
+  operateType: string(name='operate_type'),
+}
+
+model QueryDubbridgeEccreditSkipurlResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // data
+  data?: EcLinkUrl(name='data'),
+}
+
+/**
+ * Description: 获取链接接口
+ * Summary: 获取链接接口
+ */
+async function queryDubbridgeEccreditSkipurl(request: QueryDubbridgeEccreditSkipurlRequest): QueryDubbridgeEccreditSkipurlResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDubbridgeEccreditSkipurlEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取链接接口
+ * Summary: 获取链接接口
+ */
+async function queryDubbridgeEccreditSkipurlEx(request: QueryDubbridgeEccreditSkipurlRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubbridgeEccreditSkipurlResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.eccredit.skipurl.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model VerifyFinserviceZhimaIdentifyRequest = {
