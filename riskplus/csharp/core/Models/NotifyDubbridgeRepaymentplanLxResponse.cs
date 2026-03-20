@@ -25,14 +25,29 @@ namespace AntChain.SDK.RISKPLUS.Models
         public string ResultMsg { get; set; }
 
         // 同步结果，0-成功 1-失败
-        [NameInMap("status")]
+        [NameInMap("code")]
         [Validation(Required=false)]
-        public long? Status { get; set; }
+        public string Code { get; set; }
 
-        // 错误描述
+        // 业务返回描述
         [NameInMap("msg")]
         [Validation(Required=false)]
         public string Msg { get; set; }
+
+        // 业务数据
+        [NameInMap("biz_content")]
+        [Validation(Required=false)]
+        public string BizContent { get; set; }
+
+        // 响应时间
+        [NameInMap("timestamp")]
+        [Validation(Required=false)]
+        public string Timestamp { get; set; }
+
+        // 签名数据
+        [NameInMap("sign")]
+        [Validation(Required=false)]
+        public string Sign { get; set; }
 
     }
 

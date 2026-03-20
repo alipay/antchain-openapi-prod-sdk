@@ -24,16 +24,30 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 1、接口通知成功(仅代表收到请求,具体的还款结果以查询接口为准)
-        // 2、接口通知失败(代表未收到请求,会重复发起还款申请)
-        [NameInMap("notify_status")]
+        // 业务返回码，001 请求成功 002 请求失败
+        [NameInMap("code")]
         [Validation(Required=false)]
-        public long? NotifyStatus { get; set; }
+        public string Code { get; set; }
 
-        // 错误描述
+        // 业务返回描述
         [NameInMap("msg")]
         [Validation(Required=false)]
         public string Msg { get; set; }
+
+        // 业务数据
+        [NameInMap("biz_content")]
+        [Validation(Required=false)]
+        public string BizContent { get; set; }
+
+        // 响应时间
+        [NameInMap("timestamp")]
+        [Validation(Required=false)]
+        public string Timestamp { get; set; }
+
+        // 签名数据
+        [NameInMap("sign")]
+        [Validation(Required=false)]
+        public string Sign { get; set; }
 
     }
 

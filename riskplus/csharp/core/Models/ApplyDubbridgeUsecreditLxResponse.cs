@@ -24,18 +24,30 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 用信审批状态，
-        // 0、成功
-        // 1、失败
-        // 2、审批中
-        [NameInMap("status")]
+        // 业务返回码，001 请求成功 002 请求失败
+        [NameInMap("code")]
         [Validation(Required=false)]
-        public long? Status { get; set; }
+        public string Code { get; set; }
 
-        // 用信审批描述，失败时，需给出的错误描述
+        // 业务返回描述
         [NameInMap("msg")]
         [Validation(Required=false)]
         public string Msg { get; set; }
+
+        // 业务数据
+        [NameInMap("biz_content")]
+        [Validation(Required=false)]
+        public string BizContent { get; set; }
+
+        // 响应时间
+        [NameInMap("timestamp")]
+        [Validation(Required=false)]
+        public string Timestamp { get; set; }
+
+        // 签名数据
+        [NameInMap("sign")]
+        [Validation(Required=false)]
+        public string Sign { get; set; }
 
     }
 

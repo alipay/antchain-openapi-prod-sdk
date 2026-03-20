@@ -24,34 +24,30 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 代扣状态，
-        // 1、代扣成功
-        // 2、代扣失败
-        // 3. 代扣处理中
-        // 4. 未收到代扣请求（交易侧可以重复发起代扣）
-        [NameInMap("status")]
+        // 业务返回码，001 请求成功 002 请求失败
+        [NameInMap("code")]
         [Validation(Required=false)]
-        public long? Status { get; set; }
+        public string Code { get; set; }
 
-        // 代扣描述，失败时，需给出的错误描述
+        // 业务返回描述
         [NameInMap("msg")]
         [Validation(Required=false)]
         public string Msg { get; set; }
 
-        // 资金方扣款交易流水号，受理流水号(资金方)
-        [NameInMap("order_num")]
+        // 业务数据
+        [NameInMap("biz_content")]
         [Validation(Required=false)]
-        public string OrderNum { get; set; }
+        public string BizContent { get; set; }
 
-        // 支付通道交易流水号
-        [NameInMap("trans_num")]
+        // 响应时间
+        [NameInMap("timestamp")]
         [Validation(Required=false)]
-        public string TransNum { get; set; }
+        public string Timestamp { get; set; }
 
-        // 代扣明细
-        [NameInMap("withhold_detail")]
+        // 签名数据
+        [NameInMap("sign")]
         [Validation(Required=false)]
-        public List<WithholdDetailItem> WithholdDetail { get; set; }
+        public string Sign { get; set; }
 
     }
 

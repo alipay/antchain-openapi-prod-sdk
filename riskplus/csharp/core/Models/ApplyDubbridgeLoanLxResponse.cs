@@ -24,19 +24,30 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 放款结果，
-        // 0:放款成功
-        // 1:放款失败
-        // 2.查无此单
-        // 99:处理中
-        [NameInMap("loan_result")]
+        // 业务返回码，001 请求成功 002 请求失败
+        [NameInMap("code")]
         [Validation(Required=false)]
-        public long? LoanResult { get; set; }
+        public string Code { get; set; }
 
-        // 放款结果描述，失败时，需给出的错误描述
+        // 业务返回描述
         [NameInMap("msg")]
         [Validation(Required=false)]
         public string Msg { get; set; }
+
+        // 业务数据
+        [NameInMap("biz_content")]
+        [Validation(Required=false)]
+        public string BizContent { get; set; }
+
+        // 响应时间
+        [NameInMap("timestamp")]
+        [Validation(Required=false)]
+        public string Timestamp { get; set; }
+
+        // 签名数据
+        [NameInMap("sign")]
+        [Validation(Required=false)]
+        public string Sign { get; set; }
 
     }
 

@@ -18,15 +18,20 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 还款请求流水号/账单号
-        [NameInMap("bill_id")]
+        // 合作方代码
+        [NameInMap("partner_code")]
         [Validation(Required=true)]
-        public string BillId { get; set; }
+        public string PartnerCode { get; set; }
 
-        // 放款编号/借据号
-        [NameInMap("capital_loan_no")]
+        // 业务入参，json格式字符串
+        [NameInMap("biz_content")]
         [Validation(Required=true)]
-        public string CapitalLoanNo { get; set; }
+        public string BizContent { get; set; }
+
+        // 请求发送时间
+        [NameInMap("timestamp")]
+        [Validation(Required=true)]
+        public string Timestamp { get; set; }
 
     }
 

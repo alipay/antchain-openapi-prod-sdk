@@ -24,26 +24,30 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 返回码
-        // 0：成功
-        // 1：失败
-        // 2：处理中
-        // 99：系统异常
-        [NameInMap("status")]
+        // 业务返回码，001 请求成功 002 请求失败
+        [NameInMap("code")]
         [Validation(Required=false)]
-        public string Status { get; set; }
+        public string Code { get; set; }
 
-        // 申请结果描述，失败原因，失败时必传
+        // 业务返回描述
         [NameInMap("msg")]
         [Validation(Required=false)]
         public string Msg { get; set; }
 
-        // 文件路径
-        // 实时返回文件路径给到乐信，乐信去对应sftp路径上取，路径命名规则：download/2602/loanReqNo_文件类型.pdf
-        // 若失败则返回失败原因到msg字段
-        [NameInMap("file_path")]
+        // 业务数据
+        [NameInMap("biz_content")]
         [Validation(Required=false)]
-        public string FilePath { get; set; }
+        public string BizContent { get; set; }
+
+        // 响应时间
+        [NameInMap("timestamp")]
+        [Validation(Required=false)]
+        public string Timestamp { get; set; }
+
+        // 签名数据
+        [NameInMap("sign")]
+        [Validation(Required=false)]
+        public string Sign { get; set; }
 
     }
 

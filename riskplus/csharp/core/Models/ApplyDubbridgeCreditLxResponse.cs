@@ -24,34 +24,30 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 天枢客户编号
-        [NameInMap("custom_no")]
+        // 业务返回码，001 请求成功  002 请求失败
+        [NameInMap("code")]
         [Validation(Required=false)]
-        public string CustomNo { get; set; }
+        public string Code { get; set; }
 
-        // 额度授信申请编号
-        [NameInMap("credit_no")]
-        [Validation(Required=false)]
-        public string CreditNo { get; set; }
-
-        // 授信审核状态，
-        // 0. 授信成功
-        // 1. 授信失败
-        // 2. 授信中
-        [NameInMap("audit_state")]
-        [Validation(Required=false)]
-        public long? AuditState { get; set; }
-
-        // 业务处理描述信息
+        // 业务返回描述
         [NameInMap("msg")]
         [Validation(Required=false)]
         public string Msg { get; set; }
 
-        // 业务错误码，
-        // 无异常=0 ，不同异常，返回不同的code
-        [NameInMap("error_code")]
+        // 业务数据
+        [NameInMap("biz_content")]
         [Validation(Required=false)]
-        public string ErrorCode { get; set; }
+        public string BizContent { get; set; }
+
+        // 响应时间
+        [NameInMap("timestamp")]
+        [Validation(Required=false)]
+        public string Timestamp { get; set; }
+
+        // 签名数据
+        [NameInMap("sign")]
+        [Validation(Required=false)]
+        public string Sign { get; set; }
 
     }
 

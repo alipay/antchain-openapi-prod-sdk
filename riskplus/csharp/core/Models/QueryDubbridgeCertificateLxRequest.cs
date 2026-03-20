@@ -18,34 +18,20 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 放款请求流水号
-        [NameInMap("loan_req_no")]
+        // 合作方代码
+        [NameInMap("partner_code")]
         [Validation(Required=true)]
-        public string LoanReqNo { get; set; }
+        public string PartnerCode { get; set; }
 
-        // 请求方代码
-        [NameInMap("source_code")]
-        [Validation(Required=false)]
-        public string SourceCode { get; set; }
-
-        // 文件类型，0结清证明
-        // 1代偿凭证
-        // 2放款凭证
-        [NameInMap("file_type")]
+        // 业务入参，json格式字符串
+        [NameInMap("biz_content")]
         [Validation(Required=true)]
-        public long? FileType { get; set; }
+        public string BizContent { get; set; }
 
-        // 申请日期，yyyy-MM-dd
-        [NameInMap("apply_date")]
+        // 请求发送时间
+        [NameInMap("timestamp")]
         [Validation(Required=true)]
-        public string ApplyDate { get; set; }
-
-        // 业务类型，
-        // 1非乐花卡
-        // 2乐花卡
-        [NameInMap("business_type")]
-        [Validation(Required=true)]
-        public long? BusinessType { get; set; }
+        public string Timestamp { get; set; }
 
     }
 

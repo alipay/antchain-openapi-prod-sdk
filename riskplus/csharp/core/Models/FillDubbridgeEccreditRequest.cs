@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.RISKPLUS.Models
 {
-    public class NotifyDubbridgeRepaymentplanLxRequest : TeaModel {
+    public class FillDubbridgeEccreditRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,20 +18,20 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 合作方代码
-        [NameInMap("partner_code")]
+        // 业务场景码
+        [NameInMap("business_scene")]
         [Validation(Required=true)]
-        public string PartnerCode { get; set; }
+        public string BusinessScene { get; set; }
 
-        // 业务入参，json格式字符串
+        // 外部申请编号 合作方调用时，生成唯一流水号
+        [NameInMap("third_apply_no")]
+        [Validation(Required=true)]
+        public string ThirdApplyNo { get; set; }
+
+        // biz_content
         [NameInMap("biz_content")]
         [Validation(Required=true)]
-        public string BizContent { get; set; }
-
-        // 请求发送时间
-        [NameInMap("timestamp")]
-        [Validation(Required=true)]
-        public string Timestamp { get; set; }
+        public EcBizContend BizContent { get; set; }
 
     }
 

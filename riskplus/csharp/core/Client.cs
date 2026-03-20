@@ -137,7 +137,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.31.0"},
+                        {"sdk_version", "1.31.1"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.31.0"},
+                        {"sdk_version", "1.31.1"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -4987,6 +4987,426 @@ namespace AntChain.SDK.RISKPLUS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryDubbridgeCertificateLxResponse>(await DoRequestAsync("1.0", "riskplus.dubbridge.certificate.lx.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 天枢电商场景下授信申请接口
+         * Summary: 天枢电商场景下授信申请接口
+         */
+        public ApplyDubbridgeEccreditResponse ApplyDubbridgeEccredit(ApplyDubbridgeEccreditRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ApplyDubbridgeEccreditEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 天枢电商场景下授信申请接口
+         * Summary: 天枢电商场景下授信申请接口
+         */
+        public async Task<ApplyDubbridgeEccreditResponse> ApplyDubbridgeEccreditAsync(ApplyDubbridgeEccreditRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ApplyDubbridgeEccreditExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 天枢电商场景下授信申请接口
+         * Summary: 天枢电商场景下授信申请接口
+         */
+        public ApplyDubbridgeEccreditResponse ApplyDubbridgeEccreditEx(ApplyDubbridgeEccreditRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyDubbridgeEccreditResponse>(DoRequest("1.0", "riskplus.dubbridge.eccredit.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 天枢电商场景下授信申请接口
+         * Summary: 天枢电商场景下授信申请接口
+         */
+        public async Task<ApplyDubbridgeEccreditResponse> ApplyDubbridgeEccreditExAsync(ApplyDubbridgeEccreditRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyDubbridgeEccreditResponse>(await DoRequestAsync("1.0", "riskplus.dubbridge.eccredit.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 天枢电商场景支用申请
+         * Summary: 天枢电商场景支用申请
+         */
+        public ApplyDubbridgeEcloanResponse ApplyDubbridgeEcloan(ApplyDubbridgeEcloanRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ApplyDubbridgeEcloanEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 天枢电商场景支用申请
+         * Summary: 天枢电商场景支用申请
+         */
+        public async Task<ApplyDubbridgeEcloanResponse> ApplyDubbridgeEcloanAsync(ApplyDubbridgeEcloanRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ApplyDubbridgeEcloanExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 天枢电商场景支用申请
+         * Summary: 天枢电商场景支用申请
+         */
+        public ApplyDubbridgeEcloanResponse ApplyDubbridgeEcloanEx(ApplyDubbridgeEcloanRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyDubbridgeEcloanResponse>(DoRequest("1.0", "riskplus.dubbridge.ecloan.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 天枢电商场景支用申请
+         * Summary: 天枢电商场景支用申请
+         */
+        public async Task<ApplyDubbridgeEcloanResponse> ApplyDubbridgeEcloanExAsync(ApplyDubbridgeEcloanRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyDubbridgeEcloanResponse>(await DoRequestAsync("1.0", "riskplus.dubbridge.ecloan.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 支用前查询授信额度
+         * Summary: 支用前查询授信额度
+         */
+        public QueryDubbridgeEccreditQuotaResponse QueryDubbridgeEccreditQuota(QueryDubbridgeEccreditQuotaRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryDubbridgeEccreditQuotaEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 支用前查询授信额度
+         * Summary: 支用前查询授信额度
+         */
+        public async Task<QueryDubbridgeEccreditQuotaResponse> QueryDubbridgeEccreditQuotaAsync(QueryDubbridgeEccreditQuotaRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryDubbridgeEccreditQuotaExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 支用前查询授信额度
+         * Summary: 支用前查询授信额度
+         */
+        public QueryDubbridgeEccreditQuotaResponse QueryDubbridgeEccreditQuotaEx(QueryDubbridgeEccreditQuotaRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDubbridgeEccreditQuotaResponse>(DoRequest("1.0", "riskplus.dubbridge.eccredit.quota.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 支用前查询授信额度
+         * Summary: 支用前查询授信额度
+         */
+        public async Task<QueryDubbridgeEccreditQuotaResponse> QueryDubbridgeEccreditQuotaExAsync(QueryDubbridgeEccreditQuotaRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDubbridgeEccreditQuotaResponse>(await DoRequestAsync("1.0", "riskplus.dubbridge.eccredit.quota.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 支用结果查询接口
+         * Summary: 支用结果查询接口
+         */
+        public QueryDubbridgeEcloanResponse QueryDubbridgeEcloan(QueryDubbridgeEcloanRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryDubbridgeEcloanEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 支用结果查询接口
+         * Summary: 支用结果查询接口
+         */
+        public async Task<QueryDubbridgeEcloanResponse> QueryDubbridgeEcloanAsync(QueryDubbridgeEcloanRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryDubbridgeEcloanExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 支用结果查询接口
+         * Summary: 支用结果查询接口
+         */
+        public QueryDubbridgeEcloanResponse QueryDubbridgeEcloanEx(QueryDubbridgeEcloanRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDubbridgeEcloanResponse>(DoRequest("1.0", "riskplus.dubbridge.ecloan.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 支用结果查询接口
+         * Summary: 支用结果查询接口
+         */
+        public async Task<QueryDubbridgeEcloanResponse> QueryDubbridgeEcloanExAsync(QueryDubbridgeEcloanRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDubbridgeEcloanResponse>(await DoRequestAsync("1.0", "riskplus.dubbridge.ecloan.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 支用后，还款前试算
+         * Summary: 支用后，还款前试算
+         */
+        public CountDubbridgeEcrepayTrialResponse CountDubbridgeEcrepayTrial(CountDubbridgeEcrepayTrialRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CountDubbridgeEcrepayTrialEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 支用后，还款前试算
+         * Summary: 支用后，还款前试算
+         */
+        public async Task<CountDubbridgeEcrepayTrialResponse> CountDubbridgeEcrepayTrialAsync(CountDubbridgeEcrepayTrialRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CountDubbridgeEcrepayTrialExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 支用后，还款前试算
+         * Summary: 支用后，还款前试算
+         */
+        public CountDubbridgeEcrepayTrialResponse CountDubbridgeEcrepayTrialEx(CountDubbridgeEcrepayTrialRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CountDubbridgeEcrepayTrialResponse>(DoRequest("1.0", "riskplus.dubbridge.ecrepay.trial.count", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 支用后，还款前试算
+         * Summary: 支用后，还款前试算
+         */
+        public async Task<CountDubbridgeEcrepayTrialResponse> CountDubbridgeEcrepayTrialExAsync(CountDubbridgeEcrepayTrialRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CountDubbridgeEcrepayTrialResponse>(await DoRequestAsync("1.0", "riskplus.dubbridge.ecrepay.trial.count", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 支用后 查询还款明细
+         * Summary: 支用后 查询还款明细
+         */
+        public QueryDubbridgeEcrepayResponse QueryDubbridgeEcrepay(QueryDubbridgeEcrepayRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryDubbridgeEcrepayEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 支用后 查询还款明细
+         * Summary: 支用后 查询还款明细
+         */
+        public async Task<QueryDubbridgeEcrepayResponse> QueryDubbridgeEcrepayAsync(QueryDubbridgeEcrepayRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryDubbridgeEcrepayExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 支用后 查询还款明细
+         * Summary: 支用后 查询还款明细
+         */
+        public QueryDubbridgeEcrepayResponse QueryDubbridgeEcrepayEx(QueryDubbridgeEcrepayRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDubbridgeEcrepayResponse>(DoRequest("1.0", "riskplus.dubbridge.ecrepay.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 支用后 查询还款明细
+         * Summary: 支用后 查询还款明细
+         */
+        public async Task<QueryDubbridgeEcrepayResponse> QueryDubbridgeEcrepayExAsync(QueryDubbridgeEcrepayRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDubbridgeEcrepayResponse>(await DoRequestAsync("1.0", "riskplus.dubbridge.ecrepay.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 支用后 查询借据
+         * Summary: 支用后 查询借据
+         */
+        public DetailDubbridgeEcloanResponse DetailDubbridgeEcloan(DetailDubbridgeEcloanRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return DetailDubbridgeEcloanEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 支用后 查询借据
+         * Summary: 支用后 查询借据
+         */
+        public async Task<DetailDubbridgeEcloanResponse> DetailDubbridgeEcloanAsync(DetailDubbridgeEcloanRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await DetailDubbridgeEcloanExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 支用后 查询借据
+         * Summary: 支用后 查询借据
+         */
+        public DetailDubbridgeEcloanResponse DetailDubbridgeEcloanEx(DetailDubbridgeEcloanRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DetailDubbridgeEcloanResponse>(DoRequest("1.0", "riskplus.dubbridge.ecloan.detail", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 支用后 查询借据
+         * Summary: 支用后 查询借据
+         */
+        public async Task<DetailDubbridgeEcloanResponse> DetailDubbridgeEcloanExAsync(DetailDubbridgeEcloanRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DetailDubbridgeEcloanResponse>(await DoRequestAsync("1.0", "riskplus.dubbridge.ecloan.detail", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 授信结果查询
+         * Summary: 授信结果查询
+         */
+        public QueryDubbridgeEccreditResponse QueryDubbridgeEccredit(QueryDubbridgeEccreditRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryDubbridgeEccreditEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 授信结果查询
+         * Summary: 授信结果查询
+         */
+        public async Task<QueryDubbridgeEccreditResponse> QueryDubbridgeEccreditAsync(QueryDubbridgeEccreditRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryDubbridgeEccreditExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 授信结果查询
+         * Summary: 授信结果查询
+         */
+        public QueryDubbridgeEccreditResponse QueryDubbridgeEccreditEx(QueryDubbridgeEccreditRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDubbridgeEccreditResponse>(DoRequest("1.0", "riskplus.dubbridge.eccredit.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 授信结果查询
+         * Summary: 授信结果查询
+         */
+        public async Task<QueryDubbridgeEccreditResponse> QueryDubbridgeEccreditExAsync(QueryDubbridgeEccreditRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDubbridgeEccreditResponse>(await DoRequestAsync("1.0", "riskplus.dubbridge.eccredit.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 补充授信申请风险数据
+         * Summary: 补充授信申请风险数据
+         */
+        public FillDubbridgeEccreditResponse FillDubbridgeEccredit(FillDubbridgeEccreditRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return FillDubbridgeEccreditEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 补充授信申请风险数据
+         * Summary: 补充授信申请风险数据
+         */
+        public async Task<FillDubbridgeEccreditResponse> FillDubbridgeEccreditAsync(FillDubbridgeEccreditRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await FillDubbridgeEccreditExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 补充授信申请风险数据
+         * Summary: 补充授信申请风险数据
+         */
+        public FillDubbridgeEccreditResponse FillDubbridgeEccreditEx(FillDubbridgeEccreditRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<FillDubbridgeEccreditResponse>(DoRequest("1.0", "riskplus.dubbridge.eccredit.fill", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 补充授信申请风险数据
+         * Summary: 补充授信申请风险数据
+         */
+        public async Task<FillDubbridgeEccreditResponse> FillDubbridgeEccreditExAsync(FillDubbridgeEccreditRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<FillDubbridgeEccreditResponse>(await DoRequestAsync("1.0", "riskplus.dubbridge.eccredit.fill", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取链接接口
+         * Summary: 获取链接接口
+         */
+        public QueryDubbridgeEccreditSkipurlResponse QueryDubbridgeEccreditSkipurl(QueryDubbridgeEccreditSkipurlRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryDubbridgeEccreditSkipurlEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取链接接口
+         * Summary: 获取链接接口
+         */
+        public async Task<QueryDubbridgeEccreditSkipurlResponse> QueryDubbridgeEccreditSkipurlAsync(QueryDubbridgeEccreditSkipurlRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryDubbridgeEccreditSkipurlExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取链接接口
+         * Summary: 获取链接接口
+         */
+        public QueryDubbridgeEccreditSkipurlResponse QueryDubbridgeEccreditSkipurlEx(QueryDubbridgeEccreditSkipurlRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDubbridgeEccreditSkipurlResponse>(DoRequest("1.0", "riskplus.dubbridge.eccredit.skipurl.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取链接接口
+         * Summary: 获取链接接口
+         */
+        public async Task<QueryDubbridgeEccreditSkipurlResponse> QueryDubbridgeEccreditSkipurlExAsync(QueryDubbridgeEccreditSkipurlRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDubbridgeEccreditSkipurlResponse>(await DoRequestAsync("1.0", "riskplus.dubbridge.eccredit.skipurl.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
