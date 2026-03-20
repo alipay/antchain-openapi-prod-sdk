@@ -17,12 +17,24 @@ public class NotifyDubbridgeRepaymentplanLxResponse extends TeaModel {
     public String resultMsg;
 
     // 同步结果，0-成功 1-失败
-    @NameInMap("status")
-    public Long status;
+    @NameInMap("code")
+    public String code;
 
-    // 错误描述
+    // 业务返回描述
     @NameInMap("msg")
     public String msg;
+
+    // 业务数据
+    @NameInMap("biz_content")
+    public String bizContent;
+
+    // 响应时间
+    @NameInMap("timestamp")
+    public String timestamp;
+
+    // 签名数据
+    @NameInMap("sign")
+    public String sign;
 
     public static NotifyDubbridgeRepaymentplanLxResponse build(java.util.Map<String, ?> map) throws Exception {
         NotifyDubbridgeRepaymentplanLxResponse self = new NotifyDubbridgeRepaymentplanLxResponse();
@@ -53,12 +65,12 @@ public class NotifyDubbridgeRepaymentplanLxResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public NotifyDubbridgeRepaymentplanLxResponse setStatus(Long status) {
-        this.status = status;
+    public NotifyDubbridgeRepaymentplanLxResponse setCode(String code) {
+        this.code = code;
         return this;
     }
-    public Long getStatus() {
-        return this.status;
+    public String getCode() {
+        return this.code;
     }
 
     public NotifyDubbridgeRepaymentplanLxResponse setMsg(String msg) {
@@ -67,6 +79,30 @@ public class NotifyDubbridgeRepaymentplanLxResponse extends TeaModel {
     }
     public String getMsg() {
         return this.msg;
+    }
+
+    public NotifyDubbridgeRepaymentplanLxResponse setBizContent(String bizContent) {
+        this.bizContent = bizContent;
+        return this;
+    }
+    public String getBizContent() {
+        return this.bizContent;
+    }
+
+    public NotifyDubbridgeRepaymentplanLxResponse setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
+        return this;
+    }
+    public String getTimestamp() {
+        return this.timestamp;
+    }
+
+    public NotifyDubbridgeRepaymentplanLxResponse setSign(String sign) {
+        this.sign = sign;
+        return this;
+    }
+    public String getSign() {
+        return this.sign;
     }
 
 }

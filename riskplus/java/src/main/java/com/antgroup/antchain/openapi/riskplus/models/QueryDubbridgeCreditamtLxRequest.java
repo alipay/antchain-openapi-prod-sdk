@@ -11,14 +11,20 @@ public class QueryDubbridgeCreditamtLxRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 授信申请编号
-    @NameInMap("credit_apply_id")
-    @Validation(required = true)
-    public String creditApplyId;
-
     // 合作方代码
     @NameInMap("partner_code")
+    @Validation(required = true)
     public String partnerCode;
+
+    // 业务入参，json格式字符串
+    @NameInMap("biz_content")
+    @Validation(required = true)
+    public String bizContent;
+
+    // 请求发送时间
+    @NameInMap("timestamp")
+    @Validation(required = true)
+    public String timestamp;
 
     public static QueryDubbridgeCreditamtLxRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryDubbridgeCreditamtLxRequest self = new QueryDubbridgeCreditamtLxRequest();
@@ -41,20 +47,28 @@ public class QueryDubbridgeCreditamtLxRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public QueryDubbridgeCreditamtLxRequest setCreditApplyId(String creditApplyId) {
-        this.creditApplyId = creditApplyId;
-        return this;
-    }
-    public String getCreditApplyId() {
-        return this.creditApplyId;
-    }
-
     public QueryDubbridgeCreditamtLxRequest setPartnerCode(String partnerCode) {
         this.partnerCode = partnerCode;
         return this;
     }
     public String getPartnerCode() {
         return this.partnerCode;
+    }
+
+    public QueryDubbridgeCreditamtLxRequest setBizContent(String bizContent) {
+        this.bizContent = bizContent;
+        return this;
+    }
+    public String getBizContent() {
+        return this.bizContent;
+    }
+
+    public QueryDubbridgeCreditamtLxRequest setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
+        return this;
+    }
+    public String getTimestamp() {
+        return this.timestamp;
     }
 
 }

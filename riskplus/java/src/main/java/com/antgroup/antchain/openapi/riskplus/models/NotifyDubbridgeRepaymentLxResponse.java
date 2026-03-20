@@ -16,14 +16,25 @@ public class NotifyDubbridgeRepaymentLxResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 1、接口通知成功(仅代表收到请求,具体的还款结果以查询接口为准)
-    // 2、接口通知失败(代表未收到请求,会重复发起还款申请)
-    @NameInMap("notify_status")
-    public Long notifyStatus;
+    // 业务返回码，001 请求成功 002 请求失败
+    @NameInMap("code")
+    public String code;
 
-    // 错误描述
+    // 业务返回描述
     @NameInMap("msg")
     public String msg;
+
+    // 业务数据
+    @NameInMap("biz_content")
+    public String bizContent;
+
+    // 响应时间
+    @NameInMap("timestamp")
+    public String timestamp;
+
+    // 签名数据
+    @NameInMap("sign")
+    public String sign;
 
     public static NotifyDubbridgeRepaymentLxResponse build(java.util.Map<String, ?> map) throws Exception {
         NotifyDubbridgeRepaymentLxResponse self = new NotifyDubbridgeRepaymentLxResponse();
@@ -54,12 +65,12 @@ public class NotifyDubbridgeRepaymentLxResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public NotifyDubbridgeRepaymentLxResponse setNotifyStatus(Long notifyStatus) {
-        this.notifyStatus = notifyStatus;
+    public NotifyDubbridgeRepaymentLxResponse setCode(String code) {
+        this.code = code;
         return this;
     }
-    public Long getNotifyStatus() {
-        return this.notifyStatus;
+    public String getCode() {
+        return this.code;
     }
 
     public NotifyDubbridgeRepaymentLxResponse setMsg(String msg) {
@@ -68,6 +79,30 @@ public class NotifyDubbridgeRepaymentLxResponse extends TeaModel {
     }
     public String getMsg() {
         return this.msg;
+    }
+
+    public NotifyDubbridgeRepaymentLxResponse setBizContent(String bizContent) {
+        this.bizContent = bizContent;
+        return this;
+    }
+    public String getBizContent() {
+        return this.bizContent;
+    }
+
+    public NotifyDubbridgeRepaymentLxResponse setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
+        return this;
+    }
+    public String getTimestamp() {
+        return this.timestamp;
+    }
+
+    public NotifyDubbridgeRepaymentLxResponse setSign(String sign) {
+        this.sign = sign;
+        return this;
+    }
+    public String getSign() {
+        return this.sign;
     }
 
 }

@@ -11,33 +11,20 @@ public class QueryDubbridgeCertificateLxRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 放款请求流水号
-    @NameInMap("loan_req_no")
+    // 合作方代码
+    @NameInMap("partner_code")
     @Validation(required = true)
-    public String loanReqNo;
+    public String partnerCode;
 
-    // 请求方代码
-    @NameInMap("source_code")
-    public String sourceCode;
-
-    // 文件类型，0结清证明
-    // 1代偿凭证
-    // 2放款凭证
-    @NameInMap("file_type")
+    // 业务入参，json格式字符串
+    @NameInMap("biz_content")
     @Validation(required = true)
-    public Long fileType;
+    public String bizContent;
 
-    // 申请日期，yyyy-MM-dd
-    @NameInMap("apply_date")
+    // 请求发送时间
+    @NameInMap("timestamp")
     @Validation(required = true)
-    public String applyDate;
-
-    // 业务类型，
-    // 1非乐花卡
-    // 2乐花卡
-    @NameInMap("business_type")
-    @Validation(required = true)
-    public Long businessType;
+    public String timestamp;
 
     public static QueryDubbridgeCertificateLxRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryDubbridgeCertificateLxRequest self = new QueryDubbridgeCertificateLxRequest();
@@ -60,44 +47,28 @@ public class QueryDubbridgeCertificateLxRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public QueryDubbridgeCertificateLxRequest setLoanReqNo(String loanReqNo) {
-        this.loanReqNo = loanReqNo;
+    public QueryDubbridgeCertificateLxRequest setPartnerCode(String partnerCode) {
+        this.partnerCode = partnerCode;
         return this;
     }
-    public String getLoanReqNo() {
-        return this.loanReqNo;
+    public String getPartnerCode() {
+        return this.partnerCode;
     }
 
-    public QueryDubbridgeCertificateLxRequest setSourceCode(String sourceCode) {
-        this.sourceCode = sourceCode;
+    public QueryDubbridgeCertificateLxRequest setBizContent(String bizContent) {
+        this.bizContent = bizContent;
         return this;
     }
-    public String getSourceCode() {
-        return this.sourceCode;
+    public String getBizContent() {
+        return this.bizContent;
     }
 
-    public QueryDubbridgeCertificateLxRequest setFileType(Long fileType) {
-        this.fileType = fileType;
+    public QueryDubbridgeCertificateLxRequest setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
         return this;
     }
-    public Long getFileType() {
-        return this.fileType;
-    }
-
-    public QueryDubbridgeCertificateLxRequest setApplyDate(String applyDate) {
-        this.applyDate = applyDate;
-        return this;
-    }
-    public String getApplyDate() {
-        return this.applyDate;
-    }
-
-    public QueryDubbridgeCertificateLxRequest setBusinessType(Long businessType) {
-        this.businessType = businessType;
-        return this;
-    }
-    public Long getBusinessType() {
-        return this.businessType;
+    public String getTimestamp() {
+        return this.timestamp;
     }
 
 }

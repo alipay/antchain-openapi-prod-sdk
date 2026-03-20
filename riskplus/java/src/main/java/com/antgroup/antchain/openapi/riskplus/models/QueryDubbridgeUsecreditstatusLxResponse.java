@@ -16,17 +16,25 @@ public class QueryDubbridgeUsecreditstatusLxResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 用信审批状态，
-    // 0、成功
-    // 1、失败
-    // 2、审批中
-    // 3、查无此单(重新发起用信申请接口,需要保证用信申请幂等)
-    @NameInMap("status")
-    public Long status;
+    // 业务返回码，001 请求成功 002 请求失败
+    @NameInMap("code")
+    public String code;
 
-    // 用信审批描述，失败时，需给出的错误描述
+    // 业务返回描述
     @NameInMap("msg")
     public String msg;
+
+    // 业务数据
+    @NameInMap("biz_content")
+    public String bizContent;
+
+    // 响应时间
+    @NameInMap("timestamp")
+    public String timestamp;
+
+    // 签名数据
+    @NameInMap("sign")
+    public String sign;
 
     public static QueryDubbridgeUsecreditstatusLxResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryDubbridgeUsecreditstatusLxResponse self = new QueryDubbridgeUsecreditstatusLxResponse();
@@ -57,12 +65,12 @@ public class QueryDubbridgeUsecreditstatusLxResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryDubbridgeUsecreditstatusLxResponse setStatus(Long status) {
-        this.status = status;
+    public QueryDubbridgeUsecreditstatusLxResponse setCode(String code) {
+        this.code = code;
         return this;
     }
-    public Long getStatus() {
-        return this.status;
+    public String getCode() {
+        return this.code;
     }
 
     public QueryDubbridgeUsecreditstatusLxResponse setMsg(String msg) {
@@ -71,6 +79,30 @@ public class QueryDubbridgeUsecreditstatusLxResponse extends TeaModel {
     }
     public String getMsg() {
         return this.msg;
+    }
+
+    public QueryDubbridgeUsecreditstatusLxResponse setBizContent(String bizContent) {
+        this.bizContent = bizContent;
+        return this;
+    }
+    public String getBizContent() {
+        return this.bizContent;
+    }
+
+    public QueryDubbridgeUsecreditstatusLxResponse setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
+        return this;
+    }
+    public String getTimestamp() {
+        return this.timestamp;
+    }
+
+    public QueryDubbridgeUsecreditstatusLxResponse setSign(String sign) {
+        this.sign = sign;
+        return this;
+    }
+    public String getSign() {
+        return this.sign;
     }
 
 }

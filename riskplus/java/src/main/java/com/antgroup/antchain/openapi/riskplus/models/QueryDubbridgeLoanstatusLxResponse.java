@@ -16,37 +16,25 @@ public class QueryDubbridgeLoanstatusLxResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 放款结果，
-    // 0:放款成功
-    // 1:放款失败
-    // 2.查无此单(重新发起支用申请接口,需要保证支用申请接口幂等)
-    // 99:处理中
-    @NameInMap("loan_result")
-    public Long loanResult;
+    // 业务返回码，001 请求成功 002 请求失败
+    @NameInMap("code")
+    public String code;
 
     // 描述信息
     @NameInMap("msg")
     public String msg;
 
-    // 成功必填，资方返回的阶梯结算利率，供生成对资还款计划时使用
-    @NameInMap("settle_rate")
-    public Long settleRate;
+    // 业务数据
+    @NameInMap("biz_content")
+    public String bizContent;
 
-    // 成功必填，YYYY-MM-DD HH:MM:SS
-    @NameInMap("payment_time")
-    public String paymentTime;
+    // 响应时间
+    @NameInMap("timestamp")
+    public String timestamp;
 
-    // 放款成功金额，成功必填，单位:元
-    @NameInMap("loan_amt")
-    public Long loanAmt;
-
-    // 放款流水号，成功必填
-    @NameInMap("capital_loan_no")
-    public String capitalLoanNo;
-
-    // 收款人银行卡卡号，放款成功提供实际的放款目标账户
-    @NameInMap("debit_account_no")
-    public String debitAccountNo;
+    // 签名数据
+    @NameInMap("sign")
+    public String sign;
 
     public static QueryDubbridgeLoanstatusLxResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryDubbridgeLoanstatusLxResponse self = new QueryDubbridgeLoanstatusLxResponse();
@@ -77,12 +65,12 @@ public class QueryDubbridgeLoanstatusLxResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryDubbridgeLoanstatusLxResponse setLoanResult(Long loanResult) {
-        this.loanResult = loanResult;
+    public QueryDubbridgeLoanstatusLxResponse setCode(String code) {
+        this.code = code;
         return this;
     }
-    public Long getLoanResult() {
-        return this.loanResult;
+    public String getCode() {
+        return this.code;
     }
 
     public QueryDubbridgeLoanstatusLxResponse setMsg(String msg) {
@@ -93,44 +81,28 @@ public class QueryDubbridgeLoanstatusLxResponse extends TeaModel {
         return this.msg;
     }
 
-    public QueryDubbridgeLoanstatusLxResponse setSettleRate(Long settleRate) {
-        this.settleRate = settleRate;
+    public QueryDubbridgeLoanstatusLxResponse setBizContent(String bizContent) {
+        this.bizContent = bizContent;
         return this;
     }
-    public Long getSettleRate() {
-        return this.settleRate;
+    public String getBizContent() {
+        return this.bizContent;
     }
 
-    public QueryDubbridgeLoanstatusLxResponse setPaymentTime(String paymentTime) {
-        this.paymentTime = paymentTime;
+    public QueryDubbridgeLoanstatusLxResponse setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
         return this;
     }
-    public String getPaymentTime() {
-        return this.paymentTime;
+    public String getTimestamp() {
+        return this.timestamp;
     }
 
-    public QueryDubbridgeLoanstatusLxResponse setLoanAmt(Long loanAmt) {
-        this.loanAmt = loanAmt;
+    public QueryDubbridgeLoanstatusLxResponse setSign(String sign) {
+        this.sign = sign;
         return this;
     }
-    public Long getLoanAmt() {
-        return this.loanAmt;
-    }
-
-    public QueryDubbridgeLoanstatusLxResponse setCapitalLoanNo(String capitalLoanNo) {
-        this.capitalLoanNo = capitalLoanNo;
-        return this;
-    }
-    public String getCapitalLoanNo() {
-        return this.capitalLoanNo;
-    }
-
-    public QueryDubbridgeLoanstatusLxResponse setDebitAccountNo(String debitAccountNo) {
-        this.debitAccountNo = debitAccountNo;
-        return this;
-    }
-    public String getDebitAccountNo() {
-        return this.debitAccountNo;
+    public String getSign() {
+        return this.sign;
     }
 
 }

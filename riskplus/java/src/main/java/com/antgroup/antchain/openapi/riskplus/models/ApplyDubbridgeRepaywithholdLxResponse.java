@@ -16,15 +16,25 @@ public class ApplyDubbridgeRepaywithholdLxResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 还款状态，1、接口通知成功
-    // 2、接口通知失败
-    // (具体的结果都以查询接口为准)
-    @NameInMap("status")
-    public Long status;
+    // 业务返回码，001 请求成功 002 请求失败
+    @NameInMap("code")
+    public String code;
 
-    // 还款描述，失败时，需给出的错误描述
+    // 业务返回描述
     @NameInMap("msg")
     public String msg;
+
+    // 业务数据
+    @NameInMap("biz_content")
+    public Long bizContent;
+
+    // 响应时间
+    @NameInMap("timestamp")
+    public String timestamp;
+
+    // 签名数据
+    @NameInMap("sign")
+    public String sign;
 
     public static ApplyDubbridgeRepaywithholdLxResponse build(java.util.Map<String, ?> map) throws Exception {
         ApplyDubbridgeRepaywithholdLxResponse self = new ApplyDubbridgeRepaywithholdLxResponse();
@@ -55,12 +65,12 @@ public class ApplyDubbridgeRepaywithholdLxResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public ApplyDubbridgeRepaywithholdLxResponse setStatus(Long status) {
-        this.status = status;
+    public ApplyDubbridgeRepaywithholdLxResponse setCode(String code) {
+        this.code = code;
         return this;
     }
-    public Long getStatus() {
-        return this.status;
+    public String getCode() {
+        return this.code;
     }
 
     public ApplyDubbridgeRepaywithholdLxResponse setMsg(String msg) {
@@ -69,6 +79,30 @@ public class ApplyDubbridgeRepaywithholdLxResponse extends TeaModel {
     }
     public String getMsg() {
         return this.msg;
+    }
+
+    public ApplyDubbridgeRepaywithholdLxResponse setBizContent(Long bizContent) {
+        this.bizContent = bizContent;
+        return this;
+    }
+    public Long getBizContent() {
+        return this.bizContent;
+    }
+
+    public ApplyDubbridgeRepaywithholdLxResponse setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
+        return this;
+    }
+    public String getTimestamp() {
+        return this.timestamp;
+    }
+
+    public ApplyDubbridgeRepaywithholdLxResponse setSign(String sign) {
+        this.sign = sign;
+        return this;
+    }
+    public String getSign() {
+        return this.sign;
     }
 
 }

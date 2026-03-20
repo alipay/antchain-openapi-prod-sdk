@@ -16,30 +16,25 @@ public class QueryDubbridgeCreditamtLxResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
+    // 业务返回码，001 请求成功 002 请求失败
+    @NameInMap("code")
+    public Long code;
+
     // 返回描述信息
     @NameInMap("msg")
     public String msg;
 
-    // 查询状态，0. 查询成功
-    // 1. 查询失败---表示“拒绝”的有效终态，下一步重新调用授信申请接口
-    @NameInMap("status")
-    public Long status;
+    // 业务数据
+    @NameInMap("biz_content")
+    public String bizContent;
 
-    // 剩余可用额度,授信成功必填,单位:元
-    @NameInMap("credit_remain_amt")
-    public String creditRemainAmt;
+    // 响应时间
+    @NameInMap("timestamp")
+    public String timestamp;
 
-    // 授信批准的额度，授信成功必填,单位:元
-    @NameInMap("credit_amt")
-    public String creditAmt;
-
-    // 授信生效日期，授信审核通过时必填,格式：yyyy-MM-dd
-    @NameInMap("credit_valid_date")
-    public String creditValidDate;
-
-    // 授信失效日期，授信审核通过时必填,格式：yyyy-MM-dd  
-    @NameInMap("credit_expire_date")
-    public String creditExpireDate;
+    // 签名数据
+    @NameInMap("sign")
+    public String sign;
 
     public static QueryDubbridgeCreditamtLxResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryDubbridgeCreditamtLxResponse self = new QueryDubbridgeCreditamtLxResponse();
@@ -70,6 +65,14 @@ public class QueryDubbridgeCreditamtLxResponse extends TeaModel {
         return this.resultMsg;
     }
 
+    public QueryDubbridgeCreditamtLxResponse setCode(Long code) {
+        this.code = code;
+        return this;
+    }
+    public Long getCode() {
+        return this.code;
+    }
+
     public QueryDubbridgeCreditamtLxResponse setMsg(String msg) {
         this.msg = msg;
         return this;
@@ -78,44 +81,28 @@ public class QueryDubbridgeCreditamtLxResponse extends TeaModel {
         return this.msg;
     }
 
-    public QueryDubbridgeCreditamtLxResponse setStatus(Long status) {
-        this.status = status;
+    public QueryDubbridgeCreditamtLxResponse setBizContent(String bizContent) {
+        this.bizContent = bizContent;
         return this;
     }
-    public Long getStatus() {
-        return this.status;
+    public String getBizContent() {
+        return this.bizContent;
     }
 
-    public QueryDubbridgeCreditamtLxResponse setCreditRemainAmt(String creditRemainAmt) {
-        this.creditRemainAmt = creditRemainAmt;
+    public QueryDubbridgeCreditamtLxResponse setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
         return this;
     }
-    public String getCreditRemainAmt() {
-        return this.creditRemainAmt;
+    public String getTimestamp() {
+        return this.timestamp;
     }
 
-    public QueryDubbridgeCreditamtLxResponse setCreditAmt(String creditAmt) {
-        this.creditAmt = creditAmt;
+    public QueryDubbridgeCreditamtLxResponse setSign(String sign) {
+        this.sign = sign;
         return this;
     }
-    public String getCreditAmt() {
-        return this.creditAmt;
-    }
-
-    public QueryDubbridgeCreditamtLxResponse setCreditValidDate(String creditValidDate) {
-        this.creditValidDate = creditValidDate;
-        return this;
-    }
-    public String getCreditValidDate() {
-        return this.creditValidDate;
-    }
-
-    public QueryDubbridgeCreditamtLxResponse setCreditExpireDate(String creditExpireDate) {
-        this.creditExpireDate = creditExpireDate;
-        return this;
-    }
-    public String getCreditExpireDate() {
-        return this.creditExpireDate;
+    public String getSign() {
+        return this.sign;
     }
 
 }

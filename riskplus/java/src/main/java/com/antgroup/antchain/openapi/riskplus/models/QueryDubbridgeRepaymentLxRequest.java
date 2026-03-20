@@ -11,15 +11,20 @@ public class QueryDubbridgeRepaymentLxRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 还款请求流水号/账单号
-    @NameInMap("bill_id")
+    // 合作方代码
+    @NameInMap("partner_code")
     @Validation(required = true)
-    public String billId;
+    public String partnerCode;
 
-    // 放款编号/借据号
-    @NameInMap("capital_loan_no")
+    // 业务入参，json格式字符串
+    @NameInMap("biz_content")
     @Validation(required = true)
-    public String capitalLoanNo;
+    public String bizContent;
+
+    // 请求发送时间
+    @NameInMap("timestamp")
+    @Validation(required = true)
+    public String timestamp;
 
     public static QueryDubbridgeRepaymentLxRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryDubbridgeRepaymentLxRequest self = new QueryDubbridgeRepaymentLxRequest();
@@ -42,20 +47,28 @@ public class QueryDubbridgeRepaymentLxRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public QueryDubbridgeRepaymentLxRequest setBillId(String billId) {
-        this.billId = billId;
+    public QueryDubbridgeRepaymentLxRequest setPartnerCode(String partnerCode) {
+        this.partnerCode = partnerCode;
         return this;
     }
-    public String getBillId() {
-        return this.billId;
+    public String getPartnerCode() {
+        return this.partnerCode;
     }
 
-    public QueryDubbridgeRepaymentLxRequest setCapitalLoanNo(String capitalLoanNo) {
-        this.capitalLoanNo = capitalLoanNo;
+    public QueryDubbridgeRepaymentLxRequest setBizContent(String bizContent) {
+        this.bizContent = bizContent;
         return this;
     }
-    public String getCapitalLoanNo() {
-        return this.capitalLoanNo;
+    public String getBizContent() {
+        return this.bizContent;
+    }
+
+    public QueryDubbridgeRepaymentLxRequest setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
+        return this;
+    }
+    public String getTimestamp() {
+        return this.timestamp;
     }
 
 }

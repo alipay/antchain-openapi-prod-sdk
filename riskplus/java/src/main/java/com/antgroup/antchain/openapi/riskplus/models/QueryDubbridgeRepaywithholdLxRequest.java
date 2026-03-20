@@ -11,14 +11,20 @@ public class QueryDubbridgeRepaywithholdLxRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 代扣请求流水号
-    @NameInMap("withhold_serial_no")
-    @Validation(required = true)
-    public String withholdSerialNo;
-
     // 合作方代码
     @NameInMap("partner_code")
+    @Validation(required = true)
     public String partnerCode;
+
+    // 业务入参，json格式字符串
+    @NameInMap("biz_content")
+    @Validation(required = true)
+    public String bizContent;
+
+    // 请求发送时间
+    @NameInMap("timestamp")
+    @Validation(required = true)
+    public String timestamp;
 
     public static QueryDubbridgeRepaywithholdLxRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryDubbridgeRepaywithholdLxRequest self = new QueryDubbridgeRepaywithholdLxRequest();
@@ -41,20 +47,28 @@ public class QueryDubbridgeRepaywithholdLxRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public QueryDubbridgeRepaywithholdLxRequest setWithholdSerialNo(String withholdSerialNo) {
-        this.withholdSerialNo = withholdSerialNo;
-        return this;
-    }
-    public String getWithholdSerialNo() {
-        return this.withholdSerialNo;
-    }
-
     public QueryDubbridgeRepaywithholdLxRequest setPartnerCode(String partnerCode) {
         this.partnerCode = partnerCode;
         return this;
     }
     public String getPartnerCode() {
         return this.partnerCode;
+    }
+
+    public QueryDubbridgeRepaywithholdLxRequest setBizContent(String bizContent) {
+        this.bizContent = bizContent;
+        return this;
+    }
+    public String getBizContent() {
+        return this.bizContent;
+    }
+
+    public QueryDubbridgeRepaywithholdLxRequest setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
+        return this;
+    }
+    public String getTimestamp() {
+        return this.timestamp;
     }
 
 }

@@ -16,17 +16,25 @@ public class ApplyDubbridgeLoanLxResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 放款结果，
-    // 0:放款成功
-    // 1:放款失败
-    // 2.查无此单
-    // 99:处理中
-    @NameInMap("loan_result")
-    public Long loanResult;
+    // 业务返回码，001 请求成功 002 请求失败
+    @NameInMap("code")
+    public String code;
 
-    // 放款结果描述，失败时，需给出的错误描述
+    // 业务返回描述
     @NameInMap("msg")
     public String msg;
+
+    // 业务数据
+    @NameInMap("biz_content")
+    public String bizContent;
+
+    // 响应时间
+    @NameInMap("timestamp")
+    public String timestamp;
+
+    // 签名数据
+    @NameInMap("sign")
+    public String sign;
 
     public static ApplyDubbridgeLoanLxResponse build(java.util.Map<String, ?> map) throws Exception {
         ApplyDubbridgeLoanLxResponse self = new ApplyDubbridgeLoanLxResponse();
@@ -57,12 +65,12 @@ public class ApplyDubbridgeLoanLxResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public ApplyDubbridgeLoanLxResponse setLoanResult(Long loanResult) {
-        this.loanResult = loanResult;
+    public ApplyDubbridgeLoanLxResponse setCode(String code) {
+        this.code = code;
         return this;
     }
-    public Long getLoanResult() {
-        return this.loanResult;
+    public String getCode() {
+        return this.code;
     }
 
     public ApplyDubbridgeLoanLxResponse setMsg(String msg) {
@@ -71,6 +79,30 @@ public class ApplyDubbridgeLoanLxResponse extends TeaModel {
     }
     public String getMsg() {
         return this.msg;
+    }
+
+    public ApplyDubbridgeLoanLxResponse setBizContent(String bizContent) {
+        this.bizContent = bizContent;
+        return this;
+    }
+    public String getBizContent() {
+        return this.bizContent;
+    }
+
+    public ApplyDubbridgeLoanLxResponse setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
+        return this;
+    }
+    public String getTimestamp() {
+        return this.timestamp;
+    }
+
+    public ApplyDubbridgeLoanLxResponse setSign(String sign) {
+        this.sign = sign;
+        return this;
+    }
+    public String getSign() {
+        return this.sign;
     }
 
 }

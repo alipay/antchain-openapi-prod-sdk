@@ -16,29 +16,25 @@ public class ApplyDubbridgeCreditLxResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 天枢客户编号
-    @NameInMap("custom_no")
-    public String customNo;
+    // 业务返回码，001 请求成功  002 请求失败
+    @NameInMap("code")
+    public String code;
 
-    // 额度授信申请编号
-    @NameInMap("credit_no")
-    public String creditNo;
-
-    // 授信审核状态，
-    // 0. 授信成功
-    // 1. 授信失败
-    // 2. 授信中
-    @NameInMap("audit_state")
-    public Long auditState;
-
-    // 业务处理描述信息
+    // 业务返回描述
     @NameInMap("msg")
     public String msg;
 
-    // 业务错误码，
-    // 无异常=0 ，不同异常，返回不同的code
-    @NameInMap("error_code")
-    public String errorCode;
+    // 业务数据
+    @NameInMap("biz_content")
+    public String bizContent;
+
+    // 响应时间
+    @NameInMap("timestamp")
+    public String timestamp;
+
+    // 签名数据
+    @NameInMap("sign")
+    public String sign;
 
     public static ApplyDubbridgeCreditLxResponse build(java.util.Map<String, ?> map) throws Exception {
         ApplyDubbridgeCreditLxResponse self = new ApplyDubbridgeCreditLxResponse();
@@ -69,28 +65,12 @@ public class ApplyDubbridgeCreditLxResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public ApplyDubbridgeCreditLxResponse setCustomNo(String customNo) {
-        this.customNo = customNo;
+    public ApplyDubbridgeCreditLxResponse setCode(String code) {
+        this.code = code;
         return this;
     }
-    public String getCustomNo() {
-        return this.customNo;
-    }
-
-    public ApplyDubbridgeCreditLxResponse setCreditNo(String creditNo) {
-        this.creditNo = creditNo;
-        return this;
-    }
-    public String getCreditNo() {
-        return this.creditNo;
-    }
-
-    public ApplyDubbridgeCreditLxResponse setAuditState(Long auditState) {
-        this.auditState = auditState;
-        return this;
-    }
-    public Long getAuditState() {
-        return this.auditState;
+    public String getCode() {
+        return this.code;
     }
 
     public ApplyDubbridgeCreditLxResponse setMsg(String msg) {
@@ -101,12 +81,28 @@ public class ApplyDubbridgeCreditLxResponse extends TeaModel {
         return this.msg;
     }
 
-    public ApplyDubbridgeCreditLxResponse setErrorCode(String errorCode) {
-        this.errorCode = errorCode;
+    public ApplyDubbridgeCreditLxResponse setBizContent(String bizContent) {
+        this.bizContent = bizContent;
         return this;
     }
-    public String getErrorCode() {
-        return this.errorCode;
+    public String getBizContent() {
+        return this.bizContent;
+    }
+
+    public ApplyDubbridgeCreditLxResponse setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
+        return this;
+    }
+    public String getTimestamp() {
+        return this.timestamp;
+    }
+
+    public ApplyDubbridgeCreditLxResponse setSign(String sign) {
+        this.sign = sign;
+        return this;
+    }
+    public String getSign() {
+        return this.sign;
     }
 
 }

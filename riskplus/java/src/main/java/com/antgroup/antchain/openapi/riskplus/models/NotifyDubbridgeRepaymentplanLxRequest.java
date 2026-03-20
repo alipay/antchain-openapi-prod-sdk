@@ -11,39 +11,20 @@ public class NotifyDubbridgeRepaymentplanLxRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 支用申请编号
-    @NameInMap("apply_id")
-    @Validation(required = true)
-    public String applyId;
-
     // 合作方代码
     @NameInMap("partner_code")
+    @Validation(required = true)
     public String partnerCode;
 
-    // 放款编号
-    @NameInMap("capital_loan_no")
+    // 业务入参，json格式字符串
+    @NameInMap("biz_content")
     @Validation(required = true)
-    public String capitalLoanNo;
+    public String bizContent;
 
-    // 借款总期数
-    @NameInMap("total_term")
+    // 请求发送时间
+    @NameInMap("timestamp")
     @Validation(required = true)
-    public Long totalTerm;
-
-    // 借据总金额(元)
-    @NameInMap("total_amount")
-    @Validation(required = true)
-    public Long totalAmount;
-
-    // 放款成功日期，yyyy_MM-dd HH:mm:ss
-    @NameInMap("payment_time")
-    @Validation(required = true)
-    public String paymentTime;
-
-    // 还款计划列表
-    @NameInMap("repay_plans")
-    @Validation(required = true)
-    public java.util.List<RepayPlanNotifyItem> repayPlans;
+    public String timestamp;
 
     public static NotifyDubbridgeRepaymentplanLxRequest build(java.util.Map<String, ?> map) throws Exception {
         NotifyDubbridgeRepaymentplanLxRequest self = new NotifyDubbridgeRepaymentplanLxRequest();
@@ -66,14 +47,6 @@ public class NotifyDubbridgeRepaymentplanLxRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public NotifyDubbridgeRepaymentplanLxRequest setApplyId(String applyId) {
-        this.applyId = applyId;
-        return this;
-    }
-    public String getApplyId() {
-        return this.applyId;
-    }
-
     public NotifyDubbridgeRepaymentplanLxRequest setPartnerCode(String partnerCode) {
         this.partnerCode = partnerCode;
         return this;
@@ -82,44 +55,20 @@ public class NotifyDubbridgeRepaymentplanLxRequest extends TeaModel {
         return this.partnerCode;
     }
 
-    public NotifyDubbridgeRepaymentplanLxRequest setCapitalLoanNo(String capitalLoanNo) {
-        this.capitalLoanNo = capitalLoanNo;
+    public NotifyDubbridgeRepaymentplanLxRequest setBizContent(String bizContent) {
+        this.bizContent = bizContent;
         return this;
     }
-    public String getCapitalLoanNo() {
-        return this.capitalLoanNo;
+    public String getBizContent() {
+        return this.bizContent;
     }
 
-    public NotifyDubbridgeRepaymentplanLxRequest setTotalTerm(Long totalTerm) {
-        this.totalTerm = totalTerm;
+    public NotifyDubbridgeRepaymentplanLxRequest setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
         return this;
     }
-    public Long getTotalTerm() {
-        return this.totalTerm;
-    }
-
-    public NotifyDubbridgeRepaymentplanLxRequest setTotalAmount(Long totalAmount) {
-        this.totalAmount = totalAmount;
-        return this;
-    }
-    public Long getTotalAmount() {
-        return this.totalAmount;
-    }
-
-    public NotifyDubbridgeRepaymentplanLxRequest setPaymentTime(String paymentTime) {
-        this.paymentTime = paymentTime;
-        return this;
-    }
-    public String getPaymentTime() {
-        return this.paymentTime;
-    }
-
-    public NotifyDubbridgeRepaymentplanLxRequest setRepayPlans(java.util.List<RepayPlanNotifyItem> repayPlans) {
-        this.repayPlans = repayPlans;
-        return this;
-    }
-    public java.util.List<RepayPlanNotifyItem> getRepayPlans() {
-        return this.repayPlans;
+    public String getTimestamp() {
+        return this.timestamp;
     }
 
 }

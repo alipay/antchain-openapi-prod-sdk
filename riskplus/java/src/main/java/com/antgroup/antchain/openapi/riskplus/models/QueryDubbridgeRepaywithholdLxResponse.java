@@ -16,29 +16,25 @@ public class QueryDubbridgeRepaywithholdLxResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 代扣状态，
-    // 1、代扣成功
-    // 2、代扣失败
-    // 3. 代扣处理中
-    // 4. 未收到代扣请求（交易侧可以重复发起代扣）
-    @NameInMap("status")
-    public Long status;
+    // 业务返回码，001 请求成功 002 请求失败
+    @NameInMap("code")
+    public String code;
 
-    // 代扣描述，失败时，需给出的错误描述
+    // 业务返回描述
     @NameInMap("msg")
     public String msg;
 
-    // 资金方扣款交易流水号，受理流水号(资金方)
-    @NameInMap("order_num")
-    public String orderNum;
+    // 业务数据
+    @NameInMap("biz_content")
+    public String bizContent;
 
-    // 支付通道交易流水号
-    @NameInMap("trans_num")
-    public String transNum;
+    // 响应时间
+    @NameInMap("timestamp")
+    public String timestamp;
 
-    // 代扣明细
-    @NameInMap("withhold_detail")
-    public java.util.List<WithholdDetailItem> withholdDetail;
+    // 签名数据
+    @NameInMap("sign")
+    public String sign;
 
     public static QueryDubbridgeRepaywithholdLxResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryDubbridgeRepaywithholdLxResponse self = new QueryDubbridgeRepaywithholdLxResponse();
@@ -69,12 +65,12 @@ public class QueryDubbridgeRepaywithholdLxResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryDubbridgeRepaywithholdLxResponse setStatus(Long status) {
-        this.status = status;
+    public QueryDubbridgeRepaywithholdLxResponse setCode(String code) {
+        this.code = code;
         return this;
     }
-    public Long getStatus() {
-        return this.status;
+    public String getCode() {
+        return this.code;
     }
 
     public QueryDubbridgeRepaywithholdLxResponse setMsg(String msg) {
@@ -85,28 +81,28 @@ public class QueryDubbridgeRepaywithholdLxResponse extends TeaModel {
         return this.msg;
     }
 
-    public QueryDubbridgeRepaywithholdLxResponse setOrderNum(String orderNum) {
-        this.orderNum = orderNum;
+    public QueryDubbridgeRepaywithholdLxResponse setBizContent(String bizContent) {
+        this.bizContent = bizContent;
         return this;
     }
-    public String getOrderNum() {
-        return this.orderNum;
+    public String getBizContent() {
+        return this.bizContent;
     }
 
-    public QueryDubbridgeRepaywithholdLxResponse setTransNum(String transNum) {
-        this.transNum = transNum;
+    public QueryDubbridgeRepaywithholdLxResponse setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
         return this;
     }
-    public String getTransNum() {
-        return this.transNum;
+    public String getTimestamp() {
+        return this.timestamp;
     }
 
-    public QueryDubbridgeRepaywithholdLxResponse setWithholdDetail(java.util.List<WithholdDetailItem> withholdDetail) {
-        this.withholdDetail = withholdDetail;
+    public QueryDubbridgeRepaywithholdLxResponse setSign(String sign) {
+        this.sign = sign;
         return this;
     }
-    public java.util.List<WithholdDetailItem> getWithholdDetail() {
-        return this.withholdDetail;
+    public String getSign() {
+        return this.sign;
     }
 
 }
