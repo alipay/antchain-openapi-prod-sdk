@@ -26,15 +26,11 @@ class QueryDubbridgeLoanstatusLxResponse extends Model
      */
     public $resultMsg;
 
-    // 放款结果，
-    // 0:放款成功
-    // 1:放款失败
-    // 2.查无此单(重新发起支用申请接口,需要保证支用申请接口幂等)
-    // 99:处理中
+    // 业务返回码，001 请求成功 002 请求失败
     /**
-     * @var int
+     * @var string
      */
-    public $loanResult;
+    public $code;
 
     // 描述信息
     /**
@@ -42,46 +38,32 @@ class QueryDubbridgeLoanstatusLxResponse extends Model
      */
     public $msg;
 
-    // 成功必填，资方返回的阶梯结算利率，供生成对资还款计划时使用
-    /**
-     * @var int
-     */
-    public $settleRate;
-
-    // 成功必填，YYYY-MM-DD HH:MM:SS
+    // 业务数据
     /**
      * @var string
      */
-    public $paymentTime;
+    public $bizContent;
 
-    // 放款成功金额，成功必填，单位:元
-    /**
-     * @var int
-     */
-    public $loanAmt;
-
-    // 放款流水号，成功必填
+    // 响应时间
     /**
      * @var string
      */
-    public $capitalLoanNo;
+    public $timestamp;
 
-    // 收款人银行卡卡号，放款成功提供实际的放款目标账户
+    // 签名数据
     /**
      * @var string
      */
-    public $debitAccountNo;
+    public $sign;
     protected $_name = [
-        'reqMsgId'       => 'req_msg_id',
-        'resultCode'     => 'result_code',
-        'resultMsg'      => 'result_msg',
-        'loanResult'     => 'loan_result',
-        'msg'            => 'msg',
-        'settleRate'     => 'settle_rate',
-        'paymentTime'    => 'payment_time',
-        'loanAmt'        => 'loan_amt',
-        'capitalLoanNo'  => 'capital_loan_no',
-        'debitAccountNo' => 'debit_account_no',
+        'reqMsgId'   => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg'  => 'result_msg',
+        'code'       => 'code',
+        'msg'        => 'msg',
+        'bizContent' => 'biz_content',
+        'timestamp'  => 'timestamp',
+        'sign'       => 'sign',
     ];
 
     public function validate()
@@ -100,26 +82,20 @@ class QueryDubbridgeLoanstatusLxResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->loanResult) {
-            $res['loan_result'] = $this->loanResult;
+        if (null !== $this->code) {
+            $res['code'] = $this->code;
         }
         if (null !== $this->msg) {
             $res['msg'] = $this->msg;
         }
-        if (null !== $this->settleRate) {
-            $res['settle_rate'] = $this->settleRate;
+        if (null !== $this->bizContent) {
+            $res['biz_content'] = $this->bizContent;
         }
-        if (null !== $this->paymentTime) {
-            $res['payment_time'] = $this->paymentTime;
+        if (null !== $this->timestamp) {
+            $res['timestamp'] = $this->timestamp;
         }
-        if (null !== $this->loanAmt) {
-            $res['loan_amt'] = $this->loanAmt;
-        }
-        if (null !== $this->capitalLoanNo) {
-            $res['capital_loan_no'] = $this->capitalLoanNo;
-        }
-        if (null !== $this->debitAccountNo) {
-            $res['debit_account_no'] = $this->debitAccountNo;
+        if (null !== $this->sign) {
+            $res['sign'] = $this->sign;
         }
 
         return $res;
@@ -142,26 +118,20 @@ class QueryDubbridgeLoanstatusLxResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['loan_result'])) {
-            $model->loanResult = $map['loan_result'];
+        if (isset($map['code'])) {
+            $model->code = $map['code'];
         }
         if (isset($map['msg'])) {
             $model->msg = $map['msg'];
         }
-        if (isset($map['settle_rate'])) {
-            $model->settleRate = $map['settle_rate'];
+        if (isset($map['biz_content'])) {
+            $model->bizContent = $map['biz_content'];
         }
-        if (isset($map['payment_time'])) {
-            $model->paymentTime = $map['payment_time'];
+        if (isset($map['timestamp'])) {
+            $model->timestamp = $map['timestamp'];
         }
-        if (isset($map['loan_amt'])) {
-            $model->loanAmt = $map['loan_amt'];
-        }
-        if (isset($map['capital_loan_no'])) {
-            $model->capitalLoanNo = $map['capital_loan_no'];
-        }
-        if (isset($map['debit_account_no'])) {
-            $model->debitAccountNo = $map['debit_account_no'];
+        if (isset($map['sign'])) {
+            $model->sign = $map['sign'];
         }
 
         return $model;

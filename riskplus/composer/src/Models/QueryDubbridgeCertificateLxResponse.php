@@ -26,36 +26,44 @@ class QueryDubbridgeCertificateLxResponse extends Model
      */
     public $resultMsg;
 
-    // 返回码
-    // 0：成功
-    // 1：失败
-    // 2：处理中
-    // 99：系统异常
+    // 业务返回码，001 请求成功 002 请求失败
     /**
      * @var string
      */
-    public $status;
+    public $code;
 
-    // 申请结果描述，失败原因，失败时必传
+    // 业务返回描述
     /**
      * @var string
      */
     public $msg;
 
-    // 文件路径
-    // 实时返回文件路径给到乐信，乐信去对应sftp路径上取，路径命名规则：download/2602/loanReqNo_文件类型.pdf
-    // 若失败则返回失败原因到msg字段
+    // 业务数据
     /**
      * @var string
      */
-    public $filePath;
+    public $bizContent;
+
+    // 响应时间
+    /**
+     * @var string
+     */
+    public $timestamp;
+
+    // 签名数据
+    /**
+     * @var string
+     */
+    public $sign;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'status'     => 'status',
+        'code'       => 'code',
         'msg'        => 'msg',
-        'filePath'   => 'file_path',
+        'bizContent' => 'biz_content',
+        'timestamp'  => 'timestamp',
+        'sign'       => 'sign',
     ];
 
     public function validate()
@@ -74,14 +82,20 @@ class QueryDubbridgeCertificateLxResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->status) {
-            $res['status'] = $this->status;
+        if (null !== $this->code) {
+            $res['code'] = $this->code;
         }
         if (null !== $this->msg) {
             $res['msg'] = $this->msg;
         }
-        if (null !== $this->filePath) {
-            $res['file_path'] = $this->filePath;
+        if (null !== $this->bizContent) {
+            $res['biz_content'] = $this->bizContent;
+        }
+        if (null !== $this->timestamp) {
+            $res['timestamp'] = $this->timestamp;
+        }
+        if (null !== $this->sign) {
+            $res['sign'] = $this->sign;
         }
 
         return $res;
@@ -104,14 +118,20 @@ class QueryDubbridgeCertificateLxResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['status'])) {
-            $model->status = $map['status'];
+        if (isset($map['code'])) {
+            $model->code = $map['code'];
         }
         if (isset($map['msg'])) {
             $model->msg = $map['msg'];
         }
-        if (isset($map['file_path'])) {
-            $model->filePath = $map['file_path'];
+        if (isset($map['biz_content'])) {
+            $model->bizContent = $map['biz_content'];
+        }
+        if (isset($map['timestamp'])) {
+            $model->timestamp = $map['timestamp'];
+        }
+        if (isset($map['sign'])) {
+            $model->sign = $map['sign'];
         }
 
         return $model;

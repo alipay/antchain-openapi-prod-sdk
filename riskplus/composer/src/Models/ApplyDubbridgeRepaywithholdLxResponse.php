@@ -26,25 +26,44 @@ class ApplyDubbridgeRepaywithholdLxResponse extends Model
      */
     public $resultMsg;
 
-    // 还款状态，1、接口通知成功
-    // 2、接口通知失败
-    // (具体的结果都以查询接口为准)
+    // 业务返回码，001 请求成功 002 请求失败
     /**
-     * @var int
+     * @var string
      */
-    public $status;
+    public $code;
 
-    // 还款描述，失败时，需给出的错误描述
+    // 业务返回描述
     /**
      * @var string
      */
     public $msg;
+
+    // 业务数据
+    /**
+     * @var int
+     */
+    public $bizContent;
+
+    // 响应时间
+    /**
+     * @var string
+     */
+    public $timestamp;
+
+    // 签名数据
+    /**
+     * @var string
+     */
+    public $sign;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'status'     => 'status',
+        'code'       => 'code',
         'msg'        => 'msg',
+        'bizContent' => 'biz_content',
+        'timestamp'  => 'timestamp',
+        'sign'       => 'sign',
     ];
 
     public function validate()
@@ -63,11 +82,20 @@ class ApplyDubbridgeRepaywithholdLxResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->status) {
-            $res['status'] = $this->status;
+        if (null !== $this->code) {
+            $res['code'] = $this->code;
         }
         if (null !== $this->msg) {
             $res['msg'] = $this->msg;
+        }
+        if (null !== $this->bizContent) {
+            $res['biz_content'] = $this->bizContent;
+        }
+        if (null !== $this->timestamp) {
+            $res['timestamp'] = $this->timestamp;
+        }
+        if (null !== $this->sign) {
+            $res['sign'] = $this->sign;
         }
 
         return $res;
@@ -90,11 +118,20 @@ class ApplyDubbridgeRepaywithholdLxResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['status'])) {
-            $model->status = $map['status'];
+        if (isset($map['code'])) {
+            $model->code = $map['code'];
         }
         if (isset($map['msg'])) {
             $model->msg = $map['msg'];
+        }
+        if (isset($map['biz_content'])) {
+            $model->bizContent = $map['biz_content'];
+        }
+        if (isset($map['timestamp'])) {
+            $model->timestamp = $map['timestamp'];
+        }
+        if (isset($map['sign'])) {
+            $model->sign = $map['sign'];
         }
 
         return $model;

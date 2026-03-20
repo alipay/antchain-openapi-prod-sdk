@@ -26,83 +26,44 @@ class QueryDubbridgeRepaymentLxResponse extends Model
      */
     public $resultMsg;
 
-    // 还款状态，
-    // 1、成功(结算成功)
-    // 2、失败(结算失败)
-    // 3. 还款中(结算处理中)
-    // 4. 查无此通知（会重复发起还款）
-    /**
-     * @var int
-     */
-    public $repayStatus;
-
-    // 处理成功时间，成功必填YYYY-MM-DD HH:MM:SS
+    // 业务返回码，001 请求成功 002 请求失败
     /**
      * @var string
      */
-    public $processTime;
+    public $ccode;
 
-    // 还款描述，失败时，需给出的错误描述
+    // 业务返回描述
     /**
      * @var string
      */
     public $msg;
 
-    // 还款总额,保留两位有效数字(单位:元)
+    // 业务数据
     /**
      * @var int
      */
-    public $repayAmount;
+    public $bizContent;
 
-    // 实还本金,保留两位有效数字(单位:元)
+    // 响应时间
     /**
      * @var string
      */
-    public $repayPrincipal;
+    public $timestamp;
 
-    // 实还利息,保留两位有效数字(单位:元)
+    // 签名数据
     /**
      * @var string
      */
-    public $repayInterest;
-
-    // 实还罚息,保留两位有效数字(单位:元)
-    /**
-     * @var int
-     */
-    public $repayMuclt;
-
-    // 实还担保费,保留两位有效数字(单位:元)
-    /**
-     * @var int
-     */
-    public $repayGuarantee;
-
-    // 实还信用评估费,保留两位有效数字(单位:元)
-    /**
-     * @var int
-     */
-    public $repayCreditFee;
-
-    // 实还咨询服务费,保留两位有效数字(单位:元)
-    /**
-     * @var int
-     */
-    public $repayGranteeConsultServiceFee;
+    public $sign;
     protected $_name = [
-        'reqMsgId'                      => 'req_msg_id',
-        'resultCode'                    => 'result_code',
-        'resultMsg'                     => 'result_msg',
-        'repayStatus'                   => 'repay_status',
-        'processTime'                   => 'process_time',
-        'msg'                           => 'msg',
-        'repayAmount'                   => 'repay_amount',
-        'repayPrincipal'                => 'repay_principal',
-        'repayInterest'                 => 'repay_interest',
-        'repayMuclt'                    => 'repay_muclt',
-        'repayGuarantee'                => 'repay_guarantee',
-        'repayCreditFee'                => 'repay_credit_fee',
-        'repayGranteeConsultServiceFee' => 'repay_grantee_consult_service_fee',
+        'reqMsgId'   => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg'  => 'result_msg',
+        'ccode'      => 'ccode',
+        'msg'        => 'msg',
+        'bizContent' => 'biz_content',
+        'timestamp'  => 'timestamp',
+        'sign'       => 'sign',
     ];
 
     public function validate()
@@ -121,35 +82,20 @@ class QueryDubbridgeRepaymentLxResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->repayStatus) {
-            $res['repay_status'] = $this->repayStatus;
-        }
-        if (null !== $this->processTime) {
-            $res['process_time'] = $this->processTime;
+        if (null !== $this->ccode) {
+            $res['ccode'] = $this->ccode;
         }
         if (null !== $this->msg) {
             $res['msg'] = $this->msg;
         }
-        if (null !== $this->repayAmount) {
-            $res['repay_amount'] = $this->repayAmount;
+        if (null !== $this->bizContent) {
+            $res['biz_content'] = $this->bizContent;
         }
-        if (null !== $this->repayPrincipal) {
-            $res['repay_principal'] = $this->repayPrincipal;
+        if (null !== $this->timestamp) {
+            $res['timestamp'] = $this->timestamp;
         }
-        if (null !== $this->repayInterest) {
-            $res['repay_interest'] = $this->repayInterest;
-        }
-        if (null !== $this->repayMuclt) {
-            $res['repay_muclt'] = $this->repayMuclt;
-        }
-        if (null !== $this->repayGuarantee) {
-            $res['repay_guarantee'] = $this->repayGuarantee;
-        }
-        if (null !== $this->repayCreditFee) {
-            $res['repay_credit_fee'] = $this->repayCreditFee;
-        }
-        if (null !== $this->repayGranteeConsultServiceFee) {
-            $res['repay_grantee_consult_service_fee'] = $this->repayGranteeConsultServiceFee;
+        if (null !== $this->sign) {
+            $res['sign'] = $this->sign;
         }
 
         return $res;
@@ -172,35 +118,20 @@ class QueryDubbridgeRepaymentLxResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['repay_status'])) {
-            $model->repayStatus = $map['repay_status'];
-        }
-        if (isset($map['process_time'])) {
-            $model->processTime = $map['process_time'];
+        if (isset($map['ccode'])) {
+            $model->ccode = $map['ccode'];
         }
         if (isset($map['msg'])) {
             $model->msg = $map['msg'];
         }
-        if (isset($map['repay_amount'])) {
-            $model->repayAmount = $map['repay_amount'];
+        if (isset($map['biz_content'])) {
+            $model->bizContent = $map['biz_content'];
         }
-        if (isset($map['repay_principal'])) {
-            $model->repayPrincipal = $map['repay_principal'];
+        if (isset($map['timestamp'])) {
+            $model->timestamp = $map['timestamp'];
         }
-        if (isset($map['repay_interest'])) {
-            $model->repayInterest = $map['repay_interest'];
-        }
-        if (isset($map['repay_muclt'])) {
-            $model->repayMuclt = $map['repay_muclt'];
-        }
-        if (isset($map['repay_guarantee'])) {
-            $model->repayGuarantee = $map['repay_guarantee'];
-        }
-        if (isset($map['repay_credit_fee'])) {
-            $model->repayCreditFee = $map['repay_credit_fee'];
-        }
-        if (isset($map['repay_grantee_consult_service_fee'])) {
-            $model->repayGranteeConsultServiceFee = $map['repay_grantee_consult_service_fee'];
+        if (isset($map['sign'])) {
+            $model->sign = $map['sign'];
         }
 
         return $model;

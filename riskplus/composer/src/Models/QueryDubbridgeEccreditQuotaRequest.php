@@ -6,7 +6,7 @@ namespace AntChain\RISKPLUS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ApplyDubbridgeRepaywithholdLxRequest extends Model
+class QueryDubbridgeEccreditQuotaRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,36 +19,36 @@ class ApplyDubbridgeRepaywithholdLxRequest extends Model
      */
     public $productInstanceId;
 
-    // 合作方代码
+    // 交易流水号，自行设定规则生成
     /**
      * @var string
      */
-    public $partnerCode;
+    public $transactionNo;
 
-    // 业务入参，json格式字符串
+    // 业务场景
     /**
      * @var string
      */
-    public $bizContent;
+    public $businessScene;
 
-    // 请求发送时间
+    // 合同编号
     /**
      * @var string
      */
-    public $timestamp;
+    public $contractNo;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'partnerCode'       => 'partner_code',
-        'bizContent'        => 'biz_content',
-        'timestamp'         => 'timestamp',
+        'transactionNo'     => 'transaction_no',
+        'businessScene'     => 'business_scene',
+        'contractNo'        => 'contract_no',
     ];
 
     public function validate()
     {
-        Model::validateRequired('partnerCode', $this->partnerCode, true);
-        Model::validateRequired('bizContent', $this->bizContent, true);
-        Model::validateRequired('timestamp', $this->timestamp, true);
+        Model::validateRequired('transactionNo', $this->transactionNo, true);
+        Model::validateRequired('businessScene', $this->businessScene, true);
+        Model::validateRequired('contractNo', $this->contractNo, true);
     }
 
     public function toMap()
@@ -60,14 +60,14 @@ class ApplyDubbridgeRepaywithholdLxRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->partnerCode) {
-            $res['partner_code'] = $this->partnerCode;
+        if (null !== $this->transactionNo) {
+            $res['transaction_no'] = $this->transactionNo;
         }
-        if (null !== $this->bizContent) {
-            $res['biz_content'] = $this->bizContent;
+        if (null !== $this->businessScene) {
+            $res['business_scene'] = $this->businessScene;
         }
-        if (null !== $this->timestamp) {
-            $res['timestamp'] = $this->timestamp;
+        if (null !== $this->contractNo) {
+            $res['contract_no'] = $this->contractNo;
         }
 
         return $res;
@@ -76,7 +76,7 @@ class ApplyDubbridgeRepaywithholdLxRequest extends Model
     /**
      * @param array $map
      *
-     * @return ApplyDubbridgeRepaywithholdLxRequest
+     * @return QueryDubbridgeEccreditQuotaRequest
      */
     public static function fromMap($map = [])
     {
@@ -87,14 +87,14 @@ class ApplyDubbridgeRepaywithholdLxRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['partner_code'])) {
-            $model->partnerCode = $map['partner_code'];
+        if (isset($map['transaction_no'])) {
+            $model->transactionNo = $map['transaction_no'];
         }
-        if (isset($map['biz_content'])) {
-            $model->bizContent = $map['biz_content'];
+        if (isset($map['business_scene'])) {
+            $model->businessScene = $map['business_scene'];
         }
-        if (isset($map['timestamp'])) {
-            $model->timestamp = $map['timestamp'];
+        if (isset($map['contract_no'])) {
+            $model->contractNo = $map['contract_no'];
         }
 
         return $model;

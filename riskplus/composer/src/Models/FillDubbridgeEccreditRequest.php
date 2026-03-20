@@ -6,7 +6,7 @@ namespace AntChain\RISKPLUS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ApplyDubbridgeRepaywithholdLxRequest extends Model
+class FillDubbridgeEccreditRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,36 +19,36 @@ class ApplyDubbridgeRepaywithholdLxRequest extends Model
      */
     public $productInstanceId;
 
-    // 合作方代码
+    // 业务场景码
     /**
      * @var string
      */
-    public $partnerCode;
+    public $businessScene;
 
-    // 业务入参，json格式字符串
+    // 外部申请编号 合作方调用时，生成唯一流水号
     /**
      * @var string
+     */
+    public $thirdApplyNo;
+
+    // biz_content
+    /**
+     * @var EcBizContend
      */
     public $bizContent;
-
-    // 请求发送时间
-    /**
-     * @var string
-     */
-    public $timestamp;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'partnerCode'       => 'partner_code',
+        'businessScene'     => 'business_scene',
+        'thirdApplyNo'      => 'third_apply_no',
         'bizContent'        => 'biz_content',
-        'timestamp'         => 'timestamp',
     ];
 
     public function validate()
     {
-        Model::validateRequired('partnerCode', $this->partnerCode, true);
+        Model::validateRequired('businessScene', $this->businessScene, true);
+        Model::validateRequired('thirdApplyNo', $this->thirdApplyNo, true);
         Model::validateRequired('bizContent', $this->bizContent, true);
-        Model::validateRequired('timestamp', $this->timestamp, true);
     }
 
     public function toMap()
@@ -60,14 +60,14 @@ class ApplyDubbridgeRepaywithholdLxRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->partnerCode) {
-            $res['partner_code'] = $this->partnerCode;
+        if (null !== $this->businessScene) {
+            $res['business_scene'] = $this->businessScene;
+        }
+        if (null !== $this->thirdApplyNo) {
+            $res['third_apply_no'] = $this->thirdApplyNo;
         }
         if (null !== $this->bizContent) {
-            $res['biz_content'] = $this->bizContent;
-        }
-        if (null !== $this->timestamp) {
-            $res['timestamp'] = $this->timestamp;
+            $res['biz_content'] = null !== $this->bizContent ? $this->bizContent->toMap() : null;
         }
 
         return $res;
@@ -76,7 +76,7 @@ class ApplyDubbridgeRepaywithholdLxRequest extends Model
     /**
      * @param array $map
      *
-     * @return ApplyDubbridgeRepaywithholdLxRequest
+     * @return FillDubbridgeEccreditRequest
      */
     public static function fromMap($map = [])
     {
@@ -87,14 +87,14 @@ class ApplyDubbridgeRepaywithholdLxRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['partner_code'])) {
-            $model->partnerCode = $map['partner_code'];
+        if (isset($map['business_scene'])) {
+            $model->businessScene = $map['business_scene'];
+        }
+        if (isset($map['third_apply_no'])) {
+            $model->thirdApplyNo = $map['third_apply_no'];
         }
         if (isset($map['biz_content'])) {
-            $model->bizContent = $map['biz_content'];
-        }
-        if (isset($map['timestamp'])) {
-            $model->timestamp = $map['timestamp'];
+            $model->bizContent = EcBizContend::fromMap($map['biz_content']);
         }
 
         return $model;

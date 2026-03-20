@@ -17,6 +17,10 @@ use AntChain\RISKPLUS\Models\ApplyDubbridgeCreditRequest;
 use AntChain\RISKPLUS\Models\ApplyDubbridgeCreditResponse;
 use AntChain\RISKPLUS\Models\ApplyDubbridgeCustomerAgreementsignRequest;
 use AntChain\RISKPLUS\Models\ApplyDubbridgeCustomerAgreementsignResponse;
+use AntChain\RISKPLUS\Models\ApplyDubbridgeEccreditRequest;
+use AntChain\RISKPLUS\Models\ApplyDubbridgeEccreditResponse;
+use AntChain\RISKPLUS\Models\ApplyDubbridgeEcloanRequest;
+use AntChain\RISKPLUS\Models\ApplyDubbridgeEcloanResponse;
 use AntChain\RISKPLUS\Models\ApplyDubbridgeLoanLxRequest;
 use AntChain\RISKPLUS\Models\ApplyDubbridgeLoanLxResponse;
 use AntChain\RISKPLUS\Models\ApplyDubbridgeRepaywithholdLxRequest;
@@ -117,6 +121,8 @@ use AntChain\RISKPLUS\Models\CloseDubbridgeAlipayTradeRequest;
 use AntChain\RISKPLUS\Models\CloseDubbridgeAlipayTradeResponse;
 use AntChain\RISKPLUS\Models\ConfirmSecurityPolicyRequest;
 use AntChain\RISKPLUS\Models\ConfirmSecurityPolicyResponse;
+use AntChain\RISKPLUS\Models\CountDubbridgeEcrepayTrialRequest;
+use AntChain\RISKPLUS\Models\CountDubbridgeEcrepayTrialResponse;
 use AntChain\RISKPLUS\Models\CountDubbridgeRepayReftrialRequest;
 use AntChain\RISKPLUS\Models\CountDubbridgeRepayReftrialResponse;
 use AntChain\RISKPLUS\Models\CountDubbridgeRepayTrialRequest;
@@ -141,6 +147,8 @@ use AntChain\RISKPLUS\Models\CreateRbbUserRequest;
 use AntChain\RISKPLUS\Models\CreateRbbUserResponse;
 use AntChain\RISKPLUS\Models\CreateRtopTokenRequest;
 use AntChain\RISKPLUS\Models\CreateRtopTokenResponse;
+use AntChain\RISKPLUS\Models\DetailDubbridgeEcloanRequest;
+use AntChain\RISKPLUS\Models\DetailDubbridgeEcloanResponse;
 use AntChain\RISKPLUS\Models\DownloadUmktOfflineCampaignRequest;
 use AntChain\RISKPLUS\Models\DownloadUmktOfflineCampaignResponse;
 use AntChain\RISKPLUS\Models\DownloadUmktOfflinedecisionResultRequest;
@@ -151,6 +159,8 @@ use AntChain\RISKPLUS\Models\ExecRtopGenericInvokeRequest;
 use AntChain\RISKPLUS\Models\ExecRtopGenericInvokeResponse;
 use AntChain\RISKPLUS\Models\ExecSecurityRiskdataserviceRequest;
 use AntChain\RISKPLUS\Models\ExecSecurityRiskdataserviceResponse;
+use AntChain\RISKPLUS\Models\FillDubbridgeEccreditRequest;
+use AntChain\RISKPLUS\Models\FillDubbridgeEccreditResponse;
 use AntChain\RISKPLUS\Models\FinishRbbRegdatasyncScheduleRequest;
 use AntChain\RISKPLUS\Models\FinishRbbRegdatasyncScheduleResponse;
 use AntChain\RISKPLUS\Models\GetRbbLoginTokenRequest;
@@ -269,6 +279,16 @@ use AntChain\RISKPLUS\Models\QueryDubbridgeCustomerBankcardlistRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeCustomerBankcardlistResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeCustomerCommonagreementsignRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeCustomerCommonagreementsignResponse;
+use AntChain\RISKPLUS\Models\QueryDubbridgeEccreditQuotaRequest;
+use AntChain\RISKPLUS\Models\QueryDubbridgeEccreditQuotaResponse;
+use AntChain\RISKPLUS\Models\QueryDubbridgeEccreditRequest;
+use AntChain\RISKPLUS\Models\QueryDubbridgeEccreditResponse;
+use AntChain\RISKPLUS\Models\QueryDubbridgeEccreditSkipurlRequest;
+use AntChain\RISKPLUS\Models\QueryDubbridgeEccreditSkipurlResponse;
+use AntChain\RISKPLUS\Models\QueryDubbridgeEcloanRequest;
+use AntChain\RISKPLUS\Models\QueryDubbridgeEcloanResponse;
+use AntChain\RISKPLUS\Models\QueryDubbridgeEcrepayRequest;
+use AntChain\RISKPLUS\Models\QueryDubbridgeEcrepayResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeFundCreditamtRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeFundCreditamtResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeInstallmentCreditamtRequest;
@@ -694,7 +714,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.31.0',
+                    'sdk_version'      => '1.31.1',
                     '_prod_code'       => 'RISKPLUS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -4389,6 +4409,336 @@ class Client
         Utils::validateModel($request);
 
         return QueryDubbridgeCertificateLxResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.certificate.lx.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 天枢电商场景下授信申请接口
+     * Summary: 天枢电商场景下授信申请接口.
+     *
+     * @param ApplyDubbridgeEccreditRequest $request
+     *
+     * @return ApplyDubbridgeEccreditResponse
+     */
+    public function applyDubbridgeEccredit($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyDubbridgeEccreditEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 天枢电商场景下授信申请接口
+     * Summary: 天枢电商场景下授信申请接口.
+     *
+     * @param ApplyDubbridgeEccreditRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return ApplyDubbridgeEccreditResponse
+     */
+    public function applyDubbridgeEccreditEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyDubbridgeEccreditResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.eccredit.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 天枢电商场景支用申请
+     * Summary: 天枢电商场景支用申请.
+     *
+     * @param ApplyDubbridgeEcloanRequest $request
+     *
+     * @return ApplyDubbridgeEcloanResponse
+     */
+    public function applyDubbridgeEcloan($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyDubbridgeEcloanEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 天枢电商场景支用申请
+     * Summary: 天枢电商场景支用申请.
+     *
+     * @param ApplyDubbridgeEcloanRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return ApplyDubbridgeEcloanResponse
+     */
+    public function applyDubbridgeEcloanEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyDubbridgeEcloanResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.ecloan.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 支用前查询授信额度
+     * Summary: 支用前查询授信额度.
+     *
+     * @param QueryDubbridgeEccreditQuotaRequest $request
+     *
+     * @return QueryDubbridgeEccreditQuotaResponse
+     */
+    public function queryDubbridgeEccreditQuota($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDubbridgeEccreditQuotaEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 支用前查询授信额度
+     * Summary: 支用前查询授信额度.
+     *
+     * @param QueryDubbridgeEccreditQuotaRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return QueryDubbridgeEccreditQuotaResponse
+     */
+    public function queryDubbridgeEccreditQuotaEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDubbridgeEccreditQuotaResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.eccredit.quota.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 支用结果查询接口
+     * Summary: 支用结果查询接口.
+     *
+     * @param QueryDubbridgeEcloanRequest $request
+     *
+     * @return QueryDubbridgeEcloanResponse
+     */
+    public function queryDubbridgeEcloan($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDubbridgeEcloanEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 支用结果查询接口
+     * Summary: 支用结果查询接口.
+     *
+     * @param QueryDubbridgeEcloanRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return QueryDubbridgeEcloanResponse
+     */
+    public function queryDubbridgeEcloanEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDubbridgeEcloanResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.ecloan.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 支用后，还款前试算
+     * Summary: 支用后，还款前试算.
+     *
+     * @param CountDubbridgeEcrepayTrialRequest $request
+     *
+     * @return CountDubbridgeEcrepayTrialResponse
+     */
+    public function countDubbridgeEcrepayTrial($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->countDubbridgeEcrepayTrialEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 支用后，还款前试算
+     * Summary: 支用后，还款前试算.
+     *
+     * @param CountDubbridgeEcrepayTrialRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return CountDubbridgeEcrepayTrialResponse
+     */
+    public function countDubbridgeEcrepayTrialEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CountDubbridgeEcrepayTrialResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.ecrepay.trial.count', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 支用后 查询还款明细
+     * Summary: 支用后 查询还款明细.
+     *
+     * @param QueryDubbridgeEcrepayRequest $request
+     *
+     * @return QueryDubbridgeEcrepayResponse
+     */
+    public function queryDubbridgeEcrepay($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDubbridgeEcrepayEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 支用后 查询还款明细
+     * Summary: 支用后 查询还款明细.
+     *
+     * @param QueryDubbridgeEcrepayRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return QueryDubbridgeEcrepayResponse
+     */
+    public function queryDubbridgeEcrepayEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDubbridgeEcrepayResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.ecrepay.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 支用后 查询借据
+     * Summary: 支用后 查询借据.
+     *
+     * @param DetailDubbridgeEcloanRequest $request
+     *
+     * @return DetailDubbridgeEcloanResponse
+     */
+    public function detailDubbridgeEcloan($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->detailDubbridgeEcloanEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 支用后 查询借据
+     * Summary: 支用后 查询借据.
+     *
+     * @param DetailDubbridgeEcloanRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return DetailDubbridgeEcloanResponse
+     */
+    public function detailDubbridgeEcloanEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DetailDubbridgeEcloanResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.ecloan.detail', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 授信结果查询
+     * Summary: 授信结果查询.
+     *
+     * @param QueryDubbridgeEccreditRequest $request
+     *
+     * @return QueryDubbridgeEccreditResponse
+     */
+    public function queryDubbridgeEccredit($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDubbridgeEccreditEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 授信结果查询
+     * Summary: 授信结果查询.
+     *
+     * @param QueryDubbridgeEccreditRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return QueryDubbridgeEccreditResponse
+     */
+    public function queryDubbridgeEccreditEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDubbridgeEccreditResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.eccredit.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 补充授信申请风险数据
+     * Summary: 补充授信申请风险数据.
+     *
+     * @param FillDubbridgeEccreditRequest $request
+     *
+     * @return FillDubbridgeEccreditResponse
+     */
+    public function fillDubbridgeEccredit($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->fillDubbridgeEccreditEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 补充授信申请风险数据
+     * Summary: 补充授信申请风险数据.
+     *
+     * @param FillDubbridgeEccreditRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return FillDubbridgeEccreditResponse
+     */
+    public function fillDubbridgeEccreditEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return FillDubbridgeEccreditResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.eccredit.fill', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取链接接口
+     * Summary: 获取链接接口.
+     *
+     * @param QueryDubbridgeEccreditSkipurlRequest $request
+     *
+     * @return QueryDubbridgeEccreditSkipurlResponse
+     */
+    public function queryDubbridgeEccreditSkipurl($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDubbridgeEccreditSkipurlEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取链接接口
+     * Summary: 获取链接接口.
+     *
+     * @param QueryDubbridgeEccreditSkipurlRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return QueryDubbridgeEccreditSkipurlResponse
+     */
+    public function queryDubbridgeEccreditSkipurlEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDubbridgeEccreditSkipurlResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.eccredit.skipurl.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

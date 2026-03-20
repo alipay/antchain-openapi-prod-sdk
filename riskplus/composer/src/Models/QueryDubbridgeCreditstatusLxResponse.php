@@ -26,64 +26,44 @@ class QueryDubbridgeCreditstatusLxResponse extends Model
      */
     public $resultMsg;
 
-    // 授信审核状态
-    // 0. 授信成功
-    // 1. 授信失败
-    // 2. 授信中（重试查询）
-    // 3. 查无此单（按1授信失败处理，订单轮询至下一资方）
-    /**
-     * @var int
-     */
-    public $auditState;
-
-    // 业务错误码
-    // 无异常=0 ，不同异常，返回不同的code
-    /**
-     * @var int
-     */
-    public $errorCode;
-
     // 授信失败必填，描述具体的失败原因，用于运营分析
     /**
      * @var string
      */
     public $msg;
 
-    // 授信成功必填,授信成功后，资方的授信编号，后续用信/支用时用到
+    // 业务返回码，001 请求成功 002 请求失败
     /**
      * @var string
      */
-    public $creditNo;
+    public $code;
 
-    // 授信批准的额度，授信成功必填，单位:元
-    /**
-     * @var int
-     */
-    public $creditAmt;
-
-    // 授信生效日期，授信审核通过时必填，格式：yyyy-MM-dd
+    // 业务数据
     /**
      * @var string
      */
-    public $creditValidDate;
+    public $bizContent;
 
-    // 授信失效日期，授信审核通过时必填，格式：yyyy-MM-dd  ,如果授信的当前日期大于
-    // 等于失效日期,就认为失效
+    // 响应时间
     /**
      * @var string
      */
-    public $creditExpireDate;
+    public $timestamp;
+
+    // 签名数据
+    /**
+     * @var string
+     */
+    public $sign;
     protected $_name = [
-        'reqMsgId'         => 'req_msg_id',
-        'resultCode'       => 'result_code',
-        'resultMsg'        => 'result_msg',
-        'auditState'       => 'audit_state',
-        'errorCode'        => 'error_code',
-        'msg'              => 'msg',
-        'creditNo'         => 'credit_no',
-        'creditAmt'        => 'credit_amt',
-        'creditValidDate'  => 'credit_valid_date',
-        'creditExpireDate' => 'credit_expire_date',
+        'reqMsgId'   => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg'  => 'result_msg',
+        'msg'        => 'msg',
+        'code'       => 'code',
+        'bizContent' => 'biz_content',
+        'timestamp'  => 'timestamp',
+        'sign'       => 'sign',
     ];
 
     public function validate()
@@ -102,26 +82,20 @@ class QueryDubbridgeCreditstatusLxResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->auditState) {
-            $res['audit_state'] = $this->auditState;
-        }
-        if (null !== $this->errorCode) {
-            $res['error_code'] = $this->errorCode;
-        }
         if (null !== $this->msg) {
             $res['msg'] = $this->msg;
         }
-        if (null !== $this->creditNo) {
-            $res['credit_no'] = $this->creditNo;
+        if (null !== $this->code) {
+            $res['code'] = $this->code;
         }
-        if (null !== $this->creditAmt) {
-            $res['credit_amt'] = $this->creditAmt;
+        if (null !== $this->bizContent) {
+            $res['biz_content'] = $this->bizContent;
         }
-        if (null !== $this->creditValidDate) {
-            $res['credit_valid_date'] = $this->creditValidDate;
+        if (null !== $this->timestamp) {
+            $res['timestamp'] = $this->timestamp;
         }
-        if (null !== $this->creditExpireDate) {
-            $res['credit_expire_date'] = $this->creditExpireDate;
+        if (null !== $this->sign) {
+            $res['sign'] = $this->sign;
         }
 
         return $res;
@@ -144,26 +118,20 @@ class QueryDubbridgeCreditstatusLxResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['audit_state'])) {
-            $model->auditState = $map['audit_state'];
-        }
-        if (isset($map['error_code'])) {
-            $model->errorCode = $map['error_code'];
-        }
         if (isset($map['msg'])) {
             $model->msg = $map['msg'];
         }
-        if (isset($map['credit_no'])) {
-            $model->creditNo = $map['credit_no'];
+        if (isset($map['code'])) {
+            $model->code = $map['code'];
         }
-        if (isset($map['credit_amt'])) {
-            $model->creditAmt = $map['credit_amt'];
+        if (isset($map['biz_content'])) {
+            $model->bizContent = $map['biz_content'];
         }
-        if (isset($map['credit_valid_date'])) {
-            $model->creditValidDate = $map['credit_valid_date'];
+        if (isset($map['timestamp'])) {
+            $model->timestamp = $map['timestamp'];
         }
-        if (isset($map['credit_expire_date'])) {
-            $model->creditExpireDate = $map['credit_expire_date'];
+        if (isset($map['sign'])) {
+            $model->sign = $map['sign'];
         }
 
         return $model;

@@ -26,52 +26,44 @@ class QueryDubbridgeCreditamtLxResponse extends Model
      */
     public $resultMsg;
 
+    // 业务返回码，001 请求成功 002 请求失败
+    /**
+     * @var int
+     */
+    public $code;
+
     // 返回描述信息
     /**
      * @var string
      */
     public $msg;
 
-    // 查询状态，0. 查询成功
-    // 1. 查询失败---表示“拒绝”的有效终态，下一步重新调用授信申请接口
-    /**
-     * @var int
-     */
-    public $status;
-
-    // 剩余可用额度,授信成功必填,单位:元
+    // 业务数据
     /**
      * @var string
      */
-    public $creditRemainAmt;
+    public $bizContent;
 
-    // 授信批准的额度，授信成功必填,单位:元
+    // 响应时间
     /**
      * @var string
      */
-    public $creditAmt;
+    public $timestamp;
 
-    // 授信生效日期，授信审核通过时必填,格式：yyyy-MM-dd
+    // 签名数据
     /**
      * @var string
      */
-    public $creditValidDate;
-
-    // 授信失效日期，授信审核通过时必填,格式：yyyy-MM-dd
-    /**
-     * @var string
-     */
-    public $creditExpireDate;
+    public $sign;
     protected $_name = [
-        'reqMsgId'         => 'req_msg_id',
-        'resultCode'       => 'result_code',
-        'resultMsg'        => 'result_msg',
-        'msg'              => 'msg',
-        'status'           => 'status',
-        'creditRemainAmt'  => 'credit_remain_amt',
-        'creditAmt'        => 'credit_amt',
-        'creditValidDate'  => 'credit_valid_date',
-        'creditExpireDate' => 'credit_expire_date',
+        'reqMsgId'   => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg'  => 'result_msg',
+        'code'       => 'code',
+        'msg'        => 'msg',
+        'bizContent' => 'biz_content',
+        'timestamp'  => 'timestamp',
+        'sign'       => 'sign',
     ];
 
     public function validate()
@@ -90,23 +82,20 @@ class QueryDubbridgeCreditamtLxResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
+        if (null !== $this->code) {
+            $res['code'] = $this->code;
+        }
         if (null !== $this->msg) {
             $res['msg'] = $this->msg;
         }
-        if (null !== $this->status) {
-            $res['status'] = $this->status;
+        if (null !== $this->bizContent) {
+            $res['biz_content'] = $this->bizContent;
         }
-        if (null !== $this->creditRemainAmt) {
-            $res['credit_remain_amt'] = $this->creditRemainAmt;
+        if (null !== $this->timestamp) {
+            $res['timestamp'] = $this->timestamp;
         }
-        if (null !== $this->creditAmt) {
-            $res['credit_amt'] = $this->creditAmt;
-        }
-        if (null !== $this->creditValidDate) {
-            $res['credit_valid_date'] = $this->creditValidDate;
-        }
-        if (null !== $this->creditExpireDate) {
-            $res['credit_expire_date'] = $this->creditExpireDate;
+        if (null !== $this->sign) {
+            $res['sign'] = $this->sign;
         }
 
         return $res;
@@ -129,23 +118,20 @@ class QueryDubbridgeCreditamtLxResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
+        if (isset($map['code'])) {
+            $model->code = $map['code'];
+        }
         if (isset($map['msg'])) {
             $model->msg = $map['msg'];
         }
-        if (isset($map['status'])) {
-            $model->status = $map['status'];
+        if (isset($map['biz_content'])) {
+            $model->bizContent = $map['biz_content'];
         }
-        if (isset($map['credit_remain_amt'])) {
-            $model->creditRemainAmt = $map['credit_remain_amt'];
+        if (isset($map['timestamp'])) {
+            $model->timestamp = $map['timestamp'];
         }
-        if (isset($map['credit_amt'])) {
-            $model->creditAmt = $map['credit_amt'];
-        }
-        if (isset($map['credit_valid_date'])) {
-            $model->creditValidDate = $map['credit_valid_date'];
-        }
-        if (isset($map['credit_expire_date'])) {
-            $model->creditExpireDate = $map['credit_expire_date'];
+        if (isset($map['sign'])) {
+            $model->sign = $map['sign'];
         }
 
         return $model;

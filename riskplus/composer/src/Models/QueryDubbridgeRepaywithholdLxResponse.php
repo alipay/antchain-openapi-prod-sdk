@@ -26,48 +26,44 @@ class QueryDubbridgeRepaywithholdLxResponse extends Model
      */
     public $resultMsg;
 
-    // 代扣状态，
-    // 1、代扣成功
-    // 2、代扣失败
-    // 3. 代扣处理中
-    // 4. 未收到代扣请求（交易侧可以重复发起代扣）
+    // 业务返回码，001 请求成功 002 请求失败
     /**
-     * @var int
+     * @var string
      */
-    public $status;
+    public $code;
 
-    // 代扣描述，失败时，需给出的错误描述
+    // 业务返回描述
     /**
      * @var string
      */
     public $msg;
 
-    // 资金方扣款交易流水号，受理流水号(资金方)
+    // 业务数据
     /**
      * @var string
      */
-    public $orderNum;
+    public $bizContent;
 
-    // 支付通道交易流水号
+    // 响应时间
     /**
      * @var string
      */
-    public $transNum;
+    public $timestamp;
 
-    // 代扣明细
+    // 签名数据
     /**
-     * @var WithholdDetailItem[]
+     * @var string
      */
-    public $withholdDetail;
+    public $sign;
     protected $_name = [
-        'reqMsgId'       => 'req_msg_id',
-        'resultCode'     => 'result_code',
-        'resultMsg'      => 'result_msg',
-        'status'         => 'status',
-        'msg'            => 'msg',
-        'orderNum'       => 'order_num',
-        'transNum'       => 'trans_num',
-        'withholdDetail' => 'withhold_detail',
+        'reqMsgId'   => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg'  => 'result_msg',
+        'code'       => 'code',
+        'msg'        => 'msg',
+        'bizContent' => 'biz_content',
+        'timestamp'  => 'timestamp',
+        'sign'       => 'sign',
     ];
 
     public function validate()
@@ -86,26 +82,20 @@ class QueryDubbridgeRepaywithholdLxResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->status) {
-            $res['status'] = $this->status;
+        if (null !== $this->code) {
+            $res['code'] = $this->code;
         }
         if (null !== $this->msg) {
             $res['msg'] = $this->msg;
         }
-        if (null !== $this->orderNum) {
-            $res['order_num'] = $this->orderNum;
+        if (null !== $this->bizContent) {
+            $res['biz_content'] = $this->bizContent;
         }
-        if (null !== $this->transNum) {
-            $res['trans_num'] = $this->transNum;
+        if (null !== $this->timestamp) {
+            $res['timestamp'] = $this->timestamp;
         }
-        if (null !== $this->withholdDetail) {
-            $res['withhold_detail'] = [];
-            if (null !== $this->withholdDetail && \is_array($this->withholdDetail)) {
-                $n = 0;
-                foreach ($this->withholdDetail as $item) {
-                    $res['withhold_detail'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
+        if (null !== $this->sign) {
+            $res['sign'] = $this->sign;
         }
 
         return $res;
@@ -128,26 +118,20 @@ class QueryDubbridgeRepaywithholdLxResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['status'])) {
-            $model->status = $map['status'];
+        if (isset($map['code'])) {
+            $model->code = $map['code'];
         }
         if (isset($map['msg'])) {
             $model->msg = $map['msg'];
         }
-        if (isset($map['order_num'])) {
-            $model->orderNum = $map['order_num'];
+        if (isset($map['biz_content'])) {
+            $model->bizContent = $map['biz_content'];
         }
-        if (isset($map['trans_num'])) {
-            $model->transNum = $map['trans_num'];
+        if (isset($map['timestamp'])) {
+            $model->timestamp = $map['timestamp'];
         }
-        if (isset($map['withhold_detail'])) {
-            if (!empty($map['withhold_detail'])) {
-                $model->withholdDetail = [];
-                $n                     = 0;
-                foreach ($map['withhold_detail'] as $item) {
-                    $model->withholdDetail[$n++] = null !== $item ? WithholdDetailItem::fromMap($item) : $item;
-                }
-            }
+        if (isset($map['sign'])) {
+            $model->sign = $map['sign'];
         }
 
         return $model;

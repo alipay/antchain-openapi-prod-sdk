@@ -19,55 +19,36 @@ class QueryDubbridgeCertificateLxRequest extends Model
      */
     public $productInstanceId;
 
-    // 放款请求流水号
+    // 合作方代码
     /**
      * @var string
      */
-    public $loanReqNo;
+    public $partnerCode;
 
-    // 请求方代码
+    // 业务入参，json格式字符串
     /**
      * @var string
      */
-    public $sourceCode;
+    public $bizContent;
 
-    // 文件类型，0结清证明
-    // 1代偿凭证
-    // 2放款凭证
-    /**
-     * @var int
-     */
-    public $fileType;
-
-    // 申请日期，yyyy-MM-dd
+    // 请求发送时间
     /**
      * @var string
      */
-    public $applyDate;
-
-    // 业务类型，
-    // 1非乐花卡
-    // 2乐花卡
-    /**
-     * @var int
-     */
-    public $businessType;
+    public $timestamp;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'loanReqNo'         => 'loan_req_no',
-        'sourceCode'        => 'source_code',
-        'fileType'          => 'file_type',
-        'applyDate'         => 'apply_date',
-        'businessType'      => 'business_type',
+        'partnerCode'       => 'partner_code',
+        'bizContent'        => 'biz_content',
+        'timestamp'         => 'timestamp',
     ];
 
     public function validate()
     {
-        Model::validateRequired('loanReqNo', $this->loanReqNo, true);
-        Model::validateRequired('fileType', $this->fileType, true);
-        Model::validateRequired('applyDate', $this->applyDate, true);
-        Model::validateRequired('businessType', $this->businessType, true);
+        Model::validateRequired('partnerCode', $this->partnerCode, true);
+        Model::validateRequired('bizContent', $this->bizContent, true);
+        Model::validateRequired('timestamp', $this->timestamp, true);
     }
 
     public function toMap()
@@ -79,20 +60,14 @@ class QueryDubbridgeCertificateLxRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->loanReqNo) {
-            $res['loan_req_no'] = $this->loanReqNo;
+        if (null !== $this->partnerCode) {
+            $res['partner_code'] = $this->partnerCode;
         }
-        if (null !== $this->sourceCode) {
-            $res['source_code'] = $this->sourceCode;
+        if (null !== $this->bizContent) {
+            $res['biz_content'] = $this->bizContent;
         }
-        if (null !== $this->fileType) {
-            $res['file_type'] = $this->fileType;
-        }
-        if (null !== $this->applyDate) {
-            $res['apply_date'] = $this->applyDate;
-        }
-        if (null !== $this->businessType) {
-            $res['business_type'] = $this->businessType;
+        if (null !== $this->timestamp) {
+            $res['timestamp'] = $this->timestamp;
         }
 
         return $res;
@@ -112,20 +87,14 @@ class QueryDubbridgeCertificateLxRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['loan_req_no'])) {
-            $model->loanReqNo = $map['loan_req_no'];
+        if (isset($map['partner_code'])) {
+            $model->partnerCode = $map['partner_code'];
         }
-        if (isset($map['source_code'])) {
-            $model->sourceCode = $map['source_code'];
+        if (isset($map['biz_content'])) {
+            $model->bizContent = $map['biz_content'];
         }
-        if (isset($map['file_type'])) {
-            $model->fileType = $map['file_type'];
-        }
-        if (isset($map['apply_date'])) {
-            $model->applyDate = $map['apply_date'];
-        }
-        if (isset($map['business_type'])) {
-            $model->businessType = $map['business_type'];
+        if (isset($map['timestamp'])) {
+            $model->timestamp = $map['timestamp'];
         }
 
         return $model;

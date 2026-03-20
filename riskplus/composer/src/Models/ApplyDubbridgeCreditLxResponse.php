@@ -26,48 +26,44 @@ class ApplyDubbridgeCreditLxResponse extends Model
      */
     public $resultMsg;
 
-    // 天枢客户编号
+    // 业务返回码，001 请求成功  002 请求失败
     /**
      * @var string
      */
-    public $customNo;
+    public $code;
 
-    // 额度授信申请编号
-    /**
-     * @var string
-     */
-    public $creditNo;
-
-    // 授信审核状态，
-    // 0. 授信成功
-    // 1. 授信失败
-    // 2. 授信中
-    /**
-     * @var int
-     */
-    public $auditState;
-
-    // 业务处理描述信息
+    // 业务返回描述
     /**
      * @var string
      */
     public $msg;
 
-    // 业务错误码，
-    // 无异常=0 ，不同异常，返回不同的code
+    // 业务数据
     /**
      * @var string
      */
-    public $errorCode;
+    public $bizContent;
+
+    // 响应时间
+    /**
+     * @var string
+     */
+    public $timestamp;
+
+    // 签名数据
+    /**
+     * @var string
+     */
+    public $sign;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'customNo'   => 'custom_no',
-        'creditNo'   => 'credit_no',
-        'auditState' => 'audit_state',
+        'code'       => 'code',
         'msg'        => 'msg',
-        'errorCode'  => 'error_code',
+        'bizContent' => 'biz_content',
+        'timestamp'  => 'timestamp',
+        'sign'       => 'sign',
     ];
 
     public function validate()
@@ -86,20 +82,20 @@ class ApplyDubbridgeCreditLxResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->customNo) {
-            $res['custom_no'] = $this->customNo;
-        }
-        if (null !== $this->creditNo) {
-            $res['credit_no'] = $this->creditNo;
-        }
-        if (null !== $this->auditState) {
-            $res['audit_state'] = $this->auditState;
+        if (null !== $this->code) {
+            $res['code'] = $this->code;
         }
         if (null !== $this->msg) {
             $res['msg'] = $this->msg;
         }
-        if (null !== $this->errorCode) {
-            $res['error_code'] = $this->errorCode;
+        if (null !== $this->bizContent) {
+            $res['biz_content'] = $this->bizContent;
+        }
+        if (null !== $this->timestamp) {
+            $res['timestamp'] = $this->timestamp;
+        }
+        if (null !== $this->sign) {
+            $res['sign'] = $this->sign;
         }
 
         return $res;
@@ -122,20 +118,20 @@ class ApplyDubbridgeCreditLxResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['custom_no'])) {
-            $model->customNo = $map['custom_no'];
-        }
-        if (isset($map['credit_no'])) {
-            $model->creditNo = $map['credit_no'];
-        }
-        if (isset($map['audit_state'])) {
-            $model->auditState = $map['audit_state'];
+        if (isset($map['code'])) {
+            $model->code = $map['code'];
         }
         if (isset($map['msg'])) {
             $model->msg = $map['msg'];
         }
-        if (isset($map['error_code'])) {
-            $model->errorCode = $map['error_code'];
+        if (isset($map['biz_content'])) {
+            $model->bizContent = $map['biz_content'];
+        }
+        if (isset($map['timestamp'])) {
+            $model->timestamp = $map['timestamp'];
+        }
+        if (isset($map['sign'])) {
+            $model->sign = $map['sign'];
         }
 
         return $model;

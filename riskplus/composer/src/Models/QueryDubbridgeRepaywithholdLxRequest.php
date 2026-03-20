@@ -19,27 +19,36 @@ class QueryDubbridgeRepaywithholdLxRequest extends Model
      */
     public $productInstanceId;
 
-    // 代扣请求流水号
-    /**
-     * @var string
-     */
-    public $withholdSerialNo;
-
     // 合作方代码
     /**
      * @var string
      */
     public $partnerCode;
+
+    // 业务入参，json格式字符串
+    /**
+     * @var string
+     */
+    public $bizContent;
+
+    // 请求发送时间
+    /**
+     * @var string
+     */
+    public $timestamp;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'withholdSerialNo'  => 'withhold_serial_no',
         'partnerCode'       => 'partner_code',
+        'bizContent'        => 'biz_content',
+        'timestamp'         => 'timestamp',
     ];
 
     public function validate()
     {
-        Model::validateRequired('withholdSerialNo', $this->withholdSerialNo, true);
+        Model::validateRequired('partnerCode', $this->partnerCode, true);
+        Model::validateRequired('bizContent', $this->bizContent, true);
+        Model::validateRequired('timestamp', $this->timestamp, true);
     }
 
     public function toMap()
@@ -51,11 +60,14 @@ class QueryDubbridgeRepaywithholdLxRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->withholdSerialNo) {
-            $res['withhold_serial_no'] = $this->withholdSerialNo;
-        }
         if (null !== $this->partnerCode) {
             $res['partner_code'] = $this->partnerCode;
+        }
+        if (null !== $this->bizContent) {
+            $res['biz_content'] = $this->bizContent;
+        }
+        if (null !== $this->timestamp) {
+            $res['timestamp'] = $this->timestamp;
         }
 
         return $res;
@@ -75,11 +87,14 @@ class QueryDubbridgeRepaywithholdLxRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['withhold_serial_no'])) {
-            $model->withholdSerialNo = $map['withhold_serial_no'];
-        }
         if (isset($map['partner_code'])) {
             $model->partnerCode = $map['partner_code'];
+        }
+        if (isset($map['biz_content'])) {
+            $model->bizContent = $map['biz_content'];
+        }
+        if (isset($map['timestamp'])) {
+            $model->timestamp = $map['timestamp'];
         }
 
         return $model;

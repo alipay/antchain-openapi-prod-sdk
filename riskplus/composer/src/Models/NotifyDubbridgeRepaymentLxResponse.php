@@ -26,24 +26,44 @@ class NotifyDubbridgeRepaymentLxResponse extends Model
      */
     public $resultMsg;
 
-    // 1、接口通知成功(仅代表收到请求,具体的还款结果以查询接口为准)
-    // 2、接口通知失败(代表未收到请求,会重复发起还款申请)
+    // 业务返回码，001 请求成功 002 请求失败
     /**
-     * @var int
+     * @var string
      */
-    public $notifyStatus;
+    public $code;
 
-    // 错误描述
+    // 业务返回描述
     /**
      * @var string
      */
     public $msg;
+
+    // 业务数据
+    /**
+     * @var string
+     */
+    public $bizContent;
+
+    // 响应时间
+    /**
+     * @var string
+     */
+    public $timestamp;
+
+    // 签名数据
+    /**
+     * @var string
+     */
+    public $sign;
     protected $_name = [
-        'reqMsgId'     => 'req_msg_id',
-        'resultCode'   => 'result_code',
-        'resultMsg'    => 'result_msg',
-        'notifyStatus' => 'notify_status',
-        'msg'          => 'msg',
+        'reqMsgId'   => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg'  => 'result_msg',
+        'code'       => 'code',
+        'msg'        => 'msg',
+        'bizContent' => 'biz_content',
+        'timestamp'  => 'timestamp',
+        'sign'       => 'sign',
     ];
 
     public function validate()
@@ -62,11 +82,20 @@ class NotifyDubbridgeRepaymentLxResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->notifyStatus) {
-            $res['notify_status'] = $this->notifyStatus;
+        if (null !== $this->code) {
+            $res['code'] = $this->code;
         }
         if (null !== $this->msg) {
             $res['msg'] = $this->msg;
+        }
+        if (null !== $this->bizContent) {
+            $res['biz_content'] = $this->bizContent;
+        }
+        if (null !== $this->timestamp) {
+            $res['timestamp'] = $this->timestamp;
+        }
+        if (null !== $this->sign) {
+            $res['sign'] = $this->sign;
         }
 
         return $res;
@@ -89,11 +118,20 @@ class NotifyDubbridgeRepaymentLxResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['notify_status'])) {
-            $model->notifyStatus = $map['notify_status'];
+        if (isset($map['code'])) {
+            $model->code = $map['code'];
         }
         if (isset($map['msg'])) {
             $model->msg = $map['msg'];
+        }
+        if (isset($map['biz_content'])) {
+            $model->bizContent = $map['biz_content'];
+        }
+        if (isset($map['timestamp'])) {
+            $model->timestamp = $map['timestamp'];
+        }
+        if (isset($map['sign'])) {
+            $model->sign = $map['sign'];
         }
 
         return $model;
