@@ -26,6 +26,10 @@ public class RegisterElectrocarDeviceRequest extends TeaModel {
     @Validation(required = true)
     public KytApplyParams kytApplyParams;
 
+    // 是否支持重复烧录
+    @NameInMap("repeated_burning")
+    public Long repeatedBurning;
+
     public static RegisterElectrocarDeviceRequest build(java.util.Map<String, ?> map) throws Exception {
         RegisterElectrocarDeviceRequest self = new RegisterElectrocarDeviceRequest();
         return TeaModel.build(map, self);
@@ -69,6 +73,14 @@ public class RegisterElectrocarDeviceRequest extends TeaModel {
     }
     public KytApplyParams getKytApplyParams() {
         return this.kytApplyParams;
+    }
+
+    public RegisterElectrocarDeviceRequest setRepeatedBurning(Long repeatedBurning) {
+        this.repeatedBurning = repeatedBurning;
+        return this;
+    }
+    public Long getRepeatedBurning() {
+        return this.repeatedBurning;
     }
 
 }
