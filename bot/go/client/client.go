@@ -24269,6 +24269,8 @@ type RegisterElectrocarDeviceRequest struct {
 	TrustProductKey *string `json:"trust_product_key,omitempty" xml:"trust_product_key,omitempty" require:"true"`
 	// 凭证申请参数
 	KytApplyParams *KytApplyParams `json:"kyt_apply_params,omitempty" xml:"kyt_apply_params,omitempty" require:"true"`
+	// 是否支持重复烧录
+	RepeatedBurning *int64 `json:"repeated_burning,omitempty" xml:"repeated_burning,omitempty"`
 }
 
 func (s RegisterElectrocarDeviceRequest) String() string {
@@ -24301,6 +24303,11 @@ func (s *RegisterElectrocarDeviceRequest) SetTrustProductKey(v string) *Register
 
 func (s *RegisterElectrocarDeviceRequest) SetKytApplyParams(v *KytApplyParams) *RegisterElectrocarDeviceRequest {
 	s.KytApplyParams = v
+	return s
+}
+
+func (s *RegisterElectrocarDeviceRequest) SetRepeatedBurning(v int64) *RegisterElectrocarDeviceRequest {
+	s.RepeatedBurning = &v
 	return s
 }
 
@@ -38752,7 +38759,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.12.75"),
+				"sdk_version":      tea.String("1.12.76"),
 				"_prod_code":       tea.String("BOT"),
 				"_prod_channel":    tea.String("undefined"),
 			}
