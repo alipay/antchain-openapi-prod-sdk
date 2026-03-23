@@ -36,12 +36,19 @@ class RegisterElectrocarDeviceRequest extends Model
      * @var KytApplyParams
      */
     public $kytApplyParams;
+
+    // 是否支持重复烧录
+    /**
+     * @var int
+     */
+    public $repeatedBurning;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'deviceName'        => 'device_name',
         'trustProductKey'   => 'trust_product_key',
         'kytApplyParams'    => 'kyt_apply_params',
+        'repeatedBurning'   => 'repeated_burning',
     ];
 
     public function validate()
@@ -69,6 +76,9 @@ class RegisterElectrocarDeviceRequest extends Model
         if (null !== $this->kytApplyParams) {
             $res['kyt_apply_params'] = null !== $this->kytApplyParams ? $this->kytApplyParams->toMap() : null;
         }
+        if (null !== $this->repeatedBurning) {
+            $res['repeated_burning'] = $this->repeatedBurning;
+        }
 
         return $res;
     }
@@ -95,6 +105,9 @@ class RegisterElectrocarDeviceRequest extends Model
         }
         if (isset($map['kyt_apply_params'])) {
             $model->kytApplyParams = KytApplyParams::fromMap($map['kyt_apply_params']);
+        }
+        if (isset($map['repeated_burning'])) {
+            $model->repeatedBurning = $map['repeated_burning'];
         }
 
         return $model;
