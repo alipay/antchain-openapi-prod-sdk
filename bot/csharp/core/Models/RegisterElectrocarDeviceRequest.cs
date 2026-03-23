@@ -33,6 +33,11 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=true)]
         public KytApplyParams KytApplyParams { get; set; }
 
+        // 是否支持重复烧录
+        [NameInMap("repeated_burning")]
+        [Validation(Required=false)]
+        public long? RepeatedBurning { get; set; }
+
     }
 
 }
