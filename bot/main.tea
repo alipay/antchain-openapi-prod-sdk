@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.12.75',
+    sdk_version = '1.12.76',
     _prod_code = 'BOT',
     _prod_channel = 'undefined'
   };
@@ -10094,6 +10094,8 @@ model RegisterElectrocarDeviceRequest = {
   trustProductKey: string(name='trust_product_key'),
   // 凭证申请参数
   kytApplyParams: KytApplyParams(name='kyt_apply_params'),
+  // 是否支持重复烧录
+  repeatedBurning?: long(name='repeated_burning'),
 }
 
 model RegisterElectrocarDeviceResponse = {
