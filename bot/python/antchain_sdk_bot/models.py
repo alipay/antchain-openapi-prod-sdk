@@ -30287,6 +30287,7 @@ class RegisterElectrocarDeviceRequest(TeaModel):
         device_name: str = None,
         trust_product_key: str = None,
         kyt_apply_params: KytApplyParams = None,
+        repeated_burning: int = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -30297,6 +30298,8 @@ class RegisterElectrocarDeviceRequest(TeaModel):
         self.trust_product_key = trust_product_key
         # 凭证申请参数
         self.kyt_apply_params = kyt_apply_params
+        # 是否支持重复烧录
+        self.repeated_burning = repeated_burning
 
     def validate(self):
         self.validate_required(self.device_name, 'device_name')
@@ -30321,6 +30324,8 @@ class RegisterElectrocarDeviceRequest(TeaModel):
             result['trust_product_key'] = self.trust_product_key
         if self.kyt_apply_params is not None:
             result['kyt_apply_params'] = self.kyt_apply_params.to_map()
+        if self.repeated_burning is not None:
+            result['repeated_burning'] = self.repeated_burning
         return result
 
     def from_map(self, m: dict = None):
@@ -30336,6 +30341,8 @@ class RegisterElectrocarDeviceRequest(TeaModel):
         if m.get('kyt_apply_params') is not None:
             temp_model = KytApplyParams()
             self.kyt_apply_params = temp_model.from_map(m['kyt_apply_params'])
+        if m.get('repeated_burning') is not None:
+            self.repeated_burning = m.get('repeated_burning')
         return self
 
 
