@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # This file is auto-generated, don't edit it. Thanks.
 from Tea.model import TeaModel
+from typing import List
 
 
 class Config(TeaModel):
@@ -153,6 +154,50 @@ class Config(TeaModel):
         return self
 
 
+class RetailScore(TeaModel):
+    def __init__(
+        self,
+        user_id: str = None,
+        score: str = None,
+        ext_param: str = None,
+    ):
+        # 用户ID
+        self.user_id = user_id
+        # 评分
+        self.score = score
+        # 拓展数据
+        self.ext_param = ext_param
+
+    def validate(self):
+        self.validate_required(self.user_id, 'user_id')
+        self.validate_required(self.score, 'score')
+        self.validate_required(self.ext_param, 'ext_param')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        if self.score is not None:
+            result['score'] = self.score
+        if self.ext_param is not None:
+            result['ext_param'] = self.ext_param
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        if m.get('score') is not None:
+            self.score = m.get('score')
+        if m.get('ext_param') is not None:
+            self.ext_param = m.get('ext_param')
+        return self
+
+
 class QueryRetailScoreRequest(TeaModel):
     def __init__(
         self,
@@ -166,6 +211,7 @@ class QueryRetailScoreRequest(TeaModel):
         trans_no: str = None,
         user_id_hash_encrypt: str = None,
         instance_code: str = None,
+        scene: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -186,6 +232,10 @@ class QueryRetailScoreRequest(TeaModel):
         self.user_id_hash_encrypt = user_id_hash_encrypt
         # 客户场景码
         self.instance_code = instance_code
+        # 1 不做映射
+        # 2 mobile映射id
+        # 3 id映射mobile
+        self.scene = scene
 
     def validate(self):
         self.validate_required(self.industry_id, 'industry_id')
@@ -195,6 +245,7 @@ class QueryRetailScoreRequest(TeaModel):
         self.validate_required(self.customer_code, 'customer_code')
         self.validate_required(self.trans_no, 'trans_no')
         self.validate_required(self.user_id_hash_encrypt, 'user_id_hash_encrypt')
+        self.validate_required(self.scene, 'scene')
 
     def to_map(self):
         _map = super().to_map()
@@ -222,6 +273,8 @@ class QueryRetailScoreRequest(TeaModel):
             result['user_id_hash_encrypt'] = self.user_id_hash_encrypt
         if self.instance_code is not None:
             result['instance_code'] = self.instance_code
+        if self.scene is not None:
+            result['scene'] = self.scene
         return result
 
     def from_map(self, m: dict = None):
@@ -246,6 +299,8 @@ class QueryRetailScoreRequest(TeaModel):
             self.user_id_hash_encrypt = m.get('user_id_hash_encrypt')
         if m.get('instance_code') is not None:
             self.instance_code = m.get('instance_code')
+        if m.get('scene') is not None:
+            self.scene = m.get('scene')
         return self
 
 
@@ -309,6 +364,169 @@ class QueryRetailScoreResponse(TeaModel):
             self.trans_no = m.get('trans_no')
         if m.get('ext_param') is not None:
             self.ext_param = m.get('ext_param')
+        return self
+
+
+class BatchqueryRetailScoreRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        industry_id: str = None,
+        user_id_list: List[str] = None,
+        user_id_type: str = None,
+        encrypt_type: str = None,
+        customer_code: str = None,
+        trans_no: str = None,
+        instance_code: str = None,
+        mapping_type: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 模型id
+        self.industry_id = industry_id
+        # 用户列表
+        self.user_id_list = user_id_list
+        # 用户id类型（身份证号：ID_NO；手机号：MOBILE_NO）
+        self.user_id_type = user_id_type
+        # user_id 散列类型: "MD5"：MD5（小写）, ...
+        self.encrypt_type = encrypt_type
+        # 客户编码
+        self.customer_code = customer_code
+        # 流水号，串联链路用，非必填
+        self.trans_no = trans_no
+        # 场景编码
+        self.instance_code = instance_code
+        # 1 moble入参，id自动映射
+        # 2 id入参，id自动映射
+        # 3 id入参，mobile自动映射
+        self.mapping_type = mapping_type
+
+    def validate(self):
+        self.validate_required(self.industry_id, 'industry_id')
+        self.validate_required(self.user_id_list, 'user_id_list')
+        self.validate_required(self.user_id_type, 'user_id_type')
+        self.validate_required(self.encrypt_type, 'encrypt_type')
+        self.validate_required(self.customer_code, 'customer_code')
+        self.validate_required(self.trans_no, 'trans_no')
+        self.validate_required(self.instance_code, 'instance_code')
+        self.validate_required(self.mapping_type, 'mapping_type')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.industry_id is not None:
+            result['industry_id'] = self.industry_id
+        if self.user_id_list is not None:
+            result['user_id_list'] = self.user_id_list
+        if self.user_id_type is not None:
+            result['user_id_type'] = self.user_id_type
+        if self.encrypt_type is not None:
+            result['encrypt_type'] = self.encrypt_type
+        if self.customer_code is not None:
+            result['customer_code'] = self.customer_code
+        if self.trans_no is not None:
+            result['trans_no'] = self.trans_no
+        if self.instance_code is not None:
+            result['instance_code'] = self.instance_code
+        if self.mapping_type is not None:
+            result['mapping_type'] = self.mapping_type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('industry_id') is not None:
+            self.industry_id = m.get('industry_id')
+        if m.get('user_id_list') is not None:
+            self.user_id_list = m.get('user_id_list')
+        if m.get('user_id_type') is not None:
+            self.user_id_type = m.get('user_id_type')
+        if m.get('encrypt_type') is not None:
+            self.encrypt_type = m.get('encrypt_type')
+        if m.get('customer_code') is not None:
+            self.customer_code = m.get('customer_code')
+        if m.get('trans_no') is not None:
+            self.trans_no = m.get('trans_no')
+        if m.get('instance_code') is not None:
+            self.instance_code = m.get('instance_code')
+        if m.get('mapping_type') is not None:
+            self.mapping_type = m.get('mapping_type')
+        return self
+
+
+class BatchqueryRetailScoreResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        trans_no: str = None,
+        result_list: List[RetailScore] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 请求流水号
+        self.trans_no = trans_no
+        # 评分对象
+        self.result_list = result_list
+
+    def validate(self):
+        if self.result_list:
+            for k in self.result_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.trans_no is not None:
+            result['trans_no'] = self.trans_no
+        result['result_list'] = []
+        if self.result_list is not None:
+            for k in self.result_list:
+                result['result_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('trans_no') is not None:
+            self.trans_no = m.get('trans_no')
+        self.result_list = []
+        if m.get('result_list') is not None:
+            for k in m.get('result_list'):
+                temp_model = RetailScore()
+                self.result_list.append(temp_model.from_map(k))
         return self
 
 

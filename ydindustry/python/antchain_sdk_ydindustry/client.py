@@ -109,7 +109,8 @@ class Client:
                 'policy': UtilClient.default_string(runtime.backoff_policy, 'no'),
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
-            'ignoreSSL': runtime.ignore_ssl
+            'ignoreSSL': runtime.ignore_ssl,
+            # 评分对象
         }
         _last_request = None
         _last_exception = None
@@ -134,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.1',
+                    'sdk_version': '1.0.4',
                     '_prod_code': 'YDINDUSTRY',
                     '_prod_channel': 'default'
                 }
@@ -212,7 +213,8 @@ class Client:
                 'policy': UtilClient.default_string(runtime.backoff_policy, 'no'),
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
-            'ignoreSSL': runtime.ignore_ssl
+            'ignoreSSL': runtime.ignore_ssl,
+            # 评分对象
         }
         _last_request = None
         _last_exception = None
@@ -237,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.1',
+                    'sdk_version': '1.0.4',
                     '_prod_code': 'YDINDUSTRY',
                     '_prod_channel': 'default'
                 }
@@ -327,4 +329,60 @@ class Client:
         return TeaCore.from_map(
             ydindustry_models.QueryRetailScoreResponse(),
             await self.do_request_async('1.0', 'antdigital.ydindustry.retail.score.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def batchquery_retail_score(
+        self,
+        request: ydindustry_models.BatchqueryRetailScoreRequest,
+    ) -> ydindustry_models.BatchqueryRetailScoreResponse:
+        """
+        Description: 蚁盾零售行业评分批量调用
+        Summary: 蚁盾零售行业评分批量调用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.batchquery_retail_score_ex(request, headers, runtime)
+
+    async def batchquery_retail_score_async(
+        self,
+        request: ydindustry_models.BatchqueryRetailScoreRequest,
+    ) -> ydindustry_models.BatchqueryRetailScoreResponse:
+        """
+        Description: 蚁盾零售行业评分批量调用
+        Summary: 蚁盾零售行业评分批量调用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.batchquery_retail_score_ex_async(request, headers, runtime)
+
+    def batchquery_retail_score_ex(
+        self,
+        request: ydindustry_models.BatchqueryRetailScoreRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ydindustry_models.BatchqueryRetailScoreResponse:
+        """
+        Description: 蚁盾零售行业评分批量调用
+        Summary: 蚁盾零售行业评分批量调用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ydindustry_models.BatchqueryRetailScoreResponse(),
+            self.do_request('1.0', 'antdigital.ydindustry.retail.score.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def batchquery_retail_score_ex_async(
+        self,
+        request: ydindustry_models.BatchqueryRetailScoreRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ydindustry_models.BatchqueryRetailScoreResponse:
+        """
+        Description: 蚁盾零售行业评分批量调用
+        Summary: 蚁盾零售行业评分批量调用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ydindustry_models.BatchqueryRetailScoreResponse(),
+            await self.do_request_async('1.0', 'antdigital.ydindustry.retail.score.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
