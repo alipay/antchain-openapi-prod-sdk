@@ -327,6 +327,42 @@ export class DeviceInfo extends $tea.Model {
   }
 }
 
+// 身份四要素证件及户籍信息
+export class Residency extends $tea.Model {
+  // 证件是否最新（1 最新、0非最新）
+  isNewest?: string;
+  // 证件是否挂失（1 挂失、0非挂失）
+  isLosted?: string;
+  // 证件是否过期（1 过期、0非过期）
+  isExpired?: string;
+  // 户籍状态
+  // 0 有效
+  // 1 有效（户籍迁出，但未迁入）
+  // 2 无效（死亡、失踪、迁出、服 兵役、出国境定居、消除重复登记人口、冻结户口、重载注销等）
+  residencyStatus?: string;
+  static names(): { [key: string]: string } {
+    return {
+      isNewest: 'is_newest',
+      isLosted: 'is_losted',
+      isExpired: 'is_expired',
+      residencyStatus: 'residency_status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      isNewest: 'string',
+      isLosted: 'string',
+      isExpired: 'string',
+      residencyStatus: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 车辆资产验证详版车辆信息
 export class CarInfoDetail extends $tea.Model {
   // 车辆型号
@@ -5351,6 +5387,10 @@ export class ExecFaceverifyServermodeRequest extends $tea.Model {
   materialEncType?: string;
   // 公钥加密后的密钥，用于传入的加密图片/视频
   materialEncToken?: string;
+  // 自定义比对源人脸图像 file id
+  facialPictureRefFileId?: string;
+  // 待认证的人脸图像 file id
+  facialPictureAuthFileId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -5373,6 +5413,8 @@ export class ExecFaceverifyServermodeRequest extends $tea.Model {
       fileId: 'file_id',
       materialEncType: 'material_enc_type',
       materialEncToken: 'material_enc_token',
+      facialPictureRefFileId: 'facial_picture_ref_file_id',
+      facialPictureAuthFileId: 'facial_picture_auth_file_id',
     };
   }
 
@@ -5398,6 +5440,8 @@ export class ExecFaceverifyServermodeRequest extends $tea.Model {
       fileId: 'string',
       materialEncType: 'string',
       materialEncToken: 'string',
+      facialPictureRefFileId: 'string',
+      facialPictureAuthFileId: 'string',
     };
   }
 
@@ -6251,6 +6295,8 @@ export class CheckIdcardFourmetaResponse extends $tea.Model {
   match?: string;
   // 扩展信息，预留字段
   externInfo?: string;
+  // 证件及户籍状态
+  residency?: Residency;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -6258,6 +6304,7 @@ export class CheckIdcardFourmetaResponse extends $tea.Model {
       resultMsg: 'result_msg',
       match: 'match',
       externInfo: 'extern_info',
+      residency: 'residency',
     };
   }
 
@@ -6268,6 +6315,7 @@ export class CheckIdcardFourmetaResponse extends $tea.Model {
       resultMsg: 'string',
       match: 'string',
       externInfo: 'string',
+      residency: Residency,
     };
   }
 
@@ -8478,6 +8526,71 @@ export class QueryUserAssetResponse extends $tea.Model {
   }
 }
 
+export class UploadFileRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 文件ID
+  fileObject?: Readable;
+  fileObjectName?: string;
+  fileId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      fileObject: 'fileObject',
+      fileObjectName: 'fileObjectName',
+      fileId: 'file_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      fileObject: 'Readable',
+      fileObjectName: 'string',
+      fileId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadFileResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 文件ID
+  fileId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      fileId: 'file_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      fileId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class BindCutpaymentOneclickRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -8546,10 +8659,14 @@ export class BindCutpaymentOneclickResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 跳转地址
+  // 跳转银行页面地址
   url?: string;
   // 渠道 ID
   channelId?: string;
+  // 前端请求银行页面的请求方法
+  queryMethod?: string;
+  // 前端请求银行页面的请求参数key和vaule
+  queryValue?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -8557,6 +8674,8 @@ export class BindCutpaymentOneclickResponse extends $tea.Model {
       resultMsg: 'result_msg',
       url: 'url',
       channelId: 'channel_id',
+      queryMethod: 'query_method',
+      queryValue: 'query_value',
     };
   }
 
@@ -8567,6 +8686,8 @@ export class BindCutpaymentOneclickResponse extends $tea.Model {
       resultMsg: 'string',
       url: 'string',
       channelId: 'string',
+      queryMethod: 'string',
+      queryValue: 'string',
     };
   }
 
@@ -8650,6 +8771,227 @@ export class QueryCutpaymentOneclickResponse extends $tea.Model {
       accInfo: AccInfo,
       bankCode: 'string',
       bankName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyExtYdataRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+  outerOrderNo: string;
+  // 之前调用返回的 req_msg_id
+  historyOrderNo: string;
+  // 绑卡页面银行排序（从上到下）
+  bankDisplay?: string;
+  // 用户选卡银行
+  interimSelectedBankCode?: string;
+  // 用户绑卡银行
+  bindBankCode: string;
+  // 用户最终绑卡银行在页面上的排序
+  bindBankDisplay?: string;
+  // 卡类型
+  // 储蓄卡（Debit Card）或者信用卡（Credit Card）
+  // 储蓄卡：DC
+  // 信用卡：CC
+  bankType: string;
+  // 第一期是否扣款成功
+  firstDeduction?: boolean;
+  // 第一期扣款金额
+  firstDeductionAmount?: string;
+  // 第二期是否扣款成功
+  secondDeduction?: boolean;
+  // 第二期扣款金额
+  secondDeductionAmount?: string;
+  // 第三期是否扣款成功
+  thirdDeduction?: boolean;
+  // 第三期扣款金额
+  thirdDeductionAmount?: string;
+  // 第四期是否扣款成功
+  fourthDeduction?: boolean;
+  // 第四期扣款金额
+  fourthDeductionAmount?: string;
+  // 第五期是否扣款成功
+  fifthDeduction?: boolean;
+  // 第五期扣款金额
+  fifthDeductionAmount?: string;
+  // 第六期是否扣款成功
+  sixthDeduction?: boolean;
+  // 第六期是否扣款成功
+  sixthDeductionAmount?: string;
+  // 预留扩展参数
+  externParam?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      outerOrderNo: 'outer_order_no',
+      historyOrderNo: 'history_order_no',
+      bankDisplay: 'bank_display',
+      interimSelectedBankCode: 'interim_selected_bank_code',
+      bindBankCode: 'bind_bank_code',
+      bindBankDisplay: 'bind_bank_display',
+      bankType: 'bank_type',
+      firstDeduction: 'first_deduction',
+      firstDeductionAmount: 'first_deduction_amount',
+      secondDeduction: 'second_deduction',
+      secondDeductionAmount: 'second_deduction_amount',
+      thirdDeduction: 'third_deduction',
+      thirdDeductionAmount: 'third_deduction_amount',
+      fourthDeduction: 'fourth_deduction',
+      fourthDeductionAmount: 'fourth_deduction_amount',
+      fifthDeduction: 'fifth_deduction',
+      fifthDeductionAmount: 'fifth_deduction_amount',
+      sixthDeduction: 'sixth_deduction',
+      sixthDeductionAmount: 'sixth_deduction_amount',
+      externParam: 'extern_param',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      outerOrderNo: 'string',
+      historyOrderNo: 'string',
+      bankDisplay: 'string',
+      interimSelectedBankCode: 'string',
+      bindBankCode: 'string',
+      bindBankDisplay: 'string',
+      bankType: 'string',
+      firstDeduction: 'boolean',
+      firstDeductionAmount: 'string',
+      secondDeduction: 'boolean',
+      secondDeductionAmount: 'string',
+      thirdDeduction: 'boolean',
+      thirdDeductionAmount: 'string',
+      fourthDeduction: 'boolean',
+      fourthDeductionAmount: 'string',
+      fifthDeduction: 'boolean',
+      fifthDeductionAmount: 'string',
+      sixthDeduction: 'boolean',
+      sixthDeductionAmount: 'string',
+      externParam: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyExtYdataResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryThreemetaPhonereuseproRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 外部请求ID，由调用方自行生成并自行保证唯一，以便问题定位。
+  outerOrderNo: string;
+  // 手机号「支持加密」
+  mobile: string;
+  // 日期
+  date: string;
+  // 运营商类型
+  carrier?: string;
+  // 加密类型，填写时「支持加密」字段需要对应加密后赋值。默认使用明文模式 0：明文 1：MD5
+  encryptType?: string;
+  // 扩展参数
+  externParam?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      outerOrderNo: 'outer_order_no',
+      mobile: 'mobile',
+      date: 'date',
+      carrier: 'carrier',
+      encryptType: 'encrypt_type',
+      externParam: 'extern_param',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      outerOrderNo: 'string',
+      mobile: 'string',
+      date: 'string',
+      carrier: 'string',
+      encryptType: 'string',
+      externParam: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryThreemetaPhonereuseproResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否二次放号
+  phoneReuse?: string;
+  // CHINA_TELECOM：中国电信 CHINA_MOBILE：中国移动 CHINA_UNICOM：中国联通
+  carrier?: string;
+  // 扩展参数
+  externInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      phoneReuse: 'phone_reuse',
+      carrier: 'carrier',
+      externInfo: 'extern_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      phoneReuse: 'string',
+      carrier: 'string',
+      externInfo: 'string',
     };
   }
 
@@ -8859,7 +9201,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.22.24",
+          sdk_version: "1.22.32",
           _prod_code: "REALPERSON",
           _prod_channel: "undefined",
         };
@@ -10585,6 +10927,47 @@ export default class Client {
   }
 
   /**
+   * Description: 文件上传接口
+   * Summary: 文件上传接口
+   */
+  async uploadFile(request: UploadFileRequest): Promise<UploadFileResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.uploadFileEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 文件上传接口
+   * Summary: 文件上传接口
+   */
+  async uploadFileEx(request: UploadFileRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UploadFileResponse> {
+    if (!Util.isUnset(request.fileObject)) {
+      let uploadReq = new CreateAntcloudGatewayxFileUploadRequest({
+        authToken: request.authToken,
+        apiCode: "di.realperson.file.upload",
+        fileName: request.fileObjectName,
+      });
+      let uploadResp = await this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+      if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+        let uploadFileResponse = new UploadFileResponse({
+          reqMsgId: uploadResp.reqMsgId,
+          resultCode: uploadResp.resultCode,
+          resultMsg: uploadResp.resultMsg,
+        });
+        return uploadFileResponse;
+      }
+
+      let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+      await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+      request.fileId = uploadResp.fileId;
+      request.fileObject = null;
+    }
+
+    Util.validateModel(request);
+    return $tea.cast<UploadFileResponse>(await this.doRequest("1.0", "di.realperson.file.upload", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UploadFileResponse({}));
+  }
+
+  /**
    * Description: 银行卡代扣一键绑卡签约
    * Summary: 银行卡代扣一键绑卡签约
    */
@@ -10620,6 +11003,44 @@ export default class Client {
   async queryCutpaymentOneclickEx(request: QueryCutpaymentOneclickRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryCutpaymentOneclickResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryCutpaymentOneclickResponse>(await this.doRequest("1.0", "di.realperson.cutpayment.oneclick.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryCutpaymentOneclickResponse({}));
+  }
+
+  /**
+   * Description: 卡状态 y 标回流
+   * Summary: 卡状态 y 标回流
+   */
+  async applyExtYdata(request: ApplyExtYdataRequest): Promise<ApplyExtYdataResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.applyExtYdataEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 卡状态 y 标回流
+   * Summary: 卡状态 y 标回流
+   */
+  async applyExtYdataEx(request: ApplyExtYdataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyExtYdataResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApplyExtYdataResponse>(await this.doRequest("1.0", "di.realperson.ext.ydata.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyExtYdataResponse({}));
+  }
+
+  /**
+   * Description: 个人运营商二次放号专业版
+   * Summary: 个人运营商二次放号专业版
+   */
+  async queryThreemetaPhonereusepro(request: QueryThreemetaPhonereuseproRequest): Promise<QueryThreemetaPhonereuseproResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryThreemetaPhonereuseproEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 个人运营商二次放号专业版
+   * Summary: 个人运营商二次放号专业版
+   */
+  async queryThreemetaPhonereuseproEx(request: QueryThreemetaPhonereuseproRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryThreemetaPhonereuseproResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryThreemetaPhonereuseproResponse>(await this.doRequest("1.0", "di.realperson.threemeta.phonereusepro.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryThreemetaPhonereuseproResponse({}));
   }
 
   /**
