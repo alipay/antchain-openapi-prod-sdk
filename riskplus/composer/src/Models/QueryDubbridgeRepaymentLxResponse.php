@@ -40,7 +40,7 @@ class QueryDubbridgeRepaymentLxResponse extends Model
 
     // 业务数据
     /**
-     * @var int
+     * @var string
      */
     public $bizContent;
 

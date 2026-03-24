@@ -28,7 +28,7 @@ class QueryDubbridgeCreditamtLxResponse extends Model
 
     // 业务返回码，001 请求成功 002 请求失败
     /**
-     * @var int
+     * @var string
      */
     public $code;
 
