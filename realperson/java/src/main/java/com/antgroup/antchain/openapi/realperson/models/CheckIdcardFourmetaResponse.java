@@ -24,6 +24,10 @@ public class CheckIdcardFourmetaResponse extends TeaModel {
     @NameInMap("extern_info")
     public String externInfo;
 
+    // 证件及户籍状态
+    @NameInMap("residency")
+    public Residency residency;
+
     public static CheckIdcardFourmetaResponse build(java.util.Map<String, ?> map) throws Exception {
         CheckIdcardFourmetaResponse self = new CheckIdcardFourmetaResponse();
         return TeaModel.build(map, self);
@@ -67,6 +71,14 @@ public class CheckIdcardFourmetaResponse extends TeaModel {
     }
     public String getExternInfo() {
         return this.externInfo;
+    }
+
+    public CheckIdcardFourmetaResponse setResidency(Residency residency) {
+        this.residency = residency;
+        return this;
+    }
+    public Residency getResidency() {
+        return this.residency;
     }
 
 }

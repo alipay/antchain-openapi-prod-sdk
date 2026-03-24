@@ -90,6 +90,14 @@ public class ExecFaceverifyServermodeRequest extends TeaModel {
     @NameInMap("material_enc_token")
     public String materialEncToken;
 
+    // 自定义比对源人脸图像 file id
+    @NameInMap("facial_picture_ref_file_id")
+    public String facialPictureRefFileId;
+
+    // 待认证的人脸图像 file id
+    @NameInMap("facial_picture_auth_file_id")
+    public String facialPictureAuthFileId;
+
     public static ExecFaceverifyServermodeRequest build(java.util.Map<String, ?> map) throws Exception {
         ExecFaceverifyServermodeRequest self = new ExecFaceverifyServermodeRequest();
         return TeaModel.build(map, self);
@@ -253,6 +261,22 @@ public class ExecFaceverifyServermodeRequest extends TeaModel {
     }
     public String getMaterialEncToken() {
         return this.materialEncToken;
+    }
+
+    public ExecFaceverifyServermodeRequest setFacialPictureRefFileId(String facialPictureRefFileId) {
+        this.facialPictureRefFileId = facialPictureRefFileId;
+        return this;
+    }
+    public String getFacialPictureRefFileId() {
+        return this.facialPictureRefFileId;
+    }
+
+    public ExecFaceverifyServermodeRequest setFacialPictureAuthFileId(String facialPictureAuthFileId) {
+        this.facialPictureAuthFileId = facialPictureAuthFileId;
+        return this;
+    }
+    public String getFacialPictureAuthFileId() {
+        return this.facialPictureAuthFileId;
     }
 
 }

@@ -16,13 +16,21 @@ public class BindCutpaymentOneclickResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 跳转地址
+    // 跳转银行页面地址
     @NameInMap("url")
     public String url;
 
     // 渠道 ID
     @NameInMap("channel_id")
     public String channelId;
+
+    // 前端请求银行页面的请求方法
+    @NameInMap("query_method")
+    public String queryMethod;
+
+    // 前端请求银行页面的请求参数key和vaule
+    @NameInMap("query_value")
+    public String queryValue;
 
     public static BindCutpaymentOneclickResponse build(java.util.Map<String, ?> map) throws Exception {
         BindCutpaymentOneclickResponse self = new BindCutpaymentOneclickResponse();
@@ -67,6 +75,22 @@ public class BindCutpaymentOneclickResponse extends TeaModel {
     }
     public String getChannelId() {
         return this.channelId;
+    }
+
+    public BindCutpaymentOneclickResponse setQueryMethod(String queryMethod) {
+        this.queryMethod = queryMethod;
+        return this;
+    }
+    public String getQueryMethod() {
+        return this.queryMethod;
+    }
+
+    public BindCutpaymentOneclickResponse setQueryValue(String queryValue) {
+        this.queryValue = queryValue;
+        return this;
+    }
+    public String getQueryValue() {
+        return this.queryValue;
     }
 
 }
