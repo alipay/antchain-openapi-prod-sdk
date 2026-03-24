@@ -148,6 +148,39 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
+// 评分对象
+type RetailScore struct {
+	// 用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 评分
+	Score *string `json:"score,omitempty" xml:"score,omitempty" require:"true"`
+	// 拓展数据
+	ExtParam *string `json:"ext_param,omitempty" xml:"ext_param,omitempty" require:"true"`
+}
+
+func (s RetailScore) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RetailScore) GoString() string {
+	return s.String()
+}
+
+func (s *RetailScore) SetUserId(v string) *RetailScore {
+	s.UserId = &v
+	return s
+}
+
+func (s *RetailScore) SetScore(v string) *RetailScore {
+	s.Score = &v
+	return s
+}
+
+func (s *RetailScore) SetExtParam(v string) *RetailScore {
+	s.ExtParam = &v
+	return s
+}
+
 type QueryRetailScoreRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -168,6 +201,10 @@ type QueryRetailScoreRequest struct {
 	UserIdHashEncrypt *string `json:"user_id_hash_encrypt,omitempty" xml:"user_id_hash_encrypt,omitempty" require:"true"`
 	// 客户场景码
 	InstanceCode *string `json:"instance_code,omitempty" xml:"instance_code,omitempty"`
+	// 1 不做映射
+	// 2 mobile映射id
+	// 3 id映射mobile
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty" require:"true"`
 }
 
 func (s QueryRetailScoreRequest) String() string {
@@ -228,6 +265,11 @@ func (s *QueryRetailScoreRequest) SetInstanceCode(v string) *QueryRetailScoreReq
 	return s
 }
 
+func (s *QueryRetailScoreRequest) SetScene(v string) *QueryRetailScoreRequest {
+	s.Scene = &v
+	return s
+}
+
 type QueryRetailScoreResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -278,6 +320,134 @@ func (s *QueryRetailScoreResponse) SetTransNo(v string) *QueryRetailScoreRespons
 
 func (s *QueryRetailScoreResponse) SetExtParam(v string) *QueryRetailScoreResponse {
 	s.ExtParam = &v
+	return s
+}
+
+type BatchqueryRetailScoreRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 模型id
+	IndustryId *string `json:"industry_id,omitempty" xml:"industry_id,omitempty" require:"true"`
+	// 用户列表
+	UserIdList []*string `json:"user_id_list,omitempty" xml:"user_id_list,omitempty" require:"true" type:"Repeated"`
+	// 用户id类型（身份证号：ID_NO；手机号：MOBILE_NO）
+	UserIdType *string `json:"user_id_type,omitempty" xml:"user_id_type,omitempty" require:"true"`
+	// user_id 散列类型: "MD5"：MD5（小写）, ...
+	EncryptType *string `json:"encrypt_type,omitempty" xml:"encrypt_type,omitempty" require:"true"`
+	// 客户编码
+	CustomerCode *string `json:"customer_code,omitempty" xml:"customer_code,omitempty" require:"true"`
+	// 流水号，串联链路用，非必填
+	TransNo *string `json:"trans_no,omitempty" xml:"trans_no,omitempty" require:"true"`
+	// 场景编码
+	InstanceCode *string `json:"instance_code,omitempty" xml:"instance_code,omitempty" require:"true"`
+	// 1 moble入参，id自动映射
+	// 2 id入参，id自动映射
+	// 3 id入参，mobile自动映射
+	MappingType *string `json:"mapping_type,omitempty" xml:"mapping_type,omitempty" require:"true"`
+}
+
+func (s BatchqueryRetailScoreRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BatchqueryRetailScoreRequest) GoString() string {
+	return s.String()
+}
+
+func (s *BatchqueryRetailScoreRequest) SetAuthToken(v string) *BatchqueryRetailScoreRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *BatchqueryRetailScoreRequest) SetProductInstanceId(v string) *BatchqueryRetailScoreRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *BatchqueryRetailScoreRequest) SetIndustryId(v string) *BatchqueryRetailScoreRequest {
+	s.IndustryId = &v
+	return s
+}
+
+func (s *BatchqueryRetailScoreRequest) SetUserIdList(v []*string) *BatchqueryRetailScoreRequest {
+	s.UserIdList = v
+	return s
+}
+
+func (s *BatchqueryRetailScoreRequest) SetUserIdType(v string) *BatchqueryRetailScoreRequest {
+	s.UserIdType = &v
+	return s
+}
+
+func (s *BatchqueryRetailScoreRequest) SetEncryptType(v string) *BatchqueryRetailScoreRequest {
+	s.EncryptType = &v
+	return s
+}
+
+func (s *BatchqueryRetailScoreRequest) SetCustomerCode(v string) *BatchqueryRetailScoreRequest {
+	s.CustomerCode = &v
+	return s
+}
+
+func (s *BatchqueryRetailScoreRequest) SetTransNo(v string) *BatchqueryRetailScoreRequest {
+	s.TransNo = &v
+	return s
+}
+
+func (s *BatchqueryRetailScoreRequest) SetInstanceCode(v string) *BatchqueryRetailScoreRequest {
+	s.InstanceCode = &v
+	return s
+}
+
+func (s *BatchqueryRetailScoreRequest) SetMappingType(v string) *BatchqueryRetailScoreRequest {
+	s.MappingType = &v
+	return s
+}
+
+type BatchqueryRetailScoreResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 请求流水号
+	TransNo *string `json:"trans_no,omitempty" xml:"trans_no,omitempty"`
+	// 评分对象
+	ResultList []*RetailScore `json:"result_list,omitempty" xml:"result_list,omitempty" type:"Repeated"`
+}
+
+func (s BatchqueryRetailScoreResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BatchqueryRetailScoreResponse) GoString() string {
+	return s.String()
+}
+
+func (s *BatchqueryRetailScoreResponse) SetReqMsgId(v string) *BatchqueryRetailScoreResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *BatchqueryRetailScoreResponse) SetResultCode(v string) *BatchqueryRetailScoreResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *BatchqueryRetailScoreResponse) SetResultMsg(v string) *BatchqueryRetailScoreResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *BatchqueryRetailScoreResponse) SetTransNo(v string) *BatchqueryRetailScoreResponse {
+	s.TransNo = &v
+	return s
+}
+
+func (s *BatchqueryRetailScoreResponse) SetResultList(v []*RetailScore) *BatchqueryRetailScoreResponse {
+	s.ResultList = v
 	return s
 }
 
@@ -403,7 +573,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.1"),
+				"sdk_version":      tea.String("1.0.4"),
 				"_prod_code":       tea.String("YDINDUSTRY"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -488,6 +658,40 @@ func (client *Client) QueryRetailScoreEx(request *QueryRetailScoreRequest, heade
 	}
 	_result = &QueryRetailScoreResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.ydindustry.retail.score.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 蚁盾零售行业评分批量调用
+ * Summary: 蚁盾零售行业评分批量调用
+ */
+func (client *Client) BatchqueryRetailScore(request *BatchqueryRetailScoreRequest) (_result *BatchqueryRetailScoreResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &BatchqueryRetailScoreResponse{}
+	_body, _err := client.BatchqueryRetailScoreEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 蚁盾零售行业评分批量调用
+ * Summary: 蚁盾零售行业评分批量调用
+ */
+func (client *Client) BatchqueryRetailScoreEx(request *BatchqueryRetailScoreRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BatchqueryRetailScoreResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &BatchqueryRetailScoreResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.ydindustry.retail.score.batchquery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
