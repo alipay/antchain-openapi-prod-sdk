@@ -6,7 +6,7 @@ namespace AntChain\REALPERSON\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CheckIdcardFourmetaResponse extends Model
+class QueryThreemetaPhonereuseproResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,30 +26,30 @@ class CheckIdcardFourmetaResponse extends Model
      */
     public $resultMsg;
 
-    // true:匹配成功 false：匹配失败
+    // 是否二次放号
     /**
      * @var string
      */
-    public $match;
+    public $phoneReuse;
 
-    // 扩展信息，预留字段
+    // CHINA_TELECOM：中国电信 CHINA_MOBILE：中国移动 CHINA_UNICOM：中国联通
+    /**
+     * @var string
+     */
+    public $carrier;
+
+    // 扩展参数
     /**
      * @var string
      */
     public $externInfo;
-
-    // 证件及户籍状态
-    /**
-     * @var Residency
-     */
-    public $residency;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'match'      => 'match',
+        'phoneReuse' => 'phone_reuse',
+        'carrier'    => 'carrier',
         'externInfo' => 'extern_info',
-        'residency'  => 'residency',
     ];
 
     public function validate()
@@ -68,14 +68,14 @@ class CheckIdcardFourmetaResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->match) {
-            $res['match'] = $this->match;
+        if (null !== $this->phoneReuse) {
+            $res['phone_reuse'] = $this->phoneReuse;
+        }
+        if (null !== $this->carrier) {
+            $res['carrier'] = $this->carrier;
         }
         if (null !== $this->externInfo) {
             $res['extern_info'] = $this->externInfo;
-        }
-        if (null !== $this->residency) {
-            $res['residency'] = null !== $this->residency ? $this->residency->toMap() : null;
         }
 
         return $res;
@@ -84,7 +84,7 @@ class CheckIdcardFourmetaResponse extends Model
     /**
      * @param array $map
      *
-     * @return CheckIdcardFourmetaResponse
+     * @return QueryThreemetaPhonereuseproResponse
      */
     public static function fromMap($map = [])
     {
@@ -98,14 +98,14 @@ class CheckIdcardFourmetaResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['match'])) {
-            $model->match = $map['match'];
+        if (isset($map['phone_reuse'])) {
+            $model->phoneReuse = $map['phone_reuse'];
+        }
+        if (isset($map['carrier'])) {
+            $model->carrier = $map['carrier'];
         }
         if (isset($map['extern_info'])) {
             $model->externInfo = $map['extern_info'];
-        }
-        if (isset($map['residency'])) {
-            $model->residency = Residency::fromMap($map['residency']);
         }
 
         return $model;

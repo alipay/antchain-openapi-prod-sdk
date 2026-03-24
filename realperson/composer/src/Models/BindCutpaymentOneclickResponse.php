@@ -26,7 +26,7 @@ class BindCutpaymentOneclickResponse extends Model
      */
     public $resultMsg;
 
-    // 跳转地址
+    // 跳转银行页面地址
     /**
      * @var string
      */
@@ -37,12 +37,26 @@ class BindCutpaymentOneclickResponse extends Model
      * @var string
      */
     public $channelId;
+
+    // 前端请求银行页面的请求方法
+    /**
+     * @var string
+     */
+    public $queryMethod;
+
+    // 前端请求银行页面的请求参数key和vaule
+    /**
+     * @var string
+     */
+    public $queryValue;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
-        'url'        => 'url',
-        'channelId'  => 'channel_id',
+        'reqMsgId'    => 'req_msg_id',
+        'resultCode'  => 'result_code',
+        'resultMsg'   => 'result_msg',
+        'url'         => 'url',
+        'channelId'   => 'channel_id',
+        'queryMethod' => 'query_method',
+        'queryValue'  => 'query_value',
     ];
 
     public function validate()
@@ -66,6 +80,12 @@ class BindCutpaymentOneclickResponse extends Model
         }
         if (null !== $this->channelId) {
             $res['channel_id'] = $this->channelId;
+        }
+        if (null !== $this->queryMethod) {
+            $res['query_method'] = $this->queryMethod;
+        }
+        if (null !== $this->queryValue) {
+            $res['query_value'] = $this->queryValue;
         }
 
         return $res;
@@ -93,6 +113,12 @@ class BindCutpaymentOneclickResponse extends Model
         }
         if (isset($map['channel_id'])) {
             $model->channelId = $map['channel_id'];
+        }
+        if (isset($map['query_method'])) {
+            $model->queryMethod = $map['query_method'];
+        }
+        if (isset($map['query_value'])) {
+            $model->queryValue = $map['query_value'];
         }
 
         return $model;

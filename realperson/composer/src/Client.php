@@ -17,6 +17,8 @@ use AntChain\REALPERSON\Models\ApplyCutpaymentRefundRequest;
 use AntChain\REALPERSON\Models\ApplyCutpaymentRefundResponse;
 use AntChain\REALPERSON\Models\ApplyExtOrgdataRequest;
 use AntChain\REALPERSON\Models\ApplyExtOrgdataResponse;
+use AntChain\REALPERSON\Models\ApplyExtYdataRequest;
+use AntChain\REALPERSON\Models\ApplyExtYdataResponse;
 use AntChain\REALPERSON\Models\BindCarrierRepairmobileRequest;
 use AntChain\REALPERSON\Models\BindCarrierRepairmobileResponse;
 use AntChain\REALPERSON\Models\BindCutpaymentOneclickRequest;
@@ -155,6 +157,8 @@ use AntChain\REALPERSON\Models\QuerySocialriskTobriskRequest;
 use AntChain\REALPERSON\Models\QuerySocialriskTobriskResponse;
 use AntChain\REALPERSON\Models\QueryThreemetaOnlinetimeRequest;
 use AntChain\REALPERSON\Models\QueryThreemetaOnlinetimeResponse;
+use AntChain\REALPERSON\Models\QueryThreemetaPhonereuseproRequest;
+use AntChain\REALPERSON\Models\QueryThreemetaPhonereuseproResponse;
 use AntChain\REALPERSON\Models\QueryThreemetaPhonereuseRequest;
 use AntChain\REALPERSON\Models\QueryThreemetaPhonereuseResponse;
 use AntChain\REALPERSON\Models\QueryTscenterDeviceRequest;
@@ -171,6 +175,8 @@ use AntChain\REALPERSON\Models\TransferCutpaymentsubRevenueRequest;
 use AntChain\REALPERSON\Models\TransferCutpaymentsubRevenueResponse;
 use AntChain\REALPERSON\Models\UnbindCutpaymentSignRequest;
 use AntChain\REALPERSON\Models\UnbindCutpaymentSignResponse;
+use AntChain\REALPERSON\Models\UploadFileRequest;
+use AntChain\REALPERSON\Models\UploadFileResponse;
 use AntChain\REALPERSON\Models\VerifyFacevrfZimRequest;
 use AntChain\REALPERSON\Models\VerifyFacevrfZimResponse;
 use AntChain\REALPERSON\Models\VerifyVoiceprintServermodeRequest;
@@ -322,7 +328,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.22.24',
+                    'sdk_version'      => '1.22.32',
                     '_prod_code'       => 'REALPERSON',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -3130,6 +3136,58 @@ class Client
     }
 
     /**
+     * Description: 文件上传接口
+     * Summary: 文件上传接口.
+     *
+     * @param UploadFileRequest $request
+     *
+     * @return UploadFileResponse
+     */
+    public function uploadFile($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->uploadFileEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 文件上传接口
+     * Summary: 文件上传接口.
+     *
+     * @param UploadFileRequest $request
+     * @param string[]          $headers
+     * @param RuntimeOptions    $runtime
+     *
+     * @return UploadFileResponse
+     */
+    public function uploadFileEx($request, $headers, $runtime)
+    {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'di.realperson.file.upload',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
+                return new UploadFileResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
+        }
+        Utils::validateModel($request);
+
+        return UploadFileResponse::fromMap($this->doRequest('1.0', 'di.realperson.file.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 银行卡代扣一键绑卡签约
      * Summary: 银行卡代扣一键绑卡签约.
      *
@@ -3193,6 +3251,72 @@ class Client
         Utils::validateModel($request);
 
         return QueryCutpaymentOneclickResponse::fromMap($this->doRequest('1.0', 'di.realperson.cutpayment.oneclick.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 卡状态 y 标回流
+     * Summary: 卡状态 y 标回流
+     *
+     * @param ApplyExtYdataRequest $request
+     *
+     * @return ApplyExtYdataResponse
+     */
+    public function applyExtYdata($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyExtYdataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 卡状态 y 标回流
+     * Summary: 卡状态 y 标回流
+     *
+     * @param ApplyExtYdataRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return ApplyExtYdataResponse
+     */
+    public function applyExtYdataEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyExtYdataResponse::fromMap($this->doRequest('1.0', 'di.realperson.ext.ydata.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 个人运营商二次放号专业版
+     * Summary: 个人运营商二次放号专业版.
+     *
+     * @param QueryThreemetaPhonereuseproRequest $request
+     *
+     * @return QueryThreemetaPhonereuseproResponse
+     */
+    public function queryThreemetaPhonereusepro($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryThreemetaPhonereuseproEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 个人运营商二次放号专业版
+     * Summary: 个人运营商二次放号专业版.
+     *
+     * @param QueryThreemetaPhonereuseproRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return QueryThreemetaPhonereuseproResponse
+     */
+    public function queryThreemetaPhonereuseproEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryThreemetaPhonereuseproResponse::fromMap($this->doRequest('1.0', 'di.realperson.threemeta.phonereusepro.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

@@ -129,25 +129,39 @@ class ExecFaceverifyServermodeRequest extends Model
      * @var string
      */
     public $materialEncToken;
+
+    // 自定义比对源人脸图像 file id
+    /**
+     * @var string
+     */
+    public $facialPictureRefFileId;
+
+    // 待认证的人脸图像 file id
+    /**
+     * @var string
+     */
+    public $facialPictureAuthFileId;
     protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'certName'          => 'cert_name',
-        'certNo'            => 'cert_no',
-        'encType'           => 'enc_type',
-        'certType'          => 'cert_type',
-        'externParam'       => 'extern_param',
-        'facialPictureRef'  => 'facial_picture_ref',
-        'identityType'      => 'identity_type',
-        'outerOrderNo'      => 'outer_order_no',
-        'sceneId'           => 'scene_id',
-        'userId'            => 'user_id',
-        'userIp'            => 'user_ip',
-        'userMobile'        => 'user_mobile',
-        'facialPictureAuth' => 'facial_picture_auth',
-        'fileId'            => 'file_id',
-        'materialEncType'   => 'material_enc_type',
-        'materialEncToken'  => 'material_enc_token',
+        'authToken'               => 'auth_token',
+        'productInstanceId'       => 'product_instance_id',
+        'certName'                => 'cert_name',
+        'certNo'                  => 'cert_no',
+        'encType'                 => 'enc_type',
+        'certType'                => 'cert_type',
+        'externParam'             => 'extern_param',
+        'facialPictureRef'        => 'facial_picture_ref',
+        'identityType'            => 'identity_type',
+        'outerOrderNo'            => 'outer_order_no',
+        'sceneId'                 => 'scene_id',
+        'userId'                  => 'user_id',
+        'userIp'                  => 'user_ip',
+        'userMobile'              => 'user_mobile',
+        'facialPictureAuth'       => 'facial_picture_auth',
+        'fileId'                  => 'file_id',
+        'materialEncType'         => 'material_enc_type',
+        'materialEncToken'        => 'material_enc_token',
+        'facialPictureRefFileId'  => 'facial_picture_ref_file_id',
+        'facialPictureAuthFileId' => 'facial_picture_auth_file_id',
     ];
 
     public function validate()
@@ -220,6 +234,12 @@ class ExecFaceverifyServermodeRequest extends Model
         if (null !== $this->materialEncToken) {
             $res['material_enc_token'] = $this->materialEncToken;
         }
+        if (null !== $this->facialPictureRefFileId) {
+            $res['facial_picture_ref_file_id'] = $this->facialPictureRefFileId;
+        }
+        if (null !== $this->facialPictureAuthFileId) {
+            $res['facial_picture_auth_file_id'] = $this->facialPictureAuthFileId;
+        }
 
         return $res;
     }
@@ -291,6 +311,12 @@ class ExecFaceverifyServermodeRequest extends Model
         }
         if (isset($map['material_enc_token'])) {
             $model->materialEncToken = $map['material_enc_token'];
+        }
+        if (isset($map['facial_picture_ref_file_id'])) {
+            $model->facialPictureRefFileId = $map['facial_picture_ref_file_id'];
+        }
+        if (isset($map['facial_picture_auth_file_id'])) {
+            $model->facialPictureAuthFileId = $map['facial_picture_auth_file_id'];
         }
 
         return $model;
