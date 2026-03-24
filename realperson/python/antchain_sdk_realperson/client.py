@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.22.24',
+                    'sdk_version': '1.22.32',
                     '_prod_code': 'REALPERSON',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.22.24',
+                    'sdk_version': '1.22.32',
                     '_prod_code': 'REALPERSON',
                     '_prod_channel': 'undefined'
                 }
@@ -4987,6 +4987,98 @@ class Client:
             await self.do_request_async('1.0', 'di.realperson.user.asset.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def upload_file(
+        self,
+        request: realperson_models.UploadFileRequest,
+    ) -> realperson_models.UploadFileResponse:
+        """
+        Description: 文件上传接口
+        Summary: 文件上传接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.upload_file_ex(request, headers, runtime)
+
+    async def upload_file_async(
+        self,
+        request: realperson_models.UploadFileRequest,
+    ) -> realperson_models.UploadFileResponse:
+        """
+        Description: 文件上传接口
+        Summary: 文件上传接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.upload_file_ex_async(request, headers, runtime)
+
+    def upload_file_ex(
+        self,
+        request: realperson_models.UploadFileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.UploadFileResponse:
+        """
+        Description: 文件上传接口
+        Summary: 文件上传接口
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = realperson_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='di.realperson.file.upload',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                upload_file_response = realperson_models.UploadFileResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return upload_file_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.UploadFileResponse(),
+            self.do_request('1.0', 'di.realperson.file.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def upload_file_ex_async(
+        self,
+        request: realperson_models.UploadFileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.UploadFileResponse:
+        """
+        Description: 文件上传接口
+        Summary: 文件上传接口
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = realperson_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='di.realperson.file.upload',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                upload_file_response = realperson_models.UploadFileResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return upload_file_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.UploadFileResponse(),
+            await self.do_request_async('1.0', 'di.realperson.file.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def bind_cutpayment_oneclick(
         self,
         request: realperson_models.BindCutpaymentOneclickRequest,
@@ -5097,6 +5189,118 @@ class Client:
         return TeaCore.from_map(
             realperson_models.QueryCutpaymentOneclickResponse(),
             await self.do_request_async('1.0', 'di.realperson.cutpayment.oneclick.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_ext_ydata(
+        self,
+        request: realperson_models.ApplyExtYdataRequest,
+    ) -> realperson_models.ApplyExtYdataResponse:
+        """
+        Description: 卡状态 y 标回流
+        Summary: 卡状态 y 标回流
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_ext_ydata_ex(request, headers, runtime)
+
+    async def apply_ext_ydata_async(
+        self,
+        request: realperson_models.ApplyExtYdataRequest,
+    ) -> realperson_models.ApplyExtYdataResponse:
+        """
+        Description: 卡状态 y 标回流
+        Summary: 卡状态 y 标回流
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_ext_ydata_ex_async(request, headers, runtime)
+
+    def apply_ext_ydata_ex(
+        self,
+        request: realperson_models.ApplyExtYdataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.ApplyExtYdataResponse:
+        """
+        Description: 卡状态 y 标回流
+        Summary: 卡状态 y 标回流
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.ApplyExtYdataResponse(),
+            self.do_request('1.0', 'di.realperson.ext.ydata.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_ext_ydata_ex_async(
+        self,
+        request: realperson_models.ApplyExtYdataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.ApplyExtYdataResponse:
+        """
+        Description: 卡状态 y 标回流
+        Summary: 卡状态 y 标回流
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.ApplyExtYdataResponse(),
+            await self.do_request_async('1.0', 'di.realperson.ext.ydata.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_threemeta_phonereusepro(
+        self,
+        request: realperson_models.QueryThreemetaPhonereuseproRequest,
+    ) -> realperson_models.QueryThreemetaPhonereuseproResponse:
+        """
+        Description: 个人运营商二次放号专业版
+        Summary: 个人运营商二次放号专业版
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_threemeta_phonereusepro_ex(request, headers, runtime)
+
+    async def query_threemeta_phonereusepro_async(
+        self,
+        request: realperson_models.QueryThreemetaPhonereuseproRequest,
+    ) -> realperson_models.QueryThreemetaPhonereuseproResponse:
+        """
+        Description: 个人运营商二次放号专业版
+        Summary: 个人运营商二次放号专业版
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_threemeta_phonereusepro_ex_async(request, headers, runtime)
+
+    def query_threemeta_phonereusepro_ex(
+        self,
+        request: realperson_models.QueryThreemetaPhonereuseproRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.QueryThreemetaPhonereuseproResponse:
+        """
+        Description: 个人运营商二次放号专业版
+        Summary: 个人运营商二次放号专业版
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.QueryThreemetaPhonereuseproResponse(),
+            self.do_request('1.0', 'di.realperson.threemeta.phonereusepro.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_threemeta_phonereusepro_ex_async(
+        self,
+        request: realperson_models.QueryThreemetaPhonereuseproRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.QueryThreemetaPhonereuseproResponse:
+        """
+        Description: 个人运营商二次放号专业版
+        Summary: 个人运营商二次放号专业版
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.QueryThreemetaPhonereuseproResponse(),
+            await self.do_request_async('1.0', 'di.realperson.threemeta.phonereusepro.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
