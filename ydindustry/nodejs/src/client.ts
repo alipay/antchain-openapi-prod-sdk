@@ -77,6 +77,35 @@ export class Config extends $tea.Model {
   }
 }
 
+// 评分对象
+export class RetailScore extends $tea.Model {
+  // 用户ID
+  userId: string;
+  // 评分
+  score: string;
+  // 拓展数据
+  extParam: string;
+  static names(): { [key: string]: string } {
+    return {
+      userId: 'user_id',
+      score: 'score',
+      extParam: 'ext_param',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      userId: 'string',
+      score: 'string',
+      extParam: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryRetailScoreRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -97,6 +126,10 @@ export class QueryRetailScoreRequest extends $tea.Model {
   userIdHashEncrypt: string;
   // 客户场景码
   instanceCode?: string;
+  // 1 不做映射
+  // 2 mobile映射id
+  // 3 id映射mobile
+  scene: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -109,6 +142,7 @@ export class QueryRetailScoreRequest extends $tea.Model {
       transNo: 'trans_no',
       userIdHashEncrypt: 'user_id_hash_encrypt',
       instanceCode: 'instance_code',
+      scene: 'scene',
     };
   }
 
@@ -124,6 +158,7 @@ export class QueryRetailScoreRequest extends $tea.Model {
       transNo: 'string',
       userIdHashEncrypt: 'string',
       instanceCode: 'string',
+      scene: 'string',
     };
   }
 
@@ -164,6 +199,99 @@ export class QueryRetailScoreResponse extends $tea.Model {
       score: 'string',
       transNo: 'string',
       extParam: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BatchqueryRetailScoreRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 模型id
+  industryId: string;
+  // 用户列表
+  userIdList: string[];
+  // 用户id类型（身份证号：ID_NO；手机号：MOBILE_NO）
+  userIdType: string;
+  // user_id 散列类型: "MD5"：MD5（小写）, ...
+  encryptType: string;
+  // 客户编码
+  customerCode: string;
+  // 流水号，串联链路用，非必填
+  transNo: string;
+  // 场景编码
+  instanceCode: string;
+  // 1 moble入参，id自动映射
+  // 2 id入参，id自动映射
+  // 3 id入参，mobile自动映射
+  mappingType: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      industryId: 'industry_id',
+      userIdList: 'user_id_list',
+      userIdType: 'user_id_type',
+      encryptType: 'encrypt_type',
+      customerCode: 'customer_code',
+      transNo: 'trans_no',
+      instanceCode: 'instance_code',
+      mappingType: 'mapping_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      industryId: 'string',
+      userIdList: { 'type': 'array', 'itemType': 'string' },
+      userIdType: 'string',
+      encryptType: 'string',
+      customerCode: 'string',
+      transNo: 'string',
+      instanceCode: 'string',
+      mappingType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BatchqueryRetailScoreResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 请求流水号
+  transNo?: string;
+  // 评分对象
+  resultList?: RetailScore[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      transNo: 'trans_no',
+      resultList: 'result_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      transNo: 'string',
+      resultList: { 'type': 'array', 'itemType': RetailScore },
     };
   }
 
@@ -285,7 +413,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.1",
+          sdk_version: "1.0.4",
           _prod_code: "YDINDUSTRY",
           _prod_channel: "default",
         };
@@ -350,6 +478,25 @@ export default class Client {
   async queryRetailScoreEx(request: QueryRetailScoreRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryRetailScoreResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryRetailScoreResponse>(await this.doRequest("1.0", "antdigital.ydindustry.retail.score.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryRetailScoreResponse({}));
+  }
+
+  /**
+   * Description: 蚁盾零售行业评分批量调用
+   * Summary: 蚁盾零售行业评分批量调用
+   */
+  async batchqueryRetailScore(request: BatchqueryRetailScoreRequest): Promise<BatchqueryRetailScoreResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.batchqueryRetailScoreEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 蚁盾零售行业评分批量调用
+   * Summary: 蚁盾零售行业评分批量调用
+   */
+  async batchqueryRetailScoreEx(request: BatchqueryRetailScoreRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BatchqueryRetailScoreResponse> {
+    Util.validateModel(request);
+    return $tea.cast<BatchqueryRetailScoreResponse>(await this.doRequest("1.0", "antdigital.ydindustry.retail.score.batchquery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BatchqueryRetailScoreResponse({}));
   }
 
 }
