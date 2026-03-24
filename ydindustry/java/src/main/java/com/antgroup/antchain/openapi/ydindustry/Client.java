@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.1"),
+                    new TeaPair("sdk_version", "1.0.4"),
                     new TeaPair("_prod_code", "YDINDUSTRY"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -207,5 +207,26 @@ public class Client {
     public QueryRetailScoreResponse queryRetailScoreEx(QueryRetailScoreRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antdigital.ydindustry.retail.score.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryRetailScoreResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 蚁盾零售行业评分批量调用
+     * Summary: 蚁盾零售行业评分批量调用</p>
+     */
+    public BatchqueryRetailScoreResponse batchqueryRetailScore(BatchqueryRetailScoreRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.batchqueryRetailScoreEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 蚁盾零售行业评分批量调用
+     * Summary: 蚁盾零售行业评分批量调用</p>
+     */
+    public BatchqueryRetailScoreResponse batchqueryRetailScoreEx(BatchqueryRetailScoreRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.ydindustry.retail.score.batchquery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BatchqueryRetailScoreResponse());
     }
 }

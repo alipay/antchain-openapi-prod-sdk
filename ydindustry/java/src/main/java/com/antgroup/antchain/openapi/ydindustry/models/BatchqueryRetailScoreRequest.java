@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.ydindustry.models;
 
 import com.aliyun.tea.*;
 
-public class QueryRetailScoreRequest extends TeaModel {
+public class BatchqueryRetailScoreRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -16,10 +16,10 @@ public class QueryRetailScoreRequest extends TeaModel {
     @Validation(required = true)
     public String industryId;
 
-    // 用户id（客户身份证号/手机号的md5/sha256散列值）
-    @NameInMap("user_id")
+    // 用户列表
+    @NameInMap("user_id_list")
     @Validation(required = true)
-    public String userId;
+    public java.util.List<String> userIdList;
 
     // 用户id类型（身份证号：ID_NO；手机号：MOBILE_NO）
     @NameInMap("user_id_type")
@@ -41,28 +41,24 @@ public class QueryRetailScoreRequest extends TeaModel {
     @Validation(required = true)
     public String transNo;
 
-    // encrypt_type类型的散列后的操作，默认为空不加密...
-    @NameInMap("user_id_hash_encrypt")
-    @Validation(required = true)
-    public String userIdHashEncrypt;
-
-    // 客户场景码
+    // 场景编码
     @NameInMap("instance_code")
+    @Validation(required = true)
     public String instanceCode;
 
-    // 1 不做映射
-    // 2 mobile映射id
-    // 3 id映射mobile
-    @NameInMap("scene")
+    // 1 moble入参，id自动映射
+    // 2 id入参，id自动映射
+    // 3 id入参，mobile自动映射
+    @NameInMap("mapping_type")
     @Validation(required = true)
-    public String scene;
+    public String mappingType;
 
-    public static QueryRetailScoreRequest build(java.util.Map<String, ?> map) throws Exception {
-        QueryRetailScoreRequest self = new QueryRetailScoreRequest();
+    public static BatchqueryRetailScoreRequest build(java.util.Map<String, ?> map) throws Exception {
+        BatchqueryRetailScoreRequest self = new BatchqueryRetailScoreRequest();
         return TeaModel.build(map, self);
     }
 
-    public QueryRetailScoreRequest setAuthToken(String authToken) {
+    public BatchqueryRetailScoreRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -70,7 +66,7 @@ public class QueryRetailScoreRequest extends TeaModel {
         return this.authToken;
     }
 
-    public QueryRetailScoreRequest setProductInstanceId(String productInstanceId) {
+    public BatchqueryRetailScoreRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -78,7 +74,7 @@ public class QueryRetailScoreRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public QueryRetailScoreRequest setIndustryId(String industryId) {
+    public BatchqueryRetailScoreRequest setIndustryId(String industryId) {
         this.industryId = industryId;
         return this;
     }
@@ -86,15 +82,15 @@ public class QueryRetailScoreRequest extends TeaModel {
         return this.industryId;
     }
 
-    public QueryRetailScoreRequest setUserId(String userId) {
-        this.userId = userId;
+    public BatchqueryRetailScoreRequest setUserIdList(java.util.List<String> userIdList) {
+        this.userIdList = userIdList;
         return this;
     }
-    public String getUserId() {
-        return this.userId;
+    public java.util.List<String> getUserIdList() {
+        return this.userIdList;
     }
 
-    public QueryRetailScoreRequest setUserIdType(String userIdType) {
+    public BatchqueryRetailScoreRequest setUserIdType(String userIdType) {
         this.userIdType = userIdType;
         return this;
     }
@@ -102,7 +98,7 @@ public class QueryRetailScoreRequest extends TeaModel {
         return this.userIdType;
     }
 
-    public QueryRetailScoreRequest setEncryptType(String encryptType) {
+    public BatchqueryRetailScoreRequest setEncryptType(String encryptType) {
         this.encryptType = encryptType;
         return this;
     }
@@ -110,7 +106,7 @@ public class QueryRetailScoreRequest extends TeaModel {
         return this.encryptType;
     }
 
-    public QueryRetailScoreRequest setCustomerCode(String customerCode) {
+    public BatchqueryRetailScoreRequest setCustomerCode(String customerCode) {
         this.customerCode = customerCode;
         return this;
     }
@@ -118,7 +114,7 @@ public class QueryRetailScoreRequest extends TeaModel {
         return this.customerCode;
     }
 
-    public QueryRetailScoreRequest setTransNo(String transNo) {
+    public BatchqueryRetailScoreRequest setTransNo(String transNo) {
         this.transNo = transNo;
         return this;
     }
@@ -126,15 +122,7 @@ public class QueryRetailScoreRequest extends TeaModel {
         return this.transNo;
     }
 
-    public QueryRetailScoreRequest setUserIdHashEncrypt(String userIdHashEncrypt) {
-        this.userIdHashEncrypt = userIdHashEncrypt;
-        return this;
-    }
-    public String getUserIdHashEncrypt() {
-        return this.userIdHashEncrypt;
-    }
-
-    public QueryRetailScoreRequest setInstanceCode(String instanceCode) {
+    public BatchqueryRetailScoreRequest setInstanceCode(String instanceCode) {
         this.instanceCode = instanceCode;
         return this;
     }
@@ -142,12 +130,12 @@ public class QueryRetailScoreRequest extends TeaModel {
         return this.instanceCode;
     }
 
-    public QueryRetailScoreRequest setScene(String scene) {
-        this.scene = scene;
+    public BatchqueryRetailScoreRequest setMappingType(String mappingType) {
+        this.mappingType = mappingType;
         return this;
     }
-    public String getScene() {
-        return this.scene;
+    public String getMappingType() {
+        return this.mappingType;
     }
 
 }
