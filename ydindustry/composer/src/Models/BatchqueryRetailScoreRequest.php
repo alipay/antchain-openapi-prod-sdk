@@ -6,7 +6,7 @@ namespace AntChain\YDINDUSTRY\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryRetailScoreRequest extends Model
+class BatchqueryRetailScoreRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -25,11 +25,11 @@ class QueryRetailScoreRequest extends Model
      */
     public $industryId;
 
-    // 用户id（客户身份证号/手机号的md5/sha256散列值）
+    // 用户列表
     /**
-     * @var string
+     * @var string[]
      */
-    public $userId;
+    public $userIdList;
 
     // 用户id类型（身份证号：ID_NO；手机号：MOBILE_NO）
     /**
@@ -55,49 +55,42 @@ class QueryRetailScoreRequest extends Model
      */
     public $transNo;
 
-    // encrypt_type类型的散列后的操作，默认为空不加密...
-    /**
-     * @var string
-     */
-    public $userIdHashEncrypt;
-
-    // 客户场景码
+    // 场景编码
     /**
      * @var string
      */
     public $instanceCode;
 
-    // 1 不做映射
-    // 2 mobile映射id
-    // 3 id映射mobile
+    // 1 moble入参，id自动映射
+    // 2 id入参，id自动映射
+    // 3 id入参，mobile自动映射
     /**
      * @var string
      */
-    public $scene;
+    public $mappingType;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'industryId'        => 'industry_id',
-        'userId'            => 'user_id',
+        'userIdList'        => 'user_id_list',
         'userIdType'        => 'user_id_type',
         'encryptType'       => 'encrypt_type',
         'customerCode'      => 'customer_code',
         'transNo'           => 'trans_no',
-        'userIdHashEncrypt' => 'user_id_hash_encrypt',
         'instanceCode'      => 'instance_code',
-        'scene'             => 'scene',
+        'mappingType'       => 'mapping_type',
     ];
 
     public function validate()
     {
         Model::validateRequired('industryId', $this->industryId, true);
-        Model::validateRequired('userId', $this->userId, true);
+        Model::validateRequired('userIdList', $this->userIdList, true);
         Model::validateRequired('userIdType', $this->userIdType, true);
         Model::validateRequired('encryptType', $this->encryptType, true);
         Model::validateRequired('customerCode', $this->customerCode, true);
         Model::validateRequired('transNo', $this->transNo, true);
-        Model::validateRequired('userIdHashEncrypt', $this->userIdHashEncrypt, true);
-        Model::validateRequired('scene', $this->scene, true);
+        Model::validateRequired('instanceCode', $this->instanceCode, true);
+        Model::validateRequired('mappingType', $this->mappingType, true);
     }
 
     public function toMap()
@@ -112,8 +105,8 @@ class QueryRetailScoreRequest extends Model
         if (null !== $this->industryId) {
             $res['industry_id'] = $this->industryId;
         }
-        if (null !== $this->userId) {
-            $res['user_id'] = $this->userId;
+        if (null !== $this->userIdList) {
+            $res['user_id_list'] = $this->userIdList;
         }
         if (null !== $this->userIdType) {
             $res['user_id_type'] = $this->userIdType;
@@ -127,14 +120,11 @@ class QueryRetailScoreRequest extends Model
         if (null !== $this->transNo) {
             $res['trans_no'] = $this->transNo;
         }
-        if (null !== $this->userIdHashEncrypt) {
-            $res['user_id_hash_encrypt'] = $this->userIdHashEncrypt;
-        }
         if (null !== $this->instanceCode) {
             $res['instance_code'] = $this->instanceCode;
         }
-        if (null !== $this->scene) {
-            $res['scene'] = $this->scene;
+        if (null !== $this->mappingType) {
+            $res['mapping_type'] = $this->mappingType;
         }
 
         return $res;
@@ -143,7 +133,7 @@ class QueryRetailScoreRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryRetailScoreRequest
+     * @return BatchqueryRetailScoreRequest
      */
     public static function fromMap($map = [])
     {
@@ -157,8 +147,10 @@ class QueryRetailScoreRequest extends Model
         if (isset($map['industry_id'])) {
             $model->industryId = $map['industry_id'];
         }
-        if (isset($map['user_id'])) {
-            $model->userId = $map['user_id'];
+        if (isset($map['user_id_list'])) {
+            if (!empty($map['user_id_list'])) {
+                $model->userIdList = $map['user_id_list'];
+            }
         }
         if (isset($map['user_id_type'])) {
             $model->userIdType = $map['user_id_type'];
@@ -172,14 +164,11 @@ class QueryRetailScoreRequest extends Model
         if (isset($map['trans_no'])) {
             $model->transNo = $map['trans_no'];
         }
-        if (isset($map['user_id_hash_encrypt'])) {
-            $model->userIdHashEncrypt = $map['user_id_hash_encrypt'];
-        }
         if (isset($map['instance_code'])) {
             $model->instanceCode = $map['instance_code'];
         }
-        if (isset($map['scene'])) {
-            $model->scene = $map['scene'];
+        if (isset($map['mapping_type'])) {
+            $model->mappingType = $map['mapping_type'];
         }
 
         return $model;
