@@ -27,7 +27,7 @@ namespace AntChain.SDK.RISKPLUS.Models
         // 业务返回码，001 请求成功 002 请求失败
         [NameInMap("code")]
         [Validation(Required=false)]
-        public long? Code { get; set; }
+        public string Code { get; set; }
 
         // 返回描述信息
         [NameInMap("msg")]

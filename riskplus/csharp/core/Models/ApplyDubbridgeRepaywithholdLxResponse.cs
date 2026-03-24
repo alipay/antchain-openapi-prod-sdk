@@ -37,7 +37,7 @@ namespace AntChain.SDK.RISKPLUS.Models
         // 业务数据
         [NameInMap("biz_content")]
         [Validation(Required=false)]
-        public long? BizContent { get; set; }
+        public string BizContent { get; set; }
 
         // 响应时间
         [NameInMap("timestamp")]
