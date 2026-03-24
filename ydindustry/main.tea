@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.1',
+    sdk_version = '1.0.4',
     _prod_code = 'YDINDUSTRY',
     _prod_channel = 'default'
   };
@@ -161,6 +161,16 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   ignoreSSL = runtime.ignoreSSL
 }
 
+// 评分对象
+model RetailScore {
+  // 用户ID
+  userId: string(name='user_id', example='XXXXX'),
+  // 评分
+  score: string(name='score', example='13.21'),
+  // 拓展数据
+  extParam: string(name='ext_param', example='json格式'),
+}
+
 model QueryRetailScoreRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -181,6 +191,10 @@ model QueryRetailScoreRequest = {
   userIdHashEncrypt: string(name='user_id_hash_encrypt'),
   // 客户场景码
   instanceCode?: string(name='instance_code'),
+  // 1 不做映射
+  // 2 mobile映射id
+  // 3 id映射mobile
+  scene: string(name='scene'),
 }
 
 model QueryRetailScoreResponse = {
@@ -215,5 +229,61 @@ async function queryRetailScore(request: QueryRetailScoreRequest): QueryRetailSc
 async function queryRetailScoreEx(request: QueryRetailScoreRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryRetailScoreResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antdigital.ydindustry.retail.score.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BatchqueryRetailScoreRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 模型id
+  industryId: string(name='industry_id'),
+  // 用户列表
+  userIdList: [ string ](name='user_id_list'),
+  // 用户id类型（身份证号：ID_NO；手机号：MOBILE_NO）
+  userIdType: string(name='user_id_type'),
+  // user_id 散列类型: "MD5"：MD5（小写）, ...
+  encryptType: string(name='encrypt_type'),
+  // 客户编码
+  customerCode: string(name='customer_code'),
+  // 流水号，串联链路用，非必填
+  transNo: string(name='trans_no'),
+  // 场景编码
+  instanceCode: string(name='instance_code'),
+  // 1 moble入参，id自动映射
+  // 2 id入参，id自动映射
+  // 3 id入参，mobile自动映射
+  mappingType: string(name='mapping_type'),
+}
+
+model BatchqueryRetailScoreResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 请求流水号
+  transNo?: string(name='trans_no'),
+  // 评分对象
+  resultList?: [ RetailScore ](name='result_list'),
+}
+
+/**
+ * Description: 蚁盾零售行业评分批量调用
+ * Summary: 蚁盾零售行业评分批量调用
+ */
+async function batchqueryRetailScore(request: BatchqueryRetailScoreRequest): BatchqueryRetailScoreResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return batchqueryRetailScoreEx(request, headers, runtime);
+}
+
+/**
+ * Description: 蚁盾零售行业评分批量调用
+ * Summary: 蚁盾零售行业评分批量调用
+ */
+async function batchqueryRetailScoreEx(request: BatchqueryRetailScoreRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BatchqueryRetailScoreResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.ydindustry.retail.score.batchquery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
