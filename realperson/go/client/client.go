@@ -470,6 +470,49 @@ func (s *DeviceInfo) SetGatewayIp(v string) *DeviceInfo {
 	return s
 }
 
+// 身份四要素证件及户籍信息
+type Residency struct {
+	// 证件是否最新（1 最新、0非最新）
+	IsNewest *string `json:"is_newest,omitempty" xml:"is_newest,omitempty"`
+	// 证件是否挂失（1 挂失、0非挂失）
+	IsLosted *string `json:"is_losted,omitempty" xml:"is_losted,omitempty"`
+	// 证件是否过期（1 过期、0非过期）
+	IsExpired *string `json:"is_expired,omitempty" xml:"is_expired,omitempty"`
+	// 户籍状态
+	// 0 有效
+	// 1 有效（户籍迁出，但未迁入）
+	// 2 无效（死亡、失踪、迁出、服 兵役、出国境定居、消除重复登记人口、冻结户口、重载注销等）
+	ResidencyStatus *string `json:"residency_status,omitempty" xml:"residency_status,omitempty"`
+}
+
+func (s Residency) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Residency) GoString() string {
+	return s.String()
+}
+
+func (s *Residency) SetIsNewest(v string) *Residency {
+	s.IsNewest = &v
+	return s
+}
+
+func (s *Residency) SetIsLosted(v string) *Residency {
+	s.IsLosted = &v
+	return s
+}
+
+func (s *Residency) SetIsExpired(v string) *Residency {
+	s.IsExpired = &v
+	return s
+}
+
+func (s *Residency) SetResidencyStatus(v string) *Residency {
+	s.ResidencyStatus = &v
+	return s
+}
+
 // 车辆资产验证详版车辆信息
 type CarInfoDetail struct {
 	// 车辆型号
@@ -7455,6 +7498,10 @@ type ExecFaceverifyServermodeRequest struct {
 	MaterialEncType *string `json:"material_enc_type,omitempty" xml:"material_enc_type,omitempty"`
 	// 公钥加密后的密钥，用于传入的加密图片/视频
 	MaterialEncToken *string `json:"material_enc_token,omitempty" xml:"material_enc_token,omitempty"`
+	// 自定义比对源人脸图像 file id
+	FacialPictureRefFileId *string `json:"facial_picture_ref_file_id,omitempty" xml:"facial_picture_ref_file_id,omitempty"`
+	// 待认证的人脸图像 file id
+	FacialPictureAuthFileId *string `json:"facial_picture_auth_file_id,omitempty" xml:"facial_picture_auth_file_id,omitempty"`
 }
 
 func (s ExecFaceverifyServermodeRequest) String() string {
@@ -7562,6 +7609,16 @@ func (s *ExecFaceverifyServermodeRequest) SetMaterialEncType(v string) *ExecFace
 
 func (s *ExecFaceverifyServermodeRequest) SetMaterialEncToken(v string) *ExecFaceverifyServermodeRequest {
 	s.MaterialEncToken = &v
+	return s
+}
+
+func (s *ExecFaceverifyServermodeRequest) SetFacialPictureRefFileId(v string) *ExecFaceverifyServermodeRequest {
+	s.FacialPictureRefFileId = &v
+	return s
+}
+
+func (s *ExecFaceverifyServermodeRequest) SetFacialPictureAuthFileId(v string) *ExecFaceverifyServermodeRequest {
+	s.FacialPictureAuthFileId = &v
 	return s
 }
 
@@ -8738,6 +8795,8 @@ type CheckIdcardFourmetaResponse struct {
 	Match *string `json:"match,omitempty" xml:"match,omitempty"`
 	// 扩展信息，预留字段
 	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+	// 证件及户籍状态
+	Residency *Residency `json:"residency,omitempty" xml:"residency,omitempty"`
 }
 
 func (s CheckIdcardFourmetaResponse) String() string {
@@ -8770,6 +8829,11 @@ func (s *CheckIdcardFourmetaResponse) SetMatch(v string) *CheckIdcardFourmetaRes
 
 func (s *CheckIdcardFourmetaResponse) SetExternInfo(v string) *CheckIdcardFourmetaResponse {
 	s.ExternInfo = &v
+	return s
+}
+
+func (s *CheckIdcardFourmetaResponse) SetResidency(v *Residency) *CheckIdcardFourmetaResponse {
+	s.Residency = v
 	return s
 }
 
@@ -11799,6 +11863,90 @@ func (s *QueryUserAssetResponse) SetExternInfo(v string) *QueryUserAssetResponse
 	return s
 }
 
+type UploadFileRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 文件ID
+	// 待上传文件
+	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
+	// 待上传文件名
+	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+}
+
+func (s UploadFileRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadFileRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UploadFileRequest) SetAuthToken(v string) *UploadFileRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UploadFileRequest) SetProductInstanceId(v string) *UploadFileRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UploadFileRequest) SetFileObject(v io.Reader) *UploadFileRequest {
+	s.FileObject = v
+	return s
+}
+
+func (s *UploadFileRequest) SetFileObjectName(v string) *UploadFileRequest {
+	s.FileObjectName = &v
+	return s
+}
+
+func (s *UploadFileRequest) SetFileId(v string) *UploadFileRequest {
+	s.FileId = &v
+	return s
+}
+
+type UploadFileResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 文件ID
+	FileId *string `json:"file_id,omitempty" xml:"file_id,omitempty"`
+}
+
+func (s UploadFileResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadFileResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UploadFileResponse) SetReqMsgId(v string) *UploadFileResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UploadFileResponse) SetResultCode(v string) *UploadFileResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UploadFileResponse) SetResultMsg(v string) *UploadFileResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UploadFileResponse) SetFileId(v string) *UploadFileResponse {
+	s.FileId = &v
+	return s
+}
+
 type BindCutpaymentOneclickRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -11892,10 +12040,14 @@ type BindCutpaymentOneclickResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 跳转地址
+	// 跳转银行页面地址
 	Url *string `json:"url,omitempty" xml:"url,omitempty"`
 	// 渠道 ID
 	ChannelId *string `json:"channel_id,omitempty" xml:"channel_id,omitempty"`
+	// 前端请求银行页面的请求方法
+	QueryMethod *string `json:"query_method,omitempty" xml:"query_method,omitempty"`
+	// 前端请求银行页面的请求参数key和vaule
+	QueryValue *string `json:"query_value,omitempty" xml:"query_value,omitempty"`
 }
 
 func (s BindCutpaymentOneclickResponse) String() string {
@@ -11928,6 +12080,16 @@ func (s *BindCutpaymentOneclickResponse) SetUrl(v string) *BindCutpaymentOneclic
 
 func (s *BindCutpaymentOneclickResponse) SetChannelId(v string) *BindCutpaymentOneclickResponse {
 	s.ChannelId = &v
+	return s
+}
+
+func (s *BindCutpaymentOneclickResponse) SetQueryMethod(v string) *BindCutpaymentOneclickResponse {
+	s.QueryMethod = &v
+	return s
+}
+
+func (s *BindCutpaymentOneclickResponse) SetQueryValue(v string) *BindCutpaymentOneclickResponse {
+	s.QueryValue = &v
 	return s
 }
 
@@ -12040,6 +12202,324 @@ func (s *QueryCutpaymentOneclickResponse) SetBankCode(v string) *QueryCutpayment
 
 func (s *QueryCutpaymentOneclickResponse) SetBankName(v string) *QueryCutpaymentOneclickResponse {
 	s.BankName = &v
+	return s
+}
+
+type ApplyExtYdataRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 之前调用返回的 req_msg_id
+	HistoryOrderNo *string `json:"history_order_no,omitempty" xml:"history_order_no,omitempty" require:"true"`
+	// 绑卡页面银行排序（从上到下）
+	BankDisplay *string `json:"bank_display,omitempty" xml:"bank_display,omitempty"`
+	// 用户选卡银行
+	InterimSelectedBankCode *string `json:"interim_selected_bank_code,omitempty" xml:"interim_selected_bank_code,omitempty"`
+	// 用户绑卡银行
+	BindBankCode *string `json:"bind_bank_code,omitempty" xml:"bind_bank_code,omitempty" require:"true"`
+	// 用户最终绑卡银行在页面上的排序
+	BindBankDisplay *string `json:"bind_bank_display,omitempty" xml:"bind_bank_display,omitempty"`
+	// 卡类型
+	// 储蓄卡（Debit Card）或者信用卡（Credit Card）
+	// 储蓄卡：DC
+	// 信用卡：CC
+	BankType *string `json:"bank_type,omitempty" xml:"bank_type,omitempty" require:"true"`
+	// 第一期是否扣款成功
+	FirstDeduction *bool `json:"first_deduction,omitempty" xml:"first_deduction,omitempty"`
+	// 第一期扣款金额
+	FirstDeductionAmount *string `json:"first_deduction_amount,omitempty" xml:"first_deduction_amount,omitempty"`
+	// 第二期是否扣款成功
+	SecondDeduction *bool `json:"second_deduction,omitempty" xml:"second_deduction,omitempty"`
+	// 第二期扣款金额
+	SecondDeductionAmount *string `json:"second_deduction_amount,omitempty" xml:"second_deduction_amount,omitempty"`
+	// 第三期是否扣款成功
+	ThirdDeduction *bool `json:"third_deduction,omitempty" xml:"third_deduction,omitempty"`
+	// 第三期扣款金额
+	ThirdDeductionAmount *string `json:"third_deduction_amount,omitempty" xml:"third_deduction_amount,omitempty"`
+	// 第四期是否扣款成功
+	FourthDeduction *bool `json:"fourth_deduction,omitempty" xml:"fourth_deduction,omitempty"`
+	// 第四期扣款金额
+	FourthDeductionAmount *string `json:"fourth_deduction_amount,omitempty" xml:"fourth_deduction_amount,omitempty"`
+	// 第五期是否扣款成功
+	FifthDeduction *bool `json:"fifth_deduction,omitempty" xml:"fifth_deduction,omitempty"`
+	// 第五期扣款金额
+	FifthDeductionAmount *string `json:"fifth_deduction_amount,omitempty" xml:"fifth_deduction_amount,omitempty"`
+	// 第六期是否扣款成功
+	SixthDeduction *bool `json:"sixth_deduction,omitempty" xml:"sixth_deduction,omitempty"`
+	// 第六期是否扣款成功
+	SixthDeductionAmount *string `json:"sixth_deduction_amount,omitempty" xml:"sixth_deduction_amount,omitempty"`
+	// 预留扩展参数
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s ApplyExtYdataRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyExtYdataRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyExtYdataRequest) SetAuthToken(v string) *ApplyExtYdataRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ApplyExtYdataRequest) SetProductInstanceId(v string) *ApplyExtYdataRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ApplyExtYdataRequest) SetOuterOrderNo(v string) *ApplyExtYdataRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *ApplyExtYdataRequest) SetHistoryOrderNo(v string) *ApplyExtYdataRequest {
+	s.HistoryOrderNo = &v
+	return s
+}
+
+func (s *ApplyExtYdataRequest) SetBankDisplay(v string) *ApplyExtYdataRequest {
+	s.BankDisplay = &v
+	return s
+}
+
+func (s *ApplyExtYdataRequest) SetInterimSelectedBankCode(v string) *ApplyExtYdataRequest {
+	s.InterimSelectedBankCode = &v
+	return s
+}
+
+func (s *ApplyExtYdataRequest) SetBindBankCode(v string) *ApplyExtYdataRequest {
+	s.BindBankCode = &v
+	return s
+}
+
+func (s *ApplyExtYdataRequest) SetBindBankDisplay(v string) *ApplyExtYdataRequest {
+	s.BindBankDisplay = &v
+	return s
+}
+
+func (s *ApplyExtYdataRequest) SetBankType(v string) *ApplyExtYdataRequest {
+	s.BankType = &v
+	return s
+}
+
+func (s *ApplyExtYdataRequest) SetFirstDeduction(v bool) *ApplyExtYdataRequest {
+	s.FirstDeduction = &v
+	return s
+}
+
+func (s *ApplyExtYdataRequest) SetFirstDeductionAmount(v string) *ApplyExtYdataRequest {
+	s.FirstDeductionAmount = &v
+	return s
+}
+
+func (s *ApplyExtYdataRequest) SetSecondDeduction(v bool) *ApplyExtYdataRequest {
+	s.SecondDeduction = &v
+	return s
+}
+
+func (s *ApplyExtYdataRequest) SetSecondDeductionAmount(v string) *ApplyExtYdataRequest {
+	s.SecondDeductionAmount = &v
+	return s
+}
+
+func (s *ApplyExtYdataRequest) SetThirdDeduction(v bool) *ApplyExtYdataRequest {
+	s.ThirdDeduction = &v
+	return s
+}
+
+func (s *ApplyExtYdataRequest) SetThirdDeductionAmount(v string) *ApplyExtYdataRequest {
+	s.ThirdDeductionAmount = &v
+	return s
+}
+
+func (s *ApplyExtYdataRequest) SetFourthDeduction(v bool) *ApplyExtYdataRequest {
+	s.FourthDeduction = &v
+	return s
+}
+
+func (s *ApplyExtYdataRequest) SetFourthDeductionAmount(v string) *ApplyExtYdataRequest {
+	s.FourthDeductionAmount = &v
+	return s
+}
+
+func (s *ApplyExtYdataRequest) SetFifthDeduction(v bool) *ApplyExtYdataRequest {
+	s.FifthDeduction = &v
+	return s
+}
+
+func (s *ApplyExtYdataRequest) SetFifthDeductionAmount(v string) *ApplyExtYdataRequest {
+	s.FifthDeductionAmount = &v
+	return s
+}
+
+func (s *ApplyExtYdataRequest) SetSixthDeduction(v bool) *ApplyExtYdataRequest {
+	s.SixthDeduction = &v
+	return s
+}
+
+func (s *ApplyExtYdataRequest) SetSixthDeductionAmount(v string) *ApplyExtYdataRequest {
+	s.SixthDeductionAmount = &v
+	return s
+}
+
+func (s *ApplyExtYdataRequest) SetExternParam(v string) *ApplyExtYdataRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type ApplyExtYdataResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s ApplyExtYdataResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyExtYdataResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyExtYdataResponse) SetReqMsgId(v string) *ApplyExtYdataResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ApplyExtYdataResponse) SetResultCode(v string) *ApplyExtYdataResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ApplyExtYdataResponse) SetResultMsg(v string) *ApplyExtYdataResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type QueryThreemetaPhonereuseproRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 外部请求ID，由调用方自行生成并自行保证唯一，以便问题定位。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 手机号「支持加密」
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty" require:"true"`
+	// 日期
+	Date *string `json:"date,omitempty" xml:"date,omitempty" require:"true"`
+	// 运营商类型
+	Carrier *string `json:"carrier,omitempty" xml:"carrier,omitempty"`
+	// 加密类型，填写时「支持加密」字段需要对应加密后赋值。默认使用明文模式 0：明文 1：MD5
+	EncryptType *string `json:"encrypt_type,omitempty" xml:"encrypt_type,omitempty"`
+	// 扩展参数
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s QueryThreemetaPhonereuseproRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryThreemetaPhonereuseproRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryThreemetaPhonereuseproRequest) SetAuthToken(v string) *QueryThreemetaPhonereuseproRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryThreemetaPhonereuseproRequest) SetProductInstanceId(v string) *QueryThreemetaPhonereuseproRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryThreemetaPhonereuseproRequest) SetOuterOrderNo(v string) *QueryThreemetaPhonereuseproRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *QueryThreemetaPhonereuseproRequest) SetMobile(v string) *QueryThreemetaPhonereuseproRequest {
+	s.Mobile = &v
+	return s
+}
+
+func (s *QueryThreemetaPhonereuseproRequest) SetDate(v string) *QueryThreemetaPhonereuseproRequest {
+	s.Date = &v
+	return s
+}
+
+func (s *QueryThreemetaPhonereuseproRequest) SetCarrier(v string) *QueryThreemetaPhonereuseproRequest {
+	s.Carrier = &v
+	return s
+}
+
+func (s *QueryThreemetaPhonereuseproRequest) SetEncryptType(v string) *QueryThreemetaPhonereuseproRequest {
+	s.EncryptType = &v
+	return s
+}
+
+func (s *QueryThreemetaPhonereuseproRequest) SetExternParam(v string) *QueryThreemetaPhonereuseproRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type QueryThreemetaPhonereuseproResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否二次放号
+	PhoneReuse *string `json:"phone_reuse,omitempty" xml:"phone_reuse,omitempty"`
+	// CHINA_TELECOM：中国电信 CHINA_MOBILE：中国移动 CHINA_UNICOM：中国联通
+	Carrier *string `json:"carrier,omitempty" xml:"carrier,omitempty"`
+	// 扩展参数
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s QueryThreemetaPhonereuseproResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryThreemetaPhonereuseproResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryThreemetaPhonereuseproResponse) SetReqMsgId(v string) *QueryThreemetaPhonereuseproResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryThreemetaPhonereuseproResponse) SetResultCode(v string) *QueryThreemetaPhonereuseproResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryThreemetaPhonereuseproResponse) SetResultMsg(v string) *QueryThreemetaPhonereuseproResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryThreemetaPhonereuseproResponse) SetPhoneReuse(v string) *QueryThreemetaPhonereuseproResponse {
+	s.PhoneReuse = &v
+	return s
+}
+
+func (s *QueryThreemetaPhonereuseproResponse) SetCarrier(v string) *QueryThreemetaPhonereuseproResponse {
+	s.Carrier = &v
+	return s
+}
+
+func (s *QueryThreemetaPhonereuseproResponse) SetExternInfo(v string) *QueryThreemetaPhonereuseproResponse {
+	s.ExternInfo = &v
 	return s
 }
 
@@ -12285,7 +12765,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.22.24"),
+				"sdk_version":      tea.String("1.22.32"),
 				"_prod_code":       tea.String("REALPERSON"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -15270,6 +15750,70 @@ func (client *Client) QueryUserAssetEx(request *QueryUserAssetRequest, headers m
 }
 
 /**
+ * Description: 文件上传接口
+ * Summary: 文件上传接口
+ */
+func (client *Client) UploadFile(request *UploadFileRequest) (_result *UploadFileResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UploadFileResponse{}
+	_body, _err := client.UploadFileEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 文件上传接口
+ * Summary: 文件上传接口
+ */
+func (client *Client) UploadFileEx(request *UploadFileRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UploadFileResponse, _err error) {
+	if !tea.BoolValue(util.IsUnset(request.FileObject)) {
+		uploadReq := &CreateAntcloudGatewayxFileUploadRequest{
+			AuthToken: request.AuthToken,
+			ApiCode:   tea.String("di.realperson.file.upload"),
+			FileName:  request.FileObjectName,
+		}
+		uploadResp, _err := client.CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime)
+		if _err != nil {
+			return _result, _err
+		}
+
+		if !tea.BoolValue(antchainutil.IsSuccess(uploadResp.ResultCode, tea.String("ok"))) {
+			uploadFileResponse := &UploadFileResponse{
+				ReqMsgId:   uploadResp.ReqMsgId,
+				ResultCode: uploadResp.ResultCode,
+				ResultMsg:  uploadResp.ResultMsg,
+			}
+			_result = uploadFileResponse
+			return _result, _err
+		}
+
+		uploadHeaders := antchainutil.ParseUploadHeaders(uploadResp.UploadHeaders)
+		_err = antchainutil.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl)
+		if _err != nil {
+			return _result, _err
+		}
+		request.FileId = uploadResp.FileId
+		request.FileObject = nil
+	}
+
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UploadFileResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.file.upload"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
  * Description: 银行卡代扣一键绑卡签约
  * Summary: 银行卡代扣一键绑卡签约
  */
@@ -15330,6 +15874,74 @@ func (client *Client) QueryCutpaymentOneclickEx(request *QueryCutpaymentOneclick
 	}
 	_result = &QueryCutpaymentOneclickResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.cutpayment.oneclick.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 卡状态 y 标回流
+ * Summary: 卡状态 y 标回流
+ */
+func (client *Client) ApplyExtYdata(request *ApplyExtYdataRequest) (_result *ApplyExtYdataResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ApplyExtYdataResponse{}
+	_body, _err := client.ApplyExtYdataEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 卡状态 y 标回流
+ * Summary: 卡状态 y 标回流
+ */
+func (client *Client) ApplyExtYdataEx(request *ApplyExtYdataRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplyExtYdataResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ApplyExtYdataResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.ext.ydata.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 个人运营商二次放号专业版
+ * Summary: 个人运营商二次放号专业版
+ */
+func (client *Client) QueryThreemetaPhonereusepro(request *QueryThreemetaPhonereuseproRequest) (_result *QueryThreemetaPhonereuseproResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryThreemetaPhonereuseproResponse{}
+	_body, _err := client.QueryThreemetaPhonereuseproEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 个人运营商二次放号专业版
+ * Summary: 个人运营商二次放号专业版
+ */
+func (client *Client) QueryThreemetaPhonereuseproEx(request *QueryThreemetaPhonereuseproRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryThreemetaPhonereuseproResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryThreemetaPhonereuseproResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.threemeta.phonereusepro.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
