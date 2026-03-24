@@ -112,6 +112,16 @@ namespace AntChain.SDK.REALPERSON.Models
         [Validation(Required=false)]
         public string MaterialEncToken { get; set; }
 
+        // 自定义比对源人脸图像 file id
+        [NameInMap("facial_picture_ref_file_id")]
+        [Validation(Required=false)]
+        public string FacialPictureRefFileId { get; set; }
+
+        // 待认证的人脸图像 file id
+        [NameInMap("facial_picture_auth_file_id")]
+        [Validation(Required=false)]
+        public string FacialPictureAuthFileId { get; set; }
+
     }
 
 }

@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.REALPERSON.Models
 {
-    public class CheckIdcardFourmetaResponse : TeaModel {
+    public class QueryThreemetaPhonereuseproResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,20 +24,20 @@ namespace AntChain.SDK.REALPERSON.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // true:匹配成功 false：匹配失败
-        [NameInMap("match")]
+        // 是否二次放号
+        [NameInMap("phone_reuse")]
         [Validation(Required=false)]
-        public string Match { get; set; }
+        public string PhoneReuse { get; set; }
 
-        // 扩展信息，预留字段
+        // CHINA_TELECOM：中国电信 CHINA_MOBILE：中国移动 CHINA_UNICOM：中国联通
+        [NameInMap("carrier")]
+        [Validation(Required=false)]
+        public string Carrier { get; set; }
+
+        // 扩展参数
         [NameInMap("extern_info")]
         [Validation(Required=false)]
         public string ExternInfo { get; set; }
-
-        // 证件及户籍状态
-        [NameInMap("residency")]
-        [Validation(Required=false)]
-        public Residency Residency { get; set; }
 
     }
 

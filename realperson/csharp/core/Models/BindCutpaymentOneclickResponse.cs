@@ -24,7 +24,7 @@ namespace AntChain.SDK.REALPERSON.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 跳转地址
+        // 跳转银行页面地址
         [NameInMap("url")]
         [Validation(Required=false)]
         public string Url { get; set; }
@@ -33,6 +33,16 @@ namespace AntChain.SDK.REALPERSON.Models
         [NameInMap("channel_id")]
         [Validation(Required=false)]
         public string ChannelId { get; set; }
+
+        // 前端请求银行页面的请求方法
+        [NameInMap("query_method")]
+        [Validation(Required=false)]
+        public string QueryMethod { get; set; }
+
+        // 前端请求银行页面的请求参数key和vaule
+        [NameInMap("query_value")]
+        [Validation(Required=false)]
+        public string QueryValue { get; set; }
 
     }
 

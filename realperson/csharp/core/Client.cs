@@ -137,7 +137,7 @@ namespace AntChain.SDK.REALPERSON
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.22.24"},
+                        {"sdk_version", "1.22.32"},
                         {"_prod_code", "REALPERSON"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.REALPERSON
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.22.24"},
+                        {"sdk_version", "1.22.32"},
                         {"_prod_code", "REALPERSON"},
                         {"_prod_channel", "undefined"},
                     };
@@ -4024,6 +4024,96 @@ namespace AntChain.SDK.REALPERSON
         }
 
         /**
+         * Description: 文件上传接口
+         * Summary: 文件上传接口
+         */
+        public UploadFileResponse UploadFile(UploadFileRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UploadFileEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 文件上传接口
+         * Summary: 文件上传接口
+         */
+        public async Task<UploadFileResponse> UploadFileAsync(UploadFileRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UploadFileExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 文件上传接口
+         * Summary: 文件上传接口
+         */
+        public UploadFileResponse UploadFileEx(UploadFileRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "di.realperson.file.upload",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    UploadFileResponse uploadFileResponse = new UploadFileResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return uploadFileResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+                request.FileObject = null;
+            }
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UploadFileResponse>(DoRequest("1.0", "di.realperson.file.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 文件上传接口
+         * Summary: 文件上传接口
+         */
+        public async Task<UploadFileResponse> UploadFileExAsync(UploadFileRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "di.realperson.file.upload",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = await CreateAntcloudGatewayxFileUploadExAsync(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    UploadFileResponse uploadFileResponse = new UploadFileResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return uploadFileResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+                request.FileObject = null;
+            }
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UploadFileResponse>(await DoRequestAsync("1.0", "di.realperson.file.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
          * Description: 银行卡代扣一键绑卡签约
          * Summary: 银行卡代扣一键绑卡签约
          */
@@ -4105,6 +4195,90 @@ namespace AntChain.SDK.REALPERSON
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryCutpaymentOneclickResponse>(await DoRequestAsync("1.0", "di.realperson.cutpayment.oneclick.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 卡状态 y 标回流
+         * Summary: 卡状态 y 标回流
+         */
+        public ApplyExtYdataResponse ApplyExtYdata(ApplyExtYdataRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ApplyExtYdataEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 卡状态 y 标回流
+         * Summary: 卡状态 y 标回流
+         */
+        public async Task<ApplyExtYdataResponse> ApplyExtYdataAsync(ApplyExtYdataRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ApplyExtYdataExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 卡状态 y 标回流
+         * Summary: 卡状态 y 标回流
+         */
+        public ApplyExtYdataResponse ApplyExtYdataEx(ApplyExtYdataRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyExtYdataResponse>(DoRequest("1.0", "di.realperson.ext.ydata.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 卡状态 y 标回流
+         * Summary: 卡状态 y 标回流
+         */
+        public async Task<ApplyExtYdataResponse> ApplyExtYdataExAsync(ApplyExtYdataRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyExtYdataResponse>(await DoRequestAsync("1.0", "di.realperson.ext.ydata.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 个人运营商二次放号专业版
+         * Summary: 个人运营商二次放号专业版
+         */
+        public QueryThreemetaPhonereuseproResponse QueryThreemetaPhonereusepro(QueryThreemetaPhonereuseproRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryThreemetaPhonereuseproEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 个人运营商二次放号专业版
+         * Summary: 个人运营商二次放号专业版
+         */
+        public async Task<QueryThreemetaPhonereuseproResponse> QueryThreemetaPhonereuseproAsync(QueryThreemetaPhonereuseproRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryThreemetaPhonereuseproExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 个人运营商二次放号专业版
+         * Summary: 个人运营商二次放号专业版
+         */
+        public QueryThreemetaPhonereuseproResponse QueryThreemetaPhonereuseproEx(QueryThreemetaPhonereuseproRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryThreemetaPhonereuseproResponse>(DoRequest("1.0", "di.realperson.threemeta.phonereusepro.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 个人运营商二次放号专业版
+         * Summary: 个人运营商二次放号专业版
+         */
+        public async Task<QueryThreemetaPhonereuseproResponse> QueryThreemetaPhonereuseproExAsync(QueryThreemetaPhonereuseproRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryThreemetaPhonereuseproResponse>(await DoRequestAsync("1.0", "di.realperson.threemeta.phonereusepro.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
