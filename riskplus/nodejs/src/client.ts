@@ -15894,7 +15894,7 @@ export class ApplyDubbridgeRepaywithholdLxResponse extends $tea.Model {
   // 业务返回描述
   msg?: string;
   // 业务数据
-  bizContent?: number;
+  bizContent?: string;
   // 响应时间
   timestamp?: string;
   // 签名数据
@@ -15919,7 +15919,7 @@ export class ApplyDubbridgeRepaywithholdLxResponse extends $tea.Model {
       resultMsg: 'string',
       code: 'string',
       msg: 'string',
-      bizContent: 'number',
+      bizContent: 'string',
       timestamp: 'string',
       sign: 'string',
     };
@@ -16143,7 +16143,7 @@ export class QueryDubbridgeRepaymentLxResponse extends $tea.Model {
   // 业务返回描述
   msg?: string;
   // 业务数据
-  bizContent?: number;
+  bizContent?: string;
   // 响应时间
   timestamp?: string;
   // 签名数据
@@ -16168,7 +16168,7 @@ export class QueryDubbridgeRepaymentLxResponse extends $tea.Model {
       resultMsg: 'string',
       ccode: 'string',
       msg: 'string',
-      bizContent: 'number',
+      bizContent: 'string',
       timestamp: 'string',
       sign: 'string',
     };
@@ -16222,7 +16222,7 @@ export class QueryDubbridgeCreditamtLxResponse extends $tea.Model {
   // 异常信息的文本描述
   resultMsg?: string;
   // 业务返回码，001 请求成功 002 请求失败
-  code?: number;
+  code?: string;
   // 返回描述信息
   msg?: string;
   // 业务数据
@@ -16249,7 +16249,7 @@ export class QueryDubbridgeCreditamtLxResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      code: 'number',
+      code: 'string',
       msg: 'string',
       bizContent: 'string',
       timestamp: 'string',
@@ -29754,7 +29754,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.31.1",
+          sdk_version: "1.31.2",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
