@@ -137,7 +137,7 @@ namespace AntChain.SDK.YDINDUSTRY
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.1"},
+                        {"sdk_version", "1.0.4"},
                         {"_prod_code", "YDINDUSTRY"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.YDINDUSTRY
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.1"},
+                        {"sdk_version", "1.0.4"},
                         {"_prod_code", "YDINDUSTRY"},
                         {"_prod_channel", "default"},
                     };
@@ -361,6 +361,48 @@ namespace AntChain.SDK.YDINDUSTRY
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryRetailScoreResponse>(await DoRequestAsync("1.0", "antdigital.ydindustry.retail.score.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 蚁盾零售行业评分批量调用
+         * Summary: 蚁盾零售行业评分批量调用
+         */
+        public BatchqueryRetailScoreResponse BatchqueryRetailScore(BatchqueryRetailScoreRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return BatchqueryRetailScoreEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 蚁盾零售行业评分批量调用
+         * Summary: 蚁盾零售行业评分批量调用
+         */
+        public async Task<BatchqueryRetailScoreResponse> BatchqueryRetailScoreAsync(BatchqueryRetailScoreRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await BatchqueryRetailScoreExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 蚁盾零售行业评分批量调用
+         * Summary: 蚁盾零售行业评分批量调用
+         */
+        public BatchqueryRetailScoreResponse BatchqueryRetailScoreEx(BatchqueryRetailScoreRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BatchqueryRetailScoreResponse>(DoRequest("1.0", "antdigital.ydindustry.retail.score.batchquery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 蚁盾零售行业评分批量调用
+         * Summary: 蚁盾零售行业评分批量调用
+         */
+        public async Task<BatchqueryRetailScoreResponse> BatchqueryRetailScoreExAsync(BatchqueryRetailScoreRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BatchqueryRetailScoreResponse>(await DoRequestAsync("1.0", "antdigital.ydindustry.retail.score.batchquery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }

@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.YDINDUSTRY.Models
 {
-    public class QueryRetailScoreRequest : TeaModel {
+    public class BatchqueryRetailScoreRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -23,10 +23,10 @@ namespace AntChain.SDK.YDINDUSTRY.Models
         [Validation(Required=true)]
         public string IndustryId { get; set; }
 
-        // 用户id（客户身份证号/手机号的md5/sha256散列值）
-        [NameInMap("user_id")]
+        // 用户列表
+        [NameInMap("user_id_list")]
         [Validation(Required=true)]
-        public string UserId { get; set; }
+        public List<string> UserIdList { get; set; }
 
         // 用户id类型（身份证号：ID_NO；手机号：MOBILE_NO）
         [NameInMap("user_id_type")]
@@ -48,22 +48,17 @@ namespace AntChain.SDK.YDINDUSTRY.Models
         [Validation(Required=true)]
         public string TransNo { get; set; }
 
-        // encrypt_type类型的散列后的操作，默认为空不加密...
-        [NameInMap("user_id_hash_encrypt")]
-        [Validation(Required=true)]
-        public string UserIdHashEncrypt { get; set; }
-
-        // 客户场景码
+        // 场景编码
         [NameInMap("instance_code")]
-        [Validation(Required=false)]
+        [Validation(Required=true)]
         public string InstanceCode { get; set; }
 
-        // 1 不做映射
-        // 2 mobile映射id
-        // 3 id映射mobile
-        [NameInMap("scene")]
+        // 1 moble入参，id自动映射
+        // 2 id入参，id自动映射
+        // 3 id入参，mobile自动映射
+        [NameInMap("mapping_type")]
         [Validation(Required=true)]
-        public string Scene { get; set; }
+        public string MappingType { get; set; }
 
     }
 
