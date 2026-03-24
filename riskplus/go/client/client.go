@@ -21508,7 +21508,7 @@ type ApplyDubbridgeRepaywithholdLxResponse struct {
 	// 业务返回描述
 	Msg *string `json:"msg,omitempty" xml:"msg,omitempty"`
 	// 业务数据
-	BizContent *int64 `json:"biz_content,omitempty" xml:"biz_content,omitempty"`
+	BizContent *string `json:"biz_content,omitempty" xml:"biz_content,omitempty"`
 	// 响应时间
 	Timestamp *string `json:"timestamp,omitempty" xml:"timestamp,omitempty"`
 	// 签名数据
@@ -21548,7 +21548,7 @@ func (s *ApplyDubbridgeRepaywithholdLxResponse) SetMsg(v string) *ApplyDubbridge
 	return s
 }
 
-func (s *ApplyDubbridgeRepaywithholdLxResponse) SetBizContent(v int64) *ApplyDubbridgeRepaywithholdLxResponse {
+func (s *ApplyDubbridgeRepaywithholdLxResponse) SetBizContent(v string) *ApplyDubbridgeRepaywithholdLxResponse {
 	s.BizContent = &v
 	return s
 }
@@ -21844,7 +21844,7 @@ type QueryDubbridgeRepaymentLxResponse struct {
 	// 业务返回描述
 	Msg *string `json:"msg,omitempty" xml:"msg,omitempty"`
 	// 业务数据
-	BizContent *int64 `json:"biz_content,omitempty" xml:"biz_content,omitempty"`
+	BizContent *string `json:"biz_content,omitempty" xml:"biz_content,omitempty"`
 	// 响应时间
 	Timestamp *string `json:"timestamp,omitempty" xml:"timestamp,omitempty"`
 	// 签名数据
@@ -21884,7 +21884,7 @@ func (s *QueryDubbridgeRepaymentLxResponse) SetMsg(v string) *QueryDubbridgeRepa
 	return s
 }
 
-func (s *QueryDubbridgeRepaymentLxResponse) SetBizContent(v int64) *QueryDubbridgeRepaymentLxResponse {
+func (s *QueryDubbridgeRepaymentLxResponse) SetBizContent(v string) *QueryDubbridgeRepaymentLxResponse {
 	s.BizContent = &v
 	return s
 }
@@ -21952,7 +21952,7 @@ type QueryDubbridgeCreditamtLxResponse struct {
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 业务返回码，001 请求成功 002 请求失败
-	Code *int64 `json:"code,omitempty" xml:"code,omitempty"`
+	Code *string `json:"code,omitempty" xml:"code,omitempty"`
 	// 返回描述信息
 	Msg *string `json:"msg,omitempty" xml:"msg,omitempty"`
 	// 业务数据
@@ -21986,7 +21986,7 @@ func (s *QueryDubbridgeCreditamtLxResponse) SetResultMsg(v string) *QueryDubbrid
 	return s
 }
 
-func (s *QueryDubbridgeCreditamtLxResponse) SetCode(v int64) *QueryDubbridgeCreditamtLxResponse {
+func (s *QueryDubbridgeCreditamtLxResponse) SetCode(v string) *QueryDubbridgeCreditamtLxResponse {
 	s.Code = &v
 	return s
 }
@@ -39937,7 +39937,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.31.1"),
+				"sdk_version":      tea.String("1.31.2"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
