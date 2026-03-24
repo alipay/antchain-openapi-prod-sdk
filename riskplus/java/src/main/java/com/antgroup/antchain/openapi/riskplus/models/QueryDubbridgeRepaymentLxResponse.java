@@ -26,7 +26,7 @@ public class QueryDubbridgeRepaymentLxResponse extends TeaModel {
 
     // 业务数据
     @NameInMap("biz_content")
-    public Long bizContent;
+    public String bizContent;
 
     // 响应时间
     @NameInMap("timestamp")
@@ -81,11 +81,11 @@ public class QueryDubbridgeRepaymentLxResponse extends TeaModel {
         return this.msg;
     }
 
-    public QueryDubbridgeRepaymentLxResponse setBizContent(Long bizContent) {
+    public QueryDubbridgeRepaymentLxResponse setBizContent(String bizContent) {
         this.bizContent = bizContent;
         return this;
     }
-    public Long getBizContent() {
+    public String getBizContent() {
         return this.bizContent;
     }
 

@@ -18,7 +18,7 @@ public class QueryDubbridgeCreditamtLxResponse extends TeaModel {
 
     // 业务返回码，001 请求成功 002 请求失败
     @NameInMap("code")
-    public Long code;
+    public String code;
 
     // 返回描述信息
     @NameInMap("msg")
@@ -65,11 +65,11 @@ public class QueryDubbridgeCreditamtLxResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryDubbridgeCreditamtLxResponse setCode(Long code) {
+    public QueryDubbridgeCreditamtLxResponse setCode(String code) {
         this.code = code;
         return this;
     }
-    public Long getCode() {
+    public String getCode() {
         return this.code;
     }
 
