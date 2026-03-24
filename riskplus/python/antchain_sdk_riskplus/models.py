@@ -26449,7 +26449,7 @@ class ApplyDubbridgeRepaywithholdLxResponse(TeaModel):
         result_msg: str = None,
         code: str = None,
         msg: str = None,
-        biz_content: int = None,
+        biz_content: str = None,
         timestamp: str = None,
         sign: str = None,
     ):
@@ -26851,7 +26851,7 @@ class QueryDubbridgeRepaymentLxResponse(TeaModel):
         result_msg: str = None,
         ccode: str = None,
         msg: str = None,
-        biz_content: int = None,
+        biz_content: str = None,
         timestamp: str = None,
         sign: str = None,
     ):
@@ -26983,7 +26983,7 @@ class QueryDubbridgeCreditamtLxResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        code: int = None,
+        code: str = None,
         msg: str = None,
         biz_content: str = None,
         timestamp: str = None,
