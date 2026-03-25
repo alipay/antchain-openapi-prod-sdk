@@ -20518,6 +20518,79 @@ export class QueryRfcOdpsLindormResponse extends $tea.Model {
   }
 }
 
+export class UploadRfcAiboundConvertRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // fileId
+  fileObject?: Readable;
+  fileObjectName?: string;
+  fileId: string;
+  // 参数，jsonString
+  params: string;
+  // 外呼为 AI_BOUND
+  type: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      fileObject: 'fileObject',
+      fileObjectName: 'fileObjectName',
+      fileId: 'file_id',
+      params: 'params',
+      type: 'type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      fileObject: 'Readable',
+      fileObjectName: 'string',
+      fileId: 'string',
+      params: 'string',
+      type: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadRfcAiboundConvertResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // content
+  content?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      content: 'content',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      content: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryRbbGenericInvokeRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -29104,11 +29177,14 @@ export class UploadUmktOfflinedecisionResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
+  // 任务唯一id
+  taskUuid?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
+      taskUuid: 'task_uuid',
     };
   }
 
@@ -29117,6 +29193,7 @@ export class UploadUmktOfflinedecisionResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
+      taskUuid: 'string',
     };
   }
 
@@ -29754,7 +29831,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.31.2",
+          sdk_version: "1.31.4",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
@@ -33029,6 +33106,47 @@ export default class Client {
   async queryRfcOdpsLindormEx(request: QueryRfcOdpsLindormRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryRfcOdpsLindormResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryRfcOdpsLindormResponse>(await this.doRequest("1.0", "riskplus.rfc.odps.lindorm.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryRfcOdpsLindormResponse({}));
+  }
+
+  /**
+   * Description: rfc外呼转化数据上传接口
+   * Summary: rfc外呼转化数据上传接口
+   */
+  async uploadRfcAiboundConvert(request: UploadRfcAiboundConvertRequest): Promise<UploadRfcAiboundConvertResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.uploadRfcAiboundConvertEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: rfc外呼转化数据上传接口
+   * Summary: rfc外呼转化数据上传接口
+   */
+  async uploadRfcAiboundConvertEx(request: UploadRfcAiboundConvertRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UploadRfcAiboundConvertResponse> {
+    if (!Util.isUnset(request.fileObject)) {
+      let uploadReq = new CreateAntcloudGatewayxFileUploadRequest({
+        authToken: request.authToken,
+        apiCode: "riskplus.rfc.aibound.convert.upload",
+        fileName: request.fileObjectName,
+      });
+      let uploadResp = await this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+      if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+        let uploadRfcAiboundConvertResponse = new UploadRfcAiboundConvertResponse({
+          reqMsgId: uploadResp.reqMsgId,
+          resultCode: uploadResp.resultCode,
+          resultMsg: uploadResp.resultMsg,
+        });
+        return uploadRfcAiboundConvertResponse;
+      }
+
+      let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+      await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+      request.fileId = uploadResp.fileId;
+      request.fileObject = null;
+    }
+
+    Util.validateModel(request);
+    return $tea.cast<UploadRfcAiboundConvertResponse>(await this.doRequest("1.0", "riskplus.rfc.aibound.convert.upload", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UploadRfcAiboundConvertResponse({}));
   }
 
   /**
