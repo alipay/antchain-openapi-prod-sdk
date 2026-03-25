@@ -36669,6 +36669,8 @@ type ApplyTechintegrationSkushipemptymodelbyuidRequest struct {
 	CertType *int64 `json:"cert_type,omitempty" xml:"cert_type,omitempty"`
 	// id2 authCode
 	Id2 *string `json:"id2,omitempty" xml:"id2,omitempty"`
+	// 设备身份标识（硬件特征uid），用于风控追溯
+	DeviceIdentity *string `json:"device_identity,omitempty" xml:"device_identity,omitempty" require:"true"`
 }
 
 func (s ApplyTechintegrationSkushipemptymodelbyuidRequest) String() string {
@@ -36716,6 +36718,11 @@ func (s *ApplyTechintegrationSkushipemptymodelbyuidRequest) SetCertType(v int64)
 
 func (s *ApplyTechintegrationSkushipemptymodelbyuidRequest) SetId2(v string) *ApplyTechintegrationSkushipemptymodelbyuidRequest {
 	s.Id2 = &v
+	return s
+}
+
+func (s *ApplyTechintegrationSkushipemptymodelbyuidRequest) SetDeviceIdentity(v string) *ApplyTechintegrationSkushipemptymodelbyuidRequest {
+	s.DeviceIdentity = &v
 	return s
 }
 
@@ -38759,7 +38766,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.12.76"),
+				"sdk_version":      tea.String("1.12.77"),
 				"_prod_code":       tea.String("BOT"),
 				"_prod_channel":    tea.String("undefined"),
 			}
