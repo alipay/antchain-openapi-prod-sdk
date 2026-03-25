@@ -54,6 +54,12 @@ class ApplyTechintegrationSkushipemptymodelbyuidRequest extends Model
      * @var string
      */
     public $id2;
+
+    // 设备身份标识（硬件特征uid），用于风控追溯
+    /**
+     * @var string
+     */
+    public $deviceIdentity;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -63,6 +69,7 @@ class ApplyTechintegrationSkushipemptymodelbyuidRequest extends Model
         'productType'       => 'product_type',
         'certType'          => 'cert_type',
         'id2'               => 'id2',
+        'deviceIdentity'    => 'device_identity',
     ];
 
     public function validate()
@@ -70,6 +77,7 @@ class ApplyTechintegrationSkushipemptymodelbyuidRequest extends Model
         Model::validateRequired('vendorId', $this->vendorId, true);
         Model::validateRequired('productId', $this->productId, true);
         Model::validateRequired('deviceId', $this->deviceId, true);
+        Model::validateRequired('deviceIdentity', $this->deviceIdentity, true);
     }
 
     public function toMap()
@@ -98,6 +106,9 @@ class ApplyTechintegrationSkushipemptymodelbyuidRequest extends Model
         }
         if (null !== $this->id2) {
             $res['id2'] = $this->id2;
+        }
+        if (null !== $this->deviceIdentity) {
+            $res['device_identity'] = $this->deviceIdentity;
         }
 
         return $res;
@@ -134,6 +145,9 @@ class ApplyTechintegrationSkushipemptymodelbyuidRequest extends Model
         }
         if (isset($map['id2'])) {
             $model->id2 = $map['id2'];
+        }
+        if (isset($map['device_identity'])) {
+            $model->deviceIdentity = $map['device_identity'];
         }
 
         return $model;
