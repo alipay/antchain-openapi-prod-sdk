@@ -38,6 +38,11 @@ public class ApplyTechintegrationSkushipemptymodelbyuidRequest extends TeaModel 
     @NameInMap("id2")
     public String id2;
 
+    // 设备身份标识（硬件特征uid），用于风控追溯
+    @NameInMap("device_identity")
+    @Validation(required = true)
+    public String deviceIdentity;
+
     public static ApplyTechintegrationSkushipemptymodelbyuidRequest build(java.util.Map<String, ?> map) throws Exception {
         ApplyTechintegrationSkushipemptymodelbyuidRequest self = new ApplyTechintegrationSkushipemptymodelbyuidRequest();
         return TeaModel.build(map, self);
@@ -105,6 +110,14 @@ public class ApplyTechintegrationSkushipemptymodelbyuidRequest extends TeaModel 
     }
     public String getId2() {
         return this.id2;
+    }
+
+    public ApplyTechintegrationSkushipemptymodelbyuidRequest setDeviceIdentity(String deviceIdentity) {
+        this.deviceIdentity = deviceIdentity;
+        return this;
+    }
+    public String getDeviceIdentity() {
+        return this.deviceIdentity;
     }
 
 }
