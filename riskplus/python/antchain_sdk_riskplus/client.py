@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.31.2',
+                    'sdk_version': '1.31.4',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.31.2',
+                    'sdk_version': '1.31.4',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -9617,6 +9617,98 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.QueryRfcOdpsLindormResponse(),
             await self.do_request_async('1.0', 'riskplus.rfc.odps.lindorm.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def upload_rfc_aibound_convert(
+        self,
+        request: riskplus_models.UploadRfcAiboundConvertRequest,
+    ) -> riskplus_models.UploadRfcAiboundConvertResponse:
+        """
+        Description: rfc外呼转化数据上传接口
+        Summary: rfc外呼转化数据上传接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.upload_rfc_aibound_convert_ex(request, headers, runtime)
+
+    async def upload_rfc_aibound_convert_async(
+        self,
+        request: riskplus_models.UploadRfcAiboundConvertRequest,
+    ) -> riskplus_models.UploadRfcAiboundConvertResponse:
+        """
+        Description: rfc外呼转化数据上传接口
+        Summary: rfc外呼转化数据上传接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.upload_rfc_aibound_convert_ex_async(request, headers, runtime)
+
+    def upload_rfc_aibound_convert_ex(
+        self,
+        request: riskplus_models.UploadRfcAiboundConvertRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.UploadRfcAiboundConvertResponse:
+        """
+        Description: rfc外呼转化数据上传接口
+        Summary: rfc外呼转化数据上传接口
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = riskplus_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='riskplus.rfc.aibound.convert.upload',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                upload_rfc_aibound_convert_response = riskplus_models.UploadRfcAiboundConvertResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return upload_rfc_aibound_convert_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.UploadRfcAiboundConvertResponse(),
+            self.do_request('1.0', 'riskplus.rfc.aibound.convert.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def upload_rfc_aibound_convert_ex_async(
+        self,
+        request: riskplus_models.UploadRfcAiboundConvertRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.UploadRfcAiboundConvertResponse:
+        """
+        Description: rfc外呼转化数据上传接口
+        Summary: rfc外呼转化数据上传接口
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = riskplus_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='riskplus.rfc.aibound.convert.upload',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                upload_rfc_aibound_convert_response = riskplus_models.UploadRfcAiboundConvertResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return upload_rfc_aibound_convert_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.UploadRfcAiboundConvertResponse(),
+            await self.do_request_async('1.0', 'riskplus.rfc.aibound.convert.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_rbb_generic_invoke(
