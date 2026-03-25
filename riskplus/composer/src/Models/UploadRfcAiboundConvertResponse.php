@@ -6,7 +6,7 @@ namespace AntChain\RISKPLUS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class UploadUmktOfflinedecisionResponse extends Model
+class UploadRfcAiboundConvertResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,16 +26,16 @@ class UploadUmktOfflinedecisionResponse extends Model
      */
     public $resultMsg;
 
-    // 任务唯一id
+    // content
     /**
      * @var string
      */
-    public $taskUuid;
+    public $content;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'taskUuid'   => 'task_uuid',
+        'content'    => 'content',
     ];
 
     public function validate()
@@ -54,8 +54,8 @@ class UploadUmktOfflinedecisionResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->taskUuid) {
-            $res['task_uuid'] = $this->taskUuid;
+        if (null !== $this->content) {
+            $res['content'] = $this->content;
         }
 
         return $res;
@@ -64,7 +64,7 @@ class UploadUmktOfflinedecisionResponse extends Model
     /**
      * @param array $map
      *
-     * @return UploadUmktOfflinedecisionResponse
+     * @return UploadRfcAiboundConvertResponse
      */
     public static function fromMap($map = [])
     {
@@ -78,8 +78,8 @@ class UploadUmktOfflinedecisionResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['task_uuid'])) {
-            $model->taskUuid = $map['task_uuid'];
+        if (isset($map['content'])) {
+            $model->content = $map['content'];
         }
 
         return $model;

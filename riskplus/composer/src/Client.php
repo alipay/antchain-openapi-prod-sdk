@@ -553,6 +553,8 @@ use AntChain\RISKPLUS\Models\UploadQmpOfflinehostplanRequest;
 use AntChain\RISKPLUS\Models\UploadQmpOfflinehostplanResponse;
 use AntChain\RISKPLUS\Models\UploadRbbFileAmapRequest;
 use AntChain\RISKPLUS\Models\UploadRbbFileAmapResponse;
+use AntChain\RISKPLUS\Models\UploadRfcAiboundConvertRequest;
+use AntChain\RISKPLUS\Models\UploadRfcAiboundConvertResponse;
 use AntChain\RISKPLUS\Models\UploadRfcAiboundFileRequest;
 use AntChain\RISKPLUS\Models\UploadRfcAiboundFileResponse;
 use AntChain\RISKPLUS\Models\UploadUmktOfflinedecisionRequest;
@@ -714,7 +716,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.31.2',
+                    'sdk_version'      => '1.31.4',
                     '_prod_code'       => 'RISKPLUS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -6253,6 +6255,58 @@ class Client
         Utils::validateModel($request);
 
         return QueryRfcOdpsLindormResponse::fromMap($this->doRequest('1.0', 'riskplus.rfc.odps.lindorm.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: rfc外呼转化数据上传接口
+     * Summary: rfc外呼转化数据上传接口.
+     *
+     * @param UploadRfcAiboundConvertRequest $request
+     *
+     * @return UploadRfcAiboundConvertResponse
+     */
+    public function uploadRfcAiboundConvert($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->uploadRfcAiboundConvertEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: rfc外呼转化数据上传接口
+     * Summary: rfc外呼转化数据上传接口.
+     *
+     * @param UploadRfcAiboundConvertRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return UploadRfcAiboundConvertResponse
+     */
+    public function uploadRfcAiboundConvertEx($request, $headers, $runtime)
+    {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'riskplus.rfc.aibound.convert.upload',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
+                return new UploadRfcAiboundConvertResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
+        }
+        Utils::validateModel($request);
+
+        return UploadRfcAiboundConvertResponse::fromMap($this->doRequest('1.0', 'riskplus.rfc.aibound.convert.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
