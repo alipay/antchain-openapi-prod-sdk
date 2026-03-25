@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.12.76',
+    sdk_version = '1.12.77',
     _prod_code = 'BOT',
     _prod_channel = 'undefined'
   };
@@ -16104,6 +16104,8 @@ model ApplyTechintegrationSkushipemptymodelbyuidRequest = {
   certType?: long(name='cert_type'),
   // id2 authCode
   id2?: string(name='id2'),
+  // 设备身份标识（硬件特征uid），用于风控追溯
+  deviceIdentity: string(name='device_identity'),
 }
 
 model ApplyTechintegrationSkushipemptymodelbyuidResponse = {
