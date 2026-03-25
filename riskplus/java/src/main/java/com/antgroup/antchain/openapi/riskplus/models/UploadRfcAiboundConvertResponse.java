@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.riskplus.models;
 
 import com.aliyun.tea.*;
 
-public class UploadUmktOfflinedecisionResponse extends TeaModel {
+public class UploadRfcAiboundConvertResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,16 @@ public class UploadUmktOfflinedecisionResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 任务唯一id
-    @NameInMap("task_uuid")
-    public String taskUuid;
+    // content
+    @NameInMap("content")
+    public String content;
 
-    public static UploadUmktOfflinedecisionResponse build(java.util.Map<String, ?> map) throws Exception {
-        UploadUmktOfflinedecisionResponse self = new UploadUmktOfflinedecisionResponse();
+    public static UploadRfcAiboundConvertResponse build(java.util.Map<String, ?> map) throws Exception {
+        UploadRfcAiboundConvertResponse self = new UploadRfcAiboundConvertResponse();
         return TeaModel.build(map, self);
     }
 
-    public UploadUmktOfflinedecisionResponse setReqMsgId(String reqMsgId) {
+    public UploadRfcAiboundConvertResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class UploadUmktOfflinedecisionResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public UploadUmktOfflinedecisionResponse setResultCode(String resultCode) {
+    public UploadRfcAiboundConvertResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class UploadUmktOfflinedecisionResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public UploadUmktOfflinedecisionResponse setResultMsg(String resultMsg) {
+    public UploadRfcAiboundConvertResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,12 +49,12 @@ public class UploadUmktOfflinedecisionResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public UploadUmktOfflinedecisionResponse setTaskUuid(String taskUuid) {
-        this.taskUuid = taskUuid;
+    public UploadRfcAiboundConvertResponse setContent(String content) {
+        this.content = content;
         return this;
     }
-    public String getTaskUuid() {
-        return this.taskUuid;
+    public String getContent() {
+        return this.content;
     }
 
 }
