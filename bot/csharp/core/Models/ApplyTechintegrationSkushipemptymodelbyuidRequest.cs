@@ -48,6 +48,11 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string Id2 { get; set; }
 
+        // 设备身份标识（硬件特征uid），用于风控追溯
+        [NameInMap("device_identity")]
+        [Validation(Required=true)]
+        public string DeviceIdentity { get; set; }
+
     }
 
 }
