@@ -28067,6 +28067,8 @@ export class ApplyTechintegrationSkushipemptymodelbyuidRequest extends $tea.Mode
   certType?: number;
   // id2 authCode
   id2?: string;
+  // 设备身份标识（硬件特征uid），用于风控追溯
+  deviceIdentity: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -28077,6 +28079,7 @@ export class ApplyTechintegrationSkushipemptymodelbyuidRequest extends $tea.Mode
       productType: 'product_type',
       certType: 'cert_type',
       id2: 'id2',
+      deviceIdentity: 'device_identity',
     };
   }
 
@@ -28090,6 +28093,7 @@ export class ApplyTechintegrationSkushipemptymodelbyuidRequest extends $tea.Mode
       productType: 'number',
       certType: 'number',
       id2: 'string',
+      deviceIdentity: 'string',
     };
   }
 
@@ -29701,7 +29705,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.12.76",
+          sdk_version: "1.12.77",
           _prod_code: "BOT",
           _prod_channel: "undefined",
         };
