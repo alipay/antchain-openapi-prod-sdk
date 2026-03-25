@@ -45863,6 +45863,7 @@ class ApplyTechintegrationSkushipemptymodelbyuidRequest(TeaModel):
         product_type: int = None,
         cert_type: int = None,
         id_2: str = None,
+        device_identity: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -45879,11 +45880,14 @@ class ApplyTechintegrationSkushipemptymodelbyuidRequest(TeaModel):
         self.cert_type = cert_type
         # id2 authCode
         self.id_2 = id_2
+        # 设备身份标识（硬件特征uid），用于风控追溯
+        self.device_identity = device_identity
 
     def validate(self):
         self.validate_required(self.vendor_id, 'vendor_id')
         self.validate_required(self.product_id, 'product_id')
         self.validate_required(self.device_id, 'device_id')
+        self.validate_required(self.device_identity, 'device_identity')
 
     def to_map(self):
         _map = super().to_map()
@@ -45907,6 +45911,8 @@ class ApplyTechintegrationSkushipemptymodelbyuidRequest(TeaModel):
             result['cert_type'] = self.cert_type
         if self.id_2 is not None:
             result['id2'] = self.id_2
+        if self.device_identity is not None:
+            result['device_identity'] = self.device_identity
         return result
 
     def from_map(self, m: dict = None):
@@ -45927,6 +45933,8 @@ class ApplyTechintegrationSkushipemptymodelbyuidRequest(TeaModel):
             self.cert_type = m.get('cert_type')
         if m.get('id2') is not None:
             self.id_2 = m.get('id2')
+        if m.get('device_identity') is not None:
+            self.device_identity = m.get('device_identity')
         return self
 
 
