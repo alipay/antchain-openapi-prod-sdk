@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.19',
+    sdk_version = '1.0.20',
     _prod_code = 'INTELLICAR',
     _prod_channel = 'default'
   };
@@ -525,7 +525,7 @@ model SpecResult {
   // 下一页数据拉取传递的值
   afterSpecId: string(name='after_spec_id', example='10001'),
   // 车型Id列表
-  specList: SpecList(name='spec_list', example=''),
+  specList: [ SpecList ](name='spec_list', example=''),
 }
 
 // 充电报告查询
@@ -1150,7 +1150,7 @@ model QueryNewcarQczjResponse = {
   // 城市结果结构体
   cityResult?: [ CityResult ](name='city_result'),
   // 车型结果结构体
-  specResult?: [ SpecList ](name='spec_result'),
+  specResult?: SpecResult(name='spec_result'),
 }
 
 /**
