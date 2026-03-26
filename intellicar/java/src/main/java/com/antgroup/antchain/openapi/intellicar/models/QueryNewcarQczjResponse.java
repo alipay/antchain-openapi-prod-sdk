@@ -30,7 +30,7 @@ public class QueryNewcarQczjResponse extends TeaModel {
 
     // 车型结果结构体
     @NameInMap("spec_result")
-    public java.util.List<SpecList> specResult;
+    public SpecResult specResult;
 
     public static QueryNewcarQczjResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryNewcarQczjResponse self = new QueryNewcarQczjResponse();
@@ -85,11 +85,11 @@ public class QueryNewcarQczjResponse extends TeaModel {
         return this.cityResult;
     }
 
-    public QueryNewcarQczjResponse setSpecResult(java.util.List<SpecList> specResult) {
+    public QueryNewcarQczjResponse setSpecResult(SpecResult specResult) {
         this.specResult = specResult;
         return this;
     }
-    public java.util.List<SpecList> getSpecResult() {
+    public SpecResult getSpecResult() {
         return this.specResult;
     }
 

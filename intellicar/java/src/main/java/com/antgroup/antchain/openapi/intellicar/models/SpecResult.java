@@ -16,7 +16,7 @@ public class SpecResult extends TeaModel {
     // 车型Id列表
     @NameInMap("spec_list")
     @Validation(required = true)
-    public SpecList specList;
+    public java.util.List<SpecList> specList;
 
     public static SpecResult build(java.util.Map<String, ?> map) throws Exception {
         SpecResult self = new SpecResult();
@@ -31,11 +31,11 @@ public class SpecResult extends TeaModel {
         return this.afterSpecId;
     }
 
-    public SpecResult setSpecList(SpecList specList) {
+    public SpecResult setSpecList(java.util.List<SpecList> specList) {
         this.specList = specList;
         return this;
     }
-    public SpecList getSpecList() {
+    public java.util.List<SpecList> getSpecList() {
         return this.specList;
     }
 
