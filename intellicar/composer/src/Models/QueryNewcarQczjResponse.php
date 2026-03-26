@@ -46,7 +46,7 @@ class QueryNewcarQczjResponse extends Model
 
     // 车型结果结构体
     /**
-     * @var SpecList[]
+     * @var SpecResult
      */
     public $specResult;
     protected $_name = [
@@ -91,13 +91,7 @@ class QueryNewcarQczjResponse extends Model
             }
         }
         if (null !== $this->specResult) {
-            $res['spec_result'] = [];
-            if (null !== $this->specResult && \is_array($this->specResult)) {
-                $n = 0;
-                foreach ($this->specResult as $item) {
-                    $res['spec_result'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
+            $res['spec_result'] = null !== $this->specResult ? $this->specResult->toMap() : null;
         }
 
         return $res;
@@ -136,13 +130,7 @@ class QueryNewcarQczjResponse extends Model
             }
         }
         if (isset($map['spec_result'])) {
-            if (!empty($map['spec_result'])) {
-                $model->specResult = [];
-                $n                 = 0;
-                foreach ($map['spec_result'] as $item) {
-                    $model->specResult[$n++] = null !== $item ? SpecList::fromMap($item) : $item;
-                }
-            }
+            $model->specResult = SpecResult::fromMap($map['spec_result']);
         }
 
         return $model;

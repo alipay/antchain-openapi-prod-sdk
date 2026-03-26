@@ -20,7 +20,7 @@ class SpecResult extends Model
     /**
      * @example
      *
-     * @var SpecList
+     * @var SpecList[]
      */
     public $specList;
     protected $_name = [
@@ -41,7 +41,13 @@ class SpecResult extends Model
             $res['after_spec_id'] = $this->afterSpecId;
         }
         if (null !== $this->specList) {
-            $res['spec_list'] = null !== $this->specList ? $this->specList->toMap() : null;
+            $res['spec_list'] = [];
+            if (null !== $this->specList && \is_array($this->specList)) {
+                $n = 0;
+                foreach ($this->specList as $item) {
+                    $res['spec_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -59,7 +65,13 @@ class SpecResult extends Model
             $model->afterSpecId = $map['after_spec_id'];
         }
         if (isset($map['spec_list'])) {
-            $model->specList = SpecList::fromMap($map['spec_list']);
+            if (!empty($map['spec_list'])) {
+                $model->specList = [];
+                $n               = 0;
+                foreach ($map['spec_list'] as $item) {
+                    $model->specList[$n++] = null !== $item ? SpecList::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;
