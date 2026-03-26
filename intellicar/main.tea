@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.15',
+    sdk_version = '1.0.19',
     _prod_code = 'INTELLICAR',
     _prod_channel = 'default'
   };
@@ -161,6 +161,69 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   ignoreSSL = runtime.ignoreSSL
 }
 
+// 高德潜客uv指数
+model GdCustomerUv {
+  // uv指数数量
+  total: long(name='total', example='36'),
+  // uv指数数量
+  count: long(name='count', example='10'),
+  // uv指数排序
+  // 
+  sort: long(name='sort', example='1'),
+}
+
+// 高德潜客record重叠指数pv指数
+model GdCustomerPv {
+  // 重叠指数pv历史指数数量（时间类型为季度、半年、年时，不展示）
+  total: long(name='total', example='36'),
+  // 重叠指数pv指数数量
+  count: long(name='count', example='10'),
+  // 重叠指数pv指数排序
+  sort: long(name='sort', example='1'),
+}
+
+// 高德流出指数
+model GdDest {
+  // 流出指数uv指数
+  uv: GdCustomerUv(name='uv', example=''),
+  // 流出指数pv指数
+  pv: GdCustomerPv(name='pv', example=''),
+  // 流出品牌id
+  brandId: string(name='brand_id', example='103'),
+  // 流出店铺id，数据类型为店铺时返回该属性与值
+  shopId: string(name='shop_id', example='26nZz8dsa4'),
+  // 城市编码，数据类型为店铺或者城市时返回该属性与值
+  citycode: string(name='citycode', example='021'),
+}
+
+// 高德潜客record流入指数
+model GdSrc {
+  // 流入指数uv指数
+  uv: GdCustomerUv(name='uv', example=''),
+  // 流入指数pv指数
+  pv: GdCustomerPv(name='pv', example=''),
+  // 流入品牌id
+  brandId: string(name='brand_id', example='106'),
+  // 流入店铺id，数据类型为店铺时返回该属性与值
+  shopId: string(name='shop_id', example='26mMw8duxn'),
+  // 流入城市编码，数据类型为店铺或者城市时返回该属性与值
+  citycode: string(name='citycode', example='021'),
+}
+
+// 高德潜客record重叠指数
+model Overlap {
+  // 重叠指数uv指数
+  uv: GdCustomerUv(name='uv', example=''),
+  // 重叠指数pv指数
+  pv: GdCustomerPv(name='pv', example=''),
+  // 重叠品牌id
+  brandId: string(name='brand_id', example='104'),
+  // 重叠店铺id，数据类型为店铺时返回该属性与值
+  shopId: string(name='shop_id', example='26nhJ8duzh'),
+  // 重叠城市编码，数据类型为城市时返回该属性与值
+  citycode: string(name='citycode', example='021'),
+}
+
 // 用户信息
 model CarUserInfo {
   // 唯一标识用户的id
@@ -177,6 +240,108 @@ model CarUserInfo {
   userGender?: string(name='user_gender', example='girl'),
   // 昵称
   nick?: string(name='nick', example='xxxxx'),
+}
+
+// 城市列表
+model SpecList {
+  // 品牌Id
+  brandId: string(name='brand_id', example='1'),
+  // 品牌名称
+  brandName: string(name='brand_name', example='宝马'),
+  // 厂商id
+  factoryId: string(name='factory_id', example='1'),
+  // 厂商名称
+  factoryName: string(name='factory_name', example='华晨宝马'),
+  // 车系id
+  seriesId: string(name='series_id', example='100'),
+  // 车系名称
+  seriesName: string(name='series_name', example='宝马X5'),
+  // 车型Id
+  specId: string(name='spec_id', example='1001'),
+  // 车型名称
+  specName: string(name='spec_name', example='2026款 改款 xDrive 40Li M运动曜夜套装'),
+}
+
+// 电池报告返回数据详情
+model BatteryReportData {
+  // VIN码
+  vinCode: string(name='vin_code', example='-'),
+  // 评估时间，报告生成时间 yyyy-MM-dd HH:mm:ss
+  evaluateTime: string(name='evaluate_time', example='-'),
+  // 当前 SOH（%），数值 0-100
+  currentSoh: string(name='current_soh', example='12'),
+  // SOH 评级：优秀 100-95 良好 95-90 中等 90-85 较差 85-80 差 80 以下
+  sohLvStr: string(name='soh_lv_str', example='-'),
+  // 电池衰退水平值
+  volumeScoreRecession: string(name='volume_score_recession', example='1'),
+  // 安全风险水平：低 较低 较高 高
+  volumeScoreRecessionLvStr: string(name='volume_score_recession_lv_str', example='-'),
+  // 安全风险水平解读文案
+  volumeScoreRecessionNarrate: string(name='volume_score_recession_narrate', example='-'),
+  // 保障状态 0：未保障 1：保障中 2：保障结束
+  safeguardStatus: long(name='safeguard_status', example=''),
+  // 保障截止期 yyyy-MM-dd HH:mm:ss
+  safeguardEndTime: string(name='safeguard_end_time', example='-'),
+  // 本轮首检 SOH（%）数值 0-100
+  initialSoh: string(name='initial_soh', example='1'),
+  // 本轮首检 评估时间 yyyy-MM-dd HH:mm:ss
+  initialSohEvaluateTime: string(name='initial_soh_evaluate_time', example='-'),
+  // 本轮首检 充电单号
+  initialChargeSeq: string(name='initial_charge_seq', example='-'),
+  // 触发赔付 SOH（%），数值 0-100
+  sageguardMaxSubSoh: string(name='sageguard_max_sub_soh', example='1'),
+  // 是否触发赔付，当前 SOH≤触发赔付 SOH 时为 true
+  compensationTriggered: boolean(name='compensation_triggered', example='true, false'),
+  // SOH 衰退预测-X 轴标题（年）
+  yearSohTitle: [ string ](name='year_soh_title', example=''),
+  // 本车电池衰退预测，逐年 SOH（%）
+  curEstimateYearSoh: [ string ](name='cur_estimate_year_soh', example=''),
+  // 同类型车电池衰退预测，逐年 SOH（%）
+  peerEstimateYearSoh: [ string ](name='peer_estimate_year_soh', example=''),
+  // 电池厂商
+  batteryManufacturer: string(name='battery_manufacturer', example='-'),
+  // 标称能量，单位 kWh
+  nominalEnergy: string(name='nominal_energy', example='1'),
+  // 标称容量，单位 Ah
+  rateCapacity: string(name='rate_capacity', example='1'),
+  // 电池类型
+  batteryType: string(name='battery_type', example='-'),
+  // 车辆生产年份
+  manufacturerDate: string(name='manufacturer_date', example='-'),
+  // 权益说明文案
+  rightsDesc: string(name='rights_desc', example='-'),
+}
+
+// 高德数据集合内record
+model GdCustomersRecord {
+  // 城市编码，数据类型为店铺或者城市时返回该属性与值
+  citycode: string(name='citycode', example='021'),
+  // 品牌id
+  brandId: string(name='brand_id', example='104'),
+  // 店铺id，数据类型为店铺或者店铺品牌时返回该属性与值
+  shopId: string(name='shop_id', example='26nhJ8duzh'),
+  // 时间（时间类型为天时：yyyyMMdd；时间类型为周时：yyyyWW；时间类型为月时：yyyyMM）
+  time: string(name='time', example='20230102'),
+  // 重叠指数集合
+  overlapList: [ Overlap ](name='overlap_list', example=''),
+  // 重叠指数集合条数
+  overlapListNum: string(name='overlap_list_num', example='2'),
+  // 流入指数集合
+  srcList: [ GdSrc ](name='src_list', example=''),
+  // 流入指数条数
+  srcListNum: string(name='src_list_num', example='2'),
+  // 流出指数集合
+  destList: GdDest(name='dest_list', example=''),
+  // 流出指数条数
+  destListNum: string(name='dest_list_num', example='2'),
+}
+
+// 汽车之家城市信息
+model CityResult {
+  // 城市Id
+  cityId: string(name='city_id', example='110000'),
+  // 城市名称
+  cityName: string(name='city_name', example='北京'),
 }
 
 // 新车线索集合
@@ -199,6 +364,22 @@ model NewCarInfo {
   qcCarSeriesId?: string(name='qc_car_series_id', example='123'),
 }
 
+// 电池衰退报告结果
+model BatteryReportResult {
+  // 订单号 (可使用该 ID 将报告转图片)
+  orderId: string(name='order_id', example='-'),
+  // 保障码，VIN 在 7 天内首次检测时生成，每轮保障采用同一保障码
+  guaranteeCode: string(name='guarantee_code', example='-'),
+  // 当前充电单号
+  currentStartChargeSeq: string(name='current_start_charge_seq', example='-'),
+  // 是否计费
+  charge: boolean(name='charge', example='true, false'),
+  // 检测类型 6601：首检 6602：复核
+  checkType: long(name='check_type', example='6601'),
+  // 报告数据
+  data: BatteryReportData(name='data', example=''),
+}
+
 // 车信息
 model BasicCarInfo {
   // 车牌号
@@ -215,18 +396,6 @@ model BasicCarInfo {
   useNatureCode: string(name='use_nature_code', example='xxxxx'),
   // 是否抵押
   mortgage?: boolean(name='mortgage', example='true, false'),
-}
-
-// 常岳用户结构体
-model CyUserInfo {
-  // 用户id
-  userId: string(name='user_id', example='xxx'),
-  // 用户名
-  userName?: string(name='user_name', example='xxxx'),
-  // 证件号
-  idCard?: string(name='id_card', example='xxx'),
-  // 手机号
-  phoneNum: string(name='phone_num', example='xxx'),
 }
 
 // 用户基本信息
@@ -275,22 +444,6 @@ model CarBusinessPrice {
   extraContent?: string(name='extra_content', example='{"xx":""}'),
 }
 
-// 二手车估价信息
-model UsedCarValuation {
-  // 评估金额(万)
-  referenceprice: string(name='referenceprice', example='1.15-1.43'),
-  // 官方报价(参考)(万)
-  newcarprice: string(name='newcarprice', example='54.5'),
-  // 车型图片(参考)
-  url: string(name='url', example='"http://car0.autoimg.cn/cardfs/product/g32/M08/A5/55/t_autohomecar__ChxkPmZijMqAMuHJAALTBQ2Tti4239.jpg"'),
-  // 车况好(万)(三个价格用"-"分隔,第一个是较小值第二个是...
-  conditiona: string(name='conditiona', example='1.30-1.38-1.45'),
-  // 车况正常(万)
-  conditionb: string(name='conditionb', example='1.18-1.29-1.41'),
-  // 车况差(万)
-  conditionc: string(name='conditionc', example='1.04-1.16-1.28'),
-}
-
 // 二手车
 model UsedCarInfo {
   // 渠道方线索业务id
@@ -337,6 +490,102 @@ model CarInfo {
   registerDate: string(name='register_date', example='xxx'),
   // 车型
   modelCode: string(name='model_code', example='xxx'),
+}
+
+// 高德潜客流向数据返回数据对象
+model GdCustomerInfo {
+  // 时间范围（查询年度数据时，返回该字段）
+  timeRange?: string(name='time_range', example='xxxx'),
+  // 数据总数
+  total: long(name='total', example='638'),
+  // 当前展示页
+  current: long(name='current', example='1'),
+  // 数据总页数
+  pages: long(name='pages', example='638'),
+  // 每页显示数据条数
+  size: long(name='size', example='1'),
+  // 数据集合
+  records: [ GdCustomersRecord ](name='records', example=''),
+}
+
+// 常岳用户结构体
+model CyUserInfo {
+  // 用户id
+  userId: string(name='user_id', example='xxx'),
+  // 用户名
+  userName?: string(name='user_name', example='xxxx'),
+  // 证件号
+  idCard?: string(name='id_card', example='xxx'),
+  // 手机号
+  phoneNum: string(name='phone_num', example='xxx'),
+}
+
+// 1
+model SpecResult {
+  // 下一页数据拉取传递的值
+  afterSpecId: string(name='after_spec_id', example='10001'),
+  // 车型Id列表
+  specList: SpecList(name='spec_list', example=''),
+}
+
+// 充电报告查询
+model BatteryReport {
+  // 充电单号，最大长度/规则：32
+  startChargeSeq: string(name='start_charge_seq', example='202603031234567890'),
+  // VIN，最大长度/规则：17位
+  vinCode: string(name='vin_code', example='LFV3A2***3123456'),
+  // 公告号，最大长度/规则36
+  publicationNo?: string(name='publication_no', example='BJ7000USD3-BEV'),
+  // 本次累积充电量，单位kWh；最大长度/规则：整数位<=10,小数位<=2
+  totalPower?: string(name='total_power', example='25.30'),
+  // 本次累积充入SOC（%）；最大长度/规则：0-100,小数位<=2
+  totalChargeSoc?: string(name='total_charge_soc', example='50.00'),
+  // 本次充电开始SOC(%)；最大长度/规则：0-100,小数位<=2
+  startSoc?: string(name='start_soc', example='25.00'),
+  // 本次充电截止SOC(%)；最大长度/规则：0-100,小数位<=2
+  endSoc?: string(name='end_soc', example='75.00'),
+  // 标称能量，单位kWh；最大长度/规则：0-1000,小数位<=2
+  nominalEnergy?: string(name='nominal_energy', example='60.00'),
+  // 充电城市ID；最大长度/规则：30
+  cityId?: string(name='city_id', example='-'),
+  // 注册日期；最大长度/规则：yyyy-MM-dd
+  registerDate?: string(name='register_date', example='2018-10-10'),
+}
+
+// 高德潜客请求req
+model GdCustomerFlow {
+  // 当前页面
+  current: long(name='current', example='1'),
+  // 数据类型（SHOP：店铺；CITY：城市；PROVINCE：省份；COUNTRY：全国；SHOP_BRAND：店铺品牌(仅限竞品)）
+  dataType: string(name='data_type', example='SHOP'),
+  // 时间类型（DAY：天；WEEK：周；MONTH：月；仅针对城市和店铺品牌的竞品数据支持的时间类型为，季度：QUARTER；半年：HALF；年：YEAR）
+  timeType: string(name='time_type', example='DAY'),
+  // 主品牌id
+  mainBrand: string(name='main_brand', example='102'),
+  // 时间（时间类型为天时：yyyyMMdd；时间类型为周时：yyyyWW；时间类型为月时：yyyyMM；时间类型为季度时：yyyyQQ；时间类型为半年时：yyyyBB；时间类型为年时：yyyy；）
+  time: string(name='time', example='20230103'),
+  // 品牌id，以”,”分隔
+  brandLimit: string(name='brand_limit', example='102'),
+  // 数据指数类型（pv、uv中选择，多个以”,”分隔）
+  dataLimit: string(name='data_limit', example='pv,uv'),
+  // 数据统计逻辑（0：默认值，基于本品或竞品获取；1：基于本品获取）
+  baseSelf?: long(name='base_self', example='1'),
+}
+
+// 二手车估价信息
+model UsedCarValuation {
+  // 评估金额(万)
+  referenceprice: string(name='referenceprice', example='1.15-1.43'),
+  // 官方报价(参考)(万)
+  newcarprice: string(name='newcarprice', example='54.5'),
+  // 车型图片(参考)
+  url: string(name='url', example='"http://car0.autoimg.cn/cardfs/product/g32/M08/A5/55/t_autohomecar__ChxkPmZijMqAMuHJAALTBQ2Tti4239.jpg"'),
+  // 车况好(万)(三个价格用"-"分隔,第一个是较小值第二个是...
+  conditiona: string(name='conditiona', example='1.30-1.38-1.45'),
+  // 车况正常(万)
+  conditionb: string(name='conditionb', example='1.18-1.29-1.41'),
+  // 车况差(万)
+  conditionc: string(name='conditionc', example='1.04-1.16-1.28'),
 }
 
 // 键值对
@@ -763,6 +1012,164 @@ async function submitIonchi(request: SubmitIonchiRequest): SubmitIonchiResponse 
 async function submitIonchiEx(request: SubmitIonchiRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitIonchiResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antdigital.intellicar.ionchi.submit', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryGdFlowRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户ID
+  sceneCode: string(name='scene_code'),
+  // 实际请求体
+  gdCustomerFlow: GdCustomerFlow(name='gd_customer_flow'),
+}
+
+model QueryGdFlowResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回消息
+  msg?: string(name='msg'),
+  // 返回编码，值为10000表示成功，其余值表示失败
+  code?: long(name='code'),
+  // 随机返回id
+  requestLinkId?: string(name='request_link_id'),
+  // 返回数据
+  data?: GdCustomerInfo(name='data'),
+}
+
+/**
+ * Description: 对接高德，查询潜客流向以及重叠的数据
+ * Summary: 【高德】流向与重叠数据
+ */
+async function queryGdFlow(request: QueryGdFlowRequest): QueryGdFlowResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryGdFlowEx(request, headers, runtime);
+}
+
+/**
+ * Description: 对接高德，查询潜客流向以及重叠的数据
+ * Summary: 【高德】流向与重叠数据
+ */
+async function queryGdFlowEx(request: QueryGdFlowRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryGdFlowResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.intellicar.gd.flow.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryBatteryReportRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 充电报告
+  batteryReport: BatteryReport(name='battery_report'),
+  // 桩所属运营平台
+  operatorPlatform: string(name='operator_platform'),
+  // 场站名称
+  stationName: string(name='station_name'),
+  // 场站ID
+  stationId: string(name='station_id'),
+  // 桩ID
+  pileId: string(name='pile_id'),
+  // 枪序号（充电端口号）
+  gunNo: long(name='gun_no'),
+  // 充电订单号
+  chargeOrderNo: string(name='charge_order_no'),
+  // 充电量，单位kWh
+  chargePower: string(name='charge_power'),
+  // 服务费，单位元
+  serviceFee: string(name='service_fee'),
+  // 电费，单位元
+  electricityFee: string(name='electricity_fee'),
+  // 充电开始时间
+  chargeStartTime: string(name='charge_start_time'),
+  // 充电结束时间
+  chargeEndTime: string(name='charge_end_time'),
+  // 租户场景码
+  sceneCode: string(name='scene_code'),
+}
+
+model QueryBatteryReportResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 成功或失败的编码
+  code?: string(name='code'),
+  // 成功或失败的提示语
+  msg?: string(name='msg'),
+  // 返回数据（code=100时返回）
+  result?: BatteryReportResult(name='result'),
+}
+
+/**
+ * Description: 电池衰退权益报告查询接口
+ * Summary: 电池衰退
+ */
+async function queryBatteryReport(request: QueryBatteryReportRequest): QueryBatteryReportResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryBatteryReportEx(request, headers, runtime);
+}
+
+/**
+ * Description: 电池衰退权益报告查询接口
+ * Summary: 电池衰退
+ */
+async function queryBatteryReportEx(request: QueryBatteryReportRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryBatteryReportResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.intellicar.battery.report.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryNewcarQczjRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 查询类型
+  queryType: string(name='query_type'),
+  // 批量拉取数据时，上一次返回的afterSpecId
+  afterSpecId?: string(name='after_spec_id'),
+}
+
+model QueryNewcarQczjResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 0代表成功，其余代表失败
+  returncode?: string(name='returncode'),
+  // 失败时错误消息
+  message?: string(name='message'),
+  // 城市结果结构体
+  cityResult?: [ CityResult ](name='city_result'),
+  // 车型结果结构体
+  specResult?: [ SpecList ](name='spec_result'),
+}
+
+/**
+ * Description: 用来查询汽车之家车型和城市列表
+ * Summary: 用来查询汽车之家车型和城市列表
+ */
+async function queryNewcarQczj(request: QueryNewcarQczjRequest): QueryNewcarQczjResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryNewcarQczjEx(request, headers, runtime);
+}
+
+/**
+ * Description: 用来查询汽车之家车型和城市列表
+ * Summary: 用来查询汽车之家车型和城市列表
+ */
+async function queryNewcarQczjEx(request: QueryNewcarQczjRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryNewcarQczjResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.intellicar.newcar.qczj.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateAntcloudGatewayxFileUploadRequest = {
