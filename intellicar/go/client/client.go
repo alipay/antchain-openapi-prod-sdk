@@ -1368,7 +1368,7 @@ type SpecResult struct {
 	// 下一页数据拉取传递的值
 	AfterSpecId *string `json:"after_spec_id,omitempty" xml:"after_spec_id,omitempty" require:"true"`
 	// 车型Id列表
-	SpecList *SpecList `json:"spec_list,omitempty" xml:"spec_list,omitempty" require:"true"`
+	SpecList []*SpecList `json:"spec_list,omitempty" xml:"spec_list,omitempty" require:"true" type:"Repeated"`
 }
 
 func (s SpecResult) String() string {
@@ -1384,7 +1384,7 @@ func (s *SpecResult) SetAfterSpecId(v string) *SpecResult {
 	return s
 }
 
-func (s *SpecResult) SetSpecList(v *SpecList) *SpecResult {
+func (s *SpecResult) SetSpecList(v []*SpecList) *SpecResult {
 	s.SpecList = v
 	return s
 }
@@ -2765,7 +2765,7 @@ type QueryNewcarQczjResponse struct {
 	// 城市结果结构体
 	CityResult []*CityResult `json:"city_result,omitempty" xml:"city_result,omitempty" type:"Repeated"`
 	// 车型结果结构体
-	SpecResult []*SpecList `json:"spec_result,omitempty" xml:"spec_result,omitempty" type:"Repeated"`
+	SpecResult *SpecResult `json:"spec_result,omitempty" xml:"spec_result,omitempty"`
 }
 
 func (s QueryNewcarQczjResponse) String() string {
@@ -2806,7 +2806,7 @@ func (s *QueryNewcarQczjResponse) SetCityResult(v []*CityResult) *QueryNewcarQcz
 	return s
 }
 
-func (s *QueryNewcarQczjResponse) SetSpecResult(v []*SpecList) *QueryNewcarQczjResponse {
+func (s *QueryNewcarQczjResponse) SetSpecResult(v *SpecResult) *QueryNewcarQczjResponse {
 	s.SpecResult = v
 	return s
 }
@@ -3053,7 +3053,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.19"),
+				"sdk_version":      tea.String("1.0.20"),
 				"_prod_code":       tea.String("INTELLICAR"),
 				"_prod_channel":    tea.String("default"),
 			}
