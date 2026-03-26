@@ -19,8 +19,14 @@ use AntChain\INTELLICAR\Models\ImportCarFileRequest;
 use AntChain\INTELLICAR\Models\ImportCarFileResponse;
 use AntChain\INTELLICAR\Models\PushCarloanRequest;
 use AntChain\INTELLICAR\Models\PushCarloanResponse;
+use AntChain\INTELLICAR\Models\QueryBatteryReportRequest;
+use AntChain\INTELLICAR\Models\QueryBatteryReportResponse;
 use AntChain\INTELLICAR\Models\QueryCarPriceRequest;
 use AntChain\INTELLICAR\Models\QueryCarPriceResponse;
+use AntChain\INTELLICAR\Models\QueryGdFlowRequest;
+use AntChain\INTELLICAR\Models\QueryGdFlowResponse;
+use AntChain\INTELLICAR\Models\QueryNewcarQczjRequest;
+use AntChain\INTELLICAR\Models\QueryNewcarQczjResponse;
 use AntChain\INTELLICAR\Models\QueryUsedcarRequest;
 use AntChain\INTELLICAR\Models\QueryUsedcarResponse;
 use AntChain\INTELLICAR\Models\RegisterCarownerCyRequest;
@@ -150,7 +156,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 用户信息
+            // 高德潜客uv指数
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -178,7 +184,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.15',
+                    'sdk_version'      => '1.0.19',
                     '_prod_code'       => 'INTELLICAR',
                     '_prod_channel'    => 'default',
                 ];
@@ -540,6 +546,105 @@ class Client
         Utils::validateModel($request);
 
         return SubmitIonchiResponse::fromMap($this->doRequest('1.0', 'antdigital.intellicar.ionchi.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 对接高德，查询潜客流向以及重叠的数据
+     * Summary: 【高德】流向与重叠数据.
+     *
+     * @param QueryGdFlowRequest $request
+     *
+     * @return QueryGdFlowResponse
+     */
+    public function queryGdFlow($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryGdFlowEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 对接高德，查询潜客流向以及重叠的数据
+     * Summary: 【高德】流向与重叠数据.
+     *
+     * @param QueryGdFlowRequest $request
+     * @param string[]           $headers
+     * @param RuntimeOptions     $runtime
+     *
+     * @return QueryGdFlowResponse
+     */
+    public function queryGdFlowEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryGdFlowResponse::fromMap($this->doRequest('1.0', 'antdigital.intellicar.gd.flow.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 电池衰退权益报告查询接口
+     * Summary: 电池衰退
+     *
+     * @param QueryBatteryReportRequest $request
+     *
+     * @return QueryBatteryReportResponse
+     */
+    public function queryBatteryReport($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryBatteryReportEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 电池衰退权益报告查询接口
+     * Summary: 电池衰退
+     *
+     * @param QueryBatteryReportRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return QueryBatteryReportResponse
+     */
+    public function queryBatteryReportEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryBatteryReportResponse::fromMap($this->doRequest('1.0', 'antdigital.intellicar.battery.report.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用来查询汽车之家车型和城市列表
+     * Summary: 用来查询汽车之家车型和城市列表.
+     *
+     * @param QueryNewcarQczjRequest $request
+     *
+     * @return QueryNewcarQczjResponse
+     */
+    public function queryNewcarQczj($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryNewcarQczjEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用来查询汽车之家车型和城市列表
+     * Summary: 用来查询汽车之家车型和城市列表.
+     *
+     * @param QueryNewcarQczjRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return QueryNewcarQczjResponse
+     */
+    public function queryNewcarQczjEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryNewcarQczjResponse::fromMap($this->doRequest('1.0', 'antdigital.intellicar.newcar.qczj.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
