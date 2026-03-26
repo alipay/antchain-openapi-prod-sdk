@@ -980,7 +980,7 @@ export class SpecResult extends $tea.Model {
   // 下一页数据拉取传递的值
   afterSpecId: string;
   // 车型Id列表
-  specList: SpecList;
+  specList: SpecList[];
   static names(): { [key: string]: string } {
     return {
       afterSpecId: 'after_spec_id',
@@ -991,7 +991,7 @@ export class SpecResult extends $tea.Model {
   static types(): { [key: string]: any } {
     return {
       afterSpecId: 'string',
-      specList: SpecList,
+      specList: { 'type': 'array', 'itemType': SpecList },
     };
   }
 
@@ -2050,7 +2050,7 @@ export class QueryNewcarQczjResponse extends $tea.Model {
   // 城市结果结构体
   cityResult?: CityResult[];
   // 车型结果结构体
-  specResult?: SpecList[];
+  specResult?: SpecResult;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -2071,7 +2071,7 @@ export class QueryNewcarQczjResponse extends $tea.Model {
       returncode: 'string',
       message: 'string',
       cityResult: { 'type': 'array', 'itemType': CityResult },
-      specResult: { 'type': 'array', 'itemType': SpecList },
+      specResult: SpecResult,
     };
   }
 
@@ -2281,7 +2281,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.19",
+          sdk_version: "1.0.20",
           _prod_code: "INTELLICAR",
           _prod_channel: "default",
         };
