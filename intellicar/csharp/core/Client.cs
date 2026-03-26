@@ -137,7 +137,7 @@ namespace AntChain.SDK.INTELLICAR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.15"},
+                        {"sdk_version", "1.0.19"},
                         {"_prod_code", "INTELLICAR"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.INTELLICAR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.15"},
+                        {"sdk_version", "1.0.19"},
                         {"_prod_code", "INTELLICAR"},
                         {"_prod_channel", "default"},
                     };
@@ -745,6 +745,132 @@ namespace AntChain.SDK.INTELLICAR
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<SubmitIonchiResponse>(await DoRequestAsync("1.0", "antdigital.intellicar.ionchi.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 对接高德，查询潜客流向以及重叠的数据
+         * Summary: 【高德】流向与重叠数据
+         */
+        public QueryGdFlowResponse QueryGdFlow(QueryGdFlowRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryGdFlowEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 对接高德，查询潜客流向以及重叠的数据
+         * Summary: 【高德】流向与重叠数据
+         */
+        public async Task<QueryGdFlowResponse> QueryGdFlowAsync(QueryGdFlowRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryGdFlowExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 对接高德，查询潜客流向以及重叠的数据
+         * Summary: 【高德】流向与重叠数据
+         */
+        public QueryGdFlowResponse QueryGdFlowEx(QueryGdFlowRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryGdFlowResponse>(DoRequest("1.0", "antdigital.intellicar.gd.flow.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 对接高德，查询潜客流向以及重叠的数据
+         * Summary: 【高德】流向与重叠数据
+         */
+        public async Task<QueryGdFlowResponse> QueryGdFlowExAsync(QueryGdFlowRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryGdFlowResponse>(await DoRequestAsync("1.0", "antdigital.intellicar.gd.flow.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 电池衰退权益报告查询接口
+         * Summary: 电池衰退
+         */
+        public QueryBatteryReportResponse QueryBatteryReport(QueryBatteryReportRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryBatteryReportEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 电池衰退权益报告查询接口
+         * Summary: 电池衰退
+         */
+        public async Task<QueryBatteryReportResponse> QueryBatteryReportAsync(QueryBatteryReportRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryBatteryReportExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 电池衰退权益报告查询接口
+         * Summary: 电池衰退
+         */
+        public QueryBatteryReportResponse QueryBatteryReportEx(QueryBatteryReportRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryBatteryReportResponse>(DoRequest("1.0", "antdigital.intellicar.battery.report.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 电池衰退权益报告查询接口
+         * Summary: 电池衰退
+         */
+        public async Task<QueryBatteryReportResponse> QueryBatteryReportExAsync(QueryBatteryReportRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryBatteryReportResponse>(await DoRequestAsync("1.0", "antdigital.intellicar.battery.report.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用来查询汽车之家车型和城市列表
+         * Summary: 用来查询汽车之家车型和城市列表
+         */
+        public QueryNewcarQczjResponse QueryNewcarQczj(QueryNewcarQczjRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryNewcarQczjEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用来查询汽车之家车型和城市列表
+         * Summary: 用来查询汽车之家车型和城市列表
+         */
+        public async Task<QueryNewcarQczjResponse> QueryNewcarQczjAsync(QueryNewcarQczjRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryNewcarQczjExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用来查询汽车之家车型和城市列表
+         * Summary: 用来查询汽车之家车型和城市列表
+         */
+        public QueryNewcarQczjResponse QueryNewcarQczjEx(QueryNewcarQczjRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryNewcarQczjResponse>(DoRequest("1.0", "antdigital.intellicar.newcar.qczj.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用来查询汽车之家车型和城市列表
+         * Summary: 用来查询汽车之家车型和城市列表
+         */
+        public async Task<QueryNewcarQczjResponse> QueryNewcarQczjExAsync(QueryNewcarQczjRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryNewcarQczjResponse>(await DoRequestAsync("1.0", "antdigital.intellicar.newcar.qczj.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
