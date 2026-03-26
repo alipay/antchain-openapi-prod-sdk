@@ -1692,7 +1692,7 @@ class SpecResult(TeaModel):
     def __init__(
         self,
         after_spec_id: str = None,
-        spec_list: SpecList = None,
+        spec_list: List[SpecList] = None,
     ):
         # 下一页数据拉取传递的值
         self.after_spec_id = after_spec_id
@@ -1703,7 +1703,9 @@ class SpecResult(TeaModel):
         self.validate_required(self.after_spec_id, 'after_spec_id')
         self.validate_required(self.spec_list, 'spec_list')
         if self.spec_list:
-            self.spec_list.validate()
+            for k in self.spec_list:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -1713,17 +1715,21 @@ class SpecResult(TeaModel):
         result = dict()
         if self.after_spec_id is not None:
             result['after_spec_id'] = self.after_spec_id
+        result['spec_list'] = []
         if self.spec_list is not None:
-            result['spec_list'] = self.spec_list.to_map()
+            for k in self.spec_list:
+                result['spec_list'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
         if m.get('after_spec_id') is not None:
             self.after_spec_id = m.get('after_spec_id')
+        self.spec_list = []
         if m.get('spec_list') is not None:
-            temp_model = SpecList()
-            self.spec_list = temp_model.from_map(m['spec_list'])
+            for k in m.get('spec_list'):
+                temp_model = SpecList()
+                self.spec_list.append(temp_model.from_map(k))
         return self
 
 
@@ -3467,7 +3473,7 @@ class QueryNewcarQczjResponse(TeaModel):
         returncode: str = None,
         message: str = None,
         city_result: List[CityResult] = None,
-        spec_result: List[SpecList] = None,
+        spec_result: SpecResult = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -3490,9 +3496,7 @@ class QueryNewcarQczjResponse(TeaModel):
                 if k:
                     k.validate()
         if self.spec_result:
-            for k in self.spec_result:
-                if k:
-                    k.validate()
+            self.spec_result.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -3514,10 +3518,8 @@ class QueryNewcarQczjResponse(TeaModel):
         if self.city_result is not None:
             for k in self.city_result:
                 result['city_result'].append(k.to_map() if k else None)
-        result['spec_result'] = []
         if self.spec_result is not None:
-            for k in self.spec_result:
-                result['spec_result'].append(k.to_map() if k else None)
+            result['spec_result'] = self.spec_result.to_map()
         return result
 
     def from_map(self, m: dict = None):
@@ -3537,11 +3539,9 @@ class QueryNewcarQczjResponse(TeaModel):
             for k in m.get('city_result'):
                 temp_model = CityResult()
                 self.city_result.append(temp_model.from_map(k))
-        self.spec_result = []
         if m.get('spec_result') is not None:
-            for k in m.get('spec_result'):
-                temp_model = SpecList()
-                self.spec_result.append(temp_model.from_map(k))
+            temp_model = SpecResult()
+            self.spec_result = temp_model.from_map(m['spec_result'])
         return self
 
 
