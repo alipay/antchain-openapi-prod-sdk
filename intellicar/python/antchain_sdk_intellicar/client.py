@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 用户信息
+            # 高德潜客uv指数
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.15',
+                    'sdk_version': '1.0.19',
                     '_prod_code': 'INTELLICAR',
                     '_prod_channel': 'default'
                 }
@@ -214,7 +214,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 用户信息
+            # 高德潜客uv指数
         }
         _last_request = None
         _last_exception = None
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.15',
+                    'sdk_version': '1.0.19',
                     '_prod_code': 'INTELLICAR',
                     '_prod_channel': 'default'
                 }
@@ -813,6 +813,174 @@ class Client:
         return TeaCore.from_map(
             intellicar_models.SubmitIonchiResponse(),
             await self.do_request_async('1.0', 'antdigital.intellicar.ionchi.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_gd_flow(
+        self,
+        request: intellicar_models.QueryGdFlowRequest,
+    ) -> intellicar_models.QueryGdFlowResponse:
+        """
+        Description: 对接高德，查询潜客流向以及重叠的数据
+        Summary: 【高德】流向与重叠数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_gd_flow_ex(request, headers, runtime)
+
+    async def query_gd_flow_async(
+        self,
+        request: intellicar_models.QueryGdFlowRequest,
+    ) -> intellicar_models.QueryGdFlowResponse:
+        """
+        Description: 对接高德，查询潜客流向以及重叠的数据
+        Summary: 【高德】流向与重叠数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_gd_flow_ex_async(request, headers, runtime)
+
+    def query_gd_flow_ex(
+        self,
+        request: intellicar_models.QueryGdFlowRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> intellicar_models.QueryGdFlowResponse:
+        """
+        Description: 对接高德，查询潜客流向以及重叠的数据
+        Summary: 【高德】流向与重叠数据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            intellicar_models.QueryGdFlowResponse(),
+            self.do_request('1.0', 'antdigital.intellicar.gd.flow.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_gd_flow_ex_async(
+        self,
+        request: intellicar_models.QueryGdFlowRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> intellicar_models.QueryGdFlowResponse:
+        """
+        Description: 对接高德，查询潜客流向以及重叠的数据
+        Summary: 【高德】流向与重叠数据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            intellicar_models.QueryGdFlowResponse(),
+            await self.do_request_async('1.0', 'antdigital.intellicar.gd.flow.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_battery_report(
+        self,
+        request: intellicar_models.QueryBatteryReportRequest,
+    ) -> intellicar_models.QueryBatteryReportResponse:
+        """
+        Description: 电池衰退权益报告查询接口
+        Summary: 电池衰退
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_battery_report_ex(request, headers, runtime)
+
+    async def query_battery_report_async(
+        self,
+        request: intellicar_models.QueryBatteryReportRequest,
+    ) -> intellicar_models.QueryBatteryReportResponse:
+        """
+        Description: 电池衰退权益报告查询接口
+        Summary: 电池衰退
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_battery_report_ex_async(request, headers, runtime)
+
+    def query_battery_report_ex(
+        self,
+        request: intellicar_models.QueryBatteryReportRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> intellicar_models.QueryBatteryReportResponse:
+        """
+        Description: 电池衰退权益报告查询接口
+        Summary: 电池衰退
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            intellicar_models.QueryBatteryReportResponse(),
+            self.do_request('1.0', 'antdigital.intellicar.battery.report.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_battery_report_ex_async(
+        self,
+        request: intellicar_models.QueryBatteryReportRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> intellicar_models.QueryBatteryReportResponse:
+        """
+        Description: 电池衰退权益报告查询接口
+        Summary: 电池衰退
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            intellicar_models.QueryBatteryReportResponse(),
+            await self.do_request_async('1.0', 'antdigital.intellicar.battery.report.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_newcar_qczj(
+        self,
+        request: intellicar_models.QueryNewcarQczjRequest,
+    ) -> intellicar_models.QueryNewcarQczjResponse:
+        """
+        Description: 用来查询汽车之家车型和城市列表
+        Summary: 用来查询汽车之家车型和城市列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_newcar_qczj_ex(request, headers, runtime)
+
+    async def query_newcar_qczj_async(
+        self,
+        request: intellicar_models.QueryNewcarQczjRequest,
+    ) -> intellicar_models.QueryNewcarQczjResponse:
+        """
+        Description: 用来查询汽车之家车型和城市列表
+        Summary: 用来查询汽车之家车型和城市列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_newcar_qczj_ex_async(request, headers, runtime)
+
+    def query_newcar_qczj_ex(
+        self,
+        request: intellicar_models.QueryNewcarQczjRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> intellicar_models.QueryNewcarQczjResponse:
+        """
+        Description: 用来查询汽车之家车型和城市列表
+        Summary: 用来查询汽车之家车型和城市列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            intellicar_models.QueryNewcarQczjResponse(),
+            self.do_request('1.0', 'antdigital.intellicar.newcar.qczj.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_newcar_qczj_ex_async(
+        self,
+        request: intellicar_models.QueryNewcarQczjRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> intellicar_models.QueryNewcarQczjResponse:
+        """
+        Description: 用来查询汽车之家车型和城市列表
+        Summary: 用来查询汽车之家车型和城市列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            intellicar_models.QueryNewcarQczjResponse(),
+            await self.do_request_async('1.0', 'antdigital.intellicar.newcar.qczj.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
