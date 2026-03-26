@@ -18,7 +18,7 @@ namespace AntChain.SDK.INTELLICAR.Models
         // 车型Id列表
         [NameInMap("spec_list")]
         [Validation(Required=true)]
-        public SpecList SpecList { get; set; }
+        public List<SpecList> SpecList { get; set; }
 
     }
 

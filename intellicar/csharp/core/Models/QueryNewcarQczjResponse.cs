@@ -42,7 +42,7 @@ namespace AntChain.SDK.INTELLICAR.Models
         // 车型结果结构体
         [NameInMap("spec_result")]
         [Validation(Required=false)]
-        public List<SpecList> SpecResult { get; set; }
+        public SpecResult SpecResult { get; set; }
 
     }
 
