@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.15"),
+                    new TeaPair("sdk_version", "1.0.19"),
                     new TeaPair("_prod_code", "INTELLICAR"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -397,6 +397,69 @@ public class Client {
     public SubmitIonchiResponse submitIonchiEx(SubmitIonchiRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antdigital.intellicar.ionchi.submit", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SubmitIonchiResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 对接高德，查询潜客流向以及重叠的数据
+     * Summary: 【高德】流向与重叠数据</p>
+     */
+    public QueryGdFlowResponse queryGdFlow(QueryGdFlowRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryGdFlowEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 对接高德，查询潜客流向以及重叠的数据
+     * Summary: 【高德】流向与重叠数据</p>
+     */
+    public QueryGdFlowResponse queryGdFlowEx(QueryGdFlowRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.intellicar.gd.flow.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryGdFlowResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 电池衰退权益报告查询接口
+     * Summary: 电池衰退</p>
+     */
+    public QueryBatteryReportResponse queryBatteryReport(QueryBatteryReportRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryBatteryReportEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 电池衰退权益报告查询接口
+     * Summary: 电池衰退</p>
+     */
+    public QueryBatteryReportResponse queryBatteryReportEx(QueryBatteryReportRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.intellicar.battery.report.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryBatteryReportResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 用来查询汽车之家车型和城市列表
+     * Summary: 用来查询汽车之家车型和城市列表</p>
+     */
+    public QueryNewcarQczjResponse queryNewcarQczj(QueryNewcarQczjRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryNewcarQczjEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 用来查询汽车之家车型和城市列表
+     * Summary: 用来查询汽车之家车型和城市列表</p>
+     */
+    public QueryNewcarQczjResponse queryNewcarQczjEx(QueryNewcarQczjRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.intellicar.newcar.qczj.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryNewcarQczjResponse());
     }
 
     /**
