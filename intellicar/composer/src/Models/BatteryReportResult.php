@@ -54,14 +54,14 @@ class BatteryReportResult extends Model
      *
      * @var BatteryReportData
      */
-    public $data;
+    public $reportData;
     protected $_name = [
         'orderId'               => 'order_id',
         'guaranteeCode'         => 'guarantee_code',
         'currentStartChargeSeq' => 'current_start_charge_seq',
         'charge'                => 'charge',
         'checkType'             => 'check_type',
-        'data'                  => 'data',
+        'reportData'            => 'report_data',
     ];
 
     public function validate()
@@ -71,7 +71,7 @@ class BatteryReportResult extends Model
         Model::validateRequired('currentStartChargeSeq', $this->currentStartChargeSeq, true);
         Model::validateRequired('charge', $this->charge, true);
         Model::validateRequired('checkType', $this->checkType, true);
-        Model::validateRequired('data', $this->data, true);
+        Model::validateRequired('reportData', $this->reportData, true);
     }
 
     public function toMap()
@@ -92,8 +92,8 @@ class BatteryReportResult extends Model
         if (null !== $this->checkType) {
             $res['check_type'] = $this->checkType;
         }
-        if (null !== $this->data) {
-            $res['data'] = null !== $this->data ? $this->data->toMap() : null;
+        if (null !== $this->reportData) {
+            $res['report_data'] = null !== $this->reportData ? $this->reportData->toMap() : null;
         }
 
         return $res;
@@ -122,8 +122,8 @@ class BatteryReportResult extends Model
         if (isset($map['check_type'])) {
             $model->checkType = $map['check_type'];
         }
-        if (isset($map['data'])) {
-            $model->data = BatteryReportData::fromMap($map['data']);
+        if (isset($map['report_data'])) {
+            $model->reportData = BatteryReportData::fromMap($map['report_data']);
         }
 
         return $model;

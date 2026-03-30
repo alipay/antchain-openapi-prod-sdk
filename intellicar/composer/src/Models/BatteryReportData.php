@@ -191,6 +191,22 @@ class BatteryReportData extends Model
      * @var string
      */
     public $rightsDesc;
+
+    // 权益说明-状态
+    /**
+     * @example -
+     *
+     * @var string
+     */
+    public $rightStatus;
+
+    // 电池健康度-建议
+    /**
+     * @example
+     *
+     * @var string[]
+     */
+    public $sohSuggest;
     protected $_name = [
         'vinCode'                     => 'vin_code',
         'evaluateTime'                => 'evaluate_time',
@@ -215,6 +231,8 @@ class BatteryReportData extends Model
         'batteryType'                 => 'battery_type',
         'manufacturerDate'            => 'manufacturer_date',
         'rightsDesc'                  => 'rights_desc',
+        'rightStatus'                 => 'right_status',
+        'sohSuggest'                  => 'soh_suggest',
     ];
 
     public function validate()
@@ -242,6 +260,8 @@ class BatteryReportData extends Model
         Model::validateRequired('batteryType', $this->batteryType, true);
         Model::validateRequired('manufacturerDate', $this->manufacturerDate, true);
         Model::validateRequired('rightsDesc', $this->rightsDesc, true);
+        Model::validateRequired('rightStatus', $this->rightStatus, true);
+        Model::validateRequired('sohSuggest', $this->sohSuggest, true);
     }
 
     public function toMap()
@@ -315,6 +335,12 @@ class BatteryReportData extends Model
         }
         if (null !== $this->rightsDesc) {
             $res['rights_desc'] = $this->rightsDesc;
+        }
+        if (null !== $this->rightStatus) {
+            $res['right_status'] = $this->rightStatus;
+        }
+        if (null !== $this->sohSuggest) {
+            $res['soh_suggest'] = $this->sohSuggest;
         }
 
         return $res;
@@ -402,6 +428,14 @@ class BatteryReportData extends Model
         }
         if (isset($map['rights_desc'])) {
             $model->rightsDesc = $map['rights_desc'];
+        }
+        if (isset($map['right_status'])) {
+            $model->rightStatus = $map['right_status'];
+        }
+        if (isset($map['soh_suggest'])) {
+            if (!empty($map['soh_suggest'])) {
+                $model->sohSuggest = $map['soh_suggest'];
+            }
         }
 
         return $model;

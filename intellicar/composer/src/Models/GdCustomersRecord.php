@@ -76,7 +76,7 @@ class GdCustomersRecord extends Model
     /**
      * @example
      *
-     * @var GdDest
+     * @var GdDest[]
      */
     public $destList;
 
@@ -154,7 +154,13 @@ class GdCustomersRecord extends Model
             $res['src_list_num'] = $this->srcListNum;
         }
         if (null !== $this->destList) {
-            $res['dest_list'] = null !== $this->destList ? $this->destList->toMap() : null;
+            $res['dest_list'] = [];
+            if (null !== $this->destList && \is_array($this->destList)) {
+                $n = 0;
+                foreach ($this->destList as $item) {
+                    $res['dest_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
         if (null !== $this->destListNum) {
             $res['dest_list_num'] = $this->destListNum;
@@ -208,7 +214,13 @@ class GdCustomersRecord extends Model
             $model->srcListNum = $map['src_list_num'];
         }
         if (isset($map['dest_list'])) {
-            $model->destList = GdDest::fromMap($map['dest_list']);
+            if (!empty($map['dest_list'])) {
+                $model->destList = [];
+                $n               = 0;
+                foreach ($map['dest_list'] as $item) {
+                    $model->destList[$n++] = null !== $item ? GdDest::fromMap($item) : $item;
+                }
+            }
         }
         if (isset($map['dest_list_num'])) {
             $model->destListNum = $map['dest_list_num'];

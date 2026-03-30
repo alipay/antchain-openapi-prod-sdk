@@ -47,12 +47,30 @@ class GdSrc extends Model
      * @var string
      */
     public $citycode;
+
+    // 省份编码，数据类型为省份时返回该属性与值
+    /**
+     * @example xxxx
+     *
+     * @var string
+     */
+    public $pcode;
+
+    // 数据类型为全国时返回该属性与值
+    /**
+     * @example xxxx
+     *
+     * @var string
+     */
+    public $countrycode;
     protected $_name = [
-        'uv'       => 'uv',
-        'pv'       => 'pv',
-        'brandId'  => 'brand_id',
-        'shopId'   => 'shop_id',
-        'citycode' => 'citycode',
+        'uv'          => 'uv',
+        'pv'          => 'pv',
+        'brandId'     => 'brand_id',
+        'shopId'      => 'shop_id',
+        'citycode'    => 'citycode',
+        'pcode'       => 'pcode',
+        'countrycode' => 'countrycode',
     ];
 
     public function validate()
@@ -60,8 +78,6 @@ class GdSrc extends Model
         Model::validateRequired('uv', $this->uv, true);
         Model::validateRequired('pv', $this->pv, true);
         Model::validateRequired('brandId', $this->brandId, true);
-        Model::validateRequired('shopId', $this->shopId, true);
-        Model::validateRequired('citycode', $this->citycode, true);
     }
 
     public function toMap()
@@ -81,6 +97,12 @@ class GdSrc extends Model
         }
         if (null !== $this->citycode) {
             $res['citycode'] = $this->citycode;
+        }
+        if (null !== $this->pcode) {
+            $res['pcode'] = $this->pcode;
+        }
+        if (null !== $this->countrycode) {
+            $res['countrycode'] = $this->countrycode;
         }
 
         return $res;
@@ -108,6 +130,12 @@ class GdSrc extends Model
         }
         if (isset($map['citycode'])) {
             $model->citycode = $map['citycode'];
+        }
+        if (isset($map['pcode'])) {
+            $model->pcode = $map['pcode'];
+        }
+        if (isset($map['countrycode'])) {
+            $model->countrycode = $map['countrycode'];
         }
 
         return $model;

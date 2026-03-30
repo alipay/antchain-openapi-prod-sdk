@@ -25,6 +25,10 @@ use AntChain\INTELLICAR\Models\QueryCarPriceRequest;
 use AntChain\INTELLICAR\Models\QueryCarPriceResponse;
 use AntChain\INTELLICAR\Models\QueryGdFlowRequest;
 use AntChain\INTELLICAR\Models\QueryGdFlowResponse;
+use AntChain\INTELLICAR\Models\QueryGdPoentialRequest;
+use AntChain\INTELLICAR\Models\QueryGdPoentialResponse;
+use AntChain\INTELLICAR\Models\QueryGdStoreRequest;
+use AntChain\INTELLICAR\Models\QueryGdStoreResponse;
 use AntChain\INTELLICAR\Models\QueryNewcarQczjRequest;
 use AntChain\INTELLICAR\Models\QueryNewcarQczjResponse;
 use AntChain\INTELLICAR\Models\QueryUsedcarRequest;
@@ -184,7 +188,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.21',
+                    'sdk_version'      => '1.0.23',
                     '_prod_code'       => 'INTELLICAR',
                     '_prod_channel'    => 'default',
                 ];
@@ -645,6 +649,72 @@ class Client
         Utils::validateModel($request);
 
         return QueryNewcarQczjResponse::fromMap($this->doRequest('1.0', 'antdigital.intellicar.newcar.qczj.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 【高德】查询店铺基本信息
+     * Summary: 【高德】查询店铺基本信息.
+     *
+     * @param QueryGdStoreRequest $request
+     *
+     * @return QueryGdStoreResponse
+     */
+    public function queryGdStore($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryGdStoreEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 【高德】查询店铺基本信息
+     * Summary: 【高德】查询店铺基本信息.
+     *
+     * @param QueryGdStoreRequest $request
+     * @param string[]            $headers
+     * @param RuntimeOptions      $runtime
+     *
+     * @return QueryGdStoreResponse
+     */
+    public function queryGdStoreEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryGdStoreResponse::fromMap($this->doRequest('1.0', 'antdigital.intellicar.gd.store.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 【高德】潜客指数数据
+     * Summary: 【高德】潜客指数数据.
+     *
+     * @param QueryGdPoentialRequest $request
+     *
+     * @return QueryGdPoentialResponse
+     */
+    public function queryGdPoential($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryGdPoentialEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 【高德】潜客指数数据
+     * Summary: 【高德】潜客指数数据.
+     *
+     * @param QueryGdPoentialRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return QueryGdPoentialResponse
+     */
+    public function queryGdPoentialEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryGdPoentialResponse::fromMap($this->doRequest('1.0', 'antdigital.intellicar.gd.poential.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

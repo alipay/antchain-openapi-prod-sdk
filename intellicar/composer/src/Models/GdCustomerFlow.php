@@ -85,12 +85,6 @@ class GdCustomerFlow extends Model
     public function validate()
     {
         Model::validateRequired('current', $this->current, true);
-        Model::validateRequired('dataType', $this->dataType, true);
-        Model::validateRequired('timeType', $this->timeType, true);
-        Model::validateRequired('mainBrand', $this->mainBrand, true);
-        Model::validateRequired('time', $this->time, true);
-        Model::validateRequired('brandLimit', $this->brandLimit, true);
-        Model::validateRequired('dataLimit', $this->dataLimit, true);
     }
 
     public function toMap()
