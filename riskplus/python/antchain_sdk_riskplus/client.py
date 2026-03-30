@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.31.4',
+                    'sdk_version': '1.31.6',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.31.4',
+                    'sdk_version': '1.31.6',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -9709,6 +9709,62 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.UploadRfcAiboundConvertResponse(),
             await self.do_request_async('1.0', 'riskplus.rfc.aibound.convert.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_rfc_aibound_file(
+        self,
+        request: riskplus_models.QueryRfcAiboundFileRequest,
+    ) -> riskplus_models.QueryRfcAiboundFileResponse:
+        """
+        Description: rfc外呼圈客名单获取
+        Summary: rfc外呼圈客名单获取
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_rfc_aibound_file_ex(request, headers, runtime)
+
+    async def query_rfc_aibound_file_async(
+        self,
+        request: riskplus_models.QueryRfcAiboundFileRequest,
+    ) -> riskplus_models.QueryRfcAiboundFileResponse:
+        """
+        Description: rfc外呼圈客名单获取
+        Summary: rfc外呼圈客名单获取
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_rfc_aibound_file_ex_async(request, headers, runtime)
+
+    def query_rfc_aibound_file_ex(
+        self,
+        request: riskplus_models.QueryRfcAiboundFileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryRfcAiboundFileResponse:
+        """
+        Description: rfc外呼圈客名单获取
+        Summary: rfc外呼圈客名单获取
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryRfcAiboundFileResponse(),
+            self.do_request('1.0', 'riskplus.rfc.aibound.file.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_rfc_aibound_file_ex_async(
+        self,
+        request: riskplus_models.QueryRfcAiboundFileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryRfcAiboundFileResponse:
+        """
+        Description: rfc外呼圈客名单获取
+        Summary: rfc外呼圈客名单获取
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryRfcAiboundFileResponse(),
+            await self.do_request_async('1.0', 'riskplus.rfc.aibound.file.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_rbb_generic_invoke(
