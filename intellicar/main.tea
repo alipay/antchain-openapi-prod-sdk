@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.21',
+    sdk_version = '1.0.23',
     _prod_code = 'INTELLICAR',
     _prod_channel = 'default'
   };
@@ -191,9 +191,13 @@ model GdDest {
   // 流出品牌id
   brandId: string(name='brand_id', example='103'),
   // 流出店铺id，数据类型为店铺时返回该属性与值
-  shopId: string(name='shop_id', example='26nZz8dsa4'),
+  shopId?: string(name='shop_id', example='26nZz8dsa4'),
   // 城市编码，数据类型为店铺或者城市时返回该属性与值
-  citycode: string(name='citycode', example='021'),
+  citycode?: string(name='citycode', example='021'),
+  // 省份编码，数据类型为省份时返回该属性与值
+  pcode?: string(name='pcode', example='xxxx'),
+  // 数据类型为全国时返回该属性与值
+  countrycode?: string(name='countrycode', example='xxxx'),
 }
 
 // 高德潜客record流入指数
@@ -205,9 +209,13 @@ model GdSrc {
   // 流入品牌id
   brandId: string(name='brand_id', example='106'),
   // 流入店铺id，数据类型为店铺时返回该属性与值
-  shopId: string(name='shop_id', example='26mMw8duxn'),
+  shopId?: string(name='shop_id', example='26mMw8duxn'),
   // 流入城市编码，数据类型为店铺或者城市时返回该属性与值
-  citycode: string(name='citycode', example='021'),
+  citycode?: string(name='citycode', example='021'),
+  // 省份编码，数据类型为省份时返回该属性与值
+  pcode?: string(name='pcode', example='xxxx'),
+  // 数据类型为全国时返回该属性与值
+  countrycode?: string(name='countrycode', example='xxxx'),
 }
 
 // 高德潜客record重叠指数
@@ -219,9 +227,13 @@ model Overlap {
   // 重叠品牌id
   brandId: string(name='brand_id', example='104'),
   // 重叠店铺id，数据类型为店铺时返回该属性与值
-  shopId: string(name='shop_id', example='26nhJ8duzh'),
+  shopId?: string(name='shop_id', example='26nhJ8duzh'),
   // 重叠城市编码，数据类型为城市时返回该属性与值
-  citycode: string(name='citycode', example='021'),
+  citycode?: string(name='citycode', example='021'),
+  // 重叠省份编码，数据类型为省份时返回该属性与值
+  pcode?: string(name='pcode', example='xxxx'),
+  // 数据类型为全国时返回该属性与值
+  countrycode?: string(name='countrycode', example='xxxx'),
 }
 
 // 用户信息
@@ -260,6 +272,54 @@ model SpecList {
   specId: string(name='spec_id', example='1001'),
   // 车型名称
   specName: string(name='spec_name', example='2026款 改款 xDrive 40Li M运动曜夜套装'),
+}
+
+// 高德店铺基本系返回record
+model GdStoreRecord {
+  // 店铺ID
+  shopId: string(name='shop_id', example='01cc5d1cc0'),
+  // 店铺名称
+  name: string(name='name', example='xxxx'),
+  // 店铺地址
+  address: string(name='address', example='xxxx'),
+  // 店铺所在省份
+  pname: string(name='pname', example='xxxx'),
+  // 店铺所在城市
+  cityname: string(name='cityname', example='xxxx'),
+  // 品牌id
+  brandId: string(name='brand_id', example='xxxx'),
+  // 品牌名称
+  brandName: string(name='brand_name', example='xxxx'),
+  // 经销商代码
+  officeCode: string(name='office_code', example='xxxx'),
+  // 经度
+  lon: string(name='lon', example='xxxx'),
+  // 纬度
+  lat: string(name='lat', example='xxxx'),
+  // 店铺数据版本集合
+  versionList: [ string ](name='version_list', example=''),
+}
+
+// 高德潜客指数record
+model GdPotentialCustomerRecord {
+  // uv指数
+  uv: GdCustomerUv(name='uv', example=''),
+  // 城市编码，数据类型为店铺或者城市时返回该属性与值
+  citycode?: string(name='citycode', example='xxxx'),
+  // pv指数
+  pv: GdCustomerPv(name='pv', example=''),
+  // 店铺id，数据类型为店铺时返回该属性与值
+  shopId?: string(name='shop_id', example='xxxx'),
+  // 品牌id
+  brandId: string(name='brand_id', example='xxxx'),
+  // 店铺数量（dataType!=SHOP时返回该字段）
+  shopNum?: long(name='shop_num', example=''),
+  // 时间（时间类型为天时：yyyyMMdd；时间类型为周时：yyyyWW；时间类型为月时：yyyyMM）
+  time: string(name='time', example='xxxx'),
+  // 省份编码，数据类型为省份时返回该属性与值
+  pcode?: string(name='pcode', example='xxxx'),
+  // 数据类型为全国时返回该属性与值
+  countrycode?: string(name='countrycode', example='xxxx'),
 }
 
 // 电池报告返回数据详情
@@ -310,6 +370,10 @@ model BatteryReportData {
   manufacturerDate: string(name='manufacturer_date', example='-'),
   // 权益说明文案
   rightsDesc: string(name='rights_desc', example='-'),
+  // 权益说明-状态
+  rightStatus: string(name='right_status', example='-'),
+  // 电池健康度-建议
+  sohSuggest: [ string ](name='soh_suggest', example=''),
 }
 
 // 高德数据集合内record
@@ -331,17 +395,9 @@ model GdCustomersRecord {
   // 流入指数条数
   srcListNum: string(name='src_list_num', example='2'),
   // 流出指数集合
-  destList: GdDest(name='dest_list', example=''),
+  destList: [ GdDest ](name='dest_list', example=''),
   // 流出指数条数
   destListNum: string(name='dest_list_num', example='2'),
-}
-
-// 汽车之家城市信息
-model CityResult {
-  // 城市Id
-  cityId: string(name='city_id', example='110000'),
-  // 城市名称
-  cityName: string(name='city_name', example='北京'),
 }
 
 // 新车线索集合
@@ -377,7 +433,7 @@ model BatteryReportResult {
   // 检测类型 6601：首检 6602：复核
   checkType: long(name='check_type', example='6601'),
   // 报告数据
-  data: BatteryReportData(name='data', example=''),
+  reportData: BatteryReportData(name='report_data', example=''),
 }
 
 // 车信息
@@ -396,14 +452,6 @@ model BasicCarInfo {
   useNatureCode: string(name='use_nature_code', example='xxxxx'),
   // 是否抵押
   mortgage?: boolean(name='mortgage', example='true, false'),
-}
-
-// 用户基本信息
-model CarOwnerUserInfo {
-  // 用户id
-  userId: string(name='user_id', example='XX'),
-  // 手机号
-  phoneNum: string(name='phone_num', example='xxx'),
 }
 
 // 车辆业务价格
@@ -444,30 +492,6 @@ model CarBusinessPrice {
   extraContent?: string(name='extra_content', example='{"xx":""}'),
 }
 
-// 二手车
-model UsedCarInfo {
-  // 渠道方线索业务id
-  leadId: string(name='lead_id', example='xxxx'),
-  // 城市名称
-  cityName: string(name='city_name', example='xxx'),
-  // 省份id
-  pid: string(name='pid', example='xxxx'),
-  // 城市id
-  cid: string(name='cid', example='xxxx'),
-  // 品牌名称
-  brandName?: string(name='brand_name', example='xxxx'),
-  // 车系名称
-  seriesName?: string(name='series_name', example='xxx'),
-  // 汽车之家车型id
-  specId: string(name='spec_id', example='xxx'),
-  // 车型名称
-  specName?: string(name='spec_name', example='xxxx'),
-  // 首次上牌时间格式 yyyy/MM/dd
-  firstRegTime: string(name='first_reg_time', example='2020/01/01'),
-  // 行驶公里数(km)
-  mileage: string(name='mileage', example='12345.67'),
-}
-
 // 批量提交结果
 model BatchSubmitCarResult {
   // 提交线索唯一请求id
@@ -506,6 +530,112 @@ model GdCustomerInfo {
   size: long(name='size', example='1'),
   // 数据集合
   records: [ GdCustomersRecord ](name='records', example=''),
+}
+
+// 高德潜客请求req
+model GdCustomerFlow {
+  // 当前页面
+  current: long(name='current', example='1'),
+  // 数据类型（SHOP：店铺；CITY：城市；PROVINCE：省份；COUNTRY：全国；SHOP_BRAND：店铺品牌(仅限竞品)）
+  dataType?: string(name='data_type', example='SHOP'),
+  // 时间类型（DAY：天；WEEK：周；MONTH：月；仅针对城市和店铺品牌的竞品数据支持的时间类型为，季度：QUARTER；半年：HALF；年：YEAR）
+  timeType?: string(name='time_type', example='DAY'),
+  // 主品牌id
+  mainBrand?: string(name='main_brand', example='102'),
+  // 时间（时间类型为天时：yyyyMMdd；时间类型为周时：yyyyWW；时间类型为月时：yyyyMM；时间类型为季度时：yyyyQQ；时间类型为半年时：yyyyBB；时间类型为年时：yyyy；）
+  time?: string(name='time', example='20230103'),
+  // 品牌id，以”,”分隔
+  brandLimit?: string(name='brand_limit', example='102'),
+  // 数据指数类型（pv、uv中选择，多个以”,”分隔）
+  dataLimit?: string(name='data_limit', example='pv,uv'),
+  // 数据统计逻辑（0：默认值，基于本品或竞品获取；1：基于本品获取）
+  baseSelf?: long(name='base_self', example='1'),
+}
+
+// 二手车估价信息
+model UsedCarValuation {
+  // 评估金额(万)
+  referenceprice: string(name='referenceprice', example='1.15-1.43'),
+  // 官方报价(参考)(万)
+  newcarprice: string(name='newcarprice', example='54.5'),
+  // 车型图片(参考)
+  url: string(name='url', example='"http://car0.autoimg.cn/cardfs/product/g32/M08/A5/55/t_autohomecar__ChxkPmZijMqAMuHJAALTBQ2Tti4239.jpg"'),
+  // 车况好(万)(三个价格用"-"分隔,第一个是较小值第二个是...
+  conditiona: string(name='conditiona', example='1.30-1.38-1.45'),
+  // 车况正常(万)
+  conditionb: string(name='conditionb', example='1.18-1.29-1.41'),
+  // 车况差(万)
+  conditionc: string(name='conditionc', example='1.04-1.16-1.28'),
+}
+
+// 高德潜客指数返回数据对象
+model GdPotentialCustomerInfo {
+  // 时间范围（查询月度或年度数据时，返回该字段）
+  timeRange?: string(name='time_range', example='xxxx'),
+  // 数据总数
+  total: long(name='total', example=''),
+  // 当前展示页
+  current: long(name='current', example=''),
+  // 数据总页数
+  pages: long(name='pages', example=''),
+  // 每页显示数据条数
+  size: long(name='size', example=''),
+  // 数据集合
+  records: [ GdPotentialCustomerRecord ](name='records', example=''),
+}
+
+// 汽车之家城市信息
+model CityResult {
+  // 城市Id
+  cityId: string(name='city_id', example='110000'),
+  // 城市名称
+  cityName: string(name='city_name', example='北京'),
+}
+
+// 用户基本信息
+model CarOwnerUserInfo {
+  // 用户id
+  userId: string(name='user_id', example='XX'),
+  // 手机号
+  phoneNum: string(name='phone_num', example='xxx'),
+}
+
+// 高德店铺基本信息
+model GdStoreInfo {
+  // 数据总数
+  total: long(name='total', example=''),
+  // 当前展示页
+  current: long(name='current', example=''),
+  // 数据总页数
+  pages: long(name='pages', example=''),
+  // 每页显示数据条数
+  size: long(name='size', example=''),
+  // 数据集合
+  records: [ GdStoreRecord ](name='records', example=''),
+}
+
+// 二手车
+model UsedCarInfo {
+  // 渠道方线索业务id
+  leadId: string(name='lead_id', example='xxxx'),
+  // 城市名称
+  cityName: string(name='city_name', example='xxx'),
+  // 省份id
+  pid: string(name='pid', example='xxxx'),
+  // 城市id
+  cid: string(name='cid', example='xxxx'),
+  // 品牌名称
+  brandName?: string(name='brand_name', example='xxxx'),
+  // 车系名称
+  seriesName?: string(name='series_name', example='xxx'),
+  // 汽车之家车型id
+  specId: string(name='spec_id', example='xxx'),
+  // 车型名称
+  specName?: string(name='spec_name', example='xxxx'),
+  // 首次上牌时间格式 yyyy/MM/dd
+  firstRegTime: string(name='first_reg_time', example='2020/01/01'),
+  // 行驶公里数(km)
+  mileage: string(name='mileage', example='12345.67'),
 }
 
 // 常岳用户结构体
@@ -550,42 +680,6 @@ model BatteryReport {
   cityId?: string(name='city_id', example='-'),
   // 注册日期；最大长度/规则：yyyy-MM-dd
   registerDate?: string(name='register_date', example='2018-10-10'),
-}
-
-// 高德潜客请求req
-model GdCustomerFlow {
-  // 当前页面
-  current: long(name='current', example='1'),
-  // 数据类型（SHOP：店铺；CITY：城市；PROVINCE：省份；COUNTRY：全国；SHOP_BRAND：店铺品牌(仅限竞品)）
-  dataType: string(name='data_type', example='SHOP'),
-  // 时间类型（DAY：天；WEEK：周；MONTH：月；仅针对城市和店铺品牌的竞品数据支持的时间类型为，季度：QUARTER；半年：HALF；年：YEAR）
-  timeType: string(name='time_type', example='DAY'),
-  // 主品牌id
-  mainBrand: string(name='main_brand', example='102'),
-  // 时间（时间类型为天时：yyyyMMdd；时间类型为周时：yyyyWW；时间类型为月时：yyyyMM；时间类型为季度时：yyyyQQ；时间类型为半年时：yyyyBB；时间类型为年时：yyyy；）
-  time: string(name='time', example='20230103'),
-  // 品牌id，以”,”分隔
-  brandLimit: string(name='brand_limit', example='102'),
-  // 数据指数类型（pv、uv中选择，多个以”,”分隔）
-  dataLimit: string(name='data_limit', example='pv,uv'),
-  // 数据统计逻辑（0：默认值，基于本品或竞品获取；1：基于本品获取）
-  baseSelf?: long(name='base_self', example='1'),
-}
-
-// 二手车估价信息
-model UsedCarValuation {
-  // 评估金额(万)
-  referenceprice: string(name='referenceprice', example='1.15-1.43'),
-  // 官方报价(参考)(万)
-  newcarprice: string(name='newcarprice', example='54.5'),
-  // 车型图片(参考)
-  url: string(name='url', example='"http://car0.autoimg.cn/cardfs/product/g32/M08/A5/55/t_autohomecar__ChxkPmZijMqAMuHJAALTBQ2Tti4239.jpg"'),
-  // 车况好(万)(三个价格用"-"分隔,第一个是较小值第二个是...
-  conditiona: string(name='conditiona', example='1.30-1.38-1.45'),
-  // 车况正常(万)
-  conditionb: string(name='conditionb', example='1.18-1.29-1.41'),
-  // 车况差(万)
-  conditionc: string(name='conditionc', example='1.04-1.16-1.28'),
 }
 
 // 键值对
@@ -1170,6 +1264,98 @@ async function queryNewcarQczj(request: QueryNewcarQczjRequest): QueryNewcarQczj
 async function queryNewcarQczjEx(request: QueryNewcarQczjRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryNewcarQczjResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antdigital.intellicar.newcar.qczj.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryGdStoreRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 场景码
+  sceneCode: string(name='scene_code'),
+  // 查询店铺基本信息请求体
+  gdCustomerFlow: GdCustomerFlow(name='gd_customer_flow'),
+}
+
+model QueryGdStoreResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回消息
+  msg?: string(name='msg'),
+  // 返回编码，值为10000表示成功，其余值表示失败
+  code?: string(name='code'),
+  // 随即返回ID
+  requestLinkId?: string(name='request_link_id'),
+  // 返回数据
+  data?: GdStoreInfo(name='data'),
+}
+
+/**
+ * Description: 【高德】查询店铺基本信息
+ * Summary: 【高德】查询店铺基本信息
+ */
+async function queryGdStore(request: QueryGdStoreRequest): QueryGdStoreResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryGdStoreEx(request, headers, runtime);
+}
+
+/**
+ * Description: 【高德】查询店铺基本信息
+ * Summary: 【高德】查询店铺基本信息
+ */
+async function queryGdStoreEx(request: QueryGdStoreRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryGdStoreResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.intellicar.gd.store.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryGdPoentialRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 场景码
+  sceneCode: string(name='scene_code'),
+  // 潜客指数接口请求体
+  gdCustomerFlow: GdCustomerFlow(name='gd_customer_flow'),
+}
+
+model QueryGdPoentialResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回消息
+  msg?: string(name='msg'),
+  // 返回编码，值为10000表示成功，其余值表示失败
+  code?: long(name='code'),
+  // 随机返回id
+  requestLinkId?: string(name='request_link_id'),
+  // 返回数据
+  data?: GdPotentialCustomerInfo(name='data'),
+}
+
+/**
+ * Description: 【高德】潜客指数数据
+ * Summary: 【高德】潜客指数数据
+ */
+async function queryGdPoential(request: QueryGdPoentialRequest): QueryGdPoentialResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryGdPoentialEx(request, headers, runtime);
+}
+
+/**
+ * Description: 【高德】潜客指数数据
+ * Summary: 【高德】潜客指数数据
+ */
+async function queryGdPoentialEx(request: QueryGdPoentialRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryGdPoentialResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.intellicar.gd.poential.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateAntcloudGatewayxFileUploadRequest = {
