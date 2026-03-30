@@ -146,9 +146,13 @@ export class GdDest extends $tea.Model {
   // 流出品牌id
   brandId: string;
   // 流出店铺id，数据类型为店铺时返回该属性与值
-  shopId: string;
+  shopId?: string;
   // 城市编码，数据类型为店铺或者城市时返回该属性与值
-  citycode: string;
+  citycode?: string;
+  // 省份编码，数据类型为省份时返回该属性与值
+  pcode?: string;
+  // 数据类型为全国时返回该属性与值
+  countrycode?: string;
   static names(): { [key: string]: string } {
     return {
       uv: 'uv',
@@ -156,6 +160,8 @@ export class GdDest extends $tea.Model {
       brandId: 'brand_id',
       shopId: 'shop_id',
       citycode: 'citycode',
+      pcode: 'pcode',
+      countrycode: 'countrycode',
     };
   }
 
@@ -166,6 +172,8 @@ export class GdDest extends $tea.Model {
       brandId: 'string',
       shopId: 'string',
       citycode: 'string',
+      pcode: 'string',
+      countrycode: 'string',
     };
   }
 
@@ -183,9 +191,13 @@ export class GdSrc extends $tea.Model {
   // 流入品牌id
   brandId: string;
   // 流入店铺id，数据类型为店铺时返回该属性与值
-  shopId: string;
+  shopId?: string;
   // 流入城市编码，数据类型为店铺或者城市时返回该属性与值
-  citycode: string;
+  citycode?: string;
+  // 省份编码，数据类型为省份时返回该属性与值
+  pcode?: string;
+  // 数据类型为全国时返回该属性与值
+  countrycode?: string;
   static names(): { [key: string]: string } {
     return {
       uv: 'uv',
@@ -193,6 +205,8 @@ export class GdSrc extends $tea.Model {
       brandId: 'brand_id',
       shopId: 'shop_id',
       citycode: 'citycode',
+      pcode: 'pcode',
+      countrycode: 'countrycode',
     };
   }
 
@@ -203,6 +217,8 @@ export class GdSrc extends $tea.Model {
       brandId: 'string',
       shopId: 'string',
       citycode: 'string',
+      pcode: 'string',
+      countrycode: 'string',
     };
   }
 
@@ -220,9 +236,13 @@ export class Overlap extends $tea.Model {
   // 重叠品牌id
   brandId: string;
   // 重叠店铺id，数据类型为店铺时返回该属性与值
-  shopId: string;
+  shopId?: string;
   // 重叠城市编码，数据类型为城市时返回该属性与值
-  citycode: string;
+  citycode?: string;
+  // 重叠省份编码，数据类型为省份时返回该属性与值
+  pcode?: string;
+  // 数据类型为全国时返回该属性与值
+  countrycode?: string;
   static names(): { [key: string]: string } {
     return {
       uv: 'uv',
@@ -230,6 +250,8 @@ export class Overlap extends $tea.Model {
       brandId: 'brand_id',
       shopId: 'shop_id',
       citycode: 'citycode',
+      pcode: 'pcode',
+      countrycode: 'countrycode',
     };
   }
 
@@ -240,6 +262,8 @@ export class Overlap extends $tea.Model {
       brandId: 'string',
       shopId: 'string',
       citycode: 'string',
+      pcode: 'string',
+      countrycode: 'string',
     };
   }
 
@@ -342,6 +366,120 @@ export class SpecList extends $tea.Model {
   }
 }
 
+// 高德店铺基本系返回record
+export class GdStoreRecord extends $tea.Model {
+  // 店铺ID
+  shopId: string;
+  // 店铺名称
+  name: string;
+  // 店铺地址
+  address: string;
+  // 店铺所在省份
+  pname: string;
+  // 店铺所在城市
+  cityname: string;
+  // 品牌id
+  brandId: string;
+  // 品牌名称
+  brandName: string;
+  // 经销商代码
+  officeCode: string;
+  // 经度
+  lon: string;
+  // 纬度
+  lat: string;
+  // 店铺数据版本集合
+  versionList: string[];
+  static names(): { [key: string]: string } {
+    return {
+      shopId: 'shop_id',
+      name: 'name',
+      address: 'address',
+      pname: 'pname',
+      cityname: 'cityname',
+      brandId: 'brand_id',
+      brandName: 'brand_name',
+      officeCode: 'office_code',
+      lon: 'lon',
+      lat: 'lat',
+      versionList: 'version_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      shopId: 'string',
+      name: 'string',
+      address: 'string',
+      pname: 'string',
+      cityname: 'string',
+      brandId: 'string',
+      brandName: 'string',
+      officeCode: 'string',
+      lon: 'string',
+      lat: 'string',
+      versionList: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 高德潜客指数record
+export class GdPotentialCustomerRecord extends $tea.Model {
+  // uv指数
+  uv: GdCustomerUv;
+  // 城市编码，数据类型为店铺或者城市时返回该属性与值
+  citycode?: string;
+  // pv指数
+  pv: GdCustomerPv;
+  // 店铺id，数据类型为店铺时返回该属性与值
+  shopId?: string;
+  // 品牌id
+  brandId: string;
+  // 店铺数量（dataType!=SHOP时返回该字段）
+  shopNum?: number;
+  // 时间（时间类型为天时：yyyyMMdd；时间类型为周时：yyyyWW；时间类型为月时：yyyyMM）
+  time: string;
+  // 省份编码，数据类型为省份时返回该属性与值
+  pcode?: string;
+  // 数据类型为全国时返回该属性与值
+  countrycode?: string;
+  static names(): { [key: string]: string } {
+    return {
+      uv: 'uv',
+      citycode: 'citycode',
+      pv: 'pv',
+      shopId: 'shop_id',
+      brandId: 'brand_id',
+      shopNum: 'shop_num',
+      time: 'time',
+      pcode: 'pcode',
+      countrycode: 'countrycode',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      uv: GdCustomerUv,
+      citycode: 'string',
+      pv: GdCustomerPv,
+      shopId: 'string',
+      brandId: 'string',
+      shopNum: 'number',
+      time: 'string',
+      pcode: 'string',
+      countrycode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 电池报告返回数据详情
 export class BatteryReportData extends $tea.Model {
   // VIN码
@@ -390,6 +528,10 @@ export class BatteryReportData extends $tea.Model {
   manufacturerDate: string;
   // 权益说明文案
   rightsDesc: string;
+  // 权益说明-状态
+  rightStatus: string;
+  // 电池健康度-建议
+  sohSuggest: string[];
   static names(): { [key: string]: string } {
     return {
       vinCode: 'vin_code',
@@ -415,6 +557,8 @@ export class BatteryReportData extends $tea.Model {
       batteryType: 'battery_type',
       manufacturerDate: 'manufacturer_date',
       rightsDesc: 'rights_desc',
+      rightStatus: 'right_status',
+      sohSuggest: 'soh_suggest',
     };
   }
 
@@ -443,6 +587,8 @@ export class BatteryReportData extends $tea.Model {
       batteryType: 'string',
       manufacturerDate: 'string',
       rightsDesc: 'string',
+      rightStatus: 'string',
+      sohSuggest: { 'type': 'array', 'itemType': 'string' },
     };
   }
 
@@ -470,7 +616,7 @@ export class GdCustomersRecord extends $tea.Model {
   // 流入指数条数
   srcListNum: string;
   // 流出指数集合
-  destList: GdDest;
+  destList: GdDest[];
   // 流出指数条数
   destListNum: string;
   static names(): { [key: string]: string } {
@@ -498,33 +644,8 @@ export class GdCustomersRecord extends $tea.Model {
       overlapListNum: 'string',
       srcList: { 'type': 'array', 'itemType': GdSrc },
       srcListNum: 'string',
-      destList: GdDest,
+      destList: { 'type': 'array', 'itemType': GdDest },
       destListNum: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 汽车之家城市信息
-export class CityResult extends $tea.Model {
-  // 城市Id
-  cityId: string;
-  // 城市名称
-  cityName: string;
-  static names(): { [key: string]: string } {
-    return {
-      cityId: 'city_id',
-      cityName: 'city_name',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      cityId: 'string',
-      cityName: 'string',
     };
   }
 
@@ -595,7 +716,7 @@ export class BatteryReportResult extends $tea.Model {
   // 检测类型 6601：首检 6602：复核
   checkType: number;
   // 报告数据
-  data: BatteryReportData;
+  reportData: BatteryReportData;
   static names(): { [key: string]: string } {
     return {
       orderId: 'order_id',
@@ -603,7 +724,7 @@ export class BatteryReportResult extends $tea.Model {
       currentStartChargeSeq: 'current_start_charge_seq',
       charge: 'charge',
       checkType: 'check_type',
-      data: 'data',
+      reportData: 'report_data',
     };
   }
 
@@ -614,7 +735,7 @@ export class BatteryReportResult extends $tea.Model {
       currentStartChargeSeq: 'string',
       charge: 'boolean',
       checkType: 'number',
-      data: BatteryReportData,
+      reportData: BatteryReportData,
     };
   }
 
@@ -660,31 +781,6 @@ export class BasicCarInfo extends $tea.Model {
       modelCode: 'string',
       useNatureCode: 'string',
       mortgage: 'boolean',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 用户基本信息
-export class CarOwnerUserInfo extends $tea.Model {
-  // 用户id
-  userId: string;
-  // 手机号
-  phoneNum: string;
-  static names(): { [key: string]: string } {
-    return {
-      userId: 'user_id',
-      phoneNum: 'phone_num',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      userId: 'string',
-      phoneNum: 'string',
     };
   }
 
@@ -770,63 +866,6 @@ export class CarBusinessPrice extends $tea.Model {
       vehicleVesselTax: 'number',
       businessInsurance: 'number',
       extraContent: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 二手车
-export class UsedCarInfo extends $tea.Model {
-  // 渠道方线索业务id
-  leadId: string;
-  // 城市名称
-  cityName: string;
-  // 省份id
-  pid: string;
-  // 城市id
-  cid: string;
-  // 品牌名称
-  brandName?: string;
-  // 车系名称
-  seriesName?: string;
-  // 汽车之家车型id
-  specId: string;
-  // 车型名称
-  specName?: string;
-  // 首次上牌时间格式 yyyy/MM/dd
-  firstRegTime: string;
-  // 行驶公里数(km)
-  mileage: string;
-  static names(): { [key: string]: string } {
-    return {
-      leadId: 'lead_id',
-      cityName: 'city_name',
-      pid: 'pid',
-      cid: 'cid',
-      brandName: 'brand_name',
-      seriesName: 'series_name',
-      specId: 'spec_id',
-      specName: 'spec_name',
-      firstRegTime: 'first_reg_time',
-      mileage: 'mileage',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      leadId: 'string',
-      cityName: 'string',
-      pid: 'string',
-      cid: 'string',
-      brandName: 'string',
-      seriesName: 'string',
-      specId: 'string',
-      specName: 'string',
-      firstRegTime: 'string',
-      mileage: 'string',
     };
   }
 
@@ -942,6 +981,281 @@ export class GdCustomerInfo extends $tea.Model {
   }
 }
 
+// 高德潜客请求req
+export class GdCustomerFlow extends $tea.Model {
+  // 当前页面
+  current: number;
+  // 数据类型（SHOP：店铺；CITY：城市；PROVINCE：省份；COUNTRY：全国；SHOP_BRAND：店铺品牌(仅限竞品)）
+  dataType?: string;
+  // 时间类型（DAY：天；WEEK：周；MONTH：月；仅针对城市和店铺品牌的竞品数据支持的时间类型为，季度：QUARTER；半年：HALF；年：YEAR）
+  timeType?: string;
+  // 主品牌id
+  mainBrand?: string;
+  // 时间（时间类型为天时：yyyyMMdd；时间类型为周时：yyyyWW；时间类型为月时：yyyyMM；时间类型为季度时：yyyyQQ；时间类型为半年时：yyyyBB；时间类型为年时：yyyy；）
+  time?: string;
+  // 品牌id，以”,”分隔
+  brandLimit?: string;
+  // 数据指数类型（pv、uv中选择，多个以”,”分隔）
+  dataLimit?: string;
+  // 数据统计逻辑（0：默认值，基于本品或竞品获取；1：基于本品获取）
+  baseSelf?: number;
+  static names(): { [key: string]: string } {
+    return {
+      current: 'current',
+      dataType: 'data_type',
+      timeType: 'time_type',
+      mainBrand: 'main_brand',
+      time: 'time',
+      brandLimit: 'brand_limit',
+      dataLimit: 'data_limit',
+      baseSelf: 'base_self',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      current: 'number',
+      dataType: 'string',
+      timeType: 'string',
+      mainBrand: 'string',
+      time: 'string',
+      brandLimit: 'string',
+      dataLimit: 'string',
+      baseSelf: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 二手车估价信息
+export class UsedCarValuation extends $tea.Model {
+  // 评估金额(万)
+  referenceprice: string;
+  // 官方报价(参考)(万)
+  newcarprice: string;
+  // 车型图片(参考)
+  url: string;
+  // 车况好(万)(三个价格用"-"分隔,第一个是较小值第二个是...
+  conditiona: string;
+  // 车况正常(万)
+  conditionb: string;
+  // 车况差(万)
+  conditionc: string;
+  static names(): { [key: string]: string } {
+    return {
+      referenceprice: 'referenceprice',
+      newcarprice: 'newcarprice',
+      url: 'url',
+      conditiona: 'conditiona',
+      conditionb: 'conditionb',
+      conditionc: 'conditionc',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      referenceprice: 'string',
+      newcarprice: 'string',
+      url: 'string',
+      conditiona: 'string',
+      conditionb: 'string',
+      conditionc: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 高德潜客指数返回数据对象
+export class GdPotentialCustomerInfo extends $tea.Model {
+  // 时间范围（查询月度或年度数据时，返回该字段）
+  timeRange?: string;
+  // 数据总数
+  total: number;
+  // 当前展示页
+  current: number;
+  // 数据总页数
+  pages: number;
+  // 每页显示数据条数
+  size: number;
+  // 数据集合
+  records: GdPotentialCustomerRecord[];
+  static names(): { [key: string]: string } {
+    return {
+      timeRange: 'time_range',
+      total: 'total',
+      current: 'current',
+      pages: 'pages',
+      size: 'size',
+      records: 'records',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      timeRange: 'string',
+      total: 'number',
+      current: 'number',
+      pages: 'number',
+      size: 'number',
+      records: { 'type': 'array', 'itemType': GdPotentialCustomerRecord },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 汽车之家城市信息
+export class CityResult extends $tea.Model {
+  // 城市Id
+  cityId: string;
+  // 城市名称
+  cityName: string;
+  static names(): { [key: string]: string } {
+    return {
+      cityId: 'city_id',
+      cityName: 'city_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      cityId: 'string',
+      cityName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 用户基本信息
+export class CarOwnerUserInfo extends $tea.Model {
+  // 用户id
+  userId: string;
+  // 手机号
+  phoneNum: string;
+  static names(): { [key: string]: string } {
+    return {
+      userId: 'user_id',
+      phoneNum: 'phone_num',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      userId: 'string',
+      phoneNum: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 高德店铺基本信息
+export class GdStoreInfo extends $tea.Model {
+  // 数据总数
+  total: number;
+  // 当前展示页
+  current: number;
+  // 数据总页数
+  pages: number;
+  // 每页显示数据条数
+  size: number;
+  // 数据集合
+  records: GdStoreRecord[];
+  static names(): { [key: string]: string } {
+    return {
+      total: 'total',
+      current: 'current',
+      pages: 'pages',
+      size: 'size',
+      records: 'records',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      total: 'number',
+      current: 'number',
+      pages: 'number',
+      size: 'number',
+      records: { 'type': 'array', 'itemType': GdStoreRecord },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 二手车
+export class UsedCarInfo extends $tea.Model {
+  // 渠道方线索业务id
+  leadId: string;
+  // 城市名称
+  cityName: string;
+  // 省份id
+  pid: string;
+  // 城市id
+  cid: string;
+  // 品牌名称
+  brandName?: string;
+  // 车系名称
+  seriesName?: string;
+  // 汽车之家车型id
+  specId: string;
+  // 车型名称
+  specName?: string;
+  // 首次上牌时间格式 yyyy/MM/dd
+  firstRegTime: string;
+  // 行驶公里数(km)
+  mileage: string;
+  static names(): { [key: string]: string } {
+    return {
+      leadId: 'lead_id',
+      cityName: 'city_name',
+      pid: 'pid',
+      cid: 'cid',
+      brandName: 'brand_name',
+      seriesName: 'series_name',
+      specId: 'spec_id',
+      specName: 'spec_name',
+      firstRegTime: 'first_reg_time',
+      mileage: 'mileage',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      leadId: 'string',
+      cityName: 'string',
+      pid: 'string',
+      cid: 'string',
+      brandName: 'string',
+      seriesName: 'string',
+      specId: 'string',
+      specName: 'string',
+      firstRegTime: 'string',
+      mileage: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 常岳用户结构体
 export class CyUserInfo extends $tea.Model {
   // 用户id
@@ -1049,96 +1363,6 @@ export class BatteryReport extends $tea.Model {
       nominalEnergy: 'string',
       cityId: 'string',
       registerDate: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 高德潜客请求req
-export class GdCustomerFlow extends $tea.Model {
-  // 当前页面
-  current: number;
-  // 数据类型（SHOP：店铺；CITY：城市；PROVINCE：省份；COUNTRY：全国；SHOP_BRAND：店铺品牌(仅限竞品)）
-  dataType: string;
-  // 时间类型（DAY：天；WEEK：周；MONTH：月；仅针对城市和店铺品牌的竞品数据支持的时间类型为，季度：QUARTER；半年：HALF；年：YEAR）
-  timeType: string;
-  // 主品牌id
-  mainBrand: string;
-  // 时间（时间类型为天时：yyyyMMdd；时间类型为周时：yyyyWW；时间类型为月时：yyyyMM；时间类型为季度时：yyyyQQ；时间类型为半年时：yyyyBB；时间类型为年时：yyyy；）
-  time: string;
-  // 品牌id，以”,”分隔
-  brandLimit: string;
-  // 数据指数类型（pv、uv中选择，多个以”,”分隔）
-  dataLimit: string;
-  // 数据统计逻辑（0：默认值，基于本品或竞品获取；1：基于本品获取）
-  baseSelf?: number;
-  static names(): { [key: string]: string } {
-    return {
-      current: 'current',
-      dataType: 'data_type',
-      timeType: 'time_type',
-      mainBrand: 'main_brand',
-      time: 'time',
-      brandLimit: 'brand_limit',
-      dataLimit: 'data_limit',
-      baseSelf: 'base_self',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      current: 'number',
-      dataType: 'string',
-      timeType: 'string',
-      mainBrand: 'string',
-      time: 'string',
-      brandLimit: 'string',
-      dataLimit: 'string',
-      baseSelf: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 二手车估价信息
-export class UsedCarValuation extends $tea.Model {
-  // 评估金额(万)
-  referenceprice: string;
-  // 官方报价(参考)(万)
-  newcarprice: string;
-  // 车型图片(参考)
-  url: string;
-  // 车况好(万)(三个价格用"-"分隔,第一个是较小值第二个是...
-  conditiona: string;
-  // 车况正常(万)
-  conditionb: string;
-  // 车况差(万)
-  conditionc: string;
-  static names(): { [key: string]: string } {
-    return {
-      referenceprice: 'referenceprice',
-      newcarprice: 'newcarprice',
-      url: 'url',
-      conditiona: 'conditiona',
-      conditionb: 'conditionb',
-      conditionc: 'conditionc',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      referenceprice: 'string',
-      newcarprice: 'string',
-      url: 'string',
-      conditiona: 'string',
-      conditionb: 'string',
-      conditionc: 'string',
     };
   }
 
@@ -2080,6 +2304,156 @@ export class QueryNewcarQczjResponse extends $tea.Model {
   }
 }
 
+export class QueryGdStoreRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 场景码
+  sceneCode: string;
+  // 查询店铺基本信息请求体
+  gdCustomerFlow: GdCustomerFlow;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      sceneCode: 'scene_code',
+      gdCustomerFlow: 'gd_customer_flow',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      sceneCode: 'string',
+      gdCustomerFlow: GdCustomerFlow,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryGdStoreResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 返回消息
+  msg?: string;
+  // 返回编码，值为10000表示成功，其余值表示失败
+  code?: string;
+  // 随即返回ID
+  requestLinkId?: string;
+  // 返回数据
+  data?: GdStoreInfo;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      msg: 'msg',
+      code: 'code',
+      requestLinkId: 'request_link_id',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      msg: 'string',
+      code: 'string',
+      requestLinkId: 'string',
+      data: GdStoreInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryGdPoentialRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 场景码
+  sceneCode: string;
+  // 潜客指数接口请求体
+  gdCustomerFlow: GdCustomerFlow;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      sceneCode: 'scene_code',
+      gdCustomerFlow: 'gd_customer_flow',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      sceneCode: 'string',
+      gdCustomerFlow: GdCustomerFlow,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryGdPoentialResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 返回消息
+  msg?: string;
+  // 返回编码，值为10000表示成功，其余值表示失败
+  code?: number;
+  // 随机返回id
+  requestLinkId?: string;
+  // 返回数据
+  data?: GdPotentialCustomerInfo;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      msg: 'msg',
+      code: 'code',
+      requestLinkId: 'request_link_id',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      msg: 'string',
+      code: 'number',
+      requestLinkId: 'string',
+      data: GdPotentialCustomerInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -2281,7 +2655,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.21",
+          sdk_version: "1.0.23",
           _prod_code: "INTELLICAR",
           _prod_channel: "default",
         };
@@ -2577,6 +2951,44 @@ export default class Client {
   async queryNewcarQczjEx(request: QueryNewcarQczjRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryNewcarQczjResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryNewcarQczjResponse>(await this.doRequest("1.0", "antdigital.intellicar.newcar.qczj.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryNewcarQczjResponse({}));
+  }
+
+  /**
+   * Description: 【高德】查询店铺基本信息
+   * Summary: 【高德】查询店铺基本信息
+   */
+  async queryGdStore(request: QueryGdStoreRequest): Promise<QueryGdStoreResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryGdStoreEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 【高德】查询店铺基本信息
+   * Summary: 【高德】查询店铺基本信息
+   */
+  async queryGdStoreEx(request: QueryGdStoreRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryGdStoreResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryGdStoreResponse>(await this.doRequest("1.0", "antdigital.intellicar.gd.store.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryGdStoreResponse({}));
+  }
+
+  /**
+   * Description: 【高德】潜客指数数据
+   * Summary: 【高德】潜客指数数据
+   */
+  async queryGdPoential(request: QueryGdPoentialRequest): Promise<QueryGdPoentialResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryGdPoentialEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 【高德】潜客指数数据
+   * Summary: 【高德】潜客指数数据
+   */
+  async queryGdPoentialEx(request: QueryGdPoentialRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryGdPoentialResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryGdPoentialResponse>(await this.doRequest("1.0", "antdigital.intellicar.gd.poential.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryGdPoentialResponse({}));
   }
 
   /**
