@@ -21840,7 +21840,7 @@ type QueryDubbridgeRepaymentLxResponse struct {
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 业务返回码，001 请求成功 002 请求失败
-	Ccode *string `json:"ccode,omitempty" xml:"ccode,omitempty"`
+	Code *string `json:"code,omitempty" xml:"code,omitempty"`
 	// 业务返回描述
 	Msg *string `json:"msg,omitempty" xml:"msg,omitempty"`
 	// 业务数据
@@ -21874,8 +21874,8 @@ func (s *QueryDubbridgeRepaymentLxResponse) SetResultMsg(v string) *QueryDubbrid
 	return s
 }
 
-func (s *QueryDubbridgeRepaymentLxResponse) SetCcode(v string) *QueryDubbridgeRepaymentLxResponse {
-	s.Ccode = &v
+func (s *QueryDubbridgeRepaymentLxResponse) SetCode(v string) *QueryDubbridgeRepaymentLxResponse {
+	s.Code = &v
 	return s
 }
 
@@ -27772,6 +27772,76 @@ func (s *UploadRfcAiboundConvertResponse) SetResultMsg(v string) *UploadRfcAibou
 }
 
 func (s *UploadRfcAiboundConvertResponse) SetContent(v string) *UploadRfcAiboundConvertResponse {
+	s.Content = &v
+	return s
+}
+
+type QueryRfcAiboundFileRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 获取圈客文件
+	FileType *string `json:"file_type,omitempty" xml:"file_type,omitempty" require:"true"`
+}
+
+func (s QueryRfcAiboundFileRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryRfcAiboundFileRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryRfcAiboundFileRequest) SetAuthToken(v string) *QueryRfcAiboundFileRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryRfcAiboundFileRequest) SetProductInstanceId(v string) *QueryRfcAiboundFileRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryRfcAiboundFileRequest) SetFileType(v string) *QueryRfcAiboundFileRequest {
+	s.FileType = &v
+	return s
+}
+
+type QueryRfcAiboundFileResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回内容
+	Content *string `json:"content,omitempty" xml:"content,omitempty"`
+}
+
+func (s QueryRfcAiboundFileResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryRfcAiboundFileResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryRfcAiboundFileResponse) SetReqMsgId(v string) *QueryRfcAiboundFileResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryRfcAiboundFileResponse) SetResultCode(v string) *QueryRfcAiboundFileResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryRfcAiboundFileResponse) SetResultMsg(v string) *QueryRfcAiboundFileResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryRfcAiboundFileResponse) SetContent(v string) *QueryRfcAiboundFileResponse {
 	s.Content = &v
 	return s
 }
@@ -40042,7 +40112,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.31.4"),
+				"sdk_version":      tea.String("1.31.6"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -45879,6 +45949,40 @@ func (client *Client) UploadRfcAiboundConvertEx(request *UploadRfcAiboundConvert
 	}
 	_result = &UploadRfcAiboundConvertResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.rfc.aibound.convert.upload"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: rfc外呼圈客名单获取
+ * Summary: rfc外呼圈客名单获取
+ */
+func (client *Client) QueryRfcAiboundFile(request *QueryRfcAiboundFileRequest) (_result *QueryRfcAiboundFileResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryRfcAiboundFileResponse{}
+	_body, _err := client.QueryRfcAiboundFileEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: rfc外呼圈客名单获取
+ * Summary: rfc外呼圈客名单获取
+ */
+func (client *Client) QueryRfcAiboundFileEx(request *QueryRfcAiboundFileRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryRfcAiboundFileResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryRfcAiboundFileResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.rfc.aibound.file.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
