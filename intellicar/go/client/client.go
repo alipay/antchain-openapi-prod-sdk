@@ -225,9 +225,13 @@ type GdDest struct {
 	// 流出品牌id
 	BrandId *string `json:"brand_id,omitempty" xml:"brand_id,omitempty" require:"true"`
 	// 流出店铺id，数据类型为店铺时返回该属性与值
-	ShopId *string `json:"shop_id,omitempty" xml:"shop_id,omitempty" require:"true"`
+	ShopId *string `json:"shop_id,omitempty" xml:"shop_id,omitempty"`
 	// 城市编码，数据类型为店铺或者城市时返回该属性与值
-	Citycode *string `json:"citycode,omitempty" xml:"citycode,omitempty" require:"true"`
+	Citycode *string `json:"citycode,omitempty" xml:"citycode,omitempty"`
+	// 省份编码，数据类型为省份时返回该属性与值
+	Pcode *string `json:"pcode,omitempty" xml:"pcode,omitempty"`
+	// 数据类型为全国时返回该属性与值
+	Countrycode *string `json:"countrycode,omitempty" xml:"countrycode,omitempty"`
 }
 
 func (s GdDest) String() string {
@@ -263,6 +267,16 @@ func (s *GdDest) SetCitycode(v string) *GdDest {
 	return s
 }
 
+func (s *GdDest) SetPcode(v string) *GdDest {
+	s.Pcode = &v
+	return s
+}
+
+func (s *GdDest) SetCountrycode(v string) *GdDest {
+	s.Countrycode = &v
+	return s
+}
+
 // 高德潜客record流入指数
 type GdSrc struct {
 	// 流入指数uv指数
@@ -272,9 +286,13 @@ type GdSrc struct {
 	// 流入品牌id
 	BrandId *string `json:"brand_id,omitempty" xml:"brand_id,omitempty" require:"true"`
 	// 流入店铺id，数据类型为店铺时返回该属性与值
-	ShopId *string `json:"shop_id,omitempty" xml:"shop_id,omitempty" require:"true"`
+	ShopId *string `json:"shop_id,omitempty" xml:"shop_id,omitempty"`
 	// 流入城市编码，数据类型为店铺或者城市时返回该属性与值
-	Citycode *string `json:"citycode,omitempty" xml:"citycode,omitempty" require:"true"`
+	Citycode *string `json:"citycode,omitempty" xml:"citycode,omitempty"`
+	// 省份编码，数据类型为省份时返回该属性与值
+	Pcode *string `json:"pcode,omitempty" xml:"pcode,omitempty"`
+	// 数据类型为全国时返回该属性与值
+	Countrycode *string `json:"countrycode,omitempty" xml:"countrycode,omitempty"`
 }
 
 func (s GdSrc) String() string {
@@ -310,6 +328,16 @@ func (s *GdSrc) SetCitycode(v string) *GdSrc {
 	return s
 }
 
+func (s *GdSrc) SetPcode(v string) *GdSrc {
+	s.Pcode = &v
+	return s
+}
+
+func (s *GdSrc) SetCountrycode(v string) *GdSrc {
+	s.Countrycode = &v
+	return s
+}
+
 // 高德潜客record重叠指数
 type Overlap struct {
 	// 重叠指数uv指数
@@ -319,9 +347,13 @@ type Overlap struct {
 	// 重叠品牌id
 	BrandId *string `json:"brand_id,omitempty" xml:"brand_id,omitempty" require:"true"`
 	// 重叠店铺id，数据类型为店铺时返回该属性与值
-	ShopId *string `json:"shop_id,omitempty" xml:"shop_id,omitempty" require:"true"`
+	ShopId *string `json:"shop_id,omitempty" xml:"shop_id,omitempty"`
 	// 重叠城市编码，数据类型为城市时返回该属性与值
-	Citycode *string `json:"citycode,omitempty" xml:"citycode,omitempty" require:"true"`
+	Citycode *string `json:"citycode,omitempty" xml:"citycode,omitempty"`
+	// 重叠省份编码，数据类型为省份时返回该属性与值
+	Pcode *string `json:"pcode,omitempty" xml:"pcode,omitempty"`
+	// 数据类型为全国时返回该属性与值
+	Countrycode *string `json:"countrycode,omitempty" xml:"countrycode,omitempty"`
 }
 
 func (s Overlap) String() string {
@@ -354,6 +386,16 @@ func (s *Overlap) SetShopId(v string) *Overlap {
 
 func (s *Overlap) SetCitycode(v string) *Overlap {
 	s.Citycode = &v
+	return s
+}
+
+func (s *Overlap) SetPcode(v string) *Overlap {
+	s.Pcode = &v
+	return s
+}
+
+func (s *Overlap) SetCountrycode(v string) *Overlap {
+	s.Countrycode = &v
 	return s
 }
 
@@ -486,6 +528,170 @@ func (s *SpecList) SetSpecName(v string) *SpecList {
 	return s
 }
 
+// 高德店铺基本系返回record
+type GdStoreRecord struct {
+	// 店铺ID
+	ShopId *string `json:"shop_id,omitempty" xml:"shop_id,omitempty" require:"true"`
+	// 店铺名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 店铺地址
+	Address *string `json:"address,omitempty" xml:"address,omitempty" require:"true"`
+	// 店铺所在省份
+	Pname *string `json:"pname,omitempty" xml:"pname,omitempty" require:"true"`
+	// 店铺所在城市
+	Cityname *string `json:"cityname,omitempty" xml:"cityname,omitempty" require:"true"`
+	// 品牌id
+	BrandId *string `json:"brand_id,omitempty" xml:"brand_id,omitempty" require:"true"`
+	// 品牌名称
+	BrandName *string `json:"brand_name,omitempty" xml:"brand_name,omitempty" require:"true"`
+	// 经销商代码
+	OfficeCode *string `json:"office_code,omitempty" xml:"office_code,omitempty" require:"true"`
+	// 经度
+	Lon *string `json:"lon,omitempty" xml:"lon,omitempty" require:"true"`
+	// 纬度
+	Lat *string `json:"lat,omitempty" xml:"lat,omitempty" require:"true"`
+	// 店铺数据版本集合
+	VersionList []*string `json:"version_list,omitempty" xml:"version_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s GdStoreRecord) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GdStoreRecord) GoString() string {
+	return s.String()
+}
+
+func (s *GdStoreRecord) SetShopId(v string) *GdStoreRecord {
+	s.ShopId = &v
+	return s
+}
+
+func (s *GdStoreRecord) SetName(v string) *GdStoreRecord {
+	s.Name = &v
+	return s
+}
+
+func (s *GdStoreRecord) SetAddress(v string) *GdStoreRecord {
+	s.Address = &v
+	return s
+}
+
+func (s *GdStoreRecord) SetPname(v string) *GdStoreRecord {
+	s.Pname = &v
+	return s
+}
+
+func (s *GdStoreRecord) SetCityname(v string) *GdStoreRecord {
+	s.Cityname = &v
+	return s
+}
+
+func (s *GdStoreRecord) SetBrandId(v string) *GdStoreRecord {
+	s.BrandId = &v
+	return s
+}
+
+func (s *GdStoreRecord) SetBrandName(v string) *GdStoreRecord {
+	s.BrandName = &v
+	return s
+}
+
+func (s *GdStoreRecord) SetOfficeCode(v string) *GdStoreRecord {
+	s.OfficeCode = &v
+	return s
+}
+
+func (s *GdStoreRecord) SetLon(v string) *GdStoreRecord {
+	s.Lon = &v
+	return s
+}
+
+func (s *GdStoreRecord) SetLat(v string) *GdStoreRecord {
+	s.Lat = &v
+	return s
+}
+
+func (s *GdStoreRecord) SetVersionList(v []*string) *GdStoreRecord {
+	s.VersionList = v
+	return s
+}
+
+// 高德潜客指数record
+type GdPotentialCustomerRecord struct {
+	// uv指数
+	Uv *GdCustomerUv `json:"uv,omitempty" xml:"uv,omitempty" require:"true"`
+	// 城市编码，数据类型为店铺或者城市时返回该属性与值
+	Citycode *string `json:"citycode,omitempty" xml:"citycode,omitempty"`
+	// pv指数
+	Pv *GdCustomerPv `json:"pv,omitempty" xml:"pv,omitempty" require:"true"`
+	// 店铺id，数据类型为店铺时返回该属性与值
+	ShopId *string `json:"shop_id,omitempty" xml:"shop_id,omitempty"`
+	// 品牌id
+	BrandId *string `json:"brand_id,omitempty" xml:"brand_id,omitempty" require:"true"`
+	// 店铺数量（dataType!=SHOP时返回该字段）
+	ShopNum *int64 `json:"shop_num,omitempty" xml:"shop_num,omitempty"`
+	// 时间（时间类型为天时：yyyyMMdd；时间类型为周时：yyyyWW；时间类型为月时：yyyyMM）
+	Time *string `json:"time,omitempty" xml:"time,omitempty" require:"true"`
+	// 省份编码，数据类型为省份时返回该属性与值
+	Pcode *string `json:"pcode,omitempty" xml:"pcode,omitempty"`
+	// 数据类型为全国时返回该属性与值
+	Countrycode *string `json:"countrycode,omitempty" xml:"countrycode,omitempty"`
+}
+
+func (s GdPotentialCustomerRecord) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GdPotentialCustomerRecord) GoString() string {
+	return s.String()
+}
+
+func (s *GdPotentialCustomerRecord) SetUv(v *GdCustomerUv) *GdPotentialCustomerRecord {
+	s.Uv = v
+	return s
+}
+
+func (s *GdPotentialCustomerRecord) SetCitycode(v string) *GdPotentialCustomerRecord {
+	s.Citycode = &v
+	return s
+}
+
+func (s *GdPotentialCustomerRecord) SetPv(v *GdCustomerPv) *GdPotentialCustomerRecord {
+	s.Pv = v
+	return s
+}
+
+func (s *GdPotentialCustomerRecord) SetShopId(v string) *GdPotentialCustomerRecord {
+	s.ShopId = &v
+	return s
+}
+
+func (s *GdPotentialCustomerRecord) SetBrandId(v string) *GdPotentialCustomerRecord {
+	s.BrandId = &v
+	return s
+}
+
+func (s *GdPotentialCustomerRecord) SetShopNum(v int64) *GdPotentialCustomerRecord {
+	s.ShopNum = &v
+	return s
+}
+
+func (s *GdPotentialCustomerRecord) SetTime(v string) *GdPotentialCustomerRecord {
+	s.Time = &v
+	return s
+}
+
+func (s *GdPotentialCustomerRecord) SetPcode(v string) *GdPotentialCustomerRecord {
+	s.Pcode = &v
+	return s
+}
+
+func (s *GdPotentialCustomerRecord) SetCountrycode(v string) *GdPotentialCustomerRecord {
+	s.Countrycode = &v
+	return s
+}
+
 // 电池报告返回数据详情
 type BatteryReportData struct {
 	// VIN码
@@ -534,6 +740,10 @@ type BatteryReportData struct {
 	ManufacturerDate *string `json:"manufacturer_date,omitempty" xml:"manufacturer_date,omitempty" require:"true"`
 	// 权益说明文案
 	RightsDesc *string `json:"rights_desc,omitempty" xml:"rights_desc,omitempty" require:"true"`
+	// 权益说明-状态
+	RightStatus *string `json:"right_status,omitempty" xml:"right_status,omitempty" require:"true"`
+	// 电池健康度-建议
+	SohSuggest []*string `json:"soh_suggest,omitempty" xml:"soh_suggest,omitempty" require:"true" type:"Repeated"`
 }
 
 func (s BatteryReportData) String() string {
@@ -659,6 +869,16 @@ func (s *BatteryReportData) SetRightsDesc(v string) *BatteryReportData {
 	return s
 }
 
+func (s *BatteryReportData) SetRightStatus(v string) *BatteryReportData {
+	s.RightStatus = &v
+	return s
+}
+
+func (s *BatteryReportData) SetSohSuggest(v []*string) *BatteryReportData {
+	s.SohSuggest = v
+	return s
+}
+
 // 高德数据集合内record
 type GdCustomersRecord struct {
 	// 城市编码，数据类型为店铺或者城市时返回该属性与值
@@ -678,7 +898,7 @@ type GdCustomersRecord struct {
 	// 流入指数条数
 	SrcListNum *string `json:"src_list_num,omitempty" xml:"src_list_num,omitempty" require:"true"`
 	// 流出指数集合
-	DestList *GdDest `json:"dest_list,omitempty" xml:"dest_list,omitempty" require:"true"`
+	DestList []*GdDest `json:"dest_list,omitempty" xml:"dest_list,omitempty" require:"true" type:"Repeated"`
 	// 流出指数条数
 	DestListNum *string `json:"dest_list_num,omitempty" xml:"dest_list_num,omitempty" require:"true"`
 }
@@ -731,39 +951,13 @@ func (s *GdCustomersRecord) SetSrcListNum(v string) *GdCustomersRecord {
 	return s
 }
 
-func (s *GdCustomersRecord) SetDestList(v *GdDest) *GdCustomersRecord {
+func (s *GdCustomersRecord) SetDestList(v []*GdDest) *GdCustomersRecord {
 	s.DestList = v
 	return s
 }
 
 func (s *GdCustomersRecord) SetDestListNum(v string) *GdCustomersRecord {
 	s.DestListNum = &v
-	return s
-}
-
-// 汽车之家城市信息
-type CityResult struct {
-	// 城市Id
-	CityId *string `json:"city_id,omitempty" xml:"city_id,omitempty" require:"true"`
-	// 城市名称
-	CityName *string `json:"city_name,omitempty" xml:"city_name,omitempty" require:"true"`
-}
-
-func (s CityResult) String() string {
-	return tea.Prettify(s)
-}
-
-func (s CityResult) GoString() string {
-	return s.String()
-}
-
-func (s *CityResult) SetCityId(v string) *CityResult {
-	s.CityId = &v
-	return s
-}
-
-func (s *CityResult) SetCityName(v string) *CityResult {
-	s.CityName = &v
 	return s
 }
 
@@ -848,7 +1042,7 @@ type BatteryReportResult struct {
 	// 检测类型 6601：首检 6602：复核
 	CheckType *int64 `json:"check_type,omitempty" xml:"check_type,omitempty" require:"true"`
 	// 报告数据
-	Data *BatteryReportData `json:"data,omitempty" xml:"data,omitempty" require:"true"`
+	ReportData *BatteryReportData `json:"report_data,omitempty" xml:"report_data,omitempty" require:"true"`
 }
 
 func (s BatteryReportResult) String() string {
@@ -884,8 +1078,8 @@ func (s *BatteryReportResult) SetCheckType(v int64) *BatteryReportResult {
 	return s
 }
 
-func (s *BatteryReportResult) SetData(v *BatteryReportData) *BatteryReportResult {
-	s.Data = v
+func (s *BatteryReportResult) SetReportData(v *BatteryReportData) *BatteryReportResult {
+	s.ReportData = v
 	return s
 }
 
@@ -947,32 +1141,6 @@ func (s *BasicCarInfo) SetUseNatureCode(v string) *BasicCarInfo {
 
 func (s *BasicCarInfo) SetMortgage(v bool) *BasicCarInfo {
 	s.Mortgage = &v
-	return s
-}
-
-// 用户基本信息
-type CarOwnerUserInfo struct {
-	// 用户id
-	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
-	// 手机号
-	PhoneNum *string `json:"phone_num,omitempty" xml:"phone_num,omitempty" require:"true"`
-}
-
-func (s CarOwnerUserInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s CarOwnerUserInfo) GoString() string {
-	return s.String()
-}
-
-func (s *CarOwnerUserInfo) SetUserId(v string) *CarOwnerUserInfo {
-	s.UserId = &v
-	return s
-}
-
-func (s *CarOwnerUserInfo) SetPhoneNum(v string) *CarOwnerUserInfo {
-	s.PhoneNum = &v
 	return s
 }
 
@@ -1107,88 +1275,6 @@ func (s *CarBusinessPrice) SetExtraContent(v string) *CarBusinessPrice {
 	return s
 }
 
-// 二手车
-type UsedCarInfo struct {
-	// 渠道方线索业务id
-	LeadId *string `json:"lead_id,omitempty" xml:"lead_id,omitempty" require:"true"`
-	// 城市名称
-	CityName *string `json:"city_name,omitempty" xml:"city_name,omitempty" require:"true"`
-	// 省份id
-	Pid *string `json:"pid,omitempty" xml:"pid,omitempty" require:"true"`
-	// 城市id
-	Cid *string `json:"cid,omitempty" xml:"cid,omitempty" require:"true"`
-	// 品牌名称
-	BrandName *string `json:"brand_name,omitempty" xml:"brand_name,omitempty"`
-	// 车系名称
-	SeriesName *string `json:"series_name,omitempty" xml:"series_name,omitempty"`
-	// 汽车之家车型id
-	SpecId *string `json:"spec_id,omitempty" xml:"spec_id,omitempty" require:"true"`
-	// 车型名称
-	SpecName *string `json:"spec_name,omitempty" xml:"spec_name,omitempty"`
-	// 首次上牌时间格式 yyyy/MM/dd
-	FirstRegTime *string `json:"first_reg_time,omitempty" xml:"first_reg_time,omitempty" require:"true"`
-	// 行驶公里数(km)
-	Mileage *string `json:"mileage,omitempty" xml:"mileage,omitempty" require:"true"`
-}
-
-func (s UsedCarInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s UsedCarInfo) GoString() string {
-	return s.String()
-}
-
-func (s *UsedCarInfo) SetLeadId(v string) *UsedCarInfo {
-	s.LeadId = &v
-	return s
-}
-
-func (s *UsedCarInfo) SetCityName(v string) *UsedCarInfo {
-	s.CityName = &v
-	return s
-}
-
-func (s *UsedCarInfo) SetPid(v string) *UsedCarInfo {
-	s.Pid = &v
-	return s
-}
-
-func (s *UsedCarInfo) SetCid(v string) *UsedCarInfo {
-	s.Cid = &v
-	return s
-}
-
-func (s *UsedCarInfo) SetBrandName(v string) *UsedCarInfo {
-	s.BrandName = &v
-	return s
-}
-
-func (s *UsedCarInfo) SetSeriesName(v string) *UsedCarInfo {
-	s.SeriesName = &v
-	return s
-}
-
-func (s *UsedCarInfo) SetSpecId(v string) *UsedCarInfo {
-	s.SpecId = &v
-	return s
-}
-
-func (s *UsedCarInfo) SetSpecName(v string) *UsedCarInfo {
-	s.SpecName = &v
-	return s
-}
-
-func (s *UsedCarInfo) SetFirstRegTime(v string) *UsedCarInfo {
-	s.FirstRegTime = &v
-	return s
-}
-
-func (s *UsedCarInfo) SetMileage(v string) *UsedCarInfo {
-	s.Mileage = &v
-	return s
-}
-
 // 批量提交结果
 type BatchSubmitCarResult struct {
 	// 提交线索唯一请求id
@@ -1320,6 +1406,363 @@ func (s *GdCustomerInfo) SetSize(v int64) *GdCustomerInfo {
 
 func (s *GdCustomerInfo) SetRecords(v []*GdCustomersRecord) *GdCustomerInfo {
 	s.Records = v
+	return s
+}
+
+// 高德潜客请求req
+type GdCustomerFlow struct {
+	// 当前页面
+	Current *int64 `json:"current,omitempty" xml:"current,omitempty" require:"true"`
+	// 数据类型（SHOP：店铺；CITY：城市；PROVINCE：省份；COUNTRY：全国；SHOP_BRAND：店铺品牌(仅限竞品)）
+	DataType *string `json:"data_type,omitempty" xml:"data_type,omitempty"`
+	// 时间类型（DAY：天；WEEK：周；MONTH：月；仅针对城市和店铺品牌的竞品数据支持的时间类型为，季度：QUARTER；半年：HALF；年：YEAR）
+	TimeType *string `json:"time_type,omitempty" xml:"time_type,omitempty"`
+	// 主品牌id
+	MainBrand *string `json:"main_brand,omitempty" xml:"main_brand,omitempty"`
+	// 时间（时间类型为天时：yyyyMMdd；时间类型为周时：yyyyWW；时间类型为月时：yyyyMM；时间类型为季度时：yyyyQQ；时间类型为半年时：yyyyBB；时间类型为年时：yyyy；）
+	Time *string `json:"time,omitempty" xml:"time,omitempty"`
+	// 品牌id，以”,”分隔
+	BrandLimit *string `json:"brand_limit,omitempty" xml:"brand_limit,omitempty"`
+	// 数据指数类型（pv、uv中选择，多个以”,”分隔）
+	DataLimit *string `json:"data_limit,omitempty" xml:"data_limit,omitempty"`
+	// 数据统计逻辑（0：默认值，基于本品或竞品获取；1：基于本品获取）
+	BaseSelf *int64 `json:"base_self,omitempty" xml:"base_self,omitempty"`
+}
+
+func (s GdCustomerFlow) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GdCustomerFlow) GoString() string {
+	return s.String()
+}
+
+func (s *GdCustomerFlow) SetCurrent(v int64) *GdCustomerFlow {
+	s.Current = &v
+	return s
+}
+
+func (s *GdCustomerFlow) SetDataType(v string) *GdCustomerFlow {
+	s.DataType = &v
+	return s
+}
+
+func (s *GdCustomerFlow) SetTimeType(v string) *GdCustomerFlow {
+	s.TimeType = &v
+	return s
+}
+
+func (s *GdCustomerFlow) SetMainBrand(v string) *GdCustomerFlow {
+	s.MainBrand = &v
+	return s
+}
+
+func (s *GdCustomerFlow) SetTime(v string) *GdCustomerFlow {
+	s.Time = &v
+	return s
+}
+
+func (s *GdCustomerFlow) SetBrandLimit(v string) *GdCustomerFlow {
+	s.BrandLimit = &v
+	return s
+}
+
+func (s *GdCustomerFlow) SetDataLimit(v string) *GdCustomerFlow {
+	s.DataLimit = &v
+	return s
+}
+
+func (s *GdCustomerFlow) SetBaseSelf(v int64) *GdCustomerFlow {
+	s.BaseSelf = &v
+	return s
+}
+
+// 二手车估价信息
+type UsedCarValuation struct {
+	// 评估金额(万)
+	Referenceprice *string `json:"referenceprice,omitempty" xml:"referenceprice,omitempty" require:"true"`
+	// 官方报价(参考)(万)
+	Newcarprice *string `json:"newcarprice,omitempty" xml:"newcarprice,omitempty" require:"true"`
+	// 车型图片(参考)
+	Url *string `json:"url,omitempty" xml:"url,omitempty" require:"true"`
+	// 车况好(万)(三个价格用"-"分隔,第一个是较小值第二个是...
+	Conditiona *string `json:"conditiona,omitempty" xml:"conditiona,omitempty" require:"true"`
+	// 车况正常(万)
+	Conditionb *string `json:"conditionb,omitempty" xml:"conditionb,omitempty" require:"true"`
+	// 车况差(万)
+	Conditionc *string `json:"conditionc,omitempty" xml:"conditionc,omitempty" require:"true"`
+}
+
+func (s UsedCarValuation) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UsedCarValuation) GoString() string {
+	return s.String()
+}
+
+func (s *UsedCarValuation) SetReferenceprice(v string) *UsedCarValuation {
+	s.Referenceprice = &v
+	return s
+}
+
+func (s *UsedCarValuation) SetNewcarprice(v string) *UsedCarValuation {
+	s.Newcarprice = &v
+	return s
+}
+
+func (s *UsedCarValuation) SetUrl(v string) *UsedCarValuation {
+	s.Url = &v
+	return s
+}
+
+func (s *UsedCarValuation) SetConditiona(v string) *UsedCarValuation {
+	s.Conditiona = &v
+	return s
+}
+
+func (s *UsedCarValuation) SetConditionb(v string) *UsedCarValuation {
+	s.Conditionb = &v
+	return s
+}
+
+func (s *UsedCarValuation) SetConditionc(v string) *UsedCarValuation {
+	s.Conditionc = &v
+	return s
+}
+
+// 高德潜客指数返回数据对象
+type GdPotentialCustomerInfo struct {
+	// 时间范围（查询月度或年度数据时，返回该字段）
+	TimeRange *string `json:"time_range,omitempty" xml:"time_range,omitempty"`
+	// 数据总数
+	Total *int64 `json:"total,omitempty" xml:"total,omitempty" require:"true"`
+	// 当前展示页
+	Current *int64 `json:"current,omitempty" xml:"current,omitempty" require:"true"`
+	// 数据总页数
+	Pages *int64 `json:"pages,omitempty" xml:"pages,omitempty" require:"true"`
+	// 每页显示数据条数
+	Size *int64 `json:"size,omitempty" xml:"size,omitempty" require:"true"`
+	// 数据集合
+	Records []*GdPotentialCustomerRecord `json:"records,omitempty" xml:"records,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s GdPotentialCustomerInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GdPotentialCustomerInfo) GoString() string {
+	return s.String()
+}
+
+func (s *GdPotentialCustomerInfo) SetTimeRange(v string) *GdPotentialCustomerInfo {
+	s.TimeRange = &v
+	return s
+}
+
+func (s *GdPotentialCustomerInfo) SetTotal(v int64) *GdPotentialCustomerInfo {
+	s.Total = &v
+	return s
+}
+
+func (s *GdPotentialCustomerInfo) SetCurrent(v int64) *GdPotentialCustomerInfo {
+	s.Current = &v
+	return s
+}
+
+func (s *GdPotentialCustomerInfo) SetPages(v int64) *GdPotentialCustomerInfo {
+	s.Pages = &v
+	return s
+}
+
+func (s *GdPotentialCustomerInfo) SetSize(v int64) *GdPotentialCustomerInfo {
+	s.Size = &v
+	return s
+}
+
+func (s *GdPotentialCustomerInfo) SetRecords(v []*GdPotentialCustomerRecord) *GdPotentialCustomerInfo {
+	s.Records = v
+	return s
+}
+
+// 汽车之家城市信息
+type CityResult struct {
+	// 城市Id
+	CityId *string `json:"city_id,omitempty" xml:"city_id,omitempty" require:"true"`
+	// 城市名称
+	CityName *string `json:"city_name,omitempty" xml:"city_name,omitempty" require:"true"`
+}
+
+func (s CityResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CityResult) GoString() string {
+	return s.String()
+}
+
+func (s *CityResult) SetCityId(v string) *CityResult {
+	s.CityId = &v
+	return s
+}
+
+func (s *CityResult) SetCityName(v string) *CityResult {
+	s.CityName = &v
+	return s
+}
+
+// 用户基本信息
+type CarOwnerUserInfo struct {
+	// 用户id
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 手机号
+	PhoneNum *string `json:"phone_num,omitempty" xml:"phone_num,omitempty" require:"true"`
+}
+
+func (s CarOwnerUserInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CarOwnerUserInfo) GoString() string {
+	return s.String()
+}
+
+func (s *CarOwnerUserInfo) SetUserId(v string) *CarOwnerUserInfo {
+	s.UserId = &v
+	return s
+}
+
+func (s *CarOwnerUserInfo) SetPhoneNum(v string) *CarOwnerUserInfo {
+	s.PhoneNum = &v
+	return s
+}
+
+// 高德店铺基本信息
+type GdStoreInfo struct {
+	// 数据总数
+	Total *int64 `json:"total,omitempty" xml:"total,omitempty" require:"true"`
+	// 当前展示页
+	Current *int64 `json:"current,omitempty" xml:"current,omitempty" require:"true"`
+	// 数据总页数
+	Pages *int64 `json:"pages,omitempty" xml:"pages,omitempty" require:"true"`
+	// 每页显示数据条数
+	Size *int64 `json:"size,omitempty" xml:"size,omitempty" require:"true"`
+	// 数据集合
+	Records []*GdStoreRecord `json:"records,omitempty" xml:"records,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s GdStoreInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GdStoreInfo) GoString() string {
+	return s.String()
+}
+
+func (s *GdStoreInfo) SetTotal(v int64) *GdStoreInfo {
+	s.Total = &v
+	return s
+}
+
+func (s *GdStoreInfo) SetCurrent(v int64) *GdStoreInfo {
+	s.Current = &v
+	return s
+}
+
+func (s *GdStoreInfo) SetPages(v int64) *GdStoreInfo {
+	s.Pages = &v
+	return s
+}
+
+func (s *GdStoreInfo) SetSize(v int64) *GdStoreInfo {
+	s.Size = &v
+	return s
+}
+
+func (s *GdStoreInfo) SetRecords(v []*GdStoreRecord) *GdStoreInfo {
+	s.Records = v
+	return s
+}
+
+// 二手车
+type UsedCarInfo struct {
+	// 渠道方线索业务id
+	LeadId *string `json:"lead_id,omitempty" xml:"lead_id,omitempty" require:"true"`
+	// 城市名称
+	CityName *string `json:"city_name,omitempty" xml:"city_name,omitempty" require:"true"`
+	// 省份id
+	Pid *string `json:"pid,omitempty" xml:"pid,omitempty" require:"true"`
+	// 城市id
+	Cid *string `json:"cid,omitempty" xml:"cid,omitempty" require:"true"`
+	// 品牌名称
+	BrandName *string `json:"brand_name,omitempty" xml:"brand_name,omitempty"`
+	// 车系名称
+	SeriesName *string `json:"series_name,omitempty" xml:"series_name,omitempty"`
+	// 汽车之家车型id
+	SpecId *string `json:"spec_id,omitempty" xml:"spec_id,omitempty" require:"true"`
+	// 车型名称
+	SpecName *string `json:"spec_name,omitempty" xml:"spec_name,omitempty"`
+	// 首次上牌时间格式 yyyy/MM/dd
+	FirstRegTime *string `json:"first_reg_time,omitempty" xml:"first_reg_time,omitempty" require:"true"`
+	// 行驶公里数(km)
+	Mileage *string `json:"mileage,omitempty" xml:"mileage,omitempty" require:"true"`
+}
+
+func (s UsedCarInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UsedCarInfo) GoString() string {
+	return s.String()
+}
+
+func (s *UsedCarInfo) SetLeadId(v string) *UsedCarInfo {
+	s.LeadId = &v
+	return s
+}
+
+func (s *UsedCarInfo) SetCityName(v string) *UsedCarInfo {
+	s.CityName = &v
+	return s
+}
+
+func (s *UsedCarInfo) SetPid(v string) *UsedCarInfo {
+	s.Pid = &v
+	return s
+}
+
+func (s *UsedCarInfo) SetCid(v string) *UsedCarInfo {
+	s.Cid = &v
+	return s
+}
+
+func (s *UsedCarInfo) SetBrandName(v string) *UsedCarInfo {
+	s.BrandName = &v
+	return s
+}
+
+func (s *UsedCarInfo) SetSeriesName(v string) *UsedCarInfo {
+	s.SeriesName = &v
+	return s
+}
+
+func (s *UsedCarInfo) SetSpecId(v string) *UsedCarInfo {
+	s.SpecId = &v
+	return s
+}
+
+func (s *UsedCarInfo) SetSpecName(v string) *UsedCarInfo {
+	s.SpecName = &v
+	return s
+}
+
+func (s *UsedCarInfo) SetFirstRegTime(v string) *UsedCarInfo {
+	s.FirstRegTime = &v
+	return s
+}
+
+func (s *UsedCarInfo) SetMileage(v string) *UsedCarInfo {
+	s.Mileage = &v
 	return s
 }
 
@@ -1468,128 +1911,6 @@ func (s *BatteryReport) SetCityId(v string) *BatteryReport {
 
 func (s *BatteryReport) SetRegisterDate(v string) *BatteryReport {
 	s.RegisterDate = &v
-	return s
-}
-
-// 高德潜客请求req
-type GdCustomerFlow struct {
-	// 当前页面
-	Current *int64 `json:"current,omitempty" xml:"current,omitempty" require:"true"`
-	// 数据类型（SHOP：店铺；CITY：城市；PROVINCE：省份；COUNTRY：全国；SHOP_BRAND：店铺品牌(仅限竞品)）
-	DataType *string `json:"data_type,omitempty" xml:"data_type,omitempty" require:"true"`
-	// 时间类型（DAY：天；WEEK：周；MONTH：月；仅针对城市和店铺品牌的竞品数据支持的时间类型为，季度：QUARTER；半年：HALF；年：YEAR）
-	TimeType *string `json:"time_type,omitempty" xml:"time_type,omitempty" require:"true"`
-	// 主品牌id
-	MainBrand *string `json:"main_brand,omitempty" xml:"main_brand,omitempty" require:"true"`
-	// 时间（时间类型为天时：yyyyMMdd；时间类型为周时：yyyyWW；时间类型为月时：yyyyMM；时间类型为季度时：yyyyQQ；时间类型为半年时：yyyyBB；时间类型为年时：yyyy；）
-	Time *string `json:"time,omitempty" xml:"time,omitempty" require:"true"`
-	// 品牌id，以”,”分隔
-	BrandLimit *string `json:"brand_limit,omitempty" xml:"brand_limit,omitempty" require:"true"`
-	// 数据指数类型（pv、uv中选择，多个以”,”分隔）
-	DataLimit *string `json:"data_limit,omitempty" xml:"data_limit,omitempty" require:"true"`
-	// 数据统计逻辑（0：默认值，基于本品或竞品获取；1：基于本品获取）
-	BaseSelf *int64 `json:"base_self,omitempty" xml:"base_self,omitempty"`
-}
-
-func (s GdCustomerFlow) String() string {
-	return tea.Prettify(s)
-}
-
-func (s GdCustomerFlow) GoString() string {
-	return s.String()
-}
-
-func (s *GdCustomerFlow) SetCurrent(v int64) *GdCustomerFlow {
-	s.Current = &v
-	return s
-}
-
-func (s *GdCustomerFlow) SetDataType(v string) *GdCustomerFlow {
-	s.DataType = &v
-	return s
-}
-
-func (s *GdCustomerFlow) SetTimeType(v string) *GdCustomerFlow {
-	s.TimeType = &v
-	return s
-}
-
-func (s *GdCustomerFlow) SetMainBrand(v string) *GdCustomerFlow {
-	s.MainBrand = &v
-	return s
-}
-
-func (s *GdCustomerFlow) SetTime(v string) *GdCustomerFlow {
-	s.Time = &v
-	return s
-}
-
-func (s *GdCustomerFlow) SetBrandLimit(v string) *GdCustomerFlow {
-	s.BrandLimit = &v
-	return s
-}
-
-func (s *GdCustomerFlow) SetDataLimit(v string) *GdCustomerFlow {
-	s.DataLimit = &v
-	return s
-}
-
-func (s *GdCustomerFlow) SetBaseSelf(v int64) *GdCustomerFlow {
-	s.BaseSelf = &v
-	return s
-}
-
-// 二手车估价信息
-type UsedCarValuation struct {
-	// 评估金额(万)
-	Referenceprice *string `json:"referenceprice,omitempty" xml:"referenceprice,omitempty" require:"true"`
-	// 官方报价(参考)(万)
-	Newcarprice *string `json:"newcarprice,omitempty" xml:"newcarprice,omitempty" require:"true"`
-	// 车型图片(参考)
-	Url *string `json:"url,omitempty" xml:"url,omitempty" require:"true"`
-	// 车况好(万)(三个价格用"-"分隔,第一个是较小值第二个是...
-	Conditiona *string `json:"conditiona,omitempty" xml:"conditiona,omitempty" require:"true"`
-	// 车况正常(万)
-	Conditionb *string `json:"conditionb,omitempty" xml:"conditionb,omitempty" require:"true"`
-	// 车况差(万)
-	Conditionc *string `json:"conditionc,omitempty" xml:"conditionc,omitempty" require:"true"`
-}
-
-func (s UsedCarValuation) String() string {
-	return tea.Prettify(s)
-}
-
-func (s UsedCarValuation) GoString() string {
-	return s.String()
-}
-
-func (s *UsedCarValuation) SetReferenceprice(v string) *UsedCarValuation {
-	s.Referenceprice = &v
-	return s
-}
-
-func (s *UsedCarValuation) SetNewcarprice(v string) *UsedCarValuation {
-	s.Newcarprice = &v
-	return s
-}
-
-func (s *UsedCarValuation) SetUrl(v string) *UsedCarValuation {
-	s.Url = &v
-	return s
-}
-
-func (s *UsedCarValuation) SetConditiona(v string) *UsedCarValuation {
-	s.Conditiona = &v
-	return s
-}
-
-func (s *UsedCarValuation) SetConditionb(v string) *UsedCarValuation {
-	s.Conditionb = &v
-	return s
-}
-
-func (s *UsedCarValuation) SetConditionc(v string) *UsedCarValuation {
-	s.Conditionc = &v
 	return s
 }
 
@@ -2811,6 +3132,202 @@ func (s *QueryNewcarQczjResponse) SetSpecResult(v *SpecResult) *QueryNewcarQczjR
 	return s
 }
 
+type QueryGdStoreRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 场景码
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+	// 查询店铺基本信息请求体
+	GdCustomerFlow *GdCustomerFlow `json:"gd_customer_flow,omitempty" xml:"gd_customer_flow,omitempty" require:"true"`
+}
+
+func (s QueryGdStoreRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryGdStoreRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryGdStoreRequest) SetAuthToken(v string) *QueryGdStoreRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryGdStoreRequest) SetProductInstanceId(v string) *QueryGdStoreRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryGdStoreRequest) SetSceneCode(v string) *QueryGdStoreRequest {
+	s.SceneCode = &v
+	return s
+}
+
+func (s *QueryGdStoreRequest) SetGdCustomerFlow(v *GdCustomerFlow) *QueryGdStoreRequest {
+	s.GdCustomerFlow = v
+	return s
+}
+
+type QueryGdStoreResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回消息
+	Msg *string `json:"msg,omitempty" xml:"msg,omitempty"`
+	// 返回编码，值为10000表示成功，其余值表示失败
+	Code *string `json:"code,omitempty" xml:"code,omitempty"`
+	// 随即返回ID
+	RequestLinkId *string `json:"request_link_id,omitempty" xml:"request_link_id,omitempty"`
+	// 返回数据
+	Data *GdStoreInfo `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s QueryGdStoreResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryGdStoreResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryGdStoreResponse) SetReqMsgId(v string) *QueryGdStoreResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryGdStoreResponse) SetResultCode(v string) *QueryGdStoreResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryGdStoreResponse) SetResultMsg(v string) *QueryGdStoreResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryGdStoreResponse) SetMsg(v string) *QueryGdStoreResponse {
+	s.Msg = &v
+	return s
+}
+
+func (s *QueryGdStoreResponse) SetCode(v string) *QueryGdStoreResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *QueryGdStoreResponse) SetRequestLinkId(v string) *QueryGdStoreResponse {
+	s.RequestLinkId = &v
+	return s
+}
+
+func (s *QueryGdStoreResponse) SetData(v *GdStoreInfo) *QueryGdStoreResponse {
+	s.Data = v
+	return s
+}
+
+type QueryGdPoentialRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 场景码
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+	// 潜客指数接口请求体
+	GdCustomerFlow *GdCustomerFlow `json:"gd_customer_flow,omitempty" xml:"gd_customer_flow,omitempty" require:"true"`
+}
+
+func (s QueryGdPoentialRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryGdPoentialRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryGdPoentialRequest) SetAuthToken(v string) *QueryGdPoentialRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryGdPoentialRequest) SetProductInstanceId(v string) *QueryGdPoentialRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryGdPoentialRequest) SetSceneCode(v string) *QueryGdPoentialRequest {
+	s.SceneCode = &v
+	return s
+}
+
+func (s *QueryGdPoentialRequest) SetGdCustomerFlow(v *GdCustomerFlow) *QueryGdPoentialRequest {
+	s.GdCustomerFlow = v
+	return s
+}
+
+type QueryGdPoentialResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回消息
+	Msg *string `json:"msg,omitempty" xml:"msg,omitempty"`
+	// 返回编码，值为10000表示成功，其余值表示失败
+	Code *int64 `json:"code,omitempty" xml:"code,omitempty"`
+	// 随机返回id
+	RequestLinkId *string `json:"request_link_id,omitempty" xml:"request_link_id,omitempty"`
+	// 返回数据
+	Data *GdPotentialCustomerInfo `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s QueryGdPoentialResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryGdPoentialResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryGdPoentialResponse) SetReqMsgId(v string) *QueryGdPoentialResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryGdPoentialResponse) SetResultCode(v string) *QueryGdPoentialResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryGdPoentialResponse) SetResultMsg(v string) *QueryGdPoentialResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryGdPoentialResponse) SetMsg(v string) *QueryGdPoentialResponse {
+	s.Msg = &v
+	return s
+}
+
+func (s *QueryGdPoentialResponse) SetCode(v int64) *QueryGdPoentialResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *QueryGdPoentialResponse) SetRequestLinkId(v string) *QueryGdPoentialResponse {
+	s.RequestLinkId = &v
+	return s
+}
+
+func (s *QueryGdPoentialResponse) SetData(v *GdPotentialCustomerInfo) *QueryGdPoentialResponse {
+	s.Data = v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -3053,7 +3570,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.21"),
+				"sdk_version":      tea.String("1.0.23"),
 				"_prod_code":       tea.String("INTELLICAR"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -3542,6 +4059,74 @@ func (client *Client) QueryNewcarQczjEx(request *QueryNewcarQczjRequest, headers
 	}
 	_result = &QueryNewcarQczjResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.intellicar.newcar.qczj.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 【高德】查询店铺基本信息
+ * Summary: 【高德】查询店铺基本信息
+ */
+func (client *Client) QueryGdStore(request *QueryGdStoreRequest) (_result *QueryGdStoreResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryGdStoreResponse{}
+	_body, _err := client.QueryGdStoreEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 【高德】查询店铺基本信息
+ * Summary: 【高德】查询店铺基本信息
+ */
+func (client *Client) QueryGdStoreEx(request *QueryGdStoreRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryGdStoreResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryGdStoreResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.intellicar.gd.store.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 【高德】潜客指数数据
+ * Summary: 【高德】潜客指数数据
+ */
+func (client *Client) QueryGdPoential(request *QueryGdPoentialRequest) (_result *QueryGdPoentialResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryGdPoentialResponse{}
+	_body, _err := client.QueryGdPoentialEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 【高德】潜客指数数据
+ * Summary: 【高德】潜客指数数据
+ */
+func (client *Client) QueryGdPoentialEx(request *QueryGdPoentialRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryGdPoentialResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryGdPoentialResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.intellicar.gd.poential.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
