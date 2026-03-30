@@ -17,8 +17,8 @@ public class QueryDubbridgeRepaymentLxResponse extends TeaModel {
     public String resultMsg;
 
     // 业务返回码，001 请求成功 002 请求失败
-    @NameInMap("ccode")
-    public String ccode;
+    @NameInMap("code")
+    public String code;
 
     // 业务返回描述
     @NameInMap("msg")
@@ -65,12 +65,12 @@ public class QueryDubbridgeRepaymentLxResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryDubbridgeRepaymentLxResponse setCcode(String ccode) {
-        this.ccode = ccode;
+    public QueryDubbridgeRepaymentLxResponse setCode(String code) {
+        this.code = code;
         return this;
     }
-    public String getCcode() {
-        return this.ccode;
+    public String getCode() {
+        return this.code;
     }
 
     public QueryDubbridgeRepaymentLxResponse setMsg(String msg) {

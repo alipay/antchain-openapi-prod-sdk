@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.31.4"),
+                    new TeaPair("sdk_version", "1.31.6"),
                     new TeaPair("_prod_code", "RISKPLUS"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -3782,6 +3782,27 @@ public class Client {
 
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "riskplus.rfc.aibound.convert.upload", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UploadRfcAiboundConvertResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: rfc外呼圈客名单获取
+     * Summary: rfc外呼圈客名单获取</p>
+     */
+    public QueryRfcAiboundFileResponse queryRfcAiboundFile(QueryRfcAiboundFileRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryRfcAiboundFileEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: rfc外呼圈客名单获取
+     * Summary: rfc外呼圈客名单获取</p>
+     */
+    public QueryRfcAiboundFileResponse queryRfcAiboundFileEx(QueryRfcAiboundFileRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.rfc.aibound.file.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryRfcAiboundFileResponse());
     }
 
     /**
