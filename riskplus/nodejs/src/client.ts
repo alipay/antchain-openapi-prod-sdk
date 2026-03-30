@@ -16139,7 +16139,7 @@ export class QueryDubbridgeRepaymentLxResponse extends $tea.Model {
   // 异常信息的文本描述
   resultMsg?: string;
   // 业务返回码，001 请求成功 002 请求失败
-  ccode?: string;
+  code?: string;
   // 业务返回描述
   msg?: string;
   // 业务数据
@@ -16153,7 +16153,7 @@ export class QueryDubbridgeRepaymentLxResponse extends $tea.Model {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      ccode: 'ccode',
+      code: 'code',
       msg: 'msg',
       bizContent: 'biz_content',
       timestamp: 'timestamp',
@@ -16166,7 +16166,7 @@ export class QueryDubbridgeRepaymentLxResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      ccode: 'string',
+      code: 'string',
       msg: 'string',
       bizContent: 'string',
       timestamp: 'string',
@@ -20567,6 +20567,65 @@ export class UploadRfcAiboundConvertResponse extends $tea.Model {
   // 异常信息的文本描述
   resultMsg?: string;
   // content
+  content?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      content: 'content',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      content: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryRfcAiboundFileRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 获取圈客文件
+  fileType: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      fileType: 'file_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      fileType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryRfcAiboundFileResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 返回内容
   content?: string;
   static names(): { [key: string]: string } {
     return {
@@ -29831,7 +29890,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.31.4",
+          sdk_version: "1.31.6",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
@@ -33147,6 +33206,25 @@ export default class Client {
 
     Util.validateModel(request);
     return $tea.cast<UploadRfcAiboundConvertResponse>(await this.doRequest("1.0", "riskplus.rfc.aibound.convert.upload", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UploadRfcAiboundConvertResponse({}));
+  }
+
+  /**
+   * Description: rfc外呼圈客名单获取
+   * Summary: rfc外呼圈客名单获取
+   */
+  async queryRfcAiboundFile(request: QueryRfcAiboundFileRequest): Promise<QueryRfcAiboundFileResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryRfcAiboundFileEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: rfc外呼圈客名单获取
+   * Summary: rfc外呼圈客名单获取
+   */
+  async queryRfcAiboundFileEx(request: QueryRfcAiboundFileRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryRfcAiboundFileResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryRfcAiboundFileResponse>(await this.doRequest("1.0", "riskplus.rfc.aibound.file.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryRfcAiboundFileResponse({}));
   }
 
   /**
