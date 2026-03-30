@@ -53,7 +53,7 @@ namespace AntChain.SDK.INTELLICAR.Models
         // 流出指数集合
         [NameInMap("dest_list")]
         [Validation(Required=true)]
-        public GdDest DestList { get; set; }
+        public List<GdDest> DestList { get; set; }
 
         // 流出指数条数
         [NameInMap("dest_list_num")]

@@ -137,7 +137,7 @@ namespace AntChain.SDK.INTELLICAR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.21"},
+                        {"sdk_version", "1.0.23"},
                         {"_prod_code", "INTELLICAR"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.INTELLICAR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.21"},
+                        {"sdk_version", "1.0.23"},
                         {"_prod_code", "INTELLICAR"},
                         {"_prod_channel", "default"},
                     };
@@ -871,6 +871,90 @@ namespace AntChain.SDK.INTELLICAR
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryNewcarQczjResponse>(await DoRequestAsync("1.0", "antdigital.intellicar.newcar.qczj.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 【高德】查询店铺基本信息
+         * Summary: 【高德】查询店铺基本信息
+         */
+        public QueryGdStoreResponse QueryGdStore(QueryGdStoreRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryGdStoreEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 【高德】查询店铺基本信息
+         * Summary: 【高德】查询店铺基本信息
+         */
+        public async Task<QueryGdStoreResponse> QueryGdStoreAsync(QueryGdStoreRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryGdStoreExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 【高德】查询店铺基本信息
+         * Summary: 【高德】查询店铺基本信息
+         */
+        public QueryGdStoreResponse QueryGdStoreEx(QueryGdStoreRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryGdStoreResponse>(DoRequest("1.0", "antdigital.intellicar.gd.store.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 【高德】查询店铺基本信息
+         * Summary: 【高德】查询店铺基本信息
+         */
+        public async Task<QueryGdStoreResponse> QueryGdStoreExAsync(QueryGdStoreRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryGdStoreResponse>(await DoRequestAsync("1.0", "antdigital.intellicar.gd.store.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 【高德】潜客指数数据
+         * Summary: 【高德】潜客指数数据
+         */
+        public QueryGdPoentialResponse QueryGdPoential(QueryGdPoentialRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryGdPoentialEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 【高德】潜客指数数据
+         * Summary: 【高德】潜客指数数据
+         */
+        public async Task<QueryGdPoentialResponse> QueryGdPoentialAsync(QueryGdPoentialRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryGdPoentialExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 【高德】潜客指数数据
+         * Summary: 【高德】潜客指数数据
+         */
+        public QueryGdPoentialResponse QueryGdPoentialEx(QueryGdPoentialRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryGdPoentialResponse>(DoRequest("1.0", "antdigital.intellicar.gd.poential.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 【高德】潜客指数数据
+         * Summary: 【高德】潜客指数数据
+         */
+        public async Task<QueryGdPoentialResponse> QueryGdPoentialExAsync(QueryGdPoentialRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryGdPoentialResponse>(await DoRequestAsync("1.0", "antdigital.intellicar.gd.poential.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

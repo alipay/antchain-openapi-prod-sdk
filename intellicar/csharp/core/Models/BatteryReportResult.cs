@@ -36,9 +36,9 @@ namespace AntChain.SDK.INTELLICAR.Models
         public long? CheckType { get; set; }
 
         // 报告数据
-        [NameInMap("data")]
+        [NameInMap("report_data")]
         [Validation(Required=true)]
-        public BatteryReportData Data { get; set; }
+        public BatteryReportData ReportData { get; set; }
 
     }
 

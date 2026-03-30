@@ -125,6 +125,16 @@ namespace AntChain.SDK.INTELLICAR.Models
         [Validation(Required=true)]
         public string RightsDesc { get; set; }
 
+        // 权益说明-状态
+        [NameInMap("right_status")]
+        [Validation(Required=true)]
+        public string RightStatus { get; set; }
+
+        // 电池健康度-建议
+        [NameInMap("soh_suggest")]
+        [Validation(Required=true)]
+        public List<string> SohSuggest { get; set; }
+
     }
 
 }
