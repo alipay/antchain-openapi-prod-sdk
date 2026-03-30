@@ -137,7 +137,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.31.4"},
+                        {"sdk_version", "1.31.6"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.31.4"},
+                        {"sdk_version", "1.31.6"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -7543,6 +7543,48 @@ namespace AntChain.SDK.RISKPLUS
             }
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<UploadRfcAiboundConvertResponse>(await DoRequestAsync("1.0", "riskplus.rfc.aibound.convert.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: rfc外呼圈客名单获取
+         * Summary: rfc外呼圈客名单获取
+         */
+        public QueryRfcAiboundFileResponse QueryRfcAiboundFile(QueryRfcAiboundFileRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryRfcAiboundFileEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: rfc外呼圈客名单获取
+         * Summary: rfc外呼圈客名单获取
+         */
+        public async Task<QueryRfcAiboundFileResponse> QueryRfcAiboundFileAsync(QueryRfcAiboundFileRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryRfcAiboundFileExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: rfc外呼圈客名单获取
+         * Summary: rfc外呼圈客名单获取
+         */
+        public QueryRfcAiboundFileResponse QueryRfcAiboundFileEx(QueryRfcAiboundFileRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryRfcAiboundFileResponse>(DoRequest("1.0", "riskplus.rfc.aibound.file.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: rfc外呼圈客名单获取
+         * Summary: rfc外呼圈客名单获取
+         */
+        public async Task<QueryRfcAiboundFileResponse> QueryRfcAiboundFileExAsync(QueryRfcAiboundFileRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryRfcAiboundFileResponse>(await DoRequestAsync("1.0", "riskplus.rfc.aibound.file.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

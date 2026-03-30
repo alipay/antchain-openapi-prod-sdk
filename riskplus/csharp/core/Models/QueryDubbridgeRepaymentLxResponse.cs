@@ -25,9 +25,9 @@ namespace AntChain.SDK.RISKPLUS.Models
         public string ResultMsg { get; set; }
 
         // 业务返回码，001 请求成功 002 请求失败
-        [NameInMap("ccode")]
+        [NameInMap("code")]
         [Validation(Required=false)]
-        public string Ccode { get; set; }
+        public string Code { get; set; }
 
         // 业务返回描述
         [NameInMap("msg")]
