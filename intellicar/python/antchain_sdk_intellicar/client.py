@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.21',
+                    'sdk_version': '1.0.23',
                     '_prod_code': 'INTELLICAR',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.21',
+                    'sdk_version': '1.0.23',
                     '_prod_code': 'INTELLICAR',
                     '_prod_channel': 'default'
                 }
@@ -981,6 +981,118 @@ class Client:
         return TeaCore.from_map(
             intellicar_models.QueryNewcarQczjResponse(),
             await self.do_request_async('1.0', 'antdigital.intellicar.newcar.qczj.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_gd_store(
+        self,
+        request: intellicar_models.QueryGdStoreRequest,
+    ) -> intellicar_models.QueryGdStoreResponse:
+        """
+        Description: 【高德】查询店铺基本信息
+        Summary: 【高德】查询店铺基本信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_gd_store_ex(request, headers, runtime)
+
+    async def query_gd_store_async(
+        self,
+        request: intellicar_models.QueryGdStoreRequest,
+    ) -> intellicar_models.QueryGdStoreResponse:
+        """
+        Description: 【高德】查询店铺基本信息
+        Summary: 【高德】查询店铺基本信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_gd_store_ex_async(request, headers, runtime)
+
+    def query_gd_store_ex(
+        self,
+        request: intellicar_models.QueryGdStoreRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> intellicar_models.QueryGdStoreResponse:
+        """
+        Description: 【高德】查询店铺基本信息
+        Summary: 【高德】查询店铺基本信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            intellicar_models.QueryGdStoreResponse(),
+            self.do_request('1.0', 'antdigital.intellicar.gd.store.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_gd_store_ex_async(
+        self,
+        request: intellicar_models.QueryGdStoreRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> intellicar_models.QueryGdStoreResponse:
+        """
+        Description: 【高德】查询店铺基本信息
+        Summary: 【高德】查询店铺基本信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            intellicar_models.QueryGdStoreResponse(),
+            await self.do_request_async('1.0', 'antdigital.intellicar.gd.store.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_gd_poential(
+        self,
+        request: intellicar_models.QueryGdPoentialRequest,
+    ) -> intellicar_models.QueryGdPoentialResponse:
+        """
+        Description: 【高德】潜客指数数据
+        Summary: 【高德】潜客指数数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_gd_poential_ex(request, headers, runtime)
+
+    async def query_gd_poential_async(
+        self,
+        request: intellicar_models.QueryGdPoentialRequest,
+    ) -> intellicar_models.QueryGdPoentialResponse:
+        """
+        Description: 【高德】潜客指数数据
+        Summary: 【高德】潜客指数数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_gd_poential_ex_async(request, headers, runtime)
+
+    def query_gd_poential_ex(
+        self,
+        request: intellicar_models.QueryGdPoentialRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> intellicar_models.QueryGdPoentialResponse:
+        """
+        Description: 【高德】潜客指数数据
+        Summary: 【高德】潜客指数数据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            intellicar_models.QueryGdPoentialResponse(),
+            self.do_request('1.0', 'antdigital.intellicar.gd.poential.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_gd_poential_ex_async(
+        self,
+        request: intellicar_models.QueryGdPoentialRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> intellicar_models.QueryGdPoentialResponse:
+        """
+        Description: 【高德】潜客指数数据
+        Summary: 【高德】潜客指数数据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            intellicar_models.QueryGdPoentialResponse(),
+            await self.do_request_async('1.0', 'antdigital.intellicar.gd.poential.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(

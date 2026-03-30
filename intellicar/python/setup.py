@@ -24,7 +24,7 @@ from setuptools import setup, find_packages
 """
 setup module for antchain_intellicar.
 
-Created on 27/03/2026
+Created on 30/03/2026
 
 @author: Ant Chain SDK
 """

@@ -251,6 +251,8 @@ class GdDest(TeaModel):
         brand_id: str = None,
         shop_id: str = None,
         citycode: str = None,
+        pcode: str = None,
+        countrycode: str = None,
     ):
         # 流出指数uv指数
         self.uv = uv
@@ -262,6 +264,10 @@ class GdDest(TeaModel):
         self.shop_id = shop_id
         # 城市编码，数据类型为店铺或者城市时返回该属性与值
         self.citycode = citycode
+        # 省份编码，数据类型为省份时返回该属性与值
+        self.pcode = pcode
+        # 数据类型为全国时返回该属性与值
+        self.countrycode = countrycode
 
     def validate(self):
         self.validate_required(self.uv, 'uv')
@@ -271,8 +277,6 @@ class GdDest(TeaModel):
         if self.pv:
             self.pv.validate()
         self.validate_required(self.brand_id, 'brand_id')
-        self.validate_required(self.shop_id, 'shop_id')
-        self.validate_required(self.citycode, 'citycode')
 
     def to_map(self):
         _map = super().to_map()
@@ -290,6 +294,10 @@ class GdDest(TeaModel):
             result['shop_id'] = self.shop_id
         if self.citycode is not None:
             result['citycode'] = self.citycode
+        if self.pcode is not None:
+            result['pcode'] = self.pcode
+        if self.countrycode is not None:
+            result['countrycode'] = self.countrycode
         return result
 
     def from_map(self, m: dict = None):
@@ -306,6 +314,10 @@ class GdDest(TeaModel):
             self.shop_id = m.get('shop_id')
         if m.get('citycode') is not None:
             self.citycode = m.get('citycode')
+        if m.get('pcode') is not None:
+            self.pcode = m.get('pcode')
+        if m.get('countrycode') is not None:
+            self.countrycode = m.get('countrycode')
         return self
 
 
@@ -317,6 +329,8 @@ class GdSrc(TeaModel):
         brand_id: str = None,
         shop_id: str = None,
         citycode: str = None,
+        pcode: str = None,
+        countrycode: str = None,
     ):
         # 流入指数uv指数
         self.uv = uv
@@ -328,6 +342,10 @@ class GdSrc(TeaModel):
         self.shop_id = shop_id
         # 流入城市编码，数据类型为店铺或者城市时返回该属性与值
         self.citycode = citycode
+        # 省份编码，数据类型为省份时返回该属性与值
+        self.pcode = pcode
+        # 数据类型为全国时返回该属性与值
+        self.countrycode = countrycode
 
     def validate(self):
         self.validate_required(self.uv, 'uv')
@@ -337,8 +355,6 @@ class GdSrc(TeaModel):
         if self.pv:
             self.pv.validate()
         self.validate_required(self.brand_id, 'brand_id')
-        self.validate_required(self.shop_id, 'shop_id')
-        self.validate_required(self.citycode, 'citycode')
 
     def to_map(self):
         _map = super().to_map()
@@ -356,6 +372,10 @@ class GdSrc(TeaModel):
             result['shop_id'] = self.shop_id
         if self.citycode is not None:
             result['citycode'] = self.citycode
+        if self.pcode is not None:
+            result['pcode'] = self.pcode
+        if self.countrycode is not None:
+            result['countrycode'] = self.countrycode
         return result
 
     def from_map(self, m: dict = None):
@@ -372,6 +392,10 @@ class GdSrc(TeaModel):
             self.shop_id = m.get('shop_id')
         if m.get('citycode') is not None:
             self.citycode = m.get('citycode')
+        if m.get('pcode') is not None:
+            self.pcode = m.get('pcode')
+        if m.get('countrycode') is not None:
+            self.countrycode = m.get('countrycode')
         return self
 
 
@@ -383,6 +407,8 @@ class Overlap(TeaModel):
         brand_id: str = None,
         shop_id: str = None,
         citycode: str = None,
+        pcode: str = None,
+        countrycode: str = None,
     ):
         # 重叠指数uv指数
         self.uv = uv
@@ -394,6 +420,10 @@ class Overlap(TeaModel):
         self.shop_id = shop_id
         # 重叠城市编码，数据类型为城市时返回该属性与值
         self.citycode = citycode
+        # 重叠省份编码，数据类型为省份时返回该属性与值
+        self.pcode = pcode
+        # 数据类型为全国时返回该属性与值
+        self.countrycode = countrycode
 
     def validate(self):
         self.validate_required(self.uv, 'uv')
@@ -403,8 +433,6 @@ class Overlap(TeaModel):
         if self.pv:
             self.pv.validate()
         self.validate_required(self.brand_id, 'brand_id')
-        self.validate_required(self.shop_id, 'shop_id')
-        self.validate_required(self.citycode, 'citycode')
 
     def to_map(self):
         _map = super().to_map()
@@ -422,6 +450,10 @@ class Overlap(TeaModel):
             result['shop_id'] = self.shop_id
         if self.citycode is not None:
             result['citycode'] = self.citycode
+        if self.pcode is not None:
+            result['pcode'] = self.pcode
+        if self.countrycode is not None:
+            result['countrycode'] = self.countrycode
         return result
 
     def from_map(self, m: dict = None):
@@ -438,6 +470,10 @@ class Overlap(TeaModel):
             self.shop_id = m.get('shop_id')
         if m.get('citycode') is not None:
             self.citycode = m.get('citycode')
+        if m.get('pcode') is not None:
+            self.pcode = m.get('pcode')
+        if m.get('countrycode') is not None:
+            self.countrycode = m.get('countrycode')
         return self
 
 
@@ -597,6 +633,207 @@ class SpecList(TeaModel):
         return self
 
 
+class GdStoreRecord(TeaModel):
+    def __init__(
+        self,
+        shop_id: str = None,
+        name: str = None,
+        address: str = None,
+        pname: str = None,
+        cityname: str = None,
+        brand_id: str = None,
+        brand_name: str = None,
+        office_code: str = None,
+        lon: str = None,
+        lat: str = None,
+        version_list: List[str] = None,
+    ):
+        # 店铺ID
+        self.shop_id = shop_id
+        # 店铺名称
+        self.name = name
+        # 店铺地址
+        self.address = address
+        # 店铺所在省份
+        self.pname = pname
+        # 店铺所在城市
+        self.cityname = cityname
+        # 品牌id
+        self.brand_id = brand_id
+        # 品牌名称
+        self.brand_name = brand_name
+        # 经销商代码
+        self.office_code = office_code
+        # 经度
+        self.lon = lon
+        # 纬度
+        self.lat = lat
+        # 店铺数据版本集合
+        self.version_list = version_list
+
+    def validate(self):
+        self.validate_required(self.shop_id, 'shop_id')
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.address, 'address')
+        self.validate_required(self.pname, 'pname')
+        self.validate_required(self.cityname, 'cityname')
+        self.validate_required(self.brand_id, 'brand_id')
+        self.validate_required(self.brand_name, 'brand_name')
+        self.validate_required(self.office_code, 'office_code')
+        self.validate_required(self.lon, 'lon')
+        self.validate_required(self.lat, 'lat')
+        self.validate_required(self.version_list, 'version_list')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.shop_id is not None:
+            result['shop_id'] = self.shop_id
+        if self.name is not None:
+            result['name'] = self.name
+        if self.address is not None:
+            result['address'] = self.address
+        if self.pname is not None:
+            result['pname'] = self.pname
+        if self.cityname is not None:
+            result['cityname'] = self.cityname
+        if self.brand_id is not None:
+            result['brand_id'] = self.brand_id
+        if self.brand_name is not None:
+            result['brand_name'] = self.brand_name
+        if self.office_code is not None:
+            result['office_code'] = self.office_code
+        if self.lon is not None:
+            result['lon'] = self.lon
+        if self.lat is not None:
+            result['lat'] = self.lat
+        if self.version_list is not None:
+            result['version_list'] = self.version_list
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('shop_id') is not None:
+            self.shop_id = m.get('shop_id')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('address') is not None:
+            self.address = m.get('address')
+        if m.get('pname') is not None:
+            self.pname = m.get('pname')
+        if m.get('cityname') is not None:
+            self.cityname = m.get('cityname')
+        if m.get('brand_id') is not None:
+            self.brand_id = m.get('brand_id')
+        if m.get('brand_name') is not None:
+            self.brand_name = m.get('brand_name')
+        if m.get('office_code') is not None:
+            self.office_code = m.get('office_code')
+        if m.get('lon') is not None:
+            self.lon = m.get('lon')
+        if m.get('lat') is not None:
+            self.lat = m.get('lat')
+        if m.get('version_list') is not None:
+            self.version_list = m.get('version_list')
+        return self
+
+
+class GdPotentialCustomerRecord(TeaModel):
+    def __init__(
+        self,
+        uv: GdCustomerUv = None,
+        citycode: str = None,
+        pv: GdCustomerPv = None,
+        shop_id: str = None,
+        brand_id: str = None,
+        shop_num: int = None,
+        time: str = None,
+        pcode: str = None,
+        countrycode: str = None,
+    ):
+        # uv指数
+        self.uv = uv
+        # 城市编码，数据类型为店铺或者城市时返回该属性与值
+        self.citycode = citycode
+        # pv指数
+        self.pv = pv
+        # 店铺id，数据类型为店铺时返回该属性与值
+        self.shop_id = shop_id
+        # 品牌id
+        self.brand_id = brand_id
+        # 店铺数量（dataType!=SHOP时返回该字段）
+        self.shop_num = shop_num
+        # 时间（时间类型为天时：yyyyMMdd；时间类型为周时：yyyyWW；时间类型为月时：yyyyMM）
+        self.time = time
+        # 省份编码，数据类型为省份时返回该属性与值
+        self.pcode = pcode
+        # 数据类型为全国时返回该属性与值
+        self.countrycode = countrycode
+
+    def validate(self):
+        self.validate_required(self.uv, 'uv')
+        if self.uv:
+            self.uv.validate()
+        self.validate_required(self.pv, 'pv')
+        if self.pv:
+            self.pv.validate()
+        self.validate_required(self.brand_id, 'brand_id')
+        self.validate_required(self.time, 'time')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.uv is not None:
+            result['uv'] = self.uv.to_map()
+        if self.citycode is not None:
+            result['citycode'] = self.citycode
+        if self.pv is not None:
+            result['pv'] = self.pv.to_map()
+        if self.shop_id is not None:
+            result['shop_id'] = self.shop_id
+        if self.brand_id is not None:
+            result['brand_id'] = self.brand_id
+        if self.shop_num is not None:
+            result['shop_num'] = self.shop_num
+        if self.time is not None:
+            result['time'] = self.time
+        if self.pcode is not None:
+            result['pcode'] = self.pcode
+        if self.countrycode is not None:
+            result['countrycode'] = self.countrycode
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('uv') is not None:
+            temp_model = GdCustomerUv()
+            self.uv = temp_model.from_map(m['uv'])
+        if m.get('citycode') is not None:
+            self.citycode = m.get('citycode')
+        if m.get('pv') is not None:
+            temp_model = GdCustomerPv()
+            self.pv = temp_model.from_map(m['pv'])
+        if m.get('shop_id') is not None:
+            self.shop_id = m.get('shop_id')
+        if m.get('brand_id') is not None:
+            self.brand_id = m.get('brand_id')
+        if m.get('shop_num') is not None:
+            self.shop_num = m.get('shop_num')
+        if m.get('time') is not None:
+            self.time = m.get('time')
+        if m.get('pcode') is not None:
+            self.pcode = m.get('pcode')
+        if m.get('countrycode') is not None:
+            self.countrycode = m.get('countrycode')
+        return self
+
+
 class BatteryReportData(TeaModel):
     def __init__(
         self,
@@ -623,6 +860,8 @@ class BatteryReportData(TeaModel):
         battery_type: str = None,
         manufacturer_date: str = None,
         rights_desc: str = None,
+        right_status: str = None,
+        soh_suggest: List[str] = None,
     ):
         # VIN码
         self.vin_code = vin_code
@@ -670,6 +909,10 @@ class BatteryReportData(TeaModel):
         self.manufacturer_date = manufacturer_date
         # 权益说明文案
         self.rights_desc = rights_desc
+        # 权益说明-状态
+        self.right_status = right_status
+        # 电池健康度-建议
+        self.soh_suggest = soh_suggest
 
     def validate(self):
         self.validate_required(self.vin_code, 'vin_code')
@@ -695,6 +938,8 @@ class BatteryReportData(TeaModel):
         self.validate_required(self.battery_type, 'battery_type')
         self.validate_required(self.manufacturer_date, 'manufacturer_date')
         self.validate_required(self.rights_desc, 'rights_desc')
+        self.validate_required(self.right_status, 'right_status')
+        self.validate_required(self.soh_suggest, 'soh_suggest')
 
     def to_map(self):
         _map = super().to_map()
@@ -748,6 +993,10 @@ class BatteryReportData(TeaModel):
             result['manufacturer_date'] = self.manufacturer_date
         if self.rights_desc is not None:
             result['rights_desc'] = self.rights_desc
+        if self.right_status is not None:
+            result['right_status'] = self.right_status
+        if self.soh_suggest is not None:
+            result['soh_suggest'] = self.soh_suggest
         return result
 
     def from_map(self, m: dict = None):
@@ -798,6 +1047,10 @@ class BatteryReportData(TeaModel):
             self.manufacturer_date = m.get('manufacturer_date')
         if m.get('rights_desc') is not None:
             self.rights_desc = m.get('rights_desc')
+        if m.get('right_status') is not None:
+            self.right_status = m.get('right_status')
+        if m.get('soh_suggest') is not None:
+            self.soh_suggest = m.get('soh_suggest')
         return self
 
 
@@ -812,7 +1065,7 @@ class GdCustomersRecord(TeaModel):
         overlap_list_num: str = None,
         src_list: List[GdSrc] = None,
         src_list_num: str = None,
-        dest_list: GdDest = None,
+        dest_list: List[GdDest] = None,
         dest_list_num: str = None,
     ):
         # 城市编码，数据类型为店铺或者城市时返回该属性与值
@@ -855,7 +1108,9 @@ class GdCustomersRecord(TeaModel):
         self.validate_required(self.src_list_num, 'src_list_num')
         self.validate_required(self.dest_list, 'dest_list')
         if self.dest_list:
-            self.dest_list.validate()
+            for k in self.dest_list:
+                if k:
+                    k.validate()
         self.validate_required(self.dest_list_num, 'dest_list_num')
 
     def to_map(self):
@@ -884,8 +1139,10 @@ class GdCustomersRecord(TeaModel):
                 result['src_list'].append(k.to_map() if k else None)
         if self.src_list_num is not None:
             result['src_list_num'] = self.src_list_num
+        result['dest_list'] = []
         if self.dest_list is not None:
-            result['dest_list'] = self.dest_list.to_map()
+            for k in self.dest_list:
+                result['dest_list'].append(k.to_map() if k else None)
         if self.dest_list_num is not None:
             result['dest_list_num'] = self.dest_list_num
         return result
@@ -914,47 +1171,13 @@ class GdCustomersRecord(TeaModel):
                 self.src_list.append(temp_model.from_map(k))
         if m.get('src_list_num') is not None:
             self.src_list_num = m.get('src_list_num')
+        self.dest_list = []
         if m.get('dest_list') is not None:
-            temp_model = GdDest()
-            self.dest_list = temp_model.from_map(m['dest_list'])
+            for k in m.get('dest_list'):
+                temp_model = GdDest()
+                self.dest_list.append(temp_model.from_map(k))
         if m.get('dest_list_num') is not None:
             self.dest_list_num = m.get('dest_list_num')
-        return self
-
-
-class CityResult(TeaModel):
-    def __init__(
-        self,
-        city_id: str = None,
-        city_name: str = None,
-    ):
-        # 城市Id
-        self.city_id = city_id
-        # 城市名称
-        self.city_name = city_name
-
-    def validate(self):
-        self.validate_required(self.city_id, 'city_id')
-        self.validate_required(self.city_name, 'city_name')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.city_id is not None:
-            result['city_id'] = self.city_id
-        if self.city_name is not None:
-            result['city_name'] = self.city_name
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('city_id') is not None:
-            self.city_id = m.get('city_id')
-        if m.get('city_name') is not None:
-            self.city_name = m.get('city_name')
         return self
 
 
@@ -1047,7 +1270,7 @@ class BatteryReportResult(TeaModel):
         current_start_charge_seq: str = None,
         charge: bool = None,
         check_type: int = None,
-        data: BatteryReportData = None,
+        report_data: BatteryReportData = None,
     ):
         # 订单号 (可使用该 ID 将报告转图片)
         self.order_id = order_id
@@ -1060,7 +1283,7 @@ class BatteryReportResult(TeaModel):
         # 检测类型 6601：首检 6602：复核
         self.check_type = check_type
         # 报告数据
-        self.data = data
+        self.report_data = report_data
 
     def validate(self):
         self.validate_required(self.order_id, 'order_id')
@@ -1068,9 +1291,9 @@ class BatteryReportResult(TeaModel):
         self.validate_required(self.current_start_charge_seq, 'current_start_charge_seq')
         self.validate_required(self.charge, 'charge')
         self.validate_required(self.check_type, 'check_type')
-        self.validate_required(self.data, 'data')
-        if self.data:
-            self.data.validate()
+        self.validate_required(self.report_data, 'report_data')
+        if self.report_data:
+            self.report_data.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -1088,8 +1311,8 @@ class BatteryReportResult(TeaModel):
             result['charge'] = self.charge
         if self.check_type is not None:
             result['check_type'] = self.check_type
-        if self.data is not None:
-            result['data'] = self.data.to_map()
+        if self.report_data is not None:
+            result['report_data'] = self.report_data.to_map()
         return result
 
     def from_map(self, m: dict = None):
@@ -1104,9 +1327,9 @@ class BatteryReportResult(TeaModel):
             self.charge = m.get('charge')
         if m.get('check_type') is not None:
             self.check_type = m.get('check_type')
-        if m.get('data') is not None:
+        if m.get('report_data') is not None:
             temp_model = BatteryReportData()
-            self.data = temp_model.from_map(m['data'])
+            self.report_data = temp_model.from_map(m['report_data'])
         return self
 
 
@@ -1182,42 +1405,6 @@ class BasicCarInfo(TeaModel):
             self.use_nature_code = m.get('use_nature_code')
         if m.get('mortgage') is not None:
             self.mortgage = m.get('mortgage')
-        return self
-
-
-class CarOwnerUserInfo(TeaModel):
-    def __init__(
-        self,
-        user_id: str = None,
-        phone_num: str = None,
-    ):
-        # 用户id
-        self.user_id = user_id
-        # 手机号
-        self.phone_num = phone_num
-
-    def validate(self):
-        self.validate_required(self.user_id, 'user_id')
-        self.validate_required(self.phone_num, 'phone_num')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.user_id is not None:
-            result['user_id'] = self.user_id
-        if self.phone_num is not None:
-            result['phone_num'] = self.phone_num
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('user_id') is not None:
-            self.user_id = m.get('user_id')
-        if m.get('phone_num') is not None:
-            self.phone_num = m.get('phone_num')
         return self
 
 
@@ -1358,103 +1545,6 @@ class CarBusinessPrice(TeaModel):
             self.business_insurance = m.get('business_insurance')
         if m.get('extra_content') is not None:
             self.extra_content = m.get('extra_content')
-        return self
-
-
-class UsedCarInfo(TeaModel):
-    def __init__(
-        self,
-        lead_id: str = None,
-        city_name: str = None,
-        pid: str = None,
-        cid: str = None,
-        brand_name: str = None,
-        series_name: str = None,
-        spec_id: str = None,
-        spec_name: str = None,
-        first_reg_time: str = None,
-        mileage: str = None,
-    ):
-        # 渠道方线索业务id
-        self.lead_id = lead_id
-        # 城市名称
-        self.city_name = city_name
-        # 省份id
-        self.pid = pid
-        # 城市id
-        self.cid = cid
-        # 品牌名称
-        self.brand_name = brand_name
-        # 车系名称
-        self.series_name = series_name
-        # 汽车之家车型id
-        self.spec_id = spec_id
-        # 车型名称
-        self.spec_name = spec_name
-        # 首次上牌时间格式 yyyy/MM/dd
-        self.first_reg_time = first_reg_time
-        # 行驶公里数(km)
-        self.mileage = mileage
-
-    def validate(self):
-        self.validate_required(self.lead_id, 'lead_id')
-        self.validate_required(self.city_name, 'city_name')
-        self.validate_required(self.pid, 'pid')
-        self.validate_required(self.cid, 'cid')
-        self.validate_required(self.spec_id, 'spec_id')
-        self.validate_required(self.first_reg_time, 'first_reg_time')
-        self.validate_required(self.mileage, 'mileage')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.lead_id is not None:
-            result['lead_id'] = self.lead_id
-        if self.city_name is not None:
-            result['city_name'] = self.city_name
-        if self.pid is not None:
-            result['pid'] = self.pid
-        if self.cid is not None:
-            result['cid'] = self.cid
-        if self.brand_name is not None:
-            result['brand_name'] = self.brand_name
-        if self.series_name is not None:
-            result['series_name'] = self.series_name
-        if self.spec_id is not None:
-            result['spec_id'] = self.spec_id
-        if self.spec_name is not None:
-            result['spec_name'] = self.spec_name
-        if self.first_reg_time is not None:
-            result['first_reg_time'] = self.first_reg_time
-        if self.mileage is not None:
-            result['mileage'] = self.mileage
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('lead_id') is not None:
-            self.lead_id = m.get('lead_id')
-        if m.get('city_name') is not None:
-            self.city_name = m.get('city_name')
-        if m.get('pid') is not None:
-            self.pid = m.get('pid')
-        if m.get('cid') is not None:
-            self.cid = m.get('cid')
-        if m.get('brand_name') is not None:
-            self.brand_name = m.get('brand_name')
-        if m.get('series_name') is not None:
-            self.series_name = m.get('series_name')
-        if m.get('spec_id') is not None:
-            self.spec_id = m.get('spec_id')
-        if m.get('spec_name') is not None:
-            self.spec_name = m.get('spec_name')
-        if m.get('first_reg_time') is not None:
-            self.first_reg_time = m.get('first_reg_time')
-        if m.get('mileage') is not None:
-            self.mileage = m.get('mileage')
         return self
 
 
@@ -1635,6 +1725,465 @@ class GdCustomerInfo(TeaModel):
             for k in m.get('records'):
                 temp_model = GdCustomersRecord()
                 self.records.append(temp_model.from_map(k))
+        return self
+
+
+class GdCustomerFlow(TeaModel):
+    def __init__(
+        self,
+        current: int = None,
+        data_type: str = None,
+        time_type: str = None,
+        main_brand: str = None,
+        time: str = None,
+        brand_limit: str = None,
+        data_limit: str = None,
+        base_self: int = None,
+    ):
+        # 当前页面
+        self.current = current
+        # 数据类型（SHOP：店铺；CITY：城市；PROVINCE：省份；COUNTRY：全国；SHOP_BRAND：店铺品牌(仅限竞品)）
+        self.data_type = data_type
+        # 时间类型（DAY：天；WEEK：周；MONTH：月；仅针对城市和店铺品牌的竞品数据支持的时间类型为，季度：QUARTER；半年：HALF；年：YEAR）
+        self.time_type = time_type
+        # 主品牌id
+        self.main_brand = main_brand
+        # 时间（时间类型为天时：yyyyMMdd；时间类型为周时：yyyyWW；时间类型为月时：yyyyMM；时间类型为季度时：yyyyQQ；时间类型为半年时：yyyyBB；时间类型为年时：yyyy；）
+        self.time = time
+        # 品牌id，以”,”分隔
+        self.brand_limit = brand_limit
+        # 数据指数类型（pv、uv中选择，多个以”,”分隔）
+        self.data_limit = data_limit
+        # 数据统计逻辑（0：默认值，基于本品或竞品获取；1：基于本品获取）
+        self.base_self = base_self
+
+    def validate(self):
+        self.validate_required(self.current, 'current')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.current is not None:
+            result['current'] = self.current
+        if self.data_type is not None:
+            result['data_type'] = self.data_type
+        if self.time_type is not None:
+            result['time_type'] = self.time_type
+        if self.main_brand is not None:
+            result['main_brand'] = self.main_brand
+        if self.time is not None:
+            result['time'] = self.time
+        if self.brand_limit is not None:
+            result['brand_limit'] = self.brand_limit
+        if self.data_limit is not None:
+            result['data_limit'] = self.data_limit
+        if self.base_self is not None:
+            result['base_self'] = self.base_self
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('current') is not None:
+            self.current = m.get('current')
+        if m.get('data_type') is not None:
+            self.data_type = m.get('data_type')
+        if m.get('time_type') is not None:
+            self.time_type = m.get('time_type')
+        if m.get('main_brand') is not None:
+            self.main_brand = m.get('main_brand')
+        if m.get('time') is not None:
+            self.time = m.get('time')
+        if m.get('brand_limit') is not None:
+            self.brand_limit = m.get('brand_limit')
+        if m.get('data_limit') is not None:
+            self.data_limit = m.get('data_limit')
+        if m.get('base_self') is not None:
+            self.base_self = m.get('base_self')
+        return self
+
+
+class UsedCarValuation(TeaModel):
+    def __init__(
+        self,
+        referenceprice: str = None,
+        newcarprice: str = None,
+        url: str = None,
+        conditiona: str = None,
+        conditionb: str = None,
+        conditionc: str = None,
+    ):
+        # 评估金额(万)
+        self.referenceprice = referenceprice
+        # 官方报价(参考)(万)
+        self.newcarprice = newcarprice
+        # 车型图片(参考)
+        self.url = url
+        # 车况好(万)(三个价格用"-"分隔,第一个是较小值第二个是...
+        self.conditiona = conditiona
+        # 车况正常(万)
+        self.conditionb = conditionb
+        # 车况差(万)
+        self.conditionc = conditionc
+
+    def validate(self):
+        self.validate_required(self.referenceprice, 'referenceprice')
+        self.validate_required(self.newcarprice, 'newcarprice')
+        self.validate_required(self.url, 'url')
+        self.validate_required(self.conditiona, 'conditiona')
+        self.validate_required(self.conditionb, 'conditionb')
+        self.validate_required(self.conditionc, 'conditionc')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.referenceprice is not None:
+            result['referenceprice'] = self.referenceprice
+        if self.newcarprice is not None:
+            result['newcarprice'] = self.newcarprice
+        if self.url is not None:
+            result['url'] = self.url
+        if self.conditiona is not None:
+            result['conditiona'] = self.conditiona
+        if self.conditionb is not None:
+            result['conditionb'] = self.conditionb
+        if self.conditionc is not None:
+            result['conditionc'] = self.conditionc
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('referenceprice') is not None:
+            self.referenceprice = m.get('referenceprice')
+        if m.get('newcarprice') is not None:
+            self.newcarprice = m.get('newcarprice')
+        if m.get('url') is not None:
+            self.url = m.get('url')
+        if m.get('conditiona') is not None:
+            self.conditiona = m.get('conditiona')
+        if m.get('conditionb') is not None:
+            self.conditionb = m.get('conditionb')
+        if m.get('conditionc') is not None:
+            self.conditionc = m.get('conditionc')
+        return self
+
+
+class GdPotentialCustomerInfo(TeaModel):
+    def __init__(
+        self,
+        time_range: str = None,
+        total: int = None,
+        current: int = None,
+        pages: int = None,
+        size: int = None,
+        records: List[GdPotentialCustomerRecord] = None,
+    ):
+        # 时间范围（查询月度或年度数据时，返回该字段）
+        self.time_range = time_range
+        # 数据总数
+        self.total = total
+        # 当前展示页
+        self.current = current
+        # 数据总页数
+        self.pages = pages
+        # 每页显示数据条数
+        self.size = size
+        # 数据集合
+        self.records = records
+
+    def validate(self):
+        self.validate_required(self.total, 'total')
+        self.validate_required(self.current, 'current')
+        self.validate_required(self.pages, 'pages')
+        self.validate_required(self.size, 'size')
+        self.validate_required(self.records, 'records')
+        if self.records:
+            for k in self.records:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.time_range is not None:
+            result['time_range'] = self.time_range
+        if self.total is not None:
+            result['total'] = self.total
+        if self.current is not None:
+            result['current'] = self.current
+        if self.pages is not None:
+            result['pages'] = self.pages
+        if self.size is not None:
+            result['size'] = self.size
+        result['records'] = []
+        if self.records is not None:
+            for k in self.records:
+                result['records'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('time_range') is not None:
+            self.time_range = m.get('time_range')
+        if m.get('total') is not None:
+            self.total = m.get('total')
+        if m.get('current') is not None:
+            self.current = m.get('current')
+        if m.get('pages') is not None:
+            self.pages = m.get('pages')
+        if m.get('size') is not None:
+            self.size = m.get('size')
+        self.records = []
+        if m.get('records') is not None:
+            for k in m.get('records'):
+                temp_model = GdPotentialCustomerRecord()
+                self.records.append(temp_model.from_map(k))
+        return self
+
+
+class CityResult(TeaModel):
+    def __init__(
+        self,
+        city_id: str = None,
+        city_name: str = None,
+    ):
+        # 城市Id
+        self.city_id = city_id
+        # 城市名称
+        self.city_name = city_name
+
+    def validate(self):
+        self.validate_required(self.city_id, 'city_id')
+        self.validate_required(self.city_name, 'city_name')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.city_id is not None:
+            result['city_id'] = self.city_id
+        if self.city_name is not None:
+            result['city_name'] = self.city_name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('city_id') is not None:
+            self.city_id = m.get('city_id')
+        if m.get('city_name') is not None:
+            self.city_name = m.get('city_name')
+        return self
+
+
+class CarOwnerUserInfo(TeaModel):
+    def __init__(
+        self,
+        user_id: str = None,
+        phone_num: str = None,
+    ):
+        # 用户id
+        self.user_id = user_id
+        # 手机号
+        self.phone_num = phone_num
+
+    def validate(self):
+        self.validate_required(self.user_id, 'user_id')
+        self.validate_required(self.phone_num, 'phone_num')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        if self.phone_num is not None:
+            result['phone_num'] = self.phone_num
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        if m.get('phone_num') is not None:
+            self.phone_num = m.get('phone_num')
+        return self
+
+
+class GdStoreInfo(TeaModel):
+    def __init__(
+        self,
+        total: int = None,
+        current: int = None,
+        pages: int = None,
+        size: int = None,
+        records: List[GdStoreRecord] = None,
+    ):
+        # 数据总数
+        self.total = total
+        # 当前展示页
+        self.current = current
+        # 数据总页数
+        self.pages = pages
+        # 每页显示数据条数
+        self.size = size
+        # 数据集合
+        self.records = records
+
+    def validate(self):
+        self.validate_required(self.total, 'total')
+        self.validate_required(self.current, 'current')
+        self.validate_required(self.pages, 'pages')
+        self.validate_required(self.size, 'size')
+        self.validate_required(self.records, 'records')
+        if self.records:
+            for k in self.records:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.total is not None:
+            result['total'] = self.total
+        if self.current is not None:
+            result['current'] = self.current
+        if self.pages is not None:
+            result['pages'] = self.pages
+        if self.size is not None:
+            result['size'] = self.size
+        result['records'] = []
+        if self.records is not None:
+            for k in self.records:
+                result['records'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('total') is not None:
+            self.total = m.get('total')
+        if m.get('current') is not None:
+            self.current = m.get('current')
+        if m.get('pages') is not None:
+            self.pages = m.get('pages')
+        if m.get('size') is not None:
+            self.size = m.get('size')
+        self.records = []
+        if m.get('records') is not None:
+            for k in m.get('records'):
+                temp_model = GdStoreRecord()
+                self.records.append(temp_model.from_map(k))
+        return self
+
+
+class UsedCarInfo(TeaModel):
+    def __init__(
+        self,
+        lead_id: str = None,
+        city_name: str = None,
+        pid: str = None,
+        cid: str = None,
+        brand_name: str = None,
+        series_name: str = None,
+        spec_id: str = None,
+        spec_name: str = None,
+        first_reg_time: str = None,
+        mileage: str = None,
+    ):
+        # 渠道方线索业务id
+        self.lead_id = lead_id
+        # 城市名称
+        self.city_name = city_name
+        # 省份id
+        self.pid = pid
+        # 城市id
+        self.cid = cid
+        # 品牌名称
+        self.brand_name = brand_name
+        # 车系名称
+        self.series_name = series_name
+        # 汽车之家车型id
+        self.spec_id = spec_id
+        # 车型名称
+        self.spec_name = spec_name
+        # 首次上牌时间格式 yyyy/MM/dd
+        self.first_reg_time = first_reg_time
+        # 行驶公里数(km)
+        self.mileage = mileage
+
+    def validate(self):
+        self.validate_required(self.lead_id, 'lead_id')
+        self.validate_required(self.city_name, 'city_name')
+        self.validate_required(self.pid, 'pid')
+        self.validate_required(self.cid, 'cid')
+        self.validate_required(self.spec_id, 'spec_id')
+        self.validate_required(self.first_reg_time, 'first_reg_time')
+        self.validate_required(self.mileage, 'mileage')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.lead_id is not None:
+            result['lead_id'] = self.lead_id
+        if self.city_name is not None:
+            result['city_name'] = self.city_name
+        if self.pid is not None:
+            result['pid'] = self.pid
+        if self.cid is not None:
+            result['cid'] = self.cid
+        if self.brand_name is not None:
+            result['brand_name'] = self.brand_name
+        if self.series_name is not None:
+            result['series_name'] = self.series_name
+        if self.spec_id is not None:
+            result['spec_id'] = self.spec_id
+        if self.spec_name is not None:
+            result['spec_name'] = self.spec_name
+        if self.first_reg_time is not None:
+            result['first_reg_time'] = self.first_reg_time
+        if self.mileage is not None:
+            result['mileage'] = self.mileage
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('lead_id') is not None:
+            self.lead_id = m.get('lead_id')
+        if m.get('city_name') is not None:
+            self.city_name = m.get('city_name')
+        if m.get('pid') is not None:
+            self.pid = m.get('pid')
+        if m.get('cid') is not None:
+            self.cid = m.get('cid')
+        if m.get('brand_name') is not None:
+            self.brand_name = m.get('brand_name')
+        if m.get('series_name') is not None:
+            self.series_name = m.get('series_name')
+        if m.get('spec_id') is not None:
+            self.spec_id = m.get('spec_id')
+        if m.get('spec_name') is not None:
+            self.spec_name = m.get('spec_name')
+        if m.get('first_reg_time') is not None:
+            self.first_reg_time = m.get('first_reg_time')
+        if m.get('mileage') is not None:
+            self.mileage = m.get('mileage')
         return self
 
 
@@ -1822,157 +2371,6 @@ class BatteryReport(TeaModel):
             self.city_id = m.get('city_id')
         if m.get('register_date') is not None:
             self.register_date = m.get('register_date')
-        return self
-
-
-class GdCustomerFlow(TeaModel):
-    def __init__(
-        self,
-        current: int = None,
-        data_type: str = None,
-        time_type: str = None,
-        main_brand: str = None,
-        time: str = None,
-        brand_limit: str = None,
-        data_limit: str = None,
-        base_self: int = None,
-    ):
-        # 当前页面
-        self.current = current
-        # 数据类型（SHOP：店铺；CITY：城市；PROVINCE：省份；COUNTRY：全国；SHOP_BRAND：店铺品牌(仅限竞品)）
-        self.data_type = data_type
-        # 时间类型（DAY：天；WEEK：周；MONTH：月；仅针对城市和店铺品牌的竞品数据支持的时间类型为，季度：QUARTER；半年：HALF；年：YEAR）
-        self.time_type = time_type
-        # 主品牌id
-        self.main_brand = main_brand
-        # 时间（时间类型为天时：yyyyMMdd；时间类型为周时：yyyyWW；时间类型为月时：yyyyMM；时间类型为季度时：yyyyQQ；时间类型为半年时：yyyyBB；时间类型为年时：yyyy；）
-        self.time = time
-        # 品牌id，以”,”分隔
-        self.brand_limit = brand_limit
-        # 数据指数类型（pv、uv中选择，多个以”,”分隔）
-        self.data_limit = data_limit
-        # 数据统计逻辑（0：默认值，基于本品或竞品获取；1：基于本品获取）
-        self.base_self = base_self
-
-    def validate(self):
-        self.validate_required(self.current, 'current')
-        self.validate_required(self.data_type, 'data_type')
-        self.validate_required(self.time_type, 'time_type')
-        self.validate_required(self.main_brand, 'main_brand')
-        self.validate_required(self.time, 'time')
-        self.validate_required(self.brand_limit, 'brand_limit')
-        self.validate_required(self.data_limit, 'data_limit')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.current is not None:
-            result['current'] = self.current
-        if self.data_type is not None:
-            result['data_type'] = self.data_type
-        if self.time_type is not None:
-            result['time_type'] = self.time_type
-        if self.main_brand is not None:
-            result['main_brand'] = self.main_brand
-        if self.time is not None:
-            result['time'] = self.time
-        if self.brand_limit is not None:
-            result['brand_limit'] = self.brand_limit
-        if self.data_limit is not None:
-            result['data_limit'] = self.data_limit
-        if self.base_self is not None:
-            result['base_self'] = self.base_self
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('current') is not None:
-            self.current = m.get('current')
-        if m.get('data_type') is not None:
-            self.data_type = m.get('data_type')
-        if m.get('time_type') is not None:
-            self.time_type = m.get('time_type')
-        if m.get('main_brand') is not None:
-            self.main_brand = m.get('main_brand')
-        if m.get('time') is not None:
-            self.time = m.get('time')
-        if m.get('brand_limit') is not None:
-            self.brand_limit = m.get('brand_limit')
-        if m.get('data_limit') is not None:
-            self.data_limit = m.get('data_limit')
-        if m.get('base_self') is not None:
-            self.base_self = m.get('base_self')
-        return self
-
-
-class UsedCarValuation(TeaModel):
-    def __init__(
-        self,
-        referenceprice: str = None,
-        newcarprice: str = None,
-        url: str = None,
-        conditiona: str = None,
-        conditionb: str = None,
-        conditionc: str = None,
-    ):
-        # 评估金额(万)
-        self.referenceprice = referenceprice
-        # 官方报价(参考)(万)
-        self.newcarprice = newcarprice
-        # 车型图片(参考)
-        self.url = url
-        # 车况好(万)(三个价格用"-"分隔,第一个是较小值第二个是...
-        self.conditiona = conditiona
-        # 车况正常(万)
-        self.conditionb = conditionb
-        # 车况差(万)
-        self.conditionc = conditionc
-
-    def validate(self):
-        self.validate_required(self.referenceprice, 'referenceprice')
-        self.validate_required(self.newcarprice, 'newcarprice')
-        self.validate_required(self.url, 'url')
-        self.validate_required(self.conditiona, 'conditiona')
-        self.validate_required(self.conditionb, 'conditionb')
-        self.validate_required(self.conditionc, 'conditionc')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.referenceprice is not None:
-            result['referenceprice'] = self.referenceprice
-        if self.newcarprice is not None:
-            result['newcarprice'] = self.newcarprice
-        if self.url is not None:
-            result['url'] = self.url
-        if self.conditiona is not None:
-            result['conditiona'] = self.conditiona
-        if self.conditionb is not None:
-            result['conditionb'] = self.conditionb
-        if self.conditionc is not None:
-            result['conditionc'] = self.conditionc
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('referenceprice') is not None:
-            self.referenceprice = m.get('referenceprice')
-        if m.get('newcarprice') is not None:
-            self.newcarprice = m.get('newcarprice')
-        if m.get('url') is not None:
-            self.url = m.get('url')
-        if m.get('conditiona') is not None:
-            self.conditiona = m.get('conditiona')
-        if m.get('conditionb') is not None:
-            self.conditionb = m.get('conditionb')
-        if m.get('conditionc') is not None:
-            self.conditionc = m.get('conditionc')
         return self
 
 
@@ -3542,6 +3940,254 @@ class QueryNewcarQczjResponse(TeaModel):
         if m.get('spec_result') is not None:
             temp_model = SpecResult()
             self.spec_result = temp_model.from_map(m['spec_result'])
+        return self
+
+
+class QueryGdStoreRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        scene_code: str = None,
+        gd_customer_flow: GdCustomerFlow = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 场景码
+        self.scene_code = scene_code
+        # 查询店铺基本信息请求体
+        self.gd_customer_flow = gd_customer_flow
+
+    def validate(self):
+        self.validate_required(self.scene_code, 'scene_code')
+        self.validate_required(self.gd_customer_flow, 'gd_customer_flow')
+        if self.gd_customer_flow:
+            self.gd_customer_flow.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.scene_code is not None:
+            result['scene_code'] = self.scene_code
+        if self.gd_customer_flow is not None:
+            result['gd_customer_flow'] = self.gd_customer_flow.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('scene_code') is not None:
+            self.scene_code = m.get('scene_code')
+        if m.get('gd_customer_flow') is not None:
+            temp_model = GdCustomerFlow()
+            self.gd_customer_flow = temp_model.from_map(m['gd_customer_flow'])
+        return self
+
+
+class QueryGdStoreResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        msg: str = None,
+        code: str = None,
+        request_link_id: str = None,
+        data: GdStoreInfo = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 返回消息
+        self.msg = msg
+        # 返回编码，值为10000表示成功，其余值表示失败
+        self.code = code
+        # 随即返回ID
+        self.request_link_id = request_link_id
+        # 返回数据
+        self.data = data
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.msg is not None:
+            result['msg'] = self.msg
+        if self.code is not None:
+            result['code'] = self.code
+        if self.request_link_id is not None:
+            result['request_link_id'] = self.request_link_id
+        if self.data is not None:
+            result['data'] = self.data.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('msg') is not None:
+            self.msg = m.get('msg')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('request_link_id') is not None:
+            self.request_link_id = m.get('request_link_id')
+        if m.get('data') is not None:
+            temp_model = GdStoreInfo()
+            self.data = temp_model.from_map(m['data'])
+        return self
+
+
+class QueryGdPoentialRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        scene_code: str = None,
+        gd_customer_flow: GdCustomerFlow = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 场景码
+        self.scene_code = scene_code
+        # 潜客指数接口请求体
+        self.gd_customer_flow = gd_customer_flow
+
+    def validate(self):
+        self.validate_required(self.scene_code, 'scene_code')
+        self.validate_required(self.gd_customer_flow, 'gd_customer_flow')
+        if self.gd_customer_flow:
+            self.gd_customer_flow.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.scene_code is not None:
+            result['scene_code'] = self.scene_code
+        if self.gd_customer_flow is not None:
+            result['gd_customer_flow'] = self.gd_customer_flow.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('scene_code') is not None:
+            self.scene_code = m.get('scene_code')
+        if m.get('gd_customer_flow') is not None:
+            temp_model = GdCustomerFlow()
+            self.gd_customer_flow = temp_model.from_map(m['gd_customer_flow'])
+        return self
+
+
+class QueryGdPoentialResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        msg: str = None,
+        code: int = None,
+        request_link_id: str = None,
+        data: GdPotentialCustomerInfo = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 返回消息
+        self.msg = msg
+        # 返回编码，值为10000表示成功，其余值表示失败
+        self.code = code
+        # 随机返回id
+        self.request_link_id = request_link_id
+        # 返回数据
+        self.data = data
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.msg is not None:
+            result['msg'] = self.msg
+        if self.code is not None:
+            result['code'] = self.code
+        if self.request_link_id is not None:
+            result['request_link_id'] = self.request_link_id
+        if self.data is not None:
+            result['data'] = self.data.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('msg') is not None:
+            self.msg = m.get('msg')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('request_link_id') is not None:
+            self.request_link_id = m.get('request_link_id')
+        if m.get('data') is not None:
+            temp_model = GdPotentialCustomerInfo()
+            self.data = temp_model.from_map(m['data'])
         return self
 
 
