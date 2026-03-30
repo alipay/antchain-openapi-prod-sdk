@@ -30,7 +30,7 @@ class QueryDubbridgeRepaymentLxResponse extends Model
     /**
      * @var string
      */
-    public $ccode;
+    public $code;
 
     // 业务返回描述
     /**
@@ -59,7 +59,7 @@ class QueryDubbridgeRepaymentLxResponse extends Model
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'ccode'      => 'ccode',
+        'code'       => 'code',
         'msg'        => 'msg',
         'bizContent' => 'biz_content',
         'timestamp'  => 'timestamp',
@@ -82,8 +82,8 @@ class QueryDubbridgeRepaymentLxResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->ccode) {
-            $res['ccode'] = $this->ccode;
+        if (null !== $this->code) {
+            $res['code'] = $this->code;
         }
         if (null !== $this->msg) {
             $res['msg'] = $this->msg;
@@ -118,8 +118,8 @@ class QueryDubbridgeRepaymentLxResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['ccode'])) {
-            $model->ccode = $map['ccode'];
+        if (isset($map['code'])) {
+            $model->code = $map['code'];
         }
         if (isset($map['msg'])) {
             $model->msg = $map['msg'];
