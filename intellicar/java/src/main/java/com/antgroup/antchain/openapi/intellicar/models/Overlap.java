@@ -29,7 +29,6 @@ public class Overlap extends TeaModel {
      * <p>26nhJ8duzh</p>
      */
     @NameInMap("shop_id")
-    @Validation(required = true)
     public String shopId;
 
     // 重叠城市编码，数据类型为城市时返回该属性与值
@@ -38,8 +37,23 @@ public class Overlap extends TeaModel {
      * <p>021</p>
      */
     @NameInMap("citycode")
-    @Validation(required = true)
     public String citycode;
+
+    // 重叠省份编码，数据类型为省份时返回该属性与值
+    /**
+     * <strong>example:</strong>
+     * <p>xxxx</p>
+     */
+    @NameInMap("pcode")
+    public String pcode;
+
+    // 数据类型为全国时返回该属性与值
+    /**
+     * <strong>example:</strong>
+     * <p>xxxx</p>
+     */
+    @NameInMap("countrycode")
+    public String countrycode;
 
     public static Overlap build(java.util.Map<String, ?> map) throws Exception {
         Overlap self = new Overlap();
@@ -84,6 +98,22 @@ public class Overlap extends TeaModel {
     }
     public String getCitycode() {
         return this.citycode;
+    }
+
+    public Overlap setPcode(String pcode) {
+        this.pcode = pcode;
+        return this;
+    }
+    public String getPcode() {
+        return this.pcode;
+    }
+
+    public Overlap setCountrycode(String countrycode) {
+        this.countrycode = countrycode;
+        return this;
+    }
+    public String getCountrycode() {
+        return this.countrycode;
     }
 
 }

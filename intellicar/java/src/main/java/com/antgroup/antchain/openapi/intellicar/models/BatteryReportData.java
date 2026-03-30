@@ -219,6 +219,22 @@ public class BatteryReportData extends TeaModel {
     @Validation(required = true)
     public String rightsDesc;
 
+    // 权益说明-状态
+    /**
+     * <strong>example:</strong>
+     * <ul>
+     * <li></li>
+     * </ul>
+     */
+    @NameInMap("right_status")
+    @Validation(required = true)
+    public String rightStatus;
+
+    // 电池健康度-建议
+    @NameInMap("soh_suggest")
+    @Validation(required = true)
+    public java.util.List<String> sohSuggest;
+
     public static BatteryReportData build(java.util.Map<String, ?> map) throws Exception {
         BatteryReportData self = new BatteryReportData();
         return TeaModel.build(map, self);
@@ -406,6 +422,22 @@ public class BatteryReportData extends TeaModel {
     }
     public String getRightsDesc() {
         return this.rightsDesc;
+    }
+
+    public BatteryReportData setRightStatus(String rightStatus) {
+        this.rightStatus = rightStatus;
+        return this;
+    }
+    public String getRightStatus() {
+        return this.rightStatus;
+    }
+
+    public BatteryReportData setSohSuggest(java.util.List<String> sohSuggest) {
+        this.sohSuggest = sohSuggest;
+        return this;
+    }
+    public java.util.List<String> getSohSuggest() {
+        return this.sohSuggest;
     }
 
 }

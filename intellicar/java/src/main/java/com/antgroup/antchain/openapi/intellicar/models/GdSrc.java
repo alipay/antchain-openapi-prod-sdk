@@ -29,7 +29,6 @@ public class GdSrc extends TeaModel {
      * <p>26mMw8duxn</p>
      */
     @NameInMap("shop_id")
-    @Validation(required = true)
     public String shopId;
 
     // 流入城市编码，数据类型为店铺或者城市时返回该属性与值
@@ -38,8 +37,23 @@ public class GdSrc extends TeaModel {
      * <p>021</p>
      */
     @NameInMap("citycode")
-    @Validation(required = true)
     public String citycode;
+
+    // 省份编码，数据类型为省份时返回该属性与值
+    /**
+     * <strong>example:</strong>
+     * <p>xxxx</p>
+     */
+    @NameInMap("pcode")
+    public String pcode;
+
+    // 数据类型为全国时返回该属性与值
+    /**
+     * <strong>example:</strong>
+     * <p>xxxx</p>
+     */
+    @NameInMap("countrycode")
+    public String countrycode;
 
     public static GdSrc build(java.util.Map<String, ?> map) throws Exception {
         GdSrc self = new GdSrc();
@@ -84,6 +98,22 @@ public class GdSrc extends TeaModel {
     }
     public String getCitycode() {
         return this.citycode;
+    }
+
+    public GdSrc setPcode(String pcode) {
+        this.pcode = pcode;
+        return this;
+    }
+    public String getPcode() {
+        return this.pcode;
+    }
+
+    public GdSrc setCountrycode(String countrycode) {
+        this.countrycode = countrycode;
+        return this;
+    }
+    public String getCountrycode() {
+        return this.countrycode;
     }
 
 }

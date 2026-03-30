@@ -56,9 +56,9 @@ public class BatteryReportResult extends TeaModel {
     public Long checkType;
 
     // 报告数据
-    @NameInMap("data")
+    @NameInMap("report_data")
     @Validation(required = true)
-    public BatteryReportData data;
+    public BatteryReportData reportData;
 
     public static BatteryReportResult build(java.util.Map<String, ?> map) throws Exception {
         BatteryReportResult self = new BatteryReportResult();
@@ -105,12 +105,12 @@ public class BatteryReportResult extends TeaModel {
         return this.checkType;
     }
 
-    public BatteryReportResult setData(BatteryReportData data) {
-        this.data = data;
+    public BatteryReportResult setReportData(BatteryReportData reportData) {
+        this.reportData = reportData;
         return this;
     }
-    public BatteryReportData getData() {
-        return this.data;
+    public BatteryReportData getReportData() {
+        return this.reportData;
     }
 
 }

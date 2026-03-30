@@ -71,7 +71,7 @@ public class GdCustomersRecord extends TeaModel {
     // 流出指数集合
     @NameInMap("dest_list")
     @Validation(required = true)
-    public GdDest destList;
+    public java.util.List<GdDest> destList;
 
     // 流出指数条数
     /**
@@ -151,11 +151,11 @@ public class GdCustomersRecord extends TeaModel {
         return this.srcListNum;
     }
 
-    public GdCustomersRecord setDestList(GdDest destList) {
+    public GdCustomersRecord setDestList(java.util.List<GdDest> destList) {
         this.destList = destList;
         return this;
     }
-    public GdDest getDestList() {
+    public java.util.List<GdDest> getDestList() {
         return this.destList;
     }
 

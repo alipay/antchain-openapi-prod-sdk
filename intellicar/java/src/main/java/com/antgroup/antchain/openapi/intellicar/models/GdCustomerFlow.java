@@ -19,7 +19,6 @@ public class GdCustomerFlow extends TeaModel {
      * <p>SHOP</p>
      */
     @NameInMap("data_type")
-    @Validation(required = true)
     public String dataType;
 
     // 时间类型（DAY：天；WEEK：周；MONTH：月；仅针对城市和店铺品牌的竞品数据支持的时间类型为，季度：QUARTER；半年：HALF；年：YEAR）
@@ -28,7 +27,6 @@ public class GdCustomerFlow extends TeaModel {
      * <p>DAY</p>
      */
     @NameInMap("time_type")
-    @Validation(required = true)
     public String timeType;
 
     // 主品牌id
@@ -37,7 +35,6 @@ public class GdCustomerFlow extends TeaModel {
      * <p>102</p>
      */
     @NameInMap("main_brand")
-    @Validation(required = true)
     public String mainBrand;
 
     // 时间（时间类型为天时：yyyyMMdd；时间类型为周时：yyyyWW；时间类型为月时：yyyyMM；时间类型为季度时：yyyyQQ；时间类型为半年时：yyyyBB；时间类型为年时：yyyy；）
@@ -46,7 +43,6 @@ public class GdCustomerFlow extends TeaModel {
      * <p>20230103</p>
      */
     @NameInMap("time")
-    @Validation(required = true)
     public String time;
 
     // 品牌id，以”,”分隔
@@ -55,7 +51,6 @@ public class GdCustomerFlow extends TeaModel {
      * <p>102</p>
      */
     @NameInMap("brand_limit")
-    @Validation(required = true)
     public String brandLimit;
 
     // 数据指数类型（pv、uv中选择，多个以”,”分隔）
@@ -64,7 +59,6 @@ public class GdCustomerFlow extends TeaModel {
      * <p>pv,uv</p>
      */
     @NameInMap("data_limit")
-    @Validation(required = true)
     public String dataLimit;
 
     // 数据统计逻辑（0：默认值，基于本品或竞品获取；1：基于本品获取）

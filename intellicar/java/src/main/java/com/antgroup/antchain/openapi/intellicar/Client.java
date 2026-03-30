@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.21"),
+                    new TeaPair("sdk_version", "1.0.23"),
                     new TeaPair("_prod_code", "INTELLICAR"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -460,6 +460,48 @@ public class Client {
     public QueryNewcarQczjResponse queryNewcarQczjEx(QueryNewcarQczjRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antdigital.intellicar.newcar.qczj.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryNewcarQczjResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 【高德】查询店铺基本信息
+     * Summary: 【高德】查询店铺基本信息</p>
+     */
+    public QueryGdStoreResponse queryGdStore(QueryGdStoreRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryGdStoreEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 【高德】查询店铺基本信息
+     * Summary: 【高德】查询店铺基本信息</p>
+     */
+    public QueryGdStoreResponse queryGdStoreEx(QueryGdStoreRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.intellicar.gd.store.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryGdStoreResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 【高德】潜客指数数据
+     * Summary: 【高德】潜客指数数据</p>
+     */
+    public QueryGdPoentialResponse queryGdPoential(QueryGdPoentialRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryGdPoentialEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 【高德】潜客指数数据
+     * Summary: 【高德】潜客指数数据</p>
+     */
+    public QueryGdPoentialResponse queryGdPoentialEx(QueryGdPoentialRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.intellicar.gd.poential.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryGdPoentialResponse());
     }
 
     /**
