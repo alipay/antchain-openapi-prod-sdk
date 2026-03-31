@@ -33,6 +33,8 @@ use AntChain\INSURANCE_SAAS\Models\CreateAntcloudGatewayxFileUploadRequest;
 use AntChain\INSURANCE_SAAS\Models\CreateAntcloudGatewayxFileUploadResponse;
 use AntChain\INSURANCE_SAAS\Models\FinishClaimSettleRequest;
 use AntChain\INSURANCE_SAAS\Models\FinishClaimSettleResponse;
+use AntChain\INSURANCE_SAAS\Models\GetEmbedcardUrlRequest;
+use AntChain\INSURANCE_SAAS\Models\GetEmbedcardUrlResponse;
 use AntChain\INSURANCE_SAAS\Models\GetEmbedoemautoinsuranceUrlRequest;
 use AntChain\INSURANCE_SAAS\Models\GetEmbedoemautoinsuranceUrlResponse;
 use AntChain\INSURANCE_SAAS\Models\GetInterestUrlRequest;
@@ -41,6 +43,8 @@ use AntChain\INSURANCE_SAAS\Models\GetMarketingInsureurlRequest;
 use AntChain\INSURANCE_SAAS\Models\GetMarketingInsureurlResponse;
 use AntChain\INSURANCE_SAAS\Models\GetRightplatformUrlRequest;
 use AntChain\INSURANCE_SAAS\Models\GetRightplatformUrlResponse;
+use AntChain\INSURANCE_SAAS\Models\IssueEmbedcardPaysucRequest;
+use AntChain\INSURANCE_SAAS\Models\IssueEmbedcardPaysucResponse;
 use AntChain\INSURANCE_SAAS\Models\NotifyAutoinsuranceEventRequest;
 use AntChain\INSURANCE_SAAS\Models\NotifyAutoinsuranceEventResponse;
 use AntChain\INSURANCE_SAAS\Models\NotifyInterestScenesubjectRequest;
@@ -236,7 +240,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.12.17',
+                    'sdk_version'      => '1.12.18',
                     '_prod_code'       => 'INSURANCE_SAAS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -282,6 +286,72 @@ class Client
         }
 
         throw new TeaUnableRetryError($_lastRequest, $_lastException);
+    }
+
+    /**
+     * Description: 嵌入式保险服务卡片url链接获取
+     * Summary: 嵌入式保险服务卡片url链接获取.
+     *
+     * @param GetEmbedcardUrlRequest $request
+     *
+     * @return GetEmbedcardUrlResponse
+     */
+    public function getEmbedcardUrl($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getEmbedcardUrlEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 嵌入式保险服务卡片url链接获取
+     * Summary: 嵌入式保险服务卡片url链接获取.
+     *
+     * @param GetEmbedcardUrlRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return GetEmbedcardUrlResponse
+     */
+    public function getEmbedcardUrlEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetEmbedcardUrlResponse::fromMap($this->doRequest('1.0', 'antcloud.insurance.embedcard.url.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 嵌入式保险服务打款成功出单接口
+     * Summary: 嵌入式保险服务打款成功出单接口.
+     *
+     * @param IssueEmbedcardPaysucRequest $request
+     *
+     * @return IssueEmbedcardPaysucResponse
+     */
+    public function issueEmbedcardPaysuc($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->issueEmbedcardPaysucEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 嵌入式保险服务打款成功出单接口
+     * Summary: 嵌入式保险服务打款成功出单接口.
+     *
+     * @param IssueEmbedcardPaysucRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return IssueEmbedcardPaysucResponse
+     */
+    public function issueEmbedcardPaysucEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return IssueEmbedcardPaysucResponse::fromMap($this->doRequest('1.0', 'antcloud.insurance.embedcard.paysuc.issue', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
