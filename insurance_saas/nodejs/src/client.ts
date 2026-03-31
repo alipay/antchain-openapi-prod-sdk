@@ -103,6 +103,72 @@ export class FileNode extends $tea.Model {
   }
 }
 
+// 被保人
+export class Insured extends $tea.Model {
+  // 被保人名称
+  insuredName: string;
+  // 被保人证件类型
+  insuredCardType: string;
+  // 被保人证件号码
+  insuredCardCode: string;
+  // 被保人联系方式
+  insuredContactInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      insuredName: 'insured_name',
+      insuredCardType: 'insured_card_type',
+      insuredCardCode: 'insured_card_code',
+      insuredContactInfo: 'insured_contact_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      insuredName: 'string',
+      insuredCardType: 'string',
+      insuredCardCode: 'string',
+      insuredContactInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 投保人
+export class Applicant extends $tea.Model {
+  // 投保人名称
+  applicantName: string;
+  // 投保人证件类型
+  applicantCardType: string;
+  // 投保人证件号码
+  applicantCardCode: string;
+  // 投保人联系方式
+  applicantContactInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      applicantName: 'applicant_name',
+      applicantCardType: 'applicant_card_type',
+      applicantCardCode: 'applicant_card_code',
+      applicantContactInfo: 'applicant_contact_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      applicantName: 'string',
+      applicantCardType: 'string',
+      applicantCardCode: 'string',
+      applicantContactInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 委托险种信息
 export class EntrustGuaranteeProduct extends $tea.Model {
   // 保障失效时间
@@ -165,6 +231,258 @@ export class XNameValuePair extends $tea.Model {
     return {
       name: 'string',
       value: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetEmbedcardUrlRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 险种编码
+  insuranceTypeCode: string;
+  // 保司编码
+  insuranceCompanyNo: string;
+  // 嵌入式产品编码
+  embedProductCode: string;
+  // 是否需要询价
+  isNeedInquiry: boolean;
+  // 交易流水号，调用方生成的唯一编码，格式为 yyyyMMdd_身份标识_其他编码，系统会根据该流水号做防重、幂等判断逻辑。 yyyyMMdd请传递当前时间。 身份标识可自定义。 其他编码建议为随机值。 当极端场景中，系统会返回错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；
+  tradeNo: string;
+  // 方案名称
+  schemeName: string;
+  // 投保人
+  applicant: Applicant;
+  // 被保人
+  insured: Insured;
+  // 投保标的
+  subjectInfo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      insuranceTypeCode: 'insurance_type_code',
+      insuranceCompanyNo: 'insurance_company_no',
+      embedProductCode: 'embed_product_code',
+      isNeedInquiry: 'is_need_inquiry',
+      tradeNo: 'trade_no',
+      schemeName: 'scheme_name',
+      applicant: 'applicant',
+      insured: 'insured',
+      subjectInfo: 'subject_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      insuranceTypeCode: 'string',
+      insuranceCompanyNo: 'string',
+      embedProductCode: 'string',
+      isNeedInquiry: 'boolean',
+      tradeNo: 'string',
+      schemeName: 'string',
+      applicant: Applicant,
+      insured: Insured,
+      subjectInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetEmbedcardUrlResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 交易流水号
+  tradeNo?: string;
+  // 险种编码
+  insuranceTypeCode?: string;
+  // 保司编码
+  insuranceCompanyNo?: string;
+  // 嵌入式产品编码
+  embedProductCode?: string;
+  // 嵌入式产品URL地址
+  embedProductUrl?: string;
+  // 方案名称
+  schemeName?: string;
+  // 保费
+  premium?: string;
+  // 询价编码
+  inquiryNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      tradeNo: 'trade_no',
+      insuranceTypeCode: 'insurance_type_code',
+      insuranceCompanyNo: 'insurance_company_no',
+      embedProductCode: 'embed_product_code',
+      embedProductUrl: 'embed_product_url',
+      schemeName: 'scheme_name',
+      premium: 'premium',
+      inquiryNo: 'inquiry_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      tradeNo: 'string',
+      insuranceTypeCode: 'string',
+      insuranceCompanyNo: 'string',
+      embedProductCode: 'string',
+      embedProductUrl: 'string',
+      schemeName: 'string',
+      premium: 'string',
+      inquiryNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class IssueEmbedcardPaysucRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 险种编码
+  insuranceTypeCode: string;
+  // 保司编码
+  insuranceCompanyNo: string;
+  // 嵌入式产品编码
+  embedProductCode: string;
+  // 交易流水号
+  tradeNo: string;
+  // 方案名称
+  schemeName: string;
+  // 保费，保留2位小数
+  premium: string;
+  // 保费支付渠道，01-支付宝、02-微信支付、03-银行卡支付、04-平台账户余额支付
+  premiumPaymentChannel: string;
+  // 保费支付流水号
+  premiumPaymentNo: string;
+  // 保费支付金额，保留2位小数
+  premiumPaymentAmount: string;
+  // 保费支付时间
+  premiumPaymentTime: string;
+  // 询价编码
+  inquiryNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      insuranceTypeCode: 'insurance_type_code',
+      insuranceCompanyNo: 'insurance_company_no',
+      embedProductCode: 'embed_product_code',
+      tradeNo: 'trade_no',
+      schemeName: 'scheme_name',
+      premium: 'premium',
+      premiumPaymentChannel: 'premium_payment_channel',
+      premiumPaymentNo: 'premium_payment_no',
+      premiumPaymentAmount: 'premium_payment_amount',
+      premiumPaymentTime: 'premium_payment_time',
+      inquiryNo: 'inquiry_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      insuranceTypeCode: 'string',
+      insuranceCompanyNo: 'string',
+      embedProductCode: 'string',
+      tradeNo: 'string',
+      schemeName: 'string',
+      premium: 'string',
+      premiumPaymentChannel: 'string',
+      premiumPaymentNo: 'string',
+      premiumPaymentAmount: 'string',
+      premiumPaymentTime: 'string',
+      inquiryNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class IssueEmbedcardPaysucResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 交易流水号
+  tradeNo?: string;
+  // 险种编码
+  insuranceTypeCode?: string;
+  // 保司编码
+  insuranceCompanyNo?: string;
+  // 嵌入式产品编码
+  embedProductCode?: string;
+  // 方案名称
+  schemeName?: string;
+  // 保险起期
+  insureStart?: string;
+  // 保险止期
+  insureEnd?: string;
+  // 保费，保留2位小数
+  premium?: string;
+  // 保额，保留2位小数
+  amount?: string;
+  // 询价编码
+  inquiryNo?: string;
+  // 保险凭证号
+  voucherNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      tradeNo: 'trade_no',
+      insuranceTypeCode: 'insurance_type_code',
+      insuranceCompanyNo: 'insurance_company_no',
+      embedProductCode: 'embed_product_code',
+      schemeName: 'scheme_name',
+      insureStart: 'insure_start',
+      insureEnd: 'insure_end',
+      premium: 'premium',
+      amount: 'amount',
+      inquiryNo: 'inquiry_no',
+      voucherNo: 'voucher_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      tradeNo: 'string',
+      insuranceTypeCode: 'string',
+      insuranceCompanyNo: 'string',
+      embedProductCode: 'string',
+      schemeName: 'string',
+      insureStart: 'string',
+      insureEnd: 'string',
+      premium: 'string',
+      amount: 'string',
+      inquiryNo: 'string',
+      voucherNo: 'string',
     };
   }
 
@@ -3545,7 +3863,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.12.17",
+          sdk_version: "1.12.18",
           _prod_code: "INSURANCE_SAAS",
           _prod_channel: "undefined",
         };
@@ -3591,6 +3909,44 @@ export default class Client {
     }
 
     throw $tea.newUnretryableError(_lastRequest);
+  }
+
+  /**
+   * Description: 嵌入式保险服务卡片url链接获取
+   * Summary: 嵌入式保险服务卡片url链接获取
+   */
+  async getEmbedcardUrl(request: GetEmbedcardUrlRequest): Promise<GetEmbedcardUrlResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getEmbedcardUrlEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 嵌入式保险服务卡片url链接获取
+   * Summary: 嵌入式保险服务卡片url链接获取
+   */
+  async getEmbedcardUrlEx(request: GetEmbedcardUrlRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetEmbedcardUrlResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetEmbedcardUrlResponse>(await this.doRequest("1.0", "antcloud.insurance.embedcard.url.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetEmbedcardUrlResponse({}));
+  }
+
+  /**
+   * Description: 嵌入式保险服务打款成功出单接口
+   * Summary: 嵌入式保险服务打款成功出单接口
+   */
+  async issueEmbedcardPaysuc(request: IssueEmbedcardPaysucRequest): Promise<IssueEmbedcardPaysucResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.issueEmbedcardPaysucEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 嵌入式保险服务打款成功出单接口
+   * Summary: 嵌入式保险服务打款成功出单接口
+   */
+  async issueEmbedcardPaysucEx(request: IssueEmbedcardPaysucRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<IssueEmbedcardPaysucResponse> {
+    Util.validateModel(request);
+    return $tea.cast<IssueEmbedcardPaysucResponse>(await this.doRequest("1.0", "antcloud.insurance.embedcard.paysuc.issue", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new IssueEmbedcardPaysucResponse({}));
   }
 
   /**
