@@ -20,12 +20,6 @@ class CallbackMktEffectRequest extends Model
      */
     public $requestId;
 
-    // 产品编码，蚂蚁分配
-    /**
-     * @var string
-     */
-    public $productCode;
-
     // 项目ID，待蚂蚁分配
     /**
      * @var string
@@ -88,7 +82,6 @@ class CallbackMktEffectRequest extends Model
     protected $_name = [
         'authToken'       => 'auth_token',
         'requestId'       => 'request_id',
-        'productCode'     => 'product_code',
         'projectId'       => 'project_id',
         'marketingMode'   => 'marketing_mode',
         'insureShortUrl'  => 'insure_short_url',
@@ -104,7 +97,6 @@ class CallbackMktEffectRequest extends Model
     public function validate()
     {
         Model::validateRequired('requestId', $this->requestId, true);
-        Model::validateRequired('productCode', $this->productCode, true);
         Model::validateRequired('projectId', $this->projectId, true);
         Model::validateRequired('marketingMode', $this->marketingMode, true);
         Model::validateRequired('insureShortUrl', $this->insureShortUrl, true);
@@ -115,7 +107,6 @@ class CallbackMktEffectRequest extends Model
         Model::validateRequired('eventTime', $this->eventTime, true);
         Model::validateRequired('nodeType', $this->nodeType, true);
         Model::validateMaxLength('requestId', $this->requestId, 128);
-        Model::validateMaxLength('productCode', $this->productCode, 64);
         Model::validateMaxLength('projectId', $this->projectId, 64);
         Model::validateMaxLength('marketingMode', $this->marketingMode, 64);
         Model::validateMaxLength('insureShortUrl', $this->insureShortUrl, 256);
@@ -136,9 +127,6 @@ class CallbackMktEffectRequest extends Model
         }
         if (null !== $this->requestId) {
             $res['request_id'] = $this->requestId;
-        }
-        if (null !== $this->productCode) {
-            $res['product_code'] = $this->productCode;
         }
         if (null !== $this->projectId) {
             $res['project_id'] = $this->projectId;
@@ -187,9 +175,6 @@ class CallbackMktEffectRequest extends Model
         }
         if (isset($map['request_id'])) {
             $model->requestId = $map['request_id'];
-        }
-        if (isset($map['product_code'])) {
-            $model->productCode = $map['product_code'];
         }
         if (isset($map['project_id'])) {
             $model->projectId = $map['project_id'];
