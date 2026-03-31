@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.12.16"),
+                    new TeaPair("sdk_version", "1.12.17"),
                     new TeaPair("_prod_code", "INSURANCE_SAAS"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -274,6 +274,27 @@ public class Client {
 
     /**
      * <b>description</b> :
+     * <p>Description: 根据保单号查询保单附件，并返回一个有效期为7天的ossurl
+     * Summary: 保险科技保单附件查询接口</p>
+     */
+    public QueryPolicyFileResponse queryPolicyFile(QueryPolicyFileRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryPolicyFileEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 根据保单号查询保单附件，并返回一个有效期为7天的ossurl
+     * Summary: 保险科技保单附件查询接口</p>
+     */
+    public QueryPolicyFileResponse queryPolicyFileEx(QueryPolicyFileRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.insurance.policy.file.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryPolicyFileResponse());
+    }
+
+    /**
+     * <b>description</b> :
      * <p>Description: 报价接口同步接口
      * Summary: 报价接口同步接口</p>
      */
@@ -333,27 +354,6 @@ public class Client {
     public QueryUnderwritingResponse queryUnderwritingEx(QueryUnderwritingRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.insurance.underwriting.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryUnderwritingResponse());
-    }
-
-    /**
-     * <b>description</b> :
-     * <p>Description: 根据保单号查询保单附件，并返回一个有效期为7天的ossurl
-     * Summary: 保险科技保单附件查询接口</p>
-     */
-    public QueryPolicyFileResponse queryPolicyFile(QueryPolicyFileRequest request) throws Exception {
-        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.queryPolicyFileEx(request, headers, runtime);
-    }
-
-    /**
-     * <b>description</b> :
-     * <p>Description: 根据保单号查询保单附件，并返回一个有效期为7天的ossurl
-     * Summary: 保险科技保单附件查询接口</p>
-     */
-    public QueryPolicyFileResponse queryPolicyFileEx(QueryPolicyFileRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antcloud.insurance.policy.file.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryPolicyFileResponse());
     }
 
     /**
@@ -568,27 +568,6 @@ public class Client {
 
     /**
      * <b>description</b> :
-     * <p>Description: 投保测试接口
-     * Summary: 投保测试接口</p>
-     */
-    public ApplyInsureTestResponse applyInsureTest(ApplyInsureTestRequest request) throws Exception {
-        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.applyInsureTestEx(request, headers, runtime);
-    }
-
-    /**
-     * <b>description</b> :
-     * <p>Description: 投保测试接口
-     * Summary: 投保测试接口</p>
-     */
-    public ApplyInsureTestResponse applyInsureTestEx(ApplyInsureTestRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antcloud.insurance.insure.test.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyInsureTestResponse());
-    }
-
-    /**
-     * <b>description</b> :
      * <p>Description: 本接口用于调查报案数据的提交
      * Summary: 调查报案提交接口</p>
      */
@@ -631,48 +610,6 @@ public class Client {
 
     /**
      * <b>description</b> :
-     * <p>Description: 嵌入式保险服务卡片url链接获取
-     * Summary: 嵌入式保险服务卡片url链接获取</p>
-     */
-    public GetEmbedcardUrlResponse getEmbedcardUrl(GetEmbedcardUrlRequest request) throws Exception {
-        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.getEmbedcardUrlEx(request, headers, runtime);
-    }
-
-    /**
-     * <b>description</b> :
-     * <p>Description: 嵌入式保险服务卡片url链接获取
-     * Summary: 嵌入式保险服务卡片url链接获取</p>
-     */
-    public GetEmbedcardUrlResponse getEmbedcardUrlEx(GetEmbedcardUrlRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antcloud.insurance.embedcard.url.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetEmbedcardUrlResponse());
-    }
-
-    /**
-     * <b>description</b> :
-     * <p>Description: 嵌入式保险服务打款成功出单接口
-     * Summary: 嵌入式保险服务打款成功出单接口</p>
-     */
-    public IssueEmbedcardPaysucResponse issueEmbedcardPaysuc(IssueEmbedcardPaysucRequest request) throws Exception {
-        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.issueEmbedcardPaysucEx(request, headers, runtime);
-    }
-
-    /**
-     * <b>description</b> :
-     * <p>Description: 嵌入式保险服务打款成功出单接口
-     * Summary: 嵌入式保险服务打款成功出单接口</p>
-     */
-    public IssueEmbedcardPaysucResponse issueEmbedcardPaysucEx(IssueEmbedcardPaysucRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antcloud.insurance.embedcard.paysuc.issue", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new IssueEmbedcardPaysucResponse());
-    }
-
-    /**
-     * <b>description</b> :
      * <p>Description: 嵌入式主机厂车险url链接获取
      * Summary: 嵌入式主机厂车险url链接获取</p>
      */
@@ -694,7 +631,7 @@ public class Client {
 
     /**
      * <b>description</b> :
-     * <p>Description: 场景方获取权益链接 
+     * <p>Description: 场景方获取权益链接
      * Summary: 场景方获取权益链接</p>
      */
     public GetRightplatformUrlResponse getRightplatformUrl(GetRightplatformUrlRequest request) throws Exception {
@@ -705,7 +642,7 @@ public class Client {
 
     /**
      * <b>description</b> :
-     * <p>Description: 场景方获取权益链接 
+     * <p>Description: 场景方获取权益链接
      * Summary: 场景方获取权益链接</p>
      */
     public GetRightplatformUrlResponse getRightplatformUrlEx(GetRightplatformUrlRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
@@ -988,6 +925,48 @@ public class Client {
 
     /**
      * <b>description</b> :
+     * <p>Description: 商机数量推送接口
+     * Summary: 商机数量接收</p>
+     */
+    public ReceiveBusinessOpportunitiesResponse receiveBusinessOpportunities(ReceiveBusinessOpportunitiesRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.receiveBusinessOpportunitiesEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 商机数量推送接口
+     * Summary: 商机数量接收</p>
+     */
+    public ReceiveBusinessOpportunitiesResponse receiveBusinessOpportunitiesEx(ReceiveBusinessOpportunitiesRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.insurance.business.opportunities.receive", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ReceiveBusinessOpportunitiesResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 保险营销效果回传
+     * Summary: 保险营销效果回传</p>
+     */
+    public CallbackMktEffectResponse callbackMktEffect(CallbackMktEffectRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.callbackMktEffectEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 保险营销效果回传
+     * Summary: 保险营销效果回传</p>
+     */
+    public CallbackMktEffectResponse callbackMktEffectEx(CallbackMktEffectRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.insurance.mkt.effect.callback", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CallbackMktEffectResponse());
+    }
+
+    /**
+     * <b>description</b> :
      * <p>Description: 保险营销文件上传，营销链路中涉及到文件上传，均可使用本接口，根据上传的数据类型做区分
      * Summary: 保险营销文件上传</p>
      */
@@ -1027,48 +1006,6 @@ public class Client {
 
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.insurance.mkt.file.upload", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UploadMktFileResponse());
-    }
-
-    /**
-     * <b>description</b> :
-     * <p>Description: 保险营销效果回传
-     * Summary: 保险营销效果回传</p>
-     */
-    public CallbackMktEffectResponse callbackMktEffect(CallbackMktEffectRequest request) throws Exception {
-        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.callbackMktEffectEx(request, headers, runtime);
-    }
-
-    /**
-     * <b>description</b> :
-     * <p>Description: 保险营销效果回传
-     * Summary: 保险营销效果回传</p>
-     */
-    public CallbackMktEffectResponse callbackMktEffectEx(CallbackMktEffectRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antcloud.insurance.mkt.effect.callback", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CallbackMktEffectResponse());
-    }
-
-    /**
-     * <b>description</b> :
-     * <p>Description: 商机数量推送接口
-     * Summary: 商机数量接收</p>
-     */
-    public ReceiveBusinessOpportunitiesResponse receiveBusinessOpportunities(ReceiveBusinessOpportunitiesRequest request) throws Exception {
-        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.receiveBusinessOpportunitiesEx(request, headers, runtime);
-    }
-
-    /**
-     * <b>description</b> :
-     * <p>Description: 商机数量推送接口
-     * Summary: 商机数量接收</p>
-     */
-    public ReceiveBusinessOpportunitiesResponse receiveBusinessOpportunitiesEx(ReceiveBusinessOpportunitiesRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antcloud.insurance.business.opportunities.receive", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ReceiveBusinessOpportunitiesResponse());
     }
 
     /**
