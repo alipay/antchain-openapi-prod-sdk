@@ -415,6 +415,476 @@ class XNameValuePair(TeaModel):
         return self
 
 
+class GetEmbedcardUrlRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        insurance_type_code: str = None,
+        insurance_company_no: str = None,
+        embed_product_code: str = None,
+        is_need_inquiry: bool = None,
+        trade_no: str = None,
+        scheme_name: str = None,
+        applicant: Applicant = None,
+        insured: Insured = None,
+        subject_info: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 险种编码
+        self.insurance_type_code = insurance_type_code
+        # 保司编码
+        self.insurance_company_no = insurance_company_no
+        # 嵌入式产品编码
+        self.embed_product_code = embed_product_code
+        # 是否需要询价
+        self.is_need_inquiry = is_need_inquiry
+        # 交易流水号，调用方生成的唯一编码，格式为 yyyyMMdd_身份标识_其他编码，系统会根据该流水号做防重、幂等判断逻辑。 yyyyMMdd请传递当前时间。 身份标识可自定义。 其他编码建议为随机值。 当极端场景中，系统会返回错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；
+        self.trade_no = trade_no
+        # 方案名称
+        self.scheme_name = scheme_name
+        # 投保人
+        self.applicant = applicant
+        # 被保人
+        self.insured = insured
+        # 投保标的
+        self.subject_info = subject_info
+
+    def validate(self):
+        self.validate_required(self.insurance_type_code, 'insurance_type_code')
+        if self.insurance_type_code is not None:
+            self.validate_max_length(self.insurance_type_code, 'insurance_type_code', 32)
+        self.validate_required(self.insurance_company_no, 'insurance_company_no')
+        if self.insurance_company_no is not None:
+            self.validate_max_length(self.insurance_company_no, 'insurance_company_no', 32)
+        self.validate_required(self.embed_product_code, 'embed_product_code')
+        if self.embed_product_code is not None:
+            self.validate_max_length(self.embed_product_code, 'embed_product_code', 32)
+        self.validate_required(self.is_need_inquiry, 'is_need_inquiry')
+        self.validate_required(self.trade_no, 'trade_no')
+        if self.trade_no is not None:
+            self.validate_max_length(self.trade_no, 'trade_no', 128)
+        self.validate_required(self.scheme_name, 'scheme_name')
+        if self.scheme_name is not None:
+            self.validate_max_length(self.scheme_name, 'scheme_name', 32)
+        self.validate_required(self.applicant, 'applicant')
+        if self.applicant:
+            self.applicant.validate()
+        self.validate_required(self.insured, 'insured')
+        if self.insured:
+            self.insured.validate()
+        self.validate_required(self.subject_info, 'subject_info')
+        if self.subject_info is not None:
+            self.validate_max_length(self.subject_info, 'subject_info', 1000)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.insurance_type_code is not None:
+            result['insurance_type_code'] = self.insurance_type_code
+        if self.insurance_company_no is not None:
+            result['insurance_company_no'] = self.insurance_company_no
+        if self.embed_product_code is not None:
+            result['embed_product_code'] = self.embed_product_code
+        if self.is_need_inquiry is not None:
+            result['is_need_inquiry'] = self.is_need_inquiry
+        if self.trade_no is not None:
+            result['trade_no'] = self.trade_no
+        if self.scheme_name is not None:
+            result['scheme_name'] = self.scheme_name
+        if self.applicant is not None:
+            result['applicant'] = self.applicant.to_map()
+        if self.insured is not None:
+            result['insured'] = self.insured.to_map()
+        if self.subject_info is not None:
+            result['subject_info'] = self.subject_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('insurance_type_code') is not None:
+            self.insurance_type_code = m.get('insurance_type_code')
+        if m.get('insurance_company_no') is not None:
+            self.insurance_company_no = m.get('insurance_company_no')
+        if m.get('embed_product_code') is not None:
+            self.embed_product_code = m.get('embed_product_code')
+        if m.get('is_need_inquiry') is not None:
+            self.is_need_inquiry = m.get('is_need_inquiry')
+        if m.get('trade_no') is not None:
+            self.trade_no = m.get('trade_no')
+        if m.get('scheme_name') is not None:
+            self.scheme_name = m.get('scheme_name')
+        if m.get('applicant') is not None:
+            temp_model = Applicant()
+            self.applicant = temp_model.from_map(m['applicant'])
+        if m.get('insured') is not None:
+            temp_model = Insured()
+            self.insured = temp_model.from_map(m['insured'])
+        if m.get('subject_info') is not None:
+            self.subject_info = m.get('subject_info')
+        return self
+
+
+class GetEmbedcardUrlResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        trade_no: str = None,
+        insurance_type_code: str = None,
+        insurance_company_no: str = None,
+        embed_product_code: str = None,
+        embed_product_url: str = None,
+        scheme_name: str = None,
+        premium: str = None,
+        inquiry_no: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 交易流水号
+        self.trade_no = trade_no
+        # 险种编码
+        self.insurance_type_code = insurance_type_code
+        # 保司编码
+        self.insurance_company_no = insurance_company_no
+        # 嵌入式产品编码
+        self.embed_product_code = embed_product_code
+        # 嵌入式产品URL地址
+        self.embed_product_url = embed_product_url
+        # 方案名称
+        self.scheme_name = scheme_name
+        # 保费
+        self.premium = premium
+        # 询价编码
+        self.inquiry_no = inquiry_no
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.trade_no is not None:
+            result['trade_no'] = self.trade_no
+        if self.insurance_type_code is not None:
+            result['insurance_type_code'] = self.insurance_type_code
+        if self.insurance_company_no is not None:
+            result['insurance_company_no'] = self.insurance_company_no
+        if self.embed_product_code is not None:
+            result['embed_product_code'] = self.embed_product_code
+        if self.embed_product_url is not None:
+            result['embed_product_url'] = self.embed_product_url
+        if self.scheme_name is not None:
+            result['scheme_name'] = self.scheme_name
+        if self.premium is not None:
+            result['premium'] = self.premium
+        if self.inquiry_no is not None:
+            result['inquiry_no'] = self.inquiry_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('trade_no') is not None:
+            self.trade_no = m.get('trade_no')
+        if m.get('insurance_type_code') is not None:
+            self.insurance_type_code = m.get('insurance_type_code')
+        if m.get('insurance_company_no') is not None:
+            self.insurance_company_no = m.get('insurance_company_no')
+        if m.get('embed_product_code') is not None:
+            self.embed_product_code = m.get('embed_product_code')
+        if m.get('embed_product_url') is not None:
+            self.embed_product_url = m.get('embed_product_url')
+        if m.get('scheme_name') is not None:
+            self.scheme_name = m.get('scheme_name')
+        if m.get('premium') is not None:
+            self.premium = m.get('premium')
+        if m.get('inquiry_no') is not None:
+            self.inquiry_no = m.get('inquiry_no')
+        return self
+
+
+class IssueEmbedcardPaysucRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        insurance_type_code: str = None,
+        insurance_company_no: str = None,
+        embed_product_code: str = None,
+        trade_no: str = None,
+        scheme_name: str = None,
+        premium: str = None,
+        premium_payment_channel: str = None,
+        premium_payment_no: str = None,
+        premium_payment_amount: str = None,
+        premium_payment_time: str = None,
+        inquiry_no: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 险种编码
+        self.insurance_type_code = insurance_type_code
+        # 保司编码
+        self.insurance_company_no = insurance_company_no
+        # 嵌入式产品编码
+        self.embed_product_code = embed_product_code
+        # 交易流水号
+        self.trade_no = trade_no
+        # 方案名称
+        self.scheme_name = scheme_name
+        # 保费，保留2位小数
+        self.premium = premium
+        # 保费支付渠道，01-支付宝、02-微信支付、03-银行卡支付、04-平台账户余额支付
+        self.premium_payment_channel = premium_payment_channel
+        # 保费支付流水号
+        self.premium_payment_no = premium_payment_no
+        # 保费支付金额，保留2位小数
+        self.premium_payment_amount = premium_payment_amount
+        # 保费支付时间
+        self.premium_payment_time = premium_payment_time
+        # 询价编码
+        self.inquiry_no = inquiry_no
+
+    def validate(self):
+        self.validate_required(self.insurance_type_code, 'insurance_type_code')
+        if self.insurance_type_code is not None:
+            self.validate_max_length(self.insurance_type_code, 'insurance_type_code', 32)
+        self.validate_required(self.insurance_company_no, 'insurance_company_no')
+        if self.insurance_company_no is not None:
+            self.validate_max_length(self.insurance_company_no, 'insurance_company_no', 32)
+        self.validate_required(self.embed_product_code, 'embed_product_code')
+        if self.embed_product_code is not None:
+            self.validate_max_length(self.embed_product_code, 'embed_product_code', 32)
+        self.validate_required(self.trade_no, 'trade_no')
+        if self.trade_no is not None:
+            self.validate_max_length(self.trade_no, 'trade_no', 128)
+        self.validate_required(self.scheme_name, 'scheme_name')
+        if self.scheme_name is not None:
+            self.validate_max_length(self.scheme_name, 'scheme_name', 32)
+        self.validate_required(self.premium, 'premium')
+        self.validate_required(self.premium_payment_channel, 'premium_payment_channel')
+        if self.premium_payment_channel is not None:
+            self.validate_max_length(self.premium_payment_channel, 'premium_payment_channel', 32)
+        self.validate_required(self.premium_payment_no, 'premium_payment_no')
+        if self.premium_payment_no is not None:
+            self.validate_max_length(self.premium_payment_no, 'premium_payment_no', 128)
+        self.validate_required(self.premium_payment_amount, 'premium_payment_amount')
+        self.validate_required(self.premium_payment_time, 'premium_payment_time')
+        if self.premium_payment_time is not None:
+            self.validate_pattern(self.premium_payment_time, 'premium_payment_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.inquiry_no, 'inquiry_no')
+        if self.inquiry_no is not None:
+            self.validate_max_length(self.inquiry_no, 'inquiry_no', 32)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.insurance_type_code is not None:
+            result['insurance_type_code'] = self.insurance_type_code
+        if self.insurance_company_no is not None:
+            result['insurance_company_no'] = self.insurance_company_no
+        if self.embed_product_code is not None:
+            result['embed_product_code'] = self.embed_product_code
+        if self.trade_no is not None:
+            result['trade_no'] = self.trade_no
+        if self.scheme_name is not None:
+            result['scheme_name'] = self.scheme_name
+        if self.premium is not None:
+            result['premium'] = self.premium
+        if self.premium_payment_channel is not None:
+            result['premium_payment_channel'] = self.premium_payment_channel
+        if self.premium_payment_no is not None:
+            result['premium_payment_no'] = self.premium_payment_no
+        if self.premium_payment_amount is not None:
+            result['premium_payment_amount'] = self.premium_payment_amount
+        if self.premium_payment_time is not None:
+            result['premium_payment_time'] = self.premium_payment_time
+        if self.inquiry_no is not None:
+            result['inquiry_no'] = self.inquiry_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('insurance_type_code') is not None:
+            self.insurance_type_code = m.get('insurance_type_code')
+        if m.get('insurance_company_no') is not None:
+            self.insurance_company_no = m.get('insurance_company_no')
+        if m.get('embed_product_code') is not None:
+            self.embed_product_code = m.get('embed_product_code')
+        if m.get('trade_no') is not None:
+            self.trade_no = m.get('trade_no')
+        if m.get('scheme_name') is not None:
+            self.scheme_name = m.get('scheme_name')
+        if m.get('premium') is not None:
+            self.premium = m.get('premium')
+        if m.get('premium_payment_channel') is not None:
+            self.premium_payment_channel = m.get('premium_payment_channel')
+        if m.get('premium_payment_no') is not None:
+            self.premium_payment_no = m.get('premium_payment_no')
+        if m.get('premium_payment_amount') is not None:
+            self.premium_payment_amount = m.get('premium_payment_amount')
+        if m.get('premium_payment_time') is not None:
+            self.premium_payment_time = m.get('premium_payment_time')
+        if m.get('inquiry_no') is not None:
+            self.inquiry_no = m.get('inquiry_no')
+        return self
+
+
+class IssueEmbedcardPaysucResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        trade_no: str = None,
+        insurance_type_code: str = None,
+        insurance_company_no: str = None,
+        embed_product_code: str = None,
+        scheme_name: str = None,
+        insure_start: str = None,
+        insure_end: str = None,
+        premium: str = None,
+        amount: str = None,
+        inquiry_no: str = None,
+        voucher_no: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 交易流水号
+        self.trade_no = trade_no
+        # 险种编码
+        self.insurance_type_code = insurance_type_code
+        # 保司编码
+        self.insurance_company_no = insurance_company_no
+        # 嵌入式产品编码
+        self.embed_product_code = embed_product_code
+        # 方案名称
+        self.scheme_name = scheme_name
+        # 保险起期
+        self.insure_start = insure_start
+        # 保险止期
+        self.insure_end = insure_end
+        # 保费，保留2位小数
+        self.premium = premium
+        # 保额，保留2位小数
+        self.amount = amount
+        # 询价编码
+        self.inquiry_no = inquiry_no
+        # 保险凭证号
+        self.voucher_no = voucher_no
+
+    def validate(self):
+        if self.insure_start is not None:
+            self.validate_pattern(self.insure_start, 'insure_start', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.insure_end is not None:
+            self.validate_pattern(self.insure_end, 'insure_end', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.trade_no is not None:
+            result['trade_no'] = self.trade_no
+        if self.insurance_type_code is not None:
+            result['insurance_type_code'] = self.insurance_type_code
+        if self.insurance_company_no is not None:
+            result['insurance_company_no'] = self.insurance_company_no
+        if self.embed_product_code is not None:
+            result['embed_product_code'] = self.embed_product_code
+        if self.scheme_name is not None:
+            result['scheme_name'] = self.scheme_name
+        if self.insure_start is not None:
+            result['insure_start'] = self.insure_start
+        if self.insure_end is not None:
+            result['insure_end'] = self.insure_end
+        if self.premium is not None:
+            result['premium'] = self.premium
+        if self.amount is not None:
+            result['amount'] = self.amount
+        if self.inquiry_no is not None:
+            result['inquiry_no'] = self.inquiry_no
+        if self.voucher_no is not None:
+            result['voucher_no'] = self.voucher_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('trade_no') is not None:
+            self.trade_no = m.get('trade_no')
+        if m.get('insurance_type_code') is not None:
+            self.insurance_type_code = m.get('insurance_type_code')
+        if m.get('insurance_company_no') is not None:
+            self.insurance_company_no = m.get('insurance_company_no')
+        if m.get('embed_product_code') is not None:
+            self.embed_product_code = m.get('embed_product_code')
+        if m.get('scheme_name') is not None:
+            self.scheme_name = m.get('scheme_name')
+        if m.get('insure_start') is not None:
+            self.insure_start = m.get('insure_start')
+        if m.get('insure_end') is not None:
+            self.insure_end = m.get('insure_end')
+        if m.get('premium') is not None:
+            self.premium = m.get('premium')
+        if m.get('amount') is not None:
+            self.amount = m.get('amount')
+        if m.get('inquiry_no') is not None:
+            self.inquiry_no = m.get('inquiry_no')
+        if m.get('voucher_no') is not None:
+            self.voucher_no = m.get('voucher_no')
+        return self
+
+
 class QueryInquiryRequest(TeaModel):
     def __init__(
         self,
@@ -864,6 +1334,90 @@ class QueryDataWeatherResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('biz_result') is not None:
             self.biz_result = m.get('biz_result')
+        return self
+
+
+class QueryPolicyFileRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        insurance_policy_no_inner: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 蚂蚁侧保单唯一ID
+        self.insurance_policy_no_inner = insurance_policy_no_inner
+
+    def validate(self):
+        self.validate_required(self.insurance_policy_no_inner, 'insurance_policy_no_inner')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.insurance_policy_no_inner is not None:
+            result['insurance_policy_no_inner'] = self.insurance_policy_no_inner
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('insurance_policy_no_inner') is not None:
+            self.insurance_policy_no_inner = m.get('insurance_policy_no_inner')
+        return self
+
+
+class QueryPolicyFileResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        oss_url: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 查询的保单信息
+        self.oss_url = oss_url
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.oss_url is not None:
+            result['oss_url'] = self.oss_url
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('oss_url') is not None:
+            self.oss_url = m.get('oss_url')
         return self
 
 
@@ -1337,90 +1891,6 @@ class QueryUnderwritingResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('biz_result') is not None:
             self.biz_result = m.get('biz_result')
-        return self
-
-
-class QueryPolicyFileRequest(TeaModel):
-    def __init__(
-        self,
-        auth_token: str = None,
-        insurance_policy_no_inner: str = None,
-    ):
-        # OAuth模式下的授权token
-        self.auth_token = auth_token
-        # 蚂蚁侧保单唯一ID
-        self.insurance_policy_no_inner = insurance_policy_no_inner
-
-    def validate(self):
-        self.validate_required(self.insurance_policy_no_inner, 'insurance_policy_no_inner')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.auth_token is not None:
-            result['auth_token'] = self.auth_token
-        if self.insurance_policy_no_inner is not None:
-            result['insurance_policy_no_inner'] = self.insurance_policy_no_inner
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('auth_token') is not None:
-            self.auth_token = m.get('auth_token')
-        if m.get('insurance_policy_no_inner') is not None:
-            self.insurance_policy_no_inner = m.get('insurance_policy_no_inner')
-        return self
-
-
-class QueryPolicyFileResponse(TeaModel):
-    def __init__(
-        self,
-        req_msg_id: str = None,
-        result_code: str = None,
-        result_msg: str = None,
-        oss_url: str = None,
-    ):
-        # 请求唯一ID，用于链路跟踪和问题排查
-        self.req_msg_id = req_msg_id
-        # 结果码，一般OK表示调用成功
-        self.result_code = result_code
-        # 异常信息的文本描述
-        self.result_msg = result_msg
-        # 查询的保单信息
-        self.oss_url = oss_url
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.req_msg_id is not None:
-            result['req_msg_id'] = self.req_msg_id
-        if self.result_code is not None:
-            result['result_code'] = self.result_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
-        if self.oss_url is not None:
-            result['oss_url'] = self.oss_url
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('req_msg_id') is not None:
-            self.req_msg_id = m.get('req_msg_id')
-        if m.get('result_code') is not None:
-            self.result_code = m.get('result_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
-        if m.get('oss_url') is not None:
-            self.oss_url = m.get('oss_url')
         return self
 
 
@@ -2820,181 +3290,6 @@ class QueryInsureResultResponse(TeaModel):
         return self
 
 
-class ApplyInsureTestRequest(TeaModel):
-    def __init__(
-        self,
-        auth_token: str = None,
-        insurance_application_no: str = None,
-        insurance_company_no: str = None,
-        trustworthy_value_insurance_type_code: str = None,
-        insurance_project_code: str = None,
-        insurance_options_code: str = None,
-        applicant: str = None,
-        insured_list: str = None,
-        beneficiary_list: str = None,
-        insurance_period_start: str = None,
-        insurance_period_end: str = None,
-        applied_insurance_amount: str = None,
-        insurance_period: str = None,
-        insured_object_list: str = None,
-    ):
-        # OAuth模式下的授权token
-        self.auth_token = auth_token
-        # insurance_application_no
-        self.insurance_application_no = insurance_application_no
-        # insurance_company_no
-        self.insurance_company_no = insurance_company_no
-        # trustworthy_value_insurance_type_code
-        self.trustworthy_value_insurance_type_code = trustworthy_value_insurance_type_code
-        # insurance_project_code
-        self.insurance_project_code = insurance_project_code
-        # insurance_options_code
-        self.insurance_options_code = insurance_options_code
-        # applicant
-        self.applicant = applicant
-        # insured_list
-        self.insured_list = insured_list
-        # beneficiary_list
-        self.beneficiary_list = beneficiary_list
-        # insurance_period_start
-        self.insurance_period_start = insurance_period_start
-        # insurance_period_end
-        self.insurance_period_end = insurance_period_end
-        # applied_insurance_amount
-        self.applied_insurance_amount = applied_insurance_amount
-        # insurance_period
-        self.insurance_period = insurance_period
-        # insured_object_list
-        self.insured_object_list = insured_object_list
-
-    def validate(self):
-        self.validate_required(self.insurance_application_no, 'insurance_application_no')
-        self.validate_required(self.insurance_company_no, 'insurance_company_no')
-        self.validate_required(self.trustworthy_value_insurance_type_code, 'trustworthy_value_insurance_type_code')
-        self.validate_required(self.insurance_project_code, 'insurance_project_code')
-        self.validate_required(self.insurance_options_code, 'insurance_options_code')
-        self.validate_required(self.applicant, 'applicant')
-        self.validate_required(self.insurance_period_start, 'insurance_period_start')
-        self.validate_required(self.applied_insurance_amount, 'applied_insurance_amount')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.auth_token is not None:
-            result['auth_token'] = self.auth_token
-        if self.insurance_application_no is not None:
-            result['insurance_application_no'] = self.insurance_application_no
-        if self.insurance_company_no is not None:
-            result['insurance_company_no'] = self.insurance_company_no
-        if self.trustworthy_value_insurance_type_code is not None:
-            result['trustworthy_value_insurance_type_code'] = self.trustworthy_value_insurance_type_code
-        if self.insurance_project_code is not None:
-            result['insurance_project_code'] = self.insurance_project_code
-        if self.insurance_options_code is not None:
-            result['insurance_options_code'] = self.insurance_options_code
-        if self.applicant is not None:
-            result['applicant'] = self.applicant
-        if self.insured_list is not None:
-            result['insured_list'] = self.insured_list
-        if self.beneficiary_list is not None:
-            result['beneficiary_list'] = self.beneficiary_list
-        if self.insurance_period_start is not None:
-            result['insurance_period_start'] = self.insurance_period_start
-        if self.insurance_period_end is not None:
-            result['insurance_period_end'] = self.insurance_period_end
-        if self.applied_insurance_amount is not None:
-            result['applied_insurance_amount'] = self.applied_insurance_amount
-        if self.insurance_period is not None:
-            result['insurance_period'] = self.insurance_period
-        if self.insured_object_list is not None:
-            result['insured_object_list'] = self.insured_object_list
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('auth_token') is not None:
-            self.auth_token = m.get('auth_token')
-        if m.get('insurance_application_no') is not None:
-            self.insurance_application_no = m.get('insurance_application_no')
-        if m.get('insurance_company_no') is not None:
-            self.insurance_company_no = m.get('insurance_company_no')
-        if m.get('trustworthy_value_insurance_type_code') is not None:
-            self.trustworthy_value_insurance_type_code = m.get('trustworthy_value_insurance_type_code')
-        if m.get('insurance_project_code') is not None:
-            self.insurance_project_code = m.get('insurance_project_code')
-        if m.get('insurance_options_code') is not None:
-            self.insurance_options_code = m.get('insurance_options_code')
-        if m.get('applicant') is not None:
-            self.applicant = m.get('applicant')
-        if m.get('insured_list') is not None:
-            self.insured_list = m.get('insured_list')
-        if m.get('beneficiary_list') is not None:
-            self.beneficiary_list = m.get('beneficiary_list')
-        if m.get('insurance_period_start') is not None:
-            self.insurance_period_start = m.get('insurance_period_start')
-        if m.get('insurance_period_end') is not None:
-            self.insurance_period_end = m.get('insurance_period_end')
-        if m.get('applied_insurance_amount') is not None:
-            self.applied_insurance_amount = m.get('applied_insurance_amount')
-        if m.get('insurance_period') is not None:
-            self.insurance_period = m.get('insurance_period')
-        if m.get('insured_object_list') is not None:
-            self.insured_object_list = m.get('insured_object_list')
-        return self
-
-
-class ApplyInsureTestResponse(TeaModel):
-    def __init__(
-        self,
-        req_msg_id: str = None,
-        result_code: str = None,
-        result_msg: str = None,
-        biz_result: str = None,
-    ):
-        # 请求唯一ID，用于链路跟踪和问题排查
-        self.req_msg_id = req_msg_id
-        # 结果码，一般OK表示调用成功
-        self.result_code = result_code
-        # 异常信息的文本描述
-        self.result_msg = result_msg
-        # biz_result
-        self.biz_result = biz_result
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.req_msg_id is not None:
-            result['req_msg_id'] = self.req_msg_id
-        if self.result_code is not None:
-            result['result_code'] = self.result_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
-        if self.biz_result is not None:
-            result['biz_result'] = self.biz_result
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('req_msg_id') is not None:
-            self.req_msg_id = m.get('req_msg_id')
-        if m.get('result_code') is not None:
-            self.result_code = m.get('result_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
-        if m.get('biz_result') is not None:
-            self.biz_result = m.get('biz_result')
-        return self
-
-
 class SubmitInvestigateCaseRequest(TeaModel):
     def __init__(
         self,
@@ -3410,476 +3705,6 @@ class QueryReverseCommissionResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('biz_result') is not None:
             self.biz_result = m.get('biz_result')
-        return self
-
-
-class GetEmbedcardUrlRequest(TeaModel):
-    def __init__(
-        self,
-        auth_token: str = None,
-        insurance_type_code: str = None,
-        insurance_company_no: str = None,
-        embed_product_code: str = None,
-        is_need_inquiry: bool = None,
-        trade_no: str = None,
-        scheme_name: str = None,
-        applicant: Applicant = None,
-        insured: Insured = None,
-        subject_info: str = None,
-    ):
-        # OAuth模式下的授权token
-        self.auth_token = auth_token
-        # 险种编码
-        self.insurance_type_code = insurance_type_code
-        # 保司编码
-        self.insurance_company_no = insurance_company_no
-        # 嵌入式产品编码
-        self.embed_product_code = embed_product_code
-        # 是否需要询价
-        self.is_need_inquiry = is_need_inquiry
-        # 交易流水号，调用方生成的唯一编码，格式为 yyyyMMdd_身份标识_其他编码，系统会根据该流水号做防重、幂等判断逻辑。 yyyyMMdd请传递当前时间。 身份标识可自定义。 其他编码建议为随机值。 当极端场景中，系统会返回错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；
-        self.trade_no = trade_no
-        # 方案名称
-        self.scheme_name = scheme_name
-        # 投保人
-        self.applicant = applicant
-        # 被保人
-        self.insured = insured
-        # 投保标的
-        self.subject_info = subject_info
-
-    def validate(self):
-        self.validate_required(self.insurance_type_code, 'insurance_type_code')
-        if self.insurance_type_code is not None:
-            self.validate_max_length(self.insurance_type_code, 'insurance_type_code', 32)
-        self.validate_required(self.insurance_company_no, 'insurance_company_no')
-        if self.insurance_company_no is not None:
-            self.validate_max_length(self.insurance_company_no, 'insurance_company_no', 32)
-        self.validate_required(self.embed_product_code, 'embed_product_code')
-        if self.embed_product_code is not None:
-            self.validate_max_length(self.embed_product_code, 'embed_product_code', 32)
-        self.validate_required(self.is_need_inquiry, 'is_need_inquiry')
-        self.validate_required(self.trade_no, 'trade_no')
-        if self.trade_no is not None:
-            self.validate_max_length(self.trade_no, 'trade_no', 128)
-        self.validate_required(self.scheme_name, 'scheme_name')
-        if self.scheme_name is not None:
-            self.validate_max_length(self.scheme_name, 'scheme_name', 32)
-        self.validate_required(self.applicant, 'applicant')
-        if self.applicant:
-            self.applicant.validate()
-        self.validate_required(self.insured, 'insured')
-        if self.insured:
-            self.insured.validate()
-        self.validate_required(self.subject_info, 'subject_info')
-        if self.subject_info is not None:
-            self.validate_max_length(self.subject_info, 'subject_info', 1000)
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.auth_token is not None:
-            result['auth_token'] = self.auth_token
-        if self.insurance_type_code is not None:
-            result['insurance_type_code'] = self.insurance_type_code
-        if self.insurance_company_no is not None:
-            result['insurance_company_no'] = self.insurance_company_no
-        if self.embed_product_code is not None:
-            result['embed_product_code'] = self.embed_product_code
-        if self.is_need_inquiry is not None:
-            result['is_need_inquiry'] = self.is_need_inquiry
-        if self.trade_no is not None:
-            result['trade_no'] = self.trade_no
-        if self.scheme_name is not None:
-            result['scheme_name'] = self.scheme_name
-        if self.applicant is not None:
-            result['applicant'] = self.applicant.to_map()
-        if self.insured is not None:
-            result['insured'] = self.insured.to_map()
-        if self.subject_info is not None:
-            result['subject_info'] = self.subject_info
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('auth_token') is not None:
-            self.auth_token = m.get('auth_token')
-        if m.get('insurance_type_code') is not None:
-            self.insurance_type_code = m.get('insurance_type_code')
-        if m.get('insurance_company_no') is not None:
-            self.insurance_company_no = m.get('insurance_company_no')
-        if m.get('embed_product_code') is not None:
-            self.embed_product_code = m.get('embed_product_code')
-        if m.get('is_need_inquiry') is not None:
-            self.is_need_inquiry = m.get('is_need_inquiry')
-        if m.get('trade_no') is not None:
-            self.trade_no = m.get('trade_no')
-        if m.get('scheme_name') is not None:
-            self.scheme_name = m.get('scheme_name')
-        if m.get('applicant') is not None:
-            temp_model = Applicant()
-            self.applicant = temp_model.from_map(m['applicant'])
-        if m.get('insured') is not None:
-            temp_model = Insured()
-            self.insured = temp_model.from_map(m['insured'])
-        if m.get('subject_info') is not None:
-            self.subject_info = m.get('subject_info')
-        return self
-
-
-class GetEmbedcardUrlResponse(TeaModel):
-    def __init__(
-        self,
-        req_msg_id: str = None,
-        result_code: str = None,
-        result_msg: str = None,
-        trade_no: str = None,
-        insurance_type_code: str = None,
-        insurance_company_no: str = None,
-        embed_product_code: str = None,
-        embed_product_url: str = None,
-        scheme_name: str = None,
-        premium: str = None,
-        inquiry_no: str = None,
-    ):
-        # 请求唯一ID，用于链路跟踪和问题排查
-        self.req_msg_id = req_msg_id
-        # 结果码，一般OK表示调用成功
-        self.result_code = result_code
-        # 异常信息的文本描述
-        self.result_msg = result_msg
-        # 交易流水号
-        self.trade_no = trade_no
-        # 险种编码
-        self.insurance_type_code = insurance_type_code
-        # 保司编码
-        self.insurance_company_no = insurance_company_no
-        # 嵌入式产品编码
-        self.embed_product_code = embed_product_code
-        # 嵌入式产品URL地址
-        self.embed_product_url = embed_product_url
-        # 方案名称
-        self.scheme_name = scheme_name
-        # 保费
-        self.premium = premium
-        # 询价编码
-        self.inquiry_no = inquiry_no
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.req_msg_id is not None:
-            result['req_msg_id'] = self.req_msg_id
-        if self.result_code is not None:
-            result['result_code'] = self.result_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
-        if self.trade_no is not None:
-            result['trade_no'] = self.trade_no
-        if self.insurance_type_code is not None:
-            result['insurance_type_code'] = self.insurance_type_code
-        if self.insurance_company_no is not None:
-            result['insurance_company_no'] = self.insurance_company_no
-        if self.embed_product_code is not None:
-            result['embed_product_code'] = self.embed_product_code
-        if self.embed_product_url is not None:
-            result['embed_product_url'] = self.embed_product_url
-        if self.scheme_name is not None:
-            result['scheme_name'] = self.scheme_name
-        if self.premium is not None:
-            result['premium'] = self.premium
-        if self.inquiry_no is not None:
-            result['inquiry_no'] = self.inquiry_no
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('req_msg_id') is not None:
-            self.req_msg_id = m.get('req_msg_id')
-        if m.get('result_code') is not None:
-            self.result_code = m.get('result_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
-        if m.get('trade_no') is not None:
-            self.trade_no = m.get('trade_no')
-        if m.get('insurance_type_code') is not None:
-            self.insurance_type_code = m.get('insurance_type_code')
-        if m.get('insurance_company_no') is not None:
-            self.insurance_company_no = m.get('insurance_company_no')
-        if m.get('embed_product_code') is not None:
-            self.embed_product_code = m.get('embed_product_code')
-        if m.get('embed_product_url') is not None:
-            self.embed_product_url = m.get('embed_product_url')
-        if m.get('scheme_name') is not None:
-            self.scheme_name = m.get('scheme_name')
-        if m.get('premium') is not None:
-            self.premium = m.get('premium')
-        if m.get('inquiry_no') is not None:
-            self.inquiry_no = m.get('inquiry_no')
-        return self
-
-
-class IssueEmbedcardPaysucRequest(TeaModel):
-    def __init__(
-        self,
-        auth_token: str = None,
-        insurance_type_code: str = None,
-        insurance_company_no: str = None,
-        embed_product_code: str = None,
-        trade_no: str = None,
-        scheme_name: str = None,
-        premium: str = None,
-        premium_payment_channel: str = None,
-        premium_payment_no: str = None,
-        premium_payment_amount: str = None,
-        premium_payment_time: str = None,
-        inquiry_no: str = None,
-    ):
-        # OAuth模式下的授权token
-        self.auth_token = auth_token
-        # 险种编码
-        self.insurance_type_code = insurance_type_code
-        # 保司编码
-        self.insurance_company_no = insurance_company_no
-        # 嵌入式产品编码
-        self.embed_product_code = embed_product_code
-        # 交易流水号
-        self.trade_no = trade_no
-        # 方案名称
-        self.scheme_name = scheme_name
-        # 保费，保留2位小数
-        self.premium = premium
-        # 保费支付渠道，01-支付宝、02-微信支付、03-银行卡支付、04-平台账户余额支付
-        self.premium_payment_channel = premium_payment_channel
-        # 保费支付流水号
-        self.premium_payment_no = premium_payment_no
-        # 保费支付金额，保留2位小数
-        self.premium_payment_amount = premium_payment_amount
-        # 保费支付时间
-        self.premium_payment_time = premium_payment_time
-        # 询价编码
-        self.inquiry_no = inquiry_no
-
-    def validate(self):
-        self.validate_required(self.insurance_type_code, 'insurance_type_code')
-        if self.insurance_type_code is not None:
-            self.validate_max_length(self.insurance_type_code, 'insurance_type_code', 32)
-        self.validate_required(self.insurance_company_no, 'insurance_company_no')
-        if self.insurance_company_no is not None:
-            self.validate_max_length(self.insurance_company_no, 'insurance_company_no', 32)
-        self.validate_required(self.embed_product_code, 'embed_product_code')
-        if self.embed_product_code is not None:
-            self.validate_max_length(self.embed_product_code, 'embed_product_code', 32)
-        self.validate_required(self.trade_no, 'trade_no')
-        if self.trade_no is not None:
-            self.validate_max_length(self.trade_no, 'trade_no', 128)
-        self.validate_required(self.scheme_name, 'scheme_name')
-        if self.scheme_name is not None:
-            self.validate_max_length(self.scheme_name, 'scheme_name', 32)
-        self.validate_required(self.premium, 'premium')
-        self.validate_required(self.premium_payment_channel, 'premium_payment_channel')
-        if self.premium_payment_channel is not None:
-            self.validate_max_length(self.premium_payment_channel, 'premium_payment_channel', 32)
-        self.validate_required(self.premium_payment_no, 'premium_payment_no')
-        if self.premium_payment_no is not None:
-            self.validate_max_length(self.premium_payment_no, 'premium_payment_no', 128)
-        self.validate_required(self.premium_payment_amount, 'premium_payment_amount')
-        self.validate_required(self.premium_payment_time, 'premium_payment_time')
-        if self.premium_payment_time is not None:
-            self.validate_pattern(self.premium_payment_time, 'premium_payment_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
-        self.validate_required(self.inquiry_no, 'inquiry_no')
-        if self.inquiry_no is not None:
-            self.validate_max_length(self.inquiry_no, 'inquiry_no', 32)
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.auth_token is not None:
-            result['auth_token'] = self.auth_token
-        if self.insurance_type_code is not None:
-            result['insurance_type_code'] = self.insurance_type_code
-        if self.insurance_company_no is not None:
-            result['insurance_company_no'] = self.insurance_company_no
-        if self.embed_product_code is not None:
-            result['embed_product_code'] = self.embed_product_code
-        if self.trade_no is not None:
-            result['trade_no'] = self.trade_no
-        if self.scheme_name is not None:
-            result['scheme_name'] = self.scheme_name
-        if self.premium is not None:
-            result['premium'] = self.premium
-        if self.premium_payment_channel is not None:
-            result['premium_payment_channel'] = self.premium_payment_channel
-        if self.premium_payment_no is not None:
-            result['premium_payment_no'] = self.premium_payment_no
-        if self.premium_payment_amount is not None:
-            result['premium_payment_amount'] = self.premium_payment_amount
-        if self.premium_payment_time is not None:
-            result['premium_payment_time'] = self.premium_payment_time
-        if self.inquiry_no is not None:
-            result['inquiry_no'] = self.inquiry_no
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('auth_token') is not None:
-            self.auth_token = m.get('auth_token')
-        if m.get('insurance_type_code') is not None:
-            self.insurance_type_code = m.get('insurance_type_code')
-        if m.get('insurance_company_no') is not None:
-            self.insurance_company_no = m.get('insurance_company_no')
-        if m.get('embed_product_code') is not None:
-            self.embed_product_code = m.get('embed_product_code')
-        if m.get('trade_no') is not None:
-            self.trade_no = m.get('trade_no')
-        if m.get('scheme_name') is not None:
-            self.scheme_name = m.get('scheme_name')
-        if m.get('premium') is not None:
-            self.premium = m.get('premium')
-        if m.get('premium_payment_channel') is not None:
-            self.premium_payment_channel = m.get('premium_payment_channel')
-        if m.get('premium_payment_no') is not None:
-            self.premium_payment_no = m.get('premium_payment_no')
-        if m.get('premium_payment_amount') is not None:
-            self.premium_payment_amount = m.get('premium_payment_amount')
-        if m.get('premium_payment_time') is not None:
-            self.premium_payment_time = m.get('premium_payment_time')
-        if m.get('inquiry_no') is not None:
-            self.inquiry_no = m.get('inquiry_no')
-        return self
-
-
-class IssueEmbedcardPaysucResponse(TeaModel):
-    def __init__(
-        self,
-        req_msg_id: str = None,
-        result_code: str = None,
-        result_msg: str = None,
-        trade_no: str = None,
-        insurance_type_code: str = None,
-        insurance_company_no: str = None,
-        embed_product_code: str = None,
-        scheme_name: str = None,
-        insure_start: str = None,
-        insure_end: str = None,
-        premium: str = None,
-        amount: str = None,
-        inquiry_no: str = None,
-        voucher_no: str = None,
-    ):
-        # 请求唯一ID，用于链路跟踪和问题排查
-        self.req_msg_id = req_msg_id
-        # 结果码，一般OK表示调用成功
-        self.result_code = result_code
-        # 异常信息的文本描述
-        self.result_msg = result_msg
-        # 交易流水号
-        self.trade_no = trade_no
-        # 险种编码
-        self.insurance_type_code = insurance_type_code
-        # 保司编码
-        self.insurance_company_no = insurance_company_no
-        # 嵌入式产品编码
-        self.embed_product_code = embed_product_code
-        # 方案名称
-        self.scheme_name = scheme_name
-        # 保险起期
-        self.insure_start = insure_start
-        # 保险止期
-        self.insure_end = insure_end
-        # 保费，保留2位小数
-        self.premium = premium
-        # 保额，保留2位小数
-        self.amount = amount
-        # 询价编码
-        self.inquiry_no = inquiry_no
-        # 保险凭证号
-        self.voucher_no = voucher_no
-
-    def validate(self):
-        if self.insure_start is not None:
-            self.validate_pattern(self.insure_start, 'insure_start', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
-        if self.insure_end is not None:
-            self.validate_pattern(self.insure_end, 'insure_end', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.req_msg_id is not None:
-            result['req_msg_id'] = self.req_msg_id
-        if self.result_code is not None:
-            result['result_code'] = self.result_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
-        if self.trade_no is not None:
-            result['trade_no'] = self.trade_no
-        if self.insurance_type_code is not None:
-            result['insurance_type_code'] = self.insurance_type_code
-        if self.insurance_company_no is not None:
-            result['insurance_company_no'] = self.insurance_company_no
-        if self.embed_product_code is not None:
-            result['embed_product_code'] = self.embed_product_code
-        if self.scheme_name is not None:
-            result['scheme_name'] = self.scheme_name
-        if self.insure_start is not None:
-            result['insure_start'] = self.insure_start
-        if self.insure_end is not None:
-            result['insure_end'] = self.insure_end
-        if self.premium is not None:
-            result['premium'] = self.premium
-        if self.amount is not None:
-            result['amount'] = self.amount
-        if self.inquiry_no is not None:
-            result['inquiry_no'] = self.inquiry_no
-        if self.voucher_no is not None:
-            result['voucher_no'] = self.voucher_no
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('req_msg_id') is not None:
-            self.req_msg_id = m.get('req_msg_id')
-        if m.get('result_code') is not None:
-            self.result_code = m.get('result_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
-        if m.get('trade_no') is not None:
-            self.trade_no = m.get('trade_no')
-        if m.get('insurance_type_code') is not None:
-            self.insurance_type_code = m.get('insurance_type_code')
-        if m.get('insurance_company_no') is not None:
-            self.insurance_company_no = m.get('insurance_company_no')
-        if m.get('embed_product_code') is not None:
-            self.embed_product_code = m.get('embed_product_code')
-        if m.get('scheme_name') is not None:
-            self.scheme_name = m.get('scheme_name')
-        if m.get('insure_start') is not None:
-            self.insure_start = m.get('insure_start')
-        if m.get('insure_end') is not None:
-            self.insure_end = m.get('insure_end')
-        if m.get('premium') is not None:
-            self.premium = m.get('premium')
-        if m.get('amount') is not None:
-            self.amount = m.get('amount')
-        if m.get('inquiry_no') is not None:
-            self.inquiry_no = m.get('inquiry_no')
-        if m.get('voucher_no') is not None:
-            self.voucher_no = m.get('voucher_no')
         return self
 
 
@@ -5893,6 +5718,299 @@ class NotifyAutoinsuranceEventResponse(TeaModel):
         return self
 
 
+class ReceiveBusinessOpportunitiesRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        request_id: str = None,
+        channel_code: str = None,
+        product_code: str = None,
+        biz_content: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 全局唯一
+        self.request_id = request_id
+        # 渠道编码
+        self.channel_code = channel_code
+        # 产品编码
+        self.product_code = product_code
+        # 业务参数，json格式
+        self.biz_content = biz_content
+
+    def validate(self):
+        self.validate_required(self.request_id, 'request_id')
+        self.validate_required(self.channel_code, 'channel_code')
+        self.validate_required(self.product_code, 'product_code')
+        self.validate_required(self.biz_content, 'biz_content')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.channel_code is not None:
+            result['channel_code'] = self.channel_code
+        if self.product_code is not None:
+            result['product_code'] = self.product_code
+        if self.biz_content is not None:
+            result['biz_content'] = self.biz_content
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('channel_code') is not None:
+            self.channel_code = m.get('channel_code')
+        if m.get('product_code') is not None:
+            self.product_code = m.get('product_code')
+        if m.get('biz_content') is not None:
+            self.biz_content = m.get('biz_content')
+        return self
+
+
+class ReceiveBusinessOpportunitiesResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        biz_result: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # {}，业务出参，详情见下方字段
+        self.biz_result = biz_result
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.biz_result is not None:
+            result['biz_result'] = self.biz_result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('biz_result') is not None:
+            self.biz_result = m.get('biz_result')
+        return self
+
+
+class CallbackMktEffectRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        request_id: str = None,
+        project_id: str = None,
+        marketing_mode: str = None,
+        insure_short_url: str = None,
+        encryption_type: str = None,
+        encrypted_user_id: str = None,
+        landing_visit_id: str = None,
+        click_time: str = None,
+        event_time: str = None,
+        node_type: str = None,
+        node_info: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 请求id，每一次请求保持唯一；若重复，则更新原数据；
+        self.request_id = request_id
+        # 项目ID，待蚂蚁分配
+        self.project_id = project_id
+        # 营销模式
+        self.marketing_mode = marketing_mode
+        # 投保特征短链
+        self.insure_short_url = insure_short_url
+        # 加密类型：MD5，32位[小]
+        self.encryption_type = encryption_type
+        # 加密用户标识
+        self.encrypted_user_id = encrypted_user_id
+        # 应以识别当前用户点击投保页面的唯一标识
+        self.landing_visit_id = landing_visit_id
+        # 用户点击进入页面时间（格式：yyyy-MM-dd HH:mm:ss）
+        self.click_time = click_time
+        # 事件完成时间（yyyy-MM-dd HH:mm:ss）
+        self.event_time = event_time
+        # 节点类型
+        self.node_type = node_type
+        # 节点详细信息
+        self.node_info = node_info
+
+    def validate(self):
+        self.validate_required(self.request_id, 'request_id')
+        if self.request_id is not None:
+            self.validate_max_length(self.request_id, 'request_id', 128)
+        self.validate_required(self.project_id, 'project_id')
+        if self.project_id is not None:
+            self.validate_max_length(self.project_id, 'project_id', 64)
+        self.validate_required(self.marketing_mode, 'marketing_mode')
+        if self.marketing_mode is not None:
+            self.validate_max_length(self.marketing_mode, 'marketing_mode', 64)
+        self.validate_required(self.insure_short_url, 'insure_short_url')
+        if self.insure_short_url is not None:
+            self.validate_max_length(self.insure_short_url, 'insure_short_url', 256)
+        self.validate_required(self.encryption_type, 'encryption_type')
+        if self.encryption_type is not None:
+            self.validate_max_length(self.encryption_type, 'encryption_type', 32)
+        self.validate_required(self.encrypted_user_id, 'encrypted_user_id')
+        if self.encrypted_user_id is not None:
+            self.validate_max_length(self.encrypted_user_id, 'encrypted_user_id', 64)
+        self.validate_required(self.landing_visit_id, 'landing_visit_id')
+        if self.landing_visit_id is not None:
+            self.validate_max_length(self.landing_visit_id, 'landing_visit_id', 128)
+        self.validate_required(self.click_time, 'click_time')
+        if self.click_time is not None:
+            self.validate_max_length(self.click_time, 'click_time', 32)
+        self.validate_required(self.event_time, 'event_time')
+        if self.event_time is not None:
+            self.validate_max_length(self.event_time, 'event_time', 32)
+        self.validate_required(self.node_type, 'node_type')
+        if self.node_type is not None:
+            self.validate_max_length(self.node_type, 'node_type', 64)
+        if self.node_info is not None:
+            self.validate_max_length(self.node_info, 'node_info', 1024)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.project_id is not None:
+            result['project_id'] = self.project_id
+        if self.marketing_mode is not None:
+            result['marketing_mode'] = self.marketing_mode
+        if self.insure_short_url is not None:
+            result['insure_short_url'] = self.insure_short_url
+        if self.encryption_type is not None:
+            result['encryption_type'] = self.encryption_type
+        if self.encrypted_user_id is not None:
+            result['encrypted_user_id'] = self.encrypted_user_id
+        if self.landing_visit_id is not None:
+            result['landing_visit_id'] = self.landing_visit_id
+        if self.click_time is not None:
+            result['click_time'] = self.click_time
+        if self.event_time is not None:
+            result['event_time'] = self.event_time
+        if self.node_type is not None:
+            result['node_type'] = self.node_type
+        if self.node_info is not None:
+            result['node_info'] = self.node_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('project_id') is not None:
+            self.project_id = m.get('project_id')
+        if m.get('marketing_mode') is not None:
+            self.marketing_mode = m.get('marketing_mode')
+        if m.get('insure_short_url') is not None:
+            self.insure_short_url = m.get('insure_short_url')
+        if m.get('encryption_type') is not None:
+            self.encryption_type = m.get('encryption_type')
+        if m.get('encrypted_user_id') is not None:
+            self.encrypted_user_id = m.get('encrypted_user_id')
+        if m.get('landing_visit_id') is not None:
+            self.landing_visit_id = m.get('landing_visit_id')
+        if m.get('click_time') is not None:
+            self.click_time = m.get('click_time')
+        if m.get('event_time') is not None:
+            self.event_time = m.get('event_time')
+        if m.get('node_type') is not None:
+            self.node_type = m.get('node_type')
+        if m.get('node_info') is not None:
+            self.node_info = m.get('node_info')
+        return self
+
+
+class CallbackMktEffectResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        request_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 请求id
+        self.request_id = request_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        return self
+
+
 class UploadMktFileRequest(TeaModel):
     def __init__(
         self,
@@ -6029,309 +6147,6 @@ class UploadMktFileResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('request_id') is not None:
             self.request_id = m.get('request_id')
-        return self
-
-
-class CallbackMktEffectRequest(TeaModel):
-    def __init__(
-        self,
-        auth_token: str = None,
-        request_id: str = None,
-        product_code: str = None,
-        project_id: str = None,
-        marketing_mode: str = None,
-        insure_short_url: str = None,
-        encryption_type: str = None,
-        encrypted_user_id: str = None,
-        landing_visit_id: str = None,
-        click_time: str = None,
-        event_time: str = None,
-        node_type: str = None,
-        node_info: str = None,
-    ):
-        # OAuth模式下的授权token
-        self.auth_token = auth_token
-        # 请求id，每一次请求保持唯一；若重复，则更新原数据；
-        self.request_id = request_id
-        # 产品编码，蚂蚁分配
-        self.product_code = product_code
-        # 项目ID，待蚂蚁分配
-        self.project_id = project_id
-        # 营销模式
-        self.marketing_mode = marketing_mode
-        # 投保特征短链
-        self.insure_short_url = insure_short_url
-        # 加密类型：MD5，32位[小]
-        self.encryption_type = encryption_type
-        # 加密用户标识
-        self.encrypted_user_id = encrypted_user_id
-        # 应以识别当前用户点击投保页面的唯一标识
-        self.landing_visit_id = landing_visit_id
-        # 用户点击进入页面时间（格式：yyyy-MM-dd HH:mm:ss）
-        self.click_time = click_time
-        # 事件完成时间（yyyy-MM-dd HH:mm:ss）
-        self.event_time = event_time
-        # 节点类型
-        self.node_type = node_type
-        # 节点详细信息
-        self.node_info = node_info
-
-    def validate(self):
-        self.validate_required(self.request_id, 'request_id')
-        if self.request_id is not None:
-            self.validate_max_length(self.request_id, 'request_id', 128)
-        self.validate_required(self.product_code, 'product_code')
-        if self.product_code is not None:
-            self.validate_max_length(self.product_code, 'product_code', 64)
-        self.validate_required(self.project_id, 'project_id')
-        if self.project_id is not None:
-            self.validate_max_length(self.project_id, 'project_id', 64)
-        self.validate_required(self.marketing_mode, 'marketing_mode')
-        if self.marketing_mode is not None:
-            self.validate_max_length(self.marketing_mode, 'marketing_mode', 64)
-        self.validate_required(self.insure_short_url, 'insure_short_url')
-        if self.insure_short_url is not None:
-            self.validate_max_length(self.insure_short_url, 'insure_short_url', 256)
-        self.validate_required(self.encryption_type, 'encryption_type')
-        if self.encryption_type is not None:
-            self.validate_max_length(self.encryption_type, 'encryption_type', 32)
-        self.validate_required(self.encrypted_user_id, 'encrypted_user_id')
-        if self.encrypted_user_id is not None:
-            self.validate_max_length(self.encrypted_user_id, 'encrypted_user_id', 64)
-        self.validate_required(self.landing_visit_id, 'landing_visit_id')
-        if self.landing_visit_id is not None:
-            self.validate_max_length(self.landing_visit_id, 'landing_visit_id', 128)
-        self.validate_required(self.click_time, 'click_time')
-        if self.click_time is not None:
-            self.validate_max_length(self.click_time, 'click_time', 32)
-        self.validate_required(self.event_time, 'event_time')
-        if self.event_time is not None:
-            self.validate_max_length(self.event_time, 'event_time', 32)
-        self.validate_required(self.node_type, 'node_type')
-        if self.node_type is not None:
-            self.validate_max_length(self.node_type, 'node_type', 64)
-        if self.node_info is not None:
-            self.validate_max_length(self.node_info, 'node_info', 1024)
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.auth_token is not None:
-            result['auth_token'] = self.auth_token
-        if self.request_id is not None:
-            result['request_id'] = self.request_id
-        if self.product_code is not None:
-            result['product_code'] = self.product_code
-        if self.project_id is not None:
-            result['project_id'] = self.project_id
-        if self.marketing_mode is not None:
-            result['marketing_mode'] = self.marketing_mode
-        if self.insure_short_url is not None:
-            result['insure_short_url'] = self.insure_short_url
-        if self.encryption_type is not None:
-            result['encryption_type'] = self.encryption_type
-        if self.encrypted_user_id is not None:
-            result['encrypted_user_id'] = self.encrypted_user_id
-        if self.landing_visit_id is not None:
-            result['landing_visit_id'] = self.landing_visit_id
-        if self.click_time is not None:
-            result['click_time'] = self.click_time
-        if self.event_time is not None:
-            result['event_time'] = self.event_time
-        if self.node_type is not None:
-            result['node_type'] = self.node_type
-        if self.node_info is not None:
-            result['node_info'] = self.node_info
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('auth_token') is not None:
-            self.auth_token = m.get('auth_token')
-        if m.get('request_id') is not None:
-            self.request_id = m.get('request_id')
-        if m.get('product_code') is not None:
-            self.product_code = m.get('product_code')
-        if m.get('project_id') is not None:
-            self.project_id = m.get('project_id')
-        if m.get('marketing_mode') is not None:
-            self.marketing_mode = m.get('marketing_mode')
-        if m.get('insure_short_url') is not None:
-            self.insure_short_url = m.get('insure_short_url')
-        if m.get('encryption_type') is not None:
-            self.encryption_type = m.get('encryption_type')
-        if m.get('encrypted_user_id') is not None:
-            self.encrypted_user_id = m.get('encrypted_user_id')
-        if m.get('landing_visit_id') is not None:
-            self.landing_visit_id = m.get('landing_visit_id')
-        if m.get('click_time') is not None:
-            self.click_time = m.get('click_time')
-        if m.get('event_time') is not None:
-            self.event_time = m.get('event_time')
-        if m.get('node_type') is not None:
-            self.node_type = m.get('node_type')
-        if m.get('node_info') is not None:
-            self.node_info = m.get('node_info')
-        return self
-
-
-class CallbackMktEffectResponse(TeaModel):
-    def __init__(
-        self,
-        req_msg_id: str = None,
-        result_code: str = None,
-        result_msg: str = None,
-        request_id: str = None,
-    ):
-        # 请求唯一ID，用于链路跟踪和问题排查
-        self.req_msg_id = req_msg_id
-        # 结果码，一般OK表示调用成功
-        self.result_code = result_code
-        # 异常信息的文本描述
-        self.result_msg = result_msg
-        # 请求id
-        self.request_id = request_id
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.req_msg_id is not None:
-            result['req_msg_id'] = self.req_msg_id
-        if self.result_code is not None:
-            result['result_code'] = self.result_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
-        if self.request_id is not None:
-            result['request_id'] = self.request_id
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('req_msg_id') is not None:
-            self.req_msg_id = m.get('req_msg_id')
-        if m.get('result_code') is not None:
-            self.result_code = m.get('result_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
-        if m.get('request_id') is not None:
-            self.request_id = m.get('request_id')
-        return self
-
-
-class ReceiveBusinessOpportunitiesRequest(TeaModel):
-    def __init__(
-        self,
-        auth_token: str = None,
-        request_id: str = None,
-        channel_code: str = None,
-        product_code: str = None,
-        biz_content: str = None,
-    ):
-        # OAuth模式下的授权token
-        self.auth_token = auth_token
-        # 全局唯一
-        self.request_id = request_id
-        # 渠道编码
-        self.channel_code = channel_code
-        # 产品编码
-        self.product_code = product_code
-        # 业务参数，json格式
-        self.biz_content = biz_content
-
-    def validate(self):
-        self.validate_required(self.request_id, 'request_id')
-        self.validate_required(self.channel_code, 'channel_code')
-        self.validate_required(self.product_code, 'product_code')
-        self.validate_required(self.biz_content, 'biz_content')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.auth_token is not None:
-            result['auth_token'] = self.auth_token
-        if self.request_id is not None:
-            result['request_id'] = self.request_id
-        if self.channel_code is not None:
-            result['channel_code'] = self.channel_code
-        if self.product_code is not None:
-            result['product_code'] = self.product_code
-        if self.biz_content is not None:
-            result['biz_content'] = self.biz_content
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('auth_token') is not None:
-            self.auth_token = m.get('auth_token')
-        if m.get('request_id') is not None:
-            self.request_id = m.get('request_id')
-        if m.get('channel_code') is not None:
-            self.channel_code = m.get('channel_code')
-        if m.get('product_code') is not None:
-            self.product_code = m.get('product_code')
-        if m.get('biz_content') is not None:
-            self.biz_content = m.get('biz_content')
-        return self
-
-
-class ReceiveBusinessOpportunitiesResponse(TeaModel):
-    def __init__(
-        self,
-        req_msg_id: str = None,
-        result_code: str = None,
-        result_msg: str = None,
-        biz_result: str = None,
-    ):
-        # 请求唯一ID，用于链路跟踪和问题排查
-        self.req_msg_id = req_msg_id
-        # 结果码，一般OK表示调用成功
-        self.result_code = result_code
-        # 异常信息的文本描述
-        self.result_msg = result_msg
-        # {}，业务出参，详情见下方字段
-        self.biz_result = biz_result
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.req_msg_id is not None:
-            result['req_msg_id'] = self.req_msg_id
-        if self.result_code is not None:
-            result['result_code'] = self.result_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
-        if self.biz_result is not None:
-            result['biz_result'] = self.biz_result
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('req_msg_id') is not None:
-            self.req_msg_id = m.get('req_msg_id')
-        if m.get('result_code') is not None:
-            self.result_code = m.get('result_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
-        if m.get('biz_result') is not None:
-            self.biz_result = m.get('biz_result')
         return self
 
 
