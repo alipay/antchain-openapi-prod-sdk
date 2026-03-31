@@ -19,11 +19,6 @@ namespace AntChain.SDK.INSURANCE_SAAS.Models
         [Validation(Required=true, MaxLength=128)]
         public string RequestId { get; set; }
 
-        // 产品编码，蚂蚁分配
-        [NameInMap("product_code")]
-        [Validation(Required=true, MaxLength=64)]
-        public string ProductCode { get; set; }
-
         // 项目ID，待蚂蚁分配
         [NameInMap("project_id")]
         [Validation(Required=true, MaxLength=64)]
