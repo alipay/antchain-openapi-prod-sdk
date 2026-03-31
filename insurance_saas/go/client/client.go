@@ -175,6 +175,86 @@ func (s *FileNode) SetName(v string) *FileNode {
 	return s
 }
 
+// 被保人
+type Insured struct {
+	// 被保人名称
+	InsuredName *string `json:"insured_name,omitempty" xml:"insured_name,omitempty" require:"true" maxLength:"32"`
+	// 被保人证件类型
+	InsuredCardType *string `json:"insured_card_type,omitempty" xml:"insured_card_type,omitempty" require:"true" maxLength:"32"`
+	// 被保人证件号码
+	InsuredCardCode *string `json:"insured_card_code,omitempty" xml:"insured_card_code,omitempty" require:"true" maxLength:"32"`
+	// 被保人联系方式
+	InsuredContactInfo *string `json:"insured_contact_info,omitempty" xml:"insured_contact_info,omitempty" maxLength:"128"`
+}
+
+func (s Insured) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Insured) GoString() string {
+	return s.String()
+}
+
+func (s *Insured) SetInsuredName(v string) *Insured {
+	s.InsuredName = &v
+	return s
+}
+
+func (s *Insured) SetInsuredCardType(v string) *Insured {
+	s.InsuredCardType = &v
+	return s
+}
+
+func (s *Insured) SetInsuredCardCode(v string) *Insured {
+	s.InsuredCardCode = &v
+	return s
+}
+
+func (s *Insured) SetInsuredContactInfo(v string) *Insured {
+	s.InsuredContactInfo = &v
+	return s
+}
+
+// 投保人
+type Applicant struct {
+	// 投保人名称
+	ApplicantName *string `json:"applicant_name,omitempty" xml:"applicant_name,omitempty" require:"true" maxLength:"32"`
+	// 投保人证件类型
+	ApplicantCardType *string `json:"applicant_card_type,omitempty" xml:"applicant_card_type,omitempty" require:"true" maxLength:"32"`
+	// 投保人证件号码
+	ApplicantCardCode *string `json:"applicant_card_code,omitempty" xml:"applicant_card_code,omitempty" require:"true" maxLength:"32"`
+	// 投保人联系方式
+	ApplicantContactInfo *string `json:"applicant_contact_info,omitempty" xml:"applicant_contact_info,omitempty" maxLength:"128"`
+}
+
+func (s Applicant) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Applicant) GoString() string {
+	return s.String()
+}
+
+func (s *Applicant) SetApplicantName(v string) *Applicant {
+	s.ApplicantName = &v
+	return s
+}
+
+func (s *Applicant) SetApplicantCardType(v string) *Applicant {
+	s.ApplicantCardType = &v
+	return s
+}
+
+func (s *Applicant) SetApplicantCardCode(v string) *Applicant {
+	s.ApplicantCardCode = &v
+	return s
+}
+
+func (s *Applicant) SetApplicantContactInfo(v string) *Applicant {
+	s.ApplicantContactInfo = &v
+	return s
+}
+
 // 委托险种信息
 type EntrustGuaranteeProduct struct {
 	// 保障失效时间
@@ -259,6 +339,379 @@ func (s *XNameValuePair) SetName(v string) *XNameValuePair {
 
 func (s *XNameValuePair) SetValue(v string) *XNameValuePair {
 	s.Value = &v
+	return s
+}
+
+type GetEmbedcardUrlRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 险种编码
+	InsuranceTypeCode *string `json:"insurance_type_code,omitempty" xml:"insurance_type_code,omitempty" require:"true" maxLength:"32"`
+	// 保司编码
+	InsuranceCompanyNo *string `json:"insurance_company_no,omitempty" xml:"insurance_company_no,omitempty" require:"true" maxLength:"32"`
+	// 嵌入式产品编码
+	EmbedProductCode *string `json:"embed_product_code,omitempty" xml:"embed_product_code,omitempty" require:"true" maxLength:"32"`
+	// 是否需要询价
+	IsNeedInquiry *bool `json:"is_need_inquiry,omitempty" xml:"is_need_inquiry,omitempty" require:"true"`
+	// 交易流水号，调用方生成的唯一编码，格式为 yyyyMMdd_身份标识_其他编码，系统会根据该流水号做防重、幂等判断逻辑。 yyyyMMdd请传递当前时间。 身份标识可自定义。 其他编码建议为随机值。 当极端场景中，系统会返回错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；
+	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty" require:"true" maxLength:"128"`
+	// 方案名称
+	SchemeName *string `json:"scheme_name,omitempty" xml:"scheme_name,omitempty" require:"true" maxLength:"32"`
+	// 投保人
+	Applicant *Applicant `json:"applicant,omitempty" xml:"applicant,omitempty" require:"true"`
+	// 被保人
+	Insured *Insured `json:"insured,omitempty" xml:"insured,omitempty" require:"true"`
+	// 投保标的
+	SubjectInfo *string `json:"subject_info,omitempty" xml:"subject_info,omitempty" require:"true" maxLength:"1000"`
+}
+
+func (s GetEmbedcardUrlRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetEmbedcardUrlRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetEmbedcardUrlRequest) SetAuthToken(v string) *GetEmbedcardUrlRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GetEmbedcardUrlRequest) SetInsuranceTypeCode(v string) *GetEmbedcardUrlRequest {
+	s.InsuranceTypeCode = &v
+	return s
+}
+
+func (s *GetEmbedcardUrlRequest) SetInsuranceCompanyNo(v string) *GetEmbedcardUrlRequest {
+	s.InsuranceCompanyNo = &v
+	return s
+}
+
+func (s *GetEmbedcardUrlRequest) SetEmbedProductCode(v string) *GetEmbedcardUrlRequest {
+	s.EmbedProductCode = &v
+	return s
+}
+
+func (s *GetEmbedcardUrlRequest) SetIsNeedInquiry(v bool) *GetEmbedcardUrlRequest {
+	s.IsNeedInquiry = &v
+	return s
+}
+
+func (s *GetEmbedcardUrlRequest) SetTradeNo(v string) *GetEmbedcardUrlRequest {
+	s.TradeNo = &v
+	return s
+}
+
+func (s *GetEmbedcardUrlRequest) SetSchemeName(v string) *GetEmbedcardUrlRequest {
+	s.SchemeName = &v
+	return s
+}
+
+func (s *GetEmbedcardUrlRequest) SetApplicant(v *Applicant) *GetEmbedcardUrlRequest {
+	s.Applicant = v
+	return s
+}
+
+func (s *GetEmbedcardUrlRequest) SetInsured(v *Insured) *GetEmbedcardUrlRequest {
+	s.Insured = v
+	return s
+}
+
+func (s *GetEmbedcardUrlRequest) SetSubjectInfo(v string) *GetEmbedcardUrlRequest {
+	s.SubjectInfo = &v
+	return s
+}
+
+type GetEmbedcardUrlResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 交易流水号
+	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty"`
+	// 险种编码
+	InsuranceTypeCode *string `json:"insurance_type_code,omitempty" xml:"insurance_type_code,omitempty"`
+	// 保司编码
+	InsuranceCompanyNo *string `json:"insurance_company_no,omitempty" xml:"insurance_company_no,omitempty"`
+	// 嵌入式产品编码
+	EmbedProductCode *string `json:"embed_product_code,omitempty" xml:"embed_product_code,omitempty"`
+	// 嵌入式产品URL地址
+	EmbedProductUrl *string `json:"embed_product_url,omitempty" xml:"embed_product_url,omitempty"`
+	// 方案名称
+	SchemeName *string `json:"scheme_name,omitempty" xml:"scheme_name,omitempty"`
+	// 保费
+	Premium *string `json:"premium,omitempty" xml:"premium,omitempty"`
+	// 询价编码
+	InquiryNo *string `json:"inquiry_no,omitempty" xml:"inquiry_no,omitempty"`
+}
+
+func (s GetEmbedcardUrlResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetEmbedcardUrlResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetEmbedcardUrlResponse) SetReqMsgId(v string) *GetEmbedcardUrlResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GetEmbedcardUrlResponse) SetResultCode(v string) *GetEmbedcardUrlResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GetEmbedcardUrlResponse) SetResultMsg(v string) *GetEmbedcardUrlResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GetEmbedcardUrlResponse) SetTradeNo(v string) *GetEmbedcardUrlResponse {
+	s.TradeNo = &v
+	return s
+}
+
+func (s *GetEmbedcardUrlResponse) SetInsuranceTypeCode(v string) *GetEmbedcardUrlResponse {
+	s.InsuranceTypeCode = &v
+	return s
+}
+
+func (s *GetEmbedcardUrlResponse) SetInsuranceCompanyNo(v string) *GetEmbedcardUrlResponse {
+	s.InsuranceCompanyNo = &v
+	return s
+}
+
+func (s *GetEmbedcardUrlResponse) SetEmbedProductCode(v string) *GetEmbedcardUrlResponse {
+	s.EmbedProductCode = &v
+	return s
+}
+
+func (s *GetEmbedcardUrlResponse) SetEmbedProductUrl(v string) *GetEmbedcardUrlResponse {
+	s.EmbedProductUrl = &v
+	return s
+}
+
+func (s *GetEmbedcardUrlResponse) SetSchemeName(v string) *GetEmbedcardUrlResponse {
+	s.SchemeName = &v
+	return s
+}
+
+func (s *GetEmbedcardUrlResponse) SetPremium(v string) *GetEmbedcardUrlResponse {
+	s.Premium = &v
+	return s
+}
+
+func (s *GetEmbedcardUrlResponse) SetInquiryNo(v string) *GetEmbedcardUrlResponse {
+	s.InquiryNo = &v
+	return s
+}
+
+type IssueEmbedcardPaysucRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 险种编码
+	InsuranceTypeCode *string `json:"insurance_type_code,omitempty" xml:"insurance_type_code,omitempty" require:"true" maxLength:"32"`
+	// 保司编码
+	InsuranceCompanyNo *string `json:"insurance_company_no,omitempty" xml:"insurance_company_no,omitempty" require:"true" maxLength:"32"`
+	// 嵌入式产品编码
+	EmbedProductCode *string `json:"embed_product_code,omitempty" xml:"embed_product_code,omitempty" require:"true" maxLength:"32"`
+	// 交易流水号
+	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty" require:"true" maxLength:"128"`
+	// 方案名称
+	SchemeName *string `json:"scheme_name,omitempty" xml:"scheme_name,omitempty" require:"true" maxLength:"32"`
+	// 保费，保留2位小数
+	Premium *string `json:"premium,omitempty" xml:"premium,omitempty" require:"true"`
+	// 保费支付渠道，01-支付宝、02-微信支付、03-银行卡支付、04-平台账户余额支付
+	PremiumPaymentChannel *string `json:"premium_payment_channel,omitempty" xml:"premium_payment_channel,omitempty" require:"true" maxLength:"32"`
+	// 保费支付流水号
+	PremiumPaymentNo *string `json:"premium_payment_no,omitempty" xml:"premium_payment_no,omitempty" require:"true" maxLength:"128"`
+	// 保费支付金额，保留2位小数
+	PremiumPaymentAmount *string `json:"premium_payment_amount,omitempty" xml:"premium_payment_amount,omitempty" require:"true"`
+	// 保费支付时间
+	PremiumPaymentTime *string `json:"premium_payment_time,omitempty" xml:"premium_payment_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 询价编码
+	InquiryNo *string `json:"inquiry_no,omitempty" xml:"inquiry_no,omitempty" require:"true" maxLength:"32"`
+}
+
+func (s IssueEmbedcardPaysucRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IssueEmbedcardPaysucRequest) GoString() string {
+	return s.String()
+}
+
+func (s *IssueEmbedcardPaysucRequest) SetAuthToken(v string) *IssueEmbedcardPaysucRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *IssueEmbedcardPaysucRequest) SetInsuranceTypeCode(v string) *IssueEmbedcardPaysucRequest {
+	s.InsuranceTypeCode = &v
+	return s
+}
+
+func (s *IssueEmbedcardPaysucRequest) SetInsuranceCompanyNo(v string) *IssueEmbedcardPaysucRequest {
+	s.InsuranceCompanyNo = &v
+	return s
+}
+
+func (s *IssueEmbedcardPaysucRequest) SetEmbedProductCode(v string) *IssueEmbedcardPaysucRequest {
+	s.EmbedProductCode = &v
+	return s
+}
+
+func (s *IssueEmbedcardPaysucRequest) SetTradeNo(v string) *IssueEmbedcardPaysucRequest {
+	s.TradeNo = &v
+	return s
+}
+
+func (s *IssueEmbedcardPaysucRequest) SetSchemeName(v string) *IssueEmbedcardPaysucRequest {
+	s.SchemeName = &v
+	return s
+}
+
+func (s *IssueEmbedcardPaysucRequest) SetPremium(v string) *IssueEmbedcardPaysucRequest {
+	s.Premium = &v
+	return s
+}
+
+func (s *IssueEmbedcardPaysucRequest) SetPremiumPaymentChannel(v string) *IssueEmbedcardPaysucRequest {
+	s.PremiumPaymentChannel = &v
+	return s
+}
+
+func (s *IssueEmbedcardPaysucRequest) SetPremiumPaymentNo(v string) *IssueEmbedcardPaysucRequest {
+	s.PremiumPaymentNo = &v
+	return s
+}
+
+func (s *IssueEmbedcardPaysucRequest) SetPremiumPaymentAmount(v string) *IssueEmbedcardPaysucRequest {
+	s.PremiumPaymentAmount = &v
+	return s
+}
+
+func (s *IssueEmbedcardPaysucRequest) SetPremiumPaymentTime(v string) *IssueEmbedcardPaysucRequest {
+	s.PremiumPaymentTime = &v
+	return s
+}
+
+func (s *IssueEmbedcardPaysucRequest) SetInquiryNo(v string) *IssueEmbedcardPaysucRequest {
+	s.InquiryNo = &v
+	return s
+}
+
+type IssueEmbedcardPaysucResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 交易流水号
+	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty"`
+	// 险种编码
+	InsuranceTypeCode *string `json:"insurance_type_code,omitempty" xml:"insurance_type_code,omitempty"`
+	// 保司编码
+	InsuranceCompanyNo *string `json:"insurance_company_no,omitempty" xml:"insurance_company_no,omitempty"`
+	// 嵌入式产品编码
+	EmbedProductCode *string `json:"embed_product_code,omitempty" xml:"embed_product_code,omitempty"`
+	// 方案名称
+	SchemeName *string `json:"scheme_name,omitempty" xml:"scheme_name,omitempty"`
+	// 保险起期
+	InsureStart *string `json:"insure_start,omitempty" xml:"insure_start,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 保险止期
+	InsureEnd *string `json:"insure_end,omitempty" xml:"insure_end,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 保费，保留2位小数
+	Premium *string `json:"premium,omitempty" xml:"premium,omitempty"`
+	// 保额，保留2位小数
+	Amount *string `json:"amount,omitempty" xml:"amount,omitempty"`
+	// 询价编码
+	InquiryNo *string `json:"inquiry_no,omitempty" xml:"inquiry_no,omitempty"`
+	// 保险凭证号
+	VoucherNo *string `json:"voucher_no,omitempty" xml:"voucher_no,omitempty"`
+}
+
+func (s IssueEmbedcardPaysucResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IssueEmbedcardPaysucResponse) GoString() string {
+	return s.String()
+}
+
+func (s *IssueEmbedcardPaysucResponse) SetReqMsgId(v string) *IssueEmbedcardPaysucResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *IssueEmbedcardPaysucResponse) SetResultCode(v string) *IssueEmbedcardPaysucResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *IssueEmbedcardPaysucResponse) SetResultMsg(v string) *IssueEmbedcardPaysucResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *IssueEmbedcardPaysucResponse) SetTradeNo(v string) *IssueEmbedcardPaysucResponse {
+	s.TradeNo = &v
+	return s
+}
+
+func (s *IssueEmbedcardPaysucResponse) SetInsuranceTypeCode(v string) *IssueEmbedcardPaysucResponse {
+	s.InsuranceTypeCode = &v
+	return s
+}
+
+func (s *IssueEmbedcardPaysucResponse) SetInsuranceCompanyNo(v string) *IssueEmbedcardPaysucResponse {
+	s.InsuranceCompanyNo = &v
+	return s
+}
+
+func (s *IssueEmbedcardPaysucResponse) SetEmbedProductCode(v string) *IssueEmbedcardPaysucResponse {
+	s.EmbedProductCode = &v
+	return s
+}
+
+func (s *IssueEmbedcardPaysucResponse) SetSchemeName(v string) *IssueEmbedcardPaysucResponse {
+	s.SchemeName = &v
+	return s
+}
+
+func (s *IssueEmbedcardPaysucResponse) SetInsureStart(v string) *IssueEmbedcardPaysucResponse {
+	s.InsureStart = &v
+	return s
+}
+
+func (s *IssueEmbedcardPaysucResponse) SetInsureEnd(v string) *IssueEmbedcardPaysucResponse {
+	s.InsureEnd = &v
+	return s
+}
+
+func (s *IssueEmbedcardPaysucResponse) SetPremium(v string) *IssueEmbedcardPaysucResponse {
+	s.Premium = &v
+	return s
+}
+
+func (s *IssueEmbedcardPaysucResponse) SetAmount(v string) *IssueEmbedcardPaysucResponse {
+	s.Amount = &v
+	return s
+}
+
+func (s *IssueEmbedcardPaysucResponse) SetInquiryNo(v string) *IssueEmbedcardPaysucResponse {
+	s.InquiryNo = &v
+	return s
+}
+
+func (s *IssueEmbedcardPaysucResponse) SetVoucherNo(v string) *IssueEmbedcardPaysucResponse {
+	s.VoucherNo = &v
 	return s
 }
 
@@ -4743,7 +5196,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.12.17"),
+				"sdk_version":      tea.String("1.12.18"),
 				"_prod_code":       tea.String("INSURANCE_SAAS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -4799,6 +5252,74 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 	}
 
 	return _resp, _err
+}
+
+/**
+ * Description: 嵌入式保险服务卡片url链接获取
+ * Summary: 嵌入式保险服务卡片url链接获取
+ */
+func (client *Client) GetEmbedcardUrl(request *GetEmbedcardUrlRequest) (_result *GetEmbedcardUrlResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GetEmbedcardUrlResponse{}
+	_body, _err := client.GetEmbedcardUrlEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 嵌入式保险服务卡片url链接获取
+ * Summary: 嵌入式保险服务卡片url链接获取
+ */
+func (client *Client) GetEmbedcardUrlEx(request *GetEmbedcardUrlRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetEmbedcardUrlResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GetEmbedcardUrlResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.insurance.embedcard.url.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 嵌入式保险服务打款成功出单接口
+ * Summary: 嵌入式保险服务打款成功出单接口
+ */
+func (client *Client) IssueEmbedcardPaysuc(request *IssueEmbedcardPaysucRequest) (_result *IssueEmbedcardPaysucResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &IssueEmbedcardPaysucResponse{}
+	_body, _err := client.IssueEmbedcardPaysucEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 嵌入式保险服务打款成功出单接口
+ * Summary: 嵌入式保险服务打款成功出单接口
+ */
+func (client *Client) IssueEmbedcardPaysucEx(request *IssueEmbedcardPaysucRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *IssueEmbedcardPaysucResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &IssueEmbedcardPaysucResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.insurance.embedcard.paysuc.issue"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
 }
 
 /**
