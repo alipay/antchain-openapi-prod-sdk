@@ -2,7 +2,6 @@
 import AntchainUtil from '@antchain/alipay-util';
 import Util, * as $Util from '@alicloud/tea-util';
 import RPCUtil from '@alicloud/rpc-util';
-import { Readable } from 'stream';
 import * as $tea from '@alicloud/tea-typescript';
 
 /**
@@ -480,123 +479,6 @@ export class GdPotentialCustomerRecord extends $tea.Model {
   }
 }
 
-// 电池报告返回数据详情
-export class BatteryReportData extends $tea.Model {
-  // VIN码
-  vinCode: string;
-  // 评估时间，报告生成时间 yyyy-MM-dd HH:mm:ss
-  evaluateTime: string;
-  // 当前 SOH（%），数值 0-100
-  currentSoh: string;
-  // SOH 评级：优秀 100-95 良好 95-90 中等 90-85 较差 85-80 差 80 以下
-  sohLvStr: string;
-  // 电池衰退水平值
-  volumeScoreRecession: string;
-  // 安全风险水平：低 较低 较高 高
-  volumeScoreRecessionLvStr: string;
-  // 安全风险水平解读文案
-  volumeScoreRecessionNarrate: string;
-  // 保障状态 0：未保障 1：保障中 2：保障结束
-  safeguardStatus: number;
-  // 保障截止期 yyyy-MM-dd HH:mm:ss
-  safeguardEndTime: string;
-  // 本轮首检 SOH（%）数值 0-100
-  initialSoh: string;
-  // 本轮首检 评估时间 yyyy-MM-dd HH:mm:ss
-  initialSohEvaluateTime: string;
-  // 本轮首检 充电单号
-  initialChargeSeq: string;
-  // 触发赔付 SOH（%），数值 0-100
-  sageguardMaxSubSoh: string;
-  // 是否触发赔付，当前 SOH≤触发赔付 SOH 时为 true
-  compensationTriggered: boolean;
-  // SOH 衰退预测-X 轴标题（年）
-  yearSohTitle: string[];
-  // 本车电池衰退预测，逐年 SOH（%）
-  curEstimateYearSoh: string[];
-  // 同类型车电池衰退预测，逐年 SOH（%）
-  peerEstimateYearSoh: string[];
-  // 电池厂商
-  batteryManufacturer: string;
-  // 标称能量，单位 kWh
-  nominalEnergy: string;
-  // 标称容量，单位 Ah
-  rateCapacity: string;
-  // 电池类型
-  batteryType: string;
-  // 车辆生产年份
-  manufacturerDate: string;
-  // 权益说明文案
-  rightsDesc: string;
-  // 权益说明-状态
-  rightStatus: string;
-  // 电池健康度-建议
-  sohSuggest: string[];
-  static names(): { [key: string]: string } {
-    return {
-      vinCode: 'vin_code',
-      evaluateTime: 'evaluate_time',
-      currentSoh: 'current_soh',
-      sohLvStr: 'soh_lv_str',
-      volumeScoreRecession: 'volume_score_recession',
-      volumeScoreRecessionLvStr: 'volume_score_recession_lv_str',
-      volumeScoreRecessionNarrate: 'volume_score_recession_narrate',
-      safeguardStatus: 'safeguard_status',
-      safeguardEndTime: 'safeguard_end_time',
-      initialSoh: 'initial_soh',
-      initialSohEvaluateTime: 'initial_soh_evaluate_time',
-      initialChargeSeq: 'initial_charge_seq',
-      sageguardMaxSubSoh: 'sageguard_max_sub_soh',
-      compensationTriggered: 'compensation_triggered',
-      yearSohTitle: 'year_soh_title',
-      curEstimateYearSoh: 'cur_estimate_year_soh',
-      peerEstimateYearSoh: 'peer_estimate_year_soh',
-      batteryManufacturer: 'battery_manufacturer',
-      nominalEnergy: 'nominal_energy',
-      rateCapacity: 'rate_capacity',
-      batteryType: 'battery_type',
-      manufacturerDate: 'manufacturer_date',
-      rightsDesc: 'rights_desc',
-      rightStatus: 'right_status',
-      sohSuggest: 'soh_suggest',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      vinCode: 'string',
-      evaluateTime: 'string',
-      currentSoh: 'string',
-      sohLvStr: 'string',
-      volumeScoreRecession: 'string',
-      volumeScoreRecessionLvStr: 'string',
-      volumeScoreRecessionNarrate: 'string',
-      safeguardStatus: 'number',
-      safeguardEndTime: 'string',
-      initialSoh: 'string',
-      initialSohEvaluateTime: 'string',
-      initialChargeSeq: 'string',
-      sageguardMaxSubSoh: 'string',
-      compensationTriggered: 'boolean',
-      yearSohTitle: { 'type': 'array', 'itemType': 'string' },
-      curEstimateYearSoh: { 'type': 'array', 'itemType': 'string' },
-      peerEstimateYearSoh: { 'type': 'array', 'itemType': 'string' },
-      batteryManufacturer: 'string',
-      nominalEnergy: 'string',
-      rateCapacity: 'string',
-      batteryType: 'string',
-      manufacturerDate: 'string',
-      rightsDesc: 'string',
-      rightStatus: 'string',
-      sohSuggest: { 'type': 'array', 'itemType': 'string' },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // 高德数据集合内record
 export class GdCustomersRecord extends $tea.Model {
   // 城市编码，数据类型为店铺或者城市时返回该属性与值
@@ -654,6 +536,31 @@ export class GdCustomersRecord extends $tea.Model {
   }
 }
 
+// 汽车之家城市信息
+export class CityResult extends $tea.Model {
+  // 城市Id
+  cityId: string;
+  // 城市名称
+  cityName: string;
+  static names(): { [key: string]: string } {
+    return {
+      cityId: 'city_id',
+      cityName: 'city_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      cityId: 'string',
+      cityName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 新车线索集合
 export class NewCarInfo extends $tea.Model {
   // 车系
@@ -703,47 +610,6 @@ export class NewCarInfo extends $tea.Model {
   }
 }
 
-// 电池衰退报告结果
-export class BatteryReportResult extends $tea.Model {
-  // 订单号 (可使用该 ID 将报告转图片)
-  orderId: string;
-  // 保障码，VIN 在 7 天内首次检测时生成，每轮保障采用同一保障码
-  guaranteeCode: string;
-  // 当前充电单号
-  currentStartChargeSeq: string;
-  // 是否计费
-  charge: boolean;
-  // 检测类型 6601：首检 6602：复核
-  checkType: number;
-  // 报告数据
-  reportData: BatteryReportData;
-  static names(): { [key: string]: string } {
-    return {
-      orderId: 'order_id',
-      guaranteeCode: 'guarantee_code',
-      currentStartChargeSeq: 'current_start_charge_seq',
-      charge: 'charge',
-      checkType: 'check_type',
-      reportData: 'report_data',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      orderId: 'string',
-      guaranteeCode: 'string',
-      currentStartChargeSeq: 'string',
-      charge: 'boolean',
-      checkType: 'number',
-      reportData: BatteryReportData,
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // 车信息
 export class BasicCarInfo extends $tea.Model {
   // 车牌号
@@ -781,6 +647,31 @@ export class BasicCarInfo extends $tea.Model {
       modelCode: 'string',
       useNatureCode: 'string',
       mortgage: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 用户基本信息
+export class CarOwnerUserInfo extends $tea.Model {
+  // 用户id
+  userId: string;
+  // 手机号
+  phoneNum: string;
+  static names(): { [key: string]: string } {
+    return {
+      userId: 'user_id',
+      phoneNum: 'phone_num',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      userId: 'string',
+      phoneNum: 'string',
     };
   }
 
@@ -866,6 +757,43 @@ export class CarBusinessPrice extends $tea.Model {
       vehicleVesselTax: 'number',
       businessInsurance: 'number',
       extraContent: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 高德店铺基本信息
+export class GdStoreInfo extends $tea.Model {
+  // 数据总数
+  total: number;
+  // 当前展示页
+  current: number;
+  // 数据总页数
+  pages: number;
+  // 每页显示数据条数
+  size: number;
+  // 数据集合
+  records: GdStoreRecord[];
+  static names(): { [key: string]: string } {
+    return {
+      total: 'total',
+      current: 'current',
+      pages: 'pages',
+      size: 'size',
+      records: 'records',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      total: 'number',
+      current: 'number',
+      pages: 'number',
+      size: 'number',
+      records: { 'type': 'array', 'itemType': GdStoreRecord },
     };
   }
 
@@ -981,281 +909,6 @@ export class GdCustomerInfo extends $tea.Model {
   }
 }
 
-// 高德潜客请求req
-export class GdCustomerFlow extends $tea.Model {
-  // 当前页面
-  current: number;
-  // 数据类型（SHOP：店铺；CITY：城市；PROVINCE：省份；COUNTRY：全国；SHOP_BRAND：店铺品牌(仅限竞品)）
-  dataType?: string;
-  // 时间类型（DAY：天；WEEK：周；MONTH：月；仅针对城市和店铺品牌的竞品数据支持的时间类型为，季度：QUARTER；半年：HALF；年：YEAR）
-  timeType?: string;
-  // 主品牌id
-  mainBrand?: string;
-  // 时间（时间类型为天时：yyyyMMdd；时间类型为周时：yyyyWW；时间类型为月时：yyyyMM；时间类型为季度时：yyyyQQ；时间类型为半年时：yyyyBB；时间类型为年时：yyyy；）
-  time?: string;
-  // 品牌id，以”,”分隔
-  brandLimit?: string;
-  // 数据指数类型（pv、uv中选择，多个以”,”分隔）
-  dataLimit?: string;
-  // 数据统计逻辑（0：默认值，基于本品或竞品获取；1：基于本品获取）
-  baseSelf?: number;
-  static names(): { [key: string]: string } {
-    return {
-      current: 'current',
-      dataType: 'data_type',
-      timeType: 'time_type',
-      mainBrand: 'main_brand',
-      time: 'time',
-      brandLimit: 'brand_limit',
-      dataLimit: 'data_limit',
-      baseSelf: 'base_self',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      current: 'number',
-      dataType: 'string',
-      timeType: 'string',
-      mainBrand: 'string',
-      time: 'string',
-      brandLimit: 'string',
-      dataLimit: 'string',
-      baseSelf: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 二手车估价信息
-export class UsedCarValuation extends $tea.Model {
-  // 评估金额(万)
-  referenceprice: string;
-  // 官方报价(参考)(万)
-  newcarprice: string;
-  // 车型图片(参考)
-  url: string;
-  // 车况好(万)(三个价格用"-"分隔,第一个是较小值第二个是...
-  conditiona: string;
-  // 车况正常(万)
-  conditionb: string;
-  // 车况差(万)
-  conditionc: string;
-  static names(): { [key: string]: string } {
-    return {
-      referenceprice: 'referenceprice',
-      newcarprice: 'newcarprice',
-      url: 'url',
-      conditiona: 'conditiona',
-      conditionb: 'conditionb',
-      conditionc: 'conditionc',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      referenceprice: 'string',
-      newcarprice: 'string',
-      url: 'string',
-      conditiona: 'string',
-      conditionb: 'string',
-      conditionc: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 高德潜客指数返回数据对象
-export class GdPotentialCustomerInfo extends $tea.Model {
-  // 时间范围（查询月度或年度数据时，返回该字段）
-  timeRange?: string;
-  // 数据总数
-  total: number;
-  // 当前展示页
-  current: number;
-  // 数据总页数
-  pages: number;
-  // 每页显示数据条数
-  size: number;
-  // 数据集合
-  records: GdPotentialCustomerRecord[];
-  static names(): { [key: string]: string } {
-    return {
-      timeRange: 'time_range',
-      total: 'total',
-      current: 'current',
-      pages: 'pages',
-      size: 'size',
-      records: 'records',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      timeRange: 'string',
-      total: 'number',
-      current: 'number',
-      pages: 'number',
-      size: 'number',
-      records: { 'type': 'array', 'itemType': GdPotentialCustomerRecord },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 汽车之家城市信息
-export class CityResult extends $tea.Model {
-  // 城市Id
-  cityId: string;
-  // 城市名称
-  cityName: string;
-  static names(): { [key: string]: string } {
-    return {
-      cityId: 'city_id',
-      cityName: 'city_name',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      cityId: 'string',
-      cityName: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 用户基本信息
-export class CarOwnerUserInfo extends $tea.Model {
-  // 用户id
-  userId: string;
-  // 手机号
-  phoneNum: string;
-  static names(): { [key: string]: string } {
-    return {
-      userId: 'user_id',
-      phoneNum: 'phone_num',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      userId: 'string',
-      phoneNum: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 高德店铺基本信息
-export class GdStoreInfo extends $tea.Model {
-  // 数据总数
-  total: number;
-  // 当前展示页
-  current: number;
-  // 数据总页数
-  pages: number;
-  // 每页显示数据条数
-  size: number;
-  // 数据集合
-  records: GdStoreRecord[];
-  static names(): { [key: string]: string } {
-    return {
-      total: 'total',
-      current: 'current',
-      pages: 'pages',
-      size: 'size',
-      records: 'records',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      total: 'number',
-      current: 'number',
-      pages: 'number',
-      size: 'number',
-      records: { 'type': 'array', 'itemType': GdStoreRecord },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 二手车
-export class UsedCarInfo extends $tea.Model {
-  // 渠道方线索业务id
-  leadId: string;
-  // 城市名称
-  cityName: string;
-  // 省份id
-  pid: string;
-  // 城市id
-  cid: string;
-  // 品牌名称
-  brandName?: string;
-  // 车系名称
-  seriesName?: string;
-  // 汽车之家车型id
-  specId: string;
-  // 车型名称
-  specName?: string;
-  // 首次上牌时间格式 yyyy/MM/dd
-  firstRegTime: string;
-  // 行驶公里数(km)
-  mileage: string;
-  static names(): { [key: string]: string } {
-    return {
-      leadId: 'lead_id',
-      cityName: 'city_name',
-      pid: 'pid',
-      cid: 'cid',
-      brandName: 'brand_name',
-      seriesName: 'series_name',
-      specId: 'spec_id',
-      specName: 'spec_name',
-      firstRegTime: 'first_reg_time',
-      mileage: 'mileage',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      leadId: 'string',
-      cityName: 'string',
-      pid: 'string',
-      cid: 'string',
-      brandName: 'string',
-      seriesName: 'string',
-      specId: 'string',
-      specName: 'string',
-      firstRegTime: 'string',
-      mileage: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // 常岳用户结构体
 export class CyUserInfo extends $tea.Model {
   // 用户id
@@ -1314,55 +967,47 @@ export class SpecResult extends $tea.Model {
   }
 }
 
-// 充电报告查询
-export class BatteryReport extends $tea.Model {
-  // 充电单号，最大长度/规则：32
-  startChargeSeq: string;
-  // VIN，最大长度/规则：17位
-  vinCode: string;
-  // 公告号，最大长度/规则36
-  publicationNo?: string;
-  // 本次累积充电量，单位kWh；最大长度/规则：整数位<=10,小数位<=2
-  totalPower?: string;
-  // 本次累积充入SOC（%）；最大长度/规则：0-100,小数位<=2
-  totalChargeSoc?: string;
-  // 本次充电开始SOC(%)；最大长度/规则：0-100,小数位<=2
-  startSoc?: string;
-  // 本次充电截止SOC(%)；最大长度/规则：0-100,小数位<=2
-  endSoc?: string;
-  // 标称能量，单位kWh；最大长度/规则：0-1000,小数位<=2
-  nominalEnergy?: string;
-  // 充电城市ID；最大长度/规则：30
-  cityId?: string;
-  // 注册日期；最大长度/规则：yyyy-MM-dd
-  registerDate?: string;
+// 高德潜客请求req
+export class GdCustomerFlow extends $tea.Model {
+  // 当前页面
+  current: number;
+  // 数据类型（SHOP：店铺；CITY：城市；PROVINCE：省份；COUNTRY：全国；SHOP_BRAND：店铺品牌(仅限竞品)）
+  dataType?: string;
+  // 时间类型（DAY：天；WEEK：周；MONTH：月；仅针对城市和店铺品牌的竞品数据支持的时间类型为，季度：QUARTER；半年：HALF；年：YEAR）
+  timeType?: string;
+  // 主品牌id
+  mainBrand?: string;
+  // 时间（时间类型为天时：yyyyMMdd；时间类型为周时：yyyyWW；时间类型为月时：yyyyMM；时间类型为季度时：yyyyQQ；时间类型为半年时：yyyyBB；时间类型为年时：yyyy；）
+  time?: string;
+  // 品牌id，以”,”分隔
+  brandLimit?: string;
+  // 数据指数类型（pv、uv中选择，多个以”,”分隔）
+  dataLimit?: string;
+  // 数据统计逻辑（0：默认值，基于本品或竞品获取；1：基于本品获取）
+  baseSelf?: number;
   static names(): { [key: string]: string } {
     return {
-      startChargeSeq: 'start_charge_seq',
-      vinCode: 'vin_code',
-      publicationNo: 'publication_no',
-      totalPower: 'total_power',
-      totalChargeSoc: 'total_charge_soc',
-      startSoc: 'start_soc',
-      endSoc: 'end_soc',
-      nominalEnergy: 'nominal_energy',
-      cityId: 'city_id',
-      registerDate: 'register_date',
+      current: 'current',
+      dataType: 'data_type',
+      timeType: 'time_type',
+      mainBrand: 'main_brand',
+      time: 'time',
+      brandLimit: 'brand_limit',
+      dataLimit: 'data_limit',
+      baseSelf: 'base_self',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      startChargeSeq: 'string',
-      vinCode: 'string',
-      publicationNo: 'string',
-      totalPower: 'string',
-      totalChargeSoc: 'string',
-      startSoc: 'string',
-      endSoc: 'string',
-      nominalEnergy: 'string',
-      cityId: 'string',
-      registerDate: 'string',
+      current: 'number',
+      dataType: 'string',
+      timeType: 'string',
+      mainBrand: 'string',
+      time: 'string',
+      brandLimit: 'string',
+      dataLimit: 'string',
+      baseSelf: 'number',
     };
   }
 
@@ -1371,23 +1016,39 @@ export class BatteryReport extends $tea.Model {
   }
 }
 
-// 键值对
-export class XNameValuePair extends $tea.Model {
-  // 键名
-  name: string;
-  // 键值
-  value: string;
+// 高德潜客指数返回数据对象
+export class GdPotentialCustomerInfo extends $tea.Model {
+  // 时间范围（查询月度或年度数据时，返回该字段）
+  timeRange?: string;
+  // 数据总数
+  total: number;
+  // 当前展示页
+  current: number;
+  // 数据总页数
+  pages: number;
+  // 每页显示数据条数
+  size: number;
+  // 数据集合
+  records: GdPotentialCustomerRecord[];
   static names(): { [key: string]: string } {
     return {
-      name: 'name',
-      value: 'value',
+      timeRange: 'time_range',
+      total: 'total',
+      current: 'current',
+      pages: 'pages',
+      size: 'size',
+      records: 'records',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      name: 'string',
-      value: 'string',
+      timeRange: 'string',
+      total: 'number',
+      current: 'number',
+      pages: 'number',
+      size: 'number',
+      records: { 'type': 'array', 'itemType': GdPotentialCustomerRecord },
     };
   }
 
@@ -1844,138 +1505,6 @@ export class QueryCarPriceResponse extends $tea.Model {
   }
 }
 
-export class ImportCarFileRequest extends $tea.Model {
-  // OAuth模式下的授权token
-  authToken?: string;
-  productInstanceId?: string;
-  // xx
-  fileObject?: Readable;
-  fileObjectName?: string;
-  fileId: string;
-  static names(): { [key: string]: string } {
-    return {
-      authToken: 'auth_token',
-      productInstanceId: 'product_instance_id',
-      fileObject: 'fileObject',
-      fileObjectName: 'fileObjectName',
-      fileId: 'file_id',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authToken: 'string',
-      productInstanceId: 'string',
-      fileObject: 'Readable',
-      fileObjectName: 'string',
-      fileId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class ImportCarFileResponse extends $tea.Model {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string;
-  // 结果码，一般OK表示调用成功
-  resultCode?: string;
-  // 异常信息的文本描述
-  resultMsg?: string;
-  // xx
-  code?: string;
-  static names(): { [key: string]: string } {
-    return {
-      reqMsgId: 'req_msg_id',
-      resultCode: 'result_code',
-      resultMsg: 'result_msg',
-      code: 'code',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      reqMsgId: 'string',
-      resultCode: 'string',
-      resultMsg: 'string',
-      code: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class QueryUsedcarRequest extends $tea.Model {
-  // OAuth模式下的授权token
-  authToken?: string;
-  productInstanceId?: string;
-  // 场景码
-  sceneCode: string;
-  // 二手车信息
-  usedCarInfo: UsedCarInfo;
-  // 用户基本信息
-  userInfo: CarOwnerUserInfo;
-  static names(): { [key: string]: string } {
-    return {
-      authToken: 'auth_token',
-      productInstanceId: 'product_instance_id',
-      sceneCode: 'scene_code',
-      usedCarInfo: 'used_car_info',
-      userInfo: 'user_info',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authToken: 'string',
-      productInstanceId: 'string',
-      sceneCode: 'string',
-      usedCarInfo: UsedCarInfo,
-      userInfo: CarOwnerUserInfo,
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class QueryUsedcarResponse extends $tea.Model {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string;
-  // 结果码，一般OK表示调用成功
-  resultCode?: string;
-  // 异常信息的文本描述
-  resultMsg?: string;
-  // 二手车估值信息
-  usedCarValuation?: UsedCarValuation;
-  static names(): { [key: string]: string } {
-    return {
-      reqMsgId: 'req_msg_id',
-      resultCode: 'result_code',
-      resultMsg: 'result_msg',
-      usedCarValuation: 'used_car_valuation',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      reqMsgId: 'string',
-      resultCode: 'string',
-      resultMsg: 'string',
-      usedCarValuation: UsedCarValuation,
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 export class SubmitIonchiRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -2031,196 +1560,6 @@ export class SubmitIonchiResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       pushSuccess: 'boolean',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class QueryGdFlowRequest extends $tea.Model {
-  // OAuth模式下的授权token
-  authToken?: string;
-  productInstanceId?: string;
-  // 租户ID
-  sceneCode: string;
-  // 实际请求体
-  gdCustomerFlow: GdCustomerFlow;
-  static names(): { [key: string]: string } {
-    return {
-      authToken: 'auth_token',
-      productInstanceId: 'product_instance_id',
-      sceneCode: 'scene_code',
-      gdCustomerFlow: 'gd_customer_flow',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authToken: 'string',
-      productInstanceId: 'string',
-      sceneCode: 'string',
-      gdCustomerFlow: GdCustomerFlow,
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class QueryGdFlowResponse extends $tea.Model {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string;
-  // 结果码，一般OK表示调用成功
-  resultCode?: string;
-  // 异常信息的文本描述
-  resultMsg?: string;
-  // 返回消息
-  msg?: string;
-  // 返回编码，值为10000表示成功，其余值表示失败
-  code?: number;
-  // 随机返回id
-  requestLinkId?: string;
-  // 返回数据
-  data?: GdCustomerInfo;
-  static names(): { [key: string]: string } {
-    return {
-      reqMsgId: 'req_msg_id',
-      resultCode: 'result_code',
-      resultMsg: 'result_msg',
-      msg: 'msg',
-      code: 'code',
-      requestLinkId: 'request_link_id',
-      data: 'data',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      reqMsgId: 'string',
-      resultCode: 'string',
-      resultMsg: 'string',
-      msg: 'string',
-      code: 'number',
-      requestLinkId: 'string',
-      data: GdCustomerInfo,
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class QueryBatteryReportRequest extends $tea.Model {
-  // OAuth模式下的授权token
-  authToken?: string;
-  productInstanceId?: string;
-  // 充电报告
-  batteryReport: BatteryReport;
-  // 桩所属运营平台
-  operatorPlatform: string;
-  // 场站名称
-  stationName: string;
-  // 场站ID
-  stationId: string;
-  // 桩ID
-  pileId: string;
-  // 枪序号（充电端口号）
-  gunNo: number;
-  // 充电订单号
-  chargeOrderNo: string;
-  // 充电量，单位kWh
-  chargePower: string;
-  // 服务费，单位元
-  serviceFee: string;
-  // 电费，单位元
-  electricityFee: string;
-  // 充电开始时间
-  chargeStartTime: string;
-  // 充电结束时间
-  chargeEndTime: string;
-  // 租户场景码
-  sceneCode: string;
-  static names(): { [key: string]: string } {
-    return {
-      authToken: 'auth_token',
-      productInstanceId: 'product_instance_id',
-      batteryReport: 'battery_report',
-      operatorPlatform: 'operator_platform',
-      stationName: 'station_name',
-      stationId: 'station_id',
-      pileId: 'pile_id',
-      gunNo: 'gun_no',
-      chargeOrderNo: 'charge_order_no',
-      chargePower: 'charge_power',
-      serviceFee: 'service_fee',
-      electricityFee: 'electricity_fee',
-      chargeStartTime: 'charge_start_time',
-      chargeEndTime: 'charge_end_time',
-      sceneCode: 'scene_code',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authToken: 'string',
-      productInstanceId: 'string',
-      batteryReport: BatteryReport,
-      operatorPlatform: 'string',
-      stationName: 'string',
-      stationId: 'string',
-      pileId: 'string',
-      gunNo: 'number',
-      chargeOrderNo: 'string',
-      chargePower: 'string',
-      serviceFee: 'string',
-      electricityFee: 'string',
-      chargeStartTime: 'string',
-      chargeEndTime: 'string',
-      sceneCode: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class QueryBatteryReportResponse extends $tea.Model {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string;
-  // 结果码，一般OK表示调用成功
-  resultCode?: string;
-  // 异常信息的文本描述
-  resultMsg?: string;
-  // 成功或失败的编码
-  code?: string;
-  // 成功或失败的提示语
-  msg?: string;
-  // 返回数据（code=100时返回）
-  result?: BatteryReportResult;
-  static names(): { [key: string]: string } {
-    return {
-      reqMsgId: 'req_msg_id',
-      resultCode: 'result_code',
-      resultMsg: 'result_msg',
-      code: 'code',
-      msg: 'msg',
-      result: 'result',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      reqMsgId: 'string',
-      resultCode: 'string',
-      resultMsg: 'string',
-      code: 'string',
-      msg: 'string',
-      result: BatteryReportResult,
     };
   }
 
@@ -2296,6 +1635,81 @@ export class QueryNewcarQczjResponse extends $tea.Model {
       message: 'string',
       cityResult: { 'type': 'array', 'itemType': CityResult },
       specResult: SpecResult,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryGdFlowRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户ID
+  sceneCode: string;
+  // 实际请求体
+  gdCustomerFlow: GdCustomerFlow;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      sceneCode: 'scene_code',
+      gdCustomerFlow: 'gd_customer_flow',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      sceneCode: 'string',
+      gdCustomerFlow: GdCustomerFlow,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryGdFlowResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 返回消息
+  msg?: string;
+  // 返回编码，值为10000表示成功，其余值表示失败
+  code?: number;
+  // 随机返回id
+  requestLinkId?: string;
+  // 返回数据
+  data?: GdCustomerInfo;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      msg: 'msg',
+      code: 'code',
+      requestLinkId: 'request_link_id',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      msg: 'string',
+      code: 'number',
+      requestLinkId: 'string',
+      data: GdCustomerInfo,
     };
   }
 
@@ -2454,94 +1868,6 @@ export class QueryGdPoentialResponse extends $tea.Model {
   }
 }
 
-export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
-  // OAuth模式下的授权token
-  authToken?: string;
-  // 上传文件作用的openapi method
-  apiCode: string;
-  // 文件标签，多个标签;分割
-  fileLabel?: string;
-  // 自定义的文件元数据
-  fileMetadata?: string;
-  // 文件名，不传则随机生成文件名
-  fileName?: string;
-  // 文件的多媒体类型
-  mimeType?: string;
-  // 产品方的api归属集群，即productInstanceId
-  apiCluster?: string;
-  static names(): { [key: string]: string } {
-    return {
-      authToken: 'auth_token',
-      apiCode: 'api_code',
-      fileLabel: 'file_label',
-      fileMetadata: 'file_metadata',
-      fileName: 'file_name',
-      mimeType: 'mime_type',
-      apiCluster: 'api_cluster',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authToken: 'string',
-      apiCode: 'string',
-      fileLabel: 'string',
-      fileMetadata: 'string',
-      fileName: 'string',
-      mimeType: 'string',
-      apiCluster: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class CreateAntcloudGatewayxFileUploadResponse extends $tea.Model {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string;
-  // 结果码，一般OK表示调用成功
-  resultCode?: string;
-  // 异常信息的文本描述
-  resultMsg?: string;
-  // 上传有效期
-  expiredTime?: string;
-  // 32位文件唯一id
-  fileId?: string;
-  // 放入http请求头里
-  uploadHeaders?: XNameValuePair[];
-  // 文件上传地址
-  uploadUrl?: string;
-  static names(): { [key: string]: string } {
-    return {
-      reqMsgId: 'req_msg_id',
-      resultCode: 'result_code',
-      resultMsg: 'result_msg',
-      expiredTime: 'expired_time',
-      fileId: 'file_id',
-      uploadHeaders: 'upload_headers',
-      uploadUrl: 'upload_url',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      reqMsgId: 'string',
-      resultCode: 'string',
-      resultMsg: 'string',
-      expiredTime: 'string',
-      fileId: 'string',
-      uploadHeaders: { 'type': 'array', 'itemType': XNameValuePair },
-      uploadUrl: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 
 export default class Client {
   _endpoint: string;
@@ -2655,7 +1981,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.23",
+          sdk_version: "1.0.24",
           _prod_code: "INTELLICAR",
           _prod_channel: "default",
         };
@@ -2818,66 +2144,6 @@ export default class Client {
   }
 
   /**
-   * Description: 文件引入
-   * Summary: 文件引入
-   */
-  async importCarFile(request: ImportCarFileRequest): Promise<ImportCarFileResponse> {
-    let runtime = new $Util.RuntimeOptions({ });
-    let headers : {[key: string ]: string} = { };
-    return await this.importCarFileEx(request, headers, runtime);
-  }
-
-  /**
-   * Description: 文件引入
-   * Summary: 文件引入
-   */
-  async importCarFileEx(request: ImportCarFileRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ImportCarFileResponse> {
-    if (!Util.isUnset(request.fileObject)) {
-      let uploadReq = new CreateAntcloudGatewayxFileUploadRequest({
-        authToken: request.authToken,
-        apiCode: "antdigital.intellicar.car.file.import",
-        fileName: request.fileObjectName,
-      });
-      let uploadResp = await this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
-      if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
-        let importCarFileResponse = new ImportCarFileResponse({
-          reqMsgId: uploadResp.reqMsgId,
-          resultCode: uploadResp.resultCode,
-          resultMsg: uploadResp.resultMsg,
-        });
-        return importCarFileResponse;
-      }
-
-      let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
-      await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
-      request.fileId = uploadResp.fileId;
-      request.fileObject = null;
-    }
-
-    Util.validateModel(request);
-    return $tea.cast<ImportCarFileResponse>(await this.doRequest("1.0", "antdigital.intellicar.car.file.import", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ImportCarFileResponse({}));
-  }
-
-  /**
-   * Description: 二手车估值接口
-   * Summary: 二手车估值接口
-   */
-  async queryUsedcar(request: QueryUsedcarRequest): Promise<QueryUsedcarResponse> {
-    let runtime = new $Util.RuntimeOptions({ });
-    let headers : {[key: string ]: string} = { };
-    return await this.queryUsedcarEx(request, headers, runtime);
-  }
-
-  /**
-   * Description: 二手车估值接口
-   * Summary: 二手车估值接口
-   */
-  async queryUsedcarEx(request: QueryUsedcarRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryUsedcarResponse> {
-    Util.validateModel(request);
-    return $tea.cast<QueryUsedcarResponse>(await this.doRequest("1.0", "antdigital.intellicar.usedcar.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryUsedcarResponse({}));
-  }
-
-  /**
    * Description: 逸安启回调接口
    * Summary: 逸安启回调接口
    */
@@ -2897,44 +2163,6 @@ export default class Client {
   }
 
   /**
-   * Description: 对接高德，查询潜客流向以及重叠的数据
-   * Summary: 【高德】流向与重叠数据
-   */
-  async queryGdFlow(request: QueryGdFlowRequest): Promise<QueryGdFlowResponse> {
-    let runtime = new $Util.RuntimeOptions({ });
-    let headers : {[key: string ]: string} = { };
-    return await this.queryGdFlowEx(request, headers, runtime);
-  }
-
-  /**
-   * Description: 对接高德，查询潜客流向以及重叠的数据
-   * Summary: 【高德】流向与重叠数据
-   */
-  async queryGdFlowEx(request: QueryGdFlowRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryGdFlowResponse> {
-    Util.validateModel(request);
-    return $tea.cast<QueryGdFlowResponse>(await this.doRequest("1.0", "antdigital.intellicar.gd.flow.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryGdFlowResponse({}));
-  }
-
-  /**
-   * Description: 电池衰退权益报告查询接口
-   * Summary: 电池衰退
-   */
-  async queryBatteryReport(request: QueryBatteryReportRequest): Promise<QueryBatteryReportResponse> {
-    let runtime = new $Util.RuntimeOptions({ });
-    let headers : {[key: string ]: string} = { };
-    return await this.queryBatteryReportEx(request, headers, runtime);
-  }
-
-  /**
-   * Description: 电池衰退权益报告查询接口
-   * Summary: 电池衰退
-   */
-  async queryBatteryReportEx(request: QueryBatteryReportRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryBatteryReportResponse> {
-    Util.validateModel(request);
-    return $tea.cast<QueryBatteryReportResponse>(await this.doRequest("1.0", "antdigital.intellicar.battery.report.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryBatteryReportResponse({}));
-  }
-
-  /**
    * Description: 用来查询汽车之家车型和城市列表
    * Summary: 用来查询汽车之家车型和城市列表
    */
@@ -2951,6 +2179,25 @@ export default class Client {
   async queryNewcarQczjEx(request: QueryNewcarQczjRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryNewcarQczjResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryNewcarQczjResponse>(await this.doRequest("1.0", "antdigital.intellicar.newcar.qczj.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryNewcarQczjResponse({}));
+  }
+
+  /**
+   * Description: 对接高德，查询潜客流向以及重叠的数据
+   * Summary: 【高德】流向与重叠数据
+   */
+  async queryGdFlow(request: QueryGdFlowRequest): Promise<QueryGdFlowResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryGdFlowEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 对接高德，查询潜客流向以及重叠的数据
+   * Summary: 【高德】流向与重叠数据
+   */
+  async queryGdFlowEx(request: QueryGdFlowRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryGdFlowResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryGdFlowResponse>(await this.doRequest("1.0", "antdigital.intellicar.gd.flow.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryGdFlowResponse({}));
   }
 
   /**
@@ -2989,25 +2236,6 @@ export default class Client {
   async queryGdPoentialEx(request: QueryGdPoentialRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryGdPoentialResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryGdPoentialResponse>(await this.doRequest("1.0", "antdigital.intellicar.gd.poential.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryGdPoentialResponse({}));
-  }
-
-  /**
-   * Description: 创建HTTP PUT提交的文件上传
-   * Summary: 文件上传创建
-   */
-  async createAntcloudGatewayxFileUpload(request: CreateAntcloudGatewayxFileUploadRequest): Promise<CreateAntcloudGatewayxFileUploadResponse> {
-    let runtime = new $Util.RuntimeOptions({ });
-    let headers : {[key: string ]: string} = { };
-    return await this.createAntcloudGatewayxFileUploadEx(request, headers, runtime);
-  }
-
-  /**
-   * Description: 创建HTTP PUT提交的文件上传
-   * Summary: 文件上传创建
-   */
-  async createAntcloudGatewayxFileUploadEx(request: CreateAntcloudGatewayxFileUploadRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateAntcloudGatewayxFileUploadResponse> {
-    Util.validateModel(request);
-    return $tea.cast<CreateAntcloudGatewayxFileUploadResponse>(await this.doRequest("1.0", "antcloud.gatewayx.file.upload.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateAntcloudGatewayxFileUploadResponse({}));
   }
 
 }
