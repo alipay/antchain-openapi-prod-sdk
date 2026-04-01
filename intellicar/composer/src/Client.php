@@ -13,14 +13,8 @@ use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
 use AntChain\INTELLICAR\Models\BatchcreateNewcarRequest;
 use AntChain\INTELLICAR\Models\BatchcreateNewcarResponse;
-use AntChain\INTELLICAR\Models\CreateAntcloudGatewayxFileUploadRequest;
-use AntChain\INTELLICAR\Models\CreateAntcloudGatewayxFileUploadResponse;
-use AntChain\INTELLICAR\Models\ImportCarFileRequest;
-use AntChain\INTELLICAR\Models\ImportCarFileResponse;
 use AntChain\INTELLICAR\Models\PushCarloanRequest;
 use AntChain\INTELLICAR\Models\PushCarloanResponse;
-use AntChain\INTELLICAR\Models\QueryBatteryReportRequest;
-use AntChain\INTELLICAR\Models\QueryBatteryReportResponse;
 use AntChain\INTELLICAR\Models\QueryCarPriceRequest;
 use AntChain\INTELLICAR\Models\QueryCarPriceResponse;
 use AntChain\INTELLICAR\Models\QueryGdFlowRequest;
@@ -31,8 +25,6 @@ use AntChain\INTELLICAR\Models\QueryGdStoreRequest;
 use AntChain\INTELLICAR\Models\QueryGdStoreResponse;
 use AntChain\INTELLICAR\Models\QueryNewcarQczjRequest;
 use AntChain\INTELLICAR\Models\QueryNewcarQczjResponse;
-use AntChain\INTELLICAR\Models\QueryUsedcarRequest;
-use AntChain\INTELLICAR\Models\QueryUsedcarResponse;
 use AntChain\INTELLICAR\Models\RegisterCarownerCyRequest;
 use AntChain\INTELLICAR\Models\RegisterCarownerCyResponse;
 use AntChain\INTELLICAR\Models\RegisterCarownerRequest;
@@ -188,7 +180,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.23',
+                    'sdk_version'      => '1.0.24',
                     '_prod_code'       => 'INTELLICAR',
                     '_prod_channel'    => 'default',
                 ];
@@ -435,91 +427,6 @@ class Client
     }
 
     /**
-     * Description: 文件引入
-     * Summary: 文件引入.
-     *
-     * @param ImportCarFileRequest $request
-     *
-     * @return ImportCarFileResponse
-     */
-    public function importCarFile($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->importCarFileEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 文件引入
-     * Summary: 文件引入.
-     *
-     * @param ImportCarFileRequest $request
-     * @param string[]             $headers
-     * @param RuntimeOptions       $runtime
-     *
-     * @return ImportCarFileResponse
-     */
-    public function importCarFileEx($request, $headers, $runtime)
-    {
-        if (!Utils::isUnset($request->fileObject)) {
-            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
-                'authToken' => $request->authToken,
-                'apiCode'   => 'antdigital.intellicar.car.file.import',
-                'fileName'  => $request->fileObjectName,
-            ]);
-            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
-            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
-                return new ImportCarFileResponse([
-                    'reqMsgId'   => $uploadResp->reqMsgId,
-                    'resultCode' => $uploadResp->resultCode,
-                    'resultMsg'  => $uploadResp->resultMsg,
-                ]);
-            }
-            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
-            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
-            $request->fileId     = $uploadResp->fileId;
-            $request->fileObject = null;
-        }
-        Utils::validateModel($request);
-
-        return ImportCarFileResponse::fromMap($this->doRequest('1.0', 'antdigital.intellicar.car.file.import', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 二手车估值接口
-     * Summary: 二手车估值接口.
-     *
-     * @param QueryUsedcarRequest $request
-     *
-     * @return QueryUsedcarResponse
-     */
-    public function queryUsedcar($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->queryUsedcarEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 二手车估值接口
-     * Summary: 二手车估值接口.
-     *
-     * @param QueryUsedcarRequest $request
-     * @param string[]            $headers
-     * @param RuntimeOptions      $runtime
-     *
-     * @return QueryUsedcarResponse
-     */
-    public function queryUsedcarEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return QueryUsedcarResponse::fromMap($this->doRequest('1.0', 'antdigital.intellicar.usedcar.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
      * Description: 逸安启回调接口
      * Summary: 逸安启回调接口.
      *
@@ -553,72 +460,6 @@ class Client
     }
 
     /**
-     * Description: 对接高德，查询潜客流向以及重叠的数据
-     * Summary: 【高德】流向与重叠数据.
-     *
-     * @param QueryGdFlowRequest $request
-     *
-     * @return QueryGdFlowResponse
-     */
-    public function queryGdFlow($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->queryGdFlowEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 对接高德，查询潜客流向以及重叠的数据
-     * Summary: 【高德】流向与重叠数据.
-     *
-     * @param QueryGdFlowRequest $request
-     * @param string[]           $headers
-     * @param RuntimeOptions     $runtime
-     *
-     * @return QueryGdFlowResponse
-     */
-    public function queryGdFlowEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return QueryGdFlowResponse::fromMap($this->doRequest('1.0', 'antdigital.intellicar.gd.flow.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 电池衰退权益报告查询接口
-     * Summary: 电池衰退
-     *
-     * @param QueryBatteryReportRequest $request
-     *
-     * @return QueryBatteryReportResponse
-     */
-    public function queryBatteryReport($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->queryBatteryReportEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 电池衰退权益报告查询接口
-     * Summary: 电池衰退
-     *
-     * @param QueryBatteryReportRequest $request
-     * @param string[]                  $headers
-     * @param RuntimeOptions            $runtime
-     *
-     * @return QueryBatteryReportResponse
-     */
-    public function queryBatteryReportEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return QueryBatteryReportResponse::fromMap($this->doRequest('1.0', 'antdigital.intellicar.battery.report.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
      * Description: 用来查询汽车之家车型和城市列表
      * Summary: 用来查询汽车之家车型和城市列表.
      *
@@ -649,6 +490,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryNewcarQczjResponse::fromMap($this->doRequest('1.0', 'antdigital.intellicar.newcar.qczj.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 对接高德，查询潜客流向以及重叠的数据
+     * Summary: 【高德】流向与重叠数据.
+     *
+     * @param QueryGdFlowRequest $request
+     *
+     * @return QueryGdFlowResponse
+     */
+    public function queryGdFlow($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryGdFlowEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 对接高德，查询潜客流向以及重叠的数据
+     * Summary: 【高德】流向与重叠数据.
+     *
+     * @param QueryGdFlowRequest $request
+     * @param string[]           $headers
+     * @param RuntimeOptions     $runtime
+     *
+     * @return QueryGdFlowResponse
+     */
+    public function queryGdFlowEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryGdFlowResponse::fromMap($this->doRequest('1.0', 'antdigital.intellicar.gd.flow.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -715,38 +589,5 @@ class Client
         Utils::validateModel($request);
 
         return QueryGdPoentialResponse::fromMap($this->doRequest('1.0', 'antdigital.intellicar.gd.poential.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 创建HTTP PUT提交的文件上传
-     * Summary: 文件上传创建.
-     *
-     * @param CreateAntcloudGatewayxFileUploadRequest $request
-     *
-     * @return CreateAntcloudGatewayxFileUploadResponse
-     */
-    public function createAntcloudGatewayxFileUpload($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->createAntcloudGatewayxFileUploadEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 创建HTTP PUT提交的文件上传
-     * Summary: 文件上传创建.
-     *
-     * @param CreateAntcloudGatewayxFileUploadRequest $request
-     * @param string[]                                $headers
-     * @param RuntimeOptions                          $runtime
-     *
-     * @return CreateAntcloudGatewayxFileUploadResponse
-     */
-    public function createAntcloudGatewayxFileUploadEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return CreateAntcloudGatewayxFileUploadResponse::fromMap($this->doRequest('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
