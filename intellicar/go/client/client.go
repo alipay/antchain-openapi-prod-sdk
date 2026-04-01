@@ -6,7 +6,6 @@ import (
 	util "github.com/alibabacloud-go/tea-utils/v2/service"
 	"github.com/alibabacloud-go/tea/tea"
 	antchainutil "github.com/antchain-openapi-sdk-go/antchain-util/service"
-	"io"
 )
 
 /**
@@ -692,193 +691,6 @@ func (s *GdPotentialCustomerRecord) SetCountrycode(v string) *GdPotentialCustome
 	return s
 }
 
-// 电池报告返回数据详情
-type BatteryReportData struct {
-	// VIN码
-	VinCode *string `json:"vin_code,omitempty" xml:"vin_code,omitempty" require:"true"`
-	// 评估时间，报告生成时间 yyyy-MM-dd HH:mm:ss
-	EvaluateTime *string `json:"evaluate_time,omitempty" xml:"evaluate_time,omitempty" require:"true"`
-	// 当前 SOH（%），数值 0-100
-	CurrentSoh *string `json:"current_soh,omitempty" xml:"current_soh,omitempty" require:"true"`
-	// SOH 评级：优秀 100-95 良好 95-90 中等 90-85 较差 85-80 差 80 以下
-	SohLvStr *string `json:"soh_lv_str,omitempty" xml:"soh_lv_str,omitempty" require:"true"`
-	// 电池衰退水平值
-	VolumeScoreRecession *string `json:"volume_score_recession,omitempty" xml:"volume_score_recession,omitempty" require:"true"`
-	// 安全风险水平：低 较低 较高 高
-	VolumeScoreRecessionLvStr *string `json:"volume_score_recession_lv_str,omitempty" xml:"volume_score_recession_lv_str,omitempty" require:"true"`
-	// 安全风险水平解读文案
-	VolumeScoreRecessionNarrate *string `json:"volume_score_recession_narrate,omitempty" xml:"volume_score_recession_narrate,omitempty" require:"true"`
-	// 保障状态 0：未保障 1：保障中 2：保障结束
-	SafeguardStatus *int64 `json:"safeguard_status,omitempty" xml:"safeguard_status,omitempty" require:"true"`
-	// 保障截止期 yyyy-MM-dd HH:mm:ss
-	SafeguardEndTime *string `json:"safeguard_end_time,omitempty" xml:"safeguard_end_time,omitempty" require:"true"`
-	// 本轮首检 SOH（%）数值 0-100
-	InitialSoh *string `json:"initial_soh,omitempty" xml:"initial_soh,omitempty" require:"true"`
-	// 本轮首检 评估时间 yyyy-MM-dd HH:mm:ss
-	InitialSohEvaluateTime *string `json:"initial_soh_evaluate_time,omitempty" xml:"initial_soh_evaluate_time,omitempty" require:"true"`
-	// 本轮首检 充电单号
-	InitialChargeSeq *string `json:"initial_charge_seq,omitempty" xml:"initial_charge_seq,omitempty" require:"true"`
-	// 触发赔付 SOH（%），数值 0-100
-	SageguardMaxSubSoh *string `json:"sageguard_max_sub_soh,omitempty" xml:"sageguard_max_sub_soh,omitempty" require:"true"`
-	// 是否触发赔付，当前 SOH≤触发赔付 SOH 时为 true
-	CompensationTriggered *bool `json:"compensation_triggered,omitempty" xml:"compensation_triggered,omitempty" require:"true"`
-	// SOH 衰退预测-X 轴标题（年）
-	YearSohTitle []*string `json:"year_soh_title,omitempty" xml:"year_soh_title,omitempty" require:"true" type:"Repeated"`
-	// 本车电池衰退预测，逐年 SOH（%）
-	CurEstimateYearSoh []*string `json:"cur_estimate_year_soh,omitempty" xml:"cur_estimate_year_soh,omitempty" require:"true" type:"Repeated"`
-	// 同类型车电池衰退预测，逐年 SOH（%）
-	PeerEstimateYearSoh []*string `json:"peer_estimate_year_soh,omitempty" xml:"peer_estimate_year_soh,omitempty" require:"true" type:"Repeated"`
-	// 电池厂商
-	BatteryManufacturer *string `json:"battery_manufacturer,omitempty" xml:"battery_manufacturer,omitempty" require:"true"`
-	// 标称能量，单位 kWh
-	NominalEnergy *string `json:"nominal_energy,omitempty" xml:"nominal_energy,omitempty" require:"true"`
-	// 标称容量，单位 Ah
-	RateCapacity *string `json:"rate_capacity,omitempty" xml:"rate_capacity,omitempty" require:"true"`
-	// 电池类型
-	BatteryType *string `json:"battery_type,omitempty" xml:"battery_type,omitempty" require:"true"`
-	// 车辆生产年份
-	ManufacturerDate *string `json:"manufacturer_date,omitempty" xml:"manufacturer_date,omitempty" require:"true"`
-	// 权益说明文案
-	RightsDesc *string `json:"rights_desc,omitempty" xml:"rights_desc,omitempty" require:"true"`
-	// 权益说明-状态
-	RightStatus *string `json:"right_status,omitempty" xml:"right_status,omitempty" require:"true"`
-	// 电池健康度-建议
-	SohSuggest []*string `json:"soh_suggest,omitempty" xml:"soh_suggest,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s BatteryReportData) String() string {
-	return tea.Prettify(s)
-}
-
-func (s BatteryReportData) GoString() string {
-	return s.String()
-}
-
-func (s *BatteryReportData) SetVinCode(v string) *BatteryReportData {
-	s.VinCode = &v
-	return s
-}
-
-func (s *BatteryReportData) SetEvaluateTime(v string) *BatteryReportData {
-	s.EvaluateTime = &v
-	return s
-}
-
-func (s *BatteryReportData) SetCurrentSoh(v string) *BatteryReportData {
-	s.CurrentSoh = &v
-	return s
-}
-
-func (s *BatteryReportData) SetSohLvStr(v string) *BatteryReportData {
-	s.SohLvStr = &v
-	return s
-}
-
-func (s *BatteryReportData) SetVolumeScoreRecession(v string) *BatteryReportData {
-	s.VolumeScoreRecession = &v
-	return s
-}
-
-func (s *BatteryReportData) SetVolumeScoreRecessionLvStr(v string) *BatteryReportData {
-	s.VolumeScoreRecessionLvStr = &v
-	return s
-}
-
-func (s *BatteryReportData) SetVolumeScoreRecessionNarrate(v string) *BatteryReportData {
-	s.VolumeScoreRecessionNarrate = &v
-	return s
-}
-
-func (s *BatteryReportData) SetSafeguardStatus(v int64) *BatteryReportData {
-	s.SafeguardStatus = &v
-	return s
-}
-
-func (s *BatteryReportData) SetSafeguardEndTime(v string) *BatteryReportData {
-	s.SafeguardEndTime = &v
-	return s
-}
-
-func (s *BatteryReportData) SetInitialSoh(v string) *BatteryReportData {
-	s.InitialSoh = &v
-	return s
-}
-
-func (s *BatteryReportData) SetInitialSohEvaluateTime(v string) *BatteryReportData {
-	s.InitialSohEvaluateTime = &v
-	return s
-}
-
-func (s *BatteryReportData) SetInitialChargeSeq(v string) *BatteryReportData {
-	s.InitialChargeSeq = &v
-	return s
-}
-
-func (s *BatteryReportData) SetSageguardMaxSubSoh(v string) *BatteryReportData {
-	s.SageguardMaxSubSoh = &v
-	return s
-}
-
-func (s *BatteryReportData) SetCompensationTriggered(v bool) *BatteryReportData {
-	s.CompensationTriggered = &v
-	return s
-}
-
-func (s *BatteryReportData) SetYearSohTitle(v []*string) *BatteryReportData {
-	s.YearSohTitle = v
-	return s
-}
-
-func (s *BatteryReportData) SetCurEstimateYearSoh(v []*string) *BatteryReportData {
-	s.CurEstimateYearSoh = v
-	return s
-}
-
-func (s *BatteryReportData) SetPeerEstimateYearSoh(v []*string) *BatteryReportData {
-	s.PeerEstimateYearSoh = v
-	return s
-}
-
-func (s *BatteryReportData) SetBatteryManufacturer(v string) *BatteryReportData {
-	s.BatteryManufacturer = &v
-	return s
-}
-
-func (s *BatteryReportData) SetNominalEnergy(v string) *BatteryReportData {
-	s.NominalEnergy = &v
-	return s
-}
-
-func (s *BatteryReportData) SetRateCapacity(v string) *BatteryReportData {
-	s.RateCapacity = &v
-	return s
-}
-
-func (s *BatteryReportData) SetBatteryType(v string) *BatteryReportData {
-	s.BatteryType = &v
-	return s
-}
-
-func (s *BatteryReportData) SetManufacturerDate(v string) *BatteryReportData {
-	s.ManufacturerDate = &v
-	return s
-}
-
-func (s *BatteryReportData) SetRightsDesc(v string) *BatteryReportData {
-	s.RightsDesc = &v
-	return s
-}
-
-func (s *BatteryReportData) SetRightStatus(v string) *BatteryReportData {
-	s.RightStatus = &v
-	return s
-}
-
-func (s *BatteryReportData) SetSohSuggest(v []*string) *BatteryReportData {
-	s.SohSuggest = v
-	return s
-}
-
 // 高德数据集合内record
 type GdCustomersRecord struct {
 	// 城市编码，数据类型为店铺或者城市时返回该属性与值
@@ -961,6 +773,32 @@ func (s *GdCustomersRecord) SetDestListNum(v string) *GdCustomersRecord {
 	return s
 }
 
+// 汽车之家城市信息
+type CityResult struct {
+	// 城市Id
+	CityId *string `json:"city_id,omitempty" xml:"city_id,omitempty" require:"true"`
+	// 城市名称
+	CityName *string `json:"city_name,omitempty" xml:"city_name,omitempty" require:"true"`
+}
+
+func (s CityResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CityResult) GoString() string {
+	return s.String()
+}
+
+func (s *CityResult) SetCityId(v string) *CityResult {
+	s.CityId = &v
+	return s
+}
+
+func (s *CityResult) SetCityName(v string) *CityResult {
+	s.CityName = &v
+	return s
+}
+
 // 新车线索集合
 type NewCarInfo struct {
 	// 车系
@@ -1029,60 +867,6 @@ func (s *NewCarInfo) SetQcCarSeriesId(v string) *NewCarInfo {
 	return s
 }
 
-// 电池衰退报告结果
-type BatteryReportResult struct {
-	// 订单号 (可使用该 ID 将报告转图片)
-	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
-	// 保障码，VIN 在 7 天内首次检测时生成，每轮保障采用同一保障码
-	GuaranteeCode *string `json:"guarantee_code,omitempty" xml:"guarantee_code,omitempty" require:"true"`
-	// 当前充电单号
-	CurrentStartChargeSeq *string `json:"current_start_charge_seq,omitempty" xml:"current_start_charge_seq,omitempty" require:"true"`
-	// 是否计费
-	Charge *bool `json:"charge,omitempty" xml:"charge,omitempty" require:"true"`
-	// 检测类型 6601：首检 6602：复核
-	CheckType *int64 `json:"check_type,omitempty" xml:"check_type,omitempty" require:"true"`
-	// 报告数据
-	ReportData *BatteryReportData `json:"report_data,omitempty" xml:"report_data,omitempty" require:"true"`
-}
-
-func (s BatteryReportResult) String() string {
-	return tea.Prettify(s)
-}
-
-func (s BatteryReportResult) GoString() string {
-	return s.String()
-}
-
-func (s *BatteryReportResult) SetOrderId(v string) *BatteryReportResult {
-	s.OrderId = &v
-	return s
-}
-
-func (s *BatteryReportResult) SetGuaranteeCode(v string) *BatteryReportResult {
-	s.GuaranteeCode = &v
-	return s
-}
-
-func (s *BatteryReportResult) SetCurrentStartChargeSeq(v string) *BatteryReportResult {
-	s.CurrentStartChargeSeq = &v
-	return s
-}
-
-func (s *BatteryReportResult) SetCharge(v bool) *BatteryReportResult {
-	s.Charge = &v
-	return s
-}
-
-func (s *BatteryReportResult) SetCheckType(v int64) *BatteryReportResult {
-	s.CheckType = &v
-	return s
-}
-
-func (s *BatteryReportResult) SetReportData(v *BatteryReportData) *BatteryReportResult {
-	s.ReportData = v
-	return s
-}
-
 // 车信息
 type BasicCarInfo struct {
 	// 车牌号
@@ -1141,6 +925,32 @@ func (s *BasicCarInfo) SetUseNatureCode(v string) *BasicCarInfo {
 
 func (s *BasicCarInfo) SetMortgage(v bool) *BasicCarInfo {
 	s.Mortgage = &v
+	return s
+}
+
+// 用户基本信息
+type CarOwnerUserInfo struct {
+	// 用户id
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 手机号
+	PhoneNum *string `json:"phone_num,omitempty" xml:"phone_num,omitempty" require:"true"`
+}
+
+func (s CarOwnerUserInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CarOwnerUserInfo) GoString() string {
+	return s.String()
+}
+
+func (s *CarOwnerUserInfo) SetUserId(v string) *CarOwnerUserInfo {
+	s.UserId = &v
+	return s
+}
+
+func (s *CarOwnerUserInfo) SetPhoneNum(v string) *CarOwnerUserInfo {
+	s.PhoneNum = &v
 	return s
 }
 
@@ -1272,6 +1082,53 @@ func (s *CarBusinessPrice) SetBusinessInsurance(v int64) *CarBusinessPrice {
 
 func (s *CarBusinessPrice) SetExtraContent(v string) *CarBusinessPrice {
 	s.ExtraContent = &v
+	return s
+}
+
+// 高德店铺基本信息
+type GdStoreInfo struct {
+	// 数据总数
+	Total *int64 `json:"total,omitempty" xml:"total,omitempty" require:"true"`
+	// 当前展示页
+	Current *int64 `json:"current,omitempty" xml:"current,omitempty" require:"true"`
+	// 数据总页数
+	Pages *int64 `json:"pages,omitempty" xml:"pages,omitempty" require:"true"`
+	// 每页显示数据条数
+	Size *int64 `json:"size,omitempty" xml:"size,omitempty" require:"true"`
+	// 数据集合
+	Records []*GdStoreRecord `json:"records,omitempty" xml:"records,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s GdStoreInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GdStoreInfo) GoString() string {
+	return s.String()
+}
+
+func (s *GdStoreInfo) SetTotal(v int64) *GdStoreInfo {
+	s.Total = &v
+	return s
+}
+
+func (s *GdStoreInfo) SetCurrent(v int64) *GdStoreInfo {
+	s.Current = &v
+	return s
+}
+
+func (s *GdStoreInfo) SetPages(v int64) *GdStoreInfo {
+	s.Pages = &v
+	return s
+}
+
+func (s *GdStoreInfo) SetSize(v int64) *GdStoreInfo {
+	s.Size = &v
+	return s
+}
+
+func (s *GdStoreInfo) SetRecords(v []*GdStoreRecord) *GdStoreInfo {
+	s.Records = v
 	return s
 }
 
@@ -1409,6 +1266,72 @@ func (s *GdCustomerInfo) SetRecords(v []*GdCustomersRecord) *GdCustomerInfo {
 	return s
 }
 
+// 常岳用户结构体
+type CyUserInfo struct {
+	// 用户id
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 用户名
+	UserName *string `json:"user_name,omitempty" xml:"user_name,omitempty"`
+	// 证件号
+	IdCard *string `json:"id_card,omitempty" xml:"id_card,omitempty"`
+	// 手机号
+	PhoneNum *string `json:"phone_num,omitempty" xml:"phone_num,omitempty" require:"true"`
+}
+
+func (s CyUserInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CyUserInfo) GoString() string {
+	return s.String()
+}
+
+func (s *CyUserInfo) SetUserId(v string) *CyUserInfo {
+	s.UserId = &v
+	return s
+}
+
+func (s *CyUserInfo) SetUserName(v string) *CyUserInfo {
+	s.UserName = &v
+	return s
+}
+
+func (s *CyUserInfo) SetIdCard(v string) *CyUserInfo {
+	s.IdCard = &v
+	return s
+}
+
+func (s *CyUserInfo) SetPhoneNum(v string) *CyUserInfo {
+	s.PhoneNum = &v
+	return s
+}
+
+// 1
+type SpecResult struct {
+	// 下一页数据拉取传递的值
+	AfterSpecId *string `json:"after_spec_id,omitempty" xml:"after_spec_id,omitempty" require:"true"`
+	// 车型Id列表
+	SpecList []*SpecList `json:"spec_list,omitempty" xml:"spec_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s SpecResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SpecResult) GoString() string {
+	return s.String()
+}
+
+func (s *SpecResult) SetAfterSpecId(v string) *SpecResult {
+	s.AfterSpecId = &v
+	return s
+}
+
+func (s *SpecResult) SetSpecList(v []*SpecList) *SpecResult {
+	s.SpecList = v
+	return s
+}
+
 // 高德潜客请求req
 type GdCustomerFlow struct {
 	// 当前页面
@@ -1477,60 +1400,6 @@ func (s *GdCustomerFlow) SetBaseSelf(v int64) *GdCustomerFlow {
 	return s
 }
 
-// 二手车估价信息
-type UsedCarValuation struct {
-	// 评估金额(万)
-	Referenceprice *string `json:"referenceprice,omitempty" xml:"referenceprice,omitempty" require:"true"`
-	// 官方报价(参考)(万)
-	Newcarprice *string `json:"newcarprice,omitempty" xml:"newcarprice,omitempty" require:"true"`
-	// 车型图片(参考)
-	Url *string `json:"url,omitempty" xml:"url,omitempty" require:"true"`
-	// 车况好(万)(三个价格用"-"分隔,第一个是较小值第二个是...
-	Conditiona *string `json:"conditiona,omitempty" xml:"conditiona,omitempty" require:"true"`
-	// 车况正常(万)
-	Conditionb *string `json:"conditionb,omitempty" xml:"conditionb,omitempty" require:"true"`
-	// 车况差(万)
-	Conditionc *string `json:"conditionc,omitempty" xml:"conditionc,omitempty" require:"true"`
-}
-
-func (s UsedCarValuation) String() string {
-	return tea.Prettify(s)
-}
-
-func (s UsedCarValuation) GoString() string {
-	return s.String()
-}
-
-func (s *UsedCarValuation) SetReferenceprice(v string) *UsedCarValuation {
-	s.Referenceprice = &v
-	return s
-}
-
-func (s *UsedCarValuation) SetNewcarprice(v string) *UsedCarValuation {
-	s.Newcarprice = &v
-	return s
-}
-
-func (s *UsedCarValuation) SetUrl(v string) *UsedCarValuation {
-	s.Url = &v
-	return s
-}
-
-func (s *UsedCarValuation) SetConditiona(v string) *UsedCarValuation {
-	s.Conditiona = &v
-	return s
-}
-
-func (s *UsedCarValuation) SetConditionb(v string) *UsedCarValuation {
-	s.Conditionb = &v
-	return s
-}
-
-func (s *UsedCarValuation) SetConditionc(v string) *UsedCarValuation {
-	s.Conditionc = &v
-	return s
-}
-
 // 高德潜客指数返回数据对象
 type GdPotentialCustomerInfo struct {
 	// 时间范围（查询月度或年度数据时，返回该字段）
@@ -1582,361 +1451,6 @@ func (s *GdPotentialCustomerInfo) SetSize(v int64) *GdPotentialCustomerInfo {
 
 func (s *GdPotentialCustomerInfo) SetRecords(v []*GdPotentialCustomerRecord) *GdPotentialCustomerInfo {
 	s.Records = v
-	return s
-}
-
-// 汽车之家城市信息
-type CityResult struct {
-	// 城市Id
-	CityId *string `json:"city_id,omitempty" xml:"city_id,omitempty" require:"true"`
-	// 城市名称
-	CityName *string `json:"city_name,omitempty" xml:"city_name,omitempty" require:"true"`
-}
-
-func (s CityResult) String() string {
-	return tea.Prettify(s)
-}
-
-func (s CityResult) GoString() string {
-	return s.String()
-}
-
-func (s *CityResult) SetCityId(v string) *CityResult {
-	s.CityId = &v
-	return s
-}
-
-func (s *CityResult) SetCityName(v string) *CityResult {
-	s.CityName = &v
-	return s
-}
-
-// 用户基本信息
-type CarOwnerUserInfo struct {
-	// 用户id
-	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
-	// 手机号
-	PhoneNum *string `json:"phone_num,omitempty" xml:"phone_num,omitempty" require:"true"`
-}
-
-func (s CarOwnerUserInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s CarOwnerUserInfo) GoString() string {
-	return s.String()
-}
-
-func (s *CarOwnerUserInfo) SetUserId(v string) *CarOwnerUserInfo {
-	s.UserId = &v
-	return s
-}
-
-func (s *CarOwnerUserInfo) SetPhoneNum(v string) *CarOwnerUserInfo {
-	s.PhoneNum = &v
-	return s
-}
-
-// 高德店铺基本信息
-type GdStoreInfo struct {
-	// 数据总数
-	Total *int64 `json:"total,omitempty" xml:"total,omitempty" require:"true"`
-	// 当前展示页
-	Current *int64 `json:"current,omitempty" xml:"current,omitempty" require:"true"`
-	// 数据总页数
-	Pages *int64 `json:"pages,omitempty" xml:"pages,omitempty" require:"true"`
-	// 每页显示数据条数
-	Size *int64 `json:"size,omitempty" xml:"size,omitempty" require:"true"`
-	// 数据集合
-	Records []*GdStoreRecord `json:"records,omitempty" xml:"records,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s GdStoreInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s GdStoreInfo) GoString() string {
-	return s.String()
-}
-
-func (s *GdStoreInfo) SetTotal(v int64) *GdStoreInfo {
-	s.Total = &v
-	return s
-}
-
-func (s *GdStoreInfo) SetCurrent(v int64) *GdStoreInfo {
-	s.Current = &v
-	return s
-}
-
-func (s *GdStoreInfo) SetPages(v int64) *GdStoreInfo {
-	s.Pages = &v
-	return s
-}
-
-func (s *GdStoreInfo) SetSize(v int64) *GdStoreInfo {
-	s.Size = &v
-	return s
-}
-
-func (s *GdStoreInfo) SetRecords(v []*GdStoreRecord) *GdStoreInfo {
-	s.Records = v
-	return s
-}
-
-// 二手车
-type UsedCarInfo struct {
-	// 渠道方线索业务id
-	LeadId *string `json:"lead_id,omitempty" xml:"lead_id,omitempty" require:"true"`
-	// 城市名称
-	CityName *string `json:"city_name,omitempty" xml:"city_name,omitempty" require:"true"`
-	// 省份id
-	Pid *string `json:"pid,omitempty" xml:"pid,omitempty" require:"true"`
-	// 城市id
-	Cid *string `json:"cid,omitempty" xml:"cid,omitempty" require:"true"`
-	// 品牌名称
-	BrandName *string `json:"brand_name,omitempty" xml:"brand_name,omitempty"`
-	// 车系名称
-	SeriesName *string `json:"series_name,omitempty" xml:"series_name,omitempty"`
-	// 汽车之家车型id
-	SpecId *string `json:"spec_id,omitempty" xml:"spec_id,omitempty" require:"true"`
-	// 车型名称
-	SpecName *string `json:"spec_name,omitempty" xml:"spec_name,omitempty"`
-	// 首次上牌时间格式 yyyy/MM/dd
-	FirstRegTime *string `json:"first_reg_time,omitempty" xml:"first_reg_time,omitempty" require:"true"`
-	// 行驶公里数(km)
-	Mileage *string `json:"mileage,omitempty" xml:"mileage,omitempty" require:"true"`
-}
-
-func (s UsedCarInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s UsedCarInfo) GoString() string {
-	return s.String()
-}
-
-func (s *UsedCarInfo) SetLeadId(v string) *UsedCarInfo {
-	s.LeadId = &v
-	return s
-}
-
-func (s *UsedCarInfo) SetCityName(v string) *UsedCarInfo {
-	s.CityName = &v
-	return s
-}
-
-func (s *UsedCarInfo) SetPid(v string) *UsedCarInfo {
-	s.Pid = &v
-	return s
-}
-
-func (s *UsedCarInfo) SetCid(v string) *UsedCarInfo {
-	s.Cid = &v
-	return s
-}
-
-func (s *UsedCarInfo) SetBrandName(v string) *UsedCarInfo {
-	s.BrandName = &v
-	return s
-}
-
-func (s *UsedCarInfo) SetSeriesName(v string) *UsedCarInfo {
-	s.SeriesName = &v
-	return s
-}
-
-func (s *UsedCarInfo) SetSpecId(v string) *UsedCarInfo {
-	s.SpecId = &v
-	return s
-}
-
-func (s *UsedCarInfo) SetSpecName(v string) *UsedCarInfo {
-	s.SpecName = &v
-	return s
-}
-
-func (s *UsedCarInfo) SetFirstRegTime(v string) *UsedCarInfo {
-	s.FirstRegTime = &v
-	return s
-}
-
-func (s *UsedCarInfo) SetMileage(v string) *UsedCarInfo {
-	s.Mileage = &v
-	return s
-}
-
-// 常岳用户结构体
-type CyUserInfo struct {
-	// 用户id
-	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
-	// 用户名
-	UserName *string `json:"user_name,omitempty" xml:"user_name,omitempty"`
-	// 证件号
-	IdCard *string `json:"id_card,omitempty" xml:"id_card,omitempty"`
-	// 手机号
-	PhoneNum *string `json:"phone_num,omitempty" xml:"phone_num,omitempty" require:"true"`
-}
-
-func (s CyUserInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s CyUserInfo) GoString() string {
-	return s.String()
-}
-
-func (s *CyUserInfo) SetUserId(v string) *CyUserInfo {
-	s.UserId = &v
-	return s
-}
-
-func (s *CyUserInfo) SetUserName(v string) *CyUserInfo {
-	s.UserName = &v
-	return s
-}
-
-func (s *CyUserInfo) SetIdCard(v string) *CyUserInfo {
-	s.IdCard = &v
-	return s
-}
-
-func (s *CyUserInfo) SetPhoneNum(v string) *CyUserInfo {
-	s.PhoneNum = &v
-	return s
-}
-
-// 1
-type SpecResult struct {
-	// 下一页数据拉取传递的值
-	AfterSpecId *string `json:"after_spec_id,omitempty" xml:"after_spec_id,omitempty" require:"true"`
-	// 车型Id列表
-	SpecList []*SpecList `json:"spec_list,omitempty" xml:"spec_list,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s SpecResult) String() string {
-	return tea.Prettify(s)
-}
-
-func (s SpecResult) GoString() string {
-	return s.String()
-}
-
-func (s *SpecResult) SetAfterSpecId(v string) *SpecResult {
-	s.AfterSpecId = &v
-	return s
-}
-
-func (s *SpecResult) SetSpecList(v []*SpecList) *SpecResult {
-	s.SpecList = v
-	return s
-}
-
-// 充电报告查询
-type BatteryReport struct {
-	// 充电单号，最大长度/规则：32
-	StartChargeSeq *string `json:"start_charge_seq,omitempty" xml:"start_charge_seq,omitempty" require:"true"`
-	// VIN，最大长度/规则：17位
-	VinCode *string `json:"vin_code,omitempty" xml:"vin_code,omitempty" require:"true"`
-	// 公告号，最大长度/规则36
-	PublicationNo *string `json:"publication_no,omitempty" xml:"publication_no,omitempty"`
-	// 本次累积充电量，单位kWh；最大长度/规则：整数位<=10,小数位<=2
-	TotalPower *string `json:"total_power,omitempty" xml:"total_power,omitempty"`
-	// 本次累积充入SOC（%）；最大长度/规则：0-100,小数位<=2
-	TotalChargeSoc *string `json:"total_charge_soc,omitempty" xml:"total_charge_soc,omitempty"`
-	// 本次充电开始SOC(%)；最大长度/规则：0-100,小数位<=2
-	StartSoc *string `json:"start_soc,omitempty" xml:"start_soc,omitempty"`
-	// 本次充电截止SOC(%)；最大长度/规则：0-100,小数位<=2
-	EndSoc *string `json:"end_soc,omitempty" xml:"end_soc,omitempty"`
-	// 标称能量，单位kWh；最大长度/规则：0-1000,小数位<=2
-	NominalEnergy *string `json:"nominal_energy,omitempty" xml:"nominal_energy,omitempty"`
-	// 充电城市ID；最大长度/规则：30
-	CityId *string `json:"city_id,omitempty" xml:"city_id,omitempty"`
-	// 注册日期；最大长度/规则：yyyy-MM-dd
-	RegisterDate *string `json:"register_date,omitempty" xml:"register_date,omitempty"`
-}
-
-func (s BatteryReport) String() string {
-	return tea.Prettify(s)
-}
-
-func (s BatteryReport) GoString() string {
-	return s.String()
-}
-
-func (s *BatteryReport) SetStartChargeSeq(v string) *BatteryReport {
-	s.StartChargeSeq = &v
-	return s
-}
-
-func (s *BatteryReport) SetVinCode(v string) *BatteryReport {
-	s.VinCode = &v
-	return s
-}
-
-func (s *BatteryReport) SetPublicationNo(v string) *BatteryReport {
-	s.PublicationNo = &v
-	return s
-}
-
-func (s *BatteryReport) SetTotalPower(v string) *BatteryReport {
-	s.TotalPower = &v
-	return s
-}
-
-func (s *BatteryReport) SetTotalChargeSoc(v string) *BatteryReport {
-	s.TotalChargeSoc = &v
-	return s
-}
-
-func (s *BatteryReport) SetStartSoc(v string) *BatteryReport {
-	s.StartSoc = &v
-	return s
-}
-
-func (s *BatteryReport) SetEndSoc(v string) *BatteryReport {
-	s.EndSoc = &v
-	return s
-}
-
-func (s *BatteryReport) SetNominalEnergy(v string) *BatteryReport {
-	s.NominalEnergy = &v
-	return s
-}
-
-func (s *BatteryReport) SetCityId(v string) *BatteryReport {
-	s.CityId = &v
-	return s
-}
-
-func (s *BatteryReport) SetRegisterDate(v string) *BatteryReport {
-	s.RegisterDate = &v
-	return s
-}
-
-// 键值对
-type XNameValuePair struct {
-	// 键名
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 键值
-	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
-}
-
-func (s XNameValuePair) String() string {
-	return tea.Prettify(s)
-}
-
-func (s XNameValuePair) GoString() string {
-	return s.String()
-}
-
-func (s *XNameValuePair) SetName(v string) *XNameValuePair {
-	s.Name = &v
-	return s
-}
-
-func (s *XNameValuePair) SetValue(v string) *XNameValuePair {
-	s.Value = &v
 	return s
 }
 
@@ -2523,174 +2037,6 @@ func (s *QueryCarPriceResponse) SetData(v []*CarBusinessPrice) *QueryCarPriceRes
 	return s
 }
 
-type ImportCarFileRequest struct {
-	// OAuth模式下的授权token
-	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// xx
-	// 待上传文件
-	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
-	// 待上传文件名
-	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
-	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
-}
-
-func (s ImportCarFileRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ImportCarFileRequest) GoString() string {
-	return s.String()
-}
-
-func (s *ImportCarFileRequest) SetAuthToken(v string) *ImportCarFileRequest {
-	s.AuthToken = &v
-	return s
-}
-
-func (s *ImportCarFileRequest) SetProductInstanceId(v string) *ImportCarFileRequest {
-	s.ProductInstanceId = &v
-	return s
-}
-
-func (s *ImportCarFileRequest) SetFileObject(v io.Reader) *ImportCarFileRequest {
-	s.FileObject = v
-	return s
-}
-
-func (s *ImportCarFileRequest) SetFileObjectName(v string) *ImportCarFileRequest {
-	s.FileObjectName = &v
-	return s
-}
-
-func (s *ImportCarFileRequest) SetFileId(v string) *ImportCarFileRequest {
-	s.FileId = &v
-	return s
-}
-
-type ImportCarFileResponse struct {
-	// 请求唯一ID，用于链路跟踪和问题排查
-	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 结果码，一般OK表示调用成功
-	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	// 异常信息的文本描述
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// xx
-	Code *string `json:"code,omitempty" xml:"code,omitempty"`
-}
-
-func (s ImportCarFileResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ImportCarFileResponse) GoString() string {
-	return s.String()
-}
-
-func (s *ImportCarFileResponse) SetReqMsgId(v string) *ImportCarFileResponse {
-	s.ReqMsgId = &v
-	return s
-}
-
-func (s *ImportCarFileResponse) SetResultCode(v string) *ImportCarFileResponse {
-	s.ResultCode = &v
-	return s
-}
-
-func (s *ImportCarFileResponse) SetResultMsg(v string) *ImportCarFileResponse {
-	s.ResultMsg = &v
-	return s
-}
-
-func (s *ImportCarFileResponse) SetCode(v string) *ImportCarFileResponse {
-	s.Code = &v
-	return s
-}
-
-type QueryUsedcarRequest struct {
-	// OAuth模式下的授权token
-	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 场景码
-	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
-	// 二手车信息
-	UsedCarInfo *UsedCarInfo `json:"used_car_info,omitempty" xml:"used_car_info,omitempty" require:"true"`
-	// 用户基本信息
-	UserInfo *CarOwnerUserInfo `json:"user_info,omitempty" xml:"user_info,omitempty" require:"true"`
-}
-
-func (s QueryUsedcarRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s QueryUsedcarRequest) GoString() string {
-	return s.String()
-}
-
-func (s *QueryUsedcarRequest) SetAuthToken(v string) *QueryUsedcarRequest {
-	s.AuthToken = &v
-	return s
-}
-
-func (s *QueryUsedcarRequest) SetProductInstanceId(v string) *QueryUsedcarRequest {
-	s.ProductInstanceId = &v
-	return s
-}
-
-func (s *QueryUsedcarRequest) SetSceneCode(v string) *QueryUsedcarRequest {
-	s.SceneCode = &v
-	return s
-}
-
-func (s *QueryUsedcarRequest) SetUsedCarInfo(v *UsedCarInfo) *QueryUsedcarRequest {
-	s.UsedCarInfo = v
-	return s
-}
-
-func (s *QueryUsedcarRequest) SetUserInfo(v *CarOwnerUserInfo) *QueryUsedcarRequest {
-	s.UserInfo = v
-	return s
-}
-
-type QueryUsedcarResponse struct {
-	// 请求唯一ID，用于链路跟踪和问题排查
-	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 结果码，一般OK表示调用成功
-	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	// 异常信息的文本描述
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 二手车估值信息
-	UsedCarValuation *UsedCarValuation `json:"used_car_valuation,omitempty" xml:"used_car_valuation,omitempty"`
-}
-
-func (s QueryUsedcarResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s QueryUsedcarResponse) GoString() string {
-	return s.String()
-}
-
-func (s *QueryUsedcarResponse) SetReqMsgId(v string) *QueryUsedcarResponse {
-	s.ReqMsgId = &v
-	return s
-}
-
-func (s *QueryUsedcarResponse) SetResultCode(v string) *QueryUsedcarResponse {
-	s.ResultCode = &v
-	return s
-}
-
-func (s *QueryUsedcarResponse) SetResultMsg(v string) *QueryUsedcarResponse {
-	s.ResultMsg = &v
-	return s
-}
-
-func (s *QueryUsedcarResponse) SetUsedCarValuation(v *UsedCarValuation) *QueryUsedcarResponse {
-	s.UsedCarValuation = v
-	return s
-}
-
 type SubmitIonchiRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -2765,272 +2111,6 @@ func (s *SubmitIonchiResponse) SetResultMsg(v string) *SubmitIonchiResponse {
 
 func (s *SubmitIonchiResponse) SetPushSuccess(v bool) *SubmitIonchiResponse {
 	s.PushSuccess = &v
-	return s
-}
-
-type QueryGdFlowRequest struct {
-	// OAuth模式下的授权token
-	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 租户ID
-	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
-	// 实际请求体
-	GdCustomerFlow *GdCustomerFlow `json:"gd_customer_flow,omitempty" xml:"gd_customer_flow,omitempty" require:"true"`
-}
-
-func (s QueryGdFlowRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s QueryGdFlowRequest) GoString() string {
-	return s.String()
-}
-
-func (s *QueryGdFlowRequest) SetAuthToken(v string) *QueryGdFlowRequest {
-	s.AuthToken = &v
-	return s
-}
-
-func (s *QueryGdFlowRequest) SetProductInstanceId(v string) *QueryGdFlowRequest {
-	s.ProductInstanceId = &v
-	return s
-}
-
-func (s *QueryGdFlowRequest) SetSceneCode(v string) *QueryGdFlowRequest {
-	s.SceneCode = &v
-	return s
-}
-
-func (s *QueryGdFlowRequest) SetGdCustomerFlow(v *GdCustomerFlow) *QueryGdFlowRequest {
-	s.GdCustomerFlow = v
-	return s
-}
-
-type QueryGdFlowResponse struct {
-	// 请求唯一ID，用于链路跟踪和问题排查
-	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 结果码，一般OK表示调用成功
-	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	// 异常信息的文本描述
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 返回消息
-	Msg *string `json:"msg,omitempty" xml:"msg,omitempty"`
-	// 返回编码，值为10000表示成功，其余值表示失败
-	Code *int64 `json:"code,omitempty" xml:"code,omitempty"`
-	// 随机返回id
-	RequestLinkId *string `json:"request_link_id,omitempty" xml:"request_link_id,omitempty"`
-	// 返回数据
-	Data *GdCustomerInfo `json:"data,omitempty" xml:"data,omitempty"`
-}
-
-func (s QueryGdFlowResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s QueryGdFlowResponse) GoString() string {
-	return s.String()
-}
-
-func (s *QueryGdFlowResponse) SetReqMsgId(v string) *QueryGdFlowResponse {
-	s.ReqMsgId = &v
-	return s
-}
-
-func (s *QueryGdFlowResponse) SetResultCode(v string) *QueryGdFlowResponse {
-	s.ResultCode = &v
-	return s
-}
-
-func (s *QueryGdFlowResponse) SetResultMsg(v string) *QueryGdFlowResponse {
-	s.ResultMsg = &v
-	return s
-}
-
-func (s *QueryGdFlowResponse) SetMsg(v string) *QueryGdFlowResponse {
-	s.Msg = &v
-	return s
-}
-
-func (s *QueryGdFlowResponse) SetCode(v int64) *QueryGdFlowResponse {
-	s.Code = &v
-	return s
-}
-
-func (s *QueryGdFlowResponse) SetRequestLinkId(v string) *QueryGdFlowResponse {
-	s.RequestLinkId = &v
-	return s
-}
-
-func (s *QueryGdFlowResponse) SetData(v *GdCustomerInfo) *QueryGdFlowResponse {
-	s.Data = v
-	return s
-}
-
-type QueryBatteryReportRequest struct {
-	// OAuth模式下的授权token
-	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 充电报告
-	BatteryReport *BatteryReport `json:"battery_report,omitempty" xml:"battery_report,omitempty" require:"true"`
-	// 桩所属运营平台
-	OperatorPlatform *string `json:"operator_platform,omitempty" xml:"operator_platform,omitempty" require:"true"`
-	// 场站名称
-	StationName *string `json:"station_name,omitempty" xml:"station_name,omitempty" require:"true"`
-	// 场站ID
-	StationId *string `json:"station_id,omitempty" xml:"station_id,omitempty" require:"true"`
-	// 桩ID
-	PileId *string `json:"pile_id,omitempty" xml:"pile_id,omitempty" require:"true"`
-	// 枪序号（充电端口号）
-	GunNo *int64 `json:"gun_no,omitempty" xml:"gun_no,omitempty" require:"true"`
-	// 充电订单号
-	ChargeOrderNo *string `json:"charge_order_no,omitempty" xml:"charge_order_no,omitempty" require:"true"`
-	// 充电量，单位kWh
-	ChargePower *string `json:"charge_power,omitempty" xml:"charge_power,omitempty" require:"true"`
-	// 服务费，单位元
-	ServiceFee *string `json:"service_fee,omitempty" xml:"service_fee,omitempty" require:"true"`
-	// 电费，单位元
-	ElectricityFee *string `json:"electricity_fee,omitempty" xml:"electricity_fee,omitempty" require:"true"`
-	// 充电开始时间
-	ChargeStartTime *string `json:"charge_start_time,omitempty" xml:"charge_start_time,omitempty" require:"true"`
-	// 充电结束时间
-	ChargeEndTime *string `json:"charge_end_time,omitempty" xml:"charge_end_time,omitempty" require:"true"`
-	// 租户场景码
-	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
-}
-
-func (s QueryBatteryReportRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s QueryBatteryReportRequest) GoString() string {
-	return s.String()
-}
-
-func (s *QueryBatteryReportRequest) SetAuthToken(v string) *QueryBatteryReportRequest {
-	s.AuthToken = &v
-	return s
-}
-
-func (s *QueryBatteryReportRequest) SetProductInstanceId(v string) *QueryBatteryReportRequest {
-	s.ProductInstanceId = &v
-	return s
-}
-
-func (s *QueryBatteryReportRequest) SetBatteryReport(v *BatteryReport) *QueryBatteryReportRequest {
-	s.BatteryReport = v
-	return s
-}
-
-func (s *QueryBatteryReportRequest) SetOperatorPlatform(v string) *QueryBatteryReportRequest {
-	s.OperatorPlatform = &v
-	return s
-}
-
-func (s *QueryBatteryReportRequest) SetStationName(v string) *QueryBatteryReportRequest {
-	s.StationName = &v
-	return s
-}
-
-func (s *QueryBatteryReportRequest) SetStationId(v string) *QueryBatteryReportRequest {
-	s.StationId = &v
-	return s
-}
-
-func (s *QueryBatteryReportRequest) SetPileId(v string) *QueryBatteryReportRequest {
-	s.PileId = &v
-	return s
-}
-
-func (s *QueryBatteryReportRequest) SetGunNo(v int64) *QueryBatteryReportRequest {
-	s.GunNo = &v
-	return s
-}
-
-func (s *QueryBatteryReportRequest) SetChargeOrderNo(v string) *QueryBatteryReportRequest {
-	s.ChargeOrderNo = &v
-	return s
-}
-
-func (s *QueryBatteryReportRequest) SetChargePower(v string) *QueryBatteryReportRequest {
-	s.ChargePower = &v
-	return s
-}
-
-func (s *QueryBatteryReportRequest) SetServiceFee(v string) *QueryBatteryReportRequest {
-	s.ServiceFee = &v
-	return s
-}
-
-func (s *QueryBatteryReportRequest) SetElectricityFee(v string) *QueryBatteryReportRequest {
-	s.ElectricityFee = &v
-	return s
-}
-
-func (s *QueryBatteryReportRequest) SetChargeStartTime(v string) *QueryBatteryReportRequest {
-	s.ChargeStartTime = &v
-	return s
-}
-
-func (s *QueryBatteryReportRequest) SetChargeEndTime(v string) *QueryBatteryReportRequest {
-	s.ChargeEndTime = &v
-	return s
-}
-
-func (s *QueryBatteryReportRequest) SetSceneCode(v string) *QueryBatteryReportRequest {
-	s.SceneCode = &v
-	return s
-}
-
-type QueryBatteryReportResponse struct {
-	// 请求唯一ID，用于链路跟踪和问题排查
-	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 结果码，一般OK表示调用成功
-	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	// 异常信息的文本描述
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 成功或失败的编码
-	Code *string `json:"code,omitempty" xml:"code,omitempty"`
-	// 成功或失败的提示语
-	Msg *string `json:"msg,omitempty" xml:"msg,omitempty"`
-	// 返回数据（code=100时返回）
-	Result *BatteryReportResult `json:"result,omitempty" xml:"result,omitempty"`
-}
-
-func (s QueryBatteryReportResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s QueryBatteryReportResponse) GoString() string {
-	return s.String()
-}
-
-func (s *QueryBatteryReportResponse) SetReqMsgId(v string) *QueryBatteryReportResponse {
-	s.ReqMsgId = &v
-	return s
-}
-
-func (s *QueryBatteryReportResponse) SetResultCode(v string) *QueryBatteryReportResponse {
-	s.ResultCode = &v
-	return s
-}
-
-func (s *QueryBatteryReportResponse) SetResultMsg(v string) *QueryBatteryReportResponse {
-	s.ResultMsg = &v
-	return s
-}
-
-func (s *QueryBatteryReportResponse) SetCode(v string) *QueryBatteryReportResponse {
-	s.Code = &v
-	return s
-}
-
-func (s *QueryBatteryReportResponse) SetMsg(v string) *QueryBatteryReportResponse {
-	s.Msg = &v
-	return s
-}
-
-func (s *QueryBatteryReportResponse) SetResult(v *BatteryReportResult) *QueryBatteryReportResponse {
-	s.Result = v
 	return s
 }
 
@@ -3129,6 +2209,104 @@ func (s *QueryNewcarQczjResponse) SetCityResult(v []*CityResult) *QueryNewcarQcz
 
 func (s *QueryNewcarQczjResponse) SetSpecResult(v *SpecResult) *QueryNewcarQczjResponse {
 	s.SpecResult = v
+	return s
+}
+
+type QueryGdFlowRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户ID
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+	// 实际请求体
+	GdCustomerFlow *GdCustomerFlow `json:"gd_customer_flow,omitempty" xml:"gd_customer_flow,omitempty" require:"true"`
+}
+
+func (s QueryGdFlowRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryGdFlowRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryGdFlowRequest) SetAuthToken(v string) *QueryGdFlowRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryGdFlowRequest) SetProductInstanceId(v string) *QueryGdFlowRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryGdFlowRequest) SetSceneCode(v string) *QueryGdFlowRequest {
+	s.SceneCode = &v
+	return s
+}
+
+func (s *QueryGdFlowRequest) SetGdCustomerFlow(v *GdCustomerFlow) *QueryGdFlowRequest {
+	s.GdCustomerFlow = v
+	return s
+}
+
+type QueryGdFlowResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回消息
+	Msg *string `json:"msg,omitempty" xml:"msg,omitempty"`
+	// 返回编码，值为10000表示成功，其余值表示失败
+	Code *int64 `json:"code,omitempty" xml:"code,omitempty"`
+	// 随机返回id
+	RequestLinkId *string `json:"request_link_id,omitempty" xml:"request_link_id,omitempty"`
+	// 返回数据
+	Data *GdCustomerInfo `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s QueryGdFlowResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryGdFlowResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryGdFlowResponse) SetReqMsgId(v string) *QueryGdFlowResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryGdFlowResponse) SetResultCode(v string) *QueryGdFlowResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryGdFlowResponse) SetResultMsg(v string) *QueryGdFlowResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryGdFlowResponse) SetMsg(v string) *QueryGdFlowResponse {
+	s.Msg = &v
+	return s
+}
+
+func (s *QueryGdFlowResponse) SetCode(v int64) *QueryGdFlowResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *QueryGdFlowResponse) SetRequestLinkId(v string) *QueryGdFlowResponse {
+	s.RequestLinkId = &v
+	return s
+}
+
+func (s *QueryGdFlowResponse) SetData(v *GdCustomerInfo) *QueryGdFlowResponse {
+	s.Data = v
 	return s
 }
 
@@ -3328,126 +2506,6 @@ func (s *QueryGdPoentialResponse) SetData(v *GdPotentialCustomerInfo) *QueryGdPo
 	return s
 }
 
-type CreateAntcloudGatewayxFileUploadRequest struct {
-	// OAuth模式下的授权token
-	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	// 上传文件作用的openapi method
-	ApiCode *string `json:"api_code,omitempty" xml:"api_code,omitempty" require:"true"`
-	// 文件标签，多个标签;分割
-	FileLabel *string `json:"file_label,omitempty" xml:"file_label,omitempty" maxLength:"100"`
-	// 自定义的文件元数据
-	FileMetadata *string `json:"file_metadata,omitempty" xml:"file_metadata,omitempty" maxLength:"1000"`
-	// 文件名，不传则随机生成文件名
-	FileName *string `json:"file_name,omitempty" xml:"file_name,omitempty" maxLength:"100"`
-	// 文件的多媒体类型
-	MimeType *string `json:"mime_type,omitempty" xml:"mime_type,omitempty"`
-	// 产品方的api归属集群，即productInstanceId
-	ApiCluster *string `json:"api_cluster,omitempty" xml:"api_cluster,omitempty"`
-}
-
-func (s CreateAntcloudGatewayxFileUploadRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s CreateAntcloudGatewayxFileUploadRequest) GoString() string {
-	return s.String()
-}
-
-func (s *CreateAntcloudGatewayxFileUploadRequest) SetAuthToken(v string) *CreateAntcloudGatewayxFileUploadRequest {
-	s.AuthToken = &v
-	return s
-}
-
-func (s *CreateAntcloudGatewayxFileUploadRequest) SetApiCode(v string) *CreateAntcloudGatewayxFileUploadRequest {
-	s.ApiCode = &v
-	return s
-}
-
-func (s *CreateAntcloudGatewayxFileUploadRequest) SetFileLabel(v string) *CreateAntcloudGatewayxFileUploadRequest {
-	s.FileLabel = &v
-	return s
-}
-
-func (s *CreateAntcloudGatewayxFileUploadRequest) SetFileMetadata(v string) *CreateAntcloudGatewayxFileUploadRequest {
-	s.FileMetadata = &v
-	return s
-}
-
-func (s *CreateAntcloudGatewayxFileUploadRequest) SetFileName(v string) *CreateAntcloudGatewayxFileUploadRequest {
-	s.FileName = &v
-	return s
-}
-
-func (s *CreateAntcloudGatewayxFileUploadRequest) SetMimeType(v string) *CreateAntcloudGatewayxFileUploadRequest {
-	s.MimeType = &v
-	return s
-}
-
-func (s *CreateAntcloudGatewayxFileUploadRequest) SetApiCluster(v string) *CreateAntcloudGatewayxFileUploadRequest {
-	s.ApiCluster = &v
-	return s
-}
-
-type CreateAntcloudGatewayxFileUploadResponse struct {
-	// 请求唯一ID，用于链路跟踪和问题排查
-	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 结果码，一般OK表示调用成功
-	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	// 异常信息的文本描述
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 上传有效期
-	ExpiredTime *string `json:"expired_time,omitempty" xml:"expired_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 32位文件唯一id
-	FileId *string `json:"file_id,omitempty" xml:"file_id,omitempty"`
-	// 放入http请求头里
-	UploadHeaders []*XNameValuePair `json:"upload_headers,omitempty" xml:"upload_headers,omitempty" type:"Repeated"`
-	// 文件上传地址
-	UploadUrl *string `json:"upload_url,omitempty" xml:"upload_url,omitempty"`
-}
-
-func (s CreateAntcloudGatewayxFileUploadResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s CreateAntcloudGatewayxFileUploadResponse) GoString() string {
-	return s.String()
-}
-
-func (s *CreateAntcloudGatewayxFileUploadResponse) SetReqMsgId(v string) *CreateAntcloudGatewayxFileUploadResponse {
-	s.ReqMsgId = &v
-	return s
-}
-
-func (s *CreateAntcloudGatewayxFileUploadResponse) SetResultCode(v string) *CreateAntcloudGatewayxFileUploadResponse {
-	s.ResultCode = &v
-	return s
-}
-
-func (s *CreateAntcloudGatewayxFileUploadResponse) SetResultMsg(v string) *CreateAntcloudGatewayxFileUploadResponse {
-	s.ResultMsg = &v
-	return s
-}
-
-func (s *CreateAntcloudGatewayxFileUploadResponse) SetExpiredTime(v string) *CreateAntcloudGatewayxFileUploadResponse {
-	s.ExpiredTime = &v
-	return s
-}
-
-func (s *CreateAntcloudGatewayxFileUploadResponse) SetFileId(v string) *CreateAntcloudGatewayxFileUploadResponse {
-	s.FileId = &v
-	return s
-}
-
-func (s *CreateAntcloudGatewayxFileUploadResponse) SetUploadHeaders(v []*XNameValuePair) *CreateAntcloudGatewayxFileUploadResponse {
-	s.UploadHeaders = v
-	return s
-}
-
-func (s *CreateAntcloudGatewayxFileUploadResponse) SetUploadUrl(v string) *CreateAntcloudGatewayxFileUploadResponse {
-	s.UploadUrl = &v
-	return s
-}
-
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -3570,7 +2628,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.23"),
+				"sdk_version":      tea.String("1.0.24"),
 				"_prod_code":       tea.String("INTELLICAR"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -3833,104 +2891,6 @@ func (client *Client) QueryCarPriceEx(request *QueryCarPriceRequest, headers map
 }
 
 /**
- * Description: 文件引入
- * Summary: 文件引入
- */
-func (client *Client) ImportCarFile(request *ImportCarFileRequest) (_result *ImportCarFileResponse, _err error) {
-	runtime := &util.RuntimeOptions{}
-	headers := make(map[string]*string)
-	_result = &ImportCarFileResponse{}
-	_body, _err := client.ImportCarFileEx(request, headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = _body
-	return _result, _err
-}
-
-/**
- * Description: 文件引入
- * Summary: 文件引入
- */
-func (client *Client) ImportCarFileEx(request *ImportCarFileRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ImportCarFileResponse, _err error) {
-	if !tea.BoolValue(util.IsUnset(request.FileObject)) {
-		uploadReq := &CreateAntcloudGatewayxFileUploadRequest{
-			AuthToken: request.AuthToken,
-			ApiCode:   tea.String("antdigital.intellicar.car.file.import"),
-			FileName:  request.FileObjectName,
-		}
-		uploadResp, _err := client.CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime)
-		if _err != nil {
-			return _result, _err
-		}
-
-		if !tea.BoolValue(antchainutil.IsSuccess(uploadResp.ResultCode, tea.String("ok"))) {
-			importCarFileResponse := &ImportCarFileResponse{
-				ReqMsgId:   uploadResp.ReqMsgId,
-				ResultCode: uploadResp.ResultCode,
-				ResultMsg:  uploadResp.ResultMsg,
-			}
-			_result = importCarFileResponse
-			return _result, _err
-		}
-
-		uploadHeaders := antchainutil.ParseUploadHeaders(uploadResp.UploadHeaders)
-		_err = antchainutil.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl)
-		if _err != nil {
-			return _result, _err
-		}
-		request.FileId = uploadResp.FileId
-		request.FileObject = nil
-	}
-
-	_err = util.ValidateModel(request)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = &ImportCarFileResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.intellicar.car.file.import"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_err = tea.Convert(_body, &_result)
-	return _result, _err
-}
-
-/**
- * Description: 二手车估值接口
- * Summary: 二手车估值接口
- */
-func (client *Client) QueryUsedcar(request *QueryUsedcarRequest) (_result *QueryUsedcarResponse, _err error) {
-	runtime := &util.RuntimeOptions{}
-	headers := make(map[string]*string)
-	_result = &QueryUsedcarResponse{}
-	_body, _err := client.QueryUsedcarEx(request, headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = _body
-	return _result, _err
-}
-
-/**
- * Description: 二手车估值接口
- * Summary: 二手车估值接口
- */
-func (client *Client) QueryUsedcarEx(request *QueryUsedcarRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryUsedcarResponse, _err error) {
-	_err = util.ValidateModel(request)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = &QueryUsedcarResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.intellicar.usedcar.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_err = tea.Convert(_body, &_result)
-	return _result, _err
-}
-
-/**
  * Description: 逸安启回调接口
  * Summary: 逸安启回调接口
  */
@@ -3965,74 +2925,6 @@ func (client *Client) SubmitIonchiEx(request *SubmitIonchiRequest, headers map[s
 }
 
 /**
- * Description: 对接高德，查询潜客流向以及重叠的数据
- * Summary: 【高德】流向与重叠数据
- */
-func (client *Client) QueryGdFlow(request *QueryGdFlowRequest) (_result *QueryGdFlowResponse, _err error) {
-	runtime := &util.RuntimeOptions{}
-	headers := make(map[string]*string)
-	_result = &QueryGdFlowResponse{}
-	_body, _err := client.QueryGdFlowEx(request, headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = _body
-	return _result, _err
-}
-
-/**
- * Description: 对接高德，查询潜客流向以及重叠的数据
- * Summary: 【高德】流向与重叠数据
- */
-func (client *Client) QueryGdFlowEx(request *QueryGdFlowRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryGdFlowResponse, _err error) {
-	_err = util.ValidateModel(request)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = &QueryGdFlowResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.intellicar.gd.flow.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_err = tea.Convert(_body, &_result)
-	return _result, _err
-}
-
-/**
- * Description: 电池衰退权益报告查询接口
- * Summary: 电池衰退
- */
-func (client *Client) QueryBatteryReport(request *QueryBatteryReportRequest) (_result *QueryBatteryReportResponse, _err error) {
-	runtime := &util.RuntimeOptions{}
-	headers := make(map[string]*string)
-	_result = &QueryBatteryReportResponse{}
-	_body, _err := client.QueryBatteryReportEx(request, headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = _body
-	return _result, _err
-}
-
-/**
- * Description: 电池衰退权益报告查询接口
- * Summary: 电池衰退
- */
-func (client *Client) QueryBatteryReportEx(request *QueryBatteryReportRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryBatteryReportResponse, _err error) {
-	_err = util.ValidateModel(request)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = &QueryBatteryReportResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.intellicar.battery.report.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_err = tea.Convert(_body, &_result)
-	return _result, _err
-}
-
-/**
  * Description: 用来查询汽车之家车型和城市列表
  * Summary: 用来查询汽车之家车型和城市列表
  */
@@ -4059,6 +2951,40 @@ func (client *Client) QueryNewcarQczjEx(request *QueryNewcarQczjRequest, headers
 	}
 	_result = &QueryNewcarQczjResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.intellicar.newcar.qczj.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 对接高德，查询潜客流向以及重叠的数据
+ * Summary: 【高德】流向与重叠数据
+ */
+func (client *Client) QueryGdFlow(request *QueryGdFlowRequest) (_result *QueryGdFlowResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryGdFlowResponse{}
+	_body, _err := client.QueryGdFlowEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 对接高德，查询潜客流向以及重叠的数据
+ * Summary: 【高德】流向与重叠数据
+ */
+func (client *Client) QueryGdFlowEx(request *QueryGdFlowRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryGdFlowResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryGdFlowResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.intellicar.gd.flow.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -4127,40 +3053,6 @@ func (client *Client) QueryGdPoentialEx(request *QueryGdPoentialRequest, headers
 	}
 	_result = &QueryGdPoentialResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.intellicar.gd.poential.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_err = tea.Convert(_body, &_result)
-	return _result, _err
-}
-
-/**
- * Description: 创建HTTP PUT提交的文件上传
- * Summary: 文件上传创建
- */
-func (client *Client) CreateAntcloudGatewayxFileUpload(request *CreateAntcloudGatewayxFileUploadRequest) (_result *CreateAntcloudGatewayxFileUploadResponse, _err error) {
-	runtime := &util.RuntimeOptions{}
-	headers := make(map[string]*string)
-	_result = &CreateAntcloudGatewayxFileUploadResponse{}
-	_body, _err := client.CreateAntcloudGatewayxFileUploadEx(request, headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = _body
-	return _result, _err
-}
-
-/**
- * Description: 创建HTTP PUT提交的文件上传
- * Summary: 文件上传创建
- */
-func (client *Client) CreateAntcloudGatewayxFileUploadEx(request *CreateAntcloudGatewayxFileUploadRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateAntcloudGatewayxFileUploadResponse, _err error) {
-	_err = util.ValidateModel(request)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = &CreateAntcloudGatewayxFileUploadResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.gatewayx.file.upload.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
