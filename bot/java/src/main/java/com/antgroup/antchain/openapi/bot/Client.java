@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.12.78"),
+                    new TeaPair("sdk_version", "1.12.79"),
                     new TeaPair("_prod_code", "BOT"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -5984,6 +5984,27 @@ public class Client {
     public StartIotagentThingmodelResponse startIotagentThingmodelEx(StartIotagentThingmodelRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotagent.thingmodel.start", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new StartIotagentThingmodelResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 智能体设备标识导入接口
+     * Summary: 智能体设备标识导入接口</p>
+     */
+    public ImportIotagentClientResponse importIotagentClient(ImportIotagentClientRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.importIotagentClientEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 智能体设备标识导入接口
+     * Summary: 智能体设备标识导入接口</p>
+     */
+    public ImportIotagentClientResponse importIotagentClientEx(ImportIotagentClientRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotagent.client.import", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ImportIotagentClientResponse());
     }
 
     /**
