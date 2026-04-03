@@ -197,6 +197,8 @@ use AntChain\BOT\Models\GetXrUserticketRequest;
 use AntChain\BOT\Models\GetXrUserticketResponse;
 use AntChain\BOT\Models\ImportDeviceRequest;
 use AntChain\BOT\Models\ImportDeviceResponse;
+use AntChain\BOT\Models\ImportIotagentClientRequest;
+use AntChain\BOT\Models\ImportIotagentClientResponse;
 use AntChain\BOT\Models\ImportIotbasicDeviceorderbatchRequest;
 use AntChain\BOT\Models\ImportIotbasicDeviceorderbatchResponse;
 use AntChain\BOT\Models\ImportIotbasicDeviceorderRequest;
@@ -740,7 +742,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.12.78',
+                    'sdk_version'      => '1.12.79',
                     '_prod_code'       => 'BOT',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -9866,6 +9868,39 @@ class Client
         Utils::validateModel($request);
 
         return StartIotagentThingmodelResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotagent.thingmodel.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 智能体设备标识导入接口
+     * Summary: 智能体设备标识导入接口.
+     *
+     * @param ImportIotagentClientRequest $request
+     *
+     * @return ImportIotagentClientResponse
+     */
+    public function importIotagentClient($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->importIotagentClientEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 智能体设备标识导入接口
+     * Summary: 智能体设备标识导入接口.
+     *
+     * @param ImportIotagentClientRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return ImportIotagentClientResponse
+     */
+    public function importIotagentClientEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ImportIotagentClientResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotagent.client.import', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
