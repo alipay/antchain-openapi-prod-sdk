@@ -1,0 +1,691 @@
+import AntchainUtil;
+import Util;
+import RPCUtil;
+
+type @endpoint = string
+type @regionId = string
+type @accessKeyId = string
+type @accessKeySecret = string
+type @protocol = string
+type @userAgent = string
+type @readTimeout = number
+type @connectTimeout = number
+type @httpProxy = string
+type @httpsProxy = string
+type @socks5Proxy = string
+type @socks5NetWork = string
+type @noProxy = string
+type @maxIdleConns = number
+type @securityToken = string
+type @maxIdleTimeMillis = number
+type @keepAliveDurationMillis = number
+type @maxRequests = number
+type @maxRequestsPerHost = number
+
+/**
+ * Model for initing client
+ */
+model Config {
+  accessKeyId?: string(description='accesskey id',default=''),
+  accessKeySecret?: string(description='accesskey secret',default=''),
+  securityToken?: string(description='security token',default=''),
+  protocol?: string(description='http protocol',example='http',default='http'),
+  readTimeout?: number(description='read timeout',example='10',default=''),
+  connectTimeout?: number(description='connect timeout',example='10',default=''),
+  httpProxy?: string(description='http proxy',example='http://localhost',default=''),
+  httpsProxy?: string(description='https proxy',example='https://localhost',default=''),
+  endpoint?: string(description='endpoint',example='cs.aliyuncs.com',default=''),
+  noProxy?: string(description='proxy white list',example='http://localhost',default=''),
+  maxIdleConns?: number(description='max idle conns',example='3',default=''),
+  userAgent?: string(description='user agent',example='Alibabacloud/1',default=''),
+  socks5Proxy?: string(description='socks5 proxy',default=''),
+  socks5NetWork?: string(description='socks5 network',example='TCP',default=''),
+  maxIdleTimeMillis?: number(description='长链接最大空闲时长',default='60 * 1000L'),
+  keepAliveDurationMillis?: number(description='长链接最大连接时长',default='5000'),
+  maxRequests?: number(description='最大连接数（长链接最大总数）',default='100'),
+  maxRequestsPerHost?: number(description='每个目标主机的最大连接数（分主机域名的长链接最大总数',default='100'),
+}
+
+/**
+ * Init client with Config
+ * @param config config contains the necessary information to create a client
+ */
+init(config: Config) {
+  if (Util.isUnset(config)) {
+    throw {
+      code = 'ParameterMissing',
+      message = '\'config\' can not be unset'
+    };
+  }
+
+  @accessKeyId = config.accessKeyId;
+  @accessKeySecret = config.accessKeySecret;
+  @securityToken = config.securityToken;
+  @endpoint = config.endpoint;
+  @protocol = config.protocol;
+  @userAgent = config.userAgent;
+  @readTimeout = Util.defaultNumber(config.readTimeout, 20000);
+  @connectTimeout = Util.defaultNumber(config.connectTimeout, 20000);
+  @httpProxy = config.httpProxy;
+  @httpsProxy = config.httpsProxy;
+  @noProxy = config.noProxy;
+  @socks5Proxy = config.socks5Proxy;
+  @socks5NetWork = config.socks5NetWork;
+  @maxIdleConns = Util.defaultNumber(config.maxIdleConns, 60000);
+  @maxIdleTimeMillis = Util.defaultNumber(config.maxIdleTimeMillis, 5);
+  @keepAliveDurationMillis = Util.defaultNumber(config.keepAliveDurationMillis, 5000);
+  @maxRequests = Util.defaultNumber(config.maxRequests, 100);
+  @maxRequestsPerHost = Util.defaultNumber(config.maxRequestsPerHost, 100);
+}
+
+/**
+ * Encapsulate the request and invoke the network
+ * @param action api name
+ * @param protocol http or https
+ * @param method e.g. GET
+ * @param pathname pathname of every api
+ * @param request which contains request params
+ * @param runtime which controls some details of call api, such as retry times
+ * @return the response
+ */
+api doRequest(version: string, action: string, protocol: string, method: string, pathname: string, request: object, headers: map[string]string, runtime: Util.RuntimeOptions): object {
+  __request.protocol = Util.defaultString(@protocol, protocol);
+  __request.method = method;
+  __request.pathname = pathname;
+  __request.query = {
+    method = action,
+    version = version,
+    sign_type = 'HmacSHA1',
+    req_time = AntchainUtil.getTimestamp(),
+    req_msg_id = AntchainUtil.getNonce(),
+    access_key = @accessKeyId,
+    base_sdk_version = 'TeaSDK-2.0',
+    sdk_version = '7.2.4',
+    _prod_code = 'MORSERTA',
+    _prod_channel = 'default'
+  };
+
+  if (!Util.empty(@securityToken)) {
+    __request.query.security_token = @securityToken;
+  }
+
+  __request.headers = {
+    host = Util.defaultString(@endpoint, 'openapi.antchain.antgroup.com'),
+    user-agent = Util.getUserAgent(@userAgent),
+    ...headers
+  };
+
+  var tmp = Util.anyifyMapValue(RPCUtil.query(request));
+  __request.body = Util.toFormString(tmp);
+  __request.headers.content-type = 'application/x-www-form-urlencoded';
+
+  var signedParam = {
+    ...__request.query,
+    ...RPCUtil.query(request)
+  };
+  __request.query.sign = AntchainUtil.getSignature(signedParam, @accessKeySecret);
+} returns {
+  var raw = Util.readAsString(__response.body);
+  var obj = Util.parseJSON(raw);
+  var res = Util.assertAsMap(obj);
+  var resp = Util.assertAsMap(res.response);
+
+  if (AntchainUtil.hasError(raw, @accessKeySecret)) {
+    throw {
+      message = resp.result_msg,
+      data = resp,
+      code = resp.result_code
+    };
+  }
+  return resp;
+} runtime {
+  timeouted = 'retry',
+  readTimeout = Util.defaultNumber(runtime.readTimeout, @readTimeout),
+  connectTimeout = Util.defaultNumber(runtime.connectTimeout, @connectTimeout),
+  httpProxy = Util.defaultString(runtime.httpProxy, @httpProxy),
+  httpsProxy = Util.defaultString(runtime.httpsProxy, @httpsProxy),
+  noProxy = Util.defaultString(runtime.noProxy, @noProxy),
+  maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
+  maxIdleTimeMillis = @maxIdleTimeMillis,
+  keepAliveDuration = @keepAliveDurationMillis,
+  maxRequests = @maxRequests,
+  maxRequestsPerHost = @maxRequestsPerHost,
+  retry = {
+    retryable = runtime.autoretry,
+    maxAttempts = Util.defaultNumber(runtime.maxAttempts, 3)
+  },
+  backoff = {
+    policy = Util.defaultString(runtime.backoffPolicy, 'no'),
+    period = Util.defaultNumber(runtime.backoffPeriod, 1)
+  },
+  ignoreSSL = runtime.ignoreSSL
+}
+
+// 用户/设备标识
+model UserInfo {
+  // Android 设备填写，imei原值
+  originalImei?: string(name='original_imei', example='Android 设备填写，imei原值'),
+  // Android 设备填写，imei md5值
+  md5Imei?: string(name='md5_imei', example='Android 设备填写，imei md5值'),
+  // Android 设备填写,android_id原值 
+  originalAndroidId?: string(name='original_android_id', example='Android 设备填写,android_id原值 '),
+  // Android 设备填写, md5 后的 android_id 设备号
+  md5AndroidId?: string(name='md5_android_id', example='Android 设备填写, md5 后的 android_id 设备号'),
+  // Android 设备填写，oaid原值
+  originalOaid?: string(name='original_oaid', example='Android 设备填写，oaid原值'),
+  // Android 设备填写，oaid MD5值
+  md5Oaid?: string(name='md5_oaid', example='Android 设备填写，oaid MD5值'),
+  // iOS 设备填写, idfa原值
+  originalIdfa?: string(name='original_idfa', example='iOS 设备填写, idfa原值'),
+  // iOS 设备填写, idfa md5值
+  md5Idfa?: string(name='md5_idfa', example='iOS 设备填写, idfa md5值'),
+  // 客户电话原值
+  originalPhone?: string(name='original_phone', example='客户电话原值'),
+  // md5后的电话号码
+  md5Phone?: string(name='md5_phone', example='md5后的电话号码'),
+  // 客户联系方式的sha256
+  sha256Phone?: string(name='sha256_phone', example='客户联系方式的sha256'),
+  // iOS 设备填写,中国广告协会互联网广告标
+  caid?: string(name='caid', example='iOS 设备填写,中国广告协会互联网广告标'),
+  // IOS设备填写，caid版本
+  caidVersion?: string(name='caid_version', example='IOS设备填写，caid版本'),
+  // 仅腾讯渠道下，WECHAT, WECHAT_MINI_PROGRAM, WECHAT_MINI_GAME投放时传递，微信 openid 保持原值
+  wechatOpenid?: string(name='wechat_openid', example='仅腾讯渠道下，WECHAT, WECHAT_MINI_PROGRAM, WECHAT_MINI_GAME投放时传递，微信 openid 保持原值'),
+  // 仅腾讯渠道下，WECHAT, WECHAT_MINI_PROGRAM, WECHAT_MINI_GAME投放时传递，微信 unionid 保持原值
+  wechatUnionid?: string(name='wechat_unionid', example='仅腾讯渠道下，WECHAT, WECHAT_MINI_PROGRAM, WECHAT_MINI_GAME投放时传递，微信 unionid 保持原值'),
+  // 仅腾讯渠道下，WECHAT, WECHAT_MINI_PROGRAM, WECHAT_MINI_GAME投放时传递，微信分配的 APPID
+  wechatAppId?: string(name='wechat_app_id', example='仅腾讯渠道下，WECHAT, WECHAT_MINI_PROGRAM, WECHAT_MINI_GAME投放时传递，微信分配的 APPID'),
+}
+
+model FeedbackReportDataRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 广告主账号ID
+  accountId: string(name='account_id'),
+  // 报表类型级别
+  level: string(name='level'),
+  // 回传数据明细，类型json array
+  feedbackData: string(name='feedback_data'),
+}
+
+model FeedbackReportDataResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: RTA广告主数据回传
+ * Summary: RTA广告主数据回传
+ */
+async function feedbackReportData(request: FeedbackReportDataRequest): FeedbackReportDataResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return feedbackReportDataEx(request, headers, runtime);
+}
+
+/**
+ * Description: RTA广告主数据回传
+ * Summary: RTA广告主数据回传
+ */
+async function feedbackReportDataEx(request: FeedbackReportDataRequest, headers: map[string]string, runtime: Util.RuntimeOptions): FeedbackReportDataResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.morserta.report.data.feedback', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ConvertAdDataRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 广告主id
+  accountId: long(name='account_id'),
+  // ios/android/web
+  deviceOsType?: string(name='device_os_type'),
+  // 设备ID（imei或idfa的加密值）
+  muid?: string(name='muid'),
+  // 点击ID
+  clickId: string(name='click_id'),
+  // 点击时间
+  clickTime?: long(name='click_time'),
+  // 曝光时间
+  impressionTime?: long(name='impression_time'),
+  // 手机号MD5
+  mobileMd5?: string(name='mobile_md5'),
+  // 区分投放渠道来源guangdiantong/oceanengine
+  platform?: string(name='platform'),
+  // 事件类型，枚举值如下：
+  // submit-提交表单
+  // pay-付费
+  // renewal-续费
+  // m2_renewal-m2续期
+  // surrender-退保
+  eventCode: string(name='event_code'),
+  // 转化事件时间
+  eventTime: long(name='event_time'),
+  // 设备oaid
+  oaid?: string(name='oaid'),
+  // oaid_md5
+  oaidMd5?: string(name='oaid_md5'),
+  // caid
+  caid?: string(name='caid'),
+  // caid_md5
+  caidMd5?: string(name='caid_md5'),
+  // android_id
+  androidId?: string(name='android_id'),
+  // imei
+  imei?: string(name='imei'),
+  // imei_md5
+  imeiMd5?: string(name='imei_md5'),
+  // idfa
+  idfa?: string(name='idfa'),
+  // idfa_md5
+  idfaMd5?: string(name='idfa_md5'),
+  // 首次支付保费(蚂蚁数科定义)，用户首次支付保险的费用。单位元
+  firstPayAmount?: string(name='first_pay_amount'),
+  // 升级支付保费(蚂蚁数科定义)，用户支付后进行保险升级的支付费用。单位元
+  upgradePayAmount?: string(name='upgrade_pay_amount'),
+  // 续费保费(蚂蚁数科定义)，用户M2进行保险续费的费用。
+  upgradeRenewvalAmount?: string(name='upgrade_renewval_amount'),
+  // 行业
+  industry: string(name='industry'),
+  // 用户的借款金额
+  loanAmount?: string(name='loan_amount'),
+  // 扩展json
+  ext?: string(name='ext'),
+  // 手机号原值
+  mobile?: string(name='mobile'),
+  // 业务事件id, 用于唯一标识当前事件，如下单事件的订单id等
+  outEventId?: string(name='out_event_id'),
+  // android_id md5值
+  androidIdMd5?: string(name='android_id_md5'),
+}
+
+model ConvertAdDataResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 调用是否成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 转化数据回传接口
+ * Summary: 转化数据回传接口
+ */
+async function convertAdData(request: ConvertAdDataRequest): ConvertAdDataResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return convertAdDataEx(request, headers, runtime);
+}
+
+/**
+ * Description: 转化数据回传接口
+ * Summary: 转化数据回传接口
+ */
+async function convertAdDataEx(request: ConvertAdDataRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ConvertAdDataResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.morserta.ad.data.convert', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ClickAdDataRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 广告主id
+  accountId: long(name='account_id'),
+  // 渠道，支持TENCENT
+  channel: string(name='channel'),
+  // 曝光/点击明细json string,曝光数据{\"impression_id\":\"dfhufhuifah\",\"impression_time\":1586437361}
+  // 点击数据{\"click_id\":\"dfhufaffhuifah\,"\"click_time\":1586437361}
+  data: string(name='data'),
+  // 点击-CLICK，曝光-IMPRESSION
+  dataType: string(name='data_type'),
+}
+
+model ClickAdDataResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 调用是否成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 曝光/点击数据回传接口
+ * Summary: 曝光/点击数据回传接口
+ */
+async function clickAdData(request: ClickAdDataRequest): ClickAdDataResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return clickAdDataEx(request, headers, runtime);
+}
+
+/**
+ * Description: 曝光/点击数据回传接口
+ * Summary: 曝光/点击数据回传接口
+ */
+async function clickAdDataEx(request: ClickAdDataRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ClickAdDataResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.morserta.ad.data.click', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ReportAdDataRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 广告主账号Id
+  accountId: string(name='account_id'),
+  // 报表级别level
+  level: string(name='level'),
+  // 回传数据，json array
+  data: string(name='data'),
+}
+
+model ReportAdDataResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 广告汇总数据
+ * Summary: 广告汇总数据
+ */
+async function reportAdData(request: ReportAdDataRequest): ReportAdDataResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return reportAdDataEx(request, headers, runtime);
+}
+
+/**
+ * Description: 广告汇总数据
+ * Summary: 广告汇总数据
+ */
+async function reportAdDataEx(request: ReportAdDataRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ReportAdDataResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.morserta.ad.data.report', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model OcpxAdDataRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 见对接文档中【Industry行业枚举】部分
+  industry: string(name='industry'),
+  // 归因渠道编码，见对接文档中的【渠道枚举】部分
+  channel: string(name='channel'),
+  // 归因广告账号id
+  accountId: string(name='account_id'),
+  // 见对接文档中【转化事件event_code枚举】部分
+  eventCode: string(name='event_code'),
+  // unix时间戳
+  eventTime: long(name='event_time'),
+  // 转化用户/设备标识
+  userInfo?: UserInfo(name='user_info'),
+  // 如有去重需求，可传递业务事件id， 唯一标识当前事件。如下单事件中的订单id
+  outEventId?: string(name='out_event_id'),
+  // android/ios/web
+  osType: string(name='os_type'),
+  // 点击id和user_info二者至少传一个
+  clickId?: string(name='click_id'),
+  // 媒体监测链接下发的callback原值
+  callback: string(name='callback'),
+}
+
+model OcpxAdDataResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 调用是否成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 广告主通过该接口将归因后的转化数据回传给数科，数科回传至广告主
+ * Summary: 广告主通过该接口将归因后的转化数据回传给数科，数科回传至广告主
+ */
+async function ocpxAdData(request: OcpxAdDataRequest): OcpxAdDataResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return ocpxAdDataEx(request, headers, runtime);
+}
+
+/**
+ * Description: 广告主通过该接口将归因后的转化数据回传给数科，数科回传至广告主
+ * Summary: 广告主通过该接口将归因后的转化数据回传给数科，数科回传至广告主
+ */
+async function ocpxAdDataEx(request: OcpxAdDataRequest, headers: map[string]string, runtime: Util.RuntimeOptions): OcpxAdDataResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.morserta.ad.data.ocpx', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DataAdDataExportExperimentRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 广告主账户为数字，如“9471147”
+  accountId: string(name='account_id'),
+  // 开始时间 yyyyMMdd
+  startDay: string(name='start_day'),
+  // 结束时间 yyyyMMdd
+  endDay: string(name='end_day'),
+}
+
+model DataAdDataExportExperimentResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 效果指标数据
+  data?: string(name='data'),
+  // 是否成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 实验效果数据拉取接口
+ * Summary: 实验效果数据拉取接口
+ */
+async function dataAdDataExportExperiment(request: DataAdDataExportExperimentRequest): DataAdDataExportExperimentResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return dataAdDataExportExperimentEx(request, headers, runtime);
+}
+
+/**
+ * Description: 实验效果数据拉取接口
+ * Summary: 实验效果数据拉取接口
+ */
+async function dataAdDataExportExperimentEx(request: DataAdDataExportExperimentRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DataAdDataExportExperimentResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.morserta.ad.data.export.experiment.data', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ConversionAdDataRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 投放项目
+  project: string(name='project'),
+  // 转化发生的unix事件戳,单位秒
+  eventTime: long(name='event_time'),
+  // 事件类型编码
+  eventCode: string(name='event_code'),
+  // 转化所属用户在客户系统中的用户id
+  userId?: string(name='user_id'),
+  // 转化对应的产品id，如用户购买保险对应的保险产品id，没有可不填
+  productId?: string(name='product_id'),
+  // 唯一标识当前转化事件的一个业务id，如保险下单的订单id，没有可不填
+  eventId?: string(name='event_id'),
+  // json字段， {"xxx": xxx, "yyyy":"yyyy"}， 包含转化对应的媒体侧信息，如click_id, gdt_vid，跳转链接等，数科侧会依据该id与自行收集到的点击进行匹配归因
+  trackInfo: string(name='track_info'),
+  // json扩展字段
+  extInfo?: string(name='ext_info'),
+}
+
+model ConversionAdDataResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 接收未归因的转化数据
+ * Summary: 接收未归因的转化数据
+ */
+async function conversionAdData(request: ConversionAdDataRequest): ConversionAdDataResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return conversionAdDataEx(request, headers, runtime);
+}
+
+/**
+ * Description: 接收未归因的转化数据
+ * Summary: 接收未归因的转化数据
+ */
+async function conversionAdDataEx(request: ConversionAdDataRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ConversionAdDataResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.morserta.ad.data.conversion', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ConversionAdDataAttributedRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 广告账户id，如9471147
+  accountId: string(name='account_id'),
+  // 转化归因到的媒体渠道
+  mediaType: string(name='media_type'),
+  // 转化发生的unix事件戳，单位秒
+  eventTime: long(name='event_time'),
+  // 事件类型编码
+  eventCode: string(name='event_code'),
+  // 转化所属用户在客户系统中的用户id
+  userId?: string(name='user_id'),
+  // 转化对应的产品id，如用户购买保险对应的保险产品id，没有可不填
+  productId?: string(name='product_id'),
+  // 唯一标识当前转化事件的一个业务id，如保险下单的订单id，没有可不填
+  eventId?: string(name='event_id'),
+  // json字段，包含转化归因到的点击的完整必要信息，如用户设备信息等
+  clickData: string(name='click_data'),
+  // 投放项目
+  project: string(name='project'),
+}
+
+model ConversionAdDataAttributedResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 处理是否成功
+  success?: boolean(name='success'),
+  // 是否需要回传媒体
+  callback?: long(name='callback'),
+}
+
+/**
+ * Description: 接收客户已归因转化事件
+ * Summary: 接收客户已归因转化事件
+ */
+async function conversionAdDataAttributed(request: ConversionAdDataAttributedRequest): ConversionAdDataAttributedResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return conversionAdDataAttributedEx(request, headers, runtime);
+}
+
+/**
+ * Description: 接收客户已归因转化事件
+ * Summary: 接收客户已归因转化事件
+ */
+async function conversionAdDataAttributedEx(request: ConversionAdDataAttributedRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ConversionAdDataAttributedResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.morserta.ad.data.attributed.conversion', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SaveDataConversionRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 追踪ID，每次请求保持唯一
+  traceId: string(name='trace_id'),
+  // 客户ID，广告主标识
+  sponsorCode: string(name='sponsor_code'),
+  // 转化对应的产品id，由数科提供，建议填写
+  productId?: string(name='product_id'),
+  // 唯一标识当前转化事件id，用于转化事件的去重避免重复统计，建议填写，可以是订单ID等业务唯一ID。
+  eventId?: string(name='event_id'),
+  // 转化发生的unix事件戳,单位毫秒
+  eventTime: long(name='event_time'),
+  // 转化事件类型
+  eventCode: string(name='event_code'),
+  // json字符串，转化附加参数
+  eventParam?: string(name='event_param'),
+  // 转化所属用户在客户系统中的用户id，如电话号码Md5 建议填写
+  userId?: string(name='user_id'),
+  // json字段，格式： {"xxx": xxx, "yyyy":"yyyy"}， 
+  // H5/小程序类：为投放前与蚂蚁数科约定的在落地页URL中的埋点参数，包含转化对应的媒体侧返回信息，如click_id, gdt_vid, request_id 跳转链接等务必全量提供
+  // App类：设备ID（ Android ID、OAID、OAID_MD5、IDFA、IDFA_MD5、CAID），点击ID、请求ID等
+  // 数科侧会依据该信息与自行收集到的点击进行匹配归因，务必详尽提供。
+  // 此部分字段信息需在接入前双方确认，主要与媒体平台、投放载体（H5、微信小程序、手机App等）有关，需要客户支持采集(如H5 URL拼接埋点参数、小程序path埋点参数）
+  // 具体请参考文档
+  traceInfo: string(name='trace_info'),
+  // json扩展字段。保险行业必填insurance_info，见文档
+  extInfo?: string(name='ext_info'),
+}
+
+model SaveDataConversionResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+  // 请求ID，用于追踪
+  requestId?: string(name='request_id'),
+  // 错误码，失败时返回
+  code?: string(name='code'),
+  // 错误信息，失败时返回
+  message?: string(name='message'),
+}
+
+/**
+ * Description: 新版转化回传接口
+ * Summary: 新版转化回传接口
+ */
+async function saveDataConversion(request: SaveDataConversionRequest): SaveDataConversionResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return saveDataConversionEx(request, headers, runtime);
+}
+
+/**
+ * Description: 新版转化回传接口
+ * Summary: 新版转化回传接口
+ */
+async function saveDataConversionEx(request: SaveDataConversionRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SaveDataConversionResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.morserta.data.conversion.save', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
