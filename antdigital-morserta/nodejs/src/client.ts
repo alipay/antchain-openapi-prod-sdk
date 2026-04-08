@@ -1,0 +1,1304 @@
+// This file is auto-generated, don't edit it
+import AntchainUtil from '@antchain/alipay-util';
+import Util, * as $Util from '@alicloud/tea-util';
+import RPCUtil from '@alicloud/rpc-util';
+import * as $tea from '@alicloud/tea-typescript';
+
+/**
+ * Model for initing client
+ */
+export class Config extends $tea.Model {
+  accessKeyId?: string;
+  accessKeySecret?: string;
+  securityToken?: string;
+  protocol?: string;
+  readTimeout?: number;
+  connectTimeout?: number;
+  httpProxy?: string;
+  httpsProxy?: string;
+  endpoint?: string;
+  noProxy?: string;
+  maxIdleConns?: number;
+  userAgent?: string;
+  socks5Proxy?: string;
+  socks5NetWork?: string;
+  maxIdleTimeMillis?: number;
+  keepAliveDurationMillis?: number;
+  maxRequests?: number;
+  maxRequestsPerHost?: number;
+  static names(): { [key: string]: string } {
+    return {
+      accessKeyId: 'accessKeyId',
+      accessKeySecret: 'accessKeySecret',
+      securityToken: 'securityToken',
+      protocol: 'protocol',
+      readTimeout: 'readTimeout',
+      connectTimeout: 'connectTimeout',
+      httpProxy: 'httpProxy',
+      httpsProxy: 'httpsProxy',
+      endpoint: 'endpoint',
+      noProxy: 'noProxy',
+      maxIdleConns: 'maxIdleConns',
+      userAgent: 'userAgent',
+      socks5Proxy: 'socks5Proxy',
+      socks5NetWork: 'socks5NetWork',
+      maxIdleTimeMillis: 'maxIdleTimeMillis',
+      keepAliveDurationMillis: 'keepAliveDurationMillis',
+      maxRequests: 'maxRequests',
+      maxRequestsPerHost: 'maxRequestsPerHost',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      accessKeyId: 'string',
+      accessKeySecret: 'string',
+      securityToken: 'string',
+      protocol: 'string',
+      readTimeout: 'number',
+      connectTimeout: 'number',
+      httpProxy: 'string',
+      httpsProxy: 'string',
+      endpoint: 'string',
+      noProxy: 'string',
+      maxIdleConns: 'number',
+      userAgent: 'string',
+      socks5Proxy: 'string',
+      socks5NetWork: 'string',
+      maxIdleTimeMillis: 'number',
+      keepAliveDurationMillis: 'number',
+      maxRequests: 'number',
+      maxRequestsPerHost: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 用户/设备标识
+export class UserInfo extends $tea.Model {
+  // Android 设备填写，imei原值
+  originalImei?: string;
+  // Android 设备填写，imei md5值
+  md5Imei?: string;
+  // Android 设备填写,android_id原值 
+  originalAndroidId?: string;
+  // Android 设备填写, md5 后的 android_id 设备号
+  md5AndroidId?: string;
+  // Android 设备填写，oaid原值
+  originalOaid?: string;
+  // Android 设备填写，oaid MD5值
+  md5Oaid?: string;
+  // iOS 设备填写, idfa原值
+  originalIdfa?: string;
+  // iOS 设备填写, idfa md5值
+  md5Idfa?: string;
+  // 客户电话原值
+  originalPhone?: string;
+  // md5后的电话号码
+  md5Phone?: string;
+  // 客户联系方式的sha256
+  sha256Phone?: string;
+  // iOS 设备填写,中国广告协会互联网广告标
+  caid?: string;
+  // IOS设备填写，caid版本
+  caidVersion?: string;
+  // 仅腾讯渠道下，WECHAT, WECHAT_MINI_PROGRAM, WECHAT_MINI_GAME投放时传递，微信 openid 保持原值
+  wechatOpenid?: string;
+  // 仅腾讯渠道下，WECHAT, WECHAT_MINI_PROGRAM, WECHAT_MINI_GAME投放时传递，微信 unionid 保持原值
+  wechatUnionid?: string;
+  // 仅腾讯渠道下，WECHAT, WECHAT_MINI_PROGRAM, WECHAT_MINI_GAME投放时传递，微信分配的 APPID
+  wechatAppId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      originalImei: 'original_imei',
+      md5Imei: 'md5_imei',
+      originalAndroidId: 'original_android_id',
+      md5AndroidId: 'md5_android_id',
+      originalOaid: 'original_oaid',
+      md5Oaid: 'md5_oaid',
+      originalIdfa: 'original_idfa',
+      md5Idfa: 'md5_idfa',
+      originalPhone: 'original_phone',
+      md5Phone: 'md5_phone',
+      sha256Phone: 'sha256_phone',
+      caid: 'caid',
+      caidVersion: 'caid_version',
+      wechatOpenid: 'wechat_openid',
+      wechatUnionid: 'wechat_unionid',
+      wechatAppId: 'wechat_app_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      originalImei: 'string',
+      md5Imei: 'string',
+      originalAndroidId: 'string',
+      md5AndroidId: 'string',
+      originalOaid: 'string',
+      md5Oaid: 'string',
+      originalIdfa: 'string',
+      md5Idfa: 'string',
+      originalPhone: 'string',
+      md5Phone: 'string',
+      sha256Phone: 'string',
+      caid: 'string',
+      caidVersion: 'string',
+      wechatOpenid: 'string',
+      wechatUnionid: 'string',
+      wechatAppId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class FeedbackReportDataRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 广告主账号ID
+  accountId: string;
+  // 报表类型级别
+  level: string;
+  // 回传数据明细，类型json array
+  feedbackData: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      accountId: 'account_id',
+      level: 'level',
+      feedbackData: 'feedback_data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      accountId: 'string',
+      level: 'string',
+      feedbackData: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class FeedbackReportDataResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否成功
+  success?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ConvertAdDataRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 广告主id
+  accountId: number;
+  // ios/android/web
+  deviceOsType?: string;
+  // 设备ID（imei或idfa的加密值）
+  muid?: string;
+  // 点击ID
+  clickId: string;
+  // 点击时间
+  clickTime?: number;
+  // 曝光时间
+  impressionTime?: number;
+  // 手机号MD5
+  mobileMd5?: string;
+  // 区分投放渠道来源guangdiantong/oceanengine
+  platform?: string;
+  // 事件类型，枚举值如下：
+  // submit-提交表单
+  // pay-付费
+  // renewal-续费
+  // m2_renewal-m2续期
+  // surrender-退保
+  eventCode: string;
+  // 转化事件时间
+  eventTime: number;
+  // 设备oaid
+  oaid?: string;
+  // oaid_md5
+  oaidMd5?: string;
+  // caid
+  caid?: string;
+  // caid_md5
+  caidMd5?: string;
+  // android_id
+  androidId?: string;
+  // imei
+  imei?: string;
+  // imei_md5
+  imeiMd5?: string;
+  // idfa
+  idfa?: string;
+  // idfa_md5
+  idfaMd5?: string;
+  // 首次支付保费(蚂蚁数科定义)，用户首次支付保险的费用。单位元
+  firstPayAmount?: string;
+  // 升级支付保费(蚂蚁数科定义)，用户支付后进行保险升级的支付费用。单位元
+  upgradePayAmount?: string;
+  // 续费保费(蚂蚁数科定义)，用户M2进行保险续费的费用。
+  upgradeRenewvalAmount?: string;
+  // 行业
+  industry: string;
+  // 用户的借款金额
+  loanAmount?: string;
+  // 扩展json
+  ext?: string;
+  // 手机号原值
+  mobile?: string;
+  // 业务事件id, 用于唯一标识当前事件，如下单事件的订单id等
+  outEventId?: string;
+  // android_id md5值
+  androidIdMd5?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      accountId: 'account_id',
+      deviceOsType: 'device_os_type',
+      muid: 'muid',
+      clickId: 'click_id',
+      clickTime: 'click_time',
+      impressionTime: 'impression_time',
+      mobileMd5: 'mobile_md5',
+      platform: 'platform',
+      eventCode: 'event_code',
+      eventTime: 'event_time',
+      oaid: 'oaid',
+      oaidMd5: 'oaid_md5',
+      caid: 'caid',
+      caidMd5: 'caid_md5',
+      androidId: 'android_id',
+      imei: 'imei',
+      imeiMd5: 'imei_md5',
+      idfa: 'idfa',
+      idfaMd5: 'idfa_md5',
+      firstPayAmount: 'first_pay_amount',
+      upgradePayAmount: 'upgrade_pay_amount',
+      upgradeRenewvalAmount: 'upgrade_renewval_amount',
+      industry: 'industry',
+      loanAmount: 'loan_amount',
+      ext: 'ext',
+      mobile: 'mobile',
+      outEventId: 'out_event_id',
+      androidIdMd5: 'android_id_md5',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      accountId: 'number',
+      deviceOsType: 'string',
+      muid: 'string',
+      clickId: 'string',
+      clickTime: 'number',
+      impressionTime: 'number',
+      mobileMd5: 'string',
+      platform: 'string',
+      eventCode: 'string',
+      eventTime: 'number',
+      oaid: 'string',
+      oaidMd5: 'string',
+      caid: 'string',
+      caidMd5: 'string',
+      androidId: 'string',
+      imei: 'string',
+      imeiMd5: 'string',
+      idfa: 'string',
+      idfaMd5: 'string',
+      firstPayAmount: 'string',
+      upgradePayAmount: 'string',
+      upgradeRenewvalAmount: 'string',
+      industry: 'string',
+      loanAmount: 'string',
+      ext: 'string',
+      mobile: 'string',
+      outEventId: 'string',
+      androidIdMd5: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ConvertAdDataResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 调用是否成功
+  success?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ClickAdDataRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 广告主id
+  accountId: number;
+  // 渠道，支持TENCENT
+  channel: string;
+  // 曝光/点击明细json string,曝光数据{\"impression_id\":\"dfhufhuifah\",\"impression_time\":1586437361}
+  // 点击数据{\"click_id\":\"dfhufaffhuifah\,"\"click_time\":1586437361}
+  data: string;
+  // 点击-CLICK，曝光-IMPRESSION
+  dataType: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      accountId: 'account_id',
+      channel: 'channel',
+      data: 'data',
+      dataType: 'data_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      accountId: 'number',
+      channel: 'string',
+      data: 'string',
+      dataType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ClickAdDataResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 调用是否成功
+  success?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ReportAdDataRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 广告主账号Id
+  accountId: string;
+  // 报表级别level
+  level: string;
+  // 回传数据，json array
+  data: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      accountId: 'account_id',
+      level: 'level',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      accountId: 'string',
+      level: 'string',
+      data: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ReportAdDataResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否成功
+  success?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class OcpxAdDataRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 见对接文档中【Industry行业枚举】部分
+  industry: string;
+  // 归因渠道编码，见对接文档中的【渠道枚举】部分
+  channel: string;
+  // 归因广告账号id
+  accountId: string;
+  // 见对接文档中【转化事件event_code枚举】部分
+  eventCode: string;
+  // unix时间戳
+  eventTime: number;
+  // 转化用户/设备标识
+  userInfo?: UserInfo;
+  // 如有去重需求，可传递业务事件id， 唯一标识当前事件。如下单事件中的订单id
+  outEventId?: string;
+  // android/ios/web
+  osType: string;
+  // 点击id和user_info二者至少传一个
+  clickId?: string;
+  // 媒体监测链接下发的callback原值
+  callback: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      industry: 'industry',
+      channel: 'channel',
+      accountId: 'account_id',
+      eventCode: 'event_code',
+      eventTime: 'event_time',
+      userInfo: 'user_info',
+      outEventId: 'out_event_id',
+      osType: 'os_type',
+      clickId: 'click_id',
+      callback: 'callback',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      industry: 'string',
+      channel: 'string',
+      accountId: 'string',
+      eventCode: 'string',
+      eventTime: 'number',
+      userInfo: UserInfo,
+      outEventId: 'string',
+      osType: 'string',
+      clickId: 'string',
+      callback: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class OcpxAdDataResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 调用是否成功
+  success?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DataAdDataExportExperimentRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 广告主账户为数字，如“9471147”
+  accountId: string;
+  // 开始时间 yyyyMMdd
+  startDay: string;
+  // 结束时间 yyyyMMdd
+  endDay: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      accountId: 'account_id',
+      startDay: 'start_day',
+      endDay: 'end_day',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      accountId: 'string',
+      startDay: 'string',
+      endDay: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DataAdDataExportExperimentResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 效果指标数据
+  data?: string;
+  // 是否成功
+  success?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+      success: 'success',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: 'string',
+      success: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ConversionAdDataRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 投放项目
+  project: string;
+  // 转化发生的unix事件戳,单位秒
+  eventTime: number;
+  // 事件类型编码
+  eventCode: string;
+  // 转化所属用户在客户系统中的用户id
+  userId?: string;
+  // 转化对应的产品id，如用户购买保险对应的保险产品id，没有可不填
+  productId?: string;
+  // 唯一标识当前转化事件的一个业务id，如保险下单的订单id，没有可不填
+  eventId?: string;
+  // json字段， {"xxx": xxx, "yyyy":"yyyy"}， 包含转化对应的媒体侧信息，如click_id, gdt_vid，跳转链接等，数科侧会依据该id与自行收集到的点击进行匹配归因
+  trackInfo: string;
+  // json扩展字段
+  extInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      project: 'project',
+      eventTime: 'event_time',
+      eventCode: 'event_code',
+      userId: 'user_id',
+      productId: 'product_id',
+      eventId: 'event_id',
+      trackInfo: 'track_info',
+      extInfo: 'ext_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      project: 'string',
+      eventTime: 'number',
+      eventCode: 'string',
+      userId: 'string',
+      productId: 'string',
+      eventId: 'string',
+      trackInfo: 'string',
+      extInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ConversionAdDataResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否成功
+  success?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ConversionAdDataAttributedRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 广告账户id，如9471147
+  accountId: string;
+  // 转化归因到的媒体渠道
+  mediaType: string;
+  // 转化发生的unix事件戳，单位秒
+  eventTime: number;
+  // 事件类型编码
+  eventCode: string;
+  // 转化所属用户在客户系统中的用户id
+  userId?: string;
+  // 转化对应的产品id，如用户购买保险对应的保险产品id，没有可不填
+  productId?: string;
+  // 唯一标识当前转化事件的一个业务id，如保险下单的订单id，没有可不填
+  eventId?: string;
+  // json字段，包含转化归因到的点击的完整必要信息，如用户设备信息等
+  clickData: string;
+  // 投放项目
+  project: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      accountId: 'account_id',
+      mediaType: 'media_type',
+      eventTime: 'event_time',
+      eventCode: 'event_code',
+      userId: 'user_id',
+      productId: 'product_id',
+      eventId: 'event_id',
+      clickData: 'click_data',
+      project: 'project',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      accountId: 'string',
+      mediaType: 'string',
+      eventTime: 'number',
+      eventCode: 'string',
+      userId: 'string',
+      productId: 'string',
+      eventId: 'string',
+      clickData: 'string',
+      project: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ConversionAdDataAttributedResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 处理是否成功
+  success?: boolean;
+  // 是否需要回传媒体
+  callback?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      callback: 'callback',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      callback: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SaveDataConversionRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 追踪ID，每次请求保持唯一
+  traceId: string;
+  // 客户ID，广告主标识
+  sponsorCode: string;
+  // 转化对应的产品id，由数科提供，建议填写
+  productId?: string;
+  // 唯一标识当前转化事件id，用于转化事件的去重避免重复统计，建议填写，可以是订单ID等业务唯一ID。
+  eventId?: string;
+  // 转化发生的unix事件戳,单位毫秒
+  eventTime: number;
+  // 转化事件类型
+  eventCode: string;
+  // json字符串，转化附加参数
+  eventParam?: string;
+  // 转化所属用户在客户系统中的用户id，如电话号码Md5 建议填写
+  userId?: string;
+  // json字段，格式： {"xxx": xxx, "yyyy":"yyyy"}， 
+  // H5/小程序类：为投放前与蚂蚁数科约定的在落地页URL中的埋点参数，包含转化对应的媒体侧返回信息，如click_id, gdt_vid, request_id 跳转链接等务必全量提供
+  // App类：设备ID（ Android ID、OAID、OAID_MD5、IDFA、IDFA_MD5、CAID），点击ID、请求ID等
+  // 数科侧会依据该信息与自行收集到的点击进行匹配归因，务必详尽提供。
+  // 此部分字段信息需在接入前双方确认，主要与媒体平台、投放载体（H5、微信小程序、手机App等）有关，需要客户支持采集(如H5 URL拼接埋点参数、小程序path埋点参数）
+  // 具体请参考文档
+  traceInfo: string;
+  // json扩展字段。保险行业必填insurance_info，见文档
+  extInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      traceId: 'trace_id',
+      sponsorCode: 'sponsor_code',
+      productId: 'product_id',
+      eventId: 'event_id',
+      eventTime: 'event_time',
+      eventCode: 'event_code',
+      eventParam: 'event_param',
+      userId: 'user_id',
+      traceInfo: 'trace_info',
+      extInfo: 'ext_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      traceId: 'string',
+      sponsorCode: 'string',
+      productId: 'string',
+      eventId: 'string',
+      eventTime: 'number',
+      eventCode: 'string',
+      eventParam: 'string',
+      userId: 'string',
+      traceInfo: 'string',
+      extInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SaveDataConversionResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否成功
+  success?: boolean;
+  // 请求ID，用于追踪
+  requestId?: string;
+  // 错误码，失败时返回
+  code?: string;
+  // 错误信息，失败时返回
+  message?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      requestId: 'request_id',
+      code: 'code',
+      message: 'message',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      requestId: 'string',
+      code: 'string',
+      message: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+
+export default class Client {
+  _endpoint: string;
+  _regionId: string;
+  _accessKeyId: string;
+  _accessKeySecret: string;
+  _protocol: string;
+  _userAgent: string;
+  _readTimeout: number;
+  _connectTimeout: number;
+  _httpProxy: string;
+  _httpsProxy: string;
+  _socks5Proxy: string;
+  _socks5NetWork: string;
+  _noProxy: string;
+  _maxIdleConns: number;
+  _securityToken: string;
+  _maxIdleTimeMillis: number;
+  _keepAliveDurationMillis: number;
+  _maxRequests: number;
+  _maxRequestsPerHost: number;
+
+  /**
+   * Init client with Config
+   * @param config config contains the necessary information to create a client
+   */
+  constructor(config: Config) {
+    if (Util.isUnset(config)) {
+      throw $tea.newError({
+        code: "ParameterMissing",
+        message: "'config' can not be unset",
+      });
+    }
+
+    this._accessKeyId = config.accessKeyId;
+    this._accessKeySecret = config.accessKeySecret;
+    this._securityToken = config.securityToken;
+    this._endpoint = config.endpoint;
+    this._protocol = config.protocol;
+    this._userAgent = config.userAgent;
+    this._readTimeout = Util.defaultNumber(config.readTimeout, 20000);
+    this._connectTimeout = Util.defaultNumber(config.connectTimeout, 20000);
+    this._httpProxy = config.httpProxy;
+    this._httpsProxy = config.httpsProxy;
+    this._noProxy = config.noProxy;
+    this._socks5Proxy = config.socks5Proxy;
+    this._socks5NetWork = config.socks5NetWork;
+    this._maxIdleConns = Util.defaultNumber(config.maxIdleConns, 60000);
+    this._maxIdleTimeMillis = Util.defaultNumber(config.maxIdleTimeMillis, 5);
+    this._keepAliveDurationMillis = Util.defaultNumber(config.keepAliveDurationMillis, 5000);
+    this._maxRequests = Util.defaultNumber(config.maxRequests, 100);
+    this._maxRequestsPerHost = Util.defaultNumber(config.maxRequestsPerHost, 100);
+  }
+
+  /**
+   * Encapsulate the request and invoke the network
+   * @param action api name
+   * @param protocol http or https
+   * @param method e.g. GET
+   * @param pathname pathname of every api
+   * @param request which contains request params
+   * @param runtime which controls some details of call api, such as retry times
+   * @return the response
+   */
+  async doRequest(version: string, action: string, protocol: string, method: string, pathname: string, request: {[key: string]: any}, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<{[key: string]: any}> {
+    let _runtime: { [key: string]: any } = {
+      timeouted: "retry",
+      readTimeout: Util.defaultNumber(runtime.readTimeout, this._readTimeout),
+      connectTimeout: Util.defaultNumber(runtime.connectTimeout, this._connectTimeout),
+      httpProxy: Util.defaultString(runtime.httpProxy, this._httpProxy),
+      httpsProxy: Util.defaultString(runtime.httpsProxy, this._httpsProxy),
+      noProxy: Util.defaultString(runtime.noProxy, this._noProxy),
+      maxIdleConns: Util.defaultNumber(runtime.maxIdleConns, this._maxIdleConns),
+      maxIdleTimeMillis: this._maxIdleTimeMillis,
+      keepAliveDuration: this._keepAliveDurationMillis,
+      maxRequests: this._maxRequests,
+      maxRequestsPerHost: this._maxRequestsPerHost,
+      retry: {
+        retryable: runtime.autoretry,
+        maxAttempts: Util.defaultNumber(runtime.maxAttempts, 3),
+      },
+      backoff: {
+        policy: Util.defaultString(runtime.backoffPolicy, "no"),
+        period: Util.defaultNumber(runtime.backoffPeriod, 1),
+      },
+      ignoreSSL: runtime.ignoreSSL,
+    }
+
+    let _lastRequest = null;
+    let _now = Date.now();
+    let _retryTimes = 0;
+    while ($tea.allowRetry(_runtime['retry'], _retryTimes, _now)) {
+      if (_retryTimes > 0) {
+        let _backoffTime = $tea.getBackoffTime(_runtime['backoff'], _retryTimes);
+        if (_backoffTime > 0) {
+          await $tea.sleep(_backoffTime);
+        }
+      }
+
+      _retryTimes = _retryTimes + 1;
+      try {
+        let request_ = new $tea.Request();
+        request_.protocol = Util.defaultString(this._protocol, protocol);
+        request_.method = method;
+        request_.pathname = pathname;
+        request_.query = {
+          method: action,
+          version: version,
+          sign_type: "HmacSHA1",
+          req_time: AntchainUtil.getTimestamp(),
+          req_msg_id: AntchainUtil.getNonce(),
+          access_key: this._accessKeyId,
+          base_sdk_version: "TeaSDK-2.0",
+          sdk_version: "7.2.4",
+          _prod_code: "MORSERTA",
+          _prod_channel: "default",
+        };
+        if (!Util.empty(this._securityToken)) {
+          request_.query["security_token"] = this._securityToken;
+        }
+
+        request_.headers = {
+          host: Util.defaultString(this._endpoint, "openapi.antchain.antgroup.com"),
+          'user-agent': Util.getUserAgent(this._userAgent),
+          ...headers,
+        };
+        let tmp = Util.anyifyMapValue(RPCUtil.query(request));
+        request_.body = new $tea.BytesReadable(Util.toFormString(tmp));
+        request_.headers["content-type"] = "application/x-www-form-urlencoded";
+        let signedParam = {
+          ...request_.query,
+          ...RPCUtil.query(request),
+        };
+        request_.query["sign"] = AntchainUtil.getSignature(signedParam, this._accessKeySecret);
+        _lastRequest = request_;
+        let response_ = await $tea.doAction(request_, _runtime);
+
+        let raw = await Util.readAsString(response_.body);
+        let obj = Util.parseJSON(raw);
+        let res = Util.assertAsMap(obj);
+        let resp = Util.assertAsMap(res["response"]);
+        if (AntchainUtil.hasError(raw, this._accessKeySecret)) {
+          throw $tea.newError({
+            message: resp["result_msg"],
+            data: resp,
+            code: resp["result_code"],
+          });
+        }
+
+        return resp;
+      } catch (ex) {
+        if ($tea.isRetryable(ex)) {
+          continue;
+        }
+        throw ex;
+      }
+    }
+
+    throw $tea.newUnretryableError(_lastRequest);
+  }
+
+  /**
+   * Description: RTA广告主数据回传
+   * Summary: RTA广告主数据回传
+   */
+  async feedbackReportData(request: FeedbackReportDataRequest): Promise<FeedbackReportDataResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.feedbackReportDataEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: RTA广告主数据回传
+   * Summary: RTA广告主数据回传
+   */
+  async feedbackReportDataEx(request: FeedbackReportDataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<FeedbackReportDataResponse> {
+    Util.validateModel(request);
+    return $tea.cast<FeedbackReportDataResponse>(await this.doRequest("1.0", "antcloud.morserta.report.data.feedback", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new FeedbackReportDataResponse({}));
+  }
+
+  /**
+   * Description: 转化数据回传接口
+   * Summary: 转化数据回传接口
+   */
+  async convertAdData(request: ConvertAdDataRequest): Promise<ConvertAdDataResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.convertAdDataEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 转化数据回传接口
+   * Summary: 转化数据回传接口
+   */
+  async convertAdDataEx(request: ConvertAdDataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ConvertAdDataResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ConvertAdDataResponse>(await this.doRequest("1.0", "antcloud.morserta.ad.data.convert", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ConvertAdDataResponse({}));
+  }
+
+  /**
+   * Description: 曝光/点击数据回传接口
+   * Summary: 曝光/点击数据回传接口
+   */
+  async clickAdData(request: ClickAdDataRequest): Promise<ClickAdDataResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.clickAdDataEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 曝光/点击数据回传接口
+   * Summary: 曝光/点击数据回传接口
+   */
+  async clickAdDataEx(request: ClickAdDataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ClickAdDataResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ClickAdDataResponse>(await this.doRequest("1.0", "antcloud.morserta.ad.data.click", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ClickAdDataResponse({}));
+  }
+
+  /**
+   * Description: 广告汇总数据
+   * Summary: 广告汇总数据
+   */
+  async reportAdData(request: ReportAdDataRequest): Promise<ReportAdDataResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.reportAdDataEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 广告汇总数据
+   * Summary: 广告汇总数据
+   */
+  async reportAdDataEx(request: ReportAdDataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ReportAdDataResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ReportAdDataResponse>(await this.doRequest("1.0", "antcloud.morserta.ad.data.report", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ReportAdDataResponse({}));
+  }
+
+  /**
+   * Description: 广告主通过该接口将归因后的转化数据回传给数科，数科回传至广告主
+   * Summary: 广告主通过该接口将归因后的转化数据回传给数科，数科回传至广告主
+   */
+  async ocpxAdData(request: OcpxAdDataRequest): Promise<OcpxAdDataResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.ocpxAdDataEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 广告主通过该接口将归因后的转化数据回传给数科，数科回传至广告主
+   * Summary: 广告主通过该接口将归因后的转化数据回传给数科，数科回传至广告主
+   */
+  async ocpxAdDataEx(request: OcpxAdDataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<OcpxAdDataResponse> {
+    Util.validateModel(request);
+    return $tea.cast<OcpxAdDataResponse>(await this.doRequest("1.0", "antcloud.morserta.ad.data.ocpx", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new OcpxAdDataResponse({}));
+  }
+
+  /**
+   * Description: 实验效果数据拉取接口
+   * Summary: 实验效果数据拉取接口
+   */
+  async dataAdDataExportExperiment(request: DataAdDataExportExperimentRequest): Promise<DataAdDataExportExperimentResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.dataAdDataExportExperimentEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 实验效果数据拉取接口
+   * Summary: 实验效果数据拉取接口
+   */
+  async dataAdDataExportExperimentEx(request: DataAdDataExportExperimentRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DataAdDataExportExperimentResponse> {
+    Util.validateModel(request);
+    return $tea.cast<DataAdDataExportExperimentResponse>(await this.doRequest("1.0", "antcloud.morserta.ad.data.export.experiment.data", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new DataAdDataExportExperimentResponse({}));
+  }
+
+  /**
+   * Description: 接收未归因的转化数据
+   * Summary: 接收未归因的转化数据
+   */
+  async conversionAdData(request: ConversionAdDataRequest): Promise<ConversionAdDataResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.conversionAdDataEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 接收未归因的转化数据
+   * Summary: 接收未归因的转化数据
+   */
+  async conversionAdDataEx(request: ConversionAdDataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ConversionAdDataResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ConversionAdDataResponse>(await this.doRequest("1.0", "antcloud.morserta.ad.data.conversion", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ConversionAdDataResponse({}));
+  }
+
+  /**
+   * Description: 接收客户已归因转化事件
+   * Summary: 接收客户已归因转化事件
+   */
+  async conversionAdDataAttributed(request: ConversionAdDataAttributedRequest): Promise<ConversionAdDataAttributedResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.conversionAdDataAttributedEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 接收客户已归因转化事件
+   * Summary: 接收客户已归因转化事件
+   */
+  async conversionAdDataAttributedEx(request: ConversionAdDataAttributedRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ConversionAdDataAttributedResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ConversionAdDataAttributedResponse>(await this.doRequest("1.0", "antcloud.morserta.ad.data.attributed.conversion", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ConversionAdDataAttributedResponse({}));
+  }
+
+  /**
+   * Description: 新版转化回传接口
+   * Summary: 新版转化回传接口
+   */
+  async saveDataConversion(request: SaveDataConversionRequest): Promise<SaveDataConversionResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.saveDataConversionEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 新版转化回传接口
+   * Summary: 新版转化回传接口
+   */
+  async saveDataConversionEx(request: SaveDataConversionRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SaveDataConversionResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SaveDataConversionResponse>(await this.doRequest("1.0", "antcloud.morserta.data.conversion.save", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SaveDataConversionResponse({}));
+  }
+
+}
