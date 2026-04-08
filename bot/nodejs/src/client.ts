@@ -28323,6 +28323,89 @@ export class StartIotagentThingmodelResponse extends $tea.Model {
   }
 }
 
+export class ImportIotagentClientRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 实例ID，由蚂蚁提供
+  instanceId: string;
+  // SKU名称，由蚂蚁提供
+  skuName: string;
+  // 模版智能体ID，由蚂蚁提供
+  templateAgentId: string;
+  // 话题，由蚂蚁提供
+  agentTopic: string;
+  // 设备标识列表
+  uidList: string[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      instanceId: 'instance_id',
+      skuName: 'sku_name',
+      templateAgentId: 'template_agent_id',
+      agentTopic: 'agent_topic',
+      uidList: 'uid_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      instanceId: 'string',
+      skuName: 'string',
+      templateAgentId: 'string',
+      agentTopic: 'string',
+      uidList: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ImportIotagentClientResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 成功导入的设备标识列表
+  successUidList?: string[];
+  // 已经存在的设备标识列表（不会导入）
+  existedUidList?: string[];
+  // 不合法的设备标识列表（不会导入）
+  invalidUidList?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      successUidList: 'success_uid_list',
+      existedUidList: 'existed_uid_list',
+      invalidUidList: 'invalid_uid_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      successUidList: { 'type': 'array', 'itemType': 'string' },
+      existedUidList: { 'type': 'array', 'itemType': 'string' },
+      invalidUidList: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class ExecThingsdidOneapiRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -29705,7 +29788,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.12.78",
+          sdk_version: "1.12.79",
           _prod_code: "BOT",
           _prod_channel: "undefined",
         };
@@ -35001,6 +35084,25 @@ export default class Client {
   async startIotagentThingmodelEx(request: StartIotagentThingmodelRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<StartIotagentThingmodelResponse> {
     Util.validateModel(request);
     return $tea.cast<StartIotagentThingmodelResponse>(await this.doRequest("1.0", "blockchain.bot.iotagent.thingmodel.start", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new StartIotagentThingmodelResponse({}));
+  }
+
+  /**
+   * Description: 智能体设备标识导入接口
+   * Summary: 智能体设备标识导入接口
+   */
+  async importIotagentClient(request: ImportIotagentClientRequest): Promise<ImportIotagentClientResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.importIotagentClientEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 智能体设备标识导入接口
+   * Summary: 智能体设备标识导入接口
+   */
+  async importIotagentClientEx(request: ImportIotagentClientRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ImportIotagentClientResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ImportIotagentClientResponse>(await this.doRequest("1.0", "blockchain.bot.iotagent.client.import", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ImportIotagentClientResponse({}));
   }
 
   /**
