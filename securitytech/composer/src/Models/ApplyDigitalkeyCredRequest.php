@@ -117,7 +117,6 @@ class ApplyDigitalkeyCredRequest extends Model
     public function validate()
     {
         Model::validateRequired('secretId', $this->secretId, true);
-        Model::validateRequired('bleNme', $this->bleNme, true);
         Model::validateRequired('brandId', $this->brandId, true);
     }
 

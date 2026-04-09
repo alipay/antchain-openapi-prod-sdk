@@ -52,7 +52,7 @@ class QueryTwevCartravelResponse extends Model
 
     // 行程详情信息
     /**
-     * @var TripDetailInfo
+     * @var TripDetailInfo[]
      */
     public $tripDetailList;
     protected $_name = [
@@ -95,7 +95,13 @@ class QueryTwevCartravelResponse extends Model
             $res['page_size'] = $this->pageSize;
         }
         if (null !== $this->tripDetailList) {
-            $res['trip_detail_list'] = null !== $this->tripDetailList ? $this->tripDetailList->toMap() : null;
+            $res['trip_detail_list'] = [];
+            if (null !== $this->tripDetailList && \is_array($this->tripDetailList)) {
+                $n = 0;
+                foreach ($this->tripDetailList as $item) {
+                    $res['trip_detail_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -131,7 +137,13 @@ class QueryTwevCartravelResponse extends Model
             $model->pageSize = $map['page_size'];
         }
         if (isset($map['trip_detail_list'])) {
-            $model->tripDetailList = TripDetailInfo::fromMap($map['trip_detail_list']);
+            if (!empty($map['trip_detail_list'])) {
+                $model->tripDetailList = [];
+                $n                     = 0;
+                foreach ($map['trip_detail_list'] as $item) {
+                    $model->tripDetailList[$n++] = null !== $item ? TripDetailInfo::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;

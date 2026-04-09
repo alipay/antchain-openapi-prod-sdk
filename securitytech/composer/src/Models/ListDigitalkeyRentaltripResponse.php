@@ -6,7 +6,7 @@ namespace AntChain\SECURITYTECH\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryTwevCardataResponse extends Model
+class ListDigitalkeyRentaltripResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,16 +26,23 @@ class QueryTwevCardataResponse extends Model
      */
     public $resultMsg;
 
-    // 行程统计数据列表
+    // 总条数
     /**
-     * @var TripStatisticInfo[]
+     * @var int
      */
-    public $tripStatistics;
+    public $total;
+
+    // 行程列表信息
+    /**
+     * @var TripInfo[]
+     */
+    public $tripList;
     protected $_name = [
-        'reqMsgId'       => 'req_msg_id',
-        'resultCode'     => 'result_code',
-        'resultMsg'      => 'result_msg',
-        'tripStatistics' => 'trip_statistics',
+        'reqMsgId'   => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg'  => 'result_msg',
+        'total'      => 'total',
+        'tripList'   => 'trip_list',
     ];
 
     public function validate()
@@ -54,12 +61,15 @@ class QueryTwevCardataResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->tripStatistics) {
-            $res['trip_statistics'] = [];
-            if (null !== $this->tripStatistics && \is_array($this->tripStatistics)) {
+        if (null !== $this->total) {
+            $res['total'] = $this->total;
+        }
+        if (null !== $this->tripList) {
+            $res['trip_list'] = [];
+            if (null !== $this->tripList && \is_array($this->tripList)) {
                 $n = 0;
-                foreach ($this->tripStatistics as $item) {
-                    $res['trip_statistics'][$n++] = null !== $item ? $item->toMap() : $item;
+                foreach ($this->tripList as $item) {
+                    $res['trip_list'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
         }
@@ -70,7 +80,7 @@ class QueryTwevCardataResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryTwevCardataResponse
+     * @return ListDigitalkeyRentaltripResponse
      */
     public static function fromMap($map = [])
     {
@@ -84,12 +94,15 @@ class QueryTwevCardataResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['trip_statistics'])) {
-            if (!empty($map['trip_statistics'])) {
-                $model->tripStatistics = [];
-                $n                     = 0;
-                foreach ($map['trip_statistics'] as $item) {
-                    $model->tripStatistics[$n++] = null !== $item ? TripStatisticInfo::fromMap($item) : $item;
+        if (isset($map['total'])) {
+            $model->total = $map['total'];
+        }
+        if (isset($map['trip_list'])) {
+            if (!empty($map['trip_list'])) {
+                $model->tripList = [];
+                $n               = 0;
+                foreach ($map['trip_list'] as $item) {
+                    $model->tripList[$n++] = null !== $item ? TripInfo::fromMap($item) : $item;
                 }
             }
         }

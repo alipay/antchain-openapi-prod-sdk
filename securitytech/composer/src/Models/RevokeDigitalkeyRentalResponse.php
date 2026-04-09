@@ -6,7 +6,7 @@ namespace AntChain\SECURITYTECH\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryTwevCardataResponse extends Model
+class RevokeDigitalkeyRentalResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -25,17 +25,10 @@ class QueryTwevCardataResponse extends Model
      * @var string
      */
     public $resultMsg;
-
-    // 行程统计数据列表
-    /**
-     * @var TripStatisticInfo[]
-     */
-    public $tripStatistics;
     protected $_name = [
-        'reqMsgId'       => 'req_msg_id',
-        'resultCode'     => 'result_code',
-        'resultMsg'      => 'result_msg',
-        'tripStatistics' => 'trip_statistics',
+        'reqMsgId'   => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg'  => 'result_msg',
     ];
 
     public function validate()
@@ -54,15 +47,6 @@ class QueryTwevCardataResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->tripStatistics) {
-            $res['trip_statistics'] = [];
-            if (null !== $this->tripStatistics && \is_array($this->tripStatistics)) {
-                $n = 0;
-                foreach ($this->tripStatistics as $item) {
-                    $res['trip_statistics'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
-        }
 
         return $res;
     }
@@ -70,7 +54,7 @@ class QueryTwevCardataResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryTwevCardataResponse
+     * @return RevokeDigitalkeyRentalResponse
      */
     public static function fromMap($map = [])
     {
@@ -83,15 +67,6 @@ class QueryTwevCardataResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['trip_statistics'])) {
-            if (!empty($map['trip_statistics'])) {
-                $model->tripStatistics = [];
-                $n                     = 0;
-                foreach ($map['trip_statistics'] as $item) {
-                    $model->tripStatistics[$n++] = null !== $item ? TripStatisticInfo::fromMap($item) : $item;
-                }
-            }
         }
 
         return $model;

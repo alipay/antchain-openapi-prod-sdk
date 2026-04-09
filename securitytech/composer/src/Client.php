@@ -11,6 +11,8 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\SECURITYTECH\Models\ActivateDigitalkeyRentalRequest;
+use AntChain\SECURITYTECH\Models\ActivateDigitalkeyRentalResponse;
 use AntChain\SECURITYTECH\Models\ApplyDigitalkeyCredRequest;
 use AntChain\SECURITYTECH\Models\ApplyDigitalkeyCredResponse;
 use AntChain\SECURITYTECH\Models\ApplyIifaaDevicekeyRequest;
@@ -29,6 +31,8 @@ use AntChain\SECURITYTECH\Models\CreateBssecpicRequest;
 use AntChain\SECURITYTECH\Models\CreateBssecpicResponse;
 use AntChain\SECURITYTECH\Models\CreateSimOrderRequest;
 use AntChain\SECURITYTECH\Models\CreateSimOrderResponse;
+use AntChain\SECURITYTECH\Models\DeleteDigitalkeyCredRequest;
+use AntChain\SECURITYTECH\Models\DeleteDigitalkeyCredResponse;
 use AntChain\SECURITYTECH\Models\DeleteIifaaDigitalkeyRequest;
 use AntChain\SECURITYTECH\Models\DeleteIifaaDigitalkeyResponse;
 use AntChain\SECURITYTECH\Models\DeprecateIifaaDeviceRequest;
@@ -61,6 +65,8 @@ use AntChain\SECURITYTECH\Models\ListDcpAccountbookRequest;
 use AntChain\SECURITYTECH\Models\ListDcpAccountbookResponse;
 use AntChain\SECURITYTECH\Models\ListDcpRequest;
 use AntChain\SECURITYTECH\Models\ListDcpResponse;
+use AntChain\SECURITYTECH\Models\ListDigitalkeyRentaltripRequest;
+use AntChain\SECURITYTECH\Models\ListDigitalkeyRentaltripResponse;
 use AntChain\SECURITYTECH\Models\ListSimCampaignRequest;
 use AntChain\SECURITYTECH\Models\ListSimCampaignResponse;
 use AntChain\SECURITYTECH\Models\ListSimOrderRequest;
@@ -89,6 +95,10 @@ use AntChain\SECURITYTECH\Models\QueryDeviceriskRisklabelRequest;
 use AntChain\SECURITYTECH\Models\QueryDeviceriskRisklabelResponse;
 use AntChain\SECURITYTECH\Models\QueryDigitalkeyNfccarinfoRequest;
 use AntChain\SECURITYTECH\Models\QueryDigitalkeyNfccarinfoResponse;
+use AntChain\SECURITYTECH\Models\QueryDigitalkeyRentalcarRequest;
+use AntChain\SECURITYTECH\Models\QueryDigitalkeyRentalcarResponse;
+use AntChain\SECURITYTECH\Models\QueryDigitalkeyRentaltrippointRequest;
+use AntChain\SECURITYTECH\Models\QueryDigitalkeyRentaltrippointResponse;
 use AntChain\SECURITYTECH\Models\QueryDigitalkeyUserinfoRequest;
 use AntChain\SECURITYTECH\Models\QueryDigitalkeyUserinfoResponse;
 use AntChain\SECURITYTECH\Models\QueryEkytDriverRequest;
@@ -143,10 +153,14 @@ use AntChain\SECURITYTECH\Models\RegisterIifaaCorpRequest;
 use AntChain\SECURITYTECH\Models\RegisterIifaaCorpResponse;
 use AntChain\SECURITYTECH\Models\ResetOrderLinkRequest;
 use AntChain\SECURITYTECH\Models\ResetOrderLinkResponse;
+use AntChain\SECURITYTECH\Models\RevokeDigitalkeyRentalRequest;
+use AntChain\SECURITYTECH\Models\RevokeDigitalkeyRentalResponse;
 use AntChain\SECURITYTECH\Models\RunGeneralRequest;
 use AntChain\SECURITYTECH\Models\RunGeneralResponse;
 use AntChain\SECURITYTECH\Models\RunXhunterSpiRequest;
 use AntChain\SECURITYTECH\Models\RunXhunterSpiResponse;
+use AntChain\SECURITYTECH\Models\ShareDigitalkeyRentalRequest;
+use AntChain\SECURITYTECH\Models\ShareDigitalkeyRentalResponse;
 use AntChain\SECURITYTECH\Models\SubmitAshieldHardeningtaskRequest;
 use AntChain\SECURITYTECH\Models\SubmitAshieldHardeningtaskResponse;
 use AntChain\SECURITYTECH\Models\SubmitAshieldPeriodhardeningtaskRequest;
@@ -310,7 +324,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.6.5',
+                    'sdk_version'      => '1.7.5',
                     '_prod_code'       => 'SECURITYTECH',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1612,6 +1626,237 @@ class Client
         Utils::validateModel($request);
 
         return QueryTwevCartravelResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.twev.cartravel.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数字钥匙设备凭证数据删除
+     * Summary: 数字钥匙设备凭证数据删除.
+     *
+     * @param DeleteDigitalkeyCredRequest $request
+     *
+     * @return DeleteDigitalkeyCredResponse
+     */
+    public function deleteDigitalkeyCred($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->deleteDigitalkeyCredEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数字钥匙设备凭证数据删除
+     * Summary: 数字钥匙设备凭证数据删除.
+     *
+     * @param DeleteDigitalkeyCredRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return DeleteDigitalkeyCredResponse
+     */
+    public function deleteDigitalkeyCredEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DeleteDigitalkeyCredResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.digitalkey.cred.delete', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 租赁车辆激活接口
+     * Summary: 租赁车辆激活接口.
+     *
+     * @param ActivateDigitalkeyRentalRequest $request
+     *
+     * @return ActivateDigitalkeyRentalResponse
+     */
+    public function activateDigitalkeyRental($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->activateDigitalkeyRentalEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 租赁车辆激活接口
+     * Summary: 租赁车辆激活接口.
+     *
+     * @param ActivateDigitalkeyRentalRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return ActivateDigitalkeyRentalResponse
+     */
+    public function activateDigitalkeyRentalEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ActivateDigitalkeyRentalResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.digitalkey.rental.activate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 租赁钥匙分享接口
+     * Summary: 租赁钥匙分享接口.
+     *
+     * @param ShareDigitalkeyRentalRequest $request
+     *
+     * @return ShareDigitalkeyRentalResponse
+     */
+    public function shareDigitalkeyRental($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->shareDigitalkeyRentalEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 租赁钥匙分享接口
+     * Summary: 租赁钥匙分享接口.
+     *
+     * @param ShareDigitalkeyRentalRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return ShareDigitalkeyRentalResponse
+     */
+    public function shareDigitalkeyRentalEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ShareDigitalkeyRentalResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.digitalkey.rental.share', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 租赁钥匙收回接口
+     * Summary: 租赁钥匙收回接口.
+     *
+     * @param RevokeDigitalkeyRentalRequest $request
+     *
+     * @return RevokeDigitalkeyRentalResponse
+     */
+    public function revokeDigitalkeyRental($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->revokeDigitalkeyRentalEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 租赁钥匙收回接口
+     * Summary: 租赁钥匙收回接口.
+     *
+     * @param RevokeDigitalkeyRentalRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return RevokeDigitalkeyRentalResponse
+     */
+    public function revokeDigitalkeyRentalEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RevokeDigitalkeyRentalResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.digitalkey.rental.revoke', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 租赁车辆数据查询接口
+     * Summary: 租赁车辆数据查询接口.
+     *
+     * @param QueryDigitalkeyRentalcarRequest $request
+     *
+     * @return QueryDigitalkeyRentalcarResponse
+     */
+    public function queryDigitalkeyRentalcar($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDigitalkeyRentalcarEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 租赁车辆数据查询接口
+     * Summary: 租赁车辆数据查询接口.
+     *
+     * @param QueryDigitalkeyRentalcarRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return QueryDigitalkeyRentalcarResponse
+     */
+    public function queryDigitalkeyRentalcarEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDigitalkeyRentalcarResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.digitalkey.rentalcar.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 租赁车辆轨迹查询接口
+     * Summary: 租赁车辆轨迹查询接口.
+     *
+     * @param ListDigitalkeyRentaltripRequest $request
+     *
+     * @return ListDigitalkeyRentaltripResponse
+     */
+    public function listDigitalkeyRentaltrip($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listDigitalkeyRentaltripEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 租赁车辆轨迹查询接口
+     * Summary: 租赁车辆轨迹查询接口.
+     *
+     * @param ListDigitalkeyRentaltripRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return ListDigitalkeyRentaltripResponse
+     */
+    public function listDigitalkeyRentaltripEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListDigitalkeyRentaltripResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.digitalkey.rentaltrip.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 行程轨迹点接口
+     * Summary: 行程轨迹点接口.
+     *
+     * @param QueryDigitalkeyRentaltrippointRequest $request
+     *
+     * @return QueryDigitalkeyRentaltrippointResponse
+     */
+    public function queryDigitalkeyRentaltrippoint($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDigitalkeyRentaltrippointEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 行程轨迹点接口
+     * Summary: 行程轨迹点接口.
+     *
+     * @param QueryDigitalkeyRentaltrippointRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return QueryDigitalkeyRentaltrippointResponse
+     */
+    public function queryDigitalkeyRentaltrippointEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDigitalkeyRentaltrippointResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.digitalkey.rentaltrippoint.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

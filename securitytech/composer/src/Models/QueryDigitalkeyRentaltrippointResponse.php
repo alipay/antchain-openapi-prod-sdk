@@ -6,7 +6,7 @@ namespace AntChain\SECURITYTECH\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryTwevCardataResponse extends Model
+class QueryDigitalkeyRentaltrippointResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,16 +26,16 @@ class QueryTwevCardataResponse extends Model
      */
     public $resultMsg;
 
-    // 行程统计数据列表
+    // 轨迹点
     /**
-     * @var TripStatisticInfo[]
+     * @var TripPoint[]
      */
-    public $tripStatistics;
+    public $points;
     protected $_name = [
-        'reqMsgId'       => 'req_msg_id',
-        'resultCode'     => 'result_code',
-        'resultMsg'      => 'result_msg',
-        'tripStatistics' => 'trip_statistics',
+        'reqMsgId'   => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg'  => 'result_msg',
+        'points'     => 'points',
     ];
 
     public function validate()
@@ -54,12 +54,12 @@ class QueryTwevCardataResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->tripStatistics) {
-            $res['trip_statistics'] = [];
-            if (null !== $this->tripStatistics && \is_array($this->tripStatistics)) {
+        if (null !== $this->points) {
+            $res['points'] = [];
+            if (null !== $this->points && \is_array($this->points)) {
                 $n = 0;
-                foreach ($this->tripStatistics as $item) {
-                    $res['trip_statistics'][$n++] = null !== $item ? $item->toMap() : $item;
+                foreach ($this->points as $item) {
+                    $res['points'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
         }
@@ -70,7 +70,7 @@ class QueryTwevCardataResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryTwevCardataResponse
+     * @return QueryDigitalkeyRentaltrippointResponse
      */
     public static function fromMap($map = [])
     {
@@ -84,12 +84,12 @@ class QueryTwevCardataResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['trip_statistics'])) {
-            if (!empty($map['trip_statistics'])) {
-                $model->tripStatistics = [];
-                $n                     = 0;
-                foreach ($map['trip_statistics'] as $item) {
-                    $model->tripStatistics[$n++] = null !== $item ? TripStatisticInfo::fromMap($item) : $item;
+        if (isset($map['points'])) {
+            if (!empty($map['points'])) {
+                $model->points = [];
+                $n             = 0;
+                foreach ($map['points'] as $item) {
+                    $model->points[$n++] = null !== $item ? TripPoint::fromMap($item) : $item;
                 }
             }
         }
