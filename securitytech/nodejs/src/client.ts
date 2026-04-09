@@ -667,6 +667,47 @@ export class EtcVehicleInfo extends $tea.Model {
   }
 }
 
+// 车辆行程信息
+export class TripInfo extends $tea.Model {
+  // tripList
+  tripId: string;
+  // 开始时间
+  startTime?: string;
+  // 结束时间
+  endTime?: string;
+  // 起点位置
+  startLocation?: string;
+  // 终点位置
+  endLocation?: string;
+  // 行驶里程（km）
+  mileage?: string;
+  static names(): { [key: string]: string } {
+    return {
+      tripId: 'trip_id',
+      startTime: 'start_time',
+      endTime: 'end_time',
+      startLocation: 'start_location',
+      endLocation: 'end_location',
+      mileage: 'mileage',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      tripId: 'string',
+      startTime: 'string',
+      endTime: 'string',
+      startLocation: 'string',
+      endLocation: 'string',
+      mileage: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 车辆gps轨迹点
 export class SimCarLocationInfo extends $tea.Model {
   // 定位时间
@@ -762,6 +803,31 @@ export class IifaaEkytResponse extends $tea.Model {
     return {
       head: ResponseHead,
       bizRes: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 行程轨迹点
+export class TripPoint extends $tea.Model {
+  // 经度
+  longitude?: string;
+  // 维度
+  latitude?: string;
+  static names(): { [key: string]: string } {
+    return {
+      longitude: 'longitude',
+      latitude: 'latitude',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      longitude: 'string',
+      latitude: 'string',
     };
   }
 
@@ -3905,7 +3971,7 @@ export class ApplyDigitalkeyCredRequest extends $tea.Model {
   // MAC地址
   mac?: string;
   // ble名称
-  bleNme: string;
+  bleNme?: string;
   // 无感控车数据
   keyLess?: string;
   // 凭证格式
@@ -4627,7 +4693,7 @@ export class QueryTwevCardataResponse extends $tea.Model {
   // 异常信息的文本描述
   resultMsg?: string;
   // 行程统计数据列表
-  tripStatistics?: TripStatisticInfo;
+  tripStatistics?: TripStatisticInfo[];
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -4642,7 +4708,7 @@ export class QueryTwevCardataResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      tripStatistics: TripStatisticInfo,
+      tripStatistics: { 'type': 'array', 'itemType': TripStatisticInfo },
     };
   }
 
@@ -4714,7 +4780,7 @@ export class QueryTwevCartravelResponse extends $tea.Model {
   // 单页条数
   pageSize?: number;
   // 行程详情信息
-  tripDetailList?: TripDetailInfo;
+  tripDetailList?: TripDetailInfo[];
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -4737,7 +4803,488 @@ export class QueryTwevCartravelResponse extends $tea.Model {
       totalSize: 'number',
       pageIndex: 'number',
       pageSize: 'number',
-      tripDetailList: TripDetailInfo,
+      tripDetailList: { 'type': 'array', 'itemType': TripDetailInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DeleteDigitalkeyCredRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 客户id
+  secretId: string;
+  // 中控id，不能和deviceSn同时为空
+  tuid?: string;
+  // 设备sn 不能和tuid同时为空
+  deviceSn?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      secretId: 'secret_id',
+      tuid: 'tuid',
+      deviceSn: 'device_sn',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      secretId: 'string',
+      tuid: 'string',
+      deviceSn: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DeleteDigitalkeyCredResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 删除结果
+  deleteResult?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      deleteResult: 'delete_result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      deleteResult: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ActivateDigitalkeyRentalRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 设备TUID（中控编号）
+  tuid: string;
+  // 经销商法人手机号
+  distributorMobile: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tuid: 'tuid',
+      distributorMobile: 'distributor_mobile',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tuid: 'string',
+      distributorMobile: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ActivateDigitalkeyRentalResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 主钥匙ID
+  masterKeyId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      masterKeyId: 'master_key_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      masterKeyId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ShareDigitalkeyRentalRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 设备TUID
+  tuid: string;
+  // 租车人手机号
+  renterMobile: string;
+  // 钥匙生效时间（格式：yyyy-MM-dd HH:mm:ss）
+  startTime: string;
+  // 钥匙失效时间（格式：yyyy-MM-dd HH:mm:ss）
+  endTime: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tuid: 'tuid',
+      renterMobile: 'renter_mobile',
+      startTime: 'start_time',
+      endTime: 'end_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tuid: 'string',
+      renterMobile: 'string',
+      startTime: 'string',
+      endTime: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ShareDigitalkeyRentalResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 子钥匙ID
+  slaveKeyId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      slaveKeyId: 'slave_key_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      slaveKeyId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RevokeDigitalkeyRentalRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租赁钥匙收回接口
+  tuid: string;
+  // 租车人手机号
+  renterMobile: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tuid: 'tuid',
+      renterMobile: 'renter_mobile',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tuid: 'string',
+      renterMobile: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RevokeDigitalkeyRentalResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDigitalkeyRentalcarRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 设备TUID
+  tuid: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tuid: 'tuid',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tuid: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDigitalkeyRentalcarResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 车架号
+  frameNo?: string;
+  // 中控编号
+  tuid?: string;
+  // 在线状态：online/offline
+  onlineStatus?: string;
+  // 经度（WGS84）
+  longitude?: string;
+  // 纬度（WGS84）
+  latitude?: string;
+  // 启动状态（0-断电; 1-上电）
+  runningStatus?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      frameNo: 'frame_no',
+      tuid: 'tuid',
+      onlineStatus: 'online_status',
+      longitude: 'longitude',
+      latitude: 'latitude',
+      runningStatus: 'running_status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      frameNo: 'string',
+      tuid: 'string',
+      onlineStatus: 'string',
+      longitude: 'string',
+      latitude: 'string',
+      runningStatus: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListDigitalkeyRentaltripRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 设备TUID
+  tuid: string;
+  // 时间维度：DAY（日）、WEEK（周）、MONTH（月）
+  timeDimension: string;
+  // 时间值（格式根据维度）
+  timeValue: string;
+  // 页码
+  pageNum: number;
+  // 每页条数
+  pageSize: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tuid: 'tuid',
+      timeDimension: 'time_dimension',
+      timeValue: 'time_value',
+      pageNum: 'page_num',
+      pageSize: 'page_size',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tuid: 'string',
+      timeDimension: 'string',
+      timeValue: 'string',
+      pageNum: 'number',
+      pageSize: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListDigitalkeyRentaltripResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 总条数
+  total?: number;
+  // 行程列表信息
+  tripList?: TripInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      total: 'total',
+      tripList: 'trip_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      total: 'number',
+      tripList: { 'type': 'array', 'itemType': TripInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDigitalkeyRentaltrippointRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 中控TUID
+  tuid: string;
+  // 行程ID
+  tripId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tuid: 'tuid',
+      tripId: 'trip_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tuid: 'string',
+      tripId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDigitalkeyRentaltrippointResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 轨迹点
+  points?: TripPoint[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      points: 'points',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      points: { 'type': 'array', 'itemType': TripPoint },
     };
   }
 
@@ -8052,7 +8599,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.6.5",
+          sdk_version: "1.7.5",
           _prod_code: "SECURITYTECH",
           _prod_channel: "undefined",
         };
@@ -8822,6 +9369,139 @@ export default class Client {
   async queryTwevCartravelEx(request: QueryTwevCartravelRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryTwevCartravelResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryTwevCartravelResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.twev.cartravel.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryTwevCartravelResponse({}));
+  }
+
+  /**
+   * Description: 数字钥匙设备凭证数据删除
+   * Summary: 数字钥匙设备凭证数据删除
+   */
+  async deleteDigitalkeyCred(request: DeleteDigitalkeyCredRequest): Promise<DeleteDigitalkeyCredResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.deleteDigitalkeyCredEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 数字钥匙设备凭证数据删除
+   * Summary: 数字钥匙设备凭证数据删除
+   */
+  async deleteDigitalkeyCredEx(request: DeleteDigitalkeyCredRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DeleteDigitalkeyCredResponse> {
+    Util.validateModel(request);
+    return $tea.cast<DeleteDigitalkeyCredResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.digitalkey.cred.delete", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new DeleteDigitalkeyCredResponse({}));
+  }
+
+  /**
+   * Description: 租赁车辆激活接口
+   * Summary: 租赁车辆激活接口
+   */
+  async activateDigitalkeyRental(request: ActivateDigitalkeyRentalRequest): Promise<ActivateDigitalkeyRentalResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.activateDigitalkeyRentalEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 租赁车辆激活接口
+   * Summary: 租赁车辆激活接口
+   */
+  async activateDigitalkeyRentalEx(request: ActivateDigitalkeyRentalRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ActivateDigitalkeyRentalResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ActivateDigitalkeyRentalResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.digitalkey.rental.activate", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ActivateDigitalkeyRentalResponse({}));
+  }
+
+  /**
+   * Description: 租赁钥匙分享接口
+   * Summary: 租赁钥匙分享接口
+   */
+  async shareDigitalkeyRental(request: ShareDigitalkeyRentalRequest): Promise<ShareDigitalkeyRentalResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.shareDigitalkeyRentalEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 租赁钥匙分享接口
+   * Summary: 租赁钥匙分享接口
+   */
+  async shareDigitalkeyRentalEx(request: ShareDigitalkeyRentalRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ShareDigitalkeyRentalResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ShareDigitalkeyRentalResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.digitalkey.rental.share", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ShareDigitalkeyRentalResponse({}));
+  }
+
+  /**
+   * Description: 租赁钥匙收回接口
+   * Summary: 租赁钥匙收回接口
+   */
+  async revokeDigitalkeyRental(request: RevokeDigitalkeyRentalRequest): Promise<RevokeDigitalkeyRentalResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.revokeDigitalkeyRentalEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 租赁钥匙收回接口
+   * Summary: 租赁钥匙收回接口
+   */
+  async revokeDigitalkeyRentalEx(request: RevokeDigitalkeyRentalRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RevokeDigitalkeyRentalResponse> {
+    Util.validateModel(request);
+    return $tea.cast<RevokeDigitalkeyRentalResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.digitalkey.rental.revoke", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RevokeDigitalkeyRentalResponse({}));
+  }
+
+  /**
+   * Description: 租赁车辆数据查询接口
+   * Summary: 租赁车辆数据查询接口
+   */
+  async queryDigitalkeyRentalcar(request: QueryDigitalkeyRentalcarRequest): Promise<QueryDigitalkeyRentalcarResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDigitalkeyRentalcarEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 租赁车辆数据查询接口
+   * Summary: 租赁车辆数据查询接口
+   */
+  async queryDigitalkeyRentalcarEx(request: QueryDigitalkeyRentalcarRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDigitalkeyRentalcarResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDigitalkeyRentalcarResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.digitalkey.rentalcar.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDigitalkeyRentalcarResponse({}));
+  }
+
+  /**
+   * Description: 租赁车辆轨迹查询接口
+   * Summary: 租赁车辆轨迹查询接口
+   */
+  async listDigitalkeyRentaltrip(request: ListDigitalkeyRentaltripRequest): Promise<ListDigitalkeyRentaltripResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.listDigitalkeyRentaltripEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 租赁车辆轨迹查询接口
+   * Summary: 租赁车辆轨迹查询接口
+   */
+  async listDigitalkeyRentaltripEx(request: ListDigitalkeyRentaltripRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ListDigitalkeyRentaltripResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ListDigitalkeyRentaltripResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.digitalkey.rentaltrip.list", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ListDigitalkeyRentaltripResponse({}));
+  }
+
+  /**
+   * Description: 行程轨迹点接口
+   * Summary: 行程轨迹点接口
+   */
+  async queryDigitalkeyRentaltrippoint(request: QueryDigitalkeyRentaltrippointRequest): Promise<QueryDigitalkeyRentaltrippointResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDigitalkeyRentaltrippointEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 行程轨迹点接口
+   * Summary: 行程轨迹点接口
+   */
+  async queryDigitalkeyRentaltrippointEx(request: QueryDigitalkeyRentaltrippointRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDigitalkeyRentaltrippointResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDigitalkeyRentaltrippointResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.digitalkey.rentaltrippoint.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDigitalkeyRentaltrippointResponse({}));
   }
 
   /**

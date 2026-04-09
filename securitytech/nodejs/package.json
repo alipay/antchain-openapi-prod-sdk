@@ -1,6 +1,6 @@
 {
   "name": "@antchain/securitytech",
-  "version": "1.6.5",
+  "version": "1.7.5",
   "description": "",
   "main": "dist/client.js",
   "scripts": {
