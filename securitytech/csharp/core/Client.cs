@@ -137,7 +137,7 @@ namespace AntChain.SDK.SECURITYTECH
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.6.5"},
+                        {"sdk_version", "1.7.5"},
                         {"_prod_code", "SECURITYTECH"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.SECURITYTECH
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.6.5"},
+                        {"sdk_version", "1.7.5"},
                         {"_prod_code", "SECURITYTECH"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1919,6 +1919,300 @@ namespace AntChain.SDK.SECURITYTECH
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryTwevCartravelResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.twev.cartravel.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 数字钥匙设备凭证数据删除
+         * Summary: 数字钥匙设备凭证数据删除
+         */
+        public DeleteDigitalkeyCredResponse DeleteDigitalkeyCred(DeleteDigitalkeyCredRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return DeleteDigitalkeyCredEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 数字钥匙设备凭证数据删除
+         * Summary: 数字钥匙设备凭证数据删除
+         */
+        public async Task<DeleteDigitalkeyCredResponse> DeleteDigitalkeyCredAsync(DeleteDigitalkeyCredRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await DeleteDigitalkeyCredExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 数字钥匙设备凭证数据删除
+         * Summary: 数字钥匙设备凭证数据删除
+         */
+        public DeleteDigitalkeyCredResponse DeleteDigitalkeyCredEx(DeleteDigitalkeyCredRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DeleteDigitalkeyCredResponse>(DoRequest("1.0", "antsecuritytech.gateway.digitalkey.cred.delete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 数字钥匙设备凭证数据删除
+         * Summary: 数字钥匙设备凭证数据删除
+         */
+        public async Task<DeleteDigitalkeyCredResponse> DeleteDigitalkeyCredExAsync(DeleteDigitalkeyCredRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DeleteDigitalkeyCredResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.digitalkey.cred.delete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 租赁车辆激活接口
+         * Summary: 租赁车辆激活接口
+         */
+        public ActivateDigitalkeyRentalResponse ActivateDigitalkeyRental(ActivateDigitalkeyRentalRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ActivateDigitalkeyRentalEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 租赁车辆激活接口
+         * Summary: 租赁车辆激活接口
+         */
+        public async Task<ActivateDigitalkeyRentalResponse> ActivateDigitalkeyRentalAsync(ActivateDigitalkeyRentalRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ActivateDigitalkeyRentalExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 租赁车辆激活接口
+         * Summary: 租赁车辆激活接口
+         */
+        public ActivateDigitalkeyRentalResponse ActivateDigitalkeyRentalEx(ActivateDigitalkeyRentalRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ActivateDigitalkeyRentalResponse>(DoRequest("1.0", "antsecuritytech.gateway.digitalkey.rental.activate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 租赁车辆激活接口
+         * Summary: 租赁车辆激活接口
+         */
+        public async Task<ActivateDigitalkeyRentalResponse> ActivateDigitalkeyRentalExAsync(ActivateDigitalkeyRentalRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ActivateDigitalkeyRentalResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.digitalkey.rental.activate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 租赁钥匙分享接口
+         * Summary: 租赁钥匙分享接口
+         */
+        public ShareDigitalkeyRentalResponse ShareDigitalkeyRental(ShareDigitalkeyRentalRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ShareDigitalkeyRentalEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 租赁钥匙分享接口
+         * Summary: 租赁钥匙分享接口
+         */
+        public async Task<ShareDigitalkeyRentalResponse> ShareDigitalkeyRentalAsync(ShareDigitalkeyRentalRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ShareDigitalkeyRentalExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 租赁钥匙分享接口
+         * Summary: 租赁钥匙分享接口
+         */
+        public ShareDigitalkeyRentalResponse ShareDigitalkeyRentalEx(ShareDigitalkeyRentalRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ShareDigitalkeyRentalResponse>(DoRequest("1.0", "antsecuritytech.gateway.digitalkey.rental.share", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 租赁钥匙分享接口
+         * Summary: 租赁钥匙分享接口
+         */
+        public async Task<ShareDigitalkeyRentalResponse> ShareDigitalkeyRentalExAsync(ShareDigitalkeyRentalRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ShareDigitalkeyRentalResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.digitalkey.rental.share", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 租赁钥匙收回接口
+         * Summary: 租赁钥匙收回接口
+         */
+        public RevokeDigitalkeyRentalResponse RevokeDigitalkeyRental(RevokeDigitalkeyRentalRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return RevokeDigitalkeyRentalEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 租赁钥匙收回接口
+         * Summary: 租赁钥匙收回接口
+         */
+        public async Task<RevokeDigitalkeyRentalResponse> RevokeDigitalkeyRentalAsync(RevokeDigitalkeyRentalRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await RevokeDigitalkeyRentalExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 租赁钥匙收回接口
+         * Summary: 租赁钥匙收回接口
+         */
+        public RevokeDigitalkeyRentalResponse RevokeDigitalkeyRentalEx(RevokeDigitalkeyRentalRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RevokeDigitalkeyRentalResponse>(DoRequest("1.0", "antsecuritytech.gateway.digitalkey.rental.revoke", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 租赁钥匙收回接口
+         * Summary: 租赁钥匙收回接口
+         */
+        public async Task<RevokeDigitalkeyRentalResponse> RevokeDigitalkeyRentalExAsync(RevokeDigitalkeyRentalRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RevokeDigitalkeyRentalResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.digitalkey.rental.revoke", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 租赁车辆数据查询接口
+         * Summary: 租赁车辆数据查询接口
+         */
+        public QueryDigitalkeyRentalcarResponse QueryDigitalkeyRentalcar(QueryDigitalkeyRentalcarRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryDigitalkeyRentalcarEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 租赁车辆数据查询接口
+         * Summary: 租赁车辆数据查询接口
+         */
+        public async Task<QueryDigitalkeyRentalcarResponse> QueryDigitalkeyRentalcarAsync(QueryDigitalkeyRentalcarRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryDigitalkeyRentalcarExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 租赁车辆数据查询接口
+         * Summary: 租赁车辆数据查询接口
+         */
+        public QueryDigitalkeyRentalcarResponse QueryDigitalkeyRentalcarEx(QueryDigitalkeyRentalcarRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDigitalkeyRentalcarResponse>(DoRequest("1.0", "antsecuritytech.gateway.digitalkey.rentalcar.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 租赁车辆数据查询接口
+         * Summary: 租赁车辆数据查询接口
+         */
+        public async Task<QueryDigitalkeyRentalcarResponse> QueryDigitalkeyRentalcarExAsync(QueryDigitalkeyRentalcarRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDigitalkeyRentalcarResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.digitalkey.rentalcar.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 租赁车辆轨迹查询接口
+         * Summary: 租赁车辆轨迹查询接口
+         */
+        public ListDigitalkeyRentaltripResponse ListDigitalkeyRentaltrip(ListDigitalkeyRentaltripRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ListDigitalkeyRentaltripEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 租赁车辆轨迹查询接口
+         * Summary: 租赁车辆轨迹查询接口
+         */
+        public async Task<ListDigitalkeyRentaltripResponse> ListDigitalkeyRentaltripAsync(ListDigitalkeyRentaltripRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ListDigitalkeyRentaltripExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 租赁车辆轨迹查询接口
+         * Summary: 租赁车辆轨迹查询接口
+         */
+        public ListDigitalkeyRentaltripResponse ListDigitalkeyRentaltripEx(ListDigitalkeyRentaltripRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListDigitalkeyRentaltripResponse>(DoRequest("1.0", "antsecuritytech.gateway.digitalkey.rentaltrip.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 租赁车辆轨迹查询接口
+         * Summary: 租赁车辆轨迹查询接口
+         */
+        public async Task<ListDigitalkeyRentaltripResponse> ListDigitalkeyRentaltripExAsync(ListDigitalkeyRentaltripRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListDigitalkeyRentaltripResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.digitalkey.rentaltrip.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 行程轨迹点接口
+         * Summary: 行程轨迹点接口
+         */
+        public QueryDigitalkeyRentaltrippointResponse QueryDigitalkeyRentaltrippoint(QueryDigitalkeyRentaltrippointRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryDigitalkeyRentaltrippointEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 行程轨迹点接口
+         * Summary: 行程轨迹点接口
+         */
+        public async Task<QueryDigitalkeyRentaltrippointResponse> QueryDigitalkeyRentaltrippointAsync(QueryDigitalkeyRentaltrippointRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryDigitalkeyRentaltrippointExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 行程轨迹点接口
+         * Summary: 行程轨迹点接口
+         */
+        public QueryDigitalkeyRentaltrippointResponse QueryDigitalkeyRentaltrippointEx(QueryDigitalkeyRentaltrippointRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDigitalkeyRentaltrippointResponse>(DoRequest("1.0", "antsecuritytech.gateway.digitalkey.rentaltrippoint.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 行程轨迹点接口
+         * Summary: 行程轨迹点接口
+         */
+        public async Task<QueryDigitalkeyRentaltrippointResponse> QueryDigitalkeyRentaltrippointExAsync(QueryDigitalkeyRentaltrippointRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDigitalkeyRentaltrippointResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.digitalkey.rentaltrippoint.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

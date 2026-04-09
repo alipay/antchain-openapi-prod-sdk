@@ -50,7 +50,7 @@ namespace AntChain.SDK.SECURITYTECH.Models
 
         // ble名称
         [NameInMap("ble_nme")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string BleNme { get; set; }
 
         // 无感控车数据

@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.SECURITYTECH.Models
 {
-    public class QueryTwevCartravelResponse : TeaModel {
+    public class QueryDigitalkeyRentalcarResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,30 +24,35 @@ namespace AntChain.SDK.SECURITYTECH.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 总页数
-        [NameInMap("tota_page")]
+        // 车架号
+        [NameInMap("frame_no")]
         [Validation(Required=false)]
-        public long? TotaPage { get; set; }
+        public string FrameNo { get; set; }
 
-        // 总条数
-        [NameInMap("total_size")]
+        // 中控编号
+        [NameInMap("tuid")]
         [Validation(Required=false)]
-        public long? TotalSize { get; set; }
+        public string Tuid { get; set; }
 
-        // 当前页数
-        [NameInMap("page_index")]
+        // 在线状态：online/offline
+        [NameInMap("online_status")]
         [Validation(Required=false)]
-        public long? PageIndex { get; set; }
+        public string OnlineStatus { get; set; }
 
-        // 单页条数
-        [NameInMap("page_size")]
+        // 经度（WGS84）
+        [NameInMap("longitude")]
         [Validation(Required=false)]
-        public long? PageSize { get; set; }
+        public string Longitude { get; set; }
 
-        // 行程详情信息
-        [NameInMap("trip_detail_list")]
+        // 纬度（WGS84）
+        [NameInMap("latitude")]
         [Validation(Required=false)]
-        public List<TripDetailInfo> TripDetailList { get; set; }
+        public string Latitude { get; set; }
+
+        // 启动状态（0-断电; 1-上电）
+        [NameInMap("running_status")]
+        [Validation(Required=false)]
+        public string RunningStatus { get; set; }
 
     }
 

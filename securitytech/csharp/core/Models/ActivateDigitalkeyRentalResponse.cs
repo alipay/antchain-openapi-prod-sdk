@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.SECURITYTECH.Models
 {
-    public class QueryTwevCardataResponse : TeaModel {
+    public class ActivateDigitalkeyRentalResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,10 +24,10 @@ namespace AntChain.SDK.SECURITYTECH.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 行程统计数据列表
-        [NameInMap("trip_statistics")]
+        // 主钥匙ID
+        [NameInMap("master_key_id")]
         [Validation(Required=false)]
-        public List<TripStatisticInfo> TripStatistics { get; set; }
+        public string MasterKeyId { get; set; }
 
     }
 
