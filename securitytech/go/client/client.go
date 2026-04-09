@@ -858,6 +858,60 @@ func (s *EtcVehicleInfo) SetDeviceBizTime(v string) *EtcVehicleInfo {
 	return s
 }
 
+// 车辆行程信息
+type TripInfo struct {
+	// tripList
+	TripId *string `json:"trip_id,omitempty" xml:"trip_id,omitempty" require:"true"`
+	// 开始时间
+	StartTime *string `json:"start_time,omitempty" xml:"start_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 结束时间
+	EndTime *string `json:"end_time,omitempty" xml:"end_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 起点位置
+	StartLocation *string `json:"start_location,omitempty" xml:"start_location,omitempty"`
+	// 终点位置
+	EndLocation *string `json:"end_location,omitempty" xml:"end_location,omitempty"`
+	// 行驶里程（km）
+	Mileage *string `json:"mileage,omitempty" xml:"mileage,omitempty"`
+}
+
+func (s TripInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TripInfo) GoString() string {
+	return s.String()
+}
+
+func (s *TripInfo) SetTripId(v string) *TripInfo {
+	s.TripId = &v
+	return s
+}
+
+func (s *TripInfo) SetStartTime(v string) *TripInfo {
+	s.StartTime = &v
+	return s
+}
+
+func (s *TripInfo) SetEndTime(v string) *TripInfo {
+	s.EndTime = &v
+	return s
+}
+
+func (s *TripInfo) SetStartLocation(v string) *TripInfo {
+	s.StartLocation = &v
+	return s
+}
+
+func (s *TripInfo) SetEndLocation(v string) *TripInfo {
+	s.EndLocation = &v
+	return s
+}
+
+func (s *TripInfo) SetMileage(v string) *TripInfo {
+	s.Mileage = &v
+	return s
+}
+
 // 车辆gps轨迹点
 type SimCarLocationInfo struct {
 	// 定位时间
@@ -982,6 +1036,32 @@ func (s *IifaaEkytResponse) SetHead(v *ResponseHead) *IifaaEkytResponse {
 
 func (s *IifaaEkytResponse) SetBizRes(v string) *IifaaEkytResponse {
 	s.BizRes = &v
+	return s
+}
+
+// 行程轨迹点
+type TripPoint struct {
+	// 经度
+	Longitude *string `json:"longitude,omitempty" xml:"longitude,omitempty"`
+	// 维度
+	Latitude *string `json:"latitude,omitempty" xml:"latitude,omitempty"`
+}
+
+func (s TripPoint) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TripPoint) GoString() string {
+	return s.String()
+}
+
+func (s *TripPoint) SetLongitude(v string) *TripPoint {
+	s.Longitude = &v
+	return s
+}
+
+func (s *TripPoint) SetLatitude(v string) *TripPoint {
+	s.Latitude = &v
 	return s
 }
 
@@ -5056,7 +5136,7 @@ type ApplyDigitalkeyCredRequest struct {
 	// MAC地址
 	Mac *string `json:"mac,omitempty" xml:"mac,omitempty"`
 	// ble名称
-	BleNme *string `json:"ble_nme,omitempty" xml:"ble_nme,omitempty" require:"true"`
+	BleNme *string `json:"ble_nme,omitempty" xml:"ble_nme,omitempty"`
 	// 无感控车数据
 	KeyLess *string `json:"key_less,omitempty" xml:"key_less,omitempty"`
 	// 凭证格式
@@ -6044,7 +6124,7 @@ type QueryTwevCardataResponse struct {
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 行程统计数据列表
-	TripStatistics *TripStatisticInfo `json:"trip_statistics,omitempty" xml:"trip_statistics,omitempty"`
+	TripStatistics []*TripStatisticInfo `json:"trip_statistics,omitempty" xml:"trip_statistics,omitempty" type:"Repeated"`
 }
 
 func (s QueryTwevCardataResponse) String() string {
@@ -6070,7 +6150,7 @@ func (s *QueryTwevCardataResponse) SetResultMsg(v string) *QueryTwevCardataRespo
 	return s
 }
 
-func (s *QueryTwevCardataResponse) SetTripStatistics(v *TripStatisticInfo) *QueryTwevCardataResponse {
+func (s *QueryTwevCardataResponse) SetTripStatistics(v []*TripStatisticInfo) *QueryTwevCardataResponse {
 	s.TripStatistics = v
 	return s
 }
@@ -6157,7 +6237,7 @@ type QueryTwevCartravelResponse struct {
 	// 单页条数
 	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
 	// 行程详情信息
-	TripDetailList *TripDetailInfo `json:"trip_detail_list,omitempty" xml:"trip_detail_list,omitempty"`
+	TripDetailList []*TripDetailInfo `json:"trip_detail_list,omitempty" xml:"trip_detail_list,omitempty" type:"Repeated"`
 }
 
 func (s QueryTwevCartravelResponse) String() string {
@@ -6203,8 +6283,617 @@ func (s *QueryTwevCartravelResponse) SetPageSize(v int64) *QueryTwevCartravelRes
 	return s
 }
 
-func (s *QueryTwevCartravelResponse) SetTripDetailList(v *TripDetailInfo) *QueryTwevCartravelResponse {
+func (s *QueryTwevCartravelResponse) SetTripDetailList(v []*TripDetailInfo) *QueryTwevCartravelResponse {
 	s.TripDetailList = v
+	return s
+}
+
+type DeleteDigitalkeyCredRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 客户id
+	SecretId *string `json:"secret_id,omitempty" xml:"secret_id,omitempty" require:"true"`
+	// 中控id，不能和deviceSn同时为空
+	Tuid *string `json:"tuid,omitempty" xml:"tuid,omitempty"`
+	// 设备sn 不能和tuid同时为空
+	DeviceSn *string `json:"device_sn,omitempty" xml:"device_sn,omitempty"`
+}
+
+func (s DeleteDigitalkeyCredRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeleteDigitalkeyCredRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DeleteDigitalkeyCredRequest) SetAuthToken(v string) *DeleteDigitalkeyCredRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DeleteDigitalkeyCredRequest) SetProductInstanceId(v string) *DeleteDigitalkeyCredRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *DeleteDigitalkeyCredRequest) SetSecretId(v string) *DeleteDigitalkeyCredRequest {
+	s.SecretId = &v
+	return s
+}
+
+func (s *DeleteDigitalkeyCredRequest) SetTuid(v string) *DeleteDigitalkeyCredRequest {
+	s.Tuid = &v
+	return s
+}
+
+func (s *DeleteDigitalkeyCredRequest) SetDeviceSn(v string) *DeleteDigitalkeyCredRequest {
+	s.DeviceSn = &v
+	return s
+}
+
+type DeleteDigitalkeyCredResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 删除结果
+	DeleteResult *bool `json:"delete_result,omitempty" xml:"delete_result,omitempty"`
+}
+
+func (s DeleteDigitalkeyCredResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeleteDigitalkeyCredResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DeleteDigitalkeyCredResponse) SetReqMsgId(v string) *DeleteDigitalkeyCredResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DeleteDigitalkeyCredResponse) SetResultCode(v string) *DeleteDigitalkeyCredResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DeleteDigitalkeyCredResponse) SetResultMsg(v string) *DeleteDigitalkeyCredResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *DeleteDigitalkeyCredResponse) SetDeleteResult(v bool) *DeleteDigitalkeyCredResponse {
+	s.DeleteResult = &v
+	return s
+}
+
+type ActivateDigitalkeyRentalRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 设备TUID（中控编号）
+	Tuid *string `json:"tuid,omitempty" xml:"tuid,omitempty" require:"true"`
+	// 经销商法人手机号
+	DistributorMobile *string `json:"distributor_mobile,omitempty" xml:"distributor_mobile,omitempty" require:"true"`
+}
+
+func (s ActivateDigitalkeyRentalRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ActivateDigitalkeyRentalRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ActivateDigitalkeyRentalRequest) SetAuthToken(v string) *ActivateDigitalkeyRentalRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ActivateDigitalkeyRentalRequest) SetProductInstanceId(v string) *ActivateDigitalkeyRentalRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ActivateDigitalkeyRentalRequest) SetTuid(v string) *ActivateDigitalkeyRentalRequest {
+	s.Tuid = &v
+	return s
+}
+
+func (s *ActivateDigitalkeyRentalRequest) SetDistributorMobile(v string) *ActivateDigitalkeyRentalRequest {
+	s.DistributorMobile = &v
+	return s
+}
+
+type ActivateDigitalkeyRentalResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 主钥匙ID
+	MasterKeyId *string `json:"master_key_id,omitempty" xml:"master_key_id,omitempty"`
+}
+
+func (s ActivateDigitalkeyRentalResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ActivateDigitalkeyRentalResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ActivateDigitalkeyRentalResponse) SetReqMsgId(v string) *ActivateDigitalkeyRentalResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ActivateDigitalkeyRentalResponse) SetResultCode(v string) *ActivateDigitalkeyRentalResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ActivateDigitalkeyRentalResponse) SetResultMsg(v string) *ActivateDigitalkeyRentalResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ActivateDigitalkeyRentalResponse) SetMasterKeyId(v string) *ActivateDigitalkeyRentalResponse {
+	s.MasterKeyId = &v
+	return s
+}
+
+type ShareDigitalkeyRentalRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 设备TUID
+	Tuid *string `json:"tuid,omitempty" xml:"tuid,omitempty" require:"true"`
+	// 租车人手机号
+	RenterMobile *string `json:"renter_mobile,omitempty" xml:"renter_mobile,omitempty" require:"true"`
+	// 钥匙生效时间（格式：yyyy-MM-dd HH:mm:ss）
+	StartTime *string `json:"start_time,omitempty" xml:"start_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 钥匙失效时间（格式：yyyy-MM-dd HH:mm:ss）
+	EndTime *string `json:"end_time,omitempty" xml:"end_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s ShareDigitalkeyRentalRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ShareDigitalkeyRentalRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ShareDigitalkeyRentalRequest) SetAuthToken(v string) *ShareDigitalkeyRentalRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ShareDigitalkeyRentalRequest) SetProductInstanceId(v string) *ShareDigitalkeyRentalRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ShareDigitalkeyRentalRequest) SetTuid(v string) *ShareDigitalkeyRentalRequest {
+	s.Tuid = &v
+	return s
+}
+
+func (s *ShareDigitalkeyRentalRequest) SetRenterMobile(v string) *ShareDigitalkeyRentalRequest {
+	s.RenterMobile = &v
+	return s
+}
+
+func (s *ShareDigitalkeyRentalRequest) SetStartTime(v string) *ShareDigitalkeyRentalRequest {
+	s.StartTime = &v
+	return s
+}
+
+func (s *ShareDigitalkeyRentalRequest) SetEndTime(v string) *ShareDigitalkeyRentalRequest {
+	s.EndTime = &v
+	return s
+}
+
+type ShareDigitalkeyRentalResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 子钥匙ID
+	SlaveKeyId *string `json:"slave_key_id,omitempty" xml:"slave_key_id,omitempty"`
+}
+
+func (s ShareDigitalkeyRentalResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ShareDigitalkeyRentalResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ShareDigitalkeyRentalResponse) SetReqMsgId(v string) *ShareDigitalkeyRentalResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ShareDigitalkeyRentalResponse) SetResultCode(v string) *ShareDigitalkeyRentalResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ShareDigitalkeyRentalResponse) SetResultMsg(v string) *ShareDigitalkeyRentalResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ShareDigitalkeyRentalResponse) SetSlaveKeyId(v string) *ShareDigitalkeyRentalResponse {
+	s.SlaveKeyId = &v
+	return s
+}
+
+type RevokeDigitalkeyRentalRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租赁钥匙收回接口
+	Tuid *string `json:"tuid,omitempty" xml:"tuid,omitempty" require:"true"`
+	// 租车人手机号
+	RenterMobile *string `json:"renter_mobile,omitempty" xml:"renter_mobile,omitempty" require:"true"`
+}
+
+func (s RevokeDigitalkeyRentalRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RevokeDigitalkeyRentalRequest) GoString() string {
+	return s.String()
+}
+
+func (s *RevokeDigitalkeyRentalRequest) SetAuthToken(v string) *RevokeDigitalkeyRentalRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *RevokeDigitalkeyRentalRequest) SetProductInstanceId(v string) *RevokeDigitalkeyRentalRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *RevokeDigitalkeyRentalRequest) SetTuid(v string) *RevokeDigitalkeyRentalRequest {
+	s.Tuid = &v
+	return s
+}
+
+func (s *RevokeDigitalkeyRentalRequest) SetRenterMobile(v string) *RevokeDigitalkeyRentalRequest {
+	s.RenterMobile = &v
+	return s
+}
+
+type RevokeDigitalkeyRentalResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s RevokeDigitalkeyRentalResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RevokeDigitalkeyRentalResponse) GoString() string {
+	return s.String()
+}
+
+func (s *RevokeDigitalkeyRentalResponse) SetReqMsgId(v string) *RevokeDigitalkeyRentalResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *RevokeDigitalkeyRentalResponse) SetResultCode(v string) *RevokeDigitalkeyRentalResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *RevokeDigitalkeyRentalResponse) SetResultMsg(v string) *RevokeDigitalkeyRentalResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type QueryDigitalkeyRentalcarRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 设备TUID
+	Tuid *string `json:"tuid,omitempty" xml:"tuid,omitempty" require:"true"`
+}
+
+func (s QueryDigitalkeyRentalcarRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDigitalkeyRentalcarRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDigitalkeyRentalcarRequest) SetAuthToken(v string) *QueryDigitalkeyRentalcarRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDigitalkeyRentalcarRequest) SetProductInstanceId(v string) *QueryDigitalkeyRentalcarRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryDigitalkeyRentalcarRequest) SetTuid(v string) *QueryDigitalkeyRentalcarRequest {
+	s.Tuid = &v
+	return s
+}
+
+type QueryDigitalkeyRentalcarResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 车架号
+	FrameNo *string `json:"frame_no,omitempty" xml:"frame_no,omitempty"`
+	// 中控编号
+	Tuid *string `json:"tuid,omitempty" xml:"tuid,omitempty"`
+	// 在线状态：online/offline
+	OnlineStatus *string `json:"online_status,omitempty" xml:"online_status,omitempty"`
+	// 经度（WGS84）
+	Longitude *string `json:"longitude,omitempty" xml:"longitude,omitempty"`
+	// 纬度（WGS84）
+	Latitude *string `json:"latitude,omitempty" xml:"latitude,omitempty"`
+	// 启动状态（0-断电; 1-上电）
+	RunningStatus *string `json:"running_status,omitempty" xml:"running_status,omitempty"`
+}
+
+func (s QueryDigitalkeyRentalcarResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDigitalkeyRentalcarResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDigitalkeyRentalcarResponse) SetReqMsgId(v string) *QueryDigitalkeyRentalcarResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDigitalkeyRentalcarResponse) SetResultCode(v string) *QueryDigitalkeyRentalcarResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDigitalkeyRentalcarResponse) SetResultMsg(v string) *QueryDigitalkeyRentalcarResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryDigitalkeyRentalcarResponse) SetFrameNo(v string) *QueryDigitalkeyRentalcarResponse {
+	s.FrameNo = &v
+	return s
+}
+
+func (s *QueryDigitalkeyRentalcarResponse) SetTuid(v string) *QueryDigitalkeyRentalcarResponse {
+	s.Tuid = &v
+	return s
+}
+
+func (s *QueryDigitalkeyRentalcarResponse) SetOnlineStatus(v string) *QueryDigitalkeyRentalcarResponse {
+	s.OnlineStatus = &v
+	return s
+}
+
+func (s *QueryDigitalkeyRentalcarResponse) SetLongitude(v string) *QueryDigitalkeyRentalcarResponse {
+	s.Longitude = &v
+	return s
+}
+
+func (s *QueryDigitalkeyRentalcarResponse) SetLatitude(v string) *QueryDigitalkeyRentalcarResponse {
+	s.Latitude = &v
+	return s
+}
+
+func (s *QueryDigitalkeyRentalcarResponse) SetRunningStatus(v string) *QueryDigitalkeyRentalcarResponse {
+	s.RunningStatus = &v
+	return s
+}
+
+type ListDigitalkeyRentaltripRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 设备TUID
+	Tuid *string `json:"tuid,omitempty" xml:"tuid,omitempty" require:"true"`
+	// 时间维度：DAY（日）、WEEK（周）、MONTH（月）
+	TimeDimension *string `json:"time_dimension,omitempty" xml:"time_dimension,omitempty" require:"true"`
+	// 时间值（格式根据维度）
+	TimeValue *string `json:"time_value,omitempty" xml:"time_value,omitempty" require:"true"`
+	// 页码
+	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty" require:"true"`
+	// 每页条数
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+}
+
+func (s ListDigitalkeyRentaltripRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListDigitalkeyRentaltripRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ListDigitalkeyRentaltripRequest) SetAuthToken(v string) *ListDigitalkeyRentaltripRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ListDigitalkeyRentaltripRequest) SetProductInstanceId(v string) *ListDigitalkeyRentaltripRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ListDigitalkeyRentaltripRequest) SetTuid(v string) *ListDigitalkeyRentaltripRequest {
+	s.Tuid = &v
+	return s
+}
+
+func (s *ListDigitalkeyRentaltripRequest) SetTimeDimension(v string) *ListDigitalkeyRentaltripRequest {
+	s.TimeDimension = &v
+	return s
+}
+
+func (s *ListDigitalkeyRentaltripRequest) SetTimeValue(v string) *ListDigitalkeyRentaltripRequest {
+	s.TimeValue = &v
+	return s
+}
+
+func (s *ListDigitalkeyRentaltripRequest) SetPageNum(v int64) *ListDigitalkeyRentaltripRequest {
+	s.PageNum = &v
+	return s
+}
+
+func (s *ListDigitalkeyRentaltripRequest) SetPageSize(v int64) *ListDigitalkeyRentaltripRequest {
+	s.PageSize = &v
+	return s
+}
+
+type ListDigitalkeyRentaltripResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 总条数
+	Total *int64 `json:"total,omitempty" xml:"total,omitempty"`
+	// 行程列表信息
+	TripList []*TripInfo `json:"trip_list,omitempty" xml:"trip_list,omitempty" type:"Repeated"`
+}
+
+func (s ListDigitalkeyRentaltripResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListDigitalkeyRentaltripResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ListDigitalkeyRentaltripResponse) SetReqMsgId(v string) *ListDigitalkeyRentaltripResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ListDigitalkeyRentaltripResponse) SetResultCode(v string) *ListDigitalkeyRentaltripResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ListDigitalkeyRentaltripResponse) SetResultMsg(v string) *ListDigitalkeyRentaltripResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ListDigitalkeyRentaltripResponse) SetTotal(v int64) *ListDigitalkeyRentaltripResponse {
+	s.Total = &v
+	return s
+}
+
+func (s *ListDigitalkeyRentaltripResponse) SetTripList(v []*TripInfo) *ListDigitalkeyRentaltripResponse {
+	s.TripList = v
+	return s
+}
+
+type QueryDigitalkeyRentaltrippointRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 中控TUID
+	Tuid *string `json:"tuid,omitempty" xml:"tuid,omitempty" require:"true"`
+	// 行程ID
+	TripId *string `json:"trip_id,omitempty" xml:"trip_id,omitempty" require:"true"`
+}
+
+func (s QueryDigitalkeyRentaltrippointRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDigitalkeyRentaltrippointRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDigitalkeyRentaltrippointRequest) SetAuthToken(v string) *QueryDigitalkeyRentaltrippointRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDigitalkeyRentaltrippointRequest) SetProductInstanceId(v string) *QueryDigitalkeyRentaltrippointRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryDigitalkeyRentaltrippointRequest) SetTuid(v string) *QueryDigitalkeyRentaltrippointRequest {
+	s.Tuid = &v
+	return s
+}
+
+func (s *QueryDigitalkeyRentaltrippointRequest) SetTripId(v string) *QueryDigitalkeyRentaltrippointRequest {
+	s.TripId = &v
+	return s
+}
+
+type QueryDigitalkeyRentaltrippointResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 轨迹点
+	Points []*TripPoint `json:"points,omitempty" xml:"points,omitempty" type:"Repeated"`
+}
+
+func (s QueryDigitalkeyRentaltrippointResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDigitalkeyRentaltrippointResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDigitalkeyRentaltrippointResponse) SetReqMsgId(v string) *QueryDigitalkeyRentaltrippointResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDigitalkeyRentaltrippointResponse) SetResultCode(v string) *QueryDigitalkeyRentaltrippointResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDigitalkeyRentaltrippointResponse) SetResultMsg(v string) *QueryDigitalkeyRentaltrippointResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryDigitalkeyRentaltrippointResponse) SetPoints(v []*TripPoint) *QueryDigitalkeyRentaltrippointResponse {
+	s.Points = v
 	return s
 }
 
@@ -10637,7 +11326,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.6.5"),
+				"sdk_version":      tea.String("1.7.5"),
 				"_prod_code":       tea.String("SECURITYTECH"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -11982,6 +12671,244 @@ func (client *Client) QueryTwevCartravelEx(request *QueryTwevCartravelRequest, h
 	}
 	_result = &QueryTwevCartravelResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.twev.cartravel.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 数字钥匙设备凭证数据删除
+ * Summary: 数字钥匙设备凭证数据删除
+ */
+func (client *Client) DeleteDigitalkeyCred(request *DeleteDigitalkeyCredRequest) (_result *DeleteDigitalkeyCredResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DeleteDigitalkeyCredResponse{}
+	_body, _err := client.DeleteDigitalkeyCredEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 数字钥匙设备凭证数据删除
+ * Summary: 数字钥匙设备凭证数据删除
+ */
+func (client *Client) DeleteDigitalkeyCredEx(request *DeleteDigitalkeyCredRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DeleteDigitalkeyCredResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DeleteDigitalkeyCredResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.digitalkey.cred.delete"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 租赁车辆激活接口
+ * Summary: 租赁车辆激活接口
+ */
+func (client *Client) ActivateDigitalkeyRental(request *ActivateDigitalkeyRentalRequest) (_result *ActivateDigitalkeyRentalResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ActivateDigitalkeyRentalResponse{}
+	_body, _err := client.ActivateDigitalkeyRentalEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 租赁车辆激活接口
+ * Summary: 租赁车辆激活接口
+ */
+func (client *Client) ActivateDigitalkeyRentalEx(request *ActivateDigitalkeyRentalRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ActivateDigitalkeyRentalResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ActivateDigitalkeyRentalResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.digitalkey.rental.activate"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 租赁钥匙分享接口
+ * Summary: 租赁钥匙分享接口
+ */
+func (client *Client) ShareDigitalkeyRental(request *ShareDigitalkeyRentalRequest) (_result *ShareDigitalkeyRentalResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ShareDigitalkeyRentalResponse{}
+	_body, _err := client.ShareDigitalkeyRentalEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 租赁钥匙分享接口
+ * Summary: 租赁钥匙分享接口
+ */
+func (client *Client) ShareDigitalkeyRentalEx(request *ShareDigitalkeyRentalRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ShareDigitalkeyRentalResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ShareDigitalkeyRentalResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.digitalkey.rental.share"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 租赁钥匙收回接口
+ * Summary: 租赁钥匙收回接口
+ */
+func (client *Client) RevokeDigitalkeyRental(request *RevokeDigitalkeyRentalRequest) (_result *RevokeDigitalkeyRentalResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &RevokeDigitalkeyRentalResponse{}
+	_body, _err := client.RevokeDigitalkeyRentalEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 租赁钥匙收回接口
+ * Summary: 租赁钥匙收回接口
+ */
+func (client *Client) RevokeDigitalkeyRentalEx(request *RevokeDigitalkeyRentalRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *RevokeDigitalkeyRentalResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &RevokeDigitalkeyRentalResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.digitalkey.rental.revoke"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 租赁车辆数据查询接口
+ * Summary: 租赁车辆数据查询接口
+ */
+func (client *Client) QueryDigitalkeyRentalcar(request *QueryDigitalkeyRentalcarRequest) (_result *QueryDigitalkeyRentalcarResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDigitalkeyRentalcarResponse{}
+	_body, _err := client.QueryDigitalkeyRentalcarEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 租赁车辆数据查询接口
+ * Summary: 租赁车辆数据查询接口
+ */
+func (client *Client) QueryDigitalkeyRentalcarEx(request *QueryDigitalkeyRentalcarRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDigitalkeyRentalcarResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDigitalkeyRentalcarResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.digitalkey.rentalcar.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 租赁车辆轨迹查询接口
+ * Summary: 租赁车辆轨迹查询接口
+ */
+func (client *Client) ListDigitalkeyRentaltrip(request *ListDigitalkeyRentaltripRequest) (_result *ListDigitalkeyRentaltripResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ListDigitalkeyRentaltripResponse{}
+	_body, _err := client.ListDigitalkeyRentaltripEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 租赁车辆轨迹查询接口
+ * Summary: 租赁车辆轨迹查询接口
+ */
+func (client *Client) ListDigitalkeyRentaltripEx(request *ListDigitalkeyRentaltripRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ListDigitalkeyRentaltripResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ListDigitalkeyRentaltripResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.digitalkey.rentaltrip.list"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 行程轨迹点接口
+ * Summary: 行程轨迹点接口
+ */
+func (client *Client) QueryDigitalkeyRentaltrippoint(request *QueryDigitalkeyRentaltrippointRequest) (_result *QueryDigitalkeyRentaltrippointResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDigitalkeyRentaltrippointResponse{}
+	_body, _err := client.QueryDigitalkeyRentaltrippointEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 行程轨迹点接口
+ * Summary: 行程轨迹点接口
+ */
+func (client *Client) QueryDigitalkeyRentaltrippointEx(request *QueryDigitalkeyRentaltrippointRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDigitalkeyRentaltrippointResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDigitalkeyRentaltrippointResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.digitalkey.rentaltrippoint.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
