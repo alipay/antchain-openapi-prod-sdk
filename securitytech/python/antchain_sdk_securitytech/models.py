@@ -1088,6 +1088,73 @@ class EtcVehicleInfo(TeaModel):
         return self
 
 
+class TripInfo(TeaModel):
+    def __init__(
+        self,
+        trip_id: str = None,
+        start_time: str = None,
+        end_time: str = None,
+        start_location: str = None,
+        end_location: str = None,
+        mileage: str = None,
+    ):
+        # tripList
+        self.trip_id = trip_id
+        # 开始时间
+        self.start_time = start_time
+        # 结束时间
+        self.end_time = end_time
+        # 起点位置
+        self.start_location = start_location
+        # 终点位置
+        self.end_location = end_location
+        # 行驶里程（km）
+        self.mileage = mileage
+
+    def validate(self):
+        self.validate_required(self.trip_id, 'trip_id')
+        if self.start_time is not None:
+            self.validate_pattern(self.start_time, 'start_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.end_time is not None:
+            self.validate_pattern(self.end_time, 'end_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.trip_id is not None:
+            result['trip_id'] = self.trip_id
+        if self.start_time is not None:
+            result['start_time'] = self.start_time
+        if self.end_time is not None:
+            result['end_time'] = self.end_time
+        if self.start_location is not None:
+            result['start_location'] = self.start_location
+        if self.end_location is not None:
+            result['end_location'] = self.end_location
+        if self.mileage is not None:
+            result['mileage'] = self.mileage
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('trip_id') is not None:
+            self.trip_id = m.get('trip_id')
+        if m.get('start_time') is not None:
+            self.start_time = m.get('start_time')
+        if m.get('end_time') is not None:
+            self.end_time = m.get('end_time')
+        if m.get('start_location') is not None:
+            self.start_location = m.get('start_location')
+        if m.get('end_location') is not None:
+            self.end_location = m.get('end_location')
+        if m.get('mileage') is not None:
+            self.mileage = m.get('mileage')
+        return self
+
+
 class SimCarLocationInfo(TeaModel):
     def __init__(
         self,
@@ -1252,6 +1319,41 @@ class IifaaEkytResponse(TeaModel):
             self.head = temp_model.from_map(m['head'])
         if m.get('biz_res') is not None:
             self.biz_res = m.get('biz_res')
+        return self
+
+
+class TripPoint(TeaModel):
+    def __init__(
+        self,
+        longitude: str = None,
+        latitude: str = None,
+    ):
+        # 经度
+        self.longitude = longitude
+        # 维度
+        self.latitude = latitude
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.longitude is not None:
+            result['longitude'] = self.longitude
+        if self.latitude is not None:
+            result['latitude'] = self.latitude
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('longitude') is not None:
+            self.longitude = m.get('longitude')
+        if m.get('latitude') is not None:
+            self.latitude = m.get('latitude')
         return self
 
 
@@ -6441,7 +6543,6 @@ class ApplyDigitalkeyCredRequest(TeaModel):
 
     def validate(self):
         self.validate_required(self.secret_id, 'secret_id')
-        self.validate_required(self.ble_nme, 'ble_nme')
         self.validate_required(self.brand_id, 'brand_id')
 
     def to_map(self):
@@ -7605,7 +7706,7 @@ class QueryTwevCardataResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        trip_statistics: TripStatisticInfo = None,
+        trip_statistics: List[TripStatisticInfo] = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -7618,7 +7719,9 @@ class QueryTwevCardataResponse(TeaModel):
 
     def validate(self):
         if self.trip_statistics:
-            self.trip_statistics.validate()
+            for k in self.trip_statistics:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -7632,8 +7735,10 @@ class QueryTwevCardataResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
+        result['trip_statistics'] = []
         if self.trip_statistics is not None:
-            result['trip_statistics'] = self.trip_statistics.to_map()
+            for k in self.trip_statistics:
+                result['trip_statistics'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -7644,9 +7749,11 @@ class QueryTwevCardataResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
+        self.trip_statistics = []
         if m.get('trip_statistics') is not None:
-            temp_model = TripStatisticInfo()
-            self.trip_statistics = temp_model.from_map(m['trip_statistics'])
+            for k in m.get('trip_statistics'):
+                temp_model = TripStatisticInfo()
+                self.trip_statistics.append(temp_model.from_map(k))
         return self
 
 
@@ -7741,7 +7848,7 @@ class QueryTwevCartravelResponse(TeaModel):
         total_size: int = None,
         page_index: int = None,
         page_size: int = None,
-        trip_detail_list: TripDetailInfo = None,
+        trip_detail_list: List[TripDetailInfo] = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -7762,7 +7869,9 @@ class QueryTwevCartravelResponse(TeaModel):
 
     def validate(self):
         if self.trip_detail_list:
-            self.trip_detail_list.validate()
+            for k in self.trip_detail_list:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -7784,8 +7893,10 @@ class QueryTwevCartravelResponse(TeaModel):
             result['page_index'] = self.page_index
         if self.page_size is not None:
             result['page_size'] = self.page_size
+        result['trip_detail_list'] = []
         if self.trip_detail_list is not None:
-            result['trip_detail_list'] = self.trip_detail_list.to_map()
+            for k in self.trip_detail_list:
+                result['trip_detail_list'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -7804,9 +7915,790 @@ class QueryTwevCartravelResponse(TeaModel):
             self.page_index = m.get('page_index')
         if m.get('page_size') is not None:
             self.page_size = m.get('page_size')
+        self.trip_detail_list = []
         if m.get('trip_detail_list') is not None:
-            temp_model = TripDetailInfo()
-            self.trip_detail_list = temp_model.from_map(m['trip_detail_list'])
+            for k in m.get('trip_detail_list'):
+                temp_model = TripDetailInfo()
+                self.trip_detail_list.append(temp_model.from_map(k))
+        return self
+
+
+class DeleteDigitalkeyCredRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        secret_id: str = None,
+        tuid: str = None,
+        device_sn: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 客户id
+        self.secret_id = secret_id
+        # 中控id，不能和deviceSn同时为空
+        self.tuid = tuid
+        # 设备sn 不能和tuid同时为空
+        self.device_sn = device_sn
+
+    def validate(self):
+        self.validate_required(self.secret_id, 'secret_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.secret_id is not None:
+            result['secret_id'] = self.secret_id
+        if self.tuid is not None:
+            result['tuid'] = self.tuid
+        if self.device_sn is not None:
+            result['device_sn'] = self.device_sn
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('secret_id') is not None:
+            self.secret_id = m.get('secret_id')
+        if m.get('tuid') is not None:
+            self.tuid = m.get('tuid')
+        if m.get('device_sn') is not None:
+            self.device_sn = m.get('device_sn')
+        return self
+
+
+class DeleteDigitalkeyCredResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        delete_result: bool = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 删除结果
+        self.delete_result = delete_result
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.delete_result is not None:
+            result['delete_result'] = self.delete_result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('delete_result') is not None:
+            self.delete_result = m.get('delete_result')
+        return self
+
+
+class ActivateDigitalkeyRentalRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tuid: str = None,
+        distributor_mobile: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 设备TUID（中控编号）
+        self.tuid = tuid
+        # 经销商法人手机号
+        self.distributor_mobile = distributor_mobile
+
+    def validate(self):
+        self.validate_required(self.tuid, 'tuid')
+        self.validate_required(self.distributor_mobile, 'distributor_mobile')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tuid is not None:
+            result['tuid'] = self.tuid
+        if self.distributor_mobile is not None:
+            result['distributor_mobile'] = self.distributor_mobile
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tuid') is not None:
+            self.tuid = m.get('tuid')
+        if m.get('distributor_mobile') is not None:
+            self.distributor_mobile = m.get('distributor_mobile')
+        return self
+
+
+class ActivateDigitalkeyRentalResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        master_key_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 主钥匙ID
+        self.master_key_id = master_key_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.master_key_id is not None:
+            result['master_key_id'] = self.master_key_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('master_key_id') is not None:
+            self.master_key_id = m.get('master_key_id')
+        return self
+
+
+class ShareDigitalkeyRentalRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tuid: str = None,
+        renter_mobile: str = None,
+        start_time: str = None,
+        end_time: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 设备TUID
+        self.tuid = tuid
+        # 租车人手机号
+        self.renter_mobile = renter_mobile
+        # 钥匙生效时间（格式：yyyy-MM-dd HH:mm:ss）
+        self.start_time = start_time
+        # 钥匙失效时间（格式：yyyy-MM-dd HH:mm:ss）
+        self.end_time = end_time
+
+    def validate(self):
+        self.validate_required(self.tuid, 'tuid')
+        self.validate_required(self.renter_mobile, 'renter_mobile')
+        self.validate_required(self.start_time, 'start_time')
+        if self.start_time is not None:
+            self.validate_pattern(self.start_time, 'start_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.end_time, 'end_time')
+        if self.end_time is not None:
+            self.validate_pattern(self.end_time, 'end_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tuid is not None:
+            result['tuid'] = self.tuid
+        if self.renter_mobile is not None:
+            result['renter_mobile'] = self.renter_mobile
+        if self.start_time is not None:
+            result['start_time'] = self.start_time
+        if self.end_time is not None:
+            result['end_time'] = self.end_time
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tuid') is not None:
+            self.tuid = m.get('tuid')
+        if m.get('renter_mobile') is not None:
+            self.renter_mobile = m.get('renter_mobile')
+        if m.get('start_time') is not None:
+            self.start_time = m.get('start_time')
+        if m.get('end_time') is not None:
+            self.end_time = m.get('end_time')
+        return self
+
+
+class ShareDigitalkeyRentalResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        slave_key_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 子钥匙ID
+        self.slave_key_id = slave_key_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.slave_key_id is not None:
+            result['slave_key_id'] = self.slave_key_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('slave_key_id') is not None:
+            self.slave_key_id = m.get('slave_key_id')
+        return self
+
+
+class RevokeDigitalkeyRentalRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tuid: str = None,
+        renter_mobile: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 租赁钥匙收回接口
+        self.tuid = tuid
+        # 租车人手机号
+        self.renter_mobile = renter_mobile
+
+    def validate(self):
+        self.validate_required(self.tuid, 'tuid')
+        self.validate_required(self.renter_mobile, 'renter_mobile')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tuid is not None:
+            result['tuid'] = self.tuid
+        if self.renter_mobile is not None:
+            result['renter_mobile'] = self.renter_mobile
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tuid') is not None:
+            self.tuid = m.get('tuid')
+        if m.get('renter_mobile') is not None:
+            self.renter_mobile = m.get('renter_mobile')
+        return self
+
+
+class RevokeDigitalkeyRentalResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class QueryDigitalkeyRentalcarRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tuid: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 设备TUID
+        self.tuid = tuid
+
+    def validate(self):
+        self.validate_required(self.tuid, 'tuid')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tuid is not None:
+            result['tuid'] = self.tuid
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tuid') is not None:
+            self.tuid = m.get('tuid')
+        return self
+
+
+class QueryDigitalkeyRentalcarResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        frame_no: str = None,
+        tuid: str = None,
+        online_status: str = None,
+        longitude: str = None,
+        latitude: str = None,
+        running_status: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 车架号
+        self.frame_no = frame_no
+        # 中控编号
+        self.tuid = tuid
+        # 在线状态：online/offline
+        self.online_status = online_status
+        # 经度（WGS84）
+        self.longitude = longitude
+        # 纬度（WGS84）
+        self.latitude = latitude
+        # 启动状态（0-断电; 1-上电）
+        self.running_status = running_status
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.frame_no is not None:
+            result['frame_no'] = self.frame_no
+        if self.tuid is not None:
+            result['tuid'] = self.tuid
+        if self.online_status is not None:
+            result['online_status'] = self.online_status
+        if self.longitude is not None:
+            result['longitude'] = self.longitude
+        if self.latitude is not None:
+            result['latitude'] = self.latitude
+        if self.running_status is not None:
+            result['running_status'] = self.running_status
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('frame_no') is not None:
+            self.frame_no = m.get('frame_no')
+        if m.get('tuid') is not None:
+            self.tuid = m.get('tuid')
+        if m.get('online_status') is not None:
+            self.online_status = m.get('online_status')
+        if m.get('longitude') is not None:
+            self.longitude = m.get('longitude')
+        if m.get('latitude') is not None:
+            self.latitude = m.get('latitude')
+        if m.get('running_status') is not None:
+            self.running_status = m.get('running_status')
+        return self
+
+
+class ListDigitalkeyRentaltripRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tuid: str = None,
+        time_dimension: str = None,
+        time_value: str = None,
+        page_num: int = None,
+        page_size: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 设备TUID
+        self.tuid = tuid
+        # 时间维度：DAY（日）、WEEK（周）、MONTH（月）
+        self.time_dimension = time_dimension
+        # 时间值（格式根据维度）
+        self.time_value = time_value
+        # 页码
+        self.page_num = page_num
+        # 每页条数
+        self.page_size = page_size
+
+    def validate(self):
+        self.validate_required(self.tuid, 'tuid')
+        self.validate_required(self.time_dimension, 'time_dimension')
+        self.validate_required(self.time_value, 'time_value')
+        self.validate_required(self.page_num, 'page_num')
+        self.validate_required(self.page_size, 'page_size')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tuid is not None:
+            result['tuid'] = self.tuid
+        if self.time_dimension is not None:
+            result['time_dimension'] = self.time_dimension
+        if self.time_value is not None:
+            result['time_value'] = self.time_value
+        if self.page_num is not None:
+            result['page_num'] = self.page_num
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tuid') is not None:
+            self.tuid = m.get('tuid')
+        if m.get('time_dimension') is not None:
+            self.time_dimension = m.get('time_dimension')
+        if m.get('time_value') is not None:
+            self.time_value = m.get('time_value')
+        if m.get('page_num') is not None:
+            self.page_num = m.get('page_num')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        return self
+
+
+class ListDigitalkeyRentaltripResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        total: int = None,
+        trip_list: List[TripInfo] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 总条数
+        self.total = total
+        # 行程列表信息
+        self.trip_list = trip_list
+
+    def validate(self):
+        if self.trip_list:
+            for k in self.trip_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.total is not None:
+            result['total'] = self.total
+        result['trip_list'] = []
+        if self.trip_list is not None:
+            for k in self.trip_list:
+                result['trip_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('total') is not None:
+            self.total = m.get('total')
+        self.trip_list = []
+        if m.get('trip_list') is not None:
+            for k in m.get('trip_list'):
+                temp_model = TripInfo()
+                self.trip_list.append(temp_model.from_map(k))
+        return self
+
+
+class QueryDigitalkeyRentaltrippointRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tuid: str = None,
+        trip_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 中控TUID
+        self.tuid = tuid
+        # 行程ID
+        self.trip_id = trip_id
+
+    def validate(self):
+        self.validate_required(self.tuid, 'tuid')
+        self.validate_required(self.trip_id, 'trip_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tuid is not None:
+            result['tuid'] = self.tuid
+        if self.trip_id is not None:
+            result['trip_id'] = self.trip_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tuid') is not None:
+            self.tuid = m.get('tuid')
+        if m.get('trip_id') is not None:
+            self.trip_id = m.get('trip_id')
+        return self
+
+
+class QueryDigitalkeyRentaltrippointResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        points: List[TripPoint] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 轨迹点
+        self.points = points
+
+    def validate(self):
+        if self.points:
+            for k in self.points:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['points'] = []
+        if self.points is not None:
+            for k in self.points:
+                result['points'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.points = []
+        if m.get('points') is not None:
+            for k in m.get('points'):
+                temp_model = TripPoint()
+                self.points.append(temp_model.from_map(k))
         return self
 
 

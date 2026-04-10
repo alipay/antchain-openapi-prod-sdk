@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.6.5',
+                    'sdk_version': '1.7.5',
                     '_prod_code': 'SECURITYTECH',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.6.5',
+                    'sdk_version': '1.7.5',
                     '_prod_code': 'SECURITYTECH',
                     '_prod_channel': 'undefined'
                 }
@@ -2405,6 +2405,398 @@ class Client:
         return TeaCore.from_map(
             securitytech_models.QueryTwevCartravelResponse(),
             await self.do_request_async('1.0', 'antsecuritytech.gateway.twev.cartravel.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def delete_digitalkey_cred(
+        self,
+        request: securitytech_models.DeleteDigitalkeyCredRequest,
+    ) -> securitytech_models.DeleteDigitalkeyCredResponse:
+        """
+        Description: 数字钥匙设备凭证数据删除
+        Summary: 数字钥匙设备凭证数据删除
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_digitalkey_cred_ex(request, headers, runtime)
+
+    async def delete_digitalkey_cred_async(
+        self,
+        request: securitytech_models.DeleteDigitalkeyCredRequest,
+    ) -> securitytech_models.DeleteDigitalkeyCredResponse:
+        """
+        Description: 数字钥匙设备凭证数据删除
+        Summary: 数字钥匙设备凭证数据删除
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.delete_digitalkey_cred_ex_async(request, headers, runtime)
+
+    def delete_digitalkey_cred_ex(
+        self,
+        request: securitytech_models.DeleteDigitalkeyCredRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.DeleteDigitalkeyCredResponse:
+        """
+        Description: 数字钥匙设备凭证数据删除
+        Summary: 数字钥匙设备凭证数据删除
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.DeleteDigitalkeyCredResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.digitalkey.cred.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def delete_digitalkey_cred_ex_async(
+        self,
+        request: securitytech_models.DeleteDigitalkeyCredRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.DeleteDigitalkeyCredResponse:
+        """
+        Description: 数字钥匙设备凭证数据删除
+        Summary: 数字钥匙设备凭证数据删除
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.DeleteDigitalkeyCredResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.digitalkey.cred.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def activate_digitalkey_rental(
+        self,
+        request: securitytech_models.ActivateDigitalkeyRentalRequest,
+    ) -> securitytech_models.ActivateDigitalkeyRentalResponse:
+        """
+        Description: 租赁车辆激活接口
+        Summary: 租赁车辆激活接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.activate_digitalkey_rental_ex(request, headers, runtime)
+
+    async def activate_digitalkey_rental_async(
+        self,
+        request: securitytech_models.ActivateDigitalkeyRentalRequest,
+    ) -> securitytech_models.ActivateDigitalkeyRentalResponse:
+        """
+        Description: 租赁车辆激活接口
+        Summary: 租赁车辆激活接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.activate_digitalkey_rental_ex_async(request, headers, runtime)
+
+    def activate_digitalkey_rental_ex(
+        self,
+        request: securitytech_models.ActivateDigitalkeyRentalRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.ActivateDigitalkeyRentalResponse:
+        """
+        Description: 租赁车辆激活接口
+        Summary: 租赁车辆激活接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.ActivateDigitalkeyRentalResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.digitalkey.rental.activate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def activate_digitalkey_rental_ex_async(
+        self,
+        request: securitytech_models.ActivateDigitalkeyRentalRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.ActivateDigitalkeyRentalResponse:
+        """
+        Description: 租赁车辆激活接口
+        Summary: 租赁车辆激活接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.ActivateDigitalkeyRentalResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.digitalkey.rental.activate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def share_digitalkey_rental(
+        self,
+        request: securitytech_models.ShareDigitalkeyRentalRequest,
+    ) -> securitytech_models.ShareDigitalkeyRentalResponse:
+        """
+        Description: 租赁钥匙分享接口
+        Summary: 租赁钥匙分享接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.share_digitalkey_rental_ex(request, headers, runtime)
+
+    async def share_digitalkey_rental_async(
+        self,
+        request: securitytech_models.ShareDigitalkeyRentalRequest,
+    ) -> securitytech_models.ShareDigitalkeyRentalResponse:
+        """
+        Description: 租赁钥匙分享接口
+        Summary: 租赁钥匙分享接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.share_digitalkey_rental_ex_async(request, headers, runtime)
+
+    def share_digitalkey_rental_ex(
+        self,
+        request: securitytech_models.ShareDigitalkeyRentalRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.ShareDigitalkeyRentalResponse:
+        """
+        Description: 租赁钥匙分享接口
+        Summary: 租赁钥匙分享接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.ShareDigitalkeyRentalResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.digitalkey.rental.share', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def share_digitalkey_rental_ex_async(
+        self,
+        request: securitytech_models.ShareDigitalkeyRentalRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.ShareDigitalkeyRentalResponse:
+        """
+        Description: 租赁钥匙分享接口
+        Summary: 租赁钥匙分享接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.ShareDigitalkeyRentalResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.digitalkey.rental.share', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def revoke_digitalkey_rental(
+        self,
+        request: securitytech_models.RevokeDigitalkeyRentalRequest,
+    ) -> securitytech_models.RevokeDigitalkeyRentalResponse:
+        """
+        Description: 租赁钥匙收回接口
+        Summary: 租赁钥匙收回接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.revoke_digitalkey_rental_ex(request, headers, runtime)
+
+    async def revoke_digitalkey_rental_async(
+        self,
+        request: securitytech_models.RevokeDigitalkeyRentalRequest,
+    ) -> securitytech_models.RevokeDigitalkeyRentalResponse:
+        """
+        Description: 租赁钥匙收回接口
+        Summary: 租赁钥匙收回接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.revoke_digitalkey_rental_ex_async(request, headers, runtime)
+
+    def revoke_digitalkey_rental_ex(
+        self,
+        request: securitytech_models.RevokeDigitalkeyRentalRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.RevokeDigitalkeyRentalResponse:
+        """
+        Description: 租赁钥匙收回接口
+        Summary: 租赁钥匙收回接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.RevokeDigitalkeyRentalResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.digitalkey.rental.revoke', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def revoke_digitalkey_rental_ex_async(
+        self,
+        request: securitytech_models.RevokeDigitalkeyRentalRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.RevokeDigitalkeyRentalResponse:
+        """
+        Description: 租赁钥匙收回接口
+        Summary: 租赁钥匙收回接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.RevokeDigitalkeyRentalResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.digitalkey.rental.revoke', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_digitalkey_rentalcar(
+        self,
+        request: securitytech_models.QueryDigitalkeyRentalcarRequest,
+    ) -> securitytech_models.QueryDigitalkeyRentalcarResponse:
+        """
+        Description: 租赁车辆数据查询接口
+        Summary: 租赁车辆数据查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_digitalkey_rentalcar_ex(request, headers, runtime)
+
+    async def query_digitalkey_rentalcar_async(
+        self,
+        request: securitytech_models.QueryDigitalkeyRentalcarRequest,
+    ) -> securitytech_models.QueryDigitalkeyRentalcarResponse:
+        """
+        Description: 租赁车辆数据查询接口
+        Summary: 租赁车辆数据查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_digitalkey_rentalcar_ex_async(request, headers, runtime)
+
+    def query_digitalkey_rentalcar_ex(
+        self,
+        request: securitytech_models.QueryDigitalkeyRentalcarRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QueryDigitalkeyRentalcarResponse:
+        """
+        Description: 租赁车辆数据查询接口
+        Summary: 租赁车辆数据查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QueryDigitalkeyRentalcarResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.digitalkey.rentalcar.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_digitalkey_rentalcar_ex_async(
+        self,
+        request: securitytech_models.QueryDigitalkeyRentalcarRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QueryDigitalkeyRentalcarResponse:
+        """
+        Description: 租赁车辆数据查询接口
+        Summary: 租赁车辆数据查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QueryDigitalkeyRentalcarResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.digitalkey.rentalcar.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def list_digitalkey_rentaltrip(
+        self,
+        request: securitytech_models.ListDigitalkeyRentaltripRequest,
+    ) -> securitytech_models.ListDigitalkeyRentaltripResponse:
+        """
+        Description: 租赁车辆轨迹查询接口
+        Summary: 租赁车辆轨迹查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_digitalkey_rentaltrip_ex(request, headers, runtime)
+
+    async def list_digitalkey_rentaltrip_async(
+        self,
+        request: securitytech_models.ListDigitalkeyRentaltripRequest,
+    ) -> securitytech_models.ListDigitalkeyRentaltripResponse:
+        """
+        Description: 租赁车辆轨迹查询接口
+        Summary: 租赁车辆轨迹查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.list_digitalkey_rentaltrip_ex_async(request, headers, runtime)
+
+    def list_digitalkey_rentaltrip_ex(
+        self,
+        request: securitytech_models.ListDigitalkeyRentaltripRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.ListDigitalkeyRentaltripResponse:
+        """
+        Description: 租赁车辆轨迹查询接口
+        Summary: 租赁车辆轨迹查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.ListDigitalkeyRentaltripResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.digitalkey.rentaltrip.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def list_digitalkey_rentaltrip_ex_async(
+        self,
+        request: securitytech_models.ListDigitalkeyRentaltripRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.ListDigitalkeyRentaltripResponse:
+        """
+        Description: 租赁车辆轨迹查询接口
+        Summary: 租赁车辆轨迹查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.ListDigitalkeyRentaltripResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.digitalkey.rentaltrip.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_digitalkey_rentaltrippoint(
+        self,
+        request: securitytech_models.QueryDigitalkeyRentaltrippointRequest,
+    ) -> securitytech_models.QueryDigitalkeyRentaltrippointResponse:
+        """
+        Description: 行程轨迹点接口
+        Summary: 行程轨迹点接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_digitalkey_rentaltrippoint_ex(request, headers, runtime)
+
+    async def query_digitalkey_rentaltrippoint_async(
+        self,
+        request: securitytech_models.QueryDigitalkeyRentaltrippointRequest,
+    ) -> securitytech_models.QueryDigitalkeyRentaltrippointResponse:
+        """
+        Description: 行程轨迹点接口
+        Summary: 行程轨迹点接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_digitalkey_rentaltrippoint_ex_async(request, headers, runtime)
+
+    def query_digitalkey_rentaltrippoint_ex(
+        self,
+        request: securitytech_models.QueryDigitalkeyRentaltrippointRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QueryDigitalkeyRentaltrippointResponse:
+        """
+        Description: 行程轨迹点接口
+        Summary: 行程轨迹点接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QueryDigitalkeyRentaltrippointResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.digitalkey.rentaltrippoint.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_digitalkey_rentaltrippoint_ex_async(
+        self,
+        request: securitytech_models.QueryDigitalkeyRentaltrippointRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QueryDigitalkeyRentaltrippointResponse:
+        """
+        Description: 行程轨迹点接口
+        Summary: 行程轨迹点接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QueryDigitalkeyRentaltrippointResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.digitalkey.rentaltrippoint.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_bssecpic(
