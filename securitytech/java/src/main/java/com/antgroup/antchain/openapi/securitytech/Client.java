@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.6.5"),
+                    new TeaPair("sdk_version", "1.7.5"),
                     new TeaPair("_prod_code", "SECURITYTECH"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -986,6 +986,153 @@ public class Client {
     public QueryTwevCartravelResponse queryTwevCartravelEx(QueryTwevCartravelRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.twev.cartravel.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTwevCartravelResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 数字钥匙设备凭证数据删除
+     * Summary: 数字钥匙设备凭证数据删除</p>
+     */
+    public DeleteDigitalkeyCredResponse deleteDigitalkeyCred(DeleteDigitalkeyCredRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.deleteDigitalkeyCredEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 数字钥匙设备凭证数据删除
+     * Summary: 数字钥匙设备凭证数据删除</p>
+     */
+    public DeleteDigitalkeyCredResponse deleteDigitalkeyCredEx(DeleteDigitalkeyCredRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.digitalkey.cred.delete", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DeleteDigitalkeyCredResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 租赁车辆激活接口
+     * Summary: 租赁车辆激活接口</p>
+     */
+    public ActivateDigitalkeyRentalResponse activateDigitalkeyRental(ActivateDigitalkeyRentalRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.activateDigitalkeyRentalEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 租赁车辆激活接口
+     * Summary: 租赁车辆激活接口</p>
+     */
+    public ActivateDigitalkeyRentalResponse activateDigitalkeyRentalEx(ActivateDigitalkeyRentalRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.digitalkey.rental.activate", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ActivateDigitalkeyRentalResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 租赁钥匙分享接口
+     * Summary: 租赁钥匙分享接口</p>
+     */
+    public ShareDigitalkeyRentalResponse shareDigitalkeyRental(ShareDigitalkeyRentalRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.shareDigitalkeyRentalEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 租赁钥匙分享接口
+     * Summary: 租赁钥匙分享接口</p>
+     */
+    public ShareDigitalkeyRentalResponse shareDigitalkeyRentalEx(ShareDigitalkeyRentalRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.digitalkey.rental.share", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ShareDigitalkeyRentalResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 租赁钥匙收回接口
+     * Summary: 租赁钥匙收回接口</p>
+     */
+    public RevokeDigitalkeyRentalResponse revokeDigitalkeyRental(RevokeDigitalkeyRentalRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.revokeDigitalkeyRentalEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 租赁钥匙收回接口
+     * Summary: 租赁钥匙收回接口</p>
+     */
+    public RevokeDigitalkeyRentalResponse revokeDigitalkeyRentalEx(RevokeDigitalkeyRentalRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.digitalkey.rental.revoke", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RevokeDigitalkeyRentalResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 租赁车辆数据查询接口
+     * Summary: 租赁车辆数据查询接口</p>
+     */
+    public QueryDigitalkeyRentalcarResponse queryDigitalkeyRentalcar(QueryDigitalkeyRentalcarRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDigitalkeyRentalcarEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 租赁车辆数据查询接口
+     * Summary: 租赁车辆数据查询接口</p>
+     */
+    public QueryDigitalkeyRentalcarResponse queryDigitalkeyRentalcarEx(QueryDigitalkeyRentalcarRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.digitalkey.rentalcar.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDigitalkeyRentalcarResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 租赁车辆轨迹查询接口
+     * Summary: 租赁车辆轨迹查询接口</p>
+     */
+    public ListDigitalkeyRentaltripResponse listDigitalkeyRentaltrip(ListDigitalkeyRentaltripRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.listDigitalkeyRentaltripEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 租赁车辆轨迹查询接口
+     * Summary: 租赁车辆轨迹查询接口</p>
+     */
+    public ListDigitalkeyRentaltripResponse listDigitalkeyRentaltripEx(ListDigitalkeyRentaltripRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.digitalkey.rentaltrip.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListDigitalkeyRentaltripResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 行程轨迹点接口
+     * Summary: 行程轨迹点接口</p>
+     */
+    public QueryDigitalkeyRentaltrippointResponse queryDigitalkeyRentaltrippoint(QueryDigitalkeyRentaltrippointRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDigitalkeyRentaltrippointEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 行程轨迹点接口
+     * Summary: 行程轨迹点接口</p>
+     */
+    public QueryDigitalkeyRentaltrippointResponse queryDigitalkeyRentaltrippointEx(QueryDigitalkeyRentaltrippointRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.digitalkey.rentaltrippoint.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDigitalkeyRentaltrippointResponse());
     }
 
     /**

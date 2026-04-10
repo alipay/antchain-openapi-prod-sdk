@@ -38,7 +38,6 @@ public class ApplyDigitalkeyCredRequest extends TeaModel {
 
     // ble名称
     @NameInMap("ble_nme")
-    @Validation(required = true)
     public String bleNme;
 
     // 无感控车数据

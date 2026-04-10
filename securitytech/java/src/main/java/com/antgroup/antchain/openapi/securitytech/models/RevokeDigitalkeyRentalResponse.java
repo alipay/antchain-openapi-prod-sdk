@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.securitytech.models;
 
 import com.aliyun.tea.*;
 
-public class QueryTwevCardataResponse extends TeaModel {
+public class RevokeDigitalkeyRentalResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,12 @@ public class QueryTwevCardataResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 行程统计数据列表
-    @NameInMap("trip_statistics")
-    public java.util.List<TripStatisticInfo> tripStatistics;
-
-    public static QueryTwevCardataResponse build(java.util.Map<String, ?> map) throws Exception {
-        QueryTwevCardataResponse self = new QueryTwevCardataResponse();
+    public static RevokeDigitalkeyRentalResponse build(java.util.Map<String, ?> map) throws Exception {
+        RevokeDigitalkeyRentalResponse self = new RevokeDigitalkeyRentalResponse();
         return TeaModel.build(map, self);
     }
 
-    public QueryTwevCardataResponse setReqMsgId(String reqMsgId) {
+    public RevokeDigitalkeyRentalResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +29,7 @@ public class QueryTwevCardataResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public QueryTwevCardataResponse setResultCode(String resultCode) {
+    public RevokeDigitalkeyRentalResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,20 +37,12 @@ public class QueryTwevCardataResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public QueryTwevCardataResponse setResultMsg(String resultMsg) {
+    public RevokeDigitalkeyRentalResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
     public String getResultMsg() {
         return this.resultMsg;
-    }
-
-    public QueryTwevCardataResponse setTripStatistics(java.util.List<TripStatisticInfo> tripStatistics) {
-        this.tripStatistics = tripStatistics;
-        return this;
-    }
-    public java.util.List<TripStatisticInfo> getTripStatistics() {
-        return this.tripStatistics;
     }
 
 }

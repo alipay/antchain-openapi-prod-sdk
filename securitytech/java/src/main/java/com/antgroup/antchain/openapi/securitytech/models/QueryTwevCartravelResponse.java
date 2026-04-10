@@ -34,7 +34,7 @@ public class QueryTwevCartravelResponse extends TeaModel {
 
     // 行程详情信息
     @NameInMap("trip_detail_list")
-    public TripDetailInfo tripDetailList;
+    public java.util.List<TripDetailInfo> tripDetailList;
 
     public static QueryTwevCartravelResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryTwevCartravelResponse self = new QueryTwevCartravelResponse();
@@ -97,11 +97,11 @@ public class QueryTwevCartravelResponse extends TeaModel {
         return this.pageSize;
     }
 
-    public QueryTwevCartravelResponse setTripDetailList(TripDetailInfo tripDetailList) {
+    public QueryTwevCartravelResponse setTripDetailList(java.util.List<TripDetailInfo> tripDetailList) {
         this.tripDetailList = tripDetailList;
         return this;
     }
-    public TripDetailInfo getTripDetailList() {
+    public java.util.List<TripDetailInfo> getTripDetailList() {
         return this.tripDetailList;
     }
 

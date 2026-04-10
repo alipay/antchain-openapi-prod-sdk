@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.securitytech.models;
 
 import com.aliyun.tea.*;
 
-public class QueryTwevCardataResponse extends TeaModel {
+public class ShareDigitalkeyRentalResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,16 @@ public class QueryTwevCardataResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 行程统计数据列表
-    @NameInMap("trip_statistics")
-    public java.util.List<TripStatisticInfo> tripStatistics;
+    // 子钥匙ID
+    @NameInMap("slave_key_id")
+    public String slaveKeyId;
 
-    public static QueryTwevCardataResponse build(java.util.Map<String, ?> map) throws Exception {
-        QueryTwevCardataResponse self = new QueryTwevCardataResponse();
+    public static ShareDigitalkeyRentalResponse build(java.util.Map<String, ?> map) throws Exception {
+        ShareDigitalkeyRentalResponse self = new ShareDigitalkeyRentalResponse();
         return TeaModel.build(map, self);
     }
 
-    public QueryTwevCardataResponse setReqMsgId(String reqMsgId) {
+    public ShareDigitalkeyRentalResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class QueryTwevCardataResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public QueryTwevCardataResponse setResultCode(String resultCode) {
+    public ShareDigitalkeyRentalResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class QueryTwevCardataResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public QueryTwevCardataResponse setResultMsg(String resultMsg) {
+    public ShareDigitalkeyRentalResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,12 +49,12 @@ public class QueryTwevCardataResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryTwevCardataResponse setTripStatistics(java.util.List<TripStatisticInfo> tripStatistics) {
-        this.tripStatistics = tripStatistics;
+    public ShareDigitalkeyRentalResponse setSlaveKeyId(String slaveKeyId) {
+        this.slaveKeyId = slaveKeyId;
         return this;
     }
-    public java.util.List<TripStatisticInfo> getTripStatistics() {
-        return this.tripStatistics;
+    public String getSlaveKeyId() {
+        return this.slaveKeyId;
     }
 
 }
