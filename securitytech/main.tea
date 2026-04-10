@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.6.5',
+    sdk_version = '1.7.5',
     _prod_code = 'SECURITYTECH',
     _prod_channel = 'undefined'
   };
@@ -377,6 +377,22 @@ model EtcVehicleInfo {
   deviceBizTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='device_biz_time', example='2018-10-10T10:10:00Z'),
 }
 
+// 车辆行程信息
+model TripInfo {
+  // tripList
+  tripId: string(name='trip_id', example='METL202004041220123456'),
+  // 开始时间
+  startTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='start_time', example='2000-10-10 00:00:00'),
+  // 结束时间
+  endTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='end_time', example='2000-10-10 00:00:00'),
+  // 起点位置
+  startLocation?: string(name='start_location', example='7FA1316252F6DDA22176ED13DBA4EF65'),
+  // 终点位置
+  endLocation?: string(name='end_location', example='7FA1316252F6DDA22176ED13DBA4EF65'),
+  // 行驶里程（km）
+  mileage?: string(name='mileage', example='5'),
+}
+
 // 车辆gps轨迹点
 model SimCarLocationInfo {
   // 定位时间
@@ -413,6 +429,14 @@ model IifaaEkytResponse {
   head: ResponseHead(name='head', example=''),
   // 业务响应结果
   bizRes: string(name='biz_res', example='126dncnceicncwuiooo'),
+}
+
+// 行程轨迹点
+model TripPoint {
+  // 经度
+  longitude?: string(name='longitude', example='121.503052'),
+  // 维度
+  latitude?: string(name='latitude', example='31.218412'),
 }
 
 // 业务请求入参，兼容批量调用
@@ -2137,7 +2161,7 @@ model ApplyDigitalkeyCredRequest = {
   // MAC地址
   mac?: string(name='mac'),
   // ble名称
-  bleNme: string(name='ble_nme'),
+  bleNme?: string(name='ble_nme'),
   // 无感控车数据
   keyLess?: string(name='key_less'),
   // 凭证格式
@@ -2556,7 +2580,7 @@ model QueryTwevCardataResponse = {
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 行程统计数据列表
-  tripStatistics?: TripStatisticInfo(name='trip_statistics'),
+  tripStatistics?: [ TripStatisticInfo ](name='trip_statistics'),
 }
 
 /**
@@ -2612,7 +2636,7 @@ model QueryTwevCartravelResponse = {
   // 单页条数
   pageSize?: long(name='page_size'),
   // 行程详情信息
-  tripDetailList?: TripDetailInfo(name='trip_detail_list'),
+  tripDetailList?: [ TripDetailInfo ](name='trip_detail_list'),
 }
 
 /**
@@ -2632,6 +2656,306 @@ async function queryTwevCartravel(request: QueryTwevCartravelRequest): QueryTwev
 async function queryTwevCartravelEx(request: QueryTwevCartravelRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryTwevCartravelResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antsecuritytech.gateway.twev.cartravel.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeleteDigitalkeyCredRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 客户id
+  secretId: string(name='secret_id'),
+  // 中控id，不能和deviceSn同时为空
+  tuid?: string(name='tuid'),
+  // 设备sn 不能和tuid同时为空
+  deviceSn?: string(name='device_sn'),
+}
+
+model DeleteDigitalkeyCredResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 删除结果
+  deleteResult?: boolean(name='delete_result'),
+}
+
+/**
+ * Description: 数字钥匙设备凭证数据删除
+ * Summary: 数字钥匙设备凭证数据删除
+ */
+async function deleteDigitalkeyCred(request: DeleteDigitalkeyCredRequest): DeleteDigitalkeyCredResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deleteDigitalkeyCredEx(request, headers, runtime);
+}
+
+/**
+ * Description: 数字钥匙设备凭证数据删除
+ * Summary: 数字钥匙设备凭证数据删除
+ */
+async function deleteDigitalkeyCredEx(request: DeleteDigitalkeyCredRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteDigitalkeyCredResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.digitalkey.cred.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ActivateDigitalkeyRentalRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 设备TUID（中控编号）
+  tuid: string(name='tuid'),
+  // 经销商法人手机号
+  distributorMobile: string(name='distributor_mobile'),
+}
+
+model ActivateDigitalkeyRentalResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 主钥匙ID
+  masterKeyId?: string(name='master_key_id'),
+}
+
+/**
+ * Description: 租赁车辆激活接口
+ * Summary: 租赁车辆激活接口
+ */
+async function activateDigitalkeyRental(request: ActivateDigitalkeyRentalRequest): ActivateDigitalkeyRentalResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return activateDigitalkeyRentalEx(request, headers, runtime);
+}
+
+/**
+ * Description: 租赁车辆激活接口
+ * Summary: 租赁车辆激活接口
+ */
+async function activateDigitalkeyRentalEx(request: ActivateDigitalkeyRentalRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ActivateDigitalkeyRentalResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.digitalkey.rental.activate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ShareDigitalkeyRentalRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 设备TUID
+  tuid: string(name='tuid'),
+  // 租车人手机号
+  renterMobile: string(name='renter_mobile'),
+  // 钥匙生效时间（格式：yyyy-MM-dd HH:mm:ss）
+  startTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='start_time'),
+  // 钥匙失效时间（格式：yyyy-MM-dd HH:mm:ss）
+  endTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='end_time'),
+}
+
+model ShareDigitalkeyRentalResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 子钥匙ID
+  slaveKeyId?: string(name='slave_key_id'),
+}
+
+/**
+ * Description: 租赁钥匙分享接口
+ * Summary: 租赁钥匙分享接口
+ */
+async function shareDigitalkeyRental(request: ShareDigitalkeyRentalRequest): ShareDigitalkeyRentalResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return shareDigitalkeyRentalEx(request, headers, runtime);
+}
+
+/**
+ * Description: 租赁钥匙分享接口
+ * Summary: 租赁钥匙分享接口
+ */
+async function shareDigitalkeyRentalEx(request: ShareDigitalkeyRentalRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ShareDigitalkeyRentalResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.digitalkey.rental.share', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RevokeDigitalkeyRentalRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租赁钥匙收回接口
+  tuid: string(name='tuid'),
+  // 租车人手机号
+  renterMobile: string(name='renter_mobile'),
+}
+
+model RevokeDigitalkeyRentalResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 租赁钥匙收回接口
+ * Summary: 租赁钥匙收回接口
+ */
+async function revokeDigitalkeyRental(request: RevokeDigitalkeyRentalRequest): RevokeDigitalkeyRentalResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return revokeDigitalkeyRentalEx(request, headers, runtime);
+}
+
+/**
+ * Description: 租赁钥匙收回接口
+ * Summary: 租赁钥匙收回接口
+ */
+async function revokeDigitalkeyRentalEx(request: RevokeDigitalkeyRentalRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RevokeDigitalkeyRentalResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.digitalkey.rental.revoke', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDigitalkeyRentalcarRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 设备TUID
+  tuid: string(name='tuid'),
+}
+
+model QueryDigitalkeyRentalcarResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 车架号
+  frameNo?: string(name='frame_no'),
+  // 中控编号
+  tuid?: string(name='tuid'),
+  // 在线状态：online/offline
+  onlineStatus?: string(name='online_status'),
+  // 经度（WGS84）
+  longitude?: string(name='longitude'),
+  // 纬度（WGS84）
+  latitude?: string(name='latitude'),
+  // 启动状态（0-断电; 1-上电）
+  runningStatus?: string(name='running_status'),
+}
+
+/**
+ * Description: 租赁车辆数据查询接口
+ * Summary: 租赁车辆数据查询接口
+ */
+async function queryDigitalkeyRentalcar(request: QueryDigitalkeyRentalcarRequest): QueryDigitalkeyRentalcarResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDigitalkeyRentalcarEx(request, headers, runtime);
+}
+
+/**
+ * Description: 租赁车辆数据查询接口
+ * Summary: 租赁车辆数据查询接口
+ */
+async function queryDigitalkeyRentalcarEx(request: QueryDigitalkeyRentalcarRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDigitalkeyRentalcarResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.digitalkey.rentalcar.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListDigitalkeyRentaltripRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 设备TUID
+  tuid: string(name='tuid'),
+  // 时间维度：DAY（日）、WEEK（周）、MONTH（月）
+  timeDimension: string(name='time_dimension'),
+  // 时间值（格式根据维度）
+  timeValue: string(name='time_value'),
+  // 页码
+  pageNum: long(name='page_num'),
+  // 每页条数
+  pageSize: long(name='page_size'),
+}
+
+model ListDigitalkeyRentaltripResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 总条数
+  total?: long(name='total'),
+  // 行程列表信息
+  tripList?: [ TripInfo ](name='trip_list'),
+}
+
+/**
+ * Description: 租赁车辆轨迹查询接口
+ * Summary: 租赁车辆轨迹查询接口
+ */
+async function listDigitalkeyRentaltrip(request: ListDigitalkeyRentaltripRequest): ListDigitalkeyRentaltripResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listDigitalkeyRentaltripEx(request, headers, runtime);
+}
+
+/**
+ * Description: 租赁车辆轨迹查询接口
+ * Summary: 租赁车辆轨迹查询接口
+ */
+async function listDigitalkeyRentaltripEx(request: ListDigitalkeyRentaltripRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListDigitalkeyRentaltripResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.digitalkey.rentaltrip.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDigitalkeyRentaltrippointRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 中控TUID
+  tuid: string(name='tuid'),
+  // 行程ID
+  tripId: string(name='trip_id'),
+}
+
+model QueryDigitalkeyRentaltrippointResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 轨迹点
+  points?: [ TripPoint ](name='points'),
+}
+
+/**
+ * Description: 行程轨迹点接口
+ * Summary: 行程轨迹点接口
+ */
+async function queryDigitalkeyRentaltrippoint(request: QueryDigitalkeyRentaltrippointRequest): QueryDigitalkeyRentaltrippointResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDigitalkeyRentaltrippointEx(request, headers, runtime);
+}
+
+/**
+ * Description: 行程轨迹点接口
+ * Summary: 行程轨迹点接口
+ */
+async function queryDigitalkeyRentaltrippointEx(request: QueryDigitalkeyRentaltrippointRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDigitalkeyRentaltrippointResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.digitalkey.rentaltrippoint.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateBssecpicRequest = {
