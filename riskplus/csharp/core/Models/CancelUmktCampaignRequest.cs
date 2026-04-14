@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.RISKPLUS.Models
 {
-    public class PushUmktCommonDataRequest : TeaModel {
+    public class CancelUmktCampaignRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,15 +18,10 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 数据推送事件ID
-        [NameInMap("event_id")]
+        // 任务唯一id
+        [NameInMap("task_uuid")]
         [Validation(Required=true)]
-        public long? EventId { get; set; }
-
-        // 数据推送属性数据
-        [NameInMap("properties")]
-        [Validation(Required=true)]
-        public string Properties { get; set; }
+        public string TaskUuid { get; set; }
 
     }
 

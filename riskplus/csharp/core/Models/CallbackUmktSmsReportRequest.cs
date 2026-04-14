@@ -73,21 +73,6 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string SmsType { get; set; }
 
-        // 运营商
-        [NameInMap("service_provider")]
-        [Validation(Required=true)]
-        public string ServiceProvider { get; set; }
-
-        // 手机号码所属城市
-        [NameInMap("city")]
-        [Validation(Required=false)]
-        public string City { get; set; }
-
-        // 手机号模版类型
-        [NameInMap("key_template")]
-        [Validation(Required=false)]
-        public string KeyTemplate { get; set; }
-
     }
 
 }

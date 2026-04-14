@@ -38,11 +38,6 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=true)]
         public string ChannelCode { get; set; }
 
-        //  手机号md5
-        [NameInMap("mobile_md5")]
-        [Validation(Required=false)]
-        public string MobileMd5 { get; set; }
-
     }
 
 }

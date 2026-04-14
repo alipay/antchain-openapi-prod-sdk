@@ -33,16 +33,6 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=true)]
         public string BizType { get; set; }
 
-        // 渠道号
-        [NameInMap("channel_code")]
-        [Validation(Required=true)]
-        public string ChannelCode { get; set; }
-
-        // 渠道号
-        [NameInMap("org_code")]
-        [Validation(Required=false)]
-        public string OrgCode { get; set; }
-
     }
 
 }

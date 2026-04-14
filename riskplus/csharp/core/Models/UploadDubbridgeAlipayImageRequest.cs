@@ -47,12 +47,12 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=true)]
         public string ImageCategory { get; set; }
 
-        // 文件base64字符串，最大10M
+        // 文件base64字符串，最大10M；（建议）
         [NameInMap("image_content")]
         [Validation(Required=false)]
         public string ImageContent { get; set; }
 
-        // 图片文件路径，（建议），http、https为前缀
+        // 图片文件路径
         [NameInMap("image_path")]
         [Validation(Required=false)]
         public string ImagePath { get; set; }
