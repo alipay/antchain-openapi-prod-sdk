@@ -18747,6 +18747,113 @@ export class QueryElectrocarDeviceinfosResponse extends $tea.Model {
   }
 }
 
+export class ExecElectrocarBatchpubRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 设备tuid列表
+  tuidList: string[];
+  // 用户自定义Topic
+  userTopic: string;
+  // 消息类型
+  messageType: string;
+  // 消息内容
+  messageContent: string;
+  // 触发模式（IMMEDIATE/SCHEDULED）
+  triggerMode: string;
+  // 定时执行时间戳（triggerMode为SCHEDULED时必填）
+  scheduleTime?: number;
+  // 批次名称
+  batchName?: string;
+  // 重试次数
+  retryCount?: number;
+  // 操作人
+  operator?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tuidList: 'tuid_list',
+      userTopic: 'user_topic',
+      messageType: 'message_type',
+      messageContent: 'message_content',
+      triggerMode: 'trigger_mode',
+      scheduleTime: 'schedule_time',
+      batchName: 'batch_name',
+      retryCount: 'retry_count',
+      operator: 'operator',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tuidList: { 'type': 'array', 'itemType': 'string' },
+      userTopic: 'string',
+      messageType: 'string',
+      messageContent: 'string',
+      triggerMode: 'string',
+      scheduleTime: 'number',
+      batchName: 'string',
+      retryCount: 'number',
+      operator: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExecElectrocarBatchpubResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 批次ID
+  batchId?: string;
+  // 总设备数
+  totalCount?: number;
+  // 触发模式
+  triggerMode?: string;
+  // 定时执行时间戳
+  scheduledTime?: number;
+  // 状态
+  success?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      batchId: 'batch_id',
+      totalCount: 'total_count',
+      triggerMode: 'trigger_mode',
+      scheduledTime: 'scheduled_time',
+      success: 'success',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      batchId: 'string',
+      totalCount: 'number',
+      triggerMode: 'string',
+      scheduledTime: 'number',
+      success: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryIotplatformPurchaseorderRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -29788,7 +29895,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.12.79",
+          sdk_version: "1.12.80",
           _prod_code: "BOT",
           _prod_channel: "undefined",
         };
@@ -32690,6 +32797,25 @@ export default class Client {
   async queryElectrocarDeviceinfosEx(request: QueryElectrocarDeviceinfosRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryElectrocarDeviceinfosResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryElectrocarDeviceinfosResponse>(await this.doRequest("1.0", "blockchain.bot.electrocar.deviceinfos.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryElectrocarDeviceinfosResponse({}));
+  }
+
+  /**
+   * Description: 二轮车批量控车接口
+   * Summary: 二轮车批量控车接口
+   */
+  async execElectrocarBatchpub(request: ExecElectrocarBatchpubRequest): Promise<ExecElectrocarBatchpubResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.execElectrocarBatchpubEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 二轮车批量控车接口
+   * Summary: 二轮车批量控车接口
+   */
+  async execElectrocarBatchpubEx(request: ExecElectrocarBatchpubRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ExecElectrocarBatchpubResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ExecElectrocarBatchpubResponse>(await this.doRequest("1.0", "blockchain.bot.electrocar.batchpub.exec", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ExecElectrocarBatchpubResponse({}));
   }
 
   /**
