@@ -159,6 +159,8 @@ use AntChain\BOT\Models\ExecDeviceThingserviceRequest;
 use AntChain\BOT\Models\ExecDeviceThingserviceResponse;
 use AntChain\BOT\Models\ExecDeviceUsertopicRequest;
 use AntChain\BOT\Models\ExecDeviceUsertopicResponse;
+use AntChain\BOT\Models\ExecElectrocarBatchpubRequest;
+use AntChain\BOT\Models\ExecElectrocarBatchpubResponse;
 use AntChain\BOT\Models\ExecThingsdidOneapiRequest;
 use AntChain\BOT\Models\ExecThingsdidOneapiResponse;
 use AntChain\BOT\Models\ExecThingServiceRequest;
@@ -742,7 +744,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.12.79',
+                    'sdk_version'      => '1.12.80',
                     '_prod_code'       => 'BOT',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -5710,6 +5712,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryElectrocarDeviceinfosResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.electrocar.deviceinfos.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 二轮车批量控车接口
+     * Summary: 二轮车批量控车接口.
+     *
+     * @param ExecElectrocarBatchpubRequest $request
+     *
+     * @return ExecElectrocarBatchpubResponse
+     */
+    public function execElectrocarBatchpub($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->execElectrocarBatchpubEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 二轮车批量控车接口
+     * Summary: 二轮车批量控车接口.
+     *
+     * @param ExecElectrocarBatchpubRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return ExecElectrocarBatchpubResponse
+     */
+    public function execElectrocarBatchpubEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ExecElectrocarBatchpubResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.electrocar.batchpub.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
