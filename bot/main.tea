@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.12.78',
+    sdk_version = '1.12.80',
     _prod_code = 'BOT',
     _prod_channel = 'undefined'
   };
@@ -10250,6 +10250,68 @@ async function queryElectrocarDeviceinfosEx(request: QueryElectrocarDeviceinfosR
   return doRequest('1.0' ,'blockchain.bot.electrocar.deviceinfos.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model ExecElectrocarBatchpubRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 设备tuid列表
+  tuidList: [ string ](name='tuid_list'),
+  // 用户自定义Topic
+  userTopic: string(name='user_topic'),
+  // 消息类型
+  messageType: string(name='message_type'),
+  // 消息内容
+  messageContent: string(name='message_content'),
+  // 触发模式（IMMEDIATE/SCHEDULED）
+  triggerMode: string(name='trigger_mode'),
+  // 定时执行时间戳（triggerMode为SCHEDULED时必填）
+  scheduleTime?: long(name='schedule_time'),
+  // 批次名称
+  batchName?: string(name='batch_name'),
+  // 重试次数
+  retryCount?: long(name='retry_count'),
+  // 操作人
+  operator?: string(name='operator'),
+}
+
+model ExecElectrocarBatchpubResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 批次ID
+  batchId?: string(name='batch_id'),
+  // 总设备数
+  totalCount?: long(name='total_count'),
+  // 触发模式
+  triggerMode?: string(name='trigger_mode'),
+  // 定时执行时间戳
+  scheduledTime?: long(name='scheduled_time'),
+  // 状态
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 二轮车批量控车接口
+ * Summary: 二轮车批量控车接口
+ */
+async function execElectrocarBatchpub(request: ExecElectrocarBatchpubRequest): ExecElectrocarBatchpubResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return execElectrocarBatchpubEx(request, headers, runtime);
+}
+
+/**
+ * Description: 二轮车批量控车接口
+ * Summary: 二轮车批量控车接口
+ */
+async function execElectrocarBatchpubEx(request: ExecElectrocarBatchpubRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExecElectrocarBatchpubResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.electrocar.batchpub.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model QueryIotplatformPurchaseorderRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -16256,6 +16318,56 @@ async function startIotagentThingmodel(request: StartIotagentThingmodelRequest):
 async function startIotagentThingmodelEx(request: StartIotagentThingmodelRequest, headers: map[string]string, runtime: Util.RuntimeOptions): StartIotagentThingmodelResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bot.iotagent.thingmodel.start', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ImportIotagentClientRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 实例ID，由蚂蚁提供
+  instanceId: string(name='instance_id'),
+  // SKU名称，由蚂蚁提供
+  skuName: string(name='sku_name'),
+  // 模版智能体ID，由蚂蚁提供
+  templateAgentId: string(name='template_agent_id'),
+  // 话题，由蚂蚁提供
+  agentTopic: string(name='agent_topic'),
+  // 设备标识列表
+  uidList: [ string ](name='uid_list'),
+}
+
+model ImportIotagentClientResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 成功导入的设备标识列表
+  successUidList?: [ string ](name='success_uid_list'),
+  // 已经存在的设备标识列表（不会导入）
+  existedUidList?: [ string ](name='existed_uid_list'),
+  // 不合法的设备标识列表（不会导入）
+  invalidUidList?: [ string ](name='invalid_uid_list'),
+}
+
+/**
+ * Description: 智能体设备标识导入接口
+ * Summary: 智能体设备标识导入接口
+ */
+async function importIotagentClient(request: ImportIotagentClientRequest): ImportIotagentClientResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return importIotagentClientEx(request, headers, runtime);
+}
+
+/**
+ * Description: 智能体设备标识导入接口
+ * Summary: 智能体设备标识导入接口
+ */
+async function importIotagentClientEx(request: ImportIotagentClientRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ImportIotagentClientResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.iotagent.client.import', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model ExecThingsdidOneapiRequest = {
