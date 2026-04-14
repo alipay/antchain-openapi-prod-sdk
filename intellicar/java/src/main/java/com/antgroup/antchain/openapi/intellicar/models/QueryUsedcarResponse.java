@@ -20,6 +20,10 @@ public class QueryUsedcarResponse extends TeaModel {
     @NameInMap("used_car_valuation")
     public UsedCarValuation usedCarValuation;
 
+    // 响应结果
+    @NameInMap("status")
+    public String status;
+
     public static QueryUsedcarResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryUsedcarResponse self = new QueryUsedcarResponse();
         return TeaModel.build(map, self);
@@ -55,6 +59,14 @@ public class QueryUsedcarResponse extends TeaModel {
     }
     public UsedCarValuation getUsedCarValuation() {
         return this.usedCarValuation;
+    }
+
+    public QueryUsedcarResponse setStatus(String status) {
+        this.status = status;
+        return this;
+    }
+    public String getStatus() {
+        return this.status;
     }
 
 }

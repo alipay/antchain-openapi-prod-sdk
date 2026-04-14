@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.28"),
+                    new TeaPair("sdk_version", "1.0.31"),
                     new TeaPair("_prod_code", "INTELLICAR"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -628,6 +628,48 @@ public class Client {
     public QueryCarVinResponse queryCarVinEx(QueryCarVinRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antdigital.intellicar.car.vin.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCarVinResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 长安画像标签授权接口
+     * Summary: 长安画像标签授权接口</p>
+     */
+    public RegisterTagChanganResponse registerTagChangan(RegisterTagChanganRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.registerTagChanganEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 长安画像标签授权接口
+     * Summary: 长安画像标签授权接口</p>
+     */
+    public RegisterTagChanganResponse registerTagChanganEx(RegisterTagChanganRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.intellicar.tag.changan.register", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RegisterTagChanganResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 长安画像标签用户id标签查询
+     * Summary: 长安画像标签用户id标签查询</p>
+     */
+    public QueryTagChanganResponse queryTagChangan(QueryTagChanganRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryTagChanganEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 长安画像标签用户id标签查询
+     * Summary: 长安画像标签用户id标签查询</p>
+     */
+    public QueryTagChanganResponse queryTagChanganEx(QueryTagChanganRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.intellicar.tag.changan.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTagChanganResponse());
     }
 
     /**

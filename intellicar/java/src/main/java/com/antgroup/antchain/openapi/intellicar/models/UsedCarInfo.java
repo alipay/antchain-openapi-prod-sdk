@@ -22,15 +22,6 @@ public class UsedCarInfo extends TeaModel {
     @Validation(required = true)
     public String cityName;
 
-    // 省份id
-    /**
-     * <strong>example:</strong>
-     * <p>xxxx</p>
-     */
-    @NameInMap("pid")
-    @Validation(required = true)
-    public String pid;
-
     // 城市id
     /**
      * <strong>example:</strong>
@@ -55,15 +46,6 @@ public class UsedCarInfo extends TeaModel {
      */
     @NameInMap("series_name")
     public String seriesName;
-
-    // 汽车之家车型id
-    /**
-     * <strong>example:</strong>
-     * <p>xxx</p>
-     */
-    @NameInMap("spec_id")
-    @Validation(required = true)
-    public String specId;
 
     // 车型名称
     /**
@@ -91,6 +73,24 @@ public class UsedCarInfo extends TeaModel {
     @Validation(required = true)
     public String mileage;
 
+    // 省份id
+    /**
+     * <strong>example:</strong>
+     * <p>xxxx</p>
+     */
+    @NameInMap("pid")
+    @Validation(required = true)
+    public String pid;
+
+    // 汽车之家车型id
+    /**
+     * <strong>example:</strong>
+     * <p>xxxx</p>
+     */
+    @NameInMap("specid")
+    @Validation(required = true)
+    public String specid;
+
     public static UsedCarInfo build(java.util.Map<String, ?> map) throws Exception {
         UsedCarInfo self = new UsedCarInfo();
         return TeaModel.build(map, self);
@@ -110,14 +110,6 @@ public class UsedCarInfo extends TeaModel {
     }
     public String getCityName() {
         return this.cityName;
-    }
-
-    public UsedCarInfo setPid(String pid) {
-        this.pid = pid;
-        return this;
-    }
-    public String getPid() {
-        return this.pid;
     }
 
     public UsedCarInfo setCid(String cid) {
@@ -144,14 +136,6 @@ public class UsedCarInfo extends TeaModel {
         return this.seriesName;
     }
 
-    public UsedCarInfo setSpecId(String specId) {
-        this.specId = specId;
-        return this;
-    }
-    public String getSpecId() {
-        return this.specId;
-    }
-
     public UsedCarInfo setSpecName(String specName) {
         this.specName = specName;
         return this;
@@ -174,6 +158,22 @@ public class UsedCarInfo extends TeaModel {
     }
     public String getMileage() {
         return this.mileage;
+    }
+
+    public UsedCarInfo setPid(String pid) {
+        this.pid = pid;
+        return this;
+    }
+    public String getPid() {
+        return this.pid;
+    }
+
+    public UsedCarInfo setSpecid(String specid) {
+        this.specid = specid;
+        return this;
+    }
+    public String getSpecid() {
+        return this.specid;
     }
 
 }
