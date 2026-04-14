@@ -1112,6 +1112,31 @@ export class GdPotentialCustomerInfo extends $tea.Model {
   }
 }
 
+// 设备信息
+export class DeviceBean extends $tea.Model {
+  // 选填其中一个：imeiMd5、macMd5、adid、adidMd5、did、idfa、idfaMd5、caid、caidMd5、oaid、oaidMd5、aaid、aaidMd5、gtcid、mb、pnSha256、cid、gid
+  deviceIdType: string;
+  // 设备ID列表（最多200个，不要重复）
+  deviceIdList: string[];
+  static names(): { [key: string]: string } {
+    return {
+      deviceIdType: 'device_id_type',
+      deviceIdList: 'device_id_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      deviceIdType: 'string',
+      deviceIdList: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 汽车之家城市信息
 export class CityResult extends $tea.Model {
   // 城市Id
@@ -1137,6 +1162,23 @@ export class CityResult extends $tea.Model {
   }
 }
 
+// 标签配置信息返回结果
+export class TagBeanRecords extends $tea.Model {
+  static names(): { [key: string]: string } {
+    return {
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 用户基本信息
 export class CarOwnerUserInfo extends $tea.Model {
   // 用户id
@@ -1154,6 +1196,39 @@ export class CarOwnerUserInfo extends $tea.Model {
     return {
       userId: 'string',
       phoneNum: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 长安画像标签
+export class TagBean extends $tea.Model {
+  // 标签编码
+  tid?: string;
+  // 标签类目
+  category?: string;
+  // 标签名称
+  tname?: string;
+  // 标签值名称
+  tvname?: string;
+  static names(): { [key: string]: string } {
+    return {
+      tid: 'tid',
+      category: 'category',
+      tname: 'tname',
+      tvname: 'tvname',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      tid: 'string',
+      category: 'string',
+      tname: 'string',
+      tvname: 'string',
     };
   }
 
@@ -1205,34 +1280,34 @@ export class UsedCarInfo extends $tea.Model {
   leadId: string;
   // 城市名称
   cityName: string;
-  // 省份id
-  pid: string;
   // 城市id
   cid: string;
   // 品牌名称
   brandName?: string;
   // 车系名称
   seriesName?: string;
-  // 汽车之家车型id
-  specId: string;
   // 车型名称
   specName?: string;
   // 首次上牌时间格式 yyyy/MM/dd
   firstRegTime: string;
   // 行驶公里数(km)
   mileage: string;
+  // 省份id
+  pid: string;
+  // 汽车之家车型id
+  specid: string;
   static names(): { [key: string]: string } {
     return {
       leadId: 'lead_id',
       cityName: 'city_name',
-      pid: 'pid',
       cid: 'cid',
       brandName: 'brand_name',
       seriesName: 'series_name',
-      specId: 'spec_id',
       specName: 'spec_name',
       firstRegTime: 'first_reg_time',
       mileage: 'mileage',
+      pid: 'pid',
+      specid: 'specid',
     };
   }
 
@@ -1240,14 +1315,14 @@ export class UsedCarInfo extends $tea.Model {
     return {
       leadId: 'string',
       cityName: 'string',
-      pid: 'string',
       cid: 'string',
       brandName: 'string',
       seriesName: 'string',
-      specId: 'string',
       specName: 'string',
       firstRegTime: 'string',
       mileage: 'string',
+      pid: 'string',
+      specid: 'string',
     };
   }
 
@@ -1953,12 +2028,15 @@ export class QueryUsedcarResponse extends $tea.Model {
   resultMsg?: string;
   // 二手车估值信息
   usedCarValuation?: UsedCarValuation;
+  // 响应结果
+  status?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
       usedCarValuation: 'used_car_valuation',
+      status: 'status',
     };
   }
 
@@ -1968,6 +2046,7 @@ export class QueryUsedcarResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       usedCarValuation: UsedCarValuation,
+      status: 'string',
     };
   }
 
@@ -2920,6 +2999,167 @@ export class QueryCarVinResponse extends $tea.Model {
   }
 }
 
+export class RegisterTagChanganRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 授权码
+  sceneCode: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      sceneCode: 'scene_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      sceneCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RegisterTagChanganResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 授权码
+  accessToken?: string;
+  // 授权码过期时间，单位s，默认2小时（7200s）
+  expiresIn?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      accessToken: 'access_token',
+      expiresIn: 'expires_in',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      accessToken: 'string',
+      expiresIn: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryTagChanganRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 场景码
+  sceneCode: string;
+  // 授权token
+  accessToken: string;
+  // 请求唯一ID（UUID生成即可）
+  requestId: string;
+  // 系统
+  os?: string;
+  // 标签库组合：
+  // 1表示基础标签
+  // 2表示行业标签
+  // 3表示基础标签+行业标签
+  // 8表示自定义标签
+  // 9表示基础标签+自定义标签
+  // 10表示行业标签+自定义标签
+  // 11表示基础标签+行业标签+自定义标签
+  type: number;
+  // 设备信息
+  deviceInfoList: DeviceBean;
+  // 基础标签动态参数（对外编码）
+  baseTags?: string[];
+  // 行业标签动态参数（对外编码）
+  industyTags?: string[];
+  // 规则标签动态参数（对外编码）
+  businessTags?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      sceneCode: 'scene_code',
+      accessToken: 'access_token',
+      requestId: 'request_id',
+      os: 'os',
+      type: 'type',
+      deviceInfoList: 'device_info_list',
+      baseTags: 'base_tags',
+      industyTags: 'industy_tags',
+      businessTags: 'business_tags',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      sceneCode: 'string',
+      accessToken: 'string',
+      requestId: 'string',
+      os: 'string',
+      type: 'number',
+      deviceInfoList: DeviceBean,
+      baseTags: { 'type': 'array', 'itemType': 'string' },
+      industyTags: { 'type': 'array', 'itemType': 'string' },
+      businessTags: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryTagChanganResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 返回数据，JSON格式字符串
+  data?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -3121,7 +3361,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.28",
+          sdk_version: "1.0.31",
           _prod_code: "INTELLICAR",
           _prod_channel: "default",
         };
@@ -3569,6 +3809,44 @@ export default class Client {
   async queryCarVinEx(request: QueryCarVinRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryCarVinResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryCarVinResponse>(await this.doRequest("1.0", "antdigital.intellicar.car.vin.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryCarVinResponse({}));
+  }
+
+  /**
+   * Description: 长安画像标签授权接口
+   * Summary: 长安画像标签授权接口
+   */
+  async registerTagChangan(request: RegisterTagChanganRequest): Promise<RegisterTagChanganResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.registerTagChanganEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 长安画像标签授权接口
+   * Summary: 长安画像标签授权接口
+   */
+  async registerTagChanganEx(request: RegisterTagChanganRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RegisterTagChanganResponse> {
+    Util.validateModel(request);
+    return $tea.cast<RegisterTagChanganResponse>(await this.doRequest("1.0", "antdigital.intellicar.tag.changan.register", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RegisterTagChanganResponse({}));
+  }
+
+  /**
+   * Description: 长安画像标签用户id标签查询
+   * Summary: 长安画像标签用户id标签查询
+   */
+  async queryTagChangan(request: QueryTagChanganRequest): Promise<QueryTagChanganResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryTagChanganEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 长安画像标签用户id标签查询
+   * Summary: 长安画像标签用户id标签查询
+   */
+  async queryTagChanganEx(request: QueryTagChanganRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryTagChanganResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryTagChanganResponse>(await this.doRequest("1.0", "antdigital.intellicar.tag.changan.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryTagChanganResponse({}));
   }
 
   /**
