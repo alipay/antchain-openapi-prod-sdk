@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.78',
+                    'sdk_version': '1.12.80',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.78',
+                    'sdk_version': '1.12.80',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -8635,6 +8635,62 @@ class Client:
             await self.do_request_async('1.0', 'blockchain.bot.electrocar.deviceinfos.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def exec_electrocar_batchpub(
+        self,
+        request: bot_models.ExecElectrocarBatchpubRequest,
+    ) -> bot_models.ExecElectrocarBatchpubResponse:
+        """
+        Description: 二轮车批量控车接口
+        Summary: 二轮车批量控车接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.exec_electrocar_batchpub_ex(request, headers, runtime)
+
+    async def exec_electrocar_batchpub_async(
+        self,
+        request: bot_models.ExecElectrocarBatchpubRequest,
+    ) -> bot_models.ExecElectrocarBatchpubResponse:
+        """
+        Description: 二轮车批量控车接口
+        Summary: 二轮车批量控车接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.exec_electrocar_batchpub_ex_async(request, headers, runtime)
+
+    def exec_electrocar_batchpub_ex(
+        self,
+        request: bot_models.ExecElectrocarBatchpubRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ExecElectrocarBatchpubResponse:
+        """
+        Description: 二轮车批量控车接口
+        Summary: 二轮车批量控车接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ExecElectrocarBatchpubResponse(),
+            self.do_request('1.0', 'blockchain.bot.electrocar.batchpub.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def exec_electrocar_batchpub_ex_async(
+        self,
+        request: bot_models.ExecElectrocarBatchpubRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ExecElectrocarBatchpubResponse:
+        """
+        Description: 二轮车批量控车接口
+        Summary: 二轮车批量控车接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ExecElectrocarBatchpubResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.electrocar.batchpub.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def query_iotplatform_purchaseorder(
         self,
         request: bot_models.QueryIotplatformPurchaseorderRequest,
@@ -15689,6 +15745,62 @@ class Client:
         return TeaCore.from_map(
             bot_models.StartIotagentThingmodelResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.iotagent.thingmodel.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def import_iotagent_client(
+        self,
+        request: bot_models.ImportIotagentClientRequest,
+    ) -> bot_models.ImportIotagentClientResponse:
+        """
+        Description: 智能体设备标识导入接口
+        Summary: 智能体设备标识导入接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.import_iotagent_client_ex(request, headers, runtime)
+
+    async def import_iotagent_client_async(
+        self,
+        request: bot_models.ImportIotagentClientRequest,
+    ) -> bot_models.ImportIotagentClientResponse:
+        """
+        Description: 智能体设备标识导入接口
+        Summary: 智能体设备标识导入接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.import_iotagent_client_ex_async(request, headers, runtime)
+
+    def import_iotagent_client_ex(
+        self,
+        request: bot_models.ImportIotagentClientRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ImportIotagentClientResponse:
+        """
+        Description: 智能体设备标识导入接口
+        Summary: 智能体设备标识导入接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ImportIotagentClientResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotagent.client.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def import_iotagent_client_ex_async(
+        self,
+        request: bot_models.ImportIotagentClientRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ImportIotagentClientResponse:
+        """
+        Description: 智能体设备标识导入接口
+        Summary: 智能体设备标识导入接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ImportIotagentClientResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotagent.client.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def exec_thingsdid_oneapi(

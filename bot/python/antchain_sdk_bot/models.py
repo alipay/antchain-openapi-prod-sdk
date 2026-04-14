@@ -30748,6 +30748,184 @@ class QueryElectrocarDeviceinfosResponse(TeaModel):
         return self
 
 
+class ExecElectrocarBatchpubRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tuid_list: List[str] = None,
+        user_topic: str = None,
+        message_type: str = None,
+        message_content: str = None,
+        trigger_mode: str = None,
+        schedule_time: int = None,
+        batch_name: str = None,
+        retry_count: int = None,
+        operator: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 设备tuid列表
+        self.tuid_list = tuid_list
+        # 用户自定义Topic
+        self.user_topic = user_topic
+        # 消息类型
+        self.message_type = message_type
+        # 消息内容
+        self.message_content = message_content
+        # 触发模式（IMMEDIATE/SCHEDULED）
+        self.trigger_mode = trigger_mode
+        # 定时执行时间戳（triggerMode为SCHEDULED时必填）
+        self.schedule_time = schedule_time
+        # 批次名称
+        self.batch_name = batch_name
+        # 重试次数
+        self.retry_count = retry_count
+        # 操作人
+        self.operator = operator
+
+    def validate(self):
+        self.validate_required(self.tuid_list, 'tuid_list')
+        self.validate_required(self.user_topic, 'user_topic')
+        self.validate_required(self.message_type, 'message_type')
+        self.validate_required(self.message_content, 'message_content')
+        self.validate_required(self.trigger_mode, 'trigger_mode')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tuid_list is not None:
+            result['tuid_list'] = self.tuid_list
+        if self.user_topic is not None:
+            result['user_topic'] = self.user_topic
+        if self.message_type is not None:
+            result['message_type'] = self.message_type
+        if self.message_content is not None:
+            result['message_content'] = self.message_content
+        if self.trigger_mode is not None:
+            result['trigger_mode'] = self.trigger_mode
+        if self.schedule_time is not None:
+            result['schedule_time'] = self.schedule_time
+        if self.batch_name is not None:
+            result['batch_name'] = self.batch_name
+        if self.retry_count is not None:
+            result['retry_count'] = self.retry_count
+        if self.operator is not None:
+            result['operator'] = self.operator
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tuid_list') is not None:
+            self.tuid_list = m.get('tuid_list')
+        if m.get('user_topic') is not None:
+            self.user_topic = m.get('user_topic')
+        if m.get('message_type') is not None:
+            self.message_type = m.get('message_type')
+        if m.get('message_content') is not None:
+            self.message_content = m.get('message_content')
+        if m.get('trigger_mode') is not None:
+            self.trigger_mode = m.get('trigger_mode')
+        if m.get('schedule_time') is not None:
+            self.schedule_time = m.get('schedule_time')
+        if m.get('batch_name') is not None:
+            self.batch_name = m.get('batch_name')
+        if m.get('retry_count') is not None:
+            self.retry_count = m.get('retry_count')
+        if m.get('operator') is not None:
+            self.operator = m.get('operator')
+        return self
+
+
+class ExecElectrocarBatchpubResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        batch_id: str = None,
+        total_count: int = None,
+        trigger_mode: str = None,
+        scheduled_time: int = None,
+        success: bool = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 批次ID
+        self.batch_id = batch_id
+        # 总设备数
+        self.total_count = total_count
+        # 触发模式
+        self.trigger_mode = trigger_mode
+        # 定时执行时间戳
+        self.scheduled_time = scheduled_time
+        # 状态
+        self.success = success
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.batch_id is not None:
+            result['batch_id'] = self.batch_id
+        if self.total_count is not None:
+            result['total_count'] = self.total_count
+        if self.trigger_mode is not None:
+            result['trigger_mode'] = self.trigger_mode
+        if self.scheduled_time is not None:
+            result['scheduled_time'] = self.scheduled_time
+        if self.success is not None:
+            result['success'] = self.success
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('batch_id') is not None:
+            self.batch_id = m.get('batch_id')
+        if m.get('total_count') is not None:
+            self.total_count = m.get('total_count')
+        if m.get('trigger_mode') is not None:
+            self.trigger_mode = m.get('trigger_mode')
+        if m.get('scheduled_time') is not None:
+            self.scheduled_time = m.get('scheduled_time')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        return self
+
+
 class QueryIotplatformPurchaseorderRequest(TeaModel):
     def __init__(
         self,
@@ -46276,6 +46454,142 @@ class StartIotagentThingmodelResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('chat_completion_object') is not None:
             self.chat_completion_object = m.get('chat_completion_object')
+        return self
+
+
+class ImportIotagentClientRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        instance_id: str = None,
+        sku_name: str = None,
+        template_agent_id: str = None,
+        agent_topic: str = None,
+        uid_list: List[str] = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 实例ID，由蚂蚁提供
+        self.instance_id = instance_id
+        # SKU名称，由蚂蚁提供
+        self.sku_name = sku_name
+        # 模版智能体ID，由蚂蚁提供
+        self.template_agent_id = template_agent_id
+        # 话题，由蚂蚁提供
+        self.agent_topic = agent_topic
+        # 设备标识列表
+        self.uid_list = uid_list
+
+    def validate(self):
+        self.validate_required(self.instance_id, 'instance_id')
+        self.validate_required(self.sku_name, 'sku_name')
+        self.validate_required(self.template_agent_id, 'template_agent_id')
+        self.validate_required(self.agent_topic, 'agent_topic')
+        self.validate_required(self.uid_list, 'uid_list')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.instance_id is not None:
+            result['instance_id'] = self.instance_id
+        if self.sku_name is not None:
+            result['sku_name'] = self.sku_name
+        if self.template_agent_id is not None:
+            result['template_agent_id'] = self.template_agent_id
+        if self.agent_topic is not None:
+            result['agent_topic'] = self.agent_topic
+        if self.uid_list is not None:
+            result['uid_list'] = self.uid_list
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('instance_id') is not None:
+            self.instance_id = m.get('instance_id')
+        if m.get('sku_name') is not None:
+            self.sku_name = m.get('sku_name')
+        if m.get('template_agent_id') is not None:
+            self.template_agent_id = m.get('template_agent_id')
+        if m.get('agent_topic') is not None:
+            self.agent_topic = m.get('agent_topic')
+        if m.get('uid_list') is not None:
+            self.uid_list = m.get('uid_list')
+        return self
+
+
+class ImportIotagentClientResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        success_uid_list: List[str] = None,
+        existed_uid_list: List[str] = None,
+        invalid_uid_list: List[str] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 成功导入的设备标识列表
+        self.success_uid_list = success_uid_list
+        # 已经存在的设备标识列表（不会导入）
+        self.existed_uid_list = existed_uid_list
+        # 不合法的设备标识列表（不会导入）
+        self.invalid_uid_list = invalid_uid_list
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.success_uid_list is not None:
+            result['success_uid_list'] = self.success_uid_list
+        if self.existed_uid_list is not None:
+            result['existed_uid_list'] = self.existed_uid_list
+        if self.invalid_uid_list is not None:
+            result['invalid_uid_list'] = self.invalid_uid_list
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('success_uid_list') is not None:
+            self.success_uid_list = m.get('success_uid_list')
+        if m.get('existed_uid_list') is not None:
+            self.existed_uid_list = m.get('existed_uid_list')
+        if m.get('invalid_uid_list') is not None:
+            self.invalid_uid_list = m.get('invalid_uid_list')
         return self
 
 
