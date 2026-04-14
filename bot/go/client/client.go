@@ -24651,6 +24651,160 @@ func (s *QueryElectrocarDeviceinfosResponse) SetDeviceOtaVersion(v string) *Quer
 	return s
 }
 
+type ExecElectrocarBatchpubRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 设备tuid列表
+	TuidList []*string `json:"tuid_list,omitempty" xml:"tuid_list,omitempty" require:"true" type:"Repeated"`
+	// 用户自定义Topic
+	UserTopic *string `json:"user_topic,omitempty" xml:"user_topic,omitempty" require:"true"`
+	// 消息类型
+	MessageType *string `json:"message_type,omitempty" xml:"message_type,omitempty" require:"true"`
+	// 消息内容
+	MessageContent *string `json:"message_content,omitempty" xml:"message_content,omitempty" require:"true"`
+	// 触发模式（IMMEDIATE/SCHEDULED）
+	TriggerMode *string `json:"trigger_mode,omitempty" xml:"trigger_mode,omitempty" require:"true"`
+	// 定时执行时间戳（triggerMode为SCHEDULED时必填）
+	ScheduleTime *int64 `json:"schedule_time,omitempty" xml:"schedule_time,omitempty"`
+	// 批次名称
+	BatchName *string `json:"batch_name,omitempty" xml:"batch_name,omitempty"`
+	// 重试次数
+	RetryCount *int64 `json:"retry_count,omitempty" xml:"retry_count,omitempty"`
+	// 操作人
+	Operator *string `json:"operator,omitempty" xml:"operator,omitempty"`
+}
+
+func (s ExecElectrocarBatchpubRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecElectrocarBatchpubRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ExecElectrocarBatchpubRequest) SetAuthToken(v string) *ExecElectrocarBatchpubRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ExecElectrocarBatchpubRequest) SetProductInstanceId(v string) *ExecElectrocarBatchpubRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ExecElectrocarBatchpubRequest) SetTuidList(v []*string) *ExecElectrocarBatchpubRequest {
+	s.TuidList = v
+	return s
+}
+
+func (s *ExecElectrocarBatchpubRequest) SetUserTopic(v string) *ExecElectrocarBatchpubRequest {
+	s.UserTopic = &v
+	return s
+}
+
+func (s *ExecElectrocarBatchpubRequest) SetMessageType(v string) *ExecElectrocarBatchpubRequest {
+	s.MessageType = &v
+	return s
+}
+
+func (s *ExecElectrocarBatchpubRequest) SetMessageContent(v string) *ExecElectrocarBatchpubRequest {
+	s.MessageContent = &v
+	return s
+}
+
+func (s *ExecElectrocarBatchpubRequest) SetTriggerMode(v string) *ExecElectrocarBatchpubRequest {
+	s.TriggerMode = &v
+	return s
+}
+
+func (s *ExecElectrocarBatchpubRequest) SetScheduleTime(v int64) *ExecElectrocarBatchpubRequest {
+	s.ScheduleTime = &v
+	return s
+}
+
+func (s *ExecElectrocarBatchpubRequest) SetBatchName(v string) *ExecElectrocarBatchpubRequest {
+	s.BatchName = &v
+	return s
+}
+
+func (s *ExecElectrocarBatchpubRequest) SetRetryCount(v int64) *ExecElectrocarBatchpubRequest {
+	s.RetryCount = &v
+	return s
+}
+
+func (s *ExecElectrocarBatchpubRequest) SetOperator(v string) *ExecElectrocarBatchpubRequest {
+	s.Operator = &v
+	return s
+}
+
+type ExecElectrocarBatchpubResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 批次ID
+	BatchId *string `json:"batch_id,omitempty" xml:"batch_id,omitempty"`
+	// 总设备数
+	TotalCount *int64 `json:"total_count,omitempty" xml:"total_count,omitempty"`
+	// 触发模式
+	TriggerMode *string `json:"trigger_mode,omitempty" xml:"trigger_mode,omitempty"`
+	// 定时执行时间戳
+	ScheduledTime *int64 `json:"scheduled_time,omitempty" xml:"scheduled_time,omitempty"`
+	// 状态
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+}
+
+func (s ExecElectrocarBatchpubResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecElectrocarBatchpubResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ExecElectrocarBatchpubResponse) SetReqMsgId(v string) *ExecElectrocarBatchpubResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ExecElectrocarBatchpubResponse) SetResultCode(v string) *ExecElectrocarBatchpubResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ExecElectrocarBatchpubResponse) SetResultMsg(v string) *ExecElectrocarBatchpubResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ExecElectrocarBatchpubResponse) SetBatchId(v string) *ExecElectrocarBatchpubResponse {
+	s.BatchId = &v
+	return s
+}
+
+func (s *ExecElectrocarBatchpubResponse) SetTotalCount(v int64) *ExecElectrocarBatchpubResponse {
+	s.TotalCount = &v
+	return s
+}
+
+func (s *ExecElectrocarBatchpubResponse) SetTriggerMode(v string) *ExecElectrocarBatchpubResponse {
+	s.TriggerMode = &v
+	return s
+}
+
+func (s *ExecElectrocarBatchpubResponse) SetScheduledTime(v int64) *ExecElectrocarBatchpubResponse {
+	s.ScheduledTime = &v
+	return s
+}
+
+func (s *ExecElectrocarBatchpubResponse) SetSuccess(v bool) *ExecElectrocarBatchpubResponse {
+	s.Success = &v
+	return s
+}
+
 type QueryIotplatformPurchaseorderRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -38878,7 +39032,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.12.79"),
+				"sdk_version":      tea.String("1.12.80"),
 				"_prod_code":       tea.String("BOT"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -44021,6 +44175,40 @@ func (client *Client) QueryElectrocarDeviceinfosEx(request *QueryElectrocarDevic
 	}
 	_result = &QueryElectrocarDeviceinfosResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.electrocar.deviceinfos.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 二轮车批量控车接口
+ * Summary: 二轮车批量控车接口
+ */
+func (client *Client) ExecElectrocarBatchpub(request *ExecElectrocarBatchpubRequest) (_result *ExecElectrocarBatchpubResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ExecElectrocarBatchpubResponse{}
+	_body, _err := client.ExecElectrocarBatchpubEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 二轮车批量控车接口
+ * Summary: 二轮车批量控车接口
+ */
+func (client *Client) ExecElectrocarBatchpubEx(request *ExecElectrocarBatchpubRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ExecElectrocarBatchpubResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ExecElectrocarBatchpubResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.electrocar.batchpub.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
