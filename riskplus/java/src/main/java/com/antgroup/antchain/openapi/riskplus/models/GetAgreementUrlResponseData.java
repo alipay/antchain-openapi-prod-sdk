@@ -37,10 +37,6 @@ public class GetAgreementUrlResponseData extends TeaModel {
     @NameInMap("pic_file_base64_list")
     public java.util.List<String> picFileBase64List;
 
-    // 图片文件oss集合
-    @NameInMap("pic_oss_path_list")
-    public java.util.List<String> picOssPathList;
-
     // 机构名称
     /**
      * <strong>example:</strong>
@@ -103,14 +99,6 @@ public class GetAgreementUrlResponseData extends TeaModel {
     }
     public java.util.List<String> getPicFileBase64List() {
         return this.picFileBase64List;
-    }
-
-    public GetAgreementUrlResponseData setPicOssPathList(java.util.List<String> picOssPathList) {
-        this.picOssPathList = picOssPathList;
-        return this;
-    }
-    public java.util.List<String> getPicOssPathList() {
-        return this.picOssPathList;
     }
 
     public GetAgreementUrlResponseData setOrganizationName(String organizationName) {

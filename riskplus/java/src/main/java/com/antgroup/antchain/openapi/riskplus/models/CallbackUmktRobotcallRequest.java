@@ -56,11 +56,6 @@ public class CallbackUmktRobotcallRequest extends TeaModel {
     @Validation(required = true)
     public Long taskId;
 
-    // 外呼任务名称
-    @NameInMap("task_name")
-    @Validation(required = true)
-    public String taskName;
-
     // 外呼的话术模板ID，可以为空
     @NameInMap("template_id")
     public Long templateId;
@@ -294,14 +289,6 @@ public class CallbackUmktRobotcallRequest extends TeaModel {
     }
     public Long getTaskId() {
         return this.taskId;
-    }
-
-    public CallbackUmktRobotcallRequest setTaskName(String taskName) {
-        this.taskName = taskName;
-        return this;
-    }
-    public String getTaskName() {
-        return this.taskName;
     }
 
     public CallbackUmktRobotcallRequest setTemplateId(Long templateId) {

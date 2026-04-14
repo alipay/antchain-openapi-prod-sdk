@@ -47,7 +47,7 @@ public class UmktCampaignTaskInfo extends TeaModel {
      */
     @NameInMap("node_task_list")
     @Validation(required = true)
-    public java.util.List<UmktCampaignNodeTaskInfo> nodeTaskList;
+    public UmktCampaignNodeTaskInfo nodeTaskList;
 
     public static UmktCampaignTaskInfo build(java.util.Map<String, ?> map) throws Exception {
         UmktCampaignTaskInfo self = new UmktCampaignTaskInfo();
@@ -86,11 +86,11 @@ public class UmktCampaignTaskInfo extends TeaModel {
         return this.campaignTaskStatus;
     }
 
-    public UmktCampaignTaskInfo setNodeTaskList(java.util.List<UmktCampaignNodeTaskInfo> nodeTaskList) {
+    public UmktCampaignTaskInfo setNodeTaskList(UmktCampaignNodeTaskInfo nodeTaskList) {
         this.nodeTaskList = nodeTaskList;
         return this;
     }
-    public java.util.List<UmktCampaignNodeTaskInfo> getNodeTaskList() {
+    public UmktCampaignNodeTaskInfo getNodeTaskList() {
         return this.nodeTaskList;
     }
 

@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.riskplus.models;
 
 import com.aliyun.tea.*;
 
-public class ApplyDubbridgeEccreditResponse extends TeaModel {
+public class CancelUmktCampaignResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,12 +16,12 @@ public class ApplyDubbridgeEccreditResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    public static ApplyDubbridgeEccreditResponse build(java.util.Map<String, ?> map) throws Exception {
-        ApplyDubbridgeEccreditResponse self = new ApplyDubbridgeEccreditResponse();
+    public static CancelUmktCampaignResponse build(java.util.Map<String, ?> map) throws Exception {
+        CancelUmktCampaignResponse self = new CancelUmktCampaignResponse();
         return TeaModel.build(map, self);
     }
 
-    public ApplyDubbridgeEccreditResponse setReqMsgId(String reqMsgId) {
+    public CancelUmktCampaignResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -29,7 +29,7 @@ public class ApplyDubbridgeEccreditResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public ApplyDubbridgeEccreditResponse setResultCode(String resultCode) {
+    public CancelUmktCampaignResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -37,7 +37,7 @@ public class ApplyDubbridgeEccreditResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public ApplyDubbridgeEccreditResponse setResultMsg(String resultMsg) {
+    public CancelUmktCampaignResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
