@@ -24,14 +24,6 @@ class UsedCarInfo extends Model
      */
     public $cityName;
 
-    // 省份id
-    /**
-     * @example xxxx
-     *
-     * @var string
-     */
-    public $pid;
-
     // 城市id
     /**
      * @example xxxx
@@ -56,14 +48,6 @@ class UsedCarInfo extends Model
      */
     public $seriesName;
 
-    // 汽车之家车型id
-    /**
-     * @example xxx
-     *
-     * @var string
-     */
-    public $specId;
-
     // 车型名称
     /**
      * @example xxxx
@@ -87,28 +71,44 @@ class UsedCarInfo extends Model
      * @var string
      */
     public $mileage;
+
+    // 省份id
+    /**
+     * @example xxxx
+     *
+     * @var string
+     */
+    public $pid;
+
+    // 汽车之家车型id
+    /**
+     * @example xxxx
+     *
+     * @var string
+     */
+    public $specid;
     protected $_name = [
         'leadId'       => 'lead_id',
         'cityName'     => 'city_name',
-        'pid'          => 'pid',
         'cid'          => 'cid',
         'brandName'    => 'brand_name',
         'seriesName'   => 'series_name',
-        'specId'       => 'spec_id',
         'specName'     => 'spec_name',
         'firstRegTime' => 'first_reg_time',
         'mileage'      => 'mileage',
+        'pid'          => 'pid',
+        'specid'       => 'specid',
     ];
 
     public function validate()
     {
         Model::validateRequired('leadId', $this->leadId, true);
         Model::validateRequired('cityName', $this->cityName, true);
-        Model::validateRequired('pid', $this->pid, true);
         Model::validateRequired('cid', $this->cid, true);
-        Model::validateRequired('specId', $this->specId, true);
         Model::validateRequired('firstRegTime', $this->firstRegTime, true);
         Model::validateRequired('mileage', $this->mileage, true);
+        Model::validateRequired('pid', $this->pid, true);
+        Model::validateRequired('specid', $this->specid, true);
     }
 
     public function toMap()
@@ -120,9 +120,6 @@ class UsedCarInfo extends Model
         if (null !== $this->cityName) {
             $res['city_name'] = $this->cityName;
         }
-        if (null !== $this->pid) {
-            $res['pid'] = $this->pid;
-        }
         if (null !== $this->cid) {
             $res['cid'] = $this->cid;
         }
@@ -132,9 +129,6 @@ class UsedCarInfo extends Model
         if (null !== $this->seriesName) {
             $res['series_name'] = $this->seriesName;
         }
-        if (null !== $this->specId) {
-            $res['spec_id'] = $this->specId;
-        }
         if (null !== $this->specName) {
             $res['spec_name'] = $this->specName;
         }
@@ -143,6 +137,12 @@ class UsedCarInfo extends Model
         }
         if (null !== $this->mileage) {
             $res['mileage'] = $this->mileage;
+        }
+        if (null !== $this->pid) {
+            $res['pid'] = $this->pid;
+        }
+        if (null !== $this->specid) {
+            $res['specid'] = $this->specid;
         }
 
         return $res;
@@ -162,9 +162,6 @@ class UsedCarInfo extends Model
         if (isset($map['city_name'])) {
             $model->cityName = $map['city_name'];
         }
-        if (isset($map['pid'])) {
-            $model->pid = $map['pid'];
-        }
         if (isset($map['cid'])) {
             $model->cid = $map['cid'];
         }
@@ -174,9 +171,6 @@ class UsedCarInfo extends Model
         if (isset($map['series_name'])) {
             $model->seriesName = $map['series_name'];
         }
-        if (isset($map['spec_id'])) {
-            $model->specId = $map['spec_id'];
-        }
         if (isset($map['spec_name'])) {
             $model->specName = $map['spec_name'];
         }
@@ -185,6 +179,12 @@ class UsedCarInfo extends Model
         }
         if (isset($map['mileage'])) {
             $model->mileage = $map['mileage'];
+        }
+        if (isset($map['pid'])) {
+            $model->pid = $map['pid'];
+        }
+        if (isset($map['specid'])) {
+            $model->specid = $map['specid'];
         }
 
         return $model;

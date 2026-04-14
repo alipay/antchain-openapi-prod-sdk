@@ -6,7 +6,7 @@ namespace AntChain\INTELLICAR\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryUsedcarResponse extends Model
+class RegisterTagChanganResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,23 +26,23 @@ class QueryUsedcarResponse extends Model
      */
     public $resultMsg;
 
-    // 二手车估值信息
-    /**
-     * @var UsedCarValuation
-     */
-    public $usedCarValuation;
-
-    // 响应结果
+    // 授权码
     /**
      * @var string
      */
-    public $status;
+    public $accessToken;
+
+    // 授权码过期时间，单位s，默认2小时（7200s）
+    /**
+     * @var int
+     */
+    public $expiresIn;
     protected $_name = [
-        'reqMsgId'         => 'req_msg_id',
-        'resultCode'       => 'result_code',
-        'resultMsg'        => 'result_msg',
-        'usedCarValuation' => 'used_car_valuation',
-        'status'           => 'status',
+        'reqMsgId'    => 'req_msg_id',
+        'resultCode'  => 'result_code',
+        'resultMsg'   => 'result_msg',
+        'accessToken' => 'access_token',
+        'expiresIn'   => 'expires_in',
     ];
 
     public function validate()
@@ -61,11 +61,11 @@ class QueryUsedcarResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->usedCarValuation) {
-            $res['used_car_valuation'] = null !== $this->usedCarValuation ? $this->usedCarValuation->toMap() : null;
+        if (null !== $this->accessToken) {
+            $res['access_token'] = $this->accessToken;
         }
-        if (null !== $this->status) {
-            $res['status'] = $this->status;
+        if (null !== $this->expiresIn) {
+            $res['expires_in'] = $this->expiresIn;
         }
 
         return $res;
@@ -74,7 +74,7 @@ class QueryUsedcarResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryUsedcarResponse
+     * @return RegisterTagChanganResponse
      */
     public static function fromMap($map = [])
     {
@@ -88,11 +88,11 @@ class QueryUsedcarResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['used_car_valuation'])) {
-            $model->usedCarValuation = UsedCarValuation::fromMap($map['used_car_valuation']);
+        if (isset($map['access_token'])) {
+            $model->accessToken = $map['access_token'];
         }
-        if (isset($map['status'])) {
-            $model->status = $map['status'];
+        if (isset($map['expires_in'])) {
+            $model->expiresIn = $map['expires_in'];
         }
 
         return $model;

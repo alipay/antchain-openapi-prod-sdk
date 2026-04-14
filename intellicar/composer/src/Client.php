@@ -39,6 +39,8 @@ use AntChain\INTELLICAR\Models\QueryGdStoreRequest;
 use AntChain\INTELLICAR\Models\QueryGdStoreResponse;
 use AntChain\INTELLICAR\Models\QueryNewcarQczjRequest;
 use AntChain\INTELLICAR\Models\QueryNewcarQczjResponse;
+use AntChain\INTELLICAR\Models\QueryTagChanganRequest;
+use AntChain\INTELLICAR\Models\QueryTagChanganResponse;
 use AntChain\INTELLICAR\Models\QueryUsedcarRequest;
 use AntChain\INTELLICAR\Models\QueryUsedcarResponse;
 use AntChain\INTELLICAR\Models\RegisterCarownerCyRequest;
@@ -47,6 +49,8 @@ use AntChain\INTELLICAR\Models\RegisterCarownerRequest;
 use AntChain\INTELLICAR\Models\RegisterCarownerResponse;
 use AntChain\INTELLICAR\Models\RegisterCdsqScratchesRequest;
 use AntChain\INTELLICAR\Models\RegisterCdsqScratchesResponse;
+use AntChain\INTELLICAR\Models\RegisterTagChanganRequest;
+use AntChain\INTELLICAR\Models\RegisterTagChanganResponse;
 use AntChain\INTELLICAR\Models\SaveCdsqScratchesRequest;
 use AntChain\INTELLICAR\Models\SaveCdsqScratchesResponse;
 use AntChain\INTELLICAR\Models\SubmitIonchiRequest;
@@ -200,7 +204,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.28',
+                    'sdk_version'      => '1.0.31',
                     '_prod_code'       => 'INTELLICAR',
                     '_prod_channel'    => 'default',
                 ];
@@ -925,6 +929,72 @@ class Client
         Utils::validateModel($request);
 
         return QueryCarVinResponse::fromMap($this->doRequest('1.0', 'antdigital.intellicar.car.vin.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 长安画像标签授权接口
+     * Summary: 长安画像标签授权接口.
+     *
+     * @param RegisterTagChanganRequest $request
+     *
+     * @return RegisterTagChanganResponse
+     */
+    public function registerTagChangan($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->registerTagChanganEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 长安画像标签授权接口
+     * Summary: 长安画像标签授权接口.
+     *
+     * @param RegisterTagChanganRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return RegisterTagChanganResponse
+     */
+    public function registerTagChanganEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RegisterTagChanganResponse::fromMap($this->doRequest('1.0', 'antdigital.intellicar.tag.changan.register', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 长安画像标签用户id标签查询
+     * Summary: 长安画像标签用户id标签查询.
+     *
+     * @param QueryTagChanganRequest $request
+     *
+     * @return QueryTagChanganResponse
+     */
+    public function queryTagChangan($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryTagChanganEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 长安画像标签用户id标签查询
+     * Summary: 长安画像标签用户id标签查询.
+     *
+     * @param QueryTagChanganRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return QueryTagChanganResponse
+     */
+    public function queryTagChanganEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryTagChanganResponse::fromMap($this->doRequest('1.0', 'antdigital.intellicar.tag.changan.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
