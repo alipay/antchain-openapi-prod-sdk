@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.28',
+    sdk_version = '1.0.31',
     _prod_code = 'INTELLICAR',
     _prod_channel = 'default'
   };
@@ -584,6 +584,14 @@ model GdPotentialCustomerInfo {
   records: [ GdPotentialCustomerRecord ](name='records', example=''),
 }
 
+// 设备信息
+model DeviceBean {
+  // 选填其中一个：imeiMd5、macMd5、adid、adidMd5、did、idfa、idfaMd5、caid、caidMd5、oaid、oaidMd5、aaid、aaidMd5、gtcid、mb、pnSha256、cid、gid
+  deviceIdType: string(name='device_id_type', example='-'),
+  // 设备ID列表（最多200个，不要重复）
+  deviceIdList: [ string ](name='device_id_list', example='undefined'),
+}
+
 // 汽车之家城市信息
 model CityResult {
   // 城市Id
@@ -592,12 +600,28 @@ model CityResult {
   cityName: string(name='city_name', example='北京'),
 }
 
+// 标签配置信息返回结果
+model TagBeanRecords {
+}
+
 // 用户基本信息
 model CarOwnerUserInfo {
   // 用户id
   userId: string(name='user_id', example='XX'),
   // 手机号
   phoneNum: string(name='phone_num', example='xxx'),
+}
+
+// 长安画像标签
+model TagBean {
+  // 标签编码
+  tid?: string(name='tid', example='01qe000'),
+  // 标签类目
+  category?: string(name='category', example='xxxx'),
+  // 标签名称
+  tname?: string(name='tname', example='xxxx'),
+  // 标签值名称
+  tvname?: string(name='tvname', example='xxxx'),
 }
 
 // 高德店铺基本信息
@@ -620,22 +644,22 @@ model UsedCarInfo {
   leadId: string(name='lead_id', example='xxxx'),
   // 城市名称
   cityName: string(name='city_name', example='xxx'),
-  // 省份id
-  pid: string(name='pid', example='xxxx'),
   // 城市id
   cid: string(name='cid', example='xxxx'),
   // 品牌名称
   brandName?: string(name='brand_name', example='xxxx'),
   // 车系名称
   seriesName?: string(name='series_name', example='xxx'),
-  // 汽车之家车型id
-  specId: string(name='spec_id', example='xxx'),
   // 车型名称
   specName?: string(name='spec_name', example='xxxx'),
   // 首次上牌时间格式 yyyy/MM/dd
   firstRegTime: string(name='first_reg_time', example='2020/01/01'),
   // 行驶公里数(km)
   mileage: string(name='mileage', example='12345.67'),
+  // 省份id
+  pid: string(name='pid', example='xxxx'),
+  // 汽车之家车型id
+  specid: string(name='specid', example='xxxx'),
 }
 
 // 常岳用户结构体
@@ -1047,6 +1071,8 @@ model QueryUsedcarResponse = {
   resultMsg?: string(name='result_msg'),
   // 二手车估值信息
   usedCarValuation?: UsedCarValuation(name='used_car_valuation'),
+  // 响应结果
+  status?: string(name='status'),
 }
 
 /**
@@ -1640,6 +1666,107 @@ async function queryCarVin(request: QueryCarVinRequest): QueryCarVinResponse {
 async function queryCarVinEx(request: QueryCarVinRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryCarVinResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antdigital.intellicar.car.vin.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RegisterTagChanganRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 授权码
+  sceneCode: string(name='scene_code'),
+}
+
+model RegisterTagChanganResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 授权码
+  accessToken?: string(name='access_token'),
+  // 授权码过期时间，单位s，默认2小时（7200s）
+  expiresIn?: long(name='expires_in'),
+}
+
+/**
+ * Description: 长安画像标签授权接口
+ * Summary: 长安画像标签授权接口
+ */
+async function registerTagChangan(request: RegisterTagChanganRequest): RegisterTagChanganResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return registerTagChanganEx(request, headers, runtime);
+}
+
+/**
+ * Description: 长安画像标签授权接口
+ * Summary: 长安画像标签授权接口
+ */
+async function registerTagChanganEx(request: RegisterTagChanganRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RegisterTagChanganResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.intellicar.tag.changan.register', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryTagChanganRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 场景码
+  sceneCode: string(name='scene_code'),
+  // 授权token
+  accessToken: string(name='access_token'),
+  // 请求唯一ID（UUID生成即可）
+  requestId: string(name='request_id'),
+  // 系统
+  os?: string(name='os'),
+  // 标签库组合：
+  // 1表示基础标签
+  // 2表示行业标签
+  // 3表示基础标签+行业标签
+  // 8表示自定义标签
+  // 9表示基础标签+自定义标签
+  // 10表示行业标签+自定义标签
+  // 11表示基础标签+行业标签+自定义标签
+  type: long(name='type'),
+  // 设备信息
+  deviceInfoList: DeviceBean(name='device_info_list'),
+  // 基础标签动态参数（对外编码）
+  baseTags?: [ string ](name='base_tags'),
+  // 行业标签动态参数（对外编码）
+  industyTags?: [ string ](name='industy_tags'),
+  // 规则标签动态参数（对外编码）
+  businessTags?: [ string ](name='business_tags'),
+}
+
+model QueryTagChanganResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回数据，JSON格式字符串
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 长安画像标签用户id标签查询
+ * Summary: 长安画像标签用户id标签查询
+ */
+async function queryTagChangan(request: QueryTagChanganRequest): QueryTagChanganResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryTagChanganEx(request, headers, runtime);
+}
+
+/**
+ * Description: 长安画像标签用户id标签查询
+ * Summary: 长安画像标签用户id标签查询
+ */
+async function queryTagChanganEx(request: QueryTagChanganRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryTagChanganResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.intellicar.tag.changan.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateAntcloudGatewayxFileUploadRequest = {
