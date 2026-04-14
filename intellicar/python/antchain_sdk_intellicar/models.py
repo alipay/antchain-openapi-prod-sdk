@@ -1949,6 +1949,42 @@ class GdPotentialCustomerInfo(TeaModel):
         return self
 
 
+class DeviceBean(TeaModel):
+    def __init__(
+        self,
+        device_id_type: str = None,
+        device_id_list: List[str] = None,
+    ):
+        # 选填其中一个：imeiMd5、macMd5、adid、adidMd5、did、idfa、idfaMd5、caid、caidMd5、oaid、oaidMd5、aaid、aaidMd5、gtcid、mb、pnSha256、cid、gid
+        self.device_id_type = device_id_type
+        # 设备ID列表（最多200个，不要重复）
+        self.device_id_list = device_id_list
+
+    def validate(self):
+        self.validate_required(self.device_id_type, 'device_id_type')
+        self.validate_required(self.device_id_list, 'device_id_list')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.device_id_type is not None:
+            result['device_id_type'] = self.device_id_type
+        if self.device_id_list is not None:
+            result['device_id_list'] = self.device_id_list
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('device_id_type') is not None:
+            self.device_id_type = m.get('device_id_type')
+        if m.get('device_id_list') is not None:
+            self.device_id_list = m.get('device_id_list')
+        return self
+
+
 class CityResult(TeaModel):
     def __init__(
         self,
@@ -1985,6 +2021,26 @@ class CityResult(TeaModel):
         return self
 
 
+class TagBeanRecords(TeaModel):
+    def __init__(self):
+        pass
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        return self
+
+
 class CarOwnerUserInfo(TeaModel):
     def __init__(
         self,
@@ -2018,6 +2074,55 @@ class CarOwnerUserInfo(TeaModel):
             self.user_id = m.get('user_id')
         if m.get('phone_num') is not None:
             self.phone_num = m.get('phone_num')
+        return self
+
+
+class TagBean(TeaModel):
+    def __init__(
+        self,
+        tid: str = None,
+        category: str = None,
+        tname: str = None,
+        tvname: str = None,
+    ):
+        # 标签编码
+        self.tid = tid
+        # 标签类目
+        self.category = category
+        # 标签名称
+        self.tname = tname
+        # 标签值名称
+        self.tvname = tvname
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.tid is not None:
+            result['tid'] = self.tid
+        if self.category is not None:
+            result['category'] = self.category
+        if self.tname is not None:
+            result['tname'] = self.tname
+        if self.tvname is not None:
+            result['tvname'] = self.tvname
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('tid') is not None:
+            self.tid = m.get('tid')
+        if m.get('category') is not None:
+            self.category = m.get('category')
+        if m.get('tname') is not None:
+            self.tname = m.get('tname')
+        if m.get('tvname') is not None:
+            self.tvname = m.get('tvname')
         return self
 
 
@@ -2095,44 +2200,44 @@ class UsedCarInfo(TeaModel):
         self,
         lead_id: str = None,
         city_name: str = None,
-        pid: str = None,
         cid: str = None,
         brand_name: str = None,
         series_name: str = None,
-        spec_id: str = None,
         spec_name: str = None,
         first_reg_time: str = None,
         mileage: str = None,
+        pid: str = None,
+        specid: str = None,
     ):
         # 渠道方线索业务id
         self.lead_id = lead_id
         # 城市名称
         self.city_name = city_name
-        # 省份id
-        self.pid = pid
         # 城市id
         self.cid = cid
         # 品牌名称
         self.brand_name = brand_name
         # 车系名称
         self.series_name = series_name
-        # 汽车之家车型id
-        self.spec_id = spec_id
         # 车型名称
         self.spec_name = spec_name
         # 首次上牌时间格式 yyyy/MM/dd
         self.first_reg_time = first_reg_time
         # 行驶公里数(km)
         self.mileage = mileage
+        # 省份id
+        self.pid = pid
+        # 汽车之家车型id
+        self.specid = specid
 
     def validate(self):
         self.validate_required(self.lead_id, 'lead_id')
         self.validate_required(self.city_name, 'city_name')
-        self.validate_required(self.pid, 'pid')
         self.validate_required(self.cid, 'cid')
-        self.validate_required(self.spec_id, 'spec_id')
         self.validate_required(self.first_reg_time, 'first_reg_time')
         self.validate_required(self.mileage, 'mileage')
+        self.validate_required(self.pid, 'pid')
+        self.validate_required(self.specid, 'specid')
 
     def to_map(self):
         _map = super().to_map()
@@ -2144,22 +2249,22 @@ class UsedCarInfo(TeaModel):
             result['lead_id'] = self.lead_id
         if self.city_name is not None:
             result['city_name'] = self.city_name
-        if self.pid is not None:
-            result['pid'] = self.pid
         if self.cid is not None:
             result['cid'] = self.cid
         if self.brand_name is not None:
             result['brand_name'] = self.brand_name
         if self.series_name is not None:
             result['series_name'] = self.series_name
-        if self.spec_id is not None:
-            result['spec_id'] = self.spec_id
         if self.spec_name is not None:
             result['spec_name'] = self.spec_name
         if self.first_reg_time is not None:
             result['first_reg_time'] = self.first_reg_time
         if self.mileage is not None:
             result['mileage'] = self.mileage
+        if self.pid is not None:
+            result['pid'] = self.pid
+        if self.specid is not None:
+            result['specid'] = self.specid
         return result
 
     def from_map(self, m: dict = None):
@@ -2168,22 +2273,22 @@ class UsedCarInfo(TeaModel):
             self.lead_id = m.get('lead_id')
         if m.get('city_name') is not None:
             self.city_name = m.get('city_name')
-        if m.get('pid') is not None:
-            self.pid = m.get('pid')
         if m.get('cid') is not None:
             self.cid = m.get('cid')
         if m.get('brand_name') is not None:
             self.brand_name = m.get('brand_name')
         if m.get('series_name') is not None:
             self.series_name = m.get('series_name')
-        if m.get('spec_id') is not None:
-            self.spec_id = m.get('spec_id')
         if m.get('spec_name') is not None:
             self.spec_name = m.get('spec_name')
         if m.get('first_reg_time') is not None:
             self.first_reg_time = m.get('first_reg_time')
         if m.get('mileage') is not None:
             self.mileage = m.get('mileage')
+        if m.get('pid') is not None:
+            self.pid = m.get('pid')
+        if m.get('specid') is not None:
+            self.specid = m.get('specid')
         return self
 
 
@@ -3343,6 +3448,7 @@ class QueryUsedcarResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
         used_car_valuation: UsedCarValuation = None,
+        status: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -3352,6 +3458,8 @@ class QueryUsedcarResponse(TeaModel):
         self.result_msg = result_msg
         # 二手车估值信息
         self.used_car_valuation = used_car_valuation
+        # 响应结果
+        self.status = status
 
     def validate(self):
         if self.used_car_valuation:
@@ -3371,6 +3479,8 @@ class QueryUsedcarResponse(TeaModel):
             result['result_msg'] = self.result_msg
         if self.used_car_valuation is not None:
             result['used_car_valuation'] = self.used_car_valuation.to_map()
+        if self.status is not None:
+            result['status'] = self.status
         return result
 
     def from_map(self, m: dict = None):
@@ -3384,6 +3494,8 @@ class QueryUsedcarResponse(TeaModel):
         if m.get('used_car_valuation') is not None:
             temp_model = UsedCarValuation()
             self.used_car_valuation = temp_model.from_map(m['used_car_valuation'])
+        if m.get('status') is not None:
+            self.status = m.get('status')
         return self
 
 
@@ -4933,6 +5045,263 @@ class QueryCarVinResponse(TeaModel):
             self.code = m.get('code')
         if m.get('msg') is not None:
             self.msg = m.get('msg')
+        if m.get('data') is not None:
+            self.data = m.get('data')
+        return self
+
+
+class RegisterTagChanganRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        scene_code: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 授权码
+        self.scene_code = scene_code
+
+    def validate(self):
+        self.validate_required(self.scene_code, 'scene_code')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.scene_code is not None:
+            result['scene_code'] = self.scene_code
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('scene_code') is not None:
+            self.scene_code = m.get('scene_code')
+        return self
+
+
+class RegisterTagChanganResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        access_token: str = None,
+        expires_in: int = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 授权码
+        self.access_token = access_token
+        # 授权码过期时间，单位s，默认2小时（7200s）
+        self.expires_in = expires_in
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.access_token is not None:
+            result['access_token'] = self.access_token
+        if self.expires_in is not None:
+            result['expires_in'] = self.expires_in
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('access_token') is not None:
+            self.access_token = m.get('access_token')
+        if m.get('expires_in') is not None:
+            self.expires_in = m.get('expires_in')
+        return self
+
+
+class QueryTagChanganRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        scene_code: str = None,
+        access_token: str = None,
+        request_id: str = None,
+        os: str = None,
+        type: int = None,
+        device_info_list: DeviceBean = None,
+        base_tags: List[str] = None,
+        industy_tags: List[str] = None,
+        business_tags: List[str] = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 场景码
+        self.scene_code = scene_code
+        # 授权token
+        self.access_token = access_token
+        # 请求唯一ID（UUID生成即可）
+        self.request_id = request_id
+        # 系统
+        self.os = os
+        # 标签库组合：
+        # 1表示基础标签
+        # 2表示行业标签
+        # 3表示基础标签+行业标签
+        # 8表示自定义标签
+        # 9表示基础标签+自定义标签
+        # 10表示行业标签+自定义标签
+        # 11表示基础标签+行业标签+自定义标签
+        self.type = type
+        # 设备信息
+        self.device_info_list = device_info_list
+        # 基础标签动态参数（对外编码）
+        self.base_tags = base_tags
+        # 行业标签动态参数（对外编码）
+        self.industy_tags = industy_tags
+        # 规则标签动态参数（对外编码）
+        self.business_tags = business_tags
+
+    def validate(self):
+        self.validate_required(self.scene_code, 'scene_code')
+        self.validate_required(self.access_token, 'access_token')
+        self.validate_required(self.request_id, 'request_id')
+        self.validate_required(self.type, 'type')
+        self.validate_required(self.device_info_list, 'device_info_list')
+        if self.device_info_list:
+            self.device_info_list.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.scene_code is not None:
+            result['scene_code'] = self.scene_code
+        if self.access_token is not None:
+            result['access_token'] = self.access_token
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.os is not None:
+            result['os'] = self.os
+        if self.type is not None:
+            result['type'] = self.type
+        if self.device_info_list is not None:
+            result['device_info_list'] = self.device_info_list.to_map()
+        if self.base_tags is not None:
+            result['base_tags'] = self.base_tags
+        if self.industy_tags is not None:
+            result['industy_tags'] = self.industy_tags
+        if self.business_tags is not None:
+            result['business_tags'] = self.business_tags
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('scene_code') is not None:
+            self.scene_code = m.get('scene_code')
+        if m.get('access_token') is not None:
+            self.access_token = m.get('access_token')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('os') is not None:
+            self.os = m.get('os')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('device_info_list') is not None:
+            temp_model = DeviceBean()
+            self.device_info_list = temp_model.from_map(m['device_info_list'])
+        if m.get('base_tags') is not None:
+            self.base_tags = m.get('base_tags')
+        if m.get('industy_tags') is not None:
+            self.industy_tags = m.get('industy_tags')
+        if m.get('business_tags') is not None:
+            self.business_tags = m.get('business_tags')
+        return self
+
+
+class QueryTagChanganResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 返回数据，JSON格式字符串
+        self.data = data
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.data is not None:
+            result['data'] = self.data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
         if m.get('data') is not None:
             self.data = m.get('data')
         return self

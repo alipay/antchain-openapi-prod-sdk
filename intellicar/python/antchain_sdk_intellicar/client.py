@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.28',
+                    'sdk_version': '1.0.31',
                     '_prod_code': 'INTELLICAR',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.28',
+                    'sdk_version': '1.0.31',
                     '_prod_code': 'INTELLICAR',
                     '_prod_channel': 'default'
                 }
@@ -1429,6 +1429,118 @@ class Client:
         return TeaCore.from_map(
             intellicar_models.QueryCarVinResponse(),
             await self.do_request_async('1.0', 'antdigital.intellicar.car.vin.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def register_tag_changan(
+        self,
+        request: intellicar_models.RegisterTagChanganRequest,
+    ) -> intellicar_models.RegisterTagChanganResponse:
+        """
+        Description: 长安画像标签授权接口
+        Summary: 长安画像标签授权接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.register_tag_changan_ex(request, headers, runtime)
+
+    async def register_tag_changan_async(
+        self,
+        request: intellicar_models.RegisterTagChanganRequest,
+    ) -> intellicar_models.RegisterTagChanganResponse:
+        """
+        Description: 长安画像标签授权接口
+        Summary: 长安画像标签授权接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.register_tag_changan_ex_async(request, headers, runtime)
+
+    def register_tag_changan_ex(
+        self,
+        request: intellicar_models.RegisterTagChanganRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> intellicar_models.RegisterTagChanganResponse:
+        """
+        Description: 长安画像标签授权接口
+        Summary: 长安画像标签授权接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            intellicar_models.RegisterTagChanganResponse(),
+            self.do_request('1.0', 'antdigital.intellicar.tag.changan.register', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def register_tag_changan_ex_async(
+        self,
+        request: intellicar_models.RegisterTagChanganRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> intellicar_models.RegisterTagChanganResponse:
+        """
+        Description: 长安画像标签授权接口
+        Summary: 长安画像标签授权接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            intellicar_models.RegisterTagChanganResponse(),
+            await self.do_request_async('1.0', 'antdigital.intellicar.tag.changan.register', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_tag_changan(
+        self,
+        request: intellicar_models.QueryTagChanganRequest,
+    ) -> intellicar_models.QueryTagChanganResponse:
+        """
+        Description: 长安画像标签用户id标签查询
+        Summary: 长安画像标签用户id标签查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_tag_changan_ex(request, headers, runtime)
+
+    async def query_tag_changan_async(
+        self,
+        request: intellicar_models.QueryTagChanganRequest,
+    ) -> intellicar_models.QueryTagChanganResponse:
+        """
+        Description: 长安画像标签用户id标签查询
+        Summary: 长安画像标签用户id标签查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_tag_changan_ex_async(request, headers, runtime)
+
+    def query_tag_changan_ex(
+        self,
+        request: intellicar_models.QueryTagChanganRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> intellicar_models.QueryTagChanganResponse:
+        """
+        Description: 长安画像标签用户id标签查询
+        Summary: 长安画像标签用户id标签查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            intellicar_models.QueryTagChanganResponse(),
+            self.do_request('1.0', 'antdigital.intellicar.tag.changan.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_tag_changan_ex_async(
+        self,
+        request: intellicar_models.QueryTagChanganRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> intellicar_models.QueryTagChanganResponse:
+        """
+        Description: 长安画像标签用户id标签查询
+        Summary: 长安画像标签用户id标签查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            intellicar_models.QueryTagChanganResponse(),
+            await self.do_request_async('1.0', 'antdigital.intellicar.tag.changan.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
