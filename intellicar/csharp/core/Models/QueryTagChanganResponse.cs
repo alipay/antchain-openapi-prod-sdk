@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.INTELLICAR.Models
 {
-    public class QueryUsedcarResponse : TeaModel {
+    public class QueryTagChanganResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,15 +24,10 @@ namespace AntChain.SDK.INTELLICAR.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 二手车估值信息
-        [NameInMap("used_car_valuation")]
+        // 返回数据，JSON格式字符串
+        [NameInMap("data")]
         [Validation(Required=false)]
-        public UsedCarValuation UsedCarValuation { get; set; }
-
-        // 响应结果
-        [NameInMap("status")]
-        [Validation(Required=false)]
-        public string Status { get; set; }
+        public string Data { get; set; }
 
     }
 

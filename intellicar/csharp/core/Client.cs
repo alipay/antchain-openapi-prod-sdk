@@ -137,7 +137,7 @@ namespace AntChain.SDK.INTELLICAR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.28"},
+                        {"sdk_version", "1.0.31"},
                         {"_prod_code", "INTELLICAR"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.INTELLICAR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.28"},
+                        {"sdk_version", "1.0.31"},
                         {"_prod_code", "INTELLICAR"},
                         {"_prod_channel", "default"},
                     };
@@ -1207,6 +1207,90 @@ namespace AntChain.SDK.INTELLICAR
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryCarVinResponse>(await DoRequestAsync("1.0", "antdigital.intellicar.car.vin.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 长安画像标签授权接口
+         * Summary: 长安画像标签授权接口
+         */
+        public RegisterTagChanganResponse RegisterTagChangan(RegisterTagChanganRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return RegisterTagChanganEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 长安画像标签授权接口
+         * Summary: 长安画像标签授权接口
+         */
+        public async Task<RegisterTagChanganResponse> RegisterTagChanganAsync(RegisterTagChanganRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await RegisterTagChanganExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 长安画像标签授权接口
+         * Summary: 长安画像标签授权接口
+         */
+        public RegisterTagChanganResponse RegisterTagChanganEx(RegisterTagChanganRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RegisterTagChanganResponse>(DoRequest("1.0", "antdigital.intellicar.tag.changan.register", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 长安画像标签授权接口
+         * Summary: 长安画像标签授权接口
+         */
+        public async Task<RegisterTagChanganResponse> RegisterTagChanganExAsync(RegisterTagChanganRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RegisterTagChanganResponse>(await DoRequestAsync("1.0", "antdigital.intellicar.tag.changan.register", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 长安画像标签用户id标签查询
+         * Summary: 长安画像标签用户id标签查询
+         */
+        public QueryTagChanganResponse QueryTagChangan(QueryTagChanganRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryTagChanganEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 长安画像标签用户id标签查询
+         * Summary: 长安画像标签用户id标签查询
+         */
+        public async Task<QueryTagChanganResponse> QueryTagChanganAsync(QueryTagChanganRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryTagChanganExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 长安画像标签用户id标签查询
+         * Summary: 长安画像标签用户id标签查询
+         */
+        public QueryTagChanganResponse QueryTagChanganEx(QueryTagChanganRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryTagChanganResponse>(DoRequest("1.0", "antdigital.intellicar.tag.changan.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 长安画像标签用户id标签查询
+         * Summary: 长安画像标签用户id标签查询
+         */
+        public async Task<QueryTagChanganResponse> QueryTagChanganExAsync(QueryTagChanganRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryTagChanganResponse>(await DoRequestAsync("1.0", "antdigital.intellicar.tag.changan.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

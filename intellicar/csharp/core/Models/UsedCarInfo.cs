@@ -20,11 +20,6 @@ namespace AntChain.SDK.INTELLICAR.Models
         [Validation(Required=true)]
         public string CityName { get; set; }
 
-        // 省份id
-        [NameInMap("pid")]
-        [Validation(Required=true)]
-        public string Pid { get; set; }
-
         // 城市id
         [NameInMap("cid")]
         [Validation(Required=true)]
@@ -40,11 +35,6 @@ namespace AntChain.SDK.INTELLICAR.Models
         [Validation(Required=false)]
         public string SeriesName { get; set; }
 
-        // 汽车之家车型id
-        [NameInMap("spec_id")]
-        [Validation(Required=true)]
-        public string SpecId { get; set; }
-
         // 车型名称
         [NameInMap("spec_name")]
         [Validation(Required=false)]
@@ -59,6 +49,16 @@ namespace AntChain.SDK.INTELLICAR.Models
         [NameInMap("mileage")]
         [Validation(Required=true)]
         public string Mileage { get; set; }
+
+        // 省份id
+        [NameInMap("pid")]
+        [Validation(Required=true)]
+        public string Pid { get; set; }
+
+        // 汽车之家车型id
+        [NameInMap("specid")]
+        [Validation(Required=true)]
+        public string Specid { get; set; }
 
     }
 
