@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # air引擎输出infoCode
+            # 企业风险等级分布统计
         }
         _last_request = None
         _last_exception = None
@@ -135,9 +135,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.31.6',
+                    'sdk_version': '1.31.10',
                     '_prod_code': 'RISKPLUS',
-                    '_prod_channel': 'undefined'
+                    '_prod_channel': 'default'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -214,7 +214,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # air引擎输出infoCode
+            # 企业风险等级分布统计
         }
         _last_request = None
         _last_exception = None
@@ -239,9 +239,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.31.6',
+                    'sdk_version': '1.31.10',
                     '_prod_code': 'RISKPLUS',
-                    '_prod_channel': 'undefined'
+                    '_prod_channel': 'default'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -1339,62 +1339,6 @@ class Client:
             await self.do_request_async('1.0', 'riskplus.security.airiskcloud.policy.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def query_dubhe_test(
-        self,
-        request: riskplus_models.QueryDubheTestRequest,
-    ) -> riskplus_models.QueryDubheTestResponse:
-        """
-        Description: 天枢信贷业务系统线下测试环境测试接口
-        Summary: 天枢信贷业务系统线下测试接口
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.query_dubhe_test_ex(request, headers, runtime)
-
-    async def query_dubhe_test_async(
-        self,
-        request: riskplus_models.QueryDubheTestRequest,
-    ) -> riskplus_models.QueryDubheTestResponse:
-        """
-        Description: 天枢信贷业务系统线下测试环境测试接口
-        Summary: 天枢信贷业务系统线下测试接口
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.query_dubhe_test_ex_async(request, headers, runtime)
-
-    def query_dubhe_test_ex(
-        self,
-        request: riskplus_models.QueryDubheTestRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.QueryDubheTestResponse:
-        """
-        Description: 天枢信贷业务系统线下测试环境测试接口
-        Summary: 天枢信贷业务系统线下测试接口
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.QueryDubheTestResponse(),
-            self.do_request('1.0', 'riskplus.dubhe.test.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def query_dubhe_test_ex_async(
-        self,
-        request: riskplus_models.QueryDubheTestRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.QueryDubheTestResponse:
-        """
-        Description: 天枢信贷业务系统线下测试环境测试接口
-        Summary: 天枢信贷业务系统线下测试接口
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.QueryDubheTestResponse(),
-            await self.do_request_async('1.0', 'riskplus.dubhe.test.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
     def query_dubhe_router_fundrouter(
         self,
         request: riskplus_models.QueryDubheRouterFundrouterRequest,
@@ -2291,6 +2235,62 @@ class Client:
             await self.do_request_async('1.0', 'riskplus.dubhe.receipt.overdue.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def query_dubhe_test(
+        self,
+        request: riskplus_models.QueryDubheTestRequest,
+    ) -> riskplus_models.QueryDubheTestResponse:
+        """
+        Description: 天枢信贷业务系统线下测试环境测试接口
+        Summary: 天枢信贷业务系统线下测试接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_dubhe_test_ex(request, headers, runtime)
+
+    async def query_dubhe_test_async(
+        self,
+        request: riskplus_models.QueryDubheTestRequest,
+    ) -> riskplus_models.QueryDubheTestResponse:
+        """
+        Description: 天枢信贷业务系统线下测试环境测试接口
+        Summary: 天枢信贷业务系统线下测试接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_dubhe_test_ex_async(request, headers, runtime)
+
+    def query_dubhe_test_ex(
+        self,
+        request: riskplus_models.QueryDubheTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubheTestResponse:
+        """
+        Description: 天枢信贷业务系统线下测试环境测试接口
+        Summary: 天枢信贷业务系统线下测试接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubheTestResponse(),
+            self.do_request('1.0', 'riskplus.dubhe.test.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_dubhe_test_ex_async(
+        self,
+        request: riskplus_models.QueryDubheTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubheTestResponse:
+        """
+        Description: 天枢信贷业务系统线下测试环境测试接口
+        Summary: 天枢信贷业务系统线下测试接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubheTestResponse(),
+            await self.do_request_async('1.0', 'riskplus.dubhe.test.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def send_dubbridge_sms(
         self,
         request: riskplus_models.SendDubbridgeSmsRequest,
@@ -2513,266 +2513,6 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.ApplyDubbridgeCreditResponse(),
             await self.do_request_async('1.0', 'riskplus.dubbridge.credit.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def upload_dubbridge_file(
-        self,
-        request: riskplus_models.UploadDubbridgeFileRequest,
-    ) -> riskplus_models.UploadDubbridgeFileResponse:
-        """
-        Description: 为流量方提供文件上传接口，用于申请件影像资料上传
-        Summary: 天枢文件上传
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.upload_dubbridge_file_ex(request, headers, runtime)
-
-    async def upload_dubbridge_file_async(
-        self,
-        request: riskplus_models.UploadDubbridgeFileRequest,
-    ) -> riskplus_models.UploadDubbridgeFileResponse:
-        """
-        Description: 为流量方提供文件上传接口，用于申请件影像资料上传
-        Summary: 天枢文件上传
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.upload_dubbridge_file_ex_async(request, headers, runtime)
-
-    def upload_dubbridge_file_ex(
-        self,
-        request: riskplus_models.UploadDubbridgeFileRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.UploadDubbridgeFileResponse:
-        """
-        Description: 为流量方提供文件上传接口，用于申请件影像资料上传
-        Summary: 天枢文件上传
-        """
-        if not UtilClient.is_unset(request.file_object):
-            upload_req = riskplus_models.CreateAntcloudGatewayxFileUploadRequest(
-                auth_token=request.auth_token,
-                api_code='riskplus.dubbridge.file.upload',
-                file_name=request.file_object_name
-            )
-            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
-            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
-                upload_dubbridge_file_response = riskplus_models.UploadDubbridgeFileResponse(
-                    req_msg_id=upload_resp.req_msg_id,
-                    result_code=upload_resp.result_code,
-                    result_msg=upload_resp.result_msg
-                )
-                return upload_dubbridge_file_response
-            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
-            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
-            request.file_id = upload_resp.file_id
-            request.file_object = None
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.UploadDubbridgeFileResponse(),
-            self.do_request('1.0', 'riskplus.dubbridge.file.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def upload_dubbridge_file_ex_async(
-        self,
-        request: riskplus_models.UploadDubbridgeFileRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.UploadDubbridgeFileResponse:
-        """
-        Description: 为流量方提供文件上传接口，用于申请件影像资料上传
-        Summary: 天枢文件上传
-        """
-        if not UtilClient.is_unset(request.file_object):
-            upload_req = riskplus_models.CreateAntcloudGatewayxFileUploadRequest(
-                auth_token=request.auth_token,
-                api_code='riskplus.dubbridge.file.upload',
-                file_name=request.file_object_name
-            )
-            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
-            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
-                upload_dubbridge_file_response = riskplus_models.UploadDubbridgeFileResponse(
-                    req_msg_id=upload_resp.req_msg_id,
-                    result_code=upload_resp.result_code,
-                    result_msg=upload_resp.result_msg
-                )
-                return upload_dubbridge_file_response
-            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
-            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
-            request.file_id = upload_resp.file_id
-            request.file_object = None
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.UploadDubbridgeFileResponse(),
-            await self.do_request_async('1.0', 'riskplus.dubbridge.file.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def bind_dubbridge_customer_bankcard(
-        self,
-        request: riskplus_models.BindDubbridgeCustomerBankcardRequest,
-    ) -> riskplus_models.BindDubbridgeCustomerBankcardResponse:
-        """
-        Description: 代扣签约绑卡接口
-        Summary: 代扣协议签约申请(银行卡绑卡)
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.bind_dubbridge_customer_bankcard_ex(request, headers, runtime)
-
-    async def bind_dubbridge_customer_bankcard_async(
-        self,
-        request: riskplus_models.BindDubbridgeCustomerBankcardRequest,
-    ) -> riskplus_models.BindDubbridgeCustomerBankcardResponse:
-        """
-        Description: 代扣签约绑卡接口
-        Summary: 代扣协议签约申请(银行卡绑卡)
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.bind_dubbridge_customer_bankcard_ex_async(request, headers, runtime)
-
-    def bind_dubbridge_customer_bankcard_ex(
-        self,
-        request: riskplus_models.BindDubbridgeCustomerBankcardRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.BindDubbridgeCustomerBankcardResponse:
-        """
-        Description: 代扣签约绑卡接口
-        Summary: 代扣协议签约申请(银行卡绑卡)
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.BindDubbridgeCustomerBankcardResponse(),
-            self.do_request('1.0', 'riskplus.dubbridge.customer.bankcard.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def bind_dubbridge_customer_bankcard_ex_async(
-        self,
-        request: riskplus_models.BindDubbridgeCustomerBankcardRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.BindDubbridgeCustomerBankcardResponse:
-        """
-        Description: 代扣签约绑卡接口
-        Summary: 代扣协议签约申请(银行卡绑卡)
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.BindDubbridgeCustomerBankcardResponse(),
-            await self.do_request_async('1.0', 'riskplus.dubbridge.customer.bankcard.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def verify_dubbridge_customer_bankcard(
-        self,
-        request: riskplus_models.VerifyDubbridgeCustomerBankcardRequest,
-    ) -> riskplus_models.VerifyDubbridgeCustomerBankcardResponse:
-        """
-        Description: 代扣协议签约提交(银行卡绑卡)
-        Summary: 代扣协议签约校验(银行卡绑卡)
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.verify_dubbridge_customer_bankcard_ex(request, headers, runtime)
-
-    async def verify_dubbridge_customer_bankcard_async(
-        self,
-        request: riskplus_models.VerifyDubbridgeCustomerBankcardRequest,
-    ) -> riskplus_models.VerifyDubbridgeCustomerBankcardResponse:
-        """
-        Description: 代扣协议签约提交(银行卡绑卡)
-        Summary: 代扣协议签约校验(银行卡绑卡)
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.verify_dubbridge_customer_bankcard_ex_async(request, headers, runtime)
-
-    def verify_dubbridge_customer_bankcard_ex(
-        self,
-        request: riskplus_models.VerifyDubbridgeCustomerBankcardRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.VerifyDubbridgeCustomerBankcardResponse:
-        """
-        Description: 代扣协议签约提交(银行卡绑卡)
-        Summary: 代扣协议签约校验(银行卡绑卡)
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.VerifyDubbridgeCustomerBankcardResponse(),
-            self.do_request('1.0', 'riskplus.dubbridge.customer.bankcard.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def verify_dubbridge_customer_bankcard_ex_async(
-        self,
-        request: riskplus_models.VerifyDubbridgeCustomerBankcardRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.VerifyDubbridgeCustomerBankcardResponse:
-        """
-        Description: 代扣协议签约提交(银行卡绑卡)
-        Summary: 代扣协议签约校验(银行卡绑卡)
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.VerifyDubbridgeCustomerBankcardResponse(),
-            await self.do_request_async('1.0', 'riskplus.dubbridge.customer.bankcard.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def notify_dubbridge_defininnerchannel(
-        self,
-        request: riskplus_models.NotifyDubbridgeDefininnerchannelRequest,
-    ) -> riskplus_models.NotifyDubbridgeDefininnerchannelResponse:
-        """
-        Description: 用于机构通道通用回调
-        Summary: 机构通道回调通用接口
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.notify_dubbridge_defininnerchannel_ex(request, headers, runtime)
-
-    async def notify_dubbridge_defininnerchannel_async(
-        self,
-        request: riskplus_models.NotifyDubbridgeDefininnerchannelRequest,
-    ) -> riskplus_models.NotifyDubbridgeDefininnerchannelResponse:
-        """
-        Description: 用于机构通道通用回调
-        Summary: 机构通道回调通用接口
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.notify_dubbridge_defininnerchannel_ex_async(request, headers, runtime)
-
-    def notify_dubbridge_defininnerchannel_ex(
-        self,
-        request: riskplus_models.NotifyDubbridgeDefininnerchannelRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.NotifyDubbridgeDefininnerchannelResponse:
-        """
-        Description: 用于机构通道通用回调
-        Summary: 机构通道回调通用接口
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.NotifyDubbridgeDefininnerchannelResponse(),
-            self.do_request('1.0', 'riskplus.dubbridge.defininnerchannel.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def notify_dubbridge_defininnerchannel_ex_async(
-        self,
-        request: riskplus_models.NotifyDubbridgeDefininnerchannelRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.NotifyDubbridgeDefininnerchannelResponse:
-        """
-        Description: 用于机构通道通用回调
-        Summary: 机构通道回调通用接口
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.NotifyDubbridgeDefininnerchannelResponse(),
-            await self.do_request_async('1.0', 'riskplus.dubbridge.defininnerchannel.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_dubbridge_credit_status(
@@ -3055,6 +2795,98 @@ class Client:
             await self.do_request_async('1.0', 'riskplus.dubbridge.riskinfo.businessinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def upload_dubbridge_file(
+        self,
+        request: riskplus_models.UploadDubbridgeFileRequest,
+    ) -> riskplus_models.UploadDubbridgeFileResponse:
+        """
+        Description: 为流量方提供文件上传接口，用于申请件影像资料上传
+        Summary: 天枢文件上传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.upload_dubbridge_file_ex(request, headers, runtime)
+
+    async def upload_dubbridge_file_async(
+        self,
+        request: riskplus_models.UploadDubbridgeFileRequest,
+    ) -> riskplus_models.UploadDubbridgeFileResponse:
+        """
+        Description: 为流量方提供文件上传接口，用于申请件影像资料上传
+        Summary: 天枢文件上传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.upload_dubbridge_file_ex_async(request, headers, runtime)
+
+    def upload_dubbridge_file_ex(
+        self,
+        request: riskplus_models.UploadDubbridgeFileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.UploadDubbridgeFileResponse:
+        """
+        Description: 为流量方提供文件上传接口，用于申请件影像资料上传
+        Summary: 天枢文件上传
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = riskplus_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='riskplus.dubbridge.file.upload',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                upload_dubbridge_file_response = riskplus_models.UploadDubbridgeFileResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return upload_dubbridge_file_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.UploadDubbridgeFileResponse(),
+            self.do_request('1.0', 'riskplus.dubbridge.file.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def upload_dubbridge_file_ex_async(
+        self,
+        request: riskplus_models.UploadDubbridgeFileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.UploadDubbridgeFileResponse:
+        """
+        Description: 为流量方提供文件上传接口，用于申请件影像资料上传
+        Summary: 天枢文件上传
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = riskplus_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='riskplus.dubbridge.file.upload',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                upload_dubbridge_file_response = riskplus_models.UploadDubbridgeFileResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return upload_dubbridge_file_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.UploadDubbridgeFileResponse(),
+            await self.do_request_async('1.0', 'riskplus.dubbridge.file.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def apply_dubbridge_customer_agreementsign(
         self,
         request: riskplus_models.ApplyDubbridgeCustomerAgreementsignRequest,
@@ -3277,6 +3109,62 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.UpdateDubbridgeAccountCustomResponse(),
             await self.do_request_async('1.0', 'riskplus.dubbridge.account.custom.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_dubbridge_receipt_status(
+        self,
+        request: riskplus_models.QueryDubbridgeReceiptStatusRequest,
+    ) -> riskplus_models.QueryDubbridgeReceiptStatusResponse:
+        """
+        Description: 天枢系统是否结清
+        Summary: 天枢系统借款是否结清
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_dubbridge_receipt_status_ex(request, headers, runtime)
+
+    async def query_dubbridge_receipt_status_async(
+        self,
+        request: riskplus_models.QueryDubbridgeReceiptStatusRequest,
+    ) -> riskplus_models.QueryDubbridgeReceiptStatusResponse:
+        """
+        Description: 天枢系统是否结清
+        Summary: 天枢系统借款是否结清
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_dubbridge_receipt_status_ex_async(request, headers, runtime)
+
+    def query_dubbridge_receipt_status_ex(
+        self,
+        request: riskplus_models.QueryDubbridgeReceiptStatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeReceiptStatusResponse:
+        """
+        Description: 天枢系统是否结清
+        Summary: 天枢系统借款是否结清
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeReceiptStatusResponse(),
+            self.do_request('1.0', 'riskplus.dubbridge.receipt.status.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_dubbridge_receipt_status_ex_async(
+        self,
+        request: riskplus_models.QueryDubbridgeReceiptStatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeReceiptStatusResponse:
+        """
+        Description: 天枢系统是否结清
+        Summary: 天枢系统借款是否结清
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeReceiptStatusResponse(),
+            await self.do_request_async('1.0', 'riskplus.dubbridge.receipt.status.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_dubbridge_customer_agreementsign(
@@ -3951,60 +3839,172 @@ class Client:
             await self.do_request_async('1.0', 'riskplus.dubbridge.usecredit.status.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def query_dubbridge_receipt_status(
+    def bind_dubbridge_customer_bankcard(
         self,
-        request: riskplus_models.QueryDubbridgeReceiptStatusRequest,
-    ) -> riskplus_models.QueryDubbridgeReceiptStatusResponse:
+        request: riskplus_models.BindDubbridgeCustomerBankcardRequest,
+    ) -> riskplus_models.BindDubbridgeCustomerBankcardResponse:
         """
-        Description: 天枢系统是否结清
-        Summary: 天枢系统借款是否结清
+        Description: 代扣签约绑卡接口
+        Summary: 代扣协议签约申请(银行卡绑卡)
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.query_dubbridge_receipt_status_ex(request, headers, runtime)
+        return self.bind_dubbridge_customer_bankcard_ex(request, headers, runtime)
 
-    async def query_dubbridge_receipt_status_async(
+    async def bind_dubbridge_customer_bankcard_async(
         self,
-        request: riskplus_models.QueryDubbridgeReceiptStatusRequest,
-    ) -> riskplus_models.QueryDubbridgeReceiptStatusResponse:
+        request: riskplus_models.BindDubbridgeCustomerBankcardRequest,
+    ) -> riskplus_models.BindDubbridgeCustomerBankcardResponse:
         """
-        Description: 天枢系统是否结清
-        Summary: 天枢系统借款是否结清
+        Description: 代扣签约绑卡接口
+        Summary: 代扣协议签约申请(银行卡绑卡)
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.query_dubbridge_receipt_status_ex_async(request, headers, runtime)
+        return await self.bind_dubbridge_customer_bankcard_ex_async(request, headers, runtime)
 
-    def query_dubbridge_receipt_status_ex(
+    def bind_dubbridge_customer_bankcard_ex(
         self,
-        request: riskplus_models.QueryDubbridgeReceiptStatusRequest,
+        request: riskplus_models.BindDubbridgeCustomerBankcardRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.QueryDubbridgeReceiptStatusResponse:
+    ) -> riskplus_models.BindDubbridgeCustomerBankcardResponse:
         """
-        Description: 天枢系统是否结清
-        Summary: 天枢系统借款是否结清
+        Description: 代扣签约绑卡接口
+        Summary: 代扣协议签约申请(银行卡绑卡)
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            riskplus_models.QueryDubbridgeReceiptStatusResponse(),
-            self.do_request('1.0', 'riskplus.dubbridge.receipt.status.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            riskplus_models.BindDubbridgeCustomerBankcardResponse(),
+            self.do_request('1.0', 'riskplus.dubbridge.customer.bankcard.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def query_dubbridge_receipt_status_ex_async(
+    async def bind_dubbridge_customer_bankcard_ex_async(
         self,
-        request: riskplus_models.QueryDubbridgeReceiptStatusRequest,
+        request: riskplus_models.BindDubbridgeCustomerBankcardRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.QueryDubbridgeReceiptStatusResponse:
+    ) -> riskplus_models.BindDubbridgeCustomerBankcardResponse:
         """
-        Description: 天枢系统是否结清
-        Summary: 天枢系统借款是否结清
+        Description: 代扣签约绑卡接口
+        Summary: 代扣协议签约申请(银行卡绑卡)
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            riskplus_models.QueryDubbridgeReceiptStatusResponse(),
-            await self.do_request_async('1.0', 'riskplus.dubbridge.receipt.status.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            riskplus_models.BindDubbridgeCustomerBankcardResponse(),
+            await self.do_request_async('1.0', 'riskplus.dubbridge.customer.bankcard.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def verify_dubbridge_customer_bankcard(
+        self,
+        request: riskplus_models.VerifyDubbridgeCustomerBankcardRequest,
+    ) -> riskplus_models.VerifyDubbridgeCustomerBankcardResponse:
+        """
+        Description: 代扣协议签约提交(银行卡绑卡)
+        Summary: 代扣协议签约校验(银行卡绑卡)
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.verify_dubbridge_customer_bankcard_ex(request, headers, runtime)
+
+    async def verify_dubbridge_customer_bankcard_async(
+        self,
+        request: riskplus_models.VerifyDubbridgeCustomerBankcardRequest,
+    ) -> riskplus_models.VerifyDubbridgeCustomerBankcardResponse:
+        """
+        Description: 代扣协议签约提交(银行卡绑卡)
+        Summary: 代扣协议签约校验(银行卡绑卡)
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.verify_dubbridge_customer_bankcard_ex_async(request, headers, runtime)
+
+    def verify_dubbridge_customer_bankcard_ex(
+        self,
+        request: riskplus_models.VerifyDubbridgeCustomerBankcardRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.VerifyDubbridgeCustomerBankcardResponse:
+        """
+        Description: 代扣协议签约提交(银行卡绑卡)
+        Summary: 代扣协议签约校验(银行卡绑卡)
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.VerifyDubbridgeCustomerBankcardResponse(),
+            self.do_request('1.0', 'riskplus.dubbridge.customer.bankcard.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def verify_dubbridge_customer_bankcard_ex_async(
+        self,
+        request: riskplus_models.VerifyDubbridgeCustomerBankcardRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.VerifyDubbridgeCustomerBankcardResponse:
+        """
+        Description: 代扣协议签约提交(银行卡绑卡)
+        Summary: 代扣协议签约校验(银行卡绑卡)
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.VerifyDubbridgeCustomerBankcardResponse(),
+            await self.do_request_async('1.0', 'riskplus.dubbridge.customer.bankcard.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def notify_dubbridge_defininnerchannel(
+        self,
+        request: riskplus_models.NotifyDubbridgeDefininnerchannelRequest,
+    ) -> riskplus_models.NotifyDubbridgeDefininnerchannelResponse:
+        """
+        Description: 用于机构通道通用回调
+        Summary: 机构通道回调通用接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.notify_dubbridge_defininnerchannel_ex(request, headers, runtime)
+
+    async def notify_dubbridge_defininnerchannel_async(
+        self,
+        request: riskplus_models.NotifyDubbridgeDefininnerchannelRequest,
+    ) -> riskplus_models.NotifyDubbridgeDefininnerchannelResponse:
+        """
+        Description: 用于机构通道通用回调
+        Summary: 机构通道回调通用接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.notify_dubbridge_defininnerchannel_ex_async(request, headers, runtime)
+
+    def notify_dubbridge_defininnerchannel_ex(
+        self,
+        request: riskplus_models.NotifyDubbridgeDefininnerchannelRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.NotifyDubbridgeDefininnerchannelResponse:
+        """
+        Description: 用于机构通道通用回调
+        Summary: 机构通道回调通用接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.NotifyDubbridgeDefininnerchannelResponse(),
+            self.do_request('1.0', 'riskplus.dubbridge.defininnerchannel.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def notify_dubbridge_defininnerchannel_ex_async(
+        self,
+        request: riskplus_models.NotifyDubbridgeDefininnerchannelRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.NotifyDubbridgeDefininnerchannelResponse:
+        """
+        Description: 用于机构通道通用回调
+        Summary: 机构通道回调通用接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.NotifyDubbridgeDefininnerchannelResponse(),
+            await self.do_request_async('1.0', 'riskplus.dubbridge.defininnerchannel.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_dubbridge_customer_commonagreementsign(
@@ -4399,62 +4399,6 @@ class Client:
             await self.do_request_async('1.0', 'riskplus.dubbridge.loan.upgradestatus.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def query_dubbridge_customer_bankcardlist(
-        self,
-        request: riskplus_models.QueryDubbridgeCustomerBankcardlistRequest,
-    ) -> riskplus_models.QueryDubbridgeCustomerBankcardlistResponse:
-        """
-        Description: 支付签约查询(用户绑定银行卡列表)
-        Summary: 支付签约查询(用户绑定银行卡列表)
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.query_dubbridge_customer_bankcardlist_ex(request, headers, runtime)
-
-    async def query_dubbridge_customer_bankcardlist_async(
-        self,
-        request: riskplus_models.QueryDubbridgeCustomerBankcardlistRequest,
-    ) -> riskplus_models.QueryDubbridgeCustomerBankcardlistResponse:
-        """
-        Description: 支付签约查询(用户绑定银行卡列表)
-        Summary: 支付签约查询(用户绑定银行卡列表)
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.query_dubbridge_customer_bankcardlist_ex_async(request, headers, runtime)
-
-    def query_dubbridge_customer_bankcardlist_ex(
-        self,
-        request: riskplus_models.QueryDubbridgeCustomerBankcardlistRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.QueryDubbridgeCustomerBankcardlistResponse:
-        """
-        Description: 支付签约查询(用户绑定银行卡列表)
-        Summary: 支付签约查询(用户绑定银行卡列表)
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.QueryDubbridgeCustomerBankcardlistResponse(),
-            self.do_request('1.0', 'riskplus.dubbridge.customer.bankcardlist.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def query_dubbridge_customer_bankcardlist_ex_async(
-        self,
-        request: riskplus_models.QueryDubbridgeCustomerBankcardlistRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.QueryDubbridgeCustomerBankcardlistResponse:
-        """
-        Description: 支付签约查询(用户绑定银行卡列表)
-        Summary: 支付签约查询(用户绑定银行卡列表)
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.QueryDubbridgeCustomerBankcardlistResponse(),
-            await self.do_request_async('1.0', 'riskplus.dubbridge.customer.bankcardlist.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
     def query_dubbridge_router_userselect(
         self,
         request: riskplus_models.QueryDubbridgeRouterUserselectRequest,
@@ -4621,6 +4565,62 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.QueryDubbridgeAgreementPreviewResponse(),
             await self.do_request_async('1.0', 'riskplus.dubbridge.agreement.preview.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_dubbridge_customer_bankcardlist(
+        self,
+        request: riskplus_models.QueryDubbridgeCustomerBankcardlistRequest,
+    ) -> riskplus_models.QueryDubbridgeCustomerBankcardlistResponse:
+        """
+        Description: 支付签约查询(用户绑定银行卡列表)
+        Summary: 支付签约查询(用户绑定银行卡列表)
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_dubbridge_customer_bankcardlist_ex(request, headers, runtime)
+
+    async def query_dubbridge_customer_bankcardlist_async(
+        self,
+        request: riskplus_models.QueryDubbridgeCustomerBankcardlistRequest,
+    ) -> riskplus_models.QueryDubbridgeCustomerBankcardlistResponse:
+        """
+        Description: 支付签约查询(用户绑定银行卡列表)
+        Summary: 支付签约查询(用户绑定银行卡列表)
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_dubbridge_customer_bankcardlist_ex_async(request, headers, runtime)
+
+    def query_dubbridge_customer_bankcardlist_ex(
+        self,
+        request: riskplus_models.QueryDubbridgeCustomerBankcardlistRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeCustomerBankcardlistResponse:
+        """
+        Description: 支付签约查询(用户绑定银行卡列表)
+        Summary: 支付签约查询(用户绑定银行卡列表)
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeCustomerBankcardlistResponse(),
+            self.do_request('1.0', 'riskplus.dubbridge.customer.bankcardlist.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_dubbridge_customer_bankcardlist_ex_async(
+        self,
+        request: riskplus_models.QueryDubbridgeCustomerBankcardlistRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeCustomerBankcardlistResponse:
+        """
+        Description: 支付签约查询(用户绑定银行卡列表)
+        Summary: 支付签约查询(用户绑定银行卡列表)
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeCustomerBankcardlistResponse(),
+            await self.do_request_async('1.0', 'riskplus.dubbridge.customer.bankcardlist.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_dubbridge_account_usecredit(
@@ -5631,62 +5631,6 @@ class Client:
             await self.do_request_async('1.0', 'riskplus.dubbridge.interest.result.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def settlementmodify_dubbridge_alipay_merchant(
-        self,
-        request: riskplus_models.SettlementmodifyDubbridgeAlipayMerchantRequest,
-    ) -> riskplus_models.SettlementmodifyDubbridgeAlipayMerchantResponse:
-        """
-        Description: 天枢-商户结算信息修改
-        Summary: 天枢-商户结算信息修改
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.settlementmodify_dubbridge_alipay_merchant_ex(request, headers, runtime)
-
-    async def settlementmodify_dubbridge_alipay_merchant_async(
-        self,
-        request: riskplus_models.SettlementmodifyDubbridgeAlipayMerchantRequest,
-    ) -> riskplus_models.SettlementmodifyDubbridgeAlipayMerchantResponse:
-        """
-        Description: 天枢-商户结算信息修改
-        Summary: 天枢-商户结算信息修改
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.settlementmodify_dubbridge_alipay_merchant_ex_async(request, headers, runtime)
-
-    def settlementmodify_dubbridge_alipay_merchant_ex(
-        self,
-        request: riskplus_models.SettlementmodifyDubbridgeAlipayMerchantRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.SettlementmodifyDubbridgeAlipayMerchantResponse:
-        """
-        Description: 天枢-商户结算信息修改
-        Summary: 天枢-商户结算信息修改
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.SettlementmodifyDubbridgeAlipayMerchantResponse(),
-            self.do_request('1.0', 'riskplus.dubbridge.alipay.merchant.settlementmodify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def settlementmodify_dubbridge_alipay_merchant_ex_async(
-        self,
-        request: riskplus_models.SettlementmodifyDubbridgeAlipayMerchantRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.SettlementmodifyDubbridgeAlipayMerchantResponse:
-        """
-        Description: 天枢-商户结算信息修改
-        Summary: 天枢-商户结算信息修改
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.SettlementmodifyDubbridgeAlipayMerchantResponse(),
-            await self.do_request_async('1.0', 'riskplus.dubbridge.alipay.merchant.settlementmodify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
     def query_dubbridge_fund_creditamt(
         self,
         request: riskplus_models.QueryDubbridgeFundCreditamtRequest,
@@ -5741,6 +5685,62 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.QueryDubbridgeFundCreditamtResponse(),
             await self.do_request_async('1.0', 'riskplus.dubbridge.fund.creditamt.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def settlementmodify_dubbridge_alipay_merchant(
+        self,
+        request: riskplus_models.SettlementmodifyDubbridgeAlipayMerchantRequest,
+    ) -> riskplus_models.SettlementmodifyDubbridgeAlipayMerchantResponse:
+        """
+        Description: 天枢-商户结算信息修改
+        Summary: 天枢-商户结算信息修改
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.settlementmodify_dubbridge_alipay_merchant_ex(request, headers, runtime)
+
+    async def settlementmodify_dubbridge_alipay_merchant_async(
+        self,
+        request: riskplus_models.SettlementmodifyDubbridgeAlipayMerchantRequest,
+    ) -> riskplus_models.SettlementmodifyDubbridgeAlipayMerchantResponse:
+        """
+        Description: 天枢-商户结算信息修改
+        Summary: 天枢-商户结算信息修改
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.settlementmodify_dubbridge_alipay_merchant_ex_async(request, headers, runtime)
+
+    def settlementmodify_dubbridge_alipay_merchant_ex(
+        self,
+        request: riskplus_models.SettlementmodifyDubbridgeAlipayMerchantRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.SettlementmodifyDubbridgeAlipayMerchantResponse:
+        """
+        Description: 天枢-商户结算信息修改
+        Summary: 天枢-商户结算信息修改
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.SettlementmodifyDubbridgeAlipayMerchantResponse(),
+            self.do_request('1.0', 'riskplus.dubbridge.alipay.merchant.settlementmodify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def settlementmodify_dubbridge_alipay_merchant_ex_async(
+        self,
+        request: riskplus_models.SettlementmodifyDubbridgeAlipayMerchantRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.SettlementmodifyDubbridgeAlipayMerchantResponse:
+        """
+        Description: 天枢-商户结算信息修改
+        Summary: 天枢-商户结算信息修改
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.SettlementmodifyDubbridgeAlipayMerchantResponse(),
+            await self.do_request_async('1.0', 'riskplus.dubbridge.alipay.merchant.settlementmodify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def apply_dubbridge_credit_lx(
@@ -6471,566 +6471,6 @@ class Client:
             await self.do_request_async('1.0', 'riskplus.dubbridge.certificate.lx.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def apply_dubbridge_eccredit(
-        self,
-        request: riskplus_models.ApplyDubbridgeEccreditRequest,
-    ) -> riskplus_models.ApplyDubbridgeEccreditResponse:
-        """
-        Description: 天枢电商场景下授信申请接口
-        Summary: 天枢电商场景下授信申请接口
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.apply_dubbridge_eccredit_ex(request, headers, runtime)
-
-    async def apply_dubbridge_eccredit_async(
-        self,
-        request: riskplus_models.ApplyDubbridgeEccreditRequest,
-    ) -> riskplus_models.ApplyDubbridgeEccreditResponse:
-        """
-        Description: 天枢电商场景下授信申请接口
-        Summary: 天枢电商场景下授信申请接口
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.apply_dubbridge_eccredit_ex_async(request, headers, runtime)
-
-    def apply_dubbridge_eccredit_ex(
-        self,
-        request: riskplus_models.ApplyDubbridgeEccreditRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.ApplyDubbridgeEccreditResponse:
-        """
-        Description: 天枢电商场景下授信申请接口
-        Summary: 天枢电商场景下授信申请接口
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.ApplyDubbridgeEccreditResponse(),
-            self.do_request('1.0', 'riskplus.dubbridge.eccredit.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def apply_dubbridge_eccredit_ex_async(
-        self,
-        request: riskplus_models.ApplyDubbridgeEccreditRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.ApplyDubbridgeEccreditResponse:
-        """
-        Description: 天枢电商场景下授信申请接口
-        Summary: 天枢电商场景下授信申请接口
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.ApplyDubbridgeEccreditResponse(),
-            await self.do_request_async('1.0', 'riskplus.dubbridge.eccredit.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def apply_dubbridge_ecloan(
-        self,
-        request: riskplus_models.ApplyDubbridgeEcloanRequest,
-    ) -> riskplus_models.ApplyDubbridgeEcloanResponse:
-        """
-        Description: 天枢电商场景支用申请
-        Summary: 天枢电商场景支用申请
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.apply_dubbridge_ecloan_ex(request, headers, runtime)
-
-    async def apply_dubbridge_ecloan_async(
-        self,
-        request: riskplus_models.ApplyDubbridgeEcloanRequest,
-    ) -> riskplus_models.ApplyDubbridgeEcloanResponse:
-        """
-        Description: 天枢电商场景支用申请
-        Summary: 天枢电商场景支用申请
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.apply_dubbridge_ecloan_ex_async(request, headers, runtime)
-
-    def apply_dubbridge_ecloan_ex(
-        self,
-        request: riskplus_models.ApplyDubbridgeEcloanRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.ApplyDubbridgeEcloanResponse:
-        """
-        Description: 天枢电商场景支用申请
-        Summary: 天枢电商场景支用申请
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.ApplyDubbridgeEcloanResponse(),
-            self.do_request('1.0', 'riskplus.dubbridge.ecloan.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def apply_dubbridge_ecloan_ex_async(
-        self,
-        request: riskplus_models.ApplyDubbridgeEcloanRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.ApplyDubbridgeEcloanResponse:
-        """
-        Description: 天枢电商场景支用申请
-        Summary: 天枢电商场景支用申请
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.ApplyDubbridgeEcloanResponse(),
-            await self.do_request_async('1.0', 'riskplus.dubbridge.ecloan.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def query_dubbridge_eccredit_quota(
-        self,
-        request: riskplus_models.QueryDubbridgeEccreditQuotaRequest,
-    ) -> riskplus_models.QueryDubbridgeEccreditQuotaResponse:
-        """
-        Description: 支用前查询授信额度
-        Summary: 支用前查询授信额度
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.query_dubbridge_eccredit_quota_ex(request, headers, runtime)
-
-    async def query_dubbridge_eccredit_quota_async(
-        self,
-        request: riskplus_models.QueryDubbridgeEccreditQuotaRequest,
-    ) -> riskplus_models.QueryDubbridgeEccreditQuotaResponse:
-        """
-        Description: 支用前查询授信额度
-        Summary: 支用前查询授信额度
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.query_dubbridge_eccredit_quota_ex_async(request, headers, runtime)
-
-    def query_dubbridge_eccredit_quota_ex(
-        self,
-        request: riskplus_models.QueryDubbridgeEccreditQuotaRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.QueryDubbridgeEccreditQuotaResponse:
-        """
-        Description: 支用前查询授信额度
-        Summary: 支用前查询授信额度
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.QueryDubbridgeEccreditQuotaResponse(),
-            self.do_request('1.0', 'riskplus.dubbridge.eccredit.quota.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def query_dubbridge_eccredit_quota_ex_async(
-        self,
-        request: riskplus_models.QueryDubbridgeEccreditQuotaRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.QueryDubbridgeEccreditQuotaResponse:
-        """
-        Description: 支用前查询授信额度
-        Summary: 支用前查询授信额度
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.QueryDubbridgeEccreditQuotaResponse(),
-            await self.do_request_async('1.0', 'riskplus.dubbridge.eccredit.quota.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def query_dubbridge_ecloan(
-        self,
-        request: riskplus_models.QueryDubbridgeEcloanRequest,
-    ) -> riskplus_models.QueryDubbridgeEcloanResponse:
-        """
-        Description: 支用结果查询接口
-        Summary: 支用结果查询接口
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.query_dubbridge_ecloan_ex(request, headers, runtime)
-
-    async def query_dubbridge_ecloan_async(
-        self,
-        request: riskplus_models.QueryDubbridgeEcloanRequest,
-    ) -> riskplus_models.QueryDubbridgeEcloanResponse:
-        """
-        Description: 支用结果查询接口
-        Summary: 支用结果查询接口
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.query_dubbridge_ecloan_ex_async(request, headers, runtime)
-
-    def query_dubbridge_ecloan_ex(
-        self,
-        request: riskplus_models.QueryDubbridgeEcloanRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.QueryDubbridgeEcloanResponse:
-        """
-        Description: 支用结果查询接口
-        Summary: 支用结果查询接口
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.QueryDubbridgeEcloanResponse(),
-            self.do_request('1.0', 'riskplus.dubbridge.ecloan.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def query_dubbridge_ecloan_ex_async(
-        self,
-        request: riskplus_models.QueryDubbridgeEcloanRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.QueryDubbridgeEcloanResponse:
-        """
-        Description: 支用结果查询接口
-        Summary: 支用结果查询接口
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.QueryDubbridgeEcloanResponse(),
-            await self.do_request_async('1.0', 'riskplus.dubbridge.ecloan.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def count_dubbridge_ecrepay_trial(
-        self,
-        request: riskplus_models.CountDubbridgeEcrepayTrialRequest,
-    ) -> riskplus_models.CountDubbridgeEcrepayTrialResponse:
-        """
-        Description: 支用后，还款前试算
-        Summary: 支用后，还款前试算
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.count_dubbridge_ecrepay_trial_ex(request, headers, runtime)
-
-    async def count_dubbridge_ecrepay_trial_async(
-        self,
-        request: riskplus_models.CountDubbridgeEcrepayTrialRequest,
-    ) -> riskplus_models.CountDubbridgeEcrepayTrialResponse:
-        """
-        Description: 支用后，还款前试算
-        Summary: 支用后，还款前试算
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.count_dubbridge_ecrepay_trial_ex_async(request, headers, runtime)
-
-    def count_dubbridge_ecrepay_trial_ex(
-        self,
-        request: riskplus_models.CountDubbridgeEcrepayTrialRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.CountDubbridgeEcrepayTrialResponse:
-        """
-        Description: 支用后，还款前试算
-        Summary: 支用后，还款前试算
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.CountDubbridgeEcrepayTrialResponse(),
-            self.do_request('1.0', 'riskplus.dubbridge.ecrepay.trial.count', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def count_dubbridge_ecrepay_trial_ex_async(
-        self,
-        request: riskplus_models.CountDubbridgeEcrepayTrialRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.CountDubbridgeEcrepayTrialResponse:
-        """
-        Description: 支用后，还款前试算
-        Summary: 支用后，还款前试算
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.CountDubbridgeEcrepayTrialResponse(),
-            await self.do_request_async('1.0', 'riskplus.dubbridge.ecrepay.trial.count', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def query_dubbridge_ecrepay(
-        self,
-        request: riskplus_models.QueryDubbridgeEcrepayRequest,
-    ) -> riskplus_models.QueryDubbridgeEcrepayResponse:
-        """
-        Description: 支用后 查询还款明细
-        Summary: 支用后 查询还款明细
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.query_dubbridge_ecrepay_ex(request, headers, runtime)
-
-    async def query_dubbridge_ecrepay_async(
-        self,
-        request: riskplus_models.QueryDubbridgeEcrepayRequest,
-    ) -> riskplus_models.QueryDubbridgeEcrepayResponse:
-        """
-        Description: 支用后 查询还款明细
-        Summary: 支用后 查询还款明细
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.query_dubbridge_ecrepay_ex_async(request, headers, runtime)
-
-    def query_dubbridge_ecrepay_ex(
-        self,
-        request: riskplus_models.QueryDubbridgeEcrepayRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.QueryDubbridgeEcrepayResponse:
-        """
-        Description: 支用后 查询还款明细
-        Summary: 支用后 查询还款明细
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.QueryDubbridgeEcrepayResponse(),
-            self.do_request('1.0', 'riskplus.dubbridge.ecrepay.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def query_dubbridge_ecrepay_ex_async(
-        self,
-        request: riskplus_models.QueryDubbridgeEcrepayRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.QueryDubbridgeEcrepayResponse:
-        """
-        Description: 支用后 查询还款明细
-        Summary: 支用后 查询还款明细
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.QueryDubbridgeEcrepayResponse(),
-            await self.do_request_async('1.0', 'riskplus.dubbridge.ecrepay.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def detail_dubbridge_ecloan(
-        self,
-        request: riskplus_models.DetailDubbridgeEcloanRequest,
-    ) -> riskplus_models.DetailDubbridgeEcloanResponse:
-        """
-        Description: 支用后 查询借据
-        Summary: 支用后 查询借据
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.detail_dubbridge_ecloan_ex(request, headers, runtime)
-
-    async def detail_dubbridge_ecloan_async(
-        self,
-        request: riskplus_models.DetailDubbridgeEcloanRequest,
-    ) -> riskplus_models.DetailDubbridgeEcloanResponse:
-        """
-        Description: 支用后 查询借据
-        Summary: 支用后 查询借据
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.detail_dubbridge_ecloan_ex_async(request, headers, runtime)
-
-    def detail_dubbridge_ecloan_ex(
-        self,
-        request: riskplus_models.DetailDubbridgeEcloanRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.DetailDubbridgeEcloanResponse:
-        """
-        Description: 支用后 查询借据
-        Summary: 支用后 查询借据
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.DetailDubbridgeEcloanResponse(),
-            self.do_request('1.0', 'riskplus.dubbridge.ecloan.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def detail_dubbridge_ecloan_ex_async(
-        self,
-        request: riskplus_models.DetailDubbridgeEcloanRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.DetailDubbridgeEcloanResponse:
-        """
-        Description: 支用后 查询借据
-        Summary: 支用后 查询借据
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.DetailDubbridgeEcloanResponse(),
-            await self.do_request_async('1.0', 'riskplus.dubbridge.ecloan.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def query_dubbridge_eccredit(
-        self,
-        request: riskplus_models.QueryDubbridgeEccreditRequest,
-    ) -> riskplus_models.QueryDubbridgeEccreditResponse:
-        """
-        Description: 授信结果查询
-        Summary: 授信结果查询
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.query_dubbridge_eccredit_ex(request, headers, runtime)
-
-    async def query_dubbridge_eccredit_async(
-        self,
-        request: riskplus_models.QueryDubbridgeEccreditRequest,
-    ) -> riskplus_models.QueryDubbridgeEccreditResponse:
-        """
-        Description: 授信结果查询
-        Summary: 授信结果查询
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.query_dubbridge_eccredit_ex_async(request, headers, runtime)
-
-    def query_dubbridge_eccredit_ex(
-        self,
-        request: riskplus_models.QueryDubbridgeEccreditRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.QueryDubbridgeEccreditResponse:
-        """
-        Description: 授信结果查询
-        Summary: 授信结果查询
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.QueryDubbridgeEccreditResponse(),
-            self.do_request('1.0', 'riskplus.dubbridge.eccredit.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def query_dubbridge_eccredit_ex_async(
-        self,
-        request: riskplus_models.QueryDubbridgeEccreditRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.QueryDubbridgeEccreditResponse:
-        """
-        Description: 授信结果查询
-        Summary: 授信结果查询
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.QueryDubbridgeEccreditResponse(),
-            await self.do_request_async('1.0', 'riskplus.dubbridge.eccredit.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def fill_dubbridge_eccredit(
-        self,
-        request: riskplus_models.FillDubbridgeEccreditRequest,
-    ) -> riskplus_models.FillDubbridgeEccreditResponse:
-        """
-        Description: 补充授信申请风险数据
-        Summary: 补充授信申请风险数据
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.fill_dubbridge_eccredit_ex(request, headers, runtime)
-
-    async def fill_dubbridge_eccredit_async(
-        self,
-        request: riskplus_models.FillDubbridgeEccreditRequest,
-    ) -> riskplus_models.FillDubbridgeEccreditResponse:
-        """
-        Description: 补充授信申请风险数据
-        Summary: 补充授信申请风险数据
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.fill_dubbridge_eccredit_ex_async(request, headers, runtime)
-
-    def fill_dubbridge_eccredit_ex(
-        self,
-        request: riskplus_models.FillDubbridgeEccreditRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.FillDubbridgeEccreditResponse:
-        """
-        Description: 补充授信申请风险数据
-        Summary: 补充授信申请风险数据
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.FillDubbridgeEccreditResponse(),
-            self.do_request('1.0', 'riskplus.dubbridge.eccredit.fill', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def fill_dubbridge_eccredit_ex_async(
-        self,
-        request: riskplus_models.FillDubbridgeEccreditRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.FillDubbridgeEccreditResponse:
-        """
-        Description: 补充授信申请风险数据
-        Summary: 补充授信申请风险数据
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.FillDubbridgeEccreditResponse(),
-            await self.do_request_async('1.0', 'riskplus.dubbridge.eccredit.fill', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def query_dubbridge_eccredit_skipurl(
-        self,
-        request: riskplus_models.QueryDubbridgeEccreditSkipurlRequest,
-    ) -> riskplus_models.QueryDubbridgeEccreditSkipurlResponse:
-        """
-        Description: 获取链接接口
-        Summary: 获取链接接口
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.query_dubbridge_eccredit_skipurl_ex(request, headers, runtime)
-
-    async def query_dubbridge_eccredit_skipurl_async(
-        self,
-        request: riskplus_models.QueryDubbridgeEccreditSkipurlRequest,
-    ) -> riskplus_models.QueryDubbridgeEccreditSkipurlResponse:
-        """
-        Description: 获取链接接口
-        Summary: 获取链接接口
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.query_dubbridge_eccredit_skipurl_ex_async(request, headers, runtime)
-
-    def query_dubbridge_eccredit_skipurl_ex(
-        self,
-        request: riskplus_models.QueryDubbridgeEccreditSkipurlRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.QueryDubbridgeEccreditSkipurlResponse:
-        """
-        Description: 获取链接接口
-        Summary: 获取链接接口
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.QueryDubbridgeEccreditSkipurlResponse(),
-            self.do_request('1.0', 'riskplus.dubbridge.eccredit.skipurl.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def query_dubbridge_eccredit_skipurl_ex_async(
-        self,
-        request: riskplus_models.QueryDubbridgeEccreditSkipurlRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.QueryDubbridgeEccreditSkipurlResponse:
-        """
-        Description: 获取链接接口
-        Summary: 获取链接接口
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.QueryDubbridgeEccreditSkipurlResponse(),
-            await self.do_request_async('1.0', 'riskplus.dubbridge.eccredit.skipurl.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
     def verify_finservice_zhima_identify(
         self,
         request: riskplus_models.VerifyFinserviceZhimaIdentifyRequest,
@@ -7383,62 +6823,6 @@ class Client:
             await self.do_request_async('1.0', 'riskplus.mdip.params.rbbfile.receive', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def callback_mdip_audit(
-        self,
-        request: riskplus_models.CallbackMdipAuditRequest,
-    ) -> riskplus_models.CallbackMdipAuditResponse:
-        """
-        Description: 多源平台审批回调接口
-        Summary: 多源平台审批回调接口
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.callback_mdip_audit_ex(request, headers, runtime)
-
-    async def callback_mdip_audit_async(
-        self,
-        request: riskplus_models.CallbackMdipAuditRequest,
-    ) -> riskplus_models.CallbackMdipAuditResponse:
-        """
-        Description: 多源平台审批回调接口
-        Summary: 多源平台审批回调接口
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.callback_mdip_audit_ex_async(request, headers, runtime)
-
-    def callback_mdip_audit_ex(
-        self,
-        request: riskplus_models.CallbackMdipAuditRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.CallbackMdipAuditResponse:
-        """
-        Description: 多源平台审批回调接口
-        Summary: 多源平台审批回调接口
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.CallbackMdipAuditResponse(),
-            self.do_request('1.0', 'riskplus.mdip.audit.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def callback_mdip_audit_ex_async(
-        self,
-        request: riskplus_models.CallbackMdipAuditRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.CallbackMdipAuditResponse:
-        """
-        Description: 多源平台审批回调接口
-        Summary: 多源平台审批回调接口
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.CallbackMdipAuditResponse(),
-            await self.do_request_async('1.0', 'riskplus.mdip.audit.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
     def query_mdip_dataservice_poc(
         self,
         request: riskplus_models.QueryMdipDataservicePocRequest,
@@ -7493,6 +6877,62 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.QueryMdipDataservicePocResponse(),
             await self.do_request_async('1.0', 'riskplus.mdip.dataservice.poc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def callback_mdip_audit(
+        self,
+        request: riskplus_models.CallbackMdipAuditRequest,
+    ) -> riskplus_models.CallbackMdipAuditResponse:
+        """
+        Description: 多源平台审批回调接口
+        Summary: 多源平台审批回调接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.callback_mdip_audit_ex(request, headers, runtime)
+
+    async def callback_mdip_audit_async(
+        self,
+        request: riskplus_models.CallbackMdipAuditRequest,
+    ) -> riskplus_models.CallbackMdipAuditResponse:
+        """
+        Description: 多源平台审批回调接口
+        Summary: 多源平台审批回调接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.callback_mdip_audit_ex_async(request, headers, runtime)
+
+    def callback_mdip_audit_ex(
+        self,
+        request: riskplus_models.CallbackMdipAuditRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.CallbackMdipAuditResponse:
+        """
+        Description: 多源平台审批回调接口
+        Summary: 多源平台审批回调接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.CallbackMdipAuditResponse(),
+            self.do_request('1.0', 'riskplus.mdip.audit.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def callback_mdip_audit_ex_async(
+        self,
+        request: riskplus_models.CallbackMdipAuditRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.CallbackMdipAuditResponse:
+        """
+        Description: 多源平台审批回调接口
+        Summary: 多源平台审批回调接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.CallbackMdipAuditResponse(),
+            await self.do_request_async('1.0', 'riskplus.mdip.audit.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def list_mdip_default_supplier(
@@ -7943,6 +7383,62 @@ class Client:
             await self.do_request_async('1.0', 'riskplus.qmp.sms.report.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def query_qmp_robotcall_statisticinfo(
+        self,
+        request: riskplus_models.QueryQmpRobotcallStatisticinfoRequest,
+    ) -> riskplus_models.QueryQmpRobotcallStatisticinfoResponse:
+        """
+        Description: 外呼任务统计查询接口
+        Summary:  外呼任务统计查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_qmp_robotcall_statisticinfo_ex(request, headers, runtime)
+
+    async def query_qmp_robotcall_statisticinfo_async(
+        self,
+        request: riskplus_models.QueryQmpRobotcallStatisticinfoRequest,
+    ) -> riskplus_models.QueryQmpRobotcallStatisticinfoResponse:
+        """
+        Description: 外呼任务统计查询接口
+        Summary:  外呼任务统计查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_qmp_robotcall_statisticinfo_ex_async(request, headers, runtime)
+
+    def query_qmp_robotcall_statisticinfo_ex(
+        self,
+        request: riskplus_models.QueryQmpRobotcallStatisticinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryQmpRobotcallStatisticinfoResponse:
+        """
+        Description: 外呼任务统计查询接口
+        Summary:  外呼任务统计查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryQmpRobotcallStatisticinfoResponse(),
+            self.do_request('1.0', 'riskplus.qmp.robotcall.statisticinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_qmp_robotcall_statisticinfo_ex_async(
+        self,
+        request: riskplus_models.QueryQmpRobotcallStatisticinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryQmpRobotcallStatisticinfoResponse:
+        """
+        Description: 外呼任务统计查询接口
+        Summary:  外呼任务统计查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryQmpRobotcallStatisticinfoResponse(),
+            await self.do_request_async('1.0', 'riskplus.qmp.robotcall.statisticinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def send_qmp_digitalsms_batch(
         self,
         request: riskplus_models.SendQmpDigitalsmsBatchRequest,
@@ -8165,62 +7661,6 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.QueryQmpDataaccessStatisticResponse(),
             await self.do_request_async('1.0', 'riskplus.qmp.dataaccess.statistic.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def query_qmp_robotcall_statisticinfo(
-        self,
-        request: riskplus_models.QueryQmpRobotcallStatisticinfoRequest,
-    ) -> riskplus_models.QueryQmpRobotcallStatisticinfoResponse:
-        """
-        Description: 外呼任务统计查询接口
-        Summary:  外呼任务统计查询接口
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.query_qmp_robotcall_statisticinfo_ex(request, headers, runtime)
-
-    async def query_qmp_robotcall_statisticinfo_async(
-        self,
-        request: riskplus_models.QueryQmpRobotcallStatisticinfoRequest,
-    ) -> riskplus_models.QueryQmpRobotcallStatisticinfoResponse:
-        """
-        Description: 外呼任务统计查询接口
-        Summary:  外呼任务统计查询接口
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.query_qmp_robotcall_statisticinfo_ex_async(request, headers, runtime)
-
-    def query_qmp_robotcall_statisticinfo_ex(
-        self,
-        request: riskplus_models.QueryQmpRobotcallStatisticinfoRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.QueryQmpRobotcallStatisticinfoResponse:
-        """
-        Description: 外呼任务统计查询接口
-        Summary:  外呼任务统计查询接口
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.QueryQmpRobotcallStatisticinfoResponse(),
-            self.do_request('1.0', 'riskplus.qmp.robotcall.statisticinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def query_qmp_robotcall_statisticinfo_ex_async(
-        self,
-        request: riskplus_models.QueryQmpRobotcallStatisticinfoRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.QueryQmpRobotcallStatisticinfoResponse:
-        """
-        Description: 外呼任务统计查询接口
-        Summary:  外呼任务统计查询接口
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.QueryQmpRobotcallStatisticinfoResponse(),
-            await self.do_request_async('1.0', 'riskplus.qmp.robotcall.statisticinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def batchquery_qmp_task_detail(
@@ -8677,7 +8117,7 @@ class Client:
     ) -> riskplus_models.PushQmpBackflowEventResponse:
         """
         Description: 蚁盾业务回流事件推送
-        Summary: 蚁盾业务回流事件推送
+        Summary: 蚁盾回流事件推送
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -8689,7 +8129,7 @@ class Client:
     ) -> riskplus_models.PushQmpBackflowEventResponse:
         """
         Description: 蚁盾业务回流事件推送
-        Summary: 蚁盾业务回流事件推送
+        Summary: 蚁盾回流事件推送
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -8703,7 +8143,7 @@ class Client:
     ) -> riskplus_models.PushQmpBackflowEventResponse:
         """
         Description: 蚁盾业务回流事件推送
-        Summary: 蚁盾业务回流事件推送
+        Summary: 蚁盾回流事件推送
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -8719,7 +8159,7 @@ class Client:
     ) -> riskplus_models.PushQmpBackflowEventResponse:
         """
         Description: 蚁盾业务回流事件推送
-        Summary: 蚁盾业务回流事件推送
+        Summary: 蚁盾回流事件推送
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -9767,174 +9207,6 @@ class Client:
             await self.do_request_async('1.0', 'riskplus.rfc.aibound.file.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def query_rbb_generic_invoke(
-        self,
-        request: riskplus_models.QueryRbbGenericInvokeRequest,
-    ) -> riskplus_models.QueryRbbGenericInvokeResponse:
-        """
-        Description: 风险大脑企业版通用查询接口
-        Summary: 【已废弃】
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.query_rbb_generic_invoke_ex(request, headers, runtime)
-
-    async def query_rbb_generic_invoke_async(
-        self,
-        request: riskplus_models.QueryRbbGenericInvokeRequest,
-    ) -> riskplus_models.QueryRbbGenericInvokeResponse:
-        """
-        Description: 风险大脑企业版通用查询接口
-        Summary: 【已废弃】
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.query_rbb_generic_invoke_ex_async(request, headers, runtime)
-
-    def query_rbb_generic_invoke_ex(
-        self,
-        request: riskplus_models.QueryRbbGenericInvokeRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.QueryRbbGenericInvokeResponse:
-        """
-        Description: 风险大脑企业版通用查询接口
-        Summary: 【已废弃】
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.QueryRbbGenericInvokeResponse(),
-            self.do_request('1.0', 'riskplus.rbb.generic.invoke.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def query_rbb_generic_invoke_ex_async(
-        self,
-        request: riskplus_models.QueryRbbGenericInvokeRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.QueryRbbGenericInvokeResponse:
-        """
-        Description: 风险大脑企业版通用查询接口
-        Summary: 【已废弃】
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.QueryRbbGenericInvokeResponse(),
-            await self.do_request_async('1.0', 'riskplus.rbb.generic.invoke.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def create_rbb_token(
-        self,
-        request: riskplus_models.CreateRbbTokenRequest,
-    ) -> riskplus_models.CreateRbbTokenResponse:
-        """
-        Description: 风险大脑企业版token生成
-        Summary: 【已废弃】
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.create_rbb_token_ex(request, headers, runtime)
-
-    async def create_rbb_token_async(
-        self,
-        request: riskplus_models.CreateRbbTokenRequest,
-    ) -> riskplus_models.CreateRbbTokenResponse:
-        """
-        Description: 风险大脑企业版token生成
-        Summary: 【已废弃】
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.create_rbb_token_ex_async(request, headers, runtime)
-
-    def create_rbb_token_ex(
-        self,
-        request: riskplus_models.CreateRbbTokenRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.CreateRbbTokenResponse:
-        """
-        Description: 风险大脑企业版token生成
-        Summary: 【已废弃】
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.CreateRbbTokenResponse(),
-            self.do_request('1.0', 'riskplus.rbb.token.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def create_rbb_token_ex_async(
-        self,
-        request: riskplus_models.CreateRbbTokenRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.CreateRbbTokenResponse:
-        """
-        Description: 风险大脑企业版token生成
-        Summary: 【已废弃】
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.CreateRbbTokenResponse(),
-            await self.do_request_async('1.0', 'riskplus.rbb.token.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def create_rbb_api_gwtoken(
-        self,
-        request: riskplus_models.CreateRbbApiGwtokenRequest,
-    ) -> riskplus_models.CreateRbbApiGwtokenResponse:
-        """
-        Description: 获取风险大脑企业版登录token
-        Summary: 【已废弃】
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.create_rbb_api_gwtoken_ex(request, headers, runtime)
-
-    async def create_rbb_api_gwtoken_async(
-        self,
-        request: riskplus_models.CreateRbbApiGwtokenRequest,
-    ) -> riskplus_models.CreateRbbApiGwtokenResponse:
-        """
-        Description: 获取风险大脑企业版登录token
-        Summary: 【已废弃】
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.create_rbb_api_gwtoken_ex_async(request, headers, runtime)
-
-    def create_rbb_api_gwtoken_ex(
-        self,
-        request: riskplus_models.CreateRbbApiGwtokenRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.CreateRbbApiGwtokenResponse:
-        """
-        Description: 获取风险大脑企业版登录token
-        Summary: 【已废弃】
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.CreateRbbApiGwtokenResponse(),
-            self.do_request('1.0', 'riskplus.rbb.api.gwtoken.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def create_rbb_api_gwtoken_ex_async(
-        self,
-        request: riskplus_models.CreateRbbApiGwtokenRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.CreateRbbApiGwtokenResponse:
-        """
-        Description: 获取风险大脑企业版登录token
-        Summary: 【已废弃】
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.CreateRbbApiGwtokenResponse(),
-            await self.do_request_async('1.0', 'riskplus.rbb.api.gwtoken.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
     def query_rbb_general(
         self,
         request: riskplus_models.QueryRbbGeneralRequest,
@@ -10495,6 +9767,62 @@ class Client:
             await self.do_request_async('1.0', 'riskplus.rbb.regdatasync.schedule.finish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def query_rbb_obts_zsearch(
+        self,
+        request: riskplus_models.QueryRbbObtsZsearchRequest,
+    ) -> riskplus_models.QueryRbbObtsZsearchResponse:
+        """
+        Description: 企业风控给上交所鹰眼使用的zsearch查询
+        Summary: 企业风控给鹰眼使用的zsearch查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_rbb_obts_zsearch_ex(request, headers, runtime)
+
+    async def query_rbb_obts_zsearch_async(
+        self,
+        request: riskplus_models.QueryRbbObtsZsearchRequest,
+    ) -> riskplus_models.QueryRbbObtsZsearchResponse:
+        """
+        Description: 企业风控给上交所鹰眼使用的zsearch查询
+        Summary: 企业风控给鹰眼使用的zsearch查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_rbb_obts_zsearch_ex_async(request, headers, runtime)
+
+    def query_rbb_obts_zsearch_ex(
+        self,
+        request: riskplus_models.QueryRbbObtsZsearchRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryRbbObtsZsearchResponse:
+        """
+        Description: 企业风控给上交所鹰眼使用的zsearch查询
+        Summary: 企业风控给鹰眼使用的zsearch查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryRbbObtsZsearchResponse(),
+            self.do_request('1.0', 'riskplus.rbb.obts.zsearch.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_rbb_obts_zsearch_ex_async(
+        self,
+        request: riskplus_models.QueryRbbObtsZsearchRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryRbbObtsZsearchResponse:
+        """
+        Description: 企业风控给上交所鹰眼使用的zsearch查询
+        Summary: 企业风控给鹰眼使用的zsearch查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryRbbObtsZsearchResponse(),
+            await self.do_request_async('1.0', 'riskplus.rbb.obts.zsearch.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def apply_rbb_company_guard(
         self,
         request: riskplus_models.ApplyRbbCompanyGuardRequest,
@@ -10605,62 +9933,6 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.QueryRbbCompanyGuardResponse(),
             await self.do_request_async('1.0', 'riskplus.rbb.company.guard.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def query_rbb_obts_zsearch(
-        self,
-        request: riskplus_models.QueryRbbObtsZsearchRequest,
-    ) -> riskplus_models.QueryRbbObtsZsearchResponse:
-        """
-        Description: 企业风控给上交所鹰眼使用的zsearch查询
-        Summary: 企业风控给鹰眼使用的zsearch查询
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.query_rbb_obts_zsearch_ex(request, headers, runtime)
-
-    async def query_rbb_obts_zsearch_async(
-        self,
-        request: riskplus_models.QueryRbbObtsZsearchRequest,
-    ) -> riskplus_models.QueryRbbObtsZsearchResponse:
-        """
-        Description: 企业风控给上交所鹰眼使用的zsearch查询
-        Summary: 企业风控给鹰眼使用的zsearch查询
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.query_rbb_obts_zsearch_ex_async(request, headers, runtime)
-
-    def query_rbb_obts_zsearch_ex(
-        self,
-        request: riskplus_models.QueryRbbObtsZsearchRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.QueryRbbObtsZsearchResponse:
-        """
-        Description: 企业风控给上交所鹰眼使用的zsearch查询
-        Summary: 企业风控给鹰眼使用的zsearch查询
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.QueryRbbObtsZsearchResponse(),
-            self.do_request('1.0', 'riskplus.rbb.obts.zsearch.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def query_rbb_obts_zsearch_ex_async(
-        self,
-        request: riskplus_models.QueryRbbObtsZsearchRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.QueryRbbObtsZsearchResponse:
-        """
-        Description: 企业风控给上交所鹰眼使用的zsearch查询
-        Summary: 企业风控给鹰眼使用的zsearch查询
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.QueryRbbObtsZsearchResponse(),
-            await self.do_request_async('1.0', 'riskplus.rbb.obts.zsearch.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def push_rbb_customer_companyinfo(
@@ -10811,60 +10083,172 @@ class Client:
             await self.do_request_async('1.0', 'riskplus.rbb.file.amap.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def operate_rbb_credit(
+    def query_rbb_generic_invoke(
         self,
-        request: riskplus_models.OperateRbbCreditRequest,
-    ) -> riskplus_models.OperateRbbCreditResponse:
+        request: riskplus_models.QueryRbbGenericInvokeRequest,
+    ) -> riskplus_models.QueryRbbGenericInvokeResponse:
         """
-        Description: 信贷操作接口
-        Summary: 信贷操作接口
+        Description: 风险大脑企业版通用查询接口
+        Summary: 【已废弃】
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.operate_rbb_credit_ex(request, headers, runtime)
+        return self.query_rbb_generic_invoke_ex(request, headers, runtime)
 
-    async def operate_rbb_credit_async(
+    async def query_rbb_generic_invoke_async(
         self,
-        request: riskplus_models.OperateRbbCreditRequest,
-    ) -> riskplus_models.OperateRbbCreditResponse:
+        request: riskplus_models.QueryRbbGenericInvokeRequest,
+    ) -> riskplus_models.QueryRbbGenericInvokeResponse:
         """
-        Description: 信贷操作接口
-        Summary: 信贷操作接口
+        Description: 风险大脑企业版通用查询接口
+        Summary: 【已废弃】
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.operate_rbb_credit_ex_async(request, headers, runtime)
+        return await self.query_rbb_generic_invoke_ex_async(request, headers, runtime)
 
-    def operate_rbb_credit_ex(
+    def query_rbb_generic_invoke_ex(
         self,
-        request: riskplus_models.OperateRbbCreditRequest,
+        request: riskplus_models.QueryRbbGenericInvokeRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.OperateRbbCreditResponse:
+    ) -> riskplus_models.QueryRbbGenericInvokeResponse:
         """
-        Description: 信贷操作接口
-        Summary: 信贷操作接口
+        Description: 风险大脑企业版通用查询接口
+        Summary: 【已废弃】
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            riskplus_models.OperateRbbCreditResponse(),
-            self.do_request('1.0', 'riskplus.rbb.credit.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            riskplus_models.QueryRbbGenericInvokeResponse(),
+            self.do_request('1.0', 'riskplus.rbb.generic.invoke.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def operate_rbb_credit_ex_async(
+    async def query_rbb_generic_invoke_ex_async(
         self,
-        request: riskplus_models.OperateRbbCreditRequest,
+        request: riskplus_models.QueryRbbGenericInvokeRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.OperateRbbCreditResponse:
+    ) -> riskplus_models.QueryRbbGenericInvokeResponse:
         """
-        Description: 信贷操作接口
-        Summary: 信贷操作接口
+        Description: 风险大脑企业版通用查询接口
+        Summary: 【已废弃】
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            riskplus_models.OperateRbbCreditResponse(),
-            await self.do_request_async('1.0', 'riskplus.rbb.credit.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            riskplus_models.QueryRbbGenericInvokeResponse(),
+            await self.do_request_async('1.0', 'riskplus.rbb.generic.invoke.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_rbb_token(
+        self,
+        request: riskplus_models.CreateRbbTokenRequest,
+    ) -> riskplus_models.CreateRbbTokenResponse:
+        """
+        Description: 风险大脑企业版token生成
+        Summary: 【已废弃】
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_rbb_token_ex(request, headers, runtime)
+
+    async def create_rbb_token_async(
+        self,
+        request: riskplus_models.CreateRbbTokenRequest,
+    ) -> riskplus_models.CreateRbbTokenResponse:
+        """
+        Description: 风险大脑企业版token生成
+        Summary: 【已废弃】
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_rbb_token_ex_async(request, headers, runtime)
+
+    def create_rbb_token_ex(
+        self,
+        request: riskplus_models.CreateRbbTokenRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.CreateRbbTokenResponse:
+        """
+        Description: 风险大脑企业版token生成
+        Summary: 【已废弃】
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.CreateRbbTokenResponse(),
+            self.do_request('1.0', 'riskplus.rbb.token.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_rbb_token_ex_async(
+        self,
+        request: riskplus_models.CreateRbbTokenRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.CreateRbbTokenResponse:
+        """
+        Description: 风险大脑企业版token生成
+        Summary: 【已废弃】
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.CreateRbbTokenResponse(),
+            await self.do_request_async('1.0', 'riskplus.rbb.token.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_rbb_api_gwtoken(
+        self,
+        request: riskplus_models.CreateRbbApiGwtokenRequest,
+    ) -> riskplus_models.CreateRbbApiGwtokenResponse:
+        """
+        Description: 获取风险大脑企业版登录token
+        Summary: 【已废弃】
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_rbb_api_gwtoken_ex(request, headers, runtime)
+
+    async def create_rbb_api_gwtoken_async(
+        self,
+        request: riskplus_models.CreateRbbApiGwtokenRequest,
+    ) -> riskplus_models.CreateRbbApiGwtokenResponse:
+        """
+        Description: 获取风险大脑企业版登录token
+        Summary: 【已废弃】
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_rbb_api_gwtoken_ex_async(request, headers, runtime)
+
+    def create_rbb_api_gwtoken_ex(
+        self,
+        request: riskplus_models.CreateRbbApiGwtokenRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.CreateRbbApiGwtokenResponse:
+        """
+        Description: 获取风险大脑企业版登录token
+        Summary: 【已废弃】
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.CreateRbbApiGwtokenResponse(),
+            self.do_request('1.0', 'riskplus.rbb.api.gwtoken.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_rbb_api_gwtoken_ex_async(
+        self,
+        request: riskplus_models.CreateRbbApiGwtokenRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.CreateRbbApiGwtokenResponse:
+        """
+        Description: 获取风险大脑企业版登录token
+        Summary: 【已废弃】
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.CreateRbbApiGwtokenResponse(),
+            await self.do_request_async('1.0', 'riskplus.rbb.api.gwtoken.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def push_rbb_customer_information(
@@ -11089,98 +10473,6 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.PushRbbInvoiceChargeResponse(),
             await self.do_request_async('1.0', 'riskplus.rbb.invoice.charge.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def receive_rbb_params_file(
-        self,
-        request: riskplus_models.ReceiveRbbParamsFileRequest,
-    ) -> riskplus_models.ReceiveRbbParamsFileResponse:
-        """
-        Description: 通过接口进行报告上传
-        Summary: 征信报告上传接口
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.receive_rbb_params_file_ex(request, headers, runtime)
-
-    async def receive_rbb_params_file_async(
-        self,
-        request: riskplus_models.ReceiveRbbParamsFileRequest,
-    ) -> riskplus_models.ReceiveRbbParamsFileResponse:
-        """
-        Description: 通过接口进行报告上传
-        Summary: 征信报告上传接口
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.receive_rbb_params_file_ex_async(request, headers, runtime)
-
-    def receive_rbb_params_file_ex(
-        self,
-        request: riskplus_models.ReceiveRbbParamsFileRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.ReceiveRbbParamsFileResponse:
-        """
-        Description: 通过接口进行报告上传
-        Summary: 征信报告上传接口
-        """
-        if not UtilClient.is_unset(request.file_object):
-            upload_req = riskplus_models.CreateAntcloudGatewayxFileUploadRequest(
-                auth_token=request.auth_token,
-                api_code='riskplus.rbb.params.file.receive',
-                file_name=request.file_object_name
-            )
-            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
-            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
-                receive_rbb_params_file_response = riskplus_models.ReceiveRbbParamsFileResponse(
-                    req_msg_id=upload_resp.req_msg_id,
-                    result_code=upload_resp.result_code,
-                    result_msg=upload_resp.result_msg
-                )
-                return receive_rbb_params_file_response
-            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
-            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
-            request.file_id = upload_resp.file_id
-            request.file_object = None
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.ReceiveRbbParamsFileResponse(),
-            self.do_request('1.0', 'riskplus.rbb.params.file.receive', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def receive_rbb_params_file_ex_async(
-        self,
-        request: riskplus_models.ReceiveRbbParamsFileRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.ReceiveRbbParamsFileResponse:
-        """
-        Description: 通过接口进行报告上传
-        Summary: 征信报告上传接口
-        """
-        if not UtilClient.is_unset(request.file_object):
-            upload_req = riskplus_models.CreateAntcloudGatewayxFileUploadRequest(
-                auth_token=request.auth_token,
-                api_code='riskplus.rbb.params.file.receive',
-                file_name=request.file_object_name
-            )
-            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
-            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
-                receive_rbb_params_file_response = riskplus_models.ReceiveRbbParamsFileResponse(
-                    req_msg_id=upload_resp.req_msg_id,
-                    result_code=upload_resp.result_code,
-                    result_msg=upload_resp.result_msg
-                )
-                return receive_rbb_params_file_response
-            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
-            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
-            request.file_id = upload_resp.file_id
-            request.file_object = None
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.ReceiveRbbParamsFileResponse(),
-            await self.do_request_async('1.0', 'riskplus.rbb.params.file.receive', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def receive_rbb_overseacompany_profile(
@@ -12171,62 +11463,6 @@ class Client:
             await self.do_request_async('1.0', 'riskplus.rtop.crowdrisk.sum.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def get_rtop_company_detail(
-        self,
-        request: riskplus_models.GetRtopCompanyDetailRequest,
-    ) -> riskplus_models.GetRtopCompanyDetailResponse:
-        """
-        Description: 监管企业详情获取，包括风险分数、风险标签。
-        Summary: 监管企业详情获取
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.get_rtop_company_detail_ex(request, headers, runtime)
-
-    async def get_rtop_company_detail_async(
-        self,
-        request: riskplus_models.GetRtopCompanyDetailRequest,
-    ) -> riskplus_models.GetRtopCompanyDetailResponse:
-        """
-        Description: 监管企业详情获取，包括风险分数、风险标签。
-        Summary: 监管企业详情获取
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.get_rtop_company_detail_ex_async(request, headers, runtime)
-
-    def get_rtop_company_detail_ex(
-        self,
-        request: riskplus_models.GetRtopCompanyDetailRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.GetRtopCompanyDetailResponse:
-        """
-        Description: 监管企业详情获取，包括风险分数、风险标签。
-        Summary: 监管企业详情获取
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.GetRtopCompanyDetailResponse(),
-            self.do_request('1.0', 'riskplus.rtop.company.detail.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def get_rtop_company_detail_ex_async(
-        self,
-        request: riskplus_models.GetRtopCompanyDetailRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.GetRtopCompanyDetailResponse:
-        """
-        Description: 监管企业详情获取，包括风险分数、风险标签。
-        Summary: 监管企业详情获取
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.GetRtopCompanyDetailResponse(),
-            await self.do_request_async('1.0', 'riskplus.rtop.company.detail.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
     def query_rtop_company_riskinfo(
         self,
         request: riskplus_models.QueryRtopCompanyRiskinfoRequest,
@@ -12567,286 +11803,6 @@ class Client:
             await self.do_request_async('1.0', 'riskplus.rtop.risklabel.filter.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def pull_regtech_news(
-        self,
-        request: riskplus_models.PullRegtechNewsRequest,
-    ) -> riskplus_models.PullRegtechNewsResponse:
-        """
-        Description: 用于鹰眼项目舆情同步
-        Summary: 鹰眼项目舆情同步
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.pull_regtech_news_ex(request, headers, runtime)
-
-    async def pull_regtech_news_async(
-        self,
-        request: riskplus_models.PullRegtechNewsRequest,
-    ) -> riskplus_models.PullRegtechNewsResponse:
-        """
-        Description: 用于鹰眼项目舆情同步
-        Summary: 鹰眼项目舆情同步
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.pull_regtech_news_ex_async(request, headers, runtime)
-
-    def pull_regtech_news_ex(
-        self,
-        request: riskplus_models.PullRegtechNewsRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.PullRegtechNewsResponse:
-        """
-        Description: 用于鹰眼项目舆情同步
-        Summary: 鹰眼项目舆情同步
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.PullRegtechNewsResponse(),
-            self.do_request('1.0', 'riskplus.regtech.news.pull', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def pull_regtech_news_ex_async(
-        self,
-        request: riskplus_models.PullRegtechNewsRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.PullRegtechNewsResponse:
-        """
-        Description: 用于鹰眼项目舆情同步
-        Summary: 鹰眼项目舆情同步
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.PullRegtechNewsResponse(),
-            await self.do_request_async('1.0', 'riskplus.regtech.news.pull', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def query_rtop_company_feedback(
-        self,
-        request: riskplus_models.QueryRtopCompanyFeedbackRequest,
-    ) -> riskplus_models.QueryRtopCompanyFeedbackResponse:
-        """
-        Description: 查看企业反馈
-        Summary: 查看企业反馈
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.query_rtop_company_feedback_ex(request, headers, runtime)
-
-    async def query_rtop_company_feedback_async(
-        self,
-        request: riskplus_models.QueryRtopCompanyFeedbackRequest,
-    ) -> riskplus_models.QueryRtopCompanyFeedbackResponse:
-        """
-        Description: 查看企业反馈
-        Summary: 查看企业反馈
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.query_rtop_company_feedback_ex_async(request, headers, runtime)
-
-    def query_rtop_company_feedback_ex(
-        self,
-        request: riskplus_models.QueryRtopCompanyFeedbackRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.QueryRtopCompanyFeedbackResponse:
-        """
-        Description: 查看企业反馈
-        Summary: 查看企业反馈
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.QueryRtopCompanyFeedbackResponse(),
-            self.do_request('1.0', 'riskplus.rtop.company.feedback.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def query_rtop_company_feedback_ex_async(
-        self,
-        request: riskplus_models.QueryRtopCompanyFeedbackRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.QueryRtopCompanyFeedbackResponse:
-        """
-        Description: 查看企业反馈
-        Summary: 查看企业反馈
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.QueryRtopCompanyFeedbackResponse(),
-            await self.do_request_async('1.0', 'riskplus.rtop.company.feedback.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def query_rtop_company_alarm(
-        self,
-        request: riskplus_models.QueryRtopCompanyAlarmRequest,
-    ) -> riskplus_models.QueryRtopCompanyAlarmResponse:
-        """
-        Description: 全局动态中的预警企业详细列表查询
-        Summary: 全局动态中的预警企业详细列表查询
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.query_rtop_company_alarm_ex(request, headers, runtime)
-
-    async def query_rtop_company_alarm_async(
-        self,
-        request: riskplus_models.QueryRtopCompanyAlarmRequest,
-    ) -> riskplus_models.QueryRtopCompanyAlarmResponse:
-        """
-        Description: 全局动态中的预警企业详细列表查询
-        Summary: 全局动态中的预警企业详细列表查询
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.query_rtop_company_alarm_ex_async(request, headers, runtime)
-
-    def query_rtop_company_alarm_ex(
-        self,
-        request: riskplus_models.QueryRtopCompanyAlarmRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.QueryRtopCompanyAlarmResponse:
-        """
-        Description: 全局动态中的预警企业详细列表查询
-        Summary: 全局动态中的预警企业详细列表查询
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.QueryRtopCompanyAlarmResponse(),
-            self.do_request('1.0', 'riskplus.rtop.company.alarm.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def query_rtop_company_alarm_ex_async(
-        self,
-        request: riskplus_models.QueryRtopCompanyAlarmRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.QueryRtopCompanyAlarmResponse:
-        """
-        Description: 全局动态中的预警企业详细列表查询
-        Summary: 全局动态中的预警企业详细列表查询
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.QueryRtopCompanyAlarmResponse(),
-            await self.do_request_async('1.0', 'riskplus.rtop.company.alarm.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def query_rtop_company_risky(
-        self,
-        request: riskplus_models.QueryRtopCompanyRiskyRequest,
-    ) -> riskplus_models.QueryRtopCompanyRiskyResponse:
-        """
-        Description: 查询全局动态中的企业列表里的全部列表
-        Summary: 查询全局动态中的企业列表里的全部列表
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.query_rtop_company_risky_ex(request, headers, runtime)
-
-    async def query_rtop_company_risky_async(
-        self,
-        request: riskplus_models.QueryRtopCompanyRiskyRequest,
-    ) -> riskplus_models.QueryRtopCompanyRiskyResponse:
-        """
-        Description: 查询全局动态中的企业列表里的全部列表
-        Summary: 查询全局动态中的企业列表里的全部列表
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.query_rtop_company_risky_ex_async(request, headers, runtime)
-
-    def query_rtop_company_risky_ex(
-        self,
-        request: riskplus_models.QueryRtopCompanyRiskyRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.QueryRtopCompanyRiskyResponse:
-        """
-        Description: 查询全局动态中的企业列表里的全部列表
-        Summary: 查询全局动态中的企业列表里的全部列表
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.QueryRtopCompanyRiskyResponse(),
-            self.do_request('1.0', 'riskplus.rtop.company.risky.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def query_rtop_company_risky_ex_async(
-        self,
-        request: riskplus_models.QueryRtopCompanyRiskyRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.QueryRtopCompanyRiskyResponse:
-        """
-        Description: 查询全局动态中的企业列表里的全部列表
-        Summary: 查询全局动态中的企业列表里的全部列表
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.QueryRtopCompanyRiskyResponse(),
-            await self.do_request_async('1.0', 'riskplus.rtop.company.risky.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def query_rtop_company_list(
-        self,
-        request: riskplus_models.QueryRtopCompanyListRequest,
-    ) -> riskplus_models.QueryRtopCompanyListResponse:
-        """
-        Description: 查询企业列表
-        Summary: 查询企业列表
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.query_rtop_company_list_ex(request, headers, runtime)
-
-    async def query_rtop_company_list_async(
-        self,
-        request: riskplus_models.QueryRtopCompanyListRequest,
-    ) -> riskplus_models.QueryRtopCompanyListResponse:
-        """
-        Description: 查询企业列表
-        Summary: 查询企业列表
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.query_rtop_company_list_ex_async(request, headers, runtime)
-
-    def query_rtop_company_list_ex(
-        self,
-        request: riskplus_models.QueryRtopCompanyListRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.QueryRtopCompanyListResponse:
-        """
-        Description: 查询企业列表
-        Summary: 查询企业列表
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.QueryRtopCompanyListResponse(),
-            self.do_request('1.0', 'riskplus.rtop.company.list.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def query_rtop_company_list_ex_async(
-        self,
-        request: riskplus_models.QueryRtopCompanyListRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.QueryRtopCompanyListResponse:
-        """
-        Description: 查询企业列表
-        Summary: 查询企业列表
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.QueryRtopCompanyListResponse(),
-            await self.do_request_async('1.0', 'riskplus.rtop.company.list.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
     def query_rtop_risklabel_config(
         self,
         request: riskplus_models.QueryRtopRisklabelConfigRequest,
@@ -12901,6 +11857,62 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.QueryRtopRisklabelConfigResponse(),
             await self.do_request_async('1.0', 'riskplus.rtop.risklabel.config.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def pull_regtech_news(
+        self,
+        request: riskplus_models.PullRegtechNewsRequest,
+    ) -> riskplus_models.PullRegtechNewsResponse:
+        """
+        Description: 用于鹰眼项目舆情同步
+        Summary: 鹰眼项目舆情同步
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pull_regtech_news_ex(request, headers, runtime)
+
+    async def pull_regtech_news_async(
+        self,
+        request: riskplus_models.PullRegtechNewsRequest,
+    ) -> riskplus_models.PullRegtechNewsResponse:
+        """
+        Description: 用于鹰眼项目舆情同步
+        Summary: 鹰眼项目舆情同步
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.pull_regtech_news_ex_async(request, headers, runtime)
+
+    def pull_regtech_news_ex(
+        self,
+        request: riskplus_models.PullRegtechNewsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.PullRegtechNewsResponse:
+        """
+        Description: 用于鹰眼项目舆情同步
+        Summary: 鹰眼项目舆情同步
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.PullRegtechNewsResponse(),
+            self.do_request('1.0', 'riskplus.regtech.news.pull', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def pull_regtech_news_ex_async(
+        self,
+        request: riskplus_models.PullRegtechNewsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.PullRegtechNewsResponse:
+        """
+        Description: 用于鹰眼项目舆情同步
+        Summary: 鹰眼项目舆情同步
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.PullRegtechNewsResponse(),
+            await self.do_request_async('1.0', 'riskplus.regtech.news.pull', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_rtop_company_risk(
@@ -13125,6 +12137,286 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.ListRtopStarCompanyResponse(),
             await self.do_request_async('1.0', 'riskplus.rtop.star.company.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_rtop_company_detail(
+        self,
+        request: riskplus_models.GetRtopCompanyDetailRequest,
+    ) -> riskplus_models.GetRtopCompanyDetailResponse:
+        """
+        Description: 监管企业详情获取，包括风险分数、风险标签。
+        Summary: 监管企业详情获取
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_rtop_company_detail_ex(request, headers, runtime)
+
+    async def get_rtop_company_detail_async(
+        self,
+        request: riskplus_models.GetRtopCompanyDetailRequest,
+    ) -> riskplus_models.GetRtopCompanyDetailResponse:
+        """
+        Description: 监管企业详情获取，包括风险分数、风险标签。
+        Summary: 监管企业详情获取
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_rtop_company_detail_ex_async(request, headers, runtime)
+
+    def get_rtop_company_detail_ex(
+        self,
+        request: riskplus_models.GetRtopCompanyDetailRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.GetRtopCompanyDetailResponse:
+        """
+        Description: 监管企业详情获取，包括风险分数、风险标签。
+        Summary: 监管企业详情获取
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.GetRtopCompanyDetailResponse(),
+            self.do_request('1.0', 'riskplus.rtop.company.detail.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_rtop_company_detail_ex_async(
+        self,
+        request: riskplus_models.GetRtopCompanyDetailRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.GetRtopCompanyDetailResponse:
+        """
+        Description: 监管企业详情获取，包括风险分数、风险标签。
+        Summary: 监管企业详情获取
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.GetRtopCompanyDetailResponse(),
+            await self.do_request_async('1.0', 'riskplus.rtop.company.detail.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_rtop_company_feedback(
+        self,
+        request: riskplus_models.QueryRtopCompanyFeedbackRequest,
+    ) -> riskplus_models.QueryRtopCompanyFeedbackResponse:
+        """
+        Description: 查看企业反馈
+        Summary: 查看企业反馈
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_rtop_company_feedback_ex(request, headers, runtime)
+
+    async def query_rtop_company_feedback_async(
+        self,
+        request: riskplus_models.QueryRtopCompanyFeedbackRequest,
+    ) -> riskplus_models.QueryRtopCompanyFeedbackResponse:
+        """
+        Description: 查看企业反馈
+        Summary: 查看企业反馈
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_rtop_company_feedback_ex_async(request, headers, runtime)
+
+    def query_rtop_company_feedback_ex(
+        self,
+        request: riskplus_models.QueryRtopCompanyFeedbackRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryRtopCompanyFeedbackResponse:
+        """
+        Description: 查看企业反馈
+        Summary: 查看企业反馈
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryRtopCompanyFeedbackResponse(),
+            self.do_request('1.0', 'riskplus.rtop.company.feedback.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_rtop_company_feedback_ex_async(
+        self,
+        request: riskplus_models.QueryRtopCompanyFeedbackRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryRtopCompanyFeedbackResponse:
+        """
+        Description: 查看企业反馈
+        Summary: 查看企业反馈
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryRtopCompanyFeedbackResponse(),
+            await self.do_request_async('1.0', 'riskplus.rtop.company.feedback.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_rtop_company_alarm(
+        self,
+        request: riskplus_models.QueryRtopCompanyAlarmRequest,
+    ) -> riskplus_models.QueryRtopCompanyAlarmResponse:
+        """
+        Description: 全局动态中的预警企业详细列表查询
+        Summary: 全局动态中的预警企业详细列表查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_rtop_company_alarm_ex(request, headers, runtime)
+
+    async def query_rtop_company_alarm_async(
+        self,
+        request: riskplus_models.QueryRtopCompanyAlarmRequest,
+    ) -> riskplus_models.QueryRtopCompanyAlarmResponse:
+        """
+        Description: 全局动态中的预警企业详细列表查询
+        Summary: 全局动态中的预警企业详细列表查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_rtop_company_alarm_ex_async(request, headers, runtime)
+
+    def query_rtop_company_alarm_ex(
+        self,
+        request: riskplus_models.QueryRtopCompanyAlarmRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryRtopCompanyAlarmResponse:
+        """
+        Description: 全局动态中的预警企业详细列表查询
+        Summary: 全局动态中的预警企业详细列表查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryRtopCompanyAlarmResponse(),
+            self.do_request('1.0', 'riskplus.rtop.company.alarm.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_rtop_company_alarm_ex_async(
+        self,
+        request: riskplus_models.QueryRtopCompanyAlarmRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryRtopCompanyAlarmResponse:
+        """
+        Description: 全局动态中的预警企业详细列表查询
+        Summary: 全局动态中的预警企业详细列表查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryRtopCompanyAlarmResponse(),
+            await self.do_request_async('1.0', 'riskplus.rtop.company.alarm.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_rtop_company_risky(
+        self,
+        request: riskplus_models.QueryRtopCompanyRiskyRequest,
+    ) -> riskplus_models.QueryRtopCompanyRiskyResponse:
+        """
+        Description: 查询全局动态中的企业列表里的全部列表
+        Summary: 查询全局动态中的企业列表里的全部列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_rtop_company_risky_ex(request, headers, runtime)
+
+    async def query_rtop_company_risky_async(
+        self,
+        request: riskplus_models.QueryRtopCompanyRiskyRequest,
+    ) -> riskplus_models.QueryRtopCompanyRiskyResponse:
+        """
+        Description: 查询全局动态中的企业列表里的全部列表
+        Summary: 查询全局动态中的企业列表里的全部列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_rtop_company_risky_ex_async(request, headers, runtime)
+
+    def query_rtop_company_risky_ex(
+        self,
+        request: riskplus_models.QueryRtopCompanyRiskyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryRtopCompanyRiskyResponse:
+        """
+        Description: 查询全局动态中的企业列表里的全部列表
+        Summary: 查询全局动态中的企业列表里的全部列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryRtopCompanyRiskyResponse(),
+            self.do_request('1.0', 'riskplus.rtop.company.risky.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_rtop_company_risky_ex_async(
+        self,
+        request: riskplus_models.QueryRtopCompanyRiskyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryRtopCompanyRiskyResponse:
+        """
+        Description: 查询全局动态中的企业列表里的全部列表
+        Summary: 查询全局动态中的企业列表里的全部列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryRtopCompanyRiskyResponse(),
+            await self.do_request_async('1.0', 'riskplus.rtop.company.risky.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_rtop_company_list(
+        self,
+        request: riskplus_models.QueryRtopCompanyListRequest,
+    ) -> riskplus_models.QueryRtopCompanyListResponse:
+        """
+        Description: 查询企业列表
+        Summary: 查询企业列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_rtop_company_list_ex(request, headers, runtime)
+
+    async def query_rtop_company_list_async(
+        self,
+        request: riskplus_models.QueryRtopCompanyListRequest,
+    ) -> riskplus_models.QueryRtopCompanyListResponse:
+        """
+        Description: 查询企业列表
+        Summary: 查询企业列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_rtop_company_list_ex_async(request, headers, runtime)
+
+    def query_rtop_company_list_ex(
+        self,
+        request: riskplus_models.QueryRtopCompanyListRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryRtopCompanyListResponse:
+        """
+        Description: 查询企业列表
+        Summary: 查询企业列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryRtopCompanyListResponse(),
+            self.do_request('1.0', 'riskplus.rtop.company.list.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_rtop_company_list_ex_async(
+        self,
+        request: riskplus_models.QueryRtopCompanyListRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryRtopCompanyListResponse:
+        """
+        Description: 查询企业列表
+        Summary: 查询企业列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryRtopCompanyListResponse(),
+            await self.do_request_async('1.0', 'riskplus.rtop.company.list.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_rp_security_policy(
@@ -14003,62 +13295,6 @@ class Client:
             await self.do_request_async('1.0', 'riskplus.umkt.rt.marketing.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def sync_umkt_rt_eventresult(
-        self,
-        request: riskplus_models.SyncUmktRtEventresultRequest,
-    ) -> riskplus_models.SyncUmktRtEventresultResponse:
-        """
-        Description: 梦网富信投放事件通知
-        Summary: 梦网富信投放事件通知
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.sync_umkt_rt_eventresult_ex(request, headers, runtime)
-
-    async def sync_umkt_rt_eventresult_async(
-        self,
-        request: riskplus_models.SyncUmktRtEventresultRequest,
-    ) -> riskplus_models.SyncUmktRtEventresultResponse:
-        """
-        Description: 梦网富信投放事件通知
-        Summary: 梦网富信投放事件通知
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.sync_umkt_rt_eventresult_ex_async(request, headers, runtime)
-
-    def sync_umkt_rt_eventresult_ex(
-        self,
-        request: riskplus_models.SyncUmktRtEventresultRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.SyncUmktRtEventresultResponse:
-        """
-        Description: 梦网富信投放事件通知
-        Summary: 梦网富信投放事件通知
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.SyncUmktRtEventresultResponse(),
-            self.do_request('1.0', 'riskplus.umkt.rt.eventresult.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def sync_umkt_rt_eventresult_ex_async(
-        self,
-        request: riskplus_models.SyncUmktRtEventresultRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.SyncUmktRtEventresultResponse:
-        """
-        Description: 梦网富信投放事件通知
-        Summary: 梦网富信投放事件通知
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.SyncUmktRtEventresultResponse(),
-            await self.do_request_async('1.0', 'riskplus.umkt.rt.eventresult.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
     def import_umkt_scene_upload(
         self,
         request: riskplus_models.ImportUmktSceneUploadRequest,
@@ -14115,62 +13351,6 @@ class Client:
             await self.do_request_async('1.0', 'riskplus.umkt.scene.upload.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def batchquery_umkt_rt_tailmarketing(
-        self,
-        request: riskplus_models.BatchqueryUmktRtTailmarketingRequest,
-    ) -> riskplus_models.BatchqueryUmktRtTailmarketingResponse:
-        """
-        Description: 富信贴尾实时圈客
-        Summary: 富信贴尾实时圈客
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.batchquery_umkt_rt_tailmarketing_ex(request, headers, runtime)
-
-    async def batchquery_umkt_rt_tailmarketing_async(
-        self,
-        request: riskplus_models.BatchqueryUmktRtTailmarketingRequest,
-    ) -> riskplus_models.BatchqueryUmktRtTailmarketingResponse:
-        """
-        Description: 富信贴尾实时圈客
-        Summary: 富信贴尾实时圈客
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.batchquery_umkt_rt_tailmarketing_ex_async(request, headers, runtime)
-
-    def batchquery_umkt_rt_tailmarketing_ex(
-        self,
-        request: riskplus_models.BatchqueryUmktRtTailmarketingRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.BatchqueryUmktRtTailmarketingResponse:
-        """
-        Description: 富信贴尾实时圈客
-        Summary: 富信贴尾实时圈客
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.BatchqueryUmktRtTailmarketingResponse(),
-            self.do_request('1.0', 'riskplus.umkt.rt.tailmarketing.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def batchquery_umkt_rt_tailmarketing_ex_async(
-        self,
-        request: riskplus_models.BatchqueryUmktRtTailmarketingRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.BatchqueryUmktRtTailmarketingResponse:
-        """
-        Description: 富信贴尾实时圈客
-        Summary: 富信贴尾实时圈客
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.BatchqueryUmktRtTailmarketingResponse(),
-            await self.do_request_async('1.0', 'riskplus.umkt.rt.tailmarketing.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
     def query_umkt_scenestrategy_test(
         self,
         request: riskplus_models.QueryUmktScenestrategyTestRequest,
@@ -14225,6 +13405,118 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.QueryUmktScenestrategyTestResponse(),
             await self.do_request_async('1.0', 'riskplus.umkt.scenestrategy.test.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def sync_umkt_rt_eventresult(
+        self,
+        request: riskplus_models.SyncUmktRtEventresultRequest,
+    ) -> riskplus_models.SyncUmktRtEventresultResponse:
+        """
+        Description: 梦网富信投放事件通知
+        Summary: 梦网富信投放事件通知
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.sync_umkt_rt_eventresult_ex(request, headers, runtime)
+
+    async def sync_umkt_rt_eventresult_async(
+        self,
+        request: riskplus_models.SyncUmktRtEventresultRequest,
+    ) -> riskplus_models.SyncUmktRtEventresultResponse:
+        """
+        Description: 梦网富信投放事件通知
+        Summary: 梦网富信投放事件通知
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.sync_umkt_rt_eventresult_ex_async(request, headers, runtime)
+
+    def sync_umkt_rt_eventresult_ex(
+        self,
+        request: riskplus_models.SyncUmktRtEventresultRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.SyncUmktRtEventresultResponse:
+        """
+        Description: 梦网富信投放事件通知
+        Summary: 梦网富信投放事件通知
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.SyncUmktRtEventresultResponse(),
+            self.do_request('1.0', 'riskplus.umkt.rt.eventresult.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def sync_umkt_rt_eventresult_ex_async(
+        self,
+        request: riskplus_models.SyncUmktRtEventresultRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.SyncUmktRtEventresultResponse:
+        """
+        Description: 梦网富信投放事件通知
+        Summary: 梦网富信投放事件通知
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.SyncUmktRtEventresultResponse(),
+            await self.do_request_async('1.0', 'riskplus.umkt.rt.eventresult.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def batchquery_umkt_rt_tailmarketing(
+        self,
+        request: riskplus_models.BatchqueryUmktRtTailmarketingRequest,
+    ) -> riskplus_models.BatchqueryUmktRtTailmarketingResponse:
+        """
+        Description: 富信贴尾实时圈客
+        Summary: 富信贴尾实时圈客
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.batchquery_umkt_rt_tailmarketing_ex(request, headers, runtime)
+
+    async def batchquery_umkt_rt_tailmarketing_async(
+        self,
+        request: riskplus_models.BatchqueryUmktRtTailmarketingRequest,
+    ) -> riskplus_models.BatchqueryUmktRtTailmarketingResponse:
+        """
+        Description: 富信贴尾实时圈客
+        Summary: 富信贴尾实时圈客
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.batchquery_umkt_rt_tailmarketing_ex_async(request, headers, runtime)
+
+    def batchquery_umkt_rt_tailmarketing_ex(
+        self,
+        request: riskplus_models.BatchqueryUmktRtTailmarketingRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.BatchqueryUmktRtTailmarketingResponse:
+        """
+        Description: 富信贴尾实时圈客
+        Summary: 富信贴尾实时圈客
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.BatchqueryUmktRtTailmarketingResponse(),
+            self.do_request('1.0', 'riskplus.umkt.rt.tailmarketing.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def batchquery_umkt_rt_tailmarketing_ex_async(
+        self,
+        request: riskplus_models.BatchqueryUmktRtTailmarketingRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.BatchqueryUmktRtTailmarketingResponse:
+        """
+        Description: 富信贴尾实时圈客
+        Summary: 富信贴尾实时圈客
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.BatchqueryUmktRtTailmarketingResponse(),
+            await self.do_request_async('1.0', 'riskplus.umkt.rt.tailmarketing.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def apply_umkt_robotcall(
@@ -15575,116 +14867,60 @@ class Client:
             await self.do_request_async('1.0', 'riskplus.umkt.actionplan.detail.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def push_riskplus_umkt_commonbackflow(
+    def batchquery_umkt_task_detail(
         self,
-        request: riskplus_models.PushRiskplusUmktCommonbackflowRequest,
-    ) -> riskplus_models.PushRiskplusUmktCommonbackflowResponse:
+        request: riskplus_models.BatchqueryUmktTaskDetailRequest,
+    ) -> riskplus_models.BatchqueryUmktTaskDetailResponse:
         """
-        Description: 营销盾通用回流推送服务
-        Summary: 营销盾通用回流推送服务
+        Description: 触达执行任务详情查询
+        Summary: 触达执行任务详情查询
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.push_riskplus_umkt_commonbackflow_ex(request, headers, runtime)
+        return self.batchquery_umkt_task_detail_ex(request, headers, runtime)
 
-    async def push_riskplus_umkt_commonbackflow_async(
+    async def batchquery_umkt_task_detail_async(
         self,
-        request: riskplus_models.PushRiskplusUmktCommonbackflowRequest,
-    ) -> riskplus_models.PushRiskplusUmktCommonbackflowResponse:
+        request: riskplus_models.BatchqueryUmktTaskDetailRequest,
+    ) -> riskplus_models.BatchqueryUmktTaskDetailResponse:
         """
-        Description: 营销盾通用回流推送服务
-        Summary: 营销盾通用回流推送服务
+        Description: 触达执行任务详情查询
+        Summary: 触达执行任务详情查询
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.push_riskplus_umkt_commonbackflow_ex_async(request, headers, runtime)
+        return await self.batchquery_umkt_task_detail_ex_async(request, headers, runtime)
 
-    def push_riskplus_umkt_commonbackflow_ex(
+    def batchquery_umkt_task_detail_ex(
         self,
-        request: riskplus_models.PushRiskplusUmktCommonbackflowRequest,
+        request: riskplus_models.BatchqueryUmktTaskDetailRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.PushRiskplusUmktCommonbackflowResponse:
+    ) -> riskplus_models.BatchqueryUmktTaskDetailResponse:
         """
-        Description: 营销盾通用回流推送服务
-        Summary: 营销盾通用回流推送服务
+        Description: 触达执行任务详情查询
+        Summary: 触达执行任务详情查询
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            riskplus_models.PushRiskplusUmktCommonbackflowResponse(),
-            self.do_request('1.0', 'riskplus.riskplus.umkt.commonbackflow.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            riskplus_models.BatchqueryUmktTaskDetailResponse(),
+            self.do_request('1.0', 'riskplus.umkt.task.detail.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def push_riskplus_umkt_commonbackflow_ex_async(
+    async def batchquery_umkt_task_detail_ex_async(
         self,
-        request: riskplus_models.PushRiskplusUmktCommonbackflowRequest,
+        request: riskplus_models.BatchqueryUmktTaskDetailRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.PushRiskplusUmktCommonbackflowResponse:
+    ) -> riskplus_models.BatchqueryUmktTaskDetailResponse:
         """
-        Description: 营销盾通用回流推送服务
-        Summary: 营销盾通用回流推送服务
+        Description: 触达执行任务详情查询
+        Summary: 触达执行任务详情查询
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            riskplus_models.PushRiskplusUmktCommonbackflowResponse(),
-            await self.do_request_async('1.0', 'riskplus.riskplus.umkt.commonbackflow.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def push_umkt_common_data(
-        self,
-        request: riskplus_models.PushUmktCommonDataRequest,
-    ) -> riskplus_models.PushUmktCommonDataResponse:
-        """
-        Description: 营销盾通用数据推送服务
-        Summary: 营销盾通用数据推送服务
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.push_umkt_common_data_ex(request, headers, runtime)
-
-    async def push_umkt_common_data_async(
-        self,
-        request: riskplus_models.PushUmktCommonDataRequest,
-    ) -> riskplus_models.PushUmktCommonDataResponse:
-        """
-        Description: 营销盾通用数据推送服务
-        Summary: 营销盾通用数据推送服务
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.push_umkt_common_data_ex_async(request, headers, runtime)
-
-    def push_umkt_common_data_ex(
-        self,
-        request: riskplus_models.PushUmktCommonDataRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.PushUmktCommonDataResponse:
-        """
-        Description: 营销盾通用数据推送服务
-        Summary: 营销盾通用数据推送服务
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.PushUmktCommonDataResponse(),
-            self.do_request('1.0', 'riskplus.umkt.common.data.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def push_umkt_common_data_ex_async(
-        self,
-        request: riskplus_models.PushUmktCommonDataRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.PushUmktCommonDataResponse:
-        """
-        Description: 营销盾通用数据推送服务
-        Summary: 营销盾通用数据推送服务
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.PushUmktCommonDataResponse(),
-            await self.do_request_async('1.0', 'riskplus.umkt.common.data.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            riskplus_models.BatchqueryUmktTaskDetailResponse(),
+            await self.do_request_async('1.0', 'riskplus.umkt.task.detail.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def push_umkt_customer_group(
@@ -15741,62 +14977,6 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.PushUmktCustomerGroupResponse(),
             await self.do_request_async('1.0', 'riskplus.umkt.customer.group.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def batchquery_umkt_task_detail(
-        self,
-        request: riskplus_models.BatchqueryUmktTaskDetailRequest,
-    ) -> riskplus_models.BatchqueryUmktTaskDetailResponse:
-        """
-        Description: 触达执行任务详情查询
-        Summary: 触达执行任务详情查询
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.batchquery_umkt_task_detail_ex(request, headers, runtime)
-
-    async def batchquery_umkt_task_detail_async(
-        self,
-        request: riskplus_models.BatchqueryUmktTaskDetailRequest,
-    ) -> riskplus_models.BatchqueryUmktTaskDetailResponse:
-        """
-        Description: 触达执行任务详情查询
-        Summary: 触达执行任务详情查询
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.batchquery_umkt_task_detail_ex_async(request, headers, runtime)
-
-    def batchquery_umkt_task_detail_ex(
-        self,
-        request: riskplus_models.BatchqueryUmktTaskDetailRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.BatchqueryUmktTaskDetailResponse:
-        """
-        Description: 触达执行任务详情查询
-        Summary: 触达执行任务详情查询
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.BatchqueryUmktTaskDetailResponse(),
-            self.do_request('1.0', 'riskplus.umkt.task.detail.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def batchquery_umkt_task_detail_ex_async(
-        self,
-        request: riskplus_models.BatchqueryUmktTaskDetailRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.BatchqueryUmktTaskDetailResponse:
-        """
-        Description: 触达执行任务详情查询
-        Summary: 触达执行任务详情查询
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.BatchqueryUmktTaskDetailResponse(),
-            await self.do_request_async('1.0', 'riskplus.umkt.task.detail.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def push_umkt_backflow_jsondata(
@@ -16373,6 +15553,62 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.QueryUmktCampaignTaskResponse(),
             await self.do_request_async('1.0', 'riskplus.umkt.campaign.task.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def cancel_umkt_campaign(
+        self,
+        request: riskplus_models.CancelUmktCampaignRequest,
+    ) -> riskplus_models.CancelUmktCampaignResponse:
+        """
+        Description: ai圈投取消圈投任务接口
+        Summary: ai圈投取消圈投任务接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.cancel_umkt_campaign_ex(request, headers, runtime)
+
+    async def cancel_umkt_campaign_async(
+        self,
+        request: riskplus_models.CancelUmktCampaignRequest,
+    ) -> riskplus_models.CancelUmktCampaignResponse:
+        """
+        Description: ai圈投取消圈投任务接口
+        Summary: ai圈投取消圈投任务接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.cancel_umkt_campaign_ex_async(request, headers, runtime)
+
+    def cancel_umkt_campaign_ex(
+        self,
+        request: riskplus_models.CancelUmktCampaignRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.CancelUmktCampaignResponse:
+        """
+        Description: ai圈投取消圈投任务接口
+        Summary: ai圈投取消圈投任务接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.CancelUmktCampaignResponse(),
+            self.do_request('1.0', 'riskplus.umkt.campaign.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def cancel_umkt_campaign_ex_async(
+        self,
+        request: riskplus_models.CancelUmktCampaignRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.CancelUmktCampaignResponse:
+        """
+        Description: ai圈投取消圈投任务接口
+        Summary: ai圈投取消圈投任务接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.CancelUmktCampaignResponse(),
+            await self.do_request_async('1.0', 'riskplus.umkt.campaign.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
