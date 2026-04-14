@@ -137,7 +137,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.12.79"},
+                        {"sdk_version", "1.12.80"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.12.79"},
+                        {"sdk_version", "1.12.80"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -6631,6 +6631,48 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryElectrocarDeviceinfosResponse>(await DoRequestAsync("1.0", "blockchain.bot.electrocar.deviceinfos.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 二轮车批量控车接口
+         * Summary: 二轮车批量控车接口
+         */
+        public ExecElectrocarBatchpubResponse ExecElectrocarBatchpub(ExecElectrocarBatchpubRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ExecElectrocarBatchpubEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 二轮车批量控车接口
+         * Summary: 二轮车批量控车接口
+         */
+        public async Task<ExecElectrocarBatchpubResponse> ExecElectrocarBatchpubAsync(ExecElectrocarBatchpubRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ExecElectrocarBatchpubExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 二轮车批量控车接口
+         * Summary: 二轮车批量控车接口
+         */
+        public ExecElectrocarBatchpubResponse ExecElectrocarBatchpubEx(ExecElectrocarBatchpubRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecElectrocarBatchpubResponse>(DoRequest("1.0", "blockchain.bot.electrocar.batchpub.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 二轮车批量控车接口
+         * Summary: 二轮车批量控车接口
+         */
+        public async Task<ExecElectrocarBatchpubResponse> ExecElectrocarBatchpubExAsync(ExecElectrocarBatchpubRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecElectrocarBatchpubResponse>(await DoRequestAsync("1.0", "blockchain.bot.electrocar.batchpub.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
