@@ -6,7 +6,7 @@ namespace AntChain\RISKPLUS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ApplyDubbridgeEcloanResponse extends Model
+class CancelUmktCampaignResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -54,7 +54,7 @@ class ApplyDubbridgeEcloanResponse extends Model
     /**
      * @param array $map
      *
-     * @return ApplyDubbridgeEcloanResponse
+     * @return CancelUmktCampaignResponse
      */
     public static function fromMap($map = [])
     {

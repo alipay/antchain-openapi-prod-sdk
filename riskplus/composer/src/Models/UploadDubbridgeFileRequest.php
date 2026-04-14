@@ -57,12 +57,6 @@ class UploadDubbridgeFileRequest extends Model
      * @var string
      */
     public $fileId;
-
-    // 文件类型
-    /**
-     * @var string
-     */
-    public $fileType;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -70,7 +64,6 @@ class UploadDubbridgeFileRequest extends Model
         'channelCode'       => 'channel_code',
         'fileName'          => 'file_name',
         'fileId'            => 'file_id',
-        'fileType'          => 'file_type',
     ];
 
     public function validate()
@@ -79,7 +72,6 @@ class UploadDubbridgeFileRequest extends Model
         Model::validateRequired('channelCode', $this->channelCode, true);
         Model::validateRequired('fileName', $this->fileName, true);
         Model::validateRequired('fileId', $this->fileId, true);
-        Model::validateRequired('fileType', $this->fileType, true);
         Model::validateMaxLength('orderNo', $this->orderNo, 32);
     }
 
@@ -109,9 +101,6 @@ class UploadDubbridgeFileRequest extends Model
         }
         if (null !== $this->fileId) {
             $res['file_id'] = $this->fileId;
-        }
-        if (null !== $this->fileType) {
-            $res['file_type'] = $this->fileType;
         }
 
         return $res;
@@ -148,9 +137,6 @@ class UploadDubbridgeFileRequest extends Model
         }
         if (isset($map['file_id'])) {
             $model->fileId = $map['file_id'];
-        }
-        if (isset($map['file_type'])) {
-            $model->fileType = $map['file_type'];
         }
 
         return $model;

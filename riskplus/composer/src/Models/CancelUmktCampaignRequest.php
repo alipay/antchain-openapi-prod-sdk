@@ -6,7 +6,7 @@ namespace AntChain\RISKPLUS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class PushUmktCommonDataRequest extends Model
+class CancelUmktCampaignRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,28 +19,20 @@ class PushUmktCommonDataRequest extends Model
      */
     public $productInstanceId;
 
-    // 数据推送事件ID
-    /**
-     * @var int
-     */
-    public $eventId;
-
-    // 数据推送属性数据
+    // 任务唯一id
     /**
      * @var string
      */
-    public $properties;
+    public $taskUuid;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'eventId'           => 'event_id',
-        'properties'        => 'properties',
+        'taskUuid'          => 'task_uuid',
     ];
 
     public function validate()
     {
-        Model::validateRequired('eventId', $this->eventId, true);
-        Model::validateRequired('properties', $this->properties, true);
+        Model::validateRequired('taskUuid', $this->taskUuid, true);
     }
 
     public function toMap()
@@ -52,11 +44,8 @@ class PushUmktCommonDataRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->eventId) {
-            $res['event_id'] = $this->eventId;
-        }
-        if (null !== $this->properties) {
-            $res['properties'] = $this->properties;
+        if (null !== $this->taskUuid) {
+            $res['task_uuid'] = $this->taskUuid;
         }
 
         return $res;
@@ -65,7 +54,7 @@ class PushUmktCommonDataRequest extends Model
     /**
      * @param array $map
      *
-     * @return PushUmktCommonDataRequest
+     * @return CancelUmktCampaignRequest
      */
     public static function fromMap($map = [])
     {
@@ -76,11 +65,8 @@ class PushUmktCommonDataRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['event_id'])) {
-            $model->eventId = $map['event_id'];
-        }
-        if (isset($map['properties'])) {
-            $model->properties = $map['properties'];
+        if (isset($map['task_uuid'])) {
+            $model->taskUuid = $map['task_uuid'];
         }
 
         return $model;

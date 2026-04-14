@@ -17,10 +17,6 @@ use AntChain\RISKPLUS\Models\ApplyDubbridgeCreditRequest;
 use AntChain\RISKPLUS\Models\ApplyDubbridgeCreditResponse;
 use AntChain\RISKPLUS\Models\ApplyDubbridgeCustomerAgreementsignRequest;
 use AntChain\RISKPLUS\Models\ApplyDubbridgeCustomerAgreementsignResponse;
-use AntChain\RISKPLUS\Models\ApplyDubbridgeEccreditRequest;
-use AntChain\RISKPLUS\Models\ApplyDubbridgeEccreditResponse;
-use AntChain\RISKPLUS\Models\ApplyDubbridgeEcloanRequest;
-use AntChain\RISKPLUS\Models\ApplyDubbridgeEcloanResponse;
 use AntChain\RISKPLUS\Models\ApplyDubbridgeLoanLxRequest;
 use AntChain\RISKPLUS\Models\ApplyDubbridgeLoanLxResponse;
 use AntChain\RISKPLUS\Models\ApplyDubbridgeRepaywithholdLxRequest;
@@ -111,6 +107,8 @@ use AntChain\RISKPLUS\Models\CancelDubbridgeAlipayTradeRequest;
 use AntChain\RISKPLUS\Models\CancelDubbridgeAlipayTradeResponse;
 use AntChain\RISKPLUS\Models\CancelDubbridgeInstallmentOrderRequest;
 use AntChain\RISKPLUS\Models\CancelDubbridgeInstallmentOrderResponse;
+use AntChain\RISKPLUS\Models\CancelUmktCampaignRequest;
+use AntChain\RISKPLUS\Models\CancelUmktCampaignResponse;
 use AntChain\RISKPLUS\Models\CancelUmktDataaccessOfflinetaskRequest;
 use AntChain\RISKPLUS\Models\CancelUmktDataaccessOfflinetaskResponse;
 use AntChain\RISKPLUS\Models\CheckSecurityDataRequest;
@@ -121,8 +119,6 @@ use AntChain\RISKPLUS\Models\CloseDubbridgeAlipayTradeRequest;
 use AntChain\RISKPLUS\Models\CloseDubbridgeAlipayTradeResponse;
 use AntChain\RISKPLUS\Models\ConfirmSecurityPolicyRequest;
 use AntChain\RISKPLUS\Models\ConfirmSecurityPolicyResponse;
-use AntChain\RISKPLUS\Models\CountDubbridgeEcrepayTrialRequest;
-use AntChain\RISKPLUS\Models\CountDubbridgeEcrepayTrialResponse;
 use AntChain\RISKPLUS\Models\CountDubbridgeRepayReftrialRequest;
 use AntChain\RISKPLUS\Models\CountDubbridgeRepayReftrialResponse;
 use AntChain\RISKPLUS\Models\CountDubbridgeRepayTrialRequest;
@@ -147,8 +143,6 @@ use AntChain\RISKPLUS\Models\CreateRbbUserRequest;
 use AntChain\RISKPLUS\Models\CreateRbbUserResponse;
 use AntChain\RISKPLUS\Models\CreateRtopTokenRequest;
 use AntChain\RISKPLUS\Models\CreateRtopTokenResponse;
-use AntChain\RISKPLUS\Models\DetailDubbridgeEcloanRequest;
-use AntChain\RISKPLUS\Models\DetailDubbridgeEcloanResponse;
 use AntChain\RISKPLUS\Models\DownloadUmktOfflineCampaignRequest;
 use AntChain\RISKPLUS\Models\DownloadUmktOfflineCampaignResponse;
 use AntChain\RISKPLUS\Models\DownloadUmktOfflinedecisionResultRequest;
@@ -159,8 +153,6 @@ use AntChain\RISKPLUS\Models\ExecRtopGenericInvokeRequest;
 use AntChain\RISKPLUS\Models\ExecRtopGenericInvokeResponse;
 use AntChain\RISKPLUS\Models\ExecSecurityRiskdataserviceRequest;
 use AntChain\RISKPLUS\Models\ExecSecurityRiskdataserviceResponse;
-use AntChain\RISKPLUS\Models\FillDubbridgeEccreditRequest;
-use AntChain\RISKPLUS\Models\FillDubbridgeEccreditResponse;
 use AntChain\RISKPLUS\Models\FinishRbbRegdatasyncScheduleRequest;
 use AntChain\RISKPLUS\Models\FinishRbbRegdatasyncScheduleResponse;
 use AntChain\RISKPLUS\Models\GetRbbLoginTokenRequest;
@@ -201,8 +193,6 @@ use AntChain\RISKPLUS\Models\NotifyRdaasTaxCallbackRequest;
 use AntChain\RISKPLUS\Models\NotifyRdaasTaxCallbackResponse;
 use AntChain\RISKPLUS\Models\NotifyRpgwUserSignresultRequest;
 use AntChain\RISKPLUS\Models\NotifyRpgwUserSignresultResponse;
-use AntChain\RISKPLUS\Models\OperateRbbCreditRequest;
-use AntChain\RISKPLUS\Models\OperateRbbCreditResponse;
 use AntChain\RISKPLUS\Models\PullRegtechNewsRequest;
 use AntChain\RISKPLUS\Models\PullRegtechNewsResponse;
 use AntChain\RISKPLUS\Models\PushDubbridgeInstallmentSupplementRequest;
@@ -219,8 +209,6 @@ use AntChain\RISKPLUS\Models\PushRbbCustomerStatusRequest;
 use AntChain\RISKPLUS\Models\PushRbbCustomerStatusResponse;
 use AntChain\RISKPLUS\Models\PushRbbInvoiceChargeRequest;
 use AntChain\RISKPLUS\Models\PushRbbInvoiceChargeResponse;
-use AntChain\RISKPLUS\Models\PushRiskplusUmktCommonbackflowRequest;
-use AntChain\RISKPLUS\Models\PushRiskplusUmktCommonbackflowResponse;
 use AntChain\RISKPLUS\Models\PushRpaasReportAnswerRequest;
 use AntChain\RISKPLUS\Models\PushRpaasReportAnswerResponse;
 use AntChain\RISKPLUS\Models\PushTdiquickmsgBackflowEventRequest;
@@ -231,8 +219,6 @@ use AntChain\RISKPLUS\Models\PushUmktBackflowEventRequest;
 use AntChain\RISKPLUS\Models\PushUmktBackflowEventResponse;
 use AntChain\RISKPLUS\Models\PushUmktBackflowJsondataRequest;
 use AntChain\RISKPLUS\Models\PushUmktBackflowJsondataResponse;
-use AntChain\RISKPLUS\Models\PushUmktCommonDataRequest;
-use AntChain\RISKPLUS\Models\PushUmktCommonDataResponse;
 use AntChain\RISKPLUS\Models\PushUmktCustomerGroupRequest;
 use AntChain\RISKPLUS\Models\PushUmktCustomerGroupResponse;
 use AntChain\RISKPLUS\Models\QueryAirsaasSecurityPolicyRequest;
@@ -279,16 +265,6 @@ use AntChain\RISKPLUS\Models\QueryDubbridgeCustomerBankcardlistRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeCustomerBankcardlistResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeCustomerCommonagreementsignRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeCustomerCommonagreementsignResponse;
-use AntChain\RISKPLUS\Models\QueryDubbridgeEccreditQuotaRequest;
-use AntChain\RISKPLUS\Models\QueryDubbridgeEccreditQuotaResponse;
-use AntChain\RISKPLUS\Models\QueryDubbridgeEccreditRequest;
-use AntChain\RISKPLUS\Models\QueryDubbridgeEccreditResponse;
-use AntChain\RISKPLUS\Models\QueryDubbridgeEccreditSkipurlRequest;
-use AntChain\RISKPLUS\Models\QueryDubbridgeEccreditSkipurlResponse;
-use AntChain\RISKPLUS\Models\QueryDubbridgeEcloanRequest;
-use AntChain\RISKPLUS\Models\QueryDubbridgeEcloanResponse;
-use AntChain\RISKPLUS\Models\QueryDubbridgeEcrepayRequest;
-use AntChain\RISKPLUS\Models\QueryDubbridgeEcrepayResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeFundCreditamtRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeFundCreditamtResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeInstallmentCreditamtRequest;
@@ -491,8 +467,6 @@ use AntChain\RISKPLUS\Models\ReceiveMdipParamsRbbfileRequest;
 use AntChain\RISKPLUS\Models\ReceiveMdipParamsRbbfileResponse;
 use AntChain\RISKPLUS\Models\ReceiveRbbOverseacompanyProfileRequest;
 use AntChain\RISKPLUS\Models\ReceiveRbbOverseacompanyProfileResponse;
-use AntChain\RISKPLUS\Models\ReceiveRbbParamsFileRequest;
-use AntChain\RISKPLUS\Models\ReceiveRbbParamsFileResponse;
 use AntChain\RISKPLUS\Models\ReceiveRfcParamsFileRequest;
 use AntChain\RISKPLUS\Models\ReceiveRfcParamsFileResponse;
 use AntChain\RISKPLUS\Models\RefundDubbridgeAlipayTradeRequest;
@@ -690,7 +664,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // air引擎输出infoCode
+            // 企业风险等级分布统计
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -718,9 +692,9 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.31.6',
+                    'sdk_version'      => '1.31.10',
                     '_prod_code'       => 'RISKPLUS',
-                    '_prod_channel'    => 'undefined',
+                    '_prod_channel'    => 'default',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -1394,39 +1368,6 @@ class Client
     }
 
     /**
-     * Description: 天枢信贷业务系统线下测试环境测试接口
-     * Summary: 天枢信贷业务系统线下测试接口.
-     *
-     * @param QueryDubheTestRequest $request
-     *
-     * @return QueryDubheTestResponse
-     */
-    public function queryDubheTest($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->queryDubheTestEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 天枢信贷业务系统线下测试环境测试接口
-     * Summary: 天枢信贷业务系统线下测试接口.
-     *
-     * @param QueryDubheTestRequest $request
-     * @param string[]              $headers
-     * @param RuntimeOptions        $runtime
-     *
-     * @return QueryDubheTestResponse
-     */
-    public function queryDubheTestEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return QueryDubheTestResponse::fromMap($this->doRequest('1.0', 'riskplus.dubhe.test.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
      * Description: 通过客户三要素信息查询资金方代码(资金路由)
      * Summary: 天枢系统资金方代码(资金路由)查询.
      *
@@ -1955,6 +1896,39 @@ class Client
     }
 
     /**
+     * Description: 天枢信贷业务系统线下测试环境测试接口
+     * Summary: 天枢信贷业务系统线下测试接口.
+     *
+     * @param QueryDubheTestRequest $request
+     *
+     * @return QueryDubheTestResponse
+     */
+    public function queryDubheTest($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDubheTestEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 天枢信贷业务系统线下测试环境测试接口
+     * Summary: 天枢信贷业务系统线下测试接口.
+     *
+     * @param QueryDubheTestRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return QueryDubheTestResponse
+     */
+    public function queryDubheTestEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDubheTestResponse::fromMap($this->doRequest('1.0', 'riskplus.dubhe.test.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 天枢发送短信接口，适用于一个模板相同参数
      * Summary: 天枢发送短信接口.
      *
@@ -2084,157 +2058,6 @@ class Client
         Utils::validateModel($request);
 
         return ApplyDubbridgeCreditResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.credit.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 为流量方提供文件上传接口，用于申请件影像资料上传
-     * Summary: 天枢文件上传.
-     *
-     * @param UploadDubbridgeFileRequest $request
-     *
-     * @return UploadDubbridgeFileResponse
-     */
-    public function uploadDubbridgeFile($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->uploadDubbridgeFileEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 为流量方提供文件上传接口，用于申请件影像资料上传
-     * Summary: 天枢文件上传.
-     *
-     * @param UploadDubbridgeFileRequest $request
-     * @param string[]                   $headers
-     * @param RuntimeOptions             $runtime
-     *
-     * @return UploadDubbridgeFileResponse
-     */
-    public function uploadDubbridgeFileEx($request, $headers, $runtime)
-    {
-        if (!Utils::isUnset($request->fileObject)) {
-            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
-                'authToken' => $request->authToken,
-                'apiCode'   => 'riskplus.dubbridge.file.upload',
-                'fileName'  => $request->fileObjectName,
-            ]);
-            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
-            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
-                return new UploadDubbridgeFileResponse([
-                    'reqMsgId'   => $uploadResp->reqMsgId,
-                    'resultCode' => $uploadResp->resultCode,
-                    'resultMsg'  => $uploadResp->resultMsg,
-                ]);
-            }
-            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
-            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
-            $request->fileId     = $uploadResp->fileId;
-            $request->fileObject = null;
-        }
-        Utils::validateModel($request);
-
-        return UploadDubbridgeFileResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.file.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 代扣签约绑卡接口
-     * Summary: 代扣协议签约申请(银行卡绑卡).
-     *
-     * @param BindDubbridgeCustomerBankcardRequest $request
-     *
-     * @return BindDubbridgeCustomerBankcardResponse
-     */
-    public function bindDubbridgeCustomerBankcard($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->bindDubbridgeCustomerBankcardEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 代扣签约绑卡接口
-     * Summary: 代扣协议签约申请(银行卡绑卡).
-     *
-     * @param BindDubbridgeCustomerBankcardRequest $request
-     * @param string[]                             $headers
-     * @param RuntimeOptions                       $runtime
-     *
-     * @return BindDubbridgeCustomerBankcardResponse
-     */
-    public function bindDubbridgeCustomerBankcardEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return BindDubbridgeCustomerBankcardResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.customer.bankcard.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 代扣协议签约提交(银行卡绑卡)
-     * Summary: 代扣协议签约校验(银行卡绑卡).
-     *
-     * @param VerifyDubbridgeCustomerBankcardRequest $request
-     *
-     * @return VerifyDubbridgeCustomerBankcardResponse
-     */
-    public function verifyDubbridgeCustomerBankcard($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->verifyDubbridgeCustomerBankcardEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 代扣协议签约提交(银行卡绑卡)
-     * Summary: 代扣协议签约校验(银行卡绑卡).
-     *
-     * @param VerifyDubbridgeCustomerBankcardRequest $request
-     * @param string[]                               $headers
-     * @param RuntimeOptions                         $runtime
-     *
-     * @return VerifyDubbridgeCustomerBankcardResponse
-     */
-    public function verifyDubbridgeCustomerBankcardEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return VerifyDubbridgeCustomerBankcardResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.customer.bankcard.verify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 用于机构通道通用回调
-     * Summary: 机构通道回调通用接口.
-     *
-     * @param NotifyDubbridgeDefininnerchannelRequest $request
-     *
-     * @return NotifyDubbridgeDefininnerchannelResponse
-     */
-    public function notifyDubbridgeDefininnerchannel($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->notifyDubbridgeDefininnerchannelEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 用于机构通道通用回调
-     * Summary: 机构通道回调通用接口.
-     *
-     * @param NotifyDubbridgeDefininnerchannelRequest $request
-     * @param string[]                                $headers
-     * @param RuntimeOptions                          $runtime
-     *
-     * @return NotifyDubbridgeDefininnerchannelResponse
-     */
-    public function notifyDubbridgeDefininnerchannelEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return NotifyDubbridgeDefininnerchannelResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.defininnerchannel.notify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -2403,6 +2226,58 @@ class Client
     }
 
     /**
+     * Description: 为流量方提供文件上传接口，用于申请件影像资料上传
+     * Summary: 天枢文件上传.
+     *
+     * @param UploadDubbridgeFileRequest $request
+     *
+     * @return UploadDubbridgeFileResponse
+     */
+    public function uploadDubbridgeFile($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->uploadDubbridgeFileEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 为流量方提供文件上传接口，用于申请件影像资料上传
+     * Summary: 天枢文件上传.
+     *
+     * @param UploadDubbridgeFileRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return UploadDubbridgeFileResponse
+     */
+    public function uploadDubbridgeFileEx($request, $headers, $runtime)
+    {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'riskplus.dubbridge.file.upload',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
+                return new UploadDubbridgeFileResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
+        }
+        Utils::validateModel($request);
+
+        return UploadDubbridgeFileResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.file.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 天枢系统协议签约申请(支付宝）
      * Summary: 天枢系统协议签约申请(支付宝).
      *
@@ -2532,6 +2407,39 @@ class Client
         Utils::validateModel($request);
 
         return UpdateDubbridgeAccountCustomResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.account.custom.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 天枢系统是否结清
+     * Summary: 天枢系统借款是否结清.
+     *
+     * @param QueryDubbridgeReceiptStatusRequest $request
+     *
+     * @return QueryDubbridgeReceiptStatusResponse
+     */
+    public function queryDubbridgeReceiptStatus($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDubbridgeReceiptStatusEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 天枢系统是否结清
+     * Summary: 天枢系统借款是否结清.
+     *
+     * @param QueryDubbridgeReceiptStatusRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return QueryDubbridgeReceiptStatusResponse
+     */
+    public function queryDubbridgeReceiptStatusEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDubbridgeReceiptStatusResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.receipt.status.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -2931,36 +2839,102 @@ class Client
     }
 
     /**
-     * Description: 天枢系统是否结清
-     * Summary: 天枢系统借款是否结清.
+     * Description: 代扣签约绑卡接口
+     * Summary: 代扣协议签约申请(银行卡绑卡).
      *
-     * @param QueryDubbridgeReceiptStatusRequest $request
+     * @param BindDubbridgeCustomerBankcardRequest $request
      *
-     * @return QueryDubbridgeReceiptStatusResponse
+     * @return BindDubbridgeCustomerBankcardResponse
      */
-    public function queryDubbridgeReceiptStatus($request)
+    public function bindDubbridgeCustomerBankcard($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->queryDubbridgeReceiptStatusEx($request, $headers, $runtime);
+        return $this->bindDubbridgeCustomerBankcardEx($request, $headers, $runtime);
     }
 
     /**
-     * Description: 天枢系统是否结清
-     * Summary: 天枢系统借款是否结清.
+     * Description: 代扣签约绑卡接口
+     * Summary: 代扣协议签约申请(银行卡绑卡).
      *
-     * @param QueryDubbridgeReceiptStatusRequest $request
-     * @param string[]                           $headers
-     * @param RuntimeOptions                     $runtime
+     * @param BindDubbridgeCustomerBankcardRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
      *
-     * @return QueryDubbridgeReceiptStatusResponse
+     * @return BindDubbridgeCustomerBankcardResponse
      */
-    public function queryDubbridgeReceiptStatusEx($request, $headers, $runtime)
+    public function bindDubbridgeCustomerBankcardEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return QueryDubbridgeReceiptStatusResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.receipt.status.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return BindDubbridgeCustomerBankcardResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.customer.bankcard.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 代扣协议签约提交(银行卡绑卡)
+     * Summary: 代扣协议签约校验(银行卡绑卡).
+     *
+     * @param VerifyDubbridgeCustomerBankcardRequest $request
+     *
+     * @return VerifyDubbridgeCustomerBankcardResponse
+     */
+    public function verifyDubbridgeCustomerBankcard($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->verifyDubbridgeCustomerBankcardEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 代扣协议签约提交(银行卡绑卡)
+     * Summary: 代扣协议签约校验(银行卡绑卡).
+     *
+     * @param VerifyDubbridgeCustomerBankcardRequest $request
+     * @param string[]                               $headers
+     * @param RuntimeOptions                         $runtime
+     *
+     * @return VerifyDubbridgeCustomerBankcardResponse
+     */
+    public function verifyDubbridgeCustomerBankcardEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return VerifyDubbridgeCustomerBankcardResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.customer.bankcard.verify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用于机构通道通用回调
+     * Summary: 机构通道回调通用接口.
+     *
+     * @param NotifyDubbridgeDefininnerchannelRequest $request
+     *
+     * @return NotifyDubbridgeDefininnerchannelResponse
+     */
+    public function notifyDubbridgeDefininnerchannel($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->notifyDubbridgeDefininnerchannelEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用于机构通道通用回调
+     * Summary: 机构通道回调通用接口.
+     *
+     * @param NotifyDubbridgeDefininnerchannelRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return NotifyDubbridgeDefininnerchannelResponse
+     */
+    public function notifyDubbridgeDefininnerchannelEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return NotifyDubbridgeDefininnerchannelResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.defininnerchannel.notify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -3195,39 +3169,6 @@ class Client
     }
 
     /**
-     * Description: 支付签约查询(用户绑定银行卡列表)
-     * Summary: 支付签约查询(用户绑定银行卡列表).
-     *
-     * @param QueryDubbridgeCustomerBankcardlistRequest $request
-     *
-     * @return QueryDubbridgeCustomerBankcardlistResponse
-     */
-    public function queryDubbridgeCustomerBankcardlist($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->queryDubbridgeCustomerBankcardlistEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 支付签约查询(用户绑定银行卡列表)
-     * Summary: 支付签约查询(用户绑定银行卡列表).
-     *
-     * @param QueryDubbridgeCustomerBankcardlistRequest $request
-     * @param string[]                                  $headers
-     * @param RuntimeOptions                            $runtime
-     *
-     * @return QueryDubbridgeCustomerBankcardlistResponse
-     */
-    public function queryDubbridgeCustomerBankcardlistEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return QueryDubbridgeCustomerBankcardlistResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.customer.bankcardlist.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
      * Description: 天枢系统用户前筛查询
      * Summary: 天枢系统用户前筛查询.
      *
@@ -3324,6 +3265,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryDubbridgeAgreementPreviewResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.agreement.preview.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 支付签约查询(用户绑定银行卡列表)
+     * Summary: 支付签约查询(用户绑定银行卡列表).
+     *
+     * @param QueryDubbridgeCustomerBankcardlistRequest $request
+     *
+     * @return QueryDubbridgeCustomerBankcardlistResponse
+     */
+    public function queryDubbridgeCustomerBankcardlist($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDubbridgeCustomerBankcardlistEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 支付签约查询(用户绑定银行卡列表)
+     * Summary: 支付签约查询(用户绑定银行卡列表).
+     *
+     * @param QueryDubbridgeCustomerBankcardlistRequest $request
+     * @param string[]                                  $headers
+     * @param RuntimeOptions                            $runtime
+     *
+     * @return QueryDubbridgeCustomerBankcardlistResponse
+     */
+    public function queryDubbridgeCustomerBankcardlistEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDubbridgeCustomerBankcardlistResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.customer.bankcardlist.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -3921,39 +3895,6 @@ class Client
     }
 
     /**
-     * Description: 天枢-商户结算信息修改
-     * Summary: 天枢-商户结算信息修改.
-     *
-     * @param SettlementmodifyDubbridgeAlipayMerchantRequest $request
-     *
-     * @return SettlementmodifyDubbridgeAlipayMerchantResponse
-     */
-    public function settlementmodifyDubbridgeAlipayMerchant($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->settlementmodifyDubbridgeAlipayMerchantEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 天枢-商户结算信息修改
-     * Summary: 天枢-商户结算信息修改.
-     *
-     * @param SettlementmodifyDubbridgeAlipayMerchantRequest $request
-     * @param string[]                                       $headers
-     * @param RuntimeOptions                                 $runtime
-     *
-     * @return SettlementmodifyDubbridgeAlipayMerchantResponse
-     */
-    public function settlementmodifyDubbridgeAlipayMerchantEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return SettlementmodifyDubbridgeAlipayMerchantResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.alipay.merchant.settlementmodify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
      * Description: 撞库查询机构侧最高可用额度
      * Summary: 机构侧最高可用额度查询接口.
      *
@@ -3984,6 +3925,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryDubbridgeFundCreditamtResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.fund.creditamt.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 天枢-商户结算信息修改
+     * Summary: 天枢-商户结算信息修改.
+     *
+     * @param SettlementmodifyDubbridgeAlipayMerchantRequest $request
+     *
+     * @return SettlementmodifyDubbridgeAlipayMerchantResponse
+     */
+    public function settlementmodifyDubbridgeAlipayMerchant($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->settlementmodifyDubbridgeAlipayMerchantEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 天枢-商户结算信息修改
+     * Summary: 天枢-商户结算信息修改.
+     *
+     * @param SettlementmodifyDubbridgeAlipayMerchantRequest $request
+     * @param string[]                                       $headers
+     * @param RuntimeOptions                                 $runtime
+     *
+     * @return SettlementmodifyDubbridgeAlipayMerchantResponse
+     */
+    public function settlementmodifyDubbridgeAlipayMerchantEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SettlementmodifyDubbridgeAlipayMerchantResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.alipay.merchant.settlementmodify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -4416,336 +4390,6 @@ class Client
     }
 
     /**
-     * Description: 天枢电商场景下授信申请接口
-     * Summary: 天枢电商场景下授信申请接口.
-     *
-     * @param ApplyDubbridgeEccreditRequest $request
-     *
-     * @return ApplyDubbridgeEccreditResponse
-     */
-    public function applyDubbridgeEccredit($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->applyDubbridgeEccreditEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 天枢电商场景下授信申请接口
-     * Summary: 天枢电商场景下授信申请接口.
-     *
-     * @param ApplyDubbridgeEccreditRequest $request
-     * @param string[]                      $headers
-     * @param RuntimeOptions                $runtime
-     *
-     * @return ApplyDubbridgeEccreditResponse
-     */
-    public function applyDubbridgeEccreditEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return ApplyDubbridgeEccreditResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.eccredit.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 天枢电商场景支用申请
-     * Summary: 天枢电商场景支用申请.
-     *
-     * @param ApplyDubbridgeEcloanRequest $request
-     *
-     * @return ApplyDubbridgeEcloanResponse
-     */
-    public function applyDubbridgeEcloan($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->applyDubbridgeEcloanEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 天枢电商场景支用申请
-     * Summary: 天枢电商场景支用申请.
-     *
-     * @param ApplyDubbridgeEcloanRequest $request
-     * @param string[]                    $headers
-     * @param RuntimeOptions              $runtime
-     *
-     * @return ApplyDubbridgeEcloanResponse
-     */
-    public function applyDubbridgeEcloanEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return ApplyDubbridgeEcloanResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.ecloan.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 支用前查询授信额度
-     * Summary: 支用前查询授信额度.
-     *
-     * @param QueryDubbridgeEccreditQuotaRequest $request
-     *
-     * @return QueryDubbridgeEccreditQuotaResponse
-     */
-    public function queryDubbridgeEccreditQuota($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->queryDubbridgeEccreditQuotaEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 支用前查询授信额度
-     * Summary: 支用前查询授信额度.
-     *
-     * @param QueryDubbridgeEccreditQuotaRequest $request
-     * @param string[]                           $headers
-     * @param RuntimeOptions                     $runtime
-     *
-     * @return QueryDubbridgeEccreditQuotaResponse
-     */
-    public function queryDubbridgeEccreditQuotaEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return QueryDubbridgeEccreditQuotaResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.eccredit.quota.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 支用结果查询接口
-     * Summary: 支用结果查询接口.
-     *
-     * @param QueryDubbridgeEcloanRequest $request
-     *
-     * @return QueryDubbridgeEcloanResponse
-     */
-    public function queryDubbridgeEcloan($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->queryDubbridgeEcloanEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 支用结果查询接口
-     * Summary: 支用结果查询接口.
-     *
-     * @param QueryDubbridgeEcloanRequest $request
-     * @param string[]                    $headers
-     * @param RuntimeOptions              $runtime
-     *
-     * @return QueryDubbridgeEcloanResponse
-     */
-    public function queryDubbridgeEcloanEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return QueryDubbridgeEcloanResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.ecloan.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 支用后，还款前试算
-     * Summary: 支用后，还款前试算.
-     *
-     * @param CountDubbridgeEcrepayTrialRequest $request
-     *
-     * @return CountDubbridgeEcrepayTrialResponse
-     */
-    public function countDubbridgeEcrepayTrial($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->countDubbridgeEcrepayTrialEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 支用后，还款前试算
-     * Summary: 支用后，还款前试算.
-     *
-     * @param CountDubbridgeEcrepayTrialRequest $request
-     * @param string[]                          $headers
-     * @param RuntimeOptions                    $runtime
-     *
-     * @return CountDubbridgeEcrepayTrialResponse
-     */
-    public function countDubbridgeEcrepayTrialEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return CountDubbridgeEcrepayTrialResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.ecrepay.trial.count', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 支用后 查询还款明细
-     * Summary: 支用后 查询还款明细.
-     *
-     * @param QueryDubbridgeEcrepayRequest $request
-     *
-     * @return QueryDubbridgeEcrepayResponse
-     */
-    public function queryDubbridgeEcrepay($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->queryDubbridgeEcrepayEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 支用后 查询还款明细
-     * Summary: 支用后 查询还款明细.
-     *
-     * @param QueryDubbridgeEcrepayRequest $request
-     * @param string[]                     $headers
-     * @param RuntimeOptions               $runtime
-     *
-     * @return QueryDubbridgeEcrepayResponse
-     */
-    public function queryDubbridgeEcrepayEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return QueryDubbridgeEcrepayResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.ecrepay.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 支用后 查询借据
-     * Summary: 支用后 查询借据.
-     *
-     * @param DetailDubbridgeEcloanRequest $request
-     *
-     * @return DetailDubbridgeEcloanResponse
-     */
-    public function detailDubbridgeEcloan($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->detailDubbridgeEcloanEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 支用后 查询借据
-     * Summary: 支用后 查询借据.
-     *
-     * @param DetailDubbridgeEcloanRequest $request
-     * @param string[]                     $headers
-     * @param RuntimeOptions               $runtime
-     *
-     * @return DetailDubbridgeEcloanResponse
-     */
-    public function detailDubbridgeEcloanEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return DetailDubbridgeEcloanResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.ecloan.detail', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 授信结果查询
-     * Summary: 授信结果查询.
-     *
-     * @param QueryDubbridgeEccreditRequest $request
-     *
-     * @return QueryDubbridgeEccreditResponse
-     */
-    public function queryDubbridgeEccredit($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->queryDubbridgeEccreditEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 授信结果查询
-     * Summary: 授信结果查询.
-     *
-     * @param QueryDubbridgeEccreditRequest $request
-     * @param string[]                      $headers
-     * @param RuntimeOptions                $runtime
-     *
-     * @return QueryDubbridgeEccreditResponse
-     */
-    public function queryDubbridgeEccreditEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return QueryDubbridgeEccreditResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.eccredit.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 补充授信申请风险数据
-     * Summary: 补充授信申请风险数据.
-     *
-     * @param FillDubbridgeEccreditRequest $request
-     *
-     * @return FillDubbridgeEccreditResponse
-     */
-    public function fillDubbridgeEccredit($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->fillDubbridgeEccreditEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 补充授信申请风险数据
-     * Summary: 补充授信申请风险数据.
-     *
-     * @param FillDubbridgeEccreditRequest $request
-     * @param string[]                     $headers
-     * @param RuntimeOptions               $runtime
-     *
-     * @return FillDubbridgeEccreditResponse
-     */
-    public function fillDubbridgeEccreditEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return FillDubbridgeEccreditResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.eccredit.fill', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 获取链接接口
-     * Summary: 获取链接接口.
-     *
-     * @param QueryDubbridgeEccreditSkipurlRequest $request
-     *
-     * @return QueryDubbridgeEccreditSkipurlResponse
-     */
-    public function queryDubbridgeEccreditSkipurl($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->queryDubbridgeEccreditSkipurlEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 获取链接接口
-     * Summary: 获取链接接口.
-     *
-     * @param QueryDubbridgeEccreditSkipurlRequest $request
-     * @param string[]                             $headers
-     * @param RuntimeOptions                       $runtime
-     *
-     * @return QueryDubbridgeEccreditSkipurlResponse
-     */
-    public function queryDubbridgeEccreditSkipurlEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return QueryDubbridgeEccreditSkipurlResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.eccredit.skipurl.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
      * Description: 四要素认证首先调用此接口
      * Summary: 芝麻四要素接口.
      *
@@ -4949,39 +4593,6 @@ class Client
     }
 
     /**
-     * Description: 多源平台审批回调接口
-     * Summary: 多源平台审批回调接口.
-     *
-     * @param CallbackMdipAuditRequest $request
-     *
-     * @return CallbackMdipAuditResponse
-     */
-    public function callbackMdipAudit($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->callbackMdipAuditEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 多源平台审批回调接口
-     * Summary: 多源平台审批回调接口.
-     *
-     * @param CallbackMdipAuditRequest $request
-     * @param string[]                 $headers
-     * @param RuntimeOptions           $runtime
-     *
-     * @return CallbackMdipAuditResponse
-     */
-    public function callbackMdipAuditEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return CallbackMdipAuditResponse::fromMap($this->doRequest('1.0', 'riskplus.mdip.audit.callback', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
      * Description: 该接口仅限于POC场景下使用， 关键时期会执行限流操作，并且不会通知到上游依赖服务。
      * Summary: 多源融合平台的POC数据服务查询接口.
      *
@@ -5012,6 +4623,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryMdipDataservicePocResponse::fromMap($this->doRequest('1.0', 'riskplus.mdip.dataservice.poc.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 多源平台审批回调接口
+     * Summary: 多源平台审批回调接口.
+     *
+     * @param CallbackMdipAuditRequest $request
+     *
+     * @return CallbackMdipAuditResponse
+     */
+    public function callbackMdipAudit($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->callbackMdipAuditEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 多源平台审批回调接口
+     * Summary: 多源平台审批回调接口.
+     *
+     * @param CallbackMdipAuditRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return CallbackMdipAuditResponse
+     */
+    public function callbackMdipAuditEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CallbackMdipAuditResponse::fromMap($this->doRequest('1.0', 'riskplus.mdip.audit.callback', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -5279,6 +4923,39 @@ class Client
     }
 
     /**
+     * Description: 外呼任务统计查询接口
+     * Summary:  外呼任务统计查询接口.
+     *
+     * @param QueryQmpRobotcallStatisticinfoRequest $request
+     *
+     * @return QueryQmpRobotcallStatisticinfoResponse
+     */
+    public function queryQmpRobotcallStatisticinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryQmpRobotcallStatisticinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 外呼任务统计查询接口
+     * Summary:  外呼任务统计查询接口.
+     *
+     * @param QueryQmpRobotcallStatisticinfoRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return QueryQmpRobotcallStatisticinfoResponse
+     */
+    public function queryQmpRobotcallStatisticinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryQmpRobotcallStatisticinfoResponse::fromMap($this->doRequest('1.0', 'riskplus.qmp.robotcall.statisticinfo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 数字短信批量发送接口（单模板）
      * Summary: 数字短信批量发送接口（单模板）.
      *
@@ -5408,39 +5085,6 @@ class Client
         Utils::validateModel($request);
 
         return QueryQmpDataaccessStatisticResponse::fromMap($this->doRequest('1.0', 'riskplus.qmp.dataaccess.statistic.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 外呼任务统计查询接口
-     * Summary:  外呼任务统计查询接口.
-     *
-     * @param QueryQmpRobotcallStatisticinfoRequest $request
-     *
-     * @return QueryQmpRobotcallStatisticinfoResponse
-     */
-    public function queryQmpRobotcallStatisticinfo($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->queryQmpRobotcallStatisticinfoEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 外呼任务统计查询接口
-     * Summary:  外呼任务统计查询接口.
-     *
-     * @param QueryQmpRobotcallStatisticinfoRequest $request
-     * @param string[]                              $headers
-     * @param RuntimeOptions                        $runtime
-     *
-     * @return QueryQmpRobotcallStatisticinfoResponse
-     */
-    public function queryQmpRobotcallStatisticinfoEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return QueryQmpRobotcallStatisticinfoResponse::fromMap($this->doRequest('1.0', 'riskplus.qmp.robotcall.statisticinfo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -5709,7 +5353,7 @@ class Client
 
     /**
      * Description: 蚁盾业务回流事件推送
-     * Summary: 蚁盾业务回流事件推送
+     * Summary: 蚁盾回流事件推送
      *
      * @param PushQmpBackflowEventRequest $request
      *
@@ -5725,7 +5369,7 @@ class Client
 
     /**
      * Description: 蚁盾业务回流事件推送
-     * Summary: 蚁盾业务回流事件推送
+     * Summary: 蚁盾回流事件推送
      *
      * @param PushQmpBackflowEventRequest $request
      * @param string[]                    $headers
@@ -6345,105 +5989,6 @@ class Client
     }
 
     /**
-     * Description: 风险大脑企业版通用查询接口
-     * Summary: 【已废弃】.
-     *
-     * @param QueryRbbGenericInvokeRequest $request
-     *
-     * @return QueryRbbGenericInvokeResponse
-     */
-    public function queryRbbGenericInvoke($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->queryRbbGenericInvokeEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 风险大脑企业版通用查询接口
-     * Summary: 【已废弃】.
-     *
-     * @param QueryRbbGenericInvokeRequest $request
-     * @param string[]                     $headers
-     * @param RuntimeOptions               $runtime
-     *
-     * @return QueryRbbGenericInvokeResponse
-     */
-    public function queryRbbGenericInvokeEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return QueryRbbGenericInvokeResponse::fromMap($this->doRequest('1.0', 'riskplus.rbb.generic.invoke.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 风险大脑企业版token生成
-     * Summary: 【已废弃】.
-     *
-     * @param CreateRbbTokenRequest $request
-     *
-     * @return CreateRbbTokenResponse
-     */
-    public function createRbbToken($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->createRbbTokenEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 风险大脑企业版token生成
-     * Summary: 【已废弃】.
-     *
-     * @param CreateRbbTokenRequest $request
-     * @param string[]              $headers
-     * @param RuntimeOptions        $runtime
-     *
-     * @return CreateRbbTokenResponse
-     */
-    public function createRbbTokenEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return CreateRbbTokenResponse::fromMap($this->doRequest('1.0', 'riskplus.rbb.token.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 获取风险大脑企业版登录token
-     * Summary: 【已废弃】.
-     *
-     * @param CreateRbbApiGwtokenRequest $request
-     *
-     * @return CreateRbbApiGwtokenResponse
-     */
-    public function createRbbApiGwtoken($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->createRbbApiGwtokenEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 获取风险大脑企业版登录token
-     * Summary: 【已废弃】.
-     *
-     * @param CreateRbbApiGwtokenRequest $request
-     * @param string[]                   $headers
-     * @param RuntimeOptions             $runtime
-     *
-     * @return CreateRbbApiGwtokenResponse
-     */
-    public function createRbbApiGwtokenEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return CreateRbbApiGwtokenResponse::fromMap($this->doRequest('1.0', 'riskplus.rbb.api.gwtoken.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
      * Description: 风险大脑企业版通用查询OpenAPI
      * Summary: 风险大脑企业版通用查询OpenAPI.
      *
@@ -6774,6 +6319,39 @@ class Client
     }
 
     /**
+     * Description: 企业风控给上交所鹰眼使用的zsearch查询
+     * Summary: 企业风控给鹰眼使用的zsearch查询.
+     *
+     * @param QueryRbbObtsZsearchRequest $request
+     *
+     * @return QueryRbbObtsZsearchResponse
+     */
+    public function queryRbbObtsZsearch($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryRbbObtsZsearchEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 企业风控给上交所鹰眼使用的zsearch查询
+     * Summary: 企业风控给鹰眼使用的zsearch查询.
+     *
+     * @param QueryRbbObtsZsearchRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return QueryRbbObtsZsearchResponse
+     */
+    public function queryRbbObtsZsearchEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryRbbObtsZsearchResponse::fromMap($this->doRequest('1.0', 'riskplus.rbb.obts.zsearch.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 提交准入规则的执行请求
      * Summary: 企业准入申请.
      *
@@ -6837,39 +6415,6 @@ class Client
         Utils::validateModel($request);
 
         return QueryRbbCompanyGuardResponse::fromMap($this->doRequest('1.0', 'riskplus.rbb.company.guard.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 企业风控给上交所鹰眼使用的zsearch查询
-     * Summary: 企业风控给鹰眼使用的zsearch查询.
-     *
-     * @param QueryRbbObtsZsearchRequest $request
-     *
-     * @return QueryRbbObtsZsearchResponse
-     */
-    public function queryRbbObtsZsearch($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->queryRbbObtsZsearchEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 企业风控给上交所鹰眼使用的zsearch查询
-     * Summary: 企业风控给鹰眼使用的zsearch查询.
-     *
-     * @param QueryRbbObtsZsearchRequest $request
-     * @param string[]                   $headers
-     * @param RuntimeOptions             $runtime
-     *
-     * @return QueryRbbObtsZsearchResponse
-     */
-    public function queryRbbObtsZsearchEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return QueryRbbObtsZsearchResponse::fromMap($this->doRequest('1.0', 'riskplus.rbb.obts.zsearch.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -6958,36 +6503,102 @@ class Client
     }
 
     /**
-     * Description: 信贷操作接口
-     * Summary: 信贷操作接口.
+     * Description: 风险大脑企业版通用查询接口
+     * Summary: 【已废弃】.
      *
-     * @param OperateRbbCreditRequest $request
+     * @param QueryRbbGenericInvokeRequest $request
      *
-     * @return OperateRbbCreditResponse
+     * @return QueryRbbGenericInvokeResponse
      */
-    public function operateRbbCredit($request)
+    public function queryRbbGenericInvoke($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->operateRbbCreditEx($request, $headers, $runtime);
+        return $this->queryRbbGenericInvokeEx($request, $headers, $runtime);
     }
 
     /**
-     * Description: 信贷操作接口
-     * Summary: 信贷操作接口.
+     * Description: 风险大脑企业版通用查询接口
+     * Summary: 【已废弃】.
      *
-     * @param OperateRbbCreditRequest $request
-     * @param string[]                $headers
-     * @param RuntimeOptions          $runtime
+     * @param QueryRbbGenericInvokeRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
      *
-     * @return OperateRbbCreditResponse
+     * @return QueryRbbGenericInvokeResponse
      */
-    public function operateRbbCreditEx($request, $headers, $runtime)
+    public function queryRbbGenericInvokeEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return OperateRbbCreditResponse::fromMap($this->doRequest('1.0', 'riskplus.rbb.credit.operate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return QueryRbbGenericInvokeResponse::fromMap($this->doRequest('1.0', 'riskplus.rbb.generic.invoke.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 风险大脑企业版token生成
+     * Summary: 【已废弃】.
+     *
+     * @param CreateRbbTokenRequest $request
+     *
+     * @return CreateRbbTokenResponse
+     */
+    public function createRbbToken($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createRbbTokenEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 风险大脑企业版token生成
+     * Summary: 【已废弃】.
+     *
+     * @param CreateRbbTokenRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return CreateRbbTokenResponse
+     */
+    public function createRbbTokenEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateRbbTokenResponse::fromMap($this->doRequest('1.0', 'riskplus.rbb.token.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取风险大脑企业版登录token
+     * Summary: 【已废弃】.
+     *
+     * @param CreateRbbApiGwtokenRequest $request
+     *
+     * @return CreateRbbApiGwtokenResponse
+     */
+    public function createRbbApiGwtoken($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createRbbApiGwtokenEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取风险大脑企业版登录token
+     * Summary: 【已废弃】.
+     *
+     * @param CreateRbbApiGwtokenRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return CreateRbbApiGwtokenResponse
+     */
+    public function createRbbApiGwtokenEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateRbbApiGwtokenResponse::fromMap($this->doRequest('1.0', 'riskplus.rbb.api.gwtoken.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -7120,58 +6731,6 @@ class Client
         Utils::validateModel($request);
 
         return PushRbbInvoiceChargeResponse::fromMap($this->doRequest('1.0', 'riskplus.rbb.invoice.charge.push', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 通过接口进行报告上传
-     * Summary: 征信报告上传接口.
-     *
-     * @param ReceiveRbbParamsFileRequest $request
-     *
-     * @return ReceiveRbbParamsFileResponse
-     */
-    public function receiveRbbParamsFile($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->receiveRbbParamsFileEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 通过接口进行报告上传
-     * Summary: 征信报告上传接口.
-     *
-     * @param ReceiveRbbParamsFileRequest $request
-     * @param string[]                    $headers
-     * @param RuntimeOptions              $runtime
-     *
-     * @return ReceiveRbbParamsFileResponse
-     */
-    public function receiveRbbParamsFileEx($request, $headers, $runtime)
-    {
-        if (!Utils::isUnset($request->fileObject)) {
-            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
-                'authToken' => $request->authToken,
-                'apiCode'   => 'riskplus.rbb.params.file.receive',
-                'fileName'  => $request->fileObjectName,
-            ]);
-            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
-            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
-                return new ReceiveRbbParamsFileResponse([
-                    'reqMsgId'   => $uploadResp->reqMsgId,
-                    'resultCode' => $uploadResp->resultCode,
-                    'resultMsg'  => $uploadResp->resultMsg,
-                ]);
-            }
-            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
-            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
-            $request->fileId     = $uploadResp->fileId;
-            $request->fileObject = null;
-        }
-        Utils::validateModel($request);
-
-        return ReceiveRbbParamsFileResponse::fromMap($this->doRequest('1.0', 'riskplus.rbb.params.file.receive', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -7755,39 +7314,6 @@ class Client
     }
 
     /**
-     * Description: 监管企业详情获取，包括风险分数、风险标签。
-     * Summary: 监管企业详情获取.
-     *
-     * @param GetRtopCompanyDetailRequest $request
-     *
-     * @return GetRtopCompanyDetailResponse
-     */
-    public function getRtopCompanyDetail($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->getRtopCompanyDetailEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 监管企业详情获取，包括风险分数、风险标签。
-     * Summary: 监管企业详情获取.
-     *
-     * @param GetRtopCompanyDetailRequest $request
-     * @param string[]                    $headers
-     * @param RuntimeOptions              $runtime
-     *
-     * @return GetRtopCompanyDetailResponse
-     */
-    public function getRtopCompanyDetailEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return GetRtopCompanyDetailResponse::fromMap($this->doRequest('1.0', 'riskplus.rtop.company.detail.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
      * Description: 企业风险查询接口
      * Summary: 企业风险查询接口.
      *
@@ -7988,171 +7514,6 @@ class Client
     }
 
     /**
-     * Description: 用于鹰眼项目舆情同步
-     * Summary: 鹰眼项目舆情同步.
-     *
-     * @param PullRegtechNewsRequest $request
-     *
-     * @return PullRegtechNewsResponse
-     */
-    public function pullRegtechNews($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->pullRegtechNewsEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 用于鹰眼项目舆情同步
-     * Summary: 鹰眼项目舆情同步.
-     *
-     * @param PullRegtechNewsRequest $request
-     * @param string[]               $headers
-     * @param RuntimeOptions         $runtime
-     *
-     * @return PullRegtechNewsResponse
-     */
-    public function pullRegtechNewsEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return PullRegtechNewsResponse::fromMap($this->doRequest('1.0', 'riskplus.regtech.news.pull', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 查看企业反馈
-     * Summary: 查看企业反馈.
-     *
-     * @param QueryRtopCompanyFeedbackRequest $request
-     *
-     * @return QueryRtopCompanyFeedbackResponse
-     */
-    public function queryRtopCompanyFeedback($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->queryRtopCompanyFeedbackEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 查看企业反馈
-     * Summary: 查看企业反馈.
-     *
-     * @param QueryRtopCompanyFeedbackRequest $request
-     * @param string[]                        $headers
-     * @param RuntimeOptions                  $runtime
-     *
-     * @return QueryRtopCompanyFeedbackResponse
-     */
-    public function queryRtopCompanyFeedbackEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return QueryRtopCompanyFeedbackResponse::fromMap($this->doRequest('1.0', 'riskplus.rtop.company.feedback.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 全局动态中的预警企业详细列表查询
-     * Summary: 全局动态中的预警企业详细列表查询.
-     *
-     * @param QueryRtopCompanyAlarmRequest $request
-     *
-     * @return QueryRtopCompanyAlarmResponse
-     */
-    public function queryRtopCompanyAlarm($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->queryRtopCompanyAlarmEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 全局动态中的预警企业详细列表查询
-     * Summary: 全局动态中的预警企业详细列表查询.
-     *
-     * @param QueryRtopCompanyAlarmRequest $request
-     * @param string[]                     $headers
-     * @param RuntimeOptions               $runtime
-     *
-     * @return QueryRtopCompanyAlarmResponse
-     */
-    public function queryRtopCompanyAlarmEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return QueryRtopCompanyAlarmResponse::fromMap($this->doRequest('1.0', 'riskplus.rtop.company.alarm.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 查询全局动态中的企业列表里的全部列表
-     * Summary: 查询全局动态中的企业列表里的全部列表.
-     *
-     * @param QueryRtopCompanyRiskyRequest $request
-     *
-     * @return QueryRtopCompanyRiskyResponse
-     */
-    public function queryRtopCompanyRisky($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->queryRtopCompanyRiskyEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 查询全局动态中的企业列表里的全部列表
-     * Summary: 查询全局动态中的企业列表里的全部列表.
-     *
-     * @param QueryRtopCompanyRiskyRequest $request
-     * @param string[]                     $headers
-     * @param RuntimeOptions               $runtime
-     *
-     * @return QueryRtopCompanyRiskyResponse
-     */
-    public function queryRtopCompanyRiskyEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return QueryRtopCompanyRiskyResponse::fromMap($this->doRequest('1.0', 'riskplus.rtop.company.risky.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 查询企业列表
-     * Summary: 查询企业列表.
-     *
-     * @param QueryRtopCompanyListRequest $request
-     *
-     * @return QueryRtopCompanyListResponse
-     */
-    public function queryRtopCompanyList($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->queryRtopCompanyListEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 查询企业列表
-     * Summary: 查询企业列表.
-     *
-     * @param QueryRtopCompanyListRequest $request
-     * @param string[]                    $headers
-     * @param RuntimeOptions              $runtime
-     *
-     * @return QueryRtopCompanyListResponse
-     */
-    public function queryRtopCompanyListEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return QueryRtopCompanyListResponse::fromMap($this->doRequest('1.0', 'riskplus.rtop.company.list.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
      * Description: 标签配置全量信息获取
      * Summary: 标签配置全量信息获取.
      *
@@ -8183,6 +7544,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryRtopRisklabelConfigResponse::fromMap($this->doRequest('1.0', 'riskplus.rtop.risklabel.config.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用于鹰眼项目舆情同步
+     * Summary: 鹰眼项目舆情同步.
+     *
+     * @param PullRegtechNewsRequest $request
+     *
+     * @return PullRegtechNewsResponse
+     */
+    public function pullRegtechNews($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pullRegtechNewsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用于鹰眼项目舆情同步
+     * Summary: 鹰眼项目舆情同步.
+     *
+     * @param PullRegtechNewsRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return PullRegtechNewsResponse
+     */
+    public function pullRegtechNewsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PullRegtechNewsResponse::fromMap($this->doRequest('1.0', 'riskplus.regtech.news.pull', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -8315,6 +7709,171 @@ class Client
         Utils::validateModel($request);
 
         return ListRtopStarCompanyResponse::fromMap($this->doRequest('1.0', 'riskplus.rtop.star.company.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 监管企业详情获取，包括风险分数、风险标签。
+     * Summary: 监管企业详情获取.
+     *
+     * @param GetRtopCompanyDetailRequest $request
+     *
+     * @return GetRtopCompanyDetailResponse
+     */
+    public function getRtopCompanyDetail($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getRtopCompanyDetailEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 监管企业详情获取，包括风险分数、风险标签。
+     * Summary: 监管企业详情获取.
+     *
+     * @param GetRtopCompanyDetailRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return GetRtopCompanyDetailResponse
+     */
+    public function getRtopCompanyDetailEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetRtopCompanyDetailResponse::fromMap($this->doRequest('1.0', 'riskplus.rtop.company.detail.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查看企业反馈
+     * Summary: 查看企业反馈.
+     *
+     * @param QueryRtopCompanyFeedbackRequest $request
+     *
+     * @return QueryRtopCompanyFeedbackResponse
+     */
+    public function queryRtopCompanyFeedback($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryRtopCompanyFeedbackEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查看企业反馈
+     * Summary: 查看企业反馈.
+     *
+     * @param QueryRtopCompanyFeedbackRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return QueryRtopCompanyFeedbackResponse
+     */
+    public function queryRtopCompanyFeedbackEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryRtopCompanyFeedbackResponse::fromMap($this->doRequest('1.0', 'riskplus.rtop.company.feedback.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 全局动态中的预警企业详细列表查询
+     * Summary: 全局动态中的预警企业详细列表查询.
+     *
+     * @param QueryRtopCompanyAlarmRequest $request
+     *
+     * @return QueryRtopCompanyAlarmResponse
+     */
+    public function queryRtopCompanyAlarm($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryRtopCompanyAlarmEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 全局动态中的预警企业详细列表查询
+     * Summary: 全局动态中的预警企业详细列表查询.
+     *
+     * @param QueryRtopCompanyAlarmRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return QueryRtopCompanyAlarmResponse
+     */
+    public function queryRtopCompanyAlarmEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryRtopCompanyAlarmResponse::fromMap($this->doRequest('1.0', 'riskplus.rtop.company.alarm.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询全局动态中的企业列表里的全部列表
+     * Summary: 查询全局动态中的企业列表里的全部列表.
+     *
+     * @param QueryRtopCompanyRiskyRequest $request
+     *
+     * @return QueryRtopCompanyRiskyResponse
+     */
+    public function queryRtopCompanyRisky($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryRtopCompanyRiskyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询全局动态中的企业列表里的全部列表
+     * Summary: 查询全局动态中的企业列表里的全部列表.
+     *
+     * @param QueryRtopCompanyRiskyRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return QueryRtopCompanyRiskyResponse
+     */
+    public function queryRtopCompanyRiskyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryRtopCompanyRiskyResponse::fromMap($this->doRequest('1.0', 'riskplus.rtop.company.risky.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询企业列表
+     * Summary: 查询企业列表.
+     *
+     * @param QueryRtopCompanyListRequest $request
+     *
+     * @return QueryRtopCompanyListResponse
+     */
+    public function queryRtopCompanyList($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryRtopCompanyListEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询企业列表
+     * Summary: 查询企业列表.
+     *
+     * @param QueryRtopCompanyListRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return QueryRtopCompanyListResponse
+     */
+    public function queryRtopCompanyListEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryRtopCompanyListResponse::fromMap($this->doRequest('1.0', 'riskplus.rtop.company.list.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -8832,39 +8391,6 @@ class Client
     }
 
     /**
-     * Description: 梦网富信投放事件通知
-     * Summary: 梦网富信投放事件通知.
-     *
-     * @param SyncUmktRtEventresultRequest $request
-     *
-     * @return SyncUmktRtEventresultResponse
-     */
-    public function syncUmktRtEventresult($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->syncUmktRtEventresultEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 梦网富信投放事件通知
-     * Summary: 梦网富信投放事件通知.
-     *
-     * @param SyncUmktRtEventresultRequest $request
-     * @param string[]                     $headers
-     * @param RuntimeOptions               $runtime
-     *
-     * @return SyncUmktRtEventresultResponse
-     */
-    public function syncUmktRtEventresultEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return SyncUmktRtEventresultResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.rt.eventresult.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
      * Description: 营销盾场景租户信息上传or更新
      * Summary: 营销盾场景租户信息上传or更新.
      *
@@ -8898,39 +8424,6 @@ class Client
     }
 
     /**
-     * Description: 富信贴尾实时圈客
-     * Summary: 富信贴尾实时圈客.
-     *
-     * @param BatchqueryUmktRtTailmarketingRequest $request
-     *
-     * @return BatchqueryUmktRtTailmarketingResponse
-     */
-    public function batchqueryUmktRtTailmarketing($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->batchqueryUmktRtTailmarketingEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 富信贴尾实时圈客
-     * Summary: 富信贴尾实时圈客.
-     *
-     * @param BatchqueryUmktRtTailmarketingRequest $request
-     * @param string[]                             $headers
-     * @param RuntimeOptions                       $runtime
-     *
-     * @return BatchqueryUmktRtTailmarketingResponse
-     */
-    public function batchqueryUmktRtTailmarketingEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return BatchqueryUmktRtTailmarketingResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.rt.tailmarketing.batchquery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
      * Description: 实时圈客场景策略测试
      * Summary: 实时圈客场景策略测试功能.
      *
@@ -8961,6 +8454,72 @@ class Client
         Utils::validateModel($request);
 
         return QueryUmktScenestrategyTestResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.scenestrategy.test.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 梦网富信投放事件通知
+     * Summary: 梦网富信投放事件通知.
+     *
+     * @param SyncUmktRtEventresultRequest $request
+     *
+     * @return SyncUmktRtEventresultResponse
+     */
+    public function syncUmktRtEventresult($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->syncUmktRtEventresultEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 梦网富信投放事件通知
+     * Summary: 梦网富信投放事件通知.
+     *
+     * @param SyncUmktRtEventresultRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return SyncUmktRtEventresultResponse
+     */
+    public function syncUmktRtEventresultEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SyncUmktRtEventresultResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.rt.eventresult.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 富信贴尾实时圈客
+     * Summary: 富信贴尾实时圈客.
+     *
+     * @param BatchqueryUmktRtTailmarketingRequest $request
+     *
+     * @return BatchqueryUmktRtTailmarketingResponse
+     */
+    public function batchqueryUmktRtTailmarketing($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->batchqueryUmktRtTailmarketingEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 富信贴尾实时圈客
+     * Summary: 富信贴尾实时圈客.
+     *
+     * @param BatchqueryUmktRtTailmarketingRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return BatchqueryUmktRtTailmarketingResponse
+     */
+    public function batchqueryUmktRtTailmarketingEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BatchqueryUmktRtTailmarketingResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.rt.tailmarketing.batchquery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -9758,69 +9317,36 @@ class Client
     }
 
     /**
-     * Description: 营销盾通用回流推送服务
-     * Summary: 营销盾通用回流推送服务
+     * Description: 触达执行任务详情查询
+     * Summary: 触达执行任务详情查询.
      *
-     * @param PushRiskplusUmktCommonbackflowRequest $request
+     * @param BatchqueryUmktTaskDetailRequest $request
      *
-     * @return PushRiskplusUmktCommonbackflowResponse
+     * @return BatchqueryUmktTaskDetailResponse
      */
-    public function pushRiskplusUmktCommonbackflow($request)
+    public function batchqueryUmktTaskDetail($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->pushRiskplusUmktCommonbackflowEx($request, $headers, $runtime);
+        return $this->batchqueryUmktTaskDetailEx($request, $headers, $runtime);
     }
 
     /**
-     * Description: 营销盾通用回流推送服务
-     * Summary: 营销盾通用回流推送服务
+     * Description: 触达执行任务详情查询
+     * Summary: 触达执行任务详情查询.
      *
-     * @param PushRiskplusUmktCommonbackflowRequest $request
-     * @param string[]                              $headers
-     * @param RuntimeOptions                        $runtime
+     * @param BatchqueryUmktTaskDetailRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
      *
-     * @return PushRiskplusUmktCommonbackflowResponse
+     * @return BatchqueryUmktTaskDetailResponse
      */
-    public function pushRiskplusUmktCommonbackflowEx($request, $headers, $runtime)
+    public function batchqueryUmktTaskDetailEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return PushRiskplusUmktCommonbackflowResponse::fromMap($this->doRequest('1.0', 'riskplus.riskplus.umkt.commonbackflow.push', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 营销盾通用数据推送服务
-     * Summary: 营销盾通用数据推送服务
-     *
-     * @param PushUmktCommonDataRequest $request
-     *
-     * @return PushUmktCommonDataResponse
-     */
-    public function pushUmktCommonData($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->pushUmktCommonDataEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 营销盾通用数据推送服务
-     * Summary: 营销盾通用数据推送服务
-     *
-     * @param PushUmktCommonDataRequest $request
-     * @param string[]                  $headers
-     * @param RuntimeOptions            $runtime
-     *
-     * @return PushUmktCommonDataResponse
-     */
-    public function pushUmktCommonDataEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return PushUmktCommonDataResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.common.data.push', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return BatchqueryUmktTaskDetailResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.task.detail.batchquery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -9854,39 +9380,6 @@ class Client
         Utils::validateModel($request);
 
         return PushUmktCustomerGroupResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.customer.group.push', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 触达执行任务详情查询
-     * Summary: 触达执行任务详情查询.
-     *
-     * @param BatchqueryUmktTaskDetailRequest $request
-     *
-     * @return BatchqueryUmktTaskDetailResponse
-     */
-    public function batchqueryUmktTaskDetail($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->batchqueryUmktTaskDetailEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 触达执行任务详情查询
-     * Summary: 触达执行任务详情查询.
-     *
-     * @param BatchqueryUmktTaskDetailRequest $request
-     * @param string[]                        $headers
-     * @param RuntimeOptions                  $runtime
-     *
-     * @return BatchqueryUmktTaskDetailResponse
-     */
-    public function batchqueryUmktTaskDetailEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return BatchqueryUmktTaskDetailResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.task.detail.batchquery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -10222,6 +9715,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryUmktCampaignTaskResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.campaign.task.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: ai圈投取消圈投任务接口
+     * Summary: ai圈投取消圈投任务接口.
+     *
+     * @param CancelUmktCampaignRequest $request
+     *
+     * @return CancelUmktCampaignResponse
+     */
+    public function cancelUmktCampaign($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->cancelUmktCampaignEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: ai圈投取消圈投任务接口
+     * Summary: ai圈投取消圈投任务接口.
+     *
+     * @param CancelUmktCampaignRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return CancelUmktCampaignResponse
+     */
+    public function cancelUmktCampaignEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CancelUmktCampaignResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.campaign.cancel', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

@@ -35,18 +35,18 @@ class QueryUmktTenantActionplaninfoRequest extends Model
     /**
      * @var string
      */
-    public $channelType;
+    public $contentType;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'pageNum'           => 'page_num',
         'pageSize'          => 'page_size',
-        'channelType'       => 'channel_type',
+        'contentType'       => 'content_type',
     ];
 
     public function validate()
     {
-        Model::validateRequired('channelType', $this->channelType, true);
+        Model::validateRequired('contentType', $this->contentType, true);
     }
 
     public function toMap()
@@ -64,8 +64,8 @@ class QueryUmktTenantActionplaninfoRequest extends Model
         if (null !== $this->pageSize) {
             $res['page_size'] = $this->pageSize;
         }
-        if (null !== $this->channelType) {
-            $res['channel_type'] = $this->channelType;
+        if (null !== $this->contentType) {
+            $res['content_type'] = $this->contentType;
         }
 
         return $res;
@@ -91,8 +91,8 @@ class QueryUmktTenantActionplaninfoRequest extends Model
         if (isset($map['page_size'])) {
             $model->pageSize = $map['page_size'];
         }
-        if (isset($map['channel_type'])) {
-            $model->channelType = $map['channel_type'];
+        if (isset($map['content_type'])) {
+            $model->contentType = $map['content_type'];
         }
 
         return $model;

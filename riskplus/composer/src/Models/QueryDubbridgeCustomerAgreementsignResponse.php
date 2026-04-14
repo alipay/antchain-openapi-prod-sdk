@@ -61,24 +61,6 @@ class QueryDubbridgeCustomerAgreementsignResponse extends Model
      * @var string
      */
     public $invalidTime;
-
-    // 客户名称
-    /**
-     * @var string
-     */
-    public $customName;
-
-    // 支付宝会员id
-    /**
-     * @var string
-     */
-    public $alipayUserId;
-
-    // 用以唯一标识用户签约记录的编号
-    /**
-     * @var string
-     */
-    public $protocolNo;
     protected $_name = [
         'reqMsgId'     => 'req_msg_id',
         'resultCode'   => 'result_code',
@@ -89,9 +71,6 @@ class QueryDubbridgeCustomerAgreementsignResponse extends Model
         'signTime'     => 'sign_time',
         'validTime'    => 'valid_time',
         'invalidTime'  => 'invalid_time',
-        'customName'   => 'custom_name',
-        'alipayUserId' => 'alipay_user_id',
-        'protocolNo'   => 'protocol_no',
     ];
 
     public function validate()
@@ -131,15 +110,6 @@ class QueryDubbridgeCustomerAgreementsignResponse extends Model
         if (null !== $this->invalidTime) {
             $res['invalid_time'] = $this->invalidTime;
         }
-        if (null !== $this->customName) {
-            $res['custom_name'] = $this->customName;
-        }
-        if (null !== $this->alipayUserId) {
-            $res['alipay_user_id'] = $this->alipayUserId;
-        }
-        if (null !== $this->protocolNo) {
-            $res['protocol_no'] = $this->protocolNo;
-        }
 
         return $res;
     }
@@ -178,15 +148,6 @@ class QueryDubbridgeCustomerAgreementsignResponse extends Model
         }
         if (isset($map['invalid_time'])) {
             $model->invalidTime = $map['invalid_time'];
-        }
-        if (isset($map['custom_name'])) {
-            $model->customName = $map['custom_name'];
-        }
-        if (isset($map['alipay_user_id'])) {
-            $model->alipayUserId = $map['alipay_user_id'];
-        }
-        if (isset($map['protocol_no'])) {
-            $model->protocolNo = $map['protocol_no'];
         }
 
         return $model;
