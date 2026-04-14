@@ -1585,6 +1585,32 @@ func (s *GdPotentialCustomerInfo) SetRecords(v []*GdPotentialCustomerRecord) *Gd
 	return s
 }
 
+// 设备信息
+type DeviceBean struct {
+	// 选填其中一个：imeiMd5、macMd5、adid、adidMd5、did、idfa、idfaMd5、caid、caidMd5、oaid、oaidMd5、aaid、aaidMd5、gtcid、mb、pnSha256、cid、gid
+	DeviceIdType *string `json:"device_id_type,omitempty" xml:"device_id_type,omitempty" require:"true"`
+	// 设备ID列表（最多200个，不要重复）
+	DeviceIdList []*string `json:"device_id_list,omitempty" xml:"device_id_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s DeviceBean) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeviceBean) GoString() string {
+	return s.String()
+}
+
+func (s *DeviceBean) SetDeviceIdType(v string) *DeviceBean {
+	s.DeviceIdType = &v
+	return s
+}
+
+func (s *DeviceBean) SetDeviceIdList(v []*string) *DeviceBean {
+	s.DeviceIdList = v
+	return s
+}
+
 // 汽车之家城市信息
 type CityResult struct {
 	// 城市Id
@@ -1611,6 +1637,18 @@ func (s *CityResult) SetCityName(v string) *CityResult {
 	return s
 }
 
+// 标签配置信息返回结果
+type TagBeanRecords struct {
+}
+
+func (s TagBeanRecords) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TagBeanRecords) GoString() string {
+	return s.String()
+}
+
 // 用户基本信息
 type CarOwnerUserInfo struct {
 	// 用户id
@@ -1634,6 +1672,46 @@ func (s *CarOwnerUserInfo) SetUserId(v string) *CarOwnerUserInfo {
 
 func (s *CarOwnerUserInfo) SetPhoneNum(v string) *CarOwnerUserInfo {
 	s.PhoneNum = &v
+	return s
+}
+
+// 长安画像标签
+type TagBean struct {
+	// 标签编码
+	Tid *string `json:"tid,omitempty" xml:"tid,omitempty"`
+	// 标签类目
+	Category *string `json:"category,omitempty" xml:"category,omitempty"`
+	// 标签名称
+	Tname *string `json:"tname,omitempty" xml:"tname,omitempty"`
+	// 标签值名称
+	Tvname *string `json:"tvname,omitempty" xml:"tvname,omitempty"`
+}
+
+func (s TagBean) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TagBean) GoString() string {
+	return s.String()
+}
+
+func (s *TagBean) SetTid(v string) *TagBean {
+	s.Tid = &v
+	return s
+}
+
+func (s *TagBean) SetCategory(v string) *TagBean {
+	s.Category = &v
+	return s
+}
+
+func (s *TagBean) SetTname(v string) *TagBean {
+	s.Tname = &v
+	return s
+}
+
+func (s *TagBean) SetTvname(v string) *TagBean {
+	s.Tvname = &v
 	return s
 }
 
@@ -1690,22 +1768,22 @@ type UsedCarInfo struct {
 	LeadId *string `json:"lead_id,omitempty" xml:"lead_id,omitempty" require:"true"`
 	// 城市名称
 	CityName *string `json:"city_name,omitempty" xml:"city_name,omitempty" require:"true"`
-	// 省份id
-	Pid *string `json:"pid,omitempty" xml:"pid,omitempty" require:"true"`
 	// 城市id
 	Cid *string `json:"cid,omitempty" xml:"cid,omitempty" require:"true"`
 	// 品牌名称
 	BrandName *string `json:"brand_name,omitempty" xml:"brand_name,omitempty"`
 	// 车系名称
 	SeriesName *string `json:"series_name,omitempty" xml:"series_name,omitempty"`
-	// 汽车之家车型id
-	SpecId *string `json:"spec_id,omitempty" xml:"spec_id,omitempty" require:"true"`
 	// 车型名称
 	SpecName *string `json:"spec_name,omitempty" xml:"spec_name,omitempty"`
 	// 首次上牌时间格式 yyyy/MM/dd
 	FirstRegTime *string `json:"first_reg_time,omitempty" xml:"first_reg_time,omitempty" require:"true"`
 	// 行驶公里数(km)
 	Mileage *string `json:"mileage,omitempty" xml:"mileage,omitempty" require:"true"`
+	// 省份id
+	Pid *string `json:"pid,omitempty" xml:"pid,omitempty" require:"true"`
+	// 汽车之家车型id
+	Specid *string `json:"specid,omitempty" xml:"specid,omitempty" require:"true"`
 }
 
 func (s UsedCarInfo) String() string {
@@ -1726,11 +1804,6 @@ func (s *UsedCarInfo) SetCityName(v string) *UsedCarInfo {
 	return s
 }
 
-func (s *UsedCarInfo) SetPid(v string) *UsedCarInfo {
-	s.Pid = &v
-	return s
-}
-
 func (s *UsedCarInfo) SetCid(v string) *UsedCarInfo {
 	s.Cid = &v
 	return s
@@ -1746,11 +1819,6 @@ func (s *UsedCarInfo) SetSeriesName(v string) *UsedCarInfo {
 	return s
 }
 
-func (s *UsedCarInfo) SetSpecId(v string) *UsedCarInfo {
-	s.SpecId = &v
-	return s
-}
-
 func (s *UsedCarInfo) SetSpecName(v string) *UsedCarInfo {
 	s.SpecName = &v
 	return s
@@ -1763,6 +1831,16 @@ func (s *UsedCarInfo) SetFirstRegTime(v string) *UsedCarInfo {
 
 func (s *UsedCarInfo) SetMileage(v string) *UsedCarInfo {
 	s.Mileage = &v
+	return s
+}
+
+func (s *UsedCarInfo) SetPid(v string) *UsedCarInfo {
+	s.Pid = &v
+	return s
+}
+
+func (s *UsedCarInfo) SetSpecid(v string) *UsedCarInfo {
+	s.Specid = &v
 	return s
 }
 
@@ -2661,6 +2739,8 @@ type QueryUsedcarResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 二手车估值信息
 	UsedCarValuation *UsedCarValuation `json:"used_car_valuation,omitempty" xml:"used_car_valuation,omitempty"`
+	// 响应结果
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
 }
 
 func (s QueryUsedcarResponse) String() string {
@@ -2688,6 +2768,11 @@ func (s *QueryUsedcarResponse) SetResultMsg(v string) *QueryUsedcarResponse {
 
 func (s *QueryUsedcarResponse) SetUsedCarValuation(v *UsedCarValuation) *QueryUsedcarResponse {
 	s.UsedCarValuation = v
+	return s
+}
+
+func (s *QueryUsedcarResponse) SetStatus(v string) *QueryUsedcarResponse {
+	s.Status = &v
 	return s
 }
 
@@ -3944,6 +4029,216 @@ func (s *QueryCarVinResponse) SetData(v int64) *QueryCarVinResponse {
 	return s
 }
 
+type RegisterTagChanganRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 授权码
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+}
+
+func (s RegisterTagChanganRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RegisterTagChanganRequest) GoString() string {
+	return s.String()
+}
+
+func (s *RegisterTagChanganRequest) SetAuthToken(v string) *RegisterTagChanganRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *RegisterTagChanganRequest) SetProductInstanceId(v string) *RegisterTagChanganRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *RegisterTagChanganRequest) SetSceneCode(v string) *RegisterTagChanganRequest {
+	s.SceneCode = &v
+	return s
+}
+
+type RegisterTagChanganResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 授权码
+	AccessToken *string `json:"access_token,omitempty" xml:"access_token,omitempty"`
+	// 授权码过期时间，单位s，默认2小时（7200s）
+	ExpiresIn *int64 `json:"expires_in,omitempty" xml:"expires_in,omitempty"`
+}
+
+func (s RegisterTagChanganResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RegisterTagChanganResponse) GoString() string {
+	return s.String()
+}
+
+func (s *RegisterTagChanganResponse) SetReqMsgId(v string) *RegisterTagChanganResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *RegisterTagChanganResponse) SetResultCode(v string) *RegisterTagChanganResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *RegisterTagChanganResponse) SetResultMsg(v string) *RegisterTagChanganResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *RegisterTagChanganResponse) SetAccessToken(v string) *RegisterTagChanganResponse {
+	s.AccessToken = &v
+	return s
+}
+
+func (s *RegisterTagChanganResponse) SetExpiresIn(v int64) *RegisterTagChanganResponse {
+	s.ExpiresIn = &v
+	return s
+}
+
+type QueryTagChanganRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 场景码
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+	// 授权token
+	AccessToken *string `json:"access_token,omitempty" xml:"access_token,omitempty" require:"true"`
+	// 请求唯一ID（UUID生成即可）
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
+	// 系统
+	Os *string `json:"os,omitempty" xml:"os,omitempty"`
+	// 标签库组合：
+	// 1表示基础标签
+	// 2表示行业标签
+	// 3表示基础标签+行业标签
+	// 8表示自定义标签
+	// 9表示基础标签+自定义标签
+	// 10表示行业标签+自定义标签
+	// 11表示基础标签+行业标签+自定义标签
+	Type *int64 `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// 设备信息
+	DeviceInfoList *DeviceBean `json:"device_info_list,omitempty" xml:"device_info_list,omitempty" require:"true"`
+	// 基础标签动态参数（对外编码）
+	BaseTags []*string `json:"base_tags,omitempty" xml:"base_tags,omitempty" type:"Repeated"`
+	// 行业标签动态参数（对外编码）
+	IndustyTags []*string `json:"industy_tags,omitempty" xml:"industy_tags,omitempty" type:"Repeated"`
+	// 规则标签动态参数（对外编码）
+	BusinessTags []*string `json:"business_tags,omitempty" xml:"business_tags,omitempty" type:"Repeated"`
+}
+
+func (s QueryTagChanganRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryTagChanganRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryTagChanganRequest) SetAuthToken(v string) *QueryTagChanganRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryTagChanganRequest) SetProductInstanceId(v string) *QueryTagChanganRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryTagChanganRequest) SetSceneCode(v string) *QueryTagChanganRequest {
+	s.SceneCode = &v
+	return s
+}
+
+func (s *QueryTagChanganRequest) SetAccessToken(v string) *QueryTagChanganRequest {
+	s.AccessToken = &v
+	return s
+}
+
+func (s *QueryTagChanganRequest) SetRequestId(v string) *QueryTagChanganRequest {
+	s.RequestId = &v
+	return s
+}
+
+func (s *QueryTagChanganRequest) SetOs(v string) *QueryTagChanganRequest {
+	s.Os = &v
+	return s
+}
+
+func (s *QueryTagChanganRequest) SetType(v int64) *QueryTagChanganRequest {
+	s.Type = &v
+	return s
+}
+
+func (s *QueryTagChanganRequest) SetDeviceInfoList(v *DeviceBean) *QueryTagChanganRequest {
+	s.DeviceInfoList = v
+	return s
+}
+
+func (s *QueryTagChanganRequest) SetBaseTags(v []*string) *QueryTagChanganRequest {
+	s.BaseTags = v
+	return s
+}
+
+func (s *QueryTagChanganRequest) SetIndustyTags(v []*string) *QueryTagChanganRequest {
+	s.IndustyTags = v
+	return s
+}
+
+func (s *QueryTagChanganRequest) SetBusinessTags(v []*string) *QueryTagChanganRequest {
+	s.BusinessTags = v
+	return s
+}
+
+type QueryTagChanganResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回数据，JSON格式字符串
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s QueryTagChanganResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryTagChanganResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryTagChanganResponse) SetReqMsgId(v string) *QueryTagChanganResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryTagChanganResponse) SetResultCode(v string) *QueryTagChanganResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryTagChanganResponse) SetResultMsg(v string) *QueryTagChanganResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryTagChanganResponse) SetData(v string) *QueryTagChanganResponse {
+	s.Data = &v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -4186,7 +4481,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.28"),
+				"sdk_version":      tea.String("1.0.31"),
 				"_prod_code":       tea.String("INTELLICAR"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -4947,6 +5242,74 @@ func (client *Client) QueryCarVinEx(request *QueryCarVinRequest, headers map[str
 	}
 	_result = &QueryCarVinResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.intellicar.car.vin.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 长安画像标签授权接口
+ * Summary: 长安画像标签授权接口
+ */
+func (client *Client) RegisterTagChangan(request *RegisterTagChanganRequest) (_result *RegisterTagChanganResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &RegisterTagChanganResponse{}
+	_body, _err := client.RegisterTagChanganEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 长安画像标签授权接口
+ * Summary: 长安画像标签授权接口
+ */
+func (client *Client) RegisterTagChanganEx(request *RegisterTagChanganRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *RegisterTagChanganResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &RegisterTagChanganResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.intellicar.tag.changan.register"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 长安画像标签用户id标签查询
+ * Summary: 长安画像标签用户id标签查询
+ */
+func (client *Client) QueryTagChangan(request *QueryTagChanganRequest) (_result *QueryTagChanganResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryTagChanganResponse{}
+	_body, _err := client.QueryTagChanganEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 长安画像标签用户id标签查询
+ * Summary: 长安画像标签用户id标签查询
+ */
+func (client *Client) QueryTagChanganEx(request *QueryTagChanganRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryTagChanganResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryTagChanganResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.intellicar.tag.changan.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
