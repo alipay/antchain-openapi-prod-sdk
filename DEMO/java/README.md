@@ -1,6 +1,8 @@
 # Ant Chain DEMO SDK for Java
 
-## 安装
+English | [简体中文](README-CN.md)
+
+## Installation
 
 ```xml
 <dependency>
@@ -10,22 +12,22 @@
 </dependency>
 ```
 
-## 问题
+## Issues
 
-[提交 Issue](https://github.com/alipay/antchain-openapi-prod-sdk/issues/new)，不符合指南的问题可能会立即关闭。
+[Open an issue](https://github.com/alipay/antchain-openapi-prod-sdk/issues/new) on GitHub.
 
-## 使用说明
+## Documentation
 
-[快速使用](https://github.com/alipay/antchain-openapi-prod-sdk)
+[Quick Start](https://github.com/alipay/antchain-openapi-prod-sdk)
 
-## 发行说明
+## Changelog
 
-每个版本的详细更改记录在[发行说明](./ChangeLog.txt)中。
+Detailed changes for each release are documented in the [release notes](./ChangeLog.txt).
 
-## 相关
+## References
 
-- [最新源码](https://github.com/alipay/antchain-openapi-prod-sdk/)
+- [Latest Source Code](https://github.com/alipay/antchain-openapi-prod-sdk/)
 
-## 许可证
+## License
 
 [Apache-2.0](http://www.apache.org/licenses/LICENSE-2.0)

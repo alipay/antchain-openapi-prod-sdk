@@ -1,6 +1,6 @@
 [English](README.md) | 简体中文
 
-## Ant Chain DEMO SDK for Java
+# Ant Chain DEMO SDK for Java
 
 ## 安装
 
