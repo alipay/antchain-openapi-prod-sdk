@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.demo.models;
 
 import com.aliyun.tea.*;
 
-public class QueryIpBlackListRequest extends TeaModel {
+public class QueryStreamTestRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -11,17 +11,17 @@ public class QueryIpBlackListRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 超时时间
-    @NameInMap("timeout")
+    // 名称
+    @NameInMap("name")
     @Validation(required = true)
-    public String timeout;
+    public String name;
 
-    public static QueryIpBlackListRequest build(java.util.Map<String, ?> map) throws Exception {
-        QueryIpBlackListRequest self = new QueryIpBlackListRequest();
+    public static QueryStreamTestRequest build(java.util.Map<String, ?> map) throws Exception {
+        QueryStreamTestRequest self = new QueryStreamTestRequest();
         return TeaModel.build(map, self);
     }
 
-    public QueryIpBlackListRequest setAuthToken(String authToken) {
+    public QueryStreamTestRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -29,7 +29,7 @@ public class QueryIpBlackListRequest extends TeaModel {
         return this.authToken;
     }
 
-    public QueryIpBlackListRequest setProductInstanceId(String productInstanceId) {
+    public QueryStreamTestRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -37,12 +37,12 @@ public class QueryIpBlackListRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public QueryIpBlackListRequest setTimeout(String timeout) {
-        this.timeout = timeout;
+    public QueryStreamTestRequest setName(String name) {
+        this.name = name;
         return this;
     }
-    public String getTimeout() {
-        return this.timeout;
+    public String getName() {
+        return this.name;
     }
 
 }

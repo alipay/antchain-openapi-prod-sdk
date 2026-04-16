@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.demo.models;
 
 import com.aliyun.tea.*;
 
-public class QueryABCRequest extends TeaModel {
+public class TransferDatanetworkMeteringAaaRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -11,12 +11,12 @@ public class QueryABCRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    public static QueryABCRequest build(java.util.Map<String, ?> map) throws Exception {
-        QueryABCRequest self = new QueryABCRequest();
+    public static TransferDatanetworkMeteringAaaRequest build(java.util.Map<String, ?> map) throws Exception {
+        TransferDatanetworkMeteringAaaRequest self = new TransferDatanetworkMeteringAaaRequest();
         return TeaModel.build(map, self);
     }
 
-    public QueryABCRequest setAuthToken(String authToken) {
+    public TransferDatanetworkMeteringAaaRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -24,7 +24,7 @@ public class QueryABCRequest extends TeaModel {
         return this.authToken;
     }
 
-    public QueryABCRequest setProductInstanceId(String productInstanceId) {
+    public TransferDatanetworkMeteringAaaRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }

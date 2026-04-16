@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.demo.models;
 
 import com.aliyun.tea.*;
 
-public class QueryTestTimeTestaResponse extends TeaModel {
+public class TransferTesttrasferTesttrasferTesttrasferResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,12 +16,12 @@ public class QueryTestTimeTestaResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    public static QueryTestTimeTestaResponse build(java.util.Map<String, ?> map) throws Exception {
-        QueryTestTimeTestaResponse self = new QueryTestTimeTestaResponse();
+    public static TransferTesttrasferTesttrasferTesttrasferResponse build(java.util.Map<String, ?> map) throws Exception {
+        TransferTesttrasferTesttrasferTesttrasferResponse self = new TransferTesttrasferTesttrasferTesttrasferResponse();
         return TeaModel.build(map, self);
     }
 
-    public QueryTestTimeTestaResponse setReqMsgId(String reqMsgId) {
+    public TransferTesttrasferTesttrasferTesttrasferResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -29,7 +29,7 @@ public class QueryTestTimeTestaResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public QueryTestTimeTestaResponse setResultCode(String resultCode) {
+    public TransferTesttrasferTesttrasferTesttrasferResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -37,7 +37,7 @@ public class QueryTestTimeTestaResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public QueryTestTimeTestaResponse setResultMsg(String resultMsg) {
+    public TransferTesttrasferTesttrasferTesttrasferResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
