@@ -126,9 +126,9 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.1.8"),
+                    new TeaPair("sdk_version", "1.1.64"),
                     new TeaPair("_prod_code", "DEMO"),
-                    new TeaPair("_prod_channel", "undefined")
+                    new TeaPair("_prod_channel", "default")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -186,27 +186,6 @@ public class Client {
 
     public void addResponseInterceptor(ResponseInterceptor interceptor) {
         interceptorChain.addResponseInterceptor(interceptor);
-    }
-
-    /**
-     * <b>description</b> :
-     * <p>Description: test
-     * Summary: test</p>
-     */
-    public TransferDatanetworkMeteringAaaResponse transferDatanetworkMeteringAaa(TransferDatanetworkMeteringAaaRequest request) throws Exception {
-        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.transferDatanetworkMeteringAaaEx(request, headers, runtime);
-    }
-
-    /**
-     * <b>description</b> :
-     * <p>Description: test
-     * Summary: test</p>
-     */
-    public TransferDatanetworkMeteringAaaResponse transferDatanetworkMeteringAaaEx(TransferDatanetworkMeteringAaaRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "demo.datanetwork.metering.aaa.transfer", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new TransferDatanetworkMeteringAaaResponse());
     }
 
     /**
@@ -271,6 +250,48 @@ public class Client {
 
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "demo.gateway.check.echo", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new EchoGatewayCheckResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 测试使用
+     * Summary: 测试使用</p>
+     */
+    public QueryAaaaFffDdResponse queryAaaaFffDd(QueryAaaaFffDdRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAaaaFffDdEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 测试使用
+     * Summary: 测试使用</p>
+     */
+    public QueryAaaaFffDdResponse queryAaaaFffDdEx(QueryAaaaFffDdRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.aaaa.fff.dd.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAaaaFffDdResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 的
+     * Summary: 下载地址创建</p>
+     */
+    public QueryTestTestResponse queryTestTest(QueryTestTestRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryTestTestEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 的
+     * Summary: 下载地址创建</p>
+     */
+    public QueryTestTestResponse queryTestTestEx(QueryTestTestRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.test.test.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTestTestResponse());
     }
 
     /**
@@ -359,6 +380,48 @@ public class Client {
 
     /**
      * <b>description</b> :
+     * <p>Description: 更新入参后返回结果，Fr 自动化连通性测试。
+     * Summary: road.upd（Fr AutoT）</p>
+     */
+    public UpdateGatewayRoadResponse updateGatewayRoad(UpdateGatewayRoadRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateGatewayRoadEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 更新入参后返回结果，Fr 自动化连通性测试。
+     * Summary: road.upd（Fr AutoT）</p>
+     */
+    public UpdateGatewayRoadResponse updateGatewayRoadEx(UpdateGatewayRoadRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.gateway.road.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateGatewayRoadResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 压测接口3
+     * Summary: 压测接口3</p>
+     */
+    public QueryLoadtestTimeThreeResponse queryLoadtestTimeThree(QueryLoadtestTimeThreeRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryLoadtestTimeThreeEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 压测接口3
+     * Summary: 压测接口3</p>
+     */
+    public QueryLoadtestTimeThreeResponse queryLoadtestTimeThreeEx(QueryLoadtestTimeThreeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.loadtest.time.three.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryLoadtestTimeThreeResponse());
+    }
+
+    /**
+     * <b>description</b> :
      * <p>Description: 根据入参组合返回结果，Fr 自动化连通性测试。
      * Summary: road.init（Fr AutoT）</p>
      */
@@ -397,27 +460,6 @@ public class Client {
     public QueryGatewayEmbedResponse queryGatewayEmbedEx(QueryGatewayEmbedRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "demo.gateway.embed.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryGatewayEmbedResponse());
-    }
-
-    /**
-     * <b>description</b> :
-     * <p>Description: 更新入参后返回结果，Fr 自动化连通性测试。
-     * Summary: road.upd（Fr AutoT）</p>
-     */
-    public UpdateGatewayRoadResponse updateGatewayRoad(UpdateGatewayRoadRequest request) throws Exception {
-        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.updateGatewayRoadEx(request, headers, runtime);
-    }
-
-    /**
-     * <b>description</b> :
-     * <p>Description: 更新入参后返回结果，Fr 自动化连通性测试。
-     * Summary: road.upd（Fr AutoT）</p>
-     */
-    public UpdateGatewayRoadResponse updateGatewayRoadEx(UpdateGatewayRoadRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "demo.gateway.road.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateGatewayRoadResponse());
     }
 
     /**
@@ -464,29 +506,8 @@ public class Client {
 
     /**
      * <b>description</b> :
-     * <p>Description: 压测接口3
-     * Summary: 压测接口3</p>
-     */
-    public QueryLoadtestTimeThreeResponse queryLoadtestTimeThree(QueryLoadtestTimeThreeRequest request) throws Exception {
-        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.queryLoadtestTimeThreeEx(request, headers, runtime);
-    }
-
-    /**
-     * <b>description</b> :
-     * <p>Description: 压测接口3
-     * Summary: 压测接口3</p>
-     */
-    public QueryLoadtestTimeThreeResponse queryLoadtestTimeThreeEx(QueryLoadtestTimeThreeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "demo.loadtest.time.three.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryLoadtestTimeThreeResponse());
-    }
-
-    /**
-     * <b>description</b> :
      * <p>Description: test
-     * Summary: 自动化测试工程使用，勿删勿改</p>
+     * Summary: test</p>
      */
     public QueryInstanceidRuleResponse queryInstanceidRule(QueryInstanceidRuleRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -497,32 +518,11 @@ public class Client {
     /**
      * <b>description</b> :
      * <p>Description: test
-     * Summary: 自动化测试工程使用，勿删勿改</p>
+     * Summary: test</p>
      */
     public QueryInstanceidRuleResponse queryInstanceidRuleEx(QueryInstanceidRuleRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "demo.instanceid.rule.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryInstanceidRuleResponse());
-    }
-
-    /**
-     * <b>description</b> :
-     * <p>Description: 设置下游耗时
-     * Summary: 超时（加密）</p>
-     */
-    public QueryGatewayCheckEchotimeoutokResponse queryGatewayCheckEchotimeoutok(QueryGatewayCheckEchotimeoutokRequest request) throws Exception {
-        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.queryGatewayCheckEchotimeoutokEx(request, headers, runtime);
-    }
-
-    /**
-     * <b>description</b> :
-     * <p>Description: 设置下游耗时
-     * Summary: 超时（加密）</p>
-     */
-    public QueryGatewayCheckEchotimeoutokResponse queryGatewayCheckEchotimeoutokEx(QueryGatewayCheckEchotimeoutokRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "demo.gateway.check.echotimeoutok.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryGatewayCheckEchotimeoutokResponse());
     }
 
     /**
@@ -548,65 +548,360 @@ public class Client {
 
     /**
      * <b>description</b> :
-     * <p>Description: testtrasfer
-     * Summary: testtrasfer</p>
+     * <p>Description: 设置下游耗时
+     * Summary: 超时（加密）</p>
      */
-    public TransferTesttrasferTesttrasferTesttrasferResponse transferTesttrasferTesttrasferTesttrasfer(TransferTesttrasferTesttrasferTesttrasferRequest request) throws Exception {
+    public QueryGatewayCheckEchotimeoutokResponse queryGatewayCheckEchotimeoutok(QueryGatewayCheckEchotimeoutokRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.transferTesttrasferTesttrasferTesttrasferEx(request, headers, runtime);
+        return this.queryGatewayCheckEchotimeoutokEx(request, headers, runtime);
     }
 
     /**
      * <b>description</b> :
-     * <p>Description: testtrasfer
-     * Summary: testtrasfer</p>
+     * <p>Description: 设置下游耗时
+     * Summary: 超时（加密）</p>
      */
-    public TransferTesttrasferTesttrasferTesttrasferResponse transferTesttrasferTesttrasferTesttrasferEx(TransferTesttrasferTesttrasferTesttrasferRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+    public QueryGatewayCheckEchotimeoutokResponse queryGatewayCheckEchotimeoutokEx(QueryGatewayCheckEchotimeoutokRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "demo.testtrasfer.testtrasfer.testtrasfer.transfer", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new TransferTesttrasferTesttrasferTesttrasferResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "demo.gateway.check.echotimeoutok.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryGatewayCheckEchotimeoutokResponse());
     }
 
     /**
      * <b>description</b> :
-     * <p>Description: vvv
+     * <p>Description: 网关性能优化测试
+     * Summary: 性能优化测试</p>
+     */
+    public QueryTestCatcheLimitResponse queryTestCatcheLimit(QueryTestCatcheLimitRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryTestCatcheLimitEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 网关性能优化测试
+     * Summary: 性能优化测试</p>
+     */
+    public QueryTestCatcheLimitResponse queryTestCatcheLimitEx(QueryTestCatcheLimitRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.test.catche.limit.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTestCatcheLimitResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: test
      * Summary: test</p>
      */
-    public QueryTestvvvvvTestvvvvvTestvvvvvResponse queryTestvvvvvTestvvvvvTestvvvvv(QueryTestvvvvvTestvvvvvTestvvvvvRequest request) throws Exception {
+    public QueryTestTestTestResponse queryTestTestTest(QueryTestTestTestRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.queryTestvvvvvTestvvvvvTestvvvvvEx(request, headers, runtime);
+        return this.queryTestTestTestEx(request, headers, runtime);
     }
 
     /**
      * <b>description</b> :
-     * <p>Description: vvv
+     * <p>Description: test
      * Summary: test</p>
      */
-    public QueryTestvvvvvTestvvvvvTestvvvvvResponse queryTestvvvvvTestvvvvvTestvvvvvEx(QueryTestvvvvvTestvvvvvTestvvvvvRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+    public QueryTestTestTestResponse queryTestTestTestEx(QueryTestTestTestRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "demo.testvvvvv.testvvvvv.testvvvvv.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTestvvvvvTestvvvvvTestvvvvvResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "demo.test.test.test.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTestTestTestResponse());
     }
 
     /**
      * <b>description</b> :
-     * <p>Description: 流失查询测试
-     * Summary: 流失查询测试</p>
+     * <p>Description: 测试使用
+     * Summary: 测试使用</p>
      */
-    public QueryStreamTestResponse queryStreamTest(QueryStreamTestRequest request) throws Exception {
+    public QueryTestForLimitResponse queryTestForLimit(QueryTestForLimitRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.queryStreamTestEx(request, headers, runtime);
+        return this.queryTestForLimitEx(request, headers, runtime);
     }
 
     /**
      * <b>description</b> :
-     * <p>Description: 流失查询测试
-     * Summary: 流失查询测试</p>
+     * <p>Description: 测试使用
+     * Summary: 测试使用</p>
      */
-    public QueryStreamTestResponse queryStreamTestEx(QueryStreamTestRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+    public QueryTestForLimitResponse queryTestForLimitEx(QueryTestForLimitRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "demo.stream.test.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryStreamTestResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "demo.test.for.limit.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTestForLimitResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: a
+     * Summary: abcde</p>
+     */
+    public QueryABCResponse queryABC(QueryABCRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryABCEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: a
+     * Summary: abcde</p>
+     */
+    public QueryABCResponse queryABCEx(QueryABCRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.a.b.c.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryABCResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: ip访问白名单测试
+     * Summary: 【自动化】ip访问白名单测试</p>
+     */
+    public QueryIpWhiteListResponse queryIpWhiteList(QueryIpWhiteListRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryIpWhiteListEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: ip访问白名单测试
+     * Summary: 【自动化】ip访问白名单测试</p>
+     */
+    public QueryIpWhiteListResponse queryIpWhiteListEx(QueryIpWhiteListRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.ip.white.list.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryIpWhiteListResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: ip访问白名单测试
+     * Summary: 【自动化】ip访问黑名单测试</p>
+     */
+    public QueryIpBlackListResponse queryIpBlackList(QueryIpBlackListRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryIpBlackListEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: ip访问白名单测试
+     * Summary: 【自动化】ip访问黑名单测试</p>
+     */
+    public QueryIpBlackListResponse queryIpBlackListEx(QueryIpBlackListRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.ip.black.list.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryIpBlackListResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 重试策略
+     * Summary: 【自动化】重试策略</p>
+     */
+    public QueryIpRetryResponse queryIpRetry(QueryIpRetryRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryIpRetryEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 重试策略
+     * Summary: 【自动化】重试策略</p>
+     */
+    public QueryIpRetryResponse queryIpRetryEx(QueryIpRetryRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.ip.retry.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryIpRetryResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 个人工作台二期测试
+     * Summary: 个人工作台二期测试</p>
+     */
+    public QueryTestTimeTestaResponse queryTestTimeTesta(QueryTestTimeTestaRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryTestTimeTestaEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 个人工作台二期测试
+     * Summary: 个人工作台二期测试</p>
+     */
+    public QueryTestTimeTestaResponse queryTestTimeTestaEx(QueryTestTimeTestaRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.test.time.testa.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTestTimeTestaResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 自动化contenttype兼容测试
+     * Summary: 自动化contenttype兼容测试</p>
+     */
+    public QueryTestContentTypeResponse queryTestContentType(QueryTestContentTypeRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryTestContentTypeEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 自动化contenttype兼容测试
+     * Summary: 自动化contenttype兼容测试</p>
+     */
+    public QueryTestContentTypeResponse queryTestContentTypeEx(QueryTestContentTypeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.test.content.type.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTestContentTypeResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 自动化测试contentType
+     * Summary: 自动化测试contentType</p>
+     */
+    public QueryTestContentTypeoneResponse queryTestContentTypeone(QueryTestContentTypeoneRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryTestContentTypeoneEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 自动化测试contentType
+     * Summary: 自动化测试contentType</p>
+     */
+    public QueryTestContentTypeoneResponse queryTestContentTypeoneEx(QueryTestContentTypeoneRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.test.content.typeone.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTestContentTypeoneResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 自动化contenttype兼容测试
+     * Summary: 自动化contenttype兼容测试</p>
+     */
+    public QueryTestContentTypetwoResponse queryTestContentTypetwo(QueryTestContentTypetwoRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryTestContentTypetwoEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 自动化contenttype兼容测试
+     * Summary: 自动化contenttype兼容测试</p>
+     */
+    public QueryTestContentTypetwoResponse queryTestContentTypetwoEx(QueryTestContentTypetwoRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.test.content.typetwo.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTestContentTypetwoResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 自动化contenttype兼容测试
+     * Summary: 自动化contenttype兼容测试</p>
+     */
+    public QueryTestContentTypethreeResponse queryTestContentTypethree(QueryTestContentTypethreeRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryTestContentTypethreeEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 自动化contenttype兼容测试
+     * Summary: 自动化contenttype兼容测试</p>
+     */
+    public QueryTestContentTypethreeResponse queryTestContentTypethreeEx(QueryTestContentTypethreeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.test.content.typethree.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTestContentTypethreeResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 自动化contenttype兼容测试
+     * Summary: 自动化contenttype兼容测试</p>
+     */
+    public QueryTestContentTypefourResponse queryTestContentTypefour(QueryTestContentTypefourRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryTestContentTypefourEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 自动化contenttype兼容测试
+     * Summary: 自动化contenttype兼容测试</p>
+     */
+    public QueryTestContentTypefourResponse queryTestContentTypefourEx(QueryTestContentTypefourRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.test.content.typefour.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTestContentTypefourResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 自动化contenttype兼容测试
+     * Summary: 自动化contenttype兼容测试</p>
+     */
+    public QueryTestContentTypefiveResponse queryTestContentTypefive(QueryTestContentTypefiveRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryTestContentTypefiveEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 自动化contenttype兼容测试
+     * Summary: 自动化contenttype兼容测试</p>
+     */
+    public QueryTestContentTypefiveResponse queryTestContentTypefiveEx(QueryTestContentTypefiveRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.test.content.typefive.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTestContentTypefiveResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 自动化文件上传
+     * Summary: 自动化文件上传</p>
+     */
+    public UploadAutoTestFileResponse uploadAutoTestFile(UploadAutoTestFileRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.uploadAutoTestFileEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 自动化文件上传
+     * Summary: 自动化文件上传</p>
+     */
+    public UploadAutoTestFileResponse uploadAutoTestFileEx(UploadAutoTestFileRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        if (!com.aliyun.teautil.Common.isUnset(request.fileObject)) {
+            CreateAntcloudGatewayxFileUploadRequest uploadReq = CreateAntcloudGatewayxFileUploadRequest.build(TeaConverter.buildMap(
+                new TeaPair("authToken", request.authToken),
+                new TeaPair("apiCode", "demo.auto.test.file.upload"),
+                new TeaPair("fileName", request.fileObjectName)
+            ));
+            CreateAntcloudGatewayxFileUploadResponse uploadResp = this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+            if (!com.antgroup.antchain.openapi.antchain.util.AntchainUtils.isSuccess(uploadResp.resultCode, "OK")) {
+                UploadAutoTestFileResponse uploadAutoTestFileResponse = UploadAutoTestFileResponse.build(TeaConverter.buildMap(
+                    new TeaPair("reqMsgId", uploadResp.reqMsgId),
+                    new TeaPair("resultCode", uploadResp.resultCode),
+                    new TeaPair("resultMsg", uploadResp.resultMsg)
+                ));
+                return uploadAutoTestFileResponse;
+            }
+
+            java.util.Map<String, String> uploadHeaders = com.antgroup.antchain.openapi.antchain.util.AntchainUtils.parseUploadHeaders(uploadResp.uploadHeaders);
+            com.antgroup.antchain.openapi.antchain.util.AntchainUtils.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+            request.fileId = uploadResp.fileId;
+            request.fileObject = null;
+        }
+
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.auto.test.file.upload", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UploadAutoTestFileResponse());
     }
 
     /**
@@ -758,23 +1053,86 @@ public class Client {
 
     /**
      * <b>description</b> :
-     * <p>Description: 大模型护栏多轮对话提问检测 测试
-     * Summary: 大模型护栏多轮对话提问检测</p>
+     * <p>Description: 压测接口4，用于压测
+     * Summary: 压测接口4</p>
      */
-    public CheckAicoguardcoreAicoguardrailsQuestionResponse checkAicoguardcoreAicoguardrailsQuestion(CheckAicoguardcoreAicoguardrailsQuestionRequest request) throws Exception {
+    public QueryLoadtestTimeFourResponse queryLoadtestTimeFour(QueryLoadtestTimeFourRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.checkAicoguardcoreAicoguardrailsQuestionEx(request, headers, runtime);
+        return this.queryLoadtestTimeFourEx(request, headers, runtime);
     }
 
     /**
      * <b>description</b> :
-     * <p>Description: 大模型护栏多轮对话提问检测 测试
-     * Summary: 大模型护栏多轮对话提问检测</p>
+     * <p>Description: 压测接口4，用于压测
+     * Summary: 压测接口4</p>
      */
-    public CheckAicoguardcoreAicoguardrailsQuestionResponse checkAicoguardcoreAicoguardrailsQuestionEx(CheckAicoguardcoreAicoguardrailsQuestionRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+    public QueryLoadtestTimeFourResponse queryLoadtestTimeFourEx(QueryLoadtestTimeFourRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "demo.aicoguardcore.aicoguardrails.question.check", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CheckAicoguardcoreAicoguardrailsQuestionResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "demo.loadtest.time.four.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryLoadtestTimeFourResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 压测接口5，用于压测
+     * Summary: 压测接口5</p>
+     */
+    public QueryLoadtestTimeFiveResponse queryLoadtestTimeFive(QueryLoadtestTimeFiveRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryLoadtestTimeFiveEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 压测接口5，用于压测
+     * Summary: 压测接口5</p>
+     */
+    public QueryLoadtestTimeFiveResponse queryLoadtestTimeFiveEx(QueryLoadtestTimeFiveRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.loadtest.time.five.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryLoadtestTimeFiveResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: testsysy
+     * Summary: testsysy</p>
+     */
+    public ImportTestsysyResponse importTestsysy(ImportTestsysyRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.importTestsysyEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: testsysy
+     * Summary: testsysy</p>
+     */
+    public ImportTestsysyResponse importTestsysyEx(ImportTestsysyRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.testsysy.import", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ImportTestsysyResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 个人工作台二期测试
+     * Summary: 个人工作台二期测试</p>
+     */
+    public QueryTestTimeMenhuResponse queryTestTimeMenhu(QueryTestTimeMenhuRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryTestTimeMenhuEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 个人工作台二期测试
+     * Summary: 个人工作台二期测试</p>
+     */
+    public QueryTestTimeMenhuResponse queryTestTimeMenhuEx(QueryTestTimeMenhuRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.test.time.menhu.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTestTimeMenhuResponse());
     }
 
     /**
@@ -821,7 +1179,7 @@ public class Client {
 
     /**
      * <b>description</b> :
-     * <p>Description: 自动化测试创建,用于测试API的修改
+     * <p>Description: 自动化测试���建,用于测试API的修改
      * Summary: 自动化测试创建,用于测试API的修改勿动</p>
      */
     public QueryAbcAbcAbcResponse queryAbcAbcAbc(QueryAbcAbcAbcRequest request) throws Exception {
@@ -832,7 +1190,7 @@ public class Client {
 
     /**
      * <b>description</b> :
-     * <p>Description: 自动化测试创建,用于测试API的修改
+     * <p>Description: 自动化测试���建,用于测试API的修改
      * Summary: 自动化测试创建,用于测试API的修改勿动</p>
      */
     public QueryAbcAbcAbcResponse queryAbcAbcAbcEx(QueryAbcAbcAbcRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
@@ -859,6 +1217,27 @@ public class Client {
     public BindAaaBbbCcdResponse bindAaaBbbCcdEx(BindAaaBbbCcdRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "demo.aaa.bbb.ccd.bind", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BindAaaBbbCcdResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 测试
+     * Summary: test</p>
+     */
+    public QueryAutoTestResponse queryAutoTest(QueryAutoTestRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAutoTestEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 测试
+     * Summary: test</p>
+     */
+    public QueryAutoTestResponse queryAutoTestEx(QueryAutoTestRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.auto.test.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAutoTestResponse());
     }
 
     /**

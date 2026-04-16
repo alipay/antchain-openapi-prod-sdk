@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.demo.models;
 
 import com.aliyun.tea.*;
 
-public class QueryLoadtestTimeOneRequest extends TeaModel {
+public class QueryLoadtestTimeFiveRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -11,17 +11,17 @@ public class QueryLoadtestTimeOneRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 毫秒值
+    // 超时时间
     @NameInMap("timeout")
     @Validation(required = true)
     public String timeout;
 
-    public static QueryLoadtestTimeOneRequest build(java.util.Map<String, ?> map) throws Exception {
-        QueryLoadtestTimeOneRequest self = new QueryLoadtestTimeOneRequest();
+    public static QueryLoadtestTimeFiveRequest build(java.util.Map<String, ?> map) throws Exception {
+        QueryLoadtestTimeFiveRequest self = new QueryLoadtestTimeFiveRequest();
         return TeaModel.build(map, self);
     }
 
-    public QueryLoadtestTimeOneRequest setAuthToken(String authToken) {
+    public QueryLoadtestTimeFiveRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -29,7 +29,7 @@ public class QueryLoadtestTimeOneRequest extends TeaModel {
         return this.authToken;
     }
 
-    public QueryLoadtestTimeOneRequest setProductInstanceId(String productInstanceId) {
+    public QueryLoadtestTimeFiveRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -37,7 +37,7 @@ public class QueryLoadtestTimeOneRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public QueryLoadtestTimeOneRequest setTimeout(String timeout) {
+    public QueryLoadtestTimeFiveRequest setTimeout(String timeout) {
         this.timeout = timeout;
         return this;
     }

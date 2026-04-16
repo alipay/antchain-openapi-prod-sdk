@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.demo.models;
 
 import com.aliyun.tea.*;
 
-public class QueryLoadtestTimeOneRequest extends TeaModel {
+public class QueryTestTestRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -11,17 +11,17 @@ public class QueryLoadtestTimeOneRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 毫秒值
-    @NameInMap("timeout")
+    //  
+    @NameInMap("acpmpcore")
     @Validation(required = true)
-    public String timeout;
+    public String acpmpcore;
 
-    public static QueryLoadtestTimeOneRequest build(java.util.Map<String, ?> map) throws Exception {
-        QueryLoadtestTimeOneRequest self = new QueryLoadtestTimeOneRequest();
+    public static QueryTestTestRequest build(java.util.Map<String, ?> map) throws Exception {
+        QueryTestTestRequest self = new QueryTestTestRequest();
         return TeaModel.build(map, self);
     }
 
-    public QueryLoadtestTimeOneRequest setAuthToken(String authToken) {
+    public QueryTestTestRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -29,7 +29,7 @@ public class QueryLoadtestTimeOneRequest extends TeaModel {
         return this.authToken;
     }
 
-    public QueryLoadtestTimeOneRequest setProductInstanceId(String productInstanceId) {
+    public QueryTestTestRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -37,12 +37,12 @@ public class QueryLoadtestTimeOneRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public QueryLoadtestTimeOneRequest setTimeout(String timeout) {
-        this.timeout = timeout;
+    public QueryTestTestRequest setAcpmpcore(String acpmpcore) {
+        this.acpmpcore = acpmpcore;
         return this;
     }
-    public String getTimeout() {
-        return this.timeout;
+    public String getAcpmpcore() {
+        return this.acpmpcore;
     }
 
 }
