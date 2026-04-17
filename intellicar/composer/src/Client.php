@@ -41,8 +41,16 @@ use AntChain\INTELLICAR\Models\QueryNewcarQczjRequest;
 use AntChain\INTELLICAR\Models\QueryNewcarQczjResponse;
 use AntChain\INTELLICAR\Models\QueryTagChanganRequest;
 use AntChain\INTELLICAR\Models\QueryTagChanganResponse;
+use AntChain\INTELLICAR\Models\QueryUsedcarAreaRequest;
+use AntChain\INTELLICAR\Models\QueryUsedcarAreaResponse;
+use AntChain\INTELLICAR\Models\QueryUsedcarBrandsRequest;
+use AntChain\INTELLICAR\Models\QueryUsedcarBrandsResponse;
+use AntChain\INTELLICAR\Models\QueryUsedcarProductsRequest;
+use AntChain\INTELLICAR\Models\QueryUsedcarProductsResponse;
 use AntChain\INTELLICAR\Models\QueryUsedcarRequest;
 use AntChain\INTELLICAR\Models\QueryUsedcarResponse;
+use AntChain\INTELLICAR\Models\QueryUsedcarSeriesRequest;
+use AntChain\INTELLICAR\Models\QueryUsedcarSeriesResponse;
 use AntChain\INTELLICAR\Models\RegisterCarownerCyRequest;
 use AntChain\INTELLICAR\Models\RegisterCarownerCyResponse;
 use AntChain\INTELLICAR\Models\RegisterCarownerRequest;
@@ -57,6 +65,8 @@ use AntChain\INTELLICAR\Models\SubmitIonchiRequest;
 use AntChain\INTELLICAR\Models\SubmitIonchiResponse;
 use AntChain\INTELLICAR\Models\SubmitNewcarRequest;
 use AntChain\INTELLICAR\Models\SubmitNewcarResponse;
+use AntChain\INTELLICAR\Models\SyncUsedcarRequest;
+use AntChain\INTELLICAR\Models\SyncUsedcarResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -204,7 +214,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.31',
+                    'sdk_version'      => '1.0.34',
                     '_prod_code'       => 'INTELLICAR',
                     '_prod_channel'    => 'default',
                 ];
@@ -503,8 +513,8 @@ class Client
     }
 
     /**
-     * Description: 二手车估值接口
-     * Summary: 二手车估值接口.
+     * Description: 汽车之家区域接口
+     * Summary: 汽车之家区域接口.
      *
      * @param QueryUsedcarRequest $request
      *
@@ -519,8 +529,8 @@ class Client
     }
 
     /**
-     * Description: 二手车估值接口
-     * Summary: 二手车估值接口.
+     * Description: 汽车之家区域接口
+     * Summary: 汽车之家区域接口.
      *
      * @param QueryUsedcarRequest $request
      * @param string[]            $headers
@@ -965,8 +975,8 @@ class Client
     }
 
     /**
-     * Description: 长安画像标签用户id标签查询
-     * Summary: 长安画像标签用户id标签查询.
+     * Description: 长安画像标签用户id标签查询1
+     * Summary: 长安画像标签用户id标签查询1.
      *
      * @param QueryTagChanganRequest $request
      *
@@ -981,8 +991,8 @@ class Client
     }
 
     /**
-     * Description: 长安画像标签用户id标签查询
-     * Summary: 长安画像标签用户id标签查询.
+     * Description: 长安画像标签用户id标签查询1
+     * Summary: 长安画像标签用户id标签查询1.
      *
      * @param QueryTagChanganRequest $request
      * @param string[]               $headers
@@ -995,6 +1005,171 @@ class Client
         Utils::validateModel($request);
 
         return QueryTagChanganResponse::fromMap($this->doRequest('1.0', 'antdigital.intellicar.tag.changan.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 汽车之家区域接口
+     * Summary: 汽车之家区域接口.
+     *
+     * @param QueryUsedcarAreaRequest $request
+     *
+     * @return QueryUsedcarAreaResponse
+     */
+    public function queryUsedcarArea($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryUsedcarAreaEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 汽车之家区域接口
+     * Summary: 汽车之家区域接口.
+     *
+     * @param QueryUsedcarAreaRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return QueryUsedcarAreaResponse
+     */
+    public function queryUsedcarAreaEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryUsedcarAreaResponse::fromMap($this->doRequest('1.0', 'antdigital.intellicar.usedcar.area.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取汽车之家品牌信息
+     * Summary: 获取汽车之家品牌信息.
+     *
+     * @param QueryUsedcarBrandsRequest $request
+     *
+     * @return QueryUsedcarBrandsResponse
+     */
+    public function queryUsedcarBrands($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryUsedcarBrandsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取汽车之家品牌信息
+     * Summary: 获取汽车之家品牌信息.
+     *
+     * @param QueryUsedcarBrandsRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return QueryUsedcarBrandsResponse
+     */
+    public function queryUsedcarBrandsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryUsedcarBrandsResponse::fromMap($this->doRequest('1.0', 'antdigital.intellicar.usedcar.brands.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 汽车之家车系接口
+     * Summary: 汽车之家车系接口.
+     *
+     * @param QueryUsedcarSeriesRequest $request
+     *
+     * @return QueryUsedcarSeriesResponse
+     */
+    public function queryUsedcarSeries($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryUsedcarSeriesEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 汽车之家车系接口
+     * Summary: 汽车之家车系接口.
+     *
+     * @param QueryUsedcarSeriesRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return QueryUsedcarSeriesResponse
+     */
+    public function queryUsedcarSeriesEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryUsedcarSeriesResponse::fromMap($this->doRequest('1.0', 'antdigital.intellicar.usedcar.series.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 汽车之家车型接口
+     * Summary: 汽车之家车型接口.
+     *
+     * @param QueryUsedcarProductsRequest $request
+     *
+     * @return QueryUsedcarProductsResponse
+     */
+    public function queryUsedcarProducts($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryUsedcarProductsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 汽车之家车型接口
+     * Summary: 汽车之家车型接口.
+     *
+     * @param QueryUsedcarProductsRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return QueryUsedcarProductsResponse
+     */
+    public function queryUsedcarProductsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryUsedcarProductsResponse::fromMap($this->doRequest('1.0', 'antdigital.intellicar.usedcar.products.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取二手车线索状态
+     * Summary: 获取二手车线索状态
+     *
+     * @param SyncUsedcarRequest $request
+     *
+     * @return SyncUsedcarResponse
+     */
+    public function syncUsedcar($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->syncUsedcarEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取二手车线索状态
+     * Summary: 获取二手车线索状态
+     *
+     * @param SyncUsedcarRequest $request
+     * @param string[]           $headers
+     * @param RuntimeOptions     $runtime
+     *
+     * @return SyncUsedcarResponse
+     */
+    public function syncUsedcarEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SyncUsedcarResponse::fromMap($this->doRequest('1.0', 'antdigital.intellicar.usedcar.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
