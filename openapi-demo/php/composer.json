@@ -1,0 +1,33 @@
+{
+	"license":"Apache-2.0",
+	"name":"alipay/openapi-demo",
+	"description":"Ant Chain SDK Library for PHP",
+	"autoload":{
+		"psr-4":{
+			"AntChain\\DEMO\\":"src"
+		}
+	},
+	"require":{
+		"alibabacloud/tea-rpc-utils":"^0.2.0",
+		"antchain/antchain-util":"^0.2.0",
+		"php":">5.5",
+		"alibabacloud/tea-utils":"^0.2.22"
+	},
+	"type":"library",
+	"scripts":{
+		"fixer":"php-cs-fixer fix ./"
+	},
+	"config":{
+		"sort-packages":true,
+		"optimize-autoloader":true,
+		"preferred-install":"dist"
+	},
+	"version":"1.1.7",
+	"authors":[
+		{
+			"name":"Ant Chain SDK",
+			"email":"sdk-team@alibabacloud.com"
+		}
+	],
+	"prefer-stable":true
+}
