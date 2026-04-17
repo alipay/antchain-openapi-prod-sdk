@@ -477,6 +477,42 @@ class Overlap(TeaModel):
         return self
 
 
+class LetterInfo(TeaModel):
+    def __init__(
+        self,
+        name: str = None,
+        id: str = None,
+    ):
+        # name
+        self.name = name
+        # id
+        self.id = id
+
+    def validate(self):
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.id, 'id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.name is not None:
+            result['name'] = self.name
+        if self.id is not None:
+            result['id'] = self.id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        return self
+
+
 class CarUserInfo(TeaModel):
     def __init__(
         self,
@@ -1652,6 +1688,86 @@ class CarInfo(TeaModel):
         return self
 
 
+class Province(TeaModel):
+    def __init__(
+        self,
+        pid: str = None,
+        pname: str = None,
+    ):
+        # 省份id
+        self.pid = pid
+        # 省份名
+        self.pname = pname
+
+    def validate(self):
+        self.validate_required(self.pid, 'pid')
+        self.validate_required(self.pname, 'pname')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.pid is not None:
+            result['pid'] = self.pid
+        if self.pname is not None:
+            result['pname'] = self.pname
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('pid') is not None:
+            self.pid = m.get('pid')
+        if m.get('pname') is not None:
+            self.pname = m.get('pname')
+        return self
+
+
+class City(TeaModel):
+    def __init__(
+        self,
+        pid: str = None,
+        cid: str = None,
+        cname: str = None,
+    ):
+        # 省份id
+        self.pid = pid
+        # 城市id
+        self.cid = cid
+        # 城市名
+        self.cname = cname
+
+    def validate(self):
+        self.validate_required(self.pid, 'pid')
+        self.validate_required(self.cid, 'cid')
+        self.validate_required(self.cname, 'cname')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.pid is not None:
+            result['pid'] = self.pid
+        if self.cid is not None:
+            result['cid'] = self.cid
+        if self.cname is not None:
+            result['cname'] = self.cname
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('pid') is not None:
+            self.pid = m.get('pid')
+        if m.get('cid') is not None:
+            self.cid = m.get('cid')
+        if m.get('cname') is not None:
+            self.cname = m.get('cname')
+        return self
+
+
 class GdCustomerInfo(TeaModel):
     def __init__(
         self,
@@ -1946,6 +2062,50 @@ class GdPotentialCustomerInfo(TeaModel):
             for k in m.get('records'):
                 temp_model = GdPotentialCustomerRecord()
                 self.records.append(temp_model.from_map(k))
+        return self
+
+
+class ProductInfo(TeaModel):
+    def __init__(
+        self,
+        fueltype: str = None,
+        name: str = None,
+        id: str = None,
+    ):
+        # 能源类型
+        self.fueltype = fueltype
+        # 车型名称
+        self.name = name
+        # 车型id
+        self.id = id
+
+    def validate(self):
+        self.validate_required(self.fueltype, 'fueltype')
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.id, 'id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.fueltype is not None:
+            result['fueltype'] = self.fueltype
+        if self.name is not None:
+            result['name'] = self.name
+        if self.id is not None:
+            result['id'] = self.id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('fueltype') is not None:
+            self.fueltype = m.get('fueltype')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('id') is not None:
+            self.id = m.get('id')
         return self
 
 
@@ -2289,6 +2449,131 @@ class UsedCarInfo(TeaModel):
             self.pid = m.get('pid')
         if m.get('specid') is not None:
             self.specid = m.get('specid')
+        return self
+
+
+class Brandlist(TeaModel):
+    def __init__(
+        self,
+        letter: str = None,
+        list: List[LetterInfo] = None,
+    ):
+        # 首字母
+        self.letter = letter
+        # 品牌信息列表
+        self.list = list
+
+    def validate(self):
+        self.validate_required(self.letter, 'letter')
+        self.validate_required(self.list, 'list')
+        if self.list:
+            for k in self.list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.letter is not None:
+            result['letter'] = self.letter
+        result['list'] = []
+        if self.list is not None:
+            for k in self.list:
+                result['list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('letter') is not None:
+            self.letter = m.get('letter')
+        self.list = []
+        if m.get('list') is not None:
+            for k in m.get('list'):
+                temp_model = LetterInfo()
+                self.list.append(temp_model.from_map(k))
+        return self
+
+
+class LeadInfo(TeaModel):
+    def __init__(
+        self,
+        lead_id: str = None,
+        status: str = None,
+    ):
+        # 线索信息
+        self.lead_id = lead_id
+        # 状态值
+        self.status = status
+
+    def validate(self):
+        self.validate_required(self.lead_id, 'lead_id')
+        self.validate_required(self.status, 'status')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.lead_id is not None:
+            result['lead_id'] = self.lead_id
+        if self.status is not None:
+            result['status'] = self.status
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('lead_id') is not None:
+            self.lead_id = m.get('lead_id')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        return self
+
+
+class County(TeaModel):
+    def __init__(
+        self,
+        cid: str = None,
+        countyid: str = None,
+        countyname: str = None,
+    ):
+        # 城市id
+        self.cid = cid
+        # 区县id
+        self.countyid = countyid
+        # 区县名
+        self.countyname = countyname
+
+    def validate(self):
+        self.validate_required(self.cid, 'cid')
+        self.validate_required(self.countyid, 'countyid')
+        self.validate_required(self.countyname, 'countyname')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cid is not None:
+            result['cid'] = self.cid
+        if self.countyid is not None:
+            result['countyid'] = self.countyid
+        if self.countyname is not None:
+            result['countyname'] = self.countyname
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('cid') is not None:
+            self.cid = m.get('cid')
+        if m.get('countyid') is not None:
+            self.countyid = m.get('countyid')
+        if m.get('countyname') is not None:
+            self.countyname = m.get('countyname')
         return self
 
 
@@ -5304,6 +5589,650 @@ class QueryTagChanganResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('data') is not None:
             self.data = m.get('data')
+        return self
+
+
+class QueryUsedcarAreaRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        scene_code: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 场景码
+        self.scene_code = scene_code
+
+    def validate(self):
+        self.validate_required(self.scene_code, 'scene_code')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.scene_code is not None:
+            result['scene_code'] = self.scene_code
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('scene_code') is not None:
+            self.scene_code = m.get('scene_code')
+        return self
+
+
+class QueryUsedcarAreaResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        code: str = None,
+        msg: str = None,
+        province: List[Province] = None,
+        city: List[City] = None,
+        county: List[County] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 响应码
+        self.code = code
+        # 响应信息
+        self.msg = msg
+        # 省份集合
+        self.province = province
+        # 城市集合
+        self.city = city
+        # 区县集合
+        self.county = county
+
+    def validate(self):
+        if self.province:
+            for k in self.province:
+                if k:
+                    k.validate()
+        if self.city:
+            for k in self.city:
+                if k:
+                    k.validate()
+        if self.county:
+            for k in self.county:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.code is not None:
+            result['code'] = self.code
+        if self.msg is not None:
+            result['msg'] = self.msg
+        result['province'] = []
+        if self.province is not None:
+            for k in self.province:
+                result['province'].append(k.to_map() if k else None)
+        result['city'] = []
+        if self.city is not None:
+            for k in self.city:
+                result['city'].append(k.to_map() if k else None)
+        result['county'] = []
+        if self.county is not None:
+            for k in self.county:
+                result['county'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('msg') is not None:
+            self.msg = m.get('msg')
+        self.province = []
+        if m.get('province') is not None:
+            for k in m.get('province'):
+                temp_model = Province()
+                self.province.append(temp_model.from_map(k))
+        self.city = []
+        if m.get('city') is not None:
+            for k in m.get('city'):
+                temp_model = City()
+                self.city.append(temp_model.from_map(k))
+        self.county = []
+        if m.get('county') is not None:
+            for k in m.get('county'):
+                temp_model = County()
+                self.county.append(temp_model.from_map(k))
+        return self
+
+
+class QueryUsedcarBrandsRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        scene_code: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 场景码
+        self.scene_code = scene_code
+
+    def validate(self):
+        self.validate_required(self.scene_code, 'scene_code')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.scene_code is not None:
+            result['scene_code'] = self.scene_code
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('scene_code') is not None:
+            self.scene_code = m.get('scene_code')
+        return self
+
+
+class QueryUsedcarBrandsResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        code: str = None,
+        msg: str = None,
+        brandlist: List[Brandlist] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # xxx
+        self.code = code
+        # xxx
+        self.msg = msg
+        # 123
+        self.brandlist = brandlist
+
+    def validate(self):
+        if self.brandlist:
+            for k in self.brandlist:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.code is not None:
+            result['code'] = self.code
+        if self.msg is not None:
+            result['msg'] = self.msg
+        result['brandlist'] = []
+        if self.brandlist is not None:
+            for k in self.brandlist:
+                result['brandlist'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('msg') is not None:
+            self.msg = m.get('msg')
+        self.brandlist = []
+        if m.get('brandlist') is not None:
+            for k in m.get('brandlist'):
+                temp_model = Brandlist()
+                self.brandlist.append(temp_model.from_map(k))
+        return self
+
+
+class QueryUsedcarSeriesRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        brand_id: str = None,
+        scene_code: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 品牌id
+        self.brand_id = brand_id
+        # 场景码
+        self.scene_code = scene_code
+
+    def validate(self):
+        self.validate_required(self.brand_id, 'brand_id')
+        self.validate_required(self.scene_code, 'scene_code')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.brand_id is not None:
+            result['brand_id'] = self.brand_id
+        if self.scene_code is not None:
+            result['scene_code'] = self.scene_code
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('brand_id') is not None:
+            self.brand_id = m.get('brand_id')
+        if m.get('scene_code') is not None:
+            self.scene_code = m.get('scene_code')
+        return self
+
+
+class QueryUsedcarSeriesResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        brandid: str = None,
+        serieslist: List[LetterInfo] = None,
+        brandname: str = None,
+        code: str = None,
+        msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 品牌id
+        self.brandid = brandid
+        # 车系信息
+        self.serieslist = serieslist
+        # 品牌名称
+        self.brandname = brandname
+        # 状态码
+        self.code = code
+        # 响应结果
+        self.msg = msg
+
+    def validate(self):
+        if self.serieslist:
+            for k in self.serieslist:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.brandid is not None:
+            result['brandid'] = self.brandid
+        result['serieslist'] = []
+        if self.serieslist is not None:
+            for k in self.serieslist:
+                result['serieslist'].append(k.to_map() if k else None)
+        if self.brandname is not None:
+            result['brandname'] = self.brandname
+        if self.code is not None:
+            result['code'] = self.code
+        if self.msg is not None:
+            result['msg'] = self.msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('brandid') is not None:
+            self.brandid = m.get('brandid')
+        self.serieslist = []
+        if m.get('serieslist') is not None:
+            for k in m.get('serieslist'):
+                temp_model = LetterInfo()
+                self.serieslist.append(temp_model.from_map(k))
+        if m.get('brandname') is not None:
+            self.brandname = m.get('brandname')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('msg') is not None:
+            self.msg = m.get('msg')
+        return self
+
+
+class QueryUsedcarProductsRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        series_id: str = None,
+        scene_code: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 车系id
+        self.series_id = series_id
+        # 场景码
+        self.scene_code = scene_code
+
+    def validate(self):
+        self.validate_required(self.series_id, 'series_id')
+        self.validate_required(self.scene_code, 'scene_code')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.series_id is not None:
+            result['series_id'] = self.series_id
+        if self.scene_code is not None:
+            result['scene_code'] = self.scene_code
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('series_id') is not None:
+            self.series_id = m.get('series_id')
+        if m.get('scene_code') is not None:
+            self.scene_code = m.get('scene_code')
+        return self
+
+
+class QueryUsedcarProductsResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        code: str = None,
+        msg: str = None,
+        seriesname: str = None,
+        seriesid: str = None,
+        productlist: List[ProductInfo] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 状态码
+        self.code = code
+        # 状态信息
+        self.msg = msg
+        # 车系名
+        self.seriesname = seriesname
+        # 车系id
+        self.seriesid = seriesid
+        # 车型信息
+        self.productlist = productlist
+
+    def validate(self):
+        if self.productlist:
+            for k in self.productlist:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.code is not None:
+            result['code'] = self.code
+        if self.msg is not None:
+            result['msg'] = self.msg
+        if self.seriesname is not None:
+            result['seriesname'] = self.seriesname
+        if self.seriesid is not None:
+            result['seriesid'] = self.seriesid
+        result['productlist'] = []
+        if self.productlist is not None:
+            for k in self.productlist:
+                result['productlist'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('msg') is not None:
+            self.msg = m.get('msg')
+        if m.get('seriesname') is not None:
+            self.seriesname = m.get('seriesname')
+        if m.get('seriesid') is not None:
+            self.seriesid = m.get('seriesid')
+        self.productlist = []
+        if m.get('productlist') is not None:
+            for k in m.get('productlist'):
+                temp_model = ProductInfo()
+                self.productlist.append(temp_model.from_map(k))
+        return self
+
+
+class SyncUsedcarRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        lead_id_list: List[str] = None,
+        scene_code: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 线索状态列表
+        self.lead_id_list = lead_id_list
+        # 场景码
+        self.scene_code = scene_code
+
+    def validate(self):
+        self.validate_required(self.lead_id_list, 'lead_id_list')
+        self.validate_required(self.scene_code, 'scene_code')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.lead_id_list is not None:
+            result['lead_id_list'] = self.lead_id_list
+        if self.scene_code is not None:
+            result['scene_code'] = self.scene_code
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('lead_id_list') is not None:
+            self.lead_id_list = m.get('lead_id_list')
+        if m.get('scene_code') is not None:
+            self.scene_code = m.get('scene_code')
+        return self
+
+
+class SyncUsedcarResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        code: str = None,
+        msg: str = None,
+        data: List[LeadInfo] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 响应值
+        self.code = code
+        # 响应信息
+        self.msg = msg
+        # 线索状态信息列表
+        self.data = data
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.code is not None:
+            result['code'] = self.code
+        if self.msg is not None:
+            result['msg'] = self.msg
+        result['data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['data'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('msg') is not None:
+            self.msg = m.get('msg')
+        self.data = []
+        if m.get('data') is not None:
+            for k in m.get('data'):
+                temp_model = LeadInfo()
+                self.data.append(temp_model.from_map(k))
         return self
 
 

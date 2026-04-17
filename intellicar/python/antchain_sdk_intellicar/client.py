@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.31',
+                    'sdk_version': '1.0.34',
                     '_prod_code': 'INTELLICAR',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.31',
+                    'sdk_version': '1.0.34',
                     '_prod_code': 'INTELLICAR',
                     '_prod_channel': 'default'
                 }
@@ -708,8 +708,8 @@ class Client:
         request: intellicar_models.QueryUsedcarRequest,
     ) -> intellicar_models.QueryUsedcarResponse:
         """
-        Description: 二手车估值接口
-        Summary: 二手车估值接口
+        Description: 汽车之家区域接口
+        Summary: 汽车之家区域接口
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -720,8 +720,8 @@ class Client:
         request: intellicar_models.QueryUsedcarRequest,
     ) -> intellicar_models.QueryUsedcarResponse:
         """
-        Description: 二手车估值接口
-        Summary: 二手车估值接口
+        Description: 汽车之家区域接口
+        Summary: 汽车之家区域接口
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -734,8 +734,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> intellicar_models.QueryUsedcarResponse:
         """
-        Description: 二手车估值接口
-        Summary: 二手车估值接口
+        Description: 汽车之家区域接口
+        Summary: 汽车之家区域接口
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -750,8 +750,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> intellicar_models.QueryUsedcarResponse:
         """
-        Description: 二手车估值接口
-        Summary: 二手车估值接口
+        Description: 汽车之家区域接口
+        Summary: 汽车之家区域接口
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -1492,8 +1492,8 @@ class Client:
         request: intellicar_models.QueryTagChanganRequest,
     ) -> intellicar_models.QueryTagChanganResponse:
         """
-        Description: 长安画像标签用户id标签查询
-        Summary: 长安画像标签用户id标签查询
+        Description: 长安画像标签用户id标签查询1
+        Summary: 长安画像标签用户id标签查询1
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -1504,8 +1504,8 @@ class Client:
         request: intellicar_models.QueryTagChanganRequest,
     ) -> intellicar_models.QueryTagChanganResponse:
         """
-        Description: 长安画像标签用户id标签查询
-        Summary: 长安画像标签用户id标签查询
+        Description: 长安画像标签用户id标签查询1
+        Summary: 长安画像标签用户id标签查询1
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -1518,8 +1518,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> intellicar_models.QueryTagChanganResponse:
         """
-        Description: 长安画像标签用户id标签查询
-        Summary: 长安画像标签用户id标签查询
+        Description: 长安画像标签用户id标签查询1
+        Summary: 长安画像标签用户id标签查询1
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -1534,13 +1534,293 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> intellicar_models.QueryTagChanganResponse:
         """
-        Description: 长安画像标签用户id标签查询
-        Summary: 长安画像标签用户id标签查询
+        Description: 长安画像标签用户id标签查询1
+        Summary: 长安画像标签用户id标签查询1
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             intellicar_models.QueryTagChanganResponse(),
             await self.do_request_async('1.0', 'antdigital.intellicar.tag.changan.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_usedcar_area(
+        self,
+        request: intellicar_models.QueryUsedcarAreaRequest,
+    ) -> intellicar_models.QueryUsedcarAreaResponse:
+        """
+        Description: 汽车之家区域接口
+        Summary: 汽车之家区域接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_usedcar_area_ex(request, headers, runtime)
+
+    async def query_usedcar_area_async(
+        self,
+        request: intellicar_models.QueryUsedcarAreaRequest,
+    ) -> intellicar_models.QueryUsedcarAreaResponse:
+        """
+        Description: 汽车之家区域接口
+        Summary: 汽车之家区域接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_usedcar_area_ex_async(request, headers, runtime)
+
+    def query_usedcar_area_ex(
+        self,
+        request: intellicar_models.QueryUsedcarAreaRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> intellicar_models.QueryUsedcarAreaResponse:
+        """
+        Description: 汽车之家区域接口
+        Summary: 汽车之家区域接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            intellicar_models.QueryUsedcarAreaResponse(),
+            self.do_request('1.0', 'antdigital.intellicar.usedcar.area.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_usedcar_area_ex_async(
+        self,
+        request: intellicar_models.QueryUsedcarAreaRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> intellicar_models.QueryUsedcarAreaResponse:
+        """
+        Description: 汽车之家区域接口
+        Summary: 汽车之家区域接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            intellicar_models.QueryUsedcarAreaResponse(),
+            await self.do_request_async('1.0', 'antdigital.intellicar.usedcar.area.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_usedcar_brands(
+        self,
+        request: intellicar_models.QueryUsedcarBrandsRequest,
+    ) -> intellicar_models.QueryUsedcarBrandsResponse:
+        """
+        Description: 获取汽车之家品牌信息
+        Summary: 获取汽车之家品牌信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_usedcar_brands_ex(request, headers, runtime)
+
+    async def query_usedcar_brands_async(
+        self,
+        request: intellicar_models.QueryUsedcarBrandsRequest,
+    ) -> intellicar_models.QueryUsedcarBrandsResponse:
+        """
+        Description: 获取汽车之家品牌信息
+        Summary: 获取汽车之家品牌信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_usedcar_brands_ex_async(request, headers, runtime)
+
+    def query_usedcar_brands_ex(
+        self,
+        request: intellicar_models.QueryUsedcarBrandsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> intellicar_models.QueryUsedcarBrandsResponse:
+        """
+        Description: 获取汽车之家品牌信息
+        Summary: 获取汽车之家品牌信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            intellicar_models.QueryUsedcarBrandsResponse(),
+            self.do_request('1.0', 'antdigital.intellicar.usedcar.brands.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_usedcar_brands_ex_async(
+        self,
+        request: intellicar_models.QueryUsedcarBrandsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> intellicar_models.QueryUsedcarBrandsResponse:
+        """
+        Description: 获取汽车之家品牌信息
+        Summary: 获取汽车之家品牌信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            intellicar_models.QueryUsedcarBrandsResponse(),
+            await self.do_request_async('1.0', 'antdigital.intellicar.usedcar.brands.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_usedcar_series(
+        self,
+        request: intellicar_models.QueryUsedcarSeriesRequest,
+    ) -> intellicar_models.QueryUsedcarSeriesResponse:
+        """
+        Description: 汽车之家车系接口
+        Summary: 汽车之家车系接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_usedcar_series_ex(request, headers, runtime)
+
+    async def query_usedcar_series_async(
+        self,
+        request: intellicar_models.QueryUsedcarSeriesRequest,
+    ) -> intellicar_models.QueryUsedcarSeriesResponse:
+        """
+        Description: 汽车之家车系接口
+        Summary: 汽车之家车系接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_usedcar_series_ex_async(request, headers, runtime)
+
+    def query_usedcar_series_ex(
+        self,
+        request: intellicar_models.QueryUsedcarSeriesRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> intellicar_models.QueryUsedcarSeriesResponse:
+        """
+        Description: 汽车之家车系接口
+        Summary: 汽车之家车系接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            intellicar_models.QueryUsedcarSeriesResponse(),
+            self.do_request('1.0', 'antdigital.intellicar.usedcar.series.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_usedcar_series_ex_async(
+        self,
+        request: intellicar_models.QueryUsedcarSeriesRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> intellicar_models.QueryUsedcarSeriesResponse:
+        """
+        Description: 汽车之家车系接口
+        Summary: 汽车之家车系接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            intellicar_models.QueryUsedcarSeriesResponse(),
+            await self.do_request_async('1.0', 'antdigital.intellicar.usedcar.series.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_usedcar_products(
+        self,
+        request: intellicar_models.QueryUsedcarProductsRequest,
+    ) -> intellicar_models.QueryUsedcarProductsResponse:
+        """
+        Description: 汽车之家车型接口
+        Summary: 汽车之家车型接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_usedcar_products_ex(request, headers, runtime)
+
+    async def query_usedcar_products_async(
+        self,
+        request: intellicar_models.QueryUsedcarProductsRequest,
+    ) -> intellicar_models.QueryUsedcarProductsResponse:
+        """
+        Description: 汽车之家车型接口
+        Summary: 汽车之家车型接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_usedcar_products_ex_async(request, headers, runtime)
+
+    def query_usedcar_products_ex(
+        self,
+        request: intellicar_models.QueryUsedcarProductsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> intellicar_models.QueryUsedcarProductsResponse:
+        """
+        Description: 汽车之家车型接口
+        Summary: 汽车之家车型接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            intellicar_models.QueryUsedcarProductsResponse(),
+            self.do_request('1.0', 'antdigital.intellicar.usedcar.products.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_usedcar_products_ex_async(
+        self,
+        request: intellicar_models.QueryUsedcarProductsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> intellicar_models.QueryUsedcarProductsResponse:
+        """
+        Description: 汽车之家车型接口
+        Summary: 汽车之家车型接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            intellicar_models.QueryUsedcarProductsResponse(),
+            await self.do_request_async('1.0', 'antdigital.intellicar.usedcar.products.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def sync_usedcar(
+        self,
+        request: intellicar_models.SyncUsedcarRequest,
+    ) -> intellicar_models.SyncUsedcarResponse:
+        """
+        Description: 获取二手车线索状态
+        Summary: 获取二手车线索状态
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.sync_usedcar_ex(request, headers, runtime)
+
+    async def sync_usedcar_async(
+        self,
+        request: intellicar_models.SyncUsedcarRequest,
+    ) -> intellicar_models.SyncUsedcarResponse:
+        """
+        Description: 获取二手车线索状态
+        Summary: 获取二手车线索状态
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.sync_usedcar_ex_async(request, headers, runtime)
+
+    def sync_usedcar_ex(
+        self,
+        request: intellicar_models.SyncUsedcarRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> intellicar_models.SyncUsedcarResponse:
+        """
+        Description: 获取二手车线索状态
+        Summary: 获取二手车线索状态
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            intellicar_models.SyncUsedcarResponse(),
+            self.do_request('1.0', 'antdigital.intellicar.usedcar.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def sync_usedcar_ex_async(
+        self,
+        request: intellicar_models.SyncUsedcarRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> intellicar_models.SyncUsedcarResponse:
+        """
+        Description: 获取二手车线索状态
+        Summary: 获取二手车线索状态
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            intellicar_models.SyncUsedcarResponse(),
+            await self.do_request_async('1.0', 'antdigital.intellicar.usedcar.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
