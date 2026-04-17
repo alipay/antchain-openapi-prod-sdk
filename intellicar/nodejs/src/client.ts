@@ -272,6 +272,31 @@ export class Overlap extends $tea.Model {
   }
 }
 
+// 品牌信息
+export class LetterInfo extends $tea.Model {
+  // name
+  name: string;
+  // id
+  id: string;
+  static names(): { [key: string]: string } {
+    return {
+      name: 'name',
+      id: 'id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      name: 'string',
+      id: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 用户信息
 export class CarUserInfo extends $tea.Model {
   // 唯一标识用户的id
@@ -940,6 +965,60 @@ export class CarInfo extends $tea.Model {
   }
 }
 
+// 省份集合
+export class Province extends $tea.Model {
+  // 省份id
+  pid: string;
+  // 省份名
+  pname: string;
+  static names(): { [key: string]: string } {
+    return {
+      pid: 'pid',
+      pname: 'pname',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      pid: 'string',
+      pname: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 城市集合
+export class City extends $tea.Model {
+  // 省份id
+  pid: string;
+  // 城市id
+  cid: string;
+  // 城市名
+  cname: string;
+  static names(): { [key: string]: string } {
+    return {
+      pid: 'pid',
+      cid: 'cid',
+      cname: 'cname',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      pid: 'string',
+      cid: 'string',
+      cname: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 高德潜客流向数据返回数据对象
 export class GdCustomerInfo extends $tea.Model {
   // 时间范围（查询年度数据时，返回该字段）
@@ -1104,6 +1183,35 @@ export class GdPotentialCustomerInfo extends $tea.Model {
       pages: 'number',
       size: 'number',
       records: { 'type': 'array', 'itemType': GdPotentialCustomerRecord },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 车型信息
+export class ProductInfo extends $tea.Model {
+  // 能源类型
+  fueltype: string;
+  // 车型名称
+  name: string;
+  // 车型id
+  id: string;
+  static names(): { [key: string]: string } {
+    return {
+      fueltype: 'fueltype',
+      name: 'name',
+      id: 'id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      fueltype: 'string',
+      name: 'string',
+      id: 'string',
     };
   }
 
@@ -1323,6 +1431,85 @@ export class UsedCarInfo extends $tea.Model {
       mileage: 'string',
       pid: 'string',
       specid: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 品牌列表
+export class Brandlist extends $tea.Model {
+  // 首字母
+  letter: string;
+  // 品牌信息列表
+  list: LetterInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      letter: 'letter',
+      list: 'list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      letter: 'string',
+      list: { 'type': 'array', 'itemType': LetterInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 线索状态信息
+export class LeadInfo extends $tea.Model {
+  // 线索信息
+  leadId: string;
+  // 状态值
+  status: string;
+  static names(): { [key: string]: string } {
+    return {
+      leadId: 'lead_id',
+      status: 'status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      leadId: 'string',
+      status: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 区县集合
+export class County extends $tea.Model {
+  // 城市id
+  cid: string;
+  // 区县id
+  countyid: string;
+  // 区县名
+  countyname: string;
+  static names(): { [key: string]: string } {
+    return {
+      cid: 'cid',
+      countyid: 'countyid',
+      countyname: 'countyname',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      cid: 'string',
+      countyid: 'string',
+      countyname: 'string',
     };
   }
 
@@ -3160,6 +3347,377 @@ export class QueryTagChanganResponse extends $tea.Model {
   }
 }
 
+export class QueryUsedcarAreaRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 场景码
+  sceneCode: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      sceneCode: 'scene_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      sceneCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryUsedcarAreaResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 响应码
+  code?: string;
+  // 响应信息
+  msg?: string;
+  // 省份集合
+  province?: Province[];
+  // 城市集合
+  city?: City[];
+  // 区县集合
+  county?: County[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      code: 'code',
+      msg: 'msg',
+      province: 'province',
+      city: 'city',
+      county: 'county',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      code: 'string',
+      msg: 'string',
+      province: { 'type': 'array', 'itemType': Province },
+      city: { 'type': 'array', 'itemType': City },
+      county: { 'type': 'array', 'itemType': County },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryUsedcarBrandsRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 场景码
+  sceneCode: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      sceneCode: 'scene_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      sceneCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryUsedcarBrandsResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // xxx
+  code?: string;
+  // xxx
+  msg?: string;
+  // 123
+  brandlist?: Brandlist[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      code: 'code',
+      msg: 'msg',
+      brandlist: 'brandlist',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      code: 'string',
+      msg: 'string',
+      brandlist: { 'type': 'array', 'itemType': Brandlist },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryUsedcarSeriesRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 品牌id
+  brandId: string;
+  // 场景码
+  sceneCode: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      brandId: 'brand_id',
+      sceneCode: 'scene_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      brandId: 'string',
+      sceneCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryUsedcarSeriesResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 品牌id
+  brandid?: string;
+  // 车系信息
+  serieslist?: LetterInfo[];
+  // 品牌名称
+  brandname?: string;
+  // 状态码
+  code?: string;
+  // 响应结果
+  msg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      brandid: 'brandid',
+      serieslist: 'serieslist',
+      brandname: 'brandname',
+      code: 'code',
+      msg: 'msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      brandid: 'string',
+      serieslist: { 'type': 'array', 'itemType': LetterInfo },
+      brandname: 'string',
+      code: 'string',
+      msg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryUsedcarProductsRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 车系id
+  seriesId: string;
+  // 场景码
+  sceneCode: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      seriesId: 'series_id',
+      sceneCode: 'scene_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      seriesId: 'string',
+      sceneCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryUsedcarProductsResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 状态码
+  code?: string;
+  // 状态信息
+  msg?: string;
+  // 车系名
+  seriesname?: string;
+  // 车系id
+  seriesid?: string;
+  // 车型信息
+  productlist?: ProductInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      code: 'code',
+      msg: 'msg',
+      seriesname: 'seriesname',
+      seriesid: 'seriesid',
+      productlist: 'productlist',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      code: 'string',
+      msg: 'string',
+      seriesname: 'string',
+      seriesid: 'string',
+      productlist: { 'type': 'array', 'itemType': ProductInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SyncUsedcarRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 线索状态列表
+  leadIdList: string[];
+  // 场景码
+  sceneCode: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      leadIdList: 'lead_id_list',
+      sceneCode: 'scene_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      leadIdList: { 'type': 'array', 'itemType': 'string' },
+      sceneCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SyncUsedcarResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 响应值
+  code?: string;
+  // 响应信息
+  msg?: string;
+  // 线索状态信息列表
+  data?: LeadInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      code: 'code',
+      msg: 'msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      code: 'string',
+      msg: 'string',
+      data: { 'type': 'array', 'itemType': LeadInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -3361,7 +3919,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.31",
+          sdk_version: "1.0.34",
           _prod_code: "INTELLICAR",
           _prod_channel: "default",
         };
@@ -3565,8 +4123,8 @@ export default class Client {
   }
 
   /**
-   * Description: 二手车估值接口
-   * Summary: 二手车估值接口
+   * Description: 汽车之家区域接口
+   * Summary: 汽车之家区域接口
    */
   async queryUsedcar(request: QueryUsedcarRequest): Promise<QueryUsedcarResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -3575,8 +4133,8 @@ export default class Client {
   }
 
   /**
-   * Description: 二手车估值接口
-   * Summary: 二手车估值接口
+   * Description: 汽车之家区域接口
+   * Summary: 汽车之家区域接口
    */
   async queryUsedcarEx(request: QueryUsedcarRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryUsedcarResponse> {
     Util.validateModel(request);
@@ -3831,8 +4389,8 @@ export default class Client {
   }
 
   /**
-   * Description: 长安画像标签用户id标签查询
-   * Summary: 长安画像标签用户id标签查询
+   * Description: 长安画像标签用户id标签查询1
+   * Summary: 长安画像标签用户id标签查询1
    */
   async queryTagChangan(request: QueryTagChanganRequest): Promise<QueryTagChanganResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -3841,12 +4399,107 @@ export default class Client {
   }
 
   /**
-   * Description: 长安画像标签用户id标签查询
-   * Summary: 长安画像标签用户id标签查询
+   * Description: 长安画像标签用户id标签查询1
+   * Summary: 长安画像标签用户id标签查询1
    */
   async queryTagChanganEx(request: QueryTagChanganRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryTagChanganResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryTagChanganResponse>(await this.doRequest("1.0", "antdigital.intellicar.tag.changan.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryTagChanganResponse({}));
+  }
+
+  /**
+   * Description: 汽车之家区域接口
+   * Summary: 汽车之家区域接口
+   */
+  async queryUsedcarArea(request: QueryUsedcarAreaRequest): Promise<QueryUsedcarAreaResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryUsedcarAreaEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 汽车之家区域接口
+   * Summary: 汽车之家区域接口
+   */
+  async queryUsedcarAreaEx(request: QueryUsedcarAreaRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryUsedcarAreaResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryUsedcarAreaResponse>(await this.doRequest("1.0", "antdigital.intellicar.usedcar.area.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryUsedcarAreaResponse({}));
+  }
+
+  /**
+   * Description: 获取汽车之家品牌信息
+   * Summary: 获取汽车之家品牌信息
+   */
+  async queryUsedcarBrands(request: QueryUsedcarBrandsRequest): Promise<QueryUsedcarBrandsResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryUsedcarBrandsEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 获取汽车之家品牌信息
+   * Summary: 获取汽车之家品牌信息
+   */
+  async queryUsedcarBrandsEx(request: QueryUsedcarBrandsRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryUsedcarBrandsResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryUsedcarBrandsResponse>(await this.doRequest("1.0", "antdigital.intellicar.usedcar.brands.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryUsedcarBrandsResponse({}));
+  }
+
+  /**
+   * Description: 汽车之家车系接口
+   * Summary: 汽车之家车系接口
+   */
+  async queryUsedcarSeries(request: QueryUsedcarSeriesRequest): Promise<QueryUsedcarSeriesResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryUsedcarSeriesEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 汽车之家车系接口
+   * Summary: 汽车之家车系接口
+   */
+  async queryUsedcarSeriesEx(request: QueryUsedcarSeriesRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryUsedcarSeriesResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryUsedcarSeriesResponse>(await this.doRequest("1.0", "antdigital.intellicar.usedcar.series.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryUsedcarSeriesResponse({}));
+  }
+
+  /**
+   * Description: 汽车之家车型接口
+   * Summary: 汽车之家车型接口
+   */
+  async queryUsedcarProducts(request: QueryUsedcarProductsRequest): Promise<QueryUsedcarProductsResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryUsedcarProductsEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 汽车之家车型接口
+   * Summary: 汽车之家车型接口
+   */
+  async queryUsedcarProductsEx(request: QueryUsedcarProductsRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryUsedcarProductsResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryUsedcarProductsResponse>(await this.doRequest("1.0", "antdigital.intellicar.usedcar.products.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryUsedcarProductsResponse({}));
+  }
+
+  /**
+   * Description: 获取二手车线索状态
+   * Summary: 获取二手车线索状态
+   */
+  async syncUsedcar(request: SyncUsedcarRequest): Promise<SyncUsedcarResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.syncUsedcarEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 获取二手车线索状态
+   * Summary: 获取二手车线索状态
+   */
+  async syncUsedcarEx(request: SyncUsedcarRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SyncUsedcarResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SyncUsedcarResponse>(await this.doRequest("1.0", "antdigital.intellicar.usedcar.sync", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SyncUsedcarResponse({}));
   }
 
   /**
