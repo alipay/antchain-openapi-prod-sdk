@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.31',
+    sdk_version = '1.0.34',
     _prod_code = 'INTELLICAR',
     _prod_channel = 'default'
   };
@@ -234,6 +234,14 @@ model Overlap {
   pcode?: string(name='pcode', example='xxxx'),
   // 数据类型为全国时返回该属性与值
   countrycode?: string(name='countrycode', example='xxxx'),
+}
+
+// 品牌信息
+model LetterInfo {
+  // name
+  name: string(name='name', example='xxxx'),
+  // id
+  id: string(name='id', example='xxxx'),
 }
 
 // 用户信息
@@ -516,6 +524,24 @@ model CarInfo {
   modelCode: string(name='model_code', example='xxx'),
 }
 
+// 省份集合
+model Province {
+  // 省份id
+  pid: string(name='pid', example='xxxx'),
+  // 省份名
+  pname: string(name='pname', example='1'),
+}
+
+// 城市集合
+model City {
+  // 省份id
+  pid: string(name='pid', example='省份id'),
+  // 城市id
+  cid: string(name='cid', example='城市id'),
+  // 城市名
+  cname: string(name='cname', example='xxxx'),
+}
+
 // 高德潜客流向数据返回数据对象
 model GdCustomerInfo {
   // 时间范围（查询年度数据时，返回该字段）
@@ -582,6 +608,16 @@ model GdPotentialCustomerInfo {
   size: long(name='size', example=''),
   // 数据集合
   records: [ GdPotentialCustomerRecord ](name='records', example=''),
+}
+
+// 车型信息
+model ProductInfo {
+  // 能源类型
+  fueltype: string(name='fueltype', example='xxxx'),
+  // 车型名称
+  name: string(name='name', example='xxxx'),
+  // 车型id
+  id: string(name='id', example='xxxx'),
 }
 
 // 设备信息
@@ -660,6 +696,32 @@ model UsedCarInfo {
   pid: string(name='pid', example='xxxx'),
   // 汽车之家车型id
   specid: string(name='specid', example='xxxx'),
+}
+
+// 品牌列表
+model Brandlist {
+  // 首字母
+  letter: string(name='letter', example='xxxx'),
+  // 品牌信息列表
+  list: [ LetterInfo ](name='list', example='123'),
+}
+
+// 线索状态信息
+model LeadInfo {
+  // 线索信息
+  leadId: string(name='lead_id', example='xxxx'),
+  // 状态值
+  status: string(name='status', example='xxxx'),
+}
+
+// 区县集合
+model County {
+  // 城市id
+  cid: string(name='cid', example='xxxx'),
+  // 区县id
+  countyid: string(name='countyid', example='xxxx'),
+  // 区县名
+  countyname: string(name='countyname', example='xxxx'),
 }
 
 // 常岳用户结构体
@@ -1076,8 +1138,8 @@ model QueryUsedcarResponse = {
 }
 
 /**
- * Description: 二手车估值接口
- * Summary: 二手车估值接口
+ * Description: 汽车之家区域接口
+ * Summary: 汽车之家区域接口
  */
 async function queryUsedcar(request: QueryUsedcarRequest): QueryUsedcarResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -1086,8 +1148,8 @@ async function queryUsedcar(request: QueryUsedcarRequest): QueryUsedcarResponse 
 }
 
 /**
- * Description: 二手车估值接口
- * Summary: 二手车估值接口
+ * Description: 汽车之家区域接口
+ * Summary: 汽车之家区域接口
  */
 async function queryUsedcarEx(request: QueryUsedcarRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryUsedcarResponse {
   Util.validateModel(request);
@@ -1751,8 +1813,8 @@ model QueryTagChanganResponse = {
 }
 
 /**
- * Description: 长安画像标签用户id标签查询
- * Summary: 长安画像标签用户id标签查询
+ * Description: 长安画像标签用户id标签查询1
+ * Summary: 长安画像标签用户id标签查询1
  */
 async function queryTagChangan(request: QueryTagChanganRequest): QueryTagChanganResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -1761,12 +1823,240 @@ async function queryTagChangan(request: QueryTagChanganRequest): QueryTagChangan
 }
 
 /**
- * Description: 长安画像标签用户id标签查询
- * Summary: 长安画像标签用户id标签查询
+ * Description: 长安画像标签用户id标签查询1
+ * Summary: 长安画像标签用户id标签查询1
  */
 async function queryTagChanganEx(request: QueryTagChanganRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryTagChanganResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antdigital.intellicar.tag.changan.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryUsedcarAreaRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 场景码
+  sceneCode: string(name='scene_code'),
+}
+
+model QueryUsedcarAreaResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 响应码
+  code?: string(name='code'),
+  // 响应信息
+  msg?: string(name='msg'),
+  // 省份集合
+  province?: [ Province ](name='province'),
+  // 城市集合
+  city?: [ City ](name='city'),
+  // 区县集合
+  county?: [ County ](name='county'),
+}
+
+/**
+ * Description: 汽车之家区域接口
+ * Summary: 汽车之家区域接口
+ */
+async function queryUsedcarArea(request: QueryUsedcarAreaRequest): QueryUsedcarAreaResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryUsedcarAreaEx(request, headers, runtime);
+}
+
+/**
+ * Description: 汽车之家区域接口
+ * Summary: 汽车之家区域接口
+ */
+async function queryUsedcarAreaEx(request: QueryUsedcarAreaRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryUsedcarAreaResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.intellicar.usedcar.area.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryUsedcarBrandsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 场景码
+  sceneCode: string(name='scene_code'),
+}
+
+model QueryUsedcarBrandsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // xxx
+  code?: string(name='code'),
+  // xxx
+  msg?: string(name='msg'),
+  // 123
+  brandlist?: [ Brandlist ](name='brandlist'),
+}
+
+/**
+ * Description: 获取汽车之家品牌信息
+ * Summary: 获取汽车之家品牌信息
+ */
+async function queryUsedcarBrands(request: QueryUsedcarBrandsRequest): QueryUsedcarBrandsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryUsedcarBrandsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取汽车之家品牌信息
+ * Summary: 获取汽车之家品牌信息
+ */
+async function queryUsedcarBrandsEx(request: QueryUsedcarBrandsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryUsedcarBrandsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.intellicar.usedcar.brands.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryUsedcarSeriesRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 品牌id
+  brandId: string(name='brand_id'),
+  // 场景码
+  sceneCode: string(name='scene_code'),
+}
+
+model QueryUsedcarSeriesResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 品牌id
+  brandid?: string(name='brandid'),
+  // 车系信息
+  serieslist?: [ LetterInfo ](name='serieslist'),
+  // 品牌名称
+  brandname?: string(name='brandname'),
+  // 状态码
+  code?: string(name='code'),
+  // 响应结果
+  msg?: string(name='msg'),
+}
+
+/**
+ * Description: 汽车之家车系接口
+ * Summary: 汽车之家车系接口
+ */
+async function queryUsedcarSeries(request: QueryUsedcarSeriesRequest): QueryUsedcarSeriesResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryUsedcarSeriesEx(request, headers, runtime);
+}
+
+/**
+ * Description: 汽车之家车系接口
+ * Summary: 汽车之家车系接口
+ */
+async function queryUsedcarSeriesEx(request: QueryUsedcarSeriesRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryUsedcarSeriesResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.intellicar.usedcar.series.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryUsedcarProductsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 车系id
+  seriesId: string(name='series_id'),
+  // 场景码
+  sceneCode: string(name='scene_code'),
+}
+
+model QueryUsedcarProductsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 状态码
+  code?: string(name='code'),
+  // 状态信息
+  msg?: string(name='msg'),
+  // 车系名
+  seriesname?: string(name='seriesname'),
+  // 车系id
+  seriesid?: string(name='seriesid'),
+  // 车型信息
+  productlist?: [ ProductInfo ](name='productlist'),
+}
+
+/**
+ * Description: 汽车之家车型接口
+ * Summary: 汽车之家车型接口
+ */
+async function queryUsedcarProducts(request: QueryUsedcarProductsRequest): QueryUsedcarProductsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryUsedcarProductsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 汽车之家车型接口
+ * Summary: 汽车之家车型接口
+ */
+async function queryUsedcarProductsEx(request: QueryUsedcarProductsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryUsedcarProductsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.intellicar.usedcar.products.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SyncUsedcarRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 线索状态列表
+  leadIdList: [ string ](name='lead_id_list'),
+  // 场景码
+  sceneCode: string(name='scene_code'),
+}
+
+model SyncUsedcarResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 响应值
+  code?: string(name='code'),
+  // 响应信息
+  msg?: string(name='msg'),
+  // 线索状态信息列表
+  data?: [ LeadInfo ](name='data'),
+}
+
+/**
+ * Description: 获取二手车线索状态
+ * Summary: 获取二手车线索状态
+ */
+async function syncUsedcar(request: SyncUsedcarRequest): SyncUsedcarResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return syncUsedcarEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取二手车线索状态
+ * Summary: 获取二手车线索状态
+ */
+async function syncUsedcarEx(request: SyncUsedcarRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SyncUsedcarResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.intellicar.usedcar.sync', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateAntcloudGatewayxFileUploadRequest = {
