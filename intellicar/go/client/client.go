@@ -399,6 +399,32 @@ func (s *Overlap) SetCountrycode(v string) *Overlap {
 	return s
 }
 
+// 品牌信息
+type LetterInfo struct {
+	// name
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// id
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+}
+
+func (s LetterInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s LetterInfo) GoString() string {
+	return s.String()
+}
+
+func (s *LetterInfo) SetName(v string) *LetterInfo {
+	s.Name = &v
+	return s
+}
+
+func (s *LetterInfo) SetId(v string) *LetterInfo {
+	s.Id = &v
+	return s
+}
+
 // 用户信息
 type CarUserInfo struct {
 	// 唯一标识用户的id
@@ -1355,6 +1381,65 @@ func (s *CarInfo) SetModelCode(v string) *CarInfo {
 	return s
 }
 
+// 省份集合
+type Province struct {
+	// 省份id
+	Pid *string `json:"pid,omitempty" xml:"pid,omitempty" require:"true"`
+	// 省份名
+	Pname *string `json:"pname,omitempty" xml:"pname,omitempty" require:"true"`
+}
+
+func (s Province) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Province) GoString() string {
+	return s.String()
+}
+
+func (s *Province) SetPid(v string) *Province {
+	s.Pid = &v
+	return s
+}
+
+func (s *Province) SetPname(v string) *Province {
+	s.Pname = &v
+	return s
+}
+
+// 城市集合
+type City struct {
+	// 省份id
+	Pid *string `json:"pid,omitempty" xml:"pid,omitempty" require:"true"`
+	// 城市id
+	Cid *string `json:"cid,omitempty" xml:"cid,omitempty" require:"true"`
+	// 城市名
+	Cname *string `json:"cname,omitempty" xml:"cname,omitempty" require:"true"`
+}
+
+func (s City) String() string {
+	return tea.Prettify(s)
+}
+
+func (s City) GoString() string {
+	return s.String()
+}
+
+func (s *City) SetPid(v string) *City {
+	s.Pid = &v
+	return s
+}
+
+func (s *City) SetCid(v string) *City {
+	s.Cid = &v
+	return s
+}
+
+func (s *City) SetCname(v string) *City {
+	s.Cname = &v
+	return s
+}
+
 // 高德潜客流向数据返回数据对象
 type GdCustomerInfo struct {
 	// 时间范围（查询年度数据时，返回该字段）
@@ -1582,6 +1667,39 @@ func (s *GdPotentialCustomerInfo) SetSize(v int64) *GdPotentialCustomerInfo {
 
 func (s *GdPotentialCustomerInfo) SetRecords(v []*GdPotentialCustomerRecord) *GdPotentialCustomerInfo {
 	s.Records = v
+	return s
+}
+
+// 车型信息
+type ProductInfo struct {
+	// 能源类型
+	Fueltype *string `json:"fueltype,omitempty" xml:"fueltype,omitempty" require:"true"`
+	// 车型名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 车型id
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+}
+
+func (s ProductInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ProductInfo) GoString() string {
+	return s.String()
+}
+
+func (s *ProductInfo) SetFueltype(v string) *ProductInfo {
+	s.Fueltype = &v
+	return s
+}
+
+func (s *ProductInfo) SetName(v string) *ProductInfo {
+	s.Name = &v
+	return s
+}
+
+func (s *ProductInfo) SetId(v string) *ProductInfo {
+	s.Id = &v
 	return s
 }
 
@@ -1841,6 +1959,91 @@ func (s *UsedCarInfo) SetPid(v string) *UsedCarInfo {
 
 func (s *UsedCarInfo) SetSpecid(v string) *UsedCarInfo {
 	s.Specid = &v
+	return s
+}
+
+// 品牌列表
+type Brandlist struct {
+	// 首字母
+	Letter *string `json:"letter,omitempty" xml:"letter,omitempty" require:"true"`
+	// 品牌信息列表
+	List []*LetterInfo `json:"list,omitempty" xml:"list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s Brandlist) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Brandlist) GoString() string {
+	return s.String()
+}
+
+func (s *Brandlist) SetLetter(v string) *Brandlist {
+	s.Letter = &v
+	return s
+}
+
+func (s *Brandlist) SetList(v []*LetterInfo) *Brandlist {
+	s.List = v
+	return s
+}
+
+// 线索状态信息
+type LeadInfo struct {
+	// 线索信息
+	LeadId *string `json:"lead_id,omitempty" xml:"lead_id,omitempty" require:"true"`
+	// 状态值
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+}
+
+func (s LeadInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s LeadInfo) GoString() string {
+	return s.String()
+}
+
+func (s *LeadInfo) SetLeadId(v string) *LeadInfo {
+	s.LeadId = &v
+	return s
+}
+
+func (s *LeadInfo) SetStatus(v string) *LeadInfo {
+	s.Status = &v
+	return s
+}
+
+// 区县集合
+type County struct {
+	// 城市id
+	Cid *string `json:"cid,omitempty" xml:"cid,omitempty" require:"true"`
+	// 区县id
+	Countyid *string `json:"countyid,omitempty" xml:"countyid,omitempty" require:"true"`
+	// 区县名
+	Countyname *string `json:"countyname,omitempty" xml:"countyname,omitempty" require:"true"`
+}
+
+func (s County) String() string {
+	return tea.Prettify(s)
+}
+
+func (s County) GoString() string {
+	return s.String()
+}
+
+func (s *County) SetCid(v string) *County {
+	s.Cid = &v
+	return s
+}
+
+func (s *County) SetCountyid(v string) *County {
+	s.Countyid = &v
+	return s
+}
+
+func (s *County) SetCountyname(v string) *County {
+	s.Countyname = &v
 	return s
 }
 
@@ -4239,6 +4442,489 @@ func (s *QueryTagChanganResponse) SetData(v string) *QueryTagChanganResponse {
 	return s
 }
 
+type QueryUsedcarAreaRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 场景码
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+}
+
+func (s QueryUsedcarAreaRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryUsedcarAreaRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryUsedcarAreaRequest) SetAuthToken(v string) *QueryUsedcarAreaRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryUsedcarAreaRequest) SetProductInstanceId(v string) *QueryUsedcarAreaRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryUsedcarAreaRequest) SetSceneCode(v string) *QueryUsedcarAreaRequest {
+	s.SceneCode = &v
+	return s
+}
+
+type QueryUsedcarAreaResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 响应码
+	Code *string `json:"code,omitempty" xml:"code,omitempty"`
+	// 响应信息
+	Msg *string `json:"msg,omitempty" xml:"msg,omitempty"`
+	// 省份集合
+	Province []*Province `json:"province,omitempty" xml:"province,omitempty" type:"Repeated"`
+	// 城市集合
+	City []*City `json:"city,omitempty" xml:"city,omitempty" type:"Repeated"`
+	// 区县集合
+	County []*County `json:"county,omitempty" xml:"county,omitempty" type:"Repeated"`
+}
+
+func (s QueryUsedcarAreaResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryUsedcarAreaResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryUsedcarAreaResponse) SetReqMsgId(v string) *QueryUsedcarAreaResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryUsedcarAreaResponse) SetResultCode(v string) *QueryUsedcarAreaResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryUsedcarAreaResponse) SetResultMsg(v string) *QueryUsedcarAreaResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryUsedcarAreaResponse) SetCode(v string) *QueryUsedcarAreaResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *QueryUsedcarAreaResponse) SetMsg(v string) *QueryUsedcarAreaResponse {
+	s.Msg = &v
+	return s
+}
+
+func (s *QueryUsedcarAreaResponse) SetProvince(v []*Province) *QueryUsedcarAreaResponse {
+	s.Province = v
+	return s
+}
+
+func (s *QueryUsedcarAreaResponse) SetCity(v []*City) *QueryUsedcarAreaResponse {
+	s.City = v
+	return s
+}
+
+func (s *QueryUsedcarAreaResponse) SetCounty(v []*County) *QueryUsedcarAreaResponse {
+	s.County = v
+	return s
+}
+
+type QueryUsedcarBrandsRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 场景码
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+}
+
+func (s QueryUsedcarBrandsRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryUsedcarBrandsRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryUsedcarBrandsRequest) SetAuthToken(v string) *QueryUsedcarBrandsRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryUsedcarBrandsRequest) SetProductInstanceId(v string) *QueryUsedcarBrandsRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryUsedcarBrandsRequest) SetSceneCode(v string) *QueryUsedcarBrandsRequest {
+	s.SceneCode = &v
+	return s
+}
+
+type QueryUsedcarBrandsResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// xxx
+	Code *string `json:"code,omitempty" xml:"code,omitempty"`
+	// xxx
+	Msg *string `json:"msg,omitempty" xml:"msg,omitempty"`
+	// 123
+	Brandlist []*Brandlist `json:"brandlist,omitempty" xml:"brandlist,omitempty" type:"Repeated"`
+}
+
+func (s QueryUsedcarBrandsResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryUsedcarBrandsResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryUsedcarBrandsResponse) SetReqMsgId(v string) *QueryUsedcarBrandsResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryUsedcarBrandsResponse) SetResultCode(v string) *QueryUsedcarBrandsResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryUsedcarBrandsResponse) SetResultMsg(v string) *QueryUsedcarBrandsResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryUsedcarBrandsResponse) SetCode(v string) *QueryUsedcarBrandsResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *QueryUsedcarBrandsResponse) SetMsg(v string) *QueryUsedcarBrandsResponse {
+	s.Msg = &v
+	return s
+}
+
+func (s *QueryUsedcarBrandsResponse) SetBrandlist(v []*Brandlist) *QueryUsedcarBrandsResponse {
+	s.Brandlist = v
+	return s
+}
+
+type QueryUsedcarSeriesRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 品牌id
+	BrandId *string `json:"brand_id,omitempty" xml:"brand_id,omitempty" require:"true"`
+	// 场景码
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+}
+
+func (s QueryUsedcarSeriesRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryUsedcarSeriesRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryUsedcarSeriesRequest) SetAuthToken(v string) *QueryUsedcarSeriesRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryUsedcarSeriesRequest) SetProductInstanceId(v string) *QueryUsedcarSeriesRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryUsedcarSeriesRequest) SetBrandId(v string) *QueryUsedcarSeriesRequest {
+	s.BrandId = &v
+	return s
+}
+
+func (s *QueryUsedcarSeriesRequest) SetSceneCode(v string) *QueryUsedcarSeriesRequest {
+	s.SceneCode = &v
+	return s
+}
+
+type QueryUsedcarSeriesResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 品牌id
+	Brandid *string `json:"brandid,omitempty" xml:"brandid,omitempty"`
+	// 车系信息
+	Serieslist []*LetterInfo `json:"serieslist,omitempty" xml:"serieslist,omitempty" type:"Repeated"`
+	// 品牌名称
+	Brandname *string `json:"brandname,omitempty" xml:"brandname,omitempty"`
+	// 状态码
+	Code *string `json:"code,omitempty" xml:"code,omitempty"`
+	// 响应结果
+	Msg *string `json:"msg,omitempty" xml:"msg,omitempty"`
+}
+
+func (s QueryUsedcarSeriesResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryUsedcarSeriesResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryUsedcarSeriesResponse) SetReqMsgId(v string) *QueryUsedcarSeriesResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryUsedcarSeriesResponse) SetResultCode(v string) *QueryUsedcarSeriesResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryUsedcarSeriesResponse) SetResultMsg(v string) *QueryUsedcarSeriesResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryUsedcarSeriesResponse) SetBrandid(v string) *QueryUsedcarSeriesResponse {
+	s.Brandid = &v
+	return s
+}
+
+func (s *QueryUsedcarSeriesResponse) SetSerieslist(v []*LetterInfo) *QueryUsedcarSeriesResponse {
+	s.Serieslist = v
+	return s
+}
+
+func (s *QueryUsedcarSeriesResponse) SetBrandname(v string) *QueryUsedcarSeriesResponse {
+	s.Brandname = &v
+	return s
+}
+
+func (s *QueryUsedcarSeriesResponse) SetCode(v string) *QueryUsedcarSeriesResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *QueryUsedcarSeriesResponse) SetMsg(v string) *QueryUsedcarSeriesResponse {
+	s.Msg = &v
+	return s
+}
+
+type QueryUsedcarProductsRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 车系id
+	SeriesId *string `json:"series_id,omitempty" xml:"series_id,omitempty" require:"true"`
+	// 场景码
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+}
+
+func (s QueryUsedcarProductsRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryUsedcarProductsRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryUsedcarProductsRequest) SetAuthToken(v string) *QueryUsedcarProductsRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryUsedcarProductsRequest) SetProductInstanceId(v string) *QueryUsedcarProductsRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryUsedcarProductsRequest) SetSeriesId(v string) *QueryUsedcarProductsRequest {
+	s.SeriesId = &v
+	return s
+}
+
+func (s *QueryUsedcarProductsRequest) SetSceneCode(v string) *QueryUsedcarProductsRequest {
+	s.SceneCode = &v
+	return s
+}
+
+type QueryUsedcarProductsResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 状态码
+	Code *string `json:"code,omitempty" xml:"code,omitempty"`
+	// 状态信息
+	Msg *string `json:"msg,omitempty" xml:"msg,omitempty"`
+	// 车系名
+	Seriesname *string `json:"seriesname,omitempty" xml:"seriesname,omitempty"`
+	// 车系id
+	Seriesid *string `json:"seriesid,omitempty" xml:"seriesid,omitempty"`
+	// 车型信息
+	Productlist []*ProductInfo `json:"productlist,omitempty" xml:"productlist,omitempty" type:"Repeated"`
+}
+
+func (s QueryUsedcarProductsResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryUsedcarProductsResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryUsedcarProductsResponse) SetReqMsgId(v string) *QueryUsedcarProductsResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryUsedcarProductsResponse) SetResultCode(v string) *QueryUsedcarProductsResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryUsedcarProductsResponse) SetResultMsg(v string) *QueryUsedcarProductsResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryUsedcarProductsResponse) SetCode(v string) *QueryUsedcarProductsResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *QueryUsedcarProductsResponse) SetMsg(v string) *QueryUsedcarProductsResponse {
+	s.Msg = &v
+	return s
+}
+
+func (s *QueryUsedcarProductsResponse) SetSeriesname(v string) *QueryUsedcarProductsResponse {
+	s.Seriesname = &v
+	return s
+}
+
+func (s *QueryUsedcarProductsResponse) SetSeriesid(v string) *QueryUsedcarProductsResponse {
+	s.Seriesid = &v
+	return s
+}
+
+func (s *QueryUsedcarProductsResponse) SetProductlist(v []*ProductInfo) *QueryUsedcarProductsResponse {
+	s.Productlist = v
+	return s
+}
+
+type SyncUsedcarRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 线索状态列表
+	LeadIdList []*string `json:"lead_id_list,omitempty" xml:"lead_id_list,omitempty" require:"true" type:"Repeated"`
+	// 场景码
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+}
+
+func (s SyncUsedcarRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SyncUsedcarRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SyncUsedcarRequest) SetAuthToken(v string) *SyncUsedcarRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SyncUsedcarRequest) SetProductInstanceId(v string) *SyncUsedcarRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SyncUsedcarRequest) SetLeadIdList(v []*string) *SyncUsedcarRequest {
+	s.LeadIdList = v
+	return s
+}
+
+func (s *SyncUsedcarRequest) SetSceneCode(v string) *SyncUsedcarRequest {
+	s.SceneCode = &v
+	return s
+}
+
+type SyncUsedcarResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 响应值
+	Code *string `json:"code,omitempty" xml:"code,omitempty"`
+	// 响应信息
+	Msg *string `json:"msg,omitempty" xml:"msg,omitempty"`
+	// 线索状态信息列表
+	Data []*LeadInfo `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+}
+
+func (s SyncUsedcarResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SyncUsedcarResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SyncUsedcarResponse) SetReqMsgId(v string) *SyncUsedcarResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SyncUsedcarResponse) SetResultCode(v string) *SyncUsedcarResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SyncUsedcarResponse) SetResultMsg(v string) *SyncUsedcarResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SyncUsedcarResponse) SetCode(v string) *SyncUsedcarResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *SyncUsedcarResponse) SetMsg(v string) *SyncUsedcarResponse {
+	s.Msg = &v
+	return s
+}
+
+func (s *SyncUsedcarResponse) SetData(v []*LeadInfo) *SyncUsedcarResponse {
+	s.Data = v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -4481,7 +5167,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.31"),
+				"sdk_version":      tea.String("1.0.34"),
 				"_prod_code":       tea.String("INTELLICAR"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -4808,8 +5494,8 @@ func (client *Client) ImportCarFileEx(request *ImportCarFileRequest, headers map
 }
 
 /**
- * Description: 二手车估值接口
- * Summary: 二手车估值接口
+ * Description: 汽车之家区域接口
+ * Summary: 汽车之家区域接口
  */
 func (client *Client) QueryUsedcar(request *QueryUsedcarRequest) (_result *QueryUsedcarResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -4824,8 +5510,8 @@ func (client *Client) QueryUsedcar(request *QueryUsedcarRequest) (_result *Query
 }
 
 /**
- * Description: 二手车估值接口
- * Summary: 二手车估值接口
+ * Description: 汽车之家区域接口
+ * Summary: 汽车之家区域接口
  */
 func (client *Client) QueryUsedcarEx(request *QueryUsedcarRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryUsedcarResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -5284,8 +5970,8 @@ func (client *Client) RegisterTagChanganEx(request *RegisterTagChanganRequest, h
 }
 
 /**
- * Description: 长安画像标签用户id标签查询
- * Summary: 长安画像标签用户id标签查询
+ * Description: 长安画像标签用户id标签查询1
+ * Summary: 长安画像标签用户id标签查询1
  */
 func (client *Client) QueryTagChangan(request *QueryTagChanganRequest) (_result *QueryTagChanganResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -5300,8 +5986,8 @@ func (client *Client) QueryTagChangan(request *QueryTagChanganRequest) (_result 
 }
 
 /**
- * Description: 长安画像标签用户id标签查询
- * Summary: 长安画像标签用户id标签查询
+ * Description: 长安画像标签用户id标签查询1
+ * Summary: 长安画像标签用户id标签查询1
  */
 func (client *Client) QueryTagChanganEx(request *QueryTagChanganRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryTagChanganResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -5310,6 +5996,176 @@ func (client *Client) QueryTagChanganEx(request *QueryTagChanganRequest, headers
 	}
 	_result = &QueryTagChanganResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.intellicar.tag.changan.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 汽车之家区域接口
+ * Summary: 汽车之家区域接口
+ */
+func (client *Client) QueryUsedcarArea(request *QueryUsedcarAreaRequest) (_result *QueryUsedcarAreaResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryUsedcarAreaResponse{}
+	_body, _err := client.QueryUsedcarAreaEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 汽车之家区域接口
+ * Summary: 汽车之家区域接口
+ */
+func (client *Client) QueryUsedcarAreaEx(request *QueryUsedcarAreaRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryUsedcarAreaResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryUsedcarAreaResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.intellicar.usedcar.area.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 获取汽车之家品牌信息
+ * Summary: 获取汽车之家品牌信息
+ */
+func (client *Client) QueryUsedcarBrands(request *QueryUsedcarBrandsRequest) (_result *QueryUsedcarBrandsResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryUsedcarBrandsResponse{}
+	_body, _err := client.QueryUsedcarBrandsEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 获取汽车之家品牌信息
+ * Summary: 获取汽车之家品牌信息
+ */
+func (client *Client) QueryUsedcarBrandsEx(request *QueryUsedcarBrandsRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryUsedcarBrandsResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryUsedcarBrandsResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.intellicar.usedcar.brands.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 汽车之家车系接口
+ * Summary: 汽车之家车系接口
+ */
+func (client *Client) QueryUsedcarSeries(request *QueryUsedcarSeriesRequest) (_result *QueryUsedcarSeriesResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryUsedcarSeriesResponse{}
+	_body, _err := client.QueryUsedcarSeriesEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 汽车之家车系接口
+ * Summary: 汽车之家车系接口
+ */
+func (client *Client) QueryUsedcarSeriesEx(request *QueryUsedcarSeriesRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryUsedcarSeriesResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryUsedcarSeriesResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.intellicar.usedcar.series.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 汽车之家车型接口
+ * Summary: 汽车之家车型接口
+ */
+func (client *Client) QueryUsedcarProducts(request *QueryUsedcarProductsRequest) (_result *QueryUsedcarProductsResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryUsedcarProductsResponse{}
+	_body, _err := client.QueryUsedcarProductsEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 汽车之家车型接口
+ * Summary: 汽车之家车型接口
+ */
+func (client *Client) QueryUsedcarProductsEx(request *QueryUsedcarProductsRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryUsedcarProductsResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryUsedcarProductsResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.intellicar.usedcar.products.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 获取二手车线索状态
+ * Summary: 获取二手车线索状态
+ */
+func (client *Client) SyncUsedcar(request *SyncUsedcarRequest) (_result *SyncUsedcarResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SyncUsedcarResponse{}
+	_body, _err := client.SyncUsedcarEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 获取二手车线索状态
+ * Summary: 获取二手车线索状态
+ */
+func (client *Client) SyncUsedcarEx(request *SyncUsedcarRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SyncUsedcarResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SyncUsedcarResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.intellicar.usedcar.sync"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
