@@ -11,6 +11,10 @@ namespace AntChain.SDK.DEMO.Models
     // 另一个Demo类
     public class AnotherClass : TeaModel {
         // 测试字段
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>some string</para>
+        /// </summary>
         [NameInMap("bar")]
         [Validation(Required=true)]
         public string Bar { get; set; }
@@ -18,7 +22,12 @@ namespace AntChain.SDK.DEMO.Models
         // 引用字段
         [NameInMap("ref")]
         [Validation(Required=true)]
-        public QueryMap Ref { get; set; }
+        public DemoClass Ref { get; set; }
+
+        // 列表引用Struct
+        [NameInMap("refList")]
+        [Validation(Required=false)]
+        public List<DemoClass> RefList { get; set; }
 
     }
 

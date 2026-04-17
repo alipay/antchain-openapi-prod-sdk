@@ -11,11 +11,19 @@ namespace AntChain.SDK.DEMO.Models
     // 键值对
     public class XNameValuePair : TeaModel {
         // 键名
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>key</para>
+        /// </summary>
         [NameInMap("name")]
         [Validation(Required=true)]
         public string Name { get; set; }
 
         // 键值
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>value</para>
+        /// </summary>
         [NameInMap("value")]
         [Validation(Required=true)]
         public string Value { get; set; }

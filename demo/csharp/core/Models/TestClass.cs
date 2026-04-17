@@ -8,37 +8,43 @@ using Tea;
 
 namespace AntChain.SDK.DEMO.Models
 {
-    // 测试类结构体
+    // testAAAA
     public class TestClass : TeaModel {
-        // 字符串字段
-        [NameInMap("string_param")]
+        // 1
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>testclass</para>
+        /// </summary>
+        [NameInMap("test")]
         [Validation(Required=true)]
-        public string StringParam { get; set; }
+        public string Test { get; set; }
 
-        // 数字字段
-        [NameInMap("number_param")]
+        // 2
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>testclass</para>
+        /// </summary>
+        [NameInMap("demo")]
         [Validation(Required=true)]
-        public long? NumberParam { get; set; }
+        public string Demo { get; set; }
 
-        // 布尔值参数
-        [NameInMap("boolean_param")]
+        // 3
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>id2</para>
+        /// </summary>
+        [NameInMap("demo1")]
         [Validation(Required=true)]
-        public bool? BooleanParam { get; set; }
+        public string Demo1 { get; set; }
 
-        // 日期参数
-        [NameInMap("date_param")]
-        [Validation(Required=true, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
-        public string DateParam { get; set; }
-
-        // 数组参数
-        [NameInMap("array_param")]
+        // 22
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>12</para>
+        /// </summary>
+        [NameInMap("demo2")]
         [Validation(Required=true)]
-        public List<string> ArrayParam { get; set; }
-
-        // 结构体参数
-        [NameInMap("struct_param")]
-        [Validation(Required=true)]
-        public DemoClass StructParam { get; set; }
+        public string Demo2 { get; set; }
 
     }
 

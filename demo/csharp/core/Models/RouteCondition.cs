@@ -11,6 +11,10 @@ namespace AntChain.SDK.DEMO.Models
     // routeCondition
     public class RouteCondition : TeaModel {
         // 渠道编号
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>HZZKZTKJ</para>
+        /// </summary>
         [NameInMap("channel_id")]
         [Validation(Required=true)]
         public string ChannelId { get; set; }

@@ -11,11 +11,19 @@ namespace AntChain.SDK.DEMO.Models
     // 大安全佐罗测试接口结构体
     public class FaceImage : TeaModel {
         // 123
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>123</para>
+        /// </summary>
         [NameInMap("content")]
         [Validation(Required=false)]
         public string Content { get; set; }
 
         // 213
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>13</para>
+        /// </summary>
         [NameInMap("rect")]
         [Validation(Required=false)]
         public string Rect { get; set; }

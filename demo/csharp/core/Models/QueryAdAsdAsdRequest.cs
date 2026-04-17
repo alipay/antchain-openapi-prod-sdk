@@ -23,11 +23,6 @@ namespace AntChain.SDK.DEMO.Models
         [Validation(Required=true, MaxLength=2)]
         public string Bnumber { get; set; }
 
-        // 1
-        [NameInMap("card_info")]
-        [Validation(Required=true)]
-        public CardInfo CardInfo { get; set; }
-
     }
 
 }

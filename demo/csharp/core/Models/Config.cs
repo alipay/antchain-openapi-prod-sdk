@@ -8,131 +8,162 @@ using Tea;
 
 namespace AntChain.SDK.DEMO.Models
 {
-    /**
-     * Model for initing client
-     */
+    /// <term><b>Description:</b></term>
+    /// <description>
+    /// <para>Model for initing client</para>
+    /// </description>
     public class Config : TeaModel {
         /// <summary>
-        /// accesskey id
+        /// <para>accesskey id</para>
         /// </summary>
         [NameInMap("accessKeyId")]
         [Validation(Required=false)]
         public string AccessKeyId { get; set; }
 
         /// <summary>
-        /// accesskey secret
+        /// <para>accesskey secret</para>
         /// </summary>
         [NameInMap("accessKeySecret")]
         [Validation(Required=false)]
         public string AccessKeySecret { get; set; }
 
         /// <summary>
-        /// security token
+        /// <para>security token</para>
         /// </summary>
         [NameInMap("securityToken")]
         [Validation(Required=false)]
         public string SecurityToken { get; set; }
 
         /// <summary>
-        /// http protocol
+        /// <para>http protocol</para>
+        /// 
+        /// <b>Example:</b>
+        /// <para>http</para>
         /// </summary>
         [NameInMap("protocol")]
         [Validation(Required=false)]
         public string Protocol { get; set; }
 
         /// <summary>
-        /// read timeout
+        /// <para>read timeout</para>
+        /// 
+        /// <b>Example:</b>
+        /// <para>10</para>
         /// </summary>
         [NameInMap("readTimeout")]
         [Validation(Required=false)]
         public int? ReadTimeout { get; set; }
 
         /// <summary>
-        /// connect timeout
+        /// <para>connect timeout</para>
+        /// 
+        /// <b>Example:</b>
+        /// <para>10</para>
         /// </summary>
         [NameInMap("connectTimeout")]
         [Validation(Required=false)]
         public int? ConnectTimeout { get; set; }
 
         /// <summary>
-        /// http proxy
+        /// <para>http proxy</para>
+        /// 
+        /// <b>Example:</b>
+        /// <para><a href="http://localhost">http://localhost</a></para>
         /// </summary>
         [NameInMap("httpProxy")]
         [Validation(Required=false)]
         public string HttpProxy { get; set; }
 
         /// <summary>
-        /// https proxy
+        /// <para>https proxy</para>
+        /// 
+        /// <b>Example:</b>
+        /// <para><a href="https://localhost">https://localhost</a></para>
         /// </summary>
         [NameInMap("httpsProxy")]
         [Validation(Required=false)]
         public string HttpsProxy { get; set; }
 
         /// <summary>
-        /// endpoint
+        /// <para>endpoint</para>
+        /// 
+        /// <b>Example:</b>
+        /// <para>cs.aliyuncs.com</para>
         /// </summary>
         [NameInMap("endpoint")]
         [Validation(Required=false)]
         public string Endpoint { get; set; }
 
         /// <summary>
-        /// proxy white list
+        /// <para>proxy white list</para>
+        /// 
+        /// <b>Example:</b>
+        /// <para><a href="http://localhost">http://localhost</a></para>
         /// </summary>
         [NameInMap("noProxy")]
         [Validation(Required=false)]
         public string NoProxy { get; set; }
 
         /// <summary>
-        /// max idle conns
+        /// <para>max idle conns</para>
+        /// 
+        /// <b>Example:</b>
+        /// <para>3</para>
         /// </summary>
         [NameInMap("maxIdleConns")]
         [Validation(Required=false)]
         public int? MaxIdleConns { get; set; }
 
         /// <summary>
-        /// user agent
+        /// <para>user agent</para>
+        /// 
+        /// <b>Example:</b>
+        /// <para>Alibabacloud/1</para>
         /// </summary>
         [NameInMap("userAgent")]
         [Validation(Required=false)]
         public string UserAgent { get; set; }
 
         /// <summary>
-        /// socks5 proxy
+        /// <para>socks5 proxy</para>
         /// </summary>
         [NameInMap("socks5Proxy")]
         [Validation(Required=false)]
         public string Socks5Proxy { get; set; }
 
         /// <summary>
-        /// socks5 network
+        /// <para>socks5 network</para>
+        /// 
+        /// <b>Example:</b>
+        /// <para>TCP</para>
         /// </summary>
         [NameInMap("socks5NetWork")]
         [Validation(Required=false)]
         public string Socks5NetWork { get; set; }
 
         /// <summary>
-        /// 长链接最大空闲时长
+        /// <para>长链接最大空闲时长</para>
         /// </summary>
         [NameInMap("maxIdleTimeMillis")]
         [Validation(Required=false)]
         public int? MaxIdleTimeMillis { get; set; }
 
         /// <summary>
-        /// 长链接最大连接时长
+        /// <para>长链接最大连接时长</para>
         /// </summary>
         [NameInMap("keepAliveDurationMillis")]
         [Validation(Required=false)]
         public int? KeepAliveDurationMillis { get; set; }
 
         /// <summary>
-        /// 最大连接数（长链接最大总数）
+        /// <para>最大连接数（长链接最大总数）</para>
         /// </summary>
         [NameInMap("maxRequests")]
         [Validation(Required=false)]
         public int? MaxRequests { get; set; }
 
         /// <summary>
-        /// 每个目标主机的最大连接数（分主机域名的长链接最大总数
+        /// <para>每个目标主机的最大连接数（分主机域名的长链接最大总数</para>
         /// </summary>
         [NameInMap("maxRequestsPerHost")]
         [Validation(Required=false)]

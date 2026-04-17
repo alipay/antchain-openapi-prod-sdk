@@ -11,6 +11,10 @@ namespace AntChain.SDK.DEMO.Models
     // Map<String,Object> 集合
     public class QueryMap : TeaModel {
         // 键值
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>BUSINESS_CODE</para>
+        /// </summary>
         [NameInMap("name")]
         [Validation(Required=true)]
         public string Name { get; set; }

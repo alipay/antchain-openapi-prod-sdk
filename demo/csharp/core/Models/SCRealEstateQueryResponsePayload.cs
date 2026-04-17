@@ -11,6 +11,10 @@ namespace AntChain.SDK.DEMO.Models
     // SCRealEstateQueryResponsePayload
     public class SCRealEstateQueryResponsePayload : TeaModel {
         // code
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>200</para>
+        /// </summary>
         [NameInMap("code")]
         [Validation(Required=true)]
         public string Code { get; set; }
@@ -21,11 +25,19 @@ namespace AntChain.SDK.DEMO.Models
         public List<SCRealEstateQueryResponseData> Data { get; set; }
 
         // uuid
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>uuid</para>
+        /// </summary>
         [NameInMap("uuid")]
         [Validation(Required=true)]
         public string Uuid { get; set; }
 
         // ret_msg
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>ret_msg</para>
+        /// </summary>
         [NameInMap("ret_msg")]
         [Validation(Required=true)]
         public string RetMsg { get; set; }

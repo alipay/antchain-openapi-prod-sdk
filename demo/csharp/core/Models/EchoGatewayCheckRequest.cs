@@ -25,14 +25,14 @@ namespace AntChain.SDK.DEMO.Models
 
         // file_id
         /// <summary>
-        /// 待上传文件
+        /// <para>待上传文件</para>
         /// </summary>
         [NameInMap("fileObject")]
         [Validation(Required=false)]
         public Stream FileObject { get; set; }
 
         /// <summary>
-        /// 待上传文件名
+        /// <para>待上传文件名</para>
         /// </summary>
         [NameInMap("fileObjectName")]
         [Validation(Required=false)]
