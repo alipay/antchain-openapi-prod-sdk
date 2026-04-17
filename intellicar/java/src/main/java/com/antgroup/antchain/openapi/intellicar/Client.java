@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.31"),
+                    new TeaPair("sdk_version", "1.0.34"),
                     new TeaPair("_prod_code", "INTELLICAR"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -359,8 +359,8 @@ public class Client {
 
     /**
      * <b>description</b> :
-     * <p>Description: 二手车估值接口
-     * Summary: 二手车估值接口</p>
+     * <p>Description: 汽车之家区域接口
+     * Summary: 汽车之家区域接口</p>
      */
     public QueryUsedcarResponse queryUsedcar(QueryUsedcarRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -370,8 +370,8 @@ public class Client {
 
     /**
      * <b>description</b> :
-     * <p>Description: 二手车估值接口
-     * Summary: 二手车估值接口</p>
+     * <p>Description: 汽车之家区域接口
+     * Summary: 汽车之家区域接口</p>
      */
     public QueryUsedcarResponse queryUsedcarEx(QueryUsedcarRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -653,8 +653,8 @@ public class Client {
 
     /**
      * <b>description</b> :
-     * <p>Description: 长安画像标签用户id标签查询
-     * Summary: 长安画像标签用户id标签查询</p>
+     * <p>Description: 长安画像标签用户id标签查询1
+     * Summary: 长安画像标签用户id标签查询1</p>
      */
     public QueryTagChanganResponse queryTagChangan(QueryTagChanganRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -664,12 +664,117 @@ public class Client {
 
     /**
      * <b>description</b> :
-     * <p>Description: 长安画像标签用户id标签查询
-     * Summary: 长安画像标签用户id标签查询</p>
+     * <p>Description: 长安画像标签用户id标签查询1
+     * Summary: 长安画像标签用户id标签查询1</p>
      */
     public QueryTagChanganResponse queryTagChanganEx(QueryTagChanganRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antdigital.intellicar.tag.changan.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTagChanganResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 汽车之家区域接口
+     * Summary: 汽车之家区域接口</p>
+     */
+    public QueryUsedcarAreaResponse queryUsedcarArea(QueryUsedcarAreaRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryUsedcarAreaEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 汽车之家区域接口
+     * Summary: 汽车之家区域接口</p>
+     */
+    public QueryUsedcarAreaResponse queryUsedcarAreaEx(QueryUsedcarAreaRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.intellicar.usedcar.area.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryUsedcarAreaResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 获取汽车之家品牌信息
+     * Summary: 获取汽车之家品牌信息</p>
+     */
+    public QueryUsedcarBrandsResponse queryUsedcarBrands(QueryUsedcarBrandsRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryUsedcarBrandsEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 获取汽车之家品牌信息
+     * Summary: 获取汽车之家品牌信息</p>
+     */
+    public QueryUsedcarBrandsResponse queryUsedcarBrandsEx(QueryUsedcarBrandsRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.intellicar.usedcar.brands.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryUsedcarBrandsResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 汽车之家车系接口
+     * Summary: 汽车之家车系接口</p>
+     */
+    public QueryUsedcarSeriesResponse queryUsedcarSeries(QueryUsedcarSeriesRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryUsedcarSeriesEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 汽车之家车系接口
+     * Summary: 汽车之家车系接口</p>
+     */
+    public QueryUsedcarSeriesResponse queryUsedcarSeriesEx(QueryUsedcarSeriesRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.intellicar.usedcar.series.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryUsedcarSeriesResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 汽车之家车型接口
+     * Summary: 汽车之家车型接口</p>
+     */
+    public QueryUsedcarProductsResponse queryUsedcarProducts(QueryUsedcarProductsRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryUsedcarProductsEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 汽车之家车型接口
+     * Summary: 汽车之家车型接口</p>
+     */
+    public QueryUsedcarProductsResponse queryUsedcarProductsEx(QueryUsedcarProductsRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.intellicar.usedcar.products.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryUsedcarProductsResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 获取二手车线索状态
+     * Summary: 获取二手车线索状态</p>
+     */
+    public SyncUsedcarResponse syncUsedcar(SyncUsedcarRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.syncUsedcarEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 获取二手车线索状态
+     * Summary: 获取二手车线索状态</p>
+     */
+    public SyncUsedcarResponse syncUsedcarEx(SyncUsedcarRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.intellicar.usedcar.sync", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SyncUsedcarResponse());
     }
 
     /**
