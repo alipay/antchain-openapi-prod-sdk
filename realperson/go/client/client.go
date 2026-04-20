@@ -11947,6 +11947,104 @@ func (s *UploadFileResponse) SetFileId(v string) *UploadFileResponse {
 	return s
 }
 
+type QueryRiderQualificationRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 身份证号
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
+	// NONE明问，MD5：手机号码字段为MD5加密后的字符串，为空默认明文
+	ReqEncType *string `json:"req_enc_type,omitempty" xml:"req_enc_type,omitempty"`
+	// 扩展信息，预留字段
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s QueryRiderQualificationRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryRiderQualificationRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryRiderQualificationRequest) SetAuthToken(v string) *QueryRiderQualificationRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryRiderQualificationRequest) SetProductInstanceId(v string) *QueryRiderQualificationRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryRiderQualificationRequest) SetOuterOrderNo(v string) *QueryRiderQualificationRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *QueryRiderQualificationRequest) SetCertNo(v string) *QueryRiderQualificationRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *QueryRiderQualificationRequest) SetReqEncType(v string) *QueryRiderQualificationRequest {
+	s.ReqEncType = &v
+	return s
+}
+
+func (s *QueryRiderQualificationRequest) SetExternParam(v string) *QueryRiderQualificationRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type QueryRiderQualificationResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 资质得分
+	Score *string `json:"score,omitempty" xml:"score,omitempty"`
+	// 扩展信息，为JSONObject。
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s QueryRiderQualificationResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryRiderQualificationResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryRiderQualificationResponse) SetReqMsgId(v string) *QueryRiderQualificationResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryRiderQualificationResponse) SetResultCode(v string) *QueryRiderQualificationResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryRiderQualificationResponse) SetResultMsg(v string) *QueryRiderQualificationResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryRiderQualificationResponse) SetScore(v string) *QueryRiderQualificationResponse {
+	s.Score = &v
+	return s
+}
+
+func (s *QueryRiderQualificationResponse) SetExternInfo(v string) *QueryRiderQualificationResponse {
+	s.ExternInfo = &v
+	return s
+}
+
 type BindCutpaymentOneclickRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -12765,7 +12863,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.22.32"),
+				"sdk_version":      tea.String("1.22.33"),
 				"_prod_code":       tea.String("REALPERSON"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -15806,6 +15904,40 @@ func (client *Client) UploadFileEx(request *UploadFileRequest, headers map[strin
 	}
 	_result = &UploadFileResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.file.upload"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 用户身份核验
+ * Summary: 用户身份核验
+ */
+func (client *Client) QueryRiderQualification(request *QueryRiderQualificationRequest) (_result *QueryRiderQualificationResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryRiderQualificationResponse{}
+	_body, _err := client.QueryRiderQualificationEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 用户身份核验
+ * Summary: 用户身份核验
+ */
+func (client *Client) QueryRiderQualificationEx(request *QueryRiderQualificationRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryRiderQualificationResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryRiderQualificationResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.rider.qualification.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
