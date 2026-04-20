@@ -147,6 +147,8 @@ use AntChain\REALPERSON\Models\QueryMobileRiskRequest;
 use AntChain\REALPERSON\Models\QueryMobileRiskResponse;
 use AntChain\REALPERSON\Models\QueryNfcServerRequest;
 use AntChain\REALPERSON\Models\QueryNfcServerResponse;
+use AntChain\REALPERSON\Models\QueryRiderQualificationRequest;
+use AntChain\REALPERSON\Models\QueryRiderQualificationResponse;
 use AntChain\REALPERSON\Models\QueryRiskServerRequest;
 use AntChain\REALPERSON\Models\QueryRiskServerResponse;
 use AntChain\REALPERSON\Models\QuerySocialriskBriefRequest;
@@ -328,7 +330,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.22.32',
+                    'sdk_version'      => '1.22.33',
                     '_prod_code'       => 'REALPERSON',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -3185,6 +3187,39 @@ class Client
         Utils::validateModel($request);
 
         return UploadFileResponse::fromMap($this->doRequest('1.0', 'di.realperson.file.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用户身份核验
+     * Summary: 用户身份核验.
+     *
+     * @param QueryRiderQualificationRequest $request
+     *
+     * @return QueryRiderQualificationResponse
+     */
+    public function queryRiderQualification($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryRiderQualificationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用户身份核验
+     * Summary: 用户身份核验.
+     *
+     * @param QueryRiderQualificationRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return QueryRiderQualificationResponse
+     */
+    public function queryRiderQualificationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryRiderQualificationResponse::fromMap($this->doRequest('1.0', 'di.realperson.rider.qualification.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
