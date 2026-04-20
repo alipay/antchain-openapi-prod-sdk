@@ -6,11 +6,12 @@
     <OutputType>Library</OutputType>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <AssemblyName>Openapi-demo</AssemblyName>
-    <Version>1.1.2</Version>
+    <AssemblyName>AntChain.SDK.DEMO</AssemblyName>
+    <Version>1.1.3</Version>
     <LangVersion>5</LangVersion>
     <Authors>Ant Chain, Inc</Authors>
     <Description>Ant Chain DEMO SDK Library for .NET</Description>
+  <PackageId>AntChain.SDK.DEMO</PackageId>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0'">
     <DefineConstants>NETSTANDARD2_0</DefineConstants>
