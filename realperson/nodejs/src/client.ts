@@ -8591,6 +8591,81 @@ export class UploadFileResponse extends $tea.Model {
   }
 }
 
+export class QueryRiderQualificationRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+  outerOrderNo: string;
+  // 身份证号
+  certNo: string;
+  // NONE明问，MD5：手机号码字段为MD5加密后的字符串，为空默认明文
+  reqEncType?: string;
+  // 扩展信息，预留字段
+  externParam?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      outerOrderNo: 'outer_order_no',
+      certNo: 'cert_no',
+      reqEncType: 'req_enc_type',
+      externParam: 'extern_param',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      outerOrderNo: 'string',
+      certNo: 'string',
+      reqEncType: 'string',
+      externParam: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryRiderQualificationResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 资质得分
+  score?: string;
+  // 扩展信息，为JSONObject。
+  externInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      score: 'score',
+      externInfo: 'extern_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      score: 'string',
+      externInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class BindCutpaymentOneclickRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -9201,7 +9276,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.22.32",
+          sdk_version: "1.22.33",
           _prod_code: "REALPERSON",
           _prod_channel: "undefined",
         };
@@ -10965,6 +11040,25 @@ export default class Client {
 
     Util.validateModel(request);
     return $tea.cast<UploadFileResponse>(await this.doRequest("1.0", "di.realperson.file.upload", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UploadFileResponse({}));
+  }
+
+  /**
+   * Description: 用户身份核验
+   * Summary: 用户身份核验
+   */
+  async queryRiderQualification(request: QueryRiderQualificationRequest): Promise<QueryRiderQualificationResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryRiderQualificationEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 用户身份核验
+   * Summary: 用户身份核验
+   */
+  async queryRiderQualificationEx(request: QueryRiderQualificationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryRiderQualificationResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryRiderQualificationResponse>(await this.doRequest("1.0", "di.realperson.rider.qualification.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryRiderQualificationResponse({}));
   }
 
   /**
