@@ -137,7 +137,7 @@ namespace AntChain.SDK.REALPERSON
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.22.32"},
+                        {"sdk_version", "1.22.33"},
                         {"_prod_code", "REALPERSON"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.REALPERSON
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.22.32"},
+                        {"sdk_version", "1.22.33"},
                         {"_prod_code", "REALPERSON"},
                         {"_prod_channel", "undefined"},
                     };
@@ -4111,6 +4111,48 @@ namespace AntChain.SDK.REALPERSON
             }
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<UploadFileResponse>(await DoRequestAsync("1.0", "di.realperson.file.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用户身份核验
+         * Summary: 用户身份核验
+         */
+        public QueryRiderQualificationResponse QueryRiderQualification(QueryRiderQualificationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryRiderQualificationEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用户身份核验
+         * Summary: 用户身份核验
+         */
+        public async Task<QueryRiderQualificationResponse> QueryRiderQualificationAsync(QueryRiderQualificationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryRiderQualificationExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用户身份核验
+         * Summary: 用户身份核验
+         */
+        public QueryRiderQualificationResponse QueryRiderQualificationEx(QueryRiderQualificationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryRiderQualificationResponse>(DoRequest("1.0", "di.realperson.rider.qualification.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用户身份核验
+         * Summary: 用户身份核验
+         */
+        public async Task<QueryRiderQualificationResponse> QueryRiderQualificationExAsync(QueryRiderQualificationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryRiderQualificationResponse>(await DoRequestAsync("1.0", "di.realperson.rider.qualification.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
