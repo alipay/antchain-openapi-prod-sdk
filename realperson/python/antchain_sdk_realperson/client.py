@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.22.32',
+                    'sdk_version': '1.22.33',
                     '_prod_code': 'REALPERSON',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.22.32',
+                    'sdk_version': '1.22.33',
                     '_prod_code': 'REALPERSON',
                     '_prod_channel': 'undefined'
                 }
@@ -5077,6 +5077,62 @@ class Client:
         return TeaCore.from_map(
             realperson_models.UploadFileResponse(),
             await self.do_request_async('1.0', 'di.realperson.file.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_rider_qualification(
+        self,
+        request: realperson_models.QueryRiderQualificationRequest,
+    ) -> realperson_models.QueryRiderQualificationResponse:
+        """
+        Description: 用户身份核验
+        Summary: 用户身份核验
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_rider_qualification_ex(request, headers, runtime)
+
+    async def query_rider_qualification_async(
+        self,
+        request: realperson_models.QueryRiderQualificationRequest,
+    ) -> realperson_models.QueryRiderQualificationResponse:
+        """
+        Description: 用户身份核验
+        Summary: 用户身份核验
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_rider_qualification_ex_async(request, headers, runtime)
+
+    def query_rider_qualification_ex(
+        self,
+        request: realperson_models.QueryRiderQualificationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.QueryRiderQualificationResponse:
+        """
+        Description: 用户身份核验
+        Summary: 用户身份核验
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.QueryRiderQualificationResponse(),
+            self.do_request('1.0', 'di.realperson.rider.qualification.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_rider_qualification_ex_async(
+        self,
+        request: realperson_models.QueryRiderQualificationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.QueryRiderQualificationResponse:
+        """
+        Description: 用户身份核验
+        Summary: 用户身份核验
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.QueryRiderQualificationResponse(),
+            await self.do_request_async('1.0', 'di.realperson.rider.qualification.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def bind_cutpayment_oneclick(
