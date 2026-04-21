@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.2.0',
+    sdk_version = '1.2.1',
     _prod_code = 'AGORAX',
     _prod_channel = 'default'
   };
@@ -3692,6 +3692,18 @@ model TemplateInfoDTO {
   gmtModified: string(name='gmt_modified', example='2021-01-01 00:00:00'),
 }
 
+// 发券记录列表
+model OrderList {
+  // 活动ID
+  activityId?: string(name='activity_id', example='0zgNdId0nxi95b5lsNpazWYoCo5'),
+  // 记录ID
+  id?: string(name='id', example='110000199001011234'),
+  // 业务ID
+  bizId?: string(name='biz_id', example='b5lsNpazWYoCo5'),
+  // 奖品id
+  prizeId?: string(name='prize_id', example='110000199001011234'),
+}
+
 model QueryBaasPromotionActivityRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -3943,9 +3955,9 @@ model QueryPromotionCouponRequest = {
   // 活动ID
   activityId: string(name='activity_id'),
   // openId
-  openId?: string(name='open_id'),
+  openId: string(name='open_id'),
   // appId
-  appId?: string(name='app_id'),
+  appId: string(name='app_id'),
   // 开始日期
   startDate?: string(name='start_date'),
   // 结束日期
@@ -3970,7 +3982,7 @@ model QueryPromotionCouponResponse = {
   // 每页数量
   pageSize?: long(name='page_size'),
   // 发券记录列表
-  list?: [ List ](name='list'),
+  orderList?: [ OrderList ](name='order_list'),
 }
 
 /**
