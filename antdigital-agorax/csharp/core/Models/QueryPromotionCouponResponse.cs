@@ -40,9 +40,9 @@ namespace AntChain.SDK.AGORAX.Models
         public long? PageSize { get; set; }
 
         // 发券记录列表
-        [NameInMap("list")]
+        [NameInMap("order_list")]
         [Validation(Required=false)]
-        public List<List> List { get; set; }
+        public List<OrderList> OrderList { get; set; }
 
     }
 

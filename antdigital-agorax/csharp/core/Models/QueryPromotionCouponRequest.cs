@@ -25,12 +25,12 @@ namespace AntChain.SDK.AGORAX.Models
 
         // openId
         [NameInMap("open_id")]
-        [Validation(Required=false)]
+        [Validation(Required=true)]
         public string OpenId { get; set; }
 
         // appId
         [NameInMap("app_id")]
-        [Validation(Required=false)]
+        [Validation(Required=true)]
         public string AppId { get; set; }
 
         // 开始日期
