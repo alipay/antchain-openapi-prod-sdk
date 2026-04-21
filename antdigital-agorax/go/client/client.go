@@ -11959,6 +11959,46 @@ func (s *TemplateInfoDTO) SetGmtModified(v string) *TemplateInfoDTO {
 	return s
 }
 
+// 发券记录列表
+type OrderList struct {
+	// 活动ID
+	ActivityId *string `json:"activity_id,omitempty" xml:"activity_id,omitempty"`
+	// 记录ID
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	// 业务ID
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty"`
+	// 奖品id
+	PrizeId *string `json:"prize_id,omitempty" xml:"prize_id,omitempty"`
+}
+
+func (s OrderList) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OrderList) GoString() string {
+	return s.String()
+}
+
+func (s *OrderList) SetActivityId(v string) *OrderList {
+	s.ActivityId = &v
+	return s
+}
+
+func (s *OrderList) SetId(v string) *OrderList {
+	s.Id = &v
+	return s
+}
+
+func (s *OrderList) SetBizId(v string) *OrderList {
+	s.BizId = &v
+	return s
+}
+
+func (s *OrderList) SetPrizeId(v string) *OrderList {
+	s.PrizeId = &v
+	return s
+}
+
 type QueryBaasPromotionActivityRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -12505,9 +12545,9 @@ type QueryPromotionCouponRequest struct {
 	// 活动ID
 	ActivityId *string `json:"activity_id,omitempty" xml:"activity_id,omitempty" require:"true"`
 	// openId
-	OpenId *string `json:"open_id,omitempty" xml:"open_id,omitempty"`
+	OpenId *string `json:"open_id,omitempty" xml:"open_id,omitempty" require:"true"`
 	// appId
-	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty"`
+	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty" require:"true"`
 	// 开始日期
 	StartDate *string `json:"start_date,omitempty" xml:"start_date,omitempty"`
 	// 结束日期
@@ -12585,7 +12625,7 @@ type QueryPromotionCouponResponse struct {
 	// 每页数量
 	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
 	// 发券记录列表
-	List []*List `json:"list,omitempty" xml:"list,omitempty" type:"Repeated"`
+	OrderList []*OrderList `json:"order_list,omitempty" xml:"order_list,omitempty" type:"Repeated"`
 }
 
 func (s QueryPromotionCouponResponse) String() string {
@@ -12626,8 +12666,8 @@ func (s *QueryPromotionCouponResponse) SetPageSize(v int64) *QueryPromotionCoupo
 	return s
 }
 
-func (s *QueryPromotionCouponResponse) SetList(v []*List) *QueryPromotionCouponResponse {
-	s.List = v
+func (s *QueryPromotionCouponResponse) SetOrderList(v []*OrderList) *QueryPromotionCouponResponse {
+	s.OrderList = v
 	return s
 }
 
@@ -12753,7 +12793,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.2.0"),
+				"sdk_version":      tea.String("1.2.1"),
 				"_prod_code":       tea.String("AGORAX"),
 				"_prod_channel":    tea.String("default"),
 			}
