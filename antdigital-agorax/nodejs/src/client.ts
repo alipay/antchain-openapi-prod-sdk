@@ -9272,6 +9272,39 @@ export class TemplateInfoDTO extends $tea.Model {
   }
 }
 
+// 发券记录列表
+export class OrderList extends $tea.Model {
+  // 活动ID
+  activityId?: string;
+  // 记录ID
+  id?: string;
+  // 业务ID
+  bizId?: string;
+  // 奖品id
+  prizeId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      activityId: 'activity_id',
+      id: 'id',
+      bizId: 'biz_id',
+      prizeId: 'prize_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      activityId: 'string',
+      id: 'string',
+      bizId: 'string',
+      prizeId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryBaasPromotionActivityRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -9682,9 +9715,9 @@ export class QueryPromotionCouponRequest extends $tea.Model {
   // 活动ID
   activityId: string;
   // openId
-  openId?: string;
+  openId: string;
   // appId
-  appId?: string;
+  appId: string;
   // 开始日期
   startDate?: string;
   // 结束日期
@@ -9740,7 +9773,7 @@ export class QueryPromotionCouponResponse extends $tea.Model {
   // 每页数量
   pageSize?: number;
   // 发券记录列表
-  list?: List[];
+  orderList?: OrderList[];
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -9749,7 +9782,7 @@ export class QueryPromotionCouponResponse extends $tea.Model {
       totalCount: 'total_count',
       pageNum: 'page_num',
       pageSize: 'page_size',
-      list: 'list',
+      orderList: 'order_list',
     };
   }
 
@@ -9761,7 +9794,7 @@ export class QueryPromotionCouponResponse extends $tea.Model {
       totalCount: 'number',
       pageNum: 'number',
       pageSize: 'number',
-      list: { 'type': 'array', 'itemType': List },
+      orderList: { 'type': 'array', 'itemType': OrderList },
     };
   }
 
@@ -9883,7 +9916,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.2.0",
+          sdk_version: "1.2.1",
           _prod_code: "AGORAX",
           _prod_channel: "default",
         };
