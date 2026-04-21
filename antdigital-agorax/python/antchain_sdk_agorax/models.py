@@ -15016,6 +15016,55 @@ class TemplateInfoDTO(TeaModel):
         return self
 
 
+class OrderList(TeaModel):
+    def __init__(
+        self,
+        activity_id: str = None,
+        id: str = None,
+        biz_id: str = None,
+        prize_id: str = None,
+    ):
+        # 活动ID
+        self.activity_id = activity_id
+        # 记录ID
+        self.id = id
+        # 业务ID
+        self.biz_id = biz_id
+        # 奖品id
+        self.prize_id = prize_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.activity_id is not None:
+            result['activity_id'] = self.activity_id
+        if self.id is not None:
+            result['id'] = self.id
+        if self.biz_id is not None:
+            result['biz_id'] = self.biz_id
+        if self.prize_id is not None:
+            result['prize_id'] = self.prize_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('activity_id') is not None:
+            self.activity_id = m.get('activity_id')
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('biz_id') is not None:
+            self.biz_id = m.get('biz_id')
+        if m.get('prize_id') is not None:
+            self.prize_id = m.get('prize_id')
+        return self
+
+
 class QueryBaasPromotionActivityRequest(TeaModel):
     def __init__(
         self,
@@ -15712,6 +15761,8 @@ class QueryPromotionCouponRequest(TeaModel):
 
     def validate(self):
         self.validate_required(self.activity_id, 'activity_id')
+        self.validate_required(self.open_id, 'open_id')
+        self.validate_required(self.app_id, 'app_id')
 
     def to_map(self):
         _map = super().to_map()
@@ -15771,7 +15822,7 @@ class QueryPromotionCouponResponse(TeaModel):
         total_count: int = None,
         page_num: int = None,
         page_size: int = None,
-        list: List[List] = None,
+        order_list: List[OrderList] = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -15786,11 +15837,11 @@ class QueryPromotionCouponResponse(TeaModel):
         # 每页数量
         self.page_size = page_size
         # 发券记录列表
-        self.list = list
+        self.order_list = order_list
 
     def validate(self):
-        if self.list:
-            for k in self.list:
+        if self.order_list:
+            for k in self.order_list:
                 if k:
                     k.validate()
 
@@ -15812,10 +15863,10 @@ class QueryPromotionCouponResponse(TeaModel):
             result['page_num'] = self.page_num
         if self.page_size is not None:
             result['page_size'] = self.page_size
-        result['list'] = []
-        if self.list is not None:
-            for k in self.list:
-                result['list'].append(k.to_map() if k else None)
+        result['order_list'] = []
+        if self.order_list is not None:
+            for k in self.order_list:
+                result['order_list'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -15832,11 +15883,11 @@ class QueryPromotionCouponResponse(TeaModel):
             self.page_num = m.get('page_num')
         if m.get('page_size') is not None:
             self.page_size = m.get('page_size')
-        self.list = []
-        if m.get('list') is not None:
-            for k in m.get('list'):
-                temp_model = List()
-                self.list.append(temp_model.from_map(k))
+        self.order_list = []
+        if m.get('order_list') is not None:
+            for k in m.get('order_list'):
+                temp_model = OrderList()
+                self.order_list.append(temp_model.from_map(k))
         return self
 
 
