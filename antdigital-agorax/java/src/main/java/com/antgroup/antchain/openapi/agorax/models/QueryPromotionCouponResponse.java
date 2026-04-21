@@ -29,8 +29,8 @@ public class QueryPromotionCouponResponse extends TeaModel {
     public Long pageSize;
 
     // 发券记录列表
-    @NameInMap("list")
-    public java.util.List<List> list;
+    @NameInMap("order_list")
+    public java.util.List<OrderList> orderList;
 
     public static QueryPromotionCouponResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryPromotionCouponResponse self = new QueryPromotionCouponResponse();
@@ -85,12 +85,12 @@ public class QueryPromotionCouponResponse extends TeaModel {
         return this.pageSize;
     }
 
-    public QueryPromotionCouponResponse setList(java.util.List<List> list) {
-        this.list = list;
+    public QueryPromotionCouponResponse setOrderList(java.util.List<OrderList> orderList) {
+        this.orderList = orderList;
         return this;
     }
-    public java.util.List<List> getList() {
-        return this.list;
+    public java.util.List<OrderList> getOrderList() {
+        return this.orderList;
     }
 
 }

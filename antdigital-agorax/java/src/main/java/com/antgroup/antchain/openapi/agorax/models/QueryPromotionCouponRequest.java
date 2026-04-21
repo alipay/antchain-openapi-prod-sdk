@@ -18,10 +18,12 @@ public class QueryPromotionCouponRequest extends TeaModel {
 
     // openId
     @NameInMap("open_id")
+    @Validation(required = true)
     public String openId;
 
     // appId
     @NameInMap("app_id")
+    @Validation(required = true)
     public String appId;
 
     // 开始日期
