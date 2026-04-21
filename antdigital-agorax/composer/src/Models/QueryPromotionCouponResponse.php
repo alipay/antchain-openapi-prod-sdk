@@ -46,9 +46,9 @@ class QueryPromotionCouponResponse extends Model
 
     // 发券记录列表
     /**
-     * @var List_[]
+     * @var OrderList[]
      */
-    public $list;
+    public $orderList;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
@@ -56,7 +56,7 @@ class QueryPromotionCouponResponse extends Model
         'totalCount' => 'total_count',
         'pageNum'    => 'page_num',
         'pageSize'   => 'page_size',
-        'list'       => 'list',
+        'orderList'  => 'order_list',
     ];
 
     public function validate()
@@ -84,12 +84,12 @@ class QueryPromotionCouponResponse extends Model
         if (null !== $this->pageSize) {
             $res['page_size'] = $this->pageSize;
         }
-        if (null !== $this->list) {
-            $res['list'] = [];
-            if (null !== $this->list && \is_array($this->list)) {
+        if (null !== $this->orderList) {
+            $res['order_list'] = [];
+            if (null !== $this->orderList && \is_array($this->orderList)) {
                 $n = 0;
-                foreach ($this->list as $item) {
-                    $res['list'][$n++] = null !== $item ? $item->toMap() : $item;
+                foreach ($this->orderList as $item) {
+                    $res['order_list'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
         }
@@ -123,12 +123,12 @@ class QueryPromotionCouponResponse extends Model
         if (isset($map['page_size'])) {
             $model->pageSize = $map['page_size'];
         }
-        if (isset($map['list'])) {
-            if (!empty($map['list'])) {
-                $model->list = [];
-                $n           = 0;
-                foreach ($map['list'] as $item) {
-                    $model->list[$n++] = null !== $item ? List_::fromMap($item) : $item;
+        if (isset($map['order_list'])) {
+            if (!empty($map['order_list'])) {
+                $model->orderList = [];
+                $n                = 0;
+                foreach ($map['order_list'] as $item) {
+                    $model->orderList[$n++] = null !== $item ? OrderList::fromMap($item) : $item;
                 }
             }
         }

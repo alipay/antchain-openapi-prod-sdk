@@ -75,6 +75,8 @@ class QueryPromotionCouponRequest extends Model
     public function validate()
     {
         Model::validateRequired('activityId', $this->activityId, true);
+        Model::validateRequired('openId', $this->openId, true);
+        Model::validateRequired('appId', $this->appId, true);
     }
 
     public function toMap()
