@@ -1,0 +1,2160 @@
+import AntchainUtil;
+import Util;
+import RPCUtil;
+
+type @endpoint = string
+type @regionId = string
+type @accessKeyId = string
+type @accessKeySecret = string
+type @protocol = string
+type @userAgent = string
+type @readTimeout = number
+type @connectTimeout = number
+type @httpProxy = string
+type @httpsProxy = string
+type @socks5Proxy = string
+type @socks5NetWork = string
+type @noProxy = string
+type @maxIdleConns = number
+type @securityToken = string
+type @maxIdleTimeMillis = number
+type @keepAliveDurationMillis = number
+type @maxRequests = number
+type @maxRequestsPerHost = number
+
+/**
+ * Model for initing client
+ */
+model Config {
+  accessKeyId?: string(description='accesskey id',default=''),
+  accessKeySecret?: string(description='accesskey secret',default=''),
+  securityToken?: string(description='security token',default=''),
+  protocol?: string(description='http protocol',example='http',default='http'),
+  readTimeout?: number(description='read timeout',example='10',default=''),
+  connectTimeout?: number(description='connect timeout',example='10',default=''),
+  httpProxy?: string(description='http proxy',example='http://localhost',default=''),
+  httpsProxy?: string(description='https proxy',example='https://localhost',default=''),
+  endpoint?: string(description='endpoint',example='cs.aliyuncs.com',default=''),
+  noProxy?: string(description='proxy white list',example='http://localhost',default=''),
+  maxIdleConns?: number(description='max idle conns',example='3',default=''),
+  userAgent?: string(description='user agent',example='Alibabacloud/1',default=''),
+  socks5Proxy?: string(description='socks5 proxy',default=''),
+  socks5NetWork?: string(description='socks5 network',example='TCP',default=''),
+  maxIdleTimeMillis?: number(description='长链接最大空闲时长',default='60 * 1000L'),
+  keepAliveDurationMillis?: number(description='长链接最大连接时长',default='5000'),
+  maxRequests?: number(description='最大连接数（长链接最大总数）',default='100'),
+  maxRequestsPerHost?: number(description='每个目标主机的最大连接数（分主机域名的长链接最大总数',default='100'),
+}
+
+/**
+ * Init client with Config
+ * @param config config contains the necessary information to create a client
+ */
+init(config: Config) {
+  if (Util.isUnset(config)) {
+    throw {
+      code = 'ParameterMissing',
+      message = '\'config\' can not be unset'
+    };
+  }
+
+  @accessKeyId = config.accessKeyId;
+  @accessKeySecret = config.accessKeySecret;
+  @securityToken = config.securityToken;
+  @endpoint = config.endpoint;
+  @protocol = config.protocol;
+  @userAgent = config.userAgent;
+  @readTimeout = Util.defaultNumber(config.readTimeout, 20000);
+  @connectTimeout = Util.defaultNumber(config.connectTimeout, 20000);
+  @httpProxy = config.httpProxy;
+  @httpsProxy = config.httpsProxy;
+  @noProxy = config.noProxy;
+  @socks5Proxy = config.socks5Proxy;
+  @socks5NetWork = config.socks5NetWork;
+  @maxIdleConns = Util.defaultNumber(config.maxIdleConns, 60000);
+  @maxIdleTimeMillis = Util.defaultNumber(config.maxIdleTimeMillis, 5);
+  @keepAliveDurationMillis = Util.defaultNumber(config.keepAliveDurationMillis, 5000);
+  @maxRequests = Util.defaultNumber(config.maxRequests, 100);
+  @maxRequestsPerHost = Util.defaultNumber(config.maxRequestsPerHost, 100);
+}
+
+/**
+ * Encapsulate the request and invoke the network
+ * @param action api name
+ * @param protocol http or https
+ * @param method e.g. GET
+ * @param pathname pathname of every api
+ * @param request which contains request params
+ * @param runtime which controls some details of call api, such as retry times
+ * @return the response
+ */
+api doRequest(version: string, action: string, protocol: string, method: string, pathname: string, request: object, headers: map[string]string, runtime: Util.RuntimeOptions): object {
+  __request.protocol = Util.defaultString(@protocol, protocol);
+  __request.method = method;
+  __request.pathname = pathname;
+  __request.query = {
+    method = action,
+    version = version,
+    sign_type = 'HmacSHA1',
+    req_time = AntchainUtil.getTimestamp(),
+    req_msg_id = AntchainUtil.getNonce(),
+    access_key = @accessKeyId,
+    base_sdk_version = 'TeaSDK-2.0',
+    sdk_version = '1.0.0',
+    _prod_code = 'SMARTPROMOTION',
+    _prod_channel = 'undefined'
+  };
+
+  if (!Util.empty(@securityToken)) {
+    __request.query.security_token = @securityToken;
+  }
+
+  __request.headers = {
+    host = Util.defaultString(@endpoint, 'openapi.antchain.antgroup.com'),
+    user-agent = Util.getUserAgent(@userAgent),
+    ...headers
+  };
+
+  var tmp = Util.anyifyMapValue(RPCUtil.query(request));
+  __request.body = Util.toFormString(tmp);
+  __request.headers.content-type = 'application/x-www-form-urlencoded';
+
+  var signedParam = {
+    ...__request.query,
+    ...RPCUtil.query(request)
+  };
+  __request.query.sign = AntchainUtil.getSignature(signedParam, @accessKeySecret);
+} returns {
+  var raw = Util.readAsString(__response.body);
+  var obj = Util.parseJSON(raw);
+  var res = Util.assertAsMap(obj);
+  var resp = Util.assertAsMap(res.response);
+
+  if (AntchainUtil.hasError(raw, @accessKeySecret)) {
+    throw {
+      message = resp.result_msg,
+      data = resp,
+      code = resp.result_code
+    };
+  }
+  return resp;
+} runtime {
+  timeouted = 'retry',
+  readTimeout = Util.defaultNumber(runtime.readTimeout, @readTimeout),
+  connectTimeout = Util.defaultNumber(runtime.connectTimeout, @connectTimeout),
+  httpProxy = Util.defaultString(runtime.httpProxy, @httpProxy),
+  httpsProxy = Util.defaultString(runtime.httpsProxy, @httpsProxy),
+  noProxy = Util.defaultString(runtime.noProxy, @noProxy),
+  maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
+  maxIdleTimeMillis = @maxIdleTimeMillis,
+  keepAliveDuration = @keepAliveDurationMillis,
+  maxRequests = @maxRequests,
+  maxRequestsPerHost = @maxRequestsPerHost,
+  retry = {
+    retryable = runtime.autoretry,
+    maxAttempts = Util.defaultNumber(runtime.maxAttempts, 3)
+  },
+  backoff = {
+    policy = Util.defaultString(runtime.backoffPolicy, 'no'),
+    period = Util.defaultNumber(runtime.backoffPeriod, 1)
+  },
+  ignoreSSL = runtime.ignoreSSL
+}
+
+// 商品规格选项
+model ProductSpecOption {
+  // 规格key
+  specKey?: string(name='spec_key', example='规格key'),
+  // 规格名称
+  displayName?: string(name='display_name', example='规格名称'),
+  // 规格值
+  specValue?: string(name='spec_value', example='规格值'),
+}
+
+// 文件信息
+model FileInfo {
+  // 文件名称
+  fileName: string(name='file_name', example='asasd.jpg'),
+  // 文件key
+  fileKey: string(name='file_key', example='adadqweqw12sads1'),
+}
+
+// 付款项目
+model PaymentItem {
+  // 付款金额，单位分
+  amount?: long(name='amount', example='100'),
+  // 付款项目类型
+  paymentType?: string(name='payment_type', example='SCREEN_DAMAGE_INSURANCE'),
+}
+
+// 随时享-商品规格值对象
+model ProductSpecValue {
+  // 规格值
+  specValue?: string(name='spec_value', example='123'),
+  // 规格图片key
+  imageFileKey?: string(name='image_file_key', example='/merchant/key'),
+  // 规格图片http链接
+  largeImageFileKey?: string(name='large_image_file_key', example='http://merchant/key'),
+}
+
+// 商品租赁价格规格
+model LeasePriceProp {
+  // 商户商品skuId
+  merchantSkuId?: string(name='merchant_sku_id', example='20240505151148001384'),
+  // 商品规格列表
+  productSpecOptionList?: [ ProductSpecOption ](name='product_spec_option_list', example=''),
+  // 规格图片
+  specImageFileKey?: string(name='spec_image_file_key', example='["fileKey"]'),
+  // 规格图片
+  largeSpecImageFileKey?: string(name='large_spec_image_file_key', example='["fileKey"]'),
+  // 原订单总金额（单位分）
+  originTotalRentMoney?: long(name='origin_total_rent_money', example='2'),
+  // 现订单总金额（单位分）
+  totalRentMoney?: long(name='total_rent_money', example='1'),
+  // 原日租金（单位分）
+  originDailyRentMoney?: long(name='origin_daily_rent_money', example=''),
+  // 现日租金（单位分）
+  dailyRentMoney?: long(name='daily_rent_money', example=''),
+  // 库存
+  stockQuantity?: long(name='stock_quantity', example=''),
+  // 续租价（单位分）
+  renewPrice?: long(name='renew_price', example='1'),
+  // 买断价（单位分）
+  buyoutPrice?: long(name='buyout_price', example='2'),
+  // 是否可售卖
+  forSale?: boolean(name='for_sale', example='true, false'),
+}
+
+// 赎回结果信息
+model MerchantPerformanceRedeemResultInfo {
+  // 回购支付方式	
+  // ONLINE-线上
+  // OFFLINE-线下
+  redeemWay?: string(name='redeem_way', example='OFFLINE'),
+  // 回购时间
+  redeemTime?: string(name='redeem_time', example='2024-10-17 18:41:59'),
+  // 回购原因
+  // ACTIVE_REDEEM("ACTIVE_REDEEM", "自主赎回"),
+  // RENTING_OUT_REDEEM("RENTING_OUT_REDEEM",
+  //                                                                           "退租赎回"),
+  // RENTING_AND_RESALE_REDEEM("RENTING_AND_RESALE_REDEEM",
+  //                                                                                  "租转售赎回");
+  redeemReason?: string(name='redeem_reason', example='ACTIVE_REDEEM'),
+  // 回购类型
+  // TRANSFER，转账代偿
+  // WITHHOLD，代扣代偿
+  redeemType?: string(name='redeem_type', example='TRANSFER'),
+  // 回购金额（分）
+  redeemAmount?: long(name='redeem_amount', example='100'),
+  // 回购状态
+  // PAYING 回购中
+  // SUCCESS 成功
+  // FAILED 失败
+  redeemStatus?: string(name='redeem_status', example='PAYING'),
+}
+
+// 单期明细
+model SingleTermDetail {
+  // 期数
+  periodNum: long(minimum=1, name='period_num', example='1'),
+  // 支付金额
+  payAmount: long(minimum=1, name='pay_amount', example='1'),
+}
+
+// 经营分账收入方详情信息(商户控制台订单详情用)
+model OperationDivideTransInDetailInfo {
+  // 分账收入方名称
+  transInName?: string(name='trans_in_name', example='xxx公司'),
+  // 分账收入方支付宝用户id, 支付宝2088id
+  transInUserId?: string(name='trans_in_user_id', example='2088****1'),
+  // 分账金额，单位为分
+  divideAmount?: long(name='divide_amount', example='100'),
+  // 分账描述
+  desc?: string(name='desc', example='分账给经营商'),
+  // INIT("INIT", "初始化"),
+  // PROCESSING("PROCESSING", "处理中"),
+  // FAILED("FAILED", "失败"),
+  // SUCCESS("SUCCESS", "分账成功");
+  divideStatus?: string(name='divide_status', example='SUCCESS'),
+}
+
+// 租赁价格方案
+model LeasePricePlan {
+  // 租赁方案
+  rentalPlan?: string(name='rental_plan', example='租赁方案'),
+  // 租赁周期
+  rentalPeriod?: long(name='rental_period', example=''),
+  // 租赁价格属性列表
+  leasePricePropList?: [ LeasePriceProp ](name='lease_price_prop_list', example=''),
+}
+
+// 静态数据模块详情
+model StaticDataModuleDetail {
+  // 描述
+  propertyText: string(name='property_text', example='企业'),
+  // 商户类型
+  propertyValue: string(name='property_value', example='01'),
+  // 图标
+  icon?: string(name='icon', example='图标'),
+  // 置灰图标
+  greyIcon?: string(name='grey_icon', example='置灰图标'),
+  // 叶子结点，目前存的一级类目下的二级类目
+  childrenDetailList?: string(name='children_detail_list', example='[{"propertyText":"123","propertyValue":"123"}]'),
+  // 是否有叶子结点
+  hasChildren?: boolean(name='has_children', example='true, false'),
+}
+
+// 站点信息
+model SiteInfo {
+  // 小程序id
+  tinyAppId?: string(name='tiny_app_id', example='123456789'),
+  // 站点名称
+  siteName?: string(name='site_name', example='站点名称'),
+  // 
+  // 截图照片
+  screenshotFile?: FileInfo(name='screenshot_file', example='c6c0c7a1-b9d5-4e5d-b9d4-9eed39f00e65.jpg'),
+  // 站点地址
+  siteUrl?: string(name='site_url', example='https://open.alipay.com'),
+  // 站点类型
+  // 网站: 01
+  // APP: 02
+  // 服务窗: 03
+  // 公众号: 04
+  // 其他: 05
+  // 支付宝小程序: 06
+  // 手机网站/H5: 07
+  siteType?: string(name='site_type', example='02'),
+}
+
+// 订单所有商品信息模型
+model ScalperQueryOrderItem {
+  // 订单商品名称
+  orderItemsName?: string(maxLength=256, minLength=1, name='order_items_name', example='商品1'),
+  // 订单商品数量
+  orderItemsQuantity?: long(maximum=100000, minimum=1, name='order_items_quantity', example='1'),
+  // 订单商品价格，单位：分
+  orderItemsPrice?: long(maximum=10000000, minimum=1, name='order_items_price', example='20000'),
+}
+
+// 随时享-服务商平台报名商家信息对象
+model SignProductMerchant {
+  // 商户商品spuId
+  merchantProductId?: string(name='merchant_product_id', example='s123123123123123'),
+  // 商户品牌
+  merchantBrand?: string(name='merchant_brand', example='品牌'),
+  // 商户logo
+  merchantLogo?: string(name='merchant_logo', example='filekey'),
+  // 商户logo
+  largeMerchantLogo?: string(name='large_merchant_logo', example='http'),
+  // 是否置灰
+  grayed?: boolean(name='grayed', example='true, false'),
+}
+
+// 产品规格定义
+model ProductSpecConfig {
+  // 规格名称
+  specKey?: string(name='spec_key', example='color'),
+  // 规格名称
+  displayName?: string(name='display_name', example='颜色'),
+  // 允许值列表
+  specValueList?: [ ProductSpecValue ](name='spec_value_list', example=''),
+}
+
+// 智租风控-子风险项
+model SubRentRiskItem {
+  // 风险名称。枚举值：BASE_PERFORMANCE - 基础履约风险；OVERDUE - 逾期风险；MULTI_RENT - 共租风险。
+  riskName: string(name='risk_name', example='BASE_PERFORMANCE'),
+  // 风险等级。枚举值：RANK0-无法判断；RANK1-极低风险；RANK2-低风险；RANK3-中风险；RANK4-高风险；RANK5-极高风险。 
+  riskRank: string(name='risk_rank', example='RANK0'),
+  // 风险描述
+  riskDesc: string(name='risk_desc', example='低风险'),
+}
+
+// 订单还款策略
+model OrderRepayStrategy {
+  // 还款期数
+  termIndex?: long(name='term_index', example='1'),
+  // 每期应还租金(分)
+  rentalMoney?: long(name='rental_money', example='10000'),
+  // 每期应付时间
+  payDay?: string(name='pay_day', example='2024-10-21'),
+  // 付款项目列表
+  paymentItemList?: [ PaymentItem ](name='payment_item_list', example=''),
+  // 是否无需履约
+  noPerformance?: string(name='no_performance', example='Y'),
+}
+
+// 进件流程信息
+model ExpandProcessInfo {
+  // TENANT_INDIRECT_MAINCLASS(间联类目)
+  // TENANT_ENDPOINT（回调地址）
+  // CUSTOM_SERVICE_INFO（客服信息）
+  // AGENTCUSTOMERPESONINFO（间联客诉人员）
+  // MERCHANT_EXPAND（商户进件）
+  processNode?: string(name='process_node', example='TENANT_INDIRECT_MAINCLASS'),
+  // 是否已提交
+  isSubmitted?: boolean(name='is_submitted', example='是否已提交'),
+  // 审核通过
+  auditStatus?: string(name='audit_status', example='SUCCESS'),
+}
+
+// 投保商品信息
+model InsureProductInfo {
+  // 商品库id
+  productId: string(maxLength=128, name='product_id', example='23120408012017316448567772405769C'),
+  // 商品设备编号
+  productImeiId: string(maxLength=256, name='product_imei_id', example='G7776396641152936311S8125663851216'),
+  // 商品采购价，单位：分
+  purchaseAmount: long(maximum=100000000, name='purchase_amount', example='598800'),
+}
+
+// 模板详情
+model TemplateInfo {
+  // 模板id
+  templateId: string(name='template_id', example='T20240712134030001693'),
+  // 模板版本，不传取最新模板
+  templateVersion?: long(name='template_version', example='1'),
+  // 模板参数，JSON格式，其中key对应模板中的名称，value对应其要渲染的值
+  templateArgs?: string(name='template_args', example='{"模板key":"模板value"}'),
+  // 模板所属商户id
+  merchantId?: string(name='merchant_id', example='91310101MA1FPCXA3G'),
+}
+
+// 主订单信息
+model OrderInfo {
+  // 订单id
+  orderId?: string(name='order_id', example='SH20241017184159846222'),
+  // 订单创建时间
+  orderCreateTime?: string(name='order_create_time', example='2024-10-17 18:41:59.000'),
+  // 订单支付时间
+  orderPayTime?: string(name='order_pay_time', example='2024-10-17 18:41:59.000'),
+  // 租金总额(分)
+  totalRentMoney?: long(name='total_rent_money', example='3500'),
+  // 租期
+  rentTerm?: long(name='rent_term', example='12'),
+  // 租期单位
+  rentUnit?: string(name='rent_unit', example='MONTH'),
+  // 订单状态
+  orderStatus?: string(name='order_status', example='OPEN'),
+  // 订单子状态
+  orderSubStatus?: string(name='order_sub_status', example='ORDER_FULFILLMENT'),
+  // 免押金额（分）
+  depositPrice?: long(name='deposit_price', example='200'),
+  // 到期买断价(分)
+  buyOutPrice?: long(name='buy_out_price', example='200'),
+  // 物流方案
+  logisticType?: string(name='logistic_type', example='POST'),
+  // 到期形式
+  // NA(0, "无意义"),
+  // BUYOUT(1, "到期买断或归还"),
+  // FREE_ON_RENT(2, "租满即送"),
+  // RENEW_LEASE(3, "续租"),;
+  dueMode?: long(name='due_mode', example='1'),
+  // 首付款金额(分)
+  downPayment?: long(name='down_payment', example='200'),
+  // 商户统一社会信用代码
+  merchantId?: string(name='merchant_id', example='91301010101010101A'),
+  // 商户名称
+  merchantName?: string(name='merchant_name', example='xxx有限公司'),
+  // 订单开始履约期数
+  divideStartTermIndex?: long(name='divide_start_term_index', example='1'),
+  // 订单关联的营销id
+  promotionId?: string(name='promotion_id', example='Promoionxxxxx'),
+  // 融资类型
+  // SUPPLY_CHAIN_FINANCE
+  fundMode?: string(name='fund_mode', example='SUPPLY_CHAIN_FINANCE'),
+  // 订单支付渠道
+  // ALIPAY
+  // JDPAY
+  payChannel?: string(name='pay_channel', example='ALIPAY'),
+}
+
+// 通知信息
+model NoticeInfo {
+  // 通知id
+  noticeId?: long(name='notice_id', example='12345678'),
+  // 通知标题
+  title?: string(name='title', example='7月官网更新'),
+  // 通知创建时间
+  noticeCreateTime?: string(name='notice_create_time', example='2024-10-17 18:41:59.000'),
+  // 是否未读
+  unread?: boolean(name='unread', example='true, false'),
+}
+
+// 审核信息
+model AuditInfo {
+  // 审核步骤
+  stage: string(name='stage', example='商户提交'),
+  // 审核主体
+  auditSubject: string(name='audit_subject', example='平台审核'),
+  // 审核状态
+  status: string(name='status', example='AUDIT_PASSED'),
+  // 审核时间
+  applyDateStr: string(name='apply_date_str', example='2023-04-05 12:12:23'),
+  // 审核失败描述
+  failReason: string(name='fail_reason', example='xx值校验失败'),
+}
+
+// 法人信息修改
+model LegalInfoUpdate {
+  // 法人名称
+  legalName?: string(name='legal_name', example='法人名称'),
+  // 法人证件号
+  legalCertNo?: string(name='legal_cert_no', example='法人证件号'),
+  // 法人证件正面
+  legalCertFrontFile?: FileInfo(name='legal_cert_front_file', example=''),
+  // 法人证件反面
+  legalCertBackFile?: FileInfo(name='legal_cert_back_file', example=''),
+}
+
+// 资产包履约计划
+model AssetPackagePromisePlan {
+  // 账期
+  periodNum?: long(name='period_num', example='1'),
+  // 还款时间yyyy-MM-dd
+  payDay?: string(name='pay_day', example='2026-03-16'),
+  // 计划还款总额，单位为分
+  totalAmount?: long(name='total_amount', example='100'),
+  // 本金，单位为分
+  principalAmount?: long(name='principal_amount', example='80'),
+  // 利息，单位为分
+  interestAmount?: long(name='interest_amount', example='20'),
+  // 构成订单数
+  orderCount?: long(name='order_count', example='200'),
+}
+
+// 营销抢购风险识别入参模型
+model PurchaseQueryModel {
+  // 支付宝外部交易号
+  outOrderNo?: string(maxLength=128, minLength=1, name='out_order_no', example='202304xxxxxxxxxx'),
+  // 支付宝内部生成的交易号
+  orderNo?: string(maxLength=50, minLength=1, name='order_no', example='20230426xxxxxxxxxx'),
+  // 银行卡号
+  bankCardNo?: string(maxLength=52, minLength=1, name='bank_card_no', example='6228xxxxxxxxxxxxx13'),
+  // 公司名称
+  companyName?: string(maxLength=50, minLength=1, name='company_name', example='杭州贸易有限公司'),
+  // 金额，用户购买或使用服务时产生的具体金额，单位：分
+  salesAmount?: long(maximum=10000000, minimum=1, name='sales_amount', example='6657'),
+}
+
+// 风险场景的决策结果
+model RiskScene {
+  // 风险场景编码
+  sceneCode: string(name='scene_code', example='风险场景编码'),
+  // 该场景的风险决策结果
+  decision: string(name='decision', example='该场景的风险决策结果'),
+}
+
+// 分账关系页对象
+model RelationPage {
+  // 分账关系id
+  relationId: string(name='relation_id', example='1231234343423423'),
+  // 分账公司名称
+  companyName: string(name='company_name', example='xx公司'),
+  // 分账公司名称统一社会信用代码
+  merchantId: string(name='merchant_id', example='912123asdq2131'),
+  // 审核状态
+  status: string(name='status', example='AUDIT_PASSED'),
+  // 商户公司统一社会信用代码
+  subjectMerchantId: string(name='subject_merchant_id', example='123123122134wexx'),
+  // 商户公司名称
+  subjectCompanyName: string(name='subject_company_name', example='xx公司'),
+  // 支付渠道
+  // ALIPAY
+  // JDPAY
+  payChannel?: string(name='pay_channel', example='ALIPAY'),
+}
+
+// 行业履约风险识别入参模型
+model BaddebtQueryModel {
+  // 服务分类，服务二级分类
+  serviceCategory?: string(maxLength=128, minLength=1, name='service_category', example='category1'),
+  // 总金额，用户购买或使用服务时产生的具体金额
+  totalAmount?: long(maximum=10000000, minimum=1, name='total_amount', example='36500'),
+  // 商品数量，用户购买或使用服务时产生的具体商品数量
+  totalQuantity?: long(maximum=10000, minimum=1, name='total_quantity', example='1'),
+  // 用户姓名
+  userName?: string(maxLength=128, minLength=1, name='user_name', example='张三'),
+  // 服务商 pid
+  isvPid?: string(maxLength=128, minLength=1, name='isv_pid', example='2088xxxxxxxxxxxx'),
+  // 终端唯一标识
+  apdid?: string(maxLength=128, minLength=1, name='apdid', example='wcsQ4EKKaasuqLrXO9+xhwEAxxxx'),
+}
+
+//  公司信息修改
+model CompanyInfoUpdate {
+  // 营业执照文件信息
+  businessLicenseFile?: FileInfo(name='business_license_file', example=''),
+  // 业务类型 枚举
+  productMainClass?: string(name='product_main_class', example='业务类型'),
+  // 公司名称
+  companyName?: string(name='company_name', example='xx公司'),
+  // 公司别名
+  companyAliasName?: string(name='company_alias_name', example='公司别名'),
+  // 公司数科租户id
+  tenantId?: string(name='tenant_id', example='ASSDDDAS'),
+  // 公司联系电话
+  companyMobile?: string(name='company_mobile', example='1231xx2322'),
+  // 公司联系地址
+  companyAddress?: string(name='company_address', example='xx市xx区'),
+  // 联系人姓名
+  contactName?: string(name='contact_name', example='李xx'),
+  // 联系人手机号码
+  contactMobile?: string(name='contact_mobile', example='132xx2312312'),
+  // 商户类型： 01：企业；07：个体工商户 默认不填为01
+  merchantType?: string(name='merchant_type', example='01'),
+}
+
+// 分销渠道
+model SalesChannel {
+  // 渠道码
+  channelCode: string(name='channel_code', example='RYQUWEOS'),
+  // 渠道名称
+  channelName: string(name='channel_name', example='华东大区'),
+  // 渠道级别，从小到大代表级别由高到低
+  channelLevel: long(name='channel_level', example='4'),
+}
+
+// 商家履约信息
+model MerchantOrderFulfillmentInfo {
+  // 还款期数
+  termIndex?: long(name='term_index', example='1'),
+  // 订单用户租期编号
+  leaseTermIndex?: long(name='lease_term_index', example='1'),
+  // 租期归还状态
+  rentalReturnState?: string(name='rental_return_state', example='RETURN_FULL'),
+  // 还款方式
+  returnWay?: string(name='return_way', example='DIVIDE'),
+  // 支付类型
+  payType?: string(name='pay_type', example='PERFORMANCE'),
+  // 实际到账金额
+  totalMoney?: long(name='total_money', example='1000'),
+  // 实际还款时间(yyyy-MM-dd HH:mm:ss)
+  returnTime?: string(name='return_time', example='2018-10-10 10:10:00'),
+  // 外部交易流水号
+  returnVoucherSerial?: string(name='return_voucher_serial', example='ATO_xxxx'),
+  // 支付宝交易流水号
+  alipayTradeNo?: string(name='alipay_trade_no', example='2024082622001472691457627'),
+  // 资方公司名称
+  fundCompanyName?: string(name='fund_company_name', example='xxx有限公司'),
+  // 支付描述
+  paymentDescription?: string(name='payment_description', example='单期取消'),
+}
+
+// 用户解约申请材料
+model TerminateApplyEvidence {
+  // 用户申请解约问题类型
+  terminateApplyReason?: string(name='terminate_apply_reason', example='操作复杂'),
+  // 用户申请解约问题描述
+  terminateApplyRefer?: string(name='terminate_apply_refer', example='具体描述'),
+  // 用户联系电话
+  userPhoneNum?: string(name='user_phone_num', example='15674433257'),
+  // 用户申请解约证据（图片、视频）
+  terminateApplyEvidences?: [ string ](name='terminate_apply_evidences', example='["fileKey"]'),
+  // 用户申请提交材料时间
+  terminateOperateTime?: string(name='terminate_operate_time', example='2025-01-01 12:00:00'),
+}
+
+// 订单物流信息
+model OrderLogisticInfo {
+  // 物流单号
+  logisticOrderId?: string(name='logistic_order_id', example='xxx'),
+  // 物流状态
+  logisticStatus?: string(name='logistic_status', example='1'),
+}
+
+// 商户控股信息（京东商户进件）
+model MerchantHoldingInfo {
+  // 控股类型名称
+  // 企业股东:ENTERPRISE_SHAREHOLDER
+  // 个人股东:PERSONAL_SHAREHOLDER
+  holdingTypeName: string(name='holding_type_name', example='ENTERPRISE_SHAREHOLDER'),
+  // 控股公司名称
+  holdingCompany: string(name='holding_company', example='xxx公司'),
+  // 证件号码
+  certificateNumber: string(name='certificate_number', example='91301010101010101A'),
+  // 证件是否长期有效
+  // 长期true，
+  // 否则false
+  longDate: boolean(name='long_date', example='true, false'),
+  // 失效时间
+  // 商户控股信息longdate为true 时，可为空 ，格式YYYY-MM-DD
+  expireDate?: string(name='expire_date', example='2022-10-10'),
+}
+
+// 资产包履约计划分配明细
+model AssetPackagePlanAllocateDetail {
+  // 订单id
+  orderId?: string(name='order_id', example='123'),
+  // 商户租户id
+  tenantId?: string(name='tenant_id', example='HXDRFKOF'),
+  // 类型
+  // PERFORMANCE 履约
+  // ASSET_PACKAGE_EXCESS 资产包超额
+  type?: string(name='type', example='ASSET_PACKAGE_EXCESS'),
+  // 用户还款期数
+  periodNum?: long(name='period_num', example='1'),
+  // 用户还款时间yyyy-MM-dd
+  payDay?: string(name='pay_day', example='2026-03-16'),
+  // 用户还款金额，单位为分
+  payAmount?: long(name='pay_amount', example='100'),
+  // 分账比例(不存储实时计算)，保留两位小数，比例统一类型。
+  divideRatio?: string(name='divide_ratio', example='20'),
+  // 商户履约分账金额
+  divideAmount?: long(name='divide_amount', example='100'),
+}
+
+// 应用信息
+model ApplicationInfo {
+  // 应用场景（payChannel =JDPAY仅支持MINI_APP）
+  // MINI_APP 小程序
+  // APP 自有app
+  // ALL 两种都有
+  applicationScene?: string(name='application_scene', example='ALL'),
+  // 小程序id
+  tinyAppId?: string(name='tiny_app_id', example='小程序id'),
+  // 小程序名称
+  siteName?: string(name='site_name', example='xx小程序'),
+  // 网站地址（pay_channel=ALIPAY必填）
+  sitUrl?: string(name='sit_url', example='http://asdasas.com'),
+  // 商户名称。（pay_channel=ALIPAY必填）
+  // 修改后的商户名称，将同步支付宝代扣签约页面字段展示
+  // 
+  merchantName?: string(name='merchant_name', example='xx商户'),
+  // 商户服务名称。（pay_channel=ALIPAY必填）
+  // 修改后的商户服务名称，将同步支付宝代扣签约页面字段展示
+  merchantServiceName?: string(name='merchant_service_name', example='xx商户服务'),
+  // 商户服务描述。（pay_channel=ALIPAY必填）
+  // 修改后的商户服务描述，将同步支付宝代扣签约页面字段展示
+  merchantServiceDesc?: string(name='merchant_service_desc', example='xx服务描述'),
+  // 站点信息
+  siteInfo?: [ SiteInfo ](name='site_info', example=''),
+}
+
+// 智租风控-商品详情
+model ItemDetail {
+  // 租赁商品类目，可选类型：
+  // RENT_PHONE - 手机租赁；RENT_COMPUTER - 电脑/平板租赁；RENT_CAMERA - 数码摄像租赁；RENT_DIGITAL - 数码其他租赁；RENT_STATIONERY - 电子词典/电纸书/文化用品租赁；RENT_CLOTHING - 服装租赁
+  goodsCategory?: string(maxLength=30, name='goods_category', example='RENT_PHONE'),
+  // 租赁商品名称
+  itemName?: string(maxLength=128, name='item_name', example='全新国行iPhone15Pro A17Pro处理器'),
+  // 租赁商品数量
+  quantity?: long(maximum=10000, name='quantity', example='1'),
+}
+
+// 云 api 风控查询响应
+model RiskGoModel {
+  // 风险类型。
+  // 枚举值：MARKETING_PURCHASE_COMMON 营销抢购风险识别；INDUSTRY_SCALPER_COMMON 行业黄牛风险识别；MARKETING_AWARDING_COMMON 营销发奖风险识别；INDUSTRY_FARMING_COMMON 行业刷单风险识别；INDUSTRY_BADDEBT_COMMON 履约坏账风险识别
+  riskType: string(name='risk_type', example='MARKETING_PURCHASE_COMMON'),
+  // 风险等级。
+  // 枚举：rank0 无法判断；rank1 极低风险；rank2 较低风险；rank3 中风险；rank4 高风险；rank5 极高风险
+  riskValue: string(name='risk_value', example='rank1'),
+  // 风险描述
+  riskDesc: string(name='risk_desc', example='风险等级1'),
+  // 风险标签
+  infoCode?: string(name='info_code', example='1001'),
+}
+
+// 单期取消模型
+model SingleCancelModel {
+  // 第几期
+  periodNum: long(minimum=1, name='period_num', example='1'),
+  // 其他方式还款的时间
+  gmtPay: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_pay', example='2018-10-10T10:10:00Z'),
+  // 取消订单某一期代扣计划中以其他方式还款金额，单位为分
+  payOffAmount: long(minimum=0, name='pay_off_amount', example='100'),
+  // 变更其他方式还款WECHAT:微信; BANK:银行
+  // ALIPAY:支付宝
+  // CASH:现金
+  payOffType?: string(maxLength=64, name='pay_off_type', example='WECHAT'),
+  // 通过其他方式还款单号;例如银行流水号或微信流水号
+  payOffNo?: string(maxLength=64, name='pay_off_no', example='1234'),
+  // 其他方式还款银行名称，还款方式为银行时必填
+  payOffBankName?: string(maxLength=64, name='pay_off_bank_name', example='中国银行'),
+}
+
+// 模型结果详情
+model RiskModel {
+  // 风险场景编码
+  sceneCode: string(name='scene_code', example='风险场景编码'),
+  // 该风险场景的风险分值
+  score: string(name='score', example='该风险场景的风险分值'),
+  // 逾期率
+  delinquencyRate?: string(name='delinquency_rate', example='2%'),
+  // 风险建议
+  riskAdvice?: string(name='risk_advice', example='风险等级低，建议快速通过'),
+  // 风险等级
+  riskRank?: string(name='risk_rank', example='rank1'),
+  // 流程id
+  flowId: string(name='flow_id', example='10000009000001804441658067824640'),
+  // 拒量模型捞回分
+  mobThreeScore?: string(name='mob_three_score', example='0.00570491'),
+  // 拒量模型首逾分
+  fpdThirtyScore?: string(name='fpd_thirty_score', example='0.00570491'),
+}
+
+// 随时享-服务商平台场景商品列表resp
+model SceneProductInfoResp {
+  // 平台商品id
+  platformProductId?: string(name='platform_product_id', example='s123123123123'),
+  // 商品名称
+  productName?: string(name='product_name', example='名称'),
+  // 封面首图url链接
+  firstCoverImageUrl?: string(name='first_cover_image_url', example='filekey'),
+  // 封面首图url链接
+  largeFirstCoverImageUrl?: string(name='large_first_cover_image_url', example='http'),
+  // 产品规格列表
+  specConfigList?: [ ProductSpecConfig ](name='spec_config_list', example=''),
+  // 租赁方案
+  rentalPlan?: [ string ](name='rental_plan', example=''),
+  // 租赁周期
+  rentalPeriod?: [ long ](name='rental_period', example=''),
+  // 可续租
+  supportRenew?: boolean(name='support_renew', example='true, false'),
+  // 可买断
+  supportBuyout?: boolean(name='support_buyout', example='true, false'),
+  // 最低日租金
+  lowestDailyRentMoney?: long(name='lowest_daily_rent_money', example='1'),
+  // 最低日租金
+  lowestDailyRentMoneyYuan?: string(name='lowest_daily_rent_money_yuan', example='1'),
+  // 最高日租金
+  highestDailyRentMoney?: long(name='highest_daily_rent_money', example='1'),
+  // 最高日租金
+  highestDailyRentMoneyYuan?: string(name='highest_daily_rent_money_yuan', example='1'),
+  // 添加标志
+  addedFlag?: boolean(name='added_flag', example='true, false'),
+  // 报名商家列表
+  signProductMerchantList?: [ SignProductMerchant ](name='sign_product_merchant_list', example=''),
+  // 报名商家数量
+  signProductMerchantCount?: long(name='sign_product_merchant_count', example='1'),
+  // 适用商家列表
+  applyProductMerchantList?: [ SignProductMerchant ](name='apply_product_merchant_list', example='1'),
+  // 适用商家数量
+  applyProductMerchantCount?: long(name='apply_product_merchant_count', example='1'),
+  // 场景商品上下架状态
+  displayStatus?: string(name='display_status', example='ONLINE'),
+  // 推广方式
+  deliveryMode?: string(name='delivery_mode', example='PARALLEL'),
+}
+
+// 行业黄牛风险识别入参模型
+model ScalperQueryModel {
+  // 注册手机号，填写咨询对象所关联的注册手机号
+  registrationPhone?: string(maxLength=20, minLength=1, name='registration_phone', example='123xxxxxx56'),
+  // 认证时间，填写风险咨询对象所关联的账号的真实身份认证时间
+  certificateDate?: string(maxLength=20, minLength=1, name='certificate_date', example='2099-12-30 23:59:59'),
+  // 登录手机号，填写风险咨询对象关联账号的登录手机号
+  loginPhone?: string(maxLength=20, minLength=1, name='login_phone', example='123xxxxxx56'),
+  // 注册账号身份证，填写风险咨询对象所关联账号的注册身份证信息
+  registrationCert?: string(maxLength=30, minLength=1, name='registration_cert', example='123xxxxxxxxxx55'),
+  // 登录账号身份证，登录账号的身份证号码
+  loginCert?: string(maxLength=30, minLength=1, name='login_cert', example='230109xxxxxxxx3000'),
+  // 注册时间，填写风险咨询对象所关联的账号的注册时间
+  registrationDate?: string(maxLength=20, minLength=1, name='registration_date', example='2099-12-30 23:59:59'),
+  // 证件类型；枚举值：1 - 身份证；2 - 护照
+  certType?: long(maximum=2, minimum=1, name='cert_type', example='1'),
+  // 银行卡号
+  bankCardNo?: string(maxLength=50, minLength=1, name='bank_card_no', example='223940194399993xxxx'),
+  // 用户邮箱
+  emailAddress?: string(maxLength=35, minLength=1, name='email_address', example='zhifubaoxxxx@163.com'),
+  // 手机序列号
+  imei?: string(maxLength=100, minLength=1, name='imei', example='86573603141xxxx'),
+  // 国际移动用户识别码
+  imsi?: string(maxLength=100, minLength=1, name='imsi', example='46000123456xxxx'),
+  // mac 地址或设备唯一标识
+  macAddress?: string(maxLength=30, minLength=1, name='mac_address', example='42.118.71.72'),
+  // 设备号，设备唯一号码
+  apdid?: string(maxLength=128, minLength=1, name='apdid', example='qtedxaxxxxxxxx'),
+  // 支付宝外部交易号
+  outOrderNo?: string(maxLength=128, minLength=1, name='out_order_no', example='123xxxxxxxxxx55'),
+  // 所咨询的唯一支付宝交易号
+  orderNo?: string(maxLength=128, minLength=1, name='order_no', example='202304262200141025xxxxxx0000'),
+  // 用户购买或使用服务时产生的具体金额总数，单位：分
+  salesAmount?: long(maximum=1000000, minimum=1, name='sales_amount', example='3354'),
+  // 用户姓名
+  userName?: string(maxLength=50, minLength=1, name='user_name', example='张三'),
+  // 收货手机号，用于区分 mobile_no 所填的手机号
+  mailingPhone?: string(maxLength=20, minLength=1, name='mailing_phone', example='1380095xxxx'),
+  // 收货地址
+  mailingAddress?: string(maxLength=128, minLength=1, name='mailing_address', example='西溪路'),
+  // 是否为员工账号，枚举值：1 - 是
+  isEmployee?: string(maxLength=10, minLength=1, name='is_employee', example='1'),
+  // 渠道，枚举值：alipay - 支付宝；app - 自有app；pc - 电脑端
+  channel?: string(maxLength=10, minLength=1, name='channel', example='alipay'),
+  // 服务商 pid
+  isvPid?: string(maxLength=128, minLength=1, name='isv_pid', example='208850162456xxxx'),
+  // 门店行业类目，枚举值：CATERING - 餐饮；LEISURE - 休闲；MEDICAL - 医疗
+  storeMccDesc?: string(maxLength=20, minLength=1, name='store_mcc_desc', example='CATERING'),
+  // 消费者 id，外部会员账号
+  customerId?: string(maxLength=128, minLength=1, name='customer_id', example='12321123'),
+  // 订单所有商品信息列表
+  orderItemsInfoList?: [ ScalperQueryOrderItem ](name='order_items_info_list', example=''),
+}
+
+// 同步订单中的下单人信息
+model UserSyncInfo {
+}
+
+// 公司信息
+model CompanyInfo {
+  // 营业执照文件信息
+  businessLicenseFile: FileInfo(name='business_license_file', example=''),
+  // 证件是否长期有效  
+  // true：长期，false：非长期
+  // payChannel =JDPAY必填
+  businessLicenseCertExpireFlag?: boolean(name='business_license_cert_expire_flag', example='true, false'),
+  // 证件有效期开始日期(payChannel =JDPAY)
+  // 1.certExpireFlag=false时必填，时间格式:yyyy-MM-dd
+  // 2. 商户为企业个体户时，无论certExpireFlag是否长期，该字段均必填
+  businessLicenseCertEffectDate?: string(name='business_license_cert_effect_date', example='2024-10-17'),
+  // 证件有效期结束日期（payChannel =JDPAY选填参数）
+  // certExpireFlag为false必填，时间格式：yyyy-MM-dd
+  businessLicenseCertExpireDate?: string(name='business_license_cert_expire_date', example='2024-10-17'),
+  // 业务类型 枚举
+  productMainClass: string(name='product_main_class', example='业务类型'),
+  // 公司名称
+  companyName: string(name='company_name', example='xx公司'),
+  // 公司别名
+  companyAliasName: string(name='company_alias_name', example='公司别名'),
+  // 公司数科租户id
+  tenantId?: string(name='tenant_id', example='ASSDDDAS'),
+  // 统一社会信用代码
+  merchantId: string(name='merchant_id', example='9121asd231231231231'),
+  // 商户类型： 01：企业；07：个体工商户
+  // 默认不填为01
+  merchantType?: string(name='merchant_type', example='01'),
+  // 公司联系电话
+  companyMobile?: string(name='company_mobile', example='1231xx2322'),
+  // 公司联系地址
+  companyAddress?: string(name='company_address', example='xx市xx区'),
+  // 联系人姓名
+  contactName: string(name='contact_name', example='李xx'),
+  // 联系人手机号码
+  contactMobile: string(name='contact_mobile', example='132xx2312312'),
+  // 联系地址-省份code(payChannel =JDPAY必填)
+  contactAddressProvinceCode?: string(name='contact_address_province_code', example='430000'),
+  // 联系地址-省份名称（payChannel =JDPAY必填）
+  contactAddressProvinceName?: string(name='contact_address_province_name', example='浙江省'),
+  // 联系地址-市code（payChannel =JDPAY必填）
+  // 
+  contactAddressCityCode?: string(name='contact_address_city_code', example='403100'),
+  // 联系人地址-市名称（payChannel =JDPAY必填）
+  contactAddressCityName?: string(name='contact_address_city_name', example='杭州市'),
+  // 联系人详细地址（payChannel =JDPAY必填）
+  contactAddressDetail?: string(name='contact_address_detail', example='杭州市余杭区xxx'),
+  // 联系人邮箱（pay_channel=JDPAY必填）
+  contactEmail?: string(name='contact_email', example='123123122134@163.com'),
+  // 绑定企业支付宝账号（pay_channel=ALIPAY必填）
+  bindAlipayNo?: string(name='bind_alipay_no', example='绑定企业支付宝账号'),
+  // 结算企业支付宝账号（pay_channel=ALIPAY必填）
+  settleAlipayNo?: string(name='settle_alipay_no', example='结算企业支付宝账号'),
+  // 绑定支付宝uid（pay_channel=ALIPAY必填）
+  bindAlipayUid?: string(name='bind_alipay_uid', example='绑定支付宝uid'),
+  // 经营范围
+  // payChannel =JDPAY必填
+  businessScope?: string(name='business_scope', example='经营租赁等业务'),
+  // 开户许可证（payChannel =JDPAY必填）
+  // 
+  bankOpeningLicenseFile?: FileInfo(name='bank_opening_license_file', example=''),
+  // 商户和租赁平台合作协议图片（pay_channel=JDPAY必填）
+  // 
+  cooperationAgreementFile?: FileInfo(name='cooperation_agreement_file', example=''),
+}
+
+// 商户进件记录分页对象
+model MerchantExpandSummaryPage {
+  // 进件id
+  payExpandId: string(name='pay_expand_id', example='1231234343423423'),
+  // 支付渠道
+  // JDPAY
+  // ALIPAY
+  payChannel: string(name='pay_channel', example='JDPAY'),
+  // 进件审核状态
+  status: string(name='status', example='SUCCESS'),
+  // 创建时间
+  createTime: string(name='create_time', example='2025-12-22 10:00:00'),
+  // 最后修改时间
+  updateTime: string(name='update_time', example='2025-12-25 10:00:00'),
+}
+
+// 用户履约信息
+model UserPerformanceInfo {
+  // 履约期数
+  periodNum: long(name='period_num', example='1'),
+  // 履约时间，格式 yyyy-MM-dd
+  // 针对签收日作为起租日模式,未签收时：以签收日开始计算
+  payDate: string(name='pay_date', example='2018-10-10'),
+  // 履约金额，单位为分
+  payMoney: long(name='pay_money', example='10'),
+}
+
+// 营销分查询对象
+model MarketingScoreQueryInfo {
+  // 手机号码
+  phoneNum?: string(name='phone_num', example='16677778888'),
+}
+
+// 保单信息
+model InsureOrderInfo {
+  // 商家订单ID
+  orderId?: string(name='order_id', example='F20240531174508229522'),
+  // 投保编号（承保id）
+  insureId?: string(name='insure_id', example='T20240531174508229522'),
+  // 商品名称
+  productName?: string(name='product_name', example='华为meta60'),
+  // 保险开始时间
+  insureStartTime?: string(name='insure_start_time', example='2024-09-24 20:04:35'),
+  // 保险终止时间
+  insureEndTime?: string(name='insure_end_time', example='2024-09-24 20:04:35'),
+  // 投保金额（保额），单位分 100代表1元
+  insureAmount?: long(name='insure_amount', example='100'),
+  // 投保费用（保费），单位分 100代表1元
+  insurePremium?: long(name='insure_premium', example='100'),
+  // 投保状态枚举
+  status?: string(name='status', example='INSURE_SUCC'),
+  // 电子保单下载链接
+  policyUrl?: string(name='policy_url', example='https://test-open.pingan.com.cn/Gateway/xxxxx/printGPForDMZ?ciphertext=${ciphertext}&sign=${sign}'),
+  // 验真码
+  validateCode?: string(name='validate_code', example='9u649pfJ76crNdRRVD'),
+}
+
+// 签署链接结果
+model SignUrlResult {
+  // 签署（长）链接
+  url?: string(name='url', example='https://xxxx.com'),
+  // 签署短链接
+  shortUrl?: string(name='short_url', example='https://xxxx.com'),
+  // 签署链接提示信息
+  signMsg?: string(name='sign_msg', example='签署链接创建成功'),
+}
+
+// 数据下载信息
+model DataDownloadInfo {
+  // 商户社会统一信用代码
+  merchantId?: string(name='merchant_id', example='91301010101010101A'),
+  // 流水号
+  bizNo?: string(name='biz_no', example='123123122134'),
+  //  状态
+  status?: string(name='status', example='TODO'),
+  // TRADE_PROMISE_BILL: 交易履约账单
+  type?: string(name='type', example='交易履约账单'),
+  // 筛选开始时间
+  startTime?: string(name='start_time', example='2024-10-17'),
+  // 筛选结束时间
+  endTime?: string(name='end_time', example='2024-11-17'),
+  // 任务创建时间
+  createTime?: string(name='create_time', example='2024-10-17 18:41:59'),
+  // 下载结果
+  resultInfo?: string(name='result_info', example='下载结果'),
+  // 融资类型
+  fundMode?: string(name='fund_mode', example='SUPPLY_CHAIN_FINANCE'),
+  // 放款渠道
+  loanChannel?: string(name='loan_channel', example='BANK'),
+  // 资方社会统一信用代码
+  fundId?: string(name='fund_id', example='91301010101010101A'),
+  // 公司名称
+  merchantName?: string(name='merchant_name', example='xxx公司名称'),
+  // 资方公司名称
+  fundName?: string(name='fund_name', example='xx公司名称'),
+}
+
+// 客诉处理人员信息
+model CustomerPersonInfo {
+  // 客诉处理员支付宝账号
+  alipayLogonId: string(name='alipay_logon_id', example='123123122134@163.com'),
+  // 客诉处理员支付宝绑定手机号
+  alipayBindMobile: string(name='alipay_bind_mobile', example='123123122134'),
+  // 客服人员名称
+  customerServiceName: string(name='customer_service_name', example='客服人员名称'),
+}
+
+// 随时享-服务商平台适用商家选择配置信息
+model ApplySceneProductMerchantInfo {
+  // 商户商品spuId
+  merchantProductId?: string(name='merchant_product_id', example='s12312312312'),
+  // 商户品牌
+  merchantBrand?: string(name='merchant_brand', example='merchantBrand'),
+  // logo
+  merchantLogo?: string(name='merchant_logo', example='logo'),
+  // logo
+  largeMerchantLogo?: string(name='large_merchant_logo', example='logo'),
+  // 是否置灰
+  grayed?: boolean(name='grayed', example='true, false'),
+  // 是否勾选
+  choosed?: boolean(name='choosed', example='true, false'),
+}
+
+// 应用信息修改
+model ApplicationInfoUpdate {
+  // 应用场景 MINI_APP 小程序 APP 自有app ALL 两种都有
+  applicationScene?: string(name='application_scene', example='ALL'),
+  // 小程序id
+  tinyAppId?: string(name='tiny_app_id', example='小程序id'),
+  // 小程序名称
+  siteName?: string(name='site_name', example='xx小程序'),
+  // http://asdasas.com
+  sitUrl?: string(name='sit_url', example='http://asdasas.com'),
+  // 商户名称。 修改后的商户名称，将同步支付宝代扣签约页面字段展示
+  merchantName?: string(name='merchant_name', example='xx商户'),
+  // 商户服务名称。 修改后的商户服务名称，将同步支付宝代扣签约页面字段展示
+  merchantServiceName?: string(name='merchant_service_name', example='xx商户服务'),
+  // 商户服务描述。 修改后的商户服务描述，将同步支付宝代扣签约页面字段展示
+  merchantServiceDesc?: string(name='merchant_service_desc', example='xx服务描述'),
+  // 站点信息
+  siteInfo?: [ SiteInfo ](name='site_info', example=''),
+}
+
+// 资产包资金方案内容
+model AssetPackageFinancePlan {
+  // 版本号，从1开始
+  version?: long(name='version', example='1'),
+  // 状态，ENABLE：启用，不启用时默认null
+  status?: string(name='status', example='ENABLE'),
+  // 放款比例
+  // 0~100，保留小数2位
+  loanRate?: string(name='loan_rate', example='75'),
+  // 放款金额，单位分
+  loanMoney?: long(name='loan_money', example='100'),
+  // 放款金额，单位元
+  loanMoneyYuan?: string(name='loan_money_yuan', example='1.00'),
+  // 计息方式，枚举：
+  // ● 年化利率：APR
+  // ● 固定金额：FIXED_AMOUNT
+  // ● 固定比例：FIXED_RATE
+  interestAccrualMethod?: string(name='interest_accrual_method', example='APR'),
+  // 年计息天数
+  dayCountConvention?: long(name='day_count_convention', example='360'),
+  // 息费率
+  allinFinancingCostRate?: string(name='allin_financing_cost_rate', example='7'),
+  // 还款方式，枚举：
+  // ● 等额本息：EQUAL_INSTALLMENT_METHOD
+  repaymentMethod?: string(name='repayment_method', example='EQUAL_INSTALLMENT_METHOD'),
+  // 还款频率，枚举：
+  // ● 按月：MONTH
+  repaymentFrequency?: string(name='repayment_frequency', example='MONTH'),
+  // 融资期数，范围0~36
+  financeNum?: long(name='finance_num', example='12'),
+  // 计划还款日期，范围1～28
+  payDay?: long(name='pay_day', example='20'),
+  // 触发商家代偿时间，单位天
+  merchantCompensationDay?: long(name='merchant_compensation_day', example='2'),
+  // 订单未还款总金额，单位分
+  unreleasedAmount?: long(name='unreleased_amount', example='100'),
+}
+
+// 订单包含的单个商品模型
+model OrderGoodsModel {
+}
+
+// 随时享-平台商品信息
+model PlatformProductInfoResp {
+  // 申请单状态
+  applyStatus?: string(name='apply_status', example='APPROVED'),
+  // 审核原因
+  refuseReason?: string(name='refuse_reason', example='审核原因'),
+  // 平台商品id
+  platformProductId?: string(name='platform_product_id', example='20240505151148001384'),
+  // 商家商品id
+  merchantProductId?: string(name='merchant_product_id', example='20240505151148001384'),
+  // 商品名称
+  productName?: string(name='product_name', example='商品名称'),
+  // 封面首图url链接
+  firstCoverImageUrl?: string(name='first_cover_image_url', example='/mer/key'),
+  // 封面首图url链接
+  largeFirstCoverImageUrl?: string(name='large_first_cover_image_url', example='http://merchant/key'),
+  // 商品上架状态
+  displayStatus?: string(name='display_status', example='ONLINE'),
+  // 产品规格列表
+  specConfigList?: [ ProductSpecConfig ](name='spec_config_list', example=''),
+  // 租赁方案
+  rentalPlan?: [ string ](name='rental_plan', example=''),
+  // 租赁周期
+  rentalPeriod?: [ long ](name='rental_period', example=''),
+  // 可续租
+  supportRenew?: boolean(name='support_renew', example='true, false'),
+  // 可买断
+  supportBuyout?: boolean(name='support_buyout', example='true, false'),
+  // 最低日租金(单位分)
+  lowestDailyRentMoney?: long(name='lowest_daily_rent_money', example='1'),
+  // 最低日租金(单位元)
+  lowestDailyRentMoneyYuan?: string(name='lowest_daily_rent_money_yuan', example='2'),
+  // 最高日租金(单位分)
+  highestDailyRentMoney?: long(name='highest_daily_rent_money', example='1'),
+  // 最高日租金(单位元)
+  highestDailyRentMoneyYuan?: string(name='highest_daily_rent_money_yuan', example='1'),
+}
+
+// 智租风控-物流信息
+model DeliveryDetail {
+  // 收件人姓名
+  receiverName?: string(maxLength=32, name='receiver_name', example='张三'),
+  // 收件人手机号
+  receiverMobile?: string(maxLength=32, name='receiver_mobile', example='13812345678'),
+  // 收件人地址
+  receiverAddress?: string(maxLength=256, name='receiver_address', example='xx省xx市xx区xx录xx号xx室'),
+}
+
+// 用户线索根据-平台订单、派发和备注返回结果信息
+model PlatformOrderLeadResultInfo {
+  // 场景名称
+  sceneName?: string(name='scene_name', example='抖音1号直播间'),
+  // 平台订单号
+  platformOrderId?: string(name='platform_order_id', example='1233123123'),
+  // 平台订单派发id
+  deliveryId?: string(name='delivery_id', example='1761892719822_132'),
+  // 商品名称
+  productTitle?: string(name='product_title', example='苹果/Apple iPhone 17 Pro'),
+  // 订单提交时间
+  orderCreateTime?: string(name='order_create_time', example='2025-12-10 14:36:12'),
+  // 用户姓名（脱敏）
+  userName?: string(name='user_name', example='张**'),
+  // 用户手机号（脱敏）
+  userPhone?: string(name='user_phone', example='180****5678'),
+  // 商家品牌名称
+  merchantBrandName?: string(name='merchant_brand_name', example='爱租机'),
+  // 商家品牌logoUrl
+  merchantBrandLogoUrl?: string(name='merchant_brand_logo_url', example='http://logo.png'),
+  // 审核状态
+  approvalStatus?: string(name='approval_status', example='WAIT_FEEDBACK：审核中 /ACCEPTED：审核通过 /REJECTED：已驳回 /CANCEL：已撤销/ SHIPPED：已发货/ PENDING_SHIPMENT：待发货'),
+  // 备注
+  remark?: string(name='remark', example='用户电话打不通，已留言'),
+}
+
+// 批量放款结果数据
+model BatchLoanResultData {
+  // 流水号
+  bizNo?: string(name='biz_no', example='123123122134'),
+  // 状态
+  status?: string(name='status', example='TODO'),
+  // FUND_BATCH_LOAN: 批量放款
+  type?: string(name='type', example='FUND_BATCH_LOAN'),
+  // 任务创建时间
+  createTime?: string(name='create_time', example='2024-10-17 18:41:59'),
+  //  同意放款数据
+  agreeLoanCount?: long(name='agree_loan_count', example='10'),
+  // 拒绝放款数量
+  rejectLoanCount?: long(name='reject_loan_count', example='10'),
+  // 放款失败数量
+  loanFailCount?: long(name='loan_fail_count', example='10'),
+  // 放款失败结果文件
+  fileUrl?: string(name='file_url', example='http://123456.com'),
+}
+
+// 行业刷单风险识别入参模型
+model FarmingQueryModel {
+  // 支付宝外部交易号
+  outOrderNo?: string(maxLength=128, minLength=1, name='out_order_no', example='6983312****'),
+  // 支付宝内部交易号
+  orderNo?: string(maxLength=128, minLength=1, name='order_no', example='20230436xxxxxxxxx'),
+  // 金额，用户购买或使用服务时产生的具体金额，单位：分
+  salesAmount?: long(maximum=10000000, minimum=1, name='sales_amount', example='36500'),
+  // 银行卡号
+  bankCardNo?: string(maxLength=128, minLength=1, name='bank_card_no', example='6228xxxxxxxxxxxxx13'),
+  // 服务商 pid
+  isvPid?: string(maxLength=128, minLength=1, name='isv_pid', example='2088xxxxxxxxxxxx'),
+  // 门店行业类目，枚举值：CATERING - 餐饮；LEISURE - 休闲；MEDICAL - 医疗
+  storeMccDesc?: string(maxLength=30, minLength=1, name='store_mcc_desc', example='CATERING'),
+  // 门店地址；不需要传城市和行政区
+  outletAddress?: string(maxLength=128, minLength=1, name='outlet_address', example='万塘路18号'),
+  // 公司名称
+  companyName?: string(maxLength=128, minLength=1, name='company_name', example='杭州贸易有限公司'),
+  // 店铺名称
+  storeName?: string(maxLength=128, minLength=1, name='store_name', example='小店1号'),
+}
+
+// 文本域（组件）
+model TemplateTextAreaComponent {
+  // 模板编码
+  templateCode: string(name='template_code', example='T20240505151148001384'),
+  // 模版版本号
+  templateVersion: string(name='template_version', example='1'),
+  // 组件类型，INPUT:单行文本 TEXTAREA:多行文本
+  componentType: string(name='component_type', example='INPUT'),
+  // 组件名称（占位符）
+  componentName: string(name='component_name', example='公司名称'),
+  // 是否必填
+  required: boolean(name='required', example='true'),
+  // 预估文本行数
+  line?: long(name='line', example='1'),
+  // 多行文本域名称
+  multiName: string(name='multi_name', example='公司地址'),
+  // 前端传入的文本域映射字段
+  preElementCode: string(name='pre_element_code', example='CP20250721172015013576'),
+}
+
+// 订单商品
+model OrderProductInfo {
+  // 商品编码
+  productId?: string(name='product_id', example='123456789012446'),
+  // 商品名称
+  productName?: string(name='product_name', example='苹果手机'),
+  // 商品数量
+  productNumber?: long(name='product_number', example='1'),
+}
+
+// 订单商品信息
+model GoodsInfo {
+}
+
+// (异步)解约申请信息对象
+model AgreementTerminateApplyInfo {
+  // 订单ID
+  orderId?: string(name='order_id', example='20240505151148001384'),
+  // 解约申请号
+  terminateApplyId?: string(name='terminate_apply_id', example='A123435454'),
+  // 订单创建时间
+  orderGmtCreate?: string(name='order_gmt_create', example='2025-01-01 12:00:01'),
+  // 解约申请时间
+  gmtTerminateApply?: string(name='gmt_terminate_apply', example='2025-01-01 11:12:00'),
+  // 处理状态
+  handleStatus?: string(name='handle_status', example='INIT'),
+  // 商家处理超时时长
+  merchantHandleDuration?: string(name='merchant_handle_duration', example='5'),
+  // 商家处理超时时长
+  merchantHandleDurationType?: string(name='merchant_handle_duration_type', example='DAY'),
+}
+
+// 法人信息
+model LegalInfo {
+  // 法人名称
+  legalName: string(name='legal_name', example='法人名称'),
+  // 法人证件号
+  legalCertNo: string(name='legal_cert_no', example='法人证件号'),
+  // 法人证件正面（人像面）
+  legalCertFrontFile: FileInfo(name='legal_cert_front_file', example=''),
+  // 法人证件反面
+  legalCertBackFile: FileInfo(name='legal_cert_back_file', example=''),
+  // 法人证件是否长期有效（payChannel =JDPAY必填）
+  // true：长期，false：非长期
+  // 
+  legalCertExpireFlag?: boolean(name='legal_cert_expire_flag', example='true, false'),
+  // 法人手机号（payChannel =JDPAY必填）
+  legalMobile?: string(name='legal_mobile', example='15679375832'),
+  // 证件有效期开始日期（payChannel =JDPAY必填）
+  // legalCertExpireFlag=false/true时都必填，时间格式:yyyy-MM-dd
+  legalEffectDate?: string(name='legal_effect_date', example='2025-10-31'),
+  // 证件有效期结束（payChannel =JDPAY选填）
+  // legalCertExpireFlag=false时必填，时间格式:yyyy-MM-dd
+  legalExpireDate?: string(name='legal_expire_date', example='2025-10-31'),
+}
+
+// 订单融资信息
+model OrderFinanceInfo {
+  // 放款金额
+  totalMoney?: long(name='total_money', example='30000'),
+  // 放款状态
+  applyStatus?: string(name='apply_status', example='AGREED_LOAN'),
+  // 融资申请时间(yyyy-MM-dd HH:mm:ss)
+  loanApplyDate?: string(name='loan_apply_date', example='2018-10-10 10:10:00'),
+  // 放款时间(yyyy-MM-dd HH:mm:ss)
+  loanTime?: string(name='loan_time', example='2018-10-10 10:10:00'),
+  // 放款交易流水号
+  loanSerialNumber?: string(name='loan_serial_number', example='202403102912984772213'),
+  // 资方分账户登录号
+  fundDivideAlipayLogonId?: string(name='fund_divide_alipay_logon_id', example='xxx@qq.com'),
+  // 资方分账户uid
+  fundDivideAlipayUid?: string(name='fund_divide_alipay_uid', example='2088xxxx'),
+  // 资方代扣户登录号
+  fundWithholdAlipayLogonId?: string(name='fund_withhold_alipay_logon_id', example='xxx@qq.com'),
+  // 资方代扣户uid
+  fundWithholdAlipayUid?: string(name='fund_withhold_alipay_uid', example='2088xxxx'),
+  // 手续费支付方
+  feePaidRole?: string(name='fee_paid_role', example='MERCHANT'),
+  // 放款渠道
+  loanChannel?: string(name='loan_channel', example='BANK'),
+  // 放款账户
+  loanPayeeAccount?: string(name='loan_payee_account', example='6217xxxxx'),
+  // 付款公司统一社会信用代码
+  paidCompanyId?: string(name='paid_company_id', example='9210XM12385'),
+  // 银行名称
+  bankName?: string(name='bank_name', example='x xx银行'),
+  // 融资状态
+  financeStatus?: string(name='finance_status', example='APPLY'),
+  // 收款项目列表
+  paymentItemList?: [ string ](name='payment_item_list', example=''),
+  // 转账代偿收款类型
+  transferCompensateInAccountType?: string(name='transfer_compensate_in_account_type', example='支付宝'),
+}
+
+// 智租风控模型结构体
+model AppletRiskModel {
+  // 智租风控调用结果码，10000 表示调用成功。
+  code: string(name='code', example='10000'),
+  // 风险咨询事件ID
+  recordId: string(name='record_id', example='202403220000000000008833'),
+  // 风险等级。枚举值：RANK0-无法判断；RANK1-极低风险；RANK2-低风险；RANK3-中风险；RANK4-高风险；RANK5-极高风险
+  riskRank: string(name='risk_rank', example='RANK1'),
+  // 风险名称
+  riskName: string(name='risk_name', example='综合风险'),
+  // 风险等级中文描述
+  riskDesc: string(name='risk_desc', example='低风险'),
+  // 流程id
+  flowId: string(name='flow_id', example='10000009000001804441658067824640'),
+  // 子风险结果列表
+  subRiskResultList?: [ SubRentRiskItem ](name='sub_risk_result_list', example=''),
+  // 调用失败错误提示信息，仅调用失败时返回该字段信息。
+  errorMsg?: string(name='error_msg', example='参数有误身份证号不合法'),
+}
+
+// 订单代扣协议信息
+model OrderWithholdContractInfo {
+  // 支付宝外部代扣协议号
+  withholdingContractId?: string(name='withholding_contract_id', example='ATO_P007_0_0_11'),
+  // 用户代扣协议状态
+  contractStatus?: string(name='contract_status', example='TERMINATION'),
+}
+
+// 商户还款策略
+model MerchantOrderRepayStrategy {
+  // 分账期数(关联商户履约)
+  termIndex?: long(name='term_index', example='1'),
+  // 还款期数(关联用户还款承诺)
+  leaseTermIndex?: long(name='lease_term_index', example='1'),
+  // 分账金额
+  payMoney?: long(name='pay_money', example='1000'),
+  // 转代偿时间，yyyy-MM-dd
+  toCompensateDate?: string(name='to_compensate_date', example='2018-01-01'),
+  // 资方社会统一信用代码
+  fundId?: string(name='fund_id', example='91301010101010101A'),
+  // 资方公司名称
+  fundCompanyName?: string(name='fund_company_name', example='xxx公司'),
+}
+
+// 商户已进件支付渠道信息
+model MerchantPayChannelInfo {
+  // ALIPAY 支付宝
+  // JDPAY京东支付
+  payChannel: string(name='pay_channel', example='ALIPAY'),
+  // 绑定企业支付宝账号
+  bindAlipayNo?: string(name='bind_alipay_no', example='123123122134@163.com'),
+  // 结算企业支付宝账号
+  settleAlipayNo?: string(name='settle_alipay_no', example='123123122134@163.com'),
+  // 绑定支付宝uid
+  bindAlipayUid?: string(name='bind_alipay_uid', example='2088123456789'),
+  // 结算银行卡账号
+  bankNum?: string(name='bank_num', example='123123122134'),
+  // 联行号
+  bankCnap?: string(name='bank_cnap', example='12345678912'),
+  // 结算账户类型 
+  // merchant_type=01企业时：ENTERPRISE
+  // 03:民办非企业：ENTERPRISE
+  // 07个体工商户时：PERSON或 ENTERPRISE
+  bankAccountType?: string(name='bank_account_type', example='ENTERPRISE'),
+  // 二级商户id
+  subMerchantId?: string(name='sub_merchant_id', example='123123122134'),
+  // 进件流水号
+  payExpandId?: string(name='pay_expand_id', example='ATO_123456789'),
+}
+
+// 分账关系绑定收入方信息
+model DivideBindingTransInInfo {
+  // 分账方支付宝pid
+  alipayPid: string(name='alipay_pid', example='2088123456789'),
+}
+
+// 随时享-服务商平台场景商品租赁配置详情信息
+model SignMerchantLeaseConfig {
+  // 商户商品spuId
+  merchantProductId?: string(name='merchant_product_id', example='s123123123'),
+  // 商户品牌
+  merchantBrand?: string(name='merchant_brand', example='品牌'),
+  // logo
+  merchantLogo?: string(name='merchant_logo', example='filekey'),
+  // logo
+  largeMerchantLogo?: string(name='large_merchant_logo', example='http'),
+  // 是否置灰
+  grayed?: boolean(name='grayed', example='true, false'),
+  // 租赁方案
+  rentalPlan?: [ string ](name='rental_plan', example=''),
+  // 租赁方案说明
+  rentalPlanIntro?: string(name='rental_plan_intro', example='说明'),
+  // 租赁周期
+  rentalPeriod?: [ long ](name='rental_period', example=''),
+  // 可续租
+  supportRenew?: boolean(name='support_renew', example='true, false'),
+  // 可买断
+  supportBuyout?: boolean(name='support_buyout', example='true, false'),
+  // 租赁价格方案列表
+  leasePricePlanList?: [ LeasePricePlan ](name='lease_price_plan_list', example=''),
+  // 寄出是否包邮
+  freeShippingOut?: boolean(name='free_shipping_out', example='true, false'),
+  // 寄回是否包邮
+  freeShippingBack?: boolean(name='free_shipping_back', example='true, false'),
+  // 发货时效
+  shippingDurationType?: string(name='shipping_duration_type', example='24'),
+  // 增值服务介绍
+  valueAddedServiceIntro?: string(name='value_added_service_intro', example='介绍'),
+  // 详情页介绍
+  detailPageIntro?: string(name='detail_page_intro', example='123'),
+  // 服务承诺
+  servicePromiseIntro?: [ string ](name='service_promise_intro', example=''),
+}
+
+// 模板组件（文本域）
+model TemplateComponent {
+  // 模板编码
+  templateCode: string(name='template_code', example='T20240805190830044214'),
+  // 组件（文本域）id
+  id: string(name='id', example='CP20240521161730006569'),
+  // 组件（文本域）名称
+  name: string(name='name', example='companyName'),
+  // 组件（文本域）的唯一标识
+  uk?: string(name='uk', example=' '),
+  // 占位符，组件（文本域）的展示样式值
+  placeholder?: string(name='placeholder', example='【companyName】'),
+  // 组件（文本域）是否可以编辑。取值：Y/N
+  enableEdit?: string(name='enable_edit', example='Y'),
+  // 是否必填，取值：Y/N
+  required?: string(name='required', example='N'),
+  // 组件（文本域）类型，INPUT:单行文本 TEXTAREA:多行文本
+  type?: string(name='type', example='INPUT'),
+  // 组件（文本域）值
+  value: string(name='value', example='xx公司'),
+}
+
+// 静态数据
+model StaticData {
+  // 商户类型
+  moduleName: string(name='module_name', example='merchantType'),
+  // 静态数据详情
+  moduleDetailList: [ StaticDataModuleDetail ](name='module_detail_list', example=''),
+}
+
+// 进件分页对象
+model MerchantAgentPage {
+  // 进件id
+  payExpandId: string(name='pay_expand_id', example='1231234343423423'),
+  // 	
+  // 代理企业名称
+  agentName: string(name='agent_name', example='xx商户'),
+  // 租户8位id
+  tenantId: string(name='tenant_id', example='SADWQWAW'),
+  // 业务类型
+  bizType: string(name='biz_type', example='业务类型'),
+  // 进件审核状态 枚举
+  payExpandStatus: string(name='pay_expand_status', example='SUCCESS'),
+}
+
+// 订单还款承诺
+model OrderPromiseInfo {
+  // 订单还款策略
+  repayStrategyList?: [ OrderRepayStrategy ](name='repay_strategy_list', example=''),
+}
+
+// 商品信息
+model ProductInfo {
+  // 商家社会统一信用代码
+  merchantId?: string(name='merchant_id', example='91428406M284UL87G'),
+  // 商品名称
+  productName?: string(name='product_name', example='二手苹果14ProMax'),
+  // 商品id
+  productId?: string(name='product_id', example='1725944255332_08831729157506415'),
+  // 商品规格
+  productModel?: string(name='product_model', example='到期归还-可随时买断/256G'),
+  // 商品版本
+  productVersion?: string(name='product_version', example='1'),
+  // 指导价(单位分)
+  productPrice?: long(name='product_price', example='4000'),
+  // 一级类目
+  mainClass?: string(name='main_class', example='3C'),
+  // 二级类目
+  subClass?: string(name='sub_class', example='3c_mobile'),
+  // 品牌
+  productBrand?: string(name='product_brand', example='苹果'),
+}
+
+// 内部使用接口资产凭证信息
+model InnerCreditInfo {
+  // 凭证内容id
+  contentId?: string(name='content_id', example='10000009000001811659604036991910'),
+  // 资产凭证的类型，可支持：FILE(文件)、TEXT(文本)、JSON_TEXT(JSON文本)
+  contentType?: string(name='content_type', example='TEXT'),
+  // 资产凭证名称
+  creditName?: string(name='credit_name', example='凭证材料001'),
+  // 凭证文件下载链接
+  creditFileUrl?: string(name='credit_file_url', example='https://xxxx.com/xxx.pdf'),
+  // 上传的文本内容
+  creditContent?: string(name='credit_content', example='{"内容:"文本文本文本"}'),
+  // 凭证创建时间(yyyy-MM-dd HH:mm:ss)
+  createTime?: string(name='create_time', example='2018-10-10 10:10:00'),
+}
+
+// 订单还款计划
+model PromiseInfo {
+}
+
+// 资产报告详情
+model FundAssertReport {
+  // 投放月份 (整月)
+  deliveryMonth: string(name='delivery_month', example='2024-12'),
+  // 账单金额
+  totalBillAmount: long(name='total_bill_amount', example='1000（单位分）'),
+  // 平均期限
+  averageTerm: string(name='average_term', example='12'),
+  // 状态为取消的账单金额
+  cancelledBillAmount: long(name='cancelled_bill_amount', example='1000（单位分）'),
+  // Y期的订单的账单金额
+  totalBillAmountYPeriod: long(name='total_bill_amount_y_period', example='1000（单位分）'),
+  // 已到Y期订单中Y期平均期限(y期订单的平均期限)
+  averageTermYPeriod: string(name='average_term_y_period', example='12'),
+  // Y期的订单中状态为取消的账单金额
+  cancelledBillAmountYPeriod: long(name='cancelled_bill_amount_y_period', example='1000（单位分）'),
+  // 状态为逾期1天及以上的账单金额
+  billAmountOverdueBy1dayOrMore: string(name='bill_amount_overdue_by1day_or_more', example='1000(单位分)'),
+  // Y期的订单中状态为逾期1天及以上的账单金额
+  billAmountOverdueBy1dayOrMoreYPeriod: string(name='bill_amount_overdue_by1day_or_more_y_period', example='1000(单位分)'),
+  // 状态为逾期30天及以上的账单金额
+  billAmountOverdueBy30DaysOrMore: string(name='bill_amount_overdue_by30_days_or_more', example='1000(单位分)'),
+  // Y期的订单中状态为逾期30天及以上的账单金额
+  billAmountOverdueBy30DaysOrMoreYPeriod: string(name='bill_amount_overdue_by30_days_or_more_y_period', example='1000(单位分)'),
+}
+
+// 客服信息
+model CustomerServiceInfo {
+  // 公司社会统一信息代码
+  merchantId?: string(name='merchant_id', example='91301010101010101A'),
+  // 公司名称
+  merchantName?: string(name='merchant_name', example='xxx公司'),
+  // 处理类型:
+  // MERCHANT_PROCESS("MERCHANT_PROCESS", "商家处理"),
+  // PROXY_PROCESS("PROXY_PROCESS", "服务商代处理"),
+  processType?: string(name='process_type', example='MERCHANT_PROCESS'),
+}
+
+// 经营分账收入模型
+model OperationDivideTransInModel {
+  // 分账收入方支付宝用户id, 支付宝2088id
+  transInUserId: string(maxLength=64, minLength=1, name='trans_in_user_id', example='2088****1'),
+  // 分账金额，单位为分
+  // 
+  divideAmount: long(minimum=1, name='divide_amount', example='100'),
+  // 分账描述
+  desc?: string(maxLength=64, minLength=1, name='desc', example='分账给经营商'),
+}
+
+// 智能体二期-用户基础信息
+model MerchantBaseInfo {
+  // 租户id
+  tenantId?: string(name='tenant_id', example='UDFXXXXX'),
+  // 品牌名称
+  brandName?: string(name='brand_name', example='启辰'),
+  // 品牌logo
+  brandLogo?: string(name='brand_logo', example='品牌logo'),
+  // 商家小程序链接
+  merchantAppLink?: string(name='merchant_app_link', example='https://www.baidu.com'),
+  // 商家更新电话
+  merchantPhone?: string(name='merchant_phone', example='133xxxxxxxx'),
+  // 提交时间
+  submitTime?: string(name='submit_time', example='yyyy-MM-dd hh:mm:ss'),
+  // 审核状态
+  status?: string(name='status', example='sumit'),
+  // 品牌名称-审核中
+  brandNameSnapshot?: string(name='brand_name_snapshot', example='品牌名称'),
+  // 品牌logo-审核中
+  brandLogoSnapshot?: string(name='brand_logo_snapshot', example='品牌logo'),
+  // 商家小程序链接_审核中
+  merchantAppLinkSnapshot?: string(name='merchant_app_link_snapshot', example='https://www.baidu.com'),
+  // 商家电话_审核中
+  merchantPhoneSnapshot?: string(name='merchant_phone_snapshot', example='133xxxxxxxx'),
+  // 更新时间_审核中
+  submitTimeSnapshot?: string(name='submit_time_snapshot', example='yyyy-MM-dd hh:mm:ss'),
+  // 驳回原因_审核中
+  refuseReasonSnapshot?: string(name='refuse_reason_snapshot', example='驳回原因'),
+}
+
+// 资产订单信息
+model AssetPackageOrderInfo {
+  // 订单id
+  orderId: string(name='order_id', example='123'),
+  // 订单状态
+  status: string(name='status', example='123'),
+  // 出包原因
+  outReason?: string(name='out_reason', example='123'),
+  // 订单用信额度
+  orderCreditLine?: long(name='order_credit_line', example='123'),
+  // 商户应还款金额
+  orderMerchantRepaymentMoney?: long(name='order_merchant_repayment_money', example='123'),
+  // 订单分账起始账期
+  divideStartTermIndex?: long(name='divide_start_term_index', example='123'),
+}
+
+// 经营分账信息
+model OperateDivideInfo {
+  // 当前用户履约的租期编号
+  periodNum?: long(name='period_num', example='1'),
+  // 经营分账收入方结果信息
+  operationDivideTransInList?: [ OperationDivideTransInDetailInfo ](name='operation_divide_trans_in_list', example=''),
+}
+
+// 订单履约
+model OrderFulfillmentInfo {
+  // 租期编号
+  leaseTermIndex?: long(name='lease_term_index', example='1'),
+  // 租期归还状态
+  rentalReturnState?: string(name='rental_return_state', example='CANCEL'),
+  // 实际还款金额(分)
+  realRepayMoney?: long(name='real_repay_money', example='123400'),
+  // 租金(分)
+  rentalMoney?: long(name='rental_money', example='273800'),
+  // 每期实付时间
+  returnTime?: string(name='return_time', example='2024-10-21 15:11:23.000 '),
+  // 周期性代扣
+  returnWay?: string(name='return_way', example='ANTDIGITAL'),
+  // 还款流水号
+  returnVoucherSerial?: string(name='return_voucher_serial', example='xxx'),
+  // 支付宝协议号
+  alipayTradeNo?: string(name='alipay_trade_no', example='123123122134'),
+}
+
+// 公司概要信息
+model CompanySummaryInfo {
+  // 社会统一信用代码
+  merchantId?: string(name='merchant_id', example='91301010101010101A'),
+  // 公司名称
+  merchantName?: string(name='merchant_name', example='xxx公司'),
+}
+
+// 订单搜索信息
+model OrderSearchInfo {
+  // 订单id
+  orderId?: string(name='order_id', example='SH20241017184159846222'),
+  // 支付宝代扣协议号
+  agreementNo?: string(name='agreement_no', example='20241025944255332'),
+  // 订单创建时间
+  orderCreateTime?: string(name='order_create_time', example='2024-10-17 18:41:59'),
+  // 租金总额（单位分）
+  totalRentMoney?: long(name='total_rent_money', example='3500'),
+  // 租期
+  rentTerm?: long(name='rent_term', example='12'),
+  // 租期单位
+  rentUnit?: string(name='rent_unit', example='MONTH'),
+  // 订单状态
+  orderStatus?: string(name='order_status', example='OPEN'),
+  // 承租人名称
+  userName?: string(name='user_name', example='张三'),
+  // 承租人手机号
+  userPhoneNumber?: string(name='user_phone_number', example='12345678912'),
+}
+
+// 营销场景
+model PromotionScene {
+  // 租户id
+  tenantId?: string(name='tenant_id', example='VBVKBCHQ'),
+  // 场景码
+  sceneCode?: string(name='scene_code', example='APDKQOWE'),
+  // 场景名称
+  sceneName?: string(name='scene_name', example='场景名称'),
+  // 场景备注
+  sceneRemark?: string(name='scene_remark', example='备注内容'),
+  // 场景商品数量
+  sceneProductAmount?: long(name='scene_product_amount', example='20'),
+  // 已上线场景商品数量
+  onlineSceneProductAmount?: long(name='online_scene_product_amount', example='已上线场景商品数量'),
+}
+
+// 商户履约订单其他还款支持信息
+model MerchantPerformanceRepaySupportInfo {
+  // 是否支持还款取消
+  supportRepay?: boolean(name='support_repay', example='true, false'),
+  // 商户履约期数
+  termIndex?: long(name='term_index', example='2'),
+}
+
+// 用信查询订单履约信息结构体
+model OrderPromiseExcelInfo {
+  // 文件下载地址
+  downloadUrl?: string(name='download_url', example='http://www.baidu.com'),
+  // 文件类型,订单明细表:ORDER_DETAIL 还款记录表:ORDER_FULFILLMENT
+  fileType: string(name='file_type', example='ORDER_DETAIL'),
+  // 任务状态
+  // ● RUNNING:生成中
+  // ● SUCCESS:已生成
+  // ● FAILED:失败
+  taskStatus: string(name='task_status', example='RUNNING'),
+}
+
+// 资产包创建履约计划参数
+model AssetPackageCreatePromisePlanParams {
+  // 账期
+  periodNum?: long(name='period_num', example='1'),
+  // 还款时间yyyy-MM-dd
+  payDay?: string(name='pay_day', example='2026-03-16'),
+  // 计划还款总额，单位为分
+  totalAmount?: long(name='total_amount', example='100'),
+  // 本金，单位为分
+  principalAmount?: long(name='principal_amount', example='80'),
+  // 利息，单位为分
+  interestAmount?: long(name='interest_amount', example='20'),
+}
+
+// 策略结果详情
+model RiskStrategy {
+  // 策略ID
+  id: string(name='id', example='策略ID'),
+  // 策略名称
+  name: string(name='name', example='策略名称'),
+  // 策略决策结果
+  decision: string(name='decision', example='策略决策结果'),
+  // 风险场景编码
+  sceneCode: string(name='scene_code', example='风险场景编码'),
+}
+
+// 京东进件商家结算信息
+model MerchantSettleInfo {
+  // 结算银行卡账号
+  bankNum: string(name='bank_num', example='123123122134'),
+  // 联行号 
+  bankCnap: string(name='bank_cnap', example='123123122134'),
+  // 结算账户类型 
+  // merchant_type=01企业时：ENTERPRISE
+  // 03:民办非企业：ENTERPRISE
+  // 07个体工商户时：PERSON或 ENTERPRISE
+  bankAccountType: string(name='bank_account_type', example='ENTERPRISE'),
+  // 支行名称
+  bankBranchName?: string(name='bank_branch_name', example='招商银行上海支行'),
+  // 银行名称
+  bankName?: string(name='bank_name', example='招商银行'),
+}
+
+// 智能体二期-知识点信息
+model KnowledgeInfo {
+  // 租户id
+  tenantId?: string(name='tenant_id', example='UDFXXXXX'),
+  // 主键id
+  id?: long(name='id', example='100'),
+  // 类型
+  type?: string(name='type', example='order'),
+  // 问题
+  question?: string(name='question', example='问题'),
+  // 答案
+  answer?: string(name='answer', example='答案'),
+  // 是否选择订单
+  hasOrder?: boolean(name='has_order', example='true'),
+  // 是否带小程序链接
+  hasAppLink?: boolean(name='has_app_link', example='true, false'),
+  // 是否转人工
+  hasManual?: boolean(name='has_manual', example='true,false'),
+  // 状态
+  status?: string(name='status', example='状态'),
+  // 驳回原因
+  refuseReason?: string(name='refuse_reason', example='驳回原因'),
+}
+
+// 营销分对象
+model MarketingScoreInfo {
+  // 手机号
+  phoneNum?: string(name='phone_num', example='16677778888'),
+  // 营销分
+  score?: string(name='score', example='55.5'),
+}
+
+// 商家举证材料
+model MerchantSupportEvidence {
+  // 商家操作(拒绝)时间
+  merchantOperateTime?: string(name='merchant_operate_time', example='2025-01-01 12:00:00'),
+  // 商家拒绝原因
+  merchantRefuseReason?: string(name='merchant_refuse_reason', example='理由'),
+  // 商家拒绝举证材料
+  merchantRefuseEvidences?: [ string ](name='merchant_refuse_evidences', example='["fileKey"]'),
+}
+
+// 订单电子合同信息对象
+model OrderContractInfo {
+  // 电子合同签署单号
+  signNo?: string(name='sign_no', example='20240505151148001384'),
+  // 签署时间
+  signTime?: string(name='sign_time', example='2023-11-12 00:00:00'),
+  // 合同签署类型
+  contractType?: string(name='contract_type', example='lease'),
+  // 文件合同类型
+  agreementType?: string(name='agreement_type', example='lease'),
+  // 模板ID
+  templateId?: string(name='template_id', example='T20240505151148001384'),
+  // 模板文件名称
+  fileName?: string(name='file_name', example='租赁合同'),
+  // 合同文件下载地址
+  downloadUrl?: string(name='download_url', example='oss'),
+}
+
+// 商户履约赎回信息
+model MerchantPerformanceRedeemInfo {
+  // 是否展示“剩余账期提前回购”
+  supportRedeem?: boolean(name='support_redeem', example='true, false'),
+  // 可选回购类型
+  // TRANSFER("TRANSFER", "转账代偿"),
+  // WITHHOLD("WITHHOLD", "代扣代偿"),
+  supportRedeemTypeList?: [ string ](name='support_redeem_type_list', example='[TRANSFER,WITHHOLD]'),
+  // 商户履约赎回结果信息
+  merchantPerformanceRedeemResultInfo?: MerchantPerformanceRedeemResultInfo(name='merchant_performance_redeem_result_info', example=''),
+}
+
+// 待办信息
+model PendingEventInfo {
+  // 事件id
+  eventId?: string(name='event_id', example='12345678912'),
+  // 通知:NOTIFICATION
+  // 确认函:CONFIRMATION
+  type?: string(name='type', example='NOTIFICATION'),
+  // ("PENDING","待办中"),  ("CONFIRMED","确认"),  
+  // ("REJECTED","已拒绝")
+  // ("FAILED","失败"),("EXPIRED","已过期");
+  status?: string(name='status', example='PENDING'),
+  // 待办内容主题
+  contentSubject?: string(name='content_subject', example='用信确认函'),
+  // 事件有效期开始
+  effectiveStartTime?: string(name='effective_start_time', example='2024-08-27 14:07:46.600'),
+  // 事件有效期结束
+  effectiveEndTime?: string(name='effective_end_time', example='2025-02-19 11:03:43.786'),
+  // 待办类型
+  // text
+  // link
+  contentType?: string(name='content_type', example='text'),
+  // 待办详情，
+  // content_type=text，是富文本
+  // content_type=link，是fileKey,通过antchain.ato.inner.file.download获取文件访问链接
+  contentDetails?: string(name='content_details', example='agreement/auth/BGDBWWGN/202511234567_7246.docx'),
+}
+
+// 智租风控-商品价格
+model PriceDetail {
+  // 商品租赁期数
+  periodNum: long(maximum=1000, name='period_num', example='1'),
+  // 押金，单位：分。
+  depositPrice: long(maximum=10000000, name='deposit_price', example='100000'),
+  // 买断价格，单位：分
+  buyoutPrice: long(maximum=10000000, name='buyout_price', example='100000'),
+  // 首期租金，单位：分
+  initialRentPrice: long(maximum=10000000, name='initial_rent_price', example='100000'),
+}
+
+// 订单消息结构体
+model OrderMsgInfo {
+  // 订单id
+  // 
+  orderId: string(name='order_id', example='13213123'),
+  // 消息ID
+  // 
+  msgId: string(name='msg_id', example='79256C48A6004E1EA4E18AF06745DB0A'),
+  // 消息类型
+  // 
+  msgPublishType: string(name='msg_publish_type', example='ORDER_STATUS_CHANGE'),
+  // 消息创建时间
+  // 
+  msgCreateTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='msg_create_time', example='2018-10-10T10:10:00Z'),
+  // 消息投递状态 SUCCESS 成功 FAIL 失败 WAIT 等待投递重试
+  msgStatus: string(name='msg_status', example='SUCCESS'),
+  // 消息重投次数
+  // 
+  msgRetryTime: long(name='msg_retry_time', example='1'),
+  // 消息体内容
+  msgContent: string(name='msg_content', example='{}'),
+  // 消息回调地址
+  msgCallbackUrl: string(name='msg_callback_url', example='https://hstest02.xd0.co/antchain/ato/notify'),
+  // 新回调地址
+  newMsgCallbackUrl: string(name='new_msg_callback_url', example='http://test'),
+}
+
+// 营销发奖风险识别入参模型
+model AwardingQueryModel {
+  // 对方支付宝账户 uid，用于表示两个账户在业务交互中的对方账户，如人传人活动用户A会拉用户B来注册领奖，其中用户B为对方账户
+  opposingUserid?: string(maxLength=128, minLength=1, name='opposing_userid', example='208834525645xxxx'),
+  // 对方支付宝账户openid，营销发奖风险识别场景，userid 与 open_id 至少传入一个
+  opposingOpenId?: string(maxLength=128, minLength=1, name='opposing_open_id', example='021uU206oUtUsckXA1rpUpiWpFwNTOFzX00gV0PIrkWxxxx'),
+  // 服务二级分类
+  serviceCategory?: string(maxLength=128, minLength=1, name='service_category', example='category1'),
+  // 服务商 pid
+  isvPid?: string(maxLength=128, minLength=1, name='isv_pid', example='208834525645xxxx'),
+  // 银行卡号
+  bankCardNo?: string(maxLength=128, minLength=1, name='bank_card_no', example='6228xxxxxxxxxxxxx13'),
+  // 手机序列号
+  imei?: string(maxLength=128, minLength=1, name='imei', example='86573603141xxxx'),
+  // 国际移动用户识别码
+  imsi?: string(maxLength=128, minLength=1, name='imsi', example='46000123456xxxx'),
+  // 金额，用户购买或使用服务时产生的具体金额，单位：分
+  salesAmount?: long(maximum=10000000, minimum=1, name='sales_amount', example='1000'),
+  // 用户姓名
+  userName?: string(maxLength=128, minLength=1, name='user_name', example='张三'),
+  // 门店行业类目，枚举值：CATERING - 餐饮；LEISURE - 休闲；MEDICAL - 医疗
+  storeMccDesc?: string(maxLength=30, minLength=1, name='store_mcc_desc', example='CATERING'),
+  // 消费者 id，外部会员账号
+  customerId: string(maxLength=128, minLength=1, name='customer_id', example='1232xxxx'),
+  // 填入想要咨询风控的二维码值，需为唯一值
+  qrCode?: string(maxLength=256, minLength=1, name='qr_code', example='http://xxxxxx/b/26acfacxxxxxx'),
+}
+
+// 订单用户信息
+model OrderUserInfo {
+  // 承租人名称
+  userName?: string(name='user_name', example='张三'),
+  // 承租人手机号
+  userPhoneNumber?: string(name='user_phone_number', example='12345678912'),
+  // 地址
+  userAddress?: string(name='user_address', example='四川成都'),
+  // 支付宝账号
+  alipayUid?: string(name='alipay_uid', example='2088123456789'),
+  // 租赁类别
+  // 1:个人用户
+  // 2:企业用户
+  lesseeType?: long(name='lessee_type', example='1'),
+  // 承租人身份证
+  userId?: string(name='user_id', example='6102384935948594'),
+}
+
+// 租户协议分页对象
+model AgreementPage {
+  // 协议id
+  agreementId: string(name='agreement_id', example='1231234343423423'),
+  // 代理企业名称
+  merchantName: string(name='merchant_name', example='xx公司'),
+  // 租户8位id
+  tenantId: string(name='tenant_id', example='SADWQWAW'),
+  // 业务类型 枚举
+  productMainClass: string(name='product_main_class', example='业务类型'),
+  // 协议类型 枚举
+  agreementType: string(name='agreement_type', example='协议类型'),
+  // 租户签约状态 枚举
+  signStatus: string(name='sign_status', example='SUCCESS'),
+}
+
+// 资方后台融资结果
+model FundMngLoanApplyResult {
+  // 放款状态
+  loanApplyStatus?: string(name='loan_apply_status', example='REJECTED_LOAN'),
+  // 融资申请失败原因
+  loanFailReason?: string(name='loan_fail_reason', example='xxx原因'),
+}
+
+// 签署人账户
+model SignAccount {
+  // 公司统一社会信用代码（userType=ORGANIZATION必传）
+  companyId?: string(name='company_id', example='91310101MA1FPCXA3G'),
+  // 公司角色（userType=ORGANIZATION必传） MERCHANT=商户;FINANCIER=资方
+  companyRole?: string(name='company_role', example='MERCHANT'),
+  // 用户姓名（userType=PERSON必传，需要RSA加密）
+  userName?: string(name='user_name', example='RSA(用户姓名)'),
+  // 用户身份证号（userType=PERSON必传，需要RSA加密）
+  userIdNumber?: string(name='user_id_number', example='RSA(用户身份证号)'),
+  // 签署人类型，PERSON=个人;ORGANIZATION=机构
+  userType: string(name='user_type', example='PERSON'),
+  // 用户邮箱（userType=PERSON必传，需要RSA加密）
+  userEmail?: string(name='user_email', example='RSA(用户邮箱)'),
+  // 用户手机号（userType=PERSON必传，需要RSA加密）
+  userMobile?: string(name='user_mobile', example='RSA(用户手机号)'),
+  // 签署标签（对应模版配置中的tag）
+  tag: string(name='tag', example='jiafang'),
+  // 是否获取签署链接
+  getSignUrl?: boolean(name='get_sign_url', example='true, false'),
+}
+
+// 用信订单信息
+model CreditUtilizationOrder {
+  // 123
+  orderId: string(maxLength=50, minLength=6, name='order_id', example='123'),
+  // 订单用信额度，单位为分
+  orderCreditLine: long(minimum=1, name='order_credit_line', example='100'),
+  // 订单商户应还金额，单位为分
+  orderMerchantRepaymentMoney: long(minimum=1, name='order_merchant_repayment_money', example='100'),
+  // 分账起始日期
+  divideStartTermIndex: long(minimum=1, name='divide_start_term_index', example='1'),
+}
+
+// 主动支付单据
+model ActivePayOrder {
+  // 支付宝支付订单号，用于拉起主动支付页面
+  tradeNo: string(maxLength=64, minLength=1, name='trade_no', example='f28038577d664015bfc1034c4a125121'),
+  // 状态
+  // INIT：交易创建
+  // FAILED：付款失败
+  // SUCCESS：付款成功
+  tradeStatus: string(maxLength=64, minLength=1, name='trade_status', example='INIT'),
+  // 状态原因码
+  statusReasonCode?: string(minLength=1, name='status_reason_code', example='TIMEOUT'),
+  // 超时关闭
+  statusReasonMsg?: string(minLength=1, name='status_reason_msg', example='状态原因描述'),
+  // 本次交易支付的订单金额，单位为分
+  // 付款成功或付款成功之后的状态必填
+  totalAmount?: long(minimum=1, name='total_amount', example='100'),
+  // 用户在交易中支付的金额，单位为分
+  // 付款成功的状态必填
+  paidAmount?: long(minimum=1, name='paid_amount', example='100'),
+  // 商家在交易中实际收到的款项，单位为分
+  // 付款成功的状态必填
+  receiptAmount?: long(minimum=1, name='receipt_amount', example='100'),
+  // 交易支付时间
+  // 付款成功的状态必填
+  gmtPay?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_pay', example='2018-10-10T10:10:00Z'),
+  // 支付单据创建时间
+  gmtCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_create', example='2018-10-10T10:10:00Z'),
+  // 多期合并支付明细
+  multiPayDetail?: [ SingleTermDetail ](name='multi_pay_detail', example=''),
+}
+
+// 拒量模型
+model RejectRiskModel {
+  //  拒量模型捞回分
+  mobThreeScore: string(name='mob_three_score', example='0.00570491'),
+  // 拒量模型首逾分
+  fpdThirtyScore: string(name='fpd_thirty_score', example='0.62764417'),
+}
+
+// 分页查询对象
+model PageQuery {
+  // 页大小
+  pageSize: long(name='page_size', example='10'),
+  // 当前页
+  pageIndex: long(name='page_index', example='2'),
+}
+
+// 合同签署模板和渲染参数
+model TemplateArgs {
+  // 模板id
+  templateId: string(name='template_id', example='T1762152216'),
+  // 模板版本
+  templateVersion?: string(name='template_version', example='1'),
+  // 模板参数，JSON格式，其中key对应模板中的名称，value对应其要渲染的值
+  templateArgs?: string(name='template_args', example='{"模板key":"模板value"}'),
+}
+
+model QueryAntchainAtoPromotionUserunvisitedappidRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 支付宝用户uid
+  userId: string(name='user_id'),
+  // 订阅的appid列表，不支持的appid会自动忽略
+  appIdList: [ string ](name='app_id_list'),
+  // 默认appid，无法判断推荐结果时返回此默认值
+  defaultAppId: string(name='default_app_id'),
+}
+
+model QueryAntchainAtoPromotionUserunvisitedappidResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 推荐的appid
+  recommendAppId?: string(name='recommend_app_id'),
+}
+
+/**
+ * Description: 智能营销，查询用户未访问过的appid
+ * Summary: 智能营销，查询用户未访问过的appid
+ */
+async function queryAntchainAtoPromotionUserunvisitedappid(request: QueryAntchainAtoPromotionUserunvisitedappidRequest): QueryAntchainAtoPromotionUserunvisitedappidResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAntchainAtoPromotionUserunvisitedappidEx(request, headers, runtime);
+}
+
+/**
+ * Description: 智能营销，查询用户未访问过的appid
+ * Summary: 智能营销，查询用户未访问过的appid
+ */
+async function queryAntchainAtoPromotionUserunvisitedappidEx(request: QueryAntchainAtoPromotionUserunvisitedappidRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAntchainAtoPromotionUserunvisitedappidResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.promotion.userunvisitedappid.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+

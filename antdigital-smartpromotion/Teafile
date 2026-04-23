@@ -1,0 +1,71 @@
+{
+  "scope": "antchain",
+  "name": "SMARTPROMOTION",
+  "version": "1.0.0",
+  "main": "./main.tea",
+  "maintainers": [
+    {
+      "name": "Ant Chain SDK",
+      "email": "sdk-team@alibabacloud.com"
+    }
+  ],
+  "releases": {
+    "java": "com.antgroup.antchain.openapi:openapi-smartpromotion:1.0.0",
+    "go": "github.com/antchain-openapi-sdk-go/antdigital-smartpromotion/client:v1.0.0",
+    "csharp": "AntChain.SDK.SMARTPROMOTION:1.0.0",
+    "ts": "@antchain/smartpromotion:^1.0.0",
+    "php": "antchain/smartpromotion:1.0.0",
+    "python": "antchain_sdk_smartpromotion:1.0.0"
+  },
+  "libraries": {
+    "Util": "darabonba:Util:*",
+    "RPCUtil": "alibabacloud:RPCUtil:*",
+    "AntchainUtil": "antchain:AntchainUtil:*"
+  },
+  "java": {
+    "package": "com.antgroup.antchain.openapi.smartpromotion",
+    "packageInfo": {
+      "description": "Ant Chain SMARTPROMOTION SDK for Java",
+      "url": "https://github.com/alipay/antchain-openapi-prod-sdk",
+      "licenseNmae": "The Apache License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "developerId": "alipayproducts",
+      "developerName": "Ant Chain SDK",
+      "groupId": "com.antgroup.antchain.openapi",
+      "developerEmail": "alipaysdk@alipay.com"
+    }
+  },
+  "csharp": {
+    "className": "Client",
+    "namespace": "AntChain.SDK.SMARTPROMOTION",
+    "packageInfo": {
+      "name": "smartpromotion",
+      "title": "antchain-smartpromotion",
+      "description": "Ant Chain SMARTPROMOTION SDK Library for .NET",
+      "company": "Ant Chain, Inc"
+    }
+  },
+  "php": {
+    "package": "AntChain.SMARTPROMOTION",
+    "clientName": "Client",
+    "packageInfo": {
+      "name": "antchain/smartpromotion",
+      "desc": "Ant Chain SDK Library for PHP",
+      "github": "https://github.com/alipay/antchain-openapi-sdk-php",
+      "files": {
+        "LICENSE": "../LICENSE"
+      }
+    }
+  },
+  "python": {
+    "package": "antchain_sdk_smartpromotion",
+    "clientName": "client",
+    "packageInfo": {
+      "name": "antchain_smartpromotion",
+      "desc": "Ant Chain SMARTPROMOTION SDK Library for Python",
+      "github": "https://github.com/alipay/antchain-openapi-prod-sdk",
+      "author": "Ant Chain SDK",
+      "email": "sdk-team@alibabacloud.com"
+    }
+  }
+}
