@@ -1,0 +1,55 @@
+// This file is auto-generated, don't edit it. Thanks.
+
+using System;
+using System.Collections.Generic;
+using System.IO;
+
+using Tea;
+
+namespace AntChain.SDK.SMARTPROMOTION.Models
+{
+    // 模型结果详情
+    public class RiskModel : TeaModel {
+        // 风险场景编码
+        [NameInMap("scene_code")]
+        [Validation(Required=true)]
+        public string SceneCode { get; set; }
+
+        // 该风险场景的风险分值
+        [NameInMap("score")]
+        [Validation(Required=true)]
+        public string Score { get; set; }
+
+        // 逾期率
+        [NameInMap("delinquency_rate")]
+        [Validation(Required=false)]
+        public string DelinquencyRate { get; set; }
+
+        // 风险建议
+        [NameInMap("risk_advice")]
+        [Validation(Required=false)]
+        public string RiskAdvice { get; set; }
+
+        // 风险等级
+        [NameInMap("risk_rank")]
+        [Validation(Required=false)]
+        public string RiskRank { get; set; }
+
+        // 流程id
+        [NameInMap("flow_id")]
+        [Validation(Required=true)]
+        public string FlowId { get; set; }
+
+        // 拒量模型捞回分
+        [NameInMap("mob_three_score")]
+        [Validation(Required=false)]
+        public string MobThreeScore { get; set; }
+
+        // 拒量模型首逾分
+        [NameInMap("fpd_thirty_score")]
+        [Validation(Required=false)]
+        public string FpdThirtyScore { get; set; }
+
+    }
+
+}
