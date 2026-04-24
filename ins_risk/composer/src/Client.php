@@ -11,6 +11,8 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\INS_RISK\Models\QueryScorePolicyRequest;
+use AntChain\INS_RISK\Models\QueryScorePolicyResponse;
 use AntChain\INS_RISK\Models\QuerySecurityPolicyRequest;
 use AntChain\INS_RISK\Models\QuerySecurityPolicyResponse;
 use AntChain\Util\UtilClient;
@@ -159,7 +161,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.0',
+                    'sdk_version'      => '1.0.8',
                     '_prod_code'       => 'INS_RISK',
                     '_prod_channel'    => 'default',
                 ];
@@ -205,6 +207,39 @@ class Client
         }
 
         throw new TeaUnableRetryError($_lastRequest, $_lastException);
+    }
+
+    /**
+     * Description: 策略分数查询
+     * Summary: 策略分数查询.
+     *
+     * @param QueryScorePolicyRequest $request
+     *
+     * @return QueryScorePolicyResponse
+     */
+    public function queryScorePolicy($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryScorePolicyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 策略分数查询
+     * Summary: 策略分数查询.
+     *
+     * @param QueryScorePolicyRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return QueryScorePolicyResponse
+     */
+    public function queryScorePolicyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryScorePolicyResponse::fromMap($this->doRequest('1.0', 'antdigital.insrisk.score.policy.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

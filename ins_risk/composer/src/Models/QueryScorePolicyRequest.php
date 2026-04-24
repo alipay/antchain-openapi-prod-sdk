@@ -6,7 +6,7 @@ namespace AntChain\INS_RISK\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QuerySecurityPolicyRequest extends Model
+class QueryScorePolicyRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,43 +19,43 @@ class QuerySecurityPolicyRequest extends Model
      */
     public $productInstanceId;
 
-    // 请求流水号
+    // 请求流水号，保证唯一
     /**
      * @var string
      */
     public $requestId;
 
-    // 业务code
+    // 业务编码
     /**
      * @var string
      */
     public $businessCode;
 
-    // 产品code
+    // 产品编码
     /**
      * @var string
      */
-    public $expectProductCodes;
+    public $expectProductCode;
 
-    // 参数
+    // 请求参数
     /**
      * @var string
      */
     public $params;
     protected $_name = [
-        'authToken'          => 'auth_token',
-        'productInstanceId'  => 'product_instance_id',
-        'requestId'          => 'request_id',
-        'businessCode'       => 'business_code',
-        'expectProductCodes' => 'expect_product_codes',
-        'params'             => 'params',
+        'authToken'         => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'requestId'         => 'request_id',
+        'businessCode'      => 'business_code',
+        'expectProductCode' => 'expect_product_code',
+        'params'            => 'params',
     ];
 
     public function validate()
     {
         Model::validateRequired('requestId', $this->requestId, true);
         Model::validateRequired('businessCode', $this->businessCode, true);
-        Model::validateRequired('expectProductCodes', $this->expectProductCodes, true);
+        Model::validateRequired('expectProductCode', $this->expectProductCode, true);
         Model::validateRequired('params', $this->params, true);
     }
 
@@ -74,8 +74,8 @@ class QuerySecurityPolicyRequest extends Model
         if (null !== $this->businessCode) {
             $res['business_code'] = $this->businessCode;
         }
-        if (null !== $this->expectProductCodes) {
-            $res['expect_product_codes'] = $this->expectProductCodes;
+        if (null !== $this->expectProductCode) {
+            $res['expect_product_code'] = $this->expectProductCode;
         }
         if (null !== $this->params) {
             $res['params'] = $this->params;
@@ -87,7 +87,7 @@ class QuerySecurityPolicyRequest extends Model
     /**
      * @param array $map
      *
-     * @return QuerySecurityPolicyRequest
+     * @return QueryScorePolicyRequest
      */
     public static function fromMap($map = [])
     {
@@ -104,8 +104,8 @@ class QuerySecurityPolicyRequest extends Model
         if (isset($map['business_code'])) {
             $model->businessCode = $map['business_code'];
         }
-        if (isset($map['expect_product_codes'])) {
-            $model->expectProductCodes = $map['expect_product_codes'];
+        if (isset($map['expect_product_code'])) {
+            $model->expectProductCode = $map['expect_product_code'];
         }
         if (isset($map['params'])) {
             $model->params = $map['params'];
