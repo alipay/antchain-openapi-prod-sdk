@@ -148,22 +148,109 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
+type QueryScorePolicyRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求流水号，保证唯一
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
+	// 业务编码
+	BusinessCode *string `json:"business_code,omitempty" xml:"business_code,omitempty" require:"true"`
+	// 产品编码
+	ExpectProductCode *string `json:"expect_product_code,omitempty" xml:"expect_product_code,omitempty" require:"true"`
+	// 请求参数
+	Params *string `json:"params,omitempty" xml:"params,omitempty" require:"true"`
+}
+
+func (s QueryScorePolicyRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryScorePolicyRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryScorePolicyRequest) SetAuthToken(v string) *QueryScorePolicyRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryScorePolicyRequest) SetProductInstanceId(v string) *QueryScorePolicyRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryScorePolicyRequest) SetRequestId(v string) *QueryScorePolicyRequest {
+	s.RequestId = &v
+	return s
+}
+
+func (s *QueryScorePolicyRequest) SetBusinessCode(v string) *QueryScorePolicyRequest {
+	s.BusinessCode = &v
+	return s
+}
+
+func (s *QueryScorePolicyRequest) SetExpectProductCode(v string) *QueryScorePolicyRequest {
+	s.ExpectProductCode = &v
+	return s
+}
+
+func (s *QueryScorePolicyRequest) SetParams(v string) *QueryScorePolicyRequest {
+	s.Params = &v
+	return s
+}
+
+type QueryScorePolicyResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 响应结果
+	BizResult *string `json:"biz_result,omitempty" xml:"biz_result,omitempty"`
+}
+
+func (s QueryScorePolicyResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryScorePolicyResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryScorePolicyResponse) SetReqMsgId(v string) *QueryScorePolicyResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryScorePolicyResponse) SetResultCode(v string) *QueryScorePolicyResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryScorePolicyResponse) SetResultMsg(v string) *QueryScorePolicyResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryScorePolicyResponse) SetBizResult(v string) *QueryScorePolicyResponse {
+	s.BizResult = &v
+	return s
+}
+
 type QuerySecurityPolicyRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// l1_domain_code
-	L1DomainCode *string `json:"l1_domain_code,omitempty" xml:"l1_domain_code,omitempty" require:"true"`
-	// l2_domain_code
-	L2DomainCode *string `json:"l2_domain_code,omitempty" xml:"l2_domain_code,omitempty" require:"true"`
 	// 请求流水号
 	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
 	// 业务code
 	BusinessCode *string `json:"business_code,omitempty" xml:"business_code,omitempty" require:"true"`
-	// expectProductCodes
-	ExpectProductCodes []*string `json:"expect_product_codes,omitempty" xml:"expect_product_codes,omitempty" type:"Repeated"`
+	// 产品code
+	ExpectProductCodes *string `json:"expect_product_codes,omitempty" xml:"expect_product_codes,omitempty" require:"true"`
 	// 参数
-	Params *string `json:"params,omitempty" xml:"params,omitempty"`
+	Params *string `json:"params,omitempty" xml:"params,omitempty" require:"true"`
 }
 
 func (s QuerySecurityPolicyRequest) String() string {
@@ -184,16 +271,6 @@ func (s *QuerySecurityPolicyRequest) SetProductInstanceId(v string) *QuerySecuri
 	return s
 }
 
-func (s *QuerySecurityPolicyRequest) SetL1DomainCode(v string) *QuerySecurityPolicyRequest {
-	s.L1DomainCode = &v
-	return s
-}
-
-func (s *QuerySecurityPolicyRequest) SetL2DomainCode(v string) *QuerySecurityPolicyRequest {
-	s.L2DomainCode = &v
-	return s
-}
-
 func (s *QuerySecurityPolicyRequest) SetRequestId(v string) *QuerySecurityPolicyRequest {
 	s.RequestId = &v
 	return s
@@ -204,8 +281,8 @@ func (s *QuerySecurityPolicyRequest) SetBusinessCode(v string) *QuerySecurityPol
 	return s
 }
 
-func (s *QuerySecurityPolicyRequest) SetExpectProductCodes(v []*string) *QuerySecurityPolicyRequest {
-	s.ExpectProductCodes = v
+func (s *QuerySecurityPolicyRequest) SetExpectProductCodes(v string) *QuerySecurityPolicyRequest {
+	s.ExpectProductCodes = &v
 	return s
 }
 
@@ -375,7 +452,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.0"),
+				"sdk_version":      tea.String("1.0.8"),
 				"_prod_code":       tea.String("INS_RISK"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -431,6 +508,40 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 	}
 
 	return _resp, _err
+}
+
+/**
+ * Description: 策略分数查询
+ * Summary: 策略分数查询
+ */
+func (client *Client) QueryScorePolicy(request *QueryScorePolicyRequest) (_result *QueryScorePolicyResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryScorePolicyResponse{}
+	_body, _err := client.QueryScorePolicyEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 策略分数查询
+ * Summary: 策略分数查询
+ */
+func (client *Client) QueryScorePolicyEx(request *QueryScorePolicyRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryScorePolicyResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryScorePolicyResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.insrisk.score.policy.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
 }
 
 /**
