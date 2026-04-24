@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "INS_RISK",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-ins_risk:1.0.8",
-    "go": "github.com/antchain-openapi-sdk-go/ins_risk/client:v1.0.8",
-    "csharp": "AntChain.SDK.INS_RISK:1.0.8",
+    "java": "com.antgroup.antchain.openapi:openapi-ins_risk:1.0.9",
+    "go": "github.com/antchain-openapi-sdk-go/ins_risk/client:v1.0.9",
+    "csharp": "AntChain.SDK.INS_RISK:1.0.9",
     "ts": "@antchain/ins_risk:^1.0.0",
-    "php": "antchain/ins_risk:1.0.8",
-    "python": "antchain_sdk_ins_risk:1.0.8"
+    "php": "antchain/ins_risk:1.0.9",
+    "python": "antchain_sdk_ins_risk:1.0.9"
   },
   "libraries": {
     "Util": "darabonba:Util:*",
