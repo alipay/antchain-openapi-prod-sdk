@@ -5012,15 +5012,19 @@ class CallbackCdsqScratchesRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         transaction_no: str = None,
+        scene_code: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         # 交易流水号
         self.transaction_no = transaction_no
+        # 场景码
+        self.scene_code = scene_code
 
     def validate(self):
         self.validate_required(self.transaction_no, 'transaction_no')
+        self.validate_required(self.scene_code, 'scene_code')
 
     def to_map(self):
         _map = super().to_map()
@@ -5034,6 +5038,8 @@ class CallbackCdsqScratchesRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.transaction_no is not None:
             result['transaction_no'] = self.transaction_no
+        if self.scene_code is not None:
+            result['scene_code'] = self.scene_code
         return result
 
     def from_map(self, m: dict = None):
@@ -5044,6 +5050,8 @@ class CallbackCdsqScratchesRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('transaction_no') is not None:
             self.transaction_no = m.get('transaction_no')
+        if m.get('scene_code') is not None:
+            self.scene_code = m.get('scene_code')
         return self
 
 
@@ -5438,47 +5446,29 @@ class QueryTagChanganRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         scene_code: str = None,
-        access_token: str = None,
         request_id: str = None,
         os: str = None,
         type: int = None,
         device_info_list: DeviceBean = None,
-        base_tags: List[str] = None,
-        industy_tags: List[str] = None,
-        business_tags: List[str] = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         # 场景码
         self.scene_code = scene_code
-        # 授权token
-        self.access_token = access_token
         # 请求唯一ID（UUID生成即可）
         self.request_id = request_id
         # 系统
         self.os = os
-        # 标签库组合：
-        # 1表示基础标签
-        # 2表示行业标签
-        # 3表示基础标签+行业标签
-        # 8表示自定义标签
-        # 9表示基础标签+自定义标签
-        # 10表示行业标签+自定义标签
-        # 11表示基础标签+行业标签+自定义标签
+        # 1表示定制标签查询
+        # 2表示标准标签查询
+        # 3表示全量标签查询
         self.type = type
         # 设备信息
         self.device_info_list = device_info_list
-        # 基础标签动态参数（对外编码）
-        self.base_tags = base_tags
-        # 行业标签动态参数（对外编码）
-        self.industy_tags = industy_tags
-        # 规则标签动态参数（对外编码）
-        self.business_tags = business_tags
 
     def validate(self):
         self.validate_required(self.scene_code, 'scene_code')
-        self.validate_required(self.access_token, 'access_token')
         self.validate_required(self.request_id, 'request_id')
         self.validate_required(self.type, 'type')
         self.validate_required(self.device_info_list, 'device_info_list')
@@ -5497,8 +5487,6 @@ class QueryTagChanganRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.scene_code is not None:
             result['scene_code'] = self.scene_code
-        if self.access_token is not None:
-            result['access_token'] = self.access_token
         if self.request_id is not None:
             result['request_id'] = self.request_id
         if self.os is not None:
@@ -5507,12 +5495,6 @@ class QueryTagChanganRequest(TeaModel):
             result['type'] = self.type
         if self.device_info_list is not None:
             result['device_info_list'] = self.device_info_list.to_map()
-        if self.base_tags is not None:
-            result['base_tags'] = self.base_tags
-        if self.industy_tags is not None:
-            result['industy_tags'] = self.industy_tags
-        if self.business_tags is not None:
-            result['business_tags'] = self.business_tags
         return result
 
     def from_map(self, m: dict = None):
@@ -5523,8 +5505,6 @@ class QueryTagChanganRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('scene_code') is not None:
             self.scene_code = m.get('scene_code')
-        if m.get('access_token') is not None:
-            self.access_token = m.get('access_token')
         if m.get('request_id') is not None:
             self.request_id = m.get('request_id')
         if m.get('os') is not None:
@@ -5534,12 +5514,6 @@ class QueryTagChanganRequest(TeaModel):
         if m.get('device_info_list') is not None:
             temp_model = DeviceBean()
             self.device_info_list = temp_model.from_map(m['device_info_list'])
-        if m.get('base_tags') is not None:
-            self.base_tags = m.get('base_tags')
-        if m.get('industy_tags') is not None:
-            self.industy_tags = m.get('industy_tags')
-        if m.get('business_tags') is not None:
-            self.business_tags = m.get('business_tags')
         return self
 
 
@@ -6233,6 +6207,393 @@ class SyncUsedcarResponse(TeaModel):
             for k in m.get('data'):
                 temp_model = LeadInfo()
                 self.data.append(temp_model.from_map(k))
+        return self
+
+
+class RegisterCdsqTireinsuranceRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        partner_code: str = None,
+        transaction_no: str = None,
+        userid: str = None,
+        scheme_name: str = None,
+        buytime: str = None,
+        scene_code: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 平台名称
+        self.partner_code = partner_code
+        # 交易流水号
+        self.transaction_no = transaction_no
+        # 用户ID
+        self.userid = userid
+        # 方案名称
+        # 代步车+置换、轮
+        # 胎险+置换、代步
+        # 车、四轮轮胎险、
+        # 置换、二轮轮胎险
+        self.scheme_name = scheme_name
+        # 购买时间
+        self.buytime = buytime
+        # 场景码
+        self.scene_code = scene_code
+
+    def validate(self):
+        self.validate_required(self.partner_code, 'partner_code')
+        self.validate_required(self.transaction_no, 'transaction_no')
+        self.validate_required(self.scheme_name, 'scheme_name')
+        self.validate_required(self.scene_code, 'scene_code')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.partner_code is not None:
+            result['partner_code'] = self.partner_code
+        if self.transaction_no is not None:
+            result['transaction_no'] = self.transaction_no
+        if self.userid is not None:
+            result['userid'] = self.userid
+        if self.scheme_name is not None:
+            result['scheme_name'] = self.scheme_name
+        if self.buytime is not None:
+            result['buytime'] = self.buytime
+        if self.scene_code is not None:
+            result['scene_code'] = self.scene_code
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('partner_code') is not None:
+            self.partner_code = m.get('partner_code')
+        if m.get('transaction_no') is not None:
+            self.transaction_no = m.get('transaction_no')
+        if m.get('userid') is not None:
+            self.userid = m.get('userid')
+        if m.get('scheme_name') is not None:
+            self.scheme_name = m.get('scheme_name')
+        if m.get('buytime') is not None:
+            self.buytime = m.get('buytime')
+        if m.get('scene_code') is not None:
+            self.scene_code = m.get('scene_code')
+        return self
+
+
+class RegisterCdsqTireinsuranceResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        response_code: str = None,
+        response_msg: str = None,
+        policy_no: str = None,
+        policy_start: str = None,
+        policy_end: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 结果码
+        self.response_code = response_code
+        # 错误信息
+        self.response_msg = response_msg
+        # 保单服务号
+        self.policy_no = policy_no
+        # 保险起期，格式：yyyy-MM-dd HH:mm:ss
+        self.policy_start = policy_start
+        # 保险止期，格式：yyyy-MM-dd HH:mm:ss
+        self.policy_end = policy_end
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.response_code is not None:
+            result['response_code'] = self.response_code
+        if self.response_msg is not None:
+            result['response_msg'] = self.response_msg
+        if self.policy_no is not None:
+            result['policy_no'] = self.policy_no
+        if self.policy_start is not None:
+            result['policy_start'] = self.policy_start
+        if self.policy_end is not None:
+            result['policy_end'] = self.policy_end
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('response_code') is not None:
+            self.response_code = m.get('response_code')
+        if m.get('response_msg') is not None:
+            self.response_msg = m.get('response_msg')
+        if m.get('policy_no') is not None:
+            self.policy_no = m.get('policy_no')
+        if m.get('policy_start') is not None:
+            self.policy_start = m.get('policy_start')
+        if m.get('policy_end') is not None:
+            self.policy_end = m.get('policy_end')
+        return self
+
+
+class CallbackCdsqTireinsuranceRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        transaction_no: str = None,
+        scene_code: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 交易流水号
+        self.transaction_no = transaction_no
+        # 场景码
+        self.scene_code = scene_code
+
+    def validate(self):
+        self.validate_required(self.transaction_no, 'transaction_no')
+        self.validate_required(self.scene_code, 'scene_code')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.transaction_no is not None:
+            result['transaction_no'] = self.transaction_no
+        if self.scene_code is not None:
+            result['scene_code'] = self.scene_code
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('transaction_no') is not None:
+            self.transaction_no = m.get('transaction_no')
+        if m.get('scene_code') is not None:
+            self.scene_code = m.get('scene_code')
+        return self
+
+
+class CallbackCdsqTireinsuranceResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        response_code: str = None,
+        response_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 结果码
+        self.response_code = response_code
+        # 错误信息
+        self.response_msg = response_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.response_code is not None:
+            result['response_code'] = self.response_code
+        if self.response_msg is not None:
+            result['response_msg'] = self.response_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('response_code') is not None:
+            self.response_code = m.get('response_code')
+        if m.get('response_msg') is not None:
+            self.response_msg = m.get('response_msg')
+        return self
+
+
+class QueryCdsqTireinsuranceRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        partner_code: str = None,
+        transaction_no: str = None,
+        scene_code: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 平台名称
+        self.partner_code = partner_code
+        # 交易流水号
+        self.transaction_no = transaction_no
+        # 场景码
+        self.scene_code = scene_code
+
+    def validate(self):
+        self.validate_required(self.partner_code, 'partner_code')
+        self.validate_required(self.transaction_no, 'transaction_no')
+        self.validate_required(self.scene_code, 'scene_code')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.partner_code is not None:
+            result['partner_code'] = self.partner_code
+        if self.transaction_no is not None:
+            result['transaction_no'] = self.transaction_no
+        if self.scene_code is not None:
+            result['scene_code'] = self.scene_code
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('partner_code') is not None:
+            self.partner_code = m.get('partner_code')
+        if m.get('transaction_no') is not None:
+            self.transaction_no = m.get('transaction_no')
+        if m.get('scene_code') is not None:
+            self.scene_code = m.get('scene_code')
+        return self
+
+
+class QueryCdsqTireinsuranceResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        response_code: str = None,
+        response_msg: str = None,
+        status: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 结果码
+        self.response_code = response_code
+        # 错误信息
+        self.response_msg = response_msg
+        # 保单状态
+        # 1：投保
+        # 2：退保
+        self.status = status
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.response_code is not None:
+            result['response_code'] = self.response_code
+        if self.response_msg is not None:
+            result['response_msg'] = self.response_msg
+        if self.status is not None:
+            result['status'] = self.status
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('response_code') is not None:
+            self.response_code = m.get('response_code')
+        if m.get('response_msg') is not None:
+            self.response_msg = m.get('response_msg')
+        if m.get('status') is not None:
+            self.status = m.get('status')
         return self
 
 

@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.34',
+                    'sdk_version': '1.0.36',
                     '_prod_code': 'INTELLICAR',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.34',
+                    'sdk_version': '1.0.36',
                     '_prod_code': 'INTELLICAR',
                     '_prod_channel': 'default'
                 }
@@ -1821,6 +1821,174 @@ class Client:
         return TeaCore.from_map(
             intellicar_models.SyncUsedcarResponse(),
             await self.do_request_async('1.0', 'antdigital.intellicar.usedcar.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def register_cdsq_tireinsurance(
+        self,
+        request: intellicar_models.RegisterCdsqTireinsuranceRequest,
+    ) -> intellicar_models.RegisterCdsqTireinsuranceResponse:
+        """
+        Description: 轮胎投保接口
+        Summary: 轮胎投保接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.register_cdsq_tireinsurance_ex(request, headers, runtime)
+
+    async def register_cdsq_tireinsurance_async(
+        self,
+        request: intellicar_models.RegisterCdsqTireinsuranceRequest,
+    ) -> intellicar_models.RegisterCdsqTireinsuranceResponse:
+        """
+        Description: 轮胎投保接口
+        Summary: 轮胎投保接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.register_cdsq_tireinsurance_ex_async(request, headers, runtime)
+
+    def register_cdsq_tireinsurance_ex(
+        self,
+        request: intellicar_models.RegisterCdsqTireinsuranceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> intellicar_models.RegisterCdsqTireinsuranceResponse:
+        """
+        Description: 轮胎投保接口
+        Summary: 轮胎投保接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            intellicar_models.RegisterCdsqTireinsuranceResponse(),
+            self.do_request('1.0', 'antdigital.intellicar.cdsq.tireinsurance.register', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def register_cdsq_tireinsurance_ex_async(
+        self,
+        request: intellicar_models.RegisterCdsqTireinsuranceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> intellicar_models.RegisterCdsqTireinsuranceResponse:
+        """
+        Description: 轮胎投保接口
+        Summary: 轮胎投保接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            intellicar_models.RegisterCdsqTireinsuranceResponse(),
+            await self.do_request_async('1.0', 'antdigital.intellicar.cdsq.tireinsurance.register', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def callback_cdsq_tireinsurance(
+        self,
+        request: intellicar_models.CallbackCdsqTireinsuranceRequest,
+    ) -> intellicar_models.CallbackCdsqTireinsuranceResponse:
+        """
+        Description: 轮胎回调接口
+        Summary: 轮胎回调接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.callback_cdsq_tireinsurance_ex(request, headers, runtime)
+
+    async def callback_cdsq_tireinsurance_async(
+        self,
+        request: intellicar_models.CallbackCdsqTireinsuranceRequest,
+    ) -> intellicar_models.CallbackCdsqTireinsuranceResponse:
+        """
+        Description: 轮胎回调接口
+        Summary: 轮胎回调接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.callback_cdsq_tireinsurance_ex_async(request, headers, runtime)
+
+    def callback_cdsq_tireinsurance_ex(
+        self,
+        request: intellicar_models.CallbackCdsqTireinsuranceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> intellicar_models.CallbackCdsqTireinsuranceResponse:
+        """
+        Description: 轮胎回调接口
+        Summary: 轮胎回调接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            intellicar_models.CallbackCdsqTireinsuranceResponse(),
+            self.do_request('1.0', 'antdigital.intellicar.cdsq.tireinsurance.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def callback_cdsq_tireinsurance_ex_async(
+        self,
+        request: intellicar_models.CallbackCdsqTireinsuranceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> intellicar_models.CallbackCdsqTireinsuranceResponse:
+        """
+        Description: 轮胎回调接口
+        Summary: 轮胎回调接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            intellicar_models.CallbackCdsqTireinsuranceResponse(),
+            await self.do_request_async('1.0', 'antdigital.intellicar.cdsq.tireinsurance.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_cdsq_tireinsurance(
+        self,
+        request: intellicar_models.QueryCdsqTireinsuranceRequest,
+    ) -> intellicar_models.QueryCdsqTireinsuranceResponse:
+        """
+        Description: 轮胎权益接口查询状态
+        Summary: 轮胎权益接口查询状态
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_cdsq_tireinsurance_ex(request, headers, runtime)
+
+    async def query_cdsq_tireinsurance_async(
+        self,
+        request: intellicar_models.QueryCdsqTireinsuranceRequest,
+    ) -> intellicar_models.QueryCdsqTireinsuranceResponse:
+        """
+        Description: 轮胎权益接口查询状态
+        Summary: 轮胎权益接口查询状态
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_cdsq_tireinsurance_ex_async(request, headers, runtime)
+
+    def query_cdsq_tireinsurance_ex(
+        self,
+        request: intellicar_models.QueryCdsqTireinsuranceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> intellicar_models.QueryCdsqTireinsuranceResponse:
+        """
+        Description: 轮胎权益接口查询状态
+        Summary: 轮胎权益接口查询状态
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            intellicar_models.QueryCdsqTireinsuranceResponse(),
+            self.do_request('1.0', 'antdigital.intellicar.cdsq.tireinsurance.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_cdsq_tireinsurance_ex_async(
+        self,
+        request: intellicar_models.QueryCdsqTireinsuranceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> intellicar_models.QueryCdsqTireinsuranceResponse:
+        """
+        Description: 轮胎权益接口查询状态
+        Summary: 轮胎权益接口查询状态
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            intellicar_models.QueryCdsqTireinsuranceResponse(),
+            await self.do_request_async('1.0', 'antdigital.intellicar.cdsq.tireinsurance.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
