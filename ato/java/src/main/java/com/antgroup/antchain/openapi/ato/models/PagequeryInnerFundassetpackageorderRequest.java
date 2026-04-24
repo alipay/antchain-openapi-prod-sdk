@@ -3,13 +3,18 @@ package com.antgroup.antchain.openapi.ato.models;
 
 import com.aliyun.tea.*;
 
-public class QueryInnerFundasssetpackagestatusRequest extends TeaModel {
+public class PagequeryInnerFundassetpackageorderRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
 
     @NameInMap("product_instance_id")
     public String productInstanceId;
+
+    // 资方租户id
+    @NameInMap("fund_tenant_id")
+    @Validation(required = true)
+    public String fundTenantId;
 
     // 资产包id
     @NameInMap("asset_package_id")
@@ -31,17 +36,22 @@ public class QueryInnerFundasssetpackagestatusRequest extends TeaModel {
     @Validation(required = true)
     public String merchantId;
 
+    // 分页信息
+    @NameInMap("page_info")
+    @Validation(required = true)
+    public PageQuery pageInfo;
+
     // traceId
     @NameInMap("trace_id")
     @Validation(required = true)
     public String traceId;
 
-    public static QueryInnerFundasssetpackagestatusRequest build(java.util.Map<String, ?> map) throws Exception {
-        QueryInnerFundasssetpackagestatusRequest self = new QueryInnerFundasssetpackagestatusRequest();
+    public static PagequeryInnerFundassetpackageorderRequest build(java.util.Map<String, ?> map) throws Exception {
+        PagequeryInnerFundassetpackageorderRequest self = new PagequeryInnerFundassetpackageorderRequest();
         return TeaModel.build(map, self);
     }
 
-    public QueryInnerFundasssetpackagestatusRequest setAuthToken(String authToken) {
+    public PagequeryInnerFundassetpackageorderRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -49,7 +59,7 @@ public class QueryInnerFundasssetpackagestatusRequest extends TeaModel {
         return this.authToken;
     }
 
-    public QueryInnerFundasssetpackagestatusRequest setProductInstanceId(String productInstanceId) {
+    public PagequeryInnerFundassetpackageorderRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -57,7 +67,15 @@ public class QueryInnerFundasssetpackagestatusRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public QueryInnerFundasssetpackagestatusRequest setAssetPackageId(String assetPackageId) {
+    public PagequeryInnerFundassetpackageorderRequest setFundTenantId(String fundTenantId) {
+        this.fundTenantId = fundTenantId;
+        return this;
+    }
+    public String getFundTenantId() {
+        return this.fundTenantId;
+    }
+
+    public PagequeryInnerFundassetpackageorderRequest setAssetPackageId(String assetPackageId) {
         this.assetPackageId = assetPackageId;
         return this;
     }
@@ -65,7 +83,7 @@ public class QueryInnerFundasssetpackagestatusRequest extends TeaModel {
         return this.assetPackageId;
     }
 
-    public QueryInnerFundasssetpackagestatusRequest setFundId(String fundId) {
+    public PagequeryInnerFundassetpackageorderRequest setFundId(String fundId) {
         this.fundId = fundId;
         return this;
     }
@@ -73,7 +91,7 @@ public class QueryInnerFundasssetpackagestatusRequest extends TeaModel {
         return this.fundId;
     }
 
-    public QueryInnerFundasssetpackagestatusRequest setTenantId(String tenantId) {
+    public PagequeryInnerFundassetpackageorderRequest setTenantId(String tenantId) {
         this.tenantId = tenantId;
         return this;
     }
@@ -81,7 +99,7 @@ public class QueryInnerFundasssetpackagestatusRequest extends TeaModel {
         return this.tenantId;
     }
 
-    public QueryInnerFundasssetpackagestatusRequest setMerchantId(String merchantId) {
+    public PagequeryInnerFundassetpackageorderRequest setMerchantId(String merchantId) {
         this.merchantId = merchantId;
         return this;
     }
@@ -89,7 +107,15 @@ public class QueryInnerFundasssetpackagestatusRequest extends TeaModel {
         return this.merchantId;
     }
 
-    public QueryInnerFundasssetpackagestatusRequest setTraceId(String traceId) {
+    public PagequeryInnerFundassetpackageorderRequest setPageInfo(PageQuery pageInfo) {
+        this.pageInfo = pageInfo;
+        return this;
+    }
+    public PageQuery getPageInfo() {
+        return this.pageInfo;
+    }
+
+    public PagequeryInnerFundassetpackageorderRequest setTraceId(String traceId) {
         this.traceId = traceId;
         return this;
     }

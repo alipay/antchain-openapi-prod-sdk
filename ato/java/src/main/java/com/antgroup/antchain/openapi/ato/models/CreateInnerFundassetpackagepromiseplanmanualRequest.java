@@ -3,13 +3,18 @@ package com.antgroup.antchain.openapi.ato.models;
 
 import com.aliyun.tea.*;
 
-public class QueryInnerFundasssetpackagepromiseplanRequest extends TeaModel {
+public class CreateInnerFundassetpackagepromiseplanmanualRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
 
     @NameInMap("product_instance_id")
     public String productInstanceId;
+
+    // 资方租户id
+    @NameInMap("fund_tenant_id")
+    @Validation(required = true)
+    public String fundTenantId;
 
     // 资产包id
     @NameInMap("asset_package_id")
@@ -31,31 +36,22 @@ public class QueryInnerFundasssetpackagepromiseplanRequest extends TeaModel {
     @Validation(required = true)
     public String merchantId;
 
-    // PROMISE_PLAN 履约计划页面
-    // ASSET_PACKAGE_DETAIL 资产包详情页面
-    @NameInMap("source")
+    // 用户填写的履约计划表格数据
+    @NameInMap("create_promise_plan_params")
     @Validation(required = true)
-    public String source;
+    public java.util.List<AssetPackageCreatePromisePlanParams> createPromisePlanParams;
 
-    // trace_id
+    // traceId
     @NameInMap("trace_id")
     @Validation(required = true)
     public String traceId;
 
-    // 生成方式，
-    // AI：智能体；
-    // MANUL：人工。
-    // source=ASSET_PACKAGE_DETAIL，禁止传该参数
-    // source=PROMISE_PLAN，必传该参数
-    @NameInMap("generate_method")
-    public String generateMethod;
-
-    public static QueryInnerFundasssetpackagepromiseplanRequest build(java.util.Map<String, ?> map) throws Exception {
-        QueryInnerFundasssetpackagepromiseplanRequest self = new QueryInnerFundasssetpackagepromiseplanRequest();
+    public static CreateInnerFundassetpackagepromiseplanmanualRequest build(java.util.Map<String, ?> map) throws Exception {
+        CreateInnerFundassetpackagepromiseplanmanualRequest self = new CreateInnerFundassetpackagepromiseplanmanualRequest();
         return TeaModel.build(map, self);
     }
 
-    public QueryInnerFundasssetpackagepromiseplanRequest setAuthToken(String authToken) {
+    public CreateInnerFundassetpackagepromiseplanmanualRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -63,7 +59,7 @@ public class QueryInnerFundasssetpackagepromiseplanRequest extends TeaModel {
         return this.authToken;
     }
 
-    public QueryInnerFundasssetpackagepromiseplanRequest setProductInstanceId(String productInstanceId) {
+    public CreateInnerFundassetpackagepromiseplanmanualRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -71,7 +67,15 @@ public class QueryInnerFundasssetpackagepromiseplanRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public QueryInnerFundasssetpackagepromiseplanRequest setAssetPackageId(String assetPackageId) {
+    public CreateInnerFundassetpackagepromiseplanmanualRequest setFundTenantId(String fundTenantId) {
+        this.fundTenantId = fundTenantId;
+        return this;
+    }
+    public String getFundTenantId() {
+        return this.fundTenantId;
+    }
+
+    public CreateInnerFundassetpackagepromiseplanmanualRequest setAssetPackageId(String assetPackageId) {
         this.assetPackageId = assetPackageId;
         return this;
     }
@@ -79,7 +83,7 @@ public class QueryInnerFundasssetpackagepromiseplanRequest extends TeaModel {
         return this.assetPackageId;
     }
 
-    public QueryInnerFundasssetpackagepromiseplanRequest setFundId(String fundId) {
+    public CreateInnerFundassetpackagepromiseplanmanualRequest setFundId(String fundId) {
         this.fundId = fundId;
         return this;
     }
@@ -87,7 +91,7 @@ public class QueryInnerFundasssetpackagepromiseplanRequest extends TeaModel {
         return this.fundId;
     }
 
-    public QueryInnerFundasssetpackagepromiseplanRequest setTenantId(String tenantId) {
+    public CreateInnerFundassetpackagepromiseplanmanualRequest setTenantId(String tenantId) {
         this.tenantId = tenantId;
         return this;
     }
@@ -95,7 +99,7 @@ public class QueryInnerFundasssetpackagepromiseplanRequest extends TeaModel {
         return this.tenantId;
     }
 
-    public QueryInnerFundasssetpackagepromiseplanRequest setMerchantId(String merchantId) {
+    public CreateInnerFundassetpackagepromiseplanmanualRequest setMerchantId(String merchantId) {
         this.merchantId = merchantId;
         return this;
     }
@@ -103,28 +107,20 @@ public class QueryInnerFundasssetpackagepromiseplanRequest extends TeaModel {
         return this.merchantId;
     }
 
-    public QueryInnerFundasssetpackagepromiseplanRequest setSource(String source) {
-        this.source = source;
+    public CreateInnerFundassetpackagepromiseplanmanualRequest setCreatePromisePlanParams(java.util.List<AssetPackageCreatePromisePlanParams> createPromisePlanParams) {
+        this.createPromisePlanParams = createPromisePlanParams;
         return this;
     }
-    public String getSource() {
-        return this.source;
+    public java.util.List<AssetPackageCreatePromisePlanParams> getCreatePromisePlanParams() {
+        return this.createPromisePlanParams;
     }
 
-    public QueryInnerFundasssetpackagepromiseplanRequest setTraceId(String traceId) {
+    public CreateInnerFundassetpackagepromiseplanmanualRequest setTraceId(String traceId) {
         this.traceId = traceId;
         return this;
     }
     public String getTraceId() {
         return this.traceId;
-    }
-
-    public QueryInnerFundasssetpackagepromiseplanRequest setGenerateMethod(String generateMethod) {
-        this.generateMethod = generateMethod;
-        return this;
-    }
-    public String getGenerateMethod() {
-        return this.generateMethod;
     }
 
 }

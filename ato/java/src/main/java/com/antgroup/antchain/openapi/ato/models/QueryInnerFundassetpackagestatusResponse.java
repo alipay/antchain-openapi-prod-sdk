@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.ato.models;
 
 import com.aliyun.tea.*;
 
-public class QueryInnerFundasssetpackagestatusResponse extends TeaModel {
+public class QueryInnerFundassetpackagestatusResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -20,12 +20,12 @@ public class QueryInnerFundasssetpackagestatusResponse extends TeaModel {
     @NameInMap("data")
     public String data;
 
-    public static QueryInnerFundasssetpackagestatusResponse build(java.util.Map<String, ?> map) throws Exception {
-        QueryInnerFundasssetpackagestatusResponse self = new QueryInnerFundasssetpackagestatusResponse();
+    public static QueryInnerFundassetpackagestatusResponse build(java.util.Map<String, ?> map) throws Exception {
+        QueryInnerFundassetpackagestatusResponse self = new QueryInnerFundassetpackagestatusResponse();
         return TeaModel.build(map, self);
     }
 
-    public QueryInnerFundasssetpackagestatusResponse setReqMsgId(String reqMsgId) {
+    public QueryInnerFundassetpackagestatusResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class QueryInnerFundasssetpackagestatusResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public QueryInnerFundasssetpackagestatusResponse setResultCode(String resultCode) {
+    public QueryInnerFundassetpackagestatusResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class QueryInnerFundasssetpackagestatusResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public QueryInnerFundasssetpackagestatusResponse setResultMsg(String resultMsg) {
+    public QueryInnerFundassetpackagestatusResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,7 +49,7 @@ public class QueryInnerFundasssetpackagestatusResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryInnerFundasssetpackagestatusResponse setData(String data) {
+    public QueryInnerFundassetpackagestatusResponse setData(String data) {
         this.data = data;
         return this;
     }

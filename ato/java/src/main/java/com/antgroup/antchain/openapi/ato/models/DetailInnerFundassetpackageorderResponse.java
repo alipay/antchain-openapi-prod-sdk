@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.ato.models;
 
 import com.aliyun.tea.*;
 
-public class QueryInnerFundasssetpackagepromiseplanResponse extends TeaModel {
+public class DetailInnerFundassetpackageorderResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,16 @@ public class QueryInnerFundasssetpackagepromiseplanResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 数据
+    // AssetPackageOrderOtherDetail响应体json格式
     @NameInMap("data")
     public String data;
 
-    public static QueryInnerFundasssetpackagepromiseplanResponse build(java.util.Map<String, ?> map) throws Exception {
-        QueryInnerFundasssetpackagepromiseplanResponse self = new QueryInnerFundasssetpackagepromiseplanResponse();
+    public static DetailInnerFundassetpackageorderResponse build(java.util.Map<String, ?> map) throws Exception {
+        DetailInnerFundassetpackageorderResponse self = new DetailInnerFundassetpackageorderResponse();
         return TeaModel.build(map, self);
     }
 
-    public QueryInnerFundasssetpackagepromiseplanResponse setReqMsgId(String reqMsgId) {
+    public DetailInnerFundassetpackageorderResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class QueryInnerFundasssetpackagepromiseplanResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public QueryInnerFundasssetpackagepromiseplanResponse setResultCode(String resultCode) {
+    public DetailInnerFundassetpackageorderResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class QueryInnerFundasssetpackagepromiseplanResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public QueryInnerFundasssetpackagepromiseplanResponse setResultMsg(String resultMsg) {
+    public DetailInnerFundassetpackageorderResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,7 +49,7 @@ public class QueryInnerFundasssetpackagepromiseplanResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryInnerFundasssetpackagepromiseplanResponse setData(String data) {
+    public DetailInnerFundassetpackageorderResponse setData(String data) {
         this.data = data;
         return this;
     }

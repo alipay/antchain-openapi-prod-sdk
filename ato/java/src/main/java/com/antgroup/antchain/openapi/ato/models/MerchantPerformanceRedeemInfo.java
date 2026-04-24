@@ -26,6 +26,14 @@ public class MerchantPerformanceRedeemInfo extends TeaModel {
     @NameInMap("merchant_performance_redeem_result_info")
     public MerchantPerformanceRedeemResultInfo merchantPerformanceRedeemResultInfo;
 
+    // 可选回购方式列表
+    /**
+     * <strong>example:</strong>
+     * <p>[ONLINE,OFFLINE]</p>
+     */
+    @NameInMap("support_redeem_way_list")
+    public java.util.List<String> supportRedeemWayList;
+
     public static MerchantPerformanceRedeemInfo build(java.util.Map<String, ?> map) throws Exception {
         MerchantPerformanceRedeemInfo self = new MerchantPerformanceRedeemInfo();
         return TeaModel.build(map, self);
@@ -53,6 +61,14 @@ public class MerchantPerformanceRedeemInfo extends TeaModel {
     }
     public MerchantPerformanceRedeemResultInfo getMerchantPerformanceRedeemResultInfo() {
         return this.merchantPerformanceRedeemResultInfo;
+    }
+
+    public MerchantPerformanceRedeemInfo setSupportRedeemWayList(java.util.List<String> supportRedeemWayList) {
+        this.supportRedeemWayList = supportRedeemWayList;
+        return this;
+    }
+    public java.util.List<String> getSupportRedeemWayList() {
+        return this.supportRedeemWayList;
     }
 
 }

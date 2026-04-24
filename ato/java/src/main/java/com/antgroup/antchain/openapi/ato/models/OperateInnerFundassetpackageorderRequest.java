@@ -3,13 +3,18 @@ package com.antgroup.antchain.openapi.ato.models;
 
 import com.aliyun.tea.*;
 
-public class OperateInnerFundasssetpackageorderRequest extends TeaModel {
+public class OperateInnerFundassetpackageorderRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
 
     @NameInMap("product_instance_id")
     public String productInstanceId;
+
+    // 资方租户id
+    @NameInMap("fund_tenant_id")
+    @Validation(required = true)
+    public String fundTenantId;
 
     // 资产包id
     @NameInMap("asset_package_id")
@@ -47,12 +52,12 @@ public class OperateInnerFundasssetpackageorderRequest extends TeaModel {
     @Validation(required = true)
     public String traceId;
 
-    public static OperateInnerFundasssetpackageorderRequest build(java.util.Map<String, ?> map) throws Exception {
-        OperateInnerFundasssetpackageorderRequest self = new OperateInnerFundasssetpackageorderRequest();
+    public static OperateInnerFundassetpackageorderRequest build(java.util.Map<String, ?> map) throws Exception {
+        OperateInnerFundassetpackageorderRequest self = new OperateInnerFundassetpackageorderRequest();
         return TeaModel.build(map, self);
     }
 
-    public OperateInnerFundasssetpackageorderRequest setAuthToken(String authToken) {
+    public OperateInnerFundassetpackageorderRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -60,7 +65,7 @@ public class OperateInnerFundasssetpackageorderRequest extends TeaModel {
         return this.authToken;
     }
 
-    public OperateInnerFundasssetpackageorderRequest setProductInstanceId(String productInstanceId) {
+    public OperateInnerFundassetpackageorderRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -68,7 +73,15 @@ public class OperateInnerFundasssetpackageorderRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public OperateInnerFundasssetpackageorderRequest setAssetPackageId(String assetPackageId) {
+    public OperateInnerFundassetpackageorderRequest setFundTenantId(String fundTenantId) {
+        this.fundTenantId = fundTenantId;
+        return this;
+    }
+    public String getFundTenantId() {
+        return this.fundTenantId;
+    }
+
+    public OperateInnerFundassetpackageorderRequest setAssetPackageId(String assetPackageId) {
         this.assetPackageId = assetPackageId;
         return this;
     }
@@ -76,7 +89,7 @@ public class OperateInnerFundasssetpackageorderRequest extends TeaModel {
         return this.assetPackageId;
     }
 
-    public OperateInnerFundasssetpackageorderRequest setOrderId(String orderId) {
+    public OperateInnerFundassetpackageorderRequest setOrderId(String orderId) {
         this.orderId = orderId;
         return this;
     }
@@ -84,7 +97,7 @@ public class OperateInnerFundasssetpackageorderRequest extends TeaModel {
         return this.orderId;
     }
 
-    public OperateInnerFundasssetpackageorderRequest setFundId(String fundId) {
+    public OperateInnerFundassetpackageorderRequest setFundId(String fundId) {
         this.fundId = fundId;
         return this;
     }
@@ -92,7 +105,7 @@ public class OperateInnerFundasssetpackageorderRequest extends TeaModel {
         return this.fundId;
     }
 
-    public OperateInnerFundasssetpackageorderRequest setTenantId(String tenantId) {
+    public OperateInnerFundassetpackageorderRequest setTenantId(String tenantId) {
         this.tenantId = tenantId;
         return this;
     }
@@ -100,7 +113,7 @@ public class OperateInnerFundasssetpackageorderRequest extends TeaModel {
         return this.tenantId;
     }
 
-    public OperateInnerFundasssetpackageorderRequest setMerchantId(String merchantId) {
+    public OperateInnerFundassetpackageorderRequest setMerchantId(String merchantId) {
         this.merchantId = merchantId;
         return this;
     }
@@ -108,7 +121,7 @@ public class OperateInnerFundasssetpackageorderRequest extends TeaModel {
         return this.merchantId;
     }
 
-    public OperateInnerFundasssetpackageorderRequest setAction(String action) {
+    public OperateInnerFundassetpackageorderRequest setAction(String action) {
         this.action = action;
         return this;
     }
@@ -116,7 +129,7 @@ public class OperateInnerFundasssetpackageorderRequest extends TeaModel {
         return this.action;
     }
 
-    public OperateInnerFundasssetpackageorderRequest setTraceId(String traceId) {
+    public OperateInnerFundassetpackageorderRequest setTraceId(String traceId) {
         this.traceId = traceId;
         return this;
     }

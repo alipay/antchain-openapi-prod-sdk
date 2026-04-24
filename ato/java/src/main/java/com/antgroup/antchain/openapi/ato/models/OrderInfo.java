@@ -163,6 +163,22 @@ public class OrderInfo extends TeaModel {
     @NameInMap("pay_channel")
     public String payChannel;
 
+    // 是否允许拒绝放款
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
+    @NameInMap("is_allow_reject_loan")
+    public Boolean isAllowRejectLoan;
+
+    // 是否新融资模式订单
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
+    @NameInMap("is_new_f")
+    public Boolean isNewF;
+
     public static OrderInfo build(java.util.Map<String, ?> map) throws Exception {
         OrderInfo self = new OrderInfo();
         return TeaModel.build(map, self);
@@ -318,6 +334,22 @@ public class OrderInfo extends TeaModel {
     }
     public String getPayChannel() {
         return this.payChannel;
+    }
+
+    public OrderInfo setIsAllowRejectLoan(Boolean isAllowRejectLoan) {
+        this.isAllowRejectLoan = isAllowRejectLoan;
+        return this;
+    }
+    public Boolean getIsAllowRejectLoan() {
+        return this.isAllowRejectLoan;
+    }
+
+    public OrderInfo setIsNewF(Boolean isNewF) {
+        this.isNewF = isNewF;
+        return this;
+    }
+    public Boolean getIsNewF() {
+        return this.isNewF;
     }
 
 }

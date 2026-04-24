@@ -13,7 +13,6 @@ public class PagequeryInnerFundassetpackageRequest extends TeaModel {
 
     // 资产包id
     @NameInMap("asset_package_id")
-    @Validation(required = true)
     public String assetPackageId;
 
     // 商家公司名称
@@ -41,6 +40,11 @@ public class PagequeryInnerFundassetpackageRequest extends TeaModel {
     @NameInMap("trace_id")
     @Validation(required = true)
     public String traceId;
+
+    // 资方租户id
+    @NameInMap("fund_tenant_id")
+    @Validation(required = true)
+    public String fundTenantId;
 
     public static PagequeryInnerFundassetpackageRequest build(java.util.Map<String, ?> map) throws Exception {
         PagequeryInnerFundassetpackageRequest self = new PagequeryInnerFundassetpackageRequest();
@@ -117,6 +121,14 @@ public class PagequeryInnerFundassetpackageRequest extends TeaModel {
     }
     public String getTraceId() {
         return this.traceId;
+    }
+
+    public PagequeryInnerFundassetpackageRequest setFundTenantId(String fundTenantId) {
+        this.fundTenantId = fundTenantId;
+        return this;
+    }
+    public String getFundTenantId() {
+        return this.fundTenantId;
     }
 
 }

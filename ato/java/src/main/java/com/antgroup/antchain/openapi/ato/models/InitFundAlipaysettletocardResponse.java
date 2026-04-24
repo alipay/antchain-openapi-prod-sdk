@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.ato.models;
 
 import com.aliyun.tea.*;
 
-public class RetryInnerFundasssetpackagestatusResponse extends TeaModel {
+public class InitFundAlipaysettletocardResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,12 +16,16 @@ public class RetryInnerFundasssetpackagestatusResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    public static RetryInnerFundasssetpackagestatusResponse build(java.util.Map<String, ?> map) throws Exception {
-        RetryInnerFundasssetpackagestatusResponse self = new RetryInnerFundasssetpackagestatusResponse();
+    // 任务id
+    @NameInMap("task_id")
+    public String taskId;
+
+    public static InitFundAlipaysettletocardResponse build(java.util.Map<String, ?> map) throws Exception {
+        InitFundAlipaysettletocardResponse self = new InitFundAlipaysettletocardResponse();
         return TeaModel.build(map, self);
     }
 
-    public RetryInnerFundasssetpackagestatusResponse setReqMsgId(String reqMsgId) {
+    public InitFundAlipaysettletocardResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -29,7 +33,7 @@ public class RetryInnerFundasssetpackagestatusResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public RetryInnerFundasssetpackagestatusResponse setResultCode(String resultCode) {
+    public InitFundAlipaysettletocardResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -37,12 +41,20 @@ public class RetryInnerFundasssetpackagestatusResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public RetryInnerFundasssetpackagestatusResponse setResultMsg(String resultMsg) {
+    public InitFundAlipaysettletocardResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
     public String getResultMsg() {
         return this.resultMsg;
+    }
+
+    public InitFundAlipaysettletocardResponse setTaskId(String taskId) {
+        this.taskId = taskId;
+        return this;
+    }
+    public String getTaskId() {
+        return this.taskId;
     }
 
 }

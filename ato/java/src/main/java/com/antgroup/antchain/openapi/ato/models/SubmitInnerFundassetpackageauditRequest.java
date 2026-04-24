@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.ato.models;
 
 import com.aliyun.tea.*;
 
-public class SubmitInnerFundasssetpackageauditRequest extends TeaModel {
+public class SubmitInnerFundassetpackageauditRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -42,7 +42,6 @@ public class SubmitInnerFundasssetpackageauditRequest extends TeaModel {
     // 审核通过不用填、
     // 审核不通过/补充材料必填，不允许传入特殊字符
     @NameInMap("remark")
-    @Validation(required = true)
     public String remark;
 
     // traceId
@@ -50,12 +49,17 @@ public class SubmitInnerFundasssetpackageauditRequest extends TeaModel {
     @Validation(required = true)
     public String traceId;
 
-    public static SubmitInnerFundasssetpackageauditRequest build(java.util.Map<String, ?> map) throws Exception {
-        SubmitInnerFundasssetpackageauditRequest self = new SubmitInnerFundasssetpackageauditRequest();
+    // 资方租户id
+    @NameInMap("fund_tenant_id")
+    @Validation(required = true)
+    public String fundTenantId;
+
+    public static SubmitInnerFundassetpackageauditRequest build(java.util.Map<String, ?> map) throws Exception {
+        SubmitInnerFundassetpackageauditRequest self = new SubmitInnerFundassetpackageauditRequest();
         return TeaModel.build(map, self);
     }
 
-    public SubmitInnerFundasssetpackageauditRequest setAuthToken(String authToken) {
+    public SubmitInnerFundassetpackageauditRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -63,7 +67,7 @@ public class SubmitInnerFundasssetpackageauditRequest extends TeaModel {
         return this.authToken;
     }
 
-    public SubmitInnerFundasssetpackageauditRequest setProductInstanceId(String productInstanceId) {
+    public SubmitInnerFundassetpackageauditRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -71,7 +75,7 @@ public class SubmitInnerFundasssetpackageauditRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public SubmitInnerFundasssetpackageauditRequest setAssetPackageId(String assetPackageId) {
+    public SubmitInnerFundassetpackageauditRequest setAssetPackageId(String assetPackageId) {
         this.assetPackageId = assetPackageId;
         return this;
     }
@@ -79,7 +83,7 @@ public class SubmitInnerFundasssetpackageauditRequest extends TeaModel {
         return this.assetPackageId;
     }
 
-    public SubmitInnerFundasssetpackageauditRequest setAuditType(String auditType) {
+    public SubmitInnerFundassetpackageauditRequest setAuditType(String auditType) {
         this.auditType = auditType;
         return this;
     }
@@ -87,7 +91,7 @@ public class SubmitInnerFundasssetpackageauditRequest extends TeaModel {
         return this.auditType;
     }
 
-    public SubmitInnerFundasssetpackageauditRequest setFundId(String fundId) {
+    public SubmitInnerFundassetpackageauditRequest setFundId(String fundId) {
         this.fundId = fundId;
         return this;
     }
@@ -95,7 +99,7 @@ public class SubmitInnerFundasssetpackageauditRequest extends TeaModel {
         return this.fundId;
     }
 
-    public SubmitInnerFundasssetpackageauditRequest setTenantId(String tenantId) {
+    public SubmitInnerFundassetpackageauditRequest setTenantId(String tenantId) {
         this.tenantId = tenantId;
         return this;
     }
@@ -103,7 +107,7 @@ public class SubmitInnerFundasssetpackageauditRequest extends TeaModel {
         return this.tenantId;
     }
 
-    public SubmitInnerFundasssetpackageauditRequest setMerchantId(String merchantId) {
+    public SubmitInnerFundassetpackageauditRequest setMerchantId(String merchantId) {
         this.merchantId = merchantId;
         return this;
     }
@@ -111,7 +115,7 @@ public class SubmitInnerFundasssetpackageauditRequest extends TeaModel {
         return this.merchantId;
     }
 
-    public SubmitInnerFundasssetpackageauditRequest setRemark(String remark) {
+    public SubmitInnerFundassetpackageauditRequest setRemark(String remark) {
         this.remark = remark;
         return this;
     }
@@ -119,12 +123,20 @@ public class SubmitInnerFundasssetpackageauditRequest extends TeaModel {
         return this.remark;
     }
 
-    public SubmitInnerFundasssetpackageauditRequest setTraceId(String traceId) {
+    public SubmitInnerFundassetpackageauditRequest setTraceId(String traceId) {
         this.traceId = traceId;
         return this;
     }
     public String getTraceId() {
         return this.traceId;
+    }
+
+    public SubmitInnerFundassetpackageauditRequest setFundTenantId(String fundTenantId) {
+        this.fundTenantId = fundTenantId;
+        return this;
+    }
+    public String getFundTenantId() {
+        return this.fundTenantId;
     }
 
 }

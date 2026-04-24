@@ -3,13 +3,18 @@ package com.antgroup.antchain.openapi.ato.models;
 
 import com.aliyun.tea.*;
 
-public class DetailInnerFundassetpackageRequest extends TeaModel {
+public class QueryInnerFundassetpackageorderamountRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
 
     @NameInMap("product_instance_id")
     public String productInstanceId;
+
+    // 资方租户id
+    @NameInMap("fund_tenant_id")
+    @Validation(required = true)
+    public String fundTenantId;
 
     // 资产包id
     @NameInMap("asset_package_id")
@@ -31,22 +36,17 @@ public class DetailInnerFundassetpackageRequest extends TeaModel {
     @Validation(required = true)
     public String merchantId;
 
-    // trace_id
+    // traceId
     @NameInMap("trace_id")
     @Validation(required = true)
     public String traceId;
 
-    // 资方租户id
-    @NameInMap("fund_tenant_id")
-    @Validation(required = true)
-    public String fundTenantId;
-
-    public static DetailInnerFundassetpackageRequest build(java.util.Map<String, ?> map) throws Exception {
-        DetailInnerFundassetpackageRequest self = new DetailInnerFundassetpackageRequest();
+    public static QueryInnerFundassetpackageorderamountRequest build(java.util.Map<String, ?> map) throws Exception {
+        QueryInnerFundassetpackageorderamountRequest self = new QueryInnerFundassetpackageorderamountRequest();
         return TeaModel.build(map, self);
     }
 
-    public DetailInnerFundassetpackageRequest setAuthToken(String authToken) {
+    public QueryInnerFundassetpackageorderamountRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -54,7 +54,7 @@ public class DetailInnerFundassetpackageRequest extends TeaModel {
         return this.authToken;
     }
 
-    public DetailInnerFundassetpackageRequest setProductInstanceId(String productInstanceId) {
+    public QueryInnerFundassetpackageorderamountRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -62,7 +62,15 @@ public class DetailInnerFundassetpackageRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public DetailInnerFundassetpackageRequest setAssetPackageId(String assetPackageId) {
+    public QueryInnerFundassetpackageorderamountRequest setFundTenantId(String fundTenantId) {
+        this.fundTenantId = fundTenantId;
+        return this;
+    }
+    public String getFundTenantId() {
+        return this.fundTenantId;
+    }
+
+    public QueryInnerFundassetpackageorderamountRequest setAssetPackageId(String assetPackageId) {
         this.assetPackageId = assetPackageId;
         return this;
     }
@@ -70,7 +78,7 @@ public class DetailInnerFundassetpackageRequest extends TeaModel {
         return this.assetPackageId;
     }
 
-    public DetailInnerFundassetpackageRequest setFundId(String fundId) {
+    public QueryInnerFundassetpackageorderamountRequest setFundId(String fundId) {
         this.fundId = fundId;
         return this;
     }
@@ -78,7 +86,7 @@ public class DetailInnerFundassetpackageRequest extends TeaModel {
         return this.fundId;
     }
 
-    public DetailInnerFundassetpackageRequest setTenantId(String tenantId) {
+    public QueryInnerFundassetpackageorderamountRequest setTenantId(String tenantId) {
         this.tenantId = tenantId;
         return this;
     }
@@ -86,7 +94,7 @@ public class DetailInnerFundassetpackageRequest extends TeaModel {
         return this.tenantId;
     }
 
-    public DetailInnerFundassetpackageRequest setMerchantId(String merchantId) {
+    public QueryInnerFundassetpackageorderamountRequest setMerchantId(String merchantId) {
         this.merchantId = merchantId;
         return this;
     }
@@ -94,20 +102,12 @@ public class DetailInnerFundassetpackageRequest extends TeaModel {
         return this.merchantId;
     }
 
-    public DetailInnerFundassetpackageRequest setTraceId(String traceId) {
+    public QueryInnerFundassetpackageorderamountRequest setTraceId(String traceId) {
         this.traceId = traceId;
         return this;
     }
     public String getTraceId() {
         return this.traceId;
-    }
-
-    public DetailInnerFundassetpackageRequest setFundTenantId(String fundTenantId) {
-        this.fundTenantId = fundTenantId;
-        return this;
-    }
-    public String getFundTenantId() {
-        return this.fundTenantId;
     }
 
 }

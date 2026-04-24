@@ -3,13 +3,18 @@ package com.antgroup.antchain.openapi.ato.models;
 
 import com.aliyun.tea.*;
 
-public class RetryInnerFundasssetpackagestatusRequest extends TeaModel {
+public class RetryInnerFundassetpackagestatusRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
 
     @NameInMap("product_instance_id")
     public String productInstanceId;
+
+    // 资方租户id
+    @NameInMap("fund_tenant_id")
+    @Validation(required = true)
+    public String fundTenantId;
 
     // 资产包id
     @NameInMap("asset_package_id")
@@ -36,12 +41,12 @@ public class RetryInnerFundasssetpackagestatusRequest extends TeaModel {
     @Validation(required = true)
     public String traceId;
 
-    public static RetryInnerFundasssetpackagestatusRequest build(java.util.Map<String, ?> map) throws Exception {
-        RetryInnerFundasssetpackagestatusRequest self = new RetryInnerFundasssetpackagestatusRequest();
+    public static RetryInnerFundassetpackagestatusRequest build(java.util.Map<String, ?> map) throws Exception {
+        RetryInnerFundassetpackagestatusRequest self = new RetryInnerFundassetpackagestatusRequest();
         return TeaModel.build(map, self);
     }
 
-    public RetryInnerFundasssetpackagestatusRequest setAuthToken(String authToken) {
+    public RetryInnerFundassetpackagestatusRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -49,7 +54,7 @@ public class RetryInnerFundasssetpackagestatusRequest extends TeaModel {
         return this.authToken;
     }
 
-    public RetryInnerFundasssetpackagestatusRequest setProductInstanceId(String productInstanceId) {
+    public RetryInnerFundassetpackagestatusRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -57,7 +62,15 @@ public class RetryInnerFundasssetpackagestatusRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public RetryInnerFundasssetpackagestatusRequest setAssetPackageId(String assetPackageId) {
+    public RetryInnerFundassetpackagestatusRequest setFundTenantId(String fundTenantId) {
+        this.fundTenantId = fundTenantId;
+        return this;
+    }
+    public String getFundTenantId() {
+        return this.fundTenantId;
+    }
+
+    public RetryInnerFundassetpackagestatusRequest setAssetPackageId(String assetPackageId) {
         this.assetPackageId = assetPackageId;
         return this;
     }
@@ -65,7 +78,7 @@ public class RetryInnerFundasssetpackagestatusRequest extends TeaModel {
         return this.assetPackageId;
     }
 
-    public RetryInnerFundasssetpackagestatusRequest setFundId(String fundId) {
+    public RetryInnerFundassetpackagestatusRequest setFundId(String fundId) {
         this.fundId = fundId;
         return this;
     }
@@ -73,7 +86,7 @@ public class RetryInnerFundasssetpackagestatusRequest extends TeaModel {
         return this.fundId;
     }
 
-    public RetryInnerFundasssetpackagestatusRequest setTenantId(String tenantId) {
+    public RetryInnerFundassetpackagestatusRequest setTenantId(String tenantId) {
         this.tenantId = tenantId;
         return this;
     }
@@ -81,7 +94,7 @@ public class RetryInnerFundasssetpackagestatusRequest extends TeaModel {
         return this.tenantId;
     }
 
-    public RetryInnerFundasssetpackagestatusRequest setMerchantId(String merchantId) {
+    public RetryInnerFundassetpackagestatusRequest setMerchantId(String merchantId) {
         this.merchantId = merchantId;
         return this;
     }
@@ -89,7 +102,7 @@ public class RetryInnerFundasssetpackagestatusRequest extends TeaModel {
         return this.merchantId;
     }
 
-    public RetryInnerFundasssetpackagestatusRequest setTraceId(String traceId) {
+    public RetryInnerFundassetpackagestatusRequest setTraceId(String traceId) {
         this.traceId = traceId;
         return this;
     }

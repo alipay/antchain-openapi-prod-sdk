@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.ato.models;
 
 import com.aliyun.tea.*;
 
-public class SubmitInnerFundasssetpackageauditResponse extends TeaModel {
+public class UpdateInnerFundassetpackageallocatedetailResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,12 +16,12 @@ public class SubmitInnerFundasssetpackageauditResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    public static SubmitInnerFundasssetpackageauditResponse build(java.util.Map<String, ?> map) throws Exception {
-        SubmitInnerFundasssetpackageauditResponse self = new SubmitInnerFundasssetpackageauditResponse();
+    public static UpdateInnerFundassetpackageallocatedetailResponse build(java.util.Map<String, ?> map) throws Exception {
+        UpdateInnerFundassetpackageallocatedetailResponse self = new UpdateInnerFundassetpackageallocatedetailResponse();
         return TeaModel.build(map, self);
     }
 
-    public SubmitInnerFundasssetpackageauditResponse setReqMsgId(String reqMsgId) {
+    public UpdateInnerFundassetpackageallocatedetailResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -29,7 +29,7 @@ public class SubmitInnerFundasssetpackageauditResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public SubmitInnerFundasssetpackageauditResponse setResultCode(String resultCode) {
+    public UpdateInnerFundassetpackageallocatedetailResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -37,7 +37,7 @@ public class SubmitInnerFundasssetpackageauditResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public SubmitInnerFundasssetpackageauditResponse setResultMsg(String resultMsg) {
+    public UpdateInnerFundassetpackageallocatedetailResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
