@@ -77,28 +77,93 @@ export class Config extends $tea.Model {
   }
 }
 
-export class QuerySecurityPolicyRequest extends $tea.Model {
+export class QueryScorePolicyRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // l1_domain_code
-  l1DomainCode: string;
-  // l2_domain_code
-  l2DomainCode: string;
-  // 请求流水号
+  // 请求流水号，保证唯一
   requestId: string;
-  // 业务code
+  // 业务编码
   businessCode: string;
-  // expectProductCodes
-  expectProductCodes?: string[];
-  // 参数
-  params?: string;
+  // 产品编码
+  expectProductCode: string;
+  // 请求参数
+  params: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      l1DomainCode: 'l1_domain_code',
-      l2DomainCode: 'l2_domain_code',
+      requestId: 'request_id',
+      businessCode: 'business_code',
+      expectProductCode: 'expect_product_code',
+      params: 'params',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      requestId: 'string',
+      businessCode: 'string',
+      expectProductCode: 'string',
+      params: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryScorePolicyResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 响应结果
+  bizResult?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      bizResult: 'biz_result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      bizResult: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QuerySecurityPolicyRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求流水号
+  requestId: string;
+  // 业务code
+  businessCode: string;
+  // 产品code
+  expectProductCodes: string;
+  // 参数
+  params: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
       requestId: 'request_id',
       businessCode: 'business_code',
       expectProductCodes: 'expect_product_codes',
@@ -110,11 +175,9 @@ export class QuerySecurityPolicyRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      l1DomainCode: 'string',
-      l2DomainCode: 'string',
       requestId: 'string',
       businessCode: 'string',
-      expectProductCodes: { 'type': 'array', 'itemType': 'string' },
+      expectProductCodes: 'string',
       params: 'string',
     };
   }
@@ -269,7 +332,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.0",
+          sdk_version: "1.0.8",
           _prod_code: "INS_RISK",
           _prod_channel: "default",
         };
@@ -315,6 +378,25 @@ export default class Client {
     }
 
     throw $tea.newUnretryableError(_lastRequest);
+  }
+
+  /**
+   * Description: 策略分数查询
+   * Summary: 策略分数查询
+   */
+  async queryScorePolicy(request: QueryScorePolicyRequest): Promise<QueryScorePolicyResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryScorePolicyEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 策略分数查询
+   * Summary: 策略分数查询
+   */
+  async queryScorePolicyEx(request: QueryScorePolicyRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryScorePolicyResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryScorePolicyResponse>(await this.doRequest("1.0", "antdigital.insrisk.score.policy.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryScorePolicyResponse({}));
   }
 
   /**
