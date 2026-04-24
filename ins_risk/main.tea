@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.0',
+    sdk_version = '1.0.8',
     _prod_code = 'INS_RISK',
     _prod_channel = 'default'
   };
@@ -161,22 +161,62 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   ignoreSSL = runtime.ignoreSSL
 }
 
+model QueryScorePolicyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 请求流水号，保证唯一
+  requestId: string(name='request_id'),
+  // 业务编码
+  businessCode: string(name='business_code'),
+  // 产品编码
+  expectProductCode: string(name='expect_product_code'),
+  // 请求参数
+  params: string(name='params'),
+}
+
+model QueryScorePolicyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 响应结果
+  bizResult?: string(name='biz_result'),
+}
+
+/**
+ * Description: 策略分数查询
+ * Summary: 策略分数查询
+ */
+async function queryScorePolicy(request: QueryScorePolicyRequest): QueryScorePolicyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryScorePolicyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 策略分数查询
+ * Summary: 策略分数查询
+ */
+async function queryScorePolicyEx(request: QueryScorePolicyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryScorePolicyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.insrisk.score.policy.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model QuerySecurityPolicyRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // l1_domain_code
-  l1DomainCode: string(name='l1_domain_code'),
-  // l2_domain_code
-  l2DomainCode: string(name='l2_domain_code'),
   // 请求流水号
   requestId: string(name='request_id'),
   // 业务code
   businessCode: string(name='business_code'),
-  // expectProductCodes
-  expectProductCodes?: [ string ](name='expect_product_codes'),
+  // 产品code
+  expectProductCodes: string(name='expect_product_codes'),
   // 参数
-  params?: string(name='params'),
+  params: string(name='params'),
 }
 
 model QuerySecurityPolicyResponse = {
