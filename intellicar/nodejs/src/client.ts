@@ -2983,11 +2983,14 @@ export class CallbackCdsqScratchesRequest extends $tea.Model {
   productInstanceId?: string;
   // 交易流水号
   transactionNo: string;
+  // 场景码
+  sceneCode: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       transactionNo: 'transaction_no',
+      sceneCode: 'scene_code',
     };
   }
 
@@ -2996,6 +2999,7 @@ export class CallbackCdsqScratchesRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       transactionNo: 'string',
+      sceneCode: 'string',
     };
   }
 
@@ -3255,42 +3259,25 @@ export class QueryTagChanganRequest extends $tea.Model {
   productInstanceId?: string;
   // 场景码
   sceneCode: string;
-  // 授权token
-  accessToken: string;
   // 请求唯一ID（UUID生成即可）
   requestId: string;
   // 系统
   os?: string;
-  // 标签库组合：
-  // 1表示基础标签
-  // 2表示行业标签
-  // 3表示基础标签+行业标签
-  // 8表示自定义标签
-  // 9表示基础标签+自定义标签
-  // 10表示行业标签+自定义标签
-  // 11表示基础标签+行业标签+自定义标签
+  // 1表示定制标签查询
+  // 2表示标准标签查询
+  // 3表示全量标签查询
   type: number;
   // 设备信息
   deviceInfoList: DeviceBean;
-  // 基础标签动态参数（对外编码）
-  baseTags?: string[];
-  // 行业标签动态参数（对外编码）
-  industyTags?: string[];
-  // 规则标签动态参数（对外编码）
-  businessTags?: string[];
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       sceneCode: 'scene_code',
-      accessToken: 'access_token',
       requestId: 'request_id',
       os: 'os',
       type: 'type',
       deviceInfoList: 'device_info_list',
-      baseTags: 'base_tags',
-      industyTags: 'industy_tags',
-      businessTags: 'business_tags',
     };
   }
 
@@ -3299,14 +3286,10 @@ export class QueryTagChanganRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       sceneCode: 'string',
-      accessToken: 'string',
       requestId: 'string',
       os: 'string',
       type: 'number',
       deviceInfoList: DeviceBean,
-      baseTags: { 'type': 'array', 'itemType': 'string' },
-      industyTags: { 'type': 'array', 'itemType': 'string' },
-      businessTags: { 'type': 'array', 'itemType': 'string' },
     };
   }
 
@@ -3718,6 +3701,249 @@ export class SyncUsedcarResponse extends $tea.Model {
   }
 }
 
+export class RegisterCdsqTireinsuranceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 平台名称
+  partnerCode: string;
+  // 交易流水号
+  transactionNo: string;
+  // 用户ID
+  userid?: string;
+  // 方案名称
+  // 代步车+置换、轮
+  // 胎险+置换、代步
+  // 车、四轮轮胎险、
+  // 置换、二轮轮胎险
+  schemeName: string;
+  // 购买时间
+  buytime?: string;
+  // 场景码
+  sceneCode: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      partnerCode: 'partner_code',
+      transactionNo: 'transaction_no',
+      userid: 'userid',
+      schemeName: 'scheme_name',
+      buytime: 'buytime',
+      sceneCode: 'scene_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      partnerCode: 'string',
+      transactionNo: 'string',
+      userid: 'string',
+      schemeName: 'string',
+      buytime: 'string',
+      sceneCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RegisterCdsqTireinsuranceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 结果码
+  responseCode?: string;
+  // 错误信息
+  responseMsg?: string;
+  // 保单服务号
+  policyNo?: string;
+  // 保险起期，格式：yyyy-MM-dd HH:mm:ss
+  policyStart?: string;
+  // 保险止期，格式：yyyy-MM-dd HH:mm:ss
+  policyEnd?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      responseCode: 'response_code',
+      responseMsg: 'response_msg',
+      policyNo: 'policy_no',
+      policyStart: 'policy_start',
+      policyEnd: 'policy_end',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      responseCode: 'string',
+      responseMsg: 'string',
+      policyNo: 'string',
+      policyStart: 'string',
+      policyEnd: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CallbackCdsqTireinsuranceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 交易流水号
+  transactionNo: string;
+  // 场景码
+  sceneCode: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      transactionNo: 'transaction_no',
+      sceneCode: 'scene_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      transactionNo: 'string',
+      sceneCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CallbackCdsqTireinsuranceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 结果码
+  responseCode?: string;
+  // 错误信息
+  responseMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      responseCode: 'response_code',
+      responseMsg: 'response_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      responseCode: 'string',
+      responseMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryCdsqTireinsuranceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 平台名称
+  partnerCode: string;
+  // 交易流水号
+  transactionNo: string;
+  // 场景码
+  sceneCode: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      partnerCode: 'partner_code',
+      transactionNo: 'transaction_no',
+      sceneCode: 'scene_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      partnerCode: 'string',
+      transactionNo: 'string',
+      sceneCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryCdsqTireinsuranceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 结果码
+  responseCode?: string;
+  // 错误信息
+  responseMsg?: string;
+  // 保单状态
+  // 1：投保
+  // 2：退保
+  status?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      responseCode: 'response_code',
+      responseMsg: 'response_msg',
+      status: 'status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      responseCode: 'string',
+      responseMsg: 'string',
+      status: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -3919,7 +4145,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.34",
+          sdk_version: "1.0.36",
           _prod_code: "INTELLICAR",
           _prod_channel: "default",
         };
@@ -4500,6 +4726,63 @@ export default class Client {
   async syncUsedcarEx(request: SyncUsedcarRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SyncUsedcarResponse> {
     Util.validateModel(request);
     return $tea.cast<SyncUsedcarResponse>(await this.doRequest("1.0", "antdigital.intellicar.usedcar.sync", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SyncUsedcarResponse({}));
+  }
+
+  /**
+   * Description: 轮胎投保接口
+   * Summary: 轮胎投保接口
+   */
+  async registerCdsqTireinsurance(request: RegisterCdsqTireinsuranceRequest): Promise<RegisterCdsqTireinsuranceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.registerCdsqTireinsuranceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 轮胎投保接口
+   * Summary: 轮胎投保接口
+   */
+  async registerCdsqTireinsuranceEx(request: RegisterCdsqTireinsuranceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RegisterCdsqTireinsuranceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<RegisterCdsqTireinsuranceResponse>(await this.doRequest("1.0", "antdigital.intellicar.cdsq.tireinsurance.register", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RegisterCdsqTireinsuranceResponse({}));
+  }
+
+  /**
+   * Description: 轮胎回调接口
+   * Summary: 轮胎回调接口
+   */
+  async callbackCdsqTireinsurance(request: CallbackCdsqTireinsuranceRequest): Promise<CallbackCdsqTireinsuranceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.callbackCdsqTireinsuranceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 轮胎回调接口
+   * Summary: 轮胎回调接口
+   */
+  async callbackCdsqTireinsuranceEx(request: CallbackCdsqTireinsuranceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CallbackCdsqTireinsuranceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CallbackCdsqTireinsuranceResponse>(await this.doRequest("1.0", "antdigital.intellicar.cdsq.tireinsurance.callback", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CallbackCdsqTireinsuranceResponse({}));
+  }
+
+  /**
+   * Description: 轮胎权益接口查询状态
+   * Summary: 轮胎权益接口查询状态
+   */
+  async queryCdsqTireinsurance(request: QueryCdsqTireinsuranceRequest): Promise<QueryCdsqTireinsuranceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryCdsqTireinsuranceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 轮胎权益接口查询状态
+   * Summary: 轮胎权益接口查询状态
+   */
+  async queryCdsqTireinsuranceEx(request: QueryCdsqTireinsuranceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryCdsqTireinsuranceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryCdsqTireinsuranceResponse>(await this.doRequest("1.0", "antdigital.intellicar.cdsq.tireinsurance.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryCdsqTireinsuranceResponse({}));
   }
 
   /**
