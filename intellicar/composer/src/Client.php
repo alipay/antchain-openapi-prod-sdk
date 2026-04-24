@@ -15,6 +15,8 @@ use AntChain\INTELLICAR\Models\BatchcreateNewcarRequest;
 use AntChain\INTELLICAR\Models\BatchcreateNewcarResponse;
 use AntChain\INTELLICAR\Models\CallbackCdsqScratchesRequest;
 use AntChain\INTELLICAR\Models\CallbackCdsqScratchesResponse;
+use AntChain\INTELLICAR\Models\CallbackCdsqTireinsuranceRequest;
+use AntChain\INTELLICAR\Models\CallbackCdsqTireinsuranceResponse;
 use AntChain\INTELLICAR\Models\CreateAntcloudGatewayxFileUploadRequest;
 use AntChain\INTELLICAR\Models\CreateAntcloudGatewayxFileUploadResponse;
 use AntChain\INTELLICAR\Models\DeleteCdsqScratchesRequest;
@@ -31,6 +33,8 @@ use AntChain\INTELLICAR\Models\QueryCarVinRequest;
 use AntChain\INTELLICAR\Models\QueryCarVinResponse;
 use AntChain\INTELLICAR\Models\QueryCdsqScratchesRequest;
 use AntChain\INTELLICAR\Models\QueryCdsqScratchesResponse;
+use AntChain\INTELLICAR\Models\QueryCdsqTireinsuranceRequest;
+use AntChain\INTELLICAR\Models\QueryCdsqTireinsuranceResponse;
 use AntChain\INTELLICAR\Models\QueryGdFlowRequest;
 use AntChain\INTELLICAR\Models\QueryGdFlowResponse;
 use AntChain\INTELLICAR\Models\QueryGdPoentialRequest;
@@ -57,6 +61,8 @@ use AntChain\INTELLICAR\Models\RegisterCarownerRequest;
 use AntChain\INTELLICAR\Models\RegisterCarownerResponse;
 use AntChain\INTELLICAR\Models\RegisterCdsqScratchesRequest;
 use AntChain\INTELLICAR\Models\RegisterCdsqScratchesResponse;
+use AntChain\INTELLICAR\Models\RegisterCdsqTireinsuranceRequest;
+use AntChain\INTELLICAR\Models\RegisterCdsqTireinsuranceResponse;
 use AntChain\INTELLICAR\Models\RegisterTagChanganRequest;
 use AntChain\INTELLICAR\Models\RegisterTagChanganResponse;
 use AntChain\INTELLICAR\Models\SaveCdsqScratchesRequest;
@@ -214,7 +220,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.34',
+                    'sdk_version'      => '1.0.36',
                     '_prod_code'       => 'INTELLICAR',
                     '_prod_channel'    => 'default',
                 ];
@@ -1170,6 +1176,105 @@ class Client
         Utils::validateModel($request);
 
         return SyncUsedcarResponse::fromMap($this->doRequest('1.0', 'antdigital.intellicar.usedcar.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 轮胎投保接口
+     * Summary: 轮胎投保接口.
+     *
+     * @param RegisterCdsqTireinsuranceRequest $request
+     *
+     * @return RegisterCdsqTireinsuranceResponse
+     */
+    public function registerCdsqTireinsurance($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->registerCdsqTireinsuranceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 轮胎投保接口
+     * Summary: 轮胎投保接口.
+     *
+     * @param RegisterCdsqTireinsuranceRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return RegisterCdsqTireinsuranceResponse
+     */
+    public function registerCdsqTireinsuranceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RegisterCdsqTireinsuranceResponse::fromMap($this->doRequest('1.0', 'antdigital.intellicar.cdsq.tireinsurance.register', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 轮胎回调接口
+     * Summary: 轮胎回调接口.
+     *
+     * @param CallbackCdsqTireinsuranceRequest $request
+     *
+     * @return CallbackCdsqTireinsuranceResponse
+     */
+    public function callbackCdsqTireinsurance($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->callbackCdsqTireinsuranceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 轮胎回调接口
+     * Summary: 轮胎回调接口.
+     *
+     * @param CallbackCdsqTireinsuranceRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return CallbackCdsqTireinsuranceResponse
+     */
+    public function callbackCdsqTireinsuranceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CallbackCdsqTireinsuranceResponse::fromMap($this->doRequest('1.0', 'antdigital.intellicar.cdsq.tireinsurance.callback', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 轮胎权益接口查询状态
+     * Summary: 轮胎权益接口查询状态
+     *
+     * @param QueryCdsqTireinsuranceRequest $request
+     *
+     * @return QueryCdsqTireinsuranceResponse
+     */
+    public function queryCdsqTireinsurance($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryCdsqTireinsuranceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 轮胎权益接口查询状态
+     * Summary: 轮胎权益接口查询状态
+     *
+     * @param QueryCdsqTireinsuranceRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return QueryCdsqTireinsuranceResponse
+     */
+    public function queryCdsqTireinsuranceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryCdsqTireinsuranceResponse::fromMap($this->doRequest('1.0', 'antdigital.intellicar.cdsq.tireinsurance.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

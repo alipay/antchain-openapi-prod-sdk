@@ -6,7 +6,7 @@ namespace AntChain\INTELLICAR\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CallbackCdsqScratchesRequest extends Model
+class CallbackCdsqTireinsuranceRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -65,7 +65,7 @@ class CallbackCdsqScratchesRequest extends Model
     /**
      * @param array $map
      *
-     * @return CallbackCdsqScratchesRequest
+     * @return CallbackCdsqTireinsuranceRequest
      */
     public static function fromMap($map = [])
     {

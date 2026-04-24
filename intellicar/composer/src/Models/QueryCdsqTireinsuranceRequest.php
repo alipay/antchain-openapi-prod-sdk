@@ -6,7 +6,7 @@ namespace AntChain\INTELLICAR\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CallbackCdsqScratchesRequest extends Model
+class QueryCdsqTireinsuranceRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -18,6 +18,12 @@ class CallbackCdsqScratchesRequest extends Model
      * @var string
      */
     public $productInstanceId;
+
+    // 平台名称
+    /**
+     * @var string
+     */
+    public $partnerCode;
 
     // 交易流水号
     /**
@@ -33,12 +39,14 @@ class CallbackCdsqScratchesRequest extends Model
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
+        'partnerCode'       => 'partner_code',
         'transactionNo'     => 'transaction_no',
         'sceneCode'         => 'scene_code',
     ];
 
     public function validate()
     {
+        Model::validateRequired('partnerCode', $this->partnerCode, true);
         Model::validateRequired('transactionNo', $this->transactionNo, true);
         Model::validateRequired('sceneCode', $this->sceneCode, true);
     }
@@ -51,6 +59,9 @@ class CallbackCdsqScratchesRequest extends Model
         }
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->partnerCode) {
+            $res['partner_code'] = $this->partnerCode;
         }
         if (null !== $this->transactionNo) {
             $res['transaction_no'] = $this->transactionNo;
@@ -65,7 +76,7 @@ class CallbackCdsqScratchesRequest extends Model
     /**
      * @param array $map
      *
-     * @return CallbackCdsqScratchesRequest
+     * @return QueryCdsqTireinsuranceRequest
      */
     public static function fromMap($map = [])
     {
@@ -75,6 +86,9 @@ class CallbackCdsqScratchesRequest extends Model
         }
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
+        }
+        if (isset($map['partner_code'])) {
+            $model->partnerCode = $map['partner_code'];
         }
         if (isset($map['transaction_no'])) {
             $model->transactionNo = $map['transaction_no'];

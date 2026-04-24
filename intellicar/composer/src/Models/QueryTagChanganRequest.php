@@ -25,12 +25,6 @@ class QueryTagChanganRequest extends Model
      */
     public $sceneCode;
 
-    // 授权token
-    /**
-     * @var string
-     */
-    public $accessToken;
-
     // 请求唯一ID（UUID生成即可）
     /**
      * @var string
@@ -43,14 +37,9 @@ class QueryTagChanganRequest extends Model
      */
     public $os;
 
-    // 标签库组合：
-    // 1表示基础标签
-    // 2表示行业标签
-    // 3表示基础标签+行业标签
-    // 8表示自定义标签
-    // 9表示基础标签+自定义标签
-    // 10表示行业标签+自定义标签
-    // 11表示基础标签+行业标签+自定义标签
+    // 1表示定制标签查询
+    // 2表示标准标签查询
+    // 3表示全量标签查询
     /**
      * @var int
      */
@@ -61,42 +50,19 @@ class QueryTagChanganRequest extends Model
      * @var DeviceBean
      */
     public $deviceInfoList;
-
-    // 基础标签动态参数（对外编码）
-    /**
-     * @var string[]
-     */
-    public $baseTags;
-
-    // 行业标签动态参数（对外编码）
-    /**
-     * @var string[]
-     */
-    public $industyTags;
-
-    // 规则标签动态参数（对外编码）
-    /**
-     * @var string[]
-     */
-    public $businessTags;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'sceneCode'         => 'scene_code',
-        'accessToken'       => 'access_token',
         'requestId'         => 'request_id',
         'os'                => 'os',
         'type'              => 'type',
         'deviceInfoList'    => 'device_info_list',
-        'baseTags'          => 'base_tags',
-        'industyTags'       => 'industy_tags',
-        'businessTags'      => 'business_tags',
     ];
 
     public function validate()
     {
         Model::validateRequired('sceneCode', $this->sceneCode, true);
-        Model::validateRequired('accessToken', $this->accessToken, true);
         Model::validateRequired('requestId', $this->requestId, true);
         Model::validateRequired('type', $this->type, true);
         Model::validateRequired('deviceInfoList', $this->deviceInfoList, true);
@@ -114,9 +80,6 @@ class QueryTagChanganRequest extends Model
         if (null !== $this->sceneCode) {
             $res['scene_code'] = $this->sceneCode;
         }
-        if (null !== $this->accessToken) {
-            $res['access_token'] = $this->accessToken;
-        }
         if (null !== $this->requestId) {
             $res['request_id'] = $this->requestId;
         }
@@ -128,15 +91,6 @@ class QueryTagChanganRequest extends Model
         }
         if (null !== $this->deviceInfoList) {
             $res['device_info_list'] = null !== $this->deviceInfoList ? $this->deviceInfoList->toMap() : null;
-        }
-        if (null !== $this->baseTags) {
-            $res['base_tags'] = $this->baseTags;
-        }
-        if (null !== $this->industyTags) {
-            $res['industy_tags'] = $this->industyTags;
-        }
-        if (null !== $this->businessTags) {
-            $res['business_tags'] = $this->businessTags;
         }
 
         return $res;
@@ -159,9 +113,6 @@ class QueryTagChanganRequest extends Model
         if (isset($map['scene_code'])) {
             $model->sceneCode = $map['scene_code'];
         }
-        if (isset($map['access_token'])) {
-            $model->accessToken = $map['access_token'];
-        }
         if (isset($map['request_id'])) {
             $model->requestId = $map['request_id'];
         }
@@ -173,21 +124,6 @@ class QueryTagChanganRequest extends Model
         }
         if (isset($map['device_info_list'])) {
             $model->deviceInfoList = DeviceBean::fromMap($map['device_info_list']);
-        }
-        if (isset($map['base_tags'])) {
-            if (!empty($map['base_tags'])) {
-                $model->baseTags = $map['base_tags'];
-            }
-        }
-        if (isset($map['industy_tags'])) {
-            if (!empty($map['industy_tags'])) {
-                $model->industyTags = $map['industy_tags'];
-            }
-        }
-        if (isset($map['business_tags'])) {
-            if (!empty($map['business_tags'])) {
-                $model->businessTags = $map['business_tags'];
-            }
         }
 
         return $model;
