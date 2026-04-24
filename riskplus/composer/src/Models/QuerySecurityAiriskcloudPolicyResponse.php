@@ -85,6 +85,12 @@ class QuerySecurityAiriskcloudPolicyResponse extends Model
      * @var AirInfoCodes[]
      */
     public $infoCodes;
+
+    // 策略输出参数
+    /**
+     * @var OutParam[]
+     */
+    public $outParams;
     protected $_name = [
         'reqMsgId'        => 'req_msg_id',
         'resultCode'      => 'result_code',
@@ -99,6 +105,7 @@ class QuerySecurityAiriskcloudPolicyResponse extends Model
         'strategyDetails' => 'strategy_details',
         'sceneInfos'      => 'scene_infos',
         'infoCodes'       => 'info_codes',
+        'outParams'       => 'out_params',
     ];
 
     public function validate()
@@ -174,6 +181,15 @@ class QuerySecurityAiriskcloudPolicyResponse extends Model
                 $n = 0;
                 foreach ($this->infoCodes as $item) {
                     $res['info_codes'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
+        }
+        if (null !== $this->outParams) {
+            $res['out_params'] = [];
+            if (null !== $this->outParams && \is_array($this->outParams)) {
+                $n = 0;
+                foreach ($this->outParams as $item) {
+                    $res['out_params'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
         }
@@ -255,6 +271,15 @@ class QuerySecurityAiriskcloudPolicyResponse extends Model
                 $n                = 0;
                 foreach ($map['info_codes'] as $item) {
                     $model->infoCodes[$n++] = null !== $item ? AirInfoCodes::fromMap($item) : $item;
+                }
+            }
+        }
+        if (isset($map['out_params'])) {
+            if (!empty($map['out_params'])) {
+                $model->outParams = [];
+                $n                = 0;
+                foreach ($map['out_params'] as $item) {
+                    $model->outParams[$n++] = null !== $item ? OutParam::fromMap($item) : $item;
                 }
             }
         }

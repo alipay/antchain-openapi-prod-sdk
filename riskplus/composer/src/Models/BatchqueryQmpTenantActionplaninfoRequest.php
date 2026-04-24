@@ -36,12 +36,19 @@ class BatchqueryQmpTenantActionplaninfoRequest extends Model
      * @var int
      */
     public $pageSize;
+
+    // 分流字段，行业标签区分哈啰流量归属于umkt或qmp
+    /**
+     * @var string
+     */
+    public $industryTag;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'contentType'       => 'content_type',
         'pageNum'           => 'page_num',
         'pageSize'          => 'page_size',
+        'industryTag'       => 'industry_tag',
     ];
 
     public function validate()
@@ -69,6 +76,9 @@ class BatchqueryQmpTenantActionplaninfoRequest extends Model
         if (null !== $this->pageSize) {
             $res['page_size'] = $this->pageSize;
         }
+        if (null !== $this->industryTag) {
+            $res['industry_tag'] = $this->industryTag;
+        }
 
         return $res;
     }
@@ -95,6 +105,9 @@ class BatchqueryQmpTenantActionplaninfoRequest extends Model
         }
         if (isset($map['page_size'])) {
             $model->pageSize = $map['page_size'];
+        }
+        if (isset($map['industry_tag'])) {
+            $model->industryTag = $map['industry_tag'];
         }
 
         return $model;

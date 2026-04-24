@@ -43,6 +43,12 @@ class QueryDubbridgeRouterUserselectRequest extends Model
      */
     public $customName;
 
+    // 机构编码
+    /**
+     * @var string
+     */
+    public $platformNo;
+
     // 扩展信息JSON
     /**
      * @var string
@@ -55,6 +61,7 @@ class QueryDubbridgeRouterUserselectRequest extends Model
         'cardNo'            => 'card_no',
         'mobile'            => 'mobile',
         'customName'        => 'custom_name',
+        'platformNo'        => 'platform_no',
         'extInfo'           => 'ext_info',
     ];
 
@@ -84,6 +91,9 @@ class QueryDubbridgeRouterUserselectRequest extends Model
         }
         if (null !== $this->customName) {
             $res['custom_name'] = $this->customName;
+        }
+        if (null !== $this->platformNo) {
+            $res['platform_no'] = $this->platformNo;
         }
         if (null !== $this->extInfo) {
             $res['ext_info'] = $this->extInfo;
@@ -117,6 +127,9 @@ class QueryDubbridgeRouterUserselectRequest extends Model
         }
         if (isset($map['custom_name'])) {
             $model->customName = $map['custom_name'];
+        }
+        if (isset($map['platform_no'])) {
+            $model->platformNo = $map['platform_no'];
         }
         if (isset($map['ext_info'])) {
             $model->extInfo = $map['ext_info'];

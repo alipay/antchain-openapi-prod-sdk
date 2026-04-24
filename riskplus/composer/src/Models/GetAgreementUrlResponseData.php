@@ -40,6 +40,14 @@ class GetAgreementUrlResponseData extends Model
      */
     public $picFileBase64List;
 
+    // 图片文件oss集合
+    /**
+     * @example
+     *
+     * @var string[]
+     */
+    public $picOssPathList;
+
     // 机构名称
     /**
      * @example 杭银
@@ -68,6 +76,7 @@ class GetAgreementUrlResponseData extends Model
         'agreementUrl'      => 'agreement_url',
         'fileBase64'        => 'file_base64',
         'picFileBase64List' => 'pic_file_base64_list',
+        'picOssPathList'    => 'pic_oss_path_list',
         'organizationName'  => 'organization_name',
         'fileType'          => 'file_type',
         'fileTypeName'      => 'file_type_name',
@@ -95,6 +104,9 @@ class GetAgreementUrlResponseData extends Model
         }
         if (null !== $this->picFileBase64List) {
             $res['pic_file_base64_list'] = $this->picFileBase64List;
+        }
+        if (null !== $this->picOssPathList) {
+            $res['pic_oss_path_list'] = $this->picOssPathList;
         }
         if (null !== $this->organizationName) {
             $res['organization_name'] = $this->organizationName;
@@ -129,6 +141,11 @@ class GetAgreementUrlResponseData extends Model
         if (isset($map['pic_file_base64_list'])) {
             if (!empty($map['pic_file_base64_list'])) {
                 $model->picFileBase64List = $map['pic_file_base64_list'];
+            }
+        }
+        if (isset($map['pic_oss_path_list'])) {
+            if (!empty($map['pic_oss_path_list'])) {
+                $model->picOssPathList = $map['pic_oss_path_list'];
             }
         }
         if (isset($map['organization_name'])) {

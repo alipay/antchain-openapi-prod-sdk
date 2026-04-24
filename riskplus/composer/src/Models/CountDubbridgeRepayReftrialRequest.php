@@ -66,17 +66,31 @@ class CountDubbridgeRepayReftrialRequest extends Model
      * @var string
      */
     public $couponId;
+
+    // 贴息比例
+    /**
+     * @var string
+     */
+    public $interestSubsidyRatio;
+
+    // 参考定价
+    /**
+     * @var string
+     */
+    public $referenceRatio;
     protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'orderNo'           => 'order_no',
-        'originalOrderNo'   => 'original_order_no',
-        'prodNo'            => 'prod_no',
-        'applyAmount'       => 'apply_amount',
-        'applyPeriod'       => 'apply_period',
-        'repayType'         => 'repay_type',
-        'repayDate'         => 'repay_date',
-        'couponId'          => 'coupon_id',
+        'authToken'            => 'auth_token',
+        'productInstanceId'    => 'product_instance_id',
+        'orderNo'              => 'order_no',
+        'originalOrderNo'      => 'original_order_no',
+        'prodNo'               => 'prod_no',
+        'applyAmount'          => 'apply_amount',
+        'applyPeriod'          => 'apply_period',
+        'repayType'            => 'repay_type',
+        'repayDate'            => 'repay_date',
+        'couponId'             => 'coupon_id',
+        'interestSubsidyRatio' => 'interest_subsidy_ratio',
+        'referenceRatio'       => 'reference_ratio',
     ];
 
     public function validate()
@@ -121,6 +135,12 @@ class CountDubbridgeRepayReftrialRequest extends Model
         if (null !== $this->couponId) {
             $res['coupon_id'] = $this->couponId;
         }
+        if (null !== $this->interestSubsidyRatio) {
+            $res['interest_subsidy_ratio'] = $this->interestSubsidyRatio;
+        }
+        if (null !== $this->referenceRatio) {
+            $res['reference_ratio'] = $this->referenceRatio;
+        }
 
         return $res;
     }
@@ -162,6 +182,12 @@ class CountDubbridgeRepayReftrialRequest extends Model
         }
         if (isset($map['coupon_id'])) {
             $model->couponId = $map['coupon_id'];
+        }
+        if (isset($map['interest_subsidy_ratio'])) {
+            $model->interestSubsidyRatio = $map['interest_subsidy_ratio'];
+        }
+        if (isset($map['reference_ratio'])) {
+            $model->referenceRatio = $map['reference_ratio'];
         }
 
         return $model;

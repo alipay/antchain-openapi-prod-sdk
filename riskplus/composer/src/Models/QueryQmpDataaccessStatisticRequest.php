@@ -24,10 +24,17 @@ class QueryQmpDataaccessStatisticRequest extends Model
      * @var int
      */
     public $taskId;
+
+    // 分流字段，行业标签区分哈啰流量归属于umkt或qmp
+    /**
+     * @var string
+     */
+    public $industryTag;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'taskId'            => 'task_id',
+        'industryTag'       => 'industry_tag',
     ];
 
     public function validate()
@@ -46,6 +53,9 @@ class QueryQmpDataaccessStatisticRequest extends Model
         }
         if (null !== $this->taskId) {
             $res['task_id'] = $this->taskId;
+        }
+        if (null !== $this->industryTag) {
+            $res['industry_tag'] = $this->industryTag;
         }
 
         return $res;
@@ -67,6 +77,9 @@ class QueryQmpDataaccessStatisticRequest extends Model
         }
         if (isset($map['task_id'])) {
             $model->taskId = $map['task_id'];
+        }
+        if (isset($map['industry_tag'])) {
+            $model->industryTag = $map['industry_tag'];
         }
 
         return $model;

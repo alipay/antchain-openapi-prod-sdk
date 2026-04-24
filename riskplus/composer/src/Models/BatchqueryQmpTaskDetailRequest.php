@@ -54,6 +54,12 @@ class BatchqueryQmpTaskDetailRequest extends Model
      * @var string
      */
     public $endCallDate;
+
+    // 分流字段，行业标签区分哈啰流量归属于umkt或qmp
+    /**
+     * @var string
+     */
+    public $industryTag;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -63,6 +69,7 @@ class BatchqueryQmpTaskDetailRequest extends Model
         'sceneStrategyId'   => 'scene_strategy_id',
         'callDate'          => 'call_date',
         'endCallDate'       => 'end_call_date',
+        'industryTag'       => 'industry_tag',
     ];
 
     public function validate()
@@ -99,6 +106,9 @@ class BatchqueryQmpTaskDetailRequest extends Model
         }
         if (null !== $this->endCallDate) {
             $res['end_call_date'] = $this->endCallDate;
+        }
+        if (null !== $this->industryTag) {
+            $res['industry_tag'] = $this->industryTag;
         }
 
         return $res;
@@ -137,6 +147,9 @@ class BatchqueryQmpTaskDetailRequest extends Model
         }
         if (isset($map['end_call_date'])) {
             $model->endCallDate = $map['end_call_date'];
+        }
+        if (isset($map['industry_tag'])) {
+            $model->industryTag = $map['industry_tag'];
         }
 
         return $model;

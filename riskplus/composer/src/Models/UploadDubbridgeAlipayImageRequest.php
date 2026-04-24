@@ -52,13 +52,13 @@ class UploadDubbridgeAlipayImageRequest extends Model
      */
     public $imageCategory;
 
-    // 文件base64字符串，最大10M；（建议）
+    // 文件base64字符串，最大10M
     /**
      * @var string
      */
     public $imageContent;
 
-    // 图片文件路径
+    // 图片文件路径，（建议），http、https为前缀
     /**
      * @var string
      */

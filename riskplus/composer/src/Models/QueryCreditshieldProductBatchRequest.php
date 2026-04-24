@@ -43,7 +43,6 @@ class QueryCreditshieldProductBatchRequest extends Model
     public function validate()
     {
         Model::validateRequired('queryCode', $this->queryCode, true);
-        Model::validateRequired('queryInfos', $this->queryInfos, true);
     }
 
     public function toMap()

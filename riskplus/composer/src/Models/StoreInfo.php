@@ -288,7 +288,7 @@ class StoreInfo extends Model
      */
     public $loginDate;
 
-    // 结算支付宝账户，交易资金结算的具体支付宝账号，商户入驻时需填写
+    // 结算支付宝账户，交易资金结算的具体支付宝账号，商户入驻时必填
     /**
      * @example xxxx@126.com
      *
@@ -296,7 +296,7 @@ class StoreInfo extends Model
      */
     public $alipayLogonId;
 
-    // 支付宝openId，商户入驻时（非必填）
+    // 支付宝openId
     /**
      * @example xxxx
      *
@@ -304,7 +304,7 @@ class StoreInfo extends Model
      */
     public $infoSourceOpenId;
 
-    // 签约支付宝账户，商户入驻时（非必填）
+    // 签约支付宝账户，商户入驻时必填（接收支付宝下发的签约协议）
     /**
      * @example xxx
      *

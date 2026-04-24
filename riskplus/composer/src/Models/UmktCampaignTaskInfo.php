@@ -44,7 +44,7 @@ class UmktCampaignTaskInfo extends Model
     /**
      * @example [{"nodeId":"35d2171b68fd472c8f4cc5c293985d37","execDate":"","nodeTaskStatus":"F","relTaskList":[{"resourceId":"1007", "taskStatus":"F","errMsg":"上游节点执行失败"}]}
      *
-     * @var UmktCampaignNodeTaskInfo
+     * @var UmktCampaignNodeTaskInfo[]
      */
     public $nodeTaskList;
     protected $_name = [
@@ -80,7 +80,13 @@ class UmktCampaignTaskInfo extends Model
             $res['campaign_task_status'] = $this->campaignTaskStatus;
         }
         if (null !== $this->nodeTaskList) {
-            $res['node_task_list'] = null !== $this->nodeTaskList ? $this->nodeTaskList->toMap() : null;
+            $res['node_task_list'] = [];
+            if (null !== $this->nodeTaskList && \is_array($this->nodeTaskList)) {
+                $n = 0;
+                foreach ($this->nodeTaskList as $item) {
+                    $res['node_task_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -107,7 +113,13 @@ class UmktCampaignTaskInfo extends Model
             $model->campaignTaskStatus = $map['campaign_task_status'];
         }
         if (isset($map['node_task_list'])) {
-            $model->nodeTaskList = UmktCampaignNodeTaskInfo::fromMap($map['node_task_list']);
+            if (!empty($map['node_task_list'])) {
+                $model->nodeTaskList = [];
+                $n                   = 0;
+                foreach ($map['node_task_list'] as $item) {
+                    $model->nodeTaskList[$n++] = null !== $item ? UmktCampaignNodeTaskInfo::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;
