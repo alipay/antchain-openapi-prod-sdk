@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.ATO.Models
 {
-    public class PagequeryInnerFundassetpackageResponse : TeaModel {
+    public class QueryInnerFundassetpackagepromiseplanResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,15 +24,10 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 资产包列表，json格式，数据结构详见代码中的模型
-        [NameInMap("data")]
+        // 数据
+        [NameInMap("promise_plan_list")]
         [Validation(Required=false)]
-        public string Data { get; set; }
-
-        // 总数量
-        [NameInMap("total")]
-        [Validation(Required=false)]
-        public long? Total { get; set; }
+        public List<AssetPackagePromisePlan> PromisePlanList { get; set; }
 
     }
 

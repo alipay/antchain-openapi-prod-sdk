@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.ATO.Models
 {
-    public class DetailInnerFundassetpackageRequest : TeaModel {
+    public class DetailInnerFundassetpackageorderRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,10 +18,20 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
+        // 资方租户id
+        [NameInMap("fund_tenant_id")]
+        [Validation(Required=true)]
+        public string FundTenantId { get; set; }
+
         // 资产包id
         [NameInMap("asset_package_id")]
         [Validation(Required=true)]
         public string AssetPackageId { get; set; }
+
+        // 订单id
+        [NameInMap("order_id")]
+        [Validation(Required=true)]
+        public string OrderId { get; set; }
 
         // 资方社会统一信用代码
         [NameInMap("fund_id")]
@@ -38,15 +48,10 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=true)]
         public string MerchantId { get; set; }
 
-        // trace_id
+        // traceId
         [NameInMap("trace_id")]
         [Validation(Required=true)]
         public string TraceId { get; set; }
-
-        // 资方租户id
-        [NameInMap("fund_tenant_id")]
-        [Validation(Required=true)]
-        public string FundTenantId { get; set; }
 
     }
 

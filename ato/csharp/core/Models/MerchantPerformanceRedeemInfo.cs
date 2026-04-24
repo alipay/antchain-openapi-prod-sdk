@@ -27,6 +27,11 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public MerchantPerformanceRedeemResultInfo MerchantPerformanceRedeemResultInfo { get; set; }
 
+        // 可选回购方式列表
+        [NameInMap("support_redeem_way_list")]
+        [Validation(Required=false)]
+        public List<string> SupportRedeemWayList { get; set; }
+
     }
 
 }

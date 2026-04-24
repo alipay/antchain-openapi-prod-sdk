@@ -53,6 +53,11 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=true, MaxLength=199)]
         public string MerchantName { get; set; }
 
+        // verification_token
+        [NameInMap("verification_token")]
+        [Validation(Required=false)]
+        public string VerificationToken { get; set; }
+
     }
 
 }

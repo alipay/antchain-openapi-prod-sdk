@@ -18,6 +18,13 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
+        // 生成方式，
+        // AI：智能体；
+        // MANUL：人工
+        [NameInMap("generate_method")]
+        [Validation(Required=true)]
+        public string GenerateMethod { get; set; }
+
         // 资产包id
         [NameInMap("asset_package_id")]
         [Validation(Required=true)]
@@ -38,12 +45,10 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=true)]
         public string MerchantId { get; set; }
 
-        // 生成方式，
-        // AI：智能体；
-        // MANUL：人工
-        [NameInMap("generate_method")]
+        // 资方租户id
+        [NameInMap("fund_tenant_id")]
         [Validation(Required=true)]
-        public string GenerateMethod { get; set; }
+        public string FundTenantId { get; set; }
 
         // traceId
         [NameInMap("trace_id")]

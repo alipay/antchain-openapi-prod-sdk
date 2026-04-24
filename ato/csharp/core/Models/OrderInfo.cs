@@ -112,6 +112,16 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string PayChannel { get; set; }
 
+        // 是否允许拒绝放款
+        [NameInMap("is_allow_reject_loan")]
+        [Validation(Required=false)]
+        public bool? IsAllowRejectLoan { get; set; }
+
+        // 是否新融资模式订单
+        [NameInMap("is_new_f")]
+        [Validation(Required=false)]
+        public bool? IsNewF { get; set; }
+
     }
 
 }

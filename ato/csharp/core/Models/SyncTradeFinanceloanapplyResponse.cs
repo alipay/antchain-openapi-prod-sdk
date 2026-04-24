@@ -34,6 +34,11 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string MerchantId { get; set; }
 
+        // 非法的订单列表
+        [NameInMap("illegal_order_id_list")]
+        [Validation(Required=false)]
+        public List<string> IllegalOrderIdList { get; set; }
+
     }
 
 }

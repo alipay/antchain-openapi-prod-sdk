@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.ATO.Models
 {
-    public class SubmitInnerFundasssetpackageauditRequest : TeaModel {
+    public class QueryInnerFundassetpackageallocatedetailRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,17 +18,15 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
+        // 资方租户id
+        [NameInMap("fund_tenant_id")]
+        [Validation(Required=true)]
+        public string FundTenantId { get; set; }
+
         // 资产包id
         [NameInMap("asset_package_id")]
         [Validation(Required=true)]
         public string AssetPackageId { get; set; }
-
-        // AGREE 同意
-        // SUPPLEMENT_MATERIAL 补充材料
-        // REJECT 拒绝
-        [NameInMap("audit_type")]
-        [Validation(Required=true)]
-        public string AuditType { get; set; }
 
         // 资方社会统一信用代码
         [NameInMap("fund_id")]
@@ -45,12 +43,17 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=true)]
         public string MerchantId { get; set; }
 
-        // 备注（小于200字符）
-        // 审核通过不用填、
-        // 审核不通过/补充材料必填，不允许传入特殊字符
-        [NameInMap("remark")]
+        // 账期
+        [NameInMap("period_num")]
         [Validation(Required=true)]
-        public string Remark { get; set; }
+        public long? PeriodNum { get; set; }
+
+        // 生成方式，
+        // AI：智能体；
+        // MANUL：人工
+        [NameInMap("generate_method")]
+        [Validation(Required=false)]
+        public string GenerateMethod { get; set; }
 
         // traceId
         [NameInMap("trace_id")]

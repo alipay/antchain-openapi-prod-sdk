@@ -20,7 +20,7 @@ namespace AntChain.SDK.ATO.Models
 
         // 资产包id
         [NameInMap("asset_package_id")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string AssetPackageId { get; set; }
 
         // 商家公司名称
@@ -52,6 +52,11 @@ namespace AntChain.SDK.ATO.Models
         [NameInMap("trace_id")]
         [Validation(Required=true)]
         public string TraceId { get; set; }
+
+        // 资方租户id
+        [NameInMap("fund_tenant_id")]
+        [Validation(Required=true)]
+        public string FundTenantId { get; set; }
 
     }
 

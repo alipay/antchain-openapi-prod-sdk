@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.ATO.Models
 {
-    public class DetailInnerFundassetpackageRequest : TeaModel {
+    public class UpdateInnerFundassetpackageallocatedetailRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -22,6 +22,11 @@ namespace AntChain.SDK.ATO.Models
         [NameInMap("asset_package_id")]
         [Validation(Required=true)]
         public string AssetPackageId { get; set; }
+
+        // 资方租户id
+        [NameInMap("fund_tenant_id")]
+        [Validation(Required=true)]
+        public string FundTenantId { get; set; }
 
         // 资方社会统一信用代码
         [NameInMap("fund_id")]
@@ -38,15 +43,27 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=true)]
         public string MerchantId { get; set; }
 
-        // trace_id
+        // 账期
+        [NameInMap("period_num")]
+        [Validation(Required=true)]
+        public long? PeriodNum { get; set; }
+
+        // 生成方式，
+        // AI：智能体；
+        // MANUL：人工
+        [NameInMap("generate_method")]
+        [Validation(Required=true)]
+        public string GenerateMethod { get; set; }
+
+        // 需要更新的分配详情
+        [NameInMap("plan_allocate_detail_list")]
+        [Validation(Required=true)]
+        public List<AssetPackagePlanAllocateDetail> PlanAllocateDetailList { get; set; }
+
+        // traceId
         [NameInMap("trace_id")]
         [Validation(Required=true)]
         public string TraceId { get; set; }
-
-        // 资方租户id
-        [NameInMap("fund_tenant_id")]
-        [Validation(Required=true)]
-        public string FundTenantId { get; set; }
 
     }
 

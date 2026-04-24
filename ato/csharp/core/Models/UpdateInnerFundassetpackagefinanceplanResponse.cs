@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.ATO.Models
 {
-    public class OperateInnerFundasssetpackageorderResponse : TeaModel {
+    public class UpdateInnerFundassetpackagefinanceplanResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -23,6 +23,21 @@ namespace AntChain.SDK.ATO.Models
         [NameInMap("result_msg")]
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
+
+        // 资金方案内容
+        [NameInMap("finance_plan")]
+        [Validation(Required=false)]
+        public AssetPackageFinancePlan FinancePlan { get; set; }
+
+        // 类型
+        [NameInMap("type")]
+        [Validation(Required=false)]
+        public string Type { get; set; }
+
+        // 回答
+        [NameInMap("answer")]
+        [Validation(Required=false)]
+        public string Answer { get; set; }
 
     }
 

@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.ATO.Models
 {
-    public class QueryInnerFundasssetpackagepromiseplanRequest : TeaModel {
+    public class CreateInnerFundassetpackagepromiseplanRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,45 +18,40 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 资产包id
-        [NameInMap("asset_package_id")]
+        // 资方租户id
+        [NameInMap("fund_tenant_id")]
         [Validation(Required=true)]
-        public string AssetPackageId { get; set; }
+        public string FundTenantId { get; set; }
 
-        // 资方社会统一信用代码
+        // 资方id
         [NameInMap("fund_id")]
         [Validation(Required=true)]
         public string FundId { get; set; }
+
+        // 商户id
+        [NameInMap("merchant_id")]
+        [Validation(Required=true)]
+        public string MerchantId { get; set; }
 
         // 商户租户id
         [NameInMap("tenant_id")]
         [Validation(Required=true)]
         public string TenantId { get; set; }
 
-        // 商户社会统一信用代码
-        [NameInMap("merchant_id")]
+        //  资产包id
+        [NameInMap("asset_package_id")]
         [Validation(Required=true)]
-        public string MerchantId { get; set; }
+        public string AssetPackageId { get; set; }
 
-        // PROMISE_PLAN 履约计划页面
-        // ASSET_PACKAGE_DETAIL 资产包详情页面
-        [NameInMap("source")]
+        // 资金方案内容
+        [NameInMap("asset_packag_finance_plan")]
         [Validation(Required=true)]
-        public string Source { get; set; }
+        public AssetPackageFinancePlan AssetPackagFinancePlan { get; set; }
 
-        // trace_id
+        // traceid
         [NameInMap("trace_id")]
         [Validation(Required=true)]
         public string TraceId { get; set; }
-
-        // 生成方式，
-        // AI：智能体；
-        // MANUL：人工。
-        // source=ASSET_PACKAGE_DETAIL，禁止传该参数
-        // source=PROMISE_PLAN，必传该参数
-        [NameInMap("generate_method")]
-        [Validation(Required=false)]
-        public string GenerateMethod { get; set; }
 
     }
 
