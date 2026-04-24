@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 # This file is auto-generated, don't edit it. Thanks.
 from Tea.model import TeaModel
-from typing import List
 
 
 class Config(TeaModel):
@@ -154,39 +153,33 @@ class Config(TeaModel):
         return self
 
 
-class QuerySecurityPolicyRequest(TeaModel):
+class QueryScorePolicyRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
         product_instance_id: str = None,
-        l_1domain_code: str = None,
-        l_2domain_code: str = None,
         request_id: str = None,
         business_code: str = None,
-        expect_product_codes: List[str] = None,
+        expect_product_code: str = None,
         params: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # l1_domain_code
-        self.l_1domain_code = l_1domain_code
-        # l2_domain_code
-        self.l_2domain_code = l_2domain_code
-        # 请求流水号
+        # 请求流水号，保证唯一
         self.request_id = request_id
-        # 业务code
+        # 业务编码
         self.business_code = business_code
-        # expectProductCodes
-        self.expect_product_codes = expect_product_codes
-        # 参数
+        # 产品编码
+        self.expect_product_code = expect_product_code
+        # 请求参数
         self.params = params
 
     def validate(self):
-        self.validate_required(self.l_1domain_code, 'l_1domain_code')
-        self.validate_required(self.l_2domain_code, 'l_2domain_code')
         self.validate_required(self.request_id, 'request_id')
         self.validate_required(self.business_code, 'business_code')
+        self.validate_required(self.expect_product_code, 'expect_product_code')
+        self.validate_required(self.params, 'params')
 
     def to_map(self):
         _map = super().to_map()
@@ -198,10 +191,120 @@ class QuerySecurityPolicyRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
-        if self.l_1domain_code is not None:
-            result['l1_domain_code'] = self.l_1domain_code
-        if self.l_2domain_code is not None:
-            result['l2_domain_code'] = self.l_2domain_code
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.business_code is not None:
+            result['business_code'] = self.business_code
+        if self.expect_product_code is not None:
+            result['expect_product_code'] = self.expect_product_code
+        if self.params is not None:
+            result['params'] = self.params
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('business_code') is not None:
+            self.business_code = m.get('business_code')
+        if m.get('expect_product_code') is not None:
+            self.expect_product_code = m.get('expect_product_code')
+        if m.get('params') is not None:
+            self.params = m.get('params')
+        return self
+
+
+class QueryScorePolicyResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        biz_result: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 响应结果
+        self.biz_result = biz_result
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.biz_result is not None:
+            result['biz_result'] = self.biz_result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('biz_result') is not None:
+            self.biz_result = m.get('biz_result')
+        return self
+
+
+class QuerySecurityPolicyRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        request_id: str = None,
+        business_code: str = None,
+        expect_product_codes: str = None,
+        params: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 请求流水号
+        self.request_id = request_id
+        # 业务code
+        self.business_code = business_code
+        # 产品code
+        self.expect_product_codes = expect_product_codes
+        # 参数
+        self.params = params
+
+    def validate(self):
+        self.validate_required(self.request_id, 'request_id')
+        self.validate_required(self.business_code, 'business_code')
+        self.validate_required(self.expect_product_codes, 'expect_product_codes')
+        self.validate_required(self.params, 'params')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
         if self.request_id is not None:
             result['request_id'] = self.request_id
         if self.business_code is not None:
@@ -218,10 +321,6 @@ class QuerySecurityPolicyRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
-        if m.get('l1_domain_code') is not None:
-            self.l_1domain_code = m.get('l1_domain_code')
-        if m.get('l2_domain_code') is not None:
-            self.l_2domain_code = m.get('l2_domain_code')
         if m.get('request_id') is not None:
             self.request_id = m.get('request_id')
         if m.get('business_code') is not None:

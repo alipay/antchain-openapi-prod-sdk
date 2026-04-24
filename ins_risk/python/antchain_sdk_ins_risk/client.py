@@ -134,7 +134,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0',
+                    'sdk_version': '1.0.8',
                     '_prod_code': 'INS_RISK',
                     '_prod_channel': 'default'
                 }
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0',
+                    'sdk_version': '1.0.8',
                     '_prod_code': 'INS_RISK',
                     '_prod_channel': 'default'
                 }
@@ -272,6 +272,62 @@ class Client:
                     continue
                 raise e
         raise UnretryableException(_last_request, _last_exception)
+
+    def query_score_policy(
+        self,
+        request: ins__risk_models.QueryScorePolicyRequest,
+    ) -> ins__risk_models.QueryScorePolicyResponse:
+        """
+        Description: 策略分数查询
+        Summary: 策略分数查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_score_policy_ex(request, headers, runtime)
+
+    async def query_score_policy_async(
+        self,
+        request: ins__risk_models.QueryScorePolicyRequest,
+    ) -> ins__risk_models.QueryScorePolicyResponse:
+        """
+        Description: 策略分数查询
+        Summary: 策略分数查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_score_policy_ex_async(request, headers, runtime)
+
+    def query_score_policy_ex(
+        self,
+        request: ins__risk_models.QueryScorePolicyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ins__risk_models.QueryScorePolicyResponse:
+        """
+        Description: 策略分数查询
+        Summary: 策略分数查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ins__risk_models.QueryScorePolicyResponse(),
+            self.do_request('1.0', 'antdigital.insrisk.score.policy.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_score_policy_ex_async(
+        self,
+        request: ins__risk_models.QueryScorePolicyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ins__risk_models.QueryScorePolicyResponse:
+        """
+        Description: 策略分数查询
+        Summary: 策略分数查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ins__risk_models.QueryScorePolicyResponse(),
+            await self.do_request_async('1.0', 'antdigital.insrisk.score.policy.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
 
     def query_security_policy(
         self,
