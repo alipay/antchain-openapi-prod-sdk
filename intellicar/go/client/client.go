@@ -3972,6 +3972,8 @@ type CallbackCdsqScratchesRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 交易流水号
 	TransactionNo *string `json:"transaction_no,omitempty" xml:"transaction_no,omitempty" require:"true"`
+	// 场景码
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
 }
 
 func (s CallbackCdsqScratchesRequest) String() string {
@@ -3994,6 +3996,11 @@ func (s *CallbackCdsqScratchesRequest) SetProductInstanceId(v string) *CallbackC
 
 func (s *CallbackCdsqScratchesRequest) SetTransactionNo(v string) *CallbackCdsqScratchesRequest {
 	s.TransactionNo = &v
+	return s
+}
+
+func (s *CallbackCdsqScratchesRequest) SetSceneCode(v string) *CallbackCdsqScratchesRequest {
+	s.SceneCode = &v
 	return s
 }
 
@@ -4315,29 +4322,16 @@ type QueryTagChanganRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 场景码
 	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
-	// 授权token
-	AccessToken *string `json:"access_token,omitempty" xml:"access_token,omitempty" require:"true"`
 	// 请求唯一ID（UUID生成即可）
 	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
 	// 系统
 	Os *string `json:"os,omitempty" xml:"os,omitempty"`
-	// 标签库组合：
-	// 1表示基础标签
-	// 2表示行业标签
-	// 3表示基础标签+行业标签
-	// 8表示自定义标签
-	// 9表示基础标签+自定义标签
-	// 10表示行业标签+自定义标签
-	// 11表示基础标签+行业标签+自定义标签
+	// 1表示定制标签查询
+	// 2表示标准标签查询
+	// 3表示全量标签查询
 	Type *int64 `json:"type,omitempty" xml:"type,omitempty" require:"true"`
 	// 设备信息
 	DeviceInfoList *DeviceBean `json:"device_info_list,omitempty" xml:"device_info_list,omitempty" require:"true"`
-	// 基础标签动态参数（对外编码）
-	BaseTags []*string `json:"base_tags,omitempty" xml:"base_tags,omitempty" type:"Repeated"`
-	// 行业标签动态参数（对外编码）
-	IndustyTags []*string `json:"industy_tags,omitempty" xml:"industy_tags,omitempty" type:"Repeated"`
-	// 规则标签动态参数（对外编码）
-	BusinessTags []*string `json:"business_tags,omitempty" xml:"business_tags,omitempty" type:"Repeated"`
 }
 
 func (s QueryTagChanganRequest) String() string {
@@ -4363,11 +4357,6 @@ func (s *QueryTagChanganRequest) SetSceneCode(v string) *QueryTagChanganRequest 
 	return s
 }
 
-func (s *QueryTagChanganRequest) SetAccessToken(v string) *QueryTagChanganRequest {
-	s.AccessToken = &v
-	return s
-}
-
 func (s *QueryTagChanganRequest) SetRequestId(v string) *QueryTagChanganRequest {
 	s.RequestId = &v
 	return s
@@ -4385,21 +4374,6 @@ func (s *QueryTagChanganRequest) SetType(v int64) *QueryTagChanganRequest {
 
 func (s *QueryTagChanganRequest) SetDeviceInfoList(v *DeviceBean) *QueryTagChanganRequest {
 	s.DeviceInfoList = v
-	return s
-}
-
-func (s *QueryTagChanganRequest) SetBaseTags(v []*string) *QueryTagChanganRequest {
-	s.BaseTags = v
-	return s
-}
-
-func (s *QueryTagChanganRequest) SetIndustyTags(v []*string) *QueryTagChanganRequest {
-	s.IndustyTags = v
-	return s
-}
-
-func (s *QueryTagChanganRequest) SetBusinessTags(v []*string) *QueryTagChanganRequest {
-	s.BusinessTags = v
 	return s
 }
 
@@ -4925,6 +4899,327 @@ func (s *SyncUsedcarResponse) SetData(v []*LeadInfo) *SyncUsedcarResponse {
 	return s
 }
 
+type RegisterCdsqTireinsuranceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 平台名称
+	PartnerCode *string `json:"partner_code,omitempty" xml:"partner_code,omitempty" require:"true"`
+	// 交易流水号
+	TransactionNo *string `json:"transaction_no,omitempty" xml:"transaction_no,omitempty" require:"true"`
+	// 用户ID
+	Userid *string `json:"userid,omitempty" xml:"userid,omitempty"`
+	// 方案名称
+	// 代步车+置换、轮
+	// 胎险+置换、代步
+	// 车、四轮轮胎险、
+	// 置换、二轮轮胎险
+	SchemeName *string `json:"scheme_name,omitempty" xml:"scheme_name,omitempty" require:"true"`
+	// 购买时间
+	Buytime *string `json:"buytime,omitempty" xml:"buytime,omitempty"`
+	// 场景码
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+}
+
+func (s RegisterCdsqTireinsuranceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RegisterCdsqTireinsuranceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *RegisterCdsqTireinsuranceRequest) SetAuthToken(v string) *RegisterCdsqTireinsuranceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *RegisterCdsqTireinsuranceRequest) SetProductInstanceId(v string) *RegisterCdsqTireinsuranceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *RegisterCdsqTireinsuranceRequest) SetPartnerCode(v string) *RegisterCdsqTireinsuranceRequest {
+	s.PartnerCode = &v
+	return s
+}
+
+func (s *RegisterCdsqTireinsuranceRequest) SetTransactionNo(v string) *RegisterCdsqTireinsuranceRequest {
+	s.TransactionNo = &v
+	return s
+}
+
+func (s *RegisterCdsqTireinsuranceRequest) SetUserid(v string) *RegisterCdsqTireinsuranceRequest {
+	s.Userid = &v
+	return s
+}
+
+func (s *RegisterCdsqTireinsuranceRequest) SetSchemeName(v string) *RegisterCdsqTireinsuranceRequest {
+	s.SchemeName = &v
+	return s
+}
+
+func (s *RegisterCdsqTireinsuranceRequest) SetBuytime(v string) *RegisterCdsqTireinsuranceRequest {
+	s.Buytime = &v
+	return s
+}
+
+func (s *RegisterCdsqTireinsuranceRequest) SetSceneCode(v string) *RegisterCdsqTireinsuranceRequest {
+	s.SceneCode = &v
+	return s
+}
+
+type RegisterCdsqTireinsuranceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 结果码
+	ResponseCode *string `json:"response_code,omitempty" xml:"response_code,omitempty"`
+	// 错误信息
+	ResponseMsg *string `json:"response_msg,omitempty" xml:"response_msg,omitempty"`
+	// 保单服务号
+	PolicyNo *string `json:"policy_no,omitempty" xml:"policy_no,omitempty"`
+	// 保险起期，格式：yyyy-MM-dd HH:mm:ss
+	PolicyStart *string `json:"policy_start,omitempty" xml:"policy_start,omitempty"`
+	// 保险止期，格式：yyyy-MM-dd HH:mm:ss
+	PolicyEnd *string `json:"policy_end,omitempty" xml:"policy_end,omitempty"`
+}
+
+func (s RegisterCdsqTireinsuranceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RegisterCdsqTireinsuranceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *RegisterCdsqTireinsuranceResponse) SetReqMsgId(v string) *RegisterCdsqTireinsuranceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *RegisterCdsqTireinsuranceResponse) SetResultCode(v string) *RegisterCdsqTireinsuranceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *RegisterCdsqTireinsuranceResponse) SetResultMsg(v string) *RegisterCdsqTireinsuranceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *RegisterCdsqTireinsuranceResponse) SetResponseCode(v string) *RegisterCdsqTireinsuranceResponse {
+	s.ResponseCode = &v
+	return s
+}
+
+func (s *RegisterCdsqTireinsuranceResponse) SetResponseMsg(v string) *RegisterCdsqTireinsuranceResponse {
+	s.ResponseMsg = &v
+	return s
+}
+
+func (s *RegisterCdsqTireinsuranceResponse) SetPolicyNo(v string) *RegisterCdsqTireinsuranceResponse {
+	s.PolicyNo = &v
+	return s
+}
+
+func (s *RegisterCdsqTireinsuranceResponse) SetPolicyStart(v string) *RegisterCdsqTireinsuranceResponse {
+	s.PolicyStart = &v
+	return s
+}
+
+func (s *RegisterCdsqTireinsuranceResponse) SetPolicyEnd(v string) *RegisterCdsqTireinsuranceResponse {
+	s.PolicyEnd = &v
+	return s
+}
+
+type CallbackCdsqTireinsuranceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 交易流水号
+	TransactionNo *string `json:"transaction_no,omitempty" xml:"transaction_no,omitempty" require:"true"`
+	// 场景码
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+}
+
+func (s CallbackCdsqTireinsuranceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CallbackCdsqTireinsuranceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CallbackCdsqTireinsuranceRequest) SetAuthToken(v string) *CallbackCdsqTireinsuranceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CallbackCdsqTireinsuranceRequest) SetProductInstanceId(v string) *CallbackCdsqTireinsuranceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CallbackCdsqTireinsuranceRequest) SetTransactionNo(v string) *CallbackCdsqTireinsuranceRequest {
+	s.TransactionNo = &v
+	return s
+}
+
+func (s *CallbackCdsqTireinsuranceRequest) SetSceneCode(v string) *CallbackCdsqTireinsuranceRequest {
+	s.SceneCode = &v
+	return s
+}
+
+type CallbackCdsqTireinsuranceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 结果码
+	ResponseCode *string `json:"response_code,omitempty" xml:"response_code,omitempty"`
+	// 错误信息
+	ResponseMsg *string `json:"response_msg,omitempty" xml:"response_msg,omitempty"`
+}
+
+func (s CallbackCdsqTireinsuranceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CallbackCdsqTireinsuranceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CallbackCdsqTireinsuranceResponse) SetReqMsgId(v string) *CallbackCdsqTireinsuranceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CallbackCdsqTireinsuranceResponse) SetResultCode(v string) *CallbackCdsqTireinsuranceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CallbackCdsqTireinsuranceResponse) SetResultMsg(v string) *CallbackCdsqTireinsuranceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CallbackCdsqTireinsuranceResponse) SetResponseCode(v string) *CallbackCdsqTireinsuranceResponse {
+	s.ResponseCode = &v
+	return s
+}
+
+func (s *CallbackCdsqTireinsuranceResponse) SetResponseMsg(v string) *CallbackCdsqTireinsuranceResponse {
+	s.ResponseMsg = &v
+	return s
+}
+
+type QueryCdsqTireinsuranceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 平台名称
+	PartnerCode *string `json:"partner_code,omitempty" xml:"partner_code,omitempty" require:"true"`
+	// 交易流水号
+	TransactionNo *string `json:"transaction_no,omitempty" xml:"transaction_no,omitempty" require:"true"`
+	// 场景码
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+}
+
+func (s QueryCdsqTireinsuranceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCdsqTireinsuranceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCdsqTireinsuranceRequest) SetAuthToken(v string) *QueryCdsqTireinsuranceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryCdsqTireinsuranceRequest) SetProductInstanceId(v string) *QueryCdsqTireinsuranceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryCdsqTireinsuranceRequest) SetPartnerCode(v string) *QueryCdsqTireinsuranceRequest {
+	s.PartnerCode = &v
+	return s
+}
+
+func (s *QueryCdsqTireinsuranceRequest) SetTransactionNo(v string) *QueryCdsqTireinsuranceRequest {
+	s.TransactionNo = &v
+	return s
+}
+
+func (s *QueryCdsqTireinsuranceRequest) SetSceneCode(v string) *QueryCdsqTireinsuranceRequest {
+	s.SceneCode = &v
+	return s
+}
+
+type QueryCdsqTireinsuranceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 结果码
+	ResponseCode *string `json:"response_code,omitempty" xml:"response_code,omitempty"`
+	// 错误信息
+	ResponseMsg *string `json:"response_msg,omitempty" xml:"response_msg,omitempty"`
+	// 保单状态
+	// 1：投保
+	// 2：退保
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+}
+
+func (s QueryCdsqTireinsuranceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCdsqTireinsuranceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCdsqTireinsuranceResponse) SetReqMsgId(v string) *QueryCdsqTireinsuranceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryCdsqTireinsuranceResponse) SetResultCode(v string) *QueryCdsqTireinsuranceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryCdsqTireinsuranceResponse) SetResultMsg(v string) *QueryCdsqTireinsuranceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryCdsqTireinsuranceResponse) SetResponseCode(v string) *QueryCdsqTireinsuranceResponse {
+	s.ResponseCode = &v
+	return s
+}
+
+func (s *QueryCdsqTireinsuranceResponse) SetResponseMsg(v string) *QueryCdsqTireinsuranceResponse {
+	s.ResponseMsg = &v
+	return s
+}
+
+func (s *QueryCdsqTireinsuranceResponse) SetStatus(v string) *QueryCdsqTireinsuranceResponse {
+	s.Status = &v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -5167,7 +5462,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.34"),
+				"sdk_version":      tea.String("1.0.36"),
 				"_prod_code":       tea.String("INTELLICAR"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -6166,6 +6461,108 @@ func (client *Client) SyncUsedcarEx(request *SyncUsedcarRequest, headers map[str
 	}
 	_result = &SyncUsedcarResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.intellicar.usedcar.sync"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 轮胎投保接口
+ * Summary: 轮胎投保接口
+ */
+func (client *Client) RegisterCdsqTireinsurance(request *RegisterCdsqTireinsuranceRequest) (_result *RegisterCdsqTireinsuranceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &RegisterCdsqTireinsuranceResponse{}
+	_body, _err := client.RegisterCdsqTireinsuranceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 轮胎投保接口
+ * Summary: 轮胎投保接口
+ */
+func (client *Client) RegisterCdsqTireinsuranceEx(request *RegisterCdsqTireinsuranceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *RegisterCdsqTireinsuranceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &RegisterCdsqTireinsuranceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.intellicar.cdsq.tireinsurance.register"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 轮胎回调接口
+ * Summary: 轮胎回调接口
+ */
+func (client *Client) CallbackCdsqTireinsurance(request *CallbackCdsqTireinsuranceRequest) (_result *CallbackCdsqTireinsuranceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CallbackCdsqTireinsuranceResponse{}
+	_body, _err := client.CallbackCdsqTireinsuranceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 轮胎回调接口
+ * Summary: 轮胎回调接口
+ */
+func (client *Client) CallbackCdsqTireinsuranceEx(request *CallbackCdsqTireinsuranceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CallbackCdsqTireinsuranceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CallbackCdsqTireinsuranceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.intellicar.cdsq.tireinsurance.callback"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 轮胎权益接口查询状态
+ * Summary: 轮胎权益接口查询状态
+ */
+func (client *Client) QueryCdsqTireinsurance(request *QueryCdsqTireinsuranceRequest) (_result *QueryCdsqTireinsuranceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryCdsqTireinsuranceResponse{}
+	_body, _err := client.QueryCdsqTireinsuranceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 轮胎权益接口查询状态
+ * Summary: 轮胎权益接口查询状态
+ */
+func (client *Client) QueryCdsqTireinsuranceEx(request *QueryCdsqTireinsuranceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryCdsqTireinsuranceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryCdsqTireinsuranceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.intellicar.cdsq.tireinsurance.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
