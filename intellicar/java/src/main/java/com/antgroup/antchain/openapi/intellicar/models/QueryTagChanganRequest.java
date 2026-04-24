@@ -16,11 +16,6 @@ public class QueryTagChanganRequest extends TeaModel {
     @Validation(required = true)
     public String sceneCode;
 
-    // 授权token
-    @NameInMap("access_token")
-    @Validation(required = true)
-    public String accessToken;
-
     // 请求唯一ID（UUID生成即可）
     @NameInMap("request_id")
     @Validation(required = true)
@@ -30,14 +25,9 @@ public class QueryTagChanganRequest extends TeaModel {
     @NameInMap("os")
     public String os;
 
-    // 标签库组合：
-    // 1表示基础标签
-    // 2表示行业标签
-    // 3表示基础标签+行业标签
-    // 8表示自定义标签
-    // 9表示基础标签+自定义标签
-    // 10表示行业标签+自定义标签
-    // 11表示基础标签+行业标签+自定义标签
+    // 1表示定制标签查询
+    // 2表示标准标签查询
+    // 3表示全量标签查询
     @NameInMap("type")
     @Validation(required = true)
     public Long type;
@@ -46,18 +36,6 @@ public class QueryTagChanganRequest extends TeaModel {
     @NameInMap("device_info_list")
     @Validation(required = true)
     public DeviceBean deviceInfoList;
-
-    // 基础标签动态参数（对外编码）
-    @NameInMap("base_tags")
-    public java.util.List<String> baseTags;
-
-    // 行业标签动态参数（对外编码）
-    @NameInMap("industy_tags")
-    public java.util.List<String> industyTags;
-
-    // 规则标签动态参数（对外编码）
-    @NameInMap("business_tags")
-    public java.util.List<String> businessTags;
 
     public static QueryTagChanganRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryTagChanganRequest self = new QueryTagChanganRequest();
@@ -86,14 +64,6 @@ public class QueryTagChanganRequest extends TeaModel {
     }
     public String getSceneCode() {
         return this.sceneCode;
-    }
-
-    public QueryTagChanganRequest setAccessToken(String accessToken) {
-        this.accessToken = accessToken;
-        return this;
-    }
-    public String getAccessToken() {
-        return this.accessToken;
     }
 
     public QueryTagChanganRequest setRequestId(String requestId) {
@@ -126,30 +96,6 @@ public class QueryTagChanganRequest extends TeaModel {
     }
     public DeviceBean getDeviceInfoList() {
         return this.deviceInfoList;
-    }
-
-    public QueryTagChanganRequest setBaseTags(java.util.List<String> baseTags) {
-        this.baseTags = baseTags;
-        return this;
-    }
-    public java.util.List<String> getBaseTags() {
-        return this.baseTags;
-    }
-
-    public QueryTagChanganRequest setIndustyTags(java.util.List<String> industyTags) {
-        this.industyTags = industyTags;
-        return this;
-    }
-    public java.util.List<String> getIndustyTags() {
-        return this.industyTags;
-    }
-
-    public QueryTagChanganRequest setBusinessTags(java.util.List<String> businessTags) {
-        this.businessTags = businessTags;
-        return this;
-    }
-    public java.util.List<String> getBusinessTags() {
-        return this.businessTags;
     }
 
 }

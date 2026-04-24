@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.intellicar.models;
 
 import com.aliyun.tea.*;
 
-public class CallbackCdsqScratchesRequest extends TeaModel {
+public class CallbackCdsqTireinsuranceRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -21,12 +21,12 @@ public class CallbackCdsqScratchesRequest extends TeaModel {
     @Validation(required = true)
     public String sceneCode;
 
-    public static CallbackCdsqScratchesRequest build(java.util.Map<String, ?> map) throws Exception {
-        CallbackCdsqScratchesRequest self = new CallbackCdsqScratchesRequest();
+    public static CallbackCdsqTireinsuranceRequest build(java.util.Map<String, ?> map) throws Exception {
+        CallbackCdsqTireinsuranceRequest self = new CallbackCdsqTireinsuranceRequest();
         return TeaModel.build(map, self);
     }
 
-    public CallbackCdsqScratchesRequest setAuthToken(String authToken) {
+    public CallbackCdsqTireinsuranceRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -34,7 +34,7 @@ public class CallbackCdsqScratchesRequest extends TeaModel {
         return this.authToken;
     }
 
-    public CallbackCdsqScratchesRequest setProductInstanceId(String productInstanceId) {
+    public CallbackCdsqTireinsuranceRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -42,7 +42,7 @@ public class CallbackCdsqScratchesRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public CallbackCdsqScratchesRequest setTransactionNo(String transactionNo) {
+    public CallbackCdsqTireinsuranceRequest setTransactionNo(String transactionNo) {
         this.transactionNo = transactionNo;
         return this;
     }
@@ -50,7 +50,7 @@ public class CallbackCdsqScratchesRequest extends TeaModel {
         return this.transactionNo;
     }
 
-    public CallbackCdsqScratchesRequest setSceneCode(String sceneCode) {
+    public CallbackCdsqTireinsuranceRequest setSceneCode(String sceneCode) {
         this.sceneCode = sceneCode;
         return this;
     }

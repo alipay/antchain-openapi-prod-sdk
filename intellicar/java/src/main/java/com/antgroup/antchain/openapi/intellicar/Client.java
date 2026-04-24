@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.34"),
+                    new TeaPair("sdk_version", "1.0.36"),
                     new TeaPair("_prod_code", "INTELLICAR"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -775,6 +775,69 @@ public class Client {
     public SyncUsedcarResponse syncUsedcarEx(SyncUsedcarRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antdigital.intellicar.usedcar.sync", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SyncUsedcarResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 轮胎投保接口
+     * Summary: 轮胎投保接口</p>
+     */
+    public RegisterCdsqTireinsuranceResponse registerCdsqTireinsurance(RegisterCdsqTireinsuranceRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.registerCdsqTireinsuranceEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 轮胎投保接口
+     * Summary: 轮胎投保接口</p>
+     */
+    public RegisterCdsqTireinsuranceResponse registerCdsqTireinsuranceEx(RegisterCdsqTireinsuranceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.intellicar.cdsq.tireinsurance.register", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RegisterCdsqTireinsuranceResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 轮胎回调接口
+     * Summary: 轮胎回调接口</p>
+     */
+    public CallbackCdsqTireinsuranceResponse callbackCdsqTireinsurance(CallbackCdsqTireinsuranceRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.callbackCdsqTireinsuranceEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 轮胎回调接口
+     * Summary: 轮胎回调接口</p>
+     */
+    public CallbackCdsqTireinsuranceResponse callbackCdsqTireinsuranceEx(CallbackCdsqTireinsuranceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.intellicar.cdsq.tireinsurance.callback", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CallbackCdsqTireinsuranceResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 轮胎权益接口查询状态
+     * Summary: 轮胎权益接口查询状态</p>
+     */
+    public QueryCdsqTireinsuranceResponse queryCdsqTireinsurance(QueryCdsqTireinsuranceRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryCdsqTireinsuranceEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 轮胎权益接口查询状态
+     * Summary: 轮胎权益接口查询状态</p>
+     */
+    public QueryCdsqTireinsuranceResponse queryCdsqTireinsuranceEx(QueryCdsqTireinsuranceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.intellicar.cdsq.tireinsurance.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCdsqTireinsuranceResponse());
     }
 
     /**

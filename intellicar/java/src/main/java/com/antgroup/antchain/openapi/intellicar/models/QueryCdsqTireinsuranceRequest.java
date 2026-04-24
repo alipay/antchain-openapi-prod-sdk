@@ -3,13 +3,18 @@ package com.antgroup.antchain.openapi.intellicar.models;
 
 import com.aliyun.tea.*;
 
-public class CallbackCdsqScratchesRequest extends TeaModel {
+public class QueryCdsqTireinsuranceRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
 
     @NameInMap("product_instance_id")
     public String productInstanceId;
+
+    // 平台名称
+    @NameInMap("partner_code")
+    @Validation(required = true)
+    public String partnerCode;
 
     // 交易流水号
     @NameInMap("transaction_no")
@@ -21,12 +26,12 @@ public class CallbackCdsqScratchesRequest extends TeaModel {
     @Validation(required = true)
     public String sceneCode;
 
-    public static CallbackCdsqScratchesRequest build(java.util.Map<String, ?> map) throws Exception {
-        CallbackCdsqScratchesRequest self = new CallbackCdsqScratchesRequest();
+    public static QueryCdsqTireinsuranceRequest build(java.util.Map<String, ?> map) throws Exception {
+        QueryCdsqTireinsuranceRequest self = new QueryCdsqTireinsuranceRequest();
         return TeaModel.build(map, self);
     }
 
-    public CallbackCdsqScratchesRequest setAuthToken(String authToken) {
+    public QueryCdsqTireinsuranceRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -34,7 +39,7 @@ public class CallbackCdsqScratchesRequest extends TeaModel {
         return this.authToken;
     }
 
-    public CallbackCdsqScratchesRequest setProductInstanceId(String productInstanceId) {
+    public QueryCdsqTireinsuranceRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -42,7 +47,15 @@ public class CallbackCdsqScratchesRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public CallbackCdsqScratchesRequest setTransactionNo(String transactionNo) {
+    public QueryCdsqTireinsuranceRequest setPartnerCode(String partnerCode) {
+        this.partnerCode = partnerCode;
+        return this;
+    }
+    public String getPartnerCode() {
+        return this.partnerCode;
+    }
+
+    public QueryCdsqTireinsuranceRequest setTransactionNo(String transactionNo) {
         this.transactionNo = transactionNo;
         return this;
     }
@@ -50,7 +63,7 @@ public class CallbackCdsqScratchesRequest extends TeaModel {
         return this.transactionNo;
     }
 
-    public CallbackCdsqScratchesRequest setSceneCode(String sceneCode) {
+    public QueryCdsqTireinsuranceRequest setSceneCode(String sceneCode) {
         this.sceneCode = sceneCode;
         return this;
     }
