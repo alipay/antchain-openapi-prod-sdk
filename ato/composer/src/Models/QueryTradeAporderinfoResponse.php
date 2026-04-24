@@ -6,7 +6,7 @@ namespace AntChain\ATO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryInnerFundasssetpackagestatusResponse extends Model
+class QueryTradeAporderinfoResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,16 +26,16 @@ class QueryInnerFundasssetpackagestatusResponse extends Model
      */
     public $resultMsg;
 
-    // 返回内容
+    // 这是一个 json
     /**
      * @var string
      */
-    public $data;
+    public $bizContent;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'data'       => 'data',
+        'bizContent' => 'biz_content',
     ];
 
     public function validate()
@@ -54,8 +54,8 @@ class QueryInnerFundasssetpackagestatusResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->data) {
-            $res['data'] = $this->data;
+        if (null !== $this->bizContent) {
+            $res['biz_content'] = $this->bizContent;
         }
 
         return $res;
@@ -64,7 +64,7 @@ class QueryInnerFundasssetpackagestatusResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryInnerFundasssetpackagestatusResponse
+     * @return QueryTradeAporderinfoResponse
      */
     public static function fromMap($map = [])
     {
@@ -78,8 +78,8 @@ class QueryInnerFundasssetpackagestatusResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['data'])) {
-            $model->data = $map['data'];
+        if (isset($map['biz_content'])) {
+            $model->bizContent = $map['biz_content'];
         }
 
         return $model;

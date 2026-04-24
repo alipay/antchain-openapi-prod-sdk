@@ -60,6 +60,12 @@ class SyncTradePromoorderinfoRequest extends Model
      * @var string
      */
     public $merchantName;
+
+    // verification_token
+    /**
+     * @var string
+     */
+    public $verificationToken;
     protected $_name = [
         'authToken'              => 'auth_token',
         'productInstanceId'      => 'product_instance_id',
@@ -70,6 +76,7 @@ class SyncTradePromoorderinfoRequest extends Model
         'buyOutPrice'            => 'buy_out_price',
         'orderPromiseTotalMoney' => 'order_promise_total_money',
         'merchantName'           => 'merchant_name',
+        'verificationToken'      => 'verification_token',
     ];
 
     public function validate()
@@ -91,8 +98,6 @@ class SyncTradePromoorderinfoRequest extends Model
         Model::validateMinLength('promotionId', $this->promotionId, 1);
         Model::validateMinLength('orderCreateTime', $this->orderCreateTime, 1);
         Model::validateMinLength('merchantName', $this->merchantName, 1);
-        Model::validateMinimum('buyOutPrice', $this->buyOutPrice, 0);
-        Model::validateMinimum('orderPromiseTotalMoney', $this->orderPromiseTotalMoney, 1);
     }
 
     public function toMap()
@@ -124,6 +129,9 @@ class SyncTradePromoorderinfoRequest extends Model
         }
         if (null !== $this->merchantName) {
             $res['merchant_name'] = $this->merchantName;
+        }
+        if (null !== $this->verificationToken) {
+            $res['verification_token'] = $this->verificationToken;
         }
 
         return $res;
@@ -163,6 +171,9 @@ class SyncTradePromoorderinfoRequest extends Model
         }
         if (isset($map['merchant_name'])) {
             $model->merchantName = $map['merchant_name'];
+        }
+        if (isset($map['verification_token'])) {
+            $model->verificationToken = $map['verification_token'];
         }
 
         return $model;

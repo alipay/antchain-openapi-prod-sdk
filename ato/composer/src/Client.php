@@ -89,6 +89,10 @@ use AntChain\ATO\Models\CreateAntcloudGatewayxFileUploadRequest;
 use AntChain\ATO\Models\CreateAntcloudGatewayxFileUploadResponse;
 use AntChain\ATO\Models\CreateInnerCustomerserviceRequest;
 use AntChain\ATO\Models\CreateInnerCustomerserviceResponse;
+use AntChain\ATO\Models\CreateInnerFundassetpackagepromiseplanmanualRequest;
+use AntChain\ATO\Models\CreateInnerFundassetpackagepromiseplanmanualResponse;
+use AntChain\ATO\Models\CreateInnerFundassetpackagepromiseplanRequest;
+use AntChain\ATO\Models\CreateInnerFundassetpackagepromiseplanResponse;
 use AntChain\ATO\Models\CreateInnerFunddividerelationRequest;
 use AntChain\ATO\Models\CreateInnerFunddividerelationResponse;
 use AntChain\ATO\Models\CreateInnerFundmngcreditRequest;
@@ -151,6 +155,8 @@ use AntChain\ATO\Models\DetailInnerAgreementterminateRequest;
 use AntChain\ATO\Models\DetailInnerAgreementterminateResponse;
 use AntChain\ATO\Models\DetailInnerCustomerserviceRequest;
 use AntChain\ATO\Models\DetailInnerCustomerserviceResponse;
+use AntChain\ATO\Models\DetailInnerFundassetpackageorderRequest;
+use AntChain\ATO\Models\DetailInnerFundassetpackageorderResponse;
 use AntChain\ATO\Models\DetailInnerFundassetpackageRequest;
 use AntChain\ATO\Models\DetailInnerFundassetpackageResponse;
 use AntChain\ATO\Models\DetailInnerFundmngorderRequest;
@@ -191,6 +197,8 @@ use AntChain\ATO\Models\GetInnerAgentcustomerserviceRequest;
 use AntChain\ATO\Models\GetInnerAgentcustomerserviceResponse;
 use AntChain\ATO\Models\GetInnerCustomerservicetemplateRequest;
 use AntChain\ATO\Models\GetInnerCustomerservicetemplateResponse;
+use AntChain\ATO\Models\GetInnerFundassetpackagefinanceplanRequest;
+use AntChain\ATO\Models\GetInnerFundassetpackagefinanceplanResponse;
 use AntChain\ATO\Models\GetInnerFunddividemerchantRequest;
 use AntChain\ATO\Models\GetInnerFunddividemerchantResponse;
 use AntChain\ATO\Models\GetInnerHomepagenoticeRequest;
@@ -221,6 +229,8 @@ use AntChain\ATO\Models\GetTradeRequest;
 use AntChain\ATO\Models\GetTradeResponse;
 use AntChain\ATO\Models\GetTradeUserperformanceRequest;
 use AntChain\ATO\Models\GetTradeUserperformanceResponse;
+use AntChain\ATO\Models\InitFundAlipaysettletocardRequest;
+use AntChain\ATO\Models\InitFundAlipaysettletocardResponse;
 use AntChain\ATO\Models\InitInnerFundmngmerchantpromiseRequest;
 use AntChain\ATO\Models\InitInnerFundmngmerchantpromiseResponse;
 use AntChain\ATO\Models\ListInnerSceneproductmerchantRequest;
@@ -235,8 +245,8 @@ use AntChain\ATO\Models\OperateInnerAgreementterminateRequest;
 use AntChain\ATO\Models\OperateInnerAgreementterminateResponse;
 use AntChain\ATO\Models\OperateInnerAgreementterminatezfbdirectRequest;
 use AntChain\ATO\Models\OperateInnerAgreementterminatezfbdirectResponse;
-use AntChain\ATO\Models\OperateInnerFundasssetpackageorderRequest;
-use AntChain\ATO\Models\OperateInnerFundasssetpackageorderResponse;
+use AntChain\ATO\Models\OperateInnerFundassetpackageorderRequest;
+use AntChain\ATO\Models\OperateInnerFundassetpackageorderResponse;
 use AntChain\ATO\Models\OperateInnerKnowledgecategoryRequest;
 use AntChain\ATO\Models\OperateInnerKnowledgecategoryResponse;
 use AntChain\ATO\Models\OperateInnerSceneproductmerchantRequest;
@@ -251,6 +261,8 @@ use AntChain\ATO\Models\PagequeryInnerCustomerserviceRequest;
 use AntChain\ATO\Models\PagequeryInnerCustomerserviceResponse;
 use AntChain\ATO\Models\PagequeryInnerDatadownloadRequest;
 use AntChain\ATO\Models\PagequeryInnerDatadownloadResponse;
+use AntChain\ATO\Models\PagequeryInnerFundassetpackageorderRequest;
+use AntChain\ATO\Models\PagequeryInnerFundassetpackageorderResponse;
 use AntChain\ATO\Models\PagequeryInnerFundassetpackageRequest;
 use AntChain\ATO\Models\PagequeryInnerFundassetpackageResponse;
 use AntChain\ATO\Models\PagequeryInnerFunddividerelationRequest;
@@ -301,6 +313,8 @@ use AntChain\ATO\Models\PreviewInnerTemplateRequest;
 use AntChain\ATO\Models\PreviewInnerTemplateResponse;
 use AntChain\ATO\Models\PublishInnerTemplateRequest;
 use AntChain\ATO\Models\PublishInnerTemplateResponse;
+use AntChain\ATO\Models\QueryFundAlipaysettletocardRequest;
+use AntChain\ATO\Models\QueryFundAlipaysettletocardResponse;
 use AntChain\ATO\Models\QueryFundAssertorderRequest;
 use AntChain\ATO\Models\QueryFundAssertorderResponse;
 use AntChain\ATO\Models\QueryFundAssertreportRequest;
@@ -327,10 +341,14 @@ use AntChain\ATO\Models\QueryInnerAuthorizationRequest;
 use AntChain\ATO\Models\QueryInnerAuthorizationResponse;
 use AntChain\ATO\Models\QueryInnerExpandprocessRequest;
 use AntChain\ATO\Models\QueryInnerExpandprocessResponse;
-use AntChain\ATO\Models\QueryInnerFundasssetpackagepromiseplanRequest;
-use AntChain\ATO\Models\QueryInnerFundasssetpackagepromiseplanResponse;
-use AntChain\ATO\Models\QueryInnerFundasssetpackagestatusRequest;
-use AntChain\ATO\Models\QueryInnerFundasssetpackagestatusResponse;
+use AntChain\ATO\Models\QueryInnerFundassetpackageallocatedetailRequest;
+use AntChain\ATO\Models\QueryInnerFundassetpackageallocatedetailResponse;
+use AntChain\ATO\Models\QueryInnerFundassetpackageorderamountRequest;
+use AntChain\ATO\Models\QueryInnerFundassetpackageorderamountResponse;
+use AntChain\ATO\Models\QueryInnerFundassetpackagepromiseplanRequest;
+use AntChain\ATO\Models\QueryInnerFundassetpackagepromiseplanResponse;
+use AntChain\ATO\Models\QueryInnerFundassetpackagestatusRequest;
+use AntChain\ATO\Models\QueryInnerFundassetpackagestatusResponse;
 use AntChain\ATO\Models\QueryInnerFunddividerelationRequest;
 use AntChain\ATO\Models\QueryInnerFunddividerelationResponse;
 use AntChain\ATO\Models\QueryInnerFundmngaccountinfoRequest;
@@ -397,6 +415,8 @@ use AntChain\ATO\Models\QueryMerchantexpandDividerelationRequest;
 use AntChain\ATO\Models\QueryMerchantexpandDividerelationResponse;
 use AntChain\ATO\Models\QueryMerchantexpandMerchantRequest;
 use AntChain\ATO\Models\QueryMerchantexpandMerchantResponse;
+use AntChain\ATO\Models\QueryPromotionUserunvisitedappidRequest;
+use AntChain\ATO\Models\QueryPromotionUserunvisitedappidResponse;
 use AntChain\ATO\Models\QueryRealpersonFacevrfRequest;
 use AntChain\ATO\Models\QueryRealpersonFacevrfResponse;
 use AntChain\ATO\Models\QueryRiskGoRequest;
@@ -405,6 +425,10 @@ use AntChain\ATO\Models\QueryRiskRequest;
 use AntChain\ATO\Models\QueryRiskResponse;
 use AntChain\ATO\Models\QuerySignCreditRequest;
 use AntChain\ATO\Models\QuerySignCreditResponse;
+use AntChain\ATO\Models\QueryTradeAporderinfoRequest;
+use AntChain\ATO\Models\QueryTradeAporderinfoResponse;
+use AntChain\ATO\Models\QueryTradeApRequest;
+use AntChain\ATO\Models\QueryTradeApResponse;
 use AntChain\ATO\Models\QueryTradeCreditauthRequest;
 use AntChain\ATO\Models\QueryTradeCreditauthResponse;
 use AntChain\ATO\Models\QueryTradeCreditgrantingRequest;
@@ -437,12 +461,14 @@ use AntChain\ATO\Models\RepayInnerFundmngmerchantperformanceRequest;
 use AntChain\ATO\Models\RepayInnerFundmngmerchantperformanceResponse;
 use AntChain\ATO\Models\RepayWithholdPlanRequest;
 use AntChain\ATO\Models\RepayWithholdPlanResponse;
+use AntChain\ATO\Models\ReplaceInnerFundassetpackagefinanceplanRequest;
+use AntChain\ATO\Models\ReplaceInnerFundassetpackagefinanceplanResponse;
 use AntChain\ATO\Models\ReplaceTradeUserpromiseRequest;
 use AntChain\ATO\Models\ReplaceTradeUserpromiseResponse;
 use AntChain\ATO\Models\ResumeTradeUserpromiseRequest;
 use AntChain\ATO\Models\ResumeTradeUserpromiseResponse;
-use AntChain\ATO\Models\RetryInnerFundasssetpackagestatusRequest;
-use AntChain\ATO\Models\RetryInnerFundasssetpackagestatusResponse;
+use AntChain\ATO\Models\RetryInnerFundassetpackagestatusRequest;
+use AntChain\ATO\Models\RetryInnerFundassetpackagestatusResponse;
 use AntChain\ATO\Models\RetryInnerOrdermsgRequest;
 use AntChain\ATO\Models\RetryInnerOrdermsgResponse;
 use AntChain\ATO\Models\RetryInsurePayRequest;
@@ -475,8 +501,8 @@ use AntChain\ATO\Models\SubmitFundFlowRequest;
 use AntChain\ATO\Models\SubmitFundFlowResponse;
 use AntChain\ATO\Models\SubmitInnerDatadownloadRequest;
 use AntChain\ATO\Models\SubmitInnerDatadownloadResponse;
-use AntChain\ATO\Models\SubmitInnerFundasssetpackageauditRequest;
-use AntChain\ATO\Models\SubmitInnerFundasssetpackageauditResponse;
+use AntChain\ATO\Models\SubmitInnerFundassetpackageauditRequest;
+use AntChain\ATO\Models\SubmitInnerFundassetpackageauditResponse;
 use AntChain\ATO\Models\SubmitInnerFunddividerelationRequest;
 use AntChain\ATO\Models\SubmitInnerFunddividerelationResponse;
 use AntChain\ATO\Models\SubmitInnerFundmngbatchloanRequest;
@@ -527,6 +553,8 @@ use AntChain\ATO\Models\SyncFundSplittingRequest;
 use AntChain\ATO\Models\SyncFundSplittingResponse;
 use AntChain\ATO\Models\SyncFundWithholdingcontractRequest;
 use AntChain\ATO\Models\SyncFundWithholdingcontractResponse;
+use AntChain\ATO\Models\SyncInnerFundassetpackageloanRequest;
+use AntChain\ATO\Models\SyncInnerFundassetpackageloanResponse;
 use AntChain\ATO\Models\SyncInnerFundmngloanresultsRequest;
 use AntChain\ATO\Models\SyncInnerFundmngloanresultsResponse;
 use AntChain\ATO\Models\SyncInnerMeterforagsignRequest;
@@ -557,6 +585,10 @@ use AntChain\ATO\Models\UnbindWithholdSignRequest;
 use AntChain\ATO\Models\UnbindWithholdSignResponse;
 use AntChain\ATO\Models\UpdateInnerCustomerserviceRequest;
 use AntChain\ATO\Models\UpdateInnerCustomerserviceResponse;
+use AntChain\ATO\Models\UpdateInnerFundassetpackageallocatedetailRequest;
+use AntChain\ATO\Models\UpdateInnerFundassetpackageallocatedetailResponse;
+use AntChain\ATO\Models\UpdateInnerFundassetpackagefinanceplanRequest;
+use AntChain\ATO\Models\UpdateInnerFundassetpackagefinanceplanResponse;
 use AntChain\ATO\Models\UpdateInnerKnowledgecategoryRequest;
 use AntChain\ATO\Models\UpdateInnerKnowledgecategoryResponse;
 use AntChain\ATO\Models\UpdateInnerMerchantpayexpandRequest;
@@ -740,7 +772,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.19.21',
+                    'sdk_version'      => '1.19.61',
                     '_prod_code'       => 'ATO',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -786,6 +818,72 @@ class Client
         }
 
         throw new TeaUnableRetryError($_lastRequest, $_lastException);
+    }
+
+    /**
+     * Description: 支付宝结算到卡交易流水任务创建接口
+     * Summary: 支付宝结算到卡交易流水任务创建接口.
+     *
+     * @param InitFundAlipaysettletocardRequest $request
+     *
+     * @return InitFundAlipaysettletocardResponse
+     */
+    public function initFundAlipaysettletocard($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->initFundAlipaysettletocardEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 支付宝结算到卡交易流水任务创建接口
+     * Summary: 支付宝结算到卡交易流水任务创建接口.
+     *
+     * @param InitFundAlipaysettletocardRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return InitFundAlipaysettletocardResponse
+     */
+    public function initFundAlipaysettletocardEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return InitFundAlipaysettletocardResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.alipaysettletocard.init', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 支付宝结算到卡流水任务结果查询接口
+     * Summary: 支付宝结算到卡流水任务结果查询接口.
+     *
+     * @param QueryFundAlipaysettletocardRequest $request
+     *
+     * @return QueryFundAlipaysettletocardResponse
+     */
+    public function queryFundAlipaysettletocard($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryFundAlipaysettletocardEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 支付宝结算到卡流水任务结果查询接口
+     * Summary: 支付宝结算到卡流水任务结果查询接口.
+     *
+     * @param QueryFundAlipaysettletocardRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return QueryFundAlipaysettletocardResponse
+     */
+    public function queryFundAlipaysettletocardEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryFundAlipaysettletocardResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.alipaysettletocard.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -1285,7 +1383,7 @@ class Client
 
     /**
      * Description: 资方管理系统订单详情查询，包含订单信息、用户信息、商品信息等
-     * Summary: 资方管理系统订单详情查询.
+     * Summary: 资方管理系统订单详情查询，包含订单信息、用户信息、商品信息等.
      *
      * @param DetailInnerFundmngorderRequest $request
      *
@@ -1301,7 +1399,7 @@ class Client
 
     /**
      * Description: 资方管理系统订单详情查询，包含订单信息、用户信息、商品信息等
-     * Summary: 资方管理系统订单详情查询.
+     * Summary: 资方管理系统订单详情查询，包含订单信息、用户信息、商品信息等.
      *
      * @param DetailInnerFundmngorderRequest $request
      * @param string[]                       $headers
@@ -1683,139 +1781,139 @@ class Client
 
     /**
      * Description: 本接口提供根据资产包id查询资产包真实状态，用于判定审核通过，同步计划，同步放款异常操作页面跳转逻辑，
-     * Summary: 资产包状态查询.
+     * Summary: 本接口提供根据资产包id查询资产包真实状态，用于判定审核通过，同步计划，同步放款异常操作页面跳转逻辑，.
      *
-     * @param QueryInnerFundasssetpackagestatusRequest $request
+     * @param QueryInnerFundassetpackagestatusRequest $request
      *
-     * @return QueryInnerFundasssetpackagestatusResponse
+     * @return QueryInnerFundassetpackagestatusResponse
      */
-    public function queryInnerFundasssetpackagestatus($request)
+    public function queryInnerFundassetpackagestatus($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->queryInnerFundasssetpackagestatusEx($request, $headers, $runtime);
+        return $this->queryInnerFundassetpackagestatusEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 本接口提供根据资产包id查询资产包真实状态，用于判定审核通过，同步计划，同步放款异常操作页面跳转逻辑，
-     * Summary: 资产包状态查询.
+     * Summary: 本接口提供根据资产包id查询资产包真实状态，用于判定审核通过，同步计划，同步放款异常操作页面跳转逻辑，.
      *
-     * @param QueryInnerFundasssetpackagestatusRequest $request
-     * @param string[]                                 $headers
-     * @param RuntimeOptions                           $runtime
+     * @param QueryInnerFundassetpackagestatusRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
      *
-     * @return QueryInnerFundasssetpackagestatusResponse
+     * @return QueryInnerFundassetpackagestatusResponse
      */
-    public function queryInnerFundasssetpackagestatusEx($request, $headers, $runtime)
+    public function queryInnerFundassetpackagestatusEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return QueryInnerFundasssetpackagestatusResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.fundasssetpackagestatus.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return QueryInnerFundassetpackagestatusResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.fundassetpackagestatus.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 本接口提供根据资产包id审批申请单，支持审核通过，审核拒绝，审核补充材料
-     * Summary: 资产包申请单审核提交接口.
+     * Summary: 本接口提供根据资产包id审批申请单，支持审核通过，审核拒绝，审核补充材料.
      *
-     * @param SubmitInnerFundasssetpackageauditRequest $request
+     * @param SubmitInnerFundassetpackageauditRequest $request
      *
-     * @return SubmitInnerFundasssetpackageauditResponse
+     * @return SubmitInnerFundassetpackageauditResponse
      */
-    public function submitInnerFundasssetpackageaudit($request)
+    public function submitInnerFundassetpackageaudit($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->submitInnerFundasssetpackageauditEx($request, $headers, $runtime);
+        return $this->submitInnerFundassetpackageauditEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 本接口提供根据资产包id审批申请单，支持审核通过，审核拒绝，审核补充材料
-     * Summary: 资产包申请单审核提交接口.
+     * Summary: 本接口提供根据资产包id审批申请单，支持审核通过，审核拒绝，审核补充材料.
      *
-     * @param SubmitInnerFundasssetpackageauditRequest $request
-     * @param string[]                                 $headers
-     * @param RuntimeOptions                           $runtime
+     * @param SubmitInnerFundassetpackageauditRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
      *
-     * @return SubmitInnerFundasssetpackageauditResponse
+     * @return SubmitInnerFundassetpackageauditResponse
      */
-    public function submitInnerFundasssetpackageauditEx($request, $headers, $runtime)
+    public function submitInnerFundassetpackageauditEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return SubmitInnerFundasssetpackageauditResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.fundasssetpackageaudit.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return SubmitInnerFundassetpackageauditResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.fundassetpackageaudit.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 本接口提供 审核通过，同步履约计划，放款同意，放款拒绝重试能力
-     * Summary: 重试接口.
+     * Summary: 本接口提供 审核通过，同步履约计划，放款同意，放款拒绝重试能力.
      *
-     * @param RetryInnerFundasssetpackagestatusRequest $request
+     * @param RetryInnerFundassetpackagestatusRequest $request
      *
-     * @return RetryInnerFundasssetpackagestatusResponse
+     * @return RetryInnerFundassetpackagestatusResponse
      */
-    public function retryInnerFundasssetpackagestatus($request)
+    public function retryInnerFundassetpackagestatus($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->retryInnerFundasssetpackagestatusEx($request, $headers, $runtime);
+        return $this->retryInnerFundassetpackagestatusEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 本接口提供 审核通过，同步履约计划，放款同意，放款拒绝重试能力
-     * Summary: 重试接口.
+     * Summary: 本接口提供 审核通过，同步履约计划，放款同意，放款拒绝重试能力.
      *
-     * @param RetryInnerFundasssetpackagestatusRequest $request
-     * @param string[]                                 $headers
-     * @param RuntimeOptions                           $runtime
+     * @param RetryInnerFundassetpackagestatusRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
      *
-     * @return RetryInnerFundasssetpackagestatusResponse
+     * @return RetryInnerFundassetpackagestatusResponse
      */
-    public function retryInnerFundasssetpackagestatusEx($request, $headers, $runtime)
+    public function retryInnerFundassetpackagestatusEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return RetryInnerFundasssetpackagestatusResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.fundasssetpackagestatus.retry', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return RetryInnerFundassetpackagestatusResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.fundassetpackagestatus.retry', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 本接口提供根据资产包id和订单id剔除/恢复订单
-     * Summary: 资产包订单剔除/恢复.
+     * Summary: 本接口提供根据资产包id和订单id剔除/恢复订单.
      *
-     * @param OperateInnerFundasssetpackageorderRequest $request
+     * @param OperateInnerFundassetpackageorderRequest $request
      *
-     * @return OperateInnerFundasssetpackageorderResponse
+     * @return OperateInnerFundassetpackageorderResponse
      */
-    public function operateInnerFundasssetpackageorder($request)
+    public function operateInnerFundassetpackageorder($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->operateInnerFundasssetpackageorderEx($request, $headers, $runtime);
+        return $this->operateInnerFundassetpackageorderEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 本接口提供根据资产包id和订单id剔除/恢复订单
-     * Summary: 资产包订单剔除/恢复.
+     * Summary: 本接口提供根据资产包id和订单id剔除/恢复订单.
      *
-     * @param OperateInnerFundasssetpackageorderRequest $request
-     * @param string[]                                  $headers
-     * @param RuntimeOptions                            $runtime
+     * @param OperateInnerFundassetpackageorderRequest $request
+     * @param string[]                                 $headers
+     * @param RuntimeOptions                           $runtime
      *
-     * @return OperateInnerFundasssetpackageorderResponse
+     * @return OperateInnerFundassetpackageorderResponse
      */
-    public function operateInnerFundasssetpackageorderEx($request, $headers, $runtime)
+    public function operateInnerFundassetpackageorderEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return OperateInnerFundasssetpackageorderResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.fundasssetpackageorder.operate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return OperateInnerFundassetpackageorderResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.fundassetpackageorder.operate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 本接口有资方控制台调用用于查询资产包列表
-     * Summary: 资产包列表查询.
+     * Summary: 本接口有资方控制台调用用于查询资产包列表.
      *
      * @param PagequeryInnerFundassetpackageRequest $request
      *
@@ -1831,7 +1929,7 @@ class Client
 
     /**
      * Description: 本接口有资方控制台调用用于查询资产包列表
-     * Summary: 资产包列表查询.
+     * Summary: 本接口有资方控制台调用用于查询资产包列表.
      *
      * @param PagequeryInnerFundassetpackageRequest $request
      * @param string[]                              $headers
@@ -1848,40 +1946,40 @@ class Client
 
     /**
      * Description: 本接口提供在资产包详情页面和履约计划生成页面查询履约计划快照
-     * Summary: 查询履约计划.
+     * Summary: 本接口提供在资产包详情页面和履约计划生成页面查询履约计划快照.
      *
-     * @param QueryInnerFundasssetpackagepromiseplanRequest $request
+     * @param QueryInnerFundassetpackagepromiseplanRequest $request
      *
-     * @return QueryInnerFundasssetpackagepromiseplanResponse
+     * @return QueryInnerFundassetpackagepromiseplanResponse
      */
-    public function queryInnerFundasssetpackagepromiseplan($request)
+    public function queryInnerFundassetpackagepromiseplan($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->queryInnerFundasssetpackagepromiseplanEx($request, $headers, $runtime);
+        return $this->queryInnerFundassetpackagepromiseplanEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 本接口提供在资产包详情页面和履约计划生成页面查询履约计划快照
-     * Summary: 查询履约计划.
+     * Summary: 本接口提供在资产包详情页面和履约计划生成页面查询履约计划快照.
      *
-     * @param QueryInnerFundasssetpackagepromiseplanRequest $request
-     * @param string[]                                      $headers
-     * @param RuntimeOptions                                $runtime
+     * @param QueryInnerFundassetpackagepromiseplanRequest $request
+     * @param string[]                                     $headers
+     * @param RuntimeOptions                               $runtime
      *
-     * @return QueryInnerFundasssetpackagepromiseplanResponse
+     * @return QueryInnerFundassetpackagepromiseplanResponse
      */
-    public function queryInnerFundasssetpackagepromiseplanEx($request, $headers, $runtime)
+    public function queryInnerFundassetpackagepromiseplanEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return QueryInnerFundasssetpackagepromiseplanResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.fundasssetpackagepromiseplan.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return QueryInnerFundassetpackagepromiseplanResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.fundassetpackagepromiseplan.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 本接口提供用户在页面确定生成履约计划之后，调用AN系统锁定履约计划，调ato系统同步履约计划
-     * Summary: 确定并最终生成履约计划.
+     * Summary: 本接口提供用户在页面确定生成履约计划之后，调用AN系统锁定履约计划，调ato系统同步履约计划.
      *
      * @param ConfirmInnerFundassetpackagepromiseplanRequest $request
      *
@@ -1897,7 +1995,7 @@ class Client
 
     /**
      * Description: 本接口提供用户在页面确定生成履约计划之后，调用AN系统锁定履约计划，调ato系统同步履约计划
-     * Summary: 确定并最终生成履约计划.
+     * Summary: 本接口提供用户在页面确定生成履约计划之后，调用AN系统锁定履约计划，调ato系统同步履约计划.
      *
      * @param ConfirmInnerFundassetpackagepromiseplanRequest $request
      * @param string[]                                       $headers
@@ -1914,7 +2012,7 @@ class Client
 
     /**
      * Description: 本接口提供根据资产包id查询代偿签约信息，放款信息，履约信息（查AN系统），放款凭证，材料，审核记录，
-     * Summary: 资产包详情查询.
+     * Summary: 本接口提供根据资产包id查询代偿签约信息，放款信息，履约信息（查AN系统），放款凭证，材料，审核记录，.
      *
      * @param DetailInnerFundassetpackageRequest $request
      *
@@ -1930,7 +2028,7 @@ class Client
 
     /**
      * Description: 本接口提供根据资产包id查询代偿签约信息，放款信息，履约信息（查AN系统），放款凭证，材料，审核记录，
-     * Summary: 资产包详情查询.
+     * Summary: 本接口提供根据资产包id查询代偿签约信息，放款信息，履约信息（查AN系统），放款凭证，材料，审核记录，.
      *
      * @param DetailInnerFundassetpackageRequest $request
      * @param string[]                           $headers
@@ -1943,6 +2041,369 @@ class Client
         Utils::validateModel($request);
 
         return DetailInnerFundassetpackageResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.fundassetpackage.detail', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 本接口提供根据资产包id查询资产包订单列表
+     * Summary: 本接口提供根据资产包id查询资产包订单列表.
+     *
+     * @param PagequeryInnerFundassetpackageorderRequest $request
+     *
+     * @return PagequeryInnerFundassetpackageorderResponse
+     */
+    public function pagequeryInnerFundassetpackageorder($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pagequeryInnerFundassetpackageorderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 本接口提供根据资产包id查询资产包订单列表
+     * Summary: 本接口提供根据资产包id查询资产包订单列表.
+     *
+     * @param PagequeryInnerFundassetpackageorderRequest $request
+     * @param string[]                                   $headers
+     * @param RuntimeOptions                             $runtime
+     *
+     * @return PagequeryInnerFundassetpackageorderResponse
+     */
+    public function pagequeryInnerFundassetpackageorderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PagequeryInnerFundassetpackageorderResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.fundassetpackageorder.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 本接口提供根据资产包id查询资产包订单列表总金额和未还款总金额（用于剔除/恢复订单成功之后单刷订单列表总金额模块
+     * Summary: 本接口提供根据资产包id查询资产包订单列表总金额和未还款总金额（用于剔除/恢复订单成功之后单刷订单列表总金额模块.
+     *
+     * @param QueryInnerFundassetpackageorderamountRequest $request
+     *
+     * @return QueryInnerFundassetpackageorderamountResponse
+     */
+    public function queryInnerFundassetpackageorderamount($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryInnerFundassetpackageorderamountEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 本接口提供根据资产包id查询资产包订单列表总金额和未还款总金额（用于剔除/恢复订单成功之后单刷订单列表总金额模块
+     * Summary: 本接口提供根据资产包id查询资产包订单列表总金额和未还款总金额（用于剔除/恢复订单成功之后单刷订单列表总金额模块.
+     *
+     * @param QueryInnerFundassetpackageorderamountRequest $request
+     * @param string[]                                     $headers
+     * @param RuntimeOptions                               $runtime
+     *
+     * @return QueryInnerFundassetpackageorderamountResponse
+     */
+    public function queryInnerFundassetpackageorderamountEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryInnerFundassetpackageorderamountResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.fundassetpackageorderamount.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 本接口提供根据资产包id和订单id查询资产包订单用户，物流信息，合同信息等
+     * Summary: 本接口提供根据资产包id和订单id查询资产包订单用户，物流信息，合同信息等.
+     *
+     * @param DetailInnerFundassetpackageorderRequest $request
+     *
+     * @return DetailInnerFundassetpackageorderResponse
+     */
+    public function detailInnerFundassetpackageorder($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->detailInnerFundassetpackageorderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 本接口提供根据资产包id和订单id查询资产包订单用户，物流信息，合同信息等
+     * Summary: 本接口提供根据资产包id和订单id查询资产包订单用户，物流信息，合同信息等.
+     *
+     * @param DetailInnerFundassetpackageorderRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return DetailInnerFundassetpackageorderResponse
+     */
+    public function detailInnerFundassetpackageorderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DetailInnerFundassetpackageorderResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.fundassetpackageorder.detail', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 本接口提供根据资产包id查询资金方案快照
+     * Summary: 本接口提供根据资产包id查询资金方案快照.
+     *
+     * @param GetInnerFundassetpackagefinanceplanRequest $request
+     *
+     * @return GetInnerFundassetpackagefinanceplanResponse
+     */
+    public function getInnerFundassetpackagefinanceplan($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getInnerFundassetpackagefinanceplanEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 本接口提供根据资产包id查询资金方案快照
+     * Summary: 本接口提供根据资产包id查询资金方案快照.
+     *
+     * @param GetInnerFundassetpackagefinanceplanRequest $request
+     * @param string[]                                   $headers
+     * @param RuntimeOptions                             $runtime
+     *
+     * @return GetInnerFundassetpackagefinanceplanResponse
+     */
+    public function getInnerFundassetpackagefinanceplanEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetInnerFundassetpackagefinanceplanResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.fundassetpackagefinanceplan.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 本接口提供根据用户在”ai调整“输入框内容进行资金方案调整
+     * Summary: 本接口提供根据用户在”ai调整“输入框内容进行资金方案调整.
+     *
+     * @param UpdateInnerFundassetpackagefinanceplanRequest $request
+     *
+     * @return UpdateInnerFundassetpackagefinanceplanResponse
+     */
+    public function updateInnerFundassetpackagefinanceplan($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateInnerFundassetpackagefinanceplanEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 本接口提供根据用户在”ai调整“输入框内容进行资金方案调整
+     * Summary: 本接口提供根据用户在”ai调整“输入框内容进行资金方案调整.
+     *
+     * @param UpdateInnerFundassetpackagefinanceplanRequest $request
+     * @param string[]                                      $headers
+     * @param RuntimeOptions                                $runtime
+     *
+     * @return UpdateInnerFundassetpackagefinanceplanResponse
+     */
+    public function updateInnerFundassetpackagefinanceplanEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateInnerFundassetpackagefinanceplanResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.fundassetpackagefinanceplan.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 本接口提供资金方案页面 资金方案替换功能（替换成功之后刷新“资金方案查询接口”）
+     * Summary: 本接口提供资金方案页面 资金方案替换功能（替换成功之后刷新“资金方案查询接口”）.
+     *
+     * @param ReplaceInnerFundassetpackagefinanceplanRequest $request
+     *
+     * @return ReplaceInnerFundassetpackagefinanceplanResponse
+     */
+    public function replaceInnerFundassetpackagefinanceplan($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->replaceInnerFundassetpackagefinanceplanEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 本接口提供资金方案页面 资金方案替换功能（替换成功之后刷新“资金方案查询接口”）
+     * Summary: 本接口提供资金方案页面 资金方案替换功能（替换成功之后刷新“资金方案查询接口”）.
+     *
+     * @param ReplaceInnerFundassetpackagefinanceplanRequest $request
+     * @param string[]                                       $headers
+     * @param RuntimeOptions                                 $runtime
+     *
+     * @return ReplaceInnerFundassetpackagefinanceplanResponse
+     */
+    public function replaceInnerFundassetpackagefinanceplanEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ReplaceInnerFundassetpackagefinanceplanResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.fundassetpackagefinanceplan.replace', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 本接口提供用户人工填写履约计划概要之后，调用AN系统生成完整履约计划
+     * Summary: 本接口提供用户人工填写履约计划概要之后，调用AN系统生成完整履约计划.
+     *
+     * @param CreateInnerFundassetpackagepromiseplanmanualRequest $request
+     *
+     * @return CreateInnerFundassetpackagepromiseplanmanualResponse
+     */
+    public function createInnerFundassetpackagepromiseplanmanual($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createInnerFundassetpackagepromiseplanmanualEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 本接口提供用户人工填写履约计划概要之后，调用AN系统生成完整履约计划
+     * Summary: 本接口提供用户人工填写履约计划概要之后，调用AN系统生成完整履约计划.
+     *
+     * @param CreateInnerFundassetpackagepromiseplanmanualRequest $request
+     * @param string[]                                            $headers
+     * @param RuntimeOptions                                      $runtime
+     *
+     * @return CreateInnerFundassetpackagepromiseplanmanualResponse
+     */
+    public function createInnerFundassetpackagepromiseplanmanualEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateInnerFundassetpackagepromiseplanmanualResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.fundassetpackagepromiseplanmanual.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 本接口提供用户在履约计划表格查看单期履约的分配详情
+     * Summary: 本接口提供用户在履约计划表格查看单期履约的分配详情.
+     *
+     * @param QueryInnerFundassetpackageallocatedetailRequest $request
+     *
+     * @return QueryInnerFundassetpackageallocatedetailResponse
+     */
+    public function queryInnerFundassetpackageallocatedetail($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryInnerFundassetpackageallocatedetailEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 本接口提供用户在履约计划表格查看单期履约的分配详情
+     * Summary: 本接口提供用户在履约计划表格查看单期履约的分配详情.
+     *
+     * @param QueryInnerFundassetpackageallocatedetailRequest $request
+     * @param string[]                                        $headers
+     * @param RuntimeOptions                                  $runtime
+     *
+     * @return QueryInnerFundassetpackageallocatedetailResponse
+     */
+    public function queryInnerFundassetpackageallocatedetailEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryInnerFundassetpackageallocatedetailResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.fundassetpackageallocatedetail.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 本接口提供用户在履约计划表格更新单期履约的分配详情
+     * Summary: 本接口提供用户在履约计划表格更新单期履约的分配详情.
+     *
+     * @param UpdateInnerFundassetpackageallocatedetailRequest $request
+     *
+     * @return UpdateInnerFundassetpackageallocatedetailResponse
+     */
+    public function updateInnerFundassetpackageallocatedetail($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateInnerFundassetpackageallocatedetailEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 本接口提供用户在履约计划表格更新单期履约的分配详情
+     * Summary: 本接口提供用户在履约计划表格更新单期履约的分配详情.
+     *
+     * @param UpdateInnerFundassetpackageallocatedetailRequest $request
+     * @param string[]                                         $headers
+     * @param RuntimeOptions                                   $runtime
+     *
+     * @return UpdateInnerFundassetpackageallocatedetailResponse
+     */
+    public function updateInnerFundassetpackageallocatedetailEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateInnerFundassetpackageallocatedetailResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.fundassetpackageallocatedetail.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 本接口提供先确定ai生成资金方案，然后再根据ai方案生成履约计划，对应页面操作是“确定资金方案
+     * Summary: 本接口提供先确定ai生成资金方案，然后再根据ai方案生成履约计划，对应页面操作是“确定资金方案.
+     *
+     * @param CreateInnerFundassetpackagepromiseplanRequest $request
+     *
+     * @return CreateInnerFundassetpackagepromiseplanResponse
+     */
+    public function createInnerFundassetpackagepromiseplan($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createInnerFundassetpackagepromiseplanEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 本接口提供先确定ai生成资金方案，然后再根据ai方案生成履约计划，对应页面操作是“确定资金方案
+     * Summary: 本接口提供先确定ai生成资金方案，然后再根据ai方案生成履约计划，对应页面操作是“确定资金方案.
+     *
+     * @param CreateInnerFundassetpackagepromiseplanRequest $request
+     * @param string[]                                      $headers
+     * @param RuntimeOptions                                $runtime
+     *
+     * @return CreateInnerFundassetpackagepromiseplanResponse
+     */
+    public function createInnerFundassetpackagepromiseplanEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateInnerFundassetpackagepromiseplanResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.fundassetpackagepromiseplan.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 同步资产包放款结果
+     * Summary: 同步资产包放款结果.
+     *
+     * @param SyncInnerFundassetpackageloanRequest $request
+     *
+     * @return SyncInnerFundassetpackageloanResponse
+     */
+    public function syncInnerFundassetpackageloan($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->syncInnerFundassetpackageloanEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 同步资产包放款结果
+     * Summary: 同步资产包放款结果.
+     *
+     * @param SyncInnerFundassetpackageloanRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return SyncInnerFundassetpackageloanResponse
+     */
+    public function syncInnerFundassetpackageloanEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SyncInnerFundassetpackageloanResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.fundassetpackageloan.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -9044,6 +9505,39 @@ class Client
     }
 
     /**
+     * Description: 智能营销，查询用户未访问过的appid
+     * Summary: 智能营销，查询用户未访问过的appid.
+     *
+     * @param QueryPromotionUserunvisitedappidRequest $request
+     *
+     * @return QueryPromotionUserunvisitedappidResponse
+     */
+    public function queryPromotionUserunvisitedappid($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryPromotionUserunvisitedappidEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 智能营销，查询用户未访问过的appid
+     * Summary: 智能营销，查询用户未访问过的appid.
+     *
+     * @param QueryPromotionUserunvisitedappidRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return QueryPromotionUserunvisitedappidResponse
+     */
+    public function queryPromotionUserunvisitedappidEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryPromotionUserunvisitedappidResponse::fromMap($this->doRequest('1.0', 'antchain.ato.promotion.userunvisitedappid.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 对账saas交易信息同步接口
      * Summary: 对账saas交易信息同步接口.
      *
@@ -9671,8 +10165,8 @@ class Client
     }
 
     /**
-     * Description: 订单信息同步
-     * Summary: 订单信息同步.
+     * Description: promo订单信息同步
+     * Summary: promo订单信息同步.
      *
      * @param SyncTradePromoorderinfoRequest $request
      *
@@ -9687,8 +10181,8 @@ class Client
     }
 
     /**
-     * Description: 订单信息同步
-     * Summary: 订单信息同步.
+     * Description: promo订单信息同步
+     * Summary: promo订单信息同步.
      *
      * @param SyncTradePromoorderinfoRequest $request
      * @param string[]                       $headers
@@ -9932,6 +10426,72 @@ class Client
         Utils::validateModel($request);
 
         return QueryTradeCreditauthResponse::fromMap($this->doRequest('1.0', 'antchain.ato.trade.creditauth.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商户进行资产包信息查询
+     * Summary: 商户进行资产包信息查询.
+     *
+     * @param QueryTradeApRequest $request
+     *
+     * @return QueryTradeApResponse
+     */
+    public function queryTradeAp($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryTradeApEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商户进行资产包信息查询
+     * Summary: 商户进行资产包信息查询.
+     *
+     * @param QueryTradeApRequest $request
+     * @param string[]            $headers
+     * @param RuntimeOptions      $runtime
+     *
+     * @return QueryTradeApResponse
+     */
+    public function queryTradeApEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryTradeApResponse::fromMap($this->doRequest('1.0', 'antchain.ato.trade.ap.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用于商户进行资产包订单信息查询
+     * Summary: 用于商户进行资产包订单信息查询.
+     *
+     * @param QueryTradeAporderinfoRequest $request
+     *
+     * @return QueryTradeAporderinfoResponse
+     */
+    public function queryTradeAporderinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryTradeAporderinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用于商户进行资产包订单信息查询
+     * Summary: 用于商户进行资产包订单信息查询.
+     *
+     * @param QueryTradeAporderinfoRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return QueryTradeAporderinfoResponse
+     */
+    public function queryTradeAporderinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryTradeAporderinfoResponse::fromMap($this->doRequest('1.0', 'antchain.ato.trade.aporderinfo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

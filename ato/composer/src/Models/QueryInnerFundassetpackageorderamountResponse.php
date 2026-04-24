@@ -6,7 +6,7 @@ namespace AntChain\ATO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryInnerFundasssetpackagepromiseplanResponse extends Model
+class QueryInnerFundassetpackageorderamountResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,7 +26,7 @@ class QueryInnerFundasssetpackagepromiseplanResponse extends Model
      */
     public $resultMsg;
 
-    // 数据
+    // AssetPackageOrderAmount响应体json格式
     /**
      * @var string
      */
@@ -64,7 +64,7 @@ class QueryInnerFundasssetpackagepromiseplanResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryInnerFundasssetpackagepromiseplanResponse
+     * @return QueryInnerFundassetpackageorderamountResponse
      */
     public static function fromMap($map = [])
     {

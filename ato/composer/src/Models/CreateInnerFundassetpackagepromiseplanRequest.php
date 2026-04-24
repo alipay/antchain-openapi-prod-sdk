@@ -6,7 +6,7 @@ namespace AntChain\ATO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class OperateInnerFundasssetpackageorderRequest extends Model
+class CreateInnerFundassetpackagepromiseplanRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,23 +19,23 @@ class OperateInnerFundasssetpackageorderRequest extends Model
      */
     public $productInstanceId;
 
-    // 资产包id
+    // 资方租户id
     /**
      * @var string
      */
-    public $assetPackageId;
+    public $fundTenantId;
 
-    // 订单id
-    /**
-     * @var string
-     */
-    public $orderId;
-
-    // 资方社会统一信用代码
+    // 资方id
     /**
      * @var string
      */
     public $fundId;
+
+    // 商户id
+    /**
+     * @var string
+     */
+    public $merchantId;
 
     // 商户租户id
     /**
@@ -43,44 +43,43 @@ class OperateInnerFundasssetpackageorderRequest extends Model
      */
     public $tenantId;
 
-    // 商户社会统一信用代码
+    // 资产包id
     /**
      * @var string
      */
-    public $merchantId;
+    public $assetPackageId;
 
-    // DELETE 删除
-    // RECOVER 恢复
+    // 资金方案内容
     /**
-     * @var string
+     * @var AssetPackageFinancePlan
      */
-    public $action;
+    public $assetPackagFinancePlan;
 
-    // trace_id
+    // traceid
     /**
      * @var string
      */
     public $traceId;
     protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'assetPackageId'    => 'asset_package_id',
-        'orderId'           => 'order_id',
-        'fundId'            => 'fund_id',
-        'tenantId'          => 'tenant_id',
-        'merchantId'        => 'merchant_id',
-        'action'            => 'action',
-        'traceId'           => 'trace_id',
+        'authToken'              => 'auth_token',
+        'productInstanceId'      => 'product_instance_id',
+        'fundTenantId'           => 'fund_tenant_id',
+        'fundId'                 => 'fund_id',
+        'merchantId'             => 'merchant_id',
+        'tenantId'               => 'tenant_id',
+        'assetPackageId'         => 'asset_package_id',
+        'assetPackagFinancePlan' => 'asset_packag_finance_plan',
+        'traceId'                => 'trace_id',
     ];
 
     public function validate()
     {
-        Model::validateRequired('assetPackageId', $this->assetPackageId, true);
-        Model::validateRequired('orderId', $this->orderId, true);
+        Model::validateRequired('fundTenantId', $this->fundTenantId, true);
         Model::validateRequired('fundId', $this->fundId, true);
-        Model::validateRequired('tenantId', $this->tenantId, true);
         Model::validateRequired('merchantId', $this->merchantId, true);
-        Model::validateRequired('action', $this->action, true);
+        Model::validateRequired('tenantId', $this->tenantId, true);
+        Model::validateRequired('assetPackageId', $this->assetPackageId, true);
+        Model::validateRequired('assetPackagFinancePlan', $this->assetPackagFinancePlan, true);
         Model::validateRequired('traceId', $this->traceId, true);
     }
 
@@ -93,23 +92,23 @@ class OperateInnerFundasssetpackageorderRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->assetPackageId) {
-            $res['asset_package_id'] = $this->assetPackageId;
-        }
-        if (null !== $this->orderId) {
-            $res['order_id'] = $this->orderId;
+        if (null !== $this->fundTenantId) {
+            $res['fund_tenant_id'] = $this->fundTenantId;
         }
         if (null !== $this->fundId) {
             $res['fund_id'] = $this->fundId;
         }
-        if (null !== $this->tenantId) {
-            $res['tenant_id'] = $this->tenantId;
-        }
         if (null !== $this->merchantId) {
             $res['merchant_id'] = $this->merchantId;
         }
-        if (null !== $this->action) {
-            $res['action'] = $this->action;
+        if (null !== $this->tenantId) {
+            $res['tenant_id'] = $this->tenantId;
+        }
+        if (null !== $this->assetPackageId) {
+            $res['asset_package_id'] = $this->assetPackageId;
+        }
+        if (null !== $this->assetPackagFinancePlan) {
+            $res['asset_packag_finance_plan'] = null !== $this->assetPackagFinancePlan ? $this->assetPackagFinancePlan->toMap() : null;
         }
         if (null !== $this->traceId) {
             $res['trace_id'] = $this->traceId;
@@ -121,7 +120,7 @@ class OperateInnerFundasssetpackageorderRequest extends Model
     /**
      * @param array $map
      *
-     * @return OperateInnerFundasssetpackageorderRequest
+     * @return CreateInnerFundassetpackagepromiseplanRequest
      */
     public static function fromMap($map = [])
     {
@@ -132,23 +131,23 @@ class OperateInnerFundasssetpackageorderRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['asset_package_id'])) {
-            $model->assetPackageId = $map['asset_package_id'];
-        }
-        if (isset($map['order_id'])) {
-            $model->orderId = $map['order_id'];
+        if (isset($map['fund_tenant_id'])) {
+            $model->fundTenantId = $map['fund_tenant_id'];
         }
         if (isset($map['fund_id'])) {
             $model->fundId = $map['fund_id'];
         }
-        if (isset($map['tenant_id'])) {
-            $model->tenantId = $map['tenant_id'];
-        }
         if (isset($map['merchant_id'])) {
             $model->merchantId = $map['merchant_id'];
         }
-        if (isset($map['action'])) {
-            $model->action = $map['action'];
+        if (isset($map['tenant_id'])) {
+            $model->tenantId = $map['tenant_id'];
+        }
+        if (isset($map['asset_package_id'])) {
+            $model->assetPackageId = $map['asset_package_id'];
+        }
+        if (isset($map['asset_packag_finance_plan'])) {
+            $model->assetPackagFinancePlan = AssetPackageFinancePlan::fromMap($map['asset_packag_finance_plan']);
         }
         if (isset($map['trace_id'])) {
             $model->traceId = $map['trace_id'];

@@ -6,7 +6,7 @@ namespace AntChain\ATO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class RetryInnerFundasssetpackagestatusRequest extends Model
+class CreateInnerFundassetpackagepromiseplanmanualRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -18,6 +18,12 @@ class RetryInnerFundasssetpackagestatusRequest extends Model
      * @var string
      */
     public $productInstanceId;
+
+    // 资方租户id
+    /**
+     * @var string
+     */
+    public $fundTenantId;
 
     // 资产包id
     /**
@@ -43,27 +49,37 @@ class RetryInnerFundasssetpackagestatusRequest extends Model
      */
     public $merchantId;
 
-    // trace_id
+    // 用户填写的履约计划表格数据
+    /**
+     * @var AssetPackageCreatePromisePlanParams[]
+     */
+    public $createPromisePlanParams;
+
+    // traceId
     /**
      * @var string
      */
     public $traceId;
     protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'assetPackageId'    => 'asset_package_id',
-        'fundId'            => 'fund_id',
-        'tenantId'          => 'tenant_id',
-        'merchantId'        => 'merchant_id',
-        'traceId'           => 'trace_id',
+        'authToken'               => 'auth_token',
+        'productInstanceId'       => 'product_instance_id',
+        'fundTenantId'            => 'fund_tenant_id',
+        'assetPackageId'          => 'asset_package_id',
+        'fundId'                  => 'fund_id',
+        'tenantId'                => 'tenant_id',
+        'merchantId'              => 'merchant_id',
+        'createPromisePlanParams' => 'create_promise_plan_params',
+        'traceId'                 => 'trace_id',
     ];
 
     public function validate()
     {
+        Model::validateRequired('fundTenantId', $this->fundTenantId, true);
         Model::validateRequired('assetPackageId', $this->assetPackageId, true);
         Model::validateRequired('fundId', $this->fundId, true);
         Model::validateRequired('tenantId', $this->tenantId, true);
         Model::validateRequired('merchantId', $this->merchantId, true);
+        Model::validateRequired('createPromisePlanParams', $this->createPromisePlanParams, true);
         Model::validateRequired('traceId', $this->traceId, true);
     }
 
@@ -75,6 +91,9 @@ class RetryInnerFundasssetpackagestatusRequest extends Model
         }
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->fundTenantId) {
+            $res['fund_tenant_id'] = $this->fundTenantId;
         }
         if (null !== $this->assetPackageId) {
             $res['asset_package_id'] = $this->assetPackageId;
@@ -88,6 +107,15 @@ class RetryInnerFundasssetpackagestatusRequest extends Model
         if (null !== $this->merchantId) {
             $res['merchant_id'] = $this->merchantId;
         }
+        if (null !== $this->createPromisePlanParams) {
+            $res['create_promise_plan_params'] = [];
+            if (null !== $this->createPromisePlanParams && \is_array($this->createPromisePlanParams)) {
+                $n = 0;
+                foreach ($this->createPromisePlanParams as $item) {
+                    $res['create_promise_plan_params'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
+        }
         if (null !== $this->traceId) {
             $res['trace_id'] = $this->traceId;
         }
@@ -98,7 +126,7 @@ class RetryInnerFundasssetpackagestatusRequest extends Model
     /**
      * @param array $map
      *
-     * @return RetryInnerFundasssetpackagestatusRequest
+     * @return CreateInnerFundassetpackagepromiseplanmanualRequest
      */
     public static function fromMap($map = [])
     {
@@ -108,6 +136,9 @@ class RetryInnerFundasssetpackagestatusRequest extends Model
         }
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
+        }
+        if (isset($map['fund_tenant_id'])) {
+            $model->fundTenantId = $map['fund_tenant_id'];
         }
         if (isset($map['asset_package_id'])) {
             $model->assetPackageId = $map['asset_package_id'];
@@ -120,6 +151,15 @@ class RetryInnerFundasssetpackagestatusRequest extends Model
         }
         if (isset($map['merchant_id'])) {
             $model->merchantId = $map['merchant_id'];
+        }
+        if (isset($map['create_promise_plan_params'])) {
+            if (!empty($map['create_promise_plan_params'])) {
+                $model->createPromisePlanParams = [];
+                $n                              = 0;
+                foreach ($map['create_promise_plan_params'] as $item) {
+                    $model->createPromisePlanParams[$n++] = null !== $item ? AssetPackageCreatePromisePlanParams::fromMap($item) : $item;
+                }
+            }
         }
         if (isset($map['trace_id'])) {
             $model->traceId = $map['trace_id'];

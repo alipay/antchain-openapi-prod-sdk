@@ -37,12 +37,19 @@ class SyncTradeFinanceloanapplyResponse extends Model
      * @var string
      */
     public $merchantId;
+
+    // 非法的订单列表
+    /**
+     * @var string[]
+     */
+    public $illegalOrderIdList;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
-        'orderId'    => 'order_id',
-        'merchantId' => 'merchant_id',
+        'reqMsgId'           => 'req_msg_id',
+        'resultCode'         => 'result_code',
+        'resultMsg'          => 'result_msg',
+        'orderId'            => 'order_id',
+        'merchantId'         => 'merchant_id',
+        'illegalOrderIdList' => 'illegal_order_id_list',
     ];
 
     public function validate()
@@ -66,6 +73,9 @@ class SyncTradeFinanceloanapplyResponse extends Model
         }
         if (null !== $this->merchantId) {
             $res['merchant_id'] = $this->merchantId;
+        }
+        if (null !== $this->illegalOrderIdList) {
+            $res['illegal_order_id_list'] = $this->illegalOrderIdList;
         }
 
         return $res;
@@ -93,6 +103,11 @@ class SyncTradeFinanceloanapplyResponse extends Model
         }
         if (isset($map['merchant_id'])) {
             $model->merchantId = $map['merchant_id'];
+        }
+        if (isset($map['illegal_order_id_list'])) {
+            if (!empty($map['illegal_order_id_list'])) {
+                $model->illegalOrderIdList = $map['illegal_order_id_list'];
+            }
         }
 
         return $model;

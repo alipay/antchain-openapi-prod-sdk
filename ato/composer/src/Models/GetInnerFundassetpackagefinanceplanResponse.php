@@ -6,7 +6,7 @@ namespace AntChain\ATO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class PagequeryInnerFundassetpackageResponse extends Model
+class GetInnerFundassetpackagefinanceplanResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,23 +26,16 @@ class PagequeryInnerFundassetpackageResponse extends Model
      */
     public $resultMsg;
 
-    // 资产包列表，json格式，数据结构详见代码中的模型
+    // 资金方案
     /**
-     * @var string
+     * @var AssetPackageFinancePlan
      */
-    public $data;
-
-    // 总数量
-    /**
-     * @var int
-     */
-    public $total;
+    public $assetPackageFinancePlan;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
-        'data'       => 'data',
-        'total'      => 'total',
+        'reqMsgId'                => 'req_msg_id',
+        'resultCode'              => 'result_code',
+        'resultMsg'               => 'result_msg',
+        'assetPackageFinancePlan' => 'asset_package_finance_plan',
     ];
 
     public function validate()
@@ -61,11 +54,8 @@ class PagequeryInnerFundassetpackageResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->data) {
-            $res['data'] = $this->data;
-        }
-        if (null !== $this->total) {
-            $res['total'] = $this->total;
+        if (null !== $this->assetPackageFinancePlan) {
+            $res['asset_package_finance_plan'] = null !== $this->assetPackageFinancePlan ? $this->assetPackageFinancePlan->toMap() : null;
         }
 
         return $res;
@@ -74,7 +64,7 @@ class PagequeryInnerFundassetpackageResponse extends Model
     /**
      * @param array $map
      *
-     * @return PagequeryInnerFundassetpackageResponse
+     * @return GetInnerFundassetpackagefinanceplanResponse
      */
     public static function fromMap($map = [])
     {
@@ -88,11 +78,8 @@ class PagequeryInnerFundassetpackageResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['data'])) {
-            $model->data = $map['data'];
-        }
-        if (isset($map['total'])) {
-            $model->total = $map['total'];
+        if (isset($map['asset_package_finance_plan'])) {
+            $model->assetPackageFinancePlan = AssetPackageFinancePlan::fromMap($map['asset_package_finance_plan']);
         }
 
         return $model;

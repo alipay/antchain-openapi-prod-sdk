@@ -6,7 +6,7 @@ namespace AntChain\ATO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class PagequeryInnerFundassetpackageResponse extends Model
+class SubmitInnerFundassetpackageauditResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -25,24 +25,10 @@ class PagequeryInnerFundassetpackageResponse extends Model
      * @var string
      */
     public $resultMsg;
-
-    // 资产包列表，json格式，数据结构详见代码中的模型
-    /**
-     * @var string
-     */
-    public $data;
-
-    // 总数量
-    /**
-     * @var int
-     */
-    public $total;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'data'       => 'data',
-        'total'      => 'total',
     ];
 
     public function validate()
@@ -61,12 +47,6 @@ class PagequeryInnerFundassetpackageResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->data) {
-            $res['data'] = $this->data;
-        }
-        if (null !== $this->total) {
-            $res['total'] = $this->total;
-        }
 
         return $res;
     }
@@ -74,7 +54,7 @@ class PagequeryInnerFundassetpackageResponse extends Model
     /**
      * @param array $map
      *
-     * @return PagequeryInnerFundassetpackageResponse
+     * @return SubmitInnerFundassetpackageauditResponse
      */
     public static function fromMap($map = [])
     {
@@ -87,12 +67,6 @@ class PagequeryInnerFundassetpackageResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['data'])) {
-            $model->data = $map['data'];
-        }
-        if (isset($map['total'])) {
-            $model->total = $map['total'];
         }
 
         return $model;

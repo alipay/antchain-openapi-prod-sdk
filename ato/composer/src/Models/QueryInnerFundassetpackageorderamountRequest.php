@@ -6,7 +6,7 @@ namespace AntChain\ATO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ConfirmInnerFundassetpackagepromiseplanRequest extends Model
+class QueryInnerFundassetpackageorderamountRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,13 +19,11 @@ class ConfirmInnerFundassetpackagepromiseplanRequest extends Model
      */
     public $productInstanceId;
 
-    // 生成方式，
-    // AI：智能体；
-    // MANUL：人工
+    // 资方租户id
     /**
      * @var string
      */
-    public $generateMethod;
+    public $fundTenantId;
 
     // 资产包id
     /**
@@ -51,12 +49,6 @@ class ConfirmInnerFundassetpackagepromiseplanRequest extends Model
      */
     public $merchantId;
 
-    // 资方租户id
-    /**
-     * @var string
-     */
-    public $fundTenantId;
-
     // traceId
     /**
      * @var string
@@ -65,23 +57,21 @@ class ConfirmInnerFundassetpackagepromiseplanRequest extends Model
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'generateMethod'    => 'generate_method',
+        'fundTenantId'      => 'fund_tenant_id',
         'assetPackageId'    => 'asset_package_id',
         'fundId'            => 'fund_id',
         'tenantId'          => 'tenant_id',
         'merchantId'        => 'merchant_id',
-        'fundTenantId'      => 'fund_tenant_id',
         'traceId'           => 'trace_id',
     ];
 
     public function validate()
     {
-        Model::validateRequired('generateMethod', $this->generateMethod, true);
+        Model::validateRequired('fundTenantId', $this->fundTenantId, true);
         Model::validateRequired('assetPackageId', $this->assetPackageId, true);
         Model::validateRequired('fundId', $this->fundId, true);
         Model::validateRequired('tenantId', $this->tenantId, true);
         Model::validateRequired('merchantId', $this->merchantId, true);
-        Model::validateRequired('fundTenantId', $this->fundTenantId, true);
         Model::validateRequired('traceId', $this->traceId, true);
     }
 
@@ -94,8 +84,8 @@ class ConfirmInnerFundassetpackagepromiseplanRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->generateMethod) {
-            $res['generate_method'] = $this->generateMethod;
+        if (null !== $this->fundTenantId) {
+            $res['fund_tenant_id'] = $this->fundTenantId;
         }
         if (null !== $this->assetPackageId) {
             $res['asset_package_id'] = $this->assetPackageId;
@@ -109,9 +99,6 @@ class ConfirmInnerFundassetpackagepromiseplanRequest extends Model
         if (null !== $this->merchantId) {
             $res['merchant_id'] = $this->merchantId;
         }
-        if (null !== $this->fundTenantId) {
-            $res['fund_tenant_id'] = $this->fundTenantId;
-        }
         if (null !== $this->traceId) {
             $res['trace_id'] = $this->traceId;
         }
@@ -122,7 +109,7 @@ class ConfirmInnerFundassetpackagepromiseplanRequest extends Model
     /**
      * @param array $map
      *
-     * @return ConfirmInnerFundassetpackagepromiseplanRequest
+     * @return QueryInnerFundassetpackageorderamountRequest
      */
     public static function fromMap($map = [])
     {
@@ -133,8 +120,8 @@ class ConfirmInnerFundassetpackagepromiseplanRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['generate_method'])) {
-            $model->generateMethod = $map['generate_method'];
+        if (isset($map['fund_tenant_id'])) {
+            $model->fundTenantId = $map['fund_tenant_id'];
         }
         if (isset($map['asset_package_id'])) {
             $model->assetPackageId = $map['asset_package_id'];
@@ -147,9 +134,6 @@ class ConfirmInnerFundassetpackagepromiseplanRequest extends Model
         }
         if (isset($map['merchant_id'])) {
             $model->merchantId = $map['merchant_id'];
-        }
-        if (isset($map['fund_tenant_id'])) {
-            $model->fundTenantId = $map['fund_tenant_id'];
         }
         if (isset($map['trace_id'])) {
             $model->traceId = $map['trace_id'];

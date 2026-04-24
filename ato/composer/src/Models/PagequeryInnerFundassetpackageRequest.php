@@ -60,6 +60,12 @@ class PagequeryInnerFundassetpackageRequest extends Model
      * @var string
      */
     public $traceId;
+
+    // 资方租户id
+    /**
+     * @var string
+     */
+    public $fundTenantId;
     protected $_name = [
         'authToken'             => 'auth_token',
         'productInstanceId'     => 'product_instance_id',
@@ -70,13 +76,14 @@ class PagequeryInnerFundassetpackageRequest extends Model
         'financeApplyStatus'    => 'finance_apply_status',
         'pageInfo'              => 'page_info',
         'traceId'               => 'trace_id',
+        'fundTenantId'          => 'fund_tenant_id',
     ];
 
     public function validate()
     {
-        Model::validateRequired('assetPackageId', $this->assetPackageId, true);
         Model::validateRequired('pageInfo', $this->pageInfo, true);
         Model::validateRequired('traceId', $this->traceId, true);
+        Model::validateRequired('fundTenantId', $this->fundTenantId, true);
     }
 
     public function toMap()
@@ -108,6 +115,9 @@ class PagequeryInnerFundassetpackageRequest extends Model
         }
         if (null !== $this->traceId) {
             $res['trace_id'] = $this->traceId;
+        }
+        if (null !== $this->fundTenantId) {
+            $res['fund_tenant_id'] = $this->fundTenantId;
         }
 
         return $res;
@@ -147,6 +157,9 @@ class PagequeryInnerFundassetpackageRequest extends Model
         }
         if (isset($map['trace_id'])) {
             $model->traceId = $map['trace_id'];
+        }
+        if (isset($map['fund_tenant_id'])) {
+            $model->fundTenantId = $map['fund_tenant_id'];
         }
 
         return $model;

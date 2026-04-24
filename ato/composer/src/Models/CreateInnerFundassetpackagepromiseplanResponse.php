@@ -6,7 +6,7 @@ namespace AntChain\ATO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class RetryInnerFundasssetpackagestatusResponse extends Model
+class CreateInnerFundassetpackagepromiseplanResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -25,10 +25,17 @@ class RetryInnerFundasssetpackagestatusResponse extends Model
      * @var string
      */
     public $resultMsg;
+
+    // 履约计划
+    /**
+     * @var AssetPackagePromisePlan[]
+     */
+    public $promisePlanList;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
+        'reqMsgId'        => 'req_msg_id',
+        'resultCode'      => 'result_code',
+        'resultMsg'       => 'result_msg',
+        'promisePlanList' => 'promise_plan_list',
     ];
 
     public function validate()
@@ -47,6 +54,15 @@ class RetryInnerFundasssetpackagestatusResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
+        if (null !== $this->promisePlanList) {
+            $res['promise_plan_list'] = [];
+            if (null !== $this->promisePlanList && \is_array($this->promisePlanList)) {
+                $n = 0;
+                foreach ($this->promisePlanList as $item) {
+                    $res['promise_plan_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
+        }
 
         return $res;
     }
@@ -54,7 +70,7 @@ class RetryInnerFundasssetpackagestatusResponse extends Model
     /**
      * @param array $map
      *
-     * @return RetryInnerFundasssetpackagestatusResponse
+     * @return CreateInnerFundassetpackagepromiseplanResponse
      */
     public static function fromMap($map = [])
     {
@@ -67,6 +83,15 @@ class RetryInnerFundasssetpackagestatusResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
+        }
+        if (isset($map['promise_plan_list'])) {
+            if (!empty($map['promise_plan_list'])) {
+                $model->promisePlanList = [];
+                $n                      = 0;
+                foreach ($map['promise_plan_list'] as $item) {
+                    $model->promisePlanList[$n++] = null !== $item ? AssetPackagePromisePlan::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;

@@ -6,7 +6,7 @@ namespace AntChain\ATO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class PagequeryInnerFundassetpackageResponse extends Model
+class UpdateInnerFundassetpackagefinanceplanResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,23 +26,30 @@ class PagequeryInnerFundassetpackageResponse extends Model
      */
     public $resultMsg;
 
-    // 资产包列表，json格式，数据结构详见代码中的模型
+    // 资金方案内容
+    /**
+     * @var AssetPackageFinancePlan
+     */
+    public $financePlan;
+
+    // 类型
     /**
      * @var string
      */
-    public $data;
+    public $type;
 
-    // 总数量
+    // 回答
     /**
-     * @var int
+     * @var string
      */
-    public $total;
+    public $answer;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
-        'data'       => 'data',
-        'total'      => 'total',
+        'reqMsgId'    => 'req_msg_id',
+        'resultCode'  => 'result_code',
+        'resultMsg'   => 'result_msg',
+        'financePlan' => 'finance_plan',
+        'type'        => 'type',
+        'answer'      => 'answer',
     ];
 
     public function validate()
@@ -61,11 +68,14 @@ class PagequeryInnerFundassetpackageResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->data) {
-            $res['data'] = $this->data;
+        if (null !== $this->financePlan) {
+            $res['finance_plan'] = null !== $this->financePlan ? $this->financePlan->toMap() : null;
         }
-        if (null !== $this->total) {
-            $res['total'] = $this->total;
+        if (null !== $this->type) {
+            $res['type'] = $this->type;
+        }
+        if (null !== $this->answer) {
+            $res['answer'] = $this->answer;
         }
 
         return $res;
@@ -74,7 +84,7 @@ class PagequeryInnerFundassetpackageResponse extends Model
     /**
      * @param array $map
      *
-     * @return PagequeryInnerFundassetpackageResponse
+     * @return UpdateInnerFundassetpackagefinanceplanResponse
      */
     public static function fromMap($map = [])
     {
@@ -88,11 +98,14 @@ class PagequeryInnerFundassetpackageResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['data'])) {
-            $model->data = $map['data'];
+        if (isset($map['finance_plan'])) {
+            $model->financePlan = AssetPackageFinancePlan::fromMap($map['finance_plan']);
         }
-        if (isset($map['total'])) {
-            $model->total = $map['total'];
+        if (isset($map['type'])) {
+            $model->type = $map['type'];
+        }
+        if (isset($map['answer'])) {
+            $model->answer = $map['answer'];
         }
 
         return $model;

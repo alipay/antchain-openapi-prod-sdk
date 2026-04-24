@@ -33,10 +33,19 @@ class MerchantPerformanceRedeemInfo extends Model
      * @var MerchantPerformanceRedeemResultInfo
      */
     public $merchantPerformanceRedeemResultInfo;
+
+    // 可选回购方式列表
+    /**
+     * @example [ONLINE,OFFLINE]
+     *
+     * @var string[]
+     */
+    public $supportRedeemWayList;
     protected $_name = [
         'supportRedeem'                       => 'support_redeem',
         'supportRedeemTypeList'               => 'support_redeem_type_list',
         'merchantPerformanceRedeemResultInfo' => 'merchant_performance_redeem_result_info',
+        'supportRedeemWayList'                => 'support_redeem_way_list',
     ];
 
     public function validate()
@@ -54,6 +63,9 @@ class MerchantPerformanceRedeemInfo extends Model
         }
         if (null !== $this->merchantPerformanceRedeemResultInfo) {
             $res['merchant_performance_redeem_result_info'] = null !== $this->merchantPerformanceRedeemResultInfo ? $this->merchantPerformanceRedeemResultInfo->toMap() : null;
+        }
+        if (null !== $this->supportRedeemWayList) {
+            $res['support_redeem_way_list'] = $this->supportRedeemWayList;
         }
 
         return $res;
@@ -77,6 +89,11 @@ class MerchantPerformanceRedeemInfo extends Model
         }
         if (isset($map['merchant_performance_redeem_result_info'])) {
             $model->merchantPerformanceRedeemResultInfo = MerchantPerformanceRedeemResultInfo::fromMap($map['merchant_performance_redeem_result_info']);
+        }
+        if (isset($map['support_redeem_way_list'])) {
+            if (!empty($map['support_redeem_way_list'])) {
+                $model->supportRedeemWayList = $map['support_redeem_way_list'];
+            }
         }
 
         return $model;

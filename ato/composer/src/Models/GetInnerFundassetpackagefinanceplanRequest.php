@@ -6,7 +6,7 @@ namespace AntChain\ATO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class SubmitInnerFundasssetpackageauditRequest extends Model
+class GetInnerFundassetpackagefinanceplanRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,19 +19,17 @@ class SubmitInnerFundasssetpackageauditRequest extends Model
      */
     public $productInstanceId;
 
+    // 资方租户id
+    /**
+     * @var string
+     */
+    public $fundTenantId;
+
     // 资产包id
     /**
      * @var string
      */
     public $assetPackageId;
-
-    // AGREE 同意
-    // SUPPLEMENT_MATERIAL 补充材料
-    // REJECT 拒绝
-    /**
-     * @var string
-     */
-    public $auditType;
 
     // 资方社会统一信用代码
     /**
@@ -51,14 +49,6 @@ class SubmitInnerFundasssetpackageauditRequest extends Model
      */
     public $merchantId;
 
-    // 备注（小于200字符）
-    // 审核通过不用填、
-    // 审核不通过/补充材料必填，不允许传入特殊字符
-    /**
-     * @var string
-     */
-    public $remark;
-
     // traceId
     /**
      * @var string
@@ -67,23 +57,21 @@ class SubmitInnerFundasssetpackageauditRequest extends Model
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
+        'fundTenantId'      => 'fund_tenant_id',
         'assetPackageId'    => 'asset_package_id',
-        'auditType'         => 'audit_type',
         'fundId'            => 'fund_id',
         'tenantId'          => 'tenant_id',
         'merchantId'        => 'merchant_id',
-        'remark'            => 'remark',
         'traceId'           => 'trace_id',
     ];
 
     public function validate()
     {
+        Model::validateRequired('fundTenantId', $this->fundTenantId, true);
         Model::validateRequired('assetPackageId', $this->assetPackageId, true);
-        Model::validateRequired('auditType', $this->auditType, true);
         Model::validateRequired('fundId', $this->fundId, true);
         Model::validateRequired('tenantId', $this->tenantId, true);
         Model::validateRequired('merchantId', $this->merchantId, true);
-        Model::validateRequired('remark', $this->remark, true);
         Model::validateRequired('traceId', $this->traceId, true);
     }
 
@@ -96,11 +84,11 @@ class SubmitInnerFundasssetpackageauditRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
+        if (null !== $this->fundTenantId) {
+            $res['fund_tenant_id'] = $this->fundTenantId;
+        }
         if (null !== $this->assetPackageId) {
             $res['asset_package_id'] = $this->assetPackageId;
-        }
-        if (null !== $this->auditType) {
-            $res['audit_type'] = $this->auditType;
         }
         if (null !== $this->fundId) {
             $res['fund_id'] = $this->fundId;
@@ -110,9 +98,6 @@ class SubmitInnerFundasssetpackageauditRequest extends Model
         }
         if (null !== $this->merchantId) {
             $res['merchant_id'] = $this->merchantId;
-        }
-        if (null !== $this->remark) {
-            $res['remark'] = $this->remark;
         }
         if (null !== $this->traceId) {
             $res['trace_id'] = $this->traceId;
@@ -124,7 +109,7 @@ class SubmitInnerFundasssetpackageauditRequest extends Model
     /**
      * @param array $map
      *
-     * @return SubmitInnerFundasssetpackageauditRequest
+     * @return GetInnerFundassetpackagefinanceplanRequest
      */
     public static function fromMap($map = [])
     {
@@ -135,11 +120,11 @@ class SubmitInnerFundasssetpackageauditRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
+        if (isset($map['fund_tenant_id'])) {
+            $model->fundTenantId = $map['fund_tenant_id'];
+        }
         if (isset($map['asset_package_id'])) {
             $model->assetPackageId = $map['asset_package_id'];
-        }
-        if (isset($map['audit_type'])) {
-            $model->auditType = $map['audit_type'];
         }
         if (isset($map['fund_id'])) {
             $model->fundId = $map['fund_id'];
@@ -149,9 +134,6 @@ class SubmitInnerFundasssetpackageauditRequest extends Model
         }
         if (isset($map['merchant_id'])) {
             $model->merchantId = $map['merchant_id'];
-        }
-        if (isset($map['remark'])) {
-            $model->remark = $map['remark'];
         }
         if (isset($map['trace_id'])) {
             $model->traceId = $map['trace_id'];

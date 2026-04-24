@@ -166,6 +166,22 @@ class OrderInfo extends Model
      * @var string
      */
     public $payChannel;
+
+    // 是否允许拒绝放款
+    /**
+     * @example true, false
+     *
+     * @var bool
+     */
+    public $isAllowRejectLoan;
+
+    // 是否新融资模式订单
+    /**
+     * @example true, false
+     *
+     * @var bool
+     */
+    public $isNewF;
     protected $_name = [
         'orderId'              => 'order_id',
         'orderCreateTime'      => 'order_create_time',
@@ -186,6 +202,8 @@ class OrderInfo extends Model
         'promotionId'          => 'promotion_id',
         'fundMode'             => 'fund_mode',
         'payChannel'           => 'pay_channel',
+        'isAllowRejectLoan'    => 'is_allow_reject_loan',
+        'isNewF'               => 'is_new_f',
     ];
 
     public function validate()
@@ -251,6 +269,12 @@ class OrderInfo extends Model
         }
         if (null !== $this->payChannel) {
             $res['pay_channel'] = $this->payChannel;
+        }
+        if (null !== $this->isAllowRejectLoan) {
+            $res['is_allow_reject_loan'] = $this->isAllowRejectLoan;
+        }
+        if (null !== $this->isNewF) {
+            $res['is_new_f'] = $this->isNewF;
         }
 
         return $res;
@@ -320,6 +344,12 @@ class OrderInfo extends Model
         }
         if (isset($map['pay_channel'])) {
             $model->payChannel = $map['pay_channel'];
+        }
+        if (isset($map['is_allow_reject_loan'])) {
+            $model->isAllowRejectLoan = $map['is_allow_reject_loan'];
+        }
+        if (isset($map['is_new_f'])) {
+            $model->isNewF = $map['is_new_f'];
         }
 
         return $model;

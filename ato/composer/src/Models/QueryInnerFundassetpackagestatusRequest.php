@@ -6,7 +6,7 @@ namespace AntChain\ATO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryInnerFundasssetpackagestatusRequest extends Model
+class QueryInnerFundassetpackagestatusRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -18,6 +18,12 @@ class QueryInnerFundasssetpackagestatusRequest extends Model
      * @var string
      */
     public $productInstanceId;
+
+    // 资方租户id
+    /**
+     * @var string
+     */
+    public $fundTenantId;
 
     // 资产包id
     /**
@@ -51,6 +57,7 @@ class QueryInnerFundasssetpackagestatusRequest extends Model
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
+        'fundTenantId'      => 'fund_tenant_id',
         'assetPackageId'    => 'asset_package_id',
         'fundId'            => 'fund_id',
         'tenantId'          => 'tenant_id',
@@ -60,6 +67,7 @@ class QueryInnerFundasssetpackagestatusRequest extends Model
 
     public function validate()
     {
+        Model::validateRequired('fundTenantId', $this->fundTenantId, true);
         Model::validateRequired('assetPackageId', $this->assetPackageId, true);
         Model::validateRequired('fundId', $this->fundId, true);
         Model::validateRequired('tenantId', $this->tenantId, true);
@@ -75,6 +83,9 @@ class QueryInnerFundasssetpackagestatusRequest extends Model
         }
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->fundTenantId) {
+            $res['fund_tenant_id'] = $this->fundTenantId;
         }
         if (null !== $this->assetPackageId) {
             $res['asset_package_id'] = $this->assetPackageId;
@@ -98,7 +109,7 @@ class QueryInnerFundasssetpackagestatusRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryInnerFundasssetpackagestatusRequest
+     * @return QueryInnerFundassetpackagestatusRequest
      */
     public static function fromMap($map = [])
     {
@@ -108,6 +119,9 @@ class QueryInnerFundasssetpackagestatusRequest extends Model
         }
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
+        }
+        if (isset($map['fund_tenant_id'])) {
+            $model->fundTenantId = $map['fund_tenant_id'];
         }
         if (isset($map['asset_package_id'])) {
             $model->assetPackageId = $map['asset_package_id'];
