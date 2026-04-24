@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.34',
+    sdk_version = '1.0.36',
     _prod_code = 'INTELLICAR',
     _prod_channel = 'default'
   };
@@ -1606,6 +1606,8 @@ model CallbackCdsqScratchesRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 交易流水号
   transactionNo: string(name='transaction_no'),
+  // 场景码
+  sceneCode: string(name='scene_code'),
 }
 
 model CallbackCdsqScratchesResponse = {
@@ -1776,29 +1778,16 @@ model QueryTagChanganRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 场景码
   sceneCode: string(name='scene_code'),
-  // 授权token
-  accessToken: string(name='access_token'),
   // 请求唯一ID（UUID生成即可）
   requestId: string(name='request_id'),
   // 系统
   os?: string(name='os'),
-  // 标签库组合：
-  // 1表示基础标签
-  // 2表示行业标签
-  // 3表示基础标签+行业标签
-  // 8表示自定义标签
-  // 9表示基础标签+自定义标签
-  // 10表示行业标签+自定义标签
-  // 11表示基础标签+行业标签+自定义标签
+  // 1表示定制标签查询
+  // 2表示标准标签查询
+  // 3表示全量标签查询
   type: long(name='type'),
   // 设备信息
   deviceInfoList: DeviceBean(name='device_info_list'),
-  // 基础标签动态参数（对外编码）
-  baseTags?: [ string ](name='base_tags'),
-  // 行业标签动态参数（对外编码）
-  industyTags?: [ string ](name='industy_tags'),
-  // 规则标签动态参数（对外编码）
-  businessTags?: [ string ](name='business_tags'),
 }
 
 model QueryTagChanganResponse = {
@@ -2057,6 +2046,156 @@ async function syncUsedcar(request: SyncUsedcarRequest): SyncUsedcarResponse {
 async function syncUsedcarEx(request: SyncUsedcarRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SyncUsedcarResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antdigital.intellicar.usedcar.sync', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RegisterCdsqTireinsuranceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 平台名称
+  partnerCode: string(name='partner_code'),
+  // 交易流水号
+  transactionNo: string(name='transaction_no'),
+  // 用户ID
+  userid?: string(name='userid'),
+  // 方案名称
+  // 代步车+置换、轮
+  // 胎险+置换、代步
+  // 车、四轮轮胎险、
+  // 置换、二轮轮胎险
+  schemeName: string(name='scheme_name'),
+  // 购买时间
+  buytime?: string(name='buytime'),
+  // 场景码
+  sceneCode: string(name='scene_code'),
+}
+
+model RegisterCdsqTireinsuranceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 结果码
+  responseCode?: string(name='response_code'),
+  // 错误信息
+  responseMsg?: string(name='response_msg'),
+  // 保单服务号
+  policyNo?: string(name='policy_no'),
+  // 保险起期，格式：yyyy-MM-dd HH:mm:ss
+  policyStart?: string(name='policy_start'),
+  // 保险止期，格式：yyyy-MM-dd HH:mm:ss
+  policyEnd?: string(name='policy_end'),
+}
+
+/**
+ * Description: 轮胎投保接口
+ * Summary: 轮胎投保接口
+ */
+async function registerCdsqTireinsurance(request: RegisterCdsqTireinsuranceRequest): RegisterCdsqTireinsuranceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return registerCdsqTireinsuranceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 轮胎投保接口
+ * Summary: 轮胎投保接口
+ */
+async function registerCdsqTireinsuranceEx(request: RegisterCdsqTireinsuranceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RegisterCdsqTireinsuranceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.intellicar.cdsq.tireinsurance.register', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CallbackCdsqTireinsuranceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 交易流水号
+  transactionNo: string(name='transaction_no'),
+  // 场景码
+  sceneCode: string(name='scene_code'),
+}
+
+model CallbackCdsqTireinsuranceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 结果码
+  responseCode?: string(name='response_code'),
+  // 错误信息
+  responseMsg?: string(name='response_msg'),
+}
+
+/**
+ * Description: 轮胎回调接口
+ * Summary: 轮胎回调接口
+ */
+async function callbackCdsqTireinsurance(request: CallbackCdsqTireinsuranceRequest): CallbackCdsqTireinsuranceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return callbackCdsqTireinsuranceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 轮胎回调接口
+ * Summary: 轮胎回调接口
+ */
+async function callbackCdsqTireinsuranceEx(request: CallbackCdsqTireinsuranceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CallbackCdsqTireinsuranceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.intellicar.cdsq.tireinsurance.callback', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryCdsqTireinsuranceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 平台名称
+  partnerCode: string(name='partner_code'),
+  // 交易流水号
+  transactionNo: string(name='transaction_no'),
+  // 场景码
+  sceneCode: string(name='scene_code'),
+}
+
+model QueryCdsqTireinsuranceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 结果码
+  responseCode?: string(name='response_code'),
+  // 错误信息
+  responseMsg?: string(name='response_msg'),
+  // 保单状态
+  // 1：投保
+  // 2：退保
+  status?: string(name='status'),
+}
+
+/**
+ * Description: 轮胎权益接口查询状态
+ * Summary: 轮胎权益接口查询状态
+ */
+async function queryCdsqTireinsurance(request: QueryCdsqTireinsuranceRequest): QueryCdsqTireinsuranceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryCdsqTireinsuranceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 轮胎权益接口查询状态
+ * Summary: 轮胎权益接口查询状态
+ */
+async function queryCdsqTireinsuranceEx(request: QueryCdsqTireinsuranceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryCdsqTireinsuranceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.intellicar.cdsq.tireinsurance.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateAntcloudGatewayxFileUploadRequest = {
