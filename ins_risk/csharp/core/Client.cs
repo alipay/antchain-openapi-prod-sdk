@@ -137,7 +137,7 @@ namespace AntChain.SDK.INS_RISK
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.0"},
+                        {"sdk_version", "1.0.8"},
                         {"_prod_code", "INS_RISK"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.INS_RISK
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.0"},
+                        {"sdk_version", "1.0.8"},
                         {"_prod_code", "INS_RISK"},
                         {"_prod_channel", "default"},
                     };
@@ -319,6 +319,48 @@ namespace AntChain.SDK.INS_RISK
             }
 
             throw new TeaUnretryableException(_lastRequest, _lastException);
+        }
+
+        /**
+         * Description: 策略分数查询
+         * Summary: 策略分数查询
+         */
+        public QueryScorePolicyResponse QueryScorePolicy(QueryScorePolicyRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryScorePolicyEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 策略分数查询
+         * Summary: 策略分数查询
+         */
+        public async Task<QueryScorePolicyResponse> QueryScorePolicyAsync(QueryScorePolicyRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryScorePolicyExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 策略分数查询
+         * Summary: 策略分数查询
+         */
+        public QueryScorePolicyResponse QueryScorePolicyEx(QueryScorePolicyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryScorePolicyResponse>(DoRequest("1.0", "antdigital.insrisk.score.policy.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 策略分数查询
+         * Summary: 策略分数查询
+         */
+        public async Task<QueryScorePolicyResponse> QueryScorePolicyExAsync(QueryScorePolicyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryScorePolicyResponse>(await DoRequestAsync("1.0", "antdigital.insrisk.score.policy.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

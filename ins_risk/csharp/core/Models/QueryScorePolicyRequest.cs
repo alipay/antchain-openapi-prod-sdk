@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.INS_RISK.Models
 {
-    public class QuerySecurityPolicyRequest : TeaModel {
+    public class QueryScorePolicyRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,22 +18,22 @@ namespace AntChain.SDK.INS_RISK.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 请求流水号
+        // 请求流水号，保证唯一
         [NameInMap("request_id")]
         [Validation(Required=true)]
         public string RequestId { get; set; }
 
-        // 业务code
+        // 业务编码
         [NameInMap("business_code")]
         [Validation(Required=true)]
         public string BusinessCode { get; set; }
 
-        // 产品code
-        [NameInMap("expect_product_codes")]
+        // 产品编码
+        [NameInMap("expect_product_code")]
         [Validation(Required=true)]
-        public string ExpectProductCodes { get; set; }
+        public string ExpectProductCode { get; set; }
 
-        // 参数
+        // 请求参数
         [NameInMap("params")]
         [Validation(Required=true)]
         public string Params { get; set; }
