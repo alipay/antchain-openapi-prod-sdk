@@ -23,6 +23,11 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=true)]
         public long? TaskId { get; set; }
 
+        // 分流字段，行业标签区分哈啰流量归属于umkt或qmp
+        [NameInMap("industry_tag")]
+        [Validation(Required=false)]
+        public string IndustryTag { get; set; }
+
     }
 
 }

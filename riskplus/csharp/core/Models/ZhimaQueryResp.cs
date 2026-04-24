@@ -8,7 +8,9 @@ using Tea;
 
 namespace AntChain.SDK.RISKPLUS.Models
 {
-    // zhima.customer.ep.identification.query 在认证完成后,商户可以查询认证的状态和结果 
+    // zhima.customer.ep.identification.query
+    // 在认证完成后,商户可以查询认证的状态和结果
+    // 
     public class ZhimaQueryResp : TeaModel {
         // 认证的企业证件号
         [NameInMap("ep_cert_no")]

@@ -76,7 +76,32 @@ namespace AntChain.SDK.RISKPLUS.Models
         // 还款信息列表
         [NameInMap("repay_infos")]
         [Validation(Required=false)]
-        public RepayInfos RepayInfos { get; set; }
+        public List<RepayInfos> RepayInfos { get; set; }
+
+        // 还款日期
+        [NameInMap("repay_date")]
+        [Validation(Required=false)]
+        public string RepayDate { get; set; }
+
+        // 实还总额
+        [NameInMap("repay_amount")]
+        [Validation(Required=false)]
+        public long? RepayAmount { get; set; }
+
+        // 实还总本金
+        [NameInMap("repay_principal")]
+        [Validation(Required=false)]
+        public long? RepayPrincipal { get; set; }
+
+        // 实还总利息
+        [NameInMap("repay_interest")]
+        [Validation(Required=false)]
+        public long? RepayInterest { get; set; }
+
+        // 实收总罚息
+        [NameInMap("repay_punish")]
+        [Validation(Required=false)]
+        public long? RepayPunish { get; set; }
 
     }
 

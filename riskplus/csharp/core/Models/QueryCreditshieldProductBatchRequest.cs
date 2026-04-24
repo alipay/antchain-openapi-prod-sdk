@@ -28,7 +28,7 @@ namespace AntChain.SDK.RISKPLUS.Models
 
         // 查询信息集合
         [NameInMap("query_infos")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public List<QueryInfo> QueryInfos { get; set; }
 
     }

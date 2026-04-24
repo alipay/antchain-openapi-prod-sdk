@@ -74,6 +74,11 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public List<AirInfoCodes> InfoCodes { get; set; }
 
+        // 策略输出参数
+        [NameInMap("out_params")]
+        [Validation(Required=false)]
+        public List<OutParam> OutParams { get; set; }
+
     }
 
 }

@@ -29,9 +29,9 @@ namespace AntChain.SDK.RISKPLUS.Models
         public long? PageSize { get; set; }
 
         // 渠道code
-        [NameInMap("content_type")]
+        [NameInMap("channel_type")]
         [Validation(Required=true)]
-        public string ContentType { get; set; }
+        public string ChannelType { get; set; }
 
     }
 
