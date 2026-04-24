@@ -8,7 +8,7 @@ English | [简体中文](README-CN.md)
 <dependency>
    <groupId>com.antgroup.antchain.openapi</groupId>
    <artifactId>openapi-demo</artifactId>
-   <version>1.1.2</version>
+   <version>1.1.65</version>
 </dependency>
 ```
 

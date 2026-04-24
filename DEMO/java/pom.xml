@@ -6,12 +6,12 @@
 
     <!-- 基础信息 -->
     <groupId>com.antgroup.antchain.openapi</groupId>
-    <!-- 注意：变量 openapi-demo 和 1.1.2 需要在命令行或 properties 中定义 -->
-    <artifactId>openapi-demo</artifactId>
-    <version>1.1.2</version>
+    <!-- 注意：变量 demo 和 1.1.65 需要在命令行或 properties 中定义 -->
+    <artifactId>demo</artifactId>
+    <version>1.1.65</version>
     <packaging>jar</packaging>
 
-    <name>openapi-demo</name>
+    <name>demo</name>
     <description>Ant Chain SDK for Java</description>
     <url>https://github.com/alipay/antchain-openapi-prod-sdk</url>
 
