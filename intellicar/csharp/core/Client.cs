@@ -137,7 +137,7 @@ namespace AntChain.SDK.INTELLICAR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.34"},
+                        {"sdk_version", "1.0.36"},
                         {"_prod_code", "INTELLICAR"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.INTELLICAR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.34"},
+                        {"sdk_version", "1.0.36"},
                         {"_prod_code", "INTELLICAR"},
                         {"_prod_channel", "default"},
                     };
@@ -1501,6 +1501,132 @@ namespace AntChain.SDK.INTELLICAR
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<SyncUsedcarResponse>(await DoRequestAsync("1.0", "antdigital.intellicar.usedcar.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 轮胎投保接口
+         * Summary: 轮胎投保接口
+         */
+        public RegisterCdsqTireinsuranceResponse RegisterCdsqTireinsurance(RegisterCdsqTireinsuranceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return RegisterCdsqTireinsuranceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 轮胎投保接口
+         * Summary: 轮胎投保接口
+         */
+        public async Task<RegisterCdsqTireinsuranceResponse> RegisterCdsqTireinsuranceAsync(RegisterCdsqTireinsuranceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await RegisterCdsqTireinsuranceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 轮胎投保接口
+         * Summary: 轮胎投保接口
+         */
+        public RegisterCdsqTireinsuranceResponse RegisterCdsqTireinsuranceEx(RegisterCdsqTireinsuranceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RegisterCdsqTireinsuranceResponse>(DoRequest("1.0", "antdigital.intellicar.cdsq.tireinsurance.register", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 轮胎投保接口
+         * Summary: 轮胎投保接口
+         */
+        public async Task<RegisterCdsqTireinsuranceResponse> RegisterCdsqTireinsuranceExAsync(RegisterCdsqTireinsuranceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RegisterCdsqTireinsuranceResponse>(await DoRequestAsync("1.0", "antdigital.intellicar.cdsq.tireinsurance.register", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 轮胎回调接口
+         * Summary: 轮胎回调接口
+         */
+        public CallbackCdsqTireinsuranceResponse CallbackCdsqTireinsurance(CallbackCdsqTireinsuranceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CallbackCdsqTireinsuranceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 轮胎回调接口
+         * Summary: 轮胎回调接口
+         */
+        public async Task<CallbackCdsqTireinsuranceResponse> CallbackCdsqTireinsuranceAsync(CallbackCdsqTireinsuranceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CallbackCdsqTireinsuranceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 轮胎回调接口
+         * Summary: 轮胎回调接口
+         */
+        public CallbackCdsqTireinsuranceResponse CallbackCdsqTireinsuranceEx(CallbackCdsqTireinsuranceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CallbackCdsqTireinsuranceResponse>(DoRequest("1.0", "antdigital.intellicar.cdsq.tireinsurance.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 轮胎回调接口
+         * Summary: 轮胎回调接口
+         */
+        public async Task<CallbackCdsqTireinsuranceResponse> CallbackCdsqTireinsuranceExAsync(CallbackCdsqTireinsuranceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CallbackCdsqTireinsuranceResponse>(await DoRequestAsync("1.0", "antdigital.intellicar.cdsq.tireinsurance.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 轮胎权益接口查询状态
+         * Summary: 轮胎权益接口查询状态
+         */
+        public QueryCdsqTireinsuranceResponse QueryCdsqTireinsurance(QueryCdsqTireinsuranceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryCdsqTireinsuranceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 轮胎权益接口查询状态
+         * Summary: 轮胎权益接口查询状态
+         */
+        public async Task<QueryCdsqTireinsuranceResponse> QueryCdsqTireinsuranceAsync(QueryCdsqTireinsuranceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryCdsqTireinsuranceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 轮胎权益接口查询状态
+         * Summary: 轮胎权益接口查询状态
+         */
+        public QueryCdsqTireinsuranceResponse QueryCdsqTireinsuranceEx(QueryCdsqTireinsuranceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCdsqTireinsuranceResponse>(DoRequest("1.0", "antdigital.intellicar.cdsq.tireinsurance.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 轮胎权益接口查询状态
+         * Summary: 轮胎权益接口查询状态
+         */
+        public async Task<QueryCdsqTireinsuranceResponse> QueryCdsqTireinsuranceExAsync(QueryCdsqTireinsuranceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCdsqTireinsuranceResponse>(await DoRequestAsync("1.0", "antdigital.intellicar.cdsq.tireinsurance.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.INTELLICAR.Models
 {
-    public class CallbackCdsqScratchesRequest : TeaModel {
+    public class QueryCdsqTireinsuranceRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -17,6 +17,11 @@ namespace AntChain.SDK.INTELLICAR.Models
         [NameInMap("product_instance_id")]
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
+
+        // 平台名称
+        [NameInMap("partner_code")]
+        [Validation(Required=true)]
+        public string PartnerCode { get; set; }
 
         // 交易流水号
         [NameInMap("transaction_no")]

@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.INTELLICAR.Models
 {
-    public class CallbackCdsqScratchesRequest : TeaModel {
+    public class CallbackCdsqTireinsuranceRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
