@@ -16,6 +16,10 @@ public class QueryQmpDataaccessStatisticRequest extends TeaModel {
     @Validation(required = true)
     public Long taskId;
 
+    // 分流字段，行业标签区分哈啰流量归属于umkt或qmp
+    @NameInMap("industry_tag")
+    public String industryTag;
+
     public static QueryQmpDataaccessStatisticRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryQmpDataaccessStatisticRequest self = new QueryQmpDataaccessStatisticRequest();
         return TeaModel.build(map, self);
@@ -43,6 +47,14 @@ public class QueryQmpDataaccessStatisticRequest extends TeaModel {
     }
     public Long getTaskId() {
         return this.taskId;
+    }
+
+    public QueryQmpDataaccessStatisticRequest setIndustryTag(String industryTag) {
+        this.industryTag = industryTag;
+        return this;
+    }
+    public String getIndustryTag() {
+        return this.industryTag;
     }
 
 }

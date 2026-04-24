@@ -29,6 +29,10 @@ public class QueryDubbridgeRouterUserselectRequest extends TeaModel {
     @NameInMap("custom_name")
     public String customName;
 
+    // 机构编码
+    @NameInMap("platform_no")
+    public String platformNo;
+
     // 扩展信息JSON
     @NameInMap("ext_info")
     public String extInfo;
@@ -84,6 +88,14 @@ public class QueryDubbridgeRouterUserselectRequest extends TeaModel {
     }
     public String getCustomName() {
         return this.customName;
+    }
+
+    public QueryDubbridgeRouterUserselectRequest setPlatformNo(String platformNo) {
+        this.platformNo = platformNo;
+        return this;
+    }
+    public String getPlatformNo() {
+        return this.platformNo;
     }
 
     public QueryDubbridgeRouterUserselectRequest setExtInfo(String extInfo) {

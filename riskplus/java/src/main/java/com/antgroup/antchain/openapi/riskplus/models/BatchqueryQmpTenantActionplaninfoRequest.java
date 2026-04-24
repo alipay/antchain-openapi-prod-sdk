@@ -26,6 +26,10 @@ public class BatchqueryQmpTenantActionplaninfoRequest extends TeaModel {
     @Validation(required = true)
     public Long pageSize;
 
+    // 分流字段，行业标签区分哈啰流量归属于umkt或qmp
+    @NameInMap("industry_tag")
+    public String industryTag;
+
     public static BatchqueryQmpTenantActionplaninfoRequest build(java.util.Map<String, ?> map) throws Exception {
         BatchqueryQmpTenantActionplaninfoRequest self = new BatchqueryQmpTenantActionplaninfoRequest();
         return TeaModel.build(map, self);
@@ -69,6 +73,14 @@ public class BatchqueryQmpTenantActionplaninfoRequest extends TeaModel {
     }
     public Long getPageSize() {
         return this.pageSize;
+    }
+
+    public BatchqueryQmpTenantActionplaninfoRequest setIndustryTag(String industryTag) {
+        this.industryTag = industryTag;
+        return this;
+    }
+    public String getIndustryTag() {
+        return this.industryTag;
     }
 
 }

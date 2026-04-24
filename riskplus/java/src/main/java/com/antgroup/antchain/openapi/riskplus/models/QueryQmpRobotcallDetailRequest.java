@@ -31,6 +31,10 @@ public class QueryQmpRobotcallDetailRequest extends TeaModel {
     @Validation(required = true)
     public Long sceneStrategyId;
 
+    // 分流字段，行业标签区分哈啰流量归属于umkt或qmp
+    @NameInMap("industry_tag")
+    public String industryTag;
+
     public static QueryQmpRobotcallDetailRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryQmpRobotcallDetailRequest self = new QueryQmpRobotcallDetailRequest();
         return TeaModel.build(map, self);
@@ -82,6 +86,14 @@ public class QueryQmpRobotcallDetailRequest extends TeaModel {
     }
     public Long getSceneStrategyId() {
         return this.sceneStrategyId;
+    }
+
+    public QueryQmpRobotcallDetailRequest setIndustryTag(String industryTag) {
+        this.industryTag = industryTag;
+        return this;
+    }
+    public String getIndustryTag() {
+        return this.industryTag;
     }
 
 }

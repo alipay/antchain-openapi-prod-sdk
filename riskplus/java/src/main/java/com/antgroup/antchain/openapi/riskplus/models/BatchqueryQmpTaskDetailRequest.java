@@ -39,6 +39,10 @@ public class BatchqueryQmpTaskDetailRequest extends TeaModel {
     @NameInMap("end_call_date")
     public String endCallDate;
 
+    // 分流字段，行业标签区分哈啰流量归属于umkt或qmp
+    @NameInMap("industry_tag")
+    public String industryTag;
+
     public static BatchqueryQmpTaskDetailRequest build(java.util.Map<String, ?> map) throws Exception {
         BatchqueryQmpTaskDetailRequest self = new BatchqueryQmpTaskDetailRequest();
         return TeaModel.build(map, self);
@@ -106,6 +110,14 @@ public class BatchqueryQmpTaskDetailRequest extends TeaModel {
     }
     public String getEndCallDate() {
         return this.endCallDate;
+    }
+
+    public BatchqueryQmpTaskDetailRequest setIndustryTag(String industryTag) {
+        this.industryTag = industryTag;
+        return this;
+    }
+    public String getIndustryTag() {
+        return this.industryTag;
     }
 
 }

@@ -21,7 +21,6 @@ public class QueryCreditshieldProductBatchRequest extends TeaModel {
 
     // 查询信息集合
     @NameInMap("query_infos")
-    @Validation(required = true)
     public java.util.List<QueryInfo> queryInfos;
 
     public static QueryCreditshieldProductBatchRequest build(java.util.Map<String, ?> map) throws Exception {

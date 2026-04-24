@@ -56,6 +56,10 @@ public class QuerySecurityAiriskcloudPolicyResponse extends TeaModel {
     @NameInMap("info_codes")
     public java.util.List<AirInfoCodes> infoCodes;
 
+    // 策略输出参数
+    @NameInMap("out_params")
+    public java.util.List<OutParam> outParams;
+
     public static QuerySecurityAiriskcloudPolicyResponse build(java.util.Map<String, ?> map) throws Exception {
         QuerySecurityAiriskcloudPolicyResponse self = new QuerySecurityAiriskcloudPolicyResponse();
         return TeaModel.build(map, self);
@@ -163,6 +167,14 @@ public class QuerySecurityAiriskcloudPolicyResponse extends TeaModel {
     }
     public java.util.List<AirInfoCodes> getInfoCodes() {
         return this.infoCodes;
+    }
+
+    public QuerySecurityAiriskcloudPolicyResponse setOutParams(java.util.List<OutParam> outParams) {
+        this.outParams = outParams;
+        return this;
+    }
+    public java.util.List<OutParam> getOutParams() {
+        return this.outParams;
     }
 
 }

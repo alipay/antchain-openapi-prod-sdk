@@ -59,7 +59,27 @@ public class QueryDubbridgeRepayResultResponse extends TeaModel {
 
     // 还款信息列表
     @NameInMap("repay_infos")
-    public RepayInfos repayInfos;
+    public java.util.List<RepayInfos> repayInfos;
+
+    // 还款日期
+    @NameInMap("repay_date")
+    public String repayDate;
+
+    // 实还总额
+    @NameInMap("repay_amount")
+    public Long repayAmount;
+
+    // 实还总本金
+    @NameInMap("repay_principal")
+    public Long repayPrincipal;
+
+    // 实还总利息
+    @NameInMap("repay_interest")
+    public Long repayInterest;
+
+    // 实收总罚息
+    @NameInMap("repay_punish")
+    public Long repayPunish;
 
     public static QueryDubbridgeRepayResultResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryDubbridgeRepayResultResponse self = new QueryDubbridgeRepayResultResponse();
@@ -154,12 +174,52 @@ public class QueryDubbridgeRepayResultResponse extends TeaModel {
         return this.failReason;
     }
 
-    public QueryDubbridgeRepayResultResponse setRepayInfos(RepayInfos repayInfos) {
+    public QueryDubbridgeRepayResultResponse setRepayInfos(java.util.List<RepayInfos> repayInfos) {
         this.repayInfos = repayInfos;
         return this;
     }
-    public RepayInfos getRepayInfos() {
+    public java.util.List<RepayInfos> getRepayInfos() {
         return this.repayInfos;
+    }
+
+    public QueryDubbridgeRepayResultResponse setRepayDate(String repayDate) {
+        this.repayDate = repayDate;
+        return this;
+    }
+    public String getRepayDate() {
+        return this.repayDate;
+    }
+
+    public QueryDubbridgeRepayResultResponse setRepayAmount(Long repayAmount) {
+        this.repayAmount = repayAmount;
+        return this;
+    }
+    public Long getRepayAmount() {
+        return this.repayAmount;
+    }
+
+    public QueryDubbridgeRepayResultResponse setRepayPrincipal(Long repayPrincipal) {
+        this.repayPrincipal = repayPrincipal;
+        return this;
+    }
+    public Long getRepayPrincipal() {
+        return this.repayPrincipal;
+    }
+
+    public QueryDubbridgeRepayResultResponse setRepayInterest(Long repayInterest) {
+        this.repayInterest = repayInterest;
+        return this;
+    }
+    public Long getRepayInterest() {
+        return this.repayInterest;
+    }
+
+    public QueryDubbridgeRepayResultResponse setRepayPunish(Long repayPunish) {
+        this.repayPunish = repayPunish;
+        return this;
+    }
+    public Long getRepayPunish() {
+        return this.repayPunish;
     }
 
 }

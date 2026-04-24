@@ -40,11 +40,11 @@ public class UploadDubbridgeAlipayImageRequest extends TeaModel {
     @Validation(required = true)
     public String imageCategory;
 
-    // 文件base64字符串，最大10M；（建议）
+    // 文件base64字符串，最大10M
     @NameInMap("image_content")
     public String imageContent;
 
-    // 图片文件路径
+    // 图片文件路径，（建议），http、https为前缀
     @NameInMap("image_path")
     public String imagePath;
 
