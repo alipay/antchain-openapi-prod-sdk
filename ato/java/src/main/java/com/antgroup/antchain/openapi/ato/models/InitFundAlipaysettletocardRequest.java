@@ -23,7 +23,6 @@ public class InitFundAlipaysettletocardRequest extends TeaModel {
 
     // 京东二级商户号,当pay_channel=JDPAY时，该字段必填
     @NameInMap("sub_merchant_id")
-    @Validation(required = true)
     public String subMerchantId;
 
     // 账单开始日期, 格式：YYYY-MM-DD
@@ -36,7 +35,7 @@ public class InitFundAlipaysettletocardRequest extends TeaModel {
     @Validation(required = true)
     public String gmtFinish;
 
-    // 交易流水
+    // 交易流水:SETTLE
     @NameInMap("bill_type")
     @Validation(required = true)
     public String billType;

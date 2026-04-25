@@ -25,6 +25,14 @@ public class CancelWithholdActivepayRequest extends TeaModel {
     @NameInMap("trade_no")
     public String tradeNo;
 
+    // 支付类型，默认履约
+    @NameInMap("pay_type")
+    public String payType;
+
+    // 支付申请号，在多期支付场景必填
+    @NameInMap("pay_apply_no")
+    public Long payApplyNo;
+
     public static CancelWithholdActivepayRequest build(java.util.Map<String, ?> map) throws Exception {
         CancelWithholdActivepayRequest self = new CancelWithholdActivepayRequest();
         return TeaModel.build(map, self);
@@ -68,6 +76,22 @@ public class CancelWithholdActivepayRequest extends TeaModel {
     }
     public String getTradeNo() {
         return this.tradeNo;
+    }
+
+    public CancelWithholdActivepayRequest setPayType(String payType) {
+        this.payType = payType;
+        return this;
+    }
+    public String getPayType() {
+        return this.payType;
+    }
+
+    public CancelWithholdActivepayRequest setPayApplyNo(Long payApplyNo) {
+        this.payApplyNo = payApplyNo;
+        return this;
+    }
+    public Long getPayApplyNo() {
+        return this.payApplyNo;
     }
 
 }
