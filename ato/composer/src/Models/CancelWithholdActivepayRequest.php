@@ -36,12 +36,26 @@ class CancelWithholdActivepayRequest extends Model
      * @var string
      */
     public $tradeNo;
+
+    // 支付类型，默认履约
+    /**
+     * @var string
+     */
+    public $payType;
+
+    // 支付申请号，在多期支付场景必填
+    /**
+     * @var int
+     */
+    public $payApplyNo;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'orderId'           => 'order_id',
         'periodNum'         => 'period_num',
         'tradeNo'           => 'trade_no',
+        'payType'           => 'pay_type',
+        'payApplyNo'        => 'pay_apply_no',
     ];
 
     public function validate()
@@ -67,6 +81,12 @@ class CancelWithholdActivepayRequest extends Model
         }
         if (null !== $this->tradeNo) {
             $res['trade_no'] = $this->tradeNo;
+        }
+        if (null !== $this->payType) {
+            $res['pay_type'] = $this->payType;
+        }
+        if (null !== $this->payApplyNo) {
+            $res['pay_apply_no'] = $this->payApplyNo;
         }
 
         return $res;
@@ -94,6 +114,12 @@ class CancelWithholdActivepayRequest extends Model
         }
         if (isset($map['trade_no'])) {
             $model->tradeNo = $map['trade_no'];
+        }
+        if (isset($map['pay_type'])) {
+            $model->payType = $map['pay_type'];
+        }
+        if (isset($map['pay_apply_no'])) {
+            $model->payApplyNo = $map['pay_apply_no'];
         }
 
         return $model;

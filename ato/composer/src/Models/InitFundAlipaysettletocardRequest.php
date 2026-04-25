@@ -49,7 +49,7 @@ class InitFundAlipaysettletocardRequest extends Model
      */
     public $gmtFinish;
 
-    // 交易流水
+    // 交易流水:SETTLE
     /**
      * @var string
      */
@@ -69,7 +69,6 @@ class InitFundAlipaysettletocardRequest extends Model
     {
         Model::validateRequired('merchantId', $this->merchantId, true);
         Model::validateRequired('payChannel', $this->payChannel, true);
-        Model::validateRequired('subMerchantId', $this->subMerchantId, true);
         Model::validateRequired('gmtPlan', $this->gmtPlan, true);
         Model::validateRequired('gmtFinish', $this->gmtFinish, true);
         Model::validateRequired('billType', $this->billType, true);
