@@ -30,7 +30,7 @@ namespace AntChain.SDK.ATO.Models
 
         // 京东二级商户号,当pay_channel=JDPAY时，该字段必填
         [NameInMap("sub_merchant_id")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string SubMerchantId { get; set; }
 
         // 账单开始日期, 格式：YYYY-MM-DD
@@ -43,7 +43,7 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=true)]
         public string GmtFinish { get; set; }
 
-        // 交易流水
+        // 交易流水:SETTLE
         [NameInMap("bill_type")]
         [Validation(Required=true)]
         public string BillType { get; set; }

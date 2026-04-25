@@ -33,6 +33,16 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string TradeNo { get; set; }
 
+        // 支付类型，默认履约
+        [NameInMap("pay_type")]
+        [Validation(Required=false)]
+        public string PayType { get; set; }
+
+        // 支付申请号，在多期支付场景必填
+        [NameInMap("pay_apply_no")]
+        [Validation(Required=false)]
+        public long? PayApplyNo { get; set; }
+
     }
 
 }
