@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.80',
+                    'sdk_version': '1.14.1',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.80',
+                    'sdk_version': '1.14.1',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -2325,6 +2325,62 @@ class Client:
         return TeaCore.from_map(
             bot_models.StartAgentChatResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.agent.chat.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def generate_mcp_token(
+        self,
+        request: bot_models.GenerateMcpTokenRequest,
+    ) -> bot_models.GenerateMcpTokenResponse:
+        """
+        Description: mcp token生成
+        Summary: mcp token生成
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.generate_mcp_token_ex(request, headers, runtime)
+
+    async def generate_mcp_token_async(
+        self,
+        request: bot_models.GenerateMcpTokenRequest,
+    ) -> bot_models.GenerateMcpTokenResponse:
+        """
+        Description: mcp token生成
+        Summary: mcp token生成
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.generate_mcp_token_ex_async(request, headers, runtime)
+
+    def generate_mcp_token_ex(
+        self,
+        request: bot_models.GenerateMcpTokenRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.GenerateMcpTokenResponse:
+        """
+        Description: mcp token生成
+        Summary: mcp token生成
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.GenerateMcpTokenResponse(),
+            self.do_request('1.0', 'blockchain.bot.mcp.token.generate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def generate_mcp_token_ex_async(
+        self,
+        request: bot_models.GenerateMcpTokenRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.GenerateMcpTokenResponse:
+        """
+        Description: mcp token生成
+        Summary: mcp token生成
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.GenerateMcpTokenResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.mcp.token.generate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_acs_device(
@@ -8689,6 +8745,118 @@ class Client:
         return TeaCore.from_map(
             bot_models.ExecElectrocarBatchpubResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.electrocar.batchpub.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_electrocar_batchpubjobs(
+        self,
+        request: bot_models.QueryElectrocarBatchpubjobsRequest,
+    ) -> bot_models.QueryElectrocarBatchpubjobsResponse:
+        """
+        Description: 批量定时控车-批次查询
+        Summary: 批量定时控车-批次查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_electrocar_batchpubjobs_ex(request, headers, runtime)
+
+    async def query_electrocar_batchpubjobs_async(
+        self,
+        request: bot_models.QueryElectrocarBatchpubjobsRequest,
+    ) -> bot_models.QueryElectrocarBatchpubjobsResponse:
+        """
+        Description: 批量定时控车-批次查询
+        Summary: 批量定时控车-批次查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_electrocar_batchpubjobs_ex_async(request, headers, runtime)
+
+    def query_electrocar_batchpubjobs_ex(
+        self,
+        request: bot_models.QueryElectrocarBatchpubjobsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryElectrocarBatchpubjobsResponse:
+        """
+        Description: 批量定时控车-批次查询
+        Summary: 批量定时控车-批次查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryElectrocarBatchpubjobsResponse(),
+            self.do_request('1.0', 'blockchain.bot.electrocar.batchpubjobs.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_electrocar_batchpubjobs_ex_async(
+        self,
+        request: bot_models.QueryElectrocarBatchpubjobsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryElectrocarBatchpubjobsResponse:
+        """
+        Description: 批量定时控车-批次查询
+        Summary: 批量定时控车-批次查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryElectrocarBatchpubjobsResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.electrocar.batchpubjobs.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_electrocar_batchpubtasks(
+        self,
+        request: bot_models.QueryElectrocarBatchpubtasksRequest,
+    ) -> bot_models.QueryElectrocarBatchpubtasksResponse:
+        """
+        Description: 批量定时控车任务查询
+        Summary: 批量定时控车任务查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_electrocar_batchpubtasks_ex(request, headers, runtime)
+
+    async def query_electrocar_batchpubtasks_async(
+        self,
+        request: bot_models.QueryElectrocarBatchpubtasksRequest,
+    ) -> bot_models.QueryElectrocarBatchpubtasksResponse:
+        """
+        Description: 批量定时控车任务查询
+        Summary: 批量定时控车任务查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_electrocar_batchpubtasks_ex_async(request, headers, runtime)
+
+    def query_electrocar_batchpubtasks_ex(
+        self,
+        request: bot_models.QueryElectrocarBatchpubtasksRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryElectrocarBatchpubtasksResponse:
+        """
+        Description: 批量定时控车任务查询
+        Summary: 批量定时控车任务查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryElectrocarBatchpubtasksResponse(),
+            self.do_request('1.0', 'blockchain.bot.electrocar.batchpubtasks.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_electrocar_batchpubtasks_ex_async(
+        self,
+        request: bot_models.QueryElectrocarBatchpubtasksRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryElectrocarBatchpubtasksResponse:
+        """
+        Description: 批量定时控车任务查询
+        Summary: 批量定时控车任务查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryElectrocarBatchpubtasksResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.electrocar.batchpubtasks.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_iotplatform_purchaseorder(
@@ -15801,6 +15969,174 @@ class Client:
         return TeaCore.from_map(
             bot_models.ImportIotagentClientResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.iotagent.client.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def exec_pullstrategy_ordercheck(
+        self,
+        request: bot_models.ExecPullstrategyOrdercheckRequest,
+    ) -> bot_models.ExecPullstrategyOrdercheckResponse:
+        """
+        Description: 订单数据核对
+        Summary: 订单数据核对
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.exec_pullstrategy_ordercheck_ex(request, headers, runtime)
+
+    async def exec_pullstrategy_ordercheck_async(
+        self,
+        request: bot_models.ExecPullstrategyOrdercheckRequest,
+    ) -> bot_models.ExecPullstrategyOrdercheckResponse:
+        """
+        Description: 订单数据核对
+        Summary: 订单数据核对
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.exec_pullstrategy_ordercheck_ex_async(request, headers, runtime)
+
+    def exec_pullstrategy_ordercheck_ex(
+        self,
+        request: bot_models.ExecPullstrategyOrdercheckRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ExecPullstrategyOrdercheckResponse:
+        """
+        Description: 订单数据核对
+        Summary: 订单数据核对
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ExecPullstrategyOrdercheckResponse(),
+            self.do_request('1.0', 'blockchain.bot.pullstrategy.ordercheck.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def exec_pullstrategy_ordercheck_ex_async(
+        self,
+        request: bot_models.ExecPullstrategyOrdercheckRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ExecPullstrategyOrdercheckResponse:
+        """
+        Description: 订单数据核对
+        Summary: 订单数据核对
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ExecPullstrategyOrdercheckResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.pullstrategy.ordercheck.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def exec_pullstrategy_stationcheck(
+        self,
+        request: bot_models.ExecPullstrategyStationcheckRequest,
+    ) -> bot_models.ExecPullstrategyStationcheckResponse:
+        """
+        Description: 资产信息核对
+        Summary: 资产信息核对
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.exec_pullstrategy_stationcheck_ex(request, headers, runtime)
+
+    async def exec_pullstrategy_stationcheck_async(
+        self,
+        request: bot_models.ExecPullstrategyStationcheckRequest,
+    ) -> bot_models.ExecPullstrategyStationcheckResponse:
+        """
+        Description: 资产信息核对
+        Summary: 资产信息核对
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.exec_pullstrategy_stationcheck_ex_async(request, headers, runtime)
+
+    def exec_pullstrategy_stationcheck_ex(
+        self,
+        request: bot_models.ExecPullstrategyStationcheckRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ExecPullstrategyStationcheckResponse:
+        """
+        Description: 资产信息核对
+        Summary: 资产信息核对
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ExecPullstrategyStationcheckResponse(),
+            self.do_request('1.0', 'blockchain.bot.pullstrategy.stationcheck.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def exec_pullstrategy_stationcheck_ex_async(
+        self,
+        request: bot_models.ExecPullstrategyStationcheckRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ExecPullstrategyStationcheckResponse:
+        """
+        Description: 资产信息核对
+        Summary: 资产信息核对
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ExecPullstrategyStationcheckResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.pullstrategy.stationcheck.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_mcp_endpoint(
+        self,
+        request: bot_models.QueryMcpEndpointRequest,
+    ) -> bot_models.QueryMcpEndpointResponse:
+        """
+        Description: 查询mcp服务连接点
+        Summary: 查询mcp服务连接点
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_mcp_endpoint_ex(request, headers, runtime)
+
+    async def query_mcp_endpoint_async(
+        self,
+        request: bot_models.QueryMcpEndpointRequest,
+    ) -> bot_models.QueryMcpEndpointResponse:
+        """
+        Description: 查询mcp服务连接点
+        Summary: 查询mcp服务连接点
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_mcp_endpoint_ex_async(request, headers, runtime)
+
+    def query_mcp_endpoint_ex(
+        self,
+        request: bot_models.QueryMcpEndpointRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryMcpEndpointResponse:
+        """
+        Description: 查询mcp服务连接点
+        Summary: 查询mcp服务连接点
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryMcpEndpointResponse(),
+            self.do_request('1.0', 'blockchain.bot.mcp.endpoint.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_mcp_endpoint_ex_async(
+        self,
+        request: bot_models.QueryMcpEndpointRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryMcpEndpointResponse:
+        """
+        Description: 查询mcp服务连接点
+        Summary: 查询mcp服务连接点
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryMcpEndpointResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.mcp.endpoint.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def exec_thingsdid_oneapi(
