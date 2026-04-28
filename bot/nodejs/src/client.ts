@@ -2997,6 +2997,35 @@ export class DidBaseQueryReq extends $tea.Model {
   }
 }
 
+// 设备信息
+export class DeviceInfos extends $tea.Model {
+  // tuid
+  tuid?: string;
+  // 设备状态
+  deviceStatus?: string;
+  // ota version
+  deviceOtaVersion?: string;
+  static names(): { [key: string]: string } {
+    return {
+      tuid: 'tuid',
+      deviceStatus: 'device_status',
+      deviceOtaVersion: 'device_ota_version',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      tuid: 'string',
+      deviceStatus: 'string',
+      deviceOtaVersion: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 商品鉴定返回结果
 export class BaiGoodsComparisonResponse extends $tea.Model {
   // 鉴定结果（REAL：为真   FAKE：为假   UNABLE_IDENTIFY：无法鉴定）
@@ -3328,6 +3357,71 @@ export class IotbasicDeviceModelFixedAttributeInfo extends $tea.Model {
       dataType: 'string',
       dataRangeMin: 'number',
       dataRangeMax: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 批量定时控车 批次详情
+export class BatchJobDetail extends $tea.Model {
+  // 批次Id
+  batchId?: string;
+  // 批次名称
+  batchName?: string;
+  // 批次状态
+  status?: string;
+  // 租户Id
+  tenantId?: number;
+  // 触发模式
+  triggerMode?: string;
+  // 定时执行时间戳
+  scheduledTime?: number;
+  // 实际开始时间戳
+  actualStartTime?: number;
+  // 实际结束时间戳
+  actualEndTime?: number;
+  // 总设备数
+  totalCount?: number;
+  // 成功数
+  successCount?: number;
+  // 失败数
+  failedCount?: number;
+  // 操作人
+  operator?: string;
+  static names(): { [key: string]: string } {
+    return {
+      batchId: 'batch_id',
+      batchName: 'batch_name',
+      status: 'status',
+      tenantId: 'tenant_id',
+      triggerMode: 'trigger_mode',
+      scheduledTime: 'scheduled_time',
+      actualStartTime: 'actual_start_time',
+      actualEndTime: 'actual_end_time',
+      totalCount: 'total_count',
+      successCount: 'success_count',
+      failedCount: 'failed_count',
+      operator: 'operator',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      batchId: 'string',
+      batchName: 'string',
+      status: 'string',
+      tenantId: 'number',
+      triggerMode: 'string',
+      scheduledTime: 'number',
+      actualStartTime: 'number',
+      actualEndTime: 'number',
+      totalCount: 'number',
+      successCount: 'number',
+      failedCount: 'number',
+      operator: 'string',
     };
   }
 
@@ -3798,6 +3892,51 @@ export class BaiGoodsPointCheckRespData extends $tea.Model {
   static types(): { [key: string]: any } {
     return {
       valid: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 批量定时任务详情
+export class TaskDetail extends $tea.Model {
+  // 批次id
+  batchId?: string;
+  // tuid
+  tuid?: string;
+  // device_name
+  deviceName?: string;
+  // 状态
+  status?: string;
+  // 调用时间
+  invokeTime?: number;
+  // 错误信息
+  errorMsg?: string;
+  // 重试次数
+  retryCount?: number;
+  static names(): { [key: string]: string } {
+    return {
+      batchId: 'batch_id',
+      tuid: 'tuid',
+      deviceName: 'device_name',
+      status: 'status',
+      invokeTime: 'invoke_time',
+      errorMsg: 'error_msg',
+      retryCount: 'retry_count',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      batchId: 'string',
+      tuid: 'string',
+      deviceName: 'string',
+      status: 'string',
+      invokeTime: 'number',
+      errorMsg: 'string',
+      retryCount: 'number',
     };
   }
 
@@ -9674,6 +9813,65 @@ export class StartAgentChatResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       chatCompletionObject: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GenerateMcpTokenRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 平台下发的agnetId
+  agentId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      agentId: 'agent_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      agentId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GenerateMcpTokenResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 下发的token
+  token?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      token: 'token',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      token: 'string',
     };
   }
 
@@ -18648,13 +18846,19 @@ export class QueryElectrocarDeviceinfosRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // tuid
-  tuid: string;
+  // trust_product_key
+  trustProductKey: string;
+  // 页码
+  pageNum?: number;
+  // 页数
+  pageSize?: number;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      tuid: 'tuid',
+      trustProductKey: 'trust_product_key',
+      pageNum: 'page_num',
+      pageSize: 'page_size',
     };
   }
 
@@ -18662,7 +18866,9 @@ export class QueryElectrocarDeviceinfosRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      tuid: 'string',
+      trustProductKey: 'string',
+      pageNum: 'number',
+      pageSize: 'number',
     };
   }
 
@@ -18678,47 +18884,29 @@ export class QueryElectrocarDeviceinfosResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // key
-  trustProductKey?: string;
-  // 产品key
-  productKey?: string;
-  // 设备唯一id
-  trustDeviceId?: string;
-  // 设备tuid
-  deviceName?: string;
-  // 设备名称
-  nickName?: string;
-  // 设备在线状态
-  deviceStatus?: string;
-  // 设备注册时间
-  deviceRegisterTime?: string;
-  // 设备激活时间
-  deviceActiveTime?: string;
-  // 最后在线时间
-  lastOnlineTime?: string;
-  // 最后离线时间
-  lastOfflineTime?: string;
-  // 最后通讯时间
-  lastCommunicationTime?: string;
-  // ota版本
-  deviceOtaVersion?: string;
+  // success
+  success?: boolean;
+  // 页码
+  pageNum?: number;
+  // 页数
+  pageSize?: number;
+  // 总页数
+  totalPages?: number;
+  // 总条数
+  totalSize?: number;
+  // 设备列表
+  deviceList?: DeviceInfos[];
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      trustProductKey: 'trust_product_key',
-      productKey: 'product_key',
-      trustDeviceId: 'trust_device_id',
-      deviceName: 'device_name',
-      nickName: 'nick_name',
-      deviceStatus: 'device_status',
-      deviceRegisterTime: 'device_register_time',
-      deviceActiveTime: 'device_active_time',
-      lastOnlineTime: 'last_online_time',
-      lastOfflineTime: 'last_offline_time',
-      lastCommunicationTime: 'last_communication_time',
-      deviceOtaVersion: 'device_ota_version',
+      success: 'success',
+      pageNum: 'page_num',
+      pageSize: 'page_size',
+      totalPages: 'total_pages',
+      totalSize: 'total_size',
+      deviceList: 'device_list',
     };
   }
 
@@ -18727,18 +18915,12 @@ export class QueryElectrocarDeviceinfosResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      trustProductKey: 'string',
-      productKey: 'string',
-      trustDeviceId: 'string',
-      deviceName: 'string',
-      nickName: 'string',
-      deviceStatus: 'string',
-      deviceRegisterTime: 'string',
-      deviceActiveTime: 'string',
-      lastOnlineTime: 'string',
-      lastOfflineTime: 'string',
-      lastCommunicationTime: 'string',
-      deviceOtaVersion: 'string',
+      success: 'boolean',
+      pageNum: 'number',
+      pageSize: 'number',
+      totalPages: 'number',
+      totalSize: 'number',
+      deviceList: { 'type': 'array', 'itemType': DeviceInfos },
     };
   }
 
@@ -18845,6 +19027,192 @@ export class ExecElectrocarBatchpubResponse extends $tea.Model {
       totalCount: 'number',
       triggerMode: 'string',
       scheduledTime: 'number',
+      success: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryElectrocarBatchpubjobsRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户Id
+  tenantId?: string;
+  // 批次Id
+  batchId?: string;
+  // 批次状态过滤（可选，如 PENDING/EXECUTING/COMPLETED/CANCELLED/PARTIAL_FAILED）
+  status?: string;
+  // 页码
+  pageNum?: number;
+  // 每页条数
+  pageSize?: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tenantId: 'tenant_id',
+      batchId: 'batch_id',
+      status: 'status',
+      pageNum: 'page_num',
+      pageSize: 'page_size',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tenantId: 'string',
+      batchId: 'string',
+      status: 'string',
+      pageNum: 'number',
+      pageSize: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryElectrocarBatchpubjobsResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 批次列表
+  jobList?: BatchJobDetail[];
+  // 页码
+  pageNum?: number;
+  // 总页数
+  pageSize?: number;
+  // 总记录数
+  totalCount?: number;
+  // 总页数
+  totalPage?: number;
+  // 状态
+  success?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      jobList: 'job_list',
+      pageNum: 'page_num',
+      pageSize: 'page_size',
+      totalCount: 'total_count',
+      totalPage: 'total_page',
+      success: 'success',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      jobList: { 'type': 'array', 'itemType': BatchJobDetail },
+      pageNum: 'number',
+      pageSize: 'number',
+      totalCount: 'number',
+      totalPage: 'number',
+      success: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryElectrocarBatchpubtasksRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 批次ID
+  batchId?: string;
+  // 任务状态过滤（可选，如 PENDING/SUCCESS/FAILED/CANCELLED）
+  status?: string;
+  // 页码
+  pageNum?: number;
+  // 每页条数
+  pageSize?: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      batchId: 'batch_id',
+      status: 'status',
+      pageNum: 'page_num',
+      pageSize: 'page_size',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      batchId: 'string',
+      status: 'string',
+      pageNum: 'number',
+      pageSize: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryElectrocarBatchpubtasksResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 任务列表
+  taskList?: TaskDetail[];
+  // 页码
+  pageNum?: number;
+  // 每页条数
+  pageSize?: number;
+  // 总页数
+  totalPage?: number;
+  // 总记录数
+  totalCount?: number;
+  // 状态
+  success?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      taskList: 'task_list',
+      pageNum: 'page_num',
+      pageSize: 'page_size',
+      totalPage: 'total_page',
+      totalCount: 'total_count',
+      success: 'success',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      taskList: { 'type': 'array', 'itemType': TaskDetail },
+      pageNum: 'number',
+      pageSize: 'number',
+      totalPage: 'number',
+      totalCount: 'number',
       success: 'boolean',
     };
   }
@@ -28513,6 +28881,239 @@ export class ImportIotagentClientResponse extends $tea.Model {
   }
 }
 
+export class ExecPullstrategyOrdercheckRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 运营商标识
+  operatorId: string;
+  // 加密后核心数据
+  data: string;
+  // 接口请求时的时间戳信息，格式为yyyyMMddHHmmss
+  timeStamp: string;
+  // 自增序列，4位自增序列取自时间戳，同一秒内按序列自增长，新秒重计
+  seq: string;
+  // 参数签名，原文为operatorId+data+timeStamp+seq
+  sig: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      operatorId: 'operator_id',
+      data: 'data',
+      timeStamp: 'time_stamp',
+      seq: 'seq',
+      sig: 'sig',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      operatorId: 'string',
+      data: 'string',
+      timeStamp: 'string',
+      seq: 'string',
+      sig: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExecPullstrategyOrdercheckResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 返回参数密文
+  data?: string;
+  // 返回信息
+  msg?: string;
+  // 返回值
+  ret?: number;
+  // 签名，原文为ret+msg+data密文
+  sig?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+      msg: 'msg',
+      ret: 'ret',
+      sig: 'sig',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: 'string',
+      msg: 'string',
+      ret: 'number',
+      sig: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExecPullstrategyStationcheckRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 运营商标识
+  operatorId: string;
+  // 加密后核心数据
+  data: string;
+  // 接口请求时的时间戳信息，格式为yyyyMMddHHmmss
+  timeStamp: string;
+  // 自增序列，4位自增序列取自时间戳，同一秒内按序列自增长，新秒重计
+  seq: string;
+  // 参数签名，原文为operatorId+data+timeStamp+seq
+  sig: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      operatorId: 'operator_id',
+      data: 'data',
+      timeStamp: 'time_stamp',
+      seq: 'seq',
+      sig: 'sig',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      operatorId: 'string',
+      data: 'string',
+      timeStamp: 'string',
+      seq: 'string',
+      sig: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExecPullstrategyStationcheckResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 返回参数密文
+  data?: string;
+  // 返回消息
+  msg?: string;
+  // 返回值
+  ret?: number;
+  // 签名，原文为ret+msg+data密文
+  sig?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+      msg: 'msg',
+      ret: 'ret',
+      sig: 'sig',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: 'string',
+      msg: 'string',
+      ret: 'number',
+      sig: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryMcpEndpointRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 智能体ID
+  agentId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      agentId: 'agent_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      agentId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryMcpEndpointResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // mcp服务连接点
+  mcpEndpoint?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      mcpEndpoint: 'mcp_endpoint',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      mcpEndpoint: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class ExecThingsdidOneapiRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -29895,7 +30496,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.12.80",
+          sdk_version: "1.14.1",
           _prod_code: "BOT",
           _prod_channel: "undefined",
         };
@@ -30647,6 +31248,25 @@ export default class Client {
   async startAgentChatEx(request: StartAgentChatRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<StartAgentChatResponse> {
     Util.validateModel(request);
     return $tea.cast<StartAgentChatResponse>(await this.doRequest("1.0", "blockchain.bot.agent.chat.start", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new StartAgentChatResponse({}));
+  }
+
+  /**
+   * Description: mcp token生成
+   * Summary: mcp token生成
+   */
+  async generateMcpToken(request: GenerateMcpTokenRequest): Promise<GenerateMcpTokenResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.generateMcpTokenEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: mcp token生成
+   * Summary: mcp token生成
+   */
+  async generateMcpTokenEx(request: GenerateMcpTokenRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GenerateMcpTokenResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GenerateMcpTokenResponse>(await this.doRequest("1.0", "blockchain.bot.mcp.token.generate", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GenerateMcpTokenResponse({}));
   }
 
   /**
@@ -32816,6 +33436,44 @@ export default class Client {
   async execElectrocarBatchpubEx(request: ExecElectrocarBatchpubRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ExecElectrocarBatchpubResponse> {
     Util.validateModel(request);
     return $tea.cast<ExecElectrocarBatchpubResponse>(await this.doRequest("1.0", "blockchain.bot.electrocar.batchpub.exec", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ExecElectrocarBatchpubResponse({}));
+  }
+
+  /**
+   * Description: 批量定时控车-批次查询
+   * Summary: 批量定时控车-批次查询
+   */
+  async queryElectrocarBatchpubjobs(request: QueryElectrocarBatchpubjobsRequest): Promise<QueryElectrocarBatchpubjobsResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryElectrocarBatchpubjobsEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 批量定时控车-批次查询
+   * Summary: 批量定时控车-批次查询
+   */
+  async queryElectrocarBatchpubjobsEx(request: QueryElectrocarBatchpubjobsRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryElectrocarBatchpubjobsResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryElectrocarBatchpubjobsResponse>(await this.doRequest("1.0", "blockchain.bot.electrocar.batchpubjobs.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryElectrocarBatchpubjobsResponse({}));
+  }
+
+  /**
+   * Description: 批量定时控车任务查询
+   * Summary: 批量定时控车任务查询
+   */
+  async queryElectrocarBatchpubtasks(request: QueryElectrocarBatchpubtasksRequest): Promise<QueryElectrocarBatchpubtasksResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryElectrocarBatchpubtasksEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 批量定时控车任务查询
+   * Summary: 批量定时控车任务查询
+   */
+  async queryElectrocarBatchpubtasksEx(request: QueryElectrocarBatchpubtasksRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryElectrocarBatchpubtasksResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryElectrocarBatchpubtasksResponse>(await this.doRequest("1.0", "blockchain.bot.electrocar.batchpubtasks.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryElectrocarBatchpubtasksResponse({}));
   }
 
   /**
@@ -35229,6 +35887,63 @@ export default class Client {
   async importIotagentClientEx(request: ImportIotagentClientRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ImportIotagentClientResponse> {
     Util.validateModel(request);
     return $tea.cast<ImportIotagentClientResponse>(await this.doRequest("1.0", "blockchain.bot.iotagent.client.import", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ImportIotagentClientResponse({}));
+  }
+
+  /**
+   * Description: 订单数据核对
+   * Summary: 订单数据核对
+   */
+  async execPullstrategyOrdercheck(request: ExecPullstrategyOrdercheckRequest): Promise<ExecPullstrategyOrdercheckResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.execPullstrategyOrdercheckEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 订单数据核对
+   * Summary: 订单数据核对
+   */
+  async execPullstrategyOrdercheckEx(request: ExecPullstrategyOrdercheckRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ExecPullstrategyOrdercheckResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ExecPullstrategyOrdercheckResponse>(await this.doRequest("1.0", "blockchain.bot.pullstrategy.ordercheck.exec", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ExecPullstrategyOrdercheckResponse({}));
+  }
+
+  /**
+   * Description: 资产信息核对
+   * Summary: 资产信息核对
+   */
+  async execPullstrategyStationcheck(request: ExecPullstrategyStationcheckRequest): Promise<ExecPullstrategyStationcheckResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.execPullstrategyStationcheckEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 资产信息核对
+   * Summary: 资产信息核对
+   */
+  async execPullstrategyStationcheckEx(request: ExecPullstrategyStationcheckRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ExecPullstrategyStationcheckResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ExecPullstrategyStationcheckResponse>(await this.doRequest("1.0", "blockchain.bot.pullstrategy.stationcheck.exec", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ExecPullstrategyStationcheckResponse({}));
+  }
+
+  /**
+   * Description: 查询mcp服务连接点
+   * Summary: 查询mcp服务连接点
+   */
+  async queryMcpEndpoint(request: QueryMcpEndpointRequest): Promise<QueryMcpEndpointResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryMcpEndpointEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询mcp服务连接点
+   * Summary: 查询mcp服务连接点
+   */
+  async queryMcpEndpointEx(request: QueryMcpEndpointRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryMcpEndpointResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryMcpEndpointResponse>(await this.doRequest("1.0", "blockchain.bot.mcp.endpoint.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryMcpEndpointResponse({}));
   }
 
   /**
