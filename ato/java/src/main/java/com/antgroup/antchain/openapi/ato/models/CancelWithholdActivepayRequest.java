@@ -18,7 +18,6 @@ public class CancelWithholdActivepayRequest extends TeaModel {
 
     // 第几期
     @NameInMap("period_num")
-    @Validation(required = true)
     public Long periodNum;
 
     // 支付宝支付订单号，当传递此单号时，只会取消指定单据号，不传递时取消当前代扣
