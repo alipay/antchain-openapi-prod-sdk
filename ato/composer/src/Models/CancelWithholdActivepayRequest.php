@@ -61,7 +61,6 @@ class CancelWithholdActivepayRequest extends Model
     public function validate()
     {
         Model::validateRequired('orderId', $this->orderId, true);
-        Model::validateRequired('periodNum', $this->periodNum, true);
     }
 
     public function toMap()
