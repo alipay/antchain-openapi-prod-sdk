@@ -1,0 +1,92 @@
+// This file is auto-generated, don't edit it. Thanks.
+package com.antgroup.antchain.openapi.dtrwa.models;
+
+import com.aliyun.tea.*;
+
+public class CrossChainAccountsVO extends TeaModel {
+    // 对侧链用户地址
+    /**
+     * <strong>example:</strong>
+     * <p>0xce81adcd4b9b78293c73caed55840c81b4c3b8f5</p>
+     */
+    @NameInMap("target_user_address")
+    public String targetUserAddress;
+
+    // 对侧链账户ID
+    /**
+     * <strong>example:</strong>
+     * <p>1938129653756694529</p>
+     */
+    @NameInMap("cross_chain_user_account_id")
+    public String crossChainUserAccountId;
+
+    // 对侧链红利账户ID
+    /**
+     * <strong>example:</strong>
+     * <p>1928364866666541058</p>
+     */
+    @NameInMap("cross_chain_user_bonus_account_id")
+    public String crossChainUserBonusAccountId;
+
+    // 对侧链资产账户明细
+    /**
+     * <strong>example:</strong>
+     * <p>对侧链资产账户明细</p>
+     */
+    @NameInMap("cross_chain_user_accounts_details")
+    public java.util.List<CrossChainAccountsDetailVO> crossChainUserAccountsDetails;
+
+    // 对侧链账户信息
+    /**
+     * <strong>example:</strong>
+     * <p>对侧链账户信息</p>
+     */
+    @NameInMap("cross_chain_bonus_accounts_details")
+    public java.util.List<CrossChainBonusAccountsDetailVO> crossChainBonusAccountsDetails;
+
+    public static CrossChainAccountsVO build(java.util.Map<String, ?> map) throws Exception {
+        CrossChainAccountsVO self = new CrossChainAccountsVO();
+        return TeaModel.build(map, self);
+    }
+
+    public CrossChainAccountsVO setTargetUserAddress(String targetUserAddress) {
+        this.targetUserAddress = targetUserAddress;
+        return this;
+    }
+    public String getTargetUserAddress() {
+        return this.targetUserAddress;
+    }
+
+    public CrossChainAccountsVO setCrossChainUserAccountId(String crossChainUserAccountId) {
+        this.crossChainUserAccountId = crossChainUserAccountId;
+        return this;
+    }
+    public String getCrossChainUserAccountId() {
+        return this.crossChainUserAccountId;
+    }
+
+    public CrossChainAccountsVO setCrossChainUserBonusAccountId(String crossChainUserBonusAccountId) {
+        this.crossChainUserBonusAccountId = crossChainUserBonusAccountId;
+        return this;
+    }
+    public String getCrossChainUserBonusAccountId() {
+        return this.crossChainUserBonusAccountId;
+    }
+
+    public CrossChainAccountsVO setCrossChainUserAccountsDetails(java.util.List<CrossChainAccountsDetailVO> crossChainUserAccountsDetails) {
+        this.crossChainUserAccountsDetails = crossChainUserAccountsDetails;
+        return this;
+    }
+    public java.util.List<CrossChainAccountsDetailVO> getCrossChainUserAccountsDetails() {
+        return this.crossChainUserAccountsDetails;
+    }
+
+    public CrossChainAccountsVO setCrossChainBonusAccountsDetails(java.util.List<CrossChainBonusAccountsDetailVO> crossChainBonusAccountsDetails) {
+        this.crossChainBonusAccountsDetails = crossChainBonusAccountsDetails;
+        return this;
+    }
+    public java.util.List<CrossChainBonusAccountsDetailVO> getCrossChainBonusAccountsDetails() {
+        return this.crossChainBonusAccountsDetails;
+    }
+
+}
