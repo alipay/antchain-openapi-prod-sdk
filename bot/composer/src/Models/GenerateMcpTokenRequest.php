@@ -6,7 +6,7 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryElectrocarDeviceinfosRequest extends Model
+class GenerateMcpTokenRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,34 +19,20 @@ class QueryElectrocarDeviceinfosRequest extends Model
      */
     public $productInstanceId;
 
-    // trust_product_key
+    // 平台下发的agnetId
     /**
      * @var string
      */
-    public $trustProductKey;
-
-    // 页码
-    /**
-     * @var int
-     */
-    public $pageNum;
-
-    // 页数
-    /**
-     * @var int
-     */
-    public $pageSize;
+    public $agentId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'trustProductKey'   => 'trust_product_key',
-        'pageNum'           => 'page_num',
-        'pageSize'          => 'page_size',
+        'agentId'           => 'agent_id',
     ];
 
     public function validate()
     {
-        Model::validateRequired('trustProductKey', $this->trustProductKey, true);
+        Model::validateRequired('agentId', $this->agentId, true);
     }
 
     public function toMap()
@@ -58,14 +44,8 @@ class QueryElectrocarDeviceinfosRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->trustProductKey) {
-            $res['trust_product_key'] = $this->trustProductKey;
-        }
-        if (null !== $this->pageNum) {
-            $res['page_num'] = $this->pageNum;
-        }
-        if (null !== $this->pageSize) {
-            $res['page_size'] = $this->pageSize;
+        if (null !== $this->agentId) {
+            $res['agent_id'] = $this->agentId;
         }
 
         return $res;
@@ -74,7 +54,7 @@ class QueryElectrocarDeviceinfosRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryElectrocarDeviceinfosRequest
+     * @return GenerateMcpTokenRequest
      */
     public static function fromMap($map = [])
     {
@@ -85,14 +65,8 @@ class QueryElectrocarDeviceinfosRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['trust_product_key'])) {
-            $model->trustProductKey = $map['trust_product_key'];
-        }
-        if (isset($map['page_num'])) {
-            $model->pageNum = $map['page_num'];
-        }
-        if (isset($map['page_size'])) {
-            $model->pageSize = $map['page_size'];
+        if (isset($map['agent_id'])) {
+            $model->agentId = $map['agent_id'];
         }
 
         return $model;

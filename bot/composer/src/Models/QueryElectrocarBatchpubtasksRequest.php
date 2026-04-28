@@ -6,7 +6,7 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryElectrocarDeviceinfosRequest extends Model
+class QueryElectrocarBatchpubtasksRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,11 +19,17 @@ class QueryElectrocarDeviceinfosRequest extends Model
      */
     public $productInstanceId;
 
-    // trust_product_key
+    // 批次ID
     /**
      * @var string
      */
-    public $trustProductKey;
+    public $batchId;
+
+    // 任务状态过滤（可选，如 PENDING/SUCCESS/FAILED/CANCELLED）
+    /**
+     * @var string
+     */
+    public $status;
 
     // 页码
     /**
@@ -31,7 +37,7 @@ class QueryElectrocarDeviceinfosRequest extends Model
      */
     public $pageNum;
 
-    // 页数
+    // 每页条数
     /**
      * @var int
      */
@@ -39,14 +45,14 @@ class QueryElectrocarDeviceinfosRequest extends Model
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'trustProductKey'   => 'trust_product_key',
+        'batchId'           => 'batch_id',
+        'status'            => 'status',
         'pageNum'           => 'page_num',
         'pageSize'          => 'page_size',
     ];
 
     public function validate()
     {
-        Model::validateRequired('trustProductKey', $this->trustProductKey, true);
     }
 
     public function toMap()
@@ -58,8 +64,11 @@ class QueryElectrocarDeviceinfosRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->trustProductKey) {
-            $res['trust_product_key'] = $this->trustProductKey;
+        if (null !== $this->batchId) {
+            $res['batch_id'] = $this->batchId;
+        }
+        if (null !== $this->status) {
+            $res['status'] = $this->status;
         }
         if (null !== $this->pageNum) {
             $res['page_num'] = $this->pageNum;
@@ -74,7 +83,7 @@ class QueryElectrocarDeviceinfosRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryElectrocarDeviceinfosRequest
+     * @return QueryElectrocarBatchpubtasksRequest
      */
     public static function fromMap($map = [])
     {
@@ -85,8 +94,11 @@ class QueryElectrocarDeviceinfosRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['trust_product_key'])) {
-            $model->trustProductKey = $map['trust_product_key'];
+        if (isset($map['batch_id'])) {
+            $model->batchId = $map['batch_id'];
+        }
+        if (isset($map['status'])) {
+            $model->status = $map['status'];
         }
         if (isset($map['page_num'])) {
             $model->pageNum = $map['page_num'];

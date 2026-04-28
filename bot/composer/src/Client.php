@@ -161,6 +161,10 @@ use AntChain\BOT\Models\ExecDeviceUsertopicRequest;
 use AntChain\BOT\Models\ExecDeviceUsertopicResponse;
 use AntChain\BOT\Models\ExecElectrocarBatchpubRequest;
 use AntChain\BOT\Models\ExecElectrocarBatchpubResponse;
+use AntChain\BOT\Models\ExecPullstrategyOrdercheckRequest;
+use AntChain\BOT\Models\ExecPullstrategyOrdercheckResponse;
+use AntChain\BOT\Models\ExecPullstrategyStationcheckRequest;
+use AntChain\BOT\Models\ExecPullstrategyStationcheckResponse;
 use AntChain\BOT\Models\ExecThingsdidOneapiRequest;
 use AntChain\BOT\Models\ExecThingsdidOneapiResponse;
 use AntChain\BOT\Models\ExecThingServiceRequest;
@@ -169,6 +173,8 @@ use AntChain\BOT\Models\ExecUnprocessedTaskRequest;
 use AntChain\BOT\Models\ExecUnprocessedTaskResponse;
 use AntChain\BOT\Models\FinishTraceConfigRequest;
 use AntChain\BOT\Models\FinishTraceConfigResponse;
+use AntChain\BOT\Models\GenerateMcpTokenRequest;
+use AntChain\BOT\Models\GenerateMcpTokenResponse;
 use AntChain\BOT\Models\GetAiidentificationQrcodeRequest;
 use AntChain\BOT\Models\GetAiidentificationQrcodeResponse;
 use AntChain\BOT\Models\GetDeviceBychainidRequest;
@@ -389,6 +395,10 @@ use AntChain\BOT\Models\QueryDigitalkeyWithholdsignRequest;
 use AntChain\BOT\Models\QueryDigitalkeyWithholdsignResponse;
 use AntChain\BOT\Models\QueryDockedDataRequest;
 use AntChain\BOT\Models\QueryDockedDataResponse;
+use AntChain\BOT\Models\QueryElectrocarBatchpubjobsRequest;
+use AntChain\BOT\Models\QueryElectrocarBatchpubjobsResponse;
+use AntChain\BOT\Models\QueryElectrocarBatchpubtasksRequest;
+use AntChain\BOT\Models\QueryElectrocarBatchpubtasksResponse;
 use AntChain\BOT\Models\QueryElectrocarDevicehistorypropertiesRequest;
 use AntChain\BOT\Models\QueryElectrocarDevicehistorypropertiesResponse;
 use AntChain\BOT\Models\QueryElectrocarDeviceinfosRequest;
@@ -427,6 +437,8 @@ use AntChain\BOT\Models\QueryLeaseRealpersonRequest;
 use AntChain\BOT\Models\QueryLeaseRealpersonResponse;
 use AntChain\BOT\Models\QueryLeaseRiskRequest;
 use AntChain\BOT\Models\QueryLeaseRiskResponse;
+use AntChain\BOT\Models\QueryMcpEndpointRequest;
+use AntChain\BOT\Models\QueryMcpEndpointResponse;
 use AntChain\BOT\Models\QueryOnlinepressuretestDataRequest;
 use AntChain\BOT\Models\QueryOnlinepressuretestDataResponse;
 use AntChain\BOT\Models\QueryOnlinepressuretestRequest;
@@ -744,7 +756,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.12.80',
+                    'sdk_version'      => '1.14.1',
                     '_prod_code'       => 'BOT',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1997,6 +2009,39 @@ class Client
         Utils::validateModel($request);
 
         return StartAgentChatResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.agent.chat.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: mcp token生成
+     * Summary: mcp token生成.
+     *
+     * @param GenerateMcpTokenRequest $request
+     *
+     * @return GenerateMcpTokenResponse
+     */
+    public function generateMcpToken($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->generateMcpTokenEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: mcp token生成
+     * Summary: mcp token生成.
+     *
+     * @param GenerateMcpTokenRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return GenerateMcpTokenResponse
+     */
+    public function generateMcpTokenEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GenerateMcpTokenResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.mcp.token.generate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -5745,6 +5790,72 @@ class Client
         Utils::validateModel($request);
 
         return ExecElectrocarBatchpubResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.electrocar.batchpub.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 批量定时控车-批次查询
+     * Summary: 批量定时控车-批次查询.
+     *
+     * @param QueryElectrocarBatchpubjobsRequest $request
+     *
+     * @return QueryElectrocarBatchpubjobsResponse
+     */
+    public function queryElectrocarBatchpubjobs($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryElectrocarBatchpubjobsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 批量定时控车-批次查询
+     * Summary: 批量定时控车-批次查询.
+     *
+     * @param QueryElectrocarBatchpubjobsRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return QueryElectrocarBatchpubjobsResponse
+     */
+    public function queryElectrocarBatchpubjobsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryElectrocarBatchpubjobsResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.electrocar.batchpubjobs.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 批量定时控车任务查询
+     * Summary: 批量定时控车任务查询.
+     *
+     * @param QueryElectrocarBatchpubtasksRequest $request
+     *
+     * @return QueryElectrocarBatchpubtasksResponse
+     */
+    public function queryElectrocarBatchpubtasks($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryElectrocarBatchpubtasksEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 批量定时控车任务查询
+     * Summary: 批量定时控车任务查询.
+     *
+     * @param QueryElectrocarBatchpubtasksRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return QueryElectrocarBatchpubtasksResponse
+     */
+    public function queryElectrocarBatchpubtasksEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryElectrocarBatchpubtasksResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.electrocar.batchpubtasks.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -9936,6 +10047,105 @@ class Client
         Utils::validateModel($request);
 
         return ImportIotagentClientResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotagent.client.import', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 订单数据核对
+     * Summary: 订单数据核对.
+     *
+     * @param ExecPullstrategyOrdercheckRequest $request
+     *
+     * @return ExecPullstrategyOrdercheckResponse
+     */
+    public function execPullstrategyOrdercheck($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->execPullstrategyOrdercheckEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 订单数据核对
+     * Summary: 订单数据核对.
+     *
+     * @param ExecPullstrategyOrdercheckRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return ExecPullstrategyOrdercheckResponse
+     */
+    public function execPullstrategyOrdercheckEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ExecPullstrategyOrdercheckResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.pullstrategy.ordercheck.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 资产信息核对
+     * Summary: 资产信息核对.
+     *
+     * @param ExecPullstrategyStationcheckRequest $request
+     *
+     * @return ExecPullstrategyStationcheckResponse
+     */
+    public function execPullstrategyStationcheck($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->execPullstrategyStationcheckEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 资产信息核对
+     * Summary: 资产信息核对.
+     *
+     * @param ExecPullstrategyStationcheckRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return ExecPullstrategyStationcheckResponse
+     */
+    public function execPullstrategyStationcheckEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ExecPullstrategyStationcheckResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.pullstrategy.stationcheck.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询mcp服务连接点
+     * Summary: 查询mcp服务连接点.
+     *
+     * @param QueryMcpEndpointRequest $request
+     *
+     * @return QueryMcpEndpointResponse
+     */
+    public function queryMcpEndpoint($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryMcpEndpointEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询mcp服务连接点
+     * Summary: 查询mcp服务连接点.
+     *
+     * @param QueryMcpEndpointRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return QueryMcpEndpointResponse
+     */
+    public function queryMcpEndpointEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryMcpEndpointResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.mcp.endpoint.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

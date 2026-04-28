@@ -6,7 +6,7 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryElectrocarDeviceinfosResponse extends Model
+class QueryElectrocarBatchpubjobsResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,11 +26,11 @@ class QueryElectrocarDeviceinfosResponse extends Model
      */
     public $resultMsg;
 
-    // success
+    // 批次列表
     /**
-     * @var bool
+     * @var BatchJobDetail[]
      */
-    public $success;
+    public $jobList;
 
     // 页码
     /**
@@ -38,39 +38,39 @@ class QueryElectrocarDeviceinfosResponse extends Model
      */
     public $pageNum;
 
-    // 页数
+    // 总页数
     /**
      * @var int
      */
     public $pageSize;
 
+    // 总记录数
+    /**
+     * @var int
+     */
+    public $totalCount;
+
     // 总页数
     /**
      * @var int
      */
-    public $totalPages;
+    public $totalPage;
 
-    // 总条数
+    // 状态
     /**
-     * @var int
+     * @var bool
      */
-    public $totalSize;
-
-    // 设备列表
-    /**
-     * @var DeviceInfos[]
-     */
-    public $deviceList;
+    public $success;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'success'    => 'success',
+        'jobList'    => 'job_list',
         'pageNum'    => 'page_num',
         'pageSize'   => 'page_size',
-        'totalPages' => 'total_pages',
-        'totalSize'  => 'total_size',
-        'deviceList' => 'device_list',
+        'totalCount' => 'total_count',
+        'totalPage'  => 'total_page',
+        'success'    => 'success',
     ];
 
     public function validate()
@@ -89,8 +89,14 @@ class QueryElectrocarDeviceinfosResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->success) {
-            $res['success'] = $this->success;
+        if (null !== $this->jobList) {
+            $res['job_list'] = [];
+            if (null !== $this->jobList && \is_array($this->jobList)) {
+                $n = 0;
+                foreach ($this->jobList as $item) {
+                    $res['job_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
         if (null !== $this->pageNum) {
             $res['page_num'] = $this->pageNum;
@@ -98,20 +104,14 @@ class QueryElectrocarDeviceinfosResponse extends Model
         if (null !== $this->pageSize) {
             $res['page_size'] = $this->pageSize;
         }
-        if (null !== $this->totalPages) {
-            $res['total_pages'] = $this->totalPages;
+        if (null !== $this->totalCount) {
+            $res['total_count'] = $this->totalCount;
         }
-        if (null !== $this->totalSize) {
-            $res['total_size'] = $this->totalSize;
+        if (null !== $this->totalPage) {
+            $res['total_page'] = $this->totalPage;
         }
-        if (null !== $this->deviceList) {
-            $res['device_list'] = [];
-            if (null !== $this->deviceList && \is_array($this->deviceList)) {
-                $n = 0;
-                foreach ($this->deviceList as $item) {
-                    $res['device_list'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
+        if (null !== $this->success) {
+            $res['success'] = $this->success;
         }
 
         return $res;
@@ -120,7 +120,7 @@ class QueryElectrocarDeviceinfosResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryElectrocarDeviceinfosResponse
+     * @return QueryElectrocarBatchpubjobsResponse
      */
     public static function fromMap($map = [])
     {
@@ -134,8 +134,14 @@ class QueryElectrocarDeviceinfosResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['success'])) {
-            $model->success = $map['success'];
+        if (isset($map['job_list'])) {
+            if (!empty($map['job_list'])) {
+                $model->jobList = [];
+                $n              = 0;
+                foreach ($map['job_list'] as $item) {
+                    $model->jobList[$n++] = null !== $item ? BatchJobDetail::fromMap($item) : $item;
+                }
+            }
         }
         if (isset($map['page_num'])) {
             $model->pageNum = $map['page_num'];
@@ -143,20 +149,14 @@ class QueryElectrocarDeviceinfosResponse extends Model
         if (isset($map['page_size'])) {
             $model->pageSize = $map['page_size'];
         }
-        if (isset($map['total_pages'])) {
-            $model->totalPages = $map['total_pages'];
+        if (isset($map['total_count'])) {
+            $model->totalCount = $map['total_count'];
         }
-        if (isset($map['total_size'])) {
-            $model->totalSize = $map['total_size'];
+        if (isset($map['total_page'])) {
+            $model->totalPage = $map['total_page'];
         }
-        if (isset($map['device_list'])) {
-            if (!empty($map['device_list'])) {
-                $model->deviceList = [];
-                $n                 = 0;
-                foreach ($map['device_list'] as $item) {
-                    $model->deviceList[$n++] = null !== $item ? DeviceInfos::fromMap($item) : $item;
-                }
-            }
+        if (isset($map['success'])) {
+            $model->success = $map['success'];
         }
 
         return $model;
