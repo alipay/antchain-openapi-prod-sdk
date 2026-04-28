@@ -1,0 +1,1156 @@
+import AntchainUtil;
+import Util;
+import RPCUtil;
+
+type @endpoint = string
+type @regionId = string
+type @accessKeyId = string
+type @accessKeySecret = string
+type @protocol = string
+type @userAgent = string
+type @readTimeout = number
+type @connectTimeout = number
+type @httpProxy = string
+type @httpsProxy = string
+type @socks5Proxy = string
+type @socks5NetWork = string
+type @noProxy = string
+type @maxIdleConns = number
+type @securityToken = string
+type @maxIdleTimeMillis = number
+type @keepAliveDurationMillis = number
+type @maxRequests = number
+type @maxRequestsPerHost = number
+
+/**
+ * Model for initing client
+ */
+model Config {
+  accessKeyId?: string(description='accesskey id',default=''),
+  accessKeySecret?: string(description='accesskey secret',default=''),
+  securityToken?: string(description='security token',default=''),
+  protocol?: string(description='http protocol',example='http',default='http'),
+  readTimeout?: number(description='read timeout',example='10',default=''),
+  connectTimeout?: number(description='connect timeout',example='10',default=''),
+  httpProxy?: string(description='http proxy',example='http://localhost',default=''),
+  httpsProxy?: string(description='https proxy',example='https://localhost',default=''),
+  endpoint?: string(description='endpoint',example='cs.aliyuncs.com',default=''),
+  noProxy?: string(description='proxy white list',example='http://localhost',default=''),
+  maxIdleConns?: number(description='max idle conns',example='3',default=''),
+  userAgent?: string(description='user agent',example='Alibabacloud/1',default=''),
+  socks5Proxy?: string(description='socks5 proxy',default=''),
+  socks5NetWork?: string(description='socks5 network',example='TCP',default=''),
+  maxIdleTimeMillis?: number(description='长链接最大空闲时长',default='60 * 1000L'),
+  keepAliveDurationMillis?: number(description='长链接最大连接时长',default='5000'),
+  maxRequests?: number(description='最大连接数（长链接最大总数）',default='100'),
+  maxRequestsPerHost?: number(description='每个目标主机的最大连接数（分主机域名的长链接最大总数',default='100'),
+}
+
+/**
+ * Init client with Config
+ * @param config config contains the necessary information to create a client
+ */
+init(config: Config) {
+  if (Util.isUnset(config)) {
+    throw {
+      code = 'ParameterMissing',
+      message = '\'config\' can not be unset'
+    };
+  }
+
+  @accessKeyId = config.accessKeyId;
+  @accessKeySecret = config.accessKeySecret;
+  @securityToken = config.securityToken;
+  @endpoint = config.endpoint;
+  @protocol = config.protocol;
+  @userAgent = config.userAgent;
+  @readTimeout = Util.defaultNumber(config.readTimeout, 20000);
+  @connectTimeout = Util.defaultNumber(config.connectTimeout, 20000);
+  @httpProxy = config.httpProxy;
+  @httpsProxy = config.httpsProxy;
+  @noProxy = config.noProxy;
+  @socks5Proxy = config.socks5Proxy;
+  @socks5NetWork = config.socks5NetWork;
+  @maxIdleConns = Util.defaultNumber(config.maxIdleConns, 60000);
+  @maxIdleTimeMillis = Util.defaultNumber(config.maxIdleTimeMillis, 5);
+  @keepAliveDurationMillis = Util.defaultNumber(config.keepAliveDurationMillis, 5000);
+  @maxRequests = Util.defaultNumber(config.maxRequests, 100);
+  @maxRequestsPerHost = Util.defaultNumber(config.maxRequestsPerHost, 100);
+}
+
+/**
+ * Encapsulate the request and invoke the network
+ * @param action api name
+ * @param protocol http or https
+ * @param method e.g. GET
+ * @param pathname pathname of every api
+ * @param request which contains request params
+ * @param runtime which controls some details of call api, such as retry times
+ * @return the response
+ */
+api doRequest(version: string, action: string, protocol: string, method: string, pathname: string, request: object, headers: map[string]string, runtime: Util.RuntimeOptions): object {
+  __request.protocol = Util.defaultString(@protocol, protocol);
+  __request.method = method;
+  __request.pathname = pathname;
+  __request.query = {
+    method = action,
+    version = version,
+    sign_type = 'HmacSHA1',
+    req_time = AntchainUtil.getTimestamp(),
+    req_msg_id = AntchainUtil.getNonce(),
+    access_key = @accessKeyId,
+    base_sdk_version = 'TeaSDK-2.0',
+    sdk_version = '1.0.4',
+    _prod_code = 'DTRWA',
+    _prod_channel = 'default'
+  };
+
+  if (!Util.empty(@securityToken)) {
+    __request.query.security_token = @securityToken;
+  }
+
+  __request.headers = {
+    host = Util.defaultString(@endpoint, 'openapi.antchain.antgroup.com'),
+    user-agent = Util.getUserAgent(@userAgent),
+    ...headers
+  };
+
+  var tmp = Util.anyifyMapValue(RPCUtil.query(request));
+  __request.body = Util.toFormString(tmp);
+  __request.headers.content-type = 'application/x-www-form-urlencoded';
+
+  var signedParam = {
+    ...__request.query,
+    ...RPCUtil.query(request)
+  };
+  __request.query.sign = AntchainUtil.getSignature(signedParam, @accessKeySecret);
+} returns {
+  var raw = Util.readAsString(__response.body);
+  var obj = Util.parseJSON(raw);
+  var res = Util.assertAsMap(obj);
+  var resp = Util.assertAsMap(res.response);
+
+  if (AntchainUtil.hasError(raw, @accessKeySecret)) {
+    throw {
+      message = resp.result_msg,
+      data = resp,
+      code = resp.result_code
+    };
+  }
+  return resp;
+} runtime {
+  timeouted = 'retry',
+  readTimeout = Util.defaultNumber(runtime.readTimeout, @readTimeout),
+  connectTimeout = Util.defaultNumber(runtime.connectTimeout, @connectTimeout),
+  httpProxy = Util.defaultString(runtime.httpProxy, @httpProxy),
+  httpsProxy = Util.defaultString(runtime.httpsProxy, @httpsProxy),
+  noProxy = Util.defaultString(runtime.noProxy, @noProxy),
+  maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
+  maxIdleTimeMillis = @maxIdleTimeMillis,
+  keepAliveDuration = @keepAliveDurationMillis,
+  maxRequests = @maxRequests,
+  maxRequestsPerHost = @maxRequestsPerHost,
+  retry = {
+    retryable = runtime.autoretry,
+    maxAttempts = Util.defaultNumber(runtime.maxAttempts, 3)
+  },
+  backoff = {
+    policy = Util.defaultString(runtime.backoffPolicy, 'no'),
+    period = Util.defaultNumber(runtime.backoffPeriod, 1)
+  },
+  ignoreSSL = runtime.ignoreSSL
+}
+
+// 机构联系人信息
+model InstitutionContactInfo {
+  // 联系人
+  contactPerson: string(name='contact_person', example='张三'),
+  // 联系人邮箱
+  contactEmail: string(name='contact_email', example='12345@gmail.com'),
+}
+
+// 密钥管理项目信息
+model KeyProjectInfo {
+  // 项目名称
+  name: string(name='name', example='name'),
+  // key使用类型
+  // MINT：发行密钥
+  // BURN：赎回密钥
+  // TRANSFER：转账密钥
+  // MANAGER：管理密钥
+  keyType: string(name='key_type', example='MINT'),
+  // 创建时间
+  gmtCreated: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_created', example='2018-10-10T10:10:00Z'),
+}
+
+// 机构类型
+model InstitutionType {
+  // 机构类型编码
+  // ISSUER/PLATFORM/DISTRIBUTOR
+  code: string(name='code', example='ISSUER'),
+  // 机构类型名称
+  //  ISSUER/PLATFORM/DISTRIBUTOR
+  name?: string(name='name', example='ISSUER'),
+}
+
+// 跨链账号明细
+model CrossChainAccountsDetailVO {
+  // 明细ID
+  id?: string(name='id', example='0ef1c7f82ffb44989e8b6e6b6360a3a7'),
+  // 交易链上Hash
+  transactionHash?: string(name='transaction_hash', example='0xf1ada29c07fd95444030d9001ad09b7fd2111aed063ee0753e181fb2a3f53057'),
+  // 交易前余额
+  preBalance?: string(name='pre_balance', example='1000.000000000'),
+  // 交易数量
+  transactionAmount?: string(name='transaction_amount', example='1000.000000000'),
+  // 交易后余额
+  postBalance?: string(name='post_balance', example='2000.000000000'),
+  // 交易类别(LOCK_MINT/BURN_RETRIEVE/INNER_TRANSFER/OTC_TRANSFER)
+  transactionType?: string(name='transaction_type', example='LOCK_MINT'),
+  // 对手地址
+  counterAddress?: string(name='counter_address', example='0x5639ede048dc910b917b518ae8d3cbb184fc749d'),
+  // 创建时间
+  gmtCreated?: long(name='gmt_created', example='1755754919690'),
+  // 更新时间
+  gmtModified?: long(name='gmt_modified', example='1755754919690'),
+}
+
+// 用户信息
+model UserInfo {
+  // 钱包地址
+  address: string(name='address', example='0x111111111'),
+}
+
+// 登录类型
+model LoginAccountTypeBO {
+  // 登录类型：EMAIL-邮箱
+  userLoginType?: string(name='user_login_type', example='EMAIL'),
+  // 登录名称
+  loginName?: string(name='login_name', example='123@qq.com'),
+}
+
+// 跨链账号红利明细
+model CrossChainBonusAccountsDetailVO {
+  // 明细ID
+  id?: string(name='id', example='3e695195a5634f0c856a6c30358c9f5b'),
+  // 交易链上Hash
+  transactionHash?: string(name='transaction_hash', example='0xeede426617346ebe76481ab4a8f0fad46997e8f38f13d1c4cc6135cdc1d7553c'),
+  // 交易前余额
+  preBalance?: string(name='pre_balance', example='7'),
+  // 交易数量
+  transactionAmount?: string(name='transaction_amount', example='1'),
+  // 交易后余额
+  postBalance?: string(name='post_balance', example='8'),
+  // 交易类型(LOCK_MINT_BONUS/BURN_RETRIEVE_BONUS/INNER_TRANSFER_BONUS/OTC_TRANSFER_BONUS)
+  transactionType?: string(name='transaction_type', example='INNER_TRANSFER_BONUS'),
+  // 对手地址
+  counterAddress?: string(name='counter_address', example='0x644081f8086c1e9ad9597d8fef6249f5f2d80563'),
+  // 创建时间
+  gmtCreated?: long(name='gmt_created', example='1755754919690'),
+  // 更新时间
+  gmtModified?: long(name='gmt_modified', example='1755754919690'),
+}
+
+// 资产账户明细VO
+model SubUserAccountDetailsVO {
+  // 明细ID
+  id: string(name='id', example='1'),
+  // 交易链上Hash
+  transactionHash: string(name='transaction_hash', example='0x9fe688e456d3c4b15edceff3c23380300d71b48649ae8d61c6a9e513bb095262'),
+  // 交易前余额
+  preBalance: string(name='pre_balance', example='1.0'),
+  // 交易数量
+  transactionAmount: string(name='transaction_amount', example='1'),
+  // 交易后余额
+  postBalance: string(name='post_balance', example='1.0'),
+  // 交易类别
+  transactionType: string(name='transaction_type', example='ISSUE/REDEEM/TRANSFER/LOCK/UNLOCK/WITHDRAW/OTC_TRANSFER/TRANSFER_TO_VIRTUAL/WITHDRAW_FROM_VIRTUAL'),
+  // 对手地址
+  counterAddress: string(name='counter_address', example='0x9f6a540f4079d29ff5a9c5985e9ee87f3b713117'),
+  // 创建时间
+  gmtCreated: long(name='gmt_created', example='1755754919690'),
+  // 更新时间
+  gmtModified: long(name='gmt_modified', example='1755754919690'),
+  // 交易状态
+  transactionStatus: string(name='transaction_status', example='PENDING/CONFIRMED/INVALID'),
+}
+
+// 多币种金额
+model MultiCurrencyMoney {
+  // 金额，以分为单位
+  cent: string(name='cent', example='100'),
+  // 币种编码
+  currency: string(name='currency', example='HKD'),
+  // 金额，以元为单位，保留6位小数
+  amount: string(name='amount', example='1.000000'),
+}
+
+// 红利账户明细
+model SubUserBonusAccountDetailVO {
+  // 明细ID
+  id: string(name='id', example='1'),
+  // 交易链上Hash
+  transactionHash: string(name='transaction_hash', example='0x9fe688e456d3c4b15edceff3c23380300d71b48649ae8d61c6a9e513bb095262'),
+  // 交易前余额
+  preBalance: string(name='pre_balance', example='1.0'),
+  // 交易数量
+  transactionAmount: string(name='transaction_amount', example='1'),
+  // 交易后余额
+  postBalance: string(name='post_balance', example='1.0'),
+  // 交易类别（REPAY/TRANSFER/LOCK/UNLOCK/WITHDRAW/OTC_TRANSFER/TRANSFER_TO_VIRTUAL/WITHDRAW_FROM_VIRTUAL）
+  transactionType: string(name='transaction_type', example='REPAY'),
+  // 对手地址
+  counterAddress: string(name='counter_address', example='0x9f6a540f4079d29ff5a9c5985e9ee87f3b713117'),
+  // 创建时间
+  gmtCreated: long(name='gmt_created', example='1755754919690'),
+  // 更新时间
+  gmtModified: long(name='gmt_modified', example='1755754919690'),
+  // 交易状态（PENDING/CONFIRMED/INVALID）
+  transactionStatus: string(name='transaction_status', example='PENDING'),
+}
+
+// 净值信息
+model NetValueInfo {
+  // 净值
+  netValue: string(name='net_value', example='3.14'),
+  // 币种（目前支持USD、HKD）
+  currency: string(name='currency', example='HKD'),
+  // 更新时间戳
+  updateTime: long(name='update_time', example='1726292715000'),
+}
+
+// 密钥详情
+model KeyVO {
+  // 密钥id
+  keyId: string(name='key_id', example='1'),
+  // 密钥名称
+  name: string(name='name', example='name'),
+  // 创建类型
+  // KEY_FILE：上传密钥文件
+  // CREATE_NEW_KEY：系统创建密钥
+  type: string(name='type', example='KEY_FILE'),
+  // 钱包地址
+  address: string(name='address', example='0x11111'),
+  // 关联项目数量
+  quantity: string(name='quantity', example='1'),
+  // 创建时间
+  gmtCreated: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_created', example='2018-10-10T10:10:00Z'),
+  // 是否支持删除
+  deleteEnable: boolean(name='delete_enable', example='true, false'),
+  // 资产项目信息
+  assetProjectInfo: KeyProjectInfo(name='asset_project_info', example=''),
+}
+
+// 机构详情
+model InstitutionVO {
+  // 机构id
+  id: string(name='id', example='1'),
+  // 机构名称
+  name: string(name='name', example='ISSUER'),
+  // 简介
+  about?: string(name='about', example='about'),
+  // 主页
+  homePage?: string(name='home_page', example='home_page'),
+  // 联系人信息
+  contacts?: [ InstitutionContactInfo ](name='contacts', example=''),
+  // 机构类型
+  types: [ InstitutionType ](name='types', example=''),
+  // 机构用户信息
+  users?: [ UserInfo ](name='users', example=''),
+  // 是否支持删除
+  deleteEnable?: boolean(name='delete_enable', example='true, false'),
+}
+
+// 资产项目密钥
+model AssetProjectKey {
+  // 项目ID
+  projectId: string(name='project_id', example='f9146ccccf684db792a8fa10d876e22c'),
+  // 项目名称
+  projectName: string(name='project_name', example='充电桩'),
+  // 密钥类型(MINT:发行密钥；BURN：赎回密钥；TRANSFER：转账密钥；MANAGER：管理密钥)
+  keyType: string(name='key_type', example='MANAGER'),
+  // 密钥ID
+  keyId: string(name='key_id', example='1826615104029319169'),
+  // 密钥名称
+  keyName: string(name='key_name', example='管理密钥'),
+  // 密钥地址
+  keyAddress: string(name='key_address', example='0x74d6c42ad822cfb8de858ce60f3c6dab1e553698'),
+  // 关联时间戳
+  correlationTime: long(name='correlation_time', example='1726024364000'),
+}
+
+// 虚拟子账户明细
+model SubUserVirtualAccountDetailVO {
+  // 明细ID
+  id?: string(name='id', example='3e695195a5634f0c856a6c30358c9f5b'),
+  // 交易前余额
+  preBalance?: string(name='pre_balance', example='7'),
+  // 交易数量
+  transactionAmount?: string(name='transaction_amount', example='1'),
+  // 交易后余额
+  postBalance?: string(name='post_balance', example='8'),
+  // 交易类型(TRANSFER_IN、TRANSFER_OUT)
+  transactionType?: string(name='transaction_type', example='TRANSFER_IN'),
+  // 创建时间
+  gmtCreated?: long(name='gmt_created', example='1755754919690'),
+  // 更新时间
+  gmtModified?: long(name='gmt_modified', example='1755754919690'),
+  // 交易状态（PENDING/CONFIRMED/INVALID）
+  transactionStatus?: string(name='transaction_status', example='PENDING'),
+}
+
+// 虚拟子账户红利明细
+model SubUserBonusVirtualAccountDetailVO {
+  // 明细ID
+  id?: string(name='id', example='3e695195a5634f0c856a6c30358c9f5b'),
+  // 交易前余额
+  preBalance?: string(name='pre_balance', example='7'),
+  // 交易数量
+  transactionAmount?: string(name='transaction_amount', example='1'),
+  // 交易后余额
+  postBalance?: string(name='post_balance', example='8'),
+  // 交易类型(TRANSFER_IN、TRANSFER_OUT)
+  transactionType?: string(name='transaction_type', example='TRANSFER_IN'),
+  // 创建时间
+  gmtCreated?: long(name='gmt_created', example='1755754919690'),
+  // 更新时间
+  gmtModified?: long(name='gmt_modified', example='1755754919690'),
+  // 交易状态（PENDING/CONFIRMED/INVALID）
+  transactionStatus?: string(name='transaction_status', example='PENDING'),
+}
+
+// 二级用户
+model SubUserAccountVO {
+  // 用户账户id
+  userAccountId: string(name='user_account_id', example='userAccountId'),
+  // 用户id
+  userId: string(name='user_id', example='userId'),
+  // 用户地址
+  userAddress: string(name='user_address', example='userAddress'),
+  // 用户资产配额
+  userTarget: string(name='user_target', example='userTarget'),
+  // 用户资产
+  userBalance: string(name='user_balance', example='userBalance'),
+  // 项目id
+  assetProjectId: string(name='asset_project_id', example='assetProjectId'),
+  // 项目名称
+  assetProjectName: string(name='asset_project_name', example='assetProjectName'),
+  // 用户所属机构id
+  institutionId: string(name='institution_id', example='institutionId'),
+  // 用户所属机构名称
+  institutionName: string(name='institution_name', example='institutionName'),
+}
+
+// 虚拟子账号信息
+model SubUserVirtualAccountInfoBO {
+  // 虚拟子账户ID
+  subUserVirtualAccountId?: string(name='sub_user_virtual_account_id', example='34814bfc9b2a40d3889222013228dd02'),
+  // 虚拟子账号对应用户ID
+  virtualAccountUserId?: string(name='virtual_account_user_id', example='8fa693da457449cf9bce00ef207d7407'),
+  // 虚拟子账户邮箱
+  email?: string(name='email', example='test@gamil.com'),
+  // 别名
+  alias?: string(name='alias', example='alias'),
+}
+
+// 密钥信息
+model KeyInfo {
+  // 密钥ID
+  keyId: string(name='key_id', example='1826615104029319169'),
+  // 密钥名称
+  keyName: string(name='key_name', example='manager_key'),
+  // 密钥地址
+  keyAddress: string(name='key_address', example='0x9168f016a64df83d7de267fa5588674377a15be7'),
+  // 密钥类型(MINT：发行密钥；BURN：赎回密钥；TRANSFER：转账密钥；MANAGER：管理密钥)
+  keyType: string(name='key_type', example='MINT'),
+}
+
+// 项目参与者信息
+model ParticipantInfo {
+  // 机构id
+  id: string(name='id', example='80aee17181634daa9f1c37d787f0ec02'),
+  // 二级机构类型
+  type: string(name='type', example='CHANNEL'),
+  // 机构名称
+  name?: string(name='name', example='代销机构'),
+}
+
+// 跨链账户信息
+model CrossChainAccountsVO {
+  // 对侧链用户地址
+  targetUserAddress?: string(name='target_user_address', example='0xce81adcd4b9b78293c73caed55840c81b4c3b8f5'),
+  // 对侧链账户ID
+  crossChainUserAccountId?: string(name='cross_chain_user_account_id', example='1938129653756694529'),
+  // 对侧链红利账户ID
+  crossChainUserBonusAccountId?: string(name='cross_chain_user_bonus_account_id', example='1928364866666541058'),
+  // 对侧链资产账户明细
+  crossChainUserAccountsDetails?: [ CrossChainAccountsDetailVO ](name='cross_chain_user_accounts_details', example='对侧链资产账户明细'),
+  // 对侧链账户信息
+  crossChainBonusAccountsDetails?: [ CrossChainBonusAccountsDetailVO ](name='cross_chain_bonus_accounts_details', example='对侧链账户信息'),
+}
+
+// 资产项目信息
+model AssetProject {
+  // 项目ID
+  projectId: string(name='project_id', example='f9146ccccf684db792a8fa10d876e22c'),
+  // 项目名称
+  name: string(name='name', example='充电桩'),
+  // 项目代币名称
+  tokenName: string(name='token_name', example='ETH'),
+  // 项目介绍
+  info: string(name='info', example='新能源充电桩项目'),
+  // 当前供应量
+  supply: string(name='supply', example='5000'),
+  // 最大供应量
+  capacity: string(name='capacity', example='10000'),
+  // 供应量比例(supply/capacity * 100，保留2位小数)
+  radio: long(name='radio', example='50.00'),
+  // 持有人数量
+  userNumber: long(name='user_number', example='10'),
+  // 资产token合约地址
+  assetTokenAddress: string(name='asset_token_address', example='0xef10b8f625964d868cbb08b1ce687c04982d8964'),
+  // 资产规则引擎合约地址
+  ruleEngineAddress: string(name='rule_engine_address', example='0xbd2d20d6a8a189ec83f42c476e30e49305d45c69'),
+  // 资产白名单合约地址
+  memberListRuleAddress: string(name='member_list_rule_address', example='0xd8cd3a0cdf071abfe0cb09f73224de268c10a4e7'),
+  // 项目状态(ACTIVE：激活；PAUSED：暂停)
+  status: string(name='status', example='ACTIVE'),
+  // 项目净值
+  netValue: string(name='net_value', example='3.14'),
+  // 项目币种(目前支持USD、HKD)
+  currency: string(name='currency', example='HKD'),
+  // 项目创建时间戳
+  gmtCreated: long(name='gmt_created', example='1726024364000'),
+  // 项目修改时间戳
+  gmtModified: long(name='gmt_modified', example='1726024364000'),
+}
+
+// 跨链账号信息
+model CrossChainSubUserAccountInfoBO {
+  // 跨链账号Id
+  crossChainUserAccountId?: string(name='cross_chain_user_account_id', example='34814bfc9b2a40d3889222013228dd02'),
+  // 跨链账号地址
+  targetUserAddress?: string(name='target_user_address', example='0x9f18be920360500f216495cd589895d3917cd9f2'),
+  // 目标链所在链
+  targetChainName?: string(name='target_chain_name', example='CONFLUX_TEST_NET'),
+}
+
+// 操作角色
+model UserOperatorInfoBO {
+  // userId
+  userId?: string(name='user_id', example='039d0196752c48f4ad71fcfece5ca459'),
+  // 别名
+  alias?: string(name='alias', example='测试用户'),
+  // 钱包地址
+  address?: string(name='address', example='0xf7d48f098440a166e9785ced7073baa6964acc80'),
+  // 登录账号类型列表
+  userLoginAccountList?: [ LoginAccountTypeBO ](name='user_login_account_list', example=''),
+  // 机构类型列表
+  userInstitutionTypeList?: [ string ](name='user_institution_type_list', example=''),
+}
+
+// 项目报告
+model ReportInfo {
+  // 项目报告ID
+  reportId: string(name='report_id', example='3ddd08df30f143afad0aa49d96dc81c8'),
+  // 项目报告名
+  reportName: string(name='report_name', example='香港债券市场代币化'),
+  // 报告文件ID
+  fileId: string(name='file_id', example='1cce12eea6c34ed79944f5d11a846a3e'),
+  // 项目报告创建时间戳
+  gmtCreated: long(name='gmt_created', example='1726292715000'),
+}
+
+// 错误信息
+model ErrorMessage {
+  // 错误码
+  displayedCode?: string(name='displayed_code', example='W3S-000-5-O001'),
+  // 错误描述
+  displayedMessage?: string(name='displayed_message', example='param error [id is null]'),
+}
+
+// 项目资源
+model ProjectResource {
+  // 资源ID
+  id: string(name='id', example='36519d8bd56e40ddaef399ba267662c2'),
+  // 项目ID
+  projectId: string(name='project_id', example='cbc8b820bbc7492b8fec0f0228428e6f'),
+  // 资源类型（目前只有PROJECT_REPORT）
+  resourceType: string(name='resource_type', example='PROJECT_REPORT'),
+  // 资源名称
+  resourceName: string(name='resource_name', example='投资报告'),
+  // 文件ID
+  fileId: string(name='file_id', example='8c044f0c56564d418c0b49993605f9d4'),
+  // 创建时间戳
+  gmtCreated: long(name='gmt_created', example='1726024364000'),
+}
+
+// 所有系统操作日志
+model OperationLogVO {
+  // ID主键
+  id: string(name='id', example='0628455d41d044ed97783db554149d4b'),
+  // 创建时间戳（毫秒）
+  gmtCreated?: long(name='gmt_created', example='1755754919690'),
+  // 更新时间戳（毫秒）
+  gmtModified?: long(name='gmt_modified', example='1755754919690'),
+  // 用户id
+  userId?: string(name='user_id', example='0628455d41d044ed97783db554149d4b'),
+  // 用户地址
+  userAddress?: string(name='user_address', example='0628455d41d044ed97783db554149d4b'),
+  // 发起操作的URL接口
+  requestUrl?: string(name='request_url', example='/openapi/v1/trade/issuer/project/create'),
+  // 发起操作的URL接口描述code值
+  apiDesc?: string(name='api_desc', example='OPENAPI_ISSUER_PROJECT_CREATE'),
+  // 发起操作的URL接口中文描述
+  chDesc?: string(name='ch_desc', example='openapi创建项目'),
+  // 设备信息
+  deviceInfo?: string(name='device_info', example='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36'),
+  // 设备Hash
+  deviceHash?: string(name='device_hash', example='30fdb4cb'),
+  // 操作种类
+  operationType?: string(name='operation_type', example='QUERY'),
+  // 请求输入
+  requestInput?: string(name='request_input', example='{"request":{"requestFrom":"inner","operatorBy":null,"projectId":"17cef416378c4f238ec42cdc142b54c7","targetChainName":null}}'),
+  // 请求输出
+  requestOutput?: string(name='request_output', example='{"success":true,"data":[],"total":0,"errorMessage":null,"retry":false,"traceId":"T2ce514e6f60a409f9e3926115f9742dd"}'),
+  // 操作状态：true/false
+  success?: boolean(name='success', example='true'),
+  // 操作来源
+  requestFrom?: string(name='request_from', example='WEB'),
+  // 发起IP地址
+  ip?: string(name='ip', example='127.0.0.1'),
+  // 扩展字段
+  extInfo?: string(name='ext_info', example='{}'),
+  // 登录名类型(EMAIL)
+  loginAccountType?: string(name='login_account_type', example='EMAIL'),
+  // 登录名
+  loginAccount?: string(name='login_account', example='alice'),
+}
+
+// 二级用户基础信息
+model SubUserAccountBaseVO {
+  // 二级用户ID
+  subUserAccountId: string(name='sub_user_account_id', example='b20167e21a8d4cc2b5f1022d24f43815'),
+  // 用户地址
+  userAddress?: string(name='user_address', example='0x9f18be920360500f216495cd589895d3917cd9f2'),
+  // 用户邮箱
+  contact?: string(name='contact', example='test@gamil.com'),
+  // 用户昵称
+  alias?: string(name='alias', example='Alice'),
+  // 项目ID
+  assetProjectId: string(name='asset_project_id', example='00d00c02fb314212b73a23a0c95df0c7'),
+  // 链名称
+  chainName: string(name='chain_name', example='ANTCHAIN'),
+  // 虚拟子账号信息
+  subUserVirtualAccountsInfo?: [ SubUserVirtualAccountInfoBO ](name='sub_user_virtual_accounts_info', example=''),
+  // 跨链账号信息
+  crossChainSubUserAccountsInfo?: [ CrossChainSubUserAccountInfoBO ](name='cross_chain_sub_user_accounts_info', example=''),
+}
+
+// 机构分页信息
+model InstitutionPageData {
+  // 总记录
+  total: long(name='total', example='1'),
+  // 总页数
+  pageCount: long(name='page_count', example='10'),
+  // 当前页码
+  pageNum: long(name='page_num', example='1'),
+  // 每页数量
+  pageSize: long(name='page_size', example='10'),
+  // 机构列表
+  records: [ InstitutionVO ](name='records', example=''),
+}
+
+// 总览历史数据统计项
+model DataSummaryStatisticsItem {
+  // 日期
+  date: string(name='date', example='2024-01-01'),
+  // 原始币种资产价值
+  totalValueList: [ MultiCurrencyMoney ](name='total_value_list', example=''),
+}
+
+// 本侧链持币情况
+model SubUserAccountCeilingBaseVO {
+  // 项目ID
+  assetProjectId?: string(name='asset_project_id', example='0628455d41d044ed97783db554149d4b'),
+  // 代币名称
+  tokenName?: string(name='token_name', example='ETH'),
+  // 代币合约地址
+  tokenAddress?: string(name='token_address', example='0x1753b2e244b1d5e62eaec9a916eaed93c665aec8'),
+  // 用户ID
+  userId?: string(name='user_id', example='0361200fb48a49aea26ea7ca5647888f'),
+  // 用户地址
+  userAddress?: string(name='user_address', example='0x0c4d1a578ef5af9f37cdc251bfa11c660c20d38f'),
+  // 登录名
+  loginName?: string(name='login_name', example='test@gmail.com'),
+  // 登录类型
+  loginType?: string(name='login_type', example='EMAIL'),
+  // 别名
+  alias?: string(name='alias', example='test'),
+  // 实际持有份额
+  realShares?: string(name='real_shares', example='100'),
+  // 代币名称
+  bonusTokenName?: string(name='bonus_token_name', example='ETH'),
+  // 代币合约名称
+  bonusTokenAddress?: string(name='bonus_token_address', example='0x1753b2e244b1d5e62eaec9a916eaed93c665aec8'),
+  // 红利份额
+  realBonus?: string(name='real_bonus', example='100'),
+  // 锁定金额
+  lockedAmount?: string(name='locked_amount', example='100'),
+  // 虚拟子账户余额
+  virtualAccountBalance?: string(name='virtual_account_balance', example='100'),
+}
+
+// 项目角色信息
+model ProjectWithRole {
+  // 项目id
+  projectId?: string(name='project_id', example='0628455d41d044ed97783db554149d4b'),
+  // 项目名称
+  projcetName?: string(name='projcet_name', example='测试项目'),
+  // 描述
+  description?: string(name='description', example='测试'),
+  // token名称
+  tokenName?: string(name='token_name', example='token'),
+  // 最大供应量
+  capacity?: string(name='capacity', example='1000000'),
+  // 净值
+  netValue?: string(name='net_value', example='1'),
+  // 价格类型：PROJECT_NAV 项目净值 TOKEN_PRICE token
+  priceType?: string(name='price_type', example='TOKEN_PRICE'),
+  // 项目净值
+  projectNetValue?: string(name='project_net_value', example='1'),
+  // 最大限额
+  maxSubscriptionAmount?: string(name='max_subscription_amount', example='10000'),
+  // 部署类型 DIRECT_PUBLIC_CHAIN 直发公链，NORMAL 普通模式
+  deploymentType?: string(name='deployment_type', example='NORMAL'),
+  // 项目所在链
+  chainType?: string(name='chain_type', example='ANTCHAIN'),
+  // 操作角色列表
+  userOperatorList?: [ UserOperatorInfoBO ](name='user_operator_list', example=''),
+  // 代销者机构集合
+  participantInfos?: [ ParticipantInfo ](name='participant_infos', example=''),
+}
+
+// 跨链账号明细
+model CrossAccountListVO {
+  // 项目ID
+  projectId?: string(name='project_id', example='02aa0864b0e347b780f82769d7665baf'),
+  // 资产项目合约地址
+  assetProjectAddress?: string(name='asset_project_address', example='0xc60c23aec15324cd51bf6c291c2768bc7287ada1'),
+  // 红利合约地址
+  bonusAddress?: string(name='bonus_address', example='0xb75dd55da39f778f759493a04d5955ba7435f102'),
+  // 用户ID
+  userId?: string(name='user_id', example='8a18b4fc7c8341238bd7eac27f63025a'),
+  // 代销机构ID
+  distributorInstitutionId?: string(name='distributor_institution_id', example='d9becf0366ff471eb2f3879e5e2f9eb7'),
+  // 项目代币名称
+  tokenName?: string(name='token_name', example='etf'),
+  // 项目代币符号
+  tokenSymbol?: string(name='token_symbol', example='Token-S'),
+  // 发行链名称
+  chainName?: string(name='chain_name', example='ANTCHAIN'),
+  // 投资者用户账户ID
+  subUserAccountId?: string(name='sub_user_account_id', example='40809209519a47179b7110ef0b8e9dff'),
+  // 投资者用户红利账户ID
+  subUserBonusAccountId?: string(name='sub_user_bonus_account_id', example='043bb2fbcd2947ea8ddea4087eae233f'),
+  // 目标链名称
+  targetChainName?: string(name='target_chain_name', example='CONFLUX_TEST_NET'),
+  // 目标链资产合约地址
+  targetChainAssetTokenAddress?: string(name='target_chain_asset_token_address', example='0x77038f22e1b3210d455662fe0071dae5d5ad0c97'),
+  // 目标链红利合约地址
+  targetChainBonusAddress?: string(name='target_chain_bonus_address', example='0x89b7556c61fa90185ab32a99727b2ccdad9fcd36'),
+  // 对侧链账户信息
+  crossChainAccountsInfo?: [ CrossChainAccountsVO ](name='cross_chain_accounts_info', example='对侧链账户信息'),
+}
+
+// 密钥分页列表
+model KeyPageData {
+  // 总记录
+  total: long(name='total', example='10'),
+  // 总页数
+  pageCount: long(name='page_count', example='10'),
+  // 当前页码
+  pageNum: long(name='page_num', example='1'),
+  // 每页数量
+  pageSize: long(name='page_size', example='10'),
+  // 密钥列表
+  records: [ KeyVO ](name='records', example=''),
+}
+
+// 登入登出接口操作日志回参
+model LoginOperationLogVO {
+  // 用户ID
+  userId: string(name='user_id', example='7'),
+  // 用户地址
+  userAddress?: string(name='user_address', example='0xe328b8785ff0c1ecb2b52198f5637cc1fdabab20'),
+  // 登录名
+  loginName?: string(name='login_name', example='123@qq.com'),
+  // 登录类型
+  loginAccountType?: string(name='login_account_type', example='EMAIL'),
+  // 请求URL
+  requestURL: string(name='request_u_r_l', example='/api/v1/trade/ip/user/login-account/login'),
+  // 是否成功
+  success: boolean(name='success', example='true, false'),
+  // 创建时间
+  gmtCreated: long(name='gmt_created', example=''),
+}
+
+// 资产账户明细与红利账户明细
+model SubUserAccountDetailVO {
+  // 项目ID
+  projectId: string(name='project_id', example='1000'),
+  // 资产项目合约地址
+  assetProjectAddress?: string(name='asset_project_address', example='0x44b2c05769202f0001ab5beb5d583bb8a630677e'),
+  // 红利合约地址
+  bonusAddress?: string(name='bonus_address', example='0x6dd8c1ab208dd3d2b20ff28fe97babb6154ff9db'),
+  // 用户ID
+  userId?: string(name='user_id', example='1'),
+  // 代销机构ID
+  distributorInstitutionId?: string(name='distributor_institution_id', example='1000'),
+  // 项目代币名称
+  tokenName?: string(name='token_name', example='etf'),
+  // 项目代币符号
+  tokenSymbol?: string(name='token_symbol', example='Token-S'),
+  // 发行链名称
+  chainName?: string(name='chain_name', example='ANTCHAIN'),
+  // 投资者用户账户ID
+  subUserAccountId?: string(name='sub_user_account_id', example='1'),
+  // 投资者用户红利账户ID
+  subUserBonusAccountId?: string(name='sub_user_bonus_account_id', example='11'),
+  // 资产账户明细
+  subUserAccountDetails?: [ SubUserAccountDetailsVO ](name='sub_user_account_details', example='资产账户明细'),
+  // 红利账户明细
+  subUserBonusAccountDetails?: [ SubUserBonusAccountDetailVO ](name='sub_user_bonus_account_details', example='红利账户明细'),
+}
+
+// 支持结算方式信息
+model SupportedSettlementMethodInfo {
+  // 结算方式枚举：TD或TT
+  settlementMethodEnum?: string(name='settlement_method_enum', example='TD'),
+  // 结算银行账户id
+  relatedSettlementAccountId?: string(name='related_settlement_account_id', example='18129343249234'),
+}
+
+// 总览统计数据
+model DataSummaryTotal {
+  // 原始币种资产价值列表
+  totalValueList: [ MultiCurrencyMoney ](name='total_value_list', example=''),
+  // 总项目数
+  totalProjects: long(name='total_projects', example='10'),
+  // 总用户数
+  totalHolders: long(name='total_holders', example='1000'),
+  // 最后更新时间戳
+  lastUpdatedTime: long(name='last_updated_time', example='1726024364000'),
+}
+
+// 资产项目详情
+model AssetProjectDetail {
+  // 项目参与的代销机构列表
+  participantInfos: [ ParticipantInfo ](name='participant_infos', example=''),
+  // 发行密钥列表
+  mintKeys: [ KeyInfo ](name='mint_keys', example=''),
+  // 赎回密钥列表
+  burnKeys: [ KeyInfo ](name='burn_keys', example=''),
+  // 转账密钥列表
+  transferKeys: [ KeyInfo ](name='transfer_keys', example=''),
+  // 管理密钥列表
+  managerKeys: [ KeyInfo ](name='manager_keys', example=''),
+  // 历史净值列表
+  historyNetValueList: [ NetValueInfo ](name='history_net_value_list', example=''),
+  // 项目报告列表
+  reportList: [ ReportInfo ](name='report_list', example=''),
+  // 项目ID
+  projectId: string(name='project_id', example='f9146ccccf684db792a8fa10d876e22c'),
+  // 项目名称
+  name: string(name='name', example='充电桩'),
+  // 项目代币名称
+  tokenName: string(name='token_name', example='ETH'),
+  // 项目介绍
+  info: string(name='info', example='新能源充电桩项目'),
+  // 项目描述(markdown格式)
+  description?: string(name='description', example='# 新能源'),
+  // 当前供应量
+  supply: string(name='supply', example='5000'),
+  // 最大供应量
+  capacity: string(name='capacity', example='10000'),
+  // 供应量比例(supply/capacity * 100，保留2位小数）
+  radio: long(name='radio', example='50.00'),
+  // 持有人数量
+  userNumber: long(name='user_number', example='10'),
+  // 资产token合约地址
+  assetTokenAddress: string(name='asset_token_address', example='0xef10b8f625964d868cbb08b1ce687c04982d8964'),
+  // 资产规则引擎合约地址
+  ruleEngineAddress: string(name='rule_engine_address', example='0xbd2d20d6a8a189ec83f42c476e30e49305d45c69'),
+  // 资产白名单合约地址
+  memberListRuleAddress: string(name='member_list_rule_address', example='0xd8cd3a0cdf071abfe0cb09f73224de268c10a4e7'),
+  // 项目状态(ACTIVE：激活；PAUSED：暂停)
+  status: string(name='status', example='ACTIVE'),
+  // 项目净值
+  netValue: string(name='net_value', example='3.14'),
+  // 项目币种(目前支持USD、HKD)
+  currency: string(name='currency', example='HKD'),
+  // 项目创建时间戳
+  gmtCreated: string(name='gmt_created', example='1726024364000'),
+  // 项目修改时间戳
+  gmtModified: string(name='gmt_modified', example='1726024364000'),
+}
+
+// 资产项目净值
+model ProjectPerformance {
+  // 项目ID
+  projectId: string(name='project_id', example='7757b03c0ed947409bdf142e572df93f'),
+  // 项目净值
+  netValue: string(name='net_value', example='3.14'),
+  // 币种(目前支持USD、HKD)
+  currency: string(name='currency', example='HKD'),
+  // 净值更新时间戳
+  updateTime: long(name='update_time', example='1726024364000'),
+}
+
+// 虚拟子账号明细与红利明细
+model SubUserVirtualAccountListVO {
+  // 项目ID
+  assetProjectId?: string(name='asset_project_id', example='0628455d41d044ed97783db554149d4b'),
+  // 资产项目合约地址
+  assetProjectAddress?: string(name='asset_project_address', example='0xf7d48f098440a166e9785ced7073baa6964acc80'),
+  // 红利合约地址
+  bonusAddress?: string(name='bonus_address', example='0xc8f15261d4a6022ef48c5d77a55b8d276cd8b41c'),
+  // 用户ID
+  userId?: string(name='user_id', example='0207764086af408990a5479c2320f9ce'),
+  // 代销机构ID
+  distributorInstitutionId?: string(name='distributor_institution_id', example='b658ce566060409b82c58b710ba869a7'),
+  // 链名
+  chainName?: string(name='chain_name', example='ANTCHAIN'),
+  // 投资者用户账户ID
+  subUserAccountId?: string(name='sub_user_account_id', example='4a5297828bfc42ceb57c912cfbca6584'),
+  // 虚拟子账户ID
+  subUserVirtualAccountId?: string(name='sub_user_virtual_account_id', example='128798fc530249f78296fa97fb03c6f8'),
+  // 虚拟子账户红利账户ID
+  subUserBonusVirtualAccountId?: string(name='sub_user_bonus_virtual_account_id', example='4311e8e118d848ea9f56731d82e214e8'),
+  // 虚拟子账户明细
+  subUserVirtualAccountDetails?: [ SubUserVirtualAccountDetailVO ](name='sub_user_virtual_account_details', example=''),
+  // 虚拟子账户红利明细
+  subUserBonusVirtualAccountDetails?: [ SubUserBonusVirtualAccountDetailVO ](name='sub_user_bonus_virtual_account_details', example=''),
+}
+
+// 项目分页信息
+model ProjectPageData {
+  // 总记录数
+  total: long(name='total', example='10'),
+  // 总页数
+  pageCount: long(name='page_count', example='1'),
+  // 当前页码
+  pageNum: long(name='page_num', example='1'),
+  // 每页数量
+  pageSize: long(name='page_size', example='10'),
+  // 项目列表
+  records: [ AssetProject ](name='records', example=''),
+}
+
+// 二级用户列表
+model SubUserAccountPageData {
+  // 总记录
+  total: long(name='total', example='10'),
+  // 总页数
+  pageCount: long(name='page_count', example='10'),
+  // 当前页码
+  pageNum: long(name='page_num', example='1'),
+  // 每页数量
+  pageSize: long(name='page_size', example='10'),
+  // 二级用户列表
+  records: [ SubUserAccountVO ](name='records', example=''),
+}
+
+// 对侧链持币情况
+model CrossChainSubUserAccountCeilingBaseVO {
+  // 项目ID
+  assetProjectId?: string(name='asset_project_id', example='0628455d41d044ed97783db554149d4b'),
+  // 代币名称
+  tokenName?: string(name='token_name', example='ETH'),
+  // 代币合约地址
+  tokenAddress?: string(name='token_address', example='0x1753b2e244b1d5e62eaec9a916eaed93c665aec8'),
+  // 别名
+  alias?: string(name='alias', example='test'),
+  // 实际持有份额
+  realShares?: string(name='real_shares', example='100'),
+  // 代币名称
+  bonusTokenName?: string(name='bonus_token_name', example='ETH'),
+  // 代币合约名称
+  bonusTokenAddress?: string(name='bonus_token_address', example='0x1753b2e244b1d5e62eaec9a916eaed93c665aec8'),
+  // 红利份额
+  realBonus?: string(name='real_bonus', example='100'),
+  // 目标链
+  tagetChainType?: string(name='taget_chain_type', example='CONFLUX_TEST_NET'),
+  // 目标链用户地址
+  targetUserAddress?: string(name='target_user_address', example='0x0c4d1a578ef5af9f37cdc251bfa11c660c20d38f'),
+}
+
+// APIKEY试图对象
+model ApiKey {
+  // 主键
+  id: string(name='id', example='c7ac992c8c4041c3ab35c60105ed0440'),
+  // AK
+  token: string(name='token', example='eyJhbGciOiJIUzI1NiJ9.eyJpbnN0aXR1dGlvblR5cGUiOiIyIiwidXNlclR5cGUiOiJJTlNUSVRVVElPTiIsInB1cnBvc2UiOiJBQ0NFU1MiLCJub25jZSI6NDIsInN1YiI6IjkiLCJpYXQiOjE3MjYyMDkyMTYsImV4cCI6MTcyNjIxNjQxM30.oF95cFuz3D_rXAcUNieJbk2uxd75O0AznIFbXiITz7A'),
+  // SK(或公钥)
+  secret: string(name='secret', example='YU8jNHr9Qn5ROGVrFQ54JER8gkVsX05bG4PKxcdLB5eWZGIGgKSbZyeWTvHZ0fKxYFW2Je8ezk0LG3/WKOlRFGiFLVjpEYfhxffhAqj5xwk4DdBgaZEa71O0qjlAbEteQb+nJi2qK/AQJrAj3Wg=='),
+  // 创建日期
+  gmtCreated: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_created', example='2018-10-10T10:10:00Z'),
+}
+
+// 项目基础信息
+model ProjectBaseInfoVO {
+  // 项目id
+  projectId: string(name='project_id', example='0628455d41d044ed97783db554149d4b'),
+  // 资产项目合约地址
+  // （Launch Network/Shares token ）
+  assetProjectAddress?: string(name='asset_project_address', example='0xf7d48f098440a166e9785ced7073baa6964acc80'),
+  // 项目名称
+  projectName?: string(name='project_name', example='测试项目'),
+  // 描述
+  description?: string(name='description', example='测试'),
+  // 项目状态
+  projectStatus?: string(name='project_status', example='Active'),
+  // 项目所在链（Launch Network）
+  chainType?: string(name='chain_type', example='ANTCHAIN'),
+  // 代币名称
+  tokenName?: string(name='token_name', example='OKB'),
+  // 项目代币符号
+  tokenSymbol?: string(name='token_symbol', example='Token-S'),
+  // 总发行量
+  capacity?: string(name='capacity', example='100'),
+  // 单钱包最大可持有份额
+  maxSubscriptionAmount?: string(name='max_subscription_amount', example='100'),
+  // 创建时间戳（毫秒）
+  gmtCreated?: long(name='gmt_created', example='1755754919690'),
+}
+
+// 项目密钥分页数据
+model ProjectKeyPageData {
+  // 总记录数
+  total: long(name='total', example='10'),
+  // 总页数
+  pageCount: long(name='page_count', example='1'),
+  // 当前页码
+  pageNum: long(name='page_num', example='1'),
+  // 每页数量
+  pageSize: long(name='page_size', example='10'),
+  // 项目密钥列表
+  records: [ AssetProjectKey ](name='records', example=''),
+}
+
+model HoldassetAntdigitalWebtrwatradeFundchannelTxnRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // jetco生成的ID,由第一个指示代理分配的唯一标识，用于明确标识在整个银行间链中传递的、不变的交易
+  e2eId: string(name='e2e_id'),
+}
+
+model HoldassetAntdigitalWebtrwatradeFundchannelTxnResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 成功
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 资产锁定
+ * Summary: 资产锁定
+ */
+async function holdassetAntdigitalWebtrwatradeFundchannelTxn(request: HoldassetAntdigitalWebtrwatradeFundchannelTxnRequest): HoldassetAntdigitalWebtrwatradeFundchannelTxnResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return holdassetAntdigitalWebtrwatradeFundchannelTxnEx(request, headers, runtime);
+}
+
+/**
+ * Description: 资产锁定
+ * Summary: 资产锁定
+ */
+async function holdassetAntdigitalWebtrwatradeFundchannelTxnEx(request: HoldassetAntdigitalWebtrwatradeFundchannelTxnRequest, headers: map[string]string, runtime: Util.RuntimeOptions): HoldassetAntdigitalWebtrwatradeFundchannelTxnResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.webtrwatrade.fundchannel.txn.holdasset', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PaymentnotificationAntdigitalWebtrwatradeFundchannelTxnRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // jetco生成的ID,由第一个指示代理分配的唯一标识，用于明确标识在整个银行间链中传递的、不变的交易
+  e2eId: string(name='e2e_id'),
+  // 支付状态
+  status: string(name='status'),
+}
+
+model PaymentnotificationAntdigitalWebtrwatradeFundchannelTxnResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 调用成功
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 通知支付结果接口
+ * Summary: 通知支付结果接口
+ */
+async function paymentnotificationAntdigitalWebtrwatradeFundchannelTxn(request: PaymentnotificationAntdigitalWebtrwatradeFundchannelTxnRequest): PaymentnotificationAntdigitalWebtrwatradeFundchannelTxnResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return paymentnotificationAntdigitalWebtrwatradeFundchannelTxnEx(request, headers, runtime);
+}
+
+/**
+ * Description: 通知支付结果接口
+ * Summary: 通知支付结果接口
+ */
+async function paymentnotificationAntdigitalWebtrwatradeFundchannelTxnEx(request: PaymentnotificationAntdigitalWebtrwatradeFundchannelTxnRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PaymentnotificationAntdigitalWebtrwatradeFundchannelTxnResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.webtrwatrade.fundchannel.txn.paymentnotification', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ReleaseassetAntdigitalWebtrwatradeFundchannelTxnRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // jetco生成的ID,由第一个指示代理分配的唯一标识，用于明确标识在整个银行间链中传递的、不变的交易。
+  e2eId: string(name='e2e_id'),
+}
+
+model ReleaseassetAntdigitalWebtrwatradeFundchannelTxnResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 成功
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 释放资产
+ * Summary: 释放资产
+ */
+async function releaseassetAntdigitalWebtrwatradeFundchannelTxn(request: ReleaseassetAntdigitalWebtrwatradeFundchannelTxnRequest): ReleaseassetAntdigitalWebtrwatradeFundchannelTxnResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return releaseassetAntdigitalWebtrwatradeFundchannelTxnEx(request, headers, runtime);
+}
+
+/**
+ * Description: 释放资产
+ * Summary: 释放资产
+ */
+async function releaseassetAntdigitalWebtrwatradeFundchannelTxnEx(request: ReleaseassetAntdigitalWebtrwatradeFundchannelTxnRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ReleaseassetAntdigitalWebtrwatradeFundchannelTxnResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.webtrwatrade.fundchannel.txn.releaseasset', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
