@@ -16,53 +16,29 @@ public class QueryElectrocarDeviceinfosResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // key
-    @NameInMap("trust_product_key")
-    public String trustProductKey;
+    // success
+    @NameInMap("success")
+    public Boolean success;
 
-    // 产品key
-    @NameInMap("product_key")
-    public String productKey;
+    // 页码
+    @NameInMap("page_num")
+    public Long pageNum;
 
-    // 设备唯一id
-    @NameInMap("trust_device_id")
-    public String trustDeviceId;
+    // 页数
+    @NameInMap("page_size")
+    public Long pageSize;
 
-    // 设备tuid
-    @NameInMap("device_name")
-    public String deviceName;
+    // 总页数
+    @NameInMap("total_pages")
+    public Long totalPages;
 
-    // 设备名称
-    @NameInMap("nick_name")
-    public String nickName;
+    // 总条数
+    @NameInMap("total_size")
+    public Long totalSize;
 
-    // 设备在线状态
-    @NameInMap("device_status")
-    public String deviceStatus;
-
-    // 设备注册时间
-    @NameInMap("device_register_time")
-    public String deviceRegisterTime;
-
-    // 设备激活时间
-    @NameInMap("device_active_time")
-    public String deviceActiveTime;
-
-    // 最后在线时间
-    @NameInMap("last_online_time")
-    public String lastOnlineTime;
-
-    // 最后离线时间
-    @NameInMap("last_offline_time")
-    public String lastOfflineTime;
-
-    // 最后通讯时间
-    @NameInMap("last_communication_time")
-    public String lastCommunicationTime;
-
-    // ota版本
-    @NameInMap("device_ota_version")
-    public String deviceOtaVersion;
+    // 设备列表
+    @NameInMap("device_list")
+    public java.util.List<DeviceInfos> deviceList;
 
     public static QueryElectrocarDeviceinfosResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryElectrocarDeviceinfosResponse self = new QueryElectrocarDeviceinfosResponse();
@@ -93,100 +69,52 @@ public class QueryElectrocarDeviceinfosResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryElectrocarDeviceinfosResponse setTrustProductKey(String trustProductKey) {
-        this.trustProductKey = trustProductKey;
+    public QueryElectrocarDeviceinfosResponse setSuccess(Boolean success) {
+        this.success = success;
         return this;
     }
-    public String getTrustProductKey() {
-        return this.trustProductKey;
+    public Boolean getSuccess() {
+        return this.success;
     }
 
-    public QueryElectrocarDeviceinfosResponse setProductKey(String productKey) {
-        this.productKey = productKey;
+    public QueryElectrocarDeviceinfosResponse setPageNum(Long pageNum) {
+        this.pageNum = pageNum;
         return this;
     }
-    public String getProductKey() {
-        return this.productKey;
+    public Long getPageNum() {
+        return this.pageNum;
     }
 
-    public QueryElectrocarDeviceinfosResponse setTrustDeviceId(String trustDeviceId) {
-        this.trustDeviceId = trustDeviceId;
+    public QueryElectrocarDeviceinfosResponse setPageSize(Long pageSize) {
+        this.pageSize = pageSize;
         return this;
     }
-    public String getTrustDeviceId() {
-        return this.trustDeviceId;
+    public Long getPageSize() {
+        return this.pageSize;
     }
 
-    public QueryElectrocarDeviceinfosResponse setDeviceName(String deviceName) {
-        this.deviceName = deviceName;
+    public QueryElectrocarDeviceinfosResponse setTotalPages(Long totalPages) {
+        this.totalPages = totalPages;
         return this;
     }
-    public String getDeviceName() {
-        return this.deviceName;
+    public Long getTotalPages() {
+        return this.totalPages;
     }
 
-    public QueryElectrocarDeviceinfosResponse setNickName(String nickName) {
-        this.nickName = nickName;
+    public QueryElectrocarDeviceinfosResponse setTotalSize(Long totalSize) {
+        this.totalSize = totalSize;
         return this;
     }
-    public String getNickName() {
-        return this.nickName;
+    public Long getTotalSize() {
+        return this.totalSize;
     }
 
-    public QueryElectrocarDeviceinfosResponse setDeviceStatus(String deviceStatus) {
-        this.deviceStatus = deviceStatus;
+    public QueryElectrocarDeviceinfosResponse setDeviceList(java.util.List<DeviceInfos> deviceList) {
+        this.deviceList = deviceList;
         return this;
     }
-    public String getDeviceStatus() {
-        return this.deviceStatus;
-    }
-
-    public QueryElectrocarDeviceinfosResponse setDeviceRegisterTime(String deviceRegisterTime) {
-        this.deviceRegisterTime = deviceRegisterTime;
-        return this;
-    }
-    public String getDeviceRegisterTime() {
-        return this.deviceRegisterTime;
-    }
-
-    public QueryElectrocarDeviceinfosResponse setDeviceActiveTime(String deviceActiveTime) {
-        this.deviceActiveTime = deviceActiveTime;
-        return this;
-    }
-    public String getDeviceActiveTime() {
-        return this.deviceActiveTime;
-    }
-
-    public QueryElectrocarDeviceinfosResponse setLastOnlineTime(String lastOnlineTime) {
-        this.lastOnlineTime = lastOnlineTime;
-        return this;
-    }
-    public String getLastOnlineTime() {
-        return this.lastOnlineTime;
-    }
-
-    public QueryElectrocarDeviceinfosResponse setLastOfflineTime(String lastOfflineTime) {
-        this.lastOfflineTime = lastOfflineTime;
-        return this;
-    }
-    public String getLastOfflineTime() {
-        return this.lastOfflineTime;
-    }
-
-    public QueryElectrocarDeviceinfosResponse setLastCommunicationTime(String lastCommunicationTime) {
-        this.lastCommunicationTime = lastCommunicationTime;
-        return this;
-    }
-    public String getLastCommunicationTime() {
-        return this.lastCommunicationTime;
-    }
-
-    public QueryElectrocarDeviceinfosResponse setDeviceOtaVersion(String deviceOtaVersion) {
-        this.deviceOtaVersion = deviceOtaVersion;
-        return this;
-    }
-    public String getDeviceOtaVersion() {
-        return this.deviceOtaVersion;
+    public java.util.List<DeviceInfos> getDeviceList() {
+        return this.deviceList;
     }
 
 }

@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.12.80"),
+                    new TeaPair("sdk_version", "1.14.1"),
                     new TeaPair("_prod_code", "BOT"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -964,6 +964,27 @@ public class Client {
     public StartAgentChatResponse startAgentChatEx(StartAgentChatRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.agent.chat.start", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new StartAgentChatResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: mcp token生成
+     * Summary: mcp token生成</p>
+     */
+    public GenerateMcpTokenResponse generateMcpToken(GenerateMcpTokenRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.generateMcpTokenEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: mcp token生成
+     * Summary: mcp token生成</p>
+     */
+    public GenerateMcpTokenResponse generateMcpTokenEx(GenerateMcpTokenRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.mcp.token.generate", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GenerateMcpTokenResponse());
     }
 
     /**
@@ -3359,6 +3380,48 @@ public class Client {
     public ExecElectrocarBatchpubResponse execElectrocarBatchpubEx(ExecElectrocarBatchpubRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.electrocar.batchpub.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecElectrocarBatchpubResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 批量定时控车-批次查询
+     * Summary: 批量定时控车-批次查询</p>
+     */
+    public QueryElectrocarBatchpubjobsResponse queryElectrocarBatchpubjobs(QueryElectrocarBatchpubjobsRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryElectrocarBatchpubjobsEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 批量定时控车-批次查询
+     * Summary: 批量定时控车-批次查询</p>
+     */
+    public QueryElectrocarBatchpubjobsResponse queryElectrocarBatchpubjobsEx(QueryElectrocarBatchpubjobsRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.electrocar.batchpubjobs.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryElectrocarBatchpubjobsResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 批量定时控车任务查询
+     * Summary: 批量定时控车任务查询</p>
+     */
+    public QueryElectrocarBatchpubtasksResponse queryElectrocarBatchpubtasks(QueryElectrocarBatchpubtasksRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryElectrocarBatchpubtasksEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 批量定时控车任务查询
+     * Summary: 批量定时控车任务查询</p>
+     */
+    public QueryElectrocarBatchpubtasksResponse queryElectrocarBatchpubtasksEx(QueryElectrocarBatchpubtasksRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.electrocar.batchpubtasks.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryElectrocarBatchpubtasksResponse());
     }
 
     /**
@@ -6026,6 +6089,69 @@ public class Client {
     public ImportIotagentClientResponse importIotagentClientEx(ImportIotagentClientRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotagent.client.import", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ImportIotagentClientResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 订单数据核对
+     * Summary: 订单数据核对</p>
+     */
+    public ExecPullstrategyOrdercheckResponse execPullstrategyOrdercheck(ExecPullstrategyOrdercheckRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.execPullstrategyOrdercheckEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 订单数据核对
+     * Summary: 订单数据核对</p>
+     */
+    public ExecPullstrategyOrdercheckResponse execPullstrategyOrdercheckEx(ExecPullstrategyOrdercheckRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.pullstrategy.ordercheck.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecPullstrategyOrdercheckResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 资产信息核对
+     * Summary: 资产信息核对</p>
+     */
+    public ExecPullstrategyStationcheckResponse execPullstrategyStationcheck(ExecPullstrategyStationcheckRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.execPullstrategyStationcheckEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 资产信息核对
+     * Summary: 资产信息核对</p>
+     */
+    public ExecPullstrategyStationcheckResponse execPullstrategyStationcheckEx(ExecPullstrategyStationcheckRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.pullstrategy.stationcheck.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecPullstrategyStationcheckResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询mcp服务连接点
+     * Summary: 查询mcp服务连接点</p>
+     */
+    public QueryMcpEndpointResponse queryMcpEndpoint(QueryMcpEndpointRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryMcpEndpointEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询mcp服务连接点
+     * Summary: 查询mcp服务连接点</p>
+     */
+    public QueryMcpEndpointResponse queryMcpEndpointEx(QueryMcpEndpointRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.mcp.endpoint.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryMcpEndpointResponse());
     }
 
     /**
