@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BOT.Models
 {
-    public class QueryElectrocarDeviceinfosResponse : TeaModel {
+    public class QueryElectrocarBatchpubtasksResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,35 +24,35 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // success
-        [NameInMap("success")]
+        // 任务列表
+        [NameInMap("task_list")]
         [Validation(Required=false)]
-        public bool? Success { get; set; }
+        public List<TaskDetail> TaskList { get; set; }
 
         // 页码
         [NameInMap("page_num")]
         [Validation(Required=false)]
         public long? PageNum { get; set; }
 
-        // 页数
+        // 每页条数
         [NameInMap("page_size")]
         [Validation(Required=false)]
         public long? PageSize { get; set; }
 
         // 总页数
-        [NameInMap("total_pages")]
+        [NameInMap("total_page")]
         [Validation(Required=false)]
-        public long? TotalPages { get; set; }
+        public long? TotalPage { get; set; }
 
-        // 总条数
-        [NameInMap("total_size")]
+        // 总记录数
+        [NameInMap("total_count")]
         [Validation(Required=false)]
-        public long? TotalSize { get; set; }
+        public long? TotalCount { get; set; }
 
-        // 设备列表
-        [NameInMap("device_list")]
+        // 状态
+        [NameInMap("success")]
         [Validation(Required=false)]
-        public List<DeviceInfos> DeviceList { get; set; }
+        public bool? Success { get; set; }
 
     }
 

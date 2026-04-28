@@ -137,7 +137,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.12.80"},
+                        {"sdk_version", "1.14.1"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.12.80"},
+                        {"sdk_version", "1.14.1"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1879,6 +1879,48 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<StartAgentChatResponse>(await DoRequestAsync("1.0", "blockchain.bot.agent.chat.start", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: mcp token生成
+         * Summary: mcp token生成
+         */
+        public GenerateMcpTokenResponse GenerateMcpToken(GenerateMcpTokenRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return GenerateMcpTokenEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: mcp token生成
+         * Summary: mcp token生成
+         */
+        public async Task<GenerateMcpTokenResponse> GenerateMcpTokenAsync(GenerateMcpTokenRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await GenerateMcpTokenExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: mcp token生成
+         * Summary: mcp token生成
+         */
+        public GenerateMcpTokenResponse GenerateMcpTokenEx(GenerateMcpTokenRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GenerateMcpTokenResponse>(DoRequest("1.0", "blockchain.bot.mcp.token.generate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: mcp token生成
+         * Summary: mcp token生成
+         */
+        public async Task<GenerateMcpTokenResponse> GenerateMcpTokenExAsync(GenerateMcpTokenRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GenerateMcpTokenResponse>(await DoRequestAsync("1.0", "blockchain.bot.mcp.token.generate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -6673,6 +6715,90 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ExecElectrocarBatchpubResponse>(await DoRequestAsync("1.0", "blockchain.bot.electrocar.batchpub.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 批量定时控车-批次查询
+         * Summary: 批量定时控车-批次查询
+         */
+        public QueryElectrocarBatchpubjobsResponse QueryElectrocarBatchpubjobs(QueryElectrocarBatchpubjobsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryElectrocarBatchpubjobsEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 批量定时控车-批次查询
+         * Summary: 批量定时控车-批次查询
+         */
+        public async Task<QueryElectrocarBatchpubjobsResponse> QueryElectrocarBatchpubjobsAsync(QueryElectrocarBatchpubjobsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryElectrocarBatchpubjobsExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 批量定时控车-批次查询
+         * Summary: 批量定时控车-批次查询
+         */
+        public QueryElectrocarBatchpubjobsResponse QueryElectrocarBatchpubjobsEx(QueryElectrocarBatchpubjobsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryElectrocarBatchpubjobsResponse>(DoRequest("1.0", "blockchain.bot.electrocar.batchpubjobs.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 批量定时控车-批次查询
+         * Summary: 批量定时控车-批次查询
+         */
+        public async Task<QueryElectrocarBatchpubjobsResponse> QueryElectrocarBatchpubjobsExAsync(QueryElectrocarBatchpubjobsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryElectrocarBatchpubjobsResponse>(await DoRequestAsync("1.0", "blockchain.bot.electrocar.batchpubjobs.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 批量定时控车任务查询
+         * Summary: 批量定时控车任务查询
+         */
+        public QueryElectrocarBatchpubtasksResponse QueryElectrocarBatchpubtasks(QueryElectrocarBatchpubtasksRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryElectrocarBatchpubtasksEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 批量定时控车任务查询
+         * Summary: 批量定时控车任务查询
+         */
+        public async Task<QueryElectrocarBatchpubtasksResponse> QueryElectrocarBatchpubtasksAsync(QueryElectrocarBatchpubtasksRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryElectrocarBatchpubtasksExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 批量定时控车任务查询
+         * Summary: 批量定时控车任务查询
+         */
+        public QueryElectrocarBatchpubtasksResponse QueryElectrocarBatchpubtasksEx(QueryElectrocarBatchpubtasksRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryElectrocarBatchpubtasksResponse>(DoRequest("1.0", "blockchain.bot.electrocar.batchpubtasks.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 批量定时控车任务查询
+         * Summary: 批量定时控车任务查询
+         */
+        public async Task<QueryElectrocarBatchpubtasksResponse> QueryElectrocarBatchpubtasksExAsync(QueryElectrocarBatchpubtasksRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryElectrocarBatchpubtasksResponse>(await DoRequestAsync("1.0", "blockchain.bot.electrocar.batchpubtasks.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -12007,6 +12133,132 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ImportIotagentClientResponse>(await DoRequestAsync("1.0", "blockchain.bot.iotagent.client.import", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 订单数据核对
+         * Summary: 订单数据核对
+         */
+        public ExecPullstrategyOrdercheckResponse ExecPullstrategyOrdercheck(ExecPullstrategyOrdercheckRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ExecPullstrategyOrdercheckEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 订单数据核对
+         * Summary: 订单数据核对
+         */
+        public async Task<ExecPullstrategyOrdercheckResponse> ExecPullstrategyOrdercheckAsync(ExecPullstrategyOrdercheckRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ExecPullstrategyOrdercheckExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 订单数据核对
+         * Summary: 订单数据核对
+         */
+        public ExecPullstrategyOrdercheckResponse ExecPullstrategyOrdercheckEx(ExecPullstrategyOrdercheckRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecPullstrategyOrdercheckResponse>(DoRequest("1.0", "blockchain.bot.pullstrategy.ordercheck.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 订单数据核对
+         * Summary: 订单数据核对
+         */
+        public async Task<ExecPullstrategyOrdercheckResponse> ExecPullstrategyOrdercheckExAsync(ExecPullstrategyOrdercheckRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecPullstrategyOrdercheckResponse>(await DoRequestAsync("1.0", "blockchain.bot.pullstrategy.ordercheck.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 资产信息核对
+         * Summary: 资产信息核对
+         */
+        public ExecPullstrategyStationcheckResponse ExecPullstrategyStationcheck(ExecPullstrategyStationcheckRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ExecPullstrategyStationcheckEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 资产信息核对
+         * Summary: 资产信息核对
+         */
+        public async Task<ExecPullstrategyStationcheckResponse> ExecPullstrategyStationcheckAsync(ExecPullstrategyStationcheckRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ExecPullstrategyStationcheckExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 资产信息核对
+         * Summary: 资产信息核对
+         */
+        public ExecPullstrategyStationcheckResponse ExecPullstrategyStationcheckEx(ExecPullstrategyStationcheckRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecPullstrategyStationcheckResponse>(DoRequest("1.0", "blockchain.bot.pullstrategy.stationcheck.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 资产信息核对
+         * Summary: 资产信息核对
+         */
+        public async Task<ExecPullstrategyStationcheckResponse> ExecPullstrategyStationcheckExAsync(ExecPullstrategyStationcheckRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecPullstrategyStationcheckResponse>(await DoRequestAsync("1.0", "blockchain.bot.pullstrategy.stationcheck.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询mcp服务连接点
+         * Summary: 查询mcp服务连接点
+         */
+        public QueryMcpEndpointResponse QueryMcpEndpoint(QueryMcpEndpointRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryMcpEndpointEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询mcp服务连接点
+         * Summary: 查询mcp服务连接点
+         */
+        public async Task<QueryMcpEndpointResponse> QueryMcpEndpointAsync(QueryMcpEndpointRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryMcpEndpointExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询mcp服务连接点
+         * Summary: 查询mcp服务连接点
+         */
+        public QueryMcpEndpointResponse QueryMcpEndpointEx(QueryMcpEndpointRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryMcpEndpointResponse>(DoRequest("1.0", "blockchain.bot.mcp.endpoint.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询mcp服务连接点
+         * Summary: 查询mcp服务连接点
+         */
+        public async Task<QueryMcpEndpointResponse> QueryMcpEndpointExAsync(QueryMcpEndpointRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryMcpEndpointResponse>(await DoRequestAsync("1.0", "blockchain.bot.mcp.endpoint.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

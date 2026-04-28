@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BOT.Models
 {
-    public class QueryElectrocarDeviceinfosRequest : TeaModel {
+    public class GenerateMcpTokenRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,20 +18,10 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // trust_product_key
-        [NameInMap("trust_product_key")]
+        // 平台下发的agnetId
+        [NameInMap("agent_id")]
         [Validation(Required=true)]
-        public string TrustProductKey { get; set; }
-
-        // 页码
-        [NameInMap("page_num")]
-        [Validation(Required=false)]
-        public long? PageNum { get; set; }
-
-        // 页数
-        [NameInMap("page_size")]
-        [Validation(Required=false)]
-        public long? PageSize { get; set; }
+        public string AgentId { get; set; }
 
     }
 
