@@ -3990,6 +3990,39 @@ func (s *DidBaseQueryReq) SetThingsDidList(v []*string) *DidBaseQueryReq {
 	return s
 }
 
+// 设备信息
+type DeviceInfos struct {
+	// tuid
+	Tuid *string `json:"tuid,omitempty" xml:"tuid,omitempty"`
+	// 设备状态
+	DeviceStatus *string `json:"device_status,omitempty" xml:"device_status,omitempty"`
+	// ota version
+	DeviceOtaVersion *string `json:"device_ota_version,omitempty" xml:"device_ota_version,omitempty"`
+}
+
+func (s DeviceInfos) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeviceInfos) GoString() string {
+	return s.String()
+}
+
+func (s *DeviceInfos) SetTuid(v string) *DeviceInfos {
+	s.Tuid = &v
+	return s
+}
+
+func (s *DeviceInfos) SetDeviceStatus(v string) *DeviceInfos {
+	s.DeviceStatus = &v
+	return s
+}
+
+func (s *DeviceInfos) SetDeviceOtaVersion(v string) *DeviceInfos {
+	s.DeviceOtaVersion = &v
+	return s
+}
+
 // 商品鉴定返回结果
 type BaiGoodsComparisonResponse struct {
 	// 鉴定结果（REAL：为真   FAKE：为假   UNABLE_IDENTIFY：无法鉴定）
@@ -4413,6 +4446,102 @@ func (s *IotbasicDeviceModelFixedAttributeInfo) SetDataRangeMin(v int64) *Iotbas
 
 func (s *IotbasicDeviceModelFixedAttributeInfo) SetDataRangeMax(v int64) *IotbasicDeviceModelFixedAttributeInfo {
 	s.DataRangeMax = &v
+	return s
+}
+
+// 批量定时控车 批次详情
+type BatchJobDetail struct {
+	// 批次Id
+	BatchId *string `json:"batch_id,omitempty" xml:"batch_id,omitempty"`
+	// 批次名称
+	BatchName *string `json:"batch_name,omitempty" xml:"batch_name,omitempty"`
+	// 批次状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 租户Id
+	TenantId *int64 `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// 触发模式
+	TriggerMode *string `json:"trigger_mode,omitempty" xml:"trigger_mode,omitempty"`
+	// 定时执行时间戳
+	ScheduledTime *int64 `json:"scheduled_time,omitempty" xml:"scheduled_time,omitempty"`
+	// 实际开始时间戳
+	ActualStartTime *int64 `json:"actual_start_time,omitempty" xml:"actual_start_time,omitempty"`
+	// 实际结束时间戳
+	ActualEndTime *int64 `json:"actual_end_time,omitempty" xml:"actual_end_time,omitempty"`
+	// 总设备数
+	TotalCount *int64 `json:"total_count,omitempty" xml:"total_count,omitempty"`
+	// 成功数
+	SuccessCount *int64 `json:"success_count,omitempty" xml:"success_count,omitempty"`
+	// 失败数
+	FailedCount *int64 `json:"failed_count,omitempty" xml:"failed_count,omitempty"`
+	// 操作人
+	Operator *string `json:"operator,omitempty" xml:"operator,omitempty"`
+}
+
+func (s BatchJobDetail) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BatchJobDetail) GoString() string {
+	return s.String()
+}
+
+func (s *BatchJobDetail) SetBatchId(v string) *BatchJobDetail {
+	s.BatchId = &v
+	return s
+}
+
+func (s *BatchJobDetail) SetBatchName(v string) *BatchJobDetail {
+	s.BatchName = &v
+	return s
+}
+
+func (s *BatchJobDetail) SetStatus(v string) *BatchJobDetail {
+	s.Status = &v
+	return s
+}
+
+func (s *BatchJobDetail) SetTenantId(v int64) *BatchJobDetail {
+	s.TenantId = &v
+	return s
+}
+
+func (s *BatchJobDetail) SetTriggerMode(v string) *BatchJobDetail {
+	s.TriggerMode = &v
+	return s
+}
+
+func (s *BatchJobDetail) SetScheduledTime(v int64) *BatchJobDetail {
+	s.ScheduledTime = &v
+	return s
+}
+
+func (s *BatchJobDetail) SetActualStartTime(v int64) *BatchJobDetail {
+	s.ActualStartTime = &v
+	return s
+}
+
+func (s *BatchJobDetail) SetActualEndTime(v int64) *BatchJobDetail {
+	s.ActualEndTime = &v
+	return s
+}
+
+func (s *BatchJobDetail) SetTotalCount(v int64) *BatchJobDetail {
+	s.TotalCount = &v
+	return s
+}
+
+func (s *BatchJobDetail) SetSuccessCount(v int64) *BatchJobDetail {
+	s.SuccessCount = &v
+	return s
+}
+
+func (s *BatchJobDetail) SetFailedCount(v int64) *BatchJobDetail {
+	s.FailedCount = &v
+	return s
+}
+
+func (s *BatchJobDetail) SetOperator(v string) *BatchJobDetail {
+	s.Operator = &v
 	return s
 }
 
@@ -4989,6 +5118,67 @@ func (s BaiGoodsPointCheckRespData) GoString() string {
 
 func (s *BaiGoodsPointCheckRespData) SetValid(v bool) *BaiGoodsPointCheckRespData {
 	s.Valid = &v
+	return s
+}
+
+// 批量定时任务详情
+type TaskDetail struct {
+	// 批次id
+	BatchId *string `json:"batch_id,omitempty" xml:"batch_id,omitempty"`
+	// tuid
+	Tuid *string `json:"tuid,omitempty" xml:"tuid,omitempty"`
+	// device_name
+	DeviceName *string `json:"device_name,omitempty" xml:"device_name,omitempty"`
+	// 状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 调用时间
+	InvokeTime *int64 `json:"invoke_time,omitempty" xml:"invoke_time,omitempty"`
+	// 错误信息
+	ErrorMsg *string `json:"error_msg,omitempty" xml:"error_msg,omitempty"`
+	// 重试次数
+	RetryCount *int64 `json:"retry_count,omitempty" xml:"retry_count,omitempty"`
+}
+
+func (s TaskDetail) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TaskDetail) GoString() string {
+	return s.String()
+}
+
+func (s *TaskDetail) SetBatchId(v string) *TaskDetail {
+	s.BatchId = &v
+	return s
+}
+
+func (s *TaskDetail) SetTuid(v string) *TaskDetail {
+	s.Tuid = &v
+	return s
+}
+
+func (s *TaskDetail) SetDeviceName(v string) *TaskDetail {
+	s.DeviceName = &v
+	return s
+}
+
+func (s *TaskDetail) SetStatus(v string) *TaskDetail {
+	s.Status = &v
+	return s
+}
+
+func (s *TaskDetail) SetInvokeTime(v int64) *TaskDetail {
+	s.InvokeTime = &v
+	return s
+}
+
+func (s *TaskDetail) SetErrorMsg(v string) *TaskDetail {
+	s.ErrorMsg = &v
+	return s
+}
+
+func (s *TaskDetail) SetRetryCount(v int64) *TaskDetail {
+	s.RetryCount = &v
 	return s
 }
 
@@ -12612,6 +12802,76 @@ func (s *StartAgentChatResponse) SetResultMsg(v string) *StartAgentChatResponse 
 
 func (s *StartAgentChatResponse) SetChatCompletionObject(v string) *StartAgentChatResponse {
 	s.ChatCompletionObject = &v
+	return s
+}
+
+type GenerateMcpTokenRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 平台下发的agnetId
+	AgentId *string `json:"agent_id,omitempty" xml:"agent_id,omitempty" require:"true"`
+}
+
+func (s GenerateMcpTokenRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GenerateMcpTokenRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GenerateMcpTokenRequest) SetAuthToken(v string) *GenerateMcpTokenRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GenerateMcpTokenRequest) SetProductInstanceId(v string) *GenerateMcpTokenRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *GenerateMcpTokenRequest) SetAgentId(v string) *GenerateMcpTokenRequest {
+	s.AgentId = &v
+	return s
+}
+
+type GenerateMcpTokenResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 下发的token
+	Token *string `json:"token,omitempty" xml:"token,omitempty"`
+}
+
+func (s GenerateMcpTokenResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GenerateMcpTokenResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GenerateMcpTokenResponse) SetReqMsgId(v string) *GenerateMcpTokenResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GenerateMcpTokenResponse) SetResultCode(v string) *GenerateMcpTokenResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GenerateMcpTokenResponse) SetResultMsg(v string) *GenerateMcpTokenResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GenerateMcpTokenResponse) SetToken(v string) *GenerateMcpTokenResponse {
+	s.Token = &v
 	return s
 }
 
@@ -24508,8 +24768,12 @@ type QueryElectrocarDeviceinfosRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// tuid
-	Tuid *string `json:"tuid,omitempty" xml:"tuid,omitempty" require:"true"`
+	// trust_product_key
+	TrustProductKey *string `json:"trust_product_key,omitempty" xml:"trust_product_key,omitempty" require:"true"`
+	// 页码
+	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty"`
+	// 页数
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
 }
 
 func (s QueryElectrocarDeviceinfosRequest) String() string {
@@ -24530,8 +24794,18 @@ func (s *QueryElectrocarDeviceinfosRequest) SetProductInstanceId(v string) *Quer
 	return s
 }
 
-func (s *QueryElectrocarDeviceinfosRequest) SetTuid(v string) *QueryElectrocarDeviceinfosRequest {
-	s.Tuid = &v
+func (s *QueryElectrocarDeviceinfosRequest) SetTrustProductKey(v string) *QueryElectrocarDeviceinfosRequest {
+	s.TrustProductKey = &v
+	return s
+}
+
+func (s *QueryElectrocarDeviceinfosRequest) SetPageNum(v int64) *QueryElectrocarDeviceinfosRequest {
+	s.PageNum = &v
+	return s
+}
+
+func (s *QueryElectrocarDeviceinfosRequest) SetPageSize(v int64) *QueryElectrocarDeviceinfosRequest {
+	s.PageSize = &v
 	return s
 }
 
@@ -24542,30 +24816,18 @@ type QueryElectrocarDeviceinfosResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// key
-	TrustProductKey *string `json:"trust_product_key,omitempty" xml:"trust_product_key,omitempty"`
-	// 产品key
-	ProductKey *string `json:"product_key,omitempty" xml:"product_key,omitempty"`
-	// 设备唯一id
-	TrustDeviceId *string `json:"trust_device_id,omitempty" xml:"trust_device_id,omitempty"`
-	// 设备tuid
-	DeviceName *string `json:"device_name,omitempty" xml:"device_name,omitempty"`
-	// 设备名称
-	NickName *string `json:"nick_name,omitempty" xml:"nick_name,omitempty"`
-	// 设备在线状态
-	DeviceStatus *string `json:"device_status,omitempty" xml:"device_status,omitempty"`
-	// 设备注册时间
-	DeviceRegisterTime *string `json:"device_register_time,omitempty" xml:"device_register_time,omitempty"`
-	// 设备激活时间
-	DeviceActiveTime *string `json:"device_active_time,omitempty" xml:"device_active_time,omitempty"`
-	// 最后在线时间
-	LastOnlineTime *string `json:"last_online_time,omitempty" xml:"last_online_time,omitempty"`
-	// 最后离线时间
-	LastOfflineTime *string `json:"last_offline_time,omitempty" xml:"last_offline_time,omitempty"`
-	// 最后通讯时间
-	LastCommunicationTime *string `json:"last_communication_time,omitempty" xml:"last_communication_time,omitempty"`
-	// ota版本
-	DeviceOtaVersion *string `json:"device_ota_version,omitempty" xml:"device_ota_version,omitempty"`
+	// success
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 页码
+	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty"`
+	// 页数
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 总页数
+	TotalPages *int64 `json:"total_pages,omitempty" xml:"total_pages,omitempty"`
+	// 总条数
+	TotalSize *int64 `json:"total_size,omitempty" xml:"total_size,omitempty"`
+	// 设备列表
+	DeviceList []*DeviceInfos `json:"device_list,omitempty" xml:"device_list,omitempty" type:"Repeated"`
 }
 
 func (s QueryElectrocarDeviceinfosResponse) String() string {
@@ -24591,63 +24853,33 @@ func (s *QueryElectrocarDeviceinfosResponse) SetResultMsg(v string) *QueryElectr
 	return s
 }
 
-func (s *QueryElectrocarDeviceinfosResponse) SetTrustProductKey(v string) *QueryElectrocarDeviceinfosResponse {
-	s.TrustProductKey = &v
+func (s *QueryElectrocarDeviceinfosResponse) SetSuccess(v bool) *QueryElectrocarDeviceinfosResponse {
+	s.Success = &v
 	return s
 }
 
-func (s *QueryElectrocarDeviceinfosResponse) SetProductKey(v string) *QueryElectrocarDeviceinfosResponse {
-	s.ProductKey = &v
+func (s *QueryElectrocarDeviceinfosResponse) SetPageNum(v int64) *QueryElectrocarDeviceinfosResponse {
+	s.PageNum = &v
 	return s
 }
 
-func (s *QueryElectrocarDeviceinfosResponse) SetTrustDeviceId(v string) *QueryElectrocarDeviceinfosResponse {
-	s.TrustDeviceId = &v
+func (s *QueryElectrocarDeviceinfosResponse) SetPageSize(v int64) *QueryElectrocarDeviceinfosResponse {
+	s.PageSize = &v
 	return s
 }
 
-func (s *QueryElectrocarDeviceinfosResponse) SetDeviceName(v string) *QueryElectrocarDeviceinfosResponse {
-	s.DeviceName = &v
+func (s *QueryElectrocarDeviceinfosResponse) SetTotalPages(v int64) *QueryElectrocarDeviceinfosResponse {
+	s.TotalPages = &v
 	return s
 }
 
-func (s *QueryElectrocarDeviceinfosResponse) SetNickName(v string) *QueryElectrocarDeviceinfosResponse {
-	s.NickName = &v
+func (s *QueryElectrocarDeviceinfosResponse) SetTotalSize(v int64) *QueryElectrocarDeviceinfosResponse {
+	s.TotalSize = &v
 	return s
 }
 
-func (s *QueryElectrocarDeviceinfosResponse) SetDeviceStatus(v string) *QueryElectrocarDeviceinfosResponse {
-	s.DeviceStatus = &v
-	return s
-}
-
-func (s *QueryElectrocarDeviceinfosResponse) SetDeviceRegisterTime(v string) *QueryElectrocarDeviceinfosResponse {
-	s.DeviceRegisterTime = &v
-	return s
-}
-
-func (s *QueryElectrocarDeviceinfosResponse) SetDeviceActiveTime(v string) *QueryElectrocarDeviceinfosResponse {
-	s.DeviceActiveTime = &v
-	return s
-}
-
-func (s *QueryElectrocarDeviceinfosResponse) SetLastOnlineTime(v string) *QueryElectrocarDeviceinfosResponse {
-	s.LastOnlineTime = &v
-	return s
-}
-
-func (s *QueryElectrocarDeviceinfosResponse) SetLastOfflineTime(v string) *QueryElectrocarDeviceinfosResponse {
-	s.LastOfflineTime = &v
-	return s
-}
-
-func (s *QueryElectrocarDeviceinfosResponse) SetLastCommunicationTime(v string) *QueryElectrocarDeviceinfosResponse {
-	s.LastCommunicationTime = &v
-	return s
-}
-
-func (s *QueryElectrocarDeviceinfosResponse) SetDeviceOtaVersion(v string) *QueryElectrocarDeviceinfosResponse {
-	s.DeviceOtaVersion = &v
+func (s *QueryElectrocarDeviceinfosResponse) SetDeviceList(v []*DeviceInfos) *QueryElectrocarDeviceinfosResponse {
+	s.DeviceList = v
 	return s
 }
 
@@ -24801,6 +25033,265 @@ func (s *ExecElectrocarBatchpubResponse) SetScheduledTime(v int64) *ExecElectroc
 }
 
 func (s *ExecElectrocarBatchpubResponse) SetSuccess(v bool) *ExecElectrocarBatchpubResponse {
+	s.Success = &v
+	return s
+}
+
+type QueryElectrocarBatchpubjobsRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户Id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// 批次Id
+	BatchId *string `json:"batch_id,omitempty" xml:"batch_id,omitempty"`
+	// 批次状态过滤（可选，如 PENDING/EXECUTING/COMPLETED/CANCELLED/PARTIAL_FAILED）
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 页码
+	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty"`
+	// 每页条数
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+}
+
+func (s QueryElectrocarBatchpubjobsRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryElectrocarBatchpubjobsRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryElectrocarBatchpubjobsRequest) SetAuthToken(v string) *QueryElectrocarBatchpubjobsRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryElectrocarBatchpubjobsRequest) SetProductInstanceId(v string) *QueryElectrocarBatchpubjobsRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryElectrocarBatchpubjobsRequest) SetTenantId(v string) *QueryElectrocarBatchpubjobsRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *QueryElectrocarBatchpubjobsRequest) SetBatchId(v string) *QueryElectrocarBatchpubjobsRequest {
+	s.BatchId = &v
+	return s
+}
+
+func (s *QueryElectrocarBatchpubjobsRequest) SetStatus(v string) *QueryElectrocarBatchpubjobsRequest {
+	s.Status = &v
+	return s
+}
+
+func (s *QueryElectrocarBatchpubjobsRequest) SetPageNum(v int64) *QueryElectrocarBatchpubjobsRequest {
+	s.PageNum = &v
+	return s
+}
+
+func (s *QueryElectrocarBatchpubjobsRequest) SetPageSize(v int64) *QueryElectrocarBatchpubjobsRequest {
+	s.PageSize = &v
+	return s
+}
+
+type QueryElectrocarBatchpubjobsResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 批次列表
+	JobList []*BatchJobDetail `json:"job_list,omitempty" xml:"job_list,omitempty" type:"Repeated"`
+	// 页码
+	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty"`
+	// 总页数
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 总记录数
+	TotalCount *int64 `json:"total_count,omitempty" xml:"total_count,omitempty"`
+	// 总页数
+	TotalPage *int64 `json:"total_page,omitempty" xml:"total_page,omitempty"`
+	// 状态
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+}
+
+func (s QueryElectrocarBatchpubjobsResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryElectrocarBatchpubjobsResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryElectrocarBatchpubjobsResponse) SetReqMsgId(v string) *QueryElectrocarBatchpubjobsResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryElectrocarBatchpubjobsResponse) SetResultCode(v string) *QueryElectrocarBatchpubjobsResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryElectrocarBatchpubjobsResponse) SetResultMsg(v string) *QueryElectrocarBatchpubjobsResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryElectrocarBatchpubjobsResponse) SetJobList(v []*BatchJobDetail) *QueryElectrocarBatchpubjobsResponse {
+	s.JobList = v
+	return s
+}
+
+func (s *QueryElectrocarBatchpubjobsResponse) SetPageNum(v int64) *QueryElectrocarBatchpubjobsResponse {
+	s.PageNum = &v
+	return s
+}
+
+func (s *QueryElectrocarBatchpubjobsResponse) SetPageSize(v int64) *QueryElectrocarBatchpubjobsResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *QueryElectrocarBatchpubjobsResponse) SetTotalCount(v int64) *QueryElectrocarBatchpubjobsResponse {
+	s.TotalCount = &v
+	return s
+}
+
+func (s *QueryElectrocarBatchpubjobsResponse) SetTotalPage(v int64) *QueryElectrocarBatchpubjobsResponse {
+	s.TotalPage = &v
+	return s
+}
+
+func (s *QueryElectrocarBatchpubjobsResponse) SetSuccess(v bool) *QueryElectrocarBatchpubjobsResponse {
+	s.Success = &v
+	return s
+}
+
+type QueryElectrocarBatchpubtasksRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 批次ID
+	BatchId *string `json:"batch_id,omitempty" xml:"batch_id,omitempty"`
+	// 任务状态过滤（可选，如 PENDING/SUCCESS/FAILED/CANCELLED）
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 页码
+	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty"`
+	// 每页条数
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+}
+
+func (s QueryElectrocarBatchpubtasksRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryElectrocarBatchpubtasksRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryElectrocarBatchpubtasksRequest) SetAuthToken(v string) *QueryElectrocarBatchpubtasksRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryElectrocarBatchpubtasksRequest) SetProductInstanceId(v string) *QueryElectrocarBatchpubtasksRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryElectrocarBatchpubtasksRequest) SetBatchId(v string) *QueryElectrocarBatchpubtasksRequest {
+	s.BatchId = &v
+	return s
+}
+
+func (s *QueryElectrocarBatchpubtasksRequest) SetStatus(v string) *QueryElectrocarBatchpubtasksRequest {
+	s.Status = &v
+	return s
+}
+
+func (s *QueryElectrocarBatchpubtasksRequest) SetPageNum(v int64) *QueryElectrocarBatchpubtasksRequest {
+	s.PageNum = &v
+	return s
+}
+
+func (s *QueryElectrocarBatchpubtasksRequest) SetPageSize(v int64) *QueryElectrocarBatchpubtasksRequest {
+	s.PageSize = &v
+	return s
+}
+
+type QueryElectrocarBatchpubtasksResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 任务列表
+	TaskList []*TaskDetail `json:"task_list,omitempty" xml:"task_list,omitempty" type:"Repeated"`
+	// 页码
+	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty"`
+	// 每页条数
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 总页数
+	TotalPage *int64 `json:"total_page,omitempty" xml:"total_page,omitempty"`
+	// 总记录数
+	TotalCount *int64 `json:"total_count,omitempty" xml:"total_count,omitempty"`
+	// 状态
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+}
+
+func (s QueryElectrocarBatchpubtasksResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryElectrocarBatchpubtasksResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryElectrocarBatchpubtasksResponse) SetReqMsgId(v string) *QueryElectrocarBatchpubtasksResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryElectrocarBatchpubtasksResponse) SetResultCode(v string) *QueryElectrocarBatchpubtasksResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryElectrocarBatchpubtasksResponse) SetResultMsg(v string) *QueryElectrocarBatchpubtasksResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryElectrocarBatchpubtasksResponse) SetTaskList(v []*TaskDetail) *QueryElectrocarBatchpubtasksResponse {
+	s.TaskList = v
+	return s
+}
+
+func (s *QueryElectrocarBatchpubtasksResponse) SetPageNum(v int64) *QueryElectrocarBatchpubtasksResponse {
+	s.PageNum = &v
+	return s
+}
+
+func (s *QueryElectrocarBatchpubtasksResponse) SetPageSize(v int64) *QueryElectrocarBatchpubtasksResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *QueryElectrocarBatchpubtasksResponse) SetTotalPage(v int64) *QueryElectrocarBatchpubtasksResponse {
+	s.TotalPage = &v
+	return s
+}
+
+func (s *QueryElectrocarBatchpubtasksResponse) SetTotalCount(v int64) *QueryElectrocarBatchpubtasksResponse {
+	s.TotalCount = &v
+	return s
+}
+
+func (s *QueryElectrocarBatchpubtasksResponse) SetSuccess(v bool) *QueryElectrocarBatchpubtasksResponse {
 	s.Success = &v
 	return s
 }
@@ -37262,6 +37753,314 @@ func (s *ImportIotagentClientResponse) SetInvalidUidList(v []*string) *ImportIot
 	return s
 }
 
+type ExecPullstrategyOrdercheckRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 运营商标识
+	OperatorId *string `json:"operator_id,omitempty" xml:"operator_id,omitempty" require:"true"`
+	// 加密后核心数据
+	Data *string `json:"data,omitempty" xml:"data,omitempty" require:"true"`
+	// 接口请求时的时间戳信息，格式为yyyyMMddHHmmss
+	TimeStamp *string `json:"time_stamp,omitempty" xml:"time_stamp,omitempty" require:"true"`
+	// 自增序列，4位自增序列取自时间戳，同一秒内按序列自增长，新秒重计
+	Seq *string `json:"seq,omitempty" xml:"seq,omitempty" require:"true"`
+	// 参数签名，原文为operatorId+data+timeStamp+seq
+	Sig *string `json:"sig,omitempty" xml:"sig,omitempty" require:"true"`
+}
+
+func (s ExecPullstrategyOrdercheckRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecPullstrategyOrdercheckRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ExecPullstrategyOrdercheckRequest) SetAuthToken(v string) *ExecPullstrategyOrdercheckRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ExecPullstrategyOrdercheckRequest) SetProductInstanceId(v string) *ExecPullstrategyOrdercheckRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ExecPullstrategyOrdercheckRequest) SetOperatorId(v string) *ExecPullstrategyOrdercheckRequest {
+	s.OperatorId = &v
+	return s
+}
+
+func (s *ExecPullstrategyOrdercheckRequest) SetData(v string) *ExecPullstrategyOrdercheckRequest {
+	s.Data = &v
+	return s
+}
+
+func (s *ExecPullstrategyOrdercheckRequest) SetTimeStamp(v string) *ExecPullstrategyOrdercheckRequest {
+	s.TimeStamp = &v
+	return s
+}
+
+func (s *ExecPullstrategyOrdercheckRequest) SetSeq(v string) *ExecPullstrategyOrdercheckRequest {
+	s.Seq = &v
+	return s
+}
+
+func (s *ExecPullstrategyOrdercheckRequest) SetSig(v string) *ExecPullstrategyOrdercheckRequest {
+	s.Sig = &v
+	return s
+}
+
+type ExecPullstrategyOrdercheckResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回参数密文
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+	// 返回信息
+	Msg *string `json:"msg,omitempty" xml:"msg,omitempty"`
+	// 返回值
+	Ret *int64 `json:"ret,omitempty" xml:"ret,omitempty"`
+	// 签名，原文为ret+msg+data密文
+	Sig *string `json:"sig,omitempty" xml:"sig,omitempty"`
+}
+
+func (s ExecPullstrategyOrdercheckResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecPullstrategyOrdercheckResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ExecPullstrategyOrdercheckResponse) SetReqMsgId(v string) *ExecPullstrategyOrdercheckResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ExecPullstrategyOrdercheckResponse) SetResultCode(v string) *ExecPullstrategyOrdercheckResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ExecPullstrategyOrdercheckResponse) SetResultMsg(v string) *ExecPullstrategyOrdercheckResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ExecPullstrategyOrdercheckResponse) SetData(v string) *ExecPullstrategyOrdercheckResponse {
+	s.Data = &v
+	return s
+}
+
+func (s *ExecPullstrategyOrdercheckResponse) SetMsg(v string) *ExecPullstrategyOrdercheckResponse {
+	s.Msg = &v
+	return s
+}
+
+func (s *ExecPullstrategyOrdercheckResponse) SetRet(v int64) *ExecPullstrategyOrdercheckResponse {
+	s.Ret = &v
+	return s
+}
+
+func (s *ExecPullstrategyOrdercheckResponse) SetSig(v string) *ExecPullstrategyOrdercheckResponse {
+	s.Sig = &v
+	return s
+}
+
+type ExecPullstrategyStationcheckRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 运营商标识
+	OperatorId *string `json:"operator_id,omitempty" xml:"operator_id,omitempty" require:"true"`
+	// 加密后核心数据
+	Data *string `json:"data,omitempty" xml:"data,omitempty" require:"true"`
+	// 接口请求时的时间戳信息，格式为yyyyMMddHHmmss
+	TimeStamp *string `json:"time_stamp,omitempty" xml:"time_stamp,omitempty" require:"true"`
+	// 自增序列，4位自增序列取自时间戳，同一秒内按序列自增长，新秒重计
+	Seq *string `json:"seq,omitempty" xml:"seq,omitempty" require:"true"`
+	// 参数签名，原文为operatorId+data+timeStamp+seq
+	Sig *string `json:"sig,omitempty" xml:"sig,omitempty" require:"true"`
+}
+
+func (s ExecPullstrategyStationcheckRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecPullstrategyStationcheckRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ExecPullstrategyStationcheckRequest) SetAuthToken(v string) *ExecPullstrategyStationcheckRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ExecPullstrategyStationcheckRequest) SetProductInstanceId(v string) *ExecPullstrategyStationcheckRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ExecPullstrategyStationcheckRequest) SetOperatorId(v string) *ExecPullstrategyStationcheckRequest {
+	s.OperatorId = &v
+	return s
+}
+
+func (s *ExecPullstrategyStationcheckRequest) SetData(v string) *ExecPullstrategyStationcheckRequest {
+	s.Data = &v
+	return s
+}
+
+func (s *ExecPullstrategyStationcheckRequest) SetTimeStamp(v string) *ExecPullstrategyStationcheckRequest {
+	s.TimeStamp = &v
+	return s
+}
+
+func (s *ExecPullstrategyStationcheckRequest) SetSeq(v string) *ExecPullstrategyStationcheckRequest {
+	s.Seq = &v
+	return s
+}
+
+func (s *ExecPullstrategyStationcheckRequest) SetSig(v string) *ExecPullstrategyStationcheckRequest {
+	s.Sig = &v
+	return s
+}
+
+type ExecPullstrategyStationcheckResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回参数密文
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+	// 返回消息
+	Msg *string `json:"msg,omitempty" xml:"msg,omitempty"`
+	// 返回值
+	Ret *int64 `json:"ret,omitempty" xml:"ret,omitempty"`
+	// 签名，原文为ret+msg+data密文
+	Sig *string `json:"sig,omitempty" xml:"sig,omitempty"`
+}
+
+func (s ExecPullstrategyStationcheckResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecPullstrategyStationcheckResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ExecPullstrategyStationcheckResponse) SetReqMsgId(v string) *ExecPullstrategyStationcheckResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ExecPullstrategyStationcheckResponse) SetResultCode(v string) *ExecPullstrategyStationcheckResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ExecPullstrategyStationcheckResponse) SetResultMsg(v string) *ExecPullstrategyStationcheckResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ExecPullstrategyStationcheckResponse) SetData(v string) *ExecPullstrategyStationcheckResponse {
+	s.Data = &v
+	return s
+}
+
+func (s *ExecPullstrategyStationcheckResponse) SetMsg(v string) *ExecPullstrategyStationcheckResponse {
+	s.Msg = &v
+	return s
+}
+
+func (s *ExecPullstrategyStationcheckResponse) SetRet(v int64) *ExecPullstrategyStationcheckResponse {
+	s.Ret = &v
+	return s
+}
+
+func (s *ExecPullstrategyStationcheckResponse) SetSig(v string) *ExecPullstrategyStationcheckResponse {
+	s.Sig = &v
+	return s
+}
+
+type QueryMcpEndpointRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 智能体ID
+	AgentId *string `json:"agent_id,omitempty" xml:"agent_id,omitempty" require:"true"`
+}
+
+func (s QueryMcpEndpointRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryMcpEndpointRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryMcpEndpointRequest) SetAuthToken(v string) *QueryMcpEndpointRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryMcpEndpointRequest) SetProductInstanceId(v string) *QueryMcpEndpointRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryMcpEndpointRequest) SetAgentId(v string) *QueryMcpEndpointRequest {
+	s.AgentId = &v
+	return s
+}
+
+type QueryMcpEndpointResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// mcp服务连接点
+	McpEndpoint *string `json:"mcp_endpoint,omitempty" xml:"mcp_endpoint,omitempty"`
+}
+
+func (s QueryMcpEndpointResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryMcpEndpointResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryMcpEndpointResponse) SetReqMsgId(v string) *QueryMcpEndpointResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryMcpEndpointResponse) SetResultCode(v string) *QueryMcpEndpointResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryMcpEndpointResponse) SetResultMsg(v string) *QueryMcpEndpointResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryMcpEndpointResponse) SetMcpEndpoint(v string) *QueryMcpEndpointResponse {
+	s.McpEndpoint = &v
+	return s
+}
+
 type ExecThingsdidOneapiRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -39032,7 +39831,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.12.80"),
+				"sdk_version":      tea.String("1.14.1"),
 				"_prod_code":       tea.String("BOT"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -40337,6 +41136,40 @@ func (client *Client) StartAgentChatEx(request *StartAgentChatRequest, headers m
 	}
 	_result = &StartAgentChatResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.agent.chat.start"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: mcp token生成
+ * Summary: mcp token生成
+ */
+func (client *Client) GenerateMcpToken(request *GenerateMcpTokenRequest) (_result *GenerateMcpTokenResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GenerateMcpTokenResponse{}
+	_body, _err := client.GenerateMcpTokenEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: mcp token生成
+ * Summary: mcp token生成
+ */
+func (client *Client) GenerateMcpTokenEx(request *GenerateMcpTokenRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GenerateMcpTokenResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GenerateMcpTokenResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.mcp.token.generate"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -44209,6 +45042,74 @@ func (client *Client) ExecElectrocarBatchpubEx(request *ExecElectrocarBatchpubRe
 	}
 	_result = &ExecElectrocarBatchpubResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.electrocar.batchpub.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 批量定时控车-批次查询
+ * Summary: 批量定时控车-批次查询
+ */
+func (client *Client) QueryElectrocarBatchpubjobs(request *QueryElectrocarBatchpubjobsRequest) (_result *QueryElectrocarBatchpubjobsResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryElectrocarBatchpubjobsResponse{}
+	_body, _err := client.QueryElectrocarBatchpubjobsEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 批量定时控车-批次查询
+ * Summary: 批量定时控车-批次查询
+ */
+func (client *Client) QueryElectrocarBatchpubjobsEx(request *QueryElectrocarBatchpubjobsRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryElectrocarBatchpubjobsResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryElectrocarBatchpubjobsResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.electrocar.batchpubjobs.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 批量定时控车任务查询
+ * Summary: 批量定时控车任务查询
+ */
+func (client *Client) QueryElectrocarBatchpubtasks(request *QueryElectrocarBatchpubtasksRequest) (_result *QueryElectrocarBatchpubtasksResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryElectrocarBatchpubtasksResponse{}
+	_body, _err := client.QueryElectrocarBatchpubtasksEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 批量定时控车任务查询
+ * Summary: 批量定时控车任务查询
+ */
+func (client *Client) QueryElectrocarBatchpubtasksEx(request *QueryElectrocarBatchpubtasksRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryElectrocarBatchpubtasksResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryElectrocarBatchpubtasksResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.electrocar.batchpubtasks.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -48527,6 +49428,108 @@ func (client *Client) ImportIotagentClientEx(request *ImportIotagentClientReques
 	}
 	_result = &ImportIotagentClientResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotagent.client.import"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 订单数据核对
+ * Summary: 订单数据核对
+ */
+func (client *Client) ExecPullstrategyOrdercheck(request *ExecPullstrategyOrdercheckRequest) (_result *ExecPullstrategyOrdercheckResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ExecPullstrategyOrdercheckResponse{}
+	_body, _err := client.ExecPullstrategyOrdercheckEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 订单数据核对
+ * Summary: 订单数据核对
+ */
+func (client *Client) ExecPullstrategyOrdercheckEx(request *ExecPullstrategyOrdercheckRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ExecPullstrategyOrdercheckResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ExecPullstrategyOrdercheckResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.pullstrategy.ordercheck.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 资产信息核对
+ * Summary: 资产信息核对
+ */
+func (client *Client) ExecPullstrategyStationcheck(request *ExecPullstrategyStationcheckRequest) (_result *ExecPullstrategyStationcheckResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ExecPullstrategyStationcheckResponse{}
+	_body, _err := client.ExecPullstrategyStationcheckEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 资产信息核对
+ * Summary: 资产信息核对
+ */
+func (client *Client) ExecPullstrategyStationcheckEx(request *ExecPullstrategyStationcheckRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ExecPullstrategyStationcheckResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ExecPullstrategyStationcheckResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.pullstrategy.stationcheck.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询mcp服务连接点
+ * Summary: 查询mcp服务连接点
+ */
+func (client *Client) QueryMcpEndpoint(request *QueryMcpEndpointRequest) (_result *QueryMcpEndpointResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryMcpEndpointResponse{}
+	_body, _err := client.QueryMcpEndpointEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询mcp服务连接点
+ * Summary: 查询mcp服务连接点
+ */
+func (client *Client) QueryMcpEndpointEx(request *QueryMcpEndpointRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryMcpEndpointResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryMcpEndpointResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.mcp.endpoint.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
