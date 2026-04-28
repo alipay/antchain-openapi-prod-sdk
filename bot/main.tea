@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.12.80',
+    sdk_version = '1.14.1',
     _prod_code = 'BOT',
     _prod_channel = 'undefined'
   };
@@ -1371,6 +1371,16 @@ model DidBaseQueryReq {
   thingsDidList: [ string ](name='things_did_list', example='["did:iot:xxxx","did:iot:yyyyy"]'),
 }
 
+// 设备信息
+model DeviceInfos {
+  // tuid
+  tuid?: string(name='tuid', example='""'),
+  // 设备状态
+  deviceStatus?: string(name='device_status', example='online'),
+  // ota version
+  deviceOtaVersion?: string(name='device_ota_version', example='""'),
+}
+
 // 商品鉴定返回结果
 model BaiGoodsComparisonResponse {
   // 鉴定结果（REAL：为真   FAKE：为假   UNABLE_IDENTIFY：无法鉴定）
@@ -1503,6 +1513,34 @@ model IotbasicDeviceModelFixedAttributeInfo {
   // dataType为string时，表示数据长度最大值
   // dataType为long时，表示数据范围最大值
   dataRangeMax: long(name='data_range_max', example=''),
+}
+
+// 批量定时控车 批次详情
+model BatchJobDetail {
+  // 批次Id
+  batchId?: string(name='batch_id', example='""'),
+  // 批次名称
+  batchName?: string(name='batch_name', example='""'),
+  // 批次状态
+  status?: string(name='status', example='""'),
+  // 租户Id
+  tenantId?: long(name='tenant_id', example='""'),
+  // 触发模式
+  triggerMode?: string(name='trigger_mode', example='""'),
+  // 定时执行时间戳
+  scheduledTime?: long(name='scheduled_time', example='1765794345159'),
+  // 实际开始时间戳
+  actualStartTime?: long(name='actual_start_time', example='1765794345159'),
+  // 实际结束时间戳
+  actualEndTime?: long(name='actual_end_time', example='1765794345159'),
+  // 总设备数
+  totalCount?: long(name='total_count', example='1'),
+  // 成功数
+  successCount?: long(name='success_count', example='1'),
+  // 失败数
+  failedCount?: long(name='failed_count', example='1'),
+  // 操作人
+  operator?: string(name='operator', example='""'),
 }
 
 // 行程详情
@@ -1690,6 +1728,24 @@ model TripStatistics {
 model BaiGoodsPointCheckRespData {
   // 图片是否有效，无效则需要提示重拍
   valid: boolean(name='valid', example='true, false'),
+}
+
+// 批量定时任务详情
+model TaskDetail {
+  // 批次id
+  batchId?: string(name='batch_id', example='""'),
+  // tuid
+  tuid?: string(name='tuid', example='""'),
+  // device_name
+  deviceName?: string(name='device_name', example='""'),
+  // 状态
+  status?: string(name='status', example='""'),
+  // 调用时间
+  invokeTime?: long(name='invoke_time', example='1765794345159'),
+  // 错误信息
+  errorMsg?: string(name='error_msg', example='""'),
+  // 重试次数
+  retryCount?: long(name='retry_count', example='1'),
 }
 
 // 事件数据领域参数 
@@ -4673,6 +4729,44 @@ async function startAgentChat(request: StartAgentChatRequest): StartAgentChatRes
 async function startAgentChatEx(request: StartAgentChatRequest, headers: map[string]string, runtime: Util.RuntimeOptions): StartAgentChatResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bot.agent.chat.start', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GenerateMcpTokenRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 平台下发的agnetId
+  agentId: string(name='agent_id'),
+}
+
+model GenerateMcpTokenResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 下发的token
+  token?: string(name='token'),
+}
+
+/**
+ * Description: mcp token生成
+ * Summary: mcp token生成
+ */
+async function generateMcpToken(request: GenerateMcpTokenRequest): GenerateMcpTokenResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return generateMcpTokenEx(request, headers, runtime);
+}
+
+/**
+ * Description: mcp token生成
+ * Summary: mcp token生成
+ */
+async function generateMcpTokenEx(request: GenerateMcpTokenRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GenerateMcpTokenResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.mcp.token.generate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateAcsDeviceRequest = {
@@ -10194,8 +10288,12 @@ model QueryElectrocarDeviceinfosRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // tuid
-  tuid: string(name='tuid'),
+  // trust_product_key
+  trustProductKey: string(name='trust_product_key'),
+  // 页码
+  pageNum?: long(name='page_num'),
+  // 页数
+  pageSize?: long(name='page_size'),
 }
 
 model QueryElectrocarDeviceinfosResponse = {
@@ -10205,30 +10303,18 @@ model QueryElectrocarDeviceinfosResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // key
-  trustProductKey?: string(name='trust_product_key'),
-  // 产品key
-  productKey?: string(name='product_key'),
-  // 设备唯一id
-  trustDeviceId?: string(name='trust_device_id'),
-  // 设备tuid
-  deviceName?: string(name='device_name'),
-  // 设备名称
-  nickName?: string(name='nick_name'),
-  // 设备在线状态
-  deviceStatus?: string(name='device_status'),
-  // 设备注册时间
-  deviceRegisterTime?: string(name='device_register_time'),
-  // 设备激活时间
-  deviceActiveTime?: string(name='device_active_time'),
-  // 最后在线时间
-  lastOnlineTime?: string(name='last_online_time'),
-  // 最后离线时间
-  lastOfflineTime?: string(name='last_offline_time'),
-  // 最后通讯时间
-  lastCommunicationTime?: string(name='last_communication_time'),
-  // ota版本
-  deviceOtaVersion?: string(name='device_ota_version'),
+  // success
+  success?: boolean(name='success'),
+  // 页码
+  pageNum?: long(name='page_num'),
+  // 页数
+  pageSize?: long(name='page_size'),
+  // 总页数
+  totalPages?: long(name='total_pages'),
+  // 总条数
+  totalSize?: long(name='total_size'),
+  // 设备列表
+  deviceList?: [ DeviceInfos ](name='device_list'),
 }
 
 /**
@@ -10310,6 +10396,116 @@ async function execElectrocarBatchpub(request: ExecElectrocarBatchpubRequest): E
 async function execElectrocarBatchpubEx(request: ExecElectrocarBatchpubRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExecElectrocarBatchpubResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bot.electrocar.batchpub.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryElectrocarBatchpubjobsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户Id
+  tenantId?: string(name='tenant_id'),
+  // 批次Id
+  batchId?: string(name='batch_id'),
+  // 批次状态过滤（可选，如 PENDING/EXECUTING/COMPLETED/CANCELLED/PARTIAL_FAILED）
+  status?: string(name='status'),
+  // 页码
+  pageNum?: long(name='page_num'),
+  // 每页条数
+  pageSize?: long(name='page_size'),
+}
+
+model QueryElectrocarBatchpubjobsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 批次列表
+  jobList?: [ BatchJobDetail ](name='job_list'),
+  // 页码
+  pageNum?: long(name='page_num'),
+  // 总页数
+  pageSize?: long(name='page_size'),
+  // 总记录数
+  totalCount?: long(name='total_count'),
+  // 总页数
+  totalPage?: long(name='total_page'),
+  // 状态
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 批量定时控车-批次查询
+ * Summary: 批量定时控车-批次查询
+ */
+async function queryElectrocarBatchpubjobs(request: QueryElectrocarBatchpubjobsRequest): QueryElectrocarBatchpubjobsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryElectrocarBatchpubjobsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 批量定时控车-批次查询
+ * Summary: 批量定时控车-批次查询
+ */
+async function queryElectrocarBatchpubjobsEx(request: QueryElectrocarBatchpubjobsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryElectrocarBatchpubjobsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.electrocar.batchpubjobs.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryElectrocarBatchpubtasksRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 批次ID
+  batchId?: string(name='batch_id'),
+  // 任务状态过滤（可选，如 PENDING/SUCCESS/FAILED/CANCELLED）
+  status?: string(name='status'),
+  // 页码
+  pageNum?: long(name='page_num'),
+  // 每页条数
+  pageSize?: long(name='page_size'),
+}
+
+model QueryElectrocarBatchpubtasksResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 任务列表
+  taskList?: [ TaskDetail ](name='task_list'),
+  // 页码
+  pageNum?: long(name='page_num'),
+  // 每页条数
+  pageSize?: long(name='page_size'),
+  // 总页数
+  totalPage?: long(name='total_page'),
+  // 总记录数
+  totalCount?: long(name='total_count'),
+  // 状态
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 批量定时控车任务查询
+ * Summary: 批量定时控车任务查询
+ */
+async function queryElectrocarBatchpubtasks(request: QueryElectrocarBatchpubtasksRequest): QueryElectrocarBatchpubtasksResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryElectrocarBatchpubtasksEx(request, headers, runtime);
+}
+
+/**
+ * Description: 批量定时控车任务查询
+ * Summary: 批量定时控车任务查询
+ */
+async function queryElectrocarBatchpubtasksEx(request: QueryElectrocarBatchpubtasksRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryElectrocarBatchpubtasksResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.electrocar.batchpubtasks.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryIotplatformPurchaseorderRequest = {
@@ -16368,6 +16564,148 @@ async function importIotagentClient(request: ImportIotagentClientRequest): Impor
 async function importIotagentClientEx(request: ImportIotagentClientRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ImportIotagentClientResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bot.iotagent.client.import', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ExecPullstrategyOrdercheckRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 运营商标识
+  operatorId: string(name='operator_id'),
+  // 加密后核心数据
+  data: string(name='data'),
+  // 接口请求时的时间戳信息，格式为yyyyMMddHHmmss
+  timeStamp: string(name='time_stamp'),
+  // 自增序列，4位自增序列取自时间戳，同一秒内按序列自增长，新秒重计
+  seq: string(name='seq'),
+  // 参数签名，原文为operatorId+data+timeStamp+seq
+  sig: string(name='sig'),
+}
+
+model ExecPullstrategyOrdercheckResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回参数密文
+  data?: string(name='data'),
+  // 返回信息
+  msg?: string(name='msg'),
+  // 返回值
+  ret?: long(name='ret'),
+  // 签名，原文为ret+msg+data密文
+  sig?: string(name='sig'),
+}
+
+/**
+ * Description: 订单数据核对
+ * Summary: 订单数据核对
+ */
+async function execPullstrategyOrdercheck(request: ExecPullstrategyOrdercheckRequest): ExecPullstrategyOrdercheckResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return execPullstrategyOrdercheckEx(request, headers, runtime);
+}
+
+/**
+ * Description: 订单数据核对
+ * Summary: 订单数据核对
+ */
+async function execPullstrategyOrdercheckEx(request: ExecPullstrategyOrdercheckRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExecPullstrategyOrdercheckResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.pullstrategy.ordercheck.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ExecPullstrategyStationcheckRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 运营商标识
+  operatorId: string(name='operator_id'),
+  // 加密后核心数据
+  data: string(name='data'),
+  // 接口请求时的时间戳信息，格式为yyyyMMddHHmmss
+  timeStamp: string(name='time_stamp'),
+  // 自增序列，4位自增序列取自时间戳，同一秒内按序列自增长，新秒重计
+  seq: string(name='seq'),
+  // 参数签名，原文为operatorId+data+timeStamp+seq
+  sig: string(name='sig'),
+}
+
+model ExecPullstrategyStationcheckResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回参数密文
+  data?: string(name='data'),
+  // 返回消息
+  msg?: string(name='msg'),
+  // 返回值
+  ret?: long(name='ret'),
+  // 签名，原文为ret+msg+data密文
+  sig?: string(name='sig'),
+}
+
+/**
+ * Description: 资产信息核对
+ * Summary: 资产信息核对
+ */
+async function execPullstrategyStationcheck(request: ExecPullstrategyStationcheckRequest): ExecPullstrategyStationcheckResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return execPullstrategyStationcheckEx(request, headers, runtime);
+}
+
+/**
+ * Description: 资产信息核对
+ * Summary: 资产信息核对
+ */
+async function execPullstrategyStationcheckEx(request: ExecPullstrategyStationcheckRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExecPullstrategyStationcheckResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.pullstrategy.stationcheck.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryMcpEndpointRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 智能体ID
+  agentId: string(name='agent_id'),
+}
+
+model QueryMcpEndpointResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // mcp服务连接点
+  mcpEndpoint?: string(name='mcp_endpoint'),
+}
+
+/**
+ * Description: 查询mcp服务连接点
+ * Summary: 查询mcp服务连接点
+ */
+async function queryMcpEndpoint(request: QueryMcpEndpointRequest): QueryMcpEndpointResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryMcpEndpointEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询mcp服务连接点
+ * Summary: 查询mcp服务连接点
+ */
+async function queryMcpEndpointEx(request: QueryMcpEndpointRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryMcpEndpointResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.mcp.endpoint.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model ExecThingsdidOneapiRequest = {
