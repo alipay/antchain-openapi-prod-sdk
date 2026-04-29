@@ -775,6 +775,7 @@ class TemplateInfo(TeaModel):
         template_id: str = None,
         template_version: int = None,
         template_args: str = None,
+        merchant_id: str = None,
     ):
         # 模板id
         self.template_id = template_id
@@ -782,6 +783,8 @@ class TemplateInfo(TeaModel):
         self.template_version = template_version
         # 模板参数，JSON格式，其中key对应模板中的名称，value对应其要渲染的值
         self.template_args = template_args
+        # 模板所属商户id
+        self.merchant_id = merchant_id
 
     def validate(self):
         self.validate_required(self.template_id, 'template_id')
@@ -798,6 +801,8 @@ class TemplateInfo(TeaModel):
             result['template_version'] = self.template_version
         if self.template_args is not None:
             result['template_args'] = self.template_args
+        if self.merchant_id is not None:
+            result['merchant_id'] = self.merchant_id
         return result
 
     def from_map(self, m: dict = None):
@@ -808,6 +813,8 @@ class TemplateInfo(TeaModel):
             self.template_version = m.get('template_version')
         if m.get('template_args') is not None:
             self.template_args = m.get('template_args')
+        if m.get('merchant_id') is not None:
+            self.merchant_id = m.get('merchant_id')
         return self
 
 
@@ -912,6 +919,8 @@ class SignAccount(TeaModel):
         user_name: str = None,
         user_id_number: str = None,
         user_type: str = None,
+        user_email: str = None,
+        user_mobile: str = None,
         tag: str = None,
         get_sign_url: bool = None,
     ):
@@ -925,6 +934,10 @@ class SignAccount(TeaModel):
         self.user_id_number = user_id_number
         # 签署人类型，PERSON=个人;ORGANIZATION=机构
         self.user_type = user_type
+        # 用户邮箱（userType=PERSON必传，需要RSA加密）
+        self.user_email = user_email
+        # 用户手机号（userType=PERSON必传，需要RSA加密）
+        self.user_mobile = user_mobile
         # 签署标签（对应模版配置中的tag）
         self.tag = tag
         # 是否获取签署链接
@@ -933,7 +946,6 @@ class SignAccount(TeaModel):
     def validate(self):
         self.validate_required(self.user_type, 'user_type')
         self.validate_required(self.tag, 'tag')
-        self.validate_required(self.get_sign_url, 'get_sign_url')
 
     def to_map(self):
         _map = super().to_map()
@@ -951,6 +963,10 @@ class SignAccount(TeaModel):
             result['user_id_number'] = self.user_id_number
         if self.user_type is not None:
             result['user_type'] = self.user_type
+        if self.user_email is not None:
+            result['user_email'] = self.user_email
+        if self.user_mobile is not None:
+            result['user_mobile'] = self.user_mobile
         if self.tag is not None:
             result['tag'] = self.tag
         if self.get_sign_url is not None:
@@ -969,6 +985,10 @@ class SignAccount(TeaModel):
             self.user_id_number = m.get('user_id_number')
         if m.get('user_type') is not None:
             self.user_type = m.get('user_type')
+        if m.get('user_email') is not None:
+            self.user_email = m.get('user_email')
+        if m.get('user_mobile') is not None:
+            self.user_mobile = m.get('user_mobile')
         if m.get('tag') is not None:
             self.tag = m.get('tag')
         if m.get('get_sign_url') is not None:
@@ -1700,7 +1720,7 @@ class LegalInfoUpdate(TeaModel):
         return self
 
 
-class XNameValuePair(TeaModel):
+class NameValuePair(TeaModel):
     def __init__(
         self,
         name: str = None,
@@ -5112,6 +5132,8 @@ class CancelAntchainAtoWithholdActivepayRequest(TeaModel):
         order_id: str = None,
         period_num: int = None,
         trade_no: str = None,
+        pay_type: str = None,
+        pay_apply_no: int = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -5122,10 +5144,13 @@ class CancelAntchainAtoWithholdActivepayRequest(TeaModel):
         self.period_num = period_num
         # 支付宝支付订单号，当传递此单号时，只会取消指定单据号，不传递时取消当前代扣
         self.trade_no = trade_no
+        # 支付类型，默认履约
+        self.pay_type = pay_type
+        # 支付申请号，在多期支付场景必填
+        self.pay_apply_no = pay_apply_no
 
     def validate(self):
         self.validate_required(self.order_id, 'order_id')
-        self.validate_required(self.period_num, 'period_num')
 
     def to_map(self):
         _map = super().to_map()
@@ -5143,6 +5168,10 @@ class CancelAntchainAtoWithholdActivepayRequest(TeaModel):
             result['period_num'] = self.period_num
         if self.trade_no is not None:
             result['trade_no'] = self.trade_no
+        if self.pay_type is not None:
+            result['pay_type'] = self.pay_type
+        if self.pay_apply_no is not None:
+            result['pay_apply_no'] = self.pay_apply_no
         return result
 
     def from_map(self, m: dict = None):
@@ -5157,6 +5186,10 @@ class CancelAntchainAtoWithholdActivepayRequest(TeaModel):
             self.period_num = m.get('period_num')
         if m.get('trade_no') is not None:
             self.trade_no = m.get('trade_no')
+        if m.get('pay_type') is not None:
+            self.pay_type = m.get('pay_type')
+        if m.get('pay_apply_no') is not None:
+            self.pay_apply_no = m.get('pay_apply_no')
         return self
 
 
@@ -5553,6 +5586,7 @@ class SyncAntchainAtoTradeFinanceloanapplyResponse(TeaModel):
         result_msg: str = None,
         order_id: str = None,
         merchant_id: str = None,
+        illegal_order_id_list: List[str] = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -5564,6 +5598,8 @@ class SyncAntchainAtoTradeFinanceloanapplyResponse(TeaModel):
         self.order_id = order_id
         # 订单所属商户的社会信用代码
         self.merchant_id = merchant_id
+        # 非法的订单列表
+        self.illegal_order_id_list = illegal_order_id_list
 
     def validate(self):
         pass
@@ -5584,6 +5620,8 @@ class SyncAntchainAtoTradeFinanceloanapplyResponse(TeaModel):
             result['order_id'] = self.order_id
         if self.merchant_id is not None:
             result['merchant_id'] = self.merchant_id
+        if self.illegal_order_id_list is not None:
+            result['illegal_order_id_list'] = self.illegal_order_id_list
         return result
 
     def from_map(self, m: dict = None):
@@ -5598,6 +5636,8 @@ class SyncAntchainAtoTradeFinanceloanapplyResponse(TeaModel):
             self.order_id = m.get('order_id')
         if m.get('merchant_id') is not None:
             self.merchant_id = m.get('merchant_id')
+        if m.get('illegal_order_id_list') is not None:
+            self.illegal_order_id_list = m.get('illegal_order_id_list')
         return self
 
 
@@ -13862,6 +13902,7 @@ class SyncAntchainAtoTradePromoorderinfoRequest(TeaModel):
         buy_out_price: int = None,
         order_promise_total_money: int = None,
         merchant_name: str = None,
+        verification_token: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -13880,6 +13921,8 @@ class SyncAntchainAtoTradePromoorderinfoRequest(TeaModel):
         self.order_promise_total_money = order_promise_total_money
         # 商户公司的名字
         self.merchant_name = merchant_name
+        # verification_token
+        self.verification_token = verification_token
 
     def validate(self):
         self.validate_required(self.merchant_id, 'merchant_id')
@@ -13895,11 +13938,7 @@ class SyncAntchainAtoTradePromoorderinfoRequest(TeaModel):
         if self.order_create_time is not None:
             self.validate_max_length(self.order_create_time, 'order_create_time', 20)
         self.validate_required(self.buy_out_price, 'buy_out_price')
-        if self.buy_out_price is not None:
-            self.validate_minimum(self.buy_out_price, 'buy_out_price', 0)
         self.validate_required(self.order_promise_total_money, 'order_promise_total_money')
-        if self.order_promise_total_money is not None:
-            self.validate_minimum(self.order_promise_total_money, 'order_promise_total_money', 1)
         self.validate_required(self.merchant_name, 'merchant_name')
         if self.merchant_name is not None:
             self.validate_max_length(self.merchant_name, 'merchant_name', 199)
@@ -13928,6 +13967,8 @@ class SyncAntchainAtoTradePromoorderinfoRequest(TeaModel):
             result['order_promise_total_money'] = self.order_promise_total_money
         if self.merchant_name is not None:
             result['merchant_name'] = self.merchant_name
+        if self.verification_token is not None:
+            result['verification_token'] = self.verification_token
         return result
 
     def from_map(self, m: dict = None):
@@ -13950,6 +13991,8 @@ class SyncAntchainAtoTradePromoorderinfoRequest(TeaModel):
             self.order_promise_total_money = m.get('order_promise_total_money')
         if m.get('merchant_name') is not None:
             self.merchant_name = m.get('merchant_name')
+        if m.get('verification_token') is not None:
+            self.verification_token = m.get('verification_token')
         return self
 
 
@@ -15684,15 +15727,17 @@ class CreateAntcloudGatewayxFileUploadRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        api_cluster: str = None,
         api_code: str = None,
         file_label: str = None,
         file_metadata: str = None,
         file_name: str = None,
         mime_type: str = None,
-        api_cluster: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
+        # 产品方的api归属集群，即productInstanceId
+        self.api_cluster = api_cluster
         # 上传文件作用的openapi method
         self.api_code = api_code
         # 文件标签，多个标签;分割
@@ -15703,8 +15748,6 @@ class CreateAntcloudGatewayxFileUploadRequest(TeaModel):
         self.file_name = file_name
         # 文件的多媒体类型
         self.mime_type = mime_type
-        # 产品方的api归属集群，即productInstanceId
-        self.api_cluster = api_cluster
 
     def validate(self):
         self.validate_required(self.api_code, 'api_code')
@@ -15723,6 +15766,8 @@ class CreateAntcloudGatewayxFileUploadRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.api_cluster is not None:
+            result['api_cluster'] = self.api_cluster
         if self.api_code is not None:
             result['api_code'] = self.api_code
         if self.file_label is not None:
@@ -15733,14 +15778,14 @@ class CreateAntcloudGatewayxFileUploadRequest(TeaModel):
             result['file_name'] = self.file_name
         if self.mime_type is not None:
             result['mime_type'] = self.mime_type
-        if self.api_cluster is not None:
-            result['api_cluster'] = self.api_cluster
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('api_cluster') is not None:
+            self.api_cluster = m.get('api_cluster')
         if m.get('api_code') is not None:
             self.api_code = m.get('api_code')
         if m.get('file_label') is not None:
@@ -15751,8 +15796,6 @@ class CreateAntcloudGatewayxFileUploadRequest(TeaModel):
             self.file_name = m.get('file_name')
         if m.get('mime_type') is not None:
             self.mime_type = m.get('mime_type')
-        if m.get('api_cluster') is not None:
-            self.api_cluster = m.get('api_cluster')
         return self
 
 
@@ -15764,7 +15807,7 @@ class CreateAntcloudGatewayxFileUploadResponse(TeaModel):
         result_msg: str = None,
         expired_time: str = None,
         file_id: str = None,
-        upload_headers: List[XNameValuePair] = None,
+        upload_headers: List[NameValuePair] = None,
         upload_url: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
@@ -15829,7 +15872,7 @@ class CreateAntcloudGatewayxFileUploadResponse(TeaModel):
         self.upload_headers = []
         if m.get('upload_headers') is not None:
             for k in m.get('upload_headers'):
-                temp_model = XNameValuePair()
+                temp_model = NameValuePair()
                 self.upload_headers.append(temp_model.from_map(k))
         if m.get('upload_url') is not None:
             self.upload_url = m.get('upload_url')
