@@ -39,15 +39,52 @@ class OrderList extends Model
      * @var string
      */
     public $prizeId;
+
+    // 触发时间
+    /**
+     * @example 2026-04-29 10:19:23
+     *
+     * @var string
+     */
+    public $sendTime;
+
+    // 发券结果
+    /**
+     * @example SUCCESS
+     *
+     * @var string
+     */
+    public $sendStatus;
+
+    // 错误码
+    /**
+     * @example 10000911
+     *
+     * @var string
+     */
+    public $errorCode;
+
+    // 错误描述
+    /**
+     * @example [10000911]指定奖品指定金额决策参数检查异常
+     *
+     * @var string
+     */
+    public $errorMsg;
     protected $_name = [
         'activityId' => 'activity_id',
         'id'         => 'id',
         'bizId'      => 'biz_id',
         'prizeId'    => 'prize_id',
+        'sendTime'   => 'send_time',
+        'sendStatus' => 'send_status',
+        'errorCode'  => 'error_code',
+        'errorMsg'   => 'error_msg',
     ];
 
     public function validate()
     {
+        Model::validatePattern('sendTime', $this->sendTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
     }
 
     public function toMap()
@@ -64,6 +101,18 @@ class OrderList extends Model
         }
         if (null !== $this->prizeId) {
             $res['prize_id'] = $this->prizeId;
+        }
+        if (null !== $this->sendTime) {
+            $res['send_time'] = $this->sendTime;
+        }
+        if (null !== $this->sendStatus) {
+            $res['send_status'] = $this->sendStatus;
+        }
+        if (null !== $this->errorCode) {
+            $res['error_code'] = $this->errorCode;
+        }
+        if (null !== $this->errorMsg) {
+            $res['error_msg'] = $this->errorMsg;
         }
 
         return $res;
@@ -88,6 +137,18 @@ class OrderList extends Model
         }
         if (isset($map['prize_id'])) {
             $model->prizeId = $map['prize_id'];
+        }
+        if (isset($map['send_time'])) {
+            $model->sendTime = $map['send_time'];
+        }
+        if (isset($map['send_status'])) {
+            $model->sendStatus = $map['send_status'];
+        }
+        if (isset($map['error_code'])) {
+            $model->errorCode = $map['error_code'];
+        }
+        if (isset($map['error_msg'])) {
+            $model->errorMsg = $map['error_msg'];
         }
 
         return $model;
