@@ -35,22 +35,22 @@ namespace AntChain.SDK.AGORAX.Models
 
         // 开始日期
         [NameInMap("start_date")]
-        [Validation(Required=false)]
+        [Validation(Required=true)]
         public string StartDate { get; set; }
 
         // 结束日期
         [NameInMap("end_date")]
-        [Validation(Required=false)]
+        [Validation(Required=true)]
         public string EndDate { get; set; }
 
         // 页码，默认 1，最小值 1
         [NameInMap("page_num")]
-        [Validation(Required=false)]
+        [Validation(Required=true)]
         public long? PageNum { get; set; }
 
         // 每页数量，默认 20，范围 1~100
         [NameInMap("page_size")]
-        [Validation(Required=false)]
+        [Validation(Required=true)]
         public long? PageSize { get; set; }
 
     }
