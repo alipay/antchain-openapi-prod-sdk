@@ -1,32 +1,26 @@
-# Ant Chain DEMO SDK for Java
-
 English | [简体中文](README-CN.md)
+
+# Ant Chain ABC SDK for C#
 
 ## Installation
 
-```xml
-<dependency>
-   <groupId>com.antgroup.antchain.openapi</groupId>
-   <artifactId>openapi-demo</artifactId>
-   <version>1.1.3</version>
-</dependency>
+### .NET
+
+```bash
+donet add package AntChain.SDK.DEMO
 ```
 
 ## Issues
 
-[Open an issue](https://github.com/alipay/antchain-openapi-prod-sdk/issues/new) on GitHub.
-
-## Documentation
-
-[Quick Start](https://github.com/alipay/antchain-openapi-prod-sdk)
+[Opening an Issue](https://github.com/alipay/antchain-openapi-prod-sdk/issues/new), Issues not conforming to the guidelines may be closed immediately.
 
 ## Changelog
 
-Detailed changes for each release are documented in the [release notes](./ChangeLog.txt).
+Detailed changes for each release are documented in the [release notes](./ChangeLog.md).
 
 ## References
 
-- [Latest Source Code](https://github.com/alipay/antchain-openapi-prod-sdk/)
+* [Latest Release](https://github.com/alipay/antchain-openapi-prod-sdk/)
 
 ## License
 
