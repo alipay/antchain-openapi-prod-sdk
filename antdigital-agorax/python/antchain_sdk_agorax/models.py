@@ -15023,6 +15023,10 @@ class OrderList(TeaModel):
         id: str = None,
         biz_id: str = None,
         prize_id: str = None,
+        send_time: str = None,
+        send_status: str = None,
+        error_code: str = None,
+        error_msg: str = None,
     ):
         # 活动ID
         self.activity_id = activity_id
@@ -15032,9 +15036,18 @@ class OrderList(TeaModel):
         self.biz_id = biz_id
         # 奖品id
         self.prize_id = prize_id
+        # 触发时间
+        self.send_time = send_time
+        # 发券结果
+        self.send_status = send_status
+        # 错误码
+        self.error_code = error_code
+        # 错误描述
+        self.error_msg = error_msg
 
     def validate(self):
-        pass
+        if self.send_time is not None:
+            self.validate_pattern(self.send_time, 'send_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
 
     def to_map(self):
         _map = super().to_map()
@@ -15050,6 +15063,14 @@ class OrderList(TeaModel):
             result['biz_id'] = self.biz_id
         if self.prize_id is not None:
             result['prize_id'] = self.prize_id
+        if self.send_time is not None:
+            result['send_time'] = self.send_time
+        if self.send_status is not None:
+            result['send_status'] = self.send_status
+        if self.error_code is not None:
+            result['error_code'] = self.error_code
+        if self.error_msg is not None:
+            result['error_msg'] = self.error_msg
         return result
 
     def from_map(self, m: dict = None):
@@ -15062,6 +15083,14 @@ class OrderList(TeaModel):
             self.biz_id = m.get('biz_id')
         if m.get('prize_id') is not None:
             self.prize_id = m.get('prize_id')
+        if m.get('send_time') is not None:
+            self.send_time = m.get('send_time')
+        if m.get('send_status') is not None:
+            self.send_status = m.get('send_status')
+        if m.get('error_code') is not None:
+            self.error_code = m.get('error_code')
+        if m.get('error_msg') is not None:
+            self.error_msg = m.get('error_msg')
         return self
 
 
@@ -15763,6 +15792,10 @@ class QueryPromotionCouponRequest(TeaModel):
         self.validate_required(self.activity_id, 'activity_id')
         self.validate_required(self.open_id, 'open_id')
         self.validate_required(self.app_id, 'app_id')
+        self.validate_required(self.start_date, 'start_date')
+        self.validate_required(self.end_date, 'end_date')
+        self.validate_required(self.page_num, 'page_num')
+        self.validate_required(self.page_size, 'page_size')
 
     def to_map(self):
         _map = super().to_map()
