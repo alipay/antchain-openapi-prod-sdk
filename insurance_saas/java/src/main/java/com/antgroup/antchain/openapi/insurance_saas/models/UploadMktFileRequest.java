@@ -42,7 +42,7 @@ public class UploadMktFileRequest extends TeaModel {
 
     // 数据类型，
     // 营销人群底包--MKT_AUD_SRC，
-    // 营销目标人群包--MKT_AUD_TAR
+    // 营销人群托管底包--MKT_AUD_HOSTING_SRC
     @NameInMap("data_type")
     @Validation(required = true, maxLength = 64)
     public String dataType;
