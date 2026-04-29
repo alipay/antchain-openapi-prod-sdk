@@ -239,258 +239,6 @@ export class XNameValuePair extends $tea.Model {
   }
 }
 
-export class GetEmbedcardUrlRequest extends $tea.Model {
-  // OAuth模式下的授权token
-  authToken?: string;
-  // 险种编码
-  insuranceTypeCode: string;
-  // 保司编码
-  insuranceCompanyNo: string;
-  // 嵌入式产品编码
-  embedProductCode: string;
-  // 是否需要询价
-  isNeedInquiry: boolean;
-  // 交易流水号，调用方生成的唯一编码，格式为 yyyyMMdd_身份标识_其他编码，系统会根据该流水号做防重、幂等判断逻辑。 yyyyMMdd请传递当前时间。 身份标识可自定义。 其他编码建议为随机值。 当极端场景中，系统会返回错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；
-  tradeNo: string;
-  // 方案名称
-  schemeName: string;
-  // 投保人
-  applicant: Applicant;
-  // 被保人
-  insured: Insured;
-  // 投保标的
-  subjectInfo: string;
-  static names(): { [key: string]: string } {
-    return {
-      authToken: 'auth_token',
-      insuranceTypeCode: 'insurance_type_code',
-      insuranceCompanyNo: 'insurance_company_no',
-      embedProductCode: 'embed_product_code',
-      isNeedInquiry: 'is_need_inquiry',
-      tradeNo: 'trade_no',
-      schemeName: 'scheme_name',
-      applicant: 'applicant',
-      insured: 'insured',
-      subjectInfo: 'subject_info',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authToken: 'string',
-      insuranceTypeCode: 'string',
-      insuranceCompanyNo: 'string',
-      embedProductCode: 'string',
-      isNeedInquiry: 'boolean',
-      tradeNo: 'string',
-      schemeName: 'string',
-      applicant: Applicant,
-      insured: Insured,
-      subjectInfo: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class GetEmbedcardUrlResponse extends $tea.Model {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string;
-  // 结果码，一般OK表示调用成功
-  resultCode?: string;
-  // 异常信息的文本描述
-  resultMsg?: string;
-  // 交易流水号
-  tradeNo?: string;
-  // 险种编码
-  insuranceTypeCode?: string;
-  // 保司编码
-  insuranceCompanyNo?: string;
-  // 嵌入式产品编码
-  embedProductCode?: string;
-  // 嵌入式产品URL地址
-  embedProductUrl?: string;
-  // 方案名称
-  schemeName?: string;
-  // 保费
-  premium?: string;
-  // 询价编码
-  inquiryNo?: string;
-  static names(): { [key: string]: string } {
-    return {
-      reqMsgId: 'req_msg_id',
-      resultCode: 'result_code',
-      resultMsg: 'result_msg',
-      tradeNo: 'trade_no',
-      insuranceTypeCode: 'insurance_type_code',
-      insuranceCompanyNo: 'insurance_company_no',
-      embedProductCode: 'embed_product_code',
-      embedProductUrl: 'embed_product_url',
-      schemeName: 'scheme_name',
-      premium: 'premium',
-      inquiryNo: 'inquiry_no',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      reqMsgId: 'string',
-      resultCode: 'string',
-      resultMsg: 'string',
-      tradeNo: 'string',
-      insuranceTypeCode: 'string',
-      insuranceCompanyNo: 'string',
-      embedProductCode: 'string',
-      embedProductUrl: 'string',
-      schemeName: 'string',
-      premium: 'string',
-      inquiryNo: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class IssueEmbedcardPaysucRequest extends $tea.Model {
-  // OAuth模式下的授权token
-  authToken?: string;
-  // 险种编码
-  insuranceTypeCode: string;
-  // 保司编码
-  insuranceCompanyNo: string;
-  // 嵌入式产品编码
-  embedProductCode: string;
-  // 交易流水号
-  tradeNo: string;
-  // 方案名称
-  schemeName: string;
-  // 保费，保留2位小数
-  premium: string;
-  // 保费支付渠道，01-支付宝、02-微信支付、03-银行卡支付、04-平台账户余额支付
-  premiumPaymentChannel: string;
-  // 保费支付流水号
-  premiumPaymentNo: string;
-  // 保费支付金额，保留2位小数
-  premiumPaymentAmount: string;
-  // 保费支付时间
-  premiumPaymentTime: string;
-  // 询价编码
-  inquiryNo: string;
-  static names(): { [key: string]: string } {
-    return {
-      authToken: 'auth_token',
-      insuranceTypeCode: 'insurance_type_code',
-      insuranceCompanyNo: 'insurance_company_no',
-      embedProductCode: 'embed_product_code',
-      tradeNo: 'trade_no',
-      schemeName: 'scheme_name',
-      premium: 'premium',
-      premiumPaymentChannel: 'premium_payment_channel',
-      premiumPaymentNo: 'premium_payment_no',
-      premiumPaymentAmount: 'premium_payment_amount',
-      premiumPaymentTime: 'premium_payment_time',
-      inquiryNo: 'inquiry_no',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authToken: 'string',
-      insuranceTypeCode: 'string',
-      insuranceCompanyNo: 'string',
-      embedProductCode: 'string',
-      tradeNo: 'string',
-      schemeName: 'string',
-      premium: 'string',
-      premiumPaymentChannel: 'string',
-      premiumPaymentNo: 'string',
-      premiumPaymentAmount: 'string',
-      premiumPaymentTime: 'string',
-      inquiryNo: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class IssueEmbedcardPaysucResponse extends $tea.Model {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string;
-  // 结果码，一般OK表示调用成功
-  resultCode?: string;
-  // 异常信息的文本描述
-  resultMsg?: string;
-  // 交易流水号
-  tradeNo?: string;
-  // 险种编码
-  insuranceTypeCode?: string;
-  // 保司编码
-  insuranceCompanyNo?: string;
-  // 嵌入式产品编码
-  embedProductCode?: string;
-  // 方案名称
-  schemeName?: string;
-  // 保险起期
-  insureStart?: string;
-  // 保险止期
-  insureEnd?: string;
-  // 保费，保留2位小数
-  premium?: string;
-  // 保额，保留2位小数
-  amount?: string;
-  // 询价编码
-  inquiryNo?: string;
-  // 保险凭证号
-  voucherNo?: string;
-  static names(): { [key: string]: string } {
-    return {
-      reqMsgId: 'req_msg_id',
-      resultCode: 'result_code',
-      resultMsg: 'result_msg',
-      tradeNo: 'trade_no',
-      insuranceTypeCode: 'insurance_type_code',
-      insuranceCompanyNo: 'insurance_company_no',
-      embedProductCode: 'embed_product_code',
-      schemeName: 'scheme_name',
-      insureStart: 'insure_start',
-      insureEnd: 'insure_end',
-      premium: 'premium',
-      amount: 'amount',
-      inquiryNo: 'inquiry_no',
-      voucherNo: 'voucher_no',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      reqMsgId: 'string',
-      resultCode: 'string',
-      resultMsg: 'string',
-      tradeNo: 'string',
-      insuranceTypeCode: 'string',
-      insuranceCompanyNo: 'string',
-      embedProductCode: 'string',
-      schemeName: 'string',
-      insureStart: 'string',
-      insureEnd: 'string',
-      premium: 'string',
-      amount: 'string',
-      inquiryNo: 'string',
-      voucherNo: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 export class QueryInquiryRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -767,62 +515,6 @@ export class QueryDataWeatherResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       bizResult: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class QueryPolicyFileRequest extends $tea.Model {
-  // OAuth模式下的授权token
-  authToken?: string;
-  // 蚂蚁侧保单唯一ID
-  insurancePolicyNoInner: string;
-  static names(): { [key: string]: string } {
-    return {
-      authToken: 'auth_token',
-      insurancePolicyNoInner: 'insurance_policy_no_inner',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authToken: 'string',
-      insurancePolicyNoInner: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class QueryPolicyFileResponse extends $tea.Model {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string;
-  // 结果码，一般OK表示调用成功
-  resultCode?: string;
-  // 异常信息的文本描述
-  resultMsg?: string;
-  // 查询的保单信息
-  ossUrl?: string;
-  static names(): { [key: string]: string } {
-    return {
-      reqMsgId: 'req_msg_id',
-      resultCode: 'result_code',
-      resultMsg: 'result_msg',
-      ossUrl: 'oss_url',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      reqMsgId: 'string',
-      resultCode: 'string',
-      resultMsg: 'string',
-      ossUrl: 'string',
     };
   }
 
@@ -1110,6 +802,62 @@ export class QueryUnderwritingResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       bizResult: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryPolicyFileRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 蚂蚁侧保单唯一ID
+  insurancePolicyNoInner: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      insurancePolicyNoInner: 'insurance_policy_no_inner',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      insurancePolicyNoInner: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryPolicyFileResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 查询的保单信息
+  ossUrl?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      ossUrl: 'oss_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      ossUrl: 'string',
     };
   }
 
@@ -1977,6 +1725,110 @@ export class QueryInsureResultResponse extends $tea.Model {
   }
 }
 
+export class ApplyInsureTestRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // insurance_application_no
+  insuranceApplicationNo: string;
+  // insurance_company_no
+  insuranceCompanyNo: string;
+  // trustworthy_value_insurance_type_code
+  trustworthyValueInsuranceTypeCode: string;
+  // insurance_project_code
+  insuranceProjectCode: string;
+  // insurance_options_code
+  insuranceOptionsCode: string;
+  // applicant
+  applicant: string;
+  // insured_list
+  insuredList?: string;
+  // beneficiary_list
+  beneficiaryList?: string;
+  // insurance_period_start
+  insurancePeriodStart: string;
+  // insurance_period_end
+  insurancePeriodEnd?: string;
+  // applied_insurance_amount
+  appliedInsuranceAmount: string;
+  // insurance_period
+  insurancePeriod?: string;
+  // insured_object_list
+  insuredObjectList?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      insuranceApplicationNo: 'insurance_application_no',
+      insuranceCompanyNo: 'insurance_company_no',
+      trustworthyValueInsuranceTypeCode: 'trustworthy_value_insurance_type_code',
+      insuranceProjectCode: 'insurance_project_code',
+      insuranceOptionsCode: 'insurance_options_code',
+      applicant: 'applicant',
+      insuredList: 'insured_list',
+      beneficiaryList: 'beneficiary_list',
+      insurancePeriodStart: 'insurance_period_start',
+      insurancePeriodEnd: 'insurance_period_end',
+      appliedInsuranceAmount: 'applied_insurance_amount',
+      insurancePeriod: 'insurance_period',
+      insuredObjectList: 'insured_object_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      insuranceApplicationNo: 'string',
+      insuranceCompanyNo: 'string',
+      trustworthyValueInsuranceTypeCode: 'string',
+      insuranceProjectCode: 'string',
+      insuranceOptionsCode: 'string',
+      applicant: 'string',
+      insuredList: 'string',
+      beneficiaryList: 'string',
+      insurancePeriodStart: 'string',
+      insurancePeriodEnd: 'string',
+      appliedInsuranceAmount: 'string',
+      insurancePeriod: 'string',
+      insuredObjectList: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyInsureTestResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // biz_result
+  bizResult?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      bizResult: 'biz_result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      bizResult: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class SubmitInvestigateCaseRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -2198,6 +2050,258 @@ export class QueryReverseCommissionResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       bizResult: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetEmbedcardUrlRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 险种编码
+  insuranceTypeCode: string;
+  // 保司编码
+  insuranceCompanyNo: string;
+  // 嵌入式产品编码
+  embedProductCode: string;
+  // 是否需要询价
+  isNeedInquiry: boolean;
+  // 交易流水号，调用方生成的唯一编码，格式为 yyyyMMdd_身份标识_其他编码，系统会根据该流水号做防重、幂等判断逻辑。 yyyyMMdd请传递当前时间。 身份标识可自定义。 其他编码建议为随机值。 当极端场景中，系统会返回错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；
+  tradeNo: string;
+  // 方案名称
+  schemeName: string;
+  // 投保人
+  applicant: Applicant;
+  // 被保人
+  insured: Insured;
+  // 投保标的
+  subjectInfo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      insuranceTypeCode: 'insurance_type_code',
+      insuranceCompanyNo: 'insurance_company_no',
+      embedProductCode: 'embed_product_code',
+      isNeedInquiry: 'is_need_inquiry',
+      tradeNo: 'trade_no',
+      schemeName: 'scheme_name',
+      applicant: 'applicant',
+      insured: 'insured',
+      subjectInfo: 'subject_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      insuranceTypeCode: 'string',
+      insuranceCompanyNo: 'string',
+      embedProductCode: 'string',
+      isNeedInquiry: 'boolean',
+      tradeNo: 'string',
+      schemeName: 'string',
+      applicant: Applicant,
+      insured: Insured,
+      subjectInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetEmbedcardUrlResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 交易流水号
+  tradeNo?: string;
+  // 险种编码
+  insuranceTypeCode?: string;
+  // 保司编码
+  insuranceCompanyNo?: string;
+  // 嵌入式产品编码
+  embedProductCode?: string;
+  // 嵌入式产品URL地址
+  embedProductUrl?: string;
+  // 方案名称
+  schemeName?: string;
+  // 保费
+  premium?: string;
+  // 询价编码
+  inquiryNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      tradeNo: 'trade_no',
+      insuranceTypeCode: 'insurance_type_code',
+      insuranceCompanyNo: 'insurance_company_no',
+      embedProductCode: 'embed_product_code',
+      embedProductUrl: 'embed_product_url',
+      schemeName: 'scheme_name',
+      premium: 'premium',
+      inquiryNo: 'inquiry_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      tradeNo: 'string',
+      insuranceTypeCode: 'string',
+      insuranceCompanyNo: 'string',
+      embedProductCode: 'string',
+      embedProductUrl: 'string',
+      schemeName: 'string',
+      premium: 'string',
+      inquiryNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class IssueEmbedcardPaysucRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 险种编码
+  insuranceTypeCode: string;
+  // 保司编码
+  insuranceCompanyNo: string;
+  // 嵌入式产品编码
+  embedProductCode: string;
+  // 交易流水号
+  tradeNo: string;
+  // 方案名称
+  schemeName: string;
+  // 保费，保留2位小数
+  premium: string;
+  // 保费支付渠道，01-支付宝、02-微信支付、03-银行卡支付、04-平台账户余额支付
+  premiumPaymentChannel: string;
+  // 保费支付流水号
+  premiumPaymentNo: string;
+  // 保费支付金额，保留2位小数
+  premiumPaymentAmount: string;
+  // 保费支付时间
+  premiumPaymentTime: string;
+  // 询价编码
+  inquiryNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      insuranceTypeCode: 'insurance_type_code',
+      insuranceCompanyNo: 'insurance_company_no',
+      embedProductCode: 'embed_product_code',
+      tradeNo: 'trade_no',
+      schemeName: 'scheme_name',
+      premium: 'premium',
+      premiumPaymentChannel: 'premium_payment_channel',
+      premiumPaymentNo: 'premium_payment_no',
+      premiumPaymentAmount: 'premium_payment_amount',
+      premiumPaymentTime: 'premium_payment_time',
+      inquiryNo: 'inquiry_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      insuranceTypeCode: 'string',
+      insuranceCompanyNo: 'string',
+      embedProductCode: 'string',
+      tradeNo: 'string',
+      schemeName: 'string',
+      premium: 'string',
+      premiumPaymentChannel: 'string',
+      premiumPaymentNo: 'string',
+      premiumPaymentAmount: 'string',
+      premiumPaymentTime: 'string',
+      inquiryNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class IssueEmbedcardPaysucResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 交易流水号
+  tradeNo?: string;
+  // 险种编码
+  insuranceTypeCode?: string;
+  // 保司编码
+  insuranceCompanyNo?: string;
+  // 嵌入式产品编码
+  embedProductCode?: string;
+  // 方案名称
+  schemeName?: string;
+  // 保险起期
+  insureStart?: string;
+  // 保险止期
+  insureEnd?: string;
+  // 保费，保留2位小数
+  premium?: string;
+  // 保额，保留2位小数
+  amount?: string;
+  // 询价编码
+  inquiryNo?: string;
+  // 保险凭证号
+  voucherNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      tradeNo: 'trade_no',
+      insuranceTypeCode: 'insurance_type_code',
+      insuranceCompanyNo: 'insurance_company_no',
+      embedProductCode: 'embed_product_code',
+      schemeName: 'scheme_name',
+      insureStart: 'insure_start',
+      insureEnd: 'insure_end',
+      premium: 'premium',
+      amount: 'amount',
+      inquiryNo: 'inquiry_no',
+      voucherNo: 'voucher_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      tradeNo: 'string',
+      insuranceTypeCode: 'string',
+      insuranceCompanyNo: 'string',
+      embedProductCode: 'string',
+      schemeName: 'string',
+      insureStart: 'string',
+      insureEnd: 'string',
+      premium: 'string',
+      amount: 'string',
+      inquiryNo: 'string',
+      voucherNo: 'string',
     };
   }
 
@@ -3418,34 +3522,46 @@ export class NotifyAutoinsuranceEventResponse extends $tea.Model {
   }
 }
 
-export class ReceiveBusinessOpportunitiesRequest extends $tea.Model {
+export class UploadMktFileRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 全局唯一
+  // 文件唯一id
+  fileObject?: Readable;
+  fileObjectName?: string;
+  fileId: string;
+  // 业务入参json格式字符串
+  bizContent?: string;
+  // 请求id，每一次请求保持唯一，若重复，则报错；
   requestId: string;
-  // 渠道编码
-  channelCode: string;
-  // 产品编码
+  // 产品编码，蚂蚁分配
   productCode: string;
-  // 业务参数，json格式
-  bizContent: string;
+  // 数据类型，
+  // 营销人群底包--MKT_AUD_SRC，
+  // 营销人群托管底包--MKT_AUD_HOSTING_SRC
+  dataType: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
-      requestId: 'request_id',
-      channelCode: 'channel_code',
-      productCode: 'product_code',
+      fileObject: 'fileObject',
+      fileObjectName: 'fileObjectName',
+      fileId: 'file_id',
       bizContent: 'biz_content',
+      requestId: 'request_id',
+      productCode: 'product_code',
+      dataType: 'data_type',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
       authToken: 'string',
-      requestId: 'string',
-      channelCode: 'string',
-      productCode: 'string',
+      fileObject: 'Readable',
+      fileObjectName: 'string',
+      fileId: 'string',
       bizContent: 'string',
+      requestId: 'string',
+      productCode: 'string',
+      dataType: 'string',
     };
   }
 
@@ -3454,21 +3570,21 @@ export class ReceiveBusinessOpportunitiesRequest extends $tea.Model {
   }
 }
 
-export class ReceiveBusinessOpportunitiesResponse extends $tea.Model {
+export class UploadMktFileResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // {}，业务出参，详情见下方字段
-  bizResult?: string;
+  // 请求id
+  requestId?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      bizResult: 'biz_result',
+      requestId: 'request_id',
     };
   }
 
@@ -3477,7 +3593,7 @@ export class ReceiveBusinessOpportunitiesResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      bizResult: 'string',
+      requestId: 'string',
     };
   }
 
@@ -3493,7 +3609,10 @@ export class CallbackMktEffectRequest extends $tea.Model {
   requestId: string;
   // 项目ID，待蚂蚁分配
   projectId: string;
-  // 营销模式
+  // 营销模式，AI_HANGUP_SMS("AI挂短")，
+  // AI_OFFICIAL_ACCOUNT("AI公众号"),
+  // BPO_WECHAT("BPO企微"),
+  // AI_BPO("AI_BPO")
   marketingMode: string;
   // 投保特征短链
   insureShortUrl: string;
@@ -3504,7 +3623,7 @@ export class CallbackMktEffectRequest extends $tea.Model {
   // 应以识别当前用户点击投保页面的唯一标识
   landingVisitId: string;
   // 用户点击进入页面时间（格式：yyyy-MM-dd HH:mm:ss）
-  clickTime: string;
+  clickTime?: string;
   // 事件完成时间（yyyy-MM-dd HH:mm:ss）
   eventTime: string;
   // 节点类型
@@ -3582,46 +3701,34 @@ export class CallbackMktEffectResponse extends $tea.Model {
   }
 }
 
-export class UploadMktFileRequest extends $tea.Model {
+export class ReceiveBusinessOpportunitiesRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 文件唯一id
-  fileObject?: Readable;
-  fileObjectName?: string;
-  fileId: string;
-  // 业务入参json格式字符串
-  bizContent?: string;
-  // 请求id，每一次请求保持唯一，若重复，则报错；
+  // 全局唯一
   requestId: string;
-  // 产品编码，蚂蚁分配
+  // 渠道编码
+  channelCode: string;
+  // 产品编码
   productCode: string;
-  // 数据类型，
-  // 营销人群底包--MKT_AUD_SRC，
-  // 营销目标人群包--MKT_AUD_TAR
-  dataType: string;
+  // 业务参数，json格式
+  bizContent: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
-      fileObject: 'fileObject',
-      fileObjectName: 'fileObjectName',
-      fileId: 'file_id',
-      bizContent: 'biz_content',
       requestId: 'request_id',
+      channelCode: 'channel_code',
       productCode: 'product_code',
-      dataType: 'data_type',
+      bizContent: 'biz_content',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
       authToken: 'string',
-      fileObject: 'Readable',
-      fileObjectName: 'string',
-      fileId: 'string',
-      bizContent: 'string',
       requestId: 'string',
+      channelCode: 'string',
       productCode: 'string',
-      dataType: 'string',
+      bizContent: 'string',
     };
   }
 
@@ -3630,21 +3737,21 @@ export class UploadMktFileRequest extends $tea.Model {
   }
 }
 
-export class UploadMktFileResponse extends $tea.Model {
+export class ReceiveBusinessOpportunitiesResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 请求id
-  requestId?: string;
+  // {}，业务出参，详情见下方字段
+  bizResult?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      requestId: 'request_id',
+      bizResult: 'biz_result',
     };
   }
 
@@ -3653,7 +3760,7 @@ export class UploadMktFileResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      requestId: 'string',
+      bizResult: 'string',
     };
   }
 
@@ -3863,7 +3970,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.12.18",
+          sdk_version: "1.12.20",
           _prod_code: "INSURANCE_SAAS",
           _prod_channel: "undefined",
         };
@@ -3909,44 +4016,6 @@ export default class Client {
     }
 
     throw $tea.newUnretryableError(_lastRequest);
-  }
-
-  /**
-   * Description: 嵌入式保险服务卡片url链接获取
-   * Summary: 嵌入式保险服务卡片url链接获取
-   */
-  async getEmbedcardUrl(request: GetEmbedcardUrlRequest): Promise<GetEmbedcardUrlResponse> {
-    let runtime = new $Util.RuntimeOptions({ });
-    let headers : {[key: string ]: string} = { };
-    return await this.getEmbedcardUrlEx(request, headers, runtime);
-  }
-
-  /**
-   * Description: 嵌入式保险服务卡片url链接获取
-   * Summary: 嵌入式保险服务卡片url链接获取
-   */
-  async getEmbedcardUrlEx(request: GetEmbedcardUrlRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetEmbedcardUrlResponse> {
-    Util.validateModel(request);
-    return $tea.cast<GetEmbedcardUrlResponse>(await this.doRequest("1.0", "antcloud.insurance.embedcard.url.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetEmbedcardUrlResponse({}));
-  }
-
-  /**
-   * Description: 嵌入式保险服务打款成功出单接口
-   * Summary: 嵌入式保险服务打款成功出单接口
-   */
-  async issueEmbedcardPaysuc(request: IssueEmbedcardPaysucRequest): Promise<IssueEmbedcardPaysucResponse> {
-    let runtime = new $Util.RuntimeOptions({ });
-    let headers : {[key: string ]: string} = { };
-    return await this.issueEmbedcardPaysucEx(request, headers, runtime);
-  }
-
-  /**
-   * Description: 嵌入式保险服务打款成功出单接口
-   * Summary: 嵌入式保险服务打款成功出单接口
-   */
-  async issueEmbedcardPaysucEx(request: IssueEmbedcardPaysucRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<IssueEmbedcardPaysucResponse> {
-    Util.validateModel(request);
-    return $tea.cast<IssueEmbedcardPaysucResponse>(await this.doRequest("1.0", "antcloud.insurance.embedcard.paysuc.issue", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new IssueEmbedcardPaysucResponse({}));
   }
 
   /**
@@ -4026,25 +4095,6 @@ export default class Client {
   }
 
   /**
-   * Description: 根据保单号查询保单附件，并返回一个有效期为7天的ossurl
-   * Summary: 保险科技保单附件查询接口
-   */
-  async queryPolicyFile(request: QueryPolicyFileRequest): Promise<QueryPolicyFileResponse> {
-    let runtime = new $Util.RuntimeOptions({ });
-    let headers : {[key: string ]: string} = { };
-    return await this.queryPolicyFileEx(request, headers, runtime);
-  }
-
-  /**
-   * Description: 根据保单号查询保单附件，并返回一个有效期为7天的ossurl
-   * Summary: 保险科技保单附件查询接口
-   */
-  async queryPolicyFileEx(request: QueryPolicyFileRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryPolicyFileResponse> {
-    Util.validateModel(request);
-    return $tea.cast<QueryPolicyFileResponse>(await this.doRequest("1.0", "antcloud.insurance.policy.file.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryPolicyFileResponse({}));
-  }
-
-  /**
    * Description: 报价接口同步接口
    * Summary: 报价接口同步接口
    */
@@ -4099,6 +4149,25 @@ export default class Client {
   async queryUnderwritingEx(request: QueryUnderwritingRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryUnderwritingResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryUnderwritingResponse>(await this.doRequest("1.0", "antcloud.insurance.underwriting.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryUnderwritingResponse({}));
+  }
+
+  /**
+   * Description: 根据保单号查询保单附件，并返回一个有效期为7天的ossurl
+   * Summary: 保险科技保单附件查询接口
+   */
+  async queryPolicyFile(request: QueryPolicyFileRequest): Promise<QueryPolicyFileResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryPolicyFileEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 根据保单号查询保单附件，并返回一个有效期为7天的ossurl
+   * Summary: 保险科技保单附件查询接口
+   */
+  async queryPolicyFileEx(request: QueryPolicyFileRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryPolicyFileResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryPolicyFileResponse>(await this.doRequest("1.0", "antcloud.insurance.policy.file.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryPolicyFileResponse({}));
   }
 
   /**
@@ -4292,6 +4361,25 @@ export default class Client {
   }
 
   /**
+   * Description: 投保测试接口
+   * Summary: 投保测试接口
+   */
+  async applyInsureTest(request: ApplyInsureTestRequest): Promise<ApplyInsureTestResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.applyInsureTestEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 投保测试接口
+   * Summary: 投保测试接口
+   */
+  async applyInsureTestEx(request: ApplyInsureTestRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyInsureTestResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApplyInsureTestResponse>(await this.doRequest("1.0", "antcloud.insurance.insure.test.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyInsureTestResponse({}));
+  }
+
+  /**
    * Description: 本接口用于调查报案数据的提交
    * Summary: 调查报案提交接口
    */
@@ -4330,6 +4418,44 @@ export default class Client {
   }
 
   /**
+   * Description: 嵌入式保险服务卡片url链接获取
+   * Summary: 嵌入式保险服务卡片url链接获取
+   */
+  async getEmbedcardUrl(request: GetEmbedcardUrlRequest): Promise<GetEmbedcardUrlResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getEmbedcardUrlEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 嵌入式保险服务卡片url链接获取
+   * Summary: 嵌入式保险服务卡片url链接获取
+   */
+  async getEmbedcardUrlEx(request: GetEmbedcardUrlRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetEmbedcardUrlResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetEmbedcardUrlResponse>(await this.doRequest("1.0", "antcloud.insurance.embedcard.url.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetEmbedcardUrlResponse({}));
+  }
+
+  /**
+   * Description: 嵌入式保险服务打款成功出单接口
+   * Summary: 嵌入式保险服务打款成功出单接口
+   */
+  async issueEmbedcardPaysuc(request: IssueEmbedcardPaysucRequest): Promise<IssueEmbedcardPaysucResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.issueEmbedcardPaysucEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 嵌入式保险服务打款成功出单接口
+   * Summary: 嵌入式保险服务打款成功出单接口
+   */
+  async issueEmbedcardPaysucEx(request: IssueEmbedcardPaysucRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<IssueEmbedcardPaysucResponse> {
+    Util.validateModel(request);
+    return $tea.cast<IssueEmbedcardPaysucResponse>(await this.doRequest("1.0", "antcloud.insurance.embedcard.paysuc.issue", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new IssueEmbedcardPaysucResponse({}));
+  }
+
+  /**
    * Description: 嵌入式主机厂车险url链接获取
    * Summary: 嵌入式主机厂车险url链接获取
    */
@@ -4349,7 +4475,7 @@ export default class Client {
   }
 
   /**
-   * Description: 场景方获取权益链接
+   * Description: 场景方获取权益链接 
    * Summary: 场景方获取权益链接
    */
   async getRightplatformUrl(request: GetRightplatformUrlRequest): Promise<GetRightplatformUrlResponse> {
@@ -4359,7 +4485,7 @@ export default class Client {
   }
 
   /**
-   * Description: 场景方获取权益链接
+   * Description: 场景方获取权益链接 
    * Summary: 场景方获取权益链接
    */
   async getRightplatformUrlEx(request: GetRightplatformUrlRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetRightplatformUrlResponse> {
@@ -4615,46 +4741,8 @@ export default class Client {
   }
 
   /**
-   * Description: 商机数量推送接口
-   * Summary: 商机数量接收
-   */
-  async receiveBusinessOpportunities(request: ReceiveBusinessOpportunitiesRequest): Promise<ReceiveBusinessOpportunitiesResponse> {
-    let runtime = new $Util.RuntimeOptions({ });
-    let headers : {[key: string ]: string} = { };
-    return await this.receiveBusinessOpportunitiesEx(request, headers, runtime);
-  }
-
-  /**
-   * Description: 商机数量推送接口
-   * Summary: 商机数量接收
-   */
-  async receiveBusinessOpportunitiesEx(request: ReceiveBusinessOpportunitiesRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ReceiveBusinessOpportunitiesResponse> {
-    Util.validateModel(request);
-    return $tea.cast<ReceiveBusinessOpportunitiesResponse>(await this.doRequest("1.0", "antcloud.insurance.business.opportunities.receive", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ReceiveBusinessOpportunitiesResponse({}));
-  }
-
-  /**
-   * Description: 保险营销效果回传
-   * Summary: 保险营销效果回传
-   */
-  async callbackMktEffect(request: CallbackMktEffectRequest): Promise<CallbackMktEffectResponse> {
-    let runtime = new $Util.RuntimeOptions({ });
-    let headers : {[key: string ]: string} = { };
-    return await this.callbackMktEffectEx(request, headers, runtime);
-  }
-
-  /**
-   * Description: 保险营销效果回传
-   * Summary: 保险营销效果回传
-   */
-  async callbackMktEffectEx(request: CallbackMktEffectRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CallbackMktEffectResponse> {
-    Util.validateModel(request);
-    return $tea.cast<CallbackMktEffectResponse>(await this.doRequest("1.0", "antcloud.insurance.mkt.effect.callback", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CallbackMktEffectResponse({}));
-  }
-
-  /**
    * Description: 保险营销文件上传，营销链路中涉及到文件上传，均可使用本接口，根据上传的数据类型做区分
-   * Summary: 保险营销文件上传
+   * Summary: 保险营销文件上传，营销链路中涉及到文件上传，均可使用本接口，根据上传的数据类型做区分
    */
   async uploadMktFile(request: UploadMktFileRequest): Promise<UploadMktFileResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -4664,7 +4752,7 @@ export default class Client {
 
   /**
    * Description: 保险营销文件上传，营销链路中涉及到文件上传，均可使用本接口，根据上传的数据类型做区分
-   * Summary: 保险营销文件上传
+   * Summary: 保险营销文件上传，营销链路中涉及到文件上传，均可使用本接口，根据上传的数据类型做区分
    */
   async uploadMktFileEx(request: UploadMktFileRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UploadMktFileResponse> {
     if (!Util.isUnset(request.fileObject)) {
@@ -4691,6 +4779,44 @@ export default class Client {
 
     Util.validateModel(request);
     return $tea.cast<UploadMktFileResponse>(await this.doRequest("1.0", "antcloud.insurance.mkt.file.upload", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UploadMktFileResponse({}));
+  }
+
+  /**
+   * Description: 保险营销效果回传
+   * Summary: 保险营销效果回传
+   */
+  async callbackMktEffect(request: CallbackMktEffectRequest): Promise<CallbackMktEffectResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.callbackMktEffectEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 保险营销效果回传
+   * Summary: 保险营销效果回传
+   */
+  async callbackMktEffectEx(request: CallbackMktEffectRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CallbackMktEffectResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CallbackMktEffectResponse>(await this.doRequest("1.0", "antcloud.insurance.mkt.effect.callback", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CallbackMktEffectResponse({}));
+  }
+
+  /**
+   * Description: 商机数量推送接口
+   * Summary: 商机数量接收
+   */
+  async receiveBusinessOpportunities(request: ReceiveBusinessOpportunitiesRequest): Promise<ReceiveBusinessOpportunitiesResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.receiveBusinessOpportunitiesEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 商机数量推送接口
+   * Summary: 商机数量接收
+   */
+  async receiveBusinessOpportunitiesEx(request: ReceiveBusinessOpportunitiesRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ReceiveBusinessOpportunitiesResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ReceiveBusinessOpportunitiesResponse>(await this.doRequest("1.0", "antcloud.insurance.business.opportunities.receive", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ReceiveBusinessOpportunitiesResponse({}));
   }
 
   /**
