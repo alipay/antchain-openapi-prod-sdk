@@ -25,13 +25,23 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f.Models
 
         // 第几期
         [NameInMap("period_num")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public long? PeriodNum { get; set; }
 
         // 支付宝支付订单号，当传递此单号时，只会取消指定单据号，不传递时取消当前代扣
         [NameInMap("trade_no")]
         [Validation(Required=false)]
         public string TradeNo { get; set; }
+
+        // 支付类型，默认履约
+        [NameInMap("pay_type")]
+        [Validation(Required=false)]
+        public string PayType { get; set; }
+
+        // 支付申请号，在多期支付场景必填
+        [NameInMap("pay_apply_no")]
+        [Validation(Required=false)]
+        public long? PayApplyNo { get; set; }
 
     }
 

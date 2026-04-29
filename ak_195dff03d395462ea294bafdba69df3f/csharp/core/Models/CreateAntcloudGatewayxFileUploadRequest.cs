@@ -14,6 +14,11 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f.Models
         [Validation(Required=false)]
         public string AuthToken { get; set; }
 
+        // 产品方的api归属集群，即productInstanceId
+        [NameInMap("api_cluster")]
+        [Validation(Required=false)]
+        public string ApiCluster { get; set; }
+
         // 上传文件作用的openapi method
         [NameInMap("api_code")]
         [Validation(Required=true)]
@@ -38,11 +43,6 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f.Models
         [NameInMap("mime_type")]
         [Validation(Required=false)]
         public string MimeType { get; set; }
-
-        // 产品方的api归属集群，即productInstanceId
-        [NameInMap("api_cluster")]
-        [Validation(Required=false)]
-        public string ApiCluster { get; set; }
 
     }
 

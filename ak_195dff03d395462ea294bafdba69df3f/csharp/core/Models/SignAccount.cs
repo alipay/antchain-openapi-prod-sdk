@@ -35,6 +35,16 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f.Models
         [Validation(Required=true)]
         public string UserType { get; set; }
 
+        // 用户邮箱（userType=PERSON必传，需要RSA加密）
+        [NameInMap("user_email")]
+        [Validation(Required=false)]
+        public string UserEmail { get; set; }
+
+        // 用户手机号（userType=PERSON必传，需要RSA加密）
+        [NameInMap("user_mobile")]
+        [Validation(Required=false)]
+        public string UserMobile { get; set; }
+
         // 签署标签（对应模版配置中的tag）
         [NameInMap("tag")]
         [Validation(Required=true)]
@@ -42,7 +52,7 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f.Models
 
         // 是否获取签署链接
         [NameInMap("get_sign_url")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public bool? GetSignUrl { get; set; }
 
     }

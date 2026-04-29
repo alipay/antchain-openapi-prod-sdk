@@ -137,7 +137,7 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.7.5"},
+                        {"sdk_version", "1.7.6"},
                         {"_prod_code", "ak_195dff03d395462ea294bafdba69df3f"},
                         {"_prod_channel", "saas"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.7.5"},
+                        {"sdk_version", "1.7.6"},
                         {"_prod_code", "ak_195dff03d395462ea294bafdba69df3f"},
                         {"_prod_channel", "saas"},
                     };
@@ -4476,8 +4476,8 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
         }
 
         /**
-         * Description: 订单信息同步
-         * Summary: 订单信息同步
+         * Description: promo订单信息同步
+         * Summary: promo订单信息同步
          */
         public SyncAntchainAtoTradePromoorderinfoResponse SyncAntchainAtoTradePromoorderinfo(SyncAntchainAtoTradePromoorderinfoRequest request)
         {
@@ -4487,8 +4487,8 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
         }
 
         /**
-         * Description: 订单信息同步
-         * Summary: 订单信息同步
+         * Description: promo订单信息同步
+         * Summary: promo订单信息同步
          */
         public async Task<SyncAntchainAtoTradePromoorderinfoResponse> SyncAntchainAtoTradePromoorderinfoAsync(SyncAntchainAtoTradePromoorderinfoRequest request)
         {
@@ -4498,8 +4498,8 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
         }
 
         /**
-         * Description: 订单信息同步
-         * Summary: 订单信息同步
+         * Description: promo订单信息同步
+         * Summary: promo订单信息同步
          */
         public SyncAntchainAtoTradePromoorderinfoResponse SyncAntchainAtoTradePromoorderinfoEx(SyncAntchainAtoTradePromoorderinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -4508,8 +4508,8 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
         }
 
         /**
-         * Description: 订单信息同步
-         * Summary: 订单信息同步
+         * Description: promo订单信息同步
+         * Summary: promo订单信息同步
          */
         public async Task<SyncAntchainAtoTradePromoorderinfoResponse> SyncAntchainAtoTradePromoorderinfoExAsync(SyncAntchainAtoTradePromoorderinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {

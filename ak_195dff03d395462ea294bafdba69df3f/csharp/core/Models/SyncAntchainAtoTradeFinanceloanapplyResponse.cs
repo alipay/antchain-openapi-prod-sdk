@@ -34,6 +34,11 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f.Models
         [Validation(Required=false)]
         public string MerchantId { get; set; }
 
+        // 非法的订单列表
+        [NameInMap("illegal_order_id_list")]
+        [Validation(Required=false)]
+        public List<string> IllegalOrderIdList { get; set; }
+
     }
 
 }
