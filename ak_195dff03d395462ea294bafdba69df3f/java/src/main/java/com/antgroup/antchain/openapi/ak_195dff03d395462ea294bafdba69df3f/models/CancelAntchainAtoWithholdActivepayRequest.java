@@ -18,12 +18,19 @@ public class CancelAntchainAtoWithholdActivepayRequest extends TeaModel {
 
     // 第几期
     @NameInMap("period_num")
-    @Validation(required = true)
     public Long periodNum;
 
     // 支付宝支付订单号，当传递此单号时，只会取消指定单据号，不传递时取消当前代扣
     @NameInMap("trade_no")
     public String tradeNo;
+
+    // 支付类型，默认履约
+    @NameInMap("pay_type")
+    public String payType;
+
+    // 支付申请号，在多期支付场景必填
+    @NameInMap("pay_apply_no")
+    public Long payApplyNo;
 
     public static CancelAntchainAtoWithholdActivepayRequest build(java.util.Map<String, ?> map) throws Exception {
         CancelAntchainAtoWithholdActivepayRequest self = new CancelAntchainAtoWithholdActivepayRequest();
@@ -68,6 +75,22 @@ public class CancelAntchainAtoWithholdActivepayRequest extends TeaModel {
     }
     public String getTradeNo() {
         return this.tradeNo;
+    }
+
+    public CancelAntchainAtoWithholdActivepayRequest setPayType(String payType) {
+        this.payType = payType;
+        return this;
+    }
+    public String getPayType() {
+        return this.payType;
+    }
+
+    public CancelAntchainAtoWithholdActivepayRequest setPayApplyNo(Long payApplyNo) {
+        this.payApplyNo = payApplyNo;
+        return this;
+    }
+    public Long getPayApplyNo() {
+        return this.payApplyNo;
     }
 
 }

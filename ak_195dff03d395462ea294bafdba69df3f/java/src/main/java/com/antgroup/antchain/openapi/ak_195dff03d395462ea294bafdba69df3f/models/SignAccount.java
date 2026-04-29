@@ -45,6 +45,22 @@ public class SignAccount extends TeaModel {
     @Validation(required = true)
     public String userType;
 
+    // 用户邮箱（userType=PERSON必传，需要RSA加密）
+    /**
+     * <strong>example:</strong>
+     * <p>RSA(用户邮箱)</p>
+     */
+    @NameInMap("user_email")
+    public String userEmail;
+
+    // 用户手机号（userType=PERSON必传，需要RSA加密）
+    /**
+     * <strong>example:</strong>
+     * <p>RSA(用户手机号)</p>
+     */
+    @NameInMap("user_mobile")
+    public String userMobile;
+
     // 签署标签（对应模版配置中的tag）
     /**
      * <strong>example:</strong>
@@ -60,7 +76,6 @@ public class SignAccount extends TeaModel {
      * <p>true, false</p>
      */
     @NameInMap("get_sign_url")
-    @Validation(required = true)
     public Boolean getSignUrl;
 
     public static SignAccount build(java.util.Map<String, ?> map) throws Exception {
@@ -106,6 +121,22 @@ public class SignAccount extends TeaModel {
     }
     public String getUserType() {
         return this.userType;
+    }
+
+    public SignAccount setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+        return this;
+    }
+    public String getUserEmail() {
+        return this.userEmail;
+    }
+
+    public SignAccount setUserMobile(String userMobile) {
+        this.userMobile = userMobile;
+        return this;
+    }
+    public String getUserMobile() {
+        return this.userMobile;
     }
 
     public SignAccount setTag(String tag) {

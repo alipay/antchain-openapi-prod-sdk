@@ -29,6 +29,14 @@ public class TemplateInfo extends TeaModel {
     @NameInMap("template_args")
     public String templateArgs;
 
+    // 模板所属商户id
+    /**
+     * <strong>example:</strong>
+     * <p>91310101MA1FPCXA3G</p>
+     */
+    @NameInMap("merchant_id")
+    public String merchantId;
+
     public static TemplateInfo build(java.util.Map<String, ?> map) throws Exception {
         TemplateInfo self = new TemplateInfo();
         return TeaModel.build(map, self);
@@ -56,6 +64,14 @@ public class TemplateInfo extends TeaModel {
     }
     public String getTemplateArgs() {
         return this.templateArgs;
+    }
+
+    public TemplateInfo setMerchantId(String merchantId) {
+        this.merchantId = merchantId;
+        return this;
+    }
+    public String getMerchantId() {
+        return this.merchantId;
     }
 
 }

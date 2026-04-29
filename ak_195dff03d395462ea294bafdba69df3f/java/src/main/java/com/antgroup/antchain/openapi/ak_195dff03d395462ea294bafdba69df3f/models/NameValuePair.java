@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.ak_195dff03d395462ea294bafdba69df3f.models
 
 import com.aliyun.tea.*;
 
-public class XNameValuePair extends TeaModel {
+public class NameValuePair extends TeaModel {
     // 键名
     /**
      * <strong>example:</strong>
@@ -22,12 +22,12 @@ public class XNameValuePair extends TeaModel {
     @Validation(required = true)
     public String value;
 
-    public static XNameValuePair build(java.util.Map<String, ?> map) throws Exception {
-        XNameValuePair self = new XNameValuePair();
+    public static NameValuePair build(java.util.Map<String, ?> map) throws Exception {
+        NameValuePair self = new NameValuePair();
         return TeaModel.build(map, self);
     }
 
-    public XNameValuePair setName(String name) {
+    public NameValuePair setName(String name) {
         this.name = name;
         return this;
     }
@@ -35,7 +35,7 @@ public class XNameValuePair extends TeaModel {
         return this.name;
     }
 
-    public XNameValuePair setValue(String value) {
+    public NameValuePair setValue(String value) {
         this.value = value;
         return this;
     }

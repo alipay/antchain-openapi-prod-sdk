@@ -24,6 +24,10 @@ public class SyncAntchainAtoTradeFinanceloanapplyResponse extends TeaModel {
     @NameInMap("merchant_id")
     public String merchantId;
 
+    // 非法的订单列表
+    @NameInMap("illegal_order_id_list")
+    public java.util.List<String> illegalOrderIdList;
+
     public static SyncAntchainAtoTradeFinanceloanapplyResponse build(java.util.Map<String, ?> map) throws Exception {
         SyncAntchainAtoTradeFinanceloanapplyResponse self = new SyncAntchainAtoTradeFinanceloanapplyResponse();
         return TeaModel.build(map, self);
@@ -67,6 +71,14 @@ public class SyncAntchainAtoTradeFinanceloanapplyResponse extends TeaModel {
     }
     public String getMerchantId() {
         return this.merchantId;
+    }
+
+    public SyncAntchainAtoTradeFinanceloanapplyResponse setIllegalOrderIdList(java.util.List<String> illegalOrderIdList) {
+        this.illegalOrderIdList = illegalOrderIdList;
+        return this;
+    }
+    public java.util.List<String> getIllegalOrderIdList() {
+        return this.illegalOrderIdList;
     }
 
 }

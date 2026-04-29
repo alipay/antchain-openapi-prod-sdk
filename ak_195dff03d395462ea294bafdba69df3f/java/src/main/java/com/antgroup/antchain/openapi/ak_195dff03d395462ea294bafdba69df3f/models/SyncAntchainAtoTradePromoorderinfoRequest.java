@@ -38,13 +38,17 @@ public class SyncAntchainAtoTradePromoorderinfoRequest extends TeaModel {
 
     // 代扣履约总金额，单位为分
     @NameInMap("order_promise_total_money")
-    @Validation(required = true, minimum = 1)
+    @Validation(required = true)
     public Long orderPromiseTotalMoney;
 
     // 商户公司的名字
     @NameInMap("merchant_name")
     @Validation(required = true, maxLength = 199, minLength = 1)
     public String merchantName;
+
+    // verification_token
+    @NameInMap("verification_token")
+    public String verificationToken;
 
     public static SyncAntchainAtoTradePromoorderinfoRequest build(java.util.Map<String, ?> map) throws Exception {
         SyncAntchainAtoTradePromoorderinfoRequest self = new SyncAntchainAtoTradePromoorderinfoRequest();
@@ -121,6 +125,14 @@ public class SyncAntchainAtoTradePromoorderinfoRequest extends TeaModel {
     }
     public String getMerchantName() {
         return this.merchantName;
+    }
+
+    public SyncAntchainAtoTradePromoorderinfoRequest setVerificationToken(String verificationToken) {
+        this.verificationToken = verificationToken;
+        return this;
+    }
+    public String getVerificationToken() {
+        return this.verificationToken;
     }
 
 }
