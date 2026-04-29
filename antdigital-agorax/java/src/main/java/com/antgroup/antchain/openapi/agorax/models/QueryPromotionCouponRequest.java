@@ -28,18 +28,22 @@ public class QueryPromotionCouponRequest extends TeaModel {
 
     // 开始日期
     @NameInMap("start_date")
+    @Validation(required = true)
     public String startDate;
 
     // 结束日期
     @NameInMap("end_date")
+    @Validation(required = true)
     public String endDate;
 
     // 页码，默认 1，最小值 1
     @NameInMap("page_num")
+    @Validation(required = true)
     public Long pageNum;
 
     // 每页数量，默认 20，范围 1~100
     @NameInMap("page_size")
+    @Validation(required = true)
     public Long pageSize;
 
     public static QueryPromotionCouponRequest build(java.util.Map<String, ?> map) throws Exception {

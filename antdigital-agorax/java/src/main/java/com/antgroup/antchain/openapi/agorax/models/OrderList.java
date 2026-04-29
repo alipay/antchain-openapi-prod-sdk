@@ -36,6 +36,39 @@ public class OrderList extends TeaModel {
     @NameInMap("prize_id")
     public String prizeId;
 
+    // 触发时间
+    /**
+     * <strong>example:</strong>
+     * <p>2026-04-29 10:19:23</p>
+     */
+    @NameInMap("send_time")
+    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
+    public String sendTime;
+
+    // 发券结果
+    /**
+     * <strong>example:</strong>
+     * <p>SUCCESS</p>
+     */
+    @NameInMap("send_status")
+    public String sendStatus;
+
+    // 错误码
+    /**
+     * <strong>example:</strong>
+     * <p>10000911</p>
+     */
+    @NameInMap("error_code")
+    public String errorCode;
+
+    // 错误描述
+    /**
+     * <strong>example:</strong>
+     * <p>[10000911]指定奖品指定金额决策参数检查异常</p>
+     */
+    @NameInMap("error_msg")
+    public String errorMsg;
+
     public static OrderList build(java.util.Map<String, ?> map) throws Exception {
         OrderList self = new OrderList();
         return TeaModel.build(map, self);
@@ -71,6 +104,38 @@ public class OrderList extends TeaModel {
     }
     public String getPrizeId() {
         return this.prizeId;
+    }
+
+    public OrderList setSendTime(String sendTime) {
+        this.sendTime = sendTime;
+        return this;
+    }
+    public String getSendTime() {
+        return this.sendTime;
+    }
+
+    public OrderList setSendStatus(String sendStatus) {
+        this.sendStatus = sendStatus;
+        return this;
+    }
+    public String getSendStatus() {
+        return this.sendStatus;
+    }
+
+    public OrderList setErrorCode(String errorCode) {
+        this.errorCode = errorCode;
+        return this;
+    }
+    public String getErrorCode() {
+        return this.errorCode;
+    }
+
+    public OrderList setErrorMsg(String errorMsg) {
+        this.errorMsg = errorMsg;
+        return this;
+    }
+    public String getErrorMsg() {
+        return this.errorMsg;
     }
 
 }
