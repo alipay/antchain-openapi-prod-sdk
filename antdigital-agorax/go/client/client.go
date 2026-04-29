@@ -11969,6 +11969,14 @@ type OrderList struct {
 	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty"`
 	// 奖品id
 	PrizeId *string `json:"prize_id,omitempty" xml:"prize_id,omitempty"`
+	// 触发时间
+	SendTime *string `json:"send_time,omitempty" xml:"send_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 发券结果
+	SendStatus *string `json:"send_status,omitempty" xml:"send_status,omitempty"`
+	// 错误码
+	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty"`
+	// 错误描述
+	ErrorMsg *string `json:"error_msg,omitempty" xml:"error_msg,omitempty"`
 }
 
 func (s OrderList) String() string {
@@ -11996,6 +12004,26 @@ func (s *OrderList) SetBizId(v string) *OrderList {
 
 func (s *OrderList) SetPrizeId(v string) *OrderList {
 	s.PrizeId = &v
+	return s
+}
+
+func (s *OrderList) SetSendTime(v string) *OrderList {
+	s.SendTime = &v
+	return s
+}
+
+func (s *OrderList) SetSendStatus(v string) *OrderList {
+	s.SendStatus = &v
+	return s
+}
+
+func (s *OrderList) SetErrorCode(v string) *OrderList {
+	s.ErrorCode = &v
+	return s
+}
+
+func (s *OrderList) SetErrorMsg(v string) *OrderList {
+	s.ErrorMsg = &v
 	return s
 }
 
@@ -12549,13 +12577,13 @@ type QueryPromotionCouponRequest struct {
 	// appId
 	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty" require:"true"`
 	// 开始日期
-	StartDate *string `json:"start_date,omitempty" xml:"start_date,omitempty"`
+	StartDate *string `json:"start_date,omitempty" xml:"start_date,omitempty" require:"true"`
 	// 结束日期
-	EndDate *string `json:"end_date,omitempty" xml:"end_date,omitempty"`
+	EndDate *string `json:"end_date,omitempty" xml:"end_date,omitempty" require:"true"`
 	// 页码，默认 1，最小值 1
-	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty"`
+	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty" require:"true"`
 	// 每页数量，默认 20，范围 1~100
-	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
 }
 
 func (s QueryPromotionCouponRequest) String() string {
@@ -12793,7 +12821,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.2.1"),
+				"sdk_version":      tea.String("1.3.0"),
 				"_prod_code":       tea.String("AGORAX"),
 				"_prod_channel":    tea.String("default"),
 			}
