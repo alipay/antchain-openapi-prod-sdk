@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.18',
+                    'sdk_version': '1.12.20',
                     '_prod_code': 'INSURANCE_SAAS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.18',
+                    'sdk_version': '1.12.20',
                     '_prod_code': 'INSURANCE_SAAS',
                     '_prod_channel': 'undefined'
                 }
@@ -274,118 +274,6 @@ class Client:
                     continue
                 raise e
         raise UnretryableException(_last_request, _last_exception)
-
-    def get_embedcard_url(
-        self,
-        request: insurance__saas_models.GetEmbedcardUrlRequest,
-    ) -> insurance__saas_models.GetEmbedcardUrlResponse:
-        """
-        Description: 嵌入式保险服务卡片url链接获取
-        Summary: 嵌入式保险服务卡片url链接获取
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.get_embedcard_url_ex(request, headers, runtime)
-
-    async def get_embedcard_url_async(
-        self,
-        request: insurance__saas_models.GetEmbedcardUrlRequest,
-    ) -> insurance__saas_models.GetEmbedcardUrlResponse:
-        """
-        Description: 嵌入式保险服务卡片url链接获取
-        Summary: 嵌入式保险服务卡片url链接获取
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.get_embedcard_url_ex_async(request, headers, runtime)
-
-    def get_embedcard_url_ex(
-        self,
-        request: insurance__saas_models.GetEmbedcardUrlRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> insurance__saas_models.GetEmbedcardUrlResponse:
-        """
-        Description: 嵌入式保险服务卡片url链接获取
-        Summary: 嵌入式保险服务卡片url链接获取
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            insurance__saas_models.GetEmbedcardUrlResponse(),
-            self.do_request('1.0', 'antcloud.insurance.embedcard.url.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def get_embedcard_url_ex_async(
-        self,
-        request: insurance__saas_models.GetEmbedcardUrlRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> insurance__saas_models.GetEmbedcardUrlResponse:
-        """
-        Description: 嵌入式保险服务卡片url链接获取
-        Summary: 嵌入式保险服务卡片url链接获取
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            insurance__saas_models.GetEmbedcardUrlResponse(),
-            await self.do_request_async('1.0', 'antcloud.insurance.embedcard.url.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def issue_embedcard_paysuc(
-        self,
-        request: insurance__saas_models.IssueEmbedcardPaysucRequest,
-    ) -> insurance__saas_models.IssueEmbedcardPaysucResponse:
-        """
-        Description: 嵌入式保险服务打款成功出单接口
-        Summary: 嵌入式保险服务打款成功出单接口
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.issue_embedcard_paysuc_ex(request, headers, runtime)
-
-    async def issue_embedcard_paysuc_async(
-        self,
-        request: insurance__saas_models.IssueEmbedcardPaysucRequest,
-    ) -> insurance__saas_models.IssueEmbedcardPaysucResponse:
-        """
-        Description: 嵌入式保险服务打款成功出单接口
-        Summary: 嵌入式保险服务打款成功出单接口
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.issue_embedcard_paysuc_ex_async(request, headers, runtime)
-
-    def issue_embedcard_paysuc_ex(
-        self,
-        request: insurance__saas_models.IssueEmbedcardPaysucRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> insurance__saas_models.IssueEmbedcardPaysucResponse:
-        """
-        Description: 嵌入式保险服务打款成功出单接口
-        Summary: 嵌入式保险服务打款成功出单接口
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            insurance__saas_models.IssueEmbedcardPaysucResponse(),
-            self.do_request('1.0', 'antcloud.insurance.embedcard.paysuc.issue', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def issue_embedcard_paysuc_ex_async(
-        self,
-        request: insurance__saas_models.IssueEmbedcardPaysucRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> insurance__saas_models.IssueEmbedcardPaysucResponse:
-        """
-        Description: 嵌入式保险服务打款成功出单接口
-        Summary: 嵌入式保险服务打款成功出单接口
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            insurance__saas_models.IssueEmbedcardPaysucResponse(),
-            await self.do_request_async('1.0', 'antcloud.insurance.embedcard.paysuc.issue', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
 
     def query_inquiry(
         self,
@@ -611,62 +499,6 @@ class Client:
             await self.do_request_async('1.0', 'antcloud.insurance.data.weather.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def query_policy_file(
-        self,
-        request: insurance__saas_models.QueryPolicyFileRequest,
-    ) -> insurance__saas_models.QueryPolicyFileResponse:
-        """
-        Description: 根据保单号查询保单附件，并返回一个有效期为7天的ossurl
-        Summary: 保险科技保单附件查询接口
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.query_policy_file_ex(request, headers, runtime)
-
-    async def query_policy_file_async(
-        self,
-        request: insurance__saas_models.QueryPolicyFileRequest,
-    ) -> insurance__saas_models.QueryPolicyFileResponse:
-        """
-        Description: 根据保单号查询保单附件，并返回一个有效期为7天的ossurl
-        Summary: 保险科技保单附件查询接口
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.query_policy_file_ex_async(request, headers, runtime)
-
-    def query_policy_file_ex(
-        self,
-        request: insurance__saas_models.QueryPolicyFileRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> insurance__saas_models.QueryPolicyFileResponse:
-        """
-        Description: 根据保单号查询保单附件，并返回一个有效期为7天的ossurl
-        Summary: 保险科技保单附件查询接口
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            insurance__saas_models.QueryPolicyFileResponse(),
-            self.do_request('1.0', 'antcloud.insurance.policy.file.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def query_policy_file_ex_async(
-        self,
-        request: insurance__saas_models.QueryPolicyFileRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> insurance__saas_models.QueryPolicyFileResponse:
-        """
-        Description: 根据保单号查询保单附件，并返回一个有效期为7天的ossurl
-        Summary: 保险科技保单附件查询接口
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            insurance__saas_models.QueryPolicyFileResponse(),
-            await self.do_request_async('1.0', 'antcloud.insurance.policy.file.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
     def sync_quote(
         self,
         request: insurance__saas_models.SyncQuoteRequest,
@@ -833,6 +665,62 @@ class Client:
         return TeaCore.from_map(
             insurance__saas_models.QueryUnderwritingResponse(),
             await self.do_request_async('1.0', 'antcloud.insurance.underwriting.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_policy_file(
+        self,
+        request: insurance__saas_models.QueryPolicyFileRequest,
+    ) -> insurance__saas_models.QueryPolicyFileResponse:
+        """
+        Description: 根据保单号查询保单附件，并返回一个有效期为7天的ossurl
+        Summary: 保险科技保单附件查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_policy_file_ex(request, headers, runtime)
+
+    async def query_policy_file_async(
+        self,
+        request: insurance__saas_models.QueryPolicyFileRequest,
+    ) -> insurance__saas_models.QueryPolicyFileResponse:
+        """
+        Description: 根据保单号查询保单附件，并返回一个有效期为7天的ossurl
+        Summary: 保险科技保单附件查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_policy_file_ex_async(request, headers, runtime)
+
+    def query_policy_file_ex(
+        self,
+        request: insurance__saas_models.QueryPolicyFileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.QueryPolicyFileResponse:
+        """
+        Description: 根据保单号查询保单附件，并返回一个有效期为7天的ossurl
+        Summary: 保险科技保单附件查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.QueryPolicyFileResponse(),
+            self.do_request('1.0', 'antcloud.insurance.policy.file.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_policy_file_ex_async(
+        self,
+        request: insurance__saas_models.QueryPolicyFileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.QueryPolicyFileResponse:
+        """
+        Description: 根据保单号查询保单附件，并返回一个有效期为7天的ossurl
+        Summary: 保险科技保单附件查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.QueryPolicyFileResponse(),
+            await self.do_request_async('1.0', 'antcloud.insurance.policy.file.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def apply_insure(
@@ -1395,6 +1283,62 @@ class Client:
             await self.do_request_async('1.0', 'antcloud.insurance.insure.result.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def apply_insure_test(
+        self,
+        request: insurance__saas_models.ApplyInsureTestRequest,
+    ) -> insurance__saas_models.ApplyInsureTestResponse:
+        """
+        Description: 投保测试接口
+        Summary: 投保测试接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_insure_test_ex(request, headers, runtime)
+
+    async def apply_insure_test_async(
+        self,
+        request: insurance__saas_models.ApplyInsureTestRequest,
+    ) -> insurance__saas_models.ApplyInsureTestResponse:
+        """
+        Description: 投保测试接口
+        Summary: 投保测试接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_insure_test_ex_async(request, headers, runtime)
+
+    def apply_insure_test_ex(
+        self,
+        request: insurance__saas_models.ApplyInsureTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.ApplyInsureTestResponse:
+        """
+        Description: 投保测试接口
+        Summary: 投保测试接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.ApplyInsureTestResponse(),
+            self.do_request('1.0', 'antcloud.insurance.insure.test.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_insure_test_ex_async(
+        self,
+        request: insurance__saas_models.ApplyInsureTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.ApplyInsureTestResponse:
+        """
+        Description: 投保测试接口
+        Summary: 投保测试接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.ApplyInsureTestResponse(),
+            await self.do_request_async('1.0', 'antcloud.insurance.insure.test.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def submit_investigate_case(
         self,
         request: insurance__saas_models.SubmitInvestigateCaseRequest,
@@ -1505,6 +1449,118 @@ class Client:
         return TeaCore.from_map(
             insurance__saas_models.QueryReverseCommissionResponse(),
             await self.do_request_async('1.0', 'antcloud.insurance.reverse.commission.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_embedcard_url(
+        self,
+        request: insurance__saas_models.GetEmbedcardUrlRequest,
+    ) -> insurance__saas_models.GetEmbedcardUrlResponse:
+        """
+        Description: 嵌入式保险服务卡片url链接获取
+        Summary: 嵌入式保险服务卡片url链接获取
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_embedcard_url_ex(request, headers, runtime)
+
+    async def get_embedcard_url_async(
+        self,
+        request: insurance__saas_models.GetEmbedcardUrlRequest,
+    ) -> insurance__saas_models.GetEmbedcardUrlResponse:
+        """
+        Description: 嵌入式保险服务卡片url链接获取
+        Summary: 嵌入式保险服务卡片url链接获取
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_embedcard_url_ex_async(request, headers, runtime)
+
+    def get_embedcard_url_ex(
+        self,
+        request: insurance__saas_models.GetEmbedcardUrlRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.GetEmbedcardUrlResponse:
+        """
+        Description: 嵌入式保险服务卡片url链接获取
+        Summary: 嵌入式保险服务卡片url链接获取
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.GetEmbedcardUrlResponse(),
+            self.do_request('1.0', 'antcloud.insurance.embedcard.url.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_embedcard_url_ex_async(
+        self,
+        request: insurance__saas_models.GetEmbedcardUrlRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.GetEmbedcardUrlResponse:
+        """
+        Description: 嵌入式保险服务卡片url链接获取
+        Summary: 嵌入式保险服务卡片url链接获取
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.GetEmbedcardUrlResponse(),
+            await self.do_request_async('1.0', 'antcloud.insurance.embedcard.url.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def issue_embedcard_paysuc(
+        self,
+        request: insurance__saas_models.IssueEmbedcardPaysucRequest,
+    ) -> insurance__saas_models.IssueEmbedcardPaysucResponse:
+        """
+        Description: 嵌入式保险服务打款成功出单接口
+        Summary: 嵌入式保险服务打款成功出单接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.issue_embedcard_paysuc_ex(request, headers, runtime)
+
+    async def issue_embedcard_paysuc_async(
+        self,
+        request: insurance__saas_models.IssueEmbedcardPaysucRequest,
+    ) -> insurance__saas_models.IssueEmbedcardPaysucResponse:
+        """
+        Description: 嵌入式保险服务打款成功出单接口
+        Summary: 嵌入式保险服务打款成功出单接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.issue_embedcard_paysuc_ex_async(request, headers, runtime)
+
+    def issue_embedcard_paysuc_ex(
+        self,
+        request: insurance__saas_models.IssueEmbedcardPaysucRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.IssueEmbedcardPaysucResponse:
+        """
+        Description: 嵌入式保险服务打款成功出单接口
+        Summary: 嵌入式保险服务打款成功出单接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.IssueEmbedcardPaysucResponse(),
+            self.do_request('1.0', 'antcloud.insurance.embedcard.paysuc.issue', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def issue_embedcard_paysuc_ex_async(
+        self,
+        request: insurance__saas_models.IssueEmbedcardPaysucRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.IssueEmbedcardPaysucResponse:
+        """
+        Description: 嵌入式保险服务打款成功出单接口
+        Summary: 嵌入式保险服务打款成功出单接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.IssueEmbedcardPaysucResponse(),
+            await self.do_request_async('1.0', 'antcloud.insurance.embedcard.paysuc.issue', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def get_embedoemautoinsurance_url(
@@ -2347,60 +2403,96 @@ class Client:
             await self.do_request_async('1.0', 'antcloud.insurance.autoinsurance.event.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def receive_business_opportunities(
+    def upload_mkt_file(
         self,
-        request: insurance__saas_models.ReceiveBusinessOpportunitiesRequest,
-    ) -> insurance__saas_models.ReceiveBusinessOpportunitiesResponse:
+        request: insurance__saas_models.UploadMktFileRequest,
+    ) -> insurance__saas_models.UploadMktFileResponse:
         """
-        Description: 商机数量推送接口
-        Summary: 商机数量接收
+        Description: 保险营销文件上传，营销链路中涉及到文件上传，均可使用本接口，根据上传的数据类型做区分
+        Summary: 保险营销文件上传，营销链路中涉及到文件上传，均可使用本接口，根据上传的数据类型做区分
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.receive_business_opportunities_ex(request, headers, runtime)
+        return self.upload_mkt_file_ex(request, headers, runtime)
 
-    async def receive_business_opportunities_async(
+    async def upload_mkt_file_async(
         self,
-        request: insurance__saas_models.ReceiveBusinessOpportunitiesRequest,
-    ) -> insurance__saas_models.ReceiveBusinessOpportunitiesResponse:
+        request: insurance__saas_models.UploadMktFileRequest,
+    ) -> insurance__saas_models.UploadMktFileResponse:
         """
-        Description: 商机数量推送接口
-        Summary: 商机数量接收
+        Description: 保险营销文件上传，营销链路中涉及到文件上传，均可使用本接口，根据上传的数据类型做区分
+        Summary: 保险营销文件上传，营销链路中涉及到文件上传，均可使用本接口，根据上传的数据类型做区分
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.receive_business_opportunities_ex_async(request, headers, runtime)
+        return await self.upload_mkt_file_ex_async(request, headers, runtime)
 
-    def receive_business_opportunities_ex(
+    def upload_mkt_file_ex(
         self,
-        request: insurance__saas_models.ReceiveBusinessOpportunitiesRequest,
+        request: insurance__saas_models.UploadMktFileRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> insurance__saas_models.ReceiveBusinessOpportunitiesResponse:
+    ) -> insurance__saas_models.UploadMktFileResponse:
         """
-        Description: 商机数量推送接口
-        Summary: 商机数量接收
+        Description: 保险营销文件上传，营销链路中涉及到文件上传，均可使用本接口，根据上传的数据类型做区分
+        Summary: 保险营销文件上传，营销链路中涉及到文件上传，均可使用本接口，根据上传的数据类型做区分
         """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = insurance__saas_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antcloud.insurance.mkt.file.upload',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                upload_mkt_file_response = insurance__saas_models.UploadMktFileResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return upload_mkt_file_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            insurance__saas_models.ReceiveBusinessOpportunitiesResponse(),
-            self.do_request('1.0', 'antcloud.insurance.business.opportunities.receive', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            insurance__saas_models.UploadMktFileResponse(),
+            self.do_request('1.0', 'antcloud.insurance.mkt.file.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def receive_business_opportunities_ex_async(
+    async def upload_mkt_file_ex_async(
         self,
-        request: insurance__saas_models.ReceiveBusinessOpportunitiesRequest,
+        request: insurance__saas_models.UploadMktFileRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> insurance__saas_models.ReceiveBusinessOpportunitiesResponse:
+    ) -> insurance__saas_models.UploadMktFileResponse:
         """
-        Description: 商机数量推送接口
-        Summary: 商机数量接收
+        Description: 保险营销文件上传，营销链路中涉及到文件上传，均可使用本接口，根据上传的数据类型做区分
+        Summary: 保险营销文件上传，营销链路中涉及到文件上传，均可使用本接口，根据上传的数据类型做区分
         """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = insurance__saas_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antcloud.insurance.mkt.file.upload',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                upload_mkt_file_response = insurance__saas_models.UploadMktFileResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return upload_mkt_file_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            insurance__saas_models.ReceiveBusinessOpportunitiesResponse(),
-            await self.do_request_async('1.0', 'antcloud.insurance.business.opportunities.receive', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            insurance__saas_models.UploadMktFileResponse(),
+            await self.do_request_async('1.0', 'antcloud.insurance.mkt.file.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def callback_mkt_effect(
@@ -2459,96 +2551,60 @@ class Client:
             await self.do_request_async('1.0', 'antcloud.insurance.mkt.effect.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def upload_mkt_file(
+    def receive_business_opportunities(
         self,
-        request: insurance__saas_models.UploadMktFileRequest,
-    ) -> insurance__saas_models.UploadMktFileResponse:
+        request: insurance__saas_models.ReceiveBusinessOpportunitiesRequest,
+    ) -> insurance__saas_models.ReceiveBusinessOpportunitiesResponse:
         """
-        Description: 保险营销文件上传，营销链路中涉及到文件上传，均可使用本接口，根据上传的数据类型做区分
-        Summary: 保险营销文件上传
+        Description: 商机数量推送接口
+        Summary: 商机数量接收
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.upload_mkt_file_ex(request, headers, runtime)
+        return self.receive_business_opportunities_ex(request, headers, runtime)
 
-    async def upload_mkt_file_async(
+    async def receive_business_opportunities_async(
         self,
-        request: insurance__saas_models.UploadMktFileRequest,
-    ) -> insurance__saas_models.UploadMktFileResponse:
+        request: insurance__saas_models.ReceiveBusinessOpportunitiesRequest,
+    ) -> insurance__saas_models.ReceiveBusinessOpportunitiesResponse:
         """
-        Description: 保险营销文件上传，营销链路中涉及到文件上传，均可使用本接口，根据上传的数据类型做区分
-        Summary: 保险营销文件上传
+        Description: 商机数量推送接口
+        Summary: 商机数量接收
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.upload_mkt_file_ex_async(request, headers, runtime)
+        return await self.receive_business_opportunities_ex_async(request, headers, runtime)
 
-    def upload_mkt_file_ex(
+    def receive_business_opportunities_ex(
         self,
-        request: insurance__saas_models.UploadMktFileRequest,
+        request: insurance__saas_models.ReceiveBusinessOpportunitiesRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> insurance__saas_models.UploadMktFileResponse:
+    ) -> insurance__saas_models.ReceiveBusinessOpportunitiesResponse:
         """
-        Description: 保险营销文件上传，营销链路中涉及到文件上传，均可使用本接口，根据上传的数据类型做区分
-        Summary: 保险营销文件上传
+        Description: 商机数量推送接口
+        Summary: 商机数量接收
         """
-        if not UtilClient.is_unset(request.file_object):
-            upload_req = insurance__saas_models.CreateAntcloudGatewayxFileUploadRequest(
-                auth_token=request.auth_token,
-                api_code='antcloud.insurance.mkt.file.upload',
-                file_name=request.file_object_name
-            )
-            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
-            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
-                upload_mkt_file_response = insurance__saas_models.UploadMktFileResponse(
-                    req_msg_id=upload_resp.req_msg_id,
-                    result_code=upload_resp.result_code,
-                    result_msg=upload_resp.result_msg
-                )
-                return upload_mkt_file_response
-            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
-            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
-            request.file_id = upload_resp.file_id
-            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            insurance__saas_models.UploadMktFileResponse(),
-            self.do_request('1.0', 'antcloud.insurance.mkt.file.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            insurance__saas_models.ReceiveBusinessOpportunitiesResponse(),
+            self.do_request('1.0', 'antcloud.insurance.business.opportunities.receive', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def upload_mkt_file_ex_async(
+    async def receive_business_opportunities_ex_async(
         self,
-        request: insurance__saas_models.UploadMktFileRequest,
+        request: insurance__saas_models.ReceiveBusinessOpportunitiesRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> insurance__saas_models.UploadMktFileResponse:
+    ) -> insurance__saas_models.ReceiveBusinessOpportunitiesResponse:
         """
-        Description: 保险营销文件上传，营销链路中涉及到文件上传，均可使用本接口，根据上传的数据类型做区分
-        Summary: 保险营销文件上传
+        Description: 商机数量推送接口
+        Summary: 商机数量接收
         """
-        if not UtilClient.is_unset(request.file_object):
-            upload_req = insurance__saas_models.CreateAntcloudGatewayxFileUploadRequest(
-                auth_token=request.auth_token,
-                api_code='antcloud.insurance.mkt.file.upload',
-                file_name=request.file_object_name
-            )
-            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
-            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
-                upload_mkt_file_response = insurance__saas_models.UploadMktFileResponse(
-                    req_msg_id=upload_resp.req_msg_id,
-                    result_code=upload_resp.result_code,
-                    result_msg=upload_resp.result_msg
-                )
-                return upload_mkt_file_response
-            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
-            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
-            request.file_id = upload_resp.file_id
-            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            insurance__saas_models.UploadMktFileResponse(),
-            await self.do_request_async('1.0', 'antcloud.insurance.mkt.file.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            insurance__saas_models.ReceiveBusinessOpportunitiesResponse(),
+            await self.do_request_async('1.0', 'antcloud.insurance.business.opportunities.receive', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
