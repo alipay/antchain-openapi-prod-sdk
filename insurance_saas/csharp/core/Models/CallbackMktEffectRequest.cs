@@ -24,7 +24,10 @@ namespace AntChain.SDK.INSURANCE_SAAS.Models
         [Validation(Required=true, MaxLength=64)]
         public string ProjectId { get; set; }
 
-        // 营销模式
+        // 营销模式，AI_HANGUP_SMS("AI挂短")，
+        // AI_OFFICIAL_ACCOUNT("AI公众号"),
+        // BPO_WECHAT("BPO企微"),
+        // AI_BPO("AI_BPO")
         [NameInMap("marketing_mode")]
         [Validation(Required=true, MaxLength=64)]
         public string MarketingMode { get; set; }
@@ -51,7 +54,7 @@ namespace AntChain.SDK.INSURANCE_SAAS.Models
 
         // 用户点击进入页面时间（格式：yyyy-MM-dd HH:mm:ss）
         [NameInMap("click_time")]
-        [Validation(Required=true, MaxLength=32)]
+        [Validation(Required=false, MaxLength=32)]
         public string ClickTime { get; set; }
 
         // 事件完成时间（yyyy-MM-dd HH:mm:ss）
