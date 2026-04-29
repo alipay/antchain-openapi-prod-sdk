@@ -17,6 +17,8 @@ use AntChain\INSURANCE_SAAS\Models\ApplyEndorsementStrategyRequest;
 use AntChain\INSURANCE_SAAS\Models\ApplyEndorsementStrategyResponse;
 use AntChain\INSURANCE_SAAS\Models\ApplyInsureRequest;
 use AntChain\INSURANCE_SAAS\Models\ApplyInsureResponse;
+use AntChain\INSURANCE_SAAS\Models\ApplyInsureTestRequest;
+use AntChain\INSURANCE_SAAS\Models\ApplyInsureTestResponse;
 use AntChain\INSURANCE_SAAS\Models\ApplyUnderwritingRequest;
 use AntChain\INSURANCE_SAAS\Models\ApplyUnderwritingResponse;
 use AntChain\INSURANCE_SAAS\Models\CallbackMarketingEventRequest;
@@ -240,7 +242,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.12.18',
+                    'sdk_version'      => '1.12.20',
                     '_prod_code'       => 'INSURANCE_SAAS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -286,72 +288,6 @@ class Client
         }
 
         throw new TeaUnableRetryError($_lastRequest, $_lastException);
-    }
-
-    /**
-     * Description: 嵌入式保险服务卡片url链接获取
-     * Summary: 嵌入式保险服务卡片url链接获取.
-     *
-     * @param GetEmbedcardUrlRequest $request
-     *
-     * @return GetEmbedcardUrlResponse
-     */
-    public function getEmbedcardUrl($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->getEmbedcardUrlEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 嵌入式保险服务卡片url链接获取
-     * Summary: 嵌入式保险服务卡片url链接获取.
-     *
-     * @param GetEmbedcardUrlRequest $request
-     * @param string[]               $headers
-     * @param RuntimeOptions         $runtime
-     *
-     * @return GetEmbedcardUrlResponse
-     */
-    public function getEmbedcardUrlEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return GetEmbedcardUrlResponse::fromMap($this->doRequest('1.0', 'antcloud.insurance.embedcard.url.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 嵌入式保险服务打款成功出单接口
-     * Summary: 嵌入式保险服务打款成功出单接口.
-     *
-     * @param IssueEmbedcardPaysucRequest $request
-     *
-     * @return IssueEmbedcardPaysucResponse
-     */
-    public function issueEmbedcardPaysuc($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->issueEmbedcardPaysucEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 嵌入式保险服务打款成功出单接口
-     * Summary: 嵌入式保险服务打款成功出单接口.
-     *
-     * @param IssueEmbedcardPaysucRequest $request
-     * @param string[]                    $headers
-     * @param RuntimeOptions              $runtime
-     *
-     * @return IssueEmbedcardPaysucResponse
-     */
-    public function issueEmbedcardPaysucEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return IssueEmbedcardPaysucResponse::fromMap($this->doRequest('1.0', 'antcloud.insurance.embedcard.paysuc.issue', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -487,39 +423,6 @@ class Client
     }
 
     /**
-     * Description: 根据保单号查询保单附件，并返回一个有效期为7天的ossurl
-     * Summary: 保险科技保单附件查询接口.
-     *
-     * @param QueryPolicyFileRequest $request
-     *
-     * @return QueryPolicyFileResponse
-     */
-    public function queryPolicyFile($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->queryPolicyFileEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 根据保单号查询保单附件，并返回一个有效期为7天的ossurl
-     * Summary: 保险科技保单附件查询接口.
-     *
-     * @param QueryPolicyFileRequest $request
-     * @param string[]               $headers
-     * @param RuntimeOptions         $runtime
-     *
-     * @return QueryPolicyFileResponse
-     */
-    public function queryPolicyFileEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return QueryPolicyFileResponse::fromMap($this->doRequest('1.0', 'antcloud.insurance.policy.file.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
      * Description: 报价接口同步接口
      * Summary: 报价接口同步接口.
      *
@@ -616,6 +519,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryUnderwritingResponse::fromMap($this->doRequest('1.0', 'antcloud.insurance.underwriting.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 根据保单号查询保单附件，并返回一个有效期为7天的ossurl
+     * Summary: 保险科技保单附件查询接口.
+     *
+     * @param QueryPolicyFileRequest $request
+     *
+     * @return QueryPolicyFileResponse
+     */
+    public function queryPolicyFile($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryPolicyFileEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 根据保单号查询保单附件，并返回一个有效期为7天的ossurl
+     * Summary: 保险科技保单附件查询接口.
+     *
+     * @param QueryPolicyFileRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return QueryPolicyFileResponse
+     */
+    public function queryPolicyFileEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryPolicyFileResponse::fromMap($this->doRequest('1.0', 'antcloud.insurance.policy.file.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -949,6 +885,39 @@ class Client
     }
 
     /**
+     * Description: 投保测试接口
+     * Summary: 投保测试接口.
+     *
+     * @param ApplyInsureTestRequest $request
+     *
+     * @return ApplyInsureTestResponse
+     */
+    public function applyInsureTest($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyInsureTestEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 投保测试接口
+     * Summary: 投保测试接口.
+     *
+     * @param ApplyInsureTestRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return ApplyInsureTestResponse
+     */
+    public function applyInsureTestEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyInsureTestResponse::fromMap($this->doRequest('1.0', 'antcloud.insurance.insure.test.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 本接口用于调查报案数据的提交
      * Summary: 调查报案提交接口.
      *
@@ -1012,6 +981,72 @@ class Client
         Utils::validateModel($request);
 
         return QueryReverseCommissionResponse::fromMap($this->doRequest('1.0', 'antcloud.insurance.reverse.commission.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 嵌入式保险服务卡片url链接获取
+     * Summary: 嵌入式保险服务卡片url链接获取.
+     *
+     * @param GetEmbedcardUrlRequest $request
+     *
+     * @return GetEmbedcardUrlResponse
+     */
+    public function getEmbedcardUrl($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getEmbedcardUrlEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 嵌入式保险服务卡片url链接获取
+     * Summary: 嵌入式保险服务卡片url链接获取.
+     *
+     * @param GetEmbedcardUrlRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return GetEmbedcardUrlResponse
+     */
+    public function getEmbedcardUrlEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetEmbedcardUrlResponse::fromMap($this->doRequest('1.0', 'antcloud.insurance.embedcard.url.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 嵌入式保险服务打款成功出单接口
+     * Summary: 嵌入式保险服务打款成功出单接口.
+     *
+     * @param IssueEmbedcardPaysucRequest $request
+     *
+     * @return IssueEmbedcardPaysucResponse
+     */
+    public function issueEmbedcardPaysuc($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->issueEmbedcardPaysucEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 嵌入式保险服务打款成功出单接口
+     * Summary: 嵌入式保险服务打款成功出单接口.
+     *
+     * @param IssueEmbedcardPaysucRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return IssueEmbedcardPaysucResponse
+     */
+    public function issueEmbedcardPaysucEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return IssueEmbedcardPaysucResponse::fromMap($this->doRequest('1.0', 'antcloud.insurance.embedcard.paysuc.issue', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -1510,36 +1545,55 @@ class Client
     }
 
     /**
-     * Description: 商机数量推送接口
-     * Summary: 商机数量接收.
+     * Description: 保险营销文件上传，营销链路中涉及到文件上传，均可使用本接口，根据上传的数据类型做区分
+     * Summary: 保险营销文件上传，营销链路中涉及到文件上传，均可使用本接口，根据上传的数据类型做区分.
      *
-     * @param ReceiveBusinessOpportunitiesRequest $request
+     * @param UploadMktFileRequest $request
      *
-     * @return ReceiveBusinessOpportunitiesResponse
+     * @return UploadMktFileResponse
      */
-    public function receiveBusinessOpportunities($request)
+    public function uploadMktFile($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->receiveBusinessOpportunitiesEx($request, $headers, $runtime);
+        return $this->uploadMktFileEx($request, $headers, $runtime);
     }
 
     /**
-     * Description: 商机数量推送接口
-     * Summary: 商机数量接收.
+     * Description: 保险营销文件上传，营销链路中涉及到文件上传，均可使用本接口，根据上传的数据类型做区分
+     * Summary: 保险营销文件上传，营销链路中涉及到文件上传，均可使用本接口，根据上传的数据类型做区分.
      *
-     * @param ReceiveBusinessOpportunitiesRequest $request
-     * @param string[]                            $headers
-     * @param RuntimeOptions                      $runtime
+     * @param UploadMktFileRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
      *
-     * @return ReceiveBusinessOpportunitiesResponse
+     * @return UploadMktFileResponse
      */
-    public function receiveBusinessOpportunitiesEx($request, $headers, $runtime)
+    public function uploadMktFileEx($request, $headers, $runtime)
     {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'antcloud.insurance.mkt.file.upload',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
+                return new UploadMktFileResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
+        }
         Utils::validateModel($request);
 
-        return ReceiveBusinessOpportunitiesResponse::fromMap($this->doRequest('1.0', 'antcloud.insurance.business.opportunities.receive', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return UploadMktFileResponse::fromMap($this->doRequest('1.0', 'antcloud.insurance.mkt.file.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -1576,55 +1630,36 @@ class Client
     }
 
     /**
-     * Description: 保险营销文件上传，营销链路中涉及到文件上传，均可使用本接口，根据上传的数据类型做区分
-     * Summary: 保险营销文件上传.
+     * Description: 商机数量推送接口
+     * Summary: 商机数量接收.
      *
-     * @param UploadMktFileRequest $request
+     * @param ReceiveBusinessOpportunitiesRequest $request
      *
-     * @return UploadMktFileResponse
+     * @return ReceiveBusinessOpportunitiesResponse
      */
-    public function uploadMktFile($request)
+    public function receiveBusinessOpportunities($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->uploadMktFileEx($request, $headers, $runtime);
+        return $this->receiveBusinessOpportunitiesEx($request, $headers, $runtime);
     }
 
     /**
-     * Description: 保险营销文件上传，营销链路中涉及到文件上传，均可使用本接口，根据上传的数据类型做区分
-     * Summary: 保险营销文件上传.
+     * Description: 商机数量推送接口
+     * Summary: 商机数量接收.
      *
-     * @param UploadMktFileRequest $request
-     * @param string[]             $headers
-     * @param RuntimeOptions       $runtime
+     * @param ReceiveBusinessOpportunitiesRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
      *
-     * @return UploadMktFileResponse
+     * @return ReceiveBusinessOpportunitiesResponse
      */
-    public function uploadMktFileEx($request, $headers, $runtime)
+    public function receiveBusinessOpportunitiesEx($request, $headers, $runtime)
     {
-        if (!Utils::isUnset($request->fileObject)) {
-            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
-                'authToken' => $request->authToken,
-                'apiCode'   => 'antcloud.insurance.mkt.file.upload',
-                'fileName'  => $request->fileObjectName,
-            ]);
-            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
-            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
-                return new UploadMktFileResponse([
-                    'reqMsgId'   => $uploadResp->reqMsgId,
-                    'resultCode' => $uploadResp->resultCode,
-                    'resultMsg'  => $uploadResp->resultMsg,
-                ]);
-            }
-            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
-            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
-            $request->fileId     = $uploadResp->fileId;
-            $request->fileObject = null;
-        }
         Utils::validateModel($request);
 
-        return UploadMktFileResponse::fromMap($this->doRequest('1.0', 'antcloud.insurance.mkt.file.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return ReceiveBusinessOpportunitiesResponse::fromMap($this->doRequest('1.0', 'antcloud.insurance.business.opportunities.receive', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

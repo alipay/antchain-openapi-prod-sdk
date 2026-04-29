@@ -26,7 +26,10 @@ class CallbackMktEffectRequest extends Model
      */
     public $projectId;
 
-    // 营销模式
+    // 营销模式，AI_HANGUP_SMS("AI挂短")，
+    // AI_OFFICIAL_ACCOUNT("AI公众号"),
+    // BPO_WECHAT("BPO企微"),
+    // AI_BPO("AI_BPO")
     /**
      * @var string
      */
@@ -103,7 +106,6 @@ class CallbackMktEffectRequest extends Model
         Model::validateRequired('encryptionType', $this->encryptionType, true);
         Model::validateRequired('encryptedUserId', $this->encryptedUserId, true);
         Model::validateRequired('landingVisitId', $this->landingVisitId, true);
-        Model::validateRequired('clickTime', $this->clickTime, true);
         Model::validateRequired('eventTime', $this->eventTime, true);
         Model::validateRequired('nodeType', $this->nodeType, true);
         Model::validateMaxLength('requestId', $this->requestId, 128);
