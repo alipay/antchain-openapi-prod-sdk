@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.2.1',
+    sdk_version = '1.3.0',
     _prod_code = 'AGORAX',
     _prod_channel = 'default'
   };
@@ -3702,6 +3702,14 @@ model OrderList {
   bizId?: string(name='biz_id', example='b5lsNpazWYoCo5'),
   // 奖品id
   prizeId?: string(name='prize_id', example='110000199001011234'),
+  // 触发时间
+  sendTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='send_time', example='2026-04-29 10:19:23'),
+  // 发券结果
+  sendStatus?: string(name='send_status', example='SUCCESS'),
+  // 错误码
+  errorCode?: string(name='error_code', example='10000911'),
+  // 错误描述
+  errorMsg?: string(name='error_msg', example='[10000911]指定奖品指定金额决策参数检查异常'),
 }
 
 model QueryBaasPromotionActivityRequest = {
@@ -3959,13 +3967,13 @@ model QueryPromotionCouponRequest = {
   // appId
   appId: string(name='app_id'),
   // 开始日期
-  startDate?: string(name='start_date'),
+  startDate: string(name='start_date'),
   // 结束日期
-  endDate?: string(name='end_date'),
+  endDate: string(name='end_date'),
   // 页码，默认 1，最小值 1
-  pageNum?: long(name='page_num'),
+  pageNum: long(name='page_num'),
   // 每页数量，默认 20，范围 1~100
-  pageSize?: long(name='page_size'),
+  pageSize: long(name='page_size'),
 }
 
 model QueryPromotionCouponResponse = {
