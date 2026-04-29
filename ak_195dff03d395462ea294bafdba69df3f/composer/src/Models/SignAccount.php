@@ -48,6 +48,22 @@ class SignAccount extends Model
      */
     public $userType;
 
+    // 用户邮箱（userType=PERSON必传，需要RSA加密）
+    /**
+     * @example RSA(用户邮箱)
+     *
+     * @var string
+     */
+    public $userEmail;
+
+    // 用户手机号（userType=PERSON必传，需要RSA加密）
+    /**
+     * @example RSA(用户手机号)
+     *
+     * @var string
+     */
+    public $userMobile;
+
     // 签署标签（对应模版配置中的tag）
     /**
      * @example jiafang
@@ -69,6 +85,8 @@ class SignAccount extends Model
         'userName'     => 'user_name',
         'userIdNumber' => 'user_id_number',
         'userType'     => 'user_type',
+        'userEmail'    => 'user_email',
+        'userMobile'   => 'user_mobile',
         'tag'          => 'tag',
         'getSignUrl'   => 'get_sign_url',
     ];
@@ -77,7 +95,6 @@ class SignAccount extends Model
     {
         Model::validateRequired('userType', $this->userType, true);
         Model::validateRequired('tag', $this->tag, true);
-        Model::validateRequired('getSignUrl', $this->getSignUrl, true);
     }
 
     public function toMap()
@@ -97,6 +114,12 @@ class SignAccount extends Model
         }
         if (null !== $this->userType) {
             $res['user_type'] = $this->userType;
+        }
+        if (null !== $this->userEmail) {
+            $res['user_email'] = $this->userEmail;
+        }
+        if (null !== $this->userMobile) {
+            $res['user_mobile'] = $this->userMobile;
         }
         if (null !== $this->tag) {
             $res['tag'] = $this->tag;
@@ -130,6 +153,12 @@ class SignAccount extends Model
         }
         if (isset($map['user_type'])) {
             $model->userType = $map['user_type'];
+        }
+        if (isset($map['user_email'])) {
+            $model->userEmail = $map['user_email'];
+        }
+        if (isset($map['user_mobile'])) {
+            $model->userMobile = $map['user_mobile'];
         }
         if (isset($map['tag'])) {
             $model->tag = $map['tag'];

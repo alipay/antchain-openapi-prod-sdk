@@ -14,6 +14,12 @@ class CreateAntcloudGatewayxFileUploadRequest extends Model
      */
     public $authToken;
 
+    // 产品方的api归属集群，即productInstanceId
+    /**
+     * @var string
+     */
+    public $apiCluster;
+
     // 上传文件作用的openapi method
     /**
      * @var string
@@ -43,20 +49,14 @@ class CreateAntcloudGatewayxFileUploadRequest extends Model
      * @var string
      */
     public $mimeType;
-
-    // 产品方的api归属集群，即productInstanceId
-    /**
-     * @var string
-     */
-    public $apiCluster;
     protected $_name = [
         'authToken'    => 'auth_token',
+        'apiCluster'   => 'api_cluster',
         'apiCode'      => 'api_code',
         'fileLabel'    => 'file_label',
         'fileMetadata' => 'file_metadata',
         'fileName'     => 'file_name',
         'mimeType'     => 'mime_type',
-        'apiCluster'   => 'api_cluster',
     ];
 
     public function validate()
@@ -73,6 +73,9 @@ class CreateAntcloudGatewayxFileUploadRequest extends Model
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
         }
+        if (null !== $this->apiCluster) {
+            $res['api_cluster'] = $this->apiCluster;
+        }
         if (null !== $this->apiCode) {
             $res['api_code'] = $this->apiCode;
         }
@@ -87,9 +90,6 @@ class CreateAntcloudGatewayxFileUploadRequest extends Model
         }
         if (null !== $this->mimeType) {
             $res['mime_type'] = $this->mimeType;
-        }
-        if (null !== $this->apiCluster) {
-            $res['api_cluster'] = $this->apiCluster;
         }
 
         return $res;
@@ -106,6 +106,9 @@ class CreateAntcloudGatewayxFileUploadRequest extends Model
         if (isset($map['auth_token'])) {
             $model->authToken = $map['auth_token'];
         }
+        if (isset($map['api_cluster'])) {
+            $model->apiCluster = $map['api_cluster'];
+        }
         if (isset($map['api_code'])) {
             $model->apiCode = $map['api_code'];
         }
@@ -120,9 +123,6 @@ class CreateAntcloudGatewayxFileUploadRequest extends Model
         }
         if (isset($map['mime_type'])) {
             $model->mimeType = $map['mime_type'];
-        }
-        if (isset($map['api_cluster'])) {
-            $model->apiCluster = $map['api_cluster'];
         }
 
         return $model;

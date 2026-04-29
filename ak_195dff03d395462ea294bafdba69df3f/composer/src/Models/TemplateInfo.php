@@ -31,10 +31,19 @@ class TemplateInfo extends Model
      * @var string
      */
     public $templateArgs;
+
+    // 模板所属商户id
+    /**
+     * @example 91310101MA1FPCXA3G
+     *
+     * @var string
+     */
+    public $merchantId;
     protected $_name = [
         'templateId'      => 'template_id',
         'templateVersion' => 'template_version',
         'templateArgs'    => 'template_args',
+        'merchantId'      => 'merchant_id',
     ];
 
     public function validate()
@@ -53,6 +62,9 @@ class TemplateInfo extends Model
         }
         if (null !== $this->templateArgs) {
             $res['template_args'] = $this->templateArgs;
+        }
+        if (null !== $this->merchantId) {
+            $res['merchant_id'] = $this->merchantId;
         }
 
         return $res;
@@ -74,6 +86,9 @@ class TemplateInfo extends Model
         }
         if (isset($map['template_args'])) {
             $model->templateArgs = $map['template_args'];
+        }
+        if (isset($map['merchant_id'])) {
+            $model->merchantId = $map['merchant_id'];
         }
 
         return $model;

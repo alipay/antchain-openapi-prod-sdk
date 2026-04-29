@@ -376,7 +376,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.7.5',
+                    'sdk_version'      => '1.7.6',
                     '_prod_code'       => 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel'    => 'saas',
                 ];
@@ -3627,8 +3627,8 @@ class Client
     }
 
     /**
-     * Description: 订单信息同步
-     * Summary: 订单信息同步.
+     * Description: promo订单信息同步
+     * Summary: promo订单信息同步.
      *
      * @param SyncAntchainAtoTradePromoorderinfoRequest $request
      *
@@ -3643,8 +3643,8 @@ class Client
     }
 
     /**
-     * Description: 订单信息同步
-     * Summary: 订单信息同步.
+     * Description: promo订单信息同步
+     * Summary: promo订单信息同步.
      *
      * @param SyncAntchainAtoTradePromoorderinfoRequest $request
      * @param string[]                                  $headers

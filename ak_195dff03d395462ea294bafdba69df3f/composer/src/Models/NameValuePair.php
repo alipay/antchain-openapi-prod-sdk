@@ -6,7 +6,7 @@ namespace AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class XNameValuePair extends Model
+class NameValuePair extends Model
 {
     // 键名
     /**
@@ -50,7 +50,7 @@ class XNameValuePair extends Model
     /**
      * @param array $map
      *
-     * @return XNameValuePair
+     * @return NameValuePair
      */
     public static function fromMap($map = [])
     {
