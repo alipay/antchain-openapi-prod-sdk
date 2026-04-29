@@ -9282,12 +9282,24 @@ export class OrderList extends $tea.Model {
   bizId?: string;
   // 奖品id
   prizeId?: string;
+  // 触发时间
+  sendTime?: string;
+  // 发券结果
+  sendStatus?: string;
+  // 错误码
+  errorCode?: string;
+  // 错误描述
+  errorMsg?: string;
   static names(): { [key: string]: string } {
     return {
       activityId: 'activity_id',
       id: 'id',
       bizId: 'biz_id',
       prizeId: 'prize_id',
+      sendTime: 'send_time',
+      sendStatus: 'send_status',
+      errorCode: 'error_code',
+      errorMsg: 'error_msg',
     };
   }
 
@@ -9297,6 +9309,10 @@ export class OrderList extends $tea.Model {
       id: 'string',
       bizId: 'string',
       prizeId: 'string',
+      sendTime: 'string',
+      sendStatus: 'string',
+      errorCode: 'string',
+      errorMsg: 'string',
     };
   }
 
@@ -9719,13 +9735,13 @@ export class QueryPromotionCouponRequest extends $tea.Model {
   // appId
   appId: string;
   // 开始日期
-  startDate?: string;
+  startDate: string;
   // 结束日期
-  endDate?: string;
+  endDate: string;
   // 页码，默认 1，最小值 1
-  pageNum?: number;
+  pageNum: number;
   // 每页数量，默认 20，范围 1~100
-  pageSize?: number;
+  pageSize: number;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -9916,7 +9932,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.2.1",
+          sdk_version: "1.3.0",
           _prod_code: "AGORAX",
           _prod_channel: "default",
         };
