@@ -24768,12 +24768,8 @@ type QueryElectrocarDeviceinfosRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// trust_product_key
-	TrustProductKey *string `json:"trust_product_key,omitempty" xml:"trust_product_key,omitempty" require:"true"`
-	// 页码
-	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty"`
-	// 页数
-	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// tuid
+	Tuid *string `json:"tuid,omitempty" xml:"tuid,omitempty" require:"true"`
 }
 
 func (s QueryElectrocarDeviceinfosRequest) String() string {
@@ -24794,18 +24790,8 @@ func (s *QueryElectrocarDeviceinfosRequest) SetProductInstanceId(v string) *Quer
 	return s
 }
 
-func (s *QueryElectrocarDeviceinfosRequest) SetTrustProductKey(v string) *QueryElectrocarDeviceinfosRequest {
-	s.TrustProductKey = &v
-	return s
-}
-
-func (s *QueryElectrocarDeviceinfosRequest) SetPageNum(v int64) *QueryElectrocarDeviceinfosRequest {
-	s.PageNum = &v
-	return s
-}
-
-func (s *QueryElectrocarDeviceinfosRequest) SetPageSize(v int64) *QueryElectrocarDeviceinfosRequest {
-	s.PageSize = &v
+func (s *QueryElectrocarDeviceinfosRequest) SetTuid(v string) *QueryElectrocarDeviceinfosRequest {
+	s.Tuid = &v
 	return s
 }
 
@@ -24816,18 +24802,30 @@ type QueryElectrocarDeviceinfosResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// success
-	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
-	// 页码
-	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty"`
-	// 页数
-	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
-	// 总页数
-	TotalPages *int64 `json:"total_pages,omitempty" xml:"total_pages,omitempty"`
-	// 总条数
-	TotalSize *int64 `json:"total_size,omitempty" xml:"total_size,omitempty"`
-	// 设备列表
-	DeviceList []*DeviceInfos `json:"device_list,omitempty" xml:"device_list,omitempty" type:"Repeated"`
+	// trust_product_key
+	TrustProductKey *string `json:"trust_product_key,omitempty" xml:"trust_product_key,omitempty"`
+	// product_key
+	ProductKey *string `json:"product_key,omitempty" xml:"product_key,omitempty"`
+	// trust_device_id
+	TrustDeviceId *string `json:"trust_device_id,omitempty" xml:"trust_device_id,omitempty"`
+	// device_name
+	DeviceName *string `json:"device_name,omitempty" xml:"device_name,omitempty"`
+	// nick_name
+	NickName *string `json:"nick_name,omitempty" xml:"nick_name,omitempty"`
+	// device_status
+	DeviceStatus *string `json:"device_status,omitempty" xml:"device_status,omitempty"`
+	// device_register_time
+	DeviceRegisterTime *string `json:"device_register_time,omitempty" xml:"device_register_time,omitempty"`
+	// device_active_time
+	DeviceActiveTime *string `json:"device_active_time,omitempty" xml:"device_active_time,omitempty"`
+	// last_online_time
+	LastOnlineTime *string `json:"last_online_time,omitempty" xml:"last_online_time,omitempty"`
+	// last_offline_time
+	LastOfflineTime *string `json:"last_offline_time,omitempty" xml:"last_offline_time,omitempty"`
+	// last_communication_time
+	LastCommunicationTime *string `json:"last_communication_time,omitempty" xml:"last_communication_time,omitempty"`
+	// device_ota_version
+	DeviceOtaVersion *string `json:"device_ota_version,omitempty" xml:"device_ota_version,omitempty"`
 }
 
 func (s QueryElectrocarDeviceinfosResponse) String() string {
@@ -24853,33 +24851,63 @@ func (s *QueryElectrocarDeviceinfosResponse) SetResultMsg(v string) *QueryElectr
 	return s
 }
 
-func (s *QueryElectrocarDeviceinfosResponse) SetSuccess(v bool) *QueryElectrocarDeviceinfosResponse {
-	s.Success = &v
+func (s *QueryElectrocarDeviceinfosResponse) SetTrustProductKey(v string) *QueryElectrocarDeviceinfosResponse {
+	s.TrustProductKey = &v
 	return s
 }
 
-func (s *QueryElectrocarDeviceinfosResponse) SetPageNum(v int64) *QueryElectrocarDeviceinfosResponse {
-	s.PageNum = &v
+func (s *QueryElectrocarDeviceinfosResponse) SetProductKey(v string) *QueryElectrocarDeviceinfosResponse {
+	s.ProductKey = &v
 	return s
 }
 
-func (s *QueryElectrocarDeviceinfosResponse) SetPageSize(v int64) *QueryElectrocarDeviceinfosResponse {
-	s.PageSize = &v
+func (s *QueryElectrocarDeviceinfosResponse) SetTrustDeviceId(v string) *QueryElectrocarDeviceinfosResponse {
+	s.TrustDeviceId = &v
 	return s
 }
 
-func (s *QueryElectrocarDeviceinfosResponse) SetTotalPages(v int64) *QueryElectrocarDeviceinfosResponse {
-	s.TotalPages = &v
+func (s *QueryElectrocarDeviceinfosResponse) SetDeviceName(v string) *QueryElectrocarDeviceinfosResponse {
+	s.DeviceName = &v
 	return s
 }
 
-func (s *QueryElectrocarDeviceinfosResponse) SetTotalSize(v int64) *QueryElectrocarDeviceinfosResponse {
-	s.TotalSize = &v
+func (s *QueryElectrocarDeviceinfosResponse) SetNickName(v string) *QueryElectrocarDeviceinfosResponse {
+	s.NickName = &v
 	return s
 }
 
-func (s *QueryElectrocarDeviceinfosResponse) SetDeviceList(v []*DeviceInfos) *QueryElectrocarDeviceinfosResponse {
-	s.DeviceList = v
+func (s *QueryElectrocarDeviceinfosResponse) SetDeviceStatus(v string) *QueryElectrocarDeviceinfosResponse {
+	s.DeviceStatus = &v
+	return s
+}
+
+func (s *QueryElectrocarDeviceinfosResponse) SetDeviceRegisterTime(v string) *QueryElectrocarDeviceinfosResponse {
+	s.DeviceRegisterTime = &v
+	return s
+}
+
+func (s *QueryElectrocarDeviceinfosResponse) SetDeviceActiveTime(v string) *QueryElectrocarDeviceinfosResponse {
+	s.DeviceActiveTime = &v
+	return s
+}
+
+func (s *QueryElectrocarDeviceinfosResponse) SetLastOnlineTime(v string) *QueryElectrocarDeviceinfosResponse {
+	s.LastOnlineTime = &v
+	return s
+}
+
+func (s *QueryElectrocarDeviceinfosResponse) SetLastOfflineTime(v string) *QueryElectrocarDeviceinfosResponse {
+	s.LastOfflineTime = &v
+	return s
+}
+
+func (s *QueryElectrocarDeviceinfosResponse) SetLastCommunicationTime(v string) *QueryElectrocarDeviceinfosResponse {
+	s.LastCommunicationTime = &v
+	return s
+}
+
+func (s *QueryElectrocarDeviceinfosResponse) SetDeviceOtaVersion(v string) *QueryElectrocarDeviceinfosResponse {
+	s.DeviceOtaVersion = &v
 	return s
 }
 
@@ -25293,6 +25321,132 @@ func (s *QueryElectrocarBatchpubtasksResponse) SetTotalCount(v int64) *QueryElec
 
 func (s *QueryElectrocarBatchpubtasksResponse) SetSuccess(v bool) *QueryElectrocarBatchpubtasksResponse {
 	s.Success = &v
+	return s
+}
+
+type QueryElectrocarDeviceinfospageRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// trust_product_key
+	TrustProductKey *string `json:"trust_product_key,omitempty" xml:"trust_product_key,omitempty" require:"true"`
+	// tuid
+	Tuid *string `json:"tuid,omitempty" xml:"tuid,omitempty"`
+	// page_num
+	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty"`
+	// page_size
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+}
+
+func (s QueryElectrocarDeviceinfospageRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryElectrocarDeviceinfospageRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryElectrocarDeviceinfospageRequest) SetAuthToken(v string) *QueryElectrocarDeviceinfospageRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryElectrocarDeviceinfospageRequest) SetProductInstanceId(v string) *QueryElectrocarDeviceinfospageRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryElectrocarDeviceinfospageRequest) SetTrustProductKey(v string) *QueryElectrocarDeviceinfospageRequest {
+	s.TrustProductKey = &v
+	return s
+}
+
+func (s *QueryElectrocarDeviceinfospageRequest) SetTuid(v string) *QueryElectrocarDeviceinfospageRequest {
+	s.Tuid = &v
+	return s
+}
+
+func (s *QueryElectrocarDeviceinfospageRequest) SetPageNum(v int64) *QueryElectrocarDeviceinfospageRequest {
+	s.PageNum = &v
+	return s
+}
+
+func (s *QueryElectrocarDeviceinfospageRequest) SetPageSize(v int64) *QueryElectrocarDeviceinfospageRequest {
+	s.PageSize = &v
+	return s
+}
+
+type QueryElectrocarDeviceinfospageResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// success
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// page_num
+	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty"`
+	// page_size
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// total_pages
+	TotalPages *int64 `json:"total_pages,omitempty" xml:"total_pages,omitempty"`
+	// total_size
+	TotalSize *int64 `json:"total_size,omitempty" xml:"total_size,omitempty"`
+	// device_list
+	DeviceList []*DeviceInfos `json:"device_list,omitempty" xml:"device_list,omitempty" type:"Repeated"`
+}
+
+func (s QueryElectrocarDeviceinfospageResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryElectrocarDeviceinfospageResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryElectrocarDeviceinfospageResponse) SetReqMsgId(v string) *QueryElectrocarDeviceinfospageResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryElectrocarDeviceinfospageResponse) SetResultCode(v string) *QueryElectrocarDeviceinfospageResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryElectrocarDeviceinfospageResponse) SetResultMsg(v string) *QueryElectrocarDeviceinfospageResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryElectrocarDeviceinfospageResponse) SetSuccess(v bool) *QueryElectrocarDeviceinfospageResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *QueryElectrocarDeviceinfospageResponse) SetPageNum(v int64) *QueryElectrocarDeviceinfospageResponse {
+	s.PageNum = &v
+	return s
+}
+
+func (s *QueryElectrocarDeviceinfospageResponse) SetPageSize(v int64) *QueryElectrocarDeviceinfospageResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *QueryElectrocarDeviceinfospageResponse) SetTotalPages(v int64) *QueryElectrocarDeviceinfospageResponse {
+	s.TotalPages = &v
+	return s
+}
+
+func (s *QueryElectrocarDeviceinfospageResponse) SetTotalSize(v int64) *QueryElectrocarDeviceinfospageResponse {
+	s.TotalSize = &v
+	return s
+}
+
+func (s *QueryElectrocarDeviceinfospageResponse) SetDeviceList(v []*DeviceInfos) *QueryElectrocarDeviceinfospageResponse {
+	s.DeviceList = v
 	return s
 }
 
@@ -39831,7 +39985,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.14.1"),
+				"sdk_version":      tea.String("1.15.0"),
 				"_prod_code":       tea.String("BOT"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -45110,6 +45264,40 @@ func (client *Client) QueryElectrocarBatchpubtasksEx(request *QueryElectrocarBat
 	}
 	_result = &QueryElectrocarBatchpubtasksResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.electrocar.batchpubtasks.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 设备信息分页
+ * Summary: 设备信息分页
+ */
+func (client *Client) QueryElectrocarDeviceinfospage(request *QueryElectrocarDeviceinfospageRequest) (_result *QueryElectrocarDeviceinfospageResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryElectrocarDeviceinfospageResponse{}
+	_body, _err := client.QueryElectrocarDeviceinfospageEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 设备信息分页
+ * Summary: 设备信息分页
+ */
+func (client *Client) QueryElectrocarDeviceinfospageEx(request *QueryElectrocarDeviceinfospageRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryElectrocarDeviceinfospageResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryElectrocarDeviceinfospageResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.electrocar.deviceinfospage.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
