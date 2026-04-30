@@ -6885,16 +6885,13 @@ export class AddFinanceEmissionResponse extends $tea.Model {
   // 异常信息的文本描述
   resultMsg?: string;
   // 碳排放量
-  emissionAmount?: string;
-  // 订单号
-  orderNo?: string;
+  result?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      emissionAmount: 'emission_amount',
-      orderNo: 'order_no',
+      result: 'result',
     };
   }
 
@@ -6903,8 +6900,7 @@ export class AddFinanceEmissionResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      emissionAmount: 'string',
-      orderNo: 'string',
+      result: 'string',
     };
   }
 
@@ -7268,22 +7264,31 @@ export class UpdateFinanceReportRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 报告单号
-  reportNo: string;
   // 银行碳账号
   enterpriseNo: string;
   // 报告盖章人
   reportSinger: string;
   // 可以直接公网可以下载的oss地址
   reportOssUrl: string;
+  // 社会统一信用参数
+  companyId: string;
+  // 是否盖章
+  isSeal: boolean;
+  // 报告年份
+  reportYear: string;
+  // 基准年份
+  baseYear: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      reportNo: 'report_no',
       enterpriseNo: 'enterprise_no',
       reportSinger: 'report_singer',
       reportOssUrl: 'report_oss_url',
+      companyId: 'company_id',
+      isSeal: 'is_seal',
+      reportYear: 'report_year',
+      baseYear: 'base_year',
     };
   }
 
@@ -7291,10 +7296,13 @@ export class UpdateFinanceReportRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      reportNo: 'string',
       enterpriseNo: 'string',
       reportSinger: 'string',
       reportOssUrl: 'string',
+      companyId: 'string',
+      isSeal: 'boolean',
+      reportYear: 'string',
+      baseYear: 'string',
     };
   }
 
@@ -7613,7 +7621,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "2.11.4",
+          sdk_version: "2.11.7",
           _prod_code: "STLR",
           _prod_channel: "undefined",
         };
@@ -9040,7 +9048,7 @@ export default class Client {
 
   /**
    * Description: 企业或者项目更新
-   * Summary: 企业更新
+   * Summary: 企业或者项目更新
    */
   async updateFinanceCompany(request: UpdateFinanceCompanyRequest): Promise<UpdateFinanceCompanyResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -9050,7 +9058,7 @@ export default class Client {
 
   /**
    * Description: 企业或者项目更新
-   * Summary: 企业更新
+   * Summary: 企业或者项目更新
    */
   async updateFinanceCompanyEx(request: UpdateFinanceCompanyRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdateFinanceCompanyResponse> {
     Util.validateModel(request);
@@ -9059,7 +9067,7 @@ export default class Client {
 
   /**
    * Description: 删除企业或者项目
-   * Summary: 删除企业
+   * Summary: 删除企业或者项目
    */
   async deleteFinanceCompany(request: DeleteFinanceCompanyRequest): Promise<DeleteFinanceCompanyResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -9069,7 +9077,7 @@ export default class Client {
 
   /**
    * Description: 删除企业或者项目
-   * Summary: 删除企业
+   * Summary: 删除企业或者项目
    */
   async deleteFinanceCompanyEx(request: DeleteFinanceCompanyRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DeleteFinanceCompanyResponse> {
     Util.validateModel(request);
