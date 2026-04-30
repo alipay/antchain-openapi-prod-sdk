@@ -8965,9 +8965,7 @@ type AddFinanceEmissionResponse struct {
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 碳排放量
-	EmissionAmount *string `json:"emission_amount,omitempty" xml:"emission_amount,omitempty"`
-	// 订单号
-	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty"`
+	Result *string `json:"result,omitempty" xml:"result,omitempty"`
 }
 
 func (s AddFinanceEmissionResponse) String() string {
@@ -8993,13 +8991,8 @@ func (s *AddFinanceEmissionResponse) SetResultMsg(v string) *AddFinanceEmissionR
 	return s
 }
 
-func (s *AddFinanceEmissionResponse) SetEmissionAmount(v string) *AddFinanceEmissionResponse {
-	s.EmissionAmount = &v
-	return s
-}
-
-func (s *AddFinanceEmissionResponse) SetOrderNo(v string) *AddFinanceEmissionResponse {
-	s.OrderNo = &v
+func (s *AddFinanceEmissionResponse) SetResult(v string) *AddFinanceEmissionResponse {
+	s.Result = &v
 	return s
 }
 
@@ -9455,14 +9448,20 @@ type UpdateFinanceReportRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 报告单号
-	ReportNo *string `json:"report_no,omitempty" xml:"report_no,omitempty" require:"true"`
 	// 银行碳账号
 	EnterpriseNo *string `json:"enterprise_no,omitempty" xml:"enterprise_no,omitempty" require:"true"`
 	// 报告盖章人
 	ReportSinger *string `json:"report_singer,omitempty" xml:"report_singer,omitempty" require:"true"`
 	// 可以直接公网可以下载的oss地址
 	ReportOssUrl *string `json:"report_oss_url,omitempty" xml:"report_oss_url,omitempty" require:"true"`
+	// 社会统一信用参数
+	CompanyId *string `json:"company_id,omitempty" xml:"company_id,omitempty" require:"true"`
+	// 是否盖章
+	IsSeal *bool `json:"is_seal,omitempty" xml:"is_seal,omitempty" require:"true"`
+	// 报告年份
+	ReportYear *string `json:"report_year,omitempty" xml:"report_year,omitempty" require:"true"`
+	// 基准年份
+	BaseYear *string `json:"base_year,omitempty" xml:"base_year,omitempty" require:"true"`
 }
 
 func (s UpdateFinanceReportRequest) String() string {
@@ -9483,11 +9482,6 @@ func (s *UpdateFinanceReportRequest) SetProductInstanceId(v string) *UpdateFinan
 	return s
 }
 
-func (s *UpdateFinanceReportRequest) SetReportNo(v string) *UpdateFinanceReportRequest {
-	s.ReportNo = &v
-	return s
-}
-
 func (s *UpdateFinanceReportRequest) SetEnterpriseNo(v string) *UpdateFinanceReportRequest {
 	s.EnterpriseNo = &v
 	return s
@@ -9500,6 +9494,26 @@ func (s *UpdateFinanceReportRequest) SetReportSinger(v string) *UpdateFinanceRep
 
 func (s *UpdateFinanceReportRequest) SetReportOssUrl(v string) *UpdateFinanceReportRequest {
 	s.ReportOssUrl = &v
+	return s
+}
+
+func (s *UpdateFinanceReportRequest) SetCompanyId(v string) *UpdateFinanceReportRequest {
+	s.CompanyId = &v
+	return s
+}
+
+func (s *UpdateFinanceReportRequest) SetIsSeal(v bool) *UpdateFinanceReportRequest {
+	s.IsSeal = &v
+	return s
+}
+
+func (s *UpdateFinanceReportRequest) SetReportYear(v string) *UpdateFinanceReportRequest {
+	s.ReportYear = &v
+	return s
+}
+
+func (s *UpdateFinanceReportRequest) SetBaseYear(v string) *UpdateFinanceReportRequest {
+	s.BaseYear = &v
 	return s
 }
 
@@ -9884,7 +9898,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("2.11.4"),
+				"sdk_version":      tea.String("2.11.7"),
 				"_prod_code":       tea.String("STLR"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -12380,7 +12394,7 @@ func (client *Client) AddFinanceCompanyEx(request *AddFinanceCompanyRequest, hea
 
 /**
  * Description: 企业或者项目更新
- * Summary: 企业更新
+ * Summary: 企业或者项目更新
  */
 func (client *Client) UpdateFinanceCompany(request *UpdateFinanceCompanyRequest) (_result *UpdateFinanceCompanyResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -12396,7 +12410,7 @@ func (client *Client) UpdateFinanceCompany(request *UpdateFinanceCompanyRequest)
 
 /**
  * Description: 企业或者项目更新
- * Summary: 企业更新
+ * Summary: 企业或者项目更新
  */
 func (client *Client) UpdateFinanceCompanyEx(request *UpdateFinanceCompanyRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UpdateFinanceCompanyResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -12414,7 +12428,7 @@ func (client *Client) UpdateFinanceCompanyEx(request *UpdateFinanceCompanyReques
 
 /**
  * Description: 删除企业或者项目
- * Summary: 删除企业
+ * Summary: 删除企业或者项目
  */
 func (client *Client) DeleteFinanceCompany(request *DeleteFinanceCompanyRequest) (_result *DeleteFinanceCompanyResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -12430,7 +12444,7 @@ func (client *Client) DeleteFinanceCompany(request *DeleteFinanceCompanyRequest)
 
 /**
  * Description: 删除企业或者项目
- * Summary: 删除企业
+ * Summary: 删除企业或者项目
  */
 func (client *Client) DeleteFinanceCompanyEx(request *DeleteFinanceCompanyRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DeleteFinanceCompanyResponse, _err error) {
 	_err = util.ValidateModel(request)
