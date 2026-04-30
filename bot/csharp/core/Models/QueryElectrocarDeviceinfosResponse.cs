@@ -24,35 +24,65 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // success
-        [NameInMap("success")]
+        // trust_product_key
+        [NameInMap("trust_product_key")]
         [Validation(Required=false)]
-        public bool? Success { get; set; }
+        public string TrustProductKey { get; set; }
 
-        // 页码
-        [NameInMap("page_num")]
+        // product_key
+        [NameInMap("product_key")]
         [Validation(Required=false)]
-        public long? PageNum { get; set; }
+        public string ProductKey { get; set; }
 
-        // 页数
-        [NameInMap("page_size")]
+        // trust_device_id
+        [NameInMap("trust_device_id")]
         [Validation(Required=false)]
-        public long? PageSize { get; set; }
+        public string TrustDeviceId { get; set; }
 
-        // 总页数
-        [NameInMap("total_pages")]
+        // device_name
+        [NameInMap("device_name")]
         [Validation(Required=false)]
-        public long? TotalPages { get; set; }
+        public string DeviceName { get; set; }
 
-        // 总条数
-        [NameInMap("total_size")]
+        // nick_name
+        [NameInMap("nick_name")]
         [Validation(Required=false)]
-        public long? TotalSize { get; set; }
+        public string NickName { get; set; }
 
-        // 设备列表
-        [NameInMap("device_list")]
+        // device_status
+        [NameInMap("device_status")]
         [Validation(Required=false)]
-        public List<DeviceInfos> DeviceList { get; set; }
+        public string DeviceStatus { get; set; }
+
+        // device_register_time
+        [NameInMap("device_register_time")]
+        [Validation(Required=false)]
+        public string DeviceRegisterTime { get; set; }
+
+        // device_active_time
+        [NameInMap("device_active_time")]
+        [Validation(Required=false)]
+        public string DeviceActiveTime { get; set; }
+
+        // last_online_time
+        [NameInMap("last_online_time")]
+        [Validation(Required=false)]
+        public string LastOnlineTime { get; set; }
+
+        // last_offline_time
+        [NameInMap("last_offline_time")]
+        [Validation(Required=false)]
+        public string LastOfflineTime { get; set; }
+
+        // last_communication_time
+        [NameInMap("last_communication_time")]
+        [Validation(Required=false)]
+        public string LastCommunicationTime { get; set; }
+
+        // device_ota_version
+        [NameInMap("device_ota_version")]
+        [Validation(Required=false)]
+        public string DeviceOtaVersion { get; set; }
 
     }
 

@@ -137,7 +137,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.14.1"},
+                        {"sdk_version", "1.15.0"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.14.1"},
+                        {"sdk_version", "1.15.0"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -6799,6 +6799,48 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryElectrocarBatchpubtasksResponse>(await DoRequestAsync("1.0", "blockchain.bot.electrocar.batchpubtasks.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 设备信息分页
+         * Summary: 设备信息分页
+         */
+        public QueryElectrocarDeviceinfospageResponse QueryElectrocarDeviceinfospage(QueryElectrocarDeviceinfospageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryElectrocarDeviceinfospageEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 设备信息分页
+         * Summary: 设备信息分页
+         */
+        public async Task<QueryElectrocarDeviceinfospageResponse> QueryElectrocarDeviceinfospageAsync(QueryElectrocarDeviceinfospageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryElectrocarDeviceinfospageExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 设备信息分页
+         * Summary: 设备信息分页
+         */
+        public QueryElectrocarDeviceinfospageResponse QueryElectrocarDeviceinfospageEx(QueryElectrocarDeviceinfospageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryElectrocarDeviceinfospageResponse>(DoRequest("1.0", "blockchain.bot.electrocar.deviceinfospage.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 设备信息分页
+         * Summary: 设备信息分页
+         */
+        public async Task<QueryElectrocarDeviceinfospageResponse> QueryElectrocarDeviceinfospageExAsync(QueryElectrocarDeviceinfospageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryElectrocarDeviceinfospageResponse>(await DoRequestAsync("1.0", "blockchain.bot.electrocar.deviceinfospage.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
