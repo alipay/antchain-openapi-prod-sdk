@@ -401,6 +401,8 @@ use AntChain\BOT\Models\QueryElectrocarBatchpubtasksRequest;
 use AntChain\BOT\Models\QueryElectrocarBatchpubtasksResponse;
 use AntChain\BOT\Models\QueryElectrocarDevicehistorypropertiesRequest;
 use AntChain\BOT\Models\QueryElectrocarDevicehistorypropertiesResponse;
+use AntChain\BOT\Models\QueryElectrocarDeviceinfospageRequest;
+use AntChain\BOT\Models\QueryElectrocarDeviceinfospageResponse;
 use AntChain\BOT\Models\QueryElectrocarDeviceinfosRequest;
 use AntChain\BOT\Models\QueryElectrocarDeviceinfosResponse;
 use AntChain\BOT\Models\QueryElectrocarRealtimedataRequest;
@@ -756,7 +758,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.14.1',
+                    'sdk_version'      => '1.15.0',
                     '_prod_code'       => 'BOT',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -5856,6 +5858,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryElectrocarBatchpubtasksResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.electrocar.batchpubtasks.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 设备信息分页
+     * Summary: 设备信息分页.
+     *
+     * @param QueryElectrocarDeviceinfospageRequest $request
+     *
+     * @return QueryElectrocarDeviceinfospageResponse
+     */
+    public function queryElectrocarDeviceinfospage($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryElectrocarDeviceinfospageEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 设备信息分页
+     * Summary: 设备信息分页.
+     *
+     * @param QueryElectrocarDeviceinfospageRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return QueryElectrocarDeviceinfospageResponse
+     */
+    public function queryElectrocarDeviceinfospageEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryElectrocarDeviceinfospageResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.electrocar.deviceinfospage.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

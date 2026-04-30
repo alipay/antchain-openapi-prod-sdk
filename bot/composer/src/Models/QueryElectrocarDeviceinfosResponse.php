@@ -26,51 +26,93 @@ class QueryElectrocarDeviceinfosResponse extends Model
      */
     public $resultMsg;
 
-    // success
+    // trust_product_key
     /**
-     * @var bool
+     * @var string
      */
-    public $success;
+    public $trustProductKey;
 
-    // 页码
+    // product_key
     /**
-     * @var int
+     * @var string
      */
-    public $pageNum;
+    public $productKey;
 
-    // 页数
+    // trust_device_id
     /**
-     * @var int
+     * @var string
      */
-    public $pageSize;
+    public $trustDeviceId;
 
-    // 总页数
+    // device_name
     /**
-     * @var int
+     * @var string
      */
-    public $totalPages;
+    public $deviceName;
 
-    // 总条数
+    // nick_name
     /**
-     * @var int
+     * @var string
      */
-    public $totalSize;
+    public $nickName;
 
-    // 设备列表
+    // device_status
     /**
-     * @var DeviceInfos[]
+     * @var string
      */
-    public $deviceList;
+    public $deviceStatus;
+
+    // device_register_time
+    /**
+     * @var string
+     */
+    public $deviceRegisterTime;
+
+    // device_active_time
+    /**
+     * @var string
+     */
+    public $deviceActiveTime;
+
+    // last_online_time
+    /**
+     * @var string
+     */
+    public $lastOnlineTime;
+
+    // last_offline_time
+    /**
+     * @var string
+     */
+    public $lastOfflineTime;
+
+    // last_communication_time
+    /**
+     * @var string
+     */
+    public $lastCommunicationTime;
+
+    // device_ota_version
+    /**
+     * @var string
+     */
+    public $deviceOtaVersion;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
-        'success'    => 'success',
-        'pageNum'    => 'page_num',
-        'pageSize'   => 'page_size',
-        'totalPages' => 'total_pages',
-        'totalSize'  => 'total_size',
-        'deviceList' => 'device_list',
+        'reqMsgId'              => 'req_msg_id',
+        'resultCode'            => 'result_code',
+        'resultMsg'             => 'result_msg',
+        'trustProductKey'       => 'trust_product_key',
+        'productKey'            => 'product_key',
+        'trustDeviceId'         => 'trust_device_id',
+        'deviceName'            => 'device_name',
+        'nickName'              => 'nick_name',
+        'deviceStatus'          => 'device_status',
+        'deviceRegisterTime'    => 'device_register_time',
+        'deviceActiveTime'      => 'device_active_time',
+        'lastOnlineTime'        => 'last_online_time',
+        'lastOfflineTime'       => 'last_offline_time',
+        'lastCommunicationTime' => 'last_communication_time',
+        'deviceOtaVersion'      => 'device_ota_version',
     ];
 
     public function validate()
@@ -89,29 +131,41 @@ class QueryElectrocarDeviceinfosResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->success) {
-            $res['success'] = $this->success;
+        if (null !== $this->trustProductKey) {
+            $res['trust_product_key'] = $this->trustProductKey;
         }
-        if (null !== $this->pageNum) {
-            $res['page_num'] = $this->pageNum;
+        if (null !== $this->productKey) {
+            $res['product_key'] = $this->productKey;
         }
-        if (null !== $this->pageSize) {
-            $res['page_size'] = $this->pageSize;
+        if (null !== $this->trustDeviceId) {
+            $res['trust_device_id'] = $this->trustDeviceId;
         }
-        if (null !== $this->totalPages) {
-            $res['total_pages'] = $this->totalPages;
+        if (null !== $this->deviceName) {
+            $res['device_name'] = $this->deviceName;
         }
-        if (null !== $this->totalSize) {
-            $res['total_size'] = $this->totalSize;
+        if (null !== $this->nickName) {
+            $res['nick_name'] = $this->nickName;
         }
-        if (null !== $this->deviceList) {
-            $res['device_list'] = [];
-            if (null !== $this->deviceList && \is_array($this->deviceList)) {
-                $n = 0;
-                foreach ($this->deviceList as $item) {
-                    $res['device_list'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
+        if (null !== $this->deviceStatus) {
+            $res['device_status'] = $this->deviceStatus;
+        }
+        if (null !== $this->deviceRegisterTime) {
+            $res['device_register_time'] = $this->deviceRegisterTime;
+        }
+        if (null !== $this->deviceActiveTime) {
+            $res['device_active_time'] = $this->deviceActiveTime;
+        }
+        if (null !== $this->lastOnlineTime) {
+            $res['last_online_time'] = $this->lastOnlineTime;
+        }
+        if (null !== $this->lastOfflineTime) {
+            $res['last_offline_time'] = $this->lastOfflineTime;
+        }
+        if (null !== $this->lastCommunicationTime) {
+            $res['last_communication_time'] = $this->lastCommunicationTime;
+        }
+        if (null !== $this->deviceOtaVersion) {
+            $res['device_ota_version'] = $this->deviceOtaVersion;
         }
 
         return $res;
@@ -134,29 +188,41 @@ class QueryElectrocarDeviceinfosResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['success'])) {
-            $model->success = $map['success'];
+        if (isset($map['trust_product_key'])) {
+            $model->trustProductKey = $map['trust_product_key'];
         }
-        if (isset($map['page_num'])) {
-            $model->pageNum = $map['page_num'];
+        if (isset($map['product_key'])) {
+            $model->productKey = $map['product_key'];
         }
-        if (isset($map['page_size'])) {
-            $model->pageSize = $map['page_size'];
+        if (isset($map['trust_device_id'])) {
+            $model->trustDeviceId = $map['trust_device_id'];
         }
-        if (isset($map['total_pages'])) {
-            $model->totalPages = $map['total_pages'];
+        if (isset($map['device_name'])) {
+            $model->deviceName = $map['device_name'];
         }
-        if (isset($map['total_size'])) {
-            $model->totalSize = $map['total_size'];
+        if (isset($map['nick_name'])) {
+            $model->nickName = $map['nick_name'];
         }
-        if (isset($map['device_list'])) {
-            if (!empty($map['device_list'])) {
-                $model->deviceList = [];
-                $n                 = 0;
-                foreach ($map['device_list'] as $item) {
-                    $model->deviceList[$n++] = null !== $item ? DeviceInfos::fromMap($item) : $item;
-                }
-            }
+        if (isset($map['device_status'])) {
+            $model->deviceStatus = $map['device_status'];
+        }
+        if (isset($map['device_register_time'])) {
+            $model->deviceRegisterTime = $map['device_register_time'];
+        }
+        if (isset($map['device_active_time'])) {
+            $model->deviceActiveTime = $map['device_active_time'];
+        }
+        if (isset($map['last_online_time'])) {
+            $model->lastOnlineTime = $map['last_online_time'];
+        }
+        if (isset($map['last_offline_time'])) {
+            $model->lastOfflineTime = $map['last_offline_time'];
+        }
+        if (isset($map['last_communication_time'])) {
+            $model->lastCommunicationTime = $map['last_communication_time'];
+        }
+        if (isset($map['device_ota_version'])) {
+            $model->deviceOtaVersion = $map['device_ota_version'];
         }
 
         return $model;
