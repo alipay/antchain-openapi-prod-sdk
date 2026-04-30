@@ -16,6 +16,10 @@ public class QueryTestContentTypetwoRequest extends TeaModel {
     @Validation(required = true)
     public String data;
 
+    // 测试
+    @NameInMap("idcard")
+    public CardInfo idcard;
+
     public static QueryTestContentTypetwoRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryTestContentTypetwoRequest self = new QueryTestContentTypetwoRequest();
         return TeaModel.build(map, self);
@@ -43,6 +47,14 @@ public class QueryTestContentTypetwoRequest extends TeaModel {
     }
     public String getData() {
         return this.data;
+    }
+
+    public QueryTestContentTypetwoRequest setIdcard(CardInfo idcard) {
+        this.idcard = idcard;
+        return this;
+    }
+    public CardInfo getIdcard() {
+        return this.idcard;
     }
 
 }

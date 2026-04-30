@@ -16,6 +16,10 @@ public class QueryLoadtestTimeFiveRequest extends TeaModel {
     @Validation(required = true)
     public String timeout;
 
+    // 2
+    @NameInMap("idcard")
+    public CardInfo idcard;
+
     public static QueryLoadtestTimeFiveRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryLoadtestTimeFiveRequest self = new QueryLoadtestTimeFiveRequest();
         return TeaModel.build(map, self);
@@ -43,6 +47,14 @@ public class QueryLoadtestTimeFiveRequest extends TeaModel {
     }
     public String getTimeout() {
         return this.timeout;
+    }
+
+    public QueryLoadtestTimeFiveRequest setIdcard(CardInfo idcard) {
+        this.idcard = idcard;
+        return this;
+    }
+    public CardInfo getIdcard() {
+        return this.idcard;
     }
 
 }

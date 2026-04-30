@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.demo.models;
 
 import com.aliyun.tea.*;
 
-public class QueryTestTestRequest extends TeaModel {
+public class QueryApiWhiteListRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -11,17 +11,17 @@ public class QueryTestTestRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    //  
-    @NameInMap("acpmpcore")
+    // 查询输入
+    @NameInMap("data")
     @Validation(required = true)
-    public String acpmpcore;
+    public String data;
 
-    public static QueryTestTestRequest build(java.util.Map<String, ?> map) throws Exception {
-        QueryTestTestRequest self = new QueryTestTestRequest();
+    public static QueryApiWhiteListRequest build(java.util.Map<String, ?> map) throws Exception {
+        QueryApiWhiteListRequest self = new QueryApiWhiteListRequest();
         return TeaModel.build(map, self);
     }
 
-    public QueryTestTestRequest setAuthToken(String authToken) {
+    public QueryApiWhiteListRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -29,7 +29,7 @@ public class QueryTestTestRequest extends TeaModel {
         return this.authToken;
     }
 
-    public QueryTestTestRequest setProductInstanceId(String productInstanceId) {
+    public QueryApiWhiteListRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -37,12 +37,12 @@ public class QueryTestTestRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public QueryTestTestRequest setAcpmpcore(String acpmpcore) {
-        this.acpmpcore = acpmpcore;
+    public QueryApiWhiteListRequest setData(String data) {
+        this.data = data;
         return this;
     }
-    public String getAcpmpcore() {
-        return this.acpmpcore;
+    public String getData() {
+        return this.data;
     }
 
 }

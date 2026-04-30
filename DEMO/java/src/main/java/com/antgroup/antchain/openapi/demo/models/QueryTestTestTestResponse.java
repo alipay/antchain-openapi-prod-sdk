@@ -16,6 +16,14 @@ public class QueryTestTestTestResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
+    // 1
+    @NameInMap("stauts")
+    public String stauts;
+
+    // 1
+    @NameInMap("msg")
+    public String msg;
+
     public static QueryTestTestTestResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryTestTestTestResponse self = new QueryTestTestTestResponse();
         return TeaModel.build(map, self);
@@ -43,6 +51,22 @@ public class QueryTestTestTestResponse extends TeaModel {
     }
     public String getResultMsg() {
         return this.resultMsg;
+    }
+
+    public QueryTestTestTestResponse setStauts(String stauts) {
+        this.stauts = stauts;
+        return this;
+    }
+    public String getStauts() {
+        return this.stauts;
+    }
+
+    public QueryTestTestTestResponse setMsg(String msg) {
+        this.msg = msg;
+        return this;
+    }
+    public String getMsg() {
+        return this.msg;
     }
 
 }
