@@ -19,12 +19,6 @@ class UpdateFinanceReportRequest extends Model
      */
     public $productInstanceId;
 
-    // 报告单号
-    /**
-     * @var string
-     */
-    public $reportNo;
-
     // 银行碳账号
     /**
      * @var string
@@ -42,21 +36,51 @@ class UpdateFinanceReportRequest extends Model
      * @var string
      */
     public $reportOssUrl;
+
+    // 社会统一信用参数
+    /**
+     * @var string
+     */
+    public $companyId;
+
+    // 是否盖章
+    /**
+     * @var bool
+     */
+    public $isSeal;
+
+    // 报告年份
+    /**
+     * @var string
+     */
+    public $reportYear;
+
+    // 基准年份
+    /**
+     * @var string
+     */
+    public $baseYear;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'reportNo'          => 'report_no',
         'enterpriseNo'      => 'enterprise_no',
         'reportSinger'      => 'report_singer',
         'reportOssUrl'      => 'report_oss_url',
+        'companyId'         => 'company_id',
+        'isSeal'            => 'is_seal',
+        'reportYear'        => 'report_year',
+        'baseYear'          => 'base_year',
     ];
 
     public function validate()
     {
-        Model::validateRequired('reportNo', $this->reportNo, true);
         Model::validateRequired('enterpriseNo', $this->enterpriseNo, true);
         Model::validateRequired('reportSinger', $this->reportSinger, true);
         Model::validateRequired('reportOssUrl', $this->reportOssUrl, true);
+        Model::validateRequired('companyId', $this->companyId, true);
+        Model::validateRequired('isSeal', $this->isSeal, true);
+        Model::validateRequired('reportYear', $this->reportYear, true);
+        Model::validateRequired('baseYear', $this->baseYear, true);
     }
 
     public function toMap()
@@ -68,9 +92,6 @@ class UpdateFinanceReportRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->reportNo) {
-            $res['report_no'] = $this->reportNo;
-        }
         if (null !== $this->enterpriseNo) {
             $res['enterprise_no'] = $this->enterpriseNo;
         }
@@ -79,6 +100,18 @@ class UpdateFinanceReportRequest extends Model
         }
         if (null !== $this->reportOssUrl) {
             $res['report_oss_url'] = $this->reportOssUrl;
+        }
+        if (null !== $this->companyId) {
+            $res['company_id'] = $this->companyId;
+        }
+        if (null !== $this->isSeal) {
+            $res['is_seal'] = $this->isSeal;
+        }
+        if (null !== $this->reportYear) {
+            $res['report_year'] = $this->reportYear;
+        }
+        if (null !== $this->baseYear) {
+            $res['base_year'] = $this->baseYear;
         }
 
         return $res;
@@ -98,9 +131,6 @@ class UpdateFinanceReportRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['report_no'])) {
-            $model->reportNo = $map['report_no'];
-        }
         if (isset($map['enterprise_no'])) {
             $model->enterpriseNo = $map['enterprise_no'];
         }
@@ -109,6 +139,18 @@ class UpdateFinanceReportRequest extends Model
         }
         if (isset($map['report_oss_url'])) {
             $model->reportOssUrl = $map['report_oss_url'];
+        }
+        if (isset($map['company_id'])) {
+            $model->companyId = $map['company_id'];
+        }
+        if (isset($map['is_seal'])) {
+            $model->isSeal = $map['is_seal'];
+        }
+        if (isset($map['report_year'])) {
+            $model->reportYear = $map['report_year'];
+        }
+        if (isset($map['base_year'])) {
+            $model->baseYear = $map['base_year'];
         }
 
         return $model;

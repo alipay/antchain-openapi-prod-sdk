@@ -30,19 +30,12 @@ class AddFinanceEmissionResponse extends Model
     /**
      * @var string
      */
-    public $emissionAmount;
-
-    // 订单号
-    /**
-     * @var string
-     */
-    public $orderNo;
+    public $result;
     protected $_name = [
-        'reqMsgId'       => 'req_msg_id',
-        'resultCode'     => 'result_code',
-        'resultMsg'      => 'result_msg',
-        'emissionAmount' => 'emission_amount',
-        'orderNo'        => 'order_no',
+        'reqMsgId'   => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg'  => 'result_msg',
+        'result'     => 'result',
     ];
 
     public function validate()
@@ -61,11 +54,8 @@ class AddFinanceEmissionResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->emissionAmount) {
-            $res['emission_amount'] = $this->emissionAmount;
-        }
-        if (null !== $this->orderNo) {
-            $res['order_no'] = $this->orderNo;
+        if (null !== $this->result) {
+            $res['result'] = $this->result;
         }
 
         return $res;
@@ -88,11 +78,8 @@ class AddFinanceEmissionResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['emission_amount'])) {
-            $model->emissionAmount = $map['emission_amount'];
-        }
-        if (isset($map['order_no'])) {
-            $model->orderNo = $map['order_no'];
+        if (isset($map['result'])) {
+            $model->result = $map['result'];
         }
 
         return $model;

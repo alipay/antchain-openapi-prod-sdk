@@ -310,7 +310,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '2.11.4',
+                    'sdk_version'      => '2.11.7',
                     '_prod_code'       => 'STLR',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -2694,7 +2694,7 @@ class Client
 
     /**
      * Description: 企业或者项目更新
-     * Summary: 企业更新.
+     * Summary: 企业或者项目更新.
      *
      * @param UpdateFinanceCompanyRequest $request
      *
@@ -2710,7 +2710,7 @@ class Client
 
     /**
      * Description: 企业或者项目更新
-     * Summary: 企业更新.
+     * Summary: 企业或者项目更新.
      *
      * @param UpdateFinanceCompanyRequest $request
      * @param string[]                    $headers
@@ -2727,7 +2727,7 @@ class Client
 
     /**
      * Description: 删除企业或者项目
-     * Summary: 删除企业.
+     * Summary: 删除企业或者项目.
      *
      * @param DeleteFinanceCompanyRequest $request
      *
@@ -2743,7 +2743,7 @@ class Client
 
     /**
      * Description: 删除企业或者项目
-     * Summary: 删除企业.
+     * Summary: 删除企业或者项目.
      *
      * @param DeleteFinanceCompanyRequest $request
      * @param string[]                    $headers
