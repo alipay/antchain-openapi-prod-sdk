@@ -11,18 +11,10 @@ public class QueryElectrocarDeviceinfosRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // trust_product_key
-    @NameInMap("trust_product_key")
+    // tuid
+    @NameInMap("tuid")
     @Validation(required = true)
-    public String trustProductKey;
-
-    // 页码
-    @NameInMap("page_num")
-    public Long pageNum;
-
-    // 页数
-    @NameInMap("page_size")
-    public Long pageSize;
+    public String tuid;
 
     public static QueryElectrocarDeviceinfosRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryElectrocarDeviceinfosRequest self = new QueryElectrocarDeviceinfosRequest();
@@ -45,28 +37,12 @@ public class QueryElectrocarDeviceinfosRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public QueryElectrocarDeviceinfosRequest setTrustProductKey(String trustProductKey) {
-        this.trustProductKey = trustProductKey;
+    public QueryElectrocarDeviceinfosRequest setTuid(String tuid) {
+        this.tuid = tuid;
         return this;
     }
-    public String getTrustProductKey() {
-        return this.trustProductKey;
-    }
-
-    public QueryElectrocarDeviceinfosRequest setPageNum(Long pageNum) {
-        this.pageNum = pageNum;
-        return this;
-    }
-    public Long getPageNum() {
-        return this.pageNum;
-    }
-
-    public QueryElectrocarDeviceinfosRequest setPageSize(Long pageSize) {
-        this.pageSize = pageSize;
-        return this;
-    }
-    public Long getPageSize() {
-        return this.pageSize;
+    public String getTuid() {
+        return this.tuid;
     }
 
 }
