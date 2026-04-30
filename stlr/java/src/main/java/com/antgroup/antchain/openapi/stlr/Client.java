@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "2.11.4"),
+                    new TeaPair("sdk_version", "2.11.7"),
                     new TeaPair("_prod_code", "STLR"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -1706,7 +1706,7 @@ public class Client {
     /**
      * <b>description</b> :
      * <p>Description: 企业或者项目更新
-     * Summary: 企业更新</p>
+     * Summary: 企业或者项目更新</p>
      */
     public UpdateFinanceCompanyResponse updateFinanceCompany(UpdateFinanceCompanyRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -1717,7 +1717,7 @@ public class Client {
     /**
      * <b>description</b> :
      * <p>Description: 企业或者项目更新
-     * Summary: 企业更新</p>
+     * Summary: 企业或者项目更新</p>
      */
     public UpdateFinanceCompanyResponse updateFinanceCompanyEx(UpdateFinanceCompanyRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -1727,7 +1727,7 @@ public class Client {
     /**
      * <b>description</b> :
      * <p>Description: 删除企业或者项目
-     * Summary: 删除企业</p>
+     * Summary: 删除企业或者项目</p>
      */
     public DeleteFinanceCompanyResponse deleteFinanceCompany(DeleteFinanceCompanyRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -1738,7 +1738,7 @@ public class Client {
     /**
      * <b>description</b> :
      * <p>Description: 删除企业或者项目
-     * Summary: 删除企业</p>
+     * Summary: 删除企业或者项目</p>
      */
     public DeleteFinanceCompanyResponse deleteFinanceCompanyEx(DeleteFinanceCompanyRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);

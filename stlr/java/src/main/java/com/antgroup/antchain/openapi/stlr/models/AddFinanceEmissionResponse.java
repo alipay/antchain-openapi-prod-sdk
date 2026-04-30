@@ -17,12 +17,8 @@ public class AddFinanceEmissionResponse extends TeaModel {
     public String resultMsg;
 
     // 碳排放量
-    @NameInMap("emission_amount")
-    public String emissionAmount;
-
-    // 订单号
-    @NameInMap("order_no")
-    public String orderNo;
+    @NameInMap("result")
+    public String result;
 
     public static AddFinanceEmissionResponse build(java.util.Map<String, ?> map) throws Exception {
         AddFinanceEmissionResponse self = new AddFinanceEmissionResponse();
@@ -53,20 +49,12 @@ public class AddFinanceEmissionResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public AddFinanceEmissionResponse setEmissionAmount(String emissionAmount) {
-        this.emissionAmount = emissionAmount;
+    public AddFinanceEmissionResponse setResult(String result) {
+        this.result = result;
         return this;
     }
-    public String getEmissionAmount() {
-        return this.emissionAmount;
-    }
-
-    public AddFinanceEmissionResponse setOrderNo(String orderNo) {
-        this.orderNo = orderNo;
-        return this;
-    }
-    public String getOrderNo() {
-        return this.orderNo;
+    public String getResult() {
+        return this.result;
     }
 
 }

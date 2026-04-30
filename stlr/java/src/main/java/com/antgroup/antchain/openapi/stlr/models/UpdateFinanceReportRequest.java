@@ -11,11 +11,6 @@ public class UpdateFinanceReportRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 报告单号
-    @NameInMap("report_no")
-    @Validation(required = true)
-    public String reportNo;
-
     // 银行碳账号
     @NameInMap("enterprise_no")
     @Validation(required = true)
@@ -30,6 +25,26 @@ public class UpdateFinanceReportRequest extends TeaModel {
     @NameInMap("report_oss_url")
     @Validation(required = true)
     public String reportOssUrl;
+
+    // 社会统一信用参数
+    @NameInMap("company_id")
+    @Validation(required = true)
+    public String companyId;
+
+    // 是否盖章
+    @NameInMap("is_seal")
+    @Validation(required = true)
+    public Boolean isSeal;
+
+    // 报告年份
+    @NameInMap("report_year")
+    @Validation(required = true)
+    public String reportYear;
+
+    // 基准年份
+    @NameInMap("base_year")
+    @Validation(required = true)
+    public String baseYear;
 
     public static UpdateFinanceReportRequest build(java.util.Map<String, ?> map) throws Exception {
         UpdateFinanceReportRequest self = new UpdateFinanceReportRequest();
@@ -50,14 +65,6 @@ public class UpdateFinanceReportRequest extends TeaModel {
     }
     public String getProductInstanceId() {
         return this.productInstanceId;
-    }
-
-    public UpdateFinanceReportRequest setReportNo(String reportNo) {
-        this.reportNo = reportNo;
-        return this;
-    }
-    public String getReportNo() {
-        return this.reportNo;
     }
 
     public UpdateFinanceReportRequest setEnterpriseNo(String enterpriseNo) {
@@ -82,6 +89,38 @@ public class UpdateFinanceReportRequest extends TeaModel {
     }
     public String getReportOssUrl() {
         return this.reportOssUrl;
+    }
+
+    public UpdateFinanceReportRequest setCompanyId(String companyId) {
+        this.companyId = companyId;
+        return this;
+    }
+    public String getCompanyId() {
+        return this.companyId;
+    }
+
+    public UpdateFinanceReportRequest setIsSeal(Boolean isSeal) {
+        this.isSeal = isSeal;
+        return this;
+    }
+    public Boolean getIsSeal() {
+        return this.isSeal;
+    }
+
+    public UpdateFinanceReportRequest setReportYear(String reportYear) {
+        this.reportYear = reportYear;
+        return this;
+    }
+    public String getReportYear() {
+        return this.reportYear;
+    }
+
+    public UpdateFinanceReportRequest setBaseYear(String baseYear) {
+        this.baseYear = baseYear;
+        return this;
+    }
+    public String getBaseYear() {
+        return this.baseYear;
     }
 
 }
