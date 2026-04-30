@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.14.1',
+                    'sdk_version': '1.15.0',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.14.1',
+                    'sdk_version': '1.15.0',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -8857,6 +8857,62 @@ class Client:
         return TeaCore.from_map(
             bot_models.QueryElectrocarBatchpubtasksResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.electrocar.batchpubtasks.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_electrocar_deviceinfospage(
+        self,
+        request: bot_models.QueryElectrocarDeviceinfospageRequest,
+    ) -> bot_models.QueryElectrocarDeviceinfospageResponse:
+        """
+        Description: 设备信息分页
+        Summary: 设备信息分页
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_electrocar_deviceinfospage_ex(request, headers, runtime)
+
+    async def query_electrocar_deviceinfospage_async(
+        self,
+        request: bot_models.QueryElectrocarDeviceinfospageRequest,
+    ) -> bot_models.QueryElectrocarDeviceinfospageResponse:
+        """
+        Description: 设备信息分页
+        Summary: 设备信息分页
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_electrocar_deviceinfospage_ex_async(request, headers, runtime)
+
+    def query_electrocar_deviceinfospage_ex(
+        self,
+        request: bot_models.QueryElectrocarDeviceinfospageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryElectrocarDeviceinfospageResponse:
+        """
+        Description: 设备信息分页
+        Summary: 设备信息分页
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryElectrocarDeviceinfospageResponse(),
+            self.do_request('1.0', 'blockchain.bot.electrocar.deviceinfospage.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_electrocar_deviceinfospage_ex_async(
+        self,
+        request: bot_models.QueryElectrocarDeviceinfospageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryElectrocarDeviceinfospageResponse:
+        """
+        Description: 设备信息分页
+        Summary: 设备信息分页
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryElectrocarDeviceinfospageResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.electrocar.deviceinfospage.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_iotplatform_purchaseorder(
