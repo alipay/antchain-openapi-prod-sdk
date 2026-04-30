@@ -1,0 +1,15 @@
+{
+	"include":[
+		"src/**/*"
+	],
+	"compilerOptions":{
+		"sourceMap":true,
+		"skipLibCheck":true,
+		"module":"commonjs",
+		"typeRoots":["./node_modules/@types"],
+		"declaration":true,
+		"target":"es2017",
+		"outDir":"./dist",
+		"esModuleInterop":true
+	}
+}

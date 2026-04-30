@@ -1,0 +1,32 @@
+{
+	"license":"Apache-2.0",
+	"devDependencies":{
+		"source-map-support":"^0.5.16",
+		"@types/node":"^12.12.26",
+		"@types/ms":"0.7.31",
+		"nyc":"^15.0.0",
+		"typescript":"^3.7.5",
+		"ts-node":"^8.6.2"
+	},
+	"author":"",
+	"name":"@antchain/abc",
+	"description":"",
+	"files":[
+		"dist",
+		"src"
+	],
+	"main":"dist/client.js",
+	"scripts":{
+		"test":"mocha --reporter spec --timeout 3000 test/*.test.js",
+		"build":"tsc",
+		"prepublishOnly":"tsc",
+		"test-cov":"nyc -e .ts -r=html -r=text -r=lcov npm run test"
+	},
+	"version":"1.1.25",
+	"dependencies":{
+		"@alicloud/rpc-util":"^0.1.0",
+		"@antchain/alipay-util":"^1.0.4",
+		"@alicloud/tea-typescript":"^1.7.1",
+		"@alicloud/tea-util":"^1.4.11"
+	}
+}
