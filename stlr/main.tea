@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '2.11.4',
+    sdk_version = '2.11.7',
     _prod_code = 'STLR',
     _prod_channel = 'undefined'
   };
@@ -3993,9 +3993,7 @@ model AddFinanceEmissionResponse = {
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 碳排放量
-  emissionAmount?: string(name='emission_amount'),
-  // 订单号
-  orderNo?: string(name='order_no'),
+  result?: string(name='result'),
 }
 
 /**
@@ -4092,7 +4090,7 @@ model UpdateFinanceCompanyResponse = {
 
 /**
  * Description: 企业或者项目更新
- * Summary: 企业更新
+ * Summary: 企业或者项目更新
  */
 async function updateFinanceCompany(request: UpdateFinanceCompanyRequest): UpdateFinanceCompanyResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -4102,7 +4100,7 @@ async function updateFinanceCompany(request: UpdateFinanceCompanyRequest): Updat
 
 /**
  * Description: 企业或者项目更新
- * Summary: 企业更新
+ * Summary: 企业或者项目更新
  */
 async function updateFinanceCompanyEx(request: UpdateFinanceCompanyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateFinanceCompanyResponse {
   Util.validateModel(request);
@@ -4130,7 +4128,7 @@ model DeleteFinanceCompanyResponse = {
 
 /**
  * Description: 删除企业或者项目
- * Summary: 删除企业
+ * Summary: 删除企业或者项目
  */
 async function deleteFinanceCompany(request: DeleteFinanceCompanyRequest): DeleteFinanceCompanyResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -4140,7 +4138,7 @@ async function deleteFinanceCompany(request: DeleteFinanceCompanyRequest): Delet
 
 /**
  * Description: 删除企业或者项目
- * Summary: 删除企业
+ * Summary: 删除企业或者项目
  */
 async function deleteFinanceCompanyEx(request: DeleteFinanceCompanyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteFinanceCompanyResponse {
   Util.validateModel(request);
@@ -4239,14 +4237,20 @@ model UpdateFinanceReportRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 报告单号
-  reportNo: string(name='report_no'),
   // 银行碳账号
   enterpriseNo: string(name='enterprise_no'),
   // 报告盖章人
   reportSinger: string(name='report_singer'),
   // 可以直接公网可以下载的oss地址
   reportOssUrl: string(name='report_oss_url'),
+  // 社会统一信用参数
+  companyId: string(name='company_id'),
+  // 是否盖章
+  isSeal: boolean(name='is_seal'),
+  // 报告年份
+  reportYear: string(name='report_year'),
+  // 基准年份
+  baseYear: string(name='base_year'),
 }
 
 model UpdateFinanceReportResponse = {
