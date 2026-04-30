@@ -11424,8 +11424,7 @@ class AddFinanceEmissionResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        emission_amount: str = None,
-        order_no: str = None,
+        result: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -11434,9 +11433,7 @@ class AddFinanceEmissionResponse(TeaModel):
         # 异常信息的文本描述
         self.result_msg = result_msg
         # 碳排放量
-        self.emission_amount = emission_amount
-        # 订单号
-        self.order_no = order_no
+        self.result = result
 
     def validate(self):
         pass
@@ -11453,10 +11450,8 @@ class AddFinanceEmissionResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
-        if self.emission_amount is not None:
-            result['emission_amount'] = self.emission_amount
-        if self.order_no is not None:
-            result['order_no'] = self.order_no
+        if self.result is not None:
+            result['result'] = self.result
         return result
 
     def from_map(self, m: dict = None):
@@ -11467,10 +11462,8 @@ class AddFinanceEmissionResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
-        if m.get('emission_amount') is not None:
-            self.emission_amount = m.get('emission_amount')
-        if m.get('order_no') is not None:
-            self.order_no = m.get('order_no')
+        if m.get('result') is not None:
+            self.result = m.get('result')
         return self
 
 
@@ -12062,28 +12055,40 @@ class UpdateFinanceReportRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
-        report_no: str = None,
         enterprise_no: str = None,
         report_singer: str = None,
         report_oss_url: str = None,
+        company_id: str = None,
+        is_seal: bool = None,
+        report_year: str = None,
+        base_year: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # 报告单号
-        self.report_no = report_no
         # 银行碳账号
         self.enterprise_no = enterprise_no
         # 报告盖章人
         self.report_singer = report_singer
         # 可以直接公网可以下载的oss地址
         self.report_oss_url = report_oss_url
+        # 社会统一信用参数
+        self.company_id = company_id
+        # 是否盖章
+        self.is_seal = is_seal
+        # 报告年份
+        self.report_year = report_year
+        # 基准年份
+        self.base_year = base_year
 
     def validate(self):
-        self.validate_required(self.report_no, 'report_no')
         self.validate_required(self.enterprise_no, 'enterprise_no')
         self.validate_required(self.report_singer, 'report_singer')
         self.validate_required(self.report_oss_url, 'report_oss_url')
+        self.validate_required(self.company_id, 'company_id')
+        self.validate_required(self.is_seal, 'is_seal')
+        self.validate_required(self.report_year, 'report_year')
+        self.validate_required(self.base_year, 'base_year')
 
     def to_map(self):
         _map = super().to_map()
@@ -12095,14 +12100,20 @@ class UpdateFinanceReportRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
-        if self.report_no is not None:
-            result['report_no'] = self.report_no
         if self.enterprise_no is not None:
             result['enterprise_no'] = self.enterprise_no
         if self.report_singer is not None:
             result['report_singer'] = self.report_singer
         if self.report_oss_url is not None:
             result['report_oss_url'] = self.report_oss_url
+        if self.company_id is not None:
+            result['company_id'] = self.company_id
+        if self.is_seal is not None:
+            result['is_seal'] = self.is_seal
+        if self.report_year is not None:
+            result['report_year'] = self.report_year
+        if self.base_year is not None:
+            result['base_year'] = self.base_year
         return result
 
     def from_map(self, m: dict = None):
@@ -12111,14 +12122,20 @@ class UpdateFinanceReportRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
-        if m.get('report_no') is not None:
-            self.report_no = m.get('report_no')
         if m.get('enterprise_no') is not None:
             self.enterprise_no = m.get('enterprise_no')
         if m.get('report_singer') is not None:
             self.report_singer = m.get('report_singer')
         if m.get('report_oss_url') is not None:
             self.report_oss_url = m.get('report_oss_url')
+        if m.get('company_id') is not None:
+            self.company_id = m.get('company_id')
+        if m.get('is_seal') is not None:
+            self.is_seal = m.get('is_seal')
+        if m.get('report_year') is not None:
+            self.report_year = m.get('report_year')
+        if m.get('base_year') is not None:
+            self.base_year = m.get('base_year')
         return self
 
 

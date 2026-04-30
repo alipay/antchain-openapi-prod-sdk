@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '2.11.4',
+                    'sdk_version': '2.11.7',
                     '_prod_code': 'STLR',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '2.11.4',
+                    'sdk_version': '2.11.7',
                     '_prod_code': 'STLR',
                     '_prod_channel': 'undefined'
                 }
@@ -4253,7 +4253,7 @@ class Client:
     ) -> stlr_models.UpdateFinanceCompanyResponse:
         """
         Description: 企业或者项目更新
-        Summary: 企业更新
+        Summary: 企业或者项目更新
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -4265,7 +4265,7 @@ class Client:
     ) -> stlr_models.UpdateFinanceCompanyResponse:
         """
         Description: 企业或者项目更新
-        Summary: 企业更新
+        Summary: 企业或者项目更新
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -4279,7 +4279,7 @@ class Client:
     ) -> stlr_models.UpdateFinanceCompanyResponse:
         """
         Description: 企业或者项目更新
-        Summary: 企业更新
+        Summary: 企业或者项目更新
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -4295,7 +4295,7 @@ class Client:
     ) -> stlr_models.UpdateFinanceCompanyResponse:
         """
         Description: 企业或者项目更新
-        Summary: 企业更新
+        Summary: 企业或者项目更新
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -4309,7 +4309,7 @@ class Client:
     ) -> stlr_models.DeleteFinanceCompanyResponse:
         """
         Description: 删除企业或者项目
-        Summary: 删除企业
+        Summary: 删除企业或者项目
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -4321,7 +4321,7 @@ class Client:
     ) -> stlr_models.DeleteFinanceCompanyResponse:
         """
         Description: 删除企业或者项目
-        Summary: 删除企业
+        Summary: 删除企业或者项目
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -4335,7 +4335,7 @@ class Client:
     ) -> stlr_models.DeleteFinanceCompanyResponse:
         """
         Description: 删除企业或者项目
-        Summary: 删除企业
+        Summary: 删除企业或者项目
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -4351,7 +4351,7 @@ class Client:
     ) -> stlr_models.DeleteFinanceCompanyResponse:
         """
         Description: 删除企业或者项目
-        Summary: 删除企业
+        Summary: 删除企业或者项目
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
