@@ -18846,19 +18846,13 @@ export class QueryElectrocarDeviceinfosRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // trust_product_key
-  trustProductKey: string;
-  // 页码
-  pageNum?: number;
-  // 页数
-  pageSize?: number;
+  // tuid
+  tuid: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      trustProductKey: 'trust_product_key',
-      pageNum: 'page_num',
-      pageSize: 'page_size',
+      tuid: 'tuid',
     };
   }
 
@@ -18866,9 +18860,7 @@ export class QueryElectrocarDeviceinfosRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      trustProductKey: 'string',
-      pageNum: 'number',
-      pageSize: 'number',
+      tuid: 'string',
     };
   }
 
@@ -18884,29 +18876,47 @@ export class QueryElectrocarDeviceinfosResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // success
-  success?: boolean;
-  // 页码
-  pageNum?: number;
-  // 页数
-  pageSize?: number;
-  // 总页数
-  totalPages?: number;
-  // 总条数
-  totalSize?: number;
-  // 设备列表
-  deviceList?: DeviceInfos[];
+  // trust_product_key
+  trustProductKey?: string;
+  // product_key
+  productKey?: string;
+  // trust_device_id
+  trustDeviceId?: string;
+  // device_name
+  deviceName?: string;
+  // nick_name
+  nickName?: string;
+  // device_status
+  deviceStatus?: string;
+  // device_register_time
+  deviceRegisterTime?: string;
+  // device_active_time
+  deviceActiveTime?: string;
+  // last_online_time
+  lastOnlineTime?: string;
+  // last_offline_time
+  lastOfflineTime?: string;
+  // last_communication_time
+  lastCommunicationTime?: string;
+  // device_ota_version
+  deviceOtaVersion?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      success: 'success',
-      pageNum: 'page_num',
-      pageSize: 'page_size',
-      totalPages: 'total_pages',
-      totalSize: 'total_size',
-      deviceList: 'device_list',
+      trustProductKey: 'trust_product_key',
+      productKey: 'product_key',
+      trustDeviceId: 'trust_device_id',
+      deviceName: 'device_name',
+      nickName: 'nick_name',
+      deviceStatus: 'device_status',
+      deviceRegisterTime: 'device_register_time',
+      deviceActiveTime: 'device_active_time',
+      lastOnlineTime: 'last_online_time',
+      lastOfflineTime: 'last_offline_time',
+      lastCommunicationTime: 'last_communication_time',
+      deviceOtaVersion: 'device_ota_version',
     };
   }
 
@@ -18915,12 +18925,18 @@ export class QueryElectrocarDeviceinfosResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      success: 'boolean',
-      pageNum: 'number',
-      pageSize: 'number',
-      totalPages: 'number',
-      totalSize: 'number',
-      deviceList: { 'type': 'array', 'itemType': DeviceInfos },
+      trustProductKey: 'string',
+      productKey: 'string',
+      trustDeviceId: 'string',
+      deviceName: 'string',
+      nickName: 'string',
+      deviceStatus: 'string',
+      deviceRegisterTime: 'string',
+      deviceActiveTime: 'string',
+      lastOnlineTime: 'string',
+      lastOfflineTime: 'string',
+      lastCommunicationTime: 'string',
+      deviceOtaVersion: 'string',
     };
   }
 
@@ -19214,6 +19230,97 @@ export class QueryElectrocarBatchpubtasksResponse extends $tea.Model {
       totalPage: 'number',
       totalCount: 'number',
       success: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryElectrocarDeviceinfospageRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // trust_product_key
+  trustProductKey: string;
+  // tuid
+  tuid?: string;
+  // page_num
+  pageNum?: number;
+  // page_size
+  pageSize?: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      trustProductKey: 'trust_product_key',
+      tuid: 'tuid',
+      pageNum: 'page_num',
+      pageSize: 'page_size',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      trustProductKey: 'string',
+      tuid: 'string',
+      pageNum: 'number',
+      pageSize: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryElectrocarDeviceinfospageResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // success
+  success?: boolean;
+  // page_num
+  pageNum?: number;
+  // page_size
+  pageSize?: number;
+  // total_pages
+  totalPages?: number;
+  // total_size
+  totalSize?: number;
+  // device_list
+  deviceList?: DeviceInfos[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      pageNum: 'page_num',
+      pageSize: 'page_size',
+      totalPages: 'total_pages',
+      totalSize: 'total_size',
+      deviceList: 'device_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      pageNum: 'number',
+      pageSize: 'number',
+      totalPages: 'number',
+      totalSize: 'number',
+      deviceList: { 'type': 'array', 'itemType': DeviceInfos },
     };
   }
 
@@ -30496,7 +30603,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.14.1",
+          sdk_version: "1.15.0",
           _prod_code: "BOT",
           _prod_channel: "undefined",
         };
@@ -33474,6 +33581,25 @@ export default class Client {
   async queryElectrocarBatchpubtasksEx(request: QueryElectrocarBatchpubtasksRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryElectrocarBatchpubtasksResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryElectrocarBatchpubtasksResponse>(await this.doRequest("1.0", "blockchain.bot.electrocar.batchpubtasks.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryElectrocarBatchpubtasksResponse({}));
+  }
+
+  /**
+   * Description: 设备信息分页
+   * Summary: 设备信息分页
+   */
+  async queryElectrocarDeviceinfospage(request: QueryElectrocarDeviceinfospageRequest): Promise<QueryElectrocarDeviceinfospageResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryElectrocarDeviceinfospageEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 设备信息分页
+   * Summary: 设备信息分页
+   */
+  async queryElectrocarDeviceinfospageEx(request: QueryElectrocarDeviceinfospageRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryElectrocarDeviceinfospageResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryElectrocarDeviceinfospageResponse>(await this.doRequest("1.0", "blockchain.bot.electrocar.deviceinfospage.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryElectrocarDeviceinfospageResponse({}));
   }
 
   /**
