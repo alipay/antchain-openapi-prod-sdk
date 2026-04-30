@@ -18,11 +18,6 @@ namespace AntChain.SDK.STLR.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 报告单号
-        [NameInMap("report_no")]
-        [Validation(Required=true)]
-        public string ReportNo { get; set; }
-
         // 银行碳账号
         [NameInMap("enterprise_no")]
         [Validation(Required=true)]
@@ -37,6 +32,26 @@ namespace AntChain.SDK.STLR.Models
         [NameInMap("report_oss_url")]
         [Validation(Required=true)]
         public string ReportOssUrl { get; set; }
+
+        // 社会统一信用参数
+        [NameInMap("company_id")]
+        [Validation(Required=true)]
+        public string CompanyId { get; set; }
+
+        // 是否盖章
+        [NameInMap("is_seal")]
+        [Validation(Required=true)]
+        public bool? IsSeal { get; set; }
+
+        // 报告年份
+        [NameInMap("report_year")]
+        [Validation(Required=true)]
+        public string ReportYear { get; set; }
+
+        // 基准年份
+        [NameInMap("base_year")]
+        [Validation(Required=true)]
+        public string BaseYear { get; set; }
 
     }
 

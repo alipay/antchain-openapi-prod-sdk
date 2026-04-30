@@ -137,7 +137,7 @@ namespace AntChain.SDK.STLR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "2.11.4"},
+                        {"sdk_version", "2.11.7"},
                         {"_prod_code", "STLR"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.STLR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "2.11.4"},
+                        {"sdk_version", "2.11.7"},
                         {"_prod_code", "STLR"},
                         {"_prod_channel", "undefined"},
                     };
@@ -3365,7 +3365,7 @@ namespace AntChain.SDK.STLR
 
         /**
          * Description: 企业或者项目更新
-         * Summary: 企业更新
+         * Summary: 企业或者项目更新
          */
         public UpdateFinanceCompanyResponse UpdateFinanceCompany(UpdateFinanceCompanyRequest request)
         {
@@ -3376,7 +3376,7 @@ namespace AntChain.SDK.STLR
 
         /**
          * Description: 企业或者项目更新
-         * Summary: 企业更新
+         * Summary: 企业或者项目更新
          */
         public async Task<UpdateFinanceCompanyResponse> UpdateFinanceCompanyAsync(UpdateFinanceCompanyRequest request)
         {
@@ -3387,7 +3387,7 @@ namespace AntChain.SDK.STLR
 
         /**
          * Description: 企业或者项目更新
-         * Summary: 企业更新
+         * Summary: 企业或者项目更新
          */
         public UpdateFinanceCompanyResponse UpdateFinanceCompanyEx(UpdateFinanceCompanyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -3397,7 +3397,7 @@ namespace AntChain.SDK.STLR
 
         /**
          * Description: 企业或者项目更新
-         * Summary: 企业更新
+         * Summary: 企业或者项目更新
          */
         public async Task<UpdateFinanceCompanyResponse> UpdateFinanceCompanyExAsync(UpdateFinanceCompanyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -3407,7 +3407,7 @@ namespace AntChain.SDK.STLR
 
         /**
          * Description: 删除企业或者项目
-         * Summary: 删除企业
+         * Summary: 删除企业或者项目
          */
         public DeleteFinanceCompanyResponse DeleteFinanceCompany(DeleteFinanceCompanyRequest request)
         {
@@ -3418,7 +3418,7 @@ namespace AntChain.SDK.STLR
 
         /**
          * Description: 删除企业或者项目
-         * Summary: 删除企业
+         * Summary: 删除企业或者项目
          */
         public async Task<DeleteFinanceCompanyResponse> DeleteFinanceCompanyAsync(DeleteFinanceCompanyRequest request)
         {
@@ -3429,7 +3429,7 @@ namespace AntChain.SDK.STLR
 
         /**
          * Description: 删除企业或者项目
-         * Summary: 删除企业
+         * Summary: 删除企业或者项目
          */
         public DeleteFinanceCompanyResponse DeleteFinanceCompanyEx(DeleteFinanceCompanyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -3439,7 +3439,7 @@ namespace AntChain.SDK.STLR
 
         /**
          * Description: 删除企业或者项目
-         * Summary: 删除企业
+         * Summary: 删除企业或者项目
          */
         public async Task<DeleteFinanceCompanyResponse> DeleteFinanceCompanyExAsync(DeleteFinanceCompanyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {

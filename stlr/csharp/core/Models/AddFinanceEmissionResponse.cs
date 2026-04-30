@@ -25,14 +25,9 @@ namespace AntChain.SDK.STLR.Models
         public string ResultMsg { get; set; }
 
         // 碳排放量
-        [NameInMap("emission_amount")]
+        [NameInMap("result")]
         [Validation(Required=false)]
-        public string EmissionAmount { get; set; }
-
-        // 订单号
-        [NameInMap("order_no")]
-        [Validation(Required=false)]
-        public string OrderNo { get; set; }
+        public string Result { get; set; }
 
     }
 
