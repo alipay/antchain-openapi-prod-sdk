@@ -16,10 +16,6 @@ public class QueryAutoTestResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // xx
-    @NameInMap("name")
-    public TestAdd name;
-
     public static QueryAutoTestResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryAutoTestResponse self = new QueryAutoTestResponse();
         return TeaModel.build(map, self);
@@ -47,14 +43,6 @@ public class QueryAutoTestResponse extends TeaModel {
     }
     public String getResultMsg() {
         return this.resultMsg;
-    }
-
-    public QueryAutoTestResponse setName(TestAdd name) {
-        this.name = name;
-        return this;
-    }
-    public TestAdd getName() {
-        return this.name;
     }
 
 }

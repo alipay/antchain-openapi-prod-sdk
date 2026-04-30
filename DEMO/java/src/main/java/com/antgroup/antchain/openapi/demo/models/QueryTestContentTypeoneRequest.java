@@ -16,10 +16,6 @@ public class QueryTestContentTypeoneRequest extends TeaModel {
     @Validation(required = true)
     public String data;
 
-    // 测试
-    @NameInMap("person")
-    public Person person;
-
     public static QueryTestContentTypeoneRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryTestContentTypeoneRequest self = new QueryTestContentTypeoneRequest();
         return TeaModel.build(map, self);
@@ -47,14 +43,6 @@ public class QueryTestContentTypeoneRequest extends TeaModel {
     }
     public String getData() {
         return this.data;
-    }
-
-    public QueryTestContentTypeoneRequest setPerson(Person person) {
-        this.person = person;
-        return this;
-    }
-    public Person getPerson() {
-        return this.person;
     }
 
 }

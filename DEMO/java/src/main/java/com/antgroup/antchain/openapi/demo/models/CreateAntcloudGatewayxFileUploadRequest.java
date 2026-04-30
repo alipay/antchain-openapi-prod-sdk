@@ -8,6 +8,10 @@ public class CreateAntcloudGatewayxFileUploadRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    // 产品方的api归属集群，即productInstanceId
+    @NameInMap("api_cluster")
+    public String apiCluster;
+
     // 上传文件作用的openapi method
     @NameInMap("api_code")
     @Validation(required = true)
@@ -32,10 +36,6 @@ public class CreateAntcloudGatewayxFileUploadRequest extends TeaModel {
     @NameInMap("mime_type")
     public String mimeType;
 
-    // 产品方的api归属集群，即productInstanceId
-    @NameInMap("api_cluster")
-    public String apiCluster;
-
     public static CreateAntcloudGatewayxFileUploadRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateAntcloudGatewayxFileUploadRequest self = new CreateAntcloudGatewayxFileUploadRequest();
         return TeaModel.build(map, self);
@@ -47,6 +47,14 @@ public class CreateAntcloudGatewayxFileUploadRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public CreateAntcloudGatewayxFileUploadRequest setApiCluster(String apiCluster) {
+        this.apiCluster = apiCluster;
+        return this;
+    }
+    public String getApiCluster() {
+        return this.apiCluster;
     }
 
     public CreateAntcloudGatewayxFileUploadRequest setApiCode(String apiCode) {
@@ -87,14 +95,6 @@ public class CreateAntcloudGatewayxFileUploadRequest extends TeaModel {
     }
     public String getMimeType() {
         return this.mimeType;
-    }
-
-    public CreateAntcloudGatewayxFileUploadRequest setApiCluster(String apiCluster) {
-        this.apiCluster = apiCluster;
-        return this;
-    }
-    public String getApiCluster() {
-        return this.apiCluster;
     }
 
 }

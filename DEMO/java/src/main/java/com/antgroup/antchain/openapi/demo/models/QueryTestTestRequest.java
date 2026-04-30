@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.demo.models;
 
 import com.aliyun.tea.*;
 
-public class QueryApiWhiteListRequest extends TeaModel {
+public class QueryTestTestRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -11,17 +11,17 @@ public class QueryApiWhiteListRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 查询输入
-    @NameInMap("data")
+    //  
+    @NameInMap("acpmpcore")
     @Validation(required = true)
-    public String data;
+    public String acpmpcore;
 
-    public static QueryApiWhiteListRequest build(java.util.Map<String, ?> map) throws Exception {
-        QueryApiWhiteListRequest self = new QueryApiWhiteListRequest();
+    public static QueryTestTestRequest build(java.util.Map<String, ?> map) throws Exception {
+        QueryTestTestRequest self = new QueryTestTestRequest();
         return TeaModel.build(map, self);
     }
 
-    public QueryApiWhiteListRequest setAuthToken(String authToken) {
+    public QueryTestTestRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -29,7 +29,7 @@ public class QueryApiWhiteListRequest extends TeaModel {
         return this.authToken;
     }
 
-    public QueryApiWhiteListRequest setProductInstanceId(String productInstanceId) {
+    public QueryTestTestRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -37,12 +37,12 @@ public class QueryApiWhiteListRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public QueryApiWhiteListRequest setData(String data) {
-        this.data = data;
+    public QueryTestTestRequest setAcpmpcore(String acpmpcore) {
+        this.acpmpcore = acpmpcore;
         return this;
     }
-    public String getData() {
-        return this.data;
+    public String getAcpmpcore() {
+        return this.acpmpcore;
     }
 
 }
