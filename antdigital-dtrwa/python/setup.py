@@ -24,7 +24,7 @@ from setuptools import setup, find_packages
 """
 setup module for antchain_dtrwa.
 
-Created on 30/04/2026
+Created on 01/05/2026
 
 @author: Ant Chain SDK
 """
