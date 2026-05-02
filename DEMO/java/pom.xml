@@ -6,9 +6,9 @@
 
     <!-- 基础信息 -->
     <groupId>com.antgroup.antchain.openapi</groupId>
-    <!-- 注意：变量 openapi-demo 和 1.1.66 需要在命令行或 properties 中定义 -->
+    <!-- 注意：变量 openapi-demo 和 1.1.67 需要在命令行或 properties 中定义 -->
     <artifactId>openapi-demo</artifactId>
-    <version>1.1.66</version>
+    <version>1.1.67</version>
     <packaging>jar</packaging>
 
     <name>openapi-demo</name>
