@@ -6,9 +6,9 @@
 
     <!-- 基础信息 -->
     <groupId>com.antgroup.antchain.openapi</groupId>
-    <!-- 注意：变量 openapi-antdigital-testjzq 和 1.0.5 需要在命令行或 properties 中定义 -->
+    <!-- 注意：变量 openapi-antdigital-testjzq 和 1.0.6 需要在命令行或 properties 中定义 -->
     <artifactId>openapi-antdigital-testjzq</artifactId>
-    <version>1.0.5</version>
+    <version>1.0.6</version>
     <packaging>jar</packaging>
 
     <name>openapi-antdigital-testjzq</name>
