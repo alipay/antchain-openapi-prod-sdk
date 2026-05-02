@@ -21,7 +21,7 @@ namespace AntChain.SDK.DEMO.Models
         // ms
         [NameInMap("timeout")]
         [Validation(Required=true)]
-        public long? Timeout { get; set; }
+        public string Timeout { get; set; }
 
     }
 

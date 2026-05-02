@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.DEMO.Models
 {
-    public class QueryTestvvvvvTestvvvvvTestvvvvvResponse : TeaModel {
+    public class QueryTestContentTypefiveResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -23,6 +23,16 @@ namespace AntChain.SDK.DEMO.Models
         [NameInMap("result_msg")]
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
+
+        // 结果码
+        [NameInMap("statucode")]
+        [Validation(Required=false)]
+        public string Statucode { get; set; }
+
+        // 查询结果
+        [NameInMap("query_result")]
+        [Validation(Required=false)]
+        public string QueryResult { get; set; }
 
     }
 

@@ -46,6 +46,15 @@ namespace AntChain.SDK.DEMO.Models
         [Validation(Required=true)]
         public string Demo2 { get; set; }
 
+        // test
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>undefined</para>
+        /// </summary>
+        [NameInMap("info")]
+        [Validation(Required=true)]
+        public DemoClass Info { get; set; }
+
     }
 
 }
