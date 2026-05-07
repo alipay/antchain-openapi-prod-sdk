@@ -49,6 +49,11 @@ namespace AntChain.SDK.MDP.Models
         [Validation(Required=false)]
         public string RuleMd5 { get; set; }
 
+        // 过滤规则的来源，是入参传入的，还是从数据库查询到的
+        [NameInMap("rule_source")]
+        [Validation(Required=false)]
+        public string RuleSource { get; set; }
+
     }
 
 }

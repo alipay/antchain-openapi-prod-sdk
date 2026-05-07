@@ -33,6 +33,11 @@ namespace AntChain.SDK.MDP.Models
         [Validation(Required=true)]
         public string Idtype { get; set; }
 
+        // 支持用户动态传参过滤规则 rule，如果不填，则默认走 hbase 的过滤规则
+        [NameInMap("rule")]
+        [Validation(Required=false)]
+        public string Rule { get; set; }
+
     }
 
 }
