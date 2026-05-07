@@ -441,6 +441,8 @@ type QuerybyappidRequest struct {
 	Userid *string `json:"userid,omitempty" xml:"userid,omitempty" require:"true"`
 	// mobile/device
 	Idtype *string `json:"idtype,omitempty" xml:"idtype,omitempty" require:"true"`
+	// 支持用户动态传参过滤规则 rule，如果不填，则默认走 hbase 的过滤规则
+	Rule *string `json:"rule,omitempty" xml:"rule,omitempty"`
 }
 
 func (s QuerybyappidRequest) String() string {
@@ -476,6 +478,11 @@ func (s *QuerybyappidRequest) SetIdtype(v string) *QuerybyappidRequest {
 	return s
 }
 
+func (s *QuerybyappidRequest) SetRule(v string) *QuerybyappidRequest {
+	s.Rule = &v
+	return s
+}
+
 type QuerybyappidResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -493,6 +500,8 @@ type QuerybyappidResponse struct {
 	Rule *string `json:"rule,omitempty" xml:"rule,omitempty"`
 	// 规则对应的 md5 值，用来区分当前规则的版本
 	RuleMd5 *string `json:"rule_md5,omitempty" xml:"rule_md5,omitempty"`
+	// 过滤规则的来源，是入参传入的，还是从数据库查询到的
+	RuleSource *string `json:"rule_source,omitempty" xml:"rule_source,omitempty"`
 }
 
 func (s QuerybyappidResponse) String() string {
@@ -540,6 +549,11 @@ func (s *QuerybyappidResponse) SetRule(v string) *QuerybyappidResponse {
 
 func (s *QuerybyappidResponse) SetRuleMd5(v string) *QuerybyappidResponse {
 	s.RuleMd5 = &v
+	return s
+}
+
+func (s *QuerybyappidResponse) SetRuleSource(v string) *QuerybyappidResponse {
+	s.RuleSource = &v
 	return s
 }
 
@@ -665,7 +679,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.2"),
+				"sdk_version":      tea.String("1.1.0"),
 				"_prod_code":       tea.String("MDP"),
 				"_prod_channel":    tea.String("default"),
 			}
