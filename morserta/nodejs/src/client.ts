@@ -796,6 +796,119 @@ export class ConversionAdDataAttributedResponse extends $tea.Model {
   }
 }
 
+export class SaveDataConversionRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 追踪ID，每次请求保持唯一
+  traceId: string;
+  // 客户ID，广告主标识
+  sponsorCode: string;
+  // 转化对应的产品id，由数科提供，建议填写
+  productId?: string;
+  // 唯一标识当前转化事件id，用于转化事件的去重避免重复统计，建议填写，可以是订单ID等业务唯一ID。
+  eventId?: string;
+  // 转化发生的unix事件戳,单位毫秒
+  eventTime: number;
+  // 转化事件类型
+  eventCode: string;
+  // json字符串，转化附加参数
+  eventParam?: string;
+  // 转化所属用户在客户系统中的用户id，如电话号码Md5 建议填写
+  userId?: string;
+  // json字段，格式： {"xxx": xxx, "yyyy":"yyyy"}， 
+  // H5/小程序类：为投放前与蚂蚁数科约定的在落地页URL中的埋点参数，包含转化对应的媒体侧返回信息，如click_id, gdt_vid, request_id 跳转链接等务必全量提供
+  // App类：设备ID（ Android ID、OAID、OAID_MD5、IDFA、IDFA_MD5、CAID），点击ID、请求ID等
+  // 数科侧会依据该信息与自行收集到的点击进行匹配归因，务必详尽提供。
+  // 此部分字段信息需在接入前双方确认，主要与媒体平台、投放载体（H5、微信小程序、手机App等）有关，需要客户支持采集(如H5 URL拼接埋点参数、小程序path埋点参数）
+  // 具体请参考文档
+  traceInfo: string;
+  // json扩展字段。保险行业必填insurance_info，见文档
+  extInfo?: string;
+  // 1-广告主自归因 2-数科归因（待上线）
+  attributeType: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      traceId: 'trace_id',
+      sponsorCode: 'sponsor_code',
+      productId: 'product_id',
+      eventId: 'event_id',
+      eventTime: 'event_time',
+      eventCode: 'event_code',
+      eventParam: 'event_param',
+      userId: 'user_id',
+      traceInfo: 'trace_info',
+      extInfo: 'ext_info',
+      attributeType: 'attribute_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      traceId: 'string',
+      sponsorCode: 'string',
+      productId: 'string',
+      eventId: 'string',
+      eventTime: 'number',
+      eventCode: 'string',
+      eventParam: 'string',
+      userId: 'string',
+      traceInfo: 'string',
+      extInfo: 'string',
+      attributeType: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SaveDataConversionResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否成功
+  success?: boolean;
+  // 请求ID，用于追踪
+  requestId?: string;
+  // 错误码，失败时返回
+  code?: string;
+  // 错误信息，失败时返回
+  message?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      requestId: 'request_id',
+      code: 'code',
+      message: 'message',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      requestId: 'string',
+      code: 'string',
+      message: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class FeedbackReportDataRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -973,7 +1086,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "6.1.2",
+          sdk_version: "6.1.4",
           _prod_code: "MORSERTA",
           _prod_channel: "default",
         };
@@ -1152,6 +1265,25 @@ export default class Client {
   async conversionAdDataAttributedEx(request: ConversionAdDataAttributedRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ConversionAdDataAttributedResponse> {
     Util.validateModel(request);
     return $tea.cast<ConversionAdDataAttributedResponse>(await this.doRequest("1.0", "antcloud.morserta.ad.data.attributed.conversion", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ConversionAdDataAttributedResponse({}));
+  }
+
+  /**
+   * Description: 新版转化回传接口
+   * Summary: 新版转化回传接口
+   */
+  async saveDataConversion(request: SaveDataConversionRequest): Promise<SaveDataConversionResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.saveDataConversionEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 新版转化回传接口
+   * Summary: 新版转化回传接口
+   */
+  async saveDataConversionEx(request: SaveDataConversionRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SaveDataConversionResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SaveDataConversionResponse>(await this.doRequest("1.0", "antcloud.morserta.data.conversion.save", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SaveDataConversionResponse({}));
   }
 
   /**
