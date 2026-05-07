@@ -326,6 +326,8 @@ export class QuerybyappidRequest extends $tea.Model {
   userid: string;
   // mobile/device
   idtype: string;
+  // 支持用户动态传参过滤规则 rule，如果不填，则默认走 hbase 的过滤规则
+  rule?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -333,6 +335,7 @@ export class QuerybyappidRequest extends $tea.Model {
       appid: 'appid',
       userid: 'userid',
       idtype: 'idtype',
+      rule: 'rule',
     };
   }
 
@@ -343,6 +346,7 @@ export class QuerybyappidRequest extends $tea.Model {
       appid: 'string',
       userid: 'string',
       idtype: 'string',
+      rule: 'string',
     };
   }
 
@@ -368,6 +372,8 @@ export class QuerybyappidResponse extends $tea.Model {
   rule?: string;
   // 规则对应的 md5 值，用来区分当前规则的版本
   ruleMd5?: string;
+  // 过滤规则的来源，是入参传入的，还是从数据库查询到的
+  ruleSource?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -378,6 +384,7 @@ export class QuerybyappidResponse extends $tea.Model {
       scores: 'scores',
       rule: 'rule',
       ruleMd5: 'rule_md5',
+      ruleSource: 'rule_source',
     };
   }
 
@@ -391,6 +398,7 @@ export class QuerybyappidResponse extends $tea.Model {
       scores: { 'type': 'array', 'itemType': AppIdQualityScoresDONew },
       rule: 'string',
       ruleMd5: 'string',
+      ruleSource: 'string',
     };
   }
 
@@ -512,7 +520,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.2",
+          sdk_version: "1.1.0",
           _prod_code: "MDP",
           _prod_channel: "default",
         };
