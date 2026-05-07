@@ -137,7 +137,7 @@ namespace AntChain.SDK.MORSERTA
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "6.1.2"},
+                        {"sdk_version", "6.1.4"},
                         {"_prod_code", "MORSERTA"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.MORSERTA
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "6.1.2"},
+                        {"sdk_version", "6.1.4"},
                         {"_prod_code", "MORSERTA"},
                         {"_prod_channel", "default"},
                     };
@@ -613,6 +613,48 @@ namespace AntChain.SDK.MORSERTA
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ConversionAdDataAttributedResponse>(await DoRequestAsync("1.0", "antcloud.morserta.ad.data.attributed.conversion", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 新版转化回传接口
+         * Summary: 新版转化回传接口
+         */
+        public SaveDataConversionResponse SaveDataConversion(SaveDataConversionRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SaveDataConversionEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 新版转化回传接口
+         * Summary: 新版转化回传接口
+         */
+        public async Task<SaveDataConversionResponse> SaveDataConversionAsync(SaveDataConversionRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SaveDataConversionExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 新版转化回传接口
+         * Summary: 新版转化回传接口
+         */
+        public SaveDataConversionResponse SaveDataConversionEx(SaveDataConversionRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SaveDataConversionResponse>(DoRequest("1.0", "antcloud.morserta.data.conversion.save", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 新版转化回传接口
+         * Summary: 新版转化回传接口
+         */
+        public async Task<SaveDataConversionResponse> SaveDataConversionExAsync(SaveDataConversionRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SaveDataConversionResponse>(await DoRequestAsync("1.0", "antcloud.morserta.data.conversion.save", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
