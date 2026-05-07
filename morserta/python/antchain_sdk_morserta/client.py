@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '6.1.2',
+                    'sdk_version': '6.1.4',
                     '_prod_code': 'MORSERTA',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '6.1.2',
+                    'sdk_version': '6.1.4',
                     '_prod_code': 'MORSERTA',
                     '_prod_channel': 'default'
                 }
@@ -665,6 +665,62 @@ class Client:
         return TeaCore.from_map(
             morserta_models.ConversionAdDataAttributedResponse(),
             await self.do_request_async('1.0', 'antcloud.morserta.ad.data.attributed.conversion', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def save_data_conversion(
+        self,
+        request: morserta_models.SaveDataConversionRequest,
+    ) -> morserta_models.SaveDataConversionResponse:
+        """
+        Description: 新版转化回传接口
+        Summary: 新版转化回传接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.save_data_conversion_ex(request, headers, runtime)
+
+    async def save_data_conversion_async(
+        self,
+        request: morserta_models.SaveDataConversionRequest,
+    ) -> morserta_models.SaveDataConversionResponse:
+        """
+        Description: 新版转化回传接口
+        Summary: 新版转化回传接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.save_data_conversion_ex_async(request, headers, runtime)
+
+    def save_data_conversion_ex(
+        self,
+        request: morserta_models.SaveDataConversionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> morserta_models.SaveDataConversionResponse:
+        """
+        Description: 新版转化回传接口
+        Summary: 新版转化回传接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            morserta_models.SaveDataConversionResponse(),
+            self.do_request('1.0', 'antcloud.morserta.data.conversion.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def save_data_conversion_ex_async(
+        self,
+        request: morserta_models.SaveDataConversionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> morserta_models.SaveDataConversionResponse:
+        """
+        Description: 新版转化回传接口
+        Summary: 新版转化回传接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            morserta_models.SaveDataConversionResponse(),
+            await self.do_request_async('1.0', 'antcloud.morserta.data.conversion.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def feedback_report_data(

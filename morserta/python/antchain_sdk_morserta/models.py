@@ -1328,6 +1328,191 @@ class ConversionAdDataAttributedResponse(TeaModel):
         return self
 
 
+class SaveDataConversionRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        trace_id: str = None,
+        sponsor_code: str = None,
+        product_id: str = None,
+        event_id: str = None,
+        event_time: int = None,
+        event_code: str = None,
+        event_param: str = None,
+        user_id: str = None,
+        trace_info: str = None,
+        ext_info: str = None,
+        attribute_type: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 追踪ID，每次请求保持唯一
+        self.trace_id = trace_id
+        # 客户ID，广告主标识
+        self.sponsor_code = sponsor_code
+        # 转化对应的产品id，由数科提供，建议填写
+        self.product_id = product_id
+        # 唯一标识当前转化事件id，用于转化事件的去重避免重复统计，建议填写，可以是订单ID等业务唯一ID。
+        self.event_id = event_id
+        # 转化发生的unix事件戳,单位毫秒
+        self.event_time = event_time
+        # 转化事件类型
+        self.event_code = event_code
+        # json字符串，转化附加参数
+        self.event_param = event_param
+        # 转化所属用户在客户系统中的用户id，如电话号码Md5 建议填写
+        self.user_id = user_id
+        # json字段，格式： {"xxx": xxx, "yyyy":"yyyy"}，
+        # H5/小程序类：为投放前与蚂蚁数科约定的在落地页URL中的埋点参数，包含转化对应的媒体侧返回信息，如click_id, gdt_vid, request_id 跳转链接等务必全量提供
+        # App类：设备ID（ Android ID、OAID、OAID_MD5、IDFA、IDFA_MD5、CAID），点击ID、请求ID等
+        # 数科侧会依据该信息与自行收集到的点击进行匹配归因，务必详尽提供。
+        # 此部分字段信息需在接入前双方确认，主要与媒体平台、投放载体（H5、微信小程序、手机App等）有关，需要客户支持采集(如H5 URL拼接埋点参数、小程序path埋点参数）
+        # 具体请参考文档
+        self.trace_info = trace_info
+        # json扩展字段。保险行业必填insurance_info，见文档
+        self.ext_info = ext_info
+        # 1-广告主自归因 2-数科归因（待上线）
+        self.attribute_type = attribute_type
+
+    def validate(self):
+        self.validate_required(self.trace_id, 'trace_id')
+        self.validate_required(self.sponsor_code, 'sponsor_code')
+        self.validate_required(self.event_time, 'event_time')
+        self.validate_required(self.event_code, 'event_code')
+        self.validate_required(self.trace_info, 'trace_info')
+        self.validate_required(self.attribute_type, 'attribute_type')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.trace_id is not None:
+            result['trace_id'] = self.trace_id
+        if self.sponsor_code is not None:
+            result['sponsor_code'] = self.sponsor_code
+        if self.product_id is not None:
+            result['product_id'] = self.product_id
+        if self.event_id is not None:
+            result['event_id'] = self.event_id
+        if self.event_time is not None:
+            result['event_time'] = self.event_time
+        if self.event_code is not None:
+            result['event_code'] = self.event_code
+        if self.event_param is not None:
+            result['event_param'] = self.event_param
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        if self.trace_info is not None:
+            result['trace_info'] = self.trace_info
+        if self.ext_info is not None:
+            result['ext_info'] = self.ext_info
+        if self.attribute_type is not None:
+            result['attribute_type'] = self.attribute_type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('trace_id') is not None:
+            self.trace_id = m.get('trace_id')
+        if m.get('sponsor_code') is not None:
+            self.sponsor_code = m.get('sponsor_code')
+        if m.get('product_id') is not None:
+            self.product_id = m.get('product_id')
+        if m.get('event_id') is not None:
+            self.event_id = m.get('event_id')
+        if m.get('event_time') is not None:
+            self.event_time = m.get('event_time')
+        if m.get('event_code') is not None:
+            self.event_code = m.get('event_code')
+        if m.get('event_param') is not None:
+            self.event_param = m.get('event_param')
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        if m.get('trace_info') is not None:
+            self.trace_info = m.get('trace_info')
+        if m.get('ext_info') is not None:
+            self.ext_info = m.get('ext_info')
+        if m.get('attribute_type') is not None:
+            self.attribute_type = m.get('attribute_type')
+        return self
+
+
+class SaveDataConversionResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        success: bool = None,
+        request_id: str = None,
+        code: str = None,
+        message: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 是否成功
+        self.success = success
+        # 请求ID，用于追踪
+        self.request_id = request_id
+        # 错误码，失败时返回
+        self.code = code
+        # 错误信息，失败时返回
+        self.message = message
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.success is not None:
+            result['success'] = self.success
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        return self
+
+
 class FeedbackReportDataRequest(TeaModel):
     def __init__(
         self,
