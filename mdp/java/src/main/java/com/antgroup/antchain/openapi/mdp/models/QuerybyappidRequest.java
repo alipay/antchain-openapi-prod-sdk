@@ -26,6 +26,10 @@ public class QuerybyappidRequest extends TeaModel {
     @Validation(required = true)
     public String idtype;
 
+    // 支持用户动态传参过滤规则 rule，如果不填，则默认走 hbase 的过滤规则
+    @NameInMap("rule")
+    public String rule;
+
     public static QuerybyappidRequest build(java.util.Map<String, ?> map) throws Exception {
         QuerybyappidRequest self = new QuerybyappidRequest();
         return TeaModel.build(map, self);
@@ -69,6 +73,14 @@ public class QuerybyappidRequest extends TeaModel {
     }
     public String getIdtype() {
         return this.idtype;
+    }
+
+    public QuerybyappidRequest setRule(String rule) {
+        this.rule = rule;
+        return this;
+    }
+    public String getRule() {
+        return this.rule;
     }
 
 }

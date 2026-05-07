@@ -36,6 +36,10 @@ public class QuerybyappidResponse extends TeaModel {
     @NameInMap("rule_md5")
     public String ruleMd5;
 
+    // 过滤规则的来源，是入参传入的，还是从数据库查询到的
+    @NameInMap("rule_source")
+    public String ruleSource;
+
     public static QuerybyappidResponse build(java.util.Map<String, ?> map) throws Exception {
         QuerybyappidResponse self = new QuerybyappidResponse();
         return TeaModel.build(map, self);
@@ -103,6 +107,14 @@ public class QuerybyappidResponse extends TeaModel {
     }
     public String getRuleMd5() {
         return this.ruleMd5;
+    }
+
+    public QuerybyappidResponse setRuleSource(String ruleSource) {
+        this.ruleSource = ruleSource;
+        return this;
+    }
+    public String getRuleSource() {
+        return this.ruleSource;
     }
 
 }
