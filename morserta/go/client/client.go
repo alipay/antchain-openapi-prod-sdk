@@ -1146,6 +1146,166 @@ func (s *ConversionAdDataAttributedResponse) SetCallback(v int64) *ConversionAdD
 	return s
 }
 
+type SaveDataConversionRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 追踪ID，每次请求保持唯一
+	TraceId *string `json:"trace_id,omitempty" xml:"trace_id,omitempty" require:"true"`
+	// 客户ID，广告主标识
+	SponsorCode *string `json:"sponsor_code,omitempty" xml:"sponsor_code,omitempty" require:"true"`
+	// 转化对应的产品id，由数科提供，建议填写
+	ProductId *string `json:"product_id,omitempty" xml:"product_id,omitempty"`
+	// 唯一标识当前转化事件id，用于转化事件的去重避免重复统计，建议填写，可以是订单ID等业务唯一ID。
+	EventId *string `json:"event_id,omitempty" xml:"event_id,omitempty"`
+	// 转化发生的unix事件戳,单位毫秒
+	EventTime *int64 `json:"event_time,omitempty" xml:"event_time,omitempty" require:"true"`
+	// 转化事件类型
+	EventCode *string `json:"event_code,omitempty" xml:"event_code,omitempty" require:"true"`
+	// json字符串，转化附加参数
+	EventParam *string `json:"event_param,omitempty" xml:"event_param,omitempty"`
+	// 转化所属用户在客户系统中的用户id，如电话号码Md5 建议填写
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+	// json字段，格式： {"xxx": xxx, "yyyy":"yyyy"}，
+	// H5/小程序类：为投放前与蚂蚁数科约定的在落地页URL中的埋点参数，包含转化对应的媒体侧返回信息，如click_id, gdt_vid, request_id 跳转链接等务必全量提供
+	// App类：设备ID（ Android ID、OAID、OAID_MD5、IDFA、IDFA_MD5、CAID），点击ID、请求ID等
+	// 数科侧会依据该信息与自行收集到的点击进行匹配归因，务必详尽提供。
+	// 此部分字段信息需在接入前双方确认，主要与媒体平台、投放载体（H5、微信小程序、手机App等）有关，需要客户支持采集(如H5 URL拼接埋点参数、小程序path埋点参数）
+	// 具体请参考文档
+	TraceInfo *string `json:"trace_info,omitempty" xml:"trace_info,omitempty" require:"true"`
+	// json扩展字段。保险行业必填insurance_info，见文档
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
+	// 1-广告主自归因 2-数科归因（待上线）
+	AttributeType *int64 `json:"attribute_type,omitempty" xml:"attribute_type,omitempty" require:"true"`
+}
+
+func (s SaveDataConversionRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SaveDataConversionRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SaveDataConversionRequest) SetAuthToken(v string) *SaveDataConversionRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SaveDataConversionRequest) SetTraceId(v string) *SaveDataConversionRequest {
+	s.TraceId = &v
+	return s
+}
+
+func (s *SaveDataConversionRequest) SetSponsorCode(v string) *SaveDataConversionRequest {
+	s.SponsorCode = &v
+	return s
+}
+
+func (s *SaveDataConversionRequest) SetProductId(v string) *SaveDataConversionRequest {
+	s.ProductId = &v
+	return s
+}
+
+func (s *SaveDataConversionRequest) SetEventId(v string) *SaveDataConversionRequest {
+	s.EventId = &v
+	return s
+}
+
+func (s *SaveDataConversionRequest) SetEventTime(v int64) *SaveDataConversionRequest {
+	s.EventTime = &v
+	return s
+}
+
+func (s *SaveDataConversionRequest) SetEventCode(v string) *SaveDataConversionRequest {
+	s.EventCode = &v
+	return s
+}
+
+func (s *SaveDataConversionRequest) SetEventParam(v string) *SaveDataConversionRequest {
+	s.EventParam = &v
+	return s
+}
+
+func (s *SaveDataConversionRequest) SetUserId(v string) *SaveDataConversionRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *SaveDataConversionRequest) SetTraceInfo(v string) *SaveDataConversionRequest {
+	s.TraceInfo = &v
+	return s
+}
+
+func (s *SaveDataConversionRequest) SetExtInfo(v string) *SaveDataConversionRequest {
+	s.ExtInfo = &v
+	return s
+}
+
+func (s *SaveDataConversionRequest) SetAttributeType(v int64) *SaveDataConversionRequest {
+	s.AttributeType = &v
+	return s
+}
+
+type SaveDataConversionResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 请求ID，用于追踪
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
+	// 错误码，失败时返回
+	Code *string `json:"code,omitempty" xml:"code,omitempty"`
+	// 错误信息，失败时返回
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+}
+
+func (s SaveDataConversionResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SaveDataConversionResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SaveDataConversionResponse) SetReqMsgId(v string) *SaveDataConversionResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SaveDataConversionResponse) SetResultCode(v string) *SaveDataConversionResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SaveDataConversionResponse) SetResultMsg(v string) *SaveDataConversionResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SaveDataConversionResponse) SetSuccess(v bool) *SaveDataConversionResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *SaveDataConversionResponse) SetRequestId(v string) *SaveDataConversionResponse {
+	s.RequestId = &v
+	return s
+}
+
+func (s *SaveDataConversionResponse) SetCode(v string) *SaveDataConversionResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *SaveDataConversionResponse) SetMessage(v string) *SaveDataConversionResponse {
+	s.Message = &v
+	return s
+}
+
 type FeedbackReportDataRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -1346,7 +1506,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("6.1.2"),
+				"sdk_version":      tea.String("6.1.4"),
 				"_prod_code":       tea.String("MORSERTA"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -1635,6 +1795,40 @@ func (client *Client) ConversionAdDataAttributedEx(request *ConversionAdDataAttr
 	}
 	_result = &ConversionAdDataAttributedResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.morserta.ad.data.attributed.conversion"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 新版转化回传接口
+ * Summary: 新版转化回传接口
+ */
+func (client *Client) SaveDataConversion(request *SaveDataConversionRequest) (_result *SaveDataConversionResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SaveDataConversionResponse{}
+	_body, _err := client.SaveDataConversionEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 新版转化回传接口
+ * Summary: 新版转化回传接口
+ */
+func (client *Client) SaveDataConversionEx(request *SaveDataConversionRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SaveDataConversionResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SaveDataConversionResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.morserta.data.conversion.save"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
