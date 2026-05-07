@@ -27,6 +27,8 @@ use AntChain\MORSERTA\Models\OcpxAdDataRequest;
 use AntChain\MORSERTA\Models\OcpxAdDataResponse;
 use AntChain\MORSERTA\Models\ReportAdDataRequest;
 use AntChain\MORSERTA\Models\ReportAdDataResponse;
+use AntChain\MORSERTA\Models\SaveDataConversionRequest;
+use AntChain\MORSERTA\Models\SaveDataConversionResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -174,7 +176,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '6.1.2',
+                    'sdk_version'      => '6.1.4',
                     '_prod_code'       => 'MORSERTA',
                     '_prod_channel'    => 'default',
                 ];
@@ -451,6 +453,39 @@ class Client
         Utils::validateModel($request);
 
         return ConversionAdDataAttributedResponse::fromMap($this->doRequest('1.0', 'antcloud.morserta.ad.data.attributed.conversion', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 新版转化回传接口
+     * Summary: 新版转化回传接口.
+     *
+     * @param SaveDataConversionRequest $request
+     *
+     * @return SaveDataConversionResponse
+     */
+    public function saveDataConversion($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->saveDataConversionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 新版转化回传接口
+     * Summary: 新版转化回传接口.
+     *
+     * @param SaveDataConversionRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return SaveDataConversionResponse
+     */
+    public function saveDataConversionEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SaveDataConversionResponse::fromMap($this->doRequest('1.0', 'antcloud.morserta.data.conversion.save', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
