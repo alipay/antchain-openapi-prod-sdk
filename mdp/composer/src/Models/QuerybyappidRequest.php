@@ -36,12 +36,19 @@ class QuerybyappidRequest extends Model
      * @var string
      */
     public $idtype;
+
+    // 支持用户动态传参过滤规则 rule，如果不填，则默认走 hbase 的过滤规则
+    /**
+     * @var string
+     */
+    public $rule;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'appid'             => 'appid',
         'userid'            => 'userid',
         'idtype'            => 'idtype',
+        'rule'              => 'rule',
     ];
 
     public function validate()
@@ -69,6 +76,9 @@ class QuerybyappidRequest extends Model
         if (null !== $this->idtype) {
             $res['idtype'] = $this->idtype;
         }
+        if (null !== $this->rule) {
+            $res['rule'] = $this->rule;
+        }
 
         return $res;
     }
@@ -95,6 +105,9 @@ class QuerybyappidRequest extends Model
         }
         if (isset($map['idtype'])) {
             $model->idtype = $map['idtype'];
+        }
+        if (isset($map['rule'])) {
+            $model->rule = $map['rule'];
         }
 
         return $model;

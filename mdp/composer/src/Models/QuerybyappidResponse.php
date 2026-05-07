@@ -55,6 +55,12 @@ class QuerybyappidResponse extends Model
      * @var string
      */
     public $ruleMd5;
+
+    // 过滤规则的来源，是入参传入的，还是从数据库查询到的
+    /**
+     * @var string
+     */
+    public $ruleSource;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
@@ -64,6 +70,7 @@ class QuerybyappidResponse extends Model
         'scores'     => 'scores',
         'rule'       => 'rule',
         'ruleMd5'    => 'rule_md5',
+        'ruleSource' => 'rule_source',
     ];
 
     public function validate()
@@ -102,6 +109,9 @@ class QuerybyappidResponse extends Model
         }
         if (null !== $this->ruleMd5) {
             $res['rule_md5'] = $this->ruleMd5;
+        }
+        if (null !== $this->ruleSource) {
+            $res['rule_source'] = $this->ruleSource;
         }
 
         return $res;
@@ -144,6 +154,9 @@ class QuerybyappidResponse extends Model
         }
         if (isset($map['rule_md5'])) {
             $model->ruleMd5 = $map['rule_md5'];
+        }
+        if (isset($map['rule_source'])) {
+            $model->ruleSource = $map['rule_source'];
         }
 
         return $model;
