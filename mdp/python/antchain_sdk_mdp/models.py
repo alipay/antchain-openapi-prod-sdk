@@ -528,6 +528,7 @@ class QuerybyappidRequest(TeaModel):
         appid: str = None,
         userid: str = None,
         idtype: str = None,
+        rule: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -538,6 +539,8 @@ class QuerybyappidRequest(TeaModel):
         self.userid = userid
         # mobile/device
         self.idtype = idtype
+        # 支持用户动态传参过滤规则 rule，如果不填，则默认走 hbase 的过滤规则
+        self.rule = rule
 
     def validate(self):
         self.validate_required(self.appid, 'appid')
@@ -560,6 +563,8 @@ class QuerybyappidRequest(TeaModel):
             result['userid'] = self.userid
         if self.idtype is not None:
             result['idtype'] = self.idtype
+        if self.rule is not None:
+            result['rule'] = self.rule
         return result
 
     def from_map(self, m: dict = None):
@@ -574,6 +579,8 @@ class QuerybyappidRequest(TeaModel):
             self.userid = m.get('userid')
         if m.get('idtype') is not None:
             self.idtype = m.get('idtype')
+        if m.get('rule') is not None:
+            self.rule = m.get('rule')
         return self
 
 
@@ -588,6 +595,7 @@ class QuerybyappidResponse(TeaModel):
         scores: List[AppIdQualityScoresDONew] = None,
         rule: str = None,
         rule_md_5: str = None,
+        rule_source: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -605,6 +613,8 @@ class QuerybyappidResponse(TeaModel):
         self.rule = rule
         # 规则对应的 md5 值，用来区分当前规则的版本
         self.rule_md_5 = rule_md_5
+        # 过滤规则的来源，是入参传入的，还是从数据库查询到的
+        self.rule_source = rule_source
 
     def validate(self):
         if self.scores:
@@ -636,6 +646,8 @@ class QuerybyappidResponse(TeaModel):
             result['rule'] = self.rule
         if self.rule_md_5 is not None:
             result['rule_md5'] = self.rule_md_5
+        if self.rule_source is not None:
+            result['rule_source'] = self.rule_source
         return result
 
     def from_map(self, m: dict = None):
@@ -659,6 +671,8 @@ class QuerybyappidResponse(TeaModel):
             self.rule = m.get('rule')
         if m.get('rule_md5') is not None:
             self.rule_md_5 = m.get('rule_md5')
+        if m.get('rule_source') is not None:
+            self.rule_source = m.get('rule_source')
         return self
 
 
