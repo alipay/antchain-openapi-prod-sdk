@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "MDP",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-mdp:1.0.2",
-    "go": "github.com/antchain-openapi-sdk-go/mdp/client:v1.0.2",
-    "csharp": "AntChain.SDK.MDP:1.0.2",
+    "java": "com.antgroup.antchain.openapi:openapi-mdp:1.1.0",
+    "go": "github.com/antchain-openapi-sdk-go/mdp/client:v1.1.0",
+    "csharp": "AntChain.SDK.MDP:1.1.0",
     "ts": "@antchain/mdp:^1.0.0",
-    "php": "antchain/mdp:1.0.2",
-    "python": "antchain_sdk_mdp:1.0.2"
+    "php": "antchain/mdp:1.1.0",
+    "python": "antchain_sdk_mdp:1.1.0"
   },
   "libraries": {
     "Util": "darabonba:Util:*",
