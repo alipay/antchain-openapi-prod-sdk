@@ -30,7 +30,7 @@ Created on 08/05/2026
 """
 
 PACKAGE = "antchain_sdk_demo"
-NAME = "antchain_demo" or "alibabacloud-package"
+NAME = 'antchain-abc' or "alibabacloud-package"
 DESCRIPTION = "Ant Chain DEMO SDK Library for Python"
 AUTHOR = "Ant Chain SDK"
 AUTHOR_EMAIL = "sdk-team@alibabacloud.com"
