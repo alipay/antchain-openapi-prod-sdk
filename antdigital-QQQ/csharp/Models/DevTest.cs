@@ -1,0 +1,24 @@
+// This file is auto-generated, don't edit it. Thanks.
+
+using System;
+using System.Collections.Generic;
+using System.IO;
+
+using Tea;
+
+namespace AntChain.SDK.QQQ.Models
+{
+    // dev测试
+    public class DevTest : TeaModel {
+        // 超时时间
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>200</para>
+        /// </summary>
+        [NameInMap("timeout")]
+        [Validation(Required=true)]
+        public string Timeout { get; set; }
+
+    }
+
+}
