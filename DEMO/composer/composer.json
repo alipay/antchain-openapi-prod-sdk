@@ -22,7 +22,7 @@
 		"optimize-autoloader":true,
 		"preferred-install":"dist"
 	},
-	"version":"1.1.30",
+	"version":"1.1.78",
 	"authors":[
 		{
 			"name":"Ant Chain SDK",

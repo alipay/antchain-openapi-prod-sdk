@@ -1,35 +1,14 @@
-[English](README.md) | 简体中文
-
-![](https://aliyunsdk-pages.alicdn.com/icons/AlibabaCloud.svg)
-
-# Ant Chain ABC SDK for PHP
+# PHP SDK
 
 ## 安装
 
-### Composer
+## 环境要求
 
-```bash
-composer require antchain/DEMO
-```
+- PHP 7.2+
+- Composer
 
-## 问题
+## 使用方法
 
-[提交 Issue](https://github.com/alipay/antchain-openapi-prod-sdk/issues/new)，不符合指南的问题可能会立即关闭。
-
-## 使用说明
-
-[快速使用](https://github.com/alipay/antchain-openapi-prod-sdk)
-
-## 发行说明
-
-每个版本的详细更改记录在[发行说明](./ChangeLog.txt)中。
-
-## 相关
-
-* [最新源码](https://github.com/antchain-openapi-sdk-php)
+## 文档
 
 ## 许可证
-
-[Apache-2.0](http://www.apache.org/licenses/LICENSE-2.0)
-
-Copyright (c) 2009-present, Alibaba Cloud All rights reserved.
