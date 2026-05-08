@@ -1,33 +1,40 @@
-# Ant Chain ABC SDK for Java
-
 English | [简体中文](README-CN.md)
+
+## Ant Chain ABC SDK for Python
+
+## Requirements
+
+- Python >= 3.6
 
 ## Installation
 
-```xml
-<dependency>
-   <groupId>com.antgroup.antchain.openapi</groupId>
-   <artifactId>openapi-abc</artifactId>
-   <version>1.0.2</version>
-</dependency>
+- **Install with pip**
+
+Python SDK uses a common package management tool named `pip`. If pip is not installed, see the [pip user guide](https://pip.pypa.io/en/stable/installing/ "pip User Guide") to install pip.
+
+```bash
+# Install the antchain-ABC
+pip install antchain-ABC
 ```
 
 ## Issues
 
-[Open an issue](https://github.com/alipay/antchain-openapi-prod-sdk/issues/new) on GitHub.
+[Opening an Issue](https://github.com/alipay/antchain-openapi-prod-sdk/issues/new), Issues not conforming to the guidelines may be closed immediately.
 
-## Documentation
+## Usage
 
-[Quick Start](https://github.com/alipay/antchain-openapi-prod-sdk)
+[Quick Examples](https://github.com/alipay/antchain-openapi-prod-sdk)
 
 ## Changelog
 
-Detailed changes for each release are documented in the [release notes](./ChangeLog.txt).
+Detailed changes for each release are documented in the [release notes](./ChangeLog.md).
 
 ## References
 
-- [Latest Source Code](https://github.com/alipay/antchain-openapi-prod-sdk/)
+- [Latest Release](https://github.com/alipay/antchain-openapi-prod-sdk/tree/master/python)
 
 ## License
 
 [Apache-2.0](http://www.apache.org/licenses/LICENSE-2.0)
+
+Copyright (c) 2009-present, Alibaba Cloud All rights reserved.

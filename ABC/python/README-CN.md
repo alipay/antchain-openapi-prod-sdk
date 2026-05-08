@@ -1,15 +1,20 @@
 [English](README.md) | 简体中文
 
-# Ant Chain ABC SDK for Java
+## Ant Chain ABC SDK for Python
+
+## 要求
+
+- Python >= 3.6
 
 ## 安装
 
-```xml
-<dependency>
-   <groupId>com.antgroup.antchain.openapi</groupId>
-   <artifactId>openapi-abc</artifactId>
-   <version>1.0.2</version>
-</dependency>
+- **使用 pip 安装(推荐)**
+
+如未安装 `pip`, 请先至pip官网 [pip user guide](https://pip.pypa.io/en/stable/installing/ "pip User Guide") 安装pip .
+
+```bash
+# 安装 antchain-ABC
+pip install antchain-ABC
 ```
 
 ## 问题
@@ -22,7 +27,7 @@
 
 ## 发行说明
 
-每个版本的详细更改记录在[发行说明](./ChangeLog.txt)中。
+每个版本的详细更改记录在[发行说明](./ChangeLog.md)中。
 
 ## 相关
 
