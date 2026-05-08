@@ -18,11 +18,6 @@ namespace AntChain.SDK.DEMO.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 1111
-        [NameInMap("bnumber")]
-        [Validation(Required=true, MaxLength=2)]
-        public string Bnumber { get; set; }
-
     }
 
 }

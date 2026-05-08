@@ -51,15 +51,6 @@ namespace AntChain.SDK.DEMO.Models
         [Validation(Required=true)]
         public List<string> SomeList { get; set; }
 
-        // test
-        /// <summary>
-        /// <b>Example:</b>
-        /// <para>undefined</para>
-        /// </summary>
-        [NameInMap("some_object")]
-        [Validation(Required=true)]
-        public AnotherClass SomeObject { get; set; }
-
     }
 
 }

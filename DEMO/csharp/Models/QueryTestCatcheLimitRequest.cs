@@ -23,11 +23,6 @@ namespace AntChain.SDK.DEMO.Models
         [Validation(Required=true)]
         public string Timeout { get; set; }
 
-        // 测试
-        [NameInMap("name")]
-        [Validation(Required=false)]
-        public string Name { get; set; }
-
     }
 
 }

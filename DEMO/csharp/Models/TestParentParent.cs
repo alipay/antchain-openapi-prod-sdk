@@ -8,16 +8,16 @@ using Tea;
 
 namespace AntChain.SDK.DEMO.Models
 {
-    // 卡片信息
-    public class Card : TeaModel {
-        // 卡片名称
+    // sss
+    public class TestParentParent : TeaModel {
+        // fff
         /// <summary>
         /// <b>Example:</b>
-        /// <para>张三</para>
+        /// <para>fff</para>
         /// </summary>
-        [NameInMap("name")]
-        [Validation(Required=false)]
-        public string Name { get; set; }
+        [NameInMap("ssss")]
+        [Validation(Required=true)]
+        public TestParent Ssss { get; set; }
 
     }
 
