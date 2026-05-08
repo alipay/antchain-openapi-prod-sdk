@@ -13,11 +13,6 @@ public class AnotherClass extends TeaModel {
     @Validation(required = true)
     public String bar;
 
-    // 引用字段
-    @NameInMap("ref")
-    @Validation(required = true)
-    public DemoClass ref;
-
     // 列表引用Struct
     @NameInMap("refList")
     public java.util.List<DemoClass> refList;
@@ -33,14 +28,6 @@ public class AnotherClass extends TeaModel {
     }
     public String getBar() {
         return this.bar;
-    }
-
-    public AnotherClass setRef(DemoClass ref) {
-        this.ref = ref;
-        return this;
-    }
-    public DemoClass getRef() {
-        return this.ref;
     }
 
     public AnotherClass setRefList(java.util.List<DemoClass> refList) {

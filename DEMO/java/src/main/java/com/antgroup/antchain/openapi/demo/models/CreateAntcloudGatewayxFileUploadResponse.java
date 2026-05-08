@@ -27,7 +27,7 @@ public class CreateAntcloudGatewayxFileUploadResponse extends TeaModel {
 
     // 放入http请求头里
     @NameInMap("upload_headers")
-    public java.util.List<NameValuePair> uploadHeaders;
+    public java.util.List<XNameValuePair> uploadHeaders;
 
     // 文件上传地址
     @NameInMap("upload_url")
@@ -78,11 +78,11 @@ public class CreateAntcloudGatewayxFileUploadResponse extends TeaModel {
         return this.fileId;
     }
 
-    public CreateAntcloudGatewayxFileUploadResponse setUploadHeaders(java.util.List<NameValuePair> uploadHeaders) {
+    public CreateAntcloudGatewayxFileUploadResponse setUploadHeaders(java.util.List<XNameValuePair> uploadHeaders) {
         this.uploadHeaders = uploadHeaders;
         return this;
     }
-    public java.util.List<NameValuePair> getUploadHeaders() {
+    public java.util.List<XNameValuePair> getUploadHeaders() {
         return this.uploadHeaders;
     }
 

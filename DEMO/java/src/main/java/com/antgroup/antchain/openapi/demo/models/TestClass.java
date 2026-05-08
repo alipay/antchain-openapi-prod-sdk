@@ -40,6 +40,15 @@ public class TestClass extends TeaModel {
     @Validation(required = true)
     public String demo2;
 
+    // test
+    /**
+     * <strong>example:</strong>
+     * <p>undefined</p>
+     */
+    @NameInMap("info")
+    @Validation(required = true)
+    public DemoClass info;
+
     public static TestClass build(java.util.Map<String, ?> map) throws Exception {
         TestClass self = new TestClass();
         return TeaModel.build(map, self);
@@ -75,6 +84,14 @@ public class TestClass extends TeaModel {
     }
     public String getDemo2() {
         return this.demo2;
+    }
+
+    public TestClass setInfo(DemoClass info) {
+        this.info = info;
+        return this;
+    }
+    public DemoClass getInfo() {
+        return this.info;
     }
 
 }
