@@ -1,15 +1,14 @@
-# Ant Chain DEMO SDK for TypeScript
+# TypeScript SDK
 
 ## Installation
 
-```bash
-npm install @antchain/DEMO
-```
+## Requirements
 
-## Issues
+- Node.js 12+
+- npm/yarn
 
-[Open an issue](https://github.com/alipay/antchain-openapi-prod-sdk/issues/new)
+## Usage
+
+## Documentation
 
 ## License
-
-[Apache-2.0](http://www.apache.org/licenses/LICENSE-2.0)
