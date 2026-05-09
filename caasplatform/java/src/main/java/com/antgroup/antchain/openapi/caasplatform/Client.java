@@ -32,7 +32,9 @@ public class Client {
     public Number _maxRequests;
     public Number _maxRequestsPerHost;
     /**
-     * Init client with Config
+     * <b>description</b> :
+     * <p>Init client with Config</p>
+     * 
      * @param config config contains the necessary information to create a client
      */
     public Client(Config config) throws Exception {
@@ -64,7 +66,9 @@ public class Client {
     }
 
     /**
-     * Encapsulate the request and invoke the network
+     * <b>description</b> :
+     * <p>Encapsulate the request and invoke the network</p>
+     * 
      * @param action api name
      * @param protocol http or https
      * @param method e.g. GET
@@ -122,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.5.1"),
+                    new TeaPair("sdk_version", "1.6.0"),
                     new TeaPair("_prod_code", "CAASPLATFORM"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -185,8 +189,93 @@ public class Client {
     }
 
     /**
-     * Description: 创建存证
-     * Summary: 创建存证
+     * <b>description</b> :
+     * <p>Description: 多环节业务存证
+     * Summary: 多环节业务存证</p>
+     */
+    public CreateMultistepDepositResponse createMultistepDeposit(CreateMultistepDepositRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createMultistepDepositEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 多环节业务存证
+     * Summary: 多环节业务存证</p>
+     */
+    public CreateMultistepDepositResponse createMultistepDepositEx(CreateMultistepDepositRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.caasplatform.multistep.deposit.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateMultistepDepositResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 存证证明申请
+     * Summary: 存证证明申请</p>
+     */
+    public ApplyCertificationResponse applyCertification(ApplyCertificationRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.applyCertificationEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 存证证明申请
+     * Summary: 存证证明申请</p>
+     */
+    public ApplyCertificationResponse applyCertificationEx(ApplyCertificationRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.caasplatform.certification.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyCertificationResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 证明处理任务状态查询
+     * Summary: 证明处理任务状态查询</p>
+     */
+    public QueryCertificationStatusResponse queryCertificationStatus(QueryCertificationStatusRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryCertificationStatusEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 证明处理任务状态查询
+     * Summary: 证明处理任务状态查询</p>
+     */
+    public QueryCertificationStatusResponse queryCertificationStatusEx(QueryCertificationStatusRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.caasplatform.certification.status.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCertificationStatusResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询出证证明文件信息
+     * Summary: 查询出证证明文件信息</p>
+     */
+    public QueryCertificationInfoResponse queryCertificationInfo(QueryCertificationInfoRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryCertificationInfoEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询出证证明文件信息
+     * Summary: 查询出证证明文件信息</p>
+     */
+    public QueryCertificationInfoResponse queryCertificationInfoEx(QueryCertificationInfoRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.caasplatform.certification.info.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCertificationInfoResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 创建存证
+     * Summary: 创建存证</p>
      */
     public CreateDepositResponse createDeposit(CreateDepositRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -195,8 +284,9 @@ public class Client {
     }
 
     /**
-     * Description: 创建存证
-     * Summary: 创建存证
+     * <b>description</b> :
+     * <p>Description: 创建存证
+     * Summary: 创建存证</p>
      */
     public CreateDepositResponse createDepositEx(CreateDepositRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         if (!com.aliyun.teautil.Common.isUnset(request.fileObject)) {
@@ -226,8 +316,9 @@ public class Client {
     }
 
     /**
-     * Description: 存证查询
-     * Summary: 存证查询
+     * <b>description</b> :
+     * <p>Description: 存证查询
+     * Summary: 存证查询</p>
      */
     public QueryDepositResponse queryDeposit(QueryDepositRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -236,8 +327,9 @@ public class Client {
     }
 
     /**
-     * Description: 存证查询
-     * Summary: 存证查询
+     * <b>description</b> :
+     * <p>Description: 存证查询
+     * Summary: 存证查询</p>
      */
     public QueryDepositResponse queryDepositEx(QueryDepositRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -245,8 +337,9 @@ public class Client {
     }
 
     /**
-     * Description: 证书存证合约-证书存证查询
-     * Summary: 证书存证合约-证书存证查询
+     * <b>description</b> :
+     * <p>Description: 证书存证合约-证书存证查询
+     * Summary: 证书存证合约-证书存证查询</p>
      */
     public QueryDepositCertificateResponse queryDepositCertificate(QueryDepositCertificateRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -255,8 +348,9 @@ public class Client {
     }
 
     /**
-     * Description: 证书存证合约-证书存证查询
-     * Summary: 证书存证合约-证书存证查询
+     * <b>description</b> :
+     * <p>Description: 证书存证合约-证书存证查询
+     * Summary: 证书存证合约-证书存证查询</p>
      */
     public QueryDepositCertificateResponse queryDepositCertificateEx(QueryDepositCertificateRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -264,8 +358,9 @@ public class Client {
     }
 
     /**
-     * Description: 证书存证合约-创建证书存证
-     * Summary: 证书存证合约-创建证书存证
+     * <b>description</b> :
+     * <p>Description: 证书存证合约-创建证书存证
+     * Summary: 证书存证合约-创建证书存证</p>
      */
     public CreateDepositCertificateResponse createDepositCertificate(CreateDepositCertificateRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -274,8 +369,9 @@ public class Client {
     }
 
     /**
-     * Description: 证书存证合约-创建证书存证
-     * Summary: 证书存证合约-创建证书存证
+     * <b>description</b> :
+     * <p>Description: 证书存证合约-创建证书存证
+     * Summary: 证书存证合约-创建证书存证</p>
      */
     public CreateDepositCertificateResponse createDepositCertificateEx(CreateDepositCertificateRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         if (!com.aliyun.teautil.Common.isUnset(request.fileObject)) {
@@ -305,8 +401,9 @@ public class Client {
     }
 
     /**
-     * Description: 捐赠合约-捐赠证明查询
-     * Summary: 捐赠合约-捐赠证明查询
+     * <b>description</b> :
+     * <p>Description: 捐赠合约-捐赠证明查询
+     * Summary: 捐赠合约-捐赠证明查询</p>
      */
     public QueryDepositCharityResponse queryDepositCharity(QueryDepositCharityRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -315,8 +412,9 @@ public class Client {
     }
 
     /**
-     * Description: 捐赠合约-捐赠证明查询
-     * Summary: 捐赠合约-捐赠证明查询
+     * <b>description</b> :
+     * <p>Description: 捐赠合约-捐赠证明查询
+     * Summary: 捐赠合约-捐赠证明查询</p>
      */
     public QueryDepositCharityResponse queryDepositCharityEx(QueryDepositCharityRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -324,8 +422,9 @@ public class Client {
     }
 
     /**
-     * Description: 捐赠合约-创建捐赠证明
-     * Summary: 捐赠合约-创建捐赠证明
+     * <b>description</b> :
+     * <p>Description: 捐赠合约-创建捐赠证明
+     * Summary: 捐赠合约-创建捐赠证明</p>
      */
     public CreateDepositCharityResponse createDepositCharity(CreateDepositCharityRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -334,8 +433,9 @@ public class Client {
     }
 
     /**
-     * Description: 捐赠合约-创建捐赠证明
-     * Summary: 捐赠合约-创建捐赠证明
+     * <b>description</b> :
+     * <p>Description: 捐赠合约-创建捐赠证明
+     * Summary: 捐赠合约-创建捐赠证明</p>
      */
     public CreateDepositCharityResponse createDepositCharityEx(CreateDepositCharityRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         if (!com.aliyun.teautil.Common.isUnset(request.fileObject)) {
@@ -365,8 +465,9 @@ public class Client {
     }
 
     /**
-     * Description: 抽奖活动审计合约-中奖记录查询
-     * Summary: 抽奖活动审计合约-中奖记录查询
+     * <b>description</b> :
+     * <p>Description: 抽奖活动审计合约-中奖记录查询
+     * Summary: 抽奖活动审计合约-中奖记录查询</p>
      */
     public QueryDepositSweepstakesResponse queryDepositSweepstakes(QueryDepositSweepstakesRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -375,8 +476,9 @@ public class Client {
     }
 
     /**
-     * Description: 抽奖活动审计合约-中奖记录查询
-     * Summary: 抽奖活动审计合约-中奖记录查询
+     * <b>description</b> :
+     * <p>Description: 抽奖活动审计合约-中奖记录查询
+     * Summary: 抽奖活动审计合约-中奖记录查询</p>
      */
     public QueryDepositSweepstakesResponse queryDepositSweepstakesEx(QueryDepositSweepstakesRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -384,8 +486,9 @@ public class Client {
     }
 
     /**
-     * Description: 抽奖活动审计合约-创建活动记录
-     * Summary: 抽奖活动审计合约-创建活动记录
+     * <b>description</b> :
+     * <p>Description: 抽奖活动审计合约-创建活动记录
+     * Summary: 抽奖活动审计合约-创建活动记录</p>
      */
     public CreateDepositSweepstakesResponse createDepositSweepstakes(CreateDepositSweepstakesRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -394,8 +497,9 @@ public class Client {
     }
 
     /**
-     * Description: 抽奖活动审计合约-创建活动记录
-     * Summary: 抽奖活动审计合约-创建活动记录
+     * <b>description</b> :
+     * <p>Description: 抽奖活动审计合约-创建活动记录
+     * Summary: 抽奖活动审计合约-创建活动记录</p>
      */
     public CreateDepositSweepstakesResponse createDepositSweepstakesEx(CreateDepositSweepstakesRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         if (!com.aliyun.teautil.Common.isUnset(request.fileObject)) {
@@ -425,8 +529,9 @@ public class Client {
     }
 
     /**
-     * Description: 通用合约调用-结构化存储场景
-     * Summary: 通用合约调用-结构化存储场景
+     * <b>description</b> :
+     * <p>Description: 通用合约调用-结构化存储场景
+     * Summary: 通用合约调用-结构化存储场景</p>
      */
     public SetGeneralDepositResponse setGeneralDeposit(SetGeneralDepositRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -435,8 +540,9 @@ public class Client {
     }
 
     /**
-     * Description: 通用合约调用-结构化存储场景
-     * Summary: 通用合约调用-结构化存储场景
+     * <b>description</b> :
+     * <p>Description: 通用合约调用-结构化存储场景
+     * Summary: 通用合约调用-结构化存储场景</p>
      */
     public SetGeneralDepositResponse setGeneralDepositEx(SetGeneralDepositRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -444,8 +550,9 @@ public class Client {
     }
 
     /**
-     * Description: 通用合约调用-结构化查询场景
-     * Summary: 通用合约调用-结构化查询场景
+     * <b>description</b> :
+     * <p>Description: 通用合约调用-结构化查询场景
+     * Summary: 通用合约调用-结构化查询场景</p>
      */
     public GetGeneralDepositResponse getGeneralDeposit(GetGeneralDepositRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -454,8 +561,9 @@ public class Client {
     }
 
     /**
-     * Description: 通用合约调用-结构化查询场景
-     * Summary: 通用合约调用-结构化查询场景
+     * <b>description</b> :
+     * <p>Description: 通用合约调用-结构化查询场景
+     * Summary: 通用合约调用-结构化查询场景</p>
      */
     public GetGeneralDepositResponse getGeneralDepositEx(GetGeneralDepositRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -463,8 +571,9 @@ public class Client {
     }
 
     /**
-     * Description: 通用合约调用-权益-转赠
-     * Summary: 通用合约调用-权益-转赠
+     * <b>description</b> :
+     * <p>Description: 通用合约调用-权益-转赠
+     * Summary: 通用合约调用-权益-转赠</p>
      */
     public PayGeneralRightsResponse payGeneralRights(PayGeneralRightsRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -473,8 +582,9 @@ public class Client {
     }
 
     /**
-     * Description: 通用合约调用-权益-转赠
-     * Summary: 通用合约调用-权益-转赠
+     * <b>description</b> :
+     * <p>Description: 通用合约调用-权益-转赠
+     * Summary: 通用合约调用-权益-转赠</p>
      */
     public PayGeneralRightsResponse payGeneralRightsEx(PayGeneralRightsRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -482,8 +592,9 @@ public class Client {
     }
 
     /**
-     * Description: 资源文件托管
-     * Summary: 资源文件托管
+     * <b>description</b> :
+     * <p>Description: 资源文件托管
+     * Summary: 资源文件托管</p>
      */
     public UploadExtendRightsResponse uploadExtendRights(UploadExtendRightsRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -492,8 +603,9 @@ public class Client {
     }
 
     /**
-     * Description: 资源文件托管
-     * Summary: 资源文件托管
+     * <b>description</b> :
+     * <p>Description: 资源文件托管
+     * Summary: 资源文件托管</p>
      */
     public UploadExtendRightsResponse uploadExtendRightsEx(UploadExtendRightsRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         if (!com.aliyun.teautil.Common.isUnset(request.fileObject)) {
@@ -523,8 +635,9 @@ public class Client {
     }
 
     /**
-     * Description: 创建链上账户
-     * Summary: 创建链上账户
+     * <b>description</b> :
+     * <p>Description: 创建链上账户
+     * Summary: 创建链上账户</p>
      */
     public CreateExtendRightsResponse createExtendRights(CreateExtendRightsRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -533,8 +646,9 @@ public class Client {
     }
 
     /**
-     * Description: 创建链上账户
-     * Summary: 创建链上账户
+     * <b>description</b> :
+     * <p>Description: 创建链上账户
+     * Summary: 创建链上账户</p>
      */
     public CreateExtendRightsResponse createExtendRightsEx(CreateExtendRightsRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -542,8 +656,9 @@ public class Client {
     }
 
     /**
-     * Description: 通用合约调用-权益-铸造
-     * Summary: 通用合约调用-权益-铸造
+     * <b>description</b> :
+     * <p>Description: 通用合约调用-权益-铸造
+     * Summary: 通用合约调用-权益-铸造</p>
      */
     public RegisterGeneralRightsResponse registerGeneralRights(RegisterGeneralRightsRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -552,8 +667,9 @@ public class Client {
     }
 
     /**
-     * Description: 通用合约调用-权益-铸造
-     * Summary: 通用合约调用-权益-铸造
+     * <b>description</b> :
+     * <p>Description: 通用合约调用-权益-铸造
+     * Summary: 通用合约调用-权益-铸造</p>
      */
     public RegisterGeneralRightsResponse registerGeneralRightsEx(RegisterGeneralRightsRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -561,8 +677,9 @@ public class Client {
     }
 
     /**
-     * Description: 通用合约调用-权益-URL查询
-     * Summary: 通用合约调用-权益- URL查询
+     * <b>description</b> :
+     * <p>Description: 通用合约调用-权益-URL查询
+     * Summary: 通用合约调用-权益- URL查询</p>
      */
     public GetGeneralRightsResponse getGeneralRights(GetGeneralRightsRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -571,8 +688,9 @@ public class Client {
     }
 
     /**
-     * Description: 通用合约调用-权益-URL查询
-     * Summary: 通用合约调用-权益- URL查询
+     * <b>description</b> :
+     * <p>Description: 通用合约调用-权益-URL查询
+     * Summary: 通用合约调用-权益- URL查询</p>
      */
     public GetGeneralRightsResponse getGeneralRightsEx(GetGeneralRightsRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -580,10 +698,11 @@ public class Client {
     }
 
     /**
-     * Description: 1.分账方最大数量限制50
-    2.id存在则更新分账方
-    3.存在分账记录的分账方不能被更新
-     * Summary: 分账合约-配置分账方
+     * <b>description</b> :
+     * <p>Description: 1.分账方最大数量限制50
+     * 2.id存在则更新分账方
+     * 3.存在分账记录的分账方不能被更新
+     * Summary: 分账合约-配置分账方</p>
      */
     public RegisterGeneralDivideResponse registerGeneralDivide(RegisterGeneralDivideRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -592,10 +711,11 @@ public class Client {
     }
 
     /**
-     * Description: 1.分账方最大数量限制50
-    2.id存在则更新分账方
-    3.存在分账记录的分账方不能被更新
-     * Summary: 分账合约-配置分账方
+     * <b>description</b> :
+     * <p>Description: 1.分账方最大数量限制50
+     * 2.id存在则更新分账方
+     * 3.存在分账记录的分账方不能被更新
+     * Summary: 分账合约-配置分账方</p>
      */
     public RegisterGeneralDivideResponse registerGeneralDivideEx(RegisterGeneralDivideRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -603,8 +723,9 @@ public class Client {
     }
 
     /**
-     * Description: 分账合约-查询分账方
-     * Summary: 分账合约-查询分账方
+     * <b>description</b> :
+     * <p>Description: 分账合约-查询分账方
+     * Summary: 分账合约-查询分账方</p>
      */
     public QueryGeneralDivideResponse queryGeneralDivide(QueryGeneralDivideRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -613,8 +734,9 @@ public class Client {
     }
 
     /**
-     * Description: 分账合约-查询分账方
-     * Summary: 分账合约-查询分账方
+     * <b>description</b> :
+     * <p>Description: 分账合约-查询分账方
+     * Summary: 分账合约-查询分账方</p>
      */
     public QueryGeneralDivideResponse queryGeneralDivideEx(QueryGeneralDivideRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -622,13 +744,14 @@ public class Client {
     }
 
     /**
-     * Description: 1.分账规则id不能重复配置
-    2.至少配置一个分账方
-    3.分账方id需要已存在
-    4.分账份额保留2位小数,多余部分舍弃
-    5.分账份额需小于100 且大于0
-    6.总份额不能大于100
-     * Summary: 分账合约-配置分账规则
+     * <b>description</b> :
+     * <p>Description: 1.分账规则id不能重复配置
+     * 2.至少配置一个分账方
+     * 3.分账方id需要已存在
+     * 4.分账份额保留2位小数,多余部分舍弃
+     * 5.分账份额需小于100且大于0
+     * 6.总份额不能大于100
+     * Summary: 分账合约-配置分账规则</p>
      */
     public SetGeneralDivideResponse setGeneralDivide(SetGeneralDivideRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -637,13 +760,14 @@ public class Client {
     }
 
     /**
-     * Description: 1.分账规则id不能重复配置
-    2.至少配置一个分账方
-    3.分账方id需要已存在
-    4.分账份额保留2位小数,多余部分舍弃
-    5.分账份额需小于100 且大于0
-    6.总份额不能大于100
-     * Summary: 分账合约-配置分账规则
+     * <b>description</b> :
+     * <p>Description: 1.分账规则id不能重复配置
+     * 2.至少配置一个分账方
+     * 3.分账方id需要已存在
+     * 4.分账份额保留2位小数,多余部分舍弃
+     * 5.分账份额需小于100且大于0
+     * 6.总份额不能大于100
+     * Summary: 分账合约-配置分账规则</p>
      */
     public SetGeneralDivideResponse setGeneralDivideEx(SetGeneralDivideRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -651,8 +775,9 @@ public class Client {
     }
 
     /**
-     * Description: 分账合约-查询分账规则
-     * Summary: 分账合约-查询分账规则
+     * <b>description</b> :
+     * <p>Description: 分账合约-查询分账规则
+     * Summary: 分账合约-查询分账规则</p>
      */
     public GetGeneralDivideResponse getGeneralDivide(GetGeneralDivideRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -661,8 +786,9 @@ public class Client {
     }
 
     /**
-     * Description: 分账合约-查询分账规则
-     * Summary: 分账合约-查询分账规则
+     * <b>description</b> :
+     * <p>Description: 分账合约-查询分账规则
+     * Summary: 分账合约-查询分账规则</p>
      */
     public GetGeneralDivideResponse getGeneralDivideEx(GetGeneralDivideRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -670,10 +796,11 @@ public class Client {
     }
 
     /**
-     * Description: 1.分账方id需存在
-    2.已分账的分账方不能删除
-    3.已配置分账规则的分账方不能删除
-     * Summary: 分账合约-删除分账方
+     * <b>description</b> :
+     * <p>Description: 1.分账方id需存在
+     * 2.已分账的分账方不能删除
+     * 3.已配置分账规则的分账方不能删除
+     * Summary: 分账合约-删除分账方</p>
      */
     public DeleteGeneralDivideResponse deleteGeneralDivide(DeleteGeneralDivideRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -682,10 +809,11 @@ public class Client {
     }
 
     /**
-     * Description: 1.分账方id需存在
-    2.已分账的分账方不能删除
-    3.已配置分账规则的分账方不能删除
-     * Summary: 分账合约-删除分账方
+     * <b>description</b> :
+     * <p>Description: 1.分账方id需存在
+     * 2.已分账的分账方不能删除
+     * 3.已配置分账规则的分账方不能删除
+     * Summary: 分账合约-删除分账方</p>
      */
     public DeleteGeneralDivideResponse deleteGeneralDivideEx(DeleteGeneralDivideRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -693,11 +821,12 @@ public class Client {
     }
 
     /**
-     * Description: 1.订单id不能重复
-    2.金额不能小于0，金额保留3位小数多余部分舍弃
-    3.分账方id需要已存在
-    4.分账规则id需已存在
-     * Summary: 分账合约-发起分账
+     * <b>description</b> :
+     * <p>Description: 1.订单id不能重复
+     * 2.金额不能小于0，金额保留3位小数多余部分舍弃
+     * 3.分账方id需要已存在
+     * 4.分账规则id需已存在
+     * Summary: 分账合约-发起分账</p>
      */
     public PayGeneralDivideResponse payGeneralDivide(PayGeneralDivideRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -706,11 +835,12 @@ public class Client {
     }
 
     /**
-     * Description: 1.订单id不能重复
-    2.金额不能小于0，金额保留3位小数多余部分舍弃
-    3.分账方id需要已存在
-    4.分账规则id需已存在
-     * Summary: 分账合约-发起分账
+     * <b>description</b> :
+     * <p>Description: 1.订单id不能重复
+     * 2.金额不能小于0，金额保留3位小数多余部分舍弃
+     * 3.分账方id需要已存在
+     * 4.分账规则id需已存在
+     * Summary: 分账合约-发起分账</p>
      */
     public PayGeneralDivideResponse payGeneralDivideEx(PayGeneralDivideRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -718,8 +848,9 @@ public class Client {
     }
 
     /**
-     * Description: 分账合约-获取分账方余额
-     * Summary: 分账合约-获取分账方余额
+     * <b>description</b> :
+     * <p>Description: 分账合约-获取分账方余额
+     * Summary: 分账合约-获取分账方余额</p>
      */
     public PullGeneralDivideResponse pullGeneralDivide(PullGeneralDivideRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -728,8 +859,9 @@ public class Client {
     }
 
     /**
-     * Description: 分账合约-获取分账方余额
-     * Summary: 分账合约-获取分账方余额
+     * <b>description</b> :
+     * <p>Description: 分账合约-获取分账方余额
+     * Summary: 分账合约-获取分账方余额</p>
      */
     public PullGeneralDivideResponse pullGeneralDivideEx(PullGeneralDivideRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -737,8 +869,9 @@ public class Client {
     }
 
     /**
-     * Description: 分账合约-获取订单分账信息
-     * Summary: 分账合约-获取订单分账信息
+     * <b>description</b> :
+     * <p>Description: 分账合约-获取订单分账信息
+     * Summary: 分账合约-获取订单分账信息</p>
      */
     public BatchqueryGeneralDivideResponse batchqueryGeneralDivide(BatchqueryGeneralDivideRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -747,8 +880,9 @@ public class Client {
     }
 
     /**
-     * Description: 分账合约-获取订单分账信息
-     * Summary: 分账合约-获取订单分账信息
+     * <b>description</b> :
+     * <p>Description: 分账合约-获取订单分账信息
+     * Summary: 分账合约-获取订单分账信息</p>
      */
     public BatchqueryGeneralDivideResponse batchqueryGeneralDivideEx(BatchqueryGeneralDivideRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -756,8 +890,9 @@ public class Client {
     }
 
     /**
-     * Description: 旅游文创合约-文创URL查询
-     * Summary: 旅游文创合约-文创URL查询
+     * <b>description</b> :
+     * <p>Description: 旅游文创合约-文创URL查询
+     * Summary: 旅游文创合约-文创URL查询</p>
      */
     public GetGeneralTourismResponse getGeneralTourism(GetGeneralTourismRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -766,8 +901,9 @@ public class Client {
     }
 
     /**
-     * Description: 旅游文创合约-文创URL查询
-     * Summary: 旅游文创合约-文创URL查询
+     * <b>description</b> :
+     * <p>Description: 旅游文创合约-文创URL查询
+     * Summary: 旅游文创合约-文创URL查询</p>
      */
     public GetGeneralTourismResponse getGeneralTourismEx(GetGeneralTourismRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -775,8 +911,9 @@ public class Client {
     }
 
     /**
-     * Description: 旅游文创合约-铸造文创
-     * Summary: 旅游文创合约-铸造文创
+     * <b>description</b> :
+     * <p>Description: 旅游文创合约-铸造文创
+     * Summary: 旅游文创合约-铸造文创</p>
      */
     public RegisterGeneralTourismResponse registerGeneralTourism(RegisterGeneralTourismRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -785,8 +922,9 @@ public class Client {
     }
 
     /**
-     * Description: 旅游文创合约-铸造文创
-     * Summary: 旅游文创合约-铸造文创
+     * <b>description</b> :
+     * <p>Description: 旅游文创合约-铸造文创
+     * Summary: 旅游文创合约-铸造文创</p>
      */
     public RegisterGeneralTourismResponse registerGeneralTourismEx(RegisterGeneralTourismRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -794,8 +932,9 @@ public class Client {
     }
 
     /**
-     * Description: 旅游文创合约-文创转增
-     * Summary: 旅游文创合约-文创转增
+     * <b>description</b> :
+     * <p>Description: 旅游文创合约-文创转增
+     * Summary: 旅游文创合约-文创转增</p>
      */
     public PayGeneralTourismResponse payGeneralTourism(PayGeneralTourismRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -804,8 +943,9 @@ public class Client {
     }
 
     /**
-     * Description: 旅游文创合约-文创转增
-     * Summary: 旅游文创合约-文创转增
+     * <b>description</b> :
+     * <p>Description: 旅游文创合约-文创转增
+     * Summary: 旅游文创合约-文创转增</p>
      */
     public PayGeneralTourismResponse payGeneralTourismEx(PayGeneralTourismRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -813,8 +953,9 @@ public class Client {
     }
 
     /**
-     * Description: 线下门票合约-门票URL查询
-     * Summary: 线下门票合约-门票URL查询
+     * <b>description</b> :
+     * <p>Description: 线下门票合约-门票URL查询
+     * Summary: 线下门票合约-门票URL查询</p>
      */
     public GetGeneralTicketsResponse getGeneralTickets(GetGeneralTicketsRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -823,8 +964,9 @@ public class Client {
     }
 
     /**
-     * Description: 线下门票合约-门票URL查询
-     * Summary: 线下门票合约-门票URL查询
+     * <b>description</b> :
+     * <p>Description: 线下门票合约-门票URL查询
+     * Summary: 线下门票合约-门票URL查询</p>
      */
     public GetGeneralTicketsResponse getGeneralTicketsEx(GetGeneralTicketsRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -832,8 +974,9 @@ public class Client {
     }
 
     /**
-     * Description: 线下门票合约-铸造线下买票
-     * Summary: 线下门票合约-铸造线下买票
+     * <b>description</b> :
+     * <p>Description: 线下门票合约-铸造线下买票
+     * Summary: 线下门票合约-铸造线下买票</p>
      */
     public RegisterGeneralTicketsResponse registerGeneralTickets(RegisterGeneralTicketsRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -842,8 +985,9 @@ public class Client {
     }
 
     /**
-     * Description: 线下门票合约-铸造线下买票
-     * Summary: 线下门票合约-铸造线下买票
+     * <b>description</b> :
+     * <p>Description: 线下门票合约-铸造线下买票
+     * Summary: 线下门票合约-铸造线下买票</p>
      */
     public RegisterGeneralTicketsResponse registerGeneralTicketsEx(RegisterGeneralTicketsRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -851,8 +995,9 @@ public class Client {
     }
 
     /**
-     * Description: 线下门票合约-门票转增
-     * Summary: 线下门票合约-门票转增
+     * <b>description</b> :
+     * <p>Description: 线下门票合约-门票转增
+     * Summary: 线下门票合约-门票转增</p>
      */
     public PayGeneralTicketsResponse payGeneralTickets(PayGeneralTicketsRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -861,8 +1006,9 @@ public class Client {
     }
 
     /**
-     * Description: 线下门票合约-门票转增
-     * Summary: 线下门票合约-门票转增
+     * <b>description</b> :
+     * <p>Description: 线下门票合约-门票转增
+     * Summary: 线下门票合约-门票转增</p>
      */
     public PayGeneralTicketsResponse payGeneralTicketsEx(PayGeneralTicketsRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -870,8 +1016,9 @@ public class Client {
     }
 
     /**
-     * Description: 进行分账规则的确认
-     * Summary: 分账规则确认接口
+     * <b>description</b> :
+     * <p>Description: 进行分账规则的确认
+     * Summary: 分账规则确认接口</p>
      */
     public UpdateGeneralDivideResponse updateGeneralDivide(UpdateGeneralDivideRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -880,8 +1027,9 @@ public class Client {
     }
 
     /**
-     * Description: 进行分账规则的确认
-     * Summary: 分账规则确认接口
+     * <b>description</b> :
+     * <p>Description: 进行分账规则的确认
+     * Summary: 分账规则确认接口</p>
      */
     public UpdateGeneralDivideResponse updateGeneralDivideEx(UpdateGeneralDivideRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -889,8 +1037,9 @@ public class Client {
     }
 
     /**
-     * Description: 查询指定分账方的分账明细数据
-     * Summary: 分账明细查询
+     * <b>description</b> :
+     * <p>Description: 查询指定分账方的分账明细数据
+     * Summary: 分账明细查询</p>
      */
     public ListGeneralDivideResponse listGeneralDivide(ListGeneralDivideRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -899,8 +1048,9 @@ public class Client {
     }
 
     /**
-     * Description: 查询指定分账方的分账明细数据
-     * Summary: 分账明细查询
+     * <b>description</b> :
+     * <p>Description: 查询指定分账方的分账明细数据
+     * Summary: 分账明细查询</p>
      */
     public ListGeneralDivideResponse listGeneralDivideEx(ListGeneralDivideRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -908,8 +1058,9 @@ public class Client {
     }
 
     /**
-     * Description: 查询某个账户下拥有的资产数量
-     * Summary: 权证资产合约资产查询
+     * <b>description</b> :
+     * <p>Description: 查询某个账户下拥有的资产数量
+     * Summary: 权证资产合约资产查询</p>
      */
     public GetGeneralRightsbalanceResponse getGeneralRightsbalance(GetGeneralRightsbalanceRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -918,8 +1069,9 @@ public class Client {
     }
 
     /**
-     * Description: 查询某个账户下拥有的资产数量
-     * Summary: 权证资产合约资产查询
+     * <b>description</b> :
+     * <p>Description: 查询某个账户下拥有的资产数量
+     * Summary: 权证资产合约资产查询</p>
      */
     public GetGeneralRightsbalanceResponse getGeneralRightsbalanceEx(GetGeneralRightsbalanceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -927,8 +1079,9 @@ public class Client {
     }
 
     /**
-     * Description: 获取蚂蚁区块链交易二维码
-     * Summary: 获取蚂蚁区块链交易二维码
+     * <b>description</b> :
+     * <p>Description: 获取蚂蚁区块链交易二维码
+     * Summary: 获取蚂蚁区块链交易二维码</p>
      */
     public DescribeExtendTxqrcodeResponse describeExtendTxqrcode(DescribeExtendTxqrcodeRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -937,8 +1090,9 @@ public class Client {
     }
 
     /**
-     * Description: 获取蚂蚁区块链交易二维码
-     * Summary: 获取蚂蚁区块链交易二维码
+     * <b>description</b> :
+     * <p>Description: 获取蚂蚁区块链交易二维码
+     * Summary: 获取蚂蚁区块链交易二维码</p>
      */
     public DescribeExtendTxqrcodeResponse describeExtendTxqrcodeEx(DescribeExtendTxqrcodeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -946,8 +1100,9 @@ public class Client {
     }
 
     /**
-     * Description: 创建HTTP PUT提交的文件上传
-     * Summary: 文件上传创建
+     * <b>description</b> :
+     * <p>Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建</p>
      */
     public CreateAntcloudGatewayxFileUploadResponse createAntcloudGatewayxFileUpload(CreateAntcloudGatewayxFileUploadRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -956,8 +1111,9 @@ public class Client {
     }
 
     /**
-     * Description: 创建HTTP PUT提交的文件上传
-     * Summary: 文件上传创建
+     * <b>description</b> :
+     * <p>Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建</p>
      */
     public CreateAntcloudGatewayxFileUploadResponse createAntcloudGatewayxFileUploadEx(CreateAntcloudGatewayxFileUploadRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);

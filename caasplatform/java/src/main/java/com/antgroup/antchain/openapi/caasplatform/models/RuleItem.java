@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class RuleItem extends TeaModel {
     // 分账方Id
+    /**
+     * <strong>example:</strong>
+     * <p>ea596f28-4ece-406d-a9e1-86fa83cc505f</p>
+     */
     @NameInMap("id")
     @Validation(required = true)
     public String id;
 
     // 分账份额，总份额100，保留2位小数
+    /**
+     * <strong>example:</strong>
+     * <p>23.36</p>
+     */
     @NameInMap("proportion")
     @Validation(required = true)
     public String proportion;
