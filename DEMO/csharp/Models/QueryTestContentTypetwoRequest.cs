@@ -23,6 +23,11 @@ namespace AntChain.SDK.DEMO.Models
         [Validation(Required=true)]
         public string Data { get; set; }
 
+        // 测试
+        [NameInMap("idcard")]
+        [Validation(Required=false)]
+        public CardInfo Idcard { get; set; }
+
     }
 
 }

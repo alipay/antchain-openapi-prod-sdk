@@ -19,11 +19,6 @@ namespace AntChain.SDK.DEMO.Models
         [Validation(Required=true)]
         public string Bar { get; set; }
 
-        // 引用字段
-        [NameInMap("ref")]
-        [Validation(Required=true)]
-        public DemoClass Ref { get; set; }
-
         // 列表引用Struct
         [NameInMap("refList")]
         [Validation(Required=false)]

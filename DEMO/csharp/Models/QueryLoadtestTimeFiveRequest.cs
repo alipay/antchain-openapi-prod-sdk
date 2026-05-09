@@ -23,6 +23,11 @@ namespace AntChain.SDK.DEMO.Models
         [Validation(Required=true)]
         public string Timeout { get; set; }
 
+        // 2
+        [NameInMap("idcard")]
+        [Validation(Required=false)]
+        public CardInfo Idcard { get; set; }
+
     }
 
 }

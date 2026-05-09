@@ -8,16 +8,16 @@ using Tea;
 
 namespace AntChain.SDK.DEMO.Models
 {
-    // 测试
-    public class Test : TeaModel {
-        // d
+    // test
+    public class DomeClasssss : TeaModel {
+        // test
         /// <summary>
         /// <b>Example:</b>
-        /// <para>d</para>
+        /// <para>test</para>
         /// </summary>
-        [NameInMap("a")]
+        [NameInMap("name")]
         [Validation(Required=true)]
-        public string A { get; set; }
+        public string Name { get; set; }
 
     }
 

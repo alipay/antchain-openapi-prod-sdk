@@ -24,6 +24,11 @@ namespace AntChain.SDK.DEMO.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
+        // xx
+        [NameInMap("name")]
+        [Validation(Required=false)]
+        public TestAdd Name { get; set; }
+
     }
 
 }
