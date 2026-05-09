@@ -149,6 +149,46 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
+// 操作主体
+type OperateSubject struct {
+	// 主体名称
+	SubjectName *string `json:"subject_name,omitempty" xml:"subject_name,omitempty" require:"true"`
+	// 证件类型,ID_CARD:身份证;PASSPORT:护照;BUSINESS_LICENSE:营业执照;OTHER:其他
+	CertType *string `json:"cert_type,omitempty" xml:"cert_type,omitempty" require:"true"`
+	// 证件号码，可以脱敏传输
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
+	// 主体信息明文计算出来的hash数据
+	SubjectHash *string `json:"subject_hash,omitempty" xml:"subject_hash,omitempty" require:"true"`
+}
+
+func (s OperateSubject) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OperateSubject) GoString() string {
+	return s.String()
+}
+
+func (s *OperateSubject) SetSubjectName(v string) *OperateSubject {
+	s.SubjectName = &v
+	return s
+}
+
+func (s *OperateSubject) SetCertType(v string) *OperateSubject {
+	s.CertType = &v
+	return s
+}
+
+func (s *OperateSubject) SetCertNo(v string) *OperateSubject {
+	s.CertNo = &v
+	return s
+}
+
+func (s *OperateSubject) SetSubjectHash(v string) *OperateSubject {
+	s.SubjectHash = &v
+	return s
+}
+
 // 分账明细
 type RuleItem struct {
 	// 分账方Id
@@ -198,6 +238,419 @@ func (s *XNameValuePair) SetName(v string) *XNameValuePair {
 
 func (s *XNameValuePair) SetValue(v string) *XNameValuePair {
 	s.Value = &v
+	return s
+}
+
+type CreateMultistepDepositRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 操作主体信息
+	Subject *OperateSubject `json:"subject,omitempty" xml:"subject,omitempty" require:"true"`
+	// 业务类型，如：CONTRACT、ORDER...
+	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty" require:"true"`
+	// 业务流水ID（如：合同编号）
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
+	// 环节编号，需要按照字母表/数字顺序，能够进行排序处理
+	StepNo *string `json:"step_no,omitempty" xml:"step_no,omitempty" require:"true"`
+	// 环节名称
+	StepName *string `json:"step_name,omitempty" xml:"step_name,omitempty" require:"true"`
+	// 交易时间，yyyyMMddh24miss格式
+	TxTime *string `json:"tx_time,omitempty" xml:"tx_time,omitempty" require:"true"`
+	// 业务详细信息，json格式，具体内容由调用方自行确定
+	BizInfo *string `json:"biz_info,omitempty" xml:"biz_info,omitempty" require:"true"`
+}
+
+func (s CreateMultistepDepositRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateMultistepDepositRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateMultistepDepositRequest) SetAuthToken(v string) *CreateMultistepDepositRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateMultistepDepositRequest) SetProductInstanceId(v string) *CreateMultistepDepositRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateMultistepDepositRequest) SetSubject(v *OperateSubject) *CreateMultistepDepositRequest {
+	s.Subject = v
+	return s
+}
+
+func (s *CreateMultistepDepositRequest) SetBizType(v string) *CreateMultistepDepositRequest {
+	s.BizType = &v
+	return s
+}
+
+func (s *CreateMultistepDepositRequest) SetBizId(v string) *CreateMultistepDepositRequest {
+	s.BizId = &v
+	return s
+}
+
+func (s *CreateMultistepDepositRequest) SetStepNo(v string) *CreateMultistepDepositRequest {
+	s.StepNo = &v
+	return s
+}
+
+func (s *CreateMultistepDepositRequest) SetStepName(v string) *CreateMultistepDepositRequest {
+	s.StepName = &v
+	return s
+}
+
+func (s *CreateMultistepDepositRequest) SetTxTime(v string) *CreateMultistepDepositRequest {
+	s.TxTime = &v
+	return s
+}
+
+func (s *CreateMultistepDepositRequest) SetBizInfo(v string) *CreateMultistepDepositRequest {
+	s.BizInfo = &v
+	return s
+}
+
+type CreateMultistepDepositResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 存证记录ID
+	DepositId *string `json:"deposit_id,omitempty" xml:"deposit_id,omitempty"`
+	// 交易哈希
+	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty"`
+	// 存证状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+}
+
+func (s CreateMultistepDepositResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateMultistepDepositResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateMultistepDepositResponse) SetReqMsgId(v string) *CreateMultistepDepositResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateMultistepDepositResponse) SetResultCode(v string) *CreateMultistepDepositResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateMultistepDepositResponse) SetResultMsg(v string) *CreateMultistepDepositResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateMultistepDepositResponse) SetDepositId(v string) *CreateMultistepDepositResponse {
+	s.DepositId = &v
+	return s
+}
+
+func (s *CreateMultistepDepositResponse) SetTxHash(v string) *CreateMultistepDepositResponse {
+	s.TxHash = &v
+	return s
+}
+
+func (s *CreateMultistepDepositResponse) SetStatus(v string) *CreateMultistepDepositResponse {
+	s.Status = &v
+	return s
+}
+
+type ApplyCertificationRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 业务编号
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
+	// 出证类型：OWN（自有）/ NOTARY（公正处证明）
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+}
+
+func (s ApplyCertificationRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyCertificationRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyCertificationRequest) SetAuthToken(v string) *ApplyCertificationRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ApplyCertificationRequest) SetProductInstanceId(v string) *ApplyCertificationRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ApplyCertificationRequest) SetBizId(v string) *ApplyCertificationRequest {
+	s.BizId = &v
+	return s
+}
+
+func (s *ApplyCertificationRequest) SetType(v string) *ApplyCertificationRequest {
+	s.Type = &v
+	return s
+}
+
+type ApplyCertificationResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 任务ID
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty"`
+	// 任务状态：INIT 初始；PROCESSING：处理中；SUCCESS：成功；FAIL：失败
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+}
+
+func (s ApplyCertificationResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyCertificationResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyCertificationResponse) SetReqMsgId(v string) *ApplyCertificationResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ApplyCertificationResponse) SetResultCode(v string) *ApplyCertificationResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ApplyCertificationResponse) SetResultMsg(v string) *ApplyCertificationResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ApplyCertificationResponse) SetTaskId(v string) *ApplyCertificationResponse {
+	s.TaskId = &v
+	return s
+}
+
+func (s *ApplyCertificationResponse) SetStatus(v string) *ApplyCertificationResponse {
+	s.Status = &v
+	return s
+}
+
+type QueryCertificationStatusRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 任务ID
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
+}
+
+func (s QueryCertificationStatusRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCertificationStatusRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCertificationStatusRequest) SetAuthToken(v string) *QueryCertificationStatusRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryCertificationStatusRequest) SetProductInstanceId(v string) *QueryCertificationStatusRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryCertificationStatusRequest) SetTaskId(v string) *QueryCertificationStatusRequest {
+	s.TaskId = &v
+	return s
+}
+
+type QueryCertificationStatusResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 任务ID
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty"`
+	// 业务编号
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty"`
+	// 出证类型
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	// 任务状态：INIT/PROCESSING/SUCCESS/FAIL
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 错误信息（失败时）
+	ErroMsg *string `json:"erro_msg,omitempty" xml:"erro_msg,omitempty"`
+}
+
+func (s QueryCertificationStatusResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCertificationStatusResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCertificationStatusResponse) SetReqMsgId(v string) *QueryCertificationStatusResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryCertificationStatusResponse) SetResultCode(v string) *QueryCertificationStatusResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryCertificationStatusResponse) SetResultMsg(v string) *QueryCertificationStatusResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryCertificationStatusResponse) SetTaskId(v string) *QueryCertificationStatusResponse {
+	s.TaskId = &v
+	return s
+}
+
+func (s *QueryCertificationStatusResponse) SetBizId(v string) *QueryCertificationStatusResponse {
+	s.BizId = &v
+	return s
+}
+
+func (s *QueryCertificationStatusResponse) SetType(v string) *QueryCertificationStatusResponse {
+	s.Type = &v
+	return s
+}
+
+func (s *QueryCertificationStatusResponse) SetStatus(v string) *QueryCertificationStatusResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *QueryCertificationStatusResponse) SetErroMsg(v string) *QueryCertificationStatusResponse {
+	s.ErroMsg = &v
+	return s
+}
+
+type QueryCertificationInfoRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 任务ID
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
+}
+
+func (s QueryCertificationInfoRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCertificationInfoRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCertificationInfoRequest) SetAuthToken(v string) *QueryCertificationInfoRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryCertificationInfoRequest) SetProductInstanceId(v string) *QueryCertificationInfoRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryCertificationInfoRequest) SetTaskId(v string) *QueryCertificationInfoRequest {
+	s.TaskId = &v
+	return s
+}
+
+type QueryCertificationInfoResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 任务ID
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty"`
+	// 业务编号
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty"`
+	// 出证类型
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	// 任务状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 临时下载链接（有效期15分钟，可配置）
+	FileUrl *string `json:"file_url,omitempty" xml:"file_url,omitempty"`
+	// 证明文件Hash
+	FileHash *string `json:"file_hash,omitempty" xml:"file_hash,omitempty"`
+}
+
+func (s QueryCertificationInfoResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCertificationInfoResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCertificationInfoResponse) SetReqMsgId(v string) *QueryCertificationInfoResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryCertificationInfoResponse) SetResultCode(v string) *QueryCertificationInfoResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryCertificationInfoResponse) SetResultMsg(v string) *QueryCertificationInfoResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryCertificationInfoResponse) SetTaskId(v string) *QueryCertificationInfoResponse {
+	s.TaskId = &v
+	return s
+}
+
+func (s *QueryCertificationInfoResponse) SetBizId(v string) *QueryCertificationInfoResponse {
+	s.BizId = &v
+	return s
+}
+
+func (s *QueryCertificationInfoResponse) SetType(v string) *QueryCertificationInfoResponse {
+	s.Type = &v
+	return s
+}
+
+func (s *QueryCertificationInfoResponse) SetStatus(v string) *QueryCertificationInfoResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *QueryCertificationInfoResponse) SetFileUrl(v string) *QueryCertificationInfoResponse {
+	s.FileUrl = &v
+	return s
+}
+
+func (s *QueryCertificationInfoResponse) SetFileHash(v string) *QueryCertificationInfoResponse {
+	s.FileHash = &v
 	return s
 }
 
@@ -4139,7 +4592,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.5.1"),
+				"sdk_version":      tea.String("1.6.0"),
 				"_prod_code":       tea.String("CAASPLATFORM"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -4195,6 +4648,142 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 	}
 
 	return _resp, _err
+}
+
+/**
+ * Description: 多环节业务存证
+ * Summary: 多环节业务存证
+ */
+func (client *Client) CreateMultistepDeposit(request *CreateMultistepDepositRequest) (_result *CreateMultistepDepositResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateMultistepDepositResponse{}
+	_body, _err := client.CreateMultistepDepositEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 多环节业务存证
+ * Summary: 多环节业务存证
+ */
+func (client *Client) CreateMultistepDepositEx(request *CreateMultistepDepositRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateMultistepDepositResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateMultistepDepositResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.caasplatform.multistep.deposit.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 存证证明申请
+ * Summary: 存证证明申请
+ */
+func (client *Client) ApplyCertification(request *ApplyCertificationRequest) (_result *ApplyCertificationResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ApplyCertificationResponse{}
+	_body, _err := client.ApplyCertificationEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 存证证明申请
+ * Summary: 存证证明申请
+ */
+func (client *Client) ApplyCertificationEx(request *ApplyCertificationRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplyCertificationResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ApplyCertificationResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.caasplatform.certification.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 证明处理任务状态查询
+ * Summary: 证明处理任务状态查询
+ */
+func (client *Client) QueryCertificationStatus(request *QueryCertificationStatusRequest) (_result *QueryCertificationStatusResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryCertificationStatusResponse{}
+	_body, _err := client.QueryCertificationStatusEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 证明处理任务状态查询
+ * Summary: 证明处理任务状态查询
+ */
+func (client *Client) QueryCertificationStatusEx(request *QueryCertificationStatusRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryCertificationStatusResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryCertificationStatusResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.caasplatform.certification.status.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询出证证明文件信息
+ * Summary: 查询出证证明文件信息
+ */
+func (client *Client) QueryCertificationInfo(request *QueryCertificationInfoRequest) (_result *QueryCertificationInfoResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryCertificationInfoResponse{}
+	_body, _err := client.QueryCertificationInfoEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询出证证明文件信息
+ * Summary: 查询出证证明文件信息
+ */
+func (client *Client) QueryCertificationInfoEx(request *QueryCertificationInfoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryCertificationInfoResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryCertificationInfoResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.caasplatform.certification.info.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
 }
 
 /**
