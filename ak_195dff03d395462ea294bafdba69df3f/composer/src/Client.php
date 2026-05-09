@@ -103,6 +103,8 @@ use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoTradeReque
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoTradeResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoTradeUserperformanceRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoTradeUserperformanceResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\InitAntchainAtoFundAlipaysettletocardRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\InitAntchainAtoFundAlipaysettletocardResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\ListAntchainAtoInnerTemplateRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\ListAntchainAtoInnerTemplateResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\NotifyAntchainAtoFundFlowRequest;
@@ -113,6 +115,8 @@ use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\PreviewAntchainAtoInnerT
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\PreviewAntchainAtoInnerTemplateResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\PublishAntchainAtoInnerTemplateRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\PublishAntchainAtoInnerTemplateResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoFundAlipaysettletocardRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoFundAlipaysettletocardResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoFundAssetpackageRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoFundAssetpackageResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoFundCompensateaccountRequest;
@@ -376,7 +380,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.7.7',
+                    'sdk_version'      => '1.7.8',
                     '_prod_code'       => 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel'    => 'saas',
                 ];
@@ -4053,6 +4057,72 @@ class Client
         Utils::validateModel($request);
 
         return CreateAntchainAtoSignFlowResponse::fromMap($this->doRequest('1.0', 'antchain.ato.sign.flow.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 支付宝结算到卡交易流水任务创建接口
+     * Summary: 支付宝结算到卡交易流水任务创建接口.
+     *
+     * @param InitAntchainAtoFundAlipaysettletocardRequest $request
+     *
+     * @return InitAntchainAtoFundAlipaysettletocardResponse
+     */
+    public function initAntchainAtoFundAlipaysettletocard($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->initAntchainAtoFundAlipaysettletocardEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 支付宝结算到卡交易流水任务创建接口
+     * Summary: 支付宝结算到卡交易流水任务创建接口.
+     *
+     * @param InitAntchainAtoFundAlipaysettletocardRequest $request
+     * @param string[]                                     $headers
+     * @param RuntimeOptions                               $runtime
+     *
+     * @return InitAntchainAtoFundAlipaysettletocardResponse
+     */
+    public function initAntchainAtoFundAlipaysettletocardEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return InitAntchainAtoFundAlipaysettletocardResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.alipaysettletocard.init', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 支付宝结算到卡流水任务结果查询接口
+     * Summary: 支付宝结算到卡流水任务结果查询接口.
+     *
+     * @param QueryAntchainAtoFundAlipaysettletocardRequest $request
+     *
+     * @return QueryAntchainAtoFundAlipaysettletocardResponse
+     */
+    public function queryAntchainAtoFundAlipaysettletocard($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAntchainAtoFundAlipaysettletocardEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 支付宝结算到卡流水任务结果查询接口
+     * Summary: 支付宝结算到卡流水任务结果查询接口.
+     *
+     * @param QueryAntchainAtoFundAlipaysettletocardRequest $request
+     * @param string[]                                      $headers
+     * @param RuntimeOptions                                $runtime
+     *
+     * @return QueryAntchainAtoFundAlipaysettletocardResponse
+     */
+    public function queryAntchainAtoFundAlipaysettletocardEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAntchainAtoFundAlipaysettletocardResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.alipaysettletocard.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
