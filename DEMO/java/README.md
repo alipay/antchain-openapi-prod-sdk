@@ -1,14 +1,33 @@
-# Java SDK
+[English](README.md) | 简体中文
 
-## Installation
+# Ant Chain DEMO SDK for Java
 
-## Requirements
+## 安装
 
-- Java 1.8+
-- Maven/Gradle
+```xml
+<dependency>
+   <groupId>com.antgroup.antchain.openapi</groupId>
+   <artifactId>demo</artifactId>
+   <version>1.1.80</version>
+</dependency>
+```
 
-## Usage
+## 问题
 
-## Documentation
+[提交 Issue](https://github.com/alipay/antchain-openapi-prod-sdk/issues/new)，不符合指南的问题可能会立即关闭。
 
-## License
+## 使用说明
+
+[快速使用](https://github.com/alipay/antchain-openapi-prod-sdk)
+
+## 发行说明
+
+每个版本的详细更改记录在[发行说明](./ChangeLog.txt)中。
+
+## 相关
+
+- [最新源码](https://github.com/alipay/antchain-openapi-prod-sdk/)
+
+## 许可证
+
+[Apache-2.0](http://www.apache.org/licenses/LICENSE-2.0)
