@@ -78,6 +78,39 @@ export class Config extends $tea.Model {
   }
 }
 
+// 操作主体
+export class OperateSubject extends $tea.Model {
+  // 主体名称
+  subjectName: string;
+  // 证件类型,ID_CARD:身份证;PASSPORT:护照;BUSINESS_LICENSE:营业执照;OTHER:其他
+  certType: string;
+  // 证件号码，可以脱敏传输
+  certNo: string;
+  // 主体信息明文计算出来的hash数据
+  subjectHash: string;
+  static names(): { [key: string]: string } {
+    return {
+      subjectName: 'subject_name',
+      certType: 'cert_type',
+      certNo: 'cert_no',
+      subjectHash: 'subject_hash',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      subjectName: 'string',
+      certType: 'string',
+      certNo: 'string',
+      subjectHash: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 分账明细
 export class RuleItem extends $tea.Model {
   // 分账方Id
@@ -120,6 +153,318 @@ export class XNameValuePair extends $tea.Model {
     return {
       name: 'string',
       value: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateMultistepDepositRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 操作主体信息
+  subject: OperateSubject;
+  // 业务类型，如：CONTRACT、ORDER...
+  bizType: string;
+  // 业务流水ID（如：合同编号）
+  bizId: string;
+  // 环节编号，需要按照字母表/数字顺序，能够进行排序处理
+  stepNo: string;
+  // 环节名称
+  stepName: string;
+  // 交易时间，yyyyMMddh24miss格式
+  txTime: string;
+  // 业务详细信息，json格式，具体内容由调用方自行确定
+  bizInfo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      subject: 'subject',
+      bizType: 'biz_type',
+      bizId: 'biz_id',
+      stepNo: 'step_no',
+      stepName: 'step_name',
+      txTime: 'tx_time',
+      bizInfo: 'biz_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      subject: OperateSubject,
+      bizType: 'string',
+      bizId: 'string',
+      stepNo: 'string',
+      stepName: 'string',
+      txTime: 'string',
+      bizInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateMultistepDepositResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 存证记录ID
+  depositId?: string;
+  // 交易哈希
+  txHash?: string;
+  // 存证状态
+  status?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      depositId: 'deposit_id',
+      txHash: 'tx_hash',
+      status: 'status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      depositId: 'string',
+      txHash: 'string',
+      status: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyCertificationRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 业务编号
+  bizId: string;
+  // 出证类型：OWN（自有）/ NOTARY（公正处证明）
+  type: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizId: 'biz_id',
+      type: 'type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizId: 'string',
+      type: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyCertificationResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 任务ID
+  taskId?: string;
+  // 任务状态：INIT 初始；PROCESSING：处理中；SUCCESS：成功；FAIL：失败
+  status?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      taskId: 'task_id',
+      status: 'status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      taskId: 'string',
+      status: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryCertificationStatusRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 任务ID
+  taskId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      taskId: 'task_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      taskId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryCertificationStatusResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 任务ID
+  taskId?: string;
+  // 业务编号
+  bizId?: string;
+  // 出证类型
+  type?: string;
+  // 任务状态：INIT/PROCESSING/SUCCESS/FAIL
+  status?: string;
+  // 错误信息（失败时）
+  erroMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      taskId: 'task_id',
+      bizId: 'biz_id',
+      type: 'type',
+      status: 'status',
+      erroMsg: 'erro_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      taskId: 'string',
+      bizId: 'string',
+      type: 'string',
+      status: 'string',
+      erroMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryCertificationInfoRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 任务ID
+  taskId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      taskId: 'task_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      taskId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryCertificationInfoResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 任务ID
+  taskId?: string;
+  // 业务编号
+  bizId?: string;
+  // 出证类型
+  type?: string;
+  // 任务状态
+  status?: string;
+  // 临时下载链接（有效期15分钟，可配置）
+  fileUrl?: string;
+  // 证明文件Hash
+  fileHash?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      taskId: 'task_id',
+      bizId: 'biz_id',
+      type: 'type',
+      status: 'status',
+      fileUrl: 'file_url',
+      fileHash: 'file_hash',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      taskId: 'string',
+      bizId: 'string',
+      type: 'string',
+      status: 'string',
+      fileUrl: 'string',
+      fileHash: 'string',
     };
   }
 
@@ -3058,7 +3403,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.5.1",
+          sdk_version: "1.6.0",
           _prod_code: "CAASPLATFORM",
           _prod_channel: "undefined",
         };
@@ -3104,6 +3449,82 @@ export default class Client {
     }
 
     throw $tea.newUnretryableError(_lastRequest);
+  }
+
+  /**
+   * Description: 多环节业务存证
+   * Summary: 多环节业务存证
+   */
+  async createMultistepDeposit(request: CreateMultistepDepositRequest): Promise<CreateMultistepDepositResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createMultistepDepositEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 多环节业务存证
+   * Summary: 多环节业务存证
+   */
+  async createMultistepDepositEx(request: CreateMultistepDepositRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateMultistepDepositResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateMultistepDepositResponse>(await this.doRequest("1.0", "antchain.caasplatform.multistep.deposit.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateMultistepDepositResponse({}));
+  }
+
+  /**
+   * Description: 存证证明申请
+   * Summary: 存证证明申请
+   */
+  async applyCertification(request: ApplyCertificationRequest): Promise<ApplyCertificationResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.applyCertificationEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 存证证明申请
+   * Summary: 存证证明申请
+   */
+  async applyCertificationEx(request: ApplyCertificationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyCertificationResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApplyCertificationResponse>(await this.doRequest("1.0", "antchain.caasplatform.certification.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyCertificationResponse({}));
+  }
+
+  /**
+   * Description: 证明处理任务状态查询
+   * Summary: 证明处理任务状态查询
+   */
+  async queryCertificationStatus(request: QueryCertificationStatusRequest): Promise<QueryCertificationStatusResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryCertificationStatusEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 证明处理任务状态查询
+   * Summary: 证明处理任务状态查询
+   */
+  async queryCertificationStatusEx(request: QueryCertificationStatusRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryCertificationStatusResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryCertificationStatusResponse>(await this.doRequest("1.0", "antchain.caasplatform.certification.status.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryCertificationStatusResponse({}));
+  }
+
+  /**
+   * Description: 查询出证证明文件信息
+   * Summary: 查询出证证明文件信息
+   */
+  async queryCertificationInfo(request: QueryCertificationInfoRequest): Promise<QueryCertificationInfoResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryCertificationInfoEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询出证证明文件信息
+   * Summary: 查询出证证明文件信息
+   */
+  async queryCertificationInfoEx(request: QueryCertificationInfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryCertificationInfoResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryCertificationInfoResponse>(await this.doRequest("1.0", "antchain.caasplatform.certification.info.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryCertificationInfoResponse({}));
   }
 
   /**
