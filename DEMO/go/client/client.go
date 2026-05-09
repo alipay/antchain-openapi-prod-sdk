@@ -189,234 +189,6 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
-// Demo类1
-type DemoClass struct {
-	// 字符串测试
-	// example:
-	//
-	// some string
-	SomeString *string `json:"some_string,omitempty" xml:"some_string,omitempty" require:"true"`
-	// 日期测试
-	// example:
-	//
-	// 3
-	SomeDate *string `json:"some_date,omitempty" xml:"some_date,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// Boolean测试
-	// example:
-	//
-	// true
-	SomeBoolean *bool `json:"some_boolean,omitempty" xml:"some_boolean,omitempty" require:"true"`
-	// 整数测试
-	// example:
-	//
-	// 3
-	SomeInt *int64 `json:"some_int,omitempty" xml:"some_int,omitempty" require:"true"`
-	// 列表测试
-	SomeList []*string `json:"some_list,omitempty" xml:"some_list,omitempty" require:"true" type:"Repeated"`
-	// test
-	// example:
-	//
-	// undefined
-	SomeObject *AnotherClass `json:"some_object,omitempty" xml:"some_object,omitempty" require:"true"`
-}
-
-func (s DemoClass) String() string {
-	return tea.Prettify(s)
-}
-
-func (s DemoClass) GoString() string {
-	return s.String()
-}
-
-func (s *DemoClass) SetSomeString(v string) *DemoClass {
-	s.SomeString = &v
-	return s
-}
-
-func (s *DemoClass) SetSomeDate(v string) *DemoClass {
-	s.SomeDate = &v
-	return s
-}
-
-func (s *DemoClass) SetSomeBoolean(v bool) *DemoClass {
-	s.SomeBoolean = &v
-	return s
-}
-
-func (s *DemoClass) SetSomeInt(v int64) *DemoClass {
-	s.SomeInt = &v
-	return s
-}
-
-func (s *DemoClass) SetSomeList(v []*string) *DemoClass {
-	s.SomeList = v
-	return s
-}
-
-func (s *DemoClass) SetSomeObject(v *AnotherClass) *DemoClass {
-	s.SomeObject = v
-	return s
-}
-
-// 另一个Demo类
-type AnotherClass struct {
-	// 测试字段
-	// example:
-	//
-	// some string
-	Bar *string `json:"bar,omitempty" xml:"bar,omitempty" require:"true"`
-	// 列表引用Struct
-	RefList []*DemoClass `json:"refList,omitempty" xml:"refList,omitempty" type:"Repeated"`
-}
-
-func (s AnotherClass) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AnotherClass) GoString() string {
-	return s.String()
-}
-
-func (s *AnotherClass) SetBar(v string) *AnotherClass {
-	s.Bar = &v
-	return s
-}
-
-func (s *AnotherClass) SetRefList(v []*DemoClass) *AnotherClass {
-	s.RefList = v
-	return s
-}
-
-// TestStruct
-type TestStruct struct {
-	// x
-	// example:
-	//
-	// x
-	X *string `json:"x,omitempty" xml:"x,omitempty" require:"true"`
-	// y
-	// example:
-	//
-	// y
-	Y *DemoClass `json:"y,omitempty" xml:"y,omitempty" require:"true"`
-	// z
-	Z []*DemoClass `json:"z,omitempty" xml:"z,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s TestStruct) String() string {
-	return tea.Prettify(s)
-}
-
-func (s TestStruct) GoString() string {
-	return s.String()
-}
-
-func (s *TestStruct) SetX(v string) *TestStruct {
-	s.X = &v
-	return s
-}
-
-func (s *TestStruct) SetY(v *DemoClass) *TestStruct {
-	s.Y = v
-	return s
-}
-
-func (s *TestStruct) SetZ(v []*DemoClass) *TestStruct {
-	s.Z = v
-	return s
-}
-
-// testAAAA
-type TestClass struct {
-	// 1
-	// example:
-	//
-	// testclass
-	Test *string `json:"test,omitempty" xml:"test,omitempty" require:"true"`
-	// 2
-	// example:
-	//
-	// testclass
-	Demo *string `json:"demo,omitempty" xml:"demo,omitempty" require:"true"`
-	// 3
-	// example:
-	//
-	// id2
-	Demo1 *string `json:"demo1,omitempty" xml:"demo1,omitempty" require:"true"`
-	// 22
-	// example:
-	//
-	// 12
-	Demo2 *string `json:"demo2,omitempty" xml:"demo2,omitempty" require:"true"`
-	// test
-	// example:
-	//
-	// undefined
-	Info *DemoClass `json:"info,omitempty" xml:"info,omitempty" require:"true"`
-}
-
-func (s TestClass) String() string {
-	return tea.Prettify(s)
-}
-
-func (s TestClass) GoString() string {
-	return s.String()
-}
-
-func (s *TestClass) SetTest(v string) *TestClass {
-	s.Test = &v
-	return s
-}
-
-func (s *TestClass) SetDemo(v string) *TestClass {
-	s.Demo = &v
-	return s
-}
-
-func (s *TestClass) SetDemo1(v string) *TestClass {
-	s.Demo1 = &v
-	return s
-}
-
-func (s *TestClass) SetDemo2(v string) *TestClass {
-	s.Demo2 = &v
-	return s
-}
-
-func (s *TestClass) SetInfo(v *DemoClass) *TestClass {
-	s.Info = v
-	return s
-}
-
-// Map<String,Object> 集合
-type QueryMap struct {
-	// 键值
-	// example:
-	//
-	// BUSINESS_CODE
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 额外用户信息
-	Value []*NameValuePair `json:"value,omitempty" xml:"value,omitempty" type:"Repeated"`
-}
-
-func (s QueryMap) String() string {
-	return tea.Prettify(s)
-}
-
-func (s QueryMap) GoString() string {
-	return s.String()
-}
-
-func (s *QueryMap) SetName(v string) *QueryMap {
-	s.Name = &v
-	return s
-}
-
-func (s *QueryMap) SetValue(v []*NameValuePair) *QueryMap {
-	s.Value = v
-	return s
-}
-
 // 键值对，兼容map用
 type NameValuePair struct {
 	// 键名
@@ -446,92 +218,6 @@ func (s *NameValuePair) SetName(v string) *NameValuePair {
 
 func (s *NameValuePair) SetValue(v string) *NameValuePair {
 	s.Value = &v
-	return s
-}
-
-// init接口响应结果，map类型
-type InitPack struct {
-	// 返回接收到请求的当前时间
-	// example:
-	//
-	// 2022-11-07 14:48
-	Time *string `json:"time,omitempty" xml:"time,omitempty" require:"true"`
-	// 操作人
-	// example:
-	//
-	// wanyi
-	Operator *string `json:"operator,omitempty" xml:"operator,omitempty" require:"true"`
-	// 请求编号
-	// example:
-	//
-	// 1
-	Count *int64 `json:"count,omitempty" xml:"count,omitempty" require:"true"`
-}
-
-func (s InitPack) String() string {
-	return tea.Prettify(s)
-}
-
-func (s InitPack) GoString() string {
-	return s.String()
-}
-
-func (s *InitPack) SetTime(v string) *InitPack {
-	s.Time = &v
-	return s
-}
-
-func (s *InitPack) SetOperator(v string) *InitPack {
-	s.Operator = &v
-	return s
-}
-
-func (s *InitPack) SetCount(v int64) *InitPack {
-	s.Count = &v
-	return s
-}
-
-// DemoTestx
-type DemoTestx struct {
-	// ability_id
-	// example:
-	//
-	// 8000
-	AbilityId *string `json:"ability_id,omitempty" xml:"ability_id,omitempty" require:"true"`
-}
-
-func (s DemoTestx) String() string {
-	return tea.Prettify(s)
-}
-
-func (s DemoTestx) GoString() string {
-	return s.String()
-}
-
-func (s *DemoTestx) SetAbilityId(v string) *DemoTestx {
-	s.AbilityId = &v
-	return s
-}
-
-// routeCondition
-type RouteCondition struct {
-	// 渠道编号
-	// example:
-	//
-	// HZZKZTKJ
-	ChannelId *string `json:"channel_id,omitempty" xml:"channel_id,omitempty" require:"true"`
-}
-
-func (s RouteCondition) String() string {
-	return tea.Prettify(s)
-}
-
-func (s RouteCondition) GoString() string {
-	return s.String()
-}
-
-func (s *RouteCondition) SetChannelId(v string) *RouteCondition {
-	s.ChannelId = &v
 	return s
 }
 
@@ -567,25 +253,45 @@ func (s *Cmd) SetVersion(v string) *Cmd {
 	return s
 }
 
-// 身份
-type Identity struct {
-	// ak
+// 人员信息
+type Person struct {
+	// 12
 	// example:
 	//
-	// test_0efe42463f8f
-	Ak *string `json:"ak,omitempty" xml:"ak,omitempty" require:"true"`
+	// 张三
+	Idcard *NameValuePair `json:"idcard,omitempty" xml:"idcard,omitempty"`
+	// 12
+	// example:
+	//
+	// 张三
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// test
+	// example:
+	//
+	// undefined
+	Info *Cmd `json:"info,omitempty" xml:"info,omitempty" require:"true"`
 }
 
-func (s Identity) String() string {
+func (s Person) String() string {
 	return tea.Prettify(s)
 }
 
-func (s Identity) GoString() string {
+func (s Person) GoString() string {
 	return s.String()
 }
 
-func (s *Identity) SetAk(v string) *Identity {
-	s.Ak = &v
+func (s *Person) SetIdcard(v *NameValuePair) *Person {
+	s.Idcard = v
+	return s
+}
+
+func (s *Person) SetName(v string) *Person {
+	s.Name = &v
+	return s
+}
+
+func (s *Person) SetInfo(v *Cmd) *Person {
+	s.Info = v
 	return s
 }
 
@@ -621,250 +327,25 @@ func (s *Host) SetAddress(v string) *Host {
 	return s
 }
 
-// 头文件
-type Header struct {
-	// 身份信息
+// 身份
+type Identity struct {
+	// ak
 	// example:
 	//
-	// "identity": {       "ak": "test_0efe42463f8f"     }
-	Identity *Identity `json:"identity,omitempty" xml:"identity,omitempty" require:"true"`
-	// 调用链编号
-	// example:
-	//
-	// test_6db79b5d2e48
-	TraceId *string `json:"trace_id,omitempty" xml:"trace_id,omitempty" require:"true"`
-	// host信息
-	// example:
-	//
-	// "host": {       "systemName": "test_2e1ae924805f",       "address": "test_941f18a4013b"     }
-	Host *Host `json:"host,omitempty" xml:"host,omitempty" require:"true"`
-	// 方向
-	// example:
-	//
-	// REQUEST
-	Direction *string `json:"direction,omitempty" xml:"direction,omitempty" require:"true"`
-	// 请求类型
-	// example:
-	//
-	// INVOKE
-	RequestType *string `json:"request_type,omitempty" xml:"request_type,omitempty" require:"true"`
-	// 协议版本
-	// example:
-	//
-	// test_6709e9002606
-	ProtocolVersion *string `json:"protocol_version,omitempty" xml:"protocol_version,omitempty" require:"true"`
+	// test_0efe42463f8f
+	Ak *string `json:"ak,omitempty" xml:"ak,omitempty" require:"true"`
 }
 
-func (s Header) String() string {
+func (s Identity) String() string {
 	return tea.Prettify(s)
 }
 
-func (s Header) GoString() string {
+func (s Identity) GoString() string {
 	return s.String()
 }
 
-func (s *Header) SetIdentity(v *Identity) *Header {
-	s.Identity = v
-	return s
-}
-
-func (s *Header) SetTraceId(v string) *Header {
-	s.TraceId = &v
-	return s
-}
-
-func (s *Header) SetHost(v *Host) *Header {
-	s.Host = v
-	return s
-}
-
-func (s *Header) SetDirection(v string) *Header {
-	s.Direction = &v
-	return s
-}
-
-func (s *Header) SetRequestType(v string) *Header {
-	s.RequestType = &v
-	return s
-}
-
-func (s *Header) SetProtocolVersion(v string) *Header {
-	s.ProtocolVersion = &v
-	return s
-}
-
-// SCRealEstateQueryRequestPayload
-type SCRealEstateQueryRequestPayload struct {
-	// xm
-	// example:
-	//
-	// 张三
-	Xm *string `json:"xm,omitempty" xml:"xm,omitempty" require:"true"`
-	// sfz
-	// example:
-	//
-	// 51382219970820817X
-	Sfz *string `json:"sfz,omitempty" xml:"sfz,omitempty" require:"true"`
-}
-
-func (s SCRealEstateQueryRequestPayload) String() string {
-	return tea.Prettify(s)
-}
-
-func (s SCRealEstateQueryRequestPayload) GoString() string {
-	return s.String()
-}
-
-func (s *SCRealEstateQueryRequestPayload) SetXm(v string) *SCRealEstateQueryRequestPayload {
-	s.Xm = &v
-	return s
-}
-
-func (s *SCRealEstateQueryRequestPayload) SetSfz(v string) *SCRealEstateQueryRequestPayload {
-	s.Sfz = &v
-	return s
-}
-
-// SCRealEstateQueryRequestBody
-type SCRealEstateQueryRequestBody struct {
-	// cmd
-	// example:
-	//
-	// "cmd": {       "cmdCode": "SC-RealEstate-Query",       "version": "test_d19bd9d59915"     }
-	Cmd *Cmd `json:"cmd,omitempty" xml:"cmd,omitempty" require:"true"`
-	// 路由信息
-	// example:
-	//
-	// "routeCondition": {       "channelId": "HZZKZTKJ"     }
-	RouteCondition *RouteCondition `json:"route_condition,omitempty" xml:"route_condition,omitempty" require:"true"`
-	// requestId
-	// example:
-	//
-	// test_8c964bb7781a
-	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
-	// payload
-	// example:
-	//
-	// { "xm": "张三",   "sfz": "51382219970820817X"}
-	Payload *SCRealEstateQueryRequestPayload `json:"payload,omitempty" xml:"payload,omitempty" require:"true"`
-}
-
-func (s SCRealEstateQueryRequestBody) String() string {
-	return tea.Prettify(s)
-}
-
-func (s SCRealEstateQueryRequestBody) GoString() string {
-	return s.String()
-}
-
-func (s *SCRealEstateQueryRequestBody) SetCmd(v *Cmd) *SCRealEstateQueryRequestBody {
-	s.Cmd = v
-	return s
-}
-
-func (s *SCRealEstateQueryRequestBody) SetRouteCondition(v *RouteCondition) *SCRealEstateQueryRequestBody {
-	s.RouteCondition = v
-	return s
-}
-
-func (s *SCRealEstateQueryRequestBody) SetRequestId(v string) *SCRealEstateQueryRequestBody {
-	s.RequestId = &v
-	return s
-}
-
-func (s *SCRealEstateQueryRequestBody) SetPayload(v *SCRealEstateQueryRequestPayload) *SCRealEstateQueryRequestBody {
-	s.Payload = v
-	return s
-}
-
-// SCRealEstateQuery
-type SCRealEstateQueryInvokerRequest struct {
-	// header
-	// example:
-	//
-	// "header": {}
-	Header *Header `json:"header,omitempty" xml:"header,omitempty" require:"true"`
-	// body
-	// example:
-	//
-	// "body":{}
-	Body *SCRealEstateQueryBody `json:"body,omitempty" xml:"body,omitempty" require:"true"`
-}
-
-func (s SCRealEstateQueryInvokerRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s SCRealEstateQueryInvokerRequest) GoString() string {
-	return s.String()
-}
-
-func (s *SCRealEstateQueryInvokerRequest) SetHeader(v *Header) *SCRealEstateQueryInvokerRequest {
-	s.Header = v
-	return s
-}
-
-func (s *SCRealEstateQueryInvokerRequest) SetBody(v *SCRealEstateQueryBody) *SCRealEstateQueryInvokerRequest {
-	s.Body = v
-	return s
-}
-
-// ResponseBody
-type SCRealEstateQueryResponseBody struct {
-	// cost
-	// example:
-	//
-	// 1234
-	Cost *int64 `json:"cost,omitempty" xml:"cost,omitempty" require:"true"`
-	// response_status
-	// example:
-	//
-	// response_status
-	ResponseStatus *string `json:"response_status,omitempty" xml:"response_status,omitempty" require:"true"`
-	// response_code
-	// example:
-	//
-	// 200
-	ResponseCode *string `json:"response_code,omitempty" xml:"response_code,omitempty" require:"true"`
-	// request_id
-	// example:
-	//
-	// request_id
-	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
-	// payload
-	Payload *SCRealEstateQueryResponsePayload `json:"payload,omitempty" xml:"payload,omitempty" require:"true"`
-}
-
-func (s SCRealEstateQueryResponseBody) String() string {
-	return tea.Prettify(s)
-}
-
-func (s SCRealEstateQueryResponseBody) GoString() string {
-	return s.String()
-}
-
-func (s *SCRealEstateQueryResponseBody) SetCost(v int64) *SCRealEstateQueryResponseBody {
-	s.Cost = &v
-	return s
-}
-
-func (s *SCRealEstateQueryResponseBody) SetResponseStatus(v string) *SCRealEstateQueryResponseBody {
-	s.ResponseStatus = &v
-	return s
-}
-
-func (s *SCRealEstateQueryResponseBody) SetResponseCode(v string) *SCRealEstateQueryResponseBody {
-	s.ResponseCode = &v
-	return s
-}
-
-func (s *SCRealEstateQueryResponseBody) SetRequestId(v string) *SCRealEstateQueryResponseBody {
-	s.RequestId = &v
-	return s
-}
-
-func (s *SCRealEstateQueryResponseBody) SetPayload(v *SCRealEstateQueryResponsePayload) *SCRealEstateQueryResponseBody {
-	s.Payload = v
+func (s *Identity) SetAk(v string) *Identity {
+	s.Ak = &v
 	return s
 }
 
@@ -980,6 +461,257 @@ func (s *SCRealEstateQueryResponseData) SetScjzmj(v string) *SCRealEstateQueryRe
 	return s
 }
 
+// ContentTest-123
+type ContentTest struct {
+	// name
+	// example:
+	//
+	// test
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+}
+
+func (s ContentTest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ContentTest) GoString() string {
+	return s.String()
+}
+
+func (s *ContentTest) SetName(v string) *ContentTest {
+	s.Name = &v
+	return s
+}
+
+// 头文件
+type Header struct {
+	// 身份信息
+	// example:
+	//
+	// "identity": {       "ak": "test_0efe42463f8f"     }
+	Identity *Identity `json:"identity,omitempty" xml:"identity,omitempty" require:"true"`
+	// 调用链编号
+	// example:
+	//
+	// test_6db79b5d2e48
+	TraceId *string `json:"trace_id,omitempty" xml:"trace_id,omitempty" require:"true"`
+	// host信息
+	// example:
+	//
+	// "host": {       "systemName": "test_2e1ae924805f",       "address": "test_941f18a4013b"     }
+	Host *Host `json:"host,omitempty" xml:"host,omitempty" require:"true"`
+	// 方向
+	// example:
+	//
+	// REQUEST
+	Direction *string `json:"direction,omitempty" xml:"direction,omitempty" require:"true"`
+	// 请求类型
+	// example:
+	//
+	// INVOKE
+	RequestType *string `json:"request_type,omitempty" xml:"request_type,omitempty" require:"true"`
+	// 协议版本
+	// example:
+	//
+	// test_6709e9002606
+	ProtocolVersion *string `json:"protocol_version,omitempty" xml:"protocol_version,omitempty" require:"true"`
+}
+
+func (s Header) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Header) GoString() string {
+	return s.String()
+}
+
+func (s *Header) SetIdentity(v *Identity) *Header {
+	s.Identity = v
+	return s
+}
+
+func (s *Header) SetTraceId(v string) *Header {
+	s.TraceId = &v
+	return s
+}
+
+func (s *Header) SetHost(v *Host) *Header {
+	s.Host = v
+	return s
+}
+
+func (s *Header) SetDirection(v string) *Header {
+	s.Direction = &v
+	return s
+}
+
+func (s *Header) SetRequestType(v string) *Header {
+	s.RequestType = &v
+	return s
+}
+
+func (s *Header) SetProtocolVersion(v string) *Header {
+	s.ProtocolVersion = &v
+	return s
+}
+
+// routeCondition
+type RouteCondition struct {
+	// 渠道编号
+	// example:
+	//
+	// HZZKZTKJ
+	ChannelId *string `json:"channel_id,omitempty" xml:"channel_id,omitempty" require:"true"`
+}
+
+func (s RouteCondition) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RouteCondition) GoString() string {
+	return s.String()
+}
+
+func (s *RouteCondition) SetChannelId(v string) *RouteCondition {
+	s.ChannelId = &v
+	return s
+}
+
+// testAtestB
+type SCRealEstateQueryBody struct {
+}
+
+func (s SCRealEstateQueryBody) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SCRealEstateQueryBody) GoString() string {
+	return s.String()
+}
+
+// Demo类1
+type DemoClass struct {
+	// 字符串测试
+	// example:
+	//
+	// some string
+	SomeString *string `json:"some_string,omitempty" xml:"some_string,omitempty" require:"true"`
+	// 日期测试
+	// example:
+	//
+	// 3
+	SomeDate *string `json:"some_date,omitempty" xml:"some_date,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// Boolean测试
+	// example:
+	//
+	// true
+	SomeBoolean *bool `json:"some_boolean,omitempty" xml:"some_boolean,omitempty" require:"true"`
+	// 整数测试
+	// example:
+	//
+	// 3
+	SomeInt *int64 `json:"some_int,omitempty" xml:"some_int,omitempty" require:"true"`
+	// 列表测试
+	SomeList []*string `json:"some_list,omitempty" xml:"some_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s DemoClass) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DemoClass) GoString() string {
+	return s.String()
+}
+
+func (s *DemoClass) SetSomeString(v string) *DemoClass {
+	s.SomeString = &v
+	return s
+}
+
+func (s *DemoClass) SetSomeDate(v string) *DemoClass {
+	s.SomeDate = &v
+	return s
+}
+
+func (s *DemoClass) SetSomeBoolean(v bool) *DemoClass {
+	s.SomeBoolean = &v
+	return s
+}
+
+func (s *DemoClass) SetSomeInt(v int64) *DemoClass {
+	s.SomeInt = &v
+	return s
+}
+
+func (s *DemoClass) SetSomeList(v []*string) *DemoClass {
+	s.SomeList = v
+	return s
+}
+
+// 1
+type CardInfo struct {
+	// 1233
+	// example:
+	//
+	// undefined
+	PersionInfo *Person `json:"persion_info,omitempty" xml:"persion_info,omitempty"`
+	// 12
+	// example:
+	//
+	// 12345
+	IdCard *string `json:"id_card,omitempty" xml:"id_card,omitempty"`
+}
+
+func (s CardInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CardInfo) GoString() string {
+	return s.String()
+}
+
+func (s *CardInfo) SetPersionInfo(v *Person) *CardInfo {
+	s.PersionInfo = v
+	return s
+}
+
+func (s *CardInfo) SetIdCard(v string) *CardInfo {
+	s.IdCard = &v
+	return s
+}
+
+// SCRealEstateQueryRequestPayload
+type SCRealEstateQueryRequestPayload struct {
+	// xm
+	// example:
+	//
+	// 张三
+	Xm *string `json:"xm,omitempty" xml:"xm,omitempty" require:"true"`
+	// sfz
+	// example:
+	//
+	// 51382219970820817X
+	Sfz *string `json:"sfz,omitempty" xml:"sfz,omitempty" require:"true"`
+}
+
+func (s SCRealEstateQueryRequestPayload) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SCRealEstateQueryRequestPayload) GoString() string {
+	return s.String()
+}
+
+func (s *SCRealEstateQueryRequestPayload) SetXm(v string) *SCRealEstateQueryRequestPayload {
+	s.Xm = &v
+	return s
+}
+
+func (s *SCRealEstateQueryRequestPayload) SetSfz(v string) *SCRealEstateQueryRequestPayload {
+	s.Sfz = &v
+	return s
+}
+
 // SCRealEstateQueryResponsePayload
 type SCRealEstateQueryResponsePayload struct {
 	// code
@@ -1029,16 +761,36 @@ func (s *SCRealEstateQueryResponsePayload) SetRetMsg(v string) *SCRealEstateQuer
 	return s
 }
 
-// testAtestB
-type SCRealEstateQueryBody struct {
+// 键值对
+type Map struct {
+	// 键
+	// example:
+	//
+	// key1
+	Key *string `json:"key,omitempty" xml:"key,omitempty" require:"true"`
+	// 值
+	// example:
+	//
+	// value1
+	Value *string `json:"value,omitempty" xml:"value,omitempty"`
 }
 
-func (s SCRealEstateQueryBody) String() string {
+func (s Map) String() string {
 	return tea.Prettify(s)
 }
 
-func (s SCRealEstateQueryBody) GoString() string {
+func (s Map) GoString() string {
 	return s.String()
+}
+
+func (s *Map) SetKey(v string) *Map {
+	s.Key = &v
+	return s
+}
+
+func (s *Map) SetValue(v string) *Map {
+	s.Value = &v
+	return s
 }
 
 // 大安全佐罗测试接口结构体
@@ -1073,45 +825,299 @@ func (s *FaceImage) SetRect(v string) *FaceImage {
 	return s
 }
 
-// 自动生成单测代码model
-type AutoCodeModel struct {
-	// 111
+// SCRealEstateQuery
+type SCRealEstateQueryInvokerRequest struct {
+	// header
 	// example:
 	//
-	// 111
-	ModelStringParam *string `json:"model_string_param,omitempty" xml:"model_string_param,omitempty" require:"true"`
-	// 111
+	// "header": {}
+	Header *Header `json:"header,omitempty" xml:"header,omitempty" require:"true"`
+	// body
 	// example:
 	//
-	// 2018-10-10T10:10:00Z
-	ModelDateParam *string `json:"model_date_param,omitempty" xml:"model_date_param,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 111
-	// example:
-	//
-	// 111
-	ModelArrayParam []*string `json:"model_array_param,omitempty" xml:"model_array_param,omitempty" require:"true" type:"Repeated"`
+	// "body":{}
+	Body *SCRealEstateQueryBody `json:"body,omitempty" xml:"body,omitempty" require:"true"`
 }
 
-func (s AutoCodeModel) String() string {
+func (s SCRealEstateQueryInvokerRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s AutoCodeModel) GoString() string {
+func (s SCRealEstateQueryInvokerRequest) GoString() string {
 	return s.String()
 }
 
-func (s *AutoCodeModel) SetModelStringParam(v string) *AutoCodeModel {
-	s.ModelStringParam = &v
+func (s *SCRealEstateQueryInvokerRequest) SetHeader(v *Header) *SCRealEstateQueryInvokerRequest {
+	s.Header = v
 	return s
 }
 
-func (s *AutoCodeModel) SetModelDateParam(v string) *AutoCodeModel {
-	s.ModelDateParam = &v
+func (s *SCRealEstateQueryInvokerRequest) SetBody(v *SCRealEstateQueryBody) *SCRealEstateQueryInvokerRequest {
+	s.Body = v
 	return s
 }
 
-func (s *AutoCodeModel) SetModelArrayParam(v []*string) *AutoCodeModel {
-	s.ModelArrayParam = v
+// 风险评估因子明细
+type RiskFactorDetail struct {
+	// 风险评估因子类型
+	// example:
+	//
+	// BLACKLIST
+	FactorType *string `json:"factor_type,omitempty" xml:"factor_type,omitempty"`
+	// 分数
+	// example:
+	//
+	// 85
+	Score *int64 `json:"score,omitempty" xml:"score,omitempty"`
+	// 风险事件
+	// example:
+	//
+	// ["关联账户被冻结", "高频异常交易"]
+	Evidence []*string `json:"evidence,omitempty" xml:"evidence,omitempty" type:"Repeated"`
+}
+
+func (s RiskFactorDetail) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RiskFactorDetail) GoString() string {
+	return s.String()
+}
+
+func (s *RiskFactorDetail) SetFactorType(v string) *RiskFactorDetail {
+	s.FactorType = &v
+	return s
+}
+
+func (s *RiskFactorDetail) SetScore(v int64) *RiskFactorDetail {
+	s.Score = &v
+	return s
+}
+
+func (s *RiskFactorDetail) SetEvidence(v []*string) *RiskFactorDetail {
+	s.Evidence = v
+	return s
+}
+
+// 内容4
+type Content struct {
+	// name
+	// example:
+	//
+	// test
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 1
+	// example:
+	//
+	// test
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+}
+
+func (s Content) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Content) GoString() string {
+	return s.String()
+}
+
+func (s *Content) SetName(v string) *Content {
+	s.Name = &v
+	return s
+}
+
+func (s *Content) SetId(v string) *Content {
+	s.Id = &v
+	return s
+}
+
+// 用于上海非金迭代的测试使用
+type ShangHaiTest struct {
+	// string
+	// example:
+	//
+	// test
+	Param1 *string `json:"param_1,omitempty" xml:"param_1,omitempty"`
+	// number
+	// example:
+	//
+	// 1
+	Param2 *int64 `json:"param_2,omitempty" xml:"param_2,omitempty"`
+}
+
+func (s ShangHaiTest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ShangHaiTest) GoString() string {
+	return s.String()
+}
+
+func (s *ShangHaiTest) SetParam1(v string) *ShangHaiTest {
+	s.Param1 = &v
+	return s
+}
+
+func (s *ShangHaiTest) SetParam2(v int64) *ShangHaiTest {
+	s.Param2 = &v
+	return s
+}
+
+// test
+type DemoInfo struct {
+	// test
+	// example:
+	//
+	// test
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 123
+	// example:
+	//
+	// 1123
+	Testx *ContentTest `json:"testx,omitempty" xml:"testx,omitempty"`
+}
+
+func (s DemoInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DemoInfo) GoString() string {
+	return s.String()
+}
+
+func (s *DemoInfo) SetName(v string) *DemoInfo {
+	s.Name = &v
+	return s
+}
+
+func (s *DemoInfo) SetTestx(v *ContentTest) *DemoInfo {
+	s.Testx = v
+	return s
+}
+
+// init接口响应结果，map类型
+type InitPack struct {
+	// 返回接收到请求的当前时间
+	// example:
+	//
+	// 2022-11-07 14:48
+	Time *string `json:"time,omitempty" xml:"time,omitempty" require:"true"`
+	// 操作人
+	// example:
+	//
+	// wanyi
+	Operator *string `json:"operator,omitempty" xml:"operator,omitempty" require:"true"`
+	// 请求编号
+	// example:
+	//
+	// 1
+	Count *int64 `json:"count,omitempty" xml:"count,omitempty" require:"true"`
+}
+
+func (s InitPack) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InitPack) GoString() string {
+	return s.String()
+}
+
+func (s *InitPack) SetTime(v string) *InitPack {
+	s.Time = &v
+	return s
+}
+
+func (s *InitPack) SetOperator(v string) *InitPack {
+	s.Operator = &v
+	return s
+}
+
+func (s *InitPack) SetCount(v int64) *InitPack {
+	s.Count = &v
+	return s
+}
+
+// 卡片信息
+type Card struct {
+	// 卡片名称
+	// example:
+	//
+	// 张三
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+}
+
+func (s Card) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Card) GoString() string {
+	return s.String()
+}
+
+func (s *Card) SetName(v string) *Card {
+	s.Name = &v
+	return s
+}
+
+// 交易明细信息
+type TransactionDetails struct {
+	// 金额
+	// example:
+	//
+	// 85000.00
+	Amount *int64 `json:"amount,omitempty" xml:"amount,omitempty"`
+	// 币种
+	// example:
+	//
+	// CNY
+	Currency *string `json:"currency,omitempty" xml:"currency,omitempty"`
+	// 渠道
+	// example:
+	//
+	// ATM
+	Channel *string `json:"channel,omitempty" xml:"channel,omitempty"`
+	// 地址
+	// example:
+	//
+	// 上海分行
+	Location *string `json:"location,omitempty" xml:"location,omitempty"`
+	// 时间
+	// example:
+	//
+	// 2018-10-10T10:10:00Z
+	Time *string `json:"time,omitempty" xml:"time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s TransactionDetails) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TransactionDetails) GoString() string {
+	return s.String()
+}
+
+func (s *TransactionDetails) SetAmount(v int64) *TransactionDetails {
+	s.Amount = &v
+	return s
+}
+
+func (s *TransactionDetails) SetCurrency(v string) *TransactionDetails {
+	s.Currency = &v
+	return s
+}
+
+func (s *TransactionDetails) SetChannel(v string) *TransactionDetails {
+	s.Channel = &v
+	return s
+}
+
+func (s *TransactionDetails) SetLocation(v string) *TransactionDetails {
+	s.Location = &v
+	return s
+}
+
+func (s *TransactionDetails) SetTime(v string) *TransactionDetails {
+	s.Time = &v
 	return s
 }
 
@@ -1174,6 +1180,566 @@ func (s *NumberTest) SetParameter4(v int64) *NumberTest {
 
 func (s *NumberTest) SetParameter5(v *DemoClass) *NumberTest {
 	s.Parameter5 = v
+	return s
+}
+
+// testAAAA
+type TestClass struct {
+	// 1
+	// example:
+	//
+	// testclass
+	Test *string `json:"test,omitempty" xml:"test,omitempty" require:"true"`
+	// 2
+	// example:
+	//
+	// testclass
+	Demo *string `json:"demo,omitempty" xml:"demo,omitempty" require:"true"`
+	// 3
+	// example:
+	//
+	// id2
+	Demo1 *string `json:"demo1,omitempty" xml:"demo1,omitempty" require:"true"`
+	// 22
+	// example:
+	//
+	// 12
+	Demo2 *string `json:"demo2,omitempty" xml:"demo2,omitempty" require:"true"`
+	// test
+	// example:
+	//
+	// undefined
+	Info *DemoClass `json:"info,omitempty" xml:"info,omitempty" require:"true"`
+}
+
+func (s TestClass) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TestClass) GoString() string {
+	return s.String()
+}
+
+func (s *TestClass) SetTest(v string) *TestClass {
+	s.Test = &v
+	return s
+}
+
+func (s *TestClass) SetDemo(v string) *TestClass {
+	s.Demo = &v
+	return s
+}
+
+func (s *TestClass) SetDemo1(v string) *TestClass {
+	s.Demo1 = &v
+	return s
+}
+
+func (s *TestClass) SetDemo2(v string) *TestClass {
+	s.Demo2 = &v
+	return s
+}
+
+func (s *TestClass) SetInfo(v *DemoClass) *TestClass {
+	s.Info = v
+	return s
+}
+
+// TestStruct
+type TestStruct struct {
+	// x
+	// example:
+	//
+	// x
+	X *string `json:"x,omitempty" xml:"x,omitempty" require:"true"`
+	// y
+	// example:
+	//
+	// y
+	Y *DemoClass `json:"y,omitempty" xml:"y,omitempty" require:"true"`
+	// z
+	Z []*DemoClass `json:"z,omitempty" xml:"z,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s TestStruct) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TestStruct) GoString() string {
+	return s.String()
+}
+
+func (s *TestStruct) SetX(v string) *TestStruct {
+	s.X = &v
+	return s
+}
+
+func (s *TestStruct) SetY(v *DemoClass) *TestStruct {
+	s.Y = v
+	return s
+}
+
+func (s *TestStruct) SetZ(v []*DemoClass) *TestStruct {
+	s.Z = v
+	return s
+}
+
+// 测试
+type TestObject struct {
+	// 主键
+	// example:
+	//
+	// 12
+	Id *int64 `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// 名称
+	// example:
+	//
+	// 小蜜
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+}
+
+func (s TestObject) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TestObject) GoString() string {
+	return s.String()
+}
+
+func (s *TestObject) SetId(v int64) *TestObject {
+	s.Id = &v
+	return s
+}
+
+func (s *TestObject) SetName(v string) *TestObject {
+	s.Name = &v
+	return s
+}
+
+// DemoTestx
+type DemoTestx struct {
+	// ability_id
+	// example:
+	//
+	// 8000
+	AbilityId *string `json:"ability_id,omitempty" xml:"ability_id,omitempty" require:"true"`
+}
+
+func (s DemoTestx) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DemoTestx) GoString() string {
+	return s.String()
+}
+
+func (s *DemoTestx) SetAbilityId(v string) *DemoTestx {
+	s.AbilityId = &v
+	return s
+}
+
+// 另一个Demo类
+type AnotherClass struct {
+	// 测试字段
+	// example:
+	//
+	// some string
+	Bar *string `json:"bar,omitempty" xml:"bar,omitempty" require:"true"`
+	// 列表引用Struct
+	RefList []*DemoClass `json:"refList,omitempty" xml:"refList,omitempty" type:"Repeated"`
+}
+
+func (s AnotherClass) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AnotherClass) GoString() string {
+	return s.String()
+}
+
+func (s *AnotherClass) SetBar(v string) *AnotherClass {
+	s.Bar = &v
+	return s
+}
+
+func (s *AnotherClass) SetRefList(v []*DemoClass) *AnotherClass {
+	s.RefList = v
+	return s
+}
+
+// 自动生成单测代码model
+type AutoCodeModel struct {
+	// 111
+	// example:
+	//
+	// 111
+	ModelStringParam *string `json:"model_string_param,omitempty" xml:"model_string_param,omitempty" require:"true"`
+	// 111
+	// example:
+	//
+	// 2018-10-10T10:10:00Z
+	ModelDateParam *string `json:"model_date_param,omitempty" xml:"model_date_param,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 111
+	// example:
+	//
+	// 111
+	ModelArrayParam []*string `json:"model_array_param,omitempty" xml:"model_array_param,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s AutoCodeModel) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AutoCodeModel) GoString() string {
+	return s.String()
+}
+
+func (s *AutoCodeModel) SetModelStringParam(v string) *AutoCodeModel {
+	s.ModelStringParam = &v
+	return s
+}
+
+func (s *AutoCodeModel) SetModelDateParam(v string) *AutoCodeModel {
+	s.ModelDateParam = &v
+	return s
+}
+
+func (s *AutoCodeModel) SetModelArrayParam(v []*string) *AutoCodeModel {
+	s.ModelArrayParam = v
+	return s
+}
+
+// SCRealEstateQueryRequestBody
+type SCRealEstateQueryRequestBody struct {
+	// cmd
+	// example:
+	//
+	// "cmd": {       "cmdCode": "SC-RealEstate-Query",       "version": "test_d19bd9d59915"     }
+	Cmd *Cmd `json:"cmd,omitempty" xml:"cmd,omitempty" require:"true"`
+	// 路由信息
+	// example:
+	//
+	// "routeCondition": {       "channelId": "HZZKZTKJ"     }
+	RouteCondition *RouteCondition `json:"route_condition,omitempty" xml:"route_condition,omitempty" require:"true"`
+	// requestId
+	// example:
+	//
+	// test_8c964bb7781a
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
+	// payload
+	// example:
+	//
+	// { "xm": "张三",   "sfz": "51382219970820817X"}
+	Payload *SCRealEstateQueryRequestPayload `json:"payload,omitempty" xml:"payload,omitempty" require:"true"`
+}
+
+func (s SCRealEstateQueryRequestBody) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SCRealEstateQueryRequestBody) GoString() string {
+	return s.String()
+}
+
+func (s *SCRealEstateQueryRequestBody) SetCmd(v *Cmd) *SCRealEstateQueryRequestBody {
+	s.Cmd = v
+	return s
+}
+
+func (s *SCRealEstateQueryRequestBody) SetRouteCondition(v *RouteCondition) *SCRealEstateQueryRequestBody {
+	s.RouteCondition = v
+	return s
+}
+
+func (s *SCRealEstateQueryRequestBody) SetRequestId(v string) *SCRealEstateQueryRequestBody {
+	s.RequestId = &v
+	return s
+}
+
+func (s *SCRealEstateQueryRequestBody) SetPayload(v *SCRealEstateQueryRequestPayload) *SCRealEstateQueryRequestBody {
+	s.Payload = v
+	return s
+}
+
+// ContentT
+type ContentT struct {
+	// 1
+	// example:
+	//
+	// 123
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+}
+
+func (s ContentT) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ContentT) GoString() string {
+	return s.String()
+}
+
+func (s *ContentT) SetName(v string) *ContentT {
+	s.Name = &v
+	return s
+}
+
+// 嵌套结构
+type NestModel struct {
+	// aaaa
+	// example:
+	//
+	// aaa
+	A *string `json:"a,omitempty" xml:"a,omitempty" require:"true"`
+}
+
+func (s NestModel) String() string {
+	return tea.Prettify(s)
+}
+
+func (s NestModel) GoString() string {
+	return s.String()
+}
+
+func (s *NestModel) SetA(v string) *NestModel {
+	s.A = &v
+	return s
+}
+
+// 档案
+type TestStu struct {
+	// 567
+	// example:
+	//
+	// undefined
+	CardInfo *CardInfo `json:"card_info,omitempty" xml:"card_info,omitempty"`
+	// 12
+	// example:
+	//
+	// 档案号
+	StuNo *string `json:"stu_no,omitempty" xml:"stu_no,omitempty" require:"true"`
+}
+
+func (s TestStu) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TestStu) GoString() string {
+	return s.String()
+}
+
+func (s *TestStu) SetCardInfo(v *CardInfo) *TestStu {
+	s.CardInfo = v
+	return s
+}
+
+func (s *TestStu) SetStuNo(v string) *TestStu {
+	s.StuNo = &v
+	return s
+}
+
+// 测试
+type TestAPIObject struct {
+	// test
+	// example:
+	//
+	// 21
+	Id *int64 `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+}
+
+func (s TestAPIObject) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TestAPIObject) GoString() string {
+	return s.String()
+}
+
+func (s *TestAPIObject) SetId(v int64) *TestAPIObject {
+	s.Id = &v
+	return s
+}
+
+// ResponseBody
+type SCRealEstateQueryResponseBody struct {
+	// cost
+	// example:
+	//
+	// 1234
+	Cost *int64 `json:"cost,omitempty" xml:"cost,omitempty" require:"true"`
+	// response_status
+	// example:
+	//
+	// response_status
+	ResponseStatus *string `json:"response_status,omitempty" xml:"response_status,omitempty" require:"true"`
+	// response_code
+	// example:
+	//
+	// 200
+	ResponseCode *string `json:"response_code,omitempty" xml:"response_code,omitempty" require:"true"`
+	// request_id
+	// example:
+	//
+	// request_id
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
+	// payload
+	Payload *SCRealEstateQueryResponsePayload `json:"payload,omitempty" xml:"payload,omitempty" require:"true"`
+}
+
+func (s SCRealEstateQueryResponseBody) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SCRealEstateQueryResponseBody) GoString() string {
+	return s.String()
+}
+
+func (s *SCRealEstateQueryResponseBody) SetCost(v int64) *SCRealEstateQueryResponseBody {
+	s.Cost = &v
+	return s
+}
+
+func (s *SCRealEstateQueryResponseBody) SetResponseStatus(v string) *SCRealEstateQueryResponseBody {
+	s.ResponseStatus = &v
+	return s
+}
+
+func (s *SCRealEstateQueryResponseBody) SetResponseCode(v string) *SCRealEstateQueryResponseBody {
+	s.ResponseCode = &v
+	return s
+}
+
+func (s *SCRealEstateQueryResponseBody) SetRequestId(v string) *SCRealEstateQueryResponseBody {
+	s.RequestId = &v
+	return s
+}
+
+func (s *SCRealEstateQueryResponseBody) SetPayload(v *SCRealEstateQueryResponsePayload) *SCRealEstateQueryResponseBody {
+	s.Payload = v
+	return s
+}
+
+// 用户基础信息
+type UserProfile struct {
+	// 用户ID
+	// example:
+	//
+	// 1234567890
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+	// 用户身份证号
+	// example:
+	//
+	// 110101199003072516
+	IdNumber *string `json:"id_number,omitempty" xml:"id_number,omitempty"`
+	// 手机号
+	// example:
+	//
+	// 13800138000
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty"`
+	// 年龄
+	// example:
+	//
+	// 32
+	Age *int64 `json:"age,omitempty" xml:"age,omitempty"`
+	// 信用评分
+	// example:
+	//
+	// 720
+	CreditScore *int64 `json:"credit_score,omitempty" xml:"credit_score,omitempty"`
+}
+
+func (s UserProfile) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UserProfile) GoString() string {
+	return s.String()
+}
+
+func (s *UserProfile) SetUserId(v string) *UserProfile {
+	s.UserId = &v
+	return s
+}
+
+func (s *UserProfile) SetIdNumber(v string) *UserProfile {
+	s.IdNumber = &v
+	return s
+}
+
+func (s *UserProfile) SetMobile(v string) *UserProfile {
+	s.Mobile = &v
+	return s
+}
+
+func (s *UserProfile) SetAge(v int64) *UserProfile {
+	s.Age = &v
+	return s
+}
+
+func (s *UserProfile) SetCreditScore(v int64) *UserProfile {
+	s.CreditScore = &v
+	return s
+}
+
+// Map<String,Object> 集合
+type QueryMap struct {
+	// 键值
+	// example:
+	//
+	// BUSINESS_CODE
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 额外用户信息
+	Value []*NameValuePair `json:"value,omitempty" xml:"value,omitempty" type:"Repeated"`
+}
+
+func (s QueryMap) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryMap) GoString() string {
+	return s.String()
+}
+
+func (s *QueryMap) SetName(v string) *QueryMap {
+	s.Name = &v
+	return s
+}
+
+func (s *QueryMap) SetValue(v []*NameValuePair) *QueryMap {
+	s.Value = v
+	return s
+}
+
+// aaa
+type A struct {
+}
+
+func (s A) String() string {
+	return tea.Prettify(s)
+}
+
+func (s A) GoString() string {
+	return s.String()
+}
+
+// test
+type DomeClasssss struct {
+	// test
+	// example:
+	//
+	// test
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+}
+
+func (s DomeClasssss) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DomeClasssss) GoString() string {
+	return s.String()
+}
+
+func (s *DomeClasssss) SetName(v string) *DomeClasssss {
+	s.Name = &v
 	return s
 }
 
@@ -1286,582 +1852,6 @@ func (s *TestA) SetParameter9(v string) *TestA {
 
 func (s *TestA) SetParameter10(v string) *TestA {
 	s.Parameter10 = &v
-	return s
-}
-
-// 用于上海非金迭代的测试使用
-type ShangHaiTest struct {
-	// string
-	// example:
-	//
-	// test
-	Param1 *string `json:"param_1,omitempty" xml:"param_1,omitempty"`
-	// number
-	// example:
-	//
-	// 1
-	Param2 *int64 `json:"param_2,omitempty" xml:"param_2,omitempty"`
-}
-
-func (s ShangHaiTest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ShangHaiTest) GoString() string {
-	return s.String()
-}
-
-func (s *ShangHaiTest) SetParam1(v string) *ShangHaiTest {
-	s.Param1 = &v
-	return s
-}
-
-func (s *ShangHaiTest) SetParam2(v int64) *ShangHaiTest {
-	s.Param2 = &v
-	return s
-}
-
-// 测试
-type TestObject struct {
-	// 主键
-	// example:
-	//
-	// 12
-	Id *int64 `json:"id,omitempty" xml:"id,omitempty" require:"true"`
-	// 名称
-	// example:
-	//
-	// 小蜜
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-}
-
-func (s TestObject) String() string {
-	return tea.Prettify(s)
-}
-
-func (s TestObject) GoString() string {
-	return s.String()
-}
-
-func (s *TestObject) SetId(v int64) *TestObject {
-	s.Id = &v
-	return s
-}
-
-func (s *TestObject) SetName(v string) *TestObject {
-	s.Name = &v
-	return s
-}
-
-// 测试
-type TestAPIObject struct {
-	// test
-	// example:
-	//
-	// 21
-	Id *int64 `json:"id,omitempty" xml:"id,omitempty" require:"true"`
-}
-
-func (s TestAPIObject) String() string {
-	return tea.Prettify(s)
-}
-
-func (s TestAPIObject) GoString() string {
-	return s.String()
-}
-
-func (s *TestAPIObject) SetId(v int64) *TestAPIObject {
-	s.Id = &v
-	return s
-}
-
-// 键值对
-type Map struct {
-	// 键
-	// example:
-	//
-	// key1
-	Key *string `json:"key,omitempty" xml:"key,omitempty" require:"true"`
-	// 值
-	// example:
-	//
-	// value1
-	Value *string `json:"value,omitempty" xml:"value,omitempty"`
-}
-
-func (s Map) String() string {
-	return tea.Prettify(s)
-}
-
-func (s Map) GoString() string {
-	return s.String()
-}
-
-func (s *Map) SetKey(v string) *Map {
-	s.Key = &v
-	return s
-}
-
-func (s *Map) SetValue(v string) *Map {
-	s.Value = &v
-	return s
-}
-
-// aaa
-type A struct {
-}
-
-func (s A) String() string {
-	return tea.Prettify(s)
-}
-
-func (s A) GoString() string {
-	return s.String()
-}
-
-// 嵌套结构
-type NestModel struct {
-	// aaaa
-	// example:
-	//
-	// aaa
-	A *string `json:"a,omitempty" xml:"a,omitempty" require:"true"`
-}
-
-func (s NestModel) String() string {
-	return tea.Prettify(s)
-}
-
-func (s NestModel) GoString() string {
-	return s.String()
-}
-
-func (s *NestModel) SetA(v string) *NestModel {
-	s.A = &v
-	return s
-}
-
-// 用户基础信息
-type UserProfile struct {
-	// 用户ID
-	// example:
-	//
-	// 1234567890
-	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
-	// 用户身份证号
-	// example:
-	//
-	// 110101199003072516
-	IdNumber *string `json:"id_number,omitempty" xml:"id_number,omitempty"`
-	// 手机号
-	// example:
-	//
-	// 13800138000
-	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty"`
-	// 年龄
-	// example:
-	//
-	// 32
-	Age *int64 `json:"age,omitempty" xml:"age,omitempty"`
-	// 信用评分
-	// example:
-	//
-	// 720
-	CreditScore *int64 `json:"credit_score,omitempty" xml:"credit_score,omitempty"`
-}
-
-func (s UserProfile) String() string {
-	return tea.Prettify(s)
-}
-
-func (s UserProfile) GoString() string {
-	return s.String()
-}
-
-func (s *UserProfile) SetUserId(v string) *UserProfile {
-	s.UserId = &v
-	return s
-}
-
-func (s *UserProfile) SetIdNumber(v string) *UserProfile {
-	s.IdNumber = &v
-	return s
-}
-
-func (s *UserProfile) SetMobile(v string) *UserProfile {
-	s.Mobile = &v
-	return s
-}
-
-func (s *UserProfile) SetAge(v int64) *UserProfile {
-	s.Age = &v
-	return s
-}
-
-func (s *UserProfile) SetCreditScore(v int64) *UserProfile {
-	s.CreditScore = &v
-	return s
-}
-
-// 交易明细信息
-type TransactionDetails struct {
-	// 金额
-	// example:
-	//
-	// 85000.00
-	Amount *int64 `json:"amount,omitempty" xml:"amount,omitempty"`
-	// 币种
-	// example:
-	//
-	// CNY
-	Currency *string `json:"currency,omitempty" xml:"currency,omitempty"`
-	// 渠道
-	// example:
-	//
-	// ATM
-	Channel *string `json:"channel,omitempty" xml:"channel,omitempty"`
-	// 地址
-	// example:
-	//
-	// 上海分行
-	Location *string `json:"location,omitempty" xml:"location,omitempty"`
-	// 时间
-	// example:
-	//
-	// 2018-10-10T10:10:00Z
-	Time *string `json:"time,omitempty" xml:"time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-}
-
-func (s TransactionDetails) String() string {
-	return tea.Prettify(s)
-}
-
-func (s TransactionDetails) GoString() string {
-	return s.String()
-}
-
-func (s *TransactionDetails) SetAmount(v int64) *TransactionDetails {
-	s.Amount = &v
-	return s
-}
-
-func (s *TransactionDetails) SetCurrency(v string) *TransactionDetails {
-	s.Currency = &v
-	return s
-}
-
-func (s *TransactionDetails) SetChannel(v string) *TransactionDetails {
-	s.Channel = &v
-	return s
-}
-
-func (s *TransactionDetails) SetLocation(v string) *TransactionDetails {
-	s.Location = &v
-	return s
-}
-
-func (s *TransactionDetails) SetTime(v string) *TransactionDetails {
-	s.Time = &v
-	return s
-}
-
-// 风险评估因子明细
-type RiskFactorDetail struct {
-	// 风险评估因子类型
-	// example:
-	//
-	// BLACKLIST
-	FactorType *string `json:"factor_type,omitempty" xml:"factor_type,omitempty"`
-	// 分数
-	// example:
-	//
-	// 85
-	Score *int64 `json:"score,omitempty" xml:"score,omitempty"`
-	// 风险事件
-	// example:
-	//
-	// ["关联账户被冻结", "高频异常交易"]
-	Evidence []*string `json:"evidence,omitempty" xml:"evidence,omitempty" type:"Repeated"`
-}
-
-func (s RiskFactorDetail) String() string {
-	return tea.Prettify(s)
-}
-
-func (s RiskFactorDetail) GoString() string {
-	return s.String()
-}
-
-func (s *RiskFactorDetail) SetFactorType(v string) *RiskFactorDetail {
-	s.FactorType = &v
-	return s
-}
-
-func (s *RiskFactorDetail) SetScore(v int64) *RiskFactorDetail {
-	s.Score = &v
-	return s
-}
-
-func (s *RiskFactorDetail) SetEvidence(v []*string) *RiskFactorDetail {
-	s.Evidence = v
-	return s
-}
-
-// 内容4
-type Content struct {
-	// name
-	// example:
-	//
-	// test
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 1
-	// example:
-	//
-	// test
-	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
-}
-
-func (s Content) String() string {
-	return tea.Prettify(s)
-}
-
-func (s Content) GoString() string {
-	return s.String()
-}
-
-func (s *Content) SetName(v string) *Content {
-	s.Name = &v
-	return s
-}
-
-func (s *Content) SetId(v string) *Content {
-	s.Id = &v
-	return s
-}
-
-// ContentT
-type ContentT struct {
-	// 1
-	// example:
-	//
-	// 123
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-}
-
-func (s ContentT) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ContentT) GoString() string {
-	return s.String()
-}
-
-func (s *ContentT) SetName(v string) *ContentT {
-	s.Name = &v
-	return s
-}
-
-// ContentTest-123
-type ContentTest struct {
-	// name
-	// example:
-	//
-	// test
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-}
-
-func (s ContentTest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ContentTest) GoString() string {
-	return s.String()
-}
-
-func (s *ContentTest) SetName(v string) *ContentTest {
-	s.Name = &v
-	return s
-}
-
-// 卡片信息
-type Card struct {
-	// 卡片名称
-	// example:
-	//
-	// 张三
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
-}
-
-func (s Card) String() string {
-	return tea.Prettify(s)
-}
-
-func (s Card) GoString() string {
-	return s.String()
-}
-
-func (s *Card) SetName(v string) *Card {
-	s.Name = &v
-	return s
-}
-
-// 人员信息
-type Person struct {
-	// 12
-	// example:
-	//
-	// 张三
-	Idcard *NameValuePair `json:"idcard,omitempty" xml:"idcard,omitempty"`
-	// 12
-	// example:
-	//
-	// 张三
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// test
-	// example:
-	//
-	// undefined
-	Info *Cmd `json:"info,omitempty" xml:"info,omitempty" require:"true"`
-}
-
-func (s Person) String() string {
-	return tea.Prettify(s)
-}
-
-func (s Person) GoString() string {
-	return s.String()
-}
-
-func (s *Person) SetIdcard(v *NameValuePair) *Person {
-	s.Idcard = v
-	return s
-}
-
-func (s *Person) SetName(v string) *Person {
-	s.Name = &v
-	return s
-}
-
-func (s *Person) SetInfo(v *Cmd) *Person {
-	s.Info = v
-	return s
-}
-
-// 1
-type CardInfo struct {
-	// 1233
-	// example:
-	//
-	// undefined
-	PersionInfo *Person `json:"persion_info,omitempty" xml:"persion_info,omitempty"`
-	// 12
-	// example:
-	//
-	// 12345
-	IdCard *string `json:"id_card,omitempty" xml:"id_card,omitempty"`
-}
-
-func (s CardInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s CardInfo) GoString() string {
-	return s.String()
-}
-
-func (s *CardInfo) SetPersionInfo(v *Person) *CardInfo {
-	s.PersionInfo = v
-	return s
-}
-
-func (s *CardInfo) SetIdCard(v string) *CardInfo {
-	s.IdCard = &v
-	return s
-}
-
-// 档案
-type TestStu struct {
-	// 567
-	// example:
-	//
-	// undefined
-	CardInfo *CardInfo `json:"card_info,omitempty" xml:"card_info,omitempty"`
-	// 12
-	// example:
-	//
-	// 档案号
-	StuNo *string `json:"stu_no,omitempty" xml:"stu_no,omitempty" require:"true"`
-}
-
-func (s TestStu) String() string {
-	return tea.Prettify(s)
-}
-
-func (s TestStu) GoString() string {
-	return s.String()
-}
-
-func (s *TestStu) SetCardInfo(v *CardInfo) *TestStu {
-	s.CardInfo = v
-	return s
-}
-
-func (s *TestStu) SetStuNo(v string) *TestStu {
-	s.StuNo = &v
-	return s
-}
-
-// test
-type DomeClasssss struct {
-	// test
-	// example:
-	//
-	// test
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-}
-
-func (s DomeClasssss) String() string {
-	return tea.Prettify(s)
-}
-
-func (s DomeClasssss) GoString() string {
-	return s.String()
-}
-
-func (s *DomeClasssss) SetName(v string) *DomeClasssss {
-	s.Name = &v
-	return s
-}
-
-// test
-type DemoInfo struct {
-	// test
-	// example:
-	//
-	// test
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 123
-	// example:
-	//
-	// 1123
-	Testx *ContentTest `json:"testx,omitempty" xml:"testx,omitempty"`
-}
-
-func (s DemoInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s DemoInfo) GoString() string {
-	return s.String()
-}
-
-func (s *DemoInfo) SetName(v string) *DemoInfo {
-	s.Name = &v
-	return s
-}
-
-func (s *DemoInfo) SetTestx(v *ContentTest) *DemoInfo {
-	s.Testx = v
 	return s
 }
 
@@ -7570,7 +7560,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.78"),
+				"sdk_version":      tea.String("1.1.79"),
 				"_prod_code":       tea.String("DEMO"),
 				"_prod_channel":    tea.String("undefined"),
 			}
