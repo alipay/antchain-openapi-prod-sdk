@@ -154,242 +154,6 @@ class Config(TeaModel):
         return self
 
 
-class AnotherClass(TeaModel):
-    def __init__(
-        self,
-        bar: str = None,
-        ref_list: List[DemoClass] = None,
-    ):
-        # 测试字段
-        self.bar = bar
-        # 列表引用Struct
-        self.ref_list = ref_list
-
-    def validate(self):
-        self.validate_required(self.bar, 'bar')
-        if self.ref_list:
-            for k in self.ref_list:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.bar is not None:
-            result['bar'] = self.bar
-        result['refList'] = []
-        if self.ref_list is not None:
-            for k in self.ref_list:
-                result['refList'].append(k.to_map() if k else None)
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('bar') is not None:
-            self.bar = m.get('bar')
-        self.ref_list = []
-        if m.get('refList') is not None:
-            for k in m.get('refList'):
-                temp_model = DemoClass()
-                self.ref_list.append(temp_model.from_map(k))
-        return self
-
-
-class DemoClass(TeaModel):
-    def __init__(
-        self,
-        some_string: str = None,
-        some_date: str = None,
-        some_boolean: bool = None,
-        some_int: int = None,
-        some_list: List[str] = None,
-        some_object: AnotherClass = None,
-    ):
-        # 字符串测试
-        self.some_string = some_string
-        # 日期测试
-        self.some_date = some_date
-        # Boolean测试
-        self.some_boolean = some_boolean
-        # 整数测试
-        self.some_int = some_int
-        # 列表测试
-        self.some_list = some_list
-        # test
-        self.some_object = some_object
-
-    def validate(self):
-        self.validate_required(self.some_string, 'some_string')
-        self.validate_required(self.some_date, 'some_date')
-        if self.some_date is not None:
-            self.validate_pattern(self.some_date, 'some_date', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
-        self.validate_required(self.some_boolean, 'some_boolean')
-        self.validate_required(self.some_int, 'some_int')
-        self.validate_required(self.some_list, 'some_list')
-        self.validate_required(self.some_object, 'some_object')
-        if self.some_object:
-            self.some_object.validate()
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.some_string is not None:
-            result['some_string'] = self.some_string
-        if self.some_date is not None:
-            result['some_date'] = self.some_date
-        if self.some_boolean is not None:
-            result['some_boolean'] = self.some_boolean
-        if self.some_int is not None:
-            result['some_int'] = self.some_int
-        if self.some_list is not None:
-            result['some_list'] = self.some_list
-        if self.some_object is not None:
-            result['some_object'] = self.some_object.to_map()
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('some_string') is not None:
-            self.some_string = m.get('some_string')
-        if m.get('some_date') is not None:
-            self.some_date = m.get('some_date')
-        if m.get('some_boolean') is not None:
-            self.some_boolean = m.get('some_boolean')
-        if m.get('some_int') is not None:
-            self.some_int = m.get('some_int')
-        if m.get('some_list') is not None:
-            self.some_list = m.get('some_list')
-        if m.get('some_object') is not None:
-            temp_model = AnotherClass()
-            self.some_object = temp_model.from_map(m['some_object'])
-        return self
-
-
-class TestStruct(TeaModel):
-    def __init__(
-        self,
-        x: str = None,
-        y: DemoClass = None,
-        z: List[DemoClass] = None,
-    ):
-        # x
-        self.x = x
-        # y
-        self.y = y
-        # z
-        self.z = z
-
-    def validate(self):
-        self.validate_required(self.x, 'x')
-        self.validate_required(self.y, 'y')
-        if self.y:
-            self.y.validate()
-        self.validate_required(self.z, 'z')
-        if self.z:
-            for k in self.z:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.x is not None:
-            result['x'] = self.x
-        if self.y is not None:
-            result['y'] = self.y.to_map()
-        result['z'] = []
-        if self.z is not None:
-            for k in self.z:
-                result['z'].append(k.to_map() if k else None)
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('x') is not None:
-            self.x = m.get('x')
-        if m.get('y') is not None:
-            temp_model = DemoClass()
-            self.y = temp_model.from_map(m['y'])
-        self.z = []
-        if m.get('z') is not None:
-            for k in m.get('z'):
-                temp_model = DemoClass()
-                self.z.append(temp_model.from_map(k))
-        return self
-
-
-class TestClass(TeaModel):
-    def __init__(
-        self,
-        test: str = None,
-        demo: str = None,
-        demo_1: str = None,
-        demo_2: str = None,
-        info: DemoClass = None,
-    ):
-        # 1
-        self.test = test
-        # 2
-        self.demo = demo
-        # 3
-        self.demo_1 = demo_1
-        # 22
-        self.demo_2 = demo_2
-        # test
-        self.info = info
-
-    def validate(self):
-        self.validate_required(self.test, 'test')
-        self.validate_required(self.demo, 'demo')
-        self.validate_required(self.demo_1, 'demo_1')
-        self.validate_required(self.demo_2, 'demo_2')
-        self.validate_required(self.info, 'info')
-        if self.info:
-            self.info.validate()
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.test is not None:
-            result['test'] = self.test
-        if self.demo is not None:
-            result['demo'] = self.demo
-        if self.demo_1 is not None:
-            result['demo1'] = self.demo_1
-        if self.demo_2 is not None:
-            result['demo2'] = self.demo_2
-        if self.info is not None:
-            result['info'] = self.info.to_map()
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('test') is not None:
-            self.test = m.get('test')
-        if m.get('demo') is not None:
-            self.demo = m.get('demo')
-        if m.get('demo1') is not None:
-            self.demo_1 = m.get('demo1')
-        if m.get('demo2') is not None:
-            self.demo_2 = m.get('demo2')
-        if m.get('info') is not None:
-            temp_model = DemoClass()
-            self.info = temp_model.from_map(m['info'])
-        return self
-
-
 class NameValuePair(TeaModel):
     def __init__(
         self,
@@ -423,150 +187,6 @@ class NameValuePair(TeaModel):
             self.name = m.get('name')
         if m.get('value') is not None:
             self.value = m.get('value')
-        return self
-
-
-class QueryMap(TeaModel):
-    def __init__(
-        self,
-        name: str = None,
-        value: List[NameValuePair] = None,
-    ):
-        # 键值
-        self.name = name
-        # 额外用户信息
-        self.value = value
-
-    def validate(self):
-        self.validate_required(self.name, 'name')
-        if self.value:
-            for k in self.value:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.name is not None:
-            result['name'] = self.name
-        result['value'] = []
-        if self.value is not None:
-            for k in self.value:
-                result['value'].append(k.to_map() if k else None)
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('name') is not None:
-            self.name = m.get('name')
-        self.value = []
-        if m.get('value') is not None:
-            for k in m.get('value'):
-                temp_model = NameValuePair()
-                self.value.append(temp_model.from_map(k))
-        return self
-
-
-class InitPack(TeaModel):
-    def __init__(
-        self,
-        time: str = None,
-        operator: str = None,
-        count: int = None,
-    ):
-        # 返回接收到请求的当前时间
-        self.time = time
-        # 操作人
-        self.operator = operator
-        # 请求编号
-        self.count = count
-
-    def validate(self):
-        self.validate_required(self.time, 'time')
-        self.validate_required(self.operator, 'operator')
-        self.validate_required(self.count, 'count')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.time is not None:
-            result['time'] = self.time
-        if self.operator is not None:
-            result['operator'] = self.operator
-        if self.count is not None:
-            result['count'] = self.count
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('time') is not None:
-            self.time = m.get('time')
-        if m.get('operator') is not None:
-            self.operator = m.get('operator')
-        if m.get('count') is not None:
-            self.count = m.get('count')
-        return self
-
-
-class DemoTestx(TeaModel):
-    def __init__(
-        self,
-        ability_id: str = None,
-    ):
-        # ability_id
-        self.ability_id = ability_id
-
-    def validate(self):
-        self.validate_required(self.ability_id, 'ability_id')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.ability_id is not None:
-            result['ability_id'] = self.ability_id
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('ability_id') is not None:
-            self.ability_id = m.get('ability_id')
-        return self
-
-
-class RouteCondition(TeaModel):
-    def __init__(
-        self,
-        channel_id: str = None,
-    ):
-        # 渠道编号
-        self.channel_id = channel_id
-
-    def validate(self):
-        self.validate_required(self.channel_id, 'channel_id')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.channel_id is not None:
-            result['channel_id'] = self.channel_id
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('channel_id') is not None:
-            self.channel_id = m.get('channel_id')
         return self
 
 
@@ -606,16 +226,27 @@ class Cmd(TeaModel):
         return self
 
 
-class Identity(TeaModel):
+class Person(TeaModel):
     def __init__(
         self,
-        ak: str = None,
+        idcard: NameValuePair = None,
+        name: str = None,
+        info: Cmd = None,
     ):
-        # ak
-        self.ak = ak
+        # 12
+        self.idcard = idcard
+        # 12
+        self.name = name
+        # test
+        self.info = info
 
     def validate(self):
-        self.validate_required(self.ak, 'ak')
+        if self.idcard:
+            self.idcard.validate()
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.info, 'info')
+        if self.info:
+            self.info.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -623,14 +254,24 @@ class Identity(TeaModel):
             return _map
 
         result = dict()
-        if self.ak is not None:
-            result['ak'] = self.ak
+        if self.idcard is not None:
+            result['idcard'] = self.idcard.to_map()
+        if self.name is not None:
+            result['name'] = self.name
+        if self.info is not None:
+            result['info'] = self.info.to_map()
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('ak') is not None:
-            self.ak = m.get('ak')
+        if m.get('idcard') is not None:
+            temp_model = NameValuePair()
+            self.idcard = temp_model.from_map(m['idcard'])
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('info') is not None:
+            temp_model = Cmd()
+            self.info = temp_model.from_map(m['info'])
         return self
 
 
@@ -670,40 +311,16 @@ class Host(TeaModel):
         return self
 
 
-class Header(TeaModel):
+class Identity(TeaModel):
     def __init__(
         self,
-        identity: Identity = None,
-        trace_id: str = None,
-        host: Host = None,
-        direction: str = None,
-        request_type: str = None,
-        protocol_version: str = None,
+        ak: str = None,
     ):
-        # 身份信息
-        self.identity = identity
-        # 调用链编号
-        self.trace_id = trace_id
-        # host信息
-        self.host = host
-        # 方向
-        self.direction = direction
-        # 请求类型
-        self.request_type = request_type
-        # 协议版本
-        self.protocol_version = protocol_version
+        # ak
+        self.ak = ak
 
     def validate(self):
-        self.validate_required(self.identity, 'identity')
-        if self.identity:
-            self.identity.validate()
-        self.validate_required(self.trace_id, 'trace_id')
-        self.validate_required(self.host, 'host')
-        if self.host:
-            self.host.validate()
-        self.validate_required(self.direction, 'direction')
-        self.validate_required(self.request_type, 'request_type')
-        self.validate_required(self.protocol_version, 'protocol_version')
+        self.validate_required(self.ak, 'ak')
 
     def to_map(self):
         _map = super().to_map()
@@ -711,195 +328,14 @@ class Header(TeaModel):
             return _map
 
         result = dict()
-        if self.identity is not None:
-            result['identity'] = self.identity.to_map()
-        if self.trace_id is not None:
-            result['trace_id'] = self.trace_id
-        if self.host is not None:
-            result['host'] = self.host.to_map()
-        if self.direction is not None:
-            result['direction'] = self.direction
-        if self.request_type is not None:
-            result['request_type'] = self.request_type
-        if self.protocol_version is not None:
-            result['protocol_version'] = self.protocol_version
+        if self.ak is not None:
+            result['ak'] = self.ak
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('identity') is not None:
-            temp_model = Identity()
-            self.identity = temp_model.from_map(m['identity'])
-        if m.get('trace_id') is not None:
-            self.trace_id = m.get('trace_id')
-        if m.get('host') is not None:
-            temp_model = Host()
-            self.host = temp_model.from_map(m['host'])
-        if m.get('direction') is not None:
-            self.direction = m.get('direction')
-        if m.get('request_type') is not None:
-            self.request_type = m.get('request_type')
-        if m.get('protocol_version') is not None:
-            self.protocol_version = m.get('protocol_version')
-        return self
-
-
-class SCRealEstateQueryRequestPayload(TeaModel):
-    def __init__(
-        self,
-        xm: str = None,
-        sfz: str = None,
-    ):
-        # xm
-        self.xm = xm
-        # sfz
-        self.sfz = sfz
-
-    def validate(self):
-        self.validate_required(self.xm, 'xm')
-        self.validate_required(self.sfz, 'sfz')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.xm is not None:
-            result['xm'] = self.xm
-        if self.sfz is not None:
-            result['sfz'] = self.sfz
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('xm') is not None:
-            self.xm = m.get('xm')
-        if m.get('sfz') is not None:
-            self.sfz = m.get('sfz')
-        return self
-
-
-class SCRealEstateQueryRequestBody(TeaModel):
-    def __init__(
-        self,
-        cmd: Cmd = None,
-        route_condition: RouteCondition = None,
-        request_id: str = None,
-        payload: SCRealEstateQueryRequestPayload = None,
-    ):
-        # cmd
-        self.cmd = cmd
-        # 路由信息
-        self.route_condition = route_condition
-        # requestId
-        self.request_id = request_id
-        # payload
-        self.payload = payload
-
-    def validate(self):
-        self.validate_required(self.cmd, 'cmd')
-        if self.cmd:
-            self.cmd.validate()
-        self.validate_required(self.route_condition, 'route_condition')
-        if self.route_condition:
-            self.route_condition.validate()
-        self.validate_required(self.request_id, 'request_id')
-        self.validate_required(self.payload, 'payload')
-        if self.payload:
-            self.payload.validate()
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.cmd is not None:
-            result['cmd'] = self.cmd.to_map()
-        if self.route_condition is not None:
-            result['route_condition'] = self.route_condition.to_map()
-        if self.request_id is not None:
-            result['request_id'] = self.request_id
-        if self.payload is not None:
-            result['payload'] = self.payload.to_map()
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('cmd') is not None:
-            temp_model = Cmd()
-            self.cmd = temp_model.from_map(m['cmd'])
-        if m.get('route_condition') is not None:
-            temp_model = RouteCondition()
-            self.route_condition = temp_model.from_map(m['route_condition'])
-        if m.get('request_id') is not None:
-            self.request_id = m.get('request_id')
-        if m.get('payload') is not None:
-            temp_model = SCRealEstateQueryRequestPayload()
-            self.payload = temp_model.from_map(m['payload'])
-        return self
-
-
-class SCRealEstateQueryBody(TeaModel):
-    def __init__(self):
-        pass
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        return self
-
-
-class SCRealEstateQueryInvokerRequest(TeaModel):
-    def __init__(
-        self,
-        header: Header = None,
-        body: SCRealEstateQueryBody = None,
-    ):
-        # header
-        self.header = header
-        # body
-        self.body = body
-
-    def validate(self):
-        self.validate_required(self.header, 'header')
-        if self.header:
-            self.header.validate()
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.header is not None:
-            result['header'] = self.header.to_map()
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('header') is not None:
-            temp_model = Header()
-            self.header = temp_model.from_map(m['header'])
-        if m.get('body') is not None:
-            temp_model = SCRealEstateQueryBody()
-            self.body = temp_model.from_map(m['body'])
+        if m.get('ak') is not None:
+            self.ak = m.get('ak')
         return self
 
 
@@ -1003,6 +439,291 @@ class SCRealEstateQueryResponseData(TeaModel):
         return self
 
 
+class ContentTest(TeaModel):
+    def __init__(
+        self,
+        name: str = None,
+    ):
+        # name
+        self.name = name
+
+    def validate(self):
+        self.validate_required(self.name, 'name')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.name is not None:
+            result['name'] = self.name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        return self
+
+
+class Header(TeaModel):
+    def __init__(
+        self,
+        identity: Identity = None,
+        trace_id: str = None,
+        host: Host = None,
+        direction: str = None,
+        request_type: str = None,
+        protocol_version: str = None,
+    ):
+        # 身份信息
+        self.identity = identity
+        # 调用链编号
+        self.trace_id = trace_id
+        # host信息
+        self.host = host
+        # 方向
+        self.direction = direction
+        # 请求类型
+        self.request_type = request_type
+        # 协议版本
+        self.protocol_version = protocol_version
+
+    def validate(self):
+        self.validate_required(self.identity, 'identity')
+        if self.identity:
+            self.identity.validate()
+        self.validate_required(self.trace_id, 'trace_id')
+        self.validate_required(self.host, 'host')
+        if self.host:
+            self.host.validate()
+        self.validate_required(self.direction, 'direction')
+        self.validate_required(self.request_type, 'request_type')
+        self.validate_required(self.protocol_version, 'protocol_version')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.identity is not None:
+            result['identity'] = self.identity.to_map()
+        if self.trace_id is not None:
+            result['trace_id'] = self.trace_id
+        if self.host is not None:
+            result['host'] = self.host.to_map()
+        if self.direction is not None:
+            result['direction'] = self.direction
+        if self.request_type is not None:
+            result['request_type'] = self.request_type
+        if self.protocol_version is not None:
+            result['protocol_version'] = self.protocol_version
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('identity') is not None:
+            temp_model = Identity()
+            self.identity = temp_model.from_map(m['identity'])
+        if m.get('trace_id') is not None:
+            self.trace_id = m.get('trace_id')
+        if m.get('host') is not None:
+            temp_model = Host()
+            self.host = temp_model.from_map(m['host'])
+        if m.get('direction') is not None:
+            self.direction = m.get('direction')
+        if m.get('request_type') is not None:
+            self.request_type = m.get('request_type')
+        if m.get('protocol_version') is not None:
+            self.protocol_version = m.get('protocol_version')
+        return self
+
+
+class RouteCondition(TeaModel):
+    def __init__(
+        self,
+        channel_id: str = None,
+    ):
+        # 渠道编号
+        self.channel_id = channel_id
+
+    def validate(self):
+        self.validate_required(self.channel_id, 'channel_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.channel_id is not None:
+            result['channel_id'] = self.channel_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('channel_id') is not None:
+            self.channel_id = m.get('channel_id')
+        return self
+
+
+class SCRealEstateQueryBody(TeaModel):
+    def __init__(self):
+        pass
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        return self
+
+
+class DemoClass(TeaModel):
+    def __init__(
+        self,
+        some_string: str = None,
+        some_date: str = None,
+        some_boolean: bool = None,
+        some_int: int = None,
+        some_list: List[str] = None,
+    ):
+        # 字符串测试
+        self.some_string = some_string
+        # 日期测试
+        self.some_date = some_date
+        # Boolean测试
+        self.some_boolean = some_boolean
+        # 整数测试
+        self.some_int = some_int
+        # 列表测试
+        self.some_list = some_list
+
+    def validate(self):
+        self.validate_required(self.some_string, 'some_string')
+        self.validate_required(self.some_date, 'some_date')
+        if self.some_date is not None:
+            self.validate_pattern(self.some_date, 'some_date', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.some_boolean, 'some_boolean')
+        self.validate_required(self.some_int, 'some_int')
+        self.validate_required(self.some_list, 'some_list')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.some_string is not None:
+            result['some_string'] = self.some_string
+        if self.some_date is not None:
+            result['some_date'] = self.some_date
+        if self.some_boolean is not None:
+            result['some_boolean'] = self.some_boolean
+        if self.some_int is not None:
+            result['some_int'] = self.some_int
+        if self.some_list is not None:
+            result['some_list'] = self.some_list
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('some_string') is not None:
+            self.some_string = m.get('some_string')
+        if m.get('some_date') is not None:
+            self.some_date = m.get('some_date')
+        if m.get('some_boolean') is not None:
+            self.some_boolean = m.get('some_boolean')
+        if m.get('some_int') is not None:
+            self.some_int = m.get('some_int')
+        if m.get('some_list') is not None:
+            self.some_list = m.get('some_list')
+        return self
+
+
+class CardInfo(TeaModel):
+    def __init__(
+        self,
+        persion_info: Person = None,
+        id_card: str = None,
+    ):
+        # 1233
+        self.persion_info = persion_info
+        # 12
+        self.id_card = id_card
+
+    def validate(self):
+        if self.persion_info:
+            self.persion_info.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.persion_info is not None:
+            result['persion_info'] = self.persion_info.to_map()
+        if self.id_card is not None:
+            result['id_card'] = self.id_card
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('persion_info') is not None:
+            temp_model = Person()
+            self.persion_info = temp_model.from_map(m['persion_info'])
+        if m.get('id_card') is not None:
+            self.id_card = m.get('id_card')
+        return self
+
+
+class SCRealEstateQueryRequestPayload(TeaModel):
+    def __init__(
+        self,
+        xm: str = None,
+        sfz: str = None,
+    ):
+        # xm
+        self.xm = xm
+        # sfz
+        self.sfz = sfz
+
+    def validate(self):
+        self.validate_required(self.xm, 'xm')
+        self.validate_required(self.sfz, 'sfz')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.xm is not None:
+            result['xm'] = self.xm
+        if self.sfz is not None:
+            result['sfz'] = self.sfz
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('xm') is not None:
+            self.xm = m.get('xm')
+        if m.get('sfz') is not None:
+            self.sfz = m.get('sfz')
+        return self
+
+
 class SCRealEstateQueryResponsePayload(TeaModel):
     def __init__(
         self,
@@ -1064,34 +785,19 @@ class SCRealEstateQueryResponsePayload(TeaModel):
         return self
 
 
-class SCRealEstateQueryResponseBody(TeaModel):
+class Map(TeaModel):
     def __init__(
         self,
-        cost: int = None,
-        response_status: str = None,
-        response_code: str = None,
-        request_id: str = None,
-        payload: SCRealEstateQueryResponsePayload = None,
+        key: str = None,
+        value: str = None,
     ):
-        # cost
-        self.cost = cost
-        # response_status
-        self.response_status = response_status
-        # response_code
-        self.response_code = response_code
-        # request_id
-        self.request_id = request_id
-        # payload
-        self.payload = payload
+        # 键
+        self.key = key
+        # 值
+        self.value = value
 
     def validate(self):
-        self.validate_required(self.cost, 'cost')
-        self.validate_required(self.response_status, 'response_status')
-        self.validate_required(self.response_code, 'response_code')
-        self.validate_required(self.request_id, 'request_id')
-        self.validate_required(self.payload, 'payload')
-        if self.payload:
-            self.payload.validate()
+        self.validate_required(self.key, 'key')
 
     def to_map(self):
         _map = super().to_map()
@@ -1099,31 +805,18 @@ class SCRealEstateQueryResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.cost is not None:
-            result['cost'] = self.cost
-        if self.response_status is not None:
-            result['response_status'] = self.response_status
-        if self.response_code is not None:
-            result['response_code'] = self.response_code
-        if self.request_id is not None:
-            result['request_id'] = self.request_id
-        if self.payload is not None:
-            result['payload'] = self.payload.to_map()
+        if self.key is not None:
+            result['key'] = self.key
+        if self.value is not None:
+            result['value'] = self.value
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('cost') is not None:
-            self.cost = m.get('cost')
-        if m.get('response_status') is not None:
-            self.response_status = m.get('response_status')
-        if m.get('response_code') is not None:
-            self.response_code = m.get('response_code')
-        if m.get('request_id') is not None:
-            self.request_id = m.get('request_id')
-        if m.get('payload') is not None:
-            temp_model = SCRealEstateQueryResponsePayload()
-            self.payload = temp_model.from_map(m['payload'])
+        if m.get('key') is not None:
+            self.key = m.get('key')
+        if m.get('value') is not None:
+            self.value = m.get('value')
         return self
 
 
@@ -1162,26 +855,24 @@ class FaceImage(TeaModel):
         return self
 
 
-class AutoCodeModel(TeaModel):
+class SCRealEstateQueryInvokerRequest(TeaModel):
     def __init__(
         self,
-        model_string_param: str = None,
-        model_date_param: str = None,
-        model_array_param: List[str] = None,
+        header: Header = None,
+        body: SCRealEstateQueryBody = None,
     ):
-        # 111
-        self.model_string_param = model_string_param
-        # 111
-        self.model_date_param = model_date_param
-        # 111
-        self.model_array_param = model_array_param
+        # header
+        self.header = header
+        # body
+        self.body = body
 
     def validate(self):
-        self.validate_required(self.model_string_param, 'model_string_param')
-        self.validate_required(self.model_date_param, 'model_date_param')
-        if self.model_date_param is not None:
-            self.validate_pattern(self.model_date_param, 'model_date_param', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
-        self.validate_required(self.model_array_param, 'model_array_param')
+        self.validate_required(self.header, 'header')
+        if self.header:
+            self.header.validate()
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -1189,22 +880,300 @@ class AutoCodeModel(TeaModel):
             return _map
 
         result = dict()
-        if self.model_string_param is not None:
-            result['model_string_param'] = self.model_string_param
-        if self.model_date_param is not None:
-            result['model_date_param'] = self.model_date_param
-        if self.model_array_param is not None:
-            result['model_array_param'] = self.model_array_param
+        if self.header is not None:
+            result['header'] = self.header.to_map()
+        if self.body is not None:
+            result['body'] = self.body.to_map()
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('model_string_param') is not None:
-            self.model_string_param = m.get('model_string_param')
-        if m.get('model_date_param') is not None:
-            self.model_date_param = m.get('model_date_param')
-        if m.get('model_array_param') is not None:
-            self.model_array_param = m.get('model_array_param')
+        if m.get('header') is not None:
+            temp_model = Header()
+            self.header = temp_model.from_map(m['header'])
+        if m.get('body') is not None:
+            temp_model = SCRealEstateQueryBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class RiskFactorDetail(TeaModel):
+    def __init__(
+        self,
+        factor_type: str = None,
+        score: int = None,
+        evidence: List[str] = None,
+    ):
+        # 风险评估因子类型
+        self.factor_type = factor_type
+        # 分数
+        self.score = score
+        # 风险事件
+        self.evidence = evidence
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.factor_type is not None:
+            result['factor_type'] = self.factor_type
+        if self.score is not None:
+            result['score'] = self.score
+        if self.evidence is not None:
+            result['evidence'] = self.evidence
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('factor_type') is not None:
+            self.factor_type = m.get('factor_type')
+        if m.get('score') is not None:
+            self.score = m.get('score')
+        if m.get('evidence') is not None:
+            self.evidence = m.get('evidence')
+        return self
+
+
+class Content(TeaModel):
+    def __init__(
+        self,
+        name: str = None,
+        id: str = None,
+    ):
+        # name
+        self.name = name
+        # 1
+        self.id = id
+
+    def validate(self):
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.id, 'id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.name is not None:
+            result['name'] = self.name
+        if self.id is not None:
+            result['id'] = self.id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        return self
+
+
+class ShangHaiTest(TeaModel):
+    def __init__(
+        self,
+        param_1: str = None,
+        param_2: int = None,
+    ):
+        # string
+        self.param_1 = param_1
+        # number
+        self.param_2 = param_2
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.param_1 is not None:
+            result['param_1'] = self.param_1
+        if self.param_2 is not None:
+            result['param_2'] = self.param_2
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('param_1') is not None:
+            self.param_1 = m.get('param_1')
+        if m.get('param_2') is not None:
+            self.param_2 = m.get('param_2')
+        return self
+
+
+class DemoInfo(TeaModel):
+    def __init__(
+        self,
+        name: str = None,
+        testx: ContentTest = None,
+    ):
+        # test
+        self.name = name
+        # 123
+        self.testx = testx
+
+    def validate(self):
+        self.validate_required(self.name, 'name')
+        if self.testx:
+            self.testx.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.name is not None:
+            result['name'] = self.name
+        if self.testx is not None:
+            result['testx'] = self.testx.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('testx') is not None:
+            temp_model = ContentTest()
+            self.testx = temp_model.from_map(m['testx'])
+        return self
+
+
+class InitPack(TeaModel):
+    def __init__(
+        self,
+        time: str = None,
+        operator: str = None,
+        count: int = None,
+    ):
+        # 返回接收到请求的当前时间
+        self.time = time
+        # 操作人
+        self.operator = operator
+        # 请求编号
+        self.count = count
+
+    def validate(self):
+        self.validate_required(self.time, 'time')
+        self.validate_required(self.operator, 'operator')
+        self.validate_required(self.count, 'count')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.time is not None:
+            result['time'] = self.time
+        if self.operator is not None:
+            result['operator'] = self.operator
+        if self.count is not None:
+            result['count'] = self.count
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('time') is not None:
+            self.time = m.get('time')
+        if m.get('operator') is not None:
+            self.operator = m.get('operator')
+        if m.get('count') is not None:
+            self.count = m.get('count')
+        return self
+
+
+class Card(TeaModel):
+    def __init__(
+        self,
+        name: str = None,
+    ):
+        # 卡片名称
+        self.name = name
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.name is not None:
+            result['name'] = self.name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        return self
+
+
+class TransactionDetails(TeaModel):
+    def __init__(
+        self,
+        amount: int = None,
+        currency: str = None,
+        channel: str = None,
+        location: str = None,
+        time: str = None,
+    ):
+        # 金额
+        self.amount = amount
+        # 币种
+        self.currency = currency
+        # 渠道
+        self.channel = channel
+        # 地址
+        self.location = location
+        # 时间
+        self.time = time
+
+    def validate(self):
+        if self.time is not None:
+            self.validate_pattern(self.time, 'time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.amount is not None:
+            result['amount'] = self.amount
+        if self.currency is not None:
+            result['currency'] = self.currency
+        if self.channel is not None:
+            result['channel'] = self.channel
+        if self.location is not None:
+            result['location'] = self.location
+        if self.time is not None:
+            result['time'] = self.time
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('amount') is not None:
+            self.amount = m.get('amount')
+        if m.get('currency') is not None:
+            self.currency = m.get('currency')
+        if m.get('channel') is not None:
+            self.channel = m.get('channel')
+        if m.get('location') is not None:
+            self.location = m.get('location')
+        if m.get('time') is not None:
+            self.time = m.get('time')
         return self
 
 
@@ -1280,6 +1249,673 @@ class NumberTest(TeaModel):
         if m.get('parameter_5') is not None:
             temp_model = DemoClass()
             self.parameter_5 = temp_model.from_map(m['parameter_5'])
+        return self
+
+
+class TestClass(TeaModel):
+    def __init__(
+        self,
+        test: str = None,
+        demo: str = None,
+        demo_1: str = None,
+        demo_2: str = None,
+        info: DemoClass = None,
+    ):
+        # 1
+        self.test = test
+        # 2
+        self.demo = demo
+        # 3
+        self.demo_1 = demo_1
+        # 22
+        self.demo_2 = demo_2
+        # test
+        self.info = info
+
+    def validate(self):
+        self.validate_required(self.test, 'test')
+        self.validate_required(self.demo, 'demo')
+        self.validate_required(self.demo_1, 'demo_1')
+        self.validate_required(self.demo_2, 'demo_2')
+        self.validate_required(self.info, 'info')
+        if self.info:
+            self.info.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.test is not None:
+            result['test'] = self.test
+        if self.demo is not None:
+            result['demo'] = self.demo
+        if self.demo_1 is not None:
+            result['demo1'] = self.demo_1
+        if self.demo_2 is not None:
+            result['demo2'] = self.demo_2
+        if self.info is not None:
+            result['info'] = self.info.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('test') is not None:
+            self.test = m.get('test')
+        if m.get('demo') is not None:
+            self.demo = m.get('demo')
+        if m.get('demo1') is not None:
+            self.demo_1 = m.get('demo1')
+        if m.get('demo2') is not None:
+            self.demo_2 = m.get('demo2')
+        if m.get('info') is not None:
+            temp_model = DemoClass()
+            self.info = temp_model.from_map(m['info'])
+        return self
+
+
+class TestStruct(TeaModel):
+    def __init__(
+        self,
+        x: str = None,
+        y: DemoClass = None,
+        z: List[DemoClass] = None,
+    ):
+        # x
+        self.x = x
+        # y
+        self.y = y
+        # z
+        self.z = z
+
+    def validate(self):
+        self.validate_required(self.x, 'x')
+        self.validate_required(self.y, 'y')
+        if self.y:
+            self.y.validate()
+        self.validate_required(self.z, 'z')
+        if self.z:
+            for k in self.z:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.x is not None:
+            result['x'] = self.x
+        if self.y is not None:
+            result['y'] = self.y.to_map()
+        result['z'] = []
+        if self.z is not None:
+            for k in self.z:
+                result['z'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('x') is not None:
+            self.x = m.get('x')
+        if m.get('y') is not None:
+            temp_model = DemoClass()
+            self.y = temp_model.from_map(m['y'])
+        self.z = []
+        if m.get('z') is not None:
+            for k in m.get('z'):
+                temp_model = DemoClass()
+                self.z.append(temp_model.from_map(k))
+        return self
+
+
+class TestObject(TeaModel):
+    def __init__(
+        self,
+        id: int = None,
+        name: str = None,
+    ):
+        # 主键
+        self.id = id
+        # 名称
+        self.name = name
+
+    def validate(self):
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.name, 'name')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.id is not None:
+            result['id'] = self.id
+        if self.name is not None:
+            result['name'] = self.name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        return self
+
+
+class DemoTestx(TeaModel):
+    def __init__(
+        self,
+        ability_id: str = None,
+    ):
+        # ability_id
+        self.ability_id = ability_id
+
+    def validate(self):
+        self.validate_required(self.ability_id, 'ability_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.ability_id is not None:
+            result['ability_id'] = self.ability_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('ability_id') is not None:
+            self.ability_id = m.get('ability_id')
+        return self
+
+
+class AnotherClass(TeaModel):
+    def __init__(
+        self,
+        bar: str = None,
+        ref_list: List[DemoClass] = None,
+    ):
+        # 测试字段
+        self.bar = bar
+        # 列表引用Struct
+        self.ref_list = ref_list
+
+    def validate(self):
+        self.validate_required(self.bar, 'bar')
+        if self.ref_list:
+            for k in self.ref_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.bar is not None:
+            result['bar'] = self.bar
+        result['refList'] = []
+        if self.ref_list is not None:
+            for k in self.ref_list:
+                result['refList'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('bar') is not None:
+            self.bar = m.get('bar')
+        self.ref_list = []
+        if m.get('refList') is not None:
+            for k in m.get('refList'):
+                temp_model = DemoClass()
+                self.ref_list.append(temp_model.from_map(k))
+        return self
+
+
+class AutoCodeModel(TeaModel):
+    def __init__(
+        self,
+        model_string_param: str = None,
+        model_date_param: str = None,
+        model_array_param: List[str] = None,
+    ):
+        # 111
+        self.model_string_param = model_string_param
+        # 111
+        self.model_date_param = model_date_param
+        # 111
+        self.model_array_param = model_array_param
+
+    def validate(self):
+        self.validate_required(self.model_string_param, 'model_string_param')
+        self.validate_required(self.model_date_param, 'model_date_param')
+        if self.model_date_param is not None:
+            self.validate_pattern(self.model_date_param, 'model_date_param', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.model_array_param, 'model_array_param')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.model_string_param is not None:
+            result['model_string_param'] = self.model_string_param
+        if self.model_date_param is not None:
+            result['model_date_param'] = self.model_date_param
+        if self.model_array_param is not None:
+            result['model_array_param'] = self.model_array_param
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('model_string_param') is not None:
+            self.model_string_param = m.get('model_string_param')
+        if m.get('model_date_param') is not None:
+            self.model_date_param = m.get('model_date_param')
+        if m.get('model_array_param') is not None:
+            self.model_array_param = m.get('model_array_param')
+        return self
+
+
+class SCRealEstateQueryRequestBody(TeaModel):
+    def __init__(
+        self,
+        cmd: Cmd = None,
+        route_condition: RouteCondition = None,
+        request_id: str = None,
+        payload: SCRealEstateQueryRequestPayload = None,
+    ):
+        # cmd
+        self.cmd = cmd
+        # 路由信息
+        self.route_condition = route_condition
+        # requestId
+        self.request_id = request_id
+        # payload
+        self.payload = payload
+
+    def validate(self):
+        self.validate_required(self.cmd, 'cmd')
+        if self.cmd:
+            self.cmd.validate()
+        self.validate_required(self.route_condition, 'route_condition')
+        if self.route_condition:
+            self.route_condition.validate()
+        self.validate_required(self.request_id, 'request_id')
+        self.validate_required(self.payload, 'payload')
+        if self.payload:
+            self.payload.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cmd is not None:
+            result['cmd'] = self.cmd.to_map()
+        if self.route_condition is not None:
+            result['route_condition'] = self.route_condition.to_map()
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.payload is not None:
+            result['payload'] = self.payload.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('cmd') is not None:
+            temp_model = Cmd()
+            self.cmd = temp_model.from_map(m['cmd'])
+        if m.get('route_condition') is not None:
+            temp_model = RouteCondition()
+            self.route_condition = temp_model.from_map(m['route_condition'])
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('payload') is not None:
+            temp_model = SCRealEstateQueryRequestPayload()
+            self.payload = temp_model.from_map(m['payload'])
+        return self
+
+
+class ContentT(TeaModel):
+    def __init__(
+        self,
+        name: str = None,
+    ):
+        # 1
+        self.name = name
+
+    def validate(self):
+        self.validate_required(self.name, 'name')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.name is not None:
+            result['name'] = self.name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        return self
+
+
+class NestModel(TeaModel):
+    def __init__(
+        self,
+        a: str = None,
+    ):
+        # aaaa
+        self.a = a
+
+    def validate(self):
+        self.validate_required(self.a, 'a')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.a is not None:
+            result['a'] = self.a
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('a') is not None:
+            self.a = m.get('a')
+        return self
+
+
+class TestStu(TeaModel):
+    def __init__(
+        self,
+        card_info: CardInfo = None,
+        stu_no: str = None,
+    ):
+        # 567
+        self.card_info = card_info
+        # 12
+        self.stu_no = stu_no
+
+    def validate(self):
+        if self.card_info:
+            self.card_info.validate()
+        self.validate_required(self.stu_no, 'stu_no')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.card_info is not None:
+            result['card_info'] = self.card_info.to_map()
+        if self.stu_no is not None:
+            result['stu_no'] = self.stu_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('card_info') is not None:
+            temp_model = CardInfo()
+            self.card_info = temp_model.from_map(m['card_info'])
+        if m.get('stu_no') is not None:
+            self.stu_no = m.get('stu_no')
+        return self
+
+
+class TestAPIObject(TeaModel):
+    def __init__(
+        self,
+        id: int = None,
+    ):
+        # test
+        self.id = id
+
+    def validate(self):
+        self.validate_required(self.id, 'id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.id is not None:
+            result['id'] = self.id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        return self
+
+
+class SCRealEstateQueryResponseBody(TeaModel):
+    def __init__(
+        self,
+        cost: int = None,
+        response_status: str = None,
+        response_code: str = None,
+        request_id: str = None,
+        payload: SCRealEstateQueryResponsePayload = None,
+    ):
+        # cost
+        self.cost = cost
+        # response_status
+        self.response_status = response_status
+        # response_code
+        self.response_code = response_code
+        # request_id
+        self.request_id = request_id
+        # payload
+        self.payload = payload
+
+    def validate(self):
+        self.validate_required(self.cost, 'cost')
+        self.validate_required(self.response_status, 'response_status')
+        self.validate_required(self.response_code, 'response_code')
+        self.validate_required(self.request_id, 'request_id')
+        self.validate_required(self.payload, 'payload')
+        if self.payload:
+            self.payload.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cost is not None:
+            result['cost'] = self.cost
+        if self.response_status is not None:
+            result['response_status'] = self.response_status
+        if self.response_code is not None:
+            result['response_code'] = self.response_code
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.payload is not None:
+            result['payload'] = self.payload.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('cost') is not None:
+            self.cost = m.get('cost')
+        if m.get('response_status') is not None:
+            self.response_status = m.get('response_status')
+        if m.get('response_code') is not None:
+            self.response_code = m.get('response_code')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('payload') is not None:
+            temp_model = SCRealEstateQueryResponsePayload()
+            self.payload = temp_model.from_map(m['payload'])
+        return self
+
+
+class UserProfile(TeaModel):
+    def __init__(
+        self,
+        user_id: str = None,
+        id_number: str = None,
+        mobile: str = None,
+        age: int = None,
+        credit_score: int = None,
+    ):
+        # 用户ID
+        self.user_id = user_id
+        # 用户身份证号
+        self.id_number = id_number
+        # 手机号
+        self.mobile = mobile
+        # 年龄
+        self.age = age
+        # 信用评分
+        self.credit_score = credit_score
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        if self.id_number is not None:
+            result['id_number'] = self.id_number
+        if self.mobile is not None:
+            result['mobile'] = self.mobile
+        if self.age is not None:
+            result['age'] = self.age
+        if self.credit_score is not None:
+            result['credit_score'] = self.credit_score
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        if m.get('id_number') is not None:
+            self.id_number = m.get('id_number')
+        if m.get('mobile') is not None:
+            self.mobile = m.get('mobile')
+        if m.get('age') is not None:
+            self.age = m.get('age')
+        if m.get('credit_score') is not None:
+            self.credit_score = m.get('credit_score')
+        return self
+
+
+class QueryMap(TeaModel):
+    def __init__(
+        self,
+        name: str = None,
+        value: List[NameValuePair] = None,
+    ):
+        # 键值
+        self.name = name
+        # 额外用户信息
+        self.value = value
+
+    def validate(self):
+        self.validate_required(self.name, 'name')
+        if self.value:
+            for k in self.value:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.name is not None:
+            result['name'] = self.name
+        result['value'] = []
+        if self.value is not None:
+            for k in self.value:
+                result['value'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        self.value = []
+        if m.get('value') is not None:
+            for k in m.get('value'):
+                temp_model = NameValuePair()
+                self.value.append(temp_model.from_map(k))
+        return self
+
+
+class A(TeaModel):
+    def __init__(self):
+        pass
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        return self
+
+
+class DomeClasssss(TeaModel):
+    def __init__(
+        self,
+        name: str = None,
+    ):
+        # test
+        self.name = name
+
+    def validate(self):
+        self.validate_required(self.name, 'name')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.name is not None:
+            result['name'] = self.name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('name') is not None:
+            self.name = m.get('name')
         return self
 
 
@@ -1380,653 +2016,6 @@ class TestA(TeaModel):
             self.parameter_9 = m.get('parameter_9')
         if m.get('parameter_10') is not None:
             self.parameter_10 = m.get('parameter_10')
-        return self
-
-
-class ShangHaiTest(TeaModel):
-    def __init__(
-        self,
-        param_1: str = None,
-        param_2: int = None,
-    ):
-        # string
-        self.param_1 = param_1
-        # number
-        self.param_2 = param_2
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.param_1 is not None:
-            result['param_1'] = self.param_1
-        if self.param_2 is not None:
-            result['param_2'] = self.param_2
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('param_1') is not None:
-            self.param_1 = m.get('param_1')
-        if m.get('param_2') is not None:
-            self.param_2 = m.get('param_2')
-        return self
-
-
-class TestObject(TeaModel):
-    def __init__(
-        self,
-        id: int = None,
-        name: str = None,
-    ):
-        # 主键
-        self.id = id
-        # 名称
-        self.name = name
-
-    def validate(self):
-        self.validate_required(self.id, 'id')
-        self.validate_required(self.name, 'name')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.id is not None:
-            result['id'] = self.id
-        if self.name is not None:
-            result['name'] = self.name
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('id') is not None:
-            self.id = m.get('id')
-        if m.get('name') is not None:
-            self.name = m.get('name')
-        return self
-
-
-class TestAPIObject(TeaModel):
-    def __init__(
-        self,
-        id: int = None,
-    ):
-        # test
-        self.id = id
-
-    def validate(self):
-        self.validate_required(self.id, 'id')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.id is not None:
-            result['id'] = self.id
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('id') is not None:
-            self.id = m.get('id')
-        return self
-
-
-class Map(TeaModel):
-    def __init__(
-        self,
-        key: str = None,
-        value: str = None,
-    ):
-        # 键
-        self.key = key
-        # 值
-        self.value = value
-
-    def validate(self):
-        self.validate_required(self.key, 'key')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.key is not None:
-            result['key'] = self.key
-        if self.value is not None:
-            result['value'] = self.value
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('key') is not None:
-            self.key = m.get('key')
-        if m.get('value') is not None:
-            self.value = m.get('value')
-        return self
-
-
-class A(TeaModel):
-    def __init__(self):
-        pass
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        return self
-
-
-class NestModel(TeaModel):
-    def __init__(
-        self,
-        a: str = None,
-    ):
-        # aaaa
-        self.a = a
-
-    def validate(self):
-        self.validate_required(self.a, 'a')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.a is not None:
-            result['a'] = self.a
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('a') is not None:
-            self.a = m.get('a')
-        return self
-
-
-class UserProfile(TeaModel):
-    def __init__(
-        self,
-        user_id: str = None,
-        id_number: str = None,
-        mobile: str = None,
-        age: int = None,
-        credit_score: int = None,
-    ):
-        # 用户ID
-        self.user_id = user_id
-        # 用户身份证号
-        self.id_number = id_number
-        # 手机号
-        self.mobile = mobile
-        # 年龄
-        self.age = age
-        # 信用评分
-        self.credit_score = credit_score
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.user_id is not None:
-            result['user_id'] = self.user_id
-        if self.id_number is not None:
-            result['id_number'] = self.id_number
-        if self.mobile is not None:
-            result['mobile'] = self.mobile
-        if self.age is not None:
-            result['age'] = self.age
-        if self.credit_score is not None:
-            result['credit_score'] = self.credit_score
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('user_id') is not None:
-            self.user_id = m.get('user_id')
-        if m.get('id_number') is not None:
-            self.id_number = m.get('id_number')
-        if m.get('mobile') is not None:
-            self.mobile = m.get('mobile')
-        if m.get('age') is not None:
-            self.age = m.get('age')
-        if m.get('credit_score') is not None:
-            self.credit_score = m.get('credit_score')
-        return self
-
-
-class TransactionDetails(TeaModel):
-    def __init__(
-        self,
-        amount: int = None,
-        currency: str = None,
-        channel: str = None,
-        location: str = None,
-        time: str = None,
-    ):
-        # 金额
-        self.amount = amount
-        # 币种
-        self.currency = currency
-        # 渠道
-        self.channel = channel
-        # 地址
-        self.location = location
-        # 时间
-        self.time = time
-
-    def validate(self):
-        if self.time is not None:
-            self.validate_pattern(self.time, 'time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.amount is not None:
-            result['amount'] = self.amount
-        if self.currency is not None:
-            result['currency'] = self.currency
-        if self.channel is not None:
-            result['channel'] = self.channel
-        if self.location is not None:
-            result['location'] = self.location
-        if self.time is not None:
-            result['time'] = self.time
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('amount') is not None:
-            self.amount = m.get('amount')
-        if m.get('currency') is not None:
-            self.currency = m.get('currency')
-        if m.get('channel') is not None:
-            self.channel = m.get('channel')
-        if m.get('location') is not None:
-            self.location = m.get('location')
-        if m.get('time') is not None:
-            self.time = m.get('time')
-        return self
-
-
-class RiskFactorDetail(TeaModel):
-    def __init__(
-        self,
-        factor_type: str = None,
-        score: int = None,
-        evidence: List[str] = None,
-    ):
-        # 风险评估因子类型
-        self.factor_type = factor_type
-        # 分数
-        self.score = score
-        # 风险事件
-        self.evidence = evidence
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.factor_type is not None:
-            result['factor_type'] = self.factor_type
-        if self.score is not None:
-            result['score'] = self.score
-        if self.evidence is not None:
-            result['evidence'] = self.evidence
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('factor_type') is not None:
-            self.factor_type = m.get('factor_type')
-        if m.get('score') is not None:
-            self.score = m.get('score')
-        if m.get('evidence') is not None:
-            self.evidence = m.get('evidence')
-        return self
-
-
-class Content(TeaModel):
-    def __init__(
-        self,
-        name: str = None,
-        id: str = None,
-    ):
-        # name
-        self.name = name
-        # 1
-        self.id = id
-
-    def validate(self):
-        self.validate_required(self.name, 'name')
-        self.validate_required(self.id, 'id')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.name is not None:
-            result['name'] = self.name
-        if self.id is not None:
-            result['id'] = self.id
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('name') is not None:
-            self.name = m.get('name')
-        if m.get('id') is not None:
-            self.id = m.get('id')
-        return self
-
-
-class ContentT(TeaModel):
-    def __init__(
-        self,
-        name: str = None,
-    ):
-        # 1
-        self.name = name
-
-    def validate(self):
-        self.validate_required(self.name, 'name')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.name is not None:
-            result['name'] = self.name
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('name') is not None:
-            self.name = m.get('name')
-        return self
-
-
-class ContentTest(TeaModel):
-    def __init__(
-        self,
-        name: str = None,
-    ):
-        # name
-        self.name = name
-
-    def validate(self):
-        self.validate_required(self.name, 'name')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.name is not None:
-            result['name'] = self.name
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('name') is not None:
-            self.name = m.get('name')
-        return self
-
-
-class Card(TeaModel):
-    def __init__(
-        self,
-        name: str = None,
-    ):
-        # 卡片名称
-        self.name = name
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.name is not None:
-            result['name'] = self.name
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('name') is not None:
-            self.name = m.get('name')
-        return self
-
-
-class Person(TeaModel):
-    def __init__(
-        self,
-        idcard: NameValuePair = None,
-        name: str = None,
-        info: Cmd = None,
-    ):
-        # 12
-        self.idcard = idcard
-        # 12
-        self.name = name
-        # test
-        self.info = info
-
-    def validate(self):
-        if self.idcard:
-            self.idcard.validate()
-        self.validate_required(self.name, 'name')
-        self.validate_required(self.info, 'info')
-        if self.info:
-            self.info.validate()
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.idcard is not None:
-            result['idcard'] = self.idcard.to_map()
-        if self.name is not None:
-            result['name'] = self.name
-        if self.info is not None:
-            result['info'] = self.info.to_map()
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('idcard') is not None:
-            temp_model = NameValuePair()
-            self.idcard = temp_model.from_map(m['idcard'])
-        if m.get('name') is not None:
-            self.name = m.get('name')
-        if m.get('info') is not None:
-            temp_model = Cmd()
-            self.info = temp_model.from_map(m['info'])
-        return self
-
-
-class CardInfo(TeaModel):
-    def __init__(
-        self,
-        persion_info: Person = None,
-        id_card: str = None,
-    ):
-        # 1233
-        self.persion_info = persion_info
-        # 12
-        self.id_card = id_card
-
-    def validate(self):
-        if self.persion_info:
-            self.persion_info.validate()
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.persion_info is not None:
-            result['persion_info'] = self.persion_info.to_map()
-        if self.id_card is not None:
-            result['id_card'] = self.id_card
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('persion_info') is not None:
-            temp_model = Person()
-            self.persion_info = temp_model.from_map(m['persion_info'])
-        if m.get('id_card') is not None:
-            self.id_card = m.get('id_card')
-        return self
-
-
-class TestStu(TeaModel):
-    def __init__(
-        self,
-        card_info: CardInfo = None,
-        stu_no: str = None,
-    ):
-        # 567
-        self.card_info = card_info
-        # 12
-        self.stu_no = stu_no
-
-    def validate(self):
-        if self.card_info:
-            self.card_info.validate()
-        self.validate_required(self.stu_no, 'stu_no')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.card_info is not None:
-            result['card_info'] = self.card_info.to_map()
-        if self.stu_no is not None:
-            result['stu_no'] = self.stu_no
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('card_info') is not None:
-            temp_model = CardInfo()
-            self.card_info = temp_model.from_map(m['card_info'])
-        if m.get('stu_no') is not None:
-            self.stu_no = m.get('stu_no')
-        return self
-
-
-class DomeClasssss(TeaModel):
-    def __init__(
-        self,
-        name: str = None,
-    ):
-        # test
-        self.name = name
-
-    def validate(self):
-        self.validate_required(self.name, 'name')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.name is not None:
-            result['name'] = self.name
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('name') is not None:
-            self.name = m.get('name')
-        return self
-
-
-class DemoInfo(TeaModel):
-    def __init__(
-        self,
-        name: str = None,
-        testx: ContentTest = None,
-    ):
-        # test
-        self.name = name
-        # 123
-        self.testx = testx
-
-    def validate(self):
-        self.validate_required(self.name, 'name')
-        if self.testx:
-            self.testx.validate()
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.name is not None:
-            result['name'] = self.name
-        if self.testx is not None:
-            result['testx'] = self.testx.to_map()
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('name') is not None:
-            self.name = m.get('name')
-        if m.get('testx') is not None:
-            temp_model = ContentTest()
-            self.testx = temp_model.from_map(m['testx'])
         return self
 
 
