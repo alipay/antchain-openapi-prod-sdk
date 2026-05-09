@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.7',
+                    'sdk_version': '1.7.8',
                     '_prod_code': 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel': 'saas'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.7',
+                    'sdk_version': '1.7.8',
                     '_prod_code': 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel': 'saas'
                 }
@@ -6449,6 +6449,118 @@ class Client:
         return TeaCore.from_map(
             ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CreateAntchainAtoSignFlowResponse(),
             await self.do_request_async('1.0', 'antchain.ato.sign.flow.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def init_antchain_ato_fund_alipaysettletocard(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.InitAntchainAtoFundAlipaysettletocardRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.InitAntchainAtoFundAlipaysettletocardResponse:
+        """
+        Description: 支付宝结算到卡交易流水任务创建接口
+        Summary: 支付宝结算到卡交易流水任务创建接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.init_antchain_ato_fund_alipaysettletocard_ex(request, headers, runtime)
+
+    async def init_antchain_ato_fund_alipaysettletocard_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.InitAntchainAtoFundAlipaysettletocardRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.InitAntchainAtoFundAlipaysettletocardResponse:
+        """
+        Description: 支付宝结算到卡交易流水任务创建接口
+        Summary: 支付宝结算到卡交易流水任务创建接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.init_antchain_ato_fund_alipaysettletocard_ex_async(request, headers, runtime)
+
+    def init_antchain_ato_fund_alipaysettletocard_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.InitAntchainAtoFundAlipaysettletocardRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.InitAntchainAtoFundAlipaysettletocardResponse:
+        """
+        Description: 支付宝结算到卡交易流水任务创建接口
+        Summary: 支付宝结算到卡交易流水任务创建接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.InitAntchainAtoFundAlipaysettletocardResponse(),
+            self.do_request('1.0', 'antchain.ato.fund.alipaysettletocard.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def init_antchain_ato_fund_alipaysettletocard_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.InitAntchainAtoFundAlipaysettletocardRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.InitAntchainAtoFundAlipaysettletocardResponse:
+        """
+        Description: 支付宝结算到卡交易流水任务创建接口
+        Summary: 支付宝结算到卡交易流水任务创建接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.InitAntchainAtoFundAlipaysettletocardResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.fund.alipaysettletocard.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_antchain_ato_fund_alipaysettletocard(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoFundAlipaysettletocardRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoFundAlipaysettletocardResponse:
+        """
+        Description: 支付宝结算到卡流水任务结果查询接口
+        Summary: 支付宝结算到卡流水任务结果查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_antchain_ato_fund_alipaysettletocard_ex(request, headers, runtime)
+
+    async def query_antchain_ato_fund_alipaysettletocard_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoFundAlipaysettletocardRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoFundAlipaysettletocardResponse:
+        """
+        Description: 支付宝结算到卡流水任务结果查询接口
+        Summary: 支付宝结算到卡流水任务结果查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_antchain_ato_fund_alipaysettletocard_ex_async(request, headers, runtime)
+
+    def query_antchain_ato_fund_alipaysettletocard_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoFundAlipaysettletocardRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoFundAlipaysettletocardResponse:
+        """
+        Description: 支付宝结算到卡流水任务结果查询接口
+        Summary: 支付宝结算到卡流水任务结果查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoFundAlipaysettletocardResponse(),
+            self.do_request('1.0', 'antchain.ato.fund.alipaysettletocard.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_antchain_ato_fund_alipaysettletocard_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoFundAlipaysettletocardRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoFundAlipaysettletocardResponse:
+        """
+        Description: 支付宝结算到卡流水任务结果查询接口
+        Summary: 支付宝结算到卡流水任务结果查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoFundAlipaysettletocardResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.fund.alipaysettletocard.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
