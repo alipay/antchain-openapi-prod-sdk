@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.5.1',
+    sdk_version = '1.6.0',
     _prod_code = 'CAASPLATFORM',
     _prod_channel = 'undefined'
   };
@@ -161,6 +161,18 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   ignoreSSL = runtime.ignoreSSL
 }
 
+// 操作主体
+model OperateSubject {
+  // 主体名称
+  subjectName: string(name='subject_name', example='张*'),
+  // 证件类型,ID_CARD:身份证;PASSPORT:护照;BUSINESS_LICENSE:营业执照;OTHER:其他
+  certType: string(name='cert_type', example='ID_CARD'),
+  // 证件号码，可以脱敏传输
+  certNo: string(name='cert_no', example='310***********1234'),
+  // 主体信息明文计算出来的hash数据
+  subjectHash: string(name='subject_hash', example='a1b2c3d4e5f6789012345678901234567890abcd'),
+}
+
 // 分账明细
 model RuleItem {
   // 分账方Id
@@ -175,6 +187,196 @@ model XNameValuePair {
   name: string(name='name', example='key'),
   // 键值
   value: string(name='value', example='value'),
+}
+
+model CreateMultistepDepositRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 操作主体信息
+  subject: OperateSubject(name='subject'),
+  // 业务类型，如：CONTRACT、ORDER...
+  bizType: string(name='biz_type'),
+  // 业务流水ID（如：合同编号）
+  bizId: string(name='biz_id'),
+  // 环节编号，需要按照字母表/数字顺序，能够进行排序处理
+  stepNo: string(name='step_no'),
+  // 环节名称
+  stepName: string(name='step_name'),
+  // 交易时间，yyyyMMddh24miss格式
+  txTime: string(name='tx_time'),
+  // 业务详细信息，json格式，具体内容由调用方自行确定
+  bizInfo: string(name='biz_info'),
+}
+
+model CreateMultistepDepositResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 存证记录ID
+  depositId?: string(name='deposit_id'),
+  // 交易哈希
+  txHash?: string(name='tx_hash'),
+  // 存证状态
+  status?: string(name='status'),
+}
+
+/**
+ * Description: 多环节业务存证
+ * Summary: 多环节业务存证
+ */
+async function createMultistepDeposit(request: CreateMultistepDepositRequest): CreateMultistepDepositResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createMultistepDepositEx(request, headers, runtime);
+}
+
+/**
+ * Description: 多环节业务存证
+ * Summary: 多环节业务存证
+ */
+async function createMultistepDepositEx(request: CreateMultistepDepositRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateMultistepDepositResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.caasplatform.multistep.deposit.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyCertificationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务编号
+  bizId: string(name='biz_id'),
+  // 出证类型：OWN（自有）/ NOTARY（公正处证明）
+  type: string(name='type'),
+}
+
+model ApplyCertificationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 任务ID
+  taskId?: string(name='task_id'),
+  // 任务状态：INIT 初始；PROCESSING：处理中；SUCCESS：成功；FAIL：失败
+  status?: string(name='status'),
+}
+
+/**
+ * Description: 存证证明申请
+ * Summary: 存证证明申请
+ */
+async function applyCertification(request: ApplyCertificationRequest): ApplyCertificationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyCertificationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 存证证明申请
+ * Summary: 存证证明申请
+ */
+async function applyCertificationEx(request: ApplyCertificationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyCertificationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.caasplatform.certification.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryCertificationStatusRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 任务ID
+  taskId: string(name='task_id'),
+}
+
+model QueryCertificationStatusResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 任务ID
+  taskId?: string(name='task_id'),
+  // 业务编号
+  bizId?: string(name='biz_id'),
+  // 出证类型
+  type?: string(name='type'),
+  // 任务状态：INIT/PROCESSING/SUCCESS/FAIL
+  status?: string(name='status'),
+  // 错误信息（失败时）
+  erroMsg?: string(name='erro_msg'),
+}
+
+/**
+ * Description: 证明处理任务状态查询
+ * Summary: 证明处理任务状态查询
+ */
+async function queryCertificationStatus(request: QueryCertificationStatusRequest): QueryCertificationStatusResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryCertificationStatusEx(request, headers, runtime);
+}
+
+/**
+ * Description: 证明处理任务状态查询
+ * Summary: 证明处理任务状态查询
+ */
+async function queryCertificationStatusEx(request: QueryCertificationStatusRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryCertificationStatusResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.caasplatform.certification.status.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryCertificationInfoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 任务ID
+  taskId: string(name='task_id'),
+}
+
+model QueryCertificationInfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 任务ID
+  taskId?: string(name='task_id'),
+  // 业务编号
+  bizId?: string(name='biz_id'),
+  // 出证类型
+  type?: string(name='type'),
+  // 任务状态
+  status?: string(name='status'),
+  // 临时下载链接（有效期15分钟，可配置）
+  fileUrl?: string(name='file_url'),
+  // 证明文件Hash
+  fileHash?: string(name='file_hash'),
+}
+
+/**
+ * Description: 查询出证证明文件信息
+ * Summary: 查询出证证明文件信息
+ */
+async function queryCertificationInfo(request: QueryCertificationInfoRequest): QueryCertificationInfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryCertificationInfoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询出证证明文件信息
+ * Summary: 查询出证证明文件信息
+ */
+async function queryCertificationInfoEx(request: QueryCertificationInfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryCertificationInfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.caasplatform.certification.info.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateDepositRequest = {
