@@ -137,7 +137,7 @@ namespace AntChain.SDK.CAASPLATFORM
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.5.1"},
+                        {"sdk_version", "1.6.0"},
                         {"_prod_code", "CAASPLATFORM"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.CAASPLATFORM
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.5.1"},
+                        {"sdk_version", "1.6.0"},
                         {"_prod_code", "CAASPLATFORM"},
                         {"_prod_channel", "undefined"},
                     };
@@ -319,6 +319,174 @@ namespace AntChain.SDK.CAASPLATFORM
             }
 
             throw new TeaUnretryableException(_lastRequest, _lastException);
+        }
+
+        /**
+         * Description: 多环节业务存证
+         * Summary: 多环节业务存证
+         */
+        public CreateMultistepDepositResponse CreateMultistepDeposit(CreateMultistepDepositRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateMultistepDepositEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 多环节业务存证
+         * Summary: 多环节业务存证
+         */
+        public async Task<CreateMultistepDepositResponse> CreateMultistepDepositAsync(CreateMultistepDepositRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateMultistepDepositExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 多环节业务存证
+         * Summary: 多环节业务存证
+         */
+        public CreateMultistepDepositResponse CreateMultistepDepositEx(CreateMultistepDepositRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateMultistepDepositResponse>(DoRequest("1.0", "antchain.caasplatform.multistep.deposit.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 多环节业务存证
+         * Summary: 多环节业务存证
+         */
+        public async Task<CreateMultistepDepositResponse> CreateMultistepDepositExAsync(CreateMultistepDepositRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateMultistepDepositResponse>(await DoRequestAsync("1.0", "antchain.caasplatform.multistep.deposit.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 存证证明申请
+         * Summary: 存证证明申请
+         */
+        public ApplyCertificationResponse ApplyCertification(ApplyCertificationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ApplyCertificationEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 存证证明申请
+         * Summary: 存证证明申请
+         */
+        public async Task<ApplyCertificationResponse> ApplyCertificationAsync(ApplyCertificationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ApplyCertificationExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 存证证明申请
+         * Summary: 存证证明申请
+         */
+        public ApplyCertificationResponse ApplyCertificationEx(ApplyCertificationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyCertificationResponse>(DoRequest("1.0", "antchain.caasplatform.certification.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 存证证明申请
+         * Summary: 存证证明申请
+         */
+        public async Task<ApplyCertificationResponse> ApplyCertificationExAsync(ApplyCertificationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyCertificationResponse>(await DoRequestAsync("1.0", "antchain.caasplatform.certification.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 证明处理任务状态查询
+         * Summary: 证明处理任务状态查询
+         */
+        public QueryCertificationStatusResponse QueryCertificationStatus(QueryCertificationStatusRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryCertificationStatusEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 证明处理任务状态查询
+         * Summary: 证明处理任务状态查询
+         */
+        public async Task<QueryCertificationStatusResponse> QueryCertificationStatusAsync(QueryCertificationStatusRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryCertificationStatusExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 证明处理任务状态查询
+         * Summary: 证明处理任务状态查询
+         */
+        public QueryCertificationStatusResponse QueryCertificationStatusEx(QueryCertificationStatusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCertificationStatusResponse>(DoRequest("1.0", "antchain.caasplatform.certification.status.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 证明处理任务状态查询
+         * Summary: 证明处理任务状态查询
+         */
+        public async Task<QueryCertificationStatusResponse> QueryCertificationStatusExAsync(QueryCertificationStatusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCertificationStatusResponse>(await DoRequestAsync("1.0", "antchain.caasplatform.certification.status.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询出证证明文件信息
+         * Summary: 查询出证证明文件信息
+         */
+        public QueryCertificationInfoResponse QueryCertificationInfo(QueryCertificationInfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryCertificationInfoEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询出证证明文件信息
+         * Summary: 查询出证证明文件信息
+         */
+        public async Task<QueryCertificationInfoResponse> QueryCertificationInfoAsync(QueryCertificationInfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryCertificationInfoExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询出证证明文件信息
+         * Summary: 查询出证证明文件信息
+         */
+        public QueryCertificationInfoResponse QueryCertificationInfoEx(QueryCertificationInfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCertificationInfoResponse>(DoRequest("1.0", "antchain.caasplatform.certification.info.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询出证证明文件信息
+         * Summary: 查询出证证明文件信息
+         */
+        public async Task<QueryCertificationInfoResponse> QueryCertificationInfoExAsync(QueryCertificationInfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCertificationInfoResponse>(await DoRequestAsync("1.0", "antchain.caasplatform.certification.info.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
