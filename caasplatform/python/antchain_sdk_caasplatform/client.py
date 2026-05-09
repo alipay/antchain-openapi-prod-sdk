@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 分账明细
+            # 操作主体
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.5.1',
+                    'sdk_version': '1.6.0',
                     '_prod_code': 'CAASPLATFORM',
                     '_prod_channel': 'undefined'
                 }
@@ -214,7 +214,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 分账明细
+            # 操作主体
         }
         _last_request = None
         _last_exception = None
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.5.1',
+                    'sdk_version': '1.6.0',
                     '_prod_code': 'CAASPLATFORM',
                     '_prod_channel': 'undefined'
                 }
@@ -274,6 +274,230 @@ class Client:
                     continue
                 raise e
         raise UnretryableException(_last_request, _last_exception)
+
+    def create_multistep_deposit(
+        self,
+        request: caasplatform_models.CreateMultistepDepositRequest,
+    ) -> caasplatform_models.CreateMultistepDepositResponse:
+        """
+        Description: 多环节业务存证
+        Summary: 多环节业务存证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_multistep_deposit_ex(request, headers, runtime)
+
+    async def create_multistep_deposit_async(
+        self,
+        request: caasplatform_models.CreateMultistepDepositRequest,
+    ) -> caasplatform_models.CreateMultistepDepositResponse:
+        """
+        Description: 多环节业务存证
+        Summary: 多环节业务存证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_multistep_deposit_ex_async(request, headers, runtime)
+
+    def create_multistep_deposit_ex(
+        self,
+        request: caasplatform_models.CreateMultistepDepositRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> caasplatform_models.CreateMultistepDepositResponse:
+        """
+        Description: 多环节业务存证
+        Summary: 多环节业务存证
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            caasplatform_models.CreateMultistepDepositResponse(),
+            self.do_request('1.0', 'antchain.caasplatform.multistep.deposit.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_multistep_deposit_ex_async(
+        self,
+        request: caasplatform_models.CreateMultistepDepositRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> caasplatform_models.CreateMultistepDepositResponse:
+        """
+        Description: 多环节业务存证
+        Summary: 多环节业务存证
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            caasplatform_models.CreateMultistepDepositResponse(),
+            await self.do_request_async('1.0', 'antchain.caasplatform.multistep.deposit.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_certification(
+        self,
+        request: caasplatform_models.ApplyCertificationRequest,
+    ) -> caasplatform_models.ApplyCertificationResponse:
+        """
+        Description: 存证证明申请
+        Summary: 存证证明申请
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_certification_ex(request, headers, runtime)
+
+    async def apply_certification_async(
+        self,
+        request: caasplatform_models.ApplyCertificationRequest,
+    ) -> caasplatform_models.ApplyCertificationResponse:
+        """
+        Description: 存证证明申请
+        Summary: 存证证明申请
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_certification_ex_async(request, headers, runtime)
+
+    def apply_certification_ex(
+        self,
+        request: caasplatform_models.ApplyCertificationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> caasplatform_models.ApplyCertificationResponse:
+        """
+        Description: 存证证明申请
+        Summary: 存证证明申请
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            caasplatform_models.ApplyCertificationResponse(),
+            self.do_request('1.0', 'antchain.caasplatform.certification.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_certification_ex_async(
+        self,
+        request: caasplatform_models.ApplyCertificationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> caasplatform_models.ApplyCertificationResponse:
+        """
+        Description: 存证证明申请
+        Summary: 存证证明申请
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            caasplatform_models.ApplyCertificationResponse(),
+            await self.do_request_async('1.0', 'antchain.caasplatform.certification.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_certification_status(
+        self,
+        request: caasplatform_models.QueryCertificationStatusRequest,
+    ) -> caasplatform_models.QueryCertificationStatusResponse:
+        """
+        Description: 证明处理任务状态查询
+        Summary: 证明处理任务状态查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_certification_status_ex(request, headers, runtime)
+
+    async def query_certification_status_async(
+        self,
+        request: caasplatform_models.QueryCertificationStatusRequest,
+    ) -> caasplatform_models.QueryCertificationStatusResponse:
+        """
+        Description: 证明处理任务状态查询
+        Summary: 证明处理任务状态查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_certification_status_ex_async(request, headers, runtime)
+
+    def query_certification_status_ex(
+        self,
+        request: caasplatform_models.QueryCertificationStatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> caasplatform_models.QueryCertificationStatusResponse:
+        """
+        Description: 证明处理任务状态查询
+        Summary: 证明处理任务状态查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            caasplatform_models.QueryCertificationStatusResponse(),
+            self.do_request('1.0', 'antchain.caasplatform.certification.status.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_certification_status_ex_async(
+        self,
+        request: caasplatform_models.QueryCertificationStatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> caasplatform_models.QueryCertificationStatusResponse:
+        """
+        Description: 证明处理任务状态查询
+        Summary: 证明处理任务状态查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            caasplatform_models.QueryCertificationStatusResponse(),
+            await self.do_request_async('1.0', 'antchain.caasplatform.certification.status.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_certification_info(
+        self,
+        request: caasplatform_models.QueryCertificationInfoRequest,
+    ) -> caasplatform_models.QueryCertificationInfoResponse:
+        """
+        Description: 查询出证证明文件信息
+        Summary: 查询出证证明文件信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_certification_info_ex(request, headers, runtime)
+
+    async def query_certification_info_async(
+        self,
+        request: caasplatform_models.QueryCertificationInfoRequest,
+    ) -> caasplatform_models.QueryCertificationInfoResponse:
+        """
+        Description: 查询出证证明文件信息
+        Summary: 查询出证证明文件信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_certification_info_ex_async(request, headers, runtime)
+
+    def query_certification_info_ex(
+        self,
+        request: caasplatform_models.QueryCertificationInfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> caasplatform_models.QueryCertificationInfoResponse:
+        """
+        Description: 查询出证证明文件信息
+        Summary: 查询出证证明文件信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            caasplatform_models.QueryCertificationInfoResponse(),
+            self.do_request('1.0', 'antchain.caasplatform.certification.info.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_certification_info_ex_async(
+        self,
+        request: caasplatform_models.QueryCertificationInfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> caasplatform_models.QueryCertificationInfoResponse:
+        """
+        Description: 查询出证证明文件信息
+        Summary: 查询出证证明文件信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            caasplatform_models.QueryCertificationInfoResponse(),
+            await self.do_request_async('1.0', 'antchain.caasplatform.certification.info.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
 
     def create_deposit(
         self,
