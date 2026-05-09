@@ -11,6 +11,8 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\CAASPLATFORM\Models\ApplyCertificationRequest;
+use AntChain\CAASPLATFORM\Models\ApplyCertificationResponse;
 use AntChain\CAASPLATFORM\Models\BatchqueryGeneralDivideRequest;
 use AntChain\CAASPLATFORM\Models\BatchqueryGeneralDivideResponse;
 use AntChain\CAASPLATFORM\Models\CreateAntcloudGatewayxFileUploadRequest;
@@ -25,6 +27,8 @@ use AntChain\CAASPLATFORM\Models\CreateDepositSweepstakesRequest;
 use AntChain\CAASPLATFORM\Models\CreateDepositSweepstakesResponse;
 use AntChain\CAASPLATFORM\Models\CreateExtendRightsRequest;
 use AntChain\CAASPLATFORM\Models\CreateExtendRightsResponse;
+use AntChain\CAASPLATFORM\Models\CreateMultistepDepositRequest;
+use AntChain\CAASPLATFORM\Models\CreateMultistepDepositResponse;
 use AntChain\CAASPLATFORM\Models\DeleteGeneralDivideRequest;
 use AntChain\CAASPLATFORM\Models\DeleteGeneralDivideResponse;
 use AntChain\CAASPLATFORM\Models\DescribeExtendTxqrcodeRequest;
@@ -53,6 +57,10 @@ use AntChain\CAASPLATFORM\Models\PayGeneralTourismRequest;
 use AntChain\CAASPLATFORM\Models\PayGeneralTourismResponse;
 use AntChain\CAASPLATFORM\Models\PullGeneralDivideRequest;
 use AntChain\CAASPLATFORM\Models\PullGeneralDivideResponse;
+use AntChain\CAASPLATFORM\Models\QueryCertificationInfoRequest;
+use AntChain\CAASPLATFORM\Models\QueryCertificationInfoResponse;
+use AntChain\CAASPLATFORM\Models\QueryCertificationStatusRequest;
+use AntChain\CAASPLATFORM\Models\QueryCertificationStatusResponse;
 use AntChain\CAASPLATFORM\Models\QueryDepositCertificateRequest;
 use AntChain\CAASPLATFORM\Models\QueryDepositCertificateResponse;
 use AntChain\CAASPLATFORM\Models\QueryDepositCharityRequest;
@@ -198,7 +206,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 分账明细
+            // 操作主体
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -226,7 +234,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.5.1',
+                    'sdk_version'      => '1.6.0',
                     '_prod_code'       => 'CAASPLATFORM',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -272,6 +280,138 @@ class Client
         }
 
         throw new TeaUnableRetryError($_lastRequest, $_lastException);
+    }
+
+    /**
+     * Description: 多环节业务存证
+     * Summary: 多环节业务存证
+     *
+     * @param CreateMultistepDepositRequest $request
+     *
+     * @return CreateMultistepDepositResponse
+     */
+    public function createMultistepDeposit($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createMultistepDepositEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 多环节业务存证
+     * Summary: 多环节业务存证
+     *
+     * @param CreateMultistepDepositRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return CreateMultistepDepositResponse
+     */
+    public function createMultistepDepositEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateMultistepDepositResponse::fromMap($this->doRequest('1.0', 'antchain.caasplatform.multistep.deposit.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 存证证明申请
+     * Summary: 存证证明申请.
+     *
+     * @param ApplyCertificationRequest $request
+     *
+     * @return ApplyCertificationResponse
+     */
+    public function applyCertification($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyCertificationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 存证证明申请
+     * Summary: 存证证明申请.
+     *
+     * @param ApplyCertificationRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return ApplyCertificationResponse
+     */
+    public function applyCertificationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyCertificationResponse::fromMap($this->doRequest('1.0', 'antchain.caasplatform.certification.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 证明处理任务状态查询
+     * Summary: 证明处理任务状态查询.
+     *
+     * @param QueryCertificationStatusRequest $request
+     *
+     * @return QueryCertificationStatusResponse
+     */
+    public function queryCertificationStatus($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryCertificationStatusEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 证明处理任务状态查询
+     * Summary: 证明处理任务状态查询.
+     *
+     * @param QueryCertificationStatusRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return QueryCertificationStatusResponse
+     */
+    public function queryCertificationStatusEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryCertificationStatusResponse::fromMap($this->doRequest('1.0', 'antchain.caasplatform.certification.status.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询出证证明文件信息
+     * Summary: 查询出证证明文件信息.
+     *
+     * @param QueryCertificationInfoRequest $request
+     *
+     * @return QueryCertificationInfoResponse
+     */
+    public function queryCertificationInfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryCertificationInfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询出证证明文件信息
+     * Summary: 查询出证证明文件信息.
+     *
+     * @param QueryCertificationInfoRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return QueryCertificationInfoResponse
+     */
+    public function queryCertificationInfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryCertificationInfoResponse::fromMap($this->doRequest('1.0', 'antchain.caasplatform.certification.info.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

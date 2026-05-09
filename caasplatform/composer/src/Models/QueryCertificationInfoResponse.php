@@ -1,0 +1,152 @@
+<?php
+
+// This file is auto-generated, don't edit it. Thanks.
+
+namespace AntChain\CAASPLATFORM\Models;
+
+use AlibabaCloud\Tea\Model;
+
+class QueryCertificationInfoResponse extends Model
+{
+    // 请求唯一ID，用于链路跟踪和问题排查
+    /**
+     * @var string
+     */
+    public $reqMsgId;
+
+    // 结果码，一般OK表示调用成功
+    /**
+     * @var string
+     */
+    public $resultCode;
+
+    // 异常信息的文本描述
+    /**
+     * @var string
+     */
+    public $resultMsg;
+
+    // 任务ID
+    /**
+     * @var string
+     */
+    public $taskId;
+
+    // 业务编号
+    /**
+     * @var string
+     */
+    public $bizId;
+
+    // 出证类型
+    /**
+     * @var string
+     */
+    public $type;
+
+    // 任务状态
+    /**
+     * @var string
+     */
+    public $status;
+
+    // 临时下载链接（有效期15分钟，可配置）
+    /**
+     * @var string
+     */
+    public $fileUrl;
+
+    // 证明文件Hash
+    /**
+     * @var string
+     */
+    public $fileHash;
+    protected $_name = [
+        'reqMsgId'   => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg'  => 'result_msg',
+        'taskId'     => 'task_id',
+        'bizId'      => 'biz_id',
+        'type'       => 'type',
+        'status'     => 'status',
+        'fileUrl'    => 'file_url',
+        'fileHash'   => 'file_hash',
+    ];
+
+    public function validate()
+    {
+    }
+
+    public function toMap()
+    {
+        $res = [];
+        if (null !== $this->reqMsgId) {
+            $res['req_msg_id'] = $this->reqMsgId;
+        }
+        if (null !== $this->resultCode) {
+            $res['result_code'] = $this->resultCode;
+        }
+        if (null !== $this->resultMsg) {
+            $res['result_msg'] = $this->resultMsg;
+        }
+        if (null !== $this->taskId) {
+            $res['task_id'] = $this->taskId;
+        }
+        if (null !== $this->bizId) {
+            $res['biz_id'] = $this->bizId;
+        }
+        if (null !== $this->type) {
+            $res['type'] = $this->type;
+        }
+        if (null !== $this->status) {
+            $res['status'] = $this->status;
+        }
+        if (null !== $this->fileUrl) {
+            $res['file_url'] = $this->fileUrl;
+        }
+        if (null !== $this->fileHash) {
+            $res['file_hash'] = $this->fileHash;
+        }
+
+        return $res;
+    }
+
+    /**
+     * @param array $map
+     *
+     * @return QueryCertificationInfoResponse
+     */
+    public static function fromMap($map = [])
+    {
+        $model = new self();
+        if (isset($map['req_msg_id'])) {
+            $model->reqMsgId = $map['req_msg_id'];
+        }
+        if (isset($map['result_code'])) {
+            $model->resultCode = $map['result_code'];
+        }
+        if (isset($map['result_msg'])) {
+            $model->resultMsg = $map['result_msg'];
+        }
+        if (isset($map['task_id'])) {
+            $model->taskId = $map['task_id'];
+        }
+        if (isset($map['biz_id'])) {
+            $model->bizId = $map['biz_id'];
+        }
+        if (isset($map['type'])) {
+            $model->type = $map['type'];
+        }
+        if (isset($map['status'])) {
+            $model->status = $map['status'];
+        }
+        if (isset($map['file_url'])) {
+            $model->fileUrl = $map['file_url'];
+        }
+        if (isset($map['file_hash'])) {
+            $model->fileHash = $map['file_hash'];
+        }
+
+        return $model;
+    }
+}
