@@ -18,6 +18,14 @@ public class QueryAntcloudAdomAppmarketPrivacyresultRequest extends TeaModel {
     @Validation(required = true)
     public String recordId;
 
+    // 响应的结果文件是否为密文，默认非密文
+    @NameInMap("is_encrypt_file")
+    public Boolean isEncryptFile;
+
+    // 大模型调用鉴权token
+    @NameInMap("req_token")
+    public String reqToken;
+
     public static QueryAntcloudAdomAppmarketPrivacyresultRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryAntcloudAdomAppmarketPrivacyresultRequest self = new QueryAntcloudAdomAppmarketPrivacyresultRequest();
         return TeaModel.build(map, self);
@@ -45,6 +53,22 @@ public class QueryAntcloudAdomAppmarketPrivacyresultRequest extends TeaModel {
     }
     public String getRecordId() {
         return this.recordId;
+    }
+
+    public QueryAntcloudAdomAppmarketPrivacyresultRequest setIsEncryptFile(Boolean isEncryptFile) {
+        this.isEncryptFile = isEncryptFile;
+        return this;
+    }
+    public Boolean getIsEncryptFile() {
+        return this.isEncryptFile;
+    }
+
+    public QueryAntcloudAdomAppmarketPrivacyresultRequest setReqToken(String reqToken) {
+        this.reqToken = reqToken;
+        return this;
+    }
+    public String getReqToken() {
+        return this.reqToken;
     }
 
 }

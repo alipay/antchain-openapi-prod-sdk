@@ -1,29 +1,33 @@
-English | [简体中文](README-CN.md)
-![](https://aliyunsdk-pages.alicdn.com/icons/AlibabaCloud.svg)
+[English](README.md) | 简体中文
 
-## Ant Chain ak_31dc9f55b9684fe29acc7c0125a5d7a2 SDK for Java
+# Ant Chain ak_31dc9f55b9684fe29acc7c0125a5d7a2 SDK for Java
 
-## Installation
+## 安装
 
 ```xml
 <dependency>
    <groupId>com.antgroup.antchain.openapi</groupId>
-   <artifactId>openapi-ak_31dc9f55b9684fe29acc7c0125a5d7a2</artifactId>
-   <version>Use the version shown in the maven badge</version>
+   <artifactId>ak-31dc9f55b9684fe29acc7c0125a5d7a2</artifactId>
+   <version>1.1.1</version>
 </dependency>
 ```
 
-## Issues
-[Opening an Issue](https://github.com/alipay/antchain-openapi-prod-sdk/issues/new), Issues not conforming to the guidelines may be closed immediately.
+## 问题
 
-## Usage
-[Quick Examples](https://github.com/alipay/antchain-openapi-prod-sdk/blob/master/docs/0-Examples-EN.md#quick-examples)
+[提交 Issue](https://github.com/alipay/antchain-openapi-prod-sdk/issues/new)，不符合指南的问题可能会立即关闭。
 
-## Changelog
-Detailed changes for each release are documented in the [release notes](./ChangeLog.txt).
+## 使用说明
 
-## References
-* [Latest Release](https://github.com/alipay/antchain-openapi-prod-sdk/)
+[快速使用](https://github.com/alipay/antchain-openapi-prod-sdk)
 
-## License
+## 发行说明
+
+每个版本的详细更改记录在[发行说明](./ChangeLog.txt)中。
+
+## 相关
+
+- [最新源码](https://github.com/alipay/antchain-openapi-prod-sdk/)
+
+## 许可证
+
 [Apache-2.0](http://www.apache.org/licenses/LICENSE-2.0)

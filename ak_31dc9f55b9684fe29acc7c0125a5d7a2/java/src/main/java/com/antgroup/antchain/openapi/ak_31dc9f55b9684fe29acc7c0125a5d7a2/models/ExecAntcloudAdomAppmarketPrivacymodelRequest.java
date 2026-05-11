@@ -21,6 +21,14 @@ public class ExecAntcloudAdomAppmarketPrivacymodelRequest extends TeaModel {
     @NameInMap("struct_input")
     public String structInput;
 
+    // 上传的数据文件和产出的结果文件是否为密文，默认非密文
+    @NameInMap("is_encrypt_file")
+    public Boolean isEncryptFile;
+
+    // 大模型调用时鉴权token
+    @NameInMap("req_token")
+    public String reqToken;
+
     public static ExecAntcloudAdomAppmarketPrivacymodelRequest build(java.util.Map<String, ?> map) throws Exception {
         ExecAntcloudAdomAppmarketPrivacymodelRequest self = new ExecAntcloudAdomAppmarketPrivacymodelRequest();
         return TeaModel.build(map, self);
@@ -56,6 +64,22 @@ public class ExecAntcloudAdomAppmarketPrivacymodelRequest extends TeaModel {
     }
     public String getStructInput() {
         return this.structInput;
+    }
+
+    public ExecAntcloudAdomAppmarketPrivacymodelRequest setIsEncryptFile(Boolean isEncryptFile) {
+        this.isEncryptFile = isEncryptFile;
+        return this;
+    }
+    public Boolean getIsEncryptFile() {
+        return this.isEncryptFile;
+    }
+
+    public ExecAntcloudAdomAppmarketPrivacymodelRequest setReqToken(String reqToken) {
+        this.reqToken = reqToken;
+        return this;
+    }
+    public String getReqToken() {
+        return this.reqToken;
     }
 
 }

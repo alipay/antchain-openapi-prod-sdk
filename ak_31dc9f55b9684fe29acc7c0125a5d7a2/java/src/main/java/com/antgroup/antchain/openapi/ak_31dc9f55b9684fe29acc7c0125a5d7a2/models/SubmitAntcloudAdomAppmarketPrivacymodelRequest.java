@@ -21,6 +21,14 @@ public class SubmitAntcloudAdomAppmarketPrivacymodelRequest extends TeaModel {
     @NameInMap("struct_input")
     public String structInput;
 
+    // 上传的数据文件是否为密文，默认非密文
+    @NameInMap("is_encrypt_file")
+    public Boolean isEncryptFile;
+
+    // 大模型调用时鉴权token
+    @NameInMap("req_token")
+    public String reqToken;
+
     public static SubmitAntcloudAdomAppmarketPrivacymodelRequest build(java.util.Map<String, ?> map) throws Exception {
         SubmitAntcloudAdomAppmarketPrivacymodelRequest self = new SubmitAntcloudAdomAppmarketPrivacymodelRequest();
         return TeaModel.build(map, self);
@@ -56,6 +64,22 @@ public class SubmitAntcloudAdomAppmarketPrivacymodelRequest extends TeaModel {
     }
     public String getStructInput() {
         return this.structInput;
+    }
+
+    public SubmitAntcloudAdomAppmarketPrivacymodelRequest setIsEncryptFile(Boolean isEncryptFile) {
+        this.isEncryptFile = isEncryptFile;
+        return this;
+    }
+    public Boolean getIsEncryptFile() {
+        return this.isEncryptFile;
+    }
+
+    public SubmitAntcloudAdomAppmarketPrivacymodelRequest setReqToken(String reqToken) {
+        this.reqToken = reqToken;
+        return this;
+    }
+    public String getReqToken() {
+        return this.reqToken;
     }
 
 }
