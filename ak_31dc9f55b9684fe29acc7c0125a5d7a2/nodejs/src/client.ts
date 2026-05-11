@@ -84,11 +84,17 @@ export class QueryAntcloudAdomAppmarketPrivacyresultRequest extends $tea.Model {
   instanceId: string;
   // 执行记录id
   recordId: string;
+  // 响应的结果文件是否为密文，默认非密文
+  isEncryptFile?: boolean;
+  // 大模型调用鉴权token
+  reqToken?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       instanceId: 'instance_id',
       recordId: 'record_id',
+      isEncryptFile: 'is_encrypt_file',
+      reqToken: 'req_token',
     };
   }
 
@@ -97,6 +103,8 @@ export class QueryAntcloudAdomAppmarketPrivacyresultRequest extends $tea.Model {
       authToken: 'string',
       instanceId: 'string',
       recordId: 'string',
+      isEncryptFile: 'boolean',
+      reqToken: 'string',
     };
   }
 
@@ -118,6 +126,8 @@ export class QueryAntcloudAdomAppmarketPrivacyresultResponse extends $tea.Model 
   resultUrl?: string;
   // 失败的原因
   failedReason?: string;
+  // 结构化出参
+  structOutput?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -126,6 +136,7 @@ export class QueryAntcloudAdomAppmarketPrivacyresultResponse extends $tea.Model 
       status: 'status',
       resultUrl: 'result_url',
       failedReason: 'failed_reason',
+      structOutput: 'struct_output',
     };
   }
 
@@ -137,6 +148,7 @@ export class QueryAntcloudAdomAppmarketPrivacyresultResponse extends $tea.Model 
       status: 'string',
       resultUrl: 'string',
       failedReason: 'string',
+      structOutput: 'string',
     };
   }
 
@@ -211,12 +223,21 @@ export class ExecAntcloudAdomAppmarketPrivacymodelRequest extends $tea.Model {
   // 商品实例id
   instanceId: string;
   // 文件标识，文件上传时的入参
-  fileId: string;
+  fileId?: string;
+  // 结构化入参
+  structInput?: string;
+  // 上传的数据文件和产出的结果文件是否为密文，默认非密文
+  isEncryptFile?: boolean;
+  // 大模型调用时鉴权token
+  reqToken?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       instanceId: 'instance_id',
       fileId: 'file_id',
+      structInput: 'struct_input',
+      isEncryptFile: 'is_encrypt_file',
+      reqToken: 'req_token',
     };
   }
 
@@ -225,6 +246,9 @@ export class ExecAntcloudAdomAppmarketPrivacymodelRequest extends $tea.Model {
       authToken: 'string',
       instanceId: 'string',
       fileId: 'string',
+      structInput: 'string',
+      isEncryptFile: 'boolean',
+      reqToken: 'string',
     };
   }
 
@@ -240,7 +264,287 @@ export class ExecAntcloudAdomAppmarketPrivacymodelResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 执行记录id
+  // 执行状态
+  status?: string;
+  // 结果文件url
+  resultUrl?: string;
+  // 执行失败原因
+  failedReason?: string;
+  // 结构化出参
+  structOutput?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      status: 'status',
+      resultUrl: 'result_url',
+      failedReason: 'failed_reason',
+      structOutput: 'struct_output',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      status: 'string',
+      resultUrl: 'string',
+      failedReason: 'string',
+      structOutput: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadAntcloudAdomAppmarketOcrfileRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 所购商品实例id
+  instanceId: string;
+  // 文件名
+  fileName: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      instanceId: 'instance_id',
+      fileName: 'file_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      instanceId: 'string',
+      fileName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadAntcloudAdomAppmarketOcrfileResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 文件上传url
+  uploadUrl?: string;
+  // 文件key
+  fileKey?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      uploadUrl: 'upload_url',
+      fileKey: 'file_key',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      uploadUrl: 'string',
+      fileKey: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExecAntcloudAdomAppmarketBusinesslicenseocrRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 商品实例id
+  instanceId: string;
+  // 文件key
+  fileKey?: string;
+  // 文件url
+  fileUrl?: string;
+  // 扩展信息
+  ext?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      instanceId: 'instance_id',
+      fileKey: 'file_key',
+      fileUrl: 'file_url',
+      ext: 'ext',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      instanceId: 'string',
+      fileKey: 'string',
+      fileUrl: 'string',
+      ext: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExecAntcloudAdomAppmarketBusinesslicenseocrResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 地址
+  address?: string;
+  // 经营范围
+  business?: string;
+  // 注册资本
+  captial?: string;
+  // 企业成立日期
+  establishDate?: string;
+  // 名称，控股股东名称
+  name?: string;
+  // 法定代表人
+  person?: string;
+  // 统一社会信用代码，控股股东证件号码
+  regNum?: string;
+  // 印章
+  stamp?: string;
+  // 类型，如：有限责任公司(自然人独资)
+  type?: string;
+  // 营业期限，营业执照有效期，控股股东证件有效期
+  validPeriod?: string;
+  // 标题，如"营业执照"
+  title?: string;
+  // 颁发日期
+  date?: string;
+  // 编号
+  num?: string;
+  // 投资人
+  investors?: string;
+  // 组成形式
+  formation?: string;
+  // 注册日期
+  dateOfRegistration?: string;
+  // 经营者
+  operators?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      address: 'address',
+      business: 'business',
+      captial: 'captial',
+      establishDate: 'establish_date',
+      name: 'name',
+      person: 'person',
+      regNum: 'reg_num',
+      stamp: 'stamp',
+      type: 'type',
+      validPeriod: 'valid_period',
+      title: 'title',
+      date: 'date',
+      num: 'num',
+      investors: 'investors',
+      formation: 'formation',
+      dateOfRegistration: 'date_of_registration',
+      operators: 'operators',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      address: 'string',
+      business: 'string',
+      captial: 'string',
+      establishDate: 'string',
+      name: 'string',
+      person: 'string',
+      regNum: 'string',
+      stamp: 'string',
+      type: 'string',
+      validPeriod: 'string',
+      title: 'string',
+      date: 'string',
+      num: 'string',
+      investors: 'string',
+      formation: 'string',
+      dateOfRegistration: 'string',
+      operators: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SubmitAntcloudAdomAppmarketPrivacymodelRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 商品实例id
+  instanceId: string;
+  // 文件名称
+  fileId?: string;
+  // 结构化入参
+  structInput?: string;
+  // 上传的数据文件是否为密文，默认非密文
+  isEncryptFile?: boolean;
+  // 大模型调用时鉴权token
+  reqToken?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      instanceId: 'instance_id',
+      fileId: 'file_id',
+      structInput: 'struct_input',
+      isEncryptFile: 'is_encrypt_file',
+      reqToken: 'req_token',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      instanceId: 'string',
+      fileId: 'string',
+      structInput: 'string',
+      isEncryptFile: 'boolean',
+      reqToken: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SubmitAntcloudAdomAppmarketPrivacymodelResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 异步提交执行记录id
   recordId?: string;
   static names(): { [key: string]: string } {
     return {
@@ -292,7 +596,7 @@ export default class Client {
    * @param config config contains the necessary information to create a client
    */
   constructor(config: Config) {
-    if (Util.isUnset($tea.toMap(config))) {
+    if (Util.isUnset(config)) {
       throw $tea.newError({
         code: "ParameterMissing",
         message: "'config' can not be unset",
@@ -378,7 +682,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.1",
+          sdk_version: "1.1.1",
           _prod_code: "ak_31dc9f55b9684fe29acc7c0125a5d7a2",
           _prod_channel: "saas",
         };
@@ -465,8 +769,8 @@ export default class Client {
   }
 
   /**
-   * Description: 应用开放市场隐私模型运行时链路-提交执行
-   * Summary: 应用开放市场隐私模型运行时链路-提交执行
+   * Description: 应用开放市场隐私模型运行时链路-同步执行
+   * Summary: 应用开放市场隐私模型运行时链路-同步执行
    */
   async execAntcloudAdomAppmarketPrivacymodel(request: ExecAntcloudAdomAppmarketPrivacymodelRequest): Promise<ExecAntcloudAdomAppmarketPrivacymodelResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -475,12 +779,69 @@ export default class Client {
   }
 
   /**
-   * Description: 应用开放市场隐私模型运行时链路-提交执行
-   * Summary: 应用开放市场隐私模型运行时链路-提交执行
+   * Description: 应用开放市场隐私模型运行时链路-同步执行
+   * Summary: 应用开放市场隐私模型运行时链路-同步执行
    */
   async execAntcloudAdomAppmarketPrivacymodelEx(request: ExecAntcloudAdomAppmarketPrivacymodelRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ExecAntcloudAdomAppmarketPrivacymodelResponse> {
     Util.validateModel(request);
     return $tea.cast<ExecAntcloudAdomAppmarketPrivacymodelResponse>(await this.doRequest("1.0", "antcloud.adom.appmarket.privacymodel.exec", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ExecAntcloudAdomAppmarketPrivacymodelResponse({}));
+  }
+
+  /**
+   * Description: 应用开放市场OCR服务-文件上传
+   * Summary: 应用开放市场OCR服务-文件上传
+   */
+  async uploadAntcloudAdomAppmarketOcrfile(request: UploadAntcloudAdomAppmarketOcrfileRequest): Promise<UploadAntcloudAdomAppmarketOcrfileResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.uploadAntcloudAdomAppmarketOcrfileEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 应用开放市场OCR服务-文件上传
+   * Summary: 应用开放市场OCR服务-文件上传
+   */
+  async uploadAntcloudAdomAppmarketOcrfileEx(request: UploadAntcloudAdomAppmarketOcrfileRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UploadAntcloudAdomAppmarketOcrfileResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UploadAntcloudAdomAppmarketOcrfileResponse>(await this.doRequest("1.0", "antcloud.adom.appmarket.ocrfile.upload", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UploadAntcloudAdomAppmarketOcrfileResponse({}));
+  }
+
+  /**
+   * Description: 应用开放市场OCR服务-营业执照识别
+   * Summary: 应用开放市场OCR服务-营业执照识别
+   */
+  async execAntcloudAdomAppmarketBusinesslicenseocr(request: ExecAntcloudAdomAppmarketBusinesslicenseocrRequest): Promise<ExecAntcloudAdomAppmarketBusinesslicenseocrResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.execAntcloudAdomAppmarketBusinesslicenseocrEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 应用开放市场OCR服务-营业执照识别
+   * Summary: 应用开放市场OCR服务-营业执照识别
+   */
+  async execAntcloudAdomAppmarketBusinesslicenseocrEx(request: ExecAntcloudAdomAppmarketBusinesslicenseocrRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ExecAntcloudAdomAppmarketBusinesslicenseocrResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ExecAntcloudAdomAppmarketBusinesslicenseocrResponse>(await this.doRequest("1.0", "antcloud.adom.appmarket.businesslicenseocr.exec", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ExecAntcloudAdomAppmarketBusinesslicenseocrResponse({}));
+  }
+
+  /**
+   * Description: 应用开放市场隐私模型运行时链路-提交执行
+   * Summary: 应用开放市场隐私模型运行时链路-提交执行
+   */
+  async submitAntcloudAdomAppmarketPrivacymodel(request: SubmitAntcloudAdomAppmarketPrivacymodelRequest): Promise<SubmitAntcloudAdomAppmarketPrivacymodelResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.submitAntcloudAdomAppmarketPrivacymodelEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 应用开放市场隐私模型运行时链路-提交执行
+   * Summary: 应用开放市场隐私模型运行时链路-提交执行
+   */
+  async submitAntcloudAdomAppmarketPrivacymodelEx(request: SubmitAntcloudAdomAppmarketPrivacymodelRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SubmitAntcloudAdomAppmarketPrivacymodelResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SubmitAntcloudAdomAppmarketPrivacymodelResponse>(await this.doRequest("1.0", "antcloud.adom.appmarket.privacymodel.submit", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SubmitAntcloudAdomAppmarketPrivacymodelResponse({}));
   }
 
 }
