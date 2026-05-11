@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.0',
+    sdk_version = '1.1.1',
     _prod_code = 'ak_31dc9f55b9684fe29acc7c0125a5d7a2',
     _prod_channel = 'saas'
   };
@@ -168,6 +168,10 @@ model QueryAntcloudAdomAppmarketPrivacyresultRequest = {
   instanceId: string(name='instance_id'),
   // 执行记录id
   recordId: string(name='record_id'),
+  // 响应的结果文件是否为密文，默认非密文
+  isEncryptFile?: boolean(name='is_encrypt_file'),
+  // 大模型调用鉴权token
+  reqToken?: string(name='req_token'),
 }
 
 model QueryAntcloudAdomAppmarketPrivacyresultResponse = {
@@ -254,6 +258,10 @@ model ExecAntcloudAdomAppmarketPrivacymodelRequest = {
   fileId?: string(name='file_id'),
   // 结构化入参
   structInput?: string(name='struct_input'),
+  // 上传的数据文件和产出的结果文件是否为密文，默认非密文
+  isEncryptFile?: boolean(name='is_encrypt_file'),
+  // 大模型调用时鉴权token
+  reqToken?: string(name='req_token'),
 }
 
 model ExecAntcloudAdomAppmarketPrivacymodelResponse = {
@@ -417,6 +425,10 @@ model SubmitAntcloudAdomAppmarketPrivacymodelRequest = {
   fileId?: string(name='file_id'),
   // 结构化入参
   structInput?: string(name='struct_input'),
+  // 上传的数据文件是否为密文，默认非密文
+  isEncryptFile?: boolean(name='is_encrypt_file'),
+  // 大模型调用时鉴权token
+  reqToken?: string(name='req_token'),
 }
 
 model SubmitAntcloudAdomAppmarketPrivacymodelResponse = {
