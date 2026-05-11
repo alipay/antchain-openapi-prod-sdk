@@ -155,6 +155,10 @@ type QueryAntcloudAdomAppmarketPrivacyresultRequest struct {
 	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true"`
 	// 执行记录id
 	RecordId *string `json:"record_id,omitempty" xml:"record_id,omitempty" require:"true"`
+	// 响应的结果文件是否为密文，默认非密文
+	IsEncryptFile *bool `json:"is_encrypt_file,omitempty" xml:"is_encrypt_file,omitempty"`
+	// 大模型调用鉴权token
+	ReqToken *string `json:"req_token,omitempty" xml:"req_token,omitempty"`
 }
 
 func (s QueryAntcloudAdomAppmarketPrivacyresultRequest) String() string {
@@ -177,6 +181,16 @@ func (s *QueryAntcloudAdomAppmarketPrivacyresultRequest) SetInstanceId(v string)
 
 func (s *QueryAntcloudAdomAppmarketPrivacyresultRequest) SetRecordId(v string) *QueryAntcloudAdomAppmarketPrivacyresultRequest {
 	s.RecordId = &v
+	return s
+}
+
+func (s *QueryAntcloudAdomAppmarketPrivacyresultRequest) SetIsEncryptFile(v bool) *QueryAntcloudAdomAppmarketPrivacyresultRequest {
+	s.IsEncryptFile = &v
+	return s
+}
+
+func (s *QueryAntcloudAdomAppmarketPrivacyresultRequest) SetReqToken(v string) *QueryAntcloudAdomAppmarketPrivacyresultRequest {
+	s.ReqToken = &v
 	return s
 }
 
@@ -320,6 +334,10 @@ type ExecAntcloudAdomAppmarketPrivacymodelRequest struct {
 	FileId *string `json:"file_id,omitempty" xml:"file_id,omitempty"`
 	// 结构化入参
 	StructInput *string `json:"struct_input,omitempty" xml:"struct_input,omitempty"`
+	// 上传的数据文件和产出的结果文件是否为密文，默认非密文
+	IsEncryptFile *bool `json:"is_encrypt_file,omitempty" xml:"is_encrypt_file,omitempty"`
+	// 大模型调用时鉴权token
+	ReqToken *string `json:"req_token,omitempty" xml:"req_token,omitempty"`
 }
 
 func (s ExecAntcloudAdomAppmarketPrivacymodelRequest) String() string {
@@ -347,6 +365,16 @@ func (s *ExecAntcloudAdomAppmarketPrivacymodelRequest) SetFileId(v string) *Exec
 
 func (s *ExecAntcloudAdomAppmarketPrivacymodelRequest) SetStructInput(v string) *ExecAntcloudAdomAppmarketPrivacymodelRequest {
 	s.StructInput = &v
+	return s
+}
+
+func (s *ExecAntcloudAdomAppmarketPrivacymodelRequest) SetIsEncryptFile(v bool) *ExecAntcloudAdomAppmarketPrivacymodelRequest {
+	s.IsEncryptFile = &v
+	return s
+}
+
+func (s *ExecAntcloudAdomAppmarketPrivacymodelRequest) SetReqToken(v string) *ExecAntcloudAdomAppmarketPrivacymodelRequest {
+	s.ReqToken = &v
 	return s
 }
 
@@ -694,6 +722,10 @@ type SubmitAntcloudAdomAppmarketPrivacymodelRequest struct {
 	FileId *string `json:"file_id,omitempty" xml:"file_id,omitempty"`
 	// 结构化入参
 	StructInput *string `json:"struct_input,omitempty" xml:"struct_input,omitempty"`
+	// 上传的数据文件是否为密文，默认非密文
+	IsEncryptFile *bool `json:"is_encrypt_file,omitempty" xml:"is_encrypt_file,omitempty"`
+	// 大模型调用时鉴权token
+	ReqToken *string `json:"req_token,omitempty" xml:"req_token,omitempty"`
 }
 
 func (s SubmitAntcloudAdomAppmarketPrivacymodelRequest) String() string {
@@ -721,6 +753,16 @@ func (s *SubmitAntcloudAdomAppmarketPrivacymodelRequest) SetFileId(v string) *Su
 
 func (s *SubmitAntcloudAdomAppmarketPrivacymodelRequest) SetStructInput(v string) *SubmitAntcloudAdomAppmarketPrivacymodelRequest {
 	s.StructInput = &v
+	return s
+}
+
+func (s *SubmitAntcloudAdomAppmarketPrivacymodelRequest) SetIsEncryptFile(v bool) *SubmitAntcloudAdomAppmarketPrivacymodelRequest {
+	s.IsEncryptFile = &v
+	return s
+}
+
+func (s *SubmitAntcloudAdomAppmarketPrivacymodelRequest) SetReqToken(v string) *SubmitAntcloudAdomAppmarketPrivacymodelRequest {
+	s.ReqToken = &v
 	return s
 }
 
@@ -885,7 +927,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.0"),
+				"sdk_version":      tea.String("1.1.1"),
 				"_prod_code":       tea.String("ak_31dc9f55b9684fe29acc7c0125a5d7a2"),
 				"_prod_channel":    tea.String("saas"),
 			}
