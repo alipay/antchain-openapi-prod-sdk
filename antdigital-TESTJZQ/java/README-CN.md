@@ -1,14 +1,21 @@
-# Java SDK
+# Ant Chain antdigital-TESTJZQ SDK for Java
+
+[English](README.md) | 简体中文
 
 ## 安装
 
-## 环境要求
+```xml
+<dependency>
+   <groupId>com.antgroup.antchain.openapi</groupId>
+   <artifactId>antdigital-testjzq</artifactId>
+   <version>1.0.8</version>
+</dependency>
+```
 
-- Java 1.8+
-- Maven/Gradle
+## 问题
 
-## 使用方法
-
-## 文档
+[提交 Issue](https://github.com/alipay/antchain-openapi-prod-sdk/issues/new)
 
 ## 许可证
+
+[Apache-2.0](http://www.apache.org/licenses/LICENSE-2.0)
