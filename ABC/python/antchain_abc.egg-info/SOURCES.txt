@@ -4,6 +4,6 @@ antchain_abc.egg-info/SOURCES.txt
 antchain_abc.egg-info/dependency_links.txt
 antchain_abc.egg-info/requires.txt
 antchain_abc.egg-info/top_level.txt
-antchain_sdk_demo/__init__.py
-antchain_sdk_demo/client.py
-antchain_sdk_demo/models.py
+antchain_sdk_abc/__init__.py
+antchain_sdk_abc/client.py
+antchain_sdk_abc/models.py
