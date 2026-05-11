@@ -31,11 +31,25 @@ class SubmitAntcloudAdomAppmarketPrivacymodelRequest extends Model
      * @var string
      */
     public $structInput;
+
+    // 上传的数据文件是否为密文，默认非密文
+    /**
+     * @var bool
+     */
+    public $isEncryptFile;
+
+    // 大模型调用时鉴权token
+    /**
+     * @var string
+     */
+    public $reqToken;
     protected $_name = [
-        'authToken'   => 'auth_token',
-        'instanceId'  => 'instance_id',
-        'fileId'      => 'file_id',
-        'structInput' => 'struct_input',
+        'authToken'     => 'auth_token',
+        'instanceId'    => 'instance_id',
+        'fileId'        => 'file_id',
+        'structInput'   => 'struct_input',
+        'isEncryptFile' => 'is_encrypt_file',
+        'reqToken'      => 'req_token',
     ];
 
     public function validate()
@@ -57,6 +71,12 @@ class SubmitAntcloudAdomAppmarketPrivacymodelRequest extends Model
         }
         if (null !== $this->structInput) {
             $res['struct_input'] = $this->structInput;
+        }
+        if (null !== $this->isEncryptFile) {
+            $res['is_encrypt_file'] = $this->isEncryptFile;
+        }
+        if (null !== $this->reqToken) {
+            $res['req_token'] = $this->reqToken;
         }
 
         return $res;
@@ -81,6 +101,12 @@ class SubmitAntcloudAdomAppmarketPrivacymodelRequest extends Model
         }
         if (isset($map['struct_input'])) {
             $model->structInput = $map['struct_input'];
+        }
+        if (isset($map['is_encrypt_file'])) {
+            $model->isEncryptFile = $map['is_encrypt_file'];
+        }
+        if (isset($map['req_token'])) {
+            $model->reqToken = $map['req_token'];
         }
 
         return $model;

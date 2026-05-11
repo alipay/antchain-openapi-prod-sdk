@@ -25,10 +25,24 @@ class QueryAntcloudAdomAppmarketPrivacyresultRequest extends Model
      * @var string
      */
     public $recordId;
+
+    // 响应的结果文件是否为密文，默认非密文
+    /**
+     * @var bool
+     */
+    public $isEncryptFile;
+
+    // 大模型调用鉴权token
+    /**
+     * @var string
+     */
+    public $reqToken;
     protected $_name = [
-        'authToken'  => 'auth_token',
-        'instanceId' => 'instance_id',
-        'recordId'   => 'record_id',
+        'authToken'     => 'auth_token',
+        'instanceId'    => 'instance_id',
+        'recordId'      => 'record_id',
+        'isEncryptFile' => 'is_encrypt_file',
+        'reqToken'      => 'req_token',
     ];
 
     public function validate()
@@ -48,6 +62,12 @@ class QueryAntcloudAdomAppmarketPrivacyresultRequest extends Model
         }
         if (null !== $this->recordId) {
             $res['record_id'] = $this->recordId;
+        }
+        if (null !== $this->isEncryptFile) {
+            $res['is_encrypt_file'] = $this->isEncryptFile;
+        }
+        if (null !== $this->reqToken) {
+            $res['req_token'] = $this->reqToken;
         }
 
         return $res;
@@ -69,6 +89,12 @@ class QueryAntcloudAdomAppmarketPrivacyresultRequest extends Model
         }
         if (isset($map['record_id'])) {
             $model->recordId = $map['record_id'];
+        }
+        if (isset($map['is_encrypt_file'])) {
+            $model->isEncryptFile = $map['is_encrypt_file'];
+        }
+        if (isset($map['req_token'])) {
+            $model->reqToken = $map['req_token'];
         }
 
         return $model;
