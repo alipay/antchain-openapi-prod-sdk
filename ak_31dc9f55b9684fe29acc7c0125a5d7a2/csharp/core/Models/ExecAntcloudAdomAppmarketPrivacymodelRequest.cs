@@ -29,6 +29,16 @@ namespace AntChain.SDK.Ak_31dc9f55b9684fe29acc7c0125a5d7a2.Models
         [Validation(Required=false)]
         public string StructInput { get; set; }
 
+        // 上传的数据文件和产出的结果文件是否为密文，默认非密文
+        [NameInMap("is_encrypt_file")]
+        [Validation(Required=false)]
+        public bool? IsEncryptFile { get; set; }
+
+        // 大模型调用时鉴权token
+        [NameInMap("req_token")]
+        [Validation(Required=false)]
+        public string ReqToken { get; set; }
+
     }
 
 }
