@@ -159,6 +159,8 @@ class QueryAntcloudAdomAppmarketPrivacyresultRequest(TeaModel):
         auth_token: str = None,
         instance_id: str = None,
         record_id: str = None,
+        is_encrypt_file: bool = None,
+        req_token: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -166,6 +168,10 @@ class QueryAntcloudAdomAppmarketPrivacyresultRequest(TeaModel):
         self.instance_id = instance_id
         # 执行记录id
         self.record_id = record_id
+        # 响应的结果文件是否为密文，默认非密文
+        self.is_encrypt_file = is_encrypt_file
+        # 大模型调用鉴权token
+        self.req_token = req_token
 
     def validate(self):
         self.validate_required(self.instance_id, 'instance_id')
@@ -183,6 +189,10 @@ class QueryAntcloudAdomAppmarketPrivacyresultRequest(TeaModel):
             result['instance_id'] = self.instance_id
         if self.record_id is not None:
             result['record_id'] = self.record_id
+        if self.is_encrypt_file is not None:
+            result['is_encrypt_file'] = self.is_encrypt_file
+        if self.req_token is not None:
+            result['req_token'] = self.req_token
         return result
 
     def from_map(self, m: dict = None):
@@ -193,6 +203,10 @@ class QueryAntcloudAdomAppmarketPrivacyresultRequest(TeaModel):
             self.instance_id = m.get('instance_id')
         if m.get('record_id') is not None:
             self.record_id = m.get('record_id')
+        if m.get('is_encrypt_file') is not None:
+            self.is_encrypt_file = m.get('is_encrypt_file')
+        if m.get('req_token') is not None:
+            self.req_token = m.get('req_token')
         return self
 
 
@@ -365,6 +379,8 @@ class ExecAntcloudAdomAppmarketPrivacymodelRequest(TeaModel):
         instance_id: str = None,
         file_id: str = None,
         struct_input: str = None,
+        is_encrypt_file: bool = None,
+        req_token: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -374,6 +390,10 @@ class ExecAntcloudAdomAppmarketPrivacymodelRequest(TeaModel):
         self.file_id = file_id
         # 结构化入参
         self.struct_input = struct_input
+        # 上传的数据文件和产出的结果文件是否为密文，默认非密文
+        self.is_encrypt_file = is_encrypt_file
+        # 大模型调用时鉴权token
+        self.req_token = req_token
 
     def validate(self):
         self.validate_required(self.instance_id, 'instance_id')
@@ -392,6 +412,10 @@ class ExecAntcloudAdomAppmarketPrivacymodelRequest(TeaModel):
             result['file_id'] = self.file_id
         if self.struct_input is not None:
             result['struct_input'] = self.struct_input
+        if self.is_encrypt_file is not None:
+            result['is_encrypt_file'] = self.is_encrypt_file
+        if self.req_token is not None:
+            result['req_token'] = self.req_token
         return result
 
     def from_map(self, m: dict = None):
@@ -404,6 +428,10 @@ class ExecAntcloudAdomAppmarketPrivacymodelRequest(TeaModel):
             self.file_id = m.get('file_id')
         if m.get('struct_input') is not None:
             self.struct_input = m.get('struct_input')
+        if m.get('is_encrypt_file') is not None:
+            self.is_encrypt_file = m.get('is_encrypt_file')
+        if m.get('req_token') is not None:
+            self.req_token = m.get('req_token')
         return self
 
 
@@ -800,6 +828,8 @@ class SubmitAntcloudAdomAppmarketPrivacymodelRequest(TeaModel):
         instance_id: str = None,
         file_id: str = None,
         struct_input: str = None,
+        is_encrypt_file: bool = None,
+        req_token: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -809,6 +839,10 @@ class SubmitAntcloudAdomAppmarketPrivacymodelRequest(TeaModel):
         self.file_id = file_id
         # 结构化入参
         self.struct_input = struct_input
+        # 上传的数据文件是否为密文，默认非密文
+        self.is_encrypt_file = is_encrypt_file
+        # 大模型调用时鉴权token
+        self.req_token = req_token
 
     def validate(self):
         self.validate_required(self.instance_id, 'instance_id')
@@ -827,6 +861,10 @@ class SubmitAntcloudAdomAppmarketPrivacymodelRequest(TeaModel):
             result['file_id'] = self.file_id
         if self.struct_input is not None:
             result['struct_input'] = self.struct_input
+        if self.is_encrypt_file is not None:
+            result['is_encrypt_file'] = self.is_encrypt_file
+        if self.req_token is not None:
+            result['req_token'] = self.req_token
         return result
 
     def from_map(self, m: dict = None):
@@ -839,6 +877,10 @@ class SubmitAntcloudAdomAppmarketPrivacymodelRequest(TeaModel):
             self.file_id = m.get('file_id')
         if m.get('struct_input') is not None:
             self.struct_input = m.get('struct_input')
+        if m.get('is_encrypt_file') is not None:
+            self.is_encrypt_file = m.get('is_encrypt_file')
+        if m.get('req_token') is not None:
+            self.req_token = m.get('req_token')
         return self
 
 
