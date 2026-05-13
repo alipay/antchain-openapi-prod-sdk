@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '3.4.0',
+    sdk_version = '3.6.0',
     _prod_code = 'DTAIAGT',
     _prod_channel = 'default'
   };
@@ -1025,6 +1025,60 @@ model MCPDetailCommonResult {
   bizError: BizErrorInfo(name='biz_error', example='biz_error'),
 }
 
+// MarketRichDetailVO 网关对象
+model GatewayMarketRichDetailVO {
+  // 市场条目 ID
+  id?: long(name='id', example='市场条目 ID'),
+  // 资产类型（skill / package / agent / workflow / tool / card / mcp）
+  type?: string(name='type', example='资产类型（skill / package / agent / workflow / tool / card / mcp）'),
+  // 名称
+  name?: string(name='name', example='名称'),
+  // 描述
+  description?: string(name='description', example='描述'),
+  // ref_id
+  refId?: long(name='ref_id', example='ref_id'),
+  // tags
+  tags?: [ string ](name='tags', example='tags'),
+  // labels
+  labels?: [ string ](name='labels', example='labels'),
+  // creator
+  creator?: string(name='creator', example='creator'),
+  // download_count
+  downloadCount?: long(name='download_count', example='download_count'),
+  // view_count
+  viewCount?: long(name='view_count', example='view_count'),
+  // subscription_count
+  subscriptionCount?: long(name='subscription_count', example='subscription_count'),
+  // recommend_flag
+  recommendFlag?: boolean(name='recommend_flag', example='recommend_flag'),
+  // status
+  status?: string(name='status', example='status'),
+  // subscription_status
+  subscriptionStatus?: string(name='subscription_status', example='subscription_status'),
+  // channels
+  channels?: string(name='channels', example='channels'),
+  // downloadable
+  downloadable?: boolean(name='downloadable', example='downloadable'),
+  // gmt_create
+  gmtCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_create', example='gmt_create'),
+  // gmt_modified
+  gmtModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_modified', example='gmt_modified'),
+  // version
+  version?: string(name='version', example='version'),
+  // source
+  source?: string(name='source', example='source'),
+  // meta
+  meta?: string(name='meta', example='meta'),
+  // ext
+  ext?: string(name='ext', example='ext'),
+  // modifier
+  modifier?: string(name='modifier', example='modifier'),
+  // download_url
+  downloadUrl?: string(name='download_url', example='download_url'),
+  // ext_parsed
+  extParsed?: string(name='ext_parsed', example='ext_parsed'),
+}
+
 // 删除Agent会话 Result
 model DeleteSessionFromAgentChatHistoryResult {
   // success
@@ -1268,6 +1322,184 @@ async function cancelAgentChat(request: CancelAgentChatRequest): CancelAgentChat
 async function cancelAgentChatEx(request: CancelAgentChatRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CancelAgentChatResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antdigital.dtaiagt.agent.chat.cancel', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryMarketRichdetailRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 市场条目 ID，必填
+  id: long(name='id'),
+  // 当前空间 ID（用于判断订阅状态），非必填
+  botId?: long(name='bot_id'),
+}
+
+model QueryMarketRichdetailResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // Agentar Result
+  data?: StringResult(name='data'),
+}
+
+/**
+ * Description: 通用市场列表查询
+ * Summary: 通用市场列表查询
+ */
+async function queryMarketRichdetail(request: QueryMarketRichdetailRequest): QueryMarketRichdetailResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryMarketRichdetailEx(request, headers, runtime);
+}
+
+/**
+ * Description: 通用市场列表查询
+ * Summary: 通用市场列表查询
+ */
+async function queryMarketRichdetailEx(request: QueryMarketRichdetailRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryMarketRichdetailResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.dtaiagt.market.richdetail.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DispatchAgentSaasRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // map 结构
+  param: string(name='param'),
+}
+
+model DispatchAgentSaasResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // map 结构
+  data?: string(name='data'),
+}
+
+/**
+ * Description: agentar2.0 接口分发
+ * Summary: agentar2.0 接口分发
+ */
+async function dispatchAgentSaas(request: DispatchAgentSaasRequest): DispatchAgentSaasResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return dispatchAgentSaasEx(request, headers, runtime);
+}
+
+/**
+ * Description: agentar2.0 接口分发
+ * Summary: agentar2.0 接口分发
+ */
+async function dispatchAgentSaasEx(request: DispatchAgentSaasRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DispatchAgentSaasResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.dtaiagt.agent.saas.dispatch', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UploadAgentPortalRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // string
+  fileObject?: readable(description='待上传文件', ignore='true'),
+  fileObjectName?: string(description='待上传文件名', ignore='true'),
+  fileId: string(name='file_id'),
+  // workSpace
+  path: string(name='path'),
+}
+
+model UploadAgentPortalResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 文件信息
+  data?: UploadAttachmentFileVO(name='data'),
+}
+
+/**
+ * Description: agentar2.0文件上传接口
+ * Summary: agentar2.0文件上传接口
+ */
+async function uploadAgentPortal(request: UploadAgentPortalRequest): UploadAgentPortalResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return uploadAgentPortalEx(request, headers, runtime);
+}
+
+/**
+ * Description: agentar2.0文件上传接口
+ * Summary: agentar2.0文件上传接口
+ */
+async function uploadAgentPortalEx(request: UploadAgentPortalRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadAgentPortalResponse {
+  if (!Util.isUnset(request.fileObject)) {
+    var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
+      authToken = request.authToken,
+      apiCode = 'antdigital.dtaiagt.agent.portal.upload',
+      fileName = request.fileObjectName,
+    };
+    var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+    if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+      var uploadAgentPortalResponse = new UploadAgentPortalResponse{
+        reqMsgId = uploadResp.reqMsgId,
+        resultCode = uploadResp.resultCode,
+        resultMsg = uploadResp.resultMsg,
+      };
+      return uploadAgentPortalResponse;
+    }
+    var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+    AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+    request.fileId = uploadResp.fileId;
+    request.fileObject = null;
+  }
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.dtaiagt.agent.portal.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model StartIagentCchatRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 请求内容，内容为 AgentChatReq 对象的json字符串
+  agentChatRequest: string(name='agent_chat_request'),
+}
+
+model StartIagentCchatResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 会话结果
+  chatCompletionObject?: string(name='chat_completion_object'),
+}
+
+/**
+ * Description: saas国际站-新加坡-同步对话接口
+ * Summary: saas国际站-新加坡-同步对话接口
+ */
+async function startIagentCchat(request: StartIagentCchatRequest): StartIagentCchatResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return startIagentCchatEx(request, headers, runtime);
+}
+
+/**
+ * Description: saas国际站-新加坡-同步对话接口
+ * Summary: saas国际站-新加坡-同步对话接口
+ */
+async function startIagentCchatEx(request: StartIagentCchatRequest, headers: map[string]string, runtime: Util.RuntimeOptions): StartIagentCchatResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.dtaiagt.iagent.cchat.start', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model UploadAlipayLibraryRequest = {
@@ -2032,6 +2264,8 @@ model UploadSaasAgentchatRequest = {
   fileObject?: readable(description='待上传文件', ignore='true'),
   fileObjectName?: string(description='待上传文件名', ignore='true'),
   fileId: string(name='file_id'),
+  // 文件解析方式 deep：e2md深度解析，耗时较长 simple：本地解析，解析快 不传：使用默认配置
+  parseType?: string(name='parse_type'),
 }
 
 model UploadSaasAgentchatResponse = {
