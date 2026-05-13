@@ -2761,6 +2761,193 @@ func (s *MCPDetailCommonResult) SetBizError(v *BizErrorInfo) *MCPDetailCommonRes
 	return s
 }
 
+// MarketRichDetailVO 网关对象
+type GatewayMarketRichDetailVO struct {
+	// 市场条目 ID
+	Id *int64 `json:"id,omitempty" xml:"id,omitempty"`
+	// 资产类型（skill / package / agent / workflow / tool / card / mcp）
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	// 名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 描述
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// ref_id
+	RefId *int64 `json:"ref_id,omitempty" xml:"ref_id,omitempty"`
+	// tags
+	Tags []*string `json:"tags,omitempty" xml:"tags,omitempty" type:"Repeated"`
+	// labels
+	Labels []*string `json:"labels,omitempty" xml:"labels,omitempty" type:"Repeated"`
+	// creator
+	Creator *string `json:"creator,omitempty" xml:"creator,omitempty"`
+	// download_count
+	DownloadCount *int64 `json:"download_count,omitempty" xml:"download_count,omitempty"`
+	// view_count
+	ViewCount *int64 `json:"view_count,omitempty" xml:"view_count,omitempty"`
+	// subscription_count
+	SubscriptionCount *int64 `json:"subscription_count,omitempty" xml:"subscription_count,omitempty"`
+	// recommend_flag
+	RecommendFlag *bool `json:"recommend_flag,omitempty" xml:"recommend_flag,omitempty"`
+	// status
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// subscription_status
+	SubscriptionStatus *string `json:"subscription_status,omitempty" xml:"subscription_status,omitempty"`
+	// channels
+	Channels *string `json:"channels,omitempty" xml:"channels,omitempty"`
+	// downloadable
+	Downloadable *bool `json:"downloadable,omitempty" xml:"downloadable,omitempty"`
+	// gmt_create
+	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// gmt_modified
+	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// version
+	Version *string `json:"version,omitempty" xml:"version,omitempty"`
+	// source
+	Source *string `json:"source,omitempty" xml:"source,omitempty"`
+	// meta
+	Meta *string `json:"meta,omitempty" xml:"meta,omitempty"`
+	// ext
+	Ext *string `json:"ext,omitempty" xml:"ext,omitempty"`
+	// modifier
+	Modifier *string `json:"modifier,omitempty" xml:"modifier,omitempty"`
+	// download_url
+	DownloadUrl *string `json:"download_url,omitempty" xml:"download_url,omitempty"`
+	// ext_parsed
+	ExtParsed *string `json:"ext_parsed,omitempty" xml:"ext_parsed,omitempty"`
+}
+
+func (s GatewayMarketRichDetailVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GatewayMarketRichDetailVO) GoString() string {
+	return s.String()
+}
+
+func (s *GatewayMarketRichDetailVO) SetId(v int64) *GatewayMarketRichDetailVO {
+	s.Id = &v
+	return s
+}
+
+func (s *GatewayMarketRichDetailVO) SetType(v string) *GatewayMarketRichDetailVO {
+	s.Type = &v
+	return s
+}
+
+func (s *GatewayMarketRichDetailVO) SetName(v string) *GatewayMarketRichDetailVO {
+	s.Name = &v
+	return s
+}
+
+func (s *GatewayMarketRichDetailVO) SetDescription(v string) *GatewayMarketRichDetailVO {
+	s.Description = &v
+	return s
+}
+
+func (s *GatewayMarketRichDetailVO) SetRefId(v int64) *GatewayMarketRichDetailVO {
+	s.RefId = &v
+	return s
+}
+
+func (s *GatewayMarketRichDetailVO) SetTags(v []*string) *GatewayMarketRichDetailVO {
+	s.Tags = v
+	return s
+}
+
+func (s *GatewayMarketRichDetailVO) SetLabels(v []*string) *GatewayMarketRichDetailVO {
+	s.Labels = v
+	return s
+}
+
+func (s *GatewayMarketRichDetailVO) SetCreator(v string) *GatewayMarketRichDetailVO {
+	s.Creator = &v
+	return s
+}
+
+func (s *GatewayMarketRichDetailVO) SetDownloadCount(v int64) *GatewayMarketRichDetailVO {
+	s.DownloadCount = &v
+	return s
+}
+
+func (s *GatewayMarketRichDetailVO) SetViewCount(v int64) *GatewayMarketRichDetailVO {
+	s.ViewCount = &v
+	return s
+}
+
+func (s *GatewayMarketRichDetailVO) SetSubscriptionCount(v int64) *GatewayMarketRichDetailVO {
+	s.SubscriptionCount = &v
+	return s
+}
+
+func (s *GatewayMarketRichDetailVO) SetRecommendFlag(v bool) *GatewayMarketRichDetailVO {
+	s.RecommendFlag = &v
+	return s
+}
+
+func (s *GatewayMarketRichDetailVO) SetStatus(v string) *GatewayMarketRichDetailVO {
+	s.Status = &v
+	return s
+}
+
+func (s *GatewayMarketRichDetailVO) SetSubscriptionStatus(v string) *GatewayMarketRichDetailVO {
+	s.SubscriptionStatus = &v
+	return s
+}
+
+func (s *GatewayMarketRichDetailVO) SetChannels(v string) *GatewayMarketRichDetailVO {
+	s.Channels = &v
+	return s
+}
+
+func (s *GatewayMarketRichDetailVO) SetDownloadable(v bool) *GatewayMarketRichDetailVO {
+	s.Downloadable = &v
+	return s
+}
+
+func (s *GatewayMarketRichDetailVO) SetGmtCreate(v string) *GatewayMarketRichDetailVO {
+	s.GmtCreate = &v
+	return s
+}
+
+func (s *GatewayMarketRichDetailVO) SetGmtModified(v string) *GatewayMarketRichDetailVO {
+	s.GmtModified = &v
+	return s
+}
+
+func (s *GatewayMarketRichDetailVO) SetVersion(v string) *GatewayMarketRichDetailVO {
+	s.Version = &v
+	return s
+}
+
+func (s *GatewayMarketRichDetailVO) SetSource(v string) *GatewayMarketRichDetailVO {
+	s.Source = &v
+	return s
+}
+
+func (s *GatewayMarketRichDetailVO) SetMeta(v string) *GatewayMarketRichDetailVO {
+	s.Meta = &v
+	return s
+}
+
+func (s *GatewayMarketRichDetailVO) SetExt(v string) *GatewayMarketRichDetailVO {
+	s.Ext = &v
+	return s
+}
+
+func (s *GatewayMarketRichDetailVO) SetModifier(v string) *GatewayMarketRichDetailVO {
+	s.Modifier = &v
+	return s
+}
+
+func (s *GatewayMarketRichDetailVO) SetDownloadUrl(v string) *GatewayMarketRichDetailVO {
+	s.DownloadUrl = &v
+	return s
+}
+
+func (s *GatewayMarketRichDetailVO) SetExtParsed(v string) *GatewayMarketRichDetailVO {
+	s.ExtParsed = &v
+	return s
+}
+
 // 删除Agent会话 Result
 type DeleteSessionFromAgentChatHistoryResult struct {
 	// success
@@ -3344,6 +3531,314 @@ func (s *CancelAgentChatResponse) SetResultMsg(v string) *CancelAgentChatRespons
 
 func (s *CancelAgentChatResponse) SetData(v string) *CancelAgentChatResponse {
 	s.Data = &v
+	return s
+}
+
+type QueryMarketRichdetailRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 市场条目 ID，必填
+	Id *int64 `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// 当前空间 ID（用于判断订阅状态），非必填
+	BotId *int64 `json:"bot_id,omitempty" xml:"bot_id,omitempty"`
+}
+
+func (s QueryMarketRichdetailRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryMarketRichdetailRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryMarketRichdetailRequest) SetAuthToken(v string) *QueryMarketRichdetailRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryMarketRichdetailRequest) SetProductInstanceId(v string) *QueryMarketRichdetailRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryMarketRichdetailRequest) SetId(v int64) *QueryMarketRichdetailRequest {
+	s.Id = &v
+	return s
+}
+
+func (s *QueryMarketRichdetailRequest) SetBotId(v int64) *QueryMarketRichdetailRequest {
+	s.BotId = &v
+	return s
+}
+
+type QueryMarketRichdetailResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// Agentar Result
+	Data *StringResult `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s QueryMarketRichdetailResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryMarketRichdetailResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryMarketRichdetailResponse) SetReqMsgId(v string) *QueryMarketRichdetailResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryMarketRichdetailResponse) SetResultCode(v string) *QueryMarketRichdetailResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryMarketRichdetailResponse) SetResultMsg(v string) *QueryMarketRichdetailResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryMarketRichdetailResponse) SetData(v *StringResult) *QueryMarketRichdetailResponse {
+	s.Data = v
+	return s
+}
+
+type DispatchAgentSaasRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// map 结构
+	Param *string `json:"param,omitempty" xml:"param,omitempty" require:"true"`
+}
+
+func (s DispatchAgentSaasRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DispatchAgentSaasRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DispatchAgentSaasRequest) SetAuthToken(v string) *DispatchAgentSaasRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DispatchAgentSaasRequest) SetProductInstanceId(v string) *DispatchAgentSaasRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *DispatchAgentSaasRequest) SetParam(v string) *DispatchAgentSaasRequest {
+	s.Param = &v
+	return s
+}
+
+type DispatchAgentSaasResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// map 结构
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s DispatchAgentSaasResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DispatchAgentSaasResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DispatchAgentSaasResponse) SetReqMsgId(v string) *DispatchAgentSaasResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DispatchAgentSaasResponse) SetResultCode(v string) *DispatchAgentSaasResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DispatchAgentSaasResponse) SetResultMsg(v string) *DispatchAgentSaasResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *DispatchAgentSaasResponse) SetData(v string) *DispatchAgentSaasResponse {
+	s.Data = &v
+	return s
+}
+
+type UploadAgentPortalRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// string
+	// 待上传文件
+	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
+	// 待上传文件名
+	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+	// workSpace
+	Path *string `json:"path,omitempty" xml:"path,omitempty" require:"true"`
+}
+
+func (s UploadAgentPortalRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadAgentPortalRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UploadAgentPortalRequest) SetAuthToken(v string) *UploadAgentPortalRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UploadAgentPortalRequest) SetProductInstanceId(v string) *UploadAgentPortalRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UploadAgentPortalRequest) SetFileObject(v io.Reader) *UploadAgentPortalRequest {
+	s.FileObject = v
+	return s
+}
+
+func (s *UploadAgentPortalRequest) SetFileObjectName(v string) *UploadAgentPortalRequest {
+	s.FileObjectName = &v
+	return s
+}
+
+func (s *UploadAgentPortalRequest) SetFileId(v string) *UploadAgentPortalRequest {
+	s.FileId = &v
+	return s
+}
+
+func (s *UploadAgentPortalRequest) SetPath(v string) *UploadAgentPortalRequest {
+	s.Path = &v
+	return s
+}
+
+type UploadAgentPortalResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 文件信息
+	Data *UploadAttachmentFileVO `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s UploadAgentPortalResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadAgentPortalResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UploadAgentPortalResponse) SetReqMsgId(v string) *UploadAgentPortalResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UploadAgentPortalResponse) SetResultCode(v string) *UploadAgentPortalResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UploadAgentPortalResponse) SetResultMsg(v string) *UploadAgentPortalResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UploadAgentPortalResponse) SetData(v *UploadAttachmentFileVO) *UploadAgentPortalResponse {
+	s.Data = v
+	return s
+}
+
+type StartIagentCchatRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求内容，内容为 AgentChatReq 对象的json字符串
+	AgentChatRequest *string `json:"agent_chat_request,omitempty" xml:"agent_chat_request,omitempty" require:"true"`
+}
+
+func (s StartIagentCchatRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StartIagentCchatRequest) GoString() string {
+	return s.String()
+}
+
+func (s *StartIagentCchatRequest) SetAuthToken(v string) *StartIagentCchatRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *StartIagentCchatRequest) SetProductInstanceId(v string) *StartIagentCchatRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *StartIagentCchatRequest) SetAgentChatRequest(v string) *StartIagentCchatRequest {
+	s.AgentChatRequest = &v
+	return s
+}
+
+type StartIagentCchatResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 会话结果
+	ChatCompletionObject *string `json:"chat_completion_object,omitempty" xml:"chat_completion_object,omitempty"`
+}
+
+func (s StartIagentCchatResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StartIagentCchatResponse) GoString() string {
+	return s.String()
+}
+
+func (s *StartIagentCchatResponse) SetReqMsgId(v string) *StartIagentCchatResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *StartIagentCchatResponse) SetResultCode(v string) *StartIagentCchatResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *StartIagentCchatResponse) SetResultMsg(v string) *StartIagentCchatResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *StartIagentCchatResponse) SetChatCompletionObject(v string) *StartIagentCchatResponse {
+	s.ChatCompletionObject = &v
 	return s
 }
 
@@ -4721,6 +5216,8 @@ type UploadSaasAgentchatRequest struct {
 	// 待上传文件名
 	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
 	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+	// 文件解析方式 deep：e2md深度解析，耗时较长 simple：本地解析，解析快 不传：使用默认配置
+	ParseType *string `json:"parse_type,omitempty" xml:"parse_type,omitempty"`
 }
 
 func (s UploadSaasAgentchatRequest) String() string {
@@ -4753,6 +5250,11 @@ func (s *UploadSaasAgentchatRequest) SetFileObjectName(v string) *UploadSaasAgen
 
 func (s *UploadSaasAgentchatRequest) SetFileId(v string) *UploadSaasAgentchatRequest {
 	s.FileId = &v
+	return s
+}
+
+func (s *UploadSaasAgentchatRequest) SetParseType(v string) *UploadSaasAgentchatRequest {
+	s.ParseType = &v
 	return s
 }
 
@@ -5248,7 +5750,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("3.4.0"),
+				"sdk_version":      tea.String("3.6.0"),
 				"_prod_code":       tea.String("DTAIAGT"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -5435,6 +5937,172 @@ func (client *Client) CancelAgentChatEx(request *CancelAgentChatRequest, headers
 	}
 	_result = &CancelAgentChatResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.dtaiagt.agent.chat.cancel"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 通用市场列表查询
+ * Summary: 通用市场列表查询
+ */
+func (client *Client) QueryMarketRichdetail(request *QueryMarketRichdetailRequest) (_result *QueryMarketRichdetailResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryMarketRichdetailResponse{}
+	_body, _err := client.QueryMarketRichdetailEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 通用市场列表查询
+ * Summary: 通用市场列表查询
+ */
+func (client *Client) QueryMarketRichdetailEx(request *QueryMarketRichdetailRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryMarketRichdetailResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryMarketRichdetailResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.dtaiagt.market.richdetail.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: agentar2.0 接口分发
+ * Summary: agentar2.0 接口分发
+ */
+func (client *Client) DispatchAgentSaas(request *DispatchAgentSaasRequest) (_result *DispatchAgentSaasResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DispatchAgentSaasResponse{}
+	_body, _err := client.DispatchAgentSaasEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: agentar2.0 接口分发
+ * Summary: agentar2.0 接口分发
+ */
+func (client *Client) DispatchAgentSaasEx(request *DispatchAgentSaasRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DispatchAgentSaasResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DispatchAgentSaasResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.dtaiagt.agent.saas.dispatch"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: agentar2.0文件上传接口
+ * Summary: agentar2.0文件上传接口
+ */
+func (client *Client) UploadAgentPortal(request *UploadAgentPortalRequest) (_result *UploadAgentPortalResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UploadAgentPortalResponse{}
+	_body, _err := client.UploadAgentPortalEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: agentar2.0文件上传接口
+ * Summary: agentar2.0文件上传接口
+ */
+func (client *Client) UploadAgentPortalEx(request *UploadAgentPortalRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UploadAgentPortalResponse, _err error) {
+	if !tea.BoolValue(util.IsUnset(request.FileObject)) {
+		uploadReq := &CreateAntcloudGatewayxFileUploadRequest{
+			AuthToken: request.AuthToken,
+			ApiCode:   tea.String("antdigital.dtaiagt.agent.portal.upload"),
+			FileName:  request.FileObjectName,
+		}
+		uploadResp, _err := client.CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime)
+		if _err != nil {
+			return _result, _err
+		}
+
+		if !tea.BoolValue(antchainutil.IsSuccess(uploadResp.ResultCode, tea.String("ok"))) {
+			uploadAgentPortalResponse := &UploadAgentPortalResponse{
+				ReqMsgId:   uploadResp.ReqMsgId,
+				ResultCode: uploadResp.ResultCode,
+				ResultMsg:  uploadResp.ResultMsg,
+			}
+			_result = uploadAgentPortalResponse
+			return _result, _err
+		}
+
+		uploadHeaders := antchainutil.ParseUploadHeaders(uploadResp.UploadHeaders)
+		_err = antchainutil.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl)
+		if _err != nil {
+			return _result, _err
+		}
+		request.FileId = uploadResp.FileId
+		request.FileObject = nil
+	}
+
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UploadAgentPortalResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.dtaiagt.agent.portal.upload"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: saas国际站-新加坡-同步对话接口
+ * Summary: saas国际站-新加坡-同步对话接口
+ */
+func (client *Client) StartIagentCchat(request *StartIagentCchatRequest) (_result *StartIagentCchatResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &StartIagentCchatResponse{}
+	_body, _err := client.StartIagentCchatEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: saas国际站-新加坡-同步对话接口
+ * Summary: saas国际站-新加坡-同步对话接口
+ */
+func (client *Client) StartIagentCchatEx(request *StartIagentCchatRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *StartIagentCchatResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &StartIagentCchatResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.dtaiagt.iagent.cchat.start"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
