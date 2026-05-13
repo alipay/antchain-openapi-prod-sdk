@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.dtaiagt.models;
 
 import com.aliyun.tea.*;
 
-public class UploadSaasAgentchatRequest extends TeaModel {
+public class UploadAgentPortalRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -11,7 +11,7 @@ public class UploadSaasAgentchatRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // fileId
+    // string
     /**
      * <p>待上传文件</p>
      */
@@ -28,16 +28,17 @@ public class UploadSaasAgentchatRequest extends TeaModel {
     @Validation(required = true)
     public String fileId;
 
-    // 文件解析方式 deep：e2md深度解析，耗时较长 simple：本地解析，解析快 不传：使用默认配置
-    @NameInMap("parse_type")
-    public String parseType;
+    // workSpace
+    @NameInMap("path")
+    @Validation(required = true)
+    public String path;
 
-    public static UploadSaasAgentchatRequest build(java.util.Map<String, ?> map) throws Exception {
-        UploadSaasAgentchatRequest self = new UploadSaasAgentchatRequest();
+    public static UploadAgentPortalRequest build(java.util.Map<String, ?> map) throws Exception {
+        UploadAgentPortalRequest self = new UploadAgentPortalRequest();
         return TeaModel.build(map, self);
     }
 
-    public UploadSaasAgentchatRequest setAuthToken(String authToken) {
+    public UploadAgentPortalRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -45,7 +46,7 @@ public class UploadSaasAgentchatRequest extends TeaModel {
         return this.authToken;
     }
 
-    public UploadSaasAgentchatRequest setProductInstanceId(String productInstanceId) {
+    public UploadAgentPortalRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -53,7 +54,7 @@ public class UploadSaasAgentchatRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public UploadSaasAgentchatRequest setFileObject(java.io.InputStream fileObject) {
+    public UploadAgentPortalRequest setFileObject(java.io.InputStream fileObject) {
         this.fileObject = fileObject;
         return this;
     }
@@ -61,7 +62,7 @@ public class UploadSaasAgentchatRequest extends TeaModel {
         return this.fileObject;
     }
 
-    public UploadSaasAgentchatRequest setFileObjectName(String fileObjectName) {
+    public UploadAgentPortalRequest setFileObjectName(String fileObjectName) {
         this.fileObjectName = fileObjectName;
         return this;
     }
@@ -69,7 +70,7 @@ public class UploadSaasAgentchatRequest extends TeaModel {
         return this.fileObjectName;
     }
 
-    public UploadSaasAgentchatRequest setFileId(String fileId) {
+    public UploadAgentPortalRequest setFileId(String fileId) {
         this.fileId = fileId;
         return this;
     }
@@ -77,12 +78,12 @@ public class UploadSaasAgentchatRequest extends TeaModel {
         return this.fileId;
     }
 
-    public UploadSaasAgentchatRequest setParseType(String parseType) {
-        this.parseType = parseType;
+    public UploadAgentPortalRequest setPath(String path) {
+        this.path = path;
         return this;
     }
-    public String getParseType() {
-        return this.parseType;
+    public String getPath() {
+        return this.path;
     }
 
 }
