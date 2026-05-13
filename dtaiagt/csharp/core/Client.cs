@@ -137,7 +137,7 @@ namespace AntChain.SDK.DTAIAGT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "3.4.0"},
+                        {"sdk_version", "3.6.0"},
                         {"_prod_code", "DTAIAGT"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.DTAIAGT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "3.4.0"},
+                        {"sdk_version", "3.6.0"},
                         {"_prod_code", "DTAIAGT"},
                         {"_prod_channel", "default"},
                     };
@@ -487,6 +487,222 @@ namespace AntChain.SDK.DTAIAGT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CancelAgentChatResponse>(await DoRequestAsync("1.0", "antdigital.dtaiagt.agent.chat.cancel", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 通用市场列表查询
+         * Summary: 通用市场列表查询
+         */
+        public QueryMarketRichdetailResponse QueryMarketRichdetail(QueryMarketRichdetailRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryMarketRichdetailEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 通用市场列表查询
+         * Summary: 通用市场列表查询
+         */
+        public async Task<QueryMarketRichdetailResponse> QueryMarketRichdetailAsync(QueryMarketRichdetailRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryMarketRichdetailExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 通用市场列表查询
+         * Summary: 通用市场列表查询
+         */
+        public QueryMarketRichdetailResponse QueryMarketRichdetailEx(QueryMarketRichdetailRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryMarketRichdetailResponse>(DoRequest("1.0", "antdigital.dtaiagt.market.richdetail.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 通用市场列表查询
+         * Summary: 通用市场列表查询
+         */
+        public async Task<QueryMarketRichdetailResponse> QueryMarketRichdetailExAsync(QueryMarketRichdetailRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryMarketRichdetailResponse>(await DoRequestAsync("1.0", "antdigital.dtaiagt.market.richdetail.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: agentar2.0 接口分发
+         * Summary: agentar2.0 接口分发
+         */
+        public DispatchAgentSaasResponse DispatchAgentSaas(DispatchAgentSaasRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return DispatchAgentSaasEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: agentar2.0 接口分发
+         * Summary: agentar2.0 接口分发
+         */
+        public async Task<DispatchAgentSaasResponse> DispatchAgentSaasAsync(DispatchAgentSaasRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await DispatchAgentSaasExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: agentar2.0 接口分发
+         * Summary: agentar2.0 接口分发
+         */
+        public DispatchAgentSaasResponse DispatchAgentSaasEx(DispatchAgentSaasRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DispatchAgentSaasResponse>(DoRequest("1.0", "antdigital.dtaiagt.agent.saas.dispatch", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: agentar2.0 接口分发
+         * Summary: agentar2.0 接口分发
+         */
+        public async Task<DispatchAgentSaasResponse> DispatchAgentSaasExAsync(DispatchAgentSaasRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DispatchAgentSaasResponse>(await DoRequestAsync("1.0", "antdigital.dtaiagt.agent.saas.dispatch", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: agentar2.0文件上传接口
+         * Summary: agentar2.0文件上传接口
+         */
+        public UploadAgentPortalResponse UploadAgentPortal(UploadAgentPortalRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UploadAgentPortalEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: agentar2.0文件上传接口
+         * Summary: agentar2.0文件上传接口
+         */
+        public async Task<UploadAgentPortalResponse> UploadAgentPortalAsync(UploadAgentPortalRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UploadAgentPortalExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: agentar2.0文件上传接口
+         * Summary: agentar2.0文件上传接口
+         */
+        public UploadAgentPortalResponse UploadAgentPortalEx(UploadAgentPortalRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "antdigital.dtaiagt.agent.portal.upload",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    UploadAgentPortalResponse uploadAgentPortalResponse = new UploadAgentPortalResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return uploadAgentPortalResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+                request.FileObject = null;
+            }
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UploadAgentPortalResponse>(DoRequest("1.0", "antdigital.dtaiagt.agent.portal.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: agentar2.0文件上传接口
+         * Summary: agentar2.0文件上传接口
+         */
+        public async Task<UploadAgentPortalResponse> UploadAgentPortalExAsync(UploadAgentPortalRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "antdigital.dtaiagt.agent.portal.upload",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = await CreateAntcloudGatewayxFileUploadExAsync(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    UploadAgentPortalResponse uploadAgentPortalResponse = new UploadAgentPortalResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return uploadAgentPortalResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+                request.FileObject = null;
+            }
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UploadAgentPortalResponse>(await DoRequestAsync("1.0", "antdigital.dtaiagt.agent.portal.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: saas国际站-新加坡-同步对话接口
+         * Summary: saas国际站-新加坡-同步对话接口
+         */
+        public StartIagentCchatResponse StartIagentCchat(StartIagentCchatRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return StartIagentCchatEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: saas国际站-新加坡-同步对话接口
+         * Summary: saas国际站-新加坡-同步对话接口
+         */
+        public async Task<StartIagentCchatResponse> StartIagentCchatAsync(StartIagentCchatRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await StartIagentCchatExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: saas国际站-新加坡-同步对话接口
+         * Summary: saas国际站-新加坡-同步对话接口
+         */
+        public StartIagentCchatResponse StartIagentCchatEx(StartIagentCchatRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<StartIagentCchatResponse>(DoRequest("1.0", "antdigital.dtaiagt.iagent.cchat.start", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: saas国际站-新加坡-同步对话接口
+         * Summary: saas国际站-新加坡-同步对话接口
+         */
+        public async Task<StartIagentCchatResponse> StartIagentCchatExAsync(StartIagentCchatRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<StartIagentCchatResponse>(await DoRequestAsync("1.0", "antdigital.dtaiagt.iagent.cchat.start", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
