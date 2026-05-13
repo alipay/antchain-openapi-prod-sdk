@@ -3604,6 +3604,205 @@ class MCPDetailCommonResult(TeaModel):
         return self
 
 
+class GatewayMarketRichDetailVO(TeaModel):
+    def __init__(
+        self,
+        id: int = None,
+        type: str = None,
+        name: str = None,
+        description: str = None,
+        ref_id: int = None,
+        tags: List[str] = None,
+        labels: List[str] = None,
+        creator: str = None,
+        download_count: int = None,
+        view_count: int = None,
+        subscription_count: int = None,
+        recommend_flag: bool = None,
+        status: str = None,
+        subscription_status: str = None,
+        channels: str = None,
+        downloadable: bool = None,
+        gmt_create: str = None,
+        gmt_modified: str = None,
+        version: str = None,
+        source: str = None,
+        meta: str = None,
+        ext: str = None,
+        modifier: str = None,
+        download_url: str = None,
+        ext_parsed: str = None,
+    ):
+        # 市场条目 ID
+        self.id = id
+        # 资产类型（skill / package / agent / workflow / tool / card / mcp）
+        self.type = type
+        # 名称
+        self.name = name
+        # 描述
+        self.description = description
+        # ref_id
+        self.ref_id = ref_id
+        # tags
+        self.tags = tags
+        # labels
+        self.labels = labels
+        # creator
+        self.creator = creator
+        # download_count
+        self.download_count = download_count
+        # view_count
+        self.view_count = view_count
+        # subscription_count
+        self.subscription_count = subscription_count
+        # recommend_flag
+        self.recommend_flag = recommend_flag
+        # status
+        self.status = status
+        # subscription_status
+        self.subscription_status = subscription_status
+        # channels
+        self.channels = channels
+        # downloadable
+        self.downloadable = downloadable
+        # gmt_create
+        self.gmt_create = gmt_create
+        # gmt_modified
+        self.gmt_modified = gmt_modified
+        # version
+        self.version = version
+        # source
+        self.source = source
+        # meta
+        self.meta = meta
+        # ext
+        self.ext = ext
+        # modifier
+        self.modifier = modifier
+        # download_url
+        self.download_url = download_url
+        # ext_parsed
+        self.ext_parsed = ext_parsed
+
+    def validate(self):
+        if self.gmt_create is not None:
+            self.validate_pattern(self.gmt_create, 'gmt_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.gmt_modified is not None:
+            self.validate_pattern(self.gmt_modified, 'gmt_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.id is not None:
+            result['id'] = self.id
+        if self.type is not None:
+            result['type'] = self.type
+        if self.name is not None:
+            result['name'] = self.name
+        if self.description is not None:
+            result['description'] = self.description
+        if self.ref_id is not None:
+            result['ref_id'] = self.ref_id
+        if self.tags is not None:
+            result['tags'] = self.tags
+        if self.labels is not None:
+            result['labels'] = self.labels
+        if self.creator is not None:
+            result['creator'] = self.creator
+        if self.download_count is not None:
+            result['download_count'] = self.download_count
+        if self.view_count is not None:
+            result['view_count'] = self.view_count
+        if self.subscription_count is not None:
+            result['subscription_count'] = self.subscription_count
+        if self.recommend_flag is not None:
+            result['recommend_flag'] = self.recommend_flag
+        if self.status is not None:
+            result['status'] = self.status
+        if self.subscription_status is not None:
+            result['subscription_status'] = self.subscription_status
+        if self.channels is not None:
+            result['channels'] = self.channels
+        if self.downloadable is not None:
+            result['downloadable'] = self.downloadable
+        if self.gmt_create is not None:
+            result['gmt_create'] = self.gmt_create
+        if self.gmt_modified is not None:
+            result['gmt_modified'] = self.gmt_modified
+        if self.version is not None:
+            result['version'] = self.version
+        if self.source is not None:
+            result['source'] = self.source
+        if self.meta is not None:
+            result['meta'] = self.meta
+        if self.ext is not None:
+            result['ext'] = self.ext
+        if self.modifier is not None:
+            result['modifier'] = self.modifier
+        if self.download_url is not None:
+            result['download_url'] = self.download_url
+        if self.ext_parsed is not None:
+            result['ext_parsed'] = self.ext_parsed
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('ref_id') is not None:
+            self.ref_id = m.get('ref_id')
+        if m.get('tags') is not None:
+            self.tags = m.get('tags')
+        if m.get('labels') is not None:
+            self.labels = m.get('labels')
+        if m.get('creator') is not None:
+            self.creator = m.get('creator')
+        if m.get('download_count') is not None:
+            self.download_count = m.get('download_count')
+        if m.get('view_count') is not None:
+            self.view_count = m.get('view_count')
+        if m.get('subscription_count') is not None:
+            self.subscription_count = m.get('subscription_count')
+        if m.get('recommend_flag') is not None:
+            self.recommend_flag = m.get('recommend_flag')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('subscription_status') is not None:
+            self.subscription_status = m.get('subscription_status')
+        if m.get('channels') is not None:
+            self.channels = m.get('channels')
+        if m.get('downloadable') is not None:
+            self.downloadable = m.get('downloadable')
+        if m.get('gmt_create') is not None:
+            self.gmt_create = m.get('gmt_create')
+        if m.get('gmt_modified') is not None:
+            self.gmt_modified = m.get('gmt_modified')
+        if m.get('version') is not None:
+            self.version = m.get('version')
+        if m.get('source') is not None:
+            self.source = m.get('source')
+        if m.get('meta') is not None:
+            self.meta = m.get('meta')
+        if m.get('ext') is not None:
+            self.ext = m.get('ext')
+        if m.get('modifier') is not None:
+            self.modifier = m.get('modifier')
+        if m.get('download_url') is not None:
+            self.download_url = m.get('download_url')
+        if m.get('ext_parsed') is not None:
+            self.ext_parsed = m.get('ext_parsed')
+        return self
+
+
 class DeleteSessionFromAgentChatHistoryResult(TeaModel):
     def __init__(
         self,
@@ -4360,6 +4559,399 @@ class CancelAgentChatResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('data') is not None:
             self.data = m.get('data')
+        return self
+
+
+class QueryMarketRichdetailRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        id: int = None,
+        bot_id: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 市场条目 ID，必填
+        self.id = id
+        # 当前空间 ID（用于判断订阅状态），非必填
+        self.bot_id = bot_id
+
+    def validate(self):
+        self.validate_required(self.id, 'id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.id is not None:
+            result['id'] = self.id
+        if self.bot_id is not None:
+            result['bot_id'] = self.bot_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('bot_id') is not None:
+            self.bot_id = m.get('bot_id')
+        return self
+
+
+class QueryMarketRichdetailResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: StringResult = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # Agentar Result
+        self.data = data
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.data is not None:
+            result['data'] = self.data.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('data') is not None:
+            temp_model = StringResult()
+            self.data = temp_model.from_map(m['data'])
+        return self
+
+
+class DispatchAgentSaasRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        param: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # map 结构
+        self.param = param
+
+    def validate(self):
+        self.validate_required(self.param, 'param')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.param is not None:
+            result['param'] = self.param
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('param') is not None:
+            self.param = m.get('param')
+        return self
+
+
+class DispatchAgentSaasResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # map 结构
+        self.data = data
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.data is not None:
+            result['data'] = self.data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('data') is not None:
+            self.data = m.get('data')
+        return self
+
+
+class UploadAgentPortalRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        file_object: BinaryIO = None,
+        file_object_name: str = None,
+        file_id: str = None,
+        path: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # string
+        # 待上传文件
+        self.file_object = file_object
+        # 待上传文件名
+        self.file_object_name = file_object_name
+        self.file_id = file_id
+        # workSpace
+        self.path = path
+
+    def validate(self):
+        self.validate_required(self.file_id, 'file_id')
+        self.validate_required(self.path, 'path')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.file_object is not None:
+            result['fileObject'] = self.file_object
+        if self.file_object_name is not None:
+            result['fileObjectName'] = self.file_object_name
+        if self.file_id is not None:
+            result['file_id'] = self.file_id
+        if self.path is not None:
+            result['path'] = self.path
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('fileObject') is not None:
+            self.file_object = m.get('fileObject')
+        if m.get('fileObjectName') is not None:
+            self.file_object_name = m.get('fileObjectName')
+        if m.get('file_id') is not None:
+            self.file_id = m.get('file_id')
+        if m.get('path') is not None:
+            self.path = m.get('path')
+        return self
+
+
+class UploadAgentPortalResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: UploadAttachmentFileVO = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 文件信息
+        self.data = data
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.data is not None:
+            result['data'] = self.data.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('data') is not None:
+            temp_model = UploadAttachmentFileVO()
+            self.data = temp_model.from_map(m['data'])
+        return self
+
+
+class StartIagentCchatRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        agent_chat_request: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 请求内容，内容为 AgentChatReq 对象的json字符串
+        self.agent_chat_request = agent_chat_request
+
+    def validate(self):
+        self.validate_required(self.agent_chat_request, 'agent_chat_request')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.agent_chat_request is not None:
+            result['agent_chat_request'] = self.agent_chat_request
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('agent_chat_request') is not None:
+            self.agent_chat_request = m.get('agent_chat_request')
+        return self
+
+
+class StartIagentCchatResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        chat_completion_object: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 会话结果
+        self.chat_completion_object = chat_completion_object
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.chat_completion_object is not None:
+            result['chat_completion_object'] = self.chat_completion_object
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('chat_completion_object') is not None:
+            self.chat_completion_object = m.get('chat_completion_object')
         return self
 
 
@@ -6109,6 +6701,7 @@ class UploadSaasAgentchatRequest(TeaModel):
         file_object: BinaryIO = None,
         file_object_name: str = None,
         file_id: str = None,
+        parse_type: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -6119,6 +6712,8 @@ class UploadSaasAgentchatRequest(TeaModel):
         # 待上传文件名
         self.file_object_name = file_object_name
         self.file_id = file_id
+        # 文件解析方式 deep：e2md深度解析，耗时较长 simple：本地解析，解析快 不传：使用默认配置
+        self.parse_type = parse_type
 
     def validate(self):
         self.validate_required(self.file_id, 'file_id')
@@ -6139,6 +6734,8 @@ class UploadSaasAgentchatRequest(TeaModel):
             result['fileObjectName'] = self.file_object_name
         if self.file_id is not None:
             result['file_id'] = self.file_id
+        if self.parse_type is not None:
+            result['parse_type'] = self.parse_type
         return result
 
     def from_map(self, m: dict = None):
@@ -6153,6 +6750,8 @@ class UploadSaasAgentchatRequest(TeaModel):
             self.file_object_name = m.get('fileObjectName')
         if m.get('file_id') is not None:
             self.file_id = m.get('file_id')
+        if m.get('parse_type') is not None:
+            self.parse_type = m.get('parse_type')
         return self
 
 

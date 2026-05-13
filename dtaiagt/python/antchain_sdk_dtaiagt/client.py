@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '3.4.0',
+                    'sdk_version': '3.6.0',
                     '_prod_code': 'DTAIAGT',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '3.4.0',
+                    'sdk_version': '3.6.0',
                     '_prod_code': 'DTAIAGT',
                     '_prod_channel': 'default'
                 }
@@ -497,6 +497,266 @@ class Client:
         return TeaCore.from_map(
             dtaiagt_models.CancelAgentChatResponse(),
             await self.do_request_async('1.0', 'antdigital.dtaiagt.agent.chat.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_market_richdetail(
+        self,
+        request: dtaiagt_models.QueryMarketRichdetailRequest,
+    ) -> dtaiagt_models.QueryMarketRichdetailResponse:
+        """
+        Description: 通用市场列表查询
+        Summary: 通用市场列表查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_market_richdetail_ex(request, headers, runtime)
+
+    async def query_market_richdetail_async(
+        self,
+        request: dtaiagt_models.QueryMarketRichdetailRequest,
+    ) -> dtaiagt_models.QueryMarketRichdetailResponse:
+        """
+        Description: 通用市场列表查询
+        Summary: 通用市场列表查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_market_richdetail_ex_async(request, headers, runtime)
+
+    def query_market_richdetail_ex(
+        self,
+        request: dtaiagt_models.QueryMarketRichdetailRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> dtaiagt_models.QueryMarketRichdetailResponse:
+        """
+        Description: 通用市场列表查询
+        Summary: 通用市场列表查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            dtaiagt_models.QueryMarketRichdetailResponse(),
+            self.do_request('1.0', 'antdigital.dtaiagt.market.richdetail.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_market_richdetail_ex_async(
+        self,
+        request: dtaiagt_models.QueryMarketRichdetailRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> dtaiagt_models.QueryMarketRichdetailResponse:
+        """
+        Description: 通用市场列表查询
+        Summary: 通用市场列表查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            dtaiagt_models.QueryMarketRichdetailResponse(),
+            await self.do_request_async('1.0', 'antdigital.dtaiagt.market.richdetail.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def dispatch_agent_saas(
+        self,
+        request: dtaiagt_models.DispatchAgentSaasRequest,
+    ) -> dtaiagt_models.DispatchAgentSaasResponse:
+        """
+        Description: agentar2.0 接口分发
+        Summary: agentar2.0 接口分发
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.dispatch_agent_saas_ex(request, headers, runtime)
+
+    async def dispatch_agent_saas_async(
+        self,
+        request: dtaiagt_models.DispatchAgentSaasRequest,
+    ) -> dtaiagt_models.DispatchAgentSaasResponse:
+        """
+        Description: agentar2.0 接口分发
+        Summary: agentar2.0 接口分发
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.dispatch_agent_saas_ex_async(request, headers, runtime)
+
+    def dispatch_agent_saas_ex(
+        self,
+        request: dtaiagt_models.DispatchAgentSaasRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> dtaiagt_models.DispatchAgentSaasResponse:
+        """
+        Description: agentar2.0 接口分发
+        Summary: agentar2.0 接口分发
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            dtaiagt_models.DispatchAgentSaasResponse(),
+            self.do_request('1.0', 'antdigital.dtaiagt.agent.saas.dispatch', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def dispatch_agent_saas_ex_async(
+        self,
+        request: dtaiagt_models.DispatchAgentSaasRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> dtaiagt_models.DispatchAgentSaasResponse:
+        """
+        Description: agentar2.0 接口分发
+        Summary: agentar2.0 接口分发
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            dtaiagt_models.DispatchAgentSaasResponse(),
+            await self.do_request_async('1.0', 'antdigital.dtaiagt.agent.saas.dispatch', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def upload_agent_portal(
+        self,
+        request: dtaiagt_models.UploadAgentPortalRequest,
+    ) -> dtaiagt_models.UploadAgentPortalResponse:
+        """
+        Description: agentar2.0文件上传接口
+        Summary: agentar2.0文件上传接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.upload_agent_portal_ex(request, headers, runtime)
+
+    async def upload_agent_portal_async(
+        self,
+        request: dtaiagt_models.UploadAgentPortalRequest,
+    ) -> dtaiagt_models.UploadAgentPortalResponse:
+        """
+        Description: agentar2.0文件上传接口
+        Summary: agentar2.0文件上传接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.upload_agent_portal_ex_async(request, headers, runtime)
+
+    def upload_agent_portal_ex(
+        self,
+        request: dtaiagt_models.UploadAgentPortalRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> dtaiagt_models.UploadAgentPortalResponse:
+        """
+        Description: agentar2.0文件上传接口
+        Summary: agentar2.0文件上传接口
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = dtaiagt_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antdigital.dtaiagt.agent.portal.upload',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                upload_agent_portal_response = dtaiagt_models.UploadAgentPortalResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return upload_agent_portal_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            dtaiagt_models.UploadAgentPortalResponse(),
+            self.do_request('1.0', 'antdigital.dtaiagt.agent.portal.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def upload_agent_portal_ex_async(
+        self,
+        request: dtaiagt_models.UploadAgentPortalRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> dtaiagt_models.UploadAgentPortalResponse:
+        """
+        Description: agentar2.0文件上传接口
+        Summary: agentar2.0文件上传接口
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = dtaiagt_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antdigital.dtaiagt.agent.portal.upload',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                upload_agent_portal_response = dtaiagt_models.UploadAgentPortalResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return upload_agent_portal_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            dtaiagt_models.UploadAgentPortalResponse(),
+            await self.do_request_async('1.0', 'antdigital.dtaiagt.agent.portal.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def start_iagent_cchat(
+        self,
+        request: dtaiagt_models.StartIagentCchatRequest,
+    ) -> dtaiagt_models.StartIagentCchatResponse:
+        """
+        Description: saas国际站-新加坡-同步对话接口
+        Summary: saas国际站-新加坡-同步对话接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.start_iagent_cchat_ex(request, headers, runtime)
+
+    async def start_iagent_cchat_async(
+        self,
+        request: dtaiagt_models.StartIagentCchatRequest,
+    ) -> dtaiagt_models.StartIagentCchatResponse:
+        """
+        Description: saas国际站-新加坡-同步对话接口
+        Summary: saas国际站-新加坡-同步对话接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.start_iagent_cchat_ex_async(request, headers, runtime)
+
+    def start_iagent_cchat_ex(
+        self,
+        request: dtaiagt_models.StartIagentCchatRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> dtaiagt_models.StartIagentCchatResponse:
+        """
+        Description: saas国际站-新加坡-同步对话接口
+        Summary: saas国际站-新加坡-同步对话接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            dtaiagt_models.StartIagentCchatResponse(),
+            self.do_request('1.0', 'antdigital.dtaiagt.iagent.cchat.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def start_iagent_cchat_ex_async(
+        self,
+        request: dtaiagt_models.StartIagentCchatRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> dtaiagt_models.StartIagentCchatResponse:
+        """
+        Description: saas国际站-新加坡-同步对话接口
+        Summary: saas国际站-新加坡-同步对话接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            dtaiagt_models.StartIagentCchatResponse(),
+            await self.do_request_async('1.0', 'antdigital.dtaiagt.iagent.cchat.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def upload_alipay_library(
