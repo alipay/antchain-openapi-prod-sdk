@@ -23,6 +23,8 @@ use AntChain\DTAIAGT\Models\DetailAgentInfoRequest;
 use AntChain\DTAIAGT\Models\DetailAgentInfoResponse;
 use AntChain\DTAIAGT\Models\DetailMcpMymcpRequest;
 use AntChain\DTAIAGT\Models\DetailMcpMymcpResponse;
+use AntChain\DTAIAGT\Models\DispatchAgentSaasRequest;
+use AntChain\DTAIAGT\Models\DispatchAgentSaasResponse;
 use AntChain\DTAIAGT\Models\DownloadLibraryDocRequest;
 use AntChain\DTAIAGT\Models\DownloadLibraryDocResponse;
 use AntChain\DTAIAGT\Models\ExecLibraryDocsplitRequest;
@@ -37,12 +39,16 @@ use AntChain\DTAIAGT\Models\OperateAgentTaskRequest;
 use AntChain\DTAIAGT\Models\OperateAgentTaskResponse;
 use AntChain\DTAIAGT\Models\PagequeryMcpMymcpRequest;
 use AntChain\DTAIAGT\Models\PagequeryMcpMymcpResponse;
+use AntChain\DTAIAGT\Models\QueryMarketRichdetailRequest;
+use AntChain\DTAIAGT\Models\QueryMarketRichdetailResponse;
 use AntChain\DTAIAGT\Models\StartAgentCchatRequest;
 use AntChain\DTAIAGT\Models\StartAgentCchatResponse;
 use AntChain\DTAIAGT\Models\StartAgentChatRequest;
 use AntChain\DTAIAGT\Models\StartAgentChatResponse;
 use AntChain\DTAIAGT\Models\StartAgentTaskRequest;
 use AntChain\DTAIAGT\Models\StartAgentTaskResponse;
+use AntChain\DTAIAGT\Models\StartIagentCchatRequest;
+use AntChain\DTAIAGT\Models\StartIagentCchatResponse;
 use AntChain\DTAIAGT\Models\StartOpenaiChatRequest;
 use AntChain\DTAIAGT\Models\StartOpenaiChatResponse;
 use AntChain\DTAIAGT\Models\StopAgentChatRequest;
@@ -53,6 +59,8 @@ use AntChain\DTAIAGT\Models\UpdateAgentChatRequest;
 use AntChain\DTAIAGT\Models\UpdateAgentChatResponse;
 use AntChain\DTAIAGT\Models\UploadAgentPortalchatRequest;
 use AntChain\DTAIAGT\Models\UploadAgentPortalchatResponse;
+use AntChain\DTAIAGT\Models\UploadAgentPortalRequest;
+use AntChain\DTAIAGT\Models\UploadAgentPortalResponse;
 use AntChain\DTAIAGT\Models\UploadAlipayAgentchatRequest;
 use AntChain\DTAIAGT\Models\UploadAlipayAgentchatResponse;
 use AntChain\DTAIAGT\Models\UploadAlipayLibraryRequest;
@@ -208,7 +216,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '3.4.0',
+                    'sdk_version'      => '3.6.0',
                     '_prod_code'       => 'DTAIAGT',
                     '_prod_channel'    => 'default',
                 ];
@@ -386,6 +394,157 @@ class Client
         Utils::validateModel($request);
 
         return CancelAgentChatResponse::fromMap($this->doRequest('1.0', 'antdigital.dtaiagt.agent.chat.cancel', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 通用市场列表查询
+     * Summary: 通用市场列表查询.
+     *
+     * @param QueryMarketRichdetailRequest $request
+     *
+     * @return QueryMarketRichdetailResponse
+     */
+    public function queryMarketRichdetail($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryMarketRichdetailEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 通用市场列表查询
+     * Summary: 通用市场列表查询.
+     *
+     * @param QueryMarketRichdetailRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return QueryMarketRichdetailResponse
+     */
+    public function queryMarketRichdetailEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryMarketRichdetailResponse::fromMap($this->doRequest('1.0', 'antdigital.dtaiagt.market.richdetail.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: agentar2.0 接口分发
+     * Summary: agentar2.0 接口分发.
+     *
+     * @param DispatchAgentSaasRequest $request
+     *
+     * @return DispatchAgentSaasResponse
+     */
+    public function dispatchAgentSaas($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->dispatchAgentSaasEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: agentar2.0 接口分发
+     * Summary: agentar2.0 接口分发.
+     *
+     * @param DispatchAgentSaasRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return DispatchAgentSaasResponse
+     */
+    public function dispatchAgentSaasEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DispatchAgentSaasResponse::fromMap($this->doRequest('1.0', 'antdigital.dtaiagt.agent.saas.dispatch', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: agentar2.0文件上传接口
+     * Summary: agentar2.0文件上传接口.
+     *
+     * @param UploadAgentPortalRequest $request
+     *
+     * @return UploadAgentPortalResponse
+     */
+    public function uploadAgentPortal($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->uploadAgentPortalEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: agentar2.0文件上传接口
+     * Summary: agentar2.0文件上传接口.
+     *
+     * @param UploadAgentPortalRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return UploadAgentPortalResponse
+     */
+    public function uploadAgentPortalEx($request, $headers, $runtime)
+    {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'antdigital.dtaiagt.agent.portal.upload',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
+                return new UploadAgentPortalResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
+        }
+        Utils::validateModel($request);
+
+        return UploadAgentPortalResponse::fromMap($this->doRequest('1.0', 'antdigital.dtaiagt.agent.portal.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: saas国际站-新加坡-同步对话接口
+     * Summary: saas国际站-新加坡-同步对话接口.
+     *
+     * @param StartIagentCchatRequest $request
+     *
+     * @return StartIagentCchatResponse
+     */
+    public function startIagentCchat($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startIagentCchatEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: saas国际站-新加坡-同步对话接口
+     * Summary: saas国际站-新加坡-同步对话接口.
+     *
+     * @param StartIagentCchatRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return StartIagentCchatResponse
+     */
+    public function startIagentCchatEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartIagentCchatResponse::fromMap($this->doRequest('1.0', 'antdigital.dtaiagt.iagent.cchat.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

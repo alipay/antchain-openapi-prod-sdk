@@ -7,7 +7,7 @@ namespace AntChain\DTAIAGT\Models;
 use AlibabaCloud\Tea\Model;
 use GuzzleHttp\Psr7\Stream;
 
-class UploadSaasAgentchatRequest extends Model
+class UploadAgentPortalRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -20,7 +20,7 @@ class UploadSaasAgentchatRequest extends Model
      */
     public $productInstanceId;
 
-    // fileId
+    // string
     /**
      * @description 待上传文件
      *
@@ -40,21 +40,22 @@ class UploadSaasAgentchatRequest extends Model
      */
     public $fileId;
 
-    // 文件解析方式 deep：e2md深度解析，耗时较长 simple：本地解析，解析快 不传：使用默认配置
+    // workSpace
     /**
      * @var string
      */
-    public $parseType;
+    public $path;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'fileId'            => 'file_id',
-        'parseType'         => 'parse_type',
+        'path'              => 'path',
     ];
 
     public function validate()
     {
         Model::validateRequired('fileId', $this->fileId, true);
+        Model::validateRequired('path', $this->path, true);
     }
 
     public function toMap()
@@ -75,8 +76,8 @@ class UploadSaasAgentchatRequest extends Model
         if (null !== $this->fileId) {
             $res['file_id'] = $this->fileId;
         }
-        if (null !== $this->parseType) {
-            $res['parse_type'] = $this->parseType;
+        if (null !== $this->path) {
+            $res['path'] = $this->path;
         }
 
         return $res;
@@ -85,7 +86,7 @@ class UploadSaasAgentchatRequest extends Model
     /**
      * @param array $map
      *
-     * @return UploadSaasAgentchatRequest
+     * @return UploadAgentPortalRequest
      */
     public static function fromMap($map = [])
     {
@@ -105,8 +106,8 @@ class UploadSaasAgentchatRequest extends Model
         if (isset($map['file_id'])) {
             $model->fileId = $map['file_id'];
         }
-        if (isset($map['parse_type'])) {
-            $model->parseType = $map['parse_type'];
+        if (isset($map['path'])) {
+            $model->path = $map['path'];
         }
 
         return $model;
