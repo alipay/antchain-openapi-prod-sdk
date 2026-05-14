@@ -15950,6 +15950,233 @@ class QueryAntchainAtoFundAlipaysettletocardResponse(TeaModel):
         return self
 
 
+class InitAntchainAtoTradeSettletocardRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        merchant_id: str = None,
+        pay_channel: str = None,
+        sub_merchant_id: str = None,
+        gmt_plan: str = None,
+        gmt_finish: str = None,
+        bill_type: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 统一社会信用代码
+        self.merchant_id = merchant_id
+        # 支付渠道: ALIPAY-支付宝支付 JDPAY-京东支付
+        self.pay_channel = pay_channel
+        # 京东二级商户号,当pay_channel=JDPAY时，该字段必填
+        self.sub_merchant_id = sub_merchant_id
+        # 账单开始日期, 格式：YYYY-MM-DD
+        self.gmt_plan = gmt_plan
+        # 账单结束日期；格式：YYYY-MM-DD
+        self.gmt_finish = gmt_finish
+        # 交易流水:TRADE,结算流水:SETTLE
+        self.bill_type = bill_type
+
+    def validate(self):
+        self.validate_required(self.merchant_id, 'merchant_id')
+        self.validate_required(self.pay_channel, 'pay_channel')
+        self.validate_required(self.gmt_plan, 'gmt_plan')
+        self.validate_required(self.gmt_finish, 'gmt_finish')
+        self.validate_required(self.bill_type, 'bill_type')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.merchant_id is not None:
+            result['merchant_id'] = self.merchant_id
+        if self.pay_channel is not None:
+            result['pay_channel'] = self.pay_channel
+        if self.sub_merchant_id is not None:
+            result['sub_merchant_id'] = self.sub_merchant_id
+        if self.gmt_plan is not None:
+            result['gmt_plan'] = self.gmt_plan
+        if self.gmt_finish is not None:
+            result['gmt_finish'] = self.gmt_finish
+        if self.bill_type is not None:
+            result['bill_type'] = self.bill_type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('merchant_id') is not None:
+            self.merchant_id = m.get('merchant_id')
+        if m.get('pay_channel') is not None:
+            self.pay_channel = m.get('pay_channel')
+        if m.get('sub_merchant_id') is not None:
+            self.sub_merchant_id = m.get('sub_merchant_id')
+        if m.get('gmt_plan') is not None:
+            self.gmt_plan = m.get('gmt_plan')
+        if m.get('gmt_finish') is not None:
+            self.gmt_finish = m.get('gmt_finish')
+        if m.get('bill_type') is not None:
+            self.bill_type = m.get('bill_type')
+        return self
+
+
+class InitAntchainAtoTradeSettletocardResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        task_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 任务id
+        self.task_id = task_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.task_id is not None:
+            result['task_id'] = self.task_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('task_id') is not None:
+            self.task_id = m.get('task_id')
+        return self
+
+
+class QueryAntchainAtoTradeSettletocardRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        merchant_id: str = None,
+        task_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 统一社会信用代码
+        self.merchant_id = merchant_id
+        # 任务id
+        self.task_id = task_id
+
+    def validate(self):
+        self.validate_required(self.merchant_id, 'merchant_id')
+        self.validate_required(self.task_id, 'task_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.merchant_id is not None:
+            result['merchant_id'] = self.merchant_id
+        if self.task_id is not None:
+            result['task_id'] = self.task_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('merchant_id') is not None:
+            self.merchant_id = m.get('merchant_id')
+        if m.get('task_id') is not None:
+            self.task_id = m.get('task_id')
+        return self
+
+
+class QueryAntchainAtoTradeSettletocardResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        download_url: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 账单下载地址
+        self.download_url = download_url
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.download_url is not None:
+            result['download_url'] = self.download_url
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('download_url') is not None:
+            self.download_url = m.get('download_url')
+        return self
+
+
 class CreateAntcloudGatewayxFileUploadRequest(TeaModel):
     def __init__(
         self,

@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.8',
+                    'sdk_version': '1.7.9',
                     '_prod_code': 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel': 'saas'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.8',
+                    'sdk_version': '1.7.9',
                     '_prod_code': 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel': 'saas'
                 }
@@ -6561,6 +6561,118 @@ class Client:
         return TeaCore.from_map(
             ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoFundAlipaysettletocardResponse(),
             await self.do_request_async('1.0', 'antchain.ato.fund.alipaysettletocard.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def init_antchain_ato_trade_settletocard(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.InitAntchainAtoTradeSettletocardRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.InitAntchainAtoTradeSettletocardResponse:
+        """
+        Description: 创建结算到卡交易流水任务接口
+        Summary: 创建结算到卡交易流水任务接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.init_antchain_ato_trade_settletocard_ex(request, headers, runtime)
+
+    async def init_antchain_ato_trade_settletocard_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.InitAntchainAtoTradeSettletocardRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.InitAntchainAtoTradeSettletocardResponse:
+        """
+        Description: 创建结算到卡交易流水任务接口
+        Summary: 创建结算到卡交易流水任务接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.init_antchain_ato_trade_settletocard_ex_async(request, headers, runtime)
+
+    def init_antchain_ato_trade_settletocard_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.InitAntchainAtoTradeSettletocardRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.InitAntchainAtoTradeSettletocardResponse:
+        """
+        Description: 创建结算到卡交易流水任务接口
+        Summary: 创建结算到卡交易流水任务接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.InitAntchainAtoTradeSettletocardResponse(),
+            self.do_request('1.0', 'antchain.ato.trade.settletocard.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def init_antchain_ato_trade_settletocard_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.InitAntchainAtoTradeSettletocardRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.InitAntchainAtoTradeSettletocardResponse:
+        """
+        Description: 创建结算到卡交易流水任务接口
+        Summary: 创建结算到卡交易流水任务接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.InitAntchainAtoTradeSettletocardResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.trade.settletocard.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_antchain_ato_trade_settletocard(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoTradeSettletocardRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoTradeSettletocardResponse:
+        """
+        Description: 下载结算到卡流水任务接口
+        Summary: 下载结算到卡流水任务接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_antchain_ato_trade_settletocard_ex(request, headers, runtime)
+
+    async def query_antchain_ato_trade_settletocard_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoTradeSettletocardRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoTradeSettletocardResponse:
+        """
+        Description: 下载结算到卡流水任务接口
+        Summary: 下载结算到卡流水任务接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_antchain_ato_trade_settletocard_ex_async(request, headers, runtime)
+
+    def query_antchain_ato_trade_settletocard_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoTradeSettletocardRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoTradeSettletocardResponse:
+        """
+        Description: 下载结算到卡流水任务接口
+        Summary: 下载结算到卡流水任务接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoTradeSettletocardResponse(),
+            self.do_request('1.0', 'antchain.ato.trade.settletocard.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_antchain_ato_trade_settletocard_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoTradeSettletocardRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoTradeSettletocardResponse:
+        """
+        Description: 下载结算到卡流水任务接口
+        Summary: 下载结算到卡流水任务接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoTradeSettletocardResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.trade.settletocard.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
