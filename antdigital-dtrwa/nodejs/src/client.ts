@@ -2258,13 +2258,13 @@ export class HoldassetAntdigitalWebtrwatradeFundchannelTxnRequest extends $tea.M
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // jetco生成的ID,由第一个指示代理分配的唯一标识，用于明确标识在整个银行间链中传递的、不变的交易
-  e2eId: string;
+  // 订单ID
+  orderId: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      e2eId: 'e2e_id',
+      orderId: 'order_id',
     };
   }
 
@@ -2272,7 +2272,7 @@ export class HoldassetAntdigitalWebtrwatradeFundchannelTxnRequest extends $tea.M
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      e2eId: 'string',
+      orderId: 'string',
     };
   }
 
@@ -2317,15 +2317,15 @@ export class PaymentnotificationAntdigitalWebtrwatradeFundchannelTxnRequest exte
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // jetco生成的ID,由第一个指示代理分配的唯一标识，用于明确标识在整个银行间链中传递的、不变的交易
-  e2eId: string;
+  // 订单ID
+  orderId: string;
   // 支付状态
   status: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      e2eId: 'e2e_id',
+      orderId: 'order_id',
       status: 'status',
     };
   }
@@ -2334,7 +2334,7 @@ export class PaymentnotificationAntdigitalWebtrwatradeFundchannelTxnRequest exte
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      e2eId: 'string',
+      orderId: 'string',
       status: 'string',
     };
   }
@@ -2380,13 +2380,13 @@ export class ReleaseassetAntdigitalWebtrwatradeFundchannelTxnRequest extends $te
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // jetco生成的ID,由第一个指示代理分配的唯一标识，用于明确标识在整个银行间链中传递的、不变的交易。
-  e2eId: string;
+  // 订单ID
+  orderId: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      e2eId: 'e2e_id',
+      orderId: 'order_id',
     };
   }
 
@@ -2394,7 +2394,7 @@ export class ReleaseassetAntdigitalWebtrwatradeFundchannelTxnRequest extends $te
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      e2eId: 'string',
+      orderId: 'string',
     };
   }
 
@@ -2548,7 +2548,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.5",
+          sdk_version: "1.0.6",
           _prod_code: "DTRWA",
           _prod_channel: "default",
         };
