@@ -342,6 +342,261 @@ func (s *XNameValuePair) SetValue(v string) *XNameValuePair {
 	return s
 }
 
+type QueryAasButleragentSessionRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 产品编码
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
+	// 请求唯一标识
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
+	// 客户唯一标识
+	CustomerId *string `json:"customer_id,omitempty" xml:"customer_id,omitempty" require:"true"`
+	// 查询会话起始时间
+	StartTime *string `json:"start_time,omitempty" xml:"start_time,omitempty" require:"true"`
+	// 查询会话结束时间
+	EndTime *string `json:"end_time,omitempty" xml:"end_time,omitempty" require:"true"`
+}
+
+func (s QueryAasButleragentSessionRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAasButleragentSessionRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAasButleragentSessionRequest) SetAuthToken(v string) *QueryAasButleragentSessionRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAasButleragentSessionRequest) SetProductCode(v string) *QueryAasButleragentSessionRequest {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *QueryAasButleragentSessionRequest) SetRequestId(v string) *QueryAasButleragentSessionRequest {
+	s.RequestId = &v
+	return s
+}
+
+func (s *QueryAasButleragentSessionRequest) SetCustomerId(v string) *QueryAasButleragentSessionRequest {
+	s.CustomerId = &v
+	return s
+}
+
+func (s *QueryAasButleragentSessionRequest) SetStartTime(v string) *QueryAasButleragentSessionRequest {
+	s.StartTime = &v
+	return s
+}
+
+func (s *QueryAasButleragentSessionRequest) SetEndTime(v string) *QueryAasButleragentSessionRequest {
+	s.EndTime = &v
+	return s
+}
+
+type QueryAasButleragentSessionResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// json字符串
+	BizResult *string `json:"biz_result,omitempty" xml:"biz_result,omitempty"`
+}
+
+func (s QueryAasButleragentSessionResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAasButleragentSessionResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAasButleragentSessionResponse) SetReqMsgId(v string) *QueryAasButleragentSessionResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAasButleragentSessionResponse) SetResultCode(v string) *QueryAasButleragentSessionResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAasButleragentSessionResponse) SetResultMsg(v string) *QueryAasButleragentSessionResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAasButleragentSessionResponse) SetBizResult(v string) *QueryAasButleragentSessionResponse {
+	s.BizResult = &v
+	return s
+}
+
+type GetAasButleragentPlanurlRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 产品编码
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
+	// 业务请求唯一标识
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
+	// 方案唯一标识
+	PlanNo *string `json:"plan_no,omitempty" xml:"plan_no,omitempty" require:"true"`
+	// 生成计划书时的用户唯一标识
+	CustomerId *string `json:"customer_id,omitempty" xml:"customer_id,omitempty" require:"true"`
+}
+
+func (s GetAasButleragentPlanurlRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetAasButleragentPlanurlRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetAasButleragentPlanurlRequest) SetAuthToken(v string) *GetAasButleragentPlanurlRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GetAasButleragentPlanurlRequest) SetProductCode(v string) *GetAasButleragentPlanurlRequest {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *GetAasButleragentPlanurlRequest) SetRequestId(v string) *GetAasButleragentPlanurlRequest {
+	s.RequestId = &v
+	return s
+}
+
+func (s *GetAasButleragentPlanurlRequest) SetPlanNo(v string) *GetAasButleragentPlanurlRequest {
+	s.PlanNo = &v
+	return s
+}
+
+func (s *GetAasButleragentPlanurlRequest) SetCustomerId(v string) *GetAasButleragentPlanurlRequest {
+	s.CustomerId = &v
+	return s
+}
+
+type GetAasButleragentPlanurlResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 业务参数，json字符串
+	BizResult *string `json:"biz_result,omitempty" xml:"biz_result,omitempty"`
+}
+
+func (s GetAasButleragentPlanurlResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetAasButleragentPlanurlResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetAasButleragentPlanurlResponse) SetReqMsgId(v string) *GetAasButleragentPlanurlResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GetAasButleragentPlanurlResponse) SetResultCode(v string) *GetAasButleragentPlanurlResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GetAasButleragentPlanurlResponse) SetResultMsg(v string) *GetAasButleragentPlanurlResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GetAasButleragentPlanurlResponse) SetBizResult(v string) *GetAasButleragentPlanurlResponse {
+	s.BizResult = &v
+	return s
+}
+
+type GetAasButleragentChaturlRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 请求唯一流水号
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
+	// 您方待认证信息
+	CustomerAuthInfo *string `json:"customer_auth_info,omitempty" xml:"customer_auth_info,omitempty" require:"true"`
+	// 产品编码
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
+}
+
+func (s GetAasButleragentChaturlRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetAasButleragentChaturlRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetAasButleragentChaturlRequest) SetAuthToken(v string) *GetAasButleragentChaturlRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GetAasButleragentChaturlRequest) SetRequestId(v string) *GetAasButleragentChaturlRequest {
+	s.RequestId = &v
+	return s
+}
+
+func (s *GetAasButleragentChaturlRequest) SetCustomerAuthInfo(v string) *GetAasButleragentChaturlRequest {
+	s.CustomerAuthInfo = &v
+	return s
+}
+
+func (s *GetAasButleragentChaturlRequest) SetProductCode(v string) *GetAasButleragentChaturlRequest {
+	s.ProductCode = &v
+	return s
+}
+
+type GetAasButleragentChaturlResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 业务返回参数，json字符串
+	BizResult *string `json:"biz_result,omitempty" xml:"biz_result,omitempty"`
+}
+
+func (s GetAasButleragentChaturlResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetAasButleragentChaturlResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetAasButleragentChaturlResponse) SetReqMsgId(v string) *GetAasButleragentChaturlResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GetAasButleragentChaturlResponse) SetResultCode(v string) *GetAasButleragentChaturlResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GetAasButleragentChaturlResponse) SetResultMsg(v string) *GetAasButleragentChaturlResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GetAasButleragentChaturlResponse) SetBizResult(v string) *GetAasButleragentChaturlResponse {
+	s.BizResult = &v
+	return s
+}
+
 type QueryInquiryRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -4896,7 +5151,7 @@ type CallbackMktEffectRequest struct {
 	// AI_BPO("AI_BPO")
 	MarketingMode *string `json:"marketing_mode,omitempty" xml:"marketing_mode,omitempty" require:"true" maxLength:"64"`
 	// 投保特征短链
-	InsureShortUrl *string `json:"insure_short_url,omitempty" xml:"insure_short_url,omitempty" require:"true" maxLength:"256"`
+	InsureShortUrl *string `json:"insure_short_url,omitempty" xml:"insure_short_url,omitempty" maxLength:"256"`
 	// 加密类型：MD5，32位[小]
 	EncryptionType *string `json:"encryption_type,omitempty" xml:"encryption_type,omitempty" require:"true" maxLength:"32"`
 	// 加密用户标识
@@ -5347,7 +5602,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.12.20"),
+				"sdk_version":      tea.String("1.12.24"),
 				"_prod_code":       tea.String("INSURANCE_SAAS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -5403,6 +5658,108 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 	}
 
 	return _resp, _err
+}
+
+/**
+ * Description: 客户查询会话记录
+ * Summary: 客户查询会话记录
+ */
+func (client *Client) QueryAasButleragentSession(request *QueryAasButleragentSessionRequest) (_result *QueryAasButleragentSessionResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAasButleragentSessionResponse{}
+	_body, _err := client.QueryAasButleragentSessionEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 客户查询会话记录
+ * Summary: 客户查询会话记录
+ */
+func (client *Client) QueryAasButleragentSessionEx(request *QueryAasButleragentSessionRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAasButleragentSessionResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAasButleragentSessionResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.insurancesaas.butleragent.session.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 智能保顾完整方案url获取
+ * Summary: 智能保顾完整方案url获取
+ */
+func (client *Client) GetAasButleragentPlanurl(request *GetAasButleragentPlanurlRequest) (_result *GetAasButleragentPlanurlResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GetAasButleragentPlanurlResponse{}
+	_body, _err := client.GetAasButleragentPlanurlEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 智能保顾完整方案url获取
+ * Summary: 智能保顾完整方案url获取
+ */
+func (client *Client) GetAasButleragentPlanurlEx(request *GetAasButleragentPlanurlRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetAasButleragentPlanurlResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GetAasButleragentPlanurlResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.insurancesaas.butleragent.planurl.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 获取智能保顾会话聊天url
+ * Summary: 获取智能保顾会话聊天url
+ */
+func (client *Client) GetAasButleragentChaturl(request *GetAasButleragentChaturlRequest) (_result *GetAasButleragentChaturlResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GetAasButleragentChaturlResponse{}
+	_body, _err := client.GetAasButleragentChaturlEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 获取智能保顾会话聊天url
+ * Summary: 获取智能保顾会话聊天url
+ */
+func (client *Client) GetAasButleragentChaturlEx(request *GetAasButleragentChaturlRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetAasButleragentChaturlResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GetAasButleragentChaturlResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.insurancesaas.butleragent.chaturl.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
 }
 
 /**
