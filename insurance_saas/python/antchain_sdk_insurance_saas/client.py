@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.20',
+                    'sdk_version': '1.12.24',
                     '_prod_code': 'INSURANCE_SAAS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.20',
+                    'sdk_version': '1.12.24',
                     '_prod_code': 'INSURANCE_SAAS',
                     '_prod_channel': 'undefined'
                 }
@@ -274,6 +274,174 @@ class Client:
                     continue
                 raise e
         raise UnretryableException(_last_request, _last_exception)
+
+    def query_aas_butleragent_session(
+        self,
+        request: insurance__saas_models.QueryAasButleragentSessionRequest,
+    ) -> insurance__saas_models.QueryAasButleragentSessionResponse:
+        """
+        Description: 客户查询会话记录
+        Summary: 客户查询会话记录
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_aas_butleragent_session_ex(request, headers, runtime)
+
+    async def query_aas_butleragent_session_async(
+        self,
+        request: insurance__saas_models.QueryAasButleragentSessionRequest,
+    ) -> insurance__saas_models.QueryAasButleragentSessionResponse:
+        """
+        Description: 客户查询会话记录
+        Summary: 客户查询会话记录
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_aas_butleragent_session_ex_async(request, headers, runtime)
+
+    def query_aas_butleragent_session_ex(
+        self,
+        request: insurance__saas_models.QueryAasButleragentSessionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.QueryAasButleragentSessionResponse:
+        """
+        Description: 客户查询会话记录
+        Summary: 客户查询会话记录
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.QueryAasButleragentSessionResponse(),
+            self.do_request('1.0', 'antcloud.insurancesaas.butleragent.session.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_aas_butleragent_session_ex_async(
+        self,
+        request: insurance__saas_models.QueryAasButleragentSessionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.QueryAasButleragentSessionResponse:
+        """
+        Description: 客户查询会话记录
+        Summary: 客户查询会话记录
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.QueryAasButleragentSessionResponse(),
+            await self.do_request_async('1.0', 'antcloud.insurancesaas.butleragent.session.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_aas_butleragent_planurl(
+        self,
+        request: insurance__saas_models.GetAasButleragentPlanurlRequest,
+    ) -> insurance__saas_models.GetAasButleragentPlanurlResponse:
+        """
+        Description: 智能保顾完整方案url获取
+        Summary: 智能保顾完整方案url获取
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_aas_butleragent_planurl_ex(request, headers, runtime)
+
+    async def get_aas_butleragent_planurl_async(
+        self,
+        request: insurance__saas_models.GetAasButleragentPlanurlRequest,
+    ) -> insurance__saas_models.GetAasButleragentPlanurlResponse:
+        """
+        Description: 智能保顾完整方案url获取
+        Summary: 智能保顾完整方案url获取
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_aas_butleragent_planurl_ex_async(request, headers, runtime)
+
+    def get_aas_butleragent_planurl_ex(
+        self,
+        request: insurance__saas_models.GetAasButleragentPlanurlRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.GetAasButleragentPlanurlResponse:
+        """
+        Description: 智能保顾完整方案url获取
+        Summary: 智能保顾完整方案url获取
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.GetAasButleragentPlanurlResponse(),
+            self.do_request('1.0', 'antcloud.insurancesaas.butleragent.planurl.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_aas_butleragent_planurl_ex_async(
+        self,
+        request: insurance__saas_models.GetAasButleragentPlanurlRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.GetAasButleragentPlanurlResponse:
+        """
+        Description: 智能保顾完整方案url获取
+        Summary: 智能保顾完整方案url获取
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.GetAasButleragentPlanurlResponse(),
+            await self.do_request_async('1.0', 'antcloud.insurancesaas.butleragent.planurl.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_aas_butleragent_chaturl(
+        self,
+        request: insurance__saas_models.GetAasButleragentChaturlRequest,
+    ) -> insurance__saas_models.GetAasButleragentChaturlResponse:
+        """
+        Description: 获取智能保顾会话聊天url
+        Summary: 获取智能保顾会话聊天url
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_aas_butleragent_chaturl_ex(request, headers, runtime)
+
+    async def get_aas_butleragent_chaturl_async(
+        self,
+        request: insurance__saas_models.GetAasButleragentChaturlRequest,
+    ) -> insurance__saas_models.GetAasButleragentChaturlResponse:
+        """
+        Description: 获取智能保顾会话聊天url
+        Summary: 获取智能保顾会话聊天url
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_aas_butleragent_chaturl_ex_async(request, headers, runtime)
+
+    def get_aas_butleragent_chaturl_ex(
+        self,
+        request: insurance__saas_models.GetAasButleragentChaturlRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.GetAasButleragentChaturlResponse:
+        """
+        Description: 获取智能保顾会话聊天url
+        Summary: 获取智能保顾会话聊天url
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.GetAasButleragentChaturlResponse(),
+            self.do_request('1.0', 'antcloud.insurancesaas.butleragent.chaturl.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_aas_butleragent_chaturl_ex_async(
+        self,
+        request: insurance__saas_models.GetAasButleragentChaturlRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.GetAasButleragentChaturlResponse:
+        """
+        Description: 获取智能保顾会话聊天url
+        Summary: 获取智能保顾会话聊天url
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.GetAasButleragentChaturlResponse(),
+            await self.do_request_async('1.0', 'antcloud.insurancesaas.butleragent.chaturl.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
 
     def query_inquiry(
         self,

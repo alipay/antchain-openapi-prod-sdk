@@ -415,6 +415,330 @@ class XNameValuePair(TeaModel):
         return self
 
 
+class QueryAasButleragentSessionRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_code: str = None,
+        request_id: str = None,
+        customer_id: str = None,
+        start_time: str = None,
+        end_time: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 产品编码
+        self.product_code = product_code
+        # 请求唯一标识
+        self.request_id = request_id
+        # 客户唯一标识
+        self.customer_id = customer_id
+        # 查询会话起始时间
+        self.start_time = start_time
+        # 查询会话结束时间
+        self.end_time = end_time
+
+    def validate(self):
+        self.validate_required(self.product_code, 'product_code')
+        self.validate_required(self.request_id, 'request_id')
+        self.validate_required(self.customer_id, 'customer_id')
+        self.validate_required(self.start_time, 'start_time')
+        self.validate_required(self.end_time, 'end_time')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_code is not None:
+            result['product_code'] = self.product_code
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.customer_id is not None:
+            result['customer_id'] = self.customer_id
+        if self.start_time is not None:
+            result['start_time'] = self.start_time
+        if self.end_time is not None:
+            result['end_time'] = self.end_time
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_code') is not None:
+            self.product_code = m.get('product_code')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('customer_id') is not None:
+            self.customer_id = m.get('customer_id')
+        if m.get('start_time') is not None:
+            self.start_time = m.get('start_time')
+        if m.get('end_time') is not None:
+            self.end_time = m.get('end_time')
+        return self
+
+
+class QueryAasButleragentSessionResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        biz_result: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # json字符串
+        self.biz_result = biz_result
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.biz_result is not None:
+            result['biz_result'] = self.biz_result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('biz_result') is not None:
+            self.biz_result = m.get('biz_result')
+        return self
+
+
+class GetAasButleragentPlanurlRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_code: str = None,
+        request_id: str = None,
+        plan_no: str = None,
+        customer_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 产品编码
+        self.product_code = product_code
+        # 业务请求唯一标识
+        self.request_id = request_id
+        # 方案唯一标识
+        self.plan_no = plan_no
+        # 生成计划书时的用户唯一标识
+        self.customer_id = customer_id
+
+    def validate(self):
+        self.validate_required(self.product_code, 'product_code')
+        self.validate_required(self.request_id, 'request_id')
+        self.validate_required(self.plan_no, 'plan_no')
+        self.validate_required(self.customer_id, 'customer_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_code is not None:
+            result['product_code'] = self.product_code
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.plan_no is not None:
+            result['plan_no'] = self.plan_no
+        if self.customer_id is not None:
+            result['customer_id'] = self.customer_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_code') is not None:
+            self.product_code = m.get('product_code')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('plan_no') is not None:
+            self.plan_no = m.get('plan_no')
+        if m.get('customer_id') is not None:
+            self.customer_id = m.get('customer_id')
+        return self
+
+
+class GetAasButleragentPlanurlResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        biz_result: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 业务参数，json字符串
+        self.biz_result = biz_result
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.biz_result is not None:
+            result['biz_result'] = self.biz_result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('biz_result') is not None:
+            self.biz_result = m.get('biz_result')
+        return self
+
+
+class GetAasButleragentChaturlRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        request_id: str = None,
+        customer_auth_info: str = None,
+        product_code: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 请求唯一流水号
+        self.request_id = request_id
+        # 您方待认证信息
+        self.customer_auth_info = customer_auth_info
+        # 产品编码
+        self.product_code = product_code
+
+    def validate(self):
+        self.validate_required(self.request_id, 'request_id')
+        self.validate_required(self.customer_auth_info, 'customer_auth_info')
+        self.validate_required(self.product_code, 'product_code')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.customer_auth_info is not None:
+            result['customer_auth_info'] = self.customer_auth_info
+        if self.product_code is not None:
+            result['product_code'] = self.product_code
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('customer_auth_info') is not None:
+            self.customer_auth_info = m.get('customer_auth_info')
+        if m.get('product_code') is not None:
+            self.product_code = m.get('product_code')
+        return self
+
+
+class GetAasButleragentChaturlResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        biz_result: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 业务返回参数，json字符串
+        self.biz_result = biz_result
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.biz_result is not None:
+            result['biz_result'] = self.biz_result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('biz_result') is not None:
+            self.biz_result = m.get('biz_result')
+        return self
+
+
 class QueryInquiryRequest(TeaModel):
     def __init__(
         self,
@@ -6086,7 +6410,6 @@ class CallbackMktEffectRequest(TeaModel):
         self.validate_required(self.marketing_mode, 'marketing_mode')
         if self.marketing_mode is not None:
             self.validate_max_length(self.marketing_mode, 'marketing_mode', 64)
-        self.validate_required(self.insure_short_url, 'insure_short_url')
         if self.insure_short_url is not None:
             self.validate_max_length(self.insure_short_url, 'insure_short_url', 256)
         self.validate_required(self.encryption_type, 'encryption_type')
