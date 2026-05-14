@@ -35,6 +35,10 @@ use AntChain\INSURANCE_SAAS\Models\CreateAntcloudGatewayxFileUploadRequest;
 use AntChain\INSURANCE_SAAS\Models\CreateAntcloudGatewayxFileUploadResponse;
 use AntChain\INSURANCE_SAAS\Models\FinishClaimSettleRequest;
 use AntChain\INSURANCE_SAAS\Models\FinishClaimSettleResponse;
+use AntChain\INSURANCE_SAAS\Models\GetAasButleragentChaturlRequest;
+use AntChain\INSURANCE_SAAS\Models\GetAasButleragentChaturlResponse;
+use AntChain\INSURANCE_SAAS\Models\GetAasButleragentPlanurlRequest;
+use AntChain\INSURANCE_SAAS\Models\GetAasButleragentPlanurlResponse;
 use AntChain\INSURANCE_SAAS\Models\GetEmbedcardUrlRequest;
 use AntChain\INSURANCE_SAAS\Models\GetEmbedcardUrlResponse;
 use AntChain\INSURANCE_SAAS\Models\GetEmbedoemautoinsuranceUrlRequest;
@@ -57,6 +61,8 @@ use AntChain\INSURANCE_SAAS\Models\NotifyInterestSupplierpolicyRequest;
 use AntChain\INSURANCE_SAAS\Models\NotifyInterestSupplierpolicyResponse;
 use AntChain\INSURANCE_SAAS\Models\NotifyPolicyResultRequest;
 use AntChain\INSURANCE_SAAS\Models\NotifyPolicyResultResponse;
+use AntChain\INSURANCE_SAAS\Models\QueryAasButleragentSessionRequest;
+use AntChain\INSURANCE_SAAS\Models\QueryAasButleragentSessionResponse;
 use AntChain\INSURANCE_SAAS\Models\QueryDataDisasterRequest;
 use AntChain\INSURANCE_SAAS\Models\QueryDataDisasterResponse;
 use AntChain\INSURANCE_SAAS\Models\QueryDataWeatherRequest;
@@ -242,7 +248,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.12.20',
+                    'sdk_version'      => '1.12.24',
                     '_prod_code'       => 'INSURANCE_SAAS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -288,6 +294,105 @@ class Client
         }
 
         throw new TeaUnableRetryError($_lastRequest, $_lastException);
+    }
+
+    /**
+     * Description: 客户查询会话记录
+     * Summary: 客户查询会话记录.
+     *
+     * @param QueryAasButleragentSessionRequest $request
+     *
+     * @return QueryAasButleragentSessionResponse
+     */
+    public function queryAasButleragentSession($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAasButleragentSessionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 客户查询会话记录
+     * Summary: 客户查询会话记录.
+     *
+     * @param QueryAasButleragentSessionRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return QueryAasButleragentSessionResponse
+     */
+    public function queryAasButleragentSessionEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAasButleragentSessionResponse::fromMap($this->doRequest('1.0', 'antcloud.insurancesaas.butleragent.session.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 智能保顾完整方案url获取
+     * Summary: 智能保顾完整方案url获取.
+     *
+     * @param GetAasButleragentPlanurlRequest $request
+     *
+     * @return GetAasButleragentPlanurlResponse
+     */
+    public function getAasButleragentPlanurl($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getAasButleragentPlanurlEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 智能保顾完整方案url获取
+     * Summary: 智能保顾完整方案url获取.
+     *
+     * @param GetAasButleragentPlanurlRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return GetAasButleragentPlanurlResponse
+     */
+    public function getAasButleragentPlanurlEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetAasButleragentPlanurlResponse::fromMap($this->doRequest('1.0', 'antcloud.insurancesaas.butleragent.planurl.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取智能保顾会话聊天url
+     * Summary: 获取智能保顾会话聊天url.
+     *
+     * @param GetAasButleragentChaturlRequest $request
+     *
+     * @return GetAasButleragentChaturlResponse
+     */
+    public function getAasButleragentChaturl($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getAasButleragentChaturlEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取智能保顾会话聊天url
+     * Summary: 获取智能保顾会话聊天url.
+     *
+     * @param GetAasButleragentChaturlRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return GetAasButleragentChaturlResponse
+     */
+    public function getAasButleragentChaturlEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetAasButleragentChaturlResponse::fromMap($this->doRequest('1.0', 'antcloud.insurancesaas.butleragent.chaturl.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

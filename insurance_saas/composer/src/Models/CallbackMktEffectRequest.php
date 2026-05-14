@@ -102,7 +102,6 @@ class CallbackMktEffectRequest extends Model
         Model::validateRequired('requestId', $this->requestId, true);
         Model::validateRequired('projectId', $this->projectId, true);
         Model::validateRequired('marketingMode', $this->marketingMode, true);
-        Model::validateRequired('insureShortUrl', $this->insureShortUrl, true);
         Model::validateRequired('encryptionType', $this->encryptionType, true);
         Model::validateRequired('encryptedUserId', $this->encryptedUserId, true);
         Model::validateRequired('landingVisitId', $this->landingVisitId, true);
