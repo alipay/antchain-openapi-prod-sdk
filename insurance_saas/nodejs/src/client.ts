@@ -239,6 +239,210 @@ export class XNameValuePair extends $tea.Model {
   }
 }
 
+export class QueryAasButleragentSessionRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 产品编码
+  productCode: string;
+  // 请求唯一标识
+  requestId: string;
+  // 客户唯一标识
+  customerId: string;
+  // 查询会话起始时间
+  startTime: string;
+  // 查询会话结束时间
+  endTime: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productCode: 'product_code',
+      requestId: 'request_id',
+      customerId: 'customer_id',
+      startTime: 'start_time',
+      endTime: 'end_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productCode: 'string',
+      requestId: 'string',
+      customerId: 'string',
+      startTime: 'string',
+      endTime: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAasButleragentSessionResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // json字符串
+  bizResult?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      bizResult: 'biz_result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      bizResult: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetAasButleragentPlanurlRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 产品编码
+  productCode: string;
+  // 业务请求唯一标识
+  requestId: string;
+  // 方案唯一标识
+  planNo: string;
+  // 生成计划书时的用户唯一标识
+  customerId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productCode: 'product_code',
+      requestId: 'request_id',
+      planNo: 'plan_no',
+      customerId: 'customer_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productCode: 'string',
+      requestId: 'string',
+      planNo: 'string',
+      customerId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetAasButleragentPlanurlResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 业务参数，json字符串
+  bizResult?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      bizResult: 'biz_result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      bizResult: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetAasButleragentChaturlRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 请求唯一流水号
+  requestId: string;
+  // 您方待认证信息
+  customerAuthInfo: string;
+  // 产品编码
+  productCode: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      requestId: 'request_id',
+      customerAuthInfo: 'customer_auth_info',
+      productCode: 'product_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      requestId: 'string',
+      customerAuthInfo: 'string',
+      productCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetAasButleragentChaturlResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 业务返回参数，json字符串
+  bizResult?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      bizResult: 'biz_result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      bizResult: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryInquiryRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -3615,7 +3819,7 @@ export class CallbackMktEffectRequest extends $tea.Model {
   // AI_BPO("AI_BPO")
   marketingMode: string;
   // 投保特征短链
-  insureShortUrl: string;
+  insureShortUrl?: string;
   // 加密类型：MD5，32位[小]
   encryptionType: string;
   // 加密用户标识
@@ -3970,7 +4174,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.12.20",
+          sdk_version: "1.12.24",
           _prod_code: "INSURANCE_SAAS",
           _prod_channel: "undefined",
         };
@@ -4016,6 +4220,63 @@ export default class Client {
     }
 
     throw $tea.newUnretryableError(_lastRequest);
+  }
+
+  /**
+   * Description: 客户查询会话记录
+   * Summary: 客户查询会话记录
+   */
+  async queryAasButleragentSession(request: QueryAasButleragentSessionRequest): Promise<QueryAasButleragentSessionResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAasButleragentSessionEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 客户查询会话记录
+   * Summary: 客户查询会话记录
+   */
+  async queryAasButleragentSessionEx(request: QueryAasButleragentSessionRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAasButleragentSessionResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAasButleragentSessionResponse>(await this.doRequest("1.0", "antcloud.insurancesaas.butleragent.session.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAasButleragentSessionResponse({}));
+  }
+
+  /**
+   * Description: 智能保顾完整方案url获取
+   * Summary: 智能保顾完整方案url获取
+   */
+  async getAasButleragentPlanurl(request: GetAasButleragentPlanurlRequest): Promise<GetAasButleragentPlanurlResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getAasButleragentPlanurlEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 智能保顾完整方案url获取
+   * Summary: 智能保顾完整方案url获取
+   */
+  async getAasButleragentPlanurlEx(request: GetAasButleragentPlanurlRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetAasButleragentPlanurlResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetAasButleragentPlanurlResponse>(await this.doRequest("1.0", "antcloud.insurancesaas.butleragent.planurl.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetAasButleragentPlanurlResponse({}));
+  }
+
+  /**
+   * Description: 获取智能保顾会话聊天url
+   * Summary: 获取智能保顾会话聊天url
+   */
+  async getAasButleragentChaturl(request: GetAasButleragentChaturlRequest): Promise<GetAasButleragentChaturlResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getAasButleragentChaturlEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 获取智能保顾会话聊天url
+   * Summary: 获取智能保顾会话聊天url
+   */
+  async getAasButleragentChaturlEx(request: GetAasButleragentChaturlRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetAasButleragentChaturlResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetAasButleragentChaturlResponse>(await this.doRequest("1.0", "antcloud.insurancesaas.butleragent.chaturl.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetAasButleragentChaturlResponse({}));
   }
 
   /**
