@@ -137,7 +137,7 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.7.8"},
+                        {"sdk_version", "1.7.9"},
                         {"_prod_code", "ak_195dff03d395462ea294bafdba69df3f"},
                         {"_prod_channel", "saas"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.7.8"},
+                        {"sdk_version", "1.7.9"},
                         {"_prod_code", "ak_195dff03d395462ea294bafdba69df3f"},
                         {"_prod_channel", "saas"},
                     };
@@ -5103,6 +5103,90 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryAntchainAtoFundAlipaysettletocardResponse>(await DoRequestAsync("1.0", "antchain.ato.fund.alipaysettletocard.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 创建结算到卡交易流水任务接口
+         * Summary: 创建结算到卡交易流水任务接口
+         */
+        public InitAntchainAtoTradeSettletocardResponse InitAntchainAtoTradeSettletocard(InitAntchainAtoTradeSettletocardRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return InitAntchainAtoTradeSettletocardEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 创建结算到卡交易流水任务接口
+         * Summary: 创建结算到卡交易流水任务接口
+         */
+        public async Task<InitAntchainAtoTradeSettletocardResponse> InitAntchainAtoTradeSettletocardAsync(InitAntchainAtoTradeSettletocardRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await InitAntchainAtoTradeSettletocardExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 创建结算到卡交易流水任务接口
+         * Summary: 创建结算到卡交易流水任务接口
+         */
+        public InitAntchainAtoTradeSettletocardResponse InitAntchainAtoTradeSettletocardEx(InitAntchainAtoTradeSettletocardRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<InitAntchainAtoTradeSettletocardResponse>(DoRequest("1.0", "antchain.ato.trade.settletocard.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 创建结算到卡交易流水任务接口
+         * Summary: 创建结算到卡交易流水任务接口
+         */
+        public async Task<InitAntchainAtoTradeSettletocardResponse> InitAntchainAtoTradeSettletocardExAsync(InitAntchainAtoTradeSettletocardRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<InitAntchainAtoTradeSettletocardResponse>(await DoRequestAsync("1.0", "antchain.ato.trade.settletocard.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 下载结算到卡流水任务接口
+         * Summary: 下载结算到卡流水任务接口
+         */
+        public QueryAntchainAtoTradeSettletocardResponse QueryAntchainAtoTradeSettletocard(QueryAntchainAtoTradeSettletocardRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAntchainAtoTradeSettletocardEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 下载结算到卡流水任务接口
+         * Summary: 下载结算到卡流水任务接口
+         */
+        public async Task<QueryAntchainAtoTradeSettletocardResponse> QueryAntchainAtoTradeSettletocardAsync(QueryAntchainAtoTradeSettletocardRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAntchainAtoTradeSettletocardExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 下载结算到卡流水任务接口
+         * Summary: 下载结算到卡流水任务接口
+         */
+        public QueryAntchainAtoTradeSettletocardResponse QueryAntchainAtoTradeSettletocardEx(QueryAntchainAtoTradeSettletocardRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAntchainAtoTradeSettletocardResponse>(DoRequest("1.0", "antchain.ato.trade.settletocard.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 下载结算到卡流水任务接口
+         * Summary: 下载结算到卡流水任务接口
+         */
+        public async Task<QueryAntchainAtoTradeSettletocardResponse> QueryAntchainAtoTradeSettletocardExAsync(QueryAntchainAtoTradeSettletocardRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAntchainAtoTradeSettletocardResponse>(await DoRequestAsync("1.0", "antchain.ato.trade.settletocard.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
