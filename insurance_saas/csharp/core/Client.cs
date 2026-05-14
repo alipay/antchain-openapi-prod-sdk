@@ -137,7 +137,7 @@ namespace AntChain.SDK.INSURANCE_SAAS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.12.20"},
+                        {"sdk_version", "1.12.24"},
                         {"_prod_code", "INSURANCE_SAAS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.INSURANCE_SAAS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.12.20"},
+                        {"sdk_version", "1.12.24"},
                         {"_prod_code", "INSURANCE_SAAS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -319,6 +319,132 @@ namespace AntChain.SDK.INSURANCE_SAAS
             }
 
             throw new TeaUnretryableException(_lastRequest, _lastException);
+        }
+
+        /**
+         * Description: 客户查询会话记录
+         * Summary: 客户查询会话记录
+         */
+        public QueryAasButleragentSessionResponse QueryAasButleragentSession(QueryAasButleragentSessionRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAasButleragentSessionEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 客户查询会话记录
+         * Summary: 客户查询会话记录
+         */
+        public async Task<QueryAasButleragentSessionResponse> QueryAasButleragentSessionAsync(QueryAasButleragentSessionRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAasButleragentSessionExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 客户查询会话记录
+         * Summary: 客户查询会话记录
+         */
+        public QueryAasButleragentSessionResponse QueryAasButleragentSessionEx(QueryAasButleragentSessionRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAasButleragentSessionResponse>(DoRequest("1.0", "antcloud.insurancesaas.butleragent.session.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 客户查询会话记录
+         * Summary: 客户查询会话记录
+         */
+        public async Task<QueryAasButleragentSessionResponse> QueryAasButleragentSessionExAsync(QueryAasButleragentSessionRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAasButleragentSessionResponse>(await DoRequestAsync("1.0", "antcloud.insurancesaas.butleragent.session.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 智能保顾完整方案url获取
+         * Summary: 智能保顾完整方案url获取
+         */
+        public GetAasButleragentPlanurlResponse GetAasButleragentPlanurl(GetAasButleragentPlanurlRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return GetAasButleragentPlanurlEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 智能保顾完整方案url获取
+         * Summary: 智能保顾完整方案url获取
+         */
+        public async Task<GetAasButleragentPlanurlResponse> GetAasButleragentPlanurlAsync(GetAasButleragentPlanurlRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await GetAasButleragentPlanurlExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 智能保顾完整方案url获取
+         * Summary: 智能保顾完整方案url获取
+         */
+        public GetAasButleragentPlanurlResponse GetAasButleragentPlanurlEx(GetAasButleragentPlanurlRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetAasButleragentPlanurlResponse>(DoRequest("1.0", "antcloud.insurancesaas.butleragent.planurl.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 智能保顾完整方案url获取
+         * Summary: 智能保顾完整方案url获取
+         */
+        public async Task<GetAasButleragentPlanurlResponse> GetAasButleragentPlanurlExAsync(GetAasButleragentPlanurlRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetAasButleragentPlanurlResponse>(await DoRequestAsync("1.0", "antcloud.insurancesaas.butleragent.planurl.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取智能保顾会话聊天url
+         * Summary: 获取智能保顾会话聊天url
+         */
+        public GetAasButleragentChaturlResponse GetAasButleragentChaturl(GetAasButleragentChaturlRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return GetAasButleragentChaturlEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取智能保顾会话聊天url
+         * Summary: 获取智能保顾会话聊天url
+         */
+        public async Task<GetAasButleragentChaturlResponse> GetAasButleragentChaturlAsync(GetAasButleragentChaturlRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await GetAasButleragentChaturlExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取智能保顾会话聊天url
+         * Summary: 获取智能保顾会话聊天url
+         */
+        public GetAasButleragentChaturlResponse GetAasButleragentChaturlEx(GetAasButleragentChaturlRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetAasButleragentChaturlResponse>(DoRequest("1.0", "antcloud.insurancesaas.butleragent.chaturl.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取智能保顾会话聊天url
+         * Summary: 获取智能保顾会话聊天url
+         */
+        public async Task<GetAasButleragentChaturlResponse> GetAasButleragentChaturlExAsync(GetAasButleragentChaturlRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetAasButleragentChaturlResponse>(await DoRequestAsync("1.0", "antcloud.insurancesaas.butleragent.chaturl.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

@@ -34,7 +34,7 @@ namespace AntChain.SDK.INSURANCE_SAAS.Models
 
         // 投保特征短链
         [NameInMap("insure_short_url")]
-        [Validation(Required=true, MaxLength=256)]
+        [Validation(Required=false, MaxLength=256)]
         public string InsureShortUrl { get; set; }
 
         // 加密类型：MD5，32位[小]
