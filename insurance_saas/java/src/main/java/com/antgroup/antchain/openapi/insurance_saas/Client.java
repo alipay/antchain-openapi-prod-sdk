@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.12.20"),
+                    new TeaPair("sdk_version", "1.12.24"),
                     new TeaPair("_prod_code", "INSURANCE_SAAS"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -186,6 +186,69 @@ public class Client {
 
     public void addResponseInterceptor(ResponseInterceptor interceptor) {
         interceptorChain.addResponseInterceptor(interceptor);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 客户查询会话记录
+     * Summary: 客户查询会话记录</p>
+     */
+    public QueryAasButleragentSessionResponse queryAasButleragentSession(QueryAasButleragentSessionRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAasButleragentSessionEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 客户查询会话记录
+     * Summary: 客户查询会话记录</p>
+     */
+    public QueryAasButleragentSessionResponse queryAasButleragentSessionEx(QueryAasButleragentSessionRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.insurancesaas.butleragent.session.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAasButleragentSessionResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 智能保顾完整方案url获取
+     * Summary: 智能保顾完整方案url获取</p>
+     */
+    public GetAasButleragentPlanurlResponse getAasButleragentPlanurl(GetAasButleragentPlanurlRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getAasButleragentPlanurlEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 智能保顾完整方案url获取
+     * Summary: 智能保顾完整方案url获取</p>
+     */
+    public GetAasButleragentPlanurlResponse getAasButleragentPlanurlEx(GetAasButleragentPlanurlRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.insurancesaas.butleragent.planurl.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetAasButleragentPlanurlResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 获取智能保顾会话聊天url
+     * Summary: 获取智能保顾会话聊天url</p>
+     */
+    public GetAasButleragentChaturlResponse getAasButleragentChaturl(GetAasButleragentChaturlRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getAasButleragentChaturlEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 获取智能保顾会话聊天url
+     * Summary: 获取智能保顾会话聊天url</p>
+     */
+    public GetAasButleragentChaturlResponse getAasButleragentChaturlEx(GetAasButleragentChaturlRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.insurancesaas.butleragent.chaturl.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetAasButleragentChaturlResponse());
     }
 
     /**

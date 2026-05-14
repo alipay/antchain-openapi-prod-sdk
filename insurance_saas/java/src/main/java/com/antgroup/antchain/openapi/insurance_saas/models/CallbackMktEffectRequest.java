@@ -28,7 +28,7 @@ public class CallbackMktEffectRequest extends TeaModel {
 
     // 投保特征短链
     @NameInMap("insure_short_url")
-    @Validation(required = true, maxLength = 256)
+    @Validation(maxLength = 256)
     public String insureShortUrl;
 
     // 加密类型：MD5，32位[小]
