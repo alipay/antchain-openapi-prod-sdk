@@ -105,6 +105,8 @@ use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoTradeUserp
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoTradeUserperformanceResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\InitAntchainAtoFundAlipaysettletocardRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\InitAntchainAtoFundAlipaysettletocardResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\InitAntchainAtoTradeSettletocardRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\InitAntchainAtoTradeSettletocardResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\ListAntchainAtoInnerTemplateRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\ListAntchainAtoInnerTemplateResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\NotifyAntchainAtoFundFlowRequest;
@@ -145,6 +147,8 @@ use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoTradeCre
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoTradeCreditauthResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoTradeCreditgrantingRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoTradeCreditgrantingResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoTradeSettletocardRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoTradeSettletocardResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoWithholdActivepayRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoWithholdActivepayResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoWithholdCompensateaccountRequest;
@@ -380,7 +384,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.7.8',
+                    'sdk_version'      => '1.7.9',
                     '_prod_code'       => 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel'    => 'saas',
                 ];
@@ -4123,6 +4127,72 @@ class Client
         Utils::validateModel($request);
 
         return QueryAntchainAtoFundAlipaysettletocardResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.alipaysettletocard.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建结算到卡交易流水任务接口
+     * Summary: 创建结算到卡交易流水任务接口.
+     *
+     * @param InitAntchainAtoTradeSettletocardRequest $request
+     *
+     * @return InitAntchainAtoTradeSettletocardResponse
+     */
+    public function initAntchainAtoTradeSettletocard($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->initAntchainAtoTradeSettletocardEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建结算到卡交易流水任务接口
+     * Summary: 创建结算到卡交易流水任务接口.
+     *
+     * @param InitAntchainAtoTradeSettletocardRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return InitAntchainAtoTradeSettletocardResponse
+     */
+    public function initAntchainAtoTradeSettletocardEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return InitAntchainAtoTradeSettletocardResponse::fromMap($this->doRequest('1.0', 'antchain.ato.trade.settletocard.init', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 下载结算到卡流水任务接口
+     * Summary: 下载结算到卡流水任务接口.
+     *
+     * @param QueryAntchainAtoTradeSettletocardRequest $request
+     *
+     * @return QueryAntchainAtoTradeSettletocardResponse
+     */
+    public function queryAntchainAtoTradeSettletocard($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAntchainAtoTradeSettletocardEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 下载结算到卡流水任务接口
+     * Summary: 下载结算到卡流水任务接口.
+     *
+     * @param QueryAntchainAtoTradeSettletocardRequest $request
+     * @param string[]                                 $headers
+     * @param RuntimeOptions                           $runtime
+     *
+     * @return QueryAntchainAtoTradeSettletocardResponse
+     */
+    public function queryAntchainAtoTradeSettletocardEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAntchainAtoTradeSettletocardResponse::fromMap($this->doRequest('1.0', 'antchain.ato.trade.settletocard.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
