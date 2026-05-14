@@ -19,20 +19,20 @@ class HoldassetAntdigitalWebtrwatradeFundchannelTxnRequest extends Model
      */
     public $productInstanceId;
 
-    // jetco生成的ID,由第一个指示代理分配的唯一标识，用于明确标识在整个银行间链中传递的、不变的交易
+    // 订单ID
     /**
      * @var string
      */
-    public $e2eId;
+    public $orderId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'e2eId'             => 'e2e_id',
+        'orderId'           => 'order_id',
     ];
 
     public function validate()
     {
-        Model::validateRequired('e2eId', $this->e2eId, true);
+        Model::validateRequired('orderId', $this->orderId, true);
     }
 
     public function toMap()
@@ -44,8 +44,8 @@ class HoldassetAntdigitalWebtrwatradeFundchannelTxnRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->e2eId) {
-            $res['e2e_id'] = $this->e2eId;
+        if (null !== $this->orderId) {
+            $res['order_id'] = $this->orderId;
         }
 
         return $res;
@@ -65,8 +65,8 @@ class HoldassetAntdigitalWebtrwatradeFundchannelTxnRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['e2e_id'])) {
-            $model->e2eId = $map['e2e_id'];
+        if (isset($map['order_id'])) {
+            $model->orderId = $map['order_id'];
         }
 
         return $model;

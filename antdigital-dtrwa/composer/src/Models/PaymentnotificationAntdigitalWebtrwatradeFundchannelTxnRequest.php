@@ -19,11 +19,11 @@ class PaymentnotificationAntdigitalWebtrwatradeFundchannelTxnRequest extends Mod
      */
     public $productInstanceId;
 
-    // jetco生成的ID,由第一个指示代理分配的唯一标识，用于明确标识在整个银行间链中传递的、不变的交易
+    // 订单ID
     /**
      * @var string
      */
-    public $e2eId;
+    public $orderId;
 
     // 支付状态
     /**
@@ -33,13 +33,13 @@ class PaymentnotificationAntdigitalWebtrwatradeFundchannelTxnRequest extends Mod
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'e2eId'             => 'e2e_id',
+        'orderId'           => 'order_id',
         'status'            => 'status',
     ];
 
     public function validate()
     {
-        Model::validateRequired('e2eId', $this->e2eId, true);
+        Model::validateRequired('orderId', $this->orderId, true);
         Model::validateRequired('status', $this->status, true);
     }
 
@@ -52,8 +52,8 @@ class PaymentnotificationAntdigitalWebtrwatradeFundchannelTxnRequest extends Mod
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->e2eId) {
-            $res['e2e_id'] = $this->e2eId;
+        if (null !== $this->orderId) {
+            $res['order_id'] = $this->orderId;
         }
         if (null !== $this->status) {
             $res['status'] = $this->status;
@@ -76,8 +76,8 @@ class PaymentnotificationAntdigitalWebtrwatradeFundchannelTxnRequest extends Mod
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['e2e_id'])) {
-            $model->e2eId = $map['e2e_id'];
+        if (isset($map['order_id'])) {
+            $model->orderId = $map['order_id'];
         }
         if (isset($map['status'])) {
             $model->status = $map['status'];
