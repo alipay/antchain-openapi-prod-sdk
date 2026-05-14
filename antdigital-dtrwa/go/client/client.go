@@ -3103,8 +3103,8 @@ type HoldassetAntdigitalWebtrwatradeFundchannelTxnRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// jetco生成的ID,由第一个指示代理分配的唯一标识，用于明确标识在整个银行间链中传递的、不变的交易
-	E2eId *string `json:"e2e_id,omitempty" xml:"e2e_id,omitempty" require:"true"`
+	// 订单ID
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
 }
 
 func (s HoldassetAntdigitalWebtrwatradeFundchannelTxnRequest) String() string {
@@ -3125,8 +3125,8 @@ func (s *HoldassetAntdigitalWebtrwatradeFundchannelTxnRequest) SetProductInstanc
 	return s
 }
 
-func (s *HoldassetAntdigitalWebtrwatradeFundchannelTxnRequest) SetE2eId(v string) *HoldassetAntdigitalWebtrwatradeFundchannelTxnRequest {
-	s.E2eId = &v
+func (s *HoldassetAntdigitalWebtrwatradeFundchannelTxnRequest) SetOrderId(v string) *HoldassetAntdigitalWebtrwatradeFundchannelTxnRequest {
+	s.OrderId = &v
 	return s
 }
 
@@ -3173,8 +3173,8 @@ type PaymentnotificationAntdigitalWebtrwatradeFundchannelTxnRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// jetco生成的ID,由第一个指示代理分配的唯一标识，用于明确标识在整个银行间链中传递的、不变的交易
-	E2eId *string `json:"e2e_id,omitempty" xml:"e2e_id,omitempty" require:"true"`
+	// 订单ID
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
 	// 支付状态
 	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
 }
@@ -3197,8 +3197,8 @@ func (s *PaymentnotificationAntdigitalWebtrwatradeFundchannelTxnRequest) SetProd
 	return s
 }
 
-func (s *PaymentnotificationAntdigitalWebtrwatradeFundchannelTxnRequest) SetE2eId(v string) *PaymentnotificationAntdigitalWebtrwatradeFundchannelTxnRequest {
-	s.E2eId = &v
+func (s *PaymentnotificationAntdigitalWebtrwatradeFundchannelTxnRequest) SetOrderId(v string) *PaymentnotificationAntdigitalWebtrwatradeFundchannelTxnRequest {
+	s.OrderId = &v
 	return s
 }
 
@@ -3250,8 +3250,8 @@ type ReleaseassetAntdigitalWebtrwatradeFundchannelTxnRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// jetco生成的ID,由第一个指示代理分配的唯一标识，用于明确标识在整个银行间链中传递的、不变的交易。
-	E2eId *string `json:"e2e_id,omitempty" xml:"e2e_id,omitempty" require:"true"`
+	// 订单ID
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
 }
 
 func (s ReleaseassetAntdigitalWebtrwatradeFundchannelTxnRequest) String() string {
@@ -3272,8 +3272,8 @@ func (s *ReleaseassetAntdigitalWebtrwatradeFundchannelTxnRequest) SetProductInst
 	return s
 }
 
-func (s *ReleaseassetAntdigitalWebtrwatradeFundchannelTxnRequest) SetE2eId(v string) *ReleaseassetAntdigitalWebtrwatradeFundchannelTxnRequest {
-	s.E2eId = &v
+func (s *ReleaseassetAntdigitalWebtrwatradeFundchannelTxnRequest) SetOrderId(v string) *ReleaseassetAntdigitalWebtrwatradeFundchannelTxnRequest {
+	s.OrderId = &v
 	return s
 }
 
@@ -3438,7 +3438,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.5"),
+				"sdk_version":      tea.String("1.0.6"),
 				"_prod_code":       tea.String("DTRWA"),
 				"_prod_channel":    tea.String("default"),
 			}
