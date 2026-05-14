@@ -3939,16 +3939,16 @@ class HoldassetAntdigitalWebtrwatradeFundchannelTxnRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
-        e_2e_id: str = None,
+        order_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # jetco生成的ID,由第一个指示代理分配的唯一标识，用于明确标识在整个银行间链中传递的、不变的交易
-        self.e_2e_id = e_2e_id
+        # 订单ID
+        self.order_id = order_id
 
     def validate(self):
-        self.validate_required(self.e_2e_id, 'e_2e_id')
+        self.validate_required(self.order_id, 'order_id')
 
     def to_map(self):
         _map = super().to_map()
@@ -3960,8 +3960,8 @@ class HoldassetAntdigitalWebtrwatradeFundchannelTxnRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
-        if self.e_2e_id is not None:
-            result['e2e_id'] = self.e_2e_id
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
         return result
 
     def from_map(self, m: dict = None):
@@ -3970,8 +3970,8 @@ class HoldassetAntdigitalWebtrwatradeFundchannelTxnRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
-        if m.get('e2e_id') is not None:
-            self.e_2e_id = m.get('e2e_id')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
         return self
 
 
@@ -4029,19 +4029,19 @@ class PaymentnotificationAntdigitalWebtrwatradeFundchannelTxnRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
-        e_2e_id: str = None,
+        order_id: str = None,
         status: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # jetco生成的ID,由第一个指示代理分配的唯一标识，用于明确标识在整个银行间链中传递的、不变的交易
-        self.e_2e_id = e_2e_id
+        # 订单ID
+        self.order_id = order_id
         # 支付状态
         self.status = status
 
     def validate(self):
-        self.validate_required(self.e_2e_id, 'e_2e_id')
+        self.validate_required(self.order_id, 'order_id')
         self.validate_required(self.status, 'status')
 
     def to_map(self):
@@ -4054,8 +4054,8 @@ class PaymentnotificationAntdigitalWebtrwatradeFundchannelTxnRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
-        if self.e_2e_id is not None:
-            result['e2e_id'] = self.e_2e_id
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
         if self.status is not None:
             result['status'] = self.status
         return result
@@ -4066,8 +4066,8 @@ class PaymentnotificationAntdigitalWebtrwatradeFundchannelTxnRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
-        if m.get('e2e_id') is not None:
-            self.e_2e_id = m.get('e2e_id')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
         if m.get('status') is not None:
             self.status = m.get('status')
         return self
@@ -4127,16 +4127,16 @@ class ReleaseassetAntdigitalWebtrwatradeFundchannelTxnRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
-        e_2e_id: str = None,
+        order_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # jetco生成的ID,由第一个指示代理分配的唯一标识，用于明确标识在整个银行间链中传递的、不变的交易。
-        self.e_2e_id = e_2e_id
+        # 订单ID
+        self.order_id = order_id
 
     def validate(self):
-        self.validate_required(self.e_2e_id, 'e_2e_id')
+        self.validate_required(self.order_id, 'order_id')
 
     def to_map(self):
         _map = super().to_map()
@@ -4148,8 +4148,8 @@ class ReleaseassetAntdigitalWebtrwatradeFundchannelTxnRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
-        if self.e_2e_id is not None:
-            result['e2e_id'] = self.e_2e_id
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
         return result
 
     def from_map(self, m: dict = None):
@@ -4158,8 +4158,8 @@ class ReleaseassetAntdigitalWebtrwatradeFundchannelTxnRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
-        if m.get('e2e_id') is not None:
-            self.e_2e_id = m.get('e2e_id')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
         return self
 
 
