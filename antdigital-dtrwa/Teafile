@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "DTRWA",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-dtrwa:1.0.4",
-    "go": "github.com/antchain-openapi-sdk-go/antdigital-dtrwa/client:v1.0.5",
-    "csharp": "AntChain.SDK.DTRWA:1.0.5",
+    "java": "com.antgroup.antchain.openapi:openapi-dtrwa:1.0.6",
+    "go": "github.com/antchain-openapi-sdk-go/antdigital-dtrwa/client:v1.0.6",
+    "csharp": "AntChain.SDK.DTRWA:1.0.6",
     "ts": "@antchain/dtrwa:^1.0.0",
-    "php": "antchain/dtrwa:1.0.5",
-    "python": "antchain_sdk_dtrwa:1.0.5"
+    "php": "antchain/dtrwa:1.0.6",
+    "python": "antchain_sdk_dtrwa:1.0.6"
   },
   "libraries": {
     "Util": "darabonba:Util:*",

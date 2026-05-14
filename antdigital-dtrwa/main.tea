@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.5',
+    sdk_version = '1.0.6',
     _prod_code = 'DTRWA',
     _prod_channel = 'default'
   };
@@ -1042,8 +1042,8 @@ model HoldassetAntdigitalWebtrwatradeFundchannelTxnRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // jetco生成的ID,由第一个指示代理分配的唯一标识，用于明确标识在整个银行间链中传递的、不变的交易
-  e2eId: string(name='e2e_id'),
+  // 订单ID
+  orderId: string(name='order_id'),
 }
 
 model HoldassetAntdigitalWebtrwatradeFundchannelTxnResponse = {
@@ -1080,8 +1080,8 @@ model PaymentnotificationAntdigitalWebtrwatradeFundchannelTxnRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // jetco生成的ID,由第一个指示代理分配的唯一标识，用于明确标识在整个银行间链中传递的、不变的交易
-  e2eId: string(name='e2e_id'),
+  // 订单ID
+  orderId: string(name='order_id'),
   // 支付状态
   status: string(name='status'),
 }
@@ -1120,8 +1120,8 @@ model ReleaseassetAntdigitalWebtrwatradeFundchannelTxnRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // jetco生成的ID,由第一个指示代理分配的唯一标识，用于明确标识在整个银行间链中传递的、不变的交易。
-  e2eId: string(name='e2e_id'),
+  // 订单ID
+  orderId: string(name='order_id'),
 }
 
 model ReleaseassetAntdigitalWebtrwatradeFundchannelTxnResponse = {
