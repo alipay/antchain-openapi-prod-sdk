@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.12.20',
+    sdk_version = '1.12.24',
     _prod_code = 'INSURANCE_SAAS',
     _prod_channel = 'undefined'
   };
@@ -217,6 +217,135 @@ model XNameValuePair {
   name: string(name='name', example='key'),
   // 键值
   value: string(name='value', example='value'),
+}
+
+model QueryAasButleragentSessionRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 产品编码
+  productCode: string(name='product_code'),
+  // 请求唯一标识
+  requestId: string(name='request_id'),
+  // 客户唯一标识
+  customerId: string(name='customer_id'),
+  // 查询会话起始时间
+  startTime: string(name='start_time'),
+  // 查询会话结束时间
+  endTime: string(name='end_time'),
+}
+
+model QueryAasButleragentSessionResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // json字符串
+  bizResult?: string(name='biz_result'),
+}
+
+/**
+ * Description: 客户查询会话记录
+ * Summary: 客户查询会话记录
+ */
+async function queryAasButleragentSession(request: QueryAasButleragentSessionRequest): QueryAasButleragentSessionResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAasButleragentSessionEx(request, headers, runtime);
+}
+
+/**
+ * Description: 客户查询会话记录
+ * Summary: 客户查询会话记录
+ */
+async function queryAasButleragentSessionEx(request: QueryAasButleragentSessionRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAasButleragentSessionResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.insurancesaas.butleragent.session.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetAasButleragentPlanurlRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 产品编码
+  productCode: string(name='product_code'),
+  // 业务请求唯一标识
+  requestId: string(name='request_id'),
+  // 方案唯一标识
+  planNo: string(name='plan_no'),
+  // 生成计划书时的用户唯一标识
+  customerId: string(name='customer_id'),
+}
+
+model GetAasButleragentPlanurlResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 业务参数，json字符串
+  bizResult?: string(name='biz_result'),
+}
+
+/**
+ * Description: 智能保顾完整方案url获取
+ * Summary: 智能保顾完整方案url获取
+ */
+async function getAasButleragentPlanurl(request: GetAasButleragentPlanurlRequest): GetAasButleragentPlanurlResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getAasButleragentPlanurlEx(request, headers, runtime);
+}
+
+/**
+ * Description: 智能保顾完整方案url获取
+ * Summary: 智能保顾完整方案url获取
+ */
+async function getAasButleragentPlanurlEx(request: GetAasButleragentPlanurlRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetAasButleragentPlanurlResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.insurancesaas.butleragent.planurl.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetAasButleragentChaturlRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 请求唯一流水号
+  requestId: string(name='request_id'),
+  // 您方待认证信息
+  customerAuthInfo: string(name='customer_auth_info'),
+  // 产品编码
+  productCode: string(name='product_code'),
+}
+
+model GetAasButleragentChaturlResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 业务返回参数，json字符串
+  bizResult?: string(name='biz_result'),
+}
+
+/**
+ * Description: 获取智能保顾会话聊天url
+ * Summary: 获取智能保顾会话聊天url
+ */
+async function getAasButleragentChaturl(request: GetAasButleragentChaturlRequest): GetAasButleragentChaturlResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getAasButleragentChaturlEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取智能保顾会话聊天url
+ * Summary: 获取智能保顾会话聊天url
+ */
+async function getAasButleragentChaturlEx(request: GetAasButleragentChaturlRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetAasButleragentChaturlResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.insurancesaas.butleragent.chaturl.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryInquiryRequest = {
@@ -2298,7 +2427,7 @@ model CallbackMktEffectRequest = {
   // AI_BPO("AI_BPO")
   marketingMode: string(maxLength=64, name='marketing_mode'),
   // 投保特征短链
-  insureShortUrl: string(maxLength=256, name='insure_short_url'),
+  insureShortUrl?: string(maxLength=256, name='insure_short_url'),
   // 加密类型：MD5，32位[小]
   encryptionType: string(maxLength=32, name='encryption_type'),
   // 加密用户标识
