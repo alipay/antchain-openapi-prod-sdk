@@ -11,10 +11,10 @@ public class ReleaseassetAntdigitalWebtrwatradeFundchannelTxnRequest extends Tea
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // jetco生成的ID,由第一个指示代理分配的唯一标识，用于明确标识在整个银行间链中传递的、不变的交易。
-    @NameInMap("e2e_id")
+    // 订单ID
+    @NameInMap("order_id")
     @Validation(required = true)
-    public String e2eId;
+    public String orderId;
 
     public static ReleaseassetAntdigitalWebtrwatradeFundchannelTxnRequest build(java.util.Map<String, ?> map) throws Exception {
         ReleaseassetAntdigitalWebtrwatradeFundchannelTxnRequest self = new ReleaseassetAntdigitalWebtrwatradeFundchannelTxnRequest();
@@ -37,12 +37,12 @@ public class ReleaseassetAntdigitalWebtrwatradeFundchannelTxnRequest extends Tea
         return this.productInstanceId;
     }
 
-    public ReleaseassetAntdigitalWebtrwatradeFundchannelTxnRequest setE2eId(String e2eId) {
-        this.e2eId = e2eId;
+    public ReleaseassetAntdigitalWebtrwatradeFundchannelTxnRequest setOrderId(String orderId) {
+        this.orderId = orderId;
         return this;
     }
-    public String getE2eId() {
-        return this.e2eId;
+    public String getOrderId() {
+        return this.orderId;
     }
 
 }
