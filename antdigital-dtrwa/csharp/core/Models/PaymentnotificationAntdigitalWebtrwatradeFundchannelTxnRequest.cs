@@ -18,10 +18,10 @@ namespace AntChain.SDK.DTRWA.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // jetco生成的ID,由第一个指示代理分配的唯一标识，用于明确标识在整个银行间链中传递的、不变的交易
-        [NameInMap("e2e_id")]
+        // 订单ID
+        [NameInMap("order_id")]
         [Validation(Required=true)]
-        public string E2eId { get; set; }
+        public string OrderId { get; set; }
 
         // 支付状态
         [NameInMap("status")]
