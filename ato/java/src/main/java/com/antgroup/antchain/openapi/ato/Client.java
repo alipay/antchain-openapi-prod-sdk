@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.19.68"),
+                    new TeaPair("sdk_version", "1.19.69"),
                     new TeaPair("_prod_code", "ATO"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -228,6 +228,48 @@ public class Client {
     public QueryFundAlipaysettletocardResponse queryFundAlipaysettletocardEx(QueryFundAlipaysettletocardRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.fund.alipaysettletocard.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryFundAlipaysettletocardResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 创建结算到卡交易流水任务接口
+     * Summary: 创建结算到卡交易流水任务接口</p>
+     */
+    public InitTradeSettletocardResponse initTradeSettletocard(InitTradeSettletocardRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.initTradeSettletocardEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 创建结算到卡交易流水任务接口
+     * Summary: 创建结算到卡交易流水任务接口</p>
+     */
+    public InitTradeSettletocardResponse initTradeSettletocardEx(InitTradeSettletocardRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.trade.settletocard.init", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new InitTradeSettletocardResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 下载结算到卡流水任务接口
+     * Summary: 下载结算到卡流水任务接口</p>
+     */
+    public QueryTradeSettletocardResponse queryTradeSettletocard(QueryTradeSettletocardRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryTradeSettletocardEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 下载结算到卡流水任务接口
+     * Summary: 下载结算到卡流水任务接口</p>
+     */
+    public QueryTradeSettletocardResponse queryTradeSettletocardEx(QueryTradeSettletocardRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.trade.settletocard.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTradeSettletocardResponse());
     }
 
     /**
