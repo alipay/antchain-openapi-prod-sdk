@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.DTAIAGT.Models
 {
-    public class UploadAgentPortalResponse : TeaModel {
+    public class StopIagentChatResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,10 +24,10 @@ namespace AntChain.SDK.DTAIAGT.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 文件信息
+        // 停止对话响应内容
         [NameInMap("data")]
         [Validation(Required=false)]
-        public LibraryUploadFileResult Data { get; set; }
+        public string Data { get; set; }
 
     }
 

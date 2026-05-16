@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.DTAIAGT.Models
 {
-    public class UploadAgentPortalRequest : TeaModel {
+    public class UploadAgentPortalfileRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -36,16 +36,6 @@ namespace AntChain.SDK.DTAIAGT.Models
         [NameInMap("file_id")]
         [Validation(Required=true)]
         public string FileId { get; set; }
-
-        // 文件路径
-        [NameInMap("path")]
-        [Validation(Required=false)]
-        public string Path { get; set; }
-
-        // work_space_id
-        [NameInMap("work_space_id")]
-        [Validation(Required=false)]
-        public string WorkSpaceId { get; set; }
 
     }
 
