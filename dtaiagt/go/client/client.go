@@ -3691,8 +3691,10 @@ type UploadAgentPortalRequest struct {
 	// 待上传文件名
 	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
 	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
-	// workSpace
-	Path *string `json:"path,omitempty" xml:"path,omitempty" require:"true"`
+	// 文件路径
+	Path *string `json:"path,omitempty" xml:"path,omitempty"`
+	// work_space_id
+	WorkSpaceId *string `json:"work_space_id,omitempty" xml:"work_space_id,omitempty"`
 }
 
 func (s UploadAgentPortalRequest) String() string {
@@ -3733,6 +3735,11 @@ func (s *UploadAgentPortalRequest) SetPath(v string) *UploadAgentPortalRequest {
 	return s
 }
 
+func (s *UploadAgentPortalRequest) SetWorkSpaceId(v string) *UploadAgentPortalRequest {
+	s.WorkSpaceId = &v
+	return s
+}
+
 type UploadAgentPortalResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -3741,7 +3748,7 @@ type UploadAgentPortalResponse struct {
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 文件信息
-	Data *UploadAttachmentFileVO `json:"data,omitempty" xml:"data,omitempty"`
+	Data *LibraryUploadFileResult `json:"data,omitempty" xml:"data,omitempty"`
 }
 
 func (s UploadAgentPortalResponse) String() string {
@@ -3767,8 +3774,85 @@ func (s *UploadAgentPortalResponse) SetResultMsg(v string) *UploadAgentPortalRes
 	return s
 }
 
-func (s *UploadAgentPortalResponse) SetData(v *UploadAttachmentFileVO) *UploadAgentPortalResponse {
+func (s *UploadAgentPortalResponse) SetData(v *LibraryUploadFileResult) *UploadAgentPortalResponse {
 	s.Data = v
+	return s
+}
+
+type UploadAgentPortalfileRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// string
+	// 待上传文件
+	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
+	// 待上传文件名
+	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+}
+
+func (s UploadAgentPortalfileRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadAgentPortalfileRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UploadAgentPortalfileRequest) SetAuthToken(v string) *UploadAgentPortalfileRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UploadAgentPortalfileRequest) SetProductInstanceId(v string) *UploadAgentPortalfileRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UploadAgentPortalfileRequest) SetFileObject(v io.Reader) *UploadAgentPortalfileRequest {
+	s.FileObject = v
+	return s
+}
+
+func (s *UploadAgentPortalfileRequest) SetFileObjectName(v string) *UploadAgentPortalfileRequest {
+	s.FileObjectName = &v
+	return s
+}
+
+func (s *UploadAgentPortalfileRequest) SetFileId(v string) *UploadAgentPortalfileRequest {
+	s.FileId = &v
+	return s
+}
+
+type UploadAgentPortalfileResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s UploadAgentPortalfileResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadAgentPortalfileResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UploadAgentPortalfileResponse) SetReqMsgId(v string) *UploadAgentPortalfileResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UploadAgentPortalfileResponse) SetResultCode(v string) *UploadAgentPortalfileResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UploadAgentPortalfileResponse) SetResultMsg(v string) *UploadAgentPortalfileResponse {
+	s.ResultMsg = &v
 	return s
 }
 
@@ -3839,6 +3923,146 @@ func (s *StartIagentCchatResponse) SetResultMsg(v string) *StartIagentCchatRespo
 
 func (s *StartIagentCchatResponse) SetChatCompletionObject(v string) *StartIagentCchatResponse {
 	s.ChatCompletionObject = &v
+	return s
+}
+
+type StartIagentChatRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求内容，内容为 AgentChatReq 对象的json字符串
+	AgentChatRequest *string `json:"agent_chat_request,omitempty" xml:"agent_chat_request,omitempty" require:"true"`
+}
+
+func (s StartIagentChatRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StartIagentChatRequest) GoString() string {
+	return s.String()
+}
+
+func (s *StartIagentChatRequest) SetAuthToken(v string) *StartIagentChatRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *StartIagentChatRequest) SetProductInstanceId(v string) *StartIagentChatRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *StartIagentChatRequest) SetAgentChatRequest(v string) *StartIagentChatRequest {
+	s.AgentChatRequest = &v
+	return s
+}
+
+type StartIagentChatResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 会话结果
+	ChatCompletionObject *string `json:"chat_completion_object,omitempty" xml:"chat_completion_object,omitempty"`
+}
+
+func (s StartIagentChatResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StartIagentChatResponse) GoString() string {
+	return s.String()
+}
+
+func (s *StartIagentChatResponse) SetReqMsgId(v string) *StartIagentChatResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *StartIagentChatResponse) SetResultCode(v string) *StartIagentChatResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *StartIagentChatResponse) SetResultMsg(v string) *StartIagentChatResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *StartIagentChatResponse) SetChatCompletionObject(v string) *StartIagentChatResponse {
+	s.ChatCompletionObject = &v
+	return s
+}
+
+type StopIagentChatRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求内容，内容为 AgentQuitReq 对象的json字符串
+	Request *string `json:"request,omitempty" xml:"request,omitempty" require:"true"`
+}
+
+func (s StopIagentChatRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StopIagentChatRequest) GoString() string {
+	return s.String()
+}
+
+func (s *StopIagentChatRequest) SetAuthToken(v string) *StopIagentChatRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *StopIagentChatRequest) SetProductInstanceId(v string) *StopIagentChatRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *StopIagentChatRequest) SetRequest(v string) *StopIagentChatRequest {
+	s.Request = &v
+	return s
+}
+
+type StopIagentChatResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 停止对话响应内容
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s StopIagentChatResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StopIagentChatResponse) GoString() string {
+	return s.String()
+}
+
+func (s *StopIagentChatResponse) SetReqMsgId(v string) *StopIagentChatResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *StopIagentChatResponse) SetResultCode(v string) *StopIagentChatResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *StopIagentChatResponse) SetResultMsg(v string) *StopIagentChatResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *StopIagentChatResponse) SetData(v string) *StopIagentChatResponse {
+	s.Data = &v
 	return s
 }
 
@@ -5750,7 +5974,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("3.6.0"),
+				"sdk_version":      tea.String("4.0.1"),
 				"_prod_code":       tea.String("DTAIAGT"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -6077,6 +6301,70 @@ func (client *Client) UploadAgentPortalEx(request *UploadAgentPortalRequest, hea
 }
 
 /**
+ * Description: 文件上传2.0
+ * Summary: 文件上传2.0
+ */
+func (client *Client) UploadAgentPortalfile(request *UploadAgentPortalfileRequest) (_result *UploadAgentPortalfileResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UploadAgentPortalfileResponse{}
+	_body, _err := client.UploadAgentPortalfileEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 文件上传2.0
+ * Summary: 文件上传2.0
+ */
+func (client *Client) UploadAgentPortalfileEx(request *UploadAgentPortalfileRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UploadAgentPortalfileResponse, _err error) {
+	if !tea.BoolValue(util.IsUnset(request.FileObject)) {
+		uploadReq := &CreateAntcloudGatewayxFileUploadRequest{
+			AuthToken: request.AuthToken,
+			ApiCode:   tea.String("antdigital.dtaiagt.agent.portalfile.upload"),
+			FileName:  request.FileObjectName,
+		}
+		uploadResp, _err := client.CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime)
+		if _err != nil {
+			return _result, _err
+		}
+
+		if !tea.BoolValue(antchainutil.IsSuccess(uploadResp.ResultCode, tea.String("ok"))) {
+			uploadAgentPortalfileResponse := &UploadAgentPortalfileResponse{
+				ReqMsgId:   uploadResp.ReqMsgId,
+				ResultCode: uploadResp.ResultCode,
+				ResultMsg:  uploadResp.ResultMsg,
+			}
+			_result = uploadAgentPortalfileResponse
+			return _result, _err
+		}
+
+		uploadHeaders := antchainutil.ParseUploadHeaders(uploadResp.UploadHeaders)
+		_err = antchainutil.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl)
+		if _err != nil {
+			return _result, _err
+		}
+		request.FileId = uploadResp.FileId
+		request.FileObject = nil
+	}
+
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UploadAgentPortalfileResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.dtaiagt.agent.portalfile.upload"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
  * Description: saas国际站-新加坡-同步对话接口
  * Summary: saas国际站-新加坡-同步对话接口
  */
@@ -6103,6 +6391,74 @@ func (client *Client) StartIagentCchatEx(request *StartIagentCchatRequest, heade
 	}
 	_result = &StartIagentCchatResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.dtaiagt.iagent.cchat.start"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 流式对话-国内网关-对接saas国际化
+ * Summary: 流式对话-国内网关-对接saas国际化
+ */
+func (client *Client) StartIagentChat(request *StartIagentChatRequest) (_result *StartIagentChatResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &StartIagentChatResponse{}
+	_body, _err := client.StartIagentChatEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 流式对话-国内网关-对接saas国际化
+ * Summary: 流式对话-国内网关-对接saas国际化
+ */
+func (client *Client) StartIagentChatEx(request *StartIagentChatRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *StartIagentChatResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &StartIagentChatResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.dtaiagt.iagent.chat.start"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 停止对话-saas国际化-国内网关调用
+ * Summary: 停止对话-saas国际化-国内网关调用
+ */
+func (client *Client) StopIagentChat(request *StopIagentChatRequest) (_result *StopIagentChatResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &StopIagentChatResponse{}
+	_body, _err := client.StopIagentChatEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 停止对话-saas国际化-国内网关调用
+ * Summary: 停止对话-saas国际化-国内网关调用
+ */
+func (client *Client) StopIagentChatEx(request *StopIagentChatRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *StopIagentChatResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &StopIagentChatResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.dtaiagt.iagent.chat.stop"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}

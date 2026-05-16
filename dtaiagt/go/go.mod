@@ -1,4 +1,4 @@
-module github.com/antchain-openapi-sdk-go/dtaiagt/v3
+module github.com/antchain-openapi-sdk-go/dtaiagt/v4
 
 go 1.15
 
