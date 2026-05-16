@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.dtaiagt.models;
 
 import com.aliyun.tea.*;
 
-public class UploadAgentPortalResponse extends TeaModel {
+public class StopIagentChatResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,16 @@ public class UploadAgentPortalResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 文件信息
+    // 停止对话响应内容
     @NameInMap("data")
-    public LibraryUploadFileResult data;
+    public String data;
 
-    public static UploadAgentPortalResponse build(java.util.Map<String, ?> map) throws Exception {
-        UploadAgentPortalResponse self = new UploadAgentPortalResponse();
+    public static StopIagentChatResponse build(java.util.Map<String, ?> map) throws Exception {
+        StopIagentChatResponse self = new StopIagentChatResponse();
         return TeaModel.build(map, self);
     }
 
-    public UploadAgentPortalResponse setReqMsgId(String reqMsgId) {
+    public StopIagentChatResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class UploadAgentPortalResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public UploadAgentPortalResponse setResultCode(String resultCode) {
+    public StopIagentChatResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class UploadAgentPortalResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public UploadAgentPortalResponse setResultMsg(String resultMsg) {
+    public StopIagentChatResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,11 +49,11 @@ public class UploadAgentPortalResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public UploadAgentPortalResponse setData(LibraryUploadFileResult data) {
+    public StopIagentChatResponse setData(String data) {
         this.data = data;
         return this;
     }
-    public LibraryUploadFileResult getData() {
+    public String getData() {
         return this.data;
     }
 

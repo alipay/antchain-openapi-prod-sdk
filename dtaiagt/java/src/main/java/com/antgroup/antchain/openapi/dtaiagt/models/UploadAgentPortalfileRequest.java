@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.dtaiagt.models;
 
 import com.aliyun.tea.*;
 
-public class UploadAgentPortalRequest extends TeaModel {
+public class UploadAgentPortalfileRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -28,20 +28,12 @@ public class UploadAgentPortalRequest extends TeaModel {
     @Validation(required = true)
     public String fileId;
 
-    // 文件路径
-    @NameInMap("path")
-    public String path;
-
-    // work_space_id
-    @NameInMap("work_space_id")
-    public String workSpaceId;
-
-    public static UploadAgentPortalRequest build(java.util.Map<String, ?> map) throws Exception {
-        UploadAgentPortalRequest self = new UploadAgentPortalRequest();
+    public static UploadAgentPortalfileRequest build(java.util.Map<String, ?> map) throws Exception {
+        UploadAgentPortalfileRequest self = new UploadAgentPortalfileRequest();
         return TeaModel.build(map, self);
     }
 
-    public UploadAgentPortalRequest setAuthToken(String authToken) {
+    public UploadAgentPortalfileRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -49,7 +41,7 @@ public class UploadAgentPortalRequest extends TeaModel {
         return this.authToken;
     }
 
-    public UploadAgentPortalRequest setProductInstanceId(String productInstanceId) {
+    public UploadAgentPortalfileRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -57,7 +49,7 @@ public class UploadAgentPortalRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public UploadAgentPortalRequest setFileObject(java.io.InputStream fileObject) {
+    public UploadAgentPortalfileRequest setFileObject(java.io.InputStream fileObject) {
         this.fileObject = fileObject;
         return this;
     }
@@ -65,7 +57,7 @@ public class UploadAgentPortalRequest extends TeaModel {
         return this.fileObject;
     }
 
-    public UploadAgentPortalRequest setFileObjectName(String fileObjectName) {
+    public UploadAgentPortalfileRequest setFileObjectName(String fileObjectName) {
         this.fileObjectName = fileObjectName;
         return this;
     }
@@ -73,28 +65,12 @@ public class UploadAgentPortalRequest extends TeaModel {
         return this.fileObjectName;
     }
 
-    public UploadAgentPortalRequest setFileId(String fileId) {
+    public UploadAgentPortalfileRequest setFileId(String fileId) {
         this.fileId = fileId;
         return this;
     }
     public String getFileId() {
         return this.fileId;
-    }
-
-    public UploadAgentPortalRequest setPath(String path) {
-        this.path = path;
-        return this;
-    }
-    public String getPath() {
-        return this.path;
-    }
-
-    public UploadAgentPortalRequest setWorkSpaceId(String workSpaceId) {
-        this.workSpaceId = workSpaceId;
-        return this;
-    }
-    public String getWorkSpaceId() {
-        return this.workSpaceId;
     }
 
 }

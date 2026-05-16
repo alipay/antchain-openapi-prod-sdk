@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "3.6.0"),
+                    new TeaPair("sdk_version", "4.0.1"),
                     new TeaPair("_prod_code", "DTAIAGT"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -359,6 +359,49 @@ public class Client {
 
     /**
      * <b>description</b> :
+     * <p>Description: 文件上传2.0
+     * Summary: 文件上传2.0</p>
+     */
+    public UploadAgentPortalfileResponse uploadAgentPortalfile(UploadAgentPortalfileRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.uploadAgentPortalfileEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 文件上传2.0
+     * Summary: 文件上传2.0</p>
+     */
+    public UploadAgentPortalfileResponse uploadAgentPortalfileEx(UploadAgentPortalfileRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        if (!com.aliyun.teautil.Common.isUnset(request.fileObject)) {
+            CreateAntcloudGatewayxFileUploadRequest uploadReq = CreateAntcloudGatewayxFileUploadRequest.build(TeaConverter.buildMap(
+                new TeaPair("authToken", request.authToken),
+                new TeaPair("apiCode", "antdigital.dtaiagt.agent.portalfile.upload"),
+                new TeaPair("fileName", request.fileObjectName)
+            ));
+            CreateAntcloudGatewayxFileUploadResponse uploadResp = this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+            if (!com.antgroup.antchain.openapi.antchain.util.AntchainUtils.isSuccess(uploadResp.resultCode, "ok")) {
+                UploadAgentPortalfileResponse uploadAgentPortalfileResponse = UploadAgentPortalfileResponse.build(TeaConverter.buildMap(
+                    new TeaPair("reqMsgId", uploadResp.reqMsgId),
+                    new TeaPair("resultCode", uploadResp.resultCode),
+                    new TeaPair("resultMsg", uploadResp.resultMsg)
+                ));
+                return uploadAgentPortalfileResponse;
+            }
+
+            java.util.Map<String, String> uploadHeaders = com.antgroup.antchain.openapi.antchain.util.AntchainUtils.parseUploadHeaders(uploadResp.uploadHeaders);
+            com.antgroup.antchain.openapi.antchain.util.AntchainUtils.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+            request.fileId = uploadResp.fileId;
+            request.fileObject = null;
+        }
+
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.dtaiagt.agent.portalfile.upload", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UploadAgentPortalfileResponse());
+    }
+
+    /**
+     * <b>description</b> :
      * <p>Description: saas国际站-新加坡-同步对话接口
      * Summary: saas国际站-新加坡-同步对话接口</p>
      */
@@ -376,6 +419,48 @@ public class Client {
     public StartIagentCchatResponse startIagentCchatEx(StartIagentCchatRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antdigital.dtaiagt.iagent.cchat.start", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new StartIagentCchatResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 流式对话-国内网关-对接saas国际化
+     * Summary: 流式对话-国内网关-对接saas国际化</p>
+     */
+    public StartIagentChatResponse startIagentChat(StartIagentChatRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.startIagentChatEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 流式对话-国内网关-对接saas国际化
+     * Summary: 流式对话-国内网关-对接saas国际化</p>
+     */
+    public StartIagentChatResponse startIagentChatEx(StartIagentChatRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.dtaiagt.iagent.chat.start", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new StartIagentChatResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 停止对话-saas国际化-国内网关调用
+     * Summary: 停止对话-saas国际化-国内网关调用</p>
+     */
+    public StopIagentChatResponse stopIagentChat(StopIagentChatRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.stopIagentChatEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 停止对话-saas国际化-国内网关调用
+     * Summary: 停止对话-saas国际化-国内网关调用</p>
+     */
+    public StopIagentChatResponse stopIagentChatEx(StopIagentChatRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.dtaiagt.iagent.chat.stop", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new StopIagentChatResponse());
     }
 
     /**

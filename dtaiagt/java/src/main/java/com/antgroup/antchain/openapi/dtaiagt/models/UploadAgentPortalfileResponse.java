@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.dtaiagt.models;
 
 import com.aliyun.tea.*;
 
-public class UploadAgentPortalResponse extends TeaModel {
+public class UploadAgentPortalfileResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,12 @@ public class UploadAgentPortalResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 文件信息
-    @NameInMap("data")
-    public LibraryUploadFileResult data;
-
-    public static UploadAgentPortalResponse build(java.util.Map<String, ?> map) throws Exception {
-        UploadAgentPortalResponse self = new UploadAgentPortalResponse();
+    public static UploadAgentPortalfileResponse build(java.util.Map<String, ?> map) throws Exception {
+        UploadAgentPortalfileResponse self = new UploadAgentPortalfileResponse();
         return TeaModel.build(map, self);
     }
 
-    public UploadAgentPortalResponse setReqMsgId(String reqMsgId) {
+    public UploadAgentPortalfileResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +29,7 @@ public class UploadAgentPortalResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public UploadAgentPortalResponse setResultCode(String resultCode) {
+    public UploadAgentPortalfileResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,20 +37,12 @@ public class UploadAgentPortalResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public UploadAgentPortalResponse setResultMsg(String resultMsg) {
+    public UploadAgentPortalfileResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
     public String getResultMsg() {
         return this.resultMsg;
-    }
-
-    public UploadAgentPortalResponse setData(LibraryUploadFileResult data) {
-        this.data = data;
-        return this;
-    }
-    public LibraryUploadFileResult getData() {
-        return this.data;
     }
 
 }

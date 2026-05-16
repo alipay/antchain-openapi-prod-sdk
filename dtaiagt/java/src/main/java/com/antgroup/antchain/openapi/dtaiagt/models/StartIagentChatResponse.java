@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.dtaiagt.models;
 
 import com.aliyun.tea.*;
 
-public class UploadAgentPortalResponse extends TeaModel {
+public class StartIagentChatResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,16 @@ public class UploadAgentPortalResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 文件信息
-    @NameInMap("data")
-    public LibraryUploadFileResult data;
+    // 会话结果
+    @NameInMap("chat_completion_object")
+    public String chatCompletionObject;
 
-    public static UploadAgentPortalResponse build(java.util.Map<String, ?> map) throws Exception {
-        UploadAgentPortalResponse self = new UploadAgentPortalResponse();
+    public static StartIagentChatResponse build(java.util.Map<String, ?> map) throws Exception {
+        StartIagentChatResponse self = new StartIagentChatResponse();
         return TeaModel.build(map, self);
     }
 
-    public UploadAgentPortalResponse setReqMsgId(String reqMsgId) {
+    public StartIagentChatResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class UploadAgentPortalResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public UploadAgentPortalResponse setResultCode(String resultCode) {
+    public StartIagentChatResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class UploadAgentPortalResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public UploadAgentPortalResponse setResultMsg(String resultMsg) {
+    public StartIagentChatResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,12 +49,12 @@ public class UploadAgentPortalResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public UploadAgentPortalResponse setData(LibraryUploadFileResult data) {
-        this.data = data;
+    public StartIagentChatResponse setChatCompletionObject(String chatCompletionObject) {
+        this.chatCompletionObject = chatCompletionObject;
         return this;
     }
-    public LibraryUploadFileResult getData() {
-        return this.data;
+    public String getChatCompletionObject() {
+        return this.chatCompletionObject;
     }
 
 }
