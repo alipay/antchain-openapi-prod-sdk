@@ -2763,8 +2763,10 @@ export class UploadAgentPortalRequest extends $tea.Model {
   fileObject?: Readable;
   fileObjectName?: string;
   fileId: string;
-  // workSpace
-  path: string;
+  // 文件路径
+  path?: string;
+  // work_space_id
+  workSpaceId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -2773,6 +2775,7 @@ export class UploadAgentPortalRequest extends $tea.Model {
       fileObjectName: 'fileObjectName',
       fileId: 'file_id',
       path: 'path',
+      workSpaceId: 'work_space_id',
     };
   }
 
@@ -2784,6 +2787,7 @@ export class UploadAgentPortalRequest extends $tea.Model {
       fileObjectName: 'string',
       fileId: 'string',
       path: 'string',
+      workSpaceId: 'string',
     };
   }
 
@@ -2800,7 +2804,7 @@ export class UploadAgentPortalResponse extends $tea.Model {
   // 异常信息的文本描述
   resultMsg?: string;
   // 文件信息
-  data?: UploadAttachmentFileVO;
+  data?: LibraryUploadFileResult;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -2815,7 +2819,68 @@ export class UploadAgentPortalResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      data: UploadAttachmentFileVO,
+      data: LibraryUploadFileResult,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadAgentPortalfileRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // string
+  fileObject?: Readable;
+  fileObjectName?: string;
+  fileId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      fileObject: 'fileObject',
+      fileObjectName: 'fileObjectName',
+      fileId: 'file_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      fileObject: 'Readable',
+      fileObjectName: 'string',
+      fileId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadAgentPortalfileResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
     };
   }
 
@@ -2875,6 +2940,124 @@ export class StartIagentCchatResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       chatCompletionObject: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class StartIagentChatRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求内容，内容为 AgentChatReq 对象的json字符串
+  agentChatRequest: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      agentChatRequest: 'agent_chat_request',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      agentChatRequest: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class StartIagentChatResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 会话结果
+  chatCompletionObject?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      chatCompletionObject: 'chat_completion_object',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      chatCompletionObject: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class StopIagentChatRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求内容，内容为 AgentQuitReq 对象的json字符串
+  request: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      request: 'request',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      request: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class StopIagentChatResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 停止对话响应内容
+  data?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: 'string',
     };
   }
 
@@ -4409,7 +4592,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "3.6.0",
+          sdk_version: "4.0.1",
           _prod_code: "DTAIAGT",
           _prod_channel: "default",
         };
@@ -4613,6 +4796,47 @@ export default class Client {
   }
 
   /**
+   * Description: 文件上传2.0
+   * Summary: 文件上传2.0
+   */
+  async uploadAgentPortalfile(request: UploadAgentPortalfileRequest): Promise<UploadAgentPortalfileResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.uploadAgentPortalfileEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 文件上传2.0
+   * Summary: 文件上传2.0
+   */
+  async uploadAgentPortalfileEx(request: UploadAgentPortalfileRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UploadAgentPortalfileResponse> {
+    if (!Util.isUnset(request.fileObject)) {
+      let uploadReq = new CreateAntcloudGatewayxFileUploadRequest({
+        authToken: request.authToken,
+        apiCode: "antdigital.dtaiagt.agent.portalfile.upload",
+        fileName: request.fileObjectName,
+      });
+      let uploadResp = await this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+      if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+        let uploadAgentPortalfileResponse = new UploadAgentPortalfileResponse({
+          reqMsgId: uploadResp.reqMsgId,
+          resultCode: uploadResp.resultCode,
+          resultMsg: uploadResp.resultMsg,
+        });
+        return uploadAgentPortalfileResponse;
+      }
+
+      let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+      await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+      request.fileId = uploadResp.fileId;
+      request.fileObject = null;
+    }
+
+    Util.validateModel(request);
+    return $tea.cast<UploadAgentPortalfileResponse>(await this.doRequest("1.0", "antdigital.dtaiagt.agent.portalfile.upload", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UploadAgentPortalfileResponse({}));
+  }
+
+  /**
    * Description: saas国际站-新加坡-同步对话接口
    * Summary: saas国际站-新加坡-同步对话接口
    */
@@ -4629,6 +4853,44 @@ export default class Client {
   async startIagentCchatEx(request: StartIagentCchatRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<StartIagentCchatResponse> {
     Util.validateModel(request);
     return $tea.cast<StartIagentCchatResponse>(await this.doRequest("1.0", "antdigital.dtaiagt.iagent.cchat.start", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new StartIagentCchatResponse({}));
+  }
+
+  /**
+   * Description: 流式对话-国内网关-对接saas国际化
+   * Summary: 流式对话-国内网关-对接saas国际化
+   */
+  async startIagentChat(request: StartIagentChatRequest): Promise<StartIagentChatResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.startIagentChatEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 流式对话-国内网关-对接saas国际化
+   * Summary: 流式对话-国内网关-对接saas国际化
+   */
+  async startIagentChatEx(request: StartIagentChatRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<StartIagentChatResponse> {
+    Util.validateModel(request);
+    return $tea.cast<StartIagentChatResponse>(await this.doRequest("1.0", "antdigital.dtaiagt.iagent.chat.start", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new StartIagentChatResponse({}));
+  }
+
+  /**
+   * Description: 停止对话-saas国际化-国内网关调用
+   * Summary: 停止对话-saas国际化-国内网关调用
+   */
+  async stopIagentChat(request: StopIagentChatRequest): Promise<StopIagentChatResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.stopIagentChatEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 停止对话-saas国际化-国内网关调用
+   * Summary: 停止对话-saas国际化-国内网关调用
+   */
+  async stopIagentChatEx(request: StopIagentChatRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<StopIagentChatResponse> {
+    Util.validateModel(request);
+    return $tea.cast<StopIagentChatResponse>(await this.doRequest("1.0", "antdigital.dtaiagt.iagent.chat.stop", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new StopIagentChatResponse({}));
   }
 
   /**
