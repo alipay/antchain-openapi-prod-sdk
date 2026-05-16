@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '3.6.0',
+    sdk_version = '4.0.1',
     _prod_code = 'DTAIAGT',
     _prod_channel = 'default'
   };
@@ -1410,8 +1410,10 @@ model UploadAgentPortalRequest = {
   fileObject?: readable(description='待上传文件', ignore='true'),
   fileObjectName?: string(description='待上传文件名', ignore='true'),
   fileId: string(name='file_id'),
-  // workSpace
-  path: string(name='path'),
+  // 文件路径
+  path?: string(name='path'),
+  // work_space_id
+  workSpaceId?: string(name='work_space_id'),
 }
 
 model UploadAgentPortalResponse = {
@@ -1422,7 +1424,7 @@ model UploadAgentPortalResponse = {
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 文件信息
-  data?: UploadAttachmentFileVO(name='data'),
+  data?: LibraryUploadFileResult(name='data'),
 }
 
 /**
@@ -1464,6 +1466,64 @@ async function uploadAgentPortalEx(request: UploadAgentPortalRequest, headers: m
   return doRequest('1.0' ,'antdigital.dtaiagt.agent.portal.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model UploadAgentPortalfileRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // string
+  fileObject?: readable(description='待上传文件', ignore='true'),
+  fileObjectName?: string(description='待上传文件名', ignore='true'),
+  fileId: string(name='file_id'),
+}
+
+model UploadAgentPortalfileResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 文件上传2.0
+ * Summary: 文件上传2.0
+ */
+async function uploadAgentPortalfile(request: UploadAgentPortalfileRequest): UploadAgentPortalfileResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return uploadAgentPortalfileEx(request, headers, runtime);
+}
+
+/**
+ * Description: 文件上传2.0
+ * Summary: 文件上传2.0
+ */
+async function uploadAgentPortalfileEx(request: UploadAgentPortalfileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadAgentPortalfileResponse {
+  if (!Util.isUnset(request.fileObject)) {
+    var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
+      authToken = request.authToken,
+      apiCode = 'antdigital.dtaiagt.agent.portalfile.upload',
+      fileName = request.fileObjectName,
+    };
+    var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+    if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+      var uploadAgentPortalfileResponse = new UploadAgentPortalfileResponse{
+        reqMsgId = uploadResp.reqMsgId,
+        resultCode = uploadResp.resultCode,
+        resultMsg = uploadResp.resultMsg,
+      };
+      return uploadAgentPortalfileResponse;
+    }
+    var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+    AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+    request.fileId = uploadResp.fileId;
+    request.fileObject = null;
+  }
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.dtaiagt.agent.portalfile.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model StartIagentCchatRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -1500,6 +1560,82 @@ async function startIagentCchat(request: StartIagentCchatRequest): StartIagentCc
 async function startIagentCchatEx(request: StartIagentCchatRequest, headers: map[string]string, runtime: Util.RuntimeOptions): StartIagentCchatResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antdigital.dtaiagt.iagent.cchat.start', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model StartIagentChatRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 请求内容，内容为 AgentChatReq 对象的json字符串
+  agentChatRequest: string(name='agent_chat_request'),
+}
+
+model StartIagentChatResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 会话结果
+  chatCompletionObject?: string(name='chat_completion_object'),
+}
+
+/**
+ * Description: 流式对话-国内网关-对接saas国际化
+ * Summary: 流式对话-国内网关-对接saas国际化
+ */
+async function startIagentChat(request: StartIagentChatRequest): StartIagentChatResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return startIagentChatEx(request, headers, runtime);
+}
+
+/**
+ * Description: 流式对话-国内网关-对接saas国际化
+ * Summary: 流式对话-国内网关-对接saas国际化
+ */
+async function startIagentChatEx(request: StartIagentChatRequest, headers: map[string]string, runtime: Util.RuntimeOptions): StartIagentChatResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.dtaiagt.iagent.chat.start', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model StopIagentChatRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 请求内容，内容为 AgentQuitReq 对象的json字符串
+  request: string(name='request'),
+}
+
+model StopIagentChatResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 停止对话响应内容
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 停止对话-saas国际化-国内网关调用
+ * Summary: 停止对话-saas国际化-国内网关调用
+ */
+async function stopIagentChat(request: StopIagentChatRequest): StopIagentChatResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return stopIagentChatEx(request, headers, runtime);
+}
+
+/**
+ * Description: 停止对话-saas国际化-国内网关调用
+ * Summary: 停止对话-saas国际化-国内网关调用
+ */
+async function stopIagentChatEx(request: StopIagentChatRequest, headers: map[string]string, runtime: Util.RuntimeOptions): StopIagentChatResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.dtaiagt.iagent.chat.stop', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model UploadAlipayLibraryRequest = {
