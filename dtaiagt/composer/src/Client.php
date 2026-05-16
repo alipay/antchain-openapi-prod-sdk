@@ -49,16 +49,22 @@ use AntChain\DTAIAGT\Models\StartAgentTaskRequest;
 use AntChain\DTAIAGT\Models\StartAgentTaskResponse;
 use AntChain\DTAIAGT\Models\StartIagentCchatRequest;
 use AntChain\DTAIAGT\Models\StartIagentCchatResponse;
+use AntChain\DTAIAGT\Models\StartIagentChatRequest;
+use AntChain\DTAIAGT\Models\StartIagentChatResponse;
 use AntChain\DTAIAGT\Models\StartOpenaiChatRequest;
 use AntChain\DTAIAGT\Models\StartOpenaiChatResponse;
 use AntChain\DTAIAGT\Models\StopAgentChatRequest;
 use AntChain\DTAIAGT\Models\StopAgentChatResponse;
 use AntChain\DTAIAGT\Models\StopAgentTaskRequest;
 use AntChain\DTAIAGT\Models\StopAgentTaskResponse;
+use AntChain\DTAIAGT\Models\StopIagentChatRequest;
+use AntChain\DTAIAGT\Models\StopIagentChatResponse;
 use AntChain\DTAIAGT\Models\UpdateAgentChatRequest;
 use AntChain\DTAIAGT\Models\UpdateAgentChatResponse;
 use AntChain\DTAIAGT\Models\UploadAgentPortalchatRequest;
 use AntChain\DTAIAGT\Models\UploadAgentPortalchatResponse;
+use AntChain\DTAIAGT\Models\UploadAgentPortalfileRequest;
+use AntChain\DTAIAGT\Models\UploadAgentPortalfileResponse;
 use AntChain\DTAIAGT\Models\UploadAgentPortalRequest;
 use AntChain\DTAIAGT\Models\UploadAgentPortalResponse;
 use AntChain\DTAIAGT\Models\UploadAlipayAgentchatRequest;
@@ -216,7 +222,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '3.6.0',
+                    'sdk_version'      => '4.0.1',
                     '_prod_code'       => 'DTAIAGT',
                     '_prod_channel'    => 'default',
                 ];
@@ -515,6 +521,58 @@ class Client
     }
 
     /**
+     * Description: 文件上传2.0
+     * Summary: 文件上传2.0.
+     *
+     * @param UploadAgentPortalfileRequest $request
+     *
+     * @return UploadAgentPortalfileResponse
+     */
+    public function uploadAgentPortalfile($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->uploadAgentPortalfileEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 文件上传2.0
+     * Summary: 文件上传2.0.
+     *
+     * @param UploadAgentPortalfileRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return UploadAgentPortalfileResponse
+     */
+    public function uploadAgentPortalfileEx($request, $headers, $runtime)
+    {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'antdigital.dtaiagt.agent.portalfile.upload',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
+                return new UploadAgentPortalfileResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
+        }
+        Utils::validateModel($request);
+
+        return UploadAgentPortalfileResponse::fromMap($this->doRequest('1.0', 'antdigital.dtaiagt.agent.portalfile.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: saas国际站-新加坡-同步对话接口
      * Summary: saas国际站-新加坡-同步对话接口.
      *
@@ -545,6 +603,72 @@ class Client
         Utils::validateModel($request);
 
         return StartIagentCchatResponse::fromMap($this->doRequest('1.0', 'antdigital.dtaiagt.iagent.cchat.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 流式对话-国内网关-对接saas国际化
+     * Summary: 流式对话-国内网关-对接saas国际化.
+     *
+     * @param StartIagentChatRequest $request
+     *
+     * @return StartIagentChatResponse
+     */
+    public function startIagentChat($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startIagentChatEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 流式对话-国内网关-对接saas国际化
+     * Summary: 流式对话-国内网关-对接saas国际化.
+     *
+     * @param StartIagentChatRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return StartIagentChatResponse
+     */
+    public function startIagentChatEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartIagentChatResponse::fromMap($this->doRequest('1.0', 'antdigital.dtaiagt.iagent.chat.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 停止对话-saas国际化-国内网关调用
+     * Summary: 停止对话-saas国际化-国内网关调用.
+     *
+     * @param StopIagentChatRequest $request
+     *
+     * @return StopIagentChatResponse
+     */
+    public function stopIagentChat($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->stopIagentChatEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 停止对话-saas国际化-国内网关调用
+     * Summary: 停止对话-saas国际化-国内网关调用.
+     *
+     * @param StopIagentChatRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return StopIagentChatResponse
+     */
+    public function stopIagentChatEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StopIagentChatResponse::fromMap($this->doRequest('1.0', 'antdigital.dtaiagt.iagent.chat.stop', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

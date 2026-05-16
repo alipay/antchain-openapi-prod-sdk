@@ -6,7 +6,7 @@ namespace AntChain\DTAIAGT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class UploadAgentPortalResponse extends Model
+class StopIagentChatResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,9 +26,9 @@ class UploadAgentPortalResponse extends Model
      */
     public $resultMsg;
 
-    // 文件信息
+    // 停止对话响应内容
     /**
-     * @var LibraryUploadFileResult
+     * @var string
      */
     public $data;
     protected $_name = [
@@ -55,7 +55,7 @@ class UploadAgentPortalResponse extends Model
             $res['result_msg'] = $this->resultMsg;
         }
         if (null !== $this->data) {
-            $res['data'] = null !== $this->data ? $this->data->toMap() : null;
+            $res['data'] = $this->data;
         }
 
         return $res;
@@ -64,7 +64,7 @@ class UploadAgentPortalResponse extends Model
     /**
      * @param array $map
      *
-     * @return UploadAgentPortalResponse
+     * @return StopIagentChatResponse
      */
     public static function fromMap($map = [])
     {
@@ -79,7 +79,7 @@ class UploadAgentPortalResponse extends Model
             $model->resultMsg = $map['result_msg'];
         }
         if (isset($map['data'])) {
-            $model->data = LibraryUploadFileResult::fromMap($map['data']);
+            $model->data = $map['data'];
         }
 
         return $model;

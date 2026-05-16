@@ -7,7 +7,7 @@ namespace AntChain\DTAIAGT\Models;
 use AlibabaCloud\Tea\Model;
 use GuzzleHttp\Psr7\Stream;
 
-class UploadAgentPortalRequest extends Model
+class UploadAgentPortalfileRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -39,24 +39,10 @@ class UploadAgentPortalRequest extends Model
      * @var string
      */
     public $fileId;
-
-    // 文件路径
-    /**
-     * @var string
-     */
-    public $path;
-
-    // work_space_id
-    /**
-     * @var string
-     */
-    public $workSpaceId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'fileId'            => 'file_id',
-        'path'              => 'path',
-        'workSpaceId'       => 'work_space_id',
     ];
 
     public function validate()
@@ -82,12 +68,6 @@ class UploadAgentPortalRequest extends Model
         if (null !== $this->fileId) {
             $res['file_id'] = $this->fileId;
         }
-        if (null !== $this->path) {
-            $res['path'] = $this->path;
-        }
-        if (null !== $this->workSpaceId) {
-            $res['work_space_id'] = $this->workSpaceId;
-        }
 
         return $res;
     }
@@ -95,7 +75,7 @@ class UploadAgentPortalRequest extends Model
     /**
      * @param array $map
      *
-     * @return UploadAgentPortalRequest
+     * @return UploadAgentPortalfileRequest
      */
     public static function fromMap($map = [])
     {
@@ -114,12 +94,6 @@ class UploadAgentPortalRequest extends Model
         }
         if (isset($map['file_id'])) {
             $model->fileId = $map['file_id'];
-        }
-        if (isset($map['path'])) {
-            $model->path = $map['path'];
-        }
-        if (isset($map['work_space_id'])) {
-            $model->workSpaceId = $map['work_space_id'];
         }
 
         return $model;

@@ -1,0 +1,74 @@
+<?php
+
+// This file is auto-generated, don't edit it. Thanks.
+
+namespace AntChain\DTAIAGT\Models;
+
+use AlibabaCloud\Tea\Model;
+
+class StopIagentChatRequest extends Model
+{
+    // OAuth模式下的授权token
+    /**
+     * @var string
+     */
+    public $authToken;
+
+    /**
+     * @var string
+     */
+    public $productInstanceId;
+
+    // 请求内容，内容为 AgentQuitReq 对象的json字符串
+    /**
+     * @var string
+     */
+    public $request;
+    protected $_name = [
+        'authToken'         => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'request'           => 'request',
+    ];
+
+    public function validate()
+    {
+        Model::validateRequired('request', $this->request, true);
+    }
+
+    public function toMap()
+    {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->request) {
+            $res['request'] = $this->request;
+        }
+
+        return $res;
+    }
+
+    /**
+     * @param array $map
+     *
+     * @return StopIagentChatRequest
+     */
+    public static function fromMap($map = [])
+    {
+        $model = new self();
+        if (isset($map['auth_token'])) {
+            $model->authToken = $map['auth_token'];
+        }
+        if (isset($map['product_instance_id'])) {
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if (isset($map['request'])) {
+            $model->request = $map['request'];
+        }
+
+        return $model;
+    }
+}

@@ -6,7 +6,7 @@ namespace AntChain\DTAIAGT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class UploadAgentPortalResponse extends Model
+class UploadAgentPortalfileResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -25,17 +25,10 @@ class UploadAgentPortalResponse extends Model
      * @var string
      */
     public $resultMsg;
-
-    // 文件信息
-    /**
-     * @var LibraryUploadFileResult
-     */
-    public $data;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'data'       => 'data',
     ];
 
     public function validate()
@@ -54,9 +47,6 @@ class UploadAgentPortalResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->data) {
-            $res['data'] = null !== $this->data ? $this->data->toMap() : null;
-        }
 
         return $res;
     }
@@ -64,7 +54,7 @@ class UploadAgentPortalResponse extends Model
     /**
      * @param array $map
      *
-     * @return UploadAgentPortalResponse
+     * @return UploadAgentPortalfileResponse
      */
     public static function fromMap($map = [])
     {
@@ -77,9 +67,6 @@ class UploadAgentPortalResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['data'])) {
-            $model->data = LibraryUploadFileResult::fromMap($map['data']);
         }
 
         return $model;
