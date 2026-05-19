@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '4.0.1',
+                    'sdk_version': '4.0.2',
                     '_prod_code': 'DTAIAGT',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '4.0.1',
+                    'sdk_version': '4.0.2',
                     '_prod_code': 'DTAIAGT',
                     '_prod_channel': 'default'
                 }
@@ -497,6 +497,62 @@ class Client:
         return TeaCore.from_map(
             dtaiagt_models.CancelAgentChatResponse(),
             await self.do_request_async('1.0', 'antdigital.dtaiagt.agent.chat.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def a_aa(
+        self,
+        request: dtaiagt_models.AAARequest,
+    ) -> dtaiagt_models.AAAResponse:
+        """
+        Description: 1
+        Summary: 1
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.a_aaex(request, headers, runtime)
+
+    async def a_aa_async(
+        self,
+        request: dtaiagt_models.AAARequest,
+    ) -> dtaiagt_models.AAAResponse:
+        """
+        Description: 1
+        Summary: 1
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.a_aaex_async(request, headers, runtime)
+
+    def a_aaex(
+        self,
+        request: dtaiagt_models.AAARequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> dtaiagt_models.AAAResponse:
+        """
+        Description: 1
+        Summary: 1
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            dtaiagt_models.AAAResponse(),
+            self.do_request('1.0', 'antdigital.dtaiagt.a.a.a', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def a_aaex_async(
+        self,
+        request: dtaiagt_models.AAARequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> dtaiagt_models.AAAResponse:
+        """
+        Description: 1
+        Summary: 1
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            dtaiagt_models.AAAResponse(),
+            await self.do_request_async('1.0', 'antdigital.dtaiagt.a.a.a', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_market_richdetail(
