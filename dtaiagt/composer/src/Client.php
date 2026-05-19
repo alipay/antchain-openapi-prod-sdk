@@ -11,6 +11,8 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\DTAIAGT\Models\AAARequest;
+use AntChain\DTAIAGT\Models\AAAResponse;
 use AntChain\DTAIAGT\Models\CancelAgentChatRequest;
 use AntChain\DTAIAGT\Models\CancelAgentChatResponse;
 use AntChain\DTAIAGT\Models\CreateAntcloudGatewayxFileUploadRequest;
@@ -222,7 +224,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '4.0.1',
+                    'sdk_version'      => '4.0.2',
                     '_prod_code'       => 'DTAIAGT',
                     '_prod_channel'    => 'default',
                 ];
@@ -400,6 +402,39 @@ class Client
         Utils::validateModel($request);
 
         return CancelAgentChatResponse::fromMap($this->doRequest('1.0', 'antdigital.dtaiagt.agent.chat.cancel', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 1
+     * Summary: 1.
+     *
+     * @param AAARequest $request
+     *
+     * @return AAAResponse
+     */
+    public function aAA($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->aAAEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 1
+     * Summary: 1.
+     *
+     * @param AAARequest     $request
+     * @param string[]       $headers
+     * @param RuntimeOptions $runtime
+     *
+     * @return AAAResponse
+     */
+    public function aAAEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AAAResponse::fromMap($this->doRequest('1.0', 'antdigital.dtaiagt.a.a.a', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
