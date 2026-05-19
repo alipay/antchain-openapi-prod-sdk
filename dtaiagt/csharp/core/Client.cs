@@ -137,7 +137,7 @@ namespace AntChain.SDK.DTAIAGT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "4.0.1"},
+                        {"sdk_version", "4.0.2"},
                         {"_prod_code", "DTAIAGT"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.DTAIAGT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "4.0.1"},
+                        {"sdk_version", "4.0.2"},
                         {"_prod_code", "DTAIAGT"},
                         {"_prod_channel", "default"},
                     };
@@ -487,6 +487,48 @@ namespace AntChain.SDK.DTAIAGT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CancelAgentChatResponse>(await DoRequestAsync("1.0", "antdigital.dtaiagt.agent.chat.cancel", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 1
+         * Summary: 1
+         */
+        public AAAResponse AAA(AAARequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return AAAEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 1
+         * Summary: 1
+         */
+        public async Task<AAAResponse> AAAAsync(AAARequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await AAAExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 1
+         * Summary: 1
+         */
+        public AAAResponse AAAEx(AAARequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AAAResponse>(DoRequest("1.0", "antdigital.dtaiagt.a.a.a", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 1
+         * Summary: 1
+         */
+        public async Task<AAAResponse> AAAExAsync(AAARequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AAAResponse>(await DoRequestAsync("1.0", "antdigital.dtaiagt.a.a.a", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
