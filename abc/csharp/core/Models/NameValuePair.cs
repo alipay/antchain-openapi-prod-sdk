@@ -9,7 +9,7 @@ using Tea;
 namespace AntChain.SDK.ABC.Models
 {
     // 键值对
-    public class XNameValuePair : TeaModel {
+    public class NameValuePair : TeaModel {
         // 键名
         [NameInMap("name")]
         [Validation(Required=true)]
