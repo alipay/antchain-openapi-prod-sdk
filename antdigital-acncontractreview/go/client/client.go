@@ -294,6 +294,8 @@ type QueryAntcloudContractaiAuditRecordRequest struct {
 	CreatorName *string `json:"creator_name,omitempty" xml:"creator_name,omitempty"`
 	// 基准线库名称
 	BaselineLibraryName *string `json:"baseline_library_name,omitempty" xml:"baseline_library_name,omitempty"`
+	// 终端客户id
+	EndCustomerId *string `json:"end_customer_id,omitempty" xml:"end_customer_id,omitempty"`
 }
 
 func (s QueryAntcloudContractaiAuditRecordRequest) String() string {
@@ -351,6 +353,11 @@ func (s *QueryAntcloudContractaiAuditRecordRequest) SetCreatorName(v string) *Qu
 
 func (s *QueryAntcloudContractaiAuditRecordRequest) SetBaselineLibraryName(v string) *QueryAntcloudContractaiAuditRecordRequest {
 	s.BaselineLibraryName = &v
+	return s
+}
+
+func (s *QueryAntcloudContractaiAuditRecordRequest) SetEndCustomerId(v string) *QueryAntcloudContractaiAuditRecordRequest {
+	s.EndCustomerId = &v
 	return s
 }
 
@@ -536,7 +543,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.1"),
+				"sdk_version":      tea.String("1.0.2"),
 				"_prod_code":       tea.String("ACNCONTRACTREVIEW"),
 				"_prod_channel":    tea.String("default"),
 			}
