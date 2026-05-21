@@ -15,8 +15,14 @@ use AntChain\SDS\Models\BatchqueryScenedataTaskresultRequest;
 use AntChain\SDS\Models\BatchqueryScenedataTaskresultResponse;
 use AntChain\SDS\Models\CreateAntcloudGatewayxFileUploadRequest;
 use AntChain\SDS\Models\CreateAntcloudGatewayxFileUploadResponse;
+use AntChain\SDS\Models\DownloadStockRefundflowRequest;
+use AntChain\SDS\Models\DownloadStockRefundflowResponse;
+use AntChain\SDS\Models\DownloadStockUseflowRequest;
+use AntChain\SDS\Models\DownloadStockUseflowResponse;
 use AntChain\SDS\Models\JudgeCrowdPrefermentRequest;
 use AntChain\SDS\Models\JudgeCrowdPrefermentResponse;
+use AntChain\SDS\Models\QueryFavorStocksRequest;
+use AntChain\SDS\Models\QueryFavorStocksResponse;
 use AntChain\SDS\Models\QueryScenedataDwsRequest;
 use AntChain\SDS\Models\QueryScenedataDwsResponse;
 use AntChain\SDS\Models\QueryScenedataOnlineRequest;
@@ -146,7 +152,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 维度
+            // 【固定折扣特定信息】
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -174,7 +180,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.5.0',
+                    'sdk_version'      => '1.6.0',
                     '_prod_code'       => 'SDS',
                     '_prod_channel'    => 'default',
                 ];
@@ -470,6 +476,105 @@ class Client
         Utils::validateModel($request);
 
         return QueryScenedataDwsResponse::fromMap($this->doRequest('1.0', 'antchain.sds.scenedata.dws.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 微信批次分页条件查询。通过此接口可查询商家多个批次的信息，包括批次的配置信息以及批次概况数据。
+     * Summary: 微信批次分页条件查询。通过此接口可查询商家多个批次的信息，包括批次的配置信息以及批次概况数据。
+     *
+     * @param QueryFavorStocksRequest $request
+     *
+     * @return QueryFavorStocksResponse
+     */
+    public function queryFavorStocks($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryFavorStocksEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 微信批次分页条件查询。通过此接口可查询商家多个批次的信息，包括批次的配置信息以及批次概况数据。
+     * Summary: 微信批次分页条件查询。通过此接口可查询商家多个批次的信息，包括批次的配置信息以及批次概况数据。
+     *
+     * @param QueryFavorStocksRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return QueryFavorStocksResponse
+     */
+    public function queryFavorStocksEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryFavorStocksResponse::fromMap($this->doRequest('1.0', 'antchain.sds.favor.stocks.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 微信核销账单接口
+     * Summary: 微信核销账单接口.
+     *
+     * @param DownloadStockUseflowRequest $request
+     *
+     * @return DownloadStockUseflowResponse
+     */
+    public function downloadStockUseflow($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->downloadStockUseflowEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 微信核销账单接口
+     * Summary: 微信核销账单接口.
+     *
+     * @param DownloadStockUseflowRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return DownloadStockUseflowResponse
+     */
+    public function downloadStockUseflowEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DownloadStockUseflowResponse::fromMap($this->doRequest('1.0', 'antchain.sds.stock.useflow.download', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 微信退款账单接口
+     * Summary: 微信退款账单接口.
+     *
+     * @param DownloadStockRefundflowRequest $request
+     *
+     * @return DownloadStockRefundflowResponse
+     */
+    public function downloadStockRefundflow($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->downloadStockRefundflowEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 微信退款账单接口
+     * Summary: 微信退款账单接口.
+     *
+     * @param DownloadStockRefundflowRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return DownloadStockRefundflowResponse
+     */
+    public function downloadStockRefundflowEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DownloadStockRefundflowResponse::fromMap($this->doRequest('1.0', 'antchain.sds.stock.refundflow.download', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
