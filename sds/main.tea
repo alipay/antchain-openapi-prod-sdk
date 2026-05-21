@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.4.1',
+    sdk_version = '1.5.0',
     _prod_code = 'SDS',
     _prod_channel = 'default'
   };
@@ -161,6 +161,22 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   ignoreSSL = runtime.ignoreSSL
 }
 
+// 维度
+model Dimension {
+  // 维度
+  dimension: string(name='dimension', example='voucher_template_id'),
+  // 维度值
+  dimensionValue: string(name='dimension_value', example='2025122400073001038200J7964H'),
+}
+
+// 返回体度量
+model RultMetric {
+  // 度量编码
+  metricCode: string(name='metric_code', example='ori_use_amount'),
+  // 度量聚合结果
+  metricValue: string(name='metric_value', example='21.22'),
+}
+
 // 批处理结果
 model BatchResult {
   // 业务号
@@ -171,6 +187,16 @@ model BatchResult {
   result?: string(name='result', example='Y'),
   // 结果码
   resultCode?: string(name='result_code', example='rights_rights-config-not-exist '),
+}
+
+// 度量
+model Metric {
+  // 度量编码
+  metricCode: string(name='metric_code', example='ori_use_amount'),
+  // 计算列
+  metricColumn: string(name='metric_column', example='ori_use_amount'),
+  // 计算方式
+  functionType?: string(name='function_type', example='SUM'),
 }
 
 // 任务详细结果包含任务的统计数据信息
@@ -185,6 +211,24 @@ model TaskDetailResult {
   processingCount?: long(name='processing_count', example='0'),
   // 当状态为无效时，显示具体的错误信息
   errorInfo?: string(name='error_info', example='xxx'),
+}
+
+// 聚合查询结果
+model DwsResult {
+  // 维度列表
+  dimensionList: [ Dimension ](name='dimension_list', example=''),
+  // 度量列表
+  metricList: [ RultMetric ](name='metric_list', example=''),
+}
+
+// 过滤条件
+model FilterCondition {
+  // 过滤列
+  filterColumn: string(name='filter_column', example='biz_date'),
+  // 过滤方式
+  filterType?: string(name='filter_type', example='BETWEEN'),
+  // 值列表
+  valueList: [ string ](name='value_list', example='["20240303", "20250303"]'),
 }
 
 // 地址，包含省、市、区(县)
@@ -514,6 +558,62 @@ async function queryScenedataTaskinfo(request: QueryScenedataTaskinfoRequest): Q
 async function queryScenedataTaskinfoEx(request: QueryScenedataTaskinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryScenedataTaskinfoResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.sds.scenedata.taskinfo.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryScenedataDwsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 任务批次号
+  batchNo: string(name='batch_no'),
+  // 业务类型
+  bizType: string(name='biz_type'),
+  // 维度列表
+  dimensionList: [ string ](name='dimension_list'),
+  // 度量列表
+  metricList: [ Metric ](name='metric_list'),
+  // 过滤条件列表
+  filterConditionList?: [ FilterCondition ](name='filter_condition_list'),
+  // 页码,默认1
+  pageNum?: long(name='page_num'),
+  // 每页数量,默认50
+  pageSize?: long(name='page_size'),
+}
+
+model QueryScenedataDwsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 总量
+  totalSize?: long(name='total_size'),
+  // 页码
+  pageNum?: long(name='page_num'),
+  // 每页数量
+  pageSize?: long(name='page_size'),
+  // 结果列表
+  resultList?: [ DwsResult ](name='result_list'),
+}
+
+/**
+ * Description: 批次计算结果聚合，任务为ready状态时，返回分页列表数据
+ * Summary: 批次结果聚合查询
+ */
+async function queryScenedataDws(request: QueryScenedataDwsRequest): QueryScenedataDwsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryScenedataDwsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 批次计算结果聚合，任务为ready状态时，返回分页列表数据
+ * Summary: 批次结果聚合查询
+ */
+async function queryScenedataDwsEx(request: QueryScenedataDwsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryScenedataDwsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.sds.scenedata.dws.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateAntcloudGatewayxFileUploadRequest = {
