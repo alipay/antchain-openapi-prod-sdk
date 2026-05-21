@@ -78,6 +78,56 @@ export class Config extends $tea.Model {
   }
 }
 
+// 维度
+export class Dimension extends $tea.Model {
+  // 维度
+  dimension: string;
+  // 维度值
+  dimensionValue: string;
+  static names(): { [key: string]: string } {
+    return {
+      dimension: 'dimension',
+      dimensionValue: 'dimension_value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      dimension: 'string',
+      dimensionValue: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 返回体度量
+export class RultMetric extends $tea.Model {
+  // 度量编码
+  metricCode: string;
+  // 度量聚合结果
+  metricValue: string;
+  static names(): { [key: string]: string } {
+    return {
+      metricCode: 'metric_code',
+      metricValue: 'metric_value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      metricCode: 'string',
+      metricValue: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 批处理结果
 export class BatchResult extends $tea.Model {
   // 业务号
@@ -103,6 +153,35 @@ export class BatchResult extends $tea.Model {
       bizNoType: 'string',
       result: 'string',
       resultCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 度量
+export class Metric extends $tea.Model {
+  // 度量编码
+  metricCode: string;
+  // 计算列
+  metricColumn: string;
+  // 计算方式
+  functionType?: string;
+  static names(): { [key: string]: string } {
+    return {
+      metricCode: 'metric_code',
+      metricColumn: 'metric_column',
+      functionType: 'function_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      metricCode: 'string',
+      metricColumn: 'string',
+      functionType: 'string',
     };
   }
 
@@ -140,6 +219,60 @@ export class TaskDetailResult extends $tea.Model {
       failCount: 'number',
       processingCount: 'number',
       errorInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 聚合查询结果
+export class DwsResult extends $tea.Model {
+  // 维度列表
+  dimensionList: Dimension[];
+  // 度量列表
+  metricList: RultMetric[];
+  static names(): { [key: string]: string } {
+    return {
+      dimensionList: 'dimension_list',
+      metricList: 'metric_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      dimensionList: { 'type': 'array', 'itemType': Dimension },
+      metricList: { 'type': 'array', 'itemType': RultMetric },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 过滤条件
+export class FilterCondition extends $tea.Model {
+  // 过滤列
+  filterColumn: string;
+  // 过滤方式
+  filterType?: string;
+  // 值列表
+  valueList: string[];
+  static names(): { [key: string]: string } {
+    return {
+      filterColumn: 'filter_column',
+      filterType: 'filter_type',
+      valueList: 'value_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      filterColumn: 'string',
+      filterType: 'string',
+      valueList: { 'type': 'array', 'itemType': 'string' },
     };
   }
 
@@ -682,6 +815,101 @@ export class QueryScenedataTaskinfoResponse extends $tea.Model {
   }
 }
 
+export class QueryScenedataDwsRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 任务批次号
+  batchNo: string;
+  // 业务类型
+  bizType: string;
+  // 维度列表
+  dimensionList: string[];
+  // 度量列表
+  metricList: Metric[];
+  // 过滤条件列表
+  filterConditionList?: FilterCondition[];
+  // 页码,默认1
+  pageNum?: number;
+  // 每页数量,默认50
+  pageSize?: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      batchNo: 'batch_no',
+      bizType: 'biz_type',
+      dimensionList: 'dimension_list',
+      metricList: 'metric_list',
+      filterConditionList: 'filter_condition_list',
+      pageNum: 'page_num',
+      pageSize: 'page_size',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      batchNo: 'string',
+      bizType: 'string',
+      dimensionList: { 'type': 'array', 'itemType': 'string' },
+      metricList: { 'type': 'array', 'itemType': Metric },
+      filterConditionList: { 'type': 'array', 'itemType': FilterCondition },
+      pageNum: 'number',
+      pageSize: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryScenedataDwsResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 总量
+  totalSize?: number;
+  // 页码
+  pageNum?: number;
+  // 每页数量
+  pageSize?: number;
+  // 结果列表
+  resultList?: DwsResult[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      totalSize: 'total_size',
+      pageNum: 'page_num',
+      pageSize: 'page_size',
+      resultList: 'result_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      totalSize: 'number',
+      pageNum: 'number',
+      pageSize: 'number',
+      resultList: { 'type': 'array', 'itemType': DwsResult },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -883,7 +1111,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.4.1",
+          sdk_version: "1.5.0",
           _prod_code: "SDS",
           _prod_channel: "default",
         };
@@ -1065,6 +1293,25 @@ export default class Client {
   async queryScenedataTaskinfoEx(request: QueryScenedataTaskinfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryScenedataTaskinfoResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryScenedataTaskinfoResponse>(await this.doRequest("1.0", "antchain.sds.scenedata.taskinfo.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryScenedataTaskinfoResponse({}));
+  }
+
+  /**
+   * Description: 批次计算结果聚合，任务为ready状态时，返回分页列表数据
+   * Summary: 批次结果聚合查询
+   */
+  async queryScenedataDws(request: QueryScenedataDwsRequest): Promise<QueryScenedataDwsResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryScenedataDwsEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 批次计算结果聚合，任务为ready状态时，返回分页列表数据
+   * Summary: 批次结果聚合查询
+   */
+  async queryScenedataDwsEx(request: QueryScenedataDwsRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryScenedataDwsResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryScenedataDwsResponse>(await this.doRequest("1.0", "antchain.sds.scenedata.dws.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryScenedataDwsResponse({}));
   }
 
   /**
