@@ -191,6 +191,8 @@ export class QueryAntcloudContractaiAuditRecordRequest extends $tea.Model {
   creatorName?: string;
   // 基准线库名称
   baselineLibraryName?: string;
+  // 终端客户id
+  endCustomerId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -203,6 +205,7 @@ export class QueryAntcloudContractaiAuditRecordRequest extends $tea.Model {
       creatorWorkNo: 'creator_work_no',
       creatorName: 'creator_name',
       baselineLibraryName: 'baseline_library_name',
+      endCustomerId: 'end_customer_id',
     };
   }
 
@@ -218,6 +221,7 @@ export class QueryAntcloudContractaiAuditRecordRequest extends $tea.Model {
       creatorWorkNo: 'string',
       creatorName: 'string',
       baselineLibraryName: 'string',
+      endCustomerId: 'string',
     };
   }
 
@@ -383,7 +387,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.1",
+          sdk_version: "1.0.2",
           _prod_code: "ACNCONTRACTREVIEW",
           _prod_channel: "default",
         };
