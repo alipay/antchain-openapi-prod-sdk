@@ -149,29 +149,62 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
-// 维度
-type Dimension struct {
-	// 维度
-	Dimension *string `json:"dimension,omitempty" xml:"dimension,omitempty" require:"true"`
-	// 维度值
-	DimensionValue *string `json:"dimension_value,omitempty" xml:"dimension_value,omitempty" require:"true"`
+// 【固定折扣特定信息】
+type FixedDiscountCoupon struct {
+	// 【最高折扣金额】 最高折扣金额，单位分
+	DiscountAmountMax *int64 `json:"discount_amount_max,omitempty" xml:"discount_amount_max,omitempty" require:"true"`
+	// 【折扣百分比】 折扣百分比，例如88-八八折
+	DiscountPercent *int64 `json:"discount_percent,omitempty" xml:"discount_percent,omitempty" require:"true"`
+	// 【门槛】 使用券金额门槛，单位分
+	TransactionMinimum *int64 `json:"transaction_minimum,omitempty" xml:"transaction_minimum,omitempty"`
 }
 
-func (s Dimension) String() string {
+func (s FixedDiscountCoupon) String() string {
 	return tea.Prettify(s)
 }
 
-func (s Dimension) GoString() string {
+func (s FixedDiscountCoupon) GoString() string {
 	return s.String()
 }
 
-func (s *Dimension) SetDimension(v string) *Dimension {
-	s.Dimension = &v
+func (s *FixedDiscountCoupon) SetDiscountAmountMax(v int64) *FixedDiscountCoupon {
+	s.DiscountAmountMax = &v
 	return s
 }
 
-func (s *Dimension) SetDimensionValue(v string) *Dimension {
-	s.DimensionValue = &v
+func (s *FixedDiscountCoupon) SetDiscountPercent(v int64) *FixedDiscountCoupon {
+	s.DiscountPercent = &v
+	return s
+}
+
+func (s *FixedDiscountCoupon) SetTransactionMinimum(v int64) *FixedDiscountCoupon {
+	s.TransactionMinimum = &v
+	return s
+}
+
+// 【固定面额批次特定信息】 固定面额发券或消费金批次特定信息。
+type FixedNormalCoupon struct {
+	// 【面额】 面额，单位：分。
+	CouponAmount *int64 `json:"coupon_amount,omitempty" xml:"coupon_amount,omitempty" require:"true"`
+	// 【门槛】 使用券金额门槛，单位：分。
+	TransactionMinimum *int64 `json:"transaction_minimum,omitempty" xml:"transaction_minimum,omitempty" require:"true"`
+}
+
+func (s FixedNormalCoupon) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FixedNormalCoupon) GoString() string {
+	return s.String()
+}
+
+func (s *FixedNormalCoupon) SetCouponAmount(v int64) *FixedNormalCoupon {
+	s.CouponAmount = &v
+	return s
+}
+
+func (s *FixedNormalCoupon) SetTransactionMinimum(v int64) *FixedNormalCoupon {
+	s.TransactionMinimum = &v
 	return s
 }
 
@@ -198,6 +231,438 @@ func (s *RultMetric) SetMetricCode(v string) *RultMetric {
 
 func (s *RultMetric) SetMetricValue(v string) *RultMetric {
 	s.MetricValue = &v
+	return s
+}
+
+// 【减至批次特定信息】 单品优惠特定信息
+type CutToMessage struct {
+	// 【可用优惠的商品最高单价】 可用优惠的商品最高单价，单位：分。
+	SinglePriceMax *int64 `json:"single_price_max,omitempty" xml:"single_price_max,omitempty" require:"true"`
+	// 【减至后的优惠单价】 减至后的优惠单价，单位：分。
+	CutToPrice *int64 `json:"cut_to_price,omitempty" xml:"cut_to_price,omitempty" require:"true"`
+}
+
+func (s CutToMessage) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CutToMessage) GoString() string {
+	return s.String()
+}
+
+func (s *CutToMessage) SetSinglePriceMax(v int64) *CutToMessage {
+	s.SinglePriceMax = &v
+	return s
+}
+
+func (s *CutToMessage) SetCutToPrice(v int64) *CutToMessage {
+	s.CutToPrice = &v
+	return s
+}
+
+// 【消费金可用地域】 消费金可用地域
+type AvailableRegion struct {
+	// 【类型】 消费金可用地域的类型，COUNTRY表示国家级别可用，PROVINCE表示省级可用，CITY表示市级可用，DISTRICT表示区级可用。
+	// 可选取值
+	// PROVINCE:  地域信息精确到省级
+	// CITY:  地域信息精确到市级
+	// DISTRICT:  地域信息精确到区级
+	// COUNTRY:  地域信息精确到国家级
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	// 【省】 消费金可用省
+	Province *string `json:"province,omitempty" xml:"province,omitempty"`
+	// 【市】 消费金可用
+	City *string `json:"city,omitempty" xml:"city,omitempty"`
+	// 【区】 消费金可用区
+	District *string `json:"district,omitempty" xml:"district,omitempty"`
+	// 【国家】 消费金可用国家
+	Country *string `json:"country,omitempty" xml:"country,omitempty"`
+}
+
+func (s AvailableRegion) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AvailableRegion) GoString() string {
+	return s.String()
+}
+
+func (s *AvailableRegion) SetType(v string) *AvailableRegion {
+	s.Type = &v
+	return s
+}
+
+func (s *AvailableRegion) SetProvince(v string) *AvailableRegion {
+	s.Province = &v
+	return s
+}
+
+func (s *AvailableRegion) SetCity(v string) *AvailableRegion {
+	s.City = &v
+	return s
+}
+
+func (s *AvailableRegion) SetDistrict(v string) *AvailableRegion {
+	s.District = &v
+	return s
+}
+
+func (s *AvailableRegion) SetCountry(v string) *AvailableRegion {
+	s.Country = &v
+	return s
+}
+
+// 维度
+type Dimension struct {
+	// 维度
+	Dimension *string `json:"dimension,omitempty" xml:"dimension,omitempty" require:"true"`
+	// 维度值
+	DimensionValue *string `json:"dimension_value,omitempty" xml:"dimension_value,omitempty" require:"true"`
+}
+
+func (s Dimension) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Dimension) GoString() string {
+	return s.String()
+}
+
+func (s *Dimension) SetDimension(v string) *Dimension {
+	s.Dimension = &v
+	return s
+}
+
+func (s *Dimension) SetDimensionValue(v string) *Dimension {
+	s.DimensionValue = &v
+	return s
+}
+
+// 【满减券/消费金批次使用规则】 满减券或消费金批次特定信息。
+type StockUseRule struct {
+	// 【发放总上限】 最大发券数
+	MaxCoupons *int64 `json:"max_coupons,omitempty" xml:"max_coupons,omitempty" require:"true"`
+	// 【总预算】 总消耗金额，单位：分。
+	MaxAmount *int64 `json:"max_amount,omitempty" xml:"max_amount,omitempty" require:"true"`
+	// 【单天发放上限金额】 单天最高消耗金额，单位：分。
+	MaxAmountByDay *int64 `json:"max_amount_by_day,omitempty" xml:"max_amount_by_day,omitempty" require:"true"`
+	// 【固定面额批次特定信息】 固定面额发券或消费金批次特定信息。
+	FixedNormalCoupon *FixedNormalCoupon `json:"fixed_normal_coupon,omitempty" xml:"fixed_normal_coupon,omitempty" require:"true"`
+	// 【单个用户可领个数】 单个用户可领个数
+	MaxCouponsPerUser *int64 `json:"max_coupons_per_user,omitempty" xml:"max_coupons_per_user,omitempty" require:"true"`
+	// 【券或消费金类型】 券或消费金类型
+	// 枚举值：
+	// NORMAL：满减券
+	// CUT_TO：减至券
+	CouponType *string `json:"coupon_type,omitempty" xml:"coupon_type,omitempty"`
+	// 【订单优惠标记】 订单优惠标记 (该字段暂未开放返回)
+	// 特殊规则：单个优惠标记的字符长度为【1，128】,条目个数限制为【1，50】。
+	GoodsTag []*string `json:"goods_tag,omitempty" xml:"goods_tag,omitempty" type:"Repeated"`
+	// 【指定支付模式】默认不限制(该字段暂未开放返回)，枚举值：
+	// 可选取值
+	// MICROAPP:  小程序支付
+	// APPPAY:  APP支付
+	// PPAY:  免密支付
+	// CARD:  刷卡支付
+	// FACE:  人脸支付
+	// OTHER:  其他支付，公众号、扫码等
+	TradeType []*string `json:"trade_type,omitempty" xml:"trade_type,omitempty" type:"Repeated"`
+	// 【是否可叠加其他优惠】 枚举值：
+	// true：是
+	// false：否
+	CombineUse *bool `json:"combine_use,omitempty" xml:"combine_use,omitempty"`
+	// 【固定折扣特定信息】
+	FixedDiscountCoupon *FixedDiscountCoupon `json:"fixed_discount_coupon,omitempty" xml:"fixed_discount_coupon,omitempty"`
+}
+
+func (s StockUseRule) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StockUseRule) GoString() string {
+	return s.String()
+}
+
+func (s *StockUseRule) SetMaxCoupons(v int64) *StockUseRule {
+	s.MaxCoupons = &v
+	return s
+}
+
+func (s *StockUseRule) SetMaxAmount(v int64) *StockUseRule {
+	s.MaxAmount = &v
+	return s
+}
+
+func (s *StockUseRule) SetMaxAmountByDay(v int64) *StockUseRule {
+	s.MaxAmountByDay = &v
+	return s
+}
+
+func (s *StockUseRule) SetFixedNormalCoupon(v *FixedNormalCoupon) *StockUseRule {
+	s.FixedNormalCoupon = v
+	return s
+}
+
+func (s *StockUseRule) SetMaxCouponsPerUser(v int64) *StockUseRule {
+	s.MaxCouponsPerUser = &v
+	return s
+}
+
+func (s *StockUseRule) SetCouponType(v string) *StockUseRule {
+	s.CouponType = &v
+	return s
+}
+
+func (s *StockUseRule) SetGoodsTag(v []*string) *StockUseRule {
+	s.GoodsTag = v
+	return s
+}
+
+func (s *StockUseRule) SetTradeType(v []*string) *StockUseRule {
+	s.TradeType = v
+	return s
+}
+
+func (s *StockUseRule) SetCombineUse(v bool) *StockUseRule {
+	s.CombineUse = &v
+	return s
+}
+
+func (s *StockUseRule) SetFixedDiscountCoupon(v *FixedDiscountCoupon) *StockUseRule {
+	s.FixedDiscountCoupon = v
+	return s
+}
+
+// 【批次详情】 批次详情
+type WxStockData struct {
+	// 【批次号】 微信为每个代金券批次分配的唯一id。
+	StockId *string `json:"stock_id,omitempty" xml:"stock_id,omitempty" require:"true"`
+	// 【批次创建方商户号】 微信为创建方商户分配的商户号
+	StockCreatorMchid *string `json:"stock_creator_mchid,omitempty" xml:"stock_creator_mchid,omitempty" require:"true"`
+	// 【批次名称】 批次名称
+	StockName *string `json:"stock_name,omitempty" xml:"stock_name,omitempty" require:"true"`
+	// 【批次状态】 批次状态，枚举值：
+	// unactivated：未激活
+	// audit：审核中
+	// running：运行中
+	// stoped：已停止
+	// paused：暂停发放
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 【创建时间】 批次创建时间，遵循rfc3339标准格式，格式为yyyy-MM-DDTHH:mm:ss.sss+TIMEZONE，yyyy-MM-DD表示年月日，T出现在字符串中，表示time元素的开头，HH:mm:ss.sss表示时分秒毫秒，TIMEZONE表示时区（+08:00表示东八区时间，领先UTC 8小时，即北京时间）。例如：2015-05-20T13:29:35.120+08:00表示，北京时间2015年5月20日 13点29分35秒。
+	CreateTime *string `json:"create_time,omitempty" xml:"create_time,omitempty" require:"true"`
+	// 【使用说明】 批次描述信息
+	Description *string `json:"description,omitempty" xml:"description,omitempty" require:"true"`
+	// 【满减券/消费金批次使用规则】 满减券或消费金批次特定信息。
+	StockUseRule *StockUseRule `json:"stock_use_rule,omitempty" xml:"stock_use_rule,omitempty"`
+	// 【可用开始时间】 可用开始时间，遵循rfc3339标准格式，格式为yyyy-MM-DDTHH:mm:ss.sss+TIMEZONE，yyyy-MM-DD表示年月日，T出现在字符串中，表示time元素的开头，HH:mm:ss.sss表示时分秒毫秒，TIMEZONE表示时区（+08:00表示东八区时间，领先UTC 8小时，即北京时间）。例如：2015-05-20T13:29:35.120+08:00表示，北京时间2015年5月20日 13点29分35秒。
+	AvailableBeginTime *string `json:"available_begin_time,omitempty" xml:"available_begin_time,omitempty" require:"true"`
+	// 【可用结束时间】 可用结束时间，遵循rfc3339标准格式，格式为yyyy-MM-DDTHH:mm:ss.sss+TIMEZONE，yyyy-MM-DD表示年月日，T出现在字符串中，表示time元素的开头，HH:mm:ss.sss表示时分秒毫秒，TIMEZONE表示时区（+08:00表示东八区时间，领先UTC 8小时，即北京时间）。例如：2015-05-20T13:29:35.120+08:00表示，北京时间2015年5月20日 13点29分35秒。
+	AvailableEndTime *string `json:"available_end_time,omitempty" xml:"available_end_time,omitempty" require:"true"`
+	// 【已发券或消费金数量】 已发券或消费金数量
+	DistributedCoupons *int64 `json:"distributed_coupons,omitempty" xml:"distributed_coupons,omitempty" require:"true"`
+	// 【是否无资金流】 是否无资金流。枚举值：
+	// true：是
+	// false：否
+	NoCash *bool `json:"no_cash,omitempty" xml:"no_cash,omitempty" require:"true"`
+	// 【激活批次的时间】 批次激活开启时间，遵循rfc3339标准格式，格式为yyyy-MM-DDTHH:mm:ss.sss+TIMEZONE，yyyy-MM-DD表示年月日，T出现在字符串中，表示time元素的开头，HH:mm:ss.sss表示时分秒毫秒，TIMEZONE表示时区（+08:00表示东八区时间，领先UTC 8小时，即北京时间）。例如：2015-05-20T13:29:35.120+08:00表示，北京时间2015年5月20日 13点29分35秒。
+	StartTime *string `json:"start_time,omitempty" xml:"start_time,omitempty"`
+	// 【终止批次的时间】 批次永久停止时间，遵循rfc3339标准格式，格式为yyyy-MM-DDTHH:mm:ss.sss+TIMEZONE，yyyy-MM-DD表示年月日，T出现在字符串中，表示time元素的开头，HH:mm:ss.sss表示时分秒毫秒，TIMEZONE表示时区（+08:00表示东八区时间，领先UTC 8小时，即北京时间）。例如：2015-05-20T13:29:35.120+08:00表示，北京时间2015年5月20日 13点29分35秒。
+	StopTime *string `json:"stop_time,omitempty" xml:"stop_time,omitempty"`
+	// 【减至批次特定信息】 单品优惠特定信息
+	CutToMessage *CutToMessage `json:"cut_to_message,omitempty" xml:"cut_to_message,omitempty"`
+	// 【是否单品优惠】 枚举值：
+	// true：是
+	// false：否
+	Singleitem *bool `json:"singleitem,omitempty" xml:"singleitem,omitempty" require:"true"`
+	// 【批次类型】 批次类型
+	// 枚举值：
+	// NORMAL：代金券批次
+	// DISCOUNT_CUT：立减与折扣
+	// OTHER：其他
+	StockType *string `json:"stock_type,omitempty" xml:"stock_type,omitempty" require:"true"`
+	// 【卡包ID】 微信卡包ID
+	CardId *string `json:"card_id,omitempty" xml:"card_id,omitempty"`
+	// 【业务类型】 细分业务类型，仅有当business_type=MULTIUSE时，才会返回，枚举值：
+	// MULTIUSE：消费金
+	// 可选取值
+	// MULTIUSE:  消费金类型
+	BusinessType *string `json:"business_type,omitempty" xml:"business_type,omitempty"`
+	// 消费金可用地域列表，仅有当business_type=MULTIUSE时，才会返回
+	AvailableRegionList []*AvailableRegion `json:"available_region_list,omitempty" xml:"available_region_list,omitempty" type:"Repeated"`
+	// 【消费金可用行业】 消费金可用行业列表，仅有当business_type=MULTIUSE时，才会返回
+	AvailableIndustryList []*string `json:"available_industry_list,omitempty" xml:"available_industry_list,omitempty" type:"Repeated"`
+}
+
+func (s WxStockData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s WxStockData) GoString() string {
+	return s.String()
+}
+
+func (s *WxStockData) SetStockId(v string) *WxStockData {
+	s.StockId = &v
+	return s
+}
+
+func (s *WxStockData) SetStockCreatorMchid(v string) *WxStockData {
+	s.StockCreatorMchid = &v
+	return s
+}
+
+func (s *WxStockData) SetStockName(v string) *WxStockData {
+	s.StockName = &v
+	return s
+}
+
+func (s *WxStockData) SetStatus(v string) *WxStockData {
+	s.Status = &v
+	return s
+}
+
+func (s *WxStockData) SetCreateTime(v string) *WxStockData {
+	s.CreateTime = &v
+	return s
+}
+
+func (s *WxStockData) SetDescription(v string) *WxStockData {
+	s.Description = &v
+	return s
+}
+
+func (s *WxStockData) SetStockUseRule(v *StockUseRule) *WxStockData {
+	s.StockUseRule = v
+	return s
+}
+
+func (s *WxStockData) SetAvailableBeginTime(v string) *WxStockData {
+	s.AvailableBeginTime = &v
+	return s
+}
+
+func (s *WxStockData) SetAvailableEndTime(v string) *WxStockData {
+	s.AvailableEndTime = &v
+	return s
+}
+
+func (s *WxStockData) SetDistributedCoupons(v int64) *WxStockData {
+	s.DistributedCoupons = &v
+	return s
+}
+
+func (s *WxStockData) SetNoCash(v bool) *WxStockData {
+	s.NoCash = &v
+	return s
+}
+
+func (s *WxStockData) SetStartTime(v string) *WxStockData {
+	s.StartTime = &v
+	return s
+}
+
+func (s *WxStockData) SetStopTime(v string) *WxStockData {
+	s.StopTime = &v
+	return s
+}
+
+func (s *WxStockData) SetCutToMessage(v *CutToMessage) *WxStockData {
+	s.CutToMessage = v
+	return s
+}
+
+func (s *WxStockData) SetSingleitem(v bool) *WxStockData {
+	s.Singleitem = &v
+	return s
+}
+
+func (s *WxStockData) SetStockType(v string) *WxStockData {
+	s.StockType = &v
+	return s
+}
+
+func (s *WxStockData) SetCardId(v string) *WxStockData {
+	s.CardId = &v
+	return s
+}
+
+func (s *WxStockData) SetBusinessType(v string) *WxStockData {
+	s.BusinessType = &v
+	return s
+}
+
+func (s *WxStockData) SetAvailableRegionList(v []*AvailableRegion) *WxStockData {
+	s.AvailableRegionList = v
+	return s
+}
+
+func (s *WxStockData) SetAvailableIndustryList(v []*string) *WxStockData {
+	s.AvailableIndustryList = v
+	return s
+}
+
+// 度量
+type Metric struct {
+	// 度量编码
+	MetricCode *string `json:"metric_code,omitempty" xml:"metric_code,omitempty" require:"true"`
+	// 计算列
+	MetricColumn *string `json:"metric_column,omitempty" xml:"metric_column,omitempty" require:"true"`
+	// 计算方式
+	FunctionType *string `json:"function_type,omitempty" xml:"function_type,omitempty"`
+}
+
+func (s Metric) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Metric) GoString() string {
+	return s.String()
+}
+
+func (s *Metric) SetMetricCode(v string) *Metric {
+	s.MetricCode = &v
+	return s
+}
+
+func (s *Metric) SetMetricColumn(v string) *Metric {
+	s.MetricColumn = &v
+	return s
+}
+
+func (s *Metric) SetFunctionType(v string) *Metric {
+	s.FunctionType = &v
+	return s
+}
+
+// 业务号条件
+type BizNoCondition struct {
+	// 枚举
+	// CITY 城市
+	// BLOCK 区县
+	// AGE 年龄
+	Dimension *string `json:"dimension,omitempty" xml:"dimension,omitempty" require:"true"`
+	// 枚举范围，每个维度的值是或的关系,需要校验场景和取值范围是否匹配
+	// CITY:区划码
+	// BLOCK:区划码（底包暂不支持）
+	// AGE:30+、40+、50+（底包暂不支持
+	ValueScope []*string `json:"value_scope,omitempty" xml:"value_scope,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s BizNoCondition) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BizNoCondition) GoString() string {
+	return s.String()
+}
+
+func (s *BizNoCondition) SetDimension(v string) *BizNoCondition {
+	s.Dimension = &v
+	return s
+}
+
+func (s *BizNoCondition) SetValueScope(v []*string) *BizNoCondition {
+	s.ValueScope = v
 	return s
 }
 
@@ -238,39 +703,6 @@ func (s *BatchResult) SetResult(v string) *BatchResult {
 
 func (s *BatchResult) SetResultCode(v string) *BatchResult {
 	s.ResultCode = &v
-	return s
-}
-
-// 度量
-type Metric struct {
-	// 度量编码
-	MetricCode *string `json:"metric_code,omitempty" xml:"metric_code,omitempty" require:"true"`
-	// 计算列
-	MetricColumn *string `json:"metric_column,omitempty" xml:"metric_column,omitempty" require:"true"`
-	// 计算方式
-	FunctionType *string `json:"function_type,omitempty" xml:"function_type,omitempty"`
-}
-
-func (s Metric) String() string {
-	return tea.Prettify(s)
-}
-
-func (s Metric) GoString() string {
-	return s.String()
-}
-
-func (s *Metric) SetMetricCode(v string) *Metric {
-	s.MetricCode = &v
-	return s
-}
-
-func (s *Metric) SetMetricColumn(v string) *Metric {
-	s.MetricColumn = &v
-	return s
-}
-
-func (s *Metric) SetFunctionType(v string) *Metric {
-	s.FunctionType = &v
 	return s
 }
 
@@ -403,38 +835,6 @@ func (s *Address) SetCity(v string) *Address {
 
 func (s *Address) SetDistrict(v string) *Address {
 	s.District = &v
-	return s
-}
-
-// 业务号条件
-type BizNoCondition struct {
-	// 枚举
-	// CITY 城市
-	// BLOCK 区县
-	// AGE 年龄
-	Dimension *string `json:"dimension,omitempty" xml:"dimension,omitempty" require:"true"`
-	// 枚举范围，每个维度的值是或的关系,需要校验场景和取值范围是否匹配
-	// CITY:区划码
-	// BLOCK:区划码（底包暂不支持）
-	// AGE:30+、40+、50+（底包暂不支持
-	ValueScope []*string `json:"value_scope,omitempty" xml:"value_scope,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s BizNoCondition) String() string {
-	return tea.Prettify(s)
-}
-
-func (s BizNoCondition) GoString() string {
-	return s.String()
-}
-
-func (s *BizNoCondition) SetDimension(v string) *BizNoCondition {
-	s.Dimension = &v
-	return s
-}
-
-func (s *BizNoCondition) SetValueScope(v []*string) *BizNoCondition {
-	s.ValueScope = v
 	return s
 }
 
@@ -1190,6 +1590,322 @@ func (s *QueryScenedataDwsResponse) SetResultList(v []*DwsResult) *QueryScenedat
 	return s
 }
 
+type QueryFavorStocksRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 【分页页码】 页码从0开始，默认第0页
+	Offset *int64 `json:"offset,omitempty" xml:"offset,omitempty" require:"true"`
+	// 【分页大小】 分页大小，最大10
+	Limit *int64 `json:"limit,omitempty" xml:"limit,omitempty" require:"true"`
+	// 【创建批次的商户号】 批次创建方商户号。
+	// 校验规则：接口传入的批次号需由stock_creator_mchid所创建。
+	StockCreatorMchid *string `json:"stock_creator_mchid,omitempty" xml:"stock_creator_mchid,omitempty" require:"true"`
+	// 【起始时间】 起始创建时间，遵循rfc3339标准格式，格式为yyyy-MM-DDTHH:mm:ss+TIMEZONE，yyyy-MM-DD表示年月日，T出现在字符串中，表示time元素的开头，HH:mm:ss表示时分秒，TIMEZONE表示时区（+08:00表示东八区时间，领先UTC 8小时，即北京时间）。例如：2015-05-20T13:29:35+08:00表示，北京时间2015年5月20日 13点29分35秒。
+	// 校验规则：get请求，参数在 url中，需要进行 url 编码传递
+	CreateStartTime *string `json:"create_start_time,omitempty" xml:"create_start_time,omitempty"`
+	// 【终止时间】 终止创建时间，遵循rfc3339标准格式，格式为yyyy-MM-DDTHH:mm:ss+TIMEZONE，yyyy-MM-DD表示年月日，T出现在字符串中，表示time元素的开头，HH:mm:ss表示时分秒，TIMEZONE表示时区（+08:00表示东八区时间，领先UTC 8小时，即北京时间）。例如：2015-05-20T13:29:35+08:00表示，北京时间2015年5月20日 13点29分35秒。
+	// 校验规则：get请求，参数在 url中，需要进行 url 编码传递
+	CreateEndTime *string `json:"create_end_time,omitempty" xml:"create_end_time,omitempty"`
+	// 【批次状态】 批次状态，枚举值：
+	// unactivated：未激活
+	// audit：审核中
+	// running：运行中
+	// stoped：已停止
+	// paused：暂停发放
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+}
+
+func (s QueryFavorStocksRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryFavorStocksRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryFavorStocksRequest) SetAuthToken(v string) *QueryFavorStocksRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryFavorStocksRequest) SetProductInstanceId(v string) *QueryFavorStocksRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryFavorStocksRequest) SetOffset(v int64) *QueryFavorStocksRequest {
+	s.Offset = &v
+	return s
+}
+
+func (s *QueryFavorStocksRequest) SetLimit(v int64) *QueryFavorStocksRequest {
+	s.Limit = &v
+	return s
+}
+
+func (s *QueryFavorStocksRequest) SetStockCreatorMchid(v string) *QueryFavorStocksRequest {
+	s.StockCreatorMchid = &v
+	return s
+}
+
+func (s *QueryFavorStocksRequest) SetCreateStartTime(v string) *QueryFavorStocksRequest {
+	s.CreateStartTime = &v
+	return s
+}
+
+func (s *QueryFavorStocksRequest) SetCreateEndTime(v string) *QueryFavorStocksRequest {
+	s.CreateEndTime = &v
+	return s
+}
+
+func (s *QueryFavorStocksRequest) SetStatus(v string) *QueryFavorStocksRequest {
+	s.Status = &v
+	return s
+}
+
+type QueryFavorStocksResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 【批次总数】 经过条件筛选，查询到的批次总数量。
+	TotalCount *int64 `json:"total_count,omitempty" xml:"total_count,omitempty"`
+	// 【批次详情】 批次详情
+	Data []*WxStockData `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+	// 【分页大小】 分页大小，最大10
+	Limit *int64 `json:"limit,omitempty" xml:"limit,omitempty"`
+	// 【分页页码】 页码从0开始，默认第0页
+	Offset *int64 `json:"offset,omitempty" xml:"offset,omitempty"`
+}
+
+func (s QueryFavorStocksResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryFavorStocksResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryFavorStocksResponse) SetReqMsgId(v string) *QueryFavorStocksResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryFavorStocksResponse) SetResultCode(v string) *QueryFavorStocksResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryFavorStocksResponse) SetResultMsg(v string) *QueryFavorStocksResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryFavorStocksResponse) SetTotalCount(v int64) *QueryFavorStocksResponse {
+	s.TotalCount = &v
+	return s
+}
+
+func (s *QueryFavorStocksResponse) SetData(v []*WxStockData) *QueryFavorStocksResponse {
+	s.Data = v
+	return s
+}
+
+func (s *QueryFavorStocksResponse) SetLimit(v int64) *QueryFavorStocksResponse {
+	s.Limit = &v
+	return s
+}
+
+func (s *QueryFavorStocksResponse) SetOffset(v int64) *QueryFavorStocksResponse {
+	s.Offset = &v
+	return s
+}
+
+type DownloadStockUseflowRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 格式：yyyy-MM-DD，仅支持近1年的日期账单数据下载，账单日期需早于当前日期，且在批次有效期内。
+	BillDate *string `json:"bill_date,omitempty" xml:"bill_date,omitempty" require:"true"`
+	// 【批次号】单次请求仅支持单批次，校验批次号合法性，需要为创建方创建的批次号，支持全场券、单品券、全场立减、全场折扣、单品立减
+	StockId *string `json:"stock_id,omitempty" xml:"stock_id,omitempty" require:"true"`
+}
+
+func (s DownloadStockUseflowRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DownloadStockUseflowRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DownloadStockUseflowRequest) SetAuthToken(v string) *DownloadStockUseflowRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DownloadStockUseflowRequest) SetProductInstanceId(v string) *DownloadStockUseflowRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *DownloadStockUseflowRequest) SetBillDate(v string) *DownloadStockUseflowRequest {
+	s.BillDate = &v
+	return s
+}
+
+func (s *DownloadStockUseflowRequest) SetStockId(v string) *DownloadStockUseflowRequest {
+	s.StockId = &v
+	return s
+}
+
+type DownloadStockUseflowResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 【下载链接】流水文件下载链接，30s内有效
+	Url *string `json:"url,omitempty" xml:"url,omitempty"`
+	// 【核销批次账单文件摘要】默认算法SHA1
+	StockUseflowHash *string `json:"stock_useflow_hash,omitempty" xml:"stock_useflow_hash,omitempty"`
+	// 【核销批次账单记录总条数】记录该批次在该请求日期下的核销记录条数
+	StockUseflowCount *int64 `json:"stock_useflow_count,omitempty" xml:"stock_useflow_count,omitempty"`
+}
+
+func (s DownloadStockUseflowResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DownloadStockUseflowResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DownloadStockUseflowResponse) SetReqMsgId(v string) *DownloadStockUseflowResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DownloadStockUseflowResponse) SetResultCode(v string) *DownloadStockUseflowResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DownloadStockUseflowResponse) SetResultMsg(v string) *DownloadStockUseflowResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *DownloadStockUseflowResponse) SetUrl(v string) *DownloadStockUseflowResponse {
+	s.Url = &v
+	return s
+}
+
+func (s *DownloadStockUseflowResponse) SetStockUseflowHash(v string) *DownloadStockUseflowResponse {
+	s.StockUseflowHash = &v
+	return s
+}
+
+func (s *DownloadStockUseflowResponse) SetStockUseflowCount(v int64) *DownloadStockUseflowResponse {
+	s.StockUseflowCount = &v
+	return s
+}
+
+type DownloadStockRefundflowRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 格式yyyy-MM- dd仅支持近1年的日期账单数据下载，账单日期需早于当前日期，且在批次有效期内。
+	BillDate *string `json:"bill_date,omitempty" xml:"bill_date,omitempty" require:"true"`
+	// 单次请求仅支持单批次，校验批次号合法性，需要为创建方创建的批次号，支持全场券、单品券、全场立减、全场折扣、单品立减。
+	StockId *string `json:"stock_id,omitempty" xml:"stock_id,omitempty" require:"true"`
+}
+
+func (s DownloadStockRefundflowRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DownloadStockRefundflowRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DownloadStockRefundflowRequest) SetAuthToken(v string) *DownloadStockRefundflowRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DownloadStockRefundflowRequest) SetProductInstanceId(v string) *DownloadStockRefundflowRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *DownloadStockRefundflowRequest) SetBillDate(v string) *DownloadStockRefundflowRequest {
+	s.BillDate = &v
+	return s
+}
+
+func (s *DownloadStockRefundflowRequest) SetStockId(v string) *DownloadStockRefundflowRequest {
+	s.StockId = &v
+	return s
+}
+
+type DownloadStockRefundflowResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 【下载链接】流水文件下载链接，30s内有效
+	Url *string `json:"url,omitempty" xml:"url,omitempty"`
+	// 【退款批次账单文件摘要】默认算法SHA1
+	StockRefundflowHash *string `json:"stock_refundflow_hash,omitempty" xml:"stock_refundflow_hash,omitempty"`
+	// 【退款批次账单记录总条数】记录该批次在请求日期下的退款记录条数
+	StockRefundflowCount *int64 `json:"stock_refundflow_count,omitempty" xml:"stock_refundflow_count,omitempty"`
+}
+
+func (s DownloadStockRefundflowResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DownloadStockRefundflowResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DownloadStockRefundflowResponse) SetReqMsgId(v string) *DownloadStockRefundflowResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DownloadStockRefundflowResponse) SetResultCode(v string) *DownloadStockRefundflowResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DownloadStockRefundflowResponse) SetResultMsg(v string) *DownloadStockRefundflowResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *DownloadStockRefundflowResponse) SetUrl(v string) *DownloadStockRefundflowResponse {
+	s.Url = &v
+	return s
+}
+
+func (s *DownloadStockRefundflowResponse) SetStockRefundflowHash(v string) *DownloadStockRefundflowResponse {
+	s.StockRefundflowHash = &v
+	return s
+}
+
+func (s *DownloadStockRefundflowResponse) SetStockRefundflowCount(v int64) *DownloadStockRefundflowResponse {
+	s.StockRefundflowCount = &v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -1432,7 +2148,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.5.0"),
+				"sdk_version":      tea.String("1.6.0"),
 				"_prod_code":       tea.String("SDS"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -1751,6 +2467,108 @@ func (client *Client) QueryScenedataDwsEx(request *QueryScenedataDwsRequest, hea
 	}
 	_result = &QueryScenedataDwsResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.sds.scenedata.dws.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 微信批次分页条件查询。通过此接口可查询商家多个批次的信息，包括批次的配置信息以及批次概况数据。
+ * Summary: 微信批次分页条件查询。通过此接口可查询商家多个批次的信息，包括批次的配置信息以及批次概况数据。
+ */
+func (client *Client) QueryFavorStocks(request *QueryFavorStocksRequest) (_result *QueryFavorStocksResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryFavorStocksResponse{}
+	_body, _err := client.QueryFavorStocksEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 微信批次分页条件查询。通过此接口可查询商家多个批次的信息，包括批次的配置信息以及批次概况数据。
+ * Summary: 微信批次分页条件查询。通过此接口可查询商家多个批次的信息，包括批次的配置信息以及批次概况数据。
+ */
+func (client *Client) QueryFavorStocksEx(request *QueryFavorStocksRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryFavorStocksResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryFavorStocksResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.sds.favor.stocks.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 微信核销账单接口
+ * Summary: 微信核销账单接口
+ */
+func (client *Client) DownloadStockUseflow(request *DownloadStockUseflowRequest) (_result *DownloadStockUseflowResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DownloadStockUseflowResponse{}
+	_body, _err := client.DownloadStockUseflowEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 微信核销账单接口
+ * Summary: 微信核销账单接口
+ */
+func (client *Client) DownloadStockUseflowEx(request *DownloadStockUseflowRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DownloadStockUseflowResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DownloadStockUseflowResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.sds.stock.useflow.download"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 微信退款账单接口
+ * Summary: 微信退款账单接口
+ */
+func (client *Client) DownloadStockRefundflow(request *DownloadStockRefundflowRequest) (_result *DownloadStockRefundflowResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DownloadStockRefundflowResponse{}
+	_body, _err := client.DownloadStockRefundflowEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 微信退款账单接口
+ * Summary: 微信退款账单接口
+ */
+func (client *Client) DownloadStockRefundflowEx(request *DownloadStockRefundflowRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DownloadStockRefundflowResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DownloadStockRefundflowResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.sds.stock.refundflow.download"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
