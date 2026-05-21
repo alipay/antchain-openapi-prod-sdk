@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.4.1"),
+                    new TeaPair("sdk_version", "1.5.0"),
                     new TeaPair("_prod_code", "SDS"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -334,6 +334,27 @@ public class Client {
     public QueryScenedataTaskinfoResponse queryScenedataTaskinfoEx(QueryScenedataTaskinfoRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.sds.scenedata.taskinfo.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryScenedataTaskinfoResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 批次计算结果聚合，任务为ready状态时，返回分页列表数据
+     * Summary: 批次结果聚合查询</p>
+     */
+    public QueryScenedataDwsResponse queryScenedataDws(QueryScenedataDwsRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryScenedataDwsEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 批次计算结果聚合，任务为ready状态时，返回分页列表数据
+     * Summary: 批次结果聚合查询</p>
+     */
+    public QueryScenedataDwsResponse queryScenedataDwsEx(QueryScenedataDwsRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.sds.scenedata.dws.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryScenedataDwsResponse());
     }
 
     /**
