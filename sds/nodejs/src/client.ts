@@ -78,23 +78,52 @@ export class Config extends $tea.Model {
   }
 }
 
-// 维度
-export class Dimension extends $tea.Model {
-  // 维度
-  dimension: string;
-  // 维度值
-  dimensionValue: string;
+// 【固定折扣特定信息】 
+export class FixedDiscountCoupon extends $tea.Model {
+  // 【最高折扣金额】 最高折扣金额，单位分
+  discountAmountMax: number;
+  // 【折扣百分比】 折扣百分比，例如88-八八折
+  discountPercent: number;
+  // 【门槛】 使用券金额门槛，单位分
+  transactionMinimum?: number;
   static names(): { [key: string]: string } {
     return {
-      dimension: 'dimension',
-      dimensionValue: 'dimension_value',
+      discountAmountMax: 'discount_amount_max',
+      discountPercent: 'discount_percent',
+      transactionMinimum: 'transaction_minimum',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      dimension: 'string',
-      dimensionValue: 'string',
+      discountAmountMax: 'number',
+      discountPercent: 'number',
+      transactionMinimum: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 【固定面额批次特定信息】 固定面额发券或消费金批次特定信息。
+export class FixedNormalCoupon extends $tea.Model {
+  // 【面额】 面额，单位：分。
+  couponAmount: number;
+  // 【门槛】 使用券金额门槛，单位：分。
+  transactionMinimum: number;
+  static names(): { [key: string]: string } {
+    return {
+      couponAmount: 'coupon_amount',
+      transactionMinimum: 'transaction_minimum',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      couponAmount: 'number',
+      transactionMinimum: 'number',
     };
   }
 
@@ -128,31 +157,273 @@ export class RultMetric extends $tea.Model {
   }
 }
 
-// 批处理结果
-export class BatchResult extends $tea.Model {
-  // 业务号
-  bizNo: string;
-  // 业务号类型
-  bizNoType: string;
-  // 结果
-  result?: string;
-  // 结果码
-  resultCode?: string;
+// 【减至批次特定信息】 单品优惠特定信息
+export class CutToMessage extends $tea.Model {
+  // 【可用优惠的商品最高单价】 可用优惠的商品最高单价，单位：分。
+  singlePriceMax: number;
+  // 【减至后的优惠单价】 减至后的优惠单价，单位：分。
+  cutToPrice: number;
   static names(): { [key: string]: string } {
     return {
-      bizNo: 'biz_no',
-      bizNoType: 'biz_no_type',
-      result: 'result',
-      resultCode: 'result_code',
+      singlePriceMax: 'single_price_max',
+      cutToPrice: 'cut_to_price',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      bizNo: 'string',
-      bizNoType: 'string',
-      result: 'string',
-      resultCode: 'string',
+      singlePriceMax: 'number',
+      cutToPrice: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 【消费金可用地域】 消费金可用地域
+export class AvailableRegion extends $tea.Model {
+  // 【类型】 消费金可用地域的类型，COUNTRY表示国家级别可用，PROVINCE表示省级可用，CITY表示市级可用，DISTRICT表示区级可用。
+  // 可选取值
+  // PROVINCE:  地域信息精确到省级
+  // CITY:  地域信息精确到市级
+  // DISTRICT:  地域信息精确到区级
+  // COUNTRY:  地域信息精确到国家级
+  type?: string;
+  // 【省】 消费金可用省
+  province?: string;
+  // 【市】 消费金可用
+  city?: string;
+  // 【区】 消费金可用区
+  district?: string;
+  // 【国家】 消费金可用国家
+  country?: string;
+  static names(): { [key: string]: string } {
+    return {
+      type: 'type',
+      province: 'province',
+      city: 'city',
+      district: 'district',
+      country: 'country',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      type: 'string',
+      province: 'string',
+      city: 'string',
+      district: 'string',
+      country: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 维度
+export class Dimension extends $tea.Model {
+  // 维度
+  dimension: string;
+  // 维度值
+  dimensionValue: string;
+  static names(): { [key: string]: string } {
+    return {
+      dimension: 'dimension',
+      dimensionValue: 'dimension_value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      dimension: 'string',
+      dimensionValue: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 【满减券/消费金批次使用规则】 满减券或消费金批次特定信息。
+export class StockUseRule extends $tea.Model {
+  // 【发放总上限】 最大发券数
+  maxCoupons: number;
+  // 【总预算】 总消耗金额，单位：分。
+  maxAmount: number;
+  // 【单天发放上限金额】 单天最高消耗金额，单位：分。
+  maxAmountByDay: number;
+  // 【固定面额批次特定信息】 固定面额发券或消费金批次特定信息。
+  fixedNormalCoupon: FixedNormalCoupon;
+  // 【单个用户可领个数】 单个用户可领个数
+  maxCouponsPerUser: number;
+  // 【券或消费金类型】 券或消费金类型
+  // 枚举值：
+  // NORMAL：满减券
+  // CUT_TO：减至券
+  couponType?: string;
+  // 【订单优惠标记】 订单优惠标记 (该字段暂未开放返回)
+  // 特殊规则：单个优惠标记的字符长度为【1，128】,条目个数限制为【1，50】。
+  goodsTag?: string[];
+  // 【指定支付模式】默认不限制(该字段暂未开放返回)，枚举值：
+  // 可选取值
+  // MICROAPP:  小程序支付
+  // APPPAY:  APP支付
+  // PPAY:  免密支付
+  // CARD:  刷卡支付
+  // FACE:  人脸支付
+  // OTHER:  其他支付，公众号、扫码等
+  tradeType?: string[];
+  // 【是否可叠加其他优惠】 枚举值：
+  // true：是
+  // false：否
+  combineUse?: boolean;
+  // 【固定折扣特定信息】
+  fixedDiscountCoupon?: FixedDiscountCoupon;
+  static names(): { [key: string]: string } {
+    return {
+      maxCoupons: 'max_coupons',
+      maxAmount: 'max_amount',
+      maxAmountByDay: 'max_amount_by_day',
+      fixedNormalCoupon: 'fixed_normal_coupon',
+      maxCouponsPerUser: 'max_coupons_per_user',
+      couponType: 'coupon_type',
+      goodsTag: 'goods_tag',
+      tradeType: 'trade_type',
+      combineUse: 'combine_use',
+      fixedDiscountCoupon: 'fixed_discount_coupon',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      maxCoupons: 'number',
+      maxAmount: 'number',
+      maxAmountByDay: 'number',
+      fixedNormalCoupon: FixedNormalCoupon,
+      maxCouponsPerUser: 'number',
+      couponType: 'string',
+      goodsTag: { 'type': 'array', 'itemType': 'string' },
+      tradeType: { 'type': 'array', 'itemType': 'string' },
+      combineUse: 'boolean',
+      fixedDiscountCoupon: FixedDiscountCoupon,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 【批次详情】 批次详情
+export class WxStockData extends $tea.Model {
+  // 【批次号】 微信为每个代金券批次分配的唯一id。
+  stockId: string;
+  // 【批次创建方商户号】 微信为创建方商户分配的商户号
+  stockCreatorMchid: string;
+  // 【批次名称】 批次名称
+  stockName: string;
+  // 【批次状态】 批次状态，枚举值：
+  // unactivated：未激活
+  // audit：审核中
+  // running：运行中
+  // stoped：已停止
+  // paused：暂停发放
+  status: string;
+  // 【创建时间】 批次创建时间，遵循rfc3339标准格式，格式为yyyy-MM-DDTHH:mm:ss.sss+TIMEZONE，yyyy-MM-DD表示年月日，T出现在字符串中，表示time元素的开头，HH:mm:ss.sss表示时分秒毫秒，TIMEZONE表示时区（+08:00表示东八区时间，领先UTC 8小时，即北京时间）。例如：2015-05-20T13:29:35.120+08:00表示，北京时间2015年5月20日 13点29分35秒。
+  createTime: string;
+  // 【使用说明】 批次描述信息
+  description: string;
+  // 【满减券/消费金批次使用规则】 满减券或消费金批次特定信息。
+  stockUseRule?: StockUseRule;
+  // 【可用开始时间】 可用开始时间，遵循rfc3339标准格式，格式为yyyy-MM-DDTHH:mm:ss.sss+TIMEZONE，yyyy-MM-DD表示年月日，T出现在字符串中，表示time元素的开头，HH:mm:ss.sss表示时分秒毫秒，TIMEZONE表示时区（+08:00表示东八区时间，领先UTC 8小时，即北京时间）。例如：2015-05-20T13:29:35.120+08:00表示，北京时间2015年5月20日 13点29分35秒。
+  availableBeginTime: string;
+  // 【可用结束时间】 可用结束时间，遵循rfc3339标准格式，格式为yyyy-MM-DDTHH:mm:ss.sss+TIMEZONE，yyyy-MM-DD表示年月日，T出现在字符串中，表示time元素的开头，HH:mm:ss.sss表示时分秒毫秒，TIMEZONE表示时区（+08:00表示东八区时间，领先UTC 8小时，即北京时间）。例如：2015-05-20T13:29:35.120+08:00表示，北京时间2015年5月20日 13点29分35秒。
+  availableEndTime: string;
+  // 【已发券或消费金数量】 已发券或消费金数量
+  distributedCoupons: number;
+  // 【是否无资金流】 是否无资金流。枚举值：
+  // true：是
+  // false：否
+  noCash: boolean;
+  // 【激活批次的时间】 批次激活开启时间，遵循rfc3339标准格式，格式为yyyy-MM-DDTHH:mm:ss.sss+TIMEZONE，yyyy-MM-DD表示年月日，T出现在字符串中，表示time元素的开头，HH:mm:ss.sss表示时分秒毫秒，TIMEZONE表示时区（+08:00表示东八区时间，领先UTC 8小时，即北京时间）。例如：2015-05-20T13:29:35.120+08:00表示，北京时间2015年5月20日 13点29分35秒。
+  startTime?: string;
+  // 【终止批次的时间】 批次永久停止时间，遵循rfc3339标准格式，格式为yyyy-MM-DDTHH:mm:ss.sss+TIMEZONE，yyyy-MM-DD表示年月日，T出现在字符串中，表示time元素的开头，HH:mm:ss.sss表示时分秒毫秒，TIMEZONE表示时区（+08:00表示东八区时间，领先UTC 8小时，即北京时间）。例如：2015-05-20T13:29:35.120+08:00表示，北京时间2015年5月20日 13点29分35秒。
+  stopTime?: string;
+  // 【减至批次特定信息】 单品优惠特定信息
+  cutToMessage?: CutToMessage;
+  // 【是否单品优惠】 枚举值：
+  // true：是
+  // false：否
+  singleitem: boolean;
+  // 【批次类型】 批次类型
+  // 枚举值：
+  // NORMAL：代金券批次
+  // DISCOUNT_CUT：立减与折扣
+  // OTHER：其他
+  stockType: string;
+  // 【卡包ID】 微信卡包ID
+  cardId?: string;
+  // 【业务类型】 细分业务类型，仅有当business_type=MULTIUSE时，才会返回，枚举值：
+  // MULTIUSE：消费金
+  // 可选取值
+  // MULTIUSE:  消费金类型
+  businessType?: string;
+  // 消费金可用地域列表，仅有当business_type=MULTIUSE时，才会返回
+  availableRegionList?: AvailableRegion[];
+  // 【消费金可用行业】 消费金可用行业列表，仅有当business_type=MULTIUSE时，才会返回
+  availableIndustryList?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      stockId: 'stock_id',
+      stockCreatorMchid: 'stock_creator_mchid',
+      stockName: 'stock_name',
+      status: 'status',
+      createTime: 'create_time',
+      description: 'description',
+      stockUseRule: 'stock_use_rule',
+      availableBeginTime: 'available_begin_time',
+      availableEndTime: 'available_end_time',
+      distributedCoupons: 'distributed_coupons',
+      noCash: 'no_cash',
+      startTime: 'start_time',
+      stopTime: 'stop_time',
+      cutToMessage: 'cut_to_message',
+      singleitem: 'singleitem',
+      stockType: 'stock_type',
+      cardId: 'card_id',
+      businessType: 'business_type',
+      availableRegionList: 'available_region_list',
+      availableIndustryList: 'available_industry_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      stockId: 'string',
+      stockCreatorMchid: 'string',
+      stockName: 'string',
+      status: 'string',
+      createTime: 'string',
+      description: 'string',
+      stockUseRule: StockUseRule,
+      availableBeginTime: 'string',
+      availableEndTime: 'string',
+      distributedCoupons: 'number',
+      noCash: 'boolean',
+      startTime: 'string',
+      stopTime: 'string',
+      cutToMessage: CutToMessage,
+      singleitem: 'boolean',
+      stockType: 'string',
+      cardId: 'string',
+      businessType: 'string',
+      availableRegionList: { 'type': 'array', 'itemType': AvailableRegion },
+      availableIndustryList: { 'type': 'array', 'itemType': 'string' },
     };
   }
 
@@ -182,6 +453,70 @@ export class Metric extends $tea.Model {
       metricCode: 'string',
       metricColumn: 'string',
       functionType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 业务号条件
+export class BizNoCondition extends $tea.Model {
+  // 枚举
+  // CITY 城市
+  // BLOCK 区县
+  // AGE 年龄
+  dimension: string;
+  // 枚举范围，每个维度的值是或的关系,需要校验场景和取值范围是否匹配
+  // CITY:区划码
+  // BLOCK:区划码（底包暂不支持）
+  // AGE:30+、40+、50+（底包暂不支持
+  valueScope: string[];
+  static names(): { [key: string]: string } {
+    return {
+      dimension: 'dimension',
+      valueScope: 'value_scope',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      dimension: 'string',
+      valueScope: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 批处理结果
+export class BatchResult extends $tea.Model {
+  // 业务号
+  bizNo: string;
+  // 业务号类型
+  bizNoType: string;
+  // 结果
+  result?: string;
+  // 结果码
+  resultCode?: string;
+  static names(): { [key: string]: string } {
+    return {
+      bizNo: 'biz_no',
+      bizNoType: 'biz_no_type',
+      result: 'result',
+      resultCode: 'result_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      bizNo: 'string',
+      bizNoType: 'string',
+      result: 'string',
+      resultCode: 'string',
     };
   }
 
@@ -298,37 +633,6 @@ export class Address extends $tea.Model {
     return {
       city: 'string',
       district: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 业务号条件
-export class BizNoCondition extends $tea.Model {
-  // 枚举
-  // CITY 城市
-  // BLOCK 区县
-  // AGE 年龄
-  dimension: string;
-  // 枚举范围，每个维度的值是或的关系,需要校验场景和取值范围是否匹配
-  // CITY:区划码
-  // BLOCK:区划码（底包暂不支持）
-  // AGE:30+、40+、50+（底包暂不支持
-  valueScope: string[];
-  static names(): { [key: string]: string } {
-    return {
-      dimension: 'dimension',
-      valueScope: 'value_scope',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      dimension: 'string',
-      valueScope: { 'type': 'array', 'itemType': 'string' },
     };
   }
 
@@ -910,6 +1214,247 @@ export class QueryScenedataDwsResponse extends $tea.Model {
   }
 }
 
+export class QueryFavorStocksRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 【分页页码】 页码从0开始，默认第0页
+  offset: number;
+  // 【分页大小】 分页大小，最大10
+  limit: number;
+  // 【创建批次的商户号】 批次创建方商户号。
+  // 校验规则：接口传入的批次号需由stock_creator_mchid所创建。
+  stockCreatorMchid: string;
+  // 【起始时间】 起始创建时间，遵循rfc3339标准格式，格式为yyyy-MM-DDTHH:mm:ss+TIMEZONE，yyyy-MM-DD表示年月日，T出现在字符串中，表示time元素的开头，HH:mm:ss表示时分秒，TIMEZONE表示时区（+08:00表示东八区时间，领先UTC 8小时，即北京时间）。例如：2015-05-20T13:29:35+08:00表示，北京时间2015年5月20日 13点29分35秒。
+  // 校验规则：get请求，参数在 url中，需要进行 url 编码传递
+  createStartTime?: string;
+  // 【终止时间】 终止创建时间，遵循rfc3339标准格式，格式为yyyy-MM-DDTHH:mm:ss+TIMEZONE，yyyy-MM-DD表示年月日，T出现在字符串中，表示time元素的开头，HH:mm:ss表示时分秒，TIMEZONE表示时区（+08:00表示东八区时间，领先UTC 8小时，即北京时间）。例如：2015-05-20T13:29:35+08:00表示，北京时间2015年5月20日 13点29分35秒。
+  // 校验规则：get请求，参数在 url中，需要进行 url 编码传递
+  createEndTime?: string;
+  // 【批次状态】 批次状态，枚举值：
+  // unactivated：未激活
+  // audit：审核中
+  // running：运行中
+  // stoped：已停止
+  // paused：暂停发放
+  status?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      offset: 'offset',
+      limit: 'limit',
+      stockCreatorMchid: 'stock_creator_mchid',
+      createStartTime: 'create_start_time',
+      createEndTime: 'create_end_time',
+      status: 'status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      offset: 'number',
+      limit: 'number',
+      stockCreatorMchid: 'string',
+      createStartTime: 'string',
+      createEndTime: 'string',
+      status: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryFavorStocksResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 【批次总数】 经过条件筛选，查询到的批次总数量。
+  totalCount?: number;
+  // 【批次详情】 批次详情
+  data?: WxStockData[];
+  // 【分页大小】 分页大小，最大10
+  limit?: number;
+  // 【分页页码】 页码从0开始，默认第0页
+  offset?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      totalCount: 'total_count',
+      data: 'data',
+      limit: 'limit',
+      offset: 'offset',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      totalCount: 'number',
+      data: { 'type': 'array', 'itemType': WxStockData },
+      limit: 'number',
+      offset: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DownloadStockUseflowRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 格式：yyyy-MM-DD，仅支持近1年的日期账单数据下载，账单日期需早于当前日期，且在批次有效期内。
+  billDate: string;
+  // 【批次号】单次请求仅支持单批次，校验批次号合法性，需要为创建方创建的批次号，支持全场券、单品券、全场立减、全场折扣、单品立减
+  stockId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      billDate: 'bill_date',
+      stockId: 'stock_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      billDate: 'string',
+      stockId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DownloadStockUseflowResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 【下载链接】流水文件下载链接，30s内有效
+  url?: string;
+  // 【核销批次账单文件摘要】默认算法SHA1
+  stockUseflowHash?: string;
+  // 【核销批次账单记录总条数】记录该批次在该请求日期下的核销记录条数
+  stockUseflowCount?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      url: 'url',
+      stockUseflowHash: 'stock_useflow_hash',
+      stockUseflowCount: 'stock_useflow_count',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      url: 'string',
+      stockUseflowHash: 'string',
+      stockUseflowCount: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DownloadStockRefundflowRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 格式yyyy-MM- dd仅支持近1年的日期账单数据下载，账单日期需早于当前日期，且在批次有效期内。
+  billDate: string;
+  // 单次请求仅支持单批次，校验批次号合法性，需要为创建方创建的批次号，支持全场券、单品券、全场立减、全场折扣、单品立减。
+  stockId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      billDate: 'bill_date',
+      stockId: 'stock_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      billDate: 'string',
+      stockId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DownloadStockRefundflowResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 【下载链接】流水文件下载链接，30s内有效
+  url?: string;
+  // 【退款批次账单文件摘要】默认算法SHA1
+  stockRefundflowHash?: string;
+  // 【退款批次账单记录总条数】记录该批次在请求日期下的退款记录条数
+  stockRefundflowCount?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      url: 'url',
+      stockRefundflowHash: 'stock_refundflow_hash',
+      stockRefundflowCount: 'stock_refundflow_count',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      url: 'string',
+      stockRefundflowHash: 'string',
+      stockRefundflowCount: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -1111,7 +1656,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.5.0",
+          sdk_version: "1.6.0",
           _prod_code: "SDS",
           _prod_channel: "default",
         };
@@ -1312,6 +1857,63 @@ export default class Client {
   async queryScenedataDwsEx(request: QueryScenedataDwsRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryScenedataDwsResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryScenedataDwsResponse>(await this.doRequest("1.0", "antchain.sds.scenedata.dws.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryScenedataDwsResponse({}));
+  }
+
+  /**
+   * Description: 微信批次分页条件查询。通过此接口可查询商家多个批次的信息，包括批次的配置信息以及批次概况数据。
+   * Summary: 微信批次分页条件查询。通过此接口可查询商家多个批次的信息，包括批次的配置信息以及批次概况数据。
+   */
+  async queryFavorStocks(request: QueryFavorStocksRequest): Promise<QueryFavorStocksResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryFavorStocksEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 微信批次分页条件查询。通过此接口可查询商家多个批次的信息，包括批次的配置信息以及批次概况数据。
+   * Summary: 微信批次分页条件查询。通过此接口可查询商家多个批次的信息，包括批次的配置信息以及批次概况数据。
+   */
+  async queryFavorStocksEx(request: QueryFavorStocksRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryFavorStocksResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryFavorStocksResponse>(await this.doRequest("1.0", "antchain.sds.favor.stocks.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryFavorStocksResponse({}));
+  }
+
+  /**
+   * Description: 微信核销账单接口
+   * Summary: 微信核销账单接口
+   */
+  async downloadStockUseflow(request: DownloadStockUseflowRequest): Promise<DownloadStockUseflowResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.downloadStockUseflowEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 微信核销账单接口
+   * Summary: 微信核销账单接口
+   */
+  async downloadStockUseflowEx(request: DownloadStockUseflowRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DownloadStockUseflowResponse> {
+    Util.validateModel(request);
+    return $tea.cast<DownloadStockUseflowResponse>(await this.doRequest("1.0", "antchain.sds.stock.useflow.download", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new DownloadStockUseflowResponse({}));
+  }
+
+  /**
+   * Description: 微信退款账单接口
+   * Summary: 微信退款账单接口
+   */
+  async downloadStockRefundflow(request: DownloadStockRefundflowRequest): Promise<DownloadStockRefundflowResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.downloadStockRefundflowEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 微信退款账单接口
+   * Summary: 微信退款账单接口
+   */
+  async downloadStockRefundflowEx(request: DownloadStockRefundflowRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DownloadStockRefundflowResponse> {
+    Util.validateModel(request);
+    return $tea.cast<DownloadStockRefundflowResponse>(await this.doRequest("1.0", "antchain.sds.stock.refundflow.download", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new DownloadStockRefundflowResponse({}));
   }
 
   /**
