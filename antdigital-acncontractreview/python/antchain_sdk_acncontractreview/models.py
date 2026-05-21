@@ -324,6 +324,7 @@ class QueryAntcloudContractaiAuditRecordRequest(TeaModel):
         creator_work_no: str = None,
         creator_name: str = None,
         baseline_library_name: str = None,
+        end_customer_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -348,6 +349,8 @@ class QueryAntcloudContractaiAuditRecordRequest(TeaModel):
         self.creator_name = creator_name
         # 基准线库名称
         self.baseline_library_name = baseline_library_name
+        # 终端客户id
+        self.end_customer_id = end_customer_id
 
     def validate(self):
         self.validate_required(self.page_no, 'page_no')
@@ -383,6 +386,8 @@ class QueryAntcloudContractaiAuditRecordRequest(TeaModel):
             result['creator_name'] = self.creator_name
         if self.baseline_library_name is not None:
             result['baseline_library_name'] = self.baseline_library_name
+        if self.end_customer_id is not None:
+            result['end_customer_id'] = self.end_customer_id
         return result
 
     def from_map(self, m: dict = None):
@@ -407,6 +412,8 @@ class QueryAntcloudContractaiAuditRecordRequest(TeaModel):
             self.creator_name = m.get('creator_name')
         if m.get('baseline_library_name') is not None:
             self.baseline_library_name = m.get('baseline_library_name')
+        if m.get('end_customer_id') is not None:
+            self.end_customer_id = m.get('end_customer_id')
         return self
 
 
