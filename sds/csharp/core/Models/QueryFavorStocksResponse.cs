@@ -1,0 +1,49 @@
+// This file is auto-generated, don't edit it. Thanks.
+
+using System;
+using System.Collections.Generic;
+using System.IO;
+
+using Tea;
+
+namespace AntChain.SDK.SDS.Models
+{
+    public class QueryFavorStocksResponse : TeaModel {
+        // 请求唯一ID，用于链路跟踪和问题排查
+        [NameInMap("req_msg_id")]
+        [Validation(Required=false)]
+        public string ReqMsgId { get; set; }
+
+        // 结果码，一般OK表示调用成功
+        [NameInMap("result_code")]
+        [Validation(Required=false)]
+        public string ResultCode { get; set; }
+
+        // 异常信息的文本描述
+        [NameInMap("result_msg")]
+        [Validation(Required=false)]
+        public string ResultMsg { get; set; }
+
+        // 【批次总数】 经过条件筛选，查询到的批次总数量。
+        [NameInMap("total_count")]
+        [Validation(Required=false)]
+        public long? TotalCount { get; set; }
+
+        // 【批次详情】 批次详情
+        [NameInMap("data")]
+        [Validation(Required=false)]
+        public List<WxStockData> Data { get; set; }
+
+        // 【分页大小】 分页大小，最大10
+        [NameInMap("limit")]
+        [Validation(Required=false)]
+        public long? Limit { get; set; }
+
+        // 【分页页码】 页码从0开始，默认第0页
+        [NameInMap("offset")]
+        [Validation(Required=false)]
+        public long? Offset { get; set; }
+
+    }
+
+}

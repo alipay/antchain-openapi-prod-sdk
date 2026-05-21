@@ -137,7 +137,7 @@ namespace AntChain.SDK.SDS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.5.0"},
+                        {"sdk_version", "1.6.0"},
                         {"_prod_code", "SDS"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.SDS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.5.0"},
+                        {"sdk_version", "1.6.0"},
                         {"_prod_code", "SDS"},
                         {"_prod_channel", "default"},
                     };
@@ -661,6 +661,132 @@ namespace AntChain.SDK.SDS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryScenedataDwsResponse>(await DoRequestAsync("1.0", "antchain.sds.scenedata.dws.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 微信批次分页条件查询。通过此接口可查询商家多个批次的信息，包括批次的配置信息以及批次概况数据。
+         * Summary: 微信批次分页条件查询。通过此接口可查询商家多个批次的信息，包括批次的配置信息以及批次概况数据。
+         */
+        public QueryFavorStocksResponse QueryFavorStocks(QueryFavorStocksRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryFavorStocksEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 微信批次分页条件查询。通过此接口可查询商家多个批次的信息，包括批次的配置信息以及批次概况数据。
+         * Summary: 微信批次分页条件查询。通过此接口可查询商家多个批次的信息，包括批次的配置信息以及批次概况数据。
+         */
+        public async Task<QueryFavorStocksResponse> QueryFavorStocksAsync(QueryFavorStocksRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryFavorStocksExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 微信批次分页条件查询。通过此接口可查询商家多个批次的信息，包括批次的配置信息以及批次概况数据。
+         * Summary: 微信批次分页条件查询。通过此接口可查询商家多个批次的信息，包括批次的配置信息以及批次概况数据。
+         */
+        public QueryFavorStocksResponse QueryFavorStocksEx(QueryFavorStocksRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryFavorStocksResponse>(DoRequest("1.0", "antchain.sds.favor.stocks.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 微信批次分页条件查询。通过此接口可查询商家多个批次的信息，包括批次的配置信息以及批次概况数据。
+         * Summary: 微信批次分页条件查询。通过此接口可查询商家多个批次的信息，包括批次的配置信息以及批次概况数据。
+         */
+        public async Task<QueryFavorStocksResponse> QueryFavorStocksExAsync(QueryFavorStocksRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryFavorStocksResponse>(await DoRequestAsync("1.0", "antchain.sds.favor.stocks.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 微信核销账单接口
+         * Summary: 微信核销账单接口
+         */
+        public DownloadStockUseflowResponse DownloadStockUseflow(DownloadStockUseflowRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return DownloadStockUseflowEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 微信核销账单接口
+         * Summary: 微信核销账单接口
+         */
+        public async Task<DownloadStockUseflowResponse> DownloadStockUseflowAsync(DownloadStockUseflowRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await DownloadStockUseflowExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 微信核销账单接口
+         * Summary: 微信核销账单接口
+         */
+        public DownloadStockUseflowResponse DownloadStockUseflowEx(DownloadStockUseflowRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DownloadStockUseflowResponse>(DoRequest("1.0", "antchain.sds.stock.useflow.download", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 微信核销账单接口
+         * Summary: 微信核销账单接口
+         */
+        public async Task<DownloadStockUseflowResponse> DownloadStockUseflowExAsync(DownloadStockUseflowRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DownloadStockUseflowResponse>(await DoRequestAsync("1.0", "antchain.sds.stock.useflow.download", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 微信退款账单接口
+         * Summary: 微信退款账单接口
+         */
+        public DownloadStockRefundflowResponse DownloadStockRefundflow(DownloadStockRefundflowRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return DownloadStockRefundflowEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 微信退款账单接口
+         * Summary: 微信退款账单接口
+         */
+        public async Task<DownloadStockRefundflowResponse> DownloadStockRefundflowAsync(DownloadStockRefundflowRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await DownloadStockRefundflowExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 微信退款账单接口
+         * Summary: 微信退款账单接口
+         */
+        public DownloadStockRefundflowResponse DownloadStockRefundflowEx(DownloadStockRefundflowRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DownloadStockRefundflowResponse>(DoRequest("1.0", "antchain.sds.stock.refundflow.download", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 微信退款账单接口
+         * Summary: 微信退款账单接口
+         */
+        public async Task<DownloadStockRefundflowResponse> DownloadStockRefundflowExAsync(DownloadStockRefundflowRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DownloadStockRefundflowResponse>(await DoRequestAsync("1.0", "antchain.sds.stock.refundflow.download", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
