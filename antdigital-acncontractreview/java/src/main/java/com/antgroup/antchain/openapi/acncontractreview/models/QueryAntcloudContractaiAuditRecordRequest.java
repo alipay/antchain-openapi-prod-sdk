@@ -51,6 +51,10 @@ public class QueryAntcloudContractaiAuditRecordRequest extends TeaModel {
     @NameInMap("baseline_library_name")
     public String baselineLibraryName;
 
+    // 终端客户id
+    @NameInMap("end_customer_id")
+    public String endCustomerId;
+
     public static QueryAntcloudContractaiAuditRecordRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryAntcloudContractaiAuditRecordRequest self = new QueryAntcloudContractaiAuditRecordRequest();
         return TeaModel.build(map, self);
@@ -134,6 +138,14 @@ public class QueryAntcloudContractaiAuditRecordRequest extends TeaModel {
     }
     public String getBaselineLibraryName() {
         return this.baselineLibraryName;
+    }
+
+    public QueryAntcloudContractaiAuditRecordRequest setEndCustomerId(String endCustomerId) {
+        this.endCustomerId = endCustomerId;
+        return this;
+    }
+    public String getEndCustomerId() {
+        return this.endCustomerId;
     }
 
 }
