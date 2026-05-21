@@ -17,6 +17,8 @@ use AntChain\SDS\Models\CreateAntcloudGatewayxFileUploadRequest;
 use AntChain\SDS\Models\CreateAntcloudGatewayxFileUploadResponse;
 use AntChain\SDS\Models\JudgeCrowdPrefermentRequest;
 use AntChain\SDS\Models\JudgeCrowdPrefermentResponse;
+use AntChain\SDS\Models\QueryScenedataDwsRequest;
+use AntChain\SDS\Models\QueryScenedataDwsResponse;
 use AntChain\SDS\Models\QueryScenedataOnlineRequest;
 use AntChain\SDS\Models\QueryScenedataOnlineResponse;
 use AntChain\SDS\Models\QueryScenedataTaskinfoRequest;
@@ -144,7 +146,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 批处理结果
+            // 维度
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -172,7 +174,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.4.1',
+                    'sdk_version'      => '1.5.0',
                     '_prod_code'       => 'SDS',
                     '_prod_channel'    => 'default',
                 ];
@@ -435,6 +437,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryScenedataTaskinfoResponse::fromMap($this->doRequest('1.0', 'antchain.sds.scenedata.taskinfo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 批次计算结果聚合，任务为ready状态时，返回分页列表数据
+     * Summary: 批次结果聚合查询.
+     *
+     * @param QueryScenedataDwsRequest $request
+     *
+     * @return QueryScenedataDwsResponse
+     */
+    public function queryScenedataDws($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryScenedataDwsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 批次计算结果聚合，任务为ready状态时，返回分页列表数据
+     * Summary: 批次结果聚合查询.
+     *
+     * @param QueryScenedataDwsRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return QueryScenedataDwsResponse
+     */
+    public function queryScenedataDwsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryScenedataDwsResponse::fromMap($this->doRequest('1.0', 'antchain.sds.scenedata.dws.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
