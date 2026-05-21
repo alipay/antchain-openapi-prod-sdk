@@ -137,7 +137,7 @@ namespace AntChain.SDK.SDS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.4.1"},
+                        {"sdk_version", "1.5.0"},
                         {"_prod_code", "SDS"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.SDS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.4.1"},
+                        {"sdk_version", "1.5.0"},
                         {"_prod_code", "SDS"},
                         {"_prod_channel", "default"},
                     };
@@ -619,6 +619,48 @@ namespace AntChain.SDK.SDS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryScenedataTaskinfoResponse>(await DoRequestAsync("1.0", "antchain.sds.scenedata.taskinfo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 批次计算结果聚合，任务为ready状态时，返回分页列表数据
+         * Summary: 批次结果聚合查询
+         */
+        public QueryScenedataDwsResponse QueryScenedataDws(QueryScenedataDwsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryScenedataDwsEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 批次计算结果聚合，任务为ready状态时，返回分页列表数据
+         * Summary: 批次结果聚合查询
+         */
+        public async Task<QueryScenedataDwsResponse> QueryScenedataDwsAsync(QueryScenedataDwsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryScenedataDwsExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 批次计算结果聚合，任务为ready状态时，返回分页列表数据
+         * Summary: 批次结果聚合查询
+         */
+        public QueryScenedataDwsResponse QueryScenedataDwsEx(QueryScenedataDwsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryScenedataDwsResponse>(DoRequest("1.0", "antchain.sds.scenedata.dws.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 批次计算结果聚合，任务为ready状态时，返回分页列表数据
+         * Summary: 批次结果聚合查询
+         */
+        public async Task<QueryScenedataDwsResponse> QueryScenedataDwsExAsync(QueryScenedataDwsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryScenedataDwsResponse>(await DoRequestAsync("1.0", "antchain.sds.scenedata.dws.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
