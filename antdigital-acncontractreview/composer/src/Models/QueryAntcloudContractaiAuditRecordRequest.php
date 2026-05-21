@@ -70,6 +70,12 @@ class QueryAntcloudContractaiAuditRecordRequest extends Model
      * @var string
      */
     public $baselineLibraryName;
+
+    // 终端客户id
+    /**
+     * @var string
+     */
+    public $endCustomerId;
     protected $_name = [
         'authToken'           => 'auth_token',
         'pageNo'              => 'page_no',
@@ -81,6 +87,7 @@ class QueryAntcloudContractaiAuditRecordRequest extends Model
         'creatorWorkNo'       => 'creator_work_no',
         'creatorName'         => 'creator_name',
         'baselineLibraryName' => 'baseline_library_name',
+        'endCustomerId'       => 'end_customer_id',
     ];
 
     public function validate()
@@ -124,6 +131,9 @@ class QueryAntcloudContractaiAuditRecordRequest extends Model
         if (null !== $this->baselineLibraryName) {
             $res['baseline_library_name'] = $this->baselineLibraryName;
         }
+        if (null !== $this->endCustomerId) {
+            $res['end_customer_id'] = $this->endCustomerId;
+        }
 
         return $res;
     }
@@ -165,6 +175,9 @@ class QueryAntcloudContractaiAuditRecordRequest extends Model
         }
         if (isset($map['baseline_library_name'])) {
             $model->baselineLibraryName = $map['baseline_library_name'];
+        }
+        if (isset($map['end_customer_id'])) {
+            $model->endCustomerId = $map['end_customer_id'];
         }
 
         return $model;
