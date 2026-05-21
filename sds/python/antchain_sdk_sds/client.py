@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 维度
+            # 【固定折扣特定信息】
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.5.0',
+                    'sdk_version': '1.6.0',
                     '_prod_code': 'SDS',
                     '_prod_channel': 'default'
                 }
@@ -214,7 +214,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 维度
+            # 【固定折扣特定信息】
         }
         _last_request = None
         _last_exception = None
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.5.0',
+                    'sdk_version': '1.6.0',
                     '_prod_code': 'SDS',
                     '_prod_channel': 'default'
                 }
@@ -701,6 +701,174 @@ class Client:
         return TeaCore.from_map(
             sds_models.QueryScenedataDwsResponse(),
             await self.do_request_async('1.0', 'antchain.sds.scenedata.dws.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_favor_stocks(
+        self,
+        request: sds_models.QueryFavorStocksRequest,
+    ) -> sds_models.QueryFavorStocksResponse:
+        """
+        Description: 微信批次分页条件查询。通过此接口可查询商家多个批次的信息，包括批次的配置信息以及批次概况数据。
+        Summary: 微信批次分页条件查询。通过此接口可查询商家多个批次的信息，包括批次的配置信息以及批次概况数据。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_favor_stocks_ex(request, headers, runtime)
+
+    async def query_favor_stocks_async(
+        self,
+        request: sds_models.QueryFavorStocksRequest,
+    ) -> sds_models.QueryFavorStocksResponse:
+        """
+        Description: 微信批次分页条件查询。通过此接口可查询商家多个批次的信息，包括批次的配置信息以及批次概况数据。
+        Summary: 微信批次分页条件查询。通过此接口可查询商家多个批次的信息，包括批次的配置信息以及批次概况数据。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_favor_stocks_ex_async(request, headers, runtime)
+
+    def query_favor_stocks_ex(
+        self,
+        request: sds_models.QueryFavorStocksRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> sds_models.QueryFavorStocksResponse:
+        """
+        Description: 微信批次分页条件查询。通过此接口可查询商家多个批次的信息，包括批次的配置信息以及批次概况数据。
+        Summary: 微信批次分页条件查询。通过此接口可查询商家多个批次的信息，包括批次的配置信息以及批次概况数据。
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            sds_models.QueryFavorStocksResponse(),
+            self.do_request('1.0', 'antchain.sds.favor.stocks.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_favor_stocks_ex_async(
+        self,
+        request: sds_models.QueryFavorStocksRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> sds_models.QueryFavorStocksResponse:
+        """
+        Description: 微信批次分页条件查询。通过此接口可查询商家多个批次的信息，包括批次的配置信息以及批次概况数据。
+        Summary: 微信批次分页条件查询。通过此接口可查询商家多个批次的信息，包括批次的配置信息以及批次概况数据。
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            sds_models.QueryFavorStocksResponse(),
+            await self.do_request_async('1.0', 'antchain.sds.favor.stocks.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def download_stock_useflow(
+        self,
+        request: sds_models.DownloadStockUseflowRequest,
+    ) -> sds_models.DownloadStockUseflowResponse:
+        """
+        Description: 微信核销账单接口
+        Summary: 微信核销账单接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.download_stock_useflow_ex(request, headers, runtime)
+
+    async def download_stock_useflow_async(
+        self,
+        request: sds_models.DownloadStockUseflowRequest,
+    ) -> sds_models.DownloadStockUseflowResponse:
+        """
+        Description: 微信核销账单接口
+        Summary: 微信核销账单接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.download_stock_useflow_ex_async(request, headers, runtime)
+
+    def download_stock_useflow_ex(
+        self,
+        request: sds_models.DownloadStockUseflowRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> sds_models.DownloadStockUseflowResponse:
+        """
+        Description: 微信核销账单接口
+        Summary: 微信核销账单接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            sds_models.DownloadStockUseflowResponse(),
+            self.do_request('1.0', 'antchain.sds.stock.useflow.download', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def download_stock_useflow_ex_async(
+        self,
+        request: sds_models.DownloadStockUseflowRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> sds_models.DownloadStockUseflowResponse:
+        """
+        Description: 微信核销账单接口
+        Summary: 微信核销账单接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            sds_models.DownloadStockUseflowResponse(),
+            await self.do_request_async('1.0', 'antchain.sds.stock.useflow.download', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def download_stock_refundflow(
+        self,
+        request: sds_models.DownloadStockRefundflowRequest,
+    ) -> sds_models.DownloadStockRefundflowResponse:
+        """
+        Description: 微信退款账单接口
+        Summary: 微信退款账单接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.download_stock_refundflow_ex(request, headers, runtime)
+
+    async def download_stock_refundflow_async(
+        self,
+        request: sds_models.DownloadStockRefundflowRequest,
+    ) -> sds_models.DownloadStockRefundflowResponse:
+        """
+        Description: 微信退款账单接口
+        Summary: 微信退款账单接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.download_stock_refundflow_ex_async(request, headers, runtime)
+
+    def download_stock_refundflow_ex(
+        self,
+        request: sds_models.DownloadStockRefundflowRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> sds_models.DownloadStockRefundflowResponse:
+        """
+        Description: 微信退款账单接口
+        Summary: 微信退款账单接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            sds_models.DownloadStockRefundflowResponse(),
+            self.do_request('1.0', 'antchain.sds.stock.refundflow.download', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def download_stock_refundflow_ex_async(
+        self,
+        request: sds_models.DownloadStockRefundflowRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> sds_models.DownloadStockRefundflowResponse:
+        """
+        Description: 微信退款账单接口
+        Summary: 微信退款账单接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            sds_models.DownloadStockRefundflowResponse(),
+            await self.do_request_async('1.0', 'antchain.sds.stock.refundflow.download', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
