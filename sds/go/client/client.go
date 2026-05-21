@@ -149,6 +149,58 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
+// 维度
+type Dimension struct {
+	// 维度
+	Dimension *string `json:"dimension,omitempty" xml:"dimension,omitempty" require:"true"`
+	// 维度值
+	DimensionValue *string `json:"dimension_value,omitempty" xml:"dimension_value,omitempty" require:"true"`
+}
+
+func (s Dimension) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Dimension) GoString() string {
+	return s.String()
+}
+
+func (s *Dimension) SetDimension(v string) *Dimension {
+	s.Dimension = &v
+	return s
+}
+
+func (s *Dimension) SetDimensionValue(v string) *Dimension {
+	s.DimensionValue = &v
+	return s
+}
+
+// 返回体度量
+type RultMetric struct {
+	// 度量编码
+	MetricCode *string `json:"metric_code,omitempty" xml:"metric_code,omitempty" require:"true"`
+	// 度量聚合结果
+	MetricValue *string `json:"metric_value,omitempty" xml:"metric_value,omitempty" require:"true"`
+}
+
+func (s RultMetric) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RultMetric) GoString() string {
+	return s.String()
+}
+
+func (s *RultMetric) SetMetricCode(v string) *RultMetric {
+	s.MetricCode = &v
+	return s
+}
+
+func (s *RultMetric) SetMetricValue(v string) *RultMetric {
+	s.MetricValue = &v
+	return s
+}
+
 // 批处理结果
 type BatchResult struct {
 	// 业务号
@@ -186,6 +238,39 @@ func (s *BatchResult) SetResult(v string) *BatchResult {
 
 func (s *BatchResult) SetResultCode(v string) *BatchResult {
 	s.ResultCode = &v
+	return s
+}
+
+// 度量
+type Metric struct {
+	// 度量编码
+	MetricCode *string `json:"metric_code,omitempty" xml:"metric_code,omitempty" require:"true"`
+	// 计算列
+	MetricColumn *string `json:"metric_column,omitempty" xml:"metric_column,omitempty" require:"true"`
+	// 计算方式
+	FunctionType *string `json:"function_type,omitempty" xml:"function_type,omitempty"`
+}
+
+func (s Metric) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Metric) GoString() string {
+	return s.String()
+}
+
+func (s *Metric) SetMetricCode(v string) *Metric {
+	s.MetricCode = &v
+	return s
+}
+
+func (s *Metric) SetMetricColumn(v string) *Metric {
+	s.MetricColumn = &v
+	return s
+}
+
+func (s *Metric) SetFunctionType(v string) *Metric {
+	s.FunctionType = &v
 	return s
 }
 
@@ -233,6 +318,65 @@ func (s *TaskDetailResult) SetProcessingCount(v int64) *TaskDetailResult {
 
 func (s *TaskDetailResult) SetErrorInfo(v string) *TaskDetailResult {
 	s.ErrorInfo = &v
+	return s
+}
+
+// 聚合查询结果
+type DwsResult struct {
+	// 维度列表
+	DimensionList []*Dimension `json:"dimension_list,omitempty" xml:"dimension_list,omitempty" require:"true" type:"Repeated"`
+	// 度量列表
+	MetricList []*RultMetric `json:"metric_list,omitempty" xml:"metric_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s DwsResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DwsResult) GoString() string {
+	return s.String()
+}
+
+func (s *DwsResult) SetDimensionList(v []*Dimension) *DwsResult {
+	s.DimensionList = v
+	return s
+}
+
+func (s *DwsResult) SetMetricList(v []*RultMetric) *DwsResult {
+	s.MetricList = v
+	return s
+}
+
+// 过滤条件
+type FilterCondition struct {
+	// 过滤列
+	FilterColumn *string `json:"filter_column,omitempty" xml:"filter_column,omitempty" require:"true"`
+	// 过滤方式
+	FilterType *string `json:"filter_type,omitempty" xml:"filter_type,omitempty"`
+	// 值列表
+	ValueList []*string `json:"value_list,omitempty" xml:"value_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s FilterCondition) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FilterCondition) GoString() string {
+	return s.String()
+}
+
+func (s *FilterCondition) SetFilterColumn(v string) *FilterCondition {
+	s.FilterColumn = &v
+	return s
+}
+
+func (s *FilterCondition) SetFilterType(v string) *FilterCondition {
+	s.FilterType = &v
+	return s
+}
+
+func (s *FilterCondition) SetValueList(v []*string) *FilterCondition {
+	s.ValueList = v
 	return s
 }
 
@@ -913,6 +1057,139 @@ func (s *QueryScenedataTaskinfoResponse) SetResult(v *TaskDetailResult) *QuerySc
 	return s
 }
 
+type QueryScenedataDwsRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 任务批次号
+	BatchNo *string `json:"batch_no,omitempty" xml:"batch_no,omitempty" require:"true"`
+	// 业务类型
+	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty" require:"true"`
+	// 维度列表
+	DimensionList []*string `json:"dimension_list,omitempty" xml:"dimension_list,omitempty" require:"true" type:"Repeated"`
+	// 度量列表
+	MetricList []*Metric `json:"metric_list,omitempty" xml:"metric_list,omitempty" require:"true" type:"Repeated"`
+	// 过滤条件列表
+	FilterConditionList []*FilterCondition `json:"filter_condition_list,omitempty" xml:"filter_condition_list,omitempty" type:"Repeated"`
+	// 页码,默认1
+	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty"`
+	// 每页数量,默认50
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+}
+
+func (s QueryScenedataDwsRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryScenedataDwsRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryScenedataDwsRequest) SetAuthToken(v string) *QueryScenedataDwsRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryScenedataDwsRequest) SetProductInstanceId(v string) *QueryScenedataDwsRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryScenedataDwsRequest) SetBatchNo(v string) *QueryScenedataDwsRequest {
+	s.BatchNo = &v
+	return s
+}
+
+func (s *QueryScenedataDwsRequest) SetBizType(v string) *QueryScenedataDwsRequest {
+	s.BizType = &v
+	return s
+}
+
+func (s *QueryScenedataDwsRequest) SetDimensionList(v []*string) *QueryScenedataDwsRequest {
+	s.DimensionList = v
+	return s
+}
+
+func (s *QueryScenedataDwsRequest) SetMetricList(v []*Metric) *QueryScenedataDwsRequest {
+	s.MetricList = v
+	return s
+}
+
+func (s *QueryScenedataDwsRequest) SetFilterConditionList(v []*FilterCondition) *QueryScenedataDwsRequest {
+	s.FilterConditionList = v
+	return s
+}
+
+func (s *QueryScenedataDwsRequest) SetPageNum(v int64) *QueryScenedataDwsRequest {
+	s.PageNum = &v
+	return s
+}
+
+func (s *QueryScenedataDwsRequest) SetPageSize(v int64) *QueryScenedataDwsRequest {
+	s.PageSize = &v
+	return s
+}
+
+type QueryScenedataDwsResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 总量
+	TotalSize *int64 `json:"total_size,omitempty" xml:"total_size,omitempty"`
+	// 页码
+	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty"`
+	// 每页数量
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 结果列表
+	ResultList []*DwsResult `json:"result_list,omitempty" xml:"result_list,omitempty" type:"Repeated"`
+}
+
+func (s QueryScenedataDwsResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryScenedataDwsResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryScenedataDwsResponse) SetReqMsgId(v string) *QueryScenedataDwsResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryScenedataDwsResponse) SetResultCode(v string) *QueryScenedataDwsResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryScenedataDwsResponse) SetResultMsg(v string) *QueryScenedataDwsResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryScenedataDwsResponse) SetTotalSize(v int64) *QueryScenedataDwsResponse {
+	s.TotalSize = &v
+	return s
+}
+
+func (s *QueryScenedataDwsResponse) SetPageNum(v int64) *QueryScenedataDwsResponse {
+	s.PageNum = &v
+	return s
+}
+
+func (s *QueryScenedataDwsResponse) SetPageSize(v int64) *QueryScenedataDwsResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *QueryScenedataDwsResponse) SetResultList(v []*DwsResult) *QueryScenedataDwsResponse {
+	s.ResultList = v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -1155,7 +1432,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.4.1"),
+				"sdk_version":      tea.String("1.5.0"),
 				"_prod_code":       tea.String("SDS"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -1440,6 +1717,40 @@ func (client *Client) QueryScenedataTaskinfoEx(request *QueryScenedataTaskinfoRe
 	}
 	_result = &QueryScenedataTaskinfoResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.sds.scenedata.taskinfo.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 批次计算结果聚合，任务为ready状态时，返回分页列表数据
+ * Summary: 批次结果聚合查询
+ */
+func (client *Client) QueryScenedataDws(request *QueryScenedataDwsRequest) (_result *QueryScenedataDwsResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryScenedataDwsResponse{}
+	_body, _err := client.QueryScenedataDwsEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 批次计算结果聚合，任务为ready状态时，返回分页列表数据
+ * Summary: 批次结果聚合查询
+ */
+func (client *Client) QueryScenedataDwsEx(request *QueryScenedataDwsRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryScenedataDwsResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryScenedataDwsResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.sds.scenedata.dws.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
