@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.5.0"),
+                    new TeaPair("sdk_version", "1.6.0"),
                     new TeaPair("_prod_code", "SDS"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -355,6 +355,69 @@ public class Client {
     public QueryScenedataDwsResponse queryScenedataDwsEx(QueryScenedataDwsRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.sds.scenedata.dws.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryScenedataDwsResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 微信批次分页条件查询。通过此接口可查询商家多个批次的信息，包括批次的配置信息以及批次概况数据。
+     * Summary: 微信批次分页条件查询。通过此接口可查询商家多个批次的信息，包括批次的配置信息以及批次概况数据。</p>
+     */
+    public QueryFavorStocksResponse queryFavorStocks(QueryFavorStocksRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryFavorStocksEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 微信批次分页条件查询。通过此接口可查询商家多个批次的信息，包括批次的配置信息以及批次概况数据。
+     * Summary: 微信批次分页条件查询。通过此接口可查询商家多个批次的信息，包括批次的配置信息以及批次概况数据。</p>
+     */
+    public QueryFavorStocksResponse queryFavorStocksEx(QueryFavorStocksRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.sds.favor.stocks.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryFavorStocksResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 微信核销账单接口
+     * Summary: 微信核销账单接口</p>
+     */
+    public DownloadStockUseflowResponse downloadStockUseflow(DownloadStockUseflowRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.downloadStockUseflowEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 微信核销账单接口
+     * Summary: 微信核销账单接口</p>
+     */
+    public DownloadStockUseflowResponse downloadStockUseflowEx(DownloadStockUseflowRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.sds.stock.useflow.download", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DownloadStockUseflowResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 微信退款账单接口
+     * Summary: 微信退款账单接口</p>
+     */
+    public DownloadStockRefundflowResponse downloadStockRefundflow(DownloadStockRefundflowRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.downloadStockRefundflowEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 微信退款账单接口
+     * Summary: 微信退款账单接口</p>
+     */
+    public DownloadStockRefundflowResponse downloadStockRefundflowEx(DownloadStockRefundflowRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.sds.stock.refundflow.download", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DownloadStockRefundflowResponse());
     }
 
     /**
