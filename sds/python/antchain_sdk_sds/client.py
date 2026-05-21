@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 批处理结果
+            # 维度
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.4.1',
+                    'sdk_version': '1.5.0',
                     '_prod_code': 'SDS',
                     '_prod_channel': 'default'
                 }
@@ -214,7 +214,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 批处理结果
+            # 维度
         }
         _last_request = None
         _last_exception = None
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.4.1',
+                    'sdk_version': '1.5.0',
                     '_prod_code': 'SDS',
                     '_prod_channel': 'default'
                 }
@@ -645,6 +645,62 @@ class Client:
         return TeaCore.from_map(
             sds_models.QueryScenedataTaskinfoResponse(),
             await self.do_request_async('1.0', 'antchain.sds.scenedata.taskinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_scenedata_dws(
+        self,
+        request: sds_models.QueryScenedataDwsRequest,
+    ) -> sds_models.QueryScenedataDwsResponse:
+        """
+        Description: 批次计算结果聚合，任务为ready状态时，返回分页列表数据
+        Summary: 批次结果聚合查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_scenedata_dws_ex(request, headers, runtime)
+
+    async def query_scenedata_dws_async(
+        self,
+        request: sds_models.QueryScenedataDwsRequest,
+    ) -> sds_models.QueryScenedataDwsResponse:
+        """
+        Description: 批次计算结果聚合，任务为ready状态时，返回分页列表数据
+        Summary: 批次结果聚合查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_scenedata_dws_ex_async(request, headers, runtime)
+
+    def query_scenedata_dws_ex(
+        self,
+        request: sds_models.QueryScenedataDwsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> sds_models.QueryScenedataDwsResponse:
+        """
+        Description: 批次计算结果聚合，任务为ready状态时，返回分页列表数据
+        Summary: 批次结果聚合查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            sds_models.QueryScenedataDwsResponse(),
+            self.do_request('1.0', 'antchain.sds.scenedata.dws.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_scenedata_dws_ex_async(
+        self,
+        request: sds_models.QueryScenedataDwsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> sds_models.QueryScenedataDwsResponse:
+        """
+        Description: 批次计算结果聚合，任务为ready状态时，返回分页列表数据
+        Summary: 批次结果聚合查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            sds_models.QueryScenedataDwsResponse(),
+            await self.do_request_async('1.0', 'antchain.sds.scenedata.dws.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(

@@ -154,6 +154,78 @@ class Config(TeaModel):
         return self
 
 
+class Dimension(TeaModel):
+    def __init__(
+        self,
+        dimension: str = None,
+        dimension_value: str = None,
+    ):
+        # 维度
+        self.dimension = dimension
+        # 维度值
+        self.dimension_value = dimension_value
+
+    def validate(self):
+        self.validate_required(self.dimension, 'dimension')
+        self.validate_required(self.dimension_value, 'dimension_value')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dimension is not None:
+            result['dimension'] = self.dimension
+        if self.dimension_value is not None:
+            result['dimension_value'] = self.dimension_value
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('dimension') is not None:
+            self.dimension = m.get('dimension')
+        if m.get('dimension_value') is not None:
+            self.dimension_value = m.get('dimension_value')
+        return self
+
+
+class RultMetric(TeaModel):
+    def __init__(
+        self,
+        metric_code: str = None,
+        metric_value: str = None,
+    ):
+        # 度量编码
+        self.metric_code = metric_code
+        # 度量聚合结果
+        self.metric_value = metric_value
+
+    def validate(self):
+        self.validate_required(self.metric_code, 'metric_code')
+        self.validate_required(self.metric_value, 'metric_value')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.metric_code is not None:
+            result['metric_code'] = self.metric_code
+        if self.metric_value is not None:
+            result['metric_value'] = self.metric_value
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('metric_code') is not None:
+            self.metric_code = m.get('metric_code')
+        if m.get('metric_value') is not None:
+            self.metric_value = m.get('metric_value')
+        return self
+
+
 class BatchResult(TeaModel):
     def __init__(
         self,
@@ -205,6 +277,49 @@ class BatchResult(TeaModel):
             self.result = m.get('result')
         if m.get('result_code') is not None:
             self.result_code = m.get('result_code')
+        return self
+
+
+class Metric(TeaModel):
+    def __init__(
+        self,
+        metric_code: str = None,
+        metric_column: str = None,
+        function_type: str = None,
+    ):
+        # 度量编码
+        self.metric_code = metric_code
+        # 计算列
+        self.metric_column = metric_column
+        # 计算方式
+        self.function_type = function_type
+
+    def validate(self):
+        self.validate_required(self.metric_code, 'metric_code')
+        self.validate_required(self.metric_column, 'metric_column')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.metric_code is not None:
+            result['metric_code'] = self.metric_code
+        if self.metric_column is not None:
+            result['metric_column'] = self.metric_column
+        if self.function_type is not None:
+            result['function_type'] = self.function_type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('metric_code') is not None:
+            self.metric_code = m.get('metric_code')
+        if m.get('metric_column') is not None:
+            self.metric_column = m.get('metric_column')
+        if m.get('function_type') is not None:
+            self.function_type = m.get('function_type')
         return self
 
 
@@ -261,6 +376,103 @@ class TaskDetailResult(TeaModel):
             self.processing_count = m.get('processing_count')
         if m.get('error_info') is not None:
             self.error_info = m.get('error_info')
+        return self
+
+
+class DwsResult(TeaModel):
+    def __init__(
+        self,
+        dimension_list: List[Dimension] = None,
+        metric_list: List[RultMetric] = None,
+    ):
+        # 维度列表
+        self.dimension_list = dimension_list
+        # 度量列表
+        self.metric_list = metric_list
+
+    def validate(self):
+        self.validate_required(self.dimension_list, 'dimension_list')
+        if self.dimension_list:
+            for k in self.dimension_list:
+                if k:
+                    k.validate()
+        self.validate_required(self.metric_list, 'metric_list')
+        if self.metric_list:
+            for k in self.metric_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['dimension_list'] = []
+        if self.dimension_list is not None:
+            for k in self.dimension_list:
+                result['dimension_list'].append(k.to_map() if k else None)
+        result['metric_list'] = []
+        if self.metric_list is not None:
+            for k in self.metric_list:
+                result['metric_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        self.dimension_list = []
+        if m.get('dimension_list') is not None:
+            for k in m.get('dimension_list'):
+                temp_model = Dimension()
+                self.dimension_list.append(temp_model.from_map(k))
+        self.metric_list = []
+        if m.get('metric_list') is not None:
+            for k in m.get('metric_list'):
+                temp_model = RultMetric()
+                self.metric_list.append(temp_model.from_map(k))
+        return self
+
+
+class FilterCondition(TeaModel):
+    def __init__(
+        self,
+        filter_column: str = None,
+        filter_type: str = None,
+        value_list: List[str] = None,
+    ):
+        # 过滤列
+        self.filter_column = filter_column
+        # 过滤方式
+        self.filter_type = filter_type
+        # 值列表
+        self.value_list = value_list
+
+    def validate(self):
+        self.validate_required(self.filter_column, 'filter_column')
+        self.validate_required(self.value_list, 'value_list')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.filter_column is not None:
+            result['filter_column'] = self.filter_column
+        if self.filter_type is not None:
+            result['filter_type'] = self.filter_type
+        if self.value_list is not None:
+            result['value_list'] = self.value_list
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('filter_column') is not None:
+            self.filter_column = m.get('filter_column')
+        if m.get('filter_type') is not None:
+            self.filter_type = m.get('filter_type')
+        if m.get('value_list') is not None:
+            self.value_list = m.get('value_list')
         return self
 
 
@@ -1143,6 +1355,188 @@ class QueryScenedataTaskinfoResponse(TeaModel):
         if m.get('result') is not None:
             temp_model = TaskDetailResult()
             self.result = temp_model.from_map(m['result'])
+        return self
+
+
+class QueryScenedataDwsRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        batch_no: str = None,
+        biz_type: str = None,
+        dimension_list: List[str] = None,
+        metric_list: List[Metric] = None,
+        filter_condition_list: List[FilterCondition] = None,
+        page_num: int = None,
+        page_size: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 任务批次号
+        self.batch_no = batch_no
+        # 业务类型
+        self.biz_type = biz_type
+        # 维度列表
+        self.dimension_list = dimension_list
+        # 度量列表
+        self.metric_list = metric_list
+        # 过滤条件列表
+        self.filter_condition_list = filter_condition_list
+        # 页码,默认1
+        self.page_num = page_num
+        # 每页数量,默认50
+        self.page_size = page_size
+
+    def validate(self):
+        self.validate_required(self.batch_no, 'batch_no')
+        self.validate_required(self.biz_type, 'biz_type')
+        self.validate_required(self.dimension_list, 'dimension_list')
+        self.validate_required(self.metric_list, 'metric_list')
+        if self.metric_list:
+            for k in self.metric_list:
+                if k:
+                    k.validate()
+        if self.filter_condition_list:
+            for k in self.filter_condition_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.batch_no is not None:
+            result['batch_no'] = self.batch_no
+        if self.biz_type is not None:
+            result['biz_type'] = self.biz_type
+        if self.dimension_list is not None:
+            result['dimension_list'] = self.dimension_list
+        result['metric_list'] = []
+        if self.metric_list is not None:
+            for k in self.metric_list:
+                result['metric_list'].append(k.to_map() if k else None)
+        result['filter_condition_list'] = []
+        if self.filter_condition_list is not None:
+            for k in self.filter_condition_list:
+                result['filter_condition_list'].append(k.to_map() if k else None)
+        if self.page_num is not None:
+            result['page_num'] = self.page_num
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('batch_no') is not None:
+            self.batch_no = m.get('batch_no')
+        if m.get('biz_type') is not None:
+            self.biz_type = m.get('biz_type')
+        if m.get('dimension_list') is not None:
+            self.dimension_list = m.get('dimension_list')
+        self.metric_list = []
+        if m.get('metric_list') is not None:
+            for k in m.get('metric_list'):
+                temp_model = Metric()
+                self.metric_list.append(temp_model.from_map(k))
+        self.filter_condition_list = []
+        if m.get('filter_condition_list') is not None:
+            for k in m.get('filter_condition_list'):
+                temp_model = FilterCondition()
+                self.filter_condition_list.append(temp_model.from_map(k))
+        if m.get('page_num') is not None:
+            self.page_num = m.get('page_num')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        return self
+
+
+class QueryScenedataDwsResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        total_size: int = None,
+        page_num: int = None,
+        page_size: int = None,
+        result_list: List[DwsResult] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 总量
+        self.total_size = total_size
+        # 页码
+        self.page_num = page_num
+        # 每页数量
+        self.page_size = page_size
+        # 结果列表
+        self.result_list = result_list
+
+    def validate(self):
+        if self.result_list:
+            for k in self.result_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.total_size is not None:
+            result['total_size'] = self.total_size
+        if self.page_num is not None:
+            result['page_num'] = self.page_num
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        result['result_list'] = []
+        if self.result_list is not None:
+            for k in self.result_list:
+                result['result_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('total_size') is not None:
+            self.total_size = m.get('total_size')
+        if m.get('page_num') is not None:
+            self.page_num = m.get('page_num')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        self.result_list = []
+        if m.get('result_list') is not None:
+            for k in m.get('result_list'):
+                temp_model = DwsResult()
+                self.result_list.append(temp_model.from_map(k))
         return self
 
 
