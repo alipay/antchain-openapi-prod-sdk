@@ -62,6 +62,11 @@ namespace AntChain.SDK.ACNCONTRACTREVIEW.Models
         [Validation(Required=false)]
         public string BaselineLibraryName { get; set; }
 
+        // 终端客户id
+        [NameInMap("end_customer_id")]
+        [Validation(Required=false)]
+        public string EndCustomerId { get; set; }
+
     }
 
 }
