@@ -22,7 +22,7 @@
 		"prepublishOnly":"tsc",
 		"test-cov":"nyc -e .ts -r=html -r=text -r=lcov npm run test"
 	},
-	"version":"1.0.34",
+	"version":"1.0.35",
 	"dependencies":{
 		"@alicloud/rpc-util":"^0.1.0",
 		"@antchain/alipay-util":"^1.0.4",
