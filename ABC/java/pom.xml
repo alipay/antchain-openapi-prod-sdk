@@ -6,9 +6,9 @@
 
     <!-- 基础信息 -->
     <groupId>com.antgroup.antchain.openapi</groupId>
-    <!-- 注意：变量 openapi-abc 和 1.0.35 需要在命令行或 properties 中定义 -->
+    <!-- 注意：变量 openapi-abc 和 1.0.36 需要在命令行或 properties 中定义 -->
     <artifactId>openapi-abc</artifactId>
-    <version>1.0.35</version>
+    <version>1.0.36</version>
     <packaging>jar</packaging>
 
     <name>openapi-abc</name>
