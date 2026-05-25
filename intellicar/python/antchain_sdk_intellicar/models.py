@@ -885,7 +885,7 @@ class BatteryReportData(TeaModel):
         initial_soh: str = None,
         initial_soh_evaluate_time: str = None,
         initial_charge_seq: str = None,
-        sageguard_max_sub_soh: str = None,
+        safeguard_max_sub_soh: str = None,
         compensation_triggered: bool = None,
         year_soh_title: List[str] = None,
         cur_estimate_year_soh: List[str] = None,
@@ -898,6 +898,9 @@ class BatteryReportData(TeaModel):
         rights_desc: str = None,
         right_status: str = None,
         soh_suggest: List[str] = None,
+        safeguard_amount: str = None,
+        safeguard_days: int = None,
+        allow_max_soh_diff: str = None,
     ):
         # VIN码
         self.vin_code = vin_code
@@ -924,7 +927,7 @@ class BatteryReportData(TeaModel):
         # 本轮首检 充电单号
         self.initial_charge_seq = initial_charge_seq
         # 触发赔付 SOH（%），数值 0-100
-        self.sageguard_max_sub_soh = sageguard_max_sub_soh
+        self.safeguard_max_sub_soh = safeguard_max_sub_soh
         # 是否触发赔付，当前 SOH≤触发赔付 SOH 时为 true
         self.compensation_triggered = compensation_triggered
         # SOH 衰退预测-X 轴标题（年）
@@ -949,6 +952,12 @@ class BatteryReportData(TeaModel):
         self.right_status = right_status
         # 电池健康度-建议
         self.soh_suggest = soh_suggest
+        # 保障金额
+        self.safeguard_amount = safeguard_amount
+        # 保障天数
+        self.safeguard_days = safeguard_days
+        # SOH允许衰退阈值
+        self.allow_max_soh_diff = allow_max_soh_diff
 
     def validate(self):
         self.validate_required(self.vin_code, 'vin_code')
@@ -963,7 +972,7 @@ class BatteryReportData(TeaModel):
         self.validate_required(self.initial_soh, 'initial_soh')
         self.validate_required(self.initial_soh_evaluate_time, 'initial_soh_evaluate_time')
         self.validate_required(self.initial_charge_seq, 'initial_charge_seq')
-        self.validate_required(self.sageguard_max_sub_soh, 'sageguard_max_sub_soh')
+        self.validate_required(self.safeguard_max_sub_soh, 'safeguard_max_sub_soh')
         self.validate_required(self.compensation_triggered, 'compensation_triggered')
         self.validate_required(self.year_soh_title, 'year_soh_title')
         self.validate_required(self.cur_estimate_year_soh, 'cur_estimate_year_soh')
@@ -1007,8 +1016,8 @@ class BatteryReportData(TeaModel):
             result['initial_soh_evaluate_time'] = self.initial_soh_evaluate_time
         if self.initial_charge_seq is not None:
             result['initial_charge_seq'] = self.initial_charge_seq
-        if self.sageguard_max_sub_soh is not None:
-            result['sageguard_max_sub_soh'] = self.sageguard_max_sub_soh
+        if self.safeguard_max_sub_soh is not None:
+            result['safeguard_max_sub_soh'] = self.safeguard_max_sub_soh
         if self.compensation_triggered is not None:
             result['compensation_triggered'] = self.compensation_triggered
         if self.year_soh_title is not None:
@@ -1033,6 +1042,12 @@ class BatteryReportData(TeaModel):
             result['right_status'] = self.right_status
         if self.soh_suggest is not None:
             result['soh_suggest'] = self.soh_suggest
+        if self.safeguard_amount is not None:
+            result['safeguard_amount'] = self.safeguard_amount
+        if self.safeguard_days is not None:
+            result['safeguard_days'] = self.safeguard_days
+        if self.allow_max_soh_diff is not None:
+            result['allow_max_soh_diff'] = self.allow_max_soh_diff
         return result
 
     def from_map(self, m: dict = None):
@@ -1061,8 +1076,8 @@ class BatteryReportData(TeaModel):
             self.initial_soh_evaluate_time = m.get('initial_soh_evaluate_time')
         if m.get('initial_charge_seq') is not None:
             self.initial_charge_seq = m.get('initial_charge_seq')
-        if m.get('sageguard_max_sub_soh') is not None:
-            self.sageguard_max_sub_soh = m.get('sageguard_max_sub_soh')
+        if m.get('safeguard_max_sub_soh') is not None:
+            self.safeguard_max_sub_soh = m.get('safeguard_max_sub_soh')
         if m.get('compensation_triggered') is not None:
             self.compensation_triggered = m.get('compensation_triggered')
         if m.get('year_soh_title') is not None:
@@ -1087,6 +1102,12 @@ class BatteryReportData(TeaModel):
             self.right_status = m.get('right_status')
         if m.get('soh_suggest') is not None:
             self.soh_suggest = m.get('soh_suggest')
+        if m.get('safeguard_amount') is not None:
+            self.safeguard_amount = m.get('safeguard_amount')
+        if m.get('safeguard_days') is not None:
+            self.safeguard_days = m.get('safeguard_days')
+        if m.get('allow_max_soh_diff') is not None:
+            self.allow_max_soh_diff = m.get('allow_max_soh_diff')
         return self
 
 
@@ -1307,6 +1328,7 @@ class BatteryReportResult(TeaModel):
         charge: bool = None,
         check_type: int = None,
         report_data: BatteryReportData = None,
+        safeguard_enabled: bool = None,
     ):
         # 订单号 (可使用该 ID 将报告转图片)
         self.order_id = order_id
@@ -1320,6 +1342,8 @@ class BatteryReportResult(TeaModel):
         self.check_type = check_type
         # 报告数据
         self.report_data = report_data
+        # 是否为保障类订单
+        self.safeguard_enabled = safeguard_enabled
 
     def validate(self):
         self.validate_required(self.order_id, 'order_id')
@@ -1330,6 +1354,7 @@ class BatteryReportResult(TeaModel):
         self.validate_required(self.report_data, 'report_data')
         if self.report_data:
             self.report_data.validate()
+        self.validate_required(self.safeguard_enabled, 'safeguard_enabled')
 
     def to_map(self):
         _map = super().to_map()
@@ -1349,6 +1374,8 @@ class BatteryReportResult(TeaModel):
             result['check_type'] = self.check_type
         if self.report_data is not None:
             result['report_data'] = self.report_data.to_map()
+        if self.safeguard_enabled is not None:
+            result['safeguard_enabled'] = self.safeguard_enabled
         return result
 
     def from_map(self, m: dict = None):
@@ -1366,6 +1393,8 @@ class BatteryReportResult(TeaModel):
         if m.get('report_data') is not None:
             temp_model = BatteryReportData()
             self.report_data = temp_model.from_map(m['report_data'])
+        if m.get('safeguard_enabled') is not None:
+            self.safeguard_enabled = m.get('safeguard_enabled')
         return self
 
 
@@ -1590,13 +1619,16 @@ class BatchSubmitCarResult(TeaModel):
         submit_id: str = None,
         is_success: bool = None,
         push_result_code: str = None,
+        invalid_reason: str = None,
     ):
         # 提交线索唯一请求id
         self.submit_id = submit_id
         # 是否成功
         self.is_success = is_success
-        # OK NO_DEMAND 无线索需求，需要重试 INVALID 无效，不要重试
+        # OK NO_DEMAND 无线索需求，需要重试 INVALID 无效，不要重试，PENDING 未知，需要重试
         self.push_result_code = push_result_code
+        # 失败原因
+        self.invalid_reason = invalid_reason
 
     def validate(self):
         self.validate_required(self.submit_id, 'submit_id')
@@ -1615,6 +1647,8 @@ class BatchSubmitCarResult(TeaModel):
             result['is_success'] = self.is_success
         if self.push_result_code is not None:
             result['push_result_code'] = self.push_result_code
+        if self.invalid_reason is not None:
+            result['invalid_reason'] = self.invalid_reason
         return result
 
     def from_map(self, m: dict = None):
@@ -1625,6 +1659,8 @@ class BatchSubmitCarResult(TeaModel):
             self.is_success = m.get('is_success')
         if m.get('push_result_code') is not None:
             self.push_result_code = m.get('push_result_code')
+        if m.get('invalid_reason') is not None:
+            self.invalid_reason = m.get('invalid_reason')
         return self
 
 
@@ -2685,6 +2721,8 @@ class BatteryReport(TeaModel):
         nominal_energy: str = None,
         city_id: str = None,
         register_date: str = None,
+        service_safeguard_type: str = None,
+        guarantee_code: str = None,
     ):
         # 充电单号，最大长度/规则：32
         self.start_charge_seq = start_charge_seq
@@ -2706,6 +2744,14 @@ class BatteryReport(TeaModel):
         self.city_id = city_id
         # 注册日期；最大长度/规则：yyyy-MM-dd
         self.register_date = register_date
+        # 保障服务标识
+        # NONE：无保障
+        # SEVEN_DAYS：7天保障
+        # THIRTY_DAYS：30天保障
+        self.service_safeguard_type = service_safeguard_type
+        # 保障码
+        # 首次查询后接口返回，后续查询过程中，若该参数不为空且有效则生成复检报告；若不传保障码，则当做首检
+        self.guarantee_code = guarantee_code
 
     def validate(self):
         self.validate_required(self.start_charge_seq, 'start_charge_seq')
@@ -2737,6 +2783,10 @@ class BatteryReport(TeaModel):
             result['city_id'] = self.city_id
         if self.register_date is not None:
             result['register_date'] = self.register_date
+        if self.service_safeguard_type is not None:
+            result['service_safeguard_type'] = self.service_safeguard_type
+        if self.guarantee_code is not None:
+            result['guarantee_code'] = self.guarantee_code
         return result
 
     def from_map(self, m: dict = None):
@@ -2761,6 +2811,10 @@ class BatteryReport(TeaModel):
             self.city_id = m.get('city_id')
         if m.get('register_date') is not None:
             self.register_date = m.get('register_date')
+        if m.get('service_safeguard_type') is not None:
+            self.service_safeguard_type = m.get('service_safeguard_type')
+        if m.get('guarantee_code') is not None:
+            self.guarantee_code = m.get('guarantee_code')
         return self
 
 
@@ -4059,15 +4113,6 @@ class QueryBatteryReportRequest(TeaModel):
         self.validate_required(self.battery_report, 'battery_report')
         if self.battery_report:
             self.battery_report.validate()
-        self.validate_required(self.operator_platform, 'operator_platform')
-        self.validate_required(self.station_name, 'station_name')
-        self.validate_required(self.station_id, 'station_id')
-        self.validate_required(self.pile_id, 'pile_id')
-        self.validate_required(self.gun_no, 'gun_no')
-        self.validate_required(self.charge_order_no, 'charge_order_no')
-        self.validate_required(self.charge_power, 'charge_power')
-        self.validate_required(self.service_fee, 'service_fee')
-        self.validate_required(self.electricity_fee, 'electricity_fee')
         self.validate_required(self.charge_start_time, 'charge_start_time')
         self.validate_required(self.charge_end_time, 'charge_end_time')
         self.validate_required(self.scene_code, 'scene_code')
@@ -6594,6 +6639,104 @@ class QueryCdsqTireinsuranceResponse(TeaModel):
             self.response_msg = m.get('response_msg')
         if m.get('status') is not None:
             self.status = m.get('status')
+        return self
+
+
+class ExecUnifiedentranceRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        params: str = None,
+        scene_code: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 请求参数的json字符串
+        self.params = params
+        # 业务场景码
+        self.scene_code = scene_code
+
+    def validate(self):
+        self.validate_required(self.params, 'params')
+        self.validate_required(self.scene_code, 'scene_code')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.params is not None:
+            result['params'] = self.params
+        if self.scene_code is not None:
+            result['scene_code'] = self.scene_code
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('params') is not None:
+            self.params = m.get('params')
+        if m.get('scene_code') is not None:
+            self.scene_code = m.get('scene_code')
+        return self
+
+
+class ExecUnifiedentranceResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 响应业务数据
+        self.data = data
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.data is not None:
+            result['data'] = self.data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('data') is not None:
+            self.data = m.get('data')
         return self
 
 

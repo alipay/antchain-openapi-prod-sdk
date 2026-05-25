@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.36',
+                    'sdk_version': '1.2.3',
                     '_prod_code': 'INTELLICAR',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.36',
+                    'sdk_version': '1.2.3',
                     '_prod_code': 'INTELLICAR',
                     '_prod_channel': 'default'
                 }
@@ -1989,6 +1989,62 @@ class Client:
         return TeaCore.from_map(
             intellicar_models.QueryCdsqTireinsuranceResponse(),
             await self.do_request_async('1.0', 'antdigital.intellicar.cdsq.tireinsurance.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def exec_unifiedentrance(
+        self,
+        request: intellicar_models.ExecUnifiedentranceRequest,
+    ) -> intellicar_models.ExecUnifiedentranceResponse:
+        """
+        Description: 增加统一调用泛化接口
+        Summary: 增加统一调用泛化接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.exec_unifiedentrance_ex(request, headers, runtime)
+
+    async def exec_unifiedentrance_async(
+        self,
+        request: intellicar_models.ExecUnifiedentranceRequest,
+    ) -> intellicar_models.ExecUnifiedentranceResponse:
+        """
+        Description: 增加统一调用泛化接口
+        Summary: 增加统一调用泛化接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.exec_unifiedentrance_ex_async(request, headers, runtime)
+
+    def exec_unifiedentrance_ex(
+        self,
+        request: intellicar_models.ExecUnifiedentranceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> intellicar_models.ExecUnifiedentranceResponse:
+        """
+        Description: 增加统一调用泛化接口
+        Summary: 增加统一调用泛化接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            intellicar_models.ExecUnifiedentranceResponse(),
+            self.do_request('1.0', 'antdigital.intellicar.unifiedentrance.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def exec_unifiedentrance_ex_async(
+        self,
+        request: intellicar_models.ExecUnifiedentranceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> intellicar_models.ExecUnifiedentranceResponse:
+        """
+        Description: 增加统一调用泛化接口
+        Summary: 增加统一调用泛化接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            intellicar_models.ExecUnifiedentranceResponse(),
+            await self.do_request_async('1.0', 'antdigital.intellicar.unifiedentrance.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
