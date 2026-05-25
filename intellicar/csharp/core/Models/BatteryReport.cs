@@ -60,6 +60,20 @@ namespace AntChain.SDK.INTELLICAR.Models
         [Validation(Required=false)]
         public string RegisterDate { get; set; }
 
+        // 保障服务标识
+        // NONE：无保障
+        // SEVEN_DAYS：7天保障
+        // THIRTY_DAYS：30天保障
+        [NameInMap("service_safeguard_type")]
+        [Validation(Required=false)]
+        public string ServiceSafeguardType { get; set; }
+
+        // 保障码
+        // 首次查询后接口返回，后续查询过程中，若该参数不为空且有效则生成复检报告；若不传保障码，则当做首检
+        [NameInMap("guarantee_code")]
+        [Validation(Required=false)]
+        public string GuaranteeCode { get; set; }
+
     }
 
 }

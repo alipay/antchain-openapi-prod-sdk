@@ -20,10 +20,15 @@ namespace AntChain.SDK.INTELLICAR.Models
         [Validation(Required=true)]
         public bool? IsSuccess { get; set; }
 
-        // OK NO_DEMAND 无线索需求，需要重试 INVALID 无效，不要重试
+        // OK NO_DEMAND 无线索需求，需要重试 INVALID 无效，不要重试，PENDING 未知，需要重试
         [NameInMap("push_result_code")]
         [Validation(Required=true)]
         public string PushResultCode { get; set; }
+
+        // 失败原因
+        [NameInMap("invalid_reason")]
+        [Validation(Required=false)]
+        public string InvalidReason { get; set; }
 
     }
 

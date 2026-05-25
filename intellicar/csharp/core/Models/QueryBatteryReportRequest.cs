@@ -25,47 +25,47 @@ namespace AntChain.SDK.INTELLICAR.Models
 
         // 桩所属运营平台
         [NameInMap("operator_platform")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string OperatorPlatform { get; set; }
 
         // 场站名称
         [NameInMap("station_name")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string StationName { get; set; }
 
         // 场站ID
         [NameInMap("station_id")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string StationId { get; set; }
 
         // 桩ID
         [NameInMap("pile_id")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string PileId { get; set; }
 
         // 枪序号（充电端口号）
         [NameInMap("gun_no")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public long? GunNo { get; set; }
 
         // 充电订单号
         [NameInMap("charge_order_no")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string ChargeOrderNo { get; set; }
 
         // 充电量，单位kWh
         [NameInMap("charge_power")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string ChargePower { get; set; }
 
         // 服务费，单位元
         [NameInMap("service_fee")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string ServiceFee { get; set; }
 
         // 电费，单位元
         [NameInMap("electricity_fee")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string ElectricityFee { get; set; }
 
         // 充电开始时间

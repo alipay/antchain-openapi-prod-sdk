@@ -137,7 +137,7 @@ namespace AntChain.SDK.INTELLICAR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.36"},
+                        {"sdk_version", "1.2.3"},
                         {"_prod_code", "INTELLICAR"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.INTELLICAR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.36"},
+                        {"sdk_version", "1.2.3"},
                         {"_prod_code", "INTELLICAR"},
                         {"_prod_channel", "default"},
                     };
@@ -1627,6 +1627,48 @@ namespace AntChain.SDK.INTELLICAR
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryCdsqTireinsuranceResponse>(await DoRequestAsync("1.0", "antdigital.intellicar.cdsq.tireinsurance.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 增加统一调用泛化接口
+         * Summary: 增加统一调用泛化接口
+         */
+        public ExecUnifiedentranceResponse ExecUnifiedentrance(ExecUnifiedentranceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ExecUnifiedentranceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 增加统一调用泛化接口
+         * Summary: 增加统一调用泛化接口
+         */
+        public async Task<ExecUnifiedentranceResponse> ExecUnifiedentranceAsync(ExecUnifiedentranceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ExecUnifiedentranceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 增加统一调用泛化接口
+         * Summary: 增加统一调用泛化接口
+         */
+        public ExecUnifiedentranceResponse ExecUnifiedentranceEx(ExecUnifiedentranceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecUnifiedentranceResponse>(DoRequest("1.0", "antdigital.intellicar.unifiedentrance.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 增加统一调用泛化接口
+         * Summary: 增加统一调用泛化接口
+         */
+        public async Task<ExecUnifiedentranceResponse> ExecUnifiedentranceExAsync(ExecUnifiedentranceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecUnifiedentranceResponse>(await DoRequestAsync("1.0", "antdigital.intellicar.unifiedentrance.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

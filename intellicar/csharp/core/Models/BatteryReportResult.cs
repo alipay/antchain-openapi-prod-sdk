@@ -40,6 +40,11 @@ namespace AntChain.SDK.INTELLICAR.Models
         [Validation(Required=true)]
         public BatteryReportData ReportData { get; set; }
 
+        // 是否为保障类订单
+        [NameInMap("safeguard_enabled")]
+        [Validation(Required=true)]
+        public bool? SafeguardEnabled { get; set; }
+
     }
 
 }

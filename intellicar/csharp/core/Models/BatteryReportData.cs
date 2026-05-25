@@ -71,9 +71,9 @@ namespace AntChain.SDK.INTELLICAR.Models
         public string InitialChargeSeq { get; set; }
 
         // 触发赔付 SOH（%），数值 0-100
-        [NameInMap("sageguard_max_sub_soh")]
+        [NameInMap("safeguard_max_sub_soh")]
         [Validation(Required=true)]
-        public string SageguardMaxSubSoh { get; set; }
+        public string SafeguardMaxSubSoh { get; set; }
 
         // 是否触发赔付，当前 SOH≤触发赔付 SOH 时为 true
         [NameInMap("compensation_triggered")]
@@ -134,6 +134,21 @@ namespace AntChain.SDK.INTELLICAR.Models
         [NameInMap("soh_suggest")]
         [Validation(Required=true)]
         public List<string> SohSuggest { get; set; }
+
+        // 保障金额
+        [NameInMap("safeguard_amount")]
+        [Validation(Required=false)]
+        public string SafeguardAmount { get; set; }
+
+        // 保障天数
+        [NameInMap("safeguard_days")]
+        [Validation(Required=false)]
+        public long? SafeguardDays { get; set; }
+
+        // SOH允许衰退阈值
+        [NameInMap("allow_max_soh_diff")]
+        [Validation(Required=false)]
+        public string AllowMaxSohDiff { get; set; }
 
     }
 
