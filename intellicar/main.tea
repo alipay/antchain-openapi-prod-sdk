@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.36',
+    sdk_version = '1.2.3',
     _prod_code = 'INTELLICAR',
     _prod_channel = 'default'
   };
@@ -357,7 +357,7 @@ model BatteryReportData {
   // 本轮首检 充电单号
   initialChargeSeq: string(name='initial_charge_seq', example='-'),
   // 触发赔付 SOH（%），数值 0-100
-  sageguardMaxSubSoh: string(name='sageguard_max_sub_soh', example='1'),
+  safeguardMaxSubSoh: string(name='safeguard_max_sub_soh', example='1'),
   // 是否触发赔付，当前 SOH≤触发赔付 SOH 时为 true
   compensationTriggered: boolean(name='compensation_triggered', example='true, false'),
   // SOH 衰退预测-X 轴标题（年）
@@ -382,6 +382,12 @@ model BatteryReportData {
   rightStatus: string(name='right_status', example='-'),
   // 电池健康度-建议
   sohSuggest: [ string ](name='soh_suggest', example=''),
+  // 保障金额
+  safeguardAmount?: string(name='safeguard_amount', example='-'),
+  // 保障天数
+  safeguardDays?: long(name='safeguard_days', example='-'),
+  // SOH允许衰退阈值
+  allowMaxSohDiff?: string(name='allow_max_soh_diff', example='-'),
 }
 
 // 高德数据集合内record
@@ -442,6 +448,8 @@ model BatteryReportResult {
   checkType: long(name='check_type', example='6601'),
   // 报告数据
   reportData: BatteryReportData(name='report_data', example=''),
+  // 是否为保障类订单
+  safeguardEnabled: boolean(name='safeguard_enabled', example='true'),
 }
 
 // 车信息
@@ -506,8 +514,10 @@ model BatchSubmitCarResult {
   submitId: string(name='submit_id', example='xxx'),
   // 是否成功
   isSuccess: boolean(name='is_success', example='true, false'),
-  // OK NO_DEMAND 无线索需求，需要重试 INVALID 无效，不要重试
-  pushResultCode: string(name='push_result_code', example='OK/INVALID/NO_DEMAND'),
+  // OK NO_DEMAND 无线索需求，需要重试 INVALID 无效，不要重试，PENDING 未知，需要重试
+  pushResultCode: string(name='push_result_code', example='OK/INVALID/NO_DEMAND/PENDING'),
+  // 失败原因
+  invalidReason?: string(name='invalid_reason', example='失败原因'),
 }
 
 // 车辆信息
@@ -766,6 +776,14 @@ model BatteryReport {
   cityId?: string(name='city_id', example='-'),
   // 注册日期；最大长度/规则：yyyy-MM-dd
   registerDate?: string(name='register_date', example='2018-10-10'),
+  // 保障服务标识
+  // NONE：无保障
+  // SEVEN_DAYS：7天保障
+  // THIRTY_DAYS：30天保障
+  serviceSafeguardType?: string(name='service_safeguard_type', example='NONE'),
+  // 保障码
+  // 首次查询后接口返回，后续查询过程中，若该参数不为空且有效则生成复检报告；若不传保障码，则当做首检
+  guaranteeCode?: string(name='guarantee_code', example='-'),
 }
 
 // 键值对
@@ -1249,23 +1267,23 @@ model QueryBatteryReportRequest = {
   // 充电报告
   batteryReport: BatteryReport(name='battery_report'),
   // 桩所属运营平台
-  operatorPlatform: string(name='operator_platform'),
+  operatorPlatform?: string(name='operator_platform'),
   // 场站名称
-  stationName: string(name='station_name'),
+  stationName?: string(name='station_name'),
   // 场站ID
-  stationId: string(name='station_id'),
+  stationId?: string(name='station_id'),
   // 桩ID
-  pileId: string(name='pile_id'),
+  pileId?: string(name='pile_id'),
   // 枪序号（充电端口号）
-  gunNo: long(name='gun_no'),
+  gunNo?: long(name='gun_no'),
   // 充电订单号
-  chargeOrderNo: string(name='charge_order_no'),
+  chargeOrderNo?: string(name='charge_order_no'),
   // 充电量，单位kWh
-  chargePower: string(name='charge_power'),
+  chargePower?: string(name='charge_power'),
   // 服务费，单位元
-  serviceFee: string(name='service_fee'),
+  serviceFee?: string(name='service_fee'),
   // 电费，单位元
-  electricityFee: string(name='electricity_fee'),
+  electricityFee?: string(name='electricity_fee'),
   // 充电开始时间
   chargeStartTime: string(name='charge_start_time'),
   // 充电结束时间
@@ -2196,6 +2214,46 @@ async function queryCdsqTireinsurance(request: QueryCdsqTireinsuranceRequest): Q
 async function queryCdsqTireinsuranceEx(request: QueryCdsqTireinsuranceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryCdsqTireinsuranceResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antdigital.intellicar.cdsq.tireinsurance.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ExecUnifiedentranceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 请求参数的json字符串
+  params: string(name='params'),
+  // 业务场景码
+  sceneCode: string(name='scene_code'),
+}
+
+model ExecUnifiedentranceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 响应业务数据
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 增加统一调用泛化接口
+ * Summary: 增加统一调用泛化接口
+ */
+async function execUnifiedentrance(request: ExecUnifiedentranceRequest): ExecUnifiedentranceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return execUnifiedentranceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 增加统一调用泛化接口
+ * Summary: 增加统一调用泛化接口
+ */
+async function execUnifiedentranceEx(request: ExecUnifiedentranceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExecUnifiedentranceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.intellicar.unifiedentrance.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateAntcloudGatewayxFileUploadRequest = {
