@@ -745,7 +745,7 @@ type BatteryReportData struct {
 	// 本轮首检 充电单号
 	InitialChargeSeq *string `json:"initial_charge_seq,omitempty" xml:"initial_charge_seq,omitempty" require:"true"`
 	// 触发赔付 SOH（%），数值 0-100
-	SageguardMaxSubSoh *string `json:"sageguard_max_sub_soh,omitempty" xml:"sageguard_max_sub_soh,omitempty" require:"true"`
+	SafeguardMaxSubSoh *string `json:"safeguard_max_sub_soh,omitempty" xml:"safeguard_max_sub_soh,omitempty" require:"true"`
 	// 是否触发赔付，当前 SOH≤触发赔付 SOH 时为 true
 	CompensationTriggered *bool `json:"compensation_triggered,omitempty" xml:"compensation_triggered,omitempty" require:"true"`
 	// SOH 衰退预测-X 轴标题（年）
@@ -770,6 +770,12 @@ type BatteryReportData struct {
 	RightStatus *string `json:"right_status,omitempty" xml:"right_status,omitempty" require:"true"`
 	// 电池健康度-建议
 	SohSuggest []*string `json:"soh_suggest,omitempty" xml:"soh_suggest,omitempty" require:"true" type:"Repeated"`
+	// 保障金额
+	SafeguardAmount *string `json:"safeguard_amount,omitempty" xml:"safeguard_amount,omitempty"`
+	// 保障天数
+	SafeguardDays *int64 `json:"safeguard_days,omitempty" xml:"safeguard_days,omitempty"`
+	// SOH允许衰退阈值
+	AllowMaxSohDiff *string `json:"allow_max_soh_diff,omitempty" xml:"allow_max_soh_diff,omitempty"`
 }
 
 func (s BatteryReportData) String() string {
@@ -840,8 +846,8 @@ func (s *BatteryReportData) SetInitialChargeSeq(v string) *BatteryReportData {
 	return s
 }
 
-func (s *BatteryReportData) SetSageguardMaxSubSoh(v string) *BatteryReportData {
-	s.SageguardMaxSubSoh = &v
+func (s *BatteryReportData) SetSafeguardMaxSubSoh(v string) *BatteryReportData {
+	s.SafeguardMaxSubSoh = &v
 	return s
 }
 
@@ -902,6 +908,21 @@ func (s *BatteryReportData) SetRightStatus(v string) *BatteryReportData {
 
 func (s *BatteryReportData) SetSohSuggest(v []*string) *BatteryReportData {
 	s.SohSuggest = v
+	return s
+}
+
+func (s *BatteryReportData) SetSafeguardAmount(v string) *BatteryReportData {
+	s.SafeguardAmount = &v
+	return s
+}
+
+func (s *BatteryReportData) SetSafeguardDays(v int64) *BatteryReportData {
+	s.SafeguardDays = &v
+	return s
+}
+
+func (s *BatteryReportData) SetAllowMaxSohDiff(v string) *BatteryReportData {
+	s.AllowMaxSohDiff = &v
 	return s
 }
 
@@ -1069,6 +1090,8 @@ type BatteryReportResult struct {
 	CheckType *int64 `json:"check_type,omitempty" xml:"check_type,omitempty" require:"true"`
 	// 报告数据
 	ReportData *BatteryReportData `json:"report_data,omitempty" xml:"report_data,omitempty" require:"true"`
+	// 是否为保障类订单
+	SafeguardEnabled *bool `json:"safeguard_enabled,omitempty" xml:"safeguard_enabled,omitempty" require:"true"`
 }
 
 func (s BatteryReportResult) String() string {
@@ -1106,6 +1129,11 @@ func (s *BatteryReportResult) SetCheckType(v int64) *BatteryReportResult {
 
 func (s *BatteryReportResult) SetReportData(v *BatteryReportData) *BatteryReportResult {
 	s.ReportData = v
+	return s
+}
+
+func (s *BatteryReportResult) SetSafeguardEnabled(v bool) *BatteryReportResult {
+	s.SafeguardEnabled = &v
 	return s
 }
 
@@ -1307,8 +1335,10 @@ type BatchSubmitCarResult struct {
 	SubmitId *string `json:"submit_id,omitempty" xml:"submit_id,omitempty" require:"true"`
 	// 是否成功
 	IsSuccess *bool `json:"is_success,omitempty" xml:"is_success,omitempty" require:"true"`
-	// OK NO_DEMAND 无线索需求，需要重试 INVALID 无效，不要重试
+	// OK NO_DEMAND 无线索需求，需要重试 INVALID 无效，不要重试，PENDING 未知，需要重试
 	PushResultCode *string `json:"push_result_code,omitempty" xml:"push_result_code,omitempty" require:"true"`
+	// 失败原因
+	InvalidReason *string `json:"invalid_reason,omitempty" xml:"invalid_reason,omitempty"`
 }
 
 func (s BatchSubmitCarResult) String() string {
@@ -1331,6 +1361,11 @@ func (s *BatchSubmitCarResult) SetIsSuccess(v bool) *BatchSubmitCarResult {
 
 func (s *BatchSubmitCarResult) SetPushResultCode(v string) *BatchSubmitCarResult {
 	s.PushResultCode = &v
+	return s
+}
+
+func (s *BatchSubmitCarResult) SetInvalidReason(v string) *BatchSubmitCarResult {
+	s.InvalidReason = &v
 	return s
 }
 
@@ -2135,6 +2170,14 @@ type BatteryReport struct {
 	CityId *string `json:"city_id,omitempty" xml:"city_id,omitempty"`
 	// 注册日期；最大长度/规则：yyyy-MM-dd
 	RegisterDate *string `json:"register_date,omitempty" xml:"register_date,omitempty"`
+	// 保障服务标识
+	// NONE：无保障
+	// SEVEN_DAYS：7天保障
+	// THIRTY_DAYS：30天保障
+	ServiceSafeguardType *string `json:"service_safeguard_type,omitempty" xml:"service_safeguard_type,omitempty"`
+	// 保障码
+	// 首次查询后接口返回，后续查询过程中，若该参数不为空且有效则生成复检报告；若不传保障码，则当做首检
+	GuaranteeCode *string `json:"guarantee_code,omitempty" xml:"guarantee_code,omitempty"`
 }
 
 func (s BatteryReport) String() string {
@@ -2192,6 +2235,16 @@ func (s *BatteryReport) SetCityId(v string) *BatteryReport {
 
 func (s *BatteryReport) SetRegisterDate(v string) *BatteryReport {
 	s.RegisterDate = &v
+	return s
+}
+
+func (s *BatteryReport) SetServiceSafeguardType(v string) *BatteryReport {
+	s.ServiceSafeguardType = &v
+	return s
+}
+
+func (s *BatteryReport) SetGuaranteeCode(v string) *BatteryReport {
+	s.GuaranteeCode = &v
 	return s
 }
 
@@ -3161,23 +3214,23 @@ type QueryBatteryReportRequest struct {
 	// 充电报告
 	BatteryReport *BatteryReport `json:"battery_report,omitempty" xml:"battery_report,omitempty" require:"true"`
 	// 桩所属运营平台
-	OperatorPlatform *string `json:"operator_platform,omitempty" xml:"operator_platform,omitempty" require:"true"`
+	OperatorPlatform *string `json:"operator_platform,omitempty" xml:"operator_platform,omitempty"`
 	// 场站名称
-	StationName *string `json:"station_name,omitempty" xml:"station_name,omitempty" require:"true"`
+	StationName *string `json:"station_name,omitempty" xml:"station_name,omitempty"`
 	// 场站ID
-	StationId *string `json:"station_id,omitempty" xml:"station_id,omitempty" require:"true"`
+	StationId *string `json:"station_id,omitempty" xml:"station_id,omitempty"`
 	// 桩ID
-	PileId *string `json:"pile_id,omitempty" xml:"pile_id,omitempty" require:"true"`
+	PileId *string `json:"pile_id,omitempty" xml:"pile_id,omitempty"`
 	// 枪序号（充电端口号）
-	GunNo *int64 `json:"gun_no,omitempty" xml:"gun_no,omitempty" require:"true"`
+	GunNo *int64 `json:"gun_no,omitempty" xml:"gun_no,omitempty"`
 	// 充电订单号
-	ChargeOrderNo *string `json:"charge_order_no,omitempty" xml:"charge_order_no,omitempty" require:"true"`
+	ChargeOrderNo *string `json:"charge_order_no,omitempty" xml:"charge_order_no,omitempty"`
 	// 充电量，单位kWh
-	ChargePower *string `json:"charge_power,omitempty" xml:"charge_power,omitempty" require:"true"`
+	ChargePower *string `json:"charge_power,omitempty" xml:"charge_power,omitempty"`
 	// 服务费，单位元
-	ServiceFee *string `json:"service_fee,omitempty" xml:"service_fee,omitempty" require:"true"`
+	ServiceFee *string `json:"service_fee,omitempty" xml:"service_fee,omitempty"`
 	// 电费，单位元
-	ElectricityFee *string `json:"electricity_fee,omitempty" xml:"electricity_fee,omitempty" require:"true"`
+	ElectricityFee *string `json:"electricity_fee,omitempty" xml:"electricity_fee,omitempty"`
 	// 充电开始时间
 	ChargeStartTime *string `json:"charge_start_time,omitempty" xml:"charge_start_time,omitempty" require:"true"`
 	// 充电结束时间
@@ -5220,6 +5273,83 @@ func (s *QueryCdsqTireinsuranceResponse) SetStatus(v string) *QueryCdsqTireinsur
 	return s
 }
 
+type ExecUnifiedentranceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求参数的json字符串
+	Params *string `json:"params,omitempty" xml:"params,omitempty" require:"true"`
+	// 业务场景码
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+}
+
+func (s ExecUnifiedentranceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecUnifiedentranceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ExecUnifiedentranceRequest) SetAuthToken(v string) *ExecUnifiedentranceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ExecUnifiedentranceRequest) SetProductInstanceId(v string) *ExecUnifiedentranceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ExecUnifiedentranceRequest) SetParams(v string) *ExecUnifiedentranceRequest {
+	s.Params = &v
+	return s
+}
+
+func (s *ExecUnifiedentranceRequest) SetSceneCode(v string) *ExecUnifiedentranceRequest {
+	s.SceneCode = &v
+	return s
+}
+
+type ExecUnifiedentranceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 响应业务数据
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s ExecUnifiedentranceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecUnifiedentranceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ExecUnifiedentranceResponse) SetReqMsgId(v string) *ExecUnifiedentranceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ExecUnifiedentranceResponse) SetResultCode(v string) *ExecUnifiedentranceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ExecUnifiedentranceResponse) SetResultMsg(v string) *ExecUnifiedentranceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ExecUnifiedentranceResponse) SetData(v string) *ExecUnifiedentranceResponse {
+	s.Data = &v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -5462,7 +5592,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.36"),
+				"sdk_version":      tea.String("1.2.3"),
 				"_prod_code":       tea.String("INTELLICAR"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -6563,6 +6693,40 @@ func (client *Client) QueryCdsqTireinsuranceEx(request *QueryCdsqTireinsuranceRe
 	}
 	_result = &QueryCdsqTireinsuranceResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.intellicar.cdsq.tireinsurance.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 增加统一调用泛化接口
+ * Summary: 增加统一调用泛化接口
+ */
+func (client *Client) ExecUnifiedentrance(request *ExecUnifiedentranceRequest) (_result *ExecUnifiedentranceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ExecUnifiedentranceResponse{}
+	_body, _err := client.ExecUnifiedentranceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 增加统一调用泛化接口
+ * Summary: 增加统一调用泛化接口
+ */
+func (client *Client) ExecUnifiedentranceEx(request *ExecUnifiedentranceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ExecUnifiedentranceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ExecUnifiedentranceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.intellicar.unifiedentrance.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
