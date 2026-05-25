@@ -18,47 +18,38 @@ public class QueryBatteryReportRequest extends TeaModel {
 
     // 桩所属运营平台
     @NameInMap("operator_platform")
-    @Validation(required = true)
     public String operatorPlatform;
 
     // 场站名称
     @NameInMap("station_name")
-    @Validation(required = true)
     public String stationName;
 
     // 场站ID
     @NameInMap("station_id")
-    @Validation(required = true)
     public String stationId;
 
     // 桩ID
     @NameInMap("pile_id")
-    @Validation(required = true)
     public String pileId;
 
     // 枪序号（充电端口号）
     @NameInMap("gun_no")
-    @Validation(required = true)
     public Long gunNo;
 
     // 充电订单号
     @NameInMap("charge_order_no")
-    @Validation(required = true)
     public String chargeOrderNo;
 
     // 充电量，单位kWh
     @NameInMap("charge_power")
-    @Validation(required = true)
     public String chargePower;
 
     // 服务费，单位元
     @NameInMap("service_fee")
-    @Validation(required = true)
     public String serviceFee;
 
     // 电费，单位元
     @NameInMap("electricity_fee")
-    @Validation(required = true)
     public String electricityFee;
 
     // 充电开始时间

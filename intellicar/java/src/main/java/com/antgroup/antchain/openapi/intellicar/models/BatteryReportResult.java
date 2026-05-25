@@ -60,6 +60,15 @@ public class BatteryReportResult extends TeaModel {
     @Validation(required = true)
     public BatteryReportData reportData;
 
+    // 是否为保障类订单
+    /**
+     * <strong>example:</strong>
+     * <p>true</p>
+     */
+    @NameInMap("safeguard_enabled")
+    @Validation(required = true)
+    public Boolean safeguardEnabled;
+
     public static BatteryReportResult build(java.util.Map<String, ?> map) throws Exception {
         BatteryReportResult self = new BatteryReportResult();
         return TeaModel.build(map, self);
@@ -111,6 +120,14 @@ public class BatteryReportResult extends TeaModel {
     }
     public BatteryReportData getReportData() {
         return this.reportData;
+    }
+
+    public BatteryReportResult setSafeguardEnabled(Boolean safeguardEnabled) {
+        this.safeguardEnabled = safeguardEnabled;
+        return this;
+    }
+    public Boolean getSafeguardEnabled() {
+        return this.safeguardEnabled;
     }
 
 }

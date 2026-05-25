@@ -22,14 +22,22 @@ public class BatchSubmitCarResult extends TeaModel {
     @Validation(required = true)
     public Boolean isSuccess;
 
-    // OK NO_DEMAND 无线索需求，需要重试 INVALID 无效，不要重试
+    // OK NO_DEMAND 无线索需求，需要重试 INVALID 无效，不要重试，PENDING 未知，需要重试
     /**
      * <strong>example:</strong>
-     * <p>OK/INVALID/NO_DEMAND</p>
+     * <p>OK/INVALID/NO_DEMAND/PENDING</p>
      */
     @NameInMap("push_result_code")
     @Validation(required = true)
     public String pushResultCode;
+
+    // 失败原因
+    /**
+     * <strong>example:</strong>
+     * <p>失败原因</p>
+     */
+    @NameInMap("invalid_reason")
+    public String invalidReason;
 
     public static BatchSubmitCarResult build(java.util.Map<String, ?> map) throws Exception {
         BatchSubmitCarResult self = new BatchSubmitCarResult();
@@ -58,6 +66,14 @@ public class BatchSubmitCarResult extends TeaModel {
     }
     public String getPushResultCode() {
         return this.pushResultCode;
+    }
+
+    public BatchSubmitCarResult setInvalidReason(String invalidReason) {
+        this.invalidReason = invalidReason;
+        return this;
+    }
+    public String getInvalidReason() {
+        return this.invalidReason;
     }
 
 }

@@ -88,6 +88,28 @@ public class BatteryReport extends TeaModel {
     @NameInMap("register_date")
     public String registerDate;
 
+    // 保障服务标识
+    // NONE：无保障
+    // SEVEN_DAYS：7天保障
+    // THIRTY_DAYS：30天保障
+    /**
+     * <strong>example:</strong>
+     * <p>NONE</p>
+     */
+    @NameInMap("service_safeguard_type")
+    public String serviceSafeguardType;
+
+    // 保障码
+    // 首次查询后接口返回，后续查询过程中，若该参数不为空且有效则生成复检报告；若不传保障码，则当做首检
+    /**
+     * <strong>example:</strong>
+     * <ul>
+     * <li></li>
+     * </ul>
+     */
+    @NameInMap("guarantee_code")
+    public String guaranteeCode;
+
     public static BatteryReport build(java.util.Map<String, ?> map) throws Exception {
         BatteryReport self = new BatteryReport();
         return TeaModel.build(map, self);
@@ -171,6 +193,22 @@ public class BatteryReport extends TeaModel {
     }
     public String getRegisterDate() {
         return this.registerDate;
+    }
+
+    public BatteryReport setServiceSafeguardType(String serviceSafeguardType) {
+        this.serviceSafeguardType = serviceSafeguardType;
+        return this;
+    }
+    public String getServiceSafeguardType() {
+        return this.serviceSafeguardType;
+    }
+
+    public BatteryReport setGuaranteeCode(String guaranteeCode) {
+        this.guaranteeCode = guaranteeCode;
+        return this;
+    }
+    public String getGuaranteeCode() {
+        return this.guaranteeCode;
     }
 
 }

@@ -129,9 +129,9 @@ public class BatteryReportData extends TeaModel {
      * <strong>example:</strong>
      * <p>1</p>
      */
-    @NameInMap("sageguard_max_sub_soh")
+    @NameInMap("safeguard_max_sub_soh")
     @Validation(required = true)
-    public String sageguardMaxSubSoh;
+    public String safeguardMaxSubSoh;
 
     // 是否触发赔付，当前 SOH≤触发赔付 SOH 时为 true
     /**
@@ -235,6 +235,36 @@ public class BatteryReportData extends TeaModel {
     @Validation(required = true)
     public java.util.List<String> sohSuggest;
 
+    // 保障金额
+    /**
+     * <strong>example:</strong>
+     * <ul>
+     * <li></li>
+     * </ul>
+     */
+    @NameInMap("safeguard_amount")
+    public String safeguardAmount;
+
+    // 保障天数
+    /**
+     * <strong>example:</strong>
+     * <ul>
+     * <li></li>
+     * </ul>
+     */
+    @NameInMap("safeguard_days")
+    public Long safeguardDays;
+
+    // SOH允许衰退阈值
+    /**
+     * <strong>example:</strong>
+     * <ul>
+     * <li></li>
+     * </ul>
+     */
+    @NameInMap("allow_max_soh_diff")
+    public String allowMaxSohDiff;
+
     public static BatteryReportData build(java.util.Map<String, ?> map) throws Exception {
         BatteryReportData self = new BatteryReportData();
         return TeaModel.build(map, self);
@@ -336,12 +366,12 @@ public class BatteryReportData extends TeaModel {
         return this.initialChargeSeq;
     }
 
-    public BatteryReportData setSageguardMaxSubSoh(String sageguardMaxSubSoh) {
-        this.sageguardMaxSubSoh = sageguardMaxSubSoh;
+    public BatteryReportData setSafeguardMaxSubSoh(String safeguardMaxSubSoh) {
+        this.safeguardMaxSubSoh = safeguardMaxSubSoh;
         return this;
     }
-    public String getSageguardMaxSubSoh() {
-        return this.sageguardMaxSubSoh;
+    public String getSafeguardMaxSubSoh() {
+        return this.safeguardMaxSubSoh;
     }
 
     public BatteryReportData setCompensationTriggered(Boolean compensationTriggered) {
@@ -438,6 +468,30 @@ public class BatteryReportData extends TeaModel {
     }
     public java.util.List<String> getSohSuggest() {
         return this.sohSuggest;
+    }
+
+    public BatteryReportData setSafeguardAmount(String safeguardAmount) {
+        this.safeguardAmount = safeguardAmount;
+        return this;
+    }
+    public String getSafeguardAmount() {
+        return this.safeguardAmount;
+    }
+
+    public BatteryReportData setSafeguardDays(Long safeguardDays) {
+        this.safeguardDays = safeguardDays;
+        return this;
+    }
+    public Long getSafeguardDays() {
+        return this.safeguardDays;
+    }
+
+    public BatteryReportData setAllowMaxSohDiff(String allowMaxSohDiff) {
+        this.allowMaxSohDiff = allowMaxSohDiff;
+        return this;
+    }
+    public String getAllowMaxSohDiff() {
+        return this.allowMaxSohDiff;
     }
 
 }
