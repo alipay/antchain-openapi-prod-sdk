@@ -21,6 +21,8 @@ use AntChain\INTELLICAR\Models\CreateAntcloudGatewayxFileUploadRequest;
 use AntChain\INTELLICAR\Models\CreateAntcloudGatewayxFileUploadResponse;
 use AntChain\INTELLICAR\Models\DeleteCdsqScratchesRequest;
 use AntChain\INTELLICAR\Models\DeleteCdsqScratchesResponse;
+use AntChain\INTELLICAR\Models\ExecUnifiedentranceRequest;
+use AntChain\INTELLICAR\Models\ExecUnifiedentranceResponse;
 use AntChain\INTELLICAR\Models\ImportCarFileRequest;
 use AntChain\INTELLICAR\Models\ImportCarFileResponse;
 use AntChain\INTELLICAR\Models\PushCarloanRequest;
@@ -220,7 +222,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.36',
+                    'sdk_version'      => '1.2.3',
                     '_prod_code'       => 'INTELLICAR',
                     '_prod_channel'    => 'default',
                 ];
@@ -1275,6 +1277,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryCdsqTireinsuranceResponse::fromMap($this->doRequest('1.0', 'antdigital.intellicar.cdsq.tireinsurance.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 增加统一调用泛化接口
+     * Summary: 增加统一调用泛化接口.
+     *
+     * @param ExecUnifiedentranceRequest $request
+     *
+     * @return ExecUnifiedentranceResponse
+     */
+    public function execUnifiedentrance($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->execUnifiedentranceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 增加统一调用泛化接口
+     * Summary: 增加统一调用泛化接口.
+     *
+     * @param ExecUnifiedentranceRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return ExecUnifiedentranceResponse
+     */
+    public function execUnifiedentranceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ExecUnifiedentranceResponse::fromMap($this->doRequest('1.0', 'antdigital.intellicar.unifiedentrance.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

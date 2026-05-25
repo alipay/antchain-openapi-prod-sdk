@@ -117,15 +117,6 @@ class QueryBatteryReportRequest extends Model
     public function validate()
     {
         Model::validateRequired('batteryReport', $this->batteryReport, true);
-        Model::validateRequired('operatorPlatform', $this->operatorPlatform, true);
-        Model::validateRequired('stationName', $this->stationName, true);
-        Model::validateRequired('stationId', $this->stationId, true);
-        Model::validateRequired('pileId', $this->pileId, true);
-        Model::validateRequired('gunNo', $this->gunNo, true);
-        Model::validateRequired('chargeOrderNo', $this->chargeOrderNo, true);
-        Model::validateRequired('chargePower', $this->chargePower, true);
-        Model::validateRequired('serviceFee', $this->serviceFee, true);
-        Model::validateRequired('electricityFee', $this->electricityFee, true);
         Model::validateRequired('chargeStartTime', $this->chargeStartTime, true);
         Model::validateRequired('chargeEndTime', $this->chargeEndTime, true);
         Model::validateRequired('sceneCode', $this->sceneCode, true);

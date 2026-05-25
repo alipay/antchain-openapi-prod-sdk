@@ -55,6 +55,14 @@ class BatteryReportResult extends Model
      * @var BatteryReportData
      */
     public $reportData;
+
+    // 是否为保障类订单
+    /**
+     * @example true
+     *
+     * @var bool
+     */
+    public $safeguardEnabled;
     protected $_name = [
         'orderId'               => 'order_id',
         'guaranteeCode'         => 'guarantee_code',
@@ -62,6 +70,7 @@ class BatteryReportResult extends Model
         'charge'                => 'charge',
         'checkType'             => 'check_type',
         'reportData'            => 'report_data',
+        'safeguardEnabled'      => 'safeguard_enabled',
     ];
 
     public function validate()
@@ -72,6 +81,7 @@ class BatteryReportResult extends Model
         Model::validateRequired('charge', $this->charge, true);
         Model::validateRequired('checkType', $this->checkType, true);
         Model::validateRequired('reportData', $this->reportData, true);
+        Model::validateRequired('safeguardEnabled', $this->safeguardEnabled, true);
     }
 
     public function toMap()
@@ -94,6 +104,9 @@ class BatteryReportResult extends Model
         }
         if (null !== $this->reportData) {
             $res['report_data'] = null !== $this->reportData ? $this->reportData->toMap() : null;
+        }
+        if (null !== $this->safeguardEnabled) {
+            $res['safeguard_enabled'] = $this->safeguardEnabled;
         }
 
         return $res;
@@ -124,6 +137,9 @@ class BatteryReportResult extends Model
         }
         if (isset($map['report_data'])) {
             $model->reportData = BatteryReportData::fromMap($map['report_data']);
+        }
+        if (isset($map['safeguard_enabled'])) {
+            $model->safeguardEnabled = $map['safeguard_enabled'];
         }
 
         return $model;

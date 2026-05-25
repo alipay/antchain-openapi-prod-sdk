@@ -24,17 +24,26 @@ class BatchSubmitCarResult extends Model
      */
     public $isSuccess;
 
-    // OK NO_DEMAND 无线索需求，需要重试 INVALID 无效，不要重试
+    // OK NO_DEMAND 无线索需求，需要重试 INVALID 无效，不要重试，PENDING 未知，需要重试
     /**
-     * @example OK/INVALID/NO_DEMAND
+     * @example OK/INVALID/NO_DEMAND/PENDING
      *
      * @var string
      */
     public $pushResultCode;
+
+    // 失败原因
+    /**
+     * @example 失败原因
+     *
+     * @var string
+     */
+    public $invalidReason;
     protected $_name = [
         'submitId'       => 'submit_id',
         'isSuccess'      => 'is_success',
         'pushResultCode' => 'push_result_code',
+        'invalidReason'  => 'invalid_reason',
     ];
 
     public function validate()
@@ -56,6 +65,9 @@ class BatchSubmitCarResult extends Model
         if (null !== $this->pushResultCode) {
             $res['push_result_code'] = $this->pushResultCode;
         }
+        if (null !== $this->invalidReason) {
+            $res['invalid_reason'] = $this->invalidReason;
+        }
 
         return $res;
     }
@@ -76,6 +88,9 @@ class BatchSubmitCarResult extends Model
         }
         if (isset($map['push_result_code'])) {
             $model->pushResultCode = $map['push_result_code'];
+        }
+        if (isset($map['invalid_reason'])) {
+            $model->invalidReason = $map['invalid_reason'];
         }
 
         return $model;

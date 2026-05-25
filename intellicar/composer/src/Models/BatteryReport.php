@@ -87,17 +87,39 @@ class BatteryReport extends Model
      * @var string
      */
     public $registerDate;
+
+    // 保障服务标识
+    // NONE：无保障
+    // SEVEN_DAYS：7天保障
+    // THIRTY_DAYS：30天保障
+    /**
+     * @example NONE
+     *
+     * @var string
+     */
+    public $serviceSafeguardType;
+
+    // 保障码
+    // 首次查询后接口返回，后续查询过程中，若该参数不为空且有效则生成复检报告；若不传保障码，则当做首检
+    /**
+     * @example -
+     *
+     * @var string
+     */
+    public $guaranteeCode;
     protected $_name = [
-        'startChargeSeq' => 'start_charge_seq',
-        'vinCode'        => 'vin_code',
-        'publicationNo'  => 'publication_no',
-        'totalPower'     => 'total_power',
-        'totalChargeSoc' => 'total_charge_soc',
-        'startSoc'       => 'start_soc',
-        'endSoc'         => 'end_soc',
-        'nominalEnergy'  => 'nominal_energy',
-        'cityId'         => 'city_id',
-        'registerDate'   => 'register_date',
+        'startChargeSeq'       => 'start_charge_seq',
+        'vinCode'              => 'vin_code',
+        'publicationNo'        => 'publication_no',
+        'totalPower'           => 'total_power',
+        'totalChargeSoc'       => 'total_charge_soc',
+        'startSoc'             => 'start_soc',
+        'endSoc'               => 'end_soc',
+        'nominalEnergy'        => 'nominal_energy',
+        'cityId'               => 'city_id',
+        'registerDate'         => 'register_date',
+        'serviceSafeguardType' => 'service_safeguard_type',
+        'guaranteeCode'        => 'guarantee_code',
     ];
 
     public function validate()
@@ -138,6 +160,12 @@ class BatteryReport extends Model
         }
         if (null !== $this->registerDate) {
             $res['register_date'] = $this->registerDate;
+        }
+        if (null !== $this->serviceSafeguardType) {
+            $res['service_safeguard_type'] = $this->serviceSafeguardType;
+        }
+        if (null !== $this->guaranteeCode) {
+            $res['guarantee_code'] = $this->guaranteeCode;
         }
 
         return $res;
@@ -180,6 +208,12 @@ class BatteryReport extends Model
         }
         if (isset($map['register_date'])) {
             $model->registerDate = $map['register_date'];
+        }
+        if (isset($map['service_safeguard_type'])) {
+            $model->serviceSafeguardType = $map['service_safeguard_type'];
+        }
+        if (isset($map['guarantee_code'])) {
+            $model->guaranteeCode = $map['guarantee_code'];
         }
 
         return $model;

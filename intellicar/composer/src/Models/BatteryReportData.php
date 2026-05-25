@@ -110,7 +110,7 @@ class BatteryReportData extends Model
      *
      * @var string
      */
-    public $sageguardMaxSubSoh;
+    public $safeguardMaxSubSoh;
 
     // 是否触发赔付，当前 SOH≤触发赔付 SOH 时为 true
     /**
@@ -207,6 +207,30 @@ class BatteryReportData extends Model
      * @var string[]
      */
     public $sohSuggest;
+
+    // 保障金额
+    /**
+     * @example -
+     *
+     * @var string
+     */
+    public $safeguardAmount;
+
+    // 保障天数
+    /**
+     * @example -
+     *
+     * @var int
+     */
+    public $safeguardDays;
+
+    // SOH允许衰退阈值
+    /**
+     * @example -
+     *
+     * @var string
+     */
+    public $allowMaxSohDiff;
     protected $_name = [
         'vinCode'                     => 'vin_code',
         'evaluateTime'                => 'evaluate_time',
@@ -220,7 +244,7 @@ class BatteryReportData extends Model
         'initialSoh'                  => 'initial_soh',
         'initialSohEvaluateTime'      => 'initial_soh_evaluate_time',
         'initialChargeSeq'            => 'initial_charge_seq',
-        'sageguardMaxSubSoh'          => 'sageguard_max_sub_soh',
+        'safeguardMaxSubSoh'          => 'safeguard_max_sub_soh',
         'compensationTriggered'       => 'compensation_triggered',
         'yearSohTitle'                => 'year_soh_title',
         'curEstimateYearSoh'          => 'cur_estimate_year_soh',
@@ -233,6 +257,9 @@ class BatteryReportData extends Model
         'rightsDesc'                  => 'rights_desc',
         'rightStatus'                 => 'right_status',
         'sohSuggest'                  => 'soh_suggest',
+        'safeguardAmount'             => 'safeguard_amount',
+        'safeguardDays'               => 'safeguard_days',
+        'allowMaxSohDiff'             => 'allow_max_soh_diff',
     ];
 
     public function validate()
@@ -249,7 +276,7 @@ class BatteryReportData extends Model
         Model::validateRequired('initialSoh', $this->initialSoh, true);
         Model::validateRequired('initialSohEvaluateTime', $this->initialSohEvaluateTime, true);
         Model::validateRequired('initialChargeSeq', $this->initialChargeSeq, true);
-        Model::validateRequired('sageguardMaxSubSoh', $this->sageguardMaxSubSoh, true);
+        Model::validateRequired('safeguardMaxSubSoh', $this->safeguardMaxSubSoh, true);
         Model::validateRequired('compensationTriggered', $this->compensationTriggered, true);
         Model::validateRequired('yearSohTitle', $this->yearSohTitle, true);
         Model::validateRequired('curEstimateYearSoh', $this->curEstimateYearSoh, true);
@@ -303,8 +330,8 @@ class BatteryReportData extends Model
         if (null !== $this->initialChargeSeq) {
             $res['initial_charge_seq'] = $this->initialChargeSeq;
         }
-        if (null !== $this->sageguardMaxSubSoh) {
-            $res['sageguard_max_sub_soh'] = $this->sageguardMaxSubSoh;
+        if (null !== $this->safeguardMaxSubSoh) {
+            $res['safeguard_max_sub_soh'] = $this->safeguardMaxSubSoh;
         }
         if (null !== $this->compensationTriggered) {
             $res['compensation_triggered'] = $this->compensationTriggered;
@@ -341,6 +368,15 @@ class BatteryReportData extends Model
         }
         if (null !== $this->sohSuggest) {
             $res['soh_suggest'] = $this->sohSuggest;
+        }
+        if (null !== $this->safeguardAmount) {
+            $res['safeguard_amount'] = $this->safeguardAmount;
+        }
+        if (null !== $this->safeguardDays) {
+            $res['safeguard_days'] = $this->safeguardDays;
+        }
+        if (null !== $this->allowMaxSohDiff) {
+            $res['allow_max_soh_diff'] = $this->allowMaxSohDiff;
         }
 
         return $res;
@@ -390,8 +426,8 @@ class BatteryReportData extends Model
         if (isset($map['initial_charge_seq'])) {
             $model->initialChargeSeq = $map['initial_charge_seq'];
         }
-        if (isset($map['sageguard_max_sub_soh'])) {
-            $model->sageguardMaxSubSoh = $map['sageguard_max_sub_soh'];
+        if (isset($map['safeguard_max_sub_soh'])) {
+            $model->safeguardMaxSubSoh = $map['safeguard_max_sub_soh'];
         }
         if (isset($map['compensation_triggered'])) {
             $model->compensationTriggered = $map['compensation_triggered'];
@@ -436,6 +472,15 @@ class BatteryReportData extends Model
             if (!empty($map['soh_suggest'])) {
                 $model->sohSuggest = $map['soh_suggest'];
             }
+        }
+        if (isset($map['safeguard_amount'])) {
+            $model->safeguardAmount = $map['safeguard_amount'];
+        }
+        if (isset($map['safeguard_days'])) {
+            $model->safeguardDays = $map['safeguard_days'];
+        }
+        if (isset($map['allow_max_soh_diff'])) {
+            $model->allowMaxSohDiff = $map['allow_max_soh_diff'];
         }
 
         return $model;
