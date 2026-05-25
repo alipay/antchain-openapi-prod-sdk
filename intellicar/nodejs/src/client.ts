@@ -532,7 +532,7 @@ export class BatteryReportData extends $tea.Model {
   // 本轮首检 充电单号
   initialChargeSeq: string;
   // 触发赔付 SOH（%），数值 0-100
-  sageguardMaxSubSoh: string;
+  safeguardMaxSubSoh: string;
   // 是否触发赔付，当前 SOH≤触发赔付 SOH 时为 true
   compensationTriggered: boolean;
   // SOH 衰退预测-X 轴标题（年）
@@ -557,6 +557,12 @@ export class BatteryReportData extends $tea.Model {
   rightStatus: string;
   // 电池健康度-建议
   sohSuggest: string[];
+  // 保障金额
+  safeguardAmount?: string;
+  // 保障天数
+  safeguardDays?: number;
+  // SOH允许衰退阈值
+  allowMaxSohDiff?: string;
   static names(): { [key: string]: string } {
     return {
       vinCode: 'vin_code',
@@ -571,7 +577,7 @@ export class BatteryReportData extends $tea.Model {
       initialSoh: 'initial_soh',
       initialSohEvaluateTime: 'initial_soh_evaluate_time',
       initialChargeSeq: 'initial_charge_seq',
-      sageguardMaxSubSoh: 'sageguard_max_sub_soh',
+      safeguardMaxSubSoh: 'safeguard_max_sub_soh',
       compensationTriggered: 'compensation_triggered',
       yearSohTitle: 'year_soh_title',
       curEstimateYearSoh: 'cur_estimate_year_soh',
@@ -584,6 +590,9 @@ export class BatteryReportData extends $tea.Model {
       rightsDesc: 'rights_desc',
       rightStatus: 'right_status',
       sohSuggest: 'soh_suggest',
+      safeguardAmount: 'safeguard_amount',
+      safeguardDays: 'safeguard_days',
+      allowMaxSohDiff: 'allow_max_soh_diff',
     };
   }
 
@@ -601,7 +610,7 @@ export class BatteryReportData extends $tea.Model {
       initialSoh: 'string',
       initialSohEvaluateTime: 'string',
       initialChargeSeq: 'string',
-      sageguardMaxSubSoh: 'string',
+      safeguardMaxSubSoh: 'string',
       compensationTriggered: 'boolean',
       yearSohTitle: { 'type': 'array', 'itemType': 'string' },
       curEstimateYearSoh: { 'type': 'array', 'itemType': 'string' },
@@ -614,6 +623,9 @@ export class BatteryReportData extends $tea.Model {
       rightsDesc: 'string',
       rightStatus: 'string',
       sohSuggest: { 'type': 'array', 'itemType': 'string' },
+      safeguardAmount: 'string',
+      safeguardDays: 'number',
+      allowMaxSohDiff: 'string',
     };
   }
 
@@ -742,6 +754,8 @@ export class BatteryReportResult extends $tea.Model {
   checkType: number;
   // 报告数据
   reportData: BatteryReportData;
+  // 是否为保障类订单
+  safeguardEnabled: boolean;
   static names(): { [key: string]: string } {
     return {
       orderId: 'order_id',
@@ -750,6 +764,7 @@ export class BatteryReportResult extends $tea.Model {
       charge: 'charge',
       checkType: 'check_type',
       reportData: 'report_data',
+      safeguardEnabled: 'safeguard_enabled',
     };
   }
 
@@ -761,6 +776,7 @@ export class BatteryReportResult extends $tea.Model {
       charge: 'boolean',
       checkType: 'number',
       reportData: BatteryReportData,
+      safeguardEnabled: 'boolean',
     };
   }
 
@@ -905,13 +921,16 @@ export class BatchSubmitCarResult extends $tea.Model {
   submitId: string;
   // 是否成功
   isSuccess: boolean;
-  // OK NO_DEMAND 无线索需求，需要重试 INVALID 无效，不要重试
+  // OK NO_DEMAND 无线索需求，需要重试 INVALID 无效，不要重试，PENDING 未知，需要重试
   pushResultCode: string;
+  // 失败原因
+  invalidReason?: string;
   static names(): { [key: string]: string } {
     return {
       submitId: 'submit_id',
       isSuccess: 'is_success',
       pushResultCode: 'push_result_code',
+      invalidReason: 'invalid_reason',
     };
   }
 
@@ -920,6 +939,7 @@ export class BatchSubmitCarResult extends $tea.Model {
       submitId: 'string',
       isSuccess: 'boolean',
       pushResultCode: 'string',
+      invalidReason: 'string',
     };
   }
 
@@ -1598,6 +1618,14 @@ export class BatteryReport extends $tea.Model {
   cityId?: string;
   // 注册日期；最大长度/规则：yyyy-MM-dd
   registerDate?: string;
+  // 保障服务标识
+  // NONE：无保障
+  // SEVEN_DAYS：7天保障
+  // THIRTY_DAYS：30天保障
+  serviceSafeguardType?: string;
+  // 保障码
+  // 首次查询后接口返回，后续查询过程中，若该参数不为空且有效则生成复检报告；若不传保障码，则当做首检
+  guaranteeCode?: string;
   static names(): { [key: string]: string } {
     return {
       startChargeSeq: 'start_charge_seq',
@@ -1610,6 +1638,8 @@ export class BatteryReport extends $tea.Model {
       nominalEnergy: 'nominal_energy',
       cityId: 'city_id',
       registerDate: 'register_date',
+      serviceSafeguardType: 'service_safeguard_type',
+      guaranteeCode: 'guarantee_code',
     };
   }
 
@@ -1625,6 +1655,8 @@ export class BatteryReport extends $tea.Model {
       nominalEnergy: 'string',
       cityId: 'string',
       registerDate: 'string',
+      serviceSafeguardType: 'string',
+      guaranteeCode: 'string',
     };
   }
 
@@ -2387,23 +2419,23 @@ export class QueryBatteryReportRequest extends $tea.Model {
   // 充电报告
   batteryReport: BatteryReport;
   // 桩所属运营平台
-  operatorPlatform: string;
+  operatorPlatform?: string;
   // 场站名称
-  stationName: string;
+  stationName?: string;
   // 场站ID
-  stationId: string;
+  stationId?: string;
   // 桩ID
-  pileId: string;
+  pileId?: string;
   // 枪序号（充电端口号）
-  gunNo: number;
+  gunNo?: number;
   // 充电订单号
-  chargeOrderNo: string;
+  chargeOrderNo?: string;
   // 充电量，单位kWh
-  chargePower: string;
+  chargePower?: string;
   // 服务费，单位元
-  serviceFee: string;
+  serviceFee?: string;
   // 电费，单位元
-  electricityFee: string;
+  electricityFee?: string;
   // 充电开始时间
   chargeStartTime: string;
   // 充电结束时间
@@ -3944,6 +3976,69 @@ export class QueryCdsqTireinsuranceResponse extends $tea.Model {
   }
 }
 
+export class ExecUnifiedentranceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求参数的json字符串
+  params: string;
+  // 业务场景码
+  sceneCode: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      params: 'params',
+      sceneCode: 'scene_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      params: 'string',
+      sceneCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExecUnifiedentranceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 响应业务数据
+  data?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -4145,7 +4240,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.36",
+          sdk_version: "1.2.3",
           _prod_code: "INTELLICAR",
           _prod_channel: "default",
         };
@@ -4783,6 +4878,25 @@ export default class Client {
   async queryCdsqTireinsuranceEx(request: QueryCdsqTireinsuranceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryCdsqTireinsuranceResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryCdsqTireinsuranceResponse>(await this.doRequest("1.0", "antdigital.intellicar.cdsq.tireinsurance.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryCdsqTireinsuranceResponse({}));
+  }
+
+  /**
+   * Description: 增加统一调用泛化接口
+   * Summary: 增加统一调用泛化接口
+   */
+  async execUnifiedentrance(request: ExecUnifiedentranceRequest): Promise<ExecUnifiedentranceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.execUnifiedentranceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 增加统一调用泛化接口
+   * Summary: 增加统一调用泛化接口
+   */
+  async execUnifiedentranceEx(request: ExecUnifiedentranceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ExecUnifiedentranceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ExecUnifiedentranceResponse>(await this.doRequest("1.0", "antdigital.intellicar.unifiedentrance.exec", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ExecUnifiedentranceResponse({}));
   }
 
   /**
