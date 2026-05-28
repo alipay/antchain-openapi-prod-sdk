@@ -24,13 +24,13 @@ from setuptools import setup, find_packages
 """
 setup module for antchain_qqq.
 
-Created on 08/05/2026
+Created on 28/05/2026
 
 @author: Ant Chain SDK
 """
 
 PACKAGE = "antchain_sdk_qqq"
-NAME = "antchain_qqq" or "alibabacloud-package"
+NAME = 'antchain_antdigital_qqq' or "alibabacloud-package"
 DESCRIPTION = "Ant Chain QQQ SDK Library for Python"
 AUTHOR = "Ant Chain SDK"
 AUTHOR_EMAIL = "sdk-team@alibabacloud.com"
