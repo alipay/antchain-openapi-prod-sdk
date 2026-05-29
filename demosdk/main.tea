@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.3.39',
+    sdk_version = '1.3.42',
     _prod_code = 'DEMOSDK',
     _prod_channel = 'default'
   };
@@ -161,12 +161,56 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   ignoreSSL = runtime.ignoreSSL
 }
 
-// 1
+// test
+model TestParamC {
+  // string_param
+  stringParam?: string(name='string_param', example='string_param'),
+  // number_param
+  numberParam?: long(name='number_param', example='1'),
+  // boolean_param
+  booleanParam?: boolean(name='boolean_param', example='true, false'),
+  // date_param
+  dateParam?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='date_param', example='2018-10-10T10:10:00Z'),
+  // string
+  arrayParam?: [ string ](name='array_param', example=''),
+}
+
+// test for edit
+model TestParamB {
+  // string_param
+  stringParam?: string(name='string_param', example='string_param'),
+  // number_param
+  numberParam?: long(name='number_param', example='1'),
+  // boolean_param
+  booleanParam?: boolean(name='boolean_param', example='true, false'),
+  // date_param
+  dateParam?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='date_param', example='2018-10-10T10:10:00Z'),
+  // struct_param
+  structParam: TestParamC(name='struct_param', example=''),
+  // aa
+  structListB?: TestParamC(name='struct_list_b', example='3000'),
+}
+
+// test for edit
+model TestParamA {
+  // string_param
+  stringParam?: string(name='string_param', example='string_param'),
+  // number_param
+  numberParam?: long(name='number_param', example='1'),
+  // boolean_param
+  booleanParam?: boolean(name='boolean_param', example='true, false'),
+  // date_param
+  dateParam?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='date_param', example='2018-10-10T10:10:00Z'),
+  // struct_parama
+  structParama: TestParamB(name='struct_parama', example=''),
+  // 结构体列表a
+  structListA?: [ TestParamB ](name='struct_list_a', example='undefined'),
+}
+
+// a
 model TestDemo {
-  // 1
-  name?: string(name='name', example='张三'),
-  // 1
-  number?: long(name='number', example='23'),
+  // a
+  timeout?: string(name='timeout', example='a'),
 }
 
 // Demo类1
@@ -183,10 +227,38 @@ model DemoClass {
   someList: [ string ](name='some_list', example=''),
 }
 
-// 返回结果测试类
+// 测试11-22
+model TestParams {
+  // a
+  parameter?: TestParamA(name='parameter', example='undefined'),
+  // string
+  string?: string(name='string', example='string'),
+}
+
+// DEMOSDK结构体A·edit for test18
+model DemosdkStructA {
+  // 【公司名称】
+  companyName?: string(name='company_name', example='xx公司'),
+  // 【业务类型】
+  productMainClass?: string(name='product_main_class', example='运营'),
+  // 【公司地址】
+  companyAddress?: string(name='company_address', example='xx市xx区'),
+  // 【联系人】
+  contactName?: string(name='contact_name', example='张三'),
+  // 【联系人手机号】
+  contactMobile?: string(name='contact_mobile', example='13688888888'),
+}
+
+// 返回结果测试类-11
 model ResultTest {
   // 姓名
   name?: string(name='name', example='张三'),
+}
+
+// aaa
+model CreateStructA {
+  // 超时时间
+  timeouta?: string(name='timeouta', example='3000'),
 }
 
 // InitPack
@@ -199,12 +271,94 @@ model InitPack {
   count?: long(name='count', example='1'),
 }
 
-// 测试实体
+// a
 model SumBean {
-  // 元素名称
-  eName?: string(name='e_name', example='张三'),
-  // 数量
-  num?: long(name='num', example='23'),
+  // 1
+  a?: long(name='a', example='1'),
+}
+
+model TestStructOnlineRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 超时时间
+  timeout?: string(name='timeout'),
+  // 结构体参数
+  struct?: TestParams(name='struct'),
+}
+
+model TestStructOnlineResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 状态码
+  status?: string(name='status'),
+  // 状态描述
+  msg?: string(name='msg'),
+}
+
+/**
+ * Description: 用于结构体上线测试
+ * Summary: 用于结构体上线测试
+ */
+async function testStructOnline(request: TestStructOnlineRequest): TestStructOnlineResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return testStructOnlineEx(request, headers, runtime);
+}
+
+/**
+ * Description: 用于结构体上线测试
+ * Summary: 用于结构体上线测试
+ */
+async function testStructOnlineEx(request: TestStructOnlineRequest, headers: map[string]string, runtime: Util.RuntimeOptions): TestStructOnlineResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.demosdk.struct.online.test', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model TestaStructCreateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 信息
+  testParamB?: DemosdkStructA(name='test_param_b'),
+  // 超时时间
+  timeout?: string(name='timeout'),
+}
+
+model TestaStructCreateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 状态码
+  status?: string(name='status'),
+  // 状态描述
+  msg?: string(name='msg'),
+}
+
+/**
+ * Description: 结构体测试·edit for test18
+ * Summary: 结构体测试·edit for test18
+ */
+async function testaStructCreate(request: TestaStructCreateRequest): TestaStructCreateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return testaStructCreateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 结构体测试·edit for test18
+ * Summary: 结构体测试·edit for test18
+ */
+async function testaStructCreateEx(request: TestaStructCreateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): TestaStructCreateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.demosdk.struct.create.testa', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryAaaSdkRequest = {
@@ -239,6 +393,290 @@ async function queryAaaSdk(request: QueryAaaSdkRequest): QueryAaaSdkResponse {
 async function queryAaaSdkEx(request: QueryAaaSdkRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAaaSdkResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.demosdk.aaa.sdk.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryMultiCciuRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // aaa
+  aaaaa?: TestParams(name='aaaaa'),
+  // bbbbb
+  bbbbb?: string(name='bbbbb'),
+}
+
+model QueryMultiCciuResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // bbbb
+  bbbb?: string(name='bbbb'),
+}
+
+/**
+ * Description: l
+ * Summary: l
+ */
+async function queryMultiCciu(request: QueryMultiCciuRequest): QueryMultiCciuResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryMultiCciuEx(request, headers, runtime);
+}
+
+/**
+ * Description: l
+ * Summary: l
+ */
+async function queryMultiCciuEx(request: QueryMultiCciuRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryMultiCciuResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.demosdk.multi.cciu.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryIamTestRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model QueryIamTestResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: a
+ * Summary: a
+ */
+async function queryIamTest(request: QueryIamTestRequest): QueryIamTestResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryIamTestEx(request, headers, runtime);
+}
+
+/**
+ * Description: a
+ * Summary: a
+ */
+async function queryIamTestEx(request: QueryIamTestRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryIamTestResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.demosdk.iam.test.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model TestIamSynchronousRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model TestIamSynchronousResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: iam同步测试
+ * Summary: iam同步测试
+ */
+async function testIamSynchronous(request: TestIamSynchronousRequest): TestIamSynchronousResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return testIamSynchronousEx(request, headers, runtime);
+}
+
+/**
+ * Description: iam同步测试
+ * Summary: iam同步测试
+ */
+async function testIamSynchronousEx(request: TestIamSynchronousRequest, headers: map[string]string, runtime: Util.RuntimeOptions): TestIamSynchronousResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.demosdk.iam.synchronous.test', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model IamIamIamRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model IamIamIamResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: iam同步测试
+ * Summary: iam同步测试
+ */
+async function iamIamIam(request: IamIamIamRequest): IamIamIamResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return iamIamIamEx(request, headers, runtime);
+}
+
+/**
+ * Description: iam同步测试
+ * Summary: iam同步测试
+ */
+async function iamIamIamEx(request: IamIamIamRequest, headers: map[string]string, runtime: Util.RuntimeOptions): IamIamIamResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.demosdk.iam.iam.iam', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model TestIamPushRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model TestIamPushResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: iam推送测试
+ * Summary: iam推送测试
+ */
+async function testIamPush(request: TestIamPushRequest): TestIamPushResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return testIamPushEx(request, headers, runtime);
+}
+
+/**
+ * Description: iam推送测试
+ * Summary: iam推送测试
+ */
+async function testIamPushEx(request: TestIamPushRequest, headers: map[string]string, runtime: Util.RuntimeOptions): TestIamPushResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.demosdk.iam.push.test', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryIamPushRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model QueryIamPushResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: test
+ * Summary: test
+ */
+async function queryIamPush(request: QueryIamPushRequest): QueryIamPushResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryIamPushEx(request, headers, runtime);
+}
+
+/**
+ * Description: test
+ * Summary: test
+ */
+async function queryIamPushEx(request: QueryIamPushRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryIamPushResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.demosdk.iam.push.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model IamApipushForRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model IamApipushForResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: test
+ * Summary: test
+ */
+async function iamApipushFor(request: IamApipushForRequest): IamApipushForResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return iamApipushForEx(request, headers, runtime);
+}
+
+/**
+ * Description: test
+ * Summary: test
+ */
+async function iamApipushForEx(request: IamApipushForRequest, headers: map[string]string, runtime: Util.RuntimeOptions): IamApipushForResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.demosdk.apipush.for.iam', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ConfigQueryApiRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 超时时间
+  timeout?: string(name='timeout'),
+}
+
+model ConfigQueryApiResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 状态码
+  stauts?: string(name='stauts'),
+  // 状态描述
+  msg?: string(name='msg'),
+}
+
+/**
+ * Description: queryApiConfig接口优化
+ * Summary: queryApiConfig接口优化
+ */
+async function configQueryApi(request: ConfigQueryApiRequest): ConfigQueryApiResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return configQueryApiEx(request, headers, runtime);
+}
+
+/**
+ * Description: queryApiConfig接口优化
+ * Summary: queryApiConfig接口优化
+ */
+async function configQueryApiEx(request: ConfigQueryApiRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ConfigQueryApiResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.demosdk.query.api.config', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model BindAaaBbbCccRequest = {
@@ -287,6 +725,8 @@ model QueryAaaCcdRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 123
   test?: string(name='test'),
+  // 结构体字段
+  listParamsDemosdk?: [ TestParamA ](name='list_params_demosdk'),
 }
 
 model QueryAaaCcdResponse = {
@@ -353,6 +793,178 @@ async function bindXxx(request: BindXxxRequest): BindXxxResponse {
 async function bindXxxEx(request: BindXxxRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BindXxxResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.demosdk.xxx.bind', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryTxtRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 姓名
+  name?: string(name='name'),
+}
+
+model QueryTxtResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 证件号
+  idcard?: string(name='idcard'),
+}
+
+/**
+ * Description: 测试api流程
+ * Summary: 测试api流程
+ */
+async function queryTxt(request: QueryTxtRequest): QueryTxtResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryTxtEx(request, headers, runtime);
+}
+
+/**
+ * Description: 测试api流程
+ * Summary: 测试api流程
+ */
+async function queryTxtEx(request: QueryTxtRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryTxtResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.demosdk.txt.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListTxtRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 124
+  idcard?: string(name='idcard'),
+}
+
+model ListTxtResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: desc
+ * Summary: desc
+ */
+async function listTxt(request: ListTxtRequest): ListTxtResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listTxtEx(request, headers, runtime);
+}
+
+/**
+ * Description: desc
+ * Summary: desc
+ */
+async function listTxtEx(request: ListTxtRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListTxtResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.demosdk.txt.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryWorkbenchTestRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 3000
+  timeout?: string(name='timeout'),
+  // 请求编号
+  count?: long(name='count'),
+  // 请求时间
+  time?: string(name='time'),
+  // 请求描述
+  desc?: string(name='desc'),
+  // 操作人
+  operator?: string(name='operator'),
+  // aaaaa
+  aaaaa?: string(name='aaaaa'),
+}
+
+model QueryWorkbenchTestResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 状态
+  stauts?: string(name='stauts'),
+  // 描述
+  msg?: string(name='msg'),
+}
+
+/**
+ * Description: 用于个人工作台二期测试使用测试test
+ * Summary: 用于个人工作台二期测试使用测试test
+ */
+async function queryWorkbenchTest(request: QueryWorkbenchTestRequest): QueryWorkbenchTestResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryWorkbenchTestEx(request, headers, runtime);
+}
+
+/**
+ * Description: 用于个人工作台二期测试使用测试test
+ * Summary: 用于个人工作台二期测试使用测试test
+ */
+async function queryWorkbenchTestEx(request: QueryWorkbenchTestRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryWorkbenchTestResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.demosdk.workbench.test.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ImportAbcdOneRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 超时时间
+  timeout?: string(name='timeout'),
+  // 请求编号
+  count?: long(name='count'),
+  // 请求时间
+  time?: string(name='time'),
+  // 请求描述
+  desc?: string(name='desc'),
+  // 操作者
+  operator?: string(name='operator'),
+}
+
+model ImportAbcdOneResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 描述
+  stauts?: string(name='stauts'),
+  // 描述
+  msg?: string(name='msg'),
+}
+
+/**
+ * Description: 个人工作台二期测试接口
+ * Summary: 个人工作台二期测试接口
+ */
+async function importAbcdOne(request: ImportAbcdOneRequest): ImportAbcdOneResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return importAbcdOneEx(request, headers, runtime);
+}
+
+/**
+ * Description: 个人工作台二期测试接口
+ * Summary: 个人工作台二期测试接口
+ */
+async function importAbcdOneEx(request: ImportAbcdOneRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ImportAbcdOneResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.demosdk.abcd.one.import', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model PublishWorkbenchOneRequest = {
@@ -435,12 +1047,58 @@ async function publishWorkbenchTwoEx(request: PublishWorkbenchTwoRequest, header
   return doRequest('1.0' ,'antchain.demosdk.workbench.two.publish', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model PublishTwiceOneRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 超时时间
+  timeout?: string(name='timeout'),
+  // aa
+  aaa?: DemoClass(name='aaa'),
+}
+
+model PublishTwiceOneResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回状态码
+  stauts?: string(name='stauts'),
+  // 返回结果描述
+  msg?: string(name='msg'),
+}
+
+/**
+ * Description: 个人工作台二期预发测试1
+ * Summary: 个人工作台二期预发测试1
+ */
+async function publishTwiceOne(request: PublishTwiceOneRequest): PublishTwiceOneResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return publishTwiceOneEx(request, headers, runtime);
+}
+
+/**
+ * Description: 个人工作台二期预发测试1
+ * Summary: 个人工作台二期预发测试1
+ */
+async function publishTwiceOneEx(request: PublishTwiceOneRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PublishTwiceOneResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.demosdk.twice.one.publish', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model ImportTwiceThreeRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   // 超时间
   timeout: string(name='timeout'),
+  // 结构体A
+  structA?: TestParamA(name='struct_a'),
+  // 结构体B
+  structB?: TestParamB(name='struct_b'),
 }
 
 model ImportTwiceThreeResponse = {
@@ -553,5 +1211,195 @@ async function publishWorkbenchFour(request: PublishWorkbenchFourRequest): Publi
 async function publishWorkbenchFourEx(request: PublishWorkbenchFourRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PublishWorkbenchFourResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.demosdk.workbench.four.publish', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAaaQqqRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 1
+  timeout?: string(name='timeout'),
+}
+
+model QueryAaaQqqResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // OK
+  stauts?: string(name='stauts'),
+  // msg
+  msg?: string(name='msg'),
+}
+
+/**
+ * Description: AAAA
+ * Summary: AAAA
+ */
+async function queryAaaQqq(request: QueryAaaQqqRequest): QueryAaaQqqResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAaaQqqEx(request, headers, runtime);
+}
+
+/**
+ * Description: AAAA
+ * Summary: AAAA
+ */
+async function queryAaaQqqEx(request: QueryAaaQqqRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAaaQqqResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.demosdk.aaa.qqq.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CABRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 时间
+  timeout: string(name='timeout'),
+}
+
+model CABResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // OK
+  status?: string(name='status'),
+  // SUCCESS le
+  msg?: string(name='msg'),
+}
+
+/**
+ * Description: a
+ * Summary: a
+ */
+async function cAB(request: CABRequest): CABResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return cABEx(request, headers, runtime);
+}
+
+/**
+ * Description: a
+ * Summary: a
+ */
+async function cABEx(request: CABRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CABResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.demosdk.a.b.c', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AAARequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model AAAResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 测试
+ * Summary: 测试
+ */
+async function aAA(request: AAARequest): AAAResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return aAAEx(request, headers, runtime);
+}
+
+/**
+ * Description: 测试
+ * Summary: 测试
+ */
+async function aAAEx(request: AAARequest, headers: map[string]string, runtime: Util.RuntimeOptions): AAAResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.demosdk.a.a.a', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApiAutotestCreateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model ApiAutotestCreateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 自动化测试使用
+ * Summary: 自动化测试使用
+ */
+async function apiAutotestCreate(request: ApiAutotestCreateRequest): ApiAutotestCreateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return apiAutotestCreateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 自动化测试使用
+ * Summary: 自动化测试使用
+ */
+async function apiAutotestCreateEx(request: ApiAutotestCreateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApiAutotestCreateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.demosdk.autotest.create.api', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ZhongyipretestbZhongyipretestbZhongyipretestbRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 1
+  timeout?: string(name='timeout'),
+  // struct_parama
+  structParama?: TestParamA(name='struct_parama'),
+}
+
+model ZhongyipretestbZhongyipretestbZhongyipretestbResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 1
+  msg?: string(name='msg'),
+  // ok
+  status?: string(name='status'),
+}
+
+/**
+ * Description: 这是编辑后的描述
+ * Summary: 这是编辑后的描述
+ */
+async function zhongyipretestbZhongyipretestbZhongyipretestb(request: ZhongyipretestbZhongyipretestbZhongyipretestbRequest): ZhongyipretestbZhongyipretestbZhongyipretestbResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return zhongyipretestbZhongyipretestbZhongyipretestbEx(request, headers, runtime);
+}
+
+/**
+ * Description: 这是编辑后的描述
+ * Summary: 这是编辑后的描述
+ */
+async function zhongyipretestbZhongyipretestbZhongyipretestbEx(request: ZhongyipretestbZhongyipretestbZhongyipretestbRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ZhongyipretestbZhongyipretestbZhongyipretestbResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.demosdk.zhongyipretestb.zhongyipretestb.zhongyipretestb', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
