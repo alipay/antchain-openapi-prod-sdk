@@ -6,7 +6,7 @@ namespace AntChain\DEMOSDK\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ImportTwiceThreeRequest extends Model
+class CABRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,29 +19,15 @@ class ImportTwiceThreeRequest extends Model
      */
     public $productInstanceId;
 
-    // 超时间
+    // 时间
     /**
      * @var string
      */
     public $timeout;
-
-    // 结构体A
-    /**
-     * @var TestParamA
-     */
-    public $structA;
-
-    // 结构体B
-    /**
-     * @var TestParamB
-     */
-    public $structB;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'timeout'           => 'timeout',
-        'structA'           => 'struct_a',
-        'structB'           => 'struct_b',
     ];
 
     public function validate()
@@ -61,12 +47,6 @@ class ImportTwiceThreeRequest extends Model
         if (null !== $this->timeout) {
             $res['timeout'] = $this->timeout;
         }
-        if (null !== $this->structA) {
-            $res['struct_a'] = null !== $this->structA ? $this->structA->toMap() : null;
-        }
-        if (null !== $this->structB) {
-            $res['struct_b'] = null !== $this->structB ? $this->structB->toMap() : null;
-        }
 
         return $res;
     }
@@ -74,7 +54,7 @@ class ImportTwiceThreeRequest extends Model
     /**
      * @param array $map
      *
-     * @return ImportTwiceThreeRequest
+     * @return CABRequest
      */
     public static function fromMap($map = [])
     {
@@ -87,12 +67,6 @@ class ImportTwiceThreeRequest extends Model
         }
         if (isset($map['timeout'])) {
             $model->timeout = $map['timeout'];
-        }
-        if (isset($map['struct_a'])) {
-            $model->structA = TestParamA::fromMap($map['struct_a']);
-        }
-        if (isset($map['struct_b'])) {
-            $model->structB = TestParamB::fromMap($map['struct_b']);
         }
 
         return $model;

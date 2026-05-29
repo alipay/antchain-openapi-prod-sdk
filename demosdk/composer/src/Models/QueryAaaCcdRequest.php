@@ -24,10 +24,17 @@ class QueryAaaCcdRequest extends Model
      * @var string
      */
     public $test;
+
+    // 结构体字段
+    /**
+     * @var TestParamA[]
+     */
+    public $listParamsDemosdk;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'test'              => 'test',
+        'listParamsDemosdk' => 'list_params_demosdk',
     ];
 
     public function validate()
@@ -45,6 +52,15 @@ class QueryAaaCcdRequest extends Model
         }
         if (null !== $this->test) {
             $res['test'] = $this->test;
+        }
+        if (null !== $this->listParamsDemosdk) {
+            $res['list_params_demosdk'] = [];
+            if (null !== $this->listParamsDemosdk && \is_array($this->listParamsDemosdk)) {
+                $n = 0;
+                foreach ($this->listParamsDemosdk as $item) {
+                    $res['list_params_demosdk'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -66,6 +82,15 @@ class QueryAaaCcdRequest extends Model
         }
         if (isset($map['test'])) {
             $model->test = $map['test'];
+        }
+        if (isset($map['list_params_demosdk'])) {
+            if (!empty($map['list_params_demosdk'])) {
+                $model->listParamsDemosdk = [];
+                $n                        = 0;
+                foreach ($map['list_params_demosdk'] as $item) {
+                    $model->listParamsDemosdk[$n++] = null !== $item ? TestParamA::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;

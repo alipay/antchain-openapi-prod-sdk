@@ -6,7 +6,7 @@ namespace AntChain\DEMOSDK\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ImportTwiceThreeRequest extends Model
+class TestaStructCreateRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,34 +19,26 @@ class ImportTwiceThreeRequest extends Model
      */
     public $productInstanceId;
 
-    // 超时间
+    // 信息
+    /**
+     * @var DemosdkStructA
+     */
+    public $testParamB;
+
+    // 超时时间
     /**
      * @var string
      */
     public $timeout;
-
-    // 结构体A
-    /**
-     * @var TestParamA
-     */
-    public $structA;
-
-    // 结构体B
-    /**
-     * @var TestParamB
-     */
-    public $structB;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
+        'testParamB'        => 'test_param_b',
         'timeout'           => 'timeout',
-        'structA'           => 'struct_a',
-        'structB'           => 'struct_b',
     ];
 
     public function validate()
     {
-        Model::validateRequired('timeout', $this->timeout, true);
     }
 
     public function toMap()
@@ -58,14 +50,11 @@ class ImportTwiceThreeRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
+        if (null !== $this->testParamB) {
+            $res['test_param_b'] = null !== $this->testParamB ? $this->testParamB->toMap() : null;
+        }
         if (null !== $this->timeout) {
             $res['timeout'] = $this->timeout;
-        }
-        if (null !== $this->structA) {
-            $res['struct_a'] = null !== $this->structA ? $this->structA->toMap() : null;
-        }
-        if (null !== $this->structB) {
-            $res['struct_b'] = null !== $this->structB ? $this->structB->toMap() : null;
         }
 
         return $res;
@@ -74,7 +63,7 @@ class ImportTwiceThreeRequest extends Model
     /**
      * @param array $map
      *
-     * @return ImportTwiceThreeRequest
+     * @return TestaStructCreateRequest
      */
     public static function fromMap($map = [])
     {
@@ -85,14 +74,11 @@ class ImportTwiceThreeRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
+        if (isset($map['test_param_b'])) {
+            $model->testParamB = DemosdkStructA::fromMap($map['test_param_b']);
+        }
         if (isset($map['timeout'])) {
             $model->timeout = $map['timeout'];
-        }
-        if (isset($map['struct_a'])) {
-            $model->structA = TestParamA::fromMap($map['struct_a']);
-        }
-        if (isset($map['struct_b'])) {
-            $model->structB = TestParamB::fromMap($map['struct_b']);
         }
 
         return $model;

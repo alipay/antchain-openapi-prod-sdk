@@ -8,24 +8,15 @@ use AlibabaCloud\Tea\Model;
 
 class SumBean extends Model
 {
-    // 元素名称
+    // 1
     /**
-     * @example 张三
-     *
-     * @var string
-     */
-    public $eName;
-
-    // 数量
-    /**
-     * @example 23
+     * @example 1
      *
      * @var int
      */
-    public $num;
+    public $a;
     protected $_name = [
-        'eName' => 'e_name',
-        'num'   => 'num',
+        'a' => 'a',
     ];
 
     public function validate()
@@ -35,11 +26,8 @@ class SumBean extends Model
     public function toMap()
     {
         $res = [];
-        if (null !== $this->eName) {
-            $res['e_name'] = $this->eName;
-        }
-        if (null !== $this->num) {
-            $res['num'] = $this->num;
+        if (null !== $this->a) {
+            $res['a'] = $this->a;
         }
 
         return $res;
@@ -53,11 +41,8 @@ class SumBean extends Model
     public static function fromMap($map = [])
     {
         $model = new self();
-        if (isset($map['e_name'])) {
-            $model->eName = $map['e_name'];
-        }
-        if (isset($map['num'])) {
-            $model->num = $map['num'];
+        if (isset($map['a'])) {
+            $model->a = $map['a'];
         }
 
         return $model;

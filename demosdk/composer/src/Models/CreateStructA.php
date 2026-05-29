@@ -6,17 +6,17 @@ namespace AntChain\DEMOSDK\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class TestDemo extends Model
+class CreateStructA extends Model
 {
-    // a
+    // 超时时间
     /**
-     * @example a
+     * @example 3000
      *
      * @var string
      */
-    public $timeout;
+    public $timeouta;
     protected $_name = [
-        'timeout' => 'timeout',
+        'timeouta' => 'timeouta',
     ];
 
     public function validate()
@@ -26,8 +26,8 @@ class TestDemo extends Model
     public function toMap()
     {
         $res = [];
-        if (null !== $this->timeout) {
-            $res['timeout'] = $this->timeout;
+        if (null !== $this->timeouta) {
+            $res['timeouta'] = $this->timeouta;
         }
 
         return $res;
@@ -36,13 +36,13 @@ class TestDemo extends Model
     /**
      * @param array $map
      *
-     * @return TestDemo
+     * @return CreateStructA
      */
     public static function fromMap($map = [])
     {
         $model = new self();
-        if (isset($map['timeout'])) {
-            $model->timeout = $map['timeout'];
+        if (isset($map['timeouta'])) {
+            $model->timeouta = $map['timeouta'];
         }
 
         return $model;

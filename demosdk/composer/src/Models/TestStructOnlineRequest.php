@@ -6,7 +6,7 @@ namespace AntChain\DEMOSDK\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ImportTwiceThreeRequest extends Model
+class TestStructOnlineRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,34 +19,26 @@ class ImportTwiceThreeRequest extends Model
      */
     public $productInstanceId;
 
-    // 超时间
+    // 超时时间
     /**
      * @var string
      */
     public $timeout;
 
-    // 结构体A
+    // 结构体参数
     /**
-     * @var TestParamA
+     * @var TestParams
      */
-    public $structA;
-
-    // 结构体B
-    /**
-     * @var TestParamB
-     */
-    public $structB;
+    public $struct;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'timeout'           => 'timeout',
-        'structA'           => 'struct_a',
-        'structB'           => 'struct_b',
+        'struct'            => 'struct',
     ];
 
     public function validate()
     {
-        Model::validateRequired('timeout', $this->timeout, true);
     }
 
     public function toMap()
@@ -61,11 +53,8 @@ class ImportTwiceThreeRequest extends Model
         if (null !== $this->timeout) {
             $res['timeout'] = $this->timeout;
         }
-        if (null !== $this->structA) {
-            $res['struct_a'] = null !== $this->structA ? $this->structA->toMap() : null;
-        }
-        if (null !== $this->structB) {
-            $res['struct_b'] = null !== $this->structB ? $this->structB->toMap() : null;
+        if (null !== $this->struct) {
+            $res['struct'] = null !== $this->struct ? $this->struct->toMap() : null;
         }
 
         return $res;
@@ -74,7 +63,7 @@ class ImportTwiceThreeRequest extends Model
     /**
      * @param array $map
      *
-     * @return ImportTwiceThreeRequest
+     * @return TestStructOnlineRequest
      */
     public static function fromMap($map = [])
     {
@@ -88,11 +77,8 @@ class ImportTwiceThreeRequest extends Model
         if (isset($map['timeout'])) {
             $model->timeout = $map['timeout'];
         }
-        if (isset($map['struct_a'])) {
-            $model->structA = TestParamA::fromMap($map['struct_a']);
-        }
-        if (isset($map['struct_b'])) {
-            $model->structB = TestParamB::fromMap($map['struct_b']);
+        if (isset($map['struct'])) {
+            $model->struct = TestParams::fromMap($map['struct']);
         }
 
         return $model;

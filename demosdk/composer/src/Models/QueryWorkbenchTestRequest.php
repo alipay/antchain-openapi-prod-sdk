@@ -6,7 +6,7 @@ namespace AntChain\DEMOSDK\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ImportTwiceThreeRequest extends Model
+class QueryWorkbenchTestRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,34 +19,54 @@ class ImportTwiceThreeRequest extends Model
      */
     public $productInstanceId;
 
-    // 超时间
+    // 3000
     /**
      * @var string
      */
     public $timeout;
 
-    // 结构体A
+    // 请求编号
     /**
-     * @var TestParamA
+     * @var int
      */
-    public $structA;
+    public $count;
 
-    // 结构体B
+    // 请求时间
     /**
-     * @var TestParamB
+     * @var string
      */
-    public $structB;
+    public $time;
+
+    // 请求描述
+    /**
+     * @var string
+     */
+    public $desc;
+
+    // 操作人
+    /**
+     * @var string
+     */
+    public $operator;
+
+    // aaaaa
+    /**
+     * @var string
+     */
+    public $aaaaa;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'timeout'           => 'timeout',
-        'structA'           => 'struct_a',
-        'structB'           => 'struct_b',
+        'count'             => 'count',
+        'time'              => 'time',
+        'desc'              => 'desc',
+        'operator'          => 'operator',
+        'aaaaa'             => 'aaaaa',
     ];
 
     public function validate()
     {
-        Model::validateRequired('timeout', $this->timeout, true);
     }
 
     public function toMap()
@@ -61,11 +81,20 @@ class ImportTwiceThreeRequest extends Model
         if (null !== $this->timeout) {
             $res['timeout'] = $this->timeout;
         }
-        if (null !== $this->structA) {
-            $res['struct_a'] = null !== $this->structA ? $this->structA->toMap() : null;
+        if (null !== $this->count) {
+            $res['count'] = $this->count;
         }
-        if (null !== $this->structB) {
-            $res['struct_b'] = null !== $this->structB ? $this->structB->toMap() : null;
+        if (null !== $this->time) {
+            $res['time'] = $this->time;
+        }
+        if (null !== $this->desc) {
+            $res['desc'] = $this->desc;
+        }
+        if (null !== $this->operator) {
+            $res['operator'] = $this->operator;
+        }
+        if (null !== $this->aaaaa) {
+            $res['aaaaa'] = $this->aaaaa;
         }
 
         return $res;
@@ -74,7 +103,7 @@ class ImportTwiceThreeRequest extends Model
     /**
      * @param array $map
      *
-     * @return ImportTwiceThreeRequest
+     * @return QueryWorkbenchTestRequest
      */
     public static function fromMap($map = [])
     {
@@ -88,11 +117,20 @@ class ImportTwiceThreeRequest extends Model
         if (isset($map['timeout'])) {
             $model->timeout = $map['timeout'];
         }
-        if (isset($map['struct_a'])) {
-            $model->structA = TestParamA::fromMap($map['struct_a']);
+        if (isset($map['count'])) {
+            $model->count = $map['count'];
         }
-        if (isset($map['struct_b'])) {
-            $model->structB = TestParamB::fromMap($map['struct_b']);
+        if (isset($map['time'])) {
+            $model->time = $map['time'];
+        }
+        if (isset($map['desc'])) {
+            $model->desc = $map['desc'];
+        }
+        if (isset($map['operator'])) {
+            $model->operator = $map['operator'];
+        }
+        if (isset($map['aaaaa'])) {
+            $model->aaaaa = $map['aaaaa'];
         }
 
         return $model;
