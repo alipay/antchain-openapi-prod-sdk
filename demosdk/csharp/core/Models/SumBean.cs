@@ -8,17 +8,12 @@ using Tea;
 
 namespace AntChain.SDK.DEMOSDK.Models
 {
-    // 测试实体
+    // a
     public class SumBean : TeaModel {
-        // 元素名称
-        [NameInMap("e_name")]
+        // 1
+        [NameInMap("a")]
         [Validation(Required=false)]
-        public string EName { get; set; }
-
-        // 数量
-        [NameInMap("num")]
-        [Validation(Required=false)]
-        public long? Num { get; set; }
+        public long? A { get; set; }
 
     }
 

@@ -8,12 +8,12 @@ using Tea;
 
 namespace AntChain.SDK.DEMOSDK.Models
 {
-    // 返回结果测试类-11
-    public class ResultTest : TeaModel {
-        // 姓名
-        [NameInMap("name")]
+    // aaa
+    public class CreateStructA : TeaModel {
+        // 超时时间
+        [NameInMap("timeouta")]
         [Validation(Required=false)]
-        public string Name { get; set; }
+        public string Timeouta { get; set; }
 
     }
 
